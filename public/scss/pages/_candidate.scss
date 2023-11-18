@@ -1,0 +1,1674 @@
+///hero section
+.candidate_hero {
+  min-height: 500px;
+  background-image: url("../../images/candidate/vector.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding: 61px 0 0 0;
+  overflow: hidden;
+  .expand_text {
+    width: 80%;
+  }
+  .candidate_mainn {
+    margin-right: 0rem;
+    padding: 0;
+  }
+
+  .candidate_main {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 1rem;
+    max-width: 1128px;
+  }
+
+  .candidate_expand_text p {
+    color: var(--text-prmary, #333);
+    font-family: Montserrat;
+    font-size: 86px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+  }
+
+  .candidate_expand_text span {
+    color: var(--primary, #06a9ef);
+    font-family: Montserrat;
+    font-size: 86px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+  }
+  // @media (max-width: 1220px) {
+  //   .candidate_expand_text p {
+  //     font-size: 70px;
+  //   }
+  //   .candidate_expand_text span {
+  //     font-size: 70px;
+  //   }
+  // }
+
+  .get_started_button button {
+    margin-top: 13px;
+    border: none;
+    border-radius: 12px;
+    background: var(--secondary, #06a9ef);
+    display: inline-flex;
+    padding: 18px 48px;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+  }
+
+  // .Recruiter_connect_text {
+  //   margin: 3% 0px 5px 0px;
+  // }
+  .candidate_connect_text p {
+    color: var(--text-prmary, #333);
+    font-family: Montserrat;
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+  }
+  .candidate_connect_text span {
+    color: var(--primary, #06a9ef);
+    font-family: Montserrat;
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+  }
+  .candidate_connect_line {
+    background: #333;
+    width: 95%;
+    height: 1px;
+  }
+  .candidate_connect {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 19px;
+    max-width: 485px;
+  }
+
+  .candidate_para p {
+    color: var(--text-prmary, #333);
+    font-family: Montserrat;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+  }
+  // @media (max-width: 1110px) {
+  //   .candidate_connect_line {
+  //     min-width: 590px;
+  //   }
+  //   .candidate_para p {
+  //     min-width: 590px;
+  //   }
+  // }
+
+  // .candidate_searchbox {
+  //   display: flex;
+  //   justify-content: center;
+  //   // margin-top: 73px;
+  // }
+
+  .candidate_searchBar {
+    margin-top: 34px;
+    display: flex;
+    z-index: 1;
+    gap: 21px;
+
+    padding: 16px 24px;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px gray;
+    border-radius: 16px;
+    border-radius: 16px;
+    background: #fff;
+    box-shadow: 6px 7px 50px 0px rgba(0, 0, 0, 0.11);
+    position: relative;
+    margin-bottom: 3.2rem;
+  }
+  @media (min-width: 1440px) {
+    .candidate_searchBar {
+      min-width: 800px;
+    }
+  }
+  @media (max-width: 1400px) {
+    .candidate_searchBar {
+      max-width: 750px;
+    }
+    .candidate_search_input {
+      font-size: 18px !important;
+    }
+    .candidate_search_p {
+      font-size: 18px !important;
+    }
+  }
+  @media (max-width: 1300px) {
+    .candidate_searchBar {
+      max-width: 700px;
+    }
+    .candidate_search_input {
+      font-size: 16px !important;
+    }
+    .candidate_search_p {
+      font-size: 16px !important;
+    }
+    .candidate_searchbtn {
+      padding: 18px 30px !important;
+    }
+  }
+
+  @media (max-width: 1200px) {
+    .candidate_searchBar {
+      max-width: 700px;
+    }
+  }
+  @media (max-width: 1150px) {
+    .candidate_searchBar {
+      max-width: 620px;
+    }
+    .candidate_search_p {
+      font-size: 14px !important;
+    }
+    .candidate_search_input {
+      font-size: 14px !important;
+    }
+  }
+  @media (max-width: 1100px) {
+    .candidate_searchBar {
+      max-width: 570px;
+      gap: 10px !important;
+      padding: 16px 16px !important;
+    }
+    .candidate_search_p {
+      font-size: 14px !important;
+    }
+    .candidate_search_input {
+      font-size: 14px !important;
+    }
+  }
+  @media (max-width: 1040px) {
+    .candidate_searchBar {
+      max-width: 550px;
+      gap: 8px !important;
+      padding: 16px 16px !important;
+    }
+    .candidate_search_p {
+      font-size: 14px !important;
+    }
+    .candidate_search_input {
+      font-size: 14px !important;
+    }
+    .candidate_searchbtn {
+      padding: 18px 20px !important;
+    }
+  }
+  .candidate_sub_searchBar_one {
+    display: flex;
+    align-items: center;
+
+    // gap: 16.823px;
+    color: var(--Text-Secondary, #828282);
+  }
+  .candidate_search_input {
+    border: none;
+    color: var(--Text-Secondary, #646464);
+    font-family: Montserrat;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    text-align: center;
+  }
+  .candidate_searcgBarLine {
+    width: 3.154px;
+  }
+  .candidate_sub_searchBar_two {
+    display: flex;
+    align-items: center;
+    gap: 16.823px;
+  }
+  .candidate_searchbtn {
+    display: flex;
+    padding: 18px 48px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 12px;
+    border: 1px solid var(--primary, #06a9ef);
+    background: var(--primary, #06a9ef);
+    background-color: #06a9ef;
+    color: #fff;
+  }
+  .candidate_search_p {
+    color: var(--Text-Secondary, #828282);
+    /* font-family: Montserrat; */
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    font-family: Montserrat, Arial, sans-serif;
+  }
+  .candidate_hero_img {
+    height: 561px;
+    position: absolute;
+    right: 14px;
+    margin-top: -61px !important;
+  }
+  @media (min-width: 1440px) {
+    .candidate_hero_img {
+      position: relative;
+      height: 561px;
+      right: 8rem;
+    }
+  }
+}
+
+// INTERVIEW SECTION CSS START HERE
+.interview_container {
+  // max-width: 1440px;
+  width: 100%;
+  background: #fefcf2;
+
+  .interview_parent {
+    display: flex;
+    align-items: center;
+    .int_img {
+      width: 576px;
+      // height: 576px;
+      object-fit: contain;
+    }
+    .interview_ask {
+      display: flex;
+      width: 552px;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 24px;
+    }
+
+    .commanly_p1 {
+      color: var(--text-prmary, #333);
+      font-family: Montserrat;
+      font-size: 52px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: normal;
+    }
+    .commanly_p2 {
+      color: var(--text-prmary, #333);
+      font-family: Montserrat;
+      font-size: 26px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: normal;
+    }
+    .commanly_p3 {
+      color: var(--text-prmary, #333);
+      text-align: justify;
+      font-family: Montserrat;
+      font-size: 17px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 26px; /* 152.941% */
+    }
+  }
+}
+
+/////challenge section
+.challenge_container {
+  // height: 897px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  margin-top: 38px;
+
+  .suitablework_cont {
+    p {
+      color: #333;
+      text-align: center;
+      font-size: 36px;
+      font-weight: 600;
+      line-height: 48px; /* 133.333% */
+    }
+    span {
+      color: #06a9ef;
+      font-size: 36px;
+      font-weight: 600;
+      line-height: 48px;
+    }
+  }
+
+  .hor_line {
+    width: 792px;
+    height: 1px;
+    background: #646464;
+    margin-top: 16px;
+  }
+
+  .get_update {
+    width: 212px;
+    height: 142px;
+  }
+  .img-fluid {
+    height: 100%;
+    width: 100%;
+  }
+  .get_update_para1 {
+    height: 24px;
+    width: 424px;
+  }
+  .get_update_para1 p {
+    color: #333;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: normal;
+  }
+  .get_update_para2 {
+    height: 60px;
+    width: 424px;
+  }
+  .get_update_para2 p {
+    color: #646464;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: normal;
+  }
+
+  .challenge_card_main {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 60px;
+  }
+  .first_child_card {
+    display: flex;
+    // width: 456px;
+    padding: 16px;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    border-radius: 12px;
+    background: #ebfaff;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.35);
+  }
+  .img-fluid {
+    object-fit: contain;
+  }
+}
+
+// Ai powered animation start
+
+.ai_powered_parent {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  margin: 3% 0px;
+  gap: 6%;
+
+  .ai_text {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    width: 47%;
+    justify-content: center;
+
+    .candidate_Profile_list {
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+      .candidate_list {
+        display: flex;
+        flex-direction: column;
+        // color: var(--text-prmary, #333);
+        color: #333;
+        font-family: Montserrat;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 28px;
+        margin-left: 2rem;
+        gap: 8px;
+      }
+    }
+  }
+
+  #ai_text {
+    width: 100%;
+    color: var(--text-prmary, #333);
+    font-family: Montserrat;
+    font-size: 56px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+  }
+
+  #easy_text {
+    color: var(--text-prmary, #333);
+    font-family: Montserrat;
+    font-size: 26px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+  }
+  #streamlines_text {
+    color: var(--Text-Secondary, #646464);
+    text-align: justify;
+    font-family: Montserrat;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 28px; /* 155.556% */
+  }
+  .upload_text {
+    color: var(--text-prmary, #333);
+    font-family: Montserrat;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 28px; /* 155.556% */
+  }
+  .ai_images {
+    width: 47%;
+    position: relative;
+  }
+
+  #name_resume {
+    margin-top: 10%;
+    width: 359.327px;
+    height: 503.797px;
+    flex-shrink: 0;
+    animation: name_resume 2s infinite;
+  }
+  @keyframes name_resume {
+    0%,
+    100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(20px);
+    }
+  }
+
+  #david_resume {
+    width: 359.327px;
+    height: 503.797px;
+    flex-shrink: 0;
+    position: absolute;
+    right: -1%;
+    animation: david 2s infinite;
+  }
+  @keyframes david {
+    0%,
+    100% {
+      transform: translateY(20px);
+    }
+    50% {
+      transform: translateY(0px);
+    }
+  }
+}
+
+//line animation css
+
+.candidate_Animation {
+  margin-top: 41px !important;
+  margin-bottom: 41px !important;
+  justify-content: center;
+  height: 600px;
+
+  .candidate_profile {
+    display: flex;
+    flex-direction: row;
+    gap: 11px;
+    justify-content: center;
+
+    .cand_circle_img {
+      width: 73px;
+      height: 73px;
+    }
+
+    .candidate_details {
+      display: flex;
+      flex-direction: column;
+      gap: 2.5px;
+
+      .candidate_name {
+        color: var(--primary, #06a9ef);
+        font-family: Montserrat;
+        font-size: 19.8px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+
+        flex-shrink: 0;
+      }
+      .candidate_designation {
+        color: var(--text-prmary, #333);
+        font-family: Montserrat;
+        font-size: 9.74px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+      }
+
+      .candidate_line {
+        width: 162.384px;
+        height: 1.768px;
+        flex-shrink: 0;
+        background-color: var(--secondary, #ffda1d);
+      }
+      .candidate_profession {
+        color: var(--text-prmary, #333);
+        text-align: justify;
+        font-family: Montserrat;
+        font-size: 4.981px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+        width: 184px;
+        height: 6.034px;
+        flex-shrink: 0;
+      }
+    }
+  }
+
+  .candidate_second_head {
+    height: 348px;
+    flex-shrink: 0;
+    margin-top: 15px;
+
+    .candidate_personal_info {
+      height: 100%;
+      width: 100%;
+      display: flex;
+
+      .candidate_section1 {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+
+        .candidate_second_head1 {
+          display: flex;
+          padding: 18.87px 0;
+          height: 114.991px;
+          align-items: center;
+          gap: 32px;
+          flex-shrink: 0;
+
+          .candidate_second_head_img {
+            width: 42.542px;
+            height: 53.393px;
+            flex-shrink: 0;
+            margin-left: 1rem;
+          }
+
+          .candidate_second_head2 {
+            height: 114px;
+            /* width: 100%; */
+            /* position: relative; */
+            display: flex;
+
+            align-items: end;
+            flex-direction: column;
+            gap: 2px;
+            justify-content: space-between;
+
+            .candidate_proffesion_chil2_annn {
+              width: 235px !important;
+              height: 120.991px;
+              background: white;
+              /* background: red; */
+              position: absolute;
+              z-index: 1;
+            }
+
+            .candidate_info_cont {
+              width: 91px;
+              height: 19.9px;
+              flex-shrink: 0;
+              position: relative;
+              align-items: center;
+              display: flex;
+              z-index: -1;
+
+              .candidate_p_info {
+                color: var(--white, #fff);
+                position: absolute;
+                top: 3px;
+                font-family: Montserrat;
+                font-size: 12.672px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: normal;
+                width: 85px;
+                /* position: absolute; */
+                display: flex;
+                justify-content: center;
+                align-items: center;
+              }
+            }
+
+            .candidate_address {
+              width: 115px;
+              height: 20px;
+              display: flex;
+              gap: 9px;
+              margin-top: 4px;
+
+              .candidate_loction {
+                width: 12.81px;
+                height: 17.488px;
+                flex-shrink: 0;
+              }
+
+              .candidate_address_cont {
+                width: 89px;
+                height: 20px;
+
+                .candidate_headline {
+                  width: 23px;
+                  height: 8px;
+
+                  .candidate_headline_1 {
+                    color: var(--primary, #06a9ef);
+                    font-family: Inter;
+                    font-size: 7.222px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: normal;
+                  }
+                }
+                .candidate_headline_2 {
+                  color: var(--text-prmary, #333);
+                  font-family: Montserrat;
+                  font-size: 4.2px;
+                  font-style: normal;
+                  font-weight: 400;
+                  line-height: normal;
+                  margin: 0px;
+                }
+              }
+            }
+
+            .candidate_address2 {
+              width: 115px;
+              height: 18px;
+
+              display: flex;
+              gap: 9px;
+
+              .candidate_loction2 {
+                width: 12.259px;
+                height: 9.231px;
+              }
+              .candidate_address_cont2 {
+                width: 89px;
+                height: 18px;
+                gap: 4px;
+                .candidate_headline_email {
+                  width: 23px;
+                  height: 8px;
+
+                  .candidate_headline_mail1_id {
+                    color: var(--primary, #06a9ef);
+                    font-family: Inter;
+                    font-size: 7.222px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: normal;
+                  }
+                }
+                .candidate_headline_mail2_mail {
+                  color: var(--text-prmary, #333);
+                  font-family: Montserrat;
+                  font-size: 4.2px;
+                  font-style: normal;
+                  font-weight: 400;
+                  line-height: normal;
+                }
+              }
+            }
+
+            .candidate_address3 {
+              width: 115px;
+              height: 18px;
+
+              display: flex;
+              gap: 9px;
+
+              .candidate_loction3 {
+                width: 12.198px;
+                height: 16.728px;
+                flex-shrink: 0;
+              }
+
+              .candidate_address_cont3 {
+                width: 89px;
+                height: 18px;
+
+                .candidate_headline_phone1 {
+                  width: 23px;
+                  height: 8px;
+
+                  .candidate_headline_phone {
+                    color: var(--primary, #06a9ef);
+                    font-family: Inter;
+                    font-size: 7.222px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: normal;
+                  }
+                }
+                .candidate_headline_phone2 {
+                  color: var(--text-prmary, #333);
+                  font-family: Montserrat;
+                  font-size: 4.2px;
+                  font-style: normal;
+                  font-weight: 400;
+                  line-height: normal;
+                }
+              }
+            }
+
+            .candidate_address4 {
+              width: 115px;
+              height: 18px;
+              position: relative;
+              display: flex;
+              gap: 9px;
+              z-index: -1;
+
+              .candidate_loction4 {
+                width: 12.198px;
+                height: 16.728px;
+                flex-shrink: 0;
+              }
+              .candidate_address_cont4 {
+                width: 89px;
+                height: 18px;
+
+                .candidate_headline_web {
+                  width: 23px;
+                  height: 8px;
+
+                  .candidate_headline_web1 {
+                    color: var(--primary, #06a9ef);
+                    font-family: Inter;
+                    font-size: 7.222px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: normal;
+                  }
+                }
+                .candidate_headline_web2 {
+                  color: var(--text-prmary, #333);
+                  font-family: Montserrat;
+                  font-size: 4.2px;
+                  font-style: normal;
+                  font-weight: 400;
+                  line-height: normal;
+                }
+              }
+
+              .candidate_pro_line {
+                display: flex;
+                position: absolute;
+                bottom: -25px;
+                right: -18px;
+                justify-content: center;
+                align-items: center;
+
+                .cand_circle5 {
+                  margin-right: -2px;
+                  width: 12px;
+                  height: 12px;
+                  opacity: 0;
+                  animation: fadeInn 0s ease 1.2s forwards;
+                }
+                @keyframes fadeInn {
+                  0% {
+                    opacity: 0;
+                  }
+                  100% {
+                    opacity: 1;
+                  }
+                }
+
+                .candidate_blue_line2 {
+                  opacity: 0;
+                  animation: moveLine2 0.6s linear forwards;
+                  animation-delay: 0.6s;
+                }
+
+                @keyframes moveLine2 {
+                  from {
+                    width: 0;
+                    opacity: 0;
+                  }
+                  to {
+                    width: -100%;
+                    opacity: 1;
+                  }
+                }
+              }
+            }
+          }
+        }
+        .candidate_blue_line1 {
+          animation: moveLine1 0.6s linear forwards;
+        }
+        @keyframes moveLine1 {
+          from {
+            height: 0;
+          }
+          to {
+            height: 100%;
+          }
+        }
+
+        .candidate_Education {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          padding: 18.87px 0;
+          gap: 5px;
+
+          .candidate_child2 {
+            height: 120px;
+            display: flex;
+            flex-direction: column;
+
+            height: 114.991px;
+            align-items: flex-start;
+            gap: 8px;
+            flex-shrink: 0;
+            /* border: 1px solid black; */
+            justify-content: flex-start;
+            position: relative;
+
+            .candidate_proffesion_chil2_an {
+              width: 235px !important;
+              height: 120.991px;
+              background: white;
+              /* background: red; */
+              position: absolute;
+              z-index: 1;
+              right: -4rem;
+            }
+
+            .candidate_education_img {
+              width: 120px;
+              height: 19.9px;
+              flex-shrink: 0;
+              position: relative;
+              display: flex;
+              align-items: center;
+              justify-content: start;
+
+              .candidate_educ_info {
+                color: var(--white, #fff);
+                position: absolute;
+                top: 3px;
+                left: 2px;
+                font-family: Montserrat;
+                font-size: 12.672px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: normal;
+                width: 100px;
+                /* position: absolute; */
+                display: flex;
+                justify-content: start;
+                align-items: center;
+              }
+            }
+
+            .candidate_master_degree {
+              width: 163px;
+              height: 31px;
+              /* border: 1px solid red; */
+              display: flex;
+              justify-content: space-between;
+              .candidate_jun {
+                display: flex;
+                justify-content: space-between;
+                width: 72px;
+                .candidate_jun_date {
+                  width: 63px;
+                  height: 9px;
+                  color: #073c53;
+                  font-family: Montserrat;
+                  font-size: 7.222px;
+                  font-style: normal;
+                  font-weight: 500;
+                  line-height: normal;
+                }
+                .dash_line {
+                  width: 5.944px;
+                  height: 1.829px;
+                  flex-shrink: 0;
+                  background-color: #06a9ef;
+                  margin-top: 3px;
+                }
+              }
+              .candidate_degree_block {
+                height: 31px;
+                width: 90px;
+                /* border: 1px solid blue; */
+
+                .candidate_degree_cont1 {
+                  height: 9px;
+                  width: 66px;
+                  color: var(--text-prmary, #333);
+                  .candidate_degree_para1 {
+                    color: var(--primary, #06a9ef);
+                    font-family: Montserrat;
+                    font-size: 7.222px;
+                    font-style: normal;
+                    font-weight: 500;
+                    line-height: normal;
+                  }
+                }
+
+                .candidate_degree_cont2 {
+                  height: 9px;
+                  width: 39px;
+                  /* border: 1px solid blue; */
+
+                  .candidate_degree_para2 {
+                    color: var(--text-prmary, #333);
+                    font-family: Montserrat;
+                    font-size: 7.224px;
+                    font-style: normal;
+                    font-weight: 500;
+                    line-height: normal;
+                    width: 39px;
+                    height: 9px;
+                  }
+                }
+
+                .candidate_degree_container {
+                  width: 90px;
+                  height: 10px;
+
+                  .candidate_d_para1 {
+                    width: 90px;
+                    height: 5px;
+
+                    .candidate_degree_lor {
+                      color: #333;
+                      font-family: Montserrat;
+                      font-size: 4.2px;
+                      font-style: normal;
+                      font-weight: 500;
+                      line-height: normal;
+                    }
+                  }
+                }
+              }
+            }
+
+            .candidate_education_line {
+              position: absolute;
+              display: flex;
+
+              width: 159.367px;
+              height: 4px;
+              flex-shrink: 0;
+              top: 111px;
+
+              .cand_circle6 {
+                margin-left: 140px;
+                margin-top: 16px;
+                width: 12px;
+                height: 12px;
+                opacity: 0;
+                animation: fadeInn 0s ease 1.2s forwards;
+              }
+              @keyframes fadeInn {
+                0% {
+                  opacity: 0;
+                }
+                100% {
+                  opacity: 1;
+                }
+              }
+
+              .candidate_second_animation_line {
+                position: absolute;
+                bottom: -1.25rem;
+                left: -1rem;
+                opacity: 0;
+                animation: moveLine3 0.6s linear forwards;
+                animation-delay: 0.6s;
+              }
+
+              @keyframes moveLine3 {
+                from {
+                  width: 0;
+                  opacity: 0;
+                }
+                to {
+                  width: 100%;
+                  opacity: 1;
+                }
+              }
+            }
+
+            .cand_circle1 {
+              position: relative;
+              left: -24px;
+              bottom: -20px;
+              width: 12px;
+              height: 12px;
+              opacity: 0;
+              animation: fadeIn 0s ease 0.6s forwards;
+            }
+
+            @keyframes fadeIn {
+              0% {
+                opacity: 0;
+              }
+              100% {
+                opacity: 1;
+              }
+            }
+          }
+
+          .candidate_eduction_img_cap {
+            width: 59.131px;
+            height: 35.562px;
+          }
+        }
+      }
+
+      .candidate_section2 {
+        justify-content: center;
+        display: flex;
+        gap: 1rem;
+
+        .candidate_section2_1 {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+
+          margin-left: 3.2rem;
+
+          .candidate_second_head_softwere_sec {
+            display: flex;
+
+            height: 114.991px;
+            align-items: center;
+
+            position: relative;
+
+            justify-content: center;
+            gap: 10px;
+            .candidate_proffesion_chil2_an1 {
+              width: 200px !important;
+              height: 120.991px;
+              background: rgb(150, 27, 27);
+              /* background: red; */
+              position: absolute;
+              z-index: 1;
+              top: 0.5rem;
+            }
+
+            .candidate_softwere_head_main {
+              height: 74px;
+              width: 95px;
+
+              .candidate_soft_cont_name {
+                width: 70px;
+                height: 19.901px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                position: relative;
+
+                .candidate_soft_cont_child1 {
+                  position: absolute;
+                  right: 0px;
+                  width: 64px;
+                  height: 19.901px;
+                  left: 20px;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  z-index: -1;
+                  .candidate_soft_info {
+                    color: var(--white, #fff);
+                    position: absolute;
+                    right: -1.5rem;
+                    font-family: Montserrat;
+                    font-size: 12.672px;
+                    font-style: normal;
+                    font-weight: 500;
+                    line-height: normal;
+                    width: 85px;
+                    /* position: absolute; */
+                    /* display: flex;
+                    justify-content: center;
+                    align-items: center; */
+                  }
+                }
+              }
+
+              .candidate_soft_two {
+                display: flex;
+                gap: 6px;
+                margin-top: 6px;
+
+                .candidate_softwere_container {
+                  width: 40px;
+                  height: 44px;
+                  display: flex;
+                  flex-direction: column;
+                  justify-content: space-between;
+
+                  .candidate_soft_child1 {
+                    width: 38px;
+                    height: 9px;
+
+                    .candidate_soft_css {
+                      color: var(--primary, #06a9ef);
+                      font-family: Montserrat;
+                      font-size: 6.222px;
+                      font-style: normal;
+                      font-weight: 500;
+                      margin: 0;
+                      line-height: normal;
+                    }
+                  }
+                }
+                .candidate_softwere_container2 {
+                  width: 42.63px;
+                  height: 38.88px;
+                  flex-shrink: 0;
+                  margin-top: 2px;
+                }
+              }
+            }
+          }
+
+          .candidate_second_head_langauge {
+            height: 114px;
+            display: flex;
+            /* width: 177px; */
+            height: 114.991px;
+            align-items: center;
+            /* gap: 38px; */
+            /* justify-content: flex-start; */
+            position: relative;
+            justify-content: center;
+            gap: 10px;
+
+            .candidate_second_head_img3 {
+              width: 43.942px;
+              height: 37.713px;
+              flex-shrink: 0;
+            }
+
+            .candidate_softwere_head {
+              position: relative;
+
+              .candidate_soft_cont {
+                width: 106px;
+                height: 19.9px;
+                flex-shrink: 0;
+                /* position: relative; */
+                display: flex;
+                align-items: center;
+                position: absolute;
+                bottom: 50px;
+
+                .candidate_soft_info {
+                  color: var(--white, #fff);
+                  position: absolute;
+
+                  font-family: Montserrat;
+                  font-size: 12.672px;
+                  font-style: normal;
+                  font-weight: 500;
+                  line-height: normal;
+                  width: 85px;
+                  /* position: absolute; */
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                }
+              }
+              .candidate_soft_two {
+                display: flex;
+                gap: 6px;
+                margin-top: 6px;
+
+                .candidate_softwere_container {
+                  width: 40px;
+                  height: 30px;
+                  padding-top: 1px;
+                  display: flex;
+                  flex-direction: column;
+                  justify-content: space-between;
+
+                  .candidate_soft_child1 {
+                    width: 38px;
+                    height: 9px;
+
+                    .candidate_soft_css {
+                      color: var(--primary, #06a9ef);
+                      font-family: Montserrat;
+                      font-size: 6.222px;
+                      font-style: normal;
+                      font-weight: 500;
+                      margin: 0;
+                      line-height: normal;
+                    }
+                  }
+                }
+                .candidate_softwere_container2 {
+                  width: 42.63px;
+                  height: 38.88px;
+                  flex-shrink: 0;
+                  margin-top: 2px;
+                  .lang_line {
+                    width: 42.02px;
+                    height: 26.96px;
+                  }
+                }
+              }
+            }
+            .candidate_lang_line_three {
+              display: flex;
+              position: absolute;
+              top: -8px;
+              right: -20px;
+
+              .cand_circle7 {
+                margin-left: -10px;
+                margin-top: -4px;
+                margin-right: -4px;
+                width: 12px;
+                height: 12px;
+                opacity: 0;
+                animation: fadeIn 0s ease 2.4s forwards;
+              }
+              @keyframes fadeIn {
+                0% {
+                  opacity: 0;
+                }
+                100% {
+                  opacity: 1;
+                }
+              }
+
+              .candidate_blue_line5 {
+                opacity: 0;
+                animation: moveLine5 0.6s linear forwards;
+                animation-delay: 1.8s;
+              }
+
+              @keyframes moveLine5 {
+                from {
+                  width: 0;
+                  opacity: 0;
+                }
+                to {
+                  width: -100%;
+                  opacity: 1;
+                }
+              }
+
+              .cand_circle2 {
+                margin-left: -8px;
+                margin-top: -4px;
+                margin-right: -4px;
+                width: 12px;
+                height: 12px;
+                opacity: 0;
+                animation: fadeInnnn 0s ease 1.8s forwards;
+              }
+              @keyframes fadeInnnn {
+                0% {
+                  opacity: 0;
+                }
+                100% {
+                  opacity: 1;
+                }
+              }
+            }
+          }
+        }
+
+        .candidate_blue_line4 {
+          opacity: 0;
+          animation: moveLine4 0.6s linear forwards;
+          animation-delay: 1.2s;
+        }
+
+        @keyframes moveLine4 {
+          from {
+            height: 0;
+            opacity: 0;
+          }
+          to {
+            height: 100%;
+            opacity: 1;
+          }
+        }
+        .cand_circle9 {
+          margin-left: -8px;
+          margin-bottom: -2px;
+          width: 12px;
+          height: 12px;
+        }
+
+        .candidate_section2_2 {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          gap: 0.5rem;
+
+          .candidate_proffesion_cont {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            .candidate_software_container_parent {
+              display: flex;
+              flex-direction: column;
+
+              height: 114.991px;
+              align-items: flex-start;
+              /* position: relative; */
+              justify-content: space-between;
+
+              .candidate_proffesion_boxA {
+                width: 240px;
+                height: 135px;
+                /* background: red; */
+                background: white;
+                position: absolute;
+                z-index: 1;
+                right: -3.6rem;
+              }
+
+              .candidate_soft_heading {
+                /* width: 91px; */
+                height: 29.9px;
+                flex-shrink: 0;
+                position: relative;
+                display: flex;
+
+                .candidate_soft_info_cont {
+                  color: var(--white, #fff);
+                  font-family: Montserrat;
+                  font-size: 12.672px;
+                  font-style: normal;
+                  font-weight: 500;
+                  line-height: normal;
+                  /* width: 150px; */
+                  position: absolute;
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  left: 0.5rem;
+                  top: 3px;
+                }
+              }
+
+              .candidate_soft_box {
+                height: 130px;
+                /* gap: 21px; */
+                width: 155px;
+                display: flex;
+                justify-content: space-between;
+
+                .candidate_yellow_line {
+                  width: 5px;
+                  height: 64.52px;
+                  flex-shrink: 0;
+                  margin-top: 1px;
+                }
+
+                .candidate_child_para2 {
+                  flex-direction: column;
+                  justify-content: space-between;
+                  display: flex;
+                  gap: 5px;
+
+                  .candidate_parameter_date1 {
+                    display: flex;
+                    width: 45px;
+                    height: 9px;
+                  }
+                  .candidate_child_p1 {
+                    height: 100%;
+                    width: 100%;
+                    color: #073c53;
+                    font-family: Montserrat;
+                    font-size: 7.222px;
+                    font-style: normal;
+                    font-weight: 500;
+                    line-height: normal;
+                  }
+                  .dash_line1 {
+                    width: 5.944px;
+                    height: 1.829px;
+                    flex-shrink: 0;
+                    background-color: #06a9ef;
+                    margin-top: 3px;
+                  }
+                }
+
+                .candidate_job_title_para {
+                  display: flex;
+                  flex-direction: column;
+                  height: 85px;
+                  gap: 5px;
+
+                  .candidate_job_title_parent {
+                    width: 90px;
+                    height: 27px;
+                    /* border: 1px solid red; */
+                    .candidate_job_title_head {
+                      width: 32px;
+                      height: 9px;
+                      .candidate_child_title1 {
+                        color: var(--primary, #06a9ef);
+                        font-family: Montserrat;
+                        font-size: 7.222px;
+                        font-style: normal;
+                        font-weight: 500;
+                        line-height: normal;
+                      }
+                    }
+                    .candidate_job_title_head2 {
+                      width: 58px;
+                      height: 9px;
+                      .candidate_child_title2 {
+                        color: var(--text-prmary, #333);
+                        font-family: Montserrat;
+                        font-size: 7.224px;
+                        font-style: normal;
+                        font-weight: 500;
+                        line-height: normal;
+                      }
+                    }
+
+                    .candidate_job_title_head3 {
+                      width: 90px;
+                      height: 5px;
+                      .candidate_child_title3 {
+                        color: var(--text-prmary, #333);
+                        font-family: Montserrat;
+                        font-size: 4.2px;
+                        font-style: normal;
+                        font-weight: 500;
+                        line-height: normal;
+                      }
+                    }
+                  }
+                }
+              }
+            }
+
+            .candidate_bag_container {
+              width: 50px;
+              height: 47px;
+
+              bottom: 25px;
+              left: 80px;
+            }
+          }
+          // .candidate_lang_line_four {
+          //   margin-left: -1rem;
+          //   margin-top: -27px;
+          //   justify-content: center;
+          //   align-items: center;
+
+          // }
+          .candidate_lang_line_four {
+            margin-left: -1.3rem;
+            margin-top: -27px;
+            justify-content: center;
+            align-items: center;
+
+            .cand_circle8 {
+              margin-left: -10px;
+              margin-bottom: -4px;
+              width: 12px;
+              height: 12px;
+            }
+          }
+
+          .cand_circle4 {
+            margin-left: -24px;
+            width: 12px;
+            height: 12px;
+            opacity: 0;
+            animation: fadeIn 0s ease 1.8s forwards;
+          }
+          @keyframes fadeIn {
+            0% {
+              opacity: 0;
+            }
+            100% {
+              opacity: 1;
+            }
+          }
+
+          .candidate_hobbie_main {
+            display: flex;
+            flex-direction: row;
+
+            .cand_circle10 {
+              position: relative;
+              left: -180px;
+              top: 60px;
+              width: 12px;
+              height: 12px;
+            }
+            .candidate_hobbie {
+              // height: 51px;
+              display: flex;
+              /* align-items: center; */
+              gap: 9px;
+              justify-content: flex-start;
+              flex-direction: column;
+              position: relative;
+
+              .candidate_hoobi_head {
+                width: 58px;
+                height: 19.901px;
+                display: flex;
+                align-items: center;
+
+                .candidate_hobi_info {
+                  color: var(--white, #fff);
+                  position: absolute;
+                  top: 3px;
+                  font-family: Montserrat;
+                  font-size: 12.672px;
+                  font-style: normal;
+                  font-weight: 500;
+                  line-height: normal;
+                  width: 58px;
+                  /* position: absolute; */
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                }
+              }
+
+              .candidate_music {
+                width: 88.073px;
+                height: 19.371px;
+                flex-shrink: 0;
+              }
+
+              .candidate_last_line_three {
+                /* width: 4px; */
+                /* height: 116px; */
+                /* background: red; */
+                /* position: relative; */
+                position: absolute;
+                left: -40px;
+                top: -36px;
+                /* width: 100%; */
+              }
+            }
+
+            .candidate_game_img {
+              padding-left: 1.3rem;
+              justify-content: center;
+              align-items: center;
+              width: 47.555px;
+              height: 34.99px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.candidate_personal_info {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-around; */
+  /* gap: 10px; */
+}
+
+.candidate_softwere_boxAn {
+  width: 177px;
+  height: 0; /* Start with a height of 0 */
+  background: red;
+  position: absolute;
+  z-index: 1;
+  height: 114.991px;
+  animation: soft_boxan 2s linear forwards; /* Set the animation duration to 2s */
+  transform-origin: bottom; /* Set the transform-origin to the bottom */
+}
+
+@keyframes soft_boxan {
+  0% {
+    transform: scaleY(0);
+    height: 0;
+  }
+  100% {
+    transform: scaleY(1);
+    height: 114.991px; /* Final height */
+  }
+}

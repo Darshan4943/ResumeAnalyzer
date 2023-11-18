@@ -1,0 +1,43 @@
+* {
+	margin: 0px;
+	padding: 0px;
+  }
+body {
+	font-family: 'Montserrat', sans-serif;
+  }
+.customMargins{
+	margin: 0 auto;
+	max-width:1128px ;
+	align-self: center;
+	
+	
+}
+
+
+@media (max-width: 1220px) {
+	.customMargins{
+		
+		padding: 0 16px;
+		
+	}
+  }
+  .customMargins1{
+	margin: 0 auto;
+	max-width:1400px ;
+	display: flex;
+	justify-content: flex-end;
+
+	
+
+}
+
+
+@media (max-width: 1440px) {
+	.customMargins1{
+		
+		padding: 0 16px;
+		
+	}
+  }
+
+

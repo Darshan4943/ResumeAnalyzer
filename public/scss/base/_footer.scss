@@ -1,0 +1,230 @@
+/* Footer Section start here */
+.footer {
+  margin-top: 2rem;
+}
+.footer_main_box {
+  background: #212121;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 24px;
+  justify-content: center;
+}
+
+.footer_part_one {
+  gap: 24px;
+}
+.footer_media {
+  display: flex;
+  gap: 24px;
+}
+.Footer_firstContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 24px;
+}
+.Footer_secondContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 36px;
+}
+.footer_Address {
+  gap: 36px;
+  display: flex;
+  padding-top: 30px;
+}
+.footer_input {
+  display: flex;
+  padding: 8px 16px;
+  justify-content: center;
+  align-items: center;
+  gap: 26px;
+  border-radius: 39.57px;
+  background: var(--white, #fff);
+  box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.25);
+}
+// .footer_input_bar {
+//   color: var(--Text-Secondary, #646464);
+//   font-family: Montserrat;
+//   font-size: 14px !important;
+//   font-style: normal;
+//   font-weight: 300;
+//   line-height: 140%; /* 19.6px */
+//   border: none;
+// }
+.footer_input_btn {
+  display: flex;
+  padding: 8.412px 16.823px;
+  justify-content: center;
+  align-items: center;
+  gap: 8.412px;
+  color: var(--white, #fff);
+  font-weight: 500;
+  border-radius: 31.544px;
+  border: none;
+  background: var(--primary, #06a9ef);
+}
+.footer_inner_input_box {
+  width: 3.154px;
+  height: 42.059px;
+  background: #828282;
+}
+.footer_input_conatainer {
+  display: flex;
+  padding: 48px 0px;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: stretch;
+  align-self: stretch;
+  gap: 32px;
+  width: 416px;
+}
+p {
+  color: var(--white, #fff);
+  font-family: Montserrat;
+}
+.footer_input_conatainer_P {
+  display: flex;
+  color: var(--white, #fff);
+  font-family: Montserrat;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 120%; /* 28.8px */
+  justify-content: center;
+}
+.footer_about_P {
+  color: var(--white, #fff);
+  font-family: Montserrat;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+.footer_sub_about_P {
+  color: var(--white, #fff);
+  font-family: Montserrat;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+.footer_sub_about {
+  width: 156px;
+  display: flex;
+  flex-direction: column;
+
+  align-items: flex-start;
+  gap: 16.823px;
+}
+.footer_about_section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+}
+.footer_add {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16.823px;
+}
+
+.footer_sub_address {
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+}
+.footer_address_P {
+  color: var(--white, #fff);
+  font-family: Montserrat;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+.footer_address_Para {
+  color: var(--white, #fff);
+  font-family: Montserrat;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px; /* 142.857% */
+}
+.footer_address_Email {
+  color: var(--white, #fff);
+  font-family: Montserrat;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 150%; /* 24px */
+}
+.footer_address_Email_font {
+  color: var(--white, #fff);
+  font-family: Montserrat;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+.footer_copyright {
+  color: var(--white, #fff);
+  font-family: Montserrat;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  padding-bottom: 30px;
+}
+#create_acc_text {
+  color: var(--text-prmary, #333);
+  text-align: center;
+  font-family: Montserrat;
+}
+
+@media (max-width: 1200px) {
+  .Footer_secondContainer {
+    gap: 24px;
+  }
+  .footer_Address {
+    gap: 24px;
+  }
+  .footer_main_box {
+    gap: 0px;
+  }
+  .footer_input_conatainer {
+    gap: 18px;
+    width: 350px;
+  }
+}
+@media (max-width: 1100px) {
+  .footer_input_conatainer {
+    gap: 18px;
+    width: 300px;
+  }
+}
+
+.largest {
+  color: white;
+  width: 264px;
+}
+
+/* Footer Section End here */
+
+// custom start by sahil
+.footer_input_bar {
+  color: var(--Text-Secondary, #828282);
+  font-family: Montserrat;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 140%; /* 19.6px */
+  border: none;
+}
+// custom end by sahil
