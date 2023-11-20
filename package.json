@@ -89,5 +89,10 @@
     "url": "https://gitlab.com/sangram7031/jolevents/issues"
   },
   "homepage": "https://gitlab.com/sangram7031/jolevents#readme",
-  "description": ""
+  "description": "",
+  "devDependencies": {
+    "autoprefixer": "^10.4.16",
+    "postcss": "^8.4.31",
+    "tailwindcss": "^3.3.5"
+  }
 }
