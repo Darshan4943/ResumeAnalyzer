@@ -1,15 +1,23 @@
+
 import { connect } from "react-redux";
+
+
 
 import "react-toastify/dist/ReactToastify.min.css";
 
 import Header from "./partials/header/header";
 import Footer from "./partials/footer/footer";
+
 import { actions } from "../store/demo";
 
-function Layout({ children }) {
+
+
+function Layout({ children, }) {
+
+
   return (
     <>
-      <div>
+      <div >
         <div className="customMargins">
           <Header />
         </div>
@@ -17,6 +25,10 @@ function Layout({ children }) {
 
         <Footer />
       </div>
+
+
+
+
     </>
   );
 }

@@ -640,7 +640,7 @@
   align-items: center;
   gap: 24px;
   overflow: hidden;
-  width: 100%;
+
   margin-top: 43px !important;
 
   @media (min-width: 1440px) {
@@ -655,11 +655,7 @@
     height: 405px;
     /* border: solid 1px gray; */
   }
-  .profile_creation_sub_container_two {
-    width: 634px;
-    height: 520px;
-    /* border: solid 1px gray; */
-  }
+
   .profile_creation_head {
     color: var(--text-prmary, #333);
     font-family: Montserrat;
@@ -703,7 +699,71 @@
     margin-bottom: 8px;
     border-radius: 50px;
   }
+  .profile_creation_sub_container_two {
+    width: 651px;
+    height: 550px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  .Line_man {
+    width: 183.296px;
+    height: 183.4px;
+    flex-shrink: 0;
+  }
+  .animation_line1 {
+    position: absolute;
+    left: 12rem;
+    top: 1rem;
+    width: 69.5px;
+    height: 210px;
+    flex-shrink: 0;
+  }
+  .animation_line1_img1 {
+    width: 215.735px;
+    height: 134.746px;
+    flex-shrink: 0;
+    position: absolute;
+    left: 13rem;
+    top: 0rem;
+    object-fit: contain;
+  }
+
+  .animation_line2 {
+    position: absolute;
+    right: 12rem;
+    top: 1rem;
+    width: 69.5px;
+    height: 210px;
+    flex-shrink: 0;
+  }
+  .animation_line1_img2 {
+    width: 157.433px;
+    height: 162.786px;
+    flex-shrink: 0;
+    position: absolute;
+    right: 2rem;
+    top: 0rem;
+    object-fit: contain;
+  }
+
+  .animation_line3 {
+    position: absolute;
+    right: 8rem;
+    top: 13rem;
+    width: 115px;
+    height: 40px;
+    flex-shrink: 0;
+    flex-shrink: 0;
+  }
+
+
+  
 }
+
 /////testimonial
 
 .testimonial_container {

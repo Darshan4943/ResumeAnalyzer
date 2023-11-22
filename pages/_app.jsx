@@ -9,11 +9,35 @@ import Layout from "../components/layout";
 
 import "~/public/scss/style.scss";
 
+
 import { useRouter } from "next/router.js";
 import { Api } from "~/Redux/Api.jsx";
 
+
 const WrappedApp = ({ Component, pageProps }) => {
   const store = useStore();
+  const [loading, setLoading] = useState(true);
+  const dispatch = useDispatch();
+  const myState = useSelector((state) => state.changeNumber);
+  function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      let j = Math.floor(Math.random() * (i + 1));
+      let temp = array[i];
+      array[i] = array[j];
+      array[j] = temp;
+    }
+    return array;
+  }
+  const router = useRouter();
+
+  const disableLoading = () => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+  };
+  useEffect(() => {
+    disableLoading();
+  }, []);
 
   const [isOnline, setIsOnline] = useState(true);
 
@@ -42,6 +66,7 @@ const WrappedApp = ({ Component, pageProps }) => {
 
   return (
     <Provider store={store}>
+
       <>
         <PersistGate
           persistor={store.__persistor}
@@ -59,11 +84,11 @@ const WrappedApp = ({ Component, pageProps }) => {
           <Helmet>
             <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
             <meta name="msapplication-TileColor" content="#cc9966" />
-            <meta name="msapplication-config" content="images/headerLogo.png" />
-            <link
-              rel="stylesheet"
-              href="https://fonts.googleapis.com/css?family=Montserrat"
+            <meta
+              name="msapplication-config"
+              content="images/headerLogo.png"
             />
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat" />
 
             <link
               rel="stylesheet"
@@ -88,17 +113,8 @@ const WrappedApp = ({ Component, pageProps }) => {
               sizes="32x32"
               href="images/headerLogo.png"
             />
-            <link
-              rel="stylesheet"
-              type="text/css"
-              charset="UTF-8"
-              href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"
-            />
-            <link
-              rel="stylesheet"
-              type="text/css"
-              href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
-            />
+            <link rel="stylesheet" type="text/css" charset="UTF-8" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css" />
+            <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css" />
             {/* <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDza9g3mPKYY6cwOmpHFKT8-VjYLSl1EdU&libraries=places"></script> */}
             <script
               type="text/javascript"
@@ -144,20 +160,10 @@ const WrappedApp = ({ Component, pageProps }) => {
               href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css"
             ></link>
 
-            <link
-              rel="stylesheet"
-              href="https://fonts.googleapis.com/css?family=Montserrat"
-            ></link>
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat"></link>
             <link rel="preconnect" href="https://fonts.googleapis.com" />
-            <link
-              rel="preconnect"
-              href="https://fonts.gstatic.com"
-              crossorigin
-            />
-            <link
-              href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap"
-              rel="stylesheet"
-            />
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+            <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
           </Helmet>
 
           <Layout>

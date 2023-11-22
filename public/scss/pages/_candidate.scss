@@ -1,44 +1,42 @@
 ///hero section
-.candidate_hero {
-  min-height: 500px;
-  background-image: url("../../images/candidate/vector.png");
-  background-size: cover;
-  background-repeat: no-repeat;
-  padding: 61px 0 0 0;
-  overflow: hidden;
-  .expand_text {
-    width: 80%;
-  }
-  .candidate_mainn {
-    margin-right: 0rem;
-    padding: 0;
-  }
+// .candidate_hero {
+//   min-height: 500px;
+//   background-image: url("../../images/candidate/vector.png");
+//   background-size: cover;
+//   background-repeat: no-repeat;
+//   padding: 61px 0 0 0;
+//   overflow: hidden;
 
-  .candidate_main {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    gap: 1rem;
-    max-width: 1128px;
-  }
+  // .candidate_mainn {
+  //   margin-right: 0rem;
+  //   padding: 0;
+  // }
 
-  .candidate_expand_text p {
-    color: var(--text-prmary, #333);
-    font-family: Montserrat;
-    font-size: 86px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-  }
+  // .candidate_main {
+  //   display: flex;
+  //   flex-direction: row;
+  //   justify-content: space-between;
+  //   gap: 1rem;
+  //   max-width: 1128px;
+  // }
 
-  .candidate_expand_text span {
-    color: var(--primary, #06a9ef);
-    font-family: Montserrat;
-    font-size: 86px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-  }
+  // .candidate_expand_text p {
+  //   color: var(--text-prmary, #333);
+  //   font-family: Montserrat;
+  //   font-size: 86px;
+  //   font-style: normal;
+  //   font-weight: 700;
+  //   line-height: normal;
+  // }
+
+  // .candidate_expand_text span {
+  //   color: var(--primary, #06a9ef);
+  //   font-family: Montserrat;
+  //   font-size: 86px;
+  //   font-style: normal;
+  //   font-weight: 700;
+  //   line-height: normal;
+  // }
   // @media (max-width: 1220px) {
   //   .candidate_expand_text p {
   //     font-size: 70px;
@@ -48,58 +46,58 @@
   //   }
   // }
 
-  .get_started_button button {
-    margin-top: 13px;
-    border: none;
-    border-radius: 12px;
-    background: var(--secondary, #06a9ef);
-    display: inline-flex;
-    padding: 18px 48px;
-    justify-content: center;
-    align-items: center;
-    font-weight: 700;
-  }
+  // .get_started_button button {
+  //   margin-top: 13px;
+  //   border: none;
+  //   border-radius: 12px;
+  //   background: var(--secondary, #06a9ef);
+  //   display: inline-flex;
+  //   padding: 18px 48px;
+  //   justify-content: center;
+  //   align-items: center;
+  //   font-weight: 700;
+  // }
 
   // .Recruiter_connect_text {
   //   margin: 3% 0px 5px 0px;
   // }
-  .candidate_connect_text p {
-    color: var(--text-prmary, #333);
-    font-family: Montserrat;
-    font-size: 36px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-  }
-  .candidate_connect_text span {
-    color: var(--primary, #06a9ef);
-    font-family: Montserrat;
-    font-size: 36px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-  }
-  .candidate_connect_line {
-    background: #333;
-    width: 95%;
-    height: 1px;
-  }
-  .candidate_connect {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    margin-top: 19px;
-    max-width: 485px;
-  }
+  // .candidate_connect_text p {
+  //   color: var(--text-prmary, #333);
+  //   font-family: Montserrat;
+  //   font-size: 36px;
+  //   font-style: normal;
+  //   font-weight: 700;
+  //   line-height: normal;
+  // }
+  // .candidate_connect_text span {
+  //   color: var(--primary, #06a9ef);
+  //   font-family: Montserrat;
+  //   font-size: 36px;
+  //   font-style: normal;
+  //   font-weight: 700;
+  //   line-height: normal;
+  // }
+  // .candidate_connect_line {
+  //   background: #333;
+  //   width: 95%;
+  //   height: 1px;
+  // }
+  // .candidate_connect {
+  //   display: flex;
+  //   flex-direction: column;
+  //   gap: 16px;
+  //   margin-top: 19px;
+  //   max-width: 485px;
+  // }
 
-  .candidate_para p {
-    color: var(--text-prmary, #333);
-    font-family: Montserrat;
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-  }
+  // .candidate_para p {
+  //   color: var(--text-prmary, #333);
+  //   font-family: Montserrat;
+  //   font-size: 18px;
+  //   font-style: normal;
+  //   font-weight: 500;
+  //   line-height: normal;
+  // }
   // @media (max-width: 1110px) {
   //   .candidate_connect_line {
   //     min-width: 590px;
@@ -111,301 +109,301 @@
 
   // .candidate_searchbox {
   //   display: flex;
-  //   justify-content: center;
+  //   justify-content: space-between;
   //   // margin-top: 73px;
   // }
 
-  .candidate_searchBar {
-    margin-top: 34px;
-    display: flex;
-    z-index: 1;
-    gap: 21px;
+  // .candidate_searchBar {
+  //   margin-top: 34px;
+  //   display: flex;
+  //   z-index: 1;
+  //   gap: 21px;
 
-    padding: 16px 24px;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    border: 1px gray;
-    border-radius: 16px;
-    border-radius: 16px;
-    background: #fff;
-    box-shadow: 6px 7px 50px 0px rgba(0, 0, 0, 0.11);
-    position: relative;
-    margin-bottom: 3.2rem;
-  }
-  @media (min-width: 1440px) {
-    .candidate_searchBar {
-      min-width: 800px;
-    }
-  }
-  @media (max-width: 1400px) {
-    .candidate_searchBar {
-      max-width: 750px;
-    }
-    .candidate_search_input {
-      font-size: 18px !important;
-    }
-    .candidate_search_p {
-      font-size: 18px !important;
-    }
-  }
-  @media (max-width: 1300px) {
-    .candidate_searchBar {
-      max-width: 700px;
-    }
-    .candidate_search_input {
-      font-size: 16px !important;
-    }
-    .candidate_search_p {
-      font-size: 16px !important;
-    }
-    .candidate_searchbtn {
-      padding: 18px 30px !important;
-    }
-  }
+  //   padding: 16px 24px;
+  //   flex-direction: row;
+  //   justify-content: space-between;
+  //   align-items: center;
+  //   border: 1px gray;
+  //   border-radius: 16px;
+  //   border-radius: 16px;
+  //   background: #fff;
+  //   box-shadow: 6px 7px 50px 0px rgba(0, 0, 0, 0.11);
+  //   position: relative;
+  //   margin-bottom: 3.2rem;
+  // }
+  // @media (min-width: 1440px) {
+  //   .candidate_searchBar {
+  //     min-width: 800px;
+  //   }
+  // }
+  // @media (max-width: 1400px) {
+  //   .candidate_searchBar {
+  //     max-width: 750px;
+  //   }
+  //   .candidate_search_input {
+  //     font-size: 18px !important;
+  //   }
+  //   .candidate_search_p {
+  //     font-size: 18px !important;
+  //   }
+  // }
+  // @media (max-width: 1300px) {
+  //   .candidate_searchBar {
+  //     max-width: 700px;
+  //   }
+  //   .candidate_search_input {
+  //     font-size: 16px !important;
+  //   }
+  //   .candidate_search_p {
+  //     font-size: 16px !important;
+  //   }
+  //   .candidate_searchbtn {
+  //     padding: 18px 30px !important;
+  //   }
+  // }
 
-  @media (max-width: 1200px) {
-    .candidate_searchBar {
-      max-width: 700px;
-    }
-  }
-  @media (max-width: 1150px) {
-    .candidate_searchBar {
-      max-width: 620px;
-    }
-    .candidate_search_p {
-      font-size: 14px !important;
-    }
-    .candidate_search_input {
-      font-size: 14px !important;
-    }
-  }
-  @media (max-width: 1100px) {
-    .candidate_searchBar {
-      max-width: 570px;
-      gap: 10px !important;
-      padding: 16px 16px !important;
-    }
-    .candidate_search_p {
-      font-size: 14px !important;
-    }
-    .candidate_search_input {
-      font-size: 14px !important;
-    }
-  }
-  @media (max-width: 1040px) {
-    .candidate_searchBar {
-      max-width: 550px;
-      gap: 8px !important;
-      padding: 16px 16px !important;
-    }
-    .candidate_search_p {
-      font-size: 14px !important;
-    }
-    .candidate_search_input {
-      font-size: 14px !important;
-    }
-    .candidate_searchbtn {
-      padding: 18px 20px !important;
-    }
-  }
-  .candidate_sub_searchBar_one {
-    display: flex;
-    align-items: center;
+  // @media (max-width: 1200px) {
+  //   .candidate_searchBar {
+  //     max-width: 700px;
+  //   }
+  // }
+  // @media (max-width: 1150px) {
+  //   .candidate_searchBar {
+  //     max-width: 620px;
+  //   }
+  //   .candidate_search_p {
+  //     font-size: 14px !important;
+  //   }
+  //   .candidate_search_input {
+  //     font-size: 14px !important;
+  //   }
+  // }
+  // @media (max-width: 1100px) {
+  //   .candidate_searchBar {
+  //     max-width: 570px;
+  //     gap: 10px !important;
+  //     padding: 16px 16px !important;
+  //   }
+  //   .candidate_search_p {
+  //     font-size: 14px !important;
+  //   }
+  //   .candidate_search_input {
+  //     font-size: 14px !important;
+  //   }
+  // }
+  // @media (max-width: 1040px) {
+  //   .candidate_searchBar {
+  //     max-width: 550px;
+  //     gap: 8px !important;
+  //     padding: 16px 16px !important;
+  //   }
+  //   .candidate_search_p {
+  //     font-size: 14px !important;
+  //   }
+  //   .candidate_search_input {
+  //     font-size: 14px !important;
+  //   }
+  //   .candidate_searchbtn {
+  //     padding: 18px 20px !important;
+  //   }
+  // }
+  // .candidate_sub_searchBar_one {
+  //   display: flex;
+  //   align-items: center;
 
-    // gap: 16.823px;
-    color: var(--Text-Secondary, #828282);
-  }
-  .candidate_search_input {
-    border: none;
-    color: var(--Text-Secondary, #646464);
-    font-family: Montserrat;
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    text-align: center;
-  }
-  .candidate_searcgBarLine {
-    width: 3.154px;
-  }
-  .candidate_sub_searchBar_two {
-    display: flex;
-    align-items: center;
-    gap: 16.823px;
-  }
-  .candidate_searchbtn {
-    display: flex;
-    padding: 18px 48px;
-    justify-content: center;
-    align-items: center;
-    border-radius: 12px;
-    border: 1px solid var(--primary, #06a9ef);
-    background: var(--primary, #06a9ef);
-    background-color: #06a9ef;
-    color: #fff;
-  }
-  .candidate_search_p {
-    color: var(--Text-Secondary, #828282);
-    /* font-family: Montserrat; */
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    font-family: Montserrat, Arial, sans-serif;
-  }
-  .candidate_hero_img {
-    height: 561px;
-    position: absolute;
-    right: 14px;
-    margin-top: -61px !important;
-  }
-  @media (min-width: 1440px) {
-    .candidate_hero_img {
-      position: relative;
-      height: 561px;
-      right: 8rem;
-    }
-  }
-}
+    
+  //   color: var(--Text-Secondary, #828282);
+  // }
+  // .candidate_search_input {
+  //   border: none;
+  //   color: var(--Text-Secondary, #646464);
+  //   font-family: Montserrat;
+  //   font-size: 20px;
+  //   font-style: normal;
+  //   font-weight: 400;
+  //   line-height: normal;
+  //   text-align: center;
+  // }
+  // .candidate_searcgBarLine {
+  //   width: 3.154px;
+  // }
+  // .candidate_sub_searchBar_two {
+  //   display: flex;
+  //   align-items: center;
+  //   gap: 16.823px;
+  // }
+  // .candidate_searchbtn {
+  //   display: flex;
+  //   padding: 18px 48px;
+  //   justify-content: center;
+  //   align-items: center;
+  //   border-radius: 12px;
+  //   border: 1px solid var(--primary, #06a9ef);
+  //   background: var(--primary, #06a9ef);
+  //   background-color: #06a9ef;
+  //   color: #fff;
+  // }
+  // .candidate_search_p {
+  //   color: var(--Text-Secondary, #828282);
+  //   /* font-family: Montserrat; */
+  //   font-size: 20px;
+  //   font-style: normal;
+  //   font-weight: 400;
+  //   line-height: normal;
+  //   font-family: Montserrat, Arial, sans-serif;
+  // }
+  // .candidate_hero_img {
+  //   height: 561px;
+  //   position: absolute;
+  //   right: 14px;
+  //   margin-top: -61px !important;
+  // }
+  // @media (min-width: 1440px) {
+  //   .candidate_hero_img {
+  //     position: relative;
+  //     height: 561px;
+  //     right: 8rem;
+  //   }
+  // }
+// }
 
 // INTERVIEW SECTION CSS START HERE
-.interview_container {
-  // max-width: 1440px;
-  width: 100%;
-  background: #fefcf2;
+// .interview_container {
+//   // max-width: 1440px;
+//   width: 100%;
+//   background: #fefcf2;
 
-  .interview_parent {
-    display: flex;
-    align-items: center;
-    .int_img {
-      width: 576px;
-      // height: 576px;
-      object-fit: contain;
-    }
-    .interview_ask {
-      display: flex;
-      width: 552px;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 24px;
-    }
+//   .interview_parent {
+//     display: flex;
+//     align-items: center;
+//     .int_img {
+//       width: 576px;
+//       // height: 576px;
+//       object-fit: contain;
+//     }
+//     .interview_ask {
+//       display: flex;
+//       width: 552px;
+//       flex-direction: column;
+//       align-items: flex-start;
+//       gap: 24px;
+//     }
 
-    .commanly_p1 {
-      color: var(--text-prmary, #333);
-      font-family: Montserrat;
-      font-size: 52px;
-      font-style: normal;
-      font-weight: 700;
-      line-height: normal;
-    }
-    .commanly_p2 {
-      color: var(--text-prmary, #333);
-      font-family: Montserrat;
-      font-size: 26px;
-      font-style: normal;
-      font-weight: 500;
-      line-height: normal;
-    }
-    .commanly_p3 {
-      color: var(--text-prmary, #333);
-      text-align: justify;
-      font-family: Montserrat;
-      font-size: 17px;
-      font-style: normal;
-      font-weight: 500;
-      line-height: 26px; /* 152.941% */
-    }
-  }
-}
+//     .commanly_p1 {
+//       color: var(--text-prmary, #333);
+//       font-family: Montserrat;
+//       font-size: 52px;
+//       font-style: normal;
+//       font-weight: 700;
+//       line-height: normal;
+//     }
+//     .commanly_p2 {
+//       color: var(--text-prmary, #333);
+//       font-family: Montserrat;
+//       font-size: 26px;
+//       font-style: normal;
+//       font-weight: 500;
+//       line-height: normal;
+//     }
+//     .commanly_p3 {
+//       color: var(--text-prmary, #333);
+//       text-align: justify;
+//       font-family: Montserrat;
+//       font-size: 17px;
+//       font-style: normal;
+//       font-weight: 500;
+//       line-height: 26px; /* 152.941% */
+//     }
+//   }
+// }
 
 /////challenge section
-.challenge_container {
-  // height: 897px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 24px;
-  margin-top: 38px;
+// .challenge_container {
+//   // height: 897px;
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   gap: 24px;
+//   margin-top: 38px;
+// }
+//   .suitablework_cont {
+//     p {
+//       color: #333;
+//       text-align: center;
+//       font-size: 36px;
+//       font-weight: 600;
+//       line-height: 48px; /* 133.333% */
+//     }
+//     span {
+//       color: #06a9ef;
+//       font-size: 36px;
+//       font-weight: 600;
+//       line-height: 48px;
+//     }
+//   }
 
-  .suitablework_cont {
-    p {
-      color: #333;
-      text-align: center;
-      font-size: 36px;
-      font-weight: 600;
-      line-height: 48px; /* 133.333% */
-    }
-    span {
-      color: #06a9ef;
-      font-size: 36px;
-      font-weight: 600;
-      line-height: 48px;
-    }
-  }
+  // .hor_line {
+  //   width: 792px;
+  //   height: 1px;
+  //   background: #646464;
+  //   margin-top: 16px;
+  // }
 
-  .hor_line {
-    width: 792px;
-    height: 1px;
-    background: #646464;
-    margin-top: 16px;
-  }
+  // .get_update {
+  //   width: 212px;
+  //   height: 142px;
+  // }
+  // .img-fluid {
+  //   height: 100%;
+  //   width: 100%;
+  // }
+  // .get_update_para1 {
+  //   height: 24px;
+  //   width: 424px;
+  // }
+  // .get_update_para1 p {
+  //   color: #333;
+  //   text-align: center;
+  //   font-size: 20px;
+  //   font-weight: 600;
+  //   line-height: normal;
+  // }
+  // .get_update_para2 {
+  //   height: 60px;
+  //   width: 424px;
+  // }
+  // .get_update_para2 p {
+  //   color: #646464;
+  //   text-align: center;
+  //   font-size: 16px;
+  //   font-weight: 500;
+  //   line-height: normal;
+  // }
 
-  .get_update {
-    width: 212px;
-    height: 142px;
-  }
-  .img-fluid {
-    height: 100%;
-    width: 100%;
-  }
-  .get_update_para1 {
-    height: 24px;
-    width: 424px;
-  }
-  .get_update_para1 p {
-    color: #333;
-    text-align: center;
-    font-size: 20px;
-    font-weight: 600;
-    line-height: normal;
-  }
-  .get_update_para2 {
-    height: 60px;
-    width: 424px;
-  }
-  .get_update_para2 p {
-    color: #646464;
-    text-align: center;
-    font-size: 16px;
-    font-weight: 500;
-    line-height: normal;
-  }
-
-  .challenge_card_main {
-    display: flex;
-    align-items: center;
-    gap: 24px;
-    width: 100%;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-bottom: 60px;
-  }
-  .first_child_card {
-    display: flex;
-    // width: 456px;
-    padding: 16px;
-    flex-direction: column;
-    align-items: center;
-    gap: 24px;
-    border-radius: 12px;
-    background: #ebfaff;
-    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.35);
-  }
-  .img-fluid {
-    object-fit: contain;
-  }
-}
+  // .challenge_card_main {
+  //   display: flex;
+  //   align-items: center;
+  //   gap: 24px;
+  //   width: 100%;
+  //   flex-wrap: wrap;
+  //   justify-content: center;
+  //   margin-bottom: 60px;
+  // }
+  // .first_child_card {
+  //   display: flex;
+  //   // width: 456px;
+  //   padding: 16px;
+  //   flex-direction: column;
+  //   align-items: center;
+  //   gap: 24px;
+  //   border-radius: 12px;
+  //   background: #ebfaff;
+  //   box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.35);
+  // }
+  // .img-fluid {
+  //   object-fit: contain;
+  // }
+// }
 
 // Ai powered animation start
 
@@ -439,6 +437,7 @@
         line-height: 28px;
         margin-left: 2rem;
         gap: 8px;
+        list-style:decimal !important;
       }
     }
   }
@@ -483,7 +482,7 @@
     position: relative;
   }
 
-  #name_resume {
+  .name_resume {
     margin-top: 10%;
     width: 359.327px;
     height: 503.797px;
@@ -500,13 +499,16 @@
     }
   }
 
-  #david_resume {
+  .david_resume {
     width: 359.327px;
     height: 503.797px;
     flex-shrink: 0;
     position: absolute;
     right: -1%;
     animation: david 2s infinite;
+    display: flex ;
+    top: 1%;
+    
   }
   @keyframes david {
     0%,
@@ -605,7 +607,7 @@
           align-items: center;
           gap: 32px;
           flex-shrink: 0;
-
+          margin-top: 1.1rem;
           .candidate_second_head_img {
             width: 42.542px;
             height: 53.393px;
@@ -825,7 +827,7 @@
                 display: flex;
                 position: absolute;
                 bottom: -25px;
-                right: -18px;
+                right: -13px;
                 justify-content: center;
                 align-items: center;
 
@@ -1293,12 +1295,12 @@
               display: flex;
               position: absolute;
               top: -8px;
-              right: -20px;
+              right: -25px;
 
               .cand_circle7 {
                 margin-left: -10px;
                 margin-top: -4px;
-                margin-right: -4px;
+                margin-right: -6px;
                 width: 12px;
                 height: 12px;
                 opacity: 0;
@@ -1333,11 +1335,11 @@
               .cand_circle2 {
                 margin-left: -8px;
                 margin-top: -4px;
-                margin-right: -4px;
+                margin-right: 1px;
                 width: 12px;
                 height: 12px;
                 opacity: 0;
-                animation: fadeInnnn 0s ease 1.8s forwards;
+                animation: fadeInnnn 0s ease 1.7s forwards;
               }
               @keyframes fadeInnnn {
                 0% {
@@ -1401,7 +1403,7 @@
                 background: white;
                 position: absolute;
                 z-index: 1;
-                right: -3.6rem;
+                right: -3.7rem;
               }
 
               .candidate_soft_heading {
@@ -1440,6 +1442,7 @@
                   height: 64.52px;
                   flex-shrink: 0;
                   margin-top: 1px;
+                  margin-left: -0.2rem;
                 }
 
                 .candidate_child_para2 {
@@ -1447,7 +1450,7 @@
                   justify-content: space-between;
                   display: flex;
                   gap: 5px;
-
+                  margin-left: -1rem;
                   .candidate_parameter_date1 {
                     display: flex;
                     width: 45px;
@@ -1477,7 +1480,7 @@
                   flex-direction: column;
                   height: 85px;
                   gap: 5px;
-
+                 margin-right: 0.5rem;
                   .candidate_job_title_parent {
                     width: 90px;
                     height: 27px;
@@ -1540,14 +1543,14 @@
 
           // }
           .candidate_lang_line_four {
-            margin-left: -1.3rem;
-            margin-top: -27px;
+            margin-left: -1.2rem;
+            margin-top: -17px;
             justify-content: center;
             align-items: center;
 
             .cand_circle8 {
-              margin-left: -10px;
-              margin-bottom: -4px;
+              margin-left: 158px;
+              margin-top: -8px;
               width: 12px;
               height: 12px;
             }
@@ -1575,7 +1578,7 @@
 
             .cand_circle10 {
               position: relative;
-              left: -180px;
+              left: -159px;
               top: 60px;
               width: 12px;
               height: 12px;

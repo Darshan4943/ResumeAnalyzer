@@ -1,10 +1,19 @@
-import React from 'react';
+import { useRouter } from "next/router";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useLayoutEffect, useState } from "react";
+
+import jwt from "jsonwebtoken";
+import HeroSection from "~/components/featured/home/HeroSection";
+import HomePage from "./home/Home";
 
 function Home() {
+
+
   return (
     <>
-      <main className="bg-gray-100 h-screen flex items-center justify-center">
-        <h1 className="text-4xl font-bold text-red bg-orange ">Hello Tailwind!</h1>
+
+      <main>
+        <HomePage />
       </main>
     </>
   );
