@@ -10,9 +10,9 @@ function HomePage() {
     <div>
       {/* <HeroSection />
       <TrustedBySection />
-      <ForCandidate />
+      <ForCandidate /> */}
       <Profile_creation />
-      <Testimonial />
+      {/* <Testimonial />
       <Testimonial_2 /> */}
     </div>
   );

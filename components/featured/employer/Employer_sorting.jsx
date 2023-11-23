@@ -4,6 +4,8 @@ function Employer_sorting({ showAnimation }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showDiv, setShowDiv] = useState(false);
   const [showMain, setShowMain] = useState(false);
+
+  console.log(showAnimation)
   useEffect(() => {
     setShowMain(showAnimation);
     setCurrentIndex(0);

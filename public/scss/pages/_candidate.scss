@@ -412,13 +412,13 @@
   display: flex;
   flex-direction: row;
   margin: 3% 0px;
-  gap: 6%;
+
 
   .ai_text {
     display: flex;
     flex-direction: column;
     gap: 24px;
-    width: 47%;
+    width: 43%;
     justify-content: center;
 
     .candidate_Profile_list {
@@ -478,16 +478,22 @@
     line-height: 28px; /* 155.556% */
   }
   .ai_images {
-    width: 47%;
+    width: 57%;
+    height:681px;
     position: relative;
+    display: flex;
+  
+    align-items: center;
+   padding: 47px 0;
   }
 
   .name_resume {
-    margin-top: 10%;
-    width: 359.327px;
-    height: 503.797px;
+  
+    width: 450.31px;
+height: 566.736px;
     flex-shrink: 0;
-    animation: name_resume 2s infinite;
+    animation: name_resume 3s infinite;
+ 
   }
   @keyframes name_resume {
     0%,
@@ -500,14 +506,14 @@
   }
 
   .david_resume {
-    width: 359.327px;
-    height: 503.797px;
+    width: 450.728px;
+height: 566.217px;
     flex-shrink: 0;
     position: absolute;
     right: -1%;
-    animation: david 2s infinite;
+    animation: david 3s infinite;
     display: flex ;
-    top: 1%;
+   top:3%
     
   }
   @keyframes david {
@@ -1355,7 +1361,7 @@
 
         .candidate_blue_line4 {
           opacity: 0;
-          animation: moveLine4 0.6s linear forwards;
+          animation: moveLine4 0.8s linear forwards;
           animation-delay: 1.2s;
         }
 

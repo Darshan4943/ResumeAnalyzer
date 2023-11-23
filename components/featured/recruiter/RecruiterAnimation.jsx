@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { motion } from "framer-motion";
 import { useSpring, animated } from "react-spring";
 function RecruiterAnimation({ showAnimationn }) {
-
+console.log("hii",showAnimationn)
   const [changeImage, setChangeImage] = useState(false);
 
   useEffect(() => {
@@ -78,7 +78,7 @@ function RecruiterAnimation({ showAnimationn }) {
       clearTimeout(imagedownTimer);
     };
   }, [showAnimationn]);
-  console.log(81, slideCollab)
+
 
   return (
     <div className="customMargins">

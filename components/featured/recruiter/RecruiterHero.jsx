@@ -18,7 +18,7 @@ function RecruiterHero() {
         </div>
         <div class='bg-white h-[1px] w-[55%] my-[12px]'></div>
         <div className="para">
-          <p class="max-w-[55%] text-white text-justify font-montserrat text-base font-medium leading-normal">
+          <p class="max-w-[55%] text-white text-justify font-montserrat text-base font-medium leading-[20px]">
             Your consulting firm can tap into a vast network of employers
             through our platform. We connect you with a diverse range of
             companies, offering an extensive talent pool and growth
