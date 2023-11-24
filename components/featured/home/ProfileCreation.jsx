@@ -1,6 +1,34 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from 'framer-motion';
 function Profile_creation() {
+  const [isVisible, setIsVisible] = useState(false);
+  const [isAnimate, setIsAnimate] = useState(false);
+  const handleScroll = () => {
+    if (window.scrollY >= 575 ) {
+      setIsAnimate(true);
+     
+      window.removeEventListener('scroll', handleScroll);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setIsVisible(true); 
+    }, 1000);
+
+   
+    return () => clearTimeout(timeout);
+  }, [isAnimate]); 
+
+
   return (
     <div className="profile_creation_container customMargins">
       <div className="profile_creation_sub_container_one">
@@ -24,9 +52,9 @@ function Profile_creation() {
 
         <div className="animation_9">
           <div className="animation_9_1" >
-
+         
             <div className="animation_line9_img9">
-              <img src="./images/home/animation_line9_img9.png" alt="" />
+              <img src="./images/home/animation_line9_img9.png" alt="" style={{ opacity: isVisible ? 1 : 0, transition: 'opacity 1s ease' }} />
             </div>
 
             <div className="animation_9_2"   >
@@ -34,7 +62,7 @@ function Profile_creation() {
                 className=""
                 initial={{ x: '100%' }}
                 animate={{ x: '0%' }}
-                transition={{ duration: 0.6, delay: 1.8 }}
+                transition={{ duration: 1.2, delay: 0.2 }}
                 style={{
                   width: '168px',
                   height: '90px',
@@ -44,10 +72,12 @@ function Profile_creation() {
                   zIndex: 2
                 }}
               ></motion.div>
+              
               <div className="animation_line9" >
                 <img src="./images/home/animation_line9.png" alt="" />
 
               </div>
+            
             </div>
           </div>
         </div>
@@ -57,7 +87,7 @@ function Profile_creation() {
           <div className="animation_10_1" >
 
             <div className="animation_line10_img10">
-              <img src="./images/home/animation_line10_img10.png" alt="" />
+              <img src="./images/home/animation_line10_img10.png" alt="" style={{ opacity: isVisible ? 1 : 0, transition: 'opacity 1s ease' }} />
             </div>
 
             <div className="animation_10_2" >
@@ -65,7 +95,7 @@ function Profile_creation() {
                 className=""
                 initial={{ x: '100%' }}
                 animate={{ x: '0%' }}
-                transition={{ duration: 0.6, delay: 1.8 }}
+                transition={{ duration: 1.2, delay: 0.2 }}
                 style={{
                   width: '152px',
                   height: '80px',
@@ -86,7 +116,7 @@ function Profile_creation() {
           <div className="animation_8_1" >
 
             <div className="animation_line8_img8">
-              <img src="./images/home/animation_line8_img8.png" alt="" />
+              <img src="./images/home/animation_line8_img8.png" alt="" style={{ opacity: isVisible ? 1 : 0, transition: 'opacity 1s ease' }}/>
             </div>
 
             <div className="animation_8_2" >
@@ -94,7 +124,7 @@ function Profile_creation() {
                 className=""
                 initial={{ x: '100%' }}
                 animate={{ x: '0%' }}
-                transition={{ duration: 0.6, delay: 1.8 }}
+                transition={{ duration: 1.2, delay: 0.2 }}
                 style={{
                   width: '131px',
                   height: '80px',
@@ -119,9 +149,9 @@ function Profile_creation() {
             <div className="animation_7_2" >
               <motion.div
                 className=""
-                initial={{ y: '-100%' }} 
-                animate={{ y: '0%' }}    
-                transition={{ duration: 0.6, delay: 1.8 }}
+                initial={{ y: '-100%' }}
+                animate={{ y: '0%' }}
+                transition={{ duration: 1.2, delay: 0.2 }}
                 style={{
                   width: '80px',
                   height: '130px',
@@ -131,7 +161,7 @@ function Profile_creation() {
                   zIndex: 6
                 }}
               ></motion.div>
-              
+
 
               <div className="animation_line7">
                 <img src="./images/home/animation_line7.png" alt="" />
@@ -139,7 +169,7 @@ function Profile_creation() {
             </div>
 
             <div className="animation_line7_img7">
-              <img src="./images/home/animation_line7_img7.png" alt="" />
+              <img src="./images/home/animation_line7_img7.png" alt="" style={{ opacity: isVisible ? 1 : 0, transition: 'opacity 1s ease' }} />
             </div>
 
 
@@ -149,14 +179,14 @@ function Profile_creation() {
         <div className="animation_6">
           <div className="animation_6_1" >
 
-           
+
 
             <div className="animation_6_2" >
               <motion.div
                 className=""
                 initial={{ x: '-100%' }}
                 animate={{ x: '0%' }}
-                transition={{ duration: 0.6, delay: 1.8 }}
+                transition={{ duration: 1.2, delay: 0.2 }}
                 style={{
                   width: '131px',
                   height: '50px',
@@ -172,10 +202,116 @@ function Profile_creation() {
             </div>
 
             <div className="animation_line6_img6">
-              <img src="./images/home/animation_line6_img6.png" alt="" />
+              <img src="./images/home/animation_line6_img6.png" alt="" style={{ opacity: isVisible ? 1 : 0, transition: 'opacity 1s ease' }} />
             </div>
           </div>
         </div>
+
+        <div className="animation_5">
+          <div className="animation_5_1" >
+
+
+
+            <div className="animation_5_2" >
+              <motion.div
+                className=""
+                initial={{ x: '-100%' }}
+                animate={{ x: '0%' }}
+                transition={{ duration: 1.2, delay: 0.2 }}
+                style={{
+                  width: '131px',
+                  height: '50px',
+                  background: 'white',
+                  position: 'absolute',
+                
+                  left: 111,
+                  zIndex: 2
+                }}
+              ></motion.div>
+              <div className="animation_line5">
+                <img src="./images/home/animation_line5.png" alt="" />
+              </div>
+            </div>
+
+            <div className="animation_line5_img5">
+              <img src="./images/home/animation_line5_img5.png" alt=""  style={{ opacity: isVisible ? 1 : 0, transition: 'opacity 1s ease' }}/>
+            </div>
+          </div>
+        </div>
+
+        <div className="animation_4">
+          <div className="animation_4_1" >
+
+
+
+            <div className="animation_4_2" >
+              <motion.div
+                className=""
+                initial={{ y: '100%' }}
+                animate={{ y: '-15%' }}
+                transition={{ duration: 1.2, delay: 0.2 }}
+                style={{
+                  width: '54px',
+                  height: '100%',
+                  background: 'white',
+                  position: 'absolute',
+                  top: -207,
+                  zIndex: 6
+                }}
+              ></motion.div>
+
+
+              <div className="animation_line4">
+                <img src="./images/home/animation_line4.png" alt="" />
+              </div>
+            </div>
+
+            <div className="animation_line4_img4">
+              <img src="./images/home/animation_line4_img4.png" alt="" style={{ opacity: isVisible ? 1 : 0, transition: 'opacity 1s ease' }}/>
+            </div>
+
+
+          </div>
+        </div>
+
+        <div className="animation_3">
+          <div className="animation_3_1" >
+
+
+
+            <div className="animation_3_2" >
+              <motion.div
+                className=""
+                initial={{ y: '100%' }}
+                animate={{ y: '-15%' }}
+                transition={{ duration: 1.2, delay: 0.2 }}
+                style={{
+                  width: '100px',
+                  height: '100%',
+                  background: 'white',
+                  position: 'absolute',
+                  top:-20,
+                  right:170,
+                  zIndex: 6
+                }}
+              ></motion.div>
+
+
+              <div className="animation_line3">
+                <img style={{height:"210px", width:"69px"}} src="./images/home/animation_line3.png" alt="" />
+              </div>
+
+
+            </div>
+
+            <div className="animation_line3_img3">
+              <img src="./images/home/animation_line3_img3.png" alt=""  style={{ opacity: isVisible ? 1 : 0, transition: 'opacity 1s ease', }} />
+            </div>
+
+
+          </div>
+        </div>
+
 
         {/* <div>
           <img className="animation_line1" src="./images/home/animation_line1.png" alt="" />
