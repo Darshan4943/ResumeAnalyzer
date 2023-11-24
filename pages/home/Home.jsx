@@ -9,8 +9,8 @@ function HomePage() {
   return (
     <div>
       {/* <HeroSection />
-      <TrustedBySection />
-      <ForCandidate /> */}
+      <TrustedBySection /> */}
+      <ForCandidate />
       <Profile_creation />
       {/* <Testimonial />
       <Testimonial_2 /> */}
