@@ -2,12 +2,12 @@ import React from "react";
 
 function Employer_why_skilotech() {
   return (
-    <div className="Employer_why_skilotech_container customMargins">
-      <div className="Employer_why_skilotech_sub_container">
-        <span className="Employer_why_skilotech_span">Revolutionize</span> your
+    <div className="flex justify-center items-center mt-42 customMargins">
+      <div className="p-6 justify-center items-center gap-4 rounded-lg bg-[#024e6f] text-white font-montserrat text-[36px] font-semibold leading-12">
+        <span className="text-[#ffda1d] text-center font-montserrat text-[36px] font-semibold leading-12">Revolutionize</span> your
         hiring process with our cutting-edge
          platform designed for recruiting{" "}
-        <span className="Employer_why_skilotech_span">skilled workers</span>
+        <span className="text-[#ffda1d] text-center font-montserrat text-[36px] font-semibold leading-12">skilled workers</span>
       </div>
     </div>
   );

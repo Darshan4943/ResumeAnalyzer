@@ -4,57 +4,57 @@ const Employer_hire_candidates = () => {
   const divs = [
     <div className="Employer_hire_candidates_images_container">
       <img
-        src="images/employer/earth1.png"
+        src="images/employer/Employer_hire_candidates/earth1.png"
         alt=""
         className="Employer_hire_candidates_images"
       />
       <div id="earth"></div>
-      <img src="images/employer/tethescope.png" alt="" className="tethescope" />
+      <img src="images/employer/Employer_hire_candidates/tethescope.png" alt="" className="tethescope" />
     </div>,
     <div className="Employer_hire_candidates_images_container">
       <img
-        src="images/employer/earth2.png"
+        src="images/employer/Employer_hire_candidates/earth2.png"
         alt=""
         className="Employer_hire_candidates_images"
       />
       <div id="earth"></div>
-      <img src="images/employer/tethescope.png" alt="" className="tethescope" />
+      <img src="images/employer/Employer_hire_candidates/tethescope.png" alt="" className="tethescope" />
     </div>,
     <div className="Employer_hire_candidates_images_container">
       <img
-        src="images/employer/earth3.png"
+        src="images/employer/Employer_hire_candidates/earth3.png"
         alt=""
         className="Employer_hire_candidates_images"
       />
       <div id="earth"></div>
-      <img src="images/employer/tethescope.png" alt="" className="tethescope" />
+      <img src="images/employer/Employer_hire_candidates/tethescope.png" alt="" className="tethescope" />
     </div>,
     <div className="Employer_hire_candidates_images_container">
       <img
-        src="images/employer/earth4.png"
+        src="images/employer/Employer_hire_candidates/earth4.png"
         alt=""
         className="Employer_hire_candidates_images"
       />
       <div id="earth"></div>
-      <img src="images/employer/tethescope.png" alt="" className="tethescope" />
+      <img src="images/employerEmployer_hire_candidates//tethescope.png" alt="" className="tethescope" />
     </div>,
     <div className="Employer_hire_candidates_images_container">
       <img
-        src="images/employer/earth5.png"
+        src="images/employer/Employer_hire_candidates/earth5.png"
         alt=""
         className="Employer_hire_candidates_images"
       />
       <div id="earth"></div>
-      <img src="images/employer/tethescope.png" alt="" className="tethescope" />
+      <img src="images/employer/Employer_hire_candidates/tethescope.png" alt="" className="tethescope" />
     </div>,
     <div className="Employer_hire_candidates_images_container">
       <img
-        src="images/employer/earth6.png"
+        src="images/employer/Employer_hire_candidates/earth6.png"
         alt=""
         className="Employer_hire_candidates_images"
       />
       <div id="earth"></div>
-      <img src="images/employer/tethescope.png" alt="" className="tethescope" />
+      <img src="images/employer/Employer_hire_candidates/tethescope.png" alt="" className="tethescope" />
     </div>,
   ];
   const [currentDivIndex, setCurrentDivIndex] = useState(0);

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { motion } from "framer-motion";
 import { useSpring, animated } from "react-spring";
 function RecruiterAnimation({ showAnimationn }) {
-console.log("hii",showAnimationn)
+
   const [changeImage, setChangeImage] = useState(false);
 
   useEffect(() => {
@@ -78,16 +78,16 @@ console.log("hii",showAnimationn)
       clearTimeout(imagedownTimer);
     };
   }, [showAnimationn]);
-
+  console.log(81, slideCollab)
 
   return (
     <div className="customMargins">
       <div className="recruiter_animation">
         {showAnimationn ? (
           <>
-            <motion.p
+            <motion.p className='recruiter_animation_p'
               animate={{
-                x: upImage ? -1000 : slideImage ? -240 : 0,
+                x: upImage ? -1000 : slideImage ? -120 : 0,
                 opacity: upImage ? 0 : 1,
               }}
             >
@@ -103,7 +103,7 @@ console.log("hii",showAnimationn)
               {slideImage ? (
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  width="500"
+                  width="700"
                   height="40"
                   viewBox="0 0 1041 40"
                   fill="none"

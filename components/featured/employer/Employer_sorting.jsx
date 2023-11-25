@@ -4,8 +4,6 @@ function Employer_sorting({ showAnimation }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showDiv, setShowDiv] = useState(false);
   const [showMain, setShowMain] = useState(false);
-
-  console.log(showAnimation)
   useEffect(() => {
     setShowMain(showAnimation);
     setCurrentIndex(0);
@@ -30,21 +28,21 @@ function Employer_sorting({ showAnimation }) {
   const divs = [
     <div key={0}></div>,
     <div key={1} className="animation 1st">
-      <img src="images/employer/Frame1.png" className="i a img1" alt="" />
+      <img src="images/employer/Employer_sorting/Frame1.png" className="i a img1" alt="" />
     </div>,
     <div key={2} className="animation 2nd">
-      <img src="images/employer/Frame1.png" className="i img1" alt="" />
-      <img src="images/employer/Frame2.png" className="i a img2" alt="" />
+      <img src="images/employer/Employer_sorting/Frame1.png" className="i img1" alt="" />
+      <img src="images/employer/Employer_sorting/Frame2.png" className="i a img2" alt="" />
     </div>,
     <div key={3} className="animation 3rd">
-      <img src="images/employer/Frame1.png" className="i img1" alt="" />
-      <img src="images/employer/Frame2.png" className="i img2" alt="" />
-      <img src="images/employer/Frame3.png" className="i a img3" alt="" />
+      <img src="images/employer/Employer_sorting/Frame1.png" className="i img1" alt="" />
+      <img src="images/employer/Employer_sorting/Frame2.png" className="i img2" alt="" />
+      <img src="images/employer/Employer_sorting/Frame3.png" className="i a img3" alt="" />
     </div>,
     <div key={4} className="animation 4rt">
       {[1, 2, 3, 4].map((item) => (
         <img
-          src={`images/employer/Frame${item}.png`}
+          src={`images/employer/Employer_sorting/Frame${item}.png`}
           className={`i ${item == 4 && "a"} img${item}`}
           alt=""
         />
@@ -53,7 +51,7 @@ function Employer_sorting({ showAnimation }) {
     <div key={5} className="animation 5th">
       {[1, 2, 3, 4, 5].map((item) => (
         <img
-          src={`images/employer/Frame${item}.png`}
+          src={`images/employer/Employer_sorting/Frame${item}.png`}
           className={`i ${item == 5 && "a"} img${item}`}
           alt=""
         />
@@ -62,7 +60,7 @@ function Employer_sorting({ showAnimation }) {
     <div key={6} className="animation 6th">
       {[1, 2, 3, 4, 5, 6].map((item) => (
         <img
-          src={`images/employer/Frame${item}.png`}
+          src={`images/employer/Employer_sorting/Frame${item}.png`}
           className={`i ${item == 6 && "a"} img${item}`}
           alt=""
         />
@@ -71,7 +69,7 @@ function Employer_sorting({ showAnimation }) {
     <div key={7} className="animation 7th">
       {[1, 2, 3, 4, 5, 6, 7].map((item) => (
         <img
-          src={`images/employer/Frame${item}.png`}
+          src={`images/employer/Employer_sorting/Frame${item}.png`}
           className={`i ${item == 7 && "a"} img${item}`}
           alt=""
         />
@@ -80,7 +78,7 @@ function Employer_sorting({ showAnimation }) {
     <div key={8} className="animation 8th">
       {[1, 2, 3, 4, 5, 6, 7, 8].map((item) => (
         <img
-          src={`images/employer/Frame${item}.png`}
+          src={`images/employer/Employer_sorting/Frame${item}.png`}
           className={`i ${item == 8 && "a"} img${item}`}
           alt=""
         />
@@ -89,7 +87,7 @@ function Employer_sorting({ showAnimation }) {
     <div key={9} className="animation 9th">
       {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((item) => (
         <img
-          src={`images/employer/Frame${item}.png`}
+          src={`images/employer/Employer_sorting/Frame${item}.png`}
           className={`i ${item == 9 && "a"} img${item}`}
           alt=""
         />
@@ -150,7 +148,7 @@ function Employer_sorting({ showAnimation }) {
             </div>
             <div className="sorting_image">
               <img
-                src="images/employer/Frame4.png"
+                src="images/employer/Employer_sorting/Frame4.png"
                 alt=""
                 className="sorting_image_animation"
               />
@@ -158,7 +156,7 @@ function Employer_sorting({ showAnimation }) {
           </div>
         </div>
       ) : (
-        <div className="sorting_main-container">
+        <div className="sorting_main-container customMargins">
           <div className="abc">
             {showDiv && (
               <svg

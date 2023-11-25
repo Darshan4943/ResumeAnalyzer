@@ -3,6 +3,8 @@ import { motion } from "framer-motion";
 import { useSpring, animated } from "react-spring";
 function ForCandidate() {
 
+
+
   const [moveLeft, setmoveLeft] = useState(false);
   const [moveRight, setmoveRight] = useState(false);
   const [initial, setInitial] = useState(true);
@@ -11,21 +13,21 @@ function ForCandidate() {
   const [toggle, setToggle] = useState(true);
 
 
-  
+
   const slowConfig = {
     duration: 1000,
   };
-  
+
   const bounceUp = {
     from: { transform: "translateY(0px)" },
     to: { transform: "translateY(200px)" },
   };
-  
+
   const bounceDown = {
     from: { transform: "translateY(200px)" },
     to: { transform: "translateY(0px)" },
   };
-  
+
   const [isBouncingUp, setIsBouncingUp] = React.useState(true);
   const [isBouncingDown, setIsBouncinDown] = React.useState(true);
 
@@ -38,8 +40,8 @@ function ForCandidate() {
       setTimeout(() => {
         setIsBouncingUp(!isBouncingUp);
         setToggle(!toggle)
-      }, 5000); 
-     
+      }, 5000);
+
     },
   });
 
@@ -52,14 +54,14 @@ function ForCandidate() {
       setTimeout(() => {
         setIsBouncinDown(!isBouncingDown);
         setToggle(!toggle)
-      }, 5000); 
-     
+      }, 5000);
+
     },
   });
 
- 
-  
-  
+
+
+
   const data = [
     {
       img1: "./images/home/for_1.png",
@@ -211,16 +213,18 @@ function ForCandidate() {
       </div>
       <div className="for_candidate">
         <div className="customMargins">
-          <div className="candidate_text">
+          <div className="candidate_text" >
             {toggle ? (
               <>
-            <p id="for">For </p>
-            <p id="candidate">Candidate</p>
-            </>
-            ):(
+                <p id="for">For </p>
+                <p
+                  id="candidate">Candidate</p>
+              </>
+            ) : (
               <>
-              <p id="for">For </p>
-              <p id="Employer">Employer</p>
+                <p id="for">For </p>
+                <p
+                  id="Employer">Employer</p>
               </>
             )}
           </div>
@@ -232,7 +236,14 @@ function ForCandidate() {
           {data.map((item, index) => (
             <animated.div className="create_account" key={index} style={index % 2 === 0 ? springProps1 : springProps2}>
               <div className="eclips">
+                {toggle ? (
+                  <div className="circle_background"></div>
+                ): (
+                  <div className="circle_background1"></div>
+                  )}
+               
                 <div className="create_acc_inner">
+
                   <div className="create_img">
                     {toggle ? (
                       <>
