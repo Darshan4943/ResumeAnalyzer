@@ -25,12 +25,12 @@ function Employer() {
   return (
     <div>
       
-      {/* <Employer_main />
+      <Employer_main />
       <Employer_sorting showAnimation={showAnimation} />
       
       <Employer_hire_candidates />
       <Employer_why_skilotech />
-      <Employer_why_skilotech_sec2 /> */}
+      <Employer_why_skilotech_sec2 />
     </div>
   );
 }

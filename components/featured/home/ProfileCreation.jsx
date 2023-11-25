@@ -12,7 +12,7 @@ function Profile_creation() {
   const [isHovered5, setIsHovered5] = useState(false);
   const [isHovered4, setIsHovered4] = useState(false);
   const [isHovered3, setIsHovered3] = useState(false);
-
+  
 
   const handleScroll = () => {
     if (window.scrollY >= 600 && !isAnimate) {
@@ -65,7 +65,15 @@ function Profile_creation() {
         <img className="Line_man" src="./images/home/Line_man.png" alt="" />
         {isAnimation && (
           <>
-            <div className="animation_9" onMouseEnter={() => setIsHovered9(true)} onMouseLeave={() => setIsHovered9(false)} style={{zIndex: isHovered9 ? 2 : 20 }}>
+            <div className="animation_9" onMouseEnter={() => setIsHovered9(true)}
+
+              onMouseLeave={() => {
+                setTimeout(() => {
+                  setIsHovered9(false);
+                }, 1000);
+              }}
+
+              style={{ zIndex: isHovered9 ? 2 : 20  }}>
               <div className="animation_9_1" >
 
                 <div className="animation_line9_img9">
@@ -76,7 +84,7 @@ function Profile_creation() {
                   <motion.div
                     className=""
                     initial={{ x: '100%' }}
-                    animate={{ x: isHovered9 ? '100%' : '0%' }}
+                    animate={{ x: isHovered9 ? ['0%', '100%', '0%'] : 0 }}
                     transition={{ duration: 1.2, delay: 0.2 }}
                     style={{
                       width: '168px',
@@ -99,7 +107,11 @@ function Profile_creation() {
             </div>
 
 
-            <div className="animation_10" onMouseEnter={() => setIsHovered10(true)} onMouseLeave={() => setIsHovered10(false)}>
+            <div className="animation_10" onMouseEnter={() => setIsHovered10(true)} onMouseLeave={() => {
+              setTimeout(() => {
+                setIsHovered10(false);
+              }, 1000);
+            }} >
               <div className="animation_10_1" >
 
                 <div className="animation_line10_img10">
@@ -110,7 +122,7 @@ function Profile_creation() {
                   <motion.div
                     className=""
                     initial={{ x: '100%' }}
-                    animate={{ x: isHovered10 ? '100%' : '0%' }}
+                    animate={{ x: isHovered10 ? ['0%', '100%', '0%'] : 0 }}
                     transition={{ duration: 1.2, delay: 0.2 }}
                     style={{
                       width: '152px',
@@ -128,7 +140,11 @@ function Profile_creation() {
               </div>
             </div>
 
-            <div className="animation_8" onMouseEnter={() => setIsHovered8(true)} onMouseLeave={() => setIsHovered8(false)}>
+            <div className="animation_8" onMouseEnter={() => setIsHovered8(true)} onMouseLeave={() => {
+              setTimeout(() => {
+                setIsHovered8(false);
+              }, 1000);
+            }} >
               <div className="animation_8_1" >
 
                 <div className="animation_line8_img8">
@@ -139,7 +155,7 @@ function Profile_creation() {
                   <motion.div
                     className=""
                     initial={{ x: '100%' }}
-                    animate={{ x: isHovered8 ? '100%' : '0%' }}
+                    animate={{ x: isHovered8 ? ['0%', '100%', '0%'] : 0 }}
                     transition={{ duration: 1.2, delay: 0.2 }}
                     style={{
                       width: '131px',
@@ -157,7 +173,11 @@ function Profile_creation() {
               </div>
             </div>
 
-            <div className="animation_7" onMouseEnter={() => setIsHovered7(true)} onMouseLeave={() => setIsHovered7(false)} style={{zIndex: isHovered7 ? 1 : 15 }}>
+            <div className="animation_7" onMouseEnter={() => setIsHovered7(true)} onMouseLeave={() => {
+              setTimeout(() => {
+                setIsHovered7(false);
+              }, 1000);
+            }} style={{ zIndex: isHovered7 ? 1 : 15 }}>
               <div className="animation_7_1" >
 
 
@@ -166,7 +186,7 @@ function Profile_creation() {
                   <motion.div
                     className=""
                     initial={{ y: '-100%' }}
-                    animate={{ y: isHovered7 ? '-100%' : '0%' }}
+                    animate={{ y: isHovered7 ? ['0%', '-100%', '0%'] : 0 }}
                     transition={{ duration: 1.2, delay: 0.2 }}
                     style={{
                       width: '80px',
@@ -174,7 +194,7 @@ function Profile_creation() {
                       background: 'white',
                       position: 'absolute',
                       top: 100,
-                  
+
                     }}
                   ></motion.div>
 
@@ -192,7 +212,11 @@ function Profile_creation() {
               </div>
             </div>
 
-            <div className="animation_6" onMouseEnter={() => setIsHovered6(true)} onMouseLeave={() => setIsHovered6(false)}>
+            <div className="animation_6" onMouseEnter={() => setIsHovered6(true)} onMouseLeave={() => {
+              setTimeout(() => {
+                setIsHovered6(false);
+              }, 1000);
+            }}>
               <div className="animation_6_1" >
 
 
@@ -201,7 +225,7 @@ function Profile_creation() {
                   <motion.div
                     className=""
                     initial={{ x: '-100%' }}
-                    animate={{ x: isHovered6 ? '-100%' : '0%' }}
+                    animate={{ x: isHovered6 ? ['0%', '-100%', '0%'] : 0 }}
                     transition={{ duration: 1.2, delay: 0.2 }}
                     style={{
                       width: '131px',
@@ -223,15 +247,22 @@ function Profile_creation() {
               </div>
             </div>
 
-            <div className="animation_5" onMouseEnter={() => setIsHovered5(true)} onMouseLeave={() => setIsHovered5(false)} style={{zIndex: isHovered5  ? 2:20 }}
->
+            <div className="animation_5" onMouseEnter={() => setIsHovered5(true)} onMouseLeave={() => {
+
+              setTimeout(() => {
+                setIsHovered5(false);
+              }, 1000);
+            }} style={{ zIndex: isHovered5 ? 2 : 20 }}
+            >
               <div className="animation_5_1"  >
                 <div className="animation_5_2" >
                   <motion.div
                     className=""
                     initial={{ x: '-100%' }}
-                    animate={{ x: isHovered5 ? '-100%' : '0%' }}
+                    // animate={{ x: isHovered5 ? '-100%' : '0%' }}
+                    animate={{ x: isHovered5 ? ['0%', '-100%', '0%'] : 0 }}
                     transition={{ duration: 1.2, delay: 0.2 }}
+
                     style={{
                       width: '110px',
                       height: '50px',
@@ -241,7 +272,7 @@ function Profile_creation() {
                       // borderTopLeftRadius:"15px",
                       // clipPath:  'polygon(30% 0%, 100% 0, 100% 100%, 0 100%)' ,
                       left: 111,
-                    
+
                     }}
                   ></motion.div>
                   <div className="animation_line5">
@@ -255,7 +286,7 @@ function Profile_creation() {
               </div>
             </div>
 
-            <div className="animation_4" onMouseEnter={() => setIsHovered4(true)} onMouseLeave={() => setIsHovered4(false)}>
+            <div className="animation_4" >
               <div className="animation_4_1" >
 
 
@@ -264,7 +295,7 @@ function Profile_creation() {
                   <motion.div
                     className=""
                     initial={{ y: '100%' }}
-                    animate={{ y: isHovered4 ? '100%' : '-15%' }}
+                    animate={{ y: isHovered4 ? ['-15%', '100%', '-15%'] : 0 }}
                     transition={{ duration: 1.2, delay: 0.2 }}
                     style={{
                       width: '54px',
@@ -282,7 +313,12 @@ function Profile_creation() {
                   </div>
                 </div>
 
-                <div className="animation_line4_img4">
+                <div className="animation_line4_img4" onMouseEnter={() => setIsHovered4(true)} onMouseLeave={() => {
+
+                  setTimeout(() => {
+                    setIsHovered4(false);
+                  }, 1000);
+                }}>
                   <img src="./images/home/animation_line4_img4.png" alt="" style={{ opacity: isVisible ? 1 : 0, transition: 'opacity 1s ease' }} />
                 </div>
 
@@ -290,7 +326,7 @@ function Profile_creation() {
               </div>
             </div>
 
-            <div className="animation_3" onMouseEnter={() => setIsHovered3(true)} onMouseLeave={() => setIsHovered3(false)}> 
+            <div className="animation_3" >
               <div className="animation_3_1" >
 
 
@@ -299,7 +335,7 @@ function Profile_creation() {
                   <motion.div
                     className=""
                     initial={{ y: '100%' }}
-                    animate={{ y: isHovered3 ? '100%' : '-16%' }}
+                    animate={{ y: isHovered3 ? ['-16%', '100%', '-16%'] : 0 }}
                     transition={{ duration: 1.2, delay: 0.2 }}
                     style={{
                       width: '100px',
@@ -313,14 +349,19 @@ function Profile_creation() {
                   ></motion.div>
 
 
-                  <div className="animation_line3">
-                    <img style={{ height: "210px", width: "69px"}} src="./images/home/animation_line3.png" alt="" />
+                  <div className="animation_line3" >
+                    <img style={{ height: "210px", width: "69px" }} src="./images/home/animation_line3.png" alt="" />
                   </div>
 
 
                 </div>
 
-                <div className="animation_line3_img3">
+                <div className="animation_line3_img3" onMouseEnter={() => setIsHovered3(true)} onMouseLeave={() => {
+
+                  setTimeout(() => {
+                    setIsHovered3(false);
+                  }, 1000);
+                }}>
                   <img src="./images/home/animation_line3_img3.png" alt="" style={{ opacity: isVisible ? 1 : 0, transition: 'opacity 1s ease', }} />
                 </div>
 
