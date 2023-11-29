@@ -3,10 +3,16 @@
   margin-top: 16px;
   overflow: hidden;
   height: 100vh;
+
   .only_slider1 {
     min-height: 19vh !important;
-    height: 19vh;
-    width: 100%;
+    max-height: 19vh !important;
+    max-width: 150% !important;
+  }
+  .only_slider2 {
+    min-height: 19vh !important;
+    max-height: 19vh !important;
+   
   }
   // @media (max-width: 1550px) {
   //   .only_slider1 {
@@ -62,12 +68,13 @@
   .slider2 {
     position: relative;
     overflow: hidden;
-    width: 90%;
+    width: 1020px;
     animation-name: movement;
     animation-duration: 2s;
     animation-iteration-count: 1;
     left: -10%;
-    border-radius: 16px;
+    border-radius: 24px 0 0 24px;
+ 
   }
   @keyframes movement {
     from {
@@ -150,8 +157,14 @@
     width: 692px;
     height: 80vh;
     position: absolute;
-    top: 90px;
-    //  right:30px
+    top: 95px;
+    z-index: 20;
+    right: 5rem;
+  }
+
+  @media (max-width: 1440px) {
+    .hr_animation_container {
+    }
   }
 
   .yellow_animation {
@@ -162,7 +175,7 @@
     height: 75%;
     transform: rotate(1.114deg);
     top: 100px;
-    /* left: 10px; */
+    // /* left: 10px; */
     margin-right: 15px;
   }
   .blue_animation {
@@ -559,7 +572,7 @@
     width: 100%;
     height: 565px;
     flex-shrink: 0;
-   
+
     @media (max-width: 1150px) {
       .for_candidate {
         width: 100%;
@@ -635,7 +648,7 @@
       border: 1px solid rgba(255, 255, 255, 0.18);
       display: flex;
       padding: 38px 64px;
-    
+
       justify-content: center;
       align-items: center;
       flex-shrink: 0;
@@ -648,7 +661,7 @@
       border-radius: 324px;
       background: var(--primary, #06a9ef);
       filter: blur(100px);
-    
+
       opacity: 0.1;
     }
     .circle_background1 {
@@ -659,7 +672,7 @@
       border-radius: 324px;
       background: var(--primary, #ffda1d);
       filter: blur(100px);
-    
+
       opacity: 0.1;
     }
 
@@ -861,13 +874,15 @@
 
 /* Profile_creation start here */
 .profile_creation_container {
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 24px;
   overflow: hidden;
-
   margin-top: 43px !important;
+
+ 
 
   @media (min-width: 1440px) {
     .profile_creation_container {
@@ -877,7 +892,7 @@
   }
 
   .profile_creation_sub_container_one {
-    /* border: solid 1px gray; */
+    position: relative;
   }
 
   .profile_creation_head {

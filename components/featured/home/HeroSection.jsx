@@ -11,7 +11,7 @@ function HeroSection() {
               <img style={{
                 position: 'absolute',
                 width: '107rem',
-                right: "5%",
+                right: "-5%",
               }} className="only_slider1 " src="./images/home/Rectangle_1.png" alt="" />
             </div>
             <div >
@@ -24,12 +24,12 @@ function HeroSection() {
           
             <div className="hero_wrapper2">
               <div className="slider2">
-                <div className="only_slider1">
+                <div className="only_slider2">
                   <img style={{
                     position: 'absolute',
                     
                     right: '10%',
-                  }}  src="./images/home/Rectangle_3.png" alt="" />
+                  }} className="only_slider2 " src="./images/home/Rectangle_3.png" alt="" />
                 </div>
                 <div >
                   <div className="title_cont">
@@ -42,7 +42,7 @@ function HeroSection() {
           
         </div>
         {/* <div className="landing_container"> */}
-        <div className="customMargins1">
+        <div className="customMargins">
           <div className="animation_parent ">
             <div className="hr_animation_container">
               <svg

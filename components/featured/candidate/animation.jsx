@@ -10,7 +10,7 @@ function Candidate_animation() {
 
 
   const handleScroll = () => {
-    if (window.scrollY >= 275 && !isAnimate) {
+    if (window.scrollY >= 300 && !isAnimate) {
       setIsAnimate(true);
       setIsLineAnimate(true);
       window.removeEventListener('scroll', handleScroll);

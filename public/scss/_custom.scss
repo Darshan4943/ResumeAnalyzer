@@ -20,27 +20,63 @@ body {
 		padding: 0 16px;
 		
 	}
-  }
-  .customMargins1{
-	margin: 0 auto;
-	max-width:1400px ;
-	display: flex;
-	justify-content: flex-end;
-
-	
-
-}
-
-
-@media (max-width: 1440px) {
 	.customMargins1{
 		
 		padding: 0 16px;
 		
 	}
   }
+  .customMargins1{
+	margin: 0 auto;
+	max-width:1650px ;
+	
+}
+.layer1{
 
-  .not-display-block {
-    display: initial; 
-  }
+	background-color: white;
+}
+// .layer2{
+
+// 	background-color: white;
+// }
+
+.layer3{
+	height: 160vh;
+	position: relative;
+	z-index: -100;
+	top: 200%;
+}
+
+.layer4{
+	position: fixed;
+	top: 5%;
+	z-index: -2;
+	background-color: white;
+}
+.layer5{
+	position: fixed;
+	top: 0%;
+	left: 0%;
+	right: 0%;
+	z-index: 3;
+	background-color: white;
+}
+.layer6{
+	position: fixed;
+	top: 10%;
+	left: 0%;
+	right: 0%;
+	z-index: -4;
+	
+}
+.layer7{
+	position: fixed;
+	top: 35%;
+	left: 0%;
+	right: 0%;
+	z-index: -4;
+}
+
+
+
 

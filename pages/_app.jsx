@@ -15,6 +15,10 @@ import { Api } from "~/Redux/Api.jsx";
 
 
 const WrappedApp = ({ Component, pageProps }) => {
+
+  
+
+
   const store = useStore();
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
@@ -163,7 +167,12 @@ const WrappedApp = ({ Component, pageProps }) => {
             <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat"></link>
             <link rel="preconnect" href="https://fonts.googleapis.com" />
             <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-            <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+            <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+            <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+            <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+          
+
           </Helmet>
 
           <Layout>

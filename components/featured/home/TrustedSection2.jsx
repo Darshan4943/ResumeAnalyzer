@@ -1,6 +1,6 @@
 import{ React,useState,useEffect }from 'react'
 import { motion } from 'framer-motion'
-function TrustedBySection() {
+function TrustedBySection2() {
 
 
 
@@ -66,32 +66,21 @@ function TrustedBySection() {
     ]
     return (
         <div className="trust_section_parent">
-            <motion.div className="trust_section"
-          
-            >
-                <p id="trust">Trusted by...</p>
-                <div className="trust_img">
-                    <img src="./images/home/scroller-img_1.png" alt="" />
-                    <img src="./images/home/scroller-img_2.png" alt="" />
-                    <img src="./images/home/scroller-img_3.png" alt="" />
-                    <img src="./images/home/scroller-img_4.png" alt="" />
-                    <img src="./images/home/scroller-img_5.png" alt="" />
-                </div>
-            </motion.div>
+         
             <div className="customMargins">
-                <motion.div className="popular_job">
-                    <motion.p id="popular_job"
+                <div className="popular_job">
+                    <p id="popular_job"
               
-                    >Popular Job Categories</motion.p>
-                    <motion.p id="popular_info"
+                    >Popular Job Categories</p>
+                    <p id="popular_info"
                     
                     >
                         Discover exciting career opportunities in popular fields, from
                         technology to healthcare, finance to marketing, and more.
-                    </motion.p>
+                    </p>
 
 
-                </motion.div>
+                </div>
 
                 <div className="job_cat_card">
                     {data.map((item, index) => (
@@ -113,4 +102,4 @@ function TrustedBySection() {
     )
 }
 
-export default TrustedBySection
+export default TrustedBySection2
