@@ -893,6 +893,7 @@
 
   .profile_creation_sub_container_one {
     position: relative;
+    max-width: 456px !important;
   }
 
   .profile_creation_head {
@@ -917,6 +918,7 @@
     font-weight: 500;
     line-height: normal;
     margin-bottom: 24px;
+   
   }
   .profile_creation_head_para {
     color: var(--Text-Secondary, #828282);

@@ -15,7 +15,7 @@ function Header() {
       <div className="header_parent">
         <div className="header">
           <div className="header_left">
-          <ALink href="/"> <img src="./images/logo_skilotech.png" alt="" /></ALink>
+            <ALink href="/"> <img src="./images/logo_skilotech.png" alt="" /></ALink>
             <ALink href="/" className={selectedPage === "/" ? "active" : "li"}>
               <li>Home</li>
             </ALink>
