@@ -75,11 +75,13 @@ function Profile_creation() {
     if (value >= 2500) {
         document.getElementById("profile_creation_sub_container_one").style.left = (value - 2500) * -1.4 + "px";
         document.getElementById("profile_creation_sub_container_two").style.left = (value - 2500) * 2 + "px";
-    } else {
+    } else  {
      
         document.getElementById("profile_creation_sub_container_one").style.left = "0px";
         document.getElementById("profile_creation_sub_container_two").style.left = "0px";
     }
+
+   
 });
 
 // window.addEventListener("scroll", function () {

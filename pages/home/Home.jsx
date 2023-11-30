@@ -44,6 +44,11 @@ function HomePage() {
       setOpacity2(0);
       setOpacity3(0);
     }
+    else if (scrollY < 2100) {
+    
+      setOpacity2(0);
+    
+    }
 
 
 
