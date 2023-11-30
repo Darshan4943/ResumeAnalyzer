@@ -16,6 +16,7 @@ function HomePage() {
   const [opacity1, setOpacity1] = useState(0);
   const [opacity2, setOpacity2] = useState(0);
   const [trustAnimation, setTrustAnimation] = useState(false);
+  
   const handleScroll = () => {
 
 
@@ -26,15 +27,15 @@ function HomePage() {
       const mappedOpacity = (scrollY - 1200) / (1900 - 1200);
       setOpacity1(mappedOpacity);
     } else if (scrollY >= 2100 && scrollY < 2300) {
-      const mappedOpacity = 1 - (scrollY - 2100) / (2300 - 2100);
-      setOpacity1(mappedOpacity);
+      const mappedOpacity = 1 - (scrollY - 1800) / (2300 - 1800);
+      setOpacity1(mappedOpacity-0.1);
 
       const mappedOpacity1 = (scrollY - 2100) / (2300 - 2100);
       setOpacity2(mappedOpacity1);
     } else if (scrollY >= 2500 && scrollY < 2800) {
     
       const mappedOpacity = 1 - (scrollY - 2500) / (2800 - 2500);
-      setOpacity2(mappedOpacity);
+      setOpacity2(mappedOpacity- 0.1);
       const mappedOpacity1 = (scrollY - 2500) / (2800 - 2500);
       setOpacity3(mappedOpacity1);
       setTrustAnimation(true)
@@ -99,11 +100,12 @@ function HomePage() {
 
   const containerStyle1 = {
     opacity: opacity2,
+   
     
   };
   const containerStyle2 = {
     opacity: opacity3,
-  
+    
   };
 
 
