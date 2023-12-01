@@ -29,7 +29,7 @@ function Candidate_animation() {
     if (isAnimate) {
       const timer = setTimeout(() => {
         setSlideImage(true);
-      }, 4000);
+      }, 8000);
 
       return () => {
         clearTimeout(timer);
@@ -44,7 +44,7 @@ function Candidate_animation() {
       divTimer = setTimeout(() => {
         setIsDiv(true);
         setIsLineAnimate(false);
-      }, 5000);
+      }, 9000);
     }
 
     return () => {
@@ -62,7 +62,7 @@ function Candidate_animation() {
     if (isAnimate) {
       divTimer = setTimeout(() => {
         setSlideImageUp(true)
-      }, 5500);
+      }, 9500);
     }
 
     return () => {
