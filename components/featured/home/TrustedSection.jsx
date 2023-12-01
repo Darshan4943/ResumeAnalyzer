@@ -6,23 +6,28 @@ import {
   useTransform,
   useAnimation,
 } from "framer-motion";
-import { useInView } from "react-intersection-observer";
+import Lenis from "@studio-freight/lenis";
+
 function TrustedBySection() {
   const trustedRef = useRef();
   const cardRef = useRef();
-  const { scrollY } = useScroll();
-  const controls = useAnimation();
-  //   const [ref, inView] = useInView({
-  //     triggerOnce: false,
-  //   });
 
-  //   useEffect(() => {
-  //     // if (inView) {
-  //       controls.start({
-  //         y: -50,
-  //       });
-  //     // }
-  //   }, [controls, inView]);
+  useEffect(() => {
+    const lenis = new Lenis({
+      target: trustedRef.current,
+    });
+
+    // lenis.on("scroll", (e) => {
+    //   console.log(23, e);
+    // });
+
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+
+    requestAnimationFrame(raf);
+  });
 
   const { scrollYProgress } = useScroll(
     {
@@ -71,7 +76,6 @@ function TrustedBySection() {
     [900, 0, 0, 0, -600]
   );
 
-  const initialY = -100; // Adjust this value based on your needs
   // const translateY = useTransform(
   //   scrollYProgress,
   //   [0, 0.7, 1],
@@ -191,7 +195,7 @@ function TrustedBySection() {
     },
   ];
   return (
-    <div className="trust_section_parent" ref={trustedRef}>
+    <motion.div className="trust_section_parent" ref={trustedRef}>
       <motion.div className="trust_section" style={{ y }}>
         <p id="trust">Trusted by...</p>
         <div className="trust_img">
@@ -227,8 +231,6 @@ function TrustedBySection() {
               ref={cardRef}
               className="card"
               key={index}
-              //   style={{ translateY }}
-
               style={{
                 y:
                   index === 0 || index === 2 || index === 4
@@ -240,24 +242,6 @@ function TrustedBySection() {
                     : index === 7 || index === 9 || index === 11
                     ? translateY3
                     : translateY4,
-              }} //   ref={ref}
-              //   initial={{ y: 50 }}
-              //   animate={controls}
-              transition={{
-                type: "spring",
-                stiffness: 20,
-                damping: 10,
-                duration: 3,
-                delay:
-                  index === 0 || index === 2 || index === 4
-                    ? 1
-                    : index === 1 || index === 3 || index === 5
-                    ? 2
-                    : index === 6 || index === 8 || index === 10
-                    ? 3
-                    : index === 7 || index === 9 || index === 11
-                    ? 4
-                    : 0,
               }}
             >
               <motion.img
@@ -275,7 +259,7 @@ function TrustedBySection() {
           ))}
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
