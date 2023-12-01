@@ -7,7 +7,6 @@ import "react-toastify/dist/ReactToastify.min.css";
 
 import Header from "./partials/header/header";
 import Footer from "./partials/footer/footer";
-
 import { actions } from "../store/demo";
 
 

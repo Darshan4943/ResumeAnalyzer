@@ -1,16 +1,13 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect,useState } from "react";
 import HeroSection from "~/components/featured/home/HeroSection";
 import ForCandidate from "~/components/featured/home/ForCandidate";
 import Testimonial from "~/components/featured/home/Testimonial";
 import Testimonial_2 from "~/components/featured/home/Testimonial_2";
 import Profile_creation from "~/components/featured/home/ProfileCreation";
-import { motion, useAnimation } from 'framer-motion';
+import { motion } from 'framer-motion';
 import TrustedBySection from "~/components/featured/home/TrustedSection";
-function HomePage() {
 
-  const [iscandidate, setIsCandidate] = useState(false);
-  const [isProfile, setIsProfile] = useState(false);
-  const [isProfileClosed, setIsProfileClosed] = useState(false);
+function HomePage() {
 
   const [opacity3, setOpacity3] = useState(0);
   const [opacity1, setOpacity1] = useState(0);
@@ -18,8 +15,6 @@ function HomePage() {
   const [trustAnimation, setTrustAnimation] = useState(false);
   
   const handleScroll = () => {
-
-
 
     const scrollY = window.scrollY;
 
@@ -50,42 +45,6 @@ function HomePage() {
     
     }
 
-
-
-
-    // else if (scrollY >= 2300 && scrollY < 2399) {
-    //   const mappedOpacity = 1 - (scrollY - 2300) / (2399 - 2300);
-    //   setOpacity2(mappedOpacity);
-    // } else if (scrollY >= 2400  && scrollY < 2500) {
-    //   const mappedOpacity = (scrollY - 2400) / (2750 - 2400);
-    //   setOpacity3(mappedOpacity);
-    // }  
-
-
-
-
-
-
-    // if (window.scrollY >= 2400) {
-    //   setIsProfileClosed(true);
-    //   setIsProfile(false);
-    //   setIsCandidate(false);
-    // } else if (window.scrollY >= 2000) {
-    //   setIsProfile(true);
-    //   setIsProfileClosed(false);
-    //   setIsCandidate(false);
-    // } else if (window.scrollY >= 1300) {
-    //   setIsCandidate(true);
-    //   setIsProfile(false);
-    //   setIsProfileClosed(false);
-
-    // } else {
-    //   setIsCandidate(false);
-    //   setIsProfile(false);
-    //   if (window.scrollY < 3000) {
-    //     setIsProfileClosed(false);
-    //   }
-    // }
   };
 
 
@@ -114,10 +73,10 @@ function HomePage() {
   };
 
 
-
-
   return (
     <div >
+
+      
 
       <div className="layer1">
         <HeroSection />
@@ -129,12 +88,14 @@ function HomePage() {
       <div className="layer3">
 
       </div>
+      
       <div style={containerStyle} className="layer4 ">
         <ForCandidate />
       </div>
-      <div style={containerStyle1} className="layer5 ">
+      <div style={containerStyle1} className="layer5">
         <Profile_creation />
       </div>
+
       <motion.div 
 
       initial={{ y:300}}
@@ -206,3 +167,24 @@ export default HomePage;
     </div> */}
 
 
+// import React from "react";
+// import HeroSection from "~/components/featured/home/HeroSection";
+// import ForCandidate from "~/components/featured/home/ForCandidate";
+// import Testimonial from "~/components/featured/home/Testimonial";
+// import Testimonial_2 from "~/components/featured/home/Testimonial_2";
+// import TrustedBySection from "~/components/featured/home/TrustedSection";
+// import Profile_creation from "~/components/featured/home/ProfileCreation";
+// function HomePage() {
+//   return (
+//     <div>
+//       <HeroSection />
+//       <TrustedBySection />
+//       <ForCandidate />
+//       <Profile_creation />
+//       <Testimonial />
+//       <Testimonial_2 />
+//     </div>
+//   );
+// }
+
+// export default HomePage;
