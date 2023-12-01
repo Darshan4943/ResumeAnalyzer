@@ -12,7 +12,7 @@
   .only_slider2 {
     min-height: 19vh !important;
     max-height: 19vh !important;
-    max-width: 150% !important;
+    width: 150% !important;
   }
   // @media (max-width: 1550px) {
   //   .only_slider1 {
@@ -164,23 +164,7 @@
     padding-right: 60px;
   }
 
-  @media (min-width: 1025px) {
-    // .hr_animation_container {
-
-     
-  
-    // right: 5rem !important;
-    // padding-right: 26px;
-
-    // }
-    // .yellow_animation {
-    
-      
-    //   right: 0% !important;
-   
-     
-    // }
-  }
+ 
 
   .yellow_animation {
     position: absolute;
@@ -191,7 +175,7 @@
     transform: rotate(20deg);
 
     top: 15%;
-    left: 38%;
+    left: 39%;
     object-fit: contain;
     // /* left: 10px; */
     overflow: hidden;
@@ -202,12 +186,13 @@
     width: 56vh;
     // width: 534px;
     // height: 84vh;
-    top: 0%;
+    top: -1%;
     // right:22%;
     object-fit: contain;
     left: 32%;
     overflow: hidden;
     // transform: rotate(-1.886deg);
+    // backdrop-filter: blur(10px);
   }
   .female {
     transition: all 0.6s;
@@ -217,7 +202,7 @@
     // height: 420.252px;
     height: 68.5vh;
     flex-shrink: 0;
-    top: 55px;
+    top: 60px;
     object-fit: contain;
     left: 35%;
   }
@@ -225,22 +210,22 @@
     transition: all 0.6s;
     position: absolute;
     opacity: 0;
-    width: 524px;
-    height: 68.5vh;
-    left: 25%;
+    width: 600px;
+    height: 71.5vh;
+    left: 24%;
     flex-shrink: 0;
-    top: 55px;
+    top: 30px;
     object-fit: contain;
   }
   .hr_animation_container:hover .blue_animation {
-    transform: rotate(-19deg);
-    left: 18rem;
-    top: 2.5rem;
+    transform: rotate(-18deg);
+    left: 15rem;
+    top: 3rem;
   }
   .hr_animation_container:hover .yellow_animation {
     transform: rotate(-65deg);
-    left: 13rem;
-    top: 7rem;
+    left: 8rem;
+    top: 10rem;
   }
   .hr_animation_container:hover .female {
     opacity: 0;
@@ -251,8 +236,8 @@
 
   .main_para_cont {
     /* position: absolute; */
-    width: 41vw;
-    max-width: 600px;
+    width: 52vw;
+    max-width: 650px;
     height: 17vh;
     display: flex;
     justify-content: center;

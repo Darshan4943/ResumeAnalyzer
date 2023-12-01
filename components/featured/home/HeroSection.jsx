@@ -10,7 +10,7 @@ function HeroSection() {
             <div className="only_slider1 ">
               <img style={{
                 position: 'absolute',
-                width: '107rem',
+                width: '150rem',
                 right: "10%",
               }} className="only_slider1 " src="./images/home/Rectangle_1.png" alt="" />
             </div>
