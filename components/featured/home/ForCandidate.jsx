@@ -155,6 +155,7 @@ function ForCandidate() {
   }, [recall]);
 
   return (
+    <div className="forCandidate">
     <div className="line_animation">
       <div>
         <div className="yellow_line">
@@ -263,6 +264,7 @@ function ForCandidate() {
           ))}
         </div>
       </div>
+    </div>
     </div>
   );
 }

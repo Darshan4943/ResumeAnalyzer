@@ -30,13 +30,16 @@ function Profile_creation() {
 
 
   const handleScroll = () => {
-    if (window.scrollY >=2100 && !isAnimate) {
+    if (window.scrollY >=2300 && !isAnimate) {
      
       setIsAnimate(true);
       setIsAnimation(true);
       window.removeEventListener('scroll', handleScroll);
   
     }
+   
+
+    
   };
 
   
@@ -60,22 +63,25 @@ function Profile_creation() {
   useEffect(() => {
     if (isAnimate) {
       setIsVisible(true);
-      containerAnimation.start({ y: -((window.scrollY - 2100) * 1), transition: { duration: 2.5 } });
-      
+      containerAnimation.start({ y: ((window.scrollY - 2300) * 1), transition: { duration: 2.5 } });
     }
   }, [isAnimate, containerAnimation]);
+
+ 
 
   window.addEventListener("scroll", function () {
     let value = window.scrollY;
 
-    if (value >= 2300) {
-        document.getElementById("profile_creation_sub_container_one").style.left = (value - 2300) * -1.4 + "px";
-        document.getElementById("profile_creation_sub_container_two").style.left = (value - 2300) * 2 + "px";
-    } else {
+    if (value >= 2500) {
+        document.getElementById("profile_creation_sub_container_one").style.left = (value - 2500) * -1.4 + "px";
+        document.getElementById("profile_creation_sub_container_two").style.left = (value - 2500) * 2 + "px";
+    } else  {
      
         document.getElementById("profile_creation_sub_container_one").style.left = "0px";
         document.getElementById("profile_creation_sub_container_two").style.left = "0px";
     }
+
+   
 });
 
 // window.addEventListener("scroll", function () {
@@ -130,7 +136,7 @@ function Profile_creation() {
   // }, [isAnimate, containerAnimation,containerAnimation1,containerAnimation2,containerAnimation3]);
 
   return (
-    <div className="profile_creation_container customMargins">
+    <div className="profile_creation_container ">
 
       <motion.div className="profile_creation_sub_container_one "  id="profile_creation_sub_container_one">
         <motion.p className="profile_creation_head" initial={{ y: '100vh' }} animate={containerAnimation}>
