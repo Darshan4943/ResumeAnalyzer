@@ -1,23 +1,35 @@
-
 import { connect } from "react-redux";
-
-
 
 import "react-toastify/dist/ReactToastify.min.css";
 
 import Header from "./partials/header/header";
 import Footer from "./partials/footer/footer";
-
+import Lenis from "@studio-freight/lenis";
 import { actions } from "../store/demo";
+import { useRef, useEffect } from "react";
 
+function Layout({ children }) {
+  const mainRef = useRef();
+  useEffect(() => {
+    const lenis = new Lenis({
+      target: mainRef.current,
+    });
 
+    lenis.on("scroll", (e) => {
+      console.log(e);
+    });
 
-function Layout({ children, }) {
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
 
+    requestAnimationFrame(raf);
+  });
 
   return (
     <>
-      <div >
+      <div ref={mainRef}>
         <div className="customMargins">
           <Header />
         </div>
@@ -25,10 +37,6 @@ function Layout({ children, }) {
 
         <Footer />
       </div>
-
-
-
-
     </>
   );
 }
