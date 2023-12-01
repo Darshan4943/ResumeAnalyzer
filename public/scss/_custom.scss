@@ -26,9 +26,18 @@ body {
 		
 	}
   }
+
+  @media (min-width: 1440px) {
+	
+	.customMargins1{
+		
+		margin-left: 156px;
+		
+	}
+  }
   .customMargins1{
-	margin: 0 auto;
-	max-width:1650px ;
+	margin: 0 0 auto auto;
+	max-width:1284px ;
 	
 }
 .layer1{

@@ -12,6 +12,7 @@
   .only_slider2 {
     min-height: 19vh !important;
     max-height: 19vh !important;
+    width: 150% !important;
   }
   // @media (max-width: 1550px) {
   //   .only_slider1 {
@@ -67,11 +68,11 @@
   .slider2 {
     position: relative;
     overflow: hidden;
-    width: 1020px;
+    width: 1200px;
     animation-name: movement;
     animation-duration: 2s;
     animation-iteration-count: 1;
-    left: -10%;
+
     border-radius: 24px 0 0 24px;
   }
   @keyframes movement {
@@ -147,77 +148,84 @@
 
   .hr_animation_container {
     /* padding-left: 44px; */
-    overflow: hidden;
+  
     transition: all 0.6s;
     display: flex;
     justify-content: flex-end;
-    // width: 48vw;
+    // width: 40vw;
     width: 692px;
     height: 80vh;
     position: absolute;
     top: 95px;
     z-index: 20;
-    right: 5rem;
+    // right: 0rem;
+  //  margin-right: 0 !important;
+  
+    padding-right: 60px;
   }
 
-  @media (max-width: 1440px) {
-    .hr_animation_container {
-    }
-  }
+ 
 
   .yellow_animation {
     position: absolute;
     transition: all 0.6s;
-    // width: 57.5vh;
-    width: 534px;
-    height: 75%;
-    transform: rotate(1.114deg);
-    top: 100px;
+    width: 56vh;
+    // width: 350px;
+   
+    transform: rotate(20deg);
+
+    top: 15%;
+    left: 39%;
+    object-fit: contain;
     // /* left: 10px; */
-    margin-right: 15px;
+    overflow: hidden;
   }
   .blue_animation {
     position: absolute;
     transition: all 0.6s;
-    // width: 57.5vh;
-    width: 534px;
-    height: 85%;
-    top: 0px;
-    margin-right: 5rem;
+    width: 56vh;
+    // width: 534px;
+    // height: 84vh;
+    top: -1%;
+    // right:22%;
+    object-fit: contain;
+    left: 32%;
+    overflow: hidden;
     // transform: rotate(-1.886deg);
+    // backdrop-filter: blur(10px);
   }
   .female {
     transition: all 0.6s;
     position: absolute;
-    // width: 58vh;
-    width: 524px;
+    width: 58vh;
+    // width: 524px;
     // height: 420.252px;
     height: 68.5vh;
     flex-shrink: 0;
-    top: 55px;
+    top: 60px;
     object-fit: contain;
-    left: 6.5rem;
+    left: 35%;
   }
   .male {
     transition: all 0.6s;
     position: absolute;
     opacity: 0;
-    width: 524px;
-    height: 68.5vh;
-    right: 4rem;
+    width: 600px;
+    height: 71.5vh;
+    left: 24%;
     flex-shrink: 0;
-    top: 60px;
+    top: 30px;
     object-fit: contain;
   }
   .hr_animation_container:hover .blue_animation {
-    transform: rotate(-19deg);
-    right: -5rem;
-    top: 3.5rem;
+    transform: rotate(-18deg);
+    left: 15rem;
+    top: 3rem;
   }
   .hr_animation_container:hover .yellow_animation {
-    transform: rotate(-90deg);
-    left: 4.5rem;
-    top: 4rem;
+    transform: rotate(-65deg);
+    left: 8rem;
+    top: 10rem;
   }
   .hr_animation_container:hover .female {
     opacity: 0;
@@ -228,8 +236,8 @@
 
   .main_para_cont {
     /* position: absolute; */
-    width: 41vw;
-    max-width: 600px;
+    width: 52vw;
+    max-width: 650px;
     height: 17vh;
     display: flex;
     justify-content: center;
@@ -525,10 +533,9 @@
 // }
 
 .forCandidate {
-position: relative;
+  position: relative;
   height: 120vh;
   .line_animation {
-    
     width: 100%;
     display: flex;
     flex-direction: column;

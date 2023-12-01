@@ -5,58 +5,48 @@ function HeroSection() {
     <div >
       <div className="hero_section_parent">
 
-        <div className="hero_wrapper  customMargins  ">
-          <div className="slider1 ">
+        <div className="hero_wrapper customMargins  ">
+          <div className="slider1  ">
             <div className="only_slider1 ">
               <img style={{
                 position: 'absolute',
-                width: '107rem',
-                right: "-5%",
+                width: '150rem',
+                right: "10%",
               }} className="only_slider1 " src="./images/home/Rectangle_1.png" alt="" />
             </div>
             <div >
-              <div className="title_cont">
+              <div className="title_cont ">
                 <p className="p0 ">Empowering</p>{" "}
                 <p className="p3">Job Seekers,</p>
               </div>
             </div>
           </div>
-          
-            <div className="hero_wrapper2">
-              <div className="slider2">
-                <div className="only_slider2">
-                  <img style={{
-                    position: 'absolute',
-                    
-                    right: '10%',
-                  }} className="only_slider2 " src="./images/home/Rectangle_3.png" alt="" />
-                </div>
-                <div >
-                  <div className="title_cont">
-                    <p className="p1 ">Connecting </p>{" "}
-                    <p className="p2">Employers</p>
-                  </div>
+
+          <div className="hero_wrapper2 ">
+            <div className="slider2">
+              <div className="only_slider2">
+                <img style={{
+                  position: 'absolute',
+                  marginLeft: "16px",
+                  right: '10%',
+                }} className="only_slider2 " src="./images/home/Rectangle_3.png" alt="" />
+              </div>
+              <div >
+                <div className="title_cont">
+                  <p className="p1 ">Connecting </p>{" "}
+                  <p className="p2">Employers</p>
                 </div>
               </div>
             </div>
-          
+          </div>
+
         </div>
         {/* <div className="landing_container"> */}
         <div className="customMargins">
           <div className="animation_parent ">
             <div className="hr_animation_container">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="yellow_animation"
-                width="90%"
-                // height="307"
-                viewBox="0 0 351 307"
-                fill="none"
-              >
-                <path
-                  d="M250.234 188.927C215.561 279.795 219.097 330.171 130.409 296.329C41.7199 262.487 -25.0638 159.138 9.60983 68.2696C44.2835 -22.5987 230.442 -7.45664 319.131 26.3853C407.819 60.2273 284.908 98.0589 250.234 188.927Z"
-                  fill="#FBD515"
-                />
+              <svg className="yellow_animation" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 535 543" fill="none">
+                <path d="M454.835 300.214C454.835 465.177 490.9 542.866 329.895 542.866C168.889 542.866 0.56604 419.475 0.56604 254.513C0.56604 89.5506 304.721 0.979492 465.727 0.979492C626.732 0.979492 454.835 135.252 454.835 300.214Z" fill="#FBD515" />
               </svg>
               {/* <div className="yellow_animation"> </div> */}
 
@@ -64,7 +54,7 @@ function HeroSection() {
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="blue_animation"
-                
+
                   viewBox="0 0 315 377"
                   fill="none"
                 >
