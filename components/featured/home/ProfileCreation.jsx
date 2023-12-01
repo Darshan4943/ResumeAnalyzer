@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from "react";
 
 import { motion, useAnimation } from 'framer-motion';
-import AOS from 'aos';
+
 
 
 function Profile_creation() {
 
-  AOS.init({
-    offset: 120,
-  }
-  );
+
+
   const [isVisible, setIsVisible] = useState(false);
   const [isAnimate, setIsAnimate] = useState(false);
   const [isAnimation, setIsAnimation] = useState(false);
@@ -69,20 +67,22 @@ function Profile_creation() {
 
  
 
-  window.addEventListener("scroll", function () {
-    let value = window.scrollY;
+ 
+  
+    window.addEventListener("scroll", function () {
+        let value = window.scrollY;
 
-    if (value >= 2500) {
-        document.getElementById("profile_creation_sub_container_one").style.left = (value - 2500) * -1.4 + "px";
-        document.getElementById("profile_creation_sub_container_two").style.left = (value - 2500) * 2 + "px";
-    } else  {
-     
-        document.getElementById("profile_creation_sub_container_one").style.left = "0px";
-        document.getElementById("profile_creation_sub_container_two").style.left = "0px";
-    }
+        if (value >= 2500) {
+            document.getElementById("profile_creation_sub_container_one").style.left = (value - 2500) * -1.4 + "px";
+            document.getElementById("profile_creation_sub_container_two").style.left = (value - 2500) * 2 + "px";
+        }
+        //  else  {
+        //     document.getElementById("profile_creation_sub_container_one").style.left = "0px";
+        //     document.getElementById("profile_creation_sub_container_two").style.left = "0px";
+        // }
+    });
 
-   
-});
+
 
 // window.addEventListener("scroll", function () {
 //   let value = window.scrollY;
@@ -173,7 +173,7 @@ function Profile_creation() {
               <div className="animation_9_1" >
 
                 <div className="animation_line9_img9">
-                  <img src="./images/home/animation_line9_img9.png" alt="" style={{ opacity: isVisible ? 1 : 0, transition: 'opacity 2s ease' }} />
+                  <img src="./images/home/animation_line9_img9.png" alt="" style={{ opacity: isVisible ? 1 : 0, transition: 'opacity 3s ease' }} />
                 </div>
 
                 <div className="animation_9_2"   >
@@ -181,7 +181,7 @@ function Profile_creation() {
                     className=""
                     initial={{ x: '100%' }}
                     animate={{ x: isHovered9 ? ['0%', '100%', '0%'] : 0 }}
-                    transition={{ duration: 1.2, delay: 0.2 }}
+                    transition={{ duration: 1.2, delay: 1 }}
                     style={{
                       width: '168px',
                       height: '90px',
@@ -211,7 +211,7 @@ function Profile_creation() {
               <div className="animation_10_1" >
 
                 <div className="animation_line10_img10">
-                  <img src="./images/home/animation_line10_img10.png" alt="" style={{ opacity: isVisible ? 1 : 0, transition: 'opacity 1s ease' }} />
+                  <img src="./images/home/animation_line10_img10.png" alt="" style={{ opacity: isVisible ? 1 : 0, transition: 'opacity 3s ease' }} />
                 </div>
 
                 <div className="animation_10_2" >
@@ -219,7 +219,7 @@ function Profile_creation() {
                     className=""
                     initial={{ x: '100%' }}
                     animate={{ x: isHovered10 ? ['0%', '100%', '0%'] : 0 }}
-                    transition={{ duration: 1.2, delay: 0.2 }}
+                    transition={{ duration: 1.2, delay: 1 }}
                     style={{
                       width: '152px',
                       height: '80px',
@@ -244,7 +244,7 @@ function Profile_creation() {
               <div className="animation_8_1" >
 
                 <div className="animation_line8_img8">
-                  <img src="./images/home/animation_line8_img8.png" alt="" style={{ opacity: isVisible ? 1 : 0, transition: 'opacity 1s ease' }} />
+                  <img src="./images/home/animation_line8_img8.png" alt="" style={{ opacity: isVisible ? 1 : 0, transition: 'opacity 3s ease' }} />
                 </div>
 
                 <div className="animation_8_2" >
@@ -252,7 +252,7 @@ function Profile_creation() {
                     className=""
                     initial={{ x: '100%' }}
                     animate={{ x: isHovered8 ? ['0%', '100%', '0%'] : 0 }}
-                    transition={{ duration: 1.2, delay: 0.2 }}
+                    transition={{ duration: 1.2, delay: 1 }}
                     style={{
                       width: '131px',
                       height: '80px',
@@ -283,7 +283,7 @@ function Profile_creation() {
                     className=""
                     initial={{ y: '-100%' }}
                     animate={{ y: isHovered7 ? ['0%', '-100%', '0%'] : 0 }}
-                    transition={{ duration: 1.2, delay: 0.2 }}
+                    transition={{ duration: 1.2, delay: 1 }}
                     style={{
                       width: '80px',
                       height: '130px',
@@ -301,7 +301,7 @@ function Profile_creation() {
                 </div>
 
                 <div className="animation_line7_img7">
-                  <img src="./images/home/animation_line7_img7.png" alt="" style={{ opacity: isVisible ? 1 : 0, transition: 'opacity 1s ease' }} />
+                  <img src="./images/home/animation_line7_img7.png" alt="" style={{ opacity: isVisible ? 1 : 0, transition: 'opacity 3s ease' }} />
                 </div>
 
 
@@ -322,7 +322,7 @@ function Profile_creation() {
                     className=""
                     initial={{ x: '-100%' }}
                     animate={{ x: isHovered6 ? ['0%', '-100%', '0%'] : 0 }}
-                    transition={{ duration: 1.2, delay: 0.2 }}
+                    transition={{ duration: 1.2, delay: 1 }}
                     style={{
                       width: '131px',
                       height: '50px',
@@ -338,7 +338,7 @@ function Profile_creation() {
                 </div>
 
                 <div className="animation_line6_img6">
-                  <img src="./images/home/animation_line6_img6.png" alt="" style={{ opacity: isVisible ? 1 : 0, transition: 'opacity 1s ease' }} />
+                  <img src="./images/home/animation_line6_img6.png" alt="" style={{ opacity: isVisible ? 1 : 0, transition: 'opacity 3s ease' }} />
                 </div>
               </div>
             </div>
@@ -357,7 +357,7 @@ function Profile_creation() {
                     initial={{ x: '-100%' }}
                     // animate={{ x: isHovered5 ? '-100%' : '0%' }}
                     animate={{ x: isHovered5 ? ['0%', '-100%', '0%'] : 0 }}
-                    transition={{ duration: 1.2, delay: 0.2 }}
+                    transition={{ duration: 1.2, delay: 1 }}
 
                     style={{
                       width: '110px',
@@ -377,7 +377,7 @@ function Profile_creation() {
                 </div>
 
                 <div className="animation_line5_img5">
-                  <img src="./images/home/animation_line5_img5.png" alt="" style={{ opacity: isVisible ? 1 : 0, transition: 'opacity 1s ease' }} />
+                  <img src="./images/home/animation_line5_img5.png" alt="" style={{ opacity: isVisible ? 1 : 0, transition: 'opacity 3s ease' }} />
                 </div>
               </div>
             </div>
@@ -392,7 +392,7 @@ function Profile_creation() {
                     className=""
                     initial={{ y: '100%' }}
                     animate={{ y: isHovered4 ? ['-15%', '100%', '-15%'] : 0 }}
-                    transition={{ duration: 1.2, delay: 0.2 }}
+                    transition={{ duration: 1.2, delay: 1 }}
                     style={{
                       width: '54px',
                       height: '100%',
@@ -415,7 +415,7 @@ function Profile_creation() {
                     setIsHovered4(false);
                   }, 1000);
                 }}>
-                  <img src="./images/home/animation_line4_img4.png" alt="" style={{ opacity: isVisible ? 1 : 0, transition: 'opacity 1s ease' }} />
+                  <img src="./images/home/animation_line4_img4.png" alt="" style={{ opacity: isVisible ? 1 : 0, transition: 'opacity 3s ease' }} />
                 </div>
 
 
@@ -432,7 +432,7 @@ function Profile_creation() {
                     className=""
                     initial={{ y: '100%' }}
                     animate={{ y: isHovered3 ? ['-16%', '100%', '-16%'] : 0 }}
-                    transition={{ duration: 1.2, delay: 0.2 }}
+                    transition={{ duration: 1.2, delay: 1 }}
                     style={{
                       width: '100px',
                       height: '100%',
@@ -458,7 +458,7 @@ function Profile_creation() {
                     setIsHovered3(false);
                   }, 1000);
                 }}>
-                  <img src="./images/home/animation_line3_img3.png" alt="" style={{ opacity: isVisible ? 1 : 0, transition: 'opacity 1s ease', }} />
+                  <img src="./images/home/animation_line3_img3.png" alt="" style={{ opacity: isVisible ? 1 : 0, transition: 'opacity 3s ease', }} />
                 </div>
 
 

@@ -172,9 +172,7 @@ function Footer() {
               Never Want to Miss <br /> Any Job News?
             </p>
             <div className="footer_input">
-              {/* <div className="footer_input_bar">
-                Enter your email address here...
-              </div> */}
+             
               <input
                 className="footer_input_bar"
                 type="text"

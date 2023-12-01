@@ -46,7 +46,8 @@ body {
 }
 .layer2{
 	
-
+	background-color: white;
+	
 }
 
 .layer3{
@@ -66,11 +67,11 @@ body {
 .layer5{
 	
 	position: fixed;
-	top: 0%;
+	top: 5%;
 	left: 0%;
 	right: 0%;
 	z-index: 5;
-	background-color: white !important ;
+	background-color: white
 }
 .layer6{
 	position: fixed;
