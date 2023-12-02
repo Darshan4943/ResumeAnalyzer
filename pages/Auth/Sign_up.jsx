@@ -22,7 +22,7 @@ const ArrowLeft = ({ index }) => (
 
 function Sign_up() {
   return (
-    <div className="flex justify-center  item-center h-full w-full earth_container">
+    <div className="flex justify-center  item-center h-full w-full earth_container mt-[24px]">
       <div className="w-[40%] flex flex-col gap-[36px] pt-[72px] pb-[145px]">
         <div>
           <div className="text-[#333] text-center text-[40px] font-[600]">

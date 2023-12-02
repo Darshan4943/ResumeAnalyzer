@@ -10,7 +10,7 @@ function Candidate_register() {
 
     return (
         <>
-            <div className="register_head">
+            <div className="register_head mt-[24px]">
                 <div className="register_cadidate">
                     <div className="register_text_parent">
                         <div className="register_heding">

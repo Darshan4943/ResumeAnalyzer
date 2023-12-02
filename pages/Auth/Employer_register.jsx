@@ -8,7 +8,7 @@ const Employer_register = () => {
         setTog(id);
     }
     return (
-        <>
+        <div className="mt-[24px]" >
 
 
             {/* // SECOND SECTION  */}
@@ -358,7 +358,7 @@ const Employer_register = () => {
                     </div>
                 </div>
             </div>
-        </>
+        </div>
     );
 };
 

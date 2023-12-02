@@ -14,7 +14,7 @@ function Recruiter_register() {
   }
 
   return (
-    <div  >
+    <div className="mt-[24px]" >
       {/* Register as Recruiter Blue bar start*/}
       <div className="flex justify-center align-center bg-[#06A9EF] h-[89px] mt-[24px]">
         <div className="flex justify-center align-center flex-col">
