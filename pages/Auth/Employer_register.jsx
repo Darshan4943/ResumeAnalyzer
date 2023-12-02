@@ -78,9 +78,9 @@ const Employer_register = () => {
         </div>
         <div className="comp_lines">
           <div className="c_parent">
-            <img src="./images/auth/c1.png" alt="" className="c1_img" />
+            <img src="./images/auth/employer/c1.png" alt="" className="c1_img" />
             <div className="line_one_two"></div>
-            <img src="./images/auth/c2.png" alt="" className="c1_img" />
+            <img src="./images/auth/employer/c2.png" alt="" className="c1_img" />
           </div>
         </div>
         <div className="main_comp_lines">
@@ -99,28 +99,28 @@ const Employer_register = () => {
             <div className="four_img_cont">
               <div className="img_contener1">
                 <img
-                  src="./images/auth/rec_img1.png"
+                  src="./images/auth/employer/rec_img1.png"
                   alt=""
                   className="first_img_div"
                 />
               </div>
               <div className="img_contener2">
                 <img
-                  src="./images/auth/rec_img2.png"
+                  src="./images/auth/employer/rec_img2.png"
                   alt=""
                   className="sec_img_div"
                 />
               </div>
               <div className="img_contener3">
                 <img
-                  src="./images/auth/rec_img3.png"
+                  src="./images/auth/employer/rec_img3.png"
                   alt=""
                   className="three_img_div"
                 />
               </div>
               <div className="img_contener4">
                 <img
-                  src="./images/auth/rec_img4.png"
+                  src="./images/auth/employer/rec_img4.png"
                   alt=""
                   className="four_img_div"
                 />
@@ -165,7 +165,7 @@ const Employer_register = () => {
                   placeholder="Create new password"
                   className="enter_name"
                 />
-                <img src="./images/auth/eye.png" alt="" className="eye_img" />
+                <img src="./images/auth/employer/eye.png" alt="" className="eye_img" />
               </div>
               <div className="comp_name">
                 <p className="comp_head">
@@ -212,7 +212,7 @@ const Employer_register = () => {
                   placeholder="Enter your current location"
                   className="enter_name"
                 />
-                <img src="./images/auth/eye.png" alt="" className="eye_img" />
+                <img src="./images/auth/employer/eye.png" alt="" className="eye_img" />
               </div>
               <div className="bottom_buttons">
               <ALink href="/Auth/Sign_up">
@@ -261,9 +261,11 @@ const Employer_register = () => {
         <div className="last_main_parent_head">
           <div className="comp_lines">
             <div className="c_parent">
-              <img src="./images/auth/c1.png" alt="" className="c1_img" />
-              <div className="line_one_two"></div>
-              <img src="./images/auth/c2.png" alt="" className="c1_img" />
+              <img src="./images/auth/employer/c1.png" alt="" className="c1_img" />
+              <div className="line_one_two">
+                
+              </div>
+              <img src="./images/auth/employer/c2.png" alt="" className="c1_img" />
             </div>
           </div>
           <div className="main_comp_lines">
@@ -281,42 +283,42 @@ const Employer_register = () => {
             <div className="lastfour_img_cont">
               <div className="last_img_contener1">
                 <img
-                  src="./images/auth/last1.png"
+                  src="./images/auth/employer/last1.png"
                   alt=""
                   className="last_img_1"
                 />
               </div>
               <div className="last_img_contener2">
                 <img
-                  src="./images/auth/last2.png"
+                  src="./images/auth/employer/last2.png"
                   alt=""
                   className="last_img_2"
                 />
               </div>
               <div className="last_img_contener3">
                 <img
-                  src="./images/auth/last3.png"
+                  src="./images/auth/employer/last3.png"
                   alt=""
                   className="last_img_3"
                 />
               </div>
               <div className="last_img_contener4">
                 <img
-                  src="./images/auth/last4.png"
+                  src="./images/auth/employer/last4.png"
                   alt=""
                   className="last_img_4"
                 />
               </div>
               <div className="last_img_contener5">
                 <img
-                  src="./images/auth/last5.png"
+                  src="./images/auth/employer/last5.png"
                   alt=""
                   className="five_img_div"
                 />
               </div>
               <div className="last_img_contener6">
                 <img
-                  src="./images/auth/last6.png"
+                  src="./images/auth/employer/last6.png"
                   alt=""
                   className="six_img_div"
                 />

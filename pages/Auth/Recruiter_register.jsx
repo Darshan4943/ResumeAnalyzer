@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import ALink from "~/components/alink";
 
-function Recruter_sign_up() {
+function Recruiter_register() {
   const [infoContinue, setInfoContinue] = useState(1);
   function continuepage(id) {
     setInfoContinue(id);
@@ -72,17 +72,15 @@ function Recruter_sign_up() {
               <div className="text-[16px] font-[500]">Employment Status</div>
               <div className="flex flex-row gap-[16px]">
                 <button
-                  className={`flex justify-center items-center rounded-[30px] text-[14px] font-[400] px-[16px] py-[6px] shadow_btn Recruiter_btn ${
-                    selectedButton === 1 ? "activeButton" : "inactiveButton"
-                  }`}
+                  className={`flex justify-center items-center rounded-[30px] text-[14px] font-[400] px-[16px] py-[6px] shadow_btn Recruiter_btn ${selectedButton === 1 ? "activeButton" : "inactiveButton"
+                    }`}
                   onClick={() => changepage(1)}
                 >
                   Recruiter Firm
                 </button>
                 <button
-                  className={`flex justify-center item-center rounded-[30px] text-[14px] font-[400] px-[16px] py-[6px] shadow_btn Individual_btn ${
-                    selectedButton === 2 ? "activeButton" : "inactiveButton"
-                  }`}
+                  className={`flex justify-center item-center rounded-[30px] text-[14px] font-[400] px-[16px] py-[6px] shadow_btn Individual_btn ${selectedButton === 2 ? "activeButton" : "inactiveButton"
+                    }`}
                   onClick={() => changepage(2)}
                 >
                   Individual Recruiter
@@ -252,13 +250,26 @@ function Recruter_sign_up() {
               </ALink>
               <button
                 className="flex justify-center item-center py-[12px] px-[36px] rounded-[12px] bg-[#06A9EF] text-white text-[16px] font-[600] continue_btn"
-                onClick={() => continuepage(2)}
+                onClick={() => {
+                  if (data === 1) {
+                    continuepage(2);
+                  } else if (data === 2) {
+                    continuepage(3);
+                  }
+                }}
               >
                 Continue
               </button>
             </div>
           </div>
         </div>
+        <div className="flex justify-center text-[14px] text-[#646464] font-[500] pt-[16px]">
+        Already have an account?
+        <span className=" text-[14px] text-[#06A9EF] font-[500] already_sign">
+          {" "}
+          <a href="/Auth/Sign_in"> Sign In</a>
+        </span>
+      </div>
       </div>
       <div className={infoContinue === 2 ? "ShowContent" : "content"}>
         <div className="w-full flex justify-center ">
@@ -320,15 +331,46 @@ function Recruter_sign_up() {
           </div>
         </div>
       </div>
-      <div className="flex justify-center text-[14px] text-[#646464] font-[500] pt-[16px]">
-        Already have an account?
-        <span className=" text-[14px] text-[#06A9EF] font-[500] already_sign">
-          {" "}
-          <a href="/Auth/Sign_in"> Sign In</a>
-        </span>
+      <div className={infoContinue === 3 ? "ShowContent" : "content"}>
+        <div className="w-full flex justify-center ">
+          <div className="w-[50%] rounded-[16px] px-[24px] py-[24px] flex flex-col gap-[24px] item-between  shadow">
+           
+            <div className="Recruter_sign_up_inps flex-row gap-[20px]">
+              <div className="w-[50%]">
+                <div>PAN No *</div>
+                <div className="w-full border-[1px] border-[#9D9D9D] rounded-[8px] px-[16px] py-[12px]">
+                  <input
+                    type="text"
+                    name=""
+                    id=""
+                    placeholder="Enter PAN number"
+                  />
+                </div>
+              </div>
+              <div className="w-[50%]">
+                <div>Upload PAN *</div>
+                <div className="w-full border-[1px] border-[#9D9D9D] rounded-[8px] px-[16px] py-[12px]">
+                  <input type="text" name="" id="" placeholder="Upload PAN" />
+                </div>{" "}
+              </div>
+            </div>
+            <div className="flex flex-row justify-between">
+              <button
+                className="flex justify-center item-center py-[12px] px-[36px] rounded-[12px] border-[1px] border-solid border-[#06A9EF] text-[16px] font-[500] go_back_btn "
+                onClick={() => continuepage(1)}
+              >
+                Go Back
+              </button>
+              <button className="flex justify-center item-center py-[12px] px-[36px] rounded-[12px] bg-[#06A9EF] text-white text-[16px] font-[600] continue_btn">
+                Continue
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
+     
     </div>
   );
 }
 
-export default Recruter_sign_up;
+export default Recruiter_register;

@@ -1009,3 +1009,496 @@
     align-items: flex-start;
     align-self: stretch;
   }
+
+
+
+  // candidate registartion form start
+
+
+.register_head{
+    display: flex;
+    gap: 21px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  .register_cadidate{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  height: 89px;
+  align-items: center;
+  flex-shrink: 0;
+  background-color:  var(--primary, #06A9EF);
+  }
+  
+  .register_text_parent{
+    display: flex;
+  width: 744px;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  
+  }
+  
+  .register_heding_text{
+    color: var(--white, #FFF);
+  font-family: Montserrat;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  }
+  .register_heding_desc{
+    color: var(--white, #FFF);
+    text-align: center;
+    font-family: Montserrat;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+  }
+  
+  .details_parent{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .details_radio{
+    display: flex;
+    width: 744px;
+    align-items: center;
+    margin-bottom: 2px;
+  
+  }
+  .bg_line{
+  
+    background: #C7C7C7;
+    width: 336px;
+  height: 2px;
+  }
+  
+  .detail_names{
+    display: flex;
+    flex-direction: row;
+   
+    width: 120%;
+    justify-content: space-between;
+    overflow: hidden;
+  }
+  .detail_names_text{
+    color: var(--text-prmary, #333);
+  font-family: Montserrat;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  }
+  
+  .personal_details{
+    justify-content:center;
+    display: flex;
+  }
+  
+  .back_img{
+    background-size: cover;
+    background-repeat: no-repeat;  
+    background-image: url("../../images/auth/candidate/personal_details_back.png");
+  }
+  
+  .mail_img {
+   width: 20%;
+   position: absolute;
+   top: 16rem;
+   right: 5rem;
+   z-index: -10;
+   overflow: hidden;
+   animation: shake_animation 1s ;
+  }
+  
+  @keyframes shake_animation {
+    0%{
+      animation-duration: 0.5s;
+      transform: translate(-200px, 200px);   
+    }
+    50% {
+      transform: translate(100px, -100px);
+    }
+   70% {
+      transform: translate(0px,0px);
+    }
+   60%, 80%  {
+      transform: translate(-20px, 20px);
+    }
+  
+    90% {
+      transform: translate(-10px, 10px);
+    }
+    100% {
+      transform: translate(0px, 0px);
+    }
+  
+  }
+    
+  
+  
+  .phone_img{
+    width: 15%;
+    position: absolute;
+   top: 48rem;
+    right: 9rem;
+    z-index: -10;
+    overflow: hidden;
+     animation: shake_animation2 1s ;
+  }
+  
+  @keyframes shake_animation2 {
+    0%{
+      animation-duration: 0.5s;
+      transform: translate(-200px, -200px);
+    }
+    50% {
+      transform: translate(100px, 100px);
+    }
+  
+   70% {
+      transform: translate(0px,0px);
+    }
+   60%, 80%  {
+      transform: translate(20px, 20px);
+    }
+  
+    90% {
+      transform: translate(-10px, -10px);
+    }
+    100% {
+      transform: translate(0px, 0);
+    }
+  
+  }
+  
+  .location_img{
+    width: 11%;
+    position: absolute;
+   top: 18rem;
+   left: 10rem;
+   overflow: hidden;
+    z-index: -10;
+     animation: shake_animation3 1s ;
+  }
+  
+  @keyframes shake_animation3 {
+    0%{
+      animation-duration: 0.5s;
+      transform: translate(200px, 200px);
+    }
+    50% {
+      transform: translate(-100px, -100px);
+    }
+  
+   70% {
+      transform: translate(0px,0px);
+    }
+   60%, 80%  {
+      transform: translate(20px, 20px);
+    }
+  
+    90% {
+      transform: translate(-10px, -10px);
+    }
+    100% {
+      transform: translate(0px, 0);
+    }
+  
+  }
+  
+  .data_img{
+    width: 13%;
+    position: absolute;
+   top: 38rem;
+   left: 8rem;
+    z-index: -10;
+    overflow: hidden;
+     animation: shake_animation4 1s ease-in-out ;
+  }
+  
+  
+  @keyframes shake_animation4 {
+    0%{
+      animation-duration: 0.5s;
+      transform: translate(200px, 0px);
+      animation-delay: 0.2s;
+    }
+    50% {
+      transform: translate(-100px, 0px);
+    }
+  
+   70% {
+      transform: translate(0px,0px);
+    }
+   60%, 80%  {
+      transform: translate(20px, 0px);
+    }
+  
+    90% {
+      transform: translate(-10px, 0px);
+    }
+    100% {
+      transform: translate(0px, 0);
+    }
+  
+  }
+  
+  .group_2{
+    width: 10%;
+    position: absolute;
+   top: 40rem;
+    right: 10rem;
+    z-index: -10;
+    overflow: hidden;
+     animation: group_2_animation2 1s ;
+  }
+  
+  @keyframes group_2_animation2 {
+    0%{
+      animation-duration: 0.5s;
+      transform: translate(-200px, 0px);
+    }
+    50% {
+      transform: translate(100px, 0px);
+    }
+  
+   70% {
+      transform: translate(0px,0px);
+    }
+   60%, 80%  {
+      transform: translate(20px, 0px);
+    }
+  
+    90% {
+      transform: translate(-10px, 0px);
+    }
+    100% {
+      transform: translate(0px, 0);
+    }
+  
+  }
+  
+  .group_6{
+    width: 18%;
+    position: absolute;
+   top: 53rem;
+   left: 8rem;
+    z-index: -10;
+    overflow: hidden;
+    animation: shake_animation4 1s ease-in-out ;
+  }
+  
+  .personal_details_form{
+    border-radius: 16px;
+  background: var(--white, #FFF);
+  box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.25);
+  display: inline-flex;
+  padding: 24px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+  }
+  
+  // .personal_details_all{
+  //   display: none;
+  // }
+  
+  .personal_name_parent{
+    display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  }
+  
+  .personal_name{
+    display: flex;
+  width: 290px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  position: relative;
+  }
+  
+  .personal_name img{
+    position: absolute;
+  }
+  
+  .form_text_heading{
+    color: var(--text-prmary, #333);
+  font-family: Montserrat;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  }
+  .star{
+    color: var(--Mandetory, #C00000);
+  font-family: Montserrat;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  }
+  #first_name{
+    display: flex;
+  height: 48px;
+  padding: 12px 16px;
+  align-items: center;
+  gap: 10px;
+  align-self: stretch;
+    border-radius: 8px;
+  border: 1px solid var(--placeholder, #9D9D9D);
+  background: #FFF;
+  }
+  
+  .personal_single_input{
+    display: flex;
+  width: 600px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  }
+  
+  #single_input{
+    display: flex;
+    width: 600px;
+  height: 48px;
+  padding: 12px 16px;
+  align-items: center;
+  gap: 10px;
+  align-self: stretch;
+     border-radius: 8px;
+  border: 1px solid var(--placeholder, #9D9D9D);
+  background: #FFF;
+  }
+  
+  .right_img{
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .icon{
+    position: absolute;
+    width: 24px;
+  height: 24px;
+  top: 50%;
+  left: 194%;
+  }
+  
+  .gender_button{
+    gap:16px;
+    display: flex;
+    display: flex;
+  height: 32px;
+  justify-content: center;
+  align-items: center;
+  }
+  
+  .gen_button{
+    border: none;
+  display: flex;
+  height: 32px;
+  padding: 6px 16px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  border-radius: 30px;
+  color: black;
+  background: var(--white, #FFF);
+  box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15), 0px 1px 2px 0px rgba(0, 0, 0, 0.30);
+  }
+  
+  .gen_button:active{
+    color: var(--white, #FFF);
+    background-color: #06A9EF;
+    border: none;
+  }
+  
+  .bottom_buttons{
+    display: flex;
+    flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  align-self: stretch;
+  }
+  
+  #border_button{
+    border: 1px solid var(--primary, #06A9EF)  
+  }
+  button:hover{
+    background-color: var(--primary, #06A9EF)  ;
+    color: #fff
+  }
+  button:active{
+  border: none;
+  }
+  
+  .buttons{
+    display: flex;
+  padding: 12px 36px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 12px;
+  }
+  
+  .already_text_parent{
+    margin-top: 20px;
+  }
+  
+  .already_text{
+    color: var(--Text-Secondary, #646464);
+  text-align: center;
+  font-family: Montserrat;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  }
+  #sign_in{
+    color: var(--primary, #06A9EF);
+  }
+  .education_button{
+    display: flex;
+  width: 600px;
+  align-items: flex-start;
+  align-content: flex-start;
+  gap: 8px 16px;
+  flex-wrap: wrap;
+  }
+  
+  #years{
+    border: none;
+    display: flex;
+  height: 48px;
+  padding: 12px 16px;
+  align-items: center;
+  gap: 16px;
+  border-radius: 8px;
+  border: 1px solid var(--placeholder, #9D9D9D);
+  background: #FFF;
+  }
+  
+  .notice_period{
+    display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  }
+  
+  .radio{
+    display: flex;
+    gap: 8px;
+  }
+  
+  // .show-content{
+  //   display: block;
+  // }
