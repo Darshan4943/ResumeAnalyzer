@@ -14,7 +14,7 @@ function Recruiter_register() {
   }
 
   return (
-    <div>
+    <div  >
       {/* Register as Recruiter Blue bar start*/}
       <div className="flex justify-center align-center bg-[#06A9EF] h-[89px] mt-[24px]">
         <div className="flex justify-center align-center flex-col">
@@ -66,8 +66,11 @@ function Recruiter_register() {
       {/* document fill status end */}
 
       <div className={infoContinue === 1 ? "ShowContent" : "content"}>
-        <div className="flex justify-center">
-          <div className="w-[50%] rounded-[16px] px-[24px] py-[24px] flex flex-col gap-[24px] item-between  shadow">
+
+
+
+        <div className="flex justify-center ">
+          <div className="w-[648px] rounded-[16px] px-[24px] py-[24px] flex flex-col gap-[24px] item-between shadow relative bg-white">
             <div className="flex flex-col gap-[8px]">
               <div className="text-[16px] font-[500]">Employment Status</div>
               <div className="flex flex-row gap-[16px]">
@@ -85,6 +88,39 @@ function Recruiter_register() {
                 >
                   Individual Recruiter
                 </button>
+              </div>
+            </div>
+
+            <div className={`img_parent_head left-[-10rem] z-[-10] ${data === 2 ? "top-[-5rem]" : ""}`}>
+              <div className="four_img_cont">
+                <div className="img_contener1">
+                  <img
+                    src="./images/auth/employer/rec_img1.png"
+                    alt=""
+                    className="first_img_div"
+                  />
+                </div>
+                <div className="img_contener2">
+                  <img
+                    src="./images/auth/employer/rec_img2.png"
+                    alt=""
+                    className="sec_img_div"
+                  />
+                </div>
+                <div className="img_contener3">
+                  <img
+                    src="./images/auth/employer/rec_img3.png"
+                    alt=""
+                    className="three_img_div"
+                  />
+                </div>
+                <div className="img_contener4">
+                  <img
+                    src="./images/auth/employer/rec_img4.png"
+                    alt=""
+                    className="four_img_div"
+                  />
+                </div>
               </div>
             </div>
 
@@ -264,16 +300,65 @@ function Recruiter_register() {
           </div>
         </div>
         <div className="flex justify-center text-[14px] text-[#646464] font-[500] pt-[16px]">
-        Already have an account?
-        <span className=" text-[14px] text-[#06A9EF] font-[500] already_sign">
-          {" "}
-          <a href="/Auth/Sign_in"> Sign In</a>
-        </span>
+          Already have an account?
+          <span className=" text-[14px] text-[#06A9EF] font-[500] already_sign">
+            {" "}
+            <a href="/Auth/Sign_in"> Sign In</a>
+          </span>
+        </div>
       </div>
+      <div>
+
       </div>
       <div className={infoContinue === 2 ? "ShowContent" : "content"}>
-        <div className="w-full flex justify-center ">
-          <div className="w-[50%] rounded-[16px] px-[24px] py-[24px] flex flex-col gap-[24px] item-between  shadow">
+        <div className="w-full flex justify-center relative ">
+          <div className="last_img_parent_head top-[-5rem] -z-10">
+            <div className="lastfour_img_cont">
+              <div className="last_img_contener1">
+                <img
+                  src="./images/auth/employer/last1.png"
+                  alt=""
+                  className="last_img_1"
+                />
+              </div>
+              <div className="last_img_contener2">
+                <img
+                  src="./images/auth/employer/last2.png"
+                  alt=""
+                  className="last_img_2"
+                />
+              </div>
+              <div className="last_img_contener3">
+                <img
+                  src="./images/auth/employer/last3.png"
+                  alt=""
+                  className="last_img_3"
+                />
+              </div>
+              <div className="last_img_contener4">
+                <img
+                  src="./images/auth/employer/last4.png"
+                  alt=""
+                  className="last_img_4"
+                />
+              </div>
+              <div className="last_img_contener5">
+                <img
+                  src="./images/auth/employer/last5.png"
+                  alt=""
+                  className="five_img_div"
+                />
+              </div>
+              <div className="last_img_contener6">
+                <img
+                  src="./images/auth/employer/last6.png"
+                  alt=""
+                  className="six_img_div"
+                />
+              </div>
+            </div>
+          </div>
+          <div className="w-[648px] rounded-[16px] px-[24px] py-[24px] flex flex-col gap-[24px] item-between bg-white shadow">
             <div className="Recruter_sign_up_inps flex-row gap-[20px]">
               <div className="w-[50%]">
                 <div>GST No *</div>
@@ -332,9 +417,55 @@ function Recruiter_register() {
         </div>
       </div>
       <div className={infoContinue === 3 ? "ShowContent" : "content"}>
-        <div className="w-full flex justify-center ">
-          <div className="w-[50%] rounded-[16px] px-[24px] py-[24px] flex flex-col gap-[24px] item-between  shadow">
-           
+        <div className="w-full flex justify-center mb-[10rem] relative ">
+          <div className="last_img_parent_head top-[-5rem] -z-10 ">
+            <div className="lastfour_img_cont">
+              <div className="last_img_contener1">
+                <img
+                  src="./images/auth/employer/last1.png"
+                  alt=""
+                  className="last_img_1"
+                />
+              </div>
+              <div className="last_img_contener2">
+                <img
+                  src="./images/auth/employer/last2.png"
+                  alt=""
+                  className="last_img_2"
+                />
+              </div>
+              <div className="last_img_contener3">
+                <img
+                  src="./images/auth/employer/last3.png"
+                  alt=""
+                  className="last_img_3"
+                />
+              </div>
+              <div className="last_img_contener4">
+                <img
+                  src="./images/auth/employer/last4.png"
+                  alt=""
+                  className="last_img_4"
+                />
+              </div>
+              <div className="last_img_contener5">
+                <img
+                  src="./images/auth/employer/last5.png"
+                  alt=""
+                  className="five_img_div"
+                />
+              </div>
+              <div className="last_img_contener6">
+                <img
+                  src="./images/auth/employer/last6.png"
+                  alt=""
+                  className="six_img_div"
+                />
+              </div>
+            </div>
+          </div>
+          <div className="w-[648px] rounded-[16px] px-[24px] py-[24px] flex flex-col gap-[24px] item-between bg-white shadow">
+
             <div className="Recruter_sign_up_inps flex-row gap-[20px]">
               <div className="w-[50%]">
                 <div>PAN No *</div>
@@ -368,7 +499,7 @@ function Recruiter_register() {
           </div>
         </div>
       </div>
-     
+
     </div>
   );
 }
