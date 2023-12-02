@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
+import ALink from "~/components/alink";
 const Employer_register = () => {
   const [tog, setTog] = useState(1);
 
@@ -214,17 +215,19 @@ const Employer_register = () => {
                 <img src="./images/auth/eye.png" alt="" className="eye_img" />
               </div>
               <div className="bottom_buttons">
+              <ALink href="/Auth/Sign_up">
                 <button
                   className="go_button"
-                  onClick={() => updateTog(2)}
+                //   onClick={() => updateTog(1)}
                   id="border_button"
                 >
                   Go Back
                 </button>
+                </ALink>
                 <button
                   className="gen_button"
                   id="border_button"
-                  onClick={() => updateTog(3)}
+                  onClick={() => updateTog(2)}
                 >
                   Continue
                 </button>
@@ -242,7 +245,7 @@ const Employer_register = () => {
 
 
       {/* THIRD SECTION    */}
-      <div className={tog === 3 ? "show-content" : "content"}>
+      <div className={tog === 2 ? "show-content" : "content"}>
         <div className="register_head">
           <div className="register_cadidate">
             <div className="register_text_parent">  
@@ -393,7 +396,7 @@ const Employer_register = () => {
                 <button
                   className="go_button"
                   id="border_button"
-                  onClick={() => updateTog(2)}
+                  onClick={() => updateTog(1)}
                 >
                   Go Back
                 </button>
