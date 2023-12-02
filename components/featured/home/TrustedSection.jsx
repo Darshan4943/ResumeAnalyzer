@@ -12,22 +12,22 @@ function TrustedBySection() {
   const trustedRef = useRef();
   const cardRef = useRef();
 
-  useEffect(() => {
-    const lenis = new Lenis({
-      target: trustedRef.current,
-    });
+  // useEffect(() => {
+  //   const lenis = new Lenis({
+  //     target: trustedRef.current,
+  //   });
 
-    // lenis.on("scroll", (e) => {
-    //   console.log(23, e);
-    // });
+  //   // lenis.on("scroll", (e) => {
+  //   //   console.log(23, e);
+  //   // });
 
-    function raf(time) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
+  //   function raf(time) {
+  //     lenis.raf(time);
+  //     requestAnimationFrame(raf);
+  //   }
 
-    requestAnimationFrame(raf);
-  });
+  //   requestAnimationFrame(raf);
+  // });
 
   const { scrollYProgress } = useScroll(
     {
@@ -196,6 +196,7 @@ function TrustedBySection() {
   ];
   return (
     <motion.div className="trust_section_parent" ref={trustedRef}>
+      
       <motion.div className="trust_section" style={{ y }}>
         <p id="trust">Trusted by...</p>
         <div className="trust_img">

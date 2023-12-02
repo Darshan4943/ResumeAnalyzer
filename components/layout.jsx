@@ -9,27 +9,28 @@ import { actions } from "../store/demo";
 import { useRef, useEffect } from "react";
 
 function Layout({ children }) {
-  const mainRef = useRef();
-  useEffect(() => {
-    const lenis = new Lenis({
-      target: mainRef.current,
-    });
+  // const mainRef = useRef();
+  // useEffect(() => {
+  //   const lenis = new Lenis({
+  //     target: mainRef.current,
+  //   });
 
-    lenis.on("scroll", (e) => {
-      console.log(e);
-    });
+  //   lenis.on("scroll", (e) => {
+  //     console.log(e);
+  //   });
 
-    function raf(time) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
+  //   function raf(time) {
+  //     lenis.raf(time);
+  //     requestAnimationFrame(raf);
+  //   }
 
-    requestAnimationFrame(raf);
-  });
+  //   requestAnimationFrame(raf);
+  // });
 
   return (
     <>
-      <div ref={mainRef}>
+      {/* <div ref={mainRef}> */}
+        <div>
         <div className="customMargins">
           <Header />
         </div>
