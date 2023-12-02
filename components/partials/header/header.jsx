@@ -15,7 +15,10 @@ function Header() {
       <div className="header_parent">
         <div className="header">
           <div className="header_left">
-            <ALink href="/"> <img src="./images/logo_skilotech.png" alt="" /></ALink>
+            <ALink href="/">
+              {" "}
+              <img src="./images/logo_skilotech.png" alt="" />
+            </ALink>
             <ALink href="/" className={selectedPage === "/" ? "active" : "li"}>
               <li>Home</li>
             </ALink>
@@ -44,15 +47,21 @@ function Header() {
               <li>Recruiter</li>
             </ALink>
           </div>
-          <div className="header_right">
-            <button className="header_signIn_btn">Sign in</button>
-            <button
-              style={{ border: "1px solid var(--primary, #06A9EF)" }}
-              className="header_signUp_btn"
-            >
-              Sign Up
-            </button>
-          </div>
+        
+            <div className="header_right">
+            <ALink href="/Auth/Sign_in">
+              <button className="header_signIn_btn">Sign in</button>
+              </ALink>
+              <ALink href="/Auth/Sign_up">
+              <button
+                style={{ border: "1px solid var(--primary, #06A9EF)" }}
+                className="header_signUp_btn"
+              >
+                Sign Up
+              </button>
+              </ALink>
+            </div>
+         
         </div>
       </div>
     </>

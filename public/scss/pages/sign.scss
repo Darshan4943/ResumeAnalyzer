@@ -1,0 +1,147 @@
+.shadow {
+    box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.25);
+  }
+  .shadow_btn {
+    box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15),
+      0px 1px 2px 0px rgba(0, 0, 0, 0.3);
+    border: 1px solid transparent;
+    transition: all 0.2s;
+  }
+  
+  .Recruter_sign_up_inps {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .content {
+    display: none;
+  }
+  .ShowContent {
+    display: block;
+    // justify-content: center;
+    // align-items: center;
+    padding-top: 36px;
+  }
+  .continue_btn:hover {
+    background-color: transparent;
+    border: 1px solid var(--primary, #06a9ef);
+    color: #333;
+  }
+  .go_back_btn:hover {
+    background-color: #06a9ef;
+    color: #fff;
+  }
+  .go_back_btn,
+  .continue_btn {
+    transition: all 0.2s;
+  }
+  
+  .showDiv {
+    display: block;
+  }
+  .activeButton {
+    background-color: #06a9ef;
+    color: #fff;
+  }
+  .inactiveButton {
+    background-color: none;
+  }
+  .divNone {
+    display: none;
+  }
+  .already_sign {
+    transition: all 0.2s;
+    border-bottom: 1px solid transparent;
+  }
+  .already_sign:hover {
+    border-bottom: 1px solid var(--primary, #06a9ef);
+  }
+  .sign_up_shadow {
+    box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.25);
+    overflow: hidden;
+  }
+  .sign_up_hover {
+    transition: all 2s;
+    height: 100%;
+  }
+  .sign_up_hover:hover {
+    width: 100%;
+  }
+  .sign_up_blue_hover {
+    transition: all 0.4s;
+  }
+  .sign_up_shadow:hover .sign_up_blue_hover {
+    width: 100%;
+  }
+  .sign_ip_text {
+    transition: all 0.4s;
+  }
+  .sign_up_shadow:hover .sign_ip_text {
+    color: #fff;
+  }
+  .sign_iu_text_border {
+    border: 1px solid #333;
+    transition: all 0.2s;
+  }
+  .sign_up_shadow:hover .sign_iu_text_border {
+    border-color: #fff;
+  }
+  
+  .svg_classs {
+    transition: all 0.2s;
+  }
+  .sign_up_shadow:hover .svg_classs {
+    fill: #fff;
+  }
+  .earth {
+    width: 27%;
+    height: 50%;
+    background: url("../../images/employer/world.png");
+    border-radius: 50%;
+    background-size: 210px;
+    box-shadow: inset 16px 0 40px 3px rgb(0, 0, 0),
+      inset -3px 0 6px 2px rgba(255, 255, 255, 0.2);
+    animation-name: rotate;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    background-size: cover;
+    opacity: 0.1;
+   
+    position: absolute;
+    left: 0%;
+    transform: translate(-50%, -50%);
+    top: 50%;
+  }
+  .earth1 {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    right: -6%;
+    // width: 
+    width: 23%;
+    // height: 323.821px;
+    height: 45%;
+    top: 50%;
+  
+    opacity: 0.1;
+    overflow: hidden !important;
+  }
+  .sign_up_tethescope{
+    // width: 450px;
+    width: 31%;
+    // height: 500px;
+    height: 60%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 55%;
+    right:-20%;
+    opacity: 0.1;
+    overflow: hidden !important;
+  
+  }
+  .rightEarth{
+    overflow: hidden !important;
+  
+  }
+  .earthswipe{
+  }
