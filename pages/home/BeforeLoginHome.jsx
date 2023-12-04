@@ -7,7 +7,7 @@ import Profile_creation from "~/components/featured/home/ProfileCreation";
 import { motion } from 'framer-motion';
 import TrustedBySection from "~/components/featured/home/TrustedSection";
 
-function HomePage() {
+function BeforeLoginHome() {
 
   const [opacity3, setOpacity3] = useState(0);
   const [opacity1, setOpacity1] = useState(0);
@@ -116,7 +116,7 @@ function HomePage() {
   );
 }
 
-export default HomePage;
+export default BeforeLoginHome;
 
 {/* <Parallax pages={3} >
         <ParallaxLayer offset={0} speed={4} >

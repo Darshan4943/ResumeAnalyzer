@@ -87,6 +87,11 @@ function CandidateHero() {
                                 <button className="flex items-center justify-center py-4 px-12 border border-primary bg-blue text-white rounded-[12px] max-scr1200:px-8 max-scr1100:px-6">Search</button>
                             </div>
                         </div>
+                        <div>
+                    
+                       
+                        </div>
+                       
                     </div>
 
                     <img className="h-[559px] absolute right-[14px] -mt-[61px] xl:relative xl:right-32" src="./images/candidate/candidate_hero_img.png" alt="" />

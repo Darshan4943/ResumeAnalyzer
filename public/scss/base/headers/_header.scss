@@ -24,7 +24,7 @@
 .li {
   color: var(--text-prmary, #333);
   font-family: Montserrat;
-  font-size: 18px;
+  font-size: 16px;
   font-style: normal;
   font-weight: 500;
   line-height: normal;
@@ -62,7 +62,19 @@ a {
   justify-content: flex-end;
   flex-direction: row;
   padding: 10px 0;
+  align-items: center;
 }
+
+.header_right_login {
+  // width: 15%;
+  gap: 16px;
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: row;
+  padding: 10px 0;
+  align-items: center;
+}
+
 
 .header_right button {
   border-radius: 12px;
@@ -93,6 +105,26 @@ a {
 background-color: #06a9ef;
 color: #fff;
 }
+.header_notification{
+  width: 29px;
+  height: auto;
+}
+.profile_icon{
+  height: 40px;
+  width: 40px;
+}
+.profile_icon_img{
+  border-radius: 40px;
+}
+.user_name{
+  color: var(--text-primary, #495057);
+font-family: Montserrat;
+font-size: 14px;
+font-style: normal;
+font-weight: 600;
+line-height: normal;
+}
+
 // #sign_up {
 //   color: var(--text-prmary, #333);
 //   font-family: Montserrat;

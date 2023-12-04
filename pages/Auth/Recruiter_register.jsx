@@ -311,7 +311,7 @@ function Recruiter_register() {
 
       </div>
       <div className={infoContinue === 2 ? "ShowContent" : "content"}>
-        <div className="w-full flex justify-center relative ">
+        <div className="w-full flex justify-center relative mb-[5rem]">
           <div className="last_img_parent_head top-[-5rem] -z-10">
             <div className="lastfour_img_cont">
               <div className="last_img_contener1">
