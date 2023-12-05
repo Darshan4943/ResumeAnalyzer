@@ -10,7 +10,7 @@ function services() {
   };
   return (
     <div className=" bg-[#F9F9F9]">
-      <div className=" flex customMargins pt-[24px] h-[1033px]">
+      <div className=" flex customMargins pt-[24px] h-[1033px] gap-6">
         <div
           className="flex flex-col w-[49%] p-2 gap-4 rounded-lg bg-white shadow-md"
           style={{
@@ -398,57 +398,123 @@ function services() {
           </div>
 
           <div
-          className="flex flex-col p-4 gap-2 rounded-lg bg-white"
-          style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}
+            className="flex flex-col p-4 gap-2 rounded-lg bg-white"
+            style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}
+          >
+            <div className="w-full text-[20px] font-montserrat font-medium">
+              Achievements
+            </div>
+            <div className="flex flex-col gap-2 w-full">
+              <div className="w-full border-[1px] border-[#9D9D9D] rounded-[8px] px-[16px] py-[12px] ">
+                <input
+                  type="text"
+                  name=""
+                  id=""
+                  placeholder="Enter your Achievement"
+                  className="w-full text-[14px] font-montserrat font-small "
+                />
+              </div>
+            </div>
+
+            <div>
+              <DateSelector idPrefix="experience" />
+            </div>
+
+            <div className="flex flex-col gap-2 w-full">
+              <div className="w-full text-[14px] font-montserrat  font-medium">
+                Description
+              </div>
+              <div className="w-full text-[14px] font-montserrat  font-small">
+                Write about your Achievement
+              </div>
+              <div className="w-full border-[1px] border-[#9D9D9D] rounded-[12px]  p-[12px] h-[140px]">
+                <input
+                  type="text"
+                  name=""
+                  id=""
+                  className="w-full text-[14px] font-montserrat font-small "
+                />
+              </div>
+            </div>
+
+            <div className="flex justify-end ">
+              <button className=" font-montserrat text-xs font-semibold px-[12px] rounded-[8px] border border-[#06A9EF] w-[60px] h-[32px]">
+                Save
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div
+          className="flex flex-col w-[49%] p-4 gap-[14px] rounded-lg bg-white shadow-md"
+          style={{
+            boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)",
+          }}
         >
-          <div className="w-full text-[20px] font-montserrat font-medium">
-          Achievements
+          <div
+            className="rounded-[8px] bg-[#BCEBFF] flex gap-4 px-4 py-[10px] "
+            style={{ overflowX: "auto" }}
+          >
+            <img
+              src="./images/services/resume-template-1.png"
+              className="h-[200px] w-[140.91px] rounded-[6px]"
+              alt=""
+            />
+            <img
+              src="./images/services/resume-template-2.png"
+              className="h-[200px] w-[140.91px] rounded-[6px]"
+              alt=""
+            />
+            <img
+              src="./images/services/resume-template-1.png"
+              className="h-[200px] w-[140.91px] rounded-[6px]"
+              alt=""
+            />
+            <img
+              src="./images/services/resume-template-2.png"
+              className="h-[200px] w-[140.91px] rounded-[6px]"
+              alt=""
+            />
+            <img
+              src="./images/services/resume-template-1.png"
+              className="h-[200px] w-[140.91px] rounded-[6px]"
+              alt=""
+            />
+            <img
+              src="./images/services/resume-template-2.png"
+              className="h-[200px] w-[140.91px] rounded-[6px]"
+              alt=""
+            />
+            <img
+              src="./images/services/resume-template-1.png"
+              className="h-[200px] w-[140.91px] rounded-[6px]"
+              alt=""
+            />
           </div>
-          <div className="flex flex-col gap-2 w-full">
-           
-            <div className="w-full border-[1px] border-[#9D9D9D] rounded-[8px] px-[16px] py-[12px] ">
-              <input
-                type="text"
-                name=""
-                id=""
-                placeholder="Enter your Achievement"
-                className="w-full text-[14px] font-montserrat font-small "
-              />
+
+          <div className="flex justify-between">
+            <div className=" text-[20px] font-montserrat font-medium">
+              Preview
+            </div>
+
+            <div className="flex gap-[15px]">
+              <button className="flex gap-1 text-[12px] text-[#FFF] font-montserrat font-semibold p-3 rounded-[8px] items-center border border-[#06A9EF] bg-[#06A9EF]">
+              <img
+              src="./images/services/add_link.png"
+              className="h-[24px] w-[24px] rounded-[6px]"
+              alt=""
+            />
+                Attach
+              </button>
+
+              <button className=" text-[12px] text-[#333] font-montserrat font-semibold px-9 py-3 rounded-[8px] border border-[#06A9EF]">
+                Download Resume
+              </button>
             </div>
           </div>
-         
 
-
-          <div>
-            <DateSelector idPrefix="experience" />
-          </div>
-
-          <div className="flex flex-col gap-2 w-full">
-            <div className="w-full text-[14px] font-montserrat  font-medium">
-            Description
-            </div>
-            <div className="w-full text-[14px] font-montserrat  font-small">
-            Write about your Achievement
-            </div>
-            <div className="w-full border-[1px] border-[#9D9D9D] rounded-[12px]  p-[12px] h-[140px]">
-              <input
-                type="text"
-                name=""
-                id=""
-                className="w-full text-[14px] font-montserrat font-small "
-              />
-            </div>
-          </div>
-
-          <div className="flex justify-end ">
-            <button className=" font-montserrat text-xs font-semibold px-[12px] rounded-[8px] border border-[#06A9EF] w-[60px] h-[32px]">
-              Save
-            </button>
-          </div>
+          <div></div>
         </div>
-
-        </div>
-       
       </div>
     </div>
   );
