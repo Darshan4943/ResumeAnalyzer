@@ -39,44 +39,50 @@ const DateSelector = ({
           <label className="w-full flex gap-2 text-[14px] font-montserrat  font-medium" htmlFor={`${idPrefix}-startMonth`}>Start Date</label>
         </div>
         <div className="flex gap-4">
-        <select
-        id={`${idPrefix}-startMonth`}
-        value={startMonth}
-        onChange={handleStartMonthChange}
-        className="flex p-4 items-center rounded-lg border border-[#646464] bg-white text-[14px] w-[100%] font-montserrat font-small"
-        // style={{ WebkitAppearance: 'none', MozAppearance: 'none', appearance: 'none' }}
-      >
-        <option value="Month" disabled hidden className=" ">
-          Month
-          
-        </option>
-       
-        {months.map((month) => (
-          <option key={month} value={month}>
-            {new Date(0, month - 1).toLocaleString("en", { month: "long" })}
-          </option>
-        ))}
-        
-        
+          <div className="flex p-2 items-center rounded-lg border border-[#646464] bg-white text-[14px]  font-montserrat font-small">
 
-      </select>
-      
+            <select
+              id={`${idPrefix}-startMonth`}
+              value={startMonth}
+              onChange={handleStartMonthChange}
+              className="w-[79px]"
+              style={{ WebkitAppearance: 'none', MozAppearance: 'none', appearance: 'none' }}
+            >
+              <option value="Month" disabled hidden className=" ">
+                Month
 
-          <select
-            id={`${idPrefix}-startYear`}
-            value={startYear}
-            onChange={handleStartYearChange}
-            className="flex p-4  items-center rounded-lg border border-[#646464] bg-white text-[14px] w-[100%] font-montserrat font-small"
-          >
-            <option value="Year" disabled hidden>
-              Year
-            </option>
-            {years.map((year) => (
-              <option key={year} value={year}>
-                {year}
               </option>
-            ))}
-          </select>
+
+              {months.map((month) => (
+                <option key={month} value={month}>
+                  {new Date(0, month - 1).toLocaleString("en", { month: "long" })}
+                </option>
+              ))}
+
+            </select>
+            <img src="./images/down_arrow.png" className="h-[20px] w-[20px]" alt="" />
+          </div>
+
+          <div className="flex p-2 items-center rounded-lg border border-[#646464] bg-white text-[14px]  font-montserrat font-small">
+
+            <select
+              id={`${idPrefix}-startYear`}
+              value={startYear}
+              onChange={handleStartYearChange}
+              style={{ WebkitAppearance: 'none', MozAppearance: 'none', appearance: 'none' }}
+              className="w-[79px]"
+            >
+              <option value="Year" disabled hidden>
+                Year
+              </option>
+              {years.map((year) => (
+                <option key={year} value={year}>
+                  {year}
+                </option>
+              ))}
+            </select>
+            <img src="./images/down_arrow.png" className="h-[20px] w-[20px]" alt="" />
+          </div>
         </div>
       </div>
 
@@ -85,37 +91,45 @@ const DateSelector = ({
           <label className="w-full flex gap-2 text-[14px] font-montserrat  font-medium" htmlFor={`${idPrefix}-endMonth`}>End Date</label>
         </div>
         <div className="flex gap-4">
-          <select
-            id={`${idPrefix}-endMonth`}
-            value={endMonth}
-            onChange={handleEndMonthChange}
-            className="flex p-4  items-center rounded-lg border border-[#646464] bg-white text-[14px] w-[100%] font-montserrat font-small"
-          >
-            <option value="Month" disabled hidden>
-              Month
-            </option>
-            {months.map((month) => (
-              <option key={month} value={month}>
-                {new Date(0, month - 1).toLocaleString("en", { month: "long" })}
+          <div className="flex p-2 items-center rounded-lg border border-[#646464] bg-white text-[14px]  font-montserrat font-small">
+            <select
+              id={`${idPrefix}-endMonth`}
+              value={endMonth}
+              onChange={handleEndMonthChange}
+              className="w-[79px]"
+              style={{ WebkitAppearance: 'none', MozAppearance: 'none', appearance: 'none' }}
+             
+            >
+              <option value="Month" disabled hidden>
+                Month
               </option>
-            ))}
-          </select>
-
-          <select
-            id={`${idPrefix}-endYear`}
-            value={endYear}
-            onChange={handleEndYearChange}
-            className="flex p-4  items-center rounded-lg border border-[#646464] bg-white text-[14px] w-[100%] font-montserrat font-small"
-          >
-            <option value="Year" disabled hidden>
-              Year
-            </option>
-            {years.map((year) => (
-              <option key={year} value={year}>
-                {year}
+              {months.map((month) => (
+                <option key={month} value={month}>
+                  {new Date(0, month - 1).toLocaleString("en", { month: "long" })}
+                </option>
+              ))}
+            </select>
+            <img src="./images/down_arrow.png" className="h-[20px] w-[20px]" alt="" />
+          </div>
+          <div className="flex p-2 items-center rounded-lg border border-[#646464] bg-white text-[14px] font-montserrat font-small">
+            <select
+              id={`${idPrefix}-endYear`}
+              value={endYear}
+              onChange={handleEndYearChange}
+              style={{ WebkitAppearance: 'none', MozAppearance: 'none', appearance: 'none' }}
+              className="w-[79px]"
+            >
+              <option value="Year" disabled hidden>
+                Year
               </option>
-            ))}
-          </select>
+              {years.map((year) => (
+                <option key={year} value={year}>
+                  {year}
+                </option>
+              ))}
+            </select>
+            <img src="./images/down_arrow.png" className="h-[20px] w-[20px]" alt="" />
+          </div>
         </div>
       </div>
     </div>
