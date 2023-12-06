@@ -9,18 +9,15 @@ import DailyQuize from "~/components/featured/services/DailyQuize/DailyQuize";
 function Services() {
 
 
-    const [services, setServices] = useState(true);
+   
     return (
         <div>
-            {services
-                &&
-                <>
-                    <AiResume services={services} setServices={setServices} />
+            
+                    <AiResume  />
                     <InterviewQue />
                     <SkillAssessment />
                     <DailyQuize />
-                </>
-            }
+           
 
 
             {/* <div className=" bg-[#F9F9F9]">

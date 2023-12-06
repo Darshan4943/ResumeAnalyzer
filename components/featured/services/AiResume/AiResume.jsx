@@ -1,32 +1,22 @@
-import React, { useState } from 'react'
-import AiResumePage from './AiResumePage'
+import React, { useState } from 'react';
+import AiResumePage from '../../../../pages/services/AiResumePage';
+import { useRouter } from 'next/router';
 
-function AiResume({ services, setServices }) {
+function AiResume( ) {
+  const router = useRouter();
 
-  const [aiResumePage, setAiResumePage] = useState(false)
-  
+  const [aiResumePage, setAiResumePage] = useState(false);
+
   const handleClick = () => {
-    setServices(false);
-    setAiResumePage(true)
-
+   
+    router.push('/services/AiResumePage'); 
   };
+
   return (
     <>
-      {!aiResumePage && 
-        <div onClick={handleClick}>AiResume</div>
-      }
-
-      {aiResumePage &&  
-
-        <AiResumePage />
-      
-      
-
-      }
-
+      <div onClick={handleClick}>AiResume</div>
     </>
-
-  )
+  );
 }
 
-export default AiResume
+export default AiResume;

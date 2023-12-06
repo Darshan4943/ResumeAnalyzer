@@ -1,9 +1,23 @@
-import React from 'react'
 
-function InterviewQue() {
+import React, { useState } from 'react';
+import AiResumePage from '../../../../pages/services/AiResumePage';
+import { useRouter } from 'next/router';
+
+function InterviewQue( ) {
+  const router = useRouter();
+
+  const [aiResumePage, setAiResumePage] = useState(false);
+
+  const handleClick = () => {
+   
+    router.push('/services/InterviewQue'); 
+  };
+
   return (
-    <div>InterviewQue</div>
-  )
+    <>
+      <div onClick={handleClick}>InterviewQue</div>
+    </>
+  );
 }
 
-export default InterviewQue
+export default InterviewQue;
