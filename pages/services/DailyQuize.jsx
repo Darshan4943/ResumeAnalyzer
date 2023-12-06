@@ -1,10 +1,28 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Profile2 from "~/components/featured/services/Profile2";
-
-const DailyQuiz = () => {
+import { useRouter } from "next/router";
+const DailyQuize = () => {
+    const router = useRouter();
+    const query = router.query;
 
     const [toggle, setToggle] = useState(0)
 
+    useEffect(() => {
+       
+        if (query.content === "QuizeQue") {
+          setToggle(1);
+        } else {
+          setToggle(0);
+        }
+      }, [router.query]);
+    
+      const toggleContent = () => {
+        const QuizeQue = toggle ? "" : "QuizeQue";
+        router.push(`DailyQuize/?content=${QuizeQue}`);
+        setToggle((prevToggle) => !prevToggle);
+      };
+
+   
     return (
         <div className="bg-[#F9F9F9]">
             <div>
@@ -162,7 +180,7 @@ const DailyQuiz = () => {
                                     <span className="text-[12px] text-[#fff] font-[700]">Start.</span>{" "}
                                     Make sure you have a stable internet connection.
                                 </div>
-                                <div onClick={() => setToggle(1)}>
+                                <div onClick={toggleContent}  >
                                     <button className="py-[12px] px-[36px] border-solid border-[1px] border-[#06A9EF] bg-[#fff] text-[#333] text-[14px] font-[500] rounded-[8px]">
                                         Start Quiz
                                     </button>
@@ -298,4 +316,4 @@ const DailyQuiz = () => {
     );
 };
 
-export default DailyQuiz;
+export default DailyQuize;

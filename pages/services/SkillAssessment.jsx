@@ -1,8 +1,28 @@
-import React, { useState } from 'react'
+import { useRouter } from 'next/router';
+import React, { useEffect, useState } from 'react'
 import Profile1 from '~/components/featured/services/Profile1'
 
 function SkillAssessment() {
+    const router = useRouter();
+    const query = router.query;
+
     const [toggle, setToggle] = useState(0)
+
+    useEffect(() => {
+       
+        if (query.content === "SkillAssessment") {
+          setToggle(1);
+        } else {
+          setToggle(0);
+        }
+      }, [router.query]);
+    
+      const toggleContent = () => {
+        const SkillAssessment = toggle ? "" : "SkillAssessment";
+        router.push(`SkillAssessment/?content=${SkillAssessment}`);
+        setToggle((prevToggle) => !prevToggle);
+      };
+
     return (
         <div>
             <div>
@@ -18,7 +38,7 @@ function SkillAssessment() {
                             }}
                         >
                             <div className="flex flex-row justify-between">
-                                <div className="text-[20px] text-[500]">My Skills</div>
+                                <div className="text-[20px] font-medium">My Skills</div>
                                 <div>
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
@@ -36,23 +56,23 @@ function SkillAssessment() {
                                     </svg>
                                 </div>
                             </div>
-                            <div className="flex flex-row gap-[16px]">
-                                <button className="p-[16px] border-[1px] border-solid border-[#06A9EF] rounded-[25px] text-[14px] font-[500] text-[#333] transition-all transition-[0.2s]">
+                            <div className="flex flex-row gap-[16px] ">
+                                <button className="px-4 py-2 border-[1px] border-solid border-[#06A9EF] rounded-[25px] text-[14px]  font-medium text-[#333] transition-all transition-[0.2s]">
                                     User Interface Designing
                                 </button>
-                                <button className="p-[16px] border-[1px] border-solid border-[#06A9EF] rounded-[25px] text-[14px] font-[500] text-[#333] transition-all transition-[0.2s]">
+                                <button className="px-4 py-2 border-[1px] border-solid border-[#06A9EF] rounded-[25px] text-[14px] font-[500] text-[#333] transition-all transition-[0.2s]">
                                     User Research
                                 </button>
-                                <button className="p-[16px] border-[1px] border-solid border-[#06A9EF] rounded-[25px] text-[14px] font-[500] text-[#333] transition-all transition-[0.2s]">
+                                <button className="px-4 py-2 border-[1px] border-solid border-[#06A9EF] rounded-[25px] text-[14px] font-[500] text-[#333] transition-all transition-[0.2s]">
                                     Figma
                                 </button>
-                                <button className="p-[16px] border-[1px] border-solid border-[#06A9EF] rounded-[25px] text-[14px] font-[500] text-[#333] transition-all transition-[0.2s]">
+                                <button className="px-4 py-2 border-[1px] border-solid border-[#06A9EF] rounded-[25px] text-[14px] font-[500] text-[#333] transition-all transition-[0.2s]">
                                     Adobe Xd
                                 </button>
-                                <button className="p-[16px] border-[1px] border-solid border-[#06A9EF] rounded-[25px] text-[14px] font-[500] text-[#333] transition-all transition-[0.2s]">
+                                <button className="px-4 py-2 border-[1px] border-solid border-[#06A9EF] rounded-[25px] text-[14px] font-[500] text-[#333] transition-all transition-[0.2s]">
                                     Illustrator
                                 </button>
-                                <button className="p-[16px] border-[1px] border-solid border-[#06A9EF] rounded-[25px] text-[14px] font-[500] text-[#333] transition-all transition-[0.2s]">
+                                <button className="px-4 py-2 border-[1px] border-solid border-[#06A9EF] rounded-[25px] text-[14px] font-[500] text-[#333] transition-all transition-[0.2s]">
                                     Sketching
                                 </button>
                             </div>
@@ -220,7 +240,7 @@ function SkillAssessment() {
                                     Make sure you have a stable internet connection.
                                 </div>
                             </div>
-                            <div onClick={() => setToggle(1)}>
+                            <div onClick={toggleContent}>
                                 <button className="py-[12px] px-[36px] rounded-[8px] border-[1px] border-solid border-[#06A9EF] bg-[#fff] text-[#333] text-[14px] font-[500] transition-all transition-[0.2s]">
                                     Start
                                 </button>
