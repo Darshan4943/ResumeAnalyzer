@@ -8,7 +8,6 @@ const DailyQuize = () => {
     const [toggle, setToggle] = useState(0)
 
     useEffect(() => {
-       
         if (query.content === "QuizeQue") {
           setToggle(1);
         } else {
