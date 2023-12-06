@@ -6,18 +6,18 @@ import React from 'react'
   return (
    <div>
       <div className=" bg-[#E0F6FF] ">
-        <div className="customMargins py-5 flex flex-row justify-between ">
+        <div className="customMargins py-5 flex flex-row justify-between items-center ">
           <div className="justify-center items-center w-[29%] items-between">
             <div className="flex flex-row gap-[16px] py-[8px]  ">
               <div className="flex w-[40%] h-[110px]  items-center">
                 <img
                   src="./images/afterLoginHome/profile_pic.png"
                   alt=""
-                  className="w-[120px] h-[110px]"
+                  className="w-[120px] h-[120px]"
                 />
               </div>
               <div className="flex flex-col gap-[12px] items-center justify-center w-[60%] leading-[15px]">
-                <div className="flex  flex-col gap-[8px]">
+                <div className="flex  flex-col gap-[12px]">
                   <div className="flex flex-col gap-[8px]">
                     <div className="flex flex-col gap-[8px]">
                       <div className="text-[#333] text-[18px] font-[500]">
@@ -60,7 +60,7 @@ import React from 'react'
             </div>
           </div>
           <div className="py-[8px]  flex flex-row gap-[24px] w-[41%]">
-            <div className="w-[40%]">
+            <div className="w-[35%]">
               <div className="ai_images ">
                 <img
                   className="name_resume "
@@ -74,9 +74,9 @@ import React from 'react'
                 />
               </div>
             </div>
-            <div className="flex items-center w-[60%]">
-              <div className="flex items-center flex-col gap-[16px]">
-                <div className="flex items-center flex-col gap-[8px]">
+            <div className="flex items-start w-[60%] ">
+              <div className="flex  flex-col gap-[16px]">
+                <div className="flex  flex-col gap-[8px]">
                   <div className="text-[#333] text-[18px] font-[500]">
                     Build AI Powered Resume
                   </div>
@@ -159,7 +159,7 @@ import React from 'react'
       <div className="bg-[#F9F9F9]  ">
         <div className="customMargins flex flex-row gap-[24px] py-[24px] ">
           <div
-            className="p-[8px]  rounded-[8px] w-[41.30%] bg-[#fff]"
+            className="p-[8px]  rounded-[8px] w-[41.30%] bg-[#fff] leading-tight"
             style={{
               boxShadow: "0px 2px 2px 0px rgba(0, 0, 0, 0.25)",
             }}
@@ -204,12 +204,12 @@ import React from 'react'
                       </div>
                     </div>
                   </div>
-                  <div className="flex flex-row gap-[11px] items-center">
+                  <div className="flex flex-row gap-[11px] items-center leading-tight ">
                     <div className="flex flex-row gap-[4px]">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="14"
-                        height="15"
+                        height="14"
                         viewBox="0 0 14 15"
                         fill="none"
                       >
@@ -220,7 +220,7 @@ import React from 'react'
                           />
                         </g>
                       </svg>
-                      <div className="text-[#262626] text-[12px] font-[400]">
+                      <div className="text-[#262626] text-[12px] font-[400] ">
                         1-2 yrs
                       </div>
                     </div>
@@ -229,7 +229,7 @@ import React from 'react'
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="14"
-                        height="15"
+                        height="14"
                         viewBox="0 0 14 15"
                         fill="none"
                       >
@@ -249,7 +249,7 @@ import React from 'react'
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="14"
-                        height="15"
+                        height="14"
                         viewBox="0 0 14 15"
                         fill="none"
                       >
