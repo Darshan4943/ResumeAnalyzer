@@ -1,11 +1,23 @@
-import React from 'react'
 
-function SkillAssessment() {
+import React, { useState } from 'react';
+import AiResumePage from '../../../../pages/services/AiResumePage';
+import { useRouter } from 'next/router';
+
+function SkillAssessment( ) {
+  const router = useRouter();
+
+
+
+  const handleClick = () => {
+   
+    router.push('/services/SkillAssessment'); 
+  };
+
   return (
-    <div>
-      SkillAssessment
-    </div>
-  )
+    <>
+      <div onClick={handleClick}>SkillAssessment</div>
+    </>
+  );
 }
 
-export default SkillAssessment
+export default SkillAssessment;

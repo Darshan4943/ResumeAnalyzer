@@ -43,8 +43,8 @@ function Profile1() {
                     </div>
                   </div>
                 </div>
-                <div class="flex">
-                  <div class="flex flex-col justify-center items-start gap-[10px] flex-grow flex-shrink-0 flex-basis-0 w-[80%]">
+                <div class="flex justify-between w-full">
+                  <div class="flex flex-col  gap-[10px] flex-grow w-0">
                     <div class="flex items-center gap-[5px]">
                       <img
                         class="w-[20px] h-[20px]"
@@ -76,7 +76,7 @@ function Profile1() {
                       </p>
                     </div>
                   </div>
-                  <div class="flex px-[16px] py-[0px] flex-col justify-center items-start gap-[10px] flex-1 self-stretch border-l border-[#646464]">
+                  <div class="flex px-[16px] py-[0px] flex-col justify-center items-start gap-[10px] flex-1 self-stretch border-l  border-[#646464]">
                     <div class="flex items-center gap-[5px]">
                       <img
                         class="w-[20px] h-[20px]"

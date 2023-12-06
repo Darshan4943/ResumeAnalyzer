@@ -9,15 +9,15 @@ import DailyQuize from "~/components/featured/services/DailyQuize/DailyQuize";
 function Services() {
 
 
-   
+
     return (
         <div>
-            
-                    <AiResume  />
-                    <InterviewQue />
-                    <SkillAssessment />
-                    <DailyQuize />
-           
+
+            <AiResume />
+            <InterviewQue />
+            <SkillAssessment />
+            <DailyQuize />
+
 
 
             {/* <div className=" bg-[#F9F9F9]">

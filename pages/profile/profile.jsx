@@ -108,7 +108,7 @@ function profile() {
 
 
       <div>
-        <Profile2 />
+        <Profile1 />
       </div>
 
       <div className="customMargins">
