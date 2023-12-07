@@ -57,9 +57,9 @@ function Header() {
                 <li>Home</li>
               </ALink>
               <ALink
-                href="/jobs/jobs"
+                href="/jobs/Jobs"
                 className={
-                  selectedPage === "/jobs/jobs" ? "active" : "li"
+                  selectedPage === "/jobs/Jobs" ? "active" : "li"
                 }
               >
                 <li>Jobs</li>
@@ -67,7 +67,7 @@ function Header() {
               <ALink
                 href="/services/services"
                 className={
-                  selectedPage === "/services/services" ? "active" : "li"
+                  (selectedPage === "/services/services" || selectedPage === "/services/AiResumePage" ||selectedPage === "/services/InterviewQue"|| selectedPage === "/services/SkillAssessment" || selectedPage === "/services/DailyQuize") ? "active" : "li"
                 }
               >
                 <li>Services</li>

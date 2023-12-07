@@ -23,19 +23,19 @@ const DailyQuize = () => {
 
    
     return (
-        <div className="bg-[#F9F9F9]">
+        <div className="bg-[#F9F9F9] pb-2">
             <div>
                 <Profile2 />
             </div>
 
-            <div class="my-8 flex items-center justify-center gap-[30px] flex-col ">
-                <div className="flex flex-row items-center gap-[24px]">
+            <div class="my-8 flex items-center justify-center gap-[30px] flex-col customMargins">
+                <div className="flex flex-row items-center gap-[24px] text-center">
                     <div className="bg-[#06A9EF] w-[264px] h-[3px]"></div>
-                    <div className="bg-[#06A9EF] rounded-[16px] py-[12px] px-[60px] flex flex-col gap-[12px]">
-                        <div className="text-[24px] font-[600] text-[#fff]">
+                    <div className="bg-[#06A9EF] rounded-[16px] py-[12px] flex flex-col gap-[12px]">
+                        <div className="text-[24px] font-[600] text-[#fff]  px-[42px]">
                             Welcome to the Daily Quiz Challenge!
                         </div>
-                        <div className="text-[18px] flex justify-center items-center text-[#fff] font-[500]">
+                        <div className="text-[18px] flex justify-center items-center text-[#fff] font-[500]  px-[60px]">
                             Test your Knowledge Daily{" "}
                         </div>
                     </div>
@@ -43,8 +43,8 @@ const DailyQuize = () => {
                 </div>
 
                 {toggle === 0 &&
-                    <div className="flex flex-col justify-center gap-9 items-center" >
-                        <div class="w-[1128px] h-[174px] bg-[#005A81] rounded-2xl	flex flex-row justify-between py-[24px] px-[60px]">
+                    <div className="flex w-full flex-col justify-center gap-9 items-center" >
+                        <div class=" w-full h-[174px] bg-[#005A81] rounded-2xl	flex flex-row justify-between py-[24px] px-[60px] items-center text-center">
                             <div class="flex flex-col items-center gap-[8px]  text-center ">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -115,7 +115,7 @@ const DailyQuize = () => {
                                     after the Quiz
                                 </p>
                             </div>
-                            <div class="flex flex-col justify-center align-center">
+                            <div class="flex flex-col justify-center align-center items-center">
                                 <svg
                                     class=""
                                     xmlns="http://www.w3.org/2000/svg"
@@ -147,7 +147,7 @@ const DailyQuize = () => {
                                 <div className="text-[20px] font-[600]">
                                     DevInsights - Unleashing Developer Knowledge
                                 </div>
-                                <div className="text-[14px] font-[500] text-start">
+                                <div className="text-[14px] font-[500] text-start leading-[30px]">
                                     In the ever-evolving landscape of software development, proficiency
                                     in version control systems has become an indispensable skill for
                                     developers. Version control systems, such as Git, enable developers
@@ -157,8 +157,8 @@ const DailyQuize = () => {
                                     ensures the integrity of the codebase but also facilitates efficient
                                     collaboration in both small and large-scale projects. This skill not
                                     only streamlines the development process but also enhances the
-                                    overall software quality and project management. In the
-                                    ever-evolving landscape of software development, proficiency in
+                                    overall software quality and project management. <br/>
+                                    In the ever-evolving landscape of software development, proficiency in
                                     version control systems has become an indispensable skill for
                                     developers. Version control systems, such as Git, enable developers
                                     to track changes in their codebase, collaborate seamlessly with team
@@ -202,11 +202,11 @@ const DailyQuize = () => {
                                             boxShadow: "  0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
                                         }}
                                     >
-                                        <div className="text-[20px] text-[#333] font-[600]">
-                                            Question 1
+                                        <div className="text-[20px] text-[#06A9EF] font-[600]">
+                                            Question 2
                                         </div>
                                         <div className="text-[16px] text-[#333] font-[600]">
-                                            What does the acronym "API" stand for?
+                                        Which programming language is known for its use in developing web-based applications and is often associated with front-end development?
                                         </div>
                                     </div>
                                     <div className="flex flex-row  gap-[24px]">
@@ -217,7 +217,7 @@ const DailyQuize = () => {
                                                     boxShadow: "0px 0px 2px 0px rgba(0, 0, 0, 0.50)",
                                                 }}
                                             >
-                                                A) Application Programming Interface
+                                                A) Java
                                             </div>
                                             <div
                                                 className="py-[12px] px-[16px] rounded-[8px] text-[16px] font-[600] h-[50%]"
@@ -225,7 +225,7 @@ const DailyQuize = () => {
                                                     boxShadow: "0px 0px 2px 0px rgba(0, 0, 0, 0.50)",
                                                 }}
                                             >
-                                                C) Automated Processing Interface
+                                                C) JavaScript
                                             </div>
                                         </div>
                                         <div className="w-[50%] flex flex-col items-between gap-[24px]">
@@ -235,7 +235,7 @@ const DailyQuize = () => {
                                                     boxShadow: "0px 0px 2px 0px rgba(0, 0, 0, 0.50)",
                                                 }}
                                             >
-                                                B) Advanced Programming Integration
+                                                B) Python
                                             </div>
                                             <div
                                                 className="py-[12px] px-[16px] rounded-[8px] text-[16px] font-[600] h-[50%]"
@@ -243,32 +243,16 @@ const DailyQuize = () => {
                                                     boxShadow: "0px 0px 2px 0px rgba(0, 0, 0, 0.50)",
                                                 }}
                                             >
-                                                D) Application Process Integration
+                                                D) Ruby
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div className="flex w-full justify-between">
-                                <div className="rounded-[8px] border-[1px] border-solid border-[#06A9EF] bg-[#fff] flex flex-row gap-[8px] text-[18px] font-[600] p-[8px]">
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        width="24"
-                                        height="24"
-                                        viewBox="0 0 24 24"
-                                        fill="none"
-                                    >
-                                        <g mask="url(#mask0_4403_58159)">
-                                            <path
-                                                d="M12.0001 22.2034C10.5849 22.2034 9.25703 21.9359 8.01645 21.401C6.77587 20.866 5.69661 20.1396 4.77868 19.2216C3.86074 18.3037 3.13429 17.2244 2.59933 15.9839C2.06436 14.7433 1.79688 13.4154 1.79688 12.0001C1.79688 10.5849 2.06436 9.25703 2.59933 8.01645C3.13429 6.77587 3.86074 5.69661 4.77868 4.77867C5.69661 3.86074 6.77587 3.13429 8.01645 2.59932C9.25703 2.06436 10.5849 1.79688 12.0001 1.79688C13.4154 1.79688 14.7433 2.06436 15.9839 2.59932C17.2244 3.13429 18.3037 3.86074 19.2216 4.77867C20.1396 5.69661 20.866 6.77587 21.401 8.01645C21.9359 9.25703 22.2034 10.5849 22.2034 12.0001C22.2034 12.4422 22.1794 12.8759 22.1314 13.3012C22.0834 13.7266 22.0051 14.1436 21.8964 14.5523C21.6272 14.2498 21.3135 14.0029 20.9553 13.8115C20.5972 13.6202 20.2108 13.5032 19.7964 13.4605C19.8424 13.2264 19.8759 12.9872 19.8969 12.7428C19.9179 12.4984 19.9284 12.2509 19.9284 12.0001C19.9284 9.78277 19.1614 7.90704 17.6273 6.37298C16.0933 4.83893 14.2175 4.0719 12.0001 4.0719C9.78277 4.0719 7.90704 4.83893 6.37297 6.37298C4.83892 7.90704 4.0719 9.78277 4.0719 12.0001C4.0719 14.2175 4.83892 16.0933 6.37297 17.6273C7.90704 19.1614 9.78277 19.9284 12.0001 19.9284C12.8382 19.9284 13.6367 19.8074 14.3958 19.5654C15.1549 19.3233 15.8554 18.9833 16.4974 18.5452C16.7014 18.8844 16.9642 19.1812 17.2858 19.4358C17.6073 19.6903 17.9587 19.8838 18.3398 20.0164C17.4739 20.7038 16.5038 21.2401 15.4295 21.6254C14.3552 22.0108 13.2121 22.2034 12.0001 22.2034ZM19.3817 18.1974C18.9958 18.1974 18.6681 18.0627 18.3985 17.7931C18.129 17.5235 17.9942 17.1958 17.9942 16.8099C17.9942 16.4241 18.129 16.0963 18.3985 15.8268C18.6681 15.5572 18.9958 15.4224 19.3817 15.4224C19.7675 15.4224 20.0953 15.5572 20.3648 15.8268C20.6344 16.0963 20.7692 16.4241 20.7692 16.8099C20.7692 17.1958 20.6344 17.5235 20.3648 17.7931C20.0953 18.0627 19.7675 18.1974 19.3817 18.1974ZM15.2105 16.736L10.9105 12.436V7.03005H13.0898V11.5523L16.748 15.2105L15.2105 16.736Z"
-                                                fill="#06A9EF"
-                                            />
-                                        </g>
-                                    </svg>
-                                    19 : 48 Minutes
-                                </div>
-                                <div className="flex flex-row gap-[72px]">
-                                    <div className="flex flex-row gap-[3px] items-center justify-center text-[18px] font-[600]">
+                                
+                              
+                                    <div className="flex flex-row gap-[3px] items-center text-[18px] font-[600]">
                                         <svg
                                             xmlns="http://www.w3.org/2000/svg"
                                             width="40"
@@ -285,25 +269,12 @@ const DailyQuize = () => {
                                         </svg>
                                         Previous
                                     </div>
-                                    <div className="flex flex-row gap-[3px] items-center justify-center text-[18px] font-[600]">
-                                        Next
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            width="40"
-                                            height="40"
-                                            viewBox="0 0 40 40"
-                                            fill="none"
-                                        >
-                                            <g mask="url(#mask0_4403_58171)">
-                                                <path
-                                                    d="M22.0633 19.9998L16.7973 25.2658L18.2556 26.7658L25.0215 19.9998L18.2556 13.2338L16.7973 14.7338L22.0633 19.9998ZM20.0041 35.8331C17.8142 35.8331 15.7558 35.4175 13.8289 34.5864C11.902 33.7553 10.2258 32.6228 8.80047 31.1888C7.37508 29.7548 6.24665 28.0765 5.41518 26.154C4.58371 24.2315 4.16797 22.1811 4.16797 20.0026C4.16797 17.8127 4.58352 15.7543 5.41464 13.8274C6.24575 11.9005 7.37366 10.2244 8.79839 8.79901C10.2231 7.37362 11.8985 6.24519 13.8246 5.41371C15.7506 4.58224 17.8086 4.1665 19.9985 4.1665C22.1884 4.1665 24.2421 4.58206 26.1598 5.41317C28.0774 6.24428 29.7535 7.3722 31.1882 8.79692C32.6228 10.2217 33.7559 11.8971 34.5873 13.8231C35.4188 15.7492 35.8346 17.8071 35.8346 19.997C35.8346 22.1755 35.419 24.2264 34.5879 26.1498C33.7568 28.0731 32.6242 29.7521 31.1902 31.1867C29.7562 32.6214 28.0808 33.7544 26.1641 34.5859C24.2473 35.4174 22.1939 35.8331 20.0041 35.8331Z"
-                                                    fill="#06A9EF"
-                                                />
-                                            </g>
-                                        </svg>
-                                    </div>
+                                    <button className="px-9 py-3 items-center border border-[#06A9EF] rounded-[12px]   text-[16px] font-[500]">
+                                        
+                                        Submit
+                                    </button>
                                 </div>
-                            </div>
+                            
                         </div>
                     
                     </div>

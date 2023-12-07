@@ -319,7 +319,7 @@ function SkillAssessment() {
                                             boxShadow: "  0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
                                         }}
                                     >
-                                        <div className="text-[20px] text-[#333] font-[600]">
+                                        <div className="text-[20px] text-[#06A9EF] font-[600] ">
                                             Question 1
                                         </div>
                                         <div className="text-[16px] text-[#333] font-[600]">
