@@ -46,9 +46,12 @@ module.exports = {
       'gray-line': '#646464',
       'light-black' : '#333',
       'shadow-color': 'rgba(0, 0, 0, 0.25)',
-      'efficient-back' : '#024e6e'
+      'efficient-back' : '#024e6e',
+      'ui-c':'#262626',
+      'ui-c2':'#646464'
 
     },
+  
     fontFamily: {
       sans: ['Graphik', 'sans-serif'],
       serif: ['Merriweather', 'serif'],
