@@ -9,19 +9,19 @@ const DailyQuize = () => {
 
     useEffect(() => {
         if (query.content === "QuizeQue") {
-          setToggle(1);
+            setToggle(1);
         } else {
-          setToggle(0);
+            setToggle(0);
         }
-      }, [router.query]);
-    
-      const toggleContent = () => {
+    }, [router.query]);
+
+    const toggleContent = () => {
         const QuizeQue = toggle ? "" : "QuizeQue";
         router.push(`DailyQuize/?content=${QuizeQue}`);
         setToggle((prevToggle) => !prevToggle);
-      };
+    };
 
-   
+
     return (
         <div className="bg-[#F9F9F9] pb-2">
             <div>
@@ -157,7 +157,7 @@ const DailyQuize = () => {
                                     ensures the integrity of the codebase but also facilitates efficient
                                     collaboration in both small and large-scale projects. This skill not
                                     only streamlines the development process but also enhances the
-                                    overall software quality and project management. <br/>
+                                    overall software quality and project management. <br />
                                     In the ever-evolving landscape of software development, proficiency in
                                     version control systems has become an indispensable skill for
                                     developers. Version control systems, such as Git, enable developers
@@ -191,10 +191,10 @@ const DailyQuize = () => {
 
                 {toggle === 1 &&
                     <div className="w-full flex justify-center items-center flex-row py-[36px] customMargins ">
-                       
+
                         <div className="w-[82.97%] flex flex-col gap-[24px]">
                             <div className="bg-[#fff] border-[2px] border-solid border-[#06A9EF] rounded-[12px] p-[24px] flex flex-col gap-[12px]">
-                                
+
                                 <div className="flex flex-col gap-[24px]">
                                     <div
                                         className="rounded-[16px] flex flex-col gap-[12px] p-[24px] bg-[#E0F6FF]"
@@ -206,7 +206,7 @@ const DailyQuize = () => {
                                             Question 2
                                         </div>
                                         <div className="text-[16px] text-[#333] font-[600]">
-                                        Which programming language is known for its use in developing web-based applications and is often associated with front-end development?
+                                            Which programming language is known for its use in developing web-based applications and is often associated with front-end development?
                                         </div>
                                     </div>
                                     <div className="flex flex-row  gap-[24px]">
@@ -250,35 +250,72 @@ const DailyQuize = () => {
                                 </div>
                             </div>
                             <div className="flex w-full justify-between">
-                                
-                              
-                                    <div className="flex flex-row gap-[3px] items-center text-[18px] font-[600]">
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            width="40"
-                                            height="40"
-                                            viewBox="0 0 40 40"
-                                            fill="none"
-                                        >
-                                            <g mask="url(#mask0_4403_58165)">
-                                                <path
-                                                    d="M17.9367 19.9998L23.2027 25.2658L21.7444 26.7658L14.9785 19.9998L21.7444 13.2338L23.2027 14.7338L17.9367 19.9998ZM19.9959 35.8331C22.1858 35.8331 24.2442 35.4175 26.1711 34.5864C28.098 33.7553 29.7742 32.6228 31.1995 31.1888C32.6249 29.7548 33.7534 28.0765 34.5848 26.154C35.4163 24.2315 35.832 22.1811 35.832 20.0026C35.832 17.8127 35.4165 15.7543 34.5854 13.8274C33.7543 11.9005 32.6263 10.2244 31.2016 8.79901C29.7769 7.37362 28.1015 6.24519 26.1754 5.41371C24.2494 4.58224 22.1914 4.1665 20.0015 4.1665C17.8116 4.1665 15.7579 4.58206 13.8402 5.41317C11.9226 6.24428 10.2465 7.3722 8.81182 8.79692C7.37718 10.2217 6.24413 11.8971 5.41265 13.8231C4.58118 15.7492 4.16545 17.8071 4.16545 19.997C4.16545 22.1755 4.581 24.2264 5.41211 26.1498C6.24323 28.0731 7.37578 29.7521 8.80978 31.1867C10.2438 32.6214 11.9192 33.7544 13.8359 34.5859C15.7527 35.4174 17.8061 35.8331 19.9959 35.8331Z"
-                                                    fill="#06A9EF"
-                                                />
-                                            </g>
-                                        </svg>
-                                        Previous
-                                    </div>
-                                    <button className="px-9 py-3 items-center border border-[#06A9EF] rounded-[12px]   text-[16px] font-[500]">
-                                        
-                                        Submit
-                                    </button>
+
+
+                                <div className="flex flex-row gap-[3px] items-center text-[18px] font-[600]">
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="40"
+                                        height="40"
+                                        viewBox="0 0 40 40"
+                                        fill="none"
+                                    >
+                                        <g mask="url(#mask0_4403_58165)">
+                                            <path
+                                                d="M17.9367 19.9998L23.2027 25.2658L21.7444 26.7658L14.9785 19.9998L21.7444 13.2338L23.2027 14.7338L17.9367 19.9998ZM19.9959 35.8331C22.1858 35.8331 24.2442 35.4175 26.1711 34.5864C28.098 33.7553 29.7742 32.6228 31.1995 31.1888C32.6249 29.7548 33.7534 28.0765 34.5848 26.154C35.4163 24.2315 35.832 22.1811 35.832 20.0026C35.832 17.8127 35.4165 15.7543 34.5854 13.8274C33.7543 11.9005 32.6263 10.2244 31.2016 8.79901C29.7769 7.37362 28.1015 6.24519 26.1754 5.41371C24.2494 4.58224 22.1914 4.1665 20.0015 4.1665C17.8116 4.1665 15.7579 4.58206 13.8402 5.41317C11.9226 6.24428 10.2465 7.3722 8.81182 8.79692C7.37718 10.2217 6.24413 11.8971 5.41265 13.8231C4.58118 15.7492 4.16545 17.8071 4.16545 19.997C4.16545 22.1755 4.581 24.2264 5.41211 26.1498C6.24323 28.0731 7.37578 29.7521 8.80978 31.1867C10.2438 32.6214 11.9192 33.7544 13.8359 34.5859C15.7527 35.4174 17.8061 35.8331 19.9959 35.8331Z"
+                                                fill="#06A9EF"
+                                            />
+                                        </g>
+                                    </svg>
+                                    Previous
                                 </div>
-                            
+                                <button className="px-9 py-3 items-center border border-[#06A9EF] rounded-[12px]   text-[16px] font-[500]">
+
+                                    Submit
+                                </button>
+                            </div>
+
                         </div>
-                    
+
                     </div>
                 }
+
+                {/* scorecard start here */}
+                
+                <div className="w-[100%] flex justify-center ">
+                    <div className="flex w-[67%] p-[24px] flex-col overflow-hidden items-center gap-[24px] rounded-lg bg-[#fff] shadow-md justify-center">
+                        <p className="items-stretch text-[#333] font-montserrat text-[24px] font-[600]">Scoreboard</p>
+                        <div className="flex w-[110%] overflow-hidden py-[12px] px-[60px] flex-col justify-center items-center gap-[12px] bg-[#06A9EF] backdrop-blur">
+                            <p className="items-stretch text-[#fff] font-montserrat text-[24px] font-[600]">Daily Quiz Completed!</p>
+                        </div>
+
+                        <div className="flex w-[44%] p-[16px] flex-col justify-center items-center gap-[11px] rounded-md bg-[#fff] shadow-md">
+                            <p className=" text-secondary text-[#333] font-montserrat text-[18px] font-[600]">Your Score</p>
+                            <p className=" text-secondary text-[#333] font-montserrat text-[50px] font-[600] leading-tight">20</p>
+
+                            <div className="flex flex-row">
+                                {
+                                    [1, 2, 3, 4].map(() => (<svg xmlns="http://www.w3.org/2000/svg" width="31" height="30" viewBox="0 0 31 30" fill="none">
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M15.2073 22.5001L10.0344 25.1842C9.41525 25.5054 8.64947 25.2705 8.32398 24.6594C8.19436 24.4161 8.14964 24.1374 8.19672 23.8664L9.18467 18.1814L4.99966 14.1553C4.49877 13.6734 4.48853 12.882 4.97677 12.3876C5.17119 12.1908 5.42594 12.0627 5.70159 12.0231L11.4851 11.1937L14.0716 6.02129C14.3812 5.40222 15.1406 5.14805 15.7678 5.45358C16.0176 5.57524 16.2198 5.77477 16.3431 6.02129L18.9295 11.1937L24.7131 12.0231C25.4053 12.1224 25.8849 12.7567 25.7843 13.4399C25.7443 13.7119 25.6145 13.9634 25.415 14.1553L21.23 18.1814L22.2179 23.8664C22.3362 24.5469 21.8732 25.1931 21.1837 25.3098C20.9092 25.3562 20.6268 25.3121 20.3803 25.1842L15.2073 22.5001Z" fill="#FFDA1D" />
+                                    </svg>
+                                    ))}
+                                <svg xmlns="http://www.w3.org/2000/svg" width="31" height="30" viewBox="0 0 31 30" fill="none">
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M15.7933 22.5001L10.6203 25.1842C10.0012 25.5054 9.23541 25.2705 8.90992 24.6594C8.7803 24.4161 8.73557 24.1374 8.78266 23.8664L9.77061 18.1814L5.5856 14.1553C5.08471 13.6734 5.07446 12.882 5.56271 12.3876C5.75713 12.1908 6.01188 12.0627 6.28752 12.0231L12.0711 11.1937L14.6575 6.02129C14.9671 5.40222 15.7265 5.14805 16.3538 5.45358C16.6036 5.57524 16.8057 5.77477 16.929 6.02129L19.5155 11.1937L25.299 12.0231C25.9912 12.1224 26.4708 12.7567 26.3702 13.4399C26.3302 13.7119 26.2004 13.9634 26.0009 14.1553L21.8159 18.1814L22.8039 23.8664C22.9221 24.5469 22.4591 25.1931 21.7697 25.3098C21.4952 25.3562 21.2128 25.3121 20.9662 25.1842L15.7933 22.5001Z" fill="#FFF4BB" />
+                                </svg>
+                            </div>
+                            <p className=" text-secondary text-[#333] font-montserrat text-[18px] font-[600]">You got 4 Answers right</p>
+                        </div>
+
+                        <p className="align-stretch text-[#333] text-center font-montserrat text-[20px] font-[500] leading-[36px] ">
+                            Great! Hungry for Knowledge? <br />
+                            Visit back tomorrow for more.
+                        </p>
+
+                        <button className="flex py-[12px] px-[36px] justify-center items-center rounded-[12px] border border-[#06A9EF] bg-[#fff] text-[#333] text-[16px] font-[500] ">
+                            Go to Profile
+                        </button>
+                    </div>
+                </div>
 
             </div>
 
