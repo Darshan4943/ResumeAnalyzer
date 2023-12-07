@@ -175,266 +175,289 @@ function Jobs() {
             {/* FIRST SECTION   */}
 
             {toggle &&
-              <div className="flex flex-col col-span-3 rounded-md bg-white shadow-md ">
-                <div className="flex justify-between  p-4 bg-white shadow-md  items-start gap-4 ">
-                  <p className=" font-montserrat text-base font-medium text-[10px] text-black ">
-                    All Filters
-                  </p>
-                  <button className="text-primary font-montserrat text-sm font-medium text-blue">
-                    Reset all
-                  </button>
-                </div>
+             <div className="flex flex-col col-span-3 rounded-md bg-white shadow-md overflow-y-auto ">
+             <div className="flex justify-between  p-4 bg-white shadow-md  items-start gap-4 ">
+               <p className=" font-montserrat text-base font-medium text-[10px] text-black ">
+                 All Filters
+               </p>
+               <button className="text-primary font-montserrat text-sm font-medium text-blue">
+                 Reset all
+               </button>
+             </div>
 
-                <div className="flex flex-col items-start justify-center p-4 gap-2">
-                  <div className="flex justify-center items-start font-montserrat font-medium text-[16px] text-black">
-                    <p className="font-montserrat font-medium text-[16px] text-black">
-                      By Location
-                    </p>
-                  </div>
-                  <div className="flex   items-start self-stretch gap-1 p-1 border border-text-secondary rounded-md bg-white">
-                    <div className="w-[24px] h-[24px]">
-                      <img src="./images/jobs/ser.png" alt="" />
-                    </div>
-                    <input
-                      type="text"
-                      placeholder="search"
-                      className="font-montserrat font-normal text-[14px] text-black "
-                    />
-                  </div>
+             <div className="flex flex-col items-start justify-center p-4 gap-2">
+               <div className="flex justify-center items-start font-montserrat font-medium text-[16px] text-black">
+                 <p className="font-montserrat font-medium text-[16px] text-black">
+                   By Location
+                 </p>
+               </div>
+               <div className="flex   items-start self-stretch gap-1 p-1 border border-text-secondary rounded-md bg-white">
+                 <div className="w-[24px] h-[24px]">
+                   <img src="./images/jobs/ser.png" alt="" />
+                 </div>
+                 <input
+                   type="text"
+                   placeholder="search"
+                   className="font-montserrat font-normal text-[14px] text-black "
+                 />
+               </div>
 
-                  <div className="flex flex-col justify-center items-center gap-2 self-stretch">
-                    <div className="flex items-center gap-2 self-stretch">
-                      <input
-                        type="checkbox"
-                        className="rounded-md border h-[20px] w-[20px] border-blue bg-white  object-cover "
-                      />
+               <div className="flex flex-col justify-center items-center gap-2 self-stretch">
+                 <div className="flex items-center gap-2 self-stretch">
+                   <input
+                     type="checkbox"
+                     className="rounded-md border h-[20px] w-[20px] border-blue bg-white  object-cover "
+                   />
 
-                      <p className="font-montserrat font-medium text-[12px] text-black">
-                        Bengaluru / Banglore
-                      </p>
-                    </div>
-                    <div className="flex items-center gap-2 self-stretch">
-                      <input
-                        type="checkbox"
-                        className="rounded-md border h-[20px] w-[20px] border-blue bg-white  object-cover"
-                      />
+                   <p className="font-montserrat font-medium text-[12px] text-black">
+                     Bengaluru / Banglore
+                   </p>
+                 </div>
+                 <div className="flex items-center gap-2 self-stretch">
+                   <input
+                     type="checkbox"
+                     className="rounded-md border h-[20px] w-[20px] border-blue bg-white  object-cover"
+                   />
 
-                      <p className="font-montserrat font-medium text-[12px] text-black">
-                        Chennai
-                      </p>
-                    </div>
-                    <div className="flex items-center gap-2 self-stretch">
-                      <input
-                        type="checkbox"
-                        className="rounded-md border h-[20px] w-[20px] border-blue bg-white  object-cover"
-                      />
+                   <p className="font-montserrat font-medium text-[12px] text-black">
+                     Chennai
+                   </p>
+                 </div>
+                 <div className="flex items-center gap-2 self-stretch">
+                   <input
+                     type="checkbox"
+                     className="rounded-md border h-[20px] w-[20px] border-blue bg-white  object-cover"
+                   />
 
-                      <p className="font-montserrat font-medium text-[12px] text-black">
-                        Chennai
-                      </p>
-                    </div>
-                    <div className="flex items-center gap-2 self-stretch">
-                      <input
-                        type="checkbox"
-                        className="rounded-md border h-[20px] w-[20px] border-blue bg-white  object-cover"
-                      />
+                   <p className="font-montserrat font-medium text-[12px] text-black">
+                     Chennai
+                   </p>
+                 </div>
+                 <div className="flex items-center gap-2 self-stretch">
+                   <input
+                     type="checkbox"
+                     className="rounded-md border h-[20px] w-[20px] border-blue bg-white  object-cover"
+                   />
 
-                      <p className="font-montserrat font-medium text-[12px] text-black">
-                        Chennai
-                      </p>
-                    </div>
-                  </div>
-                  <div className="border-b border-gray w-full h-[10px]"></div>
+                   <p className="font-montserrat font-medium text-[12px] text-black">
+                     Chennai
+                   </p>
+                 </div>
+               </div>
+               <div className="border-b border-gray w-full h-[10px]"></div>
 
-                  <div className="flex justify-center items-start font-montserrat font-medium text-[16px] text-black">
-                    <p className="font-montserrat font-medium text-[16px] text-black">
-                      By Industry
-                    </p>
-                  </div>
-                  <div className="flex   items-start self-stretch gap-1 p-1 border border-text-secondary rounded-md bg-white">
-                    <div className="w-[24px] h-[24px]">
-                      <img src="./images/jobs/ser.png" alt="" />
-                    </div>
-                    <input
-                      type="text"
-                      placeholder="search"
-                      className="font-montserrat font-normal text-[14px] text-black "
-                    />
-                  </div>
+               <div className="flex justify-center items-start font-montserrat font-medium text-[16px] text-black">
+                 <p className="font-montserrat font-medium text-[16px] text-black">
+                   By Industry
+                 </p>
+               </div>
+               <div className="flex   items-start self-stretch gap-1 p-1 border border-text-secondary rounded-md bg-white">
+                 <div className="w-[24px] h-[24px]">
+                   <img src="./images/jobs/ser.png" alt="" />
+                 </div>
+                 <input
+                   type="text"
+                   placeholder="search"
+                   className="font-montserrat font-normal text-[14px] text-black "
+                 />
+               </div>
 
-                  <div className="flex flex-col justify-center items-center gap-2 self-stretch">
-                    <div className="flex items-center gap-2 self-stretch">
-                      <input
-                        type="checkbox"
-                        className="rounded-md border h-[20px] w-[20px] border-blue bg-white  object-cover "
-                      />
+               <div className="flex flex-col justify-center items-center gap-2 self-stretch">
+                 <div className="flex items-center gap-2 self-stretch">
+                   <input
+                     type="checkbox"
+                     className="rounded-md border h-[20px] w-[20px] border-blue bg-white  object-cover "
+                   />
 
-                      <p className="font-montserrat font-medium text-[12px] text-black">
-                        Others
-                      </p>
-                    </div>
-                    <div className="flex items-center gap-2 self-stretch">
-                      <input
-                        type="checkbox"
-                        className="rounded-md border h-[20px] w-[20px] border-blue bg-white  object-cover"
-                      />
+                   <p className="font-montserrat font-medium text-[12px] text-black">
+                     Others
+                   </p>
+                 </div>
+                 <div className="flex items-center gap-2 self-stretch">
+                   <input
+                     type="checkbox"
+                     className="rounded-md border h-[20px] w-[20px] border-blue bg-white  object-cover"
+                   />
 
-                      <p className="font-montserrat font-medium text-[12px] text-black">
-                        IT/ Computers - Software
-                      </p>
-                    </div>
-                    <div className="flex items-center gap-2 self-stretch">
-                      <input
-                        type="checkbox"
-                        className="rounded-md border h-[20px] w-[20px] border-blue bg-white  object-cover"
-                      />
+                   <p className="font-montserrat font-medium text-[12px] text-black">
+                     IT/ Computers - Software
+                   </p>
+                 </div>
+                 <div className="flex items-center gap-2 self-stretch">
+                   <input
+                     type="checkbox"
+                     className="rounded-md border h-[20px] w-[20px] border-blue bg-white  object-cover"
+                   />
 
-                      <p className="font-montserrat font-medium text-[12px] text-black">
-                        Banking/ Accounting/Financial Services
-                      </p>
-                    </div>
-                    <div className="flex items-center gap-2 self-stretch">
-                      <input
-                        type="checkbox"
-                        className="rounded-md border h-[20px] w-[20px] border-blue bg-white  object-cover"
-                      />
+                   <p className="font-montserrat font-medium text-[12px] text-black">
+                     Banking/ Accounting/Financial Services
+                   </p>
+                 </div>
+                 <div className="flex items-center gap-2 self-stretch">
+                   <input
+                     type="checkbox"
+                     className="rounded-md border h-[20px] w-[20px] border-blue bg-white  object-cover"
+                   />
 
-                      <p className="font-montserrat font-medium text-[12px] text-black">
-                        Internet/ E-commerce
-                      </p>
-                    </div>
-                    <div className="flex items-center gap-2 self-stretch">
-                      <input
-                        type="checkbox"
-                        className="rounded-md border h-[20px] w-[20px] border-blue bg-white  object-cover"
-                      />
+                   <p className="font-montserrat font-medium text-[12px] text-black">
+                     Internet/ E-commerce
+                   </p>
+                 </div>
+                 <div className="flex items-center gap-2 self-stretch">
+                   <input
+                     type="checkbox"
+                     className="rounded-md border h-[20px] w-[20px] border-blue bg-white  object-cover"
+                   />
 
-                      <p className="font-montserrat font-medium text-[12px] text-black">
-                        Education/ Training
-                      </p>
-                    </div>
-                  </div>
-                  <div className="border-b border-gray w-full h-[10px]"></div>
-                  <div className="flex justify-center items-start font-montserrat font-medium text-[16px] text-black">
-                    <p className="font-montserrat font-medium text-[16px] text-black">
-                      By Location
-                    </p>
-                  </div>
-                  <div className="flex   items-start self-stretch gap-1 p-1 border border-text-secondary rounded-md bg-white">
-                    <div className="w-[24px] h-[24px]">
-                      <img src="./images/jobs/ser.png" alt="" />
-                    </div>
-                    <input
-                      type="text"
-                      placeholder="search"
-                      className="font-montserrat font-normal text-[14px] text-black "
-                    />
-                  </div>
+                   <p className="font-montserrat font-medium text-[12px] text-black">
+                     Education/ Training
+                   </p>
+                 </div>
+               </div>
+               <div className="border-b border-gray w-full h-[10px]"></div>
+               <div className="flex justify-center items-start font-montserrat font-medium text-[16px] text-black">
+                 <p className="font-montserrat font-medium text-[16px] text-black">
+                   By Salary
+                 </p>
+               </div>
+               {/* <div className="flex   items-start self-stretch gap-1 p-1 border border-text-secondary rounded-md bg-white">
+                 <div className="w-[24px] h-[24px]">
+                   <img src="./images/jobs/ser.png" alt="" />
+                 </div>
+                 <input
+                   type="text"
+                   placeholder="search"
+                   className="font-montserrat font-normal text-[14px] text-black "
+                 />
+               </div> */}
 
-                  <div className="flex flex-col justify-center items-center gap-2 self-stretch">
-                    <div className="flex items-center gap-2 self-stretch">
-                      <input
-                        type="checkbox"
-                        className="rounded-md border h-[20px] w-[20px] border-blue bg-white  object-cover "
-                      />
+               <div className="flex flex-col justify-center items-center gap-2 self-stretch">
+                 <div className="flex items-center gap-2 self-stretch">
+                   <input
+                     type="checkbox"
+                     className="rounded-md border h-[20px] w-[20px] border-blue bg-white  object-cover "
+                   />
 
-                      <p className="font-montserrat font-medium text-[12px] text-black">
-                        Bengaluru / Banglore
-                      </p>
-                    </div>
-                    <div className="flex items-center gap-2 self-stretch">
-                      <input
-                        type="checkbox"
-                        className="rounded-md border h-[20px] w-[20px] border-blue bg-white  object-cover"
-                      />
+                   <p className="font-montserrat font-medium text-[12px] text-black">
+                     $ 0-2 LPA
+                   </p>
+                 </div>
+                 <div className="flex items-center gap-2 self-stretch">
+                   <input
+                     type="checkbox"
+                     className="rounded-md border h-[20px] w-[20px] border-blue bg-white  object-cover"
+                   />
 
-                      <p className="font-montserrat font-medium text-[12px] text-black">
-                        Chennai
-                      </p>
-                    </div>
-                    <div className="flex items-center gap-2 self-stretch">
-                      <input
-                        type="checkbox"
-                        className="rounded-md border h-[20px] w-[20px] border-blue bg-white  object-cover"
-                      />
+                   <p className="font-montserrat font-medium text-[12px] text-black">
+                     $ 0-2 LPA
+                   </p>
+                 </div>
+                 <div className="flex items-center gap-2 self-stretch">
+                   <input
+                     type="checkbox"
+                     className="rounded-md border h-[20px] w-[20px] border-blue bg-white  object-cover"
+                   />
 
-                      <p className="font-montserrat font-medium text-[12px] text-black">
-                        Chennai
-                      </p>
-                    </div>
-                    <div className="flex items-center gap-2 self-stretch">
-                      <input
-                        type="checkbox"
-                        className="rounded-md border h-[20px] w-[20px] border-blue bg-white  object-cover"
-                      />
+                   <p className="font-montserrat font-medium text-[12px] text-black">
+                     $ 0-2 LPA
+                   </p>
+                 </div>
+                 <div className="flex items-center gap-2 self-stretch border-blue">
+                   <input
+                     type="checkbox"
+                     className="rounded-md border h-[20px] w-[20px] border-blue bg-white  object-cover"
+                   />
 
-                      <p className="font-montserrat font-medium text-[12px] text-black">
-                        Chennai
-                      </p>
-                    </div>
-                  </div>
-                  <div className="border-b border-gray w-full h-[10px]"></div>
-                  <div className="flex justify-center items-start font-montserrat font-medium text-[16px] text-black">
-                    <p className="font-montserrat font-medium text-[16px] text-black">
-                      By Location
-                    </p>
-                  </div>
-                  <div className="flex   items-start self-stretch gap-1 p-1 border border-text-secondary rounded-md bg-white">
-                    <div className="w-[24px] h-[24px]">
-                      <img src="./images/jobs/ser.png" alt="" />
-                    </div>
-                    <input
-                      type="text"
-                      placeholder="search"
-                      className="font-montserrat font-normal text-[14px] text-black "
-                    />
-                  </div>
+                   <p className="font-montserrat font-medium text-[12px] text-black">
+                     $ 0-2 LPA
+                   </p>
+                 </div>
+                 <div className="flex items-center gap-2 self-stretch border-blue">
+                   <input
+                     type="checkbox"
+                     className="rounded-md border h-[20px] w-[20px] border-blue bg-white  object-cover"
+                   />
 
-                  <div className="flex flex-col justify-center items-center gap-2 self-stretch">
-                    <div className="flex items-center gap-2 self-stretch">
-                      <input
-                        type="checkbox"
-                        className="rounded-md border h-[20px] w-[20px] border-blue bg-white  object-cover "
-                      />
+                   <p className="font-montserrat font-medium text-[12px] text-black">
+                     More than $ 8 LPA
+                   </p>
+                 </div>
+                 <div className="flex items-center gap-2 self-stretch border-blue">
+                   <input
+                     type="checkbox"
+                     className="rounded-md border h-[20px] w-[20px] border-blue bg-white  object-cover"
+                   />
 
-                      <p className="font-montserrat font-medium text-[12px] text-black">
-                        Bengaluru / Banglore
-                      </p>
-                    </div>
-                    <div className="flex items-center gap-2 self-stretch">
-                      <input
-                        type="checkbox"
-                        className="rounded-md border h-[20px] w-[20px] border-blue bg-white  object-cover"
-                      />
+                   <p className="font-montserrat font-medium text-[12px] text-black">
+                     Not Specified
+                   </p>
+                 </div>
+               </div>
+               <div className="border-b border-gray w-full h-[10px]"></div>
+               <div className="flex justify-center items-start font-montserrat font-medium text-[16px] text-black">
+                 <p className="font-montserrat font-medium text-[16px] text-black"></p>
+               </div>
+               <div className="flex justify-center items-start font-montserrat font-medium text-[16px] text-black">
+                 <p className="font-montserrat font-medium text-[16px] text-black">
+                   By Experience
+                 </p>
+               </div>
 
-                      <p className="font-montserrat font-medium text-[12px] text-black">
-                        Chennai
-                      </p>
-                    </div>
-                    <div className="flex items-center gap-2 self-stretch">
-                      <input
-                        type="checkbox"
-                        className="rounded-md border h-[20px] w-[20px] border-blue bg-white  object-cover"
-                      />
+               <div className="flex flex-col justify-center items-center gap-2 self-stretch">
+                 <div className="flex items-center gap-2 self-stretch">
+                   <input
+                     type="checkbox"
+                     className="rounded-md border h-[20px] w-[20px] border-blue bg-white  object-cover "
+                   />
 
-                      <p className="font-montserrat font-medium text-[12px] text-black">
-                        Chennai
-                      </p>
-                    </div>
-                    <div className="flex items-center gap-2 self-stretch">
-                      <input
-                        type="checkbox"
-                        className="rounded-md border h-[20px] w-[20px] border-blue bg-white  object-cover"
-                      />
+                   <p className="font-montserrat font-medium text-[12px] text-black">
+                     0-1 Years
+                   </p>
+                 </div>
+                 <div className="flex items-center gap-2 self-stretch">
+                   <input
+                     type="checkbox"
+                     className="rounded-md border h-[20px] w-[20px] border-blue bg-white  object-cover"
+                   />
 
-                      <p className="font-montserrat font-medium text-[12px] text-black">
-                        Chennai
-                      </p>
-                    </div>
-                  </div>
-                  <div className="border-b border-gray w-full h-[10px]"></div>
-                </div>
-              </div>
+                   <p className="font-montserrat font-medium text-[12px] text-black">
+                     1-2 Years
+                   </p>
+                 </div>
+                 <div className="flex items-center gap-2 self-stretch">
+                   <input
+                     type="checkbox"
+                     className="rounded-md border h-[20px] w-[20px] border-blue bg-white  object-cover"
+                   />
+
+                   <p className="font-montserrat font-medium text-[12px] text-black">
+                     2-5 Years
+                   </p>
+                 </div>
+                 <div className="flex items-center gap-2 self-stretch">
+                   <input
+                     type="checkbox"
+                     className="rounded-md border h-[20px] w-[20px] border-blue bg-white  object-cover"
+                   />
+
+                   <p className="font-montserrat font-medium text-[12px] text-black">
+                     5-7 Years
+                   </p>
+                 </div>
+                 <div className="flex items-center gap-2 self-stretch">
+                   <input
+                     type="checkbox"
+                     className="rounded-md border h-[20px] w-[20px] border-blue bg-white  object-cover"
+                   />
+
+                   <p className="font-montserrat font-medium text-[12px] text-black">
+                     7-10 Years
+                   </p>
+                 </div>
+               </div>
+               <div className="border-b border-gray w-full h-[10px]"></div>
+             </div>
+           </div>
 
             }
             {/* SECOND SECTION   */}
