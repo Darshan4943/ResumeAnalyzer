@@ -195,8 +195,8 @@ function Jobs() {
             <div className=" customMargins  ">
               <div className="inline-flex py-6 justify-center items-center gap-2">
                 {btns.map((item) => (
-                  <button className="rounded-full border-blue bg-blue">
-                    <p className="font-medium text-[14px] text-white p-2">
+                  <button className="rounded-full border border-blue bg-white">
+                    <p className="font-medium text-[14px] text-black py-2 px-4">
                       
                       {item}
                     </p>
