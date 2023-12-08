@@ -1066,7 +1066,6 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    overflow: hidden;
   }
   .details_radio{
     display: flex;
@@ -1100,6 +1099,7 @@
   }
   
   .personal_details{
+    margin-top: 2px;
     justify-content:center;
     display: flex;
   }
@@ -1111,12 +1111,12 @@
   }
   
   .mail_img {
-   width: 20%;
-   position: absolute;
-   top: 16rem;
-   right: 5rem;
-   z-index: -10;
-   overflow: hidden;
+    width: 42%;
+    position: absolute;
+    top: -2rem;
+    right: -16rem;
+    z-index: -10;
+    overflow: hidden;
    animation: shake_animation 1s ;
   }
   
@@ -1147,10 +1147,10 @@
   
   
   .phone_img{
-    width: 15%;
+    width: 30%;
     position: absolute;
-   top: 48rem;
-    right: 9rem;
+    top: 32rem;
+    right: -12rem;
     z-index: -10;
     overflow: hidden;
      animation: shake_animation2 1s ;
@@ -1182,11 +1182,11 @@
   }
   
   .location_img{
-    width: 11%;
+    width: 28%;
     position: absolute;
-   top: 18rem;
-   left: 10rem;
-   overflow: hidden;
+    top: 0.8rem;
+    left: -12rem;
+    overflow: hidden;
     z-index: -10;
      animation: shake_animation3 1s ;
   }
@@ -1217,10 +1217,10 @@
   }
   
   .data_img{
-    width: 13%;
+    width: 30%;
     position: absolute;
-   top: 38rem;
-   left: 8rem;
+    top: 20rem;
+    left: -12rem;
     z-index: -10;
     overflow: hidden;
      animation: shake_animation4 1s ease-in-out ;
@@ -1254,10 +1254,10 @@
   }
   
   .group_2{
-    width: 10%;
+    width: 18%;
     position: absolute;
-   top: 40rem;
-    right: 10rem;
+    top: 27rem;
+    right: -11rem;
     z-index: -10;
     overflow: hidden;
      animation: group_2_animation2 1s ;
@@ -1289,10 +1289,10 @@
   }
   
   .group_6{
-    width: 18%;
+    width: 31%;
     position: absolute;
-   top: 53rem;
-   left: 8rem;
+    top: 40rem;
+    left: -10rem;
     z-index: -10;
     overflow: hidden;
     animation: shake_animation4 1s ease-in-out ;
@@ -1307,12 +1307,9 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 24px;
+  position: relative;
   }
-  
-  // .personal_details_all{
-  //   display: none;
-  // }
-  
+    
   .personal_name_parent{
     display: flex;
   align-items: flex-start;
@@ -1452,6 +1449,7 @@
   
   .already_text_parent{
     margin-top: 20px;
+    padding-bottom: 96px;
   }
   
   .already_text{
