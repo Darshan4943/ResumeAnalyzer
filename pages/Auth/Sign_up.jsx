@@ -151,7 +151,7 @@ function Sign_up() {
                 <div>
                   <div className="text-[20px] font-[500] ">Employer</div>
                   <div className="text-[14px] font-[500] text-[#646464]">
-                    I’am searching for skilled employees{" "}
+                    I'am searching for skilled employees{" "}
                   </div>
                 </div>
               </div>

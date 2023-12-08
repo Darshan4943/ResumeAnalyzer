@@ -17,7 +17,7 @@ function Header() {
   };
   const handleLogin = () => {
     setlogin(true)
-    router.push('/'); 
+    router.push('/candidate/afterLogin/home/candidateHome'); 
     toggleDropdown()
     // window.location.reload(); 
 
@@ -51,9 +51,9 @@ function Header() {
                   <li>Home</li>
                 </ALink>
                 <ALink
-                  href="/candidate/candidate"
+                  href="/candidate/beforeLogin/candidate"
                   className={
-                    selectedPage === "/candidate/candidate" ? "active" : "li"
+                    selectedPage === "/candidate/beforeLogin/candidate" ? "active" : "li"
                   }
                 >
                   <li>Candidate</li>
@@ -78,21 +78,21 @@ function Header() {
                
               </>
             ) : (<>
-              <ALink href="/" className={selectedPage === "/" ? "active" : "li"}>
+              <ALink href="/candidate/afterLogin/home/candidateHome" className={selectedPage === "/candidate/afterLogin/home/candidateHome" ? "active" : "li"}>
                 <li>Home</li>
               </ALink>
               <ALink
-                href="/jobs/jobs"
+                href="/candidate/afterLogin/jobs/jobs"
                 className={
-                  selectedPage === "/jobs/jobs" ? "active" : "li"
+                  selectedPage === "/candidate/afterLogin/jobs/jobs" ? "active" : "li"
                 }
               >
                 <li>Jobs</li>
               </ALink>
               <ALink
-                href="/services/services"
+                href="/candidate/afterLogin/services/services"
                 className={
-                  (selectedPage === "/services/services" || selectedPage === "/services/AiResumePage" || selectedPage === "/services/InterviewQue" || selectedPage === "/services/SkillAssessment" || selectedPage === "/services/DailyQuize") ? "active" : "li"
+                  (selectedPage === "/candidate/afterLogin/services/services" || selectedPage === "/candidate/afterLogin/services/servicesSub/AiResumePage" || selectedPage === "/candidate/afterLogin/services/servicesSub/InterviewQue" || selectedPage === "/candidate/afterLogin/services/servicesSub/SkillAssessment" || selectedPage === "/candidate/afterLogin/services/servicesSub/DailyQuize") ? "active" : "li"
                 }
               >
                 <li>Services</li>

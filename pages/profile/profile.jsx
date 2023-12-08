@@ -1,6 +1,6 @@
 import React from "react";
-import Profile1 from "~/components/featured/services/Profile1";
-import Profile2 from "~/components/featured/services/Profile2";
+import Profile1 from "~/components/featured/candidate/afterLogin/services/Profile1";
+
 
 function profile() {
   const arr = [

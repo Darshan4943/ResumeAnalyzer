@@ -1,4 +1,4 @@
-import AfterLoginHome from "./home/AfterLoginHome";
+import AfterLoginHome from "./candidate/afterLogin/home/candidateHome";
 
 import BeforeLoginHome from "./home/BeforeLoginHome";
 
@@ -12,8 +12,8 @@ function Home() {
     <>
 
       <main>
-        {/* <BeforeLoginHome /> */}
-        <AfterLoginHome/>
+        <BeforeLoginHome />
+        
 
       </main>
     </>

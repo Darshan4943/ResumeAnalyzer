@@ -1,16 +1,28 @@
-import React, { useState } from 'react'
-import DateSelector from '~/pages/services/dateSelector';
+import React, { useState } from "react";
+import TextEditor from "../../../../components/common/textEditor";
+import DateSelector from "../../../../components/common/dateSelector";
+import AiResume from "~/components/featured/candidate/afterLogin/services/AiResume";
+import InterviewQue from "~/components/featured/candidate/afterLogin/services/InterviewQue";
+import DailyQuize from "~/components/featured/candidate/afterLogin/services/DailyQuize";
+import SkillAssessment from "~/components/featured/candidate/afterLogin/services/SkillAssessment";
 
-function AiResumePage() {
-    const [selected, setSelected] = useState(false);
 
-    const handleRadioChange = () => {
-        setSelected(!selected);
-    };
-  return (
-    <div>
-        <div className=" bg-[#F9F9F9]">
-                <div className=" flex customMargins py-6 h-[1087px] gap-6">
+function Services() {
+
+
+
+    return (
+        <div>
+
+            <AiResume />
+            <InterviewQue />
+            <DailyQuize />
+            <SkillAssessment />
+
+
+
+            {/* <div className=" bg-[#F9F9F9]">
+                <div className=" flex customMargins pt-[24px] h-[1063px] gap-6">
                     <div
                         className="flex flex-col w-[49%] p-2 gap-4 rounded-lg bg-white shadow-md"
                         style={{
@@ -533,9 +545,13 @@ function AiResumePage() {
 
                     </div>
                 </div>
-            </div>
-    </div>
-  )
+            </div> */}
+
+        </div>
+
+
+
+    );
 }
 
-export default AiResumePage
+export default Services;

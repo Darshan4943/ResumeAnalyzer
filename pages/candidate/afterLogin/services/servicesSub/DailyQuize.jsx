@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import Profile2 from "~/components/featured/services/Profile2";
+
 import { useRouter } from "next/router";
+import Profile2 from "~/components/featured/candidate/afterLogin/services/Profile2";
 const DailyQuize = () => {
   const router = useRouter();
   const query = router.query;
