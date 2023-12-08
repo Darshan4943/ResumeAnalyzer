@@ -50,7 +50,8 @@ const Employer_register = () => {
                         </div>
                     </div>
                 </div>
-                {/* animation section  */}
+                                  {/* animation section  */}
+                                  
                 <div className={tog === 1 ? "show-content" : "content"}>
                 <div className="sec_main_parent_head pt-[220px]">
                     <div className="img_parent_head">

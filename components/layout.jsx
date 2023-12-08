@@ -34,7 +34,7 @@ function Layout({ children }) {
         <div >
           <Header />
         </div>
-        <div className="mt-[5rem] mb-[2rem]">
+        <div className="mt-[5rem] ">
         {children}
         </div>
         

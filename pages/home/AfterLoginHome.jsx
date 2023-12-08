@@ -4,7 +4,7 @@ import React from 'react'
   function AfterLoginHome() {
     const numberOfDivs=5;
   return (
-   <div>
+   <div className=" pb-[-100px]" >
       <div className=" bg-[#E0F6FF]  ">
         <div className="customMargins py-5 flex flex-row justify-between items-center ">
           <div className="justify-center items-center w-[29%] items-between">
