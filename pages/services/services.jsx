@@ -15,8 +15,8 @@ function Services() {
 
             <AiResume />
             <InterviewQue />
-            <SkillAssessment />
             <DailyQuize />
+            <SkillAssessment />
 
 
 
