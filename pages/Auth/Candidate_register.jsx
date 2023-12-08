@@ -104,15 +104,18 @@ function Candidate_register() {
                     <motion.div className="personal_details back_img"
 
                     >
-                        <img className="mail_img" src="./images/auth/candidate/Mail.png" alt="" />
-
-                        <img className="phone_img " src="./images/auth/candidate/Phone.png" alt="" />
-
-                        <img className="location_img" src="./images/auth/candidate/Location.png" alt="" />
-
-                        <img className="data_img" src="./images/auth/candidate/Data.png" alt="" />
+                  
 
                         <div className="personal_details_form">
+
+                        <img className="mail_img" src="./images/auth/candidate/Mail.png" alt="" />
+
+<img className="phone_img " src="./images/auth/candidate/Phone.png" alt="" />
+
+<img className="location_img" src="./images/auth/candidate/Location.png" alt="" />
+
+<img className="data_img" src="./images/auth/candidate/Data.png" alt="" />
+
                             <div className="personal_name_parent">
                                 <div className="personal_name">
                                     <p className="form_text_heading">
@@ -288,30 +291,33 @@ function Candidate_register() {
 
             {tabindex === 2 && (
                 <div className="show-content">
-                    <div className="personal_details ">
+                    <div className="personal_details " style={{paddingBottom:'96px'}}>
+                        <div className="personal_details_form">
+
 
                         <img className="mail_img" src="./images/auth/candidate/Group_1.png" alt=""
-                            style={{ right: '3rem', width: "15%", animationDelay: 0.2 }} />
+                            style={{ right: '-14rem',top:'2rem', width: "26%", animationDelay: 0.2 }} />
 
                         <img className="group_2" src="./images/auth/candidate/Group_2.png" alt="" />
 
 
                         <img className="phone_img " src="./images/auth/candidate/Group_3.png" alt=""
-                            style={{ width: "13%", top: '53rem', right: '4rem' }}
+                            style={{ width: "26%", top: '37rem', right: '-19rem' }}
                         />
 
                         <img className="location_img" src="./images/auth/candidate/Group_4.png" alt=""
-                            style={{ top: '20rem', left: '9rem', width: '8%' }}
+                            style={{ top: '8rem', left: '-7.2rem', width: '17%' }}
                         />
 
-                        <img className="data_img" src="./images/auth/candidate/Group_5.png" alt=""
-                            style={{ left: '1rem' }}
+                        <img className="data_img"   src="./images/auth/candidate/Group_5.png" alt=""
+                            style={{ left: '-16rem', top:'22rem', width:'22%' }}
                         />
 
-                        <img className="group_6" src="./images/auth/candidate/Group_6.png" alt="" />
+                        <img className="group_6" src="./images/auth/candidate/Group_6.png" style={{position:"absolute"}} alt="" />
 
 
-                        <div className="personal_details_form">
+
+
                             <div className="personal_single_input">
                                 <div className="personal_name">
                                     <p className="form_text_heading">Highest Education</p>
@@ -449,22 +455,24 @@ function Candidate_register() {
                 tabindex === 3 && (
 
                     <div className="personal_details_all">
-                        <div className="personal_details">
+                        <div className="personal_details" style={{paddingBottom:'96px'}}>
+                            <div className="personal_details_form">
+
 
                             <img className="mail_img" src="./images/auth/candidate/Group_7.png" alt=""
-                                style={{ right: '3rem', width: "18%", animationDelay: 0.2, top: '22rem' }} />
+                                style={{ right: '-13rem', width: "31%", animationDelay: 0.2, top: '11rem' }} />
 
                             <img className="phone_img " src="./images/auth/candidate/Group_8.png" alt=""
-                                style={{ width: "18%", top: '65rem', right: '5rem' }} />
+                                style={{ width: "39%", top: '46rem', right: '-16rem' }} />
 
                             <img className="location_img" src="./images/auth/candidate/Group_9.png" alt=""
-                                style={{ top: '20rem', left: '4rem', width: "18%" }}
+                                style={{ top: '3rem', left: '-14rem', width: "36%" }}
                             />
 
                             <img className="data_img" src="./images/auth/candidate/Group_10.png" alt=""
-                                style={{ left: '3rem', width: "20%", top: '53rem' }} />
+                                style={{ left: '-17rem', width: "44%", top: '33rem' }} />
 
-                            <div className="personal_details_form">
+
                                 <div className="personal_single_input">
                                     <div className="personal_name">
                                         <p className="form_text_heading">
