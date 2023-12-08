@@ -5,7 +5,7 @@ import React from 'react'
     const numberOfDivs=5;
   return (
    <div>
-      <div className=" bg-[#E0F6FF] ">
+      <div className=" bg-[#E0F6FF]  ">
         <div className="customMargins py-5 flex flex-row justify-between items-center ">
           <div className="justify-center items-center w-[29%] items-between">
             <div className="flex flex-row gap-[16px] py-[8px]  ">

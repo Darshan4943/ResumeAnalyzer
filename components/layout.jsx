@@ -31,10 +31,13 @@ function Layout({ children }) {
     <>
       {/* <div ref={mainRef}> */}
         <div>
-        <div className="customMargins">
+        <div >
           <Header />
         </div>
+        <div className="mt-[5rem] mb-[2rem]">
         {children}
+        </div>
+        
 
         <Footer />
       </div>

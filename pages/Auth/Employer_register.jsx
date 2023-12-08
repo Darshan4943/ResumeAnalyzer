@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import ALink from "~/components/alink";
 const Employer_register = () => {
@@ -7,42 +7,52 @@ const Employer_register = () => {
     function updateTog(id) {
         setTog(id);
     }
+
+    useEffect(() => {
+        if (tog === 2) {
+        
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      }, [tog]); 
     return (
         <div className="mt-[24px]" >
 
 
             {/* // SECOND SECTION  */}
 
-            <div className={tog === 1 ? "show-content" : "content"}>
-                <div className="register_head">
-                    <div className="register_cadidate">
-                        <div className="register_text_parent">
-                            <p className="register_heding_text">Register as Employer</p>
-                            <p className="register_heding_desc">
-                                Start your career with Skilotech
-                            </p>
+           
+                <div className="fixed w-[100%] py-[40px] z-[900] bg-white">
+                    <div className="register_head">
+                        <div className="register_cadidate">
+                            <div className="register_text_parent">
+                                <p className="register_heding_text">Register as Employer</p>
+                                <p className="register_heding_desc">
+                                    Start your career with Skilotech
+                                </p>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div className="comp_lines">
-                    <div className="c_parent">
-                        <img src="./images/auth/employer/c1.png" alt="" className="c1_img" />
-                        <div className="line_one_two"></div>
-                        <img src="./images/auth/employer/c2.png" alt="" className="c1_img" />
-                    </div>
-                </div>
-                <div className="main_comp_lines">
-                    <div className="c_parent_det">
-                        <div className="compd1">
-                            <p className="details">Company Details</p>
+                    <div className="comp_lines">
+                        <div className="c_parent">
+                            <img src="./images/auth/employer/c1.png" alt="" className="c1_img" />
+                            <div className="line_one_two"></div>
+                            <img src="./images/auth/employer/c2.png" alt="" className="c1_img" />
                         </div>
-                        <div className="compd1">
-                            <p className="details">Upload Documents</p>
+                    </div>
+                    <div className="main_comp_lines">
+                        <div className="c_parent_det">
+                            <div className="compd1">
+                                <p className="details">Company Details</p>
+                            </div>
+                            <div className="compd1">
+                                <p className="details">Upload Documents</p>
+                            </div>
                         </div>
                     </div>
                 </div>
                 {/* animation section  */}
-                <div className="sec_main_parent_head">
+                <div className={tog === 1 ? "show-content" : "content"}>
+                <div className="sec_main_parent_head pt-[220px]">
                     <div className="img_parent_head">
                         <div className="four_img_cont">
                             <div className="img_contener1">
@@ -173,7 +183,7 @@ const Employer_register = () => {
                                     </button>
                                 </ALink>
                                 <button
-                                    className="gen_button"
+                                    className="go_button"
                                     id="border_button"
                                     onClick={() => updateTog(2)}
                                 >
@@ -193,39 +203,12 @@ const Employer_register = () => {
 
 
             {/* THIRD SECTION    */}
-            <div className={tog === 2 ? "show-content" : "content"}>
-                <div className="register_head">
-                    <div className="register_cadidate">
-                        <div className="register_text_parent">
-                            <p className="register_heding_text">Register as Employer</p>
-                            <p className="register_heding_desc">
-                                Start your career with Skilotech
-                            </p>
-                        </div>
-                    </div>
-                </div>
+            <div className={`${tog === 2 ? "show-content" : "content"}  `}>
+
 
                 {/* ANIMATION SECTION  */}
-                <div className="last_main_parent_head">
-                    <div className="comp_lines">
-                        <div className="c_parent">
-                            <img src="./images/auth/employer/c1.png" alt="" className="c1_img" />
-                            <div className="line_one_two">
+                <div className="last_main_parent_head pt-[290px]">
 
-                            </div>
-                            <img src="./images/auth/employer/c2.png" alt="" className="c1_img" />
-                        </div>
-                    </div>
-                    <div className="main_comp_lines">
-                        <div className="c_parent_det">
-                            <div className="compd1">
-                                <p className="details">Company Details</p>
-                            </div>
-                            <div className="compd1">
-                                <p className="details">Upload Documents</p>
-                            </div>
-                        </div>
-                    </div>
 
                     <div className="last_img_parent_head">
                         <div className="lastfour_img_cont">

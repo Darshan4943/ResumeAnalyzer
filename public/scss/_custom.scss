@@ -7,11 +7,13 @@ body {
   }
 .customMargins{
 	margin: 0 auto;
+	
 	max-width:1128px ;
 	align-self: center;
-	
-	
+		
 }
+
+
 
 
 @media (max-width: 1220px) {
@@ -25,6 +27,7 @@ body {
 		padding: 0 16px;
 		
 	}
+	
   }
 
   @media (min-width: 1440px) {

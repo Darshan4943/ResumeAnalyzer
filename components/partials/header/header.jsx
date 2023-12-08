@@ -35,9 +35,9 @@ function Header() {
 
 
   return (
-    <>
-      <div className="header_parent">
-        <div className="header">
+    <div className="bg-white z-[1000] fixed w-[100%] mt-[-5rem] " style={{boxShadow: "0px 1px 4px 0px rgba(0, 0, 0, 0.25)"}}>
+      <div className="header_parent customMargins z-[1000]">
+        <div className="header   ">
 
           <div className="header_left">
 
@@ -170,7 +170,7 @@ function Header() {
 
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
