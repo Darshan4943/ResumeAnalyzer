@@ -5,11 +5,34 @@ import ALink from "~/components/alink";
 function Header() {
   const router = useRouter();
   const [selectedPage, setSelectedPage] = useState("");
-  const [login, setlogin] = useState(true);
+  const [login, setlogin] = useState(false);
 
   useEffect(() => {
     setSelectedPage(router.pathname);
   }, [router.pathname]);
+  const [showDropdown, setShowDropdown] = useState(false);
+
+  const toggleDropdown = () => {
+    setShowDropdown(!showDropdown);
+  };
+  const handleLogin = () => {
+    setlogin(true)
+    router.push('/'); 
+    toggleDropdown()
+    // window.location.reload(); 
+
+  }
+  const handleLogOut = () => {
+    setlogin(false)
+    router.push('/'); 
+    toggleDropdown()
+  
+    // window.location.reload(); 
+  }
+
+  
+
+
 
   return (
     <>
@@ -51,6 +74,8 @@ function Header() {
                 >
                   <li>Recruiter</li>
                 </ALink>
+
+               
               </>
             ) : (<>
               <ALink href="/" className={selectedPage === "/" ? "active" : "li"}>
@@ -67,7 +92,7 @@ function Header() {
               <ALink
                 href="/services/services"
                 className={
-                  (selectedPage === "/services/services" || selectedPage === "/services/AiResumePage" ||selectedPage === "/services/InterviewQue"|| selectedPage === "/services/SkillAssessment" || selectedPage === "/services/DailyQuize") ? "active" : "li"
+                  (selectedPage === "/services/services" || selectedPage === "/services/AiResumePage" || selectedPage === "/services/InterviewQue" || selectedPage === "/services/SkillAssessment" || selectedPage === "/services/DailyQuize") ? "active" : "li"
                 }
               >
                 <li>Services</li>
@@ -91,6 +116,23 @@ function Header() {
                   Sign Up
                 </button>
               </ALink>
+              <div className="user_name flex items-center relative">
+                  
+                  <img
+                    src="./images/down_arrow.png"
+                    className="h-4 w-4 ml-1 cursor-pointer "
+                    alt=""
+                    onMouseEnter={toggleDropdown}
+                  //  onMouseLeave={toggleDropdown}
+                  />
+                  {showDropdown && (
+                    <div className="dropdown absolute -right-10 mt-[7rem] z-10 bg-white border border-gray-200 py-2 px-3 rounded-md shadow-md">
+                      <a onClick={handleLogin} className="block py-1">Login</a>
+                      <a onClick={handleLogOut} className="block py-1">LogOut</a>
+
+                    </div>
+                  )}
+                  </div>
             </div>
           ) : (
             <div className="header_right_login">
@@ -98,16 +140,28 @@ function Header() {
                 <img src="./images/notifications.png" className="header_notification" alt="" />
               </ALink>
               <div className="flex items-center gap-[8px]">
-              <ALink href="/profile/profile">
-                <div className="profile_icon">
-                  <img src="./images/profile_icon.png" className="profile_icon_img" alt="" />
-                </div>
-              </ALink>
-              <div className="user_name flex items-center">
-                John Doe
+                <ALink href="/profile/profile">
+                  <div className="profile_icon">
+                    <img src="./images/profile_icon.png" className="profile_icon_img" alt="" />
+                  </div>
+                </ALink>
+                <div className="user_name flex items-center relative">
+                  John Doe
+                  <img
+                    src="./images/down_arrow.png"
+                    className="h-4 w-4 ml-1 cursor-pointer "
+                    alt=""
+                    onMouseEnter={toggleDropdown}
+                  // onMouseLeave={toggleDropdown}
+                  />
+                  {showDropdown && (
+                    <div className="dropdown absolute -right-10 mt-[6rem] z-10 bg-white border border-gray-200 py-2 px-3 rounded-md shadow-md">
+                      <a onClick={handleLogin} className="block py-1">Login</a>
+                      <a onClick={handleLogOut} className="block py-1">LogOut</a>
 
-                <img src="./images/down_arrow.png" className="h-[16px] w-[16px]" alt="" />
-              </div>
+                    </div>
+                  )}
+                </div>
               </div>
 
             </div>
