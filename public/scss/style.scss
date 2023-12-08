@@ -23,9 +23,24 @@
 @layer utilities {
     .bg-vector {
       background-image: url('../images/candidate/Vector.png');
+      
     }
     .bg-recruiter_back {
       background-image: url('../images/recruiter/recruiter_back.png');
+    }
+
+    .bg-Ai_resume {
+      background-image: url("../images/services/AiResumeBck.png");
+    }
+    .bg-InterviewQue {
+      background-image: url("../images/services/InterviewQue.png");
+      object-fit: cover;
+    }
+    .bg-SkillAssessment {
+      background-image: url("../images/services/SkillAssessment.png");
+    }
+    .bg-DailyQuize {
+      background-image: url("../images/services/DailyQuize.png");
     }
 
     
