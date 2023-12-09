@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import DateSelector from '~/pages/services/dateSelector';
+import DateSelector from '~/components/common/dateSelector';
 
 function AiResumePage() {
     const [selected, setSelected] = useState(false);
@@ -9,7 +9,7 @@ function AiResumePage() {
     };
   return (
     <div>
-        <div className=" bg-[#F9F9F9]">
+        <div className=" bg-[#F9F9F9] pt-2">
                 <div className=" flex customMargins py-6 h-[1087px] gap-6">
                     <div
                         className="flex flex-col w-[49%] p-2 gap-4 rounded-lg bg-white shadow-md"

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import AiResumePage from "../../../../pages/services/AiResumePage";
+
 import { useRouter } from "next/router";
 
 function InterviewQue() {
@@ -8,7 +8,7 @@ function InterviewQue() {
   const [aiResumePage, setAiResumePage] = useState(false);
 
   const handleClick = () => {
-    router.push("/services/InterviewQue");
+    router.push("/candidate/afterLogin/services/servicesSub/InterviewQue");
   };
 
   return (

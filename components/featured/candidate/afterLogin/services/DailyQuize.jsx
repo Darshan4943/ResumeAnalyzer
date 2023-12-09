@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import AiResumePage from "../../../../pages/services/AiResumePage";
+
 import { useRouter } from "next/router";
 
 function DailyQuize() {
   const router = useRouter();
 
   const handleClick = () => {
-    router.push("/services/DailyQuize");
+    router.push("/candidate/afterLogin/services/servicesSub/DailyQuize");
   };
 
   return (

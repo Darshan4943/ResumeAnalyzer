@@ -1,9 +1,10 @@
 import React from 'react'
-import Profile1 from '~/components/featured/services/profile1'
+import Profile1 from '~/components/featured/candidate/afterLogin/services/Profile1'
+
 
 function InterviewQue() {
     return (
-        <div>
+        <div className='pt-2'>
             <Profile1 />
             <div className="w-full h-full flex flex-start gap-[24px] customMargins py-6">
                 <div

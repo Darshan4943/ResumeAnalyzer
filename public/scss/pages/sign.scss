@@ -746,8 +746,9 @@
     align-items: center;
     justify-content: center;
     margin-bottom: 20px;
+   
   }
-  .register_cadidate {
+  .register_employer {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -755,7 +756,8 @@
     height: 89px;
     align-items: center;
     flex-shrink: 0;
-    background-color: var(--primary, #ffda1d);
+  
+    background-color: var(--primary, #FFDA1D);
   }
   
   .register_text_parent {
@@ -767,8 +769,8 @@
     // z-index: 10;
   }
   
-  .register_heding_text {
-    color: var(--white, #333);
+  .register_heding_text_employer {
+    color:  #333;
     font-family: Montserrat;
     font-size: 40px;
     font-style: normal;
@@ -776,7 +778,7 @@
     line-height: normal;
     margin: 0px;
   }
-  .register_heding_desc {
+  .register_heding_descEmployer {
     color: var(--white, #333);
     text-align: center;
     font-family: Montserrat;
@@ -1517,7 +1519,7 @@
   
   .already_text_parent{
     margin-top: 20px;
-    padding-bottom: 96px;
+    padding-bottom: 19px;
   }
   
   .already_text{

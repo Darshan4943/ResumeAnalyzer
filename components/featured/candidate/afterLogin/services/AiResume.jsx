@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import AiResumePage from "../../../../pages/services/AiResumePage";
+
 import { useRouter } from "next/router";
 
 function AiResume() {
@@ -8,12 +8,12 @@ function AiResume() {
   const [aiResumePage, setAiResumePage] = useState(false);
 
   const handleClick = () => {
-    router.push("/services/AiResumePage");
+    router.push("/candidate/afterLogin/services/servicesSub/AiResumePage");
   };
 
   return (
     <>
-      <div class=" bg-Ai_resume  bg-cover bg-no-repeat">
+      <div class=" bg-Ai_resume  bg-cover bg-no-repeat pt-4">
         <div className="flex rounded-[12px] relative customMargins">
           <div
             className="my-[124px] py-[46px] px-[24px]"

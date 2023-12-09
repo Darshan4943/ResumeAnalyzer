@@ -3,7 +3,7 @@ import React from "react";
 function HeroSection() {
   return (
     <div >
-      <div className="hero_section_parent">
+      <div className="hero_section_parent pt-9">
 
         <div className="hero_wrapper customMargins  ">
           <div className="slider1  ">

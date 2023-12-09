@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import TextEditor from "./textEditor";
-import DateSelector from "./dateSelector";
-import AiResume from "~/components/featured/services/AiResume/AiResume";
-import InterviewQue from "~/components/featured/services/InterviewQue/InterviewQue";
-import SkillAssessment from "~/components/featured/services/SkillAssessment/SkillAssessment";
-import DailyQuize from "~/components/featured/services/DailyQuize/DailyQuize";
+import TextEditor from "../../../../components/common/textEditor";
+import DateSelector from "../../../../components/common/dateSelector";
+import AiResume from "~/components/featured/candidate/afterLogin/services/AiResume";
+import InterviewQue from "~/components/featured/candidate/afterLogin/services/InterviewQue";
+import DailyQuize from "~/components/featured/candidate/afterLogin/services/DailyQuize";
+import SkillAssessment from "~/components/featured/candidate/afterLogin/services/SkillAssessment";
+
 
 function Services() {
 
