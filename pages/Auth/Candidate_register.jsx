@@ -10,9 +10,9 @@ function Candidate_register() {
   }
 
   return (
-    <>
-      <div className="register_head mt-[24px]">
-        <div className="register_cadidate">
+    < div className="">
+      <div className="register_head  fixed w-[100%] z-[900] pt-[48px] pb-6 bg-white">
+        <div className="register_cadidate overflow-hidden">
           <div className="register_text_parent">
             <div className="register_heding">
               <p className="register_heding_text">Register as candidate</p>
@@ -154,7 +154,7 @@ function Candidate_register() {
 
       {/* personal details form start */}
       {tabindex === 1 && (
-        <div className={"show-content"}>
+        <div className={"show-content pt-[250px] overflow-hidden"}>
           <motion.div className="personal_details back_img">
             <div className="personal_details_form">
               <img
@@ -747,7 +747,7 @@ function Candidate_register() {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 }
 

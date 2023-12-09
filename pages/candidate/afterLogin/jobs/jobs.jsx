@@ -87,7 +87,7 @@ function Jobs() {
 
   return (
     <>
-      <div style={{ backgroundColor: "#E0F6FF" }}>
+      <div style={{ backgroundColor: "#E0F6FF" , paddingTop:"10px" }}>
         <div>
           <div className="candidate_searchbox customMargins py-4 ">
             <div className="flex flex-row justify-center items-center w-1128 p-[10px]  pl-[16px] pr-[16px] md:w-full  rounded-lg  bg-white shadow-md">

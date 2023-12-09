@@ -9,7 +9,7 @@ function AiResumePage() {
     };
   return (
     <div>
-        <div className=" bg-[#F9F9F9]">
+        <div className=" bg-[#F9F9F9] pt-2">
                 <div className=" flex customMargins py-6 h-[1087px] gap-6">
                     <div
                         className="flex flex-col w-[49%] p-2 gap-4 rounded-lg bg-white shadow-md"
