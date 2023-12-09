@@ -11,7 +11,7 @@ function Candidate_register() {
 
   return (
     <>
-      <div className="register_head mt-[24px]">
+      <div className="register_head my-[24px]">
         <div className="register_cadidate">
           <div className="register_text_parent">
             <div className="register_heding">
@@ -42,7 +42,7 @@ function Candidate_register() {
                 />
                 <circle cx="12" cy="12" r="8" fill="#06A9EF" />
               </svg>
-            ) : (
+                     ) : (
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -178,6 +178,36 @@ function Candidate_register() {
               <img
                 className="data_img"
                 src="./images/auth/candidate/Data.png"
+                alt=""
+              />
+              <img
+                className="Group11"
+                src="./images/auth/candidate/Group11.png"
+                alt=""
+              />
+              <img
+                className="Group12"
+                src="./images/auth/candidate/Group12.png"
+                alt=""
+              />
+              <img
+                className="Group13"
+                src="./images/auth/candidate/Group13.png"
+                alt=""
+              />
+              <img
+                className="Group14"
+                src="./images/auth/candidate/Group14.png"
+                alt=""
+              />
+              <img
+                className="Group15"
+                src="./images/auth/candidate/Group15.png"
+                alt=""
+              />
+              <img
+                className="Group16"
+                src="./images/auth/candidate/Group16.png"
                 alt=""
               />
 
@@ -747,6 +777,8 @@ function Candidate_register() {
           </div>
         </div>
       )}
+
+      
     </>
   );
 }

@@ -1118,11 +1118,11 @@
     display: flex;
   }
   
-  .back_img{
-    background-size: cover;
-    background-repeat: no-repeat;  
-    background-image: url("../../images/auth/candidate/personal_details_back.png");
-  }
+  // .back_img{
+  //   background-size: cover;
+  //   background-repeat: no-repeat;  
+  //   background-image: url("../../images/auth/candidate/personal_details_back.png");
+  // }
   
   .mail_img {
     width: 42%;
@@ -1264,9 +1264,63 @@
     100% {
       transform: translate(0px, 0);
     }
-  
   }
   
+  .Group11{
+    width: 8%;
+    position: absolute;
+    top: 14rem;
+    right: -14rem;
+    z-index: -10;
+    overflow: hidden;
+    animation: shake_animation 1s ;
+  }
+  .Group12{
+    width: 11%;
+    position: absolute;
+    top: 25rem;
+    right: -7rem;
+    z-index: -10;
+    overflow: hidden;
+    animation: shake_animation2 1s ;
+  }
+  .Group13{
+    width: 33%;
+    position: absolute;
+    top: 48rem;
+    right: -15rem;
+    z-index: -10;
+    overflow: hidden;
+    animation: shake_animation2 1s ;
+  }
+  .Group14{
+    width: 6%;
+    position: absolute;
+    top: 13rem;
+    left: -12rem;
+    z-index: -10;
+    overflow: hidden;
+    animation: shake_animation3 1s ;
+  }
+  .Group15{
+    width: 7%;
+    position: absolute;
+    top: 34rem;
+    left: -9rem;
+    z-index: -10;
+    overflow: hidden;
+    animation: shake_animation4 1s ease-in-out ;
+  }
+  .Group16{
+    width: 16%;
+    position: absolute;
+    top: 44rem;
+    left: -9rem;
+    z-index: -10;
+    overflow: hidden;
+    animation: shake_animation4 1s ease-in-out ;
+  }
+
   .group_2{
     width: 18%;
     position: absolute;
