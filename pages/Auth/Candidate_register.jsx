@@ -154,9 +154,10 @@ function Candidate_register() {
 
       {/* personal details form start */}
       {tabindex === 1 && (
-        <div className={"show-content pt-[250px] overflow-hidden"}>
-          <motion.div className="personal_details back_img">
-            <div className="personal_details_form">
+        <div className={"show-content pt-[250px] pb-8 back_img"}>
+          
+          <motion.div className="personal_details ">
+            <div className="personal_details_form ">
               <img
                 className="mail_img"
                 src="./images/auth/candidate/Mail.png"
