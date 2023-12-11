@@ -1133,26 +1133,28 @@
     right: -16rem;
     z-index: -10;
     overflow: hidden;
-   animation: shake_animation 1s ;
+   animation: shake_animation 0.7s ease-in-out;
   }
   
   @keyframes shake_animation {
     0%{
-      animation-duration: 0.5s;
-      transform: translate(-200px, 200px);   
+      transform: translate(-100px, 100px);   
     }
-    50% {
+    20% {
       transform: translate(100px, -100px);
     }
+    50% {
+      transform: translate(-50px, 50px);
+    }
    70% {
-      transform: translate(0px,0px);
+      transform: translate(20px,-20px);
     }
    60%, 80%  {
-      transform: translate(-20px, 20px);
+      transform: translate(-10px, 10px);
     }
   
     90% {
-      transform: translate(-10px, 10px);
+      transform: translate(5px, -5px);
     }
     100% {
       transform: translate(0px, 0px);
@@ -1169,32 +1171,33 @@
     right: -12rem;
     z-index: -10;
     overflow: hidden;
-     animation: shake_animation2 1s ;
+     animation: shake_animation2 0.7s ease-in-out;
   }
   
   @keyframes shake_animation2 {
+ 
     0%{
-      animation-duration: 0.5s;
-      transform: translate(-200px, -200px);
+      transform: translate(-100px, -100px);   
     }
-    50% {
+    20% {
       transform: translate(100px, 100px);
     }
-  
+    50% {
+      transform: translate(-50px, -50px);
+    }
    70% {
-      transform: translate(0px,0px);
+      transform: translate(20px,20px);
     }
    60%, 80%  {
-      transform: translate(20px, 20px);
+      transform: translate(-10px, -10px);
     }
   
     90% {
-      transform: translate(-10px, -10px);
+      transform: translate(5px, 5px);
     }
     100% {
-      transform: translate(0px, 0);
+      transform: translate(0px, 0px);
     }
-  
   }
   
   .location_img{
@@ -1204,30 +1207,31 @@
     left: -12rem;
     overflow: hidden;
     z-index: -10;
-     animation: shake_animation3 1s ;
+     animation: shake_animation3 0.7s ease-in-out;
   }
   
-  @keyframes shake_animation3 {
+  @keyframes shake_animation3 {   
     0%{
-      animation-duration: 0.5s;
-      transform: translate(200px, 200px);
+      transform: translate(100px, 100px);   
     }
-    50% {
+    20% {
       transform: translate(-100px, -100px);
     }
-  
+    50% {
+      transform: translate(50px, 50px);
+    }
    70% {
-      transform: translate(0px,0px);
+      transform: translate(-20px,-20px);
     }
    60%, 80%  {
-      transform: translate(20px, 20px);
+      transform: translate(10px, 10px);
     }
   
     90% {
-      transform: translate(-10px, -10px);
+      transform: translate(-5px, -5px);
     }
     100% {
-      transform: translate(0px, 0);
+      transform: translate(0px, 0px);
     }
   
   }
@@ -1239,32 +1243,33 @@
     left: -12rem;
     z-index: -10;
     overflow: hidden;
-     animation: shake_animation4 1s ease-in-out ;
+     animation: shake_animation4 0.7s ease-in-out ;
   }
   
   
   @keyframes shake_animation4 {
+
     0%{
-      animation-duration: 0.5s;
-      transform: translate(200px, 0px);
-      animation-delay: 0.2s;
+      transform: translate(100px, 0px);   
     }
-    50% {
+    20% {
       transform: translate(-100px, 0px);
     }
-  
+    50% {
+      transform: translate(50px, 0px);
+    }
    70% {
-      transform: translate(0px,0px);
+      transform: translate(-20px,0px);
     }
    60%, 80%  {
-      transform: translate(20px, 0px);
+      transform: translate(10px, 0px);
     }
   
     90% {
-      transform: translate(-10px, 0px);
+      transform: translate(-5px, 0px);
     }
     100% {
-      transform: translate(0px, 0);
+      transform: translate(0px, 0px);
     }
   }
   
@@ -1275,7 +1280,7 @@
     right: -14rem;
     z-index: -10;
     overflow: hidden;
-    animation: shake_animation 1s ;
+    animation: shake_animation 0.7s ease-in-out;
   }
   .Group12{
     width: 11%;
@@ -1284,7 +1289,7 @@
     right: -7rem;
     z-index: -10;
     overflow: hidden;
-    animation: shake_animation2 1s ;
+    animation: shake_animation2 0.7s ease-in-out ;
   }
   .Group13{
     width: 33%;
@@ -1293,7 +1298,7 @@
     right: -15rem;
     z-index: -10;
     overflow: hidden;
-    animation: shake_animation2 1s ;
+    animation: shake_animation2 0.7s ease-in-out ;
   }
   .Group14{
     width: 6%;
@@ -1302,7 +1307,7 @@
     left: -12rem;
     z-index: -10;
     overflow: hidden;
-    animation: shake_animation3 1s ;
+    animation: shake_animation3 0.7s ease-in-out ;
   }
   .Group15{
     width: 7%;
@@ -1311,7 +1316,7 @@
     left: -9rem;
     z-index: -10;
     overflow: hidden;
-    animation: shake_animation4 1s ease-in-out ;
+    animation: shake_animation4 0.7s ease-in-out ;
   }
   .Group16{
     width: 16%;
@@ -1320,7 +1325,7 @@
     left: -9rem;
     z-index: -10;
     overflow: hidden;
-    animation: shake_animation4 1s ease-in-out ;
+    animation: shake_animation4 0.7s ease-in-out ;
   }
 
   .group_2{
@@ -1330,30 +1335,32 @@
     right: -11rem;
     z-index: -10;
     overflow: hidden;
-     animation: group_2_animation2 1s ;
+     animation: group_2_animation2 0.7s ease-in-out ;
   }
   
   @keyframes group_2_animation2 {
+ 
     0%{
-      animation-duration: 0.5s;
-      transform: translate(-200px, 0px);
+      transform: translate(-100px, 0px);   
     }
-    50% {
+    20% {
       transform: translate(100px, 0px);
     }
-  
+    50% {
+      transform: translate(-50px, 0px);
+    }
    70% {
-      transform: translate(0px,0px);
+      transform: translate(20px,0px);
     }
    60%, 80%  {
-      transform: translate(20px, 0px);
+      transform: translate(-10px, 0px);
     }
   
     90% {
-      transform: translate(-10px, 0px);
+      transform: translate(5px, 0px);
     }
     100% {
-      transform: translate(0px, 0);
+      transform: translate(0px, 0px);
     }
   
   }
@@ -1365,7 +1372,7 @@
     left: -10rem;
     z-index: -10;
     overflow: hidden;
-    animation: shake_animation4 1s ease-in-out ;
+    animation: shake_animation4 0.7s ease-in-out ;
   }
   
   .personal_details_form{
