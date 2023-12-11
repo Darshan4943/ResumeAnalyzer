@@ -299,7 +299,7 @@ function AiResumePage() {
                                         type="text"
                                         name=""
                                         id=""
-                                        className="w-full text-[14px] font-montserrat font-small "
+                                        className="w-full text-[14px] font-montserrat font-small h-[110px]  "
                                     />
                                 </div>
                             </div>
