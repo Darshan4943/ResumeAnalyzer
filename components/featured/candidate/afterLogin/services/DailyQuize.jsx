@@ -11,18 +11,18 @@ function DailyQuize() {
 
   return (
     <>
-      <div class=" bg-DailyQuize flex justify-center items-center bg-cover bg-no-repeat">
-        <div className="flex rounded-[16px] relative w-[65%]">
+      <div class=" bg-DailyQuize bg-cover bg-no-repeat">
+        <div className="flex rounded-[16px] relative customMargins items-center justify-center">
           <div
-            className="mt-[40px] mb-[150px] px-[24px] py-[62px]  w-full "
+            className="mt-[40px] mb-[150px]   w-[82%] "
             style={{
               borderRadius: "16px",
               background: "rgba(6, 169, 239, 0.37)",
               backdropFilter: "blur(7.5px)",
             }}
           >
-            <div className="flex flex-col gap-[30px] w-full justify-center text-center">
-              <div className="flex flex-col gap-[8px] w-full">
+            <div className="flex flex-col gap-[30px] w-full justify-center text-center px-[60px] py-[62px] ">
+              <div className="flex flex-col gap-[8px] w-full ">
                 <div className="text-[38px] font-[600] w-full text-[#fff] ">
                   Test your Knowledge Daily
                 </div>
@@ -42,7 +42,7 @@ function DailyQuize() {
             </div>
           </div>
           <div
-            className="absolute w-[372px]  p-[24px] rounded-[16px] flex flex-row gap-[8px] justify-between items-center left-[-9.30%]  bottom-[50px]"
+            className="absolute w-[372px]  p-[24px] rounded-[16px] flex flex-row gap-[8px] justify-between items-center left-0  bottom-[50px]"
             style={{
               background: "rgba(255, 255, 255, 0.60)",
               backdropFilter: " blur(9px)",
@@ -70,7 +70,7 @@ function DailyQuize() {
           </div>
           {/* scr1024:right-[2.46%] scr1100:right-[1%] */}
           <div
-            className="absolute w-[400px]  p-[24px] rounded-[16px] flex flex-row gap-[8px]  justify-end items-center right-[-12.30%] bottom-[50px]"
+            className="absolute w-[400px]  p-[24px] rounded-[16px] flex flex-row gap-[8px]  justify-end items-center right-0 bottom-[50px]"
             style={{
               background: "rgba(255, 255, 255, 0.60)",
               backdropFilter: " blur(9px)",

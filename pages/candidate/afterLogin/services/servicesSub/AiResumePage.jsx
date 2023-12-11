@@ -7,9 +7,9 @@ function AiResumePage() {
     const handleRadioChange = () => {
         setSelected(!selected);
     };
-  return (
-    <div>
-        <div className=" bg-[#F9F9F9] pt-2">
+    return (
+        <div>
+            <div className=" bg-[#F9F9F9] pt-2">
                 <div className=" flex customMargins py-6 h-[1087px] gap-6">
                     <div
                         className="flex flex-col w-[49%] p-2 gap-4 rounded-lg bg-white shadow-md"
@@ -145,7 +145,7 @@ function AiResumePage() {
 
                             <div className="w-full   rounded-[10px]">
 
-                             
+
 
 
 
@@ -294,14 +294,17 @@ function AiResumePage() {
                                 <div className="w-full text-[14px] font-montserrat  font-small">
                                     Describe about your work
                                 </div>
-                                <div className="w-full border-[1px] border-[#9D9D9D] rounded-[12px]  p-[12px] h-[140px]">
-                                    <input
+                                <div className="w-full border-[1px] border-[#9D9D9D] rounded-[12px] p-[12px] min-h-[140px]">
+                                    <textArea
                                         type="text"
                                         name=""
                                         id=""
-                                        className="w-full text-[14px] font-montserrat font-small h-[110px]  "
+                                        className="w-full text-[14px] font-montserrat font-small h-full  outline-none"
+                                        placeholder="Enter text"
+                                       
                                     />
                                 </div>
+
                             </div>
 
                             <div className="flex justify-end ">
@@ -358,12 +361,12 @@ function AiResumePage() {
                                     Description
                                 </div>
 
-                                <div className="w-full border-[1px] border-[#9D9D9D] rounded-[12px]  p-[12px] h-[140px]">
-                                    <input
+                                <div className="w-full border-[1px] border-[#9D9D9D] rounded-[12px]  p-[12px]  min-h-[140px]">
+                                    <textArea
                                         type="text"
                                         name=""
                                         id=""
-                                        className="w-full text-[14px] font-montserrat font-small "
+                                        className="w-full h-full text-[14px] font-montserrat font-small outline-none "
                                     />
                                 </div>
                             </div>
@@ -434,12 +437,12 @@ function AiResumePage() {
                                 <div className="w-full text-[14px] font-montserrat  font-small">
                                     Write about your Achievement
                                 </div>
-                                <div className="w-full border-[1px] border-[#9D9D9D] rounded-[12px]  p-[12px] h-[140px]">
-                                    <input
+                                <div className="w-full border-[1px] border-[#9D9D9D] rounded-[12px]  p-[12px] min-h-[140px]">
+                                    <textArea
                                         type="text"
                                         name=""
                                         id=""
-                                        className="w-full text-[14px] font-montserrat font-small "
+                                        className="w-full text-[14px] font-montserrat font-small outline-none h-full "
                                     />
                                 </div>
                             </div>
@@ -534,8 +537,8 @@ function AiResumePage() {
                     </div>
                 </div>
             </div>
-    </div>
-  )
+        </div>
+    )
 }
 
 export default AiResumePage
