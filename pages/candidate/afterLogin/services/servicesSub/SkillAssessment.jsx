@@ -25,7 +25,7 @@ function SkillAssessment() {
       };
 
     return (
-        <div>
+        <div className='pt-2'>
             <div>
                 <Profile1 />
             </div>

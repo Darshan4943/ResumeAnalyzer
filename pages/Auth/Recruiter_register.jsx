@@ -20,10 +20,10 @@ function Recruiter_register() {
   }, [infoContinue]); 
 
   return (
-    <div className="" >
+    <div className="pb-[61px]" >
       {/* Register as Recruiter Blue bar start*/}
-      <div className="fixed w-[100%] z-[900] py-[24px] bg-white">
-        <div className="flex justify-center align-center bg-[#06A9EF] h-[89px] mt-[24px]">
+      <div className="fixed w-[100%] z-[900] pt-[24px]  bg-white">
+        <div className="flex justify-center align-center bg-[#06A9EF] h-[89px] mt-[24px] overflow-hidden">
           <div className="flex justify-center align-center flex-col py-[6px]">
             <div className="text-white text-[40px] font-[600] flex justify-center">
               Register as Recruiter

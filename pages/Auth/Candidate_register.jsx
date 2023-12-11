@@ -10,9 +10,9 @@ function Candidate_register() {
   }
 
   return (
-    <>
-      <div className="register_head mt-[24px]">
-        <div className="register_cadidate">
+    < div className="">
+      <div className="register_head  fixed w-[100%] z-[900] pt-[48px] pb-6 bg-white">
+        <div className="register_cadidate overflow-hidden">
           <div className="register_text_parent">
             <div className="register_heding">
               <p className="register_heding_text">Register as candidate</p>
@@ -42,7 +42,7 @@ function Candidate_register() {
                 />
                 <circle cx="12" cy="12" r="8" fill="#06A9EF" />
               </svg>
-            ) : (
+                     ) : (
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -154,9 +154,10 @@ function Candidate_register() {
 
       {/* personal details form start */}
       {tabindex === 1 && (
-        <div className={"show-content"}>
-          <motion.div className="personal_details back_img">
-            <div className="personal_details_form">
+        <div className={"show-content pt-[250px] pb-8 back_img"}>
+          
+          <motion.div className="personal_details ">
+            <div className="personal_details_form ">
               <img
                 className="mail_img"
                 src="./images/auth/candidate/Mail.png"
@@ -178,6 +179,36 @@ function Candidate_register() {
               <img
                 className="data_img"
                 src="./images/auth/candidate/Data.png"
+                alt=""
+              />
+              <img
+                className="Group11"
+                src="./images/auth/candidate/Group11.png"
+                alt=""
+              />
+              <img
+                className="Group12"
+                src="./images/auth/candidate/Group12.png"
+                alt=""
+              />
+              <img
+                className="Group13"
+                src="./images/auth/candidate/Group13.png"
+                alt=""
+              />
+              <img
+                className="Group14"
+                src="./images/auth/candidate/Group14.png"
+                alt=""
+              />
+              <img
+                className="Group15"
+                src="./images/auth/candidate/Group15.png"
+                alt=""
+              />
+              <img
+                className="Group16"
+                src="./images/auth/candidate/Group16.png"
                 alt=""
               />
 
@@ -747,7 +778,7 @@ function Candidate_register() {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 }
 

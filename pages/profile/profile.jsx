@@ -111,9 +111,9 @@ function profile() {
         <Profile1 />
       </div>
 
-      <div className="customMargins">
+      <div className="customMargins relative">
         <div className="flex mt-[24px] gap-[24px]">
-          <div className="profile_left_section">
+          <div className="profile_left_section sticky top-[7rem]">
             <div className="score_all">
               <div className="profile_score">
                 <img src="./images/profile/Ellipse_24.png" alt="" />

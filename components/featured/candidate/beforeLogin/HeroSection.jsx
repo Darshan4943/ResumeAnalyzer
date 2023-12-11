@@ -3,7 +3,7 @@ import React from 'react'
 function CandidateHero() {
     return (
 
-        <div className="min-h-[560px] bg-cover bg-no-repeat pt-[61px] overflow-hidden bg-vector">
+        <div className="min-h-[560px] bg-cover bg-no-repeat pt-[81px] overflow-hidden bg-vector">
 
             <div className="customMargins">
                 <div className="flex flex-row justify-between gap-4 max-w-1128">

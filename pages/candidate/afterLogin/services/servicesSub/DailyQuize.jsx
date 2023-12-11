@@ -33,7 +33,7 @@ const DailyQuize = () => {
   };
 
   return (
-    <div className="bg-[#F9F9F9] pb-2">
+    <div className="bg-[#F9F9F9] py-2">
       <div>
         <Profile2 />
       </div>

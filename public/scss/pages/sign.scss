@@ -746,8 +746,9 @@
     align-items: center;
     justify-content: center;
     margin-bottom: 20px;
+   
   }
-  .register_cadidate {
+  .register_employer {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -755,7 +756,8 @@
     height: 89px;
     align-items: center;
     flex-shrink: 0;
-    background-color: var(--primary, #ffda1d);
+  
+    background-color: var(--primary, #FFDA1D);
   }
   
   .register_text_parent {
@@ -767,8 +769,8 @@
     // z-index: 10;
   }
   
-  .register_heding_text {
-    color: var(--white, #333);
+  .register_heding_text_employer {
+    color:  #333;
     font-family: Montserrat;
     font-size: 40px;
     font-style: normal;
@@ -776,7 +778,7 @@
     line-height: normal;
     margin: 0px;
   }
-  .register_heding_desc {
+  .register_heding_descEmployer {
     color: var(--white, #333);
     text-align: center;
     font-family: Montserrat;
@@ -1118,11 +1120,11 @@
     display: flex;
   }
   
-  .back_img{
-    background-size: cover;
-    background-repeat: no-repeat;  
-    background-image: url("../../images/auth/candidate/personal_details_back.png");
-  }
+  // .back_img{
+  //   background-size: cover;
+  //   background-repeat: no-repeat;  
+  //   background-image: url("../../images/auth/candidate/personal_details_back.png");
+  // }
   
   .mail_img {
     width: 42%;
@@ -1131,26 +1133,28 @@
     right: -16rem;
     z-index: -10;
     overflow: hidden;
-   animation: shake_animation 1s ;
+   animation: shake_animation 0.7s ease-in-out;
   }
   
   @keyframes shake_animation {
     0%{
-      animation-duration: 0.5s;
-      transform: translate(-200px, 200px);   
+      transform: translate(-100px, 100px);   
     }
-    50% {
+    20% {
       transform: translate(100px, -100px);
     }
+    50% {
+      transform: translate(-50px, 50px);
+    }
    70% {
-      transform: translate(0px,0px);
+      transform: translate(20px,-20px);
     }
    60%, 80%  {
-      transform: translate(-20px, 20px);
+      transform: translate(-10px, 10px);
     }
   
     90% {
-      transform: translate(-10px, 10px);
+      transform: translate(5px, -5px);
     }
     100% {
       transform: translate(0px, 0px);
@@ -1167,32 +1171,33 @@
     right: -12rem;
     z-index: -10;
     overflow: hidden;
-     animation: shake_animation2 1s ;
+     animation: shake_animation2 0.7s ease-in-out;
   }
   
   @keyframes shake_animation2 {
+ 
     0%{
-      animation-duration: 0.5s;
-      transform: translate(-200px, -200px);
+      transform: translate(-100px, -100px);   
     }
-    50% {
+    20% {
       transform: translate(100px, 100px);
     }
-  
+    50% {
+      transform: translate(-50px, -50px);
+    }
    70% {
-      transform: translate(0px,0px);
+      transform: translate(20px,20px);
     }
    60%, 80%  {
-      transform: translate(20px, 20px);
+      transform: translate(-10px, -10px);
     }
   
     90% {
-      transform: translate(-10px, -10px);
+      transform: translate(5px, 5px);
     }
     100% {
-      transform: translate(0px, 0);
+      transform: translate(0px, 0px);
     }
-  
   }
   
   .location_img{
@@ -1202,30 +1207,31 @@
     left: -12rem;
     overflow: hidden;
     z-index: -10;
-     animation: shake_animation3 1s ;
+     animation: shake_animation3 0.7s ease-in-out;
   }
   
-  @keyframes shake_animation3 {
+  @keyframes shake_animation3 {   
     0%{
-      animation-duration: 0.5s;
-      transform: translate(200px, 200px);
+      transform: translate(100px, 100px);   
     }
-    50% {
+    20% {
       transform: translate(-100px, -100px);
     }
-  
+    50% {
+      transform: translate(50px, 50px);
+    }
    70% {
-      transform: translate(0px,0px);
+      transform: translate(-20px,-20px);
     }
    60%, 80%  {
-      transform: translate(20px, 20px);
+      transform: translate(10px, 10px);
     }
   
     90% {
-      transform: translate(-10px, -10px);
+      transform: translate(-5px, -5px);
     }
     100% {
-      transform: translate(0px, 0);
+      transform: translate(0px, 0px);
     }
   
   }
@@ -1237,36 +1243,91 @@
     left: -12rem;
     z-index: -10;
     overflow: hidden;
-     animation: shake_animation4 1s ease-in-out ;
+     animation: shake_animation4 0.7s ease-in-out ;
   }
   
   
   @keyframes shake_animation4 {
+
     0%{
-      animation-duration: 0.5s;
-      transform: translate(200px, 0px);
-      animation-delay: 0.2s;
+      transform: translate(100px, 0px);   
     }
-    50% {
+    20% {
       transform: translate(-100px, 0px);
     }
-  
+    50% {
+      transform: translate(50px, 0px);
+    }
    70% {
-      transform: translate(0px,0px);
+      transform: translate(-20px,0px);
     }
    60%, 80%  {
-      transform: translate(20px, 0px);
+      transform: translate(10px, 0px);
     }
   
     90% {
-      transform: translate(-10px, 0px);
+      transform: translate(-5px, 0px);
     }
     100% {
-      transform: translate(0px, 0);
+      transform: translate(0px, 0px);
     }
-  
   }
   
+  .Group11{
+    width: 8%;
+    position: absolute;
+    top: 14rem;
+    right: -14rem;
+    z-index: -10;
+    overflow: hidden;
+    animation: shake_animation 0.7s ease-in-out;
+  }
+  .Group12{
+    width: 11%;
+    position: absolute;
+    top: 25rem;
+    right: -7rem;
+    z-index: -10;
+    overflow: hidden;
+    animation: shake_animation2 0.7s ease-in-out ;
+  }
+  .Group13{
+    width: 33%;
+    position: absolute;
+    top: 48rem;
+    right: -15rem;
+    z-index: -10;
+    overflow: hidden;
+    animation: shake_animation2 0.7s ease-in-out ;
+  }
+  .Group14{
+    width: 6%;
+    position: absolute;
+    top: 13rem;
+    left: -12rem;
+    z-index: -10;
+    overflow: hidden;
+    animation: shake_animation3 0.7s ease-in-out ;
+  }
+  .Group15{
+    width: 7%;
+    position: absolute;
+    top: 34rem;
+    left: -9rem;
+    z-index: -10;
+    overflow: hidden;
+    animation: shake_animation4 0.7s ease-in-out ;
+  }
+  .Group16{
+    width: 16%;
+    position: absolute;
+    top: 44rem;
+    left: -9rem;
+    z-index: -10;
+    overflow: hidden;
+    animation: shake_animation4 0.7s ease-in-out ;
+  }
+
   .group_2{
     width: 18%;
     position: absolute;
@@ -1274,30 +1335,32 @@
     right: -11rem;
     z-index: -10;
     overflow: hidden;
-     animation: group_2_animation2 1s ;
+     animation: group_2_animation2 0.7s ease-in-out ;
   }
   
   @keyframes group_2_animation2 {
+ 
     0%{
-      animation-duration: 0.5s;
-      transform: translate(-200px, 0px);
+      transform: translate(-100px, 0px);   
     }
-    50% {
+    20% {
       transform: translate(100px, 0px);
     }
-  
+    50% {
+      transform: translate(-50px, 0px);
+    }
    70% {
-      transform: translate(0px,0px);
+      transform: translate(20px,0px);
     }
    60%, 80%  {
-      transform: translate(20px, 0px);
+      transform: translate(-10px, 0px);
     }
   
     90% {
-      transform: translate(-10px, 0px);
+      transform: translate(5px, 0px);
     }
     100% {
-      transform: translate(0px, 0);
+      transform: translate(0px, 0px);
     }
   
   }
@@ -1309,7 +1372,7 @@
     left: -10rem;
     z-index: -10;
     overflow: hidden;
-    animation: shake_animation4 1s ease-in-out ;
+    animation: shake_animation4 0.7s ease-in-out ;
   }
   
   .personal_details_form{
@@ -1463,7 +1526,7 @@
   
   .already_text_parent{
     margin-top: 20px;
-    padding-bottom: 96px;
+    padding-bottom: 19px;
   }
   
   .already_text{

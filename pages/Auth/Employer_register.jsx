@@ -15,7 +15,7 @@ const Employer_register = () => {
         }
       }, [tog]); 
     return (
-        <div className="mt-[24px]" >
+        <div className=" pb-[61px]" >
 
 
             {/* // SECOND SECTION  */}
@@ -23,10 +23,10 @@ const Employer_register = () => {
            
                 <div className="fixed w-[100%] py-[40px] z-[900] bg-white">
                     <div className="register_head">
-                        <div className="register_cadidate">
+                        <div className="register_employer overflow-hidden">
                             <div className="register_text_parent">
-                                <p className="register_heding_text">Register as Employer</p>
-                                <p className="register_heding_desc">
+                                <p className="register_heding_text_employer">Register as Employer</p>
+                                <p className="register_heding_descEmployer">
                                     Start your career with Skilotech
                                 </p>
                             </div>
@@ -334,7 +334,7 @@ const Employer_register = () => {
                                 >
                                     Go Back
                                 </button>
-                                <button className="gen_button" id="border_button">
+                                <button className="go_button" id="border_button">
                                     Continue
                                 </button>
                             </div>
