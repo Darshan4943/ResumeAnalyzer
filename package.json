@@ -59,6 +59,7 @@
     "react-modal": "^3.15.1",
     "react-otp-input": "^3.0.4",
     "react-owl-carousel2": "^0.3.0",
+    "react-parallax-mouse": "^2.1.0",
     "react-places-autocomplete": "^7.3.0",
     "react-quill": "^2.0.0",
     "react-redux": "^8.0.2",
