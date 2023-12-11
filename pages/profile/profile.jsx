@@ -111,12 +111,13 @@ function profile() {
         <Profile1 />
       </div>
 
-      <div className="customMargins relative">
+      <div className="customMargins relative pb-6">
         <div className="flex mt-[24px] gap-[24px]">
           <div className="profile_left_section sticky top-[7rem]">
             <div className="score_all">
               <div className="profile_score">
                 <img src="./images/profile/Ellipse_24.png" alt="" />
+                <img src="./images/profile/Ellipse_25.png"  className="eclips_25" alt="" />
                 <p className="profile_percent">75 %</p>
               </div>
 
