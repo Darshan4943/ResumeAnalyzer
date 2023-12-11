@@ -181,7 +181,7 @@ function Footer() {
                 id=""
               />
               <div className="footer_inner_input_box"></div>
-              <button className="footer_input_btn">Subcribe</button>
+              <button className="footer_input_btn">Subscribe</button>
             </div>
           </div>
         </div>
