@@ -1,5 +1,8 @@
 import React, { useState } from "react";
-
+import {
+  MouseParallaxChild,
+  MouseParallaxContainer,
+} from "react-parallax-mouse";
 import { useRouter } from "next/router";
 
 function AiResume() {
@@ -13,10 +16,18 @@ function AiResume() {
 
   return (
     <>
-      <div class=" bg-Ai_resume  bg-cover bg-no-repeat pt-4">
-        <div className="flex rounded-[12px] relative customMargins">
-          <div
+    {/* customMargins */}
+      <div class=" bg-Ai_resume  bg-cover bg-no-repeat">
+        <MouseParallaxContainer
+          globalFactorX={0.3}
+          globalFactorY={0.3}
+          resetOnLeave
+          className="flex rounded-[12px] relative flex justify-center iems-center"
+        >
+          <MouseParallaxChild
             className="my-[124px] py-[46px] px-[24px]"
+            factorX={0.02}
+            factorY={0.02}
             style={{
               borderRadius: "12px",
               background: "rgba(255, 255, 255, 0.16)",
@@ -35,14 +46,20 @@ function AiResume() {
                 </div>
               </div>
               <div>
-                <button onClick={handleClick} className="py-[12px] px-[30px] text-[16px] font-[500] text-[#06A9EF] bg-[#fff] rounded-[12px] border-[1px] border-solid border-[#06A9EF] transition-all transition-[0.2s]">
+                <button
+                  onClick={handleClick}
+                  className="py-[12px] px-[30px] text-[16px] font-[500] text-[#06A9EF] bg-[#fff] rounded-[12px] border-[1px] border-solid border-[#06A9EF] transition-all transition-[0.2s]"
+                >
                   Get Started
                 </button>
               </div>
             </div>
-          </div>
-          <div
-            className="absolute w-[381px] p-[16px] rounded-[16px] flex flex-row gap-[16px] items-center right-[14.65%] top-[33px]"
+          </MouseParallaxChild>
+
+          <MouseParallaxChild
+            factorX={0.02}
+            factorY={0.02}
+            className="absolute w-[381px] p-[16px] rounded-[16px] flex flex-row gap-[16px] items-center right-[22.65%] top-[33px]"
             style={{
               background: "rgba(255, 255, 255, 0.26)",
               backdropFilter: " blur(13px)",
@@ -60,10 +77,12 @@ function AiResume() {
                 stands out.
               </div>
             </div>
-          </div>
+          </MouseParallaxChild>
 
-          <div
-            className="absolute w-[433px] p-[16px] rounded-[16px] flex flex-row gap-[16px] items-center justify-between right-[2.65%] top-[206px]"
+          <MouseParallaxChild
+            factorX={0.03}
+            factorY={0.03}
+            className="absolute w-[433px] p-[16px] rounded-[16px] flex flex-row gap-[16px] items-center justify-between right-[14.20%] top-[206px]"
             style={{
               background: "rgba(255, 255, 255, 0.26)",
               backdropFilter: " blur(13px)",
@@ -83,9 +102,12 @@ function AiResume() {
               alt=""
               className="w-[96px] h-[96px]"
             />
-          </div>
-          <div
-            className="absolute w-[347px] p-[16px] rounded-[16px] flex flex-row gap-[16px] items-center right-[29.65%] top-[390px]"
+          </MouseParallaxChild>
+
+          <MouseParallaxChild
+            factorX={0.04}
+            factorY={0.04}
+            className="absolute w-[347px] p-[16px] rounded-[16px] flex flex-row gap-[16px] items-center right-[39.65%] top-[390px]"
             style={{
               background: "rgba(255, 255, 255, 0.26)",
               backdropFilter: " blur(13px)",
@@ -103,9 +125,9 @@ function AiResume() {
                 it's perfect.
               </div>
             </div>
-          </div>
-        </div>
-        <div></div>
+          </MouseParallaxChild>
+          
+        </MouseParallaxContainer>
       </div>
     </>
   );

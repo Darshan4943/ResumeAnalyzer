@@ -15,13 +15,13 @@ const Employer_register = () => {
         }
       }, [tog]); 
     return (
-        <div className=" pb-[61px]" >
+        <div className=" pb-[61px] relative" >
 
 
             {/* // SECOND SECTION  */}
 
            
-                <div className="fixed w-[100%] py-[40px] z-[900] bg-white">
+                <div className="sticky top-[2.6rem] w-[100%] pt-[48px] pb-6 z-[900] bg-white">
                     <div className="register_head">
                         <div className="register_employer overflow-hidden">
                             <div className="register_text_parent">
@@ -52,8 +52,8 @@ const Employer_register = () => {
                 </div>
                                   {/* animation section  */}
                                   
-                <div className={tog === 1 ? "show-content" : "content"}>
-                <div className="sec_main_parent_head pt-[220px]">
+                <div className={`${tog === 1 ? "show-content" : "content"}  pt-[-10px]`}>
+                <div className="sec_main_parent_head ">
                     <div className="img_parent_head">
                         <div className="four_img_cont">
                             <div className="img_contener1">
@@ -93,84 +93,98 @@ const Employer_register = () => {
                                 <p className="comp_head">
                                     Company Name <span className="star">*</span>{" "}
                                 </p>
+                                <div className="employerInput">
                                 <input
                                     type="text"
                                     name=""
                                     id=""
                                     placeholder="Enter company name"
-                                    className="enter_name"
+                                  
                                 />
+                                </div>
                             </div>
                             <div className="comp_name">
                                 <p className="comp_head">
                                     Company Email <span className="star">*</span>
                                 </p>
+                                <div className="employerInput">
                                 <input
                                     type="text"
                                     name=""
                                     id=""
                                     placeholder="Enter company Email"
-                                    className="enter_name"
+                                   
                                 />
+                                </div>
                             </div>
                             <div className="comp_name_pass">
                                 <p className="comp_head">
                                     Password <span className="star">*</span>
                                 </p>
+                                <div className="employerInput">
                                 <input
                                     type="password"
                                     name=""
                                     id=""
                                     placeholder="Create new password"
-                                    className="enter_name"
+                                   
                                 />
+                                </div>
                                 <img src="./images/auth/employer/eye.png" alt="" className="eye_img" />
                             </div>
                             <div className="comp_name">
                                 <p className="comp_head">
                                     Contact number <span className="star">*</span>{" "}
                                 </p>
+                                <div className="employerInput">
                                 <input
                                     type="text"
                                     name=""
                                     id=""
                                     placeholder="Enter contact number"
-                                    className="enter_name"
+                                    
                                 />
+                                </div>
                             </div>
                             <div className="comp_name">
                                 <p className="comp_head">
                                     Company Website URL <span className="star">*</span>{" "}
                                 </p>
+                                <div className="employerInput">
                                 <input
                                     type="text"
                                     name=""
                                     id=""
                                     placeholder="Enter website url"
-                                    className="enter_name"
+                                
                                 />
+                                </div>
                             </div>
                             <div className="comp_name">
                                 <p className="comp_head">Year of Establish </p>
+                                <div className="employerInput">
                                 <input
                                     type="text"
                                     name=""
                                     id=""
                                     placeholder="Enter year of establish"
-                                    className="enter_name"
+                                
                                 />
+                                </div>
                             </div>
                             <div className="comp_name_pass">
                                 <p className="comp_head">
                                     Company Location <span className="star">*</span>
                                 </p>
+                                <div className="employerInput">
                                 <input
                                     type="password"
                                     name=""
                                     id=""
                                     placeholder="Enter your current location"
-                                    className="enter_name"
+                                 
                                 />
+                                </div>
                                 <img src="./images/auth/employer/eye.png" alt="" className="eye_img" />
                             </div>
                             <div className="bottom_buttons">
@@ -204,11 +218,11 @@ const Employer_register = () => {
 
 
             {/* THIRD SECTION    */}
-            <div className={`${tog === 2 ? "show-content" : "content"}  `}>
+            <div className={`${tog === 2 ? "show-content" : "content"} pt-10 `}>
 
 
                 {/* ANIMATION SECTION  */}
-                <div className="last_main_parent_head pt-[290px]">
+                <div className="last_main_parent_head ">
 
 
                     <div className="last_img_parent_head">
@@ -265,25 +279,29 @@ const Employer_register = () => {
                                     <p className="comp_head">
                                         GST No <span className="star">*</span>{" "}
                                     </p>
+                                    <div className="Employer_enter_name_gst">
                                     <input
                                         type="text"
                                         name=""
                                         id=""
                                         placeholder="Enter GST number"
-                                        className="enter_name_gst"
+                                        className=""
                                     />
+                                    </div>
                                 </div>
                                 <div className="comp_name">
                                     <p className="comp_head">
                                         Upload Certificate <span className="star">*</span>{" "}
                                     </p>
+                                    <div className="Employer_enter_name_gst">
                                     <input
                                         type="text"
                                         name=""
                                         id=""
                                         placeholder="Upload certificate"
-                                        className="enter_name_gst"
+                                        className=""
                                     />
+                                    </div>
                                     {/* <img src="./images/home/eye.png" alt="" /> */}
                                 </div>
                             </div>
@@ -292,38 +310,44 @@ const Employer_register = () => {
                                     <p className="comp_head">
                                         PAN No <span className="star">*</span>{" "}
                                     </p>
+                                    <div className="Employer_enter_name_gst">
                                     <input
                                         type="text"
                                         name=""
                                         id=""
                                         placeholder="Enter PAN number"
-                                        className="enter_name_gst"
+                                      
                                     />
+                                    </div>
                                 </div>
                                 <div className="comp_name">
                                     <p className="comp_head">
                                         Upload PAN <span className="star">*</span>{" "}
                                     </p>
+                                    <div className="Employer_enter_name_gst">
                                     <input
                                         type="text"
                                         name=""
                                         id=""
                                         placeholder="Upload PAN"
-                                        className="enter_name_gst"
+                                       
                                     />
+                                    </div>
                                 </div>
                             </div>
                             <div className="comp_name_last">
                                 <p className="comp_head">
                                     Company Logo <span className="star">*</span>{" "}
                                 </p>
+                                <div className="Employer_enter_name_gst">
                                 <input
                                     type="text"
                                     name=""
                                     id=""
                                     placeholder="Upload company logo"
-                                    className="enter_name_last"
+                                   
                                 />
+                                </div>
                             </div>
 
                             <div className="bottom_buttons_last">

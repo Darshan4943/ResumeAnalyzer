@@ -16,7 +16,7 @@ body {
 
 
 
-@media (max-width: 1220px) {
+@media (max-width: 1160px) {
 	.customMargins{
 		
 		padding: 0 16px;
@@ -43,10 +43,6 @@ body {
 	max-width:1284px ;
 	
 }
-
-  
-
-
 
 
 div::-webkit-scrollbar {
@@ -106,3 +102,7 @@ div::-webkit-scrollbar {
 	  transform: translateY(0px);
 	}
   }
+  
+input{
+	outline: none;
+}

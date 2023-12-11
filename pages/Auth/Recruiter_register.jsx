@@ -20,10 +20,10 @@ function Recruiter_register() {
   }, [infoContinue]); 
 
   return (
-    <div className="pb-[61px]" >
+    <div className="pb-[61px] relative" >
       {/* Register as Recruiter Blue bar start*/}
-      <div className="fixed w-[100%] z-[900] pt-[24px]  bg-white">
-        <div className="flex justify-center align-center bg-[#06A9EF] h-[89px] mt-[24px] overflow-hidden">
+      <div className="sticky top-[2.6rem] w-[100%] z-[900] pt-[48px]  pb-6 bg-white">
+        <div className="flex justify-center align-center bg-[#06A9EF] h-[89px] overflow-hidden">
           <div className="flex justify-center align-center flex-col py-[6px]">
             <div className="text-white text-[40px] font-[600] flex justify-center">
               Register as Recruiter
@@ -73,11 +73,8 @@ function Recruiter_register() {
         {/* document fill status end */}
       </div>
 
-      <div className="pt-[200px]">
-        <div className={infoContinue === 1 ? "ShowContent" : "content"}>
-
-
-
+      <div className="">
+        <div className={`${infoContinue === 1 ? "ShowContent" : "content"} pt-[10px] ` }>
           <div className="flex justify-center  ">
             <div className="w-[648px] rounded-[16px] px-[24px] py-[24px] flex flex-col gap-[24px] item-between shadow relative bg-white">
               <div className="flex flex-col gap-[8px]">
@@ -317,7 +314,7 @@ function Recruiter_register() {
           </div>
         </div>
 
-        <div className={`${infoContinue === 2 ? "ShowContent" : "content"} pt-[130px] ` }>
+        <div className={`${infoContinue === 2 ? "ShowContent" : "content"} pt-[100px] ` }>
           <div className="w-full flex justify-center relative mb-[5rem]">
             <div className="last_img_parent_head top-[-5rem] -z-10">
               <div className="lastfour_img_cont">

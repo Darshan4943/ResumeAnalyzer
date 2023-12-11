@@ -45,21 +45,20 @@ const DateSelector = ({
               id={`${idPrefix}-startMonth`}
               value={startMonth}
               onChange={handleStartMonthChange}
-              className="w-[79px]"
+              className="w-[79px] outline-none"
               style={{ WebkitAppearance: 'none', MozAppearance: 'none', appearance: 'none' }}
             >
-              <option value="Month" disabled hidden className=" ">
+              <option value="Month" disabled hidden className="px-4 py-2">
                 Month
-
               </option>
 
               {months.map((month) => (
-                <option key={month} value={month}>
+                <option key={month} value={month} className="px-4 py-2">
                   {new Date(0, month - 1).toLocaleString("en", { month: "long" })}
                 </option>
               ))}
-
             </select>
+
             <img src="./images/down_arrow.png" className="h-[20px] w-[20px]" alt="" />
           </div>
 
@@ -70,16 +69,17 @@ const DateSelector = ({
               value={startYear}
               onChange={handleStartYearChange}
               style={{ WebkitAppearance: 'none', MozAppearance: 'none', appearance: 'none' }}
-              className="w-[79px]"
+              className="w-[79px] outline-none"
             >
               <option value="Year" disabled hidden>
                 Year
               </option>
               {years.map((year) => (
-                <option key={year} value={year}>
+                <option key={year} value={year} className="mt-4 px-4 py-2">
                   {year}
                 </option>
               ))}
+
             </select>
             <img src="./images/down_arrow.png" className="h-[20px] w-[20px]" alt="" />
           </div>
@@ -96,15 +96,15 @@ const DateSelector = ({
               id={`${idPrefix}-endMonth`}
               value={endMonth}
               onChange={handleEndMonthChange}
-              className="w-[79px]"
+              className="w-[79px] outline-none"
               style={{ WebkitAppearance: 'none', MozAppearance: 'none', appearance: 'none' }}
-             
+
             >
               <option value="Month" disabled hidden>
                 Month
               </option>
               {months.map((month) => (
-                <option key={month} value={month}>
+                <option key={month} value={month} className="px-4 py-2">
                   {new Date(0, month - 1).toLocaleString("en", { month: "long" })}
                 </option>
               ))}
@@ -117,13 +117,13 @@ const DateSelector = ({
               value={endYear}
               onChange={handleEndYearChange}
               style={{ WebkitAppearance: 'none', MozAppearance: 'none', appearance: 'none' }}
-              className="w-[79px]"
+              className="w-[79px] outline-none"
             >
               <option value="Year" disabled hidden>
                 Year
               </option>
               {years.map((year) => (
-                <option key={year} value={year}>
+                <option key={year} value={year} className="px-4 py-2">
                   {year}
                 </option>
               ))}
