@@ -137,7 +137,7 @@ function AiResumePage() {
                         </div>
 
                         <div
-                            className="flex flex-col p-4 gap-2 rounded-lg bg-white min-h-[320px]"
+                            className="flex flex-col p-4 gap-2 rounded-lg bg-white "
                             style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}
                         >
                             <div className="w-full text-[20px] font-montserrat font-medium">
@@ -146,7 +146,7 @@ function AiResumePage() {
 
                             <div className="w-full h-full rounded-[10px]">
 
-                                <TextEditor />
+                                {/* <TextEditor /> */}
 
                             </div>
                             <div className="flex justify-end items-center gap-3 ">
