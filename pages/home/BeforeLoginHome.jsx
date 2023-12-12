@@ -27,11 +27,11 @@ function BeforeLoginHome() {
 
       const mappedOpacity1 = (scrollY - 2100) / (2300 - 2100);
       setOpacity2(mappedOpacity1);
-    } else if (scrollY >= 2500 && scrollY < 2800) {
+    } else if (scrollY >= 2500 && scrollY < 3100) {
 
       const mappedOpacity = 1 - (scrollY - 2500) / (2800 - 2500);
       setOpacity2(mappedOpacity - 0.1);
-      const mappedOpacity1 = (scrollY - 2500) / (2800 - 2500);
+      const mappedOpacity1 = (scrollY - 2700) / (3000 - 2700);
       setOpacity3(mappedOpacity1);
       setTrustAnimation(true)
     } else if (scrollY < 1300) {
