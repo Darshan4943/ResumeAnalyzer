@@ -10,6 +10,9 @@ function Candidate_register() {
   }
 
   return (
+
+
+    
     < div className=" relative">
       <div className="register_head sticky top-[2.6rem] w-[100%] z-[900] pt-[48px] pb-6 bg-white">
         <div className="register_cadidate overflow-hidden">
