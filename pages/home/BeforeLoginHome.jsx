@@ -1,4 +1,4 @@
-import React, { useEffect,useState } from "react";
+import React, { useEffect, useState } from "react";
 import HeroSection from "~/components/featured/home/HeroSection";
 import ForCandidate from "~/components/featured/home/ForCandidate";
 import Testimonial from "~/components/featured/home/Testimonial";
@@ -13,7 +13,7 @@ function BeforeLoginHome() {
   const [opacity1, setOpacity1] = useState(0);
   const [opacity2, setOpacity2] = useState(0);
   const [trustAnimation, setTrustAnimation] = useState(false);
-  
+
   const handleScroll = () => {
 
     const scrollY = window.scrollY;
@@ -23,14 +23,14 @@ function BeforeLoginHome() {
       setOpacity1(mappedOpacity);
     } else if (scrollY >= 2100 && scrollY < 2300) {
       const mappedOpacity = 1 - (scrollY - 1800) / (2300 - 1800);
-      setOpacity1(mappedOpacity-0.1);
+      setOpacity1(mappedOpacity - 0.1);
 
       const mappedOpacity1 = (scrollY - 2100) / (2300 - 2100);
       setOpacity2(mappedOpacity1);
     } else if (scrollY >= 2500 && scrollY < 2800) {
-    
+
       const mappedOpacity = 1 - (scrollY - 2500) / (2800 - 2500);
-      setOpacity2(mappedOpacity- 0.1);
+      setOpacity2(mappedOpacity - 0.1);
       const mappedOpacity1 = (scrollY - 2500) / (2800 - 2500);
       setOpacity3(mappedOpacity1);
       setTrustAnimation(true)
@@ -40,13 +40,12 @@ function BeforeLoginHome() {
       setOpacity3(0);
     }
     else if (scrollY < 2100) {
-    
+
       setOpacity2(0);
-    
+
     }
 
   };
-
 
 
   useEffect(() => {
@@ -59,24 +58,22 @@ function BeforeLoginHome() {
 
   const containerStyle = {
     opacity: opacity1,
-   
+
   };
 
   const containerStyle1 = {
     opacity: opacity2,
-   
-    
+
+
   };
   const containerStyle2 = {
     opacity: opacity3,
-    
+
   };
 
 
   return (
     <div >
-
-      
 
       <div className="layer1">
         <HeroSection />
@@ -88,7 +85,7 @@ function BeforeLoginHome() {
       <div className="layer3">
 
       </div>
-      
+
       <div style={containerStyle} className="layer4 ">
         <ForCandidate />
       </div>
@@ -96,21 +93,21 @@ function BeforeLoginHome() {
         <Profile_creation />
       </div>
 
-      <motion.div 
+      <motion.div
 
-      initial={{ y:300}}
-      animate={{y:trustAnimation && 0 }}
-      transition={{duration:3,ease:'easeInOut'}}
+        initial={{ y: 300 }}
+        animate={{ y: trustAnimation && 0 }}
+        transition={{ duration: 3, ease: 'easeInOut' }}
 
 
-       style={containerStyle2}
-       >
-      <div  >
-        <Testimonial />
-      </div>
-      <div >
-        <Testimonial_2 />
-      </div>
+        style={containerStyle2}
+      >
+        <div  >
+          <Testimonial />
+        </div>
+        <div >
+          <Testimonial_2 />
+        </div>
       </motion.div>
     </div>
   );
