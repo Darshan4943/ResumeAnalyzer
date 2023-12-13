@@ -144,7 +144,7 @@ function TrustedBySection() {
       job: "1598 jobs",
     },
     {
-      img: "./images/home/hr.png",
+      img: "./images/home/HR.png",
       name: "Human Resources",
       job: "1598 jobs",
     },
