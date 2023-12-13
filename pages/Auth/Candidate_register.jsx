@@ -42,7 +42,10 @@ function Candidate_register() {
   console.log(data);
 
   return (
-    <div className=" relative">
+
+
+    
+    < div className=" relative">
       <div className="register_head sticky top-[2.6rem] w-[100%] z-[900] pt-[48px] pb-6 bg-white">
         <div className="register_cadidate overflow-hidden">
           <div className="register_text_parent">

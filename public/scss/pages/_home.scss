@@ -11,7 +11,7 @@
 }
 
 .layer3{
-	height: 150vh;
+	height: 180vh;
 	position: relative;
 	z-index: -100;
 	top: 200%;
@@ -205,7 +205,7 @@
     display: flex;
     justify-content: flex-end;
     // width: 40vw;
-    width: 692px;
+    width:40%;
     height: 80vh;
     position: absolute;
     top: 105px;
@@ -221,13 +221,13 @@
   .yellow_animation {
     position: absolute;
     transition: all 0.6s;
-    width: 56vh;
-    // width: 350px;
-   
+    // width: 30vw;
+    width: 87%; 
+   height: 59vh;
     transform: rotate(20deg);
 
-    top: 15%;
-    left: 39%;
+    top: 11%;
+    left: 30%;
     object-fit: contain;
     // /* left: 10px; */
     overflow: hidden;
@@ -235,13 +235,14 @@
   .blue_animation {
     position: absolute;
     transition: all 0.6s;
-    width: 56vh;
-    // width: 534px;
+    height: 65vh;
+    // width: 30vw;
+    width: 90%;
     // height: 84vh;
-    top: -1%;
+    top:0%;
     // right:22%;
     object-fit: contain;
-    left: 32%;
+    left: 22%;
     overflow: hidden;
     // transform: rotate(-1.886deg);
     // backdrop-filter: blur(10px);
@@ -249,35 +250,38 @@
   .female {
     transition: all 0.6s;
     position: absolute;
-    width: 58vh;
-    // width: 524px;
+    // width: 32vw;
+    width: 78%;
     // height: 420.252px;
-    height: 68.5vh;
+    height: 70vh;
     flex-shrink: 0;
-    top: 60px;
+    top: 6%;
     object-fit: contain;
-    left: 35%;
+    left: 31%;
+    overflow: hidden;
   }
   .male {
     transition: all 0.6s;
     position: absolute;
     opacity: 0;
-    width: 600px;
-    height: 71.5vh;
-    left: 24%;
+    // width: 59vh;
+    width:80%;
+    height: 70vh;
+    left: 28%;
     flex-shrink: 0;
-    top: 30px;
+    top: 6%;
     object-fit: contain;
+    overflow: hidden;
   }
   .hr_animation_container:hover .blue_animation {
     transform: rotate(-18deg);
-    left: 15rem;
-    top: 3rem;
+    left: 30%;
+    top: 7%;
   }
   .hr_animation_container:hover .yellow_animation {
     transform: rotate(-65deg);
-    left: 8rem;
-    top: 10rem;
+    left: 15%;
+    top: 17%;
   }
   .hr_animation_container:hover .female {
     opacity: 0;

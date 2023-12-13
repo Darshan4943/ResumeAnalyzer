@@ -41,14 +41,7 @@ function Profile_creation() {
   };
 
   
-  // const handleScroll1 = () => {
-  //   if (window.scrollY >=1000 ) {
-  //     shouldApplyScrollListener = true;
-   
-  //     window.removeEventListener('scroll', handleScroll1);
-  //     window.addEventListener("scroll", applyScrollEffects);
-  //   }
-  // };
+  
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
@@ -84,57 +77,8 @@ function Profile_creation() {
 
 
 
-// window.addEventListener("scroll", function () {
-//   let value = window.scrollY;
 
-  
-//   if (value >= 2700) {
-//       let offset = value - 2700;
-//       let opacityValue = 1 - (offset / 500); 
-      
-      
-//       document.getElementById("profile_creation_sub_container_one").style.left = offset * -1.4 + "px";
-//       document.getElementById("profile_creation_sub_container_two").style.left = offset * 2 + "px";
-      
-     
-//       document.getElementById("profile_creation_sub_container_one").style.opacity = opacityValue;
-//       document.getElementById("profile_creation_sub_container_two").style.opacity = opacityValue;
-//       document.getElementById("profile_creation_sub_container_two").style.backgroundColor = `rgba(0, 0, 0, ${1 - opacityValue})`;
-//   } else {
-      
-//       document.getElementById("profile_creation_sub_container_one").style.left = "0px";
-//       document.getElementById("profile_creation_sub_container_two").style.left = "0px";
-//       document.getElementById("profile_creation_sub_container_one").style.opacity = "1";
-//       document.getElementById("profile_creation_sub_container_two").style.opacity = "1";
-//       document.getElementById("profile_creation_sub_container_two").style.backgroundColor = "transparent";
-//   }
-// });
-
-
-
-  // useEffect(() => {
-  //   if (isAnimate) {
-  //     const timer = setTimeout(() => {
-  //       setIsVisible(true);
-  //     }, 1500);
-
-  //     return () => {
-  //       clearTimeout(timer);
-  //     };
-  //   }
-  // }, [isAnimate]);
-
-  // useEffect(() => {
-  //   if (isAnimate) {
-  //     setIsVisible(true);
-  //     containerAnimation.start({ y: -scrollY * 0.5 })
-  //     containerAnimation1.start({ y: 0, transition: { duration: 2.5 } });
-  //     containerAnimation2.start({ y: 0, transition: { duration: 3 } });
-  //     containerAnimation3.start({ y: 0, transition: { duration: 3.5 } });
-
-  //   }
-  // }, [isAnimate, containerAnimation,containerAnimation1,containerAnimation2,containerAnimation3]);
-
+ 
   return (
     <div className="profile_creation_container ">
 
@@ -181,7 +125,7 @@ function Profile_creation() {
                     className=""
                     initial={{ x: '100%' }}
                     animate={{ x: isHovered9 ? ['0%', '100%', '0%'] : 0 }}
-                    transition={{ duration: 1.2, delay: 1 }}
+                    transition={{ duration: 2,  }}
                     style={{
                       width: '168px',
                       height: '90px',
@@ -219,7 +163,7 @@ function Profile_creation() {
                     className=""
                     initial={{ x: '100%' }}
                     animate={{ x: isHovered10 ? ['0%', '100%', '0%'] : 0 }}
-                    transition={{ duration: 1.2, delay: 1 }}
+                    transition={{ duration: 2,  }}
                     style={{
                       width: '152px',
                       height: '80px',
@@ -252,7 +196,7 @@ function Profile_creation() {
                     className=""
                     initial={{ x: '100%' }}
                     animate={{ x: isHovered8 ? ['0%', '100%', '0%'] : 0 }}
-                    transition={{ duration: 1.2, delay: 1 }}
+                    transition={{ duration: 2, }}
                     style={{
                       width: '131px',
                       height: '80px',
@@ -283,7 +227,7 @@ function Profile_creation() {
                     className=""
                     initial={{ y: '-100%' }}
                     animate={{ y: isHovered7 ? ['0%', '-100%', '0%'] : 0 }}
-                    transition={{ duration: 1.2, delay: 1 }}
+                    transition={{ duration: 2,}}
                     style={{
                       width: '80px',
                       height: '130px',
@@ -322,7 +266,7 @@ function Profile_creation() {
                     className=""
                     initial={{ x: '-100%' }}
                     animate={{ x: isHovered6 ? ['0%', '-100%', '0%'] : 0 }}
-                    transition={{ duration: 1.2, delay: 1 }}
+                    transition={{ duration: 2,  }}
                     style={{
                       width: '131px',
                       height: '50px',
@@ -357,7 +301,7 @@ function Profile_creation() {
                     initial={{ x: '-100%' }}
                     // animate={{ x: isHovered5 ? '-100%' : '0%' }}
                     animate={{ x: isHovered5 ? ['0%', '-100%', '0%'] : 0 }}
-                    transition={{ duration: 1.2, delay: 1 }}
+                    transition={{ duration: 2, }}
 
                     style={{
                       width: '110px',
@@ -392,7 +336,7 @@ function Profile_creation() {
                     className=""
                     initial={{ y: '100%' }}
                     animate={{ y: isHovered4 ? ['-15%', '100%', '-15%'] : 0 }}
-                    transition={{ duration: 1.2, delay: 1 }}
+                    transition={{ duration: 2,  }}
                     style={{
                       width: '54px',
                       height: '100%',
@@ -432,7 +376,7 @@ function Profile_creation() {
                     className=""
                     initial={{ y: '100%' }}
                     animate={{ y: isHovered3 ? ['-16%', '100%', '-16%'] : 0 }}
-                    transition={{ duration: 1.2, delay: 1 }}
+                    transition={{ duration: 2,  }}
                     style={{
                       width: '100px',
                       height: '100%',

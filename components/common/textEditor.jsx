@@ -16,13 +16,13 @@
 //         { indent: "-1" },
 //         { indent: "+1" },
 //       ],
-//       ["link", "image", "video"],
+//       [ "image"],
 //       ["clean"],
 //     ],
 //   };
 
 //   const formats = [
-//     "header",
+    
 //     "font",
 //     "size",
 //     "bold",
@@ -33,9 +33,7 @@
 //     "list",
 //     "bullet",
 //     "indent",
-//     "link",
-//     "image",
-//     "video",
+   
 //   ];
 
 //   return (
@@ -46,9 +44,9 @@
 //         onChange={setEditorHtml}
 //         modules={modules}
 //         formats={formats}
-//         placeholder="Write something amazing..."
+//         placeholder="Describe about your work"
        
-//         style={{ height: "100px" }}
+//         style={{ height: "155px" }}
 //       />
 //     </div>
 //   );

@@ -19,15 +19,15 @@ function AiResume() {
     {/* customMargins */}
       <div class=" bg-Ai_resume  bg-cover bg-no-repeat">
         <MouseParallaxContainer
-          globalFactorX={0.3}
-          globalFactorY={0.3}
+          globalFactorX={0.4}
+          globalFactorY={0.4}
           resetOnLeave
           className="flex rounded-[12px] relative flex justify-center iems-center"
         >
           <MouseParallaxChild
             className="my-[124px] py-[46px] px-[24px]"
-            factorX={0.02}
-            factorY={0.02}
+            factorX={0.06}
+            factorY={0.06}
             style={{
               borderRadius: "12px",
               background: "rgba(255, 255, 255, 0.16)",
@@ -57,8 +57,8 @@ function AiResume() {
           </MouseParallaxChild>
 
           <MouseParallaxChild
-            factorX={0.02}
-            factorY={0.02}
+            factorX={0.12}
+            factorY={0.12}
             className="absolute w-[381px] p-[16px] rounded-[16px] flex flex-row gap-[16px] items-center right-[22.65%] top-[33px]"
             style={{
               background: "rgba(255, 255, 255, 0.26)",
@@ -80,8 +80,8 @@ function AiResume() {
           </MouseParallaxChild>
 
           <MouseParallaxChild
-            factorX={0.03}
-            factorY={0.03}
+            factorX={0.15}
+            factorY={0.15}
             className="absolute w-[433px] p-[16px] rounded-[16px] flex flex-row gap-[16px] items-center justify-between right-[14.20%] top-[206px]"
             style={{
               background: "rgba(255, 255, 255, 0.26)",
@@ -105,8 +105,8 @@ function AiResume() {
           </MouseParallaxChild>
 
           <MouseParallaxChild
-            factorX={0.04}
-            factorY={0.04}
+            factorX={0.2}
+            factorY={0.2}
             className="absolute w-[347px] p-[16px] rounded-[16px] flex flex-row gap-[16px] items-center right-[39.65%] top-[390px]"
             style={{
               background: "rgba(255, 255, 255, 0.26)",
