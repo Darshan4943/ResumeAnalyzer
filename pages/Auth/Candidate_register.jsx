@@ -497,7 +497,7 @@ function Candidate_register() {
                       setTabIndex(2);
                       window.scroll(0, 0);
                     } else {
-                      toast.error("All Feilds are required");
+                      toast.error("All Fields are required");
                     }
                   }}
                 >

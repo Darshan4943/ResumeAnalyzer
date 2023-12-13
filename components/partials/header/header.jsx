@@ -43,17 +43,19 @@ function Header() {
   return (
     <div
       className="bg-white z-[1000] fixed w-[100%] mt-[-5rem] "
-      style={{ boxShadow: "0px 1px 4px 0px rgba(0, 0, 0, 0.25)" }}
+      style={{ boxShadow: selectedPage === "/" ? "none" : "0px 1px 4px 0px rgba(0, 0, 0, 0.25)", }}
     >
       <div className="header_parent customMargins z-[1000]">
         <div className="header   ">
           <div className="header_left">
-            <ALink href="/">
-              {" "}
-              <img src="./images/logo_skilotech.png" alt="" />
-            </ALink>
             {!isLogin ? (
               <>
+                <ALink href="/">
+                  {" "}
+                  <img src="./images/logo_skilotech.png" alt="" />
+                </ALink>
+
+
                 <ALink
                   href="/"
                   className={selectedPage === "/" ? "active" : "li"}
@@ -91,6 +93,11 @@ function Header() {
               </>
             ) : (
               <>
+
+                <ALink href="/candidate/afterLogin/home/candidateHome">
+                  {" "}
+                  <img src="./images/logo_skilotech.png" alt="" />
+                </ALink>
                 <ALink
                   href="/candidate/afterLogin/home/candidateHome"
                   className={
@@ -116,13 +123,13 @@ function Header() {
                   className={
                     selectedPage ===
                       "/candidate/afterLogin/services/services" ||
-                    selectedPage ===
+                      selectedPage ===
                       "/candidate/afterLogin/services/servicesSub/AiResumePage" ||
-                    selectedPage ===
+                      selectedPage ===
                       "/candidate/afterLogin/services/servicesSub/InterviewQue" ||
-                    selectedPage ===
+                      selectedPage ===
                       "/candidate/afterLogin/services/servicesSub/SkillAssessment" ||
-                    selectedPage ===
+                      selectedPage ===
                       "/candidate/afterLogin/services/servicesSub/DailyQuize"
                       ? "active"
                       : "li"
@@ -173,7 +180,7 @@ function Header() {
                     className="h-4 w-4 ml-1 cursor-pointer "
                     alt=""
                     onMouseEnter={toggleDropdown}
-                    // onMouseLeave={toggleDropdown}
+                  // onMouseLeave={toggleDropdown}
                   />
                   {showDropdown && (
                     <div className="dropdown absolute -right-10 mt-[6rem] z-10 bg-white border border-gray-200 py-2 px-3 rounded-md shadow-md">

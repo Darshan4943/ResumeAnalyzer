@@ -159,7 +159,7 @@ function TrustedBySection() {
       job: "1598 jobs",
     },
     {
-      img: "./images/home/Component 14.png",
+      img: "./images/home/Content_writer.png",
       name: "Content Writing",
       job: "1598 jobs",
     },
@@ -252,7 +252,7 @@ function TrustedBySection() {
                 whileHover={{ scale: 1.1, rotateY: 360 }}
                 transition={{ duration: 1, ease: "easeInOut" }}
               />
-              <div>
+              <div className="flex flex-col gap-1">
                 <p id="card_budget">{item.name}</p>
                 <p id="card_job">{item.job}</p>
               </div>

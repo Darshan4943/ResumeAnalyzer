@@ -137,7 +137,7 @@ function Candidate_animation() {
 
         <motion.div className=" candidate_Animation customMargins"
           animate={{
-            x: slideImage ? 500 : 0,
+            x: slideImage ? 400 : 0,
             y: slideImage ? 200 : 0,
             opacity: slideImage ? 0 : 1,
             scale: slideImage ? 0.5 : 1
