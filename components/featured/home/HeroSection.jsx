@@ -45,7 +45,7 @@ function HeroSection() {
         <div className="customMargins">
           <div className="animation_parent ">
             <div className="hr_animation_container">
-              <svg className="yellow_animation" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 535 543" fill="none">
+              <svg className="yellow_animation" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 535 543" fill="none">
                 <path d="M454.835 300.214C454.835 465.177 490.9 542.866 329.895 542.866C168.889 542.866 0.56604 419.475 0.56604 254.513C0.56604 89.5506 304.721 0.979492 465.727 0.979492C626.732 0.979492 454.835 135.252 454.835 300.214Z" fill="#FBD515" />
               </svg>
               {/* <div className="yellow_animation"> </div> */}
@@ -134,7 +134,12 @@ function HeroSection() {
                     stroke-linejoin="round"
                   />
                 </svg>
-                <p className="search_p">Job title or keyword</p>
+                {/* <p className="search_p">Job title or keyword</p> */}
+                <input
+                  type="text"
+                  className="text-gray font-small text-[20px] search_p placeholder-center text-center"
+                  placeholder="Job title or keyword"
+                />
               </div>
 
               <img className="searcgBarLine " src="./images/home/searcgBarLine.png" alt="" />
