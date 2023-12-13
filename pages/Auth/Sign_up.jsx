@@ -35,7 +35,7 @@ function Sign_up() {
         </div>
         <div className="flex justify-center item-center">
           <div className="flex flex-col gap-[24px] px-[94.5px]">
-          <ALink href="/Auth/Candidate_register">
+          <ALink href="/Auth/CandidateAiPower">
             <div className="p-[16px] flex flex-row justify-between rounded-[16px] relative sign_up_shadow">
               <div className="flex flex-row justify-center item-center gap-[8px] ">
                 <div className="flex items-center">

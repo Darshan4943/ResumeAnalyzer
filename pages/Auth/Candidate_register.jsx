@@ -1,15 +1,50 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import ALink from "~/components/alink";
-
+import { toast } from "react-toastify";
+import { useRouter } from "next/router";
 function Candidate_register() {
   const [tabindex, setTabIndex] = useState(1);
-
+  const router = useRouter();
   function updateTab(id) {
     setTabIndex(id);
   }
 
+  const [data, setData] = useState({
+    firstName: "",
+    lastName: "",
+    mobileNo: null,
+    email: "",
+    password: "",
+    dob: "",
+    gender: "male",
+    currentLocation: "",
+    workStatus: "experianced",
+    cv: "",
+    education: "",
+    stream: "",
+    university: "",
+    institute: "",
+    dateOfComplition: "",
+    courses: "",
+    awards: "",
+    workExperiance: "",
+    companyName: "",
+    jobTitle: "",
+    jobLocation: "",
+    dateOfJoining: "",
+    keySkills: "",
+    currentCTC: null,
+    noticePeriod: "15 days or less",
+    employmentStatus: "",
+  });
+
+  console.log(data);
+
   return (
+
+
+    
     < div className=" relative">
       <div className="register_head sticky top-[2.6rem] w-[100%] z-[900] pt-[48px] pb-6 bg-white">
         <div className="register_cadidate overflow-hidden">
@@ -42,7 +77,7 @@ function Candidate_register() {
                 />
                 <circle cx="12" cy="12" r="8" fill="#06A9EF" />
               </svg>
-                     ) : (
+            ) : (
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -155,7 +190,6 @@ function Candidate_register() {
       {/* personal details form start */}
       {tabindex === 1 && (
         <div className={"show-content  pb-8 back_img"}>
-          
           <motion.div className="personal_details ">
             <div className="personal_details_form ">
               <img
@@ -218,10 +252,14 @@ function Candidate_register() {
                     First name <span className="star">*</span>
                   </p>
                   <input
-                    type="search"
+                    type="text"
                     name=""
                     id="first_name"
                     placeholder="Enter first name"
+                    value={data.firstName}
+                    onChange={(e) =>
+                      setData({ ...data, firstName: e.target.value })
+                    }
                   />
                 </div>
                 <div className="personal_name">
@@ -229,10 +267,14 @@ function Candidate_register() {
                     Last name <span className="star">*</span>
                   </p>
                   <input
-                    type="search"
+                    type="text"
                     name=""
                     id="first_name"
                     placeholder="Enter Last name"
+                    value={data.lastName}
+                    onChange={(e) =>
+                      setData({ ...data, lastName: e.target.value })
+                    }
                   />
                 </div>
               </div>
@@ -243,10 +285,14 @@ function Candidate_register() {
                     Email <span className="star">*</span>
                   </p>
                   <input
-                    type="search"
+                    type="email"
                     name=""
                     id="single_input"
                     placeholder="Enter Email"
+                    value={data.email}
+                    onChange={(e) =>
+                      setData({ ...data, email: e.target.value })
+                    }
                   />
                 </div>
               </div>
@@ -261,6 +307,10 @@ function Candidate_register() {
                     name=""
                     id="single_input"
                     placeholder="Create new password"
+                    value={data.password}
+                    onChange={(e) =>
+                      setData({ ...data, password: e.target.value })
+                    }
                   />
                   <img
                     className="icon"
@@ -276,10 +326,14 @@ function Candidate_register() {
                     Contact Number <span className="star">*</span>
                   </p>
                   <input
-                    type="search"
+                    type="text"
                     name=""
                     id="single_input"
                     placeholder="Enter Contact Number"
+                    value={data.mobileNo}
+                    onChange={(e) =>
+                      setData({ ...data, mobileNo: e.target.value })
+                    }
                   />
                 </div>
               </div>
@@ -294,6 +348,8 @@ function Candidate_register() {
                     name=""
                     id="single_input"
                     placeholder="Enter Contact Number"
+                    value={data.dob}
+                    onChange={(e) => setData({ ...data, dob: e.target.value })}
                   />
                 </div>
               </div>
@@ -304,9 +360,39 @@ function Candidate_register() {
                     Gender <span className="star">*</span>
                   </p>
                   <div className="gender_button">
-                    <button className="gen_button">Male</button>
-                    <button className="gen_button">Female</button>
-                    <button className="gen_button">Other</button>
+                    <button
+                      className={`gen_button ${
+                        data.gender == "male" && "gen_button_active"
+                      }`}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setData({ ...data, gender: "male" });
+                      }}
+                    >
+                      Male
+                    </button>
+                    <button
+                      className={`gen_button ${
+                        data.gender == "female" && "gen_button_active"
+                      }`}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setData({ ...data, gender: "female" });
+                      }}
+                    >
+                      Female
+                    </button>
+                    <button
+                      className={`gen_button ${
+                        data.gender == "other" && "gen_button_active"
+                      }`}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setData({ ...data, gender: "other" });
+                      }}
+                    >
+                      Other
+                    </button>
                   </div>
                 </div>
               </div>
@@ -317,10 +403,14 @@ function Candidate_register() {
                     Current Location <span className="star">*</span>
                   </p>
                   <input
-                    type="search"
+                    type="text"
                     name=""
                     id="single_input"
                     placeholder="Enter Your Location"
+                    value={data.currentLocation}
+                    onChange={(e) =>
+                      setData({ ...data, currentLocation: e.target.value })
+                    }
                   />
                   <img
                     className="icon"
@@ -336,8 +426,28 @@ function Candidate_register() {
                     Work Status <span className="star">*</span>
                   </p>
                   <div className="gender_button">
-                    <button className="gen_button">Experienced</button>
-                    <button className="gen_button">Fresher</button>
+                    <button
+                      className={`gen_button ${
+                        data.workStatus == "experienced" && "gen_button_active"
+                      }`}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setData({ ...data, workStatus: "experienced" });
+                      }}
+                    >
+                      Experienced
+                    </button>
+                    <button
+                      className={`gen_button ${
+                        data.workStatus == "fresher" && "gen_button_active"
+                      }`}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setData({ ...data, workStatus: "fresher" });
+                      }}
+                    >
+                      Fresher
+                    </button>
                   </div>
                 </div>
               </div>
@@ -347,10 +457,13 @@ function Candidate_register() {
                     Upload Resume <span className="star">*</span>
                   </p>
                   <input
-                    type="search"
+                    type="file"
                     name=""
                     id="single_input"
                     placeholder="Please Upload Resume in PDF/DOC Format"
+                    onChange={(e) =>
+                      setData({ ...data, cv: e.target.files[0] })
+                    }
                   />
                   <img
                     className="icon"
@@ -361,17 +474,31 @@ function Candidate_register() {
               </div>
 
               <div className="bottom_buttons">
-              <ALink href='/Auth/Sign_up'>
-                <button className="buttons" id="border_button">
-                  Go Back
-                </button>
+                <ALink href="/Auth/Sign_up">
+                  <button className="buttons" id="border_button">
+                    Go Back
+                  </button>
                 </ALink>
                 <button
                   className="buttons"
                   id="border_button"
                   onClick={() => {
-                    setTabIndex(2);
-                    window.scroll(0, 0);
+                    if (
+                      data.firstName.length > 0 &&
+                      data.firstName.length > 0 &&
+                      data.lastName.length > 0 &&
+                      data.mobileNo.length > 0 &&
+                      data.email.length > 0 &&
+                      data.password.length > 0 &&
+                      data.dob.length > 0 &&
+                      data.currentLocation.length > 0 &&
+                      data.cv
+                    ) {
+                      setTabIndex(2);
+                      window.scroll(0, 0);
+                    } else {
+                      toast.error("All Feilds are required");
+                    }
                   }}
                 >
                   Continue
@@ -441,11 +568,61 @@ function Candidate_register() {
                 <div className="personal_name">
                   <p className="form_text_heading">Highest Education</p>
                   <div className="education_button">
-                    <button className="gen_button">10th or below</button>
-                    <button className="gen_button">12 pass</button>
-                    <button className="gen_button">Diploma</button>
-                    <button className="gen_button">Graduate</button>
-                    <button className="gen_button">Post Graduates</button>
+                    <button
+                      className={`gen_button ${
+                        data.education == "10th or below" && "gen_button_active"
+                      }`}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setData({ ...data, education: "10th or below" });
+                      }}
+                    >
+                      10th or below
+                    </button>
+                    <button
+                      className={`gen_button ${
+                        data.education == "12 pass" && "gen_button_active"
+                      }`}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setData({ ...data, education: "12 pass" });
+                      }}
+                    >
+                      12 pass
+                    </button>
+                    <button
+                      className={`gen_button ${
+                        data.education == "Diploma" && "gen_button_active"
+                      }`}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setData({ ...data, education: "Diploma" });
+                      }}
+                    >
+                      Diploma
+                    </button>
+                    <button
+                      className={`gen_button ${
+                        data.education == "Graduate" && "gen_button_active"
+                      }`}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setData({ ...data, education: "Graduate" });
+                      }}
+                    >
+                      Graduate
+                    </button>
+                    <button
+                      className={`gen_button ${
+                        data.education == "Post Graduate" && "gen_button_active"
+                      }`}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setData({ ...data, education: "Post Graduate" });
+                      }}
+                    >
+                      Post Graduate
+                    </button>
                   </div>
                 </div>
               </div>
@@ -453,10 +630,13 @@ function Candidate_register() {
               <div className="personal_single_input">
                 <div className="personal_name">
                   <input
-                    type="search"
+                    type="text"
                     name=""
                     id="single_input"
                     placeholder="Select Degree"
+                    onChange={() => {
+                      setData({ ...data, stream: "fresher" });
+                    }}
                   />
                   <img
                     style={{ width: "10px", height: "8px", top: "45%" }}
@@ -473,7 +653,7 @@ function Candidate_register() {
                     University Name <span className="star">*</span>
                   </p>
                   <input
-                    type="search"
+                    type="text"
                     name=""
                     id="single_input"
                     placeholder="Enter University Name"
@@ -487,7 +667,7 @@ function Candidate_register() {
                     Collage Name <span className="star">*</span>
                   </p>
                   <input
-                    type="search"
+                    type="text"
                     name=""
                     id="single_input"
                     placeholder="Enter Collage Name"
@@ -526,12 +706,7 @@ function Candidate_register() {
                     Relevant Course or Certification
                     <span className="star">*</span>
                   </p>
-                  <input
-                    type="search"
-                    name=""
-                    id="single_input"
-                    placeholder=""
-                  />
+                  <input type="text" name="" id="single_input" placeholder="" />
                 </div>
               </div>
 
@@ -540,12 +715,7 @@ function Candidate_register() {
                   <p className="form_text_heading">
                     Academic Honors or Awards <span className="star">*</span>
                   </p>
-                  <input
-                    type="search"
-                    name=""
-                    id="single_input"
-                    placeholder=""
-                  />
+                  <input type="text" name="" id="single_input" placeholder="" />
                 </div>
               </div>
 
@@ -619,8 +789,30 @@ function Candidate_register() {
                     Employment Status <span className="star">*</span>
                   </p>
                   <div className="gender_button">
-                    <button className="gen_button">Employed</button>
-                    <button className="gen_button">Unemployed</button>
+                    <button
+                      className={`gen_button ${
+                        data.employmentStatus == "Employed" &&
+                        "gen_button_active"
+                      }`}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setData({ ...data, employmentStatus: "Employed" });
+                      }}
+                    >
+                      Employed
+                    </button>
+                    <button
+                      className={`gen_button ${
+                        data.employmentStatus == "Unemployed" &&
+                        "gen_button_active"
+                      }`}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setData({ ...data, employmentStatus: "Unemployed" });
+                      }}
+                    >
+                      Unemployed
+                    </button>
                   </div>
                 </div>
               </div>
@@ -641,10 +833,17 @@ function Candidate_register() {
 
                     <label for="years"></label>
                     <select name="2 years" id="years">
-                      <option value="1 ears">1 years</option>
-                      <option value="2 years">2 years</option>
-                      <option value="2 years">2 years</option>
-                      <option value="2 years">2 years</option>
+                      <option value="1 ears">1 month</option>
+                      <option value="1 ears">2 month</option>
+                      <option value="1 ears">3 month</option>
+                      <option value="1 ears">4 month</option>
+                      <option value="1 ears">5 month</option>
+                      <option value="1 ears">6 month</option>
+                      <option value="1 ears">7 month</option>
+                      <option value="1 ears">8 month</option>
+                      <option value="1 ears">9 month</option>
+                      <option value="1 ears">10 month</option>
+                      <option value="1 ears">11 month</option>
                     </select>
                   </div>
                 </div>
@@ -656,7 +855,7 @@ function Candidate_register() {
                     Company Name <span className="star">*</span>
                   </p>
                   <input
-                    type="search"
+                    type="text"
                     name=""
                     id="single_input"
                     placeholder="Enter Company Name"
@@ -670,7 +869,7 @@ function Candidate_register() {
                     Job tittle <span className="star">*</span>
                   </p>
                   <input
-                    type="search"
+                    type="text"
                     name=""
                     id="single_input"
                     placeholder="Enter job tittle"
@@ -684,7 +883,7 @@ function Candidate_register() {
                     Job location <span className="star">*</span>
                   </p>
                   <input
-                    type="search"
+                    type="text"
                     name=""
                     id="single_input"
                     placeholder="Enter job location"
@@ -734,28 +933,25 @@ function Candidate_register() {
                   <p className="form_text_heading">
                     Notice Period <span className="star">*</span>
                   </p>
-                  <div className="notice_period">
+                  <form className="notice_period">
                     <div className="radio">
                       <input type="radio" />
                       15 Days or less
                     </div>
                     <div className="radio">
-                      <input type="radio" />
-                      15 Days or less
+                      <input type="radio" />1 Month
+                    </div>
+                    <div className="radio">
+                      <input type="radio" />2 Months
+                    </div>
+                    <div className="radio">
+                      <input type="radio" />3 Months
                     </div>
                     <div className="radio">
                       <input type="radio" />
-                      15 Days or less
+                      More Than 3 Months
                     </div>
-                    <div className="radio">
-                      <input type="radio" />
-                      15 Days or less
-                    </div>
-                    <div className="radio">
-                      <input type="radio" />
-                      15 Days or less
-                    </div>
-                  </div>
+                  </form>
                 </div>
               </div>
 
@@ -765,12 +961,23 @@ function Candidate_register() {
                   id="border_button"
                   onClick={() => {
                     setTabIndex(2);
+
                     window.scroll(0, 0);
                   }}
                 >
                   Go Back
                 </button>
-                <button className="buttons" id="border_button">
+                <button
+                  className="buttons"
+                  id="border_button"
+                  onClick={() => {
+                    localStorage.setItem(
+                      "userProfileData",
+                      JSON.stringify(data)
+                    );
+                    router.push("/candidate/afterLogin/home/candidateHome");
+                  }}
+                >
                   Continue
                 </button>
               </div>

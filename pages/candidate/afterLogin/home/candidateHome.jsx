@@ -1,10 +1,10 @@
-import React from 'react'
-
+import React from "react";
 
 function AfterLoginHome() {
   const numberOfDivs = 5;
+  const userProfileData = JSON.parse(localStorage.getItem("userProfileData"));
   return (
-    <div className=" relative bg-[#F9F9F9] " >
+    <div className=" relative bg-[#F9F9F9] ">
       <div className=" bg-[#E0F6FF]  ">
         <div className="customMargins py-5 flex flex-row justify-between items-center ">
           <div className="justify-center items-center w-[29%] items-between">
@@ -21,7 +21,7 @@ function AfterLoginHome() {
                   <div className="flex flex-col gap-[8px]">
                     <div className="flex flex-col gap-[8px]">
                       <div className="text-[#333] text-[18px] font-[500]">
-                        John Doe
+                        {userProfileData.firstName} {userProfileData.lastName}
                       </div>
                       <div className="text-[#333] text-[14px] font-[400]">
                         BSc Computer Science @ Pune University
@@ -283,8 +283,8 @@ function AfterLoginHome() {
                     </svg>
                   </div>
                   <div className="text-[#262626] font-[400] text-[12px]">
-                    TechGenius Innovations is seeking a talented and
-                    experienced UX Designer to join our team. As a UX....
+                    TechGenius Innovations is seeking a talented and experienced
+                    UX Designer to join our team. As a UX....
                   </div>
                 </div>
               </div>
@@ -410,16 +410,14 @@ function AfterLoginHome() {
               </div>
             </div>
             <div className="flex flex-col gap-[8px]">
-              <div className="text-[20px] font-[500]">
-                Full job Description
-              </div>
+              <div className="text-[20px] font-[500]">Full job Description</div>
               <div className="text-[12px] text-[400] gap-[8px] flex flex-col">
                 The ideal person would have Experience working on the user
                 interface of websites Know how to create mockups, understand
                 feedback and present their work Have experience building
                 sitemaps, wireframes and prototypes as per the project brief
-                Have strong design and creative skills In-depth experience
-                using Adobe Illustrator, Figma{" "}
+                Have strong design and creative skills In-depth experience using
+                Adobe Illustrator, Figma{" "}
                 <span className="text-[12px] font-[500] text-[#333] ">
                   Responsibilities :
                 </span>
@@ -430,9 +428,9 @@ function AfterLoginHome() {
                 <span className="text-[12px] font-[500] text-[#333]">
                   Qualifications :
                 </span>{" "}
-                Bachelor's degree in user experience, design or related field
-                2+ years of experience with UI design Strong communication,
-                design and creative thinking skills Experience with Adobe Pro,
+                Bachelor's degree in user experience, design or related field 2+
+                years of experience with UI design Strong communication, design
+                and creative thinking skills Experience with Adobe Pro,
                 Illustrator and Photoshop, Figma, InVision.
                 <span className="text-[14px] font-[500]">
                   {" "}
@@ -460,9 +458,8 @@ function AfterLoginHome() {
           </div>
         </div>
       </div>
-
     </div>
-  )
+  );
 }
 
-export default AfterLoginHome
+export default AfterLoginHome;
