@@ -1,5 +1,8 @@
 import React, { useState } from "react";
-
+import {
+  MouseParallaxChild,
+  MouseParallaxContainer,
+} from "react-parallax-mouse";
 import { useRouter } from "next/router";
 
 function SkillAssessment() {
@@ -12,8 +15,15 @@ function SkillAssessment() {
   return (
     <>
       <div class=" bg-SkillAssessment bg-cover bg-no-repeat  ">
-        <div className="flex rounded-[16px] relative customMargins">
-          <div
+        <MouseParallaxContainer
+          globalFactorX={0.4}
+          globalFactorY={0.4}
+          resetOnLeave
+          className="flex rounded-[16px] relative px-[156px] temp"
+        >
+          <MouseParallaxChild
+            factorX={0.06}
+            factorY={0.06}
             className="mt-[51px] mb-[148px] px-[24px] pb-[70px] pt-[24px] w-full "
             style={{
               borderRadius: "16px",
@@ -40,9 +50,11 @@ function SkillAssessment() {
                 </button>
               </div>
             </div>
-          </div>
-          <div
-            className="absolute w-[478px]  p-[20px] rounded-[16px] flex flex-row gap-2 justify-between items-center left-[3%] top-[274px] scr1200:left-[9.30%]"
+          </MouseParallaxChild>
+          <MouseParallaxChild
+            factorX={0.12}
+            factorY={0.12}
+            className="absolute w-[478px]  p-[20px] rounded-[16px] flex flex-row gap-2 justify-between items-center left-[3%] top-[274px] scr1200:left-[17.30%]"
             style={{
               background: "rgba(6, 169, 239, 0.40)",
               backdropFilter: " blur(8px)",
@@ -65,10 +77,12 @@ function SkillAssessment() {
                 your strengths.{" "}
               </div>
             </div>
-          </div>
+          </MouseParallaxChild>
           {/* scr1024:right-[2.46%] scr1100:right-[1%] */}
-          <div
-            className="absolute w-[478px]   p-[20px] rounded-[16px] flex flex-row  gap-[8px] justify-end items-center right-[3%] bottom-[74px]"
+          <MouseParallaxChild
+            factorX={0.15}
+            factorY={0.15}
+            className="absolute w-[478px]   p-[20px] rounded-[16px] flex flex-row  gap-[8px] justify-end items-center right-[11%] bottom-[74px]"
             style={{
               background: "rgba(6, 169, 239, 0.40)",
               backdropFilter: " blur(8px)",
@@ -90,9 +104,8 @@ function SkillAssessment() {
                 className="w-[100px] h-[100px]"
               />
             </div>
-          </div>
-        </div>
-        <div></div>
+          </MouseParallaxChild>
+        </MouseParallaxContainer>
       </div>
     </>
   );
