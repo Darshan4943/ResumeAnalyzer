@@ -1,5 +1,8 @@
 import React, { useState } from "react";
-
+import {
+  MouseParallaxChild,
+  MouseParallaxContainer,
+} from "react-parallax-mouse";
 import { useRouter } from "next/router";
 
 function DailyQuize() {
@@ -12,8 +15,15 @@ function DailyQuize() {
   return (
     <>
       <div class=" bg-DailyQuize bg-cover bg-no-repeat">
-        <div className="flex rounded-[16px] relative customMargins items-center justify-center">
-          <div
+        <MouseParallaxContainer
+          globalFactorX={0.4}
+          globalFactorY={0.4}
+          resetOnLeave
+          className="flex rounded-[16px] relative px-[252px] temp items-center justify-center"
+        >
+          <MouseParallaxChild
+            factorX={0.06}
+            factorY={0.06}
             className="mt-[40px] mb-[150px]   w-[82%] "
             style={{
               borderRadius: "16px",
@@ -40,9 +50,11 @@ function DailyQuize() {
                 </button>
               </div>
             </div>
-          </div>
-          <div
-            className="absolute w-[372px]  p-[24px] rounded-[16px] flex flex-row gap-[8px] justify-between items-center left-0  bottom-[50px]"
+          </MouseParallaxChild>
+          <MouseParallaxChild
+            factorX={0.12}
+            factorY={0.12}
+            className="absolute w-[372px]  p-[24px] rounded-[16px] flex flex-row gap-[8px] justify-between items-center left-[15%]  bottom-[50px]"
             style={{
               background: "rgba(255, 255, 255, 0.60)",
               backdropFilter: " blur(9px)",
@@ -67,10 +79,12 @@ function DailyQuize() {
                 your strengths.{" "}
               </div>
             </div>
-          </div>
+          </MouseParallaxChild>
           {/* scr1024:right-[2.46%] scr1100:right-[1%] */}
-          <div
-            className="absolute w-[400px]  p-[24px] rounded-[16px] flex flex-row gap-[8px]  justify-end items-center right-0 bottom-[50px]"
+          <MouseParallaxChild
+            factorX={0.15}
+            factorY={0.15}
+            className="absolute w-[400px]  p-[24px] rounded-[16px] flex flex-row gap-[8px]  justify-end items-center right-[15%] bottom-[50px]"
             style={{
               background: "rgba(255, 255, 255, 0.60)",
               backdropFilter: " blur(9px)",
@@ -94,9 +108,8 @@ function DailyQuize() {
                 reach new heights.{" "}
               </div>
             </div>
-          </div>
-        </div>
-        <div></div>
+          </MouseParallaxChild>
+        </MouseParallaxContainer>
       </div>
     </>
   );

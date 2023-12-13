@@ -16,7 +16,7 @@ function AiResume() {
 
   return (
     <>
-    {/* customMargins */}
+      {/* customMargins */}
       <div class=" bg-Ai_resume  bg-cover bg-no-repeat">
         <MouseParallaxContainer
           globalFactorX={0.4}
@@ -126,7 +126,6 @@ function AiResume() {
               </div>
             </div>
           </MouseParallaxChild>
-          
         </MouseParallaxContainer>
       </div>
     </>
