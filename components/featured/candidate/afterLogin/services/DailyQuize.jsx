@@ -19,12 +19,12 @@ function DailyQuize() {
           globalFactorX={0.4}
           globalFactorY={0.4}
           resetOnLeave
-          className="flex rounded-[16px] relative px-[252px] temp items-center justify-center"
+          className="flex rounded-[16px] relative customMargins temp items-center justify-center"
         >
           <MouseParallaxChild
             factorX={0.06}
             factorY={0.06}
-            className="mt-[40px] mb-[150px]   w-[82%] "
+            className="mt-[40px] mb-[150px] relative  w-[82%] "
             style={{
               borderRadius: "16px",
               background: "rgba(6, 169, 239, 0.37)",
@@ -38,7 +38,7 @@ function DailyQuize() {
                 </div>
                 <div className="text-[20px] font-[500] w-full text-[#fff]">
                   Boost your knowledge every day with our fun and informative
-                  Daily Quiz – a quick way to test, learn, and grow smarter.
+                  Daily Quiz - a quick way to test, learn, and grow smarter.
                 </div>
               </div>
               <div>
@@ -54,7 +54,7 @@ function DailyQuize() {
           <MouseParallaxChild
             factorX={0.12}
             factorY={0.12}
-            className="absolute w-[372px]  p-[24px] rounded-[16px] flex flex-row gap-[8px] justify-between items-center left-[15%]  bottom-[50px]"
+            className="absolute w-[372px]  p-[24px] rounded-[16px] flex flex-row gap-[8px] justify-between  items-center left-[5%]  bottom-[50px] scr1300:left-[-4%]"
             style={{
               background: "rgba(255, 255, 255, 0.60)",
               backdropFilter: " blur(9px)",
@@ -84,7 +84,8 @@ function DailyQuize() {
           <MouseParallaxChild
             factorX={0.15}
             factorY={0.15}
-            className="absolute w-[400px]  p-[24px] rounded-[16px] flex flex-row gap-[8px]  justify-end items-center right-[15%] bottom-[50px]"
+            className="absolute w-[400px] p-[24px] rounded-[16px] flex flex-row gap-[8px] justify-end items-center right-[5%] bottom-[50px] scr1300:right-[-5%]"
+          
             style={{
               background: "rgba(255, 255, 255, 0.60)",
               backdropFilter: " blur(9px)",

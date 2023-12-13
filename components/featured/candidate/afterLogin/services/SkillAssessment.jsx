@@ -19,7 +19,7 @@ function SkillAssessment() {
           globalFactorX={0.4}
           globalFactorY={0.4}
           resetOnLeave
-          className="flex rounded-[16px] relative px-[156px] temp"
+          className="flex rounded-[16px] relative customMargins temp"
         >
           <MouseParallaxChild
             factorX={0.06}
@@ -54,7 +54,7 @@ function SkillAssessment() {
           <MouseParallaxChild
             factorX={0.12}
             factorY={0.12}
-            className="absolute w-[478px]  p-[20px] rounded-[16px] flex flex-row gap-2 justify-between items-center left-[3%] top-[274px] scr1200:left-[17.30%]"
+            className="absolute w-[478px]  p-[20px] rounded-[16px] flex flex-row gap-2 justify-between items-center left-[3%] top-[274px] scr1200:left-[10.30%]"
             style={{
               background: "rgba(6, 169, 239, 0.40)",
               backdropFilter: " blur(8px)",
@@ -82,7 +82,7 @@ function SkillAssessment() {
           <MouseParallaxChild
             factorX={0.15}
             factorY={0.15}
-            className="absolute w-[478px]   p-[20px] rounded-[16px] flex flex-row  gap-[8px] justify-end items-center right-[11%] bottom-[74px]"
+            className="absolute w-[478px]   p-[20px] rounded-[16px] flex flex-row  gap-[8px] justify-end items-center right-[3%] bottom-[74px]"
             style={{
               background: "rgba(6, 169, 239, 0.40)",
               backdropFilter: " blur(8px)",

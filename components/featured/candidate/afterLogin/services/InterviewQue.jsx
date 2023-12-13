@@ -22,7 +22,7 @@ function InterviewQue() {
             globalFactorX={0.4}
             globalFactorY={0.4}
             resetOnLeave
-            className="flex rounded-[16px] relative temp px-[156px] "
+            className="flex rounded-[16px] relative temp customMargins "
           >
             <MouseParallaxChild
               factorX={0.06}
@@ -61,7 +61,7 @@ function InterviewQue() {
             <MouseParallaxChild
               factorX={0.12}
               factorY={0.12}
-              className="absolute w-[479px] p-[16px] rounded-[16px] flex flex-row gap-[16px] justify-between items-center right-[12%] top-[24px]"
+              className="absolute w-[479px] p-[16px] rounded-[16px] flex flex-row gap-[16px] justify-between items-center right-[2%] top-[24px]"
               style={{
                 background: "#06A9EF",
                 backdropFilter: " blur(8px)",
@@ -86,7 +86,7 @@ function InterviewQue() {
             <MouseParallaxChild
               factorX={0.15}
               factorY={0.15}
-              className="absolute w-[480px] p-[16px] rounded-[16px] flex flex-row gap-[10px] justify-between items-center right-[19%] bottom-[24px]"
+              className="absolute w-[480px] p-[16px] rounded-[16px] flex flex-row gap-[10px] justify-between items-center right-[9%] bottom-[22px]"
               style={{
                 background: "#06A9EF",
                 backdropFilter: " blur(8px)",

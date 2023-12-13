@@ -22,7 +22,7 @@ function AiResume() {
           globalFactorX={0.4}
           globalFactorY={0.4}
           resetOnLeave
-          className="flex rounded-[12px] relative flex justify-center iems-center"
+          className="flex rounded-[12px] relative customMargins justify-center iems-center temp"
         >
           <MouseParallaxChild
             className="my-[124px] py-[46px] px-[24px]"
@@ -59,7 +59,7 @@ function AiResume() {
           <MouseParallaxChild
             factorX={0.12}
             factorY={0.12}
-            className="absolute w-[381px] p-[16px] rounded-[16px] flex flex-row gap-[16px] items-center right-[22.65%] top-[33px]"
+            className="absolute w-[381px] p-[16px] rounded-[16px] flex flex-row gap-[16px] items-center right-[12.65%] top-[33px]"
             style={{
               background: "rgba(255, 255, 255, 0.26)",
               backdropFilter: " blur(13px)",
@@ -82,7 +82,7 @@ function AiResume() {
           <MouseParallaxChild
             factorX={0.15}
             factorY={0.15}
-            className="absolute w-[433px] p-[16px] rounded-[16px] flex flex-row gap-[16px] items-center justify-between right-[14.20%] top-[206px]"
+            className="absolute w-[433px] p-[16px] rounded-[16px] flex flex-row gap-[16px] items-center justify-between right-[2.20%] top-[206px]"
             style={{
               background: "rgba(255, 255, 255, 0.26)",
               backdropFilter: " blur(13px)",
@@ -107,7 +107,7 @@ function AiResume() {
           <MouseParallaxChild
             factorX={0.2}
             factorY={0.2}
-            className="absolute w-[347px] p-[16px] rounded-[16px] flex flex-row gap-[16px] items-center right-[39.65%] top-[390px]"
+            className="absolute w-[347px] p-[16px] rounded-[16px] flex flex-row gap-[16px] items-center right-[35.65%] top-[390px]"
             style={{
               background: "rgba(255, 255, 255, 0.26)",
               backdropFilter: " blur(13px)",
