@@ -3,7 +3,8 @@ import Helmet from "react-helmet";
 import { useDispatch, useSelector, useStore } from "react-redux";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
-
+import { ToastContainer } from 'react-toastify';
+  import 'react-toastify/dist/ReactToastify.css';
 import { wrapper } from "../store/index.js";
 import Layout from "../components/layout";
 
@@ -16,6 +17,7 @@ const WrappedApp = ({ Component, pageProps }) => {
   const store = useStore();
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
+  
   const myState = useSelector((state) => state.changeNumber);
   function shuffle(array) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -36,7 +38,12 @@ const WrappedApp = ({ Component, pageProps }) => {
   useEffect(() => {
     disableLoading();
   }, []);
-
+  useEffect(() => {
+    const userProfileData = localStorage.getItem("userProfileData");
+    if (userProfileData) {
+      router.push("/candidate/afterLogin/home/candidateHome");
+    }
+  },[]);
   const [isOnline, setIsOnline] = useState(true);
 
   useEffect(() => {
@@ -193,6 +200,18 @@ const WrappedApp = ({ Component, pageProps }) => {
 
             {!isOnline && <NoInternetModel />}
             <Component {...pageProps} />
+            <ToastContainer
+              position="bottom-right"
+              autoClose={5000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme="light"
+            />
           </Layout>
         </PersistGate>
       </>

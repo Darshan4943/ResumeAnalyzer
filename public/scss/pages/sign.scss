@@ -1522,6 +1522,11 @@
     background-color: #06A9EF;
     border: none;
   }
+  .gen_button_active{
+    color: var(--white, #FFF);
+    background-color: #06A9EF;
+    border: none;
+  }
   
   .bottom_buttons{
     display: flex;
