@@ -7,12 +7,13 @@ function Candidate_animation() {
   const [slideImage, setSlideImage] = useState(false);
   const [slideImageUp, setSlideImageUp] = useState(false);
   const [isLineAnimate, setIsLineAnimate] = useState(false);
-
+  const [isFirst, setIsFirst] = useState(true);
 
   const handleScroll = () => {
-    if (window.scrollY >= 300 && !isAnimate) {
+    if (window.scrollY >= 500 && !isAnimate) {
       setIsAnimate(true);
       setIsLineAnimate(true);
+      setIsFirst(false)
       window.removeEventListener('scroll', handleScroll);
     }
   };
@@ -76,6 +77,46 @@ function Candidate_animation() {
 
   return (
     <>
+     {isFirst && (
+     <div
+          className="customMargins"
+
+        >
+          <div className="ai_powered_parent">
+            <div className="ai_text"
+
+            >
+              <div
+                >
+                <p id='ai_text'>Free Ai Powered profile creation</p>
+              </div>
+              <div className='candidate_Profile_list'
+               
+                >
+                <p id='easy_text'>Easy process to create your profile</p>
+                <p id='streamlines_text'>It streamlines job searches, improves candidate-employer matches, and contributes to a more efficient and effective job-seeking process.</p>
+
+                <div>
+                  <ol className='candidate_list'>
+                    <li>Fill your details.</li>
+                    <li>Let system organize the data to a beautiful & attractive templet to create your resume for free.</li>
+                    <li>Download or share your ready resume in PDF.</li>
+
+                  </ol>
+                </div>
+              </div>
+            </div>
+            <div className="ai_images"
+             
+            >
+              <img className="name_resume " src="./images/candidate/name_resume.png" alt="" />
+              <img className="david_resume " src="./images/candidate/david_resume.png" alt="" />
+            </div>
+          </div>
+        </div>
+     )}
+
+
       {isDiv && (
         <div
           className="customMargins"
@@ -85,23 +126,23 @@ function Candidate_animation() {
             <motion.div className="ai_text"
 
             >
-              <motion.div 
-              animate={{
-                opacity: slideImageUp ? 1 : 0,
-              }}
+              <motion.div
+                animate={{
+                  opacity: slideImageUp ? 1 : 0,
+                }}
                 initial={{ opacity: 0 }}
                 transition={{ duration: 4 }}>
                 <p id='ai_text'>Free Ai Powered profile creation</p>
               </motion.div>
-              <motion.div  className='candidate_Profile_list'
-               animate={{
-                opacity: slideImageUp ? 1 : 0,
-              }}
+              <motion.div className='candidate_Profile_list'
+                animate={{
+                  opacity: slideImageUp ? 1 : 0,
+                }}
                 initial={{ opacity: 0 }}
-                transition={{ duration: 5 ,delay:1}}>
+                transition={{ duration: 5, delay: 1 }}>
                 <p id='easy_text'>Easy process to create your profile</p>
                 <p id='streamlines_text'>It streamlines job searches, improves candidate-employer matches, and contributes to a more efficient and effective job-seeking process.</p>
-        
+
                 <div>
                   <ol className='candidate_list'>
                     <li>Fill your details.</li>
@@ -122,8 +163,8 @@ function Candidate_animation() {
               initial={{ opacity: 0, x: 0, y: 0, scale: 1 }}
               transition={{ duration: 0.5 }}
             >
-              <img  className ="name_resume " src="./images/candidate/name_resume.png" alt=""  />
-              <img  className ="david_resume " src="./images/candidate/david_resume.png" alt=""  />
+              <img className="name_resume " src="./images/candidate/name_resume.png" alt="" />
+              <img className="david_resume " src="./images/candidate/david_resume.png" alt="" />
             </motion.div>
           </div>
         </div>
@@ -135,7 +176,7 @@ function Candidate_animation() {
 
 
 
-        <motion.div className=" candidate_Animation customMargins"
+        <motion.div className=" candidate_Animation customMargins pt-9"
           animate={{
             x: slideImage ? 400 : 0,
             y: slideImage ? 200 : 0,
@@ -517,13 +558,13 @@ function Candidate_animation() {
                   </div>
                   <div className="candidate_second_head_langauge">
                     <motion.div
-                      className="candidate_red_box_lang" 
-                      initial={{ x: '-20%' }}   
+                      className="candidate_red_box_lang"
+                      initial={{ x: '-20%' }}
                       animate={{ x: '-100%' }}
-                      transition={{ duration: 0.6, delay: 1.8 }} 
+                      transition={{ duration: 0.6, delay: 1.8 }}
                       style={{
-                        width: '215px',    
-                        height: '130px',   
+                        width: '215px',
+                        height: '130px',
                         // background: 'red',
                         background: 'white',
                         position: 'absolute',
