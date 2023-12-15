@@ -6,7 +6,7 @@ function RecruiterAnimation({ showAnimationn }) {
   const [changeImage, setChangeImage] = useState(false);
 
   useEffect(() => {
-
+    if (showAnimationn) {
     const imageChangeTimer = setTimeout(() => {
       setChangeImage(true);
     }, 4500);
@@ -15,13 +15,14 @@ function RecruiterAnimation({ showAnimationn }) {
 
       clearTimeout(imageChangeTimer);
     };
+  }
   }, [showAnimationn]);
 
   const [slideImage, setslideImage] = useState(false);
   const [upImage, setsupImage] = useState(false);
 
   useEffect(() => {
-
+    if (showAnimationn) {
     const imageslideTimer = setTimeout(() => {
       setslideImage(true);
       setChangeImage(false);
@@ -31,9 +32,10 @@ function RecruiterAnimation({ showAnimationn }) {
 
       clearTimeout(imageslideTimer);
     };
+  }
   }, [showAnimationn]);
   useEffect(() => {
-
+    if (showAnimationn) {
     const imageslideTimer = setTimeout(() => {
       setsupImage(true);
     }, 8000);
@@ -42,11 +44,13 @@ function RecruiterAnimation({ showAnimationn }) {
 
       clearTimeout(imageslideTimer);
     };
+  }
   }, [showAnimationn]);
 
   const [downImage, setdownImage] = useState(false);
 
   useEffect(() => {
+    if (showAnimationn) {
     const imagedownTimer = setTimeout(() => {
       setdownImage(true);
     }, 10000);
@@ -54,10 +58,12 @@ function RecruiterAnimation({ showAnimationn }) {
     return () => {
       clearTimeout(imagedownTimer);
     };
+  }
   }, [showAnimationn]);
   const [leftImage, setleftImage] = useState(false);
 
   useEffect(() => {
+    if (showAnimationn) {
     const imagedownTimer = setTimeout(() => {
       setleftImage(true);
     }, 16000);
@@ -65,11 +71,13 @@ function RecruiterAnimation({ showAnimationn }) {
     return () => {
       clearTimeout(imagedownTimer);
     };
+  }
   }, [showAnimationn]);
 
   const [slideCollab, setslideCollab] = useState(false);
 
   useEffect(() => {
+    if (showAnimationn) {
     const imagedownTimer = setTimeout(() => {
       setslideCollab(true);
     }, 14000);
@@ -77,6 +85,7 @@ function RecruiterAnimation({ showAnimationn }) {
     return () => {
       clearTimeout(imagedownTimer);
     };
+  }
   }, [showAnimationn]);
   console.log(81, slideCollab)
 

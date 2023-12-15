@@ -10,7 +10,7 @@ function Recruiter_page() {
   const [scrollY, setScrollY] = useState(0);
   const [showAnimationn,setShowAnimation] = useState(true)
   const handleScroll = () => {
-    setScrollY(window.scrollY);
+    setScrollY(window.scrollY && showAnimationn);
     if(window.scrollY>400){
       setShowAnimation(false)
     }
