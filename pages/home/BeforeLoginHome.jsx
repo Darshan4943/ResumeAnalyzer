@@ -18,8 +18,8 @@ function BeforeLoginHome() {
 
     const scrollY = window.scrollY;
 
-    if (scrollY >= 1200 && scrollY < 1900) {
-      const mappedOpacity = (scrollY - 1200) / (1900 - 1200);
+    if (scrollY >= 1200 && scrollY < 1800) {
+      const mappedOpacity = (scrollY - 1200) / (1800 - 1200);
       setOpacity1(mappedOpacity);
     } else if (scrollY >= 2100 && scrollY < 2300) {
       const mappedOpacity = 1 - (scrollY - 1800) / (2300 - 1800);
@@ -31,7 +31,7 @@ function BeforeLoginHome() {
 
       const mappedOpacity = 1 - (scrollY - 2500) / (2800 - 2500);
       setOpacity2(mappedOpacity - 0.1);
-      const mappedOpacity1 = (scrollY - 2700) / (3000 - 2700);
+      const mappedOpacity1 = (scrollY - 2500) / (2800 - 2500);
       setOpacity3(mappedOpacity1);
       setTrustAnimation(true)
     } else if (scrollY < 1300) {
@@ -97,7 +97,7 @@ function BeforeLoginHome() {
 
         initial={{ y: 300 }}
         animate={{ y: trustAnimation && 0 }}
-        transition={{ duration: 3, ease: 'easeInOut' }}
+        transition={{ duration: 5, ease: 'easeInOut' }}
 
 
         style={containerStyle2}

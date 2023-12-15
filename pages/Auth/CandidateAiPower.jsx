@@ -106,7 +106,7 @@ const CandidateAiPower = () => {
         </div>
         <div class="flex flex-row gap-[24px]">
           <ALink href="/Auth/Candidate_register">
-            <button className="px-9 py-3 bg-white-600 border border-[#06A9EF] font font-medium rounded-[12px]">Skip</button>
+            <button className="px-9 py-3 bg-white-600 border border-[#06A9EF] font font-medium rounded-[12px]" id="button">Skip</button>
           </ALink>
           <ALink href="/Auth/Candidate_register">
             <button className="px-9 py-3 bg-[#06A9EF] border rounded-[12px] font-semibold text-white ">Continue</button>

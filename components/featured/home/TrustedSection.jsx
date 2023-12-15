@@ -63,19 +63,18 @@ function TrustedBySection() {
   //     offset: ["start end", "end start"],
   //   });
 
-  const y = useTransform(scrollYProgress, [0, 0.4, 1], [100, 0, -200]);
+  const y = useTransform(scrollYProgress, [0, 0.2, 0.48, 0.5, 0.75, 1], [900, 700, 0, 0, -700, -900]);
   const x = useTransform(
     scrollYProgress,
-    [0, 0.4, 0.5, 0.6, 1],
-    [-900, 0, 0, 0, 400]
+    [0, 0.2, 0.48, 0.5, 0.75, 1],
+    [-900, -700, 0, 0, 700, 900]
   );
 
   const translateX = useTransform(
     scrollYProgress,
-    [0, 0.4, 0.5, 0.6, 1],
-    [900, 0, 0, 0, -600]
+    [0,0.2, 0.48, 0.5, 0.75, 1],
+    [900, 700, 0, 0, -700, -900]
   );
-
   // const translateY = useTransform(
   //   scrollYProgress,
   //   [0, 0.7, 1],
@@ -104,32 +103,32 @@ function TrustedBySection() {
 
   const translateY = useTransform(
     scrollYProgress,
-    [0, 0.5, 0.6, 0.7, 0.8, 1],
-    [2000, 0, 0, 0, -500, -1000]
+    [0,0.2, 0.48, 0.5, 0.75, 1],
+    [2000, 0, 0, 0, -400, -900]
   );
 
   const translateY1 = useTransform(
     scrollYProgress,
-    [0, 0.5, 0.6, 0.7, 0.8, 1],
-    [1000, 0, 0, 0, -700, -1000]
+    [0,0.2, 0.48, 0.5, 0.75, 1],
+    [900, 500, 0, 0, -700, -2000]
   );
 
   const translateY2 = useTransform(
     scrollYProgress,
-    [0, 0.5, 0.6, 0.7, 0.8, 1],
-    [800, 0, 0, 0, -400, -800]
+    [0,0.2, 0.48, 0.5, 0.75, 1],
+    [900, 500, 0, 0, -700, -2000]
   );
 
   const translateY3 = useTransform(
     scrollYProgress,
-    [0, 0.5, 0.6, 0.7, 0.8, 1],
-    [600, 0, 0, 0, -200, -700]
+    [0,0.2, 0.48, 0.5, 0.75, 1],
+    [2000, 0, 0, 0, -400, -900]
   );
 
   const translateY4 = useTransform(
     scrollYProgress,
-    [0, 0.5, 0.6, 0.7, 0.8, 1],
-    [400, 0, 0, 0, -500, -600]
+    [0,0.2, 0.48, 0.5, 0.75, 1],
+    [400, 200, 0, 0, -500, -2000]
   );
 
   const data = [
@@ -196,8 +195,8 @@ function TrustedBySection() {
   ];
   return (
     <motion.div className="trust_section_parent" ref={trustedRef}>
-      
-      <motion.div className="trust_section" style={{ y }}>
+
+      <motion.div className="trust_section " style={{ y }}>
         <p id="trust">Trusted by...</p>
         <div className="trust_img">
           <img src="./images/home/scroller-img_1.png" alt="" />
@@ -205,9 +204,10 @@ function TrustedBySection() {
           <img src="./images/home/scroller-img_3.png" alt="" />
           <img src="./images/home/scroller-img_4.png" alt="" />
           <img src="./images/home/scroller-img_5.png" alt="" />
+          
         </div>
       </motion.div>
-      <div className="customMargins">
+      <div className="">
         <motion.div className="popular_job">
           <motion.p
             id="popular_job"
@@ -225,39 +225,40 @@ function TrustedBySection() {
             technology to healthcare, finance to marketing, and more.
           </motion.p>
         </motion.div>
-
-        <div className="job_cat_card">
-          {data.map((item, index) => (
-            <motion.div
-              ref={cardRef}
-              className="card"
-              key={index}
-              style={{
-                y:
-                  index === 0 || index === 2 || index === 4
-                    ? translateY
-                    : index === 1 || index === 3 || index === 5
-                    ? translateY1
-                    : index === 6 || index === 8 || index === 10
-                    ? translateY2
-                    : index === 7 || index === 9 || index === 11
-                    ? translateY3
-                    : translateY4,
-              }}
-            >
-              <motion.img
-                className="card_img"
-                src={item.img}
-                alt=""
-                whileHover={{ scale: 1.1, rotateY: 360 }}
-                transition={{ duration: 1, ease: "easeInOut" }}
-              />
-              <div className="flex flex-col gap-1">
-                <p id="card_budget">{item.name}</p>
-                <p id="card_job">{item.job}</p>
-              </div>
-            </motion.div>
-          ))}
+        <div className="customMargins ">
+          <div className="job_cat_card pt-4 ">
+            {data.map((item, index) => (
+              <motion.div
+                ref={cardRef}
+                className="card"
+                key={index}
+                style={{
+                  y:
+                    index === 0 || index === 2 || index === 4
+                      ? translateY
+                      : index === 1 || index === 3 || index === 5
+                        ? translateY1
+                        : index === 6 || index === 8 || index === 10
+                          ? translateY2
+                          : index === 7 || index === 9 || index === 11
+                            ? translateY3
+                            : translateY4,
+                }}
+              >
+                <motion.img
+                  className="card_img"
+                  src={item.img}
+                  alt=""
+                  whileHover={{ scale: 1.1, rotateY: 360 }}
+                  transition={{ duration: 1, ease: "easeInOut" }}
+                />
+                <div className="flex flex-col gap-1">
+                  <p id="card_budget">{item.name}</p>
+                  <p id="card_job">{item.job}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </div>
     </motion.div>

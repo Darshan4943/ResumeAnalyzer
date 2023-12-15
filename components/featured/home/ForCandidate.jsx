@@ -172,7 +172,7 @@ function ForCandidate() {
           <motion.div
             className="white_background"
             animate={{
-              translateX: initial ? "-1000%" : moveRight ? "0%" : "-103%",
+              translateX: initial ? "-100%" : moveRight ? "0%" : "-103%",
             }}
             initial={{ opacity: moveRight ? 0 : 1 }}
             transition={{ duration: 1 }}
@@ -199,7 +199,7 @@ function ForCandidate() {
           <motion.div
             className="white_background"
             animate={{
-              translateX: initial ? "1000%" : moveRight ? "0%" : "103%",
+              translateX: initial ? "100%" : moveRight ? "0%" : "103%",
             }}
             initial={{ opacity: moveRight ? 0 : 1 }}
             transition={{ duration: 1 }}

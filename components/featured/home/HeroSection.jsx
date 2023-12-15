@@ -1,6 +1,8 @@
 import React from "react";
+import { useRouter } from "next/router";
 
 function HeroSection() {
+  const router = useRouter();
   return (
     <div >
       <div className="hero_section_parent pt-9">
@@ -58,7 +60,7 @@ function HeroSection() {
                   viewBox="0 0 315 377"
                   fill="none"
                 >
-                  <g filter="url(#filter0_b_2474_41366)">
+                  <g filter="url(#filter0_b_2474_41366)" className="hero_hover">
                     <path
                       d="M267.95 207.716C267.95 322.225 289.214 376.154 194.288 376.154C99.3615 376.154 0.121094 290.501 0.121094 175.992C0.121094 61.4822 179.446 0 274.372 0C369.298 0 267.95 93.206 267.95 207.716Z"
                       fill="#00A2E8"
@@ -113,7 +115,10 @@ function HeroSection() {
             </p>
           </div>
 
-          <button className="btn_for_join">Join Now</button>
+          <button onClick={() => {
+                   
+                    router.push("/Auth/Sign_in/");
+                  }} className="btn_for_join">Join Now</button>
 
           <div className="searchbox">
 
@@ -137,7 +142,7 @@ function HeroSection() {
                 {/* <p className="search_p">Job title or keyword</p> */}
                 <input
                   type="text"
-                  className="text-gray font-small text-[20px] search_p placeholder-center text-center"
+                  className="text-gray font-small text-[20px] search_p placeholder-start text-start"
                   placeholder="Job title or keyword"
                 />
               </div>
@@ -165,7 +170,12 @@ function HeroSection() {
                     stroke-linejoin="round"
                   />
                 </svg>
-                <p className="search_p">Colney, United Kingdom</p>
+                <input
+                  type="text"
+                  className=" search_p placeholder-start text-start"
+                  placeholder="Colney,United Kingdom"
+                />
+               
               </div>
               <button className="searchbtn">Search</button>
             </div>

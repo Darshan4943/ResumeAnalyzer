@@ -103,6 +103,7 @@ a {
 }
 .header_signIn_btn:hover {
   border: 1px solid var(--primary, #06a9ef);
+  background-color: none !important;
 }
 .header_signUp_btn:hover{
 background-color: #06a9ef;
