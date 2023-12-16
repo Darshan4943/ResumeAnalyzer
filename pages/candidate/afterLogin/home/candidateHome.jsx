@@ -86,7 +86,7 @@ function AfterLoginHome() {
                   </div>
                 </div>
                 <div>
-                  <button className="flex py-[8px] px-[18px] items-center justify-center rounded-[6px] border-[1px] border-solid bg-[#06A9EF] border-[#06A9EF] text-[#fff] text-[14px] font-[600]">
+                  <button className="flex py-[8px] px-[18px] items-center justify-center rounded-[6px]  bg-[#06A9EF] border-[#06A9EF] text-[#fff] text-[14px] font-[600]">
                     Build your Resume
                   </button>
                 </div>

@@ -75,9 +75,9 @@ function Header() {
                   <li>Candidate</li>
                 </ALink>
                 <ALink
-                  href="/employer/employer"
+                  href="/employer/beforeLogin/employer"
                   className={
-                    selectedPage === "/employer/employer" ? "active" : "li"
+                    selectedPage === "/employer/beforeLogin/employer" ? "active" : "li"
                   }
                 >
                   <li>Employer</li>
@@ -145,7 +145,7 @@ function Header() {
           {!isLogin ? (
             <div className="header_right">
               <ALink href="/Auth/Sign_in">
-                <button className="header_signIn_btn">Sign in</button>
+                <button className="header_signIn_btn  border border-transparent ">Sign in</button>
               </ALink>
               <ALink href="/Auth/Sign_up">
                 <button

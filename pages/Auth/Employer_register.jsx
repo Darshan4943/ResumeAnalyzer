@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import ALink from "~/components/alink";
+import { useRouter } from "next/router";
 const Employer_register = () => {
+    const router = useRouter();
     const [tog, setTog] = useState(1);
 
     function updateTog(id) {
@@ -10,49 +12,49 @@ const Employer_register = () => {
 
     useEffect(() => {
         if (tog === 2) {
-        
-          window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
-      }, [tog]); 
+    }, [tog]);
     return (
         <div className=" pb-[61px] relative" >
 
 
             {/* // SECOND SECTION  */}
 
-           
-                <div className="sticky top-0 w-[100%] mt-[-2.4rem] pb-6 z-[900] bg-white">
-                    <div className="register_head">
-                        <div className="register_employer overflow-hidden">
-                            <div className="register_text_parent">
-                                <p className="register_heding_text_employer">Register as Employer</p>
-                                <p className="register_heding_descEmployer">
-                                    Start your career with Skilotech
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="comp_lines">
-                        <div className="c_parent">
-                            <img src="./images/auth/employer/c1.png" alt="" className="c1_img" />
-                            <div className="line_one_two"></div>
-                            <img src="./images/auth/employer/c2.png" alt="" className="c1_img" />
-                        </div>
-                    </div>
-                    <div className="main_comp_lines">
-                        <div className="c_parent_det">
-                            <div className="compd1">
-                                <p className="details">Company Details</p>
-                            </div>
-                            <div className="compd1">
-                                <p className="details">Upload Documents</p>
-                            </div>
+
+            <div className="sticky top-0 w-[100%] mt-[-2.4rem] pb-6 z-[900] bg-white">
+                <div className="register_head">
+                    <div className="register_employer overflow-hidden">
+                        <div className="register_text_parent">
+                            <p className="register_heding_text_employer">Register as Employer</p>
+                            <p className="register_heding_descEmployer">
+                                Start your career with Skilotech
+                            </p>
                         </div>
                     </div>
                 </div>
-                                  {/* animation section  */}
-                                  
-                <div className={`${tog === 1 ? "show-content" : "content"}  pt-[-10px]`}>
+                <div className="comp_lines">
+                    <div className="c_parent">
+                        <img src="./images/auth/employer/c1.png" alt="" className="c1_img" />
+                        <div className="line_one_two"></div>
+                        <img src="./images/auth/employer/c2.png" alt="" className="c1_img" />
+                    </div>
+                </div>
+                <div className="main_comp_lines">
+                    <div className="c_parent_det">
+                        <div className="compd1">
+                            <p className="details">Company Details</p>
+                        </div>
+                        <div className="compd1">
+                            <p className="details">Upload Documents</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {/* animation section  */}
+
+            <div className={`${tog === 1 ? "show-content" : "content"}  pt-[-10px]`}>
                 <div className="sec_main_parent_head ">
                     <div className="img_parent_head">
                         <div className="four_img_cont">
@@ -94,13 +96,13 @@ const Employer_register = () => {
                                     Company Name <span className="star">*</span>{" "}
                                 </p>
                                 <div className="employerInput">
-                                <input
-                                    type="text"
-                                    name=""
-                                    id=""
-                                    placeholder="Enter company name"
-                                  
-                                />
+                                    <input
+                                        type="text"
+                                        name=""
+                                        id=""
+                                        placeholder="Enter company name"
+
+                                    />
                                 </div>
                             </div>
                             <div className="comp_name">
@@ -108,13 +110,13 @@ const Employer_register = () => {
                                     Company Email <span className="star">*</span>
                                 </p>
                                 <div className="employerInput">
-                                <input
-                                    type="text"
-                                    name=""
-                                    id=""
-                                    placeholder="Enter company Email"
-                                   
-                                />
+                                    <input
+                                        type="text"
+                                        name=""
+                                        id=""
+                                        placeholder="Enter company Email"
+
+                                    />
                                 </div>
                             </div>
                             <div className="comp_name_pass">
@@ -122,13 +124,13 @@ const Employer_register = () => {
                                     Password <span className="star">*</span>
                                 </p>
                                 <div className="employerInput">
-                                <input
-                                    type="password"
-                                    name=""
-                                    id=""
-                                    placeholder="Create new password"
-                                   
-                                />
+                                    <input
+                                        type="password"
+                                        name=""
+                                        id=""
+                                        placeholder="Create new password"
+
+                                    />
                                 </div>
                                 <img src="./images/auth/employer/eye.png" alt="" className="eye_img" />
                             </div>
@@ -137,13 +139,13 @@ const Employer_register = () => {
                                     Contact number <span className="star">*</span>{" "}
                                 </p>
                                 <div className="employerInput">
-                                <input
-                                    type="text"
-                                    name=""
-                                    id=""
-                                    placeholder="Enter contact number"
-                                    
-                                />
+                                    <input
+                                        type="text"
+                                        name=""
+                                        id=""
+                                        placeholder="Enter contact number"
+
+                                    />
                                 </div>
                             </div>
                             <div className="comp_name">
@@ -151,25 +153,25 @@ const Employer_register = () => {
                                     Company Website URL <span className="star">*</span>{" "}
                                 </p>
                                 <div className="employerInput">
-                                <input
-                                    type="text"
-                                    name=""
-                                    id=""
-                                    placeholder="Enter website url"
-                                
-                                />
+                                    <input
+                                        type="text"
+                                        name=""
+                                        id=""
+                                        placeholder="Enter website url"
+
+                                    />
                                 </div>
                             </div>
                             <div className="comp_name">
                                 <p className="comp_head">Year of Establish </p>
                                 <div className="employerInput">
-                                <input
-                                    type="text"
-                                    name=""
-                                    id=""
-                                    placeholder="Enter year of establish"
-                                
-                                />
+                                    <input
+                                        type="text"
+                                        name=""
+                                        id=""
+                                        placeholder="Enter year of establish"
+
+                                    />
                                 </div>
                             </div>
                             <div className="comp_name_pass">
@@ -177,13 +179,13 @@ const Employer_register = () => {
                                     Company Location <span className="star">*</span>
                                 </p>
                                 <div className="employerInput">
-                                <input
-                                    type="password"
-                                    name=""
-                                    id=""
-                                    placeholder="Enter your current location"
-                                 
-                                />
+                                    <input
+                                        type="password"
+                                        name=""
+                                        id=""
+                                        placeholder="Enter your current location"
+
+                                    />
                                 </div>
                                 <img src="./images/auth/employer/eye.png" alt="" className="eye_img" />
                             </div>
@@ -280,13 +282,13 @@ const Employer_register = () => {
                                         GST No <span className="star">*</span>{" "}
                                     </p>
                                     <div className="Employer_enter_name_gst">
-                                    <input
-                                        type="text"
-                                        name=""
-                                        id=""
-                                        placeholder="Enter GST number"
-                                        className=""
-                                    />
+                                        <input
+                                            type="text"
+                                            name=""
+                                            id=""
+                                            placeholder="Enter GST number"
+                                            className=""
+                                        />
                                     </div>
                                 </div>
                                 <div className="comp_name">
@@ -294,13 +296,13 @@ const Employer_register = () => {
                                         Upload Certificate <span className="star">*</span>{" "}
                                     </p>
                                     <div className="Employer_enter_name_gst">
-                                    <input
-                                        type="text"
-                                        name=""
-                                        id=""
-                                        placeholder="Upload certificate"
-                                        className=""
-                                    />
+                                        <input
+                                            type="text"
+                                            name=""
+                                            id=""
+                                            placeholder="Upload certificate"
+                                            className=""
+                                        />
                                     </div>
                                     {/* <img src="./images/home/eye.png" alt="" /> */}
                                 </div>
@@ -311,13 +313,13 @@ const Employer_register = () => {
                                         PAN No <span className="star">*</span>{" "}
                                     </p>
                                     <div className="Employer_enter_name_gst">
-                                    <input
-                                        type="text"
-                                        name=""
-                                        id=""
-                                        placeholder="Enter PAN number"
-                                      
-                                    />
+                                        <input
+                                            type="text"
+                                            name=""
+                                            id=""
+                                            placeholder="Enter PAN number"
+
+                                        />
                                     </div>
                                 </div>
                                 <div className="comp_name">
@@ -325,13 +327,13 @@ const Employer_register = () => {
                                         Upload PAN <span className="star">*</span>{" "}
                                     </p>
                                     <div className="Employer_enter_name_gst">
-                                    <input
-                                        type="text"
-                                        name=""
-                                        id=""
-                                        placeholder="Upload PAN"
-                                       
-                                    />
+                                        <input
+                                            type="text"
+                                            name=""
+                                            id=""
+                                            placeholder="Upload PAN"
+
+                                        />
                                     </div>
                                 </div>
                             </div>
@@ -340,13 +342,13 @@ const Employer_register = () => {
                                     Company Logo <span className="star">*</span>{" "}
                                 </p>
                                 <div className="Employer_enter_name_gst">
-                                <input
-                                    type="text"
-                                    name=""
-                                    id=""
-                                    placeholder="Upload company logo"
-                                   
-                                />
+                                    <input
+                                        type="text"
+                                        name=""
+                                        id=""
+                                        placeholder="Upload company logo"
+
+                                    />
                                 </div>
                             </div>
 
@@ -358,7 +360,10 @@ const Employer_register = () => {
                                 >
                                     Go Back
                                 </button>
-                                <button className="go_button" id="border_button">
+                                <button onClick={() => {
+
+                                    router.push("/employer/afterLogin/EmployerHome");
+                                }} className="go_button" id="border_button">
                                     Continue
                                 </button>
                             </div>
