@@ -50,16 +50,16 @@ function Layout({ children }) {
     </div>
   )
   const Temp2 = () => (
-    <div>
+    <div className="">
       <div >
         <Header2 />
       </div>
 
-      <div className="flex bg-[#F3F3F3]">
+      <div className="flex bg-[#F3F3F3] ">
         <div>
         <Sidebar />
         </div>
-        <div className="  pt-[135px]">
+        <div className="  pt-[135px] w-[100%] px-5">
         {children}
         </div>
       </div>
