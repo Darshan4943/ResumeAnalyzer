@@ -55,9 +55,11 @@ function Layout({ children }) {
         <Header2 />
       </div>
 
-      <div className="flex">
+      <div className="flex bg-[#F3F3F3]">
+        <div>
         <Sidebar />
-        <div className=" bg-[#F3F3F3] pt-[135px]">
+        </div>
+        <div className="  pt-[135px]">
         {children}
         </div>
       </div>
