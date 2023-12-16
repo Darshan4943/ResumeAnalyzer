@@ -84,7 +84,7 @@ function CandidateHero() {
                                     </svg>
                                     <p className="text-gray font-small text-[18px] max-scr1400:text-[16px]  max-scr1350:text-[15px] max-scr1100:text-[14px]">Colney, United Kingdom</p>
                                 </div>
-                                <button className="flex items-center justify-center py-4 px-12 border border-primary bg-blue text-white rounded-[12px] max-scr1200:px-8 max-scr1100:px-6">Search</button>
+                                <button className="flex items-center justify-center py-4 px-12  bg-blue text-white rounded-[12px] max-scr1200:px-8 max-scr1100:px-6">Search</button>
                             </div>
                         </div>
                         <div>

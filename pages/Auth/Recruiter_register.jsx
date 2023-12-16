@@ -22,7 +22,7 @@ function Recruiter_register() {
   return (
     <div className="pb-[61px] relative" >
       {/* Register as Recruiter Blue bar start*/}
-      <div className="sticky top-[2.6rem] w-[100%] z-[900] pt-[48px]  pb-6 bg-white">
+      <div className="sticky top-0 w-[100%] z-[900] mt-[-2.4rem]  pb-6 bg-white">
         <div className="flex justify-center align-center bg-[#06A9EF] h-[89px] overflow-hidden">
           <div className="flex justify-center align-center flex-col py-[6px]">
             <div className="text-white text-[40px] font-[600] flex justify-center">

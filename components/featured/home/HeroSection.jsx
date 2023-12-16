@@ -117,7 +117,7 @@ function HeroSection() {
 
           <button onClick={() => {
                    
-                    router.push("/Auth/Sign_in/");
+                    router.push("/Auth/Sign_up/");
                   }} className="btn_for_join">Join Now</button>
 
           <div className="searchbox">

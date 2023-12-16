@@ -230,7 +230,7 @@ function TrustedBySection() {
             {data.map((item, index) => (
               <motion.div
                 ref={cardRef}
-                className="card"
+                className="card z-50"
                 key={index}
                 style={{
                   y:

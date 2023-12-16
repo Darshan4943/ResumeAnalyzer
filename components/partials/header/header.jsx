@@ -8,9 +8,11 @@ function Header() {
   const [login, setlogin] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
   const userProfileData = JSON.parse(localStorage.getItem("userProfileData"));
+
   useEffect(() => {
     setSelectedPage(router.pathname);
   }, [router.pathname]);
+  
   const [showDropdown, setShowDropdown] = useState(false);
 
   const toggleDropdown = () => {
@@ -42,7 +44,7 @@ function Header() {
 
   return (
     <div
-      className="bg-white z-[1000] fixed w-[100%] mt-[-5rem] "
+      className={selectedPage === "/Auth/Candidate_register" || selectedPage === "/Auth/Employer_register" || selectedPage === "/Auth/Recruiter_register"  ?" ": "bg-white z-[1000] fixed w-[100%] mt-[-5rem]"}
       style={{ boxShadow: selectedPage === "/" ? "none" : "0px 1px 4px 0px rgba(0, 0, 0, 0.25)", }}
     >
       <div className="header_parent customMargins z-[1000]">

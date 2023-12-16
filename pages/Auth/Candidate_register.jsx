@@ -45,8 +45,8 @@ function Candidate_register() {
 
 
     
-    < div className=" relative">
-      <div className="register_head sticky top-[2.6rem] w-[100%] z-[900] pt-[48px] pb-6 bg-white">
+    < div className=" relative mt-[-2.4rem] !important">
+      <div className="register_head sticky top-[0] w-[100%] z-[900]  pb-6 bg-white">
         <div className="register_cadidate overflow-hidden">
           <div className="register_text_parent">
             <div className="register_heding">
