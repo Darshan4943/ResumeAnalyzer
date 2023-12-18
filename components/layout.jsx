@@ -9,6 +9,7 @@ import { actions } from "../store/demo";
 import { useRef, useEffect, useState } from "react";
 import Header2 from "./partials/header/header2";
 import Sidebar from "./partials/header/sidebar";
+import Breadcrumb from "./common/BreadCrumb";
 
 function Layout({ children }) {
   const router = useRouter();
@@ -60,6 +61,7 @@ function Layout({ children }) {
         <Sidebar />
         </div>
         <div className="  pt-[135px] w-[100%] px-5">
+          {/* <Breadcrumb/> */}
         {children}
         </div>
       </div>
@@ -69,7 +71,8 @@ function Layout({ children }) {
     <>
       {/* <div ref={mainRef}> */}
       {
-        selectedPage==="/employer/afterLogin/EmployerHome" ? <Temp2 /> : <Temp />
+      selectedPage.startsWith('/employer/afterLogin') ? <Temp2 /> : <Temp />
+
       }
     </>
   );

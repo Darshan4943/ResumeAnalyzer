@@ -106,3 +106,29 @@ div::-webkit-scrollbar {
 input{
 	outline: none;
 }
+
+////////////////Breadcrumb///////////////////////
+
+  .breadcrumb-item {
+	font-weight: 500;
+	font-size: 14px;
+	line-height: normal;
+	text-transform: capitalize;
+	color: #646464;
+  
+  
+	& + .breadcrumb-item {
+	  padding-left: 0.5rem;
+  
+	  &:before {
+		color: #495057;
+		content: "\f112";
+		font-family: "molla";
+		padding-right: 0.5rem;
+		height: 16px;
+		width: 16px;
+		vertical-align: middle;
+		margin-top: -0.1rem;
+	  }
+	}
+  }
