@@ -42,7 +42,33 @@ function Requisition() {
         setRowsPerPage(parseInt(event.target.value, 10));
         setPage(0);
     };
-    const headings = ["Department", "Location", "Status", "Priority"]
+    const headings = [
+        {
+            heading: "Department",
+            options: ["Assistant Manager", "Option 2", "Option 3"]
+        },
+        {
+            heading: "Location",
+            options: ["Mumbai", "Pune", "Banglore"]
+        },
+        {
+            heading: "Status",
+            options: ["Pending", "Approved"]
+        },
+        {
+            heading: "Priority",
+            options: ["Yes", "No"]
+        }
+
+    ];
+
+    const handleHeadingChange = (event, index) => {
+        const selectedOption = event.target.value;
+        const selectedHeading = headings[index];
+       
+        
+    };
+
 
     const labels = [
         'Requisition for',
@@ -181,20 +207,7 @@ function Requisition() {
     return (
         <div className="">
 
-            {/* <nav className="mb-6 mt-[-2rem] breadcrumb-nav ">
-
-                <ol className=" flex">
-
-                    <li className="breadcrumb-item text-[14px] font-medium text-[#333]">
-                        Skilotech
-                    </li>
-                    <li className="breadcrumb-item">
-                        <ALink href="/employer/afterLogin/JobPosting">Job Posting</ALink>
-                    </li>
-
-                </ol>
-
-            </nav> */}
+           
             <Breadcrumb />
 
             {toggle === 0 &&
@@ -212,12 +225,21 @@ function Requisition() {
                         <div className=" ">
 
                             <div className="h-[84px] bg-[#BCECFF] flex flex-row p-[16px] justify-between  text-[#333] sticky top-[72px] ">
-                                {headings.map((req) => (
-                                    < div className=" w-[19.87%] bg-white p-4">
-                                        {req}
+                            {headings.map((headingObj, index) => (
+                                    <>
+                                        {/* < div className=" w-[19.87%] bg-white p-4">
+                                        {headingObj.heading}
 
-                                    </div>
-
+                                        </div> */}
+                                        <select className=" w-[19.87%] bg-white p-4 " onChange={(e) => handleHeadingChange(e, headingObj.heading)}>
+                                            <option  value=""> {headingObj.heading}</option>
+                                            {headingObj.options.map((option, optIndex) => (
+                                                <option key={optIndex} value={option}>
+                                                    {option}
+                                                </option>
+                                            ))}
+                                        </select>
+                                    </>
                                 ))}
                                 <div className=" w-[19.87%] bg-white p-4 flex gap-[10px]" >
 
@@ -247,7 +269,7 @@ function Requisition() {
                                             <p className="text-[14px]  font-[500] text-[#646464]">{req.Requestedby}</p>
                                             <p className="text-[12px] font-[500] text-[#646464]">{req.date}</p>
                                         </div>
-                                       
+
                                         <p className="text-[14px] w-[12.85%] font-[500] text-[#646464]">{req.Priority}</p>
                                         <p className="text-[14px] w-[12.85%] font-[500] text-[#646464]">{req.Location}</p>
                                         <p className="text-[14px] w-[12.85%] font-[500] text-[#646464]">{req.Budget}</p>

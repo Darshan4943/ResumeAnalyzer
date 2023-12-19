@@ -251,10 +251,10 @@ function AiResumePage() {
                                     Education Type
                                 </div>
                                 <div className="w-full flex gap-2 text-[14px] font-montserrat items-center font-medium">
-                                    <input type="radio" className='h-4 w-4'/>
+                                    <input type="radio" className='h-4 w-4 custom-radio'/>
                                     <label>Full-Time</label>
 
-                                    <input type="radio" className='h-4 w-4' />
+                                    <input type="radio" className='h-4 w-4 custom-radio' />
                                     <label>Part-Time</label>
                                 </div>
                             </div>

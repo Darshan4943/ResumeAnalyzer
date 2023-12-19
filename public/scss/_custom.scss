@@ -132,3 +132,47 @@ input{
 	  }
 	}
   }
+
+
+  ////////////////radio button///////////
+  
+  input[type="radio"].custom-radio {
+
+	filter: hue-rotate(335deg); 
+  }
+  input[type="checkbox"].custom-checkbox {
+
+	filter: hue-rotate(335deg); 
+  }
+ 
+  ////////////////tracker line///////////
+  
+  .moving-line1 {
+
+	 animation: moveLine1 1s linear forwards;
+   }
+   
+   @keyframes moveLine1 {
+	 from {
+	   height: 0;
+	 }
+	 to {
+	   height:120px;
+   }
+   }
+
+   .level {
+   
+    opacity: 0;
+    animation: showCircle 0.2s forwards; 
+}
+
+@keyframes showCircle {
+    100% {
+        opacity: 1; 
+    }
+}
+
+.fade {
+	opacity: 0.5; 
+  }
