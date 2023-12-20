@@ -4,7 +4,7 @@ import Breadcrumb from '~/components/common/BreadCrumb'
 function EmployerHome() {
   return (
     <div>
-      <Breadcrumb/>
+     
 Home
     </div>
   )

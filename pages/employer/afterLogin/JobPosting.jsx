@@ -234,7 +234,7 @@ function JobPosting() {
                 </ol>
 
             </nav> */}
-            <Breadcrumb />
+           
 
             {toggle === 0 &&
                 <div className="">

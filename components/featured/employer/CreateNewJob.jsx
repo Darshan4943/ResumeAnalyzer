@@ -66,7 +66,7 @@ function CreateNewJob() {
             <p className=" w-[full] text-[14px] font-[500] ">
               Theme Color
             </p>
-            <div className='flex gap-4 p-2 border border-[#646464] rounded-[6px] w-[43%]'>
+            <div className='flex gap-4 p-2 border border-[#646464] rounded-[6px] w-[43%] justify-between'>
               <div className='h-[40px] w-[40px] rounded-[6px] bg-[#06A9EF]'></div>
               <div className='p-2 rounded-[6px] border border-[#646464] text-[16px] font-medium' > #06A9EF</div>
             </div>
@@ -166,41 +166,42 @@ function CreateNewJob() {
             <p className=" w-[full] text-[24px] font-[500] ">
               Salary
             </p>
-            <div className='flex gap-[20px] w-full justify-between'>
-              <div className='flex flex-col gap-2 w-[30.59%] ' >
+            <div className='flex  w-full justify-between'>
+              <div className='flex flex-col gap-2 w-[31%] ' >
                 <p className="  text-[14px] font-[500] ">
-                  Salary Type
+                 salary Type
                 </p>
                 <select
                   className=" px-[16px] py-[8px]  border-[1px] border-solid  border-[#646464] text-[14px] text-[#646464] font-[400] rounded-[6px] h-[41.33px]"
                 >
                   <option value="" disabled selected className="">Select </option>
-                  <option value="product_manager">Annual</option>
+                  <option value="product_manager">Annually</option>
                   <option value="developer">Monthly</option>
 
                 </select>
               </div>
-              <div className='flex flex-col gap-2 w-[32.59%]'>
+              <div className='flex flex-col gap-2 w-[31%]'>
                 <p className="  text-[14px] font-[500] ">
-                  Min Salary
+                Min Salary
                 </p>
                 <input
                   type="text"
                   placeholder="Min Salary"
                   className=" px-[16px] py-[8px] border-[1px] border-solid border-[#646464] rounded-[6px] placeholder:text-[14px]  font-[400]"
                 />
+
               </div>
-              <div className='flex flex-col gap-2 w-[32.59%] '>
-                <div className='flex flex-col gap-2'>
+              <div className='flex flex-col gap-2 w-[31%] '>
+              
                   <p className="  text-[14px] font-[500] ">
                     Max Salary
                   </p>
                   <input
-                    type="text"
-                    placeholder="Max Salary"
-                    className=" px-[16px] py-[8px] border-[1px] border-solid border-[#646464] rounded-[6px] placeholder:text-[14px]  font-[400]"
-                  />
-                </div>
+                  type="text"
+                  placeholder="Min Salary"
+                  className=" px-[16px] py-[8px] border-[1px] border-solid border-[#646464] rounded-[6px] placeholder:text-[14px] font-[400]"
+                />
+
               </div>
 
             </div>
@@ -211,7 +212,7 @@ function CreateNewJob() {
               Job Information
             </p>
             <div className='flex gap-[20px] w-full justify-between'>
-              <div className='flex flex-col gap-2 w-[30.59%] ' >
+              <div className='flex flex-col gap-2 w-[32.59%] ' >
                 <p className="  text-[14px] font-[500] ">
                   Job Sector
                 </p>

@@ -8,7 +8,7 @@ const Breadcrumb = () => {
   const breadcrumbItems = [
    
     ...pathSegments.slice(2).map((segment, index) => ({
-      label: segment === 'EmployerHome' ? 'Home' : segment === 'JobPosting' ? 'Job Posting' : segment=== "?content=CreateNewJob" ? "Create New Job" :segment === "?content=CreateNewRequisition" ?"Create New Requisition" :segment,
+      label: segment === 'EmployerHome' ? 'Home' : segment === 'JobPosting' ? 'Job Posting' : segment=== "?content=CreateNewJob" ? "Create New Job" :segment === "?content=CreateNewRequisition" ?"Create New Requisition" :segment === "?content=JobPost" ?"Job Post" :segment === "?content=ApplicantDetails" ?"Applicant Details" :segment,
       path: `/${pathSegments.slice(0, index + 3).join('/')}`,
     })),
   ];

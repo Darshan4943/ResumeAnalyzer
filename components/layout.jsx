@@ -61,7 +61,7 @@ function Layout({ children }) {
         <Sidebar />
         </div>
         <div className="  pt-[135px] w-[100%] px-5">
-          {/* <Breadcrumb/> */}
+          <Breadcrumb/>
         {children}
         </div>
       </div>
