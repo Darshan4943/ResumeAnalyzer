@@ -65,8 +65,8 @@ function Requisition() {
     const handleHeadingChange = (event, index) => {
         const selectedOption = event.target.value;
         const selectedHeading = headings[index];
-       
-        
+
+
     };
 
 
@@ -207,8 +207,8 @@ function Requisition() {
     return (
         <div className="">
 
-           
-           
+
+
 
             {toggle === 0 &&
                 <div className="">
@@ -225,14 +225,11 @@ function Requisition() {
                         <div className=" ">
 
                             <div className="h-[84px] bg-[#BCECFF] flex flex-row p-[16px] justify-between  text-[#333] sticky top-[72px] ">
-                            {headings.map((headingObj, index) => (
+                                {headings.map((headingObj, index) => (
                                     <>
-                                        {/* < div className=" w-[19.87%] bg-white p-4">
-                                        {headingObj.heading}
 
-                                        </div> */}
                                         <select className=" w-[19.87%] bg-white p-4 " onChange={(e) => handleHeadingChange(e, headingObj.heading)}>
-                                            <option  value=""> {headingObj.heading}</option>
+                                            <option value=""> {headingObj.heading}</option>
                                             {headingObj.options.map((option, optIndex) => (
                                                 <option key={optIndex} value={option}>
                                                     {option}

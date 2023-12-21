@@ -36,7 +36,7 @@ const Employer_hire_candidates = () => {
         className="Employer_hire_candidates_images"
       />
       <div id="earth"></div>
-      <img src="images/employerEmployer_hire_candidates//tethescope.png" alt="" className="tethescope" />
+      <img src="images/employer/Employer_hire_candidates/tethescope.png" alt="" className="tethescope" />
     </div>,
     <div className="Employer_hire_candidates_images_container">
       <img

@@ -1,16 +1,48 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
+
+import { motion, AnimatePresence } from 'framer-motion';
+import LevelUpdate from '~/components/model/levelUpdate';
 
 function ApplicantDetails() {
 
+
+
+
+    const [openTaskModel, setOpenTaskModel] = useState(false)
     const [toggle, setToggle] = useState("ApplicantProfile")
     const [activeOption, setActiveOption] = useState('ApplicantProfile');
+
+
+    const taskRef = useRef(null);
+
+    const handleOutsideClick = (event) => {
+        if (taskRef.current && !taskRef.current.contains(event.target)) {
+            setOpenTaskModel(false);
+        }
+    };
+
+    useEffect(() => {
+        document.addEventListener('mousedown', handleOutsideClick);
+        return () => {
+            document.removeEventListener('mousedown', handleOutsideClick);
+        };
+    }, []);
+
+    const closeTaskPopup = () => {
+        setOpenTaskModel(false);
+    };
+
+
+
 
     const handleOptionClick = (option) => {
         setActiveOption(option);
         setToggle(option)
     };
     return (
-        <div className='flex flex-col gap-6'>
+
+
+        <div className='flex flex-col gap-6 relative '>
             <div className=' flex w-full gap-3 justify-between p-4  rounded-[16px] items-center bg-white' style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
                     <g clip-path="url(#clip0_4754_62269)">
@@ -312,10 +344,26 @@ function ApplicantDetails() {
                                         <p className='text-[#0C8A0A] text-[16px] font-medium'>Verified</p>
                                     </div>
                                 </div>
+                                <button onClick={() => setOpenTaskModel(true)} className='px-9 py-3 bg-[#06A9EF] rounded-[12px] w-[233px] text-[16px] font-semibold text-white'>Move to Next Stage</button>
 
                             </div>
                         </div>
                     }
+
+                    <AnimatePresence>
+                        {openTaskModel && (
+                            <motion.div
+                                initial={{ x: '100%' }}
+                                animate={{ x: 0 }}
+                                exit={{ x: '100%' }}
+                                transition={{  duration: 0.5 }}
+                                ref={taskRef}
+                                className='absolute z-10 right-[-1.5%] w-[60%] top-[-2%]'
+                            >
+                                <LevelUpdate closeTaskPopup={closeTaskPopup} />
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
                 </div>
             </div>
 

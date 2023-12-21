@@ -178,3 +178,13 @@ input{
 .fade {
 	opacity: 0.5; 
   }
+  .full-screen-overlay {
+   
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Adjust the alpha (0.5) for transparency */
+    display: flex;
+    // justify-content: center;
+    
+    z-index: 999; /* Ensure this value is higher than other elements */
+}

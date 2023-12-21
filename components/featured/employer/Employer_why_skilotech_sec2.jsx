@@ -40,11 +40,12 @@ function Employer_why_skilotech_sec2() {
     },
   ];
   return (
-    <div className="w-full flex justify-center mt-[38px] mb-[72px]">
-      <div className="flex flex-wrap flex-row gap-5 justify-center max-w-[900px]">
-        <div className="flex flex-wrap flex-row justify-center gap-5">
+    <div className="customMargins">
+            {/* <div className="w-full flex justify-center items-center mt-[38px] mb-[72px]"> */}
+      {/* <div className="flex flex-wrap flex-row gap-5 justify-center w-full items-center"> */}
+        <div className="grid grid-cols-3 gap-y-[10%] justify-center items-center mt-[5%] mb-[10%] w-[100%]">
           {arr.map((item) => (
-            <div className="flex flex-col w-[234px] p-[8px] text-[14px] font-medium flex-shrink-0 items-start gap-3 rounded-lg border border-[#CDCDCD] bg-white transition-all duration-500 Employer_why_skilotech_sec2_cart">
+            <div className="flex flex-col w-[234px] p-[8px] text-[14px] font-medium flex-shrink-0 items-center mx-auto my-0px rounded-lg border border-[#CDCDCD] bg-white transition-all duration-500 Employer_why_skilotech_sec2_cart">
               <div className="flex flex-col p-3 items-center gap-2 self-stretch rounded-md bg-[#d2e7f0] h-32 transition-all duration-500 Employer_why_skilotech_sec2_cart_1st">
                 <img src={item.img} alt="" className="h-[75px] w-[75px] Employer_why_skilotech_sec2_cart_1st_img" />
                 <div className="text-black text-center font-montserrat text-base font-medium">
@@ -55,9 +56,10 @@ function Employer_why_skilotech_sec2() {
               {/* {index % 3 === 2 ? <div className="clear"></div> : null} */}
             </div>
           ))}
-        </div>
+        {/* </div> */}
       </div>
     </div>
+    
   );
 }
 

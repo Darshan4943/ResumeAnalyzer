@@ -46,7 +46,7 @@
 //         formats={formats}
 //         placeholder="Describe about your work"
        
-//         style={{ height: "155px" }}
+//         style={{ height: "90px" ,marginBottom:"40px"}}
 //       />
 //     </div>
 //   );

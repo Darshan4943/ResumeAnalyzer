@@ -60,7 +60,7 @@ function Layout({ children }) {
         <div>
         <Sidebar />
         </div>
-        <div className="  pt-[135px] w-[100%] px-5">
+        <div className="  pt-[135px] w-[100%] px-5 overflow-hidden">
           <Breadcrumb/>
         {children}
         </div>
