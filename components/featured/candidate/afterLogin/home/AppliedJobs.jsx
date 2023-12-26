@@ -8,7 +8,7 @@ function AppliedJobs() {
               <div className="grid grid-cols-12 py-[24px] gap-[24px] ">
               
                 <div
-                  className="flex flex-col p-3 col-span-5 rounded-md border-primary bg-white shadow-md"
+                  className="flex flex-col  col-span-5 rounded-md border-primary bg-white shadow-md"
                 style={{
                   boxShadow: "0px 2px 2px 0px rgba(0, 0, 0, 0.25)",
                 }}
@@ -145,7 +145,7 @@ function AppliedJobs() {
                           </div>
                         </div>
                       </div>
-                      <div className="flex flex-row justify-between p-1 bg-[#E0F6FF]">
+                      <div className="flex flex-row justify-between items-center p-1 bg-[#E0F6FF]">
 
                         <div className="flex gap-[8px]">
                           <img className="w-[20px] h-[20px]" src="./images/afterLoginHome/new_releases.png" alt="" />

@@ -4,7 +4,7 @@ function SavedJobs() {
     const numberOfDivs = 5;
     return (
 
-        <div className=" relative bg-[#F9F9F9] ">
+        <div className="  bg-[#F9F9F9]  ">
 
 
 
@@ -146,14 +146,17 @@ function SavedJobs() {
                                     </div>
                                 </div>
                             </div>
-                            <div className="flex flex-row justify-between p-1 bg-[#E0F6FF]">
+                            <div className="flex flex-row justify-between items-center p-1 bg-[#E0F6FF]">
 
                                 <div className="flex gap-[8px]">
                                     <img className="w-[20px] h-[20px]" src="./images/afterLoginHome/new_releases.png" alt="" />
                                     Posted 3 Days Ago</div>
                                 <div>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="18" viewBox="0 0 14 18" fill="none">
-                                        <path d="M0 18V2C0 1.45 0.195833 0.979167 0.5875 0.5875C0.979167 0.195833 1.45 0 2 0H12C12.55 0 13.0208 0.195833 13.4125 0.5875C13.8042 0.979167 14 1.45 14 2V18L7 15L0 18Z" fill="#333333" />
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                        
+                                        <g mask="url(#mask0_5716_133446)">
+                                            <path d="M5 21V5C5 4.45 5.19583 3.97917 5.5875 3.5875C5.97917 3.19583 6.45 3 7 3H17C17.55 3 18.0208 3.19583 18.4125 3.5875C18.8042 3.97917 19 4.45 19 5V21L12 18L5 21Z" fill="#333333" />
+                                        </g>
                                     </svg>
                                 </div>
                             </div>

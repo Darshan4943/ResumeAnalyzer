@@ -12,7 +12,7 @@ function AfterLoginHome() {
 
     <div className="bg-[#F9F9F9]">
 
-      <div className=" relative bg-[#F9F9F9] ">
+      <div className=" relative bg-[#F9F9F9]  ">
         <div className="  ">
           <div className="customMargins py-5 flex flex-row justify-between items-center ">
             <div className="justify-center items-center w-[29%] items-between">
