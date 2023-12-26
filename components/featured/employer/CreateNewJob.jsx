@@ -10,7 +10,7 @@ function CreateNewJob() {
 
   }
   return (
-    <div className="flex flex-row gap-[20px] max-h-[80vh] ">
+    <div className="flex flex-row gap-[20px] max-h-[75vh] ">
       <div className=" w-[32.26%]  flex flex-col gap-4 rounded-[16px] py-2 bg-white" style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}>
         <div className="overflow-y-auto px-4 py-2 flex flex-col gap-4 " >
           <p className=" w-[full] text-[24px] font-[500] ">

@@ -151,7 +151,7 @@ function JobPost({ toggleContentt }) {
   return (
     <div className="  ">
 
-      <div className="w-[100%] max-h-[83vh] flex flex-col gap-4 relative   ">
+      <div className="w-[100%] max-h-[80vh] flex flex-col gap-4 relative   ">
         <div className="">
           <div className="flex w-[100%] px-[32px] py-[24px] justify-between items-center bg-[#fff] ">
             <div className="flex items-center gap-[24px]">
@@ -270,7 +270,7 @@ function JobPost({ toggleContentt }) {
           <TablePagination
             rowsPerPageOptions={[5, 10, 15]}
             component="div"
-            className=" py-[12px] px-[16px] sticky bottom-0 w-[100%]"
+            className="h-[64px] rounded-b-[12px] py-[12px] px-[16px]  bg-white sticky bottom-0 w-[100%]"
             count={applicants.length}
             rowsPerPage={rowsPerPage}
             page={page}

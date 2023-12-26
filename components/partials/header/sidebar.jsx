@@ -39,7 +39,7 @@ function Sidebar() {
   ];
 
   return (
-    <div className="flex flex-col h-[100vh] bg-blue w-[120px] pt-[70px]">
+    <div className="flex flex-col h-[100vh] bg-blue w-[120px] pt-[70px] overflow-hidden">
       {dataArray.map((item, index) => (
         <ALink href={item.route} key={index}>
           <div

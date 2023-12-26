@@ -213,7 +213,11 @@ function Jobs() {
         <div className=" customMargins ">
           <div className="grid grid-cols-12 py-[24px] gap-[24px] ">
             {/* FIRST SECTION   */}
+            {!toggle && (
+              <div className="flex flex-col col-span-2 rounded-md bg-white shadow-md   ">
 
+              </div>
+            )}
             {toggle && (
               <div className="flex flex-col col-span-3 rounded-md bg-white shadow-md   ">
                 <div className="flex justify-between  p-4 bg-white shadow-md  items-start  ">
@@ -761,7 +765,7 @@ function Jobs() {
             )}
             {/* SECOND SECTION   */}
             <div
-              className={`flex flex-col p-3 ${toggle ? "col-span-4" : "col-span-5"
+              className={`flex flex-col p-3 ${toggle ? "col-span-4" : "col-span-4"
                 } rounded-md border-primary bg-white shadow-md`}
               style={{
                 boxShadow: "0px 2px 2px 0px rgba(0, 0, 0, 0.25)",
@@ -920,7 +924,7 @@ function Jobs() {
 
             {/* LAST SECTION   */}
             <div
-              className={`flex ${toggle ? "col-span-5" : "col-span-7"
+              className={`flex ${toggle ? "col-span-5" : "col-span-6"
                 } flex-col  `}
             >
               <div

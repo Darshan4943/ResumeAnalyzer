@@ -234,7 +234,7 @@ function Hiring() {
     return (
         <div>
             {toggle === 0 &&
-                < div className='flex flex-col gap-3 w-[100%] max-h-[80vh]  relative overflow-y-scroll'>
+                < div className='flex flex-col gap-3 w-[100%] max-h-[80vh]  relative '>
                     <div className='sticky top-0 '>
                         <div className="grid col-span-1 bg-white  rounded-t-[16px] ">
                             <div className="flex items-center p-[16px] align-self-stretch w-full">
@@ -273,7 +273,7 @@ function Hiring() {
                             </div>
                         </div>
                     </div>
-                    <div className="grid grid-cols-4 gap-[20px] ">
+                    <div className="grid grid-cols-4 gap-[20px] overflow-y-scroll">
                         {
                             job_card.map((job_card) =>
                                 <div onClick={toggleContent} className="flex py-[16px] px-[0px] flex-col items-start gap-[12px] flex-shrink-0 rounded-lg bg-[#fff] shadow-md">

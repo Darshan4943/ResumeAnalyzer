@@ -212,7 +212,7 @@ function Requisition() {
 
             {toggle === 0 &&
                 <div className="">
-                    <div className=" w-[100%] max-h-[80vh]  rounded-[20px]  relative overflow-y-scroll ">
+                    <div className=" w-[100%] max-h-[75vh]  rounded-[20px]  relative overflow-y-scroll ">
                         <div className="h-[72px] bg-[#fff] p-[16px] flex flex-row justify-between rounded-t-[12px] sticky top-0">
                             <p className="h-[29px]  text-[24px] font-[500px]">All Requisition Requests</p>
                             <button
@@ -255,7 +255,7 @@ function Requisition() {
                                 ))}
                             </div>
 
-                            <div className=" ">
+                            <div className=" overflow-y-auto">
                                 {requisition.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((req, index) => (
                                     <div key={index} className="h-[64px] items-center flex flex-row py-[12px] px-[16px] justify-between border-b border-solid  border-[rgba(100, 100, 100, 0.60)] bg-white ">
                                         <div className=" w-[12.85%] flex flex-col gap-[3px]">
@@ -280,7 +280,7 @@ function Requisition() {
                         <TablePagination
                             rowsPerPageOptions={[5, 10, 15]}
                             component="div"
-                            className="h-[64px] rounded-b-[12px] py-[12px] px-[16px]  bg-white sticky bottom-0 w-[100%]"
+                            className="h-[80px] rounded-b-[12px] py-[12px] px-[16px]  bg-white sticky bottom-0 w-[100%]"
                             count={requisition.length}
                             rowsPerPage={rowsPerPage}
                             page={page}

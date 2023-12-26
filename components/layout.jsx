@@ -42,7 +42,7 @@ function Layout({ children }) {
       <div >
         <Header />
       </div>
-      <div className="mt-[5rem] ">
+      <div className="mt-[5rem]  ">
         {children}
       </div>
 
@@ -60,7 +60,7 @@ function Layout({ children }) {
         <div>
         <Sidebar />
         </div>
-        <div className="  pt-[135px] w-[100%] px-5 overflow-hidden">
+        <div className="  pt-[100px] w-[100%] px-5 overflow-hidden max-h-[95vh]">
           <Breadcrumb/>
         {children}
         </div>
