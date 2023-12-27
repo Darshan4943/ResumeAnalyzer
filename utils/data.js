@@ -1,8 +1,18 @@
 export const inputData = [
     {
-      title: 'location',
+      title: 'Sort by',
       img:'./images/jobs/arw.png',
-
+      child: [
+        'Recommended',
+        'Relevant',
+        'Recently Posted',
+      ]
+     
+    },
+    {
+      title: 'Job type',
+      img:'./images/jobs/arw.png',
+      
       child: [
         'pune',
         'mumbai',
@@ -77,19 +87,9 @@ export const inputData = [
         'Bachelor Of Technology (B.Tech/B.E)',
       ]
     },
+   
     {
-      title: 'Job type',
-      img:'./images/jobs/arw.png',
-      
-      child: [
-        'Full-time Jobs',
-        'Full-time Jobs',
-        'Full-time Jobs',
-        'Full-time Jobs',
-      ]
-    },
-    {
-      title: 'job mode',
+      title: 'Job mode',
       img:'./images/jobs/arw.png',
       child: [
         'On-site',

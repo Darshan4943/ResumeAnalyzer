@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AppliedJobs from "~/components/featured/candidate/afterLogin/home/AppliedJobs";
 import SavedJobs from "~/components/featured/candidate/afterLogin/home/SavedJobs";
 import { inputData } from "~/utils/data";
@@ -18,7 +18,7 @@ const InputBox = ({ item }) => {
 
   return (
     <>
-      <div className="rounded-md bg-white shadow-md flex  justify-center items-center group relative ">
+      <div className="rounded-md bg-white shadow-md flex  justify-center items-center group relative  ">
         <div className="text-[#333] justify-center items-center text-[14px] flex font-medium w-auto px-4 py-3 gap-1">
           <div class="">
             <div class="bg-blue-500 transition-transform transform  flex items-center justify-center gap-1">
@@ -81,6 +81,12 @@ function Jobs() {
   const [filter, setFilter] = useState(false)
 
   const [toggleHeadings, setToggleHeadings] = useState(0);
+  useEffect(() => {
+
+    if(toggleHeadings >=3){
+      setFilter(false)
+    }
+  }, [toggleHeadings]);
 
   const numberOfDivs = 5;
 
@@ -175,7 +181,7 @@ function Jobs() {
   ]
 
   return (
-    < div className="relative ">
+    < div className="relative   ">
 
 
       <div className="sticky top-[5.6rem] z-50">
@@ -183,7 +189,7 @@ function Jobs() {
 
         <div style={{ backgroundColor: "#BCECFF" }}>
           <div className=" customMargins  ">
-            <div className={`flex items-start gap-4 py-[8px]  `}>
+            <div className={`flex items-start gap-4 py-3  `}>
               {headings.map((item, index) => (
                 <div key={index} className={`flex gap-2 py-2 px-4 items-center ${toggleHeadings === index && 'bg-[#06A9EF] rounded-[6px]'}`}>
                   {item.img}
@@ -200,29 +206,30 @@ function Jobs() {
 
           </div>
         </div>
-
-        <div style={{ backgroundColor: "#E0F6FF" }} className="">
-          <div className="customMargins">
-            <div className="flex items-center py-5  justify-between">
-              {inputData.map((item, index) => (
-                <InputBox
-                  item={item}
-                  className="text-[14px] font-medium flex items-center w-auto "
-                />
-              ))}
-              <button
-                onClick={() => setFilter(!filter)}
-                className="px-4 py-3  rounded-[6px] bg-[#FFF] "
-              >
-                <img
-                  className="h-[24px] w-[24px]"
-                  src="./images/jobs/fil.png"
-                  alt=""
-                />
-              </button>
+        {toggleHeadings <= 2 &&
+          <div style={{ backgroundColor: "#E0F6FF" }} className="">
+            <div className="customMargins">
+              <div className="flex items-center py-5  justify-between">
+                {inputData.map((item, index) => (
+                  <InputBox
+                    item={item}
+                    className="text-[14px] font-medium flex items-center w-auto "
+                  />
+                ))}
+                <button
+                  onClick={() => setFilter(!filter)}
+                  className="px-4 py-3  rounded-[6px] bg-[#FFF] "
+                >
+                  <img
+                    className="h-[24px] w-[24px]"
+                    src="./images/jobs/fil.png"
+                    alt=""
+                  />
+                </button>
+              </div>
             </div>
           </div>
-        </div>
+        }
         {toggleHeadings === 2 &&
           <div style={{ backgroundColor: "#f9f9f9" }}>
             <div className=" customMargins  ">
@@ -251,7 +258,7 @@ function Jobs() {
             {/* FIRST SECTION   */}
             {filter ?
 
-              <div className="flex flex-col col-span-3 rounded-md bg-white shadow-md mt-6  ">
+              <div className="flex flex-col col-span-3 rounded-md bg-white shadow-md mt-6">
                 <div className="flex justify-between  p-4 bg-white shadow-md  items-start  ">
                   <p className=" font-montserrat text-base font-medium text-[10px] text-black ">
                     All Filters
@@ -794,9 +801,10 @@ function Jobs() {
                   </div>
                 </div>
               </div>
+
               :
 
-              <div className="flex flex-col col-span-2 rounded-md bg-white shadow-md py-6 px-4 mt-6 items-start gap-4 h-fit">
+              <div className="flex flex-col col-span-2 rounded-md bg-white shadow-md py-6 px-4 mt-6 items-start gap-4 h-fit ">
                 <div className="flex flex-col items-center gap-[8px]">
                   <p className="text-[22px] font-[500] text-[#333] ">
                     Application Status</p>
@@ -1021,12 +1029,13 @@ function Jobs() {
                 </div>
 
                 {/* LAST SECTION   */}
+                <>
                 <div
-                  className={`flex mt-6 ${filter ? "col-span-5" : "col-span-6"
+                  className={`flex mt-6  ${filter ? "col-span-5" : "col-span-6"
                     } flex-col  `}
                 >
                   <div
-                    className="p-[16px]   border-[1px] border-[#06A9EF] bg-[#fff] rounded-[8px] flex flex-col gap-[16px]"
+                    className="p-[16px]   border-[1px] border-[#06A9EF] bg-[#fff] rounded-[8px] flex flex-col gap-[16px]  "
                     style={{
                       boxShadow: "0px 2px 2px 0px rgba(0, 0, 0, 0.25)",
                     }}
@@ -1061,9 +1070,12 @@ function Jobs() {
                           Mumbai
                         </div>
                       </div>
-                      <div className="py-[16px]">
+                      <div className="py-[16px] flex gap-2 leading-tight">
                         <button className="text-[14px] font-[600] text-[#fff] flex items-center bg-[#06A9EF] py-[8px] px-[16px] rounded-[30px]">
                           Apply Now
+                        </button>
+                        <button className="text-[14px] font-[600] flex items-center border border-[#06A9EF] py-[8px] px-[16px] rounded-[30px]">
+                          Save
                         </button>
                       </div>
                     </div>
@@ -1174,17 +1186,18 @@ function Jobs() {
                     </div>
                   </div>
                 </div>
+                </>
               </>
             }
 
             {toggleHeadings === 3 &&
-              <div className={` ${filter ? "col-span-9" : "col-span-10"} `}>
+              <div className="col-span-10">
                 <AppliedJobs />
               </div>
             }
 
             {toggleHeadings === 4 &&
-              <div className={` ${filter ? "col-span-9" : "col-span-10"} `}>
+              <div className= "col-span-10">
                 <SavedJobs />
               </div>
             }

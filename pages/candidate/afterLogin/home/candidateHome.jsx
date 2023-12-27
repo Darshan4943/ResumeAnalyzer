@@ -120,7 +120,7 @@ function AfterLoginHome() {
                   />
                 </g>
               </svg>
-              <div onClick={() => setToggle(0)} className={`text-[14px] font-semibold flex items-center justify-center `}>
+              <div onClick={() => setToggle(0)} className={`text-[14px] font-semibold flex items-center cursor-pointer justify-center `}>
                 Home
               </div>
             </div>
@@ -141,7 +141,7 @@ function AfterLoginHome() {
                   fill={toggle === 1 ? "#FFF" : "#333"} 
                 />
               </svg>
-              <div onClick={() => setToggle(1)} className="text-[14px] font-[500] flex items-center justify-center">
+              <div onClick={() => setToggle(1)} className="text-[14px] font-[500] flex items-center cursor-pointer justify-center">
                 Applied Jobs
               </div>
             </div>
@@ -158,7 +158,7 @@ function AfterLoginHome() {
                   fill={toggle === 2 ? "#FFF" : "#333"} 
                 />
               </svg>
-              <div onClick={() => setToggle(2)} className="text-[14px] font-[500] flex items-center justify-center">
+              <div onClick={() => setToggle(2)} className="text-[14px] font-[500] flex items-center cursor-pointer justify-center">
                 Saved Jobs
               </div>
             </div>
