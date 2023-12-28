@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react'
 import DateSelector from '~/components/common/dateSelector';
 import TextEditor from '~/components/common/textEditor';
-import ResumeTemplate1 from '~/components/featured/candidate/afterLogin/services/resumeTemplate1';
+import ResumeTemplate5 from '~/components/featured/candidate/afterLogin/services/resumeTemplate5';
+import ResumeTemplate1 from '~/components/featured/candidate/afterLogin/services/resumeTemplate5';
 
 function AiResumePage() {
 
@@ -1608,7 +1609,7 @@ function AiResumePage() {
 
 
                             <div className='transform scale-100 '>
-                                <ResumeTemplate1 formData={formData} educationData={educationData} aboutData={aboutData} />
+                                <ResumeTemplate5 formData={formData} educationData={educationData} aboutData={aboutData} experienceData={experienceData} skills={skills} languages={languages} socialData={socialData} />
                             </div>
 
                         </div>
