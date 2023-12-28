@@ -59,7 +59,7 @@ const DateSelector = ({
               ))}
             </select>
 
-            <img src="./images/down_arrow.png" className="h-[20px] w-[20px]" alt="" />
+            <img src="./images/services/down_arrow.png" className="h-[20px] w-[20px]" alt="" />
           </div>
 
           <div className="flex p-2 items-center rounded-lg border border-[#646464] bg-white text-[14px]  font-montserrat font-small">
@@ -81,7 +81,7 @@ const DateSelector = ({
               ))}
 
             </select>
-            <img src="./images/down_arrow.png" className="h-[20px] w-[20px]" alt="" />
+            <img src="./images/services/down_arrow.png" className="h-[20px] w-[20px]" alt="" />
           </div>
         </div>
       </div>
@@ -109,7 +109,7 @@ const DateSelector = ({
                 </option>
               ))}
             </select>
-            <img src="./images/down_arrow.png" className="h-[20px] w-[20px]" alt="" />
+            <img src="./images/services/down_arrow.png" className="h-[20px] w-[20px]" alt="" />
           </div>
           <div className="flex p-2 items-center rounded-lg border border-[#646464] bg-white text-[14px] font-montserrat font-small">
             <select
@@ -128,7 +128,7 @@ const DateSelector = ({
                 </option>
               ))}
             </select>
-            <img src="./images/down_arrow.png" className="h-[20px] w-[20px]" alt="" />
+            <img src="./images/services/down_arrow.png" className="h-[20px] w-[20px]" alt="" />
           </div>
         </div>
       </div>

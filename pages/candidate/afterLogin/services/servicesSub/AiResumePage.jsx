@@ -1,8 +1,22 @@
 import React, { useEffect, useRef, useState } from 'react'
 import DateSelector from '~/components/common/dateSelector';
 import TextEditor from '~/components/common/textEditor';
+import ResumeTemplate1 from '~/components/featured/candidate/afterLogin/services/resumeTemplate1';
 
 function AiResumePage() {
+
+
+    const [aboutData, setAboutData] = useState({
+        aboutMe: ''
+    });
+
+    const handleAboutDataUpdate = (e) => {
+        const { name, value } = e.target;
+        setAboutData({
+            ...aboutData,
+            [name]: value
+        });
+    };
 
     const fileRef = useRef(null)
     const handleButtonClick = () => {
@@ -34,7 +48,7 @@ function AiResumePage() {
         email: '',
         location: ''
     });
-    console.log(formData)
+
 
     const handleInputChangeProfile = (e) => {
         const { name, value } = e.target;
@@ -387,7 +401,7 @@ function AiResumePage() {
             return skill.rating.map((rating, index) => (
                 <img
                     key={`star_${index}`}
-                    src={rating ? "./images/employer/Star.png" : "./images/employer/Star1.png"}
+                    src={rating ? "./images/services/Star.png" : "./images/services/Star1.png"}
                     alt=""
                     className="h-[30px] w-[30px]"
                     onClick={() => handleStarClick(skillIndex, index)}
@@ -482,7 +496,7 @@ function AiResumePage() {
     return (
         <div>
             <div className=" bg-[#F9F9F9] pt-2">
-                <div className='flex flex-col gap-4 py-6  customMargins'>
+                <div className='flex flex-col gap-4 py-6 customMargins'>
                     <div className='flex gap-6 bg-white p-4 rounded-lg items-center' style={{
                         boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)",
 
@@ -506,7 +520,7 @@ function AiResumePage() {
                         </div>
 
                     </div>
-                    <div className=" flex h-[1087px] gap-6">
+                    <div className=" h-fit flex gap-6">
                         <div className="flex flex-col w-[49%] px-2 pb-4 gap-4 rounded-lg overflow-y-auto ">
                             <div className='bg-[#06A9EF] p-4 rounded-[16px] flex justify-between text-white'>
                                 <p className='text-[20px] font-medium'>My Resume</p>
@@ -522,7 +536,7 @@ function AiResumePage() {
 
                                 <p className='text-[20px] font-medium'>Upload Photo</p>
                                 <div className='flex gap-4 items-center'>
-                                    <img src="./images/candidate/profile.png" alt="" className='w-[112px] h-[112px]' />
+                                    <img src="./images/services/profile.png" alt="" className='w-[112px] h-[112px]' />
                                     <div class="border-dashed border-[3px] border-[#06A9EF] flex flex-col w-full rounded-[12px] p-4 items-center ">
                                         <div className="  flex  flex-col  items-center">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none" onClick={handleButtonClick} >
@@ -682,11 +696,21 @@ function AiResumePage() {
                                     </label>
                                 </div>
 
-                                <div className="w-full h-full rounded-[10px]">
 
-                                    {/* <TextEditor /> */}
 
+
+                                <div className="w-full border-[1px] border-[#9D9D9D] rounded-[12px] p-[12px] min-h-[140px]">
+                                    <textArea
+                                        type="text"
+                                        name="aboutMe"
+                                        className="w-full text-[14px] font-montserrat font-small h-full outline-none"
+                                        placeholder="Enter text"
+                                        value={aboutData.aboutMe} 
+                                        onChange={handleAboutDataUpdate}
+                                    />
                                 </div>
+
+
                                 <div className="flex justify-end items-center gap-3 ">
                                     <div className='text-[10px] font-[400]'>
                                         Remaining Attempts - 3
@@ -1413,189 +1437,186 @@ function AiResumePage() {
                                 }
                             </div>
 
-                                <div className="flex flex-col p-4 gap-2 rounded-lg bg-white" style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}>
-                                    <div className="flex flex-col gap-2 w-full">
-                                        <div className="w-full text-[20px] font-montserrat  font-medium">
-                                            Hobbies
+                            <div className="flex flex-col p-4 gap-2 rounded-lg bg-white" style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}>
+                                <div className="flex flex-col gap-2 w-full">
+                                    <div className="w-full text-[20px] font-montserrat  font-medium">
+                                        Hobbies
+                                    </div>
+                                    <div className='flex flex-wrap gap-4'>
+                                        {Hobbies.map((hobby, index) => (
+                                            <div key={index} className='flex gap-1 px-3 py-2 border border-[#06A9EF] rounded-[24px] justify-between items-center'>
+                                                <p className='text-[14px] font-medium'>{hobby.hobby}</p>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" onClick={() => deleteHobbies(index)}>
+                                                    <g mask="url(#mask0_5716_136486)">
+                                                        <path d="M6.0625 15L5 13.9375L8.9375 10L5 6.0625L6.0625 5L10 8.9375L13.9375 5L15 6.0625L11.0625 10L15 13.9375L13.9375 15L10 11.0625L6.0625 15Z" fill="#333333" />
+                                                    </g>
+                                                </svg>
+                                            </div>
+                                        ))}
+                                    </div>
+
+
+                                    <div className="w-full border-[1px] border-[#9D9D9D] rounded-[12px]  p-[12px] ">
+                                        <input
+                                            type="text"
+                                            name=""
+                                            id=""
+                                            placeholder="Enter your hobbies"
+                                            className="w-full text-[14px] font-montserrat font-small"
+                                            value={currentHobbies}
+                                            onChange={handleInputChangeHobbies}
+                                        />
+                                    </div>
+                                    <div className="flex justify-end ">
+                                        <div className='flex justify-between  py-2 gap-2'>
+                                            <button className=" font-montserrat text-xs font-semibold px-[12px] rounded-[8px] border border-[#06A9EF] w-[137px] h-[32px]">
+                                                Update to Profile
+                                            </button>
+                                            <button onClick={addHobby} className=" font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px]  bg-[#06A9EF] w-[60px] h-[32px]">
+                                                Save
+                                            </button>
                                         </div>
-                                        <div className='flex flex-wrap gap-4'>
-                                            {Hobbies.map((hobby, index) => (
-                                                <div key={index} className='flex gap-1 px-3 py-2 border border-[#06A9EF] rounded-[24px] justify-between items-center'>
-                                                    <p className='text-[14px] font-medium'>{hobby.hobby}</p>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" onClick={() => deleteHobbies(index)}>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="flex flex-col p-4 gap-2 rounded-lg bg-white" style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}>
+                                <div className="flex flex-col gap-2 w-full">
+                                    <div className="w-full text-[20px] font-montserrat  font-medium">
+                                        Languages
+                                    </div>
+                                    <div className='flex flex-col gap-4'>
+                                        {languages.map((languages, index) => (
+                                            <div key={index} className='flex gap-4 justify-between'>
+                                                <div className='flex gap-1 px-3 py-2 border border-[#06A9EF] rounded-[24px] justify-between items-center'>
+                                                    <p className='text-[14px] font-medium'>{languages.languages}</p>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" onClick={() => deleteLanguages(index)}>
                                                         <g mask="url(#mask0_5716_136486)">
                                                             <path d="M6.0625 15L5 13.9375L8.9375 10L5 6.0625L6.0625 5L10 8.9375L13.9375 5L15 6.0625L11.0625 10L15 13.9375L13.9375 15L10 11.0625L6.0625 15Z" fill="#333333" />
                                                         </g>
                                                     </svg>
                                                 </div>
-                                            ))}
-                                        </div>
-
-
-                                        <div className="w-full border-[1px] border-[#9D9D9D] rounded-[12px]  p-[12px] ">
-                                            <input
-                                                type="text"
-                                                name=""
-                                                id=""
-                                                placeholder="Enter your hobbies"
-                                                className="w-full text-[14px] font-montserrat font-small"
-                                                value={currentHobbies}
-                                                onChange={handleInputChangeHobbies}
-                                            />
-                                        </div>
-                                        <div className="flex justify-end ">
-                                            <div className='flex justify-between  py-2 gap-2'>
-                                                <button className=" font-montserrat text-xs font-semibold px-[12px] rounded-[8px] border border-[#06A9EF] w-[137px] h-[32px]">
-                                                    Update to Profile
-                                                </button>
-                                                <button onClick={addHobby} className=" font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px]  bg-[#06A9EF] w-[60px] h-[32px]">
-                                                    Save
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="flex flex-col p-4 gap-2 rounded-lg bg-white" style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}>
-                                    <div className="flex flex-col gap-2 w-full">
-                                        <div className="w-full text-[20px] font-montserrat  font-medium">
-                                            Languages
-                                        </div>
-                                        <div className='flex flex-col gap-4'>
-                                            {languages.map((languages, index) => (
-                                                <div key={index} className='flex gap-4 justify-between'>
-                                                    <div className='flex gap-1 px-3 py-2 border border-[#06A9EF] rounded-[24px] justify-between items-center'>
-                                                        <p className='text-[14px] font-medium'>{languages.languages}</p>
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" onClick={() => deleteLanguages(index)}>
-                                                            <g mask="url(#mask0_5716_136486)">
-                                                                <path d="M6.0625 15L5 13.9375L8.9375 10L5 6.0625L6.0625 5L10 8.9375L13.9375 5L15 6.0625L11.0625 10L15 13.9375L13.9375 15L10 11.0625L6.0625 15Z" fill="#333333" />
-                                                            </g>
-                                                        </svg>
-                                                    </div>
-                                                    <div className="flex border w-[50%] border-[#DEDEDE] px-4 py-2 rounded-[8px] gap-4">
-                                                        {renderStarsLanguages(index)}
-                                                        <p>
-                                                            {languages.rating[2] !== 0 ? "Expert" : (languages.rating[1] !== 0 ? "Proficient" : "Beginner")}
-                                                        </p>
-
-                                                    </div>
+                                                <div className="flex border w-[50%] border-[#DEDEDE] px-4 py-2 rounded-[8px] gap-4">
+                                                    {renderStarsLanguages(index)}
+                                                    <p>
+                                                        {languages.rating[2] !== 0 ? "Expert" : (languages.rating[1] !== 0 ? "Proficient" : "Beginner")}
+                                                    </p>
 
                                                 </div>
-                                            ))}
-                                        </div>
 
-                                        <div className="w-full border-[1px] border-[#9D9D9D] rounded-[12px]  p-[12px] ">
-                                            <input
-                                                type="text"
-                                                name=""
-                                                id=""
-                                                placeholder="Enter your skills"
-                                                className="w-full text-[14px] font-montserrat font-small"
-                                                value={currentLanguages}
-                                                onChange={handleInputChangeLanguages}
-                                            />
-                                        </div>
-                                        <div className="flex justify-end ">
-                                            <div className='flex justify-between  py-2 gap-2'>
-                                                <button className=" font-montserrat text-xs font-semibold px-[12px] rounded-[8px] border border-[#06A9EF] w-[137px] h-[32px]">
-                                                    Update to Profile
-                                                </button>
-                                                <button onClick={addLanguages} className=" font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px]  bg-[#06A9EF] w-[60px] h-[32px] ">
-                                                    Save
-                                                </button>
                                             </div>
+                                        ))}
+                                    </div>
+
+                                    <div className="w-full border-[1px] border-[#9D9D9D] rounded-[12px]  p-[12px] ">
+                                        <input
+                                            type="text"
+                                            name=""
+                                            id=""
+                                            placeholder="Enter your skills"
+                                            className="w-full text-[14px] font-montserrat font-small"
+                                            value={currentLanguages}
+                                            onChange={handleInputChangeLanguages}
+                                        />
+                                    </div>
+                                    <div className="flex justify-end ">
+                                        <div className='flex justify-between  py-2 gap-2'>
+                                            <button className=" font-montserrat text-xs font-semibold px-[12px] rounded-[8px] border border-[#06A9EF] w-[137px] h-[32px]">
+                                                Update to Profile
+                                            </button>
+                                            <button onClick={addLanguages} className=" font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px]  bg-[#06A9EF] w-[60px] h-[32px] ">
+                                                Save
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
-
-
                             </div>
 
+
+                        </div>
+
+                        <div
+                            className="flex  h-fit flex-col w-[49%] p-4 gap-[14px] rounded-lg bg-white shadow-md"
+                            style={{
+                                boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)",
+                            }}
+                        >
                             <div
-                                className="flex flex-col w-[49%] p-4 gap-[14px] rounded-lg bg-white shadow-md"
-                                style={{
-                                    boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)",
-                                }}
+                                className="rounded-[8px] bg-[#BCEBFF]  px-4 pt-[10px] "
+
                             >
-                                <div
-                                    className="rounded-[8px] bg-[#BCEBFF]  px-4 pt-[10px] "
-
-                                >
-                                    <div className=" flex gap-4 pb-[10px]" style={{ overflowX: "auto" }}>
-                                        <img
-                                            src="./images/services/resume-template-1.png"
-                                            className="h-[200px] w-[140.91px] rounded-[6px]"
-                                            alt=""
-                                        />
-                                        <img
-                                            src="./images/services/resume-template-2.png"
-                                            className="h-[200px] w-[140.91px] rounded-[6px]"
-                                            alt=""
-                                        />
-                                        <img
-                                            src="./images/services/resume-template-1.png"
-                                            className="h-[200px] w-[140.91px] rounded-[6px]"
-                                            alt=""
-                                        />
-                                        <img
-                                            src="./images/services/resume-template-2.png"
-                                            className="h-[200px] w-[140.91px] rounded-[6px]"
-                                            alt=""
-                                        />
-                                        <img
-                                            src="./images/services/resume-template-1.png"
-                                            className="h-[200px] w-[140.91px] rounded-[6px]"
-                                            alt=""
-                                        />
-                                        <img
-                                            src="./images/services/resume-template-2.png"
-                                            className="h-[200px] w-[140.91px] rounded-[6px]"
-                                            alt=""
-                                        />
-                                        <img
-                                            src="./images/services/resume-template-1.png"
-                                            className="h-[200px] w-[140.91px] rounded-[6px]"
-                                            alt=""
-                                        />
-                                    </div>
+                                <div className=" flex gap-4 pb-[10px]" style={{ overflowX: "auto" }}>
+                                    <img
+                                        src="./images/services/resume-template-1.png"
+                                        className="h-[200px] w-[140.91px] rounded-[6px]"
+                                        alt=""
+                                    />
+                                    <img
+                                        src="./images/services/resume-template-2.png"
+                                        className="h-[200px] w-[140.91px] rounded-[6px]"
+                                        alt=""
+                                    />
+                                    <img
+                                        src="./images/services/resume-template-1.png"
+                                        className="h-[200px] w-[140.91px] rounded-[6px]"
+                                        alt=""
+                                    />
+                                    <img
+                                        src="./images/services/resume-template-2.png"
+                                        className="h-[200px] w-[140.91px] rounded-[6px]"
+                                        alt=""
+                                    />
+                                    <img
+                                        src="./images/services/resume-template-1.png"
+                                        className="h-[200px] w-[140.91px] rounded-[6px]"
+                                        alt=""
+                                    />
+                                    <img
+                                        src="./images/services/resume-template-2.png"
+                                        className="h-[200px] w-[140.91px] rounded-[6px]"
+                                        alt=""
+                                    />
+                                    <img
+                                        src="./images/services/resume-template-1.png"
+                                        className="h-[200px] w-[140.91px] rounded-[6px]"
+                                        alt=""
+                                    />
                                 </div>
-
-                                <div className="flex justify-between">
-                                    <div className=" text-[20px]  font-montserrat font-medium flex items-center">
-                                        Preview
-                                    </div>
-
-                                    <div className="flex gap-[16px]">
-                                        <button className="flex gap-1 text-[12px]  text-[#FFF] font-montserrat font-semibold px-3 py-[2px] rounded-[8px] items-center border border-[#06A9EF] bg-[#06A9EF]">
-                                            <img
-                                                src="./images/services/add_link.png"
-                                                className="h-[24px] w-[24px] rounded-[6px]"
-                                                alt=""
-                                            />
-                                            Attach
-                                        </button>
-
-                                        <button className=" text-[12px] text-[#333] font-montserrat font-semibold px-9 py-1 rounded-[8px] border border-[#06A9EF]">
-                                            Download Resume
-                                        </button>
-                                    </div>
-                                </div>
-
-
-
-
-                                <img
-                                    src="./images/services/Resume-template-3.png"
-                                    className="h-[729px] w-[520px] rounded-[10px]"
-                                    alt=""
-                                />
-
                             </div>
+
+                            <div className="flex justify-between">
+                                <div className=" text-[20px]  font-montserrat font-medium flex items-center">
+                                    Preview
+                                </div>
+
+                                <div className="flex gap-[16px]">
+                                    <button className="flex gap-1 text-[12px]  text-[#FFF] font-montserrat font-semibold px-3 py-[2px] rounded-[8px] items-center border border-[#06A9EF] bg-[#06A9EF]">
+                                        <img
+                                            src="./images/services/add_link.png"
+                                            className="h-[24px] w-[24px] rounded-[6px]"
+                                            alt=""
+                                        />
+                                        Attach
+                                    </button>
+
+                                    <button className=" text-[12px] text-[#333] font-montserrat font-semibold px-9 py-1 rounded-[8px] border border-[#06A9EF]">
+                                        Download Resume
+                                    </button>
+                                </div>
+                            </div>
+
+
+
+                            <div className='transform scale-100 '>
+                                <ResumeTemplate1 formData={formData} educationData={educationData} aboutData={aboutData} />
+                            </div>
+
                         </div>
                     </div>
                 </div>
             </div>
-            )
+        </div>
+    )
 }
 
-            export default AiResumePage
+export default AiResumePage
