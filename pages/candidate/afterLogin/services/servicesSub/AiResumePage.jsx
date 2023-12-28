@@ -104,6 +104,245 @@ function AiResumePage() {
         setIsModifiedEducation(true);
     }, [educationData]);
 
+    const handleEditEducation = (index) => {
+        const educationToEdit = educationData[index];
+
+        if (educationToEdit) {
+            setAddEducationData(true);
+            setCurrentEducation({ ...educationToEdit });
+
+            const updatedEducationData = educationData.filter((_, i) => i !== index);
+            setEducationData(updatedEducationData);
+        }
+    };
+
+
+
+    const handleDeleteEducation = (index) => {
+        const updatedEducationData = [...educationData];
+        updatedEducationData.splice(index, 1);
+        setEducationData(updatedEducationData);
+
+    };
+
+
+    const [isCheckedExperience, setIsCheckedExperience] = useState(true);
+    const [isModifiedExperience, setIsModifiedExperience] = useState(false);
+    const [showExperienceData, setShowExperienceData] = useState(true);
+    const [addExperienceData, setAddExperienceData] = useState(false);
+    const [experienceData, setExperienceData] = useState([]);
+    const [currentExperience, setCurrentExperience] = useState({
+        designation: '',
+        organization: '',
+
+    });
+
+    const handleSwitchChangeExperience = () => {
+        setIsCheckedExperience(!isCheckedExperience);
+    };
+
+    const handleInputChangeExperience = (e) => {
+        const { name, value } = e.target;
+        setCurrentExperience({
+            ...currentExperience,
+            [name]: value
+        });
+    };
+
+    const handleSaveExperience = () => {
+        setExperienceData([...experienceData, currentExperience]);
+        setCurrentExperience({
+            designation: '',
+            organization: '',
+
+        });
+        setAddExperienceData(false);
+    };
+
+    const handleEditExperience = (index) => {
+        const experienceToEdit = experienceData[index];
+
+        if (experienceToEdit) {
+            setAddExperienceData(true);
+            setCurrentExperience({ ...experienceToEdit });
+
+            const updatedExperienceData = experienceData.filter((_, i) => i !== index);
+            setExperienceData(updatedExperienceData);
+        }
+    };
+
+    const handleDeleteExperience = (index) => {
+        const updatedExperienceData = [...experienceData];
+        updatedExperienceData.splice(index, 1);
+        setExperienceData(updatedExperienceData);
+    };
+
+    useEffect(() => {
+        setIsModifiedExperience(true);
+    }, [experienceData]);
+
+
+
+    const [isCheckedCourse, setIsCheckedCourse] = useState(true);
+    const [isModifiedCourse, setIsModifiedCourse] = useState(false);
+    const [showCourseData, setShowCourseData] = useState(true);
+    const [addCourseData, setAddCourseData] = useState(false);
+    const [courseData, setCourseData] = useState([]);
+    const [currentCourse, setCurrentCourse] = useState({
+        courseName: '',
+        issuedBy: '',
+    });
+
+    const handleSwitchChangeCourse = () => {
+        setIsCheckedCourse(!isCheckedCourse);
+    };
+
+    const handleInputChangeCourse = (e) => {
+        const { name, value } = e.target;
+        setCurrentCourse({
+            ...currentCourse,
+            [name]: value
+        });
+    };
+
+    const handleSaveCourse = () => {
+        setCourseData([...courseData, currentCourse]);
+        setCurrentCourse({
+            courseName: '',
+            issuedBy: '',
+        });
+        setAddCourseData(false);
+    };
+
+    const handleEditCourse = (index) => {
+        const courseToEdit = courseData[index];
+
+        if (courseToEdit) {
+            setAddCourseData(true);
+            setCurrentCourse({ ...courseToEdit });
+
+            const updatedCourseData = courseData.filter((_, i) => i !== index);
+            setCourseData(updatedCourseData);
+        }
+    };
+
+    const handleDeleteCourse = (index) => {
+        const updatedCourseData = [...courseData];
+        updatedCourseData.splice(index, 1);
+        setCourseData(updatedCourseData);
+    };
+
+    useEffect(() => {
+        setIsModifiedCourse(true);
+    }, []);
+
+
+    const [isCheckedAchievement, setIsCheckedAchievement] = useState(true);
+    const [isModifiedAchievement, setIsModifiedAchievement] = useState(false);
+    const [showAchievementData, setShowAchievementData] = useState(true);
+    const [addAchievementData, setAddAchievementData] = useState(false);
+    const [achievementData, setAchievementData] = useState([]);
+    const [currentAchievement, setCurrentAchievement] = useState({
+        achievementName: '',
+        description: '',
+    });
+
+    const handleSwitchChangeAchievement = () => {
+        setIsCheckedAchievement(!isCheckedAchievement);
+    };
+
+    const handleInputChangeAchievement = (e) => {
+        const { name, value } = e.target;
+        setCurrentAchievement({
+            ...currentAchievement,
+            [name]: value
+        });
+    };
+
+    const handleSaveAchievement = () => {
+        setAchievementData([...achievementData, currentAchievement]);
+        setCurrentAchievement({
+            achievementName: '',
+            description: '',
+        });
+        setAddAchievementData(false);
+    };
+
+    const handleEditAchievement = (index) => {
+        const achievementToEdit = achievementData[index];
+
+        if (achievementToEdit) {
+            setAddAchievementData(true);
+            setCurrentAchievement({ ...achievementToEdit });
+
+            const updatedAchievementData = achievementData.filter((_, i) => i !== index);
+            setAchievementData(updatedAchievementData);
+        }
+    };
+
+    const handleDeleteAchievement = (index) => {
+        const updatedAchievementData = [...achievementData];
+        updatedAchievementData.splice(index, 1);
+        setAchievementData(updatedAchievementData);
+    };
+
+    useEffect(() => {
+        setIsModifiedAchievement(true);
+    }, []);
+
+
+    const [isCheckedSocial, setIsCheckedSocial] = useState(true);
+    const [isModifiedSocial, setIsModifiedSocial] = useState(false);
+    const [showSocialData, setShowSocialData] = useState(true);
+    const [addSocialData, setAddSocialData] = useState(false);
+    const [socialData, setSocialData] = useState([]);
+    const [currentSocial, setCurrentSocial] = useState({
+        platform: '',
+        link: '',
+    });
+
+    const handleSwitchChangeSocial = () => {
+        setIsCheckedSocial(!isCheckedSocial);
+    };
+
+    const handleInputChangeSocial = (e) => {
+        const { name, value } = e.target;
+        setCurrentSocial({
+            ...currentSocial,
+            [name]: value
+        });
+    };
+
+    const handleSaveSocial = () => {
+        setSocialData([...socialData, currentSocial]);
+        setCurrentSocial({
+            platform: '',
+            link: '',
+        });
+        setAddSocialData(false);
+    };
+
+    const handleEditSocial = (index) => {
+        const socialToEdit = socialData[index];
+
+        if (socialToEdit) {
+            setAddSocialData(true);
+            setCurrentSocial({ ...socialToEdit });
+
+            const updatedSocialData = socialData.filter((_, i) => i !== index);
+            setSocialData(updatedSocialData);
+        }
+    };
+
+    const handleDeleteSocial = (index) => {
+        const updatedSocialData = [...socialData];
+        updatedSocialData.splice(index, 1);
+        setSocialData(updatedSocialData);
+    };
+
+    useEffect(() => {
+        setIsModifiedSocial(true);
+    }, []);
 
     const [skills, setSkills] = useState([]);
 
@@ -491,30 +730,32 @@ function AiResumePage() {
                                     </label>
                                 </div>
                                 {educationData.map((edu, index) => (
-                                <div className='flex flex-col gap-1 p-2 rounded-[6px] border border-[#DEDEDE]'>
+                                    <div className='flex flex-col gap-1 p-2 rounded-[6px] border border-[#DEDEDE]'>
 
-                                    <div className='flex justify-between'>
-                                        <p>{edu.qualification}</p>
-                                        <div className='flex '>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                        <div className='flex justify-between'>
+                                            <p>{edu.qualification}</p>
+                                            <div className='flex gap-2'>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none"
+                                                    onClick={() => handleEditEducation(index)} >
 
-                                                <g mask="url(#mask0_5808_93842)">
-                                                    <path d="M4.16404 15.8317H5.21531L13.7458 7.30121L12.6945 6.24994L4.16404 14.7804V15.8317ZM2.91406 17.0817V14.2612L13.9061 3.27402C14.0321 3.15956 14.1712 3.07112 14.3235 3.00868C14.4757 2.94625 14.6354 2.91504 14.8025 2.91504C14.9696 2.91504 15.1314 2.94469 15.2881 3.004C15.4447 3.06329 15.5834 3.15757 15.7041 3.28683L16.7217 4.31727C16.851 4.43799 16.9431 4.57691 16.9981 4.73402C17.0532 4.89112 17.0807 5.04821 17.0807 5.20531C17.0807 5.37288 17.0521 5.5328 16.9948 5.68506C16.9376 5.83734 16.8466 5.97648 16.7217 6.1025L5.73454 17.0817H2.91406ZM13.2109 6.78479L12.6945 6.24994L13.7458 7.30121L13.2109 6.78479Z" fill="#646464" />
-                                                </g>
-                                            </svg>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                                    <g mask="url(#mask0_5808_93842)">
+                                                        <path d="M4.16404 15.8317H5.21531L13.7458 7.30121L12.6945 6.24994L4.16404 14.7804V15.8317ZM2.91406 17.0817V14.2612L13.9061 3.27402C14.0321 3.15956 14.1712 3.07112 14.3235 3.00868C14.4757 2.94625 14.6354 2.91504 14.8025 2.91504C14.9696 2.91504 15.1314 2.94469 15.2881 3.004C15.4447 3.06329 15.5834 3.15757 15.7041 3.28683L16.7217 4.31727C16.851 4.43799 16.9431 4.57691 16.9981 4.73402C17.0532 4.89112 17.0807 5.04821 17.0807 5.20531C17.0807 5.37288 17.0521 5.5328 16.9948 5.68506C16.9376 5.83734 16.8466 5.97648 16.7217 6.1025L5.73454 17.0817H2.91406ZM13.2109 6.78479L12.6945 6.24994L13.7458 7.30121L13.2109 6.78479Z" fill="#646464" />
+                                                    </g>
+                                                </svg>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none"
+                                                    onClick={() => handleDeleteEducation(index)}>
 
-                                                <g mask="url(#mask0_5808_93845)">
-                                                    <path d="M5.83203 17.5C5.3737 17.5 4.98134 17.3368 4.65495 17.0104C4.32856 16.684 4.16536 16.2917 4.16536 15.8333V5H3.33203V3.33333H7.4987V2.5H12.4987V3.33333H16.6654V5H15.832V15.8333C15.832 16.2917 15.6688 16.684 15.3424 17.0104C15.0161 17.3368 14.6237 17.5 14.1654 17.5H5.83203ZM14.1654 5H5.83203V15.8333H14.1654V5ZM7.4987 14.1667H9.16536V6.66667H7.4987V14.1667ZM10.832 14.1667H12.4987V6.66667H10.832V14.1667Z" fill="#646464" />
-                                                </g>
-                                            </svg>
+                                                    <g mask="url(#mask0_5808_93845)">
+                                                        <path d="M5.83203 17.5C5.3737 17.5 4.98134 17.3368 4.65495 17.0104C4.32856 16.684 4.16536 16.2917 4.16536 15.8333V5H3.33203V3.33333H7.4987V2.5H12.4987V3.33333H16.6654V5H15.832V15.8333C15.832 16.2917 15.6688 16.684 15.3424 17.0104C15.0161 17.3368 14.6237 17.5 14.1654 17.5H5.83203ZM14.1654 5H5.83203V15.8333H14.1654V5ZM7.4987 14.1667H9.16536V6.66667H7.4987V14.1667ZM10.832 14.1667H12.4987V6.66667H10.832V14.1667Z" fill="#646464" />
+                                                    </g>
+                                                </svg>
+
+                                            </div>
 
                                         </div>
+                                        <p>{edu.specialization}</p>
 
                                     </div>
-                                    <p>{edu.specialization}</p>
-
-                                </div>
                                 ))}
 
                                 {addEducationData &&
@@ -531,7 +772,7 @@ function AiResumePage() {
                                                         name="qualification"
                                                         placeholder="Enter Highest Qualification"
                                                         className="w-full text-[14px] font-montserrat font-small"
-                                                        value={educationData.qualification}
+                                                        value={currentEducation.qualification}
                                                         onChange={handleInputChangeEducation}
                                                         disabled={!isCheckedEducation}
                                                     />
@@ -548,7 +789,7 @@ function AiResumePage() {
 
                                                         placeholder="Enter your specialization"
                                                         className="w-full text-[14px] font-montserrat font-small "
-                                                        value={educationData.specialization}
+                                                        value={currentEducation.specialization}
                                                         onChange={handleInputChangeEducation}
                                                         disabled={!isCheckedEducation}
                                                     />
@@ -565,7 +806,7 @@ function AiResumePage() {
 
                                                         placeholder="Search for Institute"
                                                         className="w-full text-[14px] font-montserrat font-small "
-                                                        value={educationData.instituteName}
+                                                        value={currentEducation.instituteName}
                                                         onChange={handleInputChangeEducation}
                                                         disabled={!isCheckedEducation}
                                                     />
@@ -588,7 +829,7 @@ function AiResumePage() {
                                                     <input type="radio" className='h-4 w-4 custom-radio' />
                                                     <label   >Full-Time</label>
 
-                                                    <input value={educationData.type}
+                                                    <input value={currentEducation.type}
                                                         onChange={handleInputChangeEducation}
                                                         disabled={!isCheckedEducation} type="radio" className='h-4 w-4 custom-radio' />
                                                     <label    >Part-Time</label>
@@ -620,7 +861,7 @@ function AiResumePage() {
                                                 <path d="M11 13H5V11H11V5H13V11H19V13H13V19H11V13Z" fill="#06A9EF" />
                                             </g>
                                         </svg>
-                                        <p onClick={() => setAddEducationData(true)} className='text-[16px] font-semibold text-[#06A9EF]'>Add Education</p>
+                                        <p onClick={() => setAddEducationData(true)} className='text-[16px] font-semibold text-[#06A9EF]' disabled={!isCheckedEducation}>Add Education</p>
 
                                     </div>
                                 }
@@ -628,175 +869,272 @@ function AiResumePage() {
 
                             <div
                                 className="flex flex-col p-4 gap-2 rounded-lg bg-white"
-                                style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}
+                                style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)", opacity: isCheckedExperience ? 1 : 0.5 }}
                             >
-                                <div className="w-full text-[20px] font-montserrat font-medium">
-                                    Experience
-                                </div>
-                                <div className="flex flex-col gap-2 w-full">
-                                    <div className="w-full text-[14px] font-montserrat  font-medium">
-                                        Designation
-                                    </div>
-                                    <div className="w-full border-[1px] border-[#9D9D9D] rounded-[8px] px-[16px] py-[12px] ">
-                                        <input
-                                            type="text"
-                                            name=""
-                                            id=""
-                                            placeholder="Enter your Designation"
-                                            className="w-full text-[14px] font-montserrat font-small "
-                                        />
-                                    </div>
-                                </div>
-                                <div className="flex flex-col gap-2 w-full">
-                                    <div className="w-full text-[14px] font-montserrat  font-medium">
-                                        Organisation
-                                    </div>
-                                    <div className="w-full border-[1px] border-[#9D9D9D] rounded-[8px] px-[16px] py-[12px] ">
-                                        <input
-                                            type="text"
-                                            name=""
-                                            id=""
-                                            placeholder="Select Company"
-                                            className="w-full text-[14px] font-montserrat font-small "
-                                        />
-                                    </div>
+                                <div className="w-full flex justify-between text-[20px] font-montserrat font-medium">
+                                    <p> Experience</p>
+
+                                    <label className="switch">
+                                        <input type="checkbox" checked={isCheckedExperience} onChange={handleSwitchChangeExperience} />
+                                        <span className="slider round"></span>
+                                    </label>
                                 </div>
 
-                                <div className="w-full flex gap-2 text-[14px] font-montserrat  font-medium">
-                                    <input
-                                        type="checkbox"
-                                        className="w-5 h-5 rounded-md border-2 border-[#06A9EF] bg-white"
-                                    />
-                                    <label>Currently working here</label>
-                                </div>
+                                {experienceData.map((exp, index) => (
+                                    <div className='flex flex-col gap-1 p-2 rounded-[6px] border border-[#DEDEDE]'>
 
-                                <div>
-                                    <DateSelector idPrefix="experience" />
-                                </div>
+                                        <div className='flex justify-between'>
+                                            <p>{exp.organization}</p>
+                                            <div className='flex gap-2'>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none"
+                                                    onClick={() => handleEditExperience(index)} >
 
-                                <div className="flex flex-col gap-2 w-full">
-                                    <div className="w-full text-[14px] font-montserrat  font-medium">
-                                        Work Description
+                                                    <g mask="url(#mask0_5808_93842)">
+                                                        <path d="M4.16404 15.8317H5.21531L13.7458 7.30121L12.6945 6.24994L4.16404 14.7804V15.8317ZM2.91406 17.0817V14.2612L13.9061 3.27402C14.0321 3.15956 14.1712 3.07112 14.3235 3.00868C14.4757 2.94625 14.6354 2.91504 14.8025 2.91504C14.9696 2.91504 15.1314 2.94469 15.2881 3.004C15.4447 3.06329 15.5834 3.15757 15.7041 3.28683L16.7217 4.31727C16.851 4.43799 16.9431 4.57691 16.9981 4.73402C17.0532 4.89112 17.0807 5.04821 17.0807 5.20531C17.0807 5.37288 17.0521 5.5328 16.9948 5.68506C16.9376 5.83734 16.8466 5.97648 16.7217 6.1025L5.73454 17.0817H2.91406ZM13.2109 6.78479L12.6945 6.24994L13.7458 7.30121L13.2109 6.78479Z" fill="#646464" />
+                                                    </g>
+                                                </svg>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none"
+                                                    onClick={() => handleDeleteExperience(index)}>
+
+                                                    <g mask="url(#mask0_5808_93845)">
+                                                        <path d="M5.83203 17.5C5.3737 17.5 4.98134 17.3368 4.65495 17.0104C4.32856 16.684 4.16536 16.2917 4.16536 15.8333V5H3.33203V3.33333H7.4987V2.5H12.4987V3.33333H16.6654V5H15.832V15.8333C15.832 16.2917 15.6688 16.684 15.3424 17.0104C15.0161 17.3368 14.6237 17.5 14.1654 17.5H5.83203ZM14.1654 5H5.83203V15.8333H14.1654V5ZM7.4987 14.1667H9.16536V6.66667H7.4987V14.1667ZM10.832 14.1667H12.4987V6.66667H10.832V14.1667Z" fill="#646464" />
+                                                    </g>
+                                                </svg>
+
+                                            </div>
+
+                                        </div>
+                                        <p>{exp.designation}</p>
+
                                     </div>
-                                    <div className="w-full text-[14px] font-montserrat  font-small">
-                                        Describe about your work
+                                ))}
+
+                                {addExperienceData &&
+                                    <div>
+                                        <div className="flex flex-col gap-3">
+                                            <div className="flex flex-col gap-2 w-full">
+                                                <div className="w-full text-[14px] font-montserrat  font-medium">
+                                                    Designation
+                                                </div>
+                                                <div className="w-full border-[1px] border-[#9D9D9D] rounded-[8px] px-[16px] py-[12px] ">
+                                                    <input
+                                                        type="text"
+                                                        name="designation"
+
+                                                        placeholder="Enter your Designation"
+                                                        className="w-full text-[14px] font-montserrat font-small "
+                                                        value={currentExperience.designation}
+                                                        onChange={handleInputChangeExperience}
+                                                        disabled={!isCheckedExperience}
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="flex flex-col gap-2 w-full">
+                                                <div className="w-full text-[14px] font-montserrat  font-medium">
+                                                    Organisation
+                                                </div>
+                                                <div className="w-full border-[1px] border-[#9D9D9D] rounded-[8px] px-[16px] py-[12px] ">
+                                                    <input
+                                                        type="text"
+                                                        name="organization"
+
+                                                        placeholder="Enter company name"
+                                                        className="w-full text-[14px] font-montserrat font-small "
+                                                        value={currentExperience.organization}
+                                                        onChange={handleInputChangeExperience}
+                                                        disabled={!isCheckedExperience}
+                                                    />
+                                                </div>
+                                            </div>
+
+                                            <div className="w-full flex gap-2 text-[14px] font-montserrat  font-medium">
+                                                <input
+                                                    type="checkbox"
+                                                    className="w-5 h-5 rounded-md border-2 border-[#06A9EF] bg-white"
+                                                />
+                                                <label>Currently working here</label>
+                                            </div>
+
+                                            <div>
+                                                <DateSelector idPrefix="experience" />
+                                            </div>
+
+                                            <div className="flex flex-col gap-2 w-full">
+                                                <div className="w-full text-[14px] font-montserrat  font-medium">
+                                                    Work Description
+                                                </div>
+                                                <div className="w-full text-[14px] font-montserrat  font-small">
+                                                    Describe about your work
+                                                </div>
+                                                <div className="w-full border-[1px] border-[#9D9D9D] rounded-[12px] p-[12px] min-h-[140px]">
+                                                    <textArea
+                                                        type="text"
+                                                        name=""
+                                                        id=""
+                                                        className="w-full text-[14px] font-montserrat font-small h-full  outline-none"
+                                                        placeholder="Enter text"
+
+                                                    />
+                                                </div>
+
+
+                                            </div>
+
+                                        </div>
+                                        <div className="flex justify-end ">
+                                            <div className='flex justify-between  py-2 gap-2'>
+                                                <button className=" font-montserrat text-xs font-semibold px-[12px] rounded-[8px] border border-[#06A9EF] w-[137px] h-[32px]">
+                                                    Update to Profile
+                                                </button>
+                                                <button style={{ opacity: isModifiedExperience ? 1 : 0.3 }} onClick={handleSaveExperience} disabled={!isModifiedExperience || !isCheckedExperience} className=" font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px]  bg-[#06A9EF] w-[60px] h-[32px]">
+                                                    Save
+                                                </button>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div className="w-full border-[1px] border-[#9D9D9D] rounded-[12px] p-[12px] min-h-[140px]">
-                                        <textArea
-                                            type="text"
-                                            name=""
-                                            id=""
-                                            className="w-full text-[14px] font-montserrat font-small h-full  outline-none"
-                                            placeholder="Enter text"
+                                }
 
-                                        />
+                                {!addExperienceData &&
+                                    <div className='flex gap-1'>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+
+                                            <g mask="url(#mask0_5716_136351)">
+                                                <path d="M11 13H5V11H11V5H13V11H19V13H13V19H11V13Z" fill="#06A9EF" />
+                                            </g>
+                                        </svg>
+                                        <p onClick={() => setAddExperienceData(true)} className='text-[16px] font-semibold text-[#06A9EF]' disabled={!isCheckedExperience} >Add Experience</p>
+
                                     </div>
-
-
-                                </div>
-                                <div className='flex gap-1'>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-
-                                        <g mask="url(#mask0_5716_136351)">
-                                            <path d="M11 13H5V11H11V5H13V11H19V13H13V19H11V13Z" fill="#06A9EF" />
-                                        </g>
-                                    </svg>
-                                    <p className='text-[16px] font-semibold text-[#06A9EF]'>Add Experience</p>
-
-                                </div>
-
-                                <div className="flex justify-end ">
-                                    <div className='flex justify-between  py-2 gap-2'>
-                                        <button className=" font-montserrat text-xs font-semibold px-[12px] rounded-[8px] border border-[#06A9EF] w-[137px] h-[32px]">
-                                            Update to Profile
-                                        </button>
-                                        <button className=" font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px]  bg-[#06A9EF] w-[60px] h-[32px]">
-                                            Save
-                                        </button>
-                                    </div>
-                                </div>
+                                }
                             </div>
 
                             <div
                                 className="flex flex-col p-4 gap-2 rounded-lg bg-white"
-                                style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}
+                                style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)", opacity: isCheckedCourse ? 1 : 0.5 }}
                             >
-                                <div className="w-full text-[20px] font-montserrat font-medium">
-                                    Course and Certification
+                                <div className="w-full flex justify-between text-[20px] font-montserrat font-medium">
+                                    <p> Course and Certification</p>
+
+                                    <label className="switch">
+                                        <input type="checkbox" checked={isCheckedCourse} onChange={handleSwitchChangeCourse} />
+                                        <span className="slider round"></span>
+                                    </label>
                                 </div>
-                                <div className="flex gap-4">
-                                    <div className="flex flex-col gap-2 w-[50%]">
-                                        <div className=" text-[14px] font-montserrat  font-medium">
-                                            Certificate Name
+
+                                {courseData.map((course, index) => (
+                                    <div className='flex flex-col gap-1 p-2 rounded-[6px] border border-[#DEDEDE]'>
+
+                                        <div className='flex justify-between'>
+                                            <p>{course.courseName}</p>
+                                            <div className='flex gap-2'>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none"
+                                                    onClick={() => handleEditCourse(index)} >
+
+                                                    <g mask="url(#mask0_5808_93842)">
+                                                        <path d="M4.16404 15.8317H5.21531L13.7458 7.30121L12.6945 6.24994L4.16404 14.7804V15.8317ZM2.91406 17.0817V14.2612L13.9061 3.27402C14.0321 3.15956 14.1712 3.07112 14.3235 3.00868C14.4757 2.94625 14.6354 2.91504 14.8025 2.91504C14.9696 2.91504 15.1314 2.94469 15.2881 3.004C15.4447 3.06329 15.5834 3.15757 15.7041 3.28683L16.7217 4.31727C16.851 4.43799 16.9431 4.57691 16.9981 4.73402C17.0532 4.89112 17.0807 5.04821 17.0807 5.20531C17.0807 5.37288 17.0521 5.5328 16.9948 5.68506C16.9376 5.83734 16.8466 5.97648 16.7217 6.1025L5.73454 17.0817H2.91406ZM13.2109 6.78479L12.6945 6.24994L13.7458 7.30121L13.2109 6.78479Z" fill="#646464" />
+                                                    </g>
+                                                </svg>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none"
+                                                    onClick={() => handleDeleteCourse(index)}>
+
+                                                    <g mask="url(#mask0_5808_93845)">
+                                                        <path d="M5.83203 17.5C5.3737 17.5 4.98134 17.3368 4.65495 17.0104C4.32856 16.684 4.16536 16.2917 4.16536 15.8333V5H3.33203V3.33333H7.4987V2.5H12.4987V3.33333H16.6654V5H15.832V15.8333C15.832 16.2917 15.6688 16.684 15.3424 17.0104C15.0161 17.3368 14.6237 17.5 14.1654 17.5H5.83203ZM14.1654 5H5.83203V15.8333H14.1654V5ZM7.4987 14.1667H9.16536V6.66667H7.4987V14.1667ZM10.832 14.1667H12.4987V6.66667H10.832V14.1667Z" fill="#646464" />
+                                                    </g>
+                                                </svg>
+
+                                            </div>
+
                                         </div>
-                                        <div className=" border-[1px] border-[#9D9D9D] rounded-[8px] px-[16px] py-[12px]">
-                                            <input
-                                                type="text"
-                                                name=""
-                                                id=""
-                                                placeholder="Enter Certificate Name"
-                                                className="w-full text-[14px] font-montserrat font-small "
-                                            />
+
+
+                                    </div>
+                                ))}
+
+                                {addCourseData &&
+                                    <div>
+                                        <div className="flex flex-col gap-3">
+                                            <div className="flex gap-4">
+                                                <div className="flex flex-col gap-2 w-[50%]">
+                                                    <div className=" text-[14px] font-montserrat  font-medium">
+                                                        Certificate Name
+                                                    </div>
+                                                    <div className=" border-[1px] border-[#9D9D9D] rounded-[8px] px-[16px] py-[12px]">
+                                                        <input
+                                                            type="text"
+                                                            name="courseName"
+
+                                                            placeholder="Enter Certificate Name"
+                                                            className="w-full text-[14px] font-montserrat font-small "
+                                                            value={currentCourse.courseName}
+                                                            onChange={handleInputChangeCourse}
+                                                            disabled={!isCheckedCourse}
+                                                        />
+                                                    </div>
+                                                </div>
+                                                <div className="flex flex-col gap-2 w-[50%]">
+                                                    <div className="w-full text-[14px] font-montserrat  font-medium">
+                                                        Issued by
+                                                    </div>
+                                                    <div className="w-full border-[1px] border-[#9D9D9D] rounded-[8px] px-[16px] py-[12px]">
+                                                        <input
+                                                            type="text"
+                                                            name="issuedBy"
+                                                            id=""
+                                                            placeholder="EIssued by"
+                                                            className="w-full text-[14px] font-montserrat font-small "
+                                                            value={currentExperience.issuedBy}
+                                                            onChange={handleInputChangeCourse}
+                                                            disabled={!isCheckedCourse}
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div>
+                                                <DateSelector idPrefix="experience" />
+                                            </div>
+
+                                            <div className="flex flex-col gap-2 w-full">
+                                                <div className="w-full text-[14px] font-montserrat  font-medium">
+                                                    Description
+                                                </div>
+
+                                                <div className="w-full border-[1px] border-[#9D9D9D] rounded-[12px]  p-[12px]  min-h-[140px]">
+                                                    <textArea
+                                                        type="text"
+                                                        name=""
+                                                        id=""
+                                                        className="w-full h-full text-[14px] font-montserrat font-small outline-none "
+                                                    />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div className="flex justify-end ">
+                                            <div className='flex justify-between  py-2 gap-2'>
+                                                <button className=" font-montserrat text-xs font-semibold px-[12px] rounded-[8px] border border-[#06A9EF] w-[137px] h-[32px]">
+                                                    Update to Profile
+                                                </button>
+                                                <button style={{ opacity: isModifiedCourse ? 1 : 0.3 }} onClick={handleSaveCourse} disabled={!isModifiedCourse || !isCheckedCourse} className=" font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px]  bg-[#06A9EF] w-[60px] h-[32px]">
+                                                    Save
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div className="flex flex-col gap-2 w-[50%]">
-                                        <div className="w-full text-[14px] font-montserrat  font-medium">
-                                            Issued by
-                                        </div>
-                                        <div className="w-full border-[1px] border-[#9D9D9D] rounded-[8px] px-[16px] py-[12px]">
-                                            <input
-                                                type="text"
-                                                name=""
-                                                id=""
-                                                placeholder="EIssued by"
-                                                className="w-full text-[14px] font-montserrat font-small "
-                                            />
-                                        </div>
+                                }
+                                {!addCourseData &&
+                                    <div className='flex gap-1'>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+
+                                            <g mask="url(#mask0_5716_136351)">
+                                                <path d="M11 13H5V11H11V5H13V11H19V13H13V19H11V13Z" fill="#06A9EF" />
+                                            </g>
+                                        </svg>
+                                        <text onClick={() => setAddCourseData(true)} className='text-[16px] font-semibold text-[#06A9EF]' disabled={!isCheckedCourse} >Add Course & Certification</text>
+
                                     </div>
-                                </div>
-
-                                <div>
-                                    <DateSelector idPrefix="experience" />
-                                </div>
-
-                                <div className="flex flex-col gap-2 w-full">
-                                    <div className="w-full text-[14px] font-montserrat  font-medium">
-                                        Description
-                                    </div>
-
-                                    <div className="w-full border-[1px] border-[#9D9D9D] rounded-[12px]  p-[12px]  min-h-[140px]">
-                                        <textArea
-                                            type="text"
-                                            name=""
-                                            id=""
-                                            className="w-full h-full text-[14px] font-montserrat font-small outline-none "
-                                        />
-                                    </div>
-                                </div>
-
-                                <div className='flex gap-1'>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-
-                                        <g mask="url(#mask0_5716_136351)">
-                                            <path d="M11 13H5V11H11V5H13V11H19V13H13V19H11V13Z" fill="#06A9EF" />
-                                        </g>
-                                    </svg>
-                                    <p className='text-[16px] font-semibold text-[#06A9EF]'>Add Course & Certification</p>
-
-                                </div>
-
-                                <div className="flex justify-end ">
-                                    <div className='flex justify-between  py-2 gap-2'>
-                                        <button className=" font-montserrat text-xs font-semibold px-[12px] rounded-[8px] border border-[#06A9EF] w-[137px] h-[32px]">
-                                            Update to Profile
-                                        </button>
-                                        <button className=" font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px]  bg-[#06A9EF] w-[60px] h-[32px]">
-                                            Save
-                                        </button>
-                                    </div>
-                                </div>
+                                }
                             </div>
-
 
 
                             <div className="flex flex-col p-4 gap-2 rounded-lg bg-white" style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}>
@@ -850,325 +1188,414 @@ function AiResumePage() {
 
                             <div
                                 className="flex flex-col p-4 gap-2 rounded-lg bg-white"
-                                style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}
+                                style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)", opacity: isCheckedAchievement ? 1 : 0.5 }}
                             >
-                                <div className="w-full text-[20px] font-montserrat font-medium">
-                                    Achievements
+                                <div className="w-full flex justify-between text-[20px] font-montserrat font-medium">
+                                    <p> Achievements</p>
+
+                                    <label className="switch">
+                                        <input type="checkbox" checked={isCheckedAchievement} onChange={handleSwitchChangeAchievement} />
+                                        <span className="slider round"></span>
+                                    </label>
                                 </div>
-                                <div className="flex flex-col gap-2 w-full">
-                                    <div className="w-full border-[1px] border-[#9D9D9D] rounded-[8px] px-[16px] py-[12px] ">
-                                        <input
-                                            type="text"
-                                            name=""
-                                            id=""
-                                            placeholder="Enter your Achievement"
-                                            className="w-full text-[14px] font-montserrat font-small "
-                                        />
-                                    </div>
-                                </div>
+                                {achievementData.map((ach, index) => (
+                                    <div className='flex flex-col gap-1 p-2 rounded-[6px] border border-[#DEDEDE]'>
 
-                                <div>
-                                    <DateSelector idPrefix="experience" />
-                                </div>
+                                        <div className='flex justify-between'>
+                                            <p>{ach.achievementName}</p>
+                                            <div className='flex gap-2'>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none"
+                                                    onClick={() => handleEditAchievement(index)} >
 
-                                <div className="flex flex-col gap-2 w-full">
-                                    <div className="w-full text-[14px] font-montserrat  font-medium">
-                                        Description
-                                    </div>
-                                    <div className="w-full text-[14px] font-montserrat  font-small">
-                                        Write about your Achievement
-                                    </div>
-                                    <div className="w-full border-[1px] border-[#9D9D9D] rounded-[12px]  p-[12px] min-h-[140px]">
-                                        <textArea
-                                            type="text"
-                                            name=""
-                                            id=""
-                                            className="w-full text-[14px] font-montserrat font-small outline-none h-full "
-                                        />
-                                    </div>
-                                </div>
-
-                                <div className='flex gap-1'>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-
-                                        <g mask="url(#mask0_5716_136351)">
-                                            <path d="M11 13H5V11H11V5H13V11H19V13H13V19H11V13Z" fill="#06A9EF" />
-                                        </g>
-                                    </svg>
-                                    <p className='text-[16px] font-semibold text-[#06A9EF]'>Add Achievements </p>
-
-                                </div>
-
-                                <div className="flex justify-end ">
-                                    <div className='flex justify-between  py-2 gap-2'>
-                                        <button className=" font-montserrat text-xs font-semibold px-[12px] rounded-[8px] border border-[#06A9EF] w-[137px] h-[32px]">
-                                            Update to Profile
-                                        </button>
-                                        <button className=" font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px]  bg-[#06A9EF] w-[60px] h-[32px]">
-                                            Save
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div
-                                className="flex flex-col p-4 gap-2 rounded-lg bg-white"
-                                style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}
-                            >
-                                <div className="w-full text-[20px] font-montserrat font-medium">
-                                    Website & Social link
-                                </div>
-                                <div className="flex flex-col gap-2 w-full">
-
-                                    <div className="w-full border-[1px] border-[#9D9D9D] rounded-[8px] px-[16px] py-[12px] ">
-                                        <select
-                                            className="w-full text-[14px] font-montserrat font-small"
-                                        >
-                                            <option value="" disabled selected>
-                                                Your Social link eg. Linkedin, Behance
-                                            </option>
-                                            <option value="linkedin">Linkedin</option>
-                                            <option value="behance">Behance</option>
-                                        </select>
-                                    </div>
-                                    <div className="w-full border-[1px] border-[#9D9D9D] rounded-[8px] px-[16px] py-[12px] ">
-                                        <input
-                                            type="text"
-                                            name=""
-                                            id=""
-                                            placeholder="Enter your social Profile URL"
-                                            className="w-full text-[14px] font-montserrat font-small"
-                                        />
-                                    </div>
-
-                                </div>
-
-
-
-
-                                <div className="flex flex-col gap-2 w-full">
-                                    <div className="w-full text-[14px] font-montserrat  font-medium">
-                                        Description
-                                    </div>
-
-                                    <div className="w-full border-[1px] border-[#9D9D9D] rounded-[12px]  p-[12px] min-h-[140px]">
-                                        <textArea
-                                            type="text"
-                                            name=""
-                                            id=""
-                                            placeholder="Describe about your Profile"
-                                            className="w-full text-[14px] font-montserrat font-small outline-none h-full "
-                                        />
-                                    </div>
-                                    <p className='flex justify-end text-[14px] font-normal text-[#646464]'>250 characters left</p>
-                                </div>
-
-                                <div className='flex gap-1'>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-
-                                        <g mask="url(#mask0_5716_136351)">
-                                            <path d="M11 13H5V11H11V5H13V11H19V13H13V19H11V13Z" fill="#06A9EF" />
-                                        </g>
-                                    </svg>
-                                    <p className='text-[16px] font-semibold text-[#06A9EF]'>Add More </p>
-
-                                </div>
-
-                                <div className="flex justify-end ">
-                                    <div className='flex justify-between  py-2 gap-2'>
-                                        <button className=" font-montserrat text-xs font-semibold px-[12px] rounded-[8px] border border-[#06A9EF] w-[137px] h-[32px]">
-                                            Update to Profile
-                                        </button>
-                                        <button className=" font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px]  bg-[#06A9EF] w-[60px] h-[32px]">
-                                            Save
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="flex flex-col p-4 gap-2 rounded-lg bg-white" style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}>
-                                <div className="flex flex-col gap-2 w-full">
-                                    <div className="w-full text-[20px] font-montserrat  font-medium">
-                                        Hobbies
-                                    </div>
-                                    <div className='flex flex-wrap gap-4'>
-                                        {Hobbies.map((hobby, index) => (
-                                            <div key={index} className='flex gap-1 px-3 py-2 border border-[#06A9EF] rounded-[24px] justify-between items-center'>
-                                                <p className='text-[14px] font-medium'>{hobby.hobby}</p>
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" onClick={() => deleteHobbies(index)}>
-                                                    <g mask="url(#mask0_5716_136486)">
-                                                        <path d="M6.0625 15L5 13.9375L8.9375 10L5 6.0625L6.0625 5L10 8.9375L13.9375 5L15 6.0625L11.0625 10L15 13.9375L13.9375 15L10 11.0625L6.0625 15Z" fill="#333333" />
+                                                    <g mask="url(#mask0_5808_93842)">
+                                                        <path d="M4.16404 15.8317H5.21531L13.7458 7.30121L12.6945 6.24994L4.16404 14.7804V15.8317ZM2.91406 17.0817V14.2612L13.9061 3.27402C14.0321 3.15956 14.1712 3.07112 14.3235 3.00868C14.4757 2.94625 14.6354 2.91504 14.8025 2.91504C14.9696 2.91504 15.1314 2.94469 15.2881 3.004C15.4447 3.06329 15.5834 3.15757 15.7041 3.28683L16.7217 4.31727C16.851 4.43799 16.9431 4.57691 16.9981 4.73402C17.0532 4.89112 17.0807 5.04821 17.0807 5.20531C17.0807 5.37288 17.0521 5.5328 16.9948 5.68506C16.9376 5.83734 16.8466 5.97648 16.7217 6.1025L5.73454 17.0817H2.91406ZM13.2109 6.78479L12.6945 6.24994L13.7458 7.30121L13.2109 6.78479Z" fill="#646464" />
                                                     </g>
                                                 </svg>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none"
+                                                    onClick={() => handleDeleteAchievement(index)}>
+
+                                                    <g mask="url(#mask0_5808_93845)">
+                                                        <path d="M5.83203 17.5C5.3737 17.5 4.98134 17.3368 4.65495 17.0104C4.32856 16.684 4.16536 16.2917 4.16536 15.8333V5H3.33203V3.33333H7.4987V2.5H12.4987V3.33333H16.6654V5H15.832V15.8333C15.832 16.2917 15.6688 16.684 15.3424 17.0104C15.0161 17.3368 14.6237 17.5 14.1654 17.5H5.83203ZM14.1654 5H5.83203V15.8333H14.1654V5ZM7.4987 14.1667H9.16536V6.66667H7.4987V14.1667ZM10.832 14.1667H12.4987V6.66667H10.832V14.1667Z" fill="#646464" />
+                                                    </g>
+                                                </svg>
+
                                             </div>
-                                        ))}
-                                    </div>
+
+                                        </div>
 
 
-                                    <div className="w-full border-[1px] border-[#9D9D9D] rounded-[12px]  p-[12px] ">
-                                        <input
-                                            type="text"
-                                            name=""
-                                            id=""
-                                            placeholder="Enter your hobbies"
-                                            className="w-full text-[14px] font-montserrat font-small"
-                                            value={currentHobbies}
-                                            onChange={handleInputChangeHobbies}
-                                        />
                                     </div>
-                                    <div className="flex justify-end ">
-                                        <div className='flex justify-between  py-2 gap-2'>
-                                            <button className=" font-montserrat text-xs font-semibold px-[12px] rounded-[8px] border border-[#06A9EF] w-[137px] h-[32px]">
-                                                Update to Profile
-                                            </button>
-                                            <button onClick={addHobby} className=" font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px]  bg-[#06A9EF] w-[60px] h-[32px]">
-                                                Save
-                                            </button>
+                                ))}
+                                {addAchievementData &&
+                                    <div>
+                                        <div className="flex flex-col gap-3">
+                                            <div className="flex flex-col gap-2 w-full">
+                                                <div className="w-full border-[1px] border-[#9D9D9D] rounded-[8px] px-[16px] py-[12px] ">
+                                                    <input
+                                                        type="text"
+                                                        name="achievementName"
+                                                        id=""
+                                                        placeholder="Enter your Achievement"
+                                                        className="w-full text-[14px] font-montserrat font-small "
+                                                        value={currentAchievement.achievementName}
+                                                        onChange={handleInputChangeAchievement}
+                                                        disabled={!isCheckedAchievement}
+                                                    />
+                                                </div>
+                                            </div>
+
+                                            <div>
+                                                <DateSelector idPrefix="experience" />
+                                            </div>
+
+                                            <div className="flex flex-col gap-2 w-full">
+                                                <div className="w-full text-[14px] font-montserrat  font-medium">
+                                                    Description
+                                                </div>
+                                                <div className="w-full text-[14px] font-montserrat  font-small">
+                                                    Write about your Achievement
+                                                </div>
+                                                <div className="w-full border-[1px] border-[#9D9D9D] rounded-[12px]  p-[12px] min-h-[140px]">
+                                                    <textArea
+                                                        type="text"
+                                                        name=""
+                                                        id=""
+                                                        className="w-full text-[14px] font-montserrat font-small outline-none h-full "
+                                                    />
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div className="flex justify-end ">
+                                            <div className='flex justify-between  py-2 gap-2'>
+                                                <button className=" font-montserrat text-xs font-semibold px-[12px] rounded-[8px] border border-[#06A9EF] w-[137px] h-[32px]">
+                                                    Update to Profile
+                                                </button>
+                                                <button style={{ opacity: isModifiedAchievement ? 1 : 0.3 }} onClick={handleSaveAchievement} disabled={!isModifiedAchievement || !isCheckedAchievement} className=" font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px]  bg-[#06A9EF] w-[60px] h-[32px]">
+                                                    Save
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
+                                }
+                                {!addAchievementData &&
+                                    <div className='flex gap-1'>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+
+                                            <g mask="url(#mask0_5716_136351)">
+                                                <path d="M11 13H5V11H11V5H13V11H19V13H13V19H11V13Z" fill="#06A9EF" />
+                                            </g>
+                                        </svg>
+                                        <p onClick={() => setAddAchievementData(true)} className='text-[16px] font-semibold text-[#06A9EF]' disabled={!isCheckedAchievement} >Add Achievements</p>
+
+                                    </div>
+                                }
+                            </div>
+                            <div
+                                className="flex flex-col p-4 gap-2 rounded-lg bg-white"
+                                style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)", opacity: isCheckedSocial ? 1 : 0.5 }}
+                            >
+                                <div className="w-full flex justify-between text-[20px] font-montserrat font-medium">
+                                    <p> Website & Social link</p>
+
+                                    <label className="switch">
+                                        <input type="checkbox" checked={isCheckedSocial} onChange={handleSwitchChangeSocial} />
+                                        <span className="slider round"></span>
+                                    </label>
                                 </div>
+
+                                {socialData.map((social, index) => (
+                                    <div className='flex flex-col gap-1 p-2 rounded-[6px] border border-[#DEDEDE]'>
+
+                                        <div className='flex justify-between'>
+                                            <p>{social.platform}</p>
+                                            <div className='flex gap-2'>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none"
+                                                    onClick={() => handleEditSocial(index)} >
+
+                                                    <g mask="url(#mask0_5808_93842)">
+                                                        <path d="M4.16404 15.8317H5.21531L13.7458 7.30121L12.6945 6.24994L4.16404 14.7804V15.8317ZM2.91406 17.0817V14.2612L13.9061 3.27402C14.0321 3.15956 14.1712 3.07112 14.3235 3.00868C14.4757 2.94625 14.6354 2.91504 14.8025 2.91504C14.9696 2.91504 15.1314 2.94469 15.2881 3.004C15.4447 3.06329 15.5834 3.15757 15.7041 3.28683L16.7217 4.31727C16.851 4.43799 16.9431 4.57691 16.9981 4.73402C17.0532 4.89112 17.0807 5.04821 17.0807 5.20531C17.0807 5.37288 17.0521 5.5328 16.9948 5.68506C16.9376 5.83734 16.8466 5.97648 16.7217 6.1025L5.73454 17.0817H2.91406ZM13.2109 6.78479L12.6945 6.24994L13.7458 7.30121L13.2109 6.78479Z" fill="#646464" />
+                                                    </g>
+                                                </svg>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none"
+                                                    onClick={() => handleDeleteSocial(index)}>
+
+                                                    <g mask="url(#mask0_5808_93845)">
+                                                        <path d="M5.83203 17.5C5.3737 17.5 4.98134 17.3368 4.65495 17.0104C4.32856 16.684 4.16536 16.2917 4.16536 15.8333V5H3.33203V3.33333H7.4987V2.5H12.4987V3.33333H16.6654V5H15.832V15.8333C15.832 16.2917 15.6688 16.684 15.3424 17.0104C15.0161 17.3368 14.6237 17.5 14.1654 17.5H5.83203ZM14.1654 5H5.83203V15.8333H14.1654V5ZM7.4987 14.1667H9.16536V6.66667H7.4987V14.1667ZM10.832 14.1667H12.4987V6.66667H10.832V14.1667Z" fill="#646464" />
+                                                    </g>
+                                                </svg>
+
+                                            </div>
+
+                                        </div>
+
+
+                                    </div>
+                                ))}
+                                {addSocialData &&
+                                    <div>
+                                        <div className="flex flex-col gap-3">
+                                            <div className="flex flex-col gap-2 w-full">
+
+                                                <div className="w-full border-[1px] border-[#9D9D9D] rounded-[8px] px-[16px] py-[12px] ">
+                                                    <input
+                                                        type="text"
+                                                        name="platform"
+                                                        id=""
+                                                        placeholder=" Your Social Name eg. Linkedin, Behance"
+                                                        className="w-full text-[14px] font-montserrat font-small"
+                                                        value={currentSocial.platform}
+                                                        onChange={handleInputChangeSocial}
+                                                        disabled={!isCheckedSocial}
+                                                    />
+                                                </div>
+                                                <div className="w-full border-[1px] border-[#9D9D9D] rounded-[8px] px-[16px] py-[12px] ">
+                                                    <input
+                                                        type="text"
+                                                        name="link"
+                                                        id=""
+                                                        placeholder="Enter your social Profile URL"
+                                                        className="w-full text-[14px] font-montserrat font-small"
+                                                        value={currentSocial.link}
+                                                        onChange={handleInputChangeSocial}
+                                                        disabled={!isCheckedSocial}
+                                                    />
+                                                </div>
+
+                                            </div>
+
+
+
+
+                                            <div className="flex flex-col gap-2 w-full">
+                                                <div className="w-full text-[14px] font-montserrat  font-medium">
+                                                    Description
+                                                </div>
+
+                                                <div className="w-full border-[1px] border-[#9D9D9D] rounded-[12px]  p-[12px] min-h-[140px]">
+                                                    <textArea
+                                                        type="text"
+                                                        name=""
+                                                        id=""
+                                                        placeholder="Describe about your Profile"
+                                                        className="w-full text-[14px] font-montserrat font-small outline-none h-full "
+                                                    />
+                                                </div>
+                                                <p className='flex justify-end text-[14px] font-normal text-[#646464]'>250 characters left</p>
+                                            </div>
+
+
+                                        </div>
+                                        <div className="flex justify-end ">
+                                            <div className='flex justify-between  py-2 gap-2'>
+                                                <button className=" font-montserrat text-xs font-semibold px-[12px] rounded-[8px] border border-[#06A9EF] w-[137px] h-[32px]">
+                                                    Update to Profile
+                                                </button>
+                                                <button style={{ opacity: isModifiedSocial ? 1 : 0.3 }} onClick={handleSaveSocial} disabled={!isModifiedSocial || !isCheckedSocial} className=" font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px]  bg-[#06A9EF] w-[60px] h-[32px]">
+                                                    Save
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                                {!addSocialData &&
+                                    <div className='flex gap-1'>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+
+                                            <g mask="url(#mask0_5716_136351)">
+                                                <path d="M11 13H5V11H11V5H13V11H19V13H13V19H11V13Z" fill="#06A9EF" />
+                                            </g>
+                                        </svg>
+                                        <p onClick={() => setAddSocialData(true)} className='text-[16px] font-semibold text-[#06A9EF]' disabled={!isCheckedSocial} >Add More</p>
+
+                                    </div>
+                                }
                             </div>
 
-                            <div className="flex flex-col p-4 gap-2 rounded-lg bg-white" style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}>
-                                <div className="flex flex-col gap-2 w-full">
-                                    <div className="w-full text-[20px] font-montserrat  font-medium">
-                                        Languages
-                                    </div>
-                                    <div className='flex flex-col gap-4'>
-                                        {languages.map((languages, index) => (
-                                            <div key={index} className='flex gap-4 justify-between'>
-                                                <div className='flex gap-1 px-3 py-2 border border-[#06A9EF] rounded-[24px] justify-between items-center'>
-                                                    <p className='text-[14px] font-medium'>{languages.languages}</p>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" onClick={() => deleteLanguages(index)}>
+                                <div className="flex flex-col p-4 gap-2 rounded-lg bg-white" style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}>
+                                    <div className="flex flex-col gap-2 w-full">
+                                        <div className="w-full text-[20px] font-montserrat  font-medium">
+                                            Hobbies
+                                        </div>
+                                        <div className='flex flex-wrap gap-4'>
+                                            {Hobbies.map((hobby, index) => (
+                                                <div key={index} className='flex gap-1 px-3 py-2 border border-[#06A9EF] rounded-[24px] justify-between items-center'>
+                                                    <p className='text-[14px] font-medium'>{hobby.hobby}</p>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" onClick={() => deleteHobbies(index)}>
                                                         <g mask="url(#mask0_5716_136486)">
                                                             <path d="M6.0625 15L5 13.9375L8.9375 10L5 6.0625L6.0625 5L10 8.9375L13.9375 5L15 6.0625L11.0625 10L15 13.9375L13.9375 15L10 11.0625L6.0625 15Z" fill="#333333" />
                                                         </g>
                                                     </svg>
                                                 </div>
-                                                <div className="flex border w-[50%] border-[#DEDEDE] px-4 py-2 rounded-[8px] gap-4">
-                                                    {renderStarsLanguages(index)}
-                                                    <p>
-                                                        {languages.rating[2] !== 0 ? "Expert" : (languages.rating[1] !== 0 ? "Proficient" : "Beginner")}
-                                                    </p>
+                                            ))}
+                                        </div>
 
-                                                </div>
 
+                                        <div className="w-full border-[1px] border-[#9D9D9D] rounded-[12px]  p-[12px] ">
+                                            <input
+                                                type="text"
+                                                name=""
+                                                id=""
+                                                placeholder="Enter your hobbies"
+                                                className="w-full text-[14px] font-montserrat font-small"
+                                                value={currentHobbies}
+                                                onChange={handleInputChangeHobbies}
+                                            />
+                                        </div>
+                                        <div className="flex justify-end ">
+                                            <div className='flex justify-between  py-2 gap-2'>
+                                                <button className=" font-montserrat text-xs font-semibold px-[12px] rounded-[8px] border border-[#06A9EF] w-[137px] h-[32px]">
+                                                    Update to Profile
+                                                </button>
+                                                <button onClick={addHobby} className=" font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px]  bg-[#06A9EF] w-[60px] h-[32px]">
+                                                    Save
+                                                </button>
                                             </div>
-                                        ))}
-                                    </div>
-
-                                    <div className="w-full border-[1px] border-[#9D9D9D] rounded-[12px]  p-[12px] ">
-                                        <input
-                                            type="text"
-                                            name=""
-                                            id=""
-                                            placeholder="Enter your skills"
-                                            className="w-full text-[14px] font-montserrat font-small"
-                                            value={currentLanguages}
-                                            onChange={handleInputChangeLanguages}
-                                        />
-                                    </div>
-                                    <div className="flex justify-end ">
-                                        <div className='flex justify-between  py-2 gap-2'>
-                                            <button className=" font-montserrat text-xs font-semibold px-[12px] rounded-[8px] border border-[#06A9EF] w-[137px] h-[32px]">
-                                                Update to Profile
-                                            </button>
-                                            <button onClick={addLanguages} className=" font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px]  bg-[#06A9EF] w-[60px] h-[32px] ">
-                                                Save
-                                            </button>
                                         </div>
                                     </div>
                                 </div>
+
+                                <div className="flex flex-col p-4 gap-2 rounded-lg bg-white" style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}>
+                                    <div className="flex flex-col gap-2 w-full">
+                                        <div className="w-full text-[20px] font-montserrat  font-medium">
+                                            Languages
+                                        </div>
+                                        <div className='flex flex-col gap-4'>
+                                            {languages.map((languages, index) => (
+                                                <div key={index} className='flex gap-4 justify-between'>
+                                                    <div className='flex gap-1 px-3 py-2 border border-[#06A9EF] rounded-[24px] justify-between items-center'>
+                                                        <p className='text-[14px] font-medium'>{languages.languages}</p>
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" onClick={() => deleteLanguages(index)}>
+                                                            <g mask="url(#mask0_5716_136486)">
+                                                                <path d="M6.0625 15L5 13.9375L8.9375 10L5 6.0625L6.0625 5L10 8.9375L13.9375 5L15 6.0625L11.0625 10L15 13.9375L13.9375 15L10 11.0625L6.0625 15Z" fill="#333333" />
+                                                            </g>
+                                                        </svg>
+                                                    </div>
+                                                    <div className="flex border w-[50%] border-[#DEDEDE] px-4 py-2 rounded-[8px] gap-4">
+                                                        {renderStarsLanguages(index)}
+                                                        <p>
+                                                            {languages.rating[2] !== 0 ? "Expert" : (languages.rating[1] !== 0 ? "Proficient" : "Beginner")}
+                                                        </p>
+
+                                                    </div>
+
+                                                </div>
+                                            ))}
+                                        </div>
+
+                                        <div className="w-full border-[1px] border-[#9D9D9D] rounded-[12px]  p-[12px] ">
+                                            <input
+                                                type="text"
+                                                name=""
+                                                id=""
+                                                placeholder="Enter your skills"
+                                                className="w-full text-[14px] font-montserrat font-small"
+                                                value={currentLanguages}
+                                                onChange={handleInputChangeLanguages}
+                                            />
+                                        </div>
+                                        <div className="flex justify-end ">
+                                            <div className='flex justify-between  py-2 gap-2'>
+                                                <button className=" font-montserrat text-xs font-semibold px-[12px] rounded-[8px] border border-[#06A9EF] w-[137px] h-[32px]">
+                                                    Update to Profile
+                                                </button>
+                                                <button onClick={addLanguages} className=" font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px]  bg-[#06A9EF] w-[60px] h-[32px] ">
+                                                    Save
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
                             </div>
 
-
-                        </div>
-
-                        <div
-                            className="flex flex-col w-[49%] p-4 gap-[14px] rounded-lg bg-white shadow-md"
-                            style={{
-                                boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)",
-                            }}
-                        >
                             <div
-                                className="rounded-[8px] bg-[#BCEBFF]  px-4 pt-[10px] "
-
+                                className="flex flex-col w-[49%] p-4 gap-[14px] rounded-lg bg-white shadow-md"
+                                style={{
+                                    boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)",
+                                }}
                             >
-                                <div className=" flex gap-4 pb-[10px]" style={{ overflowX: "auto" }}>
-                                    <img
-                                        src="./images/services/resume-template-1.png"
-                                        className="h-[200px] w-[140.91px] rounded-[6px]"
-                                        alt=""
-                                    />
-                                    <img
-                                        src="./images/services/resume-template-2.png"
-                                        className="h-[200px] w-[140.91px] rounded-[6px]"
-                                        alt=""
-                                    />
-                                    <img
-                                        src="./images/services/resume-template-1.png"
-                                        className="h-[200px] w-[140.91px] rounded-[6px]"
-                                        alt=""
-                                    />
-                                    <img
-                                        src="./images/services/resume-template-2.png"
-                                        className="h-[200px] w-[140.91px] rounded-[6px]"
-                                        alt=""
-                                    />
-                                    <img
-                                        src="./images/services/resume-template-1.png"
-                                        className="h-[200px] w-[140.91px] rounded-[6px]"
-                                        alt=""
-                                    />
-                                    <img
-                                        src="./images/services/resume-template-2.png"
-                                        className="h-[200px] w-[140.91px] rounded-[6px]"
-                                        alt=""
-                                    />
-                                    <img
-                                        src="./images/services/resume-template-1.png"
-                                        className="h-[200px] w-[140.91px] rounded-[6px]"
-                                        alt=""
-                                    />
-                                </div>
-                            </div>
+                                <div
+                                    className="rounded-[8px] bg-[#BCEBFF]  px-4 pt-[10px] "
 
-                            <div className="flex justify-between">
-                                <div className=" text-[20px]  font-montserrat font-medium flex items-center">
-                                    Preview
-                                </div>
-
-                                <div className="flex gap-[16px]">
-                                    <button className="flex gap-1 text-[12px]  text-[#FFF] font-montserrat font-semibold px-3 py-[2px] rounded-[8px] items-center border border-[#06A9EF] bg-[#06A9EF]">
+                                >
+                                    <div className=" flex gap-4 pb-[10px]" style={{ overflowX: "auto" }}>
                                         <img
-                                            src="./images/services/add_link.png"
-                                            className="h-[24px] w-[24px] rounded-[6px]"
+                                            src="./images/services/resume-template-1.png"
+                                            className="h-[200px] w-[140.91px] rounded-[6px]"
                                             alt=""
                                         />
-                                        Attach
-                                    </button>
-
-                                    <button className=" text-[12px] text-[#333] font-montserrat font-semibold px-9 py-1 rounded-[8px] border border-[#06A9EF]">
-                                        Download Resume
-                                    </button>
+                                        <img
+                                            src="./images/services/resume-template-2.png"
+                                            className="h-[200px] w-[140.91px] rounded-[6px]"
+                                            alt=""
+                                        />
+                                        <img
+                                            src="./images/services/resume-template-1.png"
+                                            className="h-[200px] w-[140.91px] rounded-[6px]"
+                                            alt=""
+                                        />
+                                        <img
+                                            src="./images/services/resume-template-2.png"
+                                            className="h-[200px] w-[140.91px] rounded-[6px]"
+                                            alt=""
+                                        />
+                                        <img
+                                            src="./images/services/resume-template-1.png"
+                                            className="h-[200px] w-[140.91px] rounded-[6px]"
+                                            alt=""
+                                        />
+                                        <img
+                                            src="./images/services/resume-template-2.png"
+                                            className="h-[200px] w-[140.91px] rounded-[6px]"
+                                            alt=""
+                                        />
+                                        <img
+                                            src="./images/services/resume-template-1.png"
+                                            className="h-[200px] w-[140.91px] rounded-[6px]"
+                                            alt=""
+                                        />
+                                    </div>
                                 </div>
+
+                                <div className="flex justify-between">
+                                    <div className=" text-[20px]  font-montserrat font-medium flex items-center">
+                                        Preview
+                                    </div>
+
+                                    <div className="flex gap-[16px]">
+                                        <button className="flex gap-1 text-[12px]  text-[#FFF] font-montserrat font-semibold px-3 py-[2px] rounded-[8px] items-center border border-[#06A9EF] bg-[#06A9EF]">
+                                            <img
+                                                src="./images/services/add_link.png"
+                                                className="h-[24px] w-[24px] rounded-[6px]"
+                                                alt=""
+                                            />
+                                            Attach
+                                        </button>
+
+                                        <button className=" text-[12px] text-[#333] font-montserrat font-semibold px-9 py-1 rounded-[8px] border border-[#06A9EF]">
+                                            Download Resume
+                                        </button>
+                                    </div>
+                                </div>
+
+
+
+
+                                <img
+                                    src="./images/services/Resume-template-3.png"
+                                    className="h-[729px] w-[520px] rounded-[10px]"
+                                    alt=""
+                                />
+
                             </div>
-
-
-
-
-                            <img
-                                src="./images/services/Resume-template-3.png"
-                                className="h-[729px] w-[520px] rounded-[10px]"
-                                alt=""
-                            />
-
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    )
+            )
 }
 
-export default AiResumePage
+            export default AiResumePage
