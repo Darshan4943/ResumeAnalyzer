@@ -1,7 +1,7 @@
 import React from "react";
 function Employer_main() {
   return (
-    <div className="h-[560px]">
+    <div className="h-[560px] w-screen">
       <div className="h-full w-full bg-no-repeat bg-cover flex flex-col justify-center Employer_main_container">
         <div className="flex flex-col gap-[24px] w-[95%] customMargins">
           <div>
@@ -22,7 +22,7 @@ function Employer_main() {
             requirements.
           </div>
           <div>
-            <button className="bg-yellow font-bold inline-flex px-[48px] py-[18px] border-none justify-center items-center rounded-[12px] transition-all duration-200 employer_btn_class">
+            <button className="bg-[#ffda1d] font-bold inline-flex px-[48px] py-[18px] border-none justify-center items-center rounded-[12px] transition-all duration-200 employer_btn_class">
               Get started
             </button>
           </div>

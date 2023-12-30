@@ -19,11 +19,11 @@ function Profile2() {
                                     cy="60"
                                     r="59.2905"
                                     stroke="#646464"
-                                    stroke-width="1.419"
+                                    strokeWidth="1.419"
                                 />
                             </svg>
                             <div class="absolute left-[24px] bottom-[23px] w-[105px] h-[105px] rounded-full">
-                                <img src="./images/profile/john_doe.png" alt="" />
+                                <img src="/images/profile/john_doe.png" alt="" />
                             </div>
                         </div>
 
@@ -39,7 +39,7 @@ function Profile2() {
                                         </p>
                                     </div>
                                     <div class="w-[24px]">
-                                        <img src="./images/profile/edit.png" alt="" />
+                                        <img src="/images/profile/edit.png" alt="" />
                                     </div>
                                 </div>
                             </div>
@@ -48,7 +48,7 @@ function Profile2() {
                                     <div class="flex items-center gap-[5px]">
                                         <img
                                             class="w-[20px] h-[20px]"
-                                            src="./images/profile/location_on_john.png"
+                                            src="/images/profile/location_on_john.png"
                                             alt=""
                                         />
                                         <p class="text-[#333] font-montserrat text-[14px] font-normal">
@@ -58,7 +58,7 @@ function Profile2() {
                                     <div class="flex items-center gap-[5px]">
                                         <img
                                             class="w-[20px] h-[20px]"
-                                            src="./images/profile/business_center.png"
+                                            src="/images/profile/business_center.png"
                                             alt=""
                                         />
                                         <p class="text-[#333] font-montserrat text-[14px] font-normal">
@@ -68,7 +68,7 @@ function Profile2() {
                                     <div class="flex items-center gap-[5px]">
                                         <img
                                             class="w-[20px] h-[20px]"
-                                            src="./images/profile/call.png"
+                                            src="/images/profile/call.png"
                                             alt=""
                                         />
                                         <p class="text-[#333] font-montserrat text-[14px] font-normal">
@@ -80,7 +80,7 @@ function Profile2() {
                                     <div class="flex items-center gap-[5px]">
                                         <img
                                             class="w-[20px] h-[20px]"
-                                            src="./images/profile/school.png"
+                                            src="/images/profile/school.png"
                                             alt=""
                                         />
                                         <p class="text-[#333] font-montserrat text-[14px] font-normal">
@@ -90,7 +90,7 @@ function Profile2() {
                                     <div class="flex items-center gap-[5px]">
                                         <img
                                             class="w-[20px] h-[20px]"
-                                            src="./images/profile/mail_john.png"
+                                            src="/images/profile/mail_john.png"
                                             alt=""
                                         />
                                         <p class="text-[#333] font-montserrat text-[14px] font-normal">

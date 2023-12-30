@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import TextEditor from "../../../../components/common/textEditor";
 import DateSelector from "../../../../components/common/dateSelector";
-import AiResume from "~/components/featured/candidate/afterLogin/services/AiResume";
-import InterviewQue from "~/components/featured/candidate/afterLogin/services/InterviewQue";
-import DailyQuize from "~/components/featured/candidate/afterLogin/services/DailyQuize";
-import SkillAssessment from "~/components/featured/candidate/afterLogin/services/SkillAssessment";
+import AiResume from "@/components/featured/candidate/afterLogin/services/AiResume";
+import InterviewQue from "@/components/featured/candidate/afterLogin/services/InterviewQue";
+import DailyQuize from "@/components/featured/candidate/afterLogin/services/DailyQuize";
+import SkillAssessment from "@/components/featured/candidate/afterLogin/services/SkillAssessment";
 
 
 function Services() {
@@ -476,37 +476,37 @@ function Services() {
                         >
                             <div className=" flex gap-4 pb-[10px]" style={{ overflowX: "auto" }}>
                                 <img
-                                    src="./images/services/resume-template-1.png"
+                                    src="/images/services/resume-template-1.png"
                                     className="h-[200px] w-[140.91px] rounded-[6px]"
                                     alt=""
                                 />
                                 <img
-                                    src="./images/services/resume-template-2.png"
+                                    src="/images/services/resume-template-2.png"
                                     className="h-[200px] w-[140.91px] rounded-[6px]"
                                     alt=""
                                 />
                                 <img
-                                    src="./images/services/resume-template-1.png"
+                                    src="/images/services/resume-template-1.png"
                                     className="h-[200px] w-[140.91px] rounded-[6px]"
                                     alt=""
                                 />
                                 <img
-                                    src="./images/services/resume-template-2.png"
+                                    src="/images/services/resume-template-2.png"
                                     className="h-[200px] w-[140.91px] rounded-[6px]"
                                     alt=""
                                 />
                                 <img
-                                    src="./images/services/resume-template-1.png"
+                                    src="/images/services/resume-template-1.png"
                                     className="h-[200px] w-[140.91px] rounded-[6px]"
                                     alt=""
                                 />
                                 <img
-                                    src="./images/services/resume-template-2.png"
+                                    src="/images/services/resume-template-2.png"
                                     className="h-[200px] w-[140.91px] rounded-[6px]"
                                     alt=""
                                 />
                                 <img
-                                    src="./images/services/resume-template-1.png"
+                                    src="/images/services/resume-template-1.png"
                                     className="h-[200px] w-[140.91px] rounded-[6px]"
                                     alt=""
                                 />
@@ -521,7 +521,7 @@ function Services() {
                             <div className="flex gap-[16px]">
                                 <button className="flex gap-1 text-[12px]  text-[#FFF] font-montserrat font-semibold px-3 py-[2px] rounded-[8px] items-center border border-[#06A9EF] bg-[#06A9EF]">
                                     <img
-                                        src="./images/services/add_link.png"
+                                        src="/images/services/add_link.png"
                                         className="h-[24px] w-[24px] rounded-[6px]"
                                         alt=""
                                     />
@@ -538,7 +538,7 @@ function Services() {
 
 
                         <img
-                            src="./images/services/Resume-template-3.png"
+                            src="/images/services/Resume-template-3.png"
                             className="h-[729px] w-[520px] rounded-[10px]"
                             alt=""
                         />

@@ -1,55 +1,50 @@
-// home page 
+// home page
 
-.layer1{ 
+.layer1 {
   position: relative;
   z-index: 100 !important;
-	background-color: white;
+  background-color: white;
 }
-.layer2{
-	
-	background-color: white;
-	
+.layer2 {
+  background-color: white;
 }
 
-.layer3{
-	height: 180vh;
-	position: relative;
-	z-index: -100;
-	top: 200%;
+.layer3 {
+  height: 180vh;
+  position: relative;
+  z-index: -100;
+  top: 200%;
 }
 
-.layer4{
-	position: fixed;
-	
-	top: 6%;
-	z-index: 5;
-	background-color: white;
-}
-.layer5{
-	
-	position: fixed;
-	top: 6%;
-	left: 0%;
-	right: 0%;
-	z-index: 5;
-	background-color: white
-}
-.layer6{
-	position: fixed;
-	top: 10%;
-	left: 0%;
-	right: 0%;
-	z-index: -4;
-	
-}
-.layer7{
-	position: fixed;
-	top: 35%;
-	left: 0%;
-	right: 0%;
-	z-index: -4;
-}
+.layer4 {
+  position: fixed;
 
+  top: 6%;
+  z-index: 5;
+  background-color: white;
+}
+.layer5 {
+  position: fixed;
+  top: 6%;
+  left: 0%;
+  right: 0%;
+  z-index: 5;
+  background-color: white;
+}
+.layer6 {
+  position: fixed;
+  top: 10%;
+  left: 0%;
+  right: 0%;
+  z-index: -4;
+}
+.layer7 {
+  position: fixed;
+  top: 35%;
+  left: 0%;
+  right: 0%;
+  z-index: -4;
+}
 
 /* hero section */
 .hero_section_parent {
@@ -201,30 +196,28 @@
 
   .hr_animation_container {
     /* padding-left: 44px; */
-  
+
     transition: all 0.6s;
     display: flex;
     justify-content: flex-end;
     // width: 40vw;
-    width:40%;
+    width: 40%;
     height: 80vh;
     position: absolute;
     top: 27px;
     z-index: 20;
     // right: 0rem;
-  //  margin-right: 0 !important;
-  
+    //  margin-right: 0 !important;
+
     padding-right: 60px;
   }
-
- 
 
   .yellow_animation {
     position: absolute;
     transition: all 0.6s;
     // width: 30vw;
-    width: 87%; 
-   height: 59vh;
+    width: 87%;
+    height: 59vh;
     transform: rotate(20deg);
 
     top: 11%;
@@ -240,7 +233,7 @@
     // width: 30vw;
     width: 90%;
     // height: 84vh;
-    top:0%;
+    top: 0%;
     // right:22%;
     object-fit: contain;
     left: 22%;
@@ -266,7 +259,7 @@
     position: absolute;
     opacity: 0;
     // width: 59vh;
-    width:80%;
+    width: 80%;
     height: 70vh;
     left: 28%;
     flex-shrink: 0;
@@ -305,7 +298,7 @@
   .para_paragraf {
     color: var(--text-prmary, #333);
     text-align: justify;
-    font-family: Montserrat; 
+    font-family: Montserrat;
     color: #333;
     font-family: Montserrat;
     font-size: 140%;
@@ -390,8 +383,6 @@
     font-family: Montserrat, Arial, sans-serif;
   }
 }
-
-
 
 .forCandidate {
   position: relative;
@@ -641,7 +632,7 @@
   #trust {
     color: var(--text-prmary, #333);
     font-family: Montserrat;
-    font-size: 30px;
+    font-size: 28px;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
@@ -663,16 +654,16 @@
     flex-direction: column;
     align-items: center;
     margin-top: 3%;
-    gap: 10px;
+    gap: 14px;
     overflow: hidden !important;
   }
 
   #popular_job {
     color: var(--text-prmary, #333);
     font-family: Montserrat;
-    font-size: 48px;
+    font-size: 44px;
     font-style: normal;
-    font-weight: 700;
+    font-weight: 800;
     line-height: normal;
   }
 
@@ -694,7 +685,7 @@
     box-shadow: 0px 2px 5px 1px rgba(0, 0, 0, 0.25);
     display: flex;
     width: 168px;
-  height: 168px;
+    height: 168px;
     padding: 16px 6px;
     flex-direction: column;
     align-items: center;
@@ -705,7 +696,7 @@
   #card_budget {
     color: var(--text-prmary, #333);
     text-align: center;
-    
+
     font-size: 16px;
     font-style: normal;
     font-weight: 500;
@@ -739,12 +730,18 @@
     align-items: center;
     justify-content: center;
     max-width: 1440px;
-    margin: 24px 0;
+    margin: 36px 0;
   }
 }
-
-
-
+.profile_creation_wrapper {
+  // position: relative;
+  display: flex;
+  gap: 2vw;
+  padding: 0px 2vw;
+  box-sizing: border-box;
+  flex-direction: column;
+  overflow: hidden;
+}
 /* Profile_creation start here */
 .profile_creation_container {
   min-height: 100vh;
@@ -752,8 +749,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 24px;
+  // gap: 24px;
   overflow: hidden;
+  position: relative;
   // margin-top: 43px !important;
 
   @media (min-width: 1440px) {
@@ -782,6 +780,7 @@
       font-size: 50px;
     }
   }
+
   .profile_creation_head_one {
     color: var(--text-prmary, #333);
     font-family: Montserrat;
@@ -811,6 +810,7 @@
     margin-bottom: 8px;
     border-radius: 50px;
   }
+
   .profile_creation_sub_container_two {
     min-width: 651px;
     min-height: 550px;
@@ -1322,7 +1322,7 @@
     position: absolute;
     backdrop-filter: blur(12px) saturate(150%);
     background: rgba(255, 255, 255, 0.155);
-    z-index: 10000;
+    z-index: 100;
     transition: all 0.8s;
   }
 

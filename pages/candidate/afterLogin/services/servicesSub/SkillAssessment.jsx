@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react'
-import Profile1 from '~/components/featured/candidate/afterLogin/services/Profile1';
+import Profile1 from '@/components/featured/candidate/afterLogin/services/Profile1';
 
 
 function SkillAssessment() {
@@ -87,7 +87,7 @@ function SkillAssessment() {
                                     viewBox="0 0 30 30"
                                     fill="none"
                                 >
-                                    <g clip-path="url(#clip0_4403_58310)">
+                                    <g clipPath="url(#clip0_4403_58310)">
                                         <path
                                             d="M28.7109 15.6445C28.7109 23.5729 22.2838 30 14.3555 30C6.42715 30 0 23.5729 0 15.6445C0 7.71621 6.42715 1.28906 14.3555 1.28906C22.2838 1.28906 28.7109 7.71621 28.7109 15.6445Z"
                                             fill="#00C1FB"
@@ -263,7 +263,7 @@ function SkillAssessment() {
                                         viewBox="0 0 30 30"
                                         fill="none"
                                     >
-                                        <g clip-path="url(#clip0_4403_58133)">
+                                        <g clipPath="url(#clip0_4403_58133)">
                                             <path
                                                 d="M28.7109 15.6445C28.7109 23.5729 22.2838 30 14.3555 30C6.42715 30 0 23.5729 0 15.6445C0 7.71621 6.42715 1.28906 14.3555 1.28906C22.2838 1.28906 28.7109 7.71621 28.7109 15.6445Z"
                                                 fill="#00C1FB"

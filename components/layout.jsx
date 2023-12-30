@@ -1,81 +1,65 @@
-import { connect } from "react-redux";
-
 import "react-toastify/dist/ReactToastify.min.css";
 import { useRouter } from "next/router";
 import Header from "./partials/header/header";
 import Footer from "./partials/footer/footer";
-import Lenis from "@studio-freight/lenis";
-import { actions } from "../store/demo";
 import { useRef, useEffect, useState } from "react";
 import Header2 from "./partials/header/header2";
 import Sidebar from "./partials/header/sidebar";
-import Breadcrumb from "./common/BreadCrumb";
+import { ToastContainer } from "react-toastify";
 
 function Layout({ children }) {
   const router = useRouter();
- const [selectedPage, setSelectedPage] = useState("");
+  const [selectedPage, setSelectedPage] = useState("");
 
   useEffect(() => {
     setSelectedPage(router.pathname);
   }, [router.pathname]);
-  
 
-  // const mainRef = useRef();
-  // useEffect(() => {
-  //   const lenis = new Lenis({
-  //     target: mainRef.current,
-  //   });
-
-  //   lenis.on("scroll", (e) => {
-  //     console.log(e);
-  //   });
-
-  //   function raf(time) {
-  //     lenis.raf(time);
-  //     requestAnimationFrame(raf);
-  //   }
-
-  //   requestAnimationFrame(raf);
-  // });
   const Temp = () => (
     <div>
-      <div >
+      <div>
         <Header />
       </div>
-      <div className="mt-[5rem]  ">
-        {children}
-      </div>
+      <div className="mt-[5rem] min-h-screen ">{children}</div>
 
       <Footer />
-
     </div>
-  )
+  );
   const Temp2 = () => (
     <div className="">
-      <div >
+      <div>
         <Header2 />
       </div>
 
       <div className="flex bg-[#F3F3F3] ">
         <div>
-        <Sidebar />
+          <Sidebar />
         </div>
-        <div className="  pt-[100px] w-[100%] px-5 overflow-hidden max-h-[95vh]">
-          <Breadcrumb/>
-        {children}
-        </div>
+        <div className="  pt-[135px] w-[100%] px-5">{children}</div>
       </div>
     </div>
-  )
+  );
   return (
     <>
-      {/* <div ref={mainRef}> */}
-      {
-      selectedPage.startsWith('/employer/afterLogin') ? <Temp2 /> : <Temp />
-
-      }
+      {selectedPage === "/employer/afterLogin/EmployerHome" ? (
+        <Temp2 />
+      ) : (
+        <Temp />
+      )}
+      {/* <ToastContainer
+        position="bottom-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      /> */}
     </>
   );
 }
 
-export default connect(null, { ...actions })(Layout);
+export default Layout;

@@ -1,5 +1,5 @@
 import React from "react";
-import ALink from "~/components/alink";
+import ALink from "@/components/alink";
 
 function Sign_in() {
   return (
@@ -54,7 +54,7 @@ function Sign_in() {
             <div className="w-[50%] h-[1px] bg-[#9D9D9D]"></div>
           </div>
           <div className="flex flex-col gap-[16px]">
-            <ALink href="/Auth/Sign_up">
+            <ALink href="/auth/Sign_up">
               <button className="w-full px-[36px] py-[12px] rounded-[12px] border-[1px] border-solid border-[#06a9ef] bg-[#06a9ef] text-white text-[20px] font-[500] hover:text-[#333]  continue_btn">
                 Sign up
               </button>

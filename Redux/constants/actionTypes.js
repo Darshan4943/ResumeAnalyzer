@@ -24,3 +24,6 @@ export const OrderActionType = {
 export const CartAction = {
     SET_CART : 'SET_CART',
 }
+export const UserAction = {
+    SET_USER_DATA : 'SET_USER_DATA',
+}

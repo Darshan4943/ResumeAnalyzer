@@ -1,60 +1,85 @@
 import React, { useState, useEffect } from "react";
+import { Parallax } from "react-scroll-parallax";
 // import "./EarthAnimation.css";
 const Employer_hire_candidates = () => {
   const divs = [
     <div className="Employer_hire_candidates_images_container">
       <img
-        src="images/employer/Employer_hire_candidates/earth1.png"
+        src="/images/employer/Employer_hire_candidates/earth1.png"
         alt=""
         className="Employer_hire_candidates_images"
       />
       <div id="earth"></div>
-      <img src="images/employer/Employer_hire_candidates/tethescope.png" alt="" className="tethescope" />
+      <img
+        src="/images/employer/Employer_hire_candidates/tethescope.png"
+        alt=""
+        className="tethescope"
+      />
     </div>,
     <div className="Employer_hire_candidates_images_container">
       <img
-        src="images/employer/Employer_hire_candidates/earth2.png"
+        src="/images/employer/Employer_hire_candidates/earth2.png"
         alt=""
         className="Employer_hire_candidates_images"
       />
       <div id="earth"></div>
-      <img src="images/employer/Employer_hire_candidates/tethescope.png" alt="" className="tethescope" />
+      <img
+        src="/images/employer/Employer_hire_candidates/tethescope.png"
+        alt=""
+        className="tethescope"
+      />
     </div>,
     <div className="Employer_hire_candidates_images_container">
       <img
-        src="images/employer/Employer_hire_candidates/earth3.png"
+        src="/images/employer/Employer_hire_candidates/earth3.png"
         alt=""
         className="Employer_hire_candidates_images"
       />
       <div id="earth"></div>
-      <img src="images/employer/Employer_hire_candidates/tethescope.png" alt="" className="tethescope" />
+      <img
+        src="/images/employer/Employer_hire_candidates/tethescope.png"
+        alt=""
+        className="tethescope"
+      />
     </div>,
     <div className="Employer_hire_candidates_images_container">
       <img
-        src="images/employer/Employer_hire_candidates/earth4.png"
+        src="/images/employer/Employer_hire_candidates/earth4.png"
         alt=""
         className="Employer_hire_candidates_images"
       />
       <div id="earth"></div>
-      <img src="images/employer/Employer_hire_candidates/tethescope.png" alt="" className="tethescope" />
+      <img
+        src="/images/employer/Employer_hire_candidates/tethescope.png"
+        alt=""
+        className="tethescope"
+      />
     </div>,
     <div className="Employer_hire_candidates_images_container">
       <img
-        src="images/employer/Employer_hire_candidates/earth5.png"
+        src="/images/employer/Employer_hire_candidates/earth5.png"
         alt=""
         className="Employer_hire_candidates_images"
       />
       <div id="earth"></div>
-      <img src="images/employer/Employer_hire_candidates/tethescope.png" alt="" className="tethescope" />
+      <img
+        src="/images/employer/Employer_hire_candidates/tethescope.png"
+        alt=""
+        className="tethescope"
+      />
     </div>,
     <div className="Employer_hire_candidates_images_container">
       <img
-        src="images/employer/Employer_hire_candidates/earth6.png"
+        src="/images/employer/Employer_hire_candidates/earth6.png"
         alt=""
         className="Employer_hire_candidates_images"
       />
       <div id="earth"></div>
-      <img src="images/employer/Employer_hire_candidates/tethescope.png" alt="" className="tethescope" />
+      <img
+        src="/images/employer/Employer_hire_candidates/tethescope.png"
+        alt=""
+        className="tethescope"
+      />
     </div>,
   ];
   const [currentDivIndex, setCurrentDivIndex] = useState(0);
@@ -70,10 +95,12 @@ const Employer_hire_candidates = () => {
   }, [currentDivIndex]);
 
   return (
-    <div className="Employer_hire_candidates_container customMargins">
+    <div className="Employer_hire_candidates_container customMargins w-screen">
+       <Parallax speed={-10}>
       <div className="Employer_hire_candidates_images_main_container">
         {divs[currentDivIndex]}
       </div>
+      </Parallax>
       <div className="Employer_hire_candidates_wrapper">
         <div className="hire_candidates_head">
           Hire candidates across the world

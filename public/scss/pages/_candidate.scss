@@ -622,7 +622,7 @@
             /* position: relative; */
             display: flex;
 
-            align-items: end;
+            align-items: flex-end;
             flex-direction: column;
             gap: 2px;
             justify-content: space-between;
@@ -917,7 +917,7 @@
               position: relative;
               display: flex;
               align-items: center;
-              justify-content: start;
+              justify-content: flex-start;
 
               .candidate_educ_info {
                 color: var(--white, #fff);
@@ -932,7 +932,7 @@
                 width: 100px;
                 /* position: absolute; */
                 display: flex;
-                justify-content: start;
+                justify-content: flex-start;
                 align-items: center;
               }
             }

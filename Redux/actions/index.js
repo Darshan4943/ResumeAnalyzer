@@ -86,26 +86,11 @@ export const incNumber = ()=>{
         type:"INCREMENT"
     }
 }
-export const reCallAddress = ()=>{
+export const inCartNumber = ()=>{
 
 
     return{
-        type:"RECALL"
-    }
-}
-export const reCallCart = ()=>{
-    return{
-        type:"RECALLCART"
-    }
-}
-export const setLoginVisible = ()=>{
-    return{
-        type:"loginVisible"
-    }
-}
-export const setLoginNonVisible = ()=>{
-    return{
-        type:"loginNonVisible"
+        type:"recallCart"
     }
 }
 export const decNumber = ()=>{

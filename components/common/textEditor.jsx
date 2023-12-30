@@ -2,8 +2,9 @@
 // import ReactQuill from "react-quill";
 // import "react-quill/dist/quill.snow.css";
 
-// const TextEditor = ({ onDataUpdate }) => {
-//   const [aboutData, setAboutData] = useState("");
+
+// const TextEditor = () => {
+//   const [editorHtml, setEditorHtml] = useState("");
 
 //   const modules = {
 //     toolbar: [
@@ -15,25 +16,37 @@
 //         { indent: "-1" },
 //         { indent: "+1" },
 //       ],
-//       ["image"],
+//       [ "image"],
 //       ["clean"],
 //     ],
 //   };
 
-//   const handleEditorChange = (content) => {
-//     setAboutData(content);
-//     onDataUpdate(content);
-//   };
+//   const formats = [
+    
+//     "font",
+//     "size",
+//     "bold",
+//     "italic",
+//     "underline",
+//     "strike",
+//     "blockquote",
+//     "list",
+//     "bullet",
+//     "indent",
+   
+//   ];
 
 //   return (
 //     <div>
 //       <ReactQuill
 //         theme="snow"
-//         value={aboutData}
-//         onChange={handleEditorChange}
+//         value={editorHtml}
+//         onChange={setEditorHtml}
 //         modules={modules}
+//         formats={formats}
 //         placeholder="Describe about your work"
-//         style={{ height: "90px", marginBottom: "40px" }}
+       
+//         style={{ height: "155px" }}
 //       />
 //     </div>
 //   );

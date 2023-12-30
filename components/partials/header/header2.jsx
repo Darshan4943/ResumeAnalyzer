@@ -6,7 +6,7 @@ function Header2() {
 
             <div className="flex  items-center  px-2">
 
-                <img className='w-[104px] h-[36.317px]' src="./images/logo_skilotech.png" alt="" />
+                <img className='w-[104px] h-[36.317px]' src="/images/logo_skilotech.png" alt="" />
 
             </div>
 
@@ -33,7 +33,7 @@ function Header2() {
                     <div className="flex items-center gap-2">
 
                         <div className="">
-                            <img src="./images/profile_icon.png" className="w-[40px] h-[40px]" alt="" />
+                            <img src="/images/profile_icon.png" className="w-[40px] h-[40px]" alt="" />
                         </div>
 
                         <div className=" flex items-center ">
@@ -41,7 +41,7 @@ function Header2() {
                             John Doe
 
                             <img
-                                src="./images/down_arrow.png"
+                                src="/images/down_arrow.png"
                                 className="h-4 w-4 ml-1  "
                                 alt=""
 

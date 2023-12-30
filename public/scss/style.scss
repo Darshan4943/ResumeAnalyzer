@@ -1,8 +1,5 @@
 @charset "UTF-8";
-@import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
-
-
-
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap");
 
 @import "base/headers/header";
 @import "pages/recruiter";
@@ -15,39 +12,33 @@
 @import "pages/profile";
 @import "custom";
 
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
 
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
-
+*,
+html {
+  font-family: "Montserrat", sans-serif;
+}
 @layer utilities {
-    .bg-vector {
-      background-image: url('../images/candidate/Vector.png');
-      
-    }
-    .bg-recruiter_back {
-      background-image: url('../images/recruiter/recruiter_back.png');
-    }
-
-    .bg-Ai_resume {
-      background-image: url("../images/services/AiResumeBck.png");
-    }
-    .bg-InterviewQue {
-      background-image: url("../images/services/InterviewQue.png");
-      object-fit: cover;
-    }
-    .bg-SkillAssessment {
-      background-image: url("../images/services/SkillAssessment.png");
-    }
-    .bg-DailyQuize {
-      background-image: url("../images/services/DailyQuize.png");
-    }
-
-    
+  .bg-vector {
+    background-image: url("../images/candidate/Vector.png");
+  }
+  .bg-recruiter_back {
+    background-image: url("../images/recruiter/recruiter_back.png");
   }
 
-
-
-  .temp{
-    overflow: unset !important;
+  .bg-Ai_resume {
+    background-image: url("../images/services/AiResumeBck.png");
   }
+  .bg-InterviewQue {
+    background-image: url("../images/services/InterviewQue.png");
+    object-fit: cover;
+  }
+  .bg-SkillAssessment {
+    background-image: url("../images/services/SkillAssessment.png");
+  }
+  .bg-DailyQuize {
+    background-image: url("../images/services/DailyQuize.png");
+  }
+}

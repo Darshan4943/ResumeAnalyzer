@@ -1,31 +1,14 @@
 import axios from "axios";
-import { useRouter } from "next/router";
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import { useDispatch, useSelector, useStore } from "react-redux";
-import { toast } from "react-toastify";
-import jwt from "jsonwebtoken";
-import {
-  setAddress,
-  setAllProducts,
-  setBanners,
-  setCart,
-  setCategory,
-  setIsServisable,
-  setLoactionAllowed,
-  setLoactionDenied,
-  setNonServisable,
-  setOrder,
-  setTag,
-  setWalletPoints,
-} from "./actions";
+import { userAction } from "./actions/user";
+import { jwtDecode } from "jwt-decode";
 
 export const Api = () => {
   const store = useStore();
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
   const myState = useSelector((state) => state.changeNumber);
-  const reCallCart = useSelector((state) => state.reCallCart);
-
   function shuffle(array) {
     for (let i = array.length - 1; i > 0; i--) {
       let j = Math.floor(Math.random() * (i + 1));
@@ -35,10 +18,26 @@ export const Api = () => {
     }
     return array;
   }
-  const state = useSelector((state) => state);
-  const router = useRouter();
-  const [locationBlocked, setLocationBlocked] = useState(false);
 
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const token = localStorage.getItem("authToken");
+      if (token && token != "undefined") {
+        const decoded = jwtDecode(token);
+
+        axios
+          .post("http://localhost:2000/api/candidate/" + decoded._id)
+          .then((res) => {
+            const decode = jwtDecode(res.data.data);
+            dispatch(userAction({ ...decode._doc, profileScore: res.data.profileScore
+            }));
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+    }
+  }, []);
 
   return <></>;
 };

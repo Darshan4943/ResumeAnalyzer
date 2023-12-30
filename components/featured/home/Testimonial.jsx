@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 // import "./App.css";
 
 function Testimonial() {
+  const [isMoving, setIsMoving] = useState(true);
   const [positions, setPositions] = useState([
     {
       left: "unset",
@@ -47,38 +48,27 @@ function Testimonial() {
   const shiftClockwise = () => {
     setPositions((prevPositions) => {
       const newPositions = [...prevPositions];
-      // The last position will become the first one
       newPositions.unshift(newPositions.pop());
-      return newPositions;
-    });
-  };
-  const shiftAntiClockwise = () => {
-    setPositions((prevPositions) => {
-      const newPositions = [...prevPositions];
-      // The last position will become the first one
-      newPositions.push(newPositions.shift());
       return newPositions;
     });
   };
   useEffect(() => {
     const intervalId = setInterval(shiftClockwise, 3000);
-
     return () => clearInterval(intervalId);
   }, []);
 
-  // blurr box
-  const [isMoving, setIsMoving] = useState(true);
   useEffect(() => {
     const intervalId = setInterval(() => {
       setIsMoving((prev) => !prev);
     }, 3000);
-
     return () => clearInterval(intervalId);
   }, []);
-  console.log(isMoving);
   return (
-    <>
-      <div className="testimonial_container customMargins" style={{ overflow: "hidden" }}>
+    <div className="h-[36rem">
+      <div
+        className="testimonial_container customMargins"
+        style={{ overflow: "hidden" }}
+      >
         <p className="testimonial_container_head">
           What our clients say about us..
         </p>
@@ -88,7 +78,9 @@ function Testimonial() {
               {positions.map((position, index) => (
                 <img
                   key={index}
-                  src={`images//home/scroller-img_${index + 1}.png`}
+                  src={`/images/home/company_logs/scroller-img_${
+                    index + 1
+                  }.png`}
                   alt={`Image ${index + 1}`}
                   className={`gallary-item ${position.class}`}
                 />
@@ -100,7 +92,36 @@ function Testimonial() {
           ></div>
         </div>
       </div>
-    </>
+      <div className="testimonial_2_container customMargins">
+        <div className="testimonial_2_wrapper">
+          <div className="testimonial_2_paraghrph One_para">
+            <div className="testimonial_2_para ">
+              “Skilotech has been an invaluable partner in our quest for skilled
+              talent. Their platform simplifies the hiring process, connecting
+              us with highly qualified professionals in our industry. The
+              personalized support and insights provided by Skilotech have
+              elevated our recruitment efforts, making them a go-to resource for
+              our talent needs.”
+            </div>
+            <div className="testimonial_2_director_head">
+              John Doe <br />
+              <span className="testimonial_2_director">Director</span>
+            </div>
+          </div>
+          <div className="testimonial_2_paraghrph Two_para">
+            <div className="testimonial_2_para ">
+              “Skilotech has been an invaluable partner in our quest for skilled
+              talent. Their platform simplifies the hiring process, connecting
+              us with highly qualified professionals in our industry.”
+            </div>
+            <div className="testimonial_2_director_head">
+              John Doe <br />{" "}
+              <span className="testimonial_2_director">Director</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
 

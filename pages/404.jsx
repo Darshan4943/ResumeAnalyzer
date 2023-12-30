@@ -39,7 +39,7 @@ function ErrorPage() {
             >
               <div>
                 <img
-                  src="/images/error-occured.png"
+                  src="/imagess/error-occured.png"
                   style={{
                     width: "100%",
                     height: "100%",
@@ -56,7 +56,7 @@ function ErrorPage() {
                 Go to Home Page
                 <img
                   style={{ width: "24px", height: "24px" }}
-                  src="/images/arrowIcon.png"
+                  src="/imagess/arrowIcon.png"
                 />
               </div>
             </div>
@@ -67,7 +67,7 @@ function ErrorPage() {
           >
             <img
               style={{ width: "100%", height: "100%", objectFit: "contain" }}
-              src="/images/404page.png"
+              src="/imagess/404page.png"
             />
           </div>
           {/* <div className="row">

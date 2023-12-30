@@ -63,7 +63,7 @@ function DailyQuize() {
             {" "}
             <div className="flex justify-center items-center w-[100px]">
               <img
-                src="./images/services/Gain_Valuable_Insights.png"
+                src="/images/services/Gain_Valuable_Insights.png"
                 alt=""
                 className="w-[100px] h-[100px] "
               />
@@ -93,7 +93,7 @@ function DailyQuize() {
           >
             <div className="flex justify-center items-center ">
               <img
-                src="./images/services/Limit_Pushing_Challenges.png"
+                src="/images/services/Limit_Pushing_Challenges.png"
                 alt=""
                 className="w-[100px] h-[100px]"
               />

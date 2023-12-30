@@ -1,5 +1,5 @@
 import React from "react";
-import ALink from "~/components/alink";
+import ALink from "@/components/alink";
 
 
 const ArrowLeft = ({ index }) => (
@@ -22,6 +22,7 @@ const ArrowLeft = ({ index }) => (
 
 function Sign_up() {
   return (
+    <>
     <div className="flex justify-center  item-center h-full w-full earth_container mt-[24px]">
       <div className="w-[40%] flex flex-col gap-[36px] pt-[72px] pb-[145px]">
         <div>
@@ -35,7 +36,7 @@ function Sign_up() {
         </div>
         <div className="flex justify-center item-center">
           <div className="flex flex-col gap-[24px] px-[94.5px]">
-          <ALink href="/Auth/CandidateAiPower">
+          <ALink href="/auth/Candidate_register">
             <div className="p-[16px] flex flex-row justify-between rounded-[16px] relative sign_up_shadow">
               <div className="flex flex-row justify-center item-center gap-[8px] ">
                 <div className="flex items-center">
@@ -47,7 +48,7 @@ function Sign_up() {
                       viewBox="0 0 25 24"
                       fill="none"
                     >
-                      <g clip-path="url(#clip0_3813_27793)">
+                      <g clipPath="url(#clip0_3813_27793)">
                         <path
                           d="M21.0358 12.812H19.1797C19.3689 13.33 19.4722 13.889 19.4722 14.4716V21.4864C19.4722 21.7293 19.43 21.9625 19.353 22.1793H22.4215C23.5678 22.1793 24.5002 21.2468 24.5002 20.1006V16.2765C24.5003 14.3662 22.9461 12.812 21.0358 12.812Z"
                           fill="#333333"
@@ -102,17 +103,12 @@ function Sign_up() {
                 </div>
               </div>
               <div className="flex justify-center items-center">
-                {/* <img
-                  src="./images/sign_up/arrow_forward_btn.png"
-                  alt=""
-                  className="h-[30px] w-[30px] flex items-center temp"
-                /> */}
                 <ArrowLeft />
               </div>
               <div className="h-[100%] w-[0%] bg-[#06a9ef] absolute z-[-1] top-[0px] left-[0]  sign_up_blue_hover"></div>
             </div>
           </ALink>
-          <ALink href="/Auth/Employer_register">
+          <ALink href="/auth/Employer_register">
             <div className="p-[16px] flex flex-row justify-between rounded-[16px] relative sign_up_shadow">
               <div className="flex flex-row justify-center item-center gap-[8px] ">
                 <div className="flex items-center">
@@ -125,7 +121,7 @@ function Sign_up() {
                       viewBox="0 0 25 24"
                       fill="none"
                     >
-                      <g clip-path="url(#clip0_3813_33761)">
+                      <g clipPath="url(#clip0_3813_33761)">
                         <path
                           d="M8.2274 10.1756C8.44604 11.5968 9.54424 13.4056 11.3481 14.0417C12.0885 14.3001 12.8985 14.3051 13.6389 14.0367C15.4129 13.3957 16.5459 11.5919 16.7695 10.1756C17.008 10.1558 17.3211 9.82283 17.659 8.62525C18.1211 6.99038 17.6291 6.74689 17.2117 6.78664C17.2912 6.56302 17.3509 6.33444 17.3906 6.11579C18.0963 1.87706 16.0092 1.73295 16.0092 1.73295C16.0092 1.73295 15.6613 1.06708 14.752 0.565186C14.1408 0.202433 13.291 -0.0758426 12.173 0.0185724C11.8102 0.03348 11.4673 0.108018 11.1443 0.212372C10.7319 0.35151 10.3542 0.555247 10.0113 0.793769C9.59393 1.05714 9.19639 1.38511 8.84855 1.7578C8.29697 2.32429 7.80501 3.05476 7.59134 3.96413C7.41245 4.64491 7.4522 5.35551 7.60128 6.12076C7.64103 6.34438 7.70066 6.56799 7.78017 6.79161C7.36275 6.75185 6.8708 6.99535 7.33294 8.63022C7.67581 9.82283 7.98888 10.1558 8.2274 10.1756Z"
                           fill="#333333"
@@ -161,7 +157,7 @@ function Sign_up() {
               <div className="h-[100%] w-[0%] bg-[#FFDA1D] absolute z-[-1] top-[0px] left-[0]  sign_up_blue_hover"></div>
             </div>
           </ALink>
-          <ALink href="/Auth/Recruiter_register">
+          <ALink href="/auth/Recruiter_register">
             <div className="p-[16px] flex flex-row justify-between rounded-[16px] relative sign_up_shadow">
               <div className="flex flex-row justify-center item-center gap-[8px] ">
                 <div className="flex items-center">
@@ -173,7 +169,7 @@ function Sign_up() {
                       viewBox="0 0 25 24"
                       fill="none"
                     >
-                      <g clip-path="url(#clip0_3813_27618)">
+                      <g clipPath="url(#clip0_3813_27618)">
                         <path
                           d="M24.5 11.2851H22.115C21.7645 6.53381 17.9665 2.73605 13.2149 2.38485V0H11.7851V2.38485C7.0337 2.73605 3.23536 6.5337 2.88485 11.2851H0.5V12.7149H2.88485C3.23536 17.4666 7.0337 21.264 11.7851 21.6151V24H13.2149V21.6151C17.9665 21.264 21.7645 17.4666 22.115 12.7149H24.5V11.2851ZM12.5001 20.2215C7.96689 20.2215 4.2785 16.5331 4.2785 11.9999C4.2785 7.46677 7.96689 3.77839 12.5001 3.77839C17.0332 3.77839 20.7216 7.46677 20.7216 11.9999C20.7216 16.5331 17.0332 20.2215 12.5001 20.2215Z"
                           fill="#333333"
@@ -217,6 +213,8 @@ function Sign_up() {
       </div>
     </div>
     </div >
+    
+    </>
   );
 }
 

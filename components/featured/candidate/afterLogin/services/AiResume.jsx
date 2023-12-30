@@ -66,7 +66,7 @@ function AiResume() {
             }}
           >
             <img
-              src="./images/services/AI_suggestion_pic.png"
+              src="/images/services/AI_suggestion_pic.png"
               alt=""
               className="w-[96px] h-[96px]"
             />
@@ -98,7 +98,7 @@ function AiResume() {
               </div>
             </div>
             <img
-              src="./images/services/Professional_Templates_pic.png"
+              src="/images/services/Professional_Templates_pic.png"
               alt=""
               className="w-[96px] h-[96px]"
             />
@@ -114,7 +114,7 @@ function AiResume() {
             }}
           >
             <img
-              src="./images/services/Preview_pic.png"
+              src="/images/services/Preview_pic.png"
               alt=""
               className="w-[96px] h-[96px]"
             />

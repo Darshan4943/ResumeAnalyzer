@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import ALink from "~/components/alink";
+import ALink from "@/components/alink";
 
 function Recruiter_register() {
   const [infoContinue, setInfoContinue] = useState(1);
@@ -101,28 +101,28 @@ function Recruiter_register() {
                 <div className="four_img_cont">
                   <div className="img_contener1">
                     <img
-                      src="./images/auth/employer/rec_img1.png"
+                      src="/images/auth/employer/rec_img1.png"
                       alt=""
                       className="first_img_div"
                     />
                   </div>
                   <div className="img_contener2">
                     <img
-                      src="./images/auth/employer/rec_img2.png"
+                      src="/images/auth/employer/rec_img2.png"
                       alt=""
                       className="sec_img_div"
                     />
                   </div>
                   <div className="img_contener3">
                     <img
-                      src="./images/auth/employer/rec_img3.png"
+                      src="/images/auth/employer/rec_img3.png"
                       alt=""
                       className="three_img_div"
                     />
                   </div>
                   <div className="img_contener4">
                     <img
-                      src="./images/auth/employer/rec_img4.png"
+                      src="/images/auth/employer/rec_img4.png"
                       alt=""
                       className="four_img_div"
                     />
@@ -285,7 +285,7 @@ function Recruiter_register() {
               </div>
 
               <div className="flex flex-row justify-between">
-                <ALink href='/Auth/Sign_up'>
+                <ALink href='/auth/Sign_up'>
                   <button className="flex justify-center item-center py-[12px] px-[36px] rounded-[12px] border-[1px] border-solid border-[#06A9EF] text-[16px] font-[500] go_back_btn">
                     Go Back
                   </button>
@@ -309,7 +309,7 @@ function Recruiter_register() {
             Already have an account?
             <span className=" text-[14px] text-[#06A9EF] font-[500] already_sign">
               {" "}
-              <a href="/Auth/Sign_in"> Sign In</a>
+              <a href="/auth/Sign_in"> Sign In</a>
             </span>
           </div>
         </div>
@@ -320,42 +320,42 @@ function Recruiter_register() {
               <div className="lastfour_img_cont">
                 <div className="last_img_contener1">
                   <img
-                    src="./images/auth/employer/last1.png"
+                    src="/images/auth/employer/last1.png"
                     alt=""
                     className="last_img_1"
                   />
                 </div>
                 <div className="last_img_contener2">
                   <img
-                    src="./images/auth/employer/last2.png"
+                    src="/images/auth/employer/last2.png"
                     alt=""
                     className="last_img_2"
                   />
                 </div>
                 <div className="last_img_contener3">
                   <img
-                    src="./images/auth/employer/last3.png"
+                    src="/images/auth/employer/last3.png"
                     alt=""
                     className="last_img_3"
                   />
                 </div>
                 <div className="last_img_contener4">
                   <img
-                    src="./images/auth/employer/last4.png"
+                    src="/images/auth/employer/last4.png"
                     alt=""
                     className="last_img_4"
                   />
                 </div>
                 <div className="last_img_contener5">
                   <img
-                    src="./images/auth/employer/last5.png"
+                    src="/images/auth/employer/last5.png"
                     alt=""
                     className="five_img_div"
                   />
                 </div>
                 <div className="last_img_contener6">
                   <img
-                    src="./images/auth/employer/last6.png"
+                    src="/images/auth/employer/last6.png"
                     alt=""
                     className="six_img_div"
                   />
@@ -426,42 +426,42 @@ function Recruiter_register() {
               <div className="lastfour_img_cont">
                 <div className="last_img_contener1">
                   <img
-                    src="./images/auth/employer/last1.png"
+                    src="/images/auth/employer/last1.png"
                     alt=""
                     className="last_img_1"
                   />
                 </div>
                 <div className="last_img_contener2">
                   <img
-                    src="./images/auth/employer/last2.png"
+                    src="/images/auth/employer/last2.png"
                     alt=""
                     className="last_img_2"
                   />
                 </div>
                 <div className="last_img_contener3">
                   <img
-                    src="./images/auth/employer/last3.png"
+                    src="/images/auth/employer/last3.png"
                     alt=""
                     className="last_img_3"
                   />
                 </div>
                 <div className="last_img_contener4">
                   <img
-                    src="./images/auth/employer/last4.png"
+                    src="/images/auth/employer/last4.png"
                     alt=""
                     className="last_img_4"
                   />
                 </div>
                 <div className="last_img_contener5">
                   <img
-                    src="./images/auth/employer/last5.png"
+                    src="/images/auth/employer/last5.png"
                     alt=""
                     className="five_img_div"
                   />
                 </div>
                 <div className="last_img_contener6">
                   <img
-                    src="./images/auth/employer/last6.png"
+                    src="/images/auth/employer/last6.png"
                     alt=""
                     className="six_img_div"
                   />

@@ -1,5 +1,4 @@
 .Employer_main_container {
-
   background-image: url("../../images/employer/Employer_background.png");
 }
 .employer_btn_class:hover {
@@ -369,7 +368,7 @@
     position: absolute;
     left: 50%;
     transform: translate(-50%, -50%);
-    top: 50%; 
+    top: 50%;
     /* position: absolute; */
   }
   @keyframes rotate {
@@ -443,7 +442,6 @@
   .hire_candidates_btn:hover {
     border-radius: 12px;
     background: var(--primary, #06a9ef);
-    color: #fff;
   }
   .Employer_hire_candidates_moving_earth {
     /* display: flex;
@@ -484,84 +482,83 @@
 //   margin-top: 38px;
 //   margin-bottom: 72px;
 // }
-  .Employer_why_skilotech_sec2_sub_container {
-    // display: flex;
-    // flex-wrap: wrap;
-    // flex-direction: row;
-    // gap: 22px;
-    // justify-content: center;
-    // max-width: 900px;
-    // /* padding: 0px 236px; */
+.Employer_why_skilotech_sec2_sub_container {
+  // display: flex;
+  // flex-wrap: wrap;
+  // flex-direction: row;
+  // gap: 22px;
+  // justify-content: center;
+  // max-width: 900px;
+  // /* padding: 0px 236px; */
+}
+.cart-wrapper {
+  // display: flex;
+  // flex-wrap: wrap;
+  // flex-direction: row;
+  // justify-content: center;
+  // gap: 22px;
+}
+.Employer_why_skilotech_sec2_cart {
+  // display: flex;
+  // width: 234px;
+  // padding: 8px;
+  // flex-direction: column;
+  // align-items: flex-start;
+  // gap: 14px;
+  // border-radius: 12px;
+  // border: 0.5px solid #cdcdcd;
+  // background: #fff;
+  // transition: all 0.5s;
+}
+.Employer_why_skilotech_sec2_cart_1st {
+  // display: flex;
+  // padding: 12px;
+  // flex-direction: column;
+  // align-items: center;
+  // gap: 8px;
+  // align-self: stretch;
+  // border-radius: 8px;
+  // background: #d2e7f0;
+  // height: 122px;
+  // transition: all 0.5s;
+}
+// .Employer_why_skilotech_sec2_cart_2nd {
+//   height: 100%;
+//   width: 100%;
+// }
+@media (max-width: 1100px) {
+  .main_container {
+    height: 460px;
   }
-  .cart-wrapper {
-    // display: flex;
-    // flex-wrap: wrap;
-    // flex-direction: row;
-    // justify-content: center;
-    // gap: 22px;
+  .Employer_head {
+    font-size: 50px;
   }
-  .Employer_why_skilotech_sec2_cart {
-    // display: flex;
-    // width: 234px;
-    // padding: 8px;
-    // flex-direction: column;
-    // align-items: flex-start;
-    // gap: 14px;
-    // border-radius: 12px;
-    // border: 0.5px solid #cdcdcd;
-    // background: #fff;
-    // transition: all 0.5s;
+  .Employer_head_span {
+    font-size: 60px;
   }
-  .Employer_why_skilotech_sec2_cart_1st {
-    // display: flex;
-    // padding: 12px;
-    // flex-direction: column;
-    // align-items: center;
-    // gap: 8px;
-    // align-self: stretch;
-    // border-radius: 8px;
-    // background: #d2e7f0;
-    // height: 122px;
-    // transition: all 0.5s;
-  }
-  // .Employer_why_skilotech_sec2_cart_2nd {
-  //   height: 100%;
-  //   width: 100%;
-  // }
-  @media (max-width: 1100px) {
-    .main_container {
-      height: 460px;
-    }
-    .Employer_head {
-      font-size: 50px;
-    }
-    .Employer_head_span {
-      font-size: 60px;
-    }
-  }
-  // .Employer_why_skilotech_sec2_cart_1st_head {
-  //   // color: #000;
-  //   // text-align: center;
-  //   // font-family: Montserrat;
-  //   // font-size: 18px;
-  //   // font-style: normal;
-  //   // font-weight: 500;
-  //   // line-height: normal;
-  // }
+}
+// .Employer_why_skilotech_sec2_cart_1st_head {
+//   // color: #000;
+//   // text-align: center;
+//   // font-family: Montserrat;
+//   // font-size: 18px;
+//   // font-style: normal;
+//   // font-weight: 500;
+//   // line-height: normal;
+// }
+.Employer_why_skilotech_sec2_cart_1st_img {
+  transition: all 0.5s;
+}
+.Employer_why_skilotech_sec2_cart:hover {
+  background: #fff;
+  box-shadow: 0px 2px 16px 0px rgba(0, 0, 0, 0.25);
+}
+.Employer_why_skilotech_sec2_cart:hover .Employer_why_skilotech_sec2_cart_1st {
+  background: var(--secondary, #ffda1d);
+}
+.Employer_why_skilotech_sec2_cart:hover
   .Employer_why_skilotech_sec2_cart_1st_img {
-    transition: all 0.5s;
-  }
-  .Employer_why_skilotech_sec2_cart:hover {
-    background: #fff;
-    box-shadow: 0px 2px 16px 0px rgba(0, 0, 0, 0.25);
-  }
-  .Employer_why_skilotech_sec2_cart:hover
-    .Employer_why_skilotech_sec2_cart_1st {
-    background: var(--secondary, #ffda1d);
-  }
-  .Employer_why_skilotech_sec2_cart:hover
-    .Employer_why_skilotech_sec2_cart_1st_img {
-    fill: #333333;
-  }
+  fill: #333333;
+}
 
 /* employer why skilotech section 2nd end here */

@@ -4,9 +4,9 @@ function LastSection() {
   return (
     <div className="customMargins">
       <div class="flex w-full justify-center ">
-        <div class=" rounded-[16px] bg-efficient-back flex w-full py-[24px] justify-center items-center">
+        <div class=" rounded-[16px] bg-[#024E6E] flex w-full py-[24px] justify-center items-center">
           <p class="text-white font-montserrat text-[36px] font-semibold leading-tight text-center">
-            <span class='text-yellow leading-tight'>Efficient Hiring</span> for Employers, <br />Enhanced Opportunities
+            <span class='text-[#FFDA1D] leading-tight'>Efficient Hiring</span> for Employers, <br />Enhanced Opportunities
             for Candidates
           </p>
         </div>
@@ -54,7 +54,7 @@ function LastSection() {
         </div>
 
         <div class='flex justify-center items-center w-[50%] px-[20px] py-[10px]'>
-          <img class='w-full flex content-center bg-no-repeat' src="./images/recruiter/clap_img.png" alt="" />
+          <img class='w-full flex content-center bg-no-repeat' src="/images/recruiter/clap_img.png" alt="" />
         </div>
       </div>
     </div>

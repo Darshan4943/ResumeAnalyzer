@@ -1,25 +1,7 @@
 {
-    "compilerOptions": {
-        "baseUrl": ".",
-        "types": ["http-cache-semantics"],
-        "paths": {
-            "~/*": [
-                "./*"
-            ],
-            "@/*": [
-                "./*"
-            ],
-            "~~/*": [
-                "./*"
-            ],
-            "@@/*": [
-                "./*"
-            ]
-        }
-    },
-    "exclude": [
-        "node_modules",
-        ".next",
-        "dist"
-    ]
+  "compilerOptions": {
+    "paths": {
+      "@/*": ["./*"]
+    }
+  }
 }

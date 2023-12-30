@@ -76,7 +76,7 @@ function InterviewQue() {
               </div>
               <div className="flex justify-center items-center w-[33.78%]">
                 <img
-                  src="./images/services/Relevant_Questions_pic.png"
+                  src="/images/services/Relevant_Questions_pic.png"
                   alt=""
                   className="w-[111px] h-[126px] "
                 />
@@ -94,7 +94,7 @@ function InterviewQue() {
             >
               <div className="flex justify-center items-center ">
                 <img
-                  src="./images/services/Ai_Generated_Answers_pic.png"
+                  src="/images/services/Ai_Generated_Answers_pic.png"
                   alt=""
                   className="w-[126px] h-[126px]"
                 />

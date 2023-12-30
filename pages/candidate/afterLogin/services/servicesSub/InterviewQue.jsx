@@ -1,5 +1,5 @@
 import React from 'react'
-import Profile1 from '~/components/featured/candidate/afterLogin/services/Profile1'
+import Profile1 from '@/components/featured/candidate/afterLogin/services/Profile1'
 
 
 function InterviewQue() {

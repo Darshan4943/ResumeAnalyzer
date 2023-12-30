@@ -1,4 +1,4 @@
-import { OrderActionType } from "../constants/actionTypes"
+import {OrderActionType} from '../constants/actionTypes';
 // import API from '../Api'
 
 // export const fetchProducts = ()=>{
@@ -8,9 +8,10 @@ import { OrderActionType } from "../constants/actionTypes"
 //         dispatch({type:ActionTypes.FETCH_PRODUCTS,payload:responce.data})
 //     }
 // }
-export const orderAction = (date)=>{
-    return {
-        type:OrderActionType.SET_ORDER_DATE,
-        payload:date,
-    }
-}
+
+export const orderAction = date => {
+  return {
+    type: OrderActionType.SET_ORDER_DATE,
+    payload: date,
+  };
+};

@@ -28,21 +28,21 @@ function Employer_sorting({ showAnimation }) {
   const divs = [
     <div key={0}></div>,
     <div key={1} className="animation 1st">
-      <img src="images/employer/Employer_sorting/Frame1.png" className="i a img1" alt="" />
+      <img src="/images/employer/Employer_sorting/Frame1.png" className="i a img1" alt="" />
     </div>,
     <div key={2} className="animation 2nd">
-      <img src="images/employer/Employer_sorting/Frame1.png" className="i img1" alt="" />
-      <img src="images/employer/Employer_sorting/Frame2.png" className="i a img2" alt="" />
+      <img src="/images/employer/Employer_sorting/Frame1.png" className="i img1" alt="" />
+      <img src="/images/employer/Employer_sorting/Frame2.png" className="i a img2" alt="" />
     </div>,
     <div key={3} className="animation 3rd">
-      <img src="images/employer/Employer_sorting/Frame1.png" className="i img1" alt="" />
-      <img src="images/employer/Employer_sorting/Frame2.png" className="i img2" alt="" />
-      <img src="images/employer/Employer_sorting/Frame3.png" className="i a img3" alt="" />
+      <img src="/images/employer/Employer_sorting/Frame1.png" className="i img1" alt="" />
+      <img src="/images/employer/Employer_sorting/Frame2.png" className="i img2" alt="" />
+      <img src="/images/employer/Employer_sorting/Frame3.png" className="i a img3" alt="" />
     </div>,
     <div key={4} className="animation 4rt">
       {[1, 2, 3, 4].map((item) => (
         <img
-          src={`images/employer/Employer_sorting/Frame${item}.png`}
+          src={`/images/employer/Employer_sorting/Frame${item}.png`}
           className={`i ${item == 4 && "a"} img${item}`}
           alt=""
         />
@@ -51,7 +51,7 @@ function Employer_sorting({ showAnimation }) {
     <div key={5} className="animation 5th">
       {[1, 2, 3, 4, 5].map((item) => (
         <img
-          src={`images/employer/Employer_sorting/Frame${item}.png`}
+          src={`/images/employer/Employer_sorting/Frame${item}.png`}
           className={`i ${item == 5 && "a"} img${item}`}
           alt=""
         />
@@ -60,7 +60,7 @@ function Employer_sorting({ showAnimation }) {
     <div key={6} className="animation 6th">
       {[1, 2, 3, 4, 5, 6].map((item) => (
         <img
-          src={`images/employer/Employer_sorting/Frame${item}.png`}
+          src={`/images/employer/Employer_sorting/Frame${item}.png`}
           className={`i ${item == 6 && "a"} img${item}`}
           alt=""
         />
@@ -69,7 +69,7 @@ function Employer_sorting({ showAnimation }) {
     <div key={7} className="animation 7th">
       {[1, 2, 3, 4, 5, 6, 7].map((item) => (
         <img
-          src={`images/employer/Employer_sorting/Frame${item}.png`}
+          src={`/images/employer/Employer_sorting/Frame${item}.png`}
           className={`i ${item == 7 && "a"} img${item}`}
           alt=""
         />
@@ -78,7 +78,7 @@ function Employer_sorting({ showAnimation }) {
     <div key={8} className="animation 8th">
       {[1, 2, 3, 4, 5, 6, 7, 8].map((item) => (
         <img
-          src={`images/employer/Employer_sorting/Frame${item}.png`}
+          src={`/images/employer/Employer_sorting/Frame${item}.png`}
           className={`i ${item == 8 && "a"} img${item}`}
           alt=""
         />
@@ -87,7 +87,7 @@ function Employer_sorting({ showAnimation }) {
     <div key={9} className="animation 9th">
       {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((item) => (
         <img
-          src={`images/employer/Employer_sorting/Frame${item}.png`}
+          src={`/images/employer/Employer_sorting/Frame${item}.png`}
           className={`i ${item == 9 && "a"} img${item}`}
           alt=""
         />
@@ -115,7 +115,7 @@ function Employer_sorting({ showAnimation }) {
   }, [currentIndex, showAnimation]);
 
   return (
-    <div style={{ overflow: "hidden" }}>
+    <div style={{ overflow: "hidden" }} className="h-[40rem]" >
       {showMain ? (
         <div className="Employer_sorting_container customMargins">
           <div className="Employer_sorting_sub_container">
@@ -148,7 +148,7 @@ function Employer_sorting({ showAnimation }) {
             </div>
             <div className="sorting_image">
               <img
-                src="images/employer/Employer_sorting/Frame4.png"
+                src="/images/employer/Employer_sorting/Frame4.png"
                 alt=""
                 className="sorting_image_animation"
               />
@@ -178,7 +178,7 @@ function Employer_sorting({ showAnimation }) {
                 <path
                   d="M111.673 111.671C132.067 91.2761 132.067 58.2102 111.673 37.8158C91.2782 17.4214 58.2124 17.4214 37.818 37.8158C17.4236 58.2102 17.4236 91.2761 37.818 111.671C58.2124 132.065 91.2782 132.065 111.673 111.671Z"
                   fill="#EBE9EB"
-                  fill-opacity="0.1"
+                  fillOpacity="0.1"
                 />
                 <path
                   d="M137.45 137.448C134.88 140.018 130.713 140.018 128.143 137.448L105.693 113.211L113.213 105.691L137.45 128.142C140.02 130.711 140.02 134.879 137.45 137.448Z"
@@ -195,7 +195,7 @@ function Employer_sorting({ showAnimation }) {
                 <path
                   d="M37.0829 37.0806C16.2822 57.8813 16.2822 91.6057 37.0829 112.406C57.8836 133.207 91.6075 133.207 112.408 112.406C133.209 91.6052 133.209 57.8808 112.408 37.0806C91.608 16.2804 57.8836 16.2804 37.0829 37.0806ZM105.392 105.39C88.4669 122.315 61.0252 122.315 44.0993 105.39C27.1735 88.4646 27.174 61.0229 44.0993 44.097C61.0247 27.1716 88.4664 27.1716 105.392 44.097C122.318 61.0224 122.318 88.4646 105.392 105.39Z"
                   fill="white"
-                  fill-opacity="0.2"
+                  fillOpacity="0.2"
                 />
                 <path
                   d="M113.988 112.961C104.065 122.883 90.366 129.028 75.2583 129.028C45.0433 129.028 20.4609 104.446 20.4609 74.231C20.4609 44.0155 45.0433 19.4345 75.2583 19.4336C105.473 19.4341 130.056 44.0164 130.056 74.231C130.055 89.3387 123.91 103.038 113.988 112.961ZM42.0253 40.9984C33.5101 49.5136 28.2377 61.2659 28.2377 74.2314C28.2381 100.159 49.3316 121.253 75.2588 121.253C88.2209 121.253 99.9775 115.977 108.492 107.465C117.008 98.9502 122.28 87.1965 122.28 74.2314C122.28 48.3042 101.186 27.2108 75.2588 27.2103C62.2966 27.2103 50.5386 32.4846 42.0253 40.9984Z"
@@ -240,7 +240,7 @@ function Employer_sorting({ showAnimation }) {
                 <path
                   d="M74.748 40.8062L108.685 74.7429C108.685 56.0004 93.4906 40.8062 74.748 40.8062Z"
                   fill="white"
-                  fill-opacity="0.2"
+                  fillOpacity="0.2"
                 />
                 <path
                   d="M117.041 133.203C116.676 133.203 116.311 133.064 116.033 132.785C115.476 132.229 115.476 131.326 116.033 130.769L130.772 116.03C131.329 115.473 132.231 115.473 132.788 116.03C133.345 116.586 133.345 117.489 132.788 118.046L118.049 132.785C117.77 133.064 117.406 133.203 117.041 133.203Z"

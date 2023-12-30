@@ -220,7 +220,7 @@
 .forgot_main {
   width: 100%;
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
   margin-top: 10px;
 }
 .forgot_btn {
@@ -355,8 +355,6 @@
   display: block;
 }
 
-//                 SECOND SECTION CSS     with animation
-///       RESTART
 .sec_main_parent_head {
   display: flex;
   justify-content: center;
@@ -384,11 +382,9 @@
   width: 200px;
   height: 197px;
   position: absolute;
-  // background-color: red;
   top: 7.5rem;
   left: 0.5rem;
   animation: slider_img1 0.7s ease-in-out;
-  // transition: all 0.8s;
 }
 
 @keyframes slider_img1 {
@@ -412,22 +408,6 @@
     transform: translate(0px, 0px);
     transition: 0.1s;
   }
-  // 100%{
-  //   transform: translate(0px, 0px);
-  //   transition: 0.1s;
-  // }
-  // 60% {
-  //   transform: translate(-40px,-40px);
-  //   transition: 0.1s;
-  // }
-  // 80%{
-  //   transform: translate(-10px, -10px);
-  //   transition: 0.1s;
-  // }
-  // 100%{
-  //   transform: translate(0px, 0px);
-  //   transition: 0.1s;
-  // }
 }
 .sec_img_div {
   width: 100%;
@@ -717,16 +697,7 @@
   80% {
     transform: translate(10px, 10px);
   }
-
-  // 90% {
-  //   transform: translate(-10px, -10px);
-  // }
-  // 100% {
-  //   transform: translate(0px, 0px);
-  // }
 }
-
-///     THIRD SECTION
 
 .register_head {
   display: flex;
@@ -834,7 +805,7 @@
 .comp_name {
   display: flex;
   flex-direction: column;
-  align-items: start;
+  align-items: flex-start;
   gap: 4px;
 }
 .enter_name::placeholder {
@@ -848,7 +819,7 @@
 .comp_name_pass {
   display: flex;
   flex-direction: column;
-  align-items: start;
+  align-items: flex-start;
   gap: 4px;
   position: relative;
 }
@@ -1126,12 +1097,6 @@
   display: flex;
 }
 
-// .back_img{
-//   background-size: cover;
-//   background-repeat: no-repeat;
-//   background-image: url("../../images/auth/candidate/personal_details_back.png");
-// }
-
 .mail_img {
   width: 42%;
   position: absolute;
@@ -1393,11 +1358,12 @@
   display: flex;
   align-items: flex-start;
   gap: 20px;
+  width: 100%;
 }
 
 .personal_name {
   display: flex;
-  width: 290px;
+  width: 100%;
   flex-direction: column;
   align-items: flex-start;
   gap: 4px;
@@ -1442,11 +1408,31 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 4px;
+  .icon {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    top: 50%;
+    right: 14px;
+  }
 }
 
 #single_input {
   display: flex;
-  width: 600px;
+  width: 100%;
+  height: 48px;
+  padding: 12px 16px;
+  align-items: center;
+  gap: 10px;
+  align-self: stretch;
+  border-radius: 8px;
+  border: 1px solid var(--placeholder, #9d9d9d);
+  background: #fff;
+}
+
+.single_input {
+  display: flex;
+  width: 600px !important;
   height: 48px;
   padding: 12px 16px;
   align-items: center;
@@ -1460,14 +1446,6 @@
 .right_img {
   display: flex;
   justify-content: space-between;
-}
-
-.icon {
-  position: absolute;
-  width: 24px;
-  height: 24px;
-  top: 50%;
-  left: 194%;
 }
 
 .gender_button {
@@ -1525,9 +1503,9 @@
   background-color: var(--primary, #06a9ef);
   color: #fff;
 }
-// button:active {
-//   border: none;
-// }
+button:active {
+  border: none;
+}
 button {
   cursor: pointer;
 }
@@ -1589,9 +1567,3 @@ button {
   display: flex;
   gap: 8px;
 }
-
-// .show-content{
-//   display: block;
-// }
-
-////////////////////////////////
