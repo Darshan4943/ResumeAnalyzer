@@ -1,11 +1,42 @@
-import React from "react";
+import React, { useState } from "react";
 import ALink from "@/components/alink";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { useRouter } from "next/router";
 
 function Sign_in() {
+  const router = useRouter()
+  const [data, setData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+    const dataToSend = {
+      email: data.email,
+      password: data.password,
+    };
+    axios
+      .post("http://localhost:2000/api/candidate/signin", dataToSend)
+      .then((res) => {
+        const response = res.data;
+        if (response.success) {
+          localStorage.setItem("authToken", response.token);
+          toast.success("Registration Complete");
+          router.push("/candidate/afterLogin/home/candidateHome");
+        } else {
+          toast.error("something went wrong");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   return (
-    
     <div className="flex justify-center items-center py-12">
-      <div
+      <form
+        onSubmit={submitHandler}
         className="flex w-[464px] p-[24px] gap-[24px] flex-col justify-center items-center rounded-[24px] "
         style={{
           boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
@@ -14,16 +45,25 @@ function Sign_in() {
         <div className="text-[30px] font-[600]">Welcome</div>
         <div className="w-full flex flex-col gap-[24px] ">
           <div className="flex flex-row px-[16px] py-[12px] border-[1px] rounded-[8px] border-solid border-[#9D9D9D]">
-            <input type="text" name="" id="" placeholder="Enter Email" />
+            <input
+              type="email"
+              name=""
+              id=""
+              placeholder="Enter Email"
+              value={data.email}
+              onChange={(e) => setData({ ...data, email: e.target.value })}
+            />
           </div>
           <div className="flex flex-col gap-[10px]">
             <div className="flex flex-row px-[16px] py-[12px] border-[1px] rounded-[8px] border-solid border-[#9D9D9D] justify-between">
               <input
-                type="text"
+                type="password"
                 name=""
                 id=""
                 placeholder="Enter password"
                 className="w-full"
+                value={data.password}
+                onChange={(e) => setData({ ...data, password: e.target.value })}
               />
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -41,7 +81,9 @@ function Sign_in() {
               </svg>
             </div>
             <div className="flex justify-end text-[#06A9EF] text-[12px] font-[500] ">
-              <a href="" className="already_sign">Forgot password?</a>
+              <a href="" className="already_sign">
+                Forgot password?
+              </a>
             </div>
           </div>
         </div>
@@ -61,7 +103,8 @@ function Sign_in() {
             </ALink>
             <div className="text-[12px]">
               By signing in, you agree to our{" "}
-              <span className="already_sign"
+              <span
+                className="already_sign"
                 style={{
                   fontSize: "12px",
                   color: "#06A9EF",
@@ -70,7 +113,8 @@ function Sign_in() {
                 <a href="">Terms & Conditions</a>
               </span>{" "}
               and{" "}
-              <span className="already_sign"
+              <span
+                className="already_sign"
                 style={{
                   fontSize: "12px",
                   color: "#06A9EF",
@@ -82,7 +126,7 @@ function Sign_in() {
             </div>
           </div>
         </div>
-      </div>{" "}
+      </form>{" "}
               
     </div>
   );

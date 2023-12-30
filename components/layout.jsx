@@ -46,7 +46,7 @@ function Layout({ children }) {
       ) : (
         <Temp />
       )}
-      {/* <ToastContainer
+      <ToastContainer
         position="bottom-right"
         autoClose={3000}
         hideProgressBar={false}
@@ -57,7 +57,7 @@ function Layout({ children }) {
         draggable
         pauseOnHover
         theme="light"
-      /> */}
+      />
     </>
   );
 }

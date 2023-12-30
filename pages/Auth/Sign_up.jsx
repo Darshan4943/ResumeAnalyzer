@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import ALink from "@/components/alink";
 
 
@@ -21,6 +21,8 @@ const ArrowLeft = ({ index }) => (
 );
 
 function Sign_up() {
+
+  
   return (
     <>
     <div className="flex justify-center  item-center h-full w-full earth_container mt-[24px]">
