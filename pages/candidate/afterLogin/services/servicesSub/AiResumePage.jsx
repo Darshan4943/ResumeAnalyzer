@@ -1,10 +1,23 @@
 import React, { useEffect, useRef, useState } from 'react'
 import DateSelector from '~/components/common/dateSelector';
 import TextEditor from '~/components/common/textEditor';
+import ResumeTemplate2 from '~/components/featured/candidate/afterLogin/services/resumeTemplate2';
+import ResumeTemplate3 from '~/components/featured/candidate/afterLogin/services/resumeTemplate3';
+import ResumeTemplate4 from '~/components/featured/candidate/afterLogin/services/resumeTemplate4';
+
 import ResumeTemplate5 from '~/components/featured/candidate/afterLogin/services/resumeTemplate5';
-import ResumeTemplate1 from '~/components/featured/candidate/afterLogin/services/resumeTemplate5';
+
 
 function AiResumePage() {
+
+
+
+
+    const [experienceStartMonth, setExperienceStartMonth] = useState("Month");
+    const [experienceStartYear, setExperienceStartYear] = useState("Year");
+    const [experienceEndMonth, setExperienceEndMonth] = useState("Month");
+    const [experienceEndYear, setExperienceEndYear] = useState("Year");
+
 
 
     const [aboutData, setAboutData] = useState({
@@ -82,16 +95,35 @@ function AiResumePage() {
 
     const [isModifiedEducation, setIsModifiedEducation] = useState(false);
 
+    const [educationDetails, setEducationDetails] = useState([])
+
+    const [educationDateDetails, setEducationDateDetails] = useState(
+        {
+            startMonth: "Month",
+            startYear: "Year",
+            endMonth: "Month",
+            endYear: "Year",
+        },
+
+    );
+
+
+    console.log(educationDetails)
+
+
     const [showEducationData, setShowEducationData] = useState(true);
     const [addEducationData, setAddEducationData] = useState(false);
     const [educationData, setEducationData] = useState([]);
+
     const [currentEducation, setCurrentEducation] = useState({
         qualification: '',
         specialization: '',
         instituteName: '',
         type: '',
-        location: ''
+        location: '',
+
     });
+
 
     const handleInputChangeEducation = (e) => {
         const { name, value } = e.target;
@@ -108,8 +140,18 @@ function AiResumePage() {
             specialization: '',
             instituteName: '',
             type: '',
-            location: ''
+            location: '',
+
         });
+        setEducationDetails([...educationDetails, educationDateDetails])
+
+        setEducationDateDetails({
+            startMonth: "Month",
+            startYear: "Year",
+            endMonth: "Month",
+            endYear: "Year",
+        },)
+
         setAddEducationData(false);
     };
 
@@ -149,7 +191,7 @@ function AiResumePage() {
     const [currentExperience, setCurrentExperience] = useState({
         designation: '',
         organization: '',
-
+        description: " "
     });
 
     const handleSwitchChangeExperience = () => {
@@ -169,7 +211,7 @@ function AiResumePage() {
         setCurrentExperience({
             designation: '',
             organization: '',
-
+            description: " "
         });
         setAddExperienceData(false);
     };
@@ -555,9 +597,9 @@ function AiResumePage() {
                                             </svg>
                                         </div>
                                         <div class="flex flex-col gap-[4px]	font-normal	">
-                                            <p class="flex text-center justify-center  text-[14px] text-[#515B6F]">
+                                            <div class="flex text-center justify-center  text-[14px] text-[#515B6F]">
                                                 <input type="file" ref={fileRef} style={{ display: 'none' }} onChange={handleFileChange} /><p onClick={handleButtonClick} class="text-[#06A9EF] font-medium" >&nbsp;Browse file </p>&nbsp;or drag and drop
-                                            </p>
+                                            </div>
                                             <p class="text-center text-[14px] font-normal text-[#333]"> Allowed file formats: jpg, jpeg | up to 1.5 MB</p>
                                         </div>
                                     </div>
@@ -706,7 +748,7 @@ function AiResumePage() {
                                         name="aboutMe"
                                         className="w-full text-[14px] font-montserrat font-small h-full outline-none"
                                         placeholder="Enter text"
-                                        value={aboutData.aboutMe} 
+                                        value={aboutData.aboutMe}
                                         onChange={handleAboutDataUpdate}
                                     />
                                 </div>
@@ -755,7 +797,7 @@ function AiResumePage() {
                                     </label>
                                 </div>
                                 {educationData.map((edu, index) => (
-                                    <div className='flex flex-col gap-1 p-2 rounded-[6px] border border-[#DEDEDE]'>
+                                    <div className='flex flex-col gap-1 p-2 rounded-[6px] border border-[#DEDEDE] break-all'>
 
                                         <div className='flex justify-between'>
                                             <p>{edu.qualification}</p>
@@ -842,7 +884,9 @@ function AiResumePage() {
                                                     Passing Year
                                                 </div>
                                                 <div>
-                                                    <DateSelector idPrefix="experience" />
+                                                    <DateSelector idPrefix="education"
+                                                        educationDetails={educationDetails}
+                                                        setEducationDetails={setEducationDetails} />
                                                 </div>
                                             </div>
 
@@ -906,7 +950,7 @@ function AiResumePage() {
                                 </div>
 
                                 {experienceData.map((exp, index) => (
-                                    <div className='flex flex-col gap-1 p-2 rounded-[6px] border border-[#DEDEDE]'>
+                                    <div className='flex flex-col gap-1 p-2 rounded-[6px] border border-[#DEDEDE] break-all'>
 
                                         <div className='flex justify-between'>
                                             <p>{exp.organization}</p>
@@ -981,7 +1025,9 @@ function AiResumePage() {
                                             </div>
 
                                             <div>
-                                                <DateSelector idPrefix="experience" />
+                                                {/* <DateSelector idPrefix="experience" 
+                                                   
+                                                   /> */}
                                             </div>
 
                                             <div className="flex flex-col gap-2 w-full">
@@ -994,11 +1040,13 @@ function AiResumePage() {
                                                 <div className="w-full border-[1px] border-[#9D9D9D] rounded-[12px] p-[12px] min-h-[140px]">
                                                     <textArea
                                                         type="text"
-                                                        name=""
+                                                        name="description"
                                                         id=""
                                                         className="w-full text-[14px] font-montserrat font-small h-full  outline-none"
                                                         placeholder="Enter text"
-
+                                                        value={currentExperience.description}
+                                                        onChange={handleInputChangeExperience}
+                                                        disabled={!isCheckedExperience}
                                                     />
                                                 </div>
 
@@ -1116,7 +1164,7 @@ function AiResumePage() {
                                             </div>
 
                                             <div>
-                                                <DateSelector idPrefix="experience" />
+                                                {/* <DateSelector idPrefix="experience" /> */}
                                             </div>
 
                                             <div className="flex flex-col gap-2 w-full">
@@ -1270,7 +1318,7 @@ function AiResumePage() {
                                             </div>
 
                                             <div>
-                                                <DateSelector idPrefix="experience" />
+                                                {/* <DateSelector idPrefix="experience" /> */}
                                             </div>
 
                                             <div className="flex flex-col gap-2 w-full">
@@ -1608,8 +1656,11 @@ function AiResumePage() {
 
 
 
-                            <div className='transform scale-100 '>
+                            <div className='' style={{ transform: 'scale(0.87)', transformOrigin: 'top left' }} >
                                 <ResumeTemplate5 formData={formData} educationData={educationData} aboutData={aboutData} experienceData={experienceData} skills={skills} languages={languages} socialData={socialData} />
+                                {/* <ResumeTemplate3 formData={formData} educationData={educationData} aboutData={aboutData} experienceData={experienceData} skills={skills} languages={languages} socialData={socialData}  /> */}
+                                {/* <ResumeTemplate2 formData={formData} educationData={educationData} aboutData={aboutData} experienceData={experienceData} skills={skills} languages={languages} socialData={socialData}  /> */}
+                                {/* <ResumeTemplate4 /> */}
                             </div>
 
                         </div>
@@ -1617,6 +1668,8 @@ function AiResumePage() {
                 </div>
             </div>
         </div>
+
+        
     )
 }
 

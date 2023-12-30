@@ -3,9 +3,9 @@ import React from "react";
 function ResumeTemplate5({ formData, aboutData, educationData, experienceData, skills, languages, socialData }) {
     console.log(educationData)
     return (
-        <div className="flex items-center justify-center  border border-[#06A9EF] rounded-[9px]">
-            <div className="max-w-[595px]  flex bg-[#F9F9F9]  rounded-[8px]   ">
-                <div className="w-[235.57px]  ">
+        <div className="flex  border border-[#06A9EF] rounded-[9px] w-[595px] break-all ">
+           
+                <div className="w-[233px]  ">
                     <div className="pt-[33.72px] pl-[27.74px] pr-[21.15px]">
                         <div className="w=[183.71px] h-[235.24px] ">
                             <img src="./images/services/black.png" alt="" />
@@ -65,7 +65,7 @@ function ResumeTemplate5({ formData, aboutData, educationData, experienceData, s
                     </div>
                     <div className="flex flex-col gap-1 pt-6">
                         {skills.map((detail, index) => (
-                            <div className="pl-[28.13px] pr-3 flex flex-col break-all">
+                            <div className="pl-[28.13px] pr-3 flex flex-col">
                                 <div className="flex items-center justify-between gap-4">
                                     <p className="text-[#414142] font-kanit text-[11.136px] w-[80px] font-light">
                                         {detail.skill}
@@ -88,7 +88,7 @@ function ResumeTemplate5({ formData, aboutData, educationData, experienceData, s
                     </div>
                     <div className="flex flex-col gap-1 pt-6">
                         {languages.map((detail, index) => (
-                            <div className=" pl-[28.13px] pr-3 flex flex-col gap-1 break-all">
+                            <div className=" pl-[28.13px] pr-3 flex flex-col gap-1 ">
                                 <div className="flex justify-between items-center gap-4">
                                     <p className="text-[#414142] font-kanit text-[11.136px]  w-[80px] font-light">
                                         {detail.languages}
@@ -102,13 +102,13 @@ function ResumeTemplate5({ formData, aboutData, educationData, experienceData, s
                         ))}
                     </div>
                 </div>
-                <div className="flex flex-col  w-[284px] ">
+                <div className="flex flex-col  w-[362px] ">
                     <div className="flex justify-end items-center">
                         <div className="w-[27.74px] h-[27.74px] bg-[#316059] rounded-tr-[8px]">
                         </div>
                     </div>
-                    <div className="flex flex-col gap-6">
-                        <div className="flex flex-col items-start pt-[25px] break-all  ">
+                    <div className="flex flex-col gap-6 ">
+                        <div className="flex flex-col items-start pt-[25px]  ">
                             <p className="text-[#2B2A2A] font-kanit text-[26.333px] font-semibold leading-normal">
                                 {formData.firstName}{" "}{formData.lastName}
                             </p>
@@ -116,13 +116,13 @@ function ResumeTemplate5({ formData, aboutData, educationData, experienceData, s
                                 COMMUNITY MANAGER
                             </p>
                         </div>
-                        <div className="rounded-tl-xl px-[39.15px] rounded-br-[8px] bg-[#316059] w-[284px] min-h-[700px]">
+                        <div className="rounded-tl-xl px-[39.15px] rounded-br-[8px] bg-[#316059] h-[700px] ">
                             <div className="pt-[27.5px] w-[283px] ">
                                 <p className="text-[rgb(249,249,249)] font-Kanit text-base font-normal">
                                     About Me
                                 </p>
                             </div>
-                            <div className=" pt-[18px] break-all">
+                            <div className=" pt-[18px] ">
                                 <div className="flex gap-2">
                                     <div className="w-[4.4px] h-[4.4px] flex items-center justify-center pt-[8px]">
                                         <img src="./images/services/rect.png" alt="" />
@@ -136,7 +136,7 @@ function ResumeTemplate5({ formData, aboutData, educationData, experienceData, s
                             <div className="pt-[23px] pl-[50px]">
                                 <div className="w-[150px] h-[0.465px] bg-[#F9F9F9]"></div>
                             </div>
-                            <div className=" pt-[20.65px] break-all">
+                            <div className=" pt-[20.65px] ">
                                 <p className="text-[rgb(249,249,249)] font-Kanit text-base font-normal">
                                     EDUCATION
                                 </p>
@@ -145,7 +145,7 @@ function ResumeTemplate5({ formData, aboutData, educationData, experienceData, s
                                 <div className="flex gap-2 flex-col items-start  ">
 
                                     {educationData.map((detail, index) => (
-                                        <div className="flex gap-2  break-all">
+                                        <div className="flex gap-2  ">
                                             <div className="w-[4.4px] h-[4.4px] pt-[6px] flex items-center justify-center ">
                                                 <img src="./images/services/rect.png" alt="" />
                                             </div>
@@ -177,7 +177,7 @@ function ResumeTemplate5({ formData, aboutData, educationData, experienceData, s
                             <div className=" pt-[16px]">
                                 <div className="flex gap-2 items-start  ">
                                     {experienceData.map((detail, index) => (
-                                        <div className="flex gap-2  break-all">
+                                        <div className="flex gap-2 ">
                                             <div className="w-[4.4px] h-[4.4px] pt-[6px] flex items-center justify-center ">
                                                 <img src="./images/services/rect.png" alt="" />
                                             </div>
@@ -203,7 +203,7 @@ function ResumeTemplate5({ formData, aboutData, educationData, experienceData, s
 
                         </div>
                     </div>
-                </div>
+               
             </div>
         </div>
     );
