@@ -22,12 +22,14 @@ function Sign_in() {
       email: data.email,
       password: data.password,
     };
+    console.log("da",dataToSend )
     axios
       .post("http://localhost:2000/api/candidate/signin", dataToSend)
       .then((res) => {
         const response = res.data;
         if (response.success) {
           localStorage.setItem("authToken", response.token);
+       
           toast.success("Registration Complete");
           router.push("/candidate/afterLogin/home/candidateHome");
           setError("Sign in Successfully")
