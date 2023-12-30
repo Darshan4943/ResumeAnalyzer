@@ -42,7 +42,7 @@ function Candidate() {
 
         <Challenge />
       </ReactLenis>
-    </div>
+    </div> 
   );
 }
 
