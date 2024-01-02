@@ -17,6 +17,8 @@ import {
 } from "react-scroll";
 import ALink from "../../components/alink";
 function Profile() {
+
+
   const userDataGlobal = useSelector((state) => state.userData);
   // console.log(userDataGlobal)
   const [userData, setUserData] = useState("");
