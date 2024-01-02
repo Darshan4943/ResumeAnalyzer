@@ -155,7 +155,7 @@ function Profile() {
                   <img
                     style={{ width: "24px" }}
                     src="./images/profile/edit.png"
-                    alt=""
+                    alt=""  
                     onClick={handleImageClick}
                     data-modal-target="default-modal" data-modal-toggle="default-modal" 
                   />
@@ -174,6 +174,7 @@ function Profile() {
 
             <ScrollElement name="Skills" className="section">
               <Skills userData={userData} />
+              
             </ScrollElement>
 
             <ScrollElement name="Courses" className="section">
