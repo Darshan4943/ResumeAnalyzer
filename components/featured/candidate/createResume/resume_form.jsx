@@ -1,120 +1,34 @@
-import React from 'react'
+import React from "react";
+import ResumeList from "./components/my_resume";
+import PersonalDetails from "./components/personal_details";
+import AboutMe from "./components/about_me";
+import Education from "./components/education";
+import Experience from "./components/experience";
+import Course from "./components/course";
+import Skills from "./components/skills";
+import Achievement from "./components/achivement";
+import SocialLink from "./components/social_link";
+import Hobbie from "./components/hobbie";
+import Languages from "./components/languages";
 
-const ResumeForm = () => {
+const ResumeForm = ({ setData, data }) => {
   return (
-<>
-   <div className="flex flex-col w-[49%] px-2 pb-4 gap-4 rounded-lg overflow-y-auto ">
-              <ResumeList
-                handleButtonClick={handleButtonClick}
-                handleFileChange={handleFileChange}
-                fileRef={fileRef}
-              />
-              <PersonalDetails
-                isChecked={isChecked}
-                handleSwitchChange={handleSwitchChange}
-                handleInputChangeProfile={handleInputChangeProfile}
-                formData={formData}
-                isModified={isModified}
-                handleSave={handleSave}
-              />
-              <AboutMe
-                aboutData={aboutData}
-                handleAboutDataUpdate={handleAboutDataUpdate}
-              />
-              <Education
-                isCheckedEducation={isCheckedEducation}
-                handleSwitchChangeEducation={handleSwitchChangeEducation}
-                educationData={educationData}
-                handleEditEducation={handleEditEducation}
-                handleDeleteEducation={handleDeleteEducation}
-                addEducationData={addEducationData}
-                handleInputChangeEducation={handleInputChangeEducation}
-                currentEducation={currentEducation}
-                educationDetails={educationDetails}
-                setEducationDetails={setEducationDetails}
-                isModifiedEducation={isModifiedEducation}
-                setAddEducationData={setAddEducationData}
-                handleSaveEducation={handleSaveEducation}
-              />
-              <Experience
-                isCheckedExperience={isCheckedExperience}
-                handleInputChangeExperience={handleInputChangeExperience}
-                handleDeleteExperience={handleDeleteExperience}
-                handleSwitchChangeExperience={handleSwitchChangeExperience}
-                handleEditExperience={handleEditExperience}
-                handleSaveExperience={handleSaveExperience}
-                experienceData={experienceData}
-                addExperienceData={addExperienceData}
-                setAddExperienceData={setAddExperienceData}
-                currentExperience={currentExperience}
-                isModifiedExperience={isModifiedExperience}
-              />
-              <Course
-                isCheckedCourse={isCheckedCourse}
-                handleSwitchChangeCourse={handleSwitchChangeCourse}
-                courseData={courseData}
-                addCourseData={addCourseData}
-                handleDeleteCourse={handleDeleteCourse}
-                currentCourse={currentCourse}
-                handleInputChangeCourse={handleInputChangeCourse}
-                handleSaveCourse={handleSaveCourse}
-                currentExperience={currentExperience}
-                isModifiedCourse={isModifiedCourse}
-                setAddCourseData={setAddCourseData}
-              />
-              <Skills
-                skills={skills}
-                deleteSkill={deleteSkill}
-                renderStars={renderStars}
-                handleInputChange={handleInputChange}
-                currentSkill={currentSkill}
-                addSkill={addSkill}
-              />
-              <Achievement
-                isCheckedAchievement={isCheckedAchievement}
-                handleSwitchChangeAchievement={handleSwitchChangeAchievement}
-                achievementData={achievementData}
-                handleEditAchievement={handleEditAchievement}
-                handleDeleteAchievement={handleDeleteAchievement}
-                handleInputChangeAchievement={handleInputChangeAchievement}
-                addAchievementData={addAchievementData}
-                handleSaveAchievement={handleSaveAchievement}
-                isModifiedAchievement={isModifiedAchievement}
-                currentAchievement={currentAchievement}
-                setAddAchievementData={setAddAchievementData}
-              />
-              <SocialLink
-                isCheckedSocial={isCheckedSocial}
-                handleSwitchChangeSocial={handleSwitchChangeSocial}
-                socialData={socialData}
-                handleEditSocial={handleEditSocial}
-                handleDeleteSocial={handleDeleteSocial}
-                addSocialData={addSocialData}
-                handleInputChangeSocial={handleInputChangeSocial}
-                currentSocial={currentSocial}
-                isModifiedSocial={isModifiedSocial}
-                handleSaveSocial={handleSaveSocial}
-                setAddSocialData={setAddSocialData}
-              />
+    <>
+      <div className="flex flex-col w-[49%] px-2 pb-4 gap-4 rounded-lg overflow-y-auto ">
+        <ResumeList setData={setData} data={data} />
+        <PersonalDetails setData={setData} data={data} />
+        <AboutMe setData={setData} data={data} />
+        <Education setData={setData} data={data} />
+        <Experience setData={setData} data={data} />
+        <Course setData={setData} data={data} />
+        <Skills setData={setData} data={data} />
+        <Achievement setData={setData} data={data} />
+        <SocialLink setData={setData} data={data} />
+        <Hobbie setData={setData} data={data} />
+        <Languages setData={setData} data={data} />
+      </div>
+    </>
+  );
+};
 
-              <Hobbie
-                Hobbies={Hobbies}
-                deleteHobbies={deleteHobbies}
-                currentHobbies={currentHobbies}
-                handleInputChangeHobbies={handleInputChangeHobbies}
-                addHobby={addHobby}
-              />
-                <Languages
-                  languages={languages}
-                  deleteLanguages={deleteLanguages}
-                  renderStarsLanguages={renderStarsLanguages}
-                  currentLanguages={currentLanguages}
-                  handleInputChangeLanguages={handleInputChangeLanguages}
-                  addLanguages={addLanguages}
-                />
-            </div>
-</>
-  )
-}
-
-export default ResumeForm
+export default ResumeForm;

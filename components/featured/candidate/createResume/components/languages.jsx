@@ -1,13 +1,65 @@
-import React from "react";
+import React, { useState } from "react";
 
 const Languages = ({
-  languages,
-  deleteLanguages,
-  renderStarsLanguages,
-  currentLanguages,
-  handleInputChangeLanguages,
-  addLanguages,
+  setData,
+  data,
 }) => {
+  const [text, setText] = useState("");
+  const initialRatingsLanguages = Array(3).fill(3);
+
+  const [ratingsLanguages, setRatingsLanguages] = useState(
+    initialRatingsLanguages
+  );
+  const addLanguages = () => {
+    if (text.trim() !== "") {
+      setData({
+        ...data,
+        languages: [
+          ...data.languages,
+          { languages: text, rating: [...ratingsLanguages] },
+        ],
+      });
+      setText("");
+      setRatingsLanguages(initialRatingsLanguages);
+    }
+  };
+
+  const deleteLanguages = (index) => {
+    const updatedLanguages = data.languages.filter((_, i) => i !== index);
+    setData({ ...data, languages: updatedLanguages });
+  };
+
+  const handleStarClickLanguages = (languagesIndex, starIndex) => {
+    const updatedLanguages = data.languages.map((languages, index) => {
+      if (index === languagesIndex) {
+        const updatedRatings = languages.rating.map((rating, i) =>
+          i <= starIndex ? 1 : 0
+        );
+        return { ...languages, rating: updatedRatings };
+      }
+      return languages;
+    });
+    setData({ ...data, languages: updatedLanguages });
+  };
+
+  const renderStarsLanguages = (languagesIndex) => {
+    const languageItem = data.languages[languagesIndex];
+    if (languageItem && languageItem.rating) {
+      return languageItem.rating.map((rating, index) => (
+        <img
+          key={`star_${index}`}
+          src={
+            rating ? "/images/services/Star.png" : "/images/services/Star1.png"
+          }
+          alt=""
+          className="h-[30px] w-[30px]"
+          onClick={() => handleStarClickLanguages(languagesIndex, index)}
+        />
+      ));
+    } else {
+      return null;
+    }
+  };
   return (
     <div
       className="flex flex-col p-4 gap-2 rounded-lg bg-white"
@@ -18,7 +70,7 @@ const Languages = ({
           Languages
         </div>
         <div className="flex flex-col gap-4">
-          {languages.map((languages, index) => (
+          {data.languages.map((languages, index) => (
             <div key={index} className="flex gap-4 justify-between">
               <div className="flex gap-1 px-3 py-2 border border-[#06A9EF] rounded-[24px] justify-between items-center">
                 <p className="text-[14px] font-medium">{languages.languages}</p>
@@ -59,8 +111,8 @@ const Languages = ({
             id=""
             placeholder="Enter your skills"
             className="w-full text-[14px] font-montserrat font-small"
-            value={currentLanguages}
-            onChange={handleInputChangeLanguages}
+            value={text}
+            onChange={(e) => setText(e.target.value)}
           />
         </div>
         <div className="flex justify-end ">
