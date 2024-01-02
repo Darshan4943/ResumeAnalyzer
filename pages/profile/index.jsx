@@ -52,6 +52,7 @@ function Profile() {
       userData.profileScore?.toFixed(0)
     )}deg, transparent 50%, #f0f0f0 50%), linear-gradient(90deg, #f0f0f0 50%, transparent 50%)`,
   };
+
   return (
     <div className="bg-[#F9F9F9]">
       <div>{userData && <ProfileHeader userData={userData} />}</div>

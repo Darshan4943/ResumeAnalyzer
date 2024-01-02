@@ -73,10 +73,9 @@ const PersonalDetails = ({
     if (Object.keys(errors).length === 0) {
       setTabIndex(3);
       window.scroll(0, 0);
-
     } else {
       console.log(Object.keys(errors));
-      toast.error('Please enter all required fields')
+      toast.error("Please enter all required fields");
     }
   };
   return (
@@ -176,7 +175,9 @@ const PersonalDetails = ({
                     id="single_input"
                     placeholder="Enter Contact Number"
                     value={data.mobileNo}
-                    onChange={(phone) => setData({ ...data, mobileNo: phone })}
+                    onChange={(e) => {
+                      setData({ ...data, mobileNo: e.target.value });
+                    }}
                   />
                   {/* <PhoneInput
                     inputClass="single_input"
@@ -188,9 +189,7 @@ const PersonalDetails = ({
                 </div>
 
                 <div className="personal_single_input">
-                  <p className="form_text_heading">
-                    Date Of Birth 
-                  </p>
+                  <p className="form_text_heading">Date Of Birth</p>
                   <input
                     type="date"
                     name=""
@@ -294,9 +293,7 @@ const PersonalDetails = ({
                   </div>
                 </div>
                 <div className="personal_single_input">
-                  <p className="form_text_heading">
-                    Upload Resume 
-                  </p>
+                  <p className="form_text_heading">Upload Resume</p>
                   {file ? (
                     <div className="flex flex-row gap-[16px] items-center py-[16px] border border-[#bebebe] justify-center  rounded-[12px] upload-btn-wrapper w-[100%]">
                       <input
