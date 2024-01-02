@@ -1,37 +1,111 @@
-import React from "react";
+import React, { useState } from "react";
+import DateSelector from "../../../../common/dateSelector";
+import { Delete_icon, Edit_icon } from "../../../../../utils/svg";
 
-const Achievement = ({
-  isCheckedAchievement,
-  handleSwitchChangeAchievement,
-  achievementData,
-  handleEditAchievement,
-  handleDeleteAchievement,
-  handleInputChangeAchievement,
-  addAchievementData,
-  handleSaveAchievement,
-  isModifiedAchievement,
-  currentAchievement,
-  setAddAchievementData,
-  data,
-  setData,
-}) => {
+const Achievement = ({ data, setData }) => {
+  const [isChecked, setIsChecked] = useState(true);
+  const [view, setView] = useState(false);
+  const [isModified, setIsModified] = useState({ status: false, index: 0 });
+  const months = Array.from({ length: 12 }, (_, index) => index + 1);
+  const years = Array.from({ length: 11 }, (_, index) => 2020 + index);
+  const [achivementData, setAchivementData] = useState({
+    title: "",
+    discription: "",
+    dateOfCompletion: {
+      start: { year: "Year", month: "Month" },
+    },
+  });
+  const handleSwitchChange = () => {
+    setIsChecked(!isChecked);
+    setData({ ...data, showCourse: !isChecked });
+  };
+  const handleStartMonthChange = (e) => {
+    setAchivementData({
+      ...achivementData,
+      dateOfCompletion: {
+        ...achivementData.dateOfCompletion,
+        start: {
+          ...achivementData.dateOfCompletion.start,
+          month: e.target.value,
+        },
+      },
+    });
+  };
+
+  const handleStartYearChange = (e) => {
+    setAchivementData({
+      ...achivementData,
+      dateOfCompletion: {
+        ...achivementData.dateOfCompletion,
+        start: {
+          ...achivementData.dateOfCompletion.start,
+          year: e.target.value,
+        },
+      },
+    });
+  };
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setAchivementData({
+      ...achivementData,
+      [name]: value,
+    });
+  };
+  const handleSave = () => {
+    if (isModified.status === true) {
+      const dumyData = data.achievement;
+      const index = isModified.index;
+      dumyData.splice(index, 1, achivementData);
+      setData({ ...data, achievement: dumyData });
+      setView(false);
+    } else {
+      setData({
+        ...data,
+        achievement: [achivementData, ...data.achievement],
+      });
+      setView(false);
+    }
+    setAchivementData({
+      title: "",
+      discription: "",
+      dateOfCompletion: {
+        start: { year: "Year", month: "Month" },
+      },
+    });
+  };
+
+  const handleEditAchievement = (index) => {
+    const dataToEdit = data.achievement[index];
+
+    if (dataToEdit) {
+      setView(true);
+      setAchivementData({ ...dataToEdit });
+      setIsModified({ status: true, index });
+    }
+  };
+  const handleDeleteAchievement = (index) => {
+    setData({
+      ...data,
+      achievement: data.achievement.filter((item, i) => i !== index),
+    });
+  };
+
   return (
     <>
       <div
         className="flex flex-col p-4 gap-2 rounded-lg bg-white"
         style={{
           boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)",
-          opacity: isCheckedAchievement ? 1 : 0.5,
+          opacity: isChecked ? 1 : 0.5,
         }}
       >
         <div className="w-full flex justify-between text-[20px] font-montserrat font-medium">
           <p> Achievements</p>
-
           <label className="switch">
             <input
               type="checkbox"
-              checked={isCheckedAchievement}
-              onChange={handleSwitchChangeAchievement}
+              checked={isChecked}
+              onChange={handleSwitchChange}
             />
             <span className="slider round"></span>
           </label>
@@ -39,61 +113,117 @@ const Achievement = ({
         {data.achievement.map((ach, index) => (
           <div className="flex flex-col gap-1 p-2 rounded-[6px] border border-[#DEDEDE]">
             <div className="flex justify-between">
-              <p>{ach.achievementName}</p>
+              <p>{ach.title}</p>
               <div className="flex gap-2">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
-                  viewBox="0 0 20 20"
-                  fill="none"
-                  onClick={() => handleEditAchievement(index)}
-                >
-                  <g mask="url(#mask0_5808_93842)">
-                    <path
-                      d="M4.16404 15.8317H5.21531L13.7458 7.30121L12.6945 6.24994L4.16404 14.7804V15.8317ZM2.91406 17.0817V14.2612L13.9061 3.27402C14.0321 3.15956 14.1712 3.07112 14.3235 3.00868C14.4757 2.94625 14.6354 2.91504 14.8025 2.91504C14.9696 2.91504 15.1314 2.94469 15.2881 3.004C15.4447 3.06329 15.5834 3.15757 15.7041 3.28683L16.7217 4.31727C16.851 4.43799 16.9431 4.57691 16.9981 4.73402C17.0532 4.89112 17.0807 5.04821 17.0807 5.20531C17.0807 5.37288 17.0521 5.5328 16.9948 5.68506C16.9376 5.83734 16.8466 5.97648 16.7217 6.1025L5.73454 17.0817H2.91406ZM13.2109 6.78479L12.6945 6.24994L13.7458 7.30121L13.2109 6.78479Z"
-                      fill="#646464"
-                    />
-                  </g>
-                </svg>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
-                  viewBox="0 0 20 20"
-                  fill="none"
-                  onClick={() => handleDeleteAchievement(index)}
-                >
-                  <g mask="url(#mask0_5808_93845)">
-                    <path
-                      d="M5.83203 17.5C5.3737 17.5 4.98134 17.3368 4.65495 17.0104C4.32856 16.684 4.16536 16.2917 4.16536 15.8333V5H3.33203V3.33333H7.4987V2.5H12.4987V3.33333H16.6654V5H15.832V15.8333C15.832 16.2917 15.6688 16.684 15.3424 17.0104C15.0161 17.3368 14.6237 17.5 14.1654 17.5H5.83203ZM14.1654 5H5.83203V15.8333H14.1654V5ZM7.4987 14.1667H9.16536V6.66667H7.4987V14.1667ZM10.832 14.1667H12.4987V6.66667H10.832V14.1667Z"
-                      fill="#646464"
-                    />
-                  </g>
-                </svg>
+                <div onClick={() => handleEditAchievement(index)}>
+                  <Edit_icon />
+                </div>
+                <div onClick={() => handleDeleteAchievement(index)}>
+                  <Delete_icon />
+                </div>
               </div>
             </div>
           </div>
         ))}
-        {addAchievementData && (
+        {view && (
           <div>
             <div className="flex flex-col gap-3">
               <div className="flex flex-col gap-2 w-full">
                 <div className="w-full border-[1px] border-[#9D9D9D] rounded-[8px] px-[16px] py-[12px] ">
                   <input
                     type="text"
-                    name="achievementName"
+                    name="title"
                     id=""
                     placeholder="Enter your Achievement"
                     className="w-full text-[14px] font-montserrat font-small "
-                    value={currentAchievement.achievementName}
-                    onChange={handleInputChangeAchievement}
-                    disabled={!isCheckedAchievement}
+                    value={achivementData.title}
+                    onChange={handleInputChange}
+                    disabled={!isChecked}
                   />
                 </div>
               </div>
 
-              <div>{/* <DateSelector idPrefix="experience" /> */}</div>
+              <div>
+                <div className="flex flex-col gap-2">
+                  <div>
+                    <label className="w-full flex gap-2 text-[14px] font-montserrat  font-medium">
+                      Date Of Completion
+                    </label>
+                  </div>
+                  <div className="flex gap-4">
+                    <div className="flex p-2 items-center rounded-lg border border-[#646464] bg-white text-[14px]  font-montserrat font-small">
+                      <select
+                        value={achivementData.dateOfCompletion.start.month}
+                        onChange={handleStartMonthChange}
+                        className="w-[79px] outline-none"
+                        style={{
+                          WebkitAppearance: "none",
+                          MozAppearance: "none",
+                          appearance: "none",
+                        }}
+                      >
+                        <option
+                          value="Month"
+                          disabled
+                          hidden
+                          className="px-4 py-2"
+                        >
+                          Month
+                        </option>
+
+                        {months.map((month) => (
+                          <option
+                            key={month}
+                            value={month}
+                            className="px-4 py-2"
+                          >
+                            {new Date(0, month - 1).toLocaleString("en", {
+                              month: "long",
+                            })}
+                          </option>
+                        ))}
+                      </select>
+
+                      <img
+                        src="/images/down_arrow.png"
+                        className="h-[20px] w-[20px]"
+                        alt=""
+                      />
+                    </div>
+
+                    <div className="flex p-2 items-center rounded-lg border border-[#646464] bg-white text-[14px]  font-montserrat font-small">
+                      <select
+                        value={achivementData.dateOfCompletion.start.year}
+                        onChange={handleStartYearChange}
+                        style={{
+                          WebkitAppearance: "none",
+                          MozAppearance: "none",
+                          appearance: "none",
+                        }}
+                        className="w-[79px] outline-none"
+                      >
+                        <option value="Year" disabled hidden>
+                          Year
+                        </option>
+                        {years.map((year) => (
+                          <option
+                            key={year}
+                            value={year}
+                            className="mt-4 px-4 py-2"
+                          >
+                            {year}
+                          </option>
+                        ))}
+                      </select>
+                      <img
+                        src="/images/down_arrow.png"
+                        className="h-[20px] w-[20px]"
+                        alt=""
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
 
               <div className="flex flex-col gap-2 w-full">
                 <div className="w-full text-[14px] font-montserrat  font-medium">
@@ -105,23 +235,33 @@ const Achievement = ({
                 <div className="w-full border-[1px] border-[#9D9D9D] rounded-[12px]  p-[12px] min-h-[140px]">
                   <textArea
                     type="text"
-                    name=""
+                    name="discription"
                     id=""
                     className="w-full text-[14px] font-montserrat font-small outline-none h-full "
-                  />
+                    onChange={handleInputChange}
+                  >
+                    {achivementData.discription}
+                  </textArea>
                 </div>
               </div>
             </div>
 
             <div className="flex justify-end ">
               <div className="flex justify-between  py-2 gap-2">
+                <button
+                  className=" font-montserrat text-xs font-semibold px-[12px] rounded-[8px] border border-[#06A9EF] w-[80px] h-[32px]"
+                  onClick={() => {
+                    setView(false);
+                  }}
+                >
+                  Cancle
+                </button>
                 <button className=" font-montserrat text-xs font-semibold px-[12px] rounded-[8px] border border-[#06A9EF] w-[137px] h-[32px]">
                   Update to Profile
                 </button>
                 <button
-                  style={{ opacity: isModifiedAchievement ? 1 : 0.3 }}
-                  onClick={handleSaveAchievement}
-                  disabled={!isModifiedAchievement || !isCheckedAchievement}
+                  onClick={handleSave}
+                  disabled={!isChecked}
                   className=" font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px]  bg-[#06A9EF] w-[60px] h-[32px]"
                 >
                   Save
@@ -130,7 +270,7 @@ const Achievement = ({
             </div>
           </div>
         )}
-        {!addAchievementData && (
+        {!view && (
           <div className="flex gap-1">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -147,9 +287,9 @@ const Achievement = ({
               </g>
             </svg>
             <p
-              onClick={() => setAddAchievementData(true)}
+              onClick={() => setView(true)}
               className="text-[16px] font-semibold text-[#06A9EF]"
-              disabled={!isCheckedAchievement}
+              disabled={!isChecked}
             >
               Add Achievements
             </p>

@@ -1,12 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 
 const Hobbie = ({
-  Hobbies,
-  deleteHobbies,
-  currentHobbies,
-  handleInputChangeHobbies,
-  addHobby,
+  data,
+  setData,
 }) => {
+  const [text, setText] = useState("");
+  const deleteHobbies = (index) => {
+    const updatedHobbies = data.hobbies.filter((_, i) => i !== index);
+    setData({ ...data, hobbies: updatedHobbies });
+  };
+  const addHobby = () => {
+    if (text.trim() !== "") {
+      setText("");
+      setData({ ...data, hobbies: [...data.hobbies, { title: text }] });
+    }
+  };
+
   return (
     <>
       <div
@@ -18,12 +27,12 @@ const Hobbie = ({
             Hobbies
           </div>
           <div className="flex flex-wrap gap-4">
-            {Hobbies.map((hobby, index) => (
+            {data.hobbies.map((hobby, index) => (
               <div
                 key={index}
                 className="flex gap-1 px-3 py-2 border border-[#06A9EF] rounded-[24px] justify-between items-center"
               >
-                <p className="text-[14px] font-medium">{hobby.hobby}</p>
+                <p className="text-[14px] font-medium">{hobby.title}</p>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="20"
@@ -50,8 +59,8 @@ const Hobbie = ({
               id=""
               placeholder="Enter your hobbies"
               className="w-full text-[14px] font-montserrat font-small"
-              value={currentHobbies}
-              onChange={handleInputChangeHobbies}
+              value={text}
+              onChange={(e) => setText(e.target.value)}
             />
           </div>
           <div className="flex justify-end ">
@@ -61,6 +70,8 @@ const Hobbie = ({
               </button>
               <button
                 onClick={addHobby}
+                disabled={text.length == 0}
+                style={{ opacity: text.length == 0 ? 0.5 : 1 }}
                 className=" font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px]  bg-[#06A9EF] w-[60px] h-[32px]"
               >
                 Save

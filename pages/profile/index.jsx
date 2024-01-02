@@ -15,8 +15,12 @@ import {
   Element as ScrollElement,
   scroller,
 } from "react-scroll";
+import ALink from "../../components/alink";
 function Profile() {
+
+
   const userDataGlobal = useSelector((state) => state.userData);
+  // console.log(userDataGlobal)
   const [userData, setUserData] = useState("");
   const [selectedTab, setSelectedTab] = useState("My Resume");
   const arr = [
@@ -57,9 +61,8 @@ function Profile() {
   const [isComponentOpen, setIsComponentOpen] = useState(false);
 
   const handleImageClick = () => {
-    setIsComponentOpen(!isComponentOpen); 
+    setIsComponentOpen(!isComponentOpen);
   };
-
 
   return (
     <div className="bg-[#F9F9F9]">
@@ -140,7 +143,12 @@ function Profile() {
                 </p>
 
                 <div className="build_ai_button_parent">
-                  <button className="build_ai_button">Create New Resume</button>
+                  <ALink href={"/candidate/create_resume"}>
+                    <button className="build_ai_button">
+                      Create New Resume
+                    </button>
+                  </ALink>
+
                   <button className="build_ai_button">Download Resume</button>
                 </div>
               </div>
@@ -157,11 +165,14 @@ function Profile() {
                     src="./images/profile/edit.png"
                     alt=""  
                     onClick={handleImageClick}
-                    data-modal-target="default-modal" data-modal-toggle="default-modal" 
+                    data-modal-target="default-modal"
+                    data-modal-toggle="default-modal"
                   />
                 </div>
                 <p className="content_text">{userData?.summary}</p>
-                {isComponentOpen && <AboutModal handleImageClick={handleImageClick}/>}
+                {isComponentOpen && (
+                  <AboutModal handleImageClick={handleImageClick} />
+                )}
               </div>
             </ScrollElement>
             <ScrollElement name="Work Experience" className="section">

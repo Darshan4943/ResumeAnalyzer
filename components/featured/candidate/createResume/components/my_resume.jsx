@@ -26,7 +26,7 @@ const ResumeList = ({ data, setData }) => {
   };
   return (
     <>
-      {/* <div className="bg-[#06A9EF] p-4 rounded-[16px] flex justify-between text-white">
+      <div className="bg-[#06A9EF] p-4 rounded-[16px] flex justify-between text-white">
         <p className="text-[20px] font-medium">My Resume</p>
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -42,7 +42,7 @@ const ResumeList = ({ data, setData }) => {
             />
           </g>
         </svg>
-      </div> */}
+      </div>
       <div
         className="flex flex-col gap-4 p-4 bg-white rounded-lg"
         style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}
