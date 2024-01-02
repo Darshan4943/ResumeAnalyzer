@@ -11,7 +11,7 @@ function AiResume() {
   const [aiResumePage, setAiResumePage] = useState(false);
 
   const handleClick = () => {
-    router.push("/candidate/afterLogin/services/servicesSub/AiResumePage");
+    router.push("/candidate/create_resume");
   };
 
   return (

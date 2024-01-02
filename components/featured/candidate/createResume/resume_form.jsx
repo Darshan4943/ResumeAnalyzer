@@ -1,0 +1,120 @@
+import React from 'react'
+
+const ResumeForm = () => {
+  return (
+<>
+   <div className="flex flex-col w-[49%] px-2 pb-4 gap-4 rounded-lg overflow-y-auto ">
+              <ResumeList
+                handleButtonClick={handleButtonClick}
+                handleFileChange={handleFileChange}
+                fileRef={fileRef}
+              />
+              <PersonalDetails
+                isChecked={isChecked}
+                handleSwitchChange={handleSwitchChange}
+                handleInputChangeProfile={handleInputChangeProfile}
+                formData={formData}
+                isModified={isModified}
+                handleSave={handleSave}
+              />
+              <AboutMe
+                aboutData={aboutData}
+                handleAboutDataUpdate={handleAboutDataUpdate}
+              />
+              <Education
+                isCheckedEducation={isCheckedEducation}
+                handleSwitchChangeEducation={handleSwitchChangeEducation}
+                educationData={educationData}
+                handleEditEducation={handleEditEducation}
+                handleDeleteEducation={handleDeleteEducation}
+                addEducationData={addEducationData}
+                handleInputChangeEducation={handleInputChangeEducation}
+                currentEducation={currentEducation}
+                educationDetails={educationDetails}
+                setEducationDetails={setEducationDetails}
+                isModifiedEducation={isModifiedEducation}
+                setAddEducationData={setAddEducationData}
+                handleSaveEducation={handleSaveEducation}
+              />
+              <Experience
+                isCheckedExperience={isCheckedExperience}
+                handleInputChangeExperience={handleInputChangeExperience}
+                handleDeleteExperience={handleDeleteExperience}
+                handleSwitchChangeExperience={handleSwitchChangeExperience}
+                handleEditExperience={handleEditExperience}
+                handleSaveExperience={handleSaveExperience}
+                experienceData={experienceData}
+                addExperienceData={addExperienceData}
+                setAddExperienceData={setAddExperienceData}
+                currentExperience={currentExperience}
+                isModifiedExperience={isModifiedExperience}
+              />
+              <Course
+                isCheckedCourse={isCheckedCourse}
+                handleSwitchChangeCourse={handleSwitchChangeCourse}
+                courseData={courseData}
+                addCourseData={addCourseData}
+                handleDeleteCourse={handleDeleteCourse}
+                currentCourse={currentCourse}
+                handleInputChangeCourse={handleInputChangeCourse}
+                handleSaveCourse={handleSaveCourse}
+                currentExperience={currentExperience}
+                isModifiedCourse={isModifiedCourse}
+                setAddCourseData={setAddCourseData}
+              />
+              <Skills
+                skills={skills}
+                deleteSkill={deleteSkill}
+                renderStars={renderStars}
+                handleInputChange={handleInputChange}
+                currentSkill={currentSkill}
+                addSkill={addSkill}
+              />
+              <Achievement
+                isCheckedAchievement={isCheckedAchievement}
+                handleSwitchChangeAchievement={handleSwitchChangeAchievement}
+                achievementData={achievementData}
+                handleEditAchievement={handleEditAchievement}
+                handleDeleteAchievement={handleDeleteAchievement}
+                handleInputChangeAchievement={handleInputChangeAchievement}
+                addAchievementData={addAchievementData}
+                handleSaveAchievement={handleSaveAchievement}
+                isModifiedAchievement={isModifiedAchievement}
+                currentAchievement={currentAchievement}
+                setAddAchievementData={setAddAchievementData}
+              />
+              <SocialLink
+                isCheckedSocial={isCheckedSocial}
+                handleSwitchChangeSocial={handleSwitchChangeSocial}
+                socialData={socialData}
+                handleEditSocial={handleEditSocial}
+                handleDeleteSocial={handleDeleteSocial}
+                addSocialData={addSocialData}
+                handleInputChangeSocial={handleInputChangeSocial}
+                currentSocial={currentSocial}
+                isModifiedSocial={isModifiedSocial}
+                handleSaveSocial={handleSaveSocial}
+                setAddSocialData={setAddSocialData}
+              />
+
+              <Hobbie
+                Hobbies={Hobbies}
+                deleteHobbies={deleteHobbies}
+                currentHobbies={currentHobbies}
+                handleInputChangeHobbies={handleInputChangeHobbies}
+                addHobby={addHobby}
+              />
+                <Languages
+                  languages={languages}
+                  deleteLanguages={deleteLanguages}
+                  renderStarsLanguages={renderStarsLanguages}
+                  currentLanguages={currentLanguages}
+                  handleInputChangeLanguages={handleInputChangeLanguages}
+                  addLanguages={addLanguages}
+                />
+            </div>
+</>
+  )
+}
+
+export default ResumeForm

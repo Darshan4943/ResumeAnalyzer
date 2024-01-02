@@ -3,7 +3,6 @@ import React from "react";
 
 const ImageContainer = ({ style, className, src, alt }) => {
   return (
-    <div>
       <Image
       // objectFit="cover"
         style={style}
@@ -14,7 +13,6 @@ const ImageContainer = ({ style, className, src, alt }) => {
         width={100}
         height={100}
       />
-    </div>
   );
 };
 

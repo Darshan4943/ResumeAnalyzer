@@ -6,22 +6,15 @@ import InterviewQue from "@/components/featured/candidate/afterLogin/services/In
 import DailyQuize from "@/components/featured/candidate/afterLogin/services/DailyQuize";
 import SkillAssessment from "@/components/featured/candidate/afterLogin/services/SkillAssessment";
 
-
 function Services() {
+  return (
+    <div>
+      <AiResume />
+      <InterviewQue />
+      <DailyQuize />
+      <SkillAssessment />
 
-
-
-    return (
-        <div>
-
-            <AiResume />
-            <InterviewQue />
-            <DailyQuize />
-            <SkillAssessment />
-
-
-
-            {/* <div className=" bg-[#F9F9F9]">
+      {/* <div className=" bg-[#F9F9F9]">
                 <div className=" flex customMargins pt-[24px] h-[1063px] gap-6">
                     <div
                         className="flex flex-col w-[49%] p-2 gap-4 rounded-lg bg-white shadow-md"
@@ -546,12 +539,8 @@ function Services() {
                     </div>
                 </div>
             </div> */}
-
-        </div>
-
-
-
-    );
+    </div>
+  );
 }
 
 export default Services;

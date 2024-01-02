@@ -60,6 +60,7 @@ function Profile() {
     setIsComponentOpen(!isComponentOpen); 
   };
 
+
   return (
     <div className="bg-[#F9F9F9]">
       <div>{userData && <ProfileHeader userData={userData} />}</div>

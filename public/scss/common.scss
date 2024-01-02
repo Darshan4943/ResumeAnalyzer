@@ -1,0 +1,10 @@
+.btn_outline {
+  display: flex;
+  padding: 8px 16px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  border: 1px solid var(--primary, #06a9ef);
+  background: var(--white, #fff);
+}
+
