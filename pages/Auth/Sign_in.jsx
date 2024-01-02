@@ -38,8 +38,7 @@ function Sign_in() {
         }
       })
       .catch((err) => {
-        console.log(38, err.response.data.message);
-        setError( err.response.data.message);
+        setError( err?.response?.data.message);
         console.log(err.response);
       });
   };
