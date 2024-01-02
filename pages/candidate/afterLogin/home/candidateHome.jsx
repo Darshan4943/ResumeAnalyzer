@@ -5,20 +5,17 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 function AfterLoginHome() {
-
   const userDataGlobal = useSelector((state) => state.userData);
   const [userData, setUserData] = useState("");
-  console.log(userData)
   useEffect(() => {
     setUserData(userDataGlobal);
   }, [userDataGlobal]);
 
-  const [toggle, setToggle] = useState(0)
+  const [toggle, setToggle] = useState(0);
 
   return (
-
     <div className="bg-[#F9F9F9] ">
-      {userData &&
+      {userData && (
         <div className=" relative bg-[#F9F9F9]  ">
           <div className="  ">
             <div className="customMargins py-5 flex flex-row justify-between items-center ">
@@ -36,11 +33,15 @@ function AfterLoginHome() {
                       <div className="flex flex-col gap-[8px]">
                         <div className="flex flex-col gap-[8px]">
                           <div className="text-[#333] text-[18px] font-[500]">
-                            {userData?.basics?.firstName} {userData?.basics?.lastName}
+                            {userData?.basics?.firstName}{" "}
+                            {userData?.basics?.lastName}
                           </div>
-                          <div className="text-[#333] text-[14px] font-[400]">
-                            {userData?.education[0]?.education} @  {userData?.education[0]?.university}
-                          </div>
+                          {userData?.education && (
+                            <div className="text-[#333] text-[14px] font-[400]">
+                              {userData?.education[0]?.education} @{" "}
+                              {userData?.education[0]?.university}
+                            </div>
+                          )}
                         </div>
                         <div className="text-[#646464] text-[12px] font-[400]">
                           Last updated 1 m ago
@@ -68,7 +69,8 @@ function AfterLoginHome() {
                         Profile Score
                       </div>
                       <div className="text-[#262626] text-[12px] font-[400]">
-                        Improve your profile score, to get more recruiter attention.
+                        Improve your profile score, to get more recruiter
+                        attention.
                       </div>
                     </div>
                   </div>
@@ -112,7 +114,11 @@ function AfterLoginHome() {
           </div>
           <div className="bg-[#BCECFF] sticky top-[5.6rem] z-500">
             <div className="customMargins flex flex-row  gap-[16px] py-[8px]">
-              <div className={`flex flex-row py-[8px] px-[16px] gap-[8px] items-center justify-center ${toggle === 0 && 'text-white bg-[#06A9EF] rounded-[6px]'}`} >
+              <div
+                className={`flex flex-row py-[8px] px-[16px] gap-[8px] items-center justify-center ${
+                  toggle === 0 && "text-white bg-[#06A9EF] rounded-[6px]"
+                }`}
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -127,11 +133,18 @@ function AfterLoginHome() {
                     />
                   </g>
                 </svg>
-                <div onClick={() => setToggle(0)} className={`text-[14px] font-semibold flex items-center cursor-pointer justify-center `}>
+                <div
+                  onClick={() => setToggle(0)}
+                  className={`text-[14px] font-semibold flex items-center cursor-pointer justify-center `}
+                >
                   Home
                 </div>
               </div>
-              <div className={`flex flex-row py-[8px] px-[16px] gap-[8px] items-center justify-center ${toggle === 1 && 'text-white bg-[#06A9EF] rounded-[6px]'}`}>
+              <div
+                className={`flex flex-row py-[8px] px-[16px] gap-[8px] items-center justify-center ${
+                  toggle === 1 && "text-white bg-[#06A9EF] rounded-[6px]"
+                }`}
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="20"
@@ -148,11 +161,18 @@ function AfterLoginHome() {
                     fill={toggle === 1 ? "#FFF" : "#333"}
                   />
                 </svg>
-                <div onClick={() => setToggle(1)} className="text-[14px] font-[500] flex items-center cursor-pointer justify-center">
+                <div
+                  onClick={() => setToggle(1)}
+                  className="text-[14px] font-[500] flex items-center cursor-pointer justify-center"
+                >
                   Applied Jobs
                 </div>
               </div>
-              <div className={`flex flex-row py-[8px] px-[16px] gap-[8px] items-center justify-center ${toggle === 2 && 'text-white bg-[#06A9EF] rounded-[6px]'}`}>
+              <div
+                className={`flex flex-row py-[8px] px-[16px] gap-[8px] items-center justify-center ${
+                  toggle === 2 && "text-white bg-[#06A9EF] rounded-[6px]"
+                }`}
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="15.205px"
@@ -165,78 +185,122 @@ function AfterLoginHome() {
                     fill={toggle === 2 ? "#FFF" : "#333"}
                   />
                 </svg>
-                <div onClick={() => setToggle(2)} className="text-[14px] font-[500] flex items-center cursor-pointer justify-center">
+                <div
+                  onClick={() => setToggle(2)}
+                  className="text-[14px] font-[500] flex items-center cursor-pointer justify-center"
+                >
                   Saved Jobs
                 </div>
               </div>
             </div>
           </div>
         </div>
-      }
-      {toggle === 0 &&
+      )}
+      {toggle === 0 && (
         <div className="customMargins overflow-y-auto">
-
           <div className="grid grid-cols-5 gap-[24px] pb-[49px]">
-
             <div class="col-span-4">
-
               <Job_card />
 
-              <div className="flex  p-[16px]  mt-[24px] justify-between w-[100%] rounded-[12px] bg-cover bg-center " style={{ backgroundImage: 'url(/images/afterLoginHome/bg-linear.png)' }}  >
+              <div
+                className="flex  p-[16px]  mt-[24px] justify-between w-[100%] rounded-[12px] bg-cover bg-center "
+                style={{
+                  backgroundImage: "url(/images/afterLoginHome/bg-linear.png)",
+                }}
+              >
                 <div className="flex w-[80%]">
                   <div className="flex flex-col items-start gap-[24px] align-self-stretch">
                     <p className="text-[#fff] max-w-[50%] text-[18px] font-[500]  leading-[28px]">
-                      Use our frequently asked interview questions to receive personalized AI questions, responses, and feedback.
+                      Use our frequently asked interview questions to receive
+                      personalized AI questions, responses, and feedback.
                     </p>
                     <button className=" flex py-[8px] px-[16px] justify-center items-center gap-[4px] rounded-[8px] border border-solid border-[#06A9EF] text-[16px] text-[#fff] font-[500]  ">
                       Get Started
-                      <img className="w-[20px]" src="/images/afterLoginHome/arrow_forward.png" alt="" />
+                      <img
+                        className="w-[20px]"
+                        src="/images/afterLoginHome/arrow_forward.png"
+                        alt=""
+                      />
                     </button>
                   </div>
                 </div>
-                <div className="w-[20%]" >
-                  <img className="w-[155px]" src="/images/afterLoginHome/Frame-que.png" alt="" />
+                <div className="w-[20%]">
+                  <img
+                    className="w-[155px]"
+                    src="/images/afterLoginHome/Frame-que.png"
+                    alt=""
+                  />
                 </div>
               </div>
 
               <Job_card />
 
-              <div className="flex  p-[16px]  mt-[24px] justify-between w-[100%] rounded-[12px] bg-cover bg-center " style={{ backgroundImage: 'url(/images/afterLoginHome/elevate_back.png)' }}  >
+              <div
+                className="flex  p-[16px]  mt-[24px] justify-between w-[100%] rounded-[12px] bg-cover bg-center "
+                style={{
+                  backgroundImage:
+                    "url(/images/afterLoginHome/elevate_back.png)",
+                }}
+              >
                 <div className="flex w-[80%]">
                   <div className="flex flex-col items-start gap-[24px] align-self-stretch">
                     <p className="text-[#333] max-w-[60%] text-[18px] font-[500]  leading-[28px]">
-                      Elevate your day with our Daily Quiz. Quick, fun, and your daily dose of brainpower boost!
+                      Elevate your day with our Daily Quiz. Quick, fun, and your
+                      daily dose of brainpower boost!
                     </p>
                     <button className=" flex py-[8px] px-[16px] justify-center items-center gap-[4px] rounded-[8px] border border-solid border-[#333] text-[16px] text-[#333] font-[500]  ">
                       Get Started
-                      <img className="w-[20px]" src="/images/afterLoginHome/arrow_forward_black.png" alt="" />
+                      <img
+                        className="w-[20px]"
+                        src="/images/afterLoginHome/arrow_forward_black.png"
+                        alt=""
+                      />
                     </button>
                   </div>
                 </div>
-                <div className="w-[20%]" >
-                  <img className="w-[155px]" src="/images/afterLoginHome/elevate_sec.png" alt="" />
+                <div className="w-[20%]">
+                  <img
+                    className="w-[155px]"
+                    src="/images/afterLoginHome/elevate_sec.png"
+                    alt=""
+                  />
                 </div>
               </div>
 
               <Job_card />
 
-              <div className="flex  p-[16px]  mt-[24px] justify-between w-[100%] rounded-[12px] bg-cover bg-center " style={{ backgroundImage: 'url(/images/afterLoginHome/uncover_back.png)' }}  >
+              <div
+                className="flex  p-[16px]  mt-[24px] justify-between w-[100%] rounded-[12px] bg-cover bg-center "
+                style={{
+                  backgroundImage:
+                    "url(/images/afterLoginHome/uncover_back.png)",
+                }}
+              >
                 <div className="flex w-[80%]">
                   <div className="flex flex-col items-start gap-[24px] align-self-stretch">
                     <p className="text-[#fff] max-w-[50%] text-[18px] font-[500]  leading-[28px]">
-                      Uncover Your Potential with Effortless Skill Assessment. Elevate Your Abilities, Elevate Your Success!         </p>
+                      Uncover Your Potential with Effortless Skill Assessment.
+                      Elevate Your Abilities, Elevate Your Success!{" "}
+                    </p>
                     <button className=" flex py-[8px] px-[16px] justify-center items-center gap-[4px] rounded-[8px] border border-solid border-[#fff] text-[16px] text-[#fff] font-[500]  ">
                       Get Started
-                      <img className="w-[20px]" src="/images/afterLoginHome/arrow_forward.png" alt="" />
+                      <img
+                        className="w-[20px]"
+                        src="/images/afterLoginHome/arrow_forward.png"
+                        alt=""
+                      />
                     </button>
                   </div>
                 </div>
-                <div className="w-[20%]" >
-                  <img className="w-[155px]" src="/images/afterLoginHome/OBJECTS.png" alt="" />
+                <div className="w-[20%]">
+                  <img
+                    className="w-[155px]"
+                    src="/images/afterLoginHome/OBJECTS.png"
+                    alt=""
+                  />
                 </div>
               </div>
             </div>
-
 
             <div class="col-span-1 ">
               <div className="flex flex-col gap-[24px] mt-[24px] items-start">
@@ -248,23 +312,11 @@ function AfterLoginHome() {
             </div>
           </div>
         </div>
-      }
+      )}
 
-      {toggle === 1 &&
-
-        <AppliedJobs />
-
-
-      }
-      {toggle === 2 &&
-
-        <SavedJobs />
-
-
-      }
-
+      {toggle === 1 && <AppliedJobs />}
+      {toggle === 2 && <SavedJobs />}
     </div>
-
   );
 }
 

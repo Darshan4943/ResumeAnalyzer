@@ -5,12 +5,14 @@
 @import "pages/recruiter";
 
 @import "base/footer";
+@import "base/model";
 @import "pages/home";
 @import "pages/_candidate";
 @import "pages/_employer";
 @import "pages/sign";
 @import "pages/profile";
 @import "custom";
+@import "common";
 
 @import "tailwindcss/base";
 @import "tailwindcss/components";

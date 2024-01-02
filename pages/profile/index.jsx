@@ -7,6 +7,7 @@ import ProfileHeader from "@/components/featured/candidate/profile/profile_heade
 import ResumeList from "@/components/featured/candidate/profile/resume_list";
 import Skills from "@/components/featured/candidate/profile/skills";
 import WorkExperiance from "@/components/featured/candidate/profile/work_experience";
+import AboutModal from "@/components/featured/candidate/profile/modals/about_modal";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import {
@@ -18,6 +19,7 @@ function Profile() {
 
 
   const userDataGlobal = useSelector((state) => state.userData);
+  // console.log(userDataGlobal)
   const [userData, setUserData] = useState("");
   const [selectedTab, setSelectedTab] = useState("My Resume");
   const arr = [
@@ -54,6 +56,14 @@ function Profile() {
       userData.profileScore?.toFixed(0)
     )}deg, transparent 50%, #f0f0f0 50%), linear-gradient(90deg, #f0f0f0 50%, transparent 50%)`,
   };
+
+  const [isComponentOpen, setIsComponentOpen] = useState(false);
+
+  const handleImageClick = () => {
+    setIsComponentOpen(!isComponentOpen); 
+  };
+
+
   return (
     <div className="bg-[#F9F9F9]">
       <div>{userData && <ProfileHeader userData={userData} />}</div>
@@ -81,7 +91,7 @@ function Profile() {
                 </p> */}
               </div>
 
-              <div className="profile_right_section">
+              <div className="profile_right_section ">
                 <p className="profile_score_text">Profile Score</p>
                 <p className="improve_text">
                   Improve your profile score, to get more recruiter attention.
@@ -111,7 +121,7 @@ function Profile() {
             </div>
           </div>
 
-          <div className="profile_right">
+          <div className="profile_right ">
             <div className="build_ai">
               <div className="build_ai_left">
                 <img src="./images/profile/Wavy_Bus.png" alt="" />
@@ -142,16 +152,19 @@ function Profile() {
               <ResumeList userData={userData} />
             </ScrollElement>
             <ScrollElement name="About me" className="section">
-              <div className="build_ai ai2">
+              <div className="build_ai ai2 ">
                 <div className="gap">
                   <p className="page_headings">About me</p>
                   <img
                     style={{ width: "24px" }}
                     src="./images/profile/edit.png"
                     alt=""
+                    onClick={handleImageClick}
+                    data-modal-target="default-modal" data-modal-toggle="default-modal" 
                   />
                 </div>
                 <p className="content_text">{userData?.summary}</p>
+                {isComponentOpen && <AboutModal handleImageClick={handleImageClick}/>}
               </div>
             </ScrollElement>
             <ScrollElement name="Work Experience" className="section">
