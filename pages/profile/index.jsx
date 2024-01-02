@@ -17,6 +17,7 @@ import {
 } from "react-scroll";
 function Profile() {
   const userDataGlobal = useSelector((state) => state.userData);
+  // console.log(userDataGlobal)
   const [userData, setUserData] = useState("");
   const [selectedTab, setSelectedTab] = useState("My Resume");
   const arr = [

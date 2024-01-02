@@ -46,7 +46,6 @@ const CandidateAiPower = ({
       .then((res) => {
         setLoading(false);
         setfile(file);
-        console.log(res.data);
         setToState(res.data);
       })
       .catch((err) => {
@@ -330,10 +329,12 @@ const CandidateAiPower = ({
                 </button>
 
                 {/* <ALink href="/auth/candidate_register"> */}
-              
+
                 <button
-                  disabled={(file&& !loading) ? false : true}
-                  className={`px-9 py-3 bg-[#06A9EF] border rounded-[12px] font-semibold text-white ${(file && !loading)?'opacity-100':'opacity-50'} `}
+                  disabled={file && !loading ? false : true}
+                  className={`px-9 py-3 bg-[#06A9EF] border rounded-[12px] font-semibold text-white ${
+                    file && !loading ? "opacity-100" : "opacity-50"
+                  } `}
                   onClick={() => {
                     setTabIndex(2);
                   }}

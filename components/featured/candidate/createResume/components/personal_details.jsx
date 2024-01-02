@@ -15,7 +15,6 @@ const PersonalDetails = ({ setData, data }) => {
     location: "",
     designation: "",
   });
-  console.log(profileData,data)
   const inputFields = [
     {
       label: "First Name",
@@ -88,7 +87,7 @@ const PersonalDetails = ({ setData, data }) => {
       mobileNumber: profileData.mobileNumber,
       email: profileData.email.toLowerCase(),
       location: camelCase(profileData.location),
-      designation: profileData.designation
+      designation: profileData.designation,
     });
   };
 
