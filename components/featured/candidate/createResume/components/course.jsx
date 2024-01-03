@@ -5,7 +5,6 @@ import { Delete_icon, Edit_icon } from "../../../../../utils/svg";
 const Course = ({ data, setData }) => {
   const [isChecked, setIsChecked] = useState(true);
   const [view, setView] = useState(false);
-
   const [isModified, setIsModified] = useState({ status: false, index: 0 });
   const [courseData, setCourseData] = useState({
     courseName: "",

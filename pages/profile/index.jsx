@@ -16,9 +16,11 @@ import {
   Element as ScrollElement,
   scroller,
 } from "react-scroll";
+import ALink from "../../components/alink";
 import SocialLink from "@/components/featured/candidate/createResume/components/social_link";
 function Profile() {
   const userDataGlobal = useSelector((state) => state.userData);
+  // console.log(userDataGlobal)
   const [userData, setUserData] = useState("");
   const [selectedTab, setSelectedTab] = useState("My Resume");
   const arr = [
@@ -141,7 +143,12 @@ function Profile() {
                 </p>
 
                 <div className="build_ai_button_parent">
-                  <button className="build_ai_button">Create New Resume</button>
+                  <ALink href={"/candidate/create_resume"}>
+                    <button className="build_ai_button">
+                      Create New Resume
+                    </button>
+                  </ALink>
+
                   <button className="build_ai_button">Download Resume</button>
                 </div>
               </div>

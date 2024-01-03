@@ -3,13 +3,15 @@ import ALink from "@/components/alink";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
+import { useDispatch } from "react-redux";
+import { reCallUserData } from "../../Redux/actions/user";
 
 function Sign_in() {
   const router = useRouter();
   const [data, setData] = useState({ email: "", password: "" });
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState(null);
-
+  const dispatch = useDispatch()
   
 
   const handleTogglePassword = () => {
@@ -29,7 +31,7 @@ function Sign_in() {
         const response = res.data;
         if (response.success) {
           localStorage.setItem("authToken", response.token);
-       
+          dispatch(reCallUserData())
           toast.success("Registration Complete");
           router.push("/candidate/afterLogin/home/candidateHome");
           setError("Sign in Successfully")
@@ -38,8 +40,7 @@ function Sign_in() {
         }
       })
       .catch((err) => {
-        console.log(38, err.response.data.message);
-        setError( err.response.data.message);
+        setError( err?.response?.data.message);
         console.log(err.response);
       });
   };

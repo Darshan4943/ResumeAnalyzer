@@ -47,7 +47,7 @@ function Resume5({
               {data.email}
             </p>
           </div>
-          {socialData.map((detail, index) => (
+          {data.sociaLinks.map((detail, index) => (
             <div className="flex justify-start items-center gap-[8.46px]">
               <div className="w-[14.8px] h-[14.8px]">
                 <img src="/images/services/wg.png" alt="" />
@@ -96,7 +96,7 @@ function Resume5({
           </div>
         </div>
         <div className="flex flex-col gap-1 pt-6">
-          {languages.map((detail, index) => (
+          {data.languages.map((detail, index) => (
             <div className=" pl-[28.13px] pr-3 flex flex-col gap-1 ">
               <div className="flex justify-between items-center gap-4">
                 <p className="text-[#414142] font-kanit text-[11.136px]  w-[80px] font-light">

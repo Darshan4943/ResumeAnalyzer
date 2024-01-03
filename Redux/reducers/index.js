@@ -16,10 +16,11 @@ import {
   tagReducer,
   walletPointReducer,
 } from "./reducer";
-import { userDataReducer } from "./userReducer";
+import { recallUser, userDataReducer } from "./userReducer";
 
 const reducers = combineReducers({
   userData: userDataReducer,
+  reCallUser: recallUser,
 });
 
 export default reducers;

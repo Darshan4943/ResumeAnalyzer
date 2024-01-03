@@ -15,7 +15,6 @@ const PersonalDetails = ({ setData, data }) => {
     location: "",
     designation: "",
   });
-  console.log(profileData,data)
   const inputFields = [
     {
       label: "First Name",
@@ -88,7 +87,7 @@ const PersonalDetails = ({ setData, data }) => {
       mobileNumber: profileData.mobileNumber,
       email: profileData.email.toLowerCase(),
       location: camelCase(profileData.location),
-      designation: profileData.designation
+      designation: profileData.designation,
     });
   };
 
@@ -112,7 +111,7 @@ const PersonalDetails = ({ setData, data }) => {
             <span className="slider round"></span>
           </label>
         </div>
-        <div className="grid grid-cols-2 gap-4 gap-4">
+        <div className="grid grid-cols-2 gap-4">
           {inputFields.map((item, index) => (
             <div
               className={`flex flex-col gap-2 w-full ${item.className}`}

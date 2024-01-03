@@ -12,7 +12,7 @@ const AboutMe = ({ data, setData }) => {
 
   const handleSwitchChange = () => {
     setIsChecked(!isChecked);
-    setData({...data,showSummary:!isChecked})
+    setData({ ...data, showSummary: !isChecked });
   };
   const generateText = () => {
     const prompt = `Original Paragraph:\n${text}\n\nNew Paragraph:\n`;
