@@ -1,8 +1,23 @@
 import { timeAgo } from "@/utils/middleware";
-import React from "react";
+import React, { useState } from "react";
+import ChangeProfile from "./modals/ChangeProfile";
+import EditProfile from "./modals/EditProfile";
 
 const ProfileHeader = ({ userData }) => {
+
+  const [editProfile,setEditProfile]= useState(false)
+
+  const [ischangeProfile, setIsChangeProfile] = useState(false)
+  const imageSeter = ()=>{
+    if(userData.profilePicture.img      ){
+      return userData?.profilePicture?.img
+    }else{
+      return "./images/profile/john_doe.png"
+    }
+  }
+  console.log(userData)
   return (
+    <>
     <div className="bg-[#E0F6FF] py-[24px]">
       <div className="customMargins">
         <div class="grid grid-cols-1 ">
@@ -23,8 +38,10 @@ const ProfileHeader = ({ userData }) => {
                   stroke-width="1.419"
                 />
               </svg>
-              <div class="absolute left-[24px] bottom-[23px] w-[105px] h-[105px] rounded-full">
-                <img src="./images/profile/john_doe.png" alt="" />
+              <div class="absolute left-[24px] bottom-[23px] w-[105px] h-[105px] rounded-full overflow-hidden">
+                <img 
+                onClick={() =>setIsChangeProfile(true)}
+                src={userData?.profilePicture?.img ?userData?.profilePicture?.img:"/images/profile/john_doe.png"} alt="" />
               </div>
             </div>
 
@@ -39,9 +56,11 @@ const ProfileHeader = ({ userData }) => {
                       Last updated {timeAgo(new Date(userData?.updatedAt))}
                     </p>
                   </div>
-                  {/* <div class="w-[24px]">
+                  <div 
+                  onClick={() => setEditProfile(true)}
+                  class="w-[24px]">
                     <img src="./images/profile/edit.png" alt="" />
-                  </div> */}
+                  </div>
                 </div>
               </div>
               <div class="flex justify-between w-full">
@@ -115,6 +134,32 @@ const ProfileHeader = ({ userData }) => {
         </div>
       </div>
     </div>
+
+    {ischangeProfile && (
+        <>
+          <div className="opacity-25 fixed inset-0 z-[120] bg-black"></div>
+
+          <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-[130] outline-none focus:outline-none">
+            <div className="absolute max-w-[800px] w-full">
+              <ChangeProfile setEditProfile={setEditProfile} />
+            </div>
+          </div>
+        </>
+      )}
+
+      {editProfile && (
+        <>
+         <div className="opacity-25 fixed inset-0 z-[120] bg-black"></div>
+
+          <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-[130] outline-none focus:outline-none">
+            <div className="absolute max-w-[800px] w-full">
+              <EditProfile setEditProfile={setEditProfile} />
+            </div>
+          </div>
+          </>
+      )}
+
+    </>
   );
 };
 
