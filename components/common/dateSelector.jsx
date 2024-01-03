@@ -9,7 +9,7 @@ const DateSelector = ({ idPrefix, dataSeter, data }) => {
       ...data,
       duration: {
         ...data.duration,
-        start: { ...data.duration.start, month: e.target.value },
+        start: { ...data.duration?.start, month: e.target.value },
       },
     });
   };
@@ -19,7 +19,7 @@ const DateSelector = ({ idPrefix, dataSeter, data }) => {
       ...data,
       duration: {
         ...data.duration,
-        start: { ...data.duration.start, year: e.target.value },
+        start: { ...data.duration?.start, year: e.target.value },
       },
     });
   };
@@ -29,7 +29,7 @@ const DateSelector = ({ idPrefix, dataSeter, data }) => {
       ...data,
       duration: {
         ...data.duration,
-        end: { ...data.duration.end, month: e.target.value },
+        end: { ...data.duration?.end, month: e.target.value },
       },
     });
   };
@@ -39,7 +39,7 @@ const DateSelector = ({ idPrefix, dataSeter, data }) => {
       ...data,
       duration: {
         ...data.duration,
-        end: { ...data.duration.end, year: e.target.value },
+        end: { ...data.duration?.end, year: e.target.value },
       },
     });
   };
@@ -59,7 +59,7 @@ const DateSelector = ({ idPrefix, dataSeter, data }) => {
           <div className="flex p-2 items-center rounded-lg border border-[#646464] bg-white text-[14px]  font-montserrat font-small">
             <select
               id={`${idPrefix}-startMonth`}
-              value={data.duration.start.month}
+              value={data.duration?.start.month}
               onChange={handleStartMonthChange}
               className="w-[79px] outline-none"
               style={{
@@ -91,7 +91,7 @@ const DateSelector = ({ idPrefix, dataSeter, data }) => {
           <div className="flex p-2 items-center rounded-lg border border-[#646464] bg-white text-[14px]  font-montserrat font-small">
             <select
               id={`${idPrefix}-startYear`}
-              value={data.duration.start.year}
+              value={data.duration?.start.year}
               onChange={handleStartYearChange}
               style={{
                 WebkitAppearance: "none",
@@ -131,7 +131,7 @@ const DateSelector = ({ idPrefix, dataSeter, data }) => {
             <div className="flex p-2 items-center rounded-lg border border-[#646464] bg-white text-[14px]  font-montserrat font-small">
               <select
                 id={`${idPrefix}-endMonth`}
-                value={data.duration.end.month}
+                value={data.duration?.end.month}
                 onChange={handleEndMonthChange}
                 className="w-[79px] outline-none"
                 style={{
@@ -160,7 +160,7 @@ const DateSelector = ({ idPrefix, dataSeter, data }) => {
             <div className="flex p-2 items-center rounded-lg border border-[#646464] bg-white text-[14px] font-montserrat font-small">
               <select
                 id={`${idPrefix}-endYear`}
-                value={data.duration.end.year}
+                value={data.duration?.end.year}
                 onChange={handleEndYearChange}
                 style={{
                   WebkitAppearance: "none",
