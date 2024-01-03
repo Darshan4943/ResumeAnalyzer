@@ -1,20 +1,40 @@
+import { reCallUserData } from '@/Redux/actions/user';
 import { ClosedIcon } from '@/utils/svg'
+import axios from 'axios';
 import React, { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 
-function AddJobPreference({ setAddJobPreference }) {
-
+function AddJobPreference({ setAddJobPreference,userData }) {
+    const dispatch =useDispatch()
+    const userDataGlobal = useSelector((state) => state.userData);
     const [data, setData] = useState({
 
-        industry: "PHD",
+        industry: "",
         department: "",
         jobRole: "",
-        jobType: "PHD",
+        jobType: "",
         jobMode: "",
         expectedSalary: "",
         preferedLocation:" "
       });
     
-
+    //   const handleSubmit = () => {
+    //     axios
+    //       .put(
+    //         "http://localhost:2000/api/candidate/updateJobPreferance/" +
+    //           userDataGlobal._id,
+    //         data
+    //       )
+    //       .then((res) => {
+    //         if (res.data.success) {
+    //           toast.success("Job Preferences added successfully");
+    //           dispatch(reCallUserData());
+    //           setAddJobPreference(false);
+    //         }
+    //       })
+    //       .catch((err) => console.log(err));
+    //   };
 
     return (
         <div className='flex flex-col gap-4 p-6 bg-white rounded-[16px] ' style={{ boxShadow: '0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)' }} >
@@ -33,7 +53,7 @@ function AddJobPreference({ setAddJobPreference }) {
                     <select
                         className=' border-[1px] border-[#9D9D9D] rounded-[8px] px-[16px] py-[8px]'
                         name=''
-
+                        onChange={(e) => setData({ ...data, industry: e.target.value })}
                     >
                         <option value='' disabled selected className='text-[14px] font-normal'>
                             Select
@@ -43,10 +63,10 @@ function AddJobPreference({ setAddJobPreference }) {
                     </select>
                 </div>
                 <div className='flex flex-col gap-2 w-[48%]'>
-                    <p className='text-[14px] font-medium'> Preferred Industry</p>
+                    <p className='text-[14px] font-medium'> Preferred Department</p>
                     <select
                         className=' border-[1px] border-[#9D9D9D] rounded-[8px] px-[16px] py-[8px]'
-
+                        onChange={(e) => setData({ ...data, department: e.target.value })}
 
                     >
                         <option value='' disabled selected className=''>
@@ -64,7 +84,7 @@ function AddJobPreference({ setAddJobPreference }) {
                     <select
                         className=' border-[1px] border-[#9D9D9D] rounded-[8px] px-[16px] py-[8px]'
                         name=''
-
+                        onChange={(e) => setData({ ...data, jobRole: e.target.value })}
                     >
                         <option value='' disabled selected className=''>
                             Select
@@ -77,7 +97,7 @@ function AddJobPreference({ setAddJobPreference }) {
                     <p className='text-[14px] font-medium'> Preferred Job Type</p>
                     <select
                         className=' border-[1px] border-[#9D9D9D] rounded-[8px] px-[16px] py-[8px]'
-
+                        onChange={(e) => setData({ ...data, jobType: e.target.value })}
 
                     >
                         <option value='' disabled selected className=''>
@@ -95,7 +115,7 @@ function AddJobPreference({ setAddJobPreference }) {
                     <select
                         className=' border-[1px] border-[#9D9D9D] rounded-[8px] px-[16px] py-[8px]'
                         name=''
-
+                        onChange={(e) => setData({ ...data, jobMode: e.target.value })}
                     >
                         <option value='' disabled selected className=''>
                             Select
@@ -108,7 +128,7 @@ function AddJobPreference({ setAddJobPreference }) {
                     <p className='text-[14px] font-medium'> Preferred Job mode</p>
                     <select
                         className=' border-[1px] border-[#9D9D9D] rounded-[8px] px-[16px] py-[8px]'
-
+                        onChange={(e) => setData({ ...data, profile: e.target.value })}
 
                     >
                         <option value='' disabled selected className=''>
@@ -130,7 +150,7 @@ function AddJobPreference({ setAddJobPreference }) {
                         name='expectedSalary'
                         placeholder='Enter your Expected Salary'
                         className='w-full text-[14px] font-montserrat font-small'
-                        value=""
+                        value={userData.expectedSalary}
 
                     />
                 </div>
@@ -139,7 +159,7 @@ function AddJobPreference({ setAddJobPreference }) {
                 <p className='text-[14px] font-medium'> Preferred work location</p>
                 <select
                     className=' border-[1px] border-[#9D9D9D] rounded-[8px] px-[16px] py-[8px]'
-
+                    onChange={(e) => setData({ ...data, preferedLocation: e.target.value })}
 
                 >
                     <option value='' disabled selected className=''>
@@ -161,7 +181,7 @@ function AddJobPreference({ setAddJobPreference }) {
                         Cancel
                     </button>
 
-                    <button className={`px-4 py-2 bg-[#06A9EF] border rounded-[8px] font-semibold text-white `} onClick={(e) => handleSaveChanges(e)}>
+                    <button className={`px-4 py-2 bg-[#06A9EF] border rounded-[8px] font-semibold text-white `} onClick={(e) => handleSubmit(e)}>
                         Save Changes
                     </button>
                 </div>

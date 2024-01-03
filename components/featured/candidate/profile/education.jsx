@@ -2,11 +2,17 @@ import AddEducation from "@/components/models/addEducation";
 import { AddIcon, Delete_icon, Edit_icon } from "@/utils/svg";
 import axios from "axios";
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { reCallUserData } from '@/Redux/actions/user';
+import DeleteModal from "@/components/common/deleteModal";
+import { toast } from "react-toastify";
 
 const Education = ({ userData }) => {
-
+  const dispatch =useDispatch()
   const [education, setEducation] = useState([]);
   const [openAddEducation, setOpenAddEducation] = useState(false)
+  const userDataGlobal = useSelector((state) => state.userData);
+  const [deleteData, setDeleteData] = useState({ view: false, id: "" });
 
   const [educationData, setEducationData] = useState({
     isCurrentJob: '',
@@ -27,35 +33,49 @@ const Education = ({ userData }) => {
 
 
 
-  const handleEditEducation = (id) => {
-    const educationToEdit = education[id];
+ 
 
-    if (educationToEdit) {
-      setOpenAddEducation(true);
-      setEducationData({ ...educationToEdit });
+  // const handleDeleteEducation = (id) => {
 
-      const updatedEducationData = education.filter((_, i) => i !== id);
-      setEducation(updatedEducationData);
-    }
+  //   if (userData) {
+  //     axios
+
+  //       .delete(`http://localhost:2000/api/candidate/${userData._id}/deleteEducation/${id}`)
+  //       .then((res) => {
+  //         dispatch(reCallUserData());
+  //         console.log("deleted successfully");
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //       });
+  //   }
+  // };
+
+  const deleteHandler = () => {
+    axios
+      .delete(
+        `http://localhost:2000/api/candidate/${userDataGlobal._id}/deleteEducation/${deleteData.id}`
+      )
+      .then((res) => {
+        dispatch(reCallUserData());
+        setDeleteData({ view: false, id: "" });
+        toast.success("Education deleted successfully");
+      })
+      .catch((err) => console.log(err));
   };
-
-  const handleDeleteEducation = (id) => {
-
-    if (userData) {
-      axios
-
-        .delete(`http://localhost:2000/api/candidate/${userData._id}/deleteEducation/${id}`)
-        .then((res) => {
-          console.log("deleted successfully");
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
+  const closeDeleteModal = () => {
+    setDeleteData({ view: false, id: "" });
   };
 
 
   return (
+<>
+    {deleteData.view && (
+      <DeleteModal
+        deleteHandler={deleteHandler}
+        closeDeleteModal={closeDeleteModal}
+      />
+    )}
     <div className="build_ai ai2">
       <div className="gap">
         <p className="page_headings">Education</p>
@@ -85,11 +105,11 @@ const Education = ({ userData }) => {
               <p className="heading_first">{elem.stream}</p>
               <div className="flex gap-2">
 
-                <div onClick={() => handleEditEducation(elem._id)}>
-                  <Edit_icon />
+                <div >
+                  <Edit_icon onClick={() => handleEdit(elem._id)}/>
 
                 </div>
-                <div onClick={() => handleDeleteEducation(elem._id)} >
+                <div onClick={() => setDeleteData({ view: true, id: elem._id })} >
                   <Delete_icon />
 
                 </div>
@@ -133,7 +153,9 @@ const Education = ({ userData }) => {
 
       )}
     </div>
+    </>
   );
+
 };
 
 export default Education;

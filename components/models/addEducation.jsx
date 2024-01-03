@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import DateSelector from '../common/dateSelector';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
+import { reCallUserData } from '@/Redux/actions/user';
 
 
 function AddEducation( { setOpenAddEducation ,education,setEducation,educationData,setEducationData,userData}) {
@@ -34,7 +35,7 @@ function AddEducation( { setOpenAddEducation ,education,setEducation,educationDa
         
           specialization:educationData.specialization,
           location:educationData.location,
-        //   isPursuing:educationData.isCurrentlyPursuing
+        
 
         }
 
@@ -44,7 +45,7 @@ function AddEducation( { setOpenAddEducation ,education,setEducation,educationDa
                 .post(`http://localhost:2000/api/candidate/addEducation/${userData._id}`, obj)
                 .then((res) => {
                     console.log(444, res.data)
-                    // dispatch(reCallUserData());
+                    dispatch(reCallUserData());
                     setOpenAddEducation(false);
                   
                 })
@@ -70,11 +71,11 @@ function AddEducation( { setOpenAddEducation ,education,setEducation,educationDa
         <p className='text-[16px] font-medium'>Is this your current Job? </p>
         <div className='w-[70%] flex justify-between text-[14px] font-montserrat items-center font-medium'>
             <div className='flex gap-2'>
-            <input type='radio' name='isCurrentJob' value='Yes' onChange={handleInputChange} />
+            <input type='radio' name='isCurrentJob' value='fullTime' onChange={handleInputChange} />
             <label>Full Time</label>
             </div>
             <div className='flex gap-2'>
-            <input type='radio' name='isCurrentJob' value='No' onChange={handleInputChange} />
+            <input type='radio' name='isCurrentJob' value='partTime' onChange={handleInputChange} />
             <label>Part Time</label>
             </div>
             <div className='flex gap-2'>

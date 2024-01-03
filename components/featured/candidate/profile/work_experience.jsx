@@ -2,9 +2,15 @@ import React, { useEffect, useRef, useState } from "react";
 import { AddIcon, Delete_icon, Edit_icon, Visibility_on } from "@/utils/svg";
 import AddWorkExperience from "@/components/models/addWorkExperience";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { reCallUserData } from "@/Redux/actions/user";
+import DeleteModal from "@/components/common/deleteModal";
+import { toast } from "react-toastify";
 const WorkExperiance = ({ userData }) => {
-
+  const dispatch = useDispatch()
   const [experiences, setExperiences] = useState([]);
+  const userDataGlobal = useSelector((state) => state.userData);
+  const [deleteData, setDeleteData] = useState({ view: false, id: "" });
 
   const [experienceData, setExperienceData] = useState({
     isCurrentJob: '',
@@ -38,19 +44,22 @@ const WorkExperiance = ({ userData }) => {
 
 
 
-  const handleDeleteExperience = (id) => {
+  const deleteHandler = () => {
+  
 
-    if (userData) {
-      axios
-
-        .delete(`http://localhost:2000/api/candidate/${userData._id}/deleteWorkExperience/${id}`)
-        .then((res) => {
-          console.log("deleted successfully");
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
+    axios
+      .delete(
+        `http://localhost:2000/api/candidate/${userDataGlobal._id}/deleteWorkExperience/${deleteData.id}`
+      )
+      .then((res) => {
+        dispatch(reCallUserData());
+        setDeleteData({ view: false, id: "" });
+        toast.success("Experience deleted successfully");
+      })
+      .catch((err) => console.log(err));
+  };
+  const closeDeleteModal = () => {
+    setDeleteData({ view: false, id: "" });
   };
 
 
@@ -74,6 +83,12 @@ const WorkExperiance = ({ userData }) => {
   console.log(66, userData)
   return (
     <>
+      {deleteData.view && (
+        <DeleteModal
+          deleteHandler={deleteHandler}
+          closeDeleteModal={closeDeleteModal}
+        />
+      )}
       {userData.workExperiance?.length >= 0 && (
         <div className="build_ai ai2">
           <div className=" gap">
@@ -106,11 +121,11 @@ const WorkExperiance = ({ userData }) => {
                     <div className="flex gap-2">
 
 
-                      <div onClick={() => handleEditExperience(job._id)}>
+                      <div >
                         <Edit_icon />
 
                       </div>
-                      <div onClick={() => handleDeleteExperience(job._id)} >
+                      <div onClick={() => setDeleteData({ view: true, id: job._id })} >
                         <Delete_icon />
 
                       </div>
@@ -128,7 +143,7 @@ const WorkExperiance = ({ userData }) => {
                   {job?.jobDuration?.length > 0 ? (
                     <p className="sec_head">Sept 2019 to 2022</p>
                   ) : (
-                    <p className="sec_head">{job.dateOfJoining}</p>
+                    <p className="sec_head">{job.duration}</p>
                   )}
                 </div>
                 <div className="full_time">

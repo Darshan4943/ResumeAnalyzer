@@ -2,10 +2,12 @@ import { ClosedIcon } from '@/utils/svg';
 import React, { useState } from 'react';
 import DateSelector from '../common/dateSelector';
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { reCallUserData } from '@/Redux/actions/user';
 
 function AddWorkExperience({ setOpenAddExperience, experiences, setExperiences, experienceData, setExperienceData, userData }) {
 
-
+    const dispatch =useDispatch()
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
@@ -24,7 +26,8 @@ function AddWorkExperience({ setOpenAddExperience, experiences, setExperiences, 
 
         const obj = {
 
-            // jobType: experienceData.jobType,
+            jobType: experienceData.jobType,
+            jobMode:experienceData.jobMode,
             isCurrent: experienceData.isCurrentJob === "True" ? true : false,
             companyName: experienceData.organisation,
             jobTitle: experienceData.designation,
@@ -32,8 +35,7 @@ function AddWorkExperience({ setOpenAddExperience, experiences, setExperiences, 
             keySkills: experienceData.skillsLearned,
             noticePeriod: experienceData.noticePeriod,
             summary: experienceData.workDescription,
-            // jobDuration:experienceData.duration.end.month
-
+            
 
         }
 
@@ -42,7 +44,7 @@ function AddWorkExperience({ setOpenAddExperience, experiences, setExperiences, 
             axios
                 .post(`http://localhost:2000/api/candidate/addWorkExperience/${userData._id}`, obj)
                 .then((res) => {
-
+                    dispatch(reCallUserData());
                     console.log(444, res.data)
                     setOpenAddExperience(false);
                 })
@@ -70,9 +72,9 @@ function AddWorkExperience({ setOpenAddExperience, experiences, setExperiences, 
             <div className='flex flex-col gap-3'>
                 <p className='text-[16px] font-medium'>Is this your current Job? </p>
                 <div className='w-full flex gap-2 text-[14px] font-montserrat items-center font-medium'>
-                    <input type='radio' name='isCurrentJob' value='True' onChange={handleInputChange} />
+                    <input type='radio' name='isCurrentJob' value={true} onChange={handleInputChange} />
                     <label>Yes</label>
-                    <input type='radio' name='isCurrentJob' value='False' onChange={handleInputChange} />
+                    <input type='radio' name='isCurrentJob' value={false} onChange={handleInputChange} />
                     <label>No</label>
 
                 </div>
