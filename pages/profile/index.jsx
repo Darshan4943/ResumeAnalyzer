@@ -17,7 +17,6 @@ import {
   scroller,
 } from "react-scroll";
 import ALink from "../../components/alink";
-import SocialLink from "@/components/featured/candidate/createResume/components/social_link";
 function Profile() {
   const userDataGlobal = useSelector((state) => state.userData);
   // console.log(userDataGlobal)

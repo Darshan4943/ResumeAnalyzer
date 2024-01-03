@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 
 const Skills = ({  data, setData }) => {
   const [skills, setSkills] = useState([...SkillList]);
+  
   const [skillList, setSkillList] = useState([]);
   const initialRatings = Array(5).fill(5);
   const handleStarClick = (skillIndex, starIndex) => {
