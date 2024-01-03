@@ -111,7 +111,7 @@ const PersonalDetails = ({ setData, data }) => {
             <span className="slider round"></span>
           </label>
         </div>
-        <div className="grid grid-cols-2 gap-4 gap-4">
+        <div className="grid grid-cols-2 gap-4">
           {inputFields.map((item, index) => (
             <div
               className={`flex flex-col gap-2 w-full ${item.className}`}

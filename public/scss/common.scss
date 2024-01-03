@@ -8,3 +8,23 @@
   background: var(--white, #fff);
 }
 
+.btn_filled_blue {
+  display: flex;
+  padding: 12px 36px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  border: 1px solid var(--primary, #06a9ef);
+  background: var(--primary, #06a9ef);
+  color: #fff;
+}
+.btn_filled_red {
+  display: flex;
+  padding: 12px 36px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  border: 1px solid var(--Mandetory, #c00000);
+  background: var(--Mandetory, #c00000);
+  color: #fff;
+}

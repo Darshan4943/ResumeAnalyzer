@@ -17,8 +17,6 @@ import {
 } from "react-scroll";
 import ALink from "../../components/alink";
 function Profile() {
-
-
   const userDataGlobal = useSelector((state) => state.userData);
   // console.log(userDataGlobal)
   const [userData, setUserData] = useState("");
@@ -163,7 +161,7 @@ function Profile() {
                   <img
                     style={{ width: "24px" }}
                     src="./images/profile/edit.png"
-                    alt=""  
+                    alt=""
                     onClick={handleImageClick}
                     data-modal-target="default-modal"
                     data-modal-toggle="default-modal"
@@ -185,7 +183,6 @@ function Profile() {
 
             <ScrollElement name="Skills" className="section">
               <Skills userData={userData} />
-              
             </ScrollElement>
 
             <ScrollElement name="Courses" className="section">
