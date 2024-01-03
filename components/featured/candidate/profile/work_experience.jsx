@@ -28,6 +28,7 @@ const WorkExperiance = ({ userData }) => {
     },
   });
 
+  
 
   const handleEditExperience = (id) => {
 
@@ -143,7 +144,7 @@ const WorkExperiance = ({ userData }) => {
                   {job?.jobDuration?.length > 0 ? (
                     <p className="sec_head">Sept 2019 to 2022</p>
                   ) : (
-                    <p className="sec_head">{job.duration}</p>
+                    <p className="sec_head">{job.dateOfJoining}</p>
                   )}
                 </div>
                 <div className="full_time">

@@ -106,7 +106,7 @@ const Education = ({ userData }) => {
               <div className="flex gap-2">
 
                 <div >
-                  <Edit_icon onClick={() => handleEdit(elem._id)}/>
+                  <Edit_icon />
 
                 </div>
                 <div onClick={() => setDeleteData({ view: true, id: elem._id })} >

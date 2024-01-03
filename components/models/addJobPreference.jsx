@@ -181,7 +181,9 @@ function AddJobPreference({ setAddJobPreference,userData }) {
                         Cancel
                     </button>
 
-                    <button className={`px-4 py-2 bg-[#06A9EF] border rounded-[8px] font-semibold text-white `} onClick={(e) => handleSubmit(e)}>
+                    <button className={`px-4 py-2 bg-[#06A9EF] border rounded-[8px] font-semibold text-white `}
+                    //  onClick={(e) => handleSubmit(e)}
+                     >
                         Save Changes
                     </button>
                 </div>
