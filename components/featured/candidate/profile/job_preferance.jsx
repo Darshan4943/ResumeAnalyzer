@@ -49,3 +49,5 @@ const JobPrefrence = ({ userData }) => {
 };
 
 export default JobPrefrence;
+
+

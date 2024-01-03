@@ -168,7 +168,8 @@ function Profile() {
                     data-modal-toggle="default-modal"
                   />
                 </div>
-                <p className="content_text">{userData?.summary}</p>
+               
+                <p  className="content_text break-all">{userData?.summary}</p>
                 {isComponentOpen && (
                   <AboutModal handleImageClick={handleImageClick} />
                 )}
