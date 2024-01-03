@@ -1,10 +1,14 @@
 import { ClosedIcon } from '@/utils/svg';
 import React, { useState } from 'react';
 import DateSelector from '../common/dateSelector';
+import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { reCallUserData } from '@/Redux/actions/user';
 
-function AddEducation( { setOpenAddEducation ,education,setEducation,educationData,setEducationData}) {
 
-    
+function AddEducation( { setOpenAddEducation ,education,setEducation,educationData,setEducationData,userData}) {
+
+    const dispatch =useDispatch()
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
@@ -14,40 +18,45 @@ function AddEducation( { setOpenAddEducation ,education,setEducation,educationDa
         });
     };
 
-    const handleStartDateChange = (startMonth, startYear) => {
-        setEducationData({
-            ...educationData,
-            startDate: { month: startMonth, year: startYear },
-        });
+   
+    
+    const handleSaveChanges = (e) => {
+        e.preventDefault();
+        const updatedEducation = [...education, educationData];
+        setEducation(updatedEducation);
+        console.log("hello", educationData)
+
+        const obj = {
+
+          education:educationData.education,
+          university:educationData.university,
+          stream:educationData.course,
+          institute:educationData.institute,
+        
+          specialization:educationData.specialization,
+          location:educationData.location,
+        
+
+        }
+
+        console.log(33, obj, userData._id)
+        if (userData) {
+            axios
+                .post(`http://localhost:2000/api/candidate/addEducation/${userData._id}`, obj)
+                .then((res) => {
+                    console.log(444, res.data)
+                    dispatch(reCallUserData());
+                    setOpenAddEducation(false);
+                  
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+
+        }
+
     };
 
-    const handleEndDateChange = (endMonth, endYear) => {
-        setEducationData({
-            ...educationData,
-            endDate: { month: endMonth, year: endYear },
-        });
-    };
-
-    const handleSaveChanges = () => {
-        setEducation([...education, educationData]);
-        setEducationData({
-            isCurrentJob: '',
-            education: '',
-            university: '',
-            institute: '',
-            course: '',
-            specialization: '',
-            location: '',
-            isCurrentlyPursuing: '',
-            startDate: { month: '', year: '' },
-            endDate: { month: '', year: '' },
-            gradingSystem: '',
-            score: '',
-        });
-
-        setOpenAddEducation(false);
-    };
-      
 
   return (
     <div className='flex flex-col gap-4 p-6 bg-white rounded-[16px] ' style={{ boxShadow: '0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)' }} >
@@ -62,11 +71,11 @@ function AddEducation( { setOpenAddEducation ,education,setEducation,educationDa
         <p className='text-[16px] font-medium'>Is this your current Job? </p>
         <div className='w-[70%] flex justify-between text-[14px] font-montserrat items-center font-medium'>
             <div className='flex gap-2'>
-            <input type='radio' name='isCurrentJob' value='Yes' onChange={handleInputChange} />
+            <input type='radio' name='isCurrentJob' value='fullTime' onChange={handleInputChange} />
             <label>Full Time</label>
             </div>
             <div className='flex gap-2'>
-            <input type='radio' name='isCurrentJob' value='No' onChange={handleInputChange} />
+            <input type='radio' name='isCurrentJob' value='partTime' onChange={handleInputChange} />
             <label>Part Time</label>
             </div>
             <div className='flex gap-2'>
@@ -173,12 +182,9 @@ function AddEducation( { setOpenAddEducation ,education,setEducation,educationDa
         {' '}
         <DateSelector
             idPrefix='addEducation'
-            defaultStartMonth='' 
-            defaultStartYear=''
-            defaultEndMonth=''
-            defaultEndYear=''
-            onStartDateChange={handleStartDateChange}
-            onEndDateChange={handleEndDateChange}
+          
+                data={educationData}
+                dataSeter={setEducationData}
         />
     </div>
     
@@ -214,7 +220,7 @@ function AddEducation( { setOpenAddEducation ,education,setEducation,educationDa
             Cancel
         </button>
 
-        <button className={`px-4 py-2 bg-[#06A9EF] border rounded-[12px] font-semibold text-white `} onClick={handleSaveChanges}>
+        <button className={`px-4 py-2 bg-[#06A9EF] border rounded-[12px] font-semibold text-white `}  onClick={(e) => handleSaveChanges(e)}>
             Save Changes
         </button>
     </div>

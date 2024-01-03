@@ -59,7 +59,7 @@ const CandidateAiPower = ({
     const remainingMonths = totalMonths % 12;
 
     return {
-      years: years,
+      years: years?years:1,
       months: remainingMonths,
     };
   }
