@@ -20,7 +20,7 @@ const Education = ({ setData, data }) => {
   });
   const handleSwitchChange = () => {
     setIsChecked(!isChecked);
-    setData({...data,showEducation:!isChecked})
+    setData({ ...data, showEducation: !isChecked });
   };
   const handleInputChangeEducation = (e) => {
     const { name, value } = e.target;

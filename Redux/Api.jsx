@@ -8,7 +8,7 @@ export const Api = () => {
   const store = useStore();
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
-  const myState = useSelector((state) => state.changeNumber);
+  const reCallUser = useSelector((state) => state.reCallUser);
   function shuffle(array) {
     for (let i = array.length - 1; i > 0; i--) {
       let j = Math.floor(Math.random() * (i + 1));
@@ -29,15 +29,19 @@ export const Api = () => {
           .post("http://localhost:2000/api/candidate/" + decoded._id)
           .then((res) => {
             const decode = jwtDecode(res.data.data);
-            dispatch(userAction({ ...decode._doc, profileScore: res.data.profileScore
-            }));
+            dispatch(
+              userAction({
+                ...decode._doc,
+                profileScore: res.data.profileScore,
+              })
+            );
           })
           .catch((err) => {
             console.log(err);
           });
       }
     }
-  }, []);
+  }, [reCallUser]);
 
   return <></>;
 };

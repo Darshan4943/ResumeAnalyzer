@@ -6,3 +6,11 @@ export const userAction = (date) => {
     payload: date,
   };
 };
+
+export const reCallUserData = ()=>{
+
+
+  return{
+      type:"RECALL"
+  }
+}

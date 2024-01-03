@@ -6,6 +6,7 @@ import PersonalDetails from "@/components/featured/candidate/profile/personal_de
 import ProfileHeader from "@/components/featured/candidate/profile/profile_header";
 import ResumeList from "@/components/featured/candidate/profile/resume_list";
 import Skills from "@/components/featured/candidate/profile/skills";
+import Social_links_ndWebsites from "@/components/featured/candidate/profile/Social_links_ndWebsites";
 import WorkExperiance from "@/components/featured/candidate/profile/work_experience";
 import AboutModal from "@/components/featured/candidate/profile/modals/about_modal";
 import React, { useEffect, useState } from "react";
@@ -15,9 +16,9 @@ import {
   Element as ScrollElement,
   scroller,
 } from "react-scroll";
+import ALink from "../../components/alink";
+import SocialLink from "@/components/featured/candidate/createResume/components/social_link";
 function Profile() {
-
-
   const userDataGlobal = useSelector((state) => state.userData);
   // console.log(userDataGlobal)
   const [userData, setUserData] = useState("");
@@ -60,9 +61,8 @@ function Profile() {
   const [isComponentOpen, setIsComponentOpen] = useState(false);
 
   const handleImageClick = () => {
-    setIsComponentOpen(!isComponentOpen); 
+    setIsComponentOpen(!isComponentOpen);
   };
-
 
   return (
     <div className="bg-[#F9F9F9]">
@@ -121,7 +121,7 @@ function Profile() {
             </div>
           </div>
 
-          <div className="profile_right ">
+          <div className="profile_right gap-[16px] ">
             <div className="build_ai">
               <div className="build_ai_left">
                 <img src="./images/profile/Wavy_Bus.png" alt="" />
@@ -143,7 +143,12 @@ function Profile() {
                 </p>
 
                 <div className="build_ai_button_parent">
-                  <button className="build_ai_button">Create New Resume</button>
+                  <ALink href={"/candidate/create_resume"}>
+                    <button className="build_ai_button">
+                      Create New Resume
+                    </button>
+                  </ALink>
+
                   <button className="build_ai_button">Download Resume</button>
                 </div>
               </div>
@@ -160,11 +165,14 @@ function Profile() {
                     src="./images/profile/edit.png"
                     alt=""
                     onClick={handleImageClick}
-                    data-modal-target="default-modal" data-modal-toggle="default-modal" 
+                    data-modal-target="default-modal"
+                    data-modal-toggle="default-modal"
                   />
                 </div>
                 <p className="content_text">{userData?.summary}</p>
-                {isComponentOpen && <AboutModal handleImageClick={handleImageClick}/>}
+                {isComponentOpen && (
+                  <AboutModal handleImageClick={handleImageClick} />
+                )}
               </div>
             </ScrollElement>
             <ScrollElement name="Work Experience" className="section">
@@ -177,6 +185,10 @@ function Profile() {
 
             <ScrollElement name="Skills" className="section">
               <Skills userData={userData} />
+            </ScrollElement>
+
+            <ScrollElement name="Social_links_ndWebsites" className="section">
+              <Social_links_ndWebsites userData={userData} />
             </ScrollElement>
 
             <ScrollElement name="Courses" className="section">

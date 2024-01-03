@@ -12,12 +12,16 @@ import CandidateAiPower from "@/components/featured/candidate/registration/candi
 import { SkillList } from "@/utils/data";
 import { camelCase } from "@/utils/middleware";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { reCallUserData } from "../../Redux/actions/user";
 function Candidate_register() {
   const [tabindex, setTabIndex] = useState(1);
   const router = useRouter();
   const [file, setfile] = useState();
   const [skills, setSkills] = useState([...SkillList]);
   const [certificate, setCertificate] = useState();
+  const dispatch = useDispatch();
+
   const [data, setData] = useState({
     firstName: "",
     lastName: "",
@@ -87,6 +91,7 @@ function Candidate_register() {
         if (response.success) {
           localStorage.setItem("authToken", response.token);
           toast.success("Registration Complete");
+          dispatch(reCallUserData());
           router.push("/candidate/afterLogin/home/candidateHome");
         } else {
           toast.error("something went wrong");

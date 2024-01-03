@@ -3,14 +3,16 @@ import ALink from "@/components/alink";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
+import { useDispatch } from "react-redux";
+import { reCallUserData } from "../../Redux/actions/user";
 
 function Sign_in() {
   const router = useRouter();
   const [data, setData] = useState({ email: "", password: "" });
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState(null);
-
-
+  const dispatch = useDispatch()
+  
 
   const handleTogglePassword = () => {
     setShowPassword(!showPassword);
@@ -22,14 +24,14 @@ function Sign_in() {
       email: data.email,
       password: data.password,
     };
-    console.log("da", dataToSend)
+    console.log("da",dataToSend )
     axios
       .post("http://localhost:2000/api/candidate/signin", dataToSend)
       .then((res) => {
         const response = res.data;
         if (response.success) {
           localStorage.setItem("authToken", response.token);
-
+          dispatch(reCallUserData())
           toast.success("Registration Complete");
           router.push("/candidate/afterLogin/home/candidateHome");
           setError("Sign in Successfully")
@@ -38,8 +40,7 @@ function Sign_in() {
         }
       })
       .catch((err) => {
-        console.log(38, err.response.data.message);
-        setError(err.response.data.message);
+        setError( err?.response?.data.message);
         console.log(err.response);
       });
   };
@@ -98,8 +99,8 @@ function Sign_in() {
               </a>
             </div>
             <div className={`flex justify-center text-[12px] font-[500] ${error === 'Sign in Successfully' ? 'text-green-800' : 'text-red-800'}`}>
-              <p>{error || 'Click the "Sign In" button to sign in.'}</p>
-            </div>
+          <p>{error || 'Click the "Sign In" button to sign in.'}</p>
+        </div>
           </div>
         </div>
         <div className="w-full flex flex-col gap-[16px]">

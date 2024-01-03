@@ -3,6 +3,7 @@ import Job_card from "@/components/featured/candidate/afterLogin/home/JobCard";
 import SavedJobs from "@/components/featured/candidate/afterLogin/home/SavedJobs";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import ALink from "../../../../components/alink";
 
 function AfterLoginHome() {
   const userDataGlobal = useSelector((state) => state.userData);
@@ -103,9 +104,11 @@ function AfterLoginHome() {
                       </div>
                     </div>
                     <div>
-                      <button className="flex py-[8px] px-[18px] items-center justify-center rounded-[6px]  bg-[#06A9EF] border-[#06A9EF] text-[#fff] text-[14px] font-[600]">
-                        Build your Resume
-                      </button>
+                      <ALink href={"/candidate/create_resume"}>
+                        <button className="flex py-[8px] px-[18px] items-center justify-center rounded-[6px]  bg-[#06A9EF] border-[#06A9EF] text-[#fff] text-[14px] font-[600]">
+                          Build your Resume
+                        </button>
+                      </ALink>
                     </div>
                   </div>
                 </div>
