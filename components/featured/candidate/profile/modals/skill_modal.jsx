@@ -14,15 +14,17 @@ const SkillModel = ({ userData, handleImageClick, setIsComponentOpen }) => {
   const [skills, setSkills] = useState([...SkillList]);
   const userDataGlobal = useSelector((state) => state.userData);
   const dispatch = useDispatch();
-console.log(skil)
+  // console.log(skil);
+
   const handleSubmit = () => {
-    const dataToSend = []
-    skil.forEach(item=>{
-      const find = userData?.skills.find(data=>data.value==item.value)
-      if(!find){
-        dataToSend.push(item)
+    const dataToSend = [];
+    skil.forEach((item) => {
+      const find = userData?.skills.find((data) => data.value == item.value);
+      if (!find) {
+        dataToSend.push(item);
       }
-    })
+    });
+    // console.log(444, dataToSend);
     axios
       .put(
         "http://localhost:2000/api/candidate/updateSkills/" +
@@ -40,10 +42,23 @@ console.log(skil)
       .catch((err) => console.log(err));
   };
 
-  const saveSkill = (e) => {
-    const inputValue = e.target.value;
-    setSkil(inputValue);
+  const deleteHandler = () => {
+    axios
+      .delete(
+        `http://localhost:2000/api/candidate/${userDataGlobal._id}/deleteSkills/${deleteData.id}`
+      )
+      .then((res) => {
+        dispatch(reCallUserData());
+        setDeleteData({ view: false, id: "" });
+        toast.success("Course deleted successfully");
+      })
+      .catch((err) => console.log(err));
   };
+
+  // const saveSkill = (e) => {
+  //   const inputValue = e.target.value;
+  //   setSkil(inputValue);
+  // };
 
   return (
     <>
@@ -56,6 +71,7 @@ console.log(skil)
             <div className="bg-[#DEDEDE] h-[1px] w-[75.45%]"></div>
 
             <Close_svg handleImageClick={handleImageClick} />
+            
           </div>
           <div className="text-[#646464] font-montserrat text-14 font-normal leading-20">
             <p>
@@ -69,8 +85,11 @@ console.log(skil)
           </p>
           <div className="skill_buttons">
             {skil?.map((item) => (
-              <div className="skill_button text-[#25324B] ">{item.label}</div>
+              <div className="skill_button text-[#25324B] ">{item.label}<Close_svg className="" onClick={deleteHandler} height={16} width={16}/></div>
             ))}
+             {/* <div className="" onClick={() => deleteSkill(index)}>
+                    <Close_svg height={16} width={16}/>
+                  </div> */}
           </div>
           <div className="flex justify-between items-start  self-stretch">
             {/* <input
