@@ -30,7 +30,7 @@ function Social_Links({ setaddWebsites }) {
   const handleSubmit = () => {
     axios
       .post(
-        "http://localhost:2000/api/candidate/addSocialLinks/" +
+        "https://freedygoservices.in/api/candidate/addSocialLinks/" +
           userDataGlobal._id,
         data
       )

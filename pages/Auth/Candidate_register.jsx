@@ -85,7 +85,7 @@ function Candidate_register() {
     formData.append("certificate", certificate);
     formData.append("isCurrentlyWorking", data.isCurrentlyWorking);
     axios
-      .post("http://localhost:2000/api/candidate/register", formData)
+      .post("https://freedygoservices.in/api/candidate/register", formData)
       .then((res) => {
         const response = res.data;
         if (response.success) {

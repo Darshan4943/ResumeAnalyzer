@@ -25,7 +25,7 @@ function ChangeProfile({ setIsChangeProfile }) {
     formData.append("img", file);
     axios
       .put(
-        "http://localhost:2000/api/candidate/updateProfileImage/" +
+        "https://freedygoservices.in/api/candidate/updateProfileImage/" +
           userDataGlobal._id,
         formData
       )

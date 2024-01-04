@@ -29,7 +29,7 @@ function SkillAssessment() {
   const toggleContent = () => {
     setLoading(true);
     axios
-      .post("http://localhost:2000/api/getQuetions", {
+      .post("https://freedygoservices.in/api/getQuetions", {
         skill: selectedSkill,
       })
       .then((res) => {
@@ -62,7 +62,7 @@ function SkillAssessment() {
       setSelectedSkill(userDataGlobal.skills[0].label);
       axios
         .get(
-          `http://localhost:2000/api/assessment/getByUser/${userDataGlobal._id}`
+          `https://freedygoservices.in/api/assessment/getByUser/${userDataGlobal._id}`
         )
         .then((res) => {
           setAssessmentList(res.data.data);
@@ -611,7 +611,7 @@ function SkillAssessment() {
                     onClick={() => {
                       if (questionIndex == 9) {
                         axios
-                          .post("http://localhost:2000/api/assessment/add", {
+                          .post("https://freedygoservices.in/api/assessment/add", {
                             userId: userDataGlobal._id,
                             skill: selectedSkill,
                             score: checkAnswer() * 10,

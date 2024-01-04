@@ -55,7 +55,7 @@ function AddCertificate({ setAddCertificate }) {
     formData.append("certificateurl", cerficateData.certificateUrl);
     axios
       .post(
-        "http://localhost:2000/api/candidate/addCourse/" + userDataGlobal._id,
+        "https://freedygoservices.in/api/candidate/addCourse/" + userDataGlobal._id,
         formData
       )
       .then((res) => {

@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Resume4() {
+function Resume4({data}) {
     return (
         <>
             <div className="  break-all w-[595px] flex  gap-3 border border-[#06A9EF] rounded-[9px]">
