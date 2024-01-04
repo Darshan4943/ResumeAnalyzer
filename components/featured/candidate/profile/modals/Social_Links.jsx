@@ -48,13 +48,13 @@ function Social_Links({ setaddWebsites }) {
   return (
     <>
       <div
-        className=" p-[24px] bg-[#fff] rounded-[16px]  flex flex-col gap-[16px]"
+        className=" p-[24px] bg-[#fff] rounded-[16px] flex flex-col gap-[16px]"
         style={{
           boxShadow: " 0px 1px 6px 0px rgba(0, 0, 0, 0.25)",
         }}
       >
         <div className="flex flex-col gap-[4px] w-full">
-          <div className=" gap-[16px] flex items-center">
+          <div className="flex gap-[16px] items-center">
             <div className="text-[24px] font-[500] text-[#25324B] w-[69.90%]">
               Add Online Profile
             </div>
