@@ -3,6 +3,7 @@ import React, { useEffect, useLayoutEffect, useState } from "react";
 import { useDispatch, useSelector, useStore } from "react-redux";
 import { userAction } from "./actions/user";
 import { jwtDecode } from "jwt-decode";
+import { setJob } from "./actions";
 
 export const Api = () => {
   const store = useStore();
@@ -35,6 +36,17 @@ export const Api = () => {
                 profileScore: res.data.profileScore,
               })
             );
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+
+        axios
+          .post("http://localhost:2000/api/job/getAll", {
+            requiredSkills: decoded.skills?.map((item) => item.value),
+          })
+          .then((res) => {
+            dispatch(setJob(res.data));
           })
           .catch((err) => {
             console.log(err);

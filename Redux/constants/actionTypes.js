@@ -27,3 +27,6 @@ export const CartAction = {
 export const UserAction = {
     SET_USER_DATA : 'SET_USER_DATA',
 }
+export const JobAction = {
+    SET_JOB : 'SET_JOB',
+}
