@@ -44,7 +44,7 @@ function SkillAssessment() {
     }
   }, [questionIndex]);
   useEffect(() => {
-    if (userDataGlobal.skills) {
+    if (userDataGlobal?.skills?.length > 0) {
       setSelectedSkill(userDataGlobal.skills[0].label);
     }
   }, [userDataGlobal]);

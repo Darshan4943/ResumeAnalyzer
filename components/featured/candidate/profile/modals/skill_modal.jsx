@@ -17,42 +17,25 @@ const SkillModel = ({ userData, handleImageClick, setIsComponentOpen }) => {
   // console.log(skil);
 
   const handleSubmit = () => {
-    const dataToSend = [];
-    skil.forEach((item) => {
-      const find = userData?.skills.find((data) => data.value == item.value);
-      if (!find) {
-        dataToSend.push(item);
-      }
-    });
-    // console.log(444, dataToSend);
     axios
       .put(
         "http://localhost:2000/api/candidate/updateSkills/" +
           userDataGlobal._id,
 
-        { skills: dataToSend }
+        { skills: skil }
       )
 
       .then((res) => {
         toast.success("Skill added successfully");
         dispatch(reCallUserData());
-        setIsComponentOpen(false);
+        handleImageClick(false);
         setSkil(inputValue);
       })
       .catch((err) => console.log(err));
   };
 
-  const deleteHandler = () => {
-    axios
-      .delete(
-        `http://localhost:2000/api/candidate/${userDataGlobal._id}/deleteSkills/${deleteData.id}`
-      )
-      .then((res) => {
-        dispatch(reCallUserData());
-        setDeleteData({ view: false, id: "" });
-        toast.success("Course deleted successfully");
-      })
-      .catch((err) => console.log(err));
+  const deleteHandler = (value) => {
+    setSkil(skil.filter((item) => item.value !== value));
   };
 
   // const saveSkill = (e) => {
@@ -69,9 +52,9 @@ const SkillModel = ({ userData, handleImageClick, setIsComponentOpen }) => {
               Edit Skill
             </div>
             <div className="bg-[#DEDEDE] h-[1px] w-[75.45%]"></div>
-
-            <Close_svg handleImageClick={handleImageClick} />
-            
+            <div onClick={() => handleImageClick(false)}>
+              <Close_svg />
+            </div>
           </div>
           <div className="text-[#646464] font-montserrat text-14 font-normal leading-20">
             <p>
@@ -85,9 +68,14 @@ const SkillModel = ({ userData, handleImageClick, setIsComponentOpen }) => {
           </p>
           <div className="skill_buttons">
             {skil?.map((item) => (
-              <div className="skill_button text-[#25324B] ">{item.label}<Close_svg className="" onClick={deleteHandler} height={16} width={16}/></div>
+              <div className="skill_button text-[#25324B] ">
+                {item.label}
+                <div onClick={() => deleteHandler(item.value)}>
+                  <Close_svg className="" height={16} width={16} />
+                </div>
+              </div>
             ))}
-             {/* <div className="" onClick={() => deleteSkill(index)}>
+            {/* <div className="" onClick={() => deleteSkill(index)}>
                     <Close_svg height={16} width={16}/>
                   </div> */}
           </div>
@@ -119,7 +107,7 @@ const SkillModel = ({ userData, handleImageClick, setIsComponentOpen }) => {
           <div className="w-full flex items-end justify-end self-stretch">
             <button
               className="flex items-center justify-center px-4 py-2 font-Montserrat text-16 font-medium leading-normal rounded-md border-[#06A9EF]  bg-white "
-              onClick={handleImageClick}
+              onClick={() => handleImageClick(false)}
             >
               Cancel
             </button>
