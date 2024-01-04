@@ -88,7 +88,7 @@ const Course = ({ data, setData }) => {
           </label>
         </div>
 
-        {data.course.map((course, index) => (
+        {data?.course?.map((course, index) => (
           <div className="flex flex-col gap-1 p-2 rounded-[6px] border border-[#DEDEDE]">
             <div className="flex justify-between">
               <p>{course.courseName}</p>

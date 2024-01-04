@@ -110,7 +110,7 @@ const Achievement = ({ data, setData }) => {
             <span className="slider round"></span>
           </label>
         </div>
-        {data.achievement.map((ach, index) => (
+        {data?.achievement?.map((ach, index) => (
           <div className="flex flex-col gap-1 p-2 rounded-[6px] border border-[#DEDEDE]">
             <div className="flex justify-between">
               <p>{ach.title}</p>

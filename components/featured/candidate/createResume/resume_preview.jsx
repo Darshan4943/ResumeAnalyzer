@@ -1,7 +1,32 @@
-import React from "react";
+import React, { useRef } from "react";
+import generatePDF from 'react-to-pdf';
+import html2canvas from "html2canvas";
 import Resume5 from "../../resumeTemplates/resume5";
-
+import axios from "axios";
+import AWS from "aws-sdk";
+import ReactDOMServer from "react-dom/server";
+import jsPDF from "jspdf";
 const ResumePreview = ({ data }) => {
+  const resumeRef = useRef();
+
+  const myComponentHTML = ReactDOMServer.renderToString(
+    <Resume5 data={data} />
+  );
+  <button onClick={() => generatePDF(targetRef, {filename: 'page.pdf'})}>Download PDF</button>
+  const pdfConverter = async () => {
+    // html2canvas(resumeRef.current, { autoResize: true }).then((canvas) => {
+    //   const imgData = canvas.toDataURL("image/png");
+    //   axios
+    //     .post("http://localhost:2000/temp", {
+    //       pdfContent: imgData,
+    //     })
+    //     .then((res) => {
+    //       console.log(res.data);
+    //     })
+    //     .catch((err) => {});
+    // });
+    generatePDF(resumeRef, {filename: 'page.pdf'})
+  };
   return (
     <>
       <div
@@ -56,7 +81,10 @@ const ResumePreview = ({ data }) => {
           </div>
 
           <div className="flex gap-[16px]">
-            <button className="flex gap-1 text-[12px]  text-[#FFF] font-montserrat font-semibold px-3 py-[2px] rounded-[8px] items-center border border-[#06A9EF] bg-[#06A9EF]">
+            <button
+              onClick={pdfConverter}
+              className="flex gap-1 text-[12px]  text-[#FFF] font-montserrat font-semibold px-3 py-[2px] rounded-[8px] items-center border border-[#06A9EF] bg-[#06A9EF]"
+            >
               <img
                 src="/images/services/add_link.png"
                 className="h-[24px] w-[24px] rounded-[6px]"
@@ -64,8 +92,10 @@ const ResumePreview = ({ data }) => {
               />
               Attach
             </button>
-
-            <button className=" text-[12px] text-[#333] font-montserrat font-semibold px-9 py-1 rounded-[8px] border border-[#06A9EF]">
+            <button
+              className=" text-[12px] text-[#333] font-montserrat font-semibold px-9 py-1 rounded-[8px] border border-[#06A9EF]"
+              onClick={() => generatePDF(resumeRef, { filename: "page.pdf" })}
+            >
               Download Resume
             </button>
           </div>
@@ -78,7 +108,9 @@ const ResumePreview = ({ data }) => {
             transformOrigin: "top left",
           }}
         >
-          <Resume5 data={data} />
+          <div ref={resumeRef}>
+            <Resume5 data={data} />
+          </div>
         </div>
       </div>
     </>

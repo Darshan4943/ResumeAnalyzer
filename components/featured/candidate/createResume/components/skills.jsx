@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { SkillList } from "@/utils/data";
 import ReactSelect from "react-select";
 import { camelCase } from "../../../../../utils/middleware";
 import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
 
-const Skills = ({  data, setData }) => {
+const Skills = ({ data, setData }) => {
   const [skills, setSkills] = useState([...SkillList]);
-  
+  const userDataGlobal = useSelector((state) => state.userData);
+
   const [skillList, setSkillList] = useState([]);
   const initialRatings = Array(5).fill(5);
   const handleStarClick = (skillIndex, starIndex) => {
@@ -53,6 +55,15 @@ const Skills = ({  data, setData }) => {
   const saveHandler = () => {
     setData({ ...data, skills: skillList });
   };
+  useEffect(() => {
+    if (userDataGlobal?.resumeUrl?.length <= 1) {
+      const skills = userDataGlobal.skills.map((item) => ({
+        skill: item.value,
+        rating: initialRatings,
+      }));
+      setSkillList(skills);
+    }
+  }, []);
   return (
     <>
       <div
@@ -67,7 +78,7 @@ const Skills = ({  data, setData }) => {
             {skillList.map((skill, index) => (
               <div key={index} className="flex gap-4 justify-between">
                 <div className="flex gap-1 px-3 py-2 border border-[#06A9EF] rounded-[24px] justify-between items-center">
-                  <p className="text-[14px] font-medium">{skill.skill}</p>
+                  <p className="text-[14px] font-medium">{skill?.skill}</p>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="20"

@@ -27,7 +27,7 @@ const Hobbie = ({
             Hobbies
           </div>
           <div className="flex flex-wrap gap-4">
-            {data.hobbies.map((hobby, index) => (
+            {data?.hobbies?.map((hobby, index) => (
               <div
                 key={index}
                 className="flex gap-1 px-3 py-2 border border-[#06A9EF] rounded-[24px] justify-between items-center"

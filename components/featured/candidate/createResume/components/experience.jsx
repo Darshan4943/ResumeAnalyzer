@@ -90,12 +90,12 @@ const Experience = ({ data, setData }) => {
         </label>
       </div>
 
-      {data.experience.map((exp, index) => (
+      {data?.experience?.map((exp, index) => (
         <div className="flex flex-col gap-1 p-2 rounded-[6px] border border-[#DEDEDE] break-all">
           <div className="flex justify-between">
             <p className="text-[14px]">
-              {exp.organization} | {exp.duration.start.year}-{" "}
-              {exp.currentlyWorking ? "Present" : exp.duration.end.year}
+              {exp.organization} | {exp.duration?.start?.year}-{" "}
+              {exp.currentlyWorking ? "Present" : exp.duration?.end?.year}
             </p>
             <div className="flex gap-2">
               <div onClick={() => handleEditExperience(index)}>

@@ -42,14 +42,13 @@ function AddEducation( { setOpenAddEducation ,education,setEducation,educationDa
                 months: educationData.duration?.start.month,
             },
             endDate: {
-                years: educationData.duration?.end.year,
-                months: educationData.duration?.end.month,
+                year: educationData.duration?.end.year,
+                month: educationData.duration?.end.month,
             },
         },
 
         }
 
-        console.log(33, obj, userData._id)
         if (userData) {
             axios
                 .post(`http://localhost:2000/api/candidate/addEducation/${userData._id}`, obj)

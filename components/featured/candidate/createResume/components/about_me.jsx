@@ -2,14 +2,15 @@ import React, { useEffect, useState } from "react";
 import { SparklingStarts } from "../../../../../utils/svg";
 import axios from "axios";
 import MiniLoader from "../../../../common/mini-loader";
+import { useSelector } from "react-redux";
 
 const AboutMe = ({ data, setData }) => {
+  const userDataGlobal = useSelector((state) => state.userData);
   const [text, setText] = useState("");
   const [attempt, setAttempt] = useState(5);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [isChecked, setIsChecked] = useState(true);
-
   const handleSwitchChange = () => {
     setIsChecked(!isChecked);
     setData({ ...data, showSummary: !isChecked });
@@ -41,9 +42,15 @@ const AboutMe = ({ data, setData }) => {
       setAttempt(parseInt(localData));
     }
   };
+  
   useEffect(() => {
     getAttempts();
+    if (userDataGlobal?.resumeUrl?.length <= 1) {
+      const Summery = userDataGlobal.summary;
+      setText(Summery);
+    }
   }, []);
+
   return (
     <>
       <div
@@ -74,7 +81,12 @@ const AboutMe = ({ data, setData }) => {
               name="aboutMe"
               className="w-full text-[14px] font-montserrat font-small h-full outline-none"
               placeholder="Enter text"
-              onChange={(e) => setText(e.target.value)}
+              onChange={(e) => {
+                if (e.target.value.length <= 400) {
+                  setText(e.target.value);
+                }
+              }}
+              value={text}
             >
               {text}
             </textArea>
