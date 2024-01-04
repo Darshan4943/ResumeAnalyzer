@@ -7,6 +7,7 @@ import MiniLoader from "../../../../../components/common/mini-loader";
 import ProfileHeader from "../../../../../components/featured/candidate/profile/profile_header";
 import { camelCase } from "../../../../../utils/middleware";
 import SkillModel from "../../../../../components/featured/candidate/profile/modals/skill_modal";
+import Timer from "../../../../../components/common/timer";
 
 function SkillAssessment() {
   const userDataGlobal = useSelector((state) => state.userData);
@@ -15,11 +16,13 @@ function SkillAssessment() {
   const query = router.query;
   const [toggle, setToggle] = useState(0);
   const [question, setQuestion] = useState([]);
+  const [answer, setAnswer] = useState([]);
   const [questionIndex, setQuestionIndex] = useState(0);
   const [loading, setLoading] = useState(false);
   const [selectedSkill, setSelectedSkill] = useState();
+  const [isTimerOver, setIsTimerOver] = useState(false);
+  const [startTimer, setStartTimer] = useState(false);
   const toggleContent = () => {
-    setLoading(true);
     axios
       .post("http://localhost:2000/api/getQuetions", {
         skill: selectedSkill,
@@ -31,15 +34,113 @@ function SkillAssessment() {
         ]);
         setToggle(1);
         setLoading(false);
+    setStartTimer(true);
       })
       .catch((err) => {
         console.log(err);
         setLoading(false);
       });
+    // setQuestion([
+    //   {
+    //     question: "What is the correct way to create an object in Java?",
+    //     options: [
+    //       "new Object();",
+    //       "create Object();",
+    //       "Object.create();",
+    //       "Object();",
+    //     ],
+    //     answer: "new Object();",
+    //   },
+    //   {
+    //     question:
+    //       "What is the output of the following code?\n\npublic class Test {\n\tpublic static void main(String[] args) {\n\t\tint x = 5;\n\t\tSystem.out.println(x++ + ++x);\n\t}",
+    //     options: ["10", "11", "12", "13"],
+    //     answer: "12",
+    //   },
+    //   {
+    //     question:
+    //       "What is the correct way to include a JavaScript file in an HTML document?",
+    //     options: [
+    //       "<script src='file.js'></script>",
+    //       "<javascript src='file.js'></javascript>",
+    //       "<js src='file.js'></js>",
+    //       "<script href='file.js'></script>",
+    //     ],
+    //     answer: "<script src='file.js'></script>",
+    //   },
+    //   {
+    //     question: "What does the 'volatile' keyword in Java do?",
+    //     options: [
+    //       "It indicates that the variable cannot be modified.",
+    //       "It ensures that a thread sees the most recent value of a variable.",
+    //       "It restricts the access of a variable to a single thread.",
+    //       "It specifies that the variable is shared among threads.",
+    //     ],
+    //     answer:
+    //       "It ensures that a thread sees the most recent value of a variable.",
+    //   },
+    //   {
+    //     question: "What does the 'final' keyword signify in Java?",
+    //     options: [
+    //       "It indicates that a variable's value cannot be modified",
+    //       "It is used to define a constant",
+    //       "It is used to declare a class as non-inheritable",
+    //       "It marks the end of a block of code",
+    //     ],
+    //     answer: "It indicates that a variable's value cannot be modified",
+    //   },
+    //   {
+    //     question: "What is a checked exception in Java?",
+    //     options: [
+    //       "An exception that is checked and caught at compile-time",
+    //       "An exception that is checked and thrown at runtime",
+    //       "An exception that is unchecked and caught at compile-time",
+    //       "An exception that is unchecked and thrown at runtime",
+    //     ],
+    //     answer: "An exception that is checked and caught at compile-time",
+    //   },
+    //   {
+    //     question:
+    //       "Which of the following is not a valid access modifier in Java?",
+    //     options: ["public", "protected", "private", "default"],
+    //     answer: "default",
+    //   },
+    //   {
+    //     question:
+    //       "What is the output of the following code snippet?\n\npublic class Test {\n   public static void main(String[] args) {\n       int x = 5;\n       System.out.println(x++ + ++x);\n   }\n}",
+    //     options: ["11", "10", "12", "6"],
+    //     answer: "12",
+    //   },
+    //   {
+    //     question:
+    //       "What is the correct syntax to create a multidimensional array in Java?",
+    //     options: [
+    //       "int[][] array = new int[3][3];",
+    //       "int[] array = new int[3][3];",
+    //       "int array[][] = new int[3][3];",
+    //       "int array = new int[3][3];",
+    //     ],
+    //     answer: "int[][] array = new int[3][3];",
+    //   },
+    //   {
+    //     question:
+    //       "Which keyword is used to prevent a class from being inherited in Java?",
+    //     options: ["private", "protected", "final", "static"],
+    //     answer: "final",
+    //   },
+    // ]);
+    // setToggle(1);
+    // setLoading(false);
+    // setStartTimer(true);
   };
 
   useEffect(() => {
-    if ((questionIndex + 1) % 2 == 0) {
+    if (
+      questionIndex == 1 ||
+      questionIndex == 2 ||
+      questionIndex == 3 ||
+      questionIndex == 4
+    ) {
       toggleContent();
     }
   }, [questionIndex]);
@@ -48,7 +149,26 @@ function SkillAssessment() {
       setSelectedSkill(userDataGlobal.skills[0].label);
     }
   }, [userDataGlobal]);
-
+  const answerSeter = (question, Answer) => {
+    const dummyData = [...answer];
+    dummyData[question - 1] = { Answer, question: question };
+    setAnswer(dummyData);
+  };
+  const isSelected = (Answer, question) => {
+    const findAnswer = answer.find(
+      (data) => data.Answer === Answer && data.question == question
+    );
+    return findAnswer ? true : false;
+  };
+  const checkAnswer = () => {
+    let correctAnswer = 0;
+    answer.forEach((item) => {
+      if (question[item.question - 1].answer == item.Answer) {
+        correctAnswer = correctAnswer + 1;
+      }
+    });
+    return correctAnswer;
+  };
   return (
     <div className="pt-2">
       {viewAddSkill && (
@@ -266,7 +386,12 @@ function SkillAssessment() {
                   Make sure you have a stable internet connection.
                 </div>
               </div>
-              <div onClick={toggleContent}>
+              <div
+                onClick={() => {
+                  setLoading(true);
+                  toggleContent();
+                }}
+              >
                 <button
                   className=" h-[42px] w-[108px] flex items-center justify-center  rounded-[8px] border-[1px] border-solid border-[#06A9EF] bg-[#fff] text-[#333] text-[14px] font-[500] transition-all transition-[0.2s]"
                   disabled={loading}
@@ -362,36 +487,80 @@ function SkillAssessment() {
                   <div className="flex flex-row  gap-[24px]">
                     <div className="w-[50%] flex items-between  flex-col gap-[24px]">
                       <div
-                        className="py-[12px] px-[16px] rounded-[8px] text-[16px] font-[600] h-[50%]"
+                        className={`py-[12px] px-[16px] rounded-[8px] text-[16px] font-[600] h-[50%]  ${
+                          isSelected(
+                            question[questionIndex].options[0],
+                            questionIndex + 1
+                          ) && "bg-[#06A9EF] text-white"
+                        }`}
                         style={{
                           boxShadow: "0px 0px 2px 0px rgba(0, 0, 0, 0.50)",
                         }}
+                        onClick={() =>
+                          answerSeter(
+                            questionIndex + 1,
+                            question[questionIndex].options[0]
+                          )
+                        }
                       >
                         A) {question[questionIndex].options[0]}
                       </div>
                       <div
-                        className="py-[12px] px-[16px] rounded-[8px] text-[16px] font-[600] h-[50%]"
+                        className={`py-[12px] px-[16px] rounded-[8px] text-[16px] font-[600] h-[50%]  ${
+                          isSelected(
+                            question[questionIndex].options[2],
+                            questionIndex + 1
+                          ) && "bg-[#06A9EF] text-white"
+                        }`}
                         style={{
                           boxShadow: "0px 0px 2px 0px rgba(0, 0, 0, 0.50)",
                         }}
+                        onClick={() =>
+                          answerSeter(
+                            questionIndex + 1,
+                            question[questionIndex].options[2]
+                          )
+                        }
                       >
                         C){question[questionIndex].options[2]}
                       </div>
                     </div>
                     <div className="w-[50%] flex flex-col items-between gap-[24px]">
                       <div
-                        className="py-[12px] px-[16px] rounded-[8px] text-[16px] font-[600] h-[50%]"
+                        className={`py-[12px] px-[16px] rounded-[8px] text-[16px] font-[600] h-[50%]  ${
+                          isSelected(
+                            question[questionIndex].options[1],
+                            questionIndex + 1
+                          ) && "bg-[#06A9EF] text-white"
+                        }`}
                         style={{
                           boxShadow: "0px 0px 2px 0px rgba(0, 0, 0, 0.50)",
                         }}
+                        onClick={() =>
+                          answerSeter(
+                            questionIndex + 1,
+                            question[questionIndex].options[1]
+                          )
+                        }
                       >
                         B) {question[questionIndex].options[1]}
                       </div>
                       <div
-                        className="py-[12px] px-[16px] rounded-[8px] text-[16px] font-[600] h-[50%]"
+                        className={`py-[12px] px-[16px] rounded-[8px] text-[16px] font-[600] h-[50%]  ${
+                          isSelected(
+                            question[questionIndex].options[3],
+                            questionIndex + 1
+                          ) && "bg-[#06A9EF] text-white"
+                        }`}
                         style={{
                           boxShadow: "0px 0px 2px 0px rgba(0, 0, 0, 0.50)",
                         }}
+                        onClick={() =>
+                          answerSeter(
+                            questionIndex + 1,
+                            question[questionIndex].options[3]
+                          )
+                        }
                       >
                         D) {question[questionIndex].options[3]}
                       </div>
@@ -400,23 +569,11 @@ function SkillAssessment() {
                 </div>
               </div>
               <div className="flex w-full justify-between">
-                <div className="rounded-[8px] border-[1px] border-solid border-[#06A9EF] bg-[#fff] flex flex-row gap-[8px] text-[18px] font-[600] p-[8px]">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                  >
-                    <g mask="url(#mask0_4403_58159)">
-                      <path
-                        d="M12.0001 22.2034C10.5849 22.2034 9.25703 21.9359 8.01645 21.401C6.77587 20.866 5.69661 20.1396 4.77868 19.2216C3.86074 18.3037 3.13429 17.2244 2.59933 15.9839C2.06436 14.7433 1.79688 13.4154 1.79688 12.0001C1.79688 10.5849 2.06436 9.25703 2.59933 8.01645C3.13429 6.77587 3.86074 5.69661 4.77868 4.77867C5.69661 3.86074 6.77587 3.13429 8.01645 2.59932C9.25703 2.06436 10.5849 1.79688 12.0001 1.79688C13.4154 1.79688 14.7433 2.06436 15.9839 2.59932C17.2244 3.13429 18.3037 3.86074 19.2216 4.77867C20.1396 5.69661 20.866 6.77587 21.401 8.01645C21.9359 9.25703 22.2034 10.5849 22.2034 12.0001C22.2034 12.4422 22.1794 12.8759 22.1314 13.3012C22.0834 13.7266 22.0051 14.1436 21.8964 14.5523C21.6272 14.2498 21.3135 14.0029 20.9553 13.8115C20.5972 13.6202 20.2108 13.5032 19.7964 13.4605C19.8424 13.2264 19.8759 12.9872 19.8969 12.7428C19.9179 12.4984 19.9284 12.2509 19.9284 12.0001C19.9284 9.78277 19.1614 7.90704 17.6273 6.37298C16.0933 4.83893 14.2175 4.0719 12.0001 4.0719C9.78277 4.0719 7.90704 4.83893 6.37297 6.37298C4.83892 7.90704 4.0719 9.78277 4.0719 12.0001C4.0719 14.2175 4.83892 16.0933 6.37297 17.6273C7.90704 19.1614 9.78277 19.9284 12.0001 19.9284C12.8382 19.9284 13.6367 19.8074 14.3958 19.5654C15.1549 19.3233 15.8554 18.9833 16.4974 18.5452C16.7014 18.8844 16.9642 19.1812 17.2858 19.4358C17.6073 19.6903 17.9587 19.8838 18.3398 20.0164C17.4739 20.7038 16.5038 21.2401 15.4295 21.6254C14.3552 22.0108 13.2121 22.2034 12.0001 22.2034ZM19.3817 18.1974C18.9958 18.1974 18.6681 18.0627 18.3985 17.7931C18.129 17.5235 17.9942 17.1958 17.9942 16.8099C17.9942 16.4241 18.129 16.0963 18.3985 15.8268C18.6681 15.5572 18.9958 15.4224 19.3817 15.4224C19.7675 15.4224 20.0953 15.5572 20.3648 15.8268C20.6344 16.0963 20.7692 16.4241 20.7692 16.8099C20.7692 17.1958 20.6344 17.5235 20.3648 17.7931C20.0953 18.0627 19.7675 18.1974 19.3817 18.1974ZM15.2105 16.736L10.9105 12.436V7.03005H13.0898V11.5523L16.748 15.2105L15.2105 16.736Z"
-                        fill="#06A9EF"
-                      />
-                    </g>
-                  </svg>
-                  19 : 48 Minutes
-                </div>
+                <Timer
+                  startTimer={startTimer}
+                  setIsTimerOver={setIsTimerOver}
+                />
+
                 <div className="flex flex-row gap-[72px]">
                   <div
                     className="flex flex-row gap-[3px] items-center justify-center text-[18px] font-[600]"
@@ -442,17 +599,22 @@ function SkillAssessment() {
                     </svg>
                     Previous
                   </div>
+
                   <button
                     disabled={loading}
                     className="flex flex-row gap-[3px] items-center justify-center text-[18px] font-[600] "
                     style={{ opacity: loading ? "0.5" : 1 }}
-                    onClick={() =>
-                      setQuestionIndex(
-                        questionIndex + 1 < 10 ? questionIndex + 1 : 9
-                      )
-                    }
+                    onClick={() => {
+                      if (questionIndex == 9) {
+                        setToggle(2);
+                      } else {
+                        setQuestionIndex(
+                          questionIndex + 1 < 10 ? questionIndex + 1 : 9
+                        );
+                      }
+                    }}
                   >
-                    Next
+                    {questionIndex == 9 ? "Submit" : "Next"}
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="40"
@@ -473,6 +635,172 @@ function SkillAssessment() {
             </div>
             <div className="w-[22.5%] h-[2px] bg-[#06A9EF] border-none"></div>
           </div>
+        )}
+        {toggle == 2 && (
+          <>
+            <div className="flex flex-col gap-[35px] pt-[24px] pb-[95px] items-center justify-center customMargins">
+              <div className="py-[24px] customMargins w-[65.95%] px-[60px] rounded-[12px] bg-[#005A81] flex flex-col  items-center gap-[16px]">
+                <div className="text-[20px] font-[600] text-[#fff] flex flex-row gap-[12px]">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="30"
+                    height="30"
+                    viewBox="0 0 30 30"
+                    fill="none"
+                  >
+                    <g clipPath="url(#clip0_4403_58310)">
+                      <path
+                        d="M28.7109 15.6445C28.7109 23.5729 22.2838 30 14.3555 30C6.42715 30 0 23.5729 0 15.6445C0 7.71621 6.42715 1.28906 14.3555 1.28906C22.2838 1.28906 28.7109 7.71621 28.7109 15.6445Z"
+                        fill="#00C1FB"
+                      />
+                      <path
+                        d="M26.8555 13.5352C26.8555 20.0072 21.6088 25.2539 15.1367 25.2539C8.66463 25.2539 3.41797 20.0072 3.41797 13.5352C3.41797 7.06307 8.66463 1.81641 15.1367 1.81641C21.6088 1.81641 26.8555 7.06307 26.8555 13.5352Z"
+                        fill="#00D1FC"
+                      />
+                      <path
+                        d="M4.21875 28.1392H2.40234C1.91695 28.1392 1.52344 27.7456 1.52344 27.2603V15.5415C1.52344 15.0561 1.91695 14.6626 2.40234 14.6626H4.21875C4.70414 14.6626 5.09766 15.0561 5.09766 15.5415V27.2603C5.09766 27.7457 4.70414 28.1392 4.21875 28.1392Z"
+                        fill="#FF3980"
+                      />
+                      <path
+                        d="M15 15.5415V27.2603C15 27.7456 14.6065 28.1392 14.1211 28.1392H4.21875C3.73336 28.1392 3.33984 27.7456 3.33984 27.2603V15.5415C3.33984 15.0561 3.73336 14.6626 4.21875 14.6626H14.1211C14.6065 14.6626 15 15.0561 15 15.5415Z"
+                        fill="#FF5E95"
+                      />
+                      <path
+                        d="M8.70219 25.4944C8.70219 25.8665 8.40049 26.1682 8.02836 26.1682C7.65623 26.1682 7.35453 25.8665 7.35453 25.4944C7.35453 25.1222 7.65623 24.8205 8.02836 24.8205C8.40049 24.8205 8.70219 25.1222 8.70219 25.4944ZM10.4792 19.7149C10.4129 18.4375 9.35844 17.4167 8.07869 17.3909C6.83393 17.3651 5.76939 18.2739 5.59783 19.5031C5.58213 19.6156 5.57422 19.7305 5.57422 19.8446C5.57422 20.1682 5.83654 20.4305 6.16016 20.4305C6.48377 20.4305 6.74609 20.1682 6.74609 19.8446C6.74609 19.7845 6.75025 19.724 6.75846 19.6651C6.84805 19.0235 7.40727 18.5503 8.05514 18.5626C8.72357 18.576 9.2743 19.1089 9.30893 19.7756C9.32738 20.1316 9.20287 20.4696 8.9583 20.7271C8.7135 20.9849 8.38326 21.1269 8.02842 21.1269C7.70481 21.1269 7.44248 21.3892 7.44248 21.7129V23.6664C7.44248 23.99 7.70481 24.2524 8.02842 24.2524C8.35203 24.2524 8.61436 23.99 8.61436 23.6664V22.2271C9.06629 22.1152 9.48354 21.8759 9.80815 21.534C10.2761 21.0411 10.5145 20.395 10.4792 19.7149Z"
+                        fill="#FFAFE2"
+                      />
+                      <path
+                        d="M9.80814 21.534C9.48353 21.8758 9.06629 22.1152 8.61436 22.2271V22.3941C8.61436 22.7177 8.35203 22.9801 8.02842 22.9801C7.7048 22.9801 7.44248 22.7177 7.44248 22.3941V21.7129C7.44248 21.3901 7.7034 21.1264 8.02613 21.1269C8.38186 21.1275 8.71297 20.9855 8.9583 20.7271C9.20287 20.4696 9.32738 20.1316 9.30893 19.7756C9.2743 19.1089 8.72357 18.576 8.05514 18.5626C7.40727 18.5503 6.84805 19.0235 6.75846 19.6651C6.75061 19.7214 6.74645 19.779 6.74609 19.8364C6.74416 20.1484 6.49988 20.4153 6.18828 20.4299C5.85189 20.4456 5.57422 20.1775 5.57422 19.8446C5.57422 19.7305 5.58219 19.6156 5.59783 19.5031C5.76939 18.2739 6.83393 17.3651 8.07869 17.3909C9.35844 17.4167 10.4129 18.4375 10.4792 19.7149C10.5146 20.395 10.2762 21.041 9.80814 21.534Z"
+                        fill="#FFC7E8"
+                      />
+                      <path
+                        d="M29.9982 10.4151C29.9982 12.3188 29.4874 14.1032 28.5954 15.6387C28.4818 15.8344 28.3188 15.9974 28.1232 16.111C26.5875 17.003 24.8031 17.5138 22.8992 17.5138C17.1528 17.5137 12.4843 12.8451 12.4844 7.09869C12.4844 5.18672 12.9996 3.3951 13.8988 1.85502C14.0052 1.67273 14.1572 1.5208 14.3395 1.41439C15.8795 0.515273 17.6712 5.51523e-10 19.5831 5.51523e-10C25.3296 -5.85932e-05 29.9983 4.66863 29.9982 10.4151Z"
+                        fill="#FFC143"
+                      />
+                      <path
+                        d="M28.616 15.6097C26.817 18.7299 23.4472 20.8301 19.5869 20.8301C13.8348 20.8301 9.17188 16.1671 9.17188 10.415C9.17188 6.55472 11.2721 3.18493 14.3922 1.38599C13.5106 2.91499 13.0062 4.68892 13.0062 6.58067C13.0062 12.3328 17.6692 16.9957 23.4213 16.9957C25.313 16.9957 27.087 16.4913 28.616 15.6097Z"
+                        fill="#FFB509"
+                      />
+                      <path
+                        d="M20.4698 17.4778C20.4698 17.9658 20.0742 18.3614 19.5862 18.3614C19.0982 18.3614 18.7026 17.9658 18.7026 17.4778C18.7026 16.9898 19.0981 16.5942 19.5862 16.5942C20.0741 16.5942 20.4698 16.9898 20.4698 17.4778ZM24.1738 6.81947C24.0497 4.42856 22.076 2.51787 19.6805 2.46965C17.3541 2.424 15.3575 4.12234 15.0365 6.42303C15.0071 6.63356 14.9922 6.84883 14.9922 7.0627C14.9922 7.54809 15.3857 7.9416 15.8711 7.9416C16.3565 7.9416 16.75 7.54809 16.75 7.0627C16.75 6.92981 16.7592 6.79633 16.7774 6.66602C16.9728 5.2658 18.1752 4.22652 19.5871 4.22652C19.6063 4.22652 19.6257 4.2267 19.6451 4.22711C21.1236 4.25688 22.3418 5.43561 22.4184 6.91059C22.4592 7.69768 22.1838 8.44492 21.6428 9.01469C21.1015 9.58486 20.371 9.89887 19.5861 9.89887C19.1007 9.89887 18.7072 10.2924 18.7072 10.7778V14.6625C18.7072 15.1479 19.1007 15.5414 19.5861 15.5414C20.0715 15.5414 20.465 15.1479 20.465 14.6625V11.5737C21.397 11.3949 22.2469 10.9314 22.9175 10.2251C23.7938 9.30215 24.2399 8.09272 24.1738 6.81947Z"
+                        fill="#FFE7BF"
+                      />
+                      <path
+                        d="M22.9174 10.2251C22.2468 10.9314 21.3968 11.3949 20.4649 11.5737V12.4369C20.4649 12.9222 20.0714 13.3158 19.586 13.3158C19.1006 13.3158 18.7071 12.9222 18.7071 12.4369V10.7778C18.7071 10.2927 19.104 9.89939 19.5891 9.89887C20.3729 9.89805 21.1021 9.5841 21.6427 9.01469C22.1837 8.44492 22.4591 7.69768 22.4183 6.91059C22.3417 5.43561 21.1235 4.25688 19.645 4.22711C19.6256 4.2267 19.6062 4.22652 19.587 4.22652C18.1751 4.22652 16.9727 5.2658 16.7773 6.66602C16.7591 6.79633 16.7499 6.92981 16.7499 7.0627C16.7499 7.55729 16.3413 7.95649 15.8433 7.94119C15.3628 7.92643 14.9891 7.5134 14.9922 7.03275C14.9936 6.82873 15.0084 6.62377 15.0364 6.42303C15.3574 4.12234 17.354 2.424 19.6804 2.46965C22.0759 2.51787 24.0496 4.42856 24.1737 6.81947C24.2398 8.09277 23.7936 9.30221 22.9174 10.2251Z"
+                        fill="#FFF5F5"
+                      />
+                    </g>
+                    <defs>
+                      <clipPath id="clip0_4403_58310">
+                        <rect width="30" height="30" fill="white" />
+                      </clipPath>
+                    </defs>
+                  </svg>
+                  {camelCase(selectedSkill)} Assessment
+                </div>
+                <div className="flex gap-[40px] justify-between text-center ">
+                  <div
+                    className="w-[136px] p-[8px] flex flex-col rounded-[12px] justify-center items-center gap-[8px]"
+                    style={{
+                      backgroundColor: "rgba(6, 169, 239, 0.50)",
+                      backdropFilter: "blur(22.5px)",
+                    }}
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="40"
+                      height="40"
+                      viewBox="0 0 40 40"
+                      fill="none"
+                    >
+                      <g mask="url(#mask0_4403_58326)">
+                        <path
+                          d="M26.6875 35.279C25.725 35.279 24.9034 34.9392 24.2226 34.2597C23.5418 33.5803 23.2014 32.7602 23.2014 31.7995V25.1461C23.2014 24.1896 23.5418 23.3706 24.2226 22.689C24.9034 22.0074 25.725 21.6666 26.6875 21.6666H33.3343C34.2968 21.6666 35.1184 22.0074 35.7992 22.689C36.48 23.3706 36.8204 24.1896 36.8204 25.1461V31.7995C36.8204 32.7602 36.48 33.5803 35.7992 34.2597C35.1184 34.9392 34.2968 35.279 33.3343 35.279H26.6875ZM26.3644 32.1226H33.6573V24.823H26.3644V32.1226ZM3.05859 30.0543V26.8913H18.1881V30.0543H3.05859ZM26.6875 18.3333C25.725 18.3333 24.9034 17.9929 24.2226 17.3121C23.5418 16.6313 23.2014 15.8097 23.2014 14.8472V8.20048C23.2014 7.23795 23.5418 6.4163 24.2226 5.73552C24.9034 5.05474 25.725 4.71436 26.6875 4.71436H33.3343C34.2968 4.71436 35.1184 5.05474 35.7992 5.73552C36.48 6.4163 36.8204 7.23795 36.8204 8.20048V14.8472C36.8204 15.8097 36.48 16.6313 35.7992 17.3121C35.1184 17.9929 34.2968 18.3333 33.3343 18.3333H26.6875ZM26.3644 15.1703H33.6573V7.8774H26.3644V15.1703ZM3.05859 13.102V9.94565H18.1881V13.102H3.05859Z"
+                          fill="white"
+                        />
+                      </g>
+                    </svg>
+                    <div className="text-[18px] text-[#fff] font-[600] flex flex-col items-center">
+                      Attended Questions
+                    </div>
+                    <div className="text-[13px] text-[#fff] font-[500] flex flex-col items-center">
+                      {answer.length} / 10
+                    </div>
+                  </div>
+                  <div
+                    className="w-[136px] p-[8px] flex flex-col rounded-[12px] justify-center items-center gap-[8px] "
+                    style={{
+                      backgroundColor: "rgba(6, 169, 239, 0.50)",
+                      backdropFilter: "blur(22.5px)",
+                    }}
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      width="44"
+                      height="44"
+                      fill="#06A9EF"
+                    >
+                      <path d="M0 0h24v24H0z" fill="none" />
+                      <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" />
+                    </svg>
+                    <div className="text-[18px] text-[#fff] font-[600] flex flex-col items-center">
+                      Correct Answers
+                    </div>
+                    <div className="text-[13px] text-[#fff] font-[500] flex flex-col items-center">
+                      {checkAnswer()}
+                    </div>
+                  </div>
+                  <div
+                    className="w-[136px] p-[8px] flex flex-col rounded-[12px] justify-center items-center gap-[8px]"
+                    style={{
+                      backgroundColor: "rgba(6, 169, 239, 0.50)",
+                      backdropFilter: "blur(22.5px)",
+                    }}
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="44"
+                      height="44"
+                      viewBox="0 0 40 40"
+                      fill="none"
+                    >
+                      <g mask="url(#mask0_5716_140570)">
+                        <path
+                          d="M10.5251 30.9486L9.05078 29.4743L18.5251 19.9999L9.05078 10.5256L10.5251 9.05127L19.9994 18.5256L29.4738 9.05127L30.9481 10.5256L21.4738 19.9999L30.9481 29.4743L29.4738 30.9486L19.9994 21.4743L10.5251 30.9486Z"
+                          fill="#ff5c5c"
+                        />
+                      </g>
+                    </svg>
+                    <div className="text-[18px] text-[#fff] font-[600] flex flex-col items-center">
+                      Wrong Answers
+                    </div>
+                    <div className="text-[13px] text-[#fff] font-[500] flex flex-col items-center">
+                      {answer.length - checkAnswer()}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex justify-between w-[78%] mt-3">
+                  <button
+                    className=" h-[42px] w-[108px] flex items-center justify-center  rounded-[8px] border-[1px] border-solid border-[#06A9EF] bg-[#fff] text-[#333] text-[14px] font-[500] transition-all transition-[0.2s]"
+                    disabled={loading}
+                    onClick={() => {
+                      setToggle(0);
+                    }}
+                  >
+                    Go Back
+                  </button>
+                  <button
+                    className=" h-[42px] w-[108px] flex items-center justify-center  rounded-[8px] border-[1px] border-solid border-[#06A9EF] bg-[#fff] text-[#333] text-[14px] font-[500] transition-all transition-[0.2s]"
+                    disabled={loading}
+                  >
+                    {loading ? <MiniLoader /> : "Submit"}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </>
         )}
       </div>
     </div>

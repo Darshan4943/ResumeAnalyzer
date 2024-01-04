@@ -174,6 +174,7 @@ function Profile() {
                   <AboutModal handleImageClick={handleImageClick} userData={userData} />
                 )}
               </div>
+              
             </ScrollElement>
             <ScrollElement name="Work Experience" className="section">
               <WorkExperiance userData={userData} />
@@ -202,6 +203,9 @@ function Profile() {
             <ScrollElement name="Personal details" className="section">
               <PersonalDetails userData={userData} />
             </ScrollElement>
+
+          
+        
           </div>
         </div>
       </div>

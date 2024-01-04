@@ -85,3 +85,10 @@
     }
   }
 }
+
+.selected_job_card{
+  border-radius: 8px;
+border-right: 4px solid var(--primary, #06A9EF);
+background: var(--white, #FFF);
+box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
+}
