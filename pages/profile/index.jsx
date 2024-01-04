@@ -168,11 +168,10 @@ function Profile() {
                     data-modal-toggle="default-modal"
                   />
                 </div>
-                <p className="content_text break-all">{userData.summary}</p>
-                {isComponentOpen && ( 
-                  <AboutModal handleImageClick={handleImageClick} 
-                  userData={userData}  setIsComponentOpen={setIsComponentOpen}
-                  />
+               
+                <p  className="content_text break-all">{userData?.summary}</p>
+                {isComponentOpen && (
+                  <AboutModal handleImageClick={handleImageClick} />
                 )}
               </div>
             </ScrollElement>

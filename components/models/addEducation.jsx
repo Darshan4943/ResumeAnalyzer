@@ -4,6 +4,7 @@ import DateSelector from '../common/dateSelector';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { reCallUserData } from '@/Redux/actions/user';
+import { toast } from 'react-toastify';
 
 
 function AddEducation( { setOpenAddEducation ,education,setEducation,educationData,setEducationData,userData}) {
@@ -27,15 +28,24 @@ function AddEducation( { setOpenAddEducation ,education,setEducation,educationDa
         console.log("hello", educationData)
 
         const obj = {
-
+          type:educationData.type,
           education:educationData.education,
           university:educationData.university,
           stream:educationData.course,
           institute:educationData.institute,
-        
+          isPursuing:educationData.isCurrentlyPursuing==="yes"? true :false,
           specialization:educationData.specialization,
           location:educationData.location,
-        
+          duration: {
+            startDate: {
+                years: educationData.duration?.start.year,
+                months: educationData.duration?.start.month,
+            },
+            endDate: {
+                years: educationData.duration?.end.year,
+                months: educationData.duration?.end.month,
+            },
+        },
 
         }
 
@@ -47,6 +57,7 @@ function AddEducation( { setOpenAddEducation ,education,setEducation,educationDa
                     console.log(444, res.data)
                     dispatch(reCallUserData());
                     setOpenAddEducation(false);
+                    toast.success("Education added successfully");
                   
                 })
                 .catch((err) => {
@@ -68,18 +79,18 @@ function AddEducation( { setOpenAddEducation ,education,setEducation,educationDa
         </div>
     </div>
     <div className='flex flex-col gap-3 '>
-        <p className='text-[16px] font-medium'>Is this your current Job? </p>
+        <p className='text-[16px] font-medium'>What is your Education type? </p>
         <div className='w-[70%] flex justify-between text-[14px] font-montserrat items-center font-medium'>
             <div className='flex gap-2'>
-            <input type='radio' name='isCurrentJob' value='fullTime' onChange={handleInputChange} />
+            <input type='radio' name='type' value='fullTime' onChange={handleInputChange} />
             <label>Full Time</label>
             </div>
             <div className='flex gap-2'>
-            <input type='radio' name='isCurrentJob' value='partTime' onChange={handleInputChange} />
+            <input type='radio' name='type' value='partTime' onChange={handleInputChange} />
             <label>Part Time</label>
             </div>
             <div className='flex gap-2'>
-            <input type='radio' name='isCurrentJob' value='No' onChange={handleInputChange} />
+            <input type='radio' name='type' value='No' onChange={handleInputChange} />
             <label>Correspondence/ Distance learning</label>
             </div>
         </div>
@@ -168,11 +179,11 @@ function AddEducation( { setOpenAddEducation ,education,setEducation,educationDa
         <p className='text-[16px] font-medium'>Are you currently pursuing? </p>
         <div className='w-full flex gap-4 text-[14px] font-montserrat items-center font-medium'>
             <div className='flex gap-2'>
-            <input type='radio' name='isCurrentJob' value='Yes' onChange={handleInputChange} />
+            <input type='radio' name='isPursuing' value="yes" onChange={handleInputChange} />
             <label>Yes</label>
             </div>
             <div className='flex gap-2'>
-            <input type='radio' name='isCurrentJob' value='No' onChange={handleInputChange} />
+            <input type='radio' name='isPursuing' value="no" onChange={handleInputChange} />
             <label>No</label>
             </div>
            
