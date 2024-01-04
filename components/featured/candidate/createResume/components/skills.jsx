@@ -1,11 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { SkillList } from "@/utils/data";
 import ReactSelect from "react-select";
 import { camelCase } from "../../../../../utils/middleware";
 import { toast } from "react-toastify";
+import { Close_svg } from "@/utils/svg";
+import { useSelector } from "react-redux";
 
-const Skills = ({  data, setData }) => {
+const Skills = ({ data, setData }) => {
   const [skills, setSkills] = useState([...SkillList]);
+  const userDataGlobal = useSelector((state) => state.userData);
+
   const [skillList, setSkillList] = useState([]);
   const initialRatings = Array(5).fill(5);
   const handleStarClick = (skillIndex, starIndex) => {
@@ -52,6 +56,15 @@ const Skills = ({  data, setData }) => {
   const saveHandler = () => {
     setData({ ...data, skills: skillList });
   };
+  useEffect(() => {
+    if (userDataGlobal?.resumeUrl?.length <= 1) {
+      const skills = userDataGlobal.skills.map((item) => ({
+        skill: item.value,
+        rating: initialRatings,
+      }));
+      setSkillList(skills);
+    }
+  }, []);
   return (
     <>
       <div
@@ -66,22 +79,11 @@ const Skills = ({  data, setData }) => {
             {skillList.map((skill, index) => (
               <div key={index} className="flex gap-4 justify-between">
                 <div className="flex gap-1 px-3 py-2 border border-[#06A9EF] rounded-[24px] justify-between items-center">
-                  <p className="text-[14px] font-medium">{skill.skill}</p>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="20"
-                    height="20"
-                    viewBox="0 0 20 20"
-                    fill="none"
-                    onClick={() => deleteSkill(index)}
-                  >
-                    <g mask="url(#mask0_5716_136486)">
-                      <path
-                        d="M6.0625 15L5 13.9375L8.9375 10L5 6.0625L6.0625 5L10 8.9375L13.9375 5L15 6.0625L11.0625 10L15 13.9375L13.9375 15L10 11.0625L6.0625 15Z"
-                        fill="#333333"
-                      />
-                    </g>
-                  </svg>
+                  <p className="text-[14px] font-medium">{skill?.skill}</p>
+                
+                  <div className="" onClick={() => deleteSkill(index)}>
+                    <Close_svg height={16} width={16}/>
+                  </div>
                 </div>
                 <div className="flex">{renderStars(index, skill)}</div>
               </div>

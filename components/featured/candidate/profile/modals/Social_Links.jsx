@@ -39,9 +39,11 @@ function Social_Links({ setaddWebsites }) {
           toast.success("Social Links added successfully");
           dispatch(reCallUserData());
           setaddWebsites(false);
+          
         }
       })
       .catch((err) => console.log(err));
+      
   };
  
   return (
@@ -57,7 +59,7 @@ function Social_Links({ setaddWebsites }) {
             <div className="text-[24px] font-[500] text-[#25324B] w-[69.90%]">
               Add Online Profile
             </div>
-            <div className="h-[1px] w-full bg-[#DEDEDE] flex items-center w-[63.07%]"></div>
+            <div className="h-[1px]  bg-[#DEDEDE] flex items-center w-[63.07%]"></div>
             <svg
               className="hover:cursor-pointer"
               onClick={() => setaddWebsites(false)}

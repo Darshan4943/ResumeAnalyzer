@@ -68,7 +68,7 @@ function Social_links_ndWebsites({ userData }) {
                 <div
                   onClick={() => setDeleteData({ view: true, id: item._id })}
                 >
-                  <Delete_icon width={16} height={16} />
+                  
                 </div>
               </div>
             </div>
@@ -91,7 +91,7 @@ function Social_links_ndWebsites({ userData }) {
               <Social_Links setaddWebsites={setaddWebsites} />
             </div>
           </div>
-                
+          
         </>
       )}
     </>

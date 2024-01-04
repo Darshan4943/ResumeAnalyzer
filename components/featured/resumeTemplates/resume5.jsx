@@ -1,15 +1,6 @@
 import React from "react";
 
-function Resume5({
-  formData,
-  aboutData,
-  educationData,
-  experienceData,
-  skills,
-  languages,
-  socialData,
-  data,
-}) {
+function Resume5({ data }) {
   return (
     <div className="flex  border border-[#06A9EF] rounded-[9px] w-[595px] break-all ">
       <div className="w-[233px]  ">
@@ -47,7 +38,7 @@ function Resume5({
               {data.email}
             </p>
           </div>
-          {data.sociaLinks.map((detail, index) => (
+          {data?.sociaLinks?.map((detail, index) => (
             <div className="flex justify-start items-center gap-[8.46px]">
               <div className="w-[14.8px] h-[14.8px]">
                 <img src="/images/services/wg.png" alt="" />
@@ -75,7 +66,7 @@ function Resume5({
           </div>
         </div>
         <div className="flex flex-col gap-1 pt-6">
-          {data.skills.map((detail, index) => (
+          {data?.skills?.map((detail, index) => (
             <div className="pl-[28.13px] pr-3 flex flex-col">
               <div className="flex items-center justify-between gap-4">
                 <p className="text-[#414142] font-kanit text-[11.136px] w-[80px] font-light">
@@ -96,7 +87,7 @@ function Resume5({
           </div>
         </div>
         <div className="flex flex-col gap-1 pt-6">
-          {data.languages.map((detail, index) => (
+          {data?.languages?.map((detail, index) => (
             <div className=" pl-[28.13px] pr-3 flex flex-col gap-1 ">
               <div className="flex justify-between items-center gap-4">
                 <p className="text-[#414142] font-kanit text-[11.136px]  w-[80px] font-light">
@@ -155,7 +146,7 @@ function Resume5({
                 </div>
                 <div className=" pt-[16px]">
                   <div className="flex gap-2 flex-col items-start  ">
-                    {data.education.map((detail, index) => (
+                    {data?.education?.map((detail, index) => (
                       <div className="flex gap-2  ">
                         <div className="w-[4.4px] h-[4.4px] pt-[6px] flex items-center justify-center ">
                           <img src="/images/services/rect.png" alt="" />
@@ -168,8 +159,8 @@ function Resume5({
                             {detail.instituteName}
                           </p>
                           <p className="text-[#F9F9F9] font-Kanit text-[7px] font-light">
-                            {detail.duration.start.year}-
-                            {detail.duration.end.year}
+                            {detail.duration?.start?.year}-
+                            {detail.duration?.end?.year}
                           </p>
                         </div>
                       </div>
@@ -199,17 +190,18 @@ function Resume5({
                       gap: "16px",
                     }}
                   >
-                    {data.experience.map((detail, index) => (
+                    {data.experience?.map((detail, index) => (
                       <div className="flex  gap-2 w-full ">
                         <div className="w-[8.4px] h-[8.4px] pt-[6px] flex items-center justify-center ">
                           <img src="/images/services/rect.png" alt="" />
                         </div>
                         <div className="flex flex-col">
                           <p className="text-[#F9F9F9] font-Kanit text-[12px] font-normal">
-                            {detail.designation} | {detail.duration.start.year}-{" "}
+                            {detail.designation} |{" "}
+                            {detail.duration?.start?.year}-{" "}
                             {detail.currentlyWorking
                               ? "Present"
-                              : detail.duration.end.year}
+                              : detail.duration?.end?.year}
                           </p>
 
                           <p className="text-[#F9F9F9] font-Kanit text-[10px] font-light">
@@ -246,15 +238,15 @@ function Resume5({
                   gap: "16px",
                 }}
               >
-                {data.course.map((detail, index) => (
+                {data?.course?.map((detail, index) => (
                   <div className="flex  gap-2 w-full ">
                     <div className="w-[8.4px] h-[8.4px] pt-[6px] flex items-center justify-center ">
                       <img src="/images/services/rect.png" alt="" />
                     </div>
                     <div className="flex flex-col">
                       <p className="text-[#F9F9F9] font-Kanit text-[12px] font-normal">
-                        {detail.courseName} | {detail.duration.start.year}-{" "}
-                        {detail.duration.end.year}
+                        {detail.courseName} | {detail.duration?.start?.year}-{" "}
+                        {detail.duration?.end?.year}
                       </p>
                       <p className="text-[#F9F9F9] font-Kanit text-[10px] font-light">
                         {detail.issuedBy}

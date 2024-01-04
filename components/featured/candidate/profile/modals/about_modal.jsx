@@ -1,10 +1,52 @@
 import { Close_svg } from "@/utils/svg";
 import React, { useState } from "react";
+import { toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+import { reCallUserData } from "../../../../../Redux/actions/user";
+import axios from "axios";
 
-const AboutModal = ({ handleImageClick }) => {
-  const [text, setText] = useState("Hello");
-  console.log(text);
+const AboutModal = ({ handleImageClick, userData, setIsComponentOpen }) => {
+  const [text, setText] = useState(userData?.summary);
+  const userDataGlobal = useSelector((state) => state.userData);
+  const dispatch = useDispatch();
+  // const [data, setData] = useState({
+  //   summary: "",
+  // });
+
+
+
+  const handleChange = (e) => {
+    const inputValue = e.target.value;
   
+    if (inputValue.length <= 400) {
+      setText(inputValue);
+    } else {
+      // console.log("Input exceeds 400 characters");
+    }
+  };
+  
+  // <input type="text" onChange={handleChange} value={text} />
+  
+
+  const handleSubmit = () => {
+    axios
+      .post(
+        "http://localhost:2000/api/candidate/updateSummery/" +
+          userDataGlobal._id,
+
+        { summery: text }
+      )
+
+      .then((res) => {
+        if (res.data.success) {
+          toast.success("Summary added successfully");
+          dispatch(reCallUserData());
+          setIsComponentOpen(false);
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+
   return (
     <>
       <div id="demo-modal" class="modal ">
@@ -20,11 +62,12 @@ const AboutModal = ({ handleImageClick }) => {
           <div className="flex w-full  px-4 py-3 rounded-md border border-gray-300 bg-white">
             <textarea
               className="text-[#333] font-Montserrat text-base font-normal leading-170 w-full focus:outline-none"
-              name=""
+              name="summary"
               id=""
               cols="30"
               rows="10"
-              onChange={(e) => setText(e.target.value)}
+              // onChange={(e) => setText(e.target.value)}
+              onChange={handleChange}
               value={text}
             ></textarea>
           </div>
@@ -40,7 +83,7 @@ const AboutModal = ({ handleImageClick }) => {
               </p>
             </div>
             <p className="text-Text-Secondary text-right font-Montserrat text-14 font-normal leading-170]">
-              250 characters left
+              {400 - text.length} characters left
             </p>
           </div>
           <div className="w-full flex items-end justify-end self-stretch">
@@ -50,8 +93,11 @@ const AboutModal = ({ handleImageClick }) => {
             >
               Cancel
             </button>
-            <button className="flex items-center justify-center px-4 py-2 font-Montserrat text-16 font-medium leading-normal text-[#fff]  border-[#06A9EF]  bg-[#06A9EF] rounded-md border border-border-color bg-primary">
-              On click
+            <button
+              className="flex items-center justify-center px-4 py-2 font-Montserrat text-16 font-medium leading-normal text-[#fff]  border-[#06A9EF]  bg-[#06A9EF] rounded-md border border-border-color bg-primary"
+              onClick={handleSubmit}
+            >
+              Save Changes
             </button>
           </div>
         </div>

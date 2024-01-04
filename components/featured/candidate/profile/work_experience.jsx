@@ -44,7 +44,7 @@ const WorkExperiance = ({ userData }) => {
   };
 
 
-
+console.log(userData)
   const deleteHandler = () => {
   
 
@@ -81,7 +81,7 @@ const WorkExperiance = ({ userData }) => {
   }, []);
 
 
-  console.log(66, userData)
+
   return (
     <>
       {deleteData.view && (
@@ -144,7 +144,7 @@ const WorkExperiance = ({ userData }) => {
                   {job?.jobDuration?.length > 0 ? (
                     <p className="sec_head">Sept 2019 to 2022</p>
                   ) : (
-                    <p className="sec_head">{job.dateOfJoining}</p>
+                    <p className="sec_head">{job?.jobDuration?.startDate?.year}</p>
                   )}
                 </div>
                 <div className="full_time">

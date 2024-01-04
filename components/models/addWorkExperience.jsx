@@ -4,11 +4,14 @@ import DateSelector from '../common/dateSelector';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { reCallUserData } from '@/Redux/actions/user';
+import { toast } from 'react-toastify';
+import { SkillList } from '@/utils/data';
+import ReactSelect from 'react-select';
 
 function AddWorkExperience({ setOpenAddExperience, experiences, setExperiences, experienceData, setExperienceData, userData }) {
 
     const dispatch =useDispatch()
-
+    const [skill, setSkills] = useState([...SkillList]);
     const handleInputChange = (event) => {
         const { name, value } = event.target;
         setExperienceData({
@@ -25,21 +28,30 @@ function AddWorkExperience({ setOpenAddExperience, experiences, setExperiences, 
         console.log("hello", experienceData)
 
         const obj = {
-
-            jobType: experienceData.jobType,
-            jobMode:experienceData.jobMode,
             isCurrent: experienceData.isCurrentJob === "True" ? true : false,
+            jobType:experienceData.jobType,
+            jobMode:experienceData.jobMode,
+         
             companyName: experienceData.organisation,
             jobTitle: experienceData.designation,
             jobLocation: experienceData.location,
-            keySkills: experienceData.skillsLearned,
+            // skills: experienceData.skillsLearned,
             noticePeriod: experienceData.noticePeriod,
-            summary: experienceData.workDescription,
+            workDescription: experienceData.workDescription,
+            jobDuration: {
+                startDate: {
+                    year: experienceData.duration?.start.year,
+                    month: experienceData.duration?.start.month,
+                },
+                endDate: {
+                    year: experienceData.duration?.end.year,
+                    month: experienceData.duration?.end.month,
+                },
+            },
             
 
         }
 
-        console.log(33, obj, userData._id)
         if (userData) {
             axios
                 .post(`http://localhost:2000/api/candidate/addWorkExperience/${userData._id}`, obj)
@@ -47,6 +59,7 @@ function AddWorkExperience({ setOpenAddExperience, experiences, setExperiences, 
                     dispatch(reCallUserData());
                     console.log(444, res.data)
                     setOpenAddExperience(false);
+                    toast.success("Experience Added successfully");
                 })
                 .catch((err) => {
                     console.log(err);
@@ -180,16 +193,23 @@ function AddWorkExperience({ setOpenAddExperience, experiences, setExperiences, 
             </div>
             <div className='flex flex-col gap-2 '>
                 <div className='text-[16px] font-montserrat  font-medium'>Skills Learned</div>
-                <div className=' border-[1px] border-[#9D9D9D] rounded-[8px] px-[16px] py-[8px]'>
-                    <input
+              
+                    {/* <input
                         type='text'
                         name='skillsLearned'
                         placeholder='Enter your learned skills here'
                         className='w-full text-[14px] font-montserrat font-small'
                         value={experienceData.skillsLearned}
                         onChange={handleInputChange}
-                    />
-                </div>
+                    /> */}
+                    <ReactSelect
+                  options={skill}
+                  isMulti
+                  className="w-full"
+                  onChange={handleInputChange}
+                  value={experienceData.skillsLearned}
+                />
+              
             </div>
             <div className='flex flex-col gap-2 '>
                 <div className='text-[16px] font-montserrat  font-medium'>Work Description</div>
@@ -214,7 +234,7 @@ function AddWorkExperience({ setOpenAddExperience, experiences, setExperiences, 
                     Cancel
                 </button>
 
-                <button className={`px - 4 py - 2 bg - [#06A9EF] border rounded - [12px] font - semibold text - white`} onClick={(e) => handleSaveChanges(e)}>
+                <button className={`px-4 py-2 bg-[#06A9EF] border rounded-[12px] font-semibold text-white`} onClick={(e) => handleSaveChanges(e)}>
                     Save Changes
                 </button>
             </div>

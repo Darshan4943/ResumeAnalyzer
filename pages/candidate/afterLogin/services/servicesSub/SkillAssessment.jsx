@@ -4,23 +4,31 @@ import Profile1 from "@/components/featured/candidate/afterLogin/services/Profil
 import { useSelector } from "react-redux";
 import axios from "axios";
 import MiniLoader from "../../../../../components/common/mini-loader";
+import ProfileHeader from "../../../../../components/featured/candidate/profile/profile_header";
+import { camelCase } from "../../../../../utils/middleware";
+import SkillModel from "../../../../../components/featured/candidate/profile/modals/skill_modal";
 
 function SkillAssessment() {
   const userDataGlobal = useSelector((state) => state.userData);
+  const [viewAddSkill, setViewAddSkill] = useState(false);
   const router = useRouter();
   const query = router.query;
   const [toggle, setToggle] = useState(0);
   const [question, setQuestion] = useState([]);
   const [questionIndex, setQuestionIndex] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [selectedSkill, setSelectedSkill] = useState();
   const toggleContent = () => {
     setLoading(true);
     axios
       .post("http://localhost:2000/api/getQuetions", {
-        skill: userDataGlobal.skills[0].label,
+        skill: selectedSkill,
       })
       .then((res) => {
-        setQuestion(JSON.parse(res.data.data.choices[0].message.content));
+        setQuestion([
+          ...question,
+          ...JSON.parse(res.data.data.choices[0].message.content),
+        ]);
         setToggle(1);
         setLoading(false);
       })
@@ -30,10 +38,29 @@ function SkillAssessment() {
       });
   };
 
+  useEffect(() => {
+    if ((questionIndex + 1) % 2 == 0) {
+      toggleContent();
+    }
+  }, [questionIndex]);
+  useEffect(() => {
+    if (userDataGlobal?.skills?.length > 0) {
+      setSelectedSkill(userDataGlobal.skills[0].label);
+    }
+  }, [userDataGlobal]);
+
   return (
     <div className="pt-2">
+      {viewAddSkill && (
+        <SkillModel
+          handleImageClick={setViewAddSkill}
+          userData={userDataGlobal}
+        />
+      )}
       <div>
-        <Profile1 />
+        <div>
+          {userDataGlobal && <ProfileHeader userData={userDataGlobal} />}
+        </div>
       </div>
       <div className="bg-[#F9F9F9] h-full w-full ">
         {toggle === 0 && (
@@ -46,7 +73,7 @@ function SkillAssessment() {
             >
               <div className="flex flex-row justify-between">
                 <div className="text-[20px] font-medium">My Skills</div>
-                <div>
+                <div onClick={() => setViewAddSkill(true)}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -63,11 +90,16 @@ function SkillAssessment() {
                   </svg>
                 </div>
               </div>
-              <div className="flex flex-row gap-[16px] ">
+              <div className="flex flex-row gap-[16px] flex-wrap ">
                 {userDataGlobal?.skills?.map((item, index) => (
                   <button
                     key={index}
-                    className="px-4 py-2 border-[1px] border-solid border-[#06A9EF] rounded-[25px] text-[14px]  font-medium text-[#333] transition-all transition-[0.2s]"
+                    onClick={() => {
+                      setSelectedSkill(item.label);
+                    }}
+                    className={`px-4 py-2 border-[1px] border-solid border-[#06A9EF] rounded-[25px] text-[14px]  font-medium text-[#333] transition-all transition-[0.2s] ${
+                      selectedSkill == item.label && "bg-[#06A9EF] text-white"
+                    }`}
                   >
                     {item?.label}
                   </button>
@@ -131,10 +163,7 @@ function SkillAssessment() {
                     </clipPath>
                   </defs>
                 </svg>
-                Adobe Photoshop Assessment
-              </div>
-              <div className="text-[12px] font-[500] text-[#fff]">
-                3.5 M people took this
+                {camelCase(selectedSkill)} Assessment
               </div>
               <div className="flex gap-[40px] justify-between text-center ">
                 <div
@@ -241,6 +270,11 @@ function SkillAssessment() {
                 <button
                   className=" h-[42px] w-[108px] flex items-center justify-center  rounded-[8px] border-[1px] border-solid border-[#06A9EF] bg-[#fff] text-[#333] text-[14px] font-[500] transition-all transition-[0.2s]"
                   disabled={loading}
+                  // onClick={() =>
+                  //   setQuestionIndex(
+                  //     questionIndex + 1 < 10 ? questionIndex + 1 : 9
+                  //   )
+                  // }
                 >
                   {loading ? <MiniLoader /> : "Start"}
                 </button>
@@ -309,7 +343,7 @@ function SkillAssessment() {
                       </clipPath>
                     </defs>
                   </svg>
-                  Adobe Photoshop Assessment
+                  {camelCase(selectedSkill)} Assessment
                 </div>
                 <div className="flex flex-col gap-[24px]">
                   <div
@@ -408,8 +442,10 @@ function SkillAssessment() {
                     </svg>
                     Previous
                   </div>
-                  <div
-                    className="flex flex-row gap-[3px] items-center justify-center text-[18px] font-[600]"
+                  <button
+                    disabled={loading}
+                    className="flex flex-row gap-[3px] items-center justify-center text-[18px] font-[600] "
+                    style={{ opacity: loading ? "0.5" : 1 }}
                     onClick={() =>
                       setQuestionIndex(
                         questionIndex + 1 < 10 ? questionIndex + 1 : 9
@@ -431,7 +467,7 @@ function SkillAssessment() {
                         />
                       </g>
                     </svg>
-                  </div>
+                  </button>
                 </div>
               </div>
             </div>
