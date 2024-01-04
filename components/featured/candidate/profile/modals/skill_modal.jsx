@@ -75,9 +75,6 @@ const SkillModel = ({ userData, handleImageClick, setIsComponentOpen }) => {
                 </div>
               </div>
             ))}
-            {/* <div className="" onClick={() => deleteSkill(index)}>
-                    <Close_svg height={16} width={16}/>
-                  </div> */}
           </div>
           <div className="flex justify-between items-start  self-stretch">
             {/* <input
@@ -89,17 +86,31 @@ const SkillModel = ({ userData, handleImageClick, setIsComponentOpen }) => {
               value={skil}
               
             /> */}
+            {/* <ReactSelect
+              options={skills.map((item) => ({
+                value: item,
+                label: camelCase(item),
+              }))}
+              className="w-[100%]"
+              onChange={(data) => setSkil([...skil, data])}
+            /> */}
+
             <ReactSelect
               options={skills.map((item) => ({
                 value: item,
                 label: camelCase(item),
               }))}
-              className="w-[86.42%]"
-              onChange={(data) => setSkil([...skil, data])}
+              className="w-[100%]"
+              onChange={(data) => {
+                const isAlreadySelected = skil.some(
+                  (skill) => skill.value === data.value
+                );
+
+                if (!isAlreadySelected) {
+                  setSkil([...skil, data]);
+                }
+              }}
             />
-            <button className="flex items-center justify-center px-4 py-2 gap-1 rounded-md border border-[#06A9EF] bg-[#06A9EF] text-[#fff]">
-              + Add
-            </button>
           </div>
           <p className="text-[#333] font-montserrat text-[16px] font-medium">
             Suggested skills
