@@ -171,9 +171,10 @@ function Profile() {
                
                 <p  className="content_text break-all">{userData?.summary}</p>
                 {isComponentOpen && (
-                  <AboutModal handleImageClick={handleImageClick} />
+                  <AboutModal handleImageClick={handleImageClick} userData={userData} />
                 )}
               </div>
+              
             </ScrollElement>
             <ScrollElement name="Work Experience" className="section">
               <WorkExperiance userData={userData} />
@@ -202,6 +203,9 @@ function Profile() {
             <ScrollElement name="Personal details" className="section">
               <PersonalDetails userData={userData} />
             </ScrollElement>
+
+          
+        
           </div>
         </div>
       </div>
