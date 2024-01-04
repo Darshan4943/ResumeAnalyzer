@@ -1,7 +1,61 @@
-import React from "react";
+import React, { useState } from "react";
 import Resume5 from "../../resumeTemplates/resume5";
-
+import html2pdf from "html2pdf.js";
+import Resume4 from "../../resumeTemplates/resume4";
+import Resume3 from "../../resumeTemplates/resume3";
+import {
+  Link as ScrollLink,
+  Element as ScrollElement,
+  scroller,
+} from "react-scroll";
 const ResumePreview = ({ data }) => {
+
+  const scrollTo = (element) => {
+    setSelectedTab(element);
+    scroller.scrollTo(element, {
+      duration: 800,
+      delay: 0,
+      smooth: "easeInOutQuart",
+      offset: -100,
+    });
+  };
+  const [showPDF, setShowPDF] = useState(false);
+
+  const togglePDFView = () => {
+    setShowPDF(!showPDF);
+  };
+
+  const generatePDF = () => {
+    const element = document.getElementById("pdfContent");
+  
+    const opt = {
+   
+      margin:       5,
+      filename:     'resume.pdf',
+      image:        { type: 'jpeg', quality: 0.98 },
+      html2canvas:  { scale: 3 },
+      jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    };
+  
+    html2pdf().from(element).set(opt).save();
+  };
+
+  const pdfViewer = (
+    <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center z-[500] overflow-y-auto">
+      <div className="bg-gray-800 bg-opacity-50 w-full h-full flex justify-center items-center">
+        <div className="bg-white flex flex-col gap-4 p-4 rounded-lg shadow-md max-w-[210mm] max-h-[80vh] overflow-y-auto">
+          <div id="pdfContent">
+            <Resume3 data={data} />
+          </div>
+          <div className="flex justify-between">
+            <button className="text-[12px] text-[#FFF]  font-semibold px-3 py-[2px] rounded-[8px] border border-[#06A9EF] bg-[#06A9EF]" onClick={generatePDF}>Download Resume</button>
+            <button className="text-[12px] text-[#333]  font-semibold px-9 py-1 rounded-[8px] border border-[#06A9EF]" onClick={togglePDFView}>Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
   return (
     <>
       <div
@@ -65,20 +119,27 @@ const ResumePreview = ({ data }) => {
               Attach
             </button>
 
-            <button className=" text-[12px] text-[#333] font-montserrat font-semibold px-9 py-1 rounded-[8px] border border-[#06A9EF]">
+            <button className=" text-[12px] text-[#333] font-montserrat font-semibold px-4 py-1 rounded-[8px] border border-[#06A9EF]">
               Download Resume
+            </button>
+            <button onClick={()=>setShowPDF(true)} className=" text-[12px] text-[#333] font-montserrat font-semibold px-4 py-1 rounded-[8px] border border-[#06A9EF]">
+              preview
             </button>
           </div>
         </div>
 
+        {showPDF && pdfViewer}
+
         <div
           className=""
           style={{
-            transform: "scale(0.87)",
+            transform: "scale(0.69)",
             transformOrigin: "top left",
           }}
+          
         >
-          <Resume5 data={data} />
+          <Resume3 data={data} />
+
         </div>
       </div>
     </>

@@ -1,20 +1,19 @@
 import React from "react";
 
 function Resume5({
-  formData,
-  aboutData,
-  educationData,
-  experienceData,
-  skills,
-  languages,
-  socialData,
+
   data,
-}) {
+}) 
+
+
+
+{
+  
   return (
-    <div className="flex  border border-[#06A9EF] rounded-[9px] w-[595px] break-all ">
-      <div className="w-[233px]  ">
+    <div className="flex border border-[#06A9EF] rounded-[9px] w-[754px] break-all ">
+      <div className="w-[352px]  ">
         <div className="pt-[33.72px] pl-[27.74px] pr-[21.15px]">
-          <div className="w=[183.71px] h-[235.24px] ">
+          <div className="w=[210.71px] h-[235.24px] ">
             {data.profilePhoto ? (
               <img src={URL.createObjectURL(data.profilePhoto)} alt="" />
             ) : (
@@ -22,8 +21,8 @@ function Resume5({
             )}
           </div>
         </div>
-        <div className="pt-[39.93px]">
-          <div className="w-[235.577px] h=[29.196px] bg-[#316059] flex justify-center ">
+        <div className="pt-[200px]">
+          <div className="w-[372px] h=[29.196px] bg-[#316059] flex justify-center ">
             <p className="text-[#F9F9F9] font-kanit text-base font-normal">
               CONTACT
             </p>
@@ -68,7 +67,7 @@ function Resume5({
         </div>
 
         <div className="pt-[39.93px]">
-          <div className="w-[235.577px] h=[29.196px] bg-[#316059] flex justify-center ">
+          <div className="w-[372px] h=[29.196px] bg-[#316059] flex justify-center ">
             <p className="text-[#F9F9F9] font-kanit text-base font-normal">
               SKILLS
             </p>
@@ -89,7 +88,7 @@ function Resume5({
           ))}
         </div>
         <div className="pt-[32.93px]">
-          <div className="w-[235.577px] h=[29.196px] bg-[#316059] flex justify-center ">
+          <div className="w-[372px] h=[29.196px] bg-[#316059] flex justify-center ">
             <p className="text-[#F9F9F9] font-kanit text-base font-normal">
               LANGUAGES
             </p>
@@ -110,7 +109,7 @@ function Resume5({
           ))}
         </div>
       </div>
-      <div className="flex flex-col  w-[362px] ">
+      <div className="flex flex-col  w-[401px] ">
         <div className="flex justify-end items-center">
           <div className="w-[27.74px] h-[27.74px] bg-[#316059] rounded-tr-[8px]"></div>
         </div>
@@ -123,7 +122,7 @@ function Resume5({
               {data.designation}
             </p>
           </div>
-          <div className="rounded-tl-xl px-[39.15px] rounded-br-[8px] bg-[#316059] h-[700px] ">
+          <div className="rounded-tl-xl px-[39.15px] rounded-br-[8px] bg-[#316059] min-h-[700px] ">
             {data.showSummary && (
               <>
                 <div className="pt-[27.5px] w-[283px] ">

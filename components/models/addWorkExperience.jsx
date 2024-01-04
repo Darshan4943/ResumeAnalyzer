@@ -7,19 +7,23 @@ import { reCallUserData } from '@/Redux/actions/user';
 import { toast } from 'react-toastify';
 import { SkillList } from '@/utils/data';
 import ReactSelect from 'react-select';
+import { camelCase } from '@/utils/middleware';
 
 function AddWorkExperience({ setOpenAddExperience, experiences, setExperiences, experienceData, setExperienceData, userData }) {
 
-    const dispatch =useDispatch()
+    const dispatch = useDispatch()
     const [skill, setSkills] = useState([...SkillList]);
+    
     const handleInputChange = (event) => {
-        const { name, value } = event.target;
-        setExperienceData({
+        if (event && event.target) {
+          const { name, value } = event.target;
+          setExperienceData({
             ...experienceData,
             [name]: value,
-        });
-    };
-
+          });
+        }
+      };
+   
 
     const handleSaveChanges = (e) => {
         e.preventDefault();
@@ -29,13 +33,13 @@ function AddWorkExperience({ setOpenAddExperience, experiences, setExperiences, 
 
         const obj = {
             isCurrent: experienceData.isCurrentJob === "True" ? true : false,
-            jobType:experienceData.jobType,
-            jobMode:experienceData.jobMode,
-         
+            jobType: experienceData.jobType,
+            jobMode: experienceData.jobMode,
+
             companyName: experienceData.organisation,
             jobTitle: experienceData.designation,
             jobLocation: experienceData.location,
-            // skills: experienceData.skillsLearned,
+            skills: experienceData.skillsLearned,
             noticePeriod: experienceData.noticePeriod,
             workDescription: experienceData.workDescription,
             jobDuration: {
@@ -48,7 +52,7 @@ function AddWorkExperience({ setOpenAddExperience, experiences, setExperiences, 
                     month: experienceData.duration?.end.month,
                 },
             },
-            
+
 
         }
 
@@ -193,8 +197,8 @@ function AddWorkExperience({ setOpenAddExperience, experiences, setExperiences, 
             </div>
             <div className='flex flex-col gap-2 '>
                 <div className='text-[16px] font-montserrat  font-medium'>Skills Learned</div>
-              
-                    {/* <input
+
+                {/* <input
                         type='text'
                         name='skillsLearned'
                         placeholder='Enter your learned skills here'
@@ -202,14 +206,18 @@ function AddWorkExperience({ setOpenAddExperience, experiences, setExperiences, 
                         value={experienceData.skillsLearned}
                         onChange={handleInputChange}
                     /> */}
-                    <ReactSelect
-                  options={skill}
-                  isMulti
-                  className="w-full"
-                  onChange={handleInputChange}
-                  value={experienceData.skillsLearned}
+                <ReactSelect
+                    options={skill.map((item) => ({
+                        value: item,
+                       
+                        label: camelCase(item),
+                      }))}
+                    isMulti
+                    className="w-full"
+                    onChange={handleInputChange}
+                 
                 />
-              
+
             </div>
             <div className='flex flex-col gap-2 '>
                 <div className='text-[16px] font-montserrat  font-medium'>Work Description</div>
