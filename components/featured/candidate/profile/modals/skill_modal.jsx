@@ -1,7 +1,65 @@
 import React, { useState } from "react";
 import { Close_svg } from "@/utils/svg";
+import { toast } from "react-toastify";
+import { SkillList } from "@/utils/data";
 
-const SkillModel = ({ userData, handleImageClick }) => {
+import { useDispatch, useSelector } from "react-redux";
+import { reCallUserData } from "../../../../../Redux/actions/user";
+import axios from "axios";
+import ReactSelect from "react-select";
+import { camelCase } from "@/utils/middleware";
+
+const SkillModel = ({ userData, handleImageClick, setIsComponentOpen }) => {
+  const [skil, setSkil] = useState(userData?.skills);
+  const [skills, setSkills] = useState([...SkillList]);
+  const userDataGlobal = useSelector((state) => state.userData);
+  const dispatch = useDispatch();
+  // console.log(skil);
+
+  const handleSubmit = () => {
+    const dataToSend = [];
+    skil.forEach((item) => {
+      const find = userData?.skills.find((data) => data.value == item.value);
+      if (!find) {
+        dataToSend.push(item);
+      }
+    });
+    // console.log(444, dataToSend);
+    axios
+      .put(
+        "http://localhost:2000/api/candidate/updateSkills/" +
+          userDataGlobal._id,
+
+        { skills: dataToSend }
+      )
+
+      .then((res) => {
+        toast.success("Skill added successfully");
+        dispatch(reCallUserData());
+        setIsComponentOpen(false);
+        setSkil(inputValue);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const deleteHandler = () => {
+    axios
+      .delete(
+        `http://localhost:2000/api/candidate/${userDataGlobal._id}/deleteSkills/${deleteData.id}`
+      )
+      .then((res) => {
+        dispatch(reCallUserData());
+        setDeleteData({ view: false, id: "" });
+        toast.success("Course deleted successfully");
+      })
+      .catch((err) => console.log(err));
+  };
+
+  // const saveSkill = (e) => {
+  //   const inputValue = e.target.value;
+  //   setSkil(inputValue);
+  // };
+
   return (
     <>
       <div id="demo-modal" class="modal ">
@@ -13,6 +71,7 @@ const SkillModel = ({ userData, handleImageClick }) => {
             <div className="bg-[#DEDEDE] h-[1px] w-[75.45%]"></div>
 
             <Close_svg handleImageClick={handleImageClick} />
+            
           </div>
           <div className="text-[#646464] font-montserrat text-14 font-normal leading-20">
             <p>
@@ -25,20 +84,37 @@ const SkillModel = ({ userData, handleImageClick }) => {
             Skills
           </p>
           <div className="skill_buttons">
-            {userData?.skills?.map((item) => (
-              <div className="skill_button text-[#25324B] ">{item.label}</div>
+            {skil?.map((item) => (
+              <div className="skill_button text-[#25324B] ">{item.label}<Close_svg className="" onClick={deleteHandler} height={16} width={16}/></div>
             ))}
+             {/* <div className="" onClick={() => deleteSkill(index)}>
+                    <Close_svg height={16} width={16}/>
+                  </div> */}
           </div>
           <div className="flex justify-between items-start  self-stretch">
-            <input
+            {/* <input
               type="text"
               placeholder="Type in your area of specialization or expertise."
               className="w-[86.42%] flex items-center px-4 py-2 rounded-md border border-text-secondary bg-white text-[#646464] font-montserrat text-[14px] font-normal leading-normal"
+              // onChange={(e) => setSkil(e.target.value)}
+              onChange={saveSkill}
+              value={skil}
+              
+            /> */}
+            <ReactSelect
+              options={skills.map((item) => ({
+                value: item,
+                label: camelCase(item),
+              }))}
+              className="w-[86.42%]"
+              onChange={(data) => setSkil([...skil, data])}
             />
-            <button className="flex items-center justify-center px-4 py-2 gap-1 rounded-md border border-[#06A9EF] bg-[#06A9EF] text-[#fff]">+ Add</button>
+            <button className="flex items-center justify-center px-4 py-2 gap-1 rounded-md border border-[#06A9EF] bg-[#06A9EF] text-[#fff]">
+              + Add
+            </button>
           </div>
           <p className="text-[#333] font-montserrat text-[16px] font-medium">
-          Suggested skills
+            Suggested skills
           </p>
           <div className="w-full flex items-end justify-end self-stretch">
             <button
@@ -47,8 +123,11 @@ const SkillModel = ({ userData, handleImageClick }) => {
             >
               Cancel
             </button>
-            <button className="flex items-center justify-center px-4 py-2 font-Montserrat text-16 font-medium leading-normal text-[#fff]  border-[#06A9EF]  bg-[#06A9EF] rounded-md border border-border-color bg-primary">
-            Save Changes
+            <button
+              onClick={handleSubmit}
+              className="flex items-center justify-center px-4 py-2 font-Montserrat text-16 font-medium leading-normal text-[#fff]  border-[#06A9EF]  bg-[#06A9EF] rounded-md border border-border-color bg-primary"
+            >
+              Save Changes
             </button>
           </div>
         </div>
