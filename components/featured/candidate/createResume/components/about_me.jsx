@@ -45,11 +45,11 @@ const AboutMe = ({ data, setData }) => {
   
   useEffect(() => {
     getAttempts();
-    if (userDataGlobal?.resumeUrl?.length <= 1) {
+    if (userDataGlobal?.resumeUrl) {
       const Summery = userDataGlobal.summary;
       setText(Summery);
     }
-  }, []);
+  }, [userDataGlobal]);
 
   return (
     <>

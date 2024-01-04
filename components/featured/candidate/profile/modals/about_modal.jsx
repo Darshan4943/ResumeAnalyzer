@@ -4,29 +4,45 @@ import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { reCallUserData } from "../../../../../Redux/actions/user";
 import axios from "axios";
+import MiniLoader from "@/components/common/mini-loader";
 
 const AboutModal = ({ handleImageClick, userData, setIsComponentOpen }) => {
   const [text, setText] = useState(userData?.summary);
   const userDataGlobal = useSelector((state) => state.userData);
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
   // const [data, setData] = useState({
   //   summary: "",
   // });
-
-
-
+  const generateText = () => {
+    const prompt = `Original Paragraph:\n${text}\n\nNew Paragraph:\n`;
+    if (text.length > 100) {
+      setLoading(true);
+      axios
+        .post("http://localhost:2000/api/text/regenrate", { prompt })
+        .then((res) => {
+          setLoading(false);
+          setText(res.data.data.choices[0].message.content);
+        })
+        .catch((err) => {
+          setLoading(false);
+          console.log(err);
+        });
+    } else {
+      setError("Minimum 100 characters required");
+    }
+  };
   const handleChange = (e) => {
     const inputValue = e.target.value;
-  
+
     if (inputValue.length <= 400) {
       setText(inputValue);
     } else {
       // console.log("Input exceeds 400 characters");
     }
   };
-  
+
   // <input type="text" onChange={handleChange} value={text} />
-  
 
   const handleSubmit = () => {
     axios
@@ -41,18 +57,16 @@ const AboutModal = ({ handleImageClick, userData, setIsComponentOpen }) => {
         if (res.data.success) {
           toast.success("Summary added successfully");
           dispatch(reCallUserData());
-          setIsComponentOpen(false);
+          handleImageClick(false);
         }
       })
       .catch((err) => console.log(err));
   };
-  useEffect(()=>{
-    console.log(50,userData)
-    if(userData){
-      setText(userData?.summary)
-      
+  useEffect(() => {
+    if (userData) {
+      setText(userData?.summary);
     }
-  },[userData])
+  }, [userData]);
 
   return (
     <>
@@ -79,15 +93,25 @@ const AboutModal = ({ handleImageClick, userData, setIsComponentOpen }) => {
             ></textarea>
           </div>
           <div className="w-full flex justify-between items-start self-stretch">
-            <div className=" flex px-4 py-2 justify-center items-center gap-2 rounded-md border border-primary bg-white">
-              <img
-                src="/images/jobs/strs.png"
-                alt=""
-                className="w-[20px] h-[20px]"
-              />
-              <p className="text-[14px]  text-[#333] font-Montserrat text-14 font-semibold leading-normal">
-                Generate with AI
-              </p>
+            <div
+              className=" flex px-4 py-2 justify-center items-center gap-2 rounded-md border border-primary bg-white w-[220px] cursor-pointer"
+              onClick={generateText}
+            >
+              {loading ? (
+                <MiniLoader />
+              ) : (
+                <>
+                  {" "}
+                  <img
+                    src="/images/jobs/strs.png"
+                    alt=""
+                    className="w-[20px] h-[20px]"
+                  />
+                  <p className="text-[14px]  text-[#333] font-Montserrat text-14 font-semibold leading-normal">
+                    Generate with AI
+                  </p>
+                </>
+              )}
             </div>
             <p className="text-Text-Secondary text-right font-Montserrat text-14 font-normal leading-170]">
               {400 - text?.length} characters left
@@ -96,7 +120,9 @@ const AboutModal = ({ handleImageClick, userData, setIsComponentOpen }) => {
           <div className="w-full flex items-end justify-end self-stretch">
             <button
               className="flex items-center justify-center px-4 py-2 font-Montserrat text-16 font-medium leading-normal rounded-md border-[#06A9EF]  bg-white "
-              onClick={handleImageClick}
+              onClick={() => {
+                handleImageClick(false);
+              }}
             >
               Cancel
             </button>

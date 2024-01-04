@@ -212,9 +212,9 @@ const Education = ({ setData, data }) => {
                 >
                   Cancle
                 </button>
-                <button className=" font-montserrat text-xs font-semibold px-[12px] rounded-[8px] border border-[#06A9EF] w-[137px] h-[32px]">
+                {/* <button className=" font-montserrat text-xs font-semibold px-[12px] rounded-[8px] border border-[#06A9EF] w-[137px] h-[32px]">
                   Update to Profile
-                </button>
+                </button> */}
                 <button
                   onClick={handleSave}
                   className=" font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px]  bg-[#06A9EF] w-[60px] h-[32px]"

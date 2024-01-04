@@ -1,9 +1,6 @@
 import React, { useState } from "react";
 
-const Languages = ({
-  setData,
-  data,
-}) => {
+const Languages = ({ setData, data }) => {
   const [text, setText] = useState("");
   const initialRatingsLanguages = Array(3).fill(3);
 
@@ -117,9 +114,9 @@ const Languages = ({
         </div>
         <div className="flex justify-end ">
           <div className="flex justify-between  py-2 gap-2">
-            <button className=" font-montserrat text-xs font-semibold px-[12px] rounded-[8px] border border-[#06A9EF] w-[137px] h-[32px]">
+            {/* <button className=" font-montserrat text-xs font-semibold px-[12px] rounded-[8px] border border-[#06A9EF] w-[137px] h-[32px]">
               Update to Profile
-            </button>
+            </button> */}
             <button
               onClick={addLanguages}
               className=" font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px]  bg-[#06A9EF] w-[60px] h-[32px] "

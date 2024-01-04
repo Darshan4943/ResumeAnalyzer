@@ -44,7 +44,6 @@ const WorkExperiance = ({ userData }) => {
   };
 
 
-console.log(userData)
   const deleteHandler = () => {
   
 
@@ -95,7 +94,7 @@ console.log(userData)
           <div className=" gap">
             <p className="page_headings">Work Experience</p>
 
-            <div onClick={() => setOpenAddExperience(true)}>  <AddIcon /></div>
+            {/* <div onClick={() => setOpenAddExperience(true)}>  <AddIcon /></div> */}
             {/* <div className="add_delete">
               <img
                 style={{ width: "24px" }}
@@ -121,11 +120,11 @@ console.log(userData)
                     <p className="heading_first ">{job?.companyName}</p>
                     <div className="flex gap-2">
 
-
+{/* 
                       <div >
                         <Edit_icon />
 
-                      </div>
+                      </div> */}
                       <div onClick={() => setDeleteData({ view: true, id: job._id })} >
                         <Delete_icon />
 

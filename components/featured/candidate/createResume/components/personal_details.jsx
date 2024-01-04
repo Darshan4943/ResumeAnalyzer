@@ -95,7 +95,7 @@ const PersonalDetails = ({ setData, data }) => {
   };
 
   useEffect(() => {
-    if (userDataGlobal?.resumeUrl?.length <= 1) {
+    if (userDataGlobal?.resumeUrl) {
       const {
         firstName,
         lastName,
@@ -112,7 +112,7 @@ const PersonalDetails = ({ setData, data }) => {
         location: currentLocation,
       });
     }
-  }, []);
+  }, [userDataGlobal]);
   return (
     <>
       <div
@@ -158,12 +158,12 @@ const PersonalDetails = ({ setData, data }) => {
         </div>
         <div className="flex justify-end ">
           <div className="flex justify-between  py-2 gap-2">
-            <button
+            {/* <button
               className=" font-montserrat text-xs font-semibold px-[12px] rounded-[8px] border border-[#06A9EF] w-[137px] h-[32px]"
               disabled={!isChecked}
             >
               Update to Profile
-            </button>
+            </button> */}
             <button
               className=" font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px]  bg-[#06A9EF] w-[60px] h-[32px]"
               style={{ opacity: isDisabled() ? 0.5 : 1 }}

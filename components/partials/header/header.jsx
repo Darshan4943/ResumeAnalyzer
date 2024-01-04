@@ -4,15 +4,15 @@ import Link from "next/link";
 import { useSelector } from "react-redux";
 import { data } from "autoprefixer";
 
-function Header({userData}) {
+function Header({ userData }) {
   const router = useRouter();
   const userDataGlobal = useSelector((state) => state.userData);
-  console.log(9,userDataGlobal)
+  console.log(9, userDataGlobal);
   const [selectedPage, setSelectedPage] = useState("");
   const { signin, signup } = useRouter().query;
   const [login, setlogin] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
-  
+
   useEffect(() => {
     setSelectedPage(router.pathname);
   }, [router.pathname]);
@@ -61,7 +61,6 @@ function Header({userData}) {
     >
       <div className="header_parent sticky-header customMargins z-[100]">
         <div className="header   ">
-          
           <div className="header_left">
             {!isLogin ? (
               <>
@@ -195,13 +194,21 @@ function Header({userData}) {
               <div className="flex items-center gap-[8px]">
                 <Link href="/profile">
                   <div className="profile_icon">
-                     <img
-                      className=" rounded-full object-cover"
-                      src={
-                        userDataGlobal?.profilePicture?.img ||
-                        "/images/profile/john_doe.png"
-                      }
-                    />
+                    {userDataGlobal?.profilePicture ? (
+                      <img
+                        className=" rounded-full object-cover h-[40px] w-[40px]"
+                        src={
+                          userDataGlobal?.profilePicture?.img ||
+                          "/images/profile/john_doe.png"
+                        }
+                      />
+                    ) : (
+                      <img
+                        src="/images/profile_icon.png"
+                        className="profile_icon_img"
+                        alt=""
+                      />
+                    )}
                   </div>
                   {/* <div className="profile_icon">
                     <img
@@ -212,23 +219,31 @@ function Header({userData}) {
                   </div> */}
                 </Link>
                 <div className="user_name flex items-center relative">
-  <div className="group">
-    <img
-      src="/images/down_arrow.png"
-      className="h-4 w-4 ml-1 cursor-pointer group-hover:opacity-100 group-hover:visible"
-      alt=""
-    />
-    <div className="dropdown absolute -right-10 mt-[1rem] z-10 bg-white border border-gray-200 py-2 px-3 rounded-md shadow-md opacity-0 invisible transition-opacity duration-300 group-hover:opacity-100 group-hover:visible">
-      <a onClick={handleLogin} className="block py-1">
-        Login
-      </a>
-      <a onClick={handleLogOut} className="block py-1">
-        LogOut
-      </a>
-    </div>
-  </div>
-</div>
-
+                  <div
+                    className="group"
+                    style={{
+                      height: "50px",
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "center",
+                      position: "relative",
+                    }}
+                  >
+                    <img
+                      src="/images/down_arrow.png"
+                      className="h-4 w-4 ml-1 cursor-pointer group-hover:opacity-100 group-hover:visible"
+                      alt=""
+                    />
+                    <div className="dropdown absolute top-[26px] mt-[1rem] z-10 bg-white border border-gray-200 py-2 px-3 rounded-md shadow-md opacity-0 invisible transition-opacity duration-300 group-hover:opacity-100 group-hover:visible">
+                      <Link href="/profile" className="block py-1">
+                        Profile
+                      </Link>
+                      <a onClick={handleLogOut} className="block py-1">
+                        LogOut
+                      </a>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           )}

@@ -62,7 +62,6 @@ function Profile() {
     setIsComponentOpen(!isComponentOpen);
   };
 
-
   return (
     <div className="bg-[#F9F9F9]">
       <div>{userData && <ProfileHeader userData={userData} />}</div>
@@ -148,7 +147,7 @@ function Profile() {
                     </button>
                   </ALink>
 
-                  <button className="build_ai_button">Download Resume</button>
+                  {/* <button className="build_ai_button">Download Resume</button> */}
                 </div>
               </div>
             </div>
@@ -168,13 +167,15 @@ function Profile() {
                     data-modal-toggle="default-modal"
                   />
                 </div>
-               
-                <p  className="content_text break-all">{userData?.summary}</p>
+
+                <p className="content_text break-all">{userData?.summary}</p>
                 {isComponentOpen && (
-                  <AboutModal handleImageClick={handleImageClick} userData={userData} />
+                  <AboutModal
+                    handleImageClick={handleImageClick}
+                    userData={userData}
+                  />
                 )}
               </div>
-              
             </ScrollElement>
             <ScrollElement name="Work Experience" className="section">
               <WorkExperiance userData={userData} />
@@ -185,7 +186,10 @@ function Profile() {
             </ScrollElement>
 
             <ScrollElement name="Skills" className="section">
-              <Skills userData={userData} setIsComponentOpen={setIsComponentOpen} />
+              <Skills
+                userData={userData}
+                setIsComponentOpen={setIsComponentOpen}
+              />
             </ScrollElement>
 
             <ScrollElement name="Courses" className="section">
@@ -196,16 +200,13 @@ function Profile() {
               <Achiveements userData={userData} />
             </ScrollElement>
 
-            <ScrollElement name="Job Prefrence" className="section">
+            {/* <ScrollElement name="Job Prefrence" className="section">
               <JobPrefrence userData={userData} />
-            </ScrollElement>
+            </ScrollElement> */}
 
-            <ScrollElement name="Personal details" className="section">
+            {/* <ScrollElement name="Personal details" className="section">
               <PersonalDetails userData={userData} />
-            </ScrollElement>
-
-          
-        
+            </ScrollElement> */}
           </div>
         </div>
       </div>

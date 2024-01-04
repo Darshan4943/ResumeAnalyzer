@@ -22,9 +22,9 @@ const ResumeForm = ({ setData, data }) => {
         <Experience setData={setData} data={data} />
         <Course setData={setData} data={data} />
         <Skills setData={setData} data={data} />
-        <Achievement setData={setData} data={data} />
-        <SocialLink setData={setData} data={data} />
-        <Hobbie setData={setData} data={data} />
+        {/* <Achievement setData={setData} data={data} /> */}
+        {/* <SocialLink setData={setData} data={data} /> */}
+        {/* <Hobbie setData={setData} data={data} /> */}
         <Languages setData={setData} data={data} />
       </div>
     </>

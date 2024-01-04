@@ -57,14 +57,14 @@ const Skills = ({ data, setData }) => {
     setData({ ...data, skills: skillList });
   };
   useEffect(() => {
-    if (userDataGlobal?.resumeUrl?.length <= 1) {
+    if (userDataGlobal?.resumeUrl) {
       const skills = userDataGlobal.skills.map((item) => ({
         skill: item.value,
         rating: initialRatings,
       }));
       setSkillList(skills);
     }
-  }, []);
+  }, [userDataGlobal]);
   return (
     <>
       <div
@@ -103,9 +103,9 @@ const Skills = ({ data, setData }) => {
           />
           <div className="flex justify-end ">
             <div className="flex justify-between  py-2 gap-2">
-              <button className=" font-montserrat text-xs font-semibold px-[12px] rounded-[8px] border border-[#06A9EF] w-[137px] h-[32px]">
+              {/* <button className=" font-montserrat text-xs font-semibold px-[12px] rounded-[8px] border border-[#06A9EF] w-[137px] h-[32px]">
                 Update to Profile
-              </button>
+              </button> */}
               <button
                 onClick={saveHandler}
                 className=" font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px]  bg-[#06A9EF] w-[60px] h-[32px] "

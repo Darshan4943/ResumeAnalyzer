@@ -31,7 +31,7 @@ function CreateResume() {
     languages: [],
   });
   useEffect(() => {
-    if (userDataGlobal?.resumeUrl?.length <= 1) {
+    if (userDataGlobal?.resumeUrl) {
       const { education, workExperiance, courses } = userDataGlobal;
       const EducationDataToSet = education.map((element) => {
         const { institute, duration, stream, specialization, type } = element;
@@ -94,7 +94,7 @@ function CreateResume() {
         course: CourseDataToSet,
       });
     }
-  }, []);
+  }, [userDataGlobal]);
 
   return (
     <div>

@@ -23,16 +23,16 @@ const ResumeList = ({ userData }) => {
               >
                 <img src="./images/profile/download.png" alt="" />
               </a>
-              <div className="resume_button">
+              {/* <div className="resume_button">
                 <img src="./images/profile/delete.png" alt="" />
-              </div>
+              </div> */}
             </div>
           </div>
         ))}
       </div>
-      <div className="up_button">
+      {/* <div className="up_button">
         <button className="build_ai_button">Upload Resume</button>
-      </div>
+      </div> */}
     </div>
   );
 };

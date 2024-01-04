@@ -13,9 +13,9 @@ const Skills = ({ userData }) => {
         <p className="page_headings">Skills</p>
         <div className="flex justify-center items-center gap-4">
           <div className="flex justify-center items-center p-3 gap-4">
-            <p className="text-[#06A9EF] font-montserrat text-12 font-bold">
+            {/* <p className="text-[#06A9EF] font-montserrat text-12 font-bold">
               Take a skill Test
-            </p>
+            </p> */}
             <img
               src="/images/profile/edit.png"
               alt=""

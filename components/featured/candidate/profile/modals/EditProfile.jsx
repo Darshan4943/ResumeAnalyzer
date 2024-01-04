@@ -41,7 +41,7 @@ function EditProfile({ setEditProfile }) {
   };
 
   useEffect(() => {
-    if (userDataGlobal) {
+    if (userDataGlobal?.resumeUrl) {
       const {
         firstName,
         lastName,
@@ -58,7 +58,7 @@ function EditProfile({ setEditProfile }) {
         mobileNo,
       });
     }
-  }, []);
+  }, [userDataGlobal]);
 
   return (
     <>
