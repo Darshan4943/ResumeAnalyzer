@@ -1,13 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import { useSelector } from "react-redux";
+import { data } from "autoprefixer";
 
-function Header() {
+function Header({userData}) {
   const router = useRouter();
+  const userDataGlobal = useSelector((state) => state.userData);
+  console.log(9,userDataGlobal)
   const [selectedPage, setSelectedPage] = useState("");
   const { signin, signup } = useRouter().query;
   const [login, setlogin] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
+  
   useEffect(() => {
     setSelectedPage(router.pathname);
   }, [router.pathname]);
@@ -56,6 +61,7 @@ function Header() {
     >
       <div className="header_parent sticky-header customMargins z-[100]">
         <div className="header   ">
+          
           <div className="header_left">
             {!isLogin ? (
               <>
@@ -189,33 +195,40 @@ function Header() {
               <div className="flex items-center gap-[8px]">
                 <Link href="/profile">
                   <div className="profile_icon">
+                     <img
+                      className=" rounded-full object-cover"
+                      src={
+                        userDataGlobal?.profilePicture?.img ||
+                        "/images/profile/john_doe.png"
+                      }
+                    />
+                  </div>
+                  {/* <div className="profile_icon">
                     <img
                       src="/images/profile_icon.png"
                       className="profile_icon_img"
                       alt=""
                     />
-                  </div>
+                  </div> */}
                 </Link>
                 <div className="user_name flex items-center relative">
-                  demo
-                  <img
-                    src="/images/down_arrow.png"
-                    className="h-4 w-4 ml-1 cursor-pointer "
-                    alt=""
-                    onMouseEnter={toggleDropdown}
-                    // onMouseLeave={toggleDropdown}
-                  />
-                  {showDropdown && (
-                    <div className="dropdown absolute -right-10 mt-[6rem] z-10 bg-white border border-gray-200 py-2 px-3 rounded-md shadow-md">
-                      <a onClick={handleLogin} className="block py-1">
-                        Login
-                      </a>
-                      <a onClick={handleLogOut} className="block py-1">
-                        LogOut
-                      </a>
-                    </div>
-                  )}
-                </div>
+  <div className="group">
+    <img
+      src="/images/down_arrow.png"
+      className="h-4 w-4 ml-1 cursor-pointer group-hover:opacity-100 group-hover:visible"
+      alt=""
+    />
+    <div className="dropdown absolute -right-10 mt-[1rem] z-10 bg-white border border-gray-200 py-2 px-3 rounded-md shadow-md opacity-0 invisible transition-opacity duration-300 group-hover:opacity-100 group-hover:visible">
+      <a onClick={handleLogin} className="block py-1">
+        Login
+      </a>
+      <a onClick={handleLogOut} className="block py-1">
+        LogOut
+      </a>
+    </div>
+  </div>
+</div>
+
               </div>
             </div>
           )}

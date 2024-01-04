@@ -38,10 +38,6 @@ const SkillModel = ({ userData, handleImageClick, setIsComponentOpen }) => {
     setSkil(skil.filter((item) => item.value !== value));
   };
 
-  // const saveSkill = (e) => {
-  //   const inputValue = e.target.value;
-  //   setSkil(inputValue);
-  // };
 
   return (
     <>
