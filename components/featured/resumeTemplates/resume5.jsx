@@ -146,15 +146,17 @@ function Resume5({ data }) {
               ))}
             </div>
           </div>
-          <div class="section mb-8">
-            <div class="section__title">Language</div>
-            <div class="section__list">
-              <div class="section__list-item">
-                {" "}
-                {data?.languages?.map((detail, index) => detail.languages)}
+          {data?.languages?.length > 0 && (
+            <div class="section mb-8">
+              <div class="section__title">Language</div>
+              <div class="section__list">
+                <div class="section__list-item">
+                  {" "}
+                  {data?.languages?.map((detail, index) => detail.languages)}
+                </div>
               </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
       <div className="absolute bottom-[10px] right-[10px]">

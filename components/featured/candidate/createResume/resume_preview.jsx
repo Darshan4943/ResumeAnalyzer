@@ -38,6 +38,7 @@ const ResumePreview = ({ data }) => {
         })
         .catch((err) => {
           toast.error("Something went wrong");
+          setLoading(false);
           console.log(err);
         });
     });
