@@ -1,5 +1,5 @@
 import { Close_svg } from "@/utils/svg";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { reCallUserData } from "../../../../../Redux/actions/user";
@@ -46,6 +46,13 @@ const AboutModal = ({ handleImageClick, userData, setIsComponentOpen }) => {
       })
       .catch((err) => console.log(err));
   };
+  useEffect(()=>{
+    console.log(50,userData)
+    if(userData){
+      setText(userData?.summary)
+      
+    }
+  },[userData])
 
   return (
     <>
@@ -83,7 +90,7 @@ const AboutModal = ({ handleImageClick, userData, setIsComponentOpen }) => {
               </p>
             </div>
             <p className="text-Text-Secondary text-right font-Montserrat text-14 font-normal leading-170]">
-              {400 - text.length} characters left
+              {400 - text?.length} characters left
             </p>
           </div>
           <div className="w-full flex items-end justify-end self-stretch">

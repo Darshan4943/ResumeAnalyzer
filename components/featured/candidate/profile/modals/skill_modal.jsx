@@ -14,36 +14,34 @@ const SkillModel = ({ userData, handleImageClick, setIsComponentOpen }) => {
   const [skills, setSkills] = useState([...SkillList]);
   const userDataGlobal = useSelector((state) => state.userData);
   const dispatch = useDispatch();
-console.log(skil)
+  // console.log(skil);
+
   const handleSubmit = () => {
-    const dataToSend = []
-    skil.forEach(item=>{
-      const find = userData?.skills.find(data=>data.value==item.value)
-      if(!find){
-        dataToSend.push(item)
-      }
-    })
     axios
       .put(
         "http://localhost:2000/api/candidate/updateSkills/" +
           userDataGlobal._id,
 
-        { skills: dataToSend }
+        { skills: skil }
       )
 
       .then((res) => {
         toast.success("Skill added successfully");
         dispatch(reCallUserData());
-        setIsComponentOpen(false);
+        handleImageClick(false);
         setSkil(inputValue);
       })
       .catch((err) => console.log(err));
   };
 
-  const saveSkill = (e) => {
-    const inputValue = e.target.value;
-    setSkil(inputValue);
+  const deleteHandler = (value) => {
+    setSkil(skil.filter((item) => item.value !== value));
   };
+
+  // const saveSkill = (e) => {
+  //   const inputValue = e.target.value;
+  //   setSkil(inputValue);
+  // };
 
   return (
     <>
@@ -54,8 +52,9 @@ console.log(skil)
               Edit Skill
             </div>
             <div className="bg-[#DEDEDE] h-[1px] w-[75.45%]"></div>
-
-            <Close_svg handleImageClick={handleImageClick} />
+            <div onClick={() => handleImageClick(false)}>
+              <Close_svg />
+            </div>
           </div>
           <div className="text-[#646464] font-montserrat text-14 font-normal leading-20">
             <p>
@@ -69,7 +68,12 @@ console.log(skil)
           </p>
           <div className="skill_buttons">
             {skil?.map((item) => (
-              <div className="skill_button text-[#25324B] ">{item.label}</div>
+              <div className="skill_button text-[#25324B] ">
+                {item.label}
+                <div onClick={() => deleteHandler(item.value)}>
+                  <Close_svg className="" height={16} width={16} />
+                </div>
+              </div>
             ))}
           </div>
           <div className="flex justify-between items-start  self-stretch">
@@ -82,17 +86,31 @@ console.log(skil)
               value={skil}
               
             /> */}
+            {/* <ReactSelect
+              options={skills.map((item) => ({
+                value: item,
+                label: camelCase(item),
+              }))}
+              className="w-[100%]"
+              onChange={(data) => setSkil([...skil, data])}
+            /> */}
+
             <ReactSelect
               options={skills.map((item) => ({
                 value: item,
                 label: camelCase(item),
               }))}
-              className="w-[86.42%]"
-              onChange={(data) => setSkil([...skil, data])}
+              className="w-[100%]"
+              onChange={(data) => {
+                const isAlreadySelected = skil.some(
+                  (skill) => skill.value === data.value
+                );
+
+                if (!isAlreadySelected) {
+                  setSkil([...skil, data]);
+                }
+              }}
             />
-            <button className="flex items-center justify-center px-4 py-2 gap-1 rounded-md border border-[#06A9EF] bg-[#06A9EF] text-[#fff]">
-              + Add
-            </button>
           </div>
           <p className="text-[#333] font-montserrat text-[16px] font-medium">
             Suggested skills
@@ -100,7 +118,7 @@ console.log(skil)
           <div className="w-full flex items-end justify-end self-stretch">
             <button
               className="flex items-center justify-center px-4 py-2 font-Montserrat text-16 font-medium leading-normal rounded-md border-[#06A9EF]  bg-white "
-              onClick={handleImageClick}
+              onClick={() => handleImageClick(false)}
             >
               Cancel
             </button>

@@ -171,7 +171,7 @@ function Profile() {
                
                 <p  className="content_text break-all">{userData?.summary}</p>
                 {isComponentOpen && (
-                  <AboutModal handleImageClick={handleImageClick} />
+                  <AboutModal handleImageClick={handleImageClick} userData={userData} />
                 )}
               </div>
             </ScrollElement>

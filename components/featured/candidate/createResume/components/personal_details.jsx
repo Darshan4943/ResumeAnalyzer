@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { camelCase } from "../../../../../utils/middleware";
+import { useSelector } from "react-redux";
 
 const PersonalDetails = ({ setData, data }) => {
+  const userDataGlobal = useSelector((state) => state.userData);
+
   const [isChecked, setIsChecked] = useState(true);
 
   const handleSwitchChange = () => {
@@ -91,6 +94,25 @@ const PersonalDetails = ({ setData, data }) => {
     });
   };
 
+  useEffect(() => {
+    if (userDataGlobal?.resumeUrl?.length <= 1) {
+      const {
+        firstName,
+        lastName,
+        email,
+        mobileNo: mobileNumber,
+        currentLocation,
+      } = userDataGlobal.basics;
+      setProfileData({
+        ...profileData,
+        firstName,
+        lastName,
+        email,
+        mobileNumber,
+        location: currentLocation,
+      });
+    }
+  }, []);
   return (
     <>
       <div

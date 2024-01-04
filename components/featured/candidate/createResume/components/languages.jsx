@@ -70,7 +70,7 @@ const Languages = ({
           Languages
         </div>
         <div className="flex flex-col gap-4">
-          {data.languages.map((languages, index) => (
+          {data?.languages?.map((languages, index) => (
             <div key={index} className="flex gap-4 justify-between">
               <div className="flex gap-1 px-3 py-2 border border-[#06A9EF] rounded-[24px] justify-between items-center">
                 <p className="text-[14px] font-medium">{languages.languages}</p>
