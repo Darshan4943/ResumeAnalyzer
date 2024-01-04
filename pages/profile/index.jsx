@@ -157,7 +157,7 @@ function Profile() {
               <ResumeList userData={userData} />
             </ScrollElement>
             <ScrollElement name="About me" className="section">
-              <div className="build_ai ai2 ">
+              <div className="build_ai ai2 break-all ">
                 <div className="gap">
                   <p className="page_headings">About me</p>
                   <img
@@ -204,7 +204,7 @@ function Profile() {
             </ScrollElement>
 
             <ScrollElement name="Personal details" className="section">
-              <PersonalDetails userData={userData} />
+              <PersonalDetails userData={userData}  />
             </ScrollElement>
           </div>
         </div>
