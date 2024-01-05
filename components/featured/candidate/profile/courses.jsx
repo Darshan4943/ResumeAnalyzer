@@ -12,6 +12,20 @@ const Courses = ({ userData }) => {
   const [deleteData, setDeleteData] = useState({ view: false, id: "" });
   const userDataGlobal = useSelector((state) => state.userData);
   const dispatch = useDispatch();
+  const month = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
   const deleteHandler = () => {
     axios
       .delete(
@@ -69,8 +83,16 @@ const Courses = ({ userData }) => {
                   </p>
                   <p className="heading_sec">{item.organization}</p>
                   <div className="full_time">
-                    <p className="sec_head">
-                      {item.issuedDate?.year} to {item.expiryDate?.year}
+                    <p className="sec_head flex gap-[8px]">
+                      <div className="flex gap-[4px]">
+                      <div>{month[item.issuedDate?.month - 1]}</div>
+                        <div>{item.issuedDate?.year}</div>
+                      </div>
+                      to
+                      <div className="flex gap-[4px]">
+                      <div>{month[item.expiryDate?.month - 1]}</div>
+                        <div>{item.expiryDate?.year}</div>
+                      </div>
                     </p>
                     <div className="vertical_line"></div>
                     <a

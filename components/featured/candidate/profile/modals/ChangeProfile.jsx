@@ -30,8 +30,9 @@ function ChangeProfile({ setIsChangeProfile }) {
         formData
       )
       .then((res) => {
-        toast.success("Profile Picture Updated Successfully")
-        setIsChangeProfile(false)
+        toast.success("Profile Picture Updated Successfully");
+        window.location.reload();
+        setIsChangeProfile(false);
       })
       .catch((err) => console.log(err));
   };

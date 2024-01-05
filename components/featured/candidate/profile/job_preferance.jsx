@@ -39,7 +39,7 @@ const JobPrefrence = ({ userData }) => {
 
           <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-[130] outline-none focus:outline-none">
             <div className="absolute max-w-[800px] w-full">
-              <JobPrefrenceModal />
+              <JobPrefrenceModal setEditView={setEditView} />
             </div>
           </div>
         </>

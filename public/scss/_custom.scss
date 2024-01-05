@@ -170,7 +170,9 @@ input {
 }
 
 ////////////////radio button///////////
-
+.color{
+  color: blue;
+}
 input[type="radio"].custom-radio {
   filter: hue-rotate(335deg);
 }

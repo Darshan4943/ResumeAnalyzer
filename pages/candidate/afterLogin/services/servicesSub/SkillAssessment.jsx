@@ -485,7 +485,7 @@ function SkillAssessment() {
                       Question {questionIndex + 1}
                     </div>
                     <div className="text-[16px] text-[#333] font-[600]">
-                      {question[questionIndex].question}
+                      {question[questionIndex]?.question}
                     </div>
                   </div>
                   <div className="flex flex-row  gap-[24px]">
@@ -493,7 +493,7 @@ function SkillAssessment() {
                       <div
                         className={`py-[12px] px-[16px] rounded-[8px] text-[16px] font-[600] h-[50%]  ${
                           isSelected(
-                            question[questionIndex].options[0],
+                            question[questionIndex]?.options[0],
                             questionIndex + 1
                           ) && "bg-[#06A9EF] text-white"
                         }`}
@@ -503,16 +503,16 @@ function SkillAssessment() {
                         onClick={() =>
                           answerSeter(
                             questionIndex + 1,
-                            question[questionIndex].options[0]
+                            question[questionIndex]?.options[0]
                           )
                         }
                       >
-                        A) {question[questionIndex].options[0]}
+                        A) {question[questionIndex]?.options[0]}
                       </div>
                       <div
                         className={`py-[12px] px-[16px] rounded-[8px] text-[16px] font-[600] h-[50%]  ${
                           isSelected(
-                            question[questionIndex].options[2],
+                            question[questionIndex]?.options[2],
                             questionIndex + 1
                           ) && "bg-[#06A9EF] text-white"
                         }`}
@@ -522,18 +522,18 @@ function SkillAssessment() {
                         onClick={() =>
                           answerSeter(
                             questionIndex + 1,
-                            question[questionIndex].options[2]
+                            question[questionIndex]?.options[2]
                           )
                         }
                       >
-                        C){question[questionIndex].options[2]}
+                        C){question[questionIndex]?.options[2]}
                       </div>
                     </div>
                     <div className="w-[50%] flex flex-col items-between gap-[24px]">
                       <div
                         className={`py-[12px] px-[16px] rounded-[8px] text-[16px] font-[600] h-[50%]  ${
                           isSelected(
-                            question[questionIndex].options[1],
+                            question[questionIndex]?.options[1],
                             questionIndex + 1
                           ) && "bg-[#06A9EF] text-white"
                         }`}
@@ -543,16 +543,16 @@ function SkillAssessment() {
                         onClick={() =>
                           answerSeter(
                             questionIndex + 1,
-                            question[questionIndex].options[1]
+                            question[questionIndex]?.options[1]
                           )
                         }
                       >
-                        B) {question[questionIndex].options[1]}
+                        B) {question[questionIndex]?.options[1]}
                       </div>
                       <div
                         className={`py-[12px] px-[16px] rounded-[8px] text-[16px] font-[600] h-[50%]  ${
                           isSelected(
-                            question[questionIndex].options[3],
+                            question[questionIndex]?.options[3],
                             questionIndex + 1
                           ) && "bg-[#06A9EF] text-white"
                         }`}
@@ -562,11 +562,11 @@ function SkillAssessment() {
                         onClick={() =>
                           answerSeter(
                             questionIndex + 1,
-                            question[questionIndex].options[3]
+                            question[questionIndex]?.options[3]
                           )
                         }
                       >
-                        D) {question[questionIndex].options[3]}
+                        D) {question[questionIndex]?.options[3]}
                       </div>
                     </div>
                   </div>
@@ -618,9 +618,11 @@ function SkillAssessment() {
                             date: new Date(),
                           })
                           .then((res) => {
+                            
                             setToggle(2);
                           })
                           .catch((err) => {
+                           
                             console.log(err);
                           });
                       } else {
@@ -811,8 +813,12 @@ function SkillAssessment() {
                     className=" h-[42px] w-[108px] flex items-center justify-center  rounded-[8px] border-[1px] border-solid border-[#06A9EF] bg-[#fff] text-[#333] text-[14px] font-[500] transition-all transition-[0.2s]"
                     disabled={loading}
                     onClick={() => {
+                     
                       setToggle(0);
+                      setQuestion([])
+                      setQuestionIndex(0)
                       forceUpdate();
+                     
                     }}
                   >
                     {loading ? <MiniLoader /> : "Done"}
