@@ -17,15 +17,6 @@ import dynamic from "next/dynamic";
 function BeforeLoginHome() {
   const lenisRef = useRef();
 
-  // useEffect(() => {
-  //   function update(time) {
-  //     lenisRef.current?.raf(time * 800);
-  //   }
-  //   gsap.ticker.add(update);
-  //   return () => {
-  //     gsap.ticker.remove(update);
-  //   };
-  // });
 
   return (
     <div>
