@@ -148,9 +148,9 @@ const ResumePreview = ({ data }) => {
               Save
             </button>
 
-            <button onClick={() => setShowPDF(true)} className=" text-[12px] text-[#333] font-montserrat font-semibold px-4 py-1 rounded-[8px] border border-[#06A9EF]">
+            {/* <button onClick={() => setShowPDF(true)} className=" text-[12px] text-[#333] font-montserrat font-semibold px-4 py-1 rounded-[8px] border border-[#06A9EF]">
               preview
-            </button>
+            </button> */}
 
           </div>
         </div>
