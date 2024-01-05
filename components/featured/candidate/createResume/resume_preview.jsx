@@ -45,7 +45,7 @@ const ResumePreview = ({ data }) => {
   };
   const generatePdf = () => {
     generatePDF(resumeRef, {
-      filename: `${userDataGlobal.basics.firstName}-skilotech-resume-${userDataGlobal.resumeUrl.length}.pdf`,
+      filename: `${userDataGlobal?.basics?.firstName}-skilotech-resume-${userDataGlobal?.resumeUrl?.length}.pdf`,
     });
   };
 
