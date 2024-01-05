@@ -33,7 +33,7 @@ function AddCertificate({ setAddCertificate }) {
   };
   function getYear() {
     const currentYear = new Date().getFullYear();
-    const startYear = currentYear - 100; // Adjust this value if you want to start from a different year
+    const startYear = currentYear - 100; 
 
     const years = [];
     for (let year = currentYear; year >= startYear; year--) {
@@ -42,6 +42,7 @@ function AddCertificate({ setAddCertificate }) {
 
     return years;
   }
+  
   const userDataGlobal = useSelector((state) => state.userData);
 
   const postData = () => {

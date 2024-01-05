@@ -12,6 +12,7 @@ import { toast } from "react-toastify";
 import { reCallUserData } from "@/Redux/actions/user";
 import MiniLoader from "@/components/common/mini-loader";
 import ALink from "@/components/alink";
+import { Close_svg } from "@/utils/svg";
 const ResumePreview = ({ data }) => {
   const userDataGlobal = useSelector((state) => state.userData);
   const dispatch = useDispatch();
@@ -148,9 +149,9 @@ const ResumePreview = ({ data }) => {
               Save
             </button>
 
-            <button onClick={() => setShowPDF(true)} className=" text-[12px] text-[#333] font-montserrat font-semibold px-4 py-1 rounded-[8px] border border-[#06A9EF]">
+            {/* <button onClick={() => setShowPDF(true)} className=" text-[12px] text-[#333] font-montserrat font-semibold px-4 py-1 rounded-[8px] border border-[#06A9EF]">
               preview
-            </button>
+            </button> */}
 
           </div>
         </div>
@@ -206,6 +207,9 @@ const ResumePreview = ({ data }) => {
                     Profile
                   </button>
                 </ALink>
+                <div className=""onClick={() => setPreview(false)}>
+                  <Close_svg />
+                </div>
               </div>
               <div ref={resumeRef}>
                 <Resume5 data={data} />
