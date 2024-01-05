@@ -78,7 +78,7 @@ function Header({ userData }) {
                 <Link
                   href="/candidate"
                   className={
-                    selectedPage === "/candidate/beforeLogin/candidate"
+                    selectedPage === "/candidate"
                       ? "active"
                       : "li"
                   }
@@ -88,7 +88,7 @@ function Header({ userData }) {
                 <Link
                   href="/employer"
                   className={
-                    selectedPage === "/employer/beforeLogin/employer"
+                    selectedPage === "/employer"
                       ? "active"
                       : "li"
                   }
@@ -98,7 +98,7 @@ function Header({ userData }) {
                 <Link
                   href="/recruiter"
                   className={
-                    selectedPage === "/recruiter/Recruiter_page"
+                    selectedPage === "/recruiter"
                       ? "active"
                       : "li"
                   }
