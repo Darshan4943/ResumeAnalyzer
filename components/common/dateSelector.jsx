@@ -2,7 +2,8 @@ import React, { useState } from "react";
 
 const DateSelector = ({ idPrefix, dataSeter, data }) => {
   const months = Array.from({ length: 12 }, (_, index) => index + 1);
-  const years = Array.from({ length: 11 }, (_, index) => 2020 + index);
+  // const years = Array.from({ length: 11 }, (_, index) => 2020 + index);
+  // const years = Array.from({ length: 40 }, (_, index) => 2020 + index);
 
   const handleStartMonthChange = (e) => {
     dataSeter({
@@ -24,6 +25,7 @@ const DateSelector = ({ idPrefix, dataSeter, data }) => {
     });
   };
 
+
   const handleEndMonthChange = (e) => {
     dataSeter({
       ...data,
@@ -43,6 +45,18 @@ const DateSelector = ({ idPrefix, dataSeter, data }) => {
       },
     });
   };
+  function getYear() {
+    const currentYear = new Date().getFullYear();
+    const startYear = currentYear - 100; 
+
+    const years = [];
+    for (let year = currentYear; year >= startYear; year--) {
+      years.push(year);
+    }
+
+    return years;
+  }
+  console.log(getYear())
 
   return (
     <div className="flex gap-[12px]">
@@ -103,7 +117,7 @@ const DateSelector = ({ idPrefix, dataSeter, data }) => {
               <option value="Year" disabled hidden>
                 Year
               </option>
-              {years.map((year) => (
+              {getYear().map((year) => (
                 <option key={year} value={year} className="mt-4 px-4 py-2">
                   {year}
                 </option>
@@ -172,7 +186,7 @@ const DateSelector = ({ idPrefix, dataSeter, data }) => {
                 <option value="Year" disabled hidden>
                   Year
                 </option>
-                {years.map((year) => (
+                {getYear().map((year) => (
                   <option key={year} value={year} className="px-4 py-2">
                     {year}
                   </option>

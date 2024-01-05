@@ -48,10 +48,13 @@ const Skills = ({ data, setData }) => {
     }
   };
   const handleChange = (value) => {
-    setSkillList([
-      ...skillList,
-      { skill: value.label, rating: initialRatings },
-    ]);
+    const found = skillList.find((item) => item.skill === value.label);
+    if (!found) {
+      setSkillList([
+        ...skillList,
+        { skill: value.label, rating: initialRatings },
+      ]);
+    }
   };
   const saveHandler = () => {
     setData({ ...data, skills: skillList });
@@ -80,9 +83,9 @@ const Skills = ({ data, setData }) => {
               <div key={index} className="flex gap-4 justify-between">
                 <div className="flex gap-1 px-3 py-2 border border-[#06A9EF] rounded-[24px] justify-between items-center">
                   <p className="text-[14px] font-medium">{skill?.skill}</p>
-                
+
                   <div className="" onClick={() => deleteSkill(index)}>
-                    <Close_svg height={16} width={16}/>
+                    <Close_svg height={16} width={16} />
                   </div>
                 </div>
                 <div className="flex">{renderStars(index, skill)}</div>
