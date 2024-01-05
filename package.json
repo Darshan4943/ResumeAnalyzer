@@ -4,9 +4,7 @@
   "private": true,
  
 
-  "engines": {
-    "node": ">=19"
-  },
+
     "scripts": {
     "dev": "next dev",
     "build": "next build",
