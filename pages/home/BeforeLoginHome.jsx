@@ -20,7 +20,7 @@ function BeforeLoginHome() {
 
   return (
     <div>
-      <ReactLenis root ref={lenisRef} autoRaf={false}>
+      <ReactLenis root >
         <Parallax strength={400} className="h-[54.5rem] pt-[36px]">
           <Background className="custom-bg  ">
             <HeroSection />

@@ -82,6 +82,9 @@ const PersonalDetails = ({ setData, data }) => {
     });
     return returnValue;
   };
+
+
+  
   const saveData = () => {
     setData({
       ...data,
