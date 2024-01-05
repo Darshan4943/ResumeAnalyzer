@@ -54,11 +54,11 @@ const WrappedApp = ({ Component, pageProps }) => {
       <Provider store={Store}>
         <Api/>
       <ParallaxProvider>
-        <ReactLenis root>
+        {/* <ReactLenis root> */}
           <Layout>
             <Component {...pageProps} />
           </Layout>
-        </ReactLenis>
+        {/* </ReactLenis> */}
       </ParallaxProvider>
       </Provider>
 

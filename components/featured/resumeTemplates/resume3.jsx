@@ -1,26 +1,26 @@
 import React from "react";
 
 function Resume3({
-  formData,
-  aboutData,
-  educationData,
-  experienceData,
-  skills,
-  languages,
-  socialData,
+  
+  data
 }) {
   return (
-    <div className="flex  break-all border border-[#06A9EF] rounded-[9px] w-[595px]">
-      <div className="w-[184px] bg-[#414042] rounded-tl-[8px] rounded-bl-[8px] ">
+    <div className="flex  break-all border border-[#06A9EF] rounded-[9px] w-[754px]">
+      <div className="w-[233.16px] bg-[#414042] rounded-tl-[8px] rounded-bl-[8px] min-h-[500px] ">
         <div className="pt-[21px] pr-[22px] pl-[28px]">
           <div className="w-[134px] h-[134px] flex-shrink-0 rounded-full bg-cover bg-center">
-            <img src="./images/services/profile.png" alt="" />
+          {data.profilePhoto ? (
+              <img src={URL.createObjectURL(data.profilePhoto)} alt="" />
+            ) : (
+              <img src="/images/services/profile.png" alt="" />
+            )}
+           
           </div>
         </div>
 
         <div className=" pt-7 flex flex-col">
-          <div className="flex pl-[15.92px] h-[27px] w-[125px] bg-[#fff] rounded-tr-full rounded-br-full">
-            <p className="text-[#414042] font-inter text-base font-normal">
+          <div className="flex pl-[15.92px] h-[27px] w-[125px] bg-[#fff] items-center rounded-tr-full rounded-br-full">
+            <p className="text-[#414042]  text-base font-normal">
               Contact
             </p>
           </div>
@@ -42,8 +42,8 @@ function Resume3({
                     />
                   </svg>
                 </div>
-                <div className="text-white font-lato text-[8.5px]  ">
-                  <p className="object-contain">{formData.mobileNumber}</p>
+                <div className="text-white  text-[8.5px]  ">
+                  <p className="object-contain">{data.mobileNumber}</p>
                 </div>
               </div>
               <div className="gap-[7.83px] flex  ">
@@ -61,12 +61,12 @@ function Resume3({
                     />
                   </svg>
                 </div>
-                <div className="text-white font-lato text-[8.5px]   ">
-                  <p className="object-contain">{formData.email}</p>
+                <div className="text-white  text-[8.5px]   ">
+                  <p className="object-contain">{data.email}</p>
                 </div>
               </div>
               <div className="flex flex-col">
-                {socialData.map((detail, index) => (
+                {data.sociaLinks.map((detail, index) => (
                   <div className="gap-[7.83px] flex ">
                     <div className="w-[14.76px] h-[14.75px] rounded-full flex items-center justify-center bg-white">
                       <svg
@@ -83,7 +83,7 @@ function Resume3({
                       </svg>
                     </div>
 
-                    <div className="text-white font-lato text-[8.5px]  ">
+                    <div className="text-white  text-[8.5px]  ">
                       <p className="object-contain">{detail.link}</p>
                     </div>
                   </div>
@@ -93,19 +93,19 @@ function Resume3({
           </div>
           <div className="pt-[15px]">
             <div className="flex  px-[15.92px] h-[27px] w-[125px] bg-[#fff] rounded-tr-full rounded-br-full">
-              <p className="text-gray-800 font-inter text-base font-normal">
+              <p className="text-gray-800  text-base font-normal">
                 Education
               </p>
             </div>
             <div className="flex flex-col gap-[19.75px] pl-[15.92px]   pt-[11.59px]">
               <div className="flex flex-col gap-5">
-                {educationData.map((detail, index) => (
+                {data.education.map((detail, index) => (
                   <div>
                     <div className="">
-                      <p className="text-white font-lato text-[9.996px] font-bold  ">
+                      <p className="text-white  text-[9.996px] font-bold  ">
                         {detail.qualification}
                       </p>
-                      <p className="text-white font-lato text-[9.996px] font-medium  ">
+                      <p className="text-white  text-[9.996px] font-medium  ">
                         {detail.instituteName}
                       </p>
                     </div>
@@ -113,7 +113,7 @@ function Resume3({
                       <div className="w-[16px] h-[1px]  bg-white"></div>
                     </div>
                     <div className="pt-[1.81px]">
-                      <p className="text-white font-lato text-[8.962px] font-normal">
+                      <p className="text-white  text-[8.962px] font-normal">
                         2010-2014
                       </p>
                     </div>
@@ -123,13 +123,13 @@ function Resume3({
             </div>
             <div className="pt-[16.38px]">
               <div className="flex pl-[15.92px] h-[27px] w-[125px] bg-[#fff] rounded-tr-full rounded-br-full">
-                <p className="text-[#414042] font-inter text-base font-normal">
+                <p className="text-[#414042] text-base font-normal">
                   Skills
                 </p>
               </div>
               <div className="flex flex-col px-[15.92px] pt-[14.21px] gap-[9.81px] ">
-                {skills.map((detail, index) => (
-                  <p className="text-white font-lato text-[8.96px] font-normal">
+                {data.skills.map((detail, index) => (
+                  <p className="text-white  text-[8.96px] font-normal">
                     {detail.skill}
                   </p>
                 ))}
@@ -138,45 +138,45 @@ function Resume3({
           </div>
         </div>
       </div>
-      <div className="w-[411px] pr-[20px] pb-[20px] ">
-        <div className=" pl-[20px] pt-[22px] w-full h-auto flex flex-col  ">
-          <span className="text-[#414042] font-inter text-[43.514px] font-normal  leading-[43px] ">
-            {formData.firstName}
+      <div className="w-[520px] pr-[20px] pb-[20px] ">
+        <div className=" pl-[20px] pt-[22px] gap-4 w-full h-auto flex flex-col  ">
+          <span className="text-[#414042]  text-[43.514px] font-normal  leading-[43px] ">
+            {data.firstName}
             <br />
-            {formData.lastName}
+            {data.lastName}
           </span>
 
-          <p className="text-[#414042] font-century-gothic text-[14.015px] font-normal mb-0 ">
+          <p className="text-[#414042]  text-[14.015px] font-normal mb-0 ">
             Web Design & Developer
           </p>
         </div>
         <div className="pl-[20px] pt-[40.78px]  h-auto flex flex-col gap-[5.64px] ">
-          <p className="text-[#414042] font-inter text-base font-normal">
+          <p className="text-[#414042] text-base font-normal">
             About Me
           </p>
 
-          <p className="text-[#646464] font-inter text-xs font-normal break-all">
-            {aboutData.aboutMe}
+          <p className="text-[#646464] f text-xs font-normal break-all">
+            {data.summery}
           </p>
         </div>
         <div className="pt-[24px]">
-          <div className="flex  pl-[15.92px] h-[27px] w-[125px] bg-[#414042] rounded-tr-full rounded-br-full">
-            <p className="text-white font-inter text-base font-normal">
+          <div className="flex  pl-[15.92px] h-[27px] w-[170px] bg-[#414042] rounded-tr-full rounded-br-full">
+            <p className="text-white text-base font-normal">
               Experience
             </p>
           </div>
-          {experienceData.map((detail, index) => (
+          {data.experience.map((detail, index) => (
             <div>
-              <p className="text-[#414142] pt-[9.59px] pl-[18px] font-lato text-[11.989px] font-bold">
+              <p className="text-[#414142] pt-[9.59px] pl-[18px]  text-[11.989px] font-bold">
                 {detail.organization}
               </p>
-              <p className="text-[#414142] pt-[7.31px] pl-[18px] font-lato text-[9.996px] font-bold">
+              <p className="text-[#414142] pt-[7.31px] pl-[18px]  text-[9.996px] font-bold">
                 {detail.designation}
               </p>
-              <p className="text-[#414142] pt-[5.88px] pl-[18px] font-lato text-[8.969px] font-normal">
+              <p className="text-[#414142] pt-[5.88px] pl-[18px]  text-[8.969px] font-normal">
                 FEB 2018 - NOW
               </p>
-              <p className="text-[#646464] pt-[5.88px] pl-[18px] font-inter text-xs font-normal">
+              <p className="text-[#646464] pt-[5.88px] pl-[18px]  text-xs font-normal">
                 {detail.description}
               </p>
             </div>

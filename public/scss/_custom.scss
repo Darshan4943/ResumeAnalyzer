@@ -170,7 +170,9 @@ input {
 }
 
 ////////////////radio button///////////
-
+.color{
+  color: blue;
+}
 input[type="radio"].custom-radio {
   filter: hue-rotate(335deg);
 }
@@ -410,3 +412,12 @@ input:checked + .slider:before {
 }
 
 
+
+.A4-size-container {
+  width: 210mm;
+  height: 297mm;
+  padding: 20mm;
+  margin: auto;
+  box-sizing: border-box;
+
+}

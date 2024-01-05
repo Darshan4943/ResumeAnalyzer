@@ -20,7 +20,7 @@ const AboutMe = ({ data, setData }) => {
     if (text.length > 100) {
       setLoading(true);
       axios
-        .post("http://localhost:2000/api/text/regenrate", { prompt })
+        .post("https://freedygoservices.in/api/text/regenrate", { prompt })
         .then((res) => {
           setLoading(false);
           setError("");
@@ -45,11 +45,11 @@ const AboutMe = ({ data, setData }) => {
   
   useEffect(() => {
     getAttempts();
-    if (userDataGlobal?.resumeUrl?.length <= 1) {
+    if (userDataGlobal?.resumeUrl) {
       const Summery = userDataGlobal.summary;
       setText(Summery);
     }
-  }, []);
+  }, [userDataGlobal]);
 
   return (
     <>

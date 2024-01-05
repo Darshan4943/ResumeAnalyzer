@@ -3,10 +3,13 @@ import React, { useEffect, useLayoutEffect, useState } from "react";
 import { useDispatch, useSelector, useStore } from "react-redux";
 import { userAction } from "./actions/user";
 import { jwtDecode } from "jwt-decode";
+import { setJob } from "./actions";
 
 export const Api = () => {
   const store = useStore();
   const [loading, setLoading] = useState(true);
+  const userDataGlobal = useSelector((state) => state.userData);
+
   const dispatch = useDispatch();
   const reCallUser = useSelector((state) => state.reCallUser);
   function shuffle(array) {
@@ -24,9 +27,9 @@ export const Api = () => {
       const token = localStorage.getItem("authToken");
       if (token && token != "undefined") {
         const decoded = jwtDecode(token);
-
+        console.log(decoded);
         axios
-          .post("http://localhost:2000/api/candidate/" + decoded._id)
+          .post("https://freedygoservices.in/api/candidate/" + decoded._id)
           .then((res) => {
             const decode = jwtDecode(res.data.data);
             dispatch(
@@ -42,6 +45,20 @@ export const Api = () => {
       }
     }
   }, [reCallUser]);
+  useEffect(() => {
+    if (userDataGlobal?.skills) {
+      axios
+        .post("https://freedygoservices.in/api/job/getAll", {
+          requiredSkills: userDataGlobal.skills?.map((item) => item.value),
+        })
+        .then((res) => {
+          dispatch(setJob(res.data));
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [userDataGlobal, reCallUser]);
 
   return <></>;
 };

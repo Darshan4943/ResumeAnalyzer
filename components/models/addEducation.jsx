@@ -51,7 +51,7 @@ function AddEducation( { setOpenAddEducation ,education,setEducation,educationDa
 
         if (userData) {
             axios
-                .post(`http://localhost:2000/api/candidate/addEducation/${userData._id}`, obj)
+                .post(`https://freedygoservices.in/api/candidate/addEducation/${userData._id}`, obj)
                 .then((res) => {
                     console.log(444, res.data)
                     dispatch(reCallUserData());
@@ -69,8 +69,8 @@ function AddEducation( { setOpenAddEducation ,education,setEducation,educationDa
 
 
   return (
-    <div className='flex flex-col gap-4 p-6 bg-white rounded-[16px] ' style={{ boxShadow: '0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)' }} >
-    <div className='flex justify-between w-full items-center'>
+    <div className='flex flex-col gap-4 p-6 bg-white rounded-[16px] h-[90vh] overflow-y-auto' style={{ boxShadow: '0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)' }} >
+    <div className='flex justify-between w-full items-center '>
         <p className='text-[24px] font-medium'>Add Education</p>
         <div className='bg-[#DEDEDE] h-[1px] w-[54.54%]'></div>
         <div onClick={() => setOpenAddEducation(false)}>

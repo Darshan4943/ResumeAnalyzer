@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 
 function Edit_personal_Dtls({ setaddWebsites }) {
   const userDataGlobal = useSelector((state) => state.userData);
+  console.log(userDataGlobal);
   const dispatch = useDispatch();
   const [Data, setData] = useState({
     dob: "",
@@ -20,6 +21,35 @@ function Edit_personal_Dtls({ setaddWebsites }) {
     isSpecialyAbled: false,
     discription: "",
   });
+  console.log(24, Data);
+  useEffect(() => {
+    if (userDataGlobal?.resumeUrl) {
+      const {
+        dob,
+        gender,
+        maritalStatus,
+        address,
+        isCareerBreak,
+        isCareerBreakReason,
+        haveWorkPermit,
+        specialyAbled,
+        discription,
+      } = userDataGlobal.basics;
+      setData({
+        ...Data,
+        dob,
+        gender,
+        maritalStatus,
+        address,
+        isCareerBreak,
+        isCareerBreakReason,
+        haveWorkPermit,
+        isSpecialyAbled: specialyAbled.isSpecialyAbled,
+        discription: specialyAbled.discription,
+      });
+    }
+  }, [userDataGlobal]);
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setData({
@@ -28,19 +58,20 @@ function Edit_personal_Dtls({ setaddWebsites }) {
     });
   };
   const handleSubmit = () => {
+    const obj = {
+      ...Data,
+      isSpecialyAbled: Data.isSpecialyAbled,
+      discription: Data.discription,
+    };
+    console.log(63, obj);
     axios
       .put(
         "http://localhost:2000/api/candidate/updateProfileDetails/" +
           userDataGlobal._id,
-        {
-          ...Data,
-          specialyAbled: {
-            isSpecialyAbled: Data.isSpecialyAbled,
-            discription: data.discription,
-          },
-        }
+        obj
       )
       .then((res) => {
+        console.log(73, Data);
         if (res) {
           console.log(111, res);
           toast.success("Personal details edit successfully");
@@ -50,8 +81,6 @@ function Edit_personal_Dtls({ setaddWebsites }) {
       })
       .catch((err) => console.log(err));
   };
-
- 
 
   return (
     <div
@@ -192,6 +221,9 @@ function Edit_personal_Dtls({ setaddWebsites }) {
                 type="radio"
                 name="isCareerBreak"
                 id=""
+                checked={Data.isCareerBreak ? true : false}
+
+                // checked={Data.isCareerBreak === false?"blue":"white"}
               />
               <label htmlFor="" className="text-[14px] font-[500]">
                 yes
@@ -205,6 +237,9 @@ function Edit_personal_Dtls({ setaddWebsites }) {
                 type="radio"
                 name="isCareerBreak"
                 id=""
+                checked={Data.isCareerBreak ? false : true}
+                
+                // checked={Data.isCareerBreak === true?"blue":"white"}
               />
               <label htmlFor="" className="text-[14px] font-[500]">
                 no
@@ -212,21 +247,25 @@ function Edit_personal_Dtls({ setaddWebsites }) {
             </div>
           </div>
         </div>
-        <div className=" w-full flex flex-col gap-[8px]">
-          <div className="text-[16px] font-[500]">If Yes, Specify a reason</div>
-          <input
-            // onChange={(e) =>
-            //   setData({ ...data, isCareerBreakReason: e.target.value })
-            // }
-            onChange={handleInputChange}
-            value={Data.isCareerBreakReason}
-            className=" text-[14px] font-[400] text-[#646464] rounded-[8px] border-[1px] border-solid border-[#DEDEDE] w-full flex items-center justify-between py-[8px] px-[16px]"
-            placeholder="Type here"
-            type="text"
-            name="isCareerBreakReason"
-            id=""
-          />
-        </div>
+        {Data.isCareerBreak === true && (
+          <div className=" w-full flex flex-col gap-[8px]">
+            <div className="text-[16px] font-[500]">
+              If Yes, Specify a reason
+            </div>
+            <input
+              // onChange={(e) =>
+              //   setData({ ...data, isCareerBreakReason: e.target.value })
+              // }
+              onChange={handleInputChange}
+              value={Data.isCareerBreakReason}
+              className=" text-[14px] font-[400] text-[#646464] rounded-[8px] border-[1px] border-solid border-[#DEDEDE] w-full flex items-center justify-between py-[8px] px-[16px]"
+              placeholder="Type here"
+              type="text"
+              name="isCareerBreakReason"
+              id=""
+            />
+          </div>
+        )}
       </div>
       <div className=" flex flex-col gap-[16px]">
         <div className="w-[50%] flex flex-col gap-[12px] text-[16px] font-[500] ">
@@ -240,6 +279,9 @@ function Edit_personal_Dtls({ setaddWebsites }) {
                 type="radio"
                 name="haveWorkPermit"
                 id=""
+                checked={Data.haveWorkPermit ? true : false}
+
+                // checked={Data.haveWorkPermit === true?"blue":"white"}
               />
               <label htmlFor="" className="text-[14px] font-[500]">
                 yes
@@ -253,6 +295,9 @@ function Edit_personal_Dtls({ setaddWebsites }) {
                 type="radio"
                 name="haveWorkPermit"
                 id=""
+                checked={Data.haveWorkPermit ? false : true}
+
+                // checked={Data.haveWorkPermit === false?"blue":"white"}
               />
               <label htmlFor="" className="text-[14px] font-[500]">
                 no
@@ -290,6 +335,9 @@ function Edit_personal_Dtls({ setaddWebsites }) {
                 type="radio"
                 name="isSpecialyAbled"
                 id=""
+                checked={Data.isSpecialyAbled ? true : false}
+
+                // checked={Data.isSpecialyAbled === true?"blue":"white"}
               />
               <label htmlFor="" className="text-[14px] font-[500]">
                 yes
@@ -303,6 +351,9 @@ function Edit_personal_Dtls({ setaddWebsites }) {
                 type="radio"
                 name="isSpecialyAbled"
                 id=""
+                checked={Data.isSpecialyAbled ? false : true}
+
+                // checked={Data.isSpecialyAbled === false?"blue":"white"}
               />
               <label htmlFor="" className="text-[14px] font-[500]">
                 no
@@ -310,19 +361,24 @@ function Edit_personal_Dtls({ setaddWebsites }) {
             </div>
           </div>
         </div>
-        <div className=" w-full flex flex-col gap-[8px]">
-          <div className="text-[16px] font-[500]">If Yes, Specify</div>
-          <input
-            onChange={(e) => setData({ ...Data, discription: e.target.value })}
-            value={Data.discription}
-            className=" text-[14px] font-[400] text-[#646464] rounded-[8px] border-[1px] border-solid border-[#DEDEDE] w-full flex items-center justify-between py-[8px] px-[16px]"
-            placeholder="Type here"
-            type="text"
-            name="discription"
-            id="" 
-          />
-          {/* {console.log(316,Data)} */}
-        </div>
+
+        {Data.isSpecialyAbled === true && (
+          <div className=" w-full flex flex-col gap-[8px]">
+            <div className="text-[16px] font-[500]">If Yes, Specify</div>
+            <input
+              onChange={(e) =>
+                setData({ ...Data, discription: e.target.value })
+              }
+              value={Data.discription}
+              className=" text-[14px] font-[400] text-[#646464] rounded-[8px] border-[1px] border-solid border-[#DEDEDE] w-full flex items-center justify-between py-[8px] px-[16px]"
+              placeholder="Type here"
+              type="text"
+              name="discription"
+              id=""
+            />
+            {/* {console.log(316,Data)} */}
+          </div>
+        )}
       </div>
       <div className="w-full flex justify-end">
         {/* <button className="rounded-[8px] py-[8px] px-[16px] border-[#C00000] border-solid border-[1px] text-[#C00000] text-[16px] font-[500] transition-all transition-0.1s hover:bg-[#C00000] hover:text-[#fff]">

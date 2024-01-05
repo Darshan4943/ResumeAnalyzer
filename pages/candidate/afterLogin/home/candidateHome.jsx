@@ -7,12 +7,27 @@ import ALink from "../../../../components/alink";
 
 function AfterLoginHome() {
   const userDataGlobal = useSelector((state) => state.userData);
-  const [userData, setUserData] = useState("");
+  const jobData = useSelector((state) => state.getAllJobs.data);
+  const [userData, setUserData] = useState(false);
   useEffect(() => {
     setUserData(userDataGlobal);
   }, [userDataGlobal]);
 
   const [toggle, setToggle] = useState(0);
+
+  useEffect(() => {
+    setUserData(userDataGlobal);
+  }, [userDataGlobal]);
+  function mapPercentageToDegree(percentage) {
+    const clampedPercentage = Math.min(100, Math.max(0, percentage));
+    const degree = 90 + (clampedPercentage / 100) * 270;
+    return degree;
+  }
+  const containerStyle = {
+    backgroundImage: `linear-gradient(${mapPercentageToDegree(
+      userData.profileScore?.toFixed(0)
+    )}deg, transparent 50%, #f0f0f0 50%), linear-gradient(90deg, #f0f0f0 50%, transparent 50%)`,
+  };
 
   return (
     <div className="bg-[#F9F9F9] ">
@@ -22,13 +37,18 @@ function AfterLoginHome() {
             <div className="customMargins py-5 flex flex-row justify-between items-center ">
               <div className="justify-center items-center w-[29%] items-between">
                 <div className="flex flex-row gap-[16px] py-[8px]  ">
-                  <div className="flex w-[40%] h-[110px]  items-center">
+                 
+                  <div className="flex w-[40%] h-[110px] items-center justify-center">
                     <img
-                      src="/images/afterLoginHome/profile_pic.png"
+                      className="w-[105px] h-[105px] rounded-full object-cover"
+                      src={
+                        userData?.profilePicture?.img ||
+                        "/images/profile/john_doe.png"
+                      }
                       alt=""
-                      className="w-[120px] h-[120px]"
                     />
                   </div>
+
                   <div className="flex flex-col gap-[12px] items-center justify-center w-[60%] leading-[15px]">
                     <div className="flex  flex-col gap-[12px]">
                       <div className="flex flex-col gap-[8px]">
@@ -58,11 +78,18 @@ function AfterLoginHome() {
               <div className="flex items-center w-[24%]">
                 <div className="flex flex-row gap-[16px]">
                   <div className="h-[84px] w-[30%]">
-                    <img
+                    {/* <img
                       src="/images/afterLoginHome/profile_per..png"
                       alt=""
                       className=""
-                    />
+                    /> */}
+                    <div class="circle-border w-[full]" style={containerStyle}>
+                      <div class="circle">
+                        <p className="profile_percent">
+                          {userData.profileScore?.toFixed(0)} %
+                        </p>
+                      </div>
+                    </div>
                   </div>
                   <div className="flex items-center w-[70%]">
                     <div className="flex flex-col gap-[8px]">
@@ -143,7 +170,7 @@ function AfterLoginHome() {
                   Home
                 </div>
               </div>
-              <div
+              {/* <div
                 className={`flex flex-row py-[8px] px-[16px] gap-[8px] items-center justify-center ${
                   toggle === 1 && "text-white bg-[#06A9EF] rounded-[6px]"
                 }`}
@@ -170,7 +197,7 @@ function AfterLoginHome() {
                 >
                   Applied Jobs
                 </div>
-              </div>
+              </div> */}
               <div
                 className={`flex flex-row py-[8px] px-[16px] gap-[8px] items-center justify-center ${
                   toggle === 2 && "text-white bg-[#06A9EF] rounded-[6px]"
@@ -200,11 +227,11 @@ function AfterLoginHome() {
         </div>
       )}
       {toggle === 0 && (
-        <div className="customMargins overflow-y-auto">
+        <div className="customMargins ">
           <div className="grid grid-cols-5 gap-[24px] pb-[49px]">
             <div class="col-span-4">
-              <Job_card />
-
+              {jobData && <Job_card jobData={jobData.slice(0, 5)} />}
+              {/* 
               <div
                 className="flex  p-[16px]  mt-[24px] justify-between w-[100%] rounded-[12px] bg-cover bg-center "
                 style={{
@@ -270,7 +297,7 @@ function AfterLoginHome() {
                 </div>
               </div>
 
-              <Job_card />
+              <Job_card /> */}
 
               <div
                 className="flex  p-[16px]  mt-[24px] justify-between w-[100%] rounded-[12px] bg-cover bg-center "
@@ -285,14 +312,16 @@ function AfterLoginHome() {
                       Uncover Your Potential with Effortless Skill Assessment.
                       Elevate Your Abilities, Elevate Your Success!{" "}
                     </p>
-                    <button className=" flex py-[8px] px-[16px] justify-center items-center gap-[4px] rounded-[8px] border border-solid border-[#fff] text-[16px] text-[#fff] font-[500]  ">
-                      Get Started
-                      <img
-                        className="w-[20px]"
-                        src="/images/afterLoginHome/arrow_forward.png"
-                        alt=""
-                      />
-                    </button>
+                    <ALink href={"/candidate/create_resume"}>
+                      <button className=" flex py-[8px] px-[16px] justify-center items-center gap-[4px] rounded-[8px] border border-solid border-[#fff] text-[16px] text-[#fff] font-[500]  ">
+                        Get Started
+                        <img
+                          className="w-[20px]"
+                          src="/images/afterLoginHome/arrow_forward.png"
+                          alt=""
+                        />
+                      </button>
+                    </ALink>
                   </div>
                 </div>
                 <div className="w-[20%]">

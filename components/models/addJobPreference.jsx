@@ -22,7 +22,7 @@ function AddJobPreference({ setAddJobPreference,userData }) {
     //   const handleSubmit = () => {
     //     axios
     //       .put(
-    //         "http://localhost:2000/api/candidate/updateJobPreferance/" +
+    //         "https://freedygoservices.in/api/candidate/updateJobPreferance/" +
     //           userDataGlobal._id,
     //         data
     //       )

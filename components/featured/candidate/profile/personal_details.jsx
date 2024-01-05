@@ -64,34 +64,46 @@ const PersonalDetails = ({ userData }) => {
               <p className="sec_head">Differently able</p>
               <p className="heading_first">
                 {userData?.basics?.specialyAbled?.isSpecialyAbled
-                
-                    ? "Yes"
-                    : "No"
-                 }
+                  ? "Yes"
+                  : "No"}
               </p>
             </div>
+            {userData?.basics?.specialyAbled?.isSpecialyAbled === true && (
+              <div className="essential_gap">
+                <p className="sec_head">Description</p>
+                <p className="heading_first">
+                  {userData?.basics?.specialyAbled
+                    ? userData?.basics?.specialyAbled?.discription
+                    : "-"}
+                </p>
+              </div>
+            )}
           </div>
           <div className="job_preference_right">
             <div className="essential_gap">
               <p className="sec_head">Career break</p>
               <p className="heading_first">
-                {userData?.basics?.isCareerBreak
-                 
-                    ? "Yes"
-                    : "No"
-                  }
+                {userData?.basics?.isCareerBreak ? "Yes" : "No"}
               </p>
             </div>
+            {userData?.basics?.isCareerBreak === true && (
+              <div className="essential_gap">
+                <p className="sec_head">Career break reason</p>
+                <p className="heading_first">
+                  {userData?.basics?.isCareerBreakReason
+                    ? userData?.basics?.isCareerBreakReason
+                    : "-"}
+                </p>
+              </div>
+            )}
+
             <div className="essential_gap">
               <p className="sec_head">Work permit</p>
               <p className="heading_first">
-                {userData?.basics?.haveWorkPermit
-                
-                    ? "Yes"
-                    : "No"
-                 }
+                {userData?.basics?.haveWorkPermit ? "Yes" : "No"}
               </p>
             </div>
+
             <div className="essential_gap">
               <p className="sec_head">Address</p>
               <p className="heading_first">

@@ -19,7 +19,7 @@ const SkillModel = ({ userData, handleImageClick, setIsComponentOpen }) => {
   const handleSubmit = () => {
     axios
       .put(
-        "http://localhost:2000/api/candidate/updateSkills/" +
+        "https://freedygoservices.in/api/candidate/updateSkills/" +
           userDataGlobal._id,
 
         { skills: skil }
@@ -38,10 +38,6 @@ const SkillModel = ({ userData, handleImageClick, setIsComponentOpen }) => {
     setSkil(skil.filter((item) => item.value !== value));
   };
 
-  // const saveSkill = (e) => {
-  //   const inputValue = e.target.value;
-  //   setSkil(inputValue);
-  // };
 
   return (
     <>

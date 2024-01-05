@@ -12,6 +12,7 @@ import { categoryReducer } from "./categoryReducer";
 import {
   bannerReducer,
   changeNumber,
+  jobReducer,
   reCallCart,
   tagReducer,
   walletPointReducer,
@@ -21,6 +22,7 @@ import { recallUser, userDataReducer } from "./userReducer";
 const reducers = combineReducers({
   userData: userDataReducer,
   reCallUser: recallUser,
+  getAllJobs: jobReducer,
 });
 
 export default reducers;
