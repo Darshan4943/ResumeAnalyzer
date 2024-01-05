@@ -18,7 +18,6 @@ import Testimonial from "@/components/featured/home/Testimonial";
 function BeforeLoginHome() {
   const lenisRef = useRef();
 
-
   return (
     <div>
       <ReactLenis root ref={lenisRef} autoRaf={false}>
