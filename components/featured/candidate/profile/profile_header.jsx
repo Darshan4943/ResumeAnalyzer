@@ -36,8 +36,8 @@ const ProfileHeader = ({ userData }) => {
                     stroke-width="1.419"
                   />
                 </svg>
-                <div class="absolute left-[24px] bottom-[23px] w-[105px] h-[105px] rounded-full overflow-hidden">
-                  <img
+                <div class="absolute left-[24px] bottom-[24px] w-[105px] h-[105px] rounded-full overflow-hidden">
+                  <img className="h-full w-full object-cover"
                     onClick={() => setIsChangeProfile(true)}
                     src={
                       userData?.profilePicture?.img
