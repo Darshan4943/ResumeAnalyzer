@@ -11,7 +11,7 @@
   "dependencies": {
     "@react-pdf/renderer": "^3.1.14",
     "@studio-freight/lenis": "^1.0.29",
-    "@studio-freight/react-lenis": "^0.0.38",
+    "@studio-freight/react-lenis": "^0.0.40",
     "aws-sdk": "^2.1529.0",
     "axios": "^1.6.2",
     "canvg": "^4.0.1",
