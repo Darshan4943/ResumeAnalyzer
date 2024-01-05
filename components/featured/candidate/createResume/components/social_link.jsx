@@ -78,7 +78,7 @@ const SocialLink = ({ setData, data }) => {
           </label>
         </div>
 
-        {data.sociaLinks.map((social, index) => (
+        {data?.sociaLinks?.map((social, index) => (
           <div className="flex flex-col gap-1 p-2 rounded-[6px] border border-[#DEDEDE]">
             <div className="flex justify-between">
               <p>{social.platform}</p>

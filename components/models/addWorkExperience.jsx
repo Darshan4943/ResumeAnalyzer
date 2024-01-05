@@ -1,11 +1,17 @@
 import { ClosedIcon } from '@/utils/svg';
 import React, { useState } from 'react';
 import DateSelector from '../common/dateSelector';
+import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { reCallUserData } from '@/Redux/actions/user';
+import { toast } from 'react-toastify';
+import { SkillList } from '@/utils/data';
+import ReactSelect from 'react-select';
 
-function AddWorkExperience({ setOpenAddExperience ,experiences,setExperiences,experienceData,setExperienceData}) {
+function AddWorkExperience({ setOpenAddExperience, experiences, setExperiences, experienceData, setExperienceData, userData }) {
 
-   
-
+    const dispatch =useDispatch()
+    const [skill, setSkills] = useState([...SkillList]);
     const handleInputChange = (event) => {
         const { name, value } = event.target;
         setExperienceData({
@@ -14,43 +20,60 @@ function AddWorkExperience({ setOpenAddExperience ,experiences,setExperiences,ex
         });
     };
 
-    const handleStartDateChange = (startMonth, startYear) => {
-        setExperienceData({
-            ...experienceData,
-            startDate: { month: startMonth, year: startYear },
-        });
+
+    const handleSaveChanges = (e) => {
+        e.preventDefault();
+        const updatedExperiences = [...experiences, experienceData];
+        setExperiences(updatedExperiences);
+        console.log("hello", experienceData)
+
+        const obj = {
+            isCurrent: experienceData.isCurrentJob === "True" ? true : false,
+            jobType:experienceData.jobType,
+            jobMode:experienceData.jobMode,
+         
+            companyName: experienceData.organisation,
+            jobTitle: experienceData.designation,
+            jobLocation: experienceData.location,
+            // skills: experienceData.skillsLearned,
+            noticePeriod: experienceData.noticePeriod,
+            workDescription: experienceData.workDescription,
+            jobDuration: {
+                startDate: {
+                    year: experienceData.duration?.start.year,
+                    month: experienceData.duration?.start.month,
+                },
+                endDate: {
+                    year: experienceData.duration?.end.year,
+                    month: experienceData.duration?.end.month,
+                },
+            },
+            
+
+        }
+
+        if (userData) {
+            axios
+                .post(`http://localhost:2000/api/candidate/addWorkExperience/${userData._id}`, obj)
+                .then((res) => {
+                    dispatch(reCallUserData());
+                    console.log(444, res.data)
+                    setOpenAddExperience(false);
+                    toast.success("Experience Added successfully");
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+
+        }
+
     };
 
-    const handleEndDateChange = (endMonth, endYear) => {
-        setExperienceData({
-            ...experienceData,
-            endDate: { month: endMonth, year: endYear },
-        });
-    };
 
-    const handleSaveChanges = () => {
-        setExperiences([...experiences, experienceData]);
-        setExperienceData({
-            isCurrentJob: '',
-            jobType: '',
-            jobMode: '',
-            designation: '',
-            organisation: '',
-            location: '',
-            noticePeriod: '',
-            skillsLearned: '',
-            workDescription: '',
-            startDate: { month: '', year: '' },
-            endDate: { month: '', year: '' },
-        });
 
-        setOpenAddExperience(false);
-    };
-      
-
-   
 
     return (
+
         <div className='flex flex-col gap-4 p-6 bg-white rounded-[16px]' style={{ boxShadow: '0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)' }}>
             <div className='flex justify-between w-full items-center'>
                 <p className='text-[24px] font-medium'>Add Work Experience</p>
@@ -62,11 +85,11 @@ function AddWorkExperience({ setOpenAddExperience ,experiences,setExperiences,ex
             <div className='flex flex-col gap-3'>
                 <p className='text-[16px] font-medium'>Is this your current Job? </p>
                 <div className='w-full flex gap-2 text-[14px] font-montserrat items-center font-medium'>
-                    <input type='radio' name='isCurrentJob' value='Yes' onChange={handleInputChange} />
+                    <input type='radio' name='isCurrentJob' value={true} onChange={handleInputChange} />
                     <label>Yes</label>
-                    <input type='radio' name='isCurrentJob' value='No' onChange={handleInputChange} />
+                    <input type='radio' name='isCurrentJob' value={false} onChange={handleInputChange} />
                     <label>No</label>
-                    
+
                 </div>
             </div>
             <div className='flex w-full gap-4'>
@@ -81,8 +104,8 @@ function AddWorkExperience({ setOpenAddExperience ,experiences,setExperiences,ex
                             <option value='' disabled selected className=''>
                                 Select
                             </option>
-                            <option value='Part Time'>Part Time</option>
-                            <option value='Full Time'>Full Time</option>
+                            <option value='partTime'>Part Time</option>
+                            <option value='fullTime'>Full Time</option>
                         </select>
                     </div>
                 </div>
@@ -97,8 +120,8 @@ function AddWorkExperience({ setOpenAddExperience ,experiences,setExperiences,ex
                             <option value='' disabled selected className=''>
                                 Select
                             </option>
-                            <option value='Home'>Home</option>
-                            <option value='Office'>Office</option>
+                            <option value='remoteWork'>Remote</option>
+                            <option value='onSiteWork'>Office</option>
                         </select>
                     </div>
                 </div>
@@ -147,12 +170,8 @@ function AddWorkExperience({ setOpenAddExperience ,experiences,setExperiences,ex
                 {' '}
                 <DateSelector
                     idPrefix='workExperience'
-                    defaultStartMonth='' 
-                    defaultStartYear=''
-                    defaultEndMonth=''
-                    defaultEndYear=''
-                    onStartDateChange={handleStartDateChange}
-                    onEndDateChange={handleEndDateChange}
+                    data={experienceData}
+                    dataSeter={setExperienceData}
                 />
             </div>
 
@@ -174,16 +193,23 @@ function AddWorkExperience({ setOpenAddExperience ,experiences,setExperiences,ex
             </div>
             <div className='flex flex-col gap-2 '>
                 <div className='text-[16px] font-montserrat  font-medium'>Skills Learned</div>
-                <div className=' border-[1px] border-[#9D9D9D] rounded-[8px] px-[16px] py-[8px]'>
-                    <input
+              
+                    {/* <input
                         type='text'
                         name='skillsLearned'
                         placeholder='Enter your learned skills here'
                         className='w-full text-[14px] font-montserrat font-small'
                         value={experienceData.skillsLearned}
                         onChange={handleInputChange}
-                    />
-                </div>
+                    /> */}
+                    <ReactSelect
+                  options={skill}
+                  isMulti
+                  className="w-full"
+                  onChange={handleInputChange}
+                  value={experienceData.skillsLearned}
+                />
+              
             </div>
             <div className='flex flex-col gap-2 '>
                 <div className='text-[16px] font-montserrat  font-medium'>Work Description</div>
@@ -208,12 +234,12 @@ function AddWorkExperience({ setOpenAddExperience ,experiences,setExperiences,ex
                     Cancel
                 </button>
 
-                <button className={`px-4 py-2 bg-[#06A9EF] border rounded-[12px] font-semibold text-white `} onClick={handleSaveChanges}>
+                <button className={`px-4 py-2 bg-[#06A9EF] border rounded-[12px] font-semibold text-white`} onClick={(e) => handleSaveChanges(e)}>
                     Save Changes
                 </button>
             </div>
 
-           
+
         </div>
     );
 }

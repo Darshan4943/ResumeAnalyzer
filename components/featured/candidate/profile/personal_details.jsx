@@ -64,10 +64,10 @@ const PersonalDetails = ({ userData }) => {
               <p className="sec_head">Differently able</p>
               <p className="heading_first">
                 {userData?.basics?.specialyAbled?.isSpecialyAbled
-                  ? userData?.basics?.specialyAbled?.isSpecialyAbled
+                
                     ? "Yes"
                     : "No"
-                  : "-"}
+                 }
               </p>
             </div>
           </div>
@@ -76,20 +76,20 @@ const PersonalDetails = ({ userData }) => {
               <p className="sec_head">Career break</p>
               <p className="heading_first">
                 {userData?.basics?.isCareerBreak
-                  ? userData?.basics?.isCareerBreak
+                 
                     ? "Yes"
                     : "No"
-                  : "-"}
+                  }
               </p>
             </div>
             <div className="essential_gap">
               <p className="sec_head">Work permit</p>
               <p className="heading_first">
                 {userData?.basics?.haveWorkPermit
-                  ? userData?.basics?.haveWorkPermit
+                
                     ? "Yes"
                     : "No"
-                  : "-"}
+                 }
               </p>
             </div>
             <div className="essential_gap">

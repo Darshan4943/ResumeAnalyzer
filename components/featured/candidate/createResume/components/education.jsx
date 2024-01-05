@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DateSelector from "../../../../common/dateSelector";
 import { Delete_icon, Edit_icon } from "../../../../../utils/svg";
+import { useSelector } from "react-redux";
 
 const Education = ({ setData, data }) => {
+
   const [isChecked, setIsChecked] = useState(true);
   const [view, setView] = useState(false);
 
@@ -61,6 +63,8 @@ const Education = ({ setData, data }) => {
       setView(false);
     }
   };
+
+ 
   return (
     <>
       <div
@@ -86,8 +90,8 @@ const Education = ({ setData, data }) => {
           <div className="flex flex-col gap-1 p-2 rounded-[6px] border border-[#DEDEDE] break-all">
             <div className="flex justify-between">
               <p className="text-[14px]">
-                {edu.qualification} | {edu.duration.start.year}-
-                {edu.duration.end.year}
+                {edu.qualification} | {edu.duration?.start.year}-
+                {edu.duration?.end.year}
               </p>
               <div className="flex gap-2">
                 <div onClick={() => handleEditEducation(index)}>

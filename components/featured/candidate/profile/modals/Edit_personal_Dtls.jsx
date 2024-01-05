@@ -2,7 +2,7 @@ import { reCallUserData } from "@/Redux/actions/user";
 import { recallUser } from "@/Redux/reducers/userReducer";
 import { data } from "autoprefixer";
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
@@ -51,6 +51,8 @@ function Edit_personal_Dtls({ setaddWebsites }) {
       .catch((err) => console.log(err));
   };
 
+ 
+
   return (
     <div
       className="bg-[#fff] p-[24px] rounded-[16px] flex flex-col gap-[16px] overflow-y-auto  h-[90vh]"
@@ -96,7 +98,7 @@ function Edit_personal_Dtls({ setaddWebsites }) {
               value={Data.gender}
               className="custom-radio"
               type="radio"
-              name="male"
+              name="gender"
               id=""
               checked={Data.gender == "male"}
             />
@@ -110,7 +112,7 @@ function Edit_personal_Dtls({ setaddWebsites }) {
               value={Data.gender}
               className="custom-radio"
               type="radio"
-              name="female"
+              name="gender"
               id=""
               checked={Data.gender == "female"}
             />
@@ -124,7 +126,7 @@ function Edit_personal_Dtls({ setaddWebsites }) {
               value={Data.gender}
               className="custom-radio"
               type="radio"
-              name="others"
+              name="gender"
               id=""
               checked={Data.gender == "others"}
             />
@@ -188,7 +190,7 @@ function Edit_personal_Dtls({ setaddWebsites }) {
                 value={Data.isCareerBreak}
                 className="custom-radio"
                 type="radio"
-                name="yes"
+                name="isCareerBreak"
                 id=""
               />
               <label htmlFor="" className="text-[14px] font-[500]">
@@ -201,7 +203,7 @@ function Edit_personal_Dtls({ setaddWebsites }) {
                 value={Data.isCareerBreak}
                 className="custom-radio"
                 type="radio"
-                name="yes"
+                name="isCareerBreak"
                 id=""
               />
               <label htmlFor="" className="text-[14px] font-[500]">
@@ -236,7 +238,7 @@ function Edit_personal_Dtls({ setaddWebsites }) {
                 value={Data.haveWorkPermit}
                 className="custom-radio"
                 type="radio"
-                name=""
+                name="haveWorkPermit"
                 id=""
               />
               <label htmlFor="" className="text-[14px] font-[500]">
@@ -249,7 +251,7 @@ function Edit_personal_Dtls({ setaddWebsites }) {
                 value={Data.haveWorkPermit}
                 className="custom-radio"
                 type="radio"
-                name=""
+                name="haveWorkPermit"
                 id=""
               />
               <label htmlFor="" className="text-[14px] font-[500]">
@@ -286,7 +288,7 @@ function Edit_personal_Dtls({ setaddWebsites }) {
                 value={Data.isSpecialyAbled}
                 className="custom-radio"
                 type="radio"
-                name=""
+                name="isSpecialyAbled"
                 id=""
               />
               <label htmlFor="" className="text-[14px] font-[500]">
@@ -299,7 +301,7 @@ function Edit_personal_Dtls({ setaddWebsites }) {
                 value={Data.isSpecialyAbled}
                 className="custom-radio"
                 type="radio"
-                name=""
+                name="isSpecialyAbled"
                 id=""
               />
               <label htmlFor="" className="text-[14px] font-[500]">
@@ -317,7 +319,7 @@ function Edit_personal_Dtls({ setaddWebsites }) {
             placeholder="Type here"
             type="text"
             name="discription"
-            id=""
+            id="" 
           />
           {/* {console.log(316,Data)} */}
         </div>

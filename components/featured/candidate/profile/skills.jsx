@@ -23,7 +23,10 @@ const Skills = ({ userData }) => {
               onClick={handleImageClick}
             />
             {isComponentOpen && (
-              <SkillModel handleImageClick={handleImageClick} userData={userData} />
+              <SkillModel
+                handleImageClick={handleImageClick}
+                userData={userData}
+              />
             )}
           </div>
         </div>

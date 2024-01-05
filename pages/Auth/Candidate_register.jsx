@@ -71,7 +71,7 @@ function Candidate_register() {
     formData.append("dateOfComplition", data.dateOfComplition);
     formData.append("courses", data.courses);
     formData.append("awards", data.awards);
-    formData.append("workExperiance", data.workExperiance);
+    formData.append("workExperiance", JSON.stringify(data.workExperiance));
     formData.append("companyName", data.companyName);
     formData.append("jobTitle", data.jobTitle);
     formData.append("jobLocation", data.jobLocation);
