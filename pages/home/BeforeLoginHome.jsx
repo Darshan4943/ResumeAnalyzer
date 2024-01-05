@@ -11,7 +11,6 @@ import Profile_creation from "@/components/featured/home/profile_creation";
 import TrustedBySection from "@/components/featured/home/trusted_section";
 import { Background, Parallax } from "react-parallax";
 import { ReactLenis } from "@studio-freight/react-lenis";
-import { gsap } from "gsap";
 import JobCategories from "@/components/featured/home/job_categories";
 import dynamic from "next/dynamic";
 import Testimonial from "@/components/featured/home/Testimonial";
