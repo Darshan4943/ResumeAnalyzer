@@ -6,6 +6,7 @@ import { Visibility_off, Visibility_on, visibility_off } from "@/utils/svg";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/bootstrap.css";
 import ImageContainer from "@/components/common/image";
+import { telCode } from "@/utils/data";
 const AnimationDivs = () => (
   <>
     <img className="mail_img" src="/images/auth/candidate/Mail.png" alt="" />
@@ -43,9 +44,13 @@ const PersonalDetails = ({
     const errors = {};
     if (!data.firstName.trim()) {
       errors.firstName = "First Name is required";
+    } else if (!isNaN(data.firstName)) {
+      errors.firstName = "First Name cannot be a number";
     }
     if (!data.lastName.trim()) {
       errors.lastName = "Last Name is required";
+    } else if (!isNaN(data.lastName)) {
+      errors.lastName = "Last Name cannot be a number";
     }
     if (!data.mobileNo || data.mobileNo.toString().length !== 10) {
       errors.mobileNo = "Mobile Number should be 10 digits";
@@ -64,10 +69,10 @@ const PersonalDetails = ({
       errors.currentLocation = "Current Location is required";
     }
     // console.log(65,errors)
-    setFormError(errors)
+    setFormError(errors);
     return errors;
   };
-console.log(70,formError);
+  console.log(70, formError);
   const submitHandler = (e) => {
     e.preventDefault();
     const errors = validateForm();
@@ -104,9 +109,13 @@ console.log(70,formError);
                         setData({ ...data, firstName: e.target.value })
                       }
                     />
-                    {formError &&  <p className="text-[12px] text-[red] font-[500]">{formError?.firstName}</p>}
+                    {formError && (
+                      <p className="text-[12px] text-[red] font-[500]">
+                        {formError?.firstName}
+                      </p>
+                    )}
                   </div>
-                 
+
                   <div className="personal_name">
                     <p className="form_text_heading">
                       Last name <span className="star">*</span>
@@ -121,7 +130,11 @@ console.log(70,formError);
                         setData({ ...data, lastName: e.target.value })
                       }
                     />
-                     {formError &&  <p className="text-[12px] text-[red] font-[500]">{formError?.lastName}</p>}
+                    {formError && (
+                      <p className="text-[12px] text-[red] font-[500]">
+                        {formError?.lastName}
+                      </p>
+                    )}
                   </div>
                 </div>
 
@@ -139,11 +152,15 @@ console.log(70,formError);
                       setData({ ...data, email: e.target.value })
                     }
                   />
-                   {formError &&  <p className="text-[12px] text-[red] font-[500]">{formError?.email}</p>}
+                  {formError && (
+                    <p className="text-[12px] text-[red] font-[500]">
+                      {formError?.email}
+                    </p>
+                  )}
                 </div>
 
                 <div className="personal_single_input">
-                  <div className="personal_name">
+                  <div className="personal_name justify-center">
                     <p className="form_text_heading">
                       Password <span className="star">*</span>
                     </p>
@@ -158,7 +175,11 @@ console.log(70,formError);
                         setData({ ...data, password: e.target.value })
                       }
                     />
-                    {formError &&  <p className="text-[12px] text-[red] font-[500]">{formError?.password}</p>}
+                    {formError && (
+                      <p className="text-[12px] text-[red] font-[500]">
+                        {formError?.password}
+                      </p>
+                    )}
                     <button
                       className={"icon"}
                       onClick={togglePasswordVisibility}
@@ -176,17 +197,38 @@ console.log(70,formError);
                   <p className="form_text_heading">
                     Contact Number <span className="star">*</span>
                   </p>
-                  <input
-                    type="number"
-                    name=""
+                  <div
+                    className="flex w-[100%] items-start gap-2"
                     id="single_input"
-                    placeholder="Enter Contact Number"
-                    value={data.mobileNo}
-                    onChange={(e) => {
-                      setData({ ...data, mobileNo: e.target.value });
-                    }}
-                  />
-                   {formError &&  <p className="text-[12px] text-[red] font-[500]">{formError?.mobileNo}</p>}
+                  >
+                    <select
+                      className="w-fit font-[500]  border-none text-[14px]"
+                      name=""
+                      id=""
+                    >
+                      {telCode.map((item) => (
+                        <option className="border-none">
+                          {item.code} {item.dial_code}
+                        </option>
+                      ))}
+                    </select>
+                    <input
+                      className="w-full "
+                      type="number"
+                      name=""
+                      // id="single_input"
+                      placeholder="Enter Contact Number"
+                      value={data.mobileNo}
+                      onChange={(e) => {
+                        setData({ ...data, mobileNo: e.target.value });
+                      }}
+                    />
+                  </div>
+                  {formError && (
+                    <p className="text-[12px] text-[red] font-[500]">
+                      {formError?.mobileNo}
+                    </p>
+                  )}
                   {/* <PhoneInput
                     inputClass="single_input"
                     country={"in"}
@@ -263,8 +305,11 @@ console.log(70,formError);
                         setData({ ...data, currentLocation: e.target.value })
                       }
                     />
-                     {formError &&  <p className="text-[12px;llll
-                    ] text-[red] font-[500]">{formError?.currentLocation}</p>}
+                    {formError && (
+                      <p className="text-[12px] text-[red] font-[500]">
+                        {formError?.currentLocation}
+                      </p>
+                    )}
                     <img
                       className="icon"
                       src="/images/auth/candidate/location_on.png"
