@@ -33,6 +33,7 @@ const PersonalDetails = ({
   file,
 }) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [formError, setFormError] = useState({});
 
   function togglePasswordVisibility(e) {
     e.preventDefault();
@@ -62,9 +63,11 @@ const PersonalDetails = ({
     if (!data.currentLocation.trim()) {
       errors.currentLocation = "Current Location is required";
     }
+    // console.log(65,errors)
+    setFormError(errors)
     return errors;
   };
-
+console.log(70,formError);
   const submitHandler = (e) => {
     e.preventDefault();
     const errors = validateForm();
@@ -101,7 +104,9 @@ const PersonalDetails = ({
                         setData({ ...data, firstName: e.target.value })
                       }
                     />
+                    {formError &&  <p className="text-[12px] text-[red] font-[500]">{formError?.firstName}</p>}
                   </div>
+                 
                   <div className="personal_name">
                     <p className="form_text_heading">
                       Last name <span className="star">*</span>
@@ -116,6 +121,7 @@ const PersonalDetails = ({
                         setData({ ...data, lastName: e.target.value })
                       }
                     />
+                     {formError &&  <p className="text-[12px] text-[red] font-[500]">{formError?.lastName}</p>}
                   </div>
                 </div>
 
@@ -133,6 +139,7 @@ const PersonalDetails = ({
                       setData({ ...data, email: e.target.value })
                     }
                   />
+                   {formError &&  <p className="text-[12px] text-[red] font-[500]">{formError?.email}</p>}
                 </div>
 
                 <div className="personal_single_input">
@@ -151,7 +158,7 @@ const PersonalDetails = ({
                         setData({ ...data, password: e.target.value })
                       }
                     />
-
+                    {formError &&  <p className="text-[12px] text-[red] font-[500]">{formError?.password}</p>}
                     <button
                       className={"icon"}
                       onClick={togglePasswordVisibility}
@@ -179,6 +186,7 @@ const PersonalDetails = ({
                       setData({ ...data, mobileNo: e.target.value });
                     }}
                   />
+                   {formError &&  <p className="text-[12px] text-[red] font-[500]">{formError?.mobileNo}</p>}
                   {/* <PhoneInput
                     inputClass="single_input"
                     country={"in"}
@@ -255,6 +263,8 @@ const PersonalDetails = ({
                         setData({ ...data, currentLocation: e.target.value })
                       }
                     />
+                     {formError &&  <p className="text-[12px;llll
+                    ] text-[red] font-[500]">{formError?.currentLocation}</p>}
                     <img
                       className="icon"
                       src="/images/auth/candidate/location_on.png"
