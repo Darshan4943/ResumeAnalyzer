@@ -1,4 +1,3 @@
-import Achiveements from "@/components/featured/candidate/profile/achivements";
 import Courses from "@/components/featured/candidate/profile/courses";
 import Education from "@/components/featured/candidate/profile/education";
 import JobPrefrence from "@/components/featured/candidate/profile/job_preferance";
@@ -16,6 +15,10 @@ import {
   scroller,
 } from "react-scroll";
 import ALink from "../../components/alink";
+import Social_links_ndWebsites from "@/components/featured/candidate/profile/Social_links_ndWebsites";
+import Achievements from "@/components/featured/candidate/profile/Achievements";
+import Projects from "@/components/featured/candidate/profile/Projects";
+
 function Profile() {
   const userDataGlobal = useSelector((state) => state.userData);
   // console.log(userDataGlobal)
@@ -151,9 +154,11 @@ function Profile() {
                 </div>
               </div>
             </div>
+            
             <ScrollElement name="My Resume" className="section">
               <ResumeList userData={userData} />
             </ScrollElement>
+
             <ScrollElement name="About me" className="section">
               <div className="build_ai ai2  ">
                 <div className="gap">
@@ -177,6 +182,7 @@ function Profile() {
                 )}
               </div>
             </ScrollElement>
+
             <ScrollElement name="Work Experience" className="section">
               <WorkExperiance userData={userData} />
             </ScrollElement>
@@ -192,17 +198,25 @@ function Profile() {
               />
             </ScrollElement>
 
+            <ScrollElement name="Social_links_ndWebsites" className="section">
+              <Social_links_ndWebsites userData={userData} />
+            </ScrollElement>
+
+            <ScrollElement name="Projects" className="section">
+              <Projects userData={userData} />
+            </ScrollElement>
+
             <ScrollElement name="Courses" className="section">
               <Courses userData={userData} />
             </ScrollElement>
 
-            <ScrollElement name="Achievements" className="section">
-              <Achiveements userData={userData} />
+            <ScrollElement name="Achievements" className="section ">
+              <Achievements userData={userData} />
             </ScrollElement>
 
-            {/* <ScrollElement name="Job Prefrence" className="section">
+            <ScrollElement name="Job Prefrence" className="section">
               <JobPrefrence userData={userData} />
-            </ScrollElement> */}
+            </ScrollElement>
 
             <ScrollElement name="Personal details" className="section">
               <PersonalDetails userData={userData} />
