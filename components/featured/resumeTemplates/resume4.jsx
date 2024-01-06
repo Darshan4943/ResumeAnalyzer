@@ -17,19 +17,22 @@ function Resume4({ data }) {
                         <div className="flex items-center justify-end mt-[12px] w-[100%]">
                             <img className="w-[250px] mr-[-15.3px] h-[50px]" src="/images/services/contact.png" alt="" />
                         </div>
-                        <div className="flex gap-2 items-start ml-[40px] pr-4">
-                            <div className="h-[24px] flex items-center">
-                                <img className="w-[18px] h-[18px]" src="/images/services/telephone_blue.png" alt="" />
+                        {data?.mobileNumber && (
+                            <div className="flex gap-2 items-start ml-[40px] pr-4">
+                                <div className="h-[24px] flex items-center">
+                                    <img className="w-[18px] h-[18px]" src="/images/services/telephone_blue.png" alt="" />
+                                </div>
+                                <p className=" text-[9px] pt-[2px] flex font-[400] text-[#fff] leading-normal ">{data.mobileNumber}</p>
                             </div>
-                            <p className=" text-[9px] pt-[2px] flex font-[400] text-[#fff] leading-normal ">{data.mobileNumber}</p>
-                        </div>
-
-                        <div className="flex gap-2 items-start ml-[40px] pr-4">
-                            <div className="h-[24px] flex items-center">
-                                <img className="w-[18px]  h-[18px]" src="/images/services/message_blue.png" alt="" />
+                        )}
+                        {data?.email && (
+                            <div className="flex gap-2 items-start ml-[40px] pr-4">
+                                <div className="h-[24px] flex items-center">
+                                    <img className="w-[18px]  h-[18px]" src="/images/services/message_blue.png" alt="" />
+                                </div>
+                                <p className=" text-[9px] pt-[2px] flex font-[400] text-[#fff] leading-normal ">{data.email} </p>
                             </div>
-                            <p className=" text-[9px] pt-[2px] flex font-[400] text-[#fff] leading-normal ">{data.email} </p>
-                        </div>
+                        )}
                         {/* 
                         <div className="flex gap-2 items-start ml-[40px] pr-4">
                             <div className="h-[24px] flex items-center">
@@ -38,14 +41,14 @@ function Resume4({ data }) {
                             <p className=" text-[9px] pt-[2px] flex font-[400] text-[#fff] leading-normal ">www.yoursite.com</p>
                         </div> */}
 
-
-                        <div className="flex gap-2 items-start ml-[40px] pr-4">
-                            <div className="h-[24px] flex items-center">
-                                <img className="w-[18px] h-[18px]" src="/images/services/location_blue.png" alt="" />
+                        {data?.location && (
+                            <div className="flex gap-2 items-start ml-[40px] pr-4">
+                                <div className="h-[24px] flex items-center">
+                                    <img className="w-[18px] h-[18px]" src="/images/services/location_blue.png" alt="" />
+                                </div>
+                                <div className=" text-[9px] pt-[2px] flex font-[400] text-[#fff] leading-normal ">{data.location}</div>
                             </div>
-                            <div className=" text-[9px] pt-[2px] flex font-[400] text-[#fff] leading-normal ">{data.location}</div>
-                        </div>
-
+                        )}
                         {/* <div className="flex items-center justify-end mt-[12px] w-[100%]">
                             <img className="w-[250px] mr-[-15.3px] h-[50px]" src="/images/services/follow_me.png" alt="" />
                         </div>
@@ -64,32 +67,32 @@ function Resume4({ data }) {
                                 </div>
 
                                 <div className="flex flex-col text-white pr-8 pb-8  gap-3  justify-between ml-[40px]">
-                                {data?.languages?.map((detail, index) => (
-                                    <div key={index} className="flex items-center justify-between gap-2">
-                                        {detail.languages}
-                                        <div className="flex gap-3 mt-4">
-                                            {[...Array(3)].map((_, i) => (
+                                    {data?.languages?.map((detail, index) => (
+                                        <div key={index} className="flex items-center justify-between gap-2">
+                                            {detail.languages}
+                                            <div className="flex gap-3 mt-4">
+                                                {[...Array(3)].map((_, i) => (
 
-                                                <div>
-                                                    {
-                                                        detail.rating[i] === 0 ? (
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="8" height="7" viewBox="0 0 8 7" fill="none">
-                                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M4.02911 0.285156C2.23911 0.285156 0.789062 1.73615 0.789062 3.52515C0.789062 5.31415 2.24011 6.76514 4.02911 6.76514C5.81811 6.76514 7.2691 5.31415 7.2691 3.52515C7.2691 1.73615 5.81811 0.285156 4.02911 0.285156Z" fill="#D1D3D4"/>
-                                                          </svg>
-                                                        ) : (
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8" fill="none">
-                                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M4.02911 0.886719C2.23911 0.886719 0.789062 2.33771 0.789062 4.12671C0.789062 5.91571 2.24011 7.36676 4.02911 7.36676C5.81811 7.36676 7.2691 5.91571 7.2691 4.12671C7.2691 2.33771 5.81811 0.886719 4.02911 0.886719Z" fill="#00AEEF"/>
-                                                          </svg>
-                                                        )
+                                                    <div>
+                                                        {
+                                                            detail.rating[i] === 0 ? (
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="8" height="7" viewBox="0 0 8 7" fill="none">
+                                                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M4.02911 0.285156C2.23911 0.285156 0.789062 1.73615 0.789062 3.52515C0.789062 5.31415 2.24011 6.76514 4.02911 6.76514C5.81811 6.76514 7.2691 5.31415 7.2691 3.52515C7.2691 1.73615 5.81811 0.285156 4.02911 0.285156Z" fill="#D1D3D4" />
+                                                                </svg>
+                                                            ) : (
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8" fill="none">
+                                                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M4.02911 0.886719C2.23911 0.886719 0.789062 2.33771 0.789062 4.12671C0.789062 5.91571 2.24011 7.36676 4.02911 7.36676C5.81811 7.36676 7.2691 5.91571 7.2691 4.12671C7.2691 2.33771 5.81811 0.886719 4.02911 0.886719Z" fill="#00AEEF" />
+                                                                </svg>
+                                                            )
 
-                                                    }
-                                                </div>
-                                               
-                                            ))}
+                                                        }
+                                                    </div>
+
+                                                ))}
+                                            </div>
                                         </div>
-                                    </div>
-                                ))}
-                            </div>
+                                    ))}
+                                </div>
 
                             </>
                         )}
@@ -221,17 +224,17 @@ function Resume4({ data }) {
                                                     {
                                                         detail.rating[i] === 0 ? (
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="8" height="7" viewBox="0 0 8 7" fill="none">
-                                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M4.02911 0.285156C2.23911 0.285156 0.789062 1.73615 0.789062 3.52515C0.789062 5.31415 2.24011 6.76514 4.02911 6.76514C5.81811 6.76514 7.2691 5.31415 7.2691 3.52515C7.2691 1.73615 5.81811 0.285156 4.02911 0.285156Z" fill="#D1D3D4"/>
-                                                          </svg>
+                                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M4.02911 0.285156C2.23911 0.285156 0.789062 1.73615 0.789062 3.52515C0.789062 5.31415 2.24011 6.76514 4.02911 6.76514C5.81811 6.76514 7.2691 5.31415 7.2691 3.52515C7.2691 1.73615 5.81811 0.285156 4.02911 0.285156Z" fill="#D1D3D4" />
+                                                            </svg>
                                                         ) : (
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8" fill="none">
-                                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M4.02911 0.886719C2.23911 0.886719 0.789062 2.33771 0.789062 4.12671C0.789062 5.91571 2.24011 7.36676 4.02911 7.36676C5.81811 7.36676 7.2691 5.91571 7.2691 4.12671C7.2691 2.33771 5.81811 0.886719 4.02911 0.886719Z" fill="#00AEEF"/>
-                                                          </svg>
+                                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M4.02911 0.886719C2.23911 0.886719 0.789062 2.33771 0.789062 4.12671C0.789062 5.91571 2.24011 7.36676 4.02911 7.36676C5.81811 7.36676 7.2691 5.91571 7.2691 4.12671C7.2691 2.33771 5.81811 0.886719 4.02911 0.886719Z" fill="#00AEEF" />
+                                                            </svg>
                                                         )
 
                                                     }
                                                 </div>
-                                               
+
                                             ))}
                                         </div>
                                     </div>
