@@ -13,6 +13,8 @@ import { reCallUserData } from "@/Redux/actions/user";
 import MiniLoader from "@/components/common/mini-loader";
 import ALink from "@/components/alink";
 import { Close_svg } from "@/utils/svg";
+import Resume3 from "../../resumeTemplates/resume3";
+import Resume4 from "../../resumeTemplates/resume4";
 const ResumePreview = ({ data }) => {
   const userDataGlobal = useSelector((state) => state.userData);
   const dispatch = useDispatch();
@@ -76,7 +78,7 @@ const ResumePreview = ({ data }) => {
       <div className="bg-gray-800 bg-opacity-50 w-full h-full flex justify-center items-center">
         <div className="bg-white flex flex-col gap-4 p-4 rounded-lg shadow-md max-w-[210mm] max-h-[80vh] overflow-y-auto">
           <div id="pdfContent">
-            <Resume5 data={data} />
+            <Resume4 data={data} />
           </div>
           <div className="flex justify-between">
             <button className="text-[12px] text-[#FFF]  font-semibold px-3 py-[2px] rounded-[8px] border border-[#06A9EF] bg-[#06A9EF]" onClick={generatePDFf}>Download Resume</button>
@@ -144,7 +146,7 @@ const ResumePreview = ({ data }) => {
           <div className="flex gap-[16px]">
             <button
               onClick={() => setPreview(true)}
-              className="flex gap-1 text-[14px] w-[90px] flex justify-center text-[#FFF] font-montserrat font-semibold px-3 py-[2px] rounded-[8px] items-center border border-[#06A9EF] bg-[#06A9EF]"
+              className="flex gap-1 text-[14px] w-[90px]  justify-center text-[#FFF] font-montserrat font-semibold px-3 py-[2px] rounded-[8px] items-center border border-[#06A9EF] bg-[#06A9EF]"
             >
               Save
             </button>
@@ -161,11 +163,11 @@ const ResumePreview = ({ data }) => {
           className=""
           style={{
             width: "44rem",
-            scale: "0.7",
+            scale: "0.65",
             transformOrigin: "top left",
           }}
         >
-          <Resume5 data={data} />
+          <Resume4 data={data} />
         </div>
       </div>
       {preview && (
@@ -207,12 +209,12 @@ const ResumePreview = ({ data }) => {
                     Profile
                   </button>
                 </ALink>
-                <div className=""onClick={() => setPreview(false)}>
+                <div className="" onClick={() => setPreview(false)}>
                   <Close_svg />
                 </div>
               </div>
-              <div ref={resumeRef}>
-                <Resume5 data={data} />
+              <div className="mt-2" ref={resumeRef}>
+                <Resume4 data={data} />
               </div>
             </div>
           </div>
