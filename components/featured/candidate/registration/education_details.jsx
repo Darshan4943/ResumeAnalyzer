@@ -1,21 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
 import { toast } from "react-toastify";
 
 const EducationDetails = ({ data, setData, setTabIndex, tabindex }) => {
+
+  const [formError,setFormError] = useState({})
+
   const validateForm = () => {
     const errors = {};
     if (!data.stream.trim()) {
-      errors.stream = "First Name is required";
+      errors.stream = "Degree is required";
     }
+    else if(!isNaN(data.stream)){
+      errors.stream = "Degree cannot be a number"
+  }
     if (!data.university.trim()) {
-      errors.university = "Last Name is required";
+      errors.university = "University Name is required";
     }
+    else if(!isNaN(data.university)){
+      errors.university = "University Name cannot be a number"
+  }
     if (!data.institute.trim()) {
-      errors.institute = "Last Name is required";
+      errors.institute = "Collage Name is required";
     }
+    else if(!isNaN(data.institute)){
+      errors.institute = "Collage Name cannot be a number"
+  }
     if (!data.dateOfComplition.trim()) {
-      errors.dateOfComplition = "Last Name is required";
+      errors.dateOfComplition = "Date Of Complition is required";
     }
+    setFormError(errors)
     return errors;
   };
 
@@ -150,6 +163,9 @@ const EducationDetails = ({ data, setData, setTabIndex, tabindex }) => {
 
               <div className="personal_single_input">
                 <div className="personal_name">
+                <p className="form_text_heading">
+                Select Degree <span className="star">*</span>
+                  </p>
                   <input
                     type="text"
                     name=""
@@ -160,6 +176,7 @@ const EducationDetails = ({ data, setData, setTabIndex, tabindex }) => {
                       setData({ ...data, stream: e.target.value });
                     }}
                   />
+                  {formError && <p className="text-[12px] text-[red] font-[500]">{formError?.stream }</p>}
                 </div>
               </div>
 
@@ -178,6 +195,7 @@ const EducationDetails = ({ data, setData, setTabIndex, tabindex }) => {
                       setData({ ...data, university: e.target.value });
                     }}
                   />
+                   {formError && <p className="text-[12px] text-[red] font-[500]">{formError?.university }</p>}
                 </div>
               </div>
 
@@ -196,6 +214,7 @@ const EducationDetails = ({ data, setData, setTabIndex, tabindex }) => {
                       setData({ ...data, institute: e.target.value });
                     }}
                   />
+                   {formError && <p className="text-[12px] text-[red] font-[500]">{formError?.institute }</p>}
                 </div>
               </div>
 
@@ -214,6 +233,7 @@ const EducationDetails = ({ data, setData, setTabIndex, tabindex }) => {
                       setData({ ...data, dateOfComplition: e.target.value });
                     }}
                   />
+                   {formError && <p className="text-[12px] text-[red] font-[500]">{formError?.dateOfComplition }</p>}
                 </div>
               </div>
               <div className="bottom_buttons">

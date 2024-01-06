@@ -4,6 +4,9 @@ import ReactSelect from "react-select";
 import { camelCase } from "../../../../../utils/middleware";
 import { ClosedIcon } from "../../../../../utils/svg";
 import { City } from "../../../../../utils/data";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { reCallUserData } from "@/Redux/actions/user";
 const JobPrefrenceModal = ({ setEditView }) => {
   const [skills, setSkills] = useState([...SkillList]);
   const [data, setData] = useState({
@@ -50,6 +53,32 @@ const JobPrefrenceModal = ({ setEditView }) => {
     );
     setPreferedLocation(filter);
   };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const obj = {
+      ...data,
+      industry: data.industry,
+      department: data.department,
+    }
+    console.log("Form submitted:", data, preferedLocation);
+    axios
+    .put(
+      "http://localhost:2000/api/candidate/updateJobPreferance/" +
+      userDataGlobal._id,
+      obj
+    )
+    .then((res) => {
+      console.log(68, data);
+      if (res) {
+        console.log(111, res);
+        toast.success("Upgrade Job preferance successfully");
+        dispatchEvent(reCallUserData());
+        setEditView(false)
+      }
+    })
+    .catch((err) => console.log(err));
+    // You may want to reset the form or perform any other actions after submission
+  };
   return (
     <>
       <div
@@ -59,7 +88,6 @@ const JobPrefrenceModal = ({ setEditView }) => {
         <div className="modal_title flex justify-between gap-[16px] items-center">
           Edit Job Preferences{" "}
           <div className="h-[1px] w-full bg-[#DEDEDE] flex items-center w-[57.07%]"></div>
-          
           <svg
             className="hover:cursor-pointer"
             xmlns="http://www.w3.org/2000/svg"
@@ -158,25 +186,24 @@ const JobPrefrenceModal = ({ setEditView }) => {
           </div>
         </form>
         <div className="w-full flex justify-end">
-        {/* <button className="rounded-[8px] py-[8px] px-[16px] border-[#C00000] border-solid border-[1px] text-[#C00000] text-[16px] font-[500] transition-all transition-0.1s hover:bg-[#C00000] hover:text-[#fff]">
+          {/* <button className="rounded-[8px] py-[8px] px-[16px] border-[#C00000] border-solid border-[1px] text-[#C00000] text-[16px] font-[500] transition-all transition-0.1s hover:bg-[#C00000] hover:text-[#fff]">
           Delete
         </button> */}
-        <div className="flex gap-[12px]">
-          <button
-            className="rounded-[8px] py-[8px] px-[16px] border-[#06A9EF] border-solid border-[1px] text-[#333] text-[16px] font-[500] hover:cursor-pointer"
-            onClick={() => setEditView(false)}
-          >
-            Cancel
-          </button>
-          <button
-            // onClick={handleSubmit}
-            className="rounded-[8px] py-[8px] px-[16px] border-[#06A9EF] border-solid border-[1px] text-[#fff] text-[16px] font-[500] bg-[#06A9EF] "
-          >
-            Save Changes
-          </button>
+          <div className="flex gap-[12px]">
+            <button
+              className="rounded-[8px] py-[8px] px-[16px] border-[#06A9EF] border-solid border-[1px] text-[#333] text-[16px] font-[500] hover:cursor-pointer"
+              onClick={() => setEditView(false)}
+            >
+              Cancel
+            </button>
+            <button
+              onClick={handleSubmit}
+              className="rounded-[8px] py-[8px] px-[16px] border-[#06A9EF] border-solid border-[1px] text-[#fff] text-[16px] font-[500] bg-[#06A9EF] "
+            >
+              Save Changes
+            </button>
+          </div>
         </div>
-      </div>
-
       </div>
     </>
   );

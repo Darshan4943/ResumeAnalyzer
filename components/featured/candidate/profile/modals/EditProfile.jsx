@@ -27,7 +27,7 @@ function EditProfile({ setEditProfile }) {
   const handleSubmit = () => {
     axios
       .put(
-        "https://freedygoservices.in/api/candidate/updateProfile/" +
+        "http://localhost:2000/api/candidate/updateProfile/" +
           userDataGlobal._id,
         data
       )
@@ -41,7 +41,7 @@ function EditProfile({ setEditProfile }) {
   };
 
   useEffect(() => {
-    if (userDataGlobal?.resumeUrl) {
+    if (userDataGlobal) {
       const {
         firstName,
         lastName,
@@ -58,7 +58,7 @@ function EditProfile({ setEditProfile }) {
         mobileNo,
       });
     }
-  }, [userDataGlobal]);
+  }, []);
 
   return (
     <>

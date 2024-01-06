@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import generatePDF from "react-to-pdf";
 import html2canvas from "html2canvas";
-import Resume5 from "../../resumeTemplates/resume5";
+import Resume1 from "../../resumeTemplates/resume1";
 import axios from "axios";
 import AWS from "aws-sdk";
 import ReactDOMServer from "react-dom/server";

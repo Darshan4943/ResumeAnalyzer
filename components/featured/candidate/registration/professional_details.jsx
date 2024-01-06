@@ -1,10 +1,11 @@
 import ImageContainer from "@/components/common/image";
 import { noticePeriods } from "@/utils/data";
-import React from "react";
+import React, { useState } from "react";
 import ReactSelect from "react-select";
 import { toast } from "react-toastify";
 
 const ProfessionalDetails = ({
+
   data,
   setData,
   setTabIndex,
@@ -14,26 +15,48 @@ const ProfessionalDetails = ({
   certificate,
   setCertificate,
 }) => {
+  const[formError,setFormError]= useState({});
+
   const validateForm = () => {
     const errors = {};
-    if (!data.companyName?.trim()) {
-      errors.companyName = "First Name is required";
-    }
-    if (!data.jobTitle?.trim()) {
-      errors.jobTitle = "Last Name is required";
-    }
-    if (!data.jobLocation?.trim()) {
-      errors.jobLocation = "Last Name is required";
-    }
-    if (!data.keySkills?.length > 0) {
-      errors.keySkills = "Last Name is required";
-    }
-    if (!data.dateOfJoining?.trim()) {
-      errors.dateOfJoining = "Last Name is required";
+    if (!data.employmentStatus?.years) {
+      errors.employmentStatus = "Employment Status is required";
     }
     if (!data.workExperiance?.years) {
-      errors.workExperiance = "Last Name is required";
+      errors.workExperiance = "Work Experience is required";
     }
+    if (!data.companyName?.trim()) {
+      errors.companyName = "Company Name is required";
+    }
+    else if(!isNaN(data.companyName)){
+        errors.companyName = "Company Name cannot be a number"
+    }
+    if (!data.jobTitle?.trim()) {
+      errors.jobTitle = "Job tittle is required";
+    }
+    else if(!isNaN(data.jobTitle)){
+      errors.jobTitle = "Job tittle cannot be a number"
+  }
+    if (!data.jobLocation?.trim()) {
+      errors.jobLocation = "Job location  is required";
+    }
+    else if(!isNaN(data.jobLocation)){
+      errors.jobLocation = "Job location cannot be a number"
+  }
+    if (!data.keySkills?.length > 0) {
+      errors.keySkills = "Key skills is required";
+    }
+    if (!data.dateOfJoining?.trim()) {
+      errors.dateOfJoining = "Date Of joining  is required";
+    }
+    if (!data.noticePeriod?.trim()) {
+      errors.noticePeriod = "Notice Period is required";
+    }
+    if (!data.currentCTC?.trim()) {
+      errors.currentCTC = "Current CTC is required";
+    }
+   
+    setFormError(errors)
     return errors;
   };
 
@@ -126,7 +149,10 @@ const ProfessionalDetails = ({
                       >
                         Unemployed
                       </button>
+
                     </div>
+                    {formError && <p className="text-[12px] text-[red] font-[500]">{formError?.employmentStatus }</p>}
+
                   </div>
                 </div>
               )}
@@ -157,6 +183,7 @@ const ProfessionalDetails = ({
                           });
                         }}
                       />
+                       {formError && <p className="text-[12px] text-[red] font-[500]">{formError?.workExperiance}</p>}
                     </div>
                     <div>
                       <label htmlFor="" className="text-[14px] text-[#404040]">
@@ -198,6 +225,7 @@ const ProfessionalDetails = ({
                       setData({ ...data, companyName: e.target.value });
                     }}
                   />
+                   {formError && <p className="text-[12px] text-[red] font-[500]">{formError?.companyName }</p>}
                 </div>
               </div>
 
@@ -228,6 +256,7 @@ const ProfessionalDetails = ({
                       setData({ ...data, jobTitle: e.target.value });
                     }}
                   />
+                   {formError && <p className="text-[12px] text-[red] font-[500]">{formError?.jobTitle }</p>}
                 </div>
               </div>
 
@@ -246,6 +275,7 @@ const ProfessionalDetails = ({
                       setData({ ...data, jobLocation: e.target.value });
                     }}
                   />
+                   {formError && <p className="text-[12px] text-[red] font-[500]">{formError?.jobLocation }</p>}
                 </div>
               </div>
 
@@ -264,6 +294,7 @@ const ProfessionalDetails = ({
                       setData({ ...data, dateOfJoining: e.target.value });
                     }}
                   />
+                   {formError && <p className="text-[12px] text-[red] font-[500]">{formError?.dateOfJoining }</p>}
                 </div>
               </div>
 
@@ -280,6 +311,7 @@ const ProfessionalDetails = ({
                   }}
                   value={data.keySkills}
                 />
+                 {formError && <p className="text-[12px] text-[red] font-[500]">{formError?.keySkills }</p>}
               </div>
               {data.workStatus != "fresher" ? (
                 <>
@@ -299,6 +331,8 @@ const ProfessionalDetails = ({
                           setData({ ...data, currentCTC: e.target.value });
                         }}
                       />
+                        {formError && <p className="text-[12px] text-[red] font-[500]">{formError?.currentCTC }</p>}
+
                     </div>
                   </div>
                   <div className="personal_single_input">
@@ -320,6 +354,8 @@ const ProfessionalDetails = ({
                             {item.title}
                           </div>
                         ))}
+            {formError && <p className="text-[12px] text-[red] font-[500]">{formError?.noticePeriod }</p>}
+
                       </form>
                     </div>
                   </div>
