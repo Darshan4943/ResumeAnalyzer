@@ -23,20 +23,12 @@ function Recruiter_page() {
   }, []);
   const lenisRef = useRef();
 
-  useEffect(() => {
-    function update(time) {
-      lenisRef.current?.raf(time * 600);
-    }
-    gsap.ticker.add(update);
-    return () => {
-      gsap.ticker.remove(update);
-    };
-  });
+ 
 
   return (
     <>
       {" "}
-      <ReactLenis root ref={lenisRef} autoRaf={false}>
+      <ReactLenis root >
         <Parallax strength={300} className="h-[36rem] pt-[36px] ">
           <Background className="custom-bg  ">
             <RecruiterHero />
