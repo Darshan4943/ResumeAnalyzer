@@ -15,6 +15,7 @@ import ALink from "@/components/alink";
 import { Close_svg } from "@/utils/svg";
 import Resume3 from "../../resumeTemplates/resume3";
 import Resume4 from "../../resumeTemplates/resume4";
+import Resume2 from "../../resumeTemplates/resume2";
 const ResumePreview = ({ data }) => {
   const userDataGlobal = useSelector((state) => state.userData);
   const dispatch = useDispatch();
@@ -78,7 +79,7 @@ const ResumePreview = ({ data }) => {
       <div className="bg-gray-800 bg-opacity-50 w-full h-full flex justify-center items-center">
         <div className="bg-white flex flex-col gap-4 p-4 rounded-lg shadow-md max-w-[210mm] max-h-[80vh] overflow-y-auto">
           <div id="pdfContent">
-            <Resume4 data={data} />
+            <Resume2 data={data} />
           </div>
           <div className="flex justify-between">
             <button className="text-[12px] text-[#FFF]  font-semibold px-3 py-[2px] rounded-[8px] border border-[#06A9EF] bg-[#06A9EF]" onClick={generatePDFf}>Download Resume</button>
@@ -167,7 +168,7 @@ const ResumePreview = ({ data }) => {
             transformOrigin: "top left",
           }}
         >
-          <Resume4 data={data} />
+          <Resume2 data={data} />
         </div>
       </div>
       {preview && (
@@ -214,7 +215,7 @@ const ResumePreview = ({ data }) => {
                 </div>
               </div>
               <div className="mt-2" ref={resumeRef}>
-                <Resume4 data={data} />
+                <Resume2 data={data} />
               </div>
             </div>
           </div>

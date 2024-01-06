@@ -9,7 +9,12 @@ function Resume4({ data }) {
                 <div className=" w-[260.23px] ">
                     <div className="flex flex-col h-full min-h-[1131px] bg-[#282829] w-[100%] gap-[18px]   ">
                         <div className="flex items-center mt-[35px] flex-col w-[100%]">
-                            <img className="w-[102px] mb-[16px] h-[102px] rounded-3xl" src="/images/services/Ellipse_24.png" alt="" />
+
+                            {data.profilePhoto ? (
+                                <img src={URL.createObjectURL(data.profilePhoto)} alt="" className="w-[102px] mb-[16px] h-[102px] rounded-full" />
+                            ) : (
+                                <img src="/images/services/profile.png" alt="" className="w-[102px] mb-[16px] h-[102px] rounded-3xl" />
+                            )}
                             <p className="text-[#fff] font-[400] font-montserrat text-[24px] leading-normal">{data.firstName}</p>
                             <p className="text-[#fff] font-[400] font-montserrat text-[24px] leading-normal">{data.lastName}</p>
                             <p className="mt-[5px] text-[8px] font-montserrat font-[500] text-[#00AEEF]">{data.designation}</p>
@@ -185,7 +190,8 @@ function Resume4({ data }) {
                                         <div className="flex  gap-2 ">
                                             <p className='-mt-1'>{">"}</p>
                                             <div className='flex flex-col gap-1'>
-                                                <p className="text-[#414042] text-[11px] font-[400] leading-normal">{detail.organization}</p>
+                                                <p className="text-[#414042] text-[11px] font-[400] leading-normal">{detail.organization} </p>
+                                                <p className="text-[#787879] text-[9px]  font-inter  font-[400]">  {detail.designation} </p>
                                                 <p className="text-[#787879] text-[9px]  font-inter  font-[400]">{detail.description} </p>
                                             </div>
                                         </div>
