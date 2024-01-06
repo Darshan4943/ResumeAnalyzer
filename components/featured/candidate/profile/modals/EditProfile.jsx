@@ -31,7 +31,7 @@ function EditProfile({ setEditProfile }) {
           userDataGlobal._id,
         data
       )
-   
+
       .then((res) => {
         toast.success("profile edit successfully");
         dispatch(reCallUserData());

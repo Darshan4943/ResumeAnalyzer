@@ -204,9 +204,9 @@ function Profile() {
               <JobPrefrence userData={userData} />
             </ScrollElement> */}
 
-            {/* <ScrollElement name="Personal details" className="section">
+            <ScrollElement name="Personal details" className="section">
               <PersonalDetails userData={userData} />
-            </ScrollElement> */}
+            </ScrollElement>
           </div>
         </div>
       </div>

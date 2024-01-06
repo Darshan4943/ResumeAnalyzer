@@ -4,7 +4,7 @@ import ReactSelect from "react-select";
 import { camelCase } from "../../../../../utils/middleware";
 import { ClosedIcon } from "../../../../../utils/svg";
 import { City } from "../../../../../utils/data";
-const JobPrefrenceModal = () => {
+const JobPrefrenceModal = ({ setEditView }) => {
   const [skills, setSkills] = useState([...SkillList]);
   const [data, setData] = useState({
     industry: "",
@@ -56,7 +56,28 @@ const JobPrefrenceModal = () => {
         className="flex flex-col gap-4 p-6 bg-[#fff] rounded-[16px] modal_container"
         style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}
       >
-        <div className="modal_title">Edit Job Preferences</div>
+        <div className="modal_title flex justify-between gap-[16px] items-center">
+          Edit Job Preferences{" "}
+          <div className="h-[1px] w-full bg-[#DEDEDE] flex items-center w-[57.07%]"></div>
+          
+          <svg
+            className="hover:cursor-pointer"
+            xmlns="http://www.w3.org/2000/svg"
+            width="40"
+            height="40"
+            viewBox="0 0 40 40"
+            fill="none"
+            onClick={() => setEditView(false)}
+          >
+            <g mask="url(#mask0_5716_141042)">
+              <path
+                d="M10.5251 30.9486L9.05078 29.4743L18.5251 19.9999L9.05078 10.5256L10.5251 9.05127L19.9994 18.5256L29.4738 9.05127L30.9481 10.5256L21.4738 19.9999L30.9481 29.4743L29.4738 30.9486L19.9994 21.4743L10.5251 30.9486Z"
+                fill="#646464"
+                className="hover:cursor-pointer"
+              />
+            </g>
+          </svg>
+        </div>
         <p className="text-[12px]">
           Customize your job settings to match what you're looking for in a job.
         </p>
@@ -136,6 +157,26 @@ const JobPrefrenceModal = () => {
             ))}
           </div>
         </form>
+        <div className="w-full flex justify-end">
+        {/* <button className="rounded-[8px] py-[8px] px-[16px] border-[#C00000] border-solid border-[1px] text-[#C00000] text-[16px] font-[500] transition-all transition-0.1s hover:bg-[#C00000] hover:text-[#fff]">
+          Delete
+        </button> */}
+        <div className="flex gap-[12px]">
+          <button
+            className="rounded-[8px] py-[8px] px-[16px] border-[#06A9EF] border-solid border-[1px] text-[#333] text-[16px] font-[500] hover:cursor-pointer"
+            onClick={() => setEditView(false)}
+          >
+            Cancel
+          </button>
+          <button
+            // onClick={handleSubmit}
+            className="rounded-[8px] py-[8px] px-[16px] border-[#06A9EF] border-solid border-[1px] text-[#fff] text-[16px] font-[500] bg-[#06A9EF] "
+          >
+            Save Changes
+          </button>
+        </div>
+      </div>
+
       </div>
     </>
   );
