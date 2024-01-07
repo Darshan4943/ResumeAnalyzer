@@ -6,7 +6,7 @@ const PersonalDetails = ({ setData, data }) => {
   const userDataGlobal = useSelector((state) => state.userData);
 
   const [isChecked, setIsChecked] = useState(true);
-
+  const [isModified, setIsModified] = useState(false);
   const handleSwitchChange = () => {
     setIsChecked(!isChecked);
   };
@@ -68,24 +68,75 @@ const PersonalDetails = ({ setData, data }) => {
       className: " col-span-2",
     },
   ];
+
+
+
+
+  const [formErrors, setFormErrors] = useState({
+    firstName: false,
+    lastName: false,
+    mobileNumber: false,
+    email: false,
+    location: false,
+    designation: false,
+  });
+
+  const validateFields = () => {
+    const newErrors = {};
+    let allFieldsValid = true;
+  
+    inputFields.forEach((field) => {
+      const { name } = field;
+      const value = profileData[name]; 
+  
+      if (typeof value === 'string' && value.trim() === "") {
+        newErrors[name] = true;
+        allFieldsValid = false;
+      } else {
+        newErrors[name] = false;
+      }
+    });
+  
+    setFormErrors({ ...newErrors }); 
+    return allFieldsValid;
+  };
+  
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setProfileData({
       ...profileData,
       [name]: value,
     });
+    setIsModified(true);
+    setFormErrors({ ...formErrors, [name]: value.trim() === "" }); 
   };
+
+
+
   const isDisabled = () => {
-    let returnValue = true;
-    Object.keys(profileData).forEach((item) => {
-      returnValue = profileData[item] == data[item];
+    if (!isChecked || !isModified) return true;
+  
+    const isAnyFieldEmpty = Object.values(profileData).some((value) => {
+      if (typeof value === 'string') {
+        return value.trim() === "";
+      }
+   
+      if (typeof value === 'number') {
+        return value.toString().trim() === "";
+      }
+      return true; 
     });
-    return returnValue;
+  
+    return isAnyFieldEmpty;
   };
+  
+
 
 
   
   const saveData = () => {
+    const allFieldsValid = validateFields();
+    if (allFieldsValid && isModified) {
     setData({
       ...data,
       firstName: camelCase(profileData.firstName),
@@ -95,7 +146,16 @@ const PersonalDetails = ({ setData, data }) => {
       location: camelCase(profileData.location),
       designation: profileData.designation,
     });
-  };
+    setIsModified(false);
+  }
+};
+
+useEffect(() => {
+  const allFieldsValid = validateFields();
+  if (allFieldsValid && isModified) {
+    setIsModified(true);
+  }
+}, [profileData]);
 
   useEffect(() => {
     if (userDataGlobal?.resumeUrl) {
@@ -145,7 +205,7 @@ const PersonalDetails = ({ setData, data }) => {
               <div className=" text-[14px] font-montserrat  font-medium">
                 {item.label}
               </div>
-              <div className=" border-[1px] border-[#9D9D9D] rounded-[8px] px-[16px] py-[12px]">
+              <div className={`border-[1px] rounded-[8px] px-[16px] py-[12px] ${formErrors[item.name] ? 'border-[#C00000]' : 'border-[#9D9D9D]'} `}>
                 <input
                   type={item.type}
                   name={item.name}
@@ -155,7 +215,11 @@ const PersonalDetails = ({ setData, data }) => {
                   onChange={handleInputChange}
                   disabled={!isChecked}
                 />
+               
               </div>
+              {formErrors[item.name] && (
+              <span className="text-[#C00000] text-[12px]">Field is required</span>
+            )}
             </div>
           ))}
         </div>

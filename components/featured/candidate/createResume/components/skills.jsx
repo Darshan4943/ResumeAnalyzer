@@ -9,9 +9,11 @@ import { useSelector } from "react-redux";
 const Skills = ({ data, setData }) => {
   const [skills, setSkills] = useState([...SkillList]);
   const userDataGlobal = useSelector((state) => state.userData);
-
+  const [saveDisabled, setSaveDisabled] = useState(false);
   const [skillList, setSkillList] = useState([]);
   const initialRatings = Array(5).fill(5);
+
+
   const handleStarClick = (skillIndex, starIndex) => {
     const updatedSkills = skillList.map((skill, index) => {
       if (index === skillIndex) {
@@ -24,6 +26,7 @@ const Skills = ({ data, setData }) => {
     });
     setSkillList(updatedSkills);
   };
+
   const deleteSkill = (index) => {
     const updatedSkills = skillList.filter((_, i) => i !== index);
     setSkillList(updatedSkills);
@@ -47,6 +50,7 @@ const Skills = ({ data, setData }) => {
       return null;
     }
   };
+
   const handleChange = (value) => {
     const found = skillList.find((item) => item.skill === value.label);
     if (!found) {
@@ -54,10 +58,12 @@ const Skills = ({ data, setData }) => {
         ...skillList,
         { skill: value.label, rating: initialRatings },
       ]);
+      setSaveDisabled(false);
     }
   };
   const saveHandler = () => {
     setData({ ...data, skills: skillList });
+    setSaveDisabled(true);
   };
   useEffect(() => {
     if (userDataGlobal?.resumeUrl) {
@@ -110,7 +116,9 @@ const Skills = ({ data, setData }) => {
                 Update to Profile
               </button> */}
               <button
+                style={{ opacity: saveDisabled ? 0.5 : 1 }}
                 onClick={saveHandler}
+                disabled={saveDisabled}
                 className=" font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px]  bg-[#06A9EF] w-[60px] h-[32px] "
               >
                 Save

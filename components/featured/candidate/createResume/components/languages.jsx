@@ -1,12 +1,20 @@
 import React, { useState } from "react";
 
 const Languages = ({ setData, data }) => {
+  console.log(data)
   const [text, setText] = useState("");
   const initialRatingsLanguages = Array(3).fill(3);
 
   const [ratingsLanguages, setRatingsLanguages] = useState(
     initialRatingsLanguages
   );
+
+  const [saveDisabled, setSaveDisabled] = useState(true);
+
+  const handleChange = (e) => {
+    setText(e.target.value);
+    setSaveDisabled(false); 
+  };
   const addLanguages = () => {
     if (text.trim() !== "") {
       setData({
@@ -16,14 +24,17 @@ const Languages = ({ setData, data }) => {
           { languages: text, rating: [...ratingsLanguages] },
         ],
       });
+      setSaveDisabled(true); 
       setText("");
       setRatingsLanguages(initialRatingsLanguages);
+      
     }
   };
 
   const deleteLanguages = (index) => {
     const updatedLanguages = data.languages.filter((_, i) => i !== index);
     setData({ ...data, languages: updatedLanguages });
+    setSaveDisabled(false);
   };
 
   const handleStarClickLanguages = (languagesIndex, starIndex) => {
@@ -37,6 +48,7 @@ const Languages = ({ setData, data }) => {
       return languages;
     });
     setData({ ...data, languages: updatedLanguages });
+    setSaveDisabled(false);
   };
 
   const renderStarsLanguages = (languagesIndex) => {
@@ -93,8 +105,8 @@ const Languages = ({ setData, data }) => {
                   {languages.rating[2] !== 0
                     ? "Expert"
                     : languages.rating[1] !== 0
-                    ? "Proficient"
-                    : "Beginner"}
+                      ? "Proficient"
+                      : "Beginner"}
                 </p>
               </div>
             </div>
@@ -109,7 +121,7 @@ const Languages = ({ setData, data }) => {
             placeholder="Enter your skills"
             className="w-full text-[14px] font-montserrat font-small"
             value={text}
-            onChange={(e) => setText(e.target.value)}
+            onChange={handleChange} 
           />
         </div>
         <div className="flex justify-end ">
@@ -118,6 +130,8 @@ const Languages = ({ setData, data }) => {
               Update to Profile
             </button> */}
             <button
+              disabled={saveDisabled}
+              style={{ opacity: saveDisabled ? 0.5 : 1 }}
               onClick={addLanguages}
               className=" font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px]  bg-[#06A9EF] w-[60px] h-[32px] "
             >

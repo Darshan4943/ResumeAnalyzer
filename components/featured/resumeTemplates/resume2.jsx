@@ -15,14 +15,14 @@ function Resume2({ data }) {
               <div className="absolute top-[35%] left-[95%] z-10 ">
                 <svg xmlns="http://www.w3.org/2000/svg" width={584} viewBox="0 0 401 33" fill="none">
                   <path d="M401 0H0V33H401V0Z" fill="#F7902B" />
-                  <text x="30%" y="55%" dominant-baseline="middle" text-anchor="middle" fill="white" font-size="22" fontWeight={600}>{data.firstName} {" "} {data.lastName} </text>
+                  <text x="7%" y="55%" dominant-baseline="middle" text-anchor="start" fill="white" font-size="22" fontWeight={600}>{data.firstName} {" "} {data.lastName} </text>
                 </svg>
 
               </div >
               <div className="absolute top-[35%] left-[150%]">
-                <svg xmlns="http://www.w3.org/2000/svg" width={474}  viewBox="0 0 311 48" fill="none">
+                <svg xmlns="http://www.w3.org/2000/svg" width={474} viewBox="0 0 311 48" fill="none">
                   <path d="M311 48H20.1135L0 0H311V48Z" fill="#B3691B" />
-                  <text x="17%" y="85%" dominant-baseline="middle" text-anchor="middle" fill="white" font-size="10" fontWeight={600}>{data.designation} </text>
+                  <text x="10%" y="85%" dominant-baseline="middle" text-anchor="start" fill="white" font-size="10" fontWeight={600}>{data.designation} </text>
                 </svg>
               </div>
 
@@ -39,12 +39,13 @@ function Resume2({ data }) {
                   {data.summery}
                 </p>
               </div>
-              {data?.education?.map((detail, index) => (
-                <div className="flex flex-col gap-3 w-[100%]">
-                  <p className="text-[#3C3A40] text-[20px] font-[600] pt-[13px] font-barlow-condensed leading-normal">
-                    EDUCATION
-                  </p>
-                  <div className="w-[85%] bg-[#F7902B] h-[3px]"></div>
+
+              <div className="flex flex-col gap-3 w-[100%]">
+                <p className="text-[#3C3A40] text-[20px] font-[600] pt-[13px] font-barlow-condensed leading-normal">
+                  EDUCATION
+                </p>
+                <div className="w-[85%] bg-[#F7902B] h-[3px]"></div>
+                {data?.education?.map((detail, index) => (
                   <div>
                     <p className=" text-[#272128] font-[600] font-barlow text-[12px] max-w-[80%]">
                       {detail.qualification} - <span className="font-[500]"> {detail.specialization}</span>
@@ -58,15 +59,17 @@ function Resume2({ data }) {
                       {detail.duration?.end?.year}
                     </p>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
 
-              {data?.experience?.map((detail, index) => (
-                <div className="flex flex-col gap-3 w-[100%]">
-                  <p className="text-[#3C3A40] text-[20px] font-[600]  font-barlow-condensed leading-normal">
-                    EXPERIENCE
-                  </p>
-                  <div className="w-[85%] bg-[#F7902B] h-[3px]"></div>
+
+
+              <div className="flex flex-col gap-3 w-[100%]">
+                <p className="text-[#3C3A40] text-[20px] font-[600]  font-barlow-condensed leading-normal">
+                  EXPERIENCE
+                </p>
+                <div className="w-[85%] bg-[#F7902B] h-[3px]"></div>
+                {data?.experience?.map((detail, index) => (
                   <div>
                     <p className=" text-[#272128] font-[600] font-barlow  text-[12px] max-w-[80%]">
                       {detail.organization}
@@ -82,15 +85,15 @@ function Resume2({ data }) {
                       {detail.duration?.end?.year}
                     </p>
                   </div>
+                ))}
+              </div>
 
-                </div>
-              ))}
               <div className="w-[495px]  ml-[-16px] mt-8 h-[42px] bg-[#F7902B]"></div>
             </div>
           </div>
         </div>
 
-        <div className=" bg-[#2C2A31] w-[310px] pl-[16px]  ">
+        <div className=" bg-[#2C2A31] w-[310px] pl-[16px] pb-4 ">
           <div className="flex flex-col gap-12 items-start mt-[200px] ">
             <div className="flex flex-col gap-3">
               <p className="text-[18px] text-[#fff] font-[600] font-barlow-condensed leading-normal">
