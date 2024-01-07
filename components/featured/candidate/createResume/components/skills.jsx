@@ -25,11 +25,13 @@ const Skills = ({ data, setData }) => {
       return skill;
     });
     setSkillList(updatedSkills);
+    setSaveDisabled(false);
   };
 
   const deleteSkill = (index) => {
     const updatedSkills = skillList.filter((_, i) => i !== index);
     setSkillList(updatedSkills);
+    setSaveDisabled(false);
   };
 
   const renderStars = (skillIndex) => {

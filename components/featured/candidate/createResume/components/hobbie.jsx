@@ -5,12 +5,22 @@ const Hobbie = ({
   setData,
 }) => {
   const [text, setText] = useState("");
+  const [saveDisabled, setSaveDisabled] = useState(true);
+
   const deleteHobbies = (index) => {
     const updatedHobbies = data.hobbies.filter((_, i) => i !== index);
     setData({ ...data, hobbies: updatedHobbies });
+    setSaveDisabled(false); 
+  };
+
+  const handleChange = (e) => {
+    setText(e.target.value);
+    setSaveDisabled(false); 
   };
   const addHobby = () => {
+    setSaveDisabled(true); 
     if (text.trim() !== "") {
+     
       setText("");
       setData({ ...data, hobbies: [...data.hobbies, { title: text }] });
     }
@@ -60,7 +70,7 @@ const Hobbie = ({
               placeholder="Enter your hobbies"
               className="w-full text-[14px] font-montserrat font-small"
               value={text}
-              onChange={(e) => setText(e.target.value)}
+              onChange={handleChange} 
             />
           </div>
           <div className="flex justify-end ">
@@ -70,8 +80,8 @@ const Hobbie = ({
               </button> */}
               <button
                 onClick={addHobby}
-                disabled={text.length == 0}
-                style={{ opacity: text.length == 0 ? 0.5 : 1 }}
+                disabled={saveDisabled}
+                style={{ opacity: saveDisabled ? 0.5 : 1 }}
                 className=" font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px]  bg-[#06A9EF] w-[60px] h-[32px]"
               >
                 Save

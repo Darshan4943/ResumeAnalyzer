@@ -16,6 +16,7 @@ const Languages = ({ setData, data }) => {
     setSaveDisabled(false); 
   };
   const addLanguages = () => {
+    setSaveDisabled(true); 
     if (text.trim() !== "") {
       setData({
         ...data,

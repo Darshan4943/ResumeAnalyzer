@@ -55,7 +55,9 @@ module.exports = {
     fontFamily: {
       sans: ['Graphik', 'sans-serif'],
       serif: ['Merriweather', 'serif'],
-      Montserrat:['Montserrat', 'sans-serif']
+      Montserrat:['Montserrat', 'sans-serif'],
+      kanit: ['Kanit', 'sans-serif']
+
     },
     extend: {
       spacing: {

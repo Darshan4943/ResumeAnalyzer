@@ -16,6 +16,7 @@ import { Close_svg } from "@/utils/svg";
 import Resume3 from "../../resumeTemplates/resume3";
 import Resume4 from "../../resumeTemplates/resume4";
 import Resume2 from "../../resumeTemplates/resume2";
+import Resume6 from "../../resumeTemplates/resume6";
 const ResumePreview = ({ data }) => {
   const userDataGlobal = useSelector((state) => state.userData);
   const dispatch = useDispatch();
