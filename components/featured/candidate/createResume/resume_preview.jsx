@@ -1,11 +1,9 @@
 import React, { useRef, useState } from "react";
 import generatePDF from "react-to-pdf";
 import html2canvas from "html2canvas";
-import Resume1 from "../../resumeTemplates/resume1";
 import axios from "axios";
 import AWS from "aws-sdk";
 import ReactDOMServer from "react-dom/server";
-
 import jsPDF from "jspdf";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
@@ -13,10 +11,14 @@ import { reCallUserData } from "@/Redux/actions/user";
 import MiniLoader from "@/components/common/mini-loader";
 import ALink from "@/components/alink";
 import { Close_svg } from "@/utils/svg";
+import Resume1 from "../../resumeTemplates/resume1";
+import Resume2 from "../../resumeTemplates/resume2";
 import Resume3 from "../../resumeTemplates/resume3";
 import Resume4 from "../../resumeTemplates/resume4";
-import Resume2 from "../../resumeTemplates/resume2";
+import Resume5 from "../../resumeTemplates/resume5";
 import Resume6 from "../../resumeTemplates/resume6";
+
+
 const ResumePreview = ({ data }) => {
   const userDataGlobal = useSelector((state) => state.userData);
   const dispatch = useDispatch();

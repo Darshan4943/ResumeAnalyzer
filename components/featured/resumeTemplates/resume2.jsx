@@ -120,8 +120,8 @@ function Resume2({ data }) {
               <p className="text-[18px] text-[#fff] font-[600]  font-barlow-condensed leading-normal">
                 Conatct Me{" "}
               </p>
-              <div className="flex  gap-4 items-end">
-                <div className="mb-1">
+              <div className="flex  gap-4 items-start">
+                <div className="mt-2">
                   <svg xmlns="http://www.w3.org/2000/svg" width="14" height="18" viewBox="0 0 13 17" fill="none" >
                     <path d="M6.90887 0.289062C3.60787 0.289062 0.921875 2.97441 0.921875 6.27684C0.921875 10.3744 6.27887 16.3892 6.50787 16.6432C6.72187 16.8822 7.09588 16.8812 7.30988 16.6432C7.53788 16.3892 12.8949 10.3744 12.8949 6.27684C12.8959 2.97541 10.2099 0.289062 6.90887 0.289062ZM6.90887 9.28923C5.24787 9.28923 3.89688 7.93806 3.89688 6.27684C3.89688 4.61563 5.24787 3.26446 6.90887 3.26446C8.56987 3.26446 9.92087 4.61563 9.92087 6.27684C9.92087 7.93806 8.56987 9.28923 6.90887 9.28923Z" fill="#F7902B" />
                   </svg>
@@ -137,8 +137,8 @@ function Resume2({ data }) {
                 </div>
               </div>
 
-              <div className="flex pt-[10px] gap-4 items-end">
-                <div className="mb-1">
+              <div className="flex pt-[10px] gap-4 items-start">
+                <div className="mt-2">
                   <img
                     className="w-[16px] h-[17px]"
                     src="/images/services/email_yellow.png"
@@ -155,8 +155,8 @@ function Resume2({ data }) {
                 </div>
               </div>
 
-              <div className="flex pt-[10px] gap-4 items-end">
-                <div className="mb-1">
+              <div className="flex pt-[10px] gap-4 items-start">
+                <div className="mt-2">
                   <img
                     className="w-[16px] h-[17px]"
                     src="/images/services/phone_yellow.png"
