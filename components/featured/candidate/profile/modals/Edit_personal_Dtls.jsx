@@ -18,6 +18,7 @@ function Edit_personal_Dtls({ setaddWebsites }) {
     isCareerBreak: false,
     isCareerBreakReason: "",
     haveWorkPermit: false,
+    workPermitDescription: "",
     isSpecialyAbled: false,
     discription: "",
   });
@@ -32,6 +33,7 @@ function Edit_personal_Dtls({ setaddWebsites }) {
         isCareerBreak,
         isCareerBreakReason,
         haveWorkPermit,
+        workPermitDescription,
         specialyAbled,
         discription,
       } = userDataGlobal.basics;
@@ -44,6 +46,7 @@ function Edit_personal_Dtls({ setaddWebsites }) {
         isCareerBreak,
         isCareerBreakReason,
         haveWorkPermit,
+        workPermitDescription,
         isSpecialyAbled: specialyAbled.isSpecialyAbled,
         discription: specialyAbled.discription,
       });
@@ -238,7 +241,7 @@ function Edit_personal_Dtls({ setaddWebsites }) {
                 name="isCareerBreak"
                 id=""
                 checked={Data.isCareerBreak ? false : true}
-                
+
                 // checked={Data.isCareerBreak === true?"blue":"white"}
               />
               <label htmlFor="" className="text-[14px] font-[500]">
@@ -305,23 +308,27 @@ function Edit_personal_Dtls({ setaddWebsites }) {
             </div>
           </div>
         </div>
-        {/* <div className=" w-full flex flex-col gap-[8px]">
+        <div className=" w-full flex flex-col gap-[8px]">
           <div className="text-[16px] font-[500]">If Yes, Select one</div>
           <div className="w-[50%]">
             <select
+              onChange={(e) =>
+                setData({ ...Data, workPermitDescription: e.target.value })
+              }
+              value={Data.workPermitDescription}
               className=" text-[14px] font-[400] text-[#646464] rounded-[8px] border-[1px] border-solid border-[#DEDEDE] w-full flex items-center justify-between py-[8px] px-[16px]"
               placeholder="Select your work permit"
               type="text"
               name="url"
               id=""
             >
-              <option value="">a</option>
-              <option value="">b</option>
-              <option value="">c</option>
-              <option value="">d</option>
+              <option value="a">a</option>
+              <option value="b">b</option>
+              <option value="c">c</option>
+              <option value="d">d</option>
             </select>
           </div>
-        </div> */}
+        </div>
       </div>
       <div className="flex flex-col gap-[16px]">
         <div className="w-[50%] flex flex-col gap-[12px] text-[16px] font-[500] ">

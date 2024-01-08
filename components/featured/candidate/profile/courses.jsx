@@ -51,7 +51,7 @@ const Courses = ({ userData }) => {
       )}
       <div className="build_ai ai2">
         <div className="gap">
-          <p className="page_headings">Certifications</p>
+          <p className="page_headings">Trainings</p>
           <div className="add_delete">
             <img
               style={{ width: "24px" }}
