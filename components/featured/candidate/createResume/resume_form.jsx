@@ -27,6 +27,7 @@ const ResumeForm = ({ setData, data }) => {
         <Hobbie setData={setData} data={data} />
         <Languages setData={setData} data={data} />
       </div>
+      
     </>
   );
 };

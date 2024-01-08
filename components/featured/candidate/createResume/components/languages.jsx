@@ -119,7 +119,7 @@ const Languages = ({ setData, data }) => {
             type="text"
             name=""
             id=""
-            placeholder="Enter your skills"
+            placeholder="Enter your language"
             className="w-full text-[14px] font-montserrat font-small"
             value={text}
             onChange={handleChange} 
