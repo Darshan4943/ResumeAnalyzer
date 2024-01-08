@@ -88,17 +88,15 @@ function Resume2({ data }) {
                       {detail.description}
                     </p>
                     <p className=" text-[#272128] font-[300] font-barlow  text-[12px] max-w-[80%]">
-                      {detail.duration?.end?.year &&
-                        <>
-                          {detail.duration?.start?.year}-
-                          {detail.duration?.end?.year}
-                        </>
-                      }
+                    {detail.duration?.start?.year}-{" "}
+                                            {detail.currentlyWorking
+                                                ? "Present"
+                                                : detail.duration?.end?.year}
                     </p>
                   </div>
                 ))}
               </div>
-              {data.languages > 0 && (
+              {data?.languages?.length > 0 && (
                 <div className="flex flex-col gap-3 w-[100%] mt-8">
                   <p className="text-[#3C3A40] text-[20px] font-[600]  font-barlow-condensed leading-normal">
                     Languages
@@ -180,7 +178,7 @@ function Resume2({ data }) {
                 </div>
               </div>
             </div>
-            {data.skills > 0 && (
+            {data?.skills?.length > 0 && (
               <>
                 <div className="h-[1px] bg-[#fff]  w-[100%]"></div>
                 <div className="flex flex-col gap-8">

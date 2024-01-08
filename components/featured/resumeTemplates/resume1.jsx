@@ -69,6 +69,7 @@ function Resume1({ data }) {
                     {data.email}
                   </p>
                 </div>
+                {data.socialLinks  >0 && (
                 <div className="h-[24px] flex items-center gap-2">
                   <div className="w-[24px] h-[24px] bg-[#414042] flex items-center justify-center" >
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -79,6 +80,8 @@ function Resume1({ data }) {
                     {data.link}
                   </p>
                 </div>
+                
+                )}
               </div>
             </div>
             <div className="flex flex-col items-start justify-start pt-6 gap-2">
@@ -119,8 +122,12 @@ function Resume1({ data }) {
                       </div>
                       <div className="pt-[1.81px]">
                         <p className="text-[#414042]  font-lato text-[8.962px] font-normal leading-normal">
+                        {detail.duration?.end?.year &&
+                        <>
                           {detail.duration?.start?.year}-
                           {detail.duration?.end?.year}
+                        </>
+                      }
                         </p>
                       </div>
                     </div>
@@ -128,6 +135,7 @@ function Resume1({ data }) {
                 </div>
               </div>
             </div>
+            {data?.skills?.length > 0 && (
             <div className="flex flex-col items-start justify-start pt-6 gap-2">
               <p className="text-[#414042] font-inter font-[400px] text-[22px] ">
                 Skills
@@ -157,6 +165,7 @@ function Resume1({ data }) {
                 ))}
               </div>
             </div>
+            )}
           </div>
           <div className="w-[1px] bg-[#414042]"></div>
           <div className="pl-[28px] pt-[20.78px] flex flex-col gap-8 w-[505px] ">
