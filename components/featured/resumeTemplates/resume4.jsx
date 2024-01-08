@@ -224,48 +224,50 @@ function Resume4({ data }) {
                             ))}
                         </div>
                     </div>
-                    <div className="flex gap-2 w-[100%]">
-                        <div className='pt-2'>
-                            <img className="w-[35px] h-[35px] " src="/images/services/skills.png" alt="" />
-                        </div>
-
-                        <div className="flex flex-col gap-4 w-full">
-                            <div className='flex flex-col gap-2'>
-                                <p className="text-[#282829] font-inter leading-normal text-[16px] font-[500]">SKILLS</p>
-                                <div className="h-[1px] mt-[4px] w-[95%] bg-[#282829] "></div>
+                    {data?.skills?.length > 0 && (
+                        <div className="flex gap-2 w-[100%]">
+                            <div className='pt-2'>
+                                <img className="w-[35px] h-[35px] " src="/images/services/skills.png" alt="" />
                             </div>
 
-                            <div className="grid grid-cols-2  gap-3 gap-x-12 justify-between w-full">
-                                {data?.skills?.map((detail, index) => (
-                                    <div key={index} className="flex items-center justify-between gap-2">
-                                        {detail.skill}
-                                        <div className="flex gap-1 mt-4">
-                                            {[...Array(5)].map((_, i) => (
+                            <div className="flex flex-col gap-4 w-full">
+                                <div className='flex flex-col gap-2'>
+                                    <p className="text-[#282829] font-inter leading-normal text-[16px] font-[500]">SKILLS</p>
+                                    <div className="h-[1px] mt-[4px] w-[95%] bg-[#282829] "></div>
+                                </div>
 
-                                                <div>
-                                                    {
-                                                        detail.rating[i] === 0 ? (
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="8" height="7" viewBox="0 0 8 7" fill="none">
-                                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M4.02911 0.285156C2.23911 0.285156 0.789062 1.73615 0.789062 3.52515C0.789062 5.31415 2.24011 6.76514 4.02911 6.76514C5.81811 6.76514 7.2691 5.31415 7.2691 3.52515C7.2691 1.73615 5.81811 0.285156 4.02911 0.285156Z" fill="#D1D3D4" />
-                                                            </svg>
-                                                        ) : (
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8" fill="none">
-                                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M4.02911 0.886719C2.23911 0.886719 0.789062 2.33771 0.789062 4.12671C0.789062 5.91571 2.24011 7.36676 4.02911 7.36676C5.81811 7.36676 7.2691 5.91571 7.2691 4.12671C7.2691 2.33771 5.81811 0.886719 4.02911 0.886719Z" fill="#00AEEF" />
-                                                            </svg>
-                                                        )
+                                <div className="grid grid-cols-2  gap-3 gap-x-12 justify-between w-full">
+                                    {data?.skills?.map((detail, index) => (
+                                        <div key={index} className="flex items-center justify-between gap-2">
+                                            {detail.skill}
+                                            <div className="flex gap-1 mt-4">
+                                                {[...Array(5)].map((_, i) => (
 
-                                                    }
-                                                </div>
+                                                    <div>
+                                                        {
+                                                            detail.rating[i] === 0 ? (
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="8" height="7" viewBox="0 0 8 7" fill="none">
+                                                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M4.02911 0.285156C2.23911 0.285156 0.789062 1.73615 0.789062 3.52515C0.789062 5.31415 2.24011 6.76514 4.02911 6.76514C5.81811 6.76514 7.2691 5.31415 7.2691 3.52515C7.2691 1.73615 5.81811 0.285156 4.02911 0.285156Z" fill="#D1D3D4" />
+                                                                </svg>
+                                                            ) : (
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8" fill="none">
+                                                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M4.02911 0.886719C2.23911 0.886719 0.789062 2.33771 0.789062 4.12671C0.789062 5.91571 2.24011 7.36676 4.02911 7.36676C5.81811 7.36676 7.2691 5.91571 7.2691 4.12671C7.2691 2.33771 5.81811 0.886719 4.02911 0.886719Z" fill="#00AEEF" />
+                                                                </svg>
+                                                            )
 
-                                            ))}
+                                                        }
+                                                    </div>
+
+                                                ))}
+                                            </div>
                                         </div>
-                                    </div>
-                                ))}
+                                    ))}
+                                </div>
+
+
                             </div>
-
-
                         </div>
-                    </div>
+                    )}
 
 
                 </div>

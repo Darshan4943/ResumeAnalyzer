@@ -32,6 +32,8 @@ const PersonalDetails = ({
   tabindex,
   setfile,
   file,
+  error,
+  setError,
 }) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [formError, setFormError] = useState({});
@@ -40,6 +42,8 @@ const PersonalDetails = ({
     e.preventDefault();
     setIsPasswordVisible((prevState) => !prevState);
   }
+
+  
   const validateForm = () => {
     const errors = {};
     if (!data.firstName.trim()) {
@@ -72,7 +76,7 @@ const PersonalDetails = ({
     setFormError(errors);
     return errors;
   };
-  console.log(70, formError);
+  // console.log(70, formError);
   const submitHandler = (e) => {
     e.preventDefault();
     const errors = validateForm();
@@ -86,6 +90,11 @@ const PersonalDetails = ({
       toast.error("Please enter all required fields");
     }
   };
+  const containsNumber = (inputString) => {
+    const regex = /\d/;
+    return regex.test(inputString);
+  };
+  
   return (
     <>
       {tabindex == 2 && (
@@ -93,6 +102,7 @@ const PersonalDetails = ({
           <motion.div className="personal_details ">
             <form className="personal_details_form ">
               <AnimationDivs />
+              
               <>
                 <div className="personal_name_parent">
                   <div className="personal_name">
@@ -105,13 +115,39 @@ const PersonalDetails = ({
                       id="first_name"
                       placeholder="Enter first name"
                       value={data.firstName}
-                      onChange={(e) =>
-                        setData({ ...data, firstName: e.target.value })
-                      }
+                      onChange={(e) => {
+                        const value = e.target.value;
+                        if (value.trim().length > 0) {
+                          if(containsNumber(value)){
+                            setError({
+                              ...error,
+                              firstName: {
+                                message: "First Name cannot be a number",
+                                view: true,
+                              },
+                            });
+                          }else{
+                            setError({
+                              ...error,
+                              firstName: { message: "", view: false },
+                            });
+                          }
+                          
+                        } else {
+                          setError({
+                            ...error,
+                            firstName: {
+                              message: "Please Enter Valid First Name",
+                              view: true,
+                            },
+                          });
+                        }
+                        setData({ ...data, firstName: e.target.value });                     
+                      }}
                     />
-                    {formError && (
+                    {error.firstName.view && (
                       <p className="text-[12px] text-[red] font-[500]">
-                        {formError?.firstName}
+                        {error.firstName.message}
                       </p>
                     )}
                   </div>

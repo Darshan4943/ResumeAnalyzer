@@ -52,6 +52,10 @@ function Candidate_register() {
     summary: "",
     isCurrentlyWorking: true,
   });
+  const [error, setError] = useState({
+    firstName: {message:"Please Enter Valid First Name",view:null},
+    lastName: null,
+  });
 
   const register_cadidate = () => {
     const formData = new FormData();
@@ -133,6 +137,8 @@ function Candidate_register() {
           tabindex={tabindex}
           setfile={setfile}
           file={file}
+          setError={setError}
+          error={error}
         />
         <EducationDetails
           data={data}
