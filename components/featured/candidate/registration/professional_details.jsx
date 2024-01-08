@@ -15,65 +15,160 @@ const ProfessionalDetails = ({
   certificate,
   setCertificate,
 }) => {
-  const[formError,setFormError]= useState({});
+  console.log(data)
+  const [formError, setFormError] = useState({});
 
-  const validateForm = () => {
-    const errors = {};
-    if (!data.employmentStatus?.years) {
-      errors.employmentStatus = "Employment Status is required";
+  // const validateForm = () => {
+  //   const errors = {};
+
+  //   if (!data.workExperiance?.years) {
+  //     errors.workExperiance = "Work Experience is required";
+  //   }
+  //   if (!data.companyName?.trim()) {
+  //     errors.companyName = "Company Name is required";
+  //   }
+  //   else if (!isNaN(data.companyName)) {
+  //     errors.companyName = "Company Name cannot be a number"
+  //   }
+  //   if (!data.jobTitle?.trim()) {
+  //     errors.jobTitle = "Job tittle is required";
+  //   }
+  //   else if (!isNaN(data.jobTitle)) {
+  //     errors.jobTitle = "Job tittle cannot be a number"
+  //   }
+  //   if (!data.jobLocation?.trim()) {
+  //     errors.jobLocation = "Job location  is required";
+  //   }
+  //   else if (!isNaN(data.jobLocation)) {
+  //     errors.jobLocation = "Job location cannot be a number"
+  //   }
+  //   if (!data.keySkills?.length > 0) {
+  //     errors.keySkills = "Key skills is required";
+  //   }
+  //   if (!data.dateOfJoining?.trim()) {
+  //     errors.dateOfJoining = "Date Of joining  is required";
+  //   }
+  //   if (!data.noticePeriod?.trim()) {
+  //     errors.noticePeriod = "Notice Period is required";
+  //   }
+  //   if (!data.currentCTC?.trim()) {
+  //     errors.currentCTC = "Current CTC is required";
+  //   }
+
+  //   setFormError(errors)
+  //   return errors;
+  // };
+
+  const validateInput = (fieldName, value) => {
+    const errors = { ...formError };
+
+    switch (fieldName) {
+      case "workExperiance":
+        if (!value.workExperiance?.years) {
+          errors.workExperiance = "Work Experience is required";
+        } else {
+          delete workExperiance.stream;
+        }
+        break;
+      case "companyName":
+        if (!value.trim()) {
+          errors.companyName = "Company Name Name is required";
+        } else {
+          delete errors.companyName;
+        }
+        break;
+      case "jobTitle":
+        if (!value.trim()) {
+          errors.jobTitle = "Job Title is required";
+        } else {
+          delete errors.jobTitle;
+        }
+        break;
+      case "jobLocation":
+        if (!value.trim()) {
+          errors.jobLocation = "Job location is required";
+        } else {
+          delete errors.jobLocation;
+        }
+        break;
+      // case "keySkills":
+      //   if (!value.keySkills?.length > 0) {
+      //     errors.keySkills = "Key Skill is required";
+      //   } else {
+      //     delete errors.keySkills;
+      //   }
+      //   break;
+      case "dateOfJoining":
+        if (!value.trim()) {
+          errors.dateOfJoining = "Date of Joining is required";
+        } else {
+          delete errors.dateOfJoining;
+        }
+        break;
+      case "noticePeriod":
+        if (!value.trim()) {
+          errors.noticePeriod = "Notice Period is required";
+        } else {
+          delete errors.noticePeriod;
+        }
+        break;
+      case "currentCTC":
+        if (!value.trim()) {
+          errors.currentCTC = "Current CTC is required";
+        } else {
+          delete errors.currentCTC;
+        }
+        break;
+
+      default:
+        break;
     }
-    if (!data.workExperiance?.years) {
-      errors.workExperiance = "Work Experience is required";
-    }
-    if (!data.companyName?.trim()) {
-      errors.companyName = "Company Name is required";
-    }
-    else if(!isNaN(data.companyName)){
-        errors.companyName = "Company Name cannot be a number"
-    }
-    if (!data.jobTitle?.trim()) {
-      errors.jobTitle = "Job tittle is required";
-    }
-    else if(!isNaN(data.jobTitle)){
-      errors.jobTitle = "Job tittle cannot be a number"
-  }
-    if (!data.jobLocation?.trim()) {
-      errors.jobLocation = "Job location  is required";
-    }
-    else if(!isNaN(data.jobLocation)){
-      errors.jobLocation = "Job location cannot be a number"
-  }
-    if (!data.keySkills?.length > 0) {
-      errors.keySkills = "Key skills is required";
-    }
-    if (!data.dateOfJoining?.trim()) {
-      errors.dateOfJoining = "Date Of joining  is required";
-    }
-    if (!data.noticePeriod?.trim()) {
-      errors.noticePeriod = "Notice Period is required";
-    }
-    if (!data.currentCTC?.trim()) {
-      errors.currentCTC = "Current CTC is required";
-    }
-   
-    setFormError(errors)
+
+    setFormError(errors);
     return errors;
   };
 
+  const handleInputChange = (fieldName, value) => {
+    setData({ ...data, [fieldName]: value });
+    validateInput(fieldName, value);
+
+  };
   const submitHandler = (e) => {
     e.preventDefault();
-    const errors = validateForm();
+
+
+    const errors = validateInput();
+    console.log(errors)
+    const hasErrors = Object.keys(errors).length > 0;
     if (data.workStatus == "fresher") {
-      register_cadidate();
+           register_cadidate();
+         }
+         else{
+    if (hasErrors) {
+      toast.error("Please enter valid information");
+      setFormError(errors);
     } else {
-      if (Object.keys(errors).length === 0) {
-        register_cadidate();
-      } else {
-        console.log(Object.keys(errors));
-        toast.error("Please enter all required fields");
-      }
+      register_cadidate();
+     
     }
+  }
   };
+
+
+  // const submitHandler = (e) => {
+  //   e.preventDefault();
+  //   const errors = validateForm();
+  //   if (data.workStatus == "fresher") {
+  //     register_cadidate();
+  //   } else {
+  //     if (Object.keys(errors).length === 0) {
+  //       register_cadidate();
+  //     } else {
+  //       console.log(Object.keys(errors));
+  //       toast.error("Please enter all required fields");
+  //     }
+  //   }
+  // };
   return (
     <>
       {tabindex == 4 && (
@@ -126,10 +221,9 @@ const ProfessionalDetails = ({
                     </p>
                     <div className="gender_button">
                       <button
-                        className={`gen_button ${
-                          data.employmentStatus == "employed" &&
+                        className={`gen_button ${data.employmentStatus == "employed" &&
                           "gen_button_active"
-                        }`}
+                          }`}
                         onClick={(e) => {
                           e.preventDefault();
                           setData({ ...data, employmentStatus: "employed" });
@@ -138,10 +232,9 @@ const ProfessionalDetails = ({
                         Employed
                       </button>
                       <button
-                        className={`gen_button ${
-                          data.employmentStatus == "unemployed" &&
+                        className={`gen_button ${data.employmentStatus == "unemployed" &&
                           "gen_button_active"
-                        }`}
+                          }`}
                         onClick={(e) => {
                           e.preventDefault();
                           setData({ ...data, employmentStatus: "unemployed" });
@@ -151,7 +244,7 @@ const ProfessionalDetails = ({
                       </button>
 
                     </div>
-                    {formError && <p className="text-[12px] text-[red] font-[500]">{formError?.employmentStatus }</p>}
+
 
                   </div>
                 </div>
@@ -177,13 +270,17 @@ const ProfessionalDetails = ({
                           setData({
                             ...data,
                             workExperiance: {
-                              years: e.target.value,
-                              ...data.workExperiance,
+                              ...data.workExperiance, 
+                              years: e.target.value, 
                             },
                           });
                         }}
                       />
-                       {formError && <p className="text-[12px] text-[red] font-[500]">{formError?.workExperiance}</p>}
+                      {formError && (
+                        <p className="text-[12px] text-[red] font-[500]">
+                          {formError?.workExperiance}
+                        </p>
+                      )}
                     </div>
                     <div>
                       <label htmlFor="" className="text-[14px] text-[#404040]">
@@ -199,8 +296,8 @@ const ProfessionalDetails = ({
                           setData({
                             ...data,
                             workExperiance: {
-                              months: e.target.value,
-                              ...data.workExperiance,
+                              ...data.workExperiance, 
+                              months: e.target.value, 
                             },
                           });
                         }}
@@ -221,11 +318,9 @@ const ProfessionalDetails = ({
                     id="single_input"
                     placeholder="Enter Company Name"
                     value={data.companyName}
-                    onChange={(e) => {
-                      setData({ ...data, companyName: e.target.value });
-                    }}
+                    onChange={(e) => handleInputChange("companyName", e.target.value)}
                   />
-                   {formError && <p className="text-[12px] text-[red] font-[500]">{formError?.companyName }</p>}
+                  {formError && <p className="text-[12px] text-[red] font-[500]">{formError?.companyName}</p>}
                 </div>
               </div>
 
@@ -252,11 +347,9 @@ const ProfessionalDetails = ({
                         : "Enter job tittle"
                     }
                     value={data.jobTitle}
-                    onChange={(e) => {
-                      setData({ ...data, jobTitle: e.target.value });
-                    }}
+                    onChange={(e) => handleInputChange("jobTitle", e.target.value)}
                   />
-                   {formError && <p className="text-[12px] text-[red] font-[500]">{formError?.jobTitle }</p>}
+                  {formError && <p className="text-[12px] text-[red] font-[500]">{formError?.jobTitle}</p>}
                 </div>
               </div>
 
@@ -271,11 +364,9 @@ const ProfessionalDetails = ({
                     id="single_input"
                     placeholder="Enter job location"
                     value={data.jobLocation}
-                    onChange={(e) => {
-                      setData({ ...data, jobLocation: e.target.value });
-                    }}
+                    onChange={(e) => handleInputChange("jobLocation", e.target.value)}
                   />
-                   {formError && <p className="text-[12px] text-[red] font-[500]">{formError?.jobLocation }</p>}
+                  {formError && <p className="text-[12px] text-[red] font-[500]">{formError?.jobLocation}</p>}
                 </div>
               </div>
 
@@ -290,11 +381,9 @@ const ProfessionalDetails = ({
                     id="single_input"
                     placeholder="Enter date of joining"
                     value={data.dateOfJoining}
-                    onChange={(e) => {
-                      setData({ ...data, dateOfJoining: e.target.value });
-                    }}
+                    onChange={(e) => handleInputChange("dateOfJoining", e.target.value)}
                   />
-                   {formError && <p className="text-[12px] text-[red] font-[500]">{formError?.dateOfJoining }</p>}
+                  {formError && <p className="text-[12px] text-[red] font-[500]">{formError?.dateOfJoining}</p>}
                 </div>
               </div>
 
@@ -306,12 +395,13 @@ const ProfessionalDetails = ({
                   options={skills}
                   isMulti
                   className="w-full"
-                  onChange={(data) => {
-                    setData({ ...data, keySkills: data });
-                  }}
+                  onChange={(data) => handleInputChange("keySkills", data)}
+                  // onChange={(data) => {
+                  //   setData({ ...data, keySkills: data });
+                  // }}
                   value={data.keySkills}
                 />
-                 {formError && <p className="text-[12px] text-[red] font-[500]">{formError?.keySkills }</p>}
+                {formError && <p className="text-[12px] text-[red] font-[500]">{formError?.keySkills}</p>}
               </div>
               {data.workStatus != "fresher" ? (
                 <>
@@ -327,11 +417,9 @@ const ProfessionalDetails = ({
                         id="single_input"
                         placeholder="Yearly LPA"
                         value={data.currentCTC}
-                        onChange={(e) => {
-                          setData({ ...data, currentCTC: e.target.value });
-                        }}
+                        onChange={(e) => handleInputChange("currentCTC", e.target.value)}
                       />
-                        {formError && <p className="text-[12px] text-[red] font-[500]">{formError?.currentCTC }</p>}
+                      {formError && <p className="text-[12px] text-[red] font-[500]">{formError?.currentCTC}</p>}
 
                     </div>
                   </div>
@@ -347,14 +435,12 @@ const ProfessionalDetails = ({
                               type="radio"
                               value={item.value}
                               checked={data.noticePeriod == item.value}
-                              onChange={(e) => {
-                                setData({ ...data, noticePeriod: item.value });
-                              }}
+                              onChange={(e) => handleInputChange("noticePeriod", e.target.value)}
                             />
                             {item.title}
                           </div>
                         ))}
-            {formError && <p className="text-[12px] text-[red] font-[500]">{formError?.noticePeriod }</p>}
+                        {formError && <p className="text-[12px] text-[red] font-[500]">{formError?.noticePeriod}</p>}
 
                       </form>
                     </div>
@@ -411,7 +497,7 @@ const ProfessionalDetails = ({
                   className="buttons"
                   id="border_button"
                   onClick={submitHandler}
-                  // router.push("/candidate/afterLogin/home/candidateHome");
+                // router.push("/candidate/afterLogin/home/candidateHome");
                 >
                   Continue
                 </button>

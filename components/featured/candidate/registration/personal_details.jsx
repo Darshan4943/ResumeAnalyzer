@@ -43,58 +43,93 @@ const PersonalDetails = ({
     setIsPasswordVisible((prevState) => !prevState);
   }
 
-  
-  const validateForm = () => {
-    const errors = {};
-    if (!data.firstName.trim()) {
-      errors.firstName = "First Name is required";
-    } else if (!isNaN(data.firstName)) {
-      errors.firstName = "First Name cannot be a number";
+
+
+  const validateInput = (fieldName, value) => {
+    const errors = { ...formError };
+
+    switch (fieldName) {
+      case "firstName":
+        if (!value.trim()) {
+          errors.firstName = "First Name is required";
+        } else if (!isNaN(value)) {
+          errors.firstName = "First Name cannot be a number";
+        } else if (/\d/.test(value)) {
+          errors.firstName = "First Name cannot contain numbers";
+        } else {
+          delete errors.firstName;
+        }
+        break;
+      case "lastName":
+        if (!value.trim()) {
+          errors.lastName = "Last Name is required";
+        } else if (!isNaN(value)) {
+          errors.lastName = "Last Name cannot be a number";
+        } else if (/\d/.test(value)) {
+          errors.lastName = "Last Name cannot contain numbers";
+        } else {
+          delete errors.lastName;
+        }
+        break;
+      case "email":
+        if (!value.trim()) {
+          errors.email = "Email is required";
+        } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+          errors.email = "Invalid email format";
+        } else {
+          delete errors.email;
+        }
+        break;
+      case "password":
+        if (!value.trim()) {
+          errors.password = "Password is required";
+        } else if (value.length < 6) {
+          errors.password = "Password should be at least 6 characters";
+        } else {
+          delete errors.password;
+        }
+        break;
+      case "currentLocation":
+        if (!value.trim()) {
+          errors.currentLocation = "Current Location is required";
+        } else {
+          delete errors.currentLocation;
+        }
+        break;
+
+      default:
+        break;
     }
-    if (!data.lastName.trim()) {
-      errors.lastName = "Last Name is required";
-    } else if (!isNaN(data.lastName)) {
-      errors.lastName = "Last Name cannot be a number";
-    }
-    if (!data.mobileNo || data.mobileNo.toString().length !== 10) {
-      errors.mobileNo = "Mobile Number should be 10 digits";
-    }
-    if (!data.email.trim()) {
-      errors.email = "Email is required";
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
-      errors.email = "Invalid email format";
-    }
-    if (!data.password.trim()) {
-      errors.password = "Password is required";
-    } else if (data.password.length < 6) {
-      errors.password = "Password should be at least 6 characters";
-    }
-    if (!data.currentLocation.trim()) {
-      errors.currentLocation = "Current Location is required";
-    }
-    // console.log(65,errors)
+
     setFormError(errors);
     return errors;
   };
-  // console.log(70, formError);
+
+  const handleInputChange = (fieldName, value) => {
+    setData({ ...data, [fieldName]: value });
+    validateInput(fieldName, value);
+
+  };
   const submitHandler = (e) => {
     e.preventDefault();
-    const errors = validateForm();
 
-    // If there are no errors, proceed with form submission
-    if (Object.keys(errors).length === 0) {
+
+    const errors = validateInput();
+
+    const hasErrors = Object.keys(errors).length > 0;
+
+    if (hasErrors) {
+      toast.error("Please enter valid information");
+      setFormError(errors);
+    } else {
       setTabIndex(3);
       window.scroll(0, 0);
-    } else {
-      console.log(Object.keys(errors));
-      toast.error("Please enter all required fields");
     }
   };
-  const containsNumber = (inputString) => {
-    const regex = /\d/;
-    return regex.test(inputString);
-  };
-  
+
+
+
+
   return (
     <>
       {tabindex == 2 && (
@@ -102,7 +137,7 @@ const PersonalDetails = ({
           <motion.div className="personal_details ">
             <form className="personal_details_form ">
               <AnimationDivs />
-              
+
               <>
                 <div className="personal_name_parent">
                   <div className="personal_name">
@@ -115,39 +150,11 @@ const PersonalDetails = ({
                       id="first_name"
                       placeholder="Enter first name"
                       value={data.firstName}
-                      onChange={(e) => {
-                        const value = e.target.value;
-                        if (value.trim().length > 0) {
-                          if(containsNumber(value)){
-                            setError({
-                              ...error,
-                              firstName: {
-                                message: "First Name cannot be a number",
-                                view: true,
-                              },
-                            });
-                          }else{
-                            setError({
-                              ...error,
-                              firstName: { message: "", view: false },
-                            });
-                          }
-                          
-                        } else {
-                          setError({
-                            ...error,
-                            firstName: {
-                              message: "Please Enter Valid First Name",
-                              view: true,
-                            },
-                          });
-                        }
-                        setData({ ...data, firstName: e.target.value });                     
-                      }}
+                      onChange={(e) => handleInputChange("firstName", e.target.value)}
                     />
-                    {error.firstName.view && (
+                    {formError && (
                       <p className="text-[12px] text-[red] font-[500]">
-                        {error.firstName.message}
+                        {formError.firstName}
                       </p>
                     )}
                   </div>
@@ -162,9 +169,7 @@ const PersonalDetails = ({
                       id="first_name"
                       placeholder="Enter Last name"
                       value={data.lastName}
-                      onChange={(e) =>
-                        setData({ ...data, lastName: e.target.value })
-                      }
+                      onChange={(e) => handleInputChange("lastName", e.target.value)}
                     />
                     {formError && (
                       <p className="text-[12px] text-[red] font-[500]">
@@ -184,9 +189,7 @@ const PersonalDetails = ({
                     id="single_input"
                     placeholder="Enter Email"
                     value={data.email}
-                    onChange={(e) =>
-                      setData({ ...data, email: e.target.value })
-                    }
+                    onChange={(e) => handleInputChange("email", e.target.value)}
                   />
                   {formError && (
                     <p className="text-[12px] text-[red] font-[500]">
@@ -207,9 +210,7 @@ const PersonalDetails = ({
                       id="single_input"
                       placeholder="Create new password"
                       value={data.password}
-                      onChange={(e) =>
-                        setData({ ...data, password: e.target.value })
-                      }
+                      onChange={(e) => handleInputChange("password", e.target.value)}
                     />
                     {formError && (
                       <p className="text-[12px] text-[red] font-[500]">
@@ -255,16 +256,10 @@ const PersonalDetails = ({
                       // id="single_input"
                       placeholder="Enter Contact Number"
                       value={data.mobileNo}
-                      onChange={(e) => {
-                        setData({ ...data, mobileNo: e.target.value });
-                      }}
+                      onChange={(e) => handleInputChange("mobileNo", e.target.value)}
                     />
                   </div>
-                  {formError && (
-                    <p className="text-[12px] text-[red] font-[500]">
-                      {formError?.mobileNo}
-                    </p>
-                  )}
+
                   {/* <PhoneInput
                     inputClass="single_input"
                     country={"in"}
@@ -291,9 +286,8 @@ const PersonalDetails = ({
                   </p>
                   <div className="gender_button">
                     <button
-                      className={`gen_button ${
-                        data.gender == "male" && "gen_button_active"
-                      }`}
+                      className={`gen_button ${data.gender == "male" && "gen_button_active"
+                        }`}
                       onClick={(e) => {
                         e.preventDefault();
                         setData({ ...data, gender: "male" });
@@ -302,9 +296,8 @@ const PersonalDetails = ({
                       Male
                     </button>
                     <button
-                      className={`gen_button ${
-                        data.gender == "female" && "gen_button_active"
-                      }`}
+                      className={`gen_button ${data.gender == "female" && "gen_button_active"
+                        }`}
                       onClick={(e) => {
                         e.preventDefault();
                         setData({ ...data, gender: "female" });
@@ -313,9 +306,8 @@ const PersonalDetails = ({
                       Female
                     </button>
                     <button
-                      className={`gen_button ${
-                        data.gender == "other" && "gen_button_active"
-                      }`}
+                      className={`gen_button ${data.gender == "other" && "gen_button_active"
+                        }`}
                       onClick={(e) => {
                         e.preventDefault();
                         setData({ ...data, gender: "other" });
@@ -337,9 +329,7 @@ const PersonalDetails = ({
                       id="single_input"
                       placeholder="Enter Your Location"
                       value={data.currentLocation}
-                      onChange={(e) =>
-                        setData({ ...data, currentLocation: e.target.value })
-                      }
+                      onChange={(e) => handleInputChange("currentLocation", e.target.value)}
                     />
                     {formError && (
                       <p className="text-[12px] text-[red] font-[500]">
@@ -360,9 +350,8 @@ const PersonalDetails = ({
                   </p>
                   <div className="gender_button">
                     <button
-                      className={`gen_button ${
-                        data.workStatus == "experianced" && "gen_button_active"
-                      }`}
+                      className={`gen_button ${data.workStatus == "experianced" && "gen_button_active"
+                        }`}
                       onClick={(e) => {
                         e.preventDefault();
                         setData({ ...data, workStatus: "experianced" });
@@ -371,9 +360,8 @@ const PersonalDetails = ({
                       Experienced
                     </button>
                     <button
-                      className={`gen_button ${
-                        data.workStatus == "fresher" && "gen_button_active"
-                      }`}
+                      className={`gen_button ${data.workStatus == "fresher" && "gen_button_active"
+                        }`}
                       onClick={(e) => {
                         e.preventDefault();
                         setData({ ...data, workStatus: "fresher" });
