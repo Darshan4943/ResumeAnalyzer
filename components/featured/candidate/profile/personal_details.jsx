@@ -101,6 +101,15 @@ const PersonalDetails = ({ userData }) => {
               <p className="sec_head">Work permit</p>
               <p className="heading_first">
                 {userData?.basics?.haveWorkPermit ? "Yes" : "No"}
+                {userData?.basics?.workPermitDescription === true && (
+                  <div className="essential_gap">
+                    <p className="heading_first">
+                      ({userData?.basics?.workPermitDescription
+                        ? userData?.basics?.workPermitDescription
+                        : "-"})
+                    </p>
+                  </div>
+                )}
               </p>
             </div>
 

@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import Social_Links from "./modals/Social_Links";
-import { Delete_icon } from "../../../../utils/svg";
+import { AddIcon, Delete_icon, Edit_icon } from "../../../../utils/svg";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import DeleteModal from "../../../common/deleteModal";
@@ -11,6 +11,17 @@ function Social_links_ndWebsites({ userData }) {
   const [deleteData, setDeleteData] = useState({ view: false, id: "" });
   const userDataGlobal = useSelector((state) => state.userData);
   const dispatch = useDispatch();
+  const [linkData, setLinkData] = useState({
+    profile: "PHD",
+    url: "",
+    discription: "",
+  });
+  useEffect(() => {
+    const { profile, url, discription } = userDataGlobal.basics;
+    setLinkData({
+      ...linkData,
+    });
+  }, [userDataGlobal]);
   const deleteHandler = () => {
     axios
       .delete(
@@ -43,22 +54,9 @@ function Social_links_ndWebsites({ userData }) {
       >
         <div className="flex gap-[16px] text-[20px] font-[500] text-[#333] items-center justify-between">
           Website & Social Links
-          <svg
-            className="hover:cursor-pointer"
-            onClick={() => setaddWebsites(true)}
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-          >
-            <g mask="url(#mask0_5789_21794)">
-              <path
-                d="M11 13H5V11H11V5H13V11H19V13H13V19H11V13Z"
-                fill="#646464"
-              />
-            </g>
-          </svg>
+          <div onClick={() => setaddWebsites(true)}>
+            <AddIcon />
+          </div>
         </div>
         {userData.socialLinks?.map((item) => (
           <div className="flex flex-col gap-[4px] ">
@@ -68,7 +66,10 @@ function Social_links_ndWebsites({ userData }) {
                 <div
                   onClick={() => setDeleteData({ view: true, id: item._id })}
                 >
-                  
+                  <Delete_icon />
+                </div>
+                <div onClick={() => setaddWebsites(true)}>
+                  <Edit_icon />
                 </div>
               </div>
             </div>
@@ -91,7 +92,6 @@ function Social_links_ndWebsites({ userData }) {
               <Social_Links setaddWebsites={setaddWebsites} />
             </div>
           </div>
-          
         </>
       )}
     </>

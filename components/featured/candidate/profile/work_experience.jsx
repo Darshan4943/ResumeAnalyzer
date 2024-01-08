@@ -7,31 +7,45 @@ import { reCallUserData } from "@/Redux/actions/user";
 import DeleteModal from "@/components/common/deleteModal";
 import { toast } from "react-toastify";
 const WorkExperiance = ({ userData }) => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const [experiences, setExperiences] = useState([]);
   const userDataGlobal = useSelector((state) => state.userData);
   const [deleteData, setDeleteData] = useState({ view: false, id: "" });
 
   const [experienceData, setExperienceData] = useState({
-    isCurrentJob: '',
-    jobType: '',
-    jobMode: '',
-    designation: '',
-    organisation: '',
-    location: '',
-    noticePeriod: '',
+    isCurrentJob: "",
+    jobType: "",
+    jobMode: "",
+    designation: "",
+    organisation: "",
+    location: "",
+    noticePeriod: "",
     skillsLearned: [],
-    workDescription: '',
+    workDescription: "",
     duration: {
       start: { year: "Year", month: "Month" },
       end: { year: "Year", month: "Month" },
     },
   });
-
-  
-
+  useEffect(() => {
+    if (userDataGlobal?.resumeUrl) {
+      const {
+        isCurrentJob,
+        jobType,
+        designation,
+        organisation,
+        location,
+        noticePeriod,
+        skillsLearned,
+        workDescription,
+        duration,
+      } = userDataGlobal.basics;
+      setExperienceData({
+        ...experienceData,
+      });
+    }
+  }, [userDataGlobal]);
   const handleEditExperience = (id) => {
-
     const experienceToEdit = id;
 
     if (experienceToEdit) {
@@ -43,10 +57,7 @@ const WorkExperiance = ({ userData }) => {
     }
   };
 
-
   const deleteHandler = () => {
-  
-
     axios
       .delete(
         `https://freedygoservices.in/api/candidate/${userDataGlobal._id}/deleteWorkExperience/${deleteData.id}`
@@ -62,9 +73,8 @@ const WorkExperiance = ({ userData }) => {
     setDeleteData({ view: false, id: "" });
   };
 
-
   const taskRef = useRef(null);
-  const [openAddExperience, setOpenAddExperience] = useState(false)
+  const [openAddExperience, setOpenAddExperience] = useState(false);
 
   const handleOutsideClick = (event) => {
     if (taskRef.current && !taskRef.current.contains(event.target)) {
@@ -73,13 +83,11 @@ const WorkExperiance = ({ userData }) => {
   };
 
   useEffect(() => {
-    document.addEventListener('mousedown', handleOutsideClick);
+    document.addEventListener("mousedown", handleOutsideClick);
     return () => {
-      document.removeEventListener('mousedown', handleOutsideClick);
+      document.removeEventListener("mousedown", handleOutsideClick);
     };
   }, []);
-
-
 
   return (
     <>
@@ -94,13 +102,11 @@ const WorkExperiance = ({ userData }) => {
           <div className=" gap">
             <p className="page_headings">Work Experience</p>
 
-            {/* <div onClick={() => setOpenAddExperience(true)}>  <AddIcon /></div> */}
+            <div onClick={() => setOpenAddExperience(true)}>
+              {" "}
+              <AddIcon />
+            </div>
             {/* <div className="add_delete">
-              <img
-                style={{ width: "24px" }}
-                src="./images/profile/add.png"
-                alt=""
-              />
               <img
                 style={{ width: "24px" }}
                 src="./images/profile/edit.png"
@@ -119,15 +125,15 @@ const WorkExperiance = ({ userData }) => {
                   <div className="flex gap-4">
                     <p className="heading_first ">{job?.companyName}</p>
                     <div className="flex gap-2">
-
-{/* 
-                      <div >
+                      <div onClick={() => setOpenAddExperience(true)}>
                         <Edit_icon />
-
-                      </div> */}
-                      <div onClick={() => setDeleteData({ view: true, id: job._id })} >
+                      </div>
+                      <div
+                        onClick={() =>
+                          setDeleteData({ view: true, id: job._id })
+                        }
+                      >
                         <Delete_icon />
-
                       </div>
                     </div>
                   </div>
@@ -143,7 +149,9 @@ const WorkExperiance = ({ userData }) => {
                   {job?.jobDuration?.length > 0 ? (
                     <p className="sec_head">Sept 2019 to 2022</p>
                   ) : (
-                    <p className="sec_head">{job?.jobDuration?.startDate?.year}</p>
+                    <p className="sec_head">
+                      {job?.jobDuration?.startDate?.year}
+                    </p>
                   )}
                 </div>
                 <div className="full_time">
@@ -160,8 +168,6 @@ const WorkExperiance = ({ userData }) => {
               </div>
             </div>
           ))}
-
-
         </div>
       )}
 
@@ -170,11 +176,17 @@ const WorkExperiance = ({ userData }) => {
           <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
           <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center customMargins">
             <div className="absolute w-[75.08%] h-[80vh] overflow-y-auto">
-              <AddWorkExperience setOpenAddExperience={setOpenAddExperience} experiences={experiences} setExperiences={setExperiences} experienceData={experienceData} setExperienceData={setExperienceData} userData={userData} />
+              <AddWorkExperience
+                setOpenAddExperience={setOpenAddExperience}
+                experiences={experiences}
+                setExperiences={setExperiences}
+                experienceData={experienceData}
+                setExperienceData={setExperienceData}
+                userData={userData}
+              />
             </div>
           </div>
         </>
-
       )}
     </>
   );

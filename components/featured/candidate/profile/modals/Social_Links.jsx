@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { reCallUserData } from "../../../../../Redux/actions/user";
-function Social_Links({ setaddWebsites }) {
+function Social_Links({ setaddWebsites, }) {
   const userDataGlobal = useSelector((state) => state.userData);
   const dispatch = useDispatch();
   const [data, setData] = useState({
@@ -39,13 +39,11 @@ function Social_Links({ setaddWebsites }) {
           toast.success("Social Links added successfully");
           dispatch(reCallUserData());
           setaddWebsites(false);
-          
         }
       })
       .catch((err) => console.log(err));
-      
   };
- 
+
   return (
     <>
       <div
@@ -150,7 +148,14 @@ function Social_Links({ setaddWebsites }) {
           <div className="flex gap-[12px]">
             <button
               className="rounded-[8px] py-[8px] px-[16px] border-[#06A9EF] border-solid border-[1px] text-[#333] text-[16px] font-[500] hover:cursor-pointer"
-              onClick={() => setaddWebsites(false)}
+              onClick={() => {
+                data({
+                  profile: "",
+                  url: "",
+                  discription: "",
+                });
+                setaddWebsites(false);
+              }}
             >
               Cancel
             </button>
