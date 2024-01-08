@@ -19,39 +19,47 @@ function Resume4({ data }) {
                             <p className="text-[#fff] font-[400] font-montserrat text-[24px] leading-normal">{data.lastName}</p>
                             <p className="mt-[5px] text-[8px] font-montserrat font-[500] text-[#00AEEF]">{data.designation}</p>
                         </div>
-                        <div className="flex items-center justify-end mt-[12px] w-[100%]">
-                            <img className="w-[250px] mr-[-15.3px] h-[50px]" src="/images/services/contact.png" alt="" />
+                        <div className='flex flex-col gap-4'>
+                            <div className="h-[27px] ml-[19px] mt-4 items-center ">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="258" viewBox="0 0 180 43" fill="none">
+                                    <path d="M10.942 32.118H179.514V0.887939H10.942L0.782959 16.5029L10.942 32.118Z" fill="#00AEEF" />
+                                    <path d="M167.942 42.8819L179.514 32.118L167.942 32.1179V42.8819Z" fill="#007DC5" />
+                                    <text x="10%" y="40%" dominant-baseline="middle" text-anchor="start" fill="white" font-size="16" f fontWeight={600}>CONTACT </text>
+                                </svg>
+                            </div>
+                            {data?.mobileNumber && (
+                                <div className="flex gap-2 items-start ml-[40px] pr-4  pt-5">
+                                    <div className="h-[24px] flex items-center">
+                                        <img className="w-[18px] h-[18px]" src="/images/services/telephone_blue.png" alt="" />
+                                    </div>
+                                    <p className=" text-[11px] pt-[2px] flex font-[400] text-[#fff] leading-normal ">{data.mobileNumber}</p>
+                                </div>
+                            )}
+                            {data?.email && (
+                                <div className="flex gap-2 items-start ml-[40px] pr-4">
+                                    <div className="h-[24px] flex items-center">
+                                        <img className="w-[18px]  h-[18px]" src="/images/services/message_blue.png" alt="" />
+                                    </div>
+                                    <p className=" text-[11px] pt-[2px] flex font-[400] text-[#fff] leading-normal ">{data.email} </p>
+                                </div>
+                            )}
+
                         </div>
-                        {data?.mobileNumber && (
+                        {data?.sociaLinks > 0 && (
                             <div className="flex gap-2 items-start ml-[40px] pr-4">
                                 <div className="h-[24px] flex items-center">
-                                    <img className="w-[18px] h-[18px]" src="/images/services/telephone_blue.png" alt="" />
+                                    <img className="w-[18px] h-[18px]" src="/images/services/location_blue.png" alt="" />
                                 </div>
-                                <p className=" text-[9px] pt-[2px] flex font-[400] text-[#fff] leading-normal ">{data.mobileNumber}</p>
+                                <div className=" text-[11px] pt-[2px] flex font-[400] text-[#fff] leading-normal ">{""}</div>
                             </div>
                         )}
-                        {data?.email && (
-                            <div className="flex gap-2 items-start ml-[40px] pr-4">
-                                <div className="h-[24px] flex items-center">
-                                    <img className="w-[18px]  h-[18px]" src="/images/services/message_blue.png" alt="" />
-                                </div>
-                                <p className=" text-[9px] pt-[2px] flex font-[400] text-[#fff] leading-normal ">{data.email} </p>
-                            </div>
-                        )}
-                        {/* 
-                        <div className="flex gap-2 items-start ml-[40px] pr-4">
-                            <div className="h-[24px] flex items-center">
-                            <img className="w-[18px] h-[18px]" src="/images/services/website_blue.png" alt="" />
-                            </div>
-                            <p className=" text-[9px] pt-[2px] flex font-[400] text-[#fff] leading-normal ">www.yoursite.com</p>
-                        </div> */}
 
                         {data?.location && (
                             <div className="flex gap-2 items-start ml-[40px] pr-4">
                                 <div className="h-[24px] flex items-center">
                                     <img className="w-[18px] h-[18px]" src="/images/services/location_blue.png" alt="" />
                                 </div>
-                                <div className=" text-[9px] pt-[2px] flex font-[400] text-[#fff] leading-normal ">{data.location}</div>
+                                <div className=" text-[11px] pt-[2px] flex font-[400] text-[#fff] leading-normal ">{data.location}</div>
                             </div>
                         )}
                         {/* <div className="flex items-center justify-end mt-[12px] w-[100%]">
@@ -67,11 +75,15 @@ function Resume4({ data }) {
 
                         {data?.languages?.length > 0 && (
                             <>
-                                <div className="flex items-center justify-end  w-[100%]">
-                                    <img className="w-[250px] mr-[-15.3px] h-[50px]" src="/images/services/language.png" alt="" />
+                                <div className="h-[27px] ml-[19px] mt-4 items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="258" viewBox="0 0 180 43" fill="none">
+                                        <path d="M10.942 32.118H179.514V0.887939H10.942L0.782959 16.5029L10.942 32.118Z" fill="#00AEEF" />
+                                        <path d="M167.942 42.8819L179.514 32.118L167.942 32.1179V42.8819Z" fill="#007DC5" />
+                                        <text x="10%" y="40%" dominant-baseline="middle" text-anchor="start" fill="white" font-size="16" f fontWeight={600}>LANGUAGES </text>
+                                    </svg>
                                 </div>
 
-                                <div className="flex flex-col text-white pr-8 pb-8  gap-3  justify-between ml-[40px]">
+                                <div className="flex flex-col text-white pr-8   gap-4 pt-5 justify-between ml-[40px]">
                                     {data?.languages?.map((detail, index) => (
                                         <div key={index} className="flex items-center justify-between gap-2">
                                             {detail.languages}
@@ -103,14 +115,18 @@ function Resume4({ data }) {
                         )}
 
                         {data?.hobbies?.length > 0 && (
-                            <div className='flex flex-col gap-4 pb-4 '>
+                            <div className='flex flex-col gap-10 pb-4 '>
 
-                                <div className="flex items-center justify-end  w-[100%] ">
-                                    <img className="w-[250px] mr-[-15.3px] h-[50px]" src="/images/services/hobbies.png" alt="" />
+                                <div className="h-[27px] ml-[19px] mt-4 items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="258" viewBox="0 0 180 43" fill="none">
+                                        <path d="M10.942 32.118H179.514V0.887939H10.942L0.782959 16.5029L10.942 32.118Z" fill="#00AEEF" />
+                                        <path d="M167.942 42.8819L179.514 32.118L167.942 32.1179V42.8819Z" fill="#007DC5" />
+                                        <text x="10%" y="40%" dominant-baseline="middle" text-anchor="start" fill="white" font-size="16" f fontWeight={600}>HOBBIES </text>
+                                    </svg>
                                 </div>
                                 <div className="grid grid-cols-2 gap-5 ml-[40px] pr-4">
                                     {data?.hobbies?.map((item, index) => (
-                                        <div key={index} className="text-white text-[9px]">
+                                        <div key={index} className="text-white text-[12px]">
                                             {item?.title}
                                         </div>
                                     ))}

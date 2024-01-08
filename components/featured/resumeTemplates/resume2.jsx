@@ -128,7 +128,7 @@ function Resume2({ data }) {
                 </div>
                 <div className="flex flex-col">
                   <p className="text-[#fff] text-[10px] font-[600] leading-normal">
-                    Adress
+                    Address
                   </p>
                   <p className="text-[#fff] text-[10px] font-[300]  leading-normal">
                     {data.location}

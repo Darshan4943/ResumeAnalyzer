@@ -13,10 +13,13 @@ import ALink from "@/components/alink";
 import { Close_svg } from "@/utils/svg";
 import Resume1 from "../../resumeTemplates/resume1";
 import Resume2 from "../../resumeTemplates/resume2";
-import Resume3 from "../../resumeTemplates/resume3";
-import Resume4 from "../../resumeTemplates/resume4";
+
 import Resume5 from "../../resumeTemplates/resume5";
 import Resume6 from "../../resumeTemplates/resume6";
+import Resume3 from "../../resumeTemplates/resume3";
+import Resume4 from "../../resumeTemplates/resume4";
+import Resume7 from "../../resumeTemplates/resume4";
+
 
 
 const ResumePreview = ({ data }) => {
@@ -24,8 +27,32 @@ const ResumePreview = ({ data }) => {
   const dispatch = useDispatch();
   const resumeRef = useRef();
   const [preview, setPreview] = useState(false);
-
+ 
+  const [selectedResumeIndex, setSelectedResumeIndex] = useState(1);
   const [loading, setLoading] = useState(false);
+
+
+  const togglePreview = (isVisible, index) => {
+    // setPreview(isVisible);
+    setSelectedResumeIndex(index);
+  };
+  const selectResumeTemplate = (index) => {
+    switch (index) {
+      case 1:
+        return <Resume1 data={data} />
+      case 2:
+        return <Resume2 data={data} />
+      case 3:
+        return <Resume3 data={data} />
+      case 4:
+        return <Resume4 data={data} />
+      case 5:
+        return <Resume5 data={data} />
+      default:
+        return <Resume1 data={data} />
+    }
+  };
+
 
   const pdfConverter = async () => {
     html2canvas(resumeRef.current, { autoResize: true }).then((canvas) => {
@@ -82,7 +109,7 @@ const ResumePreview = ({ data }) => {
       <div className="bg-gray-800 bg-opacity-50 w-full h-full flex justify-center items-center">
         <div className="bg-white flex flex-col gap-4 p-4 rounded-lg shadow-md max-w-[210mm] max-h-[80vh] overflow-y-auto">
           <div id="pdfContent">
-            <Resume2 data={data} />
+          {selectResumeTemplate(selectedResumeIndex)}
           </div>
           <div className="flex justify-between">
             <button className="text-[12px] text-[#FFF]  font-semibold px-3 py-[2px] rounded-[8px] border border-[#06A9EF] bg-[#06A9EF]" onClick={generatePDFf}>Download Resume</button>
@@ -94,6 +121,8 @@ const ResumePreview = ({ data }) => {
   );
 
 
+
+
   return (
     <>
       <div
@@ -102,45 +131,41 @@ const ResumePreview = ({ data }) => {
           boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)",
         }}
       >
-        {/* <div className="rounded-[8px] bg-[#BCEBFF]  px-4 pt-[10px] ">
+        <div className="rounded-[8px] bg-[#BCEBFF]  px-4 pt-[10px] ">
           <div className=" flex gap-4 pb-[10px]" style={{ overflowX: "auto" }}>
             <img
-              src="/images/services/resume-template-1.png"
+              src="/images/services/resume1.png"
               className="h-[200px] w-[140.91px] rounded-[6px]"
               alt=""
+              onClick={() => togglePreview(true, 1)}
             />
             <img
-              src="/images/services/resume-template-2.png"
+              src="/images/services/resume2.png"
               className="h-[200px] w-[140.91px] rounded-[6px]"
               alt=""
+              onClick={() => togglePreview(true, 2)}
             />
             <img
-              src="/images/services/resume-template-1.png"
+              src="/images/services/resume3.png"
               className="h-[200px] w-[140.91px] rounded-[6px]"
               alt=""
+              onClick={() => togglePreview(true, 3)}
             />
             <img
-              src="/images/services/resume-template-2.png"
+              src="/images/services/resume4.png"
               className="h-[200px] w-[140.91px] rounded-[6px]"
               alt=""
+              onClick={() => togglePreview(true, 4)}
             />
             <img
-              src="/images/services/resume-template-1.png"
+              src="/images/services/resume5.png"
               className="h-[200px] w-[140.91px] rounded-[6px]"
               alt=""
+              onClick={() => togglePreview(true, 5)}
             />
-            <img
-              src="/images/services/resume-template-2.png"
-              className="h-[200px] w-[140.91px] rounded-[6px]"
-              alt=""
-            />
-            <img
-              src="/images/services/resume-template-1.png"
-              className="h-[200px] w-[140.91px] rounded-[6px]"
-              alt=""
-            />
+           
           </div>
-        </div> */}
+        </div>
 
         <div className="flex justify-between">
           <div className=" text-[20px]  font-montserrat font-medium flex items-center">
@@ -171,7 +196,8 @@ const ResumePreview = ({ data }) => {
             transformOrigin: "top left",
           }}
         >
-          <Resume2 data={data} />
+          {selectResumeTemplate(selectedResumeIndex)}
+          {/* <Resume7 data={data}/> */}
         </div>
       </div>
       {preview && (
@@ -218,7 +244,7 @@ const ResumePreview = ({ data }) => {
                 </div>
               </div>
               <div className="mt-2" ref={resumeRef}>
-                <Resume2 data={data} />
+              {selectResumeTemplate(selectedResumeIndex)}
               </div>
             </div>
           </div>
