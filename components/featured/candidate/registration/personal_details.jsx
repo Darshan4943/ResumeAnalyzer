@@ -134,11 +134,20 @@ const PersonalDetails = ({
   };
   const submitHandler = (e) => {
     e.preventDefault();
-
+  
     const errors = validateInput();
-
+  
+  
+    const requiredFields = ["firstName", "lastName", "email", "password", "currentLocation", "mobileNo"];
+    const emptyFields = requiredFields.filter(field => !data[field]);
+  
+    if (emptyFields.length > 0) {
+      toast.error("Please fill in all required fields");
+      return; 
+    }
+  
     const hasErrors = Object.keys(errors).length > 0;
-
+  
     if (hasErrors) {
       toast.error("Please enter valid information");
       setFormError(errors);
@@ -147,6 +156,7 @@ const PersonalDetails = ({
       window.scroll(0, 0);
     }
   };
+  
 
   const [dropdown, setDropdown] = useState(false);
 
@@ -255,7 +265,7 @@ const PersonalDetails = ({
                         {formError?.password}
                       </p>
                     )}
-                    <button
+                    {/* <button
                       className={"icon"}
                       onClick={togglePasswordVisibility}
                     >
@@ -264,7 +274,7 @@ const PersonalDetails = ({
                       ) : (
                         <Visibility_off />
                       )}
-                    </button>
+                    </button> */}
                   </div>
                 </div>
 
