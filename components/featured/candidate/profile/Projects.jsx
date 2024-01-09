@@ -48,6 +48,7 @@ const closeDeleteModal = () => {
         }}
       >
         <div className="page_headings flex justify-between w-full">
+        <div className="page_headings flex justify-between w-full">
           Projects{" "}
           <div  onClick={() => setaddSampleWork(true)}>
             <AddIcon />

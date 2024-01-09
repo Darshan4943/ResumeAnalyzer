@@ -3,7 +3,7 @@ import { Edit_icon } from "@/utils/svg";
 import Edit_personal_Dtls from "./modals/Edit_personal_Dtls";
 const PersonalDetails = ({ userData }) => {
   const [addEditPop, setaddEditPop] = useState(false);
-console.log(userData)
+  console.log(6,userData);
   const heading_data = [
     {
       a: "Gender",
@@ -67,7 +67,7 @@ console.log(userData)
                   ? "Yes"
                   : "No"}
               </p>
-              {userData?.basics?.specialyAbled?.isSpecialyAbled === true && (
+              {userData?.basics?.specialyAbled?.isSpecialyAbled && (
                 <div className="essential_gap">
                   <p className="heading_first">
                     (
@@ -89,9 +89,11 @@ console.log(userData)
               {userData?.basics?.isCareerBreak === true && (
                 <div className="essential_gap">
                   <p className="heading_first">
-                    ({userData?.basics?.isCareerBreakReason
+                    (
+                    {userData?.basics?.isCareerBreakReason
                       ? userData?.basics?.isCareerBreakReason
-                      : "-"})
+                      : "-"}
+                    )
                   </p>
                 </div>
               )}
@@ -101,12 +103,12 @@ console.log(userData)
               <p className="sec_head">Work permit</p>
               <p className="heading_first">
                 {userData?.basics?.workPermit?.haveWorkPermit ? "Yes" : "No"}
-                {userData?.basics?.workPermitDescription && (
+                {userData?.basics?.workPermit.discription && (
                   <div className="essential_gap">
                     <p className="heading_first">
                       (
-                      {userData?.basics?.workPermitDescription
-                        ? userData?.basics?.workPermitDescription
+                      {userData?.basics?.workPermit.discription
+                        ? userData?.basics?.workPermit.discription
                         : "-"}
                       )
                     </p>

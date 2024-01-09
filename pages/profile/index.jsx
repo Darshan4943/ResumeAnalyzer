@@ -114,10 +114,10 @@ function Profile() {
                 >
                   <div
                     className={`profile_option_menu  ${
-                      selectedTab == item && "profile_option_menu-selected"
+                      selectedTab == item && " profile_option_menu-selected"
                     }`}
                   >
-                    <p className="my_resume">{item}</p>
+                    <p className="my_resume ">{item}</p>
                   </div>
                 </ScrollLink>
               ))}
@@ -208,7 +208,7 @@ function Profile() {
               <Social_links_ndWebsites userData={userData} />
             </ScrollElement>
 
-            <ScrollElement name="Project" className="section">
+            <ScrollElement name="Projects" className="section">
               <Projects userData={userData} />
             </ScrollElement>
 

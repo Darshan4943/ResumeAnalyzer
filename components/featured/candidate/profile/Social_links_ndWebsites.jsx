@@ -17,10 +17,13 @@ function Social_links_ndWebsites({ userData }) {
     discription: "",
   });
   // useEffect(() => {
-  //   const { profile, url, discription } = userDataGlobal.basics;
-  //   setLinkData({
-  //     ...linkData,
-  //   });
+  //   if(userDataGlobal){
+  //     const { profile, url, discription } = userDataGlobal?.basics;
+  //     setLinkData({
+  //       ...linkData,
+  //     });
+  //   }
+  
   // }, [userDataGlobal]);
   const deleteHandler = () => {
     axios
@@ -68,9 +71,9 @@ function Social_links_ndWebsites({ userData }) {
                 >
                   <Delete_icon />
                 </div>
-                <div onClick={() => setaddWebsites(true)}>
+                {/* <div onClick={() => setaddWebsites(true)}>
                   <Edit_icon />
-                </div>
+                </div> */}
               </div>
             </div>
             <a

@@ -95,6 +95,7 @@
   padding: 8px;
   align-items: center;
   gap: 8px;
+  transition: all 0.2s;
 }
 .my_resume {
   color: var(--text-prmary, #333);
@@ -417,5 +418,5 @@
   width: 80px;
   height: 80px;
   border-radius: 100%;
-  background-color: #127C29;
+  background-color: #127c29;
 }
