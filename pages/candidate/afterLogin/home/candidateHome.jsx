@@ -4,10 +4,12 @@ import SavedJobs from "@/components/featured/candidate/afterLogin/home/SavedJobs
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import ALink from "../../../../components/alink";
+import ChangeProfile from "@/components/featured/candidate/profile/modals/ChangeProfile";
 
 function AfterLoginHome() {
   const userDataGlobal = useSelector((state) => state.userData);
   const jobData = useSelector((state) => state.getAllJobs.data);
+  const [changeprofile, setIsChangeProfile] = useState(false);
   const [userData, setUserData] = useState(false);
   useEffect(() => {
     setUserData(userDataGlobal);
@@ -37,7 +39,7 @@ function AfterLoginHome() {
             <div className="customMargins py-5 flex flex-row justify-between items-center ">
               <div className="justify-center items-center w-[29%] items-between">
                 <div className="flex flex-row gap-[16px] py-[8px]  ">
-                 
+
                   <div className="flex w-[40%] h-[110px] items-center justify-center">
                     <img
                       className="w-[105px] h-[105px] rounded-full object-cover"
@@ -46,8 +48,21 @@ function AfterLoginHome() {
                         "/images/profile/john_doe.png"
                       }
                       alt=""
+                      onClick={() => setIsChangeProfile(true)}
                     />
                   </div>
+                  {changeprofile &&
+                    <>
+                      <div className="opacity-25 fixed inset-0 z-[120] bg-black"></div>
+
+                      <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-[130] outline-none focus:outline-none">
+                        <div className="absolute max-w-[800px] w-full">
+                          <ChangeProfile setIsChangeProfile={setIsChangeProfile} />
+                        </div>
+                      </div>
+                    </>
+
+                  }
 
                   <div className="flex flex-col gap-[12px] items-center justify-center w-[60%] leading-[15px]">
                     <div className="flex  flex-col gap-[12px]">
@@ -145,9 +160,8 @@ function AfterLoginHome() {
           <div className="bg-[#BCECFF] sticky top-[5.6rem] z-500">
             <div className="customMargins flex flex-row  gap-[16px] py-[8px]">
               <div
-                className={`flex flex-row py-[8px] px-[16px] gap-[8px] items-center justify-center ${
-                  toggle === 0 && "text-white bg-[#06A9EF] rounded-[6px]"
-                }`}
+                className={`flex flex-row py-[8px] px-[16px] gap-[8px] items-center justify-center ${toggle === 0 && "text-white bg-[#06A9EF] rounded-[6px]"
+                  }`}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -199,9 +213,8 @@ function AfterLoginHome() {
                 </div>
               </div> */}
               <div
-                className={`flex flex-row py-[8px] px-[16px] gap-[8px] items-center justify-center ${
-                  toggle === 2 && "text-white bg-[#06A9EF] rounded-[6px]"
-                }`}
+                className={`flex flex-row py-[8px] px-[16px] gap-[8px] items-center justify-center ${toggle === 2 && "text-white bg-[#06A9EF] rounded-[6px]"
+                  }`}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

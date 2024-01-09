@@ -32,6 +32,7 @@ function SavedJobs() {
     localStorage.setItem("savedJobs", JSON.stringify(filter));
     forceUpdate();
   };
+  
   return (
     <div className="  bg-[#F9F9F9]  ">
       <div className="customMargins flex flex-row gap-[24px] py-[24px]  ">
