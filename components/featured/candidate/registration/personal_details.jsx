@@ -251,7 +251,7 @@ const PersonalDetails = ({
                     </p>
 
                     <input
-                      type={isPasswordVisible ? "text" : "password"}
+                      type= "password"
                       name=""
                       id="single_input"
                       placeholder="Create new password"
