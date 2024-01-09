@@ -30,9 +30,9 @@ function Profile() {
     "Work Experience",
     "Education",
     "Skills",
-    "Social links & Websites",
-    "Projects",
     "Trainings",
+    "Websites & Social links",
+    "Projects",
     "Achievements",
     "Job Prefrence",
     "Personal details",
@@ -200,7 +200,11 @@ function Profile() {
               />
             </ScrollElement>
 
-            <ScrollElement name="Social links & Websites" className="section">
+            <ScrollElement name="Trainings" className="section">
+              <Courses userData={userData} />
+            </ScrollElement>
+
+            <ScrollElement name="Websites & Social links" className="section">
               <Social_links_ndWebsites userData={userData} />
             </ScrollElement>
 
@@ -208,9 +212,6 @@ function Profile() {
               <Projects userData={userData} />
             </ScrollElement>
 
-            <ScrollElement name="Trainings" className="section">
-              <Courses userData={userData} />
-            </ScrollElement>
 
             <ScrollElement name="Achievements" className="section ">
               <Achievements userData={userData} />

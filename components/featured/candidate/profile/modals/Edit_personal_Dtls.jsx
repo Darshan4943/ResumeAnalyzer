@@ -12,7 +12,7 @@ function Edit_personal_Dtls({ setaddWebsites }) {
   const dispatch = useDispatch();
   const [Data, setData] = useState({
     dob: "",
-    gender: "male",
+    gender: "Male",
     maritalStatus: "",
     address: "",
     isCareerBreak: false,
@@ -126,13 +126,13 @@ function Edit_personal_Dtls({ setaddWebsites }) {
         <div className="flex justify-between items-center">
           <div className="flex gap-[8px]">
             <input
-              onChange={(e) => setData({ ...Data, gender: "male" })}
+              onChange={(e) => setData({ ...Data, gender: "Male" })}
               value={Data.gender}
               className="custom-radio"
               type="radio"
               name="gender"
               id=""
-              checked={Data.gender == "male"}
+              checked={Data.gender == "Male"}
             />
             <label htmlFor="" className="text-[14px] font-[500]">
               Male
@@ -140,13 +140,13 @@ function Edit_personal_Dtls({ setaddWebsites }) {
           </div>
           <div className="flex gap-[8px]">
             <input
-              onChange={(e) => setData({ ...Data, gender: "female" })}
+              onChange={(e) => setData({ ...Data, gender: "Female" })}
               value={Data.gender}
               className="custom-radio"
               type="radio"
               name="gender"
               id=""
-              checked={Data.gender == "female"}
+              checked={Data.gender == "Female"}
             />
             <label htmlFor="" className="text-[14px] font-[500]">
               Female
@@ -154,13 +154,13 @@ function Edit_personal_Dtls({ setaddWebsites }) {
           </div>
           <div className="flex gap-[8px]">
             <input
-              onChange={(e) => setData({ ...Data, gender: "others" })}
+              onChange={(e) => setData({ ...Data, gender: "Others" })}
               value={Data.gender}
               className="custom-radio"
               type="radio"
               name="gender"
               id=""
-              checked={Data.gender == "others"}
+              checked={Data.gender == "Others"}
             />
             <label htmlFor="" className="text-[14px] font-[500]">
               Others

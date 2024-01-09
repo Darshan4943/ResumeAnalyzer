@@ -3,7 +3,7 @@ import { Edit_icon } from "@/utils/svg";
 import Edit_personal_Dtls from "./modals/Edit_personal_Dtls";
 const PersonalDetails = ({ userData }) => {
   const [addEditPop, setaddEditPop] = useState(false);
-
+console.log(userData)
   const heading_data = [
     {
       a: "Gender",
@@ -61,23 +61,24 @@ const PersonalDetails = ({ userData }) => {
               </p>
             </div>
             <div className="essential_gap">
-              <p className="sec_head">Differently able</p>
+              <p className="sec_head">Differently Abled</p>
               <p className="heading_first">
                 {userData?.basics?.specialyAbled?.isSpecialyAbled
                   ? "Yes"
                   : "No"}
               </p>
+              {userData?.basics?.specialyAbled?.isSpecialyAbled === true && (
+                <div className="essential_gap">
+                  <p className="heading_first">
+                    (
+                    {userData?.basics?.specialyAbled
+                      ? userData?.basics?.specialyAbled?.discription
+                      : "-"}
+                    )
+                  </p>
+                </div>
+              )}
             </div>
-            {userData?.basics?.specialyAbled?.isSpecialyAbled === true && (
-              <div className="essential_gap">
-                <p className="sec_head">Description</p>
-                <p className="heading_first">
-                  {userData?.basics?.specialyAbled
-                    ? userData?.basics?.specialyAbled?.discription
-                    : "-"}
-                </p>
-              </div>
-            )}
           </div>
           <div className="job_preference_right">
             <div className="essential_gap">
@@ -85,28 +86,29 @@ const PersonalDetails = ({ userData }) => {
               <p className="heading_first">
                 {userData?.basics?.isCareerBreak ? "Yes" : "No"}
               </p>
+              {userData?.basics?.isCareerBreak === true && (
+                <div className="essential_gap">
+                  <p className="heading_first">
+                    ({userData?.basics?.isCareerBreakReason
+                      ? userData?.basics?.isCareerBreakReason
+                      : "-"})
+                  </p>
+                </div>
+              )}
             </div>
-            {userData?.basics?.isCareerBreak === true && (
-              <div className="essential_gap">
-                <p className="sec_head">Career break reason</p>
-                <p className="heading_first">
-                  {userData?.basics?.isCareerBreakReason
-                    ? userData?.basics?.isCareerBreakReason
-                    : "-"}
-                </p>
-              </div>
-            )}
 
             <div className="essential_gap">
               <p className="sec_head">Work permit</p>
               <p className="heading_first">
-                {userData?.basics?.haveWorkPermit ? "Yes" : "No"}
-                {userData?.basics?.workPermitDescription === true && (
+                {userData?.basics?.workPermit?.haveWorkPermit ? "Yes" : "No"}
+                {userData?.basics?.workPermitDescription && (
                   <div className="essential_gap">
                     <p className="heading_first">
-                      ({userData?.basics?.workPermitDescription
+                      (
+                      {userData?.basics?.workPermitDescription
                         ? userData?.basics?.workPermitDescription
-                        : "-"})
+                        : "-"}
+                      )
                     </p>
                   </div>
                 )}
