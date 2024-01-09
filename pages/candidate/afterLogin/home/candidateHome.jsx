@@ -5,8 +5,10 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import ALink from "../../../../components/alink";
 import ChangeProfile from "@/components/featured/candidate/profile/modals/ChangeProfile";
+import { useRouter } from "next/router";
 
 function AfterLoginHome() {
+  const router = useRouter();
   const userDataGlobal = useSelector((state) => state.userData);
   const jobData = useSelector((state) => state.getAllJobs.data);
   const [changeprofile, setIsChangeProfile] = useState(false);
@@ -83,7 +85,7 @@ function AfterLoginHome() {
                           Last updated 1 m ago
                         </div>
                       </div>
-                      <div className="text-[#06A9EF] text-[14px] font-[600]">
+                      <div onClick={()=>router.push("/profile")} className="text-[#06A9EF] text-[14px] hover:cursor-pointer font-[600]">
                         View & Update Profile
                       </div>
                     </div>
