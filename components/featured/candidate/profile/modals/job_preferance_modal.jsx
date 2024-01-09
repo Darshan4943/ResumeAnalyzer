@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { SkillList } from "@/utils/data";
 import ReactSelect from "react-select";
 import { camelCase } from "../../../../../utils/middleware";
@@ -7,18 +7,53 @@ import { City } from "../../../../../utils/data";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { reCallUserData } from "@/Redux/actions/user";
+import { useDispatch, useSelector } from "react-redux";
 const JobPrefrenceModal = ({ setEditView }) => {
-  const [skills, setSkills] = useState([...SkillList]);
+
+  const dispatch = useDispatch();
+  const userDataGlobal = useSelector((state) => state.userData);
+  const jobMode = ["onSiteWork", "remoteWork", "hybridWork"]
+  const jobType = ["fullTime",
+    "partTime",
+    "casual",
+    "fixedTermContract",
+    "apprenticeship",
+    "traineeship",
+    "internship",
+    "permanent",]
+
+  const shift = ["First Shift", "Second Shift", "Third Shift", "Fixed Shift"]
   const [data, setData] = useState({
-    industry: "",
-    department: "",
-    jobRole: "",
-    jobType: "",
-    jobMode: "",
-    expectedSalary: "",
-    location: "",
+    industry: userDataGlobal?.jobPrefrences?.industry || "",
+    department: userDataGlobal?.jobPrefrences?.department || "",
+    jobRole: userDataGlobal?.jobPrefrences?.jobRole || "",
+    jobType: userDataGlobal?.jobPrefrences?.jobType || "",
+    jobMode: userDataGlobal?.jobPrefrences?.jobMode || "",
+    expectedSalary: userDataGlobal?.jobPrefrences?.expectedSalary || "",
+    shift:userDataGlobal?.jobPrefrences?.shift || "",
   });
+
+  useEffect(() => {
+    if (
+      userDataGlobal &&
+      userDataGlobal.jobPrefrences &&
+      userDataGlobal.jobPrefrences.preferedLocation
+    ) {
+      const locations = userDataGlobal?.jobPrefrences?.preferedLocation?.map((loc) => ({
+        location: loc.location,
+        label: loc.location,
+      }));
+      console.log(locations)
+      setPreferedLocation(locations);
+    }
+  }, [userDataGlobal]);
+
+
+
+
   const [preferedLocation, setPreferedLocation] = useState([]);
+
+  console.log(50, preferedLocation)
   const inputField = [
     {
       label: "Preferred Industry",
@@ -39,6 +74,27 @@ const JobPrefrenceModal = ({ setEditView }) => {
       placeholder: "Ex. UI / UX Designer",
     },
   ];
+
+  const handleJobTypeChange = (value) => {
+    setData((prevData) => ({
+      ...prevData,
+      jobType: value,
+    }));
+  };
+
+  const handleJobModeChange = (value) => {
+    setData((prevData) => ({
+      ...prevData,
+      jobMode: value,
+    }));
+  }
+  const handleShiftChange=(value) => {
+    setData((prevData) => ({
+      ...prevData,
+      shift: value,
+    }));
+  }
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setData({
@@ -59,24 +115,30 @@ const JobPrefrenceModal = ({ setEditView }) => {
       ...data,
       industry: data.industry,
       department: data.department,
+      jobRole: data.jobRole,
+      jobType: data.jobType,
+      jobMode: data.jobMode,
+      expectedSalary: data.expectedSalary,
+      shift:data.shift,
+      preferedLocation: preferedLocation.map((item) => ({ location: item.location })),
     }
-    console.log("Form submitted:", data, preferedLocation);
+
     axios
-    .put(
-      "http://localhost:2000/api/candidate/updateJobPreferance/" +
-      userDataGlobal._id,
-      obj
-    )
-    .then((res) => {
-      console.log(68, data);
-      if (res) {
-        console.log(111, res);
-        toast.success("Upgrade Job preferance successfully");
-        dispatchEvent(reCallUserData());
-        setEditView(false)
-      }
-    })
-    .catch((err) => console.log(err));
+      .put(
+        "https://freedygoservices.in/api/candidate/updateJobPreferance/" +
+        userDataGlobal._id,
+        obj
+      )
+      .then((res) => {
+        console.log(68, data);
+        if (res) {
+          console.log(111, res);
+          toast.success("Upgrade Job preferance successfully");
+          dispatch(reCallUserData());
+          setEditView(false)
+        }
+      })
+      .catch((err) => console.log(err));
     // You may want to reset the form or perform any other actions after submission
   };
   return (
@@ -124,28 +186,52 @@ const JobPrefrenceModal = ({ setEditView }) => {
                 />
               </div>
             ))}
-            <div className="input-container w-[46%] ">
+            <div className="input-container w-[46%]  ">
               <label className="label">Preferred Job Type</label>
-              <ReactSelect
-                options={skills.map((item) => ({
-                  value: item,
-                  label: camelCase(item),
-                }))}
-                className="w-full  "
-                //   onChange={handleChange}
-              />
+              <select
+                className="w-full input"
+                value={data.jobType || ""}
+                onChange={(e) => handleJobTypeChange(e.target.value)}
+              >
+                <option value="">Select Job Type</option>
+                {jobType.map((type) => (
+                  <option key={type} value={type}>
+                    {camelCase(type)}
+                  </option>
+                ))}
+              </select>
+
             </div>
             <div className="input-container w-[46%] ">
               <label className="label">Preferred Job Mode</label>
-              <ReactSelect
-                options={skills.map((item) => ({
-                  value: item,
-                  label: camelCase(item),
-                }))}
-                className="w-full  "
-                //   onChange={handleChange}
-              />
+              <select
+                className="w-full input"
+                value={data.jobMode ||""}
+                onChange={(e) => handleJobModeChange(e.target.value)}
+              ><option value="">Select Job Mode</option>
+                {jobMode.map((mode) => (
+                  <option key={mode} value={mode}>
+                    {camelCase(mode)}
+                  </option>
+                ))}
+              </select>
             </div>
+            <div className="input-container w-[46%] ">
+              <label className="label">Preferred Shift</label>
+              <select
+                className="w-full input"
+                value={data.shift || ''}
+                onChange={(e) => handleShiftChange(e.target.value)}
+              >
+                <option value="">Select Shift</option>
+                {shift.map((shiftValue) => (
+                  <option key={shiftValue} value={shiftValue}>
+                    {camelCase(shiftValue)}
+                  </option>
+                ))}
+              </select>
+            </div>
+
             <div className="input-container w-[46%] ">
               <label className="label">Expected salary</label>
               <input

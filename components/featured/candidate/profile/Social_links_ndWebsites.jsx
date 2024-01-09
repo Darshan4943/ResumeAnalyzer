@@ -16,12 +16,12 @@ function Social_links_ndWebsites({ userData }) {
     url: "",
     discription: "",
   });
-  useEffect(() => {
-    const { profile, url, discription } = userDataGlobal.basics;
-    setLinkData({
-      ...linkData,
-    });
-  }, [userDataGlobal]);
+  // useEffect(() => {
+  //   const { profile, url, discription } = userDataGlobal.basics;
+  //   setLinkData({
+  //     ...linkData,
+  //   });
+  // }, [userDataGlobal]);
   const deleteHandler = () => {
     axios
       .delete(
