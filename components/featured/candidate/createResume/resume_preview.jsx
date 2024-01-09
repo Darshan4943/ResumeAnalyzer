@@ -13,7 +13,7 @@ import ALink from "@/components/alink";
 import { Close_svg } from "@/utils/svg";
 import Resume1 from "../../resumeTemplates/resume1";
 import Resume2 from "../../resumeTemplates/resume2";
-import html2pdf from "html2pdf.js";
+// import html2pdf from "html2pdf.js";
 
 
 import Resume5 from "../../resumeTemplates/resume5";
@@ -96,35 +96,35 @@ const ResumePreview = ({ data }) => {
 
  
 
-const generatePDFf = () => {
-  const element = document.getElementById("pdfContent");
+// const generatePDFf = () => {
+//   const element = document.getElementById("pdfContent");
 
-  const opt = {
-    margin: [5, 0, 5, 0],
-    filename: 'resume.pdf',
-    image: { type: 'jpeg', quality: 0.98 },
-    html2canvas: { scale: 3 },
-    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-  };
+//   const opt = {
+//     margin: [5, 0, 5, 0],
+//     filename: 'resume.pdf',
+//     image: { type: 'jpeg', quality: 0.98 },
+//     html2canvas: { scale: 3 },
+//     jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+//   };
 
-  html2pdf().from(element).set(opt).save();
-};
+//   html2pdf().from(element).set(opt).save();
+// };
 
-const PDFViewer = (
-  <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center z-[500] overflow-y-auto">
-    <div className="bg-gray-800 bg-opacity-50 w-full h-full flex justify-center items-center">
-      <div className="bg-white flex flex-col gap-4 p-4 rounded-lg shadow-md max-w-[210mm] max-h-[80vh] overflow-y-auto">
-        <div id="pdfContent" className="pdf-content">
-          {selectResumeTemplate(selectedResumeIndex)}
-        </div>
-        <div className="flex justify-between">
-          <button className="text-[12px] text-[#FFF] font-semibold px-3 py-[2px] rounded-[8px] border border-[#06A9EF] bg-[#06A9EF]" onClick={generatePDFf}>Download Resume</button>
-          <button className="text-[12px] text-[#333] font-semibold px-9 py-1 rounded-[8px] border border-[#06A9EF]" onClick={togglePDFView}>Close</button>
-        </div>
-      </div>
-    </div>
-  </div>
-);
+// const PDFViewer = (
+//   <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center z-[500] overflow-y-auto">
+//     <div className="bg-gray-800 bg-opacity-50 w-full h-full flex justify-center items-center">
+//       <div className="bg-white flex flex-col gap-4 p-4 rounded-lg shadow-md max-w-[210mm] max-h-[80vh] overflow-y-auto">
+//         <div id="pdfContent" className="pdf-content">
+//           {selectResumeTemplate(selectedResumeIndex)}
+//         </div>
+//         <div className="flex justify-between">
+//           <button className="text-[12px] text-[#FFF] font-semibold px-3 py-[2px] rounded-[8px] border border-[#06A9EF] bg-[#06A9EF]" onClick={generatePDFf}>Download Resume</button>
+//           <button className="text-[12px] text-[#333] font-semibold px-9 py-1 rounded-[8px] border border-[#06A9EF]" onClick={togglePDFView}>Close</button>
+//         </div>
+//       </div>
+//     </div>
+//   </div>
+// );
 
   
 
@@ -192,7 +192,7 @@ const PDFViewer = (
 
           </div>
         </div>
-        {showPDF && PDFViewer}
+        {/* {showPDF && PDFViewer} */}
 
         <div
           className=" border border-[#06A9EF]"
