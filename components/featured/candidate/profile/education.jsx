@@ -27,7 +27,7 @@ const Education = ({ userData }) => {
       start: { year: "Year", month: "Month" },
       end: { year: "Year", month: "Month" },
     },
-    gradingSystem: "",
+    // gradingSystem: "",
     score: "",
   });
 
@@ -75,7 +75,10 @@ const Education = ({ userData }) => {
         <div className="gap">
           <p className="page_headings">Education</p>
 
-          {/* <div onClick={() => setOpenAddEducation(true)}>  <AddIcon /></div> */}
+          <div onClick={() => setOpenAddEducation(true)}>
+            {" "}
+            <AddIcon />
+          </div>
           {/* <div className="add_delete">
           <img
             style={{ width: "24px" }}
@@ -109,6 +112,9 @@ const Education = ({ userData }) => {
                   >
                     <Delete_icon />
                   </div>
+                  {/* <div  onClick={() => setOpenAddEducation(true)}>
+                    <Edit_icon />
+                  </div> */}
                 </div>
               </div>
               <p className="heading_sec">{elem.institute}</p>
@@ -124,8 +130,8 @@ const Education = ({ userData }) => {
               </div>
               <div className="full_time">
                 <p className="sec_head">{elem.location}</p>
-                {/* <div className="vertical_line"></div>
-              <p className="sec_head">On-site</p> */}
+                <div className="vertical_line"></div>
+              <p className="sec_head">On-site</p>
               </div>
             </div>
           </div>

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import AddCertificate from "./modals/AddCertificate";
-import { Delete_icon } from "../../../../utils/svg";
+import { Delete_icon, Edit_icon } from "../../../../utils/svg";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import DeleteModal from "../../../common/deleteModal";
@@ -12,6 +12,7 @@ const Courses = ({ userData }) => {
   const [deleteData, setDeleteData] = useState({ view: false, id: "" });
   const userDataGlobal = useSelector((state) => state.userData);
   const dispatch = useDispatch();
+  const [editCourseData, setEditCourseData] = useState(null);
   const month = [
     "January",
     "February",
@@ -41,6 +42,13 @@ const Courses = ({ userData }) => {
   const closeDeleteModal = () => {
     setDeleteData({ view: false, id: "" });
   };
+
+  const handleEditCourse = (course) => {
+    setEditCourseData(course); 
+    setAddCertificate(true); 
+  };
+
+
   return (
     <>
       {deleteData.view && (
@@ -73,6 +81,10 @@ const Courses = ({ userData }) => {
                 <div className="logo_disc">
                   <p className="heading_first flex gap-2 items-center">
                     {item.name}{" "}
+
+                    <div onClick={() => handleEditCourse(item)}>
+                      <Edit_icon/>
+                    </div>
                     <div
                       onClick={() =>
                         setDeleteData({ view: true, id: item._id })
@@ -115,7 +127,7 @@ const Courses = ({ userData }) => {
 
           <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-[130] outline-none focus:outline-none">
             <div className="absolute max-w-[800px] w-full">
-              <AddCertificate setAddCertificate={setAddCertificate} />
+              <AddCertificate setAddCertificate={setAddCertificate}  editCourseData={editCourseData} />
             </div>
           </div>
         </>

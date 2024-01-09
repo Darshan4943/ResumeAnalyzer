@@ -33,7 +33,7 @@ function Profile() {
     "Trainings",
     "Websites & Social links",
     "Projects",
-    "Achievements",
+    // "Achievements",
     "Job Prefrence",
     "Personal details",
   ];
@@ -114,10 +114,10 @@ function Profile() {
                 >
                   <div
                     className={`profile_option_menu  ${
-                      selectedTab == item && "profile_option_menu-selected"
+                      selectedTab == item && " profile_option_menu-selected"
                     }`}
                   >
-                    <p className="my_resume">{item}</p>
+                    <p className="my_resume ">{item}</p>
                   </div>
                 </ScrollLink>
               ))}
@@ -208,14 +208,14 @@ function Profile() {
               <Social_links_ndWebsites userData={userData} />
             </ScrollElement>
 
-            <ScrollElement name="Project" className="section">
+            <ScrollElement name="Projects" className="section">
               <Projects userData={userData} />
             </ScrollElement>
 
 
-            <ScrollElement name="Achievements" className="section ">
+            {/* <ScrollElement name="Achievements" className="section ">
               <Achievements userData={userData} />
-            </ScrollElement>
+            </ScrollElement> */}
 
             <ScrollElement name="Job Prefrence" className="section">
               <JobPrefrence userData={userData} />

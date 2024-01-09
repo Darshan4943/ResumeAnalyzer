@@ -1,11 +1,11 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import MiniLoader from "../../../../common/mini-loader";
 import { reCallUserData } from "../../../../../Redux/actions/user";
 
-function AddCertificate({ setAddCertificate }) {
+function AddCertificate({ setAddCertificate ,editCourseData}) {
   const months = Array.from({ length: 12 }, (_, index) => index + 1);
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
@@ -45,6 +45,26 @@ function AddCertificate({ setAddCertificate }) {
   
   const userDataGlobal = useSelector((state) => state.userData);
 
+  useEffect(() => {
+    if (editCourseData) {
+      setcertificateData({
+        certificateName: editCourseData.name || "",
+        certificateProvider: editCourseData.organization || "",
+        certificateId: editCourseData.certificateId || "",
+        
+        issuedOn: {
+          month: editCourseData.issuedDate?.month || "Month",
+          year: editCourseData.issuedDate?.year || "Year",
+        },
+        expiryOn: {
+          month: editCourseData.expiryDate?.month || "Month",
+          year: editCourseData.expiryDate?.year || "Year",
+        },
+        certificateUrl: editCourseData.certificateURL?.url || "",
+      });
+    }
+  }, [editCourseData]);
+  
   const postData = () => {
     setLoading(true);
     const formData = new FormData();

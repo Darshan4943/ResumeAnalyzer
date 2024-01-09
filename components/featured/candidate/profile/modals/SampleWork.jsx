@@ -1,19 +1,72 @@
-import React from "react";
+import axios from 'axios';
+import React, { useState } from 'react';
+import DateSelector from '@/components/common/dateSelector';
+import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
+import { reCallUserData } from '@/Redux/actions/user';
 
 function SampleWork({ setaddSampleWork }) {
+  const dispatch = useDispatch();
+  const userDataGlobal = useSelector((state) => state.userData);
+  const [data, setData] = useState({
+    title: "",
+    url: "",
+    isCurrentlyWorking: true,
+    duration: {
+      from: {
+        years: 2021,
+        months: 9,
+      },
+      to: {
+        years: 2022,
+        months: 6,
+      },
+    },
+    description: "",
+  })
+console.log(24,data)
+  const handleSubmit = () => {
+    const projectData = 
+      {
+        title: data.title,
+        url: data.url,
+        isCurrentlyWorking: data.isCurrentlyWorking,
+        duration: {
+          from: {
+            years: data.duration.from.years,
+            months: data.duration.from.months,
+          },
+          to: {
+            years: data.duration.to.years,
+            months: data.duration.to.months,
+          },
+        },
+        description: data.description,
+      }
+      
+    
+console.log(46,projectData)
+   
+      axios
+      .post(`https://freedygoservices.in/api/candidate/addProject/${userDataGlobal._id}`, projectData)
+        .then((res) => {
+          dispatch(reCallUserData());
+          console.log(444, res.data);
+          setaddSampleWork(false)
+          toast.success("Projects Added successfully");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+  
+  };
+
   return (
     <>
-      <div
-        className=" p-[24px] bg-[#fff] rounded-[16px] flex flex-col gap-[16px]"
-        style={{
-          boxShadow: " 0px 1px 6px 0px rgba(0, 0, 0, 0.25)",
-        }}
-      >
-        <div className="flex flex-col gap-[4px] w-full">
-          <div className="flex gap-[16px] items-center">
-            <div className="text-[24px] font-[500] text-[#25324B] w-[69.90%]">
-              Add Sample Work
-            </div>
+      <div className=" p-[24px] bg-[#fff] rounded-[16px] flex flex-col gap-[16px]">
+        <div className="flex gap-[4px] w-full items-center">
+        
+            <div className="text-[24px] font-[500] text-[#25324B] w-[69.90%]">Add Sample Work</div>
             <div className="h-[1px]  bg-[#DEDEDE] flex items-center w-[63.07%]"></div>
             <svg
               className="hover:cursor-pointer"
@@ -32,10 +85,8 @@ function SampleWork({ setaddSampleWork }) {
                 />
               </g>
             </svg>
-          </div>
-          <div className="text-[14px] font-[400] text-[#646464] w-full">
-            Add link to your projects (e.g. Github links etc.){" "}
-          </div>
+        
+          
         </div>
         <div className=" w-full flex flex-col gap-[8px]">
           <div className="text-[16px] font-[500]">
@@ -45,10 +96,9 @@ function SampleWork({ setaddSampleWork }) {
             className=" text-[14px] font-[400] text-[#646464] rounded-[8px] border-[1px] border-solid border-[#DEDEDE] w-full flex items-center justify-between py-[8px] px-[16px]"
             placeholder="Enter work title"
             type="text"
-            // value={data.url}
-            name="url"
-            // onChange={handleInputChange}
-            id=""
+            name="title"
+            value={data.title}
+            onChange={(e) => setData({ ...data, title: e.target.value })}
           />
         </div>
         <div className=" w-full flex flex-col gap-[8px]">
@@ -59,10 +109,9 @@ function SampleWork({ setaddSampleWork }) {
             className=" text-[14px] font-[400] text-[#646464] rounded-[8px] border-[1px] border-solid border-[#DEDEDE] w-full flex items-center justify-between py-[8px] px-[16px]"
             placeholder="Enter your social Profile URL"
             type="text"
-            // value={data.url}
             name="url"
-            // onChange={handleInputChange}
-            id=""
+            value={data.url}
+            onChange={(e) => setData({ ...data, url: e.target.value })}
           />
         </div>
         <div className="flex flex-col gap-[16px]">
@@ -71,209 +120,38 @@ function SampleWork({ setaddSampleWork }) {
             <div className="flex gap-[16px] items-center">
               <div className="flex gap-[8px]">
                 <input
-                  //   onChange={(e) => setData({ ...Data, isCareerBreak: true })}
-                  //   value={Data.isCareerBreak}
                   className="custom-radio"
                   type="radio"
-                  name="isCareerBreak"
-                  id=""
-                  //   checked={Data.isCareerBreak ? true : false}
-
-                  // checked={Data.isCareerBreak === false?"blue":"white"}
+                  name="isCurrentlyWorking"
+                  checked={data.isCurrentlyWorking}
+                  onChange={() => setData({ ...data, isCurrentlyWorking: true })}
                 />
-                <label htmlFor="" className="text-[14px] font-[500]">
-                  yes
-                </label>
+                <label className="text-[14px] font-[500]">yes</label>
               </div>
               <div className="flex gap-[8px]">
                 <input
-                  //   onChange={(e) => setData({ ...Data, isCareerBreak: false })}
-                  //   value={Data.isCareerBreak}
                   className="custom-radio"
                   type="radio"
-                  name="isCareerBreak"
-                  id=""
-                  //   checked={Data.isCareerBreak ? false : true}
-
-                  // checked={Data.isCareerBreak === true?"blue":"white"}
+                  name="isCurrentlyWorking"
+                  checked={!data.isCurrentlyWorking}
+                  onChange={() => setData({ ...data, isCurrentlyWorking: false })}
                 />
-                <label htmlFor="" className="text-[14px] font-[500]">
-                  no
-                </label>
+                <label className="text-[14px] font-[500]">no</label>
               </div>
             </div>
           </div>
         </div>
-        <div className="flex gap-[12px]">
-          <div className="flex flex-col gap-4 w-[50%]">
-            <div className="text-[16px] font-[500]">Duration from</div>
-            <div className="flex gap-[8px]">
-              <div className="flex p-2 items-center rounded-lg border border-[#DEDEDE] bg-white text-[14px]  font-montserrat font-small w-[50%]">
-                <select
-                  // value={cerficateData.issuedOn.month}
-                  // onChange={(e) =>
-                  //   setcertificateData({
-                  //     ...cerficateData,
-                  //     issuedOn: {
-                  //       ...cerficateData.issuedOn,
-                  //       month: e.target.value,
-                  //     },
-                  //   })
-                  // }
-                  className="w-full outline-none"
-                  style={{
-                    WebkitAppearance: "none",
-                    MozAppearance: "none",
-                    appearance: "none",
-                  }}
-                >
-                  <option value="Month" disabled hidden className="px-4 py-2">
-                    Month
-                  </option>
-
-                  {/* {months.map((month) => (
-                <option key={month} value={month} className="px-4 py-2">
-                  {new Date(0, month - 1).toLocaleString("en", {
-                    month: "long",
-                  })}
-                </option>
-              ))} */}
-                </select>
-
-                <img
-                  src="/images/down_arrow.png"
-                  className="h-[20px] w-[20px]"
-                  alt=""
-                />
-              </div>
-              <div className="flex p-2 items-center rounded-lg border border-[#DEDEDE] bg-white text-[14px]  font-montserrat font-small  w-[50%]">
-                <select
-                  // value={cerficateData.issuedOn.year}
-                  // onChange={(e) =>
-                  //   setcertificateData({
-                  //     ...cerficateData,
-                  //     issuedOn: {
-                  //       ...cerficateData.issuedOn,
-                  //       year: e.target.value,
-                  //     },
-                  //   })
-                  // }
-                  style={{
-                    WebkitAppearance: "none",
-                    MozAppearance: "none",
-                    appearance: "none",
-                  }}
-                  className="w-full outline-none"
-                >
-                  <option value="Year" disabled hidden>
-                    Year
-                  </option>
-                  {/* {getYear().map((year) => (
-                <option key={year} value={year} className="mt-4 px-4 py-2">
-                  {year}
-                </option>
-              ))} */}
-                </select>
-                <img
-                  src="/images/down_arrow.png"
-                  className="h-[20px] w-[20px]"
-                  alt=""
-                />
-              </div>
-            </div>
-          </div>
-          <div className="flex flex-col gap-4 w-[50%]">
-            <div className="text-[16px] font-[500]">Duration to</div>
-            <div className="flex gap-[8px]">
-              <div className="flex p-2 items-center rounded-lg border border-[#DEDEDE] bg-white text-[14px]  font-montserrat font-small w-[50%]">
-                <select
-                  // value={cerficateData.issuedOn.month}
-                  // onChange={(e) =>
-                  //   setcertificateData({
-                  //     ...cerficateData,
-                  //     issuedOn: {
-                  //       ...cerficateData.issuedOn,
-                  //       month: e.target.value,
-                  //     },
-                  //   })
-                  // }
-                  className="w-full outline-none"
-                  style={{
-                    WebkitAppearance: "none",
-                    MozAppearance: "none",
-                    appearance: "none",
-                  }}
-                >
-                  <option value="Month" disabled hidden className="px-4 py-2">
-                    Month
-                  </option>
-
-                  {/* {months.map((month) => (
-                <option key={month} value={month} className="px-4 py-2">
-                  {new Date(0, month - 1).toLocaleString("en", {
-                    month: "long",
-                  })}
-                </option>
-              ))} */}
-                </select>
-
-                <img
-                  src="/images/down_arrow.png"
-                  className="h-[20px] w-[20px]"
-                  alt=""
-                />
-              </div>
-              <div className="flex p-2 items-center rounded-lg border border-[#DEDEDE] bg-white text-[14px]  font-montserrat font-small  w-[50%]">
-                <select
-                  // value={cerficateData.issuedOn.year}
-                  // onChange={(e) =>
-                  //   setcertificateData({
-                  //     ...cerficateData,
-                  //     issuedOn: {
-                  //       ...cerficateData.issuedOn,
-                  //       year: e.target.value,
-                  //     },
-                  //   })
-                  // }
-                  style={{
-                    WebkitAppearance: "none",
-                    MozAppearance: "none",
-                    appearance: "none",
-                  }}
-                  className="w-full outline-none"
-                >
-                  <option value="Year" disabled hidden>
-                    Year
-                  </option>
-                  {/* {getYear().map((year) => (
-                <option key={year} value={year} className="mt-4 px-4 py-2">
-                  {year}
-                </option>
-              ))} */}
-                </select>
-                <img
-                  src="/images/down_arrow.png"
-                  className="h-[20px] w-[20px]"
-                  alt=""
-                />
-              </div>
-            </div>
-          </div>
-        </div>
+        <DateSelector idPrefix='projects' data={data} dataSeter={setData} />
         <div className=" w-full flex flex-col gap-[8px]">
           <div className="text-[16px] font-[500]">Description</div>
           <textarea
             className="border-solid border-#DEDEDE border-[1px] rounded-[8px] p-[12px] text-[14px] font-[400] text-[#646464]"
             placeholder="Describe about your Profile"
-            name="discription"
-            // value={data.discription}
-            // onChange={handleInputChange}
-          >
-            {/* {data.discription} */}
-          </textarea>
-          <div className="text-[14px] font-[400] text-[#646464] flex justify-end">
-            {/* {400 - data.discription.length} characters left */}
-          </div>
+            name="description"
+            value={data.description}
+            onChange={(e) => setData({ ...data, description: e.target.value })}
+          />
+          <div className="text-[14px] font-[400] text-[#646464] flex justify-end"></div>
         </div>
         <div className="w-full flex justify-end">
           <div className="flex gap-[12px]">
@@ -284,17 +162,16 @@ function SampleWork({ setaddSampleWork }) {
               Cancel
             </button>
             <button
-              className="rounded-[8px] py-[8px] px-[16px] border-[#06A9EF] border-solid border-[1px] text-[#fff] text-[16px] font-[500] bg-[#06A9EF] "
-              // onClick={handleSubmit}
+              className="rounded-[8px] py-[8px] px-[16px] border-[#06A9EF] border-solid border-[1px] text-[#fff] text-[16px] font-[500] bg-[#06A9EF]"
+              onClick={handleSubmit}
             >
               Save Changes
             </button>
           </div>
         </div>
-
       </div>
     </>
   );
 }
 
-export default SampleWork;
+export default SampleWork
