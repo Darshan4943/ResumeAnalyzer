@@ -34,7 +34,7 @@ function ChangeProfile({ setIsChangeProfile }) {
         window.location.reload();
         setIsChangeProfile(false);
       })
-      .catch((err) => console.log(err));
+      .catch((err) =>  toast.error("Size should be less than 2 mb"));
   };
   return (
     <>
