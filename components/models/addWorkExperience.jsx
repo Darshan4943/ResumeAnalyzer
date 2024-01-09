@@ -19,7 +19,6 @@ function AddWorkExperience({
 }) {
   const dispatch = useDispatch();
   const [skill, setSkills] = useState([...SkillList]);
-
   const handleInputChange = (event) => {
     if (event && event.target) {
       const { name, value } = event.target;
@@ -263,20 +262,20 @@ function AddWorkExperience({
           id="button"
           onClick={() => {
             setExperienceData({
-                isCurrentJob: "",
-                jobType: "",
-                jobMode: "",
-                designation: "",
-                organisation: "",
-                location: "",
-                noticePeriod: "",
-                skillsLearned: [],
-                workDescription: "",
-                duration: {
-                  start: { year: "Year", month: "Month" },
-                  end: { year: "Year", month: "Month" },
-                },
-              })
+              isCurrentJob: "",
+              jobType: "",
+              jobMode: "",
+              designation: "",
+              organisation: "",
+              location: "",
+              noticePeriod: "",
+              skillsLearned: [],
+              workDescription: "",
+              duration: {
+                start: { year: "Year", month: "Month" },
+                end: { year: "Year", month: "Month" },
+              },
+            });
             setOpenAddExperience(false);
           }}
         >

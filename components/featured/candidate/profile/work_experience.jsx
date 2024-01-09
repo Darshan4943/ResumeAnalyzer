@@ -11,6 +11,7 @@ const WorkExperiance = ({ userData }) => {
   const [experiences, setExperiences] = useState([]);
   const userDataGlobal = useSelector((state) => state.userData);
   const [deleteData, setDeleteData] = useState({ view: false, id: "" });
+  const [fileUpdate, setFileUpdate] = useState(false);
 
   const [experienceData, setExperienceData] = useState({
     isCurrentJob: "",
@@ -27,24 +28,68 @@ const WorkExperiance = ({ userData }) => {
       end: { year: "Year", month: "Month" },
     },
   });
-  useEffect(() => {
-    if (userDataGlobal?.resumeUrl) {
-      const {
-        isCurrentJob,
-        jobType,
-        designation,
-        organisation,
-        location,
-        noticePeriod,
-        skillsLearned,
-        workDescription,
-        duration,
-      } = userDataGlobal.basics;
-      setExperienceData({
-        ...experienceData,
-      });
-    }
-  }, [userDataGlobal]);
+  // useEffect(() => {
+  //   if (userDataGlobal?.resumeUrl) {
+  //     const {
+  //       isCurrentJob,
+  //       jobType,
+  //       designation,
+  //       organisation,
+  //       location,
+  //       noticePeriod,
+  //       skillsLearned,
+  //       workDescription,
+  //       duration,
+  //     } = userDataGlobal.basics;
+  //     setExperienceData({
+  //       ...experienceData,
+  //     });
+  //   }
+  // }, [userDataGlobal]);
+
+  const editHandler = (data) => {
+    setFileUpdate(true);
+    setOpenAddExperience(true);
+    console.log(53, data);
+    const {
+      jobDuration,
+      companyName,
+      isCurrent,
+      jobType,
+      jobMode,
+      jobTitle,
+      jobLocation,
+      currentCTC,
+      noticePeriod,
+      employmentStatus,
+      workDescription,
+      skills,
+    } = data;
+    setExperienceData({
+      ...experienceData,
+      isCurrentJob: isCurrent,
+      jobType: jobType,
+      jobMode: jobMode,
+      designation: jobTitle,
+      location:jobLocation,
+      noticePeriod: noticePeriod,
+      skillsLearned: skills,
+      workDescription:workDescription,
+      
+      duration: {
+        start: {
+          year: jobDuration.startDate.year,
+          month: jobDuration.startDate.month,
+        },
+        end: {
+          year: jobDuration.endDate.year,
+          month: jobDuration.endDate.month,
+        },
+      },
+      organisation: companyName,
+    });
+    console.log(70, experienceData);
+  };
   const handleEditExperience = (id) => {
     const experienceToEdit = id;
 
@@ -125,7 +170,7 @@ const WorkExperiance = ({ userData }) => {
                   <div className="flex gap-4">
                     <p className="heading_first ">{job?.companyName}</p>
                     <div className="flex gap-2">
-                      <div onClick={() => setOpenAddExperience(true)}>
+                      <div onClick={() => editHandler(job)}>
                         <Edit_icon />
                       </div>
                       <div

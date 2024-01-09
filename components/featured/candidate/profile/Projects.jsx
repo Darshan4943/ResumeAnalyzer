@@ -13,12 +13,12 @@ function Projects({ data }) {
           boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
         }}
       >
-        <p className="page_headings flex justify-between w-full">
+        <div className="page_headings flex justify-between w-full">
           Projects{" "}
           <div  onClick={() => setaddSampleWork(true)}>
             <AddIcon />
           </div>
-        </p>
+        </div>
         {data?.map((SampleWark) => (
           <div className="essential_gap">
             <div className="gap">

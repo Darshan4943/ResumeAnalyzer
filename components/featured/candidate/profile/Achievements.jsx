@@ -7,12 +7,12 @@ const Achievements = ({ data }) => {
   return (
     <>
       <div className="build_ai ai2" style={{ gap: "16px" }}>
-        <p className="page_headings flex justify-between w-full">
+        <div className="page_headings flex justify-between w-full">
           Achievements{" "}
           <div onClick={() => setAddAchivements(true)}>
             <AddIcon />
           </div>
-        </p>
+        </div>
         {data?.map((achive) => (
           <div className="essential_gap">
             <div className="gap">

@@ -20,11 +20,11 @@ function Edit_personal_Dtls({ setaddWebsites }) {
     haveWorkPermit: false,
     workPermitDescription: "",
     isSpecialyAbled: false,
-    discription: "",
   });
-  console.log(24, Data);
+
   useEffect(() => {
     if (userDataGlobal?.resumeUrl) {
+      console.log(4444, userDataGlobal.basics);
       const {
         dob,
         gender,
@@ -34,8 +34,7 @@ function Edit_personal_Dtls({ setaddWebsites }) {
         isCareerBreakReason,
         haveWorkPermit,
         workPermitDescription,
-        specialyAbled,
-        discription,
+        isSpecialyAbled,
       } = userDataGlobal.basics;
       setData({
         ...Data,
@@ -47,11 +46,12 @@ function Edit_personal_Dtls({ setaddWebsites }) {
         isCareerBreakReason,
         haveWorkPermit,
         workPermitDescription,
-        isSpecialyAbled: specialyAbled.isSpecialyAbled,
-        discription: specialyAbled.discription,
+        isSpecialyAbled,
       });
     }
+   
   }, [userDataGlobal]);
+  // console.log(6666, isSpecialyAbled);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -63,10 +63,8 @@ function Edit_personal_Dtls({ setaddWebsites }) {
   const handleSubmit = () => {
     const obj = {
       ...Data,
-      isSpecialyAbled: Data.isSpecialyAbled,
-      discription: Data.discription,
     };
-    console.log(63, obj);
+    
     axios
       .put(
         "http://localhost:2000/api/candidate/updateProfileDetails/" +
@@ -74,7 +72,6 @@ function Edit_personal_Dtls({ setaddWebsites }) {
         obj
       )
       .then((res) => {
-        console.log(73, Data);
         if (res) {
           console.log(111, res);
           toast.success("Personal details edit successfully");
@@ -197,8 +194,8 @@ function Edit_personal_Dtls({ setaddWebsites }) {
             name=""
             id=""
           >
-            <option value="married">married</option>
-            <option value="unmarried">unmarried</option>
+            <option value="Married">Married</option>
+            <option value="Unmarried">Unmarried</option>
           </select>
         </div>{" "}
       </div>
@@ -369,7 +366,7 @@ function Edit_personal_Dtls({ setaddWebsites }) {
           </div>
         </div>
 
-        {Data.isSpecialyAbled === true && (
+        {Data.isSpecialyAbled && (
           <div className=" w-full flex flex-col gap-[8px]">
             <div className="text-[16px] font-[500]">If Yes, Specify</div>
             <input
