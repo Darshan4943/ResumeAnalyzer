@@ -25,10 +25,10 @@ const CandidateAiPower = ({
     event.preventDefault();
     const selectedFile = event.target.files[0];
     if (selectedFile) {
-      if (selectedFile?.type == "application/pdf") {
+      if (selectedFile?.type == "application/pdf" || "application/docs" ) {
         sendFile(selectedFile);
       } else {
-        toast.error("Only PDF files are allowed");
+        toast.error("Only PDF and DOC files are allowed");
       }
     }
   };
