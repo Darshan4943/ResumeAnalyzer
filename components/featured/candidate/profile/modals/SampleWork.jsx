@@ -1,10 +1,12 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import DateSelector from '@/components/common/dateSelector';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
+import { reCallUserData } from '@/Redux/actions/user';
 
 function SampleWork({ setaddSampleWork }) {
+  const dispatch = useDispatch();
   const userDataGlobal = useSelector((state) => state.userData);
   const [data, setData] = useState({
     title: "",
@@ -48,7 +50,7 @@ console.log(46,projectData)
       axios
       .post(`https://freedygoservices.in/api/candidate/addProject/${userDataGlobal._id}`, projectData)
         .then((res) => {
-        
+          dispatch(reCallUserData());
           console.log(444, res.data);
           setaddSampleWork(false)
           toast.success("Projects Added successfully");
