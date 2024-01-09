@@ -56,11 +56,12 @@ const JobPrefrence = ({ userData }) => {
               <p className="sec_head">Preferred Job Mode</p>
               <p className="heading_first">{userData?.jobPrefrences?.jobMode}</p>
             </div>
+            {userData?.jobPrefrences?.shift &&
             <div className="essential_gap">
               <p className="sec_head">Preferred Shift</p>
               <p className="heading_first">{userData?.jobPrefrences?.shift}</p>
             </div>
-            
+            }
           </div>
         </div>
       </div>
