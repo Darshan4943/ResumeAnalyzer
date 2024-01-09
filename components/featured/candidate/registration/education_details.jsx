@@ -3,47 +3,100 @@ import { toast } from "react-toastify";
 
 const EducationDetails = ({ data, setData, setTabIndex, tabindex }) => {
 
-  const [formError,setFormError] = useState({})
+  const [formError, setFormError] = useState({})
 
-  const validateForm = () => {
-    const errors = {};
-    if (!data.stream.trim()) {
-      errors.stream = "Degree is required";
+  // const validateForm = () => {
+  //   const errors = {};
+  //   if (!data.stream.trim()) {
+  //     errors.stream = "Degree is required";
+  //   }
+  //   else if (!isNaN(data.stream)) {
+  //     errors.stream = "Degree cannot be a number"
+  //   }
+  //   if (!data.university.trim()) {
+  //     errors.university = "University Name is required";
+  //   }
+  //   else if (!isNaN(data.university)) {
+  //     errors.university = "University Name cannot be a number"
+  //   }
+  //   if (!data.institute.trim()) {
+  //     errors.institute = "Collage Name is required";
+  //   }
+  //   else if (!isNaN(data.institute)) {
+  //     errors.institute = "Collage Name cannot be a number"
+  //   }
+  //   if (!data.dateOfComplition.trim()) {
+  //     errors.dateOfComplition = "Date Of Complition is required";
+  //   }
+  //   setFormError(errors)
+  //   return errors;
+  // };
+
+
+  const validateInput = (fieldName, value) => {
+    const errors = { ...formError };
+
+    switch (fieldName) {
+      case "stream":
+        if (!value.trim()) {
+          errors.stream = "Degree is required";
+        } else {
+          delete errors.stream;
+        }
+        break;
+      case "university":
+        if (!value.trim()) {
+          errors.university = "University Name is required";
+        } else {
+          delete errors.university;
+        }
+        break;
+      case "institute":
+        if (!value.trim()) {
+          errors.institute = "Collage Name is required";
+        } else {
+          delete errors.institute;
+        }
+        break;
+      case "dateOfComplition":
+        if (!value.trim()) {
+          errors.dateOfComplition = "Date Of Complition is required";
+        } else {
+          delete errors.dateOfComplition;
+        }
+        break;
+
+
+      default:
+        break;
     }
-    else if(!isNaN(data.stream)){
-      errors.stream = "Degree cannot be a number"
-  }
-    if (!data.university.trim()) {
-      errors.university = "University Name is required";
-    }
-    else if(!isNaN(data.university)){
-      errors.university = "University Name cannot be a number"
-  }
-    if (!data.institute.trim()) {
-      errors.institute = "Collage Name is required";
-    }
-    else if(!isNaN(data.institute)){
-      errors.institute = "Collage Name cannot be a number"
-  }
-    if (!data.dateOfComplition.trim()) {
-      errors.dateOfComplition = "Date Of Complition is required";
-    }
-    setFormError(errors)
+
+    setFormError(errors);
     return errors;
   };
 
+  const handleInputChange = (fieldName, value) => {
+    setData({ ...data, [fieldName]: value });
+    validateInput(fieldName, value);
+
+  };
   const submitHandler = (e) => {
     e.preventDefault();
-    const errors = validateForm();
 
-    if (Object.keys(errors).length === 0) {
-      window.scroll(0, 0);
-      setTabIndex(4);
+
+    const errors = validateInput();
+    console.log(errors)
+    const hasErrors = Object.keys(errors).length > 0;
+
+    if (hasErrors) {
+      toast.error("Please enter valid information");
+      setFormError(errors);
     } else {
-      console.log(Object.keys(errors));
-      toast.error("Please enter all required fields");
+      setTabIndex(4);
+      window.scroll(0, 0);
     }
   };
+
   return (
     <>
       {tabindex == 3 && (
@@ -103,9 +156,8 @@ const EducationDetails = ({ data, setData, setTabIndex, tabindex }) => {
                   <p className="form_text_heading">Highest Education</p>
                   <div className="education_button">
                     <button
-                      className={`gen_button ${
-                        data.education == "10th or below" && "gen_button_active"
-                      }`}
+                      className={`gen_button ${data.education == "10th or below" && "gen_button_active"
+                        }`}
                       onClick={(e) => {
                         e.preventDefault();
                         setData({ ...data, education: "10th or below" });
@@ -114,9 +166,8 @@ const EducationDetails = ({ data, setData, setTabIndex, tabindex }) => {
                       10th or below
                     </button>
                     <button
-                      className={`gen_button ${
-                        data.education == "12 pass" && "gen_button_active"
-                      }`}
+                      className={`gen_button ${data.education == "12 pass" && "gen_button_active"
+                        }`}
                       onClick={(e) => {
                         e.preventDefault();
                         setData({ ...data, education: "12 pass" });
@@ -125,9 +176,8 @@ const EducationDetails = ({ data, setData, setTabIndex, tabindex }) => {
                       12 pass
                     </button>
                     <button
-                      className={`gen_button ${
-                        data.education == "Diploma" && "gen_button_active"
-                      }`}
+                      className={`gen_button ${data.education == "Diploma" && "gen_button_active"
+                        }`}
                       onClick={(e) => {
                         e.preventDefault();
                         setData({ ...data, education: "Diploma" });
@@ -136,9 +186,8 @@ const EducationDetails = ({ data, setData, setTabIndex, tabindex }) => {
                       Diploma
                     </button>
                     <button
-                      className={`gen_button ${
-                        data.education == "Graduate" && "gen_button_active"
-                      }`}
+                      className={`gen_button ${data.education == "Graduate" && "gen_button_active"
+                        }`}
                       onClick={(e) => {
                         e.preventDefault();
                         setData({ ...data, education: "Graduate" });
@@ -147,9 +196,8 @@ const EducationDetails = ({ data, setData, setTabIndex, tabindex }) => {
                       Graduate
                     </button>
                     <button
-                      className={`gen_button ${
-                        data.education == "Post Graduate" && "gen_button_active"
-                      }`}
+                      className={`gen_button ${data.education == "Post Graduate" && "gen_button_active"
+                        }`}
                       onClick={(e) => {
                         e.preventDefault();
                         setData({ ...data, education: "Post Graduate" });
@@ -163,8 +211,8 @@ const EducationDetails = ({ data, setData, setTabIndex, tabindex }) => {
 
               <div className="personal_single_input">
                 <div className="personal_name">
-                <p className="form_text_heading">
-                Select Degree <span className="star">*</span>
+                  <p className="form_text_heading">
+                    Select Degree <span className="star">*</span>
                   </p>
                   <input
                     type="text"
@@ -172,11 +220,9 @@ const EducationDetails = ({ data, setData, setTabIndex, tabindex }) => {
                     id="single_input"
                     placeholder="Select Degree"
                     value={data.stream}
-                    onChange={(e) => {
-                      setData({ ...data, stream: e.target.value });
-                    }}
+                    onChange={(e) => handleInputChange("stream", e.target.value)}
                   />
-                  {formError && <p className="text-[12px] text-[red] font-[500]">{formError?.stream }</p>}
+                  {formError && <p className="text-[12px] text-[red] font-[500]">{formError?.stream}</p>}
                 </div>
               </div>
 
@@ -191,11 +237,9 @@ const EducationDetails = ({ data, setData, setTabIndex, tabindex }) => {
                     id="single_input"
                     placeholder="Enter University Name"
                     value={data.university}
-                    onChange={(e) => {
-                      setData({ ...data, university: e.target.value });
-                    }}
+                    onChange={(e) => handleInputChange("university", e.target.value)}
                   />
-                   {formError && <p className="text-[12px] text-[red] font-[500]">{formError?.university }</p>}
+                  {formError && <p className="text-[12px] text-[red] font-[500]">{formError?.university}</p>}
                 </div>
               </div>
 
@@ -210,18 +254,16 @@ const EducationDetails = ({ data, setData, setTabIndex, tabindex }) => {
                     id="single_input"
                     placeholder="Enter Collage Name"
                     value={data.institute}
-                    onChange={(e) => {
-                      setData({ ...data, institute: e.target.value });
-                    }}
+                    onChange={(e) => handleInputChange("institute", e.target.value)}
                   />
-                   {formError && <p className="text-[12px] text-[red] font-[500]">{formError?.institute }</p>}
+                  {formError && <p className="text-[12px] text-[red] font-[500]">{formError?.institute}</p>}
                 </div>
               </div>
 
               <div className="personal_single_input">
                 <div className="personal_name">
                   <p className="form_text_heading">
-                    Date Of Complition <span className="star">*</span>
+                    Date Of Completion <span className="star">*</span>
                   </p>
                   <input
                     type="date"
@@ -229,11 +271,9 @@ const EducationDetails = ({ data, setData, setTabIndex, tabindex }) => {
                     id="single_input"
                     placeholder="Enter Contact Number"
                     value={data.dateOfComplition}
-                    onChange={(e) => {
-                      setData({ ...data, dateOfComplition: e.target.value });
-                    }}
+                    onChange={(e) => handleInputChange("dateOfComplition", e.target.value)}
                   />
-                   {formError && <p className="text-[12px] text-[red] font-[500]">{formError?.dateOfComplition }</p>}
+                  {formError && <p className="text-[12px] text-[red] font-[500]">{formError?.dateOfComplition}</p>}
                 </div>
               </div>
               <div className="bottom_buttons">
