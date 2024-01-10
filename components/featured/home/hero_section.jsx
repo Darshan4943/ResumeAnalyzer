@@ -1,11 +1,100 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import ImageContainer from "@/components/common/image";
+import { useSelector } from "react-redux";
+import axios from "axios";
 
 function HeroSection() {
   const router = useRouter();
   const isInSouthAfrica = localStorage.getItem("isInSouthAfrica") == "true";
+
+  const [searchInput, setSearchInput] = useState('');
+  const [jobSuggestions, setJobSuggestions] = useState([]);
+
+
+  const [selectedJob, setSelectedJob] = useState(null);
+
+  const handleJobSelect = (job) => {
+    setSelectedJob(job);
+    setSearchInput(job.title);
+    setJobSuggestions([]);
+  };
+  const jobData = [
+    { id: 1, title: 'Software Developer' },
+    { id: 2, title: 'Web Developer' },
+    { id: 3, title: 'Data Scientist' },
+    { id: 4, title: 'Database Administrator' },
+    { id: 5, title: 'Network Engineer' },
+    { id: 6, title: 'System Administrator' },
+    { id: 7, title: 'UX/UI Designer' },
+    { id: 8, title: 'Cybersecurity Analyst' },
+    { id: 9, title: 'IT Support Specialist' },
+  ]
+
+  const handleInputChange = (e) => {
+    const searchText = e.target.value;
+    setSearchInput(searchText);
+
+    const filteredJobs = jobData.filter((job) =>
+      job.title.toLowerCase().includes(searchText.toLowerCase())
+    );
+
+    setJobSuggestions(filteredJobs);
+  };
+  const taskRef = useRef(null);
+
+  const handleOutsideClick = (event) => {
+    if (taskRef.current && !taskRef.current.contains(event.target)) {
+      setJobSuggestions([]);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleOutsideClick);
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick);
+    };
+  }, []);
+
+
+  const [locationInput, setLocationInput] = useState('');
+  const [locationSuggestions, setLocationSuggestions] = useState([]);
+  const [selectedLocation, setSelectedLocation] = useState(null);
+
+  const handleLocSelect = (loc) => {
+    setSelectedLocation(loc);
+    setLocationInput(loc.name);
+    setLocationSuggestions([]);
+  };
+  console.log(63,locationSuggestions)
+  
+  const handleLocationInputChange = (e) => {
+    const searchText = e.target.value;
+    setLocationInput(searchText);
+
+    const googleGeocodeAPI = `https://maps.googleapis.com/maps/api/geocode/json?address=${searchText}&key=AIzaSyC18Xg49QgJj0NYpDikCbDwaWS00tKUpnM`;
+
+    axios
+      .get(googleGeocodeAPI)
+      .then((response) => {
+        const data = response.data;
+      
+        if (data.results && data.results.length > 0) {
+          const suggestions = data.results.map((result) => ({
+            id: result.place_id,
+            name: result.formatted_address,
+
+          }));
+          setLocationSuggestions(suggestions);
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching location suggestions:", error);
+      });
+  };
+
+
 
   return (
     <div className="hero_section_parent pt-9 w-screen">
@@ -138,9 +227,9 @@ function HeroSection() {
           Join Now
         </button>
 
-        <div className="searchbox">
+        <div className="searchbox relative">
           <div className="searchBar">
-            <div className="sub_searchBar_one">
+            <div className="sub_searchBar_one text-[#333]">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="5vw"
@@ -158,9 +247,21 @@ function HeroSection() {
               </svg>
               <input
                 type="text"
-                className="text-gray font-small text-[20px] search_p placeholder-start text-start"
+                className="  placeholder-start text-start"
                 placeholder="Job title or keyword"
+                value={searchInput}
+                onChange={handleInputChange}
               />
+
+              {jobSuggestions.length > 0 && (
+                <div ref={taskRef} className="absolute bg-[#FFF] w-[295px] h-[216px] bottom-28 left-28 rounded-t-[8px] overflow-y-auto p-2" style={{ boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)" }}>
+                  {jobSuggestions.map((job) => (
+                    <div key={job.id} className="" onClick={() => handleJobSelect(job)}>
+                      <p className="flex flex-col p-2 text-[#333] text-[16px] font-normal cursor-pointer">{job.title}</p>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
             <ImageContainer
               className="searcgBarLine "
@@ -190,9 +291,22 @@ function HeroSection() {
               </svg>
               <input
                 type="text"
-                className=" search_p placeholder-start text-start"
-                placeholder="Colney,United Kingdom"
+                className=" placeholder-start text-start w-full"
+                placeholder="Colney, United Kingdom"
+                value={locationInput}
+               
+                onChange={handleLocationInputChange}
               />
+
+              {locationSuggestions.length > 0 &&(
+                <div className=" absolute bg-[#FFF] w-[295px] h-[216px] bottom-28 right-[25%] rounded-t-[8px] overflow-y-auto p-2" style={{ boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)" }}>
+                  {locationSuggestions.map((loc) => (
+                    <div key={loc.id} className="" onClick={() => handleLocSelect(loc)}>
+                      <p className="flex flex-col p-2 text-[#333] text-[16px] font-normal cursor-pointer">{loc.name}</p>
+                    </div>
+                  ))}
+                </div>
+           )} 
             </div>
             <button className="searchbtn">Search</button>
           </div>

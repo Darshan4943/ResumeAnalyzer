@@ -205,7 +205,7 @@
     height: 80vh;
     position: absolute;
     top: 27px;
-    z-index: 20;
+    // z-index: 20;
     // right: 0rem;
     //  margin-right: 0 !important;
 
@@ -349,13 +349,14 @@
     align-items: center;
 
     gap: 16.823px;
-    color: var(--Text-Secondary, #828282);
+  
   }
   .searcgBarLine {
     width: 3.154px;
     height: 6vh;
   }
   .sub_searchBar_two {
+    width: 30%;
     display: flex;
     align-items: center;
     gap: 16.823px;
