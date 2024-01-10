@@ -7,6 +7,7 @@ import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/bootstrap.css";
 import ImageContainer from "@/components/common/image";
 import { telCode } from "@/utils/data";
+import { useRouter } from "next/navigation";
 const AnimationDivs = () => (
   <>
     <img className="mail_img" src="/images/auth/candidate/Mail.png" alt="" />
@@ -35,6 +36,7 @@ const PersonalDetails = ({
   error,
   setError,
 }) => {
+  const router = useRouter()
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   const [formError, setFormError] = useState({});
@@ -584,7 +586,11 @@ const PersonalDetails = ({
               </form>
             </motion.div>
             <p className="already_text">
-              Already have an account? <span id="sign_in">Sign In</span>
+              Already have an account? <span 
+              className="cursor-pointer"
+              id="sign_in"
+               onClick={() => router.push("/auth/Sign_in")}
+              >Sign In</span>
             </p>
           </div>
         </div>
