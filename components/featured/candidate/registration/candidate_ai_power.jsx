@@ -25,7 +25,7 @@ const CandidateAiPower = ({
     event.preventDefault();
     const selectedFile = event.target.files[0];
     if (selectedFile) {
-      if (selectedFile?.type == "application/pdf" || "application/docs" ) {
+      if (selectedFile?.type == "application/pdf" || "application/docs") {
         sendFile(selectedFile);
       } else {
         toast.error("Only PDF and DOC files are allowed");
@@ -59,7 +59,7 @@ const CandidateAiPower = ({
     const remainingMonths = totalMonths % 12;
 
     return {
-      years: years?years:1,
+      years: years ? years : 1,
       months: remainingMonths,
     };
   }
@@ -347,7 +347,10 @@ const CandidateAiPower = ({
           </div>
           <div className="already_text_parent">
             <p className="already_text">
-              Already have an account? <span id="sign_in">Sign In</span>
+              Already have an account?{" "}
+              <span id="sign_in">
+                <a href="">Sign In</a>
+              </span>
             </p>
           </div>
         </>

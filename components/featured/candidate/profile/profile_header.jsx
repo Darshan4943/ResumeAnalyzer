@@ -51,7 +51,7 @@ const ProfileHeader = ({ userData }) => {
 
               <div class="flex flex-col items-start gap-2 flex-1">
                 <div class="flex pb-2 items-start gap-2 self-stretch border-b border-gray-400">
-                  <div class="flex items-start gap-[8px]">
+                  <div class="flex items-baseline gap-[8px]">
                     <div class="flex flex-col items-start">
                       <p class="text-[#333]  font-montserrat font-medium text-2xl">
                         {userData?.basics?.firstName}{" "}
@@ -61,8 +61,8 @@ const ProfileHeader = ({ userData }) => {
                         Last updated {timeAgo(new Date(userData?.updatedAt))}
                       </p>
                     </div>
-                    <div onClick={() => setEditProfile(true)} class="w-[24px]">
-                      <img src="/images/profile/edit.png" alt="" />
+                    <div className="flex items-center" onClick={() => setEditProfile(true)} class="w-[24px]">
+                      <img className="w-[24px]" src="/images/profile/edit.png" alt="" />
                     </div>
                   </div>
                 </div>
