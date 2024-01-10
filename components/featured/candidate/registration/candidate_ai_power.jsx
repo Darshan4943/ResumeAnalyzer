@@ -200,7 +200,7 @@ const CandidateAiPower = ({
               </div>
             </div>
             <div
-              className="flex flex-col gap-[36px] p-[24px] justify-center items-center rounded-[12px] w-[33%] shadow_of_box  z-50 "
+              className="flex flex-col gap-[36px] p-[24px] justify-center items-center rounded-[12px] w-[38.33%] shadow_of_box  z-50 "
               style={{
                 borderRadius: "12px",
                 background: "#FFF",
@@ -345,14 +345,14 @@ const CandidateAiPower = ({
               </div>
             </div>
           </div>
-          <div className="already_text_parent">
+          {/* <div className="already_text_parent">
             <p className="already_text">
               Already have an account?{" "}
               <span id="sign_in">
                 <a href="">Sign In</a>
               </span>
             </p>
-          </div>
+          </div> */}
         </>
       )}
     </>

@@ -19,14 +19,16 @@ const Interview = () => {
               Commonly asked interview questions
             </p>
             <p className="text-2xl font-medium text-black">
-              Free access to commonly asked interview questions after
-              registration.
+              Free access to commonly asked interview questions once you
+              register.
             </p>
             <p className="text-1xl font-medium text-black">
               {" "}
-              These questions can serve as a starting point for your interview
-              preparation, be ready to showcase your qualifications, and
-              demonstrate your enthusiasm for the role.
+              Get ready for an exciting journey of Interview Preparation! These
+              questions will help you showcase your exceptional skills and
+              create enthusiasm for the role. <br />
+              <br />
+               It's your time to shine!
             </p>
             <button
               onClick={() => {

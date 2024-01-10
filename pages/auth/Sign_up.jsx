@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import ALink from "@/components/alink";
-
+import { useRouter } from "next/router";
 const ArrowLeft = ({ index }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -20,10 +20,11 @@ const ArrowLeft = ({ index }) => (
 );
 
 function Sign_up() {
+  const router = useRouter();
   return (
     <>
-      <div className="flex justify-center  item-center h-full w-full earth_container mt-[24px]">
-        <div className="w-[40%] flex flex-col gap-[36px] pt-[72px] pb-[145px]">
+      <div className="flex justify-center  items-center h-full w-full earth_container">
+        <div className="w-[40%] flex flex-col gap-[36px] ">
           <div>
             <div className="text-[#333] text-center text-[40px] font-[600]">
               Select a role to get started
@@ -212,7 +213,12 @@ function Sign_up() {
           </div>
           <div className="flex items-center justify-center text-[14px] font-[500] text-[#646464]">
             Already have an account?{" "}
-            <span className="text-[#06A9EF]">Sign In</span>
+            <span
+              onClick={() => router.push("/auth/Sign_in")}
+              className="text-[#06A9EF]"
+            >
+              Sign In
+            </span>
           </div>
         </div>
       </div>

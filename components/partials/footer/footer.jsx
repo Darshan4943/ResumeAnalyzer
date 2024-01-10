@@ -25,8 +25,8 @@ function Footer() {
           </div>
           <div>
             <p className="largest">
-              Skilotech is the largest talent platform career development and
-              recruitment.
+              Skilotech is the modern talent platform powered by Artificial
+              Intelligence for career development and recruitment.
             </p>
           </div>
           <div className="footer_media">
@@ -145,15 +145,15 @@ function Footer() {
               </div>
               <div className="footer_add">
                 <div>
+                  <p className="text-[#fff] font-[600]">Offices :</p>
                   <p className="footer_address_Para">
-                    "Rajani" 938/B, Model Colony, Next to Sahastrabuddhe Samadhi
-                    Math. Near Dnyaneshwar Paduka Chowk, Pune 411016
+                    Pune, India Harare, Zimbabwe London, United Kingdom
                   </p>
                 </div>
                 <div>
                   <p className="footer_address_Email">Email </p>
                   <p className="footer_address_Email_font">
-                    operations@skilotech.com
+                    info@skilotech.com
                   </p>
                 </div>
               </div>
@@ -169,7 +169,7 @@ function Footer() {
           </div>
           <div className="footer_input_conatainer">
             <p className="footer_input_conatainer_P">
-              Never Want to Miss <br /> Any Job News?
+              Like to stay market relevant <br /> with news and updates?{" "}
             </p>
             <div className="footer_input">
               <input
@@ -197,7 +197,7 @@ function Footer() {
         </svg>{" "}
       </div>
       <div className="footer_copyright">
-        Copyright © 2022 Skilotech. All rights reserved.
+        Copyright © 2024 Skilotech. All rights reserved.
       </div>
     </div>
   );

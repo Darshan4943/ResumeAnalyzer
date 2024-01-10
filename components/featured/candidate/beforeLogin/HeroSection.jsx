@@ -24,7 +24,7 @@ function CandidateHero() {
               <div className="bg-black  h-[1px] "></div>
               <div>
                 <p className="font-Montserrat text-[18px] leading-[22px] text-black font-medium">
-                  Explore best companies hiring now.
+                  Explore the leading companies hiring now!
                 </p>
               </div>
             </div>
