@@ -1209,7 +1209,7 @@
     left: 90%;
     opacity: 0.3;
     transform: translateX(-50%);
-    animation: fadeIn3 1s;
+    animation: fadeIn3 0.5s;
   }
   .gallary-controls {
     display: flex;
@@ -1299,8 +1299,8 @@
     0% {
       /* display: none; */
       opacity: 0;
-      width: 0px;
-      height: 0px;
+      width: 160px;
+      height: 74px;
       left: 100%;
     }
     /* 90%{
@@ -1310,7 +1310,7 @@
   } */
 
     100% {
-      opacity: 0.3;
+      opacity: 0;
       width: 160px;
       height: 74px;
       left: 90%;

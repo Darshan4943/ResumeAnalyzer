@@ -78,14 +78,20 @@ function Candidate_animation() {
           <div className="ai_powered_parent">
             <div className="ai_text">
               <div>
-                <p id="ai_text">Free Ai Powered profile creation</p>
+                <p id="ai_text">
+                  Free{" "}
+                  <span className="text-[#06A9EF]">
+                    Artificial Intelligence{" "}
+                  </span>{" "}
+                  (AI) Powered profile creation
+                </p>
               </div>
               <div className="candidate_Profile_list">
-                <p id="easy_text">Easy process to create your profile</p>
+                <p id="easy_text">Stress-Free process to create your profile</p>
                 <p id="streamlines_text">
                   It streamlines job searches, improves candidate-employer
-                  matches, and contributes to a more efficient and effective
-                  job-seeking process.
+                  matches, and contributes to a more efficient and effective job
+                  seeking process.
                 </p>
 
                 <div>
@@ -127,7 +133,13 @@ function Candidate_animation() {
                 initial={{ opacity: 0 }}
                 transition={{ duration: 4 }}
               >
-                <p id="ai_text">Free Ai Powered profile creation</p>
+                <p id="ai_text">
+                  Free{" "}
+                  <span className="text-[#06A9EF]">
+                    Artificial Intelligence{" "}
+                  </span>{" "}
+                  (AI) Powered profile creation
+                </p>
               </motion.div>
               <motion.div
                 className="candidate_Profile_list"
@@ -137,11 +149,11 @@ function Candidate_animation() {
                 initial={{ opacity: 0 }}
                 transition={{ duration: 5, delay: 1 }}
               >
-                <p id="easy_text">Easy process to create your profile</p>
+                <p id="easy_text">Stress-Free process to create your profile</p>
                 <p id="streamlines_text">
                   It streamlines job searches, improves candidate-employer
-                  matches, and contributes to a more efficient and effective
-                  job-seeking process.
+                  matches, and contributes to a more efficient and effective job
+                  seeking process.
                 </p>
 
                 <div>
