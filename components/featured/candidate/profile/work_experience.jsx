@@ -170,9 +170,9 @@ const WorkExperiance = ({ userData }) => {
                   <div className="flex gap-4">
                     <p className="heading_first ">{job?.companyName}</p>
                     <div className="flex gap-2">
-                      <div onClick={() => editHandler(job)}>
+                      {/* <div onClick={() => editHandler(job)}>
                         <Edit_icon />
-                      </div>
+                      </div> */}
                       <div
                         onClick={() =>
                           setDeleteData({ view: true, id: job._id })

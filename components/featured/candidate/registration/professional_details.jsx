@@ -139,6 +139,14 @@ const ProfessionalDetails = ({
 
     const errors = validateInput();
     console.log(errors)
+    const requiredFields = ["workExperiance", "noticePeriod"];
+    const emptyFields = requiredFields.filter(field => !data[field]);
+  
+    if (emptyFields.length > 0) {
+      toast.error("Please fill in all required fields");
+      return; 
+    }
+
     const hasErrors = Object.keys(errors).length > 0;
     if (data.workStatus == "fresher") {
            register_cadidate();

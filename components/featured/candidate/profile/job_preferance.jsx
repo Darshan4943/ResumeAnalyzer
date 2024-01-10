@@ -16,20 +16,52 @@ const JobPrefrence = ({ userData }) => {
 
         <div className="job_preference">
           <div className="job_preference_left">
-            {/* {job_prefer.map((job_prefer) => (
-                  <div className="essential_gap">
-                    <p className="sec_head">{job_prefer.a}</p>
-                    <p className="heading_first">{job_prefer.b}</p>
-                  </div>
-                ))} */}
+
+            <div className="essential_gap">
+              <p className="sec_head">Preferred Industry</p>
+              <p className="heading_first">{userData?.jobPrefrences?.industry}</p>
+            </div>
+            <div className="essential_gap">
+              <p className="sec_head">Preferred Job Role</p>
+              <p className="heading_first">{userData?.jobPrefrences?.jobRole}</p>
+            </div>
+           
+            
+            <div className="essential_gap">
+              <p className="sec_head">Expected Salary</p>
+              <p className="heading_first">{userData?.jobPrefrences?.expectedSalary}</p>
+            </div>
+            <div className="essential_gap">
+              <p className="sec_head">Preferred Work Location</p>
+              <div className="flex gap-2">
+                {userData?.jobPrefrences?.preferedLocation?.map((locationObj, index) => (
+                  <p key={index} className="heading_first">
+                    {locationObj.location}
+                  </p>
+                ))}
+              </div>
+            </div>
+
           </div>
           <div className="job_preference_right">
-            {/* {job_prefer.map((job_prefer) => (
-                  <div className="essential_gap">
-                    <p className="sec_head">{job_prefer.c}</p>
-                    <p className="heading_first">{job_prefer.d}</p>
-                  </div>
-                ))} */}
+            <div className="essential_gap">
+              <p className="sec_head">Preferred Department</p>
+              <p className="heading_first">{userData?.jobPrefrences?.department}</p>
+            </div>
+            <div className="essential_gap">
+              <p className="sec_head">Preferred Job Type</p>
+              <p className="heading_first">{userData?.jobPrefrences?.jobType}</p>
+            </div>
+            <div className="essential_gap">
+              <p className="sec_head">Preferred Job Mode</p>
+              <p className="heading_first">{userData?.jobPrefrences?.jobMode}</p>
+            </div>
+            {userData?.jobPrefrences?.shift &&
+            <div className="essential_gap">
+              <p className="sec_head">Preferred Shift</p>
+              <p className="heading_first">{userData?.jobPrefrences?.shift}</p>
+            </div>
+            }
           </div>
         </div>
       </div>

@@ -36,6 +36,7 @@ const PersonalDetails = ({
   setError,
 }) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  
   const [formError, setFormError] = useState({});
 
   function togglePasswordVisibility(e) {
@@ -43,7 +44,13 @@ const PersonalDetails = ({
     setIsPasswordVisible((prevState) => !prevState);
   }
 
+  const [selectedItem, setSelectedItem] = useState();
 
+  const handleItemClick = (item) => {
+    setSelectedItem(item);
+    setDropdown(false);
+  };
+  console.log(51, selectedItem);
 
   const validateInput = (fieldName, value) => {
     const errors = { ...formError };
@@ -89,6 +96,21 @@ const PersonalDetails = ({
           delete errors.password;
         }
         break;
+        case 'confirmPassword':
+          if (value !== data.password) {
+            errors.confirmPassword = 'Password did not match';
+          }else {
+            delete errors.confirmPassword;
+          }
+          break;
+        case "mobileNo":
+          if (value.length !== 10) {
+            errors.mobileNo = "Mobile Number Should Be 10 Digits";
+          }
+          else {
+            delete errors.mobileNo;
+          }
+          break;
       case "currentLocation":
         if (!value.trim()) {
           errors.currentLocation = "Current Location is required";
@@ -102,22 +124,30 @@ const PersonalDetails = ({
     }
 
     setFormError(errors);
+
     return errors;
   };
-
+  {console.log(124,formError)}
   const handleInputChange = (fieldName, value) => {
     setData({ ...data, [fieldName]: value });
     validateInput(fieldName, value);
-
   };
   const submitHandler = (e) => {
     e.preventDefault();
-
-
+  
     const errors = validateInput();
-
+  
+  
+    const requiredFields = ["firstName", "lastName", "email", "password", "currentLocation", "mobileNo"];
+    const emptyFields = requiredFields.filter(field => !data[field]);
+  
+    if (emptyFields.length > 0) {
+      toast.error("Please fill in all required fields");
+      return; 
+    }
+  
     const hasErrors = Object.keys(errors).length > 0;
-
+  
     if (hasErrors) {
       toast.error("Please enter valid information");
       setFormError(errors);
@@ -126,9 +156,21 @@ const PersonalDetails = ({
       window.scroll(0, 0);
     }
   };
+  
 
+  const [dropdown, setDropdown] = useState(false);
 
+  const [searchTerm, setSearchTerm] = useState("");
 
+  const handleSearch = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const filteredTelCode = telCode.filter(
+    (item) =>
+      item.code.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      item.dial_code.includes(searchTerm)
+  );
 
   return (
     <>
@@ -150,7 +192,9 @@ const PersonalDetails = ({
                       id="first_name"
                       placeholder="Enter first name"
                       value={data.firstName}
-                      onChange={(e) => handleInputChange("firstName", e.target.value)}
+                      onChange={(e) =>
+                        handleInputChange("firstName", e.target.value)
+                      }
                     />
                     {formError && (
                       <p className="text-[12px] text-[red] font-[500]">
@@ -169,7 +213,9 @@ const PersonalDetails = ({
                       id="first_name"
                       placeholder="Enter Last name"
                       value={data.lastName}
-                      onChange={(e) => handleInputChange("lastName", e.target.value)}
+                      onChange={(e) =>
+                        handleInputChange("lastName", e.target.value)
+                      }
                     />
                     {formError && (
                       <p className="text-[12px] text-[red] font-[500]">
@@ -205,16 +251,53 @@ const PersonalDetails = ({
                     </p>
 
                     <input
-                      type={isPasswordVisible ? "text" : "password"}
+                      type= "password"
                       name=""
                       id="single_input"
                       placeholder="Create new password"
                       value={data.password}
-                      onChange={(e) => handleInputChange("password", e.target.value)}
+                      onChange={(e) =>
+                        handleInputChange("password", e.target.value)
+                      }
                     />
                     {formError && (
                       <p className="text-[12px] text-[red] font-[500]">
                         {formError?.password}
+                      </p>
+                    )}
+                    {/* <button
+                      className={"icon"}
+                      onClick={togglePasswordVisibility}
+                    >
+                      {isPasswordVisible ? (
+                        <Visibility_on />
+                      ) : (
+                        <Visibility_off />
+                      )}
+                    </button> */}
+                  </div>
+                </div>
+
+                <div className="personal_single_input">
+                  <div className="personal_name justify-center">
+                    <p className="form_text_heading">
+                     Confirm Password <span className="star">*</span>
+                    </p>
+
+                    <input
+                      type={isPasswordVisible ? "text" : "password"}
+                      name=""
+                      id="single_input"
+                      placeholder="Confirm Your password"
+                      value={data.confirmPassword}
+                      onChange={(e) =>
+                        handleInputChange("confirmPassword", e.target.value)
+                      }
+                    />
+                    
+                    {formError && (
+                      <p className="text-[12px] text-[red] font-[500]">
+                        {formError?.confirmPassword}
                       </p>
                     )}
                     <button
@@ -235,20 +318,59 @@ const PersonalDetails = ({
                     Contact Number <span className="star">*</span>
                   </p>
                   <div
-                    className="flex w-[100%] items-start gap-2"
+                    className="flex w-[100%]  items-start gap-[30px]"
                     id="single_input"
                   >
-                    <select
-                      className="w-fit font-[500]  border-none text-[14px]"
-                      name=""
-                      id=""
-                    >
-                      {telCode.map((item) => (
-                        <option className="border-none">
-                          {item.code} {item.dial_code}
-                        </option>
-                      ))}
-                    </select>
+                    <div className="relative w-[20%]">
+                      <div
+                        className="text-[14px] font-[500] text-[#646464]"
+                        onClick={() => setDropdown(true)}
+                      >
+                        {selectedItem ? (
+                          <>
+                            {/* {selectedItem.flag} */}
+                             {selectedItem.code}{" "}
+                            {selectedItem.dial_code}
+                          </>
+                        ) : (
+                          <div>
+                            {" "}
+                            {/* {telCode[0].flag}  */}
+                            {telCode[0].code}{" "}
+                            {telCode[0].dial_code}
+                          </div>
+                        )}
+                      </div>
+
+                      {dropdown && (
+                        <div
+                          className="w-fit font-[500] top-[5.5vh] left-[-10px] z-10 h-[40vh] overflow-y-scroll bg-[#fff] border-[1px] border-solid border-[#9D9D9D] absolute text-[14px]"
+                          name=""
+                          id=""
+                        >
+                          <input
+                            type="search"
+                            className="w-[90px] rounded-[5px] pl-[10px] border-[1px] border-solid border-[#9D9D9D] overflow-hidden "
+                            placeholder="Search"
+                            value={searchTerm}
+                            onChange={handleSearch}
+                          />
+
+                          {filteredTelCode.map((item, index) => (
+                            <p
+                              className={`border-none cursor-pointer ${
+                                selectedItem === item ? "bg-gray-200" : ""
+                              }`}
+                              key={index}
+                              onClick={() => handleItemClick(item)}
+                            >
+                              {item.code} {item.dial_code}
+                            </p>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+
                     <input
                       className="w-full "
                       type="number"
@@ -256,9 +378,17 @@ const PersonalDetails = ({
                       // id="single_input"
                       placeholder="Enter Contact Number"
                       value={data.mobileNo}
-                      onChange={(e) => handleInputChange("mobileNo", e.target.value)}
+                      onChange={(e) =>
+                        handleInputChange("mobileNo", e.target.value)
+                      }
                     />
                   </div>
+                   
+                  {formError && (
+                      <p className="text-[12px] text-[red] font-[500]">
+                        {formError?.mobileNo}
+                      </p>
+                    )}
 
                   {/* <PhoneInput
                     inputClass="single_input"
@@ -286,8 +416,9 @@ const PersonalDetails = ({
                   </p>
                   <div className="gender_button">
                     <button
-                      className={`gen_button ${data.gender == "male" && "gen_button_active"
-                        }`}
+                      className={`gen_button ${
+                        data.gender == "male" && "gen_button_active"
+                      }`}
                       onClick={(e) => {
                         e.preventDefault();
                         setData({ ...data, gender: "male" });
@@ -296,8 +427,9 @@ const PersonalDetails = ({
                       Male
                     </button>
                     <button
-                      className={`gen_button ${data.gender == "female" && "gen_button_active"
-                        }`}
+                      className={`gen_button ${
+                        data.gender == "female" && "gen_button_active"
+                      }`}
                       onClick={(e) => {
                         e.preventDefault();
                         setData({ ...data, gender: "female" });
@@ -306,8 +438,9 @@ const PersonalDetails = ({
                       Female
                     </button>
                     <button
-                      className={`gen_button ${data.gender == "other" && "gen_button_active"
-                        }`}
+                      className={`gen_button ${
+                        data.gender == "other" && "gen_button_active"
+                      }`}
                       onClick={(e) => {
                         e.preventDefault();
                         setData({ ...data, gender: "other" });
@@ -329,7 +462,9 @@ const PersonalDetails = ({
                       id="single_input"
                       placeholder="Enter Your Location"
                       value={data.currentLocation}
-                      onChange={(e) => handleInputChange("currentLocation", e.target.value)}
+                      onChange={(e) =>
+                        handleInputChange("currentLocation", e.target.value)
+                      }
                     />
                     {formError && (
                       <p className="text-[12px] text-[red] font-[500]">
@@ -350,8 +485,9 @@ const PersonalDetails = ({
                   </p>
                   <div className="gender_button">
                     <button
-                      className={`gen_button ${data.workStatus == "experianced" && "gen_button_active"
-                        }`}
+                      className={`gen_button ${
+                        data.workStatus == "experianced" && "gen_button_active"
+                      }`}
                       onClick={(e) => {
                         e.preventDefault();
                         setData({ ...data, workStatus: "experianced" });
@@ -360,8 +496,9 @@ const PersonalDetails = ({
                       Experienced
                     </button>
                     <button
-                      className={`gen_button ${data.workStatus == "fresher" && "gen_button_active"
-                        }`}
+                      className={`gen_button ${
+                        data.workStatus == "fresher" && "gen_button_active"
+                      }`}
                       onClick={(e) => {
                         e.preventDefault();
                         setData({ ...data, workStatus: "fresher" });
