@@ -147,7 +147,7 @@ function Footer() {
                 <div>
                   <p className="text-[#fff] font-[600]">Offices :</p>
                   <p className="footer_address_Para">
-                    Pune, India Harare, Zimbabwe London, United Kingdom
+                    Pune, India, Harare, Zimbabwe, London, United Kingdom
                   </p>
                 </div>
                 <div>
