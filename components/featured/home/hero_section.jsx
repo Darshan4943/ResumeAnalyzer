@@ -122,10 +122,10 @@ function HeroSection() {
       <div className="customMargins">
         <div className="main_para_cont">
           <p className="para_paragraf">
-            Discover your dream career with SkiloTech. We're your one-stop
-            destination for job opportunities that match your skills and
-            aspirations. Find, apply, and excel in your next job effortlessly.
-            Start your journey to success today!
+            Discover your dream career with SkiloTech. Your one-stop destination
+            for job opportunities that matches your skills and aspirations.
+            Search for a suitable job, Apply and get hired effortlessly. Start
+            your journey to success today!
           </p>
         </div>
 

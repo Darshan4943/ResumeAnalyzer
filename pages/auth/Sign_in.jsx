@@ -49,7 +49,7 @@ function Sign_in() {
     <div className="flex justify-center items-center py-12">
       <form
         onSubmit={submitHandler}
-        className="flex w-[464px] p-[24px] gap-[24px] flex-col justify-center items-center rounded-[24px] "
+        className="flex w-[32.22%] p-[24px] gap-[24px] flex-col justify-center items-center rounded-[24px] "
         style={{
           boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
         }}
