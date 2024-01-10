@@ -512,34 +512,23 @@ const PersonalDetails = ({
                     </div>
                   </div>
 
-                  <div className="personal_single_input">
+                  <div className="flex flex-col gap-1">
                     <p className="form_text_heading">
-                      Work Status <span className="star">*</span>
+                      Experience <span className="star">*</span>
                     </p>
-                    <div className="gender_button">
-                      <button
-                        className={`gen_button ${
-                          data.workStatus == "experianced" &&
-                          "gen_button_active"
-                        }`}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          setData({ ...data, workStatus: "experianced" });
-                        }}
+                    <div className="personal_single_input">
+                      <select
+                        id="single_input"
+                        className=""
+                        value={data.workStatus}
+                        onChange={(e) => setData({ ...data, workStatus: e.target.value })}
                       >
-                        Experienced
-                      </button>
-                      <button
-                        className={`gen_button ${
-                          data.workStatus == "fresher" && "gen_button_active"
-                        }`}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          setData({ ...data, workStatus: "fresher" });
-                        }}
-                      >
-                        Fresher
-                      </button>
+                        <option value="Management Level (20+ years)">Management Level (20+ years)</option>
+                        <option value="Mid Management Level (10-20 years)">Mid Management Level (10-20 years)</option>
+                        <option value="Senior Level (4-10 years)">Senior Level (4-10 years)</option>
+                        <option value="Junior Level (1-4 years)">Junior Level (1-4 years)</option>
+                        <option value="Fresher (0-1 year)">Fresher (0-1 year)</option>
+                      </select>
                     </div>
                   </div>
                   <div className="personal_single_input">
