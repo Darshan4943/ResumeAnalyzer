@@ -33,7 +33,7 @@ function Profile() {
     "Trainings",
     "Websites & Social links",
     "Projects",
-    // "Achievements",
+    "Achievements",
     "Job Prefrence",
     "Personal details",
   ];
@@ -213,9 +213,9 @@ function Profile() {
             </ScrollElement>
 
 
-            {/* <ScrollElement name="Achievements" className="section ">
+            <ScrollElement name="Achievements" className="section ">
               <Achievements userData={userData} />
-            </ScrollElement> */}
+            </ScrollElement>
 
             <ScrollElement name="Job Prefrence" className="section">
               <JobPrefrence userData={userData} />

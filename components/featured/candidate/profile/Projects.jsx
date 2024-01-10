@@ -30,6 +30,16 @@ function Projects({ userData }) {
     setDeleteData({ view: false, id: "" });
   };
 
+  const [Project, setProject] = useState(null);
+  const [editProject, setEditProject] = useState(false);
+
+  const editHandler = (SampleWark) => {
+    setProject(SampleWark);
+    setEditProject(true)
+    setaddSampleWork(true);
+  };
+
+
 
   return (
     <>
@@ -50,7 +60,7 @@ function Projects({ userData }) {
        
           <div className="page_headings flex justify-between w-full">
             Projects{" "}
-            <div onClick={() => setaddSampleWork(true)}>
+            <div onClick={() =>{ setaddSampleWork(true),setEditProject(false)}}>
               <AddIcon />
             </div>
           </div>
@@ -59,6 +69,9 @@ function Projects({ userData }) {
               <div className=" flex gap-4">
                 <p className="heading_first">{SampleWark.title}</p>
 
+                <div onClick={() => editHandler(SampleWark)}>
+                  <Edit_icon />
+                </div>
                 <div onClick={() => setDeleteData({ view: true, id: SampleWark._id })}>
                   <Delete_icon />
                 </div>
@@ -73,7 +86,9 @@ function Projects({ userData }) {
             <div className="opacity-25 fixed inset-0 z-[120] bg-black"></div>
             <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-[130] outline-none focus:outline-none">
               <div className="absolute max-w-[800px] w-full">
-                <SampleWork setaddSampleWork={setaddSampleWork} />
+                <SampleWork setaddSampleWork={setaddSampleWork}
+                Project={Project} editProject={editProject}
+                />
               </div>
             </div>
           </>

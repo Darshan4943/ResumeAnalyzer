@@ -2,7 +2,7 @@ import { ClosedIcon } from "@/utils/svg";
 import React, { useState } from "react";
 import DateSelector from "../common/dateSelector";
 import axios from "axios";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { reCallUserData } from "@/Redux/actions/user";
 import { toast } from "react-toastify";
 import { SkillList } from "@/utils/data";
@@ -11,12 +11,50 @@ import { camelCase } from "@/utils/middleware";
 
 function AddWorkExperience({
   setOpenAddExperience,
-  experiences,
-  setExperiences,
-  experienceData,
-  setExperienceData,
   userData,
+  editExperience,
+  Experience
 }) {
+ 
+ console.log(Experience)
+  const userDataGlobal = useSelector((state) => state.userData);
+  const [experiences, setExperiences] = useState([]);
+
+  const [experienceData, setExperienceData] = useState({
+    isCurrentJob: "",
+    jobType: "",
+    jobMode: "",
+    designation: "",
+    organisation: "",
+    location: "",
+    noticePeriod: "",
+    skillsLearned: [],
+    workDescription: "",
+    duration: {
+      start: { year: "Year", month: "Month" },
+      end: { year: "Year", month: "Month" },
+    },
+      
+      ...(editExperience && { 
+        isCurrentJob: Experience?.isCurrent,
+        jobType: Experience?.jobType,
+        jobMode: Experience?.jobMode,
+      
+        organisation: Experience?.companyName,
+        location: Experience?.jobLocation,
+        noticePeriod: Experience?.noticePeriod,
+       
+        workDescription: Experience?.workDescription,
+        duration: {
+          start: { year: Experience?.duration?.startDate?.year, month:  Experience?.duration?.startDate?.month },
+          end: { year: Experience?.duration?.endDate?.year, month: Experience?.duration?.endDate?.month },
+    
+      }
+    }) 
+    
+  });
+
+
   const dispatch = useDispatch();
   const [skill, setSkills] = useState([...SkillList]);
   const handleInputChange = (event) => {
@@ -28,6 +66,8 @@ function AddWorkExperience({
       });
     }
   };
+const isEditing =!!editExperience
+console.log(isEditing)
 
   const handleSaveChanges = (e) => {
     e.preventDefault();
@@ -58,22 +98,58 @@ function AddWorkExperience({
       },
     };
 
-    if (userData) {
+    // if (userData) {
+    //   axios
+    //     .post(
+    //       `https://freedygoservices.in/api/candidate/addWorkExperience/${userData._id}`,
+    //       obj
+    //     )
+    //     .then((res) => {
+    //       dispatch(reCallUserData());
+    //       console.log(444, res.data);
+    //       setOpenAddExperience(false);
+    //       toast.success("Experience Added successfully");
+    //     })
+    //     .catch((err) => {
+    //       console.log(err);
+    //     });
+    // }
+
+
+    if (isEditing) {
       axios
-        .post(
-          `https://freedygoservices.in/api/candidate/addWorkExperience/${userData._id}`,
+        .put(
+          `https://freedygoservices.in/api/candidate/${userDataGlobal._id}/updateWorkExperience/${Experience._id}`,
           obj
         )
         .then((res) => {
-          dispatch(reCallUserData());
           console.log(444, res.data);
-          setOpenAddExperience(false);
-          toast.success("Experience Added successfully");
+        dispatch(reCallUserData());
+        setOpenAddExperience(false);
+        toast.success("Experience updated successfully");
         })
         .catch((err) => {
-          console.log(err);
+
+          console.error(err);
         });
-    }
+    } else {
+    
+        axios
+          .post(
+            `https://freedygoservices.in/api/candidate/addWorkExperience/${userDataGlobal._id}`,
+            obj
+          )
+          .then((res) => {
+            dispatch(reCallUserData());
+            console.log(444, res.data);
+            setOpenAddExperience(false);
+            toast.success("Experience Added successfully");
+          })
+          .catch((err) => {
+            console.error(err);
+          });
+      }
+   
   };
 
   return (
@@ -261,21 +337,7 @@ function AddWorkExperience({
           className="px-4 py-2 bg-white-600 border border-[#06A9EF] font font-medium rounded-[12px]"
           id="button"
           onClick={() => {
-            setExperienceData({
-              isCurrentJob: "",
-              jobType: "",
-              jobMode: "",
-              designation: "",
-              organisation: "",
-              location: "",
-              noticePeriod: "",
-              skillsLearned: [],
-              workDescription: "",
-              duration: {
-                start: { year: "Year", month: "Month" },
-                end: { year: "Year", month: "Month" },
-              },
-            });
+           
             setOpenAddExperience(false);
           }}
         >
