@@ -20,24 +20,23 @@ function Layout({ children }) {
 
   const Temp = () => (
     <>
-      {isViewportBelow850 ?
-        <>
-          <div>
-            <MobileHeader />
-          </div>
+      {/* {isViewportBelow850 ? */}
+      <div className="mobile">
+        <div>
+          <MobileHeader />
+        </div>
+        <div className=" min-h-screen ">{children}</div>
+      </div>
+      {/* : */}
+      <div className="web">
+        <div>
+          <Header />
+        </div>
+        <div className="mt-[5rem] min-h-screen ">{children}</div>
 
-          <div className=" min-h-screen ">{children}</div>
-        </>
-        :
-        <>
-          <div>
-            <Header />
-          </div>
-          <div className="mt-[5rem] min-h-screen ">{children}</div>
-
-          <Footer />
-       </>
-      }
+        {/* <Footer /> */}
+      </div>
+      {/* } */}
     </>
   );
   const Temp2 = () => (

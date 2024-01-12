@@ -5,14 +5,15 @@ import ImageContainer from "@/components/common/image";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { useMediaQuery } from "@react-hook/media-query";
-// import { useMediaQuery } from "react-responsive";
+
 
 function HeroSection() {
 
- 
- 
-  const isViewportBelow600 = useMediaQuery("(max-width:600px)");
 
+
+  const isViewportBelow600 = useMediaQuery("(max-width:600px)");
+  const isViewportBelow1220 = useMediaQuery("(max-width:1220px)");
+  const isViewportBelow920 = useMediaQuery("(max-width:920px)");
   const router = useRouter();
   const isInSouthAfrica = localStorage.getItem("isInSouthAfrica") == "true";
 
@@ -124,7 +125,7 @@ function HeroSection() {
             />
 
 
-            <div className={`font-bold absolute left-4 leading-tight py-1 flex flex-col  justify-center ${isViewportBelow600 ? "h-[78px]": "h-[120px]"} heroText`}>
+            <div className={`font-bold absolute left-4 leading-tight py-1 flex flex-col  justify-center ${isViewportBelow600 ? "h-[78px]" : "h-[120px]"} heroText`}>
               <p className="text-[#FFF]">Empowering</p>
               <p className="text-[#FFDA1D]">Job Seekers,</p>
             </div>
@@ -141,7 +142,7 @@ function HeroSection() {
               src="/images/home/Rectangle_3.png"
               alt=""
             />
-            <div className={`font-bold absolute left-6 leading-tight flex flex-col  justify-center ${isViewportBelow600 ? "h-[78px]": "h-[120px]"} py-2 ${!isViewportBelow600 ? "top-[8.7rem]" : "top-[5.7rem]"} heroText`}>
+            <div className={`font-bold absolute left-6 leading-tight flex flex-col  justify-center ${isViewportBelow600 ? "h-[78px]" : "h-[120px]"} py-2 ${!isViewportBelow600 ? "top-[8.7rem]" : "top-[5.7rem]"} heroText`}>
               <p className="text-[#FFF]">Connecting</p>
               <p className="text-[#06A9EF]">Employers</p>
             </div>
@@ -153,15 +154,15 @@ function HeroSection() {
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 535 543"
                   fill="none"
-                  width={isViewportBelow600 ? 165 : 240}
-                  height={isViewportBelow600 ? 165 : 240}
+                  width={isViewportBelow600 ? 175 : 250}
+                  height={isViewportBelow600 ? 175 : 250}
                 >
                   <path
                     d="M454.835 300.214C454.835 465.177 490.9 542.866 329.895 542.866C168.889 542.866 0.56604 419.475 0.56604 254.513C0.56604 89.5506 304.721 0.979492 465.727 0.979492C626.732 0.979492 454.835 135.252 454.835 300.214Z"
                     fill="#FBD515"
                   />
                 </svg>
-                <svg
+                {/* <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="blue overflow-hidden"
                   viewBox="0 0 315 377"
@@ -201,7 +202,34 @@ function HeroSection() {
                       />
                     </filter>
                   </defs>
-                </svg>
+                </svg> */}
+
+                {/* <svg xmlns="http://www.w3.org/2000/svg" width={!isViewportBelow600 ? 280 : 200}
+                  height={!isViewportBelow600 ? 280 : 200} className="blue overflow-hidden" viewBox="0 0 534 638" fill="none">
+                  <g filter="url(#filter0_b_6830_50400)">
+                    <path d="M454.268 352.309C454.268 546.53 490.334 638 329.329 638C168.323 638 0 492.723 0 298.502C0 104.281 304.155 0 465.161 0C626.166 0 454.268 158.088 454.268 352.309Z" fill="#00A2E8" fill-opacity="0.7" />
+                  </g>
+                  <defs>
+                    <filter id="filter0_b_6830_50400" x="-20" y="-20" width="574" height="678" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                      <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                      <feGaussianBlur in="BackgroundImageFix" stdDeviation="10" />
+                      <feComposite in2="SourceAlpha" operator="in" result="effect1_backgroundBlur_6830_50400" />
+                      <feBlend mode="normal" in="SourceGraphic" in2="effect1_backgroundBlur_6830_50400" result="shape" />
+                    </filter>
+                  </defs>
+                </svg> */}
+                <img
+                  style={{
+
+                    width: !isViewportBelow600 ? "260px" : "180px",
+                    height: !isViewportBelow600 ? "280px" : "190px",
+                  }}
+                  className="blue overflow-hidden"
+                  src="/images/home/blueNew.png"
+                  alt=""
+                />
+
+
 
                 <img
                   src={`/images/home/girl${isInSouthAfrica ? 2 : 1}.png`}
@@ -212,7 +240,7 @@ function HeroSection() {
                 <img
                   src={`/images/home/man${isInSouthAfrica ? 2 : 1}.png`}
                   alt=""
-               
+
                   className={`${isViewportBelow600 ? 'h-[220px]' : 'h-[300px]'} ${isViewportBelow600 ? 'w-[220px]' : 'w-[300px]'} absolute object-contain right-0 -top-1 boy`}
                 />
               </div>
@@ -285,13 +313,13 @@ function HeroSection() {
 
 
               </div>
-           }
+            }
             {/* </div> */}
             {!isViewportBelow600 &&
-            // <div className="web600">
+              // <div className="web600">
               <div className="candidate_searchbox mt-[15rem] " >
                 <div
-                  class="mt-8 flex justify-between z-10 gap-5 px-6 py-4 items-center rounded-[16px] bg-white shadow-xl min-h-[93.33px] relative   ml:max-w-[835px] md:max-w-[735px] ms:max-w-[580px] sm:max-w-[560px] "style={{ boxShadow: "0px 0px 20px 0px rgba(0, 0, 0, 0.25)", }}
+                  class="mt-8 flex justify-between z-10 gap-5 px-6 py-4 items-center rounded-[16px] bg-white shadow-xl min-h-[93.33px] relative   ml:max-w-[835px] md:max-w-[735px] ms:max-w-[580px] sm:max-w-[560px] " style={{ boxShadow: "0px 0px 20px 0px rgba(0, 0, 0, 0.25)", }}
                 >
                   <div className="flex items-center justify-between ">
                     <svg
@@ -384,7 +412,7 @@ function HeroSection() {
                 </div>
               </div>
               // </div>
-             } 
+            }
           </div>
 
           <div className="flex flex-col gap-4  justify-center items-center px-4">
@@ -394,31 +422,36 @@ function HeroSection() {
             </button>
           </div>
         </div>
-        </div>
+      </div>
 
-        {/* : */}
-        <div className="web">
-        <div className="hero_section_parent pt-9 w-screen ">
-          <div className="hero_wrapper customMargins  ">
-            <div className="slider1  ">
-              <div className="only_slider1 ">
+      {/* : */}
+      <div className="web">
+        <div className="hero_section_parent  w-screen  ">
+          <div className="hero_wrapper customMargins   ">
+            <div className="slider1 relative ">
+              <div className="only_slider1  ">
                 <ImageContainer
                   style={{
                     position: "absolute",
-                    width: "150rem",
-                    right: "6%",
+                    width: "250vh",
+                    right: isViewportBelow1220 ? "18%" : "10%",
                   }}
                   className="only_slider1 "
                   src="/images/home/Rectangle_1.png"
                   alt=""
                 />
+
+
               </div>
-              <div>
-                <div className="title_cont ">
-                  <p className="p0 ">Empowering</p>{" "}
-                  <p className="p3">Job Seekers,</p>
-                </div>
+
+
+              <div className="title_cont  ">
+                <p className="p0 ">Empowering</p>{" "}
+                <p className="p3">Job Seekers,</p>
               </div>
+
+
+
             </div>
 
             <div className="hero_wrapper2 ">
@@ -428,7 +461,7 @@ function HeroSection() {
                     style={{
                       position: "absolute",
                       marginLeft: "16px",
-                      right: "10%",
+                      right: "20%",
                     }}
                     className="only_slider2 "
                     src="/images/home/Rectangle_3.png"
@@ -443,72 +476,82 @@ function HeroSection() {
               </div>
             </div>
           </div>
-          <div className="customMargins">
-            <div className="animation_parent ">
-              <div className="hr_animation_container">
-                <svg
-                  className="yellow_animation"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 535 543"
-                  fill="none"
-                >
-                  <path
-                    d="M454.835 300.214C454.835 465.177 490.9 542.866 329.895 542.866C168.889 542.866 0.56604 419.475 0.56604 254.513C0.56604 89.5506 304.721 0.979492 465.727 0.979492C626.732 0.979492 454.835 135.252 454.835 300.214Z"
-                    fill="#FBD515"
-                  />
-                </svg>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="blue_animation"
-                  viewBox="0 0 315 377"
-                  fill="none"
-                >
-                  <g filter="url(#filter0_b_2474_41366)" className="hero_hover">
-                    <path
-                      d="M267.95 207.716C267.95 322.225 289.214 376.154 194.288 376.154C99.3615 376.154 0.121094 290.501 0.121094 175.992C0.121094 61.4822 179.446 0 274.372 0C369.298 0 267.95 93.206 267.95 207.716Z"
-                      fill="#00A2E8"
-                      fillOpacity="0.7"
-                    />
-                  </g>
-                  <defs>
-                    <filter
-                      id="filter0_b_2474_41366"
-                      x="-11.6706"
-                      y="-11.7917"
-                      width="338.42"
-                      height="399.737"
-                      filterUnits="userSpaceOnUse"
-                      colorInterpolationFilters="sRGB"
-                    >
-                      <feFlood floodOpacity="0" result="BackgroundImageFix" />
-                      <feGaussianBlur
-                        in="BackgroundImageFix"
-                        stdDeviation="5.89583"
-                      />
-                      <feComposite
-                        in2="SourceAlpha"
-                        operator="in"
-                        result="effect1_backgroundBlur_2474_41366"
-                      />
-                      <feBlend
-                        mode="normal"
-                        in="SourceGraphic"
-                        in2="effect1_backgroundBlur_2474_41366"
-                        result="shape"
-                      />
-                    </filter>
-                  </defs>
-                </svg>
 
-                <img
-                  src={` /images/home/girl${isInSouthAfrica ? 2 : 1}.png`}
-                  alt=""
-                  className="female"
-                />
-                <img src={` /images/home/man${isInSouthAfrica ? 2 : 1}.png`} alt="" className="male" />
+          <div className=" ">
+            <div className="animation_parent customMargins1 ">
+              <div className="hr_animation_container ">
+                <div className="relative">
+                  <svg
+                    className="yellow_animation"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 535 543"
+                    fill="none"
+                  >
+                    <path
+                      d="M454.835 300.214C454.835 465.177 490.9 542.866 329.895 542.866C168.889 542.866 0.56604 419.475 0.56604 254.513C0.56604 89.5506 304.721 0.979492 465.727 0.979492C626.732 0.979492 454.835 135.252 454.835 300.214Z"
+                      fill="#FBD515"
+                    />
+                  </svg>
+                  {/* <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="blue_animation"
+                        viewBox="0 0 315 377"
+                        fill="none"
+                      >
+                        <g filter="url(#filter0_b_2474_41366)" className="hero_hover">
+                          <path
+                            d="M267.95 207.716C267.95 322.225 289.214 376.154 194.288 376.154C99.3615 376.154 0.121094 290.501 0.121094 175.992C0.121094 61.4822 179.446 0 274.372 0C369.298 0 267.95 93.206 267.95 207.716Z"
+                            fill="#00A2E8"
+                            fillOpacity="0.7"
+                          />
+                        </g>
+                        <defs>
+                          <filter
+                            id="filter0_b_2474_41366"
+                            x="-11.6706"
+                            y="-11.7917"
+                            width="338.42"
+                            height="399.737"
+                            filterUnits="userSpaceOnUse"
+                            colorInterpolationFilters="sRGB"
+                          >
+                            <feFlood floodOpacity="0" result="BackgroundImageFix" />
+                            <feGaussianBlur
+                              in="BackgroundImageFix"
+                              stdDeviation="5.89583"
+                            />
+                            <feComposite
+                              in2="SourceAlpha"
+                              operator="in"
+                              result="effect1_backgroundBlur_2474_41366"
+                            />
+                            <feBlend
+                              mode="normal"
+                              in="SourceGraphic"
+                              in2="effect1_backgroundBlur_2474_41366"
+                              result="shape"
+                            />
+                          </filter>
+                        </defs>
+                      </svg> */}
+                  <img
+
+                    className="blue_animation"
+                    src="/images/home/blueNew.png"
+                    alt=""
+                  />
+
+                  <img
+                    src={` /images/home/girl${isInSouthAfrica ? 2 : 1}.png`}
+                    alt=""
+                    className="female"
+                  />
+                  <img src={` /images/home/man${isInSouthAfrica ? 2 : 1}.png`} alt="" className="male" />
+                </div>
               </div>
             </div>
           </div>
+
           <div className="customMargins">
             <div className="main_para_cont">
               <p className="para_paragraf">
@@ -614,7 +657,7 @@ function HeroSection() {
             </div>
           </div>
         </div>
-        </div>
+      </div>
       {/* } */}
 
     </div>
