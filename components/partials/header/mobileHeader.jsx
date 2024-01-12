@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import { useSelector } from "react-redux";
 import { data } from "autoprefixer";
-import { useMediaQuery } from "react-responsive";
+
 import HeaderSidebar from "@/components/models/headerSidebar";
 import { AnimatePresence, motion } from "framer-motion";
 
