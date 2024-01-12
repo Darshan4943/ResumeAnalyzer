@@ -14,37 +14,53 @@ import { ReactLenis } from "@studio-freight/react-lenis";
 import JobCategories from "@/components/featured/home/job_categories";
 import dynamic from "next/dynamic";
 import Testimonial from "@/components/featured/home/Testimonial";
+import { useMediaQuery } from "@react-hook/media-query";
+
+
+
 
 function BeforeLoginHome() {
   const lenisRef = useRef();
+  const isViewportBelow850 = useMediaQuery("(max-width:850px)");
 
   return (
-    <div>
-      <ReactLenis root >
-        <Parallax strength={400} className="h-[54.5rem] pt-[36px]">
-          <Background className="custom-bg  ">
-            <HeroSection />
-          </Background>
-        </Parallax>
-
-        <Parallax strength={100} className="h-[14.125rem]   ">
-          <Background className="custom-bg ">
-            <TrustedBySection />
-          </Background>
-        </Parallax>
-        <Parallax strength={100} className="h-[42rem] pt-[36px] ">
-          <Background className="custom-bg ">
-            <JobCategories />
-          </Background>
-        </Parallax>
-        <Parallax strength={500} className="h-[62rem]  pt-[36px]">
-          <Background className="custom-bg ">
-            <ForCandidate />
-          </Background>
-        </Parallax>
+   <div>
+      {/* {isViewportBelow850 ? ( */}
+        <div className="mobile">
+     
+        <HeroSection />
+        <TrustedBySection />
+        <JobCategories />
+        <ForCandidate />
         <Profile_creation />
+        
         <Testimonial />
-      </ReactLenis>
+      </div>
+      {/* ) : ( */}
+        <div className="web">
+        <ReactLenis root>
+          <Parallax strength={300} className="h-[84.5rem] pt-[36px]">
+            <Background className="custom-bg">
+              <HeroSection />
+              <TrustedBySection />
+            </Background>
+          </Parallax>
+          {/* Add other Parallax components as needed */}
+          <Parallax strength={100} className="h-[42rem] pt-[36px] ">
+            <Background className="custom-bg ">
+              <JobCategories />
+            </Background>
+          </Parallax>
+          <Parallax strength={500} className="h-[62rem]  pt-[36px]">
+            <Background className="custom-bg ">
+              <ForCandidate />
+            </Background>
+          </Parallax>
+          <Profile_creation />
+          <Testimonial />
+        </ReactLenis>
+        </div>
+      {/* )} */}
     </div>
   );
 }

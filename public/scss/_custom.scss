@@ -40,6 +40,37 @@ div::-webkit-scrollbar-thumb {
   background-color: #babbbc;
 }
 
+/////////////////////////////////
+
+
+.mobile{
+  display: none;
+}
+
+@media (max-width: 850px) {
+  .mobile {
+    display: block;
+  }
+  .web{
+    display: none;
+  }
+}
+
+.mobile600{
+  display: none;
+}
+
+@media (max-width: 600px) {
+  .mobile600 {
+    display: block;
+  }
+  .web600{
+    display: none;
+  }
+}
+
+
+
 ////////////AfterloginHome Animation//////////////////
 
 .ai_images {
