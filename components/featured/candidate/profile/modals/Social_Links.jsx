@@ -3,13 +3,19 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { reCallUserData } from "../../../../../Redux/actions/user";
-function Social_Links({ setaddWebsites, }) {
+function Social_Links({ setaddWebsites,setEditSocial,Social }) {
   const userDataGlobal = useSelector((state) => state.userData);
   const dispatch = useDispatch();
   const [data, setData] = useState({
     profile: "PHD",
     url: "",
     discription: "",
+
+    // ...(setEditSocial && { 
+    //   profile: Social.profile,
+    // url: Social.url,
+    // discription: Social.discription,
+    // }),
   });
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -27,6 +33,9 @@ function Social_Links({ setaddWebsites, }) {
       });
     }
   };
+
+
+  const isEditing = !!setEditSocial;
   const handleSubmit = () => {
     axios
       .post(
@@ -42,7 +51,41 @@ function Social_Links({ setaddWebsites, }) {
         }
       })
       .catch((err) => console.log(err));
-  };
+
+
+  //     if (isEditing) {
+  //       axios
+  //         .put(
+  //           `https://freedygoservices.in/api/candidate/${userDataGlobal._id}/updateAchivement/${Achievement._id}`,
+  //           data
+  //         )
+  //         .then((res) => {
+  //           console.log(444, res.data);
+  //         dispatch(reCallUserData());
+  //         setaddWebsites(false);
+  //         toast.success("Awards updated successfully");
+  //         })
+  //         .catch((err) => {
+  
+  //           console.error(err);
+  //         });
+  //     } else {
+  //       axios
+  //       .post(
+  //         "https://freedygoservices.in/api/candidate/addSocialLinks/" +
+  //           userDataGlobal._id,
+  //         data
+  //       )
+  //       .then((res) => {
+  //         if (res.data.success) {
+  //           toast.success("Social Links added successfully");
+  //           dispatch(reCallUserData());
+  //           setaddWebsites(false);
+  //         }
+  //       })
+  //       .catch((err) => console.log(err));
+  //     }
+   };
 
   return (
     <>
@@ -149,7 +192,7 @@ function Social_Links({ setaddWebsites, }) {
             <button
               className="rounded-[8px] py-[8px] px-[16px] border-[#06A9EF] border-solid border-[1px] text-[#333] text-[16px] font-[500] hover:cursor-pointer"
               onClick={() => {
-                data({
+                setData({
                   profile: "",
                   url: "",
                   discription: "",

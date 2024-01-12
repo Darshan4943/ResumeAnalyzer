@@ -12,7 +12,7 @@ const Courses = ({ userData }) => {
   const [deleteData, setDeleteData] = useState({ view: false, id: "" });
   const userDataGlobal = useSelector((state) => state.userData);
   const dispatch = useDispatch();
-  const [editCourseData, setEditCourseData] = useState(null);
+  const [editCourseData, setEditCourseData] = useState(false);
   const month = [
     "January",
     "February",
@@ -43,8 +43,11 @@ const Courses = ({ userData }) => {
     setDeleteData({ view: false, id: "" });
   };
 
-  const handleEditCourse = (course) => {
-    setEditCourseData(course); 
+  const[Course,setCourse]=useState(null)
+  const handleEditCourse = (item) => {
+    setCourse(item)
+
+    setEditCourseData(true); 
     setAddCertificate(true); 
   };
 
@@ -65,7 +68,7 @@ const Courses = ({ userData }) => {
               style={{ width: "24px" }}
               src="./images/profile/add.png"
               alt=""
-              onClick={() => setAddCertificate(true)}
+              onClick={() => {setAddCertificate(true),setEditCourseData(false)}}
             />
             {/* <img
               style={{ width: "24px" }}
@@ -127,7 +130,7 @@ const Courses = ({ userData }) => {
 
           <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-[130] outline-none focus:outline-none">
             <div className="absolute max-w-[800px] w-full">
-              <AddCertificate setAddCertificate={setAddCertificate}  editCourseData={editCourseData} />
+              <AddCertificate setAddCertificate={setAddCertificate}  editCourseData={editCourseData} Course={Course} />
             </div>
           </div>
         </>

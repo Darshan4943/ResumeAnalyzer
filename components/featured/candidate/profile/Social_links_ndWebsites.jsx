@@ -41,6 +41,16 @@ function Social_links_ndWebsites({ userData }) {
     setDeleteData({ view: false, id: "" });
   };
 
+  const [Social, setSocial] = useState(null);
+  const [editSocial, setEditSocial] = useState(false);
+
+  const editHandler = (social) => {
+    setSocial(social);
+    setEditSocial(true)
+    setaddWebsites(true);
+  };
+
+
   return (
     <>
       {deleteData.view && (
@@ -57,7 +67,8 @@ function Social_links_ndWebsites({ userData }) {
       >
         <div className="flex gap-[16px] text-[20px] font-[500] text-[#333] items-center justify-between">
           Website & Social Links
-          <div onClick={() => setaddWebsites(true)}>
+
+          <div onClick={() => {setaddWebsites(true),setEditSocial(false)}}>
             <AddIcon />
           </div>
         </div>
@@ -66,6 +77,10 @@ function Social_links_ndWebsites({ userData }) {
             <div className="flex gap-[16px] items-center text-[16px] font-[500]">
               {item.profile}
               <div className="flex gap-[8px]">
+
+              {/* <div onClick={() => editHandler(item)}>
+                  <Edit_icon/>
+                </div> */}
                 <div
                   onClick={() => setDeleteData({ view: true, id: item._id })}
                 >
@@ -92,7 +107,7 @@ function Social_links_ndWebsites({ userData }) {
           <div className="opacity-25 fixed inset-0 z-[120] bg-black"></div>
           <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-[130] outline-none focus:outline-none">
             <div className="absolute max-w-[800px] w-full">
-              <Social_Links setaddWebsites={setaddWebsites} />
+              <Social_Links setaddWebsites={setaddWebsites} Social={Social} setEditSocial={setEditSocial}/>
             </div>
           </div>
         </>

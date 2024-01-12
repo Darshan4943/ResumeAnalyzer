@@ -21,7 +21,7 @@ import Projects from "@/components/featured/candidate/profile/Projects";
 
 function Profile() {
   const userDataGlobal = useSelector((state) => state.userData);
-  // console.log(userDataGlobal)
+  console.log(userDataGlobal)
   const [userData, setUserData] = useState(false);
   const [selectedTab, setSelectedTab] = useState("My Resume");
   const arr = [
@@ -33,7 +33,7 @@ function Profile() {
     "Trainings",
     "Websites & Social links",
     "Projects",
-    // "Achievements",
+    "Achievements",
     "Job Prefrence",
     "Personal details",
   ];
@@ -113,9 +113,8 @@ function Profile() {
                   className="w-[100%]"
                 >
                   <div
-                    className={`profile_option_menu  ${
-                      selectedTab == item && " profile_option_menu-selected"
-                    }`}
+                    className={`profile_option_menu  ${selectedTab == item && " profile_option_menu-selected"
+                      }`}
                   >
                     <p className="my_resume ">{item}</p>
                   </div>
@@ -156,11 +155,11 @@ function Profile() {
                 </div>
               </div>
             </div>
-
-            <ScrollElement name="My Resume" className="section">
-              <ResumeList userData={userData} />
-            </ScrollElement>
-
+            {userData?.resumeUrl?.length > 0 &&
+              <ScrollElement name="My Resume" className="section">
+                <ResumeList userData={userData} />
+              </ScrollElement>
+            }
             <ScrollElement name="About me" className="section">
               <div className="build_ai ai2  ">
                 <div className="gap">
@@ -213,9 +212,9 @@ function Profile() {
             </ScrollElement>
 
 
-            {/* <ScrollElement name="Achievements" className="section ">
+            <ScrollElement name="Achievements" className="section ">
               <Achievements userData={userData} />
-            </ScrollElement> */}
+            </ScrollElement>
 
             <ScrollElement name="Job Prefrence" className="section">
               <JobPrefrence userData={userData} />

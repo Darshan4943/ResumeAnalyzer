@@ -5,7 +5,9 @@ import { toast } from "react-toastify";
 import MiniLoader from "../../../../common/mini-loader";
 import { reCallUserData } from "../../../../../Redux/actions/user";
 
-function AddCertificate({ setAddCertificate ,editCourseData}) {
+function AddCertificate({ setAddCertificate, editCourseData, Course }) {
+
+  console.log(10,Course)
   const months = Array.from({ length: 12 }, (_, index) => index + 1);
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
@@ -22,6 +24,23 @@ function AddCertificate({ setAddCertificate ,editCourseData}) {
       month: "Month",
       year: "Year",
     },
+
+    ...(editCourseData && {
+      certificateName: Course?.name,
+      certificateProvider: Course?.organization,
+      certificateId: Course?.certificateId,
+      certificateUrl: Course?.certificateURL?.url,
+      issuedOn: {
+        month: Course?.issuedDate?.month,
+        year: Course?.issuedDate?.year,
+      },
+      expiryOn: {
+        month: Course?.expiryDate?.month,
+        year: Course?.expiryDate?.year,
+      }
+    }),
+
+
   });
 
   const handleInputChange = (e) => {
@@ -33,7 +52,7 @@ function AddCertificate({ setAddCertificate ,editCourseData}) {
   };
   function getYear() {
     const currentYear = new Date().getFullYear();
-    const startYear = currentYear - 100; 
+    const startYear = currentYear - 100;
 
     const years = [];
     for (let year = currentYear; year >= startYear; year--) {
@@ -42,29 +61,31 @@ function AddCertificate({ setAddCertificate ,editCourseData}) {
 
     return years;
   }
-  
+
   const userDataGlobal = useSelector((state) => state.userData);
 
-  useEffect(() => {
-    if (editCourseData) {
-      setcertificateData({
-        certificateName: editCourseData.name || "",
-        certificateProvider: editCourseData.organization || "",
-        certificateId: editCourseData.certificateId || "",
-        
-        issuedOn: {
-          month: editCourseData.issuedDate?.month || "Month",
-          year: editCourseData.issuedDate?.year || "Year",
-        },
-        expiryOn: {
-          month: editCourseData.expiryDate?.month || "Month",
-          year: editCourseData.expiryDate?.year || "Year",
-        },
-        certificateUrl: editCourseData.certificateURL?.url || "",
-      });
-    }
-  }, [editCourseData]);
-  
+  // useEffect(() => {
+  //   if (editCourseData) {
+  //     setcertificateData({
+  //       certificateName: editCourseData.name || "",
+  //       certificateProvider: editCourseData.organization || "",
+  //       certificateId: editCourseData.certificateId || "",
+
+  //       issuedOn: {
+  //         month: editCourseData.issuedDate?.month || "Month",
+  //         year: editCourseData.issuedDate?.year || "Year",
+  //       },
+  //       expiryOn: {
+  //         month: editCourseData.expiryDate?.month || "Month",
+  //         year: editCourseData.expiryDate?.year || "Year",
+  //       },
+  //       certificateUrl: editCourseData.certificateURL?.url || "",
+  //     });
+  //   }
+  // }, [editCourseData]);
+
+  const isEditing = !!editCourseData
+
   const postData = () => {
     setLoading(true);
     const formData = new FormData();
@@ -74,28 +95,75 @@ function AddCertificate({ setAddCertificate ,editCourseData}) {
     formData.append("issuedDate", JSON.stringify(cerficateData.issuedOn));
     formData.append("expiryDate", JSON.stringify(cerficateData.expiryOn));
     formData.append("certificateurl", cerficateData.certificateUrl);
-    axios
-      .post(
-        "https://freedygoservices.in/api/candidate/addCourse/" + userDataGlobal._id,
-        formData
-      )
-      .then((res) => {
-        if (res.data.success) {
-          setLoading(false);
-          dispatch(reCallUserData());
-          toast.success("Course Addedd Successfully");
-          setAddCertificate(false);
-        } else {
-          setLoading(false);
-          toast.error("Something went wrong");
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-        toast.error("Something went wrong");
 
-        setLoading(false);
-      });
+
+
+    // axios
+    //   .post(
+    //     "https://freedygoservices.in/api/candidate/addCourse/" + userDataGlobal._id,
+    //     formData
+    //   )
+    //   .then((res) => {
+    //     if (res.data.success) {
+    //       setLoading(false);
+    //       dispatch(reCallUserData());
+    //       toast.success("Course Addedd Successfully");
+    //       setAddCertificate(false);
+    //     } else {
+    //       setLoading(false);
+    //       toast.error("Something went wrong");
+    //     }
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //     toast.error("Something went wrong");
+
+    //     setLoading(false);
+    //   });
+
+
+    if (isEditing) {
+      axios
+        .put(
+          `https://freedygoservices.in/api/candidate/${userDataGlobal._id}/updateCourse/${Course._id}`,
+          cerficateData
+        )
+        .then((res) => {
+          console.log(444, res.data);
+          dispatch(reCallUserData());
+          setAddCertificate(false);
+          toast.success("Course updated successfully");
+        })
+        .catch((err) => {
+
+          console.error(err);
+        });
+    } else {
+      axios
+        .post(
+          "https://freedygoservices.in/api/candidate/addCourse/" + userDataGlobal._id,
+          formData
+        )
+        .then((res) => {
+          if (res.data.success) {
+            setLoading(false);
+            dispatch(reCallUserData());
+            toast.success("Course Addedd Successfully");
+            setAddCertificate(false);
+          } else {
+            setLoading(false);
+            toast.error("Something went wrong");
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          toast.error("Something went wrong");
+
+          setLoading(false);
+        });
+    }
+
+
   };
 
   const DatePicker = () => (

@@ -5,9 +5,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { reCallUserData } from '@/Redux/actions/user';
 
-function SampleWork({ setaddSampleWork }) {
+function SampleWork({ setaddSampleWork,Project,editProject }) {
   const dispatch = useDispatch();
   const userDataGlobal = useSelector((state) => state.userData);
+
   const [data, setData] = useState({
     title: "",
     url: "",
@@ -23,8 +24,28 @@ function SampleWork({ setaddSampleWork }) {
       },
     },
     description: "",
+
+    ...(editProject && { 
+      title: Project?.title,
+      url: Project?.url,
+      isCurrentlyWorking:Project?.isCurrentlyWorking,
+      duration: {
+        from: {
+          years: Project?.duration?.from?.years,
+          months: Project?.duration?.from?.months,
+        },
+        to: {
+          years: Project?.duration?.to?.years,
+          months: Project?.duration?.to?.months,
+        },
+      },
+      description: Project?.description,
+    }),
   })
-console.log(24,data)
+
+
+  const isEditing = !!editProject;
+
   const handleSubmit = () => {
     const projectData = 
       {
@@ -45,19 +66,50 @@ console.log(24,data)
       }
       
     
-console.log(46,projectData)
+
    
-      axios
-      .post(`https://freedygoservices.in/api/candidate/addProject/${userDataGlobal._id}`, projectData)
-        .then((res) => {
-          dispatch(reCallUserData());
-          console.log(444, res.data);
-          setaddSampleWork(false)
-          toast.success("Projects Added successfully");
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      // axios
+      // .post(`https://freedygoservices.in/api/candidate/addProject/${userDataGlobal._id}`, projectData)
+      //   .then((res) => {
+      //     dispatch(reCallUserData());
+      //     console.log(444, res.data);
+      //     setaddSampleWork(false)
+      //     toast.success("Projects Added successfully");
+      //   })
+      //   .catch((err) => {
+      //     console.log(err);
+      //   });
+
+
+        if (isEditing) {
+          axios
+            .put(
+              `https://freedygoservices.in/api/candidate/${userDataGlobal._id}/updateProject/${Project._id}`,
+              data
+            )
+            .then((res) => {
+              console.log(444, res.data);
+            dispatch(reCallUserData());
+            setaddSampleWork(false);
+            toast.success("Project updated successfully");
+            })
+            .catch((err) => {
+    
+              console.error(err);
+            });
+        } else {
+          axios
+          .post(`https://freedygoservices.in/api/candidate/addProject/${userDataGlobal._id}`, projectData)
+            .then((res) => {
+              dispatch(reCallUserData());
+              console.log(444, res.data);
+              setaddSampleWork(false)
+              toast.success("Projects Added successfully");
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        }
   
   };
 

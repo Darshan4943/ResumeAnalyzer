@@ -8,100 +8,26 @@ import DeleteModal from "@/components/common/deleteModal";
 import { toast } from "react-toastify";
 const WorkExperiance = ({ userData }) => {
   const dispatch = useDispatch();
-  const [experiences, setExperiences] = useState([]);
+ 
   const userDataGlobal = useSelector((state) => state.userData);
   const [deleteData, setDeleteData] = useState({ view: false, id: "" });
-  const [fileUpdate, setFileUpdate] = useState(false);
+ 
 
-  const [experienceData, setExperienceData] = useState({
-    isCurrentJob: "",
-    jobType: "",
-    jobMode: "",
-    designation: "",
-    organisation: "",
-    location: "",
-    noticePeriod: "",
-    skillsLearned: [],
-    workDescription: "",
-    duration: {
-      start: { year: "Year", month: "Month" },
-      end: { year: "Year", month: "Month" },
-    },
-  });
-  // useEffect(() => {
-  //   if (userDataGlobal?.resumeUrl) {
-  //     const {
-  //       isCurrentJob,
-  //       jobType,
-  //       designation,
-  //       organisation,
-  //       location,
-  //       noticePeriod,
-  //       skillsLearned,
-  //       workDescription,
-  //       duration,
-  //     } = userDataGlobal.basics;
-  //     setExperienceData({
-  //       ...experienceData,
-  //     });
-  //   }
-  // }, [userDataGlobal]);
 
-  const editHandler = (data) => {
-    setFileUpdate(true);
-    setOpenAddExperience(true);
-    console.log(53, data);
-    const {
-      jobDuration,
-      companyName,
-      isCurrent,
-      jobType,
-      jobMode,
-      jobTitle,
-      jobLocation,
-      currentCTC,
-      noticePeriod,
-      employmentStatus,
-      workDescription,
-      skills,
-    } = data;
-    setExperienceData({
-      ...experienceData,
-      isCurrentJob: isCurrent,
-      jobType: jobType,
-      jobMode: jobMode,
-      designation: jobTitle,
-      location:jobLocation,
-      noticePeriod: noticePeriod,
-      skillsLearned: skills,
-      workDescription:workDescription,
-      
-      duration: {
-        start: {
-          year: jobDuration.startDate.year,
-          month: jobDuration.startDate.month,
-        },
-        end: {
-          year: jobDuration.endDate.year,
-          month: jobDuration.endDate.month,
-        },
-      },
-      organisation: companyName,
-    });
-    console.log(70, experienceData);
-  };
-  const handleEditExperience = (id) => {
-    const experienceToEdit = id;
 
-    if (experienceToEdit) {
-      setOpenAddExperience(true);
-      setExperienceData({ ...experienceToEdit });
+  const [Experience, setExperience] = useState(null);
+  const [editExperience, setEditExperience] = useState(false);
 
-      const updatedExperienceData = experiences.filter((_, i) => i !== id);
-      setExperiences(updatedExperienceData);
-    }
+  const editHandler = (job) => {
+    setExperience(job);
+    setOpenAddExperience(true)
+    setEditExperience(true);
   };
 
+
+  
+ 
+  
   const deleteHandler = () => {
     axios
       .delete(
@@ -147,7 +73,7 @@ const WorkExperiance = ({ userData }) => {
           <div className=" gap">
             <p className="page_headings">Work Experience</p>
 
-            <div onClick={() => setOpenAddExperience(true)}>
+            <div onClick={() => {setOpenAddExperience(true),setEditExperience(false)}}>
               {" "}
               <AddIcon />
             </div>
@@ -170,9 +96,9 @@ const WorkExperiance = ({ userData }) => {
                   <div className="flex gap-4">
                     <p className="heading_first ">{job?.companyName}</p>
                     <div className="flex gap-2">
-                      {/* <div onClick={() => editHandler(job)}>
+                      <div onClick={() => editHandler(job)}>
                         <Edit_icon />
-                      </div> */}
+                      </div>
                       <div
                         onClick={() =>
                           setDeleteData({ view: true, id: job._id })
@@ -222,12 +148,13 @@ const WorkExperiance = ({ userData }) => {
           <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center customMargins">
             <div className="absolute w-[75.08%] h-[80vh] overflow-y-auto">
               <AddWorkExperience
+             
                 setOpenAddExperience={setOpenAddExperience}
-                experiences={experiences}
-                setExperiences={setExperiences}
-                experienceData={experienceData}
-                setExperienceData={setExperienceData}
-                userData={userData}
+              
+              
+                
+                editExperience={editExperience}
+                Experience={Experience}
               />
             </div>
           </div>
