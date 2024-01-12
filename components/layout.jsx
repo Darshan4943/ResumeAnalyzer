@@ -22,7 +22,7 @@ function Layout({ children }) {
       </div>
       <div className="mt-[5rem] min-h-screen ">{children}</div>
 
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
   const Temp2 = () => (
