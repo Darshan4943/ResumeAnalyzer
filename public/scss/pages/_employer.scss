@@ -866,10 +866,23 @@
 }
 
 /* employer why skilotech section 2nd end here */
+.employer_card{
+  padding: 4px;
+}
+.employer_card_svg{
+  border-radius: 3px;
+}
 
 @media (min-width:570px) {
   .grid_one{
     display: grid ;
     grid-template-columns: repeat(3, 3fr)!important;
   }
+  .employer_card{
+    padding: 8px;
+  }
+  .employer_card_svg{
+    border-radius: 6px;
+  }
+  
 }

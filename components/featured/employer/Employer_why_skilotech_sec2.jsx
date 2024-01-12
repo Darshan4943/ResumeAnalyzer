@@ -1,7 +1,9 @@
+import { useMediaQuery } from "@react-hook/media-query";
 import React from "react";
 import { Parallax } from "react-scroll-parallax";
 
 function Employer_why_skilotech_sec2() {
+  const isViewportBelow400 = useMediaQuery("(max-width:400px)");
   const arr = [
     {
       img: "/images/employer/Employer_why_skilotech_2nd/Employer_why_skilotech_3rd.svg",
@@ -29,7 +31,7 @@ function Employer_why_skilotech_sec2() {
     },
     {
       img: "/images/employer/Employer_why_skilotech_2nd/Employer_why_skilotech_5th.svg",
-      title: "Top-NotchCandidates",
+      title: "Top-Notch Candidates",
       content:
         "With the demands of busy businesses, our platform makes it simple to post jobs, and locate the ideal fit for your business.",
     },
@@ -44,13 +46,13 @@ function Employer_why_skilotech_sec2() {
     return index === 0 || index === 2 || index === 3 || index === 5 ? 10 : 8;
   };
   return (
-    <div className="sm:customMargins ">
-      <div className="grid_one grid-col-wrap grid grid-cols-1 xsm:grid-cols-2 grid-cols-1 md:grid-cols-3 gap-y-[10%] justify-center items-center mt-[5%] mb-[10%] w-[100%]">
+    <div className={` ${!isViewportBelow400 && "customMargins"}`}>
+      <div className="grid_one grid-col-wrap grid grid-cols-1 xsm:grid-cols-2 grid-cols-1 md:grid-cols-3 gap-y-[05%] xsm:gap-y-[10%]  justify-center items-center mt-[5%] mb-[10%] w-[100%]">
         {arr.map((item, index) => (
           // <Parallax speed={yPathSeter(index)}>
-          <div className="flex flex-col w-[168px] ml:w-[234px] h-[198px] ml:h-[272px] p-[4px] text-[14px] font-medium flex-shrink-0 items-center mx-auto my-0px rounded-lg border border-[#CDCDCD] bg-white transition-all duration-500 Employer_why_skilotech_sec2_cart">
+          <div className="employer_card flex flex-col w-[168px] ml:w-[234px] h-[222px] ml:h-[272px]   text-[14px] font-medium flex-shrink-0 items-center mx-auto my-0px rounded-lg border border-[#CDCDCD] bg-white transition-all duration-500 Employer_why_skilotech_sec2_cart">
             <div className="flex flex-col p-3 items-center gap-2 self-stretch rounded-md bg-[#d2e7f0]  w-full transition-all duration-500 Employer_why_skilotech_sec2_cart_1st">
-              <div className="bg-[#fff] p-[8px] rounded-[3px]">
+              <div className="employer_card_svg bg-[#fff] p-[8px] ">
                 <img
                   src={item.img}
                   alt=""
