@@ -69,7 +69,7 @@ function Testimonial() {
         className="testimonial_container customMargins"
         style={{ overflow: "hidden" }}
       >
-        <p className="testimonial_container_head">
+        <p className="testimonial_container_head ">
           What our clients say about us..
         </p>
         <div className="HomepageCarousel">
@@ -95,7 +95,7 @@ function Testimonial() {
       <div className="testimonial_2_container customMargins">
         <div className="testimonial_2_wrapper">
           <div className="testimonial_2_paraghrph One_para">
-            <div className="testimonial_2_para ">
+            <div className="testimonial_2_para   ">
               “Skilotech has been an invaluable partner in our quest for skilled
               talent. Their platform simplifies the hiring process, connecting
               us with highly qualified professionals in our industry. The

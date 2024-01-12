@@ -7,8 +7,12 @@ import {
   useAnimation,
 } from "framer-motion";
 import { jobCatData } from "@/utils/data";
+import { useMediaQuery } from "@react-hook/media-query";
+
 
 function JobCategories() {
+
+  const isViewportBelow850 = useMediaQuery("(max-width:850px)");
   const trustedRef = useRef();
   const cardRef = useRef();
 
@@ -16,10 +20,10 @@ function JobCategories() {
     return index === 0 || index === 3 || index === 6 || index === 9
       ? translateY
       : index === 1 || index === 4 || index === 7 || index === 10
-      ? translateY1
-      : index === 2 || index === 5 || index === 8 || index === 11
-      ? translateY2
-      : translateY2;
+        ? translateY1
+        : index === 2 || index === 5 || index === 8 || index === 11
+          ? translateY2
+          : translateY2;
   };
 
   const { scrollYProgress } = useScroll(
@@ -64,43 +68,86 @@ function JobCategories() {
   );
 
   return (
-    <div className="trust_section_parent  w-screen relative" ref={trustedRef}>
-      <div className="popular_job">
-        <motion.p id="popular_job" style={{ x }}>
-          Popular Job Categories
-        </motion.p>
-        <motion.p id="popular_info" style={{ translateX }}>
-          Discover exciting career opportunities in popular fields, from
-          technology to healthcare, finance to marketing, and more.
-        </motion.p>
-      </div>
-      <div className="customMargins ">
-        <div className="job_cat_card pt-4 ">
-          {jobCatData.map((item, index) => (
-            <motion.div
-              ref={cardRef}
-              className="card z-50"
-              key={index}
-              style={{
-                y: yPathSeter(index),
-              }}
-            >
-              <motion.img
-                className="card_img"
-                src={item.img}
-                alt=""
-                whileHover={{ scale: 1.1, rotateY: 360 }}
-                transition={{ duration: 1, ease: "easeInOut" }}
-              />
-              <div className="flex flex-col gap-1">
-                <p id="card_budget">{item.name}</p>
-                <p id="card_job">{item.job}</p>
+    <>
+      <div className="mobile">
+        <div className="flex flex-col gap-10  px-2">
+          <div className="flex flex-col gap-2 items-center justify-center text-center">
+            <p className="text-[20px] font-bold" >
+              Popular Job Categories
+            </p >
+            <p className="text-[14px] font-normal text-[#705E5E] " >
+              Discover exciting career opportunities in popular fields, from technology to healthcare, finance to marketing, and more.
+
+            </p>
+          </div >
+
+          <div className=" flex flex-wrap items-center justify-center gap-4 "  >
+            {jobCatData.map((item, index) => (
+              <div
+                style={{ boxShadow: "0px 1px 2px 1px rgba(0, 0, 0, 0.25)" }}
+                className="w-[108px] h-[128px] flex flex-col gap-3 z-50 items-center justify-center rounded-[8px] bg-[#FFF] py-2 px-1"
+
+
+              >
+                <img
+                  className="h-[46px] w-[46px]"
+                  src={item.img}
+                  alt=""
+
+                />
+                <div className="flex flex-col gap-1 text-center text-[12px] font-medium">
+                  <p>{item.name}</p>
+                  <p className="text-[#646464]">{item.job}</p>
+                </div>
               </div>
-            </motion.div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
-    </div>
+
+
+      <div className="web">
+        <div className="trust_section_parent  w-screen relative" ref={trustedRef}>
+          <div className="popular_job">
+            <motion.p id="popular_job" style={{ x }
+            }>
+              Popular Job Categories
+            </motion.p >
+            <motion.p id="popular_info" style={{ translateX }}>
+              Discover exciting career opportunities in popular fields, from
+              technology to healthcare, finance to marketing, and more.
+            </motion.p>
+          </div >
+          <div className="customMargins ">
+            <div className="job_cat_card pt-4 ">
+              {jobCatData.map((item, index) => (
+                <motion.div
+                  ref={cardRef}
+                  className="card z-50"
+                  key={index}
+                  style={{
+                    y: yPathSeter(index),
+                  }}
+                >
+                  <motion.img
+                    className="card_img"
+                    src={item.img}
+                    alt=""
+                    whileHover={{ scale: 1.1, rotateY: 360 }}
+                    transition={{ duration: 1, ease: "easeInOut" }}
+                  />
+                  <div className="flex flex-col gap-1">
+                    <p id="card_budget">{item.name}</p>
+                    <p id="card_job">{item.job}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </div >
+      </div>
+
+    </>
   );
 }
 
