@@ -11,7 +11,7 @@ function TrustedBySection() {
         animate={{translateX:'-100%'}}
         transition={{duration: 7, repeat: Infinity, ease: "linear"}}
         className="trust_img ">
-          {Array.from({ length: 15 }).map((item, index) => (
+          {Array.from({ length: 7 }).map((item, index) => (
             <ImageContainer
               key={index}
               src={`/images/home/company_logs/scroller-img_${index + 1}.png`}
