@@ -522,6 +522,7 @@ margin-left: -18%;
 
 .yellow {
   overflow: hidden;
+  transition: all 0.6s;
   position: absolute;
   margin-top: 3%;
   right: 5%;
@@ -529,6 +530,7 @@ margin-left: -18%;
 }
 .blue {
   overflow: hidden !important;
+  transition: all 0.6s;
   position: absolute;
   margin-top: -2%;
   right: 7%;

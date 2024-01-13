@@ -23,27 +23,43 @@ function Recruiter_page() {
   }, []);
   const lenisRef = useRef();
 
- 
 
   return (
     <>
-      {" "}
-      <ReactLenis root >
-        <Parallax strength={300} className="h-[36rem] pt-[36px] ">
-          <Background className="custom-bg  ">
-            <RecruiterHero />
-          </Background>
-        </Parallax>
-        <div className="h-[40rem]">
-          <RecruiterAnimation showAnimationn={!showAnimationn} />
+  
+        <div 
+        className="unblockRecruiter">
+        
+          <RecruiterHero />
+          <RecruiterAnimation />
+          <ExpandSection />
+          <LastSection />
         </div>
-        <Parallax strength={400} className="h-[48rem] pt-[36px] ">
-          <Background className="custom-bg  ">
-            <ExpandSection />
-          </Background>
-        </Parallax>
-        <LastSection />
-      </ReactLenis>
+    
+        <div
+        className="heroBlock">
+          {" "}
+          <ReactLenis root>
+            <Parallax
+              strength={300}
+              className="h-[31rem] ml:h-[51rem] pt-[36px] "
+            >
+              <Background className="custom-bg  ">
+                <RecruiterHero />
+              </Background>
+            </Parallax>
+            <div className="h-[32rem] ml:h-[40rem]">
+              <RecruiterAnimation showAnimationn={!showAnimationn} />
+            </div>
+            <Parallax strength={400} className="h-[48rem] pt-[36px] ">
+              <Background className="custom-bg  ">
+                <ExpandSection />
+              </Background>
+            </Parallax>
+            <LastSection />
+          </ReactLenis>
+        </div>
+      
     </>
   );
 }

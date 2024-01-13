@@ -149,6 +149,14 @@
     position: absolute;
     gap: 10px;
   }
+@media (max-width:500px){
+  .collaborate_section{
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 10px;
+  }
+}
+
   .collaborate_sectionn {
     display: flex;
     align-items: center;
@@ -162,6 +170,7 @@
     display: flex;
     justify-content: flex-start;
     // margin-left: 10%;
+    height: 22rem;
     flex-direction: column;
     width: 777px;
     gap: 24px;
@@ -193,6 +202,20 @@
     font-weight: 500;
     line-height: 28px; /* 155.556% */
   }
+  @media (max-width:500px) {
+    .collaborate_left{
+      gap: 8px;
+      .collaborate_left p1 {
+        font-size: 30px;
+      }
+      .collaborate_left p2 {
+        font-size: 18px;
+      }
+      .collaborate_left p2 {
+        font-size: 14px;
+      }
+    }
+  }
   .collaborate_img {
     width: 306px;
     height: 352px;
@@ -203,3 +226,43 @@
     justify-content: flex-end;
   }
 }
+
+
+@media (max-width:500px) {
+  .collaborate_img{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .collaborate_img img{
+      width: 306px;
+      height: 352px;
+    }
+  }
+}
+
+@media (max-width:851px) {
+  .heroBlock{
+    display: none!important;
+  }
+}
+.unblockRecruiter {
+  display: block; 
+}
+
+@media (min-width: 851px) {
+  .unblockRecruiter {
+    display: none!important;
+  }
+}
+
+@media(min-width:600px){
+  .flex_class{
+    display: flex!important;
+    flex-direction: row!important;
+  }
+}
+
+// meadia query start
+
