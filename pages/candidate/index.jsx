@@ -40,7 +40,7 @@ function Candidate() {
      
         <div className="web">
           <ReactLenis root>
-            <Parallax strength={300} className="h-[36rem] pt-[36px] w-[100vw] ">
+            <Parallax strength={300} className="h-[36rem] pt-[36px] w-[100vw] parallax" >
             <Background className="custom-bg w-[100vw] ">
               <CandidateHero   />
             </Background>

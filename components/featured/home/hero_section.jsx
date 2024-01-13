@@ -5,12 +5,14 @@ import ImageContainer from "@/components/common/image";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { useMediaQuery } from "@react-hook/media-query";
+import { SkillList } from "@/utils/data";
 
 
 function HeroSection() {
 
 
-
+  const [skills, setSkills] = useState([...SkillList]);
+  console.log(15,skills)
   const isViewportBelow600 = useMediaQuery("(max-width:600px)");
   const isViewportBelow1220 = useMediaQuery("(max-width:1220px)");
   const isViewportBelow920 = useMediaQuery("(max-width:920px)");
@@ -25,7 +27,7 @@ function HeroSection() {
 
   const handleJobSelect = (job) => {
     setSelectedJob(job);
-    setSearchInput(job.title);
+    setSearchInput(job);
     setJobSuggestions([]);
   };
   const jobData = [
@@ -44,11 +46,15 @@ function HeroSection() {
     const searchText = e.target.value;
     setSearchInput(searchText);
 
-    const filteredJobs = jobData.filter((job) =>
-      job.title.toLowerCase().includes(searchText.toLowerCase())
+    const filteredJobs = skills.filter((job) =>
+      job.toLowerCase().includes(searchText.toLowerCase())
     );
 
     setJobSuggestions(filteredJobs);
+    window.scrollTo({
+      top: 250,
+      behavior: "smooth", 
+    });
   };
   const taskRef = useRef(null);
 
@@ -81,7 +87,10 @@ function HeroSection() {
   const handleLocationInputChange = (e) => {
     const searchText = e.target.value;
     setLocationInput(searchText);
-
+    window.scrollTo({
+      top: 250,
+      behavior: "smooth", 
+    });
     const googleGeocodeAPI = `https://maps.googleapis.com/maps/api/geocode/json?address=${searchText}&key=AIzaSyC18Xg49QgJj0NYpDikCbDwaWS00tKUpnM`;
 
     axios
@@ -232,13 +241,13 @@ function HeroSection() {
 
 
                 <img
-                  src={`/images/home/girl${isInSouthAfrica ? 2 : 1}.png`}
+                  src={`/images/home/girl${isInSouthAfrica ? 1 : 1}.png`}
                   alt=""
                   className={`${isViewportBelow600 ? 'h-[220px]' : 'h-[300px]'} ${isViewportBelow600 ? 'w-[220px]' : 'w-[300px]'} absolute object-contain right-0 -top-1 girl`}
                 />
 
                 <img
-                  src={`/images/home/man${isInSouthAfrica ? 2 : 1}.png`}
+                  src={`/images/home/man${isInSouthAfrica ? 1 : 1}.png`}
                   alt=""
 
                   className={`${isViewportBelow600 ? 'h-[220px]' : 'h-[300px]'} ${isViewportBelow600 ? 'w-[220px]' : 'w-[300px]'} absolute object-contain right-0 -top-1 boy`}
@@ -406,7 +415,7 @@ function HeroSection() {
                       </div>
                     )}
                   </div>
-                  <button className="flex items-center justify-center py-4 px-12  bg-blue text-white rounded-[12px] max-scr1200:px-8 max-scr1100:px-6">
+                  <button  onClick={() => router.push("/candidate/afterLogin/jobs/dummyJobCards")} className="flex items-center justify-center py-4 px-12  bg-blue text-white rounded-[12px] max-scr1200:px-8 max-scr1100:px-6">
                     Search
                   </button>
                 </div>
@@ -571,9 +580,9 @@ function HeroSection() {
               Join Now
             </button>
 
-            <div className="searchbox relative">
+            <div className="searchbox ">
               <div className="searchBar">
-                <div className="sub_searchBar_one text-[#333]">
+                <div className="sub_searchBar_one text-[#333] relative">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="5vw"
@@ -598,10 +607,10 @@ function HeroSection() {
                   />
 
                   {jobSuggestions.length > 0 && (
-                    <div ref={taskRef} className="absolute bg-[#FFF] w-[295px] h-[216px] bottom-28 left-28 rounded-t-[8px] overflow-y-auto p-2" style={{ boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)" }}>
+                    <div ref={taskRef} className="absolute bg-[#FFF] w-[295px] h-[216px] top-16 left-10 rounded-t-[8px] overflow-y-auto p-2" style={{ boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)" }}>
                       {jobSuggestions.map((job) => (
                         <div key={job.id} className="" onClick={() => handleJobSelect(job)}>
-                          <p className="flex flex-col p-2 text-[#333] text-[16px] font-normal cursor-pointer">{job.title}</p>
+                          <p className="flex flex-col p-2 text-[#333] text-[16px] font-normal cursor-pointer">{job}</p>
                         </div>
                       ))}
                     </div>
@@ -611,7 +620,7 @@ function HeroSection() {
                   className="searcgBarLine "
                   src="/images/home/searcgBarLine.png"
                 />
-                <div className="sub_searchBar_two">
+                <div className="sub_searchBar_two relative">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="4vw"
@@ -643,7 +652,7 @@ function HeroSection() {
                   />
 
                   {locationSuggestions.length > 0 && (
-                    <div ref={taskRef} className="  absolute bg-[#FFF] w-[295px] h-[216px] bottom-28 right-[25%] rounded-t-[8px] overflow-y-auto p-2" style={{ boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)" }}>
+                    <div ref={taskRef} className="  absolute bg-[#FFF] w-[295px] h-[216px] top-16 left-10 rounded-t-[8px] overflow-y-auto p-2" style={{ boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)" }}>
                       {locationSuggestions.map((loc) => (
                         <div key={loc.id} className="" onClick={() => handleLocSelect(loc)}>
                           <p className="flex flex-col p-2 text-[#333] text-[16px] font-normal cursor-pointer">{loc.name}</p>
@@ -652,7 +661,7 @@ function HeroSection() {
                     </div>
                   )}
                 </div>
-                <button className="searchbtn">Search</button>
+                <button  onClick={() => router.push("/candidate/afterLogin/jobs/dummyJobCards")} className="searchbtn">Search</button>
               </div>
             </div>
           </div>

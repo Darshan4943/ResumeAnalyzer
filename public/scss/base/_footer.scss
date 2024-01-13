@@ -1,14 +1,15 @@
 /* Footer Section start here */
 .footer {
-  // margin-top: 2rem;
+  padding: 0 10px 0 10px;
 }
 .footer_main_box {
   background: #212121;
   display: flex;
   width: 100%;
-  align-items: center;
+  align-items: start;
   gap: 24px;
   justify-content: center;
+  align-items: center;
 }
 
 .footer_part_one {
@@ -24,6 +25,8 @@
   justify-content: center;
   align-items: flex-start;
   gap: 24px;
+
+  padding-right: 8px;
 }
 .Footer_secondContainer {
   display: flex;
@@ -31,6 +34,7 @@
   justify-content: center;
   align-items: flex-start;
   gap: 36px;
+  padding:24px 0;
 }
 .footer_Address {
   gap: 36px;
@@ -42,7 +46,7 @@
   padding: 8px 16px;
   justify-content: space-between;
   align-items: center;
-  gap: 26px;
+  gap: 16px;
   border-radius: 39.57px;
   background: var(--white, #fff);
   box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.25);
@@ -76,7 +80,7 @@
 }
 .footer_input_conatainer {
   display: flex;
-  padding: 48px 0px;
+
   flex-direction: column;
   justify-content: space-between;
   align-items: stretch;
@@ -120,7 +124,7 @@
   flex-direction: column;
 
   align-items: flex-start;
-  gap: 16.823px;
+  gap: 8px;
 }
 .footer_about_section {
   display: flex;
@@ -157,6 +161,7 @@
   font-style: normal;
   font-weight: 400;
   line-height: 20px; /* 142.857% */
+  flex-wrap: wrap !important;
 }
 .footer_address_Email {
   color: var(--white, #fff);
@@ -203,6 +208,120 @@
     gap: 18px;
     width: 350px;
   }
+  .playstore {
+    width: 150px !important;
+    height: 45px !important;
+  }
+}
+@media (max-width: 1080px) {
+  .footer_input_conatainer {
+    gap: 18px;
+    width: 300px;
+  }
+  .footer_input {
+    padding: 8px;
+  }
+  .footer_input_bar {
+    font-size: 11px !important;
+  }
+  .footer_input_btn {
+    padding: 8px;
+    font-size: 12px;
+  }
+  .playstore {
+    width: 130px !important;
+    height: 40px !important;
+  }
+  .footer_input_conatainer_P {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 1000px) {
+  .footer{
+    padding: 16px 8px;
+    justify-content: center !important;
+    align-items: center !important;
+  }
+  .footer_main_box {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .Footer_firstContainer {
+    width: 100%;
+    justify-content: center !important;
+    align-items: center !important;
+
+    padding: 0% !important;
+  }
+  .largest{
+    text-align: center;
+    align-items: center !important;
+    width: 80% !important;
+  }
+  .Footer_secondContainer{
+    display: flex;
+    width: 80% !important;
+  align-items: start !important;
+  justify-content:  space-between !important;
+
+  }
+ 
+ 
+  .footer_input_conatainer{
+    gap:24px !important
+  }
+  .footerLine{
+    width: 600px !important;
+  }
+}
+@media (max-width: 850px) {
+  .Footer_secondContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+    justify-content: center !important;
+    align-items: center !important;
+
+  }
+  .footer_input_conatainer{
+    width: 90%;
+  }
+  .address{
+
+    gap:24px !important;
+    justify-content: flex-start !important;
+  }
+  .footerLine{
+    width: 500px !important;
+  }
+
+
+}
+@media (max-width: 550px) {
+  .footerLine{
+    width: 400px !important;
+  }
+}
+@media (max-width: 450px) {
+  .footerLine{
+    width: 300px !important;
+  }
+  .footerThird{
+    gap:4px !important
+  }
+  .address{
+    max-width:150px !important
+  }
+  .footer_address_Para{
+    width: 150px !important;
+  }
+
+}
+.playstore {
+  width: 177px;
+  height: 53px;
 }
 
 .largest {
