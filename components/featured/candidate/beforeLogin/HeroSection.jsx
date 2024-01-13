@@ -350,7 +350,7 @@ function CandidateHero() {
                       />
 
                       {jobSuggestions.length > 0 && (
-                        <div ref={taskRef} className="absolute bg-[#FFF] w-[295px] h-[216px] top-20 left-10 rounded-t-[8px] overflow-y-auto p-2 z-[20000]" style={{ boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)" }}>
+                        <div ref={taskRef}     onWheel={(e) => e.stopPropagation()} className="absolute bg-[#FFF] w-[295px] h-[216px] top-20 left-10 rounded-t-[8px] overflow-y-auto p-2 z-[20000]" style={{ boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)" }}>
                           {jobSuggestions.map((job) => (
                             <div key={job.id} className="" onClick={() => handleJobSelect(job)}>
                               <p className="flex flex-col p-2 text-[#333] text-[16px] font-normal cursor-pointer">{job}</p>
@@ -398,7 +398,7 @@ function CandidateHero() {
 
                     {locationSuggestions.length > 0 && (
                       <div
-                        ref={taskRef}
+                        ref={taskRef}     onWheel={(e) => e.stopPropagation()}
                         className="  absolute bg-[#FFF] w-[295px] h-[216px]   top-14 rounded-t-[8px] overflow-y-auto p-2"
                         style={{ boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)" }}
                       >
@@ -460,7 +460,7 @@ function CandidateHero() {
           />
 
           {jobSuggestions.length > 0 && (
-            <div ref={taskRef} className="absolute bg-[#FFF] w-[295px] h-[216px] top-20 left-10 rounded-t-[8px] overflow-y-auto p-2 z-[20000]" style={{ boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)" }}>
+            <div ref={taskRef}     onWheel={(e) => e.stopPropagation()} className="absolute bg-[#FFF] w-[295px] h-[216px] top-20 left-10 rounded-t-[8px] overflow-y-auto p-2 z-[20000]" style={{ boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)" }}>
               {jobSuggestions.map((job) => (
                 <div key={job.id} className="" onClick={() => handleJobSelect(job)}>
                   <p className="flex flex-col p-2 text-[#333] text-[16px] font-normal cursor-pointer">{job}</p>
@@ -495,7 +495,7 @@ function CandidateHero() {
 
           {locationSuggestions.length > 0 && (
             <div
-              ref={taskRef}
+              ref={taskRef}     onWheel={(e) => e.stopPropagation()}
               className="  absolute bg-[#FFF] w-[295px] h-[216px]   bottom-[4%] rounded-t-[8px] overflow-y-auto p-2"
               style={{ boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)" }}
             >
