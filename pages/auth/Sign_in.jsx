@@ -32,7 +32,7 @@ function Sign_in() {
         if (response.success) {
           localStorage.setItem("authToken", response.token);
           dispatch(reCallUserData())
-          toast.success("Registration Complete");
+          toast.success("Sign in Successfully");
           router.push("/candidate/afterLogin/home/candidateHome");
           setError("Sign in Successfully")
         } else {
