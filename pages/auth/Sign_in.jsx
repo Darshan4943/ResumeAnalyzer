@@ -99,7 +99,7 @@ function Sign_in() {
               </a>
             </div>
             <div className={`flex justify-center text-[12px] font-[500] ${error === 'Sign in Successfully' ? 'text-green-800' : 'text-red-800'}`}>
-          <p>{error || 'Click the "Sign In" button to sign in.'}</p>
+          <p>{error}</p>
         </div>
           </div>
         </div>
