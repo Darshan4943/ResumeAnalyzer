@@ -74,17 +74,21 @@ div::-webkit-scrollbar-thumb {
 ////////////AfterloginHome Animation//////////////////
 
 .ai_images {
-  width: 142px;
-  height: 140px;
+  // width: 142px;
+  // height: 140px;
+  height: 337px;
+  width: 344px;
   position: relative;
   display: flex;
-  align-items: center;
-  padding: 47px 0;
+  align-items: start;
+  justify-content: center;
+  // padding: 47px 0;
 }
 
 .name_resume {
-  width: 78px;
-  height: 111px;
+  // width: 78px;
+  // height: 111px;
+  
   flex-shrink: 0;
   animation: name_resume 3s infinite;
 }
