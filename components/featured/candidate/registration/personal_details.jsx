@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import ALink from "@/components/alink";
 import { toast } from "react-toastify";
@@ -207,6 +207,22 @@ const PersonalDetails = ({
     setFilteredTelCode(filteredCodes);
   }, [telCode, searchTerm]);
 
+
+  const taskRef = useRef(null);
+
+  const handleOutsideClick = (event) => {
+    if (taskRef.current && !taskRef.current.contains(event.target)) {
+      setDropdown(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleOutsideClick);
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick);
+    };
+  }, []);
+
   return (
     <>
       {tabindex == 2 && (
@@ -395,7 +411,7 @@ const PersonalDetails = ({
 
 
                         {dropdown && (
-                          <div
+                          <div ref={taskRef}
                             className="w-[113px] font-[500] top-12 -left-1  z-10 h-[40vh] overflow-y-scroll bg-[#fff] border-[1px] border-solid border-[#9D9D9D] absolute text-[14px] p-1 flex flex-col justify-between items-center"
                             name=""
                             id=""
