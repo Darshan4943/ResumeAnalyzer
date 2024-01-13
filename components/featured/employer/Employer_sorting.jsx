@@ -24,6 +24,7 @@ function Employer_sorting({ showAnimation }) {
 
     return () => clearTimeout(timer);
   }, [showAnimation]);
+  
 
   const divs = [
     <div key={0}></div>,
@@ -140,7 +141,7 @@ function Employer_sorting({ showAnimation }) {
 
   return (
 
-    
+
     <div style={{ overflow: "hidden" }} className="h-[40rem]">
       {showMain ? (
         <div className="Employer_sorting_container customMargins">
