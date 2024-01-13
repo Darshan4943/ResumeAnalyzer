@@ -241,13 +241,13 @@ function HeroSection() {
 
 
                 <img
-                  src={`/images/home/girl${isInSouthAfrica ? 1 : 1}.png`}
+                  src={`/images/home/girl${isInSouthAfrica ? 2 : 1}.png`}
                   alt=""
                   className={`${isViewportBelow600 ? 'h-[220px]' : 'h-[300px]'} ${isViewportBelow600 ? 'w-[220px]' : 'w-[300px]'} absolute object-contain right-0 -top-1 girl`}
                 />
 
                 <img
-                  src={`/images/home/man${isInSouthAfrica ? 1 : 1}.png`}
+                  src={`/images/home/man${isInSouthAfrica ? 2 : 1}.png`}
                   alt=""
 
                   className={`${isViewportBelow600 ? 'h-[220px]' : 'h-[300px]'} ${isViewportBelow600 ? 'w-[220px]' : 'w-[300px]'} absolute object-contain right-0 -top-1 boy`}
@@ -278,7 +278,7 @@ function HeroSection() {
                     <div ref={taskRef} className="absolute bg-[#FFF] w-[295px] h-[216px] top-[47%]  rounded-t-[8px] overflow-y-auto p-2" style={{ boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)" }}>
                       {jobSuggestions.map((job) => (
                         <div key={job.id} className="" onClick={() => handleJobSelect(job)}>
-                          <p className="flex flex-col p-2 text-[#333] text-[16px] font-normal cursor-pointer">{job.title}</p>
+                          <p className="flex flex-col p-2 text-[#333] text-[16px] font-normal cursor-pointer">{job}</p>
                         </div>
                       ))}
                     </div>
@@ -348,22 +348,23 @@ function HeroSection() {
                     </svg>
 
                     <div>
-                      <input
-                        type="text"
-                        className="text-gray font-small text-[20px] max-scr1400:text-[18px] max-scr1350:text-[17px] max-scr1300:text-[16px] max-scr1250:text-[15px] max-scr1200:text-[15px] max-scr1150:text-[15px] max-scr1100:text-[15px]  max-scr1050:text-[15px]  placeholder-start text-start"
-                        placeholder="Job title or keyword"
-                        value={searchInput}
-                        onChange={handleInputChange}
-                      />
-                      {jobSuggestions.length > 0 && (
-                        <div ref={taskRef}  onWheel={(e) => e.stopPropagation()} className="absolute bg-[#FFF] w-[295px] h-[216px] top-[90%]  rounded-t-[8px] overflow-y-auto p-2" style={{ boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)" }}>
-                          {jobSuggestions.map((job) => (
-                            <div key={job.id} className="" onClick={() => handleJobSelect(job)}>
-                              <p className="flex flex-col p-2 text-[#333] text-[16px] font-normal cursor-pointer">{job.title}</p>
-                            </div>
-                          ))}
+                    <input
+                    type="text"
+                    className="  placeholder-start text-start"
+                    placeholder="Job title or keyword"
+                    value={searchInput}
+                    onChange={handleInputChange}
+                  />
+
+                  {jobSuggestions.length > 0 && (
+                    <div ref={taskRef}     onWheel={(e) => e.stopPropagation()} className="absolute bg-[#FFF] w-[295px] h-[216px] top-16 left-10 rounded-t-[8px] overflow-y-auto p-2" style={{ boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)" }}>
+                      {jobSuggestions.map((job) => (
+                        <div key={job.id} className="" onClick={() => handleJobSelect(job)}>
+                          <p className="flex flex-col p-2 text-[#333] text-[16px] font-normal cursor-pointer">{job}</p>
                         </div>
-                      )}
+                      ))}
+                    </div>
+                  )}
                     </div>
                   </div>
                   <ImageContainer
