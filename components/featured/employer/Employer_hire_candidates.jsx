@@ -96,11 +96,11 @@ const Employer_hire_candidates = () => {
 
   return (
     <div className="Employer_hire_candidates_container customMargins w-screen">
-       <Parallax speed={-10}>
-      <div className="Employer_hire_candidates_images_main_container">
-        {divs[currentDivIndex]}
-      </div>
-      </Parallax>
+      {/* <Parallax className="Employer_parallax" speed={-10}> */}
+        <div className="Employer_hire_candidates_images_main_container">
+          {divs[currentDivIndex]}
+        </div>
+      {/* </Parallax> */}
       <div className="Employer_hire_candidates_wrapper">
         <div className="hire_candidates_head">
           Hire candidates across the world

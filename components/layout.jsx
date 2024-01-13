@@ -7,26 +7,41 @@ import Header2 from "./partials/header/header2";
 import Sidebar from "./partials/header/sidebar";
 import { ToastContainer } from "react-toastify";
 
+import MobileHeader from "./partials/header/mobileHeader";
+import { useMediaQuery } from "@react-hook/media-query";
+
 function Layout({ children }) {
   const router = useRouter();
   const [selectedPage, setSelectedPage] = useState("");
-
+  const isViewportBelow850 = useMediaQuery("(max-width:850px)");
   useEffect(() => {
     setSelectedPage(router.pathname);
   }, [router.pathname]);
 
   const Temp = () => (
-    <div>
-      <div>
-        <Header />
+    <>
+      {/* {isViewportBelow850 ? */}
+      <div className="mobile">
+        <div>
+          <MobileHeader />
+        </div>
+        <div className=" min-h-screen ">{children}</div>
       </div>
-      <div className="mt-[5rem] min-h-screen ">{children}</div>
+      {/* : */}
+      <div className="web">
+        <div>
+          <Header />
+        </div>
+        <div className="mt-[5rem] min-h-screen ">{children}</div>
 
-      <Footer />
-    </div>
+        {/* <Footer /> */}
+      </div>
+      {/* } */}
+    </>
   );
   const Temp2 = () => (
     <div className="">
+
       <div>
         <Header2 />
       </div>

@@ -139,13 +139,14 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-
     justify-content: space-between;
   }
   .sorting_wrapper {
     display: flex;
     flex-direction: column;
     gap: 24px;
+    // padding-left: 25px;
+    width: 95%;
   }
   .sorting_head {
     color: var(--text-prmary, #333);
@@ -184,6 +185,7 @@
   }
   .sorting_image {
     animation: imageAnime 0.5s;
+    // width: %;
   }
 
   @keyframes imageAnime {
@@ -226,32 +228,27 @@
     line-height: 28px; /* 155.556% */
     position: relative;
   }
-
+  .desk_para {
+    display: flex;
+    flex-direction: column;
+  }
+  .phone_para {
+    display: none;
+  }
   .one {
     white-space: nowrap;
     overflow: hidden;
     display: flex;
-    // opacity: 1;
-    // position: relative;
-    // animation: typing 2s steps(40, end);
   }
   .two {
     white-space: nowrap;
     overflow: hidden;
     display: flex;
-
-    // opacity: 1;
-    // position: relative;
-    // animation: typing 2s steps(40, end);
   }
   .three {
     white-space: nowrap;
     overflow: hidden;
     display: flex;
-
-    // opacity: 1;
-    // position: relative;
-    // animation: typing 2s steps(40, end);
   }
   .sorting_para_white_div {
     position: absolute;
@@ -295,19 +292,79 @@
       transform: translateX(100%);
     }
   }
-
-  // @keyframes typing {
-  //   from {
-  //     width: 0;
-  //     opacity: 0;
-  //     display: block;
-  //   }
-  //   to {
-  //     width: 100%;
-
-  //     display: block;
-  //   }
-  // }
+  @media (max-width: 894px) {
+    .sorting_head {
+      font-size: 40px;
+    }
+    .sorting_2nd_heading {
+      font-size: 24px;
+    }
+    .sorting_para {
+      font-size: 14px;
+    }
+  }
+  @media (max-width: 850px) {
+  }
+  @media (max-width: 768px) {
+    .sorting_head {
+      font-size: 40px;
+    }
+    .sorting_2nd_heading {
+      font-size: 24px;
+    }
+    .sorting_para {
+      font-size: 14px;
+    }
+  }
+  @media (max-width: 702px) {
+    .sorting_head {
+      font-size: 36px;
+    }
+    .sorting_2nd_heading {
+      font-size: 20px;
+    }
+    .sorting_para {
+      font-size: 10px;
+    }
+  }
+  @media (max-width: 594px) {
+    .Employer_sorting_sub_container {
+      flex-direction: column-reverse;
+      justify-content: space-evenly;
+    }
+    .sorting_head {
+      font-size: 30px;
+    }
+    .sorting_2nd_heading {
+      font-size: 18px;
+    }
+    .sorting_para {
+      font-size: 14px;
+    }
+    .sorting_wrapper {
+      gap: 8px;
+    }
+    .desk_para {
+      display: none;
+    }
+    .phone_para {
+      display: block;
+    }
+    .sorting_main-container {
+      display: none;
+    }
+  }
+  @media (max-width: 320px) {
+    .sorting_head {
+      font-size: 28px;
+    }
+    .sorting_2nd_heading {
+      font-size: 16px;
+    }
+    .sorting_para {
+      font-size: 12px;
+    }
+  }
 }
 /* employer sorting section end here */
 
@@ -324,35 +381,15 @@
     height: 60%;
     position: relative;
     transition: all 1s;
-    /* animation: changeDivs 1.2s linear infinite; */
   }
-  /* @keyframes changeDivs {
-      0%,
-      100% {
-        transform: scale(1);
-        opacity: 1;
-      }
-      16.67% {
-        transform: scale(0);
-        opacity: 0;
-      }
-      33.33%,
-      100% {
-        transform: scale(1);
-        opacity: 1;
-      }
-    } */
   .Employer_hire_candidates_images {
     width: 100%;
     height: 100%;
-    /* position: absolute; */
   }
   #earth {
     width: 45%;
     height: 45%;
-    /* background: url("https://web.archive.org/web/20150807125159if_/http://www.noirextreme.com/digital/Earth-Color4096.jpg"); */
     background: url("../../images/employer/world.png");
-    /* background-repeat: no-repeat; */
 
     border-radius: 50%;
     background-size: 210px;
@@ -380,6 +417,7 @@
     }
   }
   .tethescope {
+    width: 60%;
     position: absolute;
     left: 64%;
     transform: translate(-50%, -50%);
@@ -392,7 +430,7 @@
     font-style: normal;
     font-weight: 700;
     line-height: normal;
-    /* width: 40%; */
+    width: 100%;
   }
   @media (min-width: 600px) {
     .hire_candidates_head {
@@ -419,7 +457,7 @@
     display: flex;
     flex-direction: column;
     gap: 24px;
-    width: 50%;
+    width: 60%;
     height: 100%;
   }
   .hire_candidates_btn {
@@ -443,89 +481,153 @@
     border-radius: 12px;
     background: var(--primary, #06a9ef);
   }
-  .Employer_hire_candidates_moving_earth {
-    /* display: flex;
-      width: 260px;
-      height: 260px;
-      justify-content: flex-end;
-      align-items: center;
-      flex-shrink: 0;
-      border-radius: 360px;
-      background: #8f4343;
-      box-shadow: -2px -4px 18px 2px rgba(0, 0, 0, 0.45) inset,
-        0px 19px 17px -2px rgba(0, 0, 0, 0.45); */
-  }
-  /* .Employer_hire_candidates_images_main_container{
-        position: relative;
-    }
-    .Employer_hire_candidates_images_container{
-        position: absolute;
-    }*/
-
-  /* employer hire candidates section end here */
   .worldMap {
     height: 100%;
     width: 100%;
   }
 }
-/* employer hire candidates section end here */
+.Employer_hire_candidates_paralx {
+  height: 65rem;
+  padding-top: 36px;
+}
+@media (max-width: 1024px) {
+  .Employer_hire_candidates_paralx {
+    height: 50rem;
+  }
+}
+@media (max-width: 851px) {
+  .Employer_hire_candidates_container {
+    flex-direction: column;
+    // align-items: flex-start;
+  }
+  .Employer_hire_candidates_images_container {
+    width: 80% !important;
+    height: 30% !important;
+    // display: none;
+    display: flex;
+    justify-content: center !important;
+  }
+  .Employer_hire_candidates_paralx {
+    height: 65rem;
+  }
+}
+@media (max-width: 768px) {
+  .Employer_hire_candidates_wrapper {
+    width: 75% !important;
+  }
+  .hire_candidates_head {
+    font-size: 40px !important;
+  }
+  .hire_candidates_2nd_head {
+    font-size: 24px !important;
+  }
+  .hire_candidates_para {
+    font-size: 16px !important;
+  }
+  .hire_candidates_btn {
+    padding: 12px 28px !important;
+    font-size: 14px !important;
+    border-radius: 6px !important;
+    // padding: 18px 48px;
+  }
+  .Employer_hire_candidates_paralx {
+    height: 60rem;
+  }
+}
+@media (max-width: 594px) {
+  .Employer_hire_candidates_wrapper {
+    width: 100% !important;
+    gap: 8px !important;
+  }
+}
+@media (max-width: 525px) {
+  .hire_candidates_head {
+    font-size: 46px !important;
+  }
+  .hire_candidates_2nd_head {
+    font-size: 22px !important;
+  }
+  .hire_candidates_para {
+    font-size: 14px !important;
+  }
+}
+@media (max-width: 425px) {
+  .hire_candidates_head {
+    font-size: 30px !important;
+  }
+  .hire_candidates_2nd_head {
+    font-size: 18px !important;
+  }
+  .hire_candidates_para {
+    font-size: 14px !important;
+  }
+  .hire_candidates_btn {
+    padding: 8px 16px !important;
+    font-size: 14px !important;
+    border-radius: 6px !important;
+  }
+}
 
-/* employer why skilotech section start here */
+@media (max-width: 375px) {
+  .hire_candidates_head {
+    font-size: 30px !important;
+  }
+  .hire_candidates_2nd_head {
+    font-size: 18px !important;
+  }
+  .hire_candidates_para {
+    font-size: 14px !important;
+  }
+  .hire_candidates_btn {
+    padding: 8px 16px !important;
+    font-size: 14px !important;
+    border-radius: 6px !important;
+  }
+  .Employer_hire_candidates_paralx {
+    height: 45rem;
+  }
+}
 
-/* employer why skilotech section end here */
-
-/* employer why skilotech section 2nd start here */
-// .Employer_why_skilotech_sec2_container {
-//   width: 100%;
-//   display: flex;
-//   justify-content: center;
-//   margin-top: 38px;
-//   margin-bottom: 72px;
-// }
-.Employer_why_skilotech_sec2_sub_container {
-  // display: flex;
-  // flex-wrap: wrap;
-  // flex-direction: row;
-  // gap: 22px;
-  // justify-content: center;
-  // max-width: 900px;
-  // /* padding: 0px 236px; */
+@media (max-width: 360px) {
+  .hire_candidates_head {
+    font-size: 30px !important;
+  }
+  .hire_candidates_2nd_head {
+    font-size: 18px !important;
+  }
+  .hire_candidates_para {
+    font-size: 14px !important;
+  }
+  .hire_candidates_btn {
+    padding: 8px 16px !important;
+    font-size: 14px !important;
+    border-radius: 6px !important;
+  }
 }
-.cart-wrapper {
-  // display: flex;
-  // flex-wrap: wrap;
-  // flex-direction: row;
-  // justify-content: center;
-  // gap: 22px;
+.Employer_main_phn {
+  display: none;
 }
-.Employer_why_skilotech_sec2_cart {
-  // display: flex;
-  // width: 234px;
-  // padding: 8px;
-  // flex-direction: column;
-  // align-items: flex-start;
-  // gap: 14px;
-  // border-radius: 12px;
-  // border: 0.5px solid #cdcdcd;
-  // background: #fff;
-  // transition: all 0.5s;
+.Employer_head {
+  font-size: 86px;
 }
-.Employer_why_skilotech_sec2_cart_1st {
-  // display: flex;
-  // padding: 12px;
-  // flex-direction: column;
-  // align-items: center;
-  // gap: 8px;
-  // align-self: stretch;
-  // border-radius: 8px;
-  // background: #d2e7f0;
-  // height: 122px;
-  // transition: all 0.5s;
+.Employer_head_2nd {
+  font-size: 26px;
 }
-// .Employer_why_skilotech_sec2_cart_2nd {
-//   height: 100%;
-//   width: 100%;
-// }
+.main_container {
+  height: 560px;
+}
+.employer_button {
+  padding: 18px 48px;
+}
+.employer_head_para {
+  font-size: 16px;
+}
+.emp_3rd_container {
+  gap: 24px;
+}
+.Employer_main_paralx {
+  height: 36rem;
+}
 @media (max-width: 1100px) {
   .main_container {
     height: 460px;
@@ -534,18 +636,220 @@
     font-size: 50px;
   }
   .Employer_head_span {
-    font-size: 60px;
+    font-size: 50px;
   }
 }
-// .Employer_why_skilotech_sec2_cart_1st_head {
-//   // color: #000;
-//   // text-align: center;
-//   // font-family: Montserrat;
-//   // font-size: 18px;
-//   // font-style: normal;
-//   // font-weight: 500;
-//   // line-height: normal;
-// }
+@media (max-width: 884px) {
+  .employer_head_para {
+    width: 60%;
+  }
+  .Employer_head {
+    font-size: 50px;
+    line-height: 68px;
+  }
+  .employer_button {
+    padding: 12px 36px;
+  }
+  .Employer_main_container {
+    background-position: 70% 30%;
+  }
+}
+@media (max-width: 851px) {
+  .employer_head_para {
+    display: none;
+  }
+  .employer_button {
+    display: none;
+  }
+  .Employer_main_phn {
+    display: block;
+  }
+  .Employer_head {
+    font-size: 54px;
+  }
+  .Employer_main_paralx {
+    height: 55rem;
+  }
+}
+@media (max-width: 768px) {
+  .main_container {
+    height: 360px;
+  }
+  .Employer_head {
+    font-size: 40px;
+    line-height: 42px;
+    // padding-top: 46px;
+  }
+  .Employer_head_span {
+    font-size: 40px;
+  }
+  .employer_head_para {
+    width: 60%;
+    font-size: 12px;
+  }
+  .employer_button {
+    padding: 12px 36px;
+  }
+  .emp_3rd_container {
+    gap: 10px;
+  }
+  .Employer_main_container {
+    background-position: 70% 30%;
+  }
+  .Employer_main_paralx {
+    height: 35rem;
+  }
+}
+@media (max-width: 594px) {
+  .main_container {
+    height: 300px;
+  }
+  .employer_button {
+    padding: 10px 22px;
+  }
+  .emp_3rd_container {
+    gap: 8px;
+  }
+  .employer_button {
+    display: none;
+  }
+  .Employer_main_container {
+    background-position: 70% 30%;
+  }
+  .employer_head_para {
+    display: none;
+  }
+  .Employer_main_paralx {
+    height: 30rem;
+  }
+}
+@media (max-width: 426px) {
+  .main_container {
+    height: 200px;
+  }
+
+  .Employer_head {
+    font-size: 28px;
+    line-height: 32px;
+    // padding-top: 46px;
+  }
+  .Employer_head_span {
+    font-size: 28px;
+  }
+  .Employer_head_2nd {
+    font-size: 20px;
+  }
+  .employer_head_para {
+    display: none;
+  }
+  .emp_3rd_container {
+    gap: 4px;
+  }
+  .employer_button {
+    display: none;
+  }
+  .Employer_main_container {
+    background-position: 70% 30%;
+  }
+  .Employer_main_paralx {
+    height: 29rem;
+  }
+}
+@media (max-width: 376px) {
+  .main_container {
+    height: 190px;
+  }
+  .Employer_head {
+    font-size: 28px;
+    line-height: 32px;
+    padding-top: 12px;
+  }
+  .Employer_head_span {
+    font-size: 28px;
+  }
+  .Employer_head_2nd {
+    font-size: 20px;
+    width: 50%;
+  }
+  .employer_head_para {
+    font-size: 8px;
+  }
+  .emp_3rd_container {
+    gap: 4px;
+  }
+  .employer_button {
+    display: none;
+  }
+  .Employer_main_container {
+    background-position: 70% 30%;
+  }
+  .emp_3rd_container {
+    gap: 16px;
+  }
+  .Employer_head {
+    width: 60%;
+  }
+  .Employer_main_paralx {
+    height: 30rem;
+  }
+}
+@media (max-width: 360px) {
+  .Employer_head_2nd {
+    font-size: 20px;
+    width: 75%;
+  }
+  .Employer_head {
+    width: 85%;
+  }
+}
+
+@media (max-width: 340px) {
+  .Employer_head_2nd {
+    font-size: 20px;
+    width: 70%;
+  }
+  .Employer_head {
+    width: 80%;
+  }
+}
+@media (max-width: 320px) {
+  .Employer_head_2nd {
+    font-size: 20px;
+    width: 60%;
+  }
+  .Employer_head {
+    width: 80%;
+  }
+}
+
+.Employer_why_skilotech {
+  font-size: 36px;
+}
+@media (max-width: 768px) {
+  .Employer_why_skilotech {
+    font-size: 30px;
+    padding: 8px 2px;
+  }
+}
+
+@media (max-width: 476px) {
+  .Employer_why_skilotech {
+    font-size: 16px;
+    padding: 8px 2px;
+  }
+}
+@media (max-width: 426px) {
+  .Employer_why_skilotech {
+    font-size: 14px;
+    padding: 8px 2px;
+  }
+}
+@media (max-width: 360px) {
+  .Employer_why_skilotech {
+    font-size: 14px;
+    padding: 8px 0px;
+  }
+}
 .Employer_why_skilotech_sec2_cart_1st_img {
   transition: all 0.5s;
 }
@@ -562,3 +866,23 @@
 }
 
 /* employer why skilotech section 2nd end here */
+.employer_card{
+  padding: 4px;
+}
+.employer_card_svg{
+  border-radius: 3px;
+}
+
+@media (min-width:570px) {
+  .grid_one{
+    display: grid ;
+    grid-template-columns: repeat(3, 3fr)!important;
+  }
+  .employer_card{
+    padding: 8px;
+  }
+  .employer_card_svg{
+    border-radius: 6px;
+  }
+  
+}

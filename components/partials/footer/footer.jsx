@@ -1,6 +1,8 @@
+import { useRouter } from "next/router";
 import React from "react";
 
 function Footer() {
+  const router = useRouter();
   return (
     <div
       className="footer"
@@ -163,7 +165,13 @@ function Footer() {
               <div className="footer_sub_about">
                 <p className="footer_sub_about_P">Terms and Conditions</p>
                 <p className="footer_sub_about_P">Privacy Policy</p>
-                <p className="footer_sub_about_P">Contact Us</p>
+                <p
+                  onClick={() => router.push("/components/models/Contact")}
+                  className="footer_sub_about_P"
+                >
+                  {" "}
+                  Contact Us
+                </p>
               </div>
             </div>
           </div>
