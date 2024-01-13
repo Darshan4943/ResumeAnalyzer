@@ -78,15 +78,15 @@ function Candidate_animation() {
     <>
       <div className="mobile">
         <div className="flex flex-col gap-2">
-          <div className="ai_images w-full flex items-center justify-center">
-            <div className="w-[264px] h-[280px] flex relative">
+          <div className="ai_images w-full h-[300px] flex items-center justify-center">
+            <div className="w-[200px] h-[240px] flex relative">
               <img
                 className="david_resume w-[190px] h-[268px] absolute top-0 left-0"
                 src="/images/candidate/resume2.png"
                 alt=""
               />
               <img
-                className="name_resume w-[190px] h-[268px] absolute top-0 left-[35%] right-[30%]"
+                className="name_resume w-[190px] h-[268px] absolute top-0 left-[35%] right-[30%] object-contain"
                 src="/images/candidate/resume1.png"
                 alt=""
               />
