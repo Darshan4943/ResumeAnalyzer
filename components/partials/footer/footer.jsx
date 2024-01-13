@@ -182,7 +182,7 @@ function Footer() {
                 <p className="footer_about_P">My Account</p>
                 <div className="footer_sub_about">
                   <p className="footer_sub_about_P">Log Out</p>
-                  <p className="footer_sub_about_P">View Cart</p>
+                
                   <p className="footer_sub_about_P" >
 
                     My Profile

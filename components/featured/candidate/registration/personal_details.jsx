@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import ALink from "@/components/alink";
 import { toast } from "react-toastify";
@@ -46,13 +46,13 @@ const PersonalDetails = ({
     setIsPasswordVisible((prevState) => !prevState);
   }
 
-  const [selectedItem, setSelectedItem] = useState();
+  // const [selectedItem, setSelectedItem] = useState();
 
-  const handleItemClick = (item) => {
-    setSelectedItem(item);
-    setDropdown(false);
-  };
-  console.log(51, selectedItem);
+  // const handleItemClick = (item) => {
+  //   setSelectedItem(item);
+  //   setDropdown(false);
+  // };
+  // console.log(51, selectedItem);
 
   const validateInput = (fieldName, value) => {
     const errors = { ...formError };
@@ -106,8 +106,10 @@ const PersonalDetails = ({
         }
         break;
       case "mobileNo":
-        if (value.length !== 10) {
-          errors.mobileNo = "Mobile Number Should Be 10 Digits";
+        if (!value.trim()) {
+          errors.mobileNo = "Mobile Number is required";
+        } else if (isNaN(value)) {
+          errors.mobileNo = "Mobile Number cannot be text";
         } else {
           delete errors.mobileNo;
         }
@@ -166,19 +168,41 @@ const PersonalDetails = ({
     }
   };
 
-  const [dropdown, setDropdown] = useState(false);
 
+
+  const [dropdown, setDropdown] = useState(false);
+  const [selectedItem, setSelectedItem] = useState(telCode[0]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [inputValue, setInputValue] = useState("");
+
 
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
+    setDropdown(true); 
   };
 
-  const filteredTelCode = telCode.filter(
-    (item) =>
+  const handleItemClick = (item) => {
+    setSelectedItem(item);
+    setSearchTerm("");
+    setDropdown(false); 
+  };
+
+  const handleInputClick = () => {
+    setDropdown(true);
+    setSearchTerm("");
+
+  };
+  const [filteredTelCode, setFilteredTelCode] = useState([]);
+
+  useEffect(() => {
+  
+    const filterLogic = (item) =>
       item.code.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      item.dial_code.includes(searchTerm)
-  );
+      item.dial_code.includes(searchTerm);
+
+    const filteredCodes = telCode.filter(filterLogic);
+    setFilteredTelCode(filteredCodes);
+  }, [telCode, searchTerm]);
 
   return (
     <>
@@ -323,60 +347,37 @@ const PersonalDetails = ({
                       </button>
                     </div>
                   </div>
-
                   <div className="personal_single_input">
                     <p className="form_text_heading">
                       Contact Number <span className="star">*</span>
                     </p>
-                    <div
-                      className="flex w-[100%]  items-start gap-[10px]"
-                      id="single_input"
-                    >
+                    <div className="flex w-[100%] items-start gap-[10px]" id="single_input">
                       <div className="relative w-max items-center">
                         <div
                           className="text-[14px] justify-center items-center w-max flex font-[500] text-[#646464]"
-                          onClick={() => setDropdown(true)}
+                          onClick={handleInputClick}
                         >
-                          {selectedItem ? (
-                            <div className="flex items-center justify-center ">
-                              {/* {selectedItem.flag} */}
-                              <img
-                                src={`https://flagsapi.com/${selectedItem.code}/flat/64.png`}
-                                style={{ height: "20px", width: "20px" }}
-                              />
-                              <input
-                                type="search"
-                                className="w-[80px] rounded-[5px] sticky top-0 pl-[10px]  overflow-hidden"
-                                placeholder="Search"
-                                value={`${selectedItem.code} ${selectedItem.dial_code}`}
-                                onChange={handleSearch}
-                              />
+
+                          <div className="flex items-center justify-center gap-2 cursor-pointer">
+                            <img
+                              src={`https://hatscripts.github.io/circle-flags/flags/${selectedItem.code.toLowerCase()}.svg`}
+                              width="20px"
+                            />
+                            <div >
+                              {selectedItem.code} {selectedItem.dial_code}
                             </div>
-                          ) : (
-                            <div className="flex items-center justify-center">
-                              {" "}
-                              {/* {telCode[0].flag}  */}
-                              <img
-                                src={`https://flagsapi.com/${telCode[0].code}/flat/64.png`}
-                                style={{ height: "20px", width: "20px" }}
-                              />
-                              <input
-                                type="search"
-                                className="w-[80px]  rounded-[5px] sticky top-0 pl-[10px]  overflow-hidden"
-                                placeholder="Search"
-                                value={`${telCode[0].code} ${telCode[0].dial_code}`}
-                                onChange={handleSearch}
-                              />
-                              
-                            </div>
-                          )}
-                          <img
-                            onClick={() => setDropdown(true)}
-                            className="w-[20px] h-[20px]"
-                            src="/images/down_arrow.png"
-                            alt=""
-                          />
+                            <img
+
+                              className="w-[20px] h-[20px]"
+                              src="/images/down_arrow.png"
+                              alt=""
+                            />
+
+                          </div>
+
+
                         </div>
+                        {/* onClick={handleSearch} */}
 
                         {dropdown && (
                           <div
@@ -386,17 +387,15 @@ const PersonalDetails = ({
                           >
                             {filteredTelCode.map((item, index) => (
                               <p
-                                className={`border-none cursor-pointer pl-[5px] flex my-2 gap-[5px] hover:bg-blue hover:text-[#fff] ${
-                                  selectedItem === item ? "bg-gray-200" : ""
-                                }`}
+                                className={`border-none cursor-pointer pl-[5px] flex my-2 gap-[5px] hover:bg-blue hover:text-[#fff] ${selectedItem === item ? "bg-gray-200" : ""
+                                  }`}
                                 key={index}
                                 onClick={() => handleItemClick(item)}
                               >
                                 <img
                                   src={`https://hatscripts.github.io/circle-flags/flags/${item.code.toLowerCase()}.svg`}
                                   width="20px"
-                                ></img>
-                                {/* <img src={`https://flagsapi.com/${item.code}/flat/64.png`} style={{height:"20px",width:"20px"}} alt={item.code} /> */}
+                                />
                                 {item.code} {item.dial_code}
                               </p>
                             ))}
@@ -406,7 +405,7 @@ const PersonalDetails = ({
 
                       <input
                         className="w-full "
-                        type="number"
+                        type="text"
                         name=""
                         // id="single_input"
                         placeholder="Enter Contact Number"
@@ -417,19 +416,12 @@ const PersonalDetails = ({
                       />
                     </div>
 
+                    {/* Display error message if any */}
                     {formError && (
                       <p className="text-[12px] text-[red] font-[500]">
                         {formError?.mobileNo}
                       </p>
                     )}
-
-                    {/* <PhoneInput
-                    inputClass="single_input"
-                    country={"in"}
-                    enableSearch={true}
-                    value={data.mobileNo}
-                    onChange={(phone) => setData({ ...data, mobileNo: phone })}
-                  /> */}
                   </div>
 
                   <div className="personal_single_input">
@@ -451,9 +443,8 @@ const PersonalDetails = ({
                     </p>
                     <div className="gender_button">
                       <button
-                        className={`gen_button ${
-                          data.gender == "male" && "gen_button_active"
-                        }`}
+                        className={`gen_button ${data.gender == "male" && "gen_button_active"
+                          }`}
                         onClick={(e) => {
                           e.preventDefault();
                           setData({ ...data, gender: "male" });
@@ -462,9 +453,8 @@ const PersonalDetails = ({
                         Male
                       </button>
                       <button
-                        className={`gen_button ${
-                          data.gender == "female" && "gen_button_active"
-                        }`}
+                        className={`gen_button ${data.gender == "female" && "gen_button_active"
+                          }`}
                         onClick={(e) => {
                           e.preventDefault();
                           setData({ ...data, gender: "female" });
@@ -473,9 +463,8 @@ const PersonalDetails = ({
                         Female
                       </button>
                       <button
-                        className={`gen_button ${
-                          data.gender == "other" && "gen_button_active"
-                        }`}
+                        className={`gen_button ${data.gender == "other" && "gen_button_active"
+                          }`}
                         onClick={(e) => {
                           e.preventDefault();
                           setData({ ...data, gender: "other" });
@@ -586,10 +575,10 @@ const PersonalDetails = ({
               </form>
             </motion.div>
             <p className="already_text">
-              Already have an account? <span 
-              className="cursor-pointer"
-              id="sign_in"
-               onClick={() => router.push("/auth/Sign_in")}
+              Already have an account? <span
+                className="cursor-pointer"
+                id="sign_in"
+                onClick={() => router.push("/auth/Sign_in")}
               >Sign In</span>
             </p>
           </div>
