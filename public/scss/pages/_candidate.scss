@@ -444,7 +444,7 @@
     width: 100%;
     color: var(--text-prmary, #333);
     font-family: Montserrat;
-    font-size: 56px;
+   
     font-style: normal;
     font-weight: 700;
     line-height: normal;
@@ -481,6 +481,14 @@
     position: relative;
     display: flex;
     align-items: center;
+    // padding: 47px 0;
+  }
+  .ai_images_start {
+    width: 57%;
+    height: 681px;
+    position: relative;
+    display: flex;
+    // align-items: center;
     // padding: 47px 0;
   }
 
