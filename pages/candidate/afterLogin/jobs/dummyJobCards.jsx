@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 // import AppliedJobs from "~/components/featured/candidate/afterLogin/home/AppliedJobs";
 // import SavedJobs from "~/components/featured/candidate/afterLogin/home/SavedJobs";
@@ -79,7 +80,7 @@ const InputBox = ({ item }) => {
 
 function Jobs() {
   const [filter, setFilter] = useState(false)
-
+  const router = useRouter();
   const [toggleHeadings, setToggleHeadings] = useState(0);
   useEffect(() => {
 
@@ -1072,12 +1073,12 @@ function Jobs() {
                         </div>
                       </div>
                       <div className="py-[16px] flex gap-2 leading-tight">
-                        <button className="text-[14px] font-[600] text-[#fff] flex items-center bg-[#06A9EF] py-[8px] px-[16px] rounded-[30px]">
+                        <button onClick={() => router.push("/auth/Sign_up")} className="text-[14px] font-[600] text-[#fff] flex items-center bg-[#06A9EF] py-[8px] px-[16px] rounded-[30px]">
                           Apply Now
                         </button>
-                        <button className="text-[14px] font-[600] flex items-center border border-[#06A9EF] py-[8px] px-[16px] rounded-[30px]">
+                        {/* <button className="text-[14px] font-[600] flex items-center border border-[#06A9EF] py-[8px] px-[16px] rounded-[30px]">
                           Save
-                        </button>
+                        </button> */}
                       </div>
                     </div>
                     <div
@@ -1181,7 +1182,7 @@ function Jobs() {
                       </div>
                     </div>
                     <div className="flex justify-end">
-                      <button className="text-[14px] font-[600] text-[#fff] flex items-center bg-[#06A9EF] py-[8px] px-[16px] rounded-[30px]">
+                      <button onClick={() => router.push("/auth/Sign_up")}  className="text-[14px] font-[600] text-[#fff] flex items-center bg-[#06A9EF] py-[8px] px-[16px] rounded-[30px]">
                         Apply Now
                       </button>
                     </div>
