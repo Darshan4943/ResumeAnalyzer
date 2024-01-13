@@ -22,8 +22,17 @@ function Employer() {
     };
   }, []);
 
-  return (
-    <div>
+  return (<>
+    <div className="mobile">
+    <Employer_main />
+    <Employer_main_phn />
+    <Employer_sorting  />
+    <Employer_hire_candidates />
+    <Employer_why_skilotech />
+        <Employer_why_skilotech_sec2 />
+    </div>
+
+    <div className="web">
       <ReactLenis root>
         <Parallax strength={400} className="Employer_main_paralx pt-[56px] ">
           <Background className="custom-bg  ">
@@ -43,6 +52,7 @@ function Employer() {
         <Employer_why_skilotech_sec2 />
       </ReactLenis>
     </div>
+  </>
   );
 }
 

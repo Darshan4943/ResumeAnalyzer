@@ -139,6 +139,8 @@ function Employer_sorting({ showAnimation }) {
   }, [currentIndex, showAnimation]);
 
   return (
+
+    
     <div style={{ overflow: "hidden" }} className="h-[40rem]">
       {showMain ? (
         <div className="Employer_sorting_container customMargins">
