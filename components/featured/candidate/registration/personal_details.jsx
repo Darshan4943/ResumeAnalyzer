@@ -173,29 +173,32 @@ const PersonalDetails = ({
   const [dropdown, setDropdown] = useState(false);
   const [selectedItem, setSelectedItem] = useState(telCode[0]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [inputValue, setInputValue] = useState("");
-
+  const [showInput, setShowInput] = useState(false); // New state to control input visibility
 
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
-    setDropdown(true); 
   };
 
   const handleItemClick = (item) => {
     setSelectedItem(item);
     setSearchTerm("");
-    setDropdown(false); 
+    setDropdown(false);
+    setShowInput(false); // Hide the input after selecting an item
   };
 
   const handleInputClick = () => {
     setDropdown(true);
     setSearchTerm("");
-
+    setShowInput(true); // Show the input field
+    window.scrollTo({
+      top: 300,
+      behavior: "smooth",
+    });
   };
   const [filteredTelCode, setFilteredTelCode] = useState([]);
 
   useEffect(() => {
-  
+
     const filterLogic = (item) =>
       item.code.toLowerCase().includes(searchTerm.toLowerCase()) ||
       item.dial_code.includes(searchTerm);
@@ -359,29 +362,41 @@ const PersonalDetails = ({
                         >
 
                           <div className="flex items-center justify-center gap-2 cursor-pointer">
-                            <img
-                              src={`https://hatscripts.github.io/circle-flags/flags/${selectedItem.code.toLowerCase()}.svg`}
-                              width="20px"
-                            />
-                            <div >
-                              {selectedItem.code} {selectedItem.dial_code}
+                           
+                            <div className="flex items-center  gap-2 cursor-pointer" onClick={handleInputClick}>
+                              {showInput ? (
+                                <input
+                                  className="w-[60%] border flex justify-center items-center py-1 px-3 rounded-[8px] "
+                                  type="text"
+                                  name=""
+                                  placeholder="Search"
+                                  value={searchTerm}
+                                  onChange={handleSearch}
+                                />
+                              ) : (
+                                <>
+                                  <img
+                                    src={`https://hatscripts.github.io/circle-flags/flags/${selectedItem.code.toLowerCase()}.svg`}
+                                    width="20px"
+                                  />
+                                  <div>
+                                    {selectedItem.code} {selectedItem.dial_code}
+                                  </div>
+                                  <img className="w-[20px] h-[20px]" src="/images/down_arrow.png" alt="" />
+                                </>
+                              )}
                             </div>
-                            <img
-
-                              className="w-[20px] h-[20px]"
-                              src="/images/down_arrow.png"
-                              alt=""
-                            />
+                           
 
                           </div>
 
 
                         </div>
-                        {/* onClick={handleSearch} */}
+
 
                         {dropdown && (
                           <div
-                            className="w-[113px] font-[500] top-[5.5vh] left-[-16px] z-10 h-[40vh] overflow-y-scroll bg-[#fff] border-[1px] border-solid border-[#9D9D9D] absolute text-[14px]"
+                            className="w-[113px] font-[500] top-12 -left-1  z-10 h-[40vh] overflow-y-scroll bg-[#fff] border-[1px] border-solid border-[#9D9D9D] absolute text-[14px] p-1 flex flex-col justify-between items-center"
                             name=""
                             id=""
                           >
