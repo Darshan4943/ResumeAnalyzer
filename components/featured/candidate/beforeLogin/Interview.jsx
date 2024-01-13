@@ -4,8 +4,8 @@ import ImageContainer from "@/components/common/image";
 const Interview = () => {
   const router = useRouter();
   return (
-    <div className="w-screen">
-      <div className="customMargins bg-[#FEFCF2] lg:h-[580px]  md:pb-3 ">
+    <div className="w-screen bg-[#FEFCF2] ">
+      <div className="customMargins lg:h-[580px]  md:pb-3 ">
         {/* <div className="flex items-center">
           <div className="w-[576px] object-contain ">
             <ImageContainer
@@ -40,23 +40,23 @@ const Interview = () => {
             </button>
           </div>
         </div> */}
-        <div className=" lg:flex-row sm:flex-col lg:flex md:flex  ">
-        <div className=" sm:flex sm:items-center sm:justify-center lg:h-[580px] lg:w-[580px]">
+        <div className=" md:flex  ">
+        <div className=" sm:flex sm:items-center sm:justify-center md:w-[951px] lg:w-[500px]">
             <ImageContainer
               src="/images/candidate/interview.png"
               alt=""
-              className="w-[320px]   "
+              className="w-[320px] lg:w-[480px] lg:h-[480px]  "
             />
           </div>
-          <div className="flex flex-col items-start justify-center gap-4 self-stretch sm:text-[30px] lg:h-[552px] lg:w-[552px]  ">
-  <p className="text-[#333] font-Montserrat text-[30px] font-bold">Commonly asked interview questions</p>
-  <p className="text-[#333] font-Montserrat text-[18px] font-medium">Free access to commonly asked interview questions after registration.</p>
-  <p className="text-[#333] font-Montserrat text-[14px] font-medium">These questions can serve as a starting point for your interview preparation, be ready to showcase your qualifications, and demonstrate your enthusiasm for the role.</p>
+          <div className="flex pb-[16px] flex-col items-start justify-center gap-4 self-stretch  lg:h-[552px] lg:w-[552px]  ">
+  <p className="text-[#333] font-Montserrat text-[24px] xsm:text-[28px] md:text-[30px] lg:text-[48px]  font-bold">Commonly asked interview questions</p>
+  <p className="text-[#333] font-Montserrat text-[16px] xsm:text-[18px] ml:text-[26px] font-medium">Free access to commonly asked interview questions after registration.</p>
+  <p className="text-[#333] font-Montserrat text-[12px] xsm:text-[14px] ml:text-[17px] font-medium">These questions can serve as a starting point for your interview preparation, be ready to showcase your qualifications, and demonstrate your enthusiasm for the role.</p>
   <button
               onClick={() => {
                 router.push("/auth/Sign_up/");
               }}  
-              className="flex px-4 md:text-[18px] text-[14px] py-2 justify-center font-medium text-white items-center rounded-[12px]  border-blue bg-blue shadow-md"
+              className="flex px-4 ml:text-[18px] text-[14px] py-2 justify-center font-medium text-white items-center rounded-[12px]  border-blue bg-blue shadow-md"
             >
               Register Now
             </button>

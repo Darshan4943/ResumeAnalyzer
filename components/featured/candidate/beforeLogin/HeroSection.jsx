@@ -296,7 +296,7 @@ function CandidateHero() {
       </div> */}
       <div className="w-full min-h-[100px] xxlg:h-[460px]  xlg:h-[300px] ml:h-[390px]  bg-cover bg-no-repeat  bg-vector ">
         <div className="customMargins relative">
-          <div className="flex flex-row justify-between gap-4 max-w-1128">
+          <div className="flex flex-row justify-between gap-4">
             <div className="mr-0 p-0">
               <div className=" xlg:leading-normal w-[267px] ml:w-[350px] xxlg:w-[500px]   ">
                 <p className="font-Montserrat  text-[24px] xlg:text-[36px] ml:text-[46px] text-black font-bold xxlg:text-[66px] ">

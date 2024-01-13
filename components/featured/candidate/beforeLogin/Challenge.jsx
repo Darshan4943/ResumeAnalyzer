@@ -65,32 +65,32 @@ const Challenge = () => {
     //     </div>
     //   </div>
     // </div>
-    <div className="customMargins">
-      <div className="flex flex-col items-center gap-6 mt-9">
+    <div className="customMargins ">
+      <div className="flex flex-col items-center gap-6 my-9">
         <div className="">
-          <p className="text-[#333] text-center font-Montserrat text-[18px] font-semibold leading-[26px]">
+          <p className="text-[#333] text-center font-Montserrat text-[18px] font-semibold leading-[26px] lg:text-[36px] lg:leading-[48px]">
             It can be challenging to find the suitable job, but with{" "}
             <span className="text-blue">Skilotech</span>, that's a piece of
             cake!
           </p>
         </div>
-        <div className="w-[300px] h-[1px] bg-gray-line md:w-[692px]"></div>
+        <div className="w-[300px] h-[1px] bg-gray-line md:w-[692px] lg:w-[792px]"></div>
 
         <div className="grid md:grid-cols-2 gap-6 sm:grid-cols-1 ">
   {arr.map((item, index) => (
-    <div key={index} className="flex w-[324px] h-[248px]  flex-col items-center gap-4 rounded-[12px] bg-blue-50 shadow-md ">
-      <div className="w-[164px] h-[110px]">
+    <div key={index} className="flex w-[300px] xsm:w-[324px] h-[228px] lg:w-[456px] lg:h-[290px]  flex-col items-center gap-4 rounded-[12px] bg-blue-50 shadow-md ">
+      <div className="w-[164px] h-[110px] lg:h-[142px] lg:w-[212px]">
         <img
           src={item.img}
           alt=""
           className="h-full w-full object-contain"
         />
       </div>
-      <div className="flex flex-col justify-center items-center w-[312px] gap-2">
-        <p className="text-[#333] text-center font-Montserrat text-[12px] font-semibold">
+      <div className="flex flex-col justify-center items-center w-[312px] lg:w-[424px] flex-wrap gap-2">
+        <p className="text-[#333] text-center font-Montserrat text-[14px] lg:text-[20px]  font-semibold">
           {item.title}
         </p>
-        <p className="w-[312px] flex-wrap text-[#646464] text-center xmd:text-[10px] text-[12px]  leading-[20px] font-medium">
+        <p className=" p-4 md:p-0 flex-wrap text-[#646464] text-center xmd:text-[10px] lg:text-[16px] text-[10px] leading-0 lg:leading-normal font-medium">
           {item.content}
         </p>
       </div>
