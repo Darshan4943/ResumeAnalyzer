@@ -173,7 +173,7 @@ const PersonalDetails = ({
   const [dropdown, setDropdown] = useState(false);
   const [selectedItem, setSelectedItem] = useState(telCode[0]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [showInput, setShowInput] = useState(false); // New state to control input visibility
+  const [showInput, setShowInput] = useState(false); 
 
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
@@ -183,13 +183,13 @@ const PersonalDetails = ({
     setSelectedItem(item);
     setSearchTerm("");
     setDropdown(false);
-    setShowInput(false); // Hide the input after selecting an item
+    setShowInput(false); 
   };
 
   const handleInputClick = () => {
     setDropdown(true);
     setSearchTerm("");
-    setShowInput(true); // Show the input field
+    setShowInput(true); 
     window.scrollTo({
       top: 300,
       behavior: "smooth",
@@ -371,9 +371,9 @@ const PersonalDetails = ({
                       Contact Number <span className="star">*</span>
                     </p>
                     <div className="flex w-[100%] items-start gap-[10px]" id="single_input">
-                      <div className="relative w-max items-center">
+                      <div className="relative w-[30%] items-center">
                         <div
-                          className="text-[14px] justify-center items-center w-max flex font-[500] text-[#646464]"
+                          className="text-[14px] justify-center items-center  flex font-[500] text-[#646464]"
                           onClick={handleInputClick}
                         >
 
@@ -382,7 +382,7 @@ const PersonalDetails = ({
                             <div className="flex items-center  gap-2 cursor-pointer" onClick={handleInputClick}>
                               {showInput ? (
                                 <input
-                                  className="w-[60%] border flex justify-center items-center py-1 px-3 rounded-[8px] "
+                                  className="w-[90%] border flex justify-center items-center py-1 px-3 rounded-[8px] "
                                   type="text"
                                   name=""
                                   placeholder="Search"
