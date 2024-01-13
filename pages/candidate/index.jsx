@@ -29,16 +29,16 @@ function Candidate() {
   });
   return (
     <>
-      {isViewportBelow850 ? (
-        <>
+     
+        <div className="mobile">
           <CandidateHero />
 
           <Candidate_animation />
           <Interview />
           <Challenge />
-        </>
-      ) : (
-        <div>
+        </div>
+     
+        <div className="web">
           <ReactLenis root>
             <Parallax strength={300} className="h-[36rem] pt-[36px] w-[100vw] ">
             <Background className="custom-bg w-[100vw] ">
@@ -56,7 +56,7 @@ function Candidate() {
             <Challenge />
           </ReactLenis>
         </div>
-      )}
+      
     </>
   );
 }
