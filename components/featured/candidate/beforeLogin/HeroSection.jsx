@@ -1,6 +1,7 @@
 import ImageContainer from "@/components/common/image";
 import { SkillList } from "@/utils/data";
 import axios from "axios";
+import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
 
 
@@ -9,7 +10,7 @@ function CandidateHero() {
 
   // const router = useRouter();
   const isInSouthAfrica = localStorage.getItem("isInSouthAfrica") == "true";
-
+  const router = useRouter();
   const [searchInput, setSearchInput] = useState("");
   const [jobSuggestions, setJobSuggestions] = useState([]);
   const [skills, setSkills] = useState([...SkillList]);
@@ -514,7 +515,7 @@ function CandidateHero() {
           )}
         </div>
         <div className="p-2">
-          <button className="text-[14px] font-medium border border-[#06A9EF] rounded-[8px] w-full py-2">
+          <button onClick={() => router.push("/candidate/afterLogin/jobs/dummyJobCards")} className="text-[14px] font-medium border border-[#06A9EF] rounded-[8px] w-full py-2">
             Search
           </button>
         </div>
