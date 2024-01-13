@@ -5,13 +5,13 @@ const Interview = () => {
   const router = useRouter();
   return (
     <div className="w-screen">
-      <div className="customMargins">
-        <div className="flex items-center">
+      <div className="customMargins bg-[#FEFCF2] lg:h-[580px]  md:pb-3 ">
+        {/* <div className="flex items-center">
           <div className="w-[576px] object-contain ">
             <ImageContainer
               src="/images/candidate/interview.png"
               alt=""
-              className="w-[100%]"
+              className="w-[100%] "
             />
           </div>
           <div className="flex flex-col w-[552px] items-start gap-6 font-Montserrat leading-normal">
@@ -39,6 +39,29 @@ const Interview = () => {
               Register Now
             </button>
           </div>
+        </div> */}
+        <div className=" lg:flex-row sm:flex-col lg:flex md:flex  ">
+        <div className=" sm:flex sm:items-center sm:justify-center lg:h-[580px] lg:w-[580px]">
+            <ImageContainer
+              src="/images/candidate/interview.png"
+              alt=""
+              className="w-[320px]   "
+            />
+          </div>
+          <div className="flex flex-col items-start justify-center gap-4 self-stretch sm:text-[30px] lg:h-[552px] lg:w-[552px]  ">
+  <p className="text-[#333] font-Montserrat text-[30px] font-bold">Commonly asked interview questions</p>
+  <p className="text-[#333] font-Montserrat text-[18px] font-medium">Free access to commonly asked interview questions after registration.</p>
+  <p className="text-[#333] font-Montserrat text-[14px] font-medium">These questions can serve as a starting point for your interview preparation, be ready to showcase your qualifications, and demonstrate your enthusiasm for the role.</p>
+  <button
+              onClick={() => {
+                router.push("/auth/Sign_up/");
+              }}  
+              className="flex px-4 md:text-[18px] text-[14px] py-2 justify-center font-medium text-white items-center rounded-[12px]  border-blue bg-blue shadow-md"
+            >
+              Register Now
+            </button>
+</div>
+
         </div>
       </div>
     </div>

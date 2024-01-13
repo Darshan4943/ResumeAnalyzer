@@ -17,7 +17,7 @@ body {
     padding: 0 16px;
   }
   .customMargins1 {
-    padding: 0 16px;
+    padding: 0 2px;
   }
 }
 
@@ -27,8 +27,8 @@ body {
   }
 }
 .customMargins1 {
-  margin: 0 0 auto auto;
-  max-width: 1284px;
+  margin: 0  auto ;
+  max-width: 1340px;
 }
 
 div::-webkit-scrollbar {
@@ -40,20 +40,55 @@ div::-webkit-scrollbar-thumb {
   background-color: #babbbc;
 }
 
+/////////////////////////////////
+
+
+.mobile{
+  display: none;
+}
+
+@media (max-width: 850px) {
+  .mobile {
+    display: block;
+  }
+  .web{
+    display: none;
+  }
+}
+
+.mobile600{
+  display: none;
+}
+
+@media (max-width: 600px) {
+  .mobile600 {
+    display: block;
+  }
+  .web600{
+    display: none;
+  }
+}
+
+
+
 ////////////AfterloginHome Animation//////////////////
 
 .ai_images {
-  width: 142px;
-  height: 140px;
+  // width: 142px;
+  // height: 140px;
+  height: 337px;
+  width: 344px;
   position: relative;
   display: flex;
-  align-items: center;
-  padding: 47px 0;
+  align-items: start;
+  justify-content: center;
+  // padding: 47px 0;
 }
 
 .name_resume {
-  width: 78px;
-  height: 111px;
+  // width: 78px;
+  // height: 111px;
+  
   flex-shrink: 0;
   animation: name_resume 3s infinite;
 }

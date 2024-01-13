@@ -6,6 +6,7 @@ import Employer_why_skilotech from "@/components/featured/employer/Employer_why_
 import Employer_why_skilotech_sec2 from "@/components/featured/employer/Employer_why_skilotech_sec2";
 import { Background, Parallax } from "react-parallax";
 import { ReactLenis } from "@studio-freight/react-lenis";
+import Employer_main_phn from "@/components/featured/employer/Employer_main_phn";
 function Employer() {
   const [showAnimation, setShowAnimation] = useState(true);
   const handleScroll = () => {
@@ -21,25 +22,37 @@ function Employer() {
     };
   }, []);
 
-  return (
-    <div>
-       <ReactLenis root >
-      <Parallax strength={400} className="h-[36rem] pt-[56px] ">
-        <Background className="custom-bg  ">
-          <Employer_main />
-        </Background>
-      </Parallax>
-      <Employer_sorting showAnimation={showAnimation} />
-      <Parallax strength={400} className="h-[36rem] pt-[36px] ">
-          <Background className="custom-bg  ">
-          <Employer_hire_candidates />
+  return (<>
+    <div className="mobile">
+    <Employer_main />
+    <Employer_main_phn />
+    <Employer_sorting  />
+    <Employer_hire_candidates />
+    <Employer_why_skilotech />
+        <Employer_why_skilotech_sec2 />
+    </div>
 
+    <div className="web">
+      <ReactLenis root>
+        <Parallax strength={400} className="Employer_main_paralx pt-[56px] ">
+          <Background className="custom-bg  ">
+            <Employer_main />
+            <div className="Employer_main_phn">
+              <Employer_main_phn />
+            </div>
           </Background>
         </Parallax>
-      <Employer_why_skilotech />
-      <Employer_why_skilotech_sec2 />
+        <Employer_sorting showAnimation={showAnimation} />
+        <Parallax strength={400} className="Employer_hire_candidates_paralx   ">
+          <Background className="custom-bg  ">
+            <Employer_hire_candidates />
+          </Background>
+        </Parallax>
+        <Employer_why_skilotech />
+        <Employer_why_skilotech_sec2 />
       </ReactLenis>
     </div>
+  </>
   );
 }
 

@@ -480,9 +480,8 @@
     height: 681px;
     position: relative;
     display: flex;
-
     align-items: center;
-    padding: 47px 0;
+    // padding: 47px 0;
   }
 
   .name_resume {
@@ -1675,4 +1674,20 @@
     transform: scaleY(1);
     height: 114.991px; /* Final height */
   }
+}
+
+
+@media  (max-width: 851px){
+  .display_n{
+    display: none;
+  }
+  
+  
+}
+@media  (min-width: 851px){
+  .display_b{
+    display: none !important;
+  }
+  
+  
 }
