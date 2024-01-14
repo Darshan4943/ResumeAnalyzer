@@ -6,13 +6,20 @@ import { useSelector } from "react-redux";
 import ALink from "../../../../components/alink";
 import ChangeProfile from "@/components/featured/candidate/profile/modals/ChangeProfile";
 import { useRouter } from "next/router";
+import { useMediaQuery } from "@react-hook/media-query";
 
 function AfterLoginHome() {
+  const isViewportBelow850 = useMediaQuery("(max-width:850px)");
+  const isViewportBelow768 = useMediaQuery("(max-width:768px)");
+  const isViewportBelow550 = useMediaQuery("(max-width:550px)");
   const router = useRouter();
   const userDataGlobal = useSelector((state) => state.userData);
   const jobData = useSelector((state) => state.getAllJobs.data);
   const [changeprofile, setIsChangeProfile] = useState(false);
   const [userData, setUserData] = useState(false);
+
+  
+
   useEffect(() => {
     setUserData(userDataGlobal);
   }, [userDataGlobal]);
@@ -38,12 +45,12 @@ function AfterLoginHome() {
       {userData && (
         <div className=" relative bg-[#F9F9F9]  ">
           <div className="  ">
-            <div className="customMargins py-5 flex flex-row justify-between items-center ">
-              <div className="justify-center items-center w-[29%] items-between">
-                <div className="flex flex-row gap-[16px] py-[8px]  ">
+            <div className={`customMargins py-5 flex flex-row gap-4 ${isViewportBelow850 ? "justify-center" : "justify-between"} items-center `}>
+            <div className={`justify-center items-center ${isViewportBelow550 ? "w-[100%]" : (isViewportBelow850 ? "w-[50%]" : "w-[29%]")}`}>
+                <div className="flex flex-row gap-[16px] py-[8px] items-center">
                   <div className="flex w-[40%] h-[110px] items-center justify-center">
                     <img
-                      className="w-[105px] h-[105px] rounded-full object-cover"
+                      className="max-w-[105px] max-h-[105px] w-[100vw] h-[100vh] rounded-full object-cover"
                       src={
                         userData?.profilePicture?.img ||
                         "/images/profile/john_doe.png"
@@ -66,7 +73,7 @@ function AfterLoginHome() {
                     </>
                   )}
 
-                  <div className="flex flex-col gap-[12px] items-center justify-center w-[60%] leading-[15px]">
+                  <div className="flex flex-col gap-[12px]  w-[60%] leading-[15px]">
                     <div className="flex  flex-col gap-[12px]">
                       <div className="flex flex-col gap-[8px]">
                         <div className="flex flex-col gap-[8px]">
@@ -76,7 +83,7 @@ function AfterLoginHome() {
                           </div>
                           {userData?.education && (
                             <div className="text-[#333] text-[14px] font-[400]">
-                              {userData?.education[0]?.education} @{" "}
+                              {userData?.education[0]?.education} <br/> @{" "}
                               {userData?.education[0]?.university}
                             </div>
                           )}
@@ -95,51 +102,57 @@ function AfterLoginHome() {
                   </div>
                 </div>
               </div>
-              <div className="flex items-center w-[24%]">
-                <div className="flex flex-row gap-[16px]">
-                  <div className="h-[84px] w-[30%]">
-                    {/* <img
+              <div className="web w-[24%]">
+                <div className="flex items-center  ">
+                  <div className="flex flex-row gap-[16px] items-center">
+                    <div className=" w-[40%]">
+                      {/* <img
                       src="/images/afterLoginHome/profile_per..png"
                       alt=""
                       className=""
                     /> */}
-                    <div class="circle-border w-[full]" style={containerStyle}>
-                      <div class="circle">
-                        <p className="profile_percent">
-                          {userData.profileScore?.toFixed(0)} %
-                        </p>
+                      <div class="circle-border" style={containerStyle}>
+                        <div class="circle">
+                          <p className="profile_percent">
+                            {userData.profileScore?.toFixed(0)} %
+                          </p>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div className="flex items-center w-[70%]">
-                    <div className="flex flex-col gap-[8px]">
-                      <div className="text-[#333] text-[20px] font-[500] ">
-                        Profile Score
-                      </div>
-                      <div className="text-[#262626] text-[12px] font-[400]">
-                        Improve your profile score, to get more recruiter
-                        attention.
+                    <div className="flex items-center w-[70%]">
+                      <div className="flex flex-col gap-[8px]">
+                        <div className="text-[#333] text-[20px] font-[500] ">
+                          Profile Score
+                        </div>
+                        <div className="text-[#262626] text-[12px] font-[400]">
+                          Improve your profile score, to get more recruiter
+                          attention.
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-              <div className="py-[8px]  flex flex-row gap-[24px] w-[41%]">
-                <div className="w-[35%]">
-                  <div className="ai_images ">
-                    <img
-                      className="name_resume "
-                      src="/images/afterLoginHome/name_resume.png"
-                      alt=""
-                    />
-                    <img
-                      className="david_resume "
-                      src="/images/afterLoginHome/david_resume.png"
-                      alt=""
-                    />
+              { !isViewportBelow550 && 
+              <div className={`py-[8px]  flex flex-row gap-[4px] justify-center items-center ${isViewportBelow850 ? "w-[50%]" : "w-[41%]"}`}>
+                {!isViewportBelow768 &&
+                  <div className="w-[35%]">
+                    <div className="ai_images   ">
+                      <img
+                        className="name_resume "
+                        src="/images/afterLoginHome/name_resume.png"
+                        alt=""
+                      />
+                      <img
+                        className="david_resume "
+                        src="/images/afterLoginHome/david_resume.png"
+                        alt=""
+                      />
+                    </div>
                   </div>
-                </div>
-                <div className="flex items-start w-[60%] ">
+                }
+               
+                <div className="flex items-start w-[100%] ">
                   <div className="flex  flex-col gap-[16px]">
                     <div className="flex  flex-col gap-[8px]">
                       <div className="text-[#333] text-[18px] font-[500]">
@@ -159,15 +172,17 @@ function AfterLoginHome() {
                     </div>
                   </div>
                 </div>
+               
               </div>
+               }
             </div>
+            
           </div>
           <div className="bg-[#BCECFF] sticky top-[5.6rem] z-500">
             <div className="customMargins flex flex-row  gap-[16px] py-[8px]">
               <div
-                className={`flex flex-row py-[8px] px-[16px] gap-[8px] items-center justify-center ${
-                  toggle === 0 && "text-white bg-[#06A9EF] rounded-[6px]"
-                }`}
+                className={`flex flex-row py-[8px] px-[16px] gap-[8px] items-center justify-center ${toggle === 0 && "text-white bg-[#06A9EF] rounded-[6px]"
+                  }`}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -219,9 +234,8 @@ function AfterLoginHome() {
                 </div>
               </div> */}
               <div
-                className={`flex flex-row py-[8px] px-[16px] gap-[8px] items-center justify-center ${
-                  toggle === 2 && "text-white bg-[#06A9EF] rounded-[6px]"
-                }`}
+                className={`flex flex-row py-[8px] px-[16px] gap-[8px] items-center justify-center ${toggle === 2 && "text-white bg-[#06A9EF] rounded-[6px]"
+                  }`}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -249,32 +263,35 @@ function AfterLoginHome() {
       {toggle === 0 && (
         <div className="customMargins ">
           <div className="grid grid-cols-5 gap-[24px] pb-[49px]">
-            <div class="col-span-4">
+            <div class={` ${isViewportBelow850 ? "col-span-5" : "col-span-4"}`}>
               {jobData && <Job_card jobData={jobData.slice(0, 5)} />}
               {/* 
-              <div
-                className="flex  p-[16px]  mt-[24px] justify-between w-[100%] rounded-[12px] bg-cover bg-center "
+               <div
+                className={`flex  p-[16px]  mt-[24px] justify-between w-[100%] rounded-[12px] bg-cover bg-center ${isViewportBelow550 && " flex justify-center items-center flex-col-reverse gap-4"}  `}
                 style={{
-                  backgroundImage: "url(/images/afterLoginHome/bg-linear.png)",
+                  backgroundImage:
+                  "url(/images/afterLoginHome/bg-linear.png)",
                 }}
               >
-                <div className="flex w-[80%]">
-                  <div className="flex flex-col items-start gap-[24px] align-self-stretch">
-                    <p className="text-[#fff] max-w-[50%] text-[18px] font-[500]  leading-[28px]">
-                      Use our frequently asked interview questions to receive
+                <div className="flex w-[100%]">
+                  <div className={`flex flex-col items-start ${isViewportBelow550 && "  w-[100%] "}  gap-[24px] align-self-stretch`}>
+                    <p className={`text-[#fff]  ${isViewportBelow550 ? "w-[100%]" : "w-[60%]"} text-[18px] font-[500]  leading-[28px]`}>
+                    Use our frequently asked interview questions to receive
                       personalized AI questions, responses, and feedback.
                     </p>
-                    <button className=" flex py-[8px] px-[16px] justify-center items-center gap-[4px] rounded-[8px] border border-solid border-[#06A9EF] text-[16px] text-[#fff] font-[500]  ">
-                      Get Started
-                      <img
+                    <ALink href={"/candidate/afterLogin/services/servicesSub/InterViewQue"}>
+                      <button className=" flex py-[8px] px-[16px] justify-center items-center gap-[4px] rounded-[8px] border border-solid border-[#fff] text-[16px] text-[#fff] font-[500]  ">
+                        Get Started
+                        <img
                         className="w-[20px]"
                         src="/images/afterLoginHome/arrow_forward.png"
                         alt=""
                       />
-                    </button>
+                      </button>
+                    </ALink>
                   </div>
                 </div>
-                <div className="w-[20%]">
+                <div className="w-[155px] flex items-center">
                   <img
                     className="w-[155px]"
                     src="/images/afterLoginHome/Frame-que.png"
@@ -285,30 +302,32 @@ function AfterLoginHome() {
 
               <Job_card />
 
-              <div
-                className="flex  p-[16px]  mt-[24px] justify-between w-[100%] rounded-[12px] bg-cover bg-center "
+               <div
+                className={`flex  p-[16px]  mt-[24px] justify-between w-[100%] rounded-[12px] bg-cover bg-center ${isViewportBelow550 && " flex justify-center items-center flex-col-reverse gap-4"}  `}
                 style={{
                   backgroundImage:
-                    "url(/images/afterLoginHome/elevate_back.png)",
+                  "url(/images/afterLoginHome/elevate_back.png)",
                 }}
               >
-                <div className="flex w-[80%]">
-                  <div className="flex flex-col items-start gap-[24px] align-self-stretch">
-                    <p className="text-[#333] max-w-[60%] text-[18px] font-[500]  leading-[28px]">
-                      Elevate your day with our Daily Quiz. Quick, fun, and your
+                <div className="flex w-[100%]">
+                  <div className={`flex flex-col items-start ${isViewportBelow550 && "  w-[100%] "}  gap-[24px] align-self-stretch`}>
+                    <p className={`text-[#fff]  ${isViewportBelow550 ? "w-[100%]" : "w-[60%]"} text-[18px] font-[500]  leading-[28px]`}>
+                    Elevate your day with our Daily Quiz. Quick, fun, and your
                       daily dose of brainpower boost!
                     </p>
-                    <button className=" flex py-[8px] px-[16px] justify-center items-center gap-[4px] rounded-[8px] border border-solid border-[#333] text-[16px] text-[#333] font-[500]  ">
-                      Get Started
-                      <img
+                    <ALink href={"/candidate/afterLogin/services/servicesSub/DailyQuize"}>
+                      <button className=" flex py-[8px] px-[16px] justify-center items-center gap-[4px] rounded-[8px] border border-solid border-[#fff] text-[16px] text-[#fff] font-[500]  ">
+                        Get Started
+                        <img
                         className="w-[20px]"
                         src="/images/afterLoginHome/arrow_forward_black.png"
                         alt=""
                       />
-                    </button>
+                      </button>
+                    </ALink>
                   </div>
                 </div>
-                <div className="w-[20%]">
+                <div className="w-[155px] flex items-center">
                   <img
                     className="w-[155px]"
                     src="/images/afterLoginHome/elevate_sec.png"
@@ -317,22 +336,26 @@ function AfterLoginHome() {
                 </div>
               </div>
 
+
+
               <Job_card /> */}
+             
+            
 
               <div
-                className="flex  p-[16px]  mt-[24px] justify-between w-[100%] rounded-[12px] bg-cover bg-center "
+                className={`flex  p-[16px]  mt-[24px] justify-between w-[100%] rounded-[12px] bg-cover bg-center ${isViewportBelow550 && " flex justify-center items-center flex-col-reverse gap-4"}  `}
                 style={{
                   backgroundImage:
                     "url(/images/afterLoginHome/uncover_back.png)",
                 }}
               >
-                <div className="flex w-[80%]">
-                  <div className="flex flex-col items-start gap-[24px] align-self-stretch">
-                    <p className="text-[#fff] max-w-[50%] text-[18px] font-[500]  leading-[28px]">
+                <div className="flex w-[100%]">
+                  <div className={`flex flex-col items-start ${isViewportBelow550 && "  w-[100%] "}  gap-[24px] align-self-stretch`}>
+                    <p className={`text-[#fff]  ${isViewportBelow550 ? "w-[100%]" : "w-[60%]"} text-[18px] font-[500]  leading-[28px]`}>
                       Uncover Your Potential with Effortless Skill Assessment.
                       Elevate Your Abilities, Elevate Your Success!{" "}
                     </p>
-                    <ALink href={"/candidate/create_resume"}>
+                    <ALink href={"/candidate/afterLogin/services/servicesSub/SkillAssessment"}>
                       <button className=" flex py-[8px] px-[16px] justify-center items-center gap-[4px] rounded-[8px] border border-solid border-[#fff] text-[16px] text-[#fff] font-[500]  ">
                         Get Started
                         <img
@@ -344,7 +367,7 @@ function AfterLoginHome() {
                     </ALink>
                   </div>
                 </div>
-                <div className="w-[20%]">
+                <div className="w-[155px] flex items-center">
                   <img
                     className="w-[155px]"
                     src="/images/afterLoginHome/OBJECTS.png"
@@ -354,7 +377,7 @@ function AfterLoginHome() {
               </div>
             </div>
 
-            <div class="col-span-1 ">
+            <div class="col-span-1 web">
               <div className="flex flex-col gap-[24px] mt-[24px] items-start">
                 <img src="/images/afterLoginHome/skill_assesment.png" alt="" />
               </div>

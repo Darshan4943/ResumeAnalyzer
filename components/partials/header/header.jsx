@@ -29,6 +29,7 @@ function Header({ userData }) {
   };
   const handleLogOut = () => {
     setlogin(false);
+    setIsLogin(false);
     router.push("/");
     toggleDropdown();
     localStorage.clear();
@@ -52,7 +53,7 @@ function Header({ userData }) {
         selectedPage === "/auth/Employer_register" ||
         selectedPage === "/auth/Recruiter_register"
           ? " "
-          : "bg-white z-[100] fixed w-[100%] mt-[-5rem]"
+          : "bg-white z-[100] fixed w-[100%] "
       }
       style={{
         boxShadow:
