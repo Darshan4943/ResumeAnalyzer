@@ -49,7 +49,7 @@ function HeaderSidebar({ selectedPage, setIsSidebar, setIsLogin, isLogin }) {
                     {list.map((item, index) => (
                         <li
                             key={index}
-                            className='px-4 py-4 border-b-2 border-[#06A9EF]'
+                            className='px-4 py-9 border-b-2 border-[#06A9EF]'
                             style={{
                                 ...getListItemStyles(`/${item.toLowerCase()}`),
                                 ...(item === 'Home' && getListItemStyles('/')),
@@ -66,7 +66,7 @@ function HeaderSidebar({ selectedPage, setIsSidebar, setIsLogin, isLogin }) {
                     {loginList.map((item, index) => (
                         <li
                             key={index}
-                            className='px-4 py-4 border-b-2 border-[#06A9EF]'
+                            className='px-4 py-9 border-b-2 border-[#06A9EF]'
                             style={{
                                 ...getListItemStyles(`/candidate/afterLogin/${item.toLowerCase()}/${item.toLowerCase()}`),
                                 ...(item === 'Home' && getListItemStyles('/candidate/afterLogin/home/candidateHome')),
