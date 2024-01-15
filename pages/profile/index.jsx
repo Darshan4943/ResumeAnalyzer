@@ -69,7 +69,7 @@ function Profile() {
 
   return (
     <div className="bg-[#F9F9F9]">
-      <div>{userData && <ProfileHeader userData={userData} />}</div>
+      {/* <div>{userData && <ProfileHeader userData={userData} />}</div> */}
 
       <div className="customMargins relative pb-6">
         <div className="ml:flex ml:flex-row flex flex-col mt-[24px] gap-[24px]">
@@ -94,7 +94,7 @@ function Profile() {
                 </p> */}
               </div>
 
-              <div className="profile_right_section ">
+              <div className="profile_right_section profile_align">
                 <p className="profile_score_text">Profile Score</p>
                 <p className="improve_text">
                   Improve your profile score, to get more recruiter attention.
@@ -125,9 +125,9 @@ function Profile() {
 
           <div className="profile_right w-[100%] education_page">
             <div className="build_ai w-[100%] flex_column">
-              <div className="build_ai_left w-[100%]">
-                <div className="flex flex-row w-[100%]">
-                  <div className="w-[50%]">
+              <div className="build_ai_left w-[100%] w-fit">
+                <div className="flex flex-row w-[100%] ">
+                  <div className="w-[50%] md:w-fit">
                 <img className="w-[152px] h-[152px]" src="./images/profile/Wavy_Bus.png" alt="" />
                 </div>
                 <div className="flex flex-col gap-[10px] w-[50%] items-center justify-center build_ai_block">
@@ -145,7 +145,7 @@ function Profile() {
 
               <div className="build_ai_right">
                 <p className="build_heading">Build AI Powered Resume</p>
-                <div className="prof_template">
+                <div className="prof_template prof_template_gap">
                   <p className="prof_template">Professional Templates</p>
                   <div className="verti_line"></div>
                   <p className="prof_template">AI suggestion</p>
