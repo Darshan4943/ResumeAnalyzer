@@ -979,8 +979,44 @@ function Jobs() {
               toggleHeadings === 2) && (
               <>
                 {/* SECOND SECTION   */}
+             {/* <div className="flex flex-col col-span-2 rounded-md bg-white shadow-md py-6 px-4 mt-6 items-start gap-4 h-fit ">
+                 <div className="flex flex-col items-center gap-[8px]">
+                   <p className="text-[22px] font-[500] text-[#333] ">
+                     Application Status
+                   </p>
+                   <p className="text-[12px] leading-[18px] text-[#333]">
+                     Track your job applications, get updates on views and
+                     profile activity.
+                   </p>
+                 </div>
+                 <div className="w-[100%] bg-[#06A9EF] h-[1px]"></div>
+                 {Application_status.map((item, index) => (
+                   <>
+                     <div className="flex justify-between w-[100%]">
+                       <div className="flex flex-col justify-center gap-[8px] items-start">
+                         <div className="flex justify-center">
+                           <p className="text-[14px] font-[500] text-[#333]">
+                             {item.tittle}
+                           </p>
+                         </div>
+                         <p className="text-[36px] font-[500] text-[#333]">
+                           {item.num}
+                         </p>
+                       </div>
+                       {item.img}
+                     </div>
+                     <div
+                       className={`w-[100%] h-[1px] ${
+                         index === Application_status.length - 1
+                           ? ""
+                           : "bg-[#06A9EF] "
+                       }`}
+                     ></div>
+                   </>
+                 ))}
+               </div> */}
                 <div
-                  className={`flex flex-col  mt-6  col-span-5
+                  className={`flex flex-col  mt-6  md:col-span-5 xxsm:col-span-12
                      rounded-md border-primary bg-white shadow-md `}
                   style={{
                     boxShadow: "0px 2px 2px 0px rgba(0, 0, 0, 0.25)",
@@ -1007,8 +1043,8 @@ function Jobs() {
                         >
                           <div className=" flex flex-col gap-[16px] ">
                             <div className="flex flex-row">
-                              <div className="flex flex-col gap-[4px]">
-                                <div className="text-[20px] font-medium">
+                              <div className="flex flex-col gap-[4px] w-full">
+                                <div className="xxsm:text-[16px] sm:text-[20px] font-medium">
                                   {item?.title}
                                 </div>
                                 <div className="text-[12px] font-medium">
@@ -1198,12 +1234,12 @@ function Jobs() {
                 {selectedJob && (
                   <>
                     <div
-                      className={`flex mt-6  ${
+                      className={`flex mt-6 web_hide   ${
                         filter ? "col-span-5" : "col-span-7"
-                      } flex-col  `}
+                      } flex-col   `}
                     >
                       <div
-                        className="p-[16px]   border-[1px] border-[#06A9EF] bg-[#fff] rounded-[8px] flex flex-col gap-[16px]  "
+                        className="p-[16px]  border-[1px] border-[#06A9EF] bg-[#fff] rounded-[8px] flex flex-col gap-[16px]  "
                         style={{
                           boxShadow: "0px 2px 2px 0px rgba(0, 0, 0, 0.25)",
                         }}

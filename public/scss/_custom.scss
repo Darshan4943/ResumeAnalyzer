@@ -452,3 +452,9 @@ input:checked + .slider:before {
   box-sizing: border-box;
 
 }
+
+@media (max-width: 767px) {
+  .web_hide{
+    display: none!important; 
+  }
+  }
