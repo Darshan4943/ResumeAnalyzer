@@ -22,37 +22,41 @@ function Employer() {
     };
   }, []);
 
-  return (<>
-    <div className="mobile">
-    <Employer_main />
-    <Employer_main_phn />
-    <Employer_sorting  />
-    <Employer_hire_candidates />
-    <Employer_why_skilotech />
-        <Employer_why_skilotech_sec2 />
-    </div>
-
-    <div className="web">
-      <ReactLenis root>
-        <Parallax strength={400} className="Employer_main_paralx pt-[56px] ">
-          <Background className="custom-bg  ">
-            <Employer_main />
-            <div className="Employer_main_phn">
-              <Employer_main_phn />
-            </div>
-          </Background>
-        </Parallax>
-        <Employer_sorting showAnimation={showAnimation} />
-        <Parallax strength={400} className="Employer_hire_candidates_paralx   ">
-          <Background className="custom-bg  ">
-            <Employer_hire_candidates />
-          </Background>
-        </Parallax>
+  return (
+    <>
+      <div className="mobile">
+        <Employer_main />
+        <Employer_main_phn />
+        <Employer_sorting />
+        <Employer_hire_candidates />
         <Employer_why_skilotech />
         <Employer_why_skilotech_sec2 />
-      </ReactLenis>
-    </div>
-  </>
+      </div>
+
+      <div className="web">
+        <ReactLenis root>
+          <Parallax strength={400} className="Employer_main_paralx pt-[56px] ">
+            <Background className="custom-bg  ">
+              <Employer_main />
+              <div className="Employer_main_phn">
+                <Employer_main_phn />
+              </div>
+            </Background>
+          </Parallax>
+          <Employer_sorting showAnimation={showAnimation} />
+          <Parallax
+            strength={400}
+            className="Employer_hire_candidates_paralx   "
+          >
+            <Background className="custom-bg  ">
+              <Employer_hire_candidates />
+            </Background>
+          </Parallax>
+          <Employer_why_skilotech />
+          <Employer_why_skilotech_sec2 />
+        </ReactLenis>
+      </div>
+    </>
   );
 }
 

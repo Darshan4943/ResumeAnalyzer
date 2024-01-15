@@ -47,10 +47,10 @@ function Employer_why_skilotech_sec2() {
   };
   return (
     <div className={` ${!isViewportBelow400 && "customMargins"}`}>
-      <div className="grid_one grid-col-wrap grid grid-cols-1 xsm:grid-cols-2 grid-cols-1 md:grid-cols-3 gap-y-[05%] xsm:gap-y-[10%]  justify-center items-center mt-[5%] mb-[10%] w-[100%]">
+      <div className="grid_one grid-col-wrap grid grid-cols-1 xsm:grid-cols-2 grid-cols-1 md:grid-cols-3 gap-y-[03%] xsm:gap-y-[10%]  justify-center items-center mt-[5%] mb-[10%] w-[100%]">
         {arr.map((item, index) => (
           // <Parallax speed={yPathSeter(index)}>
-          <div className="employer_card flex flex-col w-[168px] ml:w-[234px] h-[222px] ml:h-[272px]   text-[14px] font-medium flex-shrink-0 items-center mx-auto my-0px rounded-lg border border-[#CDCDCD] bg-white transition-all duration-500 Employer_why_skilotech_sec2_cart">
+          <div className="employer_card flex flex-col w-[168px] ml:w-[234px] h-[222px] ml:h-[272px] text-[14px] font-medium flex-shrink-0 items-center mx-auto my-0px rounded-lg border border-[#CDCDCD] bg-white transition-all duration-500 Employer_why_skilotech_sec2_cart">
             <div className="flex flex-col p-3 items-center gap-2 self-stretch rounded-md bg-[#d2e7f0]  w-full transition-all duration-500 Employer_why_skilotech_sec2_cart_1st">
               <div className="employer_card_svg bg-[#fff] p-[8px] ">
                 <img
