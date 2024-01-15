@@ -524,7 +524,7 @@
 }
 .last_img_parent_head {
   position: absolute;
-  width: 60rem;
+  width: 70%;
   // height: 380px;
 }
 .lastfour_img_cont {
@@ -1437,7 +1437,9 @@
 
 @media (max-width:425px) {
   .personal_details_form{
-    width: 85%;
+    width: 100%;
+
+    padding: 24px 8px;
   }
   .form_text_heading{
     font-size: 14px; 
@@ -1494,7 +1496,7 @@
   height: 48px;
   padding: 12px 16px;
   align-items: center;
-  gap: 10px;
+
   align-self: stretch;
   border-radius: 8px;
   border: 1px solid var(--placeholder, #9d9d9d);
@@ -1504,6 +1506,10 @@
 @media (max-width:420px) {
   #single_input{
     font-size: 12px;
+    padding: 12px 8px;
+  }
+  .mobileNo{
+    width: 80% !important;
   }
 }
 

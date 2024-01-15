@@ -38,7 +38,7 @@ function InterviewQue() {
                 <div className="flex flex-col gap-[16px]">
                   <div className="text-[38px] font-[600] text-[#333] ">
                     Commonly asked{" "}
-                    <span className="text-[#06A9EF]">interview questions</span>
+                    {/* <span className="text-[#06A9EF]">interview questions</span> */}
                   </div>
                   <div className="text-[18px] font-[500] text-[#333]">
                     These questions can serve as a starting point for your

@@ -8,6 +8,7 @@ import "react-phone-input-2/lib/bootstrap.css";
 import ImageContainer from "@/components/common/image";
 import { telCode } from "@/utils/data";
 import { useRouter } from "next/navigation";
+import { useMediaQuery } from "@react-hook/media-query";
 const AnimationDivs = () => (
   <div className="register_back_block">
     <img className="mail_img" src="/images/auth/candidate/Mail.png" alt="" />
@@ -223,12 +224,14 @@ const PersonalDetails = ({
     };
   }, []);
 
+  const isViewportBelow850 = useMediaQuery("(max-width:850px)");
+
   return (
     <>
       {tabindex == 2 && (
-        <div className={"show-content  pb-8 back_img "}>
+        <div className={"show-content pb-8  back_img "}>
           <div className="flex flex-col gap-4">
-            <motion.div className="personal_details ">
+            <motion.div className="personal_details pt-4  pb-2">
               <form className="personal_details_form ">
                 <AnimationDivs />
 
@@ -370,54 +373,43 @@ const PersonalDetails = ({
                     <p className="form_text_heading">
                       Contact Number <span className="star">*</span>
                     </p>
-                    <div
-                      className="flex w-[100%]  items-start gap-[5px] sm:gap-[10px]"
-                      id="single_input"
-                    >
-                      <div className="relative w-max items-center">
+                    <div className={`flex w-[100%] items-start ${ isViewportBelow850 ? "gap-[4px] " : "gap-[16px] "}`} id="single_input">
+                      <div className={`relative ${ isViewportBelow850 ? "w-[65%] " : "w-[30%] "} items-center`}>
                         <div
                           className="text-[14px] justify-center items-center  flex font-[500] text-[#646464]"
                           onClick={handleInputClick}
                         >
-                          {selectedItem ? (
-                            <div className="flex items-center justify-center ">
-                              {/* {selectedItem.flag} */}
-                              <img
-                                src={`https://flagsapi.com/${selectedItem.code}/flat/64.png`}
-                                style={{ height: "20px", width: "20px" }}
-                              />
-                              <input
-                                type="search"
-                                className="sm:w-[80px] w-[62px] rounded-[5px] sticky top-0 pl-[10px]  overflow-hidden"
-                                placeholder="Search"
-                                value={`${selectedItem.code} ${selectedItem.dial_code}`}
-                                onChange={handleSearch}
-                              />
+
+                          <div className="flex items-center justify-center gap-2 cursor-pointer ">
+                           
+                            <div className="flex items-center  gap-1 cursor-pointer  " onClick={handleInputClick}>
+                              {showInput ? (
+                                <input
+                                  className="w-[100%]  border flex justify-center items-center py-1 px-3 rounded-[8px] "
+                                  type="text"
+                                  name=""
+                                  placeholder="Search"
+                                  value={searchTerm}
+                                  onChange={handleSearch}
+                                />
+                              ) : (
+                                <>
+                                  <img
+                                    src={`https://hatscripts.github.io/circle-flags/flags/${selectedItem.code.toLowerCase()}.svg`}
+                                    width="20px"
+                                  />
+                                  <div className={` ${isViewportBelow850 ? "text-[12px]" : "text-[16px]"}`}>
+                                    {selectedItem.code} {selectedItem.dial_code}
+                                  </div>
+                                  <img className="w-[20px] h-[20px]" src="/images/down_arrow.png" alt="" />
+                                </>
+                              )}
                             </div>
-                          ) : (
-                            <div className="flex items-center justify-center">
-                              {" "}
-                              {/* {telCode[0].flag}  */}
-                              <img
-                                src={`https://flagsapi.com/${telCode[0].code}/flat/64.png`}
-                                style={{ height: "20px", width: "20px" }}
-                              />
-                              <input
-                                type="search"
-                                className="sm:w-[80px] w-[62px]  rounded-[5px] sticky top-0 sm:pl-[10px] pl-[5px] overflow-hidden"
-                                placeholder="Search"
-                                value={`${telCode[0].code} ${telCode[0].dial_code}`}
-                                onChange={handleSearch}
-                              />
-                              
-                            </div>
-                          )}
-                          <img
-                            onClick={() => setDropdown(true)}
-                            className="w-[20px] h-[20px]"
-                            src="/images/down_arrow.png"
-                            alt=""
-                          />
+                           
+
+                          </div>
+
+
                         </div>
 
 
@@ -446,11 +438,11 @@ const PersonalDetails = ({
                       </div>
 
                       <input
-                        className="w-full "
+                        className="w-full mobileNo "
                         type="text"
                         name=""
                         // id="single_input"
-                        placeholder="Enter Contact Number"
+                        placeholder= {`${ isViewportBelow850 ? "Enter Number " : "Enter Contact Number " }`}
                         value={data.mobileNo}
                         onChange={(e) =>
                           handleInputChange("mobileNo", e.target.value)
@@ -465,6 +457,8 @@ const PersonalDetails = ({
                       </p>
                     )}
                   </div>
+
+
 
                   <div className="personal_single_input">
                     <p className="form_text_heading">Date Of Birth</p>

@@ -181,7 +181,7 @@ const ProfessionalDetails = ({
     <>
       {tabindex == 4 && (
         <div className="personal_details_all">
-          <div className="personal_details" style={{ paddingBottom: "96px" }}>
+          <div className="personal_details p-4 pb-[96px]" >
             <div className="personal_details_form">
             <div className="register_back_block">
                 <img

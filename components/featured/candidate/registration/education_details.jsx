@@ -108,9 +108,9 @@ const EducationDetails = ({ data, setData, setTabIndex, tabindex }) => {
   return (
     <>
       {tabindex == 3 && (
-        <div className="show-content  ">
-          <div className="personal_details " style={{ paddingBottom: "96px" }}>
-            <div className="personal_details_form education_page">
+        <div className="show-content">
+          <div className="personal_details  p-4  pb-[96px]" >
+            <div className="personal_details_form education_page ">
             <div className="register_back_block">
                 <img
                   className="mail_img"
