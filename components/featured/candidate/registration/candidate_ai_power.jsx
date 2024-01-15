@@ -152,8 +152,8 @@ const CandidateAiPower = ({
     <>
       {tabindex == 1 && (
         <>
-          <div className="flex justify-center items-center  relative ">
-            <div className="last_img_parent_head top-[100px]">
+          <div className="flex justify-center items-center  relative pb-8 ">
+            <div className="last_img_parent_head top-[100px] web ">
               <div className="lastfour_img_cont">
                 <div className="last_img_contener1">
                   <img
@@ -200,7 +200,7 @@ const CandidateAiPower = ({
               </div>
             </div>
             <div
-              className="flex flex-col gap-[36px] p-[24px] justify-center items-center rounded-[12px] w-[38.33%] shadow_of_box  z-50 "
+              className="flex flex-col gap-[36px] p-[24px] justify-center items-center rounded-[12px] ml:w-[38.33%] w-[90%] shadow_of_box  z-50 "
               style={{
                 borderRadius: "12px",
                 background: "#FFF",
@@ -232,7 +232,7 @@ const CandidateAiPower = ({
                   ref={fileRef}
                   onDragOver={handleDragOver}
                   onDrop={handleFileChange}
-                  class="border-dashed border-[3px] border-[#333] flex flex-col w-full rounded-[12px] px-[42px] py-[24px] items-center gap-[8px] upload-btn-wrapper min-h-[6rem]"
+                  class="border-dashed border-[3px] border-[#333] flex flex-col w-full rounded-[12px] px-[8px] py-[24px] items-center gap-[8px] upload-btn-wrapper min-h-[6rem]"
                 >
                   <input
                     type="file"
@@ -301,11 +301,11 @@ const CandidateAiPower = ({
                         </svg>
                       </div>
                       <div class="flex flex-col gap-[4px]	font-normal	">
-                        <div class="flex text-center justify-center  text-[14px] text-[#515B6F]">
+                        <div class="flex text-center justify-center  scr420:text-[14px] scr360:text-[12px] text-[10px] text-[#515B6F]">
                           drag and drop or{" "}
-                          <p onClick={handleButtonClick} class="text-[#06A9EF]">
+                          <span onClick={handleButtonClick} class="text-[#06A9EF]">
                             &nbsp;Browse file{" "}
-                          </p>
+                          </span>
                           &nbsp;to upload
                         </div>
                         <p class="text-center text-[12px] font-normal text-[#7C8493]">

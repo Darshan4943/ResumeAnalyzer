@@ -32,7 +32,7 @@ function HeaderSidebar({ selectedPage, setIsSidebar, setIsLogin, isLogin }) {
     };
 
     return (
-        <div className=' h-[1000px] flex flex-col gap-3 pt-[3.5rem] ' >
+        <div className=' h-[1000px] flex flex-col gap-3 pt-[3.5rem]  relative ' >
             <div className='flex justify-between px-4 mt-3'>
                 <img src="/images/logo_skilotech.png" alt="" className="w-[123px] h-[40px] object-contain" />
                 <div className='' onClick={() => setIsSidebar(false)}>

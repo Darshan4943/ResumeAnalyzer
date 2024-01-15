@@ -109,7 +109,7 @@ function Candidate_register() {
   return (
     <>
       <div className=" relative !important">
-        <div className="register_head sticky top-[0] w-[100%] z-[900]  pb-6 bg-white">
+        <div className="register_head sticky top-[0] w-[100%] z-[900]  pb-4 bg-white">
           <div className="register_cadidate overflow-hidden">
             <div className="register_text_parent">
               <div className="register_heding">
