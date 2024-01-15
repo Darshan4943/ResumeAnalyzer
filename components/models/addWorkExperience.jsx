@@ -165,7 +165,7 @@ console.log(isEditing)
         </div>
       </div>
       <div className="flex flex-col gap-3">
-        <p className="text-[16px] font-medium">Is this your current Job? </p>
+        <p className="md:text-[16px] text-[14px] font-medium">Is this your current Job? </p>
         <div className="w-full flex gap-2 text-[14px] font-montserrat items-center font-medium">
           <input
             type="radio"
@@ -185,12 +185,12 @@ console.log(isEditing)
       </div>
       <div className="flex w-full gap-4 flex_column">
         <div className="flex flex-col gap-2 ">
-          <div className="text-[16px] font-montserrat  font-medium">
+          <div className="md:text-[16px] text-[14px] font-montserrat  font-medium">
             Job Type
           </div>
           <div className=" ">
             <select
-              className="w-[150px] border-[1px] border-[#9D9D9D] rounded-[8px] px-[16px] py-[8px]"
+              className="w-[150px] md:text-[16px] text-[14px] border-[1px] border-[#9D9D9D] rounded-[8px] px-[16px] py-[8px]"
               name="jobType"
               onChange={handleInputChange}
             >
@@ -203,12 +203,12 @@ console.log(isEditing)
           </div>
         </div>
         <div className="flex flex-col gap-2 ">
-          <div className="w-full text-[16px] font-montserrat  font-medium">
+          <div className="w-full md:text-[16px] text-[14px] font-montserrat  font-medium">
             Job Mode
           </div>
           <div className="">
             <select
-              className="w-[150px]  border-[1px] border-[#9D9D9D] rounded-[8px] px-[16px] py-[8px]"
+              className="w-[150px]  border-[1px] md:text-[16px] text-[14px] border-[#9D9D9D] rounded-[8px] px-[16px] py-[8px]"
               name="jobMode"
               onChange={handleInputChange}
             >
@@ -222,7 +222,7 @@ console.log(isEditing)
         </div>
       </div>
       <div className="flex flex-col gap-2 ">
-        <div className="text-[16px] font-montserrat  font-medium">
+        <div className="md:text-[16px] text-[14px] font-montserrat  font-medium">
           Designation
         </div>
         <div className=" border-[1px] border-[#9D9D9D] rounded-[8px] px-[16px] py-[8px]">
@@ -237,7 +237,7 @@ console.log(isEditing)
         </div>
       </div>
       <div className="flex flex-col gap-2 ">
-        <div className="text-[16px] font-montserrat  font-medium">
+        <div className="md:text-[16px] text-[14px] font-montserrat  font-medium">
           Organisation
         </div>
         <div className=" border-[1px] border-[#9D9D9D] rounded-[8px] px-[16px] py-[8px]">
@@ -252,7 +252,7 @@ console.log(isEditing)
         </div>
       </div>
       <div className="flex flex-col gap-2 ">
-        <div className="text-[16px] font-montserrat  font-medium">Location</div>
+        <div className="md:text-[16px] text-[14px] font-montserrat  font-medium">Location</div>
         <div className=" border-[1px] border-[#9D9D9D] rounded-[8px] px-[16px] py-[8px]">
           <input
             type="text"
@@ -280,7 +280,7 @@ console.log(isEditing)
         </div>
         <div className="">
           <select
-            className="w-[46.51%]  border-[1px] border-[#9D9D9D] rounded-[8px] px-[16px] py-[8px]"
+            className="w-[46.51%] md:text-[16px] text-[14px] border-[1px] border-[#9D9D9D] rounded-[8px] px-[16px] py-[8px]"
             name="noticePeriod"
             onChange={handleInputChange}
           >
@@ -293,7 +293,7 @@ console.log(isEditing)
         </div>
       </div>
       <div className="flex flex-col gap-2 ">
-        <div className="text-[16px] font-montserrat  font-medium">
+        <div className="md:text-[16px] text-[14px] font-montserrat  font-medium">
           Skills Learned
         </div>
 
@@ -317,7 +317,7 @@ console.log(isEditing)
         />
       </div>
       <div className="flex flex-col gap-2 ">
-        <div className="text-[16px] font-montserrat  font-medium">
+        <div className="md:text-[16px] text-[14px] font-montserrat  font-medium">
           Work Description
         </div>
         <div className=" border-[1px] border-[#9D9D9D] rounded-[8px] px-[16px] py-[8px]">

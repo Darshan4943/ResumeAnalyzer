@@ -90,11 +90,11 @@ function Edit_personal_Dtls({ setaddWebsites }) {
       }}
     >
       <div className="flex flex-col gap-[4px] w-full">
-        <div className="flex gap-[16px] flex items-center">
-          <div className="text-[24px] font-[500] text-[#25324B] w-[54.90%]">
+        <div className="flex gap-[16px]  items-center">
+          <div className="md:text-[24px] text-[16px] sm:text-[18px] font-[500] text-[#25324B] w-[80%] sm:w-[54.90%]">
             Edit Personal details{" "}
           </div>
-          <div className="h-[1px] w-full bg-[#DEDEDE] flex items-center w-[63.07%]"></div>
+          <div className="h-[1px]  bg-[#DEDEDE] flex items-center w-[63.07%]"></div>
           <svg
             onClick={() => setaddWebsites(false)}
             className="hover:cursor-pointer"
@@ -113,12 +113,12 @@ function Edit_personal_Dtls({ setaddWebsites }) {
             </g>
           </svg>
         </div>
-        <div className="text-[14px] font-[400] text-[#646464] w-full">
+        <div className="md:text-[14px] text-[12px] font-[400] text-[#646464] w-full">
           Update your personal information like contact, address and more for
           accuracy and relevance.{" "}
         </div>
       </div>
-      <div className="w-[50%] flex flex-col gap-[12px] text-[16px] font-[500] ">
+      <div className="md:w-[50%] w-[85%] flex flex-col gap-[12px] text-[16px] font-[500] ">
         Select your Gender
         <div className="flex justify-between items-center">
           <div className="flex gap-[8px]">
@@ -165,8 +165,8 @@ function Edit_personal_Dtls({ setaddWebsites }) {
           </div>
         </div>
       </div>
-      <div className="flex gap-[16px]">
-        <div className="flex flex-col gap-[8px] w-[50%]">
+      <div className="md:flex flex flex-col gap-[16px] ">
+        <div className="flex flex-col gap-[8px] w-[100%] md:w-[50%]">
           <div className="text-[16px] font-[500] flex items-center">
             Date of Birth <span className="text-[#C00000]">*</span>
           </div>
@@ -179,7 +179,7 @@ function Edit_personal_Dtls({ setaddWebsites }) {
             id=""
           />
         </div>
-        <div className="flex flex-col gap-[8px] w-[50%]">
+        <div className="flex flex-col gap-[8px] w-[100%] md:w-[50%]">
           <div className="text-[16px] font-[500] flex items-center">
             What is your Marital status?{" "}
             <span className="text-[#C00000]">*</span>
@@ -307,7 +307,7 @@ function Edit_personal_Dtls({ setaddWebsites }) {
         </div>
         <div className=" w-full flex flex-col gap-[8px]">
           <div className="text-[16px] font-[500]">If Yes, Select one</div>
-          <div className="w-[50%]">
+          <div className="md:w-[50%] w-[100%]">
             <select
               onChange={(e) =>
                 setData({ ...Data, workPermitDescription: e.target.value })

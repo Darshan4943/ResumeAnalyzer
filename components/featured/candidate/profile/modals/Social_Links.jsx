@@ -185,12 +185,12 @@ function Social_Links({ setaddWebsites,setEditSocial,Social }) {
           </div>
         </div>
         <div className="w-full flex justify-between">
-          <button className="rounded-[8px] py-[8px] px-[16px] border-[#C00000] border-solid border-[1px] text-[#C00000] text-[16px] font-[500] transition-all transition-0.1s hover:bg-[#C00000] hover:text-[#fff]">
+          <button className="rounded-[8px] md:py-[8px] py-[5px] md:px-[16px] px-[8px] border-[#C00000] border-solid border-[1px] text-[#C00000] md:text-[16px] text-[14px] font-[500] transition-all transition-0.1s hover:bg-[#C00000] hover:text-[#fff]">
             Delete
           </button>
           <div className="flex gap-[12px]">
             <button
-              className="rounded-[8px] py-[8px] px-[16px] border-[#06A9EF] border-solid border-[1px] text-[#333] text-[16px] font-[500] hover:cursor-pointer"
+              className="rounded-[8px] py-[5px] md:py-[8px] px-[8px] md:px-[16px] border-[#06A9EF] border-solid border-[1px] text-[#333] text-[14px] md:text-[16px] font-[500] hover:cursor-pointer"
               onClick={() => {
                 setData({
                   profile: "",
@@ -203,7 +203,7 @@ function Social_Links({ setaddWebsites,setEditSocial,Social }) {
               Cancel
             </button>
             <button
-              className="rounded-[8px] py-[8px] px-[16px] border-[#06A9EF] border-solid border-[1px] text-[#fff] text-[16px] font-[500] bg-[#06A9EF] "
+              className="rounded-[8px] py-[5px] md:py-[8px] px-[8px] md:px-[16px] border-[#06A9EF] border-solid border-[1px] text-[#fff] text-[14px] md:text-[16px] font-[500] bg-[#06A9EF] "
               onClick={handleSubmit}
             >
               Save Changes

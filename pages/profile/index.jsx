@@ -125,7 +125,7 @@ function Profile() {
 
           <div className="profile_right w-[100%] education_page">
             <div className="build_ai w-[100%] flex_column">
-              <div className="build_ai_left w-[100%] w-fit">
+              <div className="build_ai_left  w-fit">
                 <div className="flex flex-row w-[100%] ">
                   <div className="w-[50%] md:w-fit">
                 <img className="w-[152px] h-[152px]" src="./images/profile/Wavy_Bus.png" alt="" />
