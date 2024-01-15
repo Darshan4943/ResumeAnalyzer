@@ -32,7 +32,7 @@ function Sign_in() {
         if (response.success) {
           localStorage.setItem("authToken", response.token);
           dispatch(reCallUserData())
-          toast.success("Registration Complete");
+          toast.success("Sign in Successfully");
           router.push("/candidate/afterLogin/home/candidateHome");
           setError("Sign in Successfully")
         } else {
@@ -46,10 +46,10 @@ function Sign_in() {
   };
 
   return (
-    <div className="flex justify-center items-center py-12">
+    <div className="flex justify-center items-center py-12 pl-[8px] pr-[8px]">
       <form
         onSubmit={submitHandler}
-        className="flex w-[32.22%] p-[24px] gap-[24px] flex-col justify-center items-center rounded-[24px] "
+        className="flex w-full sm:w-[464px] p-[24px] gap-[24px] flex-col justify-center items-center rounded-[24px] "
         style={{
           boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
         }}
@@ -99,7 +99,7 @@ function Sign_in() {
               </a>
             </div>
             <div className={`flex justify-center text-[12px] font-[500] ${error === 'Sign in Successfully' ? 'text-green-800' : 'text-red-800'}`}>
-          <p>{error || 'Click the "Sign In" button to sign in.'}</p>
+          <p>{error}</p>
         </div>
           </div>
         </div>

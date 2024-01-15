@@ -1056,6 +1056,14 @@
   line-height: normal;
 }
 
+@media (max-width:600px) {
+  .register_heding_text{
+    font-size: 26px;
+    margin-bottom: 10px;
+  }
+ 
+}
+
 .details_parent {
   display: flex;
   flex-direction: column;
@@ -1068,6 +1076,23 @@
   align-items: center;
   margin-bottom: 2px;
 }
+@media (max-width:400px) {
+  .details_radio {
+    width: 230px;
+  }
+}
+
+@media only screen and (min-width: 650px) and (max-width: 900px) {
+  .details_radio{
+    width: 525px;
+  }
+}
+@media only screen and (min-width: 400px) and (max-width: 650px) {
+  .details_radio{
+    width: 330px;
+  }
+}
+
 .bg_line {
   background: #c7c7c7;
   width: 336px;
@@ -1082,6 +1107,9 @@
   justify-content: space-between;
   overflow: hidden;
 }
+
+
+
 .detail_names_text {
   color: var(--text-prmary, #333);
   font-family: Montserrat;
@@ -1091,10 +1119,27 @@
   line-height: normal;
 }
 
+@media (max-width:400px) {
+  .detail_names{
+    width: 310px;
+  }
+  .detail_names_text{
+    font-size: 11px;
+  }
+}
+
+@media only screen and (min-width: 400px) and (max-width: 650px) {
+  .detail_names_text{
+    font-size: 11px;
+  }
+}
+
+
 .personal_details {
   margin-top: 2px;
   justify-content: center;
   display: flex;
+  overflow: hidden;
 }
 
 .mail_img {
@@ -1354,13 +1399,18 @@
   position: relative;
 }
 
+
 .personal_name_parent {
   display: flex;
   align-items: flex-start;
   gap: 20px;
   width: 100%;
 }
-
+@media (max-width:850px) {
+  .personal_name_parent{
+    flex-direction: column;
+  }
+}
 .personal_name {
   display: flex;
   width: 100%;
@@ -1374,6 +1424,8 @@
   position: absolute;
 }
 
+
+
 .form_text_heading {
   color: var(--text-prmary, #333);
   font-family: Montserrat;
@@ -1382,6 +1434,16 @@
   font-weight: 500;
   line-height: normal;
 }
+
+@media (max-width:425px) {
+  .personal_details_form{
+    width: 85%;
+  }
+  .form_text_heading{
+    font-size: 14px; 
+  }
+}
+
 .star {
   color: var(--Mandetory, #c00000);
   font-family: Montserrat;
@@ -1417,6 +1479,15 @@
   }
 }
 
+@media (max-width:420px) {
+  .personal_single_input {
+    .icon{
+    width: 20px;
+    height: 20px;
+  }
+  }
+}
+
 #single_input {
   display: flex;
   width: 100%;
@@ -1430,6 +1501,12 @@
   background: #fff;
 }
 
+@media (max-width:420px) {
+  #single_input{
+    font-size: 12px;
+  }
+}
+
 .single_input {
   display: flex;
   width: 600px !important;
@@ -1441,6 +1518,12 @@
   border-radius: 8px;
   border: 1px solid var(--placeholder, #9d9d9d);
   background: #fff;
+}
+
+@media (max-width:850px) {
+  .personal_single_input{
+    width: 100%;
+  }
 }
 
 .right_img {
@@ -1470,6 +1553,14 @@
   background: var(--white, #fff);
   box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15),
     0px 1px 2px 0px rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width:420px) {
+  .gender_button{
+    width: 100%;
+    font-size: 14px;
+    padding: 5px 15px;
+  }
 }
 
 .gen_button:active {
@@ -1514,6 +1605,13 @@ button {
   justify-content: center;
   align-items: center;
   border-radius: 12px;
+}
+
+@media (max-width:420px) {
+  .buttons{
+    padding: 5px 15px;
+    font-size: 14px;
+  }
 }
 
 .already_text_parent {
@@ -1564,4 +1662,16 @@ button {
 .radio {
   display: flex;
   gap: 8px;
+}
+
+@media (max-width:1024px) {
+  .register_back_block{
+    display: none;
+}
+}
+
+@media (max-width:850px) {
+  .education_page{
+    width: 100%;
+  }
 }

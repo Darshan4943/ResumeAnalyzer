@@ -183,7 +183,7 @@ const ProfessionalDetails = ({
         <div className="personal_details_all">
           <div className="personal_details" style={{ paddingBottom: "96px" }}>
             <div className="personal_details_form">
-              <>
+            <div className="register_back_block">
                 <img
                   className="mail_img"
                   src="/images/auth/candidate/Group_7.png"
@@ -216,7 +216,7 @@ const ProfessionalDetails = ({
                   alt=""
                   style={{ left: "-17rem", width: "44%", top: "33rem" }}
                 />
-              </>
+              </div>
               {data.workStatus == "fresher" ? (
                 <p className="form_text_heading text-[20px]">
                   Internship Details (optional)

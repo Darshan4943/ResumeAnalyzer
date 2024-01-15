@@ -110,8 +110,8 @@ const EducationDetails = ({ data, setData, setTabIndex, tabindex }) => {
       {tabindex == 3 && (
         <div className="show-content  ">
           <div className="personal_details " style={{ paddingBottom: "96px" }}>
-            <div className="personal_details_form">
-              <>
+            <div className="personal_details_form education_page">
+            <div className="register_back_block">
                 <img
                   className="mail_img"
                   src="/images/auth/candidate/Group_1.png"
@@ -157,12 +157,12 @@ const EducationDetails = ({ data, setData, setTabIndex, tabindex }) => {
                   style={{ position: "absolute" }}
                   alt=""
                 />
-              </>
+              </div>
 
               <div className="personal_single_input">
                 <div className="personal_name">
                   <p className="form_text_heading">Highest Education</p>
-                  <div className="education_button">
+                  <div className="education_button education_page">
                     <button
                       className={`gen_button ${data.education == "10th or below" && "gen_button_active"
                         }`}
