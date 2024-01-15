@@ -59,7 +59,7 @@ const DateSelector = ({ idPrefix, dataSeter, data }) => {
   console.log(getYear())
 
   return (
-    <div className="flex gap-[12px]">
+    <div className="flex gap-[12px] flex_column">
       <div className="flex flex-col gap-2">
         <div>
           <label
@@ -75,7 +75,7 @@ const DateSelector = ({ idPrefix, dataSeter, data }) => {
               id={`${idPrefix}-startMonth`}
               value={data?.duration?.start?.month}
               onChange={handleStartMonthChange}
-              className="w-[79px] outline-none"
+              className="w-outline-none"
               style={{
                 WebkitAppearance: "none",
                 MozAppearance: "none",

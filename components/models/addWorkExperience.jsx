@@ -158,7 +158,7 @@ console.log(isEditing)
       style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}
     >
       <div className="flex justify-between w-full items-center">
-        <p className="text-[24px] font-medium">Add Work Experience</p>
+        <p className="ml:text-[24px] text-[18px] font-medium">Add Work Experience</p>
         <div className="bg-[#DEDEDE] h-[1px] w-[54.54%]"></div>
         <div onClick={() => setOpenAddExperience(false)}>
           <ClosedIcon />
@@ -183,7 +183,7 @@ console.log(isEditing)
           <label>No</label>
         </div>
       </div>
-      <div className="flex w-full gap-4">
+      <div className="flex w-full gap-4 flex_column">
         <div className="flex flex-col gap-2 ">
           <div className="text-[16px] font-montserrat  font-medium">
             Job Type

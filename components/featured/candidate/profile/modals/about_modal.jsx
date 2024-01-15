@@ -71,7 +71,7 @@ const AboutModal = ({ handleImageClick, userData, setIsComponentOpen }) => {
   return (
     <>
       <div id="demo-modal" class="modal ">
-        <div class="modal__content w-[56%] gap-4 flex flex-col p-6 rounded-xl">
+        <div class="modal__content md:w-[56%] gap-4 flex flex-col p-6 rounded-xl">
           <div className="flex items-center gap-4 self-stretch w-full">
             <div className="w-[23.24%] text-[#25324B] font-Montserrat font-medium text-base lg:text-xl leading-160">
               Edit About me

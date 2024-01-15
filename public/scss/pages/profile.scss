@@ -54,6 +54,13 @@
   gap: 8px;
   flex: 1 0 0;
 }
+
+@media (max-width:851px) {
+  .profile_align{
+    align-items: center;
+  }
+}
+
 .profile_score_text {
   color: var(--text-prmary, #333);
   font-family: Montserrat;
@@ -154,6 +161,11 @@
   align-items: center;
   gap: 11px;
   color: var(--text-prmary, #333);
+}
+@media (max-width:430px) {
+  .prof_template_gap{
+    gap: 5px !important;
+  }
 }
 .verti_line {
   width: 1px;
