@@ -172,9 +172,9 @@ const JobPrefrenceModal = ({ setEditView }) => {
           Customize your job settings to match what you're looking for in a job.
         </p>
         <form action="">
-          <div className="w-full form_container">
+          <div className="w-full form_container_col form_container">
             {inputField.map((item) => (
-              <div className="input-container w-[46%] ">
+              <div className="input-container w-[80%] md:w-[46%] ">
                 <label className="label">{item.label}</label>
                 <input
                   type="text"
@@ -186,7 +186,7 @@ const JobPrefrenceModal = ({ setEditView }) => {
                 />
               </div>
             ))}
-            <div className="input-container w-[46%]  ">
+            <div className="input-container w-[80%] md:w-[46%]  ">
               <label className="label">Preferred Job Type</label>
               <select
                 className="w-full input"
@@ -202,7 +202,7 @@ const JobPrefrenceModal = ({ setEditView }) => {
               </select>
 
             </div>
-            <div className="input-container w-[46%] ">
+            <div className="input-container w-[80%] md:w-[46%] ">
               <label className="label">Preferred Job Mode</label>
               <select
                 className="w-full input"
@@ -216,7 +216,7 @@ const JobPrefrenceModal = ({ setEditView }) => {
                 ))}
               </select>
             </div>
-            <div className="input-container w-[46%] ">
+            <div className="input-container w-[80%] md:w-[46%] ">
               <label className="label">Preferred Shift</label>
               <select
                 className="w-full input"
@@ -232,7 +232,7 @@ const JobPrefrenceModal = ({ setEditView }) => {
               </select>
             </div>
 
-            <div className="input-container w-[46%] ">
+            <div className="input-container w-[80%] md:w-[46%]">
               <label className="label">Expected salary</label>
               <input
                 type="text"
@@ -243,7 +243,7 @@ const JobPrefrenceModal = ({ setEditView }) => {
                 onChange={handleInputChange}
               />
             </div>
-            <div className="input-container w-[46%] ">
+            <div className="input-container w-[80%] md:w-[46%] ">
               <label className="label">Preferred work location</label>
               <ReactSelect
                 options={City?.map((item) => ({
