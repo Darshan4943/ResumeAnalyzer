@@ -444,7 +444,7 @@
     width: 100%;
     color: var(--text-prmary, #333);
     font-family: Montserrat;
-    font-size: 56px;
+   
     font-style: normal;
     font-weight: 700;
     line-height: normal;
@@ -483,6 +483,59 @@
     align-items: center;
     // padding: 47px 0;
   }
+  .ai_images_start {
+    width: 57%;
+    height: 681px;
+    position: relative;
+    display: flex;
+    // align-items: center;
+    // padding: 47px 0;
+  }
+
+  .ai_images1 {
+    width: 142px;
+    height: 140px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 47px 0;
+    }
+    
+    .name_resume1 {
+    width: 78px;
+    height: 111px;
+    flex-shrink: 0;
+    animation: name_resume 3s infinite;
+    }
+    @keyframes name_resume {
+    0%,
+    100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(20px);
+    }
+    }
+    
+    .david_resume1 {
+    width: 78px;
+    height: 111px;
+    flex-shrink: 0;
+    position: absolute;
+    right: 20%;
+    animation: david 3s infinite;
+    display: flex;
+    top: 3%;
+    }
+    @keyframes david {
+    0%,
+    100% {
+      transform: translateY(20px);
+    }
+    50% {
+      transform: translateY(0px);
+    }
+    }
 
   .name_resume {
     width: 450.31px;

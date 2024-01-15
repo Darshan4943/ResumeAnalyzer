@@ -1,4 +1,7 @@
 import ImageContainer from "@/components/common/image";
+import { SkillList } from "@/utils/data";
+import axios from "axios";
+import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
 
 
@@ -7,15 +10,15 @@ function CandidateHero() {
 
   // const router = useRouter();
   const isInSouthAfrica = localStorage.getItem("isInSouthAfrica") == "true";
-
+  const router = useRouter();
   const [searchInput, setSearchInput] = useState("");
   const [jobSuggestions, setJobSuggestions] = useState([]);
-
+  const [skills, setSkills] = useState([...SkillList]);
   const [selectedJob, setSelectedJob] = useState(null);
 
   const handleJobSelect = (job) => {
     setSelectedJob(job);
-    setSearchInput(job.title);
+    setSearchInput(job);
     setJobSuggestions([]);
   };
   const jobData = [
@@ -34,25 +37,26 @@ function CandidateHero() {
     const searchText = e.target.value;
     setSearchInput(searchText);
 
-    const filteredJobs = jobData.filter((job) =>
-      job.title.toLowerCase().includes(searchText.toLowerCase())
+    const filteredJobs = skills.filter((job) =>
+      job.toLowerCase().includes(searchText.toLowerCase())
     );
 
     setJobSuggestions(filteredJobs);
+
   };
   const taskRef = useRef(null);
 
   const handleOutsideClick = (event) => {
     if (taskRef.current && !taskRef.current.contains(event.target)) {
       setJobSuggestions([]);
-      setLocationSuggestions([]);
+      setLocationSuggestions([])
     }
   };
 
   useEffect(() => {
-    document.addEventListener("mousedown", handleOutsideClick);
+    document.addEventListener('mousedown', handleOutsideClick);
     return () => {
-      document.removeEventListener("mousedown", handleOutsideClick);
+      document.removeEventListener('mousedown', handleOutsideClick);
     };
   }, []);
 
@@ -291,13 +295,13 @@ function CandidateHero() {
           </button>
         </div>
       </div> */}
-      <div className="w-full min-h-[100px] xxlg:h-[460px]  xlg:h-[300px] ml:h-[390px]  bg-cover bg-no-repeat overflow-hidden bg-vector ">
+      <div className="w-full min-h-[100px] xxlg:h-[460px]  xlg:h-[300px] ml:h-[390px]  bg-cover bg-no-repeat  bg-vector ">
         <div className="customMargins relative">
-          <div className="flex flex-row justify-between gap-4 max-w-1128">
+          <div className="flex flex-row justify-between gap-4">
             <div className="mr-0 p-0">
               <div className=" xlg:leading-normal w-[267px] ml:w-[350px] xxlg:w-[500px]   ">
                 <p className="font-Montserrat  text-[24px] xlg:text-[36px] ml:text-[46px] text-black font-bold xxlg:text-[66px] ">
-                  <span className=" text-[#06A9EF]">Create</span> your 
+                  <span className=" text-[#06A9EF]">Create</span> your
                   future with us
                 </p>
               </div>
@@ -340,9 +344,21 @@ function CandidateHero() {
                     <div>
                       <input
                         type="text"
-                        className="text-gray font-small text-[20px] max-scr1400:text-[18px] max-scr1350:text-[17px] max-scr1300:text-[16px] max-scr1250:text-[15px] max-scr1200:text-[15px] max-scr1150:text-[15px] max-scr1100:text-[15px]  max-scr1050:text-[15px]  placeholder-center text-center"
+                        className="  placeholder-start text-start"
                         placeholder="Job title or keyword"
+                        value={searchInput}
+                        onChange={handleInputChange}
                       />
+
+                      {jobSuggestions.length > 0 && (
+                        <div ref={taskRef}     onWheel={(e) => e.stopPropagation()} className="absolute bg-[#FFF] w-[295px] h-[216px] top-20 left-10 rounded-t-[8px] overflow-y-auto p-2 z-[20000]" style={{ boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)" }}>
+                          {jobSuggestions.map((job) => (
+                            <div key={job.id} className="" onClick={() => handleJobSelect(job)}>
+                              <p className="flex flex-col p-2 text-[#333] text-[16px] font-normal cursor-pointer">{job}</p>
+                            </div>
+                          ))}
+                        </div>
+                      )}
                     </div>
                   </div>
                   <ImageContainer
@@ -351,7 +367,7 @@ function CandidateHero() {
                     alt=""
                   />
 
-                  <div className="flex items-center gap-4 max-scr1100:gap-2">
+                  <div className="flex items-center gap-4 max-scr1100:gap-2 relative">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="12%"
@@ -373,11 +389,35 @@ function CandidateHero() {
                         strokeLinejoin="round"
                       />
                     </svg>
-                    <p className="text-gray font-small text-[18px] max-scr1400:text-[16px]  max-scr1350:text-[15px] max-scr1100:text-[14px]">
-                      Colney, United Kingdom
-                    </p>
+                    <input
+                      type="text"
+                      className=" placeholder-start text-start w-full"
+                      placeholder="Colney, United Kingdom"
+                      value={locationInput}
+                      onChange={handleLocationInputChange}
+                    />
+
+                    {locationSuggestions.length > 0 && (
+                      <div
+                        ref={taskRef}     onWheel={(e) => e.stopPropagation()}
+                        className="  absolute bg-[#FFF] w-[295px] h-[216px]   top-14 rounded-t-[8px] overflow-y-auto p-2"
+                        style={{ boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)" }}
+                      >
+                        {locationSuggestions.map((loc) => (
+                          <div
+                            key={loc.id}
+                            className=""
+                            onClick={() => handleLocSelect(loc)}
+                          >
+                            <p className="flex flex-col p-2 text-[#333] text-[16px] font-normal cursor-pointer">
+                              {loc.name}
+                            </p>
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </div>
-                  <button className="flex items-center justify-center py-4 px-12  bg-blue text-white rounded-[12px] max-scr1200:px-8 max-scr1100:px-6">
+                  <button  onClick={() => router.push("/candidate/afterLogin/jobs/dummyJobCards")} className="flex items-center justify-center py-4 px-12  bg-blue text-white rounded-[12px] max-scr1200:px-8 max-scr1100:px-6">
                     Search
                   </button>
                 </div>
@@ -386,19 +426,18 @@ function CandidateHero() {
 
             <img
               className="h-[182px] w-[185px] xxlg:h-[460px] xxlg:w-[480px]  xlg:w-[320px] xlg:h-[300px] ml:h-[390px] ml:w-[390px]  absolute right-0 "
-              src={`/images/candidate/candidate_hero_img_${
-                isInSouthAfrica ? 2 : 1
-              }.png`}
+              src={`/images/candidate/candidate_hero_img_${isInSouthAfrica ? 2 : 1
+                }.png`}
               alt=""
             />
           </div>
         </div>
       </div>
-       <div
+      <div
         className="flex flex-col mt-[1rem] rounded-[8px] py-2 mx-2 display_b"
         style={{ boxShadow: "0px 0px 20px 0px rgba(0, 0, 0, 0.25)" }}
       >
-        <div className="flex gap-2 border-b border-[#DFDFDF] p-2 items-center display_b">
+        <div className="flex gap-2 border-b border-[#DFDFDF] p-2 items-center display_b relative">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="20"
@@ -413,7 +452,7 @@ function CandidateHero() {
               />
             </g>
           </svg>
-          <input
+          {/* <input
             type="text"
             className="  placeholder-start text-start"
             placeholder="Job title or keyword"
@@ -422,24 +461,15 @@ function CandidateHero() {
           />
 
           {jobSuggestions.length > 0 && (
-            <div
-              ref={taskRef}
-              className="absolute bg-[#FFF] w-[295px] h-[216px] bottom-16  rounded-t-[8px] overflow-y-auto p-2"
-              style={{ boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)" }}
-            >
+            <div ref={taskRef}     onWheel={(e) => e.stopPropagation()} className="absolute bg-[#FFF] w-[295px] h-[216px] top-20 left-10 rounded-t-[8px] overflow-y-auto p-2 z-[20000]" style={{ boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)" }}>
               {jobSuggestions.map((job) => (
-                <div
-                  key={job.id}
-                  className=""
-                  onClick={() => handleJobSelect(job)}
-                >
-                  <p className="flex flex-col p-2 text-[#333] text-[16px] font-normal cursor-pointer">
-                    {job.title}
-                  </p>
+                <div key={job.id} className=""
+                 onClick={() => handleJobSelect(job)}>
+                  <p className="flex flex-col p-2 text-[#333] text-[16px] font-normal cursor-pointer">{job}</p>
                 </div>
               ))}
             </div>
-          )}
+          )} */}
         </div>
 
         <div className="flex  gap-2 border-b border-[#DFDFDF] p-2 items-center">
@@ -457,7 +487,7 @@ function CandidateHero() {
               />
             </g>
           </svg>
-          <input
+          {/* <input
             type="text"
             className=" placeholder-start text-start w-full"
             placeholder="Colney, United Kingdom"
@@ -467,7 +497,7 @@ function CandidateHero() {
 
           {locationSuggestions.length > 0 && (
             <div
-              ref={taskRef}
+              ref={taskRef}     onWheel={(e) => e.stopPropagation()}
               className="  absolute bg-[#FFF] w-[295px] h-[216px]   bottom-[4%] rounded-t-[8px] overflow-y-auto p-2"
               style={{ boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)" }}
             >
@@ -483,14 +513,14 @@ function CandidateHero() {
                 </div>
               ))}
             </div>
-          )}
+          )} */}
         </div>
         <div className="p-2">
-          <button className="text-[14px] font-medium border border-[#06A9EF] rounded-[8px] w-full py-2">
+          <button onClick={() => router.push("/candidate/afterLogin/jobs/dummyJobCards")} className="text-[14px] font-medium border border-[#06A9EF] rounded-[8px] w-full py-2">
             Search
           </button>
         </div>
-      </div> 
+      </div>
     </>
   );
 }
