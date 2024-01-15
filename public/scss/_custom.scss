@@ -460,3 +460,10 @@ input:checked + .slider:before {
     display: none!important; 
   }
   }
+@media (max-width: 767px) {
+  .mobile_hide{
+    display: none!important; 
+  }
+  }
+
+  
