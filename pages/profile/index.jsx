@@ -72,8 +72,8 @@ function Profile() {
       <div>{userData && <ProfileHeader userData={userData} />}</div>
 
       <div className="customMargins relative pb-6">
-        <div className="flex mt-[24px] gap-[24px]">
-          <div className="profile_left_section sticky top-[7rem]">
+        <div className="ml:flex ml:flex-row flex flex-col mt-[24px] gap-[24px]">
+          <div className="profile_left_section ml:sticky ml:top-[7rem]">
             <div className="score_all">
               <div className="profile_score">
                 <div class="circle-border" style={containerStyle}>
@@ -102,7 +102,7 @@ function Profile() {
               </div>
             </div>
 
-            <div className="profile_option">
+            <div className="profile_option heroBlock">
               {arr.map((item) => (
                 <ScrollLink
                   to="home"
@@ -123,10 +123,24 @@ function Profile() {
             </div>
           </div>
 
-          <div className="profile_right ">
-            <div className="build_ai">
-              <div className="build_ai_left">
-                <img src="./images/profile/Wavy_Bus.png" alt="" />
+          <div className="profile_right w-[100%] education_page">
+            <div className="build_ai w-[100%] flex_column">
+              <div className="build_ai_left w-[100%]">
+                <div className="flex flex-row w-[100%]">
+                  <div className="w-[50%]">
+                <img className="w-[152px] h-[152px]" src="./images/profile/Wavy_Bus.png" alt="" />
+                </div>
+                <div className="flex flex-col gap-[10px] w-[50%] items-center justify-center build_ai_block">
+                <ALink href={"/candidate/create_resume"}>
+                    <button className="build_ai_button">
+                      Create New Resume
+                    </button>
+                  </ALink>
+                  <button className="build_ai_button">
+                      Download Resume
+                    </button>
+                </div>
+                </div>
               </div>
 
               <div className="build_ai_right">
@@ -144,7 +158,7 @@ function Profile() {
                   Skilotech profile, or quickly create your own CV.
                 </p>
 
-                <div className="build_ai_button_parent">
+                <div className="build_ai_button_parent build_ai_none">
                   <ALink href={"/candidate/create_resume"}>
                     <button className="build_ai_button">
                       Create New Resume

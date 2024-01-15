@@ -9,7 +9,7 @@ import ImageContainer from "@/components/common/image";
 import { telCode } from "@/utils/data";
 import { useRouter } from "next/navigation";
 const AnimationDivs = () => (
-  <>
+  <div className="register_back_block">
     <img className="mail_img" src="/images/auth/candidate/Mail.png" alt="" />
     <img className="phone_img " src="/images/auth/candidate/Phone.png" alt="" />
     <img
@@ -24,7 +24,7 @@ const AnimationDivs = () => (
     <img className="Group14" src="/images/auth/candidate/Group14.png" alt="" />
     <img className="Group15" src="/images/auth/candidate/Group15.png" alt="" />
     <img className="Group16" src="/images/auth/candidate/Group16.png" alt="" />
-  </>
+  </div>
 );
 const PersonalDetails = ({
   data,
@@ -183,7 +183,7 @@ const PersonalDetails = ({
   return (
     <>
       {tabindex == 2 && (
-        <div className={"show-content  pb-8 back_img"}>
+        <div className={"show-content  pb-8 back_img "}>
           <div className="flex flex-col gap-4">
             <motion.div className="personal_details ">
               <form className="personal_details_form ">
@@ -329,7 +329,7 @@ const PersonalDetails = ({
                       Contact Number <span className="star">*</span>
                     </p>
                     <div
-                      className="flex w-[100%]  items-start gap-[10px]"
+                      className="flex w-[100%]  items-start gap-[5px] sm:gap-[10px]"
                       id="single_input"
                     >
                       <div className="relative w-max items-center">
@@ -346,7 +346,7 @@ const PersonalDetails = ({
                               />
                               <input
                                 type="search"
-                                className="w-[80px] rounded-[5px] sticky top-0 pl-[10px]  overflow-hidden"
+                                className="sm:w-[80px] w-[62px] rounded-[5px] sticky top-0 pl-[10px]  overflow-hidden"
                                 placeholder="Search"
                                 value={`${selectedItem.code} ${selectedItem.dial_code}`}
                                 onChange={handleSearch}
@@ -362,7 +362,7 @@ const PersonalDetails = ({
                               />
                               <input
                                 type="search"
-                                className="w-[80px]  rounded-[5px] sticky top-0 pl-[10px]  overflow-hidden"
+                                className="sm:w-[80px] w-[62px]  rounded-[5px] sticky top-0 sm:pl-[10px] pl-[5px] overflow-hidden"
                                 placeholder="Search"
                                 value={`${telCode[0].code} ${telCode[0].dial_code}`}
                                 onChange={handleSearch}

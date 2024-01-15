@@ -420,3 +420,21 @@
   border-radius: 100%;
   background-color: #127c29;
 }
+
+@media (max-width:768px) {
+.flex_column{
+  display: flex;
+  flex-direction: column;
+  }
+}
+
+@media (max-width:768px) {
+  .build_ai_none{
+    display: none !important;   
+    }
+  }
+  @media (min-width:768px) {
+    .build_ai_block{
+      display: none!important;   
+      }
+    }
