@@ -44,7 +44,7 @@ function SavedJobs() {
   return (
 
     <div className="  bg-[#F9F9F9]  ">
-      <div className="customMargins grid grid-cols-12 gap-[24px] py-[24px]  ">
+      <div className=" grid grid-cols-12 gap-[24px] py-[24px]  ">
 
         <div className={`${isDescription  ? " web" : ""}  p-[8px] rounded-[8px] col-span-12 ml:col-span-5 bg-[#fff] leading-tight min-h-[70vh]  `}>
           <div
