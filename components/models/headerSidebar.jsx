@@ -2,8 +2,9 @@ import { ClosedIcon } from '@/utils/svg';
 import { useRouter } from 'next/router';
 import React from 'react';
 
-function HeaderSidebar({ selectedPage, setIsSidebar }) {
+function HeaderSidebar({ selectedPage, setIsSidebar, setIsLogin, isLogin }) {
     const list = ["Home", "Candidate", "Employer", "Recruiter"];
+    const loginList = ["Home", "Jobs", "Services"]
     const router = useRouter();
 
     const handleNavigation = (page) => {
@@ -24,8 +25,14 @@ function HeaderSidebar({ selectedPage, setIsSidebar }) {
         };
     };
 
+    const handleLogOut = () => {
+        router.push("/");
+        setIsLogin(false);
+        localStorage.clear();
+    };
+
     return (
-        <div className=' h-[800px] flex flex-col gap-3' >
+        <div className=' h-[1000px] flex flex-col gap-3 pt-[3.5rem] ' >
             <div className='flex justify-between px-4 mt-3'>
                 <img src="/images/logo_skilotech.png" alt="" className="w-[123px] h-[40px] object-contain" />
                 <div className='' onClick={() => setIsSidebar(false)}>
@@ -37,23 +44,44 @@ function HeaderSidebar({ selectedPage, setIsSidebar }) {
                     </svg>
                 </div>
             </div>
+            {!isLogin ?
+                <div className='flex flex-col' style={{ listStyle: 'none' }}>
+                    {list.map((item, index) => (
+                        <li
+                            key={index}
+                            className='px-4 py-4 border-b-2 border-[#06A9EF]'
+                            style={{
+                                ...getListItemStyles(`/${item.toLowerCase()}`),
+                                ...(item === 'Home' && getListItemStyles('/')),
+                            }}
 
-            <div className='flex flex-col' style={{ listStyle: 'none' }}>
-                {list.map((item, index) => (
-                    <li
-                        key={index}
-                        className='px-4 py-4 border-b-2 border-[#06A9EF]'
-                        style={{
-                            ...getListItemStyles(`/${item.toLowerCase()}`),
-                            ...(item === 'Home' && getListItemStyles('/')),
-                        }}
+                            onClick={() => item === 'Home' ? handleNavigation('/') : handleNavigation(`/${item.toLowerCase()}`)}
+                        >
+                            {item}
+                        </li>
+                    ))}
+                </div>
+                :
+                <div className='flex flex-col' style={{ listStyle: 'none' }}>
+                    {loginList.map((item, index) => (
+                        <li
+                            key={index}
+                            className='px-4 py-4 border-b-2 border-[#06A9EF]'
+                            style={{
+                                ...getListItemStyles(`/candidate/afterLogin/${item.toLowerCase()}/${item.toLowerCase()}`),
+                                ...(item === 'Home' && getListItemStyles('/candidate/afterLogin/home/candidateHome')),
+                            }}
 
-                        onClick={() => item === 'Home' ? handleNavigation('/') : handleNavigation(`/${item.toLowerCase()}`)}
-                    >
-                        {item}
-                    </li>
-                ))}
-            </div>
+                            onClick={() => item === 'Home' ? handleNavigation('/candidate/afterLogin/home/candidateHome') : handleNavigation(`/candidate/afterLogin/${item.toLowerCase()}/${item.toLowerCase()}`)}
+                        >
+                            {item}
+                        </li>
+                    ))}
+                    <div onClick={() => handleLogOut()} className='px-4 py-4 border-b-2 border-[#06A9EF] bg-backgroundColor text-[#C00000]'  >
+                        Log Out
+                    </div>
+                </div>
+            }
         </div>
     );
 }

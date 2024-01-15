@@ -78,15 +78,15 @@ function Candidate_animation() {
     <>
       <div className="mobile">
         <div className="flex flex-col gap-2">
-          <div className="ai_images w-full flex items-center justify-center">
-            <div className="w-[264px] h-[280px] flex relative">
+          <div className="ai_images w-full h-[300px] flex items-center justify-center">
+            <div className="w-[200px] h-[240px] flex relative">
               <img
                 className="david_resume w-[190px] h-[268px] absolute top-0 left-0"
                 src="/images/candidate/resume2.png"
                 alt=""
               />
               <img
-                className="name_resume w-[190px] h-[268px] absolute top-0 left-[35%] right-[30%]"
+                className="name_resume w-[190px] h-[268px] absolute top-0 left-[35%] right-[30%] object-contain"
                 src="/images/candidate/resume1.png"
                 alt=""
               />
@@ -96,7 +96,7 @@ function Candidate_animation() {
           <div className="ai_text flex flex-col justify-center items-start p-2 gap-1">
             <p
               id=""
-              className="text-[#333] font-Montserrat text-[30px] font-bold"
+              className="text-[#333] font-Montserrat md:text-[36px] text-[30px] font-bold"
             >
               Free Ai Powered Resume creation
             </p>
@@ -150,7 +150,7 @@ function Candidate_animation() {
             <div className="ai_powered_parent">
               <div className="ai_text">
                 <div>
-                  <p id="ai_text" className="ml:text-[38px]">
+                  <p id="ai_text" className="md:text-[46px] text-[56px]">
                     Free Ai Powered Resume creation
                   </p>
                 </div>
@@ -176,8 +176,8 @@ function Candidate_animation() {
                   </div>
                 </div>
               </div>
-              <div className="ai_images">
-                {/* <div className="w-[10%] flex"> */}
+              {/* <div className="ai_images">
+                <div className="w-[10%] flex">
                 <img
                   className="david_resume "
                   src="/images/candidate/resume2.png"
@@ -188,15 +188,29 @@ function Candidate_animation() {
                   src="/images/candidate/resume1.png"
                   alt=""
                 />
-                {/* </div> */}
-              </div>
+                </div>
+              </div> */}
+                  <div className="ai_images_start w-full flex">
+            <div className="w-[393px] h-[280px] flex relative  items-start justify-start">
+              <img
+                className="david_resume w-[190px] h-[268px] absolute top-0 left-0"
+                src="/images/candidate/resume2.png"
+                alt=""
+              />
+              <img
+                className="name_resume w-[190px] h-[268px] absolute top-0 left-[35%] right-[30%]"
+                src="/images/candidate/resume1.png"
+                alt=""
+              />
+            </div>
+          </div>
             </div>
           </div>
         )}
 
         {isDiv && (
           <div className="customMargins">
-            <div className="ai_powered_parent">
+            <div className="ai_powered_parent overflow-hidden">
               <motion.div className="ai_text">
                 <motion.div
                   animate={{
@@ -205,7 +219,7 @@ function Candidate_animation() {
                   initial={{ opacity: 0 }}
                   transition={{ duration: 4 }}
                 >
-                  <p id="ai_text" className="ml:text-[38px]">
+                  <p id="ai_text" className=" md:text-[46px] text-[56px]">
                     Free Ai Powered Resume creation
                   </p>
                 </motion.div>

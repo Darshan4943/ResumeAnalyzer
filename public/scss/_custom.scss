@@ -69,59 +69,57 @@ div::-webkit-scrollbar-thumb {
   }
 }
 
-
+// .parallax{
+//   overflow: visible !important;
+// }
 
 ////////////AfterloginHome Animation//////////////////
 
+
 .ai_images {
-  // width: 142px;
-  // height: 140px;
-  height: 337px;
-  width: 344px;
-  position: relative;
-  display: flex;
-  align-items: start;
-  justify-content: center;
-  // padding: 47px 0;
-}
-
-.name_resume {
-  // width: 78px;
-  // height: 111px;
+	width: 142px;
+	height: 140px;
+	position: relative;
+	display: flex;
+	align-items: center;
+	padding: 47px 0;
+  }
   
-  flex-shrink: 0;
-  animation: name_resume 3s infinite;
-}
-@keyframes name_resume {
-  0%,
-  100% {
-    transform: translateY(0px);
+  .name_resume {
+	width: 78px;
+	height: 111px;
+	flex-shrink: 0;
+	animation: name_resume 3s infinite;
   }
-  50% {
-    transform: translateY(20px);
+  @keyframes name_resume {
+	0%,
+	100% {
+	  transform: translateY(0px);
+	}
+	50% {
+	  transform: translateY(20px);
+	}
   }
-}
-
-.david_resume {
-  width: 78px;
-  height: 111px;
-  flex-shrink: 0;
-  position: absolute;
-  right: 20%;
-  animation: david 3s infinite;
-  display: flex;
-  top: 3%;
-}
-@keyframes david {
-  0%,
-  100% {
-    transform: translateY(20px);
+  
+  .david_resume {
+	width: 78px;
+	height: 111px;
+	flex-shrink: 0;
+	position: absolute;
+	right: 20%;
+	animation: david 3s infinite;
+	display: flex;
+	top: 3%;
   }
-  50% {
-    transform: translateY(0px);
+  @keyframes david {
+	0%,
+	100% {
+	  transform: translateY(20px);
+	}
+	50% {
+	  transform: translateY(0px);
+	}
   }
-}
-
 .temp {
   overflow: unset !important;
 }

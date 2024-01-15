@@ -1337,13 +1337,13 @@ function Jobs() {
             )}
 
             {toggleHeadings === 3 && (
-              <div className="col-span-10">
+              <div className="col-span-12">
                 <AppliedJobs />
               </div>
             )}
 
             {toggleHeadings === 4 && (
-              <div className="col-span-10">
+              <div className="col-span-12">
                 <SavedJobs />
               </div>
             )}

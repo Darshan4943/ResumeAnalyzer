@@ -24,18 +24,18 @@ function Sign_up() {
   return (
     <>
       <div className="flex justify-center  items-center h-full w-full earth_container">
-        <div className="w-[40%] flex flex-col gap-[36px] ">
+        <div className="w-full flex flex-col gap-[36px] ">
           <div>
-            <div className="text-[#333] text-center text-[40px] font-[600]">
+            <div className="text-[#333] text-center text-[30px] ms:text-[40px] font-[600]">
               Select a role to get started
             </div>
-            <div className="text-[#646464] text-center text-[16px] font-[500]">
+            <div className="text-[#646464] text-center text-[14px] ms:text-[16px] font-[500]">
               We need to know which role best matches you so that we can <br />
               personalize your experience.
             </div>
           </div>
           <div className="flex justify-center item-center">
-            <div className="flex flex-col gap-[24px] px-[94.5px]">
+            <div className="flex flex-col gap-[24px] px-[8px]">
               <ALink href="/auth/Candidate_register">
                 <div className="p-[16px] flex flex-row justify-between rounded-[16px] relative sign_up_shadow">
                   <div className="flex flex-row justify-center item-center gap-[8px] ">

@@ -1,3 +1,4 @@
+import { useMediaQuery } from "@react-hook/media-query";
 import React, { useEffect, useReducer, useState } from "react";
 import { useSelector } from "react-redux";
 
@@ -8,6 +9,9 @@ function SavedJobs() {
   const [recall, forceUpdate] = useReducer((x) => x + 1, 0);
   const [savedJobListLocal, setSavedJobListLocal] = useState([]);
   const [selectedJob, setSelectedJob] = useState();
+
+  const isViewportBelow768 = useMediaQuery("(max-width:768px)");
+  const [isDescription, setIsDescription] = useState(true);
   useEffect(() => {
     const jobsFromLocal = JSON.parse(localStorage.getItem("savedJobs"));
     if (jobsFromLocal && jobsFromLocal.length > 0) {
@@ -32,10 +36,12 @@ function SavedJobs() {
     localStorage.setItem("savedJobs", JSON.stringify(filter));
     forceUpdate();
   };
-  
+
   return (
     <div className="  bg-[#F9F9F9]  ">
       <div className="customMargins flex flex-row gap-[24px] py-[24px]  ">
+
+
         <div
           className="p-[8px]  rounded-[8px] w-[41.30%] bg-[#fff] leading-tight min-h-[70vh] "
           style={{
@@ -51,9 +57,8 @@ function SavedJobs() {
                 setSelectedJob(item);
                 window.scroll(0, 0);
               }}
-              className={`p-[16px] flex flex-col gap-[8px] relative z-0 ${
-                selectedJob?._id == item._id && "selected_job_card"
-              } `}
+              className={`p-[16px] flex flex-col gap-[8px] relative z-0 ${selectedJob?._id == item._id && "selected_job_card"
+                } `}
               style={{
                 borderBottom:
                   selectedJob?._id == item._id ? "unset" : "1px solid #646464",
@@ -350,6 +355,7 @@ function SavedJobs() {
             </div>
           )}
         </div>
+        
       </div>
     </div>
   );

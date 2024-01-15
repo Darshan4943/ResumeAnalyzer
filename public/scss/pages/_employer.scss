@@ -267,7 +267,6 @@
     animation: whitediv3 2s forwards;
     animation-delay: 2s;
   }
-
   @keyframes whitediv1 {
     0% {
       transform: translateX(0%);
@@ -303,7 +302,7 @@
       font-size: 14px;
     }
   }
-  @media (max-width: 850px) {
+  @media (max-width: 851px) {
   }
   @media (max-width: 768px) {
     .sorting_head {
@@ -375,6 +374,7 @@
   gap: 46px;
   margin-top: 42px !important;
   justify-content: space-evenly;
+  padding-bottom: 36px !important;
 
   .Employer_hire_candidates_images_container {
     width: 100%;
@@ -491,9 +491,9 @@
   padding-top: 36px;
 }
 @media (max-width: 1024px) {
-  .Employer_hire_candidates_paralx {
-    height: 50rem;
-  }
+  // .Employer_hire_candidates_paralx {
+  //   height: 50rem;
+  // }
 }
 @media (max-width: 851px) {
   .Employer_hire_candidates_container {
@@ -507,9 +507,9 @@
     display: flex;
     justify-content: center !important;
   }
-  .Employer_hire_candidates_paralx {
-    height: 65rem;
-  }
+  // .Employer_hire_candidates_paralx {
+  //   height: 65rem;
+  // }
 }
 @media (max-width: 768px) {
   .Employer_hire_candidates_wrapper {
@@ -530,9 +530,9 @@
     border-radius: 6px !important;
     // padding: 18px 48px;
   }
-  .Employer_hire_candidates_paralx {
-    height: 60rem;
-  }
+  // .Employer_hire_candidates_paralx {
+  //   height: 40rem;
+  // }
 }
 @media (max-width: 594px) {
   .Employer_hire_candidates_wrapper {
@@ -654,7 +654,7 @@
     background-position: 70% 30%;
   }
 }
-@media (max-width: 851px) {
+@media (max-width: 850px) {
   .employer_head_para {
     display: none;
   }
@@ -668,7 +668,7 @@
     font-size: 54px;
   }
   .Employer_main_paralx {
-    height: 55rem;
+    height: 50rem;
   }
 }
 @media (max-width: 768px) {
@@ -696,9 +696,9 @@
   .Employer_main_container {
     background-position: 70% 30%;
   }
-  .Employer_main_paralx {
-    height: 35rem;
-  }
+  // .Employer_main_paralx {
+  //   height: 35rem;
+  // }
 }
 @media (max-width: 594px) {
   .main_container {
@@ -719,9 +719,9 @@
   .employer_head_para {
     display: none;
   }
-  .Employer_main_paralx {
-    height: 30rem;
-  }
+  // .Employer_main_paralx {
+  //   height: 30rem;
+  // }
 }
 @media (max-width: 426px) {
   .main_container {
@@ -751,9 +751,9 @@
   .Employer_main_container {
     background-position: 70% 30%;
   }
-  .Employer_main_paralx {
-    height: 29rem;
-  }
+  // .Employer_main_paralx {
+  //   height: 29rem;
+  // }
 }
 @media (max-width: 376px) {
   .main_container {
@@ -789,9 +789,9 @@
   .Employer_head {
     width: 60%;
   }
-  .Employer_main_paralx {
-    height: 30rem;
-  }
+  // .Employer_main_paralx {
+  //   height: 50rem;
+  // }
 }
 @media (max-width: 360px) {
   .Employer_head_2nd {
@@ -866,23 +866,22 @@
 }
 
 /* employer why skilotech section 2nd end here */
-.employer_card{
+.employer_card {
   padding: 4px;
 }
-.employer_card_svg{
+.employer_card_svg {
   border-radius: 3px;
 }
 
-@media (min-width:570px) {
-  .grid_one{
-    display: grid ;
-    grid-template-columns: repeat(3, 3fr)!important;
+@media (min-width: 570px) {
+  .grid_one {
+    display: grid;
+    grid-template-columns: repeat(3, 3fr) !important;
   }
-  .employer_card{
+  .employer_card {
     padding: 8px;
   }
-  .employer_card_svg{
+  .employer_card_svg {
     border-radius: 6px;
   }
-  
 }
