@@ -4,6 +4,7 @@ import React, { useEffect, useReducer, useState } from "react";
 
 import { inputData } from "@/utils/data";
 import { useSelector } from "react-redux";
+import { useMediaQuery } from "@react-hook/media-query";
 // import { btns } from "~/utils/data";
 
 const btns = [
@@ -311,9 +312,11 @@ function Jobs() {
     forceUpdate();
   };
 
+  const isViewportBelow850 = useMediaQuery("(max-width:850px)");
+
   return (
     <div className="relative   ">
-      <div className="sticky top-[5.6rem] z-50">
+       <div className={` ${ isViewportBelow850 ? " sticky top-[3.5rem]" : " sticky top-[5.6rem]" } z-50`}>
         <div style={{ backgroundColor: "#BCECFF" }}>
           <div className=" customMargins  ">
             <div className={`flex items-start gap-4 py-3  `}>
