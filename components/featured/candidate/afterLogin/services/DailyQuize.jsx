@@ -73,7 +73,7 @@ function DailyQuize() {
             {/* scr1100:text-[24px] scr1024:text-[22px] */}
             {/* scr1100:text-[18px] scr1024:text-[14px] */}
             <div className="flex flex-col scr1024:w-[80%] w-[100%]  text-[#333]">
-              <div className="scr1024:text-[18px] text-[2.2vw] font-[600] ">
+              <div className="scr1024:text-[18px] text-[2.2vw] font-[600] text-center scr1024:text-start ">
                 Gain Valuable Insights
               </div>
               <div className="scr1024:text-[14px] text-[1.8vw] font-[400] ">
@@ -103,7 +103,7 @@ function DailyQuize() {
             {/* scr1100:text-[24px] scr1024:text-[22px] */}
             {/* scr1100:text-[18px] scr1024:text-[14px] */}
             <div className="flex flex-col  scr1024:w-[80%] w-[100%] gap-[8px] text-[#333]">
-              <div className="scr1024:text-[18px] text-[2.2vw] font-[600] ">
+              <div className="scr1024:text-[18px] text-[2.2vw] font-[600] text-center scr1024:text-start ">
                 Limit-Pushing Challenges
               </div>
               <div className="scr1024:text-[14px] text-[1.8vw] font-[400]  ">

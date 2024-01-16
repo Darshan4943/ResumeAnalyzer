@@ -67,8 +67,8 @@ function InterviewQue() {
                 backdropFilter: " blur(8px)",
               }}
             >
-              <div className="flex flex-col  w-[100%] scr1024:w-[70%] text-[#fff]">
-                <div className="scr1024:text-[24px] text-[2.5vw] font-[600]">Relevant Questions</div>
+              <div className="flex flex-col  w-[100%] scr1024:w-[70%]  text-[#fff]">
+                <div className="scr1024:text-[24px] text-[2.5vw] font-[600] text-center scr1024:text-start">Relevant Questions</div>
                 <div className="scr1024:text-[16px] text-[2vw] font-[400] ">
                   Improve your resume with personalized tips suggestions from AI
                   , ensuring it stands out to potential employers
@@ -100,7 +100,7 @@ function InterviewQue() {
                 />
               </div>
               <div className="flex flex-col  text-[#fff]  w-[100%] scr1024:w-[70%]">
-                <div className="scr1024:text-[24px] text-[2.5vw] font-[600]">
+                <div className="scr1024:text-[24px] text-[2.5vw] font-[600] text-center scr1024:text-start">
                   Ai Generated Answers
                 </div>
                 <div className="scr1024:text-[16px] text-[2vw] font-[400]">

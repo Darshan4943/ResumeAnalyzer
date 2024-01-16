@@ -68,8 +68,8 @@ function SkillAssessment() {
                 className="scr1024:w-[96px] scr1024:h-[96px] w-[10vw] h-[10vw] "
               />
             </div>
-            <div className="flex flex-col gap-[8px] scr1024:w-[80%] w-[100%] text-[#333] leading-tight p-1">
-              <div className="scr1024:text-[24px] text-[2.5vw] font-[600] ">
+            <div className="flex flex-col gap-[8px] scr1024:w-[80%] w-[100%]  text-[#333] leading-tight p-1">
+              <div className="scr1024:text-[24px] text-[2.5vw] font-[600]  text-center scr1024:text-start">
                 Gain Valuable Insights
               </div>
               <div className="scr1024:text-[16px] text-[2vw] font-[400] ">
@@ -89,7 +89,7 @@ function SkillAssessment() {
             }}
           >
             <div className="flex flex-col scr1024:w-[80%] w-[100%] gap-[8px] text-[#333] leading-tight p-1">
-              <div className="scr1024:text-[24px] text-[2.5vw] font-[600]">
+              <div className="scr1024:text-[24px] text-[2.5vw] font-[600] text-center scr1024:text-start">
                 Limit-Pushing Challenges
               </div>
               <div className="scr1024:text-[16px] text-[2vw] font-[400]  ">
