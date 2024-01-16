@@ -115,7 +115,7 @@ function SampleWork({ setaddSampleWork,Project,editProject }) {
 
   return (
     <>
-      <div className=" p-[24px] bg-[#fff] rounded-[16px] flex flex-col gap-[16px]">
+      <div className=" p-[24px] bg-[#fff] rounded-[16px] flex flex-col gap-[16px] h-[80vh] overflow-y-auto">
         <div className="flex gap-[4px] w-full items-center">
         
             <div className="text-[24px] font-[500] text-[#25324B] w-[69.90%]">Add Sample Work</div>

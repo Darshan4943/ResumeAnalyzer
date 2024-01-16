@@ -117,7 +117,7 @@ function MobileHeader() {
                         exit={{ x: '-100%' }}
                         transition={{ duration: 0.5 }}
                         ref={taskRef}
-                        className="absolute z-[200] w-full mt-[-4rem]" style={{ background: 'rgba(255, 255, 255, 0.50)', backdropFilter: 'blur(10px)' }}
+                        className="absolute z-[2000] w-full mt-[-4rem]" style={{ background: 'rgba(255, 255, 255, 0.50)', backdropFilter: 'blur(10px)' }}
                     >
 
 

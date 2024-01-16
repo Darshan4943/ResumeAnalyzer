@@ -59,7 +59,7 @@ const DateSelector = ({ idPrefix, dataSeter, data }) => {
   console.log(getYear())
 
   return (
-    <div className="flex gap-[12px]">
+    <div className="flex gap-[12px] flex_column">
       <div className="flex flex-col gap-2">
         <div>
           <label
@@ -75,19 +75,19 @@ const DateSelector = ({ idPrefix, dataSeter, data }) => {
               id={`${idPrefix}-startMonth`}
               value={data?.duration?.start?.month}
               onChange={handleStartMonthChange}
-              className="w-[79px] outline-none"
+              className="w-outline-none"
               style={{
                 WebkitAppearance: "none",
                 MozAppearance: "none",
                 appearance: "none",
               }}
             >
-              <option value="Month" disabled hidden className="px-4 py-2">
+              <option value="Month" disabled hidden className="px-4 md:text-[16px] text-[14px] py-2">
                 Month
               </option>
 
               {months.map((month) => (
-                <option key={month} value={month} className="px-4 py-2">
+                <option key={month} value={month} className="px-4 md:text-[16px] text-[14px] py-2">
                   {new Date(0, month - 1).toLocaleString("en", {
                     month: "long",
                   })}
@@ -112,13 +112,13 @@ const DateSelector = ({ idPrefix, dataSeter, data }) => {
                 MozAppearance: "none",
                 appearance: "none",
               }}
-              className="w-[79px] outline-none"
+              className="w-[79px] md:text-[16px] text-[14px] outline-none"
             >
               <option value="Year" disabled hidden>
                 Year
               </option>
               {getYear().map((year) => (
-                <option key={year} value={year} className="mt-4 px-4 py-2">
+                <option key={year} value={year} className="mt-4 md:text-[16px] text-[14px] px-4 py-2">
                   {year}
                 </option>
               ))}

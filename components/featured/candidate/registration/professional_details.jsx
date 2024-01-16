@@ -181,9 +181,9 @@ const ProfessionalDetails = ({
     <>
       {tabindex == 4 && (
         <div className="personal_details_all">
-          <div className="personal_details" style={{ paddingBottom: "96px" }}>
-            <div className="personal_details_form">
-              <>
+          <div className="personal_details p-4 pb-[96px]" >
+            <div className="personal_details_form education_page">
+            <div className="register_back_block">
                 <img
                   className="mail_img"
                   src="/images/auth/candidate/Group_7.png"
@@ -216,7 +216,7 @@ const ProfessionalDetails = ({
                   alt=""
                   style={{ left: "-17rem", width: "44%", top: "33rem" }}
                 />
-              </>
+              </div>
               {data.workStatus == "fresher" ? (
                 <p className="form_text_heading text-[20px]">
                   Internship Details (optional)

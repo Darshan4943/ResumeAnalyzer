@@ -114,7 +114,7 @@ const Employer_hire_candidates = () => {
           regulations, and build a diverse, workforce effortlessly.
         </div>
         <div>
-          <button className="hire_candidates_btn">Register Now</button>
+          <button className="hire_candidates_btn mt-4">Register Now</button>
         </div>
       </div>
     </div>

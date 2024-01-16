@@ -25,7 +25,7 @@ function Layout({ children }) {
         <div>
           <MobileHeader />
         </div>
-        <div className="pt-[3.5rem] min-h-screen ">{children}</div>
+        <div className="pt-[3.5rem]  ">{children}</div>
         <Footer />
       </div>
       {/* : */}
@@ -33,7 +33,7 @@ function Layout({ children }) {
         <div>
           <Header />
         </div>
-        <div className="pt-[5rem] min-h-screen ">{children}</div>
+        <div className="pt-[5rem] ">{children}</div>
 
         <Footer />
       </div>

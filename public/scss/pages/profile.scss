@@ -54,6 +54,13 @@
   gap: 8px;
   flex: 1 0 0;
 }
+
+@media (max-width:851px) {
+  .profile_align{
+    align-items: center;
+  }
+}
+
 .profile_score_text {
   color: var(--text-prmary, #333);
   font-family: Montserrat;
@@ -136,9 +143,11 @@
 .build_ai_right {
   display: flex;
   flex-direction: column;
+  flex-wrap: wrap;
   align-items: flex-start;
   gap: 16px;
   flex: 1 0 0;
+  width: 100%;
 }
 .build_heading {
   color: var(--text-prmary, #333);
@@ -154,6 +163,12 @@
   align-items: center;
   gap: 11px;
   color: var(--text-prmary, #333);
+}
+@media (max-width:430px) {
+  .prof_template{
+    gap: 4px !important;
+    font-size: 16px;
+  }
 }
 .verti_line {
   width: 1px;
@@ -420,3 +435,37 @@
   border-radius: 100%;
   background-color: #127c29;
 }
+
+@media (max-width:768px) {
+.flex_column{
+  display: flex;
+  flex-direction: column;
+  }
+}
+
+@media (max-width:768px) {
+  .build_ai_none{
+    display: none !important;   
+    }
+  }
+  @media (min-width:769px) {
+    .build_ai_block{
+      display: none!important;   
+      }
+    }
+
+    @media (max-width:768px) {
+      .form_container_col{
+        width: 100%;
+        align-items: center;
+        display: flex !important;
+        flex-direction: column !important;
+      }
+    }
+
+    @media (max-width:768px) {
+      .profile_image_center{
+        left: 15px !important;
+        bottom: 15px !important;
+      }
+    }

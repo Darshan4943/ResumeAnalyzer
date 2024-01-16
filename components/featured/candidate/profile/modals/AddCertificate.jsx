@@ -167,14 +167,14 @@ function AddCertificate({ setAddCertificate, editCourseData, Course }) {
   };
 
   const DatePicker = () => (
-    <div className="flex gap-[12px] w-full justify-between">
+    <div className="md:flex m:flex-row flex flex-col gap-[12px] w-full justify-between ">
       <div className="flex flex-col gap-2 w-[50%]">
         <div>
           <label className="w-full flex gap-2 text-[14px] font-montserrat  font-medium">
             Issued On
           </label>
         </div>
-        <div className="flex gap-4 w-full">
+        <div className="flex gap-4 md:w-full w-[15rem]">
           <div className="flex p-2 items-center rounded-lg border border-[#646464] bg-white text-[14px]  font-montserrat font-small w-[50%]">
             <select
               value={cerficateData.issuedOn.month}
@@ -187,7 +187,7 @@ function AddCertificate({ setAddCertificate, editCourseData, Course }) {
                   },
                 })
               }
-              className="w-full outline-none"
+              className="w-full  outline-none"
               style={{
                 WebkitAppearance: "none",
                 MozAppearance: "none",
@@ -214,7 +214,7 @@ function AddCertificate({ setAddCertificate, editCourseData, Course }) {
             />
           </div>
 
-          <div className="flex p-2 items-center rounded-lg border border-[#646464] bg-white text-[14px]  font-montserrat font-small  w-[50%]">
+          <div className="flex p-2  items-center rounded-lg border border-[#646464] bg-white text-[14px]  font-montserrat font-small  w-[50%]">
             <select
               value={cerficateData.issuedOn.year}
               onChange={(e) =>
@@ -256,7 +256,7 @@ function AddCertificate({ setAddCertificate, editCourseData, Course }) {
             Expiry on
           </label>
         </div>
-        <div className="flex gap-4 w-full">
+        <div className="flex gap-4  md:w-full w-[15rem] ">
           <div className="flex p-2 items-center rounded-lg border border-[#646464] bg-white text-[14px]  font-montserrat font-small w-[50%]">
             <select
               value={cerficateData.expiryOn.month}

@@ -10,8 +10,10 @@ function Services() {
   return (
     <div>
       <AiResume />
-      {/* <InterviewQue />
-      <DailyQuize /> */}
+      
+      <InterviewQue />
+
+      <DailyQuize />
       <SkillAssessment />
 
       {/* <div className=" bg-[#F9F9F9]">

@@ -75,15 +75,15 @@ function AddEducation({
       style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}
     >
       <div className="flex justify-between w-full items-center ">
-        <p className="text-[24px] font-medium">Add Education</p>
+        <p className="md:text-[24px] text-[18px] font-medium">Add Education</p>
         <div className="bg-[#DEDEDE] h-[1px] w-[54.54%]"></div>
         <div onClick={() => setOpenAddEducation(false)}>
           <ClosedIcon />
         </div>
       </div>
       <div className="flex flex-col gap-3 ">
-        <p className="text-[16px] font-medium">What is your Education type? </p>
-        <div className="w-[70%] flex justify-between text-[14px] font-montserrat items-center font-medium">
+        <p className="text-[16px] font-medium  ">What is your Education type? </p>
+        <div className="w-[70%] flex justify-between text-[14px] font-montserrat items-start font-medium  flex_column">
           <div className="flex gap-2">
             <input
               type="radio"
@@ -237,7 +237,7 @@ function AddEducation({
 
       <div className="flex flex-col gap-3 ">
         <p className="text-[16px] font-medium">Grading system </p>
-        <div className="w-[70%] flex gap-3 justify-between text-[14px] font-montserrat items-center font-medium">
+        <div className="w-[70%] md:flex flex flex-wrap gap-3 text-[14px] font-montserrat items-center font-medium">
           <div
             className="bg-white rounded-[30px] px-4 py-2"
             style={{
@@ -278,7 +278,7 @@ function AddEducation({
             type="text"
             name="score"
             placeholder="Enter your score"
-            className="w-full text-[14px] font-montserrat font-small bg-white rounded-[8px] px-4 py-2"
+            className="w-[100%] text-[14px] font-montserrat font-small bg-white rounded-[8px] px-4 py-2"
             value={educationData.score}
             onChange={handleInputChange}
             style={{
@@ -291,7 +291,7 @@ function AddEducation({
 
       <div class="flex justify-end gap-3">
         <button
-          className="px-4 py-2 bg-white-600 border border-[#06A9EF] font font-medium rounded-[12px]"
+          className="md:px-4 md:py-2 px-[8px] py-[5px] text-[14px] bg-white-600 border border-[#06A9EF] font md:font-medium rounded-[12px]"
           id="button"
           onClick={() => setOpenAddEducation(false)}
         >
@@ -299,7 +299,7 @@ function AddEducation({
         </button>
 
         <button
-          className={`px-4 py-2 bg-[#06A9EF] border rounded-[12px] font-semibold text-white `}
+          className={`md:px-4 md:py-2 px-[8px] py-[5px] text-[14px] bg-[#06A9EF] border rounded-[12px] font-semibold text-white `}
           onClick={(e) => handleSaveChanges(e)}
         >
           Save Changes

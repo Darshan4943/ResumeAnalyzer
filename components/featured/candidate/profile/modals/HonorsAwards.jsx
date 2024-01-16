@@ -4,6 +4,7 @@ import DateSelector from "@/components/common/dateSelector";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from 'react-toastify';
 import { reCallUserData } from '@/Redux/actions/user';
+import { ClosedIcon } from "@/utils/svg";
 function HonorsAwards({ setAddAchivements,editAchievement,Achievement }) {
   const months = Array.from({ length: 12 }, (_, index) => index + 1);
   const dispatch = useDispatch();
@@ -133,6 +134,17 @@ function HonorsAwards({ setAddAchivements,editAchievement,Achievement }) {
   return (
     <>
       <div className=" p-[24px] bg-[#fff] rounded-[16px] flex flex-col gap-[16px]">
+      <div className="flex items-center gap-4 self-stretch w-full">
+            <div className="w-[30%] text-[#25324B] font-Montserrat font-medium text-[16px] md:text-base lg:text-xl leading-160">
+              Add Honors & Awards
+            </div>
+            <div className="bg-[#DEDEDE] h-[1px] w-[50%] md:w-[75.45%]"></div>
+            <div  onClick={() => setAddAchivements(false)}>
+              <ClosedIcon />
+            </div>
+          </div>
+          <p className="text-[12px] leading-[20px] text-[#333]">Add links to your Honors and Awards given for your work</p>
+
         <div className=" w-full flex flex-col gap-[8px]">
           <div className="text-[16px] font-[500]">
             Award title <span className="text-[#C00000]">*</span>
@@ -162,7 +174,7 @@ function HonorsAwards({ setAddAchivements,editAchievement,Achievement }) {
           />
         </div>
 
-        <div className="flex flex-col gap-4 w-[50%]">
+        <div className="flex flex-col gap-4 w-[100%] sm:w-[50%]">
           <div className="text-[16px] font-[500]">
             Issued Date <span className="text-[#C00000]">*</span>
           </div>
