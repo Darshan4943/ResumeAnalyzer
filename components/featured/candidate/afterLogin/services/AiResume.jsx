@@ -17,7 +17,7 @@ function AiResume() {
   return (
     <>
       {/* customMargins */}
-      <div class=" bg-Ai_resume  bg-cover bg-no-repeat min-h-[270px] scr360:min-h-[290px] sm:min-h-[310px] scr540:min-h-[330px] ms:min-h-[400px] scr700:min-h-[450px] ml:min-h-[560px]">
+      <div class=" bg-Ai_resume  bg-cover bg-no-repeat min-h-[280px] scr360:min-h-[300px] scr420:min-h-[325px] sm:min-h-[350px] scr540:min-h-[380px] ms:min-h-[420px] scr700:min-h-[480px] ml:min-h-[580px]">
         <MouseParallaxContainer
           globalFactorX={0.4}
           globalFactorY={0.4}
@@ -36,13 +36,13 @@ function AiResume() {
           >
             <div className="flex flex-col scr1024:gap-[24px] gap-[4px] scr1024:w-[49%] w-full ">
              
-                <div className="scr1024:text-[38px] text-[5vw] font-[600] text-[#fff] ">
+                <div className="scr1024:text-[38px] text-[5.4vw] font-[600] text-[#fff] ">
                   Build <span className="text-[#FFDA1D]">AI Powered</span>{" "}
                   Resume
                 </div>
              
-              <div className="flex scr1024:flex-col  gap-[24px] scr1024:w-[90%] w-[100%] justify-between">
-                <div className="scr1024:text-[20px] text-[2vw] font-[400] text-[#fff]">
+              <div className="flex scr1024:flex-col  scr1024:gap-[24px] gap-3 scr1024:w-[90%] w-[100%] justify-between">
+                <div className="scr1024:text-[20px] text-[2.3vw] font-[400] text-[#fff]">
                   Use our pre-designed resume template, customized to your
                   Skilotech profile, or quickly create your own CV.
                 </div>
@@ -84,7 +84,7 @@ function AiResume() {
           <MouseParallaxChild
             factorX={0.15}
             factorY={0.15}
-            className="absolute scr1024:w-[433px] w-[25%] scr1024:p-[16px] p-1 scr1024:rounded-[16px] rounded-[8px] flex  flex-col-reverse  scr1024:flex-row scr1024:gap-[16px] gap-1 items-center justify-between scr1024:right-[2.20%] scr1024:top-[206px] top-[70%] right-[37.5%]"
+            className="absolute scr1024:w-[433px] w-[25%] scr1024:p-[16px] p-2 scr1024:rounded-[16px] rounded-[8px] flex  flex-col-reverse  scr1024:flex-row scr1024:gap-[16px] gap-1 items-center justify-between scr1024:right-[2.20%] scr1024:top-[206px] top-[70%] right-[37.5%]"
             style={{
               background: "rgba(255, 255, 255, 0.26)",
               backdropFilter: " blur(13px)",
@@ -109,7 +109,7 @@ function AiResume() {
           <MouseParallaxChild
             factorX={0.2}
             factorY={0.2}
-            className="absolute scr1024:w-[347px] w-[25%] scr1024:p-[16px] p-1 scr1024:rounded-[16px] rounded-[8px] flex flex-col scr1024:flex-row  scr1024:gap-[16px] gap-1 items-center scr1024:right-[35.65%]  scr1024:top-[390px] top-[75%] right-[67%]"
+            className="absolute scr1024:w-[347px] w-[25%] scr1024:p-[16px] p-2 scr1024:rounded-[16px] rounded-[8px] flex flex-col scr1024:flex-row  scr1024:gap-[16px] gap-1 items-center scr1024:right-[35.65%]  scr1024:top-[390px] top-[75%] right-[67%]"
             style={{
               background: "rgba(255, 255, 255, 0.26)",
               backdropFilter: " blur(13px)",
