@@ -232,7 +232,7 @@ const PersonalDetails = ({
         <div className={"show-content pb-8  back_img "}>
           <div className="flex flex-col gap-4">
             <motion.div className="personal_details pt-4  pb-2">
-              <form className="personal_details_form ">
+              <form className="personal_details_form education_page ">
                 <AnimationDivs />
 
                 <>

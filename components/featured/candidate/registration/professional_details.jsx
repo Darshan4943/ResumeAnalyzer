@@ -182,7 +182,7 @@ const ProfessionalDetails = ({
       {tabindex == 4 && (
         <div className="personal_details_all">
           <div className="personal_details p-4 pb-[96px]" >
-            <div className="personal_details_form">
+            <div className="personal_details_form education_page">
             <div className="register_back_block">
                 <img
                   className="mail_img"

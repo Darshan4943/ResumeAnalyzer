@@ -23,30 +23,30 @@ function Candidate_register() {
   const dispatch = useDispatch();
 
   const [data, setData] = useState({
-    firstName: "",
-    lastName: "",
-    mobileNo: null,
-    email: "",
-    password: "",
-    dob: "",
+    firstName: "asd",
+    lastName: "asd",
+    mobileNo: 1234567890,
+    email: "demo2123@gmail.com",
+    password: "123456",
+    dob: "",  
     gender: "male",
-    currentLocation: "",
+    currentLocation: "dddddd",
     workStatus: "experianced",
     cv: "",
     education: "10th or below",
-    stream: "",
-    university: "",
-    institute: "",
+    stream: "sda",
+    university: "asd",
+    institute: "asd",
     dateOfComplition: "",
     courses: "",
     awards: "",
     workExperiance: "",
-    companyName: "",
-    jobTitle: "",
-    jobLocation: "",
+    companyName: "asd",
+    jobTitle: "asd",
+    jobLocation: "asdasd",
     dateOfJoining: "",
     keySkills: "",
-    currentCTC: null,
+    currentCTC: 'asdasd',
     noticePeriod: "15 days or less",
     employmentStatus: "",
     summary: "",
@@ -89,7 +89,7 @@ function Candidate_register() {
     formData.append("certificate", certificate);
     formData.append("isCurrentlyWorking", data.isCurrentlyWorking);
     axios
-      .post("https://freedygoservices.in/api/candidate/register", formData)
+      .post("http://localhost:2000/api/candidate/register", formData)
       .then((res) => {
         const response = res.data;
         if (response.success) {
