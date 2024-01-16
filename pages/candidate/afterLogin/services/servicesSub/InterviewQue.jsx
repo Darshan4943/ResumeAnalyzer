@@ -3,15 +3,17 @@ import Profile1 from "@/components/featured/candidate/afterLogin/services/Profil
 import InterviewQues from "@/components/featured/candidate/afterLogin/services/InterviewQues";
 import CommanlyAsk from "@/components/featured/candidate/afterLogin/services/CommanlyAsk";
 import { useMediaQuery } from "@react-hook/media-query";
+import ProfileHeader from "@/components/featured/candidate/profile/profile_header";
+import { useSelector } from "react-redux";
 
 function InterviewQue() {
   const isViewportBelow850 = useMediaQuery("(max-width:850)");
-
+  const userDataGlobal = useSelector((state) => state.userData);
   const [visible, setVisible] = useState(false);
 
   return (
     <div className="pt-2">
-      {/* <Profile1 /> */}
+        {userDataGlobal && <ProfileHeader userData={userDataGlobal} />}
       <div className="w-full h-full flex justify-center gap-[24px] customMargins py-6 ">
         {!visible && (
           <div className="mobile ">
@@ -49,7 +51,7 @@ function InterviewQue() {
         )}
 
         <div className="web w-[60%]">
-          <InterviewQues />z
+          <InterviewQues />
         </div>
       </div>
     </div>
