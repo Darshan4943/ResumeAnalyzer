@@ -33,7 +33,7 @@ function HeaderSidebar({ selectedPage, setIsSidebar, setIsLogin, isLogin }) {
 
     return (
         <div className=' h-[1000px] flex flex-col gap-3 pt-[3.5rem]  relative ' >
-            <div className='flex justify-between px-4 mt-3'>
+            <div className='flex justify-between px-4 mt-3 py-4'>
                 <img src="/images/logo_skilotech.png" alt="" className="w-[123px] h-[40px] object-contain" />
                 <div className='' onClick={() => setIsSidebar(false)}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" fill="none">
@@ -77,7 +77,7 @@ function HeaderSidebar({ selectedPage, setIsSidebar, setIsLogin, isLogin }) {
                             {item}
                         </li>
                     ))}
-                    <div onClick={() => handleLogOut()} className='px-4 py-4 border-b-2 border-[#06A9EF] bg-backgroundColor text-[#C00000]'  >
+                    <div onClick={() => handleLogOut()} className='px-4 py-9 border-b-2 border-[#06A9EF] bg-backgroundColor text-[#C00000]'  >
                         Log Out
                     </div>
                 </div>
