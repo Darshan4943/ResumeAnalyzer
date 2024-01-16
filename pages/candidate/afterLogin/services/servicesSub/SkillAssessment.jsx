@@ -105,11 +105,11 @@ function SkillAssessment() {
           userData={userDataGlobal}
         />
       )}
-      {/* <div>
+      <div>
         <div>
           {userDataGlobal && <ProfileHeader userData={userDataGlobal} />}
         </div>
-      </div> */}
+      </div>
       <div className="bg-[#F9F9F9] h-full w-full ">
         {toggle === 0 && (
           <div className="flex flex-col gap-[35px] pt-[24px] pb-[95px] items-center justify-center customMargins">
