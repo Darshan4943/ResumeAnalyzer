@@ -84,14 +84,14 @@ function Edit_personal_Dtls({ setaddWebsites }) {
 
   return (
     <div
-      className="bg-[#fff] p-[24px] rounded-[16px] flex flex-col gap-[16px] overflow-y-auto  h-[90vh]"
+      className="bg-[#fff] p-[24px] rounded-[16px] flex flex-col gap-[16px] overflow-y-auto  h-[90vh] w-full"
       style={{
         boxShadow: "0px 1px 6px 0px rgba(0, 0, 0, 0.25)",
       }}
     >
       <div className="flex flex-col gap-[4px] w-full">
         <div className="flex gap-[16px]  items-center">
-          <div className="md:text-[24px] text-[16px] sm:text-[18px] font-[500] text-[#25324B] w-[80%] sm:w-[54.90%]">
+          <div className="md:text-[24px] text-[16px] sm:text-[18px] font-[500] text-[#25324B] w-[100%] ">
             Edit Personal details{" "}
           </div>
           <div className="h-[1px]  bg-[#DEDEDE] flex items-center w-[63.07%]"></div>

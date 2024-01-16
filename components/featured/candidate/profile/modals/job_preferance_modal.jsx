@@ -144,12 +144,12 @@ const JobPrefrenceModal = ({ setEditView }) => {
   return (
     <>
       <div
-        className="flex flex-col gap-4 p-6 bg-[#fff] rounded-[16px] modal_container"
+        className="flex flex-col gap-4 p-6 bg-[#fff] rounded-[16px] modal_container h-[80vh] overflow-y-auto"
         style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}
       >
         <div className="modal_title flex justify-between gap-[16px] items-center">
           Edit Job Preferences{" "}
-          <div className="h-[1px] w-full bg-[#DEDEDE] flex items-center w-[57.07%]"></div>
+          <div className="h-[1px]  bg-[#DEDEDE] flex items-center w-[57.07%]"></div>
           <svg
             className="hover:cursor-pointer"
             xmlns="http://www.w3.org/2000/svg"
@@ -174,7 +174,7 @@ const JobPrefrenceModal = ({ setEditView }) => {
         <form action="">
           <div className="w-full form_container_col form_container">
             {inputField.map((item) => (
-              <div className="input-container w-[80%] md:w-[46%] ">
+              <div className="input-container w-[100%] md:w-[46%] ">
                 <label className="label">{item.label}</label>
                 <input
                   type="text"
@@ -186,7 +186,7 @@ const JobPrefrenceModal = ({ setEditView }) => {
                 />
               </div>
             ))}
-            <div className="input-container w-[80%] md:w-[46%]  ">
+            <div className="input-container w-[100%] md:w-[46%]  ">
               <label className="label">Preferred Job Type</label>
               <select
                 className="w-full input"
@@ -202,7 +202,7 @@ const JobPrefrenceModal = ({ setEditView }) => {
               </select>
 
             </div>
-            <div className="input-container w-[80%] md:w-[46%] ">
+            <div className="input-container w-[100%] md:w-[46%] ">
               <label className="label">Preferred Job Mode</label>
               <select
                 className="w-full input"
@@ -216,7 +216,7 @@ const JobPrefrenceModal = ({ setEditView }) => {
                 ))}
               </select>
             </div>
-            <div className="input-container w-[80%] md:w-[46%] ">
+            <div className="input-container w-[100%] md:w-[46%] ">
               <label className="label">Preferred Shift</label>
               <select
                 className="w-full input"
@@ -232,7 +232,7 @@ const JobPrefrenceModal = ({ setEditView }) => {
               </select>
             </div>
 
-            <div className="input-container w-[80%] md:w-[46%]">
+            <div className="input-container w-[100%] md:w-[46%]">
               <label className="label">Expected salary</label>
               <input
                 type="text"
@@ -243,7 +243,7 @@ const JobPrefrenceModal = ({ setEditView }) => {
                 onChange={handleInputChange}
               />
             </div>
-            <div className="input-container w-[80%] md:w-[46%] ">
+            <div className="input-container w-[100%] md:w-[46%] ">
               <label className="label">Preferred work location</label>
               <ReactSelect
                 options={City?.map((item) => ({

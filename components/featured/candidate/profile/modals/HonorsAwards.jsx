@@ -139,7 +139,7 @@ function HonorsAwards({ setAddAchivements,editAchievement,Achievement }) {
               Add Honors & Awards
             </div>
             <div className="bg-[#DEDEDE] h-[1px] w-[50%] md:w-[75.45%]"></div>
-            <div onClick={() => handleImageClick(false)}>
+            <div  onClick={() => setAddAchivements(false)}>
               <ClosedIcon />
             </div>
           </div>

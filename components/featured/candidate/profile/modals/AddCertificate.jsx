@@ -167,7 +167,7 @@ function AddCertificate({ setAddCertificate, editCourseData, Course }) {
   };
 
   const DatePicker = () => (
-    <div className="md:flex m:flex-row flex flex-col gap-[12px] w-full justify-between">
+    <div className="md:flex m:flex-row flex flex-col gap-[12px] w-full justify-between ">
       <div className="flex flex-col gap-2 w-[50%]">
         <div>
           <label className="w-full flex gap-2 text-[14px] font-montserrat  font-medium">

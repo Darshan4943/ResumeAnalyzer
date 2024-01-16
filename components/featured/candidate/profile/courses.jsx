@@ -126,10 +126,9 @@ const Courses = ({ userData }) => {
       </div>
       {addCerticate && (
         <>
-          <div className="opacity-25 fixed inset-0 z-[120] bg-black"></div>
-
-          <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-[130] outline-none focus:outline-none">
-            <div className="absolute max-w-[800px] w-full">
+          <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
+            <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center customMargins   ">
+              <div className="absolute ms:w-[75.08%] w-[90%] h-[80vh] overflow-y-auto ">
               <AddCertificate setAddCertificate={setAddCertificate}  editCourseData={editCourseData} Course={Course} />
             </div>
           </div>

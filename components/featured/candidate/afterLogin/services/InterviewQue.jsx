@@ -17,7 +17,7 @@ function InterviewQue() {
   return (
     <>
       <div class=" bg-InterviewQue bg-cover bg-no-repeat min-h-[320px] scr360:min-h-[350px] scr420:min-h-[400px] sm:min-h-[420px] scr540:min-h-[450px] ms:min-h-[490px] scr700:min-h-[540px] md:min-h-[580px]  ml:min-h-[700px] scr1024:min-h-[550px] ">
-        <div className="w-full h-full  ">
+        <div className="w-full   ">
           <MouseParallaxContainer
             globalFactorX={0.4}
             globalFactorY={0.4}
