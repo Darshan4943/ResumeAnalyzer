@@ -26,7 +26,7 @@ function Sign_in() {
     };
     console.log("da",dataToSend )
     axios
-      .post("https://freedygoservices.in/api/candidate/signin", dataToSend)
+      .post("http://localhost:3000/api/candidate/signin", dataToSend)
       .then((res) => {
         const response = res.data;
         if (response.success) {

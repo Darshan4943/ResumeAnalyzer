@@ -20,6 +20,14 @@ body {
     padding: 0 2px;
   }
 }
+@media (max-width: 480px) {
+  .customMargins {
+    padding: 0 8px;
+  }
+  .customMargins1 {
+    padding: 0 2px;
+  }
+}
 
 @media (min-width: 1440px) {
   .customMargins1 {
