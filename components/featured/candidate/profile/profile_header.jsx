@@ -19,7 +19,7 @@ const ProfileHeader = ({ userData }) => {
       <div className="bg-[#E0F6FF] py-[24px]">
         <div className="customMargins">
           <div class="grid grid-cols-1 ">
-            <div class="flex flex-row w-full pt-[8px] pb-[8px] pl-[16px] pr-[16px] items-start gap-2 rounded-lg bg-white shadow-md">
+            <div class="flex flex-row w-full pt-[8px] pb-[8px] md:px-[16px] px-[8px] items-start gap-2 rounded-lg bg-white shadow-md">
               <div class="relative flex p-2 md:p-4 items-center gap-5 md:gap-20 rounded-md">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -36,7 +36,7 @@ const ProfileHeader = ({ userData }) => {
                     stroke-width="1.419"
                   />
                 </svg>
-                <div class="absolute left-[24px] bottom-[24px] w-[105px] h-[105px] rounded-full overflow-hidden">
+                <div class="absolute left-[24px] bottom-[24px] w-[105px] h-[105px] rounded-full overflow-hidden profile_image_center">
                   <img className="h-full w-full object-cover"
                     onClick={() => setIsChangeProfile(true)}
                     src={
@@ -49,24 +49,38 @@ const ProfileHeader = ({ userData }) => {
                 </div>
               </div>
 
-              <div class="flex flex-col items-start gap-2 flex-1">
-                <div class="flex pb-2 items-start gap-2 self-stretch border-b border-gray-400">
+              <div class="flex flex-col items-start gap-2 flex-1 ">
+                <div class="flex pb-2 items-start gap-2 self-stretch ml:border-b ml:border-gray-400">
                   <div class="flex items-baseline gap-[8px]">
                     <div class="flex flex-col items-start">
-                      <p class="text-[#333]  font-montserrat font-medium text-2xl">
+                      <p class="text-[#333]  font-montserrat font-medium text-[20px] md:text-2xl">
                         {userData?.basics?.firstName}{" "}
                         {userData?.basics?.lastName}
                       </p>
                       <p class="text-[#646464] font-montserrat text-xs font-normal">
                         Last updated {timeAgo(new Date(userData?.updatedAt))}
                       </p>
+                      <div className="mobile mt-[5px]">
+                      {userData?.basics?.mobileNo && (
+                      <div class="flex items-center gap-[5px]">
+                        <img
+                          class="w-[20px] h-[20px]"
+                          src="/images/profile/call.png"
+                          alt=""
+                        />
+                        <p class="text-[#333] font-montserrat text-[14px] font-normal">
+                          {userData?.basics?.mobileNo}
+                        </p>
+                      </div>
+                    )}
+                    </div>
                     </div>
                     <div className="flex items-center" onClick={() => setEditProfile(true)} class="w-[24px]">
-                      <img className="w-[24px]" src="/images/profile/edit.png" alt="" />
+                      <img className="w-[24px] h-[24px]" src="/images/profile/edit.png" alt="" />
                     </div>
                   </div>
                 </div>
-                <div class="flex justify-between w-full">
+                <div class="flex justify-between w-full heroBlock">
                   <div class="flex flex-col  gap-[10px] flex-grow w-0">
                     {userData?.basics?.address && (
                       <div class="flex items-center gap-[5px]">
@@ -134,6 +148,38 @@ const ProfileHeader = ({ userData }) => {
                 </div>
               </div>
             </div>
+            
+           
+
+            <div class="flex flex-col w-full mt-[-10px] pb-[8px] pl-[16px] pr-[16px] items-start gap-2 rounded-lg bg-white shadow-md unblockRecruiter">
+            <div className="bg-[#868383] h-[1px] w-[95%]"></div>
+            <div class="flex px-[16px] py-[0px] flex-col justify-center items-start gap-[10px] flex-1 self-stretch ">
+                    {userData?.education && (
+                      <div class="flex items-center gap-[5px]">
+                        <img
+                          class="w-[20px] h-[20px]"
+                          src="/images/profile/school.png"
+                          alt=""
+                        />
+                        <p class="text-[#333] font-montserrat text-[14px] font-normal">
+                          {userData?.education[0]?.stream} <br />{" "}
+                          {userData?.education[0]?.institute}
+                        </p>
+                      </div>
+                    )}
+
+                    <div class="flex items-center gap-[5px]">
+                      <img
+                        class="w-[20px] h-[20px]"
+                        src="/images/profile/mail_john.png"
+                        alt=""
+                      />
+                      <p class="text-[#333] font-montserrat text-[14px] font-normal">
+                        {userData?.basics?.email}
+                      </p>
+                    </div>
+                  </div>
+       </div>
           </div>
         </div>
       </div>

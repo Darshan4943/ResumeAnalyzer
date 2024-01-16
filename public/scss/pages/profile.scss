@@ -462,3 +462,10 @@
         flex-direction: column !important;
       }
     }
+
+    @media (max-width:768px) {
+      .profile_image_center{
+        left: 15px !important;
+        bottom: 15px !important;
+      }
+    }
