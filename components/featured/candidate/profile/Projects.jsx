@@ -58,7 +58,7 @@ function Projects({ userData }) {
         }}
       >
        
-          <div className="page_headings flex justify-between w-full">
+          <div className="page_headings flex justify-between w-full text-[18px] scr420:text-[20px]">
             Projects{" "}
             <div onClick={() =>{ setaddSampleWork(true),setEditProject(false)}}>
               <AddIcon />

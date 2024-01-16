@@ -73,7 +73,7 @@ const Education = ({ userData }) => {
       )}
       <div className="build_ai ai2">
         <div className="gap">
-          <p className="page_headings">Education</p>
+          <p className="page_headings text-[18px] scr420:text-[20px]">Education</p>
 
           <div onClick={() => setOpenAddEducation(true)}>
             {" "}

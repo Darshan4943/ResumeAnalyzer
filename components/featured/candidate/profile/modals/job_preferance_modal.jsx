@@ -147,8 +147,8 @@ const JobPrefrenceModal = ({ setEditView }) => {
         className="flex flex-col gap-4 p-6 bg-[#fff] rounded-[16px] modal_container h-[80vh] overflow-y-auto"
         style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}
       >
-        <div className="modal_title flex justify-between gap-[16px] items-center">
-          Edit Job Preferences{" "}
+        <div className="modal_title flex justify-between gap-[16px]  items-center">
+         <p className="text-[18px] md:text-[24px]"> Edit Job Preferences{" "}</p>
           <div className="h-[1px]  bg-[#DEDEDE] flex items-center w-[57.07%]"></div>
           <svg
             className="hover:cursor-pointer"
@@ -277,14 +277,14 @@ const JobPrefrenceModal = ({ setEditView }) => {
         </button> */}
           <div className="flex gap-[12px]">
             <button
-              className="rounded-[8px] py-[8px] px-[16px] border-[#06A9EF] border-solid border-[1px] text-[#333] text-[16px] font-[500] hover:cursor-pointer"
+              className="rounded-[8px] py-[8px] px-[16px] border-[#06A9EF] border-solid border-[1px] text-[#333] text-[12px] scr420:text-[16px] font-[500] hover:cursor-pointer"
               onClick={() => setEditView(false)}
             >
               Cancel
             </button>
             <button
               onClick={handleSubmit}
-              className="rounded-[8px] py-[8px] px-[16px] border-[#06A9EF] border-solid border-[1px] text-[#fff] text-[16px] font-[500] bg-[#06A9EF] "
+              className="rounded-[8px] py-[8px] px-[16px] border-[#06A9EF] border-solid border-[1px] text-[#fff] text-[12px] scr420:text-[16px] font-[500] bg-[#06A9EF] "
             >
               Save Changes
             </button>

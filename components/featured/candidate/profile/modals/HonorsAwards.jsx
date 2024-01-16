@@ -276,13 +276,13 @@ function HonorsAwards({ setAddAchivements,editAchievement,Achievement }) {
         <div className="w-full flex justify-end">
           <div className="flex gap-[12px]">
             <button
-              className="rounded-[8px] py-[8px] px-[16px] border-[#06A9EF] border-solid border-[1px] text-[#333] text-[16px] font-[500] hover:cursor-pointer"
+              className="rounded-[8px] py-[8px] px-[16px] border-[#06A9EF] border-solid border-[1px] text-[#333] text-[12px] scr420:text-[16px] font-[500] hover:cursor-pointer"
               onClick={() => setAddAchivements(false)}
             >
               Cancel
             </button>
             <button
-              className="rounded-[8px] py-[8px] px-[16px] border-[#06A9EF] border-solid border-[1px] text-[#fff] text-[16px] font-[500] bg-[#06A9EF]"
+              className="rounded-[8px] py-[8px] px-[16px] border-[#06A9EF] border-solid border-[1px] text-[#fff] text-[12px] scr420:text-[16px] font-[500] bg-[#06A9EF]"
               onClick={handleSubmit}
             >
               Save Changes

@@ -44,7 +44,7 @@ function ChangeProfile({ setIsChangeProfile }) {
       >
         <div className="flex flex-col gap-1">
           <div className="flex items-center gap-4 justify-between">
-            <p className="text-[#25324B] text-[24px] font-[500] w-[40%] leading-[160%]">
+            <p className="text-[#25324B] text-[18px] ms:text-[24px] font-[500] w-[40%] leading-[160%]">
               Update Profile Picture
             </p>
 
@@ -153,7 +153,7 @@ function ChangeProfile({ setIsChangeProfile }) {
                   </svg>
                 </div>
                 <div class="flex flex-col gap-[4px]	font-normal	">
-                  <div class="flex text-center justify-center  text-[14px] text-[#515B6F]">
+                  <div class="flex text-center justify-center text-[11px] scr420:text-[14px] text-[#515B6F]">
                     drag and drop or{" "}
                     <p class="text-[#06A9EF]">&nbsp;Browse file </p>
                     &nbsp;to upload
@@ -165,7 +165,7 @@ function ChangeProfile({ setIsChangeProfile }) {
               </div>
             )}
           </div>
-          <p className="text-[#7C8493] text-[16px] font-[400] leading-normal">
+          <p className="text-[#7C8493] text-[12px] ms:text-[16px] font-[400] leading-normal">
             Supported file format: png, jpg, jpeg, gif - upto 2MB
           </p>
         </div>

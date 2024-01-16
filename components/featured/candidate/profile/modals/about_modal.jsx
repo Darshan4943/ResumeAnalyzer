@@ -107,7 +107,7 @@ const AboutModal = ({ handleImageClick, userData, setIsComponentOpen }) => {
                     alt=""
                     className="w-[20px] h-[20px]"
                   />
-                  <p className="text-[12px]  text-[#333] font-Montserrat  md:text-14 font-semibold leading-normal">
+                  <p className="xsm:text-[12px] text-[11px] text-[#333] font-Montserrat  md:text-14 font-semibold leading-normal">
                     Generate with AI
                   </p>
                 </>

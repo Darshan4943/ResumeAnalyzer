@@ -340,7 +340,7 @@ function AddCertificate({ setAddCertificate, editCourseData, Course }) {
       >
         <div className="flex flex-col gap-1">
           <div className="flex items-center gap-4 justify-between">
-            <p className="text-[#25324B] text-[24px] font-[500] leading-[160%]">
+            <p className="text-[#25324B] text-[18px] ms:text-[24px] font-[500] leading-[160%]">
               Add Certification
             </p>
 

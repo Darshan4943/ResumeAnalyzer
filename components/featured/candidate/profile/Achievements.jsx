@@ -49,7 +49,7 @@ const Achievements = () => {
         />
       )}
       <div className="build_ai ai2" style={{ gap: "16px" }}>
-        <div className="page_headings flex justify-between w-full">
+        <div className="page_headings flex justify-between w-full text-[18px] scr420:text-[20px]">
           Achievements{" "}
           <div onClick={() =>{ setAddAchivements(true),setEditfalseAchievement(false)}}>
             <AddIcon />

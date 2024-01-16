@@ -33,7 +33,7 @@ const PersonalDetails = ({ userData }) => {
   return (
     <>
       <div className="build_ai ai2" style={{ gap: "16px" }}>
-        <div className="page_headings flex items-center justify-between w-full">
+        <div className="page_headings flex items-center justify-between w-full text-[18px] scr420:text-[20px]">
           Personal details
           <div onClick={() => setaddEditPop(true)}>
             <Edit_icon />
