@@ -28,7 +28,7 @@ function Candidate_register() {
     mobileNo: 1234567890,
     email: "demo2123@gmail.com",
     password: "123456",
-    dob: "",  
+    dob: "",
     gender: "male",
     currentLocation: "dddddd",
     workStatus: "experianced",
@@ -46,14 +46,14 @@ function Candidate_register() {
     jobLocation: "asdasd",
     dateOfJoining: "",
     keySkills: "",
-    currentCTC: 'asdasd',
+    currentCTC: "asdasd",
     noticePeriod: "15 days or less",
     employmentStatus: "",
     summary: "",
     isCurrentlyWorking: true,
   });
   const [error, setError] = useState({
-    firstName: {message:"Please Enter Valid First Name",view:null},
+    firstName: { message: "Please Enter Valid First Name", view: null },
     lastName: null,
   });
 
@@ -89,7 +89,7 @@ function Candidate_register() {
     formData.append("certificate", certificate);
     formData.append("isCurrentlyWorking", data.isCurrentlyWorking);
     axios
-      .post("http://localhost:2000/api/candidate/register", formData)
+      .post("https://freedygoservices.in/api/candidate/register", formData)
       .then((res) => {
         const response = res.data;
         if (response.success) {

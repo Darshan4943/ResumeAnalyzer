@@ -11,8 +11,7 @@ function Sign_in() {
   const [data, setData] = useState({ email: "", password: "" });
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState(null);
-  const dispatch = useDispatch()
-  
+  const dispatch = useDispatch();
 
   const handleTogglePassword = () => {
     setShowPassword(!showPassword);
@@ -24,23 +23,23 @@ function Sign_in() {
       email: data.email,
       password: data.password,
     };
-    console.log("da",dataToSend )
+    console.log("da", dataToSend);
     axios
-      .post("http://localhost:3000/api/candidate/signin", dataToSend)
+      .post("https://freedygoservices.in/api/candidate/signin", dataToSend)
       .then((res) => {
         const response = res.data;
         if (response.success) {
           localStorage.setItem("authToken", response.token);
-          dispatch(reCallUserData())
+          dispatch(reCallUserData());
           toast.success("Sign in Successfully");
           router.push("/candidate/afterLogin/home/candidateHome");
-          setError("Sign in Successfully")
+          setError("Sign in Successfully");
         } else {
           toast.error("something went wrong");
         }
       })
       .catch((err) => {
-        setError( err?.response?.data.message);
+        setError(err?.response?.data.message);
         console.log(err.response);
       });
   };
@@ -98,9 +97,15 @@ function Sign_in() {
                 Forgot password?
               </a>
             </div>
-            <div className={`flex justify-center text-[12px] font-[500] ${error === 'Sign in Successfully' ? 'text-green-800' : 'text-red-800'}`}>
-          <p>{error}</p>
-        </div>
+            <div
+              className={`flex justify-center text-[12px] font-[500] ${
+                error === "Sign in Successfully"
+                  ? "text-green-800"
+                  : "text-red-800"
+              }`}
+            >
+              <p>{error}</p>
+            </div>
           </div>
         </div>
         <div className="w-full flex flex-col gap-[16px]">
