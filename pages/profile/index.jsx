@@ -145,12 +145,12 @@ function Profile() {
 
               <div className="build_ai_right">
                 <p className="build_heading">Build AI Powered Resume</p>
-                <div className="prof_template prof_template_gap">
-                  <p className="prof_template">Professional Templates</p>
+                <div className="prof_template p items-start w-[70%] ">
+                  <p className="prof_template ">Professional Templates</p>
+                  <div className="verti_line "></div>
+                  <p className="prof_template text-center">AI suggestion</p>
                   <div className="verti_line"></div>
-                  <p className="prof_template">AI suggestion</p>
-                  <div className="verti_line"></div>
-                  <p className="prof_template">Preview</p>
+                  <p className="prof_template text-center">Preview</p>
                 </div>
 
                 <p className="content_text">

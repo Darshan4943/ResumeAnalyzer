@@ -130,11 +130,11 @@ const PersonalDetails = ({ userData }) => {
         <>
           <div className="opacity-25 fixed inset-0 z-[120] bg-black"></div>
           <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-[130] outline-none focus:outline-none">
-            <div className="absolute max-w-[800px] w-full">
+            <div className="absolute max-w-[800px] ms:w-[75%] w-[90%]">
               <Edit_personal_Dtls setaddWebsites={setaddEditPop} />
             </div>
           </div>
-                
+          
         </>
       )}
     </>

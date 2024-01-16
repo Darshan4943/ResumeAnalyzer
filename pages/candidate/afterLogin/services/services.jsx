@@ -13,8 +13,8 @@ function Services() {
       
       <InterviewQue />
 
-      {/* <DailyQuize />
-      <SkillAssessment /> */}
+      <DailyQuize />
+      <SkillAssessment />
 
       {/* <div className=" bg-[#F9F9F9]">
                 <div className=" flex customMargins pt-[24px] h-[1063px] gap-6">
