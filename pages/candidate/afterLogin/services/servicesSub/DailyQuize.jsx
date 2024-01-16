@@ -3,11 +3,13 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Profile2 from "@/components/featured/candidate/afterLogin/services/Profile2";
 import { useMediaQuery } from "@react-hook/media-query";
+import ProfileHeader from "@/components/featured/candidate/profile/profile_header";
+import { useSelector } from "react-redux";
 const DailyQuize = () => {
   const isViewportBelow600 = useMediaQuery("(max-width:600px)");
   const router = useRouter();
   const query = router.query;
-
+  const userDataGlobal = useSelector((state) => state.userData);
   const [toggle, setToggle] = useState(0);
   const [QuizModel, setQuizModel] = useState(false);
   const starColor = ["#FFDA1D", "#FFDA1D", "#FFDA1D", "#FFDA1D", "#FFF4BB"];
@@ -68,7 +70,7 @@ const DailyQuize = () => {
 
   return (
     <div className="bg-[#F9F9F9] w-full ">
-      <div>{/* <Profile2 /> */}</div>
+       {userDataGlobal && <ProfileHeader userData={userDataGlobal} />}
 
       <div
         class={` flex items-center justify-center py-9 gap-[30px] flex-col ${
