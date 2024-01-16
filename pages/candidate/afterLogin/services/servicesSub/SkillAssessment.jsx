@@ -196,7 +196,7 @@ function SkillAssessment() {
                   <div className="max-h-[388px] ml:h-[388px] w-full overflow-auto ">
                     {assessmentList?.map((item) => (
                       <div className="border-b border-solid border-[#DEDEDE] w-full">
-                        <div class="flex flex-col-reverse text-center  ml:flex-row  py-[8px] px-[16px] w-[90%] items-center self-stretch ">
+                        <div class="flex flex-col-reverse text-center  ml:flex-row ml:gap-[14px] py-[8px] px-[16px] w-[90%] ml:w-full items-center self-stretch ">
                           <div className="w-full flex justify-between gap-[12px]">
                             <div className="flex  gap-3 items-center self-stretch ">
                               <div className="w-[40px] h-[40px]">
@@ -220,13 +220,13 @@ function SkillAssessment() {
                               </p>
                             </div>
                           </div>
-                          <div className="w-full flex justify-between gap-[12px]">
+                          <div className="w-full ml:w-[80%] flex justify-between gap-[12px]">
                             <div className="flex  justify-center items-center self-stretch ">
                               <p className="text-[14px] font-montserrat text-base font-medium leading-6">
                                 {item?.date && formatDate(item?.date)}
                               </p>
                             </div>
-                            <div className="flex  justify-center  items-center self-stretch  ">
+                            <div className="flex  justify-center ml:w-[50%]  items-center self-stretch  ">
                               <p className="text-[#0C8A0A] items-center  font-montserrat text-sm font-semibold leading-7">
                                 {item.score}
                               </p>
