@@ -5,7 +5,7 @@ function Footer() {
   const router = useRouter();
   return (
     <div
-      className="footer"
+      className="footer "
       id="footer_respo"
       style={{
         display: "flex",
@@ -16,7 +16,7 @@ function Footer() {
         gap: "24px",
       }}
     >
-      <div className="footer_main_box">
+      <div className="footer_main_box customMargins">
         <div className="Footer_firstContainer">
           <div>
             <img
@@ -25,123 +25,45 @@ function Footer() {
               alt=""
             />
           </div>
-          
-            <p className="largest">
-              Skilotech is the modern talent platform powered by Artificial
-              Intelligence for career development and recruitment.
-            </p>
-     
-          <div className="footer_media">
-            <div>
-              {" "}
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-              >
-                <path
-                  d="M9.69641 13.2481C9.62441 13.2481 8.04041 13.2481 7.32041 13.2481C6.93641 13.2481 6.81641 13.1041 6.81641 12.7441C6.81641 11.7841 6.81641 10.8001 6.81641 9.84007C6.81641 9.45607 6.96041 9.33607 7.32041 9.33607H9.69641C9.69641 9.26407 9.69641 7.87207 9.69641 7.22407C9.69641 6.26407 9.86441 5.35207 10.3444 4.51207C10.8484 3.64807 11.5684 3.07207 12.4804 2.73607C13.0804 2.52007 13.6804 2.42407 14.3284 2.42407H16.6804C17.0164 2.42407 17.1604 2.56807 17.1604 2.90407V5.64007C17.1604 5.97607 17.0164 6.12007 16.6804 6.12007C16.0324 6.12007 15.3844 6.12007 14.7364 6.14407C14.0884 6.14407 13.7524 6.45607 13.7524 7.12807C13.7284 7.84807 13.7524 8.54407 13.7524 9.28807H16.5364C16.9204 9.28807 17.0644 9.43207 17.0644 9.81607V12.7201C17.0644 13.1041 16.9444 13.2241 16.5364 13.2241C15.6724 13.2241 13.8244 13.2241 13.7524 13.2241V21.0481C13.7524 21.4561 13.6324 21.6001 13.2004 21.6001C12.1924 21.6001 11.2084 21.6001 10.2004 21.6001C9.84041 21.6001 9.69641 21.4561 9.69641 21.0961C9.69641 18.5761 9.69641 13.3201 9.69641 13.2481Z"
-                  fill="white"
+
+          <p className="largest">
+            Skilotech is the modern talent platform powered by Artificial
+            Intelligence for career development and recruitment.
+          </p>
+
+          <div className="web">
+              <div className=" flex gap-6 ">
+                <img
+                  className="media"
+                  src="/images/home/facebook_icon.png"
+                  alt=""
                 />
-              </svg>
-            </div>
-            <div>
-              {" "}
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-              >
-                <g clipPath="url(#clip0_318_3240)">
-                  <path
-                    d="M21.534 7.113C22.51 6.42 23.331 5.555 24 4.559C23.107 4.95 22.157 5.209 21.165 5.335C22.185 4.726 22.964 3.769 23.33 2.616C22.379 3.183 21.329 3.583 20.21 3.807C19.307 2.845 18.02 2.25 16.616 2.25C13.892 2.25 11.699 4.461 11.699 7.171C11.699 7.561 11.732 7.936 11.813 8.293C7.723 8.093 4.103 6.133 1.671 3.146C1.247 3.883 0.997 4.726 0.997 5.633C0.997 7.337 1.874 8.847 3.183 9.722C2.392 9.707 1.617 9.477 0.96 9.116V9.17C0.96 11.561 2.665 13.547 4.902 14.005C4.501 14.115 4.065 14.167 3.612 14.167C3.297 14.167 2.979 14.149 2.681 14.083C3.318 16.031 5.128 17.464 7.278 17.511C5.604 18.82 3.478 19.609 1.177 19.609C0.774 19.609 0.387 19.591 0 19.542C2.18 20.947 4.762 21.75 7.548 21.75C16.231 21.75 21.89 14.506 21.534 7.113Z"
-                    fill="white"
-                  />
-                </g>
-                <defs>
-                  <clipPath id="clip0_318_3240">
-                    <rect width="24" height="24" fill="white" />
-                  </clipPath>
-                </defs>
-              </svg>
-            </div>
-            <div>
-              {" "}
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-              >
-                <g clipPath="url(#clip0_318_3242)">
-                  <path
-                    d="M23.9764 7.05607C23.9201 5.78085 23.7139 4.90416 23.4185 4.14449C23.1138 3.33812 22.6449 2.61617 22.0307 2.01602C21.4305 1.40652 20.7038 0.932921 19.9068 0.632936C19.1427 0.337529 18.2706 0.131312 16.9954 0.0750879C15.7106 0.0141019 15.3028 0 12.0443 0C8.78589 0 8.37803 0.0141019 7.09806 0.0703262C5.82285 0.126551 4.94615 0.332951 4.18666 0.628174C3.38011 0.932922 2.65816 1.40176 2.05801 2.01602C1.44852 2.61617 0.975097 3.34288 0.674928 4.13991C0.379522 4.90416 0.173304 5.77609 0.11708 7.0513C0.0560941 8.33604 0.0419922 8.7439 0.0419922 12.0023C0.0419922 15.2608 0.0560941 15.6686 0.112318 16.9486C0.168543 18.2238 0.374943 19.1005 0.67035 19.8602C0.975097 20.6666 1.44852 21.3885 2.05801 21.9887C2.65816 22.5982 3.38487 23.0718 4.1819 23.3718C4.94615 23.6672 5.81808 23.8734 7.09348 23.9296C8.37327 23.986 8.78131 23.9999 12.0398 23.9999C15.2982 23.9999 15.7061 23.986 16.986 23.9296C18.2612 23.8734 19.1379 23.6672 19.8974 23.3718C21.5104 22.7482 22.7856 21.4729 23.4092 19.8602C23.7044 19.096 23.9108 18.2238 23.967 16.9486C24.0232 15.6686 24.0373 15.2608 24.0373 12.0023C24.0373 8.7439 24.0326 8.33604 23.9764 7.05607ZM21.8151 16.8549C21.7635 18.027 21.5666 18.6599 21.4025 19.0819C20.9992 20.1274 20.1694 20.9572 19.1238 21.3605C18.7019 21.5246 18.0644 21.7215 16.8968 21.7729C15.631 21.8293 15.2513 21.8433 12.0491 21.8433C8.84687 21.8433 8.46246 21.8293 7.20117 21.7729C6.02906 21.7215 5.39613 21.5246 4.97417 21.3605C4.45387 21.1682 3.98026 20.8634 3.59585 20.4649C3.19733 20.0758 2.89259 19.6069 2.70029 19.0866C2.53619 18.6647 2.33932 18.027 2.28785 16.8596C2.23145 15.5937 2.21753 15.2139 2.21753 12.0117C2.21753 8.80946 2.23145 8.42505 2.28785 7.16394C2.33932 5.99183 2.53619 5.3589 2.70029 4.93694C2.89259 4.41645 3.19733 3.94303 3.60061 3.55843C3.9896 3.15992 4.45844 2.85517 4.97893 2.66306C5.40089 2.49896 6.03859 2.30209 7.20593 2.25044C8.4718 2.19422 8.85164 2.18011 12.0537 2.18011C15.2607 2.18011 15.6403 2.19422 16.9016 2.25044C18.0737 2.30209 18.7066 2.49896 19.1286 2.66306C19.6489 2.85517 20.1225 3.15992 20.5069 3.55843C20.9054 3.94761 21.2102 4.41645 21.4025 4.93694C21.5666 5.3589 21.7635 5.99641 21.8151 7.16394C21.8713 8.42981 21.8854 8.80946 21.8854 12.0117C21.8854 15.2139 21.8713 15.589 21.8151 16.8549Z"
-                    fill="white"
-                  />
-                  <path
-                    d="M12.0442 5.83716C8.64049 5.83716 5.87891 8.59856 5.87891 12.0024C5.87891 15.4063 8.64049 18.1677 12.0442 18.1677C15.448 18.1677 18.2094 15.4063 18.2094 12.0024C18.2094 8.59856 15.448 5.83716 12.0442 5.83716ZM12.0442 16.0017C9.83604 16.0017 8.04492 14.2107 8.04492 12.0024C8.04492 9.79411 9.83604 8.00317 12.0442 8.00317C14.2525 8.00317 16.0434 9.79411 16.0434 12.0024C16.0434 14.2107 14.2525 16.0017 12.0442 16.0017Z"
-                    fill="white"
-                  />
-                  <path
-                    d="M19.8934 5.59336C19.8934 6.38819 19.249 7.03267 18.454 7.03267C17.6591 7.03267 17.0146 6.38819 17.0146 5.59336C17.0146 4.79834 17.6591 4.15405 18.454 4.15405C19.249 4.15405 19.8934 4.79834 19.8934 5.59336Z"
-                    fill="white"
-                  />
-                </g>
-                <defs>
-                  <clipPath id="clip0_318_3242">
-                    <rect width="24" height="24" fill="white" />
-                  </clipPath>
-                </defs>
-              </svg>
-            </div>
-            <div>
-              {" "}
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-              >
-                <path
-                  d="M22.7747 6.37619C22.5154 5.41228 21.7554 4.65244 20.7916 4.39288C19.0309 3.91113 11.988 3.91113 11.988 3.91113C11.988 3.91113 4.94536 3.91113 3.18466 4.37462C2.23943 4.6339 1.46091 5.41241 1.20163 6.37619C0.738281 8.13675 0.738281 11.7879 0.738281 11.7879C0.738281 11.7879 0.738281 15.4575 1.20163 17.1996C1.46118 18.1634 2.22089 18.9233 3.1848 19.1828C4.9639 19.6647 11.9883 19.6647 11.9883 19.6647C11.9883 19.6647 19.0309 19.6647 20.7916 19.2012C21.7555 18.9418 22.5154 18.182 22.7749 17.2182C23.2381 15.4575 23.2381 11.8065 23.2381 11.8065C23.2381 11.8065 23.2567 8.13675 22.7747 6.37619ZM9.7457 15.161V8.41484L15.6022 11.7879L9.7457 15.161Z"
-                  fill="white"
+                <img
+                  className="media"
+                  src="/images/home/twitter_icon.png"
+                  alt=""
                 />
-              </svg>
+                <img
+                  className="media"
+                  src="/images/home/instagram_icon.png"
+                  alt=""
+                />
+                <img
+                  className="media"
+                  src="/images/home/linkedin_icon.png"
+                  alt=""
+                />
+                <img
+                  className="media"
+                  src="/images/home/youtube_icon.png"
+                  alt=""
+                />
+              </div>
             </div>
-            <div>
-              {" "}
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-              >
-                <path
-                  d="M21.6004 21.5999V14.5679C21.6004 11.1119 20.8564 8.47192 16.8244 8.47192C14.8804 8.47192 13.5844 9.52792 13.0564 10.5359H13.0084V8.78392H9.19238V21.5999H13.1764V15.2399C13.1764 13.5599 13.4884 11.9519 15.5524 11.9519C17.5924 11.9519 17.6164 13.8479 17.6164 15.3359V21.5759H21.6004V21.5999Z"
-                  fill="white"
-                />
-                <path
-                  d="M2.71191 8.78394H6.69591V21.5999H2.71191V8.78394Z"
-                  fill="white"
-                />
-                <path
-                  d="M4.70439 2.3999C3.43239 2.3999 2.40039 3.4319 2.40039 4.7039C2.40039 5.9759 3.43239 7.0319 4.70439 7.0319C5.97639 7.0319 7.00839 5.9759 7.00839 4.7039C7.00839 3.4319 5.97639 2.3999 4.70439 2.3999Z"
-                  fill="white"
-                />
-              </svg>
-            </div>
-          </div>
         </div>
         <div className="Footer_secondContainer ">
-            <div className="flex gap-4 footerThird">
-            <div className="flex flex-col justify-between gap-4 address">
+          <div className="flex gap-4 footerThird w-full scr420:justify-center justify-between break-all">
+            <div className="flex flex-col justify-between gap-4  flex-wrap address">
               <div className="footer_sub_address">
                 <div>
                   <p className="footer_address_P">Address</p>
@@ -155,16 +77,16 @@ function Footer() {
                   </div>
                 </div>
               </div>
-              <div>
+              <div className=" flex flex-col flex-wrap  ">
                 <p className="footer_address_Email">Email </p>
-                <p className="footer_address_Email_font">
+                <p className="footer_address_Email_font flex flex-wrap">
                   info@skilotech.com
                 </p>
               </div>
             </div>
 
-            <div className="flex flex-col gap-4">
-              <div className="footer_about_section">
+            <div className="flex flex-col gap-4 ">
+              <div className="footer_about_section ">
                 <p className="footer_about_P">About</p>
                 <div className="footer_sub_about">
                   <p className="footer_sub_about_P">Terms and Conditions</p>
@@ -182,21 +104,21 @@ function Footer() {
                 <p className="footer_about_P">My Account</p>
                 <div className="footer_sub_about">
                   <p className="footer_sub_about_P">Log Out</p>
-                
+
                   <p className="footer_sub_about_P" >
 
                     My Profile
                   </p>
                 </div>
               </div>
-           
-          </div>
+
+            </div>
           </div>
           <div className="footer_input_conatainer">
             <p className="footer_input_conatainer_P text-center">
               Like to stay market relevant  with news and updates?{" "}
             </p>
-            <div className="footer_input">
+            <div className="footer_input ">
               <input
                 className="footer_input_bar"
                 type="text"
@@ -220,14 +142,46 @@ function Footer() {
               />
             </div>
           </div>
-         
+          <div className="mobile">
+              <div className=" flex sm:gap-6 gap-4 items-center">
+                <div className="text-[#06A9EF] sm:text-[24px] text-[14px]">
+                Connect us
+                </div>
+                <img
+                  className="media"
+                  src="/images/home/facebook_icon.png"
+                  alt=""
+                />
+                <img
+                  className="media"
+                  src="/images/home/twitter_icon.png"
+                  alt=""
+                />
+                <img
+                  className="media"
+                  src="/images/home/instagram_icon.png"
+                  alt=""
+                />
+                <img
+                  className="media"
+                  src="/images/home/linkedin_icon.png"
+                  alt=""
+                />
+                <img
+                  className="media"
+                  src="/images/home/youtube_icon.png"
+                  alt=""
+                />
+              </div>
+            </div>
+
         </div>
-       
+
       </div>
       <div className="footer_down_straight_line">
         <svg
           xmlns="http://www.w3.org/2000/svg"
-        
+
           height="1"
           viewBox="0 0 986 1"
           fill="none" className="footerLine"
@@ -235,6 +189,8 @@ function Footer() {
           <path d="M1 0.5H985" stroke="#828282" strokeLinecap="round" />
         </svg>{" "}
       </div>
+
+
       <div className="footer_copyright">
         Copyright © 2024 Skilotech. All rights reserved.
       </div>
