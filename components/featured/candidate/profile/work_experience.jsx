@@ -71,7 +71,7 @@ const WorkExperiance = ({ userData }) => {
       {userData.workExperiance?.length >= 0 && (
         <div className="build_ai ai2">
           <div className=" gap">
-            <p className="page_headings">Work Experience</p>
+            <p className="page_headings text-[18px] scr420:text-[20px]">Work Experience</p>
 
             <div onClick={() => {setOpenAddExperience(true),setEditExperience(false)}}>
               {" "}

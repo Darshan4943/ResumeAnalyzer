@@ -65,7 +65,7 @@ function Social_links_ndWebsites({ userData }) {
           boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
         }}
       >
-        <div className="flex gap-[16px] text-[20px] font-[500] text-[#333] items-center justify-between">
+        <div className="flex gap-[16px] text-[18px] scr420:text-[20px] font-[500] text-[#333] items-center justify-between">
           Website & Social Links
 
           <div onClick={() => {setaddWebsites(true),setEditSocial(false)}}>

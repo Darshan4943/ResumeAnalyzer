@@ -118,7 +118,7 @@ function Edit_personal_Dtls({ setaddWebsites }) {
           accuracy and relevance.{" "}
         </div>
       </div>
-      <div className="md:w-[50%] w-[85%] flex flex-col gap-[12px] text-[16px] font-[500] ">
+      <div className="md:w-[50%] w-[85%] flex flex-col gap-[12px] text-[14px] scr540:text-[16px] font-[500] ">
         Select your Gender
         <div className="flex justify-between items-center">
           <div className="flex gap-[8px]">
@@ -167,7 +167,7 @@ function Edit_personal_Dtls({ setaddWebsites }) {
       </div>
       <div className="md:flex flex flex-col gap-[16px] ">
         <div className="flex flex-col gap-[8px] w-[100%] md:w-[50%]">
-          <div className="text-[16px] font-[500] flex items-center">
+          <div className="text-[14px] scr540:text-[16px] font-[500] flex items-center">
             Date of Birth <span className="text-[#C00000]">*</span>
           </div>
           <input
@@ -180,7 +180,7 @@ function Edit_personal_Dtls({ setaddWebsites }) {
           />
         </div>
         <div className="flex flex-col gap-[8px] w-[100%] md:w-[50%]">
-          <div className="text-[16px] font-[500] flex items-center">
+          <div className="text-[14px] scr540:text-[16px] font-[500] flex items-center">
             What is your Marital status?{" "}
             <span className="text-[#C00000]">*</span>
           </div>
@@ -200,7 +200,7 @@ function Edit_personal_Dtls({ setaddWebsites }) {
         </div>{" "}
       </div>
       <div className=" w-full flex flex-col gap-[8px]">
-        <div className="text-[16px] font-[500]">Residential Address</div>
+        <div className="text-[14px] scr540:text-[16px] font-[500]">Residential Address</div>
         <textarea
           value={Data.address}
           onChange={(e) => setData({ ...Data, address: e.target.value })}
@@ -210,7 +210,7 @@ function Edit_personal_Dtls({ setaddWebsites }) {
         ></textarea>
       </div>
       <div className="flex flex-col gap-[16px]">
-        <div className="w-[50%] flex flex-col gap-[12px] text-[16px] font-[500] ">
+        <div className="w-[50%] flex flex-col gap-[12px] text-[14px] scr540:text-[16px] font-[500] ">
           Have you taken a career break?
           <div className="flex gap-[16px] items-center">
             <div className="flex gap-[8px]">
@@ -249,7 +249,7 @@ function Edit_personal_Dtls({ setaddWebsites }) {
         </div>
         {Data.isCareerBreak === true && (
           <div className=" w-full flex flex-col gap-[8px]">
-            <div className="text-[16px] font-[500]">
+            <div className="text-[14px] scr540:text-[16px] font-[500]">
               If Yes, Specify a reason
             </div>
             <input
@@ -268,7 +268,7 @@ function Edit_personal_Dtls({ setaddWebsites }) {
         )}
       </div>
       <div className=" flex flex-col gap-[16px]">
-        <div className="w-[50%] flex flex-col gap-[12px] text-[16px] font-[500] ">
+        <div className="w-[50%] flex flex-col gap-[12px] text-[14px] scr540:text-[16px] font-[500] ">
           Do you have a Work Permit?
           <div className="flex gap-[16px] items-center">
             <div className="flex gap-[8px]">
@@ -306,7 +306,7 @@ function Edit_personal_Dtls({ setaddWebsites }) {
           </div>
         </div>
         <div className=" w-full flex flex-col gap-[8px]">
-          <div className="text-[16px] font-[500]">If Yes, Select one</div>
+          <div className="text-[14px] scr540:text-[16px] font-[500]">If Yes, Select one</div>
           <div className="md:w-[50%] w-[100%]">
             <select
               onChange={(e) =>
@@ -328,7 +328,7 @@ function Edit_personal_Dtls({ setaddWebsites }) {
         </div>
       </div>
       <div className="flex flex-col gap-[16px]">
-        <div className="w-[50%] flex flex-col gap-[12px] text-[16px] font-[500] ">
+        <div className="w-[50%] flex flex-col gap-[12px] text-[14px] scr540:text-[16px] font-[500] ">
           Are you specially abled?
           <div className="flex gap-[16px] items-center">
             <div className="flex gap-[8px]">
@@ -368,7 +368,7 @@ function Edit_personal_Dtls({ setaddWebsites }) {
 
         {Data.isSpecialyAbled && (
           <div className=" w-full flex flex-col gap-[8px]">
-            <div className="text-[16px] font-[500]">If Yes, Specify</div>
+            <div className="text-[14px] scr540:text-[16px] font-[500]">If Yes, Specify</div>
             <input
               onChange={(e) =>
                 setData({ ...Data, discription: e.target.value })
@@ -390,14 +390,14 @@ function Edit_personal_Dtls({ setaddWebsites }) {
         </button> */}
         <div className="flex gap-[12px]">
           <button
-            className="rounded-[8px] py-[8px] px-[16px] border-[#06A9EF] border-solid border-[1px] text-[#333] text-[16px] font-[500] hover:cursor-pointer"
+            className="rounded-[8px] py-[8px] px-[16px] border-[#06A9EF] border-solid border-[1px] text-[#333] text-[12px] scr420:text-[16px] font-[500] hover:cursor-pointer"
             onClick={() => setaddWebsites(false)}
           >
             Cancel
           </button>
           <button
             onClick={handleSubmit}
-            className="rounded-[8px] py-[8px] px-[16px] border-[#06A9EF] border-solid border-[1px] text-[#fff] text-[16px] font-[500] bg-[#06A9EF] "
+            className="rounded-[8px] py-[8px] px-[16px] border-[#06A9EF] border-solid border-[1px] text-[#fff] text-[12px] scr420:text-[16px] font-[500] bg-[#06A9EF] "
           >
             Save Changes
           </button>

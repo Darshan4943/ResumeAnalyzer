@@ -8,7 +8,7 @@ const JobPrefrence = ({ userData }) => {
     <>
       <div className="build_ai ai2" style={{ gap: "16px" }}>
         <div className="flex justify-between w-full">
-          <p className="page_headings">Job Preferences</p>
+          <p className="page_headings text-[18px] scr420:text-[20px]">Job Preferences</p>
           <div onClick={() => setEditView(true)}>
             <Edit_icon />
           </div>

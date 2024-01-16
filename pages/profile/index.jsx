@@ -144,13 +144,13 @@ function Profile() {
               </div>
 
               <div className="build_ai_right">
-                <p className="build_heading">Build AI Powered Resume</p>
+                <p className="build_heading text-[18px] scr420:text-[20px]">Build AI Powered Resume</p>
                 <div className="prof_template p items-start w-[70%] ">
-                  <p className="prof_template ">Professional Templates</p>
+                  <p className="prof_template text-[12px] scr420:text-[16px]">Professional Templates</p>
                   <div className="verti_line "></div>
-                  <p className="prof_template text-center">AI suggestion</p>
+                  <p className="prof_template text-center text-[12px] scr420:text-[16px]">AI suggestion</p>
                   <div className="verti_line"></div>
-                  <p className="prof_template text-center">Preview</p>
+                  <p className="prof_template text-center text-[12px] scr420:text-[16px]">Preview</p>
                 </div>
 
                 <p className="content_text">
@@ -177,7 +177,7 @@ function Profile() {
             <ScrollElement name="About me" className="section">
               <div className="build_ai ai2  ">
                 <div className="gap">
-                  <p className="page_headings">About me</p>
+                  <p className="page_headings text-[18px] scr420:text-[20px]">About me</p>
                   <img
                     style={{ width: "24px" }}
                     src="./images/profile/edit.png"

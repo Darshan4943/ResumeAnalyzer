@@ -10,7 +10,7 @@ const Skills = ({ userData }) => {
   return (
     <div className="build_ai ai2">
       <div className="gap flex items-center justify-between">
-        <p className="page_headings">Skills</p>
+        <p className="page_headings text-[18px] scr420:text-[20px]">Skills</p>
         <div className="flex justify-center items-center gap-4">
           <div className="flex justify-center items-center p-3 gap-4">
             {/* <p className="text-[#06A9EF] font-montserrat text-12 font-bold">
