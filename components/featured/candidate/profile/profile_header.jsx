@@ -20,33 +20,20 @@ const ProfileHeader = ({ userData }) => {
         <div className="customMargins">
           <div class="grid grid-cols-1 ">
             <div class="flex flex-row w-full pt-[8px] pb-[8px] md:px-[16px] px-[8px] items-start gap-2 rounded-lg bg-white shadow-md">
-              <div class="relative flex p-2 md:p-4 items-center gap-5 md:gap-20 rounded-md">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="120"
-                  height="120"
-                  viewBox="0 0 120 120"
-                  fill="none"
-                >
-                  <circle
-                    cx="60"
-                    cy="60"
-                    r="59.2905"
-                    stroke="#646464"
-                    stroke-width="1.419"
-                  />
-                </svg>
-                <div class="absolute left-[24px] bottom-[24px] w-[105px] h-[105px] rounded-full overflow-hidden profile_image_center">
-                  <img className="h-full w-full object-cover"
-                    onClick={() => setIsChangeProfile(true)}
-                    src={
-                      userData?.profilePicture?.img
-                        ? userData?.profilePicture?.img
-                        : "/images/profile/john_doe.png"
-                    }
-                    alt=""
-                  />
-                </div>
+              <div class="relative flex p-1 md:p-4 items-center gap-5 md:gap-20 rounded-md">
+               
+                <div className="w-[120px] h-[120px] border-[2px]  border-[#646464] rounded-full object-contain overflow-hidden gap-2">
+                      <img
+                        className="rounded-full p-1"
+                        onClick={() => setIsChangeProfile(true)}
+                        src={
+                          userData?.profilePicture?.img
+                            ? userData?.profilePicture?.img
+                            : "/images/profile/john_doe.png"
+                        }
+                        alt=""
+                      />
+                    </div>
               </div>
 
               <div class="flex flex-col items-start gap-2 flex-1 ">
@@ -61,19 +48,19 @@ const ProfileHeader = ({ userData }) => {
                         Last updated {timeAgo(new Date(userData?.updatedAt))}
                       </p>
                       <div className="mobile mt-[5px]">
-                      {userData?.basics?.mobileNo && (
-                      <div class="flex items-center gap-[5px]">
-                        <img
-                          class="w-[20px] h-[20px]"
-                          src="/images/profile/call.png"
-                          alt=""
-                        />
-                        <p class="text-[#333] font-montserrat text-[14px] font-normal">
-                          {userData?.basics?.mobileNo}
-                        </p>
+                        {userData?.basics?.mobileNo && (
+                          <div class="flex items-center gap-[5px]">
+                            <img
+                              class="w-[20px] h-[20px]"
+                              src="/images/profile/call.png"
+                              alt=""
+                            />
+                            <p class="text-[#333] font-montserrat text-[14px] font-normal">
+                              {userData?.basics?.mobileNo}
+                            </p>
+                          </div>
+                        )}
                       </div>
-                    )}
-                    </div>
                     </div>
                     <div className="flex items-center" onClick={() => setEditProfile(true)} class="w-[24px]">
                       <img className="w-[24px] h-[24px]" src="/images/profile/edit.png" alt="" />
@@ -148,38 +135,38 @@ const ProfileHeader = ({ userData }) => {
                 </div>
               </div>
             </div>
-            
-           
+
+
 
             <div class="flex flex-col w-full mt-[-10px] pb-[8px] pl-[16px] pr-[16px] items-start gap-2 rounded-lg bg-white shadow-md unblockRecruiter">
-            <div className="bg-[#868383] h-[1px] w-[95%]"></div>
-            <div class="flex px-[16px] py-[0px] flex-col justify-center items-start gap-[10px] flex-1 self-stretch ">
-                    {userData?.education && (
-                      <div class="flex items-center gap-[5px]">
-                        <img
-                          class="w-[20px] h-[20px]"
-                          src="/images/profile/school.png"
-                          alt=""
-                        />
-                        <p class="text-[#333] font-montserrat text-[14px] font-normal">
-                          {userData?.education[0]?.stream} <br />{" "}
-                          {userData?.education[0]?.institute}
-                        </p>
-                      </div>
-                    )}
-
-                    <div class="flex items-center gap-[5px]">
-                      <img
-                        class="w-[20px] h-[20px]"
-                        src="/images/profile/mail_john.png"
-                        alt=""
-                      />
-                      <p class="text-[#333] font-montserrat text-[14px] font-normal">
-                        {userData?.basics?.email}
-                      </p>
-                    </div>
+              <div className="bg-[#868383] h-[1px] w-[95%]"></div>
+              <div class="flex px-[16px] py-[0px] flex-col justify-center items-start gap-[10px] flex-1 self-stretch ">
+                {userData?.education && (
+                  <div class="flex items-center gap-[5px]">
+                    <img
+                      class="w-[20px] h-[20px]"
+                      src="/images/profile/school.png"
+                      alt=""
+                    />
+                    <p class="text-[#333] font-montserrat text-[14px] font-normal">
+                      {userData?.education[0]?.stream} <br />{" "}
+                      {userData?.education[0]?.institute}
+                    </p>
                   </div>
-       </div>
+                )}
+
+                <div class="flex items-center gap-[5px]">
+                  <img
+                    class="w-[20px] h-[20px]"
+                    src="/images/profile/mail_john.png"
+                    alt=""
+                  />
+                  <p class="text-[#333] font-montserrat text-[14px] font-normal">
+                    {userData?.basics?.email}
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
