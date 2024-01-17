@@ -11,7 +11,7 @@ function SavedJobs() {
   const [savedJobListLocal, setSavedJobListLocal] = useState([]);
   const [selectedJob, setSelectedJob] = useState();
 
-  const isViewportBelow850 = useMediaQuery("(max-width:580px)");
+  const isViewportBelow1024 = useMediaQuery("(max-width:1024px)");
   const [isDescription, setIsDescription] = useState(false);
   useEffect(() => {
     const jobsFromLocal = JSON.parse(localStorage.getItem("savedJobs"));
@@ -42,12 +42,12 @@ function SavedJobs() {
   };
 
   return (
-    <div className="h-[70vh]">
+    <>
       {savedJobList.length > 0 &&
         <div className="  bg-[#F9F9F9]  ">
-          <div className=" grid grid-cols-12 gap-[24px] py-[24px]  ">
+          <div className=" grid grid-cols-12 gap-[24px] ml:py-[16px]  ">
 
-            <div className={`${isDescription ? " web" : ""}  p-[8px] rounded-[8px] col-span-12 ml:col-span-5 bg-[#fff] leading-tight min-h-[70vh]  `}>
+            <div className={`${isDescription ? " web1024" : ""} ${isViewportBelow1024 ? "col-span-12":"col-span-5"}  p-[8px] rounded-[8px]   bg-[#fff] leading-tight min-h-[70vh]  `}>
               <div
                 className={``}
                 style={{
@@ -232,7 +232,7 @@ function SavedJobs() {
             </div>
 
 
-            <div className={`web col-span-7`}>
+            <div className={`web1024 col-span-7`}>
 
               <Description selectedJob={selectedJob} />
 
@@ -240,7 +240,7 @@ function SavedJobs() {
 
 
             {isDescription &&
-              <div className={`mobile col-span-12`}>
+              <div className={`mobile1024 col-span-12`}>
                 <div onClick={() => setIsDescription(false)} className="flex gap-3 mb-4">
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
 
@@ -259,7 +259,7 @@ function SavedJobs() {
           </div>
         </div>
       }
-    </div>
+    </>
   );
 }
 

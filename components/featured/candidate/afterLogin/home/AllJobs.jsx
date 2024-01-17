@@ -1,9 +1,13 @@
+
+
+import { useMediaQuery } from '@react-hook/media-query';
 import React, { useEffect, useReducer } from 'react'
 import { useSelector } from 'react-redux';
 
 function AllJobs({ selectedJob, setIsDescription, setSelectedJob, savedJobList, setSavedJobList }) {
     const jobData = useSelector((state) => state.getAllJobs.data);
     const [recall, forceUpdate] = useReducer((x) => x + 1, 0);
+    const isViewportBelow600 = useMediaQuery("(max-width:600px)");
 
     useEffect(() => {
         if (jobData.length > 0) {
@@ -45,7 +49,7 @@ function AllJobs({ selectedJob, setIsDescription, setSelectedJob, savedJobList, 
                         <div
                             onClick={() => {
                                 setSelectedJob(item);
-                                window.scroll(0, 0);
+                                isViewportBelow600 ? window.scroll(400, 400) :window.scroll(0, 0);
                             }}
                             className={`p-[16px] flex flex-col gap-[8px] relative z-0 ${selectedJob?._id == item._id && "selected_job_card"
                                 } `}
