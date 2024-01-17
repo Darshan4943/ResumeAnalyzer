@@ -1,12 +1,13 @@
 import { ClosedIcon } from '@/utils/svg';
 import { useRouter } from 'next/router';
 import React from 'react';
+import { useSelector } from 'react-redux';
 
 function HeaderSidebar({ selectedPage, setIsSidebar, setIsLogin, isLogin }) {
     const list = ["Home", "Candidate", "Employer", "Recruiter"];
     const loginList = ["Home", "Jobs", "Services"]
     const router = useRouter();
-
+    const userDataGlobal = useSelector((state) => state.userData);
     const handleNavigation = (page) => {
         setIsSidebar(false);
         router.push(page);
@@ -32,8 +33,8 @@ function HeaderSidebar({ selectedPage, setIsSidebar, setIsLogin, isLogin }) {
     };
 
     return (
-        <div className=' h-[1000px] flex flex-col gap-3 pt-[3.5rem]  relative ' >
-            <div className='flex justify-between px-4 mt-3 py-4'>
+        <div className=' h-[1000px] flex flex-col  pt-[3.5rem]  relative ' >
+            <div className='flex justify-between px-4 mt-3 py-2'>
                 <img src="/images/logo_skilotech.png" alt="" className="w-[123px] h-[40px] object-contain" />
                 <div className='' onClick={() => setIsSidebar(false)}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" fill="none">
@@ -46,10 +47,12 @@ function HeaderSidebar({ selectedPage, setIsSidebar, setIsLogin, isLogin }) {
             </div>
             {!isLogin ?
                 <div className='flex flex-col' style={{ listStyle: 'none' }}>
+
+                    
                     {list.map((item, index) => (
                         <li
                             key={index}
-                            className='px-4 py-9 border-b-2 border-[#06A9EF]'
+                            className='px-4 py-7 border-b-2 border-[#06A9EF]'
                             style={{
                                 ...getListItemStyles(`/${item.toLowerCase()}`),
                                 ...(item === 'Home' && getListItemStyles('/')),
@@ -63,10 +66,26 @@ function HeaderSidebar({ selectedPage, setIsSidebar, setIsLogin, isLogin }) {
                 </div>
                 :
                 <div className='flex flex-col' style={{ listStyle: 'none' }}>
+                    <div onClick={() => router.push("/profile")} className='flex gap-4 p-4 '>
+                        <img
+                            className="max-w-[44px] max-h-[44px] w-[100vw] h-[100vh] rounded-full object-cover p-1"
+
+                            src={
+                                userDataGlobal?.profilePicture?.img
+                                    ? userDataGlobal?.profilePicture?.img
+                                    : "/images/profile/profileNew.png"
+                            }
+                            alt=""
+                        />
+                        <div className='text-[20px] font-medium'>
+                            {userDataGlobal?.basics?.firstName}{" "}
+                            {userDataGlobal?.basics?.lastName}
+                        </div>
+                    </div>
                     {loginList.map((item, index) => (
                         <li
                             key={index}
-                            className='px-4 py-9 border-b-2 border-[#06A9EF]'
+                            className='px-4 py-7 border-b-2 border-[#06A9EF]'
                             style={{
                                 ...getListItemStyles(`/candidate/afterLogin/${item.toLowerCase()}/${item.toLowerCase()}`),
                                 ...(item === 'Home' && getListItemStyles('/candidate/afterLogin/home/candidateHome')),
@@ -77,7 +96,7 @@ function HeaderSidebar({ selectedPage, setIsSidebar, setIsLogin, isLogin }) {
                             {item}
                         </li>
                     ))}
-                    <div onClick={() => handleLogOut()} className='px-4 py-9 border-b-2 border-[#06A9EF] bg-backgroundColor text-[#C00000]'  >
+                    <div onClick={() => handleLogOut()} className='px-4 py-7 border-b-2 border-[#06A9EF] bg-backgroundColor text-[#C00000]'  >
                         Log Out
                     </div>
                 </div>
