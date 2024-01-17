@@ -2,8 +2,8 @@ import React from 'react'
 
 function Filter() {
   return (
-    <div className="flex flex-col col-span-3 rounded-md bg-white shadow-md mt-6">
-                <div className="flex justify-between  p-4 bg-white shadow-md  items-start  ">
+    <div className="flex flex-col col-span-3 rounded-[8px] h-[70vh] bg-white shadow-md ">
+                <div className="flex justify-between  p-4 bg-white shadow-md  items-start rounded-t-[8px] ">
                   <p className=" font-montserrat text-base font-medium text-[10px] text-black ">
                     All Filters
                   </p>

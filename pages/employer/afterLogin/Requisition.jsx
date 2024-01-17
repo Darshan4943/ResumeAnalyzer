@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { TablePagination } from '@mui/material';
 
 import { useRouter } from "next/router";
+import CreateNewRequisition from "@/components/featured/employer/CreateNewRequisition";
 
 
 function Requisition() {
