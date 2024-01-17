@@ -3,12 +3,15 @@ import { useRouter } from "next/router";
 import Header from "./partials/header/header";
 import Footer from "./partials/footer/footer";
 import { useRef, useEffect, useState } from "react";
-import Header2 from "./partials/header/header2";
-import Sidebar from "./partials/header/sidebar";
+
+
 import { ToastContainer } from "react-toastify";
 
 import MobileHeader from "./partials/header/mobileHeader";
 import { useMediaQuery } from "@react-hook/media-query";
+import Breadcrumb from "./common/BreadCrumb";
+import Header2 from "./partials/header/header2";
+import Sidebar from "./partials/header/sidebar";
 
 function Layout({ children }) {
   const router = useRouter();
@@ -51,17 +54,15 @@ function Layout({ children }) {
         <div>
           <Sidebar />
         </div>
-        <div className="  pt-[135px] w-[100%] px-5">{children}</div>
+        <div className="  pt-[135px] w-[100%] px-5">
+        <Breadcrumb/>
+          {children}</div>
       </div>
     </div>
   );
   return (
     <>
-      {selectedPage === "/employer/afterLogin/EmployerHome" ? (
-        <Temp2 />
-      ) : (
-        <Temp />
-      )}
+      {     selectedPage.startsWith('/employer/afterLogin') ? <Temp2 /> : <Temp />}
       <ToastContainer
         position="bottom-right"
         autoClose={3000}
