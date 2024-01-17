@@ -192,23 +192,25 @@ input {
   font-size: 14px;
   line-height: normal;
   text-transform: capitalize;
-  color: #646464;
+
+ 
 
   & + .breadcrumb-item {
     padding-left: 0.5rem;
 
     &:before {
+      content: ">"; 
       color: #495057;
-      content: "\f112";
-      font-family: "molla";
+      
       padding-right: 0.5rem;
-      height: 16px;
-      width: 16px;
+      height: 20px;
+      width: 20px;
       vertical-align: middle;
       margin-top: -0.1rem;
     }
   }
 }
+
 
 ////////////////radio button///////////
 .color{

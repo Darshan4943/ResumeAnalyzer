@@ -20,9 +20,9 @@ const Breadcrumb = () => {
             Skilotech
         </li>
         {breadcrumbItems.map((item, index) => (
-          <li key={index} className="breadcrumb-item">
+          <li key={index} className="breadcrumb-item text-[#646464]">
             <ALink href={item.path}>
-              <a>{item.label}</a>
+              <span>{item.label}</span>
             </ALink>
           </li>
         ))}
