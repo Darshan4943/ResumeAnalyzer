@@ -18,7 +18,7 @@ function AfterLoginHome() {
   const [changeprofile, setIsChangeProfile] = useState(false);
   const [userData, setUserData] = useState(false);
 
-  
+
 
   useEffect(() => {
     setUserData(userDataGlobal);
@@ -46,20 +46,20 @@ function AfterLoginHome() {
         <div className=" relative bg-[#E0F6FF]  ">
           <div className="  ">
             <div className={`customMargins py-5 flex flex-row gap-4 ${isViewportBelow850 ? "justify-center" : "justify-between"} items-center `}>
-            <div className={`justify-center items-center ${isViewportBelow550 ? "w-[100%]" : (isViewportBelow850 ? "w-[50%]" : "w-[29%]")}`}>
+              <div className={`justify-center items-center ${isViewportBelow550 ? "w-[100%]" : (isViewportBelow850 ? "w-[50%]" : "w-[29%]")}`}>
                 <div className="flex flex-row gap-[16px] py-[8px] items-center">
                   <div className="flex w-[40%] h-[110px] items-center justify-center">
-                    <div  className="max-w-[107px] max-h-[107px] w-[100vw] h-[100vh] rounded-full object-cover border ">
-                    <img
-                      className="max-w-[105px] max-h-[105px] w-[100vw] h-[100vh] rounded-full object-cover p-1"
-                      src={
-                        userData?.profilePicture?.img ||
-                        "/images/profile/profileNew.png"
-                      }
-                      alt=""
-                      onClick={() => setIsChangeProfile(true)}
-                    />
-                  </div>
+                    <div className="max-w-[107px] max-h-[107px] w-[100vw] h-[100vh] rounded-full object-cover border ">
+                      <img
+                        className="max-w-[105px] max-h-[105px] w-[100vw] h-[100vh] rounded-full object-cover p-1"
+                        src={
+                          userData?.profilePicture?.img ||
+                          "/images/profile/profileNew.png"
+                        }
+                        alt=""
+                        onClick={() => setIsChangeProfile(true)}
+                      />
+                    </div>
                   </div>
                   {changeprofile && (
                     <>
@@ -85,7 +85,7 @@ function AfterLoginHome() {
                           </div>
                           {userData?.education && (
                             <div className="text-[#333] text-[14px] font-[400]">
-                              {userData?.education[0]?.education} <br/> @{" "}
+                              {userData?.education[0]?.education} <br /> @{" "}
                               {userData?.education[0]?.university}
                             </div>
                           )}
@@ -135,50 +135,50 @@ function AfterLoginHome() {
                   </div>
                 </div>
               </div>
-              { !isViewportBelow550 && 
-              <div className={`py-[8px]  flex flex-row gap-[4px] justify-center items-center ${isViewportBelow850 ? "w-[50%]" : "w-[41%]"}`}>
-                {!isViewportBelow768 &&
-                  <div className="w-[35%]">
-                    <div className="ai_images   ">
-                      <img
-                        className="name_resume "
-                        src="/images/afterLoginHome/name_resume.png"
-                        alt=""
-                      />
-                      <img
-                        className="david_resume "
-                        src="/images/afterLoginHome/david_resume.png"
-                        alt=""
-                      />
-                    </div>
-                  </div>
-                }
-               
-                <div className="flex items-start w-[100%] ">
-                  <div className="flex  flex-col gap-[16px]">
-                    <div className="flex  flex-col gap-[8px]">
-                      <div className="text-[#333] text-[18px] font-[500]">
-                        Build AI Powered Resume
-                      </div>
-                      <div className="text-[#262626] text-[12px] font-[400]">
-                        Create an outstanding resume in minutes or download a
-                        pre-designed one tailored to your Skilotech profile
+              {!isViewportBelow550 &&
+                <div className={`py-[8px]  flex flex-row gap-[4px] justify-center items-center ${isViewportBelow850 ? "w-[50%]" : "w-[41%]"}`}>
+                  {!isViewportBelow768 &&
+                    <div className="w-[35%]">
+                      <div className="ai_images   ">
+                        <img
+                          className="name_resume "
+                          src="/images/afterLoginHome/name_resume.png"
+                          alt=""
+                        />
+                        <img
+                          className="david_resume "
+                          src="/images/afterLoginHome/david_resume.png"
+                          alt=""
+                        />
                       </div>
                     </div>
-                    <div>
-                      <ALink href={"/candidate/create_resume"}>
-                        <button className="flex py-[8px] px-[18px] items-center justify-center rounded-[6px]  bg-[#06A9EF] border-[#06A9EF] text-[#fff] text-[14px] font-[600]">
-                          Build your Resume
-                        </button>
-                      </ALink>
+                  }
+
+                  <div className="flex items-start w-[100%] ">
+                    <div className="flex  flex-col gap-[16px]">
+                      <div className="flex  flex-col gap-[8px]">
+                        <div className="text-[#333] text-[18px] font-[500]">
+                          Build AI Powered Resume
+                        </div>
+                        <div className="text-[#262626] text-[12px] font-[400]">
+                          Create an outstanding resume in minutes or download a
+                          pre-designed one tailored to your Skilotech profile
+                        </div>
+                      </div>
+                      <div>
+                        <ALink href={"/candidate/create_resume"}>
+                          <button className="flex py-[8px] px-[18px] items-center justify-center rounded-[6px]  bg-[#06A9EF] border-[#06A9EF] text-[#fff] text-[14px] font-[600]">
+                            Build your Resume
+                          </button>
+                        </ALink>
+                      </div>
                     </div>
                   </div>
+
                 </div>
-               
-              </div>
-               }
+              }
             </div>
-            
+
           </div>
           <div className="bg-[#BCECFF] sticky top-[5.6rem] z-500">
             <div className="customMargins flex flex-row  gap-[16px] py-[8px]">
@@ -267,28 +267,28 @@ function AfterLoginHome() {
           <div className="grid grid-cols-5 gap-[24px] pb-[49px]">
             <div class={` ${isViewportBelow850 ? "col-span-5" : "col-span-4"}`}>
               {jobData && <Job_card jobData={jobData.slice(0, 5)} />}
-              
-               <div
+
+              <div
                 className={`flex  p-[16px]  mt-[24px] justify-between w-[100%] rounded-[12px] bg-cover bg-center ${isViewportBelow550 && " flex justify-center items-center flex-col-reverse gap-4"}  `}
                 style={{
                   backgroundImage:
-                  "url(/images/afterLoginHome/bg-linear.png)",
+                    "url(/images/afterLoginHome/bg-linear.png)",
                 }}
               >
                 <div className="flex w-[100%]">
                   <div className={`flex flex-col items-start ${isViewportBelow550 && "  w-[100%] "}  gap-[24px] align-self-stretch`}>
                     <p className={`text-[#fff]  ${isViewportBelow550 ? "w-[100%]" : "w-[60%]"} text-[18px] font-[500]  leading-[28px]`}>
-                    Use our frequently asked interview questions to receive
+                      Use our frequently asked interview questions to receive
                       personalized AI questions, responses, and feedback.
                     </p>
                     <ALink href={"/candidate/afterLogin/services/servicesSub/InterViewQue"}>
                       <button className=" flex py-[8px] px-[16px] justify-center items-center gap-[4px] rounded-[8px] border border-solid border-[#fff] text-[16px] text-[#fff] font-[500]  ">
                         Get Started
                         <img
-                        className="w-[20px]"
-                        src="/images/afterLoginHome/arrow_forward.png"
-                        alt=""
-                      />
+                          className="w-[20px]"
+                          src="/images/afterLoginHome/arrow_forward.png"
+                          alt=""
+                        />
                       </button>
                     </ALink>
                   </div>
@@ -304,27 +304,27 @@ function AfterLoginHome() {
 
               {jobData && <Job_card jobData={jobData} />}
 
-               <div
+              <div
                 className={`flex  p-[16px]  mt-[24px] justify-between w-[100%] rounded-[12px] bg-cover bg-center ${isViewportBelow550 && " flex justify-center items-center flex-col-reverse gap-4"}  `}
                 style={{
                   backgroundImage:
-                  "url(/images/afterLoginHome/elevate_back.png)",
+                    "url(/images/afterLoginHome/elevate_back.png)",
                 }}
               >
                 <div className="flex w-[100%]">
                   <div className={`flex flex-col items-start justify-between ${isViewportBelow550 && "  w-[100%] "}  gap-[24px] align-self-stretch`}>
                     <p className={`text-[#fff]  ${isViewportBelow550 ? "w-[100%]" : "w-[60%]"} text-[18px] font-[500]  leading-[28px]`}>
-                    Elevate your day with our Daily Quiz. Quick, fun, and your
+                      Elevate your day with our Daily Quiz. Quick, fun, and your
                       daily dose of brainpower boost!
                     </p>
                     <ALink href={"/candidate/afterLogin/services/servicesSub/DailyQuize"}>
                       <button className=" flex py-[8px] px-[16px] justify-center items-center gap-[4px] rounded-[8px] border border-solid border-black text-[16px] text-black font-[500]  ">
                         Get Started
                         <img
-                        className="w-[20px]"
-                        src="/images/afterLoginHome/arrow_forward_black.png"
-                        alt=""
-                      />
+                          className="w-[20px]"
+                          src="/images/afterLoginHome/arrow_forward_black.png"
+                          alt=""
+                        />
                       </button>
                     </ALink>
                   </div>
@@ -341,8 +341,8 @@ function AfterLoginHome() {
 
 
               {jobData && <Job_card jobData={jobData.slice(0, 5)} />}
-             
-            
+
+
 
               <div
                 className={`flex  p-[16px]  mt-[24px] justify-between w-[100%] rounded-[12px] bg-cover bg-center ${isViewportBelow550 && " flex justify-center items-center flex-col-reverse gap-4"}  `}
@@ -390,9 +390,10 @@ function AfterLoginHome() {
           </div>
         </div>
       )}
-
+    <div className="customMargins">
       {toggle === 1 && <AppliedJobs />}
       {toggle === 2 && <SavedJobs />}
+      </div>
     </div>
   );
 }

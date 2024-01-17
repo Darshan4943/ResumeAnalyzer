@@ -1,6 +1,6 @@
 import AppliedJobs from "@/components/featured/candidate/afterLogin/home/AppliedJobs";
 import SavedJobs from "@/components/featured/candidate/afterLogin/home/SavedJobs";
-import React, { useEffect, useReducer, useState } from "react";
+import React, { useEffect, useReducer, useRef, useState } from "react";
 
 import { inputData } from "@/utils/data";
 import { useSelector } from "react-redux";
@@ -8,6 +8,7 @@ import { useMediaQuery } from "@react-hook/media-query";
 import Description from "@/components/featured/candidate/afterLogin/home/Description";
 import AllJobs from "@/components/featured/candidate/afterLogin/home/AllJobs";
 import Filter from "@/components/featured/candidate/afterLogin/home/Filter";
+import { AnimatePresence,motion } from "framer-motion";
 // import { btns } from "~/utils/data";
 
 const btns = [
@@ -86,16 +87,41 @@ const InputBox = ({ item }) => {
 function Jobs() {
   const [recall, forceUpdate] = useReducer((x) => x + 1, 0);
   const [filter, setFilter] = useState(false);
+  const [mobileFilter, setMobileFilter] = useState(false);
   const jobData = useSelector((state) => state.getAllJobs.data);
   const [selectedJob, setSelectedJob] = useState();
   const [toggleHeadings, setToggleHeadings] = useState(0);
   const [savedJobList, setSavedJobList] = useState([]);
-
+  const isViewportBelow1024 = useMediaQuery("(max-width:1024px)");
   useEffect(() => {
     if (toggleHeadings >= 3) {
       setFilter(false);
     }
   }, [toggleHeadings]);
+
+
+  useEffect(() => {
+
+    setFilter(false);
+
+  }, [isViewportBelow1024]);
+
+
+  const taskRef = useRef(null);
+
+  const handleOutsideClick = (event) => {
+      if (taskRef.current && !taskRef.current.contains(event.target)) {
+        setMobileFilter(false);
+      }
+  };
+
+  useEffect(() => {
+      document.addEventListener('mousedown', handleOutsideClick);
+      return () => {
+          document.removeEventListener('mousedown', handleOutsideClick);
+      };
+  }, []);
+
 
   const numberOfDivs = 5;
 
@@ -352,7 +378,7 @@ function Jobs() {
         </div>
         {toggleHeadings <= 2 &&
           <div style={{ backgroundColor: "#E0F6FF" }} className="">
-            <div className="customMargins web">
+            <div className="customMargins web1024">
               <div className="flex items-center py-5  gap-3 flex-wrap ">
                 {inputData.map((item, index) => (
                   <InputBox
@@ -373,10 +399,10 @@ function Jobs() {
                 </button>
               </div>
             </div>
-            <div className="p-2 mobile ">
+            <div   onClick={() => setMobileFilter(!mobileFilter)} className="p-2 mobile1024 ">
               <button
-                onClick={() => setFilter(!filter)}
-                className="px-4 py-3  rounded-[6px] bg-[#FFF] mobile    flex gap-2"
+              
+                className="px-4 py-3  rounded-[6px] bg-[#FFF]   flex gap-2"
               >
                 <img
                   className="h-[24px] w-[24px]"
@@ -406,16 +432,16 @@ function Jobs() {
         }
       </div>
 
-      <div className="bg-[#F9F9F9]">
-        <div className=" customMargins ">
-          <div className="grid grid-cols-12 py-[16px] gap-[24px] ">
+      <div className="bg-[#F9F9F9]  ">
+        <div className=" customMargins  ">
+          <div className="grid grid-cols-12 py-[16px] gap-[24px]  ">
             {/* FIRST SECTION   */}
             {filter ? (
-              < div className="web col-span-3">
-             <Filter/>
-             </div>
+              < div className="web1024 col-span-3 mt-6">
+                <Filter />
+              </div>
             ) : (
-              // <div className="flex flex-col col-span-2 rounded-md bg-white shadow-md py-6 px-4 mt-6 items-start gap-4 h-fit ">
+              // <div className="flex flex-col col-span-3 rounded-md bg-white shadow-md py-6 px-4 mt-6 items-start gap-4 h-fit ">
               //   <div className="flex flex-col items-center gap-[8px]">
               //     <p className="text-[22px] font-[500] text-[#333] ">
               //       Application Status
@@ -458,7 +484,7 @@ function Jobs() {
             {(toggleHeadings === 0 ||
               toggleHeadings === 1 ||
               toggleHeadings === 2) && (
-                <>
+                <  >
                   {/* SECOND SECTION   */}
                   {/* <div className="flex flex-col col-span-2 rounded-md bg-white shadow-md py-6 px-4 mt-6 items-start gap-4 h-fit ">
                  <div className="flex flex-col items-center gap-[8px]">
@@ -504,7 +530,7 @@ function Jobs() {
                     </div>
                   }
 
-                  <div className= {`web mt-6 ${filter ? "col-span-4" : "col-span-5"}`}>
+                  <div className={`web mt-6 ${filter ? "col-span-4" : "col-span-5"}`}>
                     <AllJobs selectedJob={selectedJob} setIsDescription={setIsDescription} setSelectedJob={setSelectedJob} savedJobList={savedJobList} setSavedJobList={setSavedJobList} />
                   </div>
                   {/* LAST SECTION   */}
@@ -526,7 +552,7 @@ function Jobs() {
                     </div>
                   }
 
-                  <div className={`web mt-6 ${filter ? "col-span-5" : "col-span-7"}`}>
+                  <div className={`web mt-6  ${filter ? "col-span-5" : "col-span-7"}`}>
                     <Description selectedJob={selectedJob} />
                   </div>
 
@@ -545,6 +571,34 @@ function Jobs() {
               </div>
 
             )}
+
+         
+
+            <AnimatePresence>
+              {mobileFilter && (
+                <>
+               
+         
+              
+                <motion.div
+                  initial={{ x: '-100%' }}
+                  animate={{ x: 0 }}
+                  exit={{ x: '-100%' }}
+                  transition={{ duration: 0.5 }}
+                  ref={taskRef}
+                  className=" z-[2000] fixed rounded-[8px]" style={{ background: 'rgba(255, 255, 255, 0.50)', backdropFilter: 'blur(10px)' }}
+                >
+
+
+                  <Filter />
+
+                </motion.div>
+             
+                </>
+              )}
+
+            </AnimatePresence>
+
           </div>
         </div>
       </div>
