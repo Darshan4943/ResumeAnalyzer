@@ -75,48 +75,23 @@ function ChangeProfile({ setIsChangeProfile, userData }) {
 
         <div className="flex p-[24px] flex-col justify-center items-center gap-4 rounded-[12px] bg-[#fff] border-[1px] border-solid border-[#06A9EF]">
           <div className="flex flex-col items-center gap-[36px]">
-            {file ? (
+          
               <>
-                <div className="flex items-center justify-center w-[286px] h-[286px] rounded-[286px] border-[3px] border-solid border-[#646464]">
-                  <ImageContainer
-                    src={URL.createObjectURL(file)}
-                    alt="Selected File"
-                    className="w-[252px] h-[252px] rounded-[50%] overflow-hidden"
-                  />
-                </div>
-                <div className="flex gap-4 justify-center items-start">
-                  <button className="flex justify-center items-center px-[16px] py-[8px] rounded-[12px] border-[1px] border-solid border-[#06A9EF] bg-[#fff] text-[#333] text-[16px] font-[500] upload-btn-wrapper">
-                    <input
-                      type="file"
-                      name="myfile"
-                      onChange={handleFileChange}
-                      className="h-full w-full"
-                    />
-                    Change Picture
-                  </button>
-                  <button
-                    className="flex justify-center items-center px-[16px] py-[8px] rounded-[12px] border-[1px] border-solid border-[#06A9EF] bg-[#06A9EF] text-[#fff] text-[16px] font-[500]"
-                    onClick={saveProfilePhoto}
-                  >
-                    Save Picture
-                  </button>
-                </div>
-              </>
-            ) : (
-              <>
-                <div className="flex items-center justify-center w-[286px] h-[286px] rounded-[286px] border-[3px] border-solid border-[#646464]">
+                <div className="flex items-center justify-center  scr700:w-[286px] w-[11rem]  h-[11rem] scr700:h-[286px] rounded-[286px] border-[3px] border-solid border-[#646464]">
                   <img
-                    class="w-[20px] h-[20px]"
+                    class=" scr700:w-[286px] w-[11rem]  h-[11rem] scr700:h-[286px] rounded-full p-2"
                     src={
                       file
                         ? URL.createObjectURL(file)
-                        : userData?.profilePicture?.img
+                        :  userDataGlobal?.profilePicture?.img
+                        ? userDataGlobal?.profilePicture?.img
+                        : "/images/profile/profileNew.png"
                     }
                     alt=""
                   />
                 </div>
                 <div className="flex gap-4 justify-center items-start">
-                  <button className="flex justify-center items-center px-[16px] py-[8px] rounded-[12px] border-[1px] border-solid border-[#06A9EF] bg-[#fff] text-[#333] text-[16px] font-[500] upload-btn-wrapper">
+                  <button className="flex justify-center items-center px-[5px] ms:px-[16px] py-[8px] rounded-[12px] border-[1px] border-solid border-[#06A9EF] bg-[#fff] text-[#333] text-[12px] ms:text-[16px] font-[500] upload-btn-wrapper">
                     <input
                       type="file"
                       name="myfile"
@@ -126,14 +101,14 @@ function ChangeProfile({ setIsChangeProfile, userData }) {
                     Change Picture
                   </button>
                   <button
-                    className="flex justify-center items-center px-[16px] py-[8px] rounded-[12px] border-[1px] border-solid border-[#06A9EF] bg-[#06A9EF] text-[#fff] text-[16px] font-[500]"
+                    className="flex justify-center items-center ms:px-[16px] px-[5px] py-[8px] rounded-[12px] border-[1px] border-solid border-[#06A9EF] bg-[#06A9EF] text-[#fff] ms:text-[16px] text-[12px] font-[500]"
                     onClick={saveProfilePhoto}
                   >
                     Save Picture
                   </button>
                 </div>
               </>
-            )}
+            
           </div>
           <p className="text-[#7C8493] text-[12px] ms:text-[16px] font-[400] leading-normal">
             Supported file format: png, jpg, jpeg, gif - upto 2MB

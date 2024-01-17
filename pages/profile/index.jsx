@@ -165,7 +165,7 @@ function Profile() {
                     </button>
                   </ALink>
 
-                  {/* <button className="build_ai_button">Download Resume</button> */}
+                  <button className="build_ai_button">Download Resume</button>
                 </div>
               </div>
             </div>

@@ -19,21 +19,18 @@ const ProfileHeader = ({ userData }) => {
       <div className="bg-[#E0F6FF] py-[24px]">
         <div className="customMargins">
           <div class="grid grid-cols-1 ">
-            <div class="flex flex-row w-full pt-[8px] pb-[8px] md:px-[16px] px-[8px] items-start gap-2 rounded-lg bg-white shadow-md">
-              <div class="relative flex p-1 md:p-4 items-center gap-5 md:gap-20 rounded-md">
-               
-                <div className="w-[120px] h-[120px] border-[2px]  border-[#646464] rounded-full object-contain overflow-hidden gap-2">
-                      <img
-                        className="rounded-full p-1"
-                        onClick={() => setIsChangeProfile(true)}
-                        src={
-                          userData?.profilePicture?.img
-                            ? userData?.profilePicture?.img
-                            :     "/images/profile/profileNew.png"
-                        }
-                        alt=""
-                      />
-                    </div>
+            <div class="flex flex-row w-full pt-[8px] pb-[18px] md:px-[16px] px-[8px] items-start gap-5 rounded-lg bg-white shadow-md">
+              <div className="max-w-[120px] max-h-[120px] w-[100vw] h-[100vh] rounded-full object-cover border ">
+                <img
+                  className="max-w-[119px] max-h-[119px] w-[100vw] h-[100vh] rounded-full object-cover p-1"
+                  onClick={() => setIsChangeProfile(true)}
+                  src={
+                    userData?.profilePicture?.img
+                      ? userData?.profilePicture?.img
+                      : "/images/profile/profileNew.png"
+                  }
+                  alt=""
+                />
               </div>
 
               <div class="flex flex-col items-start gap-2 flex-1 ">
@@ -62,8 +59,16 @@ const ProfileHeader = ({ userData }) => {
                         )}
                       </div>
                     </div>
-                    <div className="flex items-center" onClick={() => setEditProfile(true)} class="w-[24px]">
-                      <img className="w-[24px] h-[24px]" src="/images/profile/edit.png" alt="" />
+                    <div
+                      className="flex items-center"
+                      onClick={() => setEditProfile(true)}
+                      class="w-[24px]"
+                    >
+                      <img
+                        className="w-[24px] h-[24px]"
+                        src="/images/profile/edit.png"
+                        alt=""
+                      />
                     </div>
                   </div>
                 </div>
@@ -135,8 +140,6 @@ const ProfileHeader = ({ userData }) => {
                 </div>
               </div>
             </div>
-
-
 
             <div class="flex flex-col w-full mt-[-10px] pb-[8px] pl-[16px] pr-[16px] items-start gap-2 rounded-lg bg-white shadow-md unblockRecruiter">
               <div className="bg-[#868383] h-[1px] w-[95%]"></div>

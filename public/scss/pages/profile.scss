@@ -57,7 +57,7 @@
 
 @media (max-width:851px) {
   .profile_align{
-    align-items: center;
+    align-items: start;
   }
 }
 
@@ -70,7 +70,7 @@
   line-height: normal;
 }
 .improve_text {
-  max-width: 120px;
+  // max-width: 120px;
   color: #262626;
   font-family: Montserrat;
   font-size: 12px;
@@ -188,7 +188,7 @@
   display: flex;
   // width: 150px;
   height: 32px;
-  padding: 12px 24px;
+  padding: 12px 20px;
   justify-content: center;
   align-items: center;
   color: var(--text-prmary, #333);

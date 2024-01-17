@@ -92,7 +92,7 @@ function Footer() {
                   <p className="footer_sub_about_P">Terms and Conditions</p>
                   <p className="footer_sub_about_P">Privacy Policy</p>
                   <p
-                    onClick={() => router.push("/components/models/Contact")}
+                    onClick={() => router.push("/ContactUs")}
                     className="footer_sub_about_P"
                   >
                     {" "}
