@@ -40,7 +40,7 @@ const Interview = () => {
             </button>
           </div>
         </div> */}
-        <div className=" md:flex  ">
+        <div className=" md:flex xxsm:flex xxsm:flex-col xxsm:items-center md:flex-row  ">
         <div className=" sm:flex sm:items-center sm:justify-center md:w-[951px] lg:w-[500px]">
             <ImageContainer
               src="/images/candidate/interview.png"

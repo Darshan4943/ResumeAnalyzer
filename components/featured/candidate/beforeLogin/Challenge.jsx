@@ -79,7 +79,7 @@ const Challenge = () => {
         <div className="grid md:grid-cols-2 gap-6 sm:grid-cols-1 ">
   {arr.map((item, index) => (
     <div key={index} className="flex w-[300px] xsm:w-[324px] h-[228px] lg:w-[456px] lg:h-[290px]  flex-col items-center gap-4 rounded-[12px] bg-blue-50 shadow-md ">
-      <div className="w-[164px] h-[110px] lg:h-[142px] lg:w-[212px]">
+      <div className="w-[164px] p-[10px] h-[110px] lg:h-[142px] lg:w-[212px]">
         <img
           src={item.img}
           alt=""
