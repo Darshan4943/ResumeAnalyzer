@@ -29,7 +29,7 @@ const ProfileHeader = ({ userData }) => {
                         src={
                           userData?.profilePicture?.img
                             ? userData?.profilePicture?.img
-                            : "/images/profile/john_doe.png"
+                            :     "/images/profile/profileNew.png"
                         }
                         alt=""
                       />
