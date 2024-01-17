@@ -2,11 +2,9 @@
 
 import React, { useEffect, useState } from "react";
 import { TablePagination } from '@mui/material';
-import ALink from "~/components/alink";
-import Breadcrumb from "~/components/common/BreadCrumb";
-import CreateNewJob from "~/components/featured/employer/CreateNewJob";
+
 import { useRouter } from "next/router";
-import CreateNewRequisition from "~/components/featured/employer/CreateNewRequisition";
+
 
 function Requisition() {
     const router = useRouter();

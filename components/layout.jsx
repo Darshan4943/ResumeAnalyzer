@@ -9,6 +9,7 @@ import { ToastContainer } from "react-toastify";
 
 import MobileHeader from "./partials/header/mobileHeader";
 import { useMediaQuery } from "@react-hook/media-query";
+import Breadcrumb from "./common/BreadCrumb";
 
 function Layout({ children }) {
   const router = useRouter();
@@ -51,7 +52,9 @@ function Layout({ children }) {
         <div>
           <Sidebar />
         </div>
-        <div className="  pt-[135px] w-[100%] px-5">{children}</div>
+        <div className="  pt-[135px] w-[100%] px-5">
+          <Breadcrumb/>
+          {children}</div>
       </div>
     </div>
   );

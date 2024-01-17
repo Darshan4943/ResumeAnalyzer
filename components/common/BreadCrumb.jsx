@@ -22,7 +22,7 @@ const Breadcrumb = () => {
         {breadcrumbItems.map((item, index) => (
           <li key={index} className="breadcrumb-item">
             <ALink href={item.path}>
-              <a>{item.label}</a>
+              <p>{item.label}</p>
             </ALink>
           </li>
         ))}
