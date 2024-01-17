@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import { useMediaQuery } from "@react-hook/media-query";
 import Description from "@/components/featured/candidate/afterLogin/home/Description";
 import AllJobs from "@/components/featured/candidate/afterLogin/home/AllJobs";
+import Filter from "@/components/featured/candidate/afterLogin/home/Filter";
 // import { btns } from "~/utils/data";
 
 const btns = [
@@ -349,10 +350,10 @@ function Jobs() {
             </div>
           </div>
         </div>
-        {/* {toggleHeadings <= 2 &&
+        {toggleHeadings <= 2 &&
           <div style={{ backgroundColor: "#E0F6FF" }} className="">
-            <div className="customMargins">
-              <div className="flex items-center py-5  justify-between">
+            <div className="customMargins web">
+              <div className="flex items-center py-5  gap-3 flex-wrap ">
                 {inputData.map((item, index) => (
                   <InputBox
                     item={item}
@@ -368,8 +369,22 @@ function Jobs() {
                     src="/images/jobs/fil.png"
                     alt=""
                   />
+
                 </button>
               </div>
+            </div>
+            <div className="p-2 mobile ">
+              <button
+                onClick={() => setFilter(!filter)}
+                className="px-4 py-3  rounded-[6px] bg-[#FFF] mobile    flex gap-2"
+              >
+                <img
+                  className="h-[24px] w-[24px]"
+                  src="/images/jobs/fil.png"
+                  alt=""
+                />
+                Filter
+              </button>
             </div>
           </div>
         }
@@ -388,557 +403,17 @@ function Jobs() {
               </div>
             </div>
           </div>
-        } */}
+        }
       </div>
 
       <div className="bg-[#F9F9F9]">
         <div className=" customMargins ">
-          <div className="grid grid-cols-12 py-[12px] gap-[24px] ">
+          <div className="grid grid-cols-12 py-[16px] gap-[24px] ">
             {/* FIRST SECTION   */}
             {filter ? (
-              <div className="flex flex-col col-span-3 rounded-md bg-white shadow-md mt-6">
-                <div className="flex justify-between  p-4 bg-white shadow-md  items-start  ">
-                  <p className=" font-montserrat text-base font-medium text-[10px] text-black ">
-                    All Filters
-                  </p>
-                  <button className="text-primary font-montserrat text-sm font-medium text-blue">
-                    Reset all
-                  </button>
-                </div>
-
-                <div className="h-[996px] overflow-hidden overflow-y-scroll ">
-                  <div className="flex flex-col items-start justify-center p-4 gap-2 ">
-                    <div className="flex justify-center items-start font-montserrat font-medium text-[16px] text-black">
-                      <p className="font-montserrat font-medium text-[16px] text-black">
-                        By Location
-                      </p>
-                    </div>
-                    <div className="flex   items-start self-stretch gap-1 p-1 border border-text-secondary rounded-md bg-white">
-                      <div className="w-[24px] h-[24px]">
-                        <img src="/images/jobs/ser.png" alt="" />
-                      </div>
-                      <input
-                        type="text"
-                        placeholder="search"
-                        className="font-montserrat font-normal text-[14px] text-black "
-                      />
-                    </div>
-
-                    <div className="flex flex-col justify-center items-center gap-2 self-stretch">
-                      <div className="flex items-center gap-2 self-stretch">
-                        <input
-                          type="checkbox"
-                          className="rounded-md border h-[20px] w-[20px] border-blue bg-white  object-cover "
-                        />
-
-                        <p className="font-montserrat font-medium text-[12px] text-black">
-                          Bengaluru / Banglore
-                        </p>
-                      </div>
-                      <div className="flex items-center gap-2 self-stretch">
-                        <input
-                          type="checkbox"
-                          className="rounded-md border h-[20px] w-[20px] border-blue bg-white  object-cover"
-                        />
-
-                        <p className="font-montserrat font-medium text-[12px] text-black">
-                          Chennai
-                        </p>
-                      </div>
-                      <div className="flex items-center gap-2 self-stretch">
-                        <input
-                          type="checkbox"
-                          className="rounded-md border h-[20px] w-[20px] border-blue bg-white  object-cover"
-                        />
-
-                        <p className="font-montserrat font-medium text-[12px] text-black">
-                          Chennai
-                        </p>
-                      </div>
-                      <div className="flex items-center gap-2 self-stretch">
-                        <input
-                          type="checkbox"
-                          className="rounded-md border h-[20px] w-[20px] border-blue bg-white  object-cover"
-                        />
-
-                        <p className="font-montserrat font-medium text-[12px] text-black">
-                          Chennai
-                        </p>
-                      </div>
-                    </div>
-                    <div className="border-b border-gray w-full h-[10px]"></div>
-
-                    <div className="flex justify-center items-start font-montserrat font-medium text-[16px] text-black">
-                      <p className="font-montserrat font-medium text-[16px] text-black">
-                        By Industry
-                      </p>
-                    </div>
-                    <div className="flex   items-start self-stretch gap-1 p-1 border border-text-secondary rounded-md bg-white">
-                      <div className="w-[24px] h-[24px]">
-                        <img src="/images/jobs/ser.png" alt="" />
-                      </div>
-                      <input
-                        type="text"
-                        placeholder="search"
-                        className="font-montserrat font-normal text-[14px] text-black "
-                      />
-                    </div>
-
-                    <div className="flex flex-col justify-center items-center gap-2 self-stretch">
-                      <div className="flex items-center gap-2 self-stretch">
-                        <input
-                          type="checkbox"
-                          className="rounded-md border h-[20px] w-[20px] border-blue bg-white  object-cover "
-                        />
-
-                        <p className="font-montserrat font-medium text-[12px] text-black">
-                          Others
-                        </p>
-                      </div>
-                      <div className="flex items-center gap-2 self-stretch">
-                        <input
-                          type="checkbox"
-                          className="rounded-md border h-[20px] w-[20px] border-blue bg-white  object-cover"
-                        />
-
-                        <p className="font-montserrat font-medium text-[12px] text-black">
-                          IT/ Computers - Software
-                        </p>
-                      </div>
-                      <div className="flex items-center gap-2 self-stretch">
-                        <input
-                          type="checkbox"
-                          className="rounded-md border h-[20px] w-[20px] border-blue bg-white  object-cover"
-                        />
-
-                        <p className="font-montserrat font-medium text-[12px] text-black">
-                          Banking/ Accounting/Financial Services
-                        </p>
-                      </div>
-                      <div className="flex items-center gap-2 self-stretch">
-                        <input
-                          type="checkbox"
-                          className="rounded-md border h-[20px] w-[20px] border-blue bg-white  object-cover"
-                        />
-
-                        <p className="font-montserrat font-medium text-[12px] text-black">
-                          Internet/ E-commerce
-                        </p>
-                      </div>
-                      <div className="flex items-center gap-2 self-stretch">
-                        <input
-                          type="checkbox"
-                          className="rounded-md border h-[20px] w-[20px] border-blue bg-white  object-cover"
-                        />
-
-                        <p className="font-montserrat font-medium text-[12px] text-black">
-                          Education/ Training
-                        </p>
-                      </div>
-                    </div>
-                    <div className="border-b border-gray w-full h-[10px]"></div>
-                    <div className="flex justify-center items-start font-montserrat font-medium text-[16px] text-black">
-                      <p className="font-montserrat font-medium text-[16px] text-black">
-                        By Salary
-                      </p>
-                    </div>
-
-                    <div className="flex flex-col justify-center items-center gap-2 self-stretch">
-                      <div className="flex items-center gap-2 self-stretch">
-                        <input
-                          type="checkbox"
-                          className="rounded-md border h-[20px] w-[20px] border-blue bg-white  object-cover "
-                        />
-
-                        <p className="font-montserrat font-medium text-[12px] text-black">
-                          $ 0-2 LPA
-                        </p>
-                      </div>
-                      <div className="flex items-center gap-2 self-stretch">
-                        <input
-                          type="checkbox"
-                          className="rounded-md border h-[20px] w-[20px] border-blue bg-white  object-cover"
-                        />
-
-                        <p className="font-montserrat font-medium text-[12px] text-black">
-                          $ 0-2 LPA
-                        </p>
-                      </div>
-                      <div className="flex items-center gap-2 self-stretch">
-                        <input
-                          type="checkbox"
-                          className="rounded-md border h-[20px] w-[20px] border-blue bg-white  object-cover"
-                        />
-
-                        <p className="font-montserrat font-medium text-[12px] text-black">
-                          $ 0-2 LPA
-                        </p>
-                      </div>
-                      <div className="flex items-center gap-2 self-stretch border-blue">
-                        <input
-                          type="checkbox"
-                          className="rounded-md border h-[20px] w-[20px] border-blue bg-white  object-cover"
-                        />
-
-                        <p className="font-montserrat font-medium text-[12px] text-black">
-                          $ 0-2 LPA
-                        </p>
-                      </div>
-                      <div className="flex items-center gap-2 self-stretch border-blue">
-                        <input
-                          type="checkbox"
-                          className="rounded-md border h-[20px] w-[20px] border-blue bg-white  object-cover"
-                        />
-
-                        <p className="font-montserrat font-medium text-[12px] text-black">
-                          More than $ 8 LPA
-                        </p>
-                      </div>
-                      <div className="flex items-center gap-2 self-stretch border-blue">
-                        <input
-                          type="checkbox"
-                          className="rounded-md border h-[20px] w-[20px] border-blue bg-white  object-cover"
-                        />
-
-                        <p className="font-montserrat font-medium text-[12px] text-black">
-                          Not Specified
-                        </p>
-                      </div>
-                    </div>
-                    <div className="border-b border-gray w-full h-[10px]"></div>
-                    <div className="flex justify-center items-start font-montserrat font-medium text-[16px] text-black">
-                      <p className="font-montserrat font-medium text-[16px] text-black"></p>
-                    </div>
-                    <div className="flex justify-center items-start font-montserrat font-medium text-[16px] text-black">
-                      <p className="font-montserrat font-medium text-[16px] text-black">
-                        By Experience
-                      </p>
-                    </div>
-
-                    <div className="flex flex-col justify-center items-center gap-2 self-stretch">
-                      <div className="flex items-center gap-2 self-stretch">
-                        <input
-                          type="checkbox"
-                          className="rounded-md border h-[20px] w-[20px] border-blue bg-white  object-cover "
-                        />
-
-                        <p className="font-montserrat font-medium text-[12px] text-black">
-                          0-1 Years
-                        </p>
-                      </div>
-                      <div className="flex items-center gap-2 self-stretch">
-                        <input
-                          type="checkbox"
-                          className="rounded-md border h-[20px] w-[20px] border-blue bg-white  object-cover"
-                        />
-
-                        <p className="font-montserrat font-medium text-[12px] text-black">
-                          1-2 Years
-                        </p>
-                      </div>
-                      <div className="flex items-center gap-2 self-stretch">
-                        <input
-                          type="checkbox"
-                          className="rounded-md border h-[20px] w-[20px] border-blue bg-white  object-cover"
-                        />
-
-                        <p className="font-montserrat font-medium text-[12px] text-black">
-                          2-5 Years
-                        </p>
-                      </div>
-                      <div className="flex items-center gap-2 self-stretch">
-                        <input
-                          type="checkbox"
-                          className="rounded-md border h-[20px] w-[20px] border-blue bg-white  object-cover"
-                        />
-
-                        <p className="font-montserrat font-medium text-[12px] text-black">
-                          5-7 Years
-                        </p>
-                      </div>
-                      <div className="flex items-center gap-2 self-stretch">
-                        <input
-                          type="checkbox"
-                          className="rounded-md border h-[20px] w-[20px] border-blue bg-white  object-cover"
-                        />
-
-                        <p className="font-montserrat font-medium text-[12px] text-black">
-                          7-10 Years
-                        </p>
-                      </div>
-                      <div className="flex items-center gap-2 self-stretch">
-                        <input
-                          type="checkbox"
-                          className="rounded-md border h-[20px] w-[20px] border-blue bg-white  object-cover"
-                        />
-
-                        <p className="font-montserrat font-medium text-[12px] text-black">
-                          10-15 Years
-                        </p>
-                      </div>
-                      <div className="flex items-center gap-2 self-stretch">
-                        <input
-                          type="checkbox"
-                          className="rounded-md border h-[20px] w-[20px] border-blue bg-white  object-cover"
-                        />
-
-                        <p className="font-montserrat font-medium text-[12px] text-black">
-                          15-* Years
-                        </p>
-                      </div>
-                    </div>
-                    <div className="border-b border-gray w-full h-[10px]"></div>
-
-                    {/* SCROLL  */}
-                    <div className="flex justify-center items-start font-montserrat font-medium text-[16px] text-black">
-                      <p className="font-montserrat font-medium text-[16px] text-black">
-                        By Education
-                      </p>
-                    </div>
-                    <div className="flex   items-start self-stretch gap-1 p-1 border border-text-secondary rounded-md bg-white">
-                      <div className="w-[24px] h-[24px]">
-                        <img src="/images/jobs/ser.png" alt="" />
-                      </div>
-                      <input
-                        type="text"
-                        placeholder="search"
-                        className="font-montserrat font-normal text-[14px] text-black "
-                      />
-                    </div>
-
-                    <div className="flex flex-col justify-center items-center gap-2 self-stretch">
-                      <div className="flex items-center gap-2 self-stretch">
-                        <input
-                          type="checkbox"
-                          className="rounded-md border h-[20px] w-[20px] border-blue bg-white  object-cover "
-                        />
-
-                        <p className="font-montserrat font-medium text-[12px] text-black">
-                          Bachelor Of Technology (B.Tech/B.E)
-                        </p>
-                      </div>
-                      <div className="flex items-center gap-2 self-stretch">
-                        <input
-                          type="checkbox"
-                          className="rounded-md border h-[20px] w-[20px] border-blue bg-white  object-cover"
-                        />
-
-                        <p className="font-montserrat font-medium text-[12px] text-black">
-                          Bachelor Of Computer Application (B.C.A)
-                        </p>
-                      </div>
-                      <div className="flex items-center gap-2 self-stretch">
-                        <input
-                          type="checkbox"
-                          className="rounded-md border h-[20px] w-[20px] border-blue bg-white  object-cover"
-                        />
-
-                        <p className="font-montserrat font-medium text-[12px] text-black">
-                          Bachelor of Design (B.Des.)
-                        </p>
-                      </div>
-                      <div className="flex items-center gap-2 self-stretch">
-                        <input
-                          type="checkbox"
-                          className="rounded-md border h-[20px] w-[20px] border-blue bg-white  object-cover"
-                        />
-
-                        <p className="font-montserrat font-medium text-[12px] text-black">
-                          Master of Science (MS/M.Sc)
-                        </p>
-                      </div>
-                      <div className="flex items-center gap-2 self-stretch">
-                        <input
-                          type="checkbox"
-                          className="rounded-md border h-[20px] w-[20px] border-blue bg-white  object-cover"
-                        />
-
-                        <p className="font-montserrat font-medium text-[12px] text-black">
-                          Masters in Technology (M.Tech/M.E)
-                        </p>
-                      </div>
-                      <div className="flex items-center gap-2 self-stretch">
-                        <input
-                          type="checkbox"
-                          className="rounded-md border h-[20px] w-[20px] border-blue bg-white  object-cover"
-                        />
-
-                        <p className="font-montserrat font-medium text-[12px] text-black">
-                          Bachelor of Arts (B.A)
-                        </p>
-                      </div>
-                      <div className="border-b border-gray w-full h-[10px]"></div>
-                    </div>
-                    <div className="flex justify-center items-start font-montserrat font-medium text-[16px] text-black">
-                      <p className="font-montserrat font-medium text-[16px] text-black">
-                        By Job type
-                      </p>
-                    </div>
-
-                    <div className="flex flex-col justify-center items-center gap-2 self-stretch">
-                      <div className="flex items-center gap-2 self-stretch">
-                        <input
-                          type="checkbox"
-                          className="rounded-md border h-[20px] w-[20px] border-blue bg-white  object-cover "
-                        />
-
-                        <p className="font-montserrat font-medium text-[12px] text-black">
-                          Full-time Jobs
-                        </p>
-                      </div>
-                      <div className="flex items-center gap-2 self-stretch">
-                        <input
-                          type="checkbox"
-                          className="rounded-md border h-[20px] w-[20px] border-blue bg-white  object-cover"
-                        />
-
-                        <p className="font-montserrat font-medium text-[12px] text-black">
-                          Contract Jobs
-                        </p>
-                      </div>
-                      <div className="flex items-center gap-2 self-stretch">
-                        <input
-                          type="checkbox"
-                          className="rounded-md border h-[20px] w-[20px] border-blue bg-white  object-cover"
-                        />
-
-                        <p className="font-montserrat font-medium text-[12px] text-black">
-                          Part-time Jobs
-                        </p>
-                      </div>
-                      <div className="flex items-center gap-2 self-stretch border-blue">
-                        <input
-                          type="checkbox"
-                          className="rounded-md  h-[20px] w-[20px] border-[1px] border-[#06A9EF] bg-white  object-cover"
-                        />
-
-                        <p className="font-montserrat font-medium text-[12px] text-black">
-                          Internships
-                        </p>
-                      </div>
-                    </div>
-                    <div className="border-b border-gray w-full h-[10px]"></div>
-                    <div className="flex justify-center items-start font-montserrat font-medium text-[16px] text-black">
-                      <p className="font-montserrat font-medium text-[16px] text-black">
-                        By Job mode
-                      </p>
-                    </div>
-
-                    <div className="flex flex-col justify-center items-center gap-2 self-stretch">
-                      <div className="flex items-center gap-2 self-stretch">
-                        <input
-                          type="checkbox"
-                          className="rounded-md border h-[20px] w-[20px] border-blue bg-white  object-cover "
-                        />
-
-                        <p className="font-montserrat font-medium text-[12px] text-black">
-                          On-site
-                        </p>
-                      </div>
-                      <div className="flex items-center gap-2 self-stretch">
-                        <input
-                          type="checkbox"
-                          className="rounded-md border h-[20px] w-[20px] border-blue bg-white  object-cover"
-                        />
-
-                        <p className="font-montserrat font-medium text-[12px] text-black">
-                          Remote
-                        </p>
-                      </div>
-                      <div className="flex items-center gap-2 self-stretch">
-                        <input
-                          type="checkbox"
-                          className="rounded-md border h-[20px] w-[20px] border-blue bg-white  object-cover"
-                        />
-
-                        <p className="font-montserrat font-medium text-[12px] text-black">
-                          Hybrid
-                        </p>
-                      </div>
-                      <div className="flex items-center gap-2 self-stretch border-blue">
-                        <input
-                          type="checkbox"
-                          className="rounded-md border h-[20px] w-[20px] border-blue bg-white  object-cover"
-                        />
-
-                        <p className="font-montserrat font-medium text-[12px] text-black">
-                          International
-                        </p>
-                      </div>
-                      <div className="flex items-center gap-2 self-stretch border-blue">
-                        <input
-                          type="checkbox"
-                          className="rounded-md border h-[20px] w-[20px] border-blue bg-white  object-cover"
-                        />
-
-                        <p className="font-montserrat font-medium text-[12px] text-black">
-                          Work From Home
-                        </p>
-                      </div>
-                      <div className="flex items-center gap-2 self-stretch border-blue">
-                        <input
-                          type="checkbox"
-                          className="rounded-md border h-[20px] w-[20px] border-blue bg-white  object-cover"
-                        />
-
-                        <p className="font-montserrat font-medium text-[12px] text-black">
-                          Jobs for Women
-                        </p>
-                      </div>
-                    </div>
-                    <div className="border-b border-gray w-full h-[10px]"></div>
-                    <div className="flex justify-center items-start font-montserrat font-medium text-[16px] text-black">
-                      <p className="font-montserrat font-medium text-[16px] text-black">
-                        By Date posted
-                      </p>
-                    </div>
-
-                    <div className="flex flex-col justify-center items-center gap-2 self-stretch">
-                      <div className="flex items-center gap-2 self-stretch">
-                        <input
-                          type="checkbox"
-                          className="rounded-md border h-[20px] w-[20px] border-blue bg-white  object-cover "
-                        />
-
-                        <p className="font-montserrat font-medium text-[12px] text-black">
-                          Anytime
-                        </p>
-                      </div>
-                      <div className="flex items-center gap-2 self-stretch">
-                        <input
-                          type="checkbox"
-                          className="rounded-md border h-[20px] w-[20px] border-blue bg-white  object-cover"
-                        />
-
-                        <p className="font-montserrat font-medium text-[12px] text-black">
-                          Past month
-                        </p>
-                      </div>
-                      <div className="flex items-center gap-2 self-stretch">
-                        <input
-                          type="checkbox"
-                          className="rounded-md border h-[20px] w-[20px] border-blue bg-white  object-cover"
-                        />
-
-                        <p className="font-montserrat font-medium text-[12px] text-black">
-                          Past week
-                        </p>
-                      </div>
-                      <div className="flex items-center gap-2 self-stretch border-blue">
-                        <input
-                          type="checkbox"
-                          className="rounded-md  h-[20px] w-[20px] border-[1px] border-[#06A9EF] bg-white  object-cover"
-                        />
-
-                        <p className="font-montserrat font-medium text-[12px] text-black">
-                          Past 24 hrs
-                        </p>
-                      </div>
-                    </div>
-                    <div className="border-b border-gray w-full h-[10px]"></div>
-                  </div>
-                </div>
-              </div>
+              < div className="web col-span-3">
+             <Filter/>
+             </div>
             ) : (
               // <div className="flex flex-col col-span-2 rounded-md bg-white shadow-md py-6 px-4 mt-6 items-start gap-4 h-fit ">
               //   <div className="flex flex-col items-center gap-[8px]">
@@ -1025,19 +500,19 @@ function Jobs() {
                   {!isDescription &&
 
                     <div onClick={() => setIsDescription(true)} className=" mobile col-span-12 mt-6">
-                      <AllJobs  selectedJob={selectedJob} setIsDescription={setIsDescription} setSelectedJob={setSelectedJob} savedJobList={savedJobList} setSavedJobList={setSavedJobList} />
+                      <AllJobs selectedJob={selectedJob} setIsDescription={setIsDescription} setSelectedJob={setSelectedJob} savedJobList={savedJobList} setSavedJobList={setSavedJobList} />
                     </div>
                   }
 
-                  <div className=" web col-span-5 mt-6">
+                  <div className= {`web mt-6 ${filter ? "col-span-4" : "col-span-5"}`}>
                     <AllJobs selectedJob={selectedJob} setIsDescription={setIsDescription} setSelectedJob={setSelectedJob} savedJobList={savedJobList} setSavedJobList={setSavedJobList} />
                   </div>
                   {/* LAST SECTION   */}
 
                   {isDescription &&
 
-                    <div className={`mobile col-span-12 mt-6 flex flex-col gap-3`}>
-                      <div onClick={()=>setIsDescription(false)} className="flex gap-3">
+                    <div className={`mobile col-span-12  flex flex-col gap-3`}>
+                      <div onClick={() => setIsDescription(false)} className="flex gap-3">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
 
                           <g mask="url(#mask0_5925_96419)">
@@ -1046,7 +521,7 @@ function Jobs() {
                         </svg>
                         Back
                       </div >
-                    
+
                       <Description selectedJob={selectedJob} />
                     </div>
                   }
@@ -1059,7 +534,7 @@ function Jobs() {
               )}
 
             {toggleHeadings === 3 && (
-              <div className="col-span-12">
+              <div className={` ${filter ? "col-span-10" : "col-span-12"}`}>
                 <AppliedJobs />
               </div>
             )}
@@ -1068,7 +543,7 @@ function Jobs() {
               <div className="col-span-12">
                 <SavedJobs />
               </div>
-              
+
             )}
           </div>
         </div>
