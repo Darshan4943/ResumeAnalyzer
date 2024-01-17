@@ -43,21 +43,23 @@ function AfterLoginHome() {
   return (
     <div className="bg-[#F9F9F9] ">
       {userData && (
-        <div className=" relative bg-[#F9F9F9]  ">
+        <div className=" relative bg-[#E0F6FF]  ">
           <div className="  ">
             <div className={`customMargins py-5 flex flex-row gap-4 ${isViewportBelow850 ? "justify-center" : "justify-between"} items-center `}>
             <div className={`justify-center items-center ${isViewportBelow550 ? "w-[100%]" : (isViewportBelow850 ? "w-[50%]" : "w-[29%]")}`}>
                 <div className="flex flex-row gap-[16px] py-[8px] items-center">
                   <div className="flex w-[40%] h-[110px] items-center justify-center">
+                    <div  className="max-w-[107px] max-h-[107px] w-[100vw] h-[100vh] rounded-full object-cover border ">
                     <img
-                      className="max-w-[105px] max-h-[105px] w-[100vw] h-[100vh] rounded-full object-cover"
+                      className="max-w-[105px] max-h-[105px] w-[100vw] h-[100vh] rounded-full object-cover p-1"
                       src={
                         userData?.profilePicture?.img ||
-                        "/images/profile/john_doe.png"
+                        "/images/profile/profileNew.png"
                       }
                       alt=""
                       onClick={() => setIsChangeProfile(true)}
                     />
+                  </div>
                   </div>
                   {changeprofile && (
                     <>
@@ -265,7 +267,7 @@ function AfterLoginHome() {
           <div className="grid grid-cols-5 gap-[24px] pb-[49px]">
             <div class={` ${isViewportBelow850 ? "col-span-5" : "col-span-4"}`}>
               {jobData && <Job_card jobData={jobData.slice(0, 5)} />}
-              {/* 
+              
                <div
                 className={`flex  p-[16px]  mt-[24px] justify-between w-[100%] rounded-[12px] bg-cover bg-center ${isViewportBelow550 && " flex justify-center items-center flex-col-reverse gap-4"}  `}
                 style={{
@@ -300,7 +302,7 @@ function AfterLoginHome() {
                 </div>
               </div>
 
-              <Job_card />
+              {jobData && <Job_card jobData={jobData} />}
 
                <div
                 className={`flex  p-[16px]  mt-[24px] justify-between w-[100%] rounded-[12px] bg-cover bg-center ${isViewportBelow550 && " flex justify-center items-center flex-col-reverse gap-4"}  `}
@@ -310,13 +312,13 @@ function AfterLoginHome() {
                 }}
               >
                 <div className="flex w-[100%]">
-                  <div className={`flex flex-col items-start ${isViewportBelow550 && "  w-[100%] "}  gap-[24px] align-self-stretch`}>
+                  <div className={`flex flex-col items-start justify-between ${isViewportBelow550 && "  w-[100%] "}  gap-[24px] align-self-stretch`}>
                     <p className={`text-[#fff]  ${isViewportBelow550 ? "w-[100%]" : "w-[60%]"} text-[18px] font-[500]  leading-[28px]`}>
                     Elevate your day with our Daily Quiz. Quick, fun, and your
                       daily dose of brainpower boost!
                     </p>
                     <ALink href={"/candidate/afterLogin/services/servicesSub/DailyQuize"}>
-                      <button className=" flex py-[8px] px-[16px] justify-center items-center gap-[4px] rounded-[8px] border border-solid border-[#fff] text-[16px] text-[#fff] font-[500]  ">
+                      <button className=" flex py-[8px] px-[16px] justify-center items-center gap-[4px] rounded-[8px] border border-solid border-black text-[16px] text-black font-[500]  ">
                         Get Started
                         <img
                         className="w-[20px]"
@@ -338,7 +340,7 @@ function AfterLoginHome() {
 
 
 
-              <Job_card /> */}
+              {jobData && <Job_card jobData={jobData.slice(0, 5)} />}
              
             
 

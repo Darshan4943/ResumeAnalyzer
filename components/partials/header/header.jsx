@@ -200,7 +200,7 @@ function Header({ userData }) {
                         className=" rounded-full object-cover h-[40px] w-[40px]"
                         src={
                           userDataGlobal?.profilePicture?.img ||
-                          "/images/profile/john_doe.png"
+                          "/images/profile/profileNew.png"
                         }
                       />
                     ) : (
