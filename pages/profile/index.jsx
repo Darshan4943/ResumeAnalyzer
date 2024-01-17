@@ -132,11 +132,11 @@ function Profile() {
                 </div>
                 <div className="flex flex-col gap-[10px] w-[50%] items-center justify-center build_ai_block">
                 <ALink href={"/candidate/create_resume"}>
-                    <button className="build_ai_button">
+                    <button className="build_ai_button p-[10px] text-[10px] ms:px-[23px] ms:py-[12px]">
                       Create New Resume
                     </button>
                   </ALink>
-                  <button className="build_ai_button">
+                  <button className="build_ai_button p-[10px] text-[10px] ms:px-[23px] ms:py-[12px]">
                       Download Resume
                     </button>
                 </div>
