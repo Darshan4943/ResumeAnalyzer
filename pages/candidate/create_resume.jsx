@@ -4,12 +4,13 @@ import ResumeForm from "../../components/featured/candidate/createResume/resume_
 import ResumePreview from "../../components/featured/candidate/createResume/resume_preview";
 import { useSelector } from "react-redux";
 import { AnimatePresence, motion } from "framer-motion";
+import { useRouter } from "next/router";
 
 
 function CreateResume() {
   const userDataGlobal = useSelector((state) => state.userData);
   const taskRef = useRef(null);
-
+  const router = useRouter();
   const handleOutsideClick = (event) => {
     if (taskRef.current && !taskRef.current.contains(event.target)) {
       isSetEdit(false);
@@ -125,7 +126,9 @@ function CreateResume() {
               boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)",
             }}
           >
+            <div onClick={()=>router.push("/candidate/afterLogin/services/services")}>
             <LeftArow />
+            </div>
             <div className="flex flex-col gap-1">
               <p className=" ml:text-[24px] text-[18px] font-medium">Resume Builder</p>
               <p className="ml:text-[14px]  text-[12px] font-normal">
