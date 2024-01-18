@@ -3,7 +3,7 @@ function Job_card({ jobData }) {
   return (
     <>
       <div
-        className="flex bg-[#D6E8FE] rounded-[12px] py-[24px] items-center mt-[24px] px-8"
+        className="flex bg-[#D6E8FE] rounded-[12px] py-[24px] items-center mt-[24px] ml:px-8 px-2 overflow-y-scroll"
         style={{ boxShadow: "0px 2px 4px 0px rgba(0, 0, 0, 0.25)" }}
       >
         {/* <img
@@ -22,7 +22,7 @@ function Job_card({ jobData }) {
               {/* <p className="font-[600] text-[16px] text-[#646464]">See all </p> */}
             </div>{" "}
           </div>
-          <div className="flex items-start gap-[16px] overflow-y-scroll w-[100%]  ">
+          <div className="flex items-start gap-[16px]  w-[100%]  ">
             {jobData?.map((item) => (
               <div className="flex p-[16px] flex-col items-start gap-[8px] rounded-[16px] bg-[#fff] h-[160px]">
                 <div className="flex justify-end  items-start w-[16.43rem]">

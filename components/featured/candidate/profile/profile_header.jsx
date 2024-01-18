@@ -20,9 +20,9 @@ const ProfileHeader = ({ userData }) => {
         <div className="customMargins">
           <div class="grid grid-cols-1 ">
             <div class="flex flex-row w-full pt-[8px] pb-[18px] md:px-[16px] px-[8px] items-start gap-5 rounded-lg bg-white shadow-md">
-              <div className="max-w-[120px] max-h-[120px] w-[100vw] h-[100vh] rounded-full object-cover border ">
+              <div className="max-w-[120px] max-h-[120px] w-[100vw] h-[100vh] rounded-full  object-fit border flex items-start ">
                 <img
-                  className="max-w-[119px] max-h-[119px] w-[100vw] h-[100vh] rounded-full object-cover p-1"
+                  className="max-w-[119px] max-h-[119px] w-[100vw] h-[100vh] rounded-full  p-1"
                   onClick={() => setIsChangeProfile(true)}
                   src={
                     userData?.profilePicture?.img

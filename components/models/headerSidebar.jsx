@@ -66,7 +66,7 @@ function HeaderSidebar({ selectedPage, setIsSidebar, setIsLogin, isLogin }) {
                 </div>
                 :
                 <div className='flex flex-col' style={{ listStyle: 'none' }}>
-                    <div onClick={() => router.push("/profile")} className='flex gap-4 p-4 '>
+                    <div onClick={() => router.push("/profile")} className='flex gap-4 p-4 items-center '>
                         <img
                             className="max-w-[44px] max-h-[44px] w-[100vw] h-[100vh] rounded-full object-cover p-1"
 
