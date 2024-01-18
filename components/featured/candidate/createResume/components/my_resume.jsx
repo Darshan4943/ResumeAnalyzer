@@ -102,9 +102,9 @@ const ResumeList = ({ data, setData }) => {
               Remove
             </button>
             <button
-              disabled={file == data.profilePhoto}
+              disabled={file == data?.profilePhoto}
               className={` font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px]  bg-[#06A9EF] w-[60px] h-[32px] ${
-                file == data.profilePhoto ? "opacity-50" : "opacity-100"
+                file == data?.profilePhoto ? "opacity-50" : "opacity-100"
               }`}
               onClick={() => {
                 setData({ ...data, profilePhoto: file });

@@ -100,7 +100,7 @@ const Languages = ({ setData, data }) => {
                   </g>
                 </svg>
               </div>
-              <div className="flex border w-[50%] border-[#DEDEDE] px-4 py-2 rounded-[8px] gap-4">
+              <div className="flex border ml:w-[60%] w-[70%] flex-wrap border-[#DEDEDE] px-2 py-2 rounded-[8px] items-center justify-between">
                 {renderStarsLanguages(index)}
                 <p>
                   {languages.rating[2] !== 0

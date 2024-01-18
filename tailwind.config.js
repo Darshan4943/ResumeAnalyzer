@@ -12,8 +12,10 @@ module.exports = {
   theme: {
     screens: {
       xxsm:"320px",
+      scr340:"340px",
       xsm: "360px",
       scr360: "360px",
+      scr390:"390px",
       scr420: "420px",
       sm: "480px",
       scr540: "540px",
@@ -23,6 +25,7 @@ module.exports = {
       md: "768px",
       scr820: "820px",
       ml: "851px",
+      scr900:"900px",
       lg: "976px",
       scr1024: "1024px",
       xxlg: "1128px",

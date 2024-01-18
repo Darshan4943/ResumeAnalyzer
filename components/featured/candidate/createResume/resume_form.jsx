@@ -14,7 +14,7 @@ import Languages from "./components/languages";
 const ResumeForm = ({ setData, data }) => {
   return (
     <>
-      <div className="flex flex-col w-[49%] px-2 pb-4 gap-4 rounded-lg overflow-y-auto ">
+      <div className="flex flex-col ml:w-[49%] w-[100%] px-2 pb-4 gap-4 rounded-lg overflow-y-auto ">
         <ResumeList setData={setData} data={data} />
         <PersonalDetails setData={setData} data={data} />
         <AboutMe setData={setData} data={data} />

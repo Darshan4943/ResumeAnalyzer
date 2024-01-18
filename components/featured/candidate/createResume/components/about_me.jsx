@@ -107,8 +107,8 @@ const AboutMe = ({ data, setData }) => {
           <button
             className=" flex gap-1 items-center font-montserrat text-xs font-semibold btn_outline"
             onClick={generateText}
-            style={{ opacity: text == data.summery ? 0.5 : 1 }}
-            disabled={text == data.summery || !isChecked}
+            style={{ opacity: text == data?.summery ? 0.5 : 1 }}
+            disabled={text == data?.summery || !isChecked}
           >
             <SparklingStarts />
             Generate with AI
@@ -116,8 +116,8 @@ const AboutMe = ({ data, setData }) => {
           <button
             className=" font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px]  bg-[#06A9EF] w-[60px] h-[32px]"
             onClick={() => setData({ ...data, summery: text })}
-            style={{ opacity: text == data.summery ? 0.5 : 1 }}
-            disabled={text == data.summery || !isChecked}
+            style={{ opacity: text == data?.summery ? 0.5 : 1 }}
+            disabled={text == data?.summery || !isChecked}
           >
             Save
           </button>
