@@ -95,10 +95,6 @@ const ResumePreview = ({ data, isSetEdit }) => {
 
 
 
-
-
-
-
   return (
     <>
       <div

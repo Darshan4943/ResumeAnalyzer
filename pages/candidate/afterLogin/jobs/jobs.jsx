@@ -372,7 +372,7 @@ function Jobs() {
             </div>
           </div>
         }
-        {toggleHeadings === 2 &&
+        {/* {toggleHeadings === 2 &&
           <div style={{ backgroundColor: "#f9f9f9" }}>
             <div className=" customMargins  ">
               <div className="inline-flex pt-6 justify-center items-center gap-2">
@@ -387,7 +387,7 @@ function Jobs() {
               </div>
             </div>
           </div>
-        }
+        } */}
       </div>
 
       <div className="bg-[#F9F9F9]  ">
