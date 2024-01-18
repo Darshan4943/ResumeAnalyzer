@@ -4,7 +4,7 @@ import {motion} from 'framer-motion'
 function TrustedBySection() {
   return (
     <div className="trust_section_parent  w-screen">
-      <div className="trust_section my-[36px]">
+      <div className="trust_section mb-[36px]">
         <p id="trust">Trusted by...</p>
         <motion.div 
         initial={{translateX:'100%'}}

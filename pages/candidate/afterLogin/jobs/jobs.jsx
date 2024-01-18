@@ -398,15 +398,28 @@ function Jobs() {
             <div className=" mobile600 col-span-12 ">
               <ApplicationStatus />
             </div>
+
             {filter ? (
-              < div className={`web ${isViewportBelow1024 ? "col-span-4" : "col-span-3"} mt-6`}>
-                <Filter />
-              </div>
-            ) : (
-              <div className={`${isViewportBelow1024 ? "col-span-4" : "col-span-3"} web600 ml:mt-4`}>
-                <ApplicationStatus />
-              </div>
-            )}
+              <AnimatePresence>
+                <motion.div
+                  initial={{ x: '-100%' }}
+                  animate={{ x: 0 }}
+                  exit={{ x: '-100%' }}
+                  transition={{ duration: 0.5 }}
+                  ref={taskRef}
+                  className={`web ${isViewportBelow1024 ? "col-span-4" : "col-span-3"} mt-4`}
+                >
+                
+                    <Filter />
+                 
+                </motion.div>
+              </AnimatePresence>
+            )
+              : (
+                <div className={`${isViewportBelow1024 ? "col-span-4" : "col-span-3"} web600 ml:mt-4`}>
+                  <ApplicationStatus />
+                </div>
+              )}
 
             <AnimatePresence>
               {mobileFilter && (

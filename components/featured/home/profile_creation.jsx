@@ -26,7 +26,7 @@ function Profile_creation() {
 
 
   const handleScroll = () => {
-    if (window.scrollY >= 2300 && !isAnimate) {
+    if (window.scrollY >= 3700 && !isAnimate) {
       setIsAnimate(true);
       setIsAnimation(true);
       window.removeEventListener("scroll", handleScroll);
@@ -45,7 +45,7 @@ function Profile_creation() {
     if (isAnimate) {
       setIsVisible(true);
       containerAnimation.start({
-        y: (window.scrollY - 2300) * 1,
+        y: (window.scrollY - 3700) * 1,
         transition: { duration: 2.5 },
       });
     }
@@ -54,10 +54,10 @@ function Profile_creation() {
   useEffect(() => {
     const handleScroll = () => {
       const value = window.scrollY;
-      if (value >= 3000) {
+      if (value >= 4000) {
         if (containerOneRef.current && containerTwoRef.current) {
-          containerOneRef.current.style.left = (value - 3000) * -1.6 + "px";
-          containerTwoRef.current.style.left = (value - 3000) * 2.2 + "px";
+          containerOneRef.current.style.left = (value - 4000) * -1.6 + "px";
+          containerTwoRef.current.style.left = (value - 4000) * 2.2 + "px";
         }
       } else {
         if (containerOneRef.current && containerTwoRef.current) {
@@ -65,7 +65,7 @@ function Profile_creation() {
           containerTwoRef.current.style.left = "0px";
         }
       }
-      if (value >= 2900) {
+      if (value >= 5000) {
         if (containerOneRef.current && containerTwoRef.current) {
           containerOneRef.current.style.zIndex = 100;
           containerTwoRef.current.style.zIndex = 100;

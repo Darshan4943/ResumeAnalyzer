@@ -38,6 +38,7 @@
 
 //   return (
 //     <div>
+//         {typeof document !== 'undefined' &&
 //       <ReactQuill
 //         theme="snow"
 //         value={editorHtml}
@@ -48,6 +49,7 @@
        
 //         style={{ height: "155px" }}
 //       />
+//   }
 //     </div>
 //   );
 // };

@@ -64,7 +64,7 @@ function Testimonial() {
     return () => clearInterval(intervalId);
   }, []);
   return (
-    <div className="h-[36rem">
+    <div className="">
       <div
         className="testimonial_container customMargins"
         style={{ overflow: "hidden" }}
