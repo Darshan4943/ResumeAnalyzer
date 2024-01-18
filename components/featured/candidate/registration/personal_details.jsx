@@ -6,7 +6,7 @@ import { Visibility_off, Visibility_on, visibility_off } from "@/utils/svg";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/bootstrap.css";
 import ImageContainer from "@/components/common/image";
-import { telCode } from "@/utils/data";
+  import { telCode } from "@/utils/data";
 import { useRouter } from "next/navigation";
 import { useMediaQuery } from "@react-hook/media-query";
 const AnimationDivs = () => (

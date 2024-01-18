@@ -185,7 +185,7 @@ function Header({ userData }) {
             </div>
           ) : (
             <div className="header_right_login">
-              <Link href="">
+              <Link href="/notifications">
                 <img
                   src="/images/notifications.png"
                   className="header_notification"
