@@ -23,7 +23,7 @@ function GenerateAi() {
                     />
                     <div className='w-full flex justify-end items-center gap-3'>
                         <button className=' flex gap-2 sm:px-3 px-[5px] py-2 border items-center border-[#06A9EF] rounded-[8px] min-w-[155px] sm:min-w-[170px]'>
-                            <img src="/images/home/robot.png " alt="" className='max-h-[22px] w-[22%]' />
+                            <img src="/images/home/robot.png " alt="" className='max-h-[22px] w-[22px]' />
                             <p className=" text-[12px]  ">
                                 Generate with AI
                             </p>
@@ -45,7 +45,7 @@ function GenerateAi() {
                     <div className='flex flex-col justify-center items-center gap-2 w-[90%]'>
                         <p className='text-[14px] font-semibold'>Type something about yourself & Click on</p>
                         <button className=' w-[60%] flex gap-2 sm:px-3 px-[5px] py-2 border items-center border-[#06A9EF] bg-white rounded-[8px] min-w-[155px] sm:min-w-[170px]'>
-                            <img src="/images/home/robot.png " alt="" className='max-h-[22px] w-[22%]' />
+                            <img src="/images/home/robot.png " alt="" className='max-h-[22px] w-[22px]' />
                             <p className=" text-[12px] text-center ">
                                 Generate with AI
                             </p>
@@ -67,7 +67,7 @@ function GenerateAi() {
 
                         <div className='w-full flex justify-end items-center gap-3'>
                             <button className=' flex gap-2 sm:px-3 px-[5px] py-2 border items-center border-[#06A9EF] rounded-[8px] min-w-[155px] sm:min-w-[170px]'>
-                                <img src="/images/home/robot.png " alt="" className='max-h-[22px] w-[22%]' />
+                                <img src="/images/home/robot.png " alt="" className='max-h-[22px] w-[22px]' />
                                 <p className=" text-[12px]  ">
                                     Generate with AI
                                 </p>

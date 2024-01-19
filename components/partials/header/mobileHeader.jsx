@@ -110,21 +110,25 @@ function MobileHeader() {
             </div>
             <AnimatePresence>
                 {isSidebar && (
+                    <>
 
-                    <motion.div
-                        initial={{ x: '-100%' }}
-                        animate={{ x: 0 }}
-                        exit={{ x: '-100%' }}
-                        transition={{ duration: 0.5 }}
-                        ref={taskRef}
-                        className="absolute z-[2000] w-full mt-[-4rem]" style={{ background: 'rgba(255, 255, 255, 0.50)', backdropFilter: 'blur(10px)' }}
-                    >
+                        <motion.div
+                            initial={{ x: '-100%' }}
+                            animate={{ x: 0 }}
+                            exit={{ x: '-100%' }}
+                            transition={{ duration: 0.5 }}
+                            ref={taskRef}
+                            className="absolute z-[2000] w-full mt-[-4rem] bg-white"
+                            style={{
+                                background: 'rgba(255, 255, 255, 0.50)',
+                                backdropFilter: 'blur(10px)',
+                                willChange: 'transform', 
+                            }}
+                        >
+                            <HeaderSidebar selectedPage={selectedPage} setIsSidebar={setIsSidebar} setIsLogin={setIsLogin} isLogin={isLogin} />
+                        </motion.div>
 
-
-                        <HeaderSidebar selectedPage={selectedPage} setIsSidebar={setIsSidebar} setIsLogin={setIsLogin} isLogin={isLogin} />
-
-                    </motion.div>
-
+                    </>
                 )}
 
             </AnimatePresence>
