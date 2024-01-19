@@ -68,7 +68,7 @@ function MobileHeader() {
                     <div onClick={() => setIsSidebar(true)}>
                         <img src="/images/home/menu.png" alt="" className="w-[30px] h-[30px] object-contain" />
                     </div>
-                    <div>
+                    <div onClick={() => router.push("/candidate/afterLogin/home/candidateHome")}>
                         <img src="/images/logo_skilotech.png" alt="" className="w-[123px] h-[40px] object-contain" />
 
                     </div>

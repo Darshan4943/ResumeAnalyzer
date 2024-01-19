@@ -315,7 +315,7 @@ function SkillAssessment() {
                       height="30"
                       viewBox="0 0 40 40"
                       fill="none"
-                      className="scr820:w-[40px] scr820:w-[40px]"
+                      className=" scr820:w-[40px]"
                     >
                       <g mask="url(#mask0_4403_58326)">
                         <path
