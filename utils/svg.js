@@ -40,9 +40,10 @@ export const Visibility_on = ({ className }) => (
 export const LeftArow = () => (
   <>
     <svg
+    className="sm-w-[40px] sm-h-[40px] w-[30px] h-[30px]"
       xmlns="http://www.w3.org/2000/svg"
-      width="40"
-      height="40"
+      // width="40"
+      // height="40"
       viewBox="0 0 40 40"
       fill="none"
     >

@@ -140,7 +140,7 @@ const ResumePreview = ({ data, isSetEdit }) => {
         </div>
         <div  className="mobile">
        
-          <div className="flex gap-[16px] justify-between">
+          <div className="flex gap-2 scr420:gap-[16px] justify-between">
             <button
               onClick={pdfConverter}
               className="flex gap-1 text-[12px] h-[38px] w-[90px] justify-center  text-[#FFF] font-montserrat font-semibold px-3 py-[2px] rounded-[8px] items-center border border-[#06A9EF] bg-[#06A9EF]"
