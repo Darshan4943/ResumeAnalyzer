@@ -130,7 +130,7 @@ function CreateResume() {
             <LeftArow />
             </div>
             <div className="flex flex-col gap-1">
-              <p className=" ml:text-[24px] text-[18px] font-medium">Resume Builder</p>
+              <p className=" ml:text-[24px] sm:text-[18px] text-[15px] font-medium">Resume Builder</p>
               <p className="ml:text-[14px]  text-[12px] font-normal">
                 Quickly create your own resume. Creating resume here won’t
                 change your Skilotech profile.
