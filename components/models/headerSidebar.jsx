@@ -33,10 +33,11 @@ function HeaderSidebar({ selectedPage, setIsSidebar, setIsLogin, isLogin }) {
     };
 
     return (
-        <div className=' h-[1000px] flex flex-col  pt-[3.5rem]  relative ' >
-            <div className='flex justify-between px-4 mt-3 py-2'>
+        <div className=' h-[3000px] flex flex-col  pt-[3.5rem] relative ' >
+            <div className='sticky top-0'>
+            <div className='flex justify-between px-4 mt-3 py-2 '>
                 <img src="/images/logo_skilotech.png" alt="" className="w-[123px] h-[40px] object-contain" />
-                <div className='' onClick={() => setIsSidebar(false)}>
+                <div className='' onClick={() =>{ setIsSidebar(false), window.scroll(0, 0)}}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" fill="none">
 
                         <g mask="url(#mask0_5925_108792)">
@@ -101,6 +102,7 @@ function HeaderSidebar({ selectedPage, setIsSidebar, setIsLogin, isLogin }) {
                     </div>
                 </div>
             }
+            </div>
         </div>
     );
 }
