@@ -40,6 +40,7 @@ module.exports = {
       xl: "1440px",
     },
     colors: {
+      red:"#C00000",
       white: "#fff",
       blue: "#06A9EF",
       "blue-50": "#ebfaff",

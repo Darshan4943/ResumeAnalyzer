@@ -295,7 +295,7 @@ function CandidateHero() {
           </button>
         </div>
       </div> */}
-      <div className="w-full min-h-[100px] xxlg:h-[460px]  xlg:h-[300px] ml:h-[390px]  bg-cover bg-no-repeat  bg-vector ">
+      <div className="w-full min-h-[100px] xxlg:h-[460px]  xlg:h-[300px] ml:h-[390px] ms:py-0 xxsm:py-4 bg-cover bg-no-repeat  bg-vector ">
         <div className="customMargins relative">
           <div className="flex flex-row justify-between gap-4">
             <div className="mr-0 p-0">
@@ -351,7 +351,7 @@ function CandidateHero() {
                       />
 
                       {jobSuggestions.length > 0 && (
-                        <div ref={taskRef}     onWheel={(e) => e.stopPropagation()} className="absolute bg-[#FFF] w-[295px] h-[216px] top-20 left-10 rounded-t-[8px] overflow-y-auto p-2 z-[20000]" style={{ boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)" }}>
+                        <div ref={taskRef} onWheel={(e) => e.stopPropagation()} className="absolute bg-[#FFF] w-[295px] h-[216px] top-20 left-10 rounded-t-[8px] overflow-y-auto p-2 z-[20000]" style={{ boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)" }}>
                           {jobSuggestions.map((job) => (
                             <div key={job.id} className="" onClick={() => handleJobSelect(job)}>
                               <p className="flex flex-col p-2 text-[#333] text-[16px] font-normal cursor-pointer">{job}</p>
@@ -399,7 +399,7 @@ function CandidateHero() {
 
                     {locationSuggestions.length > 0 && (
                       <div
-                        ref={taskRef}     onWheel={(e) => e.stopPropagation()}
+                        ref={taskRef} onWheel={(e) => e.stopPropagation()}
                         className="  absolute bg-[#FFF] w-[295px] h-[216px]   top-14 rounded-t-[8px] overflow-y-auto p-2"
                         style={{ boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)" }}
                       >
@@ -417,7 +417,7 @@ function CandidateHero() {
                       </div>
                     )}
                   </div>
-                  <button  onClick={() => router.push("/candidate/afterLogin/jobs/dummyJobCards")} className="flex items-center justify-center py-4 px-12  bg-blue text-white rounded-[12px] max-scr1200:px-8 max-scr1100:px-6">
+                  <button onClick={() => router.push("/candidate/afterLogin/jobs/dummyJobCards")} className="flex items-center justify-center py-4 px-12  bg-blue text-white rounded-[12px] max-scr1200:px-8 max-scr1100:px-6">
                     Search
                   </button>
                 </div>
@@ -425,8 +425,8 @@ function CandidateHero() {
             </div>
 
             <img
-              className="h-[182px] w-[185px] xxlg:h-[460px] xxlg:w-[480px]  xlg:w-[320px] xlg:h-[300px] ml:h-[390px] ml:w-[390px]  absolute right-0 "
-              src={`/images/candidate/candidate_hero_img_${isInSouthAfrica ? 2 : 1
+              className="h-[184px] w-[185px] xxlg:h-[460px] xxlg:w-[480px]  xlg:w-[320px] xlg:h-[300px] ml:h-[390px] ml:w-[390px]  absolute right-0 "
+              src={`/images/candidate/candidate_hero_img_${isInSouthAfrica ? 2 : 2
                 }.png`}
               alt=""
             />

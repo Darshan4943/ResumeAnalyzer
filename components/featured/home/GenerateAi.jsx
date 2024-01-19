@@ -81,16 +81,15 @@ function GenerateAi() {
 
     return (
 
-        <div className=' bg-cover bg-no-repeat bg_generateAi py-[78px] my-[36px]  w-screen '>
+        <div className=' bg-cover bg-no-repeat bg_generateAi py-[78px] my-[36px]  w-screen  '>
             <div className='ml:w-[90%]  md:w-[60%] ms:w-[70%] sm:w-[80%] w-[97%] flex ml:flex-row flex-col items-center gap-6 customMargins sm:px-4 xsm:px-2 px-1 rounded-[16px] py-6 ' style={{ boxShadow: "0px 4px 14px 0px rgba(0, 0, 0, 0.25)", background: "rgba(255, 255, 255, 0.25)" }} >
                 <div
                     className=" ml:w-[37%] w-[95%] relative flex flex-col gap-2 rounded-[16px] p-4 bg-white "
                     style={{ boxShadow: "0px 0px 26.499px 0px rgba(0, 0, 0, 0.25)" }}
                 >
                     <div className="w-full font-medium"> About Me</div>
-                    <div className=" w-full text-[14px] min-h-[200px] p-2 font-montserrat font-small h-full border border-[#06A9EF] rounded-[8px] outline-none ">
+                    <div className=" w-full text-[14px] min-h-[250px] max-h-[250px] overflow-hidden p-2 font-montserrat font-small h-full border border-[#06A9EF] rounded-[8px] outline-none ">
                         <div className=" w-[100%]">
-
                             {animationText}
                         </div>
 
@@ -107,7 +106,7 @@ function GenerateAi() {
                             />
                             <p className=" text-[12px]  ">Generate with AI</p>
                         </button>
-                        <button className="py-2 px-4 text-[12px]  bg-[#06A9EF] rounded-[8px] text-white ">
+                        <button className="py-2 px-4 text-[12px]  bg-[#06A9EF] rounded-[8px] text-white cursor-not-allowed">
                             Save
                         </button>
                     </div>
@@ -128,7 +127,7 @@ function GenerateAi() {
                     </div>
                     <div className='flex flex-col justify-center items-center gap-2 w-[90%]'>
                         <p className='text-[14px] font-semibold'>Type something about yourself & Click on</p>
-                        <button className=' w-[60%] flex gap-2 sm:px-3 px-[5px] py-2 border items-center border-[#06A9EF] bg-white rounded-[8px] min-w-[155px] sm:min-w-[170px]'>
+                        <button className=' cursor-not-allowed w-[60%] flex gap-2 sm:px-3 px-[5px] py-2 border items-center border-[#06A9EF] bg-white rounded-[8px] min-w-[155px] sm:min-w-[170px]'>
                             <img src="/images/home/robot.png " alt="" className='max-h-[22px] w-[22px]' />
                             <p className=" text-[12px] text-center ">
                                 Generate with AI
@@ -142,7 +141,7 @@ function GenerateAi() {
                         <p className='w-full font-medium'> About Me</p>
                         <div className="error_text_form ">{error}</div>
                         {loading ? (
-                            <div className='min-h-[200px] flex justify-center items-center border border-[#06A9EF] rounded-[8px]'>
+                            <div className='min-h-[240px] flex justify-center items-center border border-[#06A9EF] rounded-[8px]'>
                                 <MiniLoader />
                             </div>
                         ) : (
@@ -150,17 +149,17 @@ function GenerateAi() {
                                 onWheel={(e) => e.stopPropagation()}
                                 type="text"
                                 name="aboutMe"
-                                className="w-full min-h-[240px] max-h-[240px] text-[14px] font-montserrat font-small h-full border border-[#06A9EF] rounded-[8px] outline-none p-4 "
+                                className="w-full min-h-[240px] max-h-[240px] text-[14px] font-montserrat  h-full border border-[#06A9EF] rounded-[8px] outline-none p-4 "
                                 placeholder=""
                                 onChange={handleTextChange}
                                 value={text}
                             />
                         )}
                         <div className='w-full flex justify-end items-center gap-2'>
-                            <div className="text-[10px] font-[400]">
-                                Remaining Attempts - {attempt}
+                            <div className=" scr1024:text-[12px] text-[10px] font-[400]">
+                                Remaining Attempts - <span className={`${attempt <= 0  && "text-red"} `}>{attempt}</span>
                             </div>
-                            <button onClick={generateText} disabled={attempt <= 0} className={`flex gap-2 sm:px-1 px-[5px] py-2 border items-center border-[#06A9EF] cursor-pointer rounded-[8px] min-w-[122px] ml:min-w-[122px] sm:min-w-[146px] scr1024:min-w-[146px] ${attempt <= 0 ? "opacity-50" : ""}`} >
+                            <button onClick={generateText} disabled={attempt <= 0} className={`flex gap-2 sm:px-1 px-[5px] py-2 border items-center border-[#06A9EF]  rounded-[8px] min-w-[122px] ml:min-w-[122px] sm:min-w-[146px] scr1024:min-w-[146px] ${attempt <= 0 && " cursor-not-allowed" }`} >
                                 <img src="/images/home/robot.png " alt="" className='sm:h-[22px] sm:w-[22px] scr1024:h-[22px] scr1024:w-[22px] ml:w-[15px] ml:h-[15px] h-[15px]  w-[15px]' />
                                 <p className={`sm:text-[12px] ml:text-[9px] text-[9px] scr1024:text-[12px] `}  >
                                     Generate with AI
@@ -168,7 +167,7 @@ function GenerateAi() {
                             </button>
                             <button
 
-                                className="py-2 sm:px-4 px-3  sm:text-[12px] ml:text-[9px] text-[9px] scr1024:text-[12px] bg-[#06A9EF] rounded-[8px] text-white "
+                                className="py-2 sm:px-4 px-3  sm:text-[12px] ml:text-[9px] text-[9px] scr1024:text-[12px] bg-[#06A9EF] rounded-[8px] text-white cursor-not-allowed "
                             >
                                 Save
                             </button>
