@@ -86,9 +86,9 @@ const Skills = ({ data, setData }) => {
           <div className="w-full text-[20px] font-montserrat  font-medium">
             Skills & Ratings
           </div>
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col scr420:gap-4 gap-6">
             {skillList.map((skill, index) => (
-              <div key={index} className="flex gap-4 justify-between">
+              <div key={index} className="flex scr420:gap-4 gap-1 scr420:flex-row flex-col justify-between">
                 <div className="flex gap-1 px-3 py-2 border border-[#06A9EF] rounded-[24px] justify-between items-center">
                   <p className="text-[14px] font-medium">{skill?.skill}</p>
 

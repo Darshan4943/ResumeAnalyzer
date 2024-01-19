@@ -76,7 +76,7 @@ const Course = ({ data, setData }) => {
         }}
       >
         <div className="w-full flex justify-between text-[20px] font-montserrat font-medium">
-          <p> Course and Certification</p>
+          <p className="w-[80%]"> Course and Certification</p>
 
           <label className="switch">
             <input

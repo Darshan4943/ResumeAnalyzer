@@ -1,170 +1,130 @@
-import React from "react";
+import React from 'react';
+import { Document, Page, Text, View, Image, StyleSheet } from '@react-pdf/renderer';
 
-function Resume6({ data }) {
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: 'row',
+    backgroundColor: '#FFFFFF',
+    borderRadius: 20,
+    margin: 20,
+    padding: 20,
+    fontSize: 12,
+    fontFamily: 'Arial',
+  },
+  leftColumn: {
+    width: '40%',
+    paddingRight: 20,
+  },
+  rightColumn: {
+    width: '60%',
+  },
+  heading: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  subHeading: {
+    fontSize: 14,
+    color: '#316059',
+    marginBottom: 10,
+  },
+  text: {
+    fontSize: 12,
+    marginBottom: 5,
+  },
+  divider: {
+    backgroundColor: '#F9F9F9',
+    height: 1,
+    width: '70%',
+    marginBottom: 20,
+  },
+  image: {
+    width: 150,
+    height: 'auto',
+    marginBottom: 20,
+  },
+});
+
+const Resume5PDF = ({ data }) => {
   return (
-    <div className="resume_file relative">
-      <div class="resume_file_container">
-        <div class="resume_file_header">
-          <div class="full-name">
-            <span class="first-name">{data.firstName}</span>
-            <span class="last-name"> {data.lastName}</span>
-          </div>
-          <div class="contact-info">
-            <span class="email">Email: </span>
-            <span class="email-val">{data.email}</span>
-            <span class="separator"></span>
-            <span class="phone">Phone: </span>
-            <span class="phone-val">{data.mobileNumber}</span>
-          </div>
-
-          <div class="about">
-            <span class="position"> {data.designation} </span>
-            <span class="desc">{data.summery}</span>
-          </div>
-        </div>
-        <div class="details">
-          <div class="section">
-            <div class="section__title">Experience</div>
-            <div class="section__list">
-              {data.experience?.map((detail, index) => (
-                <div class="section__list-item">
-                  <div class="left">
-                    <div class="name">{detail.organization}</div>
-                    <div class="addr"> {detail.location}</div>
-                    <div class="duration">
-                      {" "}
-                      {detail.duration?.start?.year}-{" "}
-                      {detail.currentlyWorking
-                        ? "Present"
-                        : detail.duration?.end?.year}
-                    </div>
-                  </div>
-                  <div class="right">
-                    <div class="name">{detail.designation} </div>
-                    <div class="desc">{detail.description}</div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div class="section">
-            <div class="section__title">Education</div>
-            <div class="section__list">
-              {data?.education?.map((detail, index) => (
-                <div class="section__list-item">
-                  <div class="left">
-                    <div class="name"> {detail.instituteName}</div>
-                    <div class="duration">
-                      {" "}
-                      {detail.duration?.start?.year}-
-                      {detail.duration?.end?.year}
-                    </div>
-                  </div>
-                  <div class="right">
-                    <div class="name"> {detail.qualification}</div>
-                    <div class="desc">{detail.specialization}</div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div class="section">
-            <div class="section__title">Course</div>
-            <div class="section__list">
-              {data?.course?.map((detail, index) => (
-                <div class="section__list-item">
-                  <div class="left">
-                    <div class="name"> {detail.courseName}</div>
-                    <div class="duration">
-                      {" "}
-                      {detail.duration?.start?.year}-{" "}
-                      {detail.duration?.end?.year}
-                    </div>
-                  </div>
-                  <div class="right">
-                    <div class="name"> {detail.issuedBy}</div>
-                    <div class="desc"> {detail.discription}</div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div class="section">
-            <div class="section__title">Skills</div>
-            <div class="skills">
-              {data?.skills?.map((detail, index) => (
-                <div class="skills__item">
-                  <div class="left">
-                    <div class="name"> {detail.skill}</div>
-                  </div>
-                  <div class="right">
-                    <input
-                      id="ck1"
-                      type="checkbox"
-                      checked={
-                        detail.rating.filter((item) => item != 0).length >= 1
-                      }
-                    />
-
-                    <label for="ck1"></label>
-                    <input
-                      id="ck2"
-                      type="checkbox"
-                      checked={
-                        detail.rating.filter((item) => item != 0).length >= 2
-                      }
-                    />
-
-                    <label for="ck2"></label>
-                    <input
-                      id="ck3"
-                      type="checkbox"
-                      checked={
-                        detail.rating.filter((item) => item != 0).length >= 3
-                      }
-                    />
-
-                    <label for="ck3"></label>
-                    <input
-                      id="ck4"
-                      type="checkbox"
-                      checked={
-                        detail.rating.filter((item) => item != 0).length >= 4
-                      }
-                    />
-                    <label for="ck4"></label>
-                    <input
-                      id="ck5"
-                      type="checkbox"
-                      checked={
-                        detail.rating.filter((item) => item != 0).length == 5
-                      }
-                    />
-                    <label for="ck5"></label>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-          {data?.languages?.length > 0 && (
-            <div class="section mb-8">
-              <div class="section__title">Language</div>
-              <div class="section__list">
-                <div class="section__list-item">
-                  {" "}
-                  {data?.languages?.map((detail, index) => detail.languages)}
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
-      </div>
-      <div className="absolute bottom-[10px] right-[10px]">
-        {" "}
-        <img src="/images/logo_skilotech.png" alt="" className="h-[20px]" />
-      </div>
-    </div>
+    <Document>
+      <Page size="A4">
+        <View style={styles.container}>
+          <View style={styles.leftColumn}>
+            <Image
+              style={styles.image}
+              src={data?.profilePhoto ? URL.createObjectURL(data.profilePhoto) : '/images/services/black.png'}
+            />
+            <Text style={styles.heading}>CONTACT</Text>
+            <Text style={styles.text}>Mobile Number: {data?.mobileNumber}</Text>
+            <Text style={styles.text}>Email: {data?.email}</Text>
+            {data?.socialLinks?.map((detail, index) => (
+              <Text key={index} style={styles.text}>Social Link: {detail?.link}</Text>
+            ))}
+            <Text style={styles.text}>Location: {data?.location}</Text>
+            <Text style={styles.heading}>SKILLS</Text>
+            {data?.skills.map((detail, index) => (
+              <View key={index}>
+                <Text style={styles.subHeading}>{detail?.skill}</Text>
+                <View style={{ backgroundColor: '#C1C1C1', height: 5, marginBottom: 5 }}>
+                  <View style={{ backgroundColor: '#316059', height: 5, width: '80%' }} />
+                </View>
+              </View>
+            ))}
+            <Text style={styles.heading}>LANGUAGES</Text>
+            {data?.languages.map((detail, index) => (
+              <View key={index}>
+                <Text style={styles.subHeading}>{detail?.language}</Text>
+                <View style={{ backgroundColor: '#C1C1C1', height: 5, borderRadius: 5, marginBottom: 5 }}>
+                  <View style={{ backgroundColor: '#316059', height: 5, width: '80%', borderRadius: 5 }} />
+                </View>
+              </View>
+            ))}
+          </View>
+          <View style={styles.rightColumn}>
+            <Text style={styles.heading}>{data?.firstName} {data?.lastName}</Text>
+            <Text style={styles.subHeading}>{data?.designation}</Text>
+            {data?.showSummary && (
+              <View>
+                <Text style={styles.heading}>ABOUT ME</Text>
+                <Text style={styles.text}>{data?.summary}</Text>
+                <View style={styles.divider} />
+              </View>
+            )}
+            {data?.showEducation && (
+              <View>
+                <Text style={styles.heading}>EDUCATION</Text>
+                {data?.education.map((detail, index) => (
+                  <View key={index}>
+                    <Text style={styles.text}>{detail?.qualification} | {detail?.specialization}</Text>
+                    <Text style={styles.text}>{detail?.instituteName}</Text>
+                    <Text style={styles.text}>
+                      {detail?.duration?.start?.year}-{detail?.duration?.end?.year}
+                    </Text>
+                  </View>
+                ))}
+                <View style={styles.divider} />
+              </View>
+            )}
+            {data?.showExperience && (
+              <View>
+                <Text style={styles.heading}>EXPERIENCE</Text>
+                {data.experience.map((detail, index) => (
+                  <View key={index}>
+                    <Text style={styles.text}>{detail?.designation} | {detail?.duration?.start?.year}-{detail?.currentlyWorking ? 'Present' : detail?.duration?.end?.year}</Text>
+                    <Text style={styles.subHeading}>{detail?.company}</Text>
+                    <Text style={styles.text}>{detail?.location}</Text>
+                    <Text style={styles.text}>{detail?.responsibilities}</Text>
+                    <View style={styles.divider} />
+                  </View>
+                ))}
+              </View>
+            )}
+          </View>
+        </View>
+      </Page>
+    </Document>
   );
-}
+};
 
-export default Resume6;
+export default Resume5PDF;
