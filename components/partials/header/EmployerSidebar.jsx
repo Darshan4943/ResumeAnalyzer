@@ -37,6 +37,11 @@ function EmployerSidebar() {
       title: 'Preboarding',
       route: '/employer/afterLogin/Preboarding',
     },
+    {
+      img: '/images/employer/sidebar/bulkUploads.png',
+      title: 'Bulk Uploads',
+      route: '/employer/afterLogin/BulkUploads',
+    },
   ];
 
   return (
