@@ -62,7 +62,7 @@ function Footer() {
             </div>
         </div>
         <div className="Footer_secondContainer ">
-          <div className="flex gap-4 footerThird w-full scr420:justify-center justify-between break-all">
+          <div className="flex gap-4 footerThird w-full scr420:justify-center justify-between break-word">
             <div className="flex flex-col justify-between gap-4  flex-wrap address">
               <div className="footer_sub_address">
                 <div>
