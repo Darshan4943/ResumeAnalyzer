@@ -47,7 +47,7 @@ function Layout({ children }) {
         <EmployerHeader />
       </div>
 
-      <div className="flex bg-[#F3F3F3] ">
+      <div className="flex bg-[#f3f3f3] ">
         <div>
           <EmployerSidebar />
         </div>

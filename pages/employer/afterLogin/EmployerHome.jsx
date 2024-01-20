@@ -224,8 +224,9 @@ function EmployerHome({ toggleContentt }) {
     },
   ];
   return (
-    <div className=" h-[80vh] w-[100%] overflow-y-auto">
-      <div
+    <div className=" h-[80vh] w-[100%] pr-2 overflow-y-auto">
+
+      {/* <div
         className="bg-frm  bg-cover bg-[#06A9EF]  py-6 flex  items-center "
         style={{
           borderRadius: "16px",
@@ -461,7 +462,7 @@ function EmployerHome({ toggleContentt }) {
             </div>
           </div>
           <div className="lg:flex w-full flex-row-reverse">
-            <div className="w-[60.44%] flex">{/* <StackedBarChart /> */}</div>
+            <div className="w-[60.44%] flex"></div>
             <div className="flex flex-col items-start gap-4 lg:w-[32.23%] w-[100%]">
               <div
                 className="flex p-4 flex-col items-start gap-4 bg-[#fff] self-stretch w-full"
@@ -832,19 +833,19 @@ function EmployerHome({ toggleContentt }) {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
 
       <div className="web">
         <div className="flex flex-col items-start gap-4 self-stretch w-full">
           <div
-            className="flex p-4 gap-[50px] self-stretch bg-[#fff] w-[100%]"
+            className="flex p-4 gap-[2vw] self-stretch bg-[#fff] w-[100%]"
             style={{
               borderTop: "1px solid var(--Neutrals-20, #D6DDEB)",
               borderBottom: "1px solid var(--Neutrals-20, #D6DDEB)",
             }}
           >
             {applicant_head.map((applicant_head) => (
-              <div className="w-[22.34%] flex items-center gap-6 justify-evenly ">
+              <div className="w-[20%] flex items-center gap-6 justify-evenly ">
                 <div>{applicant_head.check}</div>
 
                 <div className="flex  justify-between items-center gap-[8px]">
@@ -880,7 +881,7 @@ function EmployerHome({ toggleContentt }) {
                     className="flex w-[100%] p-[16px] justify-between items-center"
                     style={{ background: index % 2 == 0 ? "#EFFAFF" : "#fff" }}
                   >
-                    <div className="  gap-[24px] w-[100%] justify-between flex items-center">
+                    <div className="  gap-[2vw] w-[100%] justify-between flex items-center">
                       <div className="flex justify-center text-[14px] font-[600] items-center gap-[16px] w-[15%]">
                         <input className="w-[24px] h-[24px]" type="checkbox" />
                         <img
@@ -892,7 +893,7 @@ function EmployerHome({ toggleContentt }) {
                           {applicants.name}
                         </p>
                       </div>
-                      <div className="flex w-[172px] items-center gap-[8px]">
+                      <div className="flex w-[10%] items-center gap-[8px]">
                         {applicants.img_star1}
                         {applicants.img_star2}
 
@@ -902,16 +903,16 @@ function EmployerHome({ toggleContentt }) {
                       </div>
                       <div
                         className={`flex py-[6px] px-[10px] text-[14px] font-semibold justify-center items-center gap-[8px] rounded-[80px] border ${applicants.status === "Interview"
-                            ? "text-[#26A4FF] border-[#26A4FF]"
-                            : applicants.status === "Hired"
-                              ? "text-[#56CDAD] border-[#56CDAD]"
-                              : applicants.status === "Shortlisted"
-                                ? "text-[#4640DE] border-[#4640DE]"
-                                : applicants.status === "Rejected"
-                                  ? "text-[#FF6550] border-[#FF6550]"
-                                  : applicants.status === "In Review"
-                                    ? "text-[#FFB836] border-[#FFB836]"
-                                    : ""
+                          ? "text-[#26A4FF] border-[#26A4FF]"
+                          : applicants.status === "Hired"
+                            ? "text-[#56CDAD] border-[#56CDAD]"
+                            : applicants.status === "Shortlisted"
+                              ? "text-[#4640DE] border-[#4640DE]"
+                              : applicants.status === "Rejected"
+                                ? "text-[#FF6550] border-[#FF6550]"
+                                : applicants.status === "In Review"
+                                  ? "text-[#FFB836] border-[#FFB836]"
+                                  : ""
                           }`}
                       >
                         {applicants.status}
@@ -971,7 +972,8 @@ function EmployerHome({ toggleContentt }) {
           </div>
         </div>
       </div>
-      <div className="mobile">
+
+      {/* <div className="mobile">
         <div className="flex flex-col items-start gap-4 self-stretch w-full">
           <div className="flex flex-col gap-[16px] items-start bg-[#fff]  p-4  overflow-y-auto w-[100%]">
             {applicants
@@ -1123,7 +1125,8 @@ function EmployerHome({ toggleContentt }) {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
+
     </div>
   );
 }
