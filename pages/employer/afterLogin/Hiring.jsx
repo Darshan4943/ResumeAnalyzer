@@ -40,7 +40,7 @@ function Hiring() {
             time3: '',
             button: <button className="py-[4px] px-[16px] text-[#0C8A0A] rounded-[6px] font-[500] border border-[#0C8A0A] bg-[#E2FFE1]">Live</button>
             ,
-            img: <img className="w-[20px]" src="./images/employer/share.png" alt="" />
+            img: <img className="w-[20px]" src="/images/employer/share.png" alt="" />
             ,
             applicant_no: 16,
             date_posted: '24 May 2020',
@@ -54,7 +54,7 @@ function Hiring() {
             time3: '',
             button: <button className="py-[4px] px-[16px] text-[#0C8A0A] rounded-[6px] font-[500] border border-[#0C8A0A] bg-[#E2FFE1]">Live</button>
             ,
-            img: <img className="w-[20px]" src="./images/employer/share.png" alt="" />
+            img: <img className="w-[20px]" src="/images/employer/share.png" alt="" />
             ,
             applicant_no: 16,
             date_posted: '24 May 2020',
@@ -96,7 +96,7 @@ function Hiring() {
             time3: '',
             button: <button className="py-[4px] px-[16px] text-[#0C8A0A] rounded-[6px] font-[500] border border-[#0C8A0A] bg-[#E2FFE1]">Live</button>
             ,
-            img: <img className="w-[20px]" src="./images/employer/share.png" alt="" />
+            img: <img className="w-[20px]" src="/images/employer/share.png" alt="" />
             ,
             applicant_no: 16,
             date_posted: '24 May 2020',
@@ -110,7 +110,7 @@ function Hiring() {
             time3: '',
             button: <button className="py-[4px] px-[16px] text-[#0C8A0A] rounded-[6px] font-[500] border border-[#0C8A0A] bg-[#E2FFE1]">Live</button>
             ,
-            img: <img className="w-[20px]" src="./images/employer/share.png" alt="" />
+            img: <img className="w-[20px]" src="/images/employer/share.png" alt="" />
             ,
             applicant_no: 16,
             date_posted: '24 May 2020',
@@ -166,7 +166,7 @@ function Hiring() {
             time3: '',
             button: <button className="py-[4px] px-[16px] text-[#0C8A0A] rounded-[6px] font-[500] border border-[#0C8A0A] bg-[#E2FFE1]">Live</button>
             ,
-            img: <img className="w-[20px]" src="./images/employer/share.png" alt="" />
+            img: <img className="w-[20px]" src="/images/employer/share.png" alt="" />
             ,
             applicant_no: 16,
             date_posted: '24 May 2020',
@@ -194,7 +194,7 @@ function Hiring() {
             time3: '',
             button: <button className="py-[4px] px-[16px] text-[#0C8A0A] rounded-[6px] font-[500] border border-[#0C8A0A] bg-[#E2FFE1]">Live</button>
             ,
-            img: <img className="w-[20px]" src="./images/employer/share.png" alt="" />
+            img: <img className="w-[20px]" src="/images/employer/share.png" alt="" />
             ,
             applicant_no: 16,
             date_posted: '24 May 2020',
@@ -251,7 +251,7 @@ function Hiring() {
                         </div>
 
 
-                        <div className="h-[84px] bg-[#BCECFF]  flex flex-row p-[16px] justify-between  text-[#333] sticky top-[72px] ">
+                        <div className="h-[84px] bg-[#06A9EF]  flex flex-row p-[16px] justify-between  text-[#333] sticky top-[72px] ">
                             {headings.map((headingObj, index) => (
                                 <>
 
@@ -274,7 +274,7 @@ function Hiring() {
                             </div>
                         </div>
                     </div>
-                    <div className="grid grid-cols-4 gap-[20px] overflow-y-scroll">
+                    <div className="grid grid-cols-4 gap-[20px] pb-2 overflow-y-scroll">
                         {
                             job_card.map((job_card) =>
                                 <div onClick={toggleContent} className="flex py-[16px] px-[0px] flex-col items-start gap-[12px] flex-shrink-0 rounded-lg bg-[#fff] shadow-md">

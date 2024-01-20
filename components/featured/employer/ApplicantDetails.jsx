@@ -64,7 +64,7 @@ function ApplicantDetails() {
                 <div className=' rounded-[16px] py-2 flex flex-col  w-[32.26%] bg-white ' style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}>
                     <div className='flex flex-col overflow-y-auto gap-6 px-6 py-4' >
                         <div className=' flex  gap-6' >
-                            <img src="./images/employer/Ellipse_hiring.png" alt="" className="h-[96px] w-[96px]" />
+                            <img src="/images/employer/profileNew.png" alt="" className="h-[96px] w-[96px]" />
                             <div className='w-[65%] flex flex-col gap-1'>
                                 <p className='text-[24px]   text-start   font font-medium  '>John Doe</p>
                                 <p className='text-[16px]   text-start text-[#646464]   font-normal  '>Product Designer</p>
@@ -302,7 +302,7 @@ function ApplicantDetails() {
                     {toggle === "Resume" &&
                         <div className='flex justify-center overflow-y-auto  px-6'>
                             <img
-                                src="./images/services/Resume-template-3.png"
+                                src="/images/services/Resume-template-3.png"
                                 className="h-[729px] w-[520px] rounded-[10px]"
                                 alt=""
                             />
@@ -359,7 +359,7 @@ function ApplicantDetails() {
                                 exit={{ x: '100%' }}
                                 transition={{  duration: 0.5 }}
                                 ref={taskRef}
-                                className='absolute z-10 right-[-1.5%] w-[60%] top-[-2%]'
+                                className='absolute z-10 right-[-1.2%] w-[60%] top-[-3%]'
                             >
                                 <LevelUpdate closeTaskPopup={closeTaskPopup} />
                             </motion.div>

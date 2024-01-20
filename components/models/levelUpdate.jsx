@@ -31,7 +31,7 @@ function LevelUpdate({ closeTaskPopup }) {
             starImages.push(
                 <img
                     key={`star_${i}`}
-                    src="./images/employer/Star.png"
+                    src="/images/employer/Star.png"
                     alt=""
                     className="h-[30px] w-[30px]"
                 />
@@ -42,7 +42,7 @@ function LevelUpdate({ closeTaskPopup }) {
             starImages.push(
                 <img
                     key={`empty_star_${j}`}
-                    src="./images/employer/Star1.png"
+                    src="/images/employer/Star1.png"
                     alt=""
                     className="h-[30px] w-[30px]"
                 />
@@ -93,7 +93,7 @@ function LevelUpdate({ closeTaskPopup }) {
 
                     <p className='text-[20px] font-medium'>Conducted By</p>
                     <div className='flex gap-2'>
-                        <img src="./images/employer/Ellipse_hiring.png" alt="" className="h-[40px] w-[40px]" />
+                        <img src="/images/employer/profileNew.png" alt="" className="h-[40px] w-[40px]" />
                         <div>
                             <p className='text-[14px] font-medium'>Kathryn Murphy</p>
                             <p className='text-[12px] font-normal text-[#646464]'>Manager</p>

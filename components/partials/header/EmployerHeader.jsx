@@ -1,21 +1,24 @@
+import { useRouter } from 'next/router';
 import React from 'react'
+import { Link } from 'react-scroll'
 
 function EmployerHeader() {
+    const router = useRouter();
     return (
-        <div className=" flex ms:p-0 p-2 z-[1000] fixed top-0 w-[100%] bg-white gap-1 justify-between items-center h-[70px]" style={{ boxShadow: "0px 1px 4px 0px rgba(0, 0, 0, 0.25)" }}>
-           
-           <div className=' flex gap-2 items-center ms:justify-start justify-between ms:w-[60%] w-[90%]'>
-           <div className='flex gap-1 items-center'>
-             <div className='mobile600' onClick={() => setIsSidebar(true)}>
-                <img src="/images/home/menu.png" alt="" className="min-w-[30px] h-[30px] object-contain" />
-            </div>
-            <div className="flex  items-center  ">
+        <div className=" flex ms:p-2 p-2 z-[1000] fixed top-0 w-[100%] bg-white gap-1 justify-between items-center h-[70px]" style={{ boxShadow: "0px 1px 4px 0px rgba(0, 0, 0, 0.25)" }}>
 
-                <img className='min-w-[104px] h-[36.317px] object-contain' src="/images/logo_skilotech.png" alt="" />
+            <div className=' flex ms:gap-6 gap-2 items-center ms:justify-start justify-between ms:w-[60%] w-[90%]'>
+                <div className='flex gap-1 items-center'>
+                    <div className='mobile600' onClick={() => setIsSidebar(true)}>
+                        <img src="/images/home/menu.png" alt="" className="min-w-[30px] h-[30px] object-contain" />
+                    </div>
+                    <div className="flex  items-center  ">
 
-            </div>
-            </div>
-            <div className=' flex items-center border  justify-between w-[25%] ms:min-w-[200px] scr420:min-w-[140px] min-w-[120px] rounded-[8px] px-3 py-1'>
+                        <img className='min-w-[104px] h-[36.317px] object-contain' src="/images/logo_skilotech.png" alt="" />
+
+                    </div>
+                </div>
+                <div className=' flex items-center border  justify-between w-[25%] ms:min-w-[200px] scr420:min-w-[140px] min-w-[120px] rounded-[8px] px-3 py-1'>
                     <input
                         type="text"
                         className="text-black font-small ms:text-[14px] text-[12px] w-[70%]"
@@ -32,7 +35,7 @@ function EmployerHeader() {
                 </div>
             </div>
             <div className="flex ms:px-4  px-2 py-4 justify-end gap-4 ms:w-[40%] w-[10%] ">
-               
+
 
                 <div className='flex items-center gap-5'>
 
@@ -50,12 +53,32 @@ function EmployerHeader() {
 
                                 John Doe
 
-                                <img
-                                    src="/images/down_arrow.png"
-                                    className="h-4 w-4 ml-1  "
-                                    alt=""
-
-                                />
+                                <div className="user_name flex items-center relative">
+                                    <div
+                                        className="group"
+                                        style={{
+                                            height: "50px",
+                                            display: "flex",
+                                            flexDirection: "column",
+                                            justifyContent: "center",
+                                            position: "relative",
+                                        }}
+                                    >
+                                        <img
+                                            src="/images/down_arrow.png"
+                                            className="h-4 w-4 ml-1 cursor-pointer group-hover:opacity-100 group-hover:visible"
+                                            alt=""
+                                        />
+                                        <div className="dropdown absolute top-[26px] mt-[1rem] right-0 z-10 bg-white border border-gray-200 py-2 px-3 rounded-md shadow-md opacity-0 invisible transition-opacity duration-300 group-hover:opacity-100 group-hover:visible">
+                                            <Link href="/profile" className="block py-1">
+                                                Profile
+                                            </Link>
+                                            <a onClick={() => router.push("/")} className="block py-1">
+                                                LogOut
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

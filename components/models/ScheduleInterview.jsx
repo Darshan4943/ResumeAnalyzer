@@ -26,7 +26,7 @@ function ScheduleInterview() {
                         name="approvalChoice"
                         value="yes"
                         className="h-[20px] w-[20px] custom-radio"
-                        onChange={(e) => handleApprovalChoice(e.target.value)}
+                        // onChange={(e) => handleApprovalChoice(e.target.value)}
                         checked
                     />
                     <label className="text-[14px] font-medium">Online</label>
@@ -35,7 +35,7 @@ function ScheduleInterview() {
                         name="approvalChoice"
                         value="no"
                         className="h-[20px] w-[20px] custom-radio"
-                        onChange={(e) => handleApprovalChoice(e.target.value)}
+                        // onChange={(e) => handleApprovalChoice(e.target.value)}
                     />
                     <label className="text-[14px] font-medium">Offline</label>
                 </div>

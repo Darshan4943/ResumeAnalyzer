@@ -139,14 +139,14 @@ function Header({ userData }) {
             </>
           ) : (
             <>
-             
+
               <CandidateHeader />
             </>
           )}
         </div>
-       
-     
-    </div>
+
+
+      </div>
     </div >
   );
 }

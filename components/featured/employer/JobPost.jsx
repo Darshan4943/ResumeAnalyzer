@@ -40,10 +40,10 @@ function JobPost({ toggleContentt }) {
 
   const applicants = [
     {
-      img: <img className="w-[40px]" src="./images/employer/profile_icon.png" alt="" />
+      img: <img className="w-[40px]" src="/images/employer/profile_icon.png" alt="" />
       ,
       name: 'John Doe',
-      img_star1: <img className="w-[24px] " src="./images/employer/empty_star.png" alt="" />
+      img_star1: <img className="w-[24px] " src="/images/employer/empty_star.png" alt="" />
       ,
       img_star2: '',
       score: '0.0',
@@ -53,10 +53,10 @@ function JobPost({ toggleContentt }) {
       date: '13 July, 2021'
     },
     {
-      img: <img className="w-[40px]" src="./images/employer/profile_icon.png" alt="" />
+      img: <img className="w-[40px]" src="/images/employer/profile_icon.png" alt="" />
       ,
       name: 'John Doe',
-      img_star1: <img className="w-[24px] " src="./images/employer/empty_star.png" alt="" />
+      img_star1: <img className="w-[24px] " src="/images/employer/empty_star.png" alt="" />
       ,
       img_star2: '',
       score: '0.0',
@@ -66,10 +66,10 @@ function JobPost({ toggleContentt }) {
       date: '13 July, 2021'
     },
     {
-      img: <img className="w-[40px]" src="./images/employer/profile_icon.png" alt="" />
+      img: <img className="w-[40px]" src="/images/employer/profile_icon.png" alt="" />
       ,
       name: 'John Doe',
-      img_star1: <img className="w-[24px] " src="./images/employer/star_fill.png" alt="" />
+      img_star1: <img className="w-[24px] " src="/images/employer/star_fill.png" alt="" />
       ,
       img_star2: '',
       score: '4.0',
@@ -79,10 +79,10 @@ function JobPost({ toggleContentt }) {
       date: '13 July, 2021'
     },
     {
-      img: <img className="w-[40px]" src="./images/employer/profile_icon.png" alt="" />
+      img: <img className="w-[40px]" src="/images/employer/profile_icon.png" alt="" />
       ,
       name: 'John Doe',
-      img_star1: <img className="w-[24px] " src="./images/employer/star_fill.png" alt="" />
+      img_star1: <img className="w-[24px] " src="/images/employer/star_fill.png" alt="" />
       ,
       img_star2: '',
       score: '5.0',
@@ -92,10 +92,10 @@ function JobPost({ toggleContentt }) {
       date: '13 July, 2021'
     },
     {
-      img: <img className="w-[40px]" src="./images/employer/profile_icon.png" alt="" />
+      img: <img className="w-[40px]" src="/images/employer/profile_icon.png" alt="" />
       ,
       name: 'John Doe',
-      img_star1: <img className="w-[24px] " src="./images/employer/star_fill.png" alt="" />
+      img_star1: <img className="w-[24px] " src="/images/employer/star_fill.png" alt="" />
       ,
       img_star2: '',
       score: '2.0',
@@ -105,10 +105,10 @@ function JobPost({ toggleContentt }) {
       date: '13 July, 2021'
     },
     {
-      img: <img className="w-[40px]" src="./images/employer/profile_icon.png" alt="" />
+      img: <img className="w-[40px]" src="/images/employer/profile_icon.png" alt="" />
       ,
       name: 'John Doe',
-      img_star1: <img className="w-[24px] " src="./images/employer/star_fill.png" alt="" />
+      img_star1: <img className="w-[24px] " src="/images/employer/star_fill.png" alt="" />
       ,
       img_star2: '',
       score: '4.0',
@@ -118,10 +118,10 @@ function JobPost({ toggleContentt }) {
       date: '13 July, 2021'
     },
     {
-      img: <img className="w-[40px]" src="./images/employer/profile_icon.png" alt="" />
+      img: <img className="w-[40px]" src="/images/employer/profile_icon.png" alt="" />
       ,
       name: 'John Doe',
-      img_star1: <img className="w-[24px] " src="./images/employer/star_fill.png" alt="" />
+      img_star1: <img className="w-[24px] " src="/images/employer/star_fill.png" alt="" />
       ,
       img_star2: '',
       score: '3.0',
@@ -131,10 +131,10 @@ function JobPost({ toggleContentt }) {
       date: '13 July, 2021'
     },
     {
-      img: <img className="w-[40px]" src="./images/employer/profile_icon.png" alt="" />
+      img: <img className="w-[40px]" src="/images/employer/profile_icon.png" alt="" />
       ,
       name: 'John Doe',
-      img_star1: <img className="w-[24px] " src="./images/employer/star_fill.png" alt="" />
+      img_star1: <img className="w-[24px] " src="/images/employer/star_fill.png" alt="" />
       ,
       img_star2: '',
       score: '4.0',
@@ -155,7 +155,7 @@ function JobPost({ toggleContentt }) {
         <div className="">
           <div className="flex w-[100%] px-[32px] py-[24px] justify-between items-center bg-[#fff] ">
             <div className="flex items-center gap-[24px]">
-              <img className="w-[40px]" src="./images/employer/icon_left.png" alt="" />
+              <img className="w-[40px]" src="/images/employer/icon_left.png" alt="" />
               <div className="flex flex-col items-start gap-[8px]">
                 <p className="text-[#333]  font-[500] text-[24px] leading-relaxed">Assistant Manager</p>
                 <div className="flex justify-center items-center gap-[8px]">
@@ -173,7 +173,7 @@ function JobPost({ toggleContentt }) {
             </div>
 
             <div className="flex items-center gap-[8px]">
-              <img className="w-[24px] " src="./images/employer/share.png" alt="" />
+              <img className="w-[24px] " src="/images/employer/share.png" alt="" />
               <p className="text-[20px] text-[#646464]">Share</p>
             </div>
           </div>
@@ -193,27 +193,27 @@ function JobPost({ toggleContentt }) {
             <p className="font-[600] text-[16px]">Total Applicants : 19</p>
             <div className="flex items-start gap-[8px]">
               <div className="w-[314px] flex py-[12px] px-[16px] gap-[16px] rounded-[6px] border border-[#D6DDEB] bg-[#fff]">
-                <img className="w-[24px]" src="./images/employer/icon_search.png" alt="" />
+                <img className="w-[24px]" src="/images/employer/icon_search.png" alt="" />
                 <input type="text" placeholder="Search" />
               </div>
               <div className="flex py-[12px] px-[16px] justify-center gap-[8px] rounded-[6px] border border-[#D6DDEB]">
-                <img className="w-[24px]" src="./images/employer/Icon_filter.png" alt="" />
+                <img className="w-[24px]" src="/images/employer/Icon_filter.png" alt="" />
                 <p className="font-[600]">Filter</p>
               </div>
             </div>
           </div>
-          <div className="flex p-[16px] w-[100%] items-start justify-between  bg-[#fff] border border-[#D6DDEB] ">
+          <div className="flex p-[16px] w-[100%] items-center justify-between  bg-[#fff] border border-[#D6DDEB] ">
             {
               applicant_head.map((applicant_head) => (
-                <div className="flex w-full gap-6">
-                  <div>
+                <div className="flex w-full  gap-6">
+                  <div className="flex justify-center">
                     {applicant_head.check}
                   </div>
 
 
-                  <div className="flex  justify-between items-center gap-[8px]">
+                  <div className="flex  justify-center items-center w-[50%] gap-[8px]">
                     <p className="text-[16px] font-[600]">{applicant_head.name}</p>
-                    <img className="w-[24px]" src="./images/employer/down_arrow.png" alt="" />
+                    <img className="w-[24px]" src="/images/employer/down_arrow.png" alt="" />
                   </div>
                 </div>
 
@@ -233,7 +233,7 @@ function JobPost({ toggleContentt }) {
                 <div className="  gap-[24px] w-[100%] justify-between flex items-center">
                   <div className="flex justify-center text-[14px] font-[600] items-center gap-[16px]">
                   <input className="w-[24px] h-[24px]" type="checkbox" />
-                    <img className="w-[40px]" src="./images/employer/profile_icon.png" alt="" />
+                    <img className="w-[40px]" src="/images/employer/profile_icon.png" alt="" />
                     <p className="text-[16px] font-[600]">{applicants.name}</p>
                   </div>
                   <div className="flex w-[172px] items-center gap-[8px]">
@@ -256,7 +256,7 @@ function JobPost({ toggleContentt }) {
                   <p className="text-[14px] font-[600]">{applicants.date}</p>
                   <div className="flex justify-center items-center gap-[16px]">
                     <button onClick={toggleContentt} className="flex py-[12px] px-[24px] justify-center items-center gap-[10px] rounded-[6px] border border-[#06A9EF] bg-[#E7F8FF] ">See Application</button>
-                    <img className="w-[24px]" src="./images/employer/three-dot.png" alt="" />
+                    <img className="w-[24px]" src="/images/employer/three-dot.png" alt="" />
                   </div>
                 </div>
               </div>
