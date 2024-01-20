@@ -46,7 +46,7 @@ function EmployerHeader() {
                         <div className="flex items-center gap-2">
 
                             <div className="">
-                                <img src="/images/profile_icon.png" className="w-[40px] h-[40px]" alt="" />
+                                <img src="/images/employer/profileNew.png" className="w-[40px] h-[40px]" alt="" />
                             </div>
 
                             <div className=" flex items-center ">
