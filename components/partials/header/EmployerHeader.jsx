@@ -2,50 +2,61 @@ import React from 'react'
 
 function EmployerHeader() {
     return (
-        <div className=" flex  z-[1000] fixed top-0 w-[100%] bg-white items-center h-[70px]" style={{ boxShadow: "0px 1px 4px 0px rgba(0, 0, 0, 0.25)" }}>
+        <div className=" flex ms:p-0 p-2 z-[1000] fixed top-0 w-[100%] bg-white gap-1 justify-between items-center h-[70px]" style={{ boxShadow: "0px 1px 4px 0px rgba(0, 0, 0, 0.25)" }}>
+           
+           <div className=' flex gap-2 items-center ms:justify-start justify-between ms:w-[60%] w-[90%]'>
+           <div className='flex gap-1 items-center'>
+             <div className='mobile600' onClick={() => setIsSidebar(true)}>
+                <img src="/images/home/menu.png" alt="" className="min-w-[30px] h-[30px] object-contain" />
+            </div>
+            <div className="flex  items-center  ">
 
-            <div className="flex  items-center  px-2">
-
-                <img className='w-[104px] h-[36.317px]' src="/images/logo_skilotech.png" alt="" />
+                <img className='min-w-[104px] h-[36.317px] object-contain' src="/images/logo_skilotech.png" alt="" />
 
             </div>
-
-            <div className="flex px-6 py-4 justify-between w-[100%] ">
-                <div className=' flex items-center border rounded-[8px] px-3 py-1'>
+            </div>
+            <div className=' flex items-center border  justify-between w-[25%] ms:min-w-[200px] scr420:min-w-[140px] min-w-[120px] rounded-[8px] px-3 py-1'>
                     <input
                         type="text"
-                        className="text-black font-small text-[14px]"
+                        className="text-black font-small ms:text-[14px] text-[12px] w-[70%]"
                         placeholder="Search"
                         style={{ border: 'none' }}
                     />
 
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                        <path d="M15.1022 14.1189L10.4647 9.48141C11.1844 8.55106 11.5737 7.41356 11.5737 6.21713C11.5737 4.78499 11.0147 3.44213 10.004 2.42963C8.9933 1.41713 7.64688 0.859985 6.21652 0.859985C4.78616 0.859985 3.43973 1.41891 2.42902 2.42963C1.41652 3.44034 0.859375 4.78499 0.859375 6.21713C0.859375 7.64749 1.4183 8.99391 2.42902 10.0046C3.43973 11.0171 4.78438 11.5743 6.21652 11.5743C7.41295 11.5743 8.54866 11.185 9.47902 10.4671L14.1165 15.1028C14.1301 15.1164 14.1463 15.1272 14.164 15.1346C14.1818 15.142 14.2009 15.1458 14.2201 15.1458C14.2393 15.1458 14.2584 15.142 14.2761 15.1346C14.2939 15.1272 14.3101 15.1164 14.3237 15.1028L15.1022 14.3261C15.1158 14.3125 15.1266 14.2963 15.134 14.2785C15.1414 14.2608 15.1452 14.2417 15.1452 14.2225C15.1452 14.2032 15.1414 14.1842 15.134 14.1664C15.1266 14.1487 15.1158 14.1325 15.1022 14.1189ZM9.04509 9.0457C8.28795 9.80106 7.28438 10.2171 6.21652 10.2171C5.14866 10.2171 4.14509 9.80106 3.38795 9.0457C2.63259 8.28856 2.21652 7.28499 2.21652 6.21713C2.21652 5.14927 2.63259 4.14391 3.38795 3.38856C4.14509 2.6332 5.14866 2.21713 6.21652 2.21713C7.28438 2.21713 8.28973 2.63141 9.04509 3.38856C9.80045 4.1457 10.2165 5.14927 10.2165 6.21713C10.2165 7.28499 9.80045 8.29034 9.04509 9.0457Z" fill="#333333" />
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+
+                        <g mask="url(#mask0_7896_55668)">
+                            <path d="M19.6 21L13.3 14.7C12.8 15.1 12.225 15.4167 11.575 15.65C10.925 15.8833 10.2333 16 9.5 16C7.68333 16 6.14583 15.3708 4.8875 14.1125C3.62917 12.8542 3 11.3167 3 9.5C3 7.68333 3.62917 6.14583 4.8875 4.8875C6.14583 3.62917 7.68333 3 9.5 3C11.3167 3 12.8542 3.62917 14.1125 4.8875C15.3708 6.14583 16 7.68333 16 9.5C16 10.2333 15.8833 10.925 15.65 11.575C15.4167 12.225 15.1 12.8 14.7 13.3L21 19.6L19.6 21ZM9.5 14C10.75 14 11.8125 13.5625 12.6875 12.6875C13.5625 11.8125 14 10.75 14 9.5C14 8.25 13.5625 7.1875 12.6875 6.3125C11.8125 5.4375 10.75 5 9.5 5C8.25 5 7.1875 5.4375 6.3125 6.3125C5.4375 7.1875 5 8.25 5 9.5C5 10.75 5.4375 11.8125 6.3125 12.6875C7.1875 13.5625 8.25 14 9.5 14Z" fill="#06A9EF" />
+                        </g>
                     </svg>
                 </div>
+            </div>
+            <div className="flex ms:px-4  px-2 py-4 justify-end gap-4 ms:w-[40%] w-[10%] ">
+               
 
                 <div className='flex items-center gap-5'>
 
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="26" viewBox="0 0 20 26" fill="none">
                         <path d="M0 21.4569V19.0406H2.41625V10.5837C2.41625 8.9125 2.91964 7.42731 3.92641 6.12817C4.93318 4.82984 6.24198 3.97932 7.85281 3.57661V2.73092C7.85281 2.22753 8.0292 1.79986 8.38197 1.44789C8.73394 1.09512 9.16161 0.918732 9.665 0.918732C10.1684 0.918732 10.5961 1.09512 10.948 1.44789C11.3008 1.79986 11.4772 2.22753 11.4772 2.73092V3.57661C13.088 3.97932 14.3968 4.82984 15.4036 6.12817C16.4104 7.42731 16.9137 8.9125 16.9137 10.5837V19.0406H19.33V21.4569H0ZM9.665 25.0812C9.00053 25.0812 8.43191 24.8449 7.95913 24.3721C7.48554 23.8985 7.24875 23.3295 7.24875 22.665H12.0813C12.0813 23.3295 11.8449 23.8985 11.3721 24.3721C10.8985 24.8449 10.3295 25.0812 9.665 25.0812Z" fill="#333333" />
                     </svg>
+                    <div className='web600'>
+                        <div className="flex items-center gap-2">
 
-                    <div className="flex items-center gap-2">
+                            <div className="">
+                                <img src="/images/profile_icon.png" className="w-[40px] h-[40px]" alt="" />
+                            </div>
 
-                        <div className="">
-                            <img src="/images/profile_icon.png" className="w-[40px] h-[40px]" alt="" />
-                        </div>
+                            <div className=" flex items-center ">
 
-                        <div className=" flex items-center ">
+                                John Doe
 
-                            John Doe
+                                <img
+                                    src="/images/down_arrow.png"
+                                    className="h-4 w-4 ml-1  "
+                                    alt=""
 
-                            <img
-                                src="/images/down_arrow.png"
-                                className="h-4 w-4 ml-1  "
-                                alt=""
-
-                            />
+                                />
+                            </div>
                         </div>
                     </div>
                 </div>

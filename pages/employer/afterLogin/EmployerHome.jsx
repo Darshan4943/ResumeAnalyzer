@@ -224,9 +224,9 @@ function EmployerHome({ toggleContentt }) {
     },
   ];
   return (
-    <div className=" h-[80vh] w-[100%] pr-2 overflow-y-auto">
+    <div className=" h-[80vh] w-[100%] pr-2 ms:overflow-y-auto">
 
-      {/* <div
+      <div
         className="bg-frm  bg-cover bg-[#06A9EF]  py-6 flex  items-center "
         style={{
           borderRadius: "16px",
@@ -833,7 +833,7 @@ function EmployerHome({ toggleContentt }) {
             </div>
           </div>
         </div>
-      </div> */}
+      </div>
 
       <div className="web">
         <div className="flex flex-col items-start gap-4 self-stretch w-full">
@@ -973,7 +973,7 @@ function EmployerHome({ toggleContentt }) {
         </div>
       </div>
 
-      {/* <div className="mobile">
+      <div className="mobile">
         <div className="flex flex-col items-start gap-4 self-stretch w-full">
           <div className="flex flex-col gap-[16px] items-start bg-[#fff]  p-4  overflow-y-auto w-[100%]">
             {applicants
@@ -1125,7 +1125,7 @@ function EmployerHome({ toggleContentt }) {
             </div>
           </div>
         </div>
-      </div> */}
+      </div>
 
     </div>
   );

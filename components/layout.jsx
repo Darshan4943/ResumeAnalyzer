@@ -48,7 +48,7 @@ function Layout({ children }) {
       </div>
 
       <div className="flex bg-[#f3f3f3] ">
-        <div>
+        <div className="web600">
           <EmployerSidebar />
         </div>
         <div className="  pt-[100px] w-[100%] px-5">
