@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 const CreateNewRequisition = () => {
 
-    const [levels, setLevels] = useState([{ id: 1, name: 'Level 1' }, { id: 2, name: 'Level 2' }]);
+    const [levels, setLevels] = useState([{ id: 1, name: 'Level 1' }]);
     const [showApprovalChain, setShowApprovalChain] = useState(false);
     const [approvalChoice, setApprovalChoice] = useState(null);
 
@@ -190,6 +190,7 @@ const CreateNewRequisition = () => {
                             value="no"
                             className="h-[20px] w-[20px] custom-radio"
                             onChange={(e) => handleApprovalChoice(e.target.value)}
+                            checked
                         />
                         <label className="text-[14px] font-medium">No</label>
                     </div>
@@ -219,7 +220,7 @@ const CreateNewRequisition = () => {
                                                             marginLeft: "0.44rem",
 
                                                         }}
-                                                        src="images/employer/tracker_line.png"
+                                                        src="/images/employer/tracker_line.png"
                                                         alt="Line 1"
                                                     />
 

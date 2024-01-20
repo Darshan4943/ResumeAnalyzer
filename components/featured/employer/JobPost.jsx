@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { TablePagination } from '@mui/material';
 
-function JobPost({ toggleContentt }) {
+function JobPost({ toggleContentt ,setToggle}) {
 
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -155,7 +155,7 @@ function JobPost({ toggleContentt }) {
         <div className="">
           <div className="flex w-[100%] px-[32px] py-[24px] justify-between items-center bg-[#fff] ">
             <div className="flex items-center gap-[24px]">
-              <img className="w-[40px]" src="/images/employer/icon_left.png" alt="" />
+              <img onClick={()=>setToggle(0)} className="w-[40px] cursor-pointer" src="/images/employer/icon_left.png" alt="" />
               <div className="flex flex-col items-start gap-[8px]">
                 <p className="text-[#333]  font-[500] text-[24px] leading-relaxed">Assistant Manager</p>
                 <div className="flex justify-center items-center gap-[8px]">

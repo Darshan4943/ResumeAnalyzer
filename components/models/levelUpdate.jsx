@@ -51,6 +51,49 @@ function LevelUpdate({ closeTaskPopup }) {
 
         return starImages;
     };
+    const [levelData, setLevelData] = useState([]);
+
+
+
+    const handleSave = () => {
+      
+        const newLevelData = [...levelData, { ...selectedValues, isNextLevel }];
+        
+        
+        setLevelData(newLevelData);
+
+        
+        setSelectedValues({
+            status: "",
+            date: "",
+            levelTitle: "",
+        });
+
+      
+        console.log('Level Data:', newLevelData);
+        closeTaskPopup()
+    };
+ 
+    const [selectedValues, setSelectedValues] = useState({
+        status: "",
+        date: "",
+        levelTitle: "",
+    });
+
+  
+    const handleStatusChange = (value) => {
+        setSelectedValues((prevValues) => ({ ...prevValues, status: value }));
+    };
+
+    const handleDateChange = (e) => {
+        setSelectedValues((prevValues) => ({ ...prevValues, date: e.target.value }));
+    };
+
+    const handleLevelTitleChange = (e) => {
+        setSelectedValues((prevValues) => ({ ...prevValues, levelTitle: e.target.value }));
+    };
+
+   
 
     return (
         <div className='p-6 rounded-tl-[16px] h-[87vh] bg-white flex flex-col gap-4 overflow-y-auto' style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}>
@@ -67,6 +110,8 @@ function LevelUpdate({ closeTaskPopup }) {
                     </div>
                     <select
                         className="h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#646464] rounded-[6px] text-[14px]  font-[400]"
+                        value={selectedValues.status}
+                    onChange={(e) => handleStatusChange(e.target.value)}
                     >
                         <option value="" disabled selected>Select </option>
                         <option value="product_manager">In Progress</option>
@@ -83,6 +128,8 @@ function LevelUpdate({ closeTaskPopup }) {
                         type="date"
                         placeholder='Select Date'
                         class="h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#646464] rounded-[6px] text-[14px] font-[400]"
+                        value={selectedValues.date}
+                        onChange={(e) => handleDateChange(e)}
                     />
 
                 </div>
@@ -130,7 +177,7 @@ function LevelUpdate({ closeTaskPopup }) {
                             type="radio"
                             name="approvalChoice"
                             value="nextLevel"
-                            className="h-[20px] w-[20px] custom-radio"
+                            className="h-[20px] w-[20px] custom-radio cursor-pointer "
                             onChange={(e) => handleIsNextLevel(e.target.value)}
                             checked={isNextLevel === "nextLevel"}
                         />
@@ -142,7 +189,7 @@ function LevelUpdate({ closeTaskPopup }) {
                             type="radio"
                             name="approvalChoice"
                             value="shotListed"
-                            className="h-[20px] w-[20px] custom-radio"
+                            className="h-[20px] w-[20px] custom-radio cursor-pointer "
                             onChange={(e) => handleIsNextLevel(e.target.value)}
                             checked={isNextLevel === "shotListed"}
                         />
@@ -153,7 +200,7 @@ function LevelUpdate({ closeTaskPopup }) {
                             type="radio"
                             name="approvalChoice"
                             value="rejected"
-                            className="h-[20px] w-[20px] custom-radio"
+                            className="h-[20px] w-[20px] custom-radio cursor-pointer "
                             onChange={(e) => handleIsNextLevel(e.target.value)}
                             checked={isNextLevel === "rejected"}
                         />
@@ -169,6 +216,8 @@ function LevelUpdate({ closeTaskPopup }) {
                                 type="text"
                                 placeholder="Eg: Technical Round-I"
                                 className="px-[16px] py-[8px] border-[1px] border-solid border-[#646464] rounded-[6px] placeholder:text-[14px]  font-[400]"
+                                value={selectedValues.levelTitle}
+                                onChange={(e) => handleLevelTitleChange(e)}
                             />
 
                         </div>
@@ -180,18 +229,18 @@ function LevelUpdate({ closeTaskPopup }) {
                                     type="radio"
                                     name="AssigneTask"
                                     value='scheduleInterview'
-                                    className="h-[20px] w-[20px] custom-radio"
+                                    className="h-[20px] w-[20px] custom-radio cursor-pointer"
                                     onChange={(e) => handleRadioChange(e.target.value)}
                                 />
 
                                 <label className=" ">Schedule Interview</label>
                             </div>
-                            <div className="flex gap-[8px] items-center  ">
+                            <div className="flex gap-[8px] items-center ">
                                 <input
                                     type="radio"
                                     name="AssigneTask"
 
-                                    className="h-[20px] w-[20px] custom-radio"
+                                    className="h-[20px] w-[20px] custom-radio cursor-pointer "
 
                                 />
                                 <label className=" ">Assign Task</label>
@@ -205,23 +254,27 @@ function LevelUpdate({ closeTaskPopup }) {
 
                 <div className='flex gap-4 justify-end pb-[1rem]'>
                     <button onClick={closeTaskPopup} className='px-9 py-3 border border-[#06A9EF] rounded-[12px]  text-[16px] font-semibold' id='button'>Cancel</button>
-                    <button className='px-9 py-3 bg-[#06A9EF] rounded-[12px] text-[16px] font-semibold text-white'>Save</button>
+                    <button onClick={handleSave} className='px-9 py-3 bg-[#06A9EF] rounded-[12px] text-[16px] font-semibold text-white'>Save</button>
                 </div>
 
             </div>
 
             <AnimatePresence>
                 {showScheduleInterview && (
+                    <div>
+                   
+                   <div className="fixed z-[2500] top-[-100] left-[-100] right-[-100] bottom-[-100] w-[200%] bg-black opacity-60"></div>
                     <motion.div
                         initial={{ x: '100%' }}
                         animate={{ x: 0 }}
                         exit={{ x: '100%' }}
                         transition={{ duration: 0.5 }}
                         // ref={taskRef}
-                        className='absolute z-20 right-0 w-[100%] top-[0]'
+                        className='absolute z-[2500] right-0 w-[100%] top-[0]'
                     >
-                        <ScheduleInterview closeTaskPopup={closeTaskPopup} />
+                        <ScheduleInterview setShowScheduleInterview={setShowScheduleInterview} />
                     </motion.div>
+                    </div>
                 )}
             </AnimatePresence>
 

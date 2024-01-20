@@ -320,10 +320,10 @@ function Hiring() {
 
             }
             {toggle === 1 &&
-                <JobPost toggleContentt={toggleContent} />
+                <JobPost toggleContentt={toggleContent} setToggle={setToggle} />
             }
             {toggle === 2 &&
-                <ApplicantDetails />
+                <ApplicantDetails setTogglee={setToggle}/>
             }
         </div>
     )
