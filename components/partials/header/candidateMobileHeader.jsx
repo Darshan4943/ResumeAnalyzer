@@ -8,7 +8,7 @@ import HeaderSidebar from "@/components/models/headerSidebar";
 import { AnimatePresence, motion } from "framer-motion";
 
 
-function MobileHeader() {
+function CandidateMobileHeader() {
 
     const [selectedPage, setSelectedPage] = useState("");
     const router = useRouter();
@@ -144,4 +144,4 @@ function MobileHeader() {
         </>
     )
 }
-export default MobileHeader;
+export default CandidateMobileHeader;

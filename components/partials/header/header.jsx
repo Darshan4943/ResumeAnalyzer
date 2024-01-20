@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import { useSelector } from "react-redux";
 import { data } from "autoprefixer";
+import CandidateHeader from "./candidateHeader";
 
 function Header({ userData }) {
   const router = useRouter();
@@ -50,8 +51,8 @@ function Header({ userData }) {
     <div
       className={
         selectedPage === "/auth/candidate_register" ||
-        selectedPage === "/auth/Employer_register" ||
-        selectedPage === "/auth/Recruiter_register"
+          selectedPage === "/auth/Employer_register" ||
+          selectedPage === "/auth/Recruiter_register"
           ? " "
           : "bg-white z-[100] fixed w-[100%] "
       }
@@ -62,9 +63,10 @@ function Header({ userData }) {
     >
       <div className="header_parent sticky-header customMargins z-[100]">
         <div className="header   ">
-          <div className="header_left">
-            {!isLogin ? (
-              <>
+
+          {!isLogin ? (
+            <>
+              <div className="header_left">
                 <Link href="/">
                   {" "}
                   <img src="/images/logo_skilotech.png" alt="" />
@@ -106,151 +108,46 @@ function Header({ userData }) {
                 >
                   <li>Recruiter</li>
                 </Link>
-              </>
-            ) : (
-              <>
-                <Link href="/candidate/afterLogin/home/candidateHome">
-                  {" "}
-                  <img src="/images/logo_skilotech.png" alt="" />
-                </Link>
-                <Link
-                  href="/candidate/afterLogin/home/candidateHome"
-                  className={
-                    selectedPage === "/candidate/afterLogin/home/candidateHome"
-                      ? "active"
-                      : "li"
-                  }
-                >
-                  <li>Home</li>
-                </Link>
-                <Link
-                  href="/candidate/afterLogin/jobs/jobs"
-                  className={
-                    selectedPage === "/candidate/afterLogin/jobs/jobs"
-                      ? "active"
-                      : "li"
-                  }
-                >
-                  <li>Jobs</li>
-                </Link>
-                <Link
-                  href="/candidate/afterLogin/services/services"
-                  className={
-                    selectedPage ===
-                      "/candidate/afterLogin/services/services" ||
-                    selectedPage ===
-                      "/candidate/afterLogin/services/servicesSub/AiResumePage" ||
-                    selectedPage ===
-                      "/candidate/afterLogin/services/servicesSub/InterviewQue" ||
-                    selectedPage ===
-                      "/candidate/afterLogin/services/servicesSub/SkillAssessment" ||
-                    selectedPage ===
-                      "/candidate/afterLogin/services/servicesSub/DailyQuize"
-                      ? "active"
-                      : "li"
-                  }
-                >
-                  <li>Services</li>
-                </Link>
-              </>
-            )}
-          </div>
-          {!isLogin ? (
-            <div className="header_right">
-              <div
-                onClick={() => {
-                  router.push({
-                    pathname: "/auth",
-                    query: { signin: true },
-                  });
-                }}
-              >
-                <button className="header_signIn_btn  border border-transparent ">
-                  Sign in
-                </button>
               </div>
-              <Link
-                href={{
-                  pathname: "/auth",
-                  query: { signup: true },
-                }}
-              >
-                <button
-                  style={{ border: "1px solid var(--primary, #06A9EF)" }}
-                  className="header_signUp_btn"
+              <div className="header_right">
+                <div
+                  onClick={() => {
+                    router.push({
+                      pathname: "/auth",
+                      query: { signin: true },
+                    });
+                  }}
                 >
-                  Sign Up
-                </button>
-              </Link>
-            </div>
-          ) : (
-            <div className="header_right_login">
-              <Link href="">
-                <img
-                  src="/images/notifications.png"
-                  className="header_notification"
-                  alt=""
-                />
-              </Link>
-              <div className="flex items-center gap-[8px]">
-                <Link href="/profile">
-                  <div className="profile_icon">
-                    {userDataGlobal?.profilePicture ? (
-                      <img
-                        className=" rounded-full object-cover h-[40px] w-[40px]"
-                        src={
-                          userDataGlobal?.profilePicture?.img ||
-                          "/images/profile/profileNew.png"
-                        }
-                      />
-                    ) : (
-                      <img
-                        src="/images/profile_icon.png"
-                        className="profile_icon_img"
-                        alt=""
-                      />
-                    )}
-                  </div>
-                  {/* <div className="profile_icon">
-                    <img
-                      src="/images/profile_icon.png"
-                      className="profile_icon_img"
-                      alt=""
-                    />
-                  </div> */}
-                </Link>
-                <div className="user_name flex items-center relative">
-                  <div
-                    className="group"
-                    style={{
-                      height: "50px",
-                      display: "flex",
-                      flexDirection: "column",
-                      justifyContent: "center",
-                      position: "relative",
-                    }}
-                  >
-                    <img
-                      src="/images/down_arrow.png"
-                      className="h-4 w-4 ml-1 cursor-pointer group-hover:opacity-100 group-hover:visible"
-                      alt=""
-                    />
-                    <div className="dropdown absolute top-[26px] mt-[1rem] z-10 bg-white border border-gray-200 py-2 px-3 rounded-md shadow-md opacity-0 invisible transition-opacity duration-300 group-hover:opacity-100 group-hover:visible">
-                      <Link href="/profile" className="block py-1">
-                        Profile
-                      </Link>
-                      <a onClick={handleLogOut} className="block py-1">
-                        LogOut
-                      </a>
-                    </div>
-                  </div>
+                  <button className="header_signIn_btn  border border-transparent ">
+                    Sign in
+                  </button>
                 </div>
+                <Link
+                  href={{
+                    pathname: "/auth",
+                    query: { signup: true },
+                  }}
+                >
+                  <button
+                    style={{ border: "1px solid var(--primary, #06A9EF)" }}
+                    className="header_signUp_btn"
+                  >
+                    Sign Up
+                  </button>
+                </Link>
               </div>
-            </div>
+            </>
+          ) : (
+            <>
+             
+              <CandidateHeader />
+            </>
           )}
         </div>
-      </div>
+       
+     
     </div>
+    </div >
   );
 }
 

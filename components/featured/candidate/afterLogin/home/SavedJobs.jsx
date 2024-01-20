@@ -42,14 +42,14 @@ function SavedJobs() {
   };
 
 
-  
+
   return (
     <>
-      {savedJobList.length > 0 &&
+      {savedJobList.length > 0 ?
         <div className="  bg-[#F9F9F9]  ">
           <div className=" grid grid-cols-12 gap-[24px] py-[16px]  ">
 
-            <div className={`${isDescription ? " web1024" : ""} ${isViewportBelow1024 ? "col-span-12":"col-span-5"}  p-[8px] rounded-[8px]   bg-[#fff] leading-tight min-h-[70vh]  `}>
+            <div className={`${isDescription ? " web1024" : ""} ${isViewportBelow1024 ? "col-span-12" : "col-span-5"}  p-[8px] rounded-[8px]   bg-[#fff] leading-tight min-h-[70vh]  `}>
               <div
                 className={``}
                 style={{
@@ -260,7 +260,17 @@ function SavedJobs() {
 
           </div>
         </div>
+        :
+        <div className=" object-contain justify-center items-center p-12 w-[100%] flex h-full">
+        <img
+          className="ms:w-[360px] w-[260px] ms:h-[277px] h-[210px]"
+          src="/images/jobs/noSaved.png"
+          alt=""
+        />
+        </div>
       }
+
+
     </>
   );
 }

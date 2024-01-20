@@ -395,6 +395,7 @@ function Jobs() {
 
 
           <div className="grid grid-cols-12 py-[16px] gap-[24px]  ">
+            
             <div className=" mobile600 col-span-12 ">
               <ApplicationStatus />
             </div>
