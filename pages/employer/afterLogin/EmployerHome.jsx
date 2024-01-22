@@ -2,7 +2,6 @@
 import { Bars } from "@/components/common/Bars";
 import React, { useEffect, useState } from "react";
 
-
 function EmployerHome({ toggleContentt }) {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -226,7 +225,6 @@ function EmployerHome({ toggleContentt }) {
   ];
   return (
     <div className=" h-[80vh] w-[100%] pr-2 ms:overflow-y-auto">
-
       <div
         className="bg-frm  bg-cover bg-[#06A9EF]  py-6 flex  items-center "
         style={{
@@ -462,9 +460,8 @@ function EmployerHome({ toggleContentt }) {
               </div>
             </div>
           </div>
-          <div className="lg:flex w-full flex-row-reverse">
-           
-            <div className="flex flex-col items-start gap-4 lg:w-[32.23%] w-[100%]">
+          <div className="lg:flex w-full ml:flex-row-reverse flex-col flex justify-between">
+            <div className="flex ml:flex-col flex-row items-start gap-4 lg:w-[32.23%] w-[100%]">
               <div
                 className="flex p-4 flex-col items-start gap-4 bg-[#fff] self-stretch w-full"
                 style={{
@@ -658,10 +655,9 @@ function EmployerHome({ toggleContentt }) {
                 </div>
               </div>
             </div>
-            <div className="w-[60.44%] flex">
-
-              <Bars/>
-</div>
+            <div className="w-[60.44%]  flex ">
+              <Bars />
+            </div>
           </div>
         </div>
         <div className=" pt-6 lg:pt-0 lg:w-[31.26%]  w-[100%] flex flex-col gap-4 lg:justify-between items-start  ">
@@ -798,7 +794,6 @@ function EmployerHome({ toggleContentt }) {
                       height="18  "
                       viewBox="0 0 20 20"
                       fill="none"
-                    // className="w-full h-full"
                     >
                       <g clip-path="url(#clip0_7540_118191)">
                         <path
@@ -907,18 +902,19 @@ function EmployerHome({ toggleContentt }) {
                         </p>
                       </div>
                       <div
-                        className={`flex py-[6px] px-[10px] text-[14px] font-semibold justify-center items-center gap-[8px] rounded-[80px] border ${applicants.status === "Interview"
-                          ? "text-[#26A4FF] border-[#26A4FF]"
-                          : applicants.status === "Hired"
+                        className={`flex py-[6px] px-[10px] text-[14px] font-semibold justify-center items-center gap-[8px] rounded-[80px] border ${
+                          applicants.status === "Interview"
+                            ? "text-[#26A4FF] border-[#26A4FF]"
+                            : applicants.status === "Hired"
                             ? "text-[#56CDAD] border-[#56CDAD]"
                             : applicants.status === "Shortlisted"
-                              ? "text-[#4640DE] border-[#4640DE]"
-                              : applicants.status === "Rejected"
-                                ? "text-[#FF6550] border-[#FF6550]"
-                                : applicants.status === "In Review"
-                                  ? "text-[#FFB836] border-[#FFB836]"
-                                  : ""
-                          }`}
+                            ? "text-[#4640DE] border-[#4640DE]"
+                            : applicants.status === "Rejected"
+                            ? "text-[#FF6550] border-[#FF6550]"
+                            : applicants.status === "In Review"
+                            ? "text-[#FFB836] border-[#FFB836]"
+                            : ""
+                        }`}
                       >
                         {applicants.status}
                       </div>
@@ -1106,32 +1102,58 @@ function EmployerHome({ toggleContentt }) {
                     />
                   </div>
                 </div>
-                <p className="text-[#646464] text-[10px] font-semibold">Applicants <br /> per page</p>
-
+                <p className="text-[#646464] text-[10px] font-semibold">
+                  Applicants <br /> per page
+                </p>
               </div>
               <div className="flex justify-center items-center gap-[2px]">
-                <svg xlgns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                  <path d="M15 6L9 12L15 18" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <svg
+                  xlgns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                >
+                  <path
+                    d="M15 6L9 12L15 18"
+                    stroke="#333333"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
                 </svg>
                 <div className="flex items-center">
                   <div className="flex px-[12px] py-2 justify-center items-center gap-2 rounded-md bg-[#06A9EF]">
-                    <p className="text-[#fff] text-[12px] font-Montserrat font-semibold">1</p>
+                    <p className="text-[#fff] text-[12px] font-Montserrat font-semibold">
+                      1
+                    </p>
                   </div>
                   <div className="flex justify-center items-center gap-[2px] rounded-[8px]">
-                    <p className="text-[#646464] text-[12px] px-[12px] py-2 font-semibold">2</p>
+                    <p className="text-[#646464] text-[12px] px-[12px] py-2 font-semibold">
+                      2
+                    </p>
                   </div>
-                  <svg xlgns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
-                    <path d="M9.375 6L15.625 12L9.375 18" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                  <svg
+                    xlgns="http://www.w3.org/2000/svg"
+                    width="25"
+                    height="24"
+                    viewBox="0 0 25 24"
+                    fill="none"
+                  >
+                    <path
+                      d="M9.375 6L15.625 12L9.375 18"
+                      stroke="#333333"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
                   </svg>
-
                 </div>
-
               </div>
             </div>
           </div>
         </div>
       </div>
-
     </div>
   );
 }
