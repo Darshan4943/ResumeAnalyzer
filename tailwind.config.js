@@ -23,6 +23,7 @@ module.exports = {
       xlg: "600px",
       scr700: "700px",
       md: "768px",
+      scr800:'800px',
       scr820: "820px",
       ml: "851px",
       scr900:"900px",
