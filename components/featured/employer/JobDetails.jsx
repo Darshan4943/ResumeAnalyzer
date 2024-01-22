@@ -5,7 +5,7 @@ function JobDetails() {
   return (
     <>
       <div
-        className="grid md:grid-cols-2 grid-cols-1  items-start justify-center gap-5 rounded-2xl bg-[#fff] md:p-6 p-4"
+        className="grid md:grid-cols-2 grid-cols-1 max-h-[80vh] overflow-y-auto items-start justify-center gap-5 rounded-2xl bg-[#fff] md:p-6 p-4 mt-4"
         style={{ boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)" }}
       >
         <div className="flex flex-col items-start gap-4 self-stretch ">

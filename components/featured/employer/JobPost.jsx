@@ -151,11 +151,11 @@ function JobPost({ toggleContentt, setToggle }) {
 
 
   return (
-    <div className="  ">
+    <div className=" mb-4 ">
 
       <div className="w-[100%] max-h-[80vh] flex flex-col  relative   ">
         <div className="">
-          <div className="flex w-[100%] px-[32px] py-[24px] justify-between items-center bg-[#fff] ">
+          <div className="flex w-[100%] px-[32px] py-[24px] justify-between rounded-t-[8px] items-center bg-[#fff] ">
             <div className="flex items-center gap-[24px]">
               <img onClick={() => setToggle(0)} className="w-[40px] cursor-pointer" src="/images/employer/icon_left.png" alt="" />
               <div className="flex flex-col items-start gap-[8px]">
@@ -180,7 +180,7 @@ function JobPost({ toggleContentt, setToggle }) {
             </div>
           </div>
 
-          <div className="flex   px-[16px] pb-[12px] items-start gap-[40px] bg-[#fff]">
+          <div className="flex   px-[16px] pb-[12px] items-start  gap-[40px] bg-[#fff]">
             <div className="flex flex-col items-center gap-[7px] shadow-border">
               <p onClick={() => setOption(0)} className="text-[16px] font-[600]">Applicants</p>
               <svg xmlns="http://www.w3.org/2000/svg" width="89" height="4" viewBox="0 0 89 4" fill="none">
@@ -286,6 +286,7 @@ function JobPost({ toggleContentt, setToggle }) {
             </div>
           </>
         }
+
         {option === 1 &&
           <>
             <JobDetails />
