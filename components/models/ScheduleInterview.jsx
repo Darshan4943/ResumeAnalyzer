@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
-function ScheduleInterview() {
-    const [levels, setLevels] = useState([{ id: 1, name: 'Interviewer 1' }, { id: 2, name: 'Interviewer 2' }]);
+function ScheduleInterview({setShowScheduleInterview}) {
+    const [levels, setLevels] = useState([{ id: 1, name: 'Interviewer 1' }]);
     const [showApprovalChain, setShowApprovalChain] = useState(false);
     const [approvalChoice, setApprovalChoice] = useState(null);
 
@@ -21,12 +21,12 @@ function ScheduleInterview() {
             <div className='flex flex-col gap-2 text-[14px] font-medium '>
                 <p>What will be the mode of Interview?</p>
                 <div className="flex gap-[8px] items-center">
-                    <input
+                    <input 
                         type="radio"
                         name="approvalChoice"
                         value="yes"
-                        className="h-[20px] w-[20px] custom-radio"
-                        onChange={(e) => handleApprovalChoice(e.target.value)}
+                        className="h-[20px] w-[20px] custom-radio cursor-pointer"
+                        // onChange={(e) => handleApprovalChoice(e.target.value)}
                         checked
                     />
                     <label className="text-[14px] font-medium">Online</label>
@@ -34,8 +34,8 @@ function ScheduleInterview() {
                         type="radio"
                         name="approvalChoice"
                         value="no"
-                        className="h-[20px] w-[20px] custom-radio"
-                        onChange={(e) => handleApprovalChoice(e.target.value)}
+                        className="h-[20px] w-[20px] custom-radio cursor-pointer"
+                        // onChange={(e) => handleApprovalChoice(e.target.value)}
                     />
                     <label className="text-[14px] font-medium">Offline</label>
                 </div>
@@ -62,7 +62,7 @@ function ScheduleInterview() {
                                                 marginLeft: "0.44rem",
 
                                             }}
-                                            src="images/employer/tracker_line.png"
+                                            src="/images/employer/tracker_line.png"
                                             alt="Line 1"
                                         />
 
@@ -110,6 +110,10 @@ function ScheduleInterview() {
                     </div>
                 </div>
             </div>
+            <div className='flex gap-4 justify-end pb-[1rem]'>
+                    <button onClick={()=>setShowScheduleInterview(false)} className='px-9 py-3 border border-[#06A9EF] rounded-[12px]  text-[16px] font-semibold' id='button'>Cancel</button>
+                    <button className='px-9 py-3 bg-[#06A9EF] rounded-[12px] text-[16px] font-semibold text-white'>Save</button>
+                </div>
         </div>
     )
 }

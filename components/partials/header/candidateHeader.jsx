@@ -51,7 +51,7 @@ function CandidateHeader() {
             <div className="header_left ">
                 <Link href="/candidate/afterLogin/home/candidateHome">
                     {" "}
-                    <img src="/images/logo_skilotech.png" alt="" className='min-w-[172px]'/>
+                    <img src="/images/logo_skilotech.png" alt="" className='min-w-[172px]' />
                 </Link>
                 <Link
                     href="/candidate/afterLogin/home/candidateHome"

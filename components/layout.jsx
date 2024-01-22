@@ -47,11 +47,11 @@ function Layout({ children }) {
         <EmployerHeader />
       </div>
 
-      <div className="flex bg-[#f3f3f3] ">
-        <div className="web600">
+      <div className="flex bg-[#f3f3f3]  ">
+        <div className="web">
           <EmployerSidebar />
         </div>
-        <div className="  pt-[100px] w-[100%] px-5">
+        <div className="  pt-[100px] w-[100%] ml:px-5 px-2">
         <Breadcrumb/>
           {children}</div>
       </div>

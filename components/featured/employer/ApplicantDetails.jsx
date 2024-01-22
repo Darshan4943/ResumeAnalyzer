@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import LevelUpdate from '@/components/models/levelUpdate';
 
 
-function ApplicantDetails() {
+function ApplicantDetails({setTogglee}) {
 
 
 
@@ -45,18 +45,7 @@ function ApplicantDetails() {
 
         <div className='flex flex-col gap-6 relative '>
             <div className=' flex w-full gap-3 justify-between p-4  rounded-[16px] items-center bg-white' style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}>
-                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
-                    <g clip-path="url(#clip0_4754_62269)">
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M6.66797 20C6.66797 19.0795 7.41416 18.3333 8.33464 18.3333H31.668C32.5884 18.3333 33.3346 19.0795 33.3346 20C33.3346 20.9205 32.5884 21.6666 31.668 21.6666H8.33464C7.41416 21.6666 6.66797 20.9205 6.66797 20Z" fill="#333333" />
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M7.15612 18.8215C7.807 18.1706 8.86227 18.1706 9.51315 18.8215L19.5131 28.8215C20.164 29.4723 20.164 30.5276 19.5131 31.1785C18.8623 31.8294 17.807 31.8294 17.1561 31.1785L7.15612 21.1785C6.50525 20.5276 6.50525 19.4723 7.15612 18.8215Z" fill="#333333" />
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M19.5131 8.82147C20.164 9.47234 20.164 10.5276 19.5131 11.1785L9.51315 21.1785C8.86227 21.8294 7.807 21.8294 7.15612 21.1785C6.50525 20.5276 6.50525 19.4723 7.15612 18.8215L17.1561 8.82147C17.807 8.17059 18.8623 8.17059 19.5131 8.82147Z" fill="#333333" />
-                    </g>
-                    <defs>
-                        <clipPath id="clip0_4754_62269">
-                            <rect width="40" height="40" fill="white" />
-                        </clipPath>
-                    </defs>
-                </svg>
+            <img onClick={()=>setTogglee(1)} className="w-[40px] cursor-pointer" src="/images/employer/icon_left.png" alt="" />
                 <p className='text-[24px]  w-[100%] text-start flex justify-start font font-medium  '>Applicant Details</p>
             </div>
 
@@ -64,7 +53,7 @@ function ApplicantDetails() {
                 <div className=' rounded-[16px] py-2 flex flex-col  w-[32.26%] bg-white ' style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}>
                     <div className='flex flex-col overflow-y-auto gap-6 px-6 py-4' >
                         <div className=' flex  gap-6' >
-                            <img src="./images/employer/Ellipse_hiring.png" alt="" className="h-[96px] w-[96px]" />
+                            <img src="/images/employer/profileNew.png" alt="" className="h-[96px] w-[96px]" />
                             <div className='w-[65%] flex flex-col gap-1'>
                                 <p className='text-[24px]   text-start   font font-medium  '>John Doe</p>
                                 <p className='text-[16px]   text-start text-[#646464]   font-normal  '>Product Designer</p>
@@ -189,7 +178,7 @@ function ApplicantDetails() {
                             <div className='flex justify-between text-[16px] font-semibold'>
                                 <div>
                                     <p
-                                        className=""
+                                        className=" cursor-pointer"
                                         onClick={() => handleOptionClick('ApplicantProfile')}
                                     >
                                         Applicant Profile
@@ -200,7 +189,7 @@ function ApplicantDetails() {
                                 </div>
                                 <div>
                                     <p
-                                        className=""
+                                        className="cursor-pointer"
                                         onClick={() => handleOptionClick('Resume')}
                                     >
                                         Resume
@@ -211,7 +200,7 @@ function ApplicantDetails() {
                                 </div>
                                 <div>
                                     <p
-                                        className=""
+                                        className="cursor-pointer"
                                         onClick={() => handleOptionClick('HiringProgress')}
                                     >
                                         Hiring Progress
@@ -302,7 +291,7 @@ function ApplicantDetails() {
                     {toggle === "Resume" &&
                         <div className='flex justify-center overflow-y-auto  px-6'>
                             <img
-                                src="./images/services/Resume-template-3.png"
+                                src="/images/services/Resume-template-3.png"
                                 className="h-[729px] w-[520px] rounded-[10px]"
                                 alt=""
                             />
@@ -333,7 +322,7 @@ function ApplicantDetails() {
                                     </div>
                                     <div className='flex  flex-col gap-1'>
                                         <div className='flex gap-4 text-[16px] font-medium'>
-                                            <p>Profile Score</p>
+                                            <p>Assessment Score</p>
                                             <div className='flex gap-2 '>
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                                     <path d="M21.2831 8.27584L15.3323 7.411L12.6722 2.01803C12.5995 1.87037 12.48 1.75084 12.3323 1.67818C11.962 1.49537 11.512 1.64771 11.3268 2.01803L8.66668 7.411L2.7159 8.27584C2.55184 8.29928 2.40184 8.37662 2.28699 8.49381C2.14815 8.63651 2.07165 8.8285 2.07428 9.02758C2.07692 9.22666 2.15849 9.41655 2.30106 9.55553L6.60653 13.7532L5.58934 19.6805C5.56549 19.8184 5.58074 19.9602 5.63338 20.0899C5.68602 20.2195 5.77394 20.3318 5.88716 20.4141C6.00038 20.4963 6.13437 20.5452 6.27395 20.5551C6.41352 20.5651 6.5531 20.5357 6.67684 20.4704L11.9995 17.6719L17.3222 20.4704C17.4675 20.5477 17.6362 20.5735 17.7979 20.5454C18.2057 20.4751 18.48 20.0883 18.4097 19.6805L17.3925 13.7532L21.6979 9.55553C21.8151 9.44068 21.8925 9.29068 21.9159 9.12662C21.9792 8.71646 21.6932 8.33678 21.2831 8.27584Z" fill="#FFB836" />
@@ -353,16 +342,19 @@ function ApplicantDetails() {
 
                     <AnimatePresence>
                         {openTaskModel && (
+                            <>
+                             <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
                             <motion.div
                                 initial={{ x: '100%' }}
                                 animate={{ x: 0 }}
                                 exit={{ x: '100%' }}
                                 transition={{  duration: 0.5 }}
                                 ref={taskRef}
-                                className='absolute z-10 right-[-1.5%] w-[60%] top-[-2%]'
+                                className='absolute  z-[2000] right-[-1.2%] w-[60%] top-[-3%]'
                             >
                                 <LevelUpdate closeTaskPopup={closeTaskPopup} />
                             </motion.div>
+                            </>
                         )}
                     </AnimatePresence>
                 </div>

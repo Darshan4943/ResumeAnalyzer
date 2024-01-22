@@ -40,7 +40,7 @@ function Hiring() {
             time3: '',
             button: <button className="py-[4px] px-[16px] text-[#0C8A0A] rounded-[6px] font-[500] border border-[#0C8A0A] bg-[#E2FFE1]">Live</button>
             ,
-            img: <img className="w-[20px]" src="./images/employer/share.png" alt="" />
+            img: <img className="w-[20px]" src="/images/employer/share.png" alt="" />
             ,
             applicant_no: 16,
             date_posted: '24 May 2020',
@@ -54,7 +54,7 @@ function Hiring() {
             time3: '',
             button: <button className="py-[4px] px-[16px] text-[#0C8A0A] rounded-[6px] font-[500] border border-[#0C8A0A] bg-[#E2FFE1]">Live</button>
             ,
-            img: <img className="w-[20px]" src="./images/employer/share.png" alt="" />
+            img: <img className="w-[20px]" src="/images/employer/share.png" alt="" />
             ,
             applicant_no: 16,
             date_posted: '24 May 2020',
@@ -96,7 +96,7 @@ function Hiring() {
             time3: '',
             button: <button className="py-[4px] px-[16px] text-[#0C8A0A] rounded-[6px] font-[500] border border-[#0C8A0A] bg-[#E2FFE1]">Live</button>
             ,
-            img: <img className="w-[20px]" src="./images/employer/share.png" alt="" />
+            img: <img className="w-[20px]" src="/images/employer/share.png" alt="" />
             ,
             applicant_no: 16,
             date_posted: '24 May 2020',
@@ -110,7 +110,7 @@ function Hiring() {
             time3: '',
             button: <button className="py-[4px] px-[16px] text-[#0C8A0A] rounded-[6px] font-[500] border border-[#0C8A0A] bg-[#E2FFE1]">Live</button>
             ,
-            img: <img className="w-[20px]" src="./images/employer/share.png" alt="" />
+            img: <img className="w-[20px]" src="/images/employer/share.png" alt="" />
             ,
             applicant_no: 16,
             date_posted: '24 May 2020',
@@ -166,7 +166,7 @@ function Hiring() {
             time3: '',
             button: <button className="py-[4px] px-[16px] text-[#0C8A0A] rounded-[6px] font-[500] border border-[#0C8A0A] bg-[#E2FFE1]">Live</button>
             ,
-            img: <img className="w-[20px]" src="./images/employer/share.png" alt="" />
+            img: <img className="w-[20px]" src="/images/employer/share.png" alt="" />
             ,
             applicant_no: 16,
             date_posted: '24 May 2020',
@@ -194,7 +194,7 @@ function Hiring() {
             time3: '',
             button: <button className="py-[4px] px-[16px] text-[#0C8A0A] rounded-[6px] font-[500] border border-[#0C8A0A] bg-[#E2FFE1]">Live</button>
             ,
-            img: <img className="w-[20px]" src="./images/employer/share.png" alt="" />
+            img: <img className="w-[20px]" src="/images/employer/share.png" alt="" />
             ,
             applicant_no: 16,
             date_posted: '24 May 2020',
@@ -242,16 +242,17 @@ function Hiring() {
                                 <p className="text-[#333] font-montserrat text-[24px] font-medium flex-1-0-0 w-[70%]">
                                     Job Post Status
                                 </p>
-                                <div className="flex w-[30%] items-stretch justify-end ">
+                                <div onClick={()=>router.push("/employer/afterLogin/JobPosting?content=CreateNewJob")} className="flex w-[30%] items-stretch justify-end ">
                                     <button className=" flex py-[8px]  font-[600] text-[16px] px-[24px] justify-center text-white items-center rounded-[8px] border border-solid border-[#06A9EF] bg-[#06A9EF] gap-[5px]">
                                         <p className="text-[16px]">+</p>
-                                        Create New Job</button>
+                                        Create New Job
+                                    </button>
                                 </div>
                             </div>
                         </div>
 
 
-                        <div className="h-[84px] bg-[#BCECFF]  flex flex-row p-[16px] justify-between  text-[#333] sticky top-[72px] ">
+                        <div className="h-[84px] bg-[#06A9EF]  flex flex-row p-[16px] justify-between  text-[#333] sticky top-[72px] ">
                             {headings.map((headingObj, index) => (
                                 <>
 
@@ -274,7 +275,7 @@ function Hiring() {
                             </div>
                         </div>
                     </div>
-                    <div className="grid grid-cols-4 gap-[20px] overflow-y-scroll">
+                    <div className="grid grid-cols-4 gap-[20px] pb-2 overflow-y-scroll">
                         {
                             job_card.map((job_card) =>
                                 <div onClick={toggleContent} className="flex py-[16px] px-[0px] flex-col items-start gap-[12px] flex-shrink-0 rounded-lg bg-[#fff] shadow-md">
@@ -320,10 +321,10 @@ function Hiring() {
 
             }
             {toggle === 1 &&
-                <JobPost toggleContentt={toggleContent} />
+                <JobPost toggleContentt={toggleContent} setToggle={setToggle} />
             }
             {toggle === 2 &&
-                <ApplicantDetails />
+                <ApplicantDetails setTogglee={setToggle} />
             }
         </div>
     )
