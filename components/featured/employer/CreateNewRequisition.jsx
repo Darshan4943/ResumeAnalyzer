@@ -190,7 +190,7 @@ const CreateNewRequisition = () => {
                             value="no"
                             className="h-[20px] w-[20px] custom-radio"
                             onChange={(e) => handleApprovalChoice(e.target.value)}
-                            checked
+                           
                         />
                         <label className="text-[14px] font-medium">No</label>
                     </div>

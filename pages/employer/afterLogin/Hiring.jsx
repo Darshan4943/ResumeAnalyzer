@@ -242,10 +242,11 @@ function Hiring() {
                                 <p className="text-[#333] font-montserrat text-[24px] font-medium flex-1-0-0 w-[70%]">
                                     Job Post Status
                                 </p>
-                                <div className="flex w-[30%] items-stretch justify-end ">
+                                <div onClick={()=>router.push("/employer/afterLogin/JobPosting?content=CreateNewJob")} className="flex w-[30%] items-stretch justify-end ">
                                     <button className=" flex py-[8px]  font-[600] text-[16px] px-[24px] justify-center text-white items-center rounded-[8px] border border-solid border-[#06A9EF] bg-[#06A9EF] gap-[5px]">
                                         <p className="text-[16px]">+</p>
-                                        Create New Job</button>
+                                        Create New Job
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -323,7 +324,7 @@ function Hiring() {
                 <JobPost toggleContentt={toggleContent} setToggle={setToggle} />
             }
             {toggle === 2 &&
-                <ApplicantDetails setTogglee={setToggle}/>
+                <ApplicantDetails setTogglee={setToggle} />
             }
         </div>
     )
