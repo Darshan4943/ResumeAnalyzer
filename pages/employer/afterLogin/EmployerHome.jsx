@@ -1,4 +1,5 @@
 // import StackedBarChart from "@/components/common/StackedBarChart";
+import { Bars } from "@/components/common/Bars";
 import React, { useEffect, useState } from "react";
 
 
@@ -462,7 +463,7 @@ function EmployerHome({ toggleContentt }) {
             </div>
           </div>
           <div className="lg:flex w-full flex-row-reverse">
-            <div className="w-[60.44%] flex"></div>
+           
             <div className="flex flex-col items-start gap-4 lg:w-[32.23%] w-[100%]">
               <div
                 className="flex p-4 flex-col items-start gap-4 bg-[#fff] self-stretch w-full"
@@ -657,6 +658,10 @@ function EmployerHome({ toggleContentt }) {
                 </div>
               </div>
             </div>
+            <div className="w-[60.44%] flex">
+
+              <Bars/>
+</div>
           </div>
         </div>
         <div className=" pt-6 lg:pt-0 lg:w-[31.26%]  w-[100%] flex flex-col gap-4 lg:justify-between items-start  ">
