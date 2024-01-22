@@ -9,7 +9,7 @@ function EmployerHeader() {
 
             <div className=' flex ms:gap-6 gap-2 items-center ms:justify-start justify-between ms:w-[60%] w-[90%]'>
                 <div className='flex gap-1 items-center'>
-                    <div className='mobile600' onClick={() => setIsSidebar(true)}>
+                    <div className='mobile' onClick={() => setIsSidebar(true)}>
                         <img src="/images/home/menu.png" alt="" className="min-w-[30px] h-[30px] object-contain" />
                     </div>
                     <div className="flex  items-center  ">

@@ -248,13 +248,10 @@ function JobPosting() {
     return (
         <div className="">
 
-
-
-
             {toggle === 0 &&
-                <>
+                <div className="pb-4">
                     <div className="web">
-                        <div className=" w-[100%] max-h-[80vh]  rounded-[20px]  relative overflow-y-scroll ">
+                        <div className=" w-[100%] max-h-[75vh]  rounded-[20px]  relative overflow-y-scroll ">
                             <div className="h-[72px] bg-[#fff] p-[16px] flex flex-row justify-between rounded-t-[12px] sticky top-0">
                                 <p className="h-[29px]  text-[24px] font-[500px]">All Job Requisitions</p>
                                 <button
@@ -329,20 +326,95 @@ function JobPosting() {
 
                                 </div>
                             </div>
-                            <TablePagination
-                                rowsPerPageOptions={[5, 10, 15]}
-                                component="div"
-                                className="h-[64px] rounded-b-[12px] py-[12px] px-[16px]  bg-white sticky bottom-0 w-[100%]"
-                                count={requisition.length}
-                                rowsPerPage={rowsPerPage}
-                                page={page}
-                                onPageChange={handleChangePage}
-                                onRowsPerPageChange={handleChangeRowsPerPage}
-                            />
+                           
                         </div>
                     </div>
 
-                    <div className="mobile max-h-[80vh] relative overflow-y-scroll">
+                    <div className="mobile relative overflow-y-scroll ">
+
+                    <div className="sticky top-0">
+                                <div className=" bg-[#fff] p-[12px]  flex flex-col ms:flex-row gap-[12px] z-[500] justify-between rounded-t-[12px] ">
+                                    <p className="h-[29px] text-[18px] ml:text-[24px] font-[500px]">
+                                        All Requisition Requests
+                                    </p>
+
+                                    <button
+                                        onClick={toggleContent}
+                                        className=" py-[8px] px-[12px] bg-[#06A9EF] rounded-lg text-[14px] ml:text-[16px] text-white "
+                                    >
+                                        Create New Requistion
+                                    </button>
+
+                                </div>
+                                <div className="flex bg-[#06A9EF] gap-[1px] p-4 ml:w-[20%] w-full">
+                                    <div className=" bg-white p-4 flex gap-[10px] w-full items-center ">
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width="24"
+                                            height="24"
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                        >
+                                            <path
+                                                d="M15.5 15.5L19 19L15.5 15.5ZM5 11C5 11.7879 5.15519 12.5681 5.45672 13.2961C5.75825 14.0241 6.20021 14.6855 6.75736 15.2426C7.31451 15.7998 7.97595 16.2417 8.7039 16.5433C9.43185 16.8448 10.2121 17 11 17C11.7879 17 12.5681 16.8448 13.2961 16.5433C14.0241 16.2417 14.6855 15.7998 15.2426 15.2426C15.7998 14.6855 16.2417 14.0241 16.5433 13.2961C16.8448 12.5681 17 11.7879 17 11C17 9.4087 16.3679 7.88258 15.2426 6.75736C14.1174 5.63214 12.5913 5 11 5C9.4087 5 7.88258 5.63214 6.75736 6.75736C5.63214 7.88258 5 9.4087 5 11V11Z"
+                                                stroke="#646464"
+                                                stroke-width="2.02783"
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                            />
+                                        </svg>
+                                        <input
+                                            className="w-[100%] text-[#646464]"
+                                            type="text"
+                                            placeholder="search"
+                                        />
+                                    </div>
+                                    <div className=" py-[12px] px-[16px] text-[#333] text-[14px] font-[600]  flex gap-[8px] items-center bg-[#fff]">
+
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width="20"
+                                            height="20"
+                                            viewBox="0 0 20 20"
+                                            fill="none"
+                                        >
+                                            <g clip-path="url(#clip0_7540_118191)">
+                                                <path
+                                                    d="M3.33203 5H16.6654"
+                                                    stroke="#333333"
+                                                    stroke-width="2"
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                />
+                                                <path
+                                                    d="M5 10H15"
+                                                    stroke="#333333"
+                                                    stroke-width="2"
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                />
+                                                <path
+                                                    d="M6.66797 15H13.3346"
+                                                    stroke="#333333"
+                                                    stroke-width="2"
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                />
+                                            </g>
+                                            <defs>
+                                                <clipPath id="clip0_7540_118191">
+                                                    <rect width="20" height="20" fill="white" />
+                                                </clipPath>
+                                            </defs>
+                                        </svg>
+                                        <div>
+                                            Sort
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
                         {requisition
                             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                             .map((req, index) => (
@@ -411,7 +483,10 @@ function JobPosting() {
                                     </div>
                                 </div>
                             ))}
-                        <TablePagination
+                       
+                    </div>
+
+                    <TablePagination
                             rowsPerPageOptions={[5, 10, 15]}
                             component="div"
                             className="h-[64px] rounded-b-[12px] py-[12px] px-[16px]  bg-white sticky bottom-0 w-[100%]"
@@ -421,8 +496,7 @@ function JobPosting() {
                             onPageChange={handleChangePage}
                             onRowsPerPageChange={handleChangeRowsPerPage}
                         />
-                    </div>
-                </>
+                </div>
             }
 
             {toggle === 1 &&

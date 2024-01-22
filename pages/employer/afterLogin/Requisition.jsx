@@ -212,7 +212,7 @@ function Requisition() {
             {toggle === 0 &&
                 <>
                     <div className="web">
-                        <div className=" w-[100%] max-h-[75vh]  rounded-[20px]  relative overflow-y-scroll ">
+                        <div className=" w-[100%] max-h-[70vh]  rounded-[20px]  relative overflow-y-scroll ">
                             <div className="h-[72px] bg-[#fff] p-[16px] flex flex-row justify-between rounded-t-[12px] sticky top-0">
                                 <p className="h-[29px]  text-[24px] font-[500px]">All Requisition Requests</p>
                                 <button
@@ -257,7 +257,7 @@ function Requisition() {
 
                                 <div className=" overflow-y-auto">
                                     {requisition.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((req, index) => (
-                                        <div key={index} className="h-[64px] items-center flex flex-row py-[12px] px-[16px] justify-between border-b border-solid  border-[rgba(100, 100, 100, 0.60)] bg-white ">
+                                        <div key={index} className=" items-center flex flex-row py-[12px] px-[16px] justify-between border-b border-solid  border-[rgba(100, 100, 100, 0.60)] bg-white ">
                                             <div className=" w-[12.85%] flex flex-col gap-[3px]">
                                                 <p className="text-[14px] font-[500] text-[#06A9EF]">{req.tittle1}</p>
                                                 <p className="text-[12px] font-[500] text-[#646464]">{req.tittle2}</p>
@@ -277,22 +277,13 @@ function Requisition() {
 
                                 </div>
                             </div>
-                            <TablePagination
-                                rowsPerPageOptions={[5, 10, 15]}
-                                component="div"
-                                className="h-[80px] rounded-b-[12px] py-[12px] px-[16px]  bg-white sticky bottom-0 w-[100%]"
-                                count={requisition.length}
-                                rowsPerPage={rowsPerPage}
-                                page={page}
-                                onPageChange={handleChangePage}
-                                onRowsPerPageChange={handleChangeRowsPerPage}
-                            />
+                           
                         </div>
                     </div>
-                    <div className="mobile">
-                        <div className=" flex flex-col gap-2 ">
-                            <div>
-                                <div className=" bg-[#fff] p-[12px]  flex flex-col ms:flex-row gap-[12px] z-[500] justify-between rounded-t-[12px] sticky top-0">
+                    <div className="mobile ">
+                        <div className=" flex flex-col gap-2  ml:max-h-[70vh] overflow-y-scroll relative ">
+                            <div className="sticky top-0">
+                                <div className=" bg-[#fff] p-[12px]  flex flex-col ms:flex-row gap-[12px] z-[500] justify-between rounded-t-[12px] ">
                                     <p className="h-[29px] text-[18px] ml:text-[24px] font-[500px]">
                                         All Requisition Requests
                                     </p>
@@ -446,6 +437,17 @@ function Requisition() {
                             </div>
                         </div>
                     </div>
+
+                    <TablePagination
+                                rowsPerPageOptions={[5, 10, 15]}
+                                component="div"
+                                className="h-[80px] rounded-b-[12px] py-[12px] px-[16px]  bg-white sticky bottom-0 w-[100%]"
+                                count={requisition.length}
+                                rowsPerPage={rowsPerPage}
+                                page={page}
+                                onPageChange={handleChangePage}
+                                onRowsPerPageChange={handleChangeRowsPerPage}
+                            />
                 </>
             }
 

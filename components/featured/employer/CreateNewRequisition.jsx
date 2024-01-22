@@ -22,15 +22,15 @@ const CreateNewRequisition = () => {
         setShowApprovalChain(value === 'yes');
     };
     return (
-        <div className="flex flex-row gap-[20px] max-h-[80vh] ">
-            <div className=" w-[66.17%]  flex flex-col gap-4 rounded-[16px] py-2 bg-white" style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}>
+        <div className="flex ml:flex-row flex-col gap-[20px] ml:max-h-[80vh] pb-[24px] ">
+            <div className=" ml:w-[60%] w-[100%] flex flex-col gap-4 rounded-[16px] py-2 bg-white" style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}>
             <div className="overflow-y-auto p-4 flex flex-col gap-4 " >
-                <p className="h-[29px] w-[full] text-[24px] font-[500px] ">
+                <p className=" w-[full] text-[24px] font-[500px] ">
                     Create New Requisition
                 </p>
 
-                <div className="flex flex-row gap-4  ">
-                    <div className="flex flex-col gap-2  w-[49.01%]">
+                <div className="flex sm:flex-row flex-col gap-4  ">
+                    <div className="flex flex-col gap-2  sm:w-[49.01%] w-[100%]">
                         <p className="text-[14px]  font-medium">Job Title</p>
                         <input
                             type="text"
@@ -38,7 +38,7 @@ const CreateNewRequisition = () => {
                             className="h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#646464] rounded-[6px] placeholder:text-[14px]  font-[400]"
                         />
                     </div>
-                    <div className="flex flex-col gap-[8px] w-[49.01%]">
+                    <div className="flex flex-col gap-[8px] sm:w-[49.01%] w-[100%]">
                         <p className="  text-[14px]  font-medium">
                             Number of Positions
                         </p>
@@ -57,24 +57,24 @@ const CreateNewRequisition = () => {
 
                 <div className="flex flex-col gap-[8px] justify-between w-full">
                     <p className="text-[14px]  font-medium">Budget</p>
-                    <div className="flex flex-row gap-4 ">
+                    <div className="flex sm:flex-row flex-col gap-4 ">
                         <input
                             type="text"
                             placeholder="From (INR)"
-                            className="h-[38px]  px-[16px] py-[8px] border-[1px] border-solid border-[#646464] rounded-[6px]  w-[49.01%] placeholder:text-[14px]  font-[400]"
+                            className="h-[38px]  px-[16px] py-[8px] border-[1px] border-solid border-[#646464] rounded-[6px]  sm:w-[49.01%] w-[100%] placeholder:text-[14px]  font-[400]"
                         />
                         <input
                             type="text"
                             placeholder="To (INR)"
-                            className="h-[38px]  px-[16px] py-[8px] border-[1px] border-solid border-[#646464] rounded-[6px]  w-[49.01%] placeholder:text-[14px]  font-[400]"
+                            className="h-[38px]  px-[16px] py-[8px] border-[1px] border-solid border-[#646464] rounded-[6px]  sm:w-[49.01%] w-[100%] placeholder:text-[14px]  font-[400]"
                         />
                     </div>
                 </div>
 
 
 
-                <div className="flex flex-row gap-4">
-                    <div className="flex flex-col gap-2 w-[49.01%]">
+                <div className="flex sm:flex-row flex-col gap-4">
+                    <div className="flex flex-col gap-2 sm:w-[49.01%] w-[100%]">
                         <p className="text-[14px]  font-medium">Requisition Type</p>
                         <select
                             className="h-[38px] px-[16px] py-[8px]  border-[1px] border-solid border-[#646464] text-[14px]  font-[400] rounded-[6px]"
@@ -85,7 +85,7 @@ const CreateNewRequisition = () => {
 
                         </select>
                     </div>
-                    <div className="flex flex-col gap-[8px] w-[49.01%]">
+                    <div className="flex flex-col gap-[8px] sm:w-[49.01%] w-[100%]">
                         <p className=" text-[14px]  font-medium">
                             Experience
                         </p>
@@ -99,8 +99,8 @@ const CreateNewRequisition = () => {
 
 
 
-                <div className="flex flex-row gap-4  ">
-                    <div className="flex flex-col gap-2  w-[49.01%]">
+                <div className="flex sm:flex-row flex-col gap-4  ">
+                    <div className="flex flex-col gap-2  sm:w-[49.01%] w-[100%]">
                         <p className="text-[14px]  font-medium ">Location</p>
                         <select
                             className="h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#646464] rounded-[6px] text-[14px]  font-[400]"
@@ -111,7 +111,7 @@ const CreateNewRequisition = () => {
 
                         </select>
                     </div>
-                    <div className="flex flex-col gap-[8px] w-[49.01%]">
+                    <div className="flex flex-col gap-[8px] sm:w-[49.01%] w-[100%]">
                         <p className=" text-[14px]  font-medium">
                             Department
                         </p>
@@ -127,8 +127,8 @@ const CreateNewRequisition = () => {
                 </div>
 
 
-                <div className="flex flex-row gap-4  ">
-                    <div className="flex flex-col gap-2  w-[49.01%]">
+                <div className="flex sm:flex-row flex-col gap-4  ">
+                    <div className="flex flex-col gap-2 sm:w-[49.01%] w-[100%]">
                         <p className=" text-[14px]  font-medium">Target Hiring Date</p>
                         <select
                             className="h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#646464] rounded-[6px] text-[14px]  font-[400]"
@@ -139,7 +139,7 @@ const CreateNewRequisition = () => {
 
                         </select>
                     </div>
-                    <div className="flex flex-col gap-[8px] w-[49.01%]">
+                    <div className="flex flex-col gap-[8px] sm:w-[49.01%] w-[100%]">
                         <p className="text-[14px]  font-medium">
                             Job Type
                         </p>
@@ -169,7 +169,7 @@ const CreateNewRequisition = () => {
 
             </div>
             </div>
-            <div className=" w-[32.26%] h-[100%] max-h-[80vh]  flex flex-col gap-4 py-2 rounded-[16px]  bg-white" style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}>
+            <div className=" ml:w-[40%]  w-[100%] h-[100%] max-h-[80vh]  flex flex-col gap-4 py-2 rounded-[16px]  bg-white" style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}>
                 <div className="overflow-y-auto p-4 flex flex-col gap-4">
                     <p className="text-[24px] font-medium w-full">Requisition Approval Chain</p>
                     <p className="text[14px] w-full font-medium">
