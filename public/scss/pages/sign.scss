@@ -768,6 +768,11 @@
   // width: 600px;
   z-index: 5;
 }
+@media (max-width:750px) {
+  .employer_register_card{
+    width: 100%;
+  }
+}
 .enter_name {
   display: flex;
   height: 48px;
