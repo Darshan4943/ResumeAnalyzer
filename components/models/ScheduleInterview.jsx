@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import React, { useState } from 'react'
 
 function ScheduleInterview({ setShowScheduleInterview }) {
@@ -14,6 +15,15 @@ function ScheduleInterview({ setShowScheduleInterview }) {
         if (id === 1) return;
         const updatedLevels = levels.filter((level) => level.id !== id);
         setLevels(updatedLevels);
+    };
+    const router = useRouter()
+
+    const [toggle, setToggle] = useState("ApplicantProfile")
+    const [activeOption, setActiveOption] = useState('Candidate');
+
+    const handleOptionClick = (option) => {
+        setActiveOption(option);
+        setToggle(option)
     };
     return (
         <div className='p-6 rounded-tl-[16px] h-[87vh] bg-white flex flex-col gap-4 overflow-y-auto' style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}>
@@ -174,26 +184,84 @@ function ScheduleInterview({ setShowScheduleInterview }) {
 
                 <div className='flex flex-col gap-4  w-[45%]'>
 
-                        <p className='text-[20px] font-medium'>Select platform</p>
+                    <p className='text-[20px] font-medium'>Select platform</p>
 
 
-                        <div
-                            className=" flex gap-2 justify-between px-[16px] py-[8px] border-[1px] border-solid border-[#646464] rounded-[6px] text-[14px]  font-[400]"
-                            value="">
-                            
-                            <div className=' text-white bg-[#06A9EF] rounded-[8px] border border-[#06A9EF]  p-2'>
-                                        Teams Meeting
+                    <div
+                        className="  min-w-[300px] flex gap-2 justify-between px-[16px] py-[8px] border-[1px] border-solid border-[#646464] rounded-[6px] text-[14px]  font-[400]"
+                        value="">
+
+                        <div className=' text-white bg-[#06A9EF] rounded-[8px] border border-[#06A9EF] min-w-[127px] p-2'>
+                            Teams Meeting
+                        </div>
+                        <div className='  p-2 rounded-[8px]  border border-[#06A9EF]   min-w-[127px] '>
+                            Teams Meeting
+                        </div>
+
+                    </div>
+
+
+
+
+                </div>
+                <div className='flex flex-col  gap-4  px-[16px] py-[16px] border-[1px] border-solid border-[#646464] rounded-[6px] '>
+                    <div>
+                        <div className='flex justify-between text-[16px] font-semibold'>
+                            <div className='flex flex-col gap-2'>
+                                <p
+                                    className=" cursor-pointer"
+                                    onClick={() => handleOptionClick('Candidate')}
+                                >
+                                    Email to Candidate
+                                </p>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="150" height="4" viewBox="0 0 150 4" fill="none">
+                                    <path d="M0 4C0 1.79086 1.79086 0 4 0H134C136.209 0 138 1.79086 138 4H0Z" fill={activeOption === 'Candidate' ? '#06A9EF' : 'white'} />
+                                </svg>
                             </div>
-                            <div className='  p-2 rounded-[8px]  border border-[#06A9EF]  '>
-                                        Teams Meeting
+                            <div className='flex flex-col gap-2'>
+                                <p
+                                    className="cursor-pointer"
+                                    onClick={() => handleOptionClick('Interviewer')}
+                                >
+                                    Email to Interviewer
+                                </p>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="150" height="4" viewBox="0 0 150 4" fill="none">
+                                    <path d="M0 4C0 1.79086 1.79086 0 4 0H134C136.209 0 138 1.79086 138 4H0Z" fill={activeOption === 'Interviewer' ? '#06A9EF' : 'white'} />
+                                </svg>
                             </div>
 
                         </div>
+                        <div className='h-[1px] bg-[#D6DDEB]'></div>
+                    </div>
+                    <div className='flex flex-col gap-2 w-full'>
+                        <div>
+                            <p className='text-[20px] font-medium'>Subject</p>
 
+                        </div>
+                        <input
+                            type="input"
+                            placeholder='Skilotech-Online Interview-Interviewer 1'
+                            class="h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#646464] rounded-[6px] text-[14px] font-[400]"
+                            value=""
 
-
+                        />
 
                     </div>
+                    <div className='flex flex-col gap-2 w-full'>
+                        <div>
+                            <p className='text-[20px] font-medium'>Body</p>
+
+                        </div>
+                        <textarea
+                            type="input"
+                            placeholder='Insert Text here...'
+                            class="min-h-[100px] px-[16px] py-[8px] border-[1px] border-solid border-[#646464] rounded-[6px] text-[14px] font-[400]"
+                            value=""
+
+                        />
+
+                    </div>
+                </div>
             </div>
             <div className='flex gap-4 justify-end pb-[1rem]'>
                 <button onClick={() => setShowScheduleInterview(false)} className='px-9 py-3 border border-[#06A9EF] rounded-[12px]  text-[16px] font-semibold' id='button'>Cancel</button>
