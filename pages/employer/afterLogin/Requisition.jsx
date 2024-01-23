@@ -280,7 +280,7 @@ function Requisition() {
                            
                         </div>
                     </div>
-                    <div className="mobile ">
+                    <div className="mobile  ">
                         <div className=" flex flex-col gap-2  ml:max-h-[70vh] overflow-y-scroll relative ">
                             <div className="sticky top-0">
                                 <div className=" bg-[#fff] p-[12px]  flex flex-col ms:flex-row gap-[12px] z-[500] justify-between rounded-t-[12px] ">
