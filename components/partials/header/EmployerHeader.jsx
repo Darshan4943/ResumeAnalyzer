@@ -158,7 +158,7 @@ function EmployerHeader() {
                                 boxShadow: '0 0 10px rgba(255, 255, 255, 0.5)',
                                 backdropFilter: 'blur(10px)',
                                 ...(navigator.userAgent.includes('Safari') && !navigator.userAgent.includes('Chrome') && {
-                                    WebkitFilter: 'blur(10px)',
+                                    WebkitBackdropFilter: 'blur(10px)',
                                   }),
                             }}
                         >

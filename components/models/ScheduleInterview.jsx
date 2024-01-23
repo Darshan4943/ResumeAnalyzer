@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-function ScheduleInterview({setShowScheduleInterview}) {
+function ScheduleInterview({ setShowScheduleInterview }) {
     const [levels, setLevels] = useState([{ id: 1, name: 'Interviewer 1' }]);
     const [showApprovalChain, setShowApprovalChain] = useState(false);
     const [approvalChoice, setApprovalChoice] = useState(null);
@@ -21,7 +21,7 @@ function ScheduleInterview({setShowScheduleInterview}) {
             <div className='flex flex-col gap-2 text-[14px] font-medium '>
                 <p>What will be the mode of Interview?</p>
                 <div className="flex gap-[8px] items-center">
-                    <input 
+                    <input
                         type="radio"
                         name="approvalChoice"
                         value="yes"
@@ -35,7 +35,7 @@ function ScheduleInterview({setShowScheduleInterview}) {
                         name="approvalChoice"
                         value="no"
                         className="h-[20px] w-[20px] custom-radio cursor-pointer"
-                        // onChange={(e) => handleApprovalChoice(e.target.value)}
+                    // onChange={(e) => handleApprovalChoice(e.target.value)}
                     />
                     <label className="text-[14px] font-medium">Offline</label>
                 </div>
@@ -43,7 +43,7 @@ function ScheduleInterview({setShowScheduleInterview}) {
             </div>
             <div className='flex flex-col gap-4'>
                 <p className='text-[20px] font-medium'>Assigned to</p>
-                <div className="flex gap-4 w-full">
+                <div className="flex gap-4  w-full">
                     <div className=" mt-1">
                         {levels.map((level, index) => (
                             <div key={level.id}>
@@ -108,12 +108,97 @@ function ScheduleInterview({setShowScheduleInterview}) {
                             + Add New Interviewer
                         </p>
                     </div>
+
+
                 </div>
+                <div className='flex gap-4 w-full'>
+                    <div className='flex flex-col gap-4 w-[33%]'>
+                        <div>
+                            <p className='text-[20px] font-medium'>Interview Date</p>
+
+                        </div>
+                        <input
+                            type="date"
+                            placeholder='Select Date'
+                            class="h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#646464] rounded-[6px] text-[14px] font-[400]"
+                            value=""
+
+                        />
+
+                    </div>
+                    <div className='flex flex-col gap-4  w-[33%]'>
+
+                        <p className='text-[20px] font-medium'>Start Time</p>
+
+                        <div className='flex  gap-4'>
+                            <select
+                                className="h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#646464] rounded-[6px] text-[14px]  font-[400]"
+                                value=""
+
+                            >
+                                <option value="" disabled selected>Select </option>
+                                <option value="product_manager">In Progress</option>
+                                <option value="developer">Conducted</option>
+
+                            </select>
+                            <div className=" flex gap-2 h-[38px] w-full px-[16px] py-[8px] border-[1px] border-solid border-[#646464] rounded-[6px] text-[14px]  font-[400]">
+                                <p className='text-[14px] font-medium'>AM</p>
+                                <p className='text-[14px] font-medium'>PM</p>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div className='flex flex-col gap-4  w-[33%]'>
+
+                        <p className='text-[20px] font-medium'>Duration</p>
+
+
+                        <select
+                            className="h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#646464] rounded-[6px] text-[14px]  font-[400]"
+                            value=""
+
+                        >
+                            <option value="" disabled selected>Select </option>
+                            <option value="product_manager">In Progress</option>
+                            <option value="developer">Conducted</option>
+
+                        </select>
+
+
+
+
+                    </div>
+
+                </div>
+
+                <div className='flex flex-col gap-4  w-[45%]'>
+
+                        <p className='text-[20px] font-medium'>Select platform</p>
+
+
+                        <div
+                            className=" flex gap-2 justify-between px-[16px] py-[8px] border-[1px] border-solid border-[#646464] rounded-[6px] text-[14px]  font-[400]"
+                            value="">
+                            
+                            <div className=' text-white bg-[#06A9EF] rounded-[8px] border border-[#06A9EF]  p-2'>
+                                        Teams Meeting
+                            </div>
+                            <div className='  p-2 rounded-[8px]  border border-[#06A9EF]  '>
+                                        Teams Meeting
+                            </div>
+
+                        </div>
+
+
+
+
+                    </div>
             </div>
             <div className='flex gap-4 justify-end pb-[1rem]'>
-                    <button onClick={()=>setShowScheduleInterview(false)} className='px-9 py-3 border border-[#06A9EF] rounded-[12px]  text-[16px] font-semibold' id='button'>Cancel</button>
-                    <button className='px-9 py-3 bg-[#06A9EF] rounded-[12px] text-[16px] font-semibold text-white'>Save</button>
-                </div>
+                <button onClick={() => setShowScheduleInterview(false)} className='px-9 py-3 border border-[#06A9EF] rounded-[12px]  text-[16px] font-semibold' id='button'>Cancel</button>
+                <button className='px-9 py-3 bg-[#06A9EF] rounded-[12px] text-[16px] font-semibold text-white'>Save</button>
+            </div>
         </div>
     )
 }
