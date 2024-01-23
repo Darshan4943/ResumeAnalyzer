@@ -236,16 +236,101 @@ function Hiring() {
         <div>
             {toggle === 0 &&
                 < div className='flex flex-col gap-3 w-[100%] max-h-[80vh]  relative '>
-                    <div className='sticky top-0 '>
+
+                    <div className="sticky top-0 mobile">
+                        <div className=" bg-[#fff] p-[12px]  flex flex-col ms:flex-row gap-[12px] z-[500] justify-between rounded-t-[12px] ">
+                            <p className="h-[29px] text-[18px] ml:text-[24px] font-[500px]">
+                                All Requisition Requests
+                            </p>
+
+                            <button
+                                onClick={toggleContent}
+                                className=" py-[8px] px-[12px] bg-[#06A9EF] rounded-lg text-[14px] ml:text-[16px] text-white "
+                            >
+                                Create New Requistion
+                            </button>
+
+                        </div>
+                        <div className="flex bg-[#06A9EF] gap-[1px] p-4 ml:w-[20%] w-full">
+                            <div className=" bg-white p-4 flex gap-[10px] w-full items-center ">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="24"
+                                    height="24"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                >
+                                    <path
+                                        d="M15.5 15.5L19 19L15.5 15.5ZM5 11C5 11.7879 5.15519 12.5681 5.45672 13.2961C5.75825 14.0241 6.20021 14.6855 6.75736 15.2426C7.31451 15.7998 7.97595 16.2417 8.7039 16.5433C9.43185 16.8448 10.2121 17 11 17C11.7879 17 12.5681 16.8448 13.2961 16.5433C14.0241 16.2417 14.6855 15.7998 15.2426 15.2426C15.7998 14.6855 16.2417 14.0241 16.5433 13.2961C16.8448 12.5681 17 11.7879 17 11C17 9.4087 16.3679 7.88258 15.2426 6.75736C14.1174 5.63214 12.5913 5 11 5C9.4087 5 7.88258 5.63214 6.75736 6.75736C5.63214 7.88258 5 9.4087 5 11V11Z"
+                                        stroke="#646464"
+                                        stroke-width="2.02783"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                    />
+                                </svg>
+                                <input
+                                    className="w-[100%] text-[#646464]"
+                                    type="text"
+                                    placeholder="search"
+                                />
+                            </div>
+                            <div className=" py-[12px] px-[16px] text-[#333] text-[14px] font-[600]  flex gap-[8px] items-center bg-[#fff]">
+
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="20"
+                                    height="20"
+                                    viewBox="0 0 20 20"
+                                    fill="none"
+                                >
+                                    <g clip-path="url(#clip0_7540_118191)">
+                                        <path
+                                            d="M3.33203 5H16.6654"
+                                            stroke="#333333"
+                                            stroke-width="2"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                        />
+                                        <path
+                                            d="M5 10H15"
+                                            stroke="#333333"
+                                            stroke-width="2"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                        />
+                                        <path
+                                            d="M6.66797 15H13.3346"
+                                            stroke="#333333"
+                                            stroke-width="2"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                        />
+                                    </g>
+                                    <defs>
+                                        <clipPath id="clip0_7540_118191">
+                                            <rect width="20" height="20" fill="white" />
+                                        </clipPath>
+                                    </defs>
+                                </svg>
+                                <div>
+                                    Sort
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div className='sticky top-0 web'>
                         <div className="grid col-span-1 bg-white  rounded-t-[16px] ">
                             <div className="flex items-center p-[16px] align-self-stretch w-full">
                                 <p className="text-[#333] font-montserrat text-[24px] font-medium flex-1-0-0 w-[70%]">
                                     Job Post Status
                                 </p>
-                                <div className="flex w-[30%] items-stretch justify-end ">
+                                <div onClick={() => router.push("/employer/afterLogin/JobPosting?content=CreateNewJob")} className="flex w-[30%] items-stretch justify-end ">
                                     <button className=" flex py-[8px]  font-[600] text-[16px] px-[24px] justify-center text-white items-center rounded-[8px] border border-solid border-[#06A9EF] bg-[#06A9EF] gap-[5px]">
                                         <p className="text-[16px]">+</p>
-                                        Create New Job</button>
+                                        Create New Job
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -274,7 +359,7 @@ function Hiring() {
                             </div>
                         </div>
                     </div>
-                    <div className="grid grid-cols-4 gap-[20px] pb-2 overflow-y-scroll">
+                    <div className="grid scr1300:grid-cols-4 scr1024:grid-cols-3 ml:grid-cols-2 ms:grid-cols-2  grid-cols-1 ms:gap-[20px] gap-2 pb-2 overflow-y-scroll">
                         {
                             job_card.map((job_card) =>
                                 <div onClick={toggleContent} className="flex py-[16px] px-[0px] flex-col items-start gap-[12px] flex-shrink-0 rounded-lg bg-[#fff] shadow-md">
@@ -323,7 +408,7 @@ function Hiring() {
                 <JobPost toggleContentt={toggleContent} setToggle={setToggle} />
             }
             {toggle === 2 &&
-                <ApplicantDetails setTogglee={setToggle}/>
+                <ApplicantDetails setTogglee={setToggle} />
             }
         </div>
     )

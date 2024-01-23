@@ -25,7 +25,7 @@ function Analytics() {
     <>
     
 
-      <div className="flex ml:flex-row flex-col gap-6 items-start w-[100%]">
+      <div className="flex ml:flex-row flex-col gap-6 items-start w-[100%] max-h-[80vh] overflow-y-auto mt-4 ">
         <div className=" flex flex-col items-start gap-4 self-stretch ml:w-[32%] w-[100%]">
           {data.map((item, index) => (
             <div
