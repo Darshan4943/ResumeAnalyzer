@@ -212,7 +212,7 @@ function Requisition() {
             {toggle === 0 &&
                 <>
                     <div className="web">
-                        <div className=" w-[100%] max-h-[70vh]  rounded-[20px]  relative overflow-y-scroll ">
+                        <div className=" w-[100%] max-h-[70vh]  rounded-t-[20px]  relative overflow-y-scroll ">
                             <div className="h-[72px] bg-[#fff] p-[16px] flex flex-row justify-between rounded-t-[12px] sticky top-0">
                                 <p className="h-[29px]  text-[24px] font-[500px]">All Requisition Requests</p>
                                 <button
@@ -224,7 +224,7 @@ function Requisition() {
                             </div>
                             <div className=" ">
 
-                                <div className="h-[84px] bg-[#BCECFF] flex flex-row p-[16px] justify-between  text-[#333] sticky top-[72px] ">
+                                <div className="h-[84px] bg-[#06A9EF] flex flex-row p-[16px] justify-between  text-[#333] sticky top-[72px] ">
                                     {headings.map((headingObj, index) => (
                                         <>
 
@@ -369,7 +369,7 @@ function Requisition() {
                                 {requisition
                                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                     .map((req, index) => (
-                                        <div className="p-[12px] bg-[#fff] rounded-[12px] gap-[16px] border-[0.5px] border-solid border-[#DEDEDE] mb-[8px]">
+                                        <div className="p-[12px] bg-[#fff] rounded-t-[12px] gap-[16px] border-[0.5px] border-solid border-[#DEDEDE] mb-[8px]">
                                             <div className="flex justify-between items-center">
                                                 <div className="flex flex-col gap-[2px]">
                                                     <div className="text-[12px] font-[500] text-[#06A9EF]">
