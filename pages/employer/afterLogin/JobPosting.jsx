@@ -463,8 +463,9 @@ function JobPosting() {
                                         <div className="flex items-center py-[6px] px-[12px] border-[1px] border-solid border-[#FF7A00] text-[14px] font-[600] text-[#FF7A00] rounded-[80px]">
                                             {req.hiring_period}
                                         </div>
-                                        <button className="px-[12px] py-[6px] flex  min-w-[115px] items-center  gap-[4px] border-[1px] border-solid border-[#06A9EF] rounded-[8px] text-[12px] text-[#333] font-[500] ">
+                                        <button onClick={toggleContent} className="px-[12px] py-[6px] flex  min-w-[115px] items-center  gap-[4px] border-[1px] border-solid border-[#06A9EF] rounded-[8px] text-[12px] text-[#333] font-[500] ">
                                             <svg
+                                          
                                                 xmlns="http://www.w3.org/2000/svg"
                                                 width="24"
                                                 height="24"
