@@ -73,7 +73,7 @@ function BulkUploads() {
   return (
     <>
 {toggle ===0 &&
-    <div className="grid items-start gap-4">
+    <div className="grid items-start gap-4 h-[70vh] overflow-y-auto">
 
       <div
         className="flex w-[100%] p-[16px] flex-col items-start gap-4 rounded-[16px] bg-[#fff] "
@@ -292,7 +292,7 @@ function BulkUploads() {
                   </div>
                 </div>
 
-                <div className="flex py-[8px] px-[16px] flex-col items-start gap-1 rounded-[12px] bg-[#EFFAFF] ">
+                <div className="flex py-[8px] mt-[10px] px-[16px] flex-col items-start gap-1 rounded-[12px] bg-[#EFFAFF] ">
                   <p className="text-[14px] sm:text-[16px] font-[500] text-[#333] leading-[160%] ">
                     Assistant Manager
                   </p>
@@ -311,7 +311,8 @@ function BulkUploads() {
                   Contact
                 </p>
                 {
-                  contact_info.map((e) => (<div className="flex gap-[8px]">
+                  contact_info.map((e) => (
+                  <div className="flex break-all gap-[8px]">
                     {e.icon}
                     <p className="text-[14px] sm:text-[16px] text-[#333] font-[400]">{e.text}</p>
                   </div>
