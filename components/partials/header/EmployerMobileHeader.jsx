@@ -74,7 +74,7 @@ function EmployerMobileHeader({ selectedPage, setIsSidebar, setIsLogin, isLogin 
     };
 
     return (
-        <div className=' h-[10000px] flex flex-col  pt-[3.5rem] relative bg-cover bg-no-repeat w-screen   ' >
+        <div className=' h-[10000px] flex flex-col  pt-[3.5rem]  bg-cover bg-no-repeat w-screen  relative  ' >
             <div className='sticky top-0'>
                 <div className='flex justify-between px-4 mt-3 py-2 '>
                     <div onClick={() => router.push("/employer/afterLogin/EmployerHome")}>

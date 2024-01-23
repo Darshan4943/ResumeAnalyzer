@@ -51,7 +51,7 @@ function Layout({ children }) {
         <div className="web">
           <EmployerSidebar />
         </div>
-        <div className="  pt-[100px] w-[100%] ml:px-5 px-2">
+        <div className="  pt-[100px] w-[100%] ml:px-5 px-2 overflow-hidden">
         <Breadcrumb/>
           {children}</div>
       </div>

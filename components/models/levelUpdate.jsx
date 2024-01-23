@@ -96,7 +96,7 @@ function LevelUpdate({ closeTaskPopup }) {
    
 
     return (
-        <div className='p-6 rounded-tl-[16px] h-[87vh] bg-white flex flex-col gap-4 overflow-y-auto' style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}>
+        <div className='p-6 rounded-tl-[16px] h-[85vh] bg-white flex flex-col gap-4 overflow-y-auto ' style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}>
             <div className='flex gap-4 justify-between items-center  '>
                 <p className='text-[24px] font-medium'>Level 1</p>
                 <div className='h-[1px] w-[81%] bg-[#D6DDEB]'></div>

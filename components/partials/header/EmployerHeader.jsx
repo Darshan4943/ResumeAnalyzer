@@ -152,12 +152,13 @@ function EmployerHeader() {
                             transition={{ duration: 0.5 }}
                             ref={taskRef}
                             className="absolute z-[2000] w-full mt-[-4rem]  "
+                            onWheel={(e) => e.stopPropagation()}
                             style={{
                                 background: 'rgba(255, 255, 255, 0.5)',
                                 boxShadow: '0 0 10px rgba(255, 255, 255, 0.5)',
                                 backdropFilter: 'blur(10px)',
                                 ...(navigator.userAgent.includes('Safari') && !navigator.userAgent.includes('Chrome') && {
-                                    WebkitBackdropFilter: 'blur(10px)',
+                                    WebkitFilter: 'blur(10px)',
                                   }),
                             }}
                         >
