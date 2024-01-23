@@ -4,8 +4,9 @@ import Link from "next/link";
 import { useSelector } from "react-redux";
 import { data } from "autoprefixer";
 
-import HeaderSidebar from "@/components/models/headerSidebar";
+
 import { AnimatePresence, motion } from "framer-motion";
+import HeaderSidebar from "./headerSidebar";
 
 
 function CandidateMobileHeader() {
