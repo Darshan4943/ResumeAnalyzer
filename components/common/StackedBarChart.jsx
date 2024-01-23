@@ -67,7 +67,7 @@ const StackedBarChart = () => {
     <Bar
       data={data}
       options={options}
-      style={{ width: '513px', height: '264px' }} 
+      style={{ width: '100%', height: '264px' }} 
       className="custom-chart" 
     />
   </div>
