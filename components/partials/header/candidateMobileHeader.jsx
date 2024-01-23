@@ -6,7 +6,7 @@ import { data } from "autoprefixer";
 
 
 import { AnimatePresence, motion } from "framer-motion";
-import HeaderSidebar from "./headerSidebar";
+import HeaderSidebar from "../../models/headerSidebar";
 
 
 function CandidateMobileHeader() {
