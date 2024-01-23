@@ -1,5 +1,7 @@
 // import StackedBarChart from "@/components/common/StackedBarChart";
-import { Bars } from "@/components/common/Bars";
+// import StackedBarChart from "@/components/common/Bars";
+// import ChartComponent, { Bars } from "@/components/common/Bars";
+import StackedBarChart from "@/components/common/StackedBarChart";
 import React, { useEffect, useState } from "react";
 
 function EmployerHome({ toggleContentt }) {
@@ -655,8 +657,10 @@ function EmployerHome({ toggleContentt }) {
                 </div>
               </div>
             </div>
-            <div className="w-[60.44%]  flex ">
-              <Bars />
+            <div className="lg:w-[60.44%] w-full flex "
+            style={{padding:'10px',widows:'100%'}}
+            >
+              <StackedBarChart/>
             </div>
           </div>
         </div>
