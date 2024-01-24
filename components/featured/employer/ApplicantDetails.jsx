@@ -159,7 +159,7 @@ function ApplicantDetails({setTogglee}) {
                 <div className=' rounded-[16px] py-2 flex flex-col  scr1024:w-[66.17%] ml:w-[60%] w-[100%] bg-white ' style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}>
                     <div className='flex flex-col  gap-4 scr1024:px-6 px-2 py-4'>
                         <div className='flex flex-col '>
-                            <div className='flex justify-between text-[16px] font-semibold'>
+                            <div className='flex justify-between ml:text-[16px] sm:text-[14px] text-[12px]  font-semibold'>
                                 <div>
                                     <p
                                         className=" cursor-pointer"
@@ -167,7 +167,7 @@ function ApplicantDetails({setTogglee}) {
                                     >
                                         Applicant Profile
                                     </p>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="138" height="4" viewBox="0 0 138 4" fill="none">
+                                    <svg className=" ml:w-[138px] sm:w-[120px] w-[100px]" xmlns="http://www.w3.org/2000/svg"  height="4" viewBox="0 0 138 4" fill="none">
                                         <path d="M0 4C0 1.79086 1.79086 0 4 0H134C136.209 0 138 1.79086 138 4H0Z" fill={activeOption === 'ApplicantProfile' ? '#06A9EF' : 'white'} />
                                     </svg>
                                 </div>
@@ -178,7 +178,7 @@ function ApplicantDetails({setTogglee}) {
                                     >
                                         Resume
                                     </p>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="69" height="4" viewBox="0 0 69 4" fill="none">
+                                    <svg className=" ml:w-[69px] sm:w-[60px] w-[50px]" xmlns="http://www.w3.org/2000/svg"  height="4" viewBox="0 0 69 4" fill="none">
                                         <path d="M0.5 4C0.5 1.79086 2.29086 0 4.5 0H64.5C66.7091 0 68.5 1.79086 68.5 4H0.5Z" fill={activeOption === 'Resume' ? '#06A9EF' : 'white'} />
                                     </svg>
                                 </div>
@@ -189,7 +189,7 @@ function ApplicantDetails({setTogglee}) {
                                     >
                                         Hiring Progress
                                     </p>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="128" height="4" viewBox="0 0 138 4" fill="none">
+                                    <svg className=" ml:w-[128px] sm:w-[115px] w-[95px]" xmlns="http://www.w3.org/2000/svg"  height="4" viewBox="0 0 138 4" fill="none">
                                         <path d="M0 4C0 1.79086 1.79086 0 4 0H134C136.209 0 138 1.79086 138 4H0Z" fill={activeOption === 'HiringProgress' ? '#06A9EF' : 'white'} />
                                     </svg>
                                 </div>
@@ -229,7 +229,7 @@ function ApplicantDetails({setTogglee}) {
 
                             <div className='flex flex-col gap-4'>
                                 <p className='font-semibold'>Professional Info</p>
-                                <div className='flex flex-col gap-2 w-[80%]'>
+                                <div className='flex flex-col gap-2 ml:w-[80%] w-[100%]'>
                                     <p className=' font-medium'>About Me</p>
                                     <div className='flex flex-col gap-4'>
                                         <p>I’m a product designer + filmmaker currently working remotely at Twitter from beautiful Manchester, United Kingdom. I’m passionate about designing digital products that have a positive impact on the world.</p>
@@ -237,8 +237,8 @@ function ApplicantDetails({setTogglee}) {
                                     </div>
                                 </div>
 
-                                <div className='flex justify-between'>
-                                    <div className='flex flex-col gap-4 w-[30%] '>
+                                <div className='flex ml:flex-row gap-4 flex-col justify-between'>
+                                    <div className='flex flex-col gap-4 ml:w-[30%] w-[100%]'>
                                         <div>
                                             <p className=' font-medium'>Current Job</p>
                                             <p>Product Designer</p>
@@ -249,17 +249,17 @@ function ApplicantDetails({setTogglee}) {
                                         </div>
 
                                     </div>
-                                    <div className='flex flex-col gap-4 w-[70%]'>
+                                    <div className='flex flex-col gap-4 ml:w-[70%] w-[100%]'>
                                         <div>
                                             <p className=' font-medium'>Experience in Years</p>
                                             <p>4 Years</p>
                                         </div>
                                         <div className='flex flex-col gap-2'>
                                             <p className=' font-medium'>Skills</p>
-                                            <div className='flex gap-2 font-medium'>
-                                                <p className='border border-[#06A9EF] rounded-[24px] px-4 py-3'>Product Design</p>
-                                                <p className='border border-[#06A9EF] rounded-[24px] px-4 py-3'>User Research</p>
-                                                <p className='border border-[#06A9EF] rounded-[24px] px-4 py-3'>Wireframing</p>
+                                            <div className='flex gap-2 font-medium flex-wrap'>
+                                                <p className='border border-[#06A9EF] min-w-[160px] rounded-[24px] px-4 py-3'>Product Design</p>
+                                                <p className='border border-[#06A9EF] min-w-[160px] rounded-[24px] px-4 py-3'>User Research</p>
+                                                <p className='border border-[#06A9EF] min-w-[160px] rounded-[24px] px-4 py-3'>Wireframing</p>
                                             </div>
                                         </div>
 

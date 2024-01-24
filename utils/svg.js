@@ -40,7 +40,7 @@ export const Visibility_on = ({ className }) => (
 export const LeftArow = () => (
   <>
     <svg
-    className="sm-w-[40px] sm-h-[40px] w-[30px] h-[30px]"
+      className="sm-w-[40px] sm-h-[40px] w-[30px] h-[30px]"
       xmlns="http://www.w3.org/2000/svg"
       // width="40"
       // height="40"
@@ -335,3 +335,18 @@ export const Assessmentlogo = ({ className }) => (
     </defs>
   </svg>
 );
+export const PlusAddLogo = ({ className }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    className={className}
+  >
+    <g mask="url(#mask0_7974_135514)">
+      <path d="M11 13H5V11H11V5H13V11H19V13H13V19H11V13Z" fill="#646464" />
+    </g>
+  </svg>
+);
+1

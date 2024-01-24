@@ -1085,76 +1085,7 @@ function EmployerHome({ toggleContentt }) {
                 </>
               ))}
 
-            {/* <div className="flex justify-between items-center self-stretch">
-              <div className="flex items-center gap-2">
-                <p className="text-[#646464] text-[10px] font-semibold">View</p>
-                <div
-                  className="flex p-2 justify-center items-center gap-2 bg-[#fff]"
-                  style={{
-                    borderRadius: "6px",
-                    border: "1px solid var(--Text-Secondary, #646464)",
-                  }}
-                >
-                  <p className="text-[#333] text-[12px] font-semibold font-Montserrat">
-                    05
-                  </p>
-                  <div className="flex justify-center items-center w-full ">
-                    <img
-                      src="/images/jobs/arw.png"
-                      alt=""
-                      className="h-[20px] w-[20px]"
-                    />
-                  </div>
-                </div>
-                <p className="text-[#646464] text-[10px] font-semibold">
-                  Applicants <br /> per page
-                </p>
-              </div>
-              <div className="flex justify-center items-center gap-[2px]">
-                <svg
-                  xlgns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                >
-                  <path
-                    d="M15 6L9 12L15 18"
-                    stroke="#333333"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
-                <div className="flex items-center">
-                  <div className="flex px-[12px] py-2 justify-center items-center gap-2 rounded-md bg-[#06A9EF]">
-                    <p className="text-[#fff] text-[12px] font-Montserrat font-semibold">
-                      1
-                    </p>
-                  </div>
-                  <div className="flex justify-center items-center gap-[2px] rounded-[8px]">
-                    <p className="text-[#646464] text-[12px] px-[12px] py-2 font-semibold">
-                      2
-                    </p>
-                  </div>
-                  <svg
-                    xlgns="http://www.w3.org/2000/svg"
-                    width="25"
-                    height="24"
-                    viewBox="0 0 25 24"
-                    fill="none"
-                  >
-                    <path
-                      d="M9.375 6L15.625 12L9.375 18"
-                      stroke="#333333"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
-                </div>
-              </div>
-            </div> */}
+          
           </div>
         </div>
       </div>
