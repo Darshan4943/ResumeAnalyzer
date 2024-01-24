@@ -13,6 +13,8 @@ import Acceptance from "@/components/featured/employer/afterLogin/preBoarding/Ac
 import AcceptanceMobile from "@/components/featured/employer/afterLogin/preBoarding/AcceptanceMobile";
 import HireMobile from "@/components/featured/employer/afterLogin/preBoarding/HireMobile";
 import Hire from "@/components/featured/employer/afterLogin/preBoarding/Hire";
+import ApplicantDetails from "@/components/featured/employer/ApplicantDetails";
+import ApplicantPreview from "@/components/featured/employer/afterLogin/preBoarding/ApplicantPreview";
 
 function Preboarding() {
   const btn = ["In Preboarding", "Joined", "Declined"];
@@ -57,9 +59,10 @@ function Preboarding() {
   };
 
   const [toggle, setToggle] = useState(0);
-
+  const [preview, setPreview] = useState(false);
   return (
     <>
+    {!preview &&
       <div className="inline-flex flex-col items-start gap-6 w-full h-[75vh] overflow-y-auto">
         <div
           className="flex p-4 gap-4 items-start w-[100%] rounded-2xl bg-[#fff]"
@@ -128,7 +131,7 @@ function Preboarding() {
             }}
           >
             <p className="text-[14px] text-[#646464] font-Montserrat font-semibold">
-            Verification
+              Verification
             </p>
             <div className="flex p-1 justify-center items-center rounded-md bg-[#E9EBFD] ">
               2
@@ -143,7 +146,7 @@ function Preboarding() {
             }}
           >
             <p className="text-[14px] text-[#646464] font-Montserrat font-semibold">
-            Release Offer
+              Release Offer
             </p>
             <div className="flex p-1 justify-center items-center rounded-md bg-[#E9EBFD] ">
               2
@@ -158,7 +161,7 @@ function Preboarding() {
             }}
           >
             <p className="text-[14px] text-[#646464] font-Montserrat font-semibold">
-            Offer Acceptance
+              Offer Acceptance
             </p>
             <div className="flex p-1 justify-center items-center rounded-md bg-[#E9EBFD] ">
               2
@@ -173,7 +176,7 @@ function Preboarding() {
             }}
           >
             <p className="text-[14px] text-[#646464] font-Montserrat font-semibold">
-            Hired
+              Hired
             </p>
             <div className="flex p-1 justify-center items-center rounded-md bg-[#E9EBFD] ">
               2
@@ -932,7 +935,7 @@ function Preboarding() {
                 </div>
               </div>
 
-              <Hire />
+              <Hire  setPreview={setPreview}/>
             </div>
             <div className="mobile relative overflow-y-scroll  w-full ">
               <div className="sticky top-0">
@@ -1000,11 +1003,17 @@ function Preboarding() {
                   </div>
                 </div>
               </div>
-              <HireMobile />
+              <HireMobile setPreview={setPreview} />
             </div>
           </>
         )}
+
+       
       </div>
+}
+      {preview  && (
+          <ApplicantPreview setPreview={setPreview}/>
+        )}
     </>
   );
 }

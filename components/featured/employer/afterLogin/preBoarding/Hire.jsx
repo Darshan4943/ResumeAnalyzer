@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { TablePagination } from "@mui/material";
 import { applicants } from "@/utils/preboardArray";
 
-const Hire = ({ toggleContentt, setToggle }) => {
+const Hire = ({ toggleContentt, setPreview }) => {
   const [option, setOption] = useState(0);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -122,7 +122,7 @@ const Hire = ({ toggleContentt, setToggle }) => {
                             />
                           </svg>
                           <button
-                            onClick={toggleContentt}
+                            onClick={()=>setPreview(true)}
                             className=" text-white lg:text-[10px] text-[11px] font-[600]  font-Montserrat "
                           >
                             {applicants.Preview}

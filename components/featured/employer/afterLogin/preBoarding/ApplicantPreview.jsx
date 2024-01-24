@@ -2,10 +2,11 @@ import React, { useEffect, useRef, useState } from 'react'
 
 import { motion, AnimatePresence } from 'framer-motion';
 import LevelUpdate from '@/components/models/levelUpdate';
-import HiringProgress from './HiringProgress';
+import HiringProgress from '../../HiringProgress';
 
 
-function ApplicantDetails({setTogglee}) {
+
+function ApplicantPreview({ setPreview }) {
     const [toggle, setToggle] = useState("ApplicantProfile")
     const [activeOption, setActiveOption] = useState('ApplicantProfile');
 
@@ -18,8 +19,8 @@ function ApplicantDetails({setTogglee}) {
 
         <div className='flex flex-col gap-6 relative '>
             <div className=' flex w-full gap-3 justify-between p-4  rounded-[16px] items-center bg-white' style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}>
-            <img onClick={()=>setTogglee(1)} className="w-[40px] cursor-pointer" src="/images/employer/icon_left.png" alt="" />
-                <p className='text-[24px]  w-[100%] text-start flex justify-start font font-medium  '>Applicant Details</p>
+                <img onClick={() => setPreview(false)} className="w-[40px] cursor-pointer" src="/images/employer/icon_left.png" alt="" />
+                <p className='text-[24px]  w-[100%] text-start flex justify-start font font-medium  '>Preview Application</p>
             </div>
 
             <div className='flex ml:flex-row flex-col gap-5 ml:h-[68vh]  mb-4 '>
@@ -78,20 +79,10 @@ function ApplicantDetails({setTogglee}) {
 
                         </div >
 
-                        <div className='flex gap-2'>
-                            <div className='px-4 w-[84.65%] items-center flex justify-center py-3 text-[16px] font-medium text-[#06A9EF] rounded-[6px] border border-[#06A9EF]'>
-                                Schedule Interview
-                            </div>
-                            <div className='p-3 w-[15.35%] items-center flex justify-center text-[16px] font-medium text-[#06A9EF] rounded-[6px] border border-[#06A9EF]'>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <div className='min-h-[1px] w-full bg-[#D6DDEB]'>
 
-                                    <g mask="url(#mask0_4754_62183)">
-                                        <path d="M6.25 13.75H13.75V12.25H6.25V13.75ZM6.25 10.75H17.75V9.25H6.25V10.75ZM6.25 7.74995H17.75V6.25H6.25V7.74995ZM2.5 21.0384V4.3077C2.5 3.80257 2.675 3.375 3.025 3.025C3.375 2.675 3.80257 2.5 4.3077 2.5H19.6923C20.1974 2.5 20.625 2.675 20.975 3.025C21.325 3.375 21.5 3.80257 21.5 4.3077V15.6923C21.5 16.1974 21.325 16.625 20.975 16.975C20.625 17.325 20.1974 17.5 19.6923 17.5H6.03845L2.5 21.0384ZM5.4 16H19.6923C19.7692 16 19.8397 15.9679 19.9038 15.9038C19.9679 15.8397 20 15.7692 20 15.6923V4.3077C20 4.23077 19.9679 4.16024 19.9038 4.09613C19.8397 4.03203 19.7692 3.99998 19.6923 3.99998H4.3077C4.23077 3.99998 4.16024 4.03203 4.09613 4.09613C4.03202 4.16024 3.99998 4.23077 3.99998 4.3077V17.3846L5.4 16Z" fill="#06A9EF" />
-                                    </g>
-                                </svg>
-                            </div>
                         </div>
-                        <div className='min-h-[1px] bg-[#D6DDEB]'></div>
+                      
                         <div className='flex flex-col gap-4 text-[16px] font-normal'>
                             <p className='font-medium'>Contact</p>
                             <div className='flex gap-2'>
@@ -156,7 +147,7 @@ function ApplicantDetails({setTogglee}) {
                                     >
                                         Applicant Profile
                                     </p>
-                                    <svg className=" ml:w-[138px] sm:w-[120px] w-[100px]" xmlns="http://www.w3.org/2000/svg"  height="4" viewBox="0 0 138 4" fill="none">
+                                    <svg className=" ml:w-[138px] sm:w-[120px] w-[100px]" xmlns="http://www.w3.org/2000/svg" height="4" viewBox="0 0 138 4" fill="none">
                                         <path d="M0 4C0 1.79086 1.79086 0 4 0H134C136.209 0 138 1.79086 138 4H0Z" fill={activeOption === 'ApplicantProfile' ? '#06A9EF' : 'white'} />
                                     </svg>
                                 </div>
@@ -167,7 +158,7 @@ function ApplicantDetails({setTogglee}) {
                                     >
                                         Resume
                                     </p>
-                                    <svg className=" ml:w-[69px] sm:w-[60px] w-[50px]" xmlns="http://www.w3.org/2000/svg"  height="4" viewBox="0 0 69 4" fill="none">
+                                    <svg className=" ml:w-[69px] sm:w-[60px] w-[50px]" xmlns="http://www.w3.org/2000/svg" height="4" viewBox="0 0 69 4" fill="none">
                                         <path d="M0.5 4C0.5 1.79086 2.29086 0 4.5 0H64.5C66.7091 0 68.5 1.79086 68.5 4H0.5Z" fill={activeOption === 'Resume' ? '#06A9EF' : 'white'} />
                                     </svg>
                                 </div>
@@ -178,7 +169,7 @@ function ApplicantDetails({setTogglee}) {
                                     >
                                         Hiring Progress
                                     </p>
-                                    <svg className=" ml:w-[128px] sm:w-[115px] w-[95px]" xmlns="http://www.w3.org/2000/svg"  height="4" viewBox="0 0 138 4" fill="none">
+                                    <svg className=" ml:w-[128px] sm:w-[115px] w-[95px]" xmlns="http://www.w3.org/2000/svg" height="4" viewBox="0 0 138 4" fill="none">
                                         <path d="M0 4C0 1.79086 1.79086 0 4 0H134C136.209 0 138 1.79086 138 4H0Z" fill={activeOption === 'HiringProgress' ? '#06A9EF' : 'white'} />
                                     </svg>
                                 </div>
@@ -271,10 +262,49 @@ function ApplicantDetails({setTogglee}) {
                         </div>
                     }
                     {toggle === "HiringProgress" &&
-                        <HiringProgress/>
+                        <div className='flex gap-4 overflow-y-auto scr1024:px-6 px-2 '>
+                            <div className='w-[24px]'> </div>
+                            <div className='flex flex-col gap-4 w-full'>
+                                <div className='flex gap-4 justify-between items-center  '>
+                                    <p className='min-w-[60px]'>Level 1</p>
+                                    <div className='h-[1px] w-[90%] bg-[#D6DDEB]'></div>
+                                </div>
+                                <p className='text-[24px] font-medium'>Application Profile</p>
+                                <div className='flex scr1150:flex-row flex-col justify-between gap-4 w-[80%]'>
+                                    <div className='flex  flex-col gap-1'>
+                                        <div className='flex gap-4 text-[16px] font-medium'>
+                                            <p>Profile Score</p>
+                                            <div className='flex gap-2 '>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                    <path d="M21.2831 8.27584L15.3323 7.411L12.6722 2.01803C12.5995 1.87037 12.48 1.75084 12.3323 1.67818C11.962 1.49537 11.512 1.64771 11.3268 2.01803L8.66668 7.411L2.7159 8.27584C2.55184 8.29928 2.40184 8.37662 2.28699 8.49381C2.14815 8.63651 2.07165 8.8285 2.07428 9.02758C2.07692 9.22666 2.15849 9.41655 2.30106 9.55553L6.60653 13.7532L5.58934 19.6805C5.56549 19.8184 5.58074 19.9602 5.63338 20.0899C5.68602 20.2195 5.77394 20.3318 5.88716 20.4141C6.00038 20.4963 6.13437 20.5452 6.27395 20.5551C6.41352 20.5651 6.5531 20.5357 6.67684 20.4704L11.9995 17.6719L17.3222 20.4704C17.4675 20.5477 17.6362 20.5735 17.7979 20.5454C18.2057 20.4751 18.48 20.0883 18.4097 19.6805L17.3925 13.7532L21.6979 9.55553C21.8151 9.44068 21.8925 9.29068 21.9159 9.12662C21.9792 8.71646 21.6932 8.33678 21.2831 8.27584Z" fill="#FFB836" />
+                                                </svg>
+                                                <p className='font-normal'>4.0</p>
+                                            </div>
+
+                                        </div>
+                                        <p className='text-[#0C8A0A] text-[16px] font-medium'>Verified</p>
+                                    </div>
+                                    <div className='flex  flex-col gap-1'>
+                                        <div className='flex gap-4 text-[16px] font-medium'>
+                                            <p>Assessment Score</p>
+                                            <div className='flex gap-2 '>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                    <path d="M21.2831 8.27584L15.3323 7.411L12.6722 2.01803C12.5995 1.87037 12.48 1.75084 12.3323 1.67818C11.962 1.49537 11.512 1.64771 11.3268 2.01803L8.66668 7.411L2.7159 8.27584C2.55184 8.29928 2.40184 8.37662 2.28699 8.49381C2.14815 8.63651 2.07165 8.8285 2.07428 9.02758C2.07692 9.22666 2.15849 9.41655 2.30106 9.55553L6.60653 13.7532L5.58934 19.6805C5.56549 19.8184 5.58074 19.9602 5.63338 20.0899C5.68602 20.2195 5.77394 20.3318 5.88716 20.4141C6.00038 20.4963 6.13437 20.5452 6.27395 20.5551C6.41352 20.5651 6.5531 20.5357 6.67684 20.4704L11.9995 17.6719L17.3222 20.4704C17.4675 20.5477 17.6362 20.5735 17.7979 20.5454C18.2057 20.4751 18.48 20.0883 18.4097 19.6805L17.3925 13.7532L21.6979 9.55553C21.8151 9.44068 21.8925 9.29068 21.9159 9.12662C21.9792 8.71646 21.6932 8.33678 21.2831 8.27584Z" fill="#FFB836" />
+                                                </svg>
+                                                <p className='font-normal'>4.0</p>
+                                            </div>
+
+                                        </div>
+                                        <p className='text-[#0C8A0A] text-[16px] font-medium'>Verified</p>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
                     }
 
-                   
+
                 </div>
             </div>
 
@@ -283,4 +313,4 @@ function ApplicantDetails({setTogglee}) {
     )
 }
 
-export default ApplicantDetails
+export default ApplicantPreview

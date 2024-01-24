@@ -409,7 +409,7 @@ function EmployerHome({ toggleContentt }) {
       </div>
       <div className="lg:flex lg:flex-row flex flex-col w-full pt-6 justify-between">
         <div
-          className="lg:w-[66.17%] w-[100%] bg-[#fff] flex flex-col items-center gap-4 p-4"
+          className="lg:w-[66.17%] w-[100%] bg-[#fff] flex flex-col items-center gap-4 sm:p-4 p-2"
           style={{
             borderRadius: "16px",
             boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
@@ -462,7 +462,7 @@ function EmployerHome({ toggleContentt }) {
               </div>
             </div>
           </div>
-          <div className="lg:flex w-full ml:flex-row-reverse flex-col flex justify-between">
+          <div className="lg:flex w-full ml:flex-row-reverse flex-col flex gap-2 justify-between">
             <div className="flex ml:flex-col flex-row items-start gap-2 ml:gap-4 lg:w-[32.23%] w-[100%]">
               <div
                 className="flex ml:p-4  flex-col items-start ml:gap-4 gap-0 bg-[#fff] self-stretch w-full"
@@ -657,8 +657,8 @@ function EmployerHome({ toggleContentt }) {
                 </div>
               </div>
             </div>
-            <div className="w-[97%]  flex "
-            style={{padding:'10px'}}
+            <div className="w-[100%]  flex py-2 "
+           
             >
               <StackedBarChart/>
             </div>
