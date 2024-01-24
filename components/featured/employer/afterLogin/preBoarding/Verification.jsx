@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { TablePagination } from "@mui/material";
 import { applicants } from "@/utils/preboardArray";
 
-const Initial = ({ toggleContentt, setToggle }) => {
+const Verification = ({ toggleContentt, setToggle }) => {
   const [option, setOption] = useState(0);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -19,6 +19,8 @@ const Initial = ({ toggleContentt, setToggle }) => {
   const labels = [
     "Name of Candidate",
     "Job Role",
+    "Due Date",
+    "Doc Status",
     "Recruiter",
     "Preboarding Status",
     "Actions",
@@ -26,7 +28,7 @@ const Initial = ({ toggleContentt, setToggle }) => {
   return (
     <>
       <div className="grid grid-rows-1 w-full ">
-        <div className="grid grid-cols-5 w-full grid-flow-col">
+        <div className="grid grid-cols-7 w-full grid-flow-col">
           {labels.map((req, index) => (
             <div
               key={index}
@@ -37,7 +39,7 @@ const Initial = ({ toggleContentt, setToggle }) => {
           ))}
         </div>
       </div>
- 
+
       <div className="grid grid-rows-1 w-full">
         <div className="grid grid-cols-1 w-full">
           {applicants
@@ -45,19 +47,19 @@ const Initial = ({ toggleContentt, setToggle }) => {
             .map((applicants, index) => (
               <>
                 <div
-                  className="flex w-[100%] p-[16px] justify-between items-center"
+                  className="flex w-[100%] py-[16px] justify-between items-center"
                   style={{ background: index % 2 == 0 ? "#EFFAFF" : "#fff" }}
                 >
-                  <div className="grid grid-cols-5 w-full px-4 py-2">
+                  <div className="grid grid-cols-7 w-full px-4 py-2">
                     <div className="flex items-center justify-start col-span-1">
-                      <div className="flex justify-start text-[14px] font-[600] items-center gap-2 lg:gap-[16px]">
+                      <div className="flex justify-start text-[14px] font-[600] items-center  gap-1 scr1024:gap-[16px]">
                         <input className="w-[24px] h-[24px]" type="checkbox" />
                         <img
                           className="w-[40px]"
                           src="/images/employer/profile_icon.png"
                           alt=""
                         />
-                        <p className="text-[16px] font-[600]">
+                        <p className="text-[14px] font-[600]">
                           {applicants.name}
                         </p>
                       </div>
@@ -69,12 +71,24 @@ const Initial = ({ toggleContentt, setToggle }) => {
                     </div>
                     <div className="flex items-center justify-start col-span-1">
                       <p className="text-[14px] font-[600] text-[#333] font-Montserrat">
-                        {applicants.Recruiting}
+                        {applicants.dueDate}
                       </p>
                     </div>
-                    <div className="flex items-center justify-start col-span-1 pl-5">
+                    <div
+                      className={` flex items-center text-[14px]  font-[600] justify-start col-span-1 pl-5 text ${
+                        applicants.docStatus === "Submitted"
+                          ? "text-[#0C8A0A]"
+                          : "text-[#333]"
+                      } `}
+                    >
+                      {applicants.docStatus}
+                    </div>
+                    <div className="flex items-center justify-start col-span-1 pl-5 text-[14px] font-semibold">
+                      {applicants.role}
+                    </div>
+                    <div className="flex items-center justify-center col-span-1 ">
                       <div
-                        className={`flex py-[12px]  justify-center px-[16px] text-[14px] font-semibold items-center gap-[8px] rounded-[80px] border ${
+                        className={`flex py-[12px]  justify-center px-[16px] text-[10px] lg:text-[14px] font-semibold items-center gap-[8px] rounded-[80px] border ${
                           applicants.status === "Interview"
                             ? "text-[#26A4FF] border-[#26A4FF]"
                             : applicants.status === "Hired"
@@ -91,14 +105,26 @@ const Initial = ({ toggleContentt, setToggle }) => {
                         {applicants.status}
                       </div>
                     </div>
-                    <div className="flex items-center justify-start col-span-1 ">
+                    <div className="flex items-center justify-start col-span-1">
                       <div className="flex   items-center w-full  justify-between">
-                        <button
-                          onClick={toggleContentt}
-                          className="flex lg:py-2 lg:px-4 px-1 py-1 justify-center items-center gap-[10px] rounded-[6px] border border-[#06A9EF] bg-[#06A9EF] text-white lg:text-[14px] text-[10px] font-[600]  font-Montserrat "
-                        >
-                            {applicants.action}
+                        {
+                            applicants.docStatus=="Submitted" ? <button
+                            onClick={toggleContentt}
+                            className={`flex lg:py-2 lg:px-4 px-1 py-1 justify-center items-center  rounded-[6px]  lg:text-[14px] text-[10px] font-[600] font-Montserrat border ${
+                              applicants.verify === "View & Verify" ? "text-[#fff] bg-[#26A4FF]" : "text-[#333] bg-[#fff]"
+                            }`}
+                          >
+                                          {applicants.verify}
+                                        </button>: <button
+            onClick={toggleContentt}
+            className= "flex lg:py-2 lg:px-3 px-1 py-1 justify-center text-[#333] items-center bg-[#fff]  rounded-[6px]  lg:text-[12px] text-[10px] font-[600] font-Montserrat border "
+            
+           
+          >
+                          Moved forward
                         </button>
+                        }
+                     
                         <img
                           className="w-[24px]"
                           src="/images/employer/three-dot.png"
@@ -116,4 +142,4 @@ const Initial = ({ toggleContentt, setToggle }) => {
   );
 };
 
-export default Initial;
+export default Verification;
