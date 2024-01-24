@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { TablePagination } from "@mui/material";
 import { applicantsMobile  } from "@/utils/preboardArray";
 
-const InitialMobile = ({ toggleContentt, setToggle }) => {
+const  OfferMobile = ({ toggleContentt, setToggle }) => {
   const [option, setOption] = useState(0);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -83,7 +83,7 @@ const InitialMobile = ({ toggleContentt, setToggle }) => {
 
                     <div className="flex justify-between items-center self-stretch">
                       <p className="text-[14px] text-[#646464] font-[500]">
-                        job Role
+                      Job Role
                       </p>
                       <p className="text-[14px] text-[#333] font-Montserrat font-[600]">
                         {applicantsMobile .role}
@@ -91,10 +91,34 @@ const InitialMobile = ({ toggleContentt, setToggle }) => {
                     </div>
                     <div className="flex justify-between items-center self-stretch">
                       <p className="text-[14px] text-[#646464] font-[500]">
+                      Due Date
+                      </p>
+                      <p className="text-[14px] text-[#333] font-[600] font-Montserrat">
+                        {applicantsMobile .dueDate}
+                      </p>
+                    </div>
+                    <div className="flex justify-between items-center self-stretch">
+                      <p className="text-[14px] text-[#646464] font-[500]">
+                      Doc Status
+                      </p>
+                      <div
+                      className={` flex items-center text-[14px]  font-[600] justify-start col-span-1 pl-5 text ${
+                        applicantsMobile.verifyStatus === "Verified"
+                          ? "text-[#0C8A0A]"
+                          : "text-[#333]"
+                      } `}
+                    >
+                      {applicantsMobile.verifyStatus}
+                    </div>
+
+                    </div>
+                    <div className="flex justify-between items-center self-stretch">
+                      <p className="text-[14px] text-[#646464] font-[500]">
                       Recruiter
                       </p>
                       <p className="text-[14px] text-[#333] font-[600] font-Montserrat">
-                        {applicantsMobile .role}
+                      {applicantsMobile .Recruiting}
+                        
                       </p>
                     </div>
 
@@ -117,7 +141,7 @@ const InitialMobile = ({ toggleContentt, setToggle }) => {
                         }}
                       >
                         <p className="text-[14px] text-[#fff] font-[600] font-Montserrat">
-                          {applicantsMobile .action}
+                          {applicantsMobile .offer}
                         </p>
                       </div>
                     </div>
@@ -133,4 +157,4 @@ const InitialMobile = ({ toggleContentt, setToggle }) => {
   );
 };
 
-export default InitialMobile;
+export default OfferMobile;
