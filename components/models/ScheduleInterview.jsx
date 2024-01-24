@@ -1,6 +1,7 @@
+import { useRouter } from 'next/router';
 import React, { useState } from 'react'
 
-function ScheduleInterview({setShowScheduleInterview}) {
+function ScheduleInterview({ setShowScheduleInterview }) {
     const [levels, setLevels] = useState([{ id: 1, name: 'Interviewer 1' }]);
     const [showApprovalChain, setShowApprovalChain] = useState(false);
     const [approvalChoice, setApprovalChoice] = useState(null);
@@ -15,13 +16,22 @@ function ScheduleInterview({setShowScheduleInterview}) {
         const updatedLevels = levels.filter((level) => level.id !== id);
         setLevels(updatedLevels);
     };
+    const router = useRouter()
+
+    const [toggle, setToggle] = useState("ApplicantProfile")
+    const [activeOption, setActiveOption] = useState('Candidate');
+
+    const handleOptionClick = (option) => {
+        setActiveOption(option);
+        setToggle(option)
+    };
     return (
         <div className='p-6 rounded-tl-[16px] h-[87vh] bg-white flex flex-col gap-4 overflow-y-auto' style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}>
             <div className='text-[24px] font-medium'>Schedule Interview</div>
             <div className='flex flex-col gap-2 text-[14px] font-medium '>
                 <p>What will be the mode of Interview?</p>
                 <div className="flex gap-[8px] items-center">
-                    <input 
+                    <input
                         type="radio"
                         name="approvalChoice"
                         value="yes"
@@ -35,7 +45,7 @@ function ScheduleInterview({setShowScheduleInterview}) {
                         name="approvalChoice"
                         value="no"
                         className="h-[20px] w-[20px] custom-radio cursor-pointer"
-                        // onChange={(e) => handleApprovalChoice(e.target.value)}
+                    // onChange={(e) => handleApprovalChoice(e.target.value)}
                     />
                     <label className="text-[14px] font-medium">Offline</label>
                 </div>
@@ -43,7 +53,7 @@ function ScheduleInterview({setShowScheduleInterview}) {
             </div>
             <div className='flex flex-col gap-4'>
                 <p className='text-[20px] font-medium'>Assigned to</p>
-                <div className="flex gap-4 w-full">
+                <div className="flex gap-4  w-full">
                     <div className=" mt-1">
                         {levels.map((level, index) => (
                             <div key={level.id}>
@@ -108,12 +118,155 @@ function ScheduleInterview({setShowScheduleInterview}) {
                             + Add New Interviewer
                         </p>
                     </div>
+
+
+                </div>
+                <div className='flex gap-4 w-full'>
+                    <div className='flex flex-col gap-4 w-[33%]'>
+                        <div>
+                            <p className='text-[20px] font-medium'>Interview Date</p>
+
+                        </div>
+                        <input
+                            type="date"
+                            placeholder='Select Date'
+                            class="h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#646464] rounded-[6px] text-[14px] font-[400]"
+                            value=""
+
+                        />
+
+                    </div>
+                    <div className='flex flex-col gap-4  w-[33%]'>
+
+                        <p className='text-[20px] font-medium'>Start Time</p>
+
+                        <div className='flex  gap-4'>
+                            <select
+                                className="h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#646464] rounded-[6px] text-[14px]  font-[400]"
+                                value=""
+
+                            >
+                                <option value="" disabled selected>Select </option>
+                                <option value="product_manager">In Progress</option>
+                                <option value="developer">Conducted</option>
+
+                            </select>
+                            <div className=" flex gap-2 h-[38px] w-full px-[16px] py-[8px] border-[1px] border-solid border-[#646464] rounded-[6px] text-[14px]  font-[400]">
+                                <p className='text-[14px] font-medium'>AM</p>
+                                <p className='text-[14px] font-medium'>PM</p>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div className='flex flex-col gap-4  w-[33%]'>
+
+                        <p className='text-[20px] font-medium'>Duration</p>
+
+
+                        <select
+                            className="h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#646464] rounded-[6px] text-[14px]  font-[400]"
+                            value=""
+
+                        >
+                            <option value="" disabled selected>Select </option>
+                            <option value="product_manager">In Progress</option>
+                            <option value="developer">Conducted</option>
+
+                        </select>
+
+
+
+
+                    </div>
+
+                </div>
+
+                <div className='flex flex-col gap-4  w-[45%]'>
+
+                    <p className='text-[20px] font-medium'>Select platform</p>
+
+
+                    <div
+                        className="  min-w-[300px] flex gap-2 justify-between px-[16px] py-[8px] border-[1px] border-solid border-[#646464] rounded-[6px] text-[14px]  font-[400]"
+                        value="">
+
+                        <div className=' text-white bg-[#06A9EF] rounded-[8px] border border-[#06A9EF] min-w-[127px] p-2'>
+                            Teams Meeting
+                        </div>
+                        <div className='  p-2 rounded-[8px]  border border-[#06A9EF]   min-w-[127px] '>
+                            Teams Meeting
+                        </div>
+
+                    </div>
+
+
+
+
+                </div>
+                <div className='flex flex-col  gap-4  px-[16px] py-[16px] border-[1px] border-solid border-[#646464] rounded-[6px] '>
+                    <div>
+                        <div className='flex justify-between text-[16px] font-semibold'>
+                            <div className='flex flex-col gap-2'>
+                                <p
+                                    className=" cursor-pointer"
+                                    onClick={() => handleOptionClick('Candidate')}
+                                >
+                                    Email to Candidate
+                                </p>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="150" height="4" viewBox="0 0 150 4" fill="none">
+                                    <path d="M0 4C0 1.79086 1.79086 0 4 0H134C136.209 0 138 1.79086 138 4H0Z" fill={activeOption === 'Candidate' ? '#06A9EF' : 'white'} />
+                                </svg>
+                            </div>
+                            <div className='flex flex-col gap-2'>
+                                <p
+                                    className="cursor-pointer"
+                                    onClick={() => handleOptionClick('Interviewer')}
+                                >
+                                    Email to Interviewer
+                                </p>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="150" height="4" viewBox="0 0 150 4" fill="none">
+                                    <path d="M0 4C0 1.79086 1.79086 0 4 0H134C136.209 0 138 1.79086 138 4H0Z" fill={activeOption === 'Interviewer' ? '#06A9EF' : 'white'} />
+                                </svg>
+                            </div>
+
+                        </div>
+                        <div className='h-[1px] bg-[#D6DDEB]'></div>
+                    </div>
+                    <div className='flex flex-col gap-2 w-full'>
+                        <div>
+                            <p className='text-[20px] font-medium'>Subject</p>
+
+                        </div>
+                        <input
+                            type="input"
+                            placeholder='Skilotech-Online Interview-Interviewer 1'
+                            class="h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#646464] rounded-[6px] text-[14px] font-[400]"
+                            value=""
+
+                        />
+
+                    </div>
+                    <div className='flex flex-col gap-2 w-full'>
+                        <div>
+                            <p className='text-[20px] font-medium'>Body</p>
+
+                        </div>
+                        <textarea
+                            type="input"
+                            placeholder='Insert Text here...'
+                            class="min-h-[100px] px-[16px] py-[8px] border-[1px] border-solid border-[#646464] rounded-[6px] text-[14px] font-[400]"
+                            value=""
+
+                        />
+
+                    </div>
                 </div>
             </div>
             <div className='flex gap-4 justify-end pb-[1rem]'>
-                    <button onClick={()=>setShowScheduleInterview(false)} className='px-9 py-3 border border-[#06A9EF] rounded-[12px]  text-[16px] font-semibold' id='button'>Cancel</button>
-                    <button className='px-9 py-3 bg-[#06A9EF] rounded-[12px] text-[16px] font-semibold text-white'>Save</button>
-                </div>
+                <button onClick={() => setShowScheduleInterview(false)} className='px-9 py-3 border border-[#06A9EF] rounded-[12px]  text-[16px] font-semibold' id='button'>Cancel</button>
+                <button className='px-9 py-3 bg-[#06A9EF] rounded-[12px] text-[16px] font-semibold text-white'>Save</button>
+            </div>
         </div>
     )
 }

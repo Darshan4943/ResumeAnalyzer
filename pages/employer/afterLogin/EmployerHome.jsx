@@ -226,7 +226,7 @@ function EmployerHome({ toggleContentt }) {
     },
   ];
   return (
-    <div className=" h-[80vh] w-[100%] pr-2 ms:overflow-y-auto">
+    <div className=" ml:h-[80vh] w-[100%] pr-2 overflow-y-auto">
       <div
         className="bg-frm  bg-cover bg-[#06A9EF]  py-6 flex  items-center "
         style={{
@@ -657,8 +657,8 @@ function EmployerHome({ toggleContentt }) {
                 </div>
               </div>
             </div>
-            <div className="lg:w-[60.44%] w-full flex "
-            style={{padding:'10px',widows:'100%'}}
+            <div className="w-[97%]  flex "
+            style={{padding:'10px'}}
             >
               <StackedBarChart/>
             </div>
@@ -1085,7 +1085,7 @@ function EmployerHome({ toggleContentt }) {
                 </>
               ))}
 
-            <div className="flex justify-between items-center self-stretch">
+            {/* <div className="flex justify-between items-center self-stretch">
               <div className="flex items-center gap-2">
                 <p className="text-[#646464] text-[10px] font-semibold">View</p>
                 <div
@@ -1154,7 +1154,7 @@ function EmployerHome({ toggleContentt }) {
                   </svg>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
