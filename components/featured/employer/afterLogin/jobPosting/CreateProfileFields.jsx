@@ -47,7 +47,7 @@ function CreateProfileFields() {
                 />
                 <circle cx="12" cy="12" r="8" fill="#06A9EF" />
               </svg>
-              <div className="h-[2px] w-full bg-[#C7C7C7]"></div>
+              <div className={`h-[2px] w-full ${toggle >= 1 ? 'bg-[#06A9EF]' : 'bg-[#C7C7C7]'}`}></div>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -64,9 +64,9 @@ function CreateProfileFields() {
                   stroke="#C7C7C7"
                   className="h-[64px] w-[64px] ms:h-[64px] ms:w-[64px]"
                 />
-                <circle cx="12" cy="12" r="8" fill="#06A9EF" />
+                <circle cx="12" cy="12" r="8" className={`${toggle >= 1 ? 'fill-[#06A9EF]' : 'fill-[#C7C7C7]'}`}  />
               </svg>
-              <div className="h-[2px] w-full bg-[#C7C7C7]"></div>
+              <div className={`h-[2px] w-full ${toggle >= 2 ? 'bg-[#06A9EF]' : 'bg-[#C7C7C7]'}`}></div>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -83,9 +83,9 @@ function CreateProfileFields() {
                   stroke="#C7C7C7"
                   className="h-[64px] w-[64px] ms:h-[64px] ms:w-[64px]"
                 />
-                <circle cx="12" cy="12" r="8" fill="#06A9EF" />
+                <circle cx="12" cy="12" r="8" className={`${toggle >= 2 ? 'fill-[#06A9EF]' : 'fill-[#C7C7C7]'}`}  />
               </svg>
-              <div className="h-[2px] w-full bg-[#C7C7C7]"></div>
+              <div className={`h-[2px] w-full ${toggle >= 3 ? 'bg-[#06A9EF]' : 'bg-[#C7C7C7]'}`} ></div>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -102,7 +102,7 @@ function CreateProfileFields() {
                   stroke="#C7C7C7"
                   className="h-[64px] w-[64px] ms:h-[64px] ms:w-[64px]"
                 />
-                <circle cx="12" cy="12" r="8" fill="#06A9EF" />
+                <circle cx="12" cy="12" r="8" className={`${toggle >= 3 ? 'fill-[#06A9EF]' : 'fill-[#C7C7C7]'}`}  />
               </svg>
             </div>
           </div>
