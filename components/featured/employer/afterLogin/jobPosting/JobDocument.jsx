@@ -85,7 +85,7 @@ function JobDocument({setToggle}) {
       </div>
 
       <div className="flex flex-row bg-white p-4  gap-[4px] justify-between ">
-        <button className="   border-[1px] border-solid border-[#06A9EF] text-[16px] font-medium px-9 py-3 rounded-[12px] max-scr1100:px-6 ">
+        <button onClick={() => setToggle(0)} className="   border-[1px] border-solid border-[#06A9EF] text-[16px] font-medium px-9 py-3 rounded-[12px] max-scr1100:px-6 ">
           Cancel
         </button>
         <button onClick={() => setToggle(2)} className="  text-[#fff] text-[16px] font-semibold px-9 py-3 max-scr1100:px-6  bg-[#06A9EF] rounded-[12px]">
@@ -94,6 +94,6 @@ function JobDocument({setToggle}) {
       </div>
     </div>
   )
-}
+}  
 
 export default JobDocument
