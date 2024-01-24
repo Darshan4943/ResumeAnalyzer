@@ -1,5 +1,5 @@
 import LevelUpdate from '@/components/models/levelUpdate';
-import { AnimatePresence,motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import React, { useEffect, useRef, useState } from 'react'
 
 function HiringProgress() {
@@ -67,19 +67,19 @@ function HiringProgress() {
             </div>
 
             <AnimatePresence>
-                        {openTaskModel && (
-                            <motion.div
-                                initial={{ x: '100%' }}
-                                animate={{ x: 0 }}
-                                exit={{ x: '100%' }}
-                                transition={{  duration: 0.5 }}
-                                ref={taskRef}
-                                className='absolute z-10 right-[-1.5%] w-[60%] min-w-[570px]  top-[-2%]'
-                            >
-                                <LevelUpdate closeTaskPopup={closeTaskPopup} />
-                            </motion.div>
-                        )}
-                    </AnimatePresence>
+                {openTaskModel && (
+                    <motion.div
+                        initial={{ x: '100%' }}
+                        animate={{ x: 0 }}
+                        exit={{ x: '100%' }}
+                        transition={{ duration: 0.5 }}
+                        ref={taskRef}
+                        className='absolute z-10 right-[-1.5%] scr1200:max-w-[60%] scr1200:w-[60%] ml:w-[80%] w-[100%]  ml:top-[-2%] ml:bottom-[0%] '
+                    >
+                        <LevelUpdate closeTaskPopup={closeTaskPopup} />
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </>
     )
 }

@@ -4,19 +4,19 @@ import React, { useEffect, useRef, useState } from 'react'
 
 
 
-function ApplicantsDetails({setIsApplicantDetails}) {
+function ApplicantsDetails({ setIsApplicantDetails }) {
 
 
 
-    const router =useRouter()
-  
+    const router = useRouter()
+
     const [toggle, setToggle] = useState("ApplicantProfile")
     const [activeOption, setActiveOption] = useState('ApplicantProfile');
 
 
     const taskRef = useRef(null);
 
-   
+
 
 
 
@@ -29,7 +29,7 @@ function ApplicantsDetails({setIsApplicantDetails}) {
 
         <div className='flex flex-col gap-6 relative h-[75vh] overflow-y-auto'>
             <div className=' flex w-full gap-3 justify-between p-4  rounded-[16px] items-center bg-white' style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}>
-            <img onClick={()=>setIsApplicantDetails(false)} className="scr420:w-[40px] w-[30px] cursor-pointer" src="/images/employer/icon_left.png" alt="" />
+                <img onClick={() => setIsApplicantDetails(false)} className="scr420:w-[40px] w-[30px] cursor-pointer" src="/images/employer/icon_left.png" alt="" />
                 <p className='text-[18px] scr420:text-[18px]  w-[100%] text-start flex justify-start font font-medium  '>Applicant Details</p>
             </div>
 
@@ -52,24 +52,24 @@ function ApplicantsDetails({setIsApplicantDetails}) {
                         </div>
 
                         <div className="flex py-[8px] px-[16px] flex-col items-start gap-1 rounded-[12px] bg-[#EFFAFF] ">
-                  <p className="text-[14px] sm:text-[16px] font-[500] text-[#333] leading-[160%] ">
-                    Assistant Manager
-                  </p>
-                  <div className="h-[1px] bg-[#D6DDEB]"></div>
-                  <p className="text-[14px] sm:text-[16px] text-[#333] leading-[160%] font-[400] mb-[2px]">
-                    Product Development
-                  </p>
-                  <p className="text-[14px] sm:text-[16px] text-[#333] leading-[160%] font-[400] ">
-                    Marketing
-                  </p>
-                </div>
+                            <p className="text-[14px] sm:text-[16px] font-[500] text-[#333] leading-[160%] ">
+                                Assistant Manager
+                            </p>
+                            <div className="h-[1px] bg-[#D6DDEB]"></div>
+                            <p className="text-[14px] sm:text-[16px] text-[#333] leading-[160%] font-[400] mb-[2px]">
+                                Product Development
+                            </p>
+                            <p className="text-[14px] sm:text-[16px] text-[#333] leading-[160%] font-[400] ">
+                                Marketing
+                            </p>
+                        </div>
 
-                      <div className="flex whitespace-nowrap justify-center w-[100%] p-[15px] scr1200:p-[24px] items-center gap-[15px] scr1350:gap-[24px] rounded-[12px] border-[1px] border-[#06A9EF] bg-[#fff]">
-                  <p className="text-[#333] scr1350:text-[20px] scr1200:text-[17px] text-[14px] font-[500] ">Profile Match Score</p>
-                  <p className="text-[#333] text-[23px] scr1350:text-[36px] scr1200:text-[30px] font-[500] ">87 %</p>
-                </div>
+                        <div className="flex justify-center w-[100%] p-[15px] scr1200:p-[24px] items-center gap-[15px] scr1350:gap-[24px] rounded-[12px] border-[1px] border-[#06A9EF] bg-[#fff]">
+                            <p className="text-[#333] scr1350:text-[20px] scr1200:text-[17px] text-[14px] font-[500] ">Profile Match Score</p>
+                            <p className="text-[#333] text-[23px] scr1350:text-[36px] scr1200:text-[30px] font-[500] ">87 %</p>
+                        </div>
 
-                <button onClick={()=>router.push("/employer/afterLogin/Hiring?content=JobPost")} className="flex py-[12px] w-[100%] scr1200:px-[9px] scr1350:px-[22px] justify-center items-center gap-[10px] rounded-[12px] bg-[#06A9EF] text-[12px] sm:text-[16px] text-[#fff] font-[600] leading-[160%]">Move to Hiring</button>
+                        <button onClick={() => router.push("/employer/afterLogin/Hiring?content=JobPost")} className="flex py-[12px] w-[100%] scr1200:px-[9px] scr1350:px-[22px] justify-center items-center gap-[10px] rounded-[12px] bg-[#06A9EF] text-[12px] sm:text-[16px] text-[#fff] font-[600] leading-[160%]">Move to Hiring</button>
 
 
                         <div className='h-[1px] bg-[#D6DDEB]'></div>
@@ -152,7 +152,7 @@ function ApplicantsDetails({setIsApplicantDetails}) {
                                         <path d="M0.5 4C0.5 1.79086 2.29086 0 4.5 0H64.5C66.7091 0 68.5 1.79086 68.5 4H0.5Z" fill={activeOption === 'Resume' ? '#06A9EF' : 'white'} />
                                     </svg>
                                 </div>
-                               
+
                             </div>
                             <div className='h-[1px] bg-[#D6DDEB]'></div>
                         </div>
@@ -241,9 +241,9 @@ function ApplicantsDetails({setIsApplicantDetails}) {
                             />
                         </div>
                     }
-                    
 
-                   
+
+
                 </div>
             </div>
 

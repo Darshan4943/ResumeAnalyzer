@@ -7,9 +7,9 @@ import Assessment from "./Assessment";
 import { useRouter } from "next/router";
 
 function CreateProfileFields() {
-const router = useRouter()
-  const [toggle, setToggle] = useState(0)
-  const [successfull, setSuccessfull] = useState(false)
+  const router = useRouter();
+  const [toggle, setToggle] = useState(0);
+  const [successfull, setSuccessfull] = useState(false);
   return (
     <div
       className="w-full max-h-[80vh] overflow-y-auto py-[12px] flex flex-col gap-[12px] rounded-[12px] bg-[#fff] relative"
@@ -22,7 +22,7 @@ const router = useRouter()
       </div>
       <div className=" bg-[#E0F6FF]  flex flex-col">
         <div
-          className="bg-[#fff] m-4 flex flex-col justify-center py-[14px] gap-[8px] itmes-center rounded-[12px]"
+          className="bg-[#fff] mx-[8px] ml:mx-[16px] my-[12px] flex flex-col justify-center py-[14px] gap-[8px] itmes-center rounded-[12px]"
           style={{
             boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
           }}
@@ -35,7 +35,7 @@ const router = useRouter()
                 height="24"
                 viewBox="0 0 24 24"
                 fill="none"
-                className="h-[24px] w-[24px] ms:h-[64px] ms:w-[64px]"
+                className="h-[64px] w-[64px] ms:h-[64px] ms:w-[64px]"
               >
                 <circle
                   cx="12"
@@ -43,7 +43,7 @@ const router = useRouter()
                   r="11.5"
                   fill="white"
                   stroke="#C7C7C7"
-                  className="h-[24px] w-[24px] ms:h-[64px] ms:w-[64px]"
+                  className="h-[64px] w-[64px] ms:h-[64px] ms:w-[64px]"
                 />
                 <circle cx="12" cy="12" r="8" fill="#06A9EF" />
               </svg>
@@ -54,7 +54,7 @@ const router = useRouter()
                 height="24"
                 viewBox="0 0 24 24"
                 fill="none"
-                className="h-[24px] w-[24px] ms:h-[64px] ms:w-[64px]"
+                className="h-[64px] w-[64px] ms:h-[64px] ms:w-[64px]"
               >
                 <circle
                   cx="12"
@@ -62,7 +62,7 @@ const router = useRouter()
                   r="11.5"
                   fill="white"
                   stroke="#C7C7C7"
-                  className="h-[24px] w-[24px] ms:h-[64px] ms:w-[64px]"
+                  className="h-[64px] w-[64px] ms:h-[64px] ms:w-[64px]"
                 />
                 <circle cx="12" cy="12" r="8" fill="#06A9EF" />
               </svg>
@@ -73,7 +73,7 @@ const router = useRouter()
                 height="24"
                 viewBox="0 0 24 24"
                 fill="none"
-                className="h-[24px] w-[24px] ms:h-[64px] ms:w-[64px]"
+                className="h-[64px] w-[64px] ms:h-[64px] ms:w-[64px]"
               >
                 <circle
                   cx="12"
@@ -81,7 +81,7 @@ const router = useRouter()
                   r="11.5"
                   fill="white"
                   stroke="#C7C7C7"
-                  className="h-[24px] w-[24px] ms:h-[64px] ms:w-[64px]"
+                  className="h-[64px] w-[64px] ms:h-[64px] ms:w-[64px]"
                 />
                 <circle cx="12" cy="12" r="8" fill="#06A9EF" />
               </svg>
@@ -92,7 +92,7 @@ const router = useRouter()
                 height="24"
                 viewBox="0 0 24 24"
                 fill="none"
-                className="h-[24px] w-[24px] ms:h-[64px] ms:w-[64px]"
+                className="h-[64px] w-[64px] ms:h-[64px] ms:w-[64px]"
               >
                 <circle
                   cx="12"
@@ -100,7 +100,7 @@ const router = useRouter()
                   r="11.5"
                   fill="white"
                   stroke="#C7C7C7"
-                  className="h-[24px] w-[24px] ms:h-[64px] ms:w-[64px]"
+                  className="h-[64px] w-[64px] ms:h-[64px] ms:w-[64px]"
                 />
                 <circle cx="12" cy="12" r="8" fill="#06A9EF" />
               </svg>
@@ -124,20 +124,11 @@ const router = useRouter()
           </div>
         </div>
 
+        {toggle == 0 && <PersonalDetails setToggle={setToggle} />}
+        {toggle == 1 && <JobDocument setToggle={setToggle} />}
+        {toggle == 2 && <ProfessionalDetails setToggle={setToggle} />}
 
-        {toggle == 0 &&
-          <PersonalDetails setToggle={setToggle} />
-        }
-        {toggle == 1 &&
-          <JobDocument setToggle={setToggle} />
-        }
-        {toggle == 2 &&
-          <ProfessionalDetails setToggle={setToggle} />
-        }
-
-        {toggle == 3 &&
-          <Assessment setSuccessfull={setSuccessfull} />
-        }
+        {toggle == 3 && <Assessment setSuccessfull={setSuccessfull} setToggle={setToggle} />}
 
 {successfull && (
           <>
@@ -194,9 +185,7 @@ const router = useRouter()
           </>
         )}
       </div>
-
     </div>
-
   );
 }
 
