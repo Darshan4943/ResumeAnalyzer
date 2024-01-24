@@ -70,6 +70,10 @@ function LevelUpdate({ closeTaskPopup ,setSuccessfull,setTaskSuccessfull}) {
             status: "",
             date: "",
             levelTitle: "",
+
+
+
+            
         });
 
       
