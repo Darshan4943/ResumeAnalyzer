@@ -58,9 +58,42 @@ function Preboarding() {
 
   const [toggle, setToggle] = useState(0);
 
+  const preboarding = [
+    {
+      name: "Initial",
+      num: "2",
+      line: <div className="h-[2px] bg-[#06A9EF] w-[20px]"></div>,
+    },
+    {
+      name: "Documentation",
+      num: "10",
+      line: <div className="h-[2px] bg-[#06A9EF] w-[20px]"></div>,
+    },
+    {
+      name: "Verification",
+      num: "10",
+      line: <div className="h-[2px] bg-[#06A9EF] w-[20px]"></div>,
+    },
+    {
+      name: "Release Offer",
+      num: "10",
+      line: <div className="h-[2px] bg-[#06A9EF] w-[20px]"></div>,
+    },
+    {
+      name: "Offer Acceptance",
+      num: "10",
+      line: <div className="h-[2px] bg-[#06A9EF] w-[20px]"></div>,
+    },
+    {
+      name: "Hired",
+      num: "10",
+      line: "",
+    },
+  ];
+
   return (
     <>
-      <div className="inline-flex flex-col items-start gap-6 w-full h-[75vh] overflow-y-auto">
+      <div className="flex flex-col items-start gap-6 w-full  ">
         <div
           className="flex p-4 gap-4 items-start w-[100%] rounded-2xl bg-[#fff]"
           style={{ boxShadow: "box-shadow: 0px -1px 0px 0px #D6DDEB inset" }}
@@ -90,7 +123,7 @@ function Preboarding() {
             ))}
           </div>
         </div>
-        <div className="flex items-center w-[100%] gap-5">
+        {/* <div className="flex items-center w-[100%] gap-5">
           <div
             onClick={() => setToggle(0)}
             className="w-[196px] flex p-2 justify-between items-center rounded-lg bg-[#fff] whitespace-nowrap"
@@ -179,6 +212,33 @@ function Preboarding() {
               2
             </div>
           </div>
+        </div> */}
+
+        <div className="flex items-center flex-row p-2 overflow-x-scroll w-full">
+          {preboarding.map((e, index) => (
+            <>
+              <div
+                onClick={() => setToggle(index)}
+                key={index}
+                className={`flex p-[8px] min-w-[12rem]  justify-between   items-center rounded-[8px] ${
+                  toggle === index ? "bg-[#06A9EF] " : "bg-[#fff] "
+                }`}
+                style={{ boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)" }}
+              >
+                <p className={`text-[14px] text-[#333] leading-[160%]  ${
+                  toggle === index ? "text-white" : " "
+                }`}>
+                  {e.name}
+                </p>
+                <div className=" flex ">
+                  <p className="bg-[#E9EBFD]  p-1 rounded-[8px] w-[30px] flex justify-center items-center">
+                    {e.num}
+                  </p>
+                </div>
+              </div>
+              <div>{e.line}</div>
+            </>
+          ))}
         </div>
 
         {/* INITIAL 1ST PAGE  */}
