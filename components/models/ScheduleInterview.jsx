@@ -26,7 +26,7 @@ function ScheduleInterview({ setShowScheduleInterview }) {
         setToggle(option)
     };
     return (
-        <div className='p-6 rounded-tl-[16px] h-[87vh] bg-white flex flex-col gap-4 overflow-y-auto' style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}>
+        <div className='sm:p-6 p-2 rounded-tl-[16px] h-[87vh] bg-white flex flex-col gap-4 overflow-y-auto' style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}>
             <div className='text-[24px] font-medium'>Schedule Interview</div>
             <div className='flex flex-col gap-2 text-[14px] font-medium '>
                 <p>What will be the mode of Interview?</p>
@@ -83,7 +83,7 @@ function ScheduleInterview({ setShowScheduleInterview }) {
                     </div>
                     <div className="w-[91.5%] flex flex-col gap-4">
                         {levels.map((level) => (
-                            <div className="flex flex-col gap-[8px] w-[75%] level" key={level.id}>
+                            <div className="flex flex-col gap-[8px] sm:w-[75%] w-[95%] level" key={level.id}>
                                 <div className="flex gap-2 justify-between">
                                     <p>{level.name}</p>
                                     {level.id !== 1 && (
@@ -121,8 +121,8 @@ function ScheduleInterview({ setShowScheduleInterview }) {
 
 
                 </div>
-                <div className='flex gap-4 w-full'>
-                    <div className='flex flex-col gap-4 w-[33%]'>
+                <div className='flex xl:flex-row flex-col gap-4 w-full'>
+                    <div className='flex flex-col gap-4 xl:w-[33%] w-[60%] min-w-[250px]'>
                         <div>
                             <p className='text-[20px] font-medium'>Interview Date</p>
 
@@ -136,13 +136,13 @@ function ScheduleInterview({ setShowScheduleInterview }) {
                         />
 
                     </div>
-                    <div className='flex flex-col gap-4  w-[33%]'>
+                    <div className='flex flex-col gap-4  xl:w-[33%] w-[60%] min-w-[250px]'>
 
                         <p className='text-[20px] font-medium'>Start Time</p>
 
                         <div className='flex  gap-4'>
                             <select
-                                className="h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#646464] rounded-[6px] text-[14px]  font-[400]"
+                                className="h-[38px] w-full px-[16px] py-[8px] border-[1px] border-solid border-[#646464] rounded-[6px] text-[14px]  font-[400]"
                                 value=""
 
                             >
@@ -151,7 +151,7 @@ function ScheduleInterview({ setShowScheduleInterview }) {
                                 <option value="developer">Conducted</option>
 
                             </select>
-                            <div className=" flex gap-2 h-[38px] w-full px-[16px] py-[8px] border-[1px] border-solid border-[#646464] rounded-[6px] text-[14px]  font-[400]">
+                            <div className=" flex gap-2 h-[38px] px-[16px] py-[8px] border-[1px] border-solid border-[#646464] rounded-[6px] text-[14px]  font-[400]">
                                 <p className='text-[14px] font-medium'>AM</p>
                                 <p className='text-[14px] font-medium'>PM</p>
                             </div>
@@ -159,7 +159,7 @@ function ScheduleInterview({ setShowScheduleInterview }) {
                         </div>
 
                     </div>
-                    <div className='flex flex-col gap-4  w-[33%]'>
+                    <div className='flex flex-col gap-4  xl:w-[33%] w-[60%] min-w-[250px]'>
 
                         <p className='text-[20px] font-medium'>Duration</p>
 
@@ -204,9 +204,9 @@ function ScheduleInterview({ setShowScheduleInterview }) {
 
 
                 </div>
-                <div className='flex flex-col  gap-4  px-[16px] py-[16px] border-[1px] border-solid border-[#646464] rounded-[6px] '>
+                <div className='flex flex-col  gap-4  sm:px-[16px] px-2 py-[16px] border-[1px] border-solid border-[#646464] rounded-[6px] '>
                     <div>
-                        <div className='flex justify-between text-[16px] font-semibold'>
+                        <div className='flex justify-between sm:text-[16px] text-[12px] font-semibold'>
                             <div className='flex flex-col gap-2'>
                                 <p
                                     className=" cursor-pointer"
@@ -214,7 +214,7 @@ function ScheduleInterview({ setShowScheduleInterview }) {
                                 >
                                     Email to Candidate
                                 </p>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="150" height="4" viewBox="0 0 150 4" fill="none">
+                                <svg className='sm:w-[150px] w-[125px]' xmlns="http://www.w3.org/2000/svg" height="4" viewBox="0 0 150 4" fill="none">
                                     <path d="M0 4C0 1.79086 1.79086 0 4 0H134C136.209 0 138 1.79086 138 4H0Z" fill={activeOption === 'Candidate' ? '#06A9EF' : 'white'} />
                                 </svg>
                             </div>
@@ -225,7 +225,7 @@ function ScheduleInterview({ setShowScheduleInterview }) {
                                 >
                                     Email to Interviewer
                                 </p>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="150" height="4" viewBox="0 0 150 4" fill="none">
+                                <svg className='sm:w-[150px] w-[125px]' xmlns="http://www.w3.org/2000/svg"  height="4" viewBox="0 0 150 4" fill="none">
                                     <path d="M0 4C0 1.79086 1.79086 0 4 0H134C136.209 0 138 1.79086 138 4H0Z" fill={activeOption === 'Interviewer' ? '#06A9EF' : 'white'} />
                                 </svg>
                             </div>
@@ -263,7 +263,7 @@ function ScheduleInterview({ setShowScheduleInterview }) {
                     </div>
                 </div>
             </div>
-            <div className='flex gap-4 justify-end pb-[1rem]'>
+            <div className='flex gap-4 sm:justify-end  justify-center pb-[1rem]'>
                 <button onClick={() => setShowScheduleInterview(false)} className='px-9 py-3 border border-[#06A9EF] rounded-[12px]  text-[16px] font-semibold' id='button'>Cancel</button>
                 <button className='px-9 py-3 bg-[#06A9EF] rounded-[12px] text-[16px] font-semibold text-white'>Save</button>
             </div>

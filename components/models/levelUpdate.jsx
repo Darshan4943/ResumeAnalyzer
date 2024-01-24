@@ -2,16 +2,19 @@ import React, { useState } from 'react'
 import TextEditor from '../common/textEditor'
 import ScheduleInterview from './ScheduleInterview';
 import { motion, AnimatePresence } from 'framer-motion';
+import ScheduleTask from './ScheduleTask';
 
 function LevelUpdate({ closeTaskPopup }) {
     const [isNextLevel, setIsNextLevel] = useState("nextLevel")
     const [showScheduleInterview, setShowScheduleInterview] = useState(false);
+    const [showAssignTask, setShowAssignTask] = useState(false);
+
 
     const handleRadioChange = (value) => {
         if (value === 'scheduleInterview') {
             setShowScheduleInterview(true);
         } else {
-            setShowScheduleInterview(false);
+            setShowAssignTask(true);
         }
     };
     const handleIsNextLevel = (value) => {
@@ -96,13 +99,13 @@ function LevelUpdate({ closeTaskPopup }) {
    
 
     return (
-        <div className='p-6 rounded-tl-[16px] h-[85vh] bg-white flex flex-col gap-4 overflow-y-auto ' style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}>
+        <div className='sm:p-6 p-2 rounded-tl-[16px] h-[85vh] bg-white flex flex-col gap-4 overflow-y-auto ' style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}>
             <div className='flex gap-4 justify-between items-center  '>
-                <p className='text-[24px] font-medium'>Level 1</p>
+                <p className='text-[24px] font-medium min-w-[80px]'>Level 1</p>
                 <div className='h-[1px] w-[81%] bg-[#D6DDEB]'></div>
             </div>
             <p className='text-[24px] font-medium'>Technical Round-II</p>
-            <div className='flex justify-between'>
+            <div className='flex ms:flex-row flex-col gap-4 justify-between'>
                 <div className='flex flex-col gap-4'>
                     <div>
                         <p className='text-[20px] font-medium'>Interview Status</p>
@@ -135,7 +138,7 @@ function LevelUpdate({ closeTaskPopup }) {
                 </div>
 
             </div>
-            <div className='flex justify-between'>
+            <div className='flex ms:flex-row flex-col gap-4 justify-between'>
                 <div className='flex flex-col gap-2'>
 
                     <p className='text-[20px] font-medium'>Conducted By</p>
@@ -163,15 +166,22 @@ function LevelUpdate({ closeTaskPopup }) {
                 </div>
 
             </div>
-            <div className='flex flex-col gap-2'>
+            <div className='flex flex-col w-full gap-2'>
                 <p className='text-[20px] font-medium'>Add Comment</p>
                 <div>
                     {/* <TextEditor /> */}
+                    <input
+                        type="input"
+                        placeholder='Add Comment'
+                        class=" px-[16px] w-full py-[8px] border-[1px] border-solid border-[#646464] rounded-[6px] text-[14px] font-[400]"
+                        value=""
+                       
+                    />
                 </div>
             </div>
             <div className='h-[1px] bg-[#D6DDEB]'></div>
             <div className='flex flex-col gap-4'>
-                <div className='flex justify-between text-[18px] font-semibold'>
+                <div className='flex justify-between ms:flex-row flex-col gap-4 text-[18px] font-semibold'>
                     <div className="flex gap-[8px] items-center  ">
                         <input
                             type="radio"
@@ -223,7 +233,7 @@ function LevelUpdate({ closeTaskPopup }) {
                         </div>
 
 
-                        <div className='flex justify-between text-[16px] w-[55%] font-medium'>
+                        <div className='flex justify-between ms:flex-row flex-col gap-4 text-[16px] ms:w-[55%] font-medium'>
                             <div className="flex gap-[8px] items-center  ">
                                 <input
                                     type="radio"
@@ -239,9 +249,9 @@ function LevelUpdate({ closeTaskPopup }) {
                                 <input
                                     type="radio"
                                     name="AssigneTask"
-
+                                    value='assignTask'
                                     className="h-[20px] w-[20px] custom-radio cursor-pointer "
-
+                                    onChange={(e) => handleRadioChange(e.target.value)}
                                 />
                                 <label className=" ">Assign Task</label>
                             </div>
@@ -277,6 +287,26 @@ function LevelUpdate({ closeTaskPopup }) {
                     </div>
                 )}
             </AnimatePresence>
+
+            <AnimatePresence>
+                {showAssignTask && (
+                    <div>
+                   
+                   <div className="fixed z-[2500] top-[-100] left-[-100] right-[-100] bottom-[-100] w-[200%] bg-black opacity-60"></div>
+                    <motion.div
+                        initial={{ x: '100%' }}
+                        animate={{ x: 0 }}
+                        exit={{ x: '100%' }}
+                        transition={{ duration: 0.5 }}
+                        // ref={taskRef}
+                        className='absolute z-[2500] right-0 w-[100%] top-[0]'
+                    >
+                        <ScheduleTask setShowAssignTask={setShowAssignTask} />
+                    </motion.div>
+                    </div>
+                )}
+            </AnimatePresence>
+
 
         </div>
     )
