@@ -55,7 +55,7 @@ const StackedBarChart = () => {
             top: 0, 
           }, 
     },
-    barThickness: 30, 
+    barThickness: 15, 
     maintainAspectRatio: false, 
     aspectRatio: 2,
 

@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import React, { useState } from 'react'
 
-function ScheduleInterview({ setShowScheduleInterview }) {
+function ScheduleInterview({ setShowScheduleInterview,setSuccessfull }) {
     const [levels, setLevels] = useState([{ id: 1, name: 'Interviewer 1' }]);
     const [showApprovalChain, setShowApprovalChain] = useState(false);
     const [approvalChoice, setApprovalChoice] = useState(null);
@@ -25,6 +25,7 @@ function ScheduleInterview({ setShowScheduleInterview }) {
         setActiveOption(option);
         setToggle(option)
     };
+   
     return (
         <div className='sm:p-6 p-2 rounded-tl-[16px] h-[87vh] bg-white flex flex-col gap-4 overflow-y-auto' style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}>
             <div className='text-[24px] font-medium'>Schedule Interview</div>
@@ -225,7 +226,7 @@ function ScheduleInterview({ setShowScheduleInterview }) {
                                 >
                                     Email to Interviewer
                                 </p>
-                                <svg className='sm:w-[150px] w-[125px]' xmlns="http://www.w3.org/2000/svg"  height="4" viewBox="0 0 150 4" fill="none">
+                                <svg className='sm:w-[150px] w-[125px]' xmlns="http://www.w3.org/2000/svg" height="4" viewBox="0 0 150 4" fill="none">
                                     <path d="M0 4C0 1.79086 1.79086 0 4 0H134C136.209 0 138 1.79086 138 4H0Z" fill={activeOption === 'Interviewer' ? '#06A9EF' : 'white'} />
                                 </svg>
                             </div>
@@ -265,8 +266,10 @@ function ScheduleInterview({ setShowScheduleInterview }) {
             </div>
             <div className='flex gap-4 sm:justify-end  justify-center pb-[1rem]'>
                 <button onClick={() => setShowScheduleInterview(false)} className='px-9 py-3 border border-[#06A9EF] rounded-[12px]  text-[16px] font-semibold' id='button'>Cancel</button>
-                <button className='px-9 py-3 bg-[#06A9EF] rounded-[12px] text-[16px] font-semibold text-white'>Save</button>
+                <button onClick={() => setSuccessfull(true)} className='px-9 py-3 bg-[#06A9EF] rounded-[12px] text-[16px] font-semibold text-white'>Schedule Interview</button>
             </div>
+
+           
         </div>
     )
 }

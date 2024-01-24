@@ -463,20 +463,20 @@ function EmployerHome({ toggleContentt }) {
             </div>
           </div>
           <div className="lg:flex w-full ml:flex-row-reverse flex-col flex justify-between">
-            <div className="flex ml:flex-col flex-row items-start gap-4 lg:w-[32.23%] w-[100%]">
+            <div className="flex ml:flex-col flex-row items-start gap-2 ml:gap-4 lg:w-[32.23%] w-[100%]">
               <div
-                className="flex p-4 flex-col items-start gap-4 bg-[#fff] self-stretch w-full"
+                className="flex ml:p-4  flex-col items-start ml:gap-4 gap-0 bg-[#fff] self-stretch w-full"
                 style={{
                   boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
                   borderRadius: "16px",
                 }}
               >
-                <div className="flex justify-between items-center self-stretch">
-                  <p className="text-[#333] font-Montserrat text-[18px] font-semibold">
+                <div className="flex  justify-between p-2 ml:p-0 items-center self-stretch">
+                  <p className="text-[#333] font-Montserrat text-[14px] ml:text-[18px] font-semibold">
                     {" "}
                     Job Views
                   </p>
-                  <div className="flex p-[6px] rounded-[32px] bg-[#FFDA1D]">
+                  <div className="flex p-[2px] ml:p-[6px] rounded-[32px] bg-[#FFDA1D]">
                     <svg
                       xlgns="http://www.w3.org/2000/svg"
                       width="20"
@@ -491,8 +491,8 @@ function EmployerHome({ toggleContentt }) {
                     </svg>
                   </div>
                 </div>
-                <div className="flex flex-col items-start gap-[2px]">
-                  <p className="text-[#333] flex items font-Montserrat font-semibold text-[36px]">
+                <div className="flex flex-col px-2 ml:p-0 items-start gap-[2px]">
+                  <p className="text-[#333] flex items font-Montserrat font-semibold text-[24px] ml:text-[36px]">
                     2,342
                   </p>
                   <div className="flex gap-2 items-start">
@@ -536,18 +536,18 @@ function EmployerHome({ toggleContentt }) {
                 </div>
               </div>
               <div
-                className="flex p-4 flex-col items-start gap-4 bg-[#fff] self-stretch w-full"
+                className="flex ml:p-4 p-2 flex-col items-start ml:gap-4 gap-1 bg-[#fff] self-stretch w-full"
                 style={{
                   boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
                   borderRadius: "16px",
                 }}
               >
                 <div className="flex justify-between items-center self-stretch">
-                  <p className="text-[#333] font-Montserrat text-[18px] font-semibold">
+                  <p className="text-[#333] font-Montserrat text-[12px] ml:text-[18px] font-semibold">
                     {" "}
                     Job Applied
                   </p>
-                  <div className="flex p-[6px] rounded-[32px] bg-[#06A9EF]">
+                  <div className="flex p-[2px] ml:p-[6px] rounded-[32px] bg-[#06A9EF]">
                     <svg
                       xlgns="http://www.w3.org/2000/svg"
                       width="20"
@@ -613,7 +613,7 @@ function EmployerHome({ toggleContentt }) {
                   </div>
                 </div>
                 <div className="flex flex-col items-start gap-[2px]">
-                  <p className="text-[#333] flex items font-Montserrat font-semibold text-[36px]">
+                  <p className="text-[#333] flex items font-Montserrat font-semibold text-[24px] ml:text-[36px]">
                     654
                   </p>
                   <div className="flex gap-2 items-start">

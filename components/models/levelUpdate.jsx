@@ -4,7 +4,7 @@ import ScheduleInterview from './ScheduleInterview';
 import { motion, AnimatePresence } from 'framer-motion';
 import ScheduleTask from './ScheduleTask';
 
-function LevelUpdate({ closeTaskPopup }) {
+function LevelUpdate({ closeTaskPopup ,setSuccessfull,setTaskSuccessfull}) {
     const [isNextLevel, setIsNextLevel] = useState("nextLevel")
     const [showScheduleInterview, setShowScheduleInterview] = useState(false);
     const [showAssignTask, setShowAssignTask] = useState(false);
@@ -282,7 +282,7 @@ function LevelUpdate({ closeTaskPopup }) {
                         // ref={taskRef}
                         className='absolute z-[2500] right-0 w-[100%] top-[0]'
                     >
-                        <ScheduleInterview setShowScheduleInterview={setShowScheduleInterview} />
+                        <ScheduleInterview setShowScheduleInterview={setShowScheduleInterview} setSuccessfull={setSuccessfull} />
                     </motion.div>
                     </div>
                 )}
@@ -301,7 +301,7 @@ function LevelUpdate({ closeTaskPopup }) {
                         // ref={taskRef}
                         className='absolute z-[2500] right-0 w-[100%] top-[0]'
                     >
-                        <ScheduleTask setShowAssignTask={setShowAssignTask} />
+                        <ScheduleTask setShowAssignTask={setShowAssignTask} setTaskSuccessfull={setTaskSuccessfull} />
                     </motion.div>
                     </div>
                 )}
