@@ -264,7 +264,7 @@ function ApplicantDetails({ setTogglee }) {
                     {toggle === "Resume" &&
                         <div className='flex justify-center overflow-y-auto  px-6'>
                             <img
-                                src="/images/services/Resume-template-3.png"
+                                src="/images/employer/mobileResume.png"
                                 className="h-[729px] w-[520px] rounded-[10px]"
                                 alt=""
                             />
