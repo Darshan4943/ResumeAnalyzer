@@ -68,7 +68,7 @@ function EmployerHeader() {
                 className="min-w-[30px] h-[30px] object-contain"
               />
             </div>
-            <div className="flex  items-center  ">
+            <div onClick={() => router.push("/employer/afterLogin/EmployerHome")} className="flex  items-center  ">
               <img
                 className="min-w-[104px] h-[36.317px] object-contain"
                 src="/images/logo_skilotech.png"
@@ -116,8 +116,8 @@ function EmployerHeader() {
               />
             </svg>
             <div className="web600">
-              <div className="flex items-center gap-2">
-                <div className="">
+              <div   className="flex items-center gap-2">
+                <div  onClick={() => router.push("/employer/afterLogin/Profile")} className="">
                   <img
                     src="/images/employer/profileNew.png"
                     className="w-[40px] h-[40px]"
@@ -126,7 +126,7 @@ function EmployerHeader() {
                 </div>
 
                 <div className=" flex items-center ">
-                  John Doe
+                  <p  onClick={() => router.push("/employer/afterLogin/Profile")}>John Doe </p>
                   <div className="user_name flex items-center relative">
                     <div
                       className="group"

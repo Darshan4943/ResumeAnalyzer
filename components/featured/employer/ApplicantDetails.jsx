@@ -18,7 +18,7 @@ function ApplicantDetails({ setTogglee }) {
 
         <div className='flex flex-col gap-6 relative '>
             <div className=' flex w-full gap-3 justify-between p-4  rounded-[16px] items-center bg-white' style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}>
-                <img onClick={() => setTogglee(1)} className="w-[40px] cursor-pointer" src="/images/employer/icon_left.png" alt="" />
+                <img onClick={() => setTogglee(1)} className="w-[40px] cursor-pointer" src="/images/employer/Icon_left.png" alt="" />
                 <p className='text-[24px]  w-[100%] text-start flex justify-start font font-medium  '>Applicant Details</p>
             </div>
 

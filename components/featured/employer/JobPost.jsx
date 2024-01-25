@@ -162,7 +162,7 @@ function JobPost({ toggleContentt, setToggle }) {
         <div className="">
           <div className="flex w-[100%] scr700:px-[32px] px-[8px] py-[24px] justify-between rounded-t-[8px] items-center bg-[#fff] ">
             <div className="flex items-center scr700:gap-[24px] gap-2">
-              <img onClick={() => setToggle(0)} className=" ms:w-[40px] ms:h-[40px] w-[24px] h-[24px] cursor-pointer" src="/images/employer/icon_left.png" alt="" />
+              <img onClick={() => setToggle(0)} className=" ms:w-[40px] ms:h-[40px] w-[24px] h-[24px] cursor-pointer" src="/images/employer/Icon_left.png" alt="" />
               <div className="flex flex-col items-start gap-[8px]">
                 <p className="text-[#333]  font-[600] ms:text-[24px] text-[18px] leading-relaxed">Assistant Manager</p>
                 <div className="flex justify-center items-center gap-[8px]">

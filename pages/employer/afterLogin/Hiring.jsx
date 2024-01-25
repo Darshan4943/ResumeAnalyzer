@@ -239,6 +239,7 @@ function Hiring() {
 
                     <div className=" mobile">
                         <div className=" bg-[#fff] p-[12px]  flex flex-col ms:flex-row gap-[12px] z-[500] justify-between rounded-[12px] ">
+                            
                             <p className="h-[29px] text-[18px] ml:text-[24px] font-[500px]">
                             Job Post Status
                             </p>
