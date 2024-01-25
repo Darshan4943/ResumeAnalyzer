@@ -347,7 +347,7 @@ function BulkUploads() {
     </div>
 }
     {toggle ===1  && 
-    <ApplicantsDetails setIsApplicantDetails={setIsApplicantDetails} />
+    <ApplicantsDetails setIsApplicantDetails={setIsApplicantDetails} setTogglee={setToggle} />
     }
 
     </>

@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from 'react'
 
 
 
-function ApplicantsDetails({ setIsApplicantDetails }) {
+function ApplicantsDetails({ setIsApplicantDetails,setTogglee }) {
 
 
 
@@ -25,7 +25,7 @@ function ApplicantsDetails({ setIsApplicantDetails }) {
 
         <div className='flex flex-col gap-6 relative ml:h-[80vh] overflow-y-auto pb-2'>
             <div className=' flex w-full gap-3 justify-between p-4  rounded-[16px] items-center bg-white' style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}>
-                <img onClick={() => setIsApplicantDetails(false)} className="scr420:w-[40px] w-[30px] cursor-pointer" src="/images/employer/icon_left.png" alt="" />
+                <img onClick={() => setTogglee(0)} className="scr420:w-[40px] w-[30px] cursor-pointer" src="/images/employer/Icon_left.png" alt="" />
                 <p className='text-[18px] scr420:text-[18px]  w-[100%] text-start flex justify-start font font-medium  '>Applicant Details</p>
             </div>
 
