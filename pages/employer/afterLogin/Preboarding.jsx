@@ -47,41 +47,18 @@ function Preboarding() {
       {!preview && (
         <div className="flex flex-col items-start gap-6 w-full  ">
           <div
-            className="flex p-4 gap-4 items-start w-[100%] rounded-2xl bg-[#fff]"
+            className="flex p-2 ml:p-4 gap-0 ml:gap-4 items-start w-[100%] rounded-2xl bg-[#fff]"
             style={{ boxShadow: "box-shadow: 0px -1px 0px 0px #D6DDEB inset" }}
           >
-            {/* <div className="flex items-start md:gap-10 gap-6">
-              {btn.map((item, index) => (
-                <div
-                  key={index}
-                  className="flex flex-col items-center md:gap-[7px]"
-                >
-                  <p className="md:text-[16px] text-[12px] text-[#333] font-Montserrat font-semibold">
-                    {item}
-                  </p>
-                  <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="109"
-                  height="4"
-                  viewBox="0 0 109 4"
-                  fill="none"
-                >
-                  <path
-                    d="M0 4C0 1.79086 1.79086 0 4 0H105C107.209 0 109 1.79086 109 4H0Z"
-                    fill="#06A9EF"
-                  />
-                </svg>
-                </div>
-              ))}
-            </div> */}
-            <div className="flex flex-col cursor-pointer items-center gap-[7px] shadow-border">
+          
+            <div className="flex flex-col cursor-pointer items-center gap-[2px] ml:gap-[7px] shadow-border">
               <p
                 onClick={() => {
                   setActiveOption("In Preboarding");
                 }}
                 className={` ${
                   activeOption === "In Preboarding" ? "" : "text-[#646464]"
-                }  font-[600]`}
+                } ml:text-[16px] text-[14px]   font-[600]`}
               >
                 In Preboarding
               </p>
@@ -98,7 +75,7 @@ function Preboarding() {
                 />
               </svg>
             </div>
-            <div className="flex cursor-pointer flex-col items-center gap-[7px] shadow-border">
+            <div className="flex cursor-pointer flex-col items-center gap-[2px] ml:gap-[7px] shadow-border">
               <p
                 onClick={() => {
                   setActiveOption("Joined");
@@ -122,7 +99,7 @@ function Preboarding() {
                 />
               </svg>
             </div>
-            <div className="flex cursor-pointer flex-col items-center gap-[7px] shadow-border">
+            <div className="flex cursor-pointer flex-col items-center gap-[2px] ml:gap-[7px] shadow-border">
               <p
                 onClick={() => {
                   setActiveOption("Declined");
