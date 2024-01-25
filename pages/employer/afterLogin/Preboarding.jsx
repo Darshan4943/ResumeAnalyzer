@@ -218,7 +218,7 @@ function Preboarding() {
       )}
 
       {preview && <ApplicantPreview setPreview={setPreview} />}
-      {preview && <ApplicantPreview setPreview={setPreview} />}
+      
 
      
     </>
