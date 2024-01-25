@@ -418,6 +418,16 @@ const Hire = ({ toggleContentt, setPreview }) => {
           </div>
         </div>
       </div>
+      <TablePagination
+            rowsPerPageOptions={[5, 10, 15]}
+            component="div"
+            className="h-[64px] rounded-b-[12px] py-[12px] px-[16px]  border-t bg-white w-[100%]"
+            count={applicants.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+          />
     </>
   );
 };

@@ -88,16 +88,7 @@ const Initial = ({ toggleContentt, setToggle }) => {
                   </div>
                 </div>
                 <div className="grid grid-rows-1 w-full ">
-        <div className="grid grid-cols-7 w-full grid-flow-col">
-          {labels.map((req, index) => (
-            <div
-              key={index}
-              className="flex px-4 text-[14px] font-medium font-Montserrat text-[#333] py-2 items-center bg-[#E6E6E6] justify-between w-full"
-            >
-              <p>{req}</p>
-            </div>
-          ))}
-        </div>
+    
       </div>
       <div className="grid grid-rows-1 w-full ">
         <div className="grid grid-cols-5 w-full grid-flow-col">

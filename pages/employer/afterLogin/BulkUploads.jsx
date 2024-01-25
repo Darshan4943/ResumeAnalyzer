@@ -73,7 +73,7 @@ function BulkUploads() {
   return (
     <>
 {toggle ===0 &&
-    <div className="grid items-start gap-4 h-[70vh] overflow-y-auto">
+    <div className="grid items-start gap-4 ml:h-[80vh] overflow-y-auto pb-2">
 
       <div
         className="flex w-[100%] p-[16px] flex-col items-start gap-4 rounded-[16px] bg-[#fff] "

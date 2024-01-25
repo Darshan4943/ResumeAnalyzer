@@ -13,7 +13,7 @@ import { preboarding } from "@/utils/preboardArray";
 import { headings } from "@/utils/preboardArray";
 import Joined from "@/components/featured/employer/afterLogin/preBoarding/Joined";
 import Declined from "@/components/featured/employer/afterLogin/preBoarding/Declined";
-
+import { applicants } from "@/utils/preboardArray";
 function Preboarding() {
   const btn = ["In Preboarding", "Joined", "Declined"];
 
@@ -80,9 +80,8 @@ function Preboarding() {
                 onClick={() => {
                   setActiveOption("Joined");
                 }}
-                className={` ${
-                  activeOption === "Joined" ? "" : "text-[#646464]"
-                }  font-[600]`}
+                className={` ${activeOption === "Joined" ? "" : "text-[#646464]"
+                  }  font-[600]`}
               >
                 Joined
               </p>
@@ -104,9 +103,8 @@ function Preboarding() {
                 onClick={() => {
                   setActiveOption("Declined");
                 }}
-                className={` ${
-                  activeOption === "Declined" ? "" : "text-[#646464]"
-                }  font-[600]`}
+                className={` ${activeOption === "Declined" ? "" : "text-[#646464]"
+                  }  font-[600]`}
               >
                 Declined
               </p>
@@ -133,17 +131,15 @@ function Preboarding() {
                     <div
                       onClick={() => setToggle(index)}
                       key={index}
-                      className={`flex p-[8px] min-w-[12rem]  justify-between   items-center rounded-[8px] ${
-                        toggle === index ? "bg-[#06A9EF] " : "bg-[#fff] "
-                      }`}
+                      className={`flex p-[8px] min-w-[12rem]  justify-between   items-center rounded-[8px] ${toggle === index ? "bg-[#06A9EF] " : "bg-[#fff] "
+                        }`}
                       style={{
                         boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
                       }}
                     >
                       <p
-                        className={`text-[14px] text-[#333] leading-[160%]  ${
-                          toggle === index ? "text-white" : " "
-                        }`}
+                        className={`text-[14px] text-[#333] leading-[160%]  ${toggle === index ? "text-white" : " "
+                          }`}
                       >
                         {e.name}
                       </p>
@@ -208,22 +204,26 @@ function Preboarding() {
           )}
           {activeOption === "Joined" && (
             <>
-               <Joined setPreview={setPreview} />
-      
+              <Joined setPreview={setPreview} />
+
 
             </>
           )}
-          {activeOption === "Declined" && 
-          <>
-            <Declined setPreview={setPreview}/>
-          </>
+          {activeOption === "Declined" &&
+            <>
+              <Declined setPreview={setPreview} />
+            </>
           }
         </div>
       )}
 
       {preview && <ApplicantPreview setPreview={setPreview} />}
       {preview && <ApplicantPreview setPreview={setPreview} />}
+
+     
     </>
+
+
   );
 }
 
