@@ -8,7 +8,7 @@ function JobPost({ toggleContentt, setToggle }) {
   const [option, setOption] = useState(0);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-
+  const [activeOption, setActiveOption] = useState('Applicants');
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -184,19 +184,32 @@ function JobPost({ toggleContentt, setToggle }) {
               <p className="text-[20px] web600 text-[#646464]">Share</p>
             </div>
           </div>
+          <div>
+            <div className="flex px-[16px] ms:text-[16px] text-[14px]  items-start  ml:gap-[40px] gap-2 bg-[#fff]">
+              <div className="flex flex-col items-center gap-[7px] shadow-border">
+                <p onClick={() => { setOption(0), setActiveOption("Applicants") }} className={` ${activeOption === 'Applicants' ? "":"text-[#646464]"}  font-[600]`}>Applicants</p>
+                <svg xmlns="http://www.w3.org/2000/svg" width="89" height="4" viewBox="0 0 89 4" fill="none">
+                  <path d="M0 4C0 1.79086 1.79086 0 4 0H85C87.2091 0 89 1.79086 89 4H0Z" fill={activeOption === 'Applicants' ? '#06A9EF' : 'white'} />
+                </svg>
+              </div>
+              <div className="flex flex-col items-center gap-[7px] shadow-border">
+                <p onClick={() => { setOption(1), setActiveOption("JobDetails") }} className={` ${activeOption === 'JobDetails' ? "":"text-[#646464]"}  font-[600]`}>Job Details</p>
+                <svg xmlns="http://www.w3.org/2000/svg" width="89" height="4" viewBox="0 0 89 4" fill="none">
+                  <path d="M0 4C0 1.79086 1.79086 0 4 0H85C87.2091 0 89 1.79086 89 4H0Z" fill={activeOption === 'JobDetails' ? '#06A9EF' : 'white'} />
+                </svg>
+              </div>
+              <div className="flex flex-col items-center gap-[7px] shadow-border">
+                <p onClick={() => { setOption(2), setActiveOption("Analytics") }}className={` ${activeOption === 'Analytics' ? "":"text-[#646464]"}  font-[600]`}>Analytics</p>
+                <svg xmlns="http://www.w3.org/2000/svg" width="89" height="4" viewBox="0 0 89 4" fill="none">
+                  <path d="M0 4C0 1.79086 1.79086 0 4 0H85C87.2091 0 89 1.79086 89 4H0Z" fill={activeOption === 'Analytics' ? '#06A9EF' : 'white'} />
+                </svg>
+              </div>
 
-          <div className="flex px-[16px] ms:text-[16px] text-[14px] pb-[12px] items-start  gap-[40px] bg-[#fff]">
-            <div className="flex flex-col items-center gap-[7px] shadow-border">
-              <p onClick={() => setOption(0)} className=" font-[600]">Applicants</p>
-              <svg xmlns="http://www.w3.org/2000/svg" width="89" height="4" viewBox="0 0 89 4" fill="none">
-                <path d="M0 4C0 1.79086 1.79086 0 4 0H85C87.2091 0 89 1.79086 89 4H0Z" fill="#06A9EF" />
-              </svg>
+
             </div>
-            <p onClick={() => setOption(1)} className=" text-[#646464] font-[600]">Job Details</p>
-            <p onClick={() => setOption(2)} className=" text-[#646464] font-[600]">Analytics</p>
+            <div className='h-[1px] bg-[#D6DDEB] w-full'></div>
+
           </div>
-
-
         </div>
         {option === 0 &&
           <>
@@ -205,7 +218,7 @@ function JobPost({ toggleContentt, setToggle }) {
               <p className="font-[600] text-[16px]">Total Applicants : 19</p>
               <div className="flex items-start gap-[8px]">
                 <div className="w-[314px] flex py-[12px] px-[16px] gap-[16px] rounded-[6px] border border-[#D6DDEB] bg-[#fff]">
-                  <img className="w-[24px]" src="/images/employer/icon_search.png" alt="" />
+                  <img className="w-[24px] h-[24px]" src="/images/employer/icon_search.png" alt="" />
                   <input type="text" placeholder="Search" />
                 </div>
                 <div className="flex py-[12px] px-[16px] justify-center gap-[8px] rounded-[6px] border border-[#D6DDEB]">
@@ -227,14 +240,14 @@ function JobPost({ toggleContentt, setToggle }) {
                 }
               </div>
 
-              <div className="flex flex-col gap-[16px] items-start bg-[#fff] overflow-y-auto">
+              <div className="flex flex-col gap-[16px] items-start bg-[#fff]  overflow-y-auto">
 
 
                 {applicants.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((applicants, index) => (
                   < >
 
 
-                    <div className="flex w-[100%] p-[16px] justify-between items-center" style={{ background: index % 2 == 0 ? "#EFFAFF" : "#fff" }}>
+                    <div className="flex w-[100%] p-[16px] justify-between items-center " style={{ background: index % 2 == 0 ? "#EFFAFF" : "#fff" }}>
 
                       <div className="  gap-[24px]  w-full justify-between flex items-center">
                         <div className="flex  w-[20%] justify-start text-[14px] font-[600] items-center gap-[16px]">
@@ -288,7 +301,7 @@ function JobPost({ toggleContentt, setToggle }) {
                     .map((applicants, index) => (
                       <>
                         <div
-                          className="flex w-[100%] p-[8px] justify-between items-center  rounded-xl"
+                          className="flex w-[100%] p-[8px] justify-between items-center border border-[#DEDEDE] rounded-xl"
                           style={{ background: index % 2 == 0 ? "#EFFAFF" : "#fff" }}
                         >
                           <div className="w-[100%]  flex flex-col justify-center gap-[14px] items-start">
@@ -377,7 +390,7 @@ function JobPost({ toggleContentt, setToggle }) {
                                   border: " 1px solid var(--primary, #06A9EF)",
                                 }}
                               >
-                                <p  onClick={toggleContentt} className="text-[14px]  text-[#333] font-[600] font-Montserrat">
+                                <p onClick={toggleContentt} className="text-[14px]  text-[#333] font-[600] font-Montserrat">
                                   See Application
                                 </p>
                               </div>

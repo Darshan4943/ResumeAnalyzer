@@ -247,7 +247,7 @@ function JobPosting() {
       {toggle === 0 && (
         <div className="pb-4">
           <div className="web">
-            <div className=" w-[100%] max-h-[75vh]  rounded-t-[20px]  relative overflow-y-scroll ">
+            <div className=" w-[100%] ml:max-h-[75vh]  rounded-t-[20px]  relative overflow-y-scroll ">
               <div className="h-[72px] bg-[#fff] p-[16px] flex flex-row justify-between rounded-t-[12px] sticky top-0">
                 <p className="h-[29px]  text-[24px] font-[500px]">
                   All Job Requisitions
