@@ -47,6 +47,13 @@ div::-webkit-scrollbar {
 div::-webkit-scrollbar-thumb {
   background-color: #babbbc;
 }
+div.hide-scrollbar::-webkit-scrollbar {
+  width: 0;
+}
+
+div.hide-scrollbar::-webkit-scrollbar-thumb {
+  background-color: transparent;
+}
 
 /////////////////////////////////
 

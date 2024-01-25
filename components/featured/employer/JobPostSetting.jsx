@@ -16,9 +16,9 @@ function JobPostSetting({setIsSetting}) {
             <div className="overflow-y-auto px-4 py-2 flex flex-col gap-4 " >
                 <div className='flex gap-1 justify-between'>
                 <p className=" w-[full] text-[24px] font-[500] ">
-                    Create New Requisition
+                    Job Post setting
                 </p>
-                <div onClick={()=>setIsSetting(false)}>
+                <div className='mobile' onClick={()=>setIsSetting(false)}>
                 <ClosedIcon/>
                 </div>
                 </div>

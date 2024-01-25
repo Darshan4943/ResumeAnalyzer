@@ -13,14 +13,14 @@ import EmployerSidebar from "./partials/header/EmployerSidebar";
 function Layout({ children }) {
   const router = useRouter();
   const [selectedPage, setSelectedPage] = useState("");
-  
+
   useEffect(() => {
     setSelectedPage(router.pathname);
   }, [router.pathname]);
 
   const Temp = () => (
     <>
-    
+
       <div className="mobile">
         <div>
           <CandidateMobileHeader />
@@ -28,7 +28,7 @@ function Layout({ children }) {
         <div className="pt-[3.5rem]  ">{children}</div>
         <Footer />
       </div>
- 
+
       <div className="web">
         <div>
           <Header />
@@ -37,7 +37,7 @@ function Layout({ children }) {
 
         <Footer />
       </div>
-     
+
     </>
   );
   const Temp2 = () => (
@@ -51,15 +51,20 @@ function Layout({ children }) {
         <div className="web">
           <EmployerSidebar />
         </div>
-        <div className=" ml:max-h-[100vh] overflow-y-auto pt-[100px] w-[100%] ml:px-5 px-2 overflow-hidden">
-        <Breadcrumb/>
-          {children}</div>
+        <div className=" ml:max-h-[100vh] overflow-y-auto pt-[70px] w-[100%]  overflow-hidden relative">
+          <div className="sticky top-0 z-[1000] bg-[#F3F3F3] ml:px-5 px-2 ">
+            <Breadcrumb />
+          </div>
+          <div className="ml:px-5 px-2 pt-1 pb-4">
+            {children}
+          </div>
+        </div>
       </div>
     </div>
   );
   return (
     <>
-      {     selectedPage.startsWith('/employer/afterLogin') ? <Temp2 /> : <Temp />}
+      {selectedPage.startsWith('/employer/afterLogin') ? <Temp2 /> : <Temp />}
       <ToastContainer
         position="bottom-right"
         autoClose={3000}

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-function HiringPostJob({ setIsSetting,setIsCreate }) {
+function HiringPostJob({ setIsSetting,setIsCreate,setToggle }) {
 
     return (
         // <div className=" flex flex-col gap-4 rounded-[16px] py-2 bg-white" style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}>
@@ -199,7 +199,7 @@ function HiringPostJob({ setIsSetting,setIsCreate }) {
             <div className="overflow-y-auto px-4 py-2 flex flex-col gap-4 ">
                 <div className='flex justify-between items-center '>
                     <div className='flex gap-2 items-center'>
-                        <img className="w-[28px] h-[28px] cursor-pointer" src="/images/employer/icon_left.png" alt="" />
+                        <img onClick={()=>setToggle(0)} className="w-[28px] h-[28px] cursor-pointer" src="/images/employer/Icon_left.png" alt="" />
                         <p className=" w-[full] text-[24px] font-[500] ">
                             Post a Job
                         </p>

@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 
-const CreateNewRequisition = () => {
+const CreateNewRequisition = ({setToggle}) => {
   const router = useRouter();
   const [successfull, setSuccessfull] = useState(false);
   const [levels, setLevels] = useState([{ id: 1, name: "Level 1" }]);
@@ -33,9 +33,11 @@ const CreateNewRequisition = () => {
         style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}
       >
         <div className="overflow-y-auto p-4 flex flex-col gap-4 ">
-          <p className=" w-[full] text-[24px] font-[500px] ">
+
+          <div className=" w-[full] text-[24px] font-[500px] flex gap-2 items-center ">
+          <img onClick={() => setToggle(0)} className=" ms:w-[28px] ms:h-[28px] w-[24px] h-[24px] cursor-pointer" src="/images/employer/icon_left.png" alt="" />
             Create New Requisition
-          </p>
+          </div>
 
           <div className="flex sm:flex-row flex-col gap-4  ">
             <div className="flex flex-col gap-2  sm:w-[49.01%] w-[100%]">

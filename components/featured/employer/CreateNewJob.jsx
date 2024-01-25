@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import PersonalDetails from "./afterLogin/jobPosting/PersonalDetails";
 import CreateProfileFields from "./afterLogin/jobPosting/CreateProfileFields";
 
-function CreateNewJob() {
+function CreateNewJob({setToggle}) {
   const [isCreate, setIsCreate] = useState(false);
   const [isSetting, setIsSetting] = useState(false);
   const taskRef = useRef(null);
@@ -35,6 +35,7 @@ function CreateNewJob() {
             <HiringPostJob
               setIsSetting={setIsSetting}
               setIsCreate={setIsCreate}
+              setToggle={setToggle}
             />
 
             <AnimatePresence>

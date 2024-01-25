@@ -56,7 +56,7 @@ function EmployerHeader() {
   return (
     <>
       <div
-        className=" flex ms:p-2 p-2 z-[1000] fixed top-0 w-[100%] bg-white gap-1 justify-between items-center h-[70px]"
+        className=" flex ms:p-2 p-2 z-[2000] fixed top-0 w-[100%] bg-white gap-1 justify-between items-center h-[70px]"
         style={{ boxShadow: "0px 1px 4px 0px rgba(0, 0, 0, 0.25)" }}
       >
         <div className=" flex ms:gap-6 gap-2 items-center ms:justify-start justify-between ms:w-[60%] w-[90%]">

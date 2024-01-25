@@ -14,7 +14,7 @@ const Breadcrumb = () => {
   ];
   
   return (
-    <nav className="mb-6 ">
+    <nav className=" pb-4 pt-6">
       <ol className="flex">
         <li className="breadcrumb-item text-[#333]">
             Skilotech

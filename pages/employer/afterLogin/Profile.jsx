@@ -4,7 +4,7 @@ import { Link } from "react-scroll";
 function Profile() {
   return (
     <>
-      <div className="flex flex-col gap-6 relative h-[75vh] overflow-y-auto">
+      <div className="flex flex-col gap-6 relative ml:h-[80vh] overflow-y-auto py-2 ">
         <div
           className=" flex w-full gap-3 justify-between p-4  rounded-[16px] items-center bg-white"
           style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}

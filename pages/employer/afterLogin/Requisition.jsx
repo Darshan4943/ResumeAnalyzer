@@ -257,7 +257,7 @@ function Requisition() {
 
                                 <div className=" overflow-y-auto">
                                     {requisition.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((req, index) => (
-                                        <div key={index} className=" items-center flex flex-row py-[12px] px-[16px] justify-between border-b border-solid  border-[rgba(100, 100, 100, 0.60)] bg-white ">
+                                        <div key={index} className= {`items-center flex flex-row py-[12px] px-[16px] justify-between border-b border-solid  border-[rgba(100, 100, 100, 0.60)] ${index % 2 ===0 ? "bg-[#FFF]" : "bg-[#E0F6FF]"}  `}>
                                             <div className=" w-[12.85%] flex flex-col gap-[3px]">
                                                 <p className="text-[14px] font-[500] text-[#06A9EF]">{req.tittle1}</p>
                                                 <p className="text-[12px] font-[500] text-[#646464]">{req.tittle2}</p>
@@ -281,7 +281,7 @@ function Requisition() {
                         </div>
                     </div>
                     <div className="mobile  ">
-                        <div className=" flex flex-col gap-2  ml:max-h-[70vh] overflow-y-scroll relative ">
+                        <div className=" flex flex-col gap-2   relative ">
                             <div className="sticky top-0">
                                 <div className=" bg-[#fff] p-[12px]  flex flex-col ms:flex-row gap-[12px] z-[500] justify-between rounded-t-[12px] ">
                                     <p className="h-[29px] text-[18px] ml:text-[24px] font-[500px]">
@@ -290,9 +290,9 @@ function Requisition() {
 
                                     <button
                                         onClick={toggleContent}
-                                        className=" py-[8px] px-[12px] bg-[#06A9EF] rounded-lg text-[14px] ml:text-[16px] text-white "
+                                        className=" py-[8px] px-[12px] max-w-[210px] bg-[#06A9EF] rounded-lg text-[14px] ml:text-[16px] text-white "
                                     >
-                                        Create New Requistion
+                                       + Create New Requistion
                                     </button>
 
                                 </div>
@@ -441,7 +441,7 @@ function Requisition() {
                     <TablePagination
                                 rowsPerPageOptions={[5, 10, 15]}
                                 component="div"
-                                className="h-[80px] rounded-b-[12px] py-[12px] px-[16px]  bg-white sticky bottom-0 w-[100%]"
+                                className="h-[80px] rounded-b-[12px] py-[12px] px-[16px] border-t bg-white sticky bottom-0 w-[100%]"
                                 count={requisition.length}
                                 rowsPerPage={rowsPerPage}
                                 page={page}
@@ -452,7 +452,7 @@ function Requisition() {
             }
 
             {toggle === 1 &&
-                <CreateNewRequisition />
+                <CreateNewRequisition setToggle={setToggle} />
             }
 
         </div>
