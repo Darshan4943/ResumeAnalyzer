@@ -86,7 +86,7 @@ function Preboarding() {
       line: "",
     },
   ];
-const [preview ,setPreview]=useState(false)
+  const [preview, setPreview] = useState(false)
   return (
     <>
       {!preview && (
@@ -127,15 +127,13 @@ const [preview ,setPreview]=useState(false)
                 <div
                   onClick={() => setToggle(index)}
                   key={index}
-                  className={`flex p-[8px] min-w-[12rem]  justify-between   items-center rounded-[8px] ${
-                    toggle === index ? "bg-[#06A9EF] " : "bg-[#fff] "
-                  }`}
+                  className={`flex p-[8px] min-w-[12rem]  justify-between   items-center rounded-[8px] ${toggle === index ? "bg-[#06A9EF] " : "bg-[#fff] "
+                    }`}
                   style={{ boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)" }}
                 >
                   <p
-                    className={`text-[14px] text-[#333] leading-[160%]  ${
-                      toggle === index ? "text-white" : " "
-                    }`}
+                    className={`text-[14px] text-[#333] leading-[160%]  ${toggle === index ? "text-white" : " "
+                      }`}
                   >
                     {e.name}
                   </p>
@@ -153,12 +151,12 @@ const [preview ,setPreview]=useState(false)
           {/* INITIAL 1ST PAGE  */}
 
           {toggle === 0 && (
-            
-            <>
-            
-            <Initial/>
 
-      
+            <>
+
+              <Initial />
+
+
 
             </>
           )}
@@ -167,7 +165,7 @@ const [preview ,setPreview]=useState(false)
 
           {toggle === 1 && (
             <>
-           
+
 
               <Documention />
 
@@ -178,16 +176,16 @@ const [preview ,setPreview]=useState(false)
 
           {toggle === 2 && (
             <>
-          
-              <Verification/>
+
+              <Verification />
             </>
           )}
 
           {/* OFFER PAGE  */}
           {toggle === 3 && (
             <>
-        
-              <Offer/>
+
+              <Offer />
             </>
           )}
 
@@ -195,8 +193,8 @@ const [preview ,setPreview]=useState(false)
 
           {toggle === 4 && (
             <>
-          
-              <Acceptance/>
+
+              <Acceptance />
             </>
           )}
 
@@ -204,14 +202,14 @@ const [preview ,setPreview]=useState(false)
 
           {toggle === 5 && (
             <>
-           
-              <Hire setPreview={setPreview}/>
+
+              <Hire setPreview={setPreview} />
             </>
           )}
         </div>
       )}
 
-{preview && <ApplicantPreview setPreview={setPreview} />}
+      {preview && <ApplicantPreview setPreview={setPreview} />}
     </>
   );
 }
