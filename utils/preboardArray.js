@@ -1,3 +1,30 @@
+export const headings = [
+  {
+    heading: "Job Role",
+    options: ["Assistant Manager", "Option 2", "Option 3"],
+  },
+  {
+    heading: "Due Date",
+    options: ["Mumbai", "Pune", "Banglore"],
+  },
+  {
+    heading: "Recruiter",
+    options: ["Pending", "Approved"],
+  },
+  {
+    heading: "Preboarding status",
+    options: ["Yes", "No"],
+  },
+];
+
+export const labels = [
+  "Name of Candidate",
+  "Job Role",
+  "Recruiter",
+  "Preboarding Status",
+  "Actions",
+];
+
 export const applicants = [
   {
     img: (
