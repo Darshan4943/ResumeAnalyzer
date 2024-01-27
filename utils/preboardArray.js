@@ -1,3 +1,63 @@
+export const preboarding = [
+  {
+    name: "Initial",
+    num: "2",
+    line: <div className="h-[2px] bg-[#06A9EF] w-[20px]"></div>,
+  },
+  {
+    name: "Documentation",
+    num: "10",
+    line: <div className="h-[2px] bg-[#06A9EF] w-[20px]"></div>,
+  },
+  {
+    name: "Verification",
+    num: "10",
+    line: <div className="h-[2px] bg-[#06A9EF] w-[20px]"></div>,
+  },
+  {
+    name: "Release Offer",
+    num: "10",
+    line: <div className="h-[2px] bg-[#06A9EF] w-[20px]"></div>,
+  },
+  {
+    name: "Offer Acceptance",
+    num: "10",
+    line: <div className="h-[2px] bg-[#06A9EF] w-[20px]"></div>,
+  },
+  {
+    name: "Hired",
+    num: "10",
+    line: "",
+  },
+];
+
+export const headings = [
+  {
+    heading: "Job Role",
+    options: ["Assistant Manager", "Option 2", "Option 3"],
+  },
+  {
+    heading: "Due Date",
+    options: ["Mumbai", "Pune", "Banglore"],
+  },
+  {
+    heading: "Recruiter",
+    options: ["Pending", "Approved"],
+  },
+  {
+    heading: "Preboarding status",
+    options: ["Yes", "No"],
+  },
+];
+
+export const labels = [
+  "Name of Candidate",
+  "Job Role",
+  "Recruiter",
+  "Preboarding Status",
+  "Actions",
+];
+
 export const applicants = [
   {
     img: (

@@ -5,7 +5,7 @@ import LevelUpdate from '@/components/models/levelUpdate';
 import HiringProgress from './HiringProgress';
 
 
-function ApplicantDetails({setTogglee}) {
+function ApplicantDetails({ setTogglee }) {
     const [toggle, setToggle] = useState("ApplicantProfile")
     const [activeOption, setActiveOption] = useState('ApplicantProfile');
 
@@ -18,7 +18,7 @@ function ApplicantDetails({setTogglee}) {
 
         <div className='flex flex-col gap-6 relative '>
             <div className=' flex w-full gap-3 justify-between p-4  rounded-[16px] items-center bg-white' style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}>
-            <img onClick={()=>setTogglee(1)} className="w-[40px] cursor-pointer" src="/images/employer/icon_left.png" alt="" />
+                <img onClick={() => setTogglee(1)} className="w-[40px] cursor-pointer" src="/images/employer/Icon_left.png" alt="" />
                 <p className='text-[24px]  w-[100%] text-start flex justify-start font font-medium  '>Applicant Details</p>
             </div>
 
@@ -148,37 +148,37 @@ function ApplicantDetails({setTogglee}) {
                 <div className=' rounded-[16px] py-2 flex flex-col  scr1024:w-[66.17%] ml:w-[60%] w-[100%] bg-white ' style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}>
                     <div className='flex flex-col  gap-4 scr1024:px-6 px-2 py-4'>
                         <div className='flex flex-col '>
-                            <div className='flex justify-between ml:text-[16px] sm:text-[14px] text-[12px]  font-semibold'>
+                            <div className={`flex justify-between ml:text-[16px] sm:text-[14px] text-[12px]  font-semibold`}>
                                 <div>
                                     <p
-                                        className=" cursor-pointer"
+                                        className={`${activeOption === 'ApplicantProfile' ? 'text-[#333]' : 'text-[#646464]'} cursor-pointer`}
                                         onClick={() => handleOptionClick('ApplicantProfile')}
                                     >
                                         Applicant Profile
                                     </p>
-                                    <svg className=" ml:w-[138px] sm:w-[120px] w-[100px]" xmlns="http://www.w3.org/2000/svg"  height="4" viewBox="0 0 138 4" fill="none">
+                                    <svg className=" ml:w-[138px] sm:w-[120px] w-[100px]" xmlns="http://www.w3.org/2000/svg" height="4" viewBox="0 0 138 4" fill="none">
                                         <path d="M0 4C0 1.79086 1.79086 0 4 0H134C136.209 0 138 1.79086 138 4H0Z" fill={activeOption === 'ApplicantProfile' ? '#06A9EF' : 'white'} />
                                     </svg>
                                 </div>
                                 <div>
                                     <p
-                                        className="cursor-pointer"
+                                        className={`${activeOption === 'Resume' ? 'text-[#333]' : 'text-[#646464]'} cursor-pointer`}
                                         onClick={() => handleOptionClick('Resume')}
                                     >
                                         Resume
                                     </p>
-                                    <svg className=" ml:w-[69px] sm:w-[60px] w-[50px]" xmlns="http://www.w3.org/2000/svg"  height="4" viewBox="0 0 69 4" fill="none">
+                                    <svg className=" ml:w-[69px] sm:w-[60px] w-[50px]" xmlns="http://www.w3.org/2000/svg" height="4" viewBox="0 0 69 4" fill="none">
                                         <path d="M0.5 4C0.5 1.79086 2.29086 0 4.5 0H64.5C66.7091 0 68.5 1.79086 68.5 4H0.5Z" fill={activeOption === 'Resume' ? '#06A9EF' : 'white'} />
                                     </svg>
                                 </div>
                                 <div>
                                     <p
-                                        className="cursor-pointer"
+                                        className={`${activeOption === 'HiringProgress' ? 'text-[#333]' : 'text-[#646464]'} cursor-pointer`}
                                         onClick={() => handleOptionClick('HiringProgress')}
                                     >
                                         Hiring Progress
                                     </p>
-                                    <svg className=" ml:w-[128px] sm:w-[115px] w-[95px]" xmlns="http://www.w3.org/2000/svg"  height="4" viewBox="0 0 138 4" fill="none">
+                                    <svg className=" ml:w-[128px] sm:w-[115px] w-[95px]" xmlns="http://www.w3.org/2000/svg" height="4" viewBox="0 0 138 4" fill="none">
                                         <path d="M0 4C0 1.79086 1.79086 0 4 0H134C136.209 0 138 1.79086 138 4H0Z" fill={activeOption === 'HiringProgress' ? '#06A9EF' : 'white'} />
                                     </svg>
                                 </div>
@@ -264,17 +264,17 @@ function ApplicantDetails({setTogglee}) {
                     {toggle === "Resume" &&
                         <div className='flex justify-center overflow-y-auto  px-6'>
                             <img
-                                src="/images/services/Resume-template-3.png"
+                                src="/images/employer/mobileResume.png"
                                 className="h-[729px] w-[520px] rounded-[10px]"
                                 alt=""
                             />
                         </div>
                     }
                     {toggle === "HiringProgress" &&
-                        <HiringProgress/>
+                        <HiringProgress />
                     }
 
-                   
+
                 </div>
             </div>
 

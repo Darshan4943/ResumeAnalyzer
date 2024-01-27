@@ -12,7 +12,7 @@ function CreateProfileFields() {
   const [successfull, setSuccessfull] = useState(false);
   return (
     <div
-      className="w-full max-h-[80vh] overflow-y-auto py-[12px] flex flex-col gap-[12px] rounded-[12px] bg-[#fff] relative"
+      className="w-full ml:max-h-[80vh] overflow-y-auto py-[12px] flex flex-col gap-[12px] rounded-[12px] bg-[#fff] relative"
       style={{
         boxShadow: " 0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
       }}
@@ -64,7 +64,7 @@ function CreateProfileFields() {
                   stroke="#C7C7C7"
                   className="h-[64px] w-[64px] ms:h-[64px] ms:w-[64px]"
                 />
-                <circle cx="12" cy="12" r="8" className={`${toggle >= 1 ? 'fill-[#06A9EF]' : 'fill-[#C7C7C7]'}`}  />
+                <circle cx="12" cy="12" r="8" className={`${toggle >= 1 ? 'fill-[#06A9EF]' : 'fill-[#C7C7C7]'}`} />
               </svg>
               <div className={`h-[2px] w-full ${toggle >= 2 ? 'bg-[#06A9EF]' : 'bg-[#C7C7C7]'}`}></div>
               <svg
@@ -83,7 +83,7 @@ function CreateProfileFields() {
                   stroke="#C7C7C7"
                   className="h-[64px] w-[64px] ms:h-[64px] ms:w-[64px]"
                 />
-                <circle cx="12" cy="12" r="8" className={`${toggle >= 2 ? 'fill-[#06A9EF]' : 'fill-[#C7C7C7]'}`}  />
+                <circle cx="12" cy="12" r="8" className={`${toggle >= 2 ? 'fill-[#06A9EF]' : 'fill-[#C7C7C7]'}`} />
               </svg>
               <div className={`h-[2px] w-full ${toggle >= 3 ? 'bg-[#06A9EF]' : 'bg-[#C7C7C7]'}`} ></div>
               <svg
@@ -102,7 +102,7 @@ function CreateProfileFields() {
                   stroke="#C7C7C7"
                   className="h-[64px] w-[64px] ms:h-[64px] ms:w-[64px]"
                 />
-                <circle cx="12" cy="12" r="8" className={`${toggle >= 3 ? 'fill-[#06A9EF]' : 'fill-[#C7C7C7]'}`}  />
+                <circle cx="12" cy="12" r="8" className={`${toggle >= 3 ? 'fill-[#06A9EF]' : 'fill-[#C7C7C7]'}`} />
               </svg>
             </div>
           </div>
@@ -130,7 +130,7 @@ function CreateProfileFields() {
 
         {toggle == 3 && <Assessment setSuccessfull={setSuccessfull} setToggle={setToggle} />}
 
-{successfull && (
+        {successfull && (
           <>
             <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
             <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center customMargins   ">
@@ -166,15 +166,15 @@ function CreateProfileFields() {
 
                 <div className="text-center">
                   <div className="text-[24px] font-[500] text-[#333]">
-                  Job Posted Successfully!
+                    Job Posted Successfully!
                   </div>
                   <div className="text-[16px] font-[500] text-[#333]">
-                  you can view your Post in Hiring page.
+                    you can view your Post in Hiring page.
                   </div>
                 </div>
                 <div className="flex justify-center">
                   <button
-                    onClick={()=>router.push("/employer/afterLogin/Hiring")}
+                    onClick={() => router.push("/employer/afterLogin/Hiring")}
                     className="py-[12px] px-[24px] rounded-[8px] bg-[#06A9EF] text-[#fff] text-[16px] font-[500]"
                   >
                     Go to Hiring

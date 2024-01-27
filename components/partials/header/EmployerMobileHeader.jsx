@@ -93,7 +93,7 @@ function EmployerMobileHeader({ selectedPage, setIsSidebar, setIsLogin, isLogin 
                 <div className="flex flex-col  overflow-hidden">
 
                     <div
-                        //  onClick={() => router.push("/profile")}
+                         onClick={() => router.push("/employer/afterLogin/Profile")}
                         className='flex gap-4 p-4 items-center '>
                         <img
                             className="max-w-[44px] max-h-[44px] w-[100vw] h-[100vh] rounded-full object-cover p-1"

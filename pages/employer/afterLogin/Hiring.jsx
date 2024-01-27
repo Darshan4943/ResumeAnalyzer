@@ -235,23 +235,24 @@ function Hiring() {
     return (
         <div>
             {toggle === 0 &&
-                < div className='flex flex-col gap-3 w-[100%] max-h-[80vh]  relative '>
+                < div className='flex flex-col gap-3 w-[100%] ml:max-h-[80vh]  relative '>
 
-                    <div className="sticky top-0 mobile">
-                        <div className=" bg-[#fff] p-[12px]  flex flex-col ms:flex-row gap-[12px] z-[500] justify-between rounded-t-[12px] ">
+                    <div className=" mobile">
+                        <div className=" bg-[#fff] p-[12px]  flex flex-col ms:flex-row gap-[12px] z-[500] justify-between rounded-[12px] ">
+                            
                             <p className="h-[29px] text-[18px] ml:text-[24px] font-[500px]">
-                                All Requisition Requests
+                            Job Post Status
                             </p>
 
                             <button
                                 onClick={toggleContent}
-                                className=" py-[8px] px-[12px] bg-[#06A9EF] rounded-lg text-[14px] ml:text-[16px] text-white "
+                                className=" py-[8px] px-[12px] bg-[#06A9EF] rounded-lg text-[14px] ml:text-[16px] text-white w-[210px]"
                             >
-                                Create New Requistion
+                                + Create New Job
                             </button>
 
                         </div>
-                        <div className="flex bg-[#06A9EF] gap-[1px] p-4 ml:w-[20%] w-full">
+                        <div className="flex bg-[#06A9EF] gap-[1px] mt-4 p-4 ml:w-[20%] w-full">
                             <div className=" bg-white p-4 flex gap-[10px] w-full items-center ">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -321,7 +322,7 @@ function Hiring() {
                         </div>
                     </div>
                     <div className='sticky top-0 web'>
-                        <div className="grid col-span-1 bg-white  rounded-t-[16px] ">
+                        <div className="grid col-span-1 bg-white  rounded-[16px] ">
                             <div className="flex items-center p-[16px] align-self-stretch w-full">
                                 <p className="text-[#333] font-montserrat text-[24px] font-medium flex-1-0-0 w-[70%]">
                                     Job Post Status
@@ -336,7 +337,7 @@ function Hiring() {
                         </div>
 
 
-                        <div className="h-[84px] bg-[#06A9EF]  flex flex-row p-[16px] justify-between  text-[#333] sticky top-[72px] ">
+                        <div className="h-[84px] bg-[#06A9EF] mt-4 flex flex-row p-[16px] justify-between  text-[#333] sticky top-[72px] ">
                             {headings.map((headingObj, index) => (
                                 <>
 

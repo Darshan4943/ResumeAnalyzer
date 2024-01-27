@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import { TablePagination } from "@mui/material";
 import { applicants } from "@/utils/preboardArray";
 import { applicantsMobile } from "@/utils/preboardArray";
-import { headings } from "@/utils/preboardArray";
+// import { headings } from "@/utils/preboardArray";
 
-const Hire = ({ toggleContentt, setPreview }) => {
+const Joined = ({ toggleContentt, setPreview }) => {
   const [option, setOption] = useState(0);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -30,7 +30,7 @@ const Hire = ({ toggleContentt, setPreview }) => {
   return (
     <>
       <div className="web w-full">
-        <div className="h-[84px] bg-[#06A9EF] flex flex-row p-[16px] justify-between  text-[#646464] font-Montserrat font-medium  text-[14px] w-full ">
+        {/* <div className="h-[84px] bg-[#06A9EF] flex flex-row p-[16px] justify-between  text-[#646464] font-Montserrat font-medium  text-[14px] w-full ">
           {headings.map((headingObj, index) => (
             <>
               <select
@@ -81,7 +81,7 @@ const Hire = ({ toggleContentt, setPreview }) => {
             </svg>
             <div>Filter</div>
           </div>
-        </div>
+        </div> */}
         <div className="grid grid-rows-1 w-full ">
           <div className="grid grid-cols-7 w-full grid-flow-col">
             {labels.map((req, index) => (
@@ -165,7 +165,7 @@ const Hire = ({ toggleContentt, setPreview }) => {
                       </div>
                       <div className="flex items-center justify-start col-span-1">
                         <div className="flex   items-center w-full  ">
-                          <div className="flex lg:py-3 gap-1 lg:px-2 px-1 py-1 justify-center items-center rounded-[6px] border border-[#06A9EF] bg-[#06A9EF]">
+                          <div     onClick={() => setPreview(true)} className="flex lg:py-3 gap-1 lg:px-2 px-1 py-1 justify-center items-center rounded-[6px] border border-[#06A9EF] bg-[#06A9EF]">
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
                               width="18"
@@ -179,7 +179,7 @@ const Hire = ({ toggleContentt, setPreview }) => {
                               />
                             </svg>
                             <button
-                              onClick={() => setPreview(true)}
+                          
                               className=" text-white lg:text-[10px] text-[11px] font-[600]  font-Montserrat "
                             >
                               {applicants.Preview}
@@ -432,4 +432,4 @@ const Hire = ({ toggleContentt, setPreview }) => {
   );
 };
 
-export default Hire;
+export default Joined;

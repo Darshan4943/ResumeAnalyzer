@@ -265,8 +265,8 @@ function ScheduleInterview({ setShowScheduleInterview,setSuccessfull }) {
                 </div>
             </div>
             <div className='flex gap-4 sm:justify-end  justify-center pb-[1rem]'>
-                <button onClick={() => setShowScheduleInterview(false)} className='px-9 py-3 border border-[#06A9EF] rounded-[12px]  text-[16px] font-semibold' id='button'>Cancel</button>
-                <button onClick={() => setSuccessfull(true)} className='px-9 py-3 bg-[#06A9EF] rounded-[12px] text-[16px] font-semibold text-white'>Schedule Interview</button>
+                <button onClick={() => setShowScheduleInterview(false)} className='ml:px-9 ml:py-3 px-2 py-2 border border-[#06A9EF] rounded-[12px]  text-[16px] font-semibold' id='button'>Cancel</button>
+                <button onClick={() => setSuccessfull(true)} className='ml:px-9 ml:py-3 px-2 py-2 bg-[#06A9EF] rounded-[12px] text-[16px] font-semibold text-white'>Schedule Interview</button>
             </div>
 
            

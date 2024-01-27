@@ -35,7 +35,7 @@ const CreateNewRequisition = ({setToggle}) => {
         <div className="overflow-y-auto p-4 flex flex-col gap-4 ">
 
           <div className=" w-[full] text-[24px] font-[500px] flex gap-2 items-center ">
-          <img onClick={() => setToggle(0)} className=" ms:w-[28px] ms:h-[28px] w-[24px] h-[24px] cursor-pointer" src="/images/employer/icon_left.png" alt="" />
+          <img onClick={() => setToggle(0)} className=" ms:w-[28px] ms:h-[28px] w-[24px] h-[24px] cursor-pointer" src="/images/employer/Icon_left.png" alt="" />
             Create New Requisition
           </div>
 

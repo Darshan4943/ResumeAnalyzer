@@ -36,7 +36,7 @@ const ListItem = ({ item }) => {
               {item.title}
               <div
                 key={item.title}
-                className=" flex justify-between p-[12px] ml:p-[16px] rounded-[8px] ml:rounded-[12px] bg-[#fff] border-solid border-[1px] border-[#AFAFAF]"
+                className=" flex justify-between p-[12px] ml:p-[16px] rounded-[8px] ml:rounded-[12px] bg-[#fff] border-solid border-[1px] border-[#AFAFAF] "
                 style={{
                   boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
                 }}
@@ -46,10 +46,11 @@ const ListItem = ({ item }) => {
                   name=""
                   id=""
                   placeholder={item.placeholder}
-                  className="w-[75%]"
+                  className="sm:w-[75%] w-[50%] "
+           
                 />
-                <div className="flex items-center justify-end  gap-[12px] font-[500] w-[45%] ml:w-[35%]">
-                  <div className="flex gap-[3px] items-center text-[10px] ml:text-[14px]">
+                <div className="flex items-center justify-end  sm:gap-[12px] gap-1 font-[500] w-[45%] ml:w-[35%]">
+                  <div className="flex sm:gap-[12px] gap-1 items-center text-[10px] ml:text-[14px]">
                     {item.Required}
                     <label
                       className="flex items-center"
@@ -72,7 +73,7 @@ const ListItem = ({ item }) => {
                       />
                     </label>
                   </div>
-                  <div className=" flex items-center gap-[12px]">
+                  <div className=" flex items-center sm:gap-[12px] gap-1">
                     <div
                       onClick={handleEditClick}
                       className="w-[20px] ml:w-[24px]"
@@ -92,7 +93,7 @@ const ListItem = ({ item }) => {
               }}
             >
               <div>{item.title}</div>
-              <div className="p-[12px] bg-[#fff] w-full ml:w-[85.20%]  ml:w-full rounded-[12px] border-solid border-[0.5px] border-[#06A9EF] flex flex-col gap-[12px]">
+              <div className="p-[12px] bg-[#fff] w-full ml:w-full rounded-[12px] border-solid border-[0.5px] border-[#06A9EF] flex flex-col gap-[12px]">
                 <div className="flex flex-col ml:flex-row gap-[12px]">
                   <input
                     type="text"

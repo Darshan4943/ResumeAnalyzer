@@ -23,7 +23,7 @@ const Employer_register = () => {
             {/* // SECOND SECTION  */}
 
 
-            <div className="sticky top-0 w-[100%] mt-[-2.4rem] pb-6 z-[900] bg-white">
+            <div className="ml:sticky top-0 w-[100%] ml:mt-[-2.4rem] pb-6 z-[900] bg-white">
                 <div className="register_head">
                     <div className="register_employer overflow-hidden">
                         <div className="register_text_parent">
