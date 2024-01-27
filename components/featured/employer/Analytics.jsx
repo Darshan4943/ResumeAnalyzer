@@ -23,7 +23,7 @@ function Analytics() {
 
   return (
     <>
-    
+
 
       <div className="flex ml:flex-row flex-col gap-6 items-start w-[100%] max-h-[80vh] overflow-y-auto mt-4 ">
         <div className=" flex flex-col items-start gap-4 self-stretch ml:w-[32%] w-[100%]">
@@ -60,7 +60,7 @@ function Analytics() {
         </div>
         <div className="flex flex-col items-center gap-6 self-stretch ml:w-[68%] w-full">
           <div className="flex  items-start gap-4 w-[100%]  ">
-          
+
             <div
               className="flex ml:p-4 p-2 flex-col items-start gap-4 bg-[#fff] self-stretch w-full h-fit"
               style={{
@@ -207,20 +207,20 @@ function Analytics() {
             </div>
           </div>
           <div className="flex flex-col items-start gap-6 self-stretch rounded-[16px] bg-[#fff]"
-          style={{boxShadow:' 0px 1px 2px 0px rgba(0, 0, 0, 0.25)'}}
+            style={{ boxShadow: ' 0px 1px 2px 0px rgba(0, 0, 0, 0.25)' }}
           >
-           <div className="flex justify-between items-center self-stretch ml:px-6 ml:pt-4 px-3 pt-3">
-            <p className="text-[#333] ml:text-[20px] text-[14px] font-semibold font-Montserrat">Job Listing View stats</p>
-           <div className="flex py-3 px-4 gap-2 justify-center items-center bg-[#fff]"
-           style={{border:'1px solid var(--Neutrals-20, #D6DDEB)'}}
-           >
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="10" viewBox="0 0 16 10" fill="none">
-  <path d="M15 1.5L8 8.5L1 1.5" stroke="#646464" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-</svg>
-<p className="text-[#646464] font-Montserrat text-[12px] ml:text-[16px] font-medium">Last 7 days</p>
+            <div className="flex justify-between items-center self-stretch ml:px-6 ml:pt-4 px-3 pt-3">
+              <p className="text-[#333] ml:text-[20px] text-[14px] font-semibold font-Montserrat">Job Listing View stats</p>
+              <div className="flex py-3 px-4 gap-2 justify-center items-center bg-[#fff]"
+                style={{ border: '1px solid var(--Neutrals-20, #D6DDEB)' }}
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="10" viewBox="0 0 16 10" fill="none">
+                  <path d="M15 1.5L8 8.5L1 1.5" stroke="#646464" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <p className="text-[#646464] font-Montserrat text-[12px] ml:text-[16px] font-medium">Last 7 days</p>
 
-           </div>
-           </div>
+              </div>
+            </div>
 
           </div>
         </div>
