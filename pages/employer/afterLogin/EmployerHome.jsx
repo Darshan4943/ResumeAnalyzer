@@ -245,7 +245,7 @@ function EmployerHome({ toggleContentt }) {
               Here is your job listings statistic report from Nov 19 - Nov 25.
             </p>
           </div>
-          <div className="flex items-center py-3 px-4 gap-4 rounded-lg bg-white">
+          <div className="flex justify-between items-center py-3 px-4 gap-4 rounded-lg bg-white">
             <p className="text-[#646464] font-montserrat text-[16px] font-medium leading-[160%]">
               Nov 19 - Nov 25
             </p>
