@@ -308,7 +308,7 @@ function EmployerHome({ toggleContentt }) {
           </div>
         </div>
         <div
-          className="flex p-4 flex-col justify-center items-start lg:w-[31.28%] w-[100%]  gap-4"
+          className="flex ml:p-4 px-4 py-2 flex-col justify-center items-start lg:w-[31.28%] w-[100%]  ml:gap-4"
           style={{
             borderRadius: "12px",
             borderLeft: "4px solid #57697B",
@@ -316,11 +316,11 @@ function EmployerHome({ toggleContentt }) {
             boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
           }}
         >
-          <div className="flex items-center gap-3 self-stretch ">
-            <p className="text-[#333] font-feature-settings-cv11 font-montserrat text-[48px] font-semibold leading-normal">
+          <div className="flex items-center justify-between  self-stretch ">
+            <p className="text-[#333] font-feature-settings-cv11 font-montserrat ml:text-[48px] text-[36px] font-semibold leading-normal">
               3
             </p>
-            <p className="text-[18px] font-medium font-montserrat ">
+            <p className="ml:text-[18px] text-[16px] leading-4 font-medium font-montserrat ">
               Interview Schedule for today
             </p>
             <img
@@ -358,7 +358,7 @@ function EmployerHome({ toggleContentt }) {
           </div>
         </div>
         <div
-          className="flex p-4 flex-col justify-center items-start lg:w-[31.28%] w-[100%] gap-4"
+          className="flex ml:p-4 px-4 py-2 flex-col justify-center items-start lg:w-[31.28%] w-[100%]  ml:gap-4"
           style={{
             borderRadius: "12px",
             borderLeft: "4px solid #57697B",
@@ -366,11 +366,61 @@ function EmployerHome({ toggleContentt }) {
             boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
           }}
         >
-          <div className="flex items-center gap-3 self-stretch">
-            <p className="text-[#333] font-feature-settings-cv11 font-montserrat text-[48px] font-semibold leading-normal">
+          <div className="flex items-center justify-between  self-stretch ">
+            <p className="text-[#333] font-feature-settings-cv11 font-montserrat ml:text-[48px] text-[36px] font-semibold leading-normal">
               4
             </p>
-            <p className="text-[18px] font-medium font-montserrat ">
+            <p className="ml:text-[18px] text-[16px] leading-4 font-medium font-montserrat ">
+            In Preboarding process
+            </p>
+            <img
+              src="/images/afterLoginHome/arrow_forward_ios.png"
+              className="h-[24px] w-[24px]"
+              alt=""
+            />
+          </div>
+          <div className="flex items-center gap-[3px]">
+            <div
+              className="flex py-[6px] px-[2px] justify-center items-center rounded-md "
+              style={{ backgroundColor: "rgba(0, 175, 18, 0.30)" }}
+            >
+              <svg
+                xlgns="http://www.w3.org/2000/svg"
+                width="20"
+                height="13"
+                viewBox="0 0 20 13"
+                fill="none"
+              >
+                <path
+                  d="M1.6597 12.248L0.333008 10.9068L7.34554 3.76967L11.1361 7.60169L16.0638 2.66796H13.6V0.751953H19.2858V6.49999H17.3905V4.00917L11.1361 10.332L7.34554 6.49999L1.6597 12.248Z"
+                  fill="#00AF12"
+                />
+              </svg>
+            </div>
+            <p className="text-[14px] font-Montserrat font-normal text-[#5B5B5B]">
+              {" "}
+              <span className="text-[14px] font-Montserrat font-normal text-[#00AF12]">
+                {" "}
+                1.6%
+              </span>{" "}
+              from last Week
+            </p>
+          </div>
+        </div>
+        {/* <div
+          className="flex ml:p-4 py-2 px-4 flex-col justify-center items-start lg:w-[31.28%] w-[100%]  gap-[6px] ml:gap-4"
+          style={{
+            borderRadius: "12px",
+            borderLeft: "4px solid #57697B",
+            backgroundColor: "#fff",
+            boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
+          }}
+        >
+          <div className="flex items-center justify-between self-stretch">
+            <p className="text-[#333] font-feature-settings-cv11 font-montserrat text-[36px] ml:text-[48px] font-semibold leading-normal">
+              4
+            </p>
+            <p className="ml:text-[18px] text-[16px] leading-4 font-medium font-montserrat ">
               In Preboarding process
             </p>
             <img
@@ -406,7 +456,7 @@ function EmployerHome({ toggleContentt }) {
               from last Week
             </p>
           </div>
-        </div>
+        </div> */}
       </div>
       <div className="lg:flex lg:flex-row flex flex-col w-full pt-6 justify-between">
         <div
