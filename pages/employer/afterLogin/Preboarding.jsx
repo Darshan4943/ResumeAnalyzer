@@ -158,7 +158,7 @@ function Preboarding() {
 
               {toggle === 0 && (
                 <>
-                  <Initial />
+                  <Initial setToggle={setToggle} />
                 </>
               )}
 
@@ -166,7 +166,7 @@ function Preboarding() {
 
               {toggle === 1 && (
                 <>
-                  <Documention />
+                  <Documention setToggle={setToggle}/>
                 </>
               )}
 
@@ -174,14 +174,14 @@ function Preboarding() {
 
               {toggle === 2 && (
                 <>
-                  <Verification />
+                  <Verification setToggle={setToggle} />
                 </>
               )}
 
               {/* OFFER PAGE  */}
               {toggle === 3 && (
                 <>
-                  <Offer />
+                  <Offer setToggle={setToggle} />
                 </>
               )}
 
@@ -189,7 +189,7 @@ function Preboarding() {
 
               {toggle === 4 && (
                 <>
-                  <Acceptance />
+                  <Acceptance setToggle={setToggle} />
                 </>
               )}
 
@@ -197,14 +197,14 @@ function Preboarding() {
 
               {toggle === 5 && (
                 <>
-                  <Hire setPreview={setPreview} />
+                  <Hire setPreview={setPreview} setToggle={setToggle}/>
                 </>
               )}
             </>
           )}
           {activeOption === "Joined" && (
             <>
-              <Joined setPreview={setPreview} />
+              <Joined setPreview={setPreview}  />
 
 
             </>

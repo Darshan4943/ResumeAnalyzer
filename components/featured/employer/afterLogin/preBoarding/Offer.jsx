@@ -138,8 +138,8 @@ const Offer = ({ toggleContentt, setToggle }) => {
                       </div>
                       <div
                         className={` flex items-center text-[14px]  font-[600] justify-start col-span-1 pl-5 text ${applicants.verifyStatus === "Verified"
-                            ? "text-[#0C8A0A]"
-                            : "text-[#333]"
+                          ? "text-[#0C8A0A]"
+                          : "text-[#333]"
                           } `}
                       >
                         {applicants.verifyStatus}
@@ -150,16 +150,16 @@ const Offer = ({ toggleContentt, setToggle }) => {
                       <div className="flex items-center justify-center col-span-1 ">
                         <div
                           className={`flex py-[12px]  justify-center px-[16px] text-[10px] lg:text-[14px] font-semibold items-center gap-[8px] rounded-[80px] border ${applicants.status === "Interview"
-                              ? "text-[#26A4FF] border-[#26A4FF]"
-                              : applicants.status === "Hired"
-                                ? "text-[#56CDAD] border-[#56CDAD]"
-                                : applicants.status === "Shortlisted"
-                                  ? "text-[#4640DE] border-[#4640DE]"
-                                  : applicants.status === "Rejected"
-                                    ? "text-[#FF6550] border-[#FF6550]"
-                                    : applicants.status === "In Review"
-                                      ? "text-[#FFB836] border-[#FFB836]"
-                                      : ""
+                            ? "text-[#26A4FF] border-[#26A4FF]"
+                            : applicants.status === "Hired"
+                              ? "text-[#56CDAD] border-[#56CDAD]"
+                              : applicants.status === "Shortlisted"
+                                ? "text-[#4640DE] border-[#4640DE]"
+                                : applicants.status === "Rejected"
+                                  ? "text-[#FF6550] border-[#FF6550]"
+                                  : applicants.status === "In Review"
+                                    ? "text-[#FFB836] border-[#FFB836]"
+                                    : ""
                             }`}
                         >
                           {applicants.status}
@@ -356,8 +356,8 @@ const Offer = ({ toggleContentt, setToggle }) => {
                         </p>
                         <div
                           className={` flex items-center text-[14px]  font-[600] justify-start col-span-1 pl-5 text ${applicantsMobile.verifyStatus === "Verified"
-                              ? "text-[#0C8A0A]"
-                              : "text-[#333]"
+                            ? "text-[#0C8A0A]"
+                            : "text-[#333]"
                             } `}
                         >
                           {applicantsMobile.verifyStatus}
@@ -418,6 +418,7 @@ const Offer = ({ toggleContentt, setToggle }) => {
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
+      
 
 
     </>
