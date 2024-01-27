@@ -18,6 +18,10 @@ const Hire = ({ toggleContentt, setPreview }) => {
     setPage(0);
   };
 
+  const handleHeadingChange = (event, index) => {
+    const selectedOption = event.target.value;
+    const selectedHeading = headings[index];
+  };
   const [selectedDotIndex, setSelectedDotIndex] = useState(null);
 
   const handleDotClick = (index) => {

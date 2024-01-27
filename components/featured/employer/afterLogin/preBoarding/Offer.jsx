@@ -22,6 +22,10 @@ const Offer = ({ toggleContentt, setToggle ,setEditTemplate}) => {
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
+  const handleHeadingChange = (event, index) => {
+    const selectedOption = event.target.value;
+    const selectedHeading = headings[index];
+  };
 
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));

@@ -21,10 +21,7 @@ function Preboarding() {
   const router = useRouter();
   const query = router.query;
 
-  const handleHeadingChange = (event, index) => {
-    const selectedOption = event.target.value;
-    const selectedHeading = headings[index];
-  };
+
 
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
