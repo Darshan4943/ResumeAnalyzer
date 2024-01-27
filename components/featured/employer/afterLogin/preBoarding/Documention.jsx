@@ -6,6 +6,7 @@ import { headings } from "@/utils/preboardArray";
 
 const Documention = ({ toggleContentt, setToggle }) => {
   const [option, setOption] = useState(0);
+  const [isRemind, setIsRemind] = useState(false);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
@@ -137,8 +138,8 @@ const Documention = ({ toggleContentt, setToggle }) => {
                       </div>
                       <div
                         className={` flex items-center text-[14px]  font-[600] justify-start col-span-1 pl-5 text ${applicants.docStatus === "Submitted"
-                            ? "text-[#0C8A0A]"
-                            : "text-[#333]"
+                          ? "text-[#0C8A0A]"
+                          : "text-[#333]"
                           } `}
                       >
                         {applicants.docStatus}
@@ -149,16 +150,16 @@ const Documention = ({ toggleContentt, setToggle }) => {
                       <div className="flex items-center justify-center col-span-1 ">
                         <div
                           className={`flex py-[12px]  justify-center px-[16px] text-[10px] lg:text-[14px] font-semibold items-center gap-[8px] rounded-[80px] border ${applicants.status === "Interview"
-                              ? "text-[#26A4FF] border-[#26A4FF]"
-                              : applicants.status === "Hired"
-                                ? "text-[#56CDAD] border-[#56CDAD]"
-                                : applicants.status === "Shortlisted"
-                                  ? "text-[#4640DE] border-[#4640DE]"
-                                  : applicants.status === "Rejected"
-                                    ? "text-[#FF6550] border-[#FF6550]"
-                                    : applicants.status === "In Review"
-                                      ? "text-[#FFB836] border-[#FFB836]"
-                                      : ""
+                            ? "text-[#26A4FF] border-[#26A4FF]"
+                            : applicants.status === "Hired"
+                              ? "text-[#56CDAD] border-[#56CDAD]"
+                              : applicants.status === "Shortlisted"
+                                ? "text-[#4640DE] border-[#4640DE]"
+                                : applicants.status === "Rejected"
+                                  ? "text-[#FF6550] border-[#FF6550]"
+                                  : applicants.status === "In Review"
+                                    ? "text-[#FFB836] border-[#FFB836]"
+                                    : ""
                             }`}
                         >
                           {applicants.status}
@@ -167,20 +168,23 @@ const Documention = ({ toggleContentt, setToggle }) => {
                       <div className="flex items-center justify-start col-span-1">
                         <div className="flex   items-center w-full  justify-between">
                           {
-                            applicants.docStatus == "Submitted" ? <button
-                              onClick={toggleContentt}
-                              className={`flex lg:py-2 lg:px-4 px-1 py-1 justify-center items-center  rounded-[6px]  lg:text-[14px] text-[10px] font-[600] font-Montserrat border ${applicants.Next === "Move to Next" ? "text-[#fff] bg-[#26A4FF]" : "text-[#333] bg-[#fff]"
-                                }`}
-                            >
-                              {applicants.Next}
-                            </button> : <button
-                              onClick={toggleContentt}
-                              className="flex lg:py-2 lg:px-4 px-1 py-1 justify-center text-[#333] items-center bg-[#fff]  rounded-[6px]  lg:text-[14px] text-[10px] font-[600] font-Montserrat border "
+                            applicants.docStatus == "Submitted" ?
+                              <button
+                                onClick={() => setToggle(2)}
+                                className={`flex lg:py-2 lg:px-4 px-1 py-1 justify-center items-center  rounded-[6px]  lg:text-[14px] text-[10px] font-[600] font-Montserrat border ${applicants.Next === "Move to Next" ? "text-[#fff] bg-[#26A4FF]" : "text-[#333] bg-[#fff]"
+                                  }`}
+                              >
+                                {applicants.Next}
+                              </button>
+                              :
+                              <button
+                                onClick={() =>setIsRemind(true)}
+                                className="flex lg:py-2 lg:px-4 px-1 py-1 justify-center text-[#333] items-center bg-[#fff]  rounded-[6px]  lg:text-[14px] text-[10px] font-[600] font-Montserrat border "
 
 
-                            >
-                              Remind
-                            </button>
+                              >
+                                Remind
+                              </button>
                           }
 
                           <img
@@ -413,7 +417,58 @@ const Documention = ({ toggleContentt, setToggle }) => {
       />
 
 
+      {isRemind && (
+        <>
+          <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
+          <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center customMargins   ">
+            <div
+              className="w-[330px] relative rounded-[16px] px-[16px] pt-[60px] pb-[16px] flex flex-col gap-[16px] bg-white"
+              style={{
+                boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)",
+              }}
+            >
+              <svg
+                className="absolute top-[-30px]  left-[38%] right-[62%] flex"
+                xmlns="http://www.w3.org/2000/svg"
+                width="85"
+                height="85"
+                viewBox="0 0 85 85"
+                fill="none"
+              >
+                <g clip-path="url(#clip0_6622_116765)">
+                  <rect width="85" height="85" rx="42.5" fill="#0C8A0A" />
+                  <g mask="url(#mask0_6622_116765)">
+                    <path
+                      d="M34.5 58.1875L20.1562 43.8438L24.0938 39.9062L34.5 50.3125L59.9062 24.9062L63.8438 28.8438L34.5 58.1875Z"
+                      fill="white"
+                    />
+                  </g>
+                </g>
+                <defs>
+                  <clipPath id="clip0_6622_116765">
+                    <rect width="85" height="85" rx="42.5" fill="white" />
+                  </clipPath>
+                </defs>
+              </svg>
 
+              <div className="text-center">
+                <div className="text-[24px] font-[500] text-[#333]">
+                 Reminder sent Successfully
+                </div>
+
+              </div>
+              <div className="flex justify-center">
+                <button
+                  onClick={() => setIsRemind(false)}
+                  className="py-[12px] px-[24px] rounded-[8px] bg-[#06A9EF] text-[#fff] text-[16px] font-[500]"
+                >
+                  Done
+                </button>
+              </div>
+            </div>
+          </div>
+        </>
+      )}
 
     </>
   );

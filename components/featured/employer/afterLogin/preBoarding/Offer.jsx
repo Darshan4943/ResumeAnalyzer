@@ -1,14 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { TablePagination } from "@mui/material";
 import { applicants } from "@/utils/preboardArray";
 import { applicantsMobile } from "@/utils/preboardArray";
 import { headings } from "@/utils/preboardArray";
 
+import { AnimatePresence, motion } from "framer-motion";
+import { useRouter } from "next/router";
+import GenerateOffer from "./GenerateOffer";
+
 const Offer = ({ toggleContentt, setToggle }) => {
+
+  const [generateOffer,setGenerateOffer] =useState(false)
+  const router = useRouter()
   const [option, setOption] = useState(0);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-
+  const [moreOption, setMoreOption] = useState(false);
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -17,6 +24,30 @@ const Offer = ({ toggleContentt, setToggle }) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
+  const [selectedDotIndex, setSelectedDotIndex] = useState(null);
+
+  const handleDotClick = (index) => {
+
+    setMoreOption((prev) => !prev);
+    setSelectedDotIndex(index);
+  };
+
+
+  const taskRef = useRef(null);
+
+  const handleOutsideClick = (event) => {
+    if (taskRef.current && !taskRef.current.contains(event.target)) {
+      setMoreOption(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleOutsideClick);
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick);
+    };
+  }, []);
+
 
   const labels = [
     "Name of Candidate",
@@ -138,8 +169,8 @@ const Offer = ({ toggleContentt, setToggle }) => {
                       </div>
                       <div
                         className={` flex items-center text-[14px]  font-[600] justify-start col-span-1 pl-5 text ${applicants.verifyStatus === "Verified"
-                            ? "text-[#0C8A0A]"
-                            : "text-[#333]"
+                          ? "text-[#0C8A0A]"
+                          : "text-[#333]"
                           } `}
                       >
                         {applicants.verifyStatus}
@@ -150,16 +181,16 @@ const Offer = ({ toggleContentt, setToggle }) => {
                       <div className="flex items-center justify-center col-span-1 ">
                         <div
                           className={`flex py-[12px]  justify-center px-[16px] text-[10px] lg:text-[14px] font-semibold items-center gap-[8px] rounded-[80px] border ${applicants.status === "Interview"
-                              ? "text-[#26A4FF] border-[#26A4FF]"
-                              : applicants.status === "Hired"
-                                ? "text-[#56CDAD] border-[#56CDAD]"
-                                : applicants.status === "Shortlisted"
-                                  ? "text-[#4640DE] border-[#4640DE]"
-                                  : applicants.status === "Rejected"
-                                    ? "text-[#FF6550] border-[#FF6550]"
-                                    : applicants.status === "In Review"
-                                      ? "text-[#FFB836] border-[#FFB836]"
-                                      : ""
+                            ? "text-[#26A4FF] border-[#26A4FF]"
+                            : applicants.status === "Hired"
+                              ? "text-[#56CDAD] border-[#56CDAD]"
+                              : applicants.status === "Shortlisted"
+                                ? "text-[#4640DE] border-[#4640DE]"
+                                : applicants.status === "Rejected"
+                                  ? "text-[#FF6550] border-[#FF6550]"
+                                  : applicants.status === "In Review"
+                                    ? "text-[#FFB836] border-[#FFB836]"
+                                    : ""
                             }`}
                         >
                           {applicants.status}
@@ -167,10 +198,10 @@ const Offer = ({ toggleContentt, setToggle }) => {
                       </div>
                       <div className="flex items-center justify-start col-span-1">
                         <div className="flex items-center justify-start col-span-1">
-                          <div className="flex   items-center w-full  justify-between">
+                          <div className="flex   items-center w-full  justify-between relative">
                             {
                               applicants.verifyStatus == "Verified" ? <button
-                                onClick={toggleContentt}
+                              onClick={() => setGenerateOffer(true)}
                                 className={`flex lg:py-2 lg:px-4 px-1 py-1 justify-center items-center  rounded-[6px]  lg:text-[14px] text-[10px] font-[600] font-Montserrat border ${applicants.offer === "Generate Offer" ? "text-[#fff] bg-[#26A4FF]" : "text-[#333] bg-[#fff]"
                                   }`}
                               >
@@ -186,10 +217,43 @@ const Offer = ({ toggleContentt, setToggle }) => {
                             }
 
                             <img
+                              onClick={() => handleDotClick(index)}
                               className="w-[24px]"
                               src="/images/employer/three-dot.png"
                               alt=""
                             />
+                            <AnimatePresence>
+                              {moreOption && selectedDotIndex === index && (
+                                <motion.div
+                                  initial={{ x: '100%' }}
+                                  animate={{ x: 0 }}
+                                  exit={{ x: '100%' }}
+                                  transition={{ duration: 0.5 }}
+                                  ref={taskRef}
+                                  className='absolute flex flex-col text-[14px] rounded-[8px] left-0 right-0 z-10 top-[100%] border-l border-r border-b border-[#06A9EF] p-4 gap-4 bg-white' style={{ boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)" }}
+                                >
+
+                                  <div >
+                                    View Offer
+
+                                  </div>
+                                  <div >
+                                    Edit Offer
+
+                                  </div>
+                                  <div >
+                                    Release Offer
+
+                                  </div>
+                                  <div className="text-[#C00000]" >
+                                    Cancel Offer
+
+                                  </div>
+
+
+                                </motion.div>
+                              )}
+                            </AnimatePresence>
                           </div>
                         </div>
                       </div>
@@ -356,8 +420,8 @@ const Offer = ({ toggleContentt, setToggle }) => {
                         </p>
                         <div
                           className={` flex items-center text-[14px]  font-[600] justify-start col-span-1 pl-5 text ${applicantsMobile.verifyStatus === "Verified"
-                              ? "text-[#0C8A0A]"
-                              : "text-[#333]"
+                            ? "text-[#0C8A0A]"
+                            : "text-[#333]"
                             } `}
                         >
                           {applicantsMobile.verifyStatus}
@@ -392,7 +456,10 @@ const Offer = ({ toggleContentt, setToggle }) => {
                             border: " 1px solid var(--primary, #06A9EF)",
                           }}
                         >
-                          <p className="text-[14px] text-[#fff] font-[600] font-Montserrat">
+                          <p 
+                         
+                          className="text-[14px] text-[#fff] font-[600] font-Montserrat">
+                          
                             {applicantsMobile.offer}
                           </p>
                         </div>
@@ -419,6 +486,10 @@ const Offer = ({ toggleContentt, setToggle }) => {
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
 
+    {
+      generateOffer && 
+      <GenerateOffer setGenerateOffer={setGenerateOffer}/>
+    }
 
     </>
   );

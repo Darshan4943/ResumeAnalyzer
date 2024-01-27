@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { TablePagination } from "@mui/material";
 import { applicants } from "@/utils/preboardArray";
 import { applicantsMobile } from "@/utils/preboardArray";
 import { headings } from "@/utils/preboardArray";
-
+import { AnimatePresence, motion } from "framer-motion";
 const Hire = ({ toggleContentt, setPreview }) => {
   const [option, setOption] = useState(0);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-
+  const [moreOption, setMoreOption] = useState(false);
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -18,6 +18,29 @@ const Hire = ({ toggleContentt, setPreview }) => {
     setPage(0);
   };
 
+  const [selectedDotIndex, setSelectedDotIndex] = useState(null);
+
+  const handleDotClick = (index) => {
+
+    setMoreOption((prev) => !prev);
+    setSelectedDotIndex(index);
+  };
+
+
+  const taskRef = useRef(null);
+
+  const handleOutsideClick = (event) => {
+    if (taskRef.current && !taskRef.current.contains(event.target)) {
+      setMoreOption(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleOutsideClick);
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick);
+    };
+  }, []);
   const labels = [
     "Name of Candidate",
     "Job Role",
@@ -164,7 +187,7 @@ const Hire = ({ toggleContentt, setPreview }) => {
                         </div>
                       </div>
                       <div className="flex items-center justify-start col-span-1">
-                        <div className="flex   items-center w-full  ">
+                        <div className="flex   items-center w-full relative ">
                           <div className="flex lg:py-3 gap-1 lg:px-2 px-1 py-1 justify-center items-center rounded-[6px] border border-[#06A9EF] bg-[#06A9EF]">
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
@@ -186,10 +209,36 @@ const Hire = ({ toggleContentt, setPreview }) => {
                             </button>
                           </div>
                           <img
-                            className="w-[24px]"
-                            src="/images/employer/three-dot.png"
-                            alt=""
-                          />
+                              onClick={() => handleDotClick(index)}
+                              className="w-[24px]"
+                              src="/images/employer/three-dot.png"
+                              alt=""
+                            />
+                            <AnimatePresence>
+                              {moreOption && selectedDotIndex === index && (
+                                <motion.div
+                                  initial={{ x: '100%' }}
+                                  animate={{ x: 0 }}
+                                  exit={{ x: '100%' }}
+                                  transition={{ duration: 0.5 }}
+                                  ref={taskRef}
+                                  className='absolute flex flex-col text-[14px] rounded-[8px] left-0 right-0 z-10 top-[100%] border-l border-r border-b border-[#06A9EF] p-4 gap-4 bg-white' style={{ boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)" }}
+                                >
+
+                                  <div >
+                                    View Offer
+
+                                  </div>
+                                  <div className="text-[#C00000]" >
+                                    Cancel Offer
+
+                                  </div>
+
+
+                                </motion.div>
+                              )}
+                            </AnimatePresence>
+                        
                         </div>
                       </div>
                     </div>

@@ -5,6 +5,8 @@ import { applicantsMobile } from "@/utils/preboardArray";
 import { headings } from "@/utils/preboardArray";
 
 const Verification = ({ toggleContentt, setToggle }) => {
+
+  const [documentation, setDocumentation] = useState(false)
   const [option, setOption] = useState(0);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -138,8 +140,8 @@ const Verification = ({ toggleContentt, setToggle }) => {
                       </div>
                       <div
                         className={` flex items-center text-[14px]  font-[600] justify-start col-span-1 pl-5 text ${applicants.docStatus === "Submitted"
-                            ? "text-[#0C8A0A]"
-                            : "text-[#333]"
+                          ? "text-[#0C8A0A]"
+                          : "text-[#333]"
                           } `}
                       >
                         {applicants.docStatus}
@@ -150,16 +152,16 @@ const Verification = ({ toggleContentt, setToggle }) => {
                       <div className="flex items-center justify-center col-span-1 ">
                         <div
                           className={`flex py-[12px]  justify-center px-[16px] text-[10px] lg:text-[14px] font-semibold items-center gap-[8px] rounded-[80px] border ${applicants.status === "Interview"
-                              ? "text-[#26A4FF] border-[#26A4FF]"
-                              : applicants.status === "Hired"
-                                ? "text-[#56CDAD] border-[#56CDAD]"
-                                : applicants.status === "Shortlisted"
-                                  ? "text-[#4640DE] border-[#4640DE]"
-                                  : applicants.status === "Rejected"
-                                    ? "text-[#FF6550] border-[#FF6550]"
-                                    : applicants.status === "In Review"
-                                      ? "text-[#FFB836] border-[#FFB836]"
-                                      : ""
+                            ? "text-[#26A4FF] border-[#26A4FF]"
+                            : applicants.status === "Hired"
+                              ? "text-[#56CDAD] border-[#56CDAD]"
+                              : applicants.status === "Shortlisted"
+                                ? "text-[#4640DE] border-[#4640DE]"
+                                : applicants.status === "Rejected"
+                                  ? "text-[#FF6550] border-[#FF6550]"
+                                  : applicants.status === "In Review"
+                                    ? "text-[#FFB836] border-[#FFB836]"
+                                    : ""
                             }`}
                         >
                           {applicants.status}
@@ -169,7 +171,7 @@ const Verification = ({ toggleContentt, setToggle }) => {
                         <div className="flex   items-center w-full  justify-between">
                           {
                             applicants.docStatus == "Submitted" ? <button
-                              onClick={toggleContentt}
+                             onClick={() =>setDocumentation(true)}
                               className={`flex lg:py-2 lg:px-4 px-1 py-1 justify-center items-center  rounded-[6px]  lg:text-[14px] text-[10px] font-[600] font-Montserrat border ${applicants.verify === "View & Verify" ? "text-[#fff] bg-[#26A4FF]" : "text-[#333] bg-[#fff]"
                                 }`}
                             >
@@ -355,8 +357,8 @@ const Verification = ({ toggleContentt, setToggle }) => {
                         </p>
                         <div
                           className={` flex items-center text-[14px]  font-[600] justify-start col-span-1 pl-5 text ${applicantsMobile.verifyStatus === "Verified"
-                              ? "text-[#0C8A0A]"
-                              : "text-[#333]"
+                            ? "text-[#0C8A0A]"
+                            : "text-[#333]"
                             } `}
                         >
                           {applicantsMobile.verifyStatus}
@@ -417,6 +419,56 @@ const Verification = ({ toggleContentt, setToggle }) => {
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
+
+{
+documentation && 
+<>
+<div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
+      <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center customMargins   ">
+        <div className="absolute w-[95%] ms:w-[90%] ">
+        <div
+            className="flex w-[100%] p-[10px] sm:p-[24px] flex-col items-start gap-[16px] rounded-[16px]  bg-[#fff] "
+            style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}
+          >
+             <div className="flex justify-between w-full">
+              <p className="text-[20px] text-[#333] font-[500] ">
+                Generate Offer
+              </p>
+              <svg
+               onClick={ ()=>setPopup(false)}
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+              >
+                <g mask="url(#mask0_7804_67168)">
+                  <path
+                    d="M6.28384 18.8838L5.11719 17.7172L10.8339 12.0005L5.11719 6.28384L6.28384 5.11719L12.0005 10.8339L17.7172 5.11719L18.8838 6.28384L13.1672 12.0005L18.8838 17.7172L17.7172 18.8838L12.0005 13.1672L6.28384 18.8838Z"
+                    fill="#333333"
+                  />
+                </g>
+              </svg>
+            </div>
+              
+              <div className="flex flex-col items-start gap-[8px]">
+              <p className="text-[16px] text-[#333] font-[600]">Personal ID Proof</p>
+
+              <p className="text-[14px] font-[400]">Photo ID & Address Proof</p>
+              <div className="flex flex-start gap-4">
+                 <div className="flex flex-col gap-1">
+
+                 </div>
+              </div>
+              </div>
+
+
+            </div>
+            </div>
+            </div>
+</>
+
+}
 
 
     </>

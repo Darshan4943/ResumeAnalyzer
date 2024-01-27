@@ -1,7 +1,74 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-scroll";
-
+import ReactSelect from "react-select";
+import { useRouter } from "next/navigation";
+import { telCode } from "@/utils/data";
+import { useMediaQuery } from "@react-hook/media-query";
+import Skills from "@/components/featured/employer/afterLogin/Skills";
 function Profile() {
+
+  const router = useRouter();
+
+  const [toggle,setToggle] = useState(0)
+  const isViewportBelow850 = useMediaQuery("(max-width:850px)");
+
+  const taskRef = useRef(null);
+  const [dropdown, setDropdown] = useState(false);
+  const [selectedItem, setSelectedItem] = useState(telCode[0]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [showInput, setShowInput] = useState(false); 
+
+  const handleSearch = (e) => {
+    setSearchTerm(e.target.value);
+  };
+  const handleOutsideClick = (event) => {
+    if (taskRef.current && !taskRef.current.contains(event.target)) {
+      setDropdown(false);
+    }
+  };
+  const handleItemClick = (item) => {
+    setSelectedItem(item);
+    setSearchTerm("");
+    setDropdown(false);
+    setShowInput(false); 
+  };
+  const [inputValue, setInputValue] = useState('');
+
+  const handleInputChange = (e) => {
+    setInputValue(e.target.value);
+  };
+
+  const handleInputClick = () => {
+    setDropdown(true);
+    setSearchTerm("");
+    setShowInput(true); 
+    window.scrollTo({
+      top: 300,
+      behavior: "smooth",
+    });
+  };
+
+  const [filteredTelCode, setFilteredTelCode] = useState([]);
+  
+
+  useEffect(() => {
+
+    const filterLogic = (item) =>
+      item.code.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      item.dial_code.includes(searchTerm);
+
+    const filteredCodes = telCode.filter(filterLogic);
+    setFilteredTelCode(filteredCodes);
+  }, [telCode, searchTerm]);
+
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleOutsideClick);
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick);
+    };
+  }, []);
+
   return (
     <>
       <div className="flex flex-col gap-6 relative ml:h-[80vh] overflow-y-auto py-2 ">
@@ -10,17 +77,17 @@ function Profile() {
           style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}
         >
           <p className="text-[18px] scr420:text-[24px]  w-[100%] text-start flex justify-start font font-medium  ">
-            Profile
+         { toggle === 0 ?  'Profile' :  " Edit Profile"}
           </p>
         </div>
 
-        <div className="scr800:flex scr800:flex-row gap-5 flex flex-col  ">
+        <div className="ml:flex ml:flex-row gap-5 flex flex-col  ">
           <div
-            className=" rounded-[16px] py-2 flex flex-col w-[100%] scr800:w-[32.26%] bg-white "
+            className=" rounded-[16px] py-2 flex flex-col w-[100%] ml:w-[32.26%] bg-white "
             style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}
           >
-            <div className="flex flex-col overflow-y-auto gap-6 px-6 py-4">
-              <div className=" flex  gap-6">
+            <div className="flex flex-col overflow-y-auto gap-3 px-3 py-4">
+              <div className=" flex  gap-3">
                 <img
                   src="/images/employer/profileNew.png"
                   alt=""
@@ -51,6 +118,15 @@ function Profile() {
                     </p>
                   </div>
                 </div>
+                <div className="w-[20px] h-[20px]">
+                  <svg
+                  onClick={() =>setToggle(1)}
+                  xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28" fill="none">
+  <g mask="url(#mask0_7804_61798)">
+    <path d="M5.83298 22.1663H7.30476L19.2474 10.2236L17.7757 8.75186L5.83298 20.6945V22.1663ZM4.08301 23.9163V19.9676L19.4718 4.58558C19.6482 4.42534 19.843 4.30151 20.0562 4.21411C20.2694 4.12671 20.4929 4.08301 20.7268 4.08301C20.9607 4.08301 21.1873 4.12452 21.4066 4.20755C21.6259 4.29056 21.82 4.42255 21.989 4.60352L23.4137 6.04613C23.5947 6.21514 23.7237 6.40962 23.8007 6.62958C23.8778 6.84952 23.9163 7.06945 23.9163 7.28939C23.9163 7.52399 23.8762 7.74787 23.7961 7.96104C23.716 8.17423 23.5885 8.36903 23.4137 8.54545L8.03168 23.9163H4.08301ZM18.4986 9.50066L17.7757 8.75186L19.2474 10.2236L18.4986 9.50066Z" fill="#333333"/>
+  </g>
+</svg>
+</div>
               </div>
 
               <div className="flex flex-col bg-frm items-start justify-center gap-2 rounded-[12px] bg-[#06A9EF] p-[13px] text-[#fff]">
@@ -178,67 +254,61 @@ function Profile() {
                 </div>
               </div>
               <div className="h-[1px] bg-[#D6DDEB]"></div>
-             
+
               <div className="flex flex-col gap-4 break-word text-[16px] font-normal">
                 <p className="font-medium scr420:text-[16px] text-[14px]">
                   Privacy
                 </p>
-              
+
                 <div className="flex gap-[8px]  items-center flex-row">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="min-w-[24px] h-[24px]"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                          >
-                            <g mask="url(#mask0_6622_124687)">
-                              <path
-                                d="M10.7404 14.7496H13.2596L12.6942 11.5919C13.0083 11.4573 13.2612 11.2461 13.4528 10.9582C13.6445 10.6704 13.7403 10.3509 13.7403 9.99959C13.7403 9.5201 13.5702 9.11017 13.2298 8.76979C12.8894 8.4294 12.4795 8.25921 12 8.25921C11.5205 8.25921 11.1106 8.4294 10.7702 8.76979C10.4298 9.11017 10.2596 9.5201 10.2596 9.99959C10.2596 10.3509 10.3554 10.6704 10.5471 10.9582C10.7388 11.2461 10.9916 11.4573 11.3057 11.5919L10.7404 14.7496ZM12 21.4803C9.83716 20.8906 8.04646 19.6175 6.62787 17.6611C5.20929 15.7047 4.5 13.5175 4.5 11.0996V5.34576L12 2.53809L19.5 5.34576V11.0996C19.5 13.5175 18.7907 15.7047 17.3721 17.6611C15.9535 19.6175 14.1628 20.8906 12 21.4803ZM12 19.8996C13.7333 19.3496 15.1666 18.2496 16.3 16.5996C17.4333 14.9496 18 13.1163 18 11.0996V6.37459L12 4.13421L5.99997 6.37459V11.0996C5.99997 13.1163 6.56664 14.9496 7.69997 16.5996C8.83331 18.2496 10.2666 19.3496 12 19.8996Z"
-                                fill="#333333"
-                              />
-                            </g>
-                          </svg>
-                          <Link
-                            href="/profile"
-                            className="block py-1 justify-start break-words"
-                          >
-                            Change Password
-                          </Link>
-                        </div>
-                        <div className="flex gap-[8px] flex-row">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="min-w-[24px] h-[24px]"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                          >
-                            <g mask="url(#mask0_6622_124692)">
-                              <path
-                                d="M20.3711 12.75H8.57695V11.25H20.3711L18.5519 9.43075L19.6057 8.34615L23.2595 12L19.6057 15.6538L18.5519 14.5692L20.3711 12.75ZM15.2019 8.86535V5.3077C15.2019 5.21795 15.1731 5.14423 15.1154 5.08653C15.0577 5.02883 14.9839 4.99998 14.8942 4.99998H5.3077C5.21795 4.99998 5.14423 5.02883 5.08652 5.08653C5.02882 5.14423 4.99997 5.21795 4.99997 5.3077V18.6923C4.99997 18.782 5.02882 18.8557 5.08652 18.9134C5.14423 18.9711 5.21795 19 5.3077 19H14.8942C14.9839 19 15.0577 18.9711 15.1154 18.9134C15.1731 18.8557 15.2019 18.782 15.2019 18.6923V15.1346H16.7019V18.6923C16.7019 19.191 16.5253 19.6169 16.1721 19.9701C15.8189 20.3233 15.3929 20.5 14.8942 20.5H5.3077C4.80898 20.5 4.38302 20.3233 4.02982 19.9701C3.67661 19.6169 3.5 19.191 3.5 18.6923V5.3077C3.5 4.80898 3.67661 4.38302 4.02982 4.02982C4.38302 3.67661 4.80898 3.5 5.3077 3.5H14.8942C15.3929 3.5 15.8189 3.67661 16.1721 4.02982C16.5253 4.38302 16.7019 4.80898 16.7019 5.3077V8.86535H15.2019Z"
-                                fill="#C00000"
-                              />
-                            </g>
-                          </svg>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="min-w-[24px] h-[24px]"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                  >
+                    <g mask="url(#mask0_6622_124687)">
+                      <path
+                        d="M10.7404 14.7496H13.2596L12.6942 11.5919C13.0083 11.4573 13.2612 11.2461 13.4528 10.9582C13.6445 10.6704 13.7403 10.3509 13.7403 9.99959C13.7403 9.5201 13.5702 9.11017 13.2298 8.76979C12.8894 8.4294 12.4795 8.25921 12 8.25921C11.5205 8.25921 11.1106 8.4294 10.7702 8.76979C10.4298 9.11017 10.2596 9.5201 10.2596 9.99959C10.2596 10.3509 10.3554 10.6704 10.5471 10.9582C10.7388 11.2461 10.9916 11.4573 11.3057 11.5919L10.7404 14.7496ZM12 21.4803C9.83716 20.8906 8.04646 19.6175 6.62787 17.6611C5.20929 15.7047 4.5 13.5175 4.5 11.0996V5.34576L12 2.53809L19.5 5.34576V11.0996C19.5 13.5175 18.7907 15.7047 17.3721 17.6611C15.9535 19.6175 14.1628 20.8906 12 21.4803ZM12 19.8996C13.7333 19.3496 15.1666 18.2496 16.3 16.5996C17.4333 14.9496 18 13.1163 18 11.0996V6.37459L12 4.13421L5.99997 6.37459V11.0996C5.99997 13.1163 6.56664 14.9496 7.69997 16.5996C8.83331 18.2496 10.2666 19.3496 12 19.8996Z"
+                        fill="#333333"
+                      />
+                    </g>
+                  </svg>
+                  <Link
+                    href="/profile"
+                    className="block py-1 justify-start break-words"
+                  >
+                    Change Password
+                  </Link>
+                </div>
+                <div className="flex gap-[8px] flex-row">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="min-w-[24px] h-[24px]"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                  >
+                    <g mask="url(#mask0_6622_124692)">
+                      <path
+                        d="M20.3711 12.75H8.57695V11.25H20.3711L18.5519 9.43075L19.6057 8.34615L23.2595 12L19.6057 15.6538L18.5519 14.5692L20.3711 12.75ZM15.2019 8.86535V5.3077C15.2019 5.21795 15.1731 5.14423 15.1154 5.08653C15.0577 5.02883 14.9839 4.99998 14.8942 4.99998H5.3077C5.21795 4.99998 5.14423 5.02883 5.08652 5.08653C5.02882 5.14423 4.99997 5.21795 4.99997 5.3077V18.6923C4.99997 18.782 5.02882 18.8557 5.08652 18.9134C5.14423 18.9711 5.21795 19 5.3077 19H14.8942C14.9839 19 15.0577 18.9711 15.1154 18.9134C15.1731 18.8557 15.2019 18.782 15.2019 18.6923V15.1346H16.7019V18.6923C16.7019 19.191 16.5253 19.6169 16.1721 19.9701C15.8189 20.3233 15.3929 20.5 14.8942 20.5H5.3077C4.80898 20.5 4.38302 20.3233 4.02982 19.9701C3.67661 19.6169 3.5 19.191 3.5 18.6923V5.3077C3.5 4.80898 3.67661 4.38302 4.02982 4.02982C4.38302 3.67661 4.80898 3.5 5.3077 3.5H14.8942C15.3929 3.5 15.8189 3.67661 16.1721 4.02982C16.5253 4.38302 16.7019 4.80898 16.7019 5.3077V8.86535H15.2019Z"
+                        fill="#C00000"
+                      />
+                    </g>
+                  </svg>
 
-                          <a
-                            onClick={() => router.push("/")}
-                            className="block py-1"
-                          >
-                            Sign Out
-                          </a>
-                        </div>
-         
-              
-              
+                  <a onClick={() => router.push("/")} className="block py-1">
+                    Sign Out
+                  </a>
+                </div>
               </div>
-
             </div>
           </div>
 
           <div
-            className=" rounded-[16px] py-2 flex flex-col w-[100%] scr800:w-[66.17%] bg-white "
+            className=" rounded-[16px] py-2 flex flex-col w-[100%] ml:w-[66.17%] bg-white "
             style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}
           >
+{  toggle === 0 &&
             <div className="flex flex-col gap-4 text-[16px] font-normal px-6 overflow-y-auto">
               <p className="font-[500] text-[24px]">Personal Info</p>
               <div className="flex gap-6">
@@ -267,7 +337,7 @@ function Profile() {
                   </div>
                   <div>
                     <p className=" font-medium scr420:text-[16px] text-[14px]">
-                      Language
+                     Location
                     </p>
                     <p className="scr420:text-[16px] text-[14px]">
                       English, French, Bahasa
@@ -301,7 +371,7 @@ function Profile() {
                   </div>
                 </div>
 
-                <div className="scr800:flex scr800:flex-row  flex flex-col justify-between">
+                <div className="ml:flex ml:flex-row  flex flex-col justify-between">
                   <div className="flex flex-col gap-4 w-[30%] ">
                     <div>
                       <p className=" font-medium scr420:text-[16px] text-[14px]">
@@ -346,6 +416,255 @@ function Profile() {
                 </div>
               </div>
             </div>
+            }
+
+{  toggle === 1 &&
+            <div className="flex flex-col gap-4 text-[16px] font-normal px-6 w-[100%] overflow-y-auto">
+              <p className="font-[500] text-[24px]">Personal Info</p>
+              <div className="flex flex-col gap-6 w-[100%]">
+                <div className="ml:flex ml:flex-row flex flex-col gap-4 w-[100%]">
+                  <div className="gap-1 flex flex-col w-[100%]">
+                    <p className=" font-medium scr420:text-[16px] text-[14px]">
+                      Full Name
+                    </p>
+                    <input
+                      className="scr420:text-[16px] text-[14px] flex py-[12px] px-[16px] items-center w-[100%] rounded-[6px] border-[1px] border-[#646464]"
+                      placeholder="Ronnie kooper"
+                    />
+                  </div>
+                  <div className="gap-1 flex flex-col w-[100%]">
+                    <p className=" font-medium scr420:text-[16px] text-[14px]">
+                      Email
+                    </p>
+                    <input
+                      className="scr420:text-[16px] text-[14px] flex py-[12px] px-[16px] items-center w-[100%] rounded-[6px] border-[1px] border-[#646464]"
+                      placeholder="roniekooper111@gmail.com"
+                    />
+                  </div>
+                </div>
+                <div className="flex flex-col gap-4 w-[100%]">
+                  <div className="gap-1 flex flex-col w-[100%]">
+                    <p className=" font-medium scr420:text-[16px] text-[14px]">
+                      Address
+                    </p>
+                    <textarea className="flex py-[8px] text-[14px] font-[400] px-[16px] items-start min-h-[80px] w-[100%] rounded-[6px] border-[1px] border-[#646464]">
+                      679 Willow St., Kwanobuhle, Eastern Cape, South
+                      Africa-6242
+                    </textarea>
+                  </div>
+                </div>
+
+                <div className="flex flex-col ml:flex scr1150:flex-row  gap-4 w-[100%]">
+                  <div className="gap-1 flex flex-col w-[100%]">
+                    <p className=" font-medium scr420:text-[16px] text-[14px]">
+                     Gender
+                    </p>
+                    <div className="flex flex-row justify-between w-[100%] ">
+                <div className="flex gap-1">    <input  type="radio" className="scr420:text-[16px] font-[500] text-[14px] flex items-center  "/>Male</div>
+                <div className="flex gap-1">    <input  type="radio" className="scr420:text-[16px] font-[500] text-[14px] flex items-center  "/>Female</div>
+                <div className="flex gap-1">    <input  type="radio" className="scr420:text-[16px] font-[500] text-[14px] flex items-center  "/>Others</div>
+          </div>
+                  </div>
+                  <div className="gap-1 flex flex-col w-[100%]">
+                    <p className=" font-medium scr420:text-[16px] text-[14px]">
+                      Contact Number
+                    </p>
+                    <div className="flex w-[100%] items-start   gap-[16px] " id="single_input">
+                      <div className={`relative "w-[30%]  items-center`}>
+                        <div
+                          className="text-[14px] justify-center items-center  flex font-[500] text-[#646464]"
+                          onClick={handleInputClick}
+                        >
+
+                          <div className="flex items-center justify-center gap-2 cursor-pointer ">
+                           
+                            <div className="flex items-center  gap-1 cursor-pointer  " onClick={handleInputClick}>
+                              {showInput ? (
+                                <input
+                                  className="w-[100%]  border flex justify-center items-center border-hidden py-1 px-3 rounded-[8px] "
+                                  type="text"
+                                  name=""
+                                  placeholder="Search"
+                                  value={searchTerm}
+                                  onChange={handleSearch}
+                                />
+                              ) : (
+                                <>
+                                  <img
+                                    src={`https://hatscripts.github.io/circle-flags/flags/${selectedItem.code.toLowerCase()}.svg`}
+                                    width="20px"
+                                  />
+                                  <div className={`  text-[16px] whitespace-nowrap`}>
+                                    {selectedItem.code} {selectedItem.dial_code}
+                                  </div>
+                                  <img className="w-[20px] h-[20px]" src="/images/down_arrow.png" alt="" />
+                                </>
+                              )}
+                            </div>
+                           
+
+                          </div>
+
+
+                        </div>
+
+
+                        {dropdown && (
+                          <div ref={taskRef}
+                            className="w-[113px] font-[500] top-12 -left-1  z-10 h-[40vh] overflow-y-scroll bg-[#fff] border-[1px] border-solid border-[#9D9D9D] absolute text-[14px] p-1 flex flex-col justify-between items-center"
+                            name=""
+                            id=""
+                          >
+                            {filteredTelCode.map((item, index) => (
+                              <p
+                                className={`border-none cursor-pointer pl-[5px] flex my-2 gap-[5px] hover:bg-blue hover:text-[#fff] ${selectedItem === item ? "bg-gray-200" : ""
+                                  }`}
+                                key={index}
+                                onClick={() => handleItemClick(item)}
+                              >
+                                <img
+                                  src={`https://hatscripts.github.io/circle-flags/flags/${item.code.toLowerCase()}.svg`}
+                                  width="20px"
+                                />
+                                {item.code} {item.dial_code}
+                              </p>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+
+                      <input
+                        className=" mobileNo w-[50%]"
+                        type="text"
+                        name=""
+                        // id="single_input"
+                        placeholder= {`${ isViewportBelow850 ? "Enter Number " : "Enter Contact Number " }`}
+                        value={inputValue}
+                        onChange={handleInputChange}
+              
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex flex-col gap-4 w-[100%]">
+                  <div className="gap-1 flex flex-col w-[100%]">
+                    <p className=" font-medium scr420:text-[16px] text-[14px]">
+                      Language
+                    </p>
+                   <div className="flex gap-4 justify-end w-[100%]">
+                   <ReactSelect
+                  // options={skills}
+                  // isMulti
+                  className="w-[80%]"
+                  // onChange={(data) => handleInputChange("keySkills", data)}
+                  // onChange={(data) => {
+                  //   setData({ ...data, keySkills: data });
+                  // }}
+                  // value={data.keySkills}
+                />
+                  <button
+                  className="buttons w-[20%] py-[8px] px-[16px] rounded-[8px] whitespace-nowrap text-[12px] sm:text-[16px] text-[#fff] bg-[#06A9EF]"
+                  id="border_button" 
+                >
+                + Add
+                </button>
+                   </div>
+                  </div>
+                </div>
+
+              <div className="w-[100%] h-[1px] bg-[#D6DDEB]"></div>
+
+              <div className='flex flex-col gap-4'>
+                                <p className='font-semibold scr420:text-[16px] text-[14px]'>Professional Info</p>
+                                <div className='flex flex-col gap-2 w-[100%] '>
+                                    <p className=' font-[500] scr420:text-[16px] text-[14px] leading-[160%]'>About Me</p>
+                                    <div className='flex flex-col gap-4 py-[12px] px-[16px] items-center rounded-[6px] border-[1px] border-[#646464] bg-[#fff]'>
+                                        <p className='scr420:text-[16px] text-[14px]'>4 years of experience in human resources, having honed expertise in talent acquisition, employee relations, performance management, and organizational development. Their journey in HR has been marked by a commitment to creating environments where employees thrive and businesses flourish.</p>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div className="ml:flex ml:flex-row flex flex-col gap-4 w-[100%]">
+                  <div className="gap-1 flex flex-col w-[100%]">
+                    <p className=" font-medium scr420:text-[16px] text-[14px]">
+                    Current Position
+                    </p>
+                    <input
+                      className="scr420:text-[16px] text-[14px] flex py-[12px] px-[16px] items-center w-[100%] rounded-[6px] border-[1px] border-[#646464]"
+                      placeholder="HR Manager"
+                    />
+                  </div>
+                  <div className="gap-1 flex flex-col w-[100%]">
+                    <p className=" font-medium scr420:text-[16px] text-[14px]">
+                    Experience in Years
+                    </p>
+                    <input
+                      className="scr420:text-[16px] text-[14px] flex py-[12px] px-[16px] items-center w-[100%] rounded-[6px] border-[1px] border-[#646464]"
+                      placeholder="4 Years"
+                    />
+                  </div>
+                </div>
+
+                <div className="flex flex-row gap-4 w-[100%]">
+                  <div className="gap-1 flex flex-col w-[100%]">
+                    <p className=" font-medium scr420:text-[16px] text-[14px]">
+                    Company Name
+                    </p>
+                    <input
+                      className="scr420:text-[16px] text-[14px] flex py-[12px] px-[16px] items-center w-[100%] rounded-[6px] border-[1px] border-[#646464]"
+                      placeholder="Skilotech Job Portal"
+                    />
+                  </div>
+                 
+                </div>
+
+                <div className="flex flex-row gap-4 w-[100%]">
+                  <div className="gap-1 flex flex-col w-[100%]">
+                    <p className=" font-medium scr420:text-[16px] text-[14px]">
+                    Highest Qualification
+                    </p>
+                    <input
+                      className="scr420:text-[16px] text-[14px] flex py-[12px] px-[16px] items-center w-[100%] rounded-[6px] border-[1px] border-[#646464]"
+                      placeholder="Master of Business Administration (MBA)"
+                    />
+                  </div>
+                 
+                </div>
+
+                <div className="flex flex-row gap-4 w-[100%]">
+                  <div className="gap-1 flex flex-col w-[100%]">
+                    <p className=" font-medium scr420:text-[16px] text-[14px]">
+                    Social Profile Link
+                    </p>
+                    <input
+                      className="scr420:text-[16px] text-[14px] flex py-[12px] px-[16px] items-center w-[100%] rounded-[6px] border-[1px] border-[#646464]"
+                      placeholder="www.linkedin.com/in/kshitijw"
+                    />
+                  </div>
+                 
+                </div>
+
+                  <div>
+                    <Skills/>
+                  </div>
+ 
+                  <div className="w-full gap-3 justify-end flex  items-center">
+        <button
+        onClick={()=>setToggle(0)}
+        className="text-[16px] font-[500] text-[#333] flex py-[8px] px-[16px] border-[1px] border-[#06A9EF] rounded-[8px] bg-[#fff]">
+           Cancel
+        </button>
+        <button className="text-[16px] font-[500] text-[#fff] flex py-[8px] px-[16px] border-[1px] border-[#06A9EF] rounded-[8px] bg-[#06A9EF]">
+           Save Changes
+        </button>
+        </div>
+                
+              </div>
+            </div>
+}
+
           </div>
         </div>
       </div>
