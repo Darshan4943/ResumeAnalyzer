@@ -3,8 +3,13 @@ import { TablePagination } from "@mui/material";
 import { applicants } from "@/utils/preboardArray";
 import { applicantsMobile } from "@/utils/preboardArray";
 import { headings } from "@/utils/preboardArray";
+import { useRouter } from "next/router";
+import GenerateOffer from "./GenerateOffer";
 
 const Offer = ({ toggleContentt, setToggle }) => {
+
+  const [generateOffer,setGenerateOffer] =useState(false)
+  const router = useRouter()
   const [option, setOption] = useState(0);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -170,7 +175,7 @@ const Offer = ({ toggleContentt, setToggle }) => {
                           <div className="flex   items-center w-full  justify-between">
                             {
                               applicants.verifyStatus == "Verified" ? <button
-                                onClick={toggleContentt}
+                              onClick={() => setGenerateOffer(true)}
                                 className={`flex lg:py-2 lg:px-4 px-1 py-1 justify-center items-center  rounded-[6px]  lg:text-[14px] text-[10px] font-[600] font-Montserrat border ${applicants.offer === "Generate Offer" ? "text-[#fff] bg-[#26A4FF]" : "text-[#333] bg-[#fff]"
                                   }`}
                               >
@@ -392,7 +397,10 @@ const Offer = ({ toggleContentt, setToggle }) => {
                             border: " 1px solid var(--primary, #06A9EF)",
                           }}
                         >
-                          <p className="text-[14px] text-[#fff] font-[600] font-Montserrat">
+                          <p 
+                         
+                          className="text-[14px] text-[#fff] font-[600] font-Montserrat">
+                          
                             {applicantsMobile.offer}
                           </p>
                         </div>
@@ -419,6 +427,10 @@ const Offer = ({ toggleContentt, setToggle }) => {
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
 
+    {
+      generateOffer && 
+      <GenerateOffer setGenerateOffer={setGenerateOffer}/>
+    }
 
     </>
   );
