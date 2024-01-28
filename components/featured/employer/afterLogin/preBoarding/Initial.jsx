@@ -353,6 +353,7 @@ const Initial = ({ toggleContentt, setToggle }) => {
                             borderRadius: "8px",
                             border: " 1px solid var(--primary, #06A9EF)",
                           }}
+                          onClick={() => setStartPreboarding(true)}
                         >
                           <p className="text-[14px] text-[#fff] font-[600] font-Montserrat">
                             {applicantsMobile.action}

@@ -3,7 +3,7 @@ import React from 'react'
 function StartPreboarding({ setStartPreboarding }) {
     return (
         <div
-            className="flex flex-col items-center gap-3 p-3 bg-white w-[70%] rounded-[16px]"
+            className="flex flex-col items-center gap-3 p-3 bg-white ml:w-[70%] w-full rounded-[16px] h-[80vh]  overflow-y-auto"
             style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}
         >
             <div className="flex  justify-between items-start self-stretch gap-4">
