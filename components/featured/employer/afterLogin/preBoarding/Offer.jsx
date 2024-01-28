@@ -459,6 +459,7 @@ const Offer = ({ toggleContentt, setToggle ,setEditTemplate}) => {
                           </div>
                           <div className="flex justify-center w-[100%]">
                             <div
+                             onClick={() => setGenerateOffer(true)}
                               className="flex w-full px-6 py-3 justify-center items-center gap-[10px] bg-[#06A9EF]"
                               style={{
                                 borderRadius: "8px",
@@ -466,6 +467,7 @@ const Offer = ({ toggleContentt, setToggle ,setEditTemplate}) => {
                               }}
                             >
                               <p
+                              
 
                                 className="text-[14px] text-[#fff] font-[600] font-Montserrat">
 
