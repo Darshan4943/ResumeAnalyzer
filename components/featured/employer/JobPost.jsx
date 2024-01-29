@@ -245,40 +245,40 @@ function JobPost({ toggleContentt, setToggle }) {
               <div className="flex items-start gap-[8px]">
                 <div className="ml:w-[314px] flex py-[12px] px-[16px] gap-[16px] rounded-[6px] border border-[#D6DDEB] bg-[#fff]">
                   <img className="w-[24px] h-[24px]" src="/images/employer/icon_search.png" alt="" />
-                  <input type="text" placeholder="Search" className="sm:w-full w-[100px]"/>
+                  <input type="text" placeholder="Search" className="sm:w-full w-[100px]" />
                 </div>
                 <div className="flex py-[12px] px-[16px] justify-center gap-[8px] rounded-[6px] border border-[#D6DDEB]">
                   <img className="w-[24px]" src="/images/employer/Icon_filter.png" alt="" />
                   <p className="font-[600]">Filter</p>
                 </div>
-              </div> 
-               <div className="flex gap-2 items-start justify-between sm:w-[430px]   ">
-              <div
-                className="flex py-3 items-center  px-4 gap-4 bg-white sm:w-[314px] xsm:w-[214px] w-[170px]"
-                style={{ borderRadius: "6px", border: " 1px solid #D6DDEB" }}
-              >
+              </div>
+              {/* <div className="flex gap-2 items-start justify-between sm:w-[430px]   ">
+                <div
+                  className="flex py-3 items-center  px-4 gap-4 bg-white sm:w-[314px] xsm:w-[214px] w-[170px]"
+                  style={{ borderRadius: "6px", border: " 1px solid #D6DDEB" }}
+                >
                   <img
                     src="/images/employer/icon_search.png"
                     className="sm:w-[22px] sm:h-[22px] w-[20px] h-[20px]"
                     alt=""
                   />
-                <input type="text" placeholder="Search" className="w-full" />
-              </div>
-              <div
-                className="flex py-3 px-4 gap-2 justify-center items-center bg-white sm:w-[108px] w-[98px]"
-                style={{ borderRadius: "6px", border: " 1px solid #D6DDEB" }}
-              >
+                  <input type="text" placeholder="Search" className="w-full" />
+                </div>
+                <div
+                  className="flex py-3 px-4 gap-2 justify-center items-center bg-white sm:w-[108px] w-[98px]"
+                  style={{ borderRadius: "6px", border: " 1px solid #D6DDEB" }}
+                >
                   <img
                     src="/images/profile/fil.png"
                     className=" sm:w-[22px] sm:h-[22px] w-[20px] h-[20px]"
                     alt=""
                   />
 
-                <p className="font-Montserrat text-[14px] sm:text-base font-semibold leading-6 text-[#333]">
-                  Filter
-                </p>
-              </div>
-            </div>
+                  <p className="font-Montserrat text-[14px] sm:text-base font-semibold leading-6 text-[#333]">
+                    Filter
+                  </p>
+                </div>
+              </div> */}
             </div>
             <div className="web">
               <div className="flex p-[16px] items-center justify-between  gap-[24px] bg-[#06A9EF] border border-[#D6DDEB] ">
@@ -310,7 +310,7 @@ function JobPost({ toggleContentt, setToggle }) {
                         </div>
                         <div className="flex w-[10%] items-center  gap-[8px]">
                           {applicants.img_star1}
-                        
+
 
 
                           <p className="text-[14px] font-[600]">{applicants.score}</p>
@@ -434,9 +434,9 @@ function JobPost({ toggleContentt, setToggle }) {
                               </div>
                               <div className="flex justify-end items-center gap-4 relative">
                                 <div className="flex items-center gap-2">
-                                {applicants.img_star1}
-                                <p className="text-[14px] font-[600]">{applicants.score}</p>
-                                 
+                                  {applicants.img_star1}
+                                  <p className="text-[14px] font-[600]">{applicants.score}</p>
+
                                 </div>
                                 <img onClick={() => handleDotClick(index)} className="w-[24px] cursor-pointer" src="/images/employer/three-dot1.png" alt="" />
                                 <AnimatePresence>
@@ -512,14 +512,14 @@ function JobPost({ toggleContentt, setToggle }) {
                             </div>
                             <div className="flex justify-center w-[100%]">
                               <div
-                              onClick={toggleContentt}
+                                onClick={toggleContentt}
                                 className="flex px-6 py-3 min-w-[257px] justify-center items-center gap-[10px] bg-[#E7F8FF]"
                                 style={{
                                   borderRadius: "8px",
                                   border: " 1px solid var(--primary, #06A9EF)",
                                 }}
                               >
-                                <p  className="text-[14px]  text-[#333] font-[600] font-Montserrat">
+                                <p className="text-[14px]  text-[#333] font-[600] font-Montserrat">
                                   See Application
                                 </p>
                               </div>
