@@ -592,7 +592,7 @@ const Verification = ({ toggleContentt, setToggle }) => {
                     Cancel
                   </button>
                   <button
-                    //  onClick={() =>setDocumentation(true)}
+                     onClick={() =>setDocumentation(false)}
                     className="flex items-center justify-center text-[14px] scr420:text-[16px] py-[8px] scr420:px-[24px] px-[16px] rounded-[12px] font-[600] border-[1px] text-[#fff] border-[#06A9EF] bg-[#06A9EF]"
                   >
                     Verify Documents
