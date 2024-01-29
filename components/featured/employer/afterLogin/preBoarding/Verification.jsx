@@ -220,7 +220,7 @@ const Verification = ({ toggleContentt, setToggle }) => {
                               onClick={() => setDocumentation(true)}
                               className={`flex lg:py-2 lg:px-4 px-1 py-1 justify-center items-center  rounded-[6px]  lg:text-[14px] text-[10px] font-[600] font-Montserrat border ${
                                 applicants.verify === "View & Verify"
-                                  ? "text-[#fff] bg-[#26A4FF]"
+                                  ? "text-[#fff] bg-[#06A9EF]"
                                   : "text-[#333] bg-[#fff]"
                               }`}
                             >
@@ -434,14 +434,15 @@ const Verification = ({ toggleContentt, setToggle }) => {
                       </div>
                       <div className="flex justify-center w-[100%]">
                         <div
-                          className="flex w-full px-6 py-3 justify-center items-center gap-[10px] bg-[#06A9EF]"
+                         onClick={() => setDocumentation(true)}
+                          className="flex w-full px-6 py-3 justify-center items-center gap-[10px] max-w-[260px] bg-[#06A9EF]"
                           style={{
                             borderRadius: "8px",
                             border: " 1px solid var(--primary, #06A9EF)",
                           }}
                         >
-                          <p className="text-[14px] text-[#fff] font-[600] font-Montserrat">
-                            {applicantsMobile.Next}
+                          <p  className="text-[14px] text-[#fff] font-[600] font-Montserrat">
+                            {applicantsMobile.verify}
                           </p>
                         </div>
                       </div>
@@ -470,7 +471,7 @@ const Verification = ({ toggleContentt, setToggle }) => {
           <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center customMargins   ">
             <div className="absolute w-[95%] ms:w-[90%] ">
               <div
-                className="flex w-[100%] p-[10px] sm:p-[24px] flex-col items-start gap-[16px] rounded-[16px] h-[100vh] overflow-y-scroll  bg-[#fff] "
+                className="flex w-[100%] p-[10px] sm:p-[24px] flex-col items-start gap-[16px] rounded-[16px] h-[90vh] overflow-y-scroll  bg-[#fff] "
                 style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}
               >
                 <div className="flex justify-between w-full">

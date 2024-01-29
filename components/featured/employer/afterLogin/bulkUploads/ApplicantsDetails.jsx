@@ -60,7 +60,7 @@ function ApplicantsDetails({ setIsApplicantDetails,setTogglee }) {
                             </p>
                         </div>
 
-                        <div className="flex justify-center w-[100%] p-[15px] scr1200:p-[24px] items-center gap-[15px] scr1350:gap-[24px] rounded-[12px] border-[1px] border-[#06A9EF] bg-[#fff]">
+                        <div className="flex justify-center whitespace-nowrap w-[100%] p-[15px] scr1200:p-[24px] items-center gap-[15px] scr1350:gap-[24px] rounded-[12px] border-[1px] border-[#06A9EF] bg-[#fff]">
                             <p className="text-[#333] scr1350:text-[20px] scr1200:text-[17px] text-[14px] font-[500] ">Profile Match Score</p>
                             <p className="text-[#333] text-[23px] scr1350:text-[36px] scr1200:text-[30px] font-[500] ">87 %</p>
                         </div>
