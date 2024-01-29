@@ -238,22 +238,22 @@ function Hiring() {
                 < div className='flex flex-col gap-3 w-[100%] ml:max-h-[80vh]  relative '>
 
                     <div className=" mobile">
-                        <div className=" bg-[#fff] p-[12px]  flex flex-col ms:flex-row gap-[12px] z-[500] justify-between rounded-[12px] ">
+                        <div className=" bg-[#fff] xsm:p-[12px] p-2 items-center flex  ms:flex-row xsm:gap-[12px] gap-2 z-[500] justify-between rounded-[12px] ">
                             
-                            <p className="h-[29px] text-[18px] ml:text-[24px] font-[500px]">
+                            <p className="h-[29px] text-[18px] ml:text-[24px] font-medium">
                             Job Post Status
                             </p>
 
                             <button
-                                onClick={toggleContent}
-                                className=" py-[8px] px-[12px] bg-[#06A9EF] rounded-lg text-[14px] ml:text-[16px] text-white w-[210px]"
+                                onClick={() => router.push("/employer/afterLogin/JobPosting?content=CreateNewJob")}
+                                className=" py-[8px] xsm:px-[12px] px-2 bg-[#06A9EF] rounded-lg text-[14px] ml:text-[16px] text-white "
                             >
                                 + Create New Job
                             </button>
 
                         </div>
-                        <div className="flex bg-[#06A9EF] gap-[1px] mt-4 p-4 ml:w-[20%] w-full">
-                            <div className=" bg-white p-4 flex gap-[10px] w-full items-center ">
+                        <div className="flex bg-[#06A9EF] gap-[1px] mt-4 p-3 ml:w-[20%] w-full">
+                            <div className=" bg-white p-3 flex gap-[10px] w-full items-center ">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     width="24"

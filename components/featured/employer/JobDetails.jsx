@@ -72,7 +72,7 @@ function JobDetails() {
             <div className="bg-[#9f9f9f] h-[1px] w-full"></div>
           </div>
           <div className="flex flex-col gap-[8px]">
-            <div className="text-[20px] font-[500px]">job Description</div>
+            <div className="text-[20px] font-[500px]">Full job Description</div>
             <div className="text-[12px] text-[400] gap-[8px] flex flex-col">
               The ideal person would have Experience working on the user
               interface of websites Know how to create mockups, understand
@@ -190,7 +190,7 @@ function JobDetails() {
                <div className="flex items-center gap-2 flex-wrap">
                 {
                   btnArr.map((cur,ind) => (
-                    <button className="flex items-center p-4 rounded-[25px] font-medium text-[#333] text-[12px] md:text-[14px] bg-[#fff]"
+                    <button className="flex items-center px-4 py-3 rounded-[25px] font-medium text-[#333] text-[12px] md:text-[14px] bg-[#fff]"
                     style={{border:'1px solid var(--primary, #06A9EF)',boxShadow:' 0px 1px 2px 0px rgba(0, 0, 0, 0.25)'}}
                     >{cur}</button>
                   ))
