@@ -283,7 +283,7 @@ const Employer_register = () => {
                                     <p className="comp_head">
                                         GST No <span className="star">*</span>{" "}
                                     </p>
-                                    <div className="Employer_enter_name_gst">
+                                    <div className="Employer_enter_name_gst w-[240px] sm:w-[290px]">
                                         <input
                                             type="text"
                                             name=""
@@ -297,7 +297,7 @@ const Employer_register = () => {
                                     <p className="comp_head">
                                         Upload Certificate <span className="star">*</span>{" "}
                                     </p>
-                                    <div className="Employer_enter_name_gst">
+                                    <div className="Employer_enter_name_gst w-[240px] sm:w-[290px]">
                                         <input
                                             type="text"
                                             name=""
@@ -314,7 +314,7 @@ const Employer_register = () => {
                                     <p className="comp_head">
                                         PAN No <span className="star">*</span>{" "}
                                     </p>
-                                    <div className="Employer_enter_name_gst">
+                                    <div className="Employer_enter_name_gst w-[240px] sm:w-[290px]">
                                         <input
                                             type="text"
                                             name=""
@@ -328,7 +328,7 @@ const Employer_register = () => {
                                     <p className="comp_head">
                                         Upload PAN <span className="star">*</span>{" "}
                                     </p>
-                                    <div className="Employer_enter_name_gst">
+                                    <div className="Employer_enter_name_gst w-[240px] sm:w-[290px]">
                                         <input
                                             type="text"
                                             name=""
@@ -343,7 +343,7 @@ const Employer_register = () => {
                                 <p className="comp_head">
                                     Company Logo <span className="star">*</span>{" "}
                                 </p>
-                                <div className="Employer_enter_name_gst">
+                                <div className="Employer_enter_name_gst w-[240px] sm:w-[290px]">
                                     <input
                                         type="text"
                                         name=""
