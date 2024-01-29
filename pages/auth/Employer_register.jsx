@@ -192,7 +192,7 @@ const Employer_register = () => {
                                 <img src="/images/auth/employer/eye.png" alt="" className="eye_img" />
                             </div>
                             <div className="bottom_buttons items-center">
-                                <ALink href="/Auth/Sign_up">
+                                <ALink href="/auth/Sign_up">
                                     <button
                                         className="go_button text-[14px] sm:text-[16px] sm:px-[36px] px-[25px]"
                                         //   onClick={() => updateTog(1)}

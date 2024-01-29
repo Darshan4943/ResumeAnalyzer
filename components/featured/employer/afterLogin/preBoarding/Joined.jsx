@@ -384,7 +384,7 @@ const Joined = ({ toggleContentt, setPreview }) => {
                       </div>
                       <div className="flex justify-center w-[100%]">
                         <div
-                          className="flex w-full px-6 py-3 justify-center items-center gap-[10px] bg-[#06A9EF]"
+                          className="flex w-[260px] px-6 py-3 justify-center items-center gap-[10px] bg-[#06A9EF]"
                           style={{
                             borderRadius: "8px",
                             border: " 1px solid var(--primary, #06A9EF)",

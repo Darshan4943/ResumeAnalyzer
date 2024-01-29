@@ -51,7 +51,7 @@ function Analytics() {
                     {item.status}
                   </p>
                 </div>
-                <div className="flex text-[#333] text-[20px] font-semibold font-Montserrat p-1 justify-center items-center rounded-md bg-[#E9EBFD]">
+                <div className="flex text-[#333] text-[20px] font-semibold font-Montserrat p-2 w-[52px] h-[52px] justify-center items-center rounded-md bg-[#E9EBFD]">
                   {item.count}
                 </div>
               </div>
