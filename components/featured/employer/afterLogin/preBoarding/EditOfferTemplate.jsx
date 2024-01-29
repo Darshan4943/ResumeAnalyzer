@@ -91,7 +91,7 @@ function EditOfferTemplate({ setEditTemplate }) {
                     </div>
                   </div>
                   <div>
-                    <button className="flex py-[8px] px-[16px] gap-[4px] rounded-[8px] border-[1px] border-solid border-[#06A9EF]">
+                    <button className="flex items-center py-[8px] px-[16px] gap-[4px] rounded-[8px] border-[1px] border-solid border-[#06A9EF]">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
@@ -119,7 +119,7 @@ function EditOfferTemplate({ setEditTemplate }) {
                     </div>
                   </div>
                   <div>
-                    <button className="flex py-[8px] px-[16px] gap-[4px] rounded-[8px] border-[1px] border-solid border-[#06A9EF]">
+                    <button className="flex items-center py-[8px] px-[16px] gap-[4px] rounded-[8px] border-[1px] border-solid border-[#06A9EF]">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
@@ -233,7 +233,7 @@ function EditOfferTemplate({ setEditTemplate }) {
             </div>
             <div>
               <div
-                className="bg-[#F2F4F7] border-solid border-[1px] px-[16px] h-[40px] flex gap-[8px] rounded-tl-[8px] rounded-tr-[8px] rounded-br-0 rounded-bl-0"
+                className="bg-[#F2F4F7] border-solid border-[1px] px-[16px] h-[20rem] ml:h-[56rem] flex gap-[8px] rounded-tl-[8px] rounded-tr-[8px] rounded-br-0 rounded-bl-0"
                 style={{
                   borderColor: "rgba(100, 100, 100, 0.25)",
                 }}
