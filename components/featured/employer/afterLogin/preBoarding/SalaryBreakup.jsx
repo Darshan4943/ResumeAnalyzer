@@ -24,7 +24,7 @@ function SalaryBreakup({setSalaryBreakup}) {
                             fill="#333333"
                         />
                     </g>
-                </svg>
+                </svg> 
             </div>
             <div className="flex px-0 ml:px-6 flex-col items-start gap-1 ml:gap-6 self-stretch w-full">
                 <div className="flex self-stretch ml:flex-row flex-col gap-4 ml:gap-12 items-start ml:items-center w-[100%]">

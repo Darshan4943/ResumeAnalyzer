@@ -5,10 +5,21 @@ import { applicantsMobile } from "@/utils/preboardArray";
 import { headings } from "@/utils/preboardArray";
 import { AnimatePresence, motion } from "framer-motion";
 const Acceptance = ({ toggleContentt, setToggle }) => {
+  const [hired, setHired] = useState(false);
+  const [hiredStates, setHiredStates] = useState(Array(applicants.length).fill(false));
+  const [hiredIndex, setHiredIndex] = useState(null);
   const [option, setOption] = useState(0);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [moreOption, setMoreOption] = useState(false);
+
+
+
+  const handleHired = (index) => {
+    setHired(true);
+    setHiredIndex(index);
+  };
+ 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -189,25 +200,26 @@ const Acceptance = ({ toggleContentt, setToggle }) => {
                           {applicants.status}
                         </div>
                       </div>
-                      <div className="flex items-center justify-start col-span-1">
-                        <div className="flex items-center justify-start col-span-1">
-                          <div className="flex   items-center w-full  justify-between relative">
-                            {
-                              applicants.Department == "IT" ? <button
-                                onClick={toggleContentt}
-                                className={`flex lg:py-2 lg:px-4 px-1 py-1 justify-center items-center  rounded-[6px]  lg:text-[14px] text-[10px] font-[600] font-Montserrat border ${applicants.Hire === "Hire Applicant" ? "text-[#fff] bg-[#26A4FF]" : "text-[#333] bg-[#fff]"
-                                  }`}
-                              >
-                                {applicants.Hire}
-                              </button> : <button
-                                onClick={toggleContentt}
-                                className="flex lg:py-2 lg:px-3 px-1 py-1 justify-center text-[#333] items-center bg-[#fff]  rounded-[6px]  lg:text-[12px] text-[10px] font-[600] font-Montserrat border "
-
-
+                      <div className="flex items-center justify-between col-span-1">
+                        <div className="flex items-center justify-between w-full col-span-1">
+                          <div className="flex  items-center w-full  justify-between relative">
+                            {hired && hiredIndex === index ? (
+                            
+                              <button
+                             
+                                className="flex lg:py-2 lg:px-3 px-1 py-1 justify-center text-[#333] items-center  bg-[#fff]  rounded-[6px]  lg:text-[12px] text-[10px] font-[600] font-Montserrat border "
                               >
                                 Hired
                               </button>
-                            }
+                            ) : (
+                              
+                              <button
+                                onClick={() => handleHired(index)}
+                                className={`flex lg:py-2 lg:px-4 px-1 py-1 justify-center items-center  rounded-[6px]  lg:text-[14px] text-[10px] font-[600] font-Montserrat border ${applicants.Hire === "Hire Applicant" ? "text-[#fff] bg-[#06A9EF]" : "text-[#333] bg-[#fff]"} `}
+                              >
+                                {applicants.Hire}
+                              </button>
+                            )}
 
                             <img
                               onClick={() => handleDotClick(index)}
@@ -230,7 +242,7 @@ const Acceptance = ({ toggleContentt, setToggle }) => {
                                     View Offer
 
                                   </div>
-                                 
+
                                   <div >
                                     Revise Offer
 
@@ -344,48 +356,43 @@ const Acceptance = ({ toggleContentt, setToggle }) => {
                             {applicantsMobile.name}
                           </p>
                         </div>
-                        <div className="flex justify-end items-center gap-4">
-                          <svg
-                            xlgns="http://www.w3.org/2000/svg"
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                          >
-                            <g clip-path="url(#clip0_7540_117410)">
-                              <path
-                                d="M11 5C11 5.55228 11.4477 6 12 6C12.5523 6 13 5.55228 13 5C13 4.44772 12.5523 4 12 4C11.4477 4 11 4.44772 11 5Z"
-                                stroke="#333333"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                              />
-                              <path
-                                d="M11 12C11 12.5523 11.4477 13 12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12Z"
-                                stroke="#333333"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                              />
-                              <path
-                                d="M11 19C11 19.5523 11.4477 20 12 20C12.5523 20 13 19.5523 13 19C13 18.4477 12.5523 18 12 18C11.4477 18 11 18.4477 11 19Z"
-                                stroke="#333333"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                              />
-                            </g>
-                            <defs>
-                              <clipPath id="clip0_7540_117410">
-                                <rect
-                                  width="24"
-                                  height="24"
-                                  fill="white"
-                                  transform="matrix(0 1 -1 0 24 0)"
-                                />
-                              </clipPath>
-                            </defs>
-                          </svg>
+                        <div className="flex justify-end items-center gap-4 relative">
+                          <img
+                            onClick={() => handleDotClick(index)}
+                            className="w-[24px]"
+                            src="/images/employer/three-dot1.png"
+                            alt=""
+                          />
+                          <AnimatePresence>
+                            {moreOption && selectedDotIndex === index && (
+                              <motion.div
+                                initial={{ x: '100%' }}
+                                animate={{ x: 0 }}
+                                exit={{ x: '100%' }}
+                                transition={{ duration: 0.5 }}
+                                ref={taskRef}
+                                className='absolute flex flex-col text-[14px] rounded-[8px]  w-[150px] z-10 top-[100%] border-l border-r border-b border-[#06A9EF] p-4 gap-4 bg-white' style={{ boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)" }}
+                              >
+
+                                <div >
+                                  View Offer
+
+                                </div>
+
+                                <div >
+                                  Revise Offer
+
+                                </div>
+                                <div className="text-[#C00000]" >
+                                  Cancel Offer
+
+                                </div>
+
+
+                              </motion.div>
+                            )}
+                          </AnimatePresence>
+
                         </div>
                       </div>
 
@@ -441,13 +448,13 @@ const Acceptance = ({ toggleContentt, setToggle }) => {
                       </div>
                       <div className="flex justify-center w-[100%]">
                         <div
-                          className="flex w-full px-6 py-3 justify-center items-center gap-[10px] bg-[#06A9EF]"
+                          className="flex w-full px-6 py-3 justify-center items-center gap-[10px] max-w-[260px] bg-[#06A9EF]"
                           style={{
                             borderRadius: "8px",
                             border: " 1px solid var(--primary, #06A9EF)",
                           }}
                         >
-                          <p className="text-[14px] text-[#fff] font-[600] font-Montserrat">
+                          <p className="text-[14px] text-[#fff] font-[600] font-Montserrat ">
                             {applicantsMobile.Hire}
                           </p>
                         </div>
