@@ -37,8 +37,10 @@ const Employer_register = () => {
                 <div className="comp_lines">
                     <div className="c_parent sm:w-[360px] w-[180px]">
                         <img src="/images/auth/employer/c1.png" alt="" className="c1_img" />
-                        <div className="line_one_two"></div>
-                        <img src="/images/auth/employer/c2.png" alt="" className="c1_img" />
+                        <div className="line_one_two"
+                        style={{background : tog===2 ? "#ffda1d" : '#c7c7c7'}}
+                        ></div>
+                        <img src={tog === 2 ? "/images/auth/employer/c1.png" :"/images/auth/employer/c2.png" }alt="" className="c1_img" />
                     </div>
                 </div>
                 <div className="main_comp_lines">
@@ -281,7 +283,7 @@ const Employer_register = () => {
                                     <p className="comp_head">
                                         GST No <span className="star">*</span>{" "}
                                     </p>
-                                    <div className="Employer_enter_name_gst">
+                                    <div className="Employer_enter_name_gst w-[240px] sm:w-[290px]">
                                         <input
                                             type="text"
                                             name=""
@@ -295,7 +297,7 @@ const Employer_register = () => {
                                     <p className="comp_head">
                                         Upload Certificate <span className="star">*</span>{" "}
                                     </p>
-                                    <div className="Employer_enter_name_gst">
+                                    <div className="Employer_enter_name_gst w-[240px] sm:w-[290px]">
                                         <input
                                             type="text"
                                             name=""
@@ -312,7 +314,7 @@ const Employer_register = () => {
                                     <p className="comp_head">
                                         PAN No <span className="star">*</span>{" "}
                                     </p>
-                                    <div className="Employer_enter_name_gst">
+                                    <div className="Employer_enter_name_gst w-[240px] sm:w-[290px]">
                                         <input
                                             type="text"
                                             name=""
@@ -326,7 +328,7 @@ const Employer_register = () => {
                                     <p className="comp_head">
                                         Upload PAN <span className="star">*</span>{" "}
                                     </p>
-                                    <div className="Employer_enter_name_gst">
+                                    <div className="Employer_enter_name_gst w-[240px] sm:w-[290px]">
                                         <input
                                             type="text"
                                             name=""
@@ -341,7 +343,7 @@ const Employer_register = () => {
                                 <p className="comp_head">
                                     Company Logo <span className="star">*</span>{" "}
                                 </p>
-                                <div className="Employer_enter_name_gst">
+                                <div className="Employer_enter_name_gst w-[240px] sm:w-[290px]">
                                     <input
                                         type="text"
                                         name=""
