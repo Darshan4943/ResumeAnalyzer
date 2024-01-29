@@ -233,11 +233,12 @@ function EditOfferTemplate({ setEditTemplate }) {
             </div>
             <div>
               <div
-                className="bg-[#F2F4F7] border-solid border-[1px] px-[16px] h-[20rem] ml:h-[56rem] flex gap-[8px] rounded-tl-[8px] rounded-tr-[8px] rounded-br-0 rounded-bl-0"
+                className="bg-[#F2F4F7] py-[8%] px-[10%] w-full items-center justify-center  flex gap-[8px] rounded-tl-[8px] rounded-tr-[8px] rounded-br-0 rounded-bl-0"
                 style={{
-                  borderColor: "rgba(100, 100, 100, 0.25)",
+                 boxShadow:" 0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)"
                 }}
               >
+                <img className='w-fit h-fit ' src="/images/Content.png" alt="" />
 
               </div>
             </div>
