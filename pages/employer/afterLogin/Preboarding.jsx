@@ -14,16 +14,14 @@ import { headings } from "@/utils/preboardArray";
 import Joined from "@/components/featured/employer/afterLogin/preBoarding/Joined";
 import Declined from "@/components/featured/employer/afterLogin/preBoarding/Declined";
 import { applicants } from "@/utils/preboardArray";
+import EditOfferTemplate from "@/components/featured/employer/afterLogin/preBoarding/EditOfferTemplate";
 function Preboarding() {
   const btn = ["In Preboarding", "Joined", "Declined"];
-
+  const [editTemplate, setEditTemplate] = useState(false)
   const router = useRouter();
   const query = router.query;
 
-  const handleHeadingChange = (event, index) => {
-    const selectedOption = event.target.value;
-    const selectedHeading = headings[index];
-  };
+
 
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -43,6 +41,8 @@ function Preboarding() {
   const [activeOption, setActiveOption] = useState("In Preboarding");
 
   return (
+    <>
+    {!editTemplate && 
     <>
       {!preview && (
         <div className="flex flex-col items-start gap-6 w-full  ">
@@ -181,7 +181,7 @@ function Preboarding() {
               {/* OFFER PAGE  */}
               {toggle === 3 && (
                 <>
-                  <Offer setToggle={setToggle} />
+                  <Offer setToggle={setToggle} setEditTemplate={setEditTemplate} />
                 </>
               )}
 
@@ -219,8 +219,12 @@ function Preboarding() {
 
       {preview && <ApplicantPreview setPreview={setPreview} />}
       
+      </>
+}
 
-     
+{ editTemplate &&
+<EditOfferTemplate setEditTemplate={setEditTemplate}/>
+}
     </>
 
 
