@@ -16,7 +16,7 @@ function SalaryBreakup({ setSalaryBreakup }) {
     "₹ 4,500",
     "₹ 4,500",
     "₹ 4,500",
-    
+
   ];
   const arr3 = [
     "₹ 54,000",
@@ -30,29 +30,29 @@ function SalaryBreakup({ setSalaryBreakup }) {
     "Professional Tax (PT)",
     "Provident Fund (PF)",
     "Insurance",
-    
+
   ];
   const arr5 = [
     "₹ 1,500",
     "₹ 4,500",
     "₹ 4,500",
-   
-    
+
+
   ];
   const arr6 = [
     "₹ 18,000",
     "₹ 54,000",
     "₹ 54,000",
-   
+
   ];
 
-  const arr7 =[
+  const arr7 = [
     "Diwali Bonus",
   ]
-  const arr8 =[
+  const arr8 = [
     "-",
   ]
-  const arr9 =[
+  const arr9 = [
     "₹50,000",
   ]
   return (
@@ -365,7 +365,7 @@ function SalaryBreakup({ setSalaryBreakup }) {
       </div>
 
       <div
-        className="w-[100%] flex p-4 flex-col items-center gap-6 self-stretch bg-[#F3F3F3] rounded-md "
+        className="w-[100%] p-4 min-h-[1100px] overflow-x-auto items-center self-stretch bg-[#F3F3F3] rounded-md "
         style={{ border: "1px solid  #DEDEDE" }}
       >
         <div className="flex flex-col items-center gap-4 w-[998px] ">
@@ -446,7 +446,7 @@ function SalaryBreakup({ setSalaryBreakup }) {
                 }}
               >
                 <p className="text-[14px] font-Montserrat text-[#333] font-medium ">
-                Annually
+                  Annually
                 </p>
               </div>
               <div className="flex flex-col w-full">
@@ -467,13 +467,13 @@ function SalaryBreakup({ setSalaryBreakup }) {
 
               </div>
             </div>
-          
+
           </div>
         </div>
-        <div className="flex flex-col items-center gap-4 w-[998px] ">
+        <div className="flex flex-col items-center gap-4 w-[998px] mt-6 ">
           <div className="flex items-start w-full">
             <p className="text-[24px] font-Montserrat text-[#333] font-medium ">
-            Deductions
+              Deductions
             </p>
           </div>
           <div
@@ -548,7 +548,7 @@ function SalaryBreakup({ setSalaryBreakup }) {
                 }}
               >
                 <p className="text-[14px] font-Montserrat text-[#333] font-medium ">
-                Annually
+                  Annually
                 </p>
               </div>
               <div className="flex flex-col w-full">
@@ -569,13 +569,13 @@ function SalaryBreakup({ setSalaryBreakup }) {
 
               </div>
             </div>
-          
+
           </div>
         </div>
-        <div className="flex flex-col items-center gap-4 w-[998px] ">
+        <div className="flex flex-col items-center gap-4 w-[998px] mt-6 ">
           <div className="flex items-start w-full">
             <p className="text-[24px] font-Montserrat text-[#333] font-medium ">
-            Bonus
+              Bonus
             </p>
           </div>
           <div
@@ -650,7 +650,7 @@ function SalaryBreakup({ setSalaryBreakup }) {
                 }}
               >
                 <p className="text-[14px] font-Montserrat text-[#333] font-medium ">
-                Annually
+                  Annually
                 </p>
               </div>
               <div className="flex flex-col w-full">
@@ -671,7 +671,7 @@ function SalaryBreakup({ setSalaryBreakup }) {
 
               </div>
             </div>
-          
+
           </div>
         </div>
       </div>
@@ -680,16 +680,16 @@ function SalaryBreakup({ setSalaryBreakup }) {
 
 
       </div> */}
-           <div className="flex justify-end gap-4 self-stretch items-start">
-                    <button  className="text-[16px] py-2 px-4 justify-center items-center rounded-xl bg-white font-Montserrat font-medium text-[#333]"
-                        style={{ border: '1px solid var(--primary, #06A9EF)' }}
-                    >Cancel</button>
-                    <button  className="text-[16px] py-2 px-4 justify-center items-center rounded-xl bg-[#06A9EF] font-Montserrat font-medium text-[#fff]"
-                        style={{ border: '1px solid var(--primary, #06A9EF)' }}
-                    >Save Changes</button>
+      <div className="flex justify-end gap-4 self-stretch items-start">
+        <button className="text-[16px] py-2 px-4 justify-center items-center rounded-xl bg-white font-Montserrat font-medium text-[#333]"
+          style={{ border: '1px solid var(--primary, #06A9EF)' }}
+        >Cancel</button>
+        <button className="text-[16px] py-2 px-4 justify-center items-center rounded-xl bg-[#06A9EF] font-Montserrat font-medium text-[#fff]"
+          style={{ border: '1px solid var(--primary, #06A9EF)' }}
+        >Save Changes</button>
 
 
-                </div>
+      </div>
     </div>
   );
 }
