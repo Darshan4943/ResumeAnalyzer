@@ -175,7 +175,7 @@ const Documention = ({ toggleContentt, setToggle }) => {
                             applicants.docStatus == "Submitted" ?
                               <button
                                 onClick={() => setToggle(2)}
-                                className={`flex lg:py-2 lg:px-4 px-1 py-1 justify-center items-center  rounded-[6px]  lg:text-[14px] text-[10px] font-[600] font-Montserrat border ${applicants.Next === "Move to Next" ? "text-[#fff] bg-[#26A4FF]" : "text-[#333] bg-[#fff]"
+                                className={`flex lg:py-2 lg:px-4 px-1 py-1 justify-center items-center  rounded-[6px]  lg:text-[14px] text-[10px] font-[600] font-Montserrat border ${applicants.Next === "Move to Next" ? "text-[#fff] bg-[#06A9EF]" : "text-[#333] bg-[#fff]"
                                   }`}
                               >
                                 {applicants.Next}
@@ -361,7 +361,10 @@ const Documention = ({ toggleContentt, setToggle }) => {
                         <p className="text-[14px] text-[#646464] font-[500]">
                           Doc Status
                         </p>
-                        <p className="text-[14px] text-[#333] font-[600] font-Montserrat">
+                        <p className={`text-[14px]  font-[600] font-Montserrat ${applicantsMobile.docStatus === "Submitted"
+                          ? "text-[#0C8A0A]"
+                          : "text-[#333]"
+                          }`}>
                           {applicantsMobile.docStatus}
                         </p>
                       </div>
@@ -379,27 +382,51 @@ const Documention = ({ toggleContentt, setToggle }) => {
                         <p className="text-[14px] text-[#646464] font-[500]">
                           {applicantsMobile.proboard}
                         </p>
-                        <div className="px-3 py-[6px] rounded-full border border-solid border-[#FF7A00] p-4">
-                          <p className="text-[#FF7A00] font-Montserrat font-semibold text-[14px]">
-                            In Review
-                          </p>
-                        </div>
+                       
+                        <div
+                          className={`flex py-[6px]  justify-center px-[10px]  text-[14px] font-semibold items-center gap-[8px] rounded-[80px] border ${applicantsMobile.status === "Interview"
+                            ? "text-[#26A4FF] border-[#26A4FF]"
+                            : applicantsMobile.status === "Hired"
+                              ? "text-[#56CDAD] border-[#56CDAD]"
+                              : applicantsMobile.status === "Shortlisted"
+                                ? "text-[#4640DE] border-[#4640DE]"
+                                : applicantsMobile.status === "Rejected"
+                                  ? "text-[#FF6550] border-[#FF6550]"
+                                  : applicantsMobile.status === "In Review"
+                                    ? "text-[#FFB836] border-[#FFB836]"
+                                    : ""
+                            }`}
+                        >
+                          {applicantsMobile.status}
+                     
+                      </div>
                       </div>
                       <div className="flex justify-center w-[100%]">
-                        <div
-                          className="flex w-full px-6 py-3 justify-center items-center gap-[10px] bg-[#06A9EF]"
-                          style={{
-                            borderRadius: "8px",
-                            border: " 1px solid var(--primary, #06A9EF)",
-                          }}
-                        >
-                          <p className="text-[14px] text-[#fff] font-[600] font-Montserrat">
-                            {applicantsMobile.Next}
-                          </p>
+                        
+                          {
+                            applicantsMobile.docStatus == "Submitted" ?
+                              <button
+                                onClick={() => setToggle(2)}
+                                className={`flex w-full px-6 py-3 justify-center items-center gap-[10px] font-semibold rounded-[8px] max-w-[250px] ${applicantsMobile.Next === "Move to Next" ? "text-[#fff] bg-[#06A9EF]" : "text-[#333] bg-[#fff]"
+                                  }`}
+                              >
+                                {applicantsMobile.Next}
+                              </button>
+                              :
+                              <button
+                                onClick={() =>setIsRemind(true)}
+                                className="flex w-full px-6 py-3 text-black justify-center items-center gap-[10px] font-semibold rounded-[8px] max-w-[250px] border border-[#06A9EF]  "
+
+
+                              >
+                                Remind
+                              </button>
+                          }
+                      
                         </div>
                       </div>
                     </div>
-                  </div>
+                
                 </>
               ))}
 

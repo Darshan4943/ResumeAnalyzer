@@ -160,11 +160,10 @@ const Hire = ({ toggleContentt, setPreview }) => {
                         </p>
                       </div>
                       <div
-                        className={` flex items-center text-[14px]  font-[600] justify-start col-span-1 pl-5 text ${
-                          applicants.Department === "IT"
+                        className={` flex items-center text-[14px]  font-[600] justify-start col-span-1 pl-5 text ${applicants.Department === "IT"
                             ? "text-[#0C8A0A]"
                             : "text-[#333]"
-                        } `}
+                          } `}
                       >
                         {applicants.Department}
                       </div>
@@ -173,19 +172,18 @@ const Hire = ({ toggleContentt, setPreview }) => {
                       </div>
                       <div className="flex items-center justify-center col-span-1 ">
                         <div
-                          className={`flex py-[12px]  justify-center px-[16px] text-[10px] lg:text-[14px] font-semibold items-center gap-[8px] rounded-[80px] border ${
-                            applicants.status === "Interview"
+                          className={`flex py-[12px]  justify-center px-[16px] text-[10px] lg:text-[14px] font-semibold items-center gap-[8px] rounded-[80px] border ${applicants.status === "Interview"
                               ? "text-[#26A4FF] border-[#26A4FF]"
                               : applicants.status === "Hired"
-                              ? "text-[#56CDAD] border-[#56CDAD]"
-                              : applicants.status === "Shortlisted"
-                              ? "text-[#4640DE] border-[#4640DE]"
-                              : applicants.status === "Rejected"
-                              ? "text-[#FF6550] border-[#FF6550]"
-                              : applicants.status === "In Review"
-                              ? "text-[#FFB836] border-[#FFB836]"
-                              : ""
-                          }`}
+                                ? "text-[#56CDAD] border-[#56CDAD]"
+                                : applicants.status === "Shortlisted"
+                                  ? "text-[#4640DE] border-[#4640DE]"
+                                  : applicants.status === "Rejected"
+                                    ? "text-[#FF6550] border-[#FF6550]"
+                                    : applicants.status === "In Review"
+                                      ? "text-[#FFB836] border-[#FFB836]"
+                                      : ""
+                            }`}
                         >
                           {applicants.status}
                         </div>
@@ -213,36 +211,36 @@ const Hire = ({ toggleContentt, setPreview }) => {
                             </button>
                           </div>
                           <img
-                              onClick={() => handleDotClick(index)}
-                              className="w-[24px]"
-                              src="/images/employer/three-dot.png"
-                              alt=""
-                            />
-                            <AnimatePresence>
-                              {moreOption && selectedDotIndex === index && (
-                                <motion.div
-                                  initial={{ x: '100%' }}
-                                  animate={{ x: 0 }}
-                                  exit={{ x: '100%' }}
-                                  transition={{ duration: 0.5 }}
-                                  ref={taskRef}
-                                  className='absolute flex flex-col text-[14px] rounded-[8px] left-0 right-0 z-10 top-[100%] border-l border-r border-b border-[#06A9EF] p-4 gap-4 bg-white' style={{ boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)" }}
-                                >
+                            onClick={() => handleDotClick(index)}
+                            className="w-[24px]"
+                            src="/images/employer/three-dot.png"
+                            alt=""
+                          />
+                          <AnimatePresence>
+                            {moreOption && selectedDotIndex === index && (
+                              <motion.div
+                                initial={{ x: '100%' }}
+                                animate={{ x: 0 }}
+                                exit={{ x: '100%' }}
+                                transition={{ duration: 0.5 }}
+                                ref={taskRef}
+                                className='absolute flex flex-col text-[14px] rounded-[8px] left-0 right-0 z-10 top-[100%] border-l border-r border-b border-[#06A9EF] p-4 gap-4 bg-white' style={{ boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)" }}
+                              >
 
-                                  <div >
-                                    View Offer
+                                <div >
+                                  View Offer
 
-                                  </div>
-                                  <div className="text-[#C00000]" >
-                                    Cancel Offer
+                                </div>
+                                <div className="text-[#C00000]" >
+                                  Cancel Offer
 
-                                  </div>
+                                </div>
 
 
-                                </motion.div>
-                              )}
-                            </AnimatePresence>
-                        
+                              </motion.div>
+                            )}
+                          </AnimatePresence>
+
                         </div>
                       </div>
                     </div>
@@ -341,48 +339,37 @@ const Hire = ({ toggleContentt, setPreview }) => {
                             {applicantsMobile.name}
                           </p>
                         </div>
-                        <div className="flex justify-end items-center gap-4">
-                          <svg
-                            xlgns="http://www.w3.org/2000/svg"
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                          >
-                            <g clip-path="url(#clip0_7540_117410)">
-                              <path
-                                d="M11 5C11 5.55228 11.4477 6 12 6C12.5523 6 13 5.55228 13 5C13 4.44772 12.5523 4 12 4C11.4477 4 11 4.44772 11 5Z"
-                                stroke="#333333"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                              />
-                              <path
-                                d="M11 12C11 12.5523 11.4477 13 12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12Z"
-                                stroke="#333333"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                              />
-                              <path
-                                d="M11 19C11 19.5523 11.4477 20 12 20C12.5523 20 13 19.5523 13 19C13 18.4477 12.5523 18 12 18C11.4477 18 11 18.4477 11 19Z"
-                                stroke="#333333"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                              />
-                            </g>
-                            <defs>
-                              <clipPath id="clip0_7540_117410">
-                                <rect
-                                  width="24"
-                                  height="24"
-                                  fill="white"
-                                  transform="matrix(0 1 -1 0 24 0)"
-                                />
-                              </clipPath>
-                            </defs>
-                          </svg>
+                        <div className="flex justify-end items-center gap-4 relative">
+                          <img
+                            onClick={() => handleDotClick(index)}
+                            className="w-[24px]"
+                            src="/images/employer/three-dot1.png"
+                            alt=""
+                          />
+                          <AnimatePresence>
+                            {moreOption && selectedDotIndex === index && (
+                              <motion.div
+                                initial={{ x: '100%' }}
+                                animate={{ x: 0 }}
+                                exit={{ x: '100%' }}
+                                transition={{ duration: 0.5 }}
+                                ref={taskRef}
+                                className='absolute flex flex-col text-[14px] rounded-[8px] w-[150px] z-10 top-[100%] border-l border-r border-b border-[#06A9EF] p-4 gap-4 bg-white' style={{ boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)" }}
+                              >
+
+                                <div >
+                                  View Offer
+
+                                </div>
+                                <div className="text-[#C00000]" >
+                                  Cancel Offer
+
+                                </div>
+
+
+                              </motion.div>
+                            )}
+                          </AnimatePresence>
                         </div>
                       </div>
 
@@ -407,11 +394,10 @@ const Hire = ({ toggleContentt, setPreview }) => {
                           Doc Status
                         </p>
                         <div
-                          className={` flex items-center text-[14px]  font-[600] justify-start col-span-1 pl-5 text ${
-                            applicantsMobile.Department === "IT"
+                          className={` flex items-center text-[14px]  font-[600] justify-start col-span-1 pl-5 text ${applicantsMobile.Department === "IT"
                               ? "text-[#0C8A0A]"
                               : "text-[#333]"
-                          } `}
+                            } `}
                         >
                           {applicantsMobile.Department}
                         </div>
@@ -472,15 +458,15 @@ const Hire = ({ toggleContentt, setPreview }) => {
         </div>
       </div>
       <TablePagination
-            rowsPerPageOptions={[5, 10, 15]}
-            component="div"
-            className="h-[64px] rounded-b-[12px] py-[12px] px-[16px]  border-t bg-white w-[100%]"
-            count={applicants.length}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            onPageChange={handleChangePage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
-          />
+        rowsPerPageOptions={[5, 10, 15]}
+        component="div"
+        className="h-[64px] rounded-b-[12px] py-[12px] px-[16px]  border-t bg-white w-[100%]"
+        count={applicants.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onPageChange={handleChangePage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+      />
     </>
   );
 };
