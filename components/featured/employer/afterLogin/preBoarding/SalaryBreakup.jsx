@@ -681,10 +681,10 @@ function SalaryBreakup({ setSalaryBreakup }) {
 
       </div> */}
       <div className="flex justify-end gap-4 self-stretch items-start">
-        <button className="text-[16px] py-2 px-4 justify-center items-center rounded-xl bg-white font-Montserrat font-medium text-[#333]"
+        <button   onClick={() => setSalaryBreakup(false)} className="text-[16px] py-2 px-4 justify-center items-center rounded-xl bg-white font-Montserrat font-medium text-[#333]"
           style={{ border: '1px solid var(--primary, #06A9EF)' }}
         >Cancel</button>
-        <button className="text-[16px] py-2 px-4 justify-center items-center rounded-xl bg-[#06A9EF] font-Montserrat font-medium text-[#fff]"
+        <button  onClick={() => setSalaryBreakup(false)} className="text-[16px] py-2 px-4 justify-center items-center rounded-xl bg-[#06A9EF] font-Montserrat font-medium text-[#fff]"
           style={{ border: '1px solid var(--primary, #06A9EF)' }}
         >Save Changes</button>
 
