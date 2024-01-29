@@ -71,6 +71,36 @@ div.hide-scrollbar::-webkit-scrollbar-thumb {
   }
 }
 
+.mobile500{
+  display: none;
+}
+
+@media (max-width: 500px) {
+  .mobile500 {
+    display: block;
+  }
+  .web500{
+    display: none;
+  }
+}
+
+.mobile400{
+  display: none;
+}
+
+@media (max-width: 400px) {
+  .mobile400 {
+    display: block;
+  }
+  .web400{
+    display: none;
+  }
+  .mobile500{
+    display: none;
+  }
+}
+
+
 .mobile1024{
   display: none;
 }

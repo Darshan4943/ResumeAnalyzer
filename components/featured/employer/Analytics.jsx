@@ -70,7 +70,7 @@ function Analytics() {
           ))}
         </div>
         <div className="flex flex-col items-center gap-6 self-stretch ml:w-[68%] w-full">
-          <div className="flex  items-start gap-4 w-[100%]  ">
+          <div className="flex  items-start sm:gap-4 gap-1  w-[100%]  ">
 
             <div
               className="flex ml:p-4 p-2 flex-col items-start gap-4 bg-[#fff] self-stretch w-full h-fit"
@@ -102,7 +102,7 @@ function Analytics() {
               </div>
               <div className="flex flex-col items-start gap-[2px]">
                 <div className="flex gap-2 items-center">
-                  <p className="  text-[#333] flex items font-Montserrat font-semibold text-[26px] ml:text-[36px]">
+                  <p className="  text-[#333] flex items font-Montserrat font-semibold sm:text-[26px] text-[18px] ml:text-[36px]">
                     23,564
                   </p>
                   <div className="flex text-center">
@@ -174,7 +174,7 @@ function Analytics() {
               </div>
               <div className="flex flex-col items-start gap-[2px]">
                 <div className="flex gap-2 items-center">
-                  <p className="  text-[#333] flex items font-Montserrat font-semibold text-[26px] ml:text-[36px]">
+                  <p className="  text-[#333] flex items font-Montserrat font-semibold tsm:text-[26px] text-[18px] ml:text-[36px]">
                     132
                   </p>
                   <div className="flex text-center">
@@ -236,7 +236,8 @@ function Analytics() {
 
 
           </div>
-          <LineChart width={500} height={300} data={chartdata} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+          <div className="web500">
+          <LineChart width={500} height={320} data={chartdata} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="name" />
             <YAxis />
@@ -244,6 +245,28 @@ function Analytics() {
             <Legend />
             <Line type="monotone" dataKey="value" stroke="#8884d8" activeDot={{ r: 8 }} />
           </LineChart>
+          </div>
+          <div className="mobile500">
+          <LineChart width={380} height={270} data={chartdata} margin={{ top: 20, right: 30, left: -20, bottom: 5 }}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="name" />
+            <YAxis />
+            <Tooltip />
+            <Legend />
+            <Line type="monotone" dataKey="value" stroke="#8884d8" activeDot={{ r: 8 }} />
+          </LineChart>
+          </div>
+          <div className="mobile400">
+          <LineChart width={300} height={250} data={chartdata} margin={{ top: 20, right: 30, left: -20, bottom: 5 }}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="name" />
+            <YAxis />
+            <Tooltip />
+            <Legend />
+            <Line type="monotone" dataKey="value" stroke="#8884d8" activeDot={{ r: 8 }} />
+          </LineChart>
+          </div>
+          
         </div>
       </div>
     </>
