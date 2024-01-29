@@ -286,7 +286,9 @@ const CreateNewRequisition = ({setToggle}) => {
 
           <div className="flex flex-col">
             <div className="flex flex-row justify-between">
-              <button className="   border-[1px] border-solid border-[#06A9EF] text-[16px] font-medium px-9 py-3 rounded-[12px] max-scr1100:px-6 ">
+              <button 
+              onClick={() => setToggle(0)} 
+              className="   border-[1px] border-solid border-[#06A9EF] text-[16px] font-medium px-9 py-3 rounded-[12px] max-scr1100:px-6 ">
                 Cancel
               </button>
               <button
