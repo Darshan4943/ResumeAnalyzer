@@ -251,7 +251,7 @@ function JobPost({ toggleContentt, setToggle }) {
                   <img className="w-[24px]" src="/images/employer/Icon_filter.png" alt="" />
                   <p className="font-[600]">Filter</p>
                 </div>
-              </div> */}
+              </div> 
                <div className="flex gap-2 items-start justify-between sm:w-[430px]   ">
               <div
                 className="flex py-3 items-center  px-4 gap-4 bg-white sm:w-[314px] xsm:w-[214px] w-[170px]"
