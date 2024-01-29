@@ -242,10 +242,10 @@ function JobPost({ toggleContentt, setToggle }) {
 
             <div className="flex scr700:flex-row flex-col-reverse  p-[16px] justify-between scr700:items-center gap-4  bg-[#fff]">
               <p className="font-[600] text-[16px]">Total Applicants : 19</p>
-              {/* <div className="flex items-start gap-[8px]">
-                <div className="w-[314px] flex py-[12px] px-[16px] gap-[16px] rounded-[6px] border border-[#D6DDEB] bg-[#fff]">
+              <div className="flex items-start gap-[8px]">
+                <div className="ml:w-[314px] flex py-[12px] px-[16px] gap-[16px] rounded-[6px] border border-[#D6DDEB] bg-[#fff]">
                   <img className="w-[24px] h-[24px]" src="/images/employer/icon_search.png" alt="" />
-                  <input type="text" placeholder="Search" />
+                  <input type="text" placeholder="Search" className="sm:w-full w-[100px]"/>
                 </div>
                 <div className="flex py-[12px] px-[16px] justify-center gap-[8px] rounded-[6px] border border-[#D6DDEB]">
                   <img className="w-[24px]" src="/images/employer/Icon_filter.png" alt="" />

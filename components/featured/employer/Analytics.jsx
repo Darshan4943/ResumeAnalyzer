@@ -1,5 +1,8 @@
 import React from "react";
 
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+
+
 function Analytics() {
   const data = [
     { status: "In Review", count: 10 },
@@ -20,6 +23,14 @@ function Analytics() {
 
     return shadows[index % shadows.length];
   };
+
+  const chartdata = [
+    { name: 'Jan', value: 20 },
+    { name: 'Feb', value: 35 },
+    { name: 'Mar', value: 25 },
+    { name: 'Apr', value: 45 },
+    { name: 'May', value: 30 },
+  ];
 
   return (
     <>
@@ -222,7 +233,17 @@ function Analytics() {
               </div>
             </div>
 
+            
+
           </div>
+          <LineChart width={500} height={300} data={chartdata} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+      <CartesianGrid strokeDasharray="3 3" />
+      <XAxis dataKey="name" />
+      <YAxis />
+      <Tooltip />
+      <Legend />
+      <Line type="monotone" dataKey="value" stroke="#8884d8" activeDot={{ r: 8 }} />
+    </LineChart>
         </div>
       </div>
     </>
