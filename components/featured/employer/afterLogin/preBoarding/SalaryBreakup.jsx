@@ -3,7 +3,7 @@ import React from 'react'
 function SalaryBreakup({setSalaryBreakup}) {
     return (
         <div
-            className="ml:w-[89.55%] w-[100%] flex flex-col items-start ml:gap-6 gap-4 rounded-md bg-white ml:p-6 p-3 "
+            className="ml:w-[89.55%] h-[80vh] overflow-y-auto w-[100%] flex flex-col items-start ml:gap-6 gap-4 rounded-md bg-white ml:p-6 p-3 "
             style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}
         >
             <div className="w-full flex items-center justify-between self-stretch">
@@ -24,11 +24,11 @@ function SalaryBreakup({setSalaryBreakup}) {
                             fill="#333333"
                         />
                     </g>
-                </svg>
+                </svg> 
             </div>
             <div className="flex px-0 ml:px-6 flex-col items-start gap-1 ml:gap-6 self-stretch w-full">
                 <div className="flex self-stretch ml:flex-row flex-col gap-4 ml:gap-12 items-start ml:items-center w-[100%]">
-                    <div className="flex items-center ml:gap-6 ml:w-[35.25%]  gap-1">
+                    <div className="flex items-center ml:gap-6 ml:w-[35.25%] w-full justify-between">
                         <p className="text-[#333] font-Montserrat text-[16px] ml:text-[19px] font-semibold  ">
                             Annual Salary
                         </p>
@@ -52,7 +52,7 @@ function SalaryBreakup({setSalaryBreakup}) {
                         </p>
                     </div>
                 </div>
-                <div className="w-[100%] self-stretch flex ml:flex-row flex-col items-start">
+                <div className="w-[100%] ml:justify-between self-stretch flex ml:flex-row flex-col items-start">
                     <div className="flex flex-col items-start gap-2 ml:gap-6 w-full ml:w-[44.52%]">
                         <div className="flex flex-col items-start gap-4 self-stretch w-full">
                             <p className="text-[#333] font-Montserrat text-[20px] font-semibold">
@@ -183,13 +183,13 @@ function SalaryBreakup({setSalaryBreakup}) {
 
 
                     </div>
-                    <div className="web w-[10.96%] flex items-center h-[27rem] justify-center ">
+                    <div className="web w-[10.96%] flex items-center ml:h-[27rem] justify-center ">
                         <div className="w-[1px] web h-full bg-[#646464]"></div>
                     </div>
-                    <div className="mobile w-[10.96%] flex items-center h-[27rem] justify-center ">
+                    <div className="mobile w-[100%] ml:w-0 flex items-center h-[2rem] justify-center ">
                         <div className="h-[1px] mobile w-full bg-[#646464]"></div>
                     </div>
-                    <div className="flex flex-col items-start gap-6 w-[44.52%]">
+                    <div className="flex flex-col items-start gap-6 w-full ml:w-[44.52%]">
               <div className="flex flex-col items-start gap-4 self-stretch w-full">
                  <p className="text-[#333] font-Montserrat text-[20px] font-semibold ">Salary Deduction</p>
            
@@ -299,6 +299,7 @@ function SalaryBreakup({setSalaryBreakup}) {
 
                 </div>
             </div>
+
         </div>
     )
 }
