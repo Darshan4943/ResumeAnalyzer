@@ -242,7 +242,7 @@ function JobPost({ toggleContentt, setToggle }) {
 
             <div className="flex scr700:flex-row flex-col-reverse  p-[16px] justify-between scr700:items-center gap-4  bg-[#fff]">
               <p className="font-[600] text-[16px]">Total Applicants : 19</p>
-              <div className="flex items-start gap-[8px]">
+              {/* <div className="flex items-start gap-[8px]">
                 <div className="w-[314px] flex py-[12px] px-[16px] gap-[16px] rounded-[6px] border border-[#D6DDEB] bg-[#fff]">
                   <img className="w-[24px] h-[24px]" src="/images/employer/icon_search.png" alt="" />
                   <input type="text" placeholder="Search" />
@@ -251,7 +251,34 @@ function JobPost({ toggleContentt, setToggle }) {
                   <img className="w-[24px]" src="/images/employer/Icon_filter.png" alt="" />
                   <p className="font-[600]">Filter</p>
                 </div>
+              </div> */}
+               <div className="flex gap-2 items-start justify-between sm:w-[430px]   ">
+              <div
+                className="flex py-3 items-center  px-4 gap-4 bg-white sm:w-[314px] xsm:w-[214px] w-[170px]"
+                style={{ borderRadius: "6px", border: " 1px solid #D6DDEB" }}
+              >
+                  <img
+                    src="/images/employer/icon_search.png"
+                    className="sm:w-[22px] sm:h-[22px] w-[20px] h-[20px]"
+                    alt=""
+                  />
+                <input type="text" placeholder="Search" className="w-full" />
               </div>
+              <div
+                className="flex py-3 px-4 gap-2 justify-center items-center bg-white sm:w-[108px] w-[98px]"
+                style={{ borderRadius: "6px", border: " 1px solid #D6DDEB" }}
+              >
+                  <img
+                    src="/images/profile/fil.png"
+                    className=" sm:w-[22px] sm:h-[22px] w-[20px] h-[20px]"
+                    alt=""
+                  />
+
+                <p className="font-Montserrat text-[14px] sm:text-base font-semibold leading-6 text-[#333]">
+                  Filter
+                </p>
+              </div>
+            </div>
             </div>
             <div className="web">
               <div className="flex p-[16px] items-center justify-between  gap-[24px] bg-[#06A9EF] border border-[#D6DDEB] ">
