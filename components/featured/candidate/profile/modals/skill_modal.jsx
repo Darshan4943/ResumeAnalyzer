@@ -42,7 +42,7 @@ const SkillModel = ({ userData, handleImageClick, setIsComponentOpen }) => {
   return (
     <>
       <div id="demo-modal" class="modal ">
-        <div class="modal__content ms:w-[56%] gap-4 flex flex-col p-6 rounded-xl">
+        <div class="modal__content ms:w-[56%] gap-4 flex flex-col p-6 rounded-xl max-h-[80vh] overflow-y-auto">
           <div className="flex items-center gap-4 self-stretch w-full">
             <div className="w-[14.78%] text-[#25324B] font-Montserrat font-medium text-[16px] md:text-base lg:text-xl leading-160">
               Edit Skill

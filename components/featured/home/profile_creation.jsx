@@ -126,7 +126,7 @@ function Profile_creation() {
         </div>
         {/* : */}
        <div className="web">
-        <div className="profile_creation_wrapper  container_temp ">
+        <div className="profile_creation_wrapper  container_temp -z-10 ">
           <div className="profile_creation_container  ">
             <>
               <motion.div
