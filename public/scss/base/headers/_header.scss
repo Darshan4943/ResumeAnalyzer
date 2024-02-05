@@ -83,7 +83,7 @@ a {
   border-radius: 12px;
   border-color: transparent;
   display: flex;
-  padding: 10px 33px;
+  padding: 12px 36px;
   justify-content: center;
   align-items: center;
   // background-color: none !important;
@@ -94,6 +94,21 @@ a {
   font-style: normal;
   font-weight: 500;
   line-height: normal;
+}
+
+@media (max-width: 1024px) {
+  .header_right button {
+    padding: 8px 30px;
+  }
+
+  
+}
+@media (max-width: 930px) {
+  .header_right button {
+    padding: 8px 20px;
+  }
+
+  
 }
 .header_signIn_btn{
   transition: all 0.5s;
