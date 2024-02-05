@@ -66,6 +66,7 @@ function BeforeLoginHome() {
               <ForCandidate />
             </Background>
           </Parallax>
+          
           <Profile_creation />
           <Testimonial />
         </ReactLenis>

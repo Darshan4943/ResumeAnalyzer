@@ -8,7 +8,7 @@ const Skills = ({ userData }) => {
     setIsComponentOpen(!isComponentOpen);
   };
   return (
-    <div className="build_ai ai2">
+    <div className="build_ai ai2 ">
       <div className="gap flex items-center justify-between">
         <p className="page_headings text-[18px] scr420:text-[20px]">Skills</p>
         <div className="flex justify-center items-center gap-4">

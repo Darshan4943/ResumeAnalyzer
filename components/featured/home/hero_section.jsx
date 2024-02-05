@@ -12,7 +12,7 @@ function HeroSection() {
 
 
   const [skills, setSkills] = useState([...SkillList]);
-  console.log(15,skills)
+  console.log(15, skills)
   const isViewportBelow600 = useMediaQuery("(max-width:600px)");
   const isViewportBelow1220 = useMediaQuery("(max-width:1220px)");
   const isViewportBelow920 = useMediaQuery("(max-width:920px)");
@@ -53,7 +53,7 @@ function HeroSection() {
     setJobSuggestions(filteredJobs);
     window.scrollTo({
       top: 250,
-      behavior: "smooth", 
+      behavior: "smooth",
     });
   };
   const taskRef = useRef(null);
@@ -89,7 +89,7 @@ function HeroSection() {
     setLocationInput(searchText);
     window.scrollTo({
       top: 250,
-      behavior: "smooth", 
+      behavior: "smooth",
     });
     const googleGeocodeAPI = `https://maps.googleapis.com/maps/api/geocode/json?address=${searchText}&key=AIzaSyC18Xg49QgJj0NYpDikCbDwaWS00tKUpnM`;
 
@@ -119,7 +119,7 @@ function HeroSection() {
     <div >
       {/* {isViewportBelow850 ? */}
       <div className="mobile">
-        <div className="flex flex-col gap-6 overflow-hidden  ">
+        <div className="flex flex-col gap-6 overflow-hidden ">
           <div className="mt-[2rem] relative">
             <img
               style={{
@@ -171,62 +171,7 @@ function HeroSection() {
                     fill="#FBD515"
                   />
                 </svg>
-                {/* <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="blue overflow-hidden"
-                  viewBox="0 0 315 377"
-                  fill="none"
-                  width={!isViewportBelow600 ? 280 : 200}
-                  height={!isViewportBelow600 ? 280 : 200}
-                >
-                  <g filter="url(#filter0_b_2474_41366)" className="">
-                    <path
-                      d="M267.95 207.716C267.95 322.225 289.214 376.154 194.288 376.154C99.3615 376.154 0.121094 290.501 0.121094 175.992C0.121094 61.4822 179.446 0 274.372 0C369.298 0 267.95 93.206 267.95 207.716Z"
-                      fill="#00A2E8"
-                      fillOpacity="0.7"
-                    />
-                  </g>
-                  <defs>
-                    <filter
-                      id="filter0_b_2474_41366"
-                      x="-11.6706"
-                      y="-11.7917"
-                      width="338.42"
-                      height="399.737"
-                      filterUnits="userSpaceOnUse"
-                      colorInterpolationFilters="sRGB"
-                    >
-                      <feFlood floodOpacity="0" result="BackgroundImageFix" />
-                      <feGaussianBlur in="BackgroundImageFix" stdDeviation="5.89583" />
-                      <feComposite
-                        in2="SourceAlpha"
-                        operator="in"
-                        result="effect1_backgroundBlur_2474_41366"
-                      />
-                      <feBlend
-                        mode="normal"
-                        in="SourceGraphic"
-                        in2="effect1_backgroundBlur_2474_41366"
-                        result="shape"
-                      />
-                    </filter>
-                  </defs>
-                </svg> */}
-
-                {/* <svg xmlns="http://www.w3.org/2000/svg" width={!isViewportBelow600 ? 280 : 200}
-                  height={!isViewportBelow600 ? 280 : 200} className="blue overflow-hidden" viewBox="0 0 534 638" fill="none">
-                  <g filter="url(#filter0_b_6830_50400)">
-                    <path d="M454.268 352.309C454.268 546.53 490.334 638 329.329 638C168.323 638 0 492.723 0 298.502C0 104.281 304.155 0 465.161 0C626.166 0 454.268 158.088 454.268 352.309Z" fill="#00A2E8" fill-opacity="0.7" />
-                  </g>
-                  <defs>
-                    <filter id="filter0_b_6830_50400" x="-20" y="-20" width="574" height="678" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-                      <feFlood flood-opacity="0" result="BackgroundImageFix" />
-                      <feGaussianBlur in="BackgroundImageFix" stdDeviation="10" />
-                      <feComposite in2="SourceAlpha" operator="in" result="effect1_backgroundBlur_6830_50400" />
-                      <feBlend mode="normal" in="SourceGraphic" in2="effect1_backgroundBlur_6830_50400" result="shape" />
-                    </filter>
-                  </defs>
-                </svg> */}
+               
                 <img
                   style={{
 
@@ -237,8 +182,6 @@ function HeroSection() {
                   src="/images/home/blueNew.png"
                   alt=""
                 />
-
-
 
                 <img
                   src={`/images/home/girl${isInSouthAfrica ? 2 : 1}.png`}
@@ -348,23 +291,23 @@ function HeroSection() {
                     </svg>
 
                     <div>
-                    <input
-                    type="text"
-                    className="  placeholder-start text-start"
-                    placeholder="Job title or keyword"
-                    value={searchInput}
-                    onChange={handleInputChange}
-                  />
+                      <input
+                        type="text"
+                        className="  placeholder-start text-start"
+                        placeholder="Job title or keyword"
+                        value={searchInput}
+                        onChange={handleInputChange}
+                      />
 
-                  {jobSuggestions.length > 0 && (
-                    <div ref={taskRef}     onWheel={(e) => e.stopPropagation()} className="absolute bg-[#FFF] w-[295px] h-[216px] top-16 left-10 rounded-t-[8px] overflow-y-auto p-2" style={{ boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)" }}>
-                      {jobSuggestions.map((job) => (
-                        <div key={job.id} className="" onClick={() => handleJobSelect(job)}>
-                          <p className="flex flex-col p-2 text-[#333] text-[16px] font-normal cursor-pointer">{job}</p>
+                      {jobSuggestions.length > 0 && (
+                        <div ref={taskRef} onWheel={(e) => e.stopPropagation()} className="absolute bg-[#FFF] w-[295px] h-[216px] top-16 left-10 rounded-t-[8px] overflow-y-auto p-2" style={{ boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)" }}>
+                          {jobSuggestions.map((job) => (
+                            <div key={job.id} className="" onClick={() => handleJobSelect(job)}>
+                              <p className="flex flex-col p-2 text-[#333] text-[16px] font-normal cursor-pointer">{job}</p>
+                            </div>
+                          ))}
                         </div>
-                      ))}
-                    </div>
-                  )}
+                      )}
                     </div>
                   </div>
                   <ImageContainer
@@ -416,7 +359,7 @@ function HeroSection() {
                       </div>
                     )}
                   </div>
-                  <button  onClick={() => router.push("/candidate/afterLogin/jobs/dummyJobCards")} className="flex items-center justify-center py-4 px-12  bg-blue text-white rounded-[12px] max-scr1200:px-8 max-scr1100:px-6">
+                  <button onClick={() => router.push("/candidate/afterLogin/jobs/dummyJobCards")} className="flex items-center justify-center py-4 px-12  bg-blue text-white rounded-[12px] max-scr1200:px-8 max-scr1100:px-6">
                     Search
                   </button>
                 </div>
@@ -455,7 +398,7 @@ function HeroSection() {
               </div>
 
 
-              <div className="title_cont  ">
+              <div className="title_cont px-[14px]  ">
                 <p className="p0 ">Empowering</p>{" "}
                 <p className="p3">Job Seekers,</p>
               </div>
@@ -608,7 +551,7 @@ function HeroSection() {
                   />
 
                   {jobSuggestions.length > 0 && (
-                    <div ref={taskRef}     onWheel={(e) => e.stopPropagation()} className="absolute bg-[#FFF] w-[295px] h-[216px] top-16 left-10 rounded-t-[8px] overflow-y-auto p-2" style={{ boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)" }}>
+                    <div ref={taskRef} onWheel={(e) => e.stopPropagation()} className="absolute bg-[#FFF] w-[295px] h-[216px] top-16 left-10 rounded-t-[8px] overflow-y-auto p-2" style={{ boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)" }}>
                       {jobSuggestions.map((job) => (
                         <div key={job.id} className="" onClick={() => handleJobSelect(job)}>
                           <p className="flex flex-col p-2 text-[#333] text-[16px] font-normal cursor-pointer">{job}</p>
@@ -653,7 +596,7 @@ function HeroSection() {
                   />
 
                   {locationSuggestions.length > 0 && (
-                    <div ref={taskRef}     onWheel={(e) => e.stopPropagation()} className="  absolute bg-[#FFF] w-[295px] h-[216px] top-16 left-10 rounded-t-[8px] overflow-y-auto p-2" style={{ boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)" }}>
+                    <div ref={taskRef} onWheel={(e) => e.stopPropagation()} className="  absolute bg-[#FFF] w-[295px] h-[216px] top-16 left-10 rounded-t-[8px] overflow-y-auto p-2" style={{ boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)" }}>
                       {locationSuggestions.map((loc) => (
                         <div key={loc.id} className="" onClick={() => handleLocSelect(loc)}>
                           <p className="flex flex-col p-2 text-[#333] text-[16px] font-normal cursor-pointer">{loc.name}</p>
@@ -662,7 +605,7 @@ function HeroSection() {
                     </div>
                   )}
                 </div>
-                <button  onClick={() => router.push("/candidate/afterLogin/jobs/dummyJobCards")} className="searchbtn">Search</button>
+                <button onClick={() => router.push("/candidate/afterLogin/jobs/dummyJobCards")} className="searchbtn">Search</button>
               </div>
             </div>
           </div>

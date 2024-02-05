@@ -69,17 +69,17 @@ function CandidateMobileHeader() {
                     <div onClick={() => setIsSidebar(true)}>
                         <img src="/images/home/menu.png" alt="" className="w-[30px] h-[30px] object-contain" />
                     </div>
-                    {isLogin ? 
-                    <div onClick={() => router.push("/candidate/afterLogin/home/candidateHome")}>
-                        <img src="/images/logo_skilotech.png" alt="" className="w-[123px] h-[40px] object-contain" />
+                    {isLogin ?
+                        <div onClick={() => router.push("/candidate/afterLogin/home/candidateHome")}>
+                            <img src="/images/logo_skilotech.png" alt="" className="w-[123px] h-[40px] object-contain" />
 
-                    </div>
-                    :
-                    <div onClick={() => router.push("/")}>
-                    <img src="/images/logo_skilotech.png" alt="" className="w-[123px] h-[40px] object-contain" />
+                        </div>
+                        :
+                        <div onClick={() => router.push("/")}>
+                            <img src="/images/logo_skilotech.png" alt="" className="w-[123px] h-[40px] object-contain" />
 
-                </div>
-}
+                        </div>
+                    }
                 </div>
 
                 {isLogin ?
@@ -125,12 +125,16 @@ function CandidateMobileHeader() {
                             exit={{ x: '-100%' }}
                             transition={{ duration: 0.5 }}
                             ref={taskRef}
-                            className="absolute z-[2000] w-full mt-[-4rem] bg-white "
+                            className="absolute z-[2000] w-full mt-[-4rem]  "
                             style={{
-                                background: 'rgba(255, 255, 255, 0.99)', 
-                                boxShadow: '0 0 10px rgba(255, 255, 255, 0.9)', 
-                                backdropFilter: 'blur(10px)',
-                                willChange: 'transform', 
+                                background: "rgba(255, 255, 255, 0.5)",
+                                boxShadow: "0 0 10px rgba(255, 255, 255, 0.5)",
+                                backdropFilter: "blur(10px)",
+                                ...(navigator.userAgent.includes("Safari") &&
+                                    !navigator.userAgent.includes("Chrome") && {
+                                    WebkitBackdropFilter: "blur(10px)",
+                                }),
+                                willChange: 'transform',
                             }}
                         >
                             <HeaderSidebar selectedPage={selectedPage} setIsSidebar={setIsSidebar} setIsLogin={setIsLogin} isLogin={isLogin} />

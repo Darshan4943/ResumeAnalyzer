@@ -46,7 +46,7 @@ function CandidateHeader() {
     });
 
     return (
-        <>
+        <div className='z-[5000]'>
 
             <div className="header_left ">
                 <Link href="/candidate/afterLogin/home/candidateHome">
@@ -170,7 +170,7 @@ function CandidateHeader() {
             </div>
 
 
-        </>
+        </div>
     )
 }
 

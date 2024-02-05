@@ -9,7 +9,7 @@ function TrustedBySection() {
         <motion.div 
         initial={{translateX:'100%'}}
         animate={{translateX:'-100%'}}
-        transition={{duration: 7, repeat: Infinity, ease: "linear"}}
+        transition={{duration: 15, repeat: Infinity, ease: "linear"}}
         className="trust_img ">
           {Array.from({ length: 7 }).map((item, index) => (
             <ImageContainer
