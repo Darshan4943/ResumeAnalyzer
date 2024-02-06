@@ -47,7 +47,14 @@
 }
 
 /* hero section */
-
+@keyframes shadowAnimation {
+  0%, 100% {
+    box-shadow: 0px 0px 16px 0px #06A9EF;
+  }
+  50% {
+    box-shadow: none;
+  }
+}
 .hero_section_parent {
   margin-top: 16px;
   

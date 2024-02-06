@@ -14,9 +14,9 @@ function GenerateAi() {
     const [repeat, setRepeat] = useState(false);
     const generateAiRef = useRef(null);
 
-  
 
-   
+
+
 
     useEffect(() => {
         const options = {
@@ -142,14 +142,14 @@ function GenerateAi() {
             const timer = setTimeout(() => {
                 setRepeat(true)
                 setIsAnimate(false);
-                
+
             }, 7000);
 
             return () => {
                 clearTimeout(timer);
             };
         }
-       
+
 
     }, [isAnimateSecond]);
 
@@ -158,20 +158,20 @@ function GenerateAi() {
             const timer = setTimeout(() => {
                 setSlideRobot(false);
                 setIsClicked(false);
-               
+
                 setIsAnimateSecond(false);
                 setLoading1(false);
                 setAnimationText('');
                 setLoading(false);
                 setIsAnimate(true);
-                
+
             }, 2000);
 
             return () => {
                 clearTimeout(timer);
             };
         }
-       
+
 
     }, [repeat]);
 
@@ -263,7 +263,11 @@ function GenerateAi() {
 
                     </div>
                     <div className="w-full flex justify-end items-center gap-3 ">
-                        <button className={` cursor-not-allowed  relative flex gap-2 sm:px-3 px-[5px] py-2 border items-center border-[#06A9EF] ${isClicked && "bg-[#06A9EF] "}  rounded-[8px] min-w-[155px] sm:min-w-[170px]`} style={{ boxShadow: slideRobot ? '0px 0px 16px 0px #06A9EF' : 'none' }}>
+                        <button className={` cursor-not-allowed  relative flex gap-2 sm:px-3 px-[5px] py-2 border items-center border-[#06A9EF] ${isClicked && "bg-[#06A9EF] "}  rounded-[8px] min-w-[155px] sm:min-w-[170px]`} style={{
+                            boxShadow: slideRobot ? '0px 0px 16px 0px #06A9EF' : 'none',
+                            animation: slideRobot ? 'shadowAnimation 3s linear infinite' : 'none'
+                        }}
+                        >
                             <motion.img
                                 initial={{ translateY: '-4px' }}
                                 animate={{ translateY: '4px' }}
@@ -315,9 +319,9 @@ function GenerateAi() {
 
                         <p className='text-[14px] font-semibold'>Type something about yourself & Click on</p>
                         <img src="/images/blueArrow.png " alt="" className='h-[40px]  object-contain w-[41px] absolute scr1150:top-4 -right-6 top-7 web' />
-                    
+
                         <button className=' cursor-not-allowed w-[60%] flex gap-2 sm:px-3 px-[5px] py-2 border items-center border-[#06A9EF] bg-white rounded-[8px] min-w-[155px] sm:min-w-[170px] relative'>
-                        <img src="/images/blueArrow1.png " alt="" className='h-[40px]  object-contain w-[41px] absolute top-3 -right-10 mobile' />
+                            <img src="/images/blueArrow1.png " alt="" className='h-[40px]  object-contain w-[41px] absolute top-3 -right-10 mobile' />
                             <motion.img
                                 initial={{ translateY: '-4px' }}
                                 animate={{ translateY: '4px' }}
