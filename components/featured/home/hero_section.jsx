@@ -184,13 +184,13 @@ function HeroSection() {
                 />
 
                 <img
-                  src={`/images/home/girl${isInSouthAfrica ? 2 : 1}.png`}
+                  src={`/images/home/girl${isInSouthAfrica ? 2 : 2}.png`}
                   alt=""
                   className={`${isViewportBelow600 ? 'h-[220px]' : 'h-[300px]'} ${isViewportBelow600 ? 'w-[220px]' : 'w-[300px]'} absolute object-contain right-0 -top-1 girl`}
                 />
 
                 <img
-                  src={`/images/home/man${isInSouthAfrica ? 2 : 1}.png`}
+                  src={`/images/home/man${isInSouthAfrica ? 2 : 2}.png`}
                   alt=""
 
                   className={`${isViewportBelow600 ? 'h-[220px]' : 'h-[300px]'} ${isViewportBelow600 ? 'w-[220px]' : 'w-[300px]'} absolute object-contain right-0 -top-1 boy`}
@@ -495,11 +495,11 @@ function HeroSection() {
                   />
 
                   <img
-                    src={` /images/home/girl${isInSouthAfrica ? 2 : 1}.png`}
+                    src={` /images/home/girl${isInSouthAfrica ? 2 : 2}.png`}
                     alt=""
                     className="female"
                   />
-                  <img src={` /images/home/man${isInSouthAfrica ? 2 : 1}.png`} alt="" className="male" />
+                  <img src={` /images/home/man${isInSouthAfrica ? 2 : 2}.png`} alt="" className="male" />
                 </div>
               </div>
             </div>

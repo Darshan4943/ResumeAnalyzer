@@ -43,15 +43,19 @@ function BeforeLoginHome() {
       {/* ) : ( */}
         <div className="web">
         <ReactLenis root>
-          <Parallax strength={300} className="h-[200vh]  pt-[36px]">
+          <Parallax strength={100} className="h-[100vh]  pt-[36px]">
             <Background className="custom-bg">
               <HeroSection />
+              </Background>
+          </Parallax>
+              <Parallax strength={150} className="h-[55rem]  pt-[36px]">
+            <Background className="custom-bg">
               <ResumeSection/>
               <TrustedBySection />
             </Background>
           </Parallax>
           {/* Add other Parallax components as needed */}
-          <Parallax strength={100} className="h-[45rem] pt-[36px] ">
+          <Parallax strength={200} className="h-[45rem] pt-[36px] ">
             <Background className="custom-bg ">
               <JobCategories />
             </Background>

@@ -8,7 +8,7 @@ function ResumeSection() {
             <div className='sm:w-[35%] w-[85%] bg-cover bg-no-repeat bg_resumeBlue  '>
 
                 <div className="w-[110%] pt-4  -ml-2 " >
-                    <img src="/images/resumeBlue1.png " alt="" className='max-h-[440px] w-[110%]' />
+                    <img src="/images/resumeBlue2.png " alt="" className='max-h-[440px] w-[110%]' />
                 </div>
             </div>
             <div className='sm:w-[25%] w-[100%] lg:ml-12  ms:px-6 sm:px-2 px-[20vw] flex flex-col gap-4 justify-center items-center'>
