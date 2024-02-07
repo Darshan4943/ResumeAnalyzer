@@ -1,130 +1,150 @@
-import React from 'react';
-import { Document, Page, Text, View, Image, StyleSheet } from '@react-pdf/renderer';
+import React from "react";
 
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-    backgroundColor: '#FFFFFF',
-    borderRadius: 20,
-    margin: 20,
-    padding: 20,
-    fontSize: 12,
-    fontFamily: 'Arial',
-  },
-  leftColumn: {
-    width: '40%',
-    paddingRight: 20,
-  },
-  rightColumn: {
-    width: '60%',
-  },
-  heading: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    marginBottom: 10,
-  },
-  subHeading: {
-    fontSize: 14,
-    color: '#316059',
-    marginBottom: 10,
-  },
-  text: {
-    fontSize: 12,
-    marginBottom: 5,
-  },
-  divider: {
-    backgroundColor: '#F9F9F9',
-    height: 1,
-    width: '70%',
-    marginBottom: 20,
-  },
-  image: {
-    width: 150,
-    height: 'auto',
-    marginBottom: 20,
-  },
-});
-
-const Resume5PDF = ({ data }) => {
+function Resume6({ data }) {
   return (
-    <Document>
-      <Page size="A4">
-        <View style={styles.container}>
-          <View style={styles.leftColumn}>
-            <Image
-              style={styles.image}
-              src={data?.profilePhoto ? URL.createObjectURL(data.profilePhoto) : '/images/services/black.png'}
-            />
-            <Text style={styles.heading}>CONTACT</Text>
-            <Text style={styles.text}>Mobile Number: {data?.mobileNumber}</Text>
-            <Text style={styles.text}>Email: {data?.email}</Text>
-            {data?.socialLinks?.map((detail, index) => (
-              <Text key={index} style={styles.text}>Social Link: {detail?.link}</Text>
-            ))}
-            <Text style={styles.text}>Location: {data?.location}</Text>
-            <Text style={styles.heading}>SKILLS</Text>
-            {data?.skills.map((detail, index) => (
-              <View key={index}>
-                <Text style={styles.subHeading}>{detail?.skill}</Text>
-                <View style={{ backgroundColor: '#C1C1C1', height: 5, marginBottom: 5 }}>
-                  <View style={{ backgroundColor: '#316059', height: 5, width: '80%' }} />
-                </View>
-              </View>
-            ))}
-            <Text style={styles.heading}>LANGUAGES</Text>
-            {data?.languages.map((detail, index) => (
-              <View key={index}>
-                <Text style={styles.subHeading}>{detail?.language}</Text>
-                <View style={{ backgroundColor: '#C1C1C1', height: 5, borderRadius: 5, marginBottom: 5 }}>
-                  <View style={{ backgroundColor: '#316059', height: 5, width: '80%', borderRadius: 5 }} />
-                </View>
-              </View>
-            ))}
-          </View>
-          <View style={styles.rightColumn}>
-            <Text style={styles.heading}>{data?.firstName} {data?.lastName}</Text>
-            <Text style={styles.subHeading}>{data?.designation}</Text>
-            {data?.showSummary && (
-              <View>
-                <Text style={styles.heading}>ABOUT ME</Text>
-                <Text style={styles.text}>{data?.summary}</Text>
-                <View style={styles.divider} />
-              </View>
-            )}
-            {data?.showEducation && (
-              <View>
-                <Text style={styles.heading}>EDUCATION</Text>
-                {data?.education.map((detail, index) => (
-                  <View key={index}>
-                    <Text style={styles.text}>{detail?.qualification} | {detail?.specialization}</Text>
-                    <Text style={styles.text}>{detail?.instituteName}</Text>
-                    <Text style={styles.text}>
-                      {detail?.duration?.start?.year}-{detail?.duration?.end?.year}
-                    </Text>
-                  </View>
-                ))}
-                <View style={styles.divider} />
-              </View>
-            )}
-            {data?.showExperience && (
-              <View>
-                <Text style={styles.heading}>EXPERIENCE</Text>
-                {data.experience.map((detail, index) => (
-                  <View key={index}>
-                    <Text style={styles.text}>{detail?.designation} | {detail?.duration?.start?.year}-{detail?.currentlyWorking ? 'Present' : detail?.duration?.end?.year}</Text>
-                    <Text style={styles.subHeading}>{detail?.company}</Text>
-                    <Text style={styles.text}>{detail?.location}</Text>
-                    <Text style={styles.text}>{detail?.responsibilities}</Text>
-                    <View style={styles.divider} />
-                  </View>
-                ))}
-              </View>
-            )}
-          </View>
-        </View>
-      </Page>
-    </Document>
-  );
-};
+ 
+    <>
+      <div className="w-[800px] flex gap-10">
+        <div>
+          <div className=" w-[268px] flex ">
+            <div className="bg-[#FFC20E] w-[46px]">
+            </div>
+            <div className="flex w-[200px] ml-[-3rem]  flex-col gap-16">
+              <div className="w-[243px] flex flex-col  ">
+                <div className="pt-[50px] pl-[70px]">
+                  <div class="w-[116px] h-[116px]  flex-shrink-0 bg-lightgray bg-center bg-cover rounded-full overflow-hidden">
+                    {data.profilePhoto ? (
+                      <img
+                        src={URL.createObjectURL(data.profilePhoto)}
+                        alt=""
+                      />
+                    ) : (
+                      <img src="/images/services/profile.png" alt="" />
+                    )}
+                  </div>
+                </div>
+              </div>
+              <div className="flex flex-col w-[243px] justify-start items-start gap-6 pl-5">
+                <div className="flex flex-col w-[166px]  gap-3">
+                  <div className="flex gap-6 w-full">
+                    <img
+                      src="/images/services/c.png"
+                      className="w-[16px] h-[16px]"
+                      alt=""
+                    />
+                    <div className="flex flex-col w-full">
+                      <p className="font-[400] text-[11px]">Phone</p>
+                      <p className="font-[400] text-[9px]">
+                        {data.mobileNumber}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex gap-6 w-full">
+                    <img
+                      src="/images/services/m.png"
+                      className="w-[16px] h-[16px]"
+                      alt=""
+                    />
+                    <div className="flex flex-col w-full">
+                      <p className="font-[400] text-[11px]">Email</p>
+                      <p className="font-[400] text-[9px]">{data.email}</p>
+                    </div>
+                  </div>
+                  <div className="flex gap-6 w-full">
+                    <img
+                      src="/images/services/w.png"
+                      className="w-[16px] h-[16px]"
+                      alt=""
+                    />
+                    <div className="flex flex-col w-full">
+                      <p className="font-[400] text-[11px]">Website</p>
+                      <p className="font-[400] text-[9px]">{data.email}</p>
+                    </div>
+                  </div>
+                  <div className="flex gap-6 w-full">
+                    <img
+                      src="/images/services/l.png"
+                      className="w-[16px] h-[16px]"
+                      alt=""
+                    />
+                    <div className="flex flex-col w-full">
+                      <p className="font-[400] text-[11px]">Area</p>
+                      <p className="font-[400] text-[9px]">{data.location}</p>
+                    </div>
+                  </div>
+                 
 
-export default Resume5PDF;
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div className="ml-6 pt-4">
+          <div className="flex w-[166px] flex-col">
+            <div className="flex items-start justify-start flex-col gap-3 ">
+              <p className="text-[14px] font-[600]">SKILLS</p>
+              <div className="gap-4 flex w-[166px] ">
+                {data?.skills?.length > 0 && (
+                  <div className="flex flex-col w-full items-start justify-start gap-3">
+                    {data.skills.map((detail, index) => (
+                      <div
+                        key={index}
+                        className="flex  items-center justify-center gap-2"
+                      >
+                        <div className="w-[48px]">
+                          <p className="text-[10px] font-normal">
+                            {detail.skill}
+                          </p>
+                        </div>
+                        <div className=" bg-[#DCDDDE] h-[5px] w-[90px]">
+                          <div
+                            className="bg-[#333]"
+                            style={{ width: "50px" }}
+                          ></div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+          <div className="h-[1px] w-[166px] bg-[#282829]"></div>
+
+          <div className="flex w-[166px] flex-col ">
+            <div className="flex items-start justify-start flex-col gap-3 ">
+              <p className="text-[14px] font-[600]">LANGAUGES</p>
+              <div className="gap-4 flex w-[166px] ">
+                {data?.languages?.length > 0 && (
+                  <div className="flex flex-col w-full items-start justify-start gap-3">
+                    {data.languages.map((detail, index) => (
+                      <div
+                        key={index}
+                        className="flex  items-center justify-center "
+                      >
+                        <p className="text-[10px] font-normal">
+                          {detail.languages}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+          <div className="h-[1px] w-[166px] bg-[#282829]"></div>
+        </div>
+        </div>
+        <div className="flex justify-around flex-col w-[443px]">
+          <div className="w-[406px] ">
+                <p className="text-[21px] font-[900]">{data.firstName}{" "}{data.lastName}</p>
+                <span className="font-[500] text-[12px]">{data.designation}</span>
+          </div>
+          <div className=""></div>
+        </div>
+      </div>
+    </>
+  );
+}
+
+export default Resume6;
