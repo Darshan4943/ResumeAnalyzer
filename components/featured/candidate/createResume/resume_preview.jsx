@@ -17,10 +17,9 @@ import Resume2 from "../../resumeTemplates/resume2";
 
 
 import Resume5 from "../../resumeTemplates/resume5";
-import Resume6 from "../../resumeTemplates/resume6";
 import Resume3 from "../../resumeTemplates/resume3";
 import Resume4 from "../../resumeTemplates/resume4";
-import Resume7 from "../../resumeTemplates/resume7";
+import Resume6 from "../../resumeTemplates/resume6";
 
 
 
@@ -52,7 +51,7 @@ const ResumePreview = ({ data, isSetEdit }) => {
       case 5:
         return <Resume5 data={data} />
       case 6:
-        return <Resume7 data={data} />
+        return <Resume6 data={data} />
       default:
         return <Resume2 data={data} />
     }

@@ -43,7 +43,6 @@ function Resume4({ data }) {
                                     <p className=" text-[11px] pt-[2px] flex font-[400] text-[#fff] leading-normal ">{data.email} </p>
                                 </div>
                             )}
-
                         </div>
                         {data?.sociaLinks > 0 && (
                             <div className="flex gap-2 items-start ml-[40px] pr-4">
@@ -53,7 +52,6 @@ function Resume4({ data }) {
                                 <div className=" text-[11px] pt-[2px] flex font-[400] text-[#fff] leading-normal ">{""}</div>
                             </div>
                         )}
-
                         {data?.location && (
                             <div className="flex gap-2 items-start ml-[40px] pr-4">
                                 <div className="h-[24px] flex items-center">
@@ -113,7 +111,6 @@ function Resume4({ data }) {
 
                             </>
                         )}
-
                         {data?.hobbies?.length > 0 && (
                             <div className='flex flex-col gap-10 pb-4 '>
 
@@ -134,9 +131,7 @@ function Resume4({ data }) {
                             </div>
                         )}
                     </div>
-
                 </div>
-
                 <div className=" w-[530px] p-4 flex flex-col gap-10">
                     <div className="flex flex-col  gap-4 items-start pt-[26px] ">
                         <div className="flex gap-2  items-end w-[100%]">
@@ -153,7 +148,6 @@ function Resume4({ data }) {
                             </p>
                         </div>
                     </div>
-
                     <div className="flex gap-2 w-[100%]">
                         <div className='pt-2'>
                             <img className="w-[27px] h-[27px] " src="/images/services/education.png" alt="" />
@@ -180,15 +174,10 @@ function Resume4({ data }) {
                                             {detail.duration?.end?.year}
                                         </p>
                                     </div>
-
-
-
                                 </>
                             ))}
                         </div>
                     </div>
-
-
                     <div className="flex gap-2 w-[100%]">
                         <div className='pt-2'>
                             <img className="w-[35px] h-[35px] " src="/images/services/experience.png" alt="" />
@@ -263,16 +252,11 @@ function Resume4({ data }) {
                                         </div>
                                     ))}
                                 </div>
-
-
                             </div>
                         </div>
                     )}
-
-
                 </div>
             </div>
-
         </>
     )
 }
