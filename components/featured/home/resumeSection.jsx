@@ -6,14 +6,22 @@ function ResumeSection() {
     return (
         <div className='flex sm:flex-row flex-col gap-4 w-[100%] sm:max-h-[464px] justify-between  mt-9 '>
             <div className='sm:w-[35%] w-[85%] bg-cover bg-no-repeat bg_resumeBlue  '>
+                <div className="w-[110%] mt-4 flex justify-end py-4 pr-4 sm:max-h-[430px] -ml-2  "
+                    style={{
+                        borderRadius: "12px",
+                        background: "rgba(255, 255, 255, 0.25)",
+                        backdropFilter: "blur(16px)",
+                        boxShadow: "0px 2px 5px 1px rgba(0, 0, 0, 0.25)"
+                    }}
+                >
+                    <img src="/images/templateMan.png " alt="" className='max-h-[440px]   object-contain w-[65%] ' />
 
-                <div className="w-[110%] pt-4  -ml-2 " >
-                    <img src="/images/resumeBlue2.png " alt="" className='max-h-[440px] w-[110%]' />
                 </div>
+
             </div>
-            <div className='sm:w-[25%] w-[100%] lg:ml-12  ms:px-6 sm:px-2 px-[20vw] flex flex-col gap-4 justify-center items-center'>
-                <div className='flex flex-wrap text-center items-center justify-center sm:text-[2.2vw] text-[5vw] font-bold'>
-                <span className='text-center lg:px-11 scr700:px-[50px] px-[55px]'>   Transform Your Resume from </span> &nbsp; <span className='px-[70px] text-[#FFDA1D]'>  Ordinary </span> &nbsp; <span>to</span>  &nbsp; <span className='px-[70px] text-[#06A9EF]'>Awesome!</span>
+            <div className='sm:w-[25%] xl:w-[360px] w-[100%] lg:ml-12  ms:px-6 sm:px-2 px-[20vw] flex flex-col gap-4 justify-center items-center'>
+                <div className='flex flex-wrap text-center items-center justify-center sm:text-[2.2vw] xl:text-[31px] text-[5vw] font-bold'>
+                    <span className='text-center lg:px-11 scr700:px-[50px] px-[55px]'>   Transform Your Resume from </span> &nbsp; <span className='px-[70px] text-[#FFDA1D]'>  Ordinary </span> &nbsp; <span>to</span>  &nbsp; <span className='px-[70px] text-[#06A9EF]'>Awesome!</span>
                 </div>
                 <button
                     onClick={() => {

@@ -98,7 +98,7 @@ function Resume3({ data }) {
 
           <div className="">
 
-          {data?.skills?.length > 0 && (
+            {data?.skills?.length > 0 && (
               <div className="pt-[30px]">
                 <div className="flex ml-[-1px] h-[27px]  items-center ">
                   <svg xmlns="http://www.w3.org/2000/svg" width="175" viewBox="0 0 125 27" fill="none">
@@ -116,7 +116,7 @@ function Resume3({ data }) {
               </div>
             )}
 
-{data?.languages?.length > 0 && (
+            {data?.languages?.length > 0 && (
               <div className="pt-[30px]">
                 <div className="flex ml-[-1px] h-[27px]  items-center ">
                   <svg xmlns="http://www.w3.org/2000/svg" width="175" viewBox="0 0 125 27" fill="none">
@@ -133,7 +133,7 @@ function Resume3({ data }) {
                 </div>
               </div>
             )}
-           {data?.hobbies?.length > 0 && (
+            {data?.hobbies?.length > 0 && (
               <div className="pt-[30px]">
                 <div className="flex ml-[-1px] h-[27px]  items-center ">
                   <svg xmlns="http://www.w3.org/2000/svg" width="175" viewBox="0 0 125 27" fill="none">
@@ -233,11 +233,11 @@ function Resume3({ data }) {
                   {detail.designation}
                 </p>
                 <p className="text-[#414142]  pl-[18px]  text-[8.969px] font-normal">
-                 
-                      {detail.duration?.start?.year} -
-                      {detail.duration?.end?.year == undefined ? "Present" : detail.duration?.end?.year}
-                  
-                
+
+                  {detail.duration?.start?.year} -
+                  {detail.duration?.end?.year == undefined ? "Present" : detail.duration?.end?.year}
+
+
                 </p>
               </div>
               <p className="text-[#646464] pl-[18px]  text-xs font-normal">

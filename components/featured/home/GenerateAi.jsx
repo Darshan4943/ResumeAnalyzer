@@ -311,8 +311,8 @@ function GenerateAi() {
                     }
 
                 </div>
-                <div className=' ml:w-[19.85%] w-[70%]  flex flex-col gap-4 justify-center text-center items-center'>
-                    <div className='flex sm:w-[95%] w-[97%] flex-wrap text-center items-center justify-center ml:text-[1.6vw] text-[24px] font-bold'>
+                <div className=' ml:w-[19.85%] xl:w-[217.1px] w-[70%]  flex flex-col gap-4 justify-center text-center items-center'>
+                    <div className='flex sm:w-[95%] w-[97%] flex-wrap text-center items-center justify-center ml:text-[1.6vw] xl:text-[23.04px] text-[24px] font-bold'>
                         <span className='text-center'>   Try our Generative AI Feature to </span> &nbsp; <span className='px-[30px] text-[#BB57E1]'>  Improve </span> &nbsp; <span className='px-[70px]'>&</span>  &nbsp; <span className='px-[30px] text-[#06A9EF]'>Enhance</span>&nbsp;your profile
                     </div>
                     <div className='flex flex-col justify-center items-center gap-2 w-[90%] relative'>
@@ -353,7 +353,7 @@ function GenerateAi() {
                                 type="text"
                                 name="aboutMe"
                                 className="w-full sm:min-h-[240px] min-h-[200px] max-h-[240px] text-[14px] font-montserrat  h-full border border-[#06A9EF] rounded-[8px] outline-none p-4 "
-                                placeholder=""
+                                placeholder=" "
                                 onChange={handleTextChange}
                                 value={text}
                             />
