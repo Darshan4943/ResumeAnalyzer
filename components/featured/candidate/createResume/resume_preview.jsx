@@ -21,6 +21,7 @@ import Resume6 from "../../resumeTemplates/resume6";
 import Resume3 from "../../resumeTemplates/resume3";
 import Resume4 from "../../resumeTemplates/resume4";
 import Resume7 from "../../resumeTemplates/resume7";
+import Resume11 from "../../resumeTemplates/resume11";
 
 
 
@@ -53,6 +54,8 @@ const ResumePreview = ({ data, isSetEdit }) => {
         return <Resume5 data={data} />
       case 6:
         return <Resume7 data={data} />
+        case 11:
+          return <Resume11 data={data} />
       default:
         return <Resume2 data={data} />
     }
@@ -137,6 +140,12 @@ const ResumePreview = ({ data, isSetEdit }) => {
               className="h-[200px] w-[140.91px] rounded-[6px]"
               alt=""
               onClick={() => togglePreview(true, 5)}
+            />
+              <img
+              src="/images/services/resume11.png"
+              className="h-[200px] w-[140.91px] rounded-[6px]"
+              alt=""
+              onClick={() => togglePreview(true, 11)}
             />
             {/* <img
               src="/images/services/resume7.png"
