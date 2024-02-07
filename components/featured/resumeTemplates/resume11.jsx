@@ -7,7 +7,7 @@ function Resume11({data}) {
       
        <div className='flex flex-col '>
            <p className='text-[40px] font-[700] leading-[48px]'> JOHN <br/> DOE</p>
-           <p className='text-[18px] font-[700] leading-[18px]'>PROFESSION HERE</p>
+           <p className='text-[18px] font-[700] leading-[18px]'>{data.designation}</p>
        </div>
        
        <img className='w-[270px] h-[212px] object-contain' src="/images/services/template_profile.png" />
