@@ -13,7 +13,7 @@ function ForCandidate() {
   const [toggle, setToggle] = useState(true);
   const [isBouncingUp, setIsBouncingUp] = useState(true);
   const [isBouncingDown, setIsBouncinDown] = useState(true);
-  
+
   const isViewportBelow600 = useMediaQuery("(max-width:600px)");
   const isViewportBelow850 = useMediaQuery("(max-width:850px)");
   const slowConfig = {
@@ -265,7 +265,9 @@ function ForCandidate() {
                 </div>
               </div>
 
-              <div className="wrapper">
+              <div className="wrapper"
+               
+              >
                 {data.map((item, index) => (
                   <animated.div
                     className="create_account"
@@ -277,9 +279,12 @@ function ForCandidate() {
                         className={
                           toggle ? "circle_background" : "circle_background1"
                         }
+                       
                       />
-                      <div className="create_acc_inner">
-                        <div className="create_img">
+                      <div className="create_acc_inner"
+                      >
+                        <div className="create_img"
+                        >
                           {toggle ? (
                             <>
                               <ImageContainer src={item.img1} alt="" />

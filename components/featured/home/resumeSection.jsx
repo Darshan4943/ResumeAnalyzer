@@ -4,11 +4,11 @@ import React from 'react'
 function ResumeSection() {
     const router = useRouter();
     return (
-        <div className='flex sm:flex-row flex-col gap-4 w-[100%] sm:max-h-[465px] justify-between  mt-9 '>
+        <div className='flex sm:flex-row flex-col gap-4 w-[100%] sm:max-h-[464px] justify-between  mt-9 '>
             <div className='sm:w-[35%] w-[85%] bg-cover bg-no-repeat bg_resumeBlue  '>
 
                 <div className="w-[110%] pt-4  -ml-2 " >
-                    <img src="/images/resumeBlue1.png " alt="" className='max-h-[440px] w-[110%]' />
+                    <img src="/images/resumeBlue2.png " alt="" className='max-h-[440px] w-[110%]' />
                 </div>
             </div>
             <div className='sm:w-[25%] w-[100%] lg:ml-12  ms:px-6 sm:px-2 px-[20vw] flex flex-col gap-4 justify-center items-center'>
@@ -27,8 +27,8 @@ function ResumeSection() {
             </div>
             <div className='sm:w-[40%] w-[100%] bg-cover bg-no-repeat bg_resumeYellow sm:overflow-visible'>
 
-                <div className="w-[100%] p-4  -ml-2" >
-                    <img src="/images/resumeYellow1.png " alt="" className='max-h-[433px]' />
+                <div className="w-[100%]   " >
+                    <img src="/images/resumeYellow1.png " alt="" className='max-h-[464px]' />
                 </div>
             </div>
 

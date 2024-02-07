@@ -11,7 +11,9 @@ function GenerateAi() {
     const [isAnimate, setIsAnimate] = useState(false);
     const [isAnimateSecond, setIsAnimateSecond] = useState(false);
     const [loading1, setLoading1] = useState(false);
+    const [repeat, setRepeat] = useState(false);
     const generateAiRef = useRef(null);
+
 
 
 
@@ -42,8 +44,6 @@ function GenerateAi() {
     }, [generateAiRef]);
 
     const userDataGlobal = useSelector((state) => state.userData);
-
-
 
 
 
@@ -127,6 +127,7 @@ function GenerateAi() {
             const timer = setTimeout(() => {
                 setLoading1(false);
                 setIsAnimateSecond(true)
+                setRepeat(false)
             }, 3000);
 
             return () => {
@@ -134,6 +135,45 @@ function GenerateAi() {
             };
         }
     }, [loading1]);
+
+
+    useEffect(() => {
+        if (isAnimateSecond) {
+            const timer = setTimeout(() => {
+                setRepeat(true)
+                setIsAnimate(false);
+
+            }, 7000);
+
+            return () => {
+                clearTimeout(timer);
+            };
+        }
+
+
+    }, [isAnimateSecond]);
+
+    useEffect(() => {
+        if (repeat) {
+            const timer = setTimeout(() => {
+                setSlideRobot(false);
+                setIsClicked(false);
+
+                setIsAnimateSecond(false);
+                setLoading1(false);
+                setAnimationText('');
+                setLoading(false);
+                setIsAnimate(true);
+
+            }, 2000);
+
+            return () => {
+                clearTimeout(timer);
+            };
+        }
+
+
+    }, [repeat]);
 
     const [text, setText] = useState("");
     const [attempt, setAttempt] = useState(3);
@@ -223,7 +263,11 @@ function GenerateAi() {
 
                     </div>
                     <div className="w-full flex justify-end items-center gap-3 ">
-                        <button className={` cursor-not-allowed  relative flex gap-2 sm:px-3 px-[5px] py-2 border items-center border-[#06A9EF] ${isClicked && "bg-[#06A9EF] "}  rounded-[8px] min-w-[155px] sm:min-w-[170px]`} style={{ boxShadow: slideRobot ? '0px 0px 16px 0px #06A9EF' : 'none' }}>
+                        <button className={` cursor-not-allowed  relative flex gap-2 sm:px-3 px-[5px] py-2 border items-center border-[#06A9EF] ${isClicked && "bg-[#06A9EF] "}  rounded-[8px] min-w-[155px] sm:min-w-[170px]`} style={{
+                            boxShadow: slideRobot ? '0px 0px 16px 0px #06A9EF' : 'none',
+                            animation: slideRobot ? 'shadowAnimation 3s linear infinite' : 'none'
+                        }}
+                        >
                             <motion.img
                                 initial={{ translateY: '-4px' }}
                                 animate={{ translateY: '4px' }}
@@ -237,7 +281,7 @@ function GenerateAi() {
                                     initial={{ opacity: 0, scale: 0.5 }}
                                     animate={{ opacity: 1, scale: 1 }}
                                     transition={{ duration: 2 }}
-                                    src="/images/home/stars.png " alt="" className={`h-[30px] w-[35px]  absolute left-[2%] `} />
+                                    src="/images/home/stars.png " alt="" className={`h-[30px] w-[35px]  absolute left-[5%] `} />
                             }
 
                             <p className={`text-[12px]  ${isClicked && "text-white "}  `}>Generate with AI</p>
@@ -271,9 +315,13 @@ function GenerateAi() {
                     <div className='flex sm:w-[95%] w-[97%] flex-wrap text-center items-center justify-center ml:text-[1.6vw] text-[24px] font-bold'>
                         <span className='text-center'>   Try our Generative AI Feature to </span> &nbsp; <span className='px-[30px] text-[#BB57E1]'>  Improve </span> &nbsp; <span className='px-[70px]'>&</span>  &nbsp; <span className='px-[30px] text-[#06A9EF]'>Enhance</span>&nbsp;your profile
                     </div>
-                    <div className='flex flex-col justify-center items-center gap-2 w-[90%]'>
+                    <div className='flex flex-col justify-center items-center gap-2 w-[90%] relative'>
+
                         <p className='text-[14px] font-semibold'>Type something about yourself & Click on</p>
-                        <button className=' cursor-not-allowed w-[60%] flex gap-2 sm:px-3 px-[5px] py-2 border items-center border-[#06A9EF] bg-white rounded-[8px] min-w-[155px] sm:min-w-[170px]'>
+                        <img src="/images/blueArrow.png " alt="" className='h-[40px]  object-contain w-[41px] absolute scr1150:top-4 -right-6 top-7 web' />
+
+                        <button className=' cursor-not-allowed w-[60%] flex gap-2 sm:px-3 px-[5px] py-2 border items-center border-[#06A9EF] bg-white rounded-[8px] min-w-[155px] sm:min-w-[170px] relative'>
+                            <img src="/images/blueArrow1.png " alt="" className='h-[40px]  object-contain w-[41px] absolute top-3 -right-10 mobile' />
                             <motion.img
                                 initial={{ translateY: '-4px' }}
                                 animate={{ translateY: '4px' }}
