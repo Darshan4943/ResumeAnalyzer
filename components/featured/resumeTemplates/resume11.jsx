@@ -7,7 +7,7 @@ function Resume11({data}) {
       
        <div className='flex flex-col '>
            <p className='text-[40px] font-[700] leading-[48px]'> {data.firstName} <br/> {data.lastName}</p>
-           <p className='text-[18px] font-[700] leading-[18px]'>{data.designation}</p>
+           <p className='text-[16px] mt-[5px] font-[700] leading-[18px]'>{data.designation}</p>
        </div>
        
        {data.profilePhoto ? (
