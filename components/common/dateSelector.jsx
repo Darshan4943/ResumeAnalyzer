@@ -56,8 +56,7 @@ const DateSelector = ({ idPrefix, dataSeter, data }) => {
 
     return years;
   }
-  console.log(getYear())
-
+  
   return (
     <div className="flex gap-[12px] flex_column">
       <div className="flex flex-col gap-2">
