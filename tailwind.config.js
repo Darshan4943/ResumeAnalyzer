@@ -67,6 +67,8 @@ module.exports = {
       serif: ["Merriweather", "serif"],
       Montserrat: ["Montserrat", "sans-serif"],
       kanit: ["Kanit", "sans-serif"],
+      // font-family: 'Lato', sans-serif;
+      Lato:["Lato","sans-serif"],
     },
     extend: {
       spacing: {

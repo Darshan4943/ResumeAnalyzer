@@ -31,7 +31,7 @@ function Resume2({ data }) {
 
             <div className="flex flex-col w-[100%]">
               <div className="flex flex-col gap-3 w-[100%]">
-                <p className="text-[#3C3A40] text-[20px] font-[600] pt-[13px] font-barlow-condensed leading-normal">
+                <p className="text-[#676669] text-[20px] font-[600] pt-[13px] font-barlow-condensed leading-normal">
                   ABOUT ME
                 </p>
                 <div className="w-[85%] bg-[#F7902B] h-[3px]"></div>
