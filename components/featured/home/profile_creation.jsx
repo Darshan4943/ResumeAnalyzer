@@ -26,7 +26,7 @@ function Profile_creation() {
 
 
   const handleScroll = () => {
-    if (window.scrollY >= 3700 && !isAnimate) {
+    if (window.scrollY >= 3600 && !isAnimate) {
       setIsAnimate(true);
       setIsAnimation(true);
       window.removeEventListener("scroll", handleScroll);
@@ -45,7 +45,7 @@ function Profile_creation() {
     if (isAnimate) {
       setIsVisible(true);
       containerAnimation.start({
-        y: (window.scrollY - 3700) * 1,
+        y: (window.scrollY - 3600) * 1,
         transition: { duration: 2.5 },
       });
     }
@@ -54,10 +54,10 @@ function Profile_creation() {
   useEffect(() => {
     const handleScroll = () => {
       const value = window.scrollY;
-      if (value >= 4000) {
+      if (value >= 3900) {
         if (containerOneRef.current && containerTwoRef.current) {
-          containerOneRef.current.style.left = (value - 4000) * -1.6 + "px";
-          containerTwoRef.current.style.left = (value - 4000) * 2.2 + "px";
+          containerOneRef.current.style.left = (value - 3900) * -1.6 + "px";
+          containerTwoRef.current.style.left = (value - 3900) * 2.2 + "px";
         }
       } else {
         if (containerOneRef.current && containerTwoRef.current) {
@@ -65,18 +65,7 @@ function Profile_creation() {
           containerTwoRef.current.style.left = "0px";
         }
       }
-      if (value >= 5000) {
-        if (containerOneRef.current && containerTwoRef.current) {
-          containerOneRef.current.style.zIndex = 100;
-          containerTwoRef.current.style.zIndex = 100;
-          containerOneRef.current.style.background = "#fff";
-          containerTwoRef.current.style.background = "#fff";
-          // containerOneRef.current.style.height = "80vh";
-          // containerTwoRef.current.style.height = "80vh";
-          containerOneRef.current.style.transition = "all 0.1s";
-          containerTwoRef.current.style.transition = "all 0.1s";
-        }
-      }
+      
     };
     window.addEventListener("scroll", handleScroll);
     return () => {
@@ -136,21 +125,21 @@ function Profile_creation() {
               >
                 <p
                   className="profile_creation_head"
-                  initial={{ y: "100vh" }}
+                 
                   animate={containerAnimation}
                 >
                   Ai Powered profile creation
                 </p>
                 <p
                   className="profile_creation_head_one"
-                  initial={{ y: "90vh" }}
+                
                   animate={containerAnimation}
                 >
                   Easy process to create your profile
                 </p>
                 <p
                   className="profile_creation_head_para"
-                  initial={{ y: "80vh" }}
+                 
                   animate={containerAnimation}
                 >
                   It streamlines job searches, improves candidate-employer matches,
@@ -159,14 +148,14 @@ function Profile_creation() {
                 </p>
                 <p
                   className="profile_creation_head_steps"
-                  initial={{ y: "70vh" }}
+                  
                   animate={containerAnimation}
                 >
                   1. Upload your CV/Resume.
                 </p>
                 <p
                   className="profile_creation_head_steps"
-                  initial={{ y: "60vh" }}
+                
                   animate={containerAnimation}
                 >
                   2. Let system scan it and make your profile almost ready.
@@ -175,7 +164,7 @@ function Profile_creation() {
 
               <div
                 ref={containerTwoRef}
-                className="h-[42.2rem]"
+              
                 style={{ position: "relative", paddingLeft: "54px" }}
               >
                 <div
