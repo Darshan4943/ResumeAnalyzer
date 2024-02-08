@@ -6,12 +6,16 @@ function Resume11({data}) {
       <div className='w-[326px] bg-[#E6E7E8] flex flex-col pt-[58px] pl-[56px] gap-[26px] items-start'>
       
        <div className='flex flex-col '>
-           <p className='text-[40px] font-[700] leading-[48px]'> JOHN <br/> DOE</p>
+           <p className='text-[40px] font-[700] leading-[48px]'> {data.firstName} <br/> {data.lastName}</p>
            <p className='text-[18px] font-[700] leading-[18px]'>{data.designation}</p>
        </div>
        
+       {data.profilePhoto ? (
+                <img src={URL.createObjectURL(data.profilePhoto)} alt="" className="w-[270px] h-[212px] object-contain" />
+              ) :(
        <img className='w-[270px] h-[212px] object-contain' src="/images/services/template_profile.png" />
-       
+              )}
+
 <div>
 {data?.skills?.length > 0 && (
             <>
