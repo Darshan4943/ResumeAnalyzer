@@ -55,7 +55,7 @@ function BeforeLoginHome() {
             </Background>
           </Parallax>
           {/* Add other Parallax components as needed */}
-          <Parallax strength={200} className="h-[45rem] pt-[36px] ">
+          <Parallax strength={300} className="h-[40rem] pt-[36px] ">
             <Background className="custom-bg ">
               <JobCategories />
             </Background>

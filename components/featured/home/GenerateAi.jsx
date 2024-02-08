@@ -15,9 +15,6 @@ function GenerateAi() {
     const generateAiRef = useRef(null);
 
 
-
-
-
     useEffect(() => {
         const options = {
             root: null,
@@ -241,7 +238,7 @@ function GenerateAi() {
 
     return (
 
-        <div ref={generateAiRef} className=' bg-cover bg-no-repeat ml:bg_generateAi bg_generateAi1 py-[78px] my-[36px]  w-screen  '>
+        <div ref={generateAiRef} className=' bg-cover bg-no-repeat ml:bg_generateAi bg_generateAi1 py-[78px] mb-[36px]  w-screen  '>
             <div className='ml:w-[90%]  md:w-[60%] ms:w-[70%] sm:w-[80%] w-[97%] flex ml:flex-row flex-col items-center gap-6 customMargins sm:px-4 xsm:px-2 px-1 rounded-[16px] py-6 ' style={{ boxShadow: "0px 4px 14px 0px rgba(0, 0, 0, 0.25)", background: "rgba(255, 255, 255, 0.25)" }} >
                 <div
                     className=" ml:w-[37%] w-[95%] relative flex flex-col gap-2 rounded-[16px] px-4 py-6 bg-white "
