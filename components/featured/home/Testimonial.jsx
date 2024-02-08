@@ -1,8 +1,12 @@
-import { useEffect, useState } from "react";
-// import "./App.css";
+import { useEffect, useRef, useState } from "react";
+import { motion, useAnimation } from 'framer-motion';
+import { useMediaQuery } from "@react-hook/media-query";
 
 function Testimonial() {
   const [isMoving, setIsMoving] = useState(true);
+  const isViewportBelow850 = useMediaQuery("(max-width:850px)");
+  const [padding, setPadding] = useState(0);
+
   const [positions, setPositions] = useState([
     {
       left: "unset",
@@ -45,6 +49,40 @@ function Testimonial() {
       class: "gallary-item-5",
     },
   ]);
+  const containerOneRef = useRef(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
+      const scrollPositionFromBottom = documentHeight - window.scrollY ;
+    
+      const value = scrollPositionFromBottom;
+
+      if (value <= 1600) {
+        if (containerOneRef.current) {
+          containerOneRef.current.style.top = (value - 1600) * 0.5 + "px";
+          containerOneRef.current.style.marginBottom = (value - 1600) * 0.3 + "px";
+         
+
+        }
+      } else {
+        if (containerOneRef.current) {
+          containerOneRef.current.style.top = "0px";
+
+        }
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, );
+
+  console.log(82,padding)
+
+
   const shiftClockwise = () => {
     setPositions((prevPositions) => {
       const newPositions = [...prevPositions];
@@ -64,7 +102,13 @@ function Testimonial() {
     return () => clearInterval(intervalId);
   }, []);
   return (
-    <div className="">
+
+    <div
+    className={`relative `}
+
+      ref={!isViewportBelow850 ? containerOneRef : null}
+    >
+
       <div
         className="testimonial_container customMargins -z-10"
         style={{ overflow: "hidden" }}
@@ -78,9 +122,8 @@ function Testimonial() {
               {positions.map((position, index) => (
                 <img
                   key={index}
-                  src={`/images/home/company_logs/scroller-img_${
-                    index + 1
-                  }.png`}
+                  src={`/images/home/company_logs/scroller-img_${index + 1
+                    }.png`}
                   alt={`Image ${index + 1}`}
                   className={`gallary-item ${position.class}`}
                 />
@@ -121,6 +164,8 @@ function Testimonial() {
           </div>
         </div>
       </div>
+
+
     </div>
   );
 }

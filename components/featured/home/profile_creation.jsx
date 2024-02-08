@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 
 import { motion, useAnimation } from "framer-motion";
-import { useMediaQuery } from "@react-hook/media-query";
+
 
 
 function Profile_creation() {
@@ -22,56 +22,46 @@ function Profile_creation() {
 
   const containerAnimation = useAnimation();
 
-  const isViewportBelow850 = useMediaQuery("(max-width:850px)");
 
 
-  const handleScroll = () => {
-    if (window.scrollY >= 3600 && !isAnimate) {
-      setIsAnimate(true);
-      setIsAnimation(true);
-      window.removeEventListener("scroll", handleScroll);
-    }
-  };
+  // const handleScroll = () => {
+  //   if (window.scrollY >= 3600 && !isAnimate) {
+  //     setIsAnimate(true);
+  //     setIsAnimation(true);
+  //     window.removeEventListener("scroll", handleScroll);
+  //   }
+  // };
 
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
-  useEffect(() => {
-    if (isAnimate) {
-      setIsVisible(true);
-      containerAnimation.start({
-        y: (window.scrollY - 3600) * 1,
-        transition: { duration: 2.5 },
-      });
-    }
-  }, [isAnimate, containerAnimation]);
 
   useEffect(() => {
     const handleScroll = () => {
-      const value = window.scrollY;
-      if (value >= 3900) {
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
+      const scrollPositionFromBottom = documentHeight - window.scrollY ;
+      console.log(41,scrollPositionFromBottom)
+      const value = scrollPositionFromBottom;
+
+      if (value <= 1700 && !isAnimate) {
+        setIsAnimate(true);
+        setIsAnimation(true);
+        window.removeEventListener("scroll", handleScroll);
+      }
+
+      if (isAnimate) {
+        setIsVisible(true);
+
         if (containerOneRef.current && containerTwoRef.current) {
-          containerOneRef.current.style.left = (value - 3900) * -1.6 + "px";
-          containerTwoRef.current.style.left = (value - 3900) * 2.2 + "px";
-        }
-      } else {
-        if (containerOneRef.current && containerTwoRef.current) {
-          containerOneRef.current.style.left = "0px";
-          containerTwoRef.current.style.left = "0px";
+          containerOneRef.current.style.left = value <= 1500 ? (value - 1500) * 2 + "px" : "0px";
+          containerTwoRef.current.style.left = value <= 1500 ? (value - 1500) * -2.6 + "px" : "0px";
         }
       }
-      
     };
+
     window.addEventListener("scroll", handleScroll);
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, [isAnimate]);
 
 
 
@@ -92,13 +82,13 @@ function Profile_creation() {
               </div>
             </div>
             <div className="text-[14px] font-medium text-[#646464]">
-            It streamlines job searches, improves candidate-employer matches, and contributes to a more efficient and effective job-seeking process.
+              It streamlines job searches, improves candidate-employer matches, and contributes to a more efficient and effective job-seeking process.
 
             </div>
             <div className="text-[14px] font-medium flex flex-col gap-2 ">
 
-            <p>1. Upload your CV/Resume.</p>  
-            <p>2. Let system scan it and make your profile almost ready..</p>  
+              <p>1. Upload your CV/Resume.</p>
+              <p>2. Let system scan it and make your profile almost ready..</p>
 
             </div>
 
@@ -112,9 +102,9 @@ function Profile_creation() {
             />
           </div>
         </div>
-        </div>
-        {/* : */}
-       <div className="web">
+      </div>
+      {/* : */}
+      <div className="web">
         <div className="profile_creation_wrapper  container_temp -z-10 ">
           <div className="profile_creation_container  ">
             <>
@@ -125,21 +115,21 @@ function Profile_creation() {
               >
                 <p
                   className="profile_creation_head"
-                 
+
                   animate={containerAnimation}
                 >
                   Ai Powered profile creation
                 </p>
                 <p
                   className="profile_creation_head_one"
-                
+
                   animate={containerAnimation}
                 >
                   Easy process to create your profile
                 </p>
                 <p
                   className="profile_creation_head_para"
-                 
+
                   animate={containerAnimation}
                 >
                   It streamlines job searches, improves candidate-employer matches,
@@ -148,14 +138,14 @@ function Profile_creation() {
                 </p>
                 <p
                   className="profile_creation_head_steps"
-                  
+
                   animate={containerAnimation}
                 >
                   1. Upload your CV/Resume.
                 </p>
                 <p
                   className="profile_creation_head_steps"
-                
+
                   animate={containerAnimation}
                 >
                   2. Let system scan it and make your profile almost ready.
@@ -164,7 +154,7 @@ function Profile_creation() {
 
               <div
                 ref={containerTwoRef}
-              
+
                 style={{ position: "relative", paddingLeft: "54px" }}
               >
                 <div
@@ -557,8 +547,10 @@ function Profile_creation() {
             </>
           </div>
         </div>
-        </div>
+      </div>
       {/* } */}
+
+
     </>
   );
 }

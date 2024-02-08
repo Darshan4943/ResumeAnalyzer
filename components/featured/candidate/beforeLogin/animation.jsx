@@ -210,7 +210,7 @@ function Candidate_animation() {
           </div>
         )}
 
-        {isDiv && (
+        {/* {isDiv && (
           <div className="customMargins">
             <div className="ai_powered_parent overflow-hidden">
               <motion.div className="ai_text">
@@ -278,18 +278,18 @@ function Candidate_animation() {
               </motion.div>
             </div>
           </div>
-        )}
+        )} */}
 
-        {isLineAnimate && (
+        {/* {isLineAnimate && ( */}
           <motion.div
             className=" candidate_Animation customMargins pt-9"
-            animate={{
-              x: slideImage ? 400 : 0,
-              y: slideImage ? 200 : 0,
-              opacity: slideImage ? 0 : 1,
-              scale: slideImage ? 0.5 : 1,
-            }}
-            initial={{ opacity: 1, x: 0, y: 0, scale: 1 }}
+            // animate={{
+            //   x: slideImage ? 0 : 0,
+            //   y: slideImage ? 0 : 0,
+            //   opacity: slideImage ? 0 : 1,
+            //   scale: slideImage ? 0.5 : 1,
+            // }}
+            initial={{ opacity: 1, x: 1, y: 1, scale: 1 }}
             transition={{ duration: 0.5 }}
           >
             <div className="candidate_profile">
@@ -507,7 +507,7 @@ function Candidate_animation() {
                       </div>
                     </div>
                   </div>
-                  <div className="col candidate_midle_section">
+                  <div className="col candidate_midle_section flex items-end">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="4"
@@ -1232,7 +1232,7 @@ function Candidate_animation() {
               </div>
             </div>
           </motion.div>
-        )}
+        {/* )} */}
       </div>
     </>
   );
