@@ -130,13 +130,13 @@ const Education = ({ setData, data }) => {
               </div>
               <div className="flex flex-col gap-2 w-full">
                 <div className="w-full text-[14px] font-montserrat  font-medium">
-                  Specialization / Borad
+                  Specialization / Board
                 </div>
                 <div className="w-full border-[1px] border-[#9D9D9D] rounded-[8px] px-[16px] py-[12px]">
                   <input
                     type="text"
                     name="specialization"
-                    placeholder="Enter your specialization/borad"
+                    placeholder="Enter your specialization/board"
                     className="w-full text-[14px] font-montserrat font-small "
                     value={educationData.specialization}
                     onChange={handleInputChangeEducation}

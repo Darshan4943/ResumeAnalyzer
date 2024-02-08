@@ -196,8 +196,6 @@ function ForCandidate() {
               </div>
             </div>
           </div>
-
-
         </div>
       </div>
       <div className="web">
@@ -264,9 +262,7 @@ function ForCandidate() {
                   <p id="candidate">{toggle ? "Candidate" : "Employer"}</p>
                 </div>
               </div>
-
               <div className="wrapper"
-               
               >
                 {data.map((item, index) => (
                   <animated.div

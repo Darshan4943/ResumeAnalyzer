@@ -15,9 +15,6 @@ function GenerateAi() {
     const generateAiRef = useRef(null);
 
 
-
-
-
     useEffect(() => {
         const options = {
             root: null,
@@ -241,7 +238,7 @@ function GenerateAi() {
 
     return (
 
-        <div ref={generateAiRef} className=' bg-cover bg-no-repeat ml:bg_generateAi bg_generateAi1 py-[78px] my-[36px]  w-screen  '>
+        <div ref={generateAiRef} className=' bg-cover bg-no-repeat ml:bg_generateAi bg_generateAi1 py-[78px] mb-[36px]  w-screen  '>
             <div className='ml:w-[90%]  md:w-[60%] ms:w-[70%] sm:w-[80%] w-[97%] flex ml:flex-row flex-col items-center gap-6 customMargins sm:px-4 xsm:px-2 px-1 rounded-[16px] py-6 ' style={{ boxShadow: "0px 4px 14px 0px rgba(0, 0, 0, 0.25)", background: "rgba(255, 255, 255, 0.25)" }} >
                 <div
                     className=" ml:w-[37%] w-[95%] relative flex flex-col gap-2 rounded-[16px] px-4 py-6 bg-white "
@@ -311,8 +308,8 @@ function GenerateAi() {
                     }
 
                 </div>
-                <div className=' ml:w-[19.85%] w-[70%]  flex flex-col gap-4 justify-center text-center items-center'>
-                    <div className='flex sm:w-[95%] w-[97%] flex-wrap text-center items-center justify-center ml:text-[1.6vw] text-[24px] font-bold'>
+                <div className=' ml:w-[19.85%] xl:w-[217.1px] w-[70%]  flex flex-col gap-4 justify-center text-center items-center'>
+                    <div className='flex sm:w-[95%] w-[97%] flex-wrap text-center items-center justify-center ml:text-[1.6vw] xl:text-[23.04px] text-[24px] font-bold'>
                         <span className='text-center'>   Try our Generative AI Feature to </span> &nbsp; <span className='px-[30px] text-[#BB57E1]'>  Improve </span> &nbsp; <span className='px-[70px]'>&</span>  &nbsp; <span className='px-[30px] text-[#06A9EF]'>Enhance</span>&nbsp;your profile
                     </div>
                     <div className='flex flex-col justify-center items-center gap-2 w-[90%] relative'>
@@ -353,7 +350,7 @@ function GenerateAi() {
                                 type="text"
                                 name="aboutMe"
                                 className="w-full sm:min-h-[240px] min-h-[200px] max-h-[240px] text-[14px] font-montserrat  h-full border border-[#06A9EF] rounded-[8px] outline-none p-4 "
-                                placeholder=""
+                                placeholder=" "
                                 onChange={handleTextChange}
                                 value={text}
                             />

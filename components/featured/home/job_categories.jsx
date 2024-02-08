@@ -17,13 +17,10 @@ function JobCategories() {
   const cardRef = useRef();
 
   const yPathSeter = (index) => {
-    return index === 0 || index === 3 || index === 6 || index === 9
+    return index === 0 || index === 2 || index === 4 || index === 7 || index === 9  || index === 11 
       ? translateY
-      : index === 1 || index === 4 || index === 7 || index === 10
-        ? translateY1
-        : index === 2 || index === 5 || index === 8 || index === 11
-          ? translateY2
-          : translateY2;
+      : translateY1
+     
   };
 
   const { scrollYProgress } = useScroll(
@@ -39,31 +36,31 @@ function JobCategories() {
 
   const x = useTransform(
     scrollYProgress,
-    [0, 0.2, 0.48, 0.5, 0.75, 1],
+    [0, 0.2, 0.41, 0.5, 0.75, 1],
     [-900, -700, 0, 0, 700, 900]
   );
 
   const translateX = useTransform(
     scrollYProgress,
-    [0, 0.2, 0.48, 0.5, 0.75, 1],
-    [900, 700, 0, 0, -700, -900]
+    [0, 0.2, 0.41, 0.5, 0.75, 1],
+    [900, 700, 0, 0, -900, -900]
   );
 
   const translateY = useTransform(
     scrollYProgress,
-    [0, 0.2, 0.48, 0.5, 0.75, 1],
-    [1600, 100, 0, 0, -150, -1600]
+    [0, 0.2, 0.41, 0.5, 0.75, 1],
+    [600, 200, 0, 0, -200, -600]
   );
 
   const translateY1 = useTransform(
     scrollYProgress,
-    [0, 0.2, 0.48, 0.5, 0.75, 1],
-    [1400, 200, 0, 0, -200, -1400]
+    [0, 0.2, 0.41, 0.5, 0.75, 1],
+    [800, 300, 0, 0, -300, -400]
   );
 
   const translateY2 = useTransform(
     scrollYProgress,
-    [0, 0.2, 0.48, 0.5, 0.75, 1],
+    [0, 0.2, 0.41, 0.5, 0.75, 1],
     [1200, 400, 0, 0, -400, -1200]
   );
 
