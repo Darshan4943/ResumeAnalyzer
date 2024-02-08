@@ -51,8 +51,8 @@ function Profile_creation() {
         setIsVisible(true);
 
         if (containerOneRef.current && containerTwoRef.current) {
-          containerOneRef.current.style.left = value <= 1500 ? (value - 1500) * 2 + "px" : "0px";
-          containerTwoRef.current.style.left = value <= 1500 ? (value - 1500) * -2.6 + "px" : "0px";
+          containerOneRef.current.style.left = value <= 1450 ? (value - 1450) * 2 + "px" : "0px";
+          containerTwoRef.current.style.left = value <= 1450 ? (value - 1450) * -2.6 + "px" : "0px";
         }
       }
     };

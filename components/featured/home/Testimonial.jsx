@@ -59,10 +59,10 @@ function Testimonial() {
     
       const value = scrollPositionFromBottom;
 
-      if (value <= 1600) {
+      if (value <= 1550) {
         if (containerOneRef.current) {
-          containerOneRef.current.style.top = (value - 1600) * 0.5 + "px";
-          containerOneRef.current.style.marginBottom = (value - 1600) * 0.3 + "px";
+          containerOneRef.current.style.top = (value - 1550) * 0.5 + "px";
+          containerOneRef.current.style.marginBottom = (value - 1550) * 0.3 + "px";
          
 
         }
