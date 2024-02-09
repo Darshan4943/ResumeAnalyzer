@@ -5,8 +5,9 @@ import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
 import { reCallUserData } from "../../Redux/actions/user";
+import Link from "next/link";
 
-function Sign_in() {
+function Sign_in({setIsSignIn}) {
   const router = useRouter();
   const [data, setData] = useState({ email: "", password: "" });
   const [showPassword, setShowPassword] = useState(false);
@@ -117,11 +118,15 @@ function Sign_in() {
             <div className="w-[50%] h-[1px] bg-[#9D9D9D]"></div>
           </div>
           <div className="flex flex-col gap-[16px]">
-            <ALink href="/auth/Sign_up">
+            <Link
+                  href={{
+                    pathname: "/auth",
+                    query: { signup: true },
+                  }}>
               <button className="w-full px-[36px] py-[12px] rounded-[12px] border-[1px] border-solid border-[#06a9ef] bg-[#06a9ef] text-white text-[20px] font-[500] hover:text-[#333]  continue_btn">
                 Sign up
               </button>
-            </ALink>
+            </Link>
             <div className="text-[12px]">
               By signing in, you agree to our{" "}
               <span

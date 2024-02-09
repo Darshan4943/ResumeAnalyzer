@@ -94,8 +94,8 @@
   fill: #fff;
 }
 .earth {
-  width: 27%;
-  height: 50%;
+  width: 30%;
+  height: 65%;
   background: url("../../images/employer/world.png");
   border-radius: 50%;
   background-size: 210px;
@@ -109,32 +109,29 @@
   opacity: 0.1;
 
   position: absolute;
-  left: 0%;
+  // left: 0%;
   transform: translate(-50%, -50%);
   top: 50%;
 }
 .earth1 {
   position: absolute;
   transform: translate(-50%, -50%);
-  right: -6%;
-  // width:
-  width: 23%;
-  // height: 323.821px;
-  height: 45%;
-  top: 50%;
+  right: -7%;
+    width: 24%;
+    height: 50%;
+    top: 50%;
 
   opacity: 0.1;
   overflow: hidden !important;
 }
 .sign_up_tethescope {
   // width: 450px;
-  width: 31%;
-  // height: 500px;
-  height: 60%;
+  width: 35%;
+  height: 76%;
   position: absolute;
   transform: translate(-50%, -50%);
   top: 55%;
-  right: -20%;
+  right: -14%;
   opacity: 0.1;
   overflow: hidden !important;
 }
@@ -142,6 +139,7 @@
   overflow: hidden !important;
 }
 .earthswipe {
+
 }
 
 ////////////////employer register//////////

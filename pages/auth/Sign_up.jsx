@@ -24,7 +24,7 @@ function Sign_up() {
   return (
     <>
       <div className="flex justify-center  items-center h-full w-full earth_container my-[3rem]">
-        <div className="w-full flex flex-col gap-[36px] ">
+        <div className="w-full flex flex-col gap-[36px] pb-[10px]">
           <div>
             <div className="text-[#333] text-center text-[30px] ms:text-[40px] font-[600]">
               Select a role to get started
@@ -214,7 +214,12 @@ function Sign_up() {
           <div className="flex items-center justify-center text-[14px] font-[500] text-[#646464]">
             Already have an account?{" "}
             <span
-              onClick={() => router.push("/auth/Sign_in")}
+              onClick={() =>
+                router.push({
+                  pathname: "/auth",
+                  query: { signin: true },
+                })
+              }
               className="text-[#06A9EF]"
             >
               Sign In
