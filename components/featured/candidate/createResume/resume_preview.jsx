@@ -163,12 +163,12 @@ const ResumePreview = ({ data, isSetEdit }) => {
               alt=""
               onClick={() => togglePreview(true, 11)}
             />
-            <img
+            {/* <img
               src="/images/services/resume12.png"
               className="h-[200px] w-[140.91px] rounded-[6px]"
               alt=""
               onClick={() => togglePreview(true, 12)}
-            />
+            /> */}
 
             {/* <img
               src="/images/services/resume100.png"
