@@ -20,7 +20,6 @@ module.exports = {
       sm: "480px",
       scr540: "540px",
       ms: "600px",
-      xlg: "600px",
       scr700: "700px",
       md: "768px",
       scr800:'800px',
@@ -30,6 +29,7 @@ module.exports = {
       lg: "976px",
       scr1024: "1024px",
       xxlg: "1128px",
+      xlg: "600px",
       scr1100: "1100px",
       scr1150: "1150px",
       scr1200: "1200px",
@@ -67,6 +67,8 @@ module.exports = {
       serif: ["Merriweather", "serif"],
       Montserrat: ["Montserrat", "sans-serif"],
       kanit: ["Kanit", "sans-serif"],
+      // font-family: 'Lato', sans-serif;
+      Lato:["Lato","sans-serif"],
     },
     extend: {
       spacing: {

@@ -156,7 +156,7 @@ function CandidateHeader() {
                                 className="h-4 w-4 ml-1 cursor-pointer group-hover:opacity-100 group-hover:visible"
                                 alt=""
                             />
-                            <div className="dropdown absolute top-[26px] mt-[1rem] z-10 bg-white border border-gray-200 py-2 px-3 rounded-md shadow-md opacity-0 invisible transition-opacity duration-300 group-hover:opacity-100 group-hover:visible">
+                            <div className="dropdown absolute top-[26px] mt-[1.5rem] right-0 z-10 bg-white border border-gray-200 py-2 px-3 rounded-md shadow-md opacity-0 invisible transition-opacity duration-300 group-hover:opacity-100 group-hover:visible">
                                 <Link href="/profile" className="block py-1">
                                     Profile
                                 </Link>

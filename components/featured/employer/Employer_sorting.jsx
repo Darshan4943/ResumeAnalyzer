@@ -140,9 +140,9 @@ function Employer_sorting({ showAnimation }) {
 
   return (
     <>
-      <div style={{ overflow: "hidden" }} className="h-[40rem] web">
+      <div style={{ overflow: "hidden" }} className=" web">
         {showMain ? (
-          <div className="Employer_sorting_container customMargins">
+          <div className="Employer_sorting_container h-[40rem] customMargins">
             <div className="Employer_sorting_sub_container">
               <div className="sorting_wrapper">
                 <div className="sorting_head">
@@ -187,7 +187,7 @@ function Employer_sorting({ showAnimation }) {
           </div>
         ) : (
           <div>
-            <div className="sorting_main-container customMargins">
+            <div className="sorting_main-container h-[45rem] customMargins">
               <div className="abc">
                 {showDiv && (
                   <svg
@@ -300,7 +300,7 @@ function Employer_sorting({ showAnimation }) {
                   </svg>
                 )}
               </div>
-              <div className="animation-container">
+              <div className="animation-container ">
                 {divs[currentIndex]}
                 {currentIndex < divs.length - 1 && (
                   <button onClick={showNextDiv} className="animation-btn">
