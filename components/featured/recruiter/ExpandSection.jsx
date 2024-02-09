@@ -6,15 +6,15 @@ function ExpandSection() {
     <>
       <div className="customMargins w-screen">
         <div class="flex_class w-full flex flex-col ml:flex ml:flex-row mt-[49px] mb-[26px] gap-[16px] ml:gap-[43px]">
-          <Parallax className="web" speed={-10}>
-            <div class="flex justify-center ml:justify-start w-[100%] h-[100%] ml:w-[80%] ml:h-[580px]  ">
+          <>
+            <div class="flex justify-center ml:justify-start w-[100%] h-[100%] ml:w-[50%] ml:h-[580px]  ">
               <img
                 class="ml:w-full ml:h-full sm:w-[26rem] sm:h-[19rem] w-[19rem] h-[19rem] object-contain "
                 src="/images/recruiter/handshake_img.png"
                 alt=""
               />
             </div>
-          </Parallax>
+          </>
 
           <div className="mobile">
             <div class="flex justify-center ml:justify-start w-[100%] h-[100%] ml:w-[80%] ml:h-[580px] ">

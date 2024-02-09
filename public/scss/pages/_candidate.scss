@@ -921,11 +921,13 @@
           }
         }
         .candidate_blue_line1 {
-          animation: moveLine1 0.10s linear forwards;
+          position: relative;
+          top:2rem;
+          animation: moveLine1 0.6s linear forwards;
         }
         @keyframes moveLine1 {
           from {
-            height: 0;
+            height: 0%;
           }
           to {
             height: 100%;
@@ -1451,12 +1453,13 @@
 
               .candidate_proffesion_boxA {
                 width: 240px;
-                height: 135px;
-                /* background: red; */
+                height: 137px;
+                //  background: red; 
                 background: white;
                 position: absolute;
                 z-index: 1;
                 right: -3.7rem;
+                top:-3px
               }
 
               .candidate_soft_heading {

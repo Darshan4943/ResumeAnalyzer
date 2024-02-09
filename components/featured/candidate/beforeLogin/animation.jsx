@@ -20,7 +20,7 @@ function Candidate_animation() {
     }
   };
 
-  
+
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
@@ -81,16 +81,16 @@ function Candidate_animation() {
           <div className="ai_images w-full h-[300px] flex items-center justify-center">
             <div className="w-[200px] h-[240px] flex relative">
               <div className="flex items-center justify-center">
-              <img
-                className="david_resume w-[190px] h-[268px] absolute top-0 left-[-36px]"
-                src="/images/candidate/resume2.png"
-                alt=""
-              />
-              <img
-                className="name_resume w-[190px] h-[268px] absolute top-0 left-[20%] right-[30%] object-contain"
-                src="/images/candidate/resume1.png"
-                alt=""
-              />
+                <img
+                  className="david_resume w-[190px] h-[268px] absolute top-0 left-[-36px]"
+                  src="/images/candidate/resume2.png"
+                  alt=""
+                />
+                <img
+                  className="name_resume w-[190px] h-[268px] absolute top-0 left-[20%] right-[30%] object-contain"
+                  src="/images/candidate/resume1.png"
+                  alt=""
+                />
               </div>
             </div>
           </div>
@@ -192,25 +192,25 @@ function Candidate_animation() {
                 />
                 </div>
               </div> */}
-                  <div className="ai_images_start w-full flex">
-            <div className="w-[393px] h-[280px] flex relative  items-start justify-start">
-              <img
-                className="david_resume w-[190px] h-[268px] absolute top-0 left-0"
-                src="/images/candidate/resume2.png"
-                alt=""
-              />
-              <img
-                className="name_resume w-[190px] h-[268px] absolute top-0 left-[35%] right-[30%]"
-                src="/images/candidate/resume1.png"
-                alt=""
-              />
-            </div>
-          </div>
+              <div className="ai_images_start w-full flex items-center">
+                <div className="w-[648px] h-[669px] flex relative  items-center justify-center ">
+                  <img
+                    className="david_resume  absolute left-0 object-contain"
+                    src="/images/candidate/resume2.png"
+                    alt=""
+                  />
+                  <img
+                    className="name_resume  absolute top-0 left-[35%] right-[30%] object-contain"
+                    src="/images/candidate/resume1.png"
+                    alt=""
+                  />
+                </div>
+              </div>
             </div>
           </div>
         )}
 
-        {/* {isDiv && (
+        {isDiv && (
           <div className="customMargins">
             <div className="ai_powered_parent overflow-hidden">
               <motion.div className="ai_text">
@@ -278,18 +278,18 @@ function Candidate_animation() {
               </motion.div>
             </div>
           </div>
-        )} */}
+        )}
 
-        {/* {isLineAnimate && ( */}
+        {isLineAnimate && (
           <motion.div
-            className=" candidate_Animation customMargins pt-9"
-            // animate={{
-            //   x: slideImage ? 0 : 0,
-            //   y: slideImage ? 0 : 0,
-            //   opacity: slideImage ? 0 : 1,
-            //   scale: slideImage ? 0.5 : 1,
-            // }}
-            initial={{ opacity: 1, x: 1, y: 1, scale: 1 }}
+            className=" candidate_Animation customMargins pt-9 overflow-hidden"
+            animate={{
+              x: slideImage ? 400 : 0,
+              y: slideImage ? 200 : 0,
+              opacity: slideImage ? 0 : 1,
+              scale: slideImage ? 0.5 : 1,
+            }}
+            initial={{ opacity: 1, x: 0, y: 0, scale: 1 }}
             transition={{ duration: 0.5 }}
           >
             <div className="candidate_profile">
@@ -507,7 +507,7 @@ function Candidate_animation() {
                       </div>
                     </div>
                   </div>
-                  <div className="col candidate_midle_section flex items-end">
+                  <div className="col candidate_midle_section ">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="4"
@@ -1232,7 +1232,7 @@ function Candidate_animation() {
               </div>
             </div>
           </motion.div>
-        {/* )} */}
+        )}
       </div>
     </>
   );

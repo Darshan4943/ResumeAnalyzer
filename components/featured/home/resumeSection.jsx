@@ -5,8 +5,8 @@ function ResumeSection() {
     const router = useRouter();
     return (
         <div className='flex sm:flex-row flex-col gap-4 w-[100%] sm:max-h-[464px] justify-between  mt-9 '>
-            <div className='sm:w-[35%] w-[85%] bg-cover bg-no-repeat bg_resumeBlue  '>
-                <div className="w-[110%] mt-4 flex justify-end py-4 pr-4 sm:max-h-[430px] -ml-2  "
+            <div className=' flex flex-col sm:w-[35%] items-center justify-center w-[85%] py-4 bg-cover bg-no-repeat bg_resumeBlue  '>
+                <div className="w-[130%]  flex justify-end py-4 pr-4 max-h-[430px]  -ml-2  "
                     style={{
                         borderRadius: "12px",
                         background: "rgba(255, 255, 255, 0.25)",
@@ -14,7 +14,7 @@ function ResumeSection() {
                         boxShadow: "0px 2px 5px 1px rgba(0, 0, 0, 0.25)"
                     }}
                 >
-                    <img src="/images/templateMan.png " alt="" className='max-h-[440px]   object-contain w-[65%] ' />
+                    <img src="/images/templateMan.png " alt="" className=' object-contain w-[65%] xl:w-[386px] ' />
 
                 </div>
 

@@ -48,19 +48,19 @@ function BeforeLoginHome() {
               <HeroSection />
               </Background>
           </Parallax>
-              <Parallax strength={150} className="h-[55rem]  pt-[36px]">
+              <Parallax strength={150} className="h-[52rem]  pt-[36px]">
             <Background className="custom-bg">
               <ResumeSection/>
               <TrustedBySection />
             </Background>
           </Parallax>
           {/* Add other Parallax components as needed */}
-          <Parallax strength={150} className="h-[40rem] pt-[36px] ">
+          <Parallax strength={150} className="h-[40rem] pt-[70px] ">
             <Background className="custom-bg ">
               <JobCategories />
             </Background>
           </Parallax>
-          <Parallax strength={50} className="h-[45rem]  pt-[36px] ">
+          <Parallax strength={50} className="h-[39rem]  pt-[36px] ">
             <Background className="custom-bg  ">
               <GenerateAi />
             </Background>

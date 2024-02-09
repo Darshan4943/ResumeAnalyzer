@@ -15,6 +15,7 @@ function JobCategories() {
   const isViewportBelow850 = useMediaQuery("(max-width:850px)");
   const trustedRef = useRef();
   const cardRef = useRef();
+  const [paddingBottom, setPaddingBottom] = useState(0);
 
   const yPathSeter = (index) => {
     return index === 0 || index === 2 || index === 4 || index === 7 || index === 9  || index === 11 
@@ -36,33 +37,52 @@ function JobCategories() {
 
   const x = useTransform(
     scrollYProgress,
-    [0, 0.2, 0.41, 0.5, 0.75, 1],
+    [0, 0.2, 0.35, 0.55, 0.75, 1],
     [-900, -700, 0, 0, 700, 900]
   );
 
   const translateX = useTransform(
     scrollYProgress,
-    [0, 0.2, 0.41, 0.5, 0.75, 1],
+    [0, 0.2, 0.35, 0.55, 0.75, 1],
     [900, 700, 0, 0, -900, -900]
   );
 
   const translateY = useTransform(
     scrollYProgress,
-    [0, 0.2, 0.41, 0.5, 0.75, 1],
+    [0, 0.2, 0.35, 0.55, 0.75, 1],
     [600, 200, 0, 0, -200, -600]
   );
 
   const translateY1 = useTransform(
     scrollYProgress,
-    [0, 0.2, 0.41, 0.5, 0.75, 1],
+    [0, 0.2, 0.35, 0.55, 0.75, 1],
     [800, 300, 0, 0, -300, -400]
   );
 
   const translateY2 = useTransform(
     scrollYProgress,
-    [0, 0.2, 0.41, 0.5, 0.75, 1],
+    [0, 0.2, 0.35, 0.55, 0.75, 1],
     [1200, 400, 0, 0, -400, -1200]
   );
+  
+  const { scrollY } = useScroll({
+    target: trustedRef,
+    offset: ["start end", "end start"],
+  });
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      setPaddingBottom(scrollPosition * 0.1); 
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll); 
+    };
+  }, []);
+
 
   return (
     <>
@@ -103,8 +123,8 @@ function JobCategories() {
       </div>
 
 
-      <div className="web">
-        <div className="trust_section_parent  w-screen relative" ref={trustedRef}>
+      <div className="web" >
+        <div className="trust_section_parent  w-screen relative" ref={trustedRef} >
           <div className="popular_job">
             <motion.p id="popular_job" style={{ x }
             }>
@@ -116,7 +136,7 @@ function JobCategories() {
             </motion.p>
           </div >
           <div className="customMargins ">
-            <div className="job_cat_card pt-4 ">
+            <div className="job_cat_card pt-4 " >
               {jobCatData.map((item, index) => (
                 <motion.div
                   ref={cardRef}

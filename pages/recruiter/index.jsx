@@ -42,13 +42,13 @@ function Recruiter_page() {
           <ReactLenis root>
             <Parallax
               strength={300}
-              className="h-[31rem] ml:h-[51rem] pt-[36px] "
+              className="h-[31rem] ml:h-[45rem] pt-[36px] "
             >
               <Background className="custom-bg  ">
                 <RecruiterHero />
               </Background>
             </Parallax>
-            <div className="h-[32rem] ml:h-[40rem]">
+            <div className="h-[32rem] ml:h-[80vh] pt-[3rem]">
               <RecruiterAnimation showAnimationn={!showAnimationn} />
             </div>
             <Parallax strength={400} className="h-[48rem] pt-[36px] ">
