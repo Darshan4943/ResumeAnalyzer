@@ -49,7 +49,8 @@ function Main_sign_page() {
         <motion.div className="earthswipe object-contain">
           <motion.div
             initial={isSignIn ? { left: "0%" } : { right: "-30%"}}
-            animate={isSignIn ? { right: "-30%", left: "" } : { left: "" ,right:"-30%"}}
+            animate={isSignIn ? { right: "-30%", left: "" } : { right:"-30%"}}
+            
             transition={{ duration: 1 }}
             className="earth"
           ></motion.div>
@@ -60,19 +61,19 @@ function Main_sign_page() {
         </div>
 
         <div className="rightEarth">
-          <motion.img
+          {/* <motion.img
             initial={isSignIn ? { right: "-7%" } : { left: "-0%", right: "" }}
             animate={isSignIn ? { left: "-0%", right: "" } : { right: "-7%" }}
             transition={{ duration: 1 }}
             src="/images/Earth.png"
             alt=""
             className="earth1 object-contain"
-          />
+          /> */}
           <motion.img
             initial={isSignIn ? { right: "-24%" } : { left: "7%", right: "" }}
             animate={isSignIn ? { left: "7%", right: "" } : { right: "-24%" }}
             transition={{ duration: 1 }}
-            src="images/employer/Employer_hire_candidates/tethescope.png"
+            src="/images/Earth.png"
             alt=""
             className="sign_up_tethescope object-contain absolute"
             style={{
