@@ -46,7 +46,7 @@ function Main_sign_page() {
       {/* </div> */}
 
       <div className=" justify-center relative w-[100%] flex overflow-hidden">
-        <motion.div className="earthswipe object-contain">
+        <motion.div className="earthswipe object-contain -z-10">
           <motion.div
             initial={isSignIn ? { left: "0%" } : { right: "-30%"}}
             animate={isSignIn ? { right: "-30%", left: "" } : { left: "" ,right:"-30%"}}
@@ -54,12 +54,12 @@ function Main_sign_page() {
             className="earth"
           ></motion.div>
         </motion.div>
-        <div>
+        <div className=" z-100 bg-white">
           {signin && <Sign_in  setIsSignIn={setIsSignIn}/>}
           {signup && <Sign_up />}
         </div>
 
-        <div className="rightEarth">
+        <div className="rightEarth -z-10">
           <motion.img
             initial={isSignIn ? { right: "-7%" } : { left: "-0%", right: "" }}
             animate={isSignIn ? { left: "-0%", right: "" } : { right: "-7%" }}
