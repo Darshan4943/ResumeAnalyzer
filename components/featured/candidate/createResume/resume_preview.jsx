@@ -9,25 +9,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { reCallUserData } from "@/Redux/actions/user";
 import MiniLoader from "@/components/common/mini-loader";
-import ALink from "@/components/alink";
-import { Close_svg } from "@/utils/svg";
-import Resume1 from "../../resumeTemplates/resume1";
-import Resume2 from "../../resumeTemplates/resume2";
 
-import Resume5 from "../../resumeTemplates/resume5";
-import Resume3 from "../../resumeTemplates/resume3";
-import Resume4 from "../../resumeTemplates/resume4";
-
-import Resume38 from "../../resumeTemplates/resume100";
-import Resume16 from "../../resumeTemplates/resume100";
-import Resume9 from "../../resumeTemplates/resume9";
-import Resume100 from "../../resumeTemplates/resume100";
-import Resume11 from "../../resumeTemplates/resume11";
-import Resume12 from "../../resumeTemplates/resume12";
-import Resume6 from "../../resumeTemplates/resume6";
-import Resume7 from "../../resumeTemplates/resume7";
-import Resume10 from "../../resumeTemplates/resume10";
-
+import { PDFViewer, PDFDownloadLink, Document, Page } from "@react-pdf/renderer";
+import Sample from "../../resumeTemplates/Template1";
+import Template1 from "../../resumeTemplates/Template1";
+import Template2 from "../../resumeTemplates/Template2";
+import Template3 from "../../resumeTemplates/Template3";
+import Template4 from "../../resumeTemplates/Template4";
+import Template5 from "../../resumeTemplates/Template5";
 const ResumePreview = ({ data, isSetEdit }) => {
   const userDataGlobal = useSelector((state) => state.userData);
   const dispatch = useDispatch();
@@ -44,31 +33,19 @@ const ResumePreview = ({ data, isSetEdit }) => {
   const selectResumeTemplate = (index) => {
     switch (index) {
       case 1:
-        return <Resume2 data={data} />;
+        return <Template1 data={data} />;
       case 2:
-        return <Resume1 data={data} />;
+        return <Template2 data={data} />;
+
       case 3:
-        return <Resume3 data={data} />;
+        return <Template3 data={data} />;
       case 4:
-        return <Resume4 data={data} />;
+        return <Template4 data={data} />;
       case 5:
-        return <Resume5 data={data} />;
-      case 6:
-        return <Resume6 data={data} />;
-        case 7:
-        return <Resume7 data={data} />;
-      case 9:
-        return <Resume9 data={data} />;
-        case 10:
-          return <Resume10 data={data} />;
-      case 11:
-        return <Resume11 data={data} />;
-      case 12:
-       return <Resume12 data={data} />;
-      case 100:
-        return <Resume100 data={data} />;
+        return <Template5 data={data} />;
+     
       default:
-        return <Resume2 data={data} />;
+        return <Template1 data={data} />;
     }
   };
 
@@ -79,7 +56,7 @@ const ResumePreview = ({ data, isSetEdit }) => {
       axios
         .put(
           "https://freedygoservices.in/api/candidate/addResume/" +
-            userDataGlobal._id,
+          userDataGlobal._id,
           {
             pdfContent: imgData,
           }
@@ -122,11 +99,18 @@ const ResumePreview = ({ data, isSetEdit }) => {
         <div className="rounded-[8px] bg-[#BCEBFF]  px-4 pt-[10px] ">
           <div className=" flex gap-4 pb-[10px]" style={{ overflowX: "auto" }}>
             <img
-              src="/images/services/resume2.png"
+              src="/images/services/resume1.png"
               className="h-[200px] w-[140.91px] rounded-[6px]"
               alt=""
               onClick={() => togglePreview(true, 1)}
             />
+            <img
+              src="/images/services/resume2.png"
+              className="h-[200px] w-[140.91px] rounded-[6px]"
+              alt=""
+              onClick={() => togglePreview(true, 2)}
+            />
+
             <img
               src="/images/services/resume3.png"
               className="h-[200px] w-[140.91px] rounded-[6px]"
@@ -139,76 +123,48 @@ const ResumePreview = ({ data, isSetEdit }) => {
               alt=""
               onClick={() => togglePreview(true, 4)}
             />
-            <img
-              src="/images/services/resume1.png"
-              className="h-[200px] w-[140.91px] rounded-[6px]"
-              alt=""
-              onClick={() => togglePreview(true, 2)}
-            />
+
             <img
               src="/images/services/resume5.png"
               className="h-[200px] w-[140.91px] rounded-[6px]"
               alt=""
               onClick={() => togglePreview(true, 5)}
             />
-            <img
-              src="/images/services/resume6.png"
-              className="h-[200px] w-[140.91px] rounded-[6px]"
-              alt=""
-              onClick={() => togglePreview(true, 6)}
-            />
-             {/* <img
-              src="/images/services/resume7.png"
-              className="h-[200px] w-[140.91px] rounded-[6px]"
-              alt=""
-              onClick={() => togglePreview(true, 7)}
-            /> */}
-            <img
-              src="/images/services/resume9.png"
-              className="h-[200px] w-[140.91px] rounded-[6px]"
-              alt=""
-              onClick={() => togglePreview(true, 9)}
-            />
-             {/* <img
-              src="/images/services/resume10.png"
-              className="h-[200px] w-[140.91px] rounded-[6px]"
-              alt=""
-              onClick={() => togglePreview(true, 10)}
-            /> */}
-            <img
-              src="/images/services/resume11.png"
-              className="h-[200px] w-[140.91px] rounded-[6px]"
-              alt=""
-              onClick={() => togglePreview(true, 11)}
-            />
-            {/* <img
-              src="/images/services/resume12.png"
-              className="h-[200px] w-[140.91px] rounded-[6px]"
-              alt=""
-              onClick={() => togglePreview(true, 12)}
-            /> */}
-
-            {/* <img
-              src="/images/services/resume100.png"
-              className="h-[200px] w-[140.91px] rounded-[6px]"
-              alt=""
-              onClick={() => togglePreview(true, 100)}
-            /> */}
+           
           </div>
         </div>
 
-        <div className="web">
+        <div className="web" ref={resumeRef}>
           <div className="flex justify-between">
             <div className=" text-[20px]  font-montserrat font-medium flex items-center">
               Preview
             </div>
 
+
             <div className="flex gap-[16px]">
               <button
-                onClick={() => setPreview(true)}
-                className="flex gap-1 text-[14px] w-[90px]  justify-center text-[#FFF] font-montserrat font-semibold px-3 py-[2px] rounded-[8px] items-center border border-[#06A9EF] bg-[#06A9EF]"
+                onClick={pdfConverter}
+                className="flex gap-1 text-[12px] h-[38px] w-[90px] justify-center  text-[#FFF] font-montserrat font-semibold px-3 py-[2px] rounded-[8px] items-center border border-[#06A9EF] bg-[#06A9EF]"
               >
-                Save
+                {loading ? (
+                  <MiniLoader />
+                ) : (
+                  <>
+                    {" "}
+                    <img
+                      src="/images/services/add_link.png"
+                      className="h-[24px] w-[24px] rounded-[6px]"
+                      alt=""
+                    />
+                    Attach
+                  </>
+                )}
+              </button>
+              <button
+                onClick={() => setPreview(true)}
+                className="flex gap-1 text-[14px] w-[150px]  justify-center text-[#FFF] font-montserrat font-semibold px-3 py-[2px] rounded-[8px] items-center border border-[#06A9EF] bg-[#06A9EF]"
+              >
+                Full Screen View
               </button>
             </div>
           </div>
@@ -255,7 +211,7 @@ const ResumePreview = ({ data, isSetEdit }) => {
               Edit
             </button>
 
-            <button
+            {/* <button
               className=" text-[12px] flex gap-1 items-center justify-between text-[#333] font-montserrat font-semibold px-2 py-1 rounded-[8px] border border-[#06A9EF]"
               onClick={() => generatePdf()}
             >
@@ -274,7 +230,7 @@ const ResumePreview = ({ data, isSetEdit }) => {
                 </g>
               </svg>
               Download
-            </button>
+            </button> */}
           </div>
         </div>
 
@@ -284,7 +240,7 @@ const ResumePreview = ({ data, isSetEdit }) => {
           </div>
         </div>
 
-        <div
+        {/* <div
           className=" border border-[#06A9EF] transform xxsm:scale-[35%] scr340:scale-[37%] scr360:scale-[39%] scr390:scale-[42%] scr420:scale-[46%] sm:scale-[53%] scr540:scale-[60%] ms:scale-[68%] scr700:scale-[80%] md:scale-[88%] scr820:scale-[95%] ml:scale-[46%] scr900:scale-[50%] lg:scale-[54%] scr1024:scale-[57%] scr1100:scale-[62%] xxlg:scale-[63%] scr1150:scale-[65%]  scale-[33%]  "
           style={{
             width: "49.7rem",
@@ -293,57 +249,79 @@ const ResumePreview = ({ data, isSetEdit }) => {
           }}
         >
           {selectResumeTemplate(selectedResumeIndex)}
-        </div>
+        </div> */}
+
+        <PDFViewer width="520" height="750">
+          <Document>
+            <Page size="A4" style={{ paddingBottom: "24px", paddingTop: "24px", paddingRight: 24, paddingLeft: 24 }}  >
+              {selectResumeTemplate(selectedResumeIndex)}
+            </Page>
+          </Document>
+        </PDFViewer>
       </div>
       {preview && (
-        <>
-          {" "}
-          <div
-            className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60 web"
-            onClick={() => setPreview(false)}
-          ></div>
-          <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center customMargins  ">
-            <div className="absolute bg-white overflow-y-scroll h-[90vh] p-8 rounded-[8px]">
-              <div className="flex gap-[16px] justify-end">
-                <button
-                  onClick={pdfConverter}
-                  className="flex gap-1 text-[12px] h-[38px] w-[90px] justify-center  text-[#FFF] font-montserrat font-semibold px-3 py-[2px] rounded-[8px] items-center border border-[#06A9EF] bg-[#06A9EF]"
-                >
-                  {loading ? (
-                    <MiniLoader />
-                  ) : (
-                    <>
-                      {" "}
-                      <img
-                        src="/images/services/add_link.png"
-                        className="h-[24px] w-[24px] rounded-[6px]"
-                        alt=""
-                      />
-                      Attach
-                    </>
-                  )}
-                </button>
-                <button
-                  className=" text-[12px] text-[#333] font-montserrat font-semibold px-9 py-1 rounded-[8px] border border-[#06A9EF]"
-                  onClick={() => generatePdf()}
-                >
-                  Download Resume
-                </button>
-                <ALink href="/profile">
-                  <button className="flex gap-1 text-[12px] h-[38px] w-[90px] justify-center  text-[#FFF] font-montserrat font-semibold px-3 py-[2px] rounded-[8px] items-center border border-[#06A9EF] bg-[#06A9EF]">
-                    Profile
-                  </button>
-                </ALink>
-                <div className="" onClick={() => setPreview(false)}>
-                  <Close_svg />
-                </div>
-              </div>
-              <div className="mt-2 " ref={resumeRef}>
+        // <>
+        //   {" "}
+        //   <div
+        //     className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60 web"
+        //     onClick={() => setPreview(false)}
+        //   ></div>
+        //   <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center customMargins  ">
+        //     <div className="absolute bg-white overflow-y-scroll h-[90vh] p-8 rounded-[8px]">
+        //       <div className="flex gap-[16px] justify-end">
+        //         <button
+        //           onClick={pdfConverter}
+        //           className="flex gap-1 text-[12px] h-[38px] w-[90px] justify-center  text-[#FFF] font-montserrat font-semibold px-3 py-[2px] rounded-[8px] items-center border border-[#06A9EF] bg-[#06A9EF]"
+        //         >
+        //           {loading ? (
+        //             <MiniLoader />
+        //           ) : (
+        //             <>
+        //               {" "}
+        //               <img
+        //                 src="/images/services/add_link.png"
+        //                 className="h-[24px] w-[24px] rounded-[6px]"
+        //                 alt=""
+        //               />
+        //               Attach
+        //             </>
+        //           )}
+        //         </button>
+        //         <button
+        //           className=" text-[12px] text-[#333] font-montserrat font-semibold px-9 py-1 rounded-[8px] border border-[#06A9EF]"
+        //           onClick={() => generatePdf()}
+        //         >
+        //           Download Resume
+        //         </button>
+        //         <ALink href="/profile">
+        //           <button className="flex gap-1 text-[12px] h-[38px] w-[90px] justify-center  text-[#FFF] font-montserrat font-semibold px-3 py-[2px] rounded-[8px] items-center border border-[#06A9EF] bg-[#06A9EF]">
+        //             Profile
+        //           </button>
+        //         </ALink>
+        //         <div className="" onClick={() => setPreview(false)}>
+        //           <Close_svg />
+        //         </div>
+        //       </div>
+        //       <div className="mt-2 " ref={resumeRef}>
+        //         {selectResumeTemplate(selectedResumeIndex)}
+        //       </div>
+        //     </div>
+        //   </div>
+        // </>
+        <div className="fixed top-5 left-0 w-full h-full bg-gray-800 bg-opacity-50 flex justify-center items-center">
+          <div className="bg-white p-4 rounded-lg shadow-md">
+            <PDFViewer width="850" height="700">
+              <Document>
+                <Page size="A4" style={{ paddingBottom: "24px", paddingTop: "24px", paddingRight: 24, paddingLeft: 24 }}  >
                 {selectResumeTemplate(selectedResumeIndex)}
-              </div>
-            </div>
+                </Page>
+              </Document>
+            </PDFViewer>
+            <button onClick={() => setPreview(false)}>Close</button>
+
+
           </div>
-        </>
+        </div>
       )}
     </div>
   );

@@ -88,10 +88,10 @@ function Resume2({ data }) {
                       {detail.description}
                     </p>
                     <p className=" text-[#272128] font-[300] font-barlow  text-[12px] max-w-[80%]">
-                    {detail.duration?.start?.year}-{" "}
-                                            {detail.currentlyWorking
-                                                ? "Present"
-                                                : detail.duration?.end?.year}
+                      {detail.duration?.start?.year}-{" "}
+                      {detail.currentlyWorking
+                        ? "Present"
+                        : detail.duration?.end?.year}
                     </p>
                   </div>
                 ))}
