@@ -251,13 +251,13 @@ const ResumePreview = ({ data, isSetEdit }) => {
           {selectResumeTemplate(selectedResumeIndex)}
         </div> */}
 
-        <PDFViewer width="520" height="750">
+        {/* <PDFViewer width="520" height="750">
           <Document>
             <Page size="A4" style={{ paddingBottom: "24px", paddingTop: "24px", paddingRight: 24, paddingLeft: 24 }}  >
               {selectResumeTemplate(selectedResumeIndex)}
             </Page>
           </Document>
-        </PDFViewer>
+        </PDFViewer> */}
       </div>
       {preview && (
         // <>
