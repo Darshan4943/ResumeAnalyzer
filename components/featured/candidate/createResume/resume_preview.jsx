@@ -43,7 +43,7 @@ const ResumePreview = ({ data, isSetEdit }) => {
         return <Template4 data={data} />;
       case 5:
         return <Template5 data={data} />;
-     
+
       default:
         return <Template1 data={data} />;
     }
@@ -130,7 +130,7 @@ const ResumePreview = ({ data, isSetEdit }) => {
               alt=""
               onClick={() => togglePreview(true, 5)}
             />
-           
+
           </div>
         </div>
 
@@ -250,14 +250,25 @@ const ResumePreview = ({ data, isSetEdit }) => {
         >
           {selectResumeTemplate(selectedResumeIndex)}
         </div> */}
+        {/* {selectedResumeIndex ===1 && (
+          <div
+            className="  transform xxsm:scale-[35%] scr340:scale-[37%] scr360:scale-[39%] scr390:scale-[42%] scr420:scale-[46%] sm:scale-[53%] scr540:scale-[60%] ms:scale-[68%] scr700:scale-[80%] md:scale-[88%] scr820:scale-[95%] ml:scale-[46%] scr900:scale-[50%] lg:scale-[54%] scr1024:scale-[57%] scr1100:scale-[62%] xxlg:scale-[63%] scr1150:scale-[65%]  scale-[33%]  "
+            style={{
+              width: "49.7rem",
+              // scale: "0.65",
+              transformOrigin: "top left",
+            }}
+          >
+            <PDFViewer width="100%" height="1124px" >
+              <Document height="1124px" >
+                <Page height="1124px" size="A4" style={{ paddingBottom: "24px", paddingTop: "24px", paddingRight: 24, paddingLeft: 24 }}  >
+                  {selectResumeTemplate(selectedResumeIndex)}
+                </Page>
+              </Document>
+            </PDFViewer>
+          </div>
 
-        {/* <PDFViewer width="520" height="750">
-          <Document>
-            <Page size="A4" style={{ paddingBottom: "24px", paddingTop: "24px", paddingRight: 24, paddingLeft: 24 }}  >
-              {selectResumeTemplate(selectedResumeIndex)}
-            </Page>
-          </Document>
-        </PDFViewer> */}
+        )} */}
       </div>
       {preview && (
         // <>
@@ -309,11 +320,11 @@ const ResumePreview = ({ data, isSetEdit }) => {
         //   </div>
         // </>
         <div className="fixed top-5 left-0 w-full h-full bg-gray-800 bg-opacity-50 flex justify-center items-center">
-          <div className="bg-white p-4 rounded-lg shadow-md">
-            <PDFViewer width="850" height="700">
+          <div className="bg-white p-4 rounded-lg shadow-md h-[80vh] ">
+            <PDFViewer width="850" height="98%" >
               <Document>
                 <Page size="A4" style={{ paddingBottom: "24px", paddingTop: "24px", paddingRight: 24, paddingLeft: 24 }}  >
-                {selectResumeTemplate(selectedResumeIndex)}
+                  {selectResumeTemplate(selectedResumeIndex)}
                 </Page>
               </Document>
             </PDFViewer>
