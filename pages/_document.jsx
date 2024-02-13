@@ -1,5 +1,5 @@
 import Document, { Html, Head, Main, NextScript } from "next/document";
-
+import { Font } from '@react-pdf/renderer';
 export default class MyDocument extends Document {
     render () {
         return (

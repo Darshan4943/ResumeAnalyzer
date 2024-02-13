@@ -1,12 +1,12 @@
 import React from 'react'
 
 function Resume9({ data }) {
-    console.log(4, data)
+
     return (
         <div className="flex flex-col break-all gap-12 items-center justify-between pb-[44px] w-[794px] min-h-[1122px] ">
             <div className='px-[45px] flex gap-[56px]' >
-                <div className='w-[239px] flex flex-col relative  ' >
-                    <div className='bg-[#FFD740] h-[225px] w-[177px] absolute '>
+                <div className='w-[179px] flex flex-col relative  ' >
+                    <div className='bg-[#FFD740] h-[168px] w-[132px] absolute '>
 
 
                     </div>
