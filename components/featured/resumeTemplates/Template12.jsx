@@ -1,187 +1,227 @@
 import React, { useEffect, useState } from "react";
 import { Document, Page, Text, View, StyleSheet, Image, Svg, Path, Rect,Font,Defs, ClipPath } from '@react-pdf/renderer';
 
-const Resume12 = ({ data }) => {
-//   console.log(4, data.experience);
+const Template12 = ({ data }) => {
+  // console.log(4, data.experience);
 
   return (
-    <Page size="A4">
-      <View style={{ flexDirection: "column", justifyContent: "center", alignItems: "center", gap: 12, width: 794, minHeight: 1122 }}>
-        <View style={{ width: "100%", height: 236 }}>
-          <View style={{ backgroundColor: "#0C2438", height: "100%", position: "relative" }}>
-            <View style={{ position: "absolute", bottom: 0, width: 582, height: 100, backgroundColor: "#2EA0D7" }}>
-              <View style={{ flexDirection: "column", paddingLeft: 80 }}>
-                <Text style={{ fontSize: 38, color: "#fff", }}>
+    <Page>
+      <View style={{ flexDirection: "column", justifyContent: "center", alignItems: "center",width:595 }}>
+        <View style={{width:595 , }}>
+          <View style={{ backgroundColor: "#0C2438", width:'595', position:'relative' ,height:176}}>
+            <View style={{ backgroundColor: "#2EA0D7",position:'absolute' , width:495, bottom:0,height:75 }}>
+              <View style={{ flexDirection: "column",paddingLeft:40,gap:4,paddingTop:5}}>
+                <Text style={{ fontSize: "30px", color:'#fff' }}>
                   {data.firstName} {data.lastName}
                 </Text>
-                <Text style={{ fontSize: 16, color: "#fff"}}>
+                <Text style={{ fontSize: "16",color:'#fff' }}>
                   {data.designation}
                 </Text>
               </View>
             </View>
-            <View style={{ position: "absolute", right: 58, bottom: -26 }}>
+            <View 
+            style={{position:'absolute',right:58 , paddingTop:64 }}
+            >
               {data.profilePhoto ? (
                 <Image
-                  source={{ uri: URL.createObjectURL(data.profilePhoto) }}
-                  style={{ width: 200, height: 200, borderRadius: 100 }}
+                  src={{ uri: URL.createObjectURL(data.profilePhoto) }}
+                  style={{ width: 155, height: 155, borderRadius:80 }}
                 />
               ) : (
-                <img src="/images/services/profile.png" alt="" 
-                  style={{ width: 208, height: 208, borderRadius: 104 }}
+                <Image
+                src={("/images/services/profile.png")}
+                  style={{ width: 155, height: 155, borderRadius: 80 }}
                 />
               )}
             </View>
           </View>
         </View>
-        <View style={{ flexDirection: "column", width: "88.41%", gap: 8 }}>
-          <View style={{ width: "100%", flexDirection: "column", gap: 4 }}>
-            <Text style={{ fontSize: 18, fontWeight: "700", color: "#495970"}}>
+         <View style={{ flexDirection: "column", gap: 8,width:525,alignItems:"center" ,justifyContent:'center'}}>
+          <View style={{ flexDirection: "column", gap: 10 ,width:595 ,padding:20,paddingTop:30}}>
+            <Text style={{ fontSize: 16, fontWeight: "700", color: "#495970" }}>
               CONTACTS
             </Text>
             <View style={{ width: "90.62%", flexDirection: "row", gap: 8 }}>
               <View style={{ flexDirection: "column", alignItems: "flex-start", justifyContent: "flex-start", gap: 2, width: "18.72%", maxWidth: 130 }}>
-                <Text style={{ fontSize: 14, fontWeight: "700", color: "#495970" }}>PHONE</Text>
-                <Text style={{ fontSize: 14, fontWeight: "400", color: "#8B8C8C" }}>{data.mobileNumber}</Text>
+                <Text style={{ fontSize: 12, fontWeight: "700", color: "#495970" }}>PHONE</Text>
+                <Text style={{ fontSize: 12, fontWeight: "400", color: "#8B8C8C" }}>{data.mobileNumber}</Text>
               </View>
-              <View style={{ backgroundColor: "#B5BCC5", width: 1, height: 50 }}></View>
+              <View style={{ backgroundColor: "#B5BCC5", width: 1, height: 30 }}></View>
               <View style={{ maxWidth: 200, width: "auto", gap: 2, flexDirection: "column" }}>
-                <Text style={{ fontSize: 14, fontWeight: "700", color: "#495970" }}>EMAIL</Text>
-                <Text style={{ fontSize: 14, fontWeight: "400", color: "#8B8C8C" }}>{data.email}</Text>
+                <Text style={{ fontSize: 12, fontWeight: "700", color: "#495970" }}>EMAIL</Text>
+                <Text style={{ fontSize: 12, fontWeight: "400", color: "#8B8C8C" }}>{data.email}</Text>
               </View>
-              <View style={{ backgroundColor: "#B5BCC5", width: 1, height: 50 }}></View>
+              <View style={{ backgroundColor: "#B5BCC5", width: 1, height: 30 }}></View>
               <View style={{ maxWidth: 225, width: "auto", gap: 2, flexDirection: "column" }}>
-                <Text style={{ fontSize: 14, fontWeight: "700", color: "#495970" }}>ADDRESS</Text>
-                <Text style={{ fontSize: 14, fontWeight: "400", color: "#8B8C8C", breakMode: "word-wrap" }}>{data.location}</Text>
+                <Text style={{ fontSize: 12, fontWeight: "700", color: "#495970", }}>ADDRESS</Text>
+                <Text style={{ fontSize: 12, fontWeight: "400", color: "#8B8C8C",  }}>{data.location}</Text>
               </View>
             </View>
           </View>
-          <View style={{ flexDirection: "column", gap: 4, width: "100%" }}>
-            <View style={{ flexDirection: "row", alignItems: "center", gap: 6 }}>
-              <Text style={{ fontSize: 18, fontWeight: "700", color: "#495970", }}>EDUCATION</Text>
-              <View style={{ backgroundColor: "#B5BCC5", width: 572, height: 1 }}></View>
+
+
+          <View style={{ flexDirection: "column", width: "595", gap: 8,paddingLeft:10 }}>
+            <View style={{ flexDirection: "row",width: "525", alignItems: "center",justifyContent:'center', gap: 6 }}>
+              <Text style={{ fontSize: 16, fontWeight: "700", color: "#495970" }}>
+                EDUCATION
+              </Text>
+              <View style={{ backgroundColor: "#B5BCC5", width: 400, height: 1 }}></View>
             </View>
-            <View style={{ width: "100%", flexDirection: "row", gap: 7, flexWrap: "wrap" }}>
+            <View style={{ width: "525", flexDirection: "row", gap: 25,paddingLeft:10  }}>
               {data?.education?.map((detail, index) => (
-                <View style={{ flexDirection: "column", gap: 2, width: 337 }}>
-                  <View style={{ flexDirection: "row", gap: 2 }}>
-                    <View style={{ flexDirection: "column", gap: 2 }}>
+                <View style={{ flexDirection: "column", gap: 8, width: 380 }}>
+                  <View style={{ flexDirection: "row", gap: 6 }}>
+                    <View style={{ flexDirection: "column", gap: 4 }}>
                       {detail.duration?.end?.year && (
                         <>
-                          <Text style={{ fontSize: 14, fontWeight: "700", color: "#495970"}}>
+                          <Text style={{ fontSize: 12, fontWeight: "700", color: "#495970" }}>
                             {detail.duration?.start?.year}
                           </Text>
-                          <Text style={{ fontSize: 14, fontWeight: "700", color: "#495970" }}>
+                          <Text style={{ fontSize: 12, fontWeight: "700", color: "#495970"}}>
                             {detail.duration?.end?.year}
                           </Text>
                         </>
                       )}
                     </View>
                     <View style={{ backgroundColor: "#B5BCC5", height: "auto", width: 1 }}></View>
-                    <View style={{ flexDirection: "column", gap: 2, width: "100%"}}>
-                      <Text style={{ fontSize: 12, fontWeight: "400", color: "#495970" }}>
+                    <View style={{ flexDirection: "column", gap: 2, width: "100%" }}>
+                      <Text style={{ fontSize: 12, fontWeight: "400", color: "#495970"}}>
                         {detail.instituteName}
                       </Text>
-                      <Text style={{ fontSize: 14, fontWeight: "700", color: "#495970" }}>
+                      <Text style={{ fontSize: 12, fontWeight: "700", color: "#495970"}}>
                         {detail.qualification}
                       </Text>
                     </View>
                   </View>
-                  <Text style={{ fontSize: 12, fontWeight: "400", color: "#676A6D", }}>
+                  <Text style={{ fontSize: 12, fontWeight: "400", color: "#676A6D", width: "100%"}}>
                     {detail.specialization}
                   </Text>
                 </View>
               ))}
             </View>
           </View>
-          {/* EXPERIENCE  */}
-          <View style={{ flexDirection: "column", gap: 4, width: "100%" }}>
-            <View style={{ flexDirection: "row", alignItems: "center", gap: 6 }}>
-              <Text style={{ fontSize: 18, fontWeight: "700", color: "#495970", }}>EXPERIENCES</Text>
-              <View style={{ backgroundColor: "#B5BCC5", width: 572, height: 1 }}></View>
+      
+           <View style={{ flexDirection: "column", width: "595", gap: 6 ,paddingLeft:23,paddingTop:10}}>
+            <View style={{ flexDirection: "row", alignItems: "center", gap: 4,width:525 ,}}>
+              <Text style={{ fontSize: 16, fontWeight: "700", color: "#495970", }}>
+                EXPERIENCES
+              </Text>
+              <View style={{ backgroundColor: "#B5BCC5", width: 400, height: 1 }}></View>
             </View>
-            <View style={{ width: "100%", flexDirection: "row", gap: 7, }}>
+            <View style={{ width: "525", flexDirection: "row", gap: 6}}>
               {data?.experience?.map((detail, index) => (
-                <View style={{ flexDirection: "column", gap: 6, width: "100%" }}>
-                  <Text style={{ fontSize: 12, fontWeight: "400", color: "#495970", }}>
+                <View style={{ flexDirection: "column", gap: 6, width: "370" }}>
+                  <Text style={{ fontSize: 10, fontWeight: "400", color: "#495970" }}>
                     {detail.duration?.start?.year}-{" "}
-                    {detail.currentlyWorking ? "Present" : detail.duration?.end?.year}
+                    {detail.currentlyWorking
+                      ? "Present"
+                      : detail.duration?.end?.year}
                   </Text>
-                  <Text style={{ fontSize: 12, fontWeight: "700", color: "#495970"}}>
+                  <Text style={{ fontSize: 10, fontWeight: "700", color: "#495970"}}>
                     {detail.designation}
                   </Text>
-                  <View style={{ flexDirection: "row", width: "33.7%", gap: 1 }}>
-                    <Text style={{ fontSize: 12, fontWeight: "400", color: "#495970", maxWidth: 180, }}>
+                  <View style={{ flexDirection: "row", gap: 1 }}>
+                    <Text style={{ fontSize: 10, fontWeight: "400", color: "#495970", maxWidth: 180,}}>
+                      {" "}
                       {detail.organization}
                     </Text>
-                    <View style={{ backgroundColor: "#495970", height: "100%", width: 1 }}></View>
-                    <Text style={{ fontSize: 12, fontWeight: "400", color: "#495970"}}>
+                    <View style={{ height: "100%", width: 1, backgroundColor: "#495970" }}></View>
+                    <Text style={{ fontSize: 10, fontWeight: "400", color: "#495970" }}>
+                      {" "}
                       {detail.location}
                     </Text>
                   </View>
-                  <Text style={{ width: 337, fontSize: 12, fontWeight: "400", color: "#676A6D" }}>
+                  <Text style={{ width: 337, fontSize: 10, fontWeight: "400", color: "#676A6D"}}>
+                    {" "}
                     {detail.description}
                   </Text>
                 </View>
               ))}
             </View>
-          </View>
-          {/* SKILLS   */}
-          <View style={{ flexDirection: "column", width: "100%" }}>
-            <View style={{ flexDirection: "row", alignItems: "center", gap: 6 }}>
-              <Text style={{ fontSize: 18, fontWeight: "700", color: "#495970"}}>SKILLS</Text>
-              <View style={{ backgroundColor: "#B5BCC5", width: "100%", height: 1 }}></View>
+          </View> 
+
+       
+
+           <View style={{ flexDirection: "column", width: "595",paddingLeft:23, }}>
+            <View style={{ flexDirection: "row", alignItems: "center", gap: 12 ,width:525}}>
+              <Text style={{ fontSize: 16, fontWeight: "700", color: "#495970",  }}>
+                SKILLS
+              </Text>
+              <View style={{ backgroundColor: "#B5BCC5", width: "450", height: 1 }}></View>
             </View>
-            <View style={{ width: "100%", flexDirection: "row", gap: 2, paddingTop: 4,  }}>
+            <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 4, paddingTop: 10,columnGap:30 }}>
               {data.skills?.map((detail, index) => {
-                const ratingPercentage = calculateWidthPercentage(detail.rating);
+                const calculateWidthPercentage = (rating) => {
+                  let ratingPercentage = 0;
+                  if (rating && rating.length > 0) {
+                    const zerosCount = rating.filter((val) => val === 0).length;
+
+                    if (zerosCount === 0) ratingPercentage = 100;
+                    else if (zerosCount === 1) ratingPercentage = 80;
+                    else if (zerosCount === 2) ratingPercentage = 60;
+                    else if (zerosCount === 3) ratingPercentage = 40;
+                    else if (zerosCount === 4) ratingPercentage = 20;
+                  }
+                  return ratingPercentage;
+                };
+
+                const ratingPercentage = calculateWidthPercentage(
+                  detail.rating
+                );
+
                 return (
-                  <View style={{ flexDirection: "column" }} key={index}>
-                    <View style={{ flexDirection: "row", alignItems: "center", gap: 2, width: 270 }}>
-                      <Text style={{ fontSize: 12, color: "#545554", width: 160, fontWeight: "300" }}>
-                        {detail.skill}
-                      </Text>
-                      <View style={{ width: "59.21%", height: 3.78, marginBottom: 1, backgroundColor: "#DCDDDE" }}>
-                        <View style={{ height: "100%", backgroundColor: "#2EA0D7", width: `${ratingPercentage}%` }}></View>
-                      </View>
+                  <View style={{ flexDirection: "row", alignItems: "center", gap: 8 }} key={index}>
+                    <Text style={{ color: "#545554", fontSize: 12, width: 100,fontWeight: "300" }}>
+                      {detail.skill}
+                    </Text>
+                    <View style={{ width: "100", height: 3, backgroundColor: "#DCDDDE", }}>
+                      <View style={{ width: `${ratingPercentage}%`, height: "100%", backgroundColor: "#2EA0D7" }}></View>
                     </View>
                   </View>
                 );
               })}
             </View>
-          </View>
-          {/* INTEREST  */}
-          <View style={{ flexDirection: "column", width: "100%", paddingBottom: 2 }}>
-            <View style={{ flexDirection: "row", alignItems: "center", gap: 6 }}>
-              <Text style={{ fontSize: 18, fontWeight: "700", color: "#495970"}}>INTERESTS</Text>
-              <View style={{ backgroundColor: "#B5BCC5", width: "100%", height: 1 }}></View>
+          </View> 
+
+        
+
+          <View style={{ flexDirection: "column", width: "595", paddingBottom: 2 ,paddingLeft:20,paddingTop:10}}>
+            <View style={{ flexDirection: "row", alignItems: "center", gap: 8,width:525 }}>
+              <Text style={{ fontSize: 16, fontWeight: "700", color: "#495970",}}>
+                INTERESTS
+              </Text>
+              <View style={{ backgroundColor: "#B5BCC5", width: "450", height: 1 }}></View>
             </View>
-            <View style={{ flexDirection: "row",  }}>
+            <View style={{ flexDirection: "row", flexWrap: "wrap" ,width:595,gap:6,paddingTop:10}}>
               {data.hobbies?.map((detail, index) => (
-                <Text style={{ backgroundColor: "#B5BCC5", color: "black", padding: 1, borderRadius: 100 }} key={index}>
-                  {detail.title}
+               <View style={{ flexDirection: "row", alignItems: "center",gap:4 ,width:130,fontSize:10 }}>
+               <Text style={{  color: "#282829", }}>&#8226;</Text>
+               <Text style={{ color: "#282829", }}>{detail.title}</Text>
+             </View>
+              ))}
+            </View>
+          </View>
+
+          <View style={{ flexDirection: "column", width: "595", paddingBottom: 4,paddingLeft:20,paddingTop:8 }}>
+            <View style={{ flexDirection: "row", alignItems: "center", gap: 6 }}>
+              <Text style={{ fontSize: 16, fontWeight: "700", color: "#495970",  }}>
+                LANGUAGES
+              </Text>
+              <View style={{ backgroundColor: "#B5BCC5", width: "420", height: 1 }}></View>
+            </View>
+            <View style={{ flexDirection: "row", gap: 1, paddingTop: 8 }}>
+              {data?.languages?.map((detail, index) => (
+                <Text key={index} style={{ color: "#545554", fontSize: 14, fontWeight: "400",  }}>
+                  {detail.languages} {","}
                 </Text>
               ))}
             </View>
           </View>
-          <View style={{ flexDirection: "column", width: "100%", paddingBottom: 4 }}>
-            <View style={{ flexDirection: "row", alignItems: "center", gap: 6 }}>
-              <Text style={{ fontSize: 18, fontWeight: "700", color: "#495970" }}>LANGUAGES</Text>
-              <View style={{ backgroundColor: "#B5BCC5", width: "100%", height: 1 }}></View>
-            </View>
-            <View style={{ flexDirection: "row", gap: 1, paddingTop: 2 }}>
-              {data?.languages?.map((detail, index) => (
-                <View key={index}>
-                  <Text style={{ color: "#545554", fontWeight: "400", fontSize: 14}}>
-                    {detail.languages} {","}
-                  </Text>
-                </View>
-              ))}
-            </View>
-          </View>
-        </View>
+        </View> 
       </View>
     </Page>
   );
 };
 
-export default Resume12;
+export default Template12;
+
