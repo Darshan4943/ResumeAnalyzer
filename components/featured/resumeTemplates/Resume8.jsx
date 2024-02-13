@@ -153,31 +153,6 @@ function Resume8({ data }) {
           </div>
           {data?.skills?.length > 0 && (
             <>
-              {/* <div className="pt-[39.93px] object-contain">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="318"
-                  viewBox="0 0 225 31"
-                  fill="none"
-                >
-                  <path
-                    d="M235.577 0.896973H0V30.093H235.577V0.896973Z"
-                    fill="#316059"
-                  />
-                  <text
-                    x="50%"
-                    y="50%"
-                    dominant-baseline="middle"
-                    text-anchor="middle"
-                    fill="white"
-                    font-size="16"
-                    f
-                    fontWeight={600}
-                  >
-                    SKILLS{" "}
-                  </text>
-                </svg>
-              </div> */}
               <div className="flex flex-col gap-3 ">
                 {data.skills?.map((detail, index) => {
                   const calculateWidthPercentage = (rating) => {
@@ -201,10 +176,7 @@ function Resume8({ data }) {
                   );
 
                   return (
-                    <div
-                      className=" pr-3 flex flex-col"
-                      key={index}
-                    >
+                    <div className=" pr-3 flex flex-col" key={index}>
                       <div className="justify-between flex items-center gap-4">
                         <p className="text-[#000000] font-inter text-[12px] font-[400] w-[80px] font-light">
                           {detail.skill}
