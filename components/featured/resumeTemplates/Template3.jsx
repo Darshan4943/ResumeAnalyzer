@@ -3,10 +3,11 @@ import { Document, Page, Text, View, Image, StyleSheet, Svg, Path, Rect } from '
 function Template3() {
     return (
         <View style={{ flexDirection: 'column' }}>
-
-            <Text style={{ color: '#414042', fontSize: '16px' }}>
-                Template 3
-            </Text>
+           <View style={{ width: "112px", height: "112px" }}>
+           <Text style={{ color: '#414042', fontSize: 43, fontWeight: '400' }}>
+            Rohit Kalambate
+          </Text>
+        </View>
         </View>
     )
 }
