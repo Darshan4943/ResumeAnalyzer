@@ -23,8 +23,7 @@ import Template3 from "../../resumeTemplates/Template3";
 import Template4 from "../../resumeTemplates/Template4";
 import Template5 from "../../resumeTemplates/Template5";
 import Template9 from "../../resumeTemplates/Template9";
-import Template6 from "../../resumeTemplates/Template6";
-import Template12 from "../../resumeTemplates/Template12";
+import Template7 from "../../resumeTemplates/Template7";
 const ResumePreview = ({ data, isSetEdit }) => {
   const userDataGlobal = useSelector((state) => state.userData);
   const dispatch = useDispatch();
@@ -52,11 +51,9 @@ const ResumePreview = ({ data, isSetEdit }) => {
         return <Template4 data={data} />;
       case 5:
         return <Template5 data={data} />;
-      case 6:
-        return <Template6 data={data} />;
-      case 7:
-        return <Template12 data={data} />;
-      case 9:
+        case 7:
+        return <Template7 data={data} />;
+        case 9:
         return <Template9 data={data} />;
 
       default:
@@ -144,20 +141,14 @@ const ResumePreview = ({ data, isSetEdit }) => {
               className="h-[200px] w-[140.91px] rounded-[6px]"
               alt=""
               onClick={() => togglePreview(true, 5)}
-            /> */}
-            {/* <img
-              src="/images/services/template6.png"
-              className="h-[200px] w-[140.91px] rounded-[6px]"
-              alt=""
-              onClick={() => togglePreview(true, 6)}
-            /> */}
-            <img
-              src="/images/services/resume12.png"
+            />
+             <img
+              src="/images/services/resume7.png"
               className="h-[200px] w-[140.91px] rounded-[6px]"
               alt=""
               onClick={() => togglePreview(true, 7)}
             />
-            {/* <img
+              <img
               src="/images/services/resume9.png"
               className="h-[200px] w-[140.91px] rounded-[6px]"
               alt=""
@@ -290,11 +281,11 @@ const ResumePreview = ({ data, isSetEdit }) => {
               transformOrigin: "top left",
             }}
           >
-            <PDFViewer width="100%" height="1160px">
-              <Document height="1124px">
-                <Page height="1124px" size="A4">
+            <PDFViewer width="100%" height="1160px" >
+              <Document height="1124px" >
+               
                   {selectResumeTemplate(selectedResumeIndex)}
-                </Page>
+              
               </Document>
             </PDFViewer>
           </div>
@@ -353,9 +344,9 @@ const ResumePreview = ({ data, isSetEdit }) => {
           <div className="bg-white p-4 rounded-lg shadow-md h-[80vh] ">
             <PDFViewer width="850" height="98%">
               <Document>
-                <Page size="A4">
+                
                   {selectResumeTemplate(selectedResumeIndex)}
-                </Page>
+             
               </Document>
             </PDFViewer>
             <button onClick={() => setPreview(false)}>Close</button>

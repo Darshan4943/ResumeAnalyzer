@@ -9,7 +9,7 @@ function Template9({ data }) {
                 <View style={{ width: 200, flexDirection: 'column', position: 'relative', gap: 24 }}>
                     <View style={{ backgroundColor: '#FFD740', height: 138, width: 132, position: 'absolute' }}></View>
                     <Text style={{ fontSize: 48, color: '#27417A', width: 500, fontWeight: '700', top: 45, left: 23 }}>{data.firstName} {data.lastName}</Text>
-                    <Text style={{ fontSize: 14, color: 'white', width: 500, fontWeight: '700', top: 110, left: 23 }}>{data.designation}</Text>
+                    <Text style={{ fontSize: 14, color: '#FFF', width: 500, fontWeight: '700', top: 20, left: 23 }}>{data.designation}</Text>
                     <View style={{ flexDirection: 'column', gap: 16, }}>
                         <View style={{ flexDirection: 'row', gap: 4, marginTop: 76 }}>
                             <Text style={{ fontWeight: '700', width: 70, fontSize: 10 }}>Phone</Text>
