@@ -280,9 +280,9 @@ const ResumePreview = ({ data, isSetEdit }) => {
           >
             <PDFViewer width="100%" height="1160px" >
               <Document height="1124px" >
-                <Page height="1124px" size="A4"   >
+               
                   {selectResumeTemplate(selectedResumeIndex)}
-                </Page>
+              
               </Document>
             </PDFViewer>
           </div>
@@ -342,9 +342,9 @@ const ResumePreview = ({ data, isSetEdit }) => {
           <div className="bg-white p-4 rounded-lg shadow-md h-[80vh] ">
             <PDFViewer width="850" height="98%" >
               <Document>
-                <Page size="A4"  >
+                
                   {selectResumeTemplate(selectedResumeIndex)}
-                </Page>
+             
               </Document>
             </PDFViewer>
             <button onClick={() => setPreview(false)}>Close</button>
