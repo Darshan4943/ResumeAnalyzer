@@ -9,7 +9,7 @@ import { ParallaxProvider } from "react-scroll-parallax";
 import { Provider } from "react-redux";
 import Store from "@/Redux/Store";
 import { Api } from "@/Redux/Api";
-
+import '../utils/pdfFont.js'; 
 const WrappedApp = ({ Component, pageProps }) => {
   useEffect(() => {
     const getLocation = () => {
