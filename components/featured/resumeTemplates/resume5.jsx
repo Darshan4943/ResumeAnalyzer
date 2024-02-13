@@ -1,10 +1,6 @@
 import React from "react";
 
 function Resume5({ data, skills }) {
-
-
-
-
   return (
     <div className="flex   break-all w-[800px]  ">
       <div className="flex flex-row  ">
@@ -12,24 +8,46 @@ function Resume5({ data, skills }) {
           <div className="pt-[33.72px] pl-[27.74px] pr-[21.15px]">
             <div className="w=[244px] ">
               {data.profilePhoto ? (
-                <img src={URL.createObjectURL(data.profilePhoto)} alt="" className=" h-[306px] object-contain w-[244px]" />
+                <img
+                  src={URL.createObjectURL(data.profilePhoto)}
+                  alt=""
+                  className=" h-[306px] object-contain w-[244px]"
+                />
               ) : (
-                <img src="/images/services/black.png" alt="" className=" h-[306px] w-[244px] " />
+                <img
+                  src="/images/services/black.png"
+                  alt=""
+                  className=" h-[306px] w-[244px] "
+                />
               )}
-
             </div>
-
           </div>
           <div className="pt-[39.93px] object-contain">
-
-
-            <svg xmlns="http://www.w3.org/2000/svg" width="318" viewBox="0 0 225 31" fill="none"  >
-              <path d="M235.577 0.896973H0V30.093H235.577V0.896973Z" fill="#316059" />
-              <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="white" font-size="16" f fontWeight={600}>CONTACT </text>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="318"
+              viewBox="0 0 225 31"
+              fill="none"
+            >
+              <path
+                d="M235.577 0.896973H0V30.093H235.577V0.896973Z"
+                fill="#316059"
+              />
+              <text
+                x="50%"
+                y="50%"
+                dominant-baseline="middle"
+                text-anchor="middle"
+                fill="white"
+                font-size="16"
+                f
+                fontWeight={600}
+              >
+                CONTACT{" "}
+              </text>
             </svg>
-
           </div>
-          {data.mobileNumber &&
+          {data.mobileNumber && (
             <div className="pt-[25.45px] pl-[28.13px] flex flex-col gap-2">
               <div className="flex gap-2 items-start  pr-4">
                 <div className="h-[24px] flex items-center">
@@ -132,23 +150,42 @@ function Resume5({ data, skills }) {
             </p>
           </div> */}
             </div>
-          }
+          )}
           {data?.skills?.length > 0 && (
             <>
               <div className="pt-[39.93px] object-contain">
-
-                <svg xmlns="http://www.w3.org/2000/svg" width="318" viewBox="0 0 225 31" fill="none"  >
-                  <path d="M235.577 0.896973H0V30.093H235.577V0.896973Z" fill="#316059" />
-                  <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="white" font-size="16" f fontWeight={600}>SKILLS </text>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="318"
+                  viewBox="0 0 225 31"
+                  fill="none"
+                >
+                  <path
+                    d="M235.577 0.896973H0V30.093H235.577V0.896973Z"
+                    fill="#316059"
+                  />
+                  <text
+                    x="50%"
+                    y="50%"
+                    dominant-baseline="middle"
+                    text-anchor="middle"
+                    fill="white"
+                    font-size="16"
+                    f
+                    fontWeight={600}
+                  >
+                    SKILLS{" "}
+                  </text>
                 </svg>
-
               </div>
               <div className="flex flex-col gap-3 pt-6">
                 {data.skills?.map((detail, index) => {
                   const calculateWidthPercentage = (rating) => {
                     let ratingPercentage = 0;
                     if (rating && rating.length > 0) {
-                      const zerosCount = rating.filter(val => val === 0).length;
+                      const zerosCount = rating.filter(
+                        (val) => val === 0
+                      ).length;
 
                       if (zerosCount === 0) ratingPercentage = 100;
                       else if (zerosCount === 1) ratingPercentage = 80;
@@ -159,10 +196,15 @@ function Resume5({ data, skills }) {
                     return ratingPercentage;
                   };
 
-                  const ratingPercentage = calculateWidthPercentage(detail.rating);
+                  const ratingPercentage = calculateWidthPercentage(
+                    detail.rating
+                  );
 
                   return (
-                    <div className="pl-[28.13px] pr-3 flex flex-col" key={index}>
+                    <div
+                      className="pl-[28.13px] pr-3 flex flex-col"
+                      key={index}
+                    >
                       <div className="justify-between flex items-center gap-4">
                         <p className="text-[#414142] font-kanit text-[11.136px] w-[80px] font-light">
                           {detail.skill}
@@ -177,60 +219,77 @@ function Resume5({ data, skills }) {
                     </div>
                   );
                 })}
-
-
-
-
               </div>
             </>
           )}
-         {data?.languages?.length > 0 && (
-          <>
-          <div className="pt-[39.93px] object-contain">
+          {data?.languages?.length > 0 && (
+            <>
+              <div className="pt-[39.93px] object-contain">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="318"
+                  viewBox="0 0 225 31"
+                  fill="none"
+                >
+                  <path
+                    d="M235.577 0.896973H0V30.093H235.577V0.896973Z"
+                    fill="#316059"
+                  />
+                  <text
+                    x="50%"
+                    y="50%"
+                    dominant-baseline="middle"
+                    text-anchor="middle"
+                    fill="white"
+                    font-size="16"
+                    f
+                    fontWeight={600}
+                  >
+                    LANGUAGES{" "}
+                  </text>
+                </svg>
+              </div>
+              <div className="flex flex-col gap-1 pt-6">
+                {data.languages?.map((detail, index) => {
+                  const calculateWidthPercentage = (rating) => {
+                    let ratingPercentage = 0;
+                    if (rating && rating.length > 0) {
+                      const zerosCount = rating.filter(
+                        (val) => val === 0
+                      ).length;
 
-            <svg xmlns="http://www.w3.org/2000/svg" width="318" viewBox="0 0 225 31" fill="none"  >
-              <path d="M235.577 0.896973H0V30.093H235.577V0.896973Z" fill="#316059" />
-              <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="white" font-size="16" f fontWeight={600}>LANGUAGES </text>
-            </svg>
+                      if (zerosCount === 0) ratingPercentage = 100;
+                      else if (zerosCount === 1) ratingPercentage = 66;
+                      else if (zerosCount === 2) ratingPercentage = 33;
+                    }
+                    return ratingPercentage;
+                  };
 
-          </div>
-          <div className="flex flex-col gap-1 pt-6">
+                  const ratingPercentage = calculateWidthPercentage(
+                    detail.rating
+                  );
 
-            {data.languages?.map((detail, index) => {
-              const calculateWidthPercentage = (rating) => {
-                let ratingPercentage = 0;
-                if (rating && rating.length > 0) {
-                  const zerosCount = rating.filter(val => val === 0).length;
-
-                  if (zerosCount === 0) ratingPercentage = 100;
-                  else if (zerosCount === 1) ratingPercentage = 66;
-                  else if (zerosCount === 2) ratingPercentage = 33;
-
-                }
-                return ratingPercentage;
-              };
-
-              const ratingPercentage = calculateWidthPercentage(detail.rating);
-
-              return (
-                <div className="pl-[28.13px] pr-3 flex flex-col" key={index}>
-                  <div className="justify-between flex items-center gap-4">
-                    <p className="text-[#414142] font-kanit text-[11.136px] w-[80px] font-light">
-                      {detail.languages}
-                    </p>
-                    <div className="w-[59.21%] h-[3.78px] flex self-end mb-[1px] bg-[#C1C1C1]">
-                      <div
-                        className="h-full bg-[#316059]"
-                        style={{ width: `${ratingPercentage}%` }}
-                      ></div>
+                  return (
+                    <div
+                      className="pl-[28.13px] pr-3 flex flex-col"
+                      key={index}
+                    >
+                      <div className="justify-between flex items-center gap-4">
+                        <p className="text-[#414142] font-kanit text-[11.136px] w-[80px] font-light">
+                          {detail.languages}
+                        </p>
+                        <div className="w-[59.21%] h-[3.78px] flex self-end mb-[1px] bg-[#C1C1C1]">
+                          <div
+                            className="h-full bg-[#316059]"
+                            style={{ width: `${ratingPercentage}%` }}
+                          ></div>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
-              );
-            })}
-
-          </div>
-          </>
+                  );
+                })}
+              </div>
+            </>
           )}
         </div>
         <div className="flex flex-col w-[483px]  ">
@@ -287,12 +346,12 @@ function Resume5({ data, skills }) {
                           </p>
                         </div>
                         <div class="duration text-[#F9F9F9] font-Kanit text-[6.11px] font-light">
-                        {detail.duration?.end?.year &&
-                        <>
-                          {detail.duration?.start?.year}-
-                          {detail.duration?.end?.year}
-                        </>
-                      }
+                          {detail.duration?.end?.year && (
+                            <>
+                              {detail.duration?.start?.year}-
+                              {detail.duration?.end?.year}
+                            </>
+                          )}
                         </div>
                         <div className="text-[#F9F9F9]">
                           <p className=" font-Kanit text-[7.8px] font-normal">
@@ -318,7 +377,6 @@ function Resume5({ data, skills }) {
                 <div class="flex gap-2 flex-col items-start">
                   {data?.experience?.map((detail, index) => (
                     <div class="section__list-item flex flex-col">
-
                       <div class="left">
                         <div className="text-[#F9F9F9] text-[9.9px]">
                           <p className="text-[#F9F9F9] font-Kanit  font-normal">
@@ -326,10 +384,10 @@ function Resume5({ data, skills }) {
                           </p>
                         </div>
                         <div class="duration text-[#F9F9F9] font-Kanit text-[6.11px] font-light">
-                        {detail.duration?.start?.year}-{" "}
-                                            {detail.currentlyWorking
-                                                ? "Present"
-                                                : detail.duration?.end?.year}
+                          {detail.duration?.start?.year}-{" "}
+                          {detail.currentlyWorking
+                            ? "Present"
+                            : detail.duration?.end?.year}
                         </div>
                         <div className="text-[#F9F9F9]">
                           <p className=" font-Kanit text-[9.8px] font-normal">
