@@ -5,85 +5,89 @@ function Template4({ data }) {
         <View style={{flexDirection:'row', gap: "1.5rem" }}>
 
         <View style={{ width: "260.23px" }}>
-            <View style={{ flexDirection: "column", minHeight: "1131px", backgroundColor: "#282829", width: "100%", gap: "18px" }}>
+            <View style={{ flexDirection: "column", minHeight: "792px", backgroundColor: "#282829", width: "100%", gap: "18px" }}>
                 <View style={{  alignItems: "center", marginTop: "35px", flexDirection: "column", width: "100%" }}>
     
-                    {/* {data.profilePhoto ? (
+                    {data.profilePhoto ? (
                         <Image src={URL.createObjectURL(data.profilePhoto)} alt="" style={{ width: "102px", marginBottom: "16px", height: "102px", borderRadius: "50%" }} />
                     ) : (
                         <Image src="/images/services/profile.png" alt="" style={{ width: "102px", marginBottom: "16px", height: "102px", borderRadius: "50%" }} />
-                    )} */}
+                    )}
                     <Text style={{ color: "#fff", fontWeight: 400,   fontSize: "24px",  }}>{data.firstName}</Text>
                     <Text style={{ color: "#fff", fontWeight: 400,   fontSize: "24px",  }}>{data.lastName}</Text>
                     <Text style={{ fontSize: "8px",   fontWeight: 500, color: "#00AEEF" }}>{data.designation}</Text>
                 </View>
-                {/* <View style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
-                    <View style={{ height: "27px", marginLeft: "19px", marginTop: "4px", alignItems: "center", display: "flex" }}>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="258" viewBox="0 0 180 43" fill="none">
-                            <path d="M10.942 32.118H179.514V0.887939H10.942L0.782959 16.5029L10.942 32.118Z" fill="#00AEEF" />
-                            <path d="M167.942 42.8819L179.514 32.118L167.942 32.1179V42.8819Z" fill="#007DC5" />
-                            <text x="10%" y="40%" dominantBaseline="middle" textAnchor="start" fill="white" fontSize="16" fontWeight="600">CONTACT </text>
-                        </svg>
+                <View style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+                    <View style={{ marginRight:'-24px', marginTop: "4px", alignItems: "center", flexDirection:"row" }}>
+                    <Svg width={258} height={43} viewBox="0 0 180 43">
+          <Path d="M10.942 32.118H179.514V0.887939H10.942L0.782959 16.5029L10.942 32.118Z" fill="#00AEEF" />
+          <Path d="M167.942 42.8819L179.514 32.118L167.942 32.1179V42.8819Z" fill="#007DC5" />
+          <Text x="10%" y="40%" dominantBaseline="middle" textAnchor="start" fill="white"  style={{fontWeight:'600',fontSize:"16px"}}>
+            CONTACT
+          </Text>
+        </Svg>
                     </View>
                     {data?.mobileNumber && (
-                        <View style={{ display: "flex", gap: "0.25rem", alignItems: "flex-start", marginLeft: "40px", paddingRight: "1rem", paddingTop: "5px" }}>
+                        <View style={{ flexDirection:"row", gap: "12px", justifyContent:"start" , alignItems: "center", marginLeft: "40px", paddingRight: " 16px", paddingTop: "5px" }}>
                             <View style={{ height: "24px", display: "flex", alignItems: "center" }}>
-                                <img style={{ width: "18px", height: "18px" }} src="/images/services/telephone_blue.png" alt="" />
+                                <Image style={{ width: "18px", height: "18px" }} src="/images/services/telephone_blue.png" alt="" />
                             </View>
-                            <Text style={{ fontSize: "11px", paddingTop: "2px", display: "flex", fontWeight: 400, color: "#fff", lineHeight: "normal" }}>{data.mobileNumber}</Text>
+                            <Text style={{ fontSize: "10px", paddingTop: "2px", flexDirection:"row", fontWeight: 400, color: "#fff",}}>{data.mobileNumber}</Text>
                         </View>
                     )}
                     {data?.email && (
-                        <View style={{ display: "flex", gap: "0.25rem", alignItems: "flex-start", marginLeft: "40px", paddingRight: "1rem" }}>
+                        <View style={{ flexDirection:"row",breakAll:true ,gap: "12px", justifyContent:"start" , alignItems: "center", marginLeft: "40px", paddingRight: " 16px" }}>
                             <View style={{ height: "24px", display: "flex", alignItems: "center" }}>
-                                <img style={{ width: "18px", height: "18px" }} src="/images/services/message_blue.png" alt="" />
+                                <Image style={{ width: "18px", height: "18px" }} src="/images/services/message_blue.png" alt="" />
                             </View>
-                            <Text style={{ fontSize: "11px", paddingTop: "2px", display: "flex", fontWeight: 400, color: "#fff", lineHeight: "normal" }}>{data.email}</Text>
+                            <Text style={{ fontSize: "10px" ,width:'80%', paddingTop: "2px",flexDirection:"row", fontWeight: 400, color: "#fff", }}>{data.email}</Text>
                         </View>
                     )}
-                </View> */}
+                </View>
                 {/* {data?.sociaLinks > 0 && (
-                    <View style={{ display: "flex", gap: "0.25rem", alignItems: "flex-start", marginLeft: "40px", paddingRight: "1rem" }}>
-                        <View style={{ height: "24px", display: "flex", alignItems: "center" }}>
-                            <img style={{ width: "18px", height: "18px" }} src="/images/services/location_blue.png" alt="" />
+                    <View style={{ flexDirection:"row",breakAll:true , gap: "12px", justifyContent:"start" , alignItems: "center", marginLeft: "40px", paddingRight: " 16px" }}>
+                        <View style={{ height: "24px", flexDirection:"row", alignItems: "center" }}>
+                            <Image style={{ width: "18px", height: "18px" }} src="/images/services/location_blue.png" alt="" />
                         </View>
-                        <View style={{ display: "flex", fontSize: "11px", paddingTop: "2px", fontWeight: 400, color: "#fff", lineHeight: "normal" }}>{""}</View>
+                        <View style={{ flexDirection:"row", fontSize: "11px", paddingTop: "2px", fontWeight: 400, color: "#fff", }}>{data.sociaLinks}</View>
                     </View>
-                )}
+                )} */}
                 {data?.location && (
-                    <View style={{ display: "flex", gap: "0.25rem", alignItems: "flex-start", marginLeft: "40px", paddingRight: "1rem" }}>
-                        <View style={{ height: "24px", display: "flex", alignItems: "center" }}>
-                            <img style={{ width: "18px", height: "18px" }} src="/images/services/location_blue.png" alt="" />
+                    <View style={{ flexDirection:"row",breakAll:true , justifyContent:"start" ,gap: "12px", alignItems: "center", marginLeft: "40px", paddingRight: " 16px" }}>
+                        <View style={{ height: "24px", flexDirection:"row", alignItems: "center" }}>
+                            <Image style={{ width: "18px", height: "18px" }} src="/images/services/location_blue.png" alt="" />
                         </View>
-                        <View style={{ fontSize: "11px", paddingTop: "2px", display: "flex", fontWeight: 400, color: "#fff", lineHeight: "normal" }}>{data.location}</View>
+                        <Text style={{ fontSize: "10px", flexDirection:"row", fontWeight: 400, color: "#fff",  }}>{data.location}</Text>
                     </View>
                 )}
                 {data?.languages?.length > 0 && (
                     <>
-                        <View style={{ height: "27px", marginLeft: "19px", marginTop: "4px", alignItems: "center", display: "flex" }}>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="258" viewBox="0 0 180 43" fill="none">
-                                <path d="M10.942 32.118H179.514V0.887939H10.942L0.782959 16.5029L10.942 32.118Z" fill="#00AEEF" />
-                                <path d="M167.942 42.8819L179.514 32.118L167.942 32.1179V42.8819Z" fill="#007DC5" />
-                                <text x="10%" y="40%" dominantBaseline="middle" textAnchor="start" fill="white" fontSize="16" fontWeight="600">LANGUAGES </text>
-                            </svg>
+                        <View style={{ height: "27px",  marginRight:'-24px', marginTop: "4px", alignItems: "center",flexDirection:"row" }}>
+                        <Svg width={258}  height={43} viewBox="0 0 180 43">
+          <Path d="M10.942 32.118H179.514V0.887939H10.942L0.782959 16.5029L10.942 32.118Z" fill="#00AEEF" />
+          <Path d="M167.942 42.8819L179.514 32.118L167.942 32.1179V42.8819Z" fill="#007DC5" />
+          <Text x="10%" y="40%" dominantBaseline="middle" textAnchor="start" fill="white"  style={{fontWeight:'600',fontSize:"16px"}}>
+            LANGUAGES
+          </Text>
+        </Svg>
                         </View>
     
-                        <View style={{ display: "flex", flexDirection: "column", color: "white", paddingRight: "2rem", gap: "0.25rem", justifyContent: "space-between", marginLeft: "40px" }}>
+                        <View style={{  flexDirection: "column", color: "white", paddingRight: "16px", gap: "8px", justifyContent: "space-between", marginLeft: "40px" }}>
                             {data?.languages?.map((detail, index) => (
-                                <View key={index} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "0.5rem" }}>
-                                    {detail.languages}
-                                    <View style={{ display: "flex", gap: "0.25rem", marginTop: "4px" }}>
-                                        {[...Array(3)].map((_, i) => (
+                                <View key={index} style={{ flexDirection:"row", alignItems: "center", justifyContent: "space-between", gap: "8px" }}>
+                            <Text style={{ fontSize: "10px", paddingTop: "2px" ,flexDirection:"row", fontWeight: 400, color: "#fff",}}>{detail.languages}</Text>
+                                    <View style={{ flexDirection:"row", gap: "0.25rem", marginTop: "4px" }}>
+                                        {[...Array(5)].map((_, i) => (
                                             <View key={i}>
                                                 {
                                                     detail.rating[i] === 0 ? (
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="8" height="7" viewBox="0 0 8 7" fill="none">
-                                                            <path fillRule="evenodd" clipRule="evenodd" d="M4.02911 0.285156C2.23911 0.285156 0.789062 1.73615 0.789062 3.52515C0.789062 5.31415 2.24011 6.76514 4.02911 6.76514C5.81811 6.76514 7.2691 5.31415 7.2691 3.52515C7.2691 1.73615 5.81811 0.285156 4.02911 0.285156Z" fill="#D1D3D4" />
-                                                        </svg>
+                                                        <Svg width={8} height={7} viewBox="0 0 8 7">
+                                                        <Path fillRule="evenodd" clipRule="evenodd" d="M4.02911 0.285156C2.23911 0.285156 0.789062 1.73615 0.789062 3.52515C0.789062 5.31415 2.24011 6.76514 4.02911 6.76514C5.81811 6.76514 7.2691 5.31415 7.2691 3.52515C7.2691 1.73615 5.81811 0.285156 4.02911 0.285156Z" fill="#D1D3D4" />
+                                                      </Svg>
                                                     ) : (
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8" fill="none">
-                                                            <path fillRule="evenodd" clipRule="evenodd" d="M4.02911 0.886719C2.23911 0.886719 0.789062 2.33771 0.789062 4.12671C0.789062 5.91571 2.24011 7.36676 4.02911 7.36676C5.81811 7.36676 7.2691 5.91571 7.2691 4.12671C7.2691 2.33771 5.81811 0.886719 4.02911 0.886719Z" fill="#00AEEF" />
-                                                        </svg>
+                                                        <Svg width={8} height={8} viewBox="0 0 8 8">
+          <Path fillRule="evenodd" clipRule="evenodd" d="M4.02911 0.886719C2.23911 0.886719 0.789062 2.33771 0.789062 4.12671C0.789062 5.91571 2.24011 7.36676 4.02911 7.36676C5.81811 7.36676 7.2691 5.91571 7.2691 4.12671C7.2691 2.33771 5.81811 0.886719 4.02911 0.886719Z" fill="#00AEEF" />
+        </Svg>
                                                     )
                                                 }
                                             </View>
@@ -95,16 +99,18 @@ function Template4({ data }) {
                     </>
                 )}
                 {data?.hobbies?.length > 0 && (
-                    <View style={{ display: "flex", flexDirection: "column", gap: "1rem", paddingBottom: "1rem" }}>
+                    <View style={{ flexDirection:"row", flexDirection: "column", gap: " 16px", paddingBottom:"16px" , }}>
     
-                        <View style={{ height: "27px", marginLeft: "19px", marginTop: "4px", alignItems: "center", display: "flex" }}>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="258" viewBox="0 0 180 43" fill="none">
-                                <path d="M10.942 32.118H179.514V0.887939H10.942L0.782959 16.5029L10.942 32.118Z" fill="#00AEEF" />
-                                <path d="M167.942 42.8819L179.514 32.118L167.942 32.1179V42.8819Z" fill="#007DC5" />
-                                <text x="10%" y="40%" dominantBaseline="middle" textAnchor="start" fill="white" fontSize="16" fontWeight="600">HOBBIES </text>
-                            </svg>
+                        <View style={{ height: "27px", marginLeft: "19px", marginTop: "4px", alignItems: "center", flexDirection:"row"}}>
+                        <Svg width={258} height={43} viewBox="0 0 180 43">
+          <Path d="M10.942 32.118H179.514V0.887939H10.942L0.782959 16.5029L10.942 32.118Z" fill="#00AEEF" />
+          <Path d="M167.942 42.8819L179.514 32.118L167.942 32.1179V42.8819Z" fill="#007DC5" />
+          <Text x="10%" y="40%" dominantBaseline="middle" textAnchor="start" fill="white"  style={{fontWeight:'600',fontSize:"16px"}}>
+            HOBBIES
+          </Text>
+        </Svg>
                         </View>
-                        <View style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "1rem", marginLeft: "40px", paddingRight: "1rem" }}>
+                        <View style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: " 16px",  marginRight:'-24px', paddingRight: " 16px" }}>
                             {data?.hobbies?.map((item, index) => (
                                 <View key={index} style={{ color: "white", fontSize: "12px" }}>
                                     {item?.title}
@@ -112,30 +118,30 @@ function Template4({ data }) {
                             ))}
                         </View>
                     </View>
-                )} */}
+                )}
             </View>
         </View>
-        {/* <View style={{ width: "530px", padding: "1rem", display: "flex", flexDirection: "column", gap: "1rem" }}>
-            <View style={{ display: "flex", flexDirection: "column", gap: "0.5rem", alignItems: "flex-start", paddingTop: "26px" }}>
+        <View style={{ width: "530px", padding: " 16px", display: "flex", flexDirection: "column", gap: " 16px" }}>
+            {/* <View style={{ display: "flex", flexDirection: "column", gap: "0.5rem", alignItems: "flex-start", paddingTop: "26px" }}>
                 <View style={{ display: "flex", gap: "0.5rem", alignItems: "flex-end", width: "100%" }}>
-                    <img style={{ width: "27px", height: "27px", display: "flex", alignItems: "flex-end" }} src="/images/services/profile_img.png" alt="" />
+                    <Image style={{ width: "27px", height: "27px", display: "flex", alignItems: "flex-end" }} src="/images/services/profile_img.png" alt="" />
                     <View style={{ display: "flex", flexDirection: "column", gap: "0.5rem", width: "90%" }}>
-                        <Text style={{ color: "#282829", fontWeight: 500,    lineHeight: "normal", marginBottom: "2px", fontSize: "16px" }}>About me</Text>
+                        <Text style={{ color: "#282829", fontWeight: 500,      marginBottom: "2px", fontSize: "16px" }}>About me</Text>
                         <View style={{ height: "1px", width: "95%", backgroundColor: "#282829" }}></View>
                     </View>
                 </View>
                 <View style={{}}>
-                    <Text style={{    color: "#787879", lineHeight: "normal", fontSize: "16px", paddingLeft: "0.5rem", fontWeight: 400 }}>{data.summery}</Text>
+                    <Text style={{    color: "#787879",   fontSize: "16px", paddingLeft: "0.5rem", fontWeight: 400 }}>{data.summery}</Text>
                 </View>
-            </View>
-            <View style={{ display: "flex", gap: "0.5rem", width: "100%" }}>
+            </View> */}
+            {/* <View style={{ display: "flex", gap: "0.5rem", width: "100%" }}>
                 <View style={{ paddingTop: "2px" }}>
-                    <img style={{ width: "27px", height: "27px" }} src="/images/services/education.png" alt="" />
+                    <Image style={{ width: "27px", height: "27px" }} src="/images/services/education.png" alt="" />
                 </View>
     
                 <View style={{ display: "flex", flexDirection: "column", gap: "0.5rem", width: "90%" }}>
                     <View style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
-                        <Text style={{ color: "#282829", fontWeight: 500,    lineHeight: "normal", fontSize: "16px" }}>EDUCATION</Text>
+                        <Text style={{ color: "#282829", fontWeight: 500,      fontSize: "16px" }}>EDUCATION</Text>
                         <View style={{ height: "1px", marginTop: "4px", width: "95%", backgroundColor: "#282829" }}></View>
                     </View>
                     {data?.education?.map((detail, index) => (
@@ -153,15 +159,15 @@ function Template4({ data }) {
                         </>
                     ))}
                 </View>
-            </View>
+            </View> */}
             <View style={{ display: "flex", gap: "0.5rem", width: "100%" }}>
-                <View style={{ paddingTop: "2px" }}>
-                    <img style={{ width: "35px", height: "35px" }} src="/images/services/experience.png" alt="" />
-                </View>
+                {/* <View style={{ paddingTop: "2px" }}>
+                    <Image style={{ width: "35px", height: "35px" }} src="/images/services/experience.png" alt="" />
+                </View> */}
     
-                <View style={{ display: "flex", flexDirection: "column", gap: "0.5rem", width: "90%" }}>
+                {/* <View style={{ display: "flex", flexDirection: "column", gap: "0.5rem", width: "90%" }}>
                     <View style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
-                        <Text style={{ color: "#282829", fontWeight: 500,    lineHeight: "normal", fontSize: "16px" }}>EXPERIENCE</Text>
+                        <Text style={{ color: "#282829", fontWeight: 500,      fontSize: "16px" }}>EXPERIENCE</Text>
                         <View style={{ height: "1px", marginTop: "4px", width: "95%", backgroundColor: "#282829" }}></View>
                     </View>
     
@@ -180,17 +186,18 @@ function Template4({ data }) {
                             </View>
                         </>
                     ))}
-                </View>
+                </View> */}
             </View>
-            {data?.skills?.length > 0 && (
+            {/* {data?.skills?.length > 0 && (
+
                 <View style={{ display: "flex", gap: "0.5rem", width: "100%" }}>
                     <View style={{ paddingTop: "2px" }}>
-                        <img style={{ width: "35px", height: "35px" }} src="/images/services/skills.png" alt="" />
+                        <Image style={{ width: "35px", height: "35px" }} src="/images/services/skills.png" alt="" />
                     </View>
     
                     <View style={{ display: "flex", flexDirection: "column", gap: "0.5rem", width: "100%" }}>
                         <View style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
-                            <Text style={{ color: "#282829", fontWeight: 500,    lineHeight: "normal", fontSize: "16px" }}>SKILLS</Text>
+                            <Text style={{ color: "#282829", fontWeight: 500,      fontSize: "16px" }}>SKILLS</Text>
                             <View style={{ height: "1px", marginTop: "4px", width: "95%", backgroundColor: "#282829" }}></View>
                         </View>
     
@@ -220,8 +227,8 @@ function Template4({ data }) {
                         </View>
                     </View>
                 </View>
-            )}
-        </View> */}
+            )} */}
+        </View>
     </View>
     
     )
