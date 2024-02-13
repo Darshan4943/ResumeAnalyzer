@@ -10,7 +10,12 @@ import { toast } from "react-toastify";
 import { reCallUserData } from "@/Redux/actions/user";
 import MiniLoader from "@/components/common/mini-loader";
 
-import { PDFViewer, PDFDownloadLink, Document, Page } from "@react-pdf/renderer";
+import {
+  PDFViewer,
+  PDFDownloadLink,
+  Document,
+  Page,
+} from "@react-pdf/renderer";
 import Sample from "../../resumeTemplates/Template1";
 import Template1 from "../../resumeTemplates/Template1";
 import Template2 from "../../resumeTemplates/Template2";
@@ -18,6 +23,8 @@ import Template3 from "../../resumeTemplates/Template3";
 import Template4 from "../../resumeTemplates/Template4";
 import Template5 from "../../resumeTemplates/Template5";
 import Template9 from "../../resumeTemplates/Template9";
+import Template6 from "../../resumeTemplates/Template6";
+import Template12 from "../../resumeTemplates/Template12";
 const ResumePreview = ({ data, isSetEdit }) => {
   const userDataGlobal = useSelector((state) => state.userData);
   const dispatch = useDispatch();
@@ -25,7 +32,7 @@ const ResumePreview = ({ data, isSetEdit }) => {
   const [preview, setPreview] = useState(false);
 
   const [selectedResumeIndex, setSelectedResumeIndex] = useState();
-  console.log(27,selectedResumeIndex)
+  console.log(27, selectedResumeIndex);
   const [loading, setLoading] = useState(false);
 
   const togglePreview = (isVisible, index) => {
@@ -45,7 +52,11 @@ const ResumePreview = ({ data, isSetEdit }) => {
         return <Template4 data={data} />;
       case 5:
         return <Template5 data={data} />;
-        case 9:
+      case 6:
+        return <Template6 data={data} />;
+      case 7:
+        return <Template12 data={data} />;
+      case 9:
         return <Template9 data={data} />;
 
       default:
@@ -60,7 +71,7 @@ const ResumePreview = ({ data, isSetEdit }) => {
       axios
         .put(
           "https://freedygoservices.in/api/candidate/addResume/" +
-          userDataGlobal._id,
+            userDataGlobal._id,
           {
             pdfContent: imgData,
           }
@@ -102,7 +113,7 @@ const ResumePreview = ({ data, isSetEdit }) => {
       >
         <div className="rounded-[8px] bg-[#BCEBFF]  px-4 pt-[10px] ">
           <div className=" flex gap-4 pb-[10px]" style={{ overflowX: "auto" }}>
-            <img
+            {/* <img
               src="/images/services/resume1.png"
               className="h-[200px] w-[140.91px] rounded-[6px]"
               alt=""
@@ -133,14 +144,25 @@ const ResumePreview = ({ data, isSetEdit }) => {
               className="h-[200px] w-[140.91px] rounded-[6px]"
               alt=""
               onClick={() => togglePreview(true, 5)}
+            /> */}
+            {/* <img
+              src="/images/services/template6.png"
+              className="h-[200px] w-[140.91px] rounded-[6px]"
+              alt=""
+              onClick={() => togglePreview(true, 6)}
+            /> */}
+            <img
+              src="/images/services/resume12.png"
+              className="h-[200px] w-[140.91px] rounded-[6px]"
+              alt=""
+              onClick={() => togglePreview(true, 7)}
             />
-              <img
+            {/* <img
               src="/images/services/resume9.png"
               className="h-[200px] w-[140.91px] rounded-[6px]"
               alt=""
               onClick={() => togglePreview(true, 9)}
-            />
-
+            /> */}
           </div>
         </div>
 
@@ -149,7 +171,6 @@ const ResumePreview = ({ data, isSetEdit }) => {
             <div className=" text-[20px]  font-montserrat font-medium flex items-center">
               Preview
             </div>
-
 
             <div className="flex gap-[16px]">
               <button
@@ -269,15 +290,14 @@ const ResumePreview = ({ data, isSetEdit }) => {
               transformOrigin: "top left",
             }}
           >
-            <PDFViewer width="100%" height="1160px" >
-              <Document height="1124px" >
-                <Page height="1124px" size="A4"   >
+            <PDFViewer width="100%" height="1160px">
+              <Document height="1124px">
+                <Page height="1124px" size="A4">
                   {selectResumeTemplate(selectedResumeIndex)}
                 </Page>
               </Document>
             </PDFViewer>
           </div>
-
         )}
       </div>
       {preview && (
@@ -331,16 +351,14 @@ const ResumePreview = ({ data, isSetEdit }) => {
         // </>
         <div className="fixed top-5 left-0 w-full h-full bg-gray-800 bg-opacity-50 flex justify-center items-center">
           <div className="bg-white p-4 rounded-lg shadow-md h-[80vh] ">
-            <PDFViewer width="850" height="98%" >
+            <PDFViewer width="850" height="98%">
               <Document>
-                <Page size="A4"  >
+                <Page size="A4">
                   {selectResumeTemplate(selectedResumeIndex)}
                 </Page>
               </Document>
             </PDFViewer>
             <button onClick={() => setPreview(false)}>Close</button>
-
-
           </div>
         </div>
       )}
