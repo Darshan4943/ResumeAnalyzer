@@ -26,6 +26,9 @@ import Template9 from "../../resumeTemplates/Template9";
 import Template7 from "../../resumeTemplates/Template7";
 import Template6 from "../../resumeTemplates/Template6";
 import Template12 from "../../resumeTemplates/Template12";
+import Template28 from "../../resumeTemplates/Template28";
+import Template29 from "../../resumeTemplates/Template29";
+import Template30 from "../../resumeTemplates/Template30";
 
 const ResumePreview = ({ data, isSetEdit }) => {
   const userDataGlobal = useSelector((state) => state.userData);
@@ -61,6 +64,12 @@ const ResumePreview = ({ data, isSetEdit }) => {
         return <Template9 data={data} />;
       case 12:
         return <Template12 data={data} />;
+      case 28:
+        return <Template28 data={data} />;
+      case 29:
+        return <Template29 data={data} />;
+      case 30:
+        return <Template30 data={data} />;
 
       default:
         return <Template1 data={data} />;
@@ -74,7 +83,7 @@ const ResumePreview = ({ data, isSetEdit }) => {
       axios
         .put(
           "https://freedygoservices.in/api/candidate/addResume/" +
-            userDataGlobal._id,
+          userDataGlobal._id,
           {
             pdfContent: imgData,
           }
@@ -172,7 +181,26 @@ const ResumePreview = ({ data, isSetEdit }) => {
               alt=""
               onClick={() => togglePreview(true, 12)}
             />
+            <img
+              src="/images/services/template28.png"
+              className="h-[200px] w-[140.91px] rounded-[6px]"
+              alt=""
+              onClick={() => togglePreview(true, 28)}
+            />
+            <img
+              src="/images/services/template29.png"
+              className="h-[200px] w-[140.91px] rounded-[6px]"
+              alt=""
+              onClick={() => togglePreview(true, 29)}
+            />
+            <img
+              src="/images/services/template30.png"
+              className="h-[200px] w-[140.91px] rounded-[6px]"
+              alt=""
+              onClick={() => togglePreview(true, 30)}
+            />
           </div>
+
         </div>
 
         <div className="web" ref={resumeRef}>
