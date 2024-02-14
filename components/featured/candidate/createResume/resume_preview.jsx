@@ -205,6 +205,30 @@ const ResumePreview = ({ data, isSetEdit }) => {
               onClick={() => togglePreview(true, 12)}
             />
             <img
+              src="/images/services/template15.png"
+              className="h-[200px] w-[140.91px] rounded-[6px]"
+              alt=""
+              onClick={() => togglePreview(true, 15)}
+            /> 
+             <img
+              src="/images/services/template17.png"
+              className="h-[200px] w-[140.91px] rounded-[6px]"
+              alt=""
+              onClick={() => togglePreview(true, 17)}
+            />
+             <img
+              src="/images/services/template18.png"
+              className="h-[200px] w-[140.91px] rounded-[6px]"
+              alt=""
+              onClick={() => togglePreview(true, 18)}
+            /> 
+            <img
+              src="/images/services/resume24.png"
+              className="h-[200px] w-[140.91px] rounded-[6px]"
+              alt=""
+              onClick={() => togglePreview(true, 24)}
+            />
+            <img
               src="/images/services/template28.png"
               className="h-[200px] w-[140.91px] rounded-[6px]"
               alt=""
