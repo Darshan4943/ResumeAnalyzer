@@ -31,6 +31,9 @@ import Template18 from "../../resumeTemplates/Template18";
 import Template17 from "../../resumeTemplates/Template17";
 import Template24 from "../../resumeTemplates/Template24";
 import Template8 from "../../resumeTemplates/Template8";
+import Template28 from "../../resumeTemplates/Template28";
+import Template29 from "../../resumeTemplates/Template29";
+import Template30 from "../../resumeTemplates/Template30";
 
 
 const ResumePreview = ({ data, isSetEdit }) => {
@@ -78,6 +81,12 @@ const ResumePreview = ({ data, isSetEdit }) => {
         return <Template18 data={data} />;
       case 24:
         return <Template24 data={data} />;
+      case 28:
+        return <Template28 data={data} />;
+      case 29:
+        return <Template29 data={data} />;
+      case 30:
+        return <Template30 data={data} />;
 
       default:
         return <Template1 data={data} />;
@@ -91,7 +100,7 @@ const ResumePreview = ({ data, isSetEdit }) => {
       axios
         .put(
           "https://freedygoservices.in/api/candidate/addResume/" +
-            userDataGlobal._id,
+          userDataGlobal._id,
           {
             pdfContent: imgData,
           }
@@ -194,32 +203,27 @@ const ResumePreview = ({ data, isSetEdit }) => {
               className="h-[200px] w-[140.91px] rounded-[6px]"
               alt=""
               onClick={() => togglePreview(true, 12)}
-            /> 
-              <img
-              src="/images/services/template15.png"
-              className="h-[200px] w-[140.91px] rounded-[6px]"
-              alt=""
-              onClick={() => togglePreview(true, 15)}
-            /> 
-             <img
-              src="/images/services/template17.png"
-              className="h-[200px] w-[140.91px] rounded-[6px]"
-              alt=""
-              onClick={() => togglePreview(true, 17)}
             />
-             <img
-              src="/images/services/template18.png"
-              className="h-[200px] w-[140.91px] rounded-[6px]"
-              alt=""
-              onClick={() => togglePreview(true, 18)}
-            /> 
             <img
-              src="/images/services/resume24.png"
+              src="/images/services/template28.png"
               className="h-[200px] w-[140.91px] rounded-[6px]"
               alt=""
-              onClick={() => togglePreview(true, 24)}
+              onClick={() => togglePreview(true, 28)}
+            />
+            <img
+              src="/images/services/template29.png"
+              className="h-[200px] w-[140.91px] rounded-[6px]"
+              alt=""
+              onClick={() => togglePreview(true, 29)}
+            />
+            <img
+              src="/images/services/template30.png"
+              className="h-[200px] w-[140.91px] rounded-[6px]"
+              alt=""
+              onClick={() => togglePreview(true, 30)}
             />
           </div>
+
         </div>
 
         <div className="web" ref={resumeRef}>

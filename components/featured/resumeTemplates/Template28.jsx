@@ -1,13 +1,14 @@
 import React from 'react'
 import { Document, Page, Text, View, Image, StyleSheet, Svg, Path, Rect } from '@react-pdf/renderer';
-function Template4({ data }) {
+function Template28({ data }) {
+
     return (
         <Page size="A4">
             <View style={{ flexDirection: 'row', gap: "1.5rem" }}>
 
-                <View style={{ width: "190px" }}>
-                    <View style={{ flexDirection: "column", minHeight: "841.7px", height: "100%", backgroundColor: "#282829", gap: "18px", paddingLeft: 24 }}>
-                        <View style={{ alignItems: "center", marginTop: "35px", flexDirection: "column", marginLeft: -24 }}>
+                <View style={{ width: "191px" }}>
+                    <View style={{ flexDirection: "column", minHeight: "841.7px", height: "100%", backgroundColor: "#2AB6BB", gap: "18px", }}>
+                        <View style={{ alignItems: "center", marginTop: "35px", flexDirection: "column", }}>
 
                             {data.profilePhoto ? (
                                 <Image src={URL.createObjectURL(data.profilePhoto)} alt="" style={{ width: "134px", marginBottom: "16px", height: "134px", borderRadius: "50%" }} />
@@ -20,47 +21,41 @@ function Template4({ data }) {
                             </View>
                             <Text style={{ fontSize: "8px", fontWeight: 500, color: "#00AEEF" }}>{data.designation}</Text>
                         </View>
-                        <View style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
-                            <View style={{ marginRight: '-12px', marginTop: "4px", alignItems: "center", flexDirection: "row" }}>
-                                <Svg width={180} height={43} viewBox="0 0 180 43">
-                                    <Path d="M10.942 32.118H179.514V0.887939H10.942L0.782959 16.5029L10.942 32.118Z" fill="#00AEEF" />
-                                    <Path d="M167.942 42.8819L179.514 32.118L167.942 32.1179V42.8819Z" fill="#007DC5" />
-                                    <Text x="10%" y="40%" dominantBaseline="middle" textAnchor="start" fill="white" style={{ fontWeight: '600', fontSize: "14px" }}>
-                                        CONTACT
-                                    </Text>
-                                </Svg>
+                        <View style={{ display: "flex", flexDirection: "column", gap: "8" }}>
+                            <View style={{ padding: "8px 24px", backgroundColor: "#009C9E", marginTop: "4px", alignItems: "center", justifyContent: "space-between", flexDirection: "row", width: "190px" }}>
 
-d
+                                <Text style={{ color: "white" }}>CONTACT</Text>
+
                             </View>
                             {data?.mobileNumber && (
-                                <View style={{ flexDirection: "row", gap: "12px", justifyContent: "start", alignItems: "center", marginLeft: "16px", paddingRight: " 4px", paddingTop: "5px" }}>
+                                <View style={{ flexDirection: "row", gap: "12px", justifyContent: "start", alignItems: "center", marginLeft: "24px", paddingRight: " 4px", paddingTop: "5px" }}>
                                     <View style={{ height: "24px", display: "flex", alignItems: "center" }}>
-                                        <Image style={{ width: "18px", height: "18px" }} src="/images/services/telephone_blue.png" alt="" />
+                                        <Image style={{ width: "18px", height: "18px" }} src="/images/services/telephone_white.png" alt="" />
                                     </View>
                                     <Text style={{ fontSize: "10px", paddingTop: "2px", flexDirection: "row", fontWeight: 400, color: "#fff", }}>{data.mobileNumber}</Text>
                                 </View>
                             )}
                             {data?.email && (
-                                <View style={{ flexDirection: "row", breakAll: true, gap: "12px", justifyContent: "start", alignItems: "center", marginLeft: "16px", paddingRight: " 4px" }}>
+                                <View style={{ flexDirection: "row", breakAll: true, gap: "12px", justifyContent: "start", alignItems: "center", marginLeft: "24px", paddingRight: " 4px" }}>
                                     <View style={{ height: "24px", display: "flex", alignItems: "center" }}>
-                                        <Image style={{ width: "18px", height: "18px" }} src="/images/services/message_blue.png" alt="" />
+                                        <Image style={{ width: "18px", height: "18px" }} src="/images/services/message_white.png" alt="" />
                                     </View>
                                     <Text style={{ fontSize: "10px", width: '80%', paddingTop: "2px", flexDirection: "row", fontWeight: 400, color: "#fff", }}>{data.email}</Text>
                                 </View>
                             )}
 
                             {/* {data?.sociaLinks > 0 && (
-                    <View style={{ flexDirection:"row",breakAll:true , gap: "12px", justifyContent:"start" , alignItems: "center", marginLeft: "40px", paddingRight: " 16px" }}>
+                    <View style={{ flexDirection:"row",breakAll:true , gap: "12px", justifyContent:"start" , alignItems: "center", marginLeft: "24px", paddingRight: " 16px" }}>
                         <View style={{ height: "24px", flexDirection:"row", alignItems: "center" }}>
-                            <Image style={{ width: "18px", height: "18px" }} src="/images/services/location_blue.png" alt="" />
+                            <Image style={{ width: "18px", height: "18px" }} src="/images/services/social_white.png" alt="" />
                         </View>
                         <View style={{ flexDirection:"row", fontSize: "11px", paddingTop: "2px", fontWeight: 400, color: "#fff", }}>{data.sociaLinks}</View>
                     </View>
                 )} */}
                             {data?.location && (
-                                <View style={{ flexDirection: "row", breakAll: true, justifyContent: "start", gap: "12px", alignItems: "center", marginLeft: "16px", paddingRight: " 4px" }}>
+                                <View style={{ flexDirection: "row", breakAll: true, justifyContent: "start", gap: "12px", alignItems: "center", marginLeft: "24px", paddingRight: " 4px" }}>
                                     <View style={{ height: "24px", flexDirection: "row", alignItems: "center" }}>
-                                        <Image style={{ width: "18px", height: "18px" }} src="/images/services/location_blue.png" alt="" />
+                                        <Image style={{ width: "18px", height: "18px" }} src="/images/services/location_white.png" alt="" />
                                     </View>
                                     <Text style={{ fontSize: "10px", flexDirection: "row", fontWeight: 400, color: "#fff", }}>{data.location}</Text>
                                 </View>
@@ -69,33 +64,28 @@ d
 
                         {data?.languages?.length > 0 && (
                             <>
-                                <View style={{ marginRight: '-12px', marginTop: "4px", alignItems: "center", flexDirection: "row" }}>
-                                    <Svg width={180} height={43} viewBox="0 0 180 43">
-                                        <Path d="M10.942 32.118H179.514V0.887939H10.942L0.782959 16.5029L10.942 32.118Z" fill="#00AEEF" />
-                                        <Path d="M167.942 42.8819L179.514 32.118L167.942 32.1179V42.8819Z" fill="#007DC5" />
-                                        <Text x="10%" y="40%" dominantBaseline="middle" textAnchor="start" fill="white" style={{ fontWeight: '600', fontSize: "14px" }}>
-                                            LANGUAGES
-                                        </Text>
-                                    </Svg>
+                                <View style={{ padding: "8px 24px", backgroundColor: "#009C9E", marginTop: "4px", alignItems: "center", justifyContent: "space-between", flexDirection: "row", width: "190px" }}>
 
+                                    <Text style={{ color: "white" }}>LANGUAGES</Text>
 
                                 </View>
-                                <View style={{ flexDirection: "column", color: "white", paddingRight: "16px", gap: "8px", justifyContent: "space-between", marginLeft: "16px" }}>
+                                <View style={{ flexDirection: "column", color: "white", paddingRight: "16px", gap: "8px", justifyContent: "space-between", marginLeft: "24px" }}>
                                     {data?.languages?.map((detail, index) => (
                                         <View key={index} style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", gap: "8px" }}>
-                                            <Text style={{ fontSize: "10px", paddingTop: "2px", flexDirection: "row", fontWeight: 400, color: "#fff", }}>{detail.languages}</Text>
-                                            <View style={{ flexDirection: "row", gap: "0.25rem", marginTop: "4px" }}>
+                                            <Text style={{ fontSize: "12px", paddingTop: "2px", flexDirection: "row", fontWeight: 400, color: "#fff", }}>{detail.languages}</Text>
+                                            <View style={{ flexDirection: "row", gap: "16", marginTop: "4px" }}>
                                                 {[...Array(3)].map((_, i) => (
                                                     <View key={i}>
                                                         {
                                                             detail.rating[i] === 0 ? (
-                                                                <Svg width={8} height={7} viewBox="0 0 8 7">
-                                                                    <Path fillRule="evenodd" clipRule="evenodd" d="M4.02911 0.285156C2.23911 0.285156 0.789062 1.73615 0.789062 3.52515C0.789062 5.31415 2.24011 6.76514 4.02911 6.76514C5.81811 6.76514 7.2691 5.31415 7.2691 3.52515C7.2691 1.73615 5.81811 0.285156 4.02911 0.285156Z" fill="#D1D3D4" />
+                                                                <Svg width="8" height="9" viewBox="0 0 8 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                    <Path d="M4 8.42383C6.20914 8.42383 8 6.63292 8 4.42379C8 2.21467 6.20914 0.423828 4 0.423828C1.79086 0.423828 0 2.21467 0 4.42379C0 6.63292 1.79086 8.42383 4 8.42383Z" fill="white" />
                                                                 </Svg>
                                                             ) : (
-                                                                <Svg width={8} height={8} viewBox="0 0 8 8">
-                                                                    <Path fillRule="evenodd" clipRule="evenodd" d="M4.02911 0.886719C2.23911 0.886719 0.789062 2.33771 0.789062 4.12671C0.789062 5.91571 2.24011 7.36676 4.02911 7.36676C5.81811 7.36676 7.2691 5.91571 7.2691 4.12671C7.2691 2.33771 5.81811 0.886719 4.02911 0.886719Z" fill="#00AEEF" />
+                                                                <Svg width="8" height="9" viewBox="0 0 8 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                    <Path fill-rule="evenodd" clip-rule="evenodd" d="M4 0.423828C1.79135 0.423828 0 2.21518 0 4.42383C0 6.63248 1.79135 8.42383 4 8.42383C6.20864 8.42383 8 6.63248 8 4.42383C8 2.21518 6.20987 0.423828 4 0.423828Z" fill="#009C9E" />
                                                                 </Svg>
+
                                                             )
                                                         }
                                                     </View>
@@ -107,20 +97,14 @@ d
                             </>
                         )}
                         {data?.hobbies?.length > 0 && (
-                            <View style={{ flexDirection: "column", gap: " 16px", }}>
+                            <View style={{ flexDirection: "column", gap: "16px", }}>
 
-                                <View style={{ marginRight: '-12px', marginTop: "4px", alignItems: "center", flexDirection: "row" }}>
-                                    <Svg width={180} height={43} viewBox="0 0 180 43">
-                                        <Path d="M10.942 32.118H179.514V0.887939H10.942L0.782959 16.5029L10.942 32.118Z" fill="#00AEEF" />
-                                        <Path d="M167.942 42.8819L179.514 32.118L167.942 32.1179V42.8819Z" fill="#007DC5" />
-                                        <Text x="10%" y="40%" dominantBaseline="middle" textAnchor="start" fill="white" style={{ fontWeight: '600', fontSize: "14px" }}>
-                                            HOBBIES
-                                        </Text>
-                                    </Svg>
+                                <View style={{ padding: "8px 24px", backgroundColor: "#009C9E", marginTop: "4px", alignItems: "center", justifyContent: "space-between", flexDirection: "row", width: "190px" }}>
 
+                                    <Text style={{ color: "white" }}>HOBBIES</Text>
 
                                 </View>
-                                <View style={{ display: "grid", gridTemplateColumns: "2 1fr", gap: " 16px", marginLeft: "16px" }}>
+                                <View style={{ display: "grid", gridTemplateColumns: "2 1fr", gap: "16px", marginLeft: "24px" }}>
                                     {data?.hobbies?.map((item, index) => (
                                         <View key={index} style={{ color: "white", fontSize: "12px" }}>
                                             <Text>
@@ -131,12 +115,13 @@ d
                                 </View>
                             </View>
                         )}
+                        
                     </View>
                 </View>
                 <View style={{ width: "407px", padding: " 16px", display: "flex", flexDirection: "column", gap: "36px" }}>
                     <View style={{ display: "flex", flexDirection: "column", gap: 8, alignItems: "flex-start", paddingTop: "26px" }}>
                         <View style={{ display: "flex", flexDirection: "row", gap: 8, alignItems: "center", width: "100%" }}>
-                            <Image style={{ width: "27px", height: "27px", display: "flex", alignItems: "flex-end" }} src="/images/services/profile_img.png" alt="" />
+                            <Image style={{ width: "27px", height: "27px", display: "flex", alignItems: "flex-end" }} src="/images/services/profile_sky.png" alt="" />
                             <View style={{ display: "flex", flexDirection: "column", gap: 4, width: "90%" }}>
                                 <Text style={{ color: "#282829", fontWeight: 500, fontSize: "16px" }}>About me</Text>
                                 <View style={{ height: "1px", width: "95%", backgroundColor: "#282829" }}></View>
@@ -148,7 +133,7 @@ d
                     </View>
                     <View style={{ display: "flex", flexDirection: "row", gap: 8, width: "100%" }}>
                         <View style={{}}>
-                            <Image style={{ width: "27px", height: "27px" }} src="/images/services/education.png" alt="" />
+                            <Image style={{ width: "27px", height: "27px" }} src="/images/services/education_sky.png" alt="" />
                         </View>
 
                         <View style={{ display: "flex", flexDirection: "column", gap: 24, width: "90%" }}>
@@ -181,8 +166,7 @@ d
                     </View>
                     <View style={{ display: "flex", flexDirection: "row", gap: 8, width: "100%" }}>
                         <View style={{}}>
-                            <Image style={{ width: "27px", height: "27px" }} src="/images/services/experience
-                            .png" alt="" />
+                            <Image style={{ width: "27px", height: "27px" }} src="/images/services/experience_sky.png" alt="" />
                         </View>
 
                         <View style={{ display: "flex", flexDirection: "column", gap: 16, width: "90%" }}>
@@ -218,41 +202,42 @@ d
                     {data?.skills?.length > 0 && (
 
 
-                    <View style={{ display: "flex", flexDirection: "column", gap: 16, alignItems: "flex-start", paddingTop: "26px" }}>
-                        <View style={{ display: "flex", flexDirection: "row", gap: 8, alignItems: "center", width: "100%" }}>
-                            <Image style={{ width: "27px", height: "27px", display: "flex", alignItems: "flex-end" }} src="/images/services/profile_img.png" alt="" />
-                            <View style={{ display: "flex", flexDirection: "column", gap: 4, width: "90%" }}>
-                                <Text style={{ color: "#282829", fontWeight: 500, fontSize: "16px" }}>SKILLS</Text>
-                                <View style={{ height: "1px", width: "95%", backgroundColor: "#282829" }}></View>
+                        <View style={{ display: "flex", flexDirection: "column", gap: 16, alignItems: "flex-start", paddingTop: "26px" }}>
+                            <View style={{ display: "flex", flexDirection: "row", gap: 8, alignItems: "center", width: "100%" }}>
+                                <Image style={{ width: "27px", height: "27px", display: "flex", alignItems: "flex-end" }} src="/images/services/skills_sky.png" alt="" />
+                                <View style={{ display: "flex", flexDirection: "column", gap: 4, width: "90%" }}>
+                                    <Text style={{ color: "#282829", fontWeight: 500, fontSize: "16px" }}>SKILLS</Text>
+                                    <View style={{ height: "1px", width: "95%", backgroundColor: "#282829" }}></View>
+                                </View>
+                            </View>
+                            <View style={{ flexDirection: "column", gap: 8, justifyContent: "space-between", width: "100%" }}>
+                                {data?.skills?.map((detail, index) => (
+                                    <View key={index} style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "space-between", gap: "8", width: "100%" }}>
+                                        <Text style={{ fontSize: 14 }}>
+                                            {detail.skill}
+                                        </Text>
+                                        <View style={{ display: "flex", gap: 24, flexDirection: "row", marginTop: "4px" }}>
+                                            {[...Array(5)].map((_, i) => (
+                                                <View key={i}>
+                                                    {
+                                                        detail.rating[i] === 0 ? (
+                                                            <Svg width="8" height="9" viewBox="0 0 8 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <Path d="M4 8.52344C6.20914 8.52344 8 6.73252 8 4.5234C8 2.31428 6.20914 0.523438 4 0.523438C1.79086 0.523438 0 2.31428 0 4.5234C0 6.73252 1.79086 8.52344 4 8.52344Z" fill="#D1D3D4"/>
+                                                            </Svg>
+                                                            
+                                                        ) : (
+                                                            <Svg width="8" height="9" viewBox="0 0 8 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <Path fill-rule="evenodd" clip-rule="evenodd" d="M4 0.423828C1.79135 0.423828 0 2.21518 0 4.42383C0 6.63248 1.79135 8.42383 4 8.42383C6.20864 8.42383 8 6.63248 8 4.42383C8 2.21518 6.20987 0.423828 4 0.423828Z" fill="#009C9E" />
+                                                        </Svg>
+                                                        )
+                                                    }
+                                                </View>
+                                            ))}
+                                        </View>
+                                    </View>
+                                ))}
                             </View>
                         </View>
-                        <View style={{ flexDirection: "column", gap: 8, justifyContent: "space-between",width: "100%"  }}>
-                                    {data?.skills?.map((detail, index) => (
-                                        <View key={index} style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "space-between", gap: "8",width:"100%" }}>
-                                            <Text style={{fontSize:12}}>
-                                                {detail.skill}
-                                            </Text>
-                                            <View style={{ display: "flex", gap: 16, flexDirection: "row", marginTop: "4px" }}>
-                                                {[...Array(5)].map((_, i) => (
-                                                    <View key={i}>
-                                                        {
-                                                            detail.rating[i] === 0 ? (
-                                                                <Svg xmlns="http://www.w3.org/2000/svg" width="8" height="7" viewBox="0 0 8 7" fill="none">
-                                                                    <Path fillRule="evenodd" clipRule="evenodd" d="M4.02911 0.285156C2.23911 0.285156 0.789062 1.73615 0.789062 3.52515C0.789062 5.31415 2.24011 6.76514 4.02911 6.76514C5.81811 6.76514 7.2691 5.31415 7.2691 3.52515C7.2691 1.73615 5.81811 0.285156 4.02911 0.285156Z" fill="#D1D3D4" />
-                                                                </Svg>
-                                                            ) : (
-                                                                <Svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8" fill="none">
-                                                                    <Path fillRule="evenodd" clipRule="evenodd" d="M4.02911 0.886719C2.23911 0.886719 0.789062 2.33771 0.789062 4.12671C0.789062 5.91571 2.24011 7.36676 4.02911 7.36676C5.81811 7.36676 7.2691 5.91571 7.2691 4.12671C7.2691 2.33771 5.81811 0.886719 4.02911 0.886719Z" fill="#00AEEF" />
-                                                                </Svg>
-                                                            )
-                                                        }
-                                                    </View>
-                                                ))}
-                                            </View>
-                                        </View>
-                                    ))}
-                                </View>
-                    </View>
 
                     )}
                 </View>
@@ -262,6 +247,6 @@ d
     )
 }
 
-export default Template4
+export default Template28
 
 
