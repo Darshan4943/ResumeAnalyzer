@@ -125,7 +125,7 @@ const ResumePreview = ({ data, isSetEdit }) => {
       >
         <div className="rounded-[8px] bg-[#BCEBFF]  px-4 pt-[10px] ">
           <div className=" flex gap-4 pb-[10px]" style={{ overflowX: "auto" }}>
-            {/* <img
+           <img
               src="/images/services/resume1.png"
               className="h-[200px] w-[140.91px] rounded-[6px]"
               alt=""
@@ -180,25 +180,25 @@ const ResumePreview = ({ data, isSetEdit }) => {
               className="h-[200px] w-[140.91px] rounded-[6px]"
               alt=""
               onClick={() => togglePreview(true, 12)}
-            /> */}
-             {/* <img
+            /> 
+              <img
               src="/images/services/template15.png"
               className="h-[200px] w-[140.91px] rounded-[6px]"
               alt=""
               onClick={() => togglePreview(true, 15)}
-            /> */}
+            /> 
              <img
               src="/images/services/template17.png"
               className="h-[200px] w-[140.91px] rounded-[6px]"
               alt=""
               onClick={() => togglePreview(true, 17)}
             />
-             {/* <img
+             <img
               src="/images/services/template18.png"
               className="h-[200px] w-[140.91px] rounded-[6px]"
               alt=""
               onClick={() => togglePreview(true, 18)}
-            /> */}
+            /> 
           </div>
         </div>
 
