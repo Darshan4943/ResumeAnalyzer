@@ -11,7 +11,7 @@ import {
   Rect,
 } from "@react-pdf/renderer";
 function Template5({ data }) {
-  console.log(data);
+  console.log(14, data);
   return (
     <Page size="A4">
       <View
@@ -19,7 +19,7 @@ function Template5({ data }) {
           display: "flex",
           flexDirection: "row",
 
-          height: "841px",
+          minHeight: "841px",
         }}
       >
         <View
@@ -98,9 +98,15 @@ function Template5({ data }) {
                   />
                 </Svg>
 
-                {data.sociaLinks.map((detail, index) => (
-                  <>{detail.link}</>
-                ))}
+                <Text
+                  style={{
+                    fontSize: "12px",
+                    fontWeight: "300",
+                    color: "#414142",
+                  }}
+                >
+                  {data.mobileNumber}
+                </Text>
               </View>
             </View>
             <View
@@ -135,7 +141,7 @@ function Template5({ data }) {
                       color: "#414142",
                     }}
                   >
-                    michael@yourweb.com
+                    {data.email}
                   </Text>
                 )}
               </View>
@@ -172,7 +178,9 @@ function Template5({ data }) {
                       color: "#414142",
                     }}
                   >
-                    yourwebsite.com
+                    {data.sociaLinks.map((detail, index) => (
+                      <>{detail.link}</>
+                    ))}
                   </Text>
                 )}
               </View>
@@ -355,6 +363,8 @@ function Template5({ data }) {
                 marginLeft: "27.11px",
                 marginRight: "39.98px",
                 marginTop: "38.43px",
+                display: "flex",
+                gap: "12px",
               }}
             >
               {data?.languages?.length > 0 && (
@@ -513,54 +523,173 @@ function Template5({ data }) {
                 width: "176.57px",
                 backgroundColor: "#F9F9F9",
                 marginTop: "27px",
+                marginBottom: "27px",
               }}
             ></View>
-            <View>
+            <View
+              style={{
+                width: "100%",
+              }}
+            >
               <Text
                 style={{
                   fontSize: "17px",
                   fontWeight: "400",
                   color: "#F9F9F9",
+                  paddingBottom: "27px",
                 }}
               >
                 EDUCATION
               </Text>
-              <Text>
+              <View
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "20px",
+                }}
+              >
                 {data?.education?.map((detail, index) => (
                   <View
                     style={{
-                      display: "flex",
                       flexDirection: "column",
                     }}
                   >
-                    <View class="left">
-                      <View className="text-[#F9F9F9] text-[9.9px]">
-                        <Text className="text-[#F9F9F9] font-Kanit text-[11px] font-normal">
-                          {detail.qualification}
-                        </Text>
-                      </View>
-                      <View class="name text-[#F9F9F9]">
-                        <Text className="text-[#F9F9F9] font-Kanit text-[7.8px] font-normal">
-                          {detail.instituteName}
-                        </Text>
-                      </View>
-                      <View class="duration text-[#F9F9F9] font-Kanit text-[6.11px] font-light">
-                        {detail.duration?.end?.year && (
-                          <>
-                            {detail.duration?.start?.year}-
-                            {detail.duration?.end?.year}
-                          </>
-                        )}
-                      </View>
-                      <View className="text-[#F9F9F9]">
-                        <Text className=" font-Kanit text-[7.8px] font-normal">
-                          {detail.specialization}
-                        </Text>
-                      </View>
+                    <View
+                      style={{
+                        flexDirection: "row",
+                        display: "flex",
+                        gap: "4px",
+                      }}
+                    >
+                      <Svg width={6} height={5} viewBox="0 0 6 5">
+                        <Path
+                          d="M2.56562 4.69059L0.678625 2.80359C0.544625 2.66959 0.544625 2.4516 0.678625 2.3176L2.56562 0.430578C2.69962 0.296578 2.91761 0.296578 3.05161 0.430578L4.9386 2.3176C5.0726 2.4516 5.0726 2.66959 4.9386 2.80359L3.05161 4.69059C2.91761 4.82459 2.69962 4.82459 2.56562 4.69059Z"
+                          fill="#F9F9F9"
+                        />
+                      </Svg>
+                      <Text
+                        style={{
+                          fontSize: "11px",
+                          fontWeight: "400",
+                          color: "#F9F9F9",
+                        }}
+                      >
+                        {detail.qualification}
+                      </Text>
                     </View>
+                    <Text
+                      style={{
+                        fontSize: "9px",
+                        fontWeight: "300",
+                        color: "#F2F2F2",
+                        paddingLeft: "10px",
+                      }}
+                    >
+                      {detail.instituteName}
+                    </Text>
+                    <Text
+                      style={{
+                        fontSize: "7px",
+                        fontWeight: "400",
+                        color: "#F9F9F9",
+                        paddingLeft: "10px",
+                      }}
+                    >
+                      {detail.duration?.start?.year}-
+                      {detail.duration?.end?.year}
+                    </Text>
                   </View>
                 ))}
+              </View>
+            </View>
+            <View
+              style={{
+                height: "0.46px",
+                width: "176.57px",
+                backgroundColor: "#F9F9F9",
+                marginTop: "27px",
+                marginBottom: "27px",
+              }}
+            ></View>
+            <View
+              style={{
+                width: "100%",
+              }}
+            >
+              <Text
+                style={{
+                  fontSize: "17px",
+                  fontWeight: "400",
+                  color: "#F9F9F9",
+                  paddingBottom: "27px",
+                }}
+              >
+                EXPERIENCE
               </Text>
+              <View
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "20px",
+                }}
+              >
+                {data?.experience?.map((detail, index) => (
+                  <View
+                    style={{
+                      flexDirection: "column",
+                    }}
+                  >
+                    <View
+                      style={{
+                        flexDirection: "row",
+                        display: "flex",
+                        gap: "4px",
+                      }}
+                    >
+                      <Svg width={6} height={5} viewBox="0 0 6 5">
+                        <Path
+                          d="M2.56562 4.69059L0.678625 2.80359C0.544625 2.66959 0.544625 2.4516 0.678625 2.3176L2.56562 0.430578C2.69962 0.296578 2.91761 0.296578 3.05161 0.430578L4.9386 2.3176C5.0726 2.4516 5.0726 2.66959 4.9386 2.80359L3.05161 4.69059C2.91761 4.82459 2.69962 4.82459 2.56562 4.69059Z"
+                          fill="#F9F9F9"
+                        />
+                      </Svg>
+                      <Text
+                        style={{
+                          fontSize: "11px",
+                          fontWeight: "400",
+                          color: "#F9F9F9",
+                        }}
+                      >
+                        {detail.organization}
+                      </Text>
+                    </View>
+
+                    <Text
+                      style={{
+                        fontSize: "7px",
+                        fontWeight: "400",
+                        color: "#F9F9F9",
+                        paddingLeft: "10px",
+                      }}
+                    >
+                      {detail.duration?.start?.year}-{" "}
+                      {detail.currentlyWorking
+                        ? "Present"
+                        : detail.duration?.end?.year}
+                    </Text>
+                    <Text
+                      style={{
+                        fontSize: "11px",
+                        fontWeight: "300",
+                        color: "#F2F2F2",
+                        paddingLeft: "10px",
+                        paddingTop: "17px",
+                      }}
+                    >
+                      {detail.description}
+                    </Text>
+                  </View>
+                ))}
+              </View>
             </View>
           </View>
         </View>
