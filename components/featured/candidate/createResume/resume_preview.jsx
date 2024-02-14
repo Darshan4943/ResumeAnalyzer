@@ -32,6 +32,7 @@ import Template17 from "../../resumeTemplates/Template17";
 import Template24 from "../../resumeTemplates/Template24";
 import Template8 from "../../resumeTemplates/Template8";
 
+
 const ResumePreview = ({ data, isSetEdit }) => {
   const userDataGlobal = useSelector((state) => state.userData);
   const dispatch = useDispatch();
@@ -44,6 +45,7 @@ const ResumePreview = ({ data, isSetEdit }) => {
 
   const togglePreview = (isVisible, index) => {
     // setPreview(isVisible);
+    // console.log(data)
     setSelectedResumeIndex(index);
   };
   const selectResumeTemplate = (index) => {
