@@ -1,14 +1,14 @@
 import React from "react";
 import {
-  Document,
-  Page,
-  Text,
-  View,
-  Image,
-  StyleSheet,
-  Svg,
-  Path,
-  Rect,
+    Document,
+    Page,
+    Text,
+    View,
+    Image,
+    StyleSheet,
+    Svg,
+    Path,
+    Rect,
 } from "@react-pdf/renderer";
 function Template5({ data }) {
   console.log(14, data);
@@ -213,76 +213,76 @@ function Template5({ data }) {
                   />
                 </Svg>
 
-                {data.mobileNumber && (
-                  <Text
-                    style={{
-                      fontSize: "12px",
-                      fontWeight: "300",
-                      color: "#414142",
-                    }}
-                  >
-                    {data.location}
-                  </Text>
-                )}
-              </View>
-            </View>
-            <View
-              style={{
-                width: "100%",
-                height: "29.2px",
-                backgroundColor: "#316059",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                marginTop: "38.43px",
-              }}
-            >
-              <Text
-                style={{
-                  fontSize: "17px",
-                  fontWeight: "400",
-                  color: "#F9F9F9",
-                }}
-              >
-                SKILLS
-              </Text>
-            </View>
-            <View
-              style={{
-                marginTop: "38.43px",
-                marginRight: "39.72px",
-                marginLeft: "27.03px",
-              }}
-            >
-              {data?.skills?.length > 0 && (
-                <>
-                  <View
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      gap: "12px",
-                    }}
-                  >
-                    {data.skills?.map((detail, index) => {
-                      const calculateWidthPercentage = (rating) => {
-                        let ratingPercentage = 0;
-                        if (rating && rating.length > 0) {
-                          const zerosCount = rating.filter(
-                            (val) => val === 0
-                          ).length;
+                                {data.mobileNumber && (
+                                    <Text
+                                        style={{
+                                            fontSize: "12px",
+                                            fontWeight: "300",
+                                            color: "#414142",
+                                        }}
+                                    >
+                                        {data.location}
+                                    </Text>
+                                )}
+                            </View>
+                        </View>
+                        <View
+                            style={{
+                                width: "100%",
+                                height: "29.2px",
+                                backgroundColor: "#316059",
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
+                                marginTop: "38.43px",
+                            }}
+                        >
+                            <Text
+                                style={{
+                                    fontSize: "17px",
+                                    fontWeight: "400",
+                                    color: "#F9F9F9",
+                                }}
+                            >
+                                SKILLS
+                            </Text>
+                        </View>
+                        <View
+                            style={{
+                                marginTop: "38.43px",
+                                marginRight: "39.72px",
+                                marginLeft: "27.03px",
+                            }}
+                        >
+                            {data?.skills?.length > 0 && (
+                                <>
+                                    <View
+                                        style={{
+                                            display: "flex",
+                                            flexDirection: "column",
+                                            gap: "12px",
+                                        }}
+                                    >
+                                        {data.skills?.map((detail, index) => {
+                                            const calculateWidthPercentage = (rating) => {
+                                                let ratingPercentage = 0;
+                                                if (rating && rating.length > 0) {
+                                                    const zerosCount = rating.filter(
+                                                        (val) => val === 0
+                                                    ).length;
 
-                          if (zerosCount === 0) ratingPercentage = 100;
-                          else if (zerosCount === 1) ratingPercentage = 80;
-                          else if (zerosCount === 2) ratingPercentage = 60;
-                          else if (zerosCount === 3) ratingPercentage = 40;
-                          else if (zerosCount === 4) ratingPercentage = 20;
-                        }
-                        return ratingPercentage;
-                      };
+                                                    if (zerosCount === 0) ratingPercentage = 100;
+                                                    else if (zerosCount === 1) ratingPercentage = 80;
+                                                    else if (zerosCount === 2) ratingPercentage = 60;
+                                                    else if (zerosCount === 3) ratingPercentage = 40;
+                                                    else if (zerosCount === 4) ratingPercentage = 20;
+                                                }
+                                                return ratingPercentage;
+                                            };
 
-                      const ratingPercentage = calculateWidthPercentage(
-                        detail.rating
-                      );
+                                            const ratingPercentage = calculateWidthPercentage(
+                                                detail.rating
+                                            );
 
                       return (
                         <View

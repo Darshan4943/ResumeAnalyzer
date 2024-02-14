@@ -281,7 +281,12 @@ function Template6({ data }) {
         </View>
       </View>
     </Page>
+
+
+
+
   );
 }
 
 export default Template6;
+
