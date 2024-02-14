@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Document, Page, Text, View, StyleSheet, Image, Svg, Path, Rect,Font,Defs, ClipPath } from '@react-pdf/renderer';
 
 const Template12 = ({ data }) => {
-  // console.log(4, data.experience);
 
   return (
     <Page>
@@ -67,6 +66,47 @@ const Template12 = ({ data }) => {
               </Text>
               <View style={{ backgroundColor: "#B5BCC5", width: 400, height: 1 }}></View>
             </View>
+            <View style={{ width: "525", flexDirection: "row", gap: 25, paddingLeft: 10 }}>
+  {data?.education?.map((detail, index) => (
+    <View key={index} style={{ flexDirection: "column", gap: 8, width: '50%' }}>
+      <View style={{ flexDirection: "row", gap: 6 }}>
+        <View style={{ flexDirection: "column", gap: 4 }}>
+          {detail.duration?.end?.year && (
+            <>
+              <Text style={{ fontSize: 12, fontWeight: "700", color: "#495970" }}>
+                {detail.duration?.start?.year}
+              </Text>
+              <Text style={{ fontSize: 12, fontWeight: "700", color: "#495970"}}>
+                {detail.duration?.end?.year}
+              </Text>
+            </>
+          )}
+        </View>
+        <View style={{ backgroundColor: "#B5BCC5", height: "auto", width: 1 }}></View>
+        <View style={{ flexDirection: "column", gap: 2, width: "100%" }}>
+          <Text style={{ fontSize: 12, fontWeight: "400", color: "#495970" }}>
+            {detail.instituteName}
+          </Text>
+          <Text style={{ fontSize: 12, fontWeight: "700", color: "#495970" }}>
+            {detail.qualification}
+          </Text>
+        </View>
+      </View>
+      <Text style={{ fontSize: 12, fontWeight: "400", color: "#676A6D", width: "100%" }}>
+        {detail.specialization}
+      </Text>
+    </View>
+  ))}
+</View>
+
+          </View>
+          {/* <View style={{ flexDirection: "column", width: "595", gap: 8,paddingLeft:10 }}>
+            <View style={{ flexDirection: "row",width: "525", alignItems: "center",justifyContent:'center', gap: 6 }}>
+              <Text style={{ fontSize: 16, fontWeight: "700", color: "#495970" }}>
+                EDUCATION
+              </Text>
+              <View style={{ backgroundColor: "#B5BCC5", width: 400, height: 1 }}></View>
+            </View>
             <View style={{ width: "525", flexDirection: "row", gap: 25,paddingLeft:10  }}>
               {data?.education?.map((detail, index) => (
                 <View style={{ flexDirection: "column", gap: 8, width: 380 }}>
@@ -99,7 +139,9 @@ const Template12 = ({ data }) => {
                 </View>
               ))}
             </View>
-          </View>
+          </View> */}
+        
+
       
            <View style={{ flexDirection: "column", width: "595", gap: 6 ,paddingLeft:23,paddingTop:10}}>
             <View style={{ flexDirection: "row", alignItems: "center", gap: 4,width:525 ,}}>
