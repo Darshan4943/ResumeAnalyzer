@@ -26,6 +26,9 @@ import Template9 from "../../resumeTemplates/Template9";
 import Template7 from "../../resumeTemplates/Template7";
 import Template6 from "../../resumeTemplates/Template6";
 import Template12 from "../../resumeTemplates/Template12";
+import Template15 from "../../resumeTemplates/Template15";
+import Template18 from "../../resumeTemplates/Template18";
+import Template17 from "../../resumeTemplates/Template17";
 
 const ResumePreview = ({ data, isSetEdit }) => {
   const userDataGlobal = useSelector((state) => state.userData);
@@ -61,6 +64,12 @@ const ResumePreview = ({ data, isSetEdit }) => {
         return <Template9 data={data} />;
       case 12:
         return <Template12 data={data} />;
+      case 15:
+        return <Template15 data={data} />;
+      case 17:
+        return <Template17 data={data} />;
+      case 18:
+        return <Template18 data={data} />;
 
       default:
         return <Template1 data={data} />;
@@ -116,7 +125,7 @@ const ResumePreview = ({ data, isSetEdit }) => {
       >
         <div className="rounded-[8px] bg-[#BCEBFF]  px-4 pt-[10px] ">
           <div className=" flex gap-4 pb-[10px]" style={{ overflowX: "auto" }}>
-            <img
+            {/* <img
               src="/images/services/resume1.png"
               className="h-[200px] w-[140.91px] rounded-[6px]"
               alt=""
@@ -171,7 +180,25 @@ const ResumePreview = ({ data, isSetEdit }) => {
               className="h-[200px] w-[140.91px] rounded-[6px]"
               alt=""
               onClick={() => togglePreview(true, 12)}
+            /> */}
+             {/* <img
+              src="/images/services/template15.png"
+              className="h-[200px] w-[140.91px] rounded-[6px]"
+              alt=""
+              onClick={() => togglePreview(true, 15)}
+            /> */}
+             <img
+              src="/images/services/template17.png"
+              className="h-[200px] w-[140.91px] rounded-[6px]"
+              alt=""
+              onClick={() => togglePreview(true, 17)}
             />
+             {/* <img
+              src="/images/services/template18.png"
+              className="h-[200px] w-[140.91px] rounded-[6px]"
+              alt=""
+              onClick={() => togglePreview(true, 18)}
+            /> */}
           </div>
         </div>
 
