@@ -4,6 +4,7 @@ import { Document, Page, Text, View, StyleSheet, Image, Svg, Path, Rect } from '
 function Template9({ data }) {
 
     return (
+        <Page size="A4">
         <View style={{ flexDirection: 'column', breakAll: true, gap: 24, justifyContent: 'space-between',paddingBottom:150,  minHeight:840 }}>
             <View style={{ paddingHorizontal: 24, flexDirection: 'row', gap: 30,}}>
                 <View style={{ width: 200, flexDirection: 'column', position: 'relative', gap: 24 }}>
@@ -124,6 +125,7 @@ function Template9({ data }) {
                 </View>
             </View>
         </View>
+        </Page>
     );
 }
 
