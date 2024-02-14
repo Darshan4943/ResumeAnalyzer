@@ -7,7 +7,7 @@ import React from 'react'
 function Template7({data}) {
   return (
     <>
-   
+   {console.log(10,data)}
     <Page size='A4'>
     <View style={{width:'595px', minHeight:792 ,backgroundColor:'#F5F7FB',gap:35, padding:24}}>
      <View style={{marginTop:32, marginLeft:48,width:332,display:'flex',flexDirection:'row',gap:38,alignItems:'flex-start',justifyContent:"center"}}>
@@ -57,7 +57,6 @@ function Template7({data}) {
             ))}
             </View>
           </View>
-        
 
           {data?.hobbies?.length > 0 && (
           <View style={{display:'flex', alignItems:'flex-start' , wordBreak: "break-word",gap:16}}>
