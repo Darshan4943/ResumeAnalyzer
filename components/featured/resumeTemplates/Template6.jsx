@@ -227,7 +227,7 @@ function Template6({ data }) {
                         {/* </View> */}
                       <View style={{ flexDirection: "row", justifyContent: "space-between", width:300 }}>
                       <Text style={{ fontSize: 14, fontWeight: "normal", color: "#939598", width:100 }}>
-                          {detail.organization}
+                      {detail.designation}
                         </Text>
                         <Text style={{ fontSize: 14, fontWeight: "normal" }}>
                           {" "}
