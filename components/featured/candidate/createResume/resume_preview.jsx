@@ -34,7 +34,8 @@ import Template8 from "../../resumeTemplates/Template8";
 import Template28 from "../../resumeTemplates/Template28";
 import Template29 from "../../resumeTemplates/Template29";
 import Template30 from "../../resumeTemplates/Template30";
-
+import Template31 from "../../resumeTemplates/Template31";
+import Template36 from "../../resumeTemplates/Template36";
 
 const ResumePreview = ({ data, isSetEdit }) => {
   const userDataGlobal = useSelector((state) => state.userData);
@@ -67,9 +68,9 @@ const ResumePreview = ({ data, isSetEdit }) => {
         return <Template6 data={data} />;
       case 7:
         return <Template7 data={data} />;
-        case 8:
-          return <Template8 data={data} />;
-        case 9:
+      case 8:
+        return <Template8 data={data} />;
+      case 9:
         return <Template9 data={data} />;
       case 12:
         return <Template12 data={data} />;
@@ -87,6 +88,10 @@ const ResumePreview = ({ data, isSetEdit }) => {
         return <Template29 data={data} />;
       case 30:
         return <Template30 data={data} />;
+      case 31:
+        return <Template31 data={data} />;
+      case 36:
+        return <Template36 data={data} />;
 
       default:
         return <Template1 data={data} />;
@@ -100,7 +105,7 @@ const ResumePreview = ({ data, isSetEdit }) => {
       axios
         .put(
           "https://freedygoservices.in/api/candidate/addResume/" +
-          userDataGlobal._id,
+            userDataGlobal._id,
           {
             pdfContent: imgData,
           }
@@ -142,7 +147,7 @@ const ResumePreview = ({ data, isSetEdit }) => {
       >
         <div className="rounded-[8px] bg-[#BCEBFF]  px-4 pt-[10px] ">
           <div className=" flex gap-4 pb-[10px]" style={{ overflowX: "auto" }}>
-           <img
+            <img
               src="/images/services/resume1.png"
               className="h-[200px] w-[140.91px] rounded-[6px]"
               alt=""
@@ -186,7 +191,7 @@ const ResumePreview = ({ data, isSetEdit }) => {
               alt=""
               onClick={() => togglePreview(true, 7)}
             />
-              <img
+            <img
               src="/images/services/resume8.png"
               className="h-[200px] w-[140.91px] rounded-[6px]"
               alt=""
@@ -209,19 +214,19 @@ const ResumePreview = ({ data, isSetEdit }) => {
               className="h-[200px] w-[140.91px] rounded-[6px]"
               alt=""
               onClick={() => togglePreview(true, 15)}
-            /> 
-             <img
+            />
+            <img
               src="/images/services/template17.png"
               className="h-[200px] w-[140.91px] rounded-[6px]"
               alt=""
               onClick={() => togglePreview(true, 17)}
             />
-             <img
+            <img
               src="/images/services/template18.png"
               className="h-[200px] w-[140.91px] rounded-[6px]"
               alt=""
               onClick={() => togglePreview(true, 18)}
-            /> 
+            />
             <img
               src="/images/services/resume24.png"
               className="h-[200px] w-[140.91px] rounded-[6px]"
@@ -246,8 +251,19 @@ const ResumePreview = ({ data, isSetEdit }) => {
               alt=""
               onClick={() => togglePreview(true, 30)}
             />
+            <img
+              src="/images/services/resume31.png"
+              className="h-[200px] w-[140.91px] rounded-[6px]"
+              alt=""
+              onClick={() => togglePreview(true, 31)}
+            />
+            <img
+              src="/images/services/resume36.png"
+              className="h-[200px] w-[140.91px] rounded-[6px]"
+              alt=""
+              onClick={() => togglePreview(true, 36)}
+            />
           </div>
-
         </div>
 
         <div className="web" ref={resumeRef}>
