@@ -36,6 +36,7 @@ import Template29 from "../../resumeTemplates/Template29";
 import Template30 from "../../resumeTemplates/Template30";
 import Template31 from "../../resumeTemplates/Template31";
 import Template36 from "../../resumeTemplates/Template36";
+import Template25 from "../../resumeTemplates/Template25";
 
 const ResumePreview = ({ data, isSetEdit }) => {
   const userDataGlobal = useSelector((state) => state.userData);
@@ -82,6 +83,8 @@ const ResumePreview = ({ data, isSetEdit }) => {
         return <Template18 data={data} />;
       case 24:
         return <Template24 data={data} />;
+      case 25:
+        return <Template25 data={data} />;
       case 28:
         return <Template28 data={data} />;
       case 29:
@@ -232,6 +235,12 @@ const ResumePreview = ({ data, isSetEdit }) => {
               className="h-[200px] w-[140.91px] rounded-[6px]"
               alt=""
               onClick={() => togglePreview(true, 24)}
+            />
+            <img
+              src="/images/services/resume25.png"
+              className="h-[200px] w-[140.91px] rounded-[6px]"
+              alt=""
+              onClick={() => togglePreview(true, 25)}
             />
             <img
               src="/images/services/template28.png"
