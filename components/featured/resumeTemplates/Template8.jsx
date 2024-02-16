@@ -70,8 +70,8 @@ const social = [
          <Text style={{fontSize:36,fontWeight:400,color:'#000000'}}>{data.firstName}</Text>
          <Text style={{fontSize:36,fontWeight:400,color:'#000000'}}>{data.lastName}</Text>
          </View>
-         <View style={{width:161,height:161,borderRadius:161,paddingLeft:30}}>
-   <Image src="/images/profile/john_doe.png" />
+         <View style={{width:161,height:161,borderRadius:'50%',paddingLeft:30}}>
+   <Image src="/images/profile/john_doe.png" style={{borderRadius:"50%",objectFit:'contain'}} />
      </View>
     </View>
 
@@ -148,7 +148,7 @@ const social = [
             <View style={{display:'flex',flexDirection:'column',gap:14,wordBreak: "break-word",width:222}}>
                 <View style={{display:'flex',flexDirection:'row',gap:12,alignItems:'center',justifyContent:'space-between',width:'90%'}}>
                <View style={{ Width:"60%",flexWrap:'wrap',wordBreak: "break-word"   }}>
-                <Text style={{fontSize:10,fontWeight:400,color:'#000000',}}>{detail.skill}</Text>
+                <Text style={{fontSize:10,fontWeight:400,color:'#000000',wordBreak: "break-word",width:116}}>{detail.skill}</Text>
                 </View>
                 <View style={{Width:106,display:'flex',flexDirection:'row',gap:10}}>
                 {[...Array(5)].map((_, i) => (
@@ -215,7 +215,7 @@ const social = [
         </View>
         {console.log(216,data)}
 
-        {/* <View style={{display:'flex',position:'absolute',bottom:15,left:0,flexDirection:'row',justifyContent:'space-between',width:282,alignItems:'center'}}>
+        <View style={{display:'flex',position:'absolute',bottom:15,left:0,flexDirection:'row',justifyContent:'space-between',width:282,alignItems:'center'}}>
             {
                 social.map((e) => (
             <View style={{gap:8,display:'flex',flexDirection:'row',alignItems:'center'}}>
@@ -225,7 +225,7 @@ const social = [
             </View>
             ))
         }
-        </View> */}
+        </View>
 
     </View>
     </View>

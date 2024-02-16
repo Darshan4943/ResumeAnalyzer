@@ -73,7 +73,7 @@ function Template7({data}) {
           )}
 
 {/* here course remaining */}
-{/* {data?.course?.length > 0 && (
+{data?.course?.length > 0 && (
 
 <View style={{display:'flex', alignItems:'flex-start' , wordBreak: "break-word",gap:16}}>
             <Text style={{fontSize:14,fontWeight:700,color:'#222933'}}>COURSES</Text>
@@ -87,7 +87,7 @@ function Template7({data}) {
             ))}
             </View>
           </View>
-           )} */}
+           )}
 
 
          </View>
