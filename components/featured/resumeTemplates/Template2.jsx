@@ -171,30 +171,30 @@ function Template2({ data }) {
                         )}
                     </View>
                 </View>
-                <View style={{ position: 'absolute',  left:24, top:24, }}>
+                <View style={{ position: 'absolute', left: 24, top: 24, }}>
 
-                    <View style={{  top: '95%', left: '65%', }}>
+                    <View style={{ top: '95%', left: '65%', }}>
                         <Svg width={341} height={48} viewBox="0 0 311 48" fill="none">
                             <Path d="M311 48H20.1135L0 0H311V48Z" fill="#B3691B" />
                             <Text x="10%" y="85%" dominantBaseline="middle" textAnchor="start" fill="white" fontSize={10} fontWeight={600}>{data.designation} </Text>
                         </Svg>
                     </View>
-                    <View style={{  top: '35%', left: '55%', elevation: 5 }}>
+                    <View style={{ top: '35%', left: '55%', elevation: 5 }}>
                         <View style={{ width: 401, color: "#FFF", height: 33, backgroundColor: "#F7902B", flexDirection: "row", alignItems: "center", paddingLeft: 40 }} >
 
                             <Text style={{ fontSize: 22, }} >{data.firstName}  {data.lastName} </Text>
                         </View>
 
                     </View>
-                    <View style={{display:"flex", width: '200px', position: 'absolute', left:24, height: '200px', borderRadius: '50%', border:"2px" ,padding:8,backgroundColor:"#fff"}}>
-                    {data.profilePhoto ? (
-                        <Image src={URL.createObjectURL(data.profilePhoto)}  />
-                    ) : (
-                        
-                        <Image src="/images/services/profile.png"  />
-                    )}
+                    <View style={{ display: "flex", width: '200px', position: 'absolute', left: 24, height: '200px', borderRadius: '50%', border: "2px", padding: 8, backgroundColor: "#fff" }}>
+                        {data.profilePhoto ? (
+                            <Image src={URL.createObjectURL(data.profilePhoto)} />
+                        ) : (
 
-</View>
+                            <Image src="/images/services/profile.png" />
+                        )}
+
+                    </View>
                 </View>
             </View>
         </Page>
