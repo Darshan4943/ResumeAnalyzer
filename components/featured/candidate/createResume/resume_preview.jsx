@@ -34,6 +34,11 @@ import Template8 from "../../resumeTemplates/Template8";
 import Template28 from "../../resumeTemplates/Template28";
 import Template29 from "../../resumeTemplates/Template29";
 import Template30 from "../../resumeTemplates/Template30";
+import Template20 from "../../resumeTemplates/Template20";
+import Template11 from "../../resumeTemplates/Template11";
+import Template19 from "../../resumeTemplates/Template19";
+
+
 
 
 const ResumePreview = ({ data, isSetEdit }) => {
@@ -53,32 +58,39 @@ const ResumePreview = ({ data, isSetEdit }) => {
   };
   const selectResumeTemplate = (index) => {
     switch (index) {
-      case 1:
-        return <Template1 data={data} />;
-      case 2:
-        return <Template2 data={data} />;
-      case 3:
-        return <Template3 data={data} />;
-      case 4:
-        return <Template4 data={data} />;
-      case 5:
-        return <Template5 data={data} />;
-      case 6:
-        return <Template6 data={data} />;
-      case 7:
-        return <Template7 data={data} />;
-        case 8:
-          return <Template8 data={data} />;
-        case 9:
-        return <Template9 data={data} />;
-      case 12:
-        return <Template12 data={data} />;
-      case 15:
-        return <Template15 data={data} />;
-      case 17:
-        return <Template17 data={data} />;
-      case 18:
-        return <Template18 data={data} />;
+      // case 1:
+      //   return <Template1 data={data} />;
+      // case 2:
+      //   return <Template2 data={data} />;
+      // case 3:
+      //   return <Template3 data={data} />;
+      // case 4:
+      //   return <Template4 data={data} />;
+      // case 5:
+      //   return <Template5 data={data} />;
+      // case 6:
+      //   return <Template6 data={data} />;
+      // case 7:
+      //   return <Template7 data={data} />;
+      //   case 8:
+      //     return <Template8 data={data} />;
+      //   case 9:
+      //   return <Template9 data={data} />;
+      //   case 11:
+      //   return <Template11 data={data} />;
+      // case 12:
+      //   return <Template12 data={data} />;
+      // case 15:
+      //   return <Template15 data={data} />;
+      // case 17:
+      //   return <Template17 data={data} />;
+      // case 18:
+      //   return <Template18 data={data} />;
+      case 19:
+        return <Template19 data={data} />;
+        case 20:
+          return <Template20 data={data} />;
+        
       case 24:
         return <Template24 data={data} />;
       case 28:
@@ -142,7 +154,7 @@ const ResumePreview = ({ data, isSetEdit }) => {
       >
         <div className="rounded-[8px] bg-[#BCEBFF]  px-4 pt-[10px] ">
           <div className=" flex gap-4 pb-[10px]" style={{ overflowX: "auto" }}>
-           <img
+           {/* <img
               src="/images/services/resume1.png"
               className="h-[200px] w-[140.91px] rounded-[6px]"
               alt=""
@@ -198,6 +210,12 @@ const ResumePreview = ({ data, isSetEdit }) => {
               alt=""
               onClick={() => togglePreview(true, 9)}
             />
+                 <img
+              src="/images/services/resume11.png"
+              className="h-[200px] w-[140.91px] rounded-[6px]"
+              alt=""
+              onClick={() => togglePreview(true, 11)}
+            />
             <img
               src="/images/services/resume12.png"
               className="h-[200px] w-[140.91px] rounded-[6px]"
@@ -221,6 +239,18 @@ const ResumePreview = ({ data, isSetEdit }) => {
               className="h-[200px] w-[140.91px] rounded-[6px]"
               alt=""
               onClick={() => togglePreview(true, 18)}
+            />  */}
+              <img
+              src="/images/services/template19.png"
+              className="h-[200px] w-[140.91px] rounded-[6px]"
+              alt=""
+              onClick={() => togglePreview(true, 19)}
+            /> 
+               {/* <img
+              src="/images/services/template20.png"
+              className="h-[200px] w-[140.91px] rounded-[6px]"
+              alt=""
+              onClick={() => togglePreview(true, 20)}
             /> 
             <img
               src="/images/services/resume24.png"
@@ -245,7 +275,7 @@ const ResumePreview = ({ data, isSetEdit }) => {
               className="h-[200px] w-[140.91px] rounded-[6px]"
               alt=""
               onClick={() => togglePreview(true, 30)}
-            />
+            /> */}
           </div>
 
         </div>
