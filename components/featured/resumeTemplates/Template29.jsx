@@ -4,7 +4,7 @@ function Template29({ data }) {
 
     return (
         <Page size="A4" style={{}}>
-            <View style={{ flexDirection: 'row', gap: "1.5rem" }}>
+            <View style={{ flexDirection: 'row', }}>
 
                 <View style={{ width: "221px" ,}}>
                     <View style={{ flexDirection: "column", minHeight: "841.7px", height: "100%", backgroundColor: "#324955",  gap: "30px", }}>
@@ -163,21 +163,21 @@ function Template29({ data }) {
 
 
                     {data?.education?.length > 0 && (
-                        <View style={{ display: "flex", flexDirection: "column", width: "100%", }}>
-                            <View style={{ display: "flex", flexDirection: "row", gap: 8, alignItems: "center", padding: "4px 16px", border: "1px", width: "50%",  }}>
-                                <Text style={{ color: "#324955" ,fontSize: "14px"}}>EDUCATION</Text>
+                        <View style={{ display: "flex", flexDirection: "column", }}>
+                            <View style={{ display: "flex", flexDirection: "row", gap: 8, alignItems: "center", padding: "4px 16px", border: "1px",   }}>
+                                <Text style={{fontSize: "14px"}}>EDUCATION</Text>
                             </View>
-                            <View style={{ backgroundColor: " #324955", width: 1, height: "20px", marginBottom: -6 }}></View>
+                            <View style={{ backgroundColor: "#324955", width: 1, height: "20px", marginBottom: -6 }}></View>
                             <View style={{ display: "flex", flexDirection: "column", }} >
                                 {data?.education?.map((detail, index) => (
 
                                     <View key={index} style={{ flexDirection: "row", }}>
 
                                         {index !== data.education.length - 1 && (
-                                            <View style={{ backgroundColor: " #324955", width: 1, height: "100%", marginTop: 6 }}></View>
+                                            <View style={{ backgroundColor: "#324955", width: 1, height: "100%", marginTop: 6 }}></View>
                                         )}
 
-                                        <View style={{ backgroundColor: " #324955", height: 1, width: "16px", marginTop: 6 }}></View>
+                                        <View style={{ backgroundColor: "#324955", height: 1, width: "16px", marginTop: 6 }}></View>
                                         <Svg style={{ marginTop: 3 }} width="5" height="6" viewBox="0 0 5 6" fill="white" xmlns="http://www.w3.org/2000/svg">
                                             <Path d="M4.40746 1.32031H0.668945V5.51192H4.40746V1.32031Z" stroke="#324955" stroke-width="0.722005" stroke-miterlimit="10" />
                                         </Svg>
@@ -213,17 +213,17 @@ function Template29({ data }) {
                             <View style={{ display: "flex", flexDirection: "row", gap: 8, alignItems: "center", padding: "4px 16px", border: "1px", width: "50%", }}>
                                 <Text style={{ color: "#324955",fontSize: "14px" }}>EXPERIENCE</Text>
                             </View>
-                            <View style={{ backgroundColor: " #324955", width: 1, height: "20px", marginBottom: -6 }}></View>
+                            <View style={{ backgroundColor: "#324955", width: 1, height: "20px", marginBottom: -6 }}></View>
                             <View style={{ display: "flex", flexDirection: "column", }} >
                                 {data?.experience?.map((detail, index) => (
 
                                     <View key={index} style={{ flexDirection: "row", }}>
 
                                         {index !== data.experience.length - 1 && (
-                                            <View style={{ backgroundColor: " #324955", width: 1, height: "100%", marginTop: 6 }}></View>
+                                            <View style={{ backgroundColor: "#324955", width: 1, height: "100%", marginTop: 6 }}></View>
                                         )}
 
-                                        <View style={{ backgroundColor: " #324955", height: 1, width: "16px", marginTop: 6 }}></View>
+                                        <View style={{ backgroundColor: "#324955", height: 1, width: "16px", marginTop: 6 }}></View>
                                         <Svg style={{ marginTop: 3 }} width="5" height="6" viewBox="0 0 5 6" fill="white" xmlns="http://www.w3.org/2000/svg">
                                             <Path d="M4.40746 1.32031H0.668945V5.51192H4.40746V1.32031Z" stroke="#324955" stroke-width="0.722005" stroke-miterlimit="10" />
                                         </Svg>

@@ -49,17 +49,11 @@ function Template38({ data }) {
                                     <>
                                         <View key={index} style={{ display: "flex", flexDirection: "row", gap: 16, alignItems: "start" }}>
                                             <View style={{ display: "flex", flexDirection: "column", gap: 8, justifyContent: "space-between", }}>
-                                                <Text style={{ color: "#414042", fontSize: "9px", fontWeight: 400, }}>{detail.duration?.start?.year}-{detail.duration?.end?.year}</Text>
-                                                <Text style={{ color: "#787879", fontSize: "9px", fontWeight: 400 }}>{detail.qualification} - {detail.specialization}</Text>
-                                                <Text style={{ color: "#414042", fontSize: "11px", fontWeight: 400, }}>{detail.instituteName}</Text>
-
-
+                                                <Text style={{ color: "#414042", fontSize: "12px", fontWeight: 400, }}>{detail.duration?.start?.year}-{detail.duration?.end?.year}</Text>
+                                                <Text style={{ color: "#787879", fontSize: "12px", fontWeight: 400 }}>{detail.qualification} - {detail.specialization}</Text>
+                                                <Text style={{ color: "#414042", fontSize: "12px", fontWeight: 400, }}>{detail.instituteName}</Text>
 
                                             </View>
-
-
-
-
 
                                         </View>
                                     </>
