@@ -14,12 +14,12 @@ function Template6({ data }) {
                 <View style={{ paddingTop: 50, paddingLeft: 70 }}>
                   <View style={{ width: 154, height: 154, flexShrink: 0, backgroundColor: "lightgray", backgroundPosition: "center", backgroundSize: "cover", borderRadius: 77, overflow: "hidden" }}>
                     {data.profilePhoto ? (
-                      <img
+                      <Image
                         src={URL.createObjectURL(data.profilePhoto)}
                         alt=""
                       />
                     ) : (
-                      <img src="/images/services/profile.png" alt="" />
+                      <Image src="/images/services/profile.png" alt="" />
                     )}
                   </View>
                 </View>

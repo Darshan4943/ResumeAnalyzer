@@ -17,7 +17,7 @@ function Template2({ data }) {
                                 <Text style={{ color: '#3C3A40', fontSize: '20px', fontWeight: 600, paddingTop: '13px', }}>EDUCATION</Text>
                                 <View style={{ backgroundColor: '#F7902B', height: '3px', width: '85%' }} />
                                 {data?.education?.map((detail, index) => (
-                                    <View key={index}>
+                                    <View key={index} style={{flexDirection: 'column', gap: '2', }}>
                                         <Text style={{ color: '#272128', fontSize: '12', fontWeight: 500, maxWidth: '80%' }}>{detail.qualification}</Text>
                                         <Text style={{ color: '#272128', fontSize: '12', fontWeight: 500, maxWidth: '80%' }}>{detail.specialization}</Text>
                                         <Text style={{ color: '#272128', fontSize: '12', fontWeight: 300, maxWidth: '80%' }}>{detail.instituteName}</Text>
@@ -37,7 +37,7 @@ function Template2({ data }) {
                                 <Text style={{ color: '#3C3A40', fontSize: '20px', fontWeight: 600, paddingTop: '13px', lineHeight: 'normal' }}>EXPERIENCE</Text>
                                 <View style={{ backgroundColor: '#F7902B', height: '3px', width: '85%' }} />
                                 {data?.experience?.map((detail, index) => (
-                                    <View key={index}>
+                                    <View key={index}  style={{flexDirection: 'column', gap: '2', }}>
                                         <Text style={{ color: '#272128', fontSize: '12', fontWeight: 500, maxWidth: '80%' }}>{detail.organization}</Text>
                                         <Text style={{ color: '#272128', fontSize: '12', fontWeight: 500, maxWidth: '80%' }}>{detail.designation}</Text>
                                         <Text style={{ color: '#272128', fontSize: '12', fontWeight: 300, maxWidth: '80%' }}>{detail.description}</Text>
