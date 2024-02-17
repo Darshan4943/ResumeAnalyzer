@@ -52,10 +52,15 @@ import Template40 from "../../resumeTemplates/Template40"; import Template35 fro
 import Template37 from "../../resumeTemplates/Template37";
 import Template41 from "../../resumeTemplates/Template41";
 import Template42 from "../../resumeTemplates/Template42";
+import Template43 from "../../resumeTemplates/Template43";
+
 
 
 
 import Template13 from "../../resumeTemplates/Template13";
+import Template34 from "../../resumeTemplates/Template34";
+import Template44 from "../../resumeTemplates/Template44";
+import Template47 from "../../resumeTemplates/Template47";
 import Template14 from "../../resumeTemplates/Template14";
 import Template16 from "../../resumeTemplates/Template16";
 import Template21 from "../../resumeTemplates/Template21";
@@ -99,10 +104,11 @@ const ResumePreview = ({ data, isSetEdit }) => {
         return <Template8 data={data} />;
       case 9:
         return <Template9 data={data} />;
-      case 11:
-        return <Template11 data={data} />;
       case 10:
         return <Template10 data={data} />;
+      case 11:
+        return <Template11 data={data} />;
+
       case 12:
         return <Template12 data={data} />;
       case 13:
@@ -133,10 +139,10 @@ const ResumePreview = ({ data, isSetEdit }) => {
         return <Template24 data={data} />;
       case 25:
         return <Template25 data={data} />;
-        case 26:
+      case 26:
         return <Template26 data={data} />;
-        case 27:
-          return <Template27 data={data} />;
+      case 27:
+        return <Template27 data={data} />;
       case 28:
         return <Template28 data={data} />;
       case 29:
@@ -145,27 +151,37 @@ const ResumePreview = ({ data, isSetEdit }) => {
         return <Template30 data={data} />;
       case 31:
         return <Template31 data={data} />;
-      case 36:
-        return <Template36 data={data} />;
+
       case 32:
         return <Template32 data={data} />;
 
       case 33:
         return <Template33 data={data} />;
+      case 34:
+        return <Template34 data={data} />;
+      case 35:
+        return <Template35 data={data} />;
+      case 36:
+        return <Template36 data={data} />;
+      case 37:
+        return <Template37 data={data} />;
       case 38:
         return <Template38 data={data} />;
       case 39:
         return <Template39 data={data} />;
       case 40:
         return <Template40 data={data} />;
-      case 35:
-        return <Template35 data={data} />;
-      case 37:
-        return <Template37 data={data} />;
+
       case 41:
         return <Template41 data={data} />;
       case 42:
         return <Template42 data={data} />;
+      case 43:
+        return <Template43 data={data} />;
+      case 44:
+        return <Template44 data={data} />;
+      case 47:
+        return <Template47 data={data} />;
 
       default:
         return <Template1 data={data} />;
@@ -375,13 +391,13 @@ const ResumePreview = ({ data, isSetEdit }) => {
               alt=""
               onClick={() => togglePreview(true, 25)}
             />
-             <img
+            <img
               src="/images/services/template26.png"
               className="h-[200px] w-[140.91px] rounded-[6px]"
               alt=""
               onClick={() => togglePreview(true, 26)}
             />
-             <img
+            <img
               src="/images/services/template27.png"
               className="h-[200px] w-[140.91px] rounded-[6px]"
               alt=""
@@ -425,6 +441,12 @@ const ResumePreview = ({ data, isSetEdit }) => {
               alt=""
               onClick={() => togglePreview(true, 33)}
             />
+              <img
+              src="/images/services/template34.png"
+              className="h-[200px] w-[140.91px] rounded-[6px]"
+              alt=""
+              onClick={() => togglePreview(true, 34)}
+            />
             <img
               src="/images/services/template35.png"
               className="h-[200px] w-[140.91px] rounded-[6px]"
@@ -444,6 +466,7 @@ const ResumePreview = ({ data, isSetEdit }) => {
               alt=""
               onClick={() => togglePreview(true, 37)}
             />
+          
             <img
               src="/images/services/template38.png"
               className="h-[200px] w-[140.91px] rounded-[6px]"
@@ -476,6 +499,24 @@ const ResumePreview = ({ data, isSetEdit }) => {
               className="h-[200px] w-[140.91px] rounded-[6px]"
               alt=""
               onClick={() => togglePreview(true, 42)}
+            />
+            <img
+              src="/images/services/template43.png"
+              className="h-[200px] w-[140.91px] rounded-[6px]"
+              alt=""
+              onClick={() => togglePreview(true, 43)}
+            />
+            <img
+              src="/images/services/template44.png"
+              className="h-[200px] w-[140.91px] rounded-[6px]"
+              alt=""
+              onClick={() => togglePreview(true, 44)}
+            />
+            <img
+              src="/images/services/template47.png"
+              className="h-[200px] w-[140.91px] rounded-[6px]"
+              alt=""
+              onClick={() => togglePreview(true, 47)}
             />
           </div>
         </div>
