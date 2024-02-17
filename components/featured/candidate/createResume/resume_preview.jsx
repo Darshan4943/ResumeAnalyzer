@@ -40,7 +40,8 @@ import Template33 from "../../resumeTemplates/Template33";
 import Template32 from "../../resumeTemplates/Template32";
 import Template38 from "../../resumeTemplates/Template38";
 import Template31 from "../../resumeTemplates/Template31";
-import Template36 from "../../resumeTemplates/Template36"; import Template20 from "../../resumeTemplates/Template20";
+import Template36 from "../../resumeTemplates/Template36"; 
+import Template20 from "../../resumeTemplates/Template20";
 import Template11 from "../../resumeTemplates/Template11";
 import Template19 from "../../resumeTemplates/Template19";
 
@@ -48,7 +49,8 @@ import Template19 from "../../resumeTemplates/Template19";
 
 import Template25 from "../../resumeTemplates/Template25";
 import Template39 from "../../resumeTemplates/Template39";
-import Template40 from "../../resumeTemplates/Template40"; import Template35 from "../../resumeTemplates/Template35";
+import Template40 from "../../resumeTemplates/Template40";
+ import Template35 from "../../resumeTemplates/Template35";
 import Template37 from "../../resumeTemplates/Template37";
 import Template41 from "../../resumeTemplates/Template41";
 import Template42 from "../../resumeTemplates/Template42";
