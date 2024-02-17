@@ -311,7 +311,7 @@ function Template31({ data }) {
                         color: "#FFFFFF",
                       }}
                     >
-                      {data.location ? <>{data.link}</> : <>Your Website</>}
+                      {data.sociaLinks ? <>{data.sociaLinks}</> : <>Your Website</>}
                     </Text>
                   </View>
                 </View>

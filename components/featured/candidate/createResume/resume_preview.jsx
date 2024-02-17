@@ -251,7 +251,6 @@ const ResumePreview = ({ data, isSetEdit }) => {
               alt=""
               onClick={() => togglePreview(true, 2)}
             />
-
             <img
               src="/images/services/resume3.png"
               className="h-[200px] w-[140.91px] rounded-[6px]"
@@ -264,7 +263,6 @@ const ResumePreview = ({ data, isSetEdit }) => {
               alt=""
               onClick={() => togglePreview(true, 4)}
             />
-
             <img
               src="/images/services/resume5.png"
               className="h-[200px] w-[140.91px] rounded-[6px]"
@@ -307,7 +305,6 @@ const ResumePreview = ({ data, isSetEdit }) => {
               alt=""
               onClick={() => togglePreview(true, 11)}
             />
-
             <img
               src="/images/services/resume12.png"
               className="h-[200px] w-[140.91px] rounded-[6px]"
@@ -429,8 +426,6 @@ const ResumePreview = ({ data, isSetEdit }) => {
               alt=""
               onClick={() => togglePreview(true, 31)}
             />
-
-
             <img
               src="/images/services/template32.png"
               className="h-[200px] w-[140.91px] rounded-[6px]"
@@ -455,7 +450,6 @@ const ResumePreview = ({ data, isSetEdit }) => {
               alt=""
               onClick={() => togglePreview(true, 35)}
             />
-
             <img
               src="/images/services/resume36.png"
               className="h-[200px] w-[140.91px] rounded-[6px]"
@@ -498,7 +492,7 @@ const ResumePreview = ({ data, isSetEdit }) => {
               className="h-[200px] w-[140.91px] rounded-[6px]"
               alt=""
               onClick={() => togglePreview(true, 42)}
-            />
+            /> 
             <img
               src="/images/services/template43.png"
               className="h-[200px] w-[140.91px] rounded-[6px]"
