@@ -7,13 +7,13 @@ function Template40({ data }) {
             <View style={{ height: "122px", width: "120%", backgroundColor: "#47484C", margin: -36, flexDirection: "row", gap: 24, paddingLeft: 42 }}>
 
 
-
-                {data.profilePhoto ? (
-                    <Image src={URL.createObjectURL(data.profilePhoto)} alt="" style={{ marginTop: "56px", width: "130px", height: "130px", borderRadius: "50%", border: 6, borderColor: "white" }} />
-                ) : (
-                    <Image src="/images/services/profile.png" alt="" style={{ marginTop: "56px", width: "130px", height: "130px", borderRadius: "50%", border: 6, borderColor: "white" }} />
-                )}
-
+                <View style={{  marginTop: "56px", width: "130px", height: "130px", borderRadius: "50%", border: 6, borderColor: "white"  }}>
+                    {data.profilePhoto ? (
+                        <Image src={URL.createObjectURL(data.profilePhoto)} alt="" style={{}} />
+                    ) : (
+                        <Image src="/images/services/profile.png" alt="" style={{  }} />
+                    )}
+                </View>
                 <View style={{ flexDirection: "column", marginTop: 24, gap: 4, marginTop: "56px" }}>
                     <Text style={{ color: "#FFFFFF", fontWeight: 400, fontSize: "28px", }}>{data.firstName} {data.lastName}</Text>
                     <Text style={{ fontSize: "14px", fontWeight: 500, color: "#FFFFFF" }}>{data.designation}</Text>
@@ -99,7 +99,7 @@ function Template40({ data }) {
                                         <Path d="M7.00047 10.415C8.88734 10.415 10.4169 8.88541 10.4169 6.99853C10.4169 5.11166 8.88734 3.58203 7.00047 3.58203C5.1136 3.58203 3.58398 5.11166 3.58398 6.99853C3.58398 8.88541 5.1136 10.415 7.00047 10.415Z" fill="#F6F7F7" />
                                         <Path fill-rule="evenodd" clip-rule="evenodd" d="M6.99907 5.52344C6.1844 5.52344 5.52344 6.1844 5.52344 6.99907C5.52344 7.81476 6.18337 8.4747 6.99907 8.4747C7.81476 8.4747 8.47469 7.81374 8.47469 6.99907C8.47469 6.18337 7.81476 5.52344 6.99907 5.52344Z" fill="#221F1F" />
                                     </Svg>
-                                    <View style={{ width: "1px", backgroundColor: "#221F1F" }}>
+                                    <View style={{ width: "1px", backgroundColor: "#221F1F", }}>
                                     </View>
                                 </View>
 
@@ -190,23 +190,24 @@ function Template40({ data }) {
                         )}
 
                     </View>
-                    <View style={{ height: "10%", backgroundColor: "#47484C", width: "1px" }}></View>
+                    <View style={{ height: "100%", backgroundColor: "#47484C", width: "1px" }}></View>
+
                     {data?.skills?.length > 0 && (
 
 
-                        <View style={{ display: "flex", flexDirection: "column", gap: 16, alignItems: "flex-start", paddingTop: "26px",width:"76.5%" }}>
+                        <View style={{ display: "flex", flexDirection: "column", gap: 16, alignItems: "flex-start", width: "76.5%" }}>
                             <View style={{}}>
 
                                 <Text style={{ color: "#47484C" }}>SKILLS</Text>
 
                             </View>
-                            <View style={{ flexDirection: "column", gap: 8, justifyContent: "space-between", width: "100%" }}>
+                            <View style={{ flexDirection: "row", gap: 8, justifyContent: "space-between", flexWrap: "wrap", width: "100%" }}>
                                 {data?.skills?.map((detail, index) => (
-                                    <View key={index} style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "space-between", gap: "8", width: "100%" }}>
-                                        <Text style={{ fontSize: 14, color: "#47484C", }}>
+                                    <View key={index} style={{ display: "flex", flexDirection: "row", alignItems: "center", flexWrap: "wrap", gap: "12", width: "45%" }}>
+                                        <Text style={{ fontSize: 12, color: "#47484C", width: "45%" }}>
                                             {detail.skill}
                                         </Text>
-                                        <View style={{ display: "flex", gap: 24, flexDirection: "row", marginTop: "4px" }}>
+                                        <View style={{ display: "flex", gap: 4, flexDirection: "row", marginTop: "4px", width: "45%" }}>
                                             {[...Array(5)].map((_, i) => (
                                                 <View key={i}>
                                                     {
@@ -214,7 +215,6 @@ function Template40({ data }) {
                                                             <Svg width="8" height="9" viewBox="0 0 8 9" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                                 <Path d="M4 8.52344C6.20914 8.52344 8 6.73252 8 4.5234C8 2.31428 6.20914 0.523438 4 0.523438C1.79086 0.523438 0 2.31428 0 4.5234C0 6.73252 1.79086 8.52344 4 8.52344Z" fill="#D1D3D4" />
                                                             </Svg>
-
                                                         ) : (
                                                             <Svg width="8" height="9" viewBox="0 0 8 9" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                                 <Path fill-rule="evenodd" clip-rule="evenodd" d="M4 0.423828C1.79135 0.423828 0 2.21518 0 4.42383C0 6.63248 1.79135 8.42383 4 8.42383C6.20864 8.42383 8 6.63248 8 4.42383C8 2.21518 6.20987 0.423828 4 0.423828Z" fill="#47484C" />
@@ -227,6 +227,7 @@ function Template40({ data }) {
                                     </View>
                                 ))}
                             </View>
+
                         </View>
 
                     )}
