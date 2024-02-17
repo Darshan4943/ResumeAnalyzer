@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Document, Page, Text, View, StyleSheet, Image, Svg, Path, Rect,Font,Defs, ClipPath } from '@react-pdf/renderer';
+import { Document, Page, Text, View, StyleSheet, Image, Svg, Path, Rect, Font, Defs, ClipPath } from '@react-pdf/renderer';
 
 function Template6({ data }) {
-//   console.log(data)
+  //   console.log(data)
   return (
     <Page size="A4">
       <View style={{ width: 800, flexDirection: "row", gap: 10 }}>
@@ -24,10 +24,10 @@ function Template6({ data }) {
                   </View>
                 </View>
               </View>
-              <View style={{ flexDirection: "column", width: 268, justifyContent: "flex-start", alignItems: "flex-center", gap: 6,  }}>
+              <View style={{ flexDirection: "column", width: 268, justifyContent: "flex-start", alignItems: "flex-center", gap: 6, }}>
                 <View style={{ flexDirection: "column", width: 268, gap: 3 }}>
                   <View style={{ flexDirection: "row", gap: 6, width: "100%" }}>
-                  <Svg
+                    <Svg
                       width="22"
                       height="22"
                       viewBox="0 0 22 22"
@@ -40,13 +40,13 @@ function Template6({ data }) {
                         fill="#282829"
                       />
                     </Svg>
-                    <View style={{ flexDirection: "column", width: "100%" ,paddingLeft:9 }}>
+                    <View style={{ flexDirection: "column", width: "100%", paddingLeft: 9 }}>
                       <Text style={{ fontWeight: "500", fontSize: 14 }}>Phone</Text>
                       <Text style={{ fontWeight: "400", fontSize: 14 }}>{data.mobileNumber}</Text>
                     </View>
                   </View>
                   <View style={{ flexDirection: "row", gap: 6, width: "100%" }}>
-                  <Svg
+                    <Svg
                       width="22"
                       height="23"
                       viewBox="0 0 22 23"
@@ -59,7 +59,7 @@ function Template6({ data }) {
                         fill="#282829"
                       />
                     </Svg>
-                    <View style={{ flexDirection: "column", width: "100%",paddingLeft:9  }}>
+                    <View style={{ flexDirection: "column", width: "100%", paddingLeft: 9 }}>
                       <Text style={{ fontWeight: "500", fontSize: 14 }}>Email</Text>
                       <Text style={{ fontWeight: "400", fontSize: 14 }}>{data.email}</Text>
                     </View>
@@ -71,19 +71,19 @@ function Template6({ data }) {
                     </View>
                   </View> */}
                   <View style={{ flexDirection: "row", gap: 6, width: "100%" }}>
-                  <Svg width="22" height="23" viewBox="0 0 22 23">
-      <Defs>
-        <ClipPath id="clip0_1657_45195">
-          <Rect width="22" height="22" fill="white" transform="translate(0 0.046875)" />
-        </ClipPath>
-      </Defs>
-      <Path
-        d="M11.0053 0.0488281C7.21322 0.0488281 4.12891 3.31325 4.12891 7.32531C4.12891 8.9415 5.10377 11.5764 7.10995 15.3815C8.52819 18.0718 9.92439 20.316 9.98222 20.4093L11.0039 22.0488L12.0256 20.4093C12.0848 20.316 13.4796 18.0718 14.8979 15.3815C16.904 11.5779 17.8789 8.94297 17.8789 7.32678C17.8817 3.31326 14.7973 0.0488281 11.0053 0.0488281ZM11.0053 11.0503C9.03628 11.0503 7.44179 9.36123 7.44179 7.27723C7.44179 5.19323 9.03765 3.50419 11.0053 3.50419C12.9729 3.50419 14.5701 5.19323 14.5701 7.27723C14.5701 9.35977 12.9743 11.0503 11.0053 11.0503Z"
-        fill="#282829"
-        clipPath="url(#clip0_1657_45195)"
-      />
-    </Svg>
-                    <View style={{ flexDirection: "column", width: "100%",paddingLeft:9  }}>
+                    <Svg width="22" height="23" viewBox="0 0 22 23">
+                      <Defs>
+                        <ClipPath id="clip0_1657_45195">
+                          <Rect width="22" height="22" fill="white" transform="translate(0 0.046875)" />
+                        </ClipPath>
+                      </Defs>
+                      <Path
+                        d="M11.0053 0.0488281C7.21322 0.0488281 4.12891 3.31325 4.12891 7.32531C4.12891 8.9415 5.10377 11.5764 7.10995 15.3815C8.52819 18.0718 9.92439 20.316 9.98222 20.4093L11.0039 22.0488L12.0256 20.4093C12.0848 20.316 13.4796 18.0718 14.8979 15.3815C16.904 11.5779 17.8789 8.94297 17.8789 7.32678C17.8817 3.31326 14.7973 0.0488281 11.0053 0.0488281ZM11.0053 11.0503C9.03628 11.0503 7.44179 9.36123 7.44179 7.27723C7.44179 5.19323 9.03765 3.50419 11.0053 3.50419C12.9729 3.50419 14.5701 5.19323 14.5701 7.27723C14.5701 9.35977 12.9743 11.0503 11.0053 11.0503Z"
+                        fill="#282829"
+                        clipPath="url(#clip0_1657_45195)"
+                      />
+                    </Svg>
+                    <View style={{ flexDirection: "column", width: "100%", paddingLeft: 9 }}>
                       <Text style={{ fontWeight: "500", fontSize: 14 }}>Area</Text>
                       <Text style={{ fontWeight: "400", fontSize: 14 }}>{data.location}</Text>
                     </View>
@@ -139,7 +139,7 @@ function Template6({ data }) {
             </View>
             <View style={{ height: 1, width: 240, backgroundColor: "#282829" }}></View>
 
-            <View style={{ width: 268, flexDirection: "column", paddingTop: 10,paddingBottom:14 }}>
+            <View style={{ width: 268, flexDirection: "column", paddingTop: 10, paddingBottom: 14 }}>
               <View style={{ flexDirection: "column", alignItems: "flex-start", gap: 8 }}>
                 <Text style={{ fontSize: 18, fontWeight: "700" }}>LANGAUGES</Text>
                 <View style={{ flexDirection: "column", width: 240, gap: 6 }}>
@@ -165,7 +165,7 @@ function Template6({ data }) {
                         return (
                           <View style={{ width: "100%", flexDirection: "column" }} key={index}>
                             <View style={{ flexDirection: "row", alignItems: "center" }}>
-                              <Text style={{ color: "#414142",  fontSize: 11.136, width: 80, fontWeight: "light" }}>
+                              <Text style={{ color: "#414142", fontSize: 11.136, width: 80, fontWeight: "light" }}>
                                 {detail.languages}
                               </Text>
                               <View style={{ width: "59.21%", height: 3.78, alignSelf: "flex-end", marginBottom: 1, backgroundColor: "#C1C1C1" }}>
@@ -183,51 +183,51 @@ function Template6({ data }) {
               </View>
             </View>
             <View style={{ height: 1, width: 240, backgroundColor: "#282829" }}></View>
-            <View style={{ flexDirection: "column",  gap: 2 ,paddingTop: 8,paddingBottom:12 }}>
+            <View style={{ flexDirection: "column", gap: 2, paddingTop: 8, paddingBottom: 12 }}>
               <Text style={{ fontSize: 16, fontWeight: "700", color: "#282829" }}>HOBBIES</Text>
-            
+
               {data.hobbies?.map((detail, index) => (
-        <View key={index} style={{ flexDirection: "column",  marginBottom: 8 }}>
-          <View style={{ flexDirection: "row", alignItems: "center",gap:4  }}>
-            <Text style={{  color: "#282829", }}>&#8226;</Text>
-            <Text style={{ color: "#282829" }}>{detail.title}</Text>
-          </View>
-        </View>
-      ))}
+                <View key={index} style={{ flexDirection: "column", marginBottom: 8 }}>
+                  <View style={{ flexDirection: "row", alignItems: "center", gap: 4 }}>
+                    <Text style={{ color: "#282829", }}>&#8226;</Text>
+                    <Text style={{ color: "#282829" }}>{detail.title}</Text>
+                  </View>
+                </View>
+              ))}
 
             </View>
           </View>
         </View>
-        <View style={{ flexDirection: "column", gap: 14, width: 443, paddingRight:12 }}>
-          <View style={{ width: 406, paddingTop: 80, height:200,alignItems:'start',justifyContent:'start' }}>
+        <View style={{ flexDirection: "column", gap: 14, width: 443, paddingRight: 12 }}>
+          <View style={{ width: 406, paddingTop: 80, height: 200, alignItems: 'start', justifyContent: 'start' }}>
             <Text style={{ fontSize: 28, fontWeight: "900" }}>
               {data.firstName} {data.lastName}
             </Text>
             <Text style={{ fontWeight: "500", fontSize: 16 }}>{data.designation}</Text>
           </View>
           <View style={{ width: 441, flexDirection: "column", gap: 4 }}>
-            <View style={{ width: 441, flexDirection: "column", paddingBottom: 8, gap: 8}}>
+            <View style={{ width: 441, flexDirection: "column", paddingBottom: 8, gap: 8 }}>
               <Text style={{ fontSize: 18, fontWeight: "700" }}>ABOUT ME</Text>
-              <Text wrap={true} style={{ fontSize: 14, fontWeight: "normal", width:300}}>
+              <Text wrap={true} style={{ fontSize: 14, fontWeight: "normal", width: 300 }}>
                 {data.summery}
               </Text>
             </View>
             <View style={{ height: 1, width: 300, backgroundColor: "#282829" }}></View>
-            <View style={{ flexDirection: "column", gap: 4 ,width:300,paddingTop:12 }}>
+            <View style={{ flexDirection: "column", gap: 4, width: 300, paddingTop: 12 }}>
               <Text style={{ fontSize: 18, fontWeight: "700" }}>WORK EXPERIENCE</Text>
               {data.experience?.map((detail, index) => (
                 <>
                   <View style={{ flexDirection: "column", gap: 6 }}>
                     <View style={{ flexDirection: "column", gap: 6 }}>
-                        {/* <View style={{flexDirection:'column',gap:6}}> */}
+                      {/* <View style={{flexDirection:'column',gap:6}}> */}
                       <Text style={{ fontSize: 16, fontWeight: "700" }}>
-                        {detail.designation}
+                        {detail.organization}
                       </Text>
-                      
-                        {/* </View> */}
-                      <View style={{ flexDirection: "row", justifyContent: "space-between", width:300 }}>
-                      <Text style={{ fontSize: 14, fontWeight: "normal", color: "#939598", width:100 }}>
-                      {detail.designation}
+
+                      {/* </View> */}
+                      <View style={{ flexDirection: "row", justifyContent: "space-between", width: 300 }}>
+                        <Text style={{ fontSize: 14, fontWeight: "normal", color: "#939598", width: 100 }}>
+                          {detail.designation}
                         </Text>
                         <Text style={{ fontSize: 14, fontWeight: "normal" }}>
                           {" "}
@@ -237,7 +237,7 @@ function Template6({ data }) {
                             : detail.duration?.end?.year}
                         </Text>
                       </View>
-                      <Text style={{ fontSize: 14, fontWeight: "normal",width:300 }}>
+                      <Text style={{ fontSize: 14, fontWeight: "normal", width: 300 }}>
                         {detail.description}
                       </Text>
                     </View>
@@ -246,7 +246,7 @@ function Template6({ data }) {
               ))}
             </View>
             <View style={{ height: 1, width: 300, backgroundColor: "#282829" }}></View>
-            <View style={{ flexDirection: "column", gap: 4,width:300 }}>
+            <View style={{ flexDirection: "column", gap: 4, width: 300 }}>
               <Text style={{ fontSize: 18, fontWeight: "700" }}> EDUCATION</Text>
               {data?.education?.map((detail, index) => (
                 <>
@@ -254,13 +254,13 @@ function Template6({ data }) {
                     <View style={{ flexDirection: "column", gap: 6 }}>
                       <Text style={{ fontSize: 16, fontWeight: "700" }}>
                         {detail.qualification}
-                       
+
                       </Text>
                       <Text style={{ fontSize: 14, fontWeight: "normal" }}>
-                          {detail.specialization}
-                        </Text>
-                      <View style={{ flexDirection: "row", justifyContent: "space-between",width:300 }}>
-                        <Text style={{ fontSize: 14, fontWeight: "normal", color: "#939598",width:200 }}>
+                        {detail.specialization}
+                      </Text>
+                      <View style={{ flexDirection: "row", justifyContent: "space-between", width: 300 }}>
+                        <Text style={{ fontSize: 14, fontWeight: "normal", color: "#939598", width: 200 }}>
                           {detail.instituteName}
                         </Text>
                         <Text style={{ fontSize: 14, fontWeight: "normal" }}>

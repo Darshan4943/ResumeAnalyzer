@@ -1,13 +1,13 @@
 import React from 'react'
 import { Document, Page, Text, View, Image, StyleSheet, Svg, Path, Rect } from '@react-pdf/renderer';
-function Template13() {
+function Template26() {
     return (
         <Page size="A4">
             <View style={{ flexDirection: "row", gap: 42 }}>
 
 
                 <Text>
-                    template13
+                    template26
                 </Text>
 
 
@@ -19,4 +19,4 @@ function Template13() {
     )
 }
 
-export default Template13
+export default Template26
