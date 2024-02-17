@@ -214,7 +214,6 @@ const ResumePreview = ({ data, isSetEdit }) => {
               alt=""
               onClick={() => togglePreview(true, 2)}
             />
-
             <img
               src="/images/services/resume3.png"
               className="h-[200px] w-[140.91px] rounded-[6px]"
@@ -227,7 +226,6 @@ const ResumePreview = ({ data, isSetEdit }) => {
               alt=""
               onClick={() => togglePreview(true, 4)}
             />
-
             <img
               src="/images/services/resume5.png"
               className="h-[200px] w-[140.91px] rounded-[6px]"
@@ -270,7 +268,6 @@ const ResumePreview = ({ data, isSetEdit }) => {
               alt=""
               onClick={() => togglePreview(true, 11)}
             />
-
             <img
               src="/images/services/resume12.png"
               className="h-[200px] w-[140.91px] rounded-[6px]"
@@ -349,8 +346,6 @@ const ResumePreview = ({ data, isSetEdit }) => {
               alt=""
               onClick={() => togglePreview(true, 31)}
             />
-
-
             <img
               src="/images/services/template32.png"
               className="h-[200px] w-[140.91px] rounded-[6px]"
@@ -364,12 +359,17 @@ const ResumePreview = ({ data, isSetEdit }) => {
               onClick={() => togglePreview(true, 33)}
             />
             <img
+              src="/images/services/template34.png"
+              className="h-[200px] w-[140.91px] rounded-[6px]"
+              alt=""
+              onClick={() => togglePreview(true, 34)}
+            />
+            <img
               src="/images/services/template35.png"
               className="h-[200px] w-[140.91px] rounded-[6px]"
               alt=""
               onClick={() => togglePreview(true, 35)}
             />
-
             <img
               src="/images/services/resume36.png"
               className="h-[200px] w-[140.91px] rounded-[6px]"
@@ -381,12 +381,6 @@ const ResumePreview = ({ data, isSetEdit }) => {
               className="h-[200px] w-[140.91px] rounded-[6px]"
               alt=""
               onClick={() => togglePreview(true, 37)}
-            />
-            <img
-              src="/images/services/template34.png"
-              className="h-[200px] w-[140.91px] rounded-[6px]"
-              alt=""
-              onClick={() => togglePreview(true, 34)}
             />
             <img
               src="/images/services/template38.png"
@@ -406,9 +400,6 @@ const ResumePreview = ({ data, isSetEdit }) => {
               alt=""
               onClick={() => togglePreview(true, 40)}
             />
-
-
-
             <img
               src="/images/services/template41.png"
               className="h-[200px] w-[140.91px] rounded-[6px]"
@@ -420,7 +411,7 @@ const ResumePreview = ({ data, isSetEdit }) => {
               className="h-[200px] w-[140.91px] rounded-[6px]"
               alt=""
               onClick={() => togglePreview(true, 42)}
-            />
+            /> 
           </div>
         </div>
 

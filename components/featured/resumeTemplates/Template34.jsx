@@ -13,7 +13,7 @@ const Template34 = ({ data }) => {
                         <Text style={{ fontSize: 13, fontWeight: '500', color: '#606060' }}>{data.designation ? <>{data.designation}</> : <>Designation</>}</Text>
                     </View>
                     <View style={{ flexDirection: "column", backgroundColor: "#6C83B7", gap: 4, paddingBottom: 12, paddingTop: 52, paddingLeft: 41, paddingRight: 16, height: 136, width: 161 }}>
-                        <Text style={{ fontSize: 10, fontWeight: '300', color: '#F6F6F6' }}>{data.link ? <>{data.link}</> : <>Your Websites</>}</Text>
+                        <Text style={{ fontSize: 10, fontWeight: '300', color: '#F6F6F6' }}>{data.sociaLinks ? <>{data.sociaLinks}</> : <>Your Websites</>}</Text>
                         <Text style={{ fontSize: 10, fontWeight: '300', color: '#F6F6F6' }}>{data.email ? <>{data.email}</> : <>Your Email</>}</Text>
                         <Text style={{ fontSize: 10, fontWeight: '300', color: '#F6F6F6' }}>{data.mobileNumber ? (<>{data.mobileNumber}</>) : (<>Your Phone</>)}</Text>
                         <Text style={{ fontSize: 10, fontWeight: '300', color: '#F6F6F6' }}>{data.location ? <>{data.location}</> : <>Your Address</>}</Text>
@@ -51,7 +51,7 @@ const Template34 = ({ data }) => {
                                         <Text style={{ fontSize: 10, fontWeight: 500, color: "#4C4C4C" }}>{detail.designation ? (<>{detail.designation}</>) : (<>Designation</>)}</Text>
                                         <Text style={{ fontSize: 10, fontWeight: 500, color: "#6C83B7" }}>{detail.duration?.start?.year}-{detail.currentlyWorking ? "Present" : detail.duration?.end?.year}</Text>
                                     </View>
-                                    <View style={{ flexDirection: "column",gap: 2, }}>
+                                    <View style={{ flexDirection: "column", gap: 2, }}>
                                         <Text style={{ fontSize: 10, fontWeight: 300, color: "#4C4C4C" }}>{detail.organization ? (<>{detail.organization}</>) : (<>organization</>)}</Text>
                                         <Text style={{ fontSize: 10, fontWeight: 300, color: "#4C4C4C" }}>{detail.description ? (<>{detail.description}</>) : (<>Description</>)}</Text>
                                     </View>
