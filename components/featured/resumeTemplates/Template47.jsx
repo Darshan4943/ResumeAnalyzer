@@ -58,6 +58,8 @@ const Template47 = () => {
 
            <View style={{width:532 ,paddingTop:20,paddingHorizontal:36,gap:20}}>
 
+
+              <View style={{display:"flex",flexDirection:"column",gap:16}}>
             <View style={{display:"flex",flexDirection:"column"}}>
                 <View style={{display:"flex",flexDirection:"row",gap:8,justifyContent:"center",alignItems:"center"}}>
                 <Svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -72,9 +74,145 @@ const Template47 = () => {
 </View>
                 </View>
             </View>
+             
+              <View style={{display:"flex",flexDirection:"column",gap:16}}>
+             <View style={{display:"flex",flexDirection:"column",gap:6}}>
+            <View style={{display:"flex",flexDirection:"row",gap:12}}>
+                <Text style={{fontSize:12,color:"#414042",fontWeight:500,width:132}}>2015 - 2017 </Text>
+                <Text style={{fontSize:12,color:"#414042",fontWeight:500,width:379}}>Senior Web Developer</Text>
+            </View>
+            <View style={{display:"flex",flexDirection:"row",gap:12}}>
+                <Text style={{fontSize:12,color:"#414042",fontWeight:500,width:132}}>Company Name</Text>
+                <Text style={{fontSize:10,color:"#414042",fontWeight:400,width:379}}>Porttitor amet massa Done cporttitor ipsum. ollcitudin est dolor time. Done cporttitor </Text>
+            </View>
+            </View>
 
-            <View>
-                <Text style={{fontSize:12,fontWeight:500}}>2015 - 2017 </Text>
+            <View style={{display:"flex",flexDirection:"column",gap:6}}>
+            <View style={{display:"flex",flexDirection:"row",gap:12}}>
+                <Text style={{fontSize:12,color:"#414042",fontWeight:500,width:132}}>2015 - 2017 </Text>
+                <Text style={{fontSize:12,color:"#414042",fontWeight:500,width:379}}>Senior Web Developer</Text>
+            </View>
+            <View style={{display:"flex",flexDirection:"row",gap:12}}>
+                <Text style={{fontSize:12,color:"#414042",fontWeight:500,width:132}}>Company Name</Text>
+                <Text style={{fontSize:10,color:"#414042",fontWeight:400,width:379}}>Porttitor amet massa Done cporttitor ipsum. ollcitudin est dolor time. Done cporttitor </Text>
+            </View>
+            </View>
+
+            <View style={{display:"flex",flexDirection:"column",gap:6}}>
+            <View style={{display:"flex",flexDirection:"row",gap:12}}>
+                <Text style={{fontSize:12,color:"#414042",fontWeight:500,width:132}}>2015 - 2017 </Text>
+                <Text style={{fontSize:12,color:"#414042",fontWeight:500,width:379}}>Senior Web Developer</Text>
+            </View>
+            <View style={{display:"flex",flexDirection:"row",gap:12}}>
+                <Text style={{fontSize:12,color:"#414042",fontWeight:500,width:132}}>Company Name</Text>
+                <Text style={{fontSize:10,color:"#414042",fontWeight:400,width:379}}>Porttitor amet massa Done cporttitor ipsum. ollcitudin est dolor time. Done cporttitor </Text>
+            </View>
+            </View>
+            </View>
+            </View>
+
+            <View style={{display:"flex",flexDirection:"column",gap:12}}>
+            <View style={{display:"flex",flexDirection:"row",gap:8,justifyContent:"center",alignItems:"center"}}>
+            <Svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<Path d="M11.991 23C18.0661 23 22.9965 18.0751 23.0033 12C23.0101 5.92487 18.0908 1 12.0156 1C5.9405 1 1.01011 5.92487 1.00331 12C0.996512 18.0751 5.91588 23 11.991 23Z" fill="#383839"/>
+<Path d="M12.7866 13.0684V12.7343C12.7866 12.3272 12.452 12 12.0393 12C11.6265 12 11.293 12.3272 11.293 12.7343V13.0684C11.293 13.4735 11.6265 13.8027 12.0393 13.8027C12.452 13.8027 12.7866 13.4735 12.7866 13.0684Z" fill="white"/>
+<Path d="M13.0259 14.5777C12.7414 14.7515 12.3765 14.8472 11.9988 14.8472C11.6212 14.8472 11.2563 14.7515 10.9718 14.5777L6.32218 11.7391C6.32218 11.7391 5.90234 11.4833 5.90234 12.0633V14.898C5.90234 16.391 8.6313 18.0001 11.9988 18.0001C15.3654 18.0001 18.0953 16.391 18.0953 14.898V11.9032C18.0953 11.4374 17.7971 11.6649 17.7971 11.6649L13.0259 14.5777Z" fill="white"/>
+<Path d="M19.7322 9.48215C20.0893 9.2644 20.0893 8.90701 19.7322 8.68926L12.6489 5.16331C12.2918 4.94556 11.7072 4.94556 11.3501 5.16331L4.26779 8.68926C3.91074 8.90701 3.91074 9.2644 4.26779 9.48215L11.3501 13.8058C11.7072 14.0236 12.2918 14.0236 12.6489 13.8058" fill="white"/>
+<Path d="M19.4393 15.8891V11.1139C19.4393 11.1139 19.4423 10.8874 19.3078 10.9626C19.1999 11.0221 18.9349 11.1695 18.8407 11.2506C18.7327 11.3433 18.7573 11.5532 18.7573 11.5532V15.8891C18.7573 15.9506 18.7043 15.9799 18.6788 15.9945C18.4334 16.138 18.2695 16.4026 18.2695 16.7053C18.2695 17.1612 18.6405 17.5303 19.0988 17.5303C19.5571 17.5303 19.9281 17.1612 19.9281 16.7053C19.9281 16.4006 19.7622 16.1361 19.5159 15.9925C19.4904 15.9789 19.4393 15.9515 19.4393 15.8891Z" fill="white"/>
+</Svg>
+
+<View style={{display:"flex",flexDirection:"row",gap:16,justifyContent:"center",alignItems:"center"}}>
+<Text style={{ fontWeight: 600, fontSize: 14, color: "#27AAE1" }}>EDUCATION</Text>
+<View style={{backgroundColor:"#6D6E71",width:393,height:1}}></View>
+</View>
+                </View> 
+
+                <View style={{display:"flex",flexDirection:"column",gap:16}}>
+             <View style={{display:"flex",flexDirection:"column",gap:6}}>
+            <View style={{display:"flex",flexDirection:"row",gap:12}}>
+                <Text style={{fontSize:12,color:"#414042",fontWeight:500,width:132}}>University of Lorem</Text>
+                <Text style={{fontSize:12,color:"#414042",fontWeight:500,width:379}}>Certificate of Web Trainig</Text>
+            </View>
+            <View style={{display:"flex",flexDirection:"row",gap:12}}>
+                <Text style={{fontSize:12,color:"#414042",fontWeight:500,width:132}}>2015 - 2017 </Text>
+            </View>
+            </View>
+
+            <View style={{display:"flex",flexDirection:"column",gap:6}}>
+            <View style={{display:"flex",flexDirection:"row",gap:12}}>
+                <Text style={{fontSize:12,color:"#414042",fontWeight:500,width:132}}>University of Lorem</Text>
+                <Text style={{fontSize:12,color:"#414042",fontWeight:500,width:379}}>Certificate of Web Trainig</Text>
+            </View>
+            <View style={{display:"flex",flexDirection:"row",gap:12}}>
+                <Text style={{fontSize:12,color:"#414042",fontWeight:500,width:132}}>2015 - 2017 </Text>
+            </View>
+            </View>
+
+            <View style={{display:"flex",flexDirection:"column",gap:6}}>
+            <View style={{display:"flex",flexDirection:"row",gap:12}}>
+                <Text style={{fontSize:12,color:"#414042",fontWeight:500,width:132}}>University of Lorem</Text>
+                <Text style={{fontSize:12,color:"#414042",fontWeight:500,width:379}}>Certificate of Web Trainig</Text>
+            </View>
+            <View style={{display:"flex",flexDirection:"row",gap:12}}>
+                <Text style={{fontSize:12,color:"#414042",fontWeight:500,width:132}}>2015 - 2017 </Text>
+            </View>
+            </View>
+            </View>
+
+            </View>
+            
+              <View style={{style:"flex",flexDirection:"row",gap:71}}>
+            <View style={{display:"flex",flexDirection:"column",gap:12}}>
+            <View style={{display:"flex",flexDirection:"row",gap:8,justifyContent:"center",alignItems:"center"}}>
+            <Svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<Path d="M11.991 23C18.0661 23 22.9965 18.0751 23.0033 12C23.0101 5.92487 18.0908 1 12.0156 1C5.9405 1 1.01011 5.92487 1.00331 12C0.996512 18.0751 5.91588 23 11.991 23Z" fill="#383839"/>
+<Path d="M12.7866 13.0684V12.7343C12.7866 12.3272 12.452 12 12.0393 12C11.6265 12 11.293 12.3272 11.293 12.7343V13.0684C11.293 13.4735 11.6265 13.8027 12.0393 13.8027C12.452 13.8027 12.7866 13.4735 12.7866 13.0684Z" fill="white"/>
+<Path fill-rule="evenodd" clip-rule="evenodd" d="M13.2793 18.1521C13.2083 18.0973 13.1233 18.0269 13.1233 18.0269C13.1233 18.0269 13.1233 17.7638 13.1373 17.6943L13.3363 13.3187L19.2438 14.8603C19.3998 14.9024 19.5128 14.8055 19.4988 14.652L19.3428 13.3059C19.3138 13.1387 19.1858 12.9587 19.0308 12.8882L13.3503 10.3742L13.2653 5.99856C13.2513 5.19347 12.9532 4.35998 12.5982 4.13792C12.4562 4.05477 12.2862 4.01272 12.1152 4C11.9442 4.01272 11.7741 4.05477 11.6321 4.13792C11.2781 4.34629 10.9511 5.17978 10.9221 5.98584L10.738 10.3468L5.00154 12.7493C4.85952 12.8051 4.71751 12.9861 4.68951 13.1524L4.50449 14.4857C4.47549 14.6393 4.5905 14.7361 4.74651 14.7077L10.696 13.2903L10.781 17.6659C10.7951 17.7491 10.7951 17.9985 10.7951 17.9985C10.7951 17.9985 10.71 18.069 10.639 18.1247L9.70095 18.8192L9.53094 20H14.3444L14.2034 18.8603L13.2793 18.1521Z" fill="white"/>
+</Svg>
+
+
+<View style={{display:"flex",flexDirection:"row",gap:16,justifyContent:"center",alignItems:"center"}}>
+<Text style={{ fontWeight: 600, fontSize: 14, color: "#27AAE1" }}>SKILLS</Text>
+<View style={{backgroundColor:"#6D6E71",width:134,height:1}}></View>
+</View>
+                </View>  
+
+                <View style={{display:"flex",flexDirection:"column",gap:8}}>
+                <Text style={{ fontSize: 10, fontWeight: 500, color: "#414042" }}>Graphic Design</Text>
+                <Text style={{ fontSize: 10, fontWeight: 500, color: "#414042" }}>Web Design</Text>
+                <Text style={{ fontSize: 10, fontWeight: 500, color: "#414042" }}>Motion Graphics</Text>
+                <Text style={{ fontSize: 10, fontWeight: 500, color: "#414042" }}>Illustrations</Text>
+                <Text style={{ fontSize: 10, fontWeight: 500, color: "#414042" }}>Branding</Text>
+                </View>
+            </View>
+
+            <View style={{display:"flex",flexDirection:"column",gap:12}}>
+            <View style={{display:"flex",flexDirection:"row",gap:8,justifyContent:"center",alignItems:"center"}}>
+            <Svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<Path d="M11.991 23C18.0661 23 22.9965 18.0751 23.0033 12C23.0101 5.92487 18.0908 1 12.0156 1C5.9405 1 1.01011 5.92487 1.00331 12C0.996512 18.0751 5.91588 23 11.991 23Z" fill="#383839"/>
+<Path d="M12.7866 13.0684V12.7343C12.7866 12.3272 12.452 12 12.0393 12C11.6265 12 11.293 12.3272 11.293 12.7343V13.0684C11.293 13.4735 11.6265 13.8027 12.0393 13.8027C12.452 13.8027 12.7866 13.4735 12.7866 13.0684Z" fill="white"/>
+<Path d="M19.5666 10.1863C19.0564 9.75717 18.2772 9.80828 17.8345 10.3367L17.5684 10.651L19.4537 12.2324L19.7074 11.919C20.1442 11.3993 20.0893 10.624 19.5666 10.1863Z" fill="white"/>
+<Path d="M13.4661 16.85C13.4305 17.0014 13.4826 17.1595 13.6012 17.2598C13.7169 17.3572 13.8799 17.3852 14.0274 17.3225L15.5328 16.6697C15.7074 16.5935 15.8636 16.4778 15.9851 16.3332L16.1259 16.1663L14.2406 14.584L14.1007 14.7498C13.9792 14.8954 13.8915 15.07 13.8471 15.2541L13.4661 16.85Z" fill="white"/>
+<Path d="M14.7695 13.9589L16.6559 15.5403L18.9231 12.8577L17.0378 11.2754L14.7695 13.9589Z" fill="white"/>
+<Path d="M16.2833 6.81839L14.7249 5.33829C14.5773 5.19847 14.396 5.1165 14.2051 5.0625V7.4606H16.6401C16.59 7.21665 16.4656 6.99099 16.2833 6.81839Z" fill="white"/>
+<Path d="M15.8618 17.4225L14.3545 18.0753C13.9302 18.2585 13.4383 18.1939 13.0738 17.8892C12.7141 17.5874 12.5588 17.1168 12.6678 16.6608L13.0487 15.0649C13.122 14.7582 13.2686 14.468 13.4711 14.225L16.6652 10.4461V8.28137H13.7932C13.5666 8.28137 13.3833 8.09818 13.3833 7.87158V5H7.23056C6.55163 5 6 5.55155 6 6.23039V17.7696C6 18.4484 6.55163 19 7.23056 19H15.4346C16.1135 19 16.6652 18.4484 16.6652 17.7696V16.8006L16.6121 16.8632C16.4115 17.1023 16.1511 17.2962 15.8618 17.4225ZM8.05126 7.46078H12.1538C12.3804 7.46078 12.5636 7.64398 12.5636 7.87058C12.5636 8.09718 12.3804 8.28043 12.1538 8.28043H8.05126C7.82463 8.28043 7.64141 8.09718 7.64141 7.87058C7.64141 7.64398 7.82463 7.46078 8.05126 7.46078ZM8.05126 9.94857H14.6149C14.8415 9.94857 15.0247 10.1318 15.0247 10.3584C15.0247 10.585 14.8415 10.7682 14.6149 10.7682H8.05126C7.82463 10.7682 7.64141 10.585 7.64141 10.3584C7.64141 10.1327 7.82463 9.94857 8.05126 9.94857ZM8.05126 12.4103H12.9735C13.2001 12.4103 13.3833 12.5935 13.3833 12.8201C13.3833 13.0467 13.2001 13.2299 12.9735 13.2299H8.05126C7.82463 13.2299 7.64141 13.0467 7.64141 12.8201C7.64141 12.5935 7.82463 12.4103 8.05126 12.4103ZM11.3331 15.6917H8.05126C7.82463 15.6917 7.64141 15.5085 7.64141 15.2819C7.64141 15.0553 7.82463 14.8721 8.05126 14.8721H11.3331C11.5597 14.8721 11.7429 15.0553 11.7429 15.2819C11.7429 15.5085 11.5597 15.6917 11.3331 15.6917Z" fill="white"/>
+</Svg>
+
+
+
+<View style={{display:"flex",flexDirection:"row",gap:16,justifyContent:"center",alignItems:"center"}}>
+<Text style={{ fontWeight: 600, fontSize: 14, color: "#27AAE1" }}>INTERESTS</Text>
+<View style={{backgroundColor:"#6D6E71",width:134,height:1}}></View>
+</View>
+                </View>  
+
+                <View style={{display:"flex",flexDirection:"column",gap:8}}>
+                <Text style={{ fontSize: 10, fontWeight: 500, color: "#414042" }}>Graphic Design</Text>
+                <Text style={{ fontSize: 10, fontWeight: 500, color: "#414042" }}>Web Design</Text>
+                <Text style={{ fontSize: 10, fontWeight: 500, color: "#414042" }}>Motion Graphics</Text>
+                <Text style={{ fontSize: 10, fontWeight: 500, color: "#414042" }}>Illustrations</Text>
+                </View>
+            </View>
             </View>
 
 
