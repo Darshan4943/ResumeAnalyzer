@@ -16,7 +16,7 @@ const Template37 = ({ data }) => {
             <View style={{ flexDirection: "column", gap: 28 }}>
               <View style={{ flexDirection: "column", alignItems: "center", justifyContent: "center", marginTop: -48 }}>
               {data.profilePhoto ? (
-                <Image src={URL.createObjectURL(data.profilePhoto)} alt="" style={{ width: "100", marginBottom: "16px", height: "100", borderRadius: "50%" }} />
+                <Image src={URL.createObjectURL(data.profilePhoto)} alt="" style={{ width: "100", height: "100", borderRadius: "50%" }} />
               ) : (
                 <Image src="/images/services/profile.png" alt="" style={{ width: "100", height: "100", borderRadius: "50%" }} />
               )}

@@ -39,7 +39,7 @@ const Template42 = ({ data }) => {
           </View>
           <View style={{ flexDirection: "row", justifyContent: "center", position: "absolute", top: 0, left: 16 }}>
             {data.profilePhoto ? (
-              <Image src={URL.createObjectURL(data.profilePhoto)} alt="" style={{ width: "134", marginBottom: "16px", height: "134", borderRadius: "50%" }} />
+              <Image src={URL.createObjectURL(data.profilePhoto)} alt="" style={{ width: "134", height: "134", borderRadius: "50%" }} />
             ) : (
               <Image src="/images/services/profile.png" alt="" style={{ width: "134", height: "134", borderRadius: "50%" }} />
             )}

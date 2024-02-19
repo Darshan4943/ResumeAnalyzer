@@ -3,10 +3,10 @@ import { Document, Page, Text, View, Image, StyleSheet, Svg, Path, Rect } from '
 function Template28({ data }) {
 
     return (
-        <Page size="A4">
+        <Page size="A4" style={{paddingVertical:24}}>
             <View style={{ flexDirection: 'row', gap: "1.5rem" }}>
 
-                <View style={{ width: "191px" }}>
+                <View style={{ width: "191px", marginVertical:-24 }}>
                     <View style={{ flexDirection: "column", minHeight: "841.7px", height: "100%", backgroundColor: "#2AB6BB", gap: "18px", }}>
                         <View style={{ alignItems: "center", marginTop: "35px", flexDirection: "column", }}>
 
