@@ -37,7 +37,7 @@ function Sign_up() {
           <div className="flex justify-center item-center">
             <div className="flex flex-col gap-[24px] px-[8px]">
               <ALink href="/auth/Candidate_register">
-                <div className="p-[16px] flex flex-row justify-between rounded-[16px] relative sign_up_shadow">
+                <div className="p-[16px] z-0 flex flex-row justify-between rounded-[16px] relative sign_up_shadow">
                   <div className="flex flex-row justify-center item-center gap-[8px] ">
                     <div className="flex items-center">
                       <div className="p-[8px] border-[1px] border-[#333] rounded-[50%] sign_iu_text_border">
@@ -109,7 +109,7 @@ function Sign_up() {
                 </div>
               </ALink>
               <ALink href="/auth/Employer_register">
-                <div className="p-[16px] flex flex-row justify-between rounded-[16px] relative sign_up_shadow">
+                <div className="p-[16px] z-0 flex flex-row justify-between rounded-[16px] relative sign_up_shadow">
                   <div className="flex flex-row justify-center item-center gap-[8px] ">
                     <div className="flex items-center">
                       {" "}
@@ -158,7 +158,7 @@ function Sign_up() {
                 </div>
               </ALink>
               <ALink href="/auth/Recruiter_register">
-                <div className="p-[16px] flex flex-row justify-between rounded-[16px] relative sign_up_shadow">
+                <div className="p-[16px] z-0 flex flex-row justify-between rounded-[16px] relative sign_up_shadow">
                   <div className="flex flex-row justify-center item-center gap-[8px] ">
                     <div className="flex items-center">
                       <div className="p-[8px]  rounded-[50%] sign_iu_text_border ">
@@ -213,17 +213,19 @@ function Sign_up() {
           </div>
           <div className="flex items-center justify-center text-[14px] font-[500] text-[#646464]">
             Already have an account?{" "}
-            <span
-              onClick={() =>
-                router.push({
-                  pathname: "/auth",
-                  query: { signin: true },
-                })
-              }
-              className="text-[#06A9EF]"
-            >
-              Sign In
-            </span>
+            <button>
+              <span
+                onClick={() =>
+                  router.push({
+                    pathname: "/auth",
+                    query: { signin: true },
+                  })
+                }
+                className="text-[#06A9EF] border-b-[1px] border-solid border-[#fff] hover:border-[#06A9EF] transition-all transition-[0.2s]"
+              >
+                Sign In
+              </span>
+            </button>
           </div>
         </div>
       </div>

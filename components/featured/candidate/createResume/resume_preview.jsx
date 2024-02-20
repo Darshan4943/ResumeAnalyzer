@@ -40,7 +40,7 @@ import Template33 from "../../resumeTemplates/Template33";
 import Template32 from "../../resumeTemplates/Template32";
 import Template38 from "../../resumeTemplates/Template38";
 import Template31 from "../../resumeTemplates/Template31";
-import Template36 from "../../resumeTemplates/Template36"; 
+import Template36 from "../../resumeTemplates/Template36";
 import Template20 from "../../resumeTemplates/Template20";
 import Template11 from "../../resumeTemplates/Template11";
 import Template19 from "../../resumeTemplates/Template19";
@@ -50,7 +50,7 @@ import Template19 from "../../resumeTemplates/Template19";
 import Template25 from "../../resumeTemplates/Template25";
 import Template39 from "../../resumeTemplates/Template39";
 import Template40 from "../../resumeTemplates/Template40";
- import Template35 from "../../resumeTemplates/Template35";
+import Template35 from "../../resumeTemplates/Template35";
 import Template37 from "../../resumeTemplates/Template37";
 import Template41 from "../../resumeTemplates/Template41";
 import Template42 from "../../resumeTemplates/Template42";
@@ -70,6 +70,7 @@ import Template22 from "../../resumeTemplates/Template22";
 import Template23 from "../../resumeTemplates/Template23";
 import Template26 from "../../resumeTemplates/Template26";
 import Template27 from "../../resumeTemplates/Template27";
+import Template45 from "../../resumeTemplates/Template45";
 
 const ResumePreview = ({ data, isSetEdit }) => {
   const userDataGlobal = useSelector((state) => state.userData);
@@ -110,7 +111,6 @@ const ResumePreview = ({ data, isSetEdit }) => {
         return <Template10 data={data} />;
       case 11:
         return <Template11 data={data} />;
-
       case 12:
         return <Template12 data={data} />;
       case 13:
@@ -135,8 +135,6 @@ const ResumePreview = ({ data, isSetEdit }) => {
         return <Template22 data={data} />;
       case 23:
         return <Template23 data={data} />;
-
-
       case 24:
         return <Template24 data={data} />;
       case 25:
@@ -153,10 +151,8 @@ const ResumePreview = ({ data, isSetEdit }) => {
         return <Template30 data={data} />;
       case 31:
         return <Template31 data={data} />;
-
       case 32:
         return <Template32 data={data} />;
-
       case 33:
         return <Template33 data={data} />;
       case 34:
@@ -173,7 +169,6 @@ const ResumePreview = ({ data, isSetEdit }) => {
         return <Template39 data={data} />;
       case 40:
         return <Template40 data={data} />;
-
       case 41:
         return <Template41 data={data} />;
       case 42:
@@ -182,9 +177,10 @@ const ResumePreview = ({ data, isSetEdit }) => {
         return <Template43 data={data} />;
       case 44:
         return <Template44 data={data} />;
+      case 45:
+        return <Template45 data={data} />;
       case 47:
         return <Template47 data={data} />;
-
       default:
         return <Template1 data={data} />;
     }
@@ -239,7 +235,7 @@ const ResumePreview = ({ data, isSetEdit }) => {
       >
         <div className="rounded-[8px] bg-[#BCEBFF]  px-4 pt-[10px] ">
           <div className=" flex gap-4 pb-[10px]" style={{ overflowX: "auto" }}>
-            <img
+            {/* <img
               src="/images/services/resume1.png"
               className="h-[200px] w-[140.91px] rounded-[6px]"
               alt=""
@@ -389,8 +385,8 @@ const ResumePreview = ({ data, isSetEdit }) => {
               className="h-[200px] w-[140.91px] rounded-[6px]"
               alt=""
               onClick={() => togglePreview(true, 25)}
-            />
-            <img
+            /> */}
+            {/* <img
               src="/images/services/template26.png"
               className="h-[200px] w-[140.91px] rounded-[6px]"
               alt=""
@@ -492,7 +488,7 @@ const ResumePreview = ({ data, isSetEdit }) => {
               className="h-[200px] w-[140.91px] rounded-[6px]"
               alt=""
               onClick={() => togglePreview(true, 42)}
-            /> 
+            />
             <img
               src="/images/services/template43.png"
               className="h-[200px] w-[140.91px] rounded-[6px]"
@@ -504,6 +500,12 @@ const ResumePreview = ({ data, isSetEdit }) => {
               className="h-[200px] w-[140.91px] rounded-[6px]"
               alt=""
               onClick={() => togglePreview(true, 44)}
+            /> */}
+            <img
+              src="/images/services/template45.png"
+              className="h-[200px] w-[140.91px] rounded-[6px]"
+              alt=""
+              onClick={() => togglePreview(true, 45)}
             />
             <img
               src="/images/services/template47.png"
