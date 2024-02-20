@@ -5,7 +5,7 @@ function Template15({ data }) {
   return (
 
     <Page>
-      <View style={{ width: 595, height: 840, paddingHorizontal: 20, paddingVertical: 10, gap: 15, flexDirection: 'column', alignContent: 'center', justifyContent: 'start' }} >
+      <View style={{ width: 595, minHeight: 840, paddingHorizontal: 20, paddingVertical: 10, gap: 15, flexDirection: 'column', alignContent: 'center', justifyContent: 'start' }} >
         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: 550, gap: 25 }}>
           <View style={{ width: 173, flexDirection: 'column', gap: 20 }}>
             <View style={{ width: 140, gap: 12 }}>

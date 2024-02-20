@@ -5,7 +5,7 @@ import React from 'react'
 const Template41 = ({ data }) => {
     return (
         <Page size="A4">
-            <View style={{ width: "100%", display: "flex", flexDirection: "row", minHeight: 841, height: "100%" }}>
+            <View style={{ width: "100%", display: "flex", flexDirection: "row", minHeight: 841,  }}>
                 <View style={{ width: 218, display: "flex", flexDirection: "column", backgroundColor: "#EDEDEE", paddingTop: 32, paddingLeft: 32, paddingRight: 24, gap: 26, paddingBottom: 32, backgroundColor: "#EDEDEE" }}>
                     <View style={{ flexDirection: "column", gap: 14 }} >
                         <View style={{ width: 162, height: 180 }}>

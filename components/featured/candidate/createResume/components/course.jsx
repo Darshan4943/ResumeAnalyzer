@@ -133,7 +133,7 @@ const Course = ({ data, setData }) => {
                       type="text"
                       name="issuedBy"
                       id=""
-                      placeholder="EIssued by"
+                      placeholder="Issued by"
                       className="w-full text-[14px] font-montserrat font-small "
                       value={courseData.issuedBy}
                       onChange={handleInputChange}
