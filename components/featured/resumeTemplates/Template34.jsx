@@ -4,7 +4,7 @@ import React from "react";
 const Template34 = ({ data }) => {
     return (
         <Page size="A4" style={{ padding: 42 }}>
-            <View style={{ gap: 32, marginTop: -42, minHeight: 756, height: "100%" }}>
+            <View style={{ gap: 32, marginTop: -42, minHeight: 756,  }}>
 
                 <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
                     <View style={{ flexDirection: "column", paddingTop: 52, gap: 4 }}>

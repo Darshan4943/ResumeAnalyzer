@@ -3,9 +3,10 @@ import { Document, Page, Text, View, Image, StyleSheet, Svg, Path, Rect } from '
 function Template28({ data }) {
 
     return (
-        <Page size="A4">
+        <Page size="A4" style={{ paddingVertical: 24 }}>
             <View style={{ flexDirection: 'row', gap: "1.5rem" }}>
-                <View style={{ width: "191px" }}>
+
+                <View style={{ width: "191px", marginVertical: -24 }}>
                     <View style={{ flexDirection: "column", minHeight: "841.7px", height: "100%", backgroundColor: "#2AB6BB", gap: "18px", }}>
                         <View style={{ alignItems: "center", marginTop: "35px", flexDirection: "column", }}>
 
@@ -42,15 +43,6 @@ function Template28({ data }) {
                                     <Text style={{ fontSize: "10px", width: '80%', paddingTop: "2px", flexDirection: "row", fontWeight: 400, color: "#fff", }}>{data.email}</Text>
                                 </View>
                             )}
-
-                            {/* {data?.sociaLinks > 0 && (
-                    <View style={{ flexDirection:"row",breakAll:true , gap: "12px", justifyContent:"start" , alignItems: "center", marginLeft: "24px", paddingRight: " 16px" }}>
-                        <View style={{ height: "24px", flexDirection:"row", alignItems: "center" }}>
-                            <Image style={{ width: "18px", height: "18px" }} src="/images/services/social_white.png" alt="" />
-                        </View>
-                        <View style={{ flexDirection:"row", fontSize: "11px", paddingTop: "2px", fontWeight: 400, color: "#fff", }}>{data.sociaLinks}</View>
-                    </View>
-                )} */}
                             {data?.location && (
                                 <View style={{ flexDirection: "row", breakAll: true, justifyContent: "start", gap: "12px", alignItems: "center", marginLeft: "24px", paddingRight: " 4px" }}>
                                     <View style={{ height: "24px", flexDirection: "row", alignItems: "center" }}>

@@ -24,6 +24,7 @@ const Template44 = ({ data }) => {
           </View>
 
           <View style={{ width: 123, height: 1, backgroundColor: "#A7A9AC" }}></View>
+          <View style={{ width: 123, height: 1, backgroundColor: "#A7A9AC" }}></View>
 
           <View style={{ flexDirection: "column", gap: 16, justifyContent: "center", alignItems: "center" }}>
 

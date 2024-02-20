@@ -133,7 +133,7 @@ const Course = ({ data, setData }) => {
                       type="text"
                       name="issuedBy"
                       id=""
-                      placeholder="EIssued by"
+                      placeholder="Issued by"
                       className="w-full text-[14px] font-montserrat font-small "
                       value={courseData.issuedBy}
                       onChange={handleInputChange}
@@ -179,7 +179,7 @@ const Course = ({ data, setData }) => {
                   className=" font-montserrat text-xs font-semibold px-[12px] rounded-[8px] border border-[#06A9EF] w-[80px] h-[32px]"
                   onClick={() => setView(false)}
                 >
-                  Cancle
+                  Cancel
                 </button>
                 {/* <button className=" font-montserrat text-xs font-semibold px-[12px] rounded-[8px] border border-[#06A9EF] w-[137px] h-[32px]">
                   Update to Profile

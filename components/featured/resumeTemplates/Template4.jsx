@@ -30,7 +30,7 @@ function Template4({ data }) {
                                     </Text>
                                 </Svg>
 
-d
+                                d
                             </View>
                             {data?.mobileNumber && (
                                 <View style={{ flexDirection: "row", gap: "12px", justifyContent: "start", alignItems: "center", marginLeft: "16px", paddingRight: " 4px", paddingTop: "5px" }}>
@@ -181,8 +181,7 @@ d
                     </View>
                     <View style={{ display: "flex", flexDirection: "row", gap: 8, width: "100%" }}>
                         <View style={{}}>
-                            <Image style={{ width: "27px", height: "27px" }} src="/images/services/experience
-                            .png" alt="" />
+                            <Image style={{ width: "27px", height: "27px" }} src="/images/services/experience.png" alt="" />
                         </View>
 
                         <View style={{ display: "flex", flexDirection: "column", gap: 16, width: "90%" }}>
@@ -218,41 +217,41 @@ d
                     {data?.skills?.length > 0 && (
 
 
-                    <View style={{ display: "flex", flexDirection: "column", gap: 16, alignItems: "flex-start", paddingTop: "26px" }}>
-                        <View style={{ display: "flex", flexDirection: "row", gap: 8, alignItems: "center", width: "100%" }}>
-                            <Image style={{ width: "27px", height: "27px", display: "flex", alignItems: "flex-end" }} src="/images/services/profile_img.png" alt="" />
-                            <View style={{ display: "flex", flexDirection: "column", gap: 4, width: "90%" }}>
-                                <Text style={{ color: "#282829", fontWeight: 500, fontSize: "16px" }}>SKILLS</Text>
-                                <View style={{ height: "1px", width: "95%", backgroundColor: "#282829" }}></View>
+                        <View style={{ display: "flex", flexDirection: "column", gap: 16, alignItems: "flex-start", paddingTop: "26px" }}>
+                            <View style={{ display: "flex", flexDirection: "row", gap: 8, alignItems: "center", width: "100%" }}>
+                                <Image style={{ width: "27px", height: "27px", display: "flex", alignItems: "flex-end" }} src="/images/services/profile_img.png" alt="" />
+                                <View style={{ display: "flex", flexDirection: "column", gap: 4, width: "90%" }}>
+                                    <Text style={{ color: "#282829", fontWeight: 500, fontSize: "16px" }}>SKILLS</Text>
+                                    <View style={{ height: "1px", width: "95%", backgroundColor: "#282829" }}></View>
+                                </View>
+                            </View>
+                            <View style={{ flexDirection: "column", gap: 8, justifyContent: "space-between", width: "100%" }}>
+                                {data?.skills?.map((detail, index) => (
+                                    <View key={index} style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "space-between", gap: "8", width: "100%" }}>
+                                        <Text style={{ fontSize: 12 }}>
+                                            {detail.skill}
+                                        </Text>
+                                        <View style={{ display: "flex", gap: 16, flexDirection: "row", marginTop: "4px" }}>
+                                            {[...Array(5)].map((_, i) => (
+                                                <View key={i}>
+                                                    {
+                                                        detail.rating[i] === 0 ? (
+                                                            <Svg xmlns="http://www.w3.org/2000/svg" width="8" height="7" viewBox="0 0 8 7" fill="none">
+                                                                <Path fillRule="evenodd" clipRule="evenodd" d="M4.02911 0.285156C2.23911 0.285156 0.789062 1.73615 0.789062 3.52515C0.789062 5.31415 2.24011 6.76514 4.02911 6.76514C5.81811 6.76514 7.2691 5.31415 7.2691 3.52515C7.2691 1.73615 5.81811 0.285156 4.02911 0.285156Z" fill="#D1D3D4" />
+                                                            </Svg>
+                                                        ) : (
+                                                            <Svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8" fill="none">
+                                                                <Path fillRule="evenodd" clipRule="evenodd" d="M4.02911 0.886719C2.23911 0.886719 0.789062 2.33771 0.789062 4.12671C0.789062 5.91571 2.24011 7.36676 4.02911 7.36676C5.81811 7.36676 7.2691 5.91571 7.2691 4.12671C7.2691 2.33771 5.81811 0.886719 4.02911 0.886719Z" fill="#00AEEF" />
+                                                            </Svg>
+                                                        )
+                                                    }
+                                                </View>
+                                            ))}
+                                        </View>
+                                    </View>
+                                ))}
                             </View>
                         </View>
-                        <View style={{ flexDirection: "column", gap: 8, justifyContent: "space-between",width: "100%"  }}>
-                                    {data?.skills?.map((detail, index) => (
-                                        <View key={index} style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "space-between", gap: "8",width:"100%" }}>
-                                            <Text style={{fontSize:12}}>
-                                                {detail.skill}
-                                            </Text>
-                                            <View style={{ display: "flex", gap: 16, flexDirection: "row", marginTop: "4px" }}>
-                                                {[...Array(5)].map((_, i) => (
-                                                    <View key={i}>
-                                                        {
-                                                            detail.rating[i] === 0 ? (
-                                                                <Svg xmlns="http://www.w3.org/2000/svg" width="8" height="7" viewBox="0 0 8 7" fill="none">
-                                                                    <Path fillRule="evenodd" clipRule="evenodd" d="M4.02911 0.285156C2.23911 0.285156 0.789062 1.73615 0.789062 3.52515C0.789062 5.31415 2.24011 6.76514 4.02911 6.76514C5.81811 6.76514 7.2691 5.31415 7.2691 3.52515C7.2691 1.73615 5.81811 0.285156 4.02911 0.285156Z" fill="#D1D3D4" />
-                                                                </Svg>
-                                                            ) : (
-                                                                <Svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8" fill="none">
-                                                                    <Path fillRule="evenodd" clipRule="evenodd" d="M4.02911 0.886719C2.23911 0.886719 0.789062 2.33771 0.789062 4.12671C0.789062 5.91571 2.24011 7.36676 4.02911 7.36676C5.81811 7.36676 7.2691 5.91571 7.2691 4.12671C7.2691 2.33771 5.81811 0.886719 4.02911 0.886719Z" fill="#00AEEF" />
-                                                                </Svg>
-                                                            )
-                                                        }
-                                                    </View>
-                                                ))}
-                                            </View>
-                                        </View>
-                                    ))}
-                                </View>
-                    </View>
 
                     )}
                 </View>

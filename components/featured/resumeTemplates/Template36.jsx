@@ -19,7 +19,7 @@ function Template36({ data }) {
           display: "flex",
           flexDirection: "column",
           minHeight: "792px",
-          height: "100%",
+        
           padding: "34px",
           gap: "24px",
         }}
