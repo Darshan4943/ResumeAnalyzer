@@ -254,7 +254,7 @@ const Achievement = ({ data, setData }) => {
                     setView(false);
                   }}
                 >
-                  Cancle
+                  Cancel
                 </button>
                 {/* <button className=" font-montserrat text-xs font-semibold px-[12px] rounded-[8px] border border-[#06A9EF] w-[137px] h-[32px]">
                   Update to Profile
