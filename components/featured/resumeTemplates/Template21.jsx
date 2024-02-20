@@ -202,7 +202,7 @@ function Template21({ data }) {
                     </View>
                     <View style={{ display: "flex", flexDirection: "column", gap: 24, width: 271 }}>
 
-                        <View style={{ display: "flex", flexDirection: "column",gap:16 }}>
+                        <View style={{ display: "flex", flexDirection: "column", gap: 16 }}>
 
                             <View style={{ flexDirection: "column", gap: 8 }}>
 
@@ -217,21 +217,22 @@ function Template21({ data }) {
 
 
                                     <View key={index} style={{ flexDirection: "row", gap: 16, alignItems: "start", justifyContent: "start", width: "100%" }}>
-                                        <View style={{ flexDirection: "column", gap: 4, width: "15%",paddingBottom:24 }}>
+                                        <View style={{ flexDirection: "column", gap: 4, width: "15%", paddingBottom: 24 }}>
 
                                             <Text style={{ color: "#494949", fontSize: "12px", fontWeight: 400, }}>{detail.duration?.start?.year}</Text>
                                             <Text style={{ color: "#494949", fontSize: "12px", fontWeight: 400, }}>{detail.currentlyWorking ? "Present" : detail.duration?.end?.year}</Text>
 
                                         </View>
 
-                                      <>
+                                        <>
                                             <Svg style={{}} width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <Path d="M5.34763 10.9395C8.10906 10.9395 10.3477 8.70086 10.3477 5.93943C10.3477 3.178 8.10906 0.939453 5.34763 0.939453C2.5862 0.939453 0.347656 3.178 0.347656 5.93943C0.347656 8.70086 2.5862 10.9395 5.34763 10.9395Z" fill="#494949" />
                                             </Svg>
-
-                                            <View style={{ width: "1px", backgroundColor: "#221F1F", height:"100%", marginLeft:-21,marginTop:10}}>
-                                            </View>
-                                            </>
+                                            {index !== data.experience.length - 1 && (
+                                                <View style={{ width: "1px", backgroundColor: "#221F1F", height: "100%", marginLeft: -21, marginTop: 10 }}>
+                                                </View>
+                                            )}
+                                        </>
 
                                         <View style={{ flexDirection: "column", gap: 4, width: "85%", }}>
                                             <Text style={{ color: "#494949", fontSize: "12px", fontWeight: 400 }}>{detail.designation} </Text>
@@ -245,7 +246,7 @@ function Template21({ data }) {
                                 ))}
                             </View>
                         </View>
-                        <View style={{ display: "flex", flexDirection: "column",gap:16 }}>
+                        <View style={{ display: "flex", flexDirection: "column", gap: 16 }}>
 
                             <View style={{ flexDirection: "column", gap: 8 }}>
 
@@ -260,27 +261,28 @@ function Template21({ data }) {
 
 
                                     <View key={index} style={{ flexDirection: "row", gap: 16, alignItems: "start", justifyContent: "start", width: "100%" }}>
-                                        <View style={{ flexDirection: "column", gap: 4, width: "15%",paddingBottom:24 }}>
+                                        <View style={{ flexDirection: "column", gap: 4, width: "15%", paddingBottom: 24 }}>
 
                                             <Text style={{ color: "#494949", fontSize: "12px", fontWeight: 400, }}>{detail.duration?.start?.year}</Text>
                                             <Text style={{ color: "#494949", fontSize: "12px", fontWeight: 400, }}>{detail.duration?.end?.year}</Text>
 
                                         </View>
 
-                                      <>
+                                        <>
                                             <Svg style={{}} width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <Path d="M5.34763 10.9395C8.10906 10.9395 10.3477 8.70086 10.3477 5.93943C10.3477 3.178 8.10906 0.939453 5.34763 0.939453C2.5862 0.939453 0.347656 3.178 0.347656 5.93943C0.347656 8.70086 2.5862 10.9395 5.34763 10.9395Z" fill="#494949" />
                                             </Svg>
-
-                                            <View style={{ width: "1px", backgroundColor: "#221F1F", height:"100%", marginLeft:-21,marginTop:10}}>
+                                            {index !== data.education.length - 1 && (
+                                            <View style={{ width: "1px", backgroundColor: "#221F1F", height: "100%", marginLeft: -21, marginTop: 10 }}>
                                             </View>
-                                            </>
+                                            )}
+                                        </>
 
                                         <View style={{ flexDirection: "column", gap: 4, width: "85%", }}>
                                             <Text style={{ color: "#494949", fontSize: "12px", fontWeight: 400 }}>{detail.qualification} </Text>
                                             <Text style={{ color: "#494949", fontSize: "12px", fontWeight: 400 }}>{detail.instituteName} </Text>
 
-                                 
+
 
                                         </View>
                                     </View>

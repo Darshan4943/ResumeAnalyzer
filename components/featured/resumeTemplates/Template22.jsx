@@ -168,17 +168,18 @@ function Template22({ data }) {
                     <Text style={{ fontSize: 16, fontWeight: '700', color: "#494949" }}>{data.summery}</Text>
 
 
-                        <View style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-                            <View>
-                                <Text style={{ fontSize: 14, fontWeight: 400, color: "#000000" }}>WORK EXPERIENCE</Text>
-                            </View>
-                            <View style={{ display: "flex", flexDirection: "column" }} >
+                    <View style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                        <View>
+                            <Text style={{ fontSize: 14, fontWeight: 400, color: "#000000" }}>WORK EXPERIENCE</Text>
+                        </View>
+                        <View style={{ display: "flex", flexDirection: "column", gap: 16 }} >
                             {data?.experience?.map((detail, index) => (
                                 <View style={{ display: "flex", flexDirection: "row", gap: 16 }}>
-                                    <Svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <Svg width="10" height="10" viewBox="0 0 10 10" fill="white" xmlns="http://www.w3.org/2000/svg">
                                         <Path d="M5.26628 8.16537C7.24494 8.16537 8.84897 6.56135 8.84897 4.58269C8.84897 2.60403 7.24494 1 5.26628 1C3.28762 1 1.68359 2.60403 1.68359 4.58269C1.68359 6.56135 3.28762 8.16537 5.26628 8.16537Z" stroke="black" stroke-width="2.00075" stroke-miterlimit="10" />
                                     </Svg>
-                                    <View style={{ backgroundColor: '#535353', height: '100%',width:1 ,marginLeft:-21,marginTop:4}} />
+
+                                    <View style={{ backgroundColor: '#535353', height: '100%', width: 1, marginLeft: -21, marginTop: 8 }} />
 
                                     <View style={{ display: "flex", flexDirection: "column", gap: 4 }}>
                                         <Text style={{ fontSize: 14, fontWeight: 400, color: "#000000" }}>{detail.designation ? (<>{detail.designation}</>) : (<>Designation</>)}</Text>
@@ -187,14 +188,14 @@ function Template22({ data }) {
                                             <Text style={{ fontSize: 12, fontWeight: 400, color: "#000000" }}>{detail.duration?.start?.year}-{detail.currentlyWorking ? "Present" : detail.duration?.end?.year}</Text>
                                         </View>
                                         <View style={{ flexDirection: "column", gap: 8 }}>
-                                            <Text style={{ fontSize: 10, fontWeight: 400, color: "#000000" ,paddingBottom:16}}>{detail.description ? (<>{detail.description}</>) : (<>Description</>)}</Text>
+                                            <Text style={{ fontSize: 10, fontWeight: 400, color: "#000000", }}>{detail.description ? (<>{detail.description}</>) : (<>Description</>)}</Text>
                                         </View>
                                     </View>
                                 </View>
                             ))}
-                            </View>
                         </View>
-                    
+                    </View>
+
                     <View style={{ flexDirection: "column", gap: 8, width: "100%" }}>
                         <View>
                             <Text style={{ fontSize: 14, fontWeight: 400, color: "#000000" }}>EDUCATION</Text>
