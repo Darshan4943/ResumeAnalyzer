@@ -4,7 +4,7 @@ function Template35({ data }) {
   console.log(4, data)
   return (
     <Page size="A4" style={{ padding: 36 }}>
-      <View style={{ minHeight: "769px", height: "100%", width: "100%", display: "flex", flexDirection: "row", justifyContent: "space-between", }}>
+      <View style={{ minHeight: "769px", width: "100%", display: "flex", flexDirection: "row", justifyContent: "space-between", }}>
         <View style={{ width: 294, gap: 16 }} >
           <View style={{ flexDirection: "column", backgroundColor: "#B3977F", paddingVertical: 12, paddingLeft: 22 }}>
             <Text style={{ fontWeight: 400, fontSize: 36, color: "#414042" }}>{data.firstName ? <>{data.firstName}</> : <>First Name</>} </Text>

@@ -3,10 +3,10 @@ import { Document, Page, Text, View, Image, StyleSheet, Svg, Path, Rect } from '
 function Template28({ data }) {
 
     return (
-        <Page size="A4" style={{paddingVertical:24}}>
+        <Page size="A4" style={{ paddingVertical: 24 }}>
             <View style={{ flexDirection: 'row', gap: "1.5rem" }}>
 
-                <View style={{ width: "191px", marginVertical:-24 }}>
+                <View style={{ width: "191px", marginVertical: -24 }}>
                     <View style={{ flexDirection: "column", minHeight: "841.7px", height: "100%", backgroundColor: "#2AB6BB", gap: "18px", }}>
                         <View style={{ alignItems: "center", marginTop: "35px", flexDirection: "column", }}>
 
@@ -43,15 +43,6 @@ function Template28({ data }) {
                                     <Text style={{ fontSize: "10px", width: '80%', paddingTop: "2px", flexDirection: "row", fontWeight: 400, color: "#fff", }}>{data.email}</Text>
                                 </View>
                             )}
-
-                            {/* {data?.sociaLinks > 0 && (
-                    <View style={{ flexDirection:"row",breakAll:true , gap: "12px", justifyContent:"start" , alignItems: "center", marginLeft: "24px", paddingRight: " 16px" }}>
-                        <View style={{ height: "24px", flexDirection:"row", alignItems: "center" }}>
-                            <Image style={{ width: "18px", height: "18px" }} src="/images/services/social_white.png" alt="" />
-                        </View>
-                        <View style={{ flexDirection:"row", fontSize: "11px", paddingTop: "2px", fontWeight: 400, color: "#fff", }}>{data.sociaLinks}</View>
-                    </View>
-                )} */}
                             {data?.location && (
                                 <View style={{ flexDirection: "row", breakAll: true, justifyContent: "start", gap: "12px", alignItems: "center", marginLeft: "24px", paddingRight: " 4px" }}>
                                     <View style={{ height: "24px", flexDirection: "row", alignItems: "center" }}>
@@ -115,7 +106,7 @@ function Template28({ data }) {
                                 </View>
                             </View>
                         )}
-                        
+
                     </View>
                 </View>
                 <View style={{ width: "407px", padding: " 16px", display: "flex", flexDirection: "column", gap: "36px" }}>
@@ -222,13 +213,13 @@ function Template28({ data }) {
                                                     {
                                                         detail.rating[i] === 0 ? (
                                                             <Svg width="8" height="9" viewBox="0 0 8 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                            <Path d="M4 8.52344C6.20914 8.52344 8 6.73252 8 4.5234C8 2.31428 6.20914 0.523438 4 0.523438C1.79086 0.523438 0 2.31428 0 4.5234C0 6.73252 1.79086 8.52344 4 8.52344Z" fill="#D1D3D4"/>
+                                                                <Path d="M4 8.52344C6.20914 8.52344 8 6.73252 8 4.5234C8 2.31428 6.20914 0.523438 4 0.523438C1.79086 0.523438 0 2.31428 0 4.5234C0 6.73252 1.79086 8.52344 4 8.52344Z" fill="#D1D3D4" />
                                                             </Svg>
-                                                            
+
                                                         ) : (
                                                             <Svg width="8" height="9" viewBox="0 0 8 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                            <Path fill-rule="evenodd" clip-rule="evenodd" d="M4 0.423828C1.79135 0.423828 0 2.21518 0 4.42383C0 6.63248 1.79135 8.42383 4 8.42383C6.20864 8.42383 8 6.63248 8 4.42383C8 2.21518 6.20987 0.423828 4 0.423828Z" fill="#009C9E" />
-                                                        </Svg>
+                                                                <Path fill-rule="evenodd" clip-rule="evenodd" d="M4 0.423828C1.79135 0.423828 0 2.21518 0 4.42383C0 6.63248 1.79135 8.42383 4 8.42383C6.20864 8.42383 8 6.63248 8 4.42383C8 2.21518 6.20987 0.423828 4 0.423828Z" fill="#009C9E" />
+                                                            </Svg>
                                                         )
                                                     }
                                                 </View>

@@ -5,13 +5,22 @@ import React from 'react'
 const Template47 = ({ data }) => {
     return (
         <Page size="A4">
-            <View style={{minHeight:"841.7"}}>
+            <View style={{ minHeight: "841.7" }}>
 
                 <View style={{ display: "flex", flexDirection: "row", paddingVertical: 20, paddingHorizontal: 36, backgroundColor: "#F1F2F2" }}>
 
                     <View style={{ display: "flex", flexDirection: "row", gap: 12 }}>
                         <View style={{ display: "flex", flexDirection: "row", gap: 28 }}>
-                            <View><Image style={{ width: 87, height: 87 }} src="/images/services/Ellipse_24.png"></Image></View>
+                            <View style={{ alignItems: "center",  flexDirection: "column", width: "87",  height: "87", borderRadius: "50%", border: "3px", borderColor: "#27AAE1",  }}>
+
+                                {data.profilePhoto ? (
+                                    <Image src={URL.createObjectURL(data.profilePhoto)} alt="" style={{}} />
+                                ) : (
+                                    <Image src="/images/services/profile.png" alt="" style={{}} />
+                                )}
+
+
+                            </View>
                             <View style={{ width: 242 }}>
                                 <Text style={{ fontWeight: 600, fontSize: 32, color: "#27AAE1" }}>{data.firstName}</Text>
                                 <Text style={{ fontWeight: 400, fontSize: 32, color: "#414042" }}>{data.lastName} </Text>

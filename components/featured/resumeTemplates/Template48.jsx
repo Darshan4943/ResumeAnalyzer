@@ -23,13 +23,20 @@ const Template48 = ({ data }) => {
                     <Path d="M295 132H0V0H366L295 132Z" fill="#E6E7E8" />
                     <Path d="M60 0H28V18H60V0Z" fill="#F7941D" />
                 </Svg>
-                <View style={{ display: "flex", position:"absolute", flexDirection: "column",  }}>
-                     
-                     <Text style={{ fontWeight: 600, fontSize: 32, color: "#F7941D", }}>{data.firstName}</Text>
-                     <Text style={{ fontWeight: 400, fontSize: 32, color: "#414042" }}>{data.lastName}</Text>
-                     <Text style={{ fontWeight: 400, fontSize: 14, color: "#58595B" }}>{data.designation}</Text>
-                 </View>
-                 <View style={{ width: 106, height: 106 ,position:"absolute",right:48,top:-12}}><Image src="/images/services/Ellipse_24.png"></Image></View>
+                <View style={{ display: "flex", position: "absolute", flexDirection: "column", }}>
+
+                    <Text style={{ fontWeight: 600, fontSize: 32, color: "#F7941D", }}>{data.firstName}</Text>
+                    <Text style={{ fontWeight: 400, fontSize: 32, color: "#414042" }}>{data.lastName}</Text>
+                    <Text style={{ fontWeight: 400, fontSize: 14, color: "#58595B" }}>{data.designation}</Text>
+                </View>
+                <View style={{ width: 106, height: 106, position: "absolute", right: 48, top: -12 }}>
+                    {data.profilePhoto ? (
+                        <Image src={URL.createObjectURL(data.profilePhoto)} alt="" style={{}} />
+                    ) : (
+                        <Image src="/images/services/profile.png" alt="" style={{}} />
+                    )}
+
+                </View>
 
 
                 <View style={{ paddingTop: 16, marginTop: 24, gap: 24, display: "flex", flexDirection: "row" }}>

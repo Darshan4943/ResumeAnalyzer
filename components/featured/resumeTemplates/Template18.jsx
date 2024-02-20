@@ -5,7 +5,7 @@ const Template18 = ({data}) => {
     return (
     
        <Page>
-       <View style={{width:595,height:840,paddingVertical:10,gap:15,flexDirection:'column',alignContent:'center',justifyContent:'start'}} >
+       <View style={{width:595,minHeight:840,paddingVertical:10,gap:15,flexDirection:'column',alignContent:'center',justifyContent:'start'}} >
         <View style={{flexDirection:'row',alignItems:'start',justifyContent:'start',width:595,gap:25 , paddingLeft:20}}>
       
            <View style={{height:170,width:145}}>
