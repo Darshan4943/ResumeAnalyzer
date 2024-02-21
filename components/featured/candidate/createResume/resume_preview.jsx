@@ -77,8 +77,10 @@ import Template23 from "../../resumeTemplates/Template23";
 import Template26 from "../../resumeTemplates/Template26";
 import Template27 from "../../resumeTemplates/Template27";
 import Template45 from "../../resumeTemplates/Template45";
-
+import Fonts from "@/public/fonts/fonts";
+<Fonts/>
 const ResumePreview = ({ data, isSetEdit }) => {
+
   const userDataGlobal = useSelector((state) => state.userData);
   const dispatch = useDispatch();
   const resumeRef = useRef();

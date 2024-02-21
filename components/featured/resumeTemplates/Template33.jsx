@@ -23,7 +23,7 @@ function Template33({ data }) {
                         <View style={{ display: "flex", flexDirection: "column", gap: "8" }}>
                             <View style={{ padding: "8px 24px", backgroundColor: "#4E4C51", marginTop: "4px", alignItems: "center", justifyContent: "center", flexDirection: "row", width: "230px" }}>
 
-                                <Text style={{ color: "white" }}>CONTACT</Text>
+                                <Text style={{ color: "white", fontFamily:'Kanit 500', }}>CONTACT</Text>
 
                             </View>
                             {data?.mobileNumber && (
@@ -31,7 +31,7 @@ function Template33({ data }) {
                                     <View style={{ height: "24px", display: "flex", alignItems: "center" }}>
                                         <Image style={{ width: "18px", height: "18px" }} src="/images/services/telephone_white.png" alt="" />
                                     </View>
-                                    <Text style={{ fontSize: "10px", paddingTop: "2px", flexDirection: "row", fontWeight: 400, color: "#fff", }}>{data.mobileNumber}</Text>
+                                    <Text style={{ fontSize: "10px", paddingTop: "2px", flexDirection: "row", fontFamily:'Kanit 300', color: "#fff", }}>{data.mobileNumber}</Text>
                                 </View>
                             )}
                             {data?.email && (
@@ -39,7 +39,7 @@ function Template33({ data }) {
                                     <View style={{ height: "24px", display: "flex", alignItems: "center" }}>
                                         <Image style={{ width: "18px", height: "18px" }} src="/images/services/message_white.png" alt="" />
                                     </View>
-                                    <Text style={{ fontSize: "10px", width: '80%', paddingTop: "2px", flexDirection: "row", fontWeight: 400, color: "#fff", }}>{data.email}</Text>
+                                    <Text style={{ fontSize: "10px", width: '80%', paddingTop: "2px", flexDirection: "row",fontFamily:'Kanit 300', color: "#fff", }}>{data.email}</Text>
                                 </View>
                             )}
 
@@ -56,7 +56,7 @@ function Template33({ data }) {
                                     <View style={{ height: "24px", flexDirection: "row", alignItems: "center" }}>
                                         <Image style={{ width: "18px", height: "18px" }} src="/images/services/location_white.png" alt="" />
                                     </View>
-                                    <Text style={{ fontSize: "10px", flexDirection: "row", fontWeight: 400, color: "#fff", }}>{data.location}</Text>
+                                    <Text style={{ fontSize: "10px", flexDirection: "row", fontFamily:'Kanit 300', color: "#fff", }}>{data.location}</Text>
                                 </View>
                             )}
                         </View>
@@ -65,7 +65,7 @@ function Template33({ data }) {
                             <>
                                 <View style={{ padding: "8px 24px", backgroundColor: "#4E4C51", marginTop: "4px", alignItems: "center", justifyContent: "center", flexDirection: "row", width: "230px" }}>
 
-                                    <Text style={{ color: "white" }}>SKILLS</Text>
+                                    <Text style={{fontFamily:'Kanit 500', color: "white" }}>SKILLS</Text>
 
                                 </View>
 
@@ -126,7 +126,7 @@ function Template33({ data }) {
                                                             style={{
                                                                 color: "#fff",
                                                                 fontSize: "12px",
-                                                                fontWeight: "300",
+                                                                fontFamily:'Kanit 300',
                                                                 width: "80px",
                                                             }}
                                                         >
@@ -166,7 +166,7 @@ function Template33({ data }) {
                             <>
                                 <View style={{ padding: "8px 24px", backgroundColor: "#4E4C51", marginTop: "4px", alignItems: "center", justifyContent: "center", flexDirection: "row", width: "230px" }}>
 
-                                    <Text style={{ color: "white" }}>LANGUAGES</Text>
+                                    <Text style={{ fontFamily:'Kanit 500',color: "white" }}>LANGUAGES</Text>
 
                                 </View>
 
@@ -225,7 +225,7 @@ function Template33({ data }) {
                                                             style={{
                                                                 color: "#fff",
                                                                 fontSize: "12px",
-                                                                fontWeight: "300",
+                                                                fontFamily:'Kanit 300',
                                                                 width: "80px",
                                                             }}
                                                         >
@@ -264,9 +264,9 @@ function Template33({ data }) {
                 </View>
                 <View style={{ width: "365px", display: "flex", flexDirection: "column", gap: "36px" }}>
                     <View style={{ display: "flex", backgroundColor: "#4E4C51", padding: 42, marginTop: 36 }}>
-                        <Text style={{ color: "#fff", fontWeight: 600, fontSize: "26px", }}>{data.firstName} {data.lastName}</Text>
+                        <Text style={{ color: "#fff", fontFamily:'Kanit 600', fontSize: "26px", }}>{data.firstName} {data.lastName}</Text>
 
-                        <Text style={{ fontSize: "18px", fontWeight: 500, color: "#EDEDED" }}>{data.designation}</Text>
+                        <Text style={{ fontSize: "18px", fontFamily:'Kanit 300', color: "#EDEDED" }}>{data.designation}</Text>
                     </View>
                     <View style={{ paddingHorizontal: 36, flexDirection: "column", gap: 36, }}>
                         <View style={{ display: "flex", flexDirection: "column", gap: 8, alignItems: "flex-start" }}>
@@ -278,7 +278,7 @@ function Template33({ data }) {
                                 </Svg>
 
 
-                                <Text style={{ color: "#282829", fontWeight: 500, fontSize: "18px" }}>About me</Text>
+                                <Text style={{ color: "#282829", fontFamily:'Kanit 500', fontSize: "18px" }}>About me</Text>
                                 <View style={{ height: "2px", width: "165px", backgroundColor: "#4E4C51" }}></View>
                                 <Svg width="10" height="11" viewBox="0 0 10 11" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <Path d="M4.39879 10.2511L0.248933 6.10124C-0.0829776 5.76932 -0.0829776 5.23068 0.248933 4.89876L4.39879 0.748933C4.7307 0.417022 5.26935 0.417022 5.60126 0.748933L9.75107 4.89876C10.083 5.23068 10.083 5.76932 9.75107 6.10124L5.60126 10.2511C5.26935 10.583 4.7307 10.583 4.39879 10.2511Z" fill="#4E4C51" />
@@ -286,7 +286,7 @@ function Template33({ data }) {
 
                             </View>
                             <View style={{}}>
-                                <Text style={{ color: "#636166", fontSize: "12px", fontWeight: 400 }}>{data.summery}</Text>
+                                <Text style={{ color: "#636166", fontSize: "12px", fontFamily:'Kanit 300', }}>{data.summery}</Text>
                             </View>
                         </View>
 
@@ -299,7 +299,7 @@ function Template33({ data }) {
                                     <Path d="M18 12.1762C18 11.4684 17.5696 10.8648 16.9711 10.6401V7.95153C16.9711 7.64604 16.8006 7.36786 16.5361 7.24368L14.0655 6.08007C13.8069 5.95837 13.5023 6.08132 13.3871 6.35453C13.2718 6.62773 13.3883 6.94936 13.6469 7.07106L15.5154 7.95028L13.5141 8.89284C13.5105 8.89408 13.507 8.89532 13.5035 8.8978L9.48674 10.7891L5.46878 8.8978C5.46643 8.89656 5.46292 8.89533 5.46056 8.89409L3.45806 7.95153L9.48556 5.11394L11.5127 6.06889C11.7726 6.19059 12.076 6.06768 12.1912 5.79447C12.3076 5.52127 12.19 5.19964 11.9313 5.07794L9.78423 4.06706C9.59374 3.97765 9.3762 3.97765 9.18571 4.06706L2.43506 7.24493C2.17049 7.36911 2 7.64726 2 7.95275C2 8.25824 2.17049 8.53642 2.43506 8.6606L4.74682 9.74845V14.2265C4.74682 14.6648 5.01019 15.0598 5.40175 15.2075C6.46238 15.6087 7.41484 15.9899 9.40205 15.9998C11.3023 16.0098 12.5698 15.5826 13.567 15.2075C13.9585 15.0598 14.2219 14.6648 14.2219 14.2265V9.74845L15.941 8.93877V10.6389C15.3425 10.8636 14.9122 11.4672 14.9122 12.175C14.9122 13.0728 15.6036 13.8043 16.4549 13.8043C17.3086 13.8055 18 13.0753 18 12.1762ZM13.1907 14.1979C12.1948 14.5717 11.2564 14.9232 9.41031 14.9145C7.65592 14.9045 6.75871 14.5655 5.80861 14.2066L5.77804 14.1954V10.2327L9.18804 11.8385C9.37853 11.9279 9.59607 11.9279 9.78656 11.8385L13.1966 10.2327V14.1954L13.1907 14.1979ZM16.4572 12.7202C16.1739 12.7202 15.9434 12.4767 15.9434 12.1775C15.9434 11.8782 16.1739 11.6348 16.4572 11.6348C16.7406 11.6348 16.9711 11.8782 16.9711 12.1775C16.9711 12.4755 16.7406 12.7202 16.4572 12.7202Z" fill="#4E4C51" />
                                 </Svg>
 
-                                <Text style={{ color: "#282829", fontWeight: 500, fontSize: "18px" }}>EDUCATION</Text>
+                                <Text style={{ color: "#282829", fontFamily:'Kanit 500', fontSize: "18px" }}>EDUCATION</Text>
                                 <View style={{ height: "2px", width: "140px", backgroundColor: "#4E4C51" }}></View>
                                 <Svg width="10" height="11" viewBox="0 0 10 11" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <Path d="M4.39879 10.2511L0.248933 6.10124C-0.0829776 5.76932 -0.0829776 5.23068 0.248933 4.89876L4.39879 0.748933C4.7307 0.417022 5.26935 0.417022 5.60126 0.748933L9.75107 4.89876C10.083 5.23068 10.083 5.76932 9.75107 6.10124L5.60126 10.2511C5.26935 10.583 4.7307 10.583 4.39879 10.2511Z" fill="#4E4C51" />
@@ -318,14 +318,14 @@ function Template33({ data }) {
                                         <View style={{ display: "flex", flexDirection: "column", gap: 8, }}>
 
 
-                                            <Text style={{ color: "#414042", fontSize: "12px", fontWeight: 400, }}>{detail.instituteName}</Text>
+                                            <Text style={{ color: "#414042", fontSize: "12px",  fontFamily:'Kanit 500', }}>{detail.instituteName}</Text>
 
 
-                                            <Text style={{ color: "#414042", fontSize: "12px", fontWeight: 400, }}>{detail.duration?.start?.year}-{detail.duration?.end?.year}</Text>
+                                            <Text style={{ color: "#414042", fontSize: "12px",  fontFamily:'Kanit 500', }}>{detail.duration?.start?.year}-{detail.duration?.end?.year}</Text>
 
 
 
-                                            <Text style={{ color: "#787879", fontSize: "12px", fontWeight: 400 }}>{detail.qualification} - {detail.specialization}</Text>
+                                            <Text style={{ color: "#787879", fontSize: "12px",  fontFamily:'Kanit 500',}}>{detail.qualification} - {detail.specialization}</Text>
 
                                         </View>
 
@@ -347,7 +347,7 @@ function Template33({ data }) {
 
 
 
-                                    <Text style={{ color: "#282829", fontWeight: 500, fontSize: "18px" }}>EXPERIENCE</Text>
+                                    <Text style={{ color: "#282829",  fontFamily:'Kanit 500', fontSize: "18px" }}>EXPERIENCE</Text>
                                     <View style={{ height: "2px", width: "127px", backgroundColor: "#4E4C51" }}></View>
                                     <Svg width="10" height="11" viewBox="0 0 10 11" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <Path d="M4.39879 10.2511L0.248933 6.10124C-0.0829776 5.76932 -0.0829776 5.23068 0.248933 4.89876L4.39879 0.748933C4.7307 0.417022 5.26935 0.417022 5.60126 0.748933L9.75107 4.89876C10.083 5.23068 10.083 5.76932 9.75107 6.10124L5.60126 10.2511C5.26935 10.583 4.7307 10.583 4.39879 10.2511Z" fill="#4E4C51" />
@@ -366,14 +366,14 @@ function Template33({ data }) {
                                             <View style={{ display: "flex", flexDirection: "column", gap: 8, }}>
 
 
-                                                <Text style={{ color: "#414042", fontSize: "12px", fontWeight: 400, }}>{detail.organization}</Text>
+                                                <Text style={{ color: "#414042", fontSize: "12px", fontFamily:'Kanit 500', }}>{detail.organization}</Text>
 
 
-                                                <Text style={{ color: "#414042", fontSize: "12px", fontWeight: 400, }}>{detail.duration?.start?.year}-{" "}{detail.currentlyWorking ? "Present" : detail.duration?.end?.year}</Text>
+                                                <Text style={{ color: "#414042", fontSize: "12px",  fontFamily:'Kanit 500',}}>{detail.duration?.start?.year}-{" "}{detail.currentlyWorking ? "Present" : detail.duration?.end?.year}</Text>
 
 
 
-                                                <Text style={{ color: "#787879", fontSize: "12px", fontWeight: 400 }}>{detail.description}</Text>
+                                                <Text style={{ color: "#787879", fontSize: "12px",  fontFamily:'Kanit 300',}}>{detail.description}</Text>
 
                                             </View>
 
