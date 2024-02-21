@@ -9,38 +9,38 @@ function Template9({ data }) {
                 <View style={{ paddingHorizontal: 24, flexDirection: 'row', gap: 30, }}>
                     <View style={{ width: 200, flexDirection: 'column', position: 'relative', gap: 24 }}>
                         <View style={{ backgroundColor: '#FFD740', height: 138, width: 132, position: 'absolute' }}></View>
-                        <Text style={{ fontSize: 48, color: '#27417A', width: 500, fontWeight: '700', top: 45, left: 23 }}>{data.firstName} {data.lastName}</Text>
-                        <Text style={{ fontSize: 14, color: '#FFF', width: 500, fontWeight: '700', top: 20, left: 23 }}>{data.designation}</Text>
+                        <Text style={{ fontSize: 48, color: '#27417A', width: 500, fontFamily: 'Antonio 700', top: 45, left: 23 }}>{data.firstName} {data.lastName}</Text>
+                        <Text style={{ fontSize: 14, color: '#FFF', width: 500, fontFamily: 'Montserrat 700', top: 20, left: 23 }}>{data.designation}</Text>
                         <View style={{ flexDirection: 'column', gap: 16, }}>
                             <View style={{ flexDirection: 'row', gap: 4, marginTop: 76 }}>
-                                <Text style={{ fontWeight: '700', width: 70, fontSize: 10 }}>Phone</Text>
-                                <Text style={{ fontWeight: '500', fontSize: 10 }}>{data.mobileNumber}</Text>
+                                <Text style={{ fontFamily: 'Montserrat 700', width: 70, fontSize: 10 }}>Phone</Text>
+                                <Text style={{ fontFamily: 'Montserrat 500', fontSize: 10 }}>{data.mobileNumber}</Text>
                             </View>
                             <View style={{ flexDirection: 'row', gap: 4 }}>
-                                <Text style={{ fontWeight: '700', width: 70, fontSize: 10 }}>Email</Text>
-                                <Text style={{ fontWeight: '500', fontSize: 10 }}>{data.email}</Text>
+                                <Text style={{ fontFamily: 'Montserrat 700', width: 70, fontSize: 10 }}>Email</Text>
+                                <Text style={{ fontFamily: 'Montserrat 500', fontSize: 10 }}>{data.email}</Text>
                             </View>
                             <View style={{ flexDirection: 'row', gap: 4 }}>
-                                <Text style={{ fontWeight: '700', width: 70, fontSize: 10 }}>Location</Text>
-                                <Text style={{ fontWeight: '500', fontSize: 10 }}>{data.location}</Text>
+                                <Text style={{ fontFamily: 'Montserrat 700', width: 70, fontSize: 10 }}>Location</Text>
+                                <Text style={{ fontFamily: 'Montserrat 500', fontSize: 10 }}>{data.location}</Text>
                             </View>
                         </View>
                         <View style={{ flexDirection: 'column', gap: 24 }}>
-                            <Text style={{ fontSize: 16, color: '#27417A', fontWeight: 700 }}>EDUCATION</Text>
+                            <Text style={{ fontSize: 16, color: '#27417A', fontFamily: "Antonio 700" }}>EDUCATION</Text>
                             {data.education.map((detail, index) => (
                                 <View key={index} style={{ flexDirection: 'column', gap: 8 }}>
-                                    <Text style={{ fontSize: 10, fontWeight: 700 }}>{detail.specialization} {detail.qualification}</Text>
-                                    <Text style={{ fontSize: 10, fontWeight: 400 }}>{detail.instituteName}</Text>
-                                    <Text style={{ color: "#616161", fontSize: 10, fontWeight: '400' }}>{detail.duration?.start?.year} - {detail.duration?.end?.year === undefined || "Year" ? "Present" : detail.duration?.end?.year}</Text>
+                                    <Text style={{ fontSize: 10, fontFamily: "Montserrat 700" }}>{detail.specialization} {detail.qualification}</Text>
+                                    <Text style={{ fontSize: 10, fontFamily: "Montserrat 400" }}>{detail.instituteName}</Text>
+                                    <Text style={{ color: "#616161", fontSize: 10, fontFamily: 'Montserrat 400' }}>{detail.duration?.start?.year} - {detail.duration?.end?.year === undefined || "Year" ? "Present" : detail.duration?.end?.year}</Text>
                                 </View>
                             ))}
                         </View>
                         {data?.skills?.length > 0 && (
                             <View style={{ flexDirection: 'column', gap: 16 }}>
-                                <Text style={{ fontSize: 22, color: '#27417A', fontWeight: 'bold' }}>SKILLS</Text>
+                                <Text style={{ fontSize: 22, color: '#27417A', fontFamily: 'Antonio bold' }}>SKILLS</Text>
                                 {data?.skills?.map((detail, index) => (
                                     <View key={index} style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: 8 }}>
-                                        <Text style={{ fontSize: 12 }}>{detail.skill}</Text>
+                                        <Text style={{ fontSize: 12, fontFamily:"Montserrat 500" }}>{detail.skill}</Text>
                                         <View style={{ flexDirection: 'row', gap: 4, marginTop: 4 }}>
                                             {[...Array(5)].map((_, i) => (
                                                 <View key={i}>
@@ -63,11 +63,11 @@ function Template9({ data }) {
                     </View>
                     <View style={{ flexDirection: 'column', gap: 24, width: 323 }}>
                         <View style={{ flexDirection: 'column', gap: 16, marginTop: 110 }}>
-                            <Text style={{ fontSize: 22, color: '#27417A', fontWeight: 'bold' }}>ABOUT ME</Text>
-                            <Text style={{ fontSize: 12 }}>{data.summery}</Text>
+                            <Text style={{ fontSize: 22, color: '#27417A', fontFamily: 'Antonio bold' }}>ABOUT ME</Text>
+                            <Text style={{ fontSize: 12, fontFamily:"Montserrat 400" }}>{data.summery}</Text>
                         </View>
                         <View style={{ flexDirection: 'column', gap: 16 }}>
-                            <Text style={{ fontSize: 22, color: '#27417A', fontWeight: 'bold' }}>EXPERIENCE</Text>
+                            <Text style={{ fontSize: 22, color: '#27417A', fontFamily: 'Antonio bold' }}>EXPERIENCE</Text>
                             {data.experience.map((detail, index) => (
                                 <View key={index} style={{ flexDirection: 'row', gap: 16 }}>
                                     <View style={{ flexDirection: 'column', justifyContent: 'flex-start', gap: 8, alignItems: 'center' }}>
@@ -81,10 +81,10 @@ function Template9({ data }) {
                                         </Svg>
                                     </View>
                                     <View style={{ flexDirection: 'column', gap: 8, width: 330 }}>
-                                        <Text style={{ fontSize: 12 }}>{detail.designation}</Text>
-                                        <Text style={{ fontSize: 10 }}>{detail.organization}</Text>
-                                        <Text style={{ fontSize: 9, color: '#424242' }}>{detail.duration?.start?.year} - {detail.duration?.end?.year === undefined || "Year" ? "Present" : detail.duration?.end?.year}</Text>
-                                        <Text style={{ fontSize: 10, color: "#616161" }}>{detail.description}</Text>
+                                        <Text style={{ fontSize: 12,fontFamily: 'Montserrat 800' }}>{detail.designation}</Text>
+                                        <Text style={{ fontSize: 10,fontFamily: 'Montserrat 600' }}>{detail.organization}</Text>
+                                        <Text style={{ fontSize: 9,fontFamily: 'Montserrat 400', color: '#424242' }}>{detail.duration?.start?.year} - {detail.duration?.end?.year === undefined || "Year" ? "Present" : detail.duration?.end?.year}</Text>
+                                        <Text style={{ fontSize: 10,fontFamily: 'Montserrat 400', color: "#616161" }}>{detail.description}</Text>
                                     </View>
                                 </View>
                             ))}

@@ -15,17 +15,17 @@ function Template4({ data }) {
                                 <Image src="/images/services/profile.png" alt="" style={{ width: "134px", marginBottom: "16px", height: "134px", borderRadius: "50%" }} />
                             )}
                             <View style={{ display: "flex" }}>
-                                <Text style={{ color: "#fff", fontWeight: 400, fontSize: "24px", }}>{data.firstName}</Text>
-                                <Text style={{ color: "#fff", fontWeight: 400, fontSize: "24px", }}>{data.lastName}</Text>
+                                <Text style={{ color: "#fff", fontFamily: "Montserrat 400", fontSize: "24px", }}>{data.firstName}</Text>
+                                <Text style={{ color: "#fff", fontFamily: "Montserrat 400", fontSize: "24px", }}>{data.lastName}</Text>
                             </View>
-                            <Text style={{ fontSize: "8px", fontWeight: 500, color: "#00AEEF" }}>{data.designation}</Text>
+                            <Text style={{ fontSize: "8px", fontFamily: "Montserrat 500", color: "#00AEEF" }}>{data.designation}</Text>
                         </View>
                         <View style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
                             <View style={{ marginRight: '-12px', marginTop: "4px", alignItems: "center", flexDirection: "row" }}>
                                 <Svg width={180} height={43} viewBox="0 0 180 43">
                                     <Path d="M10.942 32.118H179.514V0.887939H10.942L0.782959 16.5029L10.942 32.118Z" fill="#00AEEF" />
                                     <Path d="M167.942 42.8819L179.514 32.118L167.942 32.1179V42.8819Z" fill="#007DC5" />
-                                    <Text x="10%" y="40%" dominantBaseline="middle" textAnchor="start" fill="white" style={{ fontWeight: '600', fontSize: "14px" }}>
+                                    <Text x="10%" y="40%" dominantBaseline="middle" textAnchor="start" fill="white" style={{ fontFamily: 'Inter 400', fontSize: "14px" }}>
                                         CONTACT
                                     </Text>
                                 </Svg>
@@ -37,7 +37,7 @@ function Template4({ data }) {
                                     <View style={{ height: "24px", display: "flex", alignItems: "center" }}>
                                         <Image style={{ width: "18px", height: "18px" }} src="/images/services/telephone_blue.png" alt="" />
                                     </View>
-                                    <Text style={{ fontSize: "10px", paddingTop: "2px", flexDirection: "row", fontWeight: 400, color: "#fff", }}>{data.mobileNumber}</Text>
+                                    <Text style={{ fontSize: "10px", paddingTop: "2px", flexDirection: "row", fontFamily: "Inter 400", color: "#fff", }}>{data.mobileNumber}</Text>
                                 </View>
                             )}
                             {data?.email && (
@@ -45,7 +45,7 @@ function Template4({ data }) {
                                     <View style={{ height: "24px", display: "flex", alignItems: "center" }}>
                                         <Image style={{ width: "18px", height: "18px" }} src="/images/services/message_blue.png" alt="" />
                                     </View>
-                                    <Text style={{ fontSize: "10px", width: '80%', paddingTop: "2px", flexDirection: "row", fontWeight: 400, color: "#fff", }}>{data.email}</Text>
+                                    <Text style={{ fontSize: "10px", width: '80%', paddingTop: "2px", flexDirection: "row", fontFamily: "Inter 400", color: "#fff", }}>{data.email}</Text>
                                 </View>
                             )}
 
@@ -54,7 +54,7 @@ function Template4({ data }) {
                         <View style={{ height: "24px", flexDirection:"row", alignItems: "center" }}>
                             <Image style={{ width: "18px", height: "18px" }} src="/images/services/location_blue.png" alt="" />
                         </View>
-                        <View style={{ flexDirection:"row", fontSize: "11px", paddingTop: "2px", fontWeight: 400, color: "#fff", }}>{data.sociaLinks}</View>
+                        <View style={{ flexDirection:"row", fontSize: "11px", paddingTop: "2px", fontFamily: "Inter 400", color: "#fff", }}>{data.sociaLinks}</View>
                     </View>
                 )} */}
                             {data?.location && (
@@ -62,7 +62,7 @@ function Template4({ data }) {
                                     <View style={{ height: "24px", flexDirection: "row", alignItems: "center" }}>
                                         <Image style={{ width: "18px", height: "18px" }} src="/images/services/location_blue.png" alt="" />
                                     </View>
-                                    <Text style={{ fontSize: "10px", flexDirection: "row", fontWeight: 400, color: "#fff", }}>{data.location}</Text>
+                                    <Text style={{ fontSize: "10px", flexDirection: "row", fontFamily: "Inter 400", color: "#fff", }}>{data.location}</Text>
                                 </View>
                             )}
                         </View>
@@ -73,7 +73,7 @@ function Template4({ data }) {
                                     <Svg width={180} height={43} viewBox="0 0 180 43">
                                         <Path d="M10.942 32.118H179.514V0.887939H10.942L0.782959 16.5029L10.942 32.118Z" fill="#00AEEF" />
                                         <Path d="M167.942 42.8819L179.514 32.118L167.942 32.1179V42.8819Z" fill="#007DC5" />
-                                        <Text x="10%" y="40%" dominantBaseline="middle" textAnchor="start" fill="white" style={{ fontWeight: '600', fontSize: "14px" }}>
+                                        <Text x="10%" y="40%" dominantBaseline="middle" textAnchor="start" fill="white" style={{ fontFamily: 'Inter 400', fontSize: "14px" }}>
                                             LANGUAGES
                                         </Text>
                                     </Svg>
@@ -83,7 +83,7 @@ function Template4({ data }) {
                                 <View style={{ flexDirection: "column", color: "white", paddingRight: "16px", gap: "8px", justifyContent: "space-between", marginLeft: "16px" }}>
                                     {data?.languages?.map((detail, index) => (
                                         <View key={index} style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", gap: "8px" }}>
-                                            <Text style={{ fontSize: "10px", paddingTop: "2px", flexDirection: "row", fontWeight: 400, color: "#fff", }}>{detail.languages}</Text>
+                                            <Text style={{ fontSize: "10px", paddingTop: "2px", flexDirection: "row", fontFamily: "Inter 400", color: "#fff", }}>{detail.languages}</Text>
                                             <View style={{ flexDirection: "row", gap: "0.25rem", marginTop: "4px" }}>
                                                 {[...Array(3)].map((_, i) => (
                                                     <View key={i}>
@@ -113,7 +113,7 @@ function Template4({ data }) {
                                     <Svg width={180} height={43} viewBox="0 0 180 43">
                                         <Path d="M10.942 32.118H179.514V0.887939H10.942L0.782959 16.5029L10.942 32.118Z" fill="#00AEEF" />
                                         <Path d="M167.942 42.8819L179.514 32.118L167.942 32.1179V42.8819Z" fill="#007DC5" />
-                                        <Text x="10%" y="40%" dominantBaseline="middle" textAnchor="start" fill="white" style={{ fontWeight: '600', fontSize: "14px" }}>
+                                        <Text x="10%" y="40%" dominantBaseline="middle" textAnchor="start" fill="white" style={{ fontFamily: 'Inter 400', fontSize: "14px" }}>
                                             HOBBIES
                                         </Text>
                                     </Svg>
@@ -123,7 +123,7 @@ function Template4({ data }) {
                                 <View style={{ display: "grid", gridTemplateColumns: "2 1fr", gap: " 16px", marginLeft: "16px" }}>
                                     {data?.hobbies?.map((item, index) => (
                                         <View key={index} style={{ color: "white", fontSize: "12px" }}>
-                                            <Text>
+                                            <Text style={{ fontFamily: "Inter 400" }}>
                                                 {item?.title}
                                             </Text>
                                         </View>
@@ -138,12 +138,12 @@ function Template4({ data }) {
                         <View style={{ display: "flex", flexDirection: "row", gap: 8, alignItems: "center", width: "100%" }}>
                             <Image style={{ width: "27px", height: "27px", display: "flex", alignItems: "flex-end" }} src="/images/services/profile_img.png" alt="" />
                             <View style={{ display: "flex", flexDirection: "column", gap: 4, width: "90%" }}>
-                                <Text style={{ color: "#282829", fontWeight: 500, fontSize: "16px" }}>About me</Text>
+                                <Text style={{ color: "#282829", fontFamily: "Inter 400", fontSize: "16px" }}>About me</Text>
                                 <View style={{ height: "1px", width: "95%", backgroundColor: "#282829" }}></View>
                             </View>
                         </View>
                         <View style={{}}>
-                            <Text style={{ color: "#787879", fontSize: "16px", paddingLeft: 8, fontWeight: 400 }}>{data.summery}</Text>
+                            <Text style={{ color: "#787879", fontSize: "16px", paddingLeft: 8, fontFamily: "Inter 400" }}>{data.summery}</Text>
                         </View>
                     </View>
                     <View style={{ display: "flex", flexDirection: "row", gap: 8, width: "100%" }}>
@@ -153,7 +153,7 @@ function Template4({ data }) {
 
                         <View style={{ display: "flex", flexDirection: "column", gap: 24, width: "90%" }}>
                             <View style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-                                <Text style={{ color: "#282829", fontWeight: 500, fontSize: "16px" }}>EDUCATION</Text>
+                                <Text style={{ color: "#282829", fontFamily: "Inter 400", fontSize: "16px" }}>EDUCATION</Text>
                                 <View style={{ height: "1px", marginTop: "4px", width: "95%", backgroundColor: "#282829" }}></View>
                             </View>
                             <View style={{ display: "flex", flexDirection: "column", gap: 16 }} >
@@ -163,14 +163,14 @@ function Template4({ data }) {
                                             <View style={{ display: "flex", flexDirection: "row", gap: 8, alignItems: "center", justifyContent: "space-between" }}>
                                                 <View style={{ display: "flex", flexDirection: "row", gap: 8, alignItems: "center" }} >
                                                     <Text style={{ marginTop: "-1px" }}>{">"}</Text>
-                                                    <Text style={{ color: "#414042", fontSize: "11px", fontWeight: 400, }}>{detail.instituteName}</Text>
+                                                    <Text style={{ color: "#414042", fontSize: "11px", fontFamily: "Inter 400", }}>{detail.instituteName}</Text>
 
                                                 </View>
-                                                <Text style={{ color: "#414042", fontSize: "9px", fontWeight: 400, }}>{" "}{detail.duration?.start?.year}-{detail.duration?.end?.year}</Text>
+                                                <Text style={{ color: "#414042", fontSize: "9px", fontFamily: "Inter 400", }}>{" "}{detail.duration?.start?.year}-{detail.duration?.end?.year}</Text>
                                             </View>
                                             <View style={{ display: "flex", flexDirection: "column", gap: 4 }}>
 
-                                                <Text style={{ color: "#787879", fontSize: "9px", fontWeight: 400 }}>{detail.qualification} - {detail.specialization}</Text>
+                                                <Text style={{ color: "#787879", fontSize: "9px", fontFamily: "Inter 400" }}>{detail.qualification} - {detail.specialization}</Text>
                                             </View>
 
                                         </View>
@@ -186,7 +186,7 @@ function Template4({ data }) {
 
                         <View style={{ display: "flex", flexDirection: "column", gap: 16, width: "90%" }}>
                             <View style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-                                <Text style={{ color: "#282829", fontWeight: 500, fontSize: "16px" }}>EXPERIENCE</Text>
+                                <Text style={{ color: "#282829", fontFamily: "Inter 400", fontSize: "16px" }}>EXPERIENCE</Text>
                                 <View style={{ height: "1px", marginTop: "4px", width: "95%", backgroundColor: "#282829" }}></View>
                             </View>
                             <View style={{ display: "flex", flexDirection: "column", gap: 2 }} >
@@ -196,15 +196,15 @@ function Template4({ data }) {
                                         <View style={{ display: "flex", flexDirection: "row", gap: 8, alignItems: "center", justifyContent: "space-between" }}>
                                             <View style={{ display: "flex", flexDirection: "row", gap: 8, alignItems: "center" }} >
                                                 <Text style={{ marginTop: "-1px" }}>{">"}</Text>
-                                                <Text style={{ color: "#414042", fontSize: "11px", fontWeight: 400, }}>{detail.organization}</Text>
+                                                <Text style={{ color: "#414042", fontSize: "11px", fontFamily: "Inter 400", }}>{detail.organization}</Text>
 
                                             </View>
-                                            <Text style={{ color: "#414042", fontSize: "9px", fontWeight: 400, }}>{" "}{detail.duration?.start?.year}-{" "}{detail.currentlyWorking ? "Present" : detail.duration?.end?.year}</Text>
+                                            <Text style={{ color: "#414042", fontSize: "9px", fontFamily: "Inter 400", }}>{" "}{detail.duration?.start?.year}-{" "}{detail.currentlyWorking ? "Present" : detail.duration?.end?.year}</Text>
                                         </View>
 
 
-                                        <Text style={{ color: "#787879", fontSize: "9px", fontWeight: 400 }}>{detail.designation} </Text>
-                                        <Text style={{ color: "#787879", fontSize: "9px", fontWeight: 400 }}>{detail.description} </Text>
+                                        <Text style={{ color: "#787879", fontSize: "9px", fontFamily: "Inter 400" }}>{detail.designation} </Text>
+                                        <Text style={{ color: "#787879", fontSize: "9px", fontFamily: "Inter 400" }}>{detail.description} </Text>
 
 
                                     </View>
@@ -221,14 +221,14 @@ function Template4({ data }) {
                             <View style={{ display: "flex", flexDirection: "row", gap: 8, alignItems: "center", width: "100%" }}>
                                 <Image style={{ width: "27px", height: "27px", display: "flex", alignItems: "flex-end" }} src="/images/services/profile_img.png" alt="" />
                                 <View style={{ display: "flex", flexDirection: "column", gap: 4, width: "90%" }}>
-                                    <Text style={{ color: "#282829", fontWeight: 500, fontSize: "16px" }}>SKILLS</Text>
+                                    <Text style={{ color: "#282829", fontFamily: "Inter 400", fontSize: "16px" }}>SKILLS</Text>
                                     <View style={{ height: "1px", width: "95%", backgroundColor: "#282829" }}></View>
                                 </View>
                             </View>
                             <View style={{ flexDirection: "column", gap: 8, justifyContent: "space-between", width: "100%" }}>
                                 {data?.skills?.map((detail, index) => (
                                     <View key={index} style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "space-between", gap: "8", width: "100%" }}>
-                                        <Text style={{ fontSize: 12 }}>
+                                        <Text style={{ fontSize: 12, fontFamily: "Inter 400" }}>
                                             {detail.skill}
                                         </Text>
                                         <View style={{ display: "flex", gap: 16, flexDirection: "row", marginTop: "4px" }}>
