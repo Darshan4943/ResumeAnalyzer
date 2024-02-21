@@ -8,38 +8,38 @@ const Template34 = ({ data }) => {
 
                 <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
                     <View style={{ flexDirection: "column", paddingTop: 52, gap: 4 }}>
-                        <Text style={{ fontSize: 36, fontWeight: '400', color: '#6C83B7' }}>{data.firstName ? <>{data.firstName}</> : <>First Name</>}</Text>
-                        <Text style={{ fontSize: 36, fontWeight: '400', color: '#6C83B7' }}>{data.lastName ? <>{data.lastName}</> : <>Last Name</>}</Text>
-                        <Text style={{ fontSize: 13, fontWeight: '500', color: '#606060' }}>{data.designation ? <>{data.designation}</> : <>Designation</>}</Text>
+                        <Text style={{ fontSize: 36,  fontFamily:'Poppins 400', color: '#6C83B7' }}>{data.firstName ? <>{data.firstName}</> : <>First Name</>}</Text>
+                        <Text style={{ fontSize: 36, fontFamily:'Poppins 400', color: '#6C83B7' }}>{data.lastName ? <>{data.lastName}</> : <>Last Name</>}</Text>
+                        <Text style={{ fontSize: 13,  fontFamily:'Montserrat 500', color: '#606060' }}>{data.designation ? <>{data.designation}</> : <>Designation</>}</Text>
                     </View>
                     <View style={{ flexDirection: "column", backgroundColor: "#6C83B7", gap: 4, paddingBottom: 12, paddingTop: 52, paddingLeft: 41, paddingRight: 16, height: 136, width: 161 }}>
-                        <Text style={{ fontSize: 10, fontWeight: '300', color: '#F6F6F6' }}>{data.sociaLinks ? <>{data.sociaLinks}</> : <>Your Websites</>}</Text>
-                        <Text style={{ fontSize: 10, fontWeight: '300', color: '#F6F6F6' }}>{data.email ? <>{data.email}</> : <>Your Email</>}</Text>
-                        <Text style={{ fontSize: 10, fontWeight: '300', color: '#F6F6F6' }}>{data.mobileNumber ? (<>{data.mobileNumber}</>) : (<>Your Phone</>)}</Text>
-                        <Text style={{ fontSize: 10, fontWeight: '300', color: '#F6F6F6' }}>{data.location ? <>{data.location}</> : <>Your Address</>}</Text>
+                        <Text style={{ fontSize: 10,  fontFamily:'Poppins 300', color: '#F6F6F6' }}>{data.sociaLinks ? <>{data.sociaLinks}</> : <>Your Websites</>}</Text>
+                        <Text style={{ fontSize: 10,  fontFamily:'Poppins 300', color: '#F6F6F6' }}>{data.email ? <>{data.email}</> : <>Your Email</>}</Text>
+                        <Text style={{ fontSize: 10,  fontFamily:'Poppins 300', color: '#F6F6F6' }}>{data.mobileNumber ? (<>{data.mobileNumber}</>) : (<>Your Phone</>)}</Text>
+                        <Text style={{ fontSize: 10,  fontFamily:'Poppins 300', color: '#F6F6F6' }}>{data.location ? <>{data.location}</> : <>Your Address</>}</Text>
                     </View>
                 </View>
 
                 <View style={{ flexDirection: "column" }}>
                     <View style={{ width: 492, backgroundColor: "#6C83B7", height: 1 }}></View>
-                    <Text style={{ color: "#000000", fontWeight: 300, fontSize: "9px", paddingTop: 15, paddingLeft: 16, paddingRight: 16 }}>{data.summery ? <>{data.summery}</> : <>About</>}</Text>
+                    <Text style={{ color: "#000000",  fontFamily:'Poppins 300', fontSize: "9px", paddingTop: 15, paddingLeft: 16, paddingRight: 16 }}>{data.summery ? <>{data.summery}</> : <>About</>}</Text>
                 </View>
 
                 <View style={{ flexDirection: "column", gap: 16 }}>
                     <View style={{ backgroundColor: "#6C83B7", flexDirection: "row", gap: 4 }}>
-                        <Text style={{ color: "#F6F6F6", width: 229, paddingLeft: 12, paddingTop: 4, paddingBottom: 4, fontSize: 12, fontWeight: 700 }}>Education </Text>
-                        <Text style={{ color: "#F6F6F6", width: 229, paddingLeft: 12, paddingTop: 4, paddingBottom: 4, fontSize: 12, fontWeight: 700 }}>Experience </Text>
+                        <Text style={{ color: "#F6F6F6", width: 229, paddingLeft: 12, paddingTop: 4, paddingBottom: 4, fontSize: 12,  fontFamily:'Poppins 700', }}>Education </Text>
+                        <Text style={{ color: "#F6F6F6", width: 229, paddingLeft: 12, paddingTop: 4, paddingBottom: 4, fontSize: 12,  fontFamily:'Poppins 700', }}>Experience </Text>
                     </View>
                     <View style={{ flexDirection: "row", gap: 20 }}>
                         <View style={{ flexDirection: "column", gap: 16 }}>
                             {data?.education?.map((detail, index) => (
                                 <View style={{ flexDirection: "column", gap: 6, width: 217, paddingLeft: 12 }}>
                                     <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-                                        <Text style={{ fontSize: 10, fontWeight: 500, color: "#4C4C4C" }}>{detail.qualification ? (<>{detail.qualification}</>) : (<>Qualification</>)}</Text>
-                                        <Text style={{ fontSize: 10, fontWeight: 500, color: "#6C83B7" }}>{detail.duration?.start?.year}-{detail.duration?.end?.year}</Text>
+                                        <Text style={{ fontSize: 10,  fontFamily:'Poppins 500', color: "#4C4C4C" }}>{detail.qualification ? (<>{detail.qualification}</>) : (<>Qualification</>)}</Text>
+                                        <Text style={{ fontSize: 10,  fontFamily:'Poppins 700', color: "#6C83B7" }}>{detail.duration?.start?.year}-{detail.duration?.end?.year}</Text>
                                     </View>
                                     <View>
-                                        <Text style={{ fontSize: 10, fontWeight: 300, color: "#4C4C4C" }}>{detail.instituteName ? (<>{detail.instituteName}</>) : (<>institute Name</>)}</Text>
+                                        <Text style={{ fontSize: 10,  fontFamily:'Poppins 300', color: "#4C4C4C" }}>{detail.instituteName ? (<>{detail.instituteName}</>) : (<>institute Name</>)}</Text>
                                     </View>
                                 </View>
                             ))}
@@ -48,12 +48,12 @@ const Template34 = ({ data }) => {
                             {data?.experience?.map((detail, index) => (
                                 <View style={{ flexDirection: "column", gap: 6, width: 217, paddingLeft: 12 }}>
                                     <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-                                        <Text style={{ fontSize: 10, fontWeight: 500, color: "#4C4C4C" }}>{detail.designation ? (<>{detail.designation}</>) : (<>Designation</>)}</Text>
-                                        <Text style={{ fontSize: 10, fontWeight: 500, color: "#6C83B7" }}>{detail.duration?.start?.year}-{detail.currentlyWorking ? "Present" : detail.duration?.end?.year}</Text>
+                                        <Text style={{ fontSize: 10,  fontFamily:'Poppins 500', color: "#4C4C4C" }}>{detail.designation ? (<>{detail.designation}</>) : (<>Designation</>)}</Text>
+                                        <Text style={{ fontSize: 10,  fontFamily:'Poppins 700', color: "#6C83B7" }}>{detail.duration?.start?.year}-{detail.currentlyWorking ? "Present" : detail.duration?.end?.year}</Text>
                                     </View>
                                     <View style={{ flexDirection: "column", gap: 2, }}>
-                                        <Text style={{ fontSize: 10, fontWeight: 300, color: "#4C4C4C" }}>{detail.organization ? (<>{detail.organization}</>) : (<>organization</>)}</Text>
-                                        <Text style={{ fontSize: 10, fontWeight: 300, color: "#4C4C4C" }}>{detail.description ? (<>{detail.description}</>) : (<>Description</>)}</Text>
+                                        <Text style={{ fontSize: 10,  fontFamily:'Poppins 300', color: "#4C4C4C" }}>{detail.organization ? (<>{detail.organization}</>) : (<>organization</>)}</Text>
+                                        <Text style={{ fontSize: 10,  fontFamily:'Poppins 300', color: "#4C4C4C" }}>{detail.description ? (<>{detail.description}</>) : (<>Description</>)}</Text>
                                     </View>
                                 </View>
                             ))}
@@ -62,8 +62,8 @@ const Template34 = ({ data }) => {
                 </View>
 
                 <View style={{ backgroundColor: "#6C83B7", flexDirection: "row", gap: 4 }}>
-                    <Text style={{ color: "#F6F6F6", width: 229, paddingLeft: 12, paddingTop: 4, paddingBottom: 4, fontSize: 12, fontWeight: 700 }}>skills </Text>
-                    <Text style={{ color: "#F6F6F6", width: 229, paddingLeft: 12, paddingTop: 4, paddingBottom: 4, fontSize: 12, fontWeight: 700 }}>Language </Text>
+                    <Text style={{ color: "#F6F6F6", width: 229, paddingLeft: 12, paddingTop: 4, paddingBottom: 4, fontSize: 12,  fontFamily:'Poppins 700', }}>skills </Text>
+                    <Text style={{ color: "#F6F6F6", width: 229, paddingLeft: 12, paddingTop: 4, paddingBottom: 4, fontSize: 12,  fontFamily:'Poppins 700', }}>Language </Text>
                 </View>
 
                 <View style={{ flexDirection: "row", gap: 14 }}>
@@ -108,7 +108,7 @@ const Template34 = ({ data }) => {
                                             style={{
                                                 color: "#4C4C4C",
                                                 fontSize: "10px",
-                                                fontWeight: "400",
+                                                fontFamily:'Poppins 400',
                                                 width: "80px",
                                             }}
                                         >
@@ -157,7 +157,7 @@ const Template34 = ({ data }) => {
                             return (
                                 <View style={{ width: "100%", flexDirection: "column" }} key={index}>
                                     <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
-                                        <Text style={{ fontSize: 10, fontWeight: 400, color: "#4C4C4C" }}>{detail.languages}
+                                        <Text style={{ fontSize: 10,  fontFamily:'Poppins 400', color: "#4C4C4C" }}>{detail.languages}
                                         </Text>
                                         <View style={{ width: "59.21%", height: 3.78, alignSelf: "flex-end", marginBottom: 1, backgroundColor: "#fff" }}>
                                             <View

@@ -17,16 +17,16 @@ const Template41 = ({ data }) => {
                         </View>
                         <View style={{ flexDirection: "column", gap: 8 }}>
                             <View style={{ flexDirection: "column" }}>
-                                <Text style={{ fontSize: 26, fontWeight: 400, color: "#000000" }}>{data.firstName ? <>{data.firstName}</> : <>First Name</>}</Text>
-                                <Text style={{ fontSize: 26, fontWeight: 400, color: "#000000" }}>{data.lastName ? <>{data.lastName}</> : <>Last Name</>}</Text>
+                                <Text style={{ fontSize: 26, fontFamily:'Inter 400', color: "#000000" }}>{data.firstName ? <>{data.firstName}</> : <>First Name</>}</Text>
+                                <Text style={{ fontSize: 26, fontFamily:'Inter 400', color: "#000000" }}>{data.lastName ? <>{data.lastName}</> : <>Last Name</>}</Text>
                             </View>
                             <View style={{ width: 162, height: 1, backgroundColor: "#000000" }}></View>
-                            <Text style={{ fontSize: 11, fontWeight: 400, color: "#000000" }}>{data.designation ? <>{data.designation}</> : <>Designation</>}</Text>
+                            <Text style={{ fontSize: 11, fontFamily:'Inter 400',color: "#000000" }}>{data.designation ? <>{data.designation}</> : <>Designation</>}</Text>
                         </View>
                     </View>
                     <View style={{ width: "100%", flexDirection: "column", gap: 8 }}>
                         <View>
-                            <Text style={{ fontSize: 14, fontWeight: 400, color: "#000000" }}>CONTACT</Text>
+                            <Text style={{ fontSize: 14,  fontFamily:'Inter 400', color: "#000000" }}>CONTACT</Text>
                         </View>
                         <View style={{ flexDirection: "column", gap: 6 }}>
                             <View style={{ flexDirection: "row", gap: 4, padding: 4, backgroundColor: "#FFFFFF", display: "flex", alignItems: "center" }}>
@@ -53,7 +53,7 @@ const Template41 = ({ data }) => {
                                 <Svg width="11" height="10" viewBox="0 0 11 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <Path d="M5.91043 4.91893C5.68734 5.13342 5.39295 5.24114 5.09856 5.24114C4.80416 5.24114 4.51079 5.13342 4.28669 4.91893C3.83848 4.48799 3.83848 3.78673 4.28669 3.35677C4.50366 3.14816 4.79194 3.03256 5.09856 3.03256C5.40517 3.03256 5.69345 3.14816 5.91043 3.35677C6.35863 3.78673 6.35863 4.48799 5.91043 4.91893ZM5.09856 1.57227C3.61437 1.57227 2.40625 2.73385 2.40625 4.16085C2.40625 5.95415 5.10161 9.01871 5.10161 9.01871C5.10161 9.01871 7.79086 5.866 7.79086 4.16085C7.79086 2.73385 6.58274 1.57227 5.09856 1.57227Z" fill="black" />
                                 </Svg>
-                                <Text style={{ fontSize: 9, fontWeight: 400, color: "#000000", backgroundColor: "#FFFFFF" }}>{data.location ? <>{data.location}</> : <>Your Address</>}</Text>
+                                <Text style={{ fontSize: 9, fontFamily:'Inter 400',color: "#000000", backgroundColor: "#FFFFFF" }}>{data.location ? <>{data.location}</> : <>Your Address</>}</Text>
                             </View>
                         </View>
                     </View>
@@ -105,7 +105,7 @@ const Template41 = ({ data }) => {
                                                 style={{
                                                     color: "#414142",
                                                     fontSize: "12px",
-                                                    fontWeight: "300",
+                                                    fontFamily:'Inter 400',
                                                     width: "80px",
                                                 }}
                                             >
@@ -137,20 +137,20 @@ const Template41 = ({ data }) => {
                         </View>
                     </View>
                     <View style={{ flexDirection: "column", gap: 8 }}>
-                        <View><Text style={{ fontSize: 14, fontWeight: 400, color: "#000000" }}>INTERESTS</Text></View>
+                        <View><Text style={{ fontSize: 14,  fontFamily:'Inter 400', color: "#000000" }}>INTERESTS</Text></View>
                         <View style={{ flexDirection: "column", gap: 8 }}>
                             {data?.hobbies?.map((item, index) => (
                                 <View style={{ flexDirection: "row", gap: 8, alignItems: "center" }}>
                                     <Svg width="4" height="4" viewBox="0 0 4 4" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <Path d="M1.94663 3.64648C2.88365 3.64648 3.64325 2.88615 3.64325 1.94824C3.64325 1.01033 2.88365 0.25 1.94663 0.25C1.00961 0.25 0.25 1.01033 0.25 1.94824C0.25 2.88615 1.00961 3.64648 1.94663 3.64648Z" fill="black" />
                                     </Svg>
-                                    <Text style={{ fontSize: 10, fontWeight: 400, color: "#000000" }}>{item?.title}</Text>
+                                    <Text style={{ fontSize: 10,  fontFamily:'Inter 400', color: "#000000" }}>{item?.title}</Text>
                                 </View>
                             ))}
                         </View>
                     </View>
                     <View style={{ flexDirection: "column", gap: 8 }}>
-                        <Text style={{ fontSize: "14px", fontWeight: "400", color: "#000000" }}>LANGUAGES</Text>
+                        <Text style={{ fontSize: "14px",  fontFamily:'Inter 400', color: "#000000" }}>LANGUAGES</Text>
                         <View style={{ flexDirection: "column", gap: 8 }}>
                             {data?.languages?.length > 0 && (
                                 <>
@@ -195,7 +195,7 @@ const Template41 = ({ data }) => {
                                                         style={{
                                                             color: "#414142",
                                                             fontSize: "12px",
-                                                            fontWeight: "300",
+                                                            fontFamily:'Inter 400',
                                                             width: "80px",
                                                         }}
                                                     >
@@ -231,23 +231,23 @@ const Template41 = ({ data }) => {
                 </View>
                 <View style={{ width: 377, display: "flex", flexDirection: "column", gap: 28, paddingTop: 32, paddingLeft: 20, paddingRight: 32, paddingBottom: 32, }}>
                     <View style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-                        <Text style={{ fontSize: 14, fontWeight: 400, color: "#000000" }}>ABOUT ME</Text>
-                        <Text style={{ fontSize: 10, fontWeight: 400, color: "#000000" }}>{data.summery ? <>{data.summery}</> : <>About</>}</Text>
+                        <Text style={{ fontSize: 14,  fontFamily:'Inter 400', color: "#000000" }}>ABOUT ME</Text>
+                        <Text style={{ fontSize: 10,  fontFamily:'Inter 400', color: "#000000" }}>{data.summery ? <>{data.summery}</> : <>About</>}</Text>
                     </View>
                     <View style={{ display: "flex", flexDirection: "column", gap: 8 }}>
                         <View style={{ display: "flex", flexDirection: "column", gap: 8 }}>
                             <View>
-                                <Text style={{ fontSize: 14, fontWeight: 400, color: "#000000" }}>WORK EXPERIENCE</Text>
+                                <Text style={{ fontSize: 14,  fontFamily:'Inter 400',color: "#000000" }}>WORK EXPERIENCE</Text>
                             </View>
                             {data?.experience?.map((detail, index) => (
                                 <View style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-                                    <Text style={{ fontSize: 14, fontWeight: 400, color: "#000000" }}>{detail.designation ? (<>{detail.designation}</>) : (<>Designation</>)}</Text>
+                                    <Text style={{ fontSize: 14, fontFamily:'Inter 400', color: "#000000" }}>{detail.designation ? (<>{detail.designation}</>) : (<>Designation</>)}</Text>
                                     <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-                                        <Text style={{ fontSize: 12, fontWeight: 400, color: "#000000" }}>{detail.organization ? (<>{detail.organization}</>) : (<>organization</>)} </Text>
-                                        <Text style={{ fontSize: 12, fontWeight: 400, color: "#000000" }}>{detail.duration?.start?.year}-{detail.currentlyWorking ? "Present" : detail.duration?.end?.year}</Text>
+                                        <Text style={{ fontSize: 12,  fontFamily:'Inter 400', color: "#000000" }}>{detail.organization ? (<>{detail.organization}</>) : (<>organization</>)} </Text>
+                                        <Text style={{ fontSize: 12,  fontFamily:'Inter 400', color: "#000000" }}>{detail.duration?.start?.year}-{detail.currentlyWorking ? "Present" : detail.duration?.end?.year}</Text>
                                     </View>
                                     <View style={{ flexDirection: "column", gap: 8 }}>
-                                        <Text style={{ fontSize: 10, fontWeight: 400, color: "#000000" }}>{detail.description ? (<>{detail.description}</>) : (<>Description</>)}</Text>
+                                        <Text style={{ fontSize: 10,  fontFamily:'Inter 400',color: "#000000" }}>{detail.description ? (<>{detail.description}</>) : (<>Description</>)}</Text>
                                     </View>
                                 </View>
                             ))}
@@ -255,14 +255,14 @@ const Template41 = ({ data }) => {
                     </View>
                     <View style={{ flexDirection: "column", gap: 8, width: "100%" }}>
                         <View>
-                            <Text style={{ fontSize: 14, fontWeight: 400, color: "#000000" }}>EDUCATION</Text>
+                            <Text style={{ fontSize: 14,  fontFamily:'Inter 400', color: "#000000" }}>EDUCATION</Text>
                         </View>
                         <View style={{ display: "flex", flexDirection: "row",flexWrap:"wrap", gap: 10,  }}>
                             {data?.education?.map((detail, index) => (
                                 <View style={{ width: "45%",  borderRight: index % 2 === 0 ? "1px solid #000000" : "none",paddingLeft: index%2!==0 ? "16" : "none"}}>
-                                    <Text style={{ fontSize: 12, fontWeight: 400, color: "#000000" }}>{detail.qualification}</Text>
-                                    <Text style={{ fontSize: 10, fontWeight: 400, color: "#000000" }}>{detail.instituteName}</Text>
-                                    <Text style={{ fontSize: 10, fontWeight: 400, color: "#000000" }}>{detail.duration?.start?.year}-{detail.duration?.end?.year}</Text>
+                                    <Text style={{ fontSize: 12,  fontFamily:'Inter 400', color: "#000000" }}>{detail.qualification}</Text>
+                                    <Text style={{ fontSize: 10,  fontFamily:'Inter 400', color: "#000000" }}>{detail.instituteName}</Text>
+                                    <Text style={{ fontSize: 10,  fontFamily:'Inter 400', color: "#000000" }}>{detail.duration?.start?.year}-{detail.duration?.end?.year}</Text>
                                 </View>
                             ))}
                         </View>
