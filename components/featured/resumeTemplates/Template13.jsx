@@ -17,7 +17,7 @@ function Template13({ data }) {
                             <Text
                                 style={{
                                     fontSize: 34,
-                                    fontWeight: "700",
+                                    fontFamily: "700",
                                     color: "#333333",
                                     marginBottom: 4,
                                 }}
@@ -28,7 +28,7 @@ function Template13({ data }) {
                                 <Text
                                     style={{
                                         fontSize: 20,
-                                        fontWeight: "500",
+                                        fontFamily: "500",
                                         color: "#0E6CC2",
                                     }}
                                 >{data.designation}
@@ -36,7 +36,7 @@ function Template13({ data }) {
                                 <Text
                                     style={{
                                         fontSize: 14,
-                                        fontWeight: "400",
+                                        fontFamily: "400",
                                         color: "#333333",
                                     }}
                                 >
@@ -63,7 +63,7 @@ function Template13({ data }) {
                                 <Text
                                     style={{
                                         fontSize: 14,
-                                        fontWeight: "500",
+                                        fontFamily: "500",
                                         color: "#949494",
                                     }}
                                 >
@@ -72,64 +72,64 @@ function Template13({ data }) {
                                 <Text
                                     style={{
                                         fontSize: 14,
-                                        fontWeight: "600",
+                                        fontFamily: "600",
                                         color: "#333333",
                                     }}
                                 >
                                     {data.email}
                                 </Text>
 
-                                </View>
-                                <View style={{
-                                    flexDirection: "column",
-                                    gap: 8
-                                }}>
-
-                                    <Text
-                                        style={{
-                                            fontSize: 14,
-                                            fontWeight: "500",
-                                            color: "#949494",
-                                        }}
-                                    >
-                                        Location
-                                    </Text>
-                                    <Text
-                                        style={{
-                                            fontSize: 14,
-                                            fontWeight: "600",
-                                            color: "#333333",
-                                        }}
-                                    >
-                                        {data.location}
-                                    </Text>
-
-                                </View>
-                                <View style={{
-                                    flexDirection: "column",
-                                    gap: 8
-                                }}>
-                                    <Text
-                                        style={{
-                                            fontSize: 14,
-                                            fontWeight: "500",
-                                            color: "#949494",
-                                        }}
-                                    >
-                                        Phone
-                                    </Text>
-                                    <Text
-                                        style={{
-                                            fontSize: 14,
-                                            fontWeight: "600",
-                                            color: "#333333",
-                                        }}
-                                    >
-                                        {data.mobileNumber}
-                                    </Text>
-                                </View>
                             </View>
-                        
+                            <View style={{
+                                flexDirection: "column",
+                                gap: 8
+                            }}>
+
+                                <Text
+                                    style={{
+                                        fontSize: 14,
+                                        fontFamily: "500",
+                                        color: "#949494",
+                                    }}
+                                >
+                                    Location
+                                </Text>
+                                <Text
+                                    style={{
+                                        fontSize: 14,
+                                        fontFamily: "600",
+                                        color: "#333333",
+                                    }}
+                                >
+                                    {data.location}
+                                </Text>
+
+                            </View>
+                            <View style={{
+                                flexDirection: "column",
+                                gap: 8
+                            }}>
+                                <Text
+                                    style={{
+                                        fontSize: 14,
+                                        fontFamily: "500",
+                                        color: "#949494",
+                                    }}
+                                >
+                                    Phone
+                                </Text>
+                                <Text
+                                    style={{
+                                        fontSize: 14,
+                                        fontFamily: "600",
+                                        color: "#333333",
+                                    }}
+                                >
+                                    {data.mobileNumber}
+                                </Text>
+                            </View>
+                        </View>
+
                     </View>
 
 
@@ -139,7 +139,7 @@ function Template13({ data }) {
                             <Text
                                 style={{
                                     fontSize: 20,
-                                    fontWeight: "500",
+                                    fontFamily: "500",
                                     color: "#0E6CC2",
 
                                 }}
@@ -151,7 +151,7 @@ function Template13({ data }) {
                                     <Text
                                         style={{
                                             fontSize: 18,
-                                            fontWeight: "700",
+                                            fontFamily: "700",
                                             color: "#333333",
                                         }}
                                     >
@@ -160,7 +160,7 @@ function Template13({ data }) {
                                     <Text
                                         style={{
                                             fontSize: 14,
-                                            fontWeight: "400",
+                                            fontFamily: "400",
                                             color: "#797979",
                                         }}
                                     >
@@ -170,7 +170,7 @@ function Template13({ data }) {
                                     <Text
                                         style={{
                                             fontSize: 14,
-                                            fontWeight: "400",
+                                            fontFamily: "400",
                                             color: "#333333",
                                         }}
                                     >
@@ -186,7 +186,7 @@ function Template13({ data }) {
                                 <Text
                                     style={{
                                         fontSize: 20,
-                                        fontWeight: "500",
+                                        fontFamily: "500",
                                         color: "#0E6CC2",
                                     }}
                                 >
@@ -197,7 +197,7 @@ function Template13({ data }) {
                                         <Text
                                             style={{
                                                 fontSize: 16,
-                                                fontWeight: "700",
+                                                fontFamily: "700",
                                                 color: "#333333"
                                             }}
                                         >
@@ -206,7 +206,7 @@ function Template13({ data }) {
                                         <Text
                                             style={{
                                                 fontSize: 16,
-                                                fontWeight: "400",
+                                                fontFamily: "400",
                                                 color: "#797979"
                                             }}
                                         >
@@ -225,7 +225,7 @@ function Template13({ data }) {
                                     <Text
                                         style={{
                                             fontSize: 20,
-                                            fontWeight: "500",
+                                            fontFamily: "500",
                                             color: "#0E6CC2",
                                         }}
                                     >
@@ -237,7 +237,7 @@ function Template13({ data }) {
                                             <Text
                                                 style={{
                                                     fontSize: 14,
-                                                    fontWeight: "400",
+                                                    fontFamily: "400",
                                                     color: "#333333",
                                                     lineHeight: 1.2
                                                 }}
@@ -256,7 +256,7 @@ function Template13({ data }) {
                                     <Text
                                         style={{
                                             fontSize: 20,
-                                            fontWeight: "500",
+                                            fontFamily: "500",
                                             color: "#0E6CC2",
                                         }}
                                     >
@@ -268,7 +268,7 @@ function Template13({ data }) {
                                             <Text
                                                 style={{
                                                     fontSize: 14,
-                                                    fontWeight: "400",
+                                                    fontFamily: "400",
                                                     color: "#333333",
                                                     lineHeight: 1.2
                                                 }}
@@ -287,7 +287,7 @@ function Template13({ data }) {
                                     <Text
                                         style={{
                                             fontSize: 20,
-                                            fontWeight: "500",
+                                            fontFamily: "500",
                                             color: "#0E6CC2",
                                         }}
                                     >
@@ -299,7 +299,7 @@ function Template13({ data }) {
                                             <Text
                                                 style={{
                                                     fontSize: 14,
-                                                    fontWeight: "400",
+                                                    fontFamily: "400",
                                                     color: "#333333",
                                                     lineHeight: 1.2
                                                 }}
