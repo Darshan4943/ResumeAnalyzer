@@ -67,7 +67,7 @@ function Template5({ data }) {
               <Text
                 style={{
                   fontSize: "17px",
-                  fontWeight: "400",
+                  fontFamily: "Kanit 400",
                   color: "#F9F9F9",
                 }}
               >
@@ -101,7 +101,7 @@ function Template5({ data }) {
                 <Text
                   style={{
                     fontSize: "12px",
-                    fontWeight: "300",
+                    fontFamily: "Kanit 300",
                     color: "#414142",
                   }}
                 >
@@ -137,7 +137,7 @@ function Template5({ data }) {
                   <Text
                     style={{
                       fontSize: "12px",
-                      fontWeight: "300",
+                      fontFamily: "Kanit 300",
                       color: "#414142",
                     }}
                   >
@@ -174,7 +174,7 @@ function Template5({ data }) {
                   <Text
                     style={{
                       fontSize: "12px",
-                      fontWeight: "300",
+                      fontFamily: "Kanit 300",
                       color: "#414142",
                     }}
                   >
@@ -213,11 +213,11 @@ function Template5({ data }) {
                   />
                 </Svg>
 
-                {data.mobileNumber && (
+                {data.location && (
                   <Text
                     style={{
                       fontSize: "12px",
-                      fontWeight: "300",
+                      fontFamily: "Kanit 300",
                       color: "#414142",
                     }}
                   >
@@ -240,7 +240,7 @@ function Template5({ data }) {
               <Text
                 style={{
                   fontSize: "17px",
-                  fontWeight: "400",
+                  fontFamily: "Kanit 400",
                   color: "#F9F9F9",
                 }}
               >
@@ -306,7 +306,7 @@ function Template5({ data }) {
                               style={{
                                 color: "#414142",
                                 fontSize: "12px",
-                                fontWeight: "300",
+                                fontFamily: "Kanit 300",
                                 width: "80px",
                               }}
                             >
@@ -351,7 +351,7 @@ function Template5({ data }) {
               <Text
                 style={{
                   fontSize: "17px",
-                  fontWeight: "400",
+                  fontFamily: "Kanit 400",
                   color: "#F9F9F9",
                 }}
               >
@@ -407,6 +407,7 @@ function Template5({ data }) {
                               color: "#414142",
                               fontSize: "12px",
                               width: "80px",
+                              fontFamily: "Kanit 300"
                             }}
                           >
                             {detail.languages}
@@ -468,7 +469,7 @@ function Template5({ data }) {
               style={{
                 color: "#2B2A2A",
                 fontSize: "26.33px",
-                fontWeight: "600",
+                fontFamily: "Kanit 600",
               }}
             >
               JOHN DOE
@@ -477,7 +478,7 @@ function Template5({ data }) {
               style={{
                 color: "#316059",
                 fontSize: "18.96px",
-                fontWeight: "275",
+                fontFamily: "Kanit 275",
               }}
             >
               COMMUNITY MANAGER
@@ -500,7 +501,7 @@ function Template5({ data }) {
                 style={{
                   color: "#F9F9F9",
                   fontSize: "17px",
-                  fontWeight: "400",
+                  fontFamily: "Kanit 400",
                 }}
               >
                 About Me
@@ -508,7 +509,7 @@ function Template5({ data }) {
               <Text
                 style={{
                   fontSize: "11px",
-                  fontWeight: "300",
+                  fontFamily: "Kanit 300",
                   color: "#E2E2E2",
                   paddingLeft: "15px",
                   paddingTop: "25px",
@@ -534,7 +535,7 @@ function Template5({ data }) {
               <Text
                 style={{
                   fontSize: "17px",
-                  fontWeight: "400",
+                  fontFamily: "Kanit 400",
                   color: "#F9F9F9",
                   paddingBottom: "27px",
                 }}
@@ -570,7 +571,7 @@ function Template5({ data }) {
                       <Text
                         style={{
                           fontSize: "11px",
-                          fontWeight: "400",
+                          fontFamily: "Kanit 400",
                           color: "#F9F9F9",
                         }}
                       >
@@ -580,7 +581,7 @@ function Template5({ data }) {
                     <Text
                       style={{
                         fontSize: "9px",
-                        fontWeight: "300",
+                        fontFamily: "Kanit 300",
                         color: "#F2F2F2",
                         paddingLeft: "10px",
                       }}
@@ -590,7 +591,7 @@ function Template5({ data }) {
                     <Text
                       style={{
                         fontSize: "7px",
-                        fontWeight: "400",
+                        fontFamily: "Kanit 400",
                         color: "#F9F9F9",
                         paddingLeft: "10px",
                       }}
@@ -619,7 +620,7 @@ function Template5({ data }) {
               <Text
                 style={{
                   fontSize: "17px",
-                  fontWeight: "400",
+                  fontFamily: "Kanit 400",
                   color: "#F9F9F9",
                   paddingBottom: "27px",
                 }}
@@ -655,7 +656,7 @@ function Template5({ data }) {
                       <Text
                         style={{
                           fontSize: "11px",
-                          fontWeight: "400",
+                          fontFamily: "Kanit 400",
                           color: "#F9F9F9",
                         }}
                       >
@@ -666,7 +667,7 @@ function Template5({ data }) {
                     <Text
                       style={{
                         fontSize: "7px",
-                        fontWeight: "400",
+                        fontFamily: "Kanit 400",
                         color: "#F9F9F9",
                         paddingLeft: "10px",
                       }}
@@ -679,7 +680,7 @@ function Template5({ data }) {
                     <Text
                       style={{
                         fontSize: "11px",
-                        fontWeight: "300",
+                        fontFamily: "Kanit 300",
                         color: "#F2F2F2",
                         paddingLeft: "10px",
                         paddingTop: "17px",

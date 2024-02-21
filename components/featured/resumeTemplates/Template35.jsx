@@ -14,7 +14,7 @@ function Template35({ data }) {
           <View style={{ flexDirection: "column", gap: 12 }}>
             <Text style={{ fontWeight: 400, fontSize: 12, color: "#B3977F" }}>PROFILE</Text>
             <View style={{ width: "100%", height: 1, backgroundColor: "#B3977F" }}></View>
-            <Text style={{ fontWeight: 400, fontSize: 9, color: "#B3977F" }}>{data.summery ? <>{data.summery}</> : <>About</>}</Text>
+            <Text style={{ fontWeight: 400, fontSize: 9, color: "#B3977F" }}>{data.summery ? (<>{data.summery}</>) :( <>About</>)}</Text>
           </View>
           <View style={{ flexDirection: "column", gap: 12 }}>
             <Text style={{ fontWeight: 400, fontSize: 12, color: "#B3977F" }}>EXPERIENCE</Text>
