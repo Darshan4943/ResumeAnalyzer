@@ -10,10 +10,10 @@ const Template12 = ({ data }) => {
           <View style={{ backgroundColor: "#0C2438", width: '595', position: 'relative', height: 176 }}>
             <View style={{ backgroundColor: "#2EA0D7", position: 'absolute', width: 495, bottom: 0, height: 75 }}>
               <View style={{ flexDirection: "column", paddingLeft: 40, gap: 4, paddingTop: 5 }}>
-                <Text style={{ fontSize: "30px", color: '#fff', fontFamily: "Lato 4000" }}>
+                <Text style={{ fontSize: "30px", color: '#fff', fontFamily: "Lato 400" }}>
                   {data.firstName} {data.lastName}
                 </Text>
-                <Text style={{ fontSize: "16", color: '#fff', fontFamily: "Lato 4000" }}>
+                <Text style={{ fontSize: "16", color: '#fff', fontFamily: "Lato 400" }}>
                   {data.designation}
                 </Text>
               </View>
