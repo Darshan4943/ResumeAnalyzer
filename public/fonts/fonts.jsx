@@ -47,6 +47,16 @@ Font.register({
 });
 Font.register({
 
+    family: 'Barlow 300',
+    src: `https://freedygo-storage-bucket-production.s3.ap-south-1.amazonaws.com/fonts/Barlow-Thin.ttf`,
+});
+Font.register({
+
+    family: 'Barlow Italic 500',
+    src: `https://freedygo-storage-bucket-production.s3.ap-south-1.amazonaws.com/fonts/Barlow-MediumItalic.ttf`,
+});
+Font.register({
+
     family: 'Barlow Condensed 700',
     src: `https://freedygo-storage-bucket-production.s3.ap-south-1.amazonaws.com/fonts/BarlowCondensed-Bold.ttf`,
 });
@@ -69,7 +79,12 @@ Font.register({
 
 Font.register({
 
-    family: 'GOTHIC 400',
+    family: 'Barlow Condensed 300',
+    src: `https://freedygo-storage-bucket-production.s3.ap-south-1.amazonaws.com/fonts/BarlowCondensed-Thin.ttf`,
+});
+Font.register({
+
+    family: 'Gothic 400',
     src: `https://freedygo-storage-bucket-production.s3.ap-south-1.amazonaws.com/fonts/GOTHIC.TTF`,
 });
 

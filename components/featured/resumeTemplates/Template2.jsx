@@ -21,9 +21,9 @@ function Template2({ data }) {
                                         <Text style={{ color: '#272128', fontSize: '12', fontFamily: "Barlow 600", maxWidth: '80%' }}>{detail.qualification}</Text>
                                         <Text style={{ color: '#272128', fontSize: '12', fontFamily: "Barlow 500", maxWidth: '80%' }}>{detail.specialization}</Text>
                                         <Text style={{ color: '#272128', fontSize: '12', fontFamily: "Barlow 300", maxWidth: '80%' }}>{detail.instituteName}</Text>
-                                        <Text style={{ color: '#272128', fontSize: '12', fontFamily: "Barlow Italic 400", maxWidth: '80%' }}>
+                                        <Text style={{ color: '#272128', fontSize: '12', fontFamily: "Barlow Italic 500", maxWidth: '80%' }}>
                                             {detail.duration?.end?.year &&
-                                                <Text style={{ color: '#272128', fontSize: '10', fontFamily: "Barlow Italic 400", maxWidth: '80%' }}>
+                                                <Text style={{ color: '#272128', fontSize: '10', fontFamily: "Barlow Italic 500", maxWidth: '80%' }}>
                                                     {detail.duration?.start?.year}-
                                                     {detail.duration?.end?.year}
                                                 </Text>
