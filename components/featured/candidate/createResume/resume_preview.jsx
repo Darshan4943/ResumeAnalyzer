@@ -55,6 +55,12 @@ import Template37 from "../../resumeTemplates/Template37";
 import Template41 from "../../resumeTemplates/Template41";
 import Template42 from "../../resumeTemplates/Template42";
 import Template43 from "../../resumeTemplates/Template43";
+import Template49 from "../../resumeTemplates/Template49";
+import Template51 from "../../resumeTemplates/Template51";
+import Template53 from "../../resumeTemplates/Template53";
+import Template54 from "../../resumeTemplates/Template54";
+
+
 
 
 
@@ -71,8 +77,10 @@ import Template23 from "../../resumeTemplates/Template23";
 import Template26 from "../../resumeTemplates/Template26";
 import Template27 from "../../resumeTemplates/Template27";
 import Template45 from "../../resumeTemplates/Template45";
-
+import Fonts from "@/public/fonts/fonts";
+<Fonts/>
 const ResumePreview = ({ data, isSetEdit }) => {
+
   const userDataGlobal = useSelector((state) => state.userData);
   const dispatch = useDispatch();
   const resumeRef = useRef();
@@ -181,6 +189,19 @@ const ResumePreview = ({ data, isSetEdit }) => {
         return <Template45 data={data} />;
       case 47:
         return <Template47 data={data} />;
+      case 48:
+        return <Template48 data={data} />;
+      case 49:
+        return <Template49 data={data} />;
+      case 50:
+        return <Template50 data={data} />;
+        case 51:
+          return <Template51 data={data} />;
+          case 53:
+          return <Template53 data={data} />;
+          case 54:
+          return <Template54 data={data} />;
+
       default:
         return <Template1 data={data} />;
     }
@@ -512,6 +533,44 @@ const ResumePreview = ({ data, isSetEdit }) => {
               className="h-[200px] w-[140.91px] rounded-[6px]"
               alt=""
               onClick={() => togglePreview(true, 47)}
+            />
+
+              <img
+              src="/images/services/template48.png"
+              className="h-[200px] w-[140.91px] rounded-[6px]"
+              alt=""
+              onClick={() => togglePreview(true, 48)}
+            />
+       
+            <img
+              src="/images/services/template49.png"
+              className="h-[200px] w-[140.91px] rounded-[6px]"
+              alt=""
+              onClick={() => togglePreview(true, 49)}
+            />
+            <img
+              src="/images/services/template50.png"
+              className="h-[200px] w-[140.91px] rounded-[6px]"
+              alt=""
+              onClick={() => togglePreview(true, 50)}
+            />
+            <img
+              src="/images/services/template51.png"
+              className="h-[200px] w-[140.91px] rounded-[6px]"
+              alt=""
+              onClick={() => togglePreview(true, 51)}
+            />
+             <img
+              src="/images/services/template53.png"
+              className="h-[200px] w-[140.91px] rounded-[6px]"
+              alt=""
+              onClick={() => togglePreview(true, 53)}
+            />
+             <img
+              src="/images/services/template54.png"
+              className="h-[200px] w-[140.91px] rounded-[6px]"
+              alt=""
+              onClick={() => togglePreview(true, 54)}
             />
           </div>
         </div>

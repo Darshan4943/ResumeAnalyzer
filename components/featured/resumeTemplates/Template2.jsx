@@ -9,21 +9,21 @@ function Template2({ data }) {
 
                         <View style={{ flexDirection: 'column', width: '100%' }}>
                             <View style={{ flexDirection: 'column', gap: '8', width: '100%' }}>
-                                <Text style={{ color: '#676669', fontSize: '20px', fontWeight: 600, paddingTop: '13px', }}>ABOUT ME</Text>
+                                <Text style={{ color: '#676669', fontSize: '20px', fontFamily: "Barlow Condensed 600", paddingTop: '13px', }}>ABOUT ME</Text>
                                 <View style={{ backgroundColor: '#F7902B', height: '3px', width: '85%' }} />
-                                <Text style={{ color: '#272128', fontSize: '12px', fontWeight: 500, maxWidth: '80%' }}>{data.summery}</Text>
+                                <Text style={{ color: '#272128', fontSize: '12px', fontFamily: "Barlow 500", maxWidth: '80%' }}>{data.summery}</Text>
                             </View>
                             <View style={{ flexDirection: 'column', gap: '12', width: '100%', marginTop: '4px' }}>
-                                <Text style={{ color: '#3C3A40', fontSize: '20px', fontWeight: 600, paddingTop: '13px', }}>EDUCATION</Text>
+                                <Text style={{ color: '#3C3A40', fontSize: '20px', fontFamily: "Barlow Condensed 600", paddingTop: '13px', }}>EDUCATION</Text>
                                 <View style={{ backgroundColor: '#F7902B', height: '3px', width: '85%' }} />
                                 {data?.education?.map((detail, index) => (
-                                    <View key={index} style={{flexDirection: 'column', gap: '2', }}>
-                                        <Text style={{ color: '#272128', fontSize: '12', fontWeight: 500, maxWidth: '80%' }}>{detail.qualification}</Text>
-                                        <Text style={{ color: '#272128', fontSize: '12', fontWeight: 500, maxWidth: '80%' }}>{detail.specialization}</Text>
-                                        <Text style={{ color: '#272128', fontSize: '12', fontWeight: 300, maxWidth: '80%' }}>{detail.instituteName}</Text>
-                                        <Text style={{ color: '#272128', fontSize: '12', fontWeight: 300, maxWidth: '80%' }}>
+                                    <View key={index} style={{ flexDirection: 'column', gap: '2', }}>
+                                        <Text style={{ color: '#272128', fontSize: '12', fontFamily: "Barlow 600", maxWidth: '80%' }}>{detail.qualification}</Text>
+                                        <Text style={{ color: '#272128', fontSize: '12', fontFamily: "Barlow 500", maxWidth: '80%' }}>{detail.specialization}</Text>
+                                        <Text style={{ color: '#272128', fontSize: '12', fontFamily: "Barlow 300", maxWidth: '80%' }}>{detail.instituteName}</Text>
+                                        <Text style={{ color: '#272128', fontSize: '12', fontFamily: "Barlow Italic 400", maxWidth: '80%' }}>
                                             {detail.duration?.end?.year &&
-                                                <Text style={{ color: '#272128', fontSize: '10', fontWeight: 300, maxWidth: '80%' }}>
+                                                <Text style={{ color: '#272128', fontSize: '10', fontFamily: "Barlow Italic 400", maxWidth: '80%' }}>
                                                     {detail.duration?.start?.year}-
                                                     {detail.duration?.end?.year}
                                                 </Text>
@@ -34,14 +34,14 @@ function Template2({ data }) {
                             </View>
 
                             <View style={{ display: 'flex', flexDirection: 'column', gap: '12', width: '100%', marginTop: '8px' }}>
-                                <Text style={{ color: '#3C3A40', fontSize: '20px', fontWeight: 600, paddingTop: '13px', lineHeight: 'normal' }}>EXPERIENCE</Text>
+                                <Text style={{ color: '#3C3A40', fontSize: '20px', fontFamily: "Barlow Condensed 600", paddingTop: '13px', lineHeight: 'normal' }}>EXPERIENCE</Text>
                                 <View style={{ backgroundColor: '#F7902B', height: '3px', width: '85%' }} />
                                 {data?.experience?.map((detail, index) => (
-                                    <View key={index}  style={{flexDirection: 'column', gap: '2', }}>
-                                        <Text style={{ color: '#272128', fontSize: '12', fontWeight: 500, maxWidth: '80%' }}>{detail.organization}</Text>
-                                        <Text style={{ color: '#272128', fontSize: '12', fontWeight: 500, maxWidth: '80%' }}>{detail.designation}</Text>
-                                        <Text style={{ color: '#272128', fontSize: '12', fontWeight: 300, maxWidth: '80%' }}>{detail.description}</Text>
-                                        <Text style={{ color: '#272128', fontSize: '10', fontWeight: 300, maxWidth: '80%' }}>
+                                    <View key={index} style={{ flexDirection: 'column', gap: '2', }}>
+                                        <Text style={{ color: '#272128', fontSize: '12', fontFamily: "Barlow 600", maxWidth: '80%' }}>{detail.organization}</Text>
+                                        <Text style={{ color: '#272128', fontSize: '12', fontFamily: "Barlow 500", maxWidth: '80%' }}>{detail.designation}</Text>
+                                        <Text style={{ color: '#272128', fontSize: '12', fontFamily: "Barlow 300", maxWidth: '80%' }}>{detail.description}</Text>
+                                        <Text style={{ color: '#272128', fontSize: '10', fontFamily: "Barlow 300", maxWidth: '80%' }}>
                                             {detail.duration?.start?.year}-{" "}
                                             {detail.currentlyWorking
                                                 ? "Present"
@@ -53,7 +53,7 @@ function Template2({ data }) {
 
                             {data?.languages?.length > 0 && (
                                 <View style={{ display: 'flex', flexDirection: 'column', gap: '12', width: '100%', marginTop: '8px' }}>
-                                    <Text style={{ color: '#3C3A40', fontSize: '20px', fontWeight: 600, }}>Languages</Text>
+                                    <Text style={{ color: '#3C3A40', fontSize: '20px', fontFamily: "Barlow 400", }}>Languages</Text>
                                     <View style={{ backgroundColor: '#F7902B', height: '3px', width: '85%' }} />
                                     <View style={{ flexDirection: "col", gap: 8 }}>
                                         {data?.languages?.map((detail, index) => (
@@ -87,7 +87,7 @@ function Template2({ data }) {
                 <View style={{ backgroundColor: '#2C2A31', width: '230px', paddingLeft: '16px', paddingBottom: '4px' }}>
                     <View style={{ display: 'flex', flexDirection: 'column', gap: '12', alignItems: 'flex-start', marginTop: '200px' }}>
                         <View style={{ display: 'flex', flexDirection: 'column', gap: '12' }}>
-                            <Text style={{ color: '#fff', fontSize: '18px', fontWeight: 600, }}>Contact Me</Text>
+                            <Text style={{ color: '#fff', fontSize: '18px', fontFamily: "Barlow Condensed 600", }}>Contact Me</Text>
                             <View style={{ display: 'flex', flexDirection: 'row', gap: 12, alignItems: 'center' }}>
                                 <View style={{}}>
                                     <Svg width={14} height={18} viewBox="0 0 13 17" fill="none">
@@ -95,8 +95,8 @@ function Template2({ data }) {
                                     </Svg>
                                 </View>
                                 <View style={{ display: 'flex', flexDirection: 'column' }}>
-                                    <Text style={{ color: '#fff', fontSize: '10px', fontWeight: 600, }}>Address</Text>
-                                    <Text style={{ color: '#fff', fontSize: '10px', fontWeight: 300, }}>{data.location}</Text>
+                                    <Text style={{ color: '#fff', fontSize: '10px', fontFamily: "Barlow 600", }}>Address</Text>
+                                    <Text style={{ color: '#fff', fontSize: '10px', fontFamily: "Barlow 300", }}>{data.location}</Text>
                                 </View>
                             </View>
                             <View style={{ display: 'flex', flexDirection: 'row', paddingTop: '10px', gap: 12, alignItems: 'center' }}>
@@ -104,8 +104,8 @@ function Template2({ data }) {
                                     <Image src="/images/services/email_yellow.png" style={{ width: '16px', height: '17px' }} />
                                 </View>
                                 <View style={{ display: 'flex', flexDirection: 'column' }}>
-                                    <Text style={{ color: '#fff', fontSize: '10px', fontWeight: 600, }}>Email</Text>
-                                    <Text style={{ color: '#fff', fontSize: '10px', fontWeight: 300, }}>{data.email}</Text>
+                                    <Text style={{ color: '#fff', fontSize: '10px', fontFamily: "Barlow 600", }}>Email</Text>
+                                    <Text style={{ color: '#fff', fontSize: '10px', fontFamily: "Barlow 300", }}>{data.email}</Text>
                                 </View>
                             </View>
                             <View style={{ display: 'flex', flexDirection: 'row', paddingTop: '10px', gap: 12, alignItems: 'center' }}>
@@ -113,8 +113,8 @@ function Template2({ data }) {
                                     <Image src="/images/services/phone_yellow.png" style={{ width: '16px', height: '17px' }} />
                                 </View>
                                 <View style={{ display: 'flex', flexDirection: 'column' }}>
-                                    <Text style={{ color: '#fff', fontSize: '10px', fontWeight: 600, }}>Phone</Text>
-                                    <Text style={{ color: '#fff', fontSize: '10px', fontWeight: 300, }}>{data.mobileNumber}</Text>
+                                    <Text style={{ color: '#fff', fontSize: '10px', fontFamily: "Barlow 600", }}>Phone</Text>
+                                    <Text style={{ color: '#fff', fontSize: '10px', fontFamily: "Barlow 300", }}>{data.mobileNumber}</Text>
                                 </View>
                             </View>
                         </View>
@@ -122,7 +122,7 @@ function Template2({ data }) {
                             <>
                                 <View style={{ height: '1px', backgroundColor: '#fff', width: '100%' }}></View>
                                 <View style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-                                    <Text style={{ color: '#fff', fontSize: '18px', fontWeight: 600, }}>Skills</Text>
+                                    <Text style={{ color: '#fff', fontSize: '18px', fontFamily: "Barlow 600", }}>Skills</Text>
                                     {data.skills?.map((detail, index) => {
                                         const calculateWidthPercentage = (rating) => {
                                             let ratingPercentage = 0;
@@ -148,7 +148,7 @@ function Template2({ data }) {
                                                     </Svg>
                                                 </View>
                                                 <View style={{ display: 'flex', flexDirection: 'column', gap: '2', marginLeft: '-1.5px' }}>
-                                                    <Text style={{ color: '#fff', fontSize: '11px', fontWeight: 300, marginLeft: '5px', }}>
+                                                    <Text style={{ color: '#fff', fontSize: '11px', fontFamily: "Barlow 300", marginLeft: '5px', }}>
                                                         {detail.skill}
                                                     </Text>
                                                     <View style={{ position: 'relative' }}>
@@ -176,13 +176,13 @@ function Template2({ data }) {
                     <View style={{ top: '95%', left: '65%', }}>
                         <Svg width={341} height={48} viewBox="0 0 311 48" fill="none">
                             <Path d="M311 48H20.1135L0 0H311V48Z" fill="#B3691B" />
-                            <Text x="10%" y="85%" dominantBaseline="middle" textAnchor="start" fill="white" fontSize={10} fontWeight={600}>{data.designation} </Text>
+                            <Text x="10%" y="85%" dominantBaseline="middle" textAnchor="start" fill="white" fontSize={10} fontFamily="Barlow 600">{data.designation} </Text>
                         </Svg>
                     </View>
                     <View style={{ top: '35%', left: '55%', elevation: 5 }}>
                         <View style={{ width: 401, color: "#FFF", height: 33, backgroundColor: "#F7902B", flexDirection: "row", alignItems: "center", paddingLeft: 40 }} >
 
-                            <Text style={{ fontSize: 22, }} >{data.firstName}  {data.lastName} </Text>
+                            <Text style={{ fontSize: 22, fontFamily: "Barlow Condensed 600" }} >{data.firstName}  {data.lastName} </Text>
                         </View>
 
                     </View>

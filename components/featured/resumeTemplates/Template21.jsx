@@ -9,9 +9,9 @@ function Template21({ data }) {
 
                     <View style={{ flexDirection: 'column', gap: 8, paddingBottom: 16, borderBottom: 2, borderColor: "#C7C6C5", width: 360, height: 90 }}>
 
-                        <Text style={{ fontSize: 26, fontWeight: '700', color: "#494949" }}>{data.firstName} {data.lastName}</Text>
+                        <Text style={{ fontSize: 26, fontFamily:'Montserrat 600', color: "#494949" }}>{data.firstName} {data.lastName}</Text>
 
-                        <Text style={{ fontSize: 16, fontWeight: '700', color: "#494949" }}>{data.designation}</Text>
+                        <Text style={{ fontSize: 16, fontFamily:'Montserrat 300', color: "#494949" }}>{data.designation}</Text>
                     </View>
 
                     <View style={{ width: "170", height: "170", }}>
@@ -29,7 +29,7 @@ function Template21({ data }) {
 
                 <View style={{ flexDirection: "row", gap: 24 }}>
                     <View style={{ display: "flex", flexDirection: "column", gap: "8", marginTop: -48 }}>
-                        <Text style={{ color: "#030203", fontSize: "16px", fontWeight: 400, }}>CONTACT</Text>
+                        <Text style={{ color: "#030203", fontSize: "16px", fontFamily:'Montserrat 400', }}>CONTACT</Text>
 
                         {data?.mobileNumber && (
                             <View style={{ flexDirection: "row", gap: "12px", justifyContent: "start", alignItems: "center", paddingRight: " 4px", paddingTop: "5px" }}>
@@ -39,7 +39,7 @@ function Template21({ data }) {
                                 </Svg>
 
 
-                                <Text style={{ fontSize: "10px", paddingTop: "2px", flexDirection: "row", fontWeight: 400, color: "#58595B", }}>{data.mobileNumber}</Text>
+                                <Text style={{ fontSize: "10px", paddingTop: "2px", flexDirection: "row",fontFamily:'Montserrat 400', color: "#58595B", }}>{data.mobileNumber}</Text>
                             </View>
                         )}
                         {data?.email && (
@@ -48,7 +48,7 @@ function Template21({ data }) {
                                     <Path d="M8.00216 9.80322L6.51532 8.43582L2.27112 12.2536C2.42543 12.4085 2.63165 12.5 2.86095 12.5H13.1362C13.3655 12.5 13.5717 12.4071 13.726 12.2536L9.48179 8.43582L8.00216 9.80322ZM13.7274 3.74642C13.5775 3.59152 13.3669 3.5 13.1376 3.5H2.8624C2.63598 3.5 2.42543 3.59293 2.27257 3.74642L8.00361 8.90198L13.7274 3.74642ZM2 4.2914V11.7691L6.14325 8.07113L2 4.2914ZM9.85675 8.06971L14 11.7677V4.28577L9.85675 8.06971Z" fill="#221F1F" />
                                 </Svg>
 
-                                <Text style={{ fontSize: "10px", paddingTop: "2px", flexDirection: "row", fontWeight: 400, color: "#58595B", }}>{data.email}</Text>
+                                <Text style={{ fontSize: "10px", paddingTop: "2px", flexDirection: "row",fontFamily:'Montserrat 400', color: "#58595B", }}>{data.email}</Text>
                             </View>
                         )}
 
@@ -60,13 +60,13 @@ function Template21({ data }) {
                                 </Svg>
 
 
-                                <Text style={{ fontSize: "10px", flexDirection: "row", fontWeight: 400, color: "#58595B", }}>{data.location}</Text>
+                                <Text style={{ fontSize: "10px", flexDirection: "row", fontFamily:'Montserrat 400', color: "#58595B", }}>{data.location}</Text>
                             </View>
                         )}
                     </View>
                     <View style={{ flexDirection: "column", gap: 16, width: "344", marginTop: -24 }}>
-                        <Text style={{ fontSize: 16, fontWeight: '700', color: "#494949" }}>ABOUT ME</Text>
-                        <Text style={{ fontSize: 14, fontWeight: '500', color: "#6D6E71" }}>{data.summery}</Text>
+                        <Text style={{ fontSize: 16, fontFamily:'Montserrat 700', color: "#494949" }}>ABOUT ME</Text>
+                        <Text style={{ fontSize: 14, fontFamily:'Montserrat 500', color: "#6D6E71" }}>{data.summery}</Text>
                     </View>
                 </View>
                 <View style={{ flexDirection: "row", gap: 24 }}>
@@ -75,7 +75,7 @@ function Template21({ data }) {
                         <View style={{ flexDirection: "column", gap: 16 }}>
                             <View style={{ flexDirection: "column", gap: 8 }}>
 
-                                <Text style={{ color: '#494949', fontSize: '20px', fontWeight: 600, paddingTop: '13px', }}>AWARDS</Text>
+                                <Text style={{ color: '#494949', fontSize: '20px', fontFamily:'Montserrat 600', paddingTop: '13px', }}>AWARDS</Text>
                                 <View style={{ backgroundColor: '#535353', height: '1px', }} />
                             </View>
                             {data?.course?.map((detail, index) => (
@@ -87,12 +87,12 @@ function Template21({ data }) {
                                     </Svg>
 
                                     <View key={index} style={{ flexDirection: 'column', gap: '2', }}>
-                                        <Text style={{ color: '#494949', fontSize: '14', fontWeight: 500, maxWidth: '80%' }}>{detail.courseName} -{detail.issuedBy}</Text>
-                                        <Text style={{ color: '#494949', fontSize: '12', fontWeight: 500, maxWidth: '80%' }}>{detail.description}</Text>
+                                        <Text style={{ color: '#494949', fontSize: '14', fontFamily:'Montserrat 500', maxWidth: '80%' }}>{detail.courseName} -{detail.issuedBy}</Text>
+                                        <Text style={{ color: '#494949', fontSize: '12', fontFamily:'Montserrat 500', maxWidth: '80%' }}>{detail.description}</Text>
 
-                                        <Text style={{ color: '#494949', fontSize: '12', fontWeight: 300, maxWidth: '80%' }}>
+                                        <Text style={{ color: '#494949', fontSize: '12', fontFamily:'Montserrat 300', maxWidth: '80%' }}>
                                             {detail.duration?.end?.year &&
-                                                <Text style={{ color: '#272128', fontSize: '12', fontWeight: 300, maxWidth: '80%' }}>
+                                                <Text style={{ color: '#272128', fontSize: '12', fontFamily:'Montserrat 300', maxWidth: '80%' }}>
                                                     {detail.duration?.end?.month}-
                                                     {detail.duration?.end?.year}
                                                 </Text>
@@ -110,12 +110,12 @@ function Template21({ data }) {
                                 <View style={{ flexDirection: 'column', gap: 12 }}>
                                     <View style={{ flexDirection: "column", gap: 8 }}>
 
-                                        <Text style={{ color: '#494949', fontSize: '20px', fontWeight: 600, paddingTop: '13px', }}>SKILLS</Text>
+                                        <Text style={{ color: '#494949', fontSize: '20px', fontFamily:'Montserrat 700', paddingTop: '13px', }}>SKILLS</Text>
                                         <View style={{ backgroundColor: '#535353', height: '1px', }} />
                                     </View>
                                     {data?.skills?.map((detail, index) => (
                                         <View key={index} style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: 8 }}>
-                                            <Text style={{ fontSize: 12 }}>{detail.skill}</Text>
+                                            <Text style={{ fontSize: 12 ,fontFamily:'Montserrat 400',color:'#494949'}}>{detail.skill}</Text>
                                             <View style={{ flexDirection: 'row', gap: 4, marginTop: 4 }}>
                                                 {[...Array(5)].map((_, i) => (
                                                     <View key={i}>
@@ -145,7 +145,7 @@ function Template21({ data }) {
                                 <View style={{ flexDirection: 'column', gap: 12 }}>
                                     <View style={{ flexDirection: "column", gap: 8 }}>
 
-                                        <Text style={{ color: '#494949', fontSize: '20px', fontWeight: 600, paddingTop: '13px', }}>INTERESTS</Text>
+                                        <Text style={{ color: '#494949', fontSize: '20px',fontFamily:'Montserrat 700', paddingTop: '13px', }}>INTERESTS</Text>
                                         <View style={{ backgroundColor: '#535353', height: '1px', }} />
                                     </View>
                                     {data?.hobbies?.map((detail, index) => (
@@ -154,7 +154,7 @@ function Template21({ data }) {
                                                 <Path d="M3 6.5C4.65685 6.5 6 5.15685 6 3.5C6 1.84315 4.65685 0.5 3 0.5C1.34315 0.5 0 1.84315 0 3.5C0 5.15685 1.34315 6.5 3 6.5Z" fill="#5E5F5E" />
                                             </Svg>
 
-                                            <Text style={{ fontSize: 12, color: "#5E5F5E" }}>{detail.title}</Text>
+                                            <Text style={{ fontSize: 12, color: "#5E5F5E",fontFamily:'Montserrat 400' }}>{detail.title}</Text>
 
                                         </View>
                                     ))}
@@ -169,7 +169,7 @@ function Template21({ data }) {
                                 <View style={{ flexDirection: 'column', gap: 12 }}>
                                     <View style={{ flexDirection: "column", gap: 8 }}>
 
-                                        <Text style={{ color: '#494949', fontSize: '20px', fontWeight: 600, paddingTop: '13px', }}>SKILLS</Text>
+                                        <Text style={{ color: '#494949', fontSize: '20px', fontWeight: 600, paddingTop: '13px', }}>LANGUAGE</Text>
                                         <View style={{ backgroundColor: '#535353', height: '1px', }} />
                                     </View>
                                     {data?.languages?.map((detail, index) => (
@@ -206,7 +206,7 @@ function Template21({ data }) {
 
                             <View style={{ flexDirection: "column", gap: 8 }}>
 
-                                <Text style={{ color: '#494949', fontSize: '20px', fontWeight: 600, paddingTop: '13px', }}>EXPERIENCE</Text>
+                                <Text style={{ color: '#494949', fontSize: '20px', fontFamily:'Montserrat 700', paddingTop: '13px', }}>EXPERIENCE</Text>
                                 <View style={{ backgroundColor: '#535353', height: '1px', }} />
                             </View>
 
@@ -219,8 +219,8 @@ function Template21({ data }) {
                                     <View key={index} style={{ flexDirection: "row", gap: 16, alignItems: "start", justifyContent: "start", width: "100%" }}>
                                         <View style={{ flexDirection: "column", gap: 4, width: "15%", paddingBottom: 24 }}>
 
-                                            <Text style={{ color: "#494949", fontSize: "12px", fontWeight: 400, }}>{detail.duration?.start?.year}</Text>
-                                            <Text style={{ color: "#494949", fontSize: "12px", fontWeight: 400, }}>{detail.currentlyWorking ? "Present" : detail.duration?.end?.year}</Text>
+                                            <Text style={{ color: "#494949", fontSize: "12px", fontFamily:'Montserrat 400', }}>{detail.duration?.start?.year}</Text>
+                                            <Text style={{ color: "#494949", fontSize: "12px", fontFamily:'Montserrat 400', }}>{detail.currentlyWorking ? "Present" : detail.duration?.end?.year}</Text>
 
                                         </View>
 
@@ -235,10 +235,10 @@ function Template21({ data }) {
                                         </>
 
                                         <View style={{ flexDirection: "column", gap: 4, width: "85%", }}>
-                                            <Text style={{ color: "#494949", fontSize: "12px", fontWeight: 400 }}>{detail.designation} </Text>
-                                            <Text style={{ color: "#494949", fontSize: "12px", fontWeight: 400 }}>{detail.organization} </Text>
+                                            <Text style={{ color: "#494949", fontSize: "12px", fontFamily:'Montserrat 400' }}>{detail.designation} </Text>
+                                            <Text style={{ color: "#494949", fontSize: "12px", fontFamily:'Montserrat 400' }}>{detail.organization} </Text>
 
-                                            <Text style={{ color: "#494949", fontSize: "12px", fontWeight: 400, }}>{detail.description}</Text>
+                                            <Text style={{ color: "#494949", fontSize: "12px", fontFamily:'Montserrat 400' }}>{detail.description}</Text>
 
                                         </View>
                                     </View>
@@ -250,7 +250,7 @@ function Template21({ data }) {
 
                             <View style={{ flexDirection: "column", gap: 8 }}>
 
-                                <Text style={{ color: '#494949', fontSize: '20px', fontWeight: 600, paddingTop: '13px', }}>EDUCATION</Text>
+                                <Text style={{ color: '#494949', fontSize: '20px', fontFamily:'Montserrat 700', paddingTop: '13px', }}>EDUCATION</Text>
                                 <View style={{ backgroundColor: '#535353', height: '1px', }} />
                             </View>
 
@@ -263,8 +263,8 @@ function Template21({ data }) {
                                     <View key={index} style={{ flexDirection: "row", gap: 16, alignItems: "start", justifyContent: "start", width: "100%" }}>
                                         <View style={{ flexDirection: "column", gap: 4, width: "15%", paddingBottom: 24 }}>
 
-                                            <Text style={{ color: "#494949", fontSize: "12px", fontWeight: 400, }}>{detail.duration?.start?.year}</Text>
-                                            <Text style={{ color: "#494949", fontSize: "12px", fontWeight: 400, }}>{detail.duration?.end?.year}</Text>
+                                            <Text style={{ color: "#494949", fontSize: "12px", fontFamily:'Montserrat 400', }}>{detail.duration?.start?.year}</Text>
+                                            <Text style={{ color: "#494949", fontSize: "12px", fontFamily:'Montserrat 400', }}>{detail.duration?.end?.year}</Text>
 
                                         </View>
 
@@ -279,8 +279,8 @@ function Template21({ data }) {
                                         </>
 
                                         <View style={{ flexDirection: "column", gap: 4, width: "85%", }}>
-                                            <Text style={{ color: "#494949", fontSize: "12px", fontWeight: 400 }}>{detail.qualification} </Text>
-                                            <Text style={{ color: "#494949", fontSize: "12px", fontWeight: 400 }}>{detail.instituteName} </Text>
+                                            <Text style={{ color: "#494949", fontSize: "12px", fontFamily:'Montserrat 400'}}>{detail.qualification} </Text>
+                                            <Text style={{ color: "#494949", fontSize: "12px", fontFamily:'Montserrat 400'}}>{detail.instituteName} </Text>
 
 
 

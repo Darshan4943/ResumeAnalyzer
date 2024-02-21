@@ -151,8 +151,21 @@ const Template53 = () => {
 
          <View style={{width:180,height:1,backgroundColor:"#344A50"}}></View>
 
-         <View></View>
-         
+         <View style={{display:"flex",flexDirection:"column",gap:16}}>
+        <View>
+         <Text style={{ fontSize: 14, fontWeight: 400, color: "#AC5428" }}>Skills</Text>
+         </View>
+         <View style={{display:"flex",flexDirection:"row",justifyContent:"space-between"}}>
+         <Text style={{ fontSize: 10, fontWeight: 400, color: "#161616" }}>Marketing</Text>
+         <Text style={{  fontSize: 10, fontWeight: 400, color: "#161616" }}>Content Curation </Text>
+         </View>
+         <View style={{display:"flex",flexDirection:"row",justifyContent:"space-between"}}>
+         <Text style={{ fontSize: 10, fontWeight: 400, color: "#161616" }}>Prospecting</Text>
+         <Text style={{  fontSize: 10, fontWeight: 400, color: "#161616" }}>Lead Generation </Text>
+         </View>
+
+         </View>
+
         </View>
 
         </View>
