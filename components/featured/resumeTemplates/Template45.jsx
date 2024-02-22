@@ -76,19 +76,19 @@ function Template45({ data }) {
                             </View>
                             <View style={{ gap: "6px", flexDirection: "column", width: "100%", }}>
                                 <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-                                    <Text style={{ fontFamily:'Lato 500', fontSize: 10, color: "#282829" }}>Birthday             :</Text>
+                                    <Text style={{ fontFamily:'Lato 400', fontSize: 10, color: "#282829" }}>Birthday             :</Text>
                                     <Text style={{ fontFamily:'Lato 400', fontSize: 10, color: "#6D6E71" }}>12th January 1991</Text>
                                 </View>
                                 <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-                                    <Text style={{ fontFamily:'Lato 500', fontSize: 10, color: "#282829" }}>Relationship      :</Text>
+                                    <Text style={{ fontFamily:'Lato 400', fontSize: 10, color: "#282829" }}>Relationship      :</Text>
                                     <Text style={{ fontFamily:'Lato 400', fontSize: 10, color: "#6D6E71" }}>Single</Text>
                                 </View>
                                 <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-                                    <Text style={{ fontFamily:'Lato 500', fontSize: 10, color: "#282829" }}>Nationality        :</Text>
+                                    <Text style={{ fontFamily:'Lato 400', fontSize: 10, color: "#282829" }}>Nationality        :</Text>
                                     <Text style={{ fontFamily:'Lato 400', fontSize: 10, color: "#6D6E71" }}>South African</Text>
                                 </View>
                                 <View style={{ flexDirection: "row", }}>
-                                    <Text style={{ fontFamily:'Lato 500', fontSize: 10, color: "#282829" }}>Languages         :</Text>
+                                    <Text style={{ fontFamily:'Lato 400', fontSize: 10, color: "#282829" }}>Languages         :</Text>
                                     {data.languages?.map((detail, index) => {
                                         <View>
                                             <Text style={{ fontFamily:'Lato 400', fontSize: 10, color: "#6D6E71" }}> English </Text>
@@ -222,7 +222,7 @@ function Template45({ data }) {
                                     data.experience?.map((detail, index) => (
                                         <View style={{ flexDirection: "row", gap: "12px", width: "100%" }}>
                                             <View style={{ gap: 6, flexDirection: "column", width: 132 }}>
-                                                <Text style={{ fontFamily:'Lato 500', fontSize: 12, color: "#282829" }}>{detail.designation}</Text>
+                                                <Text style={{ fontFamily:'Lato 400', fontSize: 12, color: "#282829" }}>{detail.designation}</Text>
                                                 <Text style={{ fontFamily:'Lato 400',fontSize: 10, color: "#6D6E71" }}>{detail.duration?.start?.year}-{" "} <br />
                                                     {detail.currentlyWorking
                                                         ? "Present"
@@ -230,7 +230,7 @@ function Template45({ data }) {
                                                 </Text>
                                             </View>
                                             <View style={{ gap: 6, flexDirection: "column", width: "100%" }}>
-                                                <Text style={{ fontFamily:'Lato 500', fontSize: 12, color: "#282829" }}>{detail.organization}</Text>
+                                                <Text style={{ fontFamily:'Lato 400', fontSize: 12, color: "#282829" }}>{detail.organization}</Text>
                                                 <Text style={{ fontFamily:'Lato 400', fontSize: 12, color: "#6D6E71" }}>{detail.description}</Text>
                                             </View>
 
@@ -252,7 +252,7 @@ function Template45({ data }) {
                                     data.education?.map((detail, index) => (
                                         <View style={{ flexDirection: "row", gap: "12px", width: "100%" }}>
                                             <View style={{ gap: 6, flexDirection: "column", width: 132 }}>
-                                                <Text style={{ fontFamily:'Lato 500', fontSize: 12, color: "#282829" }}>{detail.instituteName}</Text>
+                                                <Text style={{ fontFamily:'Lato 400', fontSize: 12, color: "#282829" }}>{detail.instituteName}</Text>
                                                 <Text style={{ fontFamily:'Lato 400', fontSize: 10, color: "#6D6E71" }}>{detail.duration?.start?.year}-{" "} <br />
                                                     {detail.currentlyWorking
                                                         ? "Present"
@@ -260,7 +260,7 @@ function Template45({ data }) {
                                                 </Text>
                                             </View>
                                             <View style={{ gap: 6, flexDirection: "column", width: "100%" }}>
-                                                <Text style={{ fontFamily:'Lato 500', fontSize: 12, color: "#282829" }}>{detail.qualification}</Text>
+                                                <Text style={{ fontFamily:'Lato 400', fontSize: 12, color: "#282829" }}>{detail.qualification}</Text>
                                                 <Text style={{ fontFamily:'Lato 400', fontSize: 12, color: "#6D6E71" }}>{detail.specialization}</Text>
                                             </View>
 
