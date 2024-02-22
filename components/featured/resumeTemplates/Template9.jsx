@@ -37,7 +37,7 @@ function Template9({ data }) {
                         </View>
                         {data?.skills?.length > 0 && (
                             <View style={{ flexDirection: 'column', gap: 16 }}>
-                                <Text style={{ fontSize: 22, color: '#27417A', fontFamily: 'Antonio bold' }}>SKILLS</Text>
+                                <Text style={{ fontSize: 22, color: '#27417A', fontFamily: 'Antonio 700' }}>SKILLS</Text>
                                 {data?.skills?.map((detail, index) => (
                                     <View key={index} style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: 8 }}>
                                         <Text style={{ fontSize: 12, fontFamily:"Montserrat 500" }}>{detail.skill}</Text>
@@ -63,11 +63,11 @@ function Template9({ data }) {
                     </View>
                     <View style={{ flexDirection: 'column', gap: 24, width: 323 }}>
                         <View style={{ flexDirection: 'column', gap: 16, marginTop: 110 }}>
-                            <Text style={{ fontSize: 22, color: '#27417A', fontFamily: 'Antonio bold' }}>ABOUT ME</Text>
+                            <Text style={{ fontSize: 22, color: '#27417A', fontFamily: 'Antonio 700' }}>ABOUT ME</Text>
                             <Text style={{ fontSize: 12, fontFamily:"Montserrat 400" }}>{data.summery}</Text>
                         </View>
                         <View style={{ flexDirection: 'column', gap: 16 }}>
-                            <Text style={{ fontSize: 22, color: '#27417A', fontFamily: 'Antonio bold' }}>EXPERIENCE</Text>
+                            <Text style={{ fontSize: 22, color: '#27417A', fontFamily: 'Antonio 700' }}>EXPERIENCE</Text>
                             {data.experience.map((detail, index) => (
                                 <View key={index} style={{ flexDirection: 'row', gap: 16 }}>
                                     <View style={{ flexDirection: 'column', justifyContent: 'flex-start', gap: 8, alignItems: 'center' }}>
@@ -81,7 +81,7 @@ function Template9({ data }) {
                                         </Svg>
                                     </View>
                                     <View style={{ flexDirection: 'column', gap: 8, width: 330 }}>
-                                        <Text style={{ fontSize: 12,fontFamily: 'Montserrat 800' }}>{detail.designation}</Text>
+                                        <Text style={{ fontSize: 12,fontFamily: 'Montserrat 700' }}>{detail.designation}</Text>
                                         <Text style={{ fontSize: 10,fontFamily: 'Montserrat 600' }}>{detail.organization}</Text>
                                         <Text style={{ fontSize: 9,fontFamily: 'Montserrat 400', color: '#424242' }}>{detail.duration?.start?.year} - {detail.duration?.end?.year === undefined || "Year" ? "Present" : detail.duration?.end?.year}</Text>
                                         <Text style={{ fontSize: 10,fontFamily: 'Montserrat 400', color: "#616161" }}>{detail.description}</Text>

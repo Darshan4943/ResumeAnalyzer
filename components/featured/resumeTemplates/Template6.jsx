@@ -226,10 +226,10 @@ function Template6({ data }) {
 
                       {/* </View> */}
                       <View style={{ flexDirection: "row", justifyContent: "space-between", width: 300 }}>
-                        <Text style={{ fontSize: 14, fontFamily: "Lato normal", color: "#939598", width: 100 }}>
+                        <Text style={{ fontSize: 14, fontFamily: "Lato 400", color: "#939598", width: 100 }}>
                           {detail.designation}
                         </Text>
-                        <Text style={{ fontSize: 14, fontFamily: "Inter normal" }}>
+                        <Text style={{ fontSize: 14, fontFamily: "Inter 400" }}>
                           {" "}
                           {detail.duration?.start?.year}-{" "}
                           {detail.currentlyWorking
@@ -256,14 +256,14 @@ function Template6({ data }) {
                         {detail.qualification}
 
                       </Text>
-                      <Text style={{ fontSize: 14, fontFamily: "Lato normal" }}>
+                      <Text style={{ fontSize: 14, fontFamily: "Lato 400" }}>
                         {detail.specialization}
                       </Text>
                       <View style={{ flexDirection: "row", justifyContent: "space-between", width: 300 }}>
-                        <Text style={{ fontSize: 14, fontFamily: "Lato normal", color: "#939598", width: 200 }}>
+                        <Text style={{ fontSize: 14, fontFamily: "Lato 400", color: "#939598", width: 200 }}>
                           {detail.instituteName}
                         </Text>
-                        <Text style={{ fontSize: 14, fontFamily: "Inter normal" }}>
+                        <Text style={{ fontSize: 14, fontFamily: "Inter 400" }}>
                           {detail.duration?.end?.year && (
                             <>
                               {detail.duration?.start?.year}-
