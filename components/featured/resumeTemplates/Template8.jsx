@@ -131,9 +131,6 @@ function Template8({ data }) {
                         </View>
 
                         <View style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
-                            <View style={{ borderTopColor: '#000000', borderTop: 1, borderBottom: 1, borderBottomColor: '#000000' }}>
-                                <Text style={{ padding: '5px 0px 5px 10px', fontSize: 14, fontFamily: 400 }}>ABOUT ME</Text>
-                            </View>
                             <View style={{ paddingRight: 10, wordBreak: "break-word", width: 222 }}>
                                 <Text style={{ fontSize: 10, fontFamily: "Montserrat 500", color: '#414042' }}> {data.summery} </Text>
                             </View>
