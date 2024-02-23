@@ -42,6 +42,7 @@ function Template19({ data }) {
                             }}
                         />
 
+{data?.mobileNumber && (
                         <View
                             style={{
                                 display: "flex",
@@ -60,10 +61,12 @@ function Template19({ data }) {
                                 }}
                             />
                             <Text style={{ fontSize: 12, fontFamily:'Inter 400', color: "#000000" }}>
-                                +012-3456-7890
+                            {data.mobileNumber}
                             </Text>
                         </View>
+)}
 
+{data?.email?.length > 0 && (
                         <View
                             style={{
                                 display: "flex",
@@ -82,10 +85,12 @@ function Template19({ data }) {
                                 }}
                             />
                             <Text style={{ fontSize: 12, fontFamily:'Inter 400', color: "#000000" }}>
-                                yourmail@mail.com
+                            {data.email}
                             </Text>
                         </View>
+)}
 
+{data?.location?.length > 0 && (
                         <View
                             style={{
                                 display: "flex",
@@ -104,9 +109,11 @@ function Template19({ data }) {
                                 }}
                             />
                             <Text style={{ fontSize: 12,fontFamily:'Inter 400', color: "#000000" }}>
-                                San Francisco, CA
+                            {data.location}
                             </Text>
                         </View>
+)}
+
                     </View>
 
                     <View
@@ -119,7 +126,7 @@ function Template19({ data }) {
                     >
                         <View style={{ display: "flex", flexDirection: "column", gap: 4 }}>
                             <Text style={{ fontSize: 30, fontFamily:'Inter 400', color: "#000000" }}>
-                                John Doe
+                            {data.firstName} {" "} {data.lastName}
                             </Text>
                             <View
                                 style={{
@@ -141,7 +148,7 @@ function Template19({ data }) {
                                 <Text
                                     style={{ fontSize: 14, fontFamily:'Inter 400', color: "#000000" }}
                                 >
-                                    Layout Artist
+                                    {data.designation}
                                 </Text>
                             </View>
                         </View>
@@ -167,16 +174,12 @@ function Template19({ data }) {
                                 <Path d="M436 0H0V1H436V0Z" fill="black" />
                             </Svg>
                             <Text style={{ fontSize: 12, color: "#808285",  fontFamily:'Inter 400'}}>
-                                This is where you sell yourself and be quick recruiters only
-                                skim through the rest of your resume. Show your achievements and
-                                . Use worth to them. You can go ahead and drop your objective
-                                statement they do not want to know about what you want to do.
-                                Instead they want to know what you can offer them, So what can
-                                you offer them?{" "}
+                            {data.summery} 
                             </Text>
                         </View>
                     </View>
                 </View>
+
 
                 <View
                     style={{
@@ -207,22 +210,23 @@ function Template19({ data }) {
                         style={{
                             display: "flex",
                             flexDirection: "row",
-                            gap: 70,
+                            gap: 16,
                             flexWrap: "wrap",
                         }}
                     >
+                         {data?.skills?.map((detail, index) => (
                         <View
                             style={{
                                 display: "flex",
                                 flexDirection: "column",
-                                width: 130,
+                                width: 170,
                                 gap: 8,
                             }}
                         >
                             <Text style={{ fontSize: 12, color: "#808285",  fontFamily:'Inter 400'}}>
-                                Team Management
+                            {detail.skill}
                             </Text>
-                            <Svg
+                            {/* <Svg
                                 width="130"
                                 height="12"
                                 viewBox="0 0 174 12"
@@ -269,10 +273,47 @@ function Template19({ data }) {
                                     d="M168 12C171.314 12 174 9.31373 174 6.00002C174 2.68631 171.314 0 168 0C164.686 0 162 2.68631 162 6.00002C162 9.31373 164.686 12 168 12Z"
                                     fill="#D1D3D4"
                                 />
-                            </Svg>
+                            </Svg> */}
+                            <View style={{ display: "flex",flexDirection: "row" ,gap:6}}>
+                                            {[...Array(5)].map((_, i) => (
+                                                <View key={i}>
+                                                    {
+                                                        detail.rating[i] === 0 ? (
+                                                            <Svg
+                                                            width="12"
+                                                            height="12"
+                                                            viewBox="0 0 12 12"
+                                                            fill="none"
+                                                            xmlns="http://www.w3.org/2000/svg"
+                                                        >
+                                                            <Path
+                                                            d="M150 12C153.314 12 156 9.31373 156 6.00002C156 2.68631 153.314 0 150 0C146.686 0 144 2.68631 144 6.00002C144 9.31373 146.686 12 150 12Z"
+                                                            fill="#D1D3D4"
+                                                        />
+                                                        </Svg>
+                                                        ) : (
+                                                            <Svg
+                                                            width="12"
+                                                            height="12"
+                                                            viewBox="0 0 12 12"
+                                                            fill="none"
+                                                            xmlns="http://www.w3.org/2000/svg"
+                                                        >
+                                                            <Path
+                                                            d="M6 12C9.31371 12 12 9.31373 12 6.00002C12 2.68631 9.31371 0 6 0C2.68629 0 0 2.68631 0 6.00002C0 9.31373 2.68629 12 6 12Z"
+                                                            fill="black"
+                                                        />
+                                                        </Svg>
+                                                        )
+                                                    }
+                                                </View>
+                                            ))}
+                                        </View>
                         </View>
+                         ))}
                     </View>
                 </View>
+
 
                 <View
                     style={{ display: "flex", flexDirection: "row", gap: 28, width: 546 }}
@@ -554,18 +595,15 @@ function Template19({ data }) {
                                     width: "100%",
                                     flexWrap: "wrap",
                                 }}>
+                                      {data?.education?.map((detail, index) => (
                              <View style={{display:'flex',flexDirection:'column',gap:5,width:'45%'}}>
-                                    <Text style={{fontSize:12,color:'#000000',fontFamily:'Inter 400',}}>MASTER DEGREE</Text>
-                                    <Text style={{fontSize:10,color:'#808285',fontFamily:'Inter 400',}}>Communication</Text>
-                                    <Text style={{fontSize:10,color:'#000000',fontFamily:'Inter 400',}}>San Franciso University</Text>
-                                    <Text style={{fontSize:10,color:'#000000',fontFamily:'Inter 400',}}>2016-2018</Text>
+                                    <Text style={{fontSize:12,color:'#000000',fontFamily:'Inter 400',}}>{detail.qualification}</Text>
+                                    <Text style={{fontSize:10,color:'#808285',fontFamily:'Inter 400',}}>{detail.specialization}</Text>
+                                    <Text style={{fontSize:10,color:'#000000',fontFamily:'Inter 400',}}>{detail.instituteName}</Text>
+                                    <Text style={{fontSize:10,color:'#000000',fontFamily:'Inter 400',}}>{detail.duration?.start?.year}-{detail.duration?.end?.year}</Text>
                              </View>
-                             <View style={{display:'flex',flexDirection:'column',gap:5,width:'45%'}}>
-                                    <Text style={{fontSize:12,color:'#000000',fontFamily:'Inter 400',}}>BACHELOR DEGREE</Text>
-                                    <Text style={{fontSize:10,color:'#808285',fontFamily:'Inter 400',}}>Communication</Text>
-                                    <Text style={{fontSize:10,color:'#000000',fontFamily:'Inter 400',}}>San Franciso University</Text>
-                                    <Text style={{fontSize:10,color:'#000000',fontFamily:'Inter 400',}}>2016-2018</Text>
-                             </View>
+                                      ))}
+                         
                                 </View>
 
                         </View>
@@ -641,11 +679,13 @@ function Template19({ data }) {
                 <Svg width="6" height="7" viewBox="0 0 6 7" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <Path d="M3 6.5C4.65685 6.5 6 5.15685 6 3.5C6 1.84315 4.65685 0.5 3 0.5C1.34315 0.5 0 1.84315 0 3.5C0 5.15685 1.34315 6.5 3 6.5Z" fill="#5E5F5E"/>
                 </Svg>   
+                {data.experience?.map((detail, index) => (
                 <View style={{display:'flex',flexDirection:'column',gap:5}}>                
-                    <Text style={{fontSize:10,fontFamily:'Inter 400',color:'#000000'}}>Head of Design Good Company</Text>
-                    <Text style={{fontSize:10,fontFamily:'Inter 400',color:'#000000'}}>2019-2020</Text>
-                    <Text style={{fontSize:10,fontFamily:'Inter 400',color:'#000000'}}>This is where you sell yourself and be quick recruiters only skim through the rest of your resume.</Text>
+                    <Text style={{fontSize:10,fontFamily:'Inter 400',color:'#000000'}}>{detail.designation}</Text>
+                    <Text style={{fontSize:10,fontFamily:'Inter 400',color:'#000000'}}>{detail.duration?.start?.year}-{" "}{detail.currentlyWorking ? "Present" : detail.duration?.end?.year}</Text>
+                    <Text style={{fontSize:10,fontFamily:'Inter 400',color:'#000000'}}>{detail.description} </Text>
                     </View>
+                ))}
                   </View>
 
                         </View>
