@@ -59,6 +59,7 @@ import Template49 from "../../resumeTemplates/Template49";
 import Template51 from "../../resumeTemplates/Template51";
 import Template53 from "../../resumeTemplates/Template53";
 import Template54 from "../../resumeTemplates/Template54";
+import Template55 from "../../resumeTemplates/Template55";
 
 
 
@@ -201,6 +202,8 @@ const ResumePreview = ({ data, isSetEdit }) => {
           return <Template53 data={data} />;
           case 54:
           return <Template54 data={data} />;
+          case 55:
+            return <Template55 data={data} />;
 
       default:
         return <Template1 data={data} />;
@@ -571,6 +574,12 @@ const ResumePreview = ({ data, isSetEdit }) => {
               className="h-[200px] w-[140.91px] rounded-[6px]"
               alt=""
               onClick={() => togglePreview(true, 54)}
+            />
+             <img
+              src="/images/services/template55.png"
+              className="h-[200px] w-[140.91px] rounded-[6px]"
+              alt=""
+              onClick={() => togglePreview(true, 55)}
             />
           </div>
         </div>
