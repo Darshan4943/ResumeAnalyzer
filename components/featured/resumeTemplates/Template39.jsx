@@ -1,6 +1,6 @@
 import React from 'react'
 import { Document, Page, Text, View, Image, StyleSheet, Svg, Path, Rect } from '@react-pdf/renderer';
-function Template39({ data }) {
+function Template39({ data,selectedColor,selectedFont  }) {
 
     return (
         <Page size="A4" style={{ padding: 24 }}>
@@ -20,7 +20,7 @@ function Template39({ data }) {
 
 
                         <View style={{ display: "flex", flexDirection: "column", gap: "8" }}>
-                            <Text style={{ color: "#030203", fontSize: "16px", fontFamily:'Inter 400', }}>CONTACT</Text>
+                            <Text style={{ color: "#030203", fontSize: "16px", fontFamily: `${selectedFont} 400`, }}>CONTACT</Text>
 
                             {data?.mobileNumber && (
                                 <View style={{ flexDirection: "row", gap: "12px", justifyContent: "start", alignItems: "center", paddingRight: " 4px", paddingTop: "5px" }}>
@@ -30,7 +30,7 @@ function Template39({ data }) {
                                     </Svg>
 
 
-                                    <Text style={{ fontSize: "10px", paddingTop: "2px", flexDirection: "row",fontFamily:'Lato 400', color: "#414042", }}>{data.mobileNumber}</Text>
+                                    <Text style={{ fontSize: "10px", paddingTop: "2px", flexDirection: "row",fontFamily: `${selectedFont} 400`, color: "#414042", }}>{data.mobileNumber}</Text>
                                 </View>
                             )}
                             {data?.email && (
@@ -39,7 +39,7 @@ function Template39({ data }) {
                                         <Path d="M8.00216 9.80322L6.51532 8.43582L2.27112 12.2536C2.42543 12.4085 2.63165 12.5 2.86095 12.5H13.1362C13.3655 12.5 13.5717 12.4071 13.726 12.2536L9.48179 8.43582L8.00216 9.80322ZM13.7274 3.74642C13.5775 3.59152 13.3669 3.5 13.1376 3.5H2.8624C2.63598 3.5 2.42543 3.59293 2.27257 3.74642L8.00361 8.90198L13.7274 3.74642ZM2 4.2914V11.7691L6.14325 8.07113L2 4.2914ZM9.85675 8.06971L14 11.7677V4.28577L9.85675 8.06971Z" fill="#221F1F" />
                                     </Svg>
 
-                                    <Text style={{ fontSize: "10px", width: '80%', paddingTop: "2px", flexDirection: "row", fontFamily:'Lato 400', color: "#414042", }}>{data.email}</Text>
+                                    <Text style={{ fontSize: "10px", width: '80%', paddingTop: "2px", flexDirection: "row", fontFamily: `${selectedFont} 400`, color: "#414042", }}>{data.email}</Text>
                                 </View>
                             )}
 
@@ -51,7 +51,7 @@ function Template39({ data }) {
                                     </Svg>
 
 
-                                    <Text style={{ fontSize: "10px", flexDirection: "row", fontFamily:'Lato 400', color: "#414042", }}>{data.location}</Text>
+                                    <Text style={{ fontSize: "10px", flexDirection: "row", fontFamily: `${selectedFont} 400`, color: "#414042", }}>{data.location}</Text>
                                 </View>
                             )}
                         </View>
@@ -63,7 +63,7 @@ function Template39({ data }) {
 
 
 
-                            <Text style={{ color: "#030203", fontFamily:'Inter 400', fontSize: "16px" }}>EDUCATION</Text>
+                            <Text style={{ color: "#030203", fontFamily: `${selectedFont} 400`, fontSize: "16px" }}>EDUCATION</Text>
 
 
 
@@ -72,11 +72,11 @@ function Template39({ data }) {
                                     <>
                                         <View key={index} style={{ display: "flex", flexDirection: "row", gap: 16, alignItems: "start" }}>
                                             <View style={{ display: "flex", flexDirection: "column", gap: 8, justifyContent: "space-between", }}>
-                                                <Text style={{ color: "#000000", fontSize: "12px",fontFamily:'Inter 400',}}>{detail.qualification} - {detail.specialization}</Text>
+                                                <Text style={{ color: "#000000", fontSize: "12px",fontFamily: `${selectedFont} 400`,}}>{detail.qualification} - {detail.specialization}</Text>
 
 
-                                                <Text style={{ color: "#58595B", fontSize: "12px", fontFamily:'Lato 400', }}>{detail.instituteName}</Text>
-                                                <Text style={{ color: "#58595B", fontSize: "12px", fontFamily:'Lato 400', }}>{detail.duration?.start?.year}-{detail.duration?.end?.year}</Text>
+                                                <Text style={{ color: "#58595B", fontSize: "12px", fontFamily: `${selectedFont} 400`, }}>{detail.instituteName}</Text>
+                                                <Text style={{ color: "#58595B", fontSize: "12px", fontFamily: `${selectedFont} 400`, }}>{detail.duration?.start?.year}-{detail.duration?.end?.year}</Text>
 
 
 
@@ -94,7 +94,7 @@ function Template39({ data }) {
                         {data?.skills?.length > 0 && (
                             <View style={{ flexDirection: "column", gap: 16, }}>
 
-                                <Text style={{fontFamily:'Inter 400', color: "#030203", fontSize: "16" }} >
+                                <Text style={{fontFamily: `${selectedFont} 400`, color: "#030203", fontSize: "16" }} >
                                     SKILLS
                                 </Text>
 
@@ -105,7 +105,7 @@ function Template39({ data }) {
                                                 <Path d="M3.89326 7.79296C5.7673 7.79296 7.2865 6.2723 7.2865 4.39648C7.2865 2.52066 5.7673 1 3.89326 1C2.01922 1 0.5 2.52066 0.5 4.39648C0.5 6.2723 2.01922 7.79296 3.89326 7.79296Z" fill="#59595C" />
                                             </Svg>
 
-                                            <Text style={{ fontFamily:'Lato 400',color: "#58595B", fontSize: "14" }}>
+                                            <Text style={{ fontFamily: `${selectedFont} 400`,color: "#58595B", fontSize: "14" }}>
                                                 {detail.skill}
                                             </Text>
                                         </View>
@@ -117,7 +117,7 @@ function Template39({ data }) {
                         {data?.languages?.length > 0 && (
                             <View style={{ flexDirection: "column", gap: 16, }}>
 
-                                <Text style={{fontFamily:'Inter 400', color: "#030203", fontSize: "16" }} >
+                                <Text style={{fontFamily: `${selectedFont} 400`, color: "#030203", fontSize: "16" }} >
                                     LANGUAGES
                                 </Text>
 
@@ -128,7 +128,7 @@ function Template39({ data }) {
                                                 <Path d="M3.89326 7.79296C5.7673 7.79296 7.2865 6.2723 7.2865 4.39648C7.2865 2.52066 5.7673 1 3.89326 1C2.01922 1 0.5 2.52066 0.5 4.39648C0.5 6.2723 2.01922 7.79296 3.89326 7.79296Z" fill="#59595C" />
                                             </Svg>
 
-                                            <Text style={{ fontFamily:'Lato 400',color: "#58595B", fontSize: "14" }}>
+                                            <Text style={{ fontFamily: `${selectedFont} 400`,color: "#58595B", fontSize: "14" }}>
                                                 {detail.languages}
                                             </Text>
                                         </View>
@@ -146,16 +146,16 @@ function Template39({ data }) {
 
                 <View style={{ width: "324px", padding: " 16px", display: "flex", flexDirection: "column", gap: "42px" }}>
                     <View style={{ flexDirection: "column", marginTop: 24, gap: 4 }}>
-                        <Text style={{ color: "#030203", fontFamily:'Inter 400', fontSize: "28px", }}>{data.firstName} {data.lastName}</Text>
-                        <Text style={{ fontSize: "14px", fontFamily:'Lato 400', color: "#58595B" }}>{data.designation}</Text>
+                        <Text style={{ color: "#030203", fontFamily: `${selectedFont} 400`, fontSize: "28px", }}>{data.firstName} {data.lastName}</Text>
+                        <Text style={{ fontSize: "14px", fontFamily: `${selectedFont} 400`, color: "#58595B" }}>{data.designation}</Text>
                         <View style={{ height: "1px", width: "100%", backgroundColor: "#221F1F", marginTop: 12 }}></View>
                     </View>
 
                     <View style={{ display: "flex", flexDirection: "column", gap: 12, alignItems: "flex-start", }}>
 
-                        <Text style={{ color: "#030203", fontFamily:'Inter 400', fontSize: "16px" }}>About me</Text>
+                        <Text style={{ color: "#030203", fontFamily: `${selectedFont} 400`, fontSize: "16px" }}>About me</Text>
 
-                        <Text style={{ color: "#58595B", fontSize: "14px", fontFamily:'Lato 400',}}>{data.summery}</Text>
+                        <Text style={{ color: "#58595B", fontSize: "14px", fontFamily: `${selectedFont} 400`,}}>{data.summery}</Text>
 
                     </View>
 
@@ -164,7 +164,7 @@ function Template39({ data }) {
 
 
 
-                        <Text style={{ color: "#030203",fontFamily:'Inter 400', fontSize: "16px" }}>EXPERIENCE</Text>
+                        <Text style={{ color: "#030203",fontFamily: `${selectedFont} 400`, fontSize: "16px" }}>EXPERIENCE</Text>
 
 
 
@@ -188,15 +188,15 @@ function Template39({ data }) {
 
 
                                     <View style={{ flexDirection: "column", gap: 8, justifyContent: "space-between", }}>
-                                        <Text style={{ color: "#000000", fontSize: "12px", fontFamily:'Inter 400',}}>{detail.designation} </Text>
+                                        <Text style={{ color: "#000000", fontSize: "12px", fontFamily: `${selectedFont} 400`,}}>{detail.designation} </Text>
 
                                         <View style={{ flexDirection: "row", gap: 4 }}>
-                                            <Text style={{ color: "#58595B", fontSize: "12px", fontFamily:'Lato 400', }}>{detail.organization}</Text>
+                                            <Text style={{ color: "#58595B", fontSize: "12px", fontFamily: `${selectedFont} 400`, }}>{detail.organization}</Text>
                                             <View style={{ backgroundColor: "#58595B", height: "12px", width: "1px" }}></View>
-                                            <Text style={{ color: "#58595B", fontSize: "12px", fontFamily:'Lato 400', }}>{detail.duration?.start?.year}-{" "}{detail.currentlyWorking ? "Present" : detail.duration?.end?.year}</Text>
+                                            <Text style={{ color: "#58595B", fontSize: "12px", fontFamily: `${selectedFont} 400`, }}>{detail.duration?.start?.year}-{" "}{detail.currentlyWorking ? "Present" : detail.duration?.end?.year}</Text>
 
                                         </View>
-                                        <Text style={{ color: "#58595B", fontSize: "12px", fontFamily:'Lato 400',
+                                        <Text style={{ color: "#58595B", fontSize: "12px", fontFamily: `${selectedFont} 400`,
                                      }}>{detail.description}</Text>
 
                                     </View>

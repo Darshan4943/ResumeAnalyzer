@@ -1,7 +1,7 @@
 import { Document, Page, Text, View, StyleSheet, Image, Svg, Path, Rect, Font, Defs, ClipPath, data } from '@react-pdf/renderer';
 import React from 'react'
 
-const Template48 = ({ data }) => {
+const Template48 = ({ data,selectedColor,selectedFont  }) => {
 
     return (
         <Page size="A4" style={{ padding: 24 }}>

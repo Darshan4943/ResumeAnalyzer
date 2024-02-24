@@ -14,6 +14,7 @@ const AboutModal = ({ handleImageClick, userData, setIsComponentOpen }) => {
   // const [data, setData] = useState({
   //   summary: "",
   // });
+  const [error, setError] = useState("");
   const generateText = () => {
     const prompt = `Original Paragraph:\n${text}\n\nNew Paragraph:\n`;
     if (text.length > 100) {

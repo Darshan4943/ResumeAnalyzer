@@ -8,6 +8,9 @@ import { useRouter } from "next/router";
 
 
 function CreateResume() {
+  const [selectedFont, setSelectedFont] = useState("Roboto");
+  const [selectedColor, setSelectedColor] = useState();
+  const [selectedResumeIndex, setSelectedResumeIndex] = useState();
   const userDataGlobal = useSelector((state) => state.userData);
   const taskRef = useRef(null);
   const router = useRouter();
@@ -139,8 +142,8 @@ function CreateResume() {
           </div>
           <div className="web">
             <div className=" h-fit flex gap-6 ">
-              <ResumeForm data={data} setData={setData} />
-              <ResumePreview data={data} />
+              <ResumeForm data={data} setData={setData} selectedResumeIndex={selectedResumeIndex} setSelectedResumeIndex={setSelectedResumeIndex} setSelectedColor={setSelectedColor} selectedColor={selectedColor} setSelectedFont={setSelectedFont} selectedFont={selectedFont} />
+              <ResumePreview data={data} selectedResumeIndex={selectedResumeIndex} setSelectedResumeIndex={setSelectedResumeIndex} setSelectedColor={setSelectedColor} selectedColor={selectedColor} setSelectedFont={setSelectedFont} selectedFont={selectedFont} />
             </div>
           </div>
           {/* {isEdit &&
@@ -172,14 +175,14 @@ function CreateResume() {
                     <ClosedIcon1 />
                   </div>
                 </div>
-                <ResumeForm data={data} setData={setData} />
+                <ResumeForm data={data} setData={setData} selectedResumeIndex={selectedResumeIndex} setSelectedResumeIndex={setSelectedResumeIndex} setSelectedColor={setSelectedColor} selectedColor={selectedColor} setSelectedFont={setSelectedFont} selectedFont={selectedFont} />
 
 
               </motion.div>
             </AnimatePresence>
           }
           <div className="mobile">
-            <ResumePreview data={data} isSetEdit={isSetEdit} />
+            <ResumePreview data={data} isSetEdit={isSetEdit} selectedResumeIndex={selectedResumeIndex} setSelectedResumeIndex={setSelectedResumeIndex} setSelectedColor={setSelectedColor} selectedColor={selectedColor} setSelectedFont={setSelectedFont} selectedFont={selectedFont} />
           </div>
 
 

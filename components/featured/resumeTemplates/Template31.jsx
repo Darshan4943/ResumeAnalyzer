@@ -12,7 +12,7 @@ import {
   Rect,
 } from "@react-pdf/renderer";
 
-function Template31({ data }) {
+function Template31({ data,selectedColor,selectedFont  }) {
   return (
     <Page size="A4">
       <View
@@ -110,7 +110,7 @@ function Template31({ data }) {
               >
                 <Text
                   style={{
-                    fontFamily:'Poppins 600',
+                    fontFamily: `${selectedFont} 600`,
                     fontSize: "20px",
                     fontWeight: "600",
                     color: "#FFFFFF",
@@ -144,7 +144,7 @@ function Template31({ data }) {
                       >
                         <Text
                           style={{
-                            fontFamily:'Poppins 700',
+                            fontFamily: `${selectedFont} 700`,
                             fontSize: "12px",
                             fontWeight: "700",
                             color: "#227CFF",
@@ -154,7 +154,7 @@ function Template31({ data }) {
                         </Text>
                         <Text
                           style={{
-                            fontFamily:'Poppins 600',
+                            fontFamily: `${selectedFont} 600`,
                             fontSize: "12px",
                             fontWeight: "700",
                             color: "#FFFFFF",
@@ -168,7 +168,7 @@ function Template31({ data }) {
                       </View>
                       <Text
                         style={{
-                          fontFamily:'Poppins 300',
+                          fontFamily: `${selectedFont} 300`,
                           fontSize: "11px",
                           color: "#FFFFFF",
                           width: "100%",
@@ -209,7 +209,7 @@ function Template31({ data }) {
               >
                 <Text
                   style={{
-                    fontFamily:'Poppins 600',
+                    fontFamily: `${selectedFont} 600`,
                     fontSize: "20px",
                     color: "#FFFFFF",
                   }}
@@ -245,7 +245,7 @@ function Template31({ data }) {
                     </Svg>
                     <Text
                       style={{
-                        fontFamily:'Poppins 300',
+                        fontFamily: `${selectedFont} 300`,
                         fontSize: "12px",
                         fontWeight: "300",
                         color: "#FFFFFF",
@@ -276,7 +276,7 @@ function Template31({ data }) {
 
                     <Text
                       style={{
-                        fontFamily:'Poppins 300',
+                        fontFamily: `${selectedFont} 300`,
                         fontSize: "12px",
                         fontWeight: "300",
                         color: "#FFFFFF",
@@ -311,7 +311,7 @@ function Template31({ data }) {
 
                     <Text
                       style={{
-                        fontFamily:'Poppins 300',
+                        fontFamily: `${selectedFont} 300`,
                         fontSize: "12px",
                         fontWeight: "300",
                         color: "#FFFFFF",
@@ -346,7 +346,7 @@ function Template31({ data }) {
             <View>
               <Text
                 style={{
-                  fontFamily:'Poppins 600',
+                  fontFamily: `${selectedFont} 600`,
                   fontSize: "36px",
                   color: "#1D2028",
                 }}
@@ -357,7 +357,7 @@ function Template31({ data }) {
               <Text
                 style={{
                   fontSize: "24px",
-                  fontFamily:'Poppins 600',
+                  fontFamily: `${selectedFont} 600`,
                   color: "#227CFF",
                 }}
               >
@@ -404,7 +404,7 @@ function Template31({ data }) {
                   <Text
                     style={{
                       fontSize: "20px",
-                      fontFamily:'Poppins 600',
+                      fontFamily: `${selectedFont} 600`,
                       color: "#1D2028",
                     }}
                   >
@@ -413,7 +413,7 @@ function Template31({ data }) {
                   <Text
                     style={{
                       fontSize: "11px",
-                      fontFamily:'Poppins 300',
+                      fontFamily: `${selectedFont} 300`,
                       color: "#1D2028",
                     }}
                   >
@@ -458,7 +458,7 @@ function Template31({ data }) {
                   <Text
                     style={{
                       fontSize: "20px",
-                      fontFamily:'Poppins 600',
+                      fontFamily: `${selectedFont} 600`,
                       color: "#1D2028",
                     }}
                   >
@@ -482,7 +482,7 @@ function Template31({ data }) {
                         <Text
                           style={{
                             fontSize: "12px",
-                            fontFamily:'Poppins 300',
+                            fontFamily: `${selectedFont} 300`,
                             color: "#1D2028",
                           }}
                         >
@@ -492,7 +492,7 @@ function Template31({ data }) {
                         <Text
                           style={{
                             fontSize: "12px",
-                            fontFamily:'Poppins 700',
+                            fontFamily: `${selectedFont} 700`,
                             color: "#227CFF",
                           }}
                         >
@@ -501,7 +501,7 @@ function Template31({ data }) {
                         <Text
                           style={{
                             fontSize: "11px",
-                            ffontFamily:'Poppins 700',
+                            ffontFamily: `${selectedFont} 700`,
                             color: "#1D2028",
                           }}
                         >
@@ -549,7 +549,7 @@ function Template31({ data }) {
                   <Text
                     style={{
                       fontSize: "20px",
-                      fontFamily:'Poppins 600',
+                      fontFamily: `${selectedFont} 600`,
                       color: "#1D2028",
                     }}
                   >
@@ -575,7 +575,7 @@ function Template31({ data }) {
                       <Text
                         style={{
                           fontSize: "12px",
-                          fontFamily:'Poppins 700',
+                          fontFamily: `${selectedFont} 700`,
                           color: "#227CFF",
                         }}
                       >
@@ -584,7 +584,7 @@ function Template31({ data }) {
                       <Text
                         style={{
                           fontSize: "11px",
-                          fontFamily:'Poppins 300',
+                          fontFamily: `${selectedFont} 300`,
                           color: "#1D2028",
                         }}
                       >

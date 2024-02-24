@@ -78,132 +78,213 @@ import Template26 from "../../resumeTemplates/Template26";
 import Template27 from "../../resumeTemplates/Template27";
 import Template45 from "../../resumeTemplates/Template45";
 import Fonts from "@/public/fonts/fonts";
-<Fonts/>
-const ResumePreview = ({ data, isSetEdit }) => {
+import Template48 from "../../resumeTemplates/Template48";
+import Template50 from "../../resumeTemplates/Template50";
+import Template56 from "../../resumeTemplates/Template56";
+<Fonts />
+const ResumePreview = ({ data, isSetEdit, selectedResumeIndex, setSelectedResumeIndex, selectedColor, setSelectedColor, setSelectedFont, selectedFont }) => {
+ 
+  const templates = [
+    { title: 'Template1', imgUrl: '/images/templates/template1.png', index: 1, fontFamily:"Lato", themeColor:"#414042" },
+    { title: 'Template2', imgUrl: '/images/templates/template2.png', index: 2, fontFamily:"Barlow", themeColor:"#F7902B" },
+    { title: 'Template3', imgUrl: '/images/templates/template3.png', index: 3, fontFamily:"Inter", themeColor:"#414042" },
+    { title: 'Template4', imgUrl: '/images/templates/template4.png', index: 4, fontFamily:"Montserrat", themeColor:"#00AEEF" },
+    { title: 'Template5', imgUrl: '/images/templates/template5.png', index: 5, fontFamily:"Kanit", themeColor:"#316059" },
+    { title: 'Template6', imgUrl: '/images/templates/template6.png', index: 6, fontFamily:"Lato", themeColor:"#FFC20E" },
+    { title: 'Template7', imgUrl: '/images/templates/template7.png', index: 7, fontFamily:"Montserrat", themeColor:"#0077F9" },
+    { title: 'Template8', imgUrl: '/images/templates/template8.png', index: 8, fontFamily:"Montserrat", themeColor:"#646464" },
+    { title: 'Template9', imgUrl: '/images/templates/template9.png', index: 9, fontFamily:"Montserrat", themeColor:"#FFD740" },
+    { title: 'Template10', imgUrl: '/images/templates/template10.png', index: 10, fontFamily:"Inter", themeColor:"#F2BE5C" },
+    { title: 'Template11', imgUrl: '/images/templates/template11.png', index: 11, fontFamily:"Montserrat", themeColor:"#1C75BC" },
+    { title: 'Template12', imgUrl: '/images/templates/template12.png', index: 12, fontFamily:"Lato", themeColor:"#0C2438" },
+    { title: 'Template13', imgUrl: '/images/templates/template13.png', index: 13, fontFamily:"Poppins", themeColor:"#0E6CC2" },
+    { title: 'Template14', imgUrl: '/images/templates/template14.png', index: 14, fontFamily:"Inter", themeColor:"#242424" },
+    { title: 'Template15', imgUrl: '/images/templates/template15.png', index: 15, fontFamily:"Inter", themeColor:"#716D6D" },
+    { title: 'Template16', imgUrl: '/images/templates/template16.png', index: 16, fontFamily:"Inter", themeColor:"#545554" },
+    { title: 'Template17', imgUrl: '/images/templates/template17.png', index: 17, fontFamily:"Montserrat", themeColor:"#D1D2D3" },
+    { title: 'Template18', imgUrl: '/images/templates/template18.png', index: 18, fontFamily:"Montserrat", themeColor:"#F1F1F1" },
+    { title: 'Template19', imgUrl: '/images/templates/template19.png', index: 19, fontFamily:"Inter", themeColor:"#000000" },
+    { title: 'Template20', imgUrl: '/images/templates/template20.png', index: 20, fontFamily:"Montserrat", themeColor:"#303030" },
+    { title: 'Template21', imgUrl: '/images/templates/template21.png', index: 21, fontFamily:"Montserrat", themeColor:"#494949" },
+    { title: 'Template22', imgUrl: '/images/templates/template22.png', index: 22, fontFamily:"Inter", themeColor:"#000000" },
+    { title: 'Template23', imgUrl: '/images/templates/template23.png', index: 23, fontFamily:"Inter", themeColor:"#000000" },
+    { title: 'Template24', imgUrl: '/images/templates/template24.png', index: 24, fontFamily:"Poppins", themeColor:"#FBEDE4" },
+    { title: 'Template25', imgUrl: '/images/templates/template25.png', index: 25, fontFamily:"Montserrat", themeColor:"#414042" },
+    { title: 'Template26', imgUrl: '/images/templates/template26.png', index: 26, fontFamily:"Montserrat", themeColor:"#414042" },
+    { title: 'Template27', imgUrl: '/images/templates/template27.png', index: 27, fontFamily:"Inter", themeColor:"#CB3122" },
+    { title: 'Template28', imgUrl: '/images/templates/template28.png', index: 28, fontFamily:"Inter", themeColor:"#2AB6BB" },
+    { title: 'Template29', imgUrl: '/images/templates/template29.png', index: 29, fontFamily:"Montserrat", themeColor:"#324955" },
+    { title: 'Template30', imgUrl: '/images/templates/template30.png', index: 30, fontFamily:"Montserrat", themeColor:"#0054A6" },
+    { title: 'Template31', imgUrl: '/images/templates/template31.png', index: 31, fontFamily:"Poppins", themeColor:"#227CFF" },
+    { title: 'Template32', imgUrl: '/images/templates/template32.png', index: 32, fontFamily:"Lato", themeColor:"#0072BC" },
+    { title: 'Template33', imgUrl: '/images/templates/template33.png', index: 33, fontFamily:"Kanit", themeColor:"#414042" },
+    { title: 'Template34', imgUrl: '/images/templates/template34.png', index: 34, fontFamily:"Poppins", themeColor:"#6C83B7" },
+    { title: 'Template35', imgUrl: '/images/templates/template35.png', index: 35, fontFamily:"Lato", themeColor:"#B3977F" },
+    { title: 'Template36', imgUrl: '/images/templates/template36.png', index: 36, fontFamily:"Lato", themeColor:"#F15A29" },
+    { title: 'Template37', imgUrl: '/images/templates/template37.png', index: 37, fontFamily:"Inter", themeColor:"#3956A3" },
+    { title: 'Template38', imgUrl: '/images/templates/template38.png', index: 38, fontFamily:"Lato", themeColor:"#C49A6C" },
+    { title: 'Template39', imgUrl: '/images/templates/template39.png', index: 39, fontFamily:"Lato", themeColor:"#030203" },
+    { title: 'Template40', imgUrl: '/images/templates/template40.png', index: 40, fontFamily:"Lato", themeColor:"#47484C" },
+    { title: 'Template41', imgUrl: '/images/templates/template41.png', index: 41, fontFamily:"Inter", themeColor:"#EDEDEE" },
+    { title: 'Template42', imgUrl: '/images/templates/template42.png', index: 42, fontFamily:"Lato", themeColor:"#414042" },
+    { title: 'Template43', imgUrl: '/images/templates/template43.png', index: 43, fontFamily:"Montserrat", themeColor:"#F9D3D0" },
+    { title: 'Template44', imgUrl: '/images/templates/template44.png', index: 44, fontFamily:"Inter", themeColor:"#C7EAFB" },
+    { title: 'Template45', imgUrl: '/images/templates/template45.png', index: 45, fontFamily:"Lato", themeColor:"#9E071C" },
+    { title: 'Template46', imgUrl: '/images/templates/template46.png', index: 46, fontFamily:"Lato", themeColor:"#00AEEF" },
+    { title: 'Template47', imgUrl: '/images/templates/template47.png', index: 47, fontFamily:"Poppins", themeColor:"#27AAE1" },
+    { title: 'Template48', imgUrl: '/images/templates/template48.png', index: 48, fontFamily:"Poppins", themeColor:"#F7941D" },
+    { title: 'Template49', imgUrl: '/images/templates/template49.png', index: 49, fontFamily:"Poppins", themeColor:"#27AAE1" },
+    { title: 'Template50', imgUrl: '/images/templates/template50.png', index: 50, fontFamily:"Inter", themeColor:"#1C75BC" },
+    { title: 'Template51', imgUrl: '/images/templates/template51.png', index: 51, fontFamily:"Inter", themeColor:"#F1D61B" },
+    { title: 'Template52', imgUrl: '/images/templates/template52.png', index: 52, fontFamily:"Lato", themeColor:"#304A9F" },
+    { title: 'Template53', imgUrl: '/images/templates/template53.png', index: 53, fontFamily:"Montserrat", themeColor:"#AC5428" },
+    { title: 'Template54', imgUrl: '/images/templates/template54.png', index: 54, fontFamily:"Montserrat", themeColor:"#83C3C9" },
+    { title: 'Template55', imgUrl: '/images/templates/template55.png', index: 55, fontFamily:"Montserrat", themeColor:"#FC9206" },
+    { title: 'Template56', imgUrl: '/images/templates/template56.png', index: 56, fontFamily:"Montserrat", themeColor:"#56C8E2" }
+  ]
+  
+  const renderTemplates = () => {
+    return templates.map((template, index) => (
+      <img
+        key={index}
+        src={template.imgUrl}
+        className="h-[200px] w-[140.91px] rounded-[6px]"
+        alt=""
+        onClick={() => handleImageClick(template)}
+      />
+    ));
+  };
 
+  const handleImageClick = (template) => {
+    togglePreview(true, template.index);
+    setSelectedColor(template.themeColor);
+    setSelectedFont(template.fontFamily)
+
+  };
   const userDataGlobal = useSelector((state) => state.userData);
   const dispatch = useDispatch();
   const resumeRef = useRef();
   const [preview, setPreview] = useState(false);
 
-  const [selectedResumeIndex, setSelectedResumeIndex] = useState();
-  console.log(27, selectedResumeIndex);
+
+
   const [loading, setLoading] = useState(false);
 
   const togglePreview = (isVisible, index) => {
-    // setPreview(isVisible);
-    // console.log(data)
+
     setSelectedResumeIndex(index);
   };
   const selectResumeTemplate = (index) => {
     switch (index) {
       case 1:
-        return <Template1 data={data} />;
+        return <Template1 data={data} selectedColor={selectedColor} selectedFont={selectedFont} />;
       case 2:
-        return <Template2 data={data} />;
+        return <Template2 data={data} selectedColor={selectedColor} selectedFont={selectedFont} />;
       case 3:
-        return <Template3 data={data} />;
+        return <Template3 data={data} selectedColor={selectedColor} selectedFont={selectedFont} />;
       case 4:
-        return <Template4 data={data} />;
+        return <Template4 data={data} selectedColor={selectedColor} selectedFont={selectedFont} />;
       case 5:
-        return <Template5 data={data} />;
+        return <Template5 data={data} selectedColor={selectedColor} selectedFont={selectedFont} />;
       case 6:
-        return <Template6 data={data} />;
+        return <Template6 data={data} selectedColor={selectedColor} selectedFont={selectedFont} />;
       case 7:
-        return <Template7 data={data} />;
+        return <Template7 data={data} selectedColor={selectedColor} selectedFont={selectedFont} />;
       case 8:
-        return <Template8 data={data} />;
+        return <Template8 data={data} selectedColor={selectedColor} selectedFont={selectedFont} />;
       case 9:
-        return <Template9 data={data} />;
+        return <Template9 data={data} selectedColor={selectedColor} selectedFont={selectedFont} />;
       case 10:
-        return <Template10 data={data} />;
+        return <Template10 data={data} selectedColor={selectedColor} selectedFont={selectedFont} />;
       case 11:
-        return <Template11 data={data} />;
+        return <Template11 data={data} selectedColor={selectedColor} selectedFont={selectedFont} />;
       case 12:
-        return <Template12 data={data} />;
+        return <Template12 data={data} selectedColor={selectedColor} selectedFont={selectedFont} />;
       case 13:
-        return <Template13 data={data} />;
+        return <Template13 data={data} selectedColor={selectedColor} selectedFont={selectedFont} />;
       case 14:
-        return <Template14 data={data} />;
+        return <Template14 data={data} selectedColor={selectedColor} selectedFont={selectedFont} />;
       case 15:
-        return <Template15 data={data} />;
+        return <Template15 data={data} selectedColor={selectedColor} selectedFont={selectedFont} />;
       case 16:
-        return <Template16 data={data} />;
+        return <Template16 data={data} selectedColor={selectedColor} selectedFont={selectedFont} />;
       case 17:
-        return <Template17 data={data} />;
+        return <Template17 data={data} selectedColor={selectedColor} selectedFont={selectedFont} />;
       case 18:
-        return <Template18 data={data} />;
+        return <Template18 data={data} selectedColor={selectedColor} selectedFont={selectedFont} />;
       case 19:
-        return <Template19 data={data} />;
+        return <Template19 data={data} selectedColor={selectedColor} selectedFont={selectedFont} />;
       case 20:
-        return <Template20 data={data} />;
+        return <Template20 data={data} selectedColor={selectedColor} selectedFont={selectedFont} />;
       case 21:
-        return <Template21 data={data} />;
+        return <Template21 data={data} selectedColor={selectedColor} selectedFont={selectedFont} />;
       case 22:
-        return <Template22 data={data} />;
+        return <Template22 data={data} selectedColor={selectedColor} selectedFont={selectedFont} />;
       case 23:
-        return <Template23 data={data} />;
+        return <Template23 data={data} selectedColor={selectedColor} selectedFont={selectedFont} />;
       case 24:
-        return <Template24 data={data} />;
+        return <Template24 data={data} selectedColor={selectedColor} selectedFont={selectedFont} />;
       case 25:
-        return <Template25 data={data} />;
+        return <Template25 data={data} selectedColor={selectedColor} selectedFont={selectedFont} />;
       case 26:
-        return <Template26 data={data} />;
+        return <Template26 data={data} selectedColor={selectedColor} selectedFont={selectedFont} />;
       case 27:
-        return <Template27 data={data} />;
+        return <Template27 data={data} selectedColor={selectedColor} selectedFont={selectedFont} />;
       case 28:
-        return <Template28 data={data} />;
+        return <Template28 data={data} selectedColor={selectedColor} selectedFont={selectedFont} />;
       case 29:
-        return <Template29 data={data} />;
+        return <Template29 data={data} selectedColor={selectedColor} selectedFont={selectedFont} />;
       case 30:
-        return <Template30 data={data} />;
+        return <Template30 data={data} selectedColor={selectedColor} selectedFont={selectedFont} />;
       case 31:
-        return <Template31 data={data} />;
+        return <Template31 data={data} selectedColor={selectedColor} selectedFont={selectedFont} />;
       case 32:
-        return <Template32 data={data} />;
+        return <Template32 data={data} selectedColor={selectedColor} selectedFont={selectedFont} />;
       case 33:
-        return <Template33 data={data} />;
+        return <Template33 data={data} selectedColor={selectedColor} selectedFont={selectedFont} />;
       case 34:
-        return <Template34 data={data} />;
+        return <Template34 data={data} selectedColor={selectedColor} selectedFont={selectedFont} />;
       case 35:
-        return <Template35 data={data} />;
+        return <Template35 data={data} selectedColor={selectedColor} selectedFont={selectedFont} />;
       case 36:
-        return <Template36 data={data} />;
+        return <Template36 data={data} selectedColor={selectedColor} selectedFont={selectedFont} />;
       case 37:
-        return <Template37 data={data} />;
+        return <Template37 data={data} selectedColor={selectedColor} selectedFont={selectedFont} />;
       case 38:
-        return <Template38 data={data} />;
+        return <Template38 data={data} selectedColor={selectedColor} selectedFont={selectedFont} />;
       case 39:
-        return <Template39 data={data} />;
+        return <Template39 data={data} selectedColor={selectedColor} selectedFont={selectedFont} />;
       case 40:
-        return <Template40 data={data} />;
+        return <Template40 data={data} selectedColor={selectedColor} selectedFont={selectedFont} />;
       case 41:
-        return <Template41 data={data} />;
+        return <Template41 data={data} selectedColor={selectedColor} selectedFont={selectedFont} />;
       case 42:
-        return <Template42 data={data} />;
+        return <Template42 data={data} selectedColor={selectedColor} selectedFont={selectedFont} />;
       case 43:
-        return <Template43 data={data} />;
+        return <Template43 data={data} selectedColor={selectedColor} selectedFont={selectedFont} />;
       case 44:
-        return <Template44 data={data} />;
+        return <Template44 data={data} selectedColor={selectedColor} selectedFont={selectedFont} />;
       case 45:
-        return <Template45 data={data} />;
+        return <Template45 data={data} selectedColor={selectedColor} selectedFont={selectedFont} />;
       case 47:
-        return <Template47 data={data} />;
+        return <Template47 data={data} selectedColor={selectedColor} selectedFont={selectedFont} />;
       case 48:
-        return <Template48 data={data} />;
+        return <Template48 data={data} selectedColor={selectedColor} selectedFont={selectedFont} />;
       case 49:
-        return <Template49 data={data} />;
+        return <Template49 data={data} selectedColor={selectedColor} selectedFont={selectedFont} />;
       case 50:
-        return <Template50 data={data} />;
-        case 51:
-          return <Template51 data={data} />;
-          case 53:
-          return <Template53 data={data} />;
-          case 54:
-          return <Template54 data={data} />;
+        return <Template50 data={data} selectedColor={selectedColor} selectedFont={selectedFont} />;
+      case 51:
+        return <Template51 data={data} selectedColor={selectedColor} selectedFont={selectedFont} />;
+      case 53:
+        return <Template53 data={data} selectedColor={selectedColor} selectedFont={selectedFont} />;
+      case 54:
+        return <Template54 data={data} selectedColor={selectedColor} selectedFont={selectedFont} />;
+      case 56:
+        return <Template56 data={data} selectedColor={selectedColor} selectedFont={selectedFont} />;
 
       default:
-        return <Template1 data={data} />;
+        return <Template1 data={data} selectedColor={selectedColor} selectedFont={selectedFont} />;
     }
   };
 
@@ -255,323 +336,8 @@ const ResumePreview = ({ data, isSetEdit }) => {
         }}
       >
         <div className="rounded-[8px] bg-[#BCEBFF]  px-4 pt-[10px] ">
-          <div className=" flex gap-4 pb-[10px]" style={{ overflowX: "auto" }}>
-            <img
-              src="/images/services/resume1.png"
-              className="h-[200px] w-[140.91px] rounded-[6px]"
-              alt=""
-              onClick={() => togglePreview(true, 1)}
-            />
-            <img
-              src="/images/services/resume2.png"
-              className="h-[200px] w-[140.91px] rounded-[6px]"
-              alt=""
-              onClick={() => togglePreview(true, 2)}
-            />
-            <img
-              src="/images/services/resume3.png"
-              className="h-[200px] w-[140.91px] rounded-[6px]"
-              alt=""
-              onClick={() => togglePreview(true, 3)}
-            />
-            <img
-              src="/images/services/resume4.png"
-              className="h-[200px] w-[140.91px] rounded-[6px]"
-              alt=""
-              onClick={() => togglePreview(true, 4)}
-            />
-            <img
-              src="/images/services/resume5.png"
-              className="h-[200px] w-[140.91px] rounded-[6px]"
-              alt=""
-              onClick={() => togglePreview(true, 5)}
-            />
-            <img
-              src="/images/services/resume6.png"
-              className="h-[200px] w-[140.91px] rounded-[6px]"
-              alt=""
-              onClick={() => togglePreview(true, 6)}
-            />
-            <img
-              src="/images/services/resume7.png"
-              className="h-[200px] w-[140.91px] rounded-[6px]"
-              alt=""
-              onClick={() => togglePreview(true, 7)}
-            />
-            <img
-              src="/images/services/resume8.png"
-              className="h-[200px] w-[140.91px] rounded-[6px]"
-              alt=""
-              onClick={() => togglePreview(true, 8)}
-            />
-            <img
-              src="/images/services/resume9.png"
-              className="h-[200px] w-[140.91px] rounded-[6px]"
-              alt=""
-              onClick={() => togglePreview(true, 9)}
-            />
-            <img
-              src="/images/services/Template10.png"
-              className="h-[200px] w-[140.91px] rounded-[6px]"
-              alt=""
-              onClick={() => togglePreview(true, 10)}
-            />
-            <img
-              src="/images/services/resume11.png"
-              className="h-[200px] w-[140.91px] rounded-[6px]"
-              alt=""
-              onClick={() => togglePreview(true, 11)}
-            />
-            <img
-              src="/images/services/resume12.png"
-              className="h-[200px] w-[140.91px] rounded-[6px]"
-              alt=""
-              onClick={() => togglePreview(true, 12)}
-            />
-            <img
-              src="/images/services/template13.png"
-              className="h-[200px] w-[140.91px] rounded-[6px]"
-              alt=""
-              onClick={() => togglePreview(true, 13)}
-            />
-            <img
-              src="/images/services/template14.png"
-              className="h-[200px] w-[140.91px] rounded-[6px]"
-              alt=""
-              onClick={() => togglePreview(true, 14)}
-            />
-            <img
-              src="/images/services/template15.png"
-              className="h-[200px] w-[140.91px] rounded-[6px]"
-              alt=""
-              onClick={() => togglePreview(true, 15)}
-            />
-            <img
-              src="/images/services/template16.png"
-              className="h-[200px] w-[140.91px] rounded-[6px]"
-              alt=""
-              onClick={() => togglePreview(true, 16)}
-            />
-
-            <img
-              src="/images/services/template17.png"
-              className="h-[200px] w-[140.91px] rounded-[6px]"
-              alt=""
-              onClick={() => togglePreview(true, 17)}
-            />
-            <img
-              src="/images/services/template18.png"
-              className="h-[200px] w-[140.91px] rounded-[6px]"
-              alt=""
-              onClick={() => togglePreview(true, 18)}
-            />
-            <img
-              src="/images/services/template19.png"
-              className="h-[200px] w-[140.91px] rounded-[6px]"
-              alt=""
-              onClick={() => togglePreview(true, 19)}
-            />
-            <img
-              src="/images/services/template20.png"
-              className="h-[200px] w-[140.91px] rounded-[6px]"
-              alt=""
-              onClick={() => togglePreview(true, 20)}
-            />
-            <img
-              src="/images/services/template21.png"
-              className="h-[200px] w-[140.91px] rounded-[6px]"
-              alt=""
-              onClick={() => togglePreview(true, 21)}
-            />
-            <img
-              src="/images/services/template22.png"
-              className="h-[200px] w-[140.91px] rounded-[6px]"
-              alt=""
-              onClick={() => togglePreview(true, 22)}
-            />
-            <img
-              src="/images/services/template23.png"
-              className="h-[200px] w-[140.91px] rounded-[6px]"
-              alt=""
-              onClick={() => togglePreview(true, 23)}
-            />
-            <img
-              src="/images/services/resume24.png"
-              className="h-[200px] w-[140.91px] rounded-[6px]"
-              alt=""
-              onClick={() => togglePreview(true, 24)}
-            />
-            <img
-              src="/images/services/resume25.png"
-              className="h-[200px] w-[140.91px] rounded-[6px]"
-              alt=""
-              onClick={() => togglePreview(true, 25)}
-            />
-            <img
-              src="/images/services/template26.png"
-              className="h-[200px] w-[140.91px] rounded-[6px]"
-              alt=""
-              onClick={() => togglePreview(true, 26)}
-            />
-            <img
-              src="/images/services/template27.png"
-              className="h-[200px] w-[140.91px] rounded-[6px]"
-              alt=""
-              onClick={() => togglePreview(true, 27)}
-            />
-            <img
-              src="/images/services/template28.png"
-              className="h-[200px] w-[140.91px] rounded-[6px]"
-              alt=""
-              onClick={() => togglePreview(true, 28)}
-            />
-            <img
-              src="/images/services/template29.png"
-              className="h-[200px] w-[140.91px] rounded-[6px]"
-              alt=""
-              onClick={() => togglePreview(true, 29)}
-            />
-            <img
-              src="/images/services/template30.png"
-              className="h-[200px] w-[140.91px] rounded-[6px]"
-              alt=""
-              onClick={() => togglePreview(true, 30)}
-            />
-            <img
-              src="/images/services/resume31.png"
-              className="h-[200px] w-[140.91px] rounded-[6px]"
-              alt=""
-              onClick={() => togglePreview(true, 31)}
-            />
-            <img
-              src="/images/services/template32.png"
-              className="h-[200px] w-[140.91px] rounded-[6px]"
-              alt=""
-              onClick={() => togglePreview(true, 32)}
-            />
-            <img
-              src="/images/services/template33.png"
-              className="h-[200px] w-[140.91px] rounded-[6px]"
-              alt=""
-              onClick={() => togglePreview(true, 33)}
-            />
-            <img
-              src="/images/services/template34.png"
-              className="h-[200px] w-[140.91px] rounded-[6px]"
-              alt=""
-              onClick={() => togglePreview(true, 34)}
-            />
-            <img
-              src="/images/services/template35.png"
-              className="h-[200px] w-[140.91px] rounded-[6px]"
-              alt=""
-              onClick={() => togglePreview(true, 35)}
-            />
-            <img
-              src="/images/services/resume36.png"
-              className="h-[200px] w-[140.91px] rounded-[6px]"
-              alt=""
-              onClick={() => togglePreview(true, 36)}
-            />
-            <img
-              src="/images/services/template37.png"
-              className="h-[200px] w-[140.91px] rounded-[6px]"
-              alt=""
-              onClick={() => togglePreview(true, 37)}
-            />
-
-            <img
-              src="/images/services/template38.png"
-              className="h-[200px] w-[140.91px] rounded-[6px]"
-              alt=""
-              onClick={() => togglePreview(true, 38)}
-            />
-            <img
-              src="/images/services/template39.png"
-              className="h-[200px] w-[140.91px] rounded-[6px]"
-              alt=""
-              onClick={() => togglePreview(true, 39)}
-            />
-            <img
-              src="/images/services/template40.png"
-              className="h-[200px] w-[140.91px] rounded-[6px]"
-              alt=""
-              onClick={() => togglePreview(true, 40)}
-            />
-            <img
-              src="/images/services/template41.png"
-              className="h-[200px] w-[140.91px] rounded-[6px]"
-              alt=""
-              onClick={() => togglePreview(true, 41)}
-            />
-            <img
-              src="/images/services/template42.png"
-              className="h-[200px] w-[140.91px] rounded-[6px]"
-              alt=""
-              onClick={() => togglePreview(true, 42)}
-            />
-            <img
-              src="/images/services/template43.png"
-              className="h-[200px] w-[140.91px] rounded-[6px]"
-              alt=""
-              onClick={() => togglePreview(true, 43)}
-            />
-            <img
-              src="/images/services/template44.png"
-              className="h-[200px] w-[140.91px] rounded-[6px]"
-              alt=""
-              onClick={() => togglePreview(true, 44)}
-            />
-            <img
-              src="/images/services/template45.png"
-              className="h-[200px] w-[140.91px] rounded-[6px]"
-              alt=""
-              onClick={() => togglePreview(true, 45)}
-            />
-            <img
-              src="/images/services/template47.png"
-              className="h-[200px] w-[140.91px] rounded-[6px]"
-              alt=""
-              onClick={() => togglePreview(true, 47)}
-            />
-
-              <img
-              src="/images/services/template48.png"
-              className="h-[200px] w-[140.91px] rounded-[6px]"
-              alt=""
-              onClick={() => togglePreview(true, 48)}
-            />
-       
-            <img
-              src="/images/services/template49.png"
-              className="h-[200px] w-[140.91px] rounded-[6px]"
-              alt=""
-              onClick={() => togglePreview(true, 49)}
-            />
-            <img
-              src="/images/services/template50.png"
-              className="h-[200px] w-[140.91px] rounded-[6px]"
-              alt=""
-              onClick={() => togglePreview(true, 50)}
-            />
-            <img
-              src="/images/services/template51.png"
-              className="h-[200px] w-[140.91px] rounded-[6px]"
-              alt=""
-              onClick={() => togglePreview(true, 51)}
-            />
-             <img
-              src="/images/services/template53.png"
-              className="h-[200px] w-[140.91px] rounded-[6px]"
-              alt=""
-              onClick={() => togglePreview(true, 53)}
-            />
-             <img
-              src="/images/services/template54.png"
-              className="h-[200px] w-[140.91px] rounded-[6px]"
-              alt=""
-              onClick={() => togglePreview(true, 54)}
-            />
+          <div className="flex gap-4 pb-[10px]" style={{ overflowX: "auto" }}>
+            {renderTemplates()}
           </div>
         </div>
 

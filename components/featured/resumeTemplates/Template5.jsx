@@ -10,8 +10,8 @@ import {
   Path,
   Rect,
 } from "@react-pdf/renderer";
-function Template5({ data }) {
-  console.log(14, data);
+function Template5({ data,selectedColor,selectedFont  }) {
+
   return (
     <Page size="A4">
       <View
@@ -67,7 +67,7 @@ function Template5({ data }) {
               <Text
                 style={{
                   fontSize: "17px",
-                  fontFamily: "Kanit 400",
+                  fontFamily: `${selectedFont} 400`,
                   color: "#F9F9F9",
                 }}
               >
@@ -101,7 +101,7 @@ function Template5({ data }) {
                 <Text
                   style={{
                     fontSize: "12px",
-                    fontFamily: "Kanit 300",
+                    fontFamily: `${selectedFont} 300`,
                     color: "#414142",
                   }}
                 >
@@ -137,7 +137,7 @@ function Template5({ data }) {
                   <Text
                     style={{
                       fontSize: "12px",
-                      fontFamily: "Kanit 300",
+                      fontFamily: `${selectedFont} 300`,
                       color: "#414142",
                     }}
                   >
@@ -174,7 +174,7 @@ function Template5({ data }) {
                   <Text
                     style={{
                       fontSize: "12px",
-                      fontFamily: "Kanit 300",
+                      fontFamily: `${selectedFont} 300`,
                       color: "#414142",
                     }}
                   >
@@ -217,7 +217,7 @@ function Template5({ data }) {
                   <Text
                     style={{
                       fontSize: "12px",
-                      fontFamily: "Kanit 300",
+                      fontFamily: `${selectedFont} 300`,
                       color: "#414142",
                     }}
                   >
@@ -240,7 +240,7 @@ function Template5({ data }) {
               <Text
                 style={{
                   fontSize: "17px",
-                  fontFamily: "Kanit 400",
+                  fontFamily: `${selectedFont} 400`,
                   color: "#F9F9F9",
                 }}
               >
@@ -306,7 +306,7 @@ function Template5({ data }) {
                               style={{
                                 color: "#414142",
                                 fontSize: "12px",
-                                fontFamily: "Kanit 300",
+                                fontFamily: `${selectedFont} 300`,
                                 width: "80px",
                               }}
                             >
@@ -351,7 +351,7 @@ function Template5({ data }) {
               <Text
                 style={{
                   fontSize: "17px",
-                  fontFamily: "Kanit 400",
+                  fontFamily: `${selectedFont} 400`,
                   color: "#F9F9F9",
                 }}
               >
@@ -407,7 +407,7 @@ function Template5({ data }) {
                               color: "#414142",
                               fontSize: "12px",
                               width: "80px",
-                              fontFamily: "Kanit 300"
+                              fontFamily: `${selectedFont} 300`
                             }}
                           >
                             {detail.languages}
@@ -469,7 +469,7 @@ function Template5({ data }) {
               style={{
                 color: "#2B2A2A",
                 fontSize: "26.33px",
-                fontFamily: "Kanit 600",
+                fontFamily: `${selectedFont} 600`,
               }}
             >
               JOHN DOE
@@ -478,7 +478,7 @@ function Template5({ data }) {
               style={{
                 color: "#316059",
                 fontSize: "18.96px",
-                fontFamily: "Kanit 275",
+                fontFamily: `${selectedFont} 300`,
               }}
             >
               COMMUNITY MANAGER
@@ -501,7 +501,7 @@ function Template5({ data }) {
                 style={{
                   color: "#F9F9F9",
                   fontSize: "17px",
-                  fontFamily: "Kanit 400",
+                  fontFamily: `${selectedFont} 400`,
                 }}
               >
                 About Me
@@ -509,7 +509,7 @@ function Template5({ data }) {
               <Text
                 style={{
                   fontSize: "11px",
-                  fontFamily: "Kanit 300",
+                  fontFamily: `${selectedFont} 300`,
                   color: "#E2E2E2",
                   paddingLeft: "15px",
                   paddingTop: "25px",
@@ -535,7 +535,7 @@ function Template5({ data }) {
               <Text
                 style={{
                   fontSize: "17px",
-                  fontFamily: "Kanit 400",
+                  fontFamily: `${selectedFont} 400`,
                   color: "#F9F9F9",
                   paddingBottom: "27px",
                 }}
@@ -571,7 +571,7 @@ function Template5({ data }) {
                       <Text
                         style={{
                           fontSize: "11px",
-                          fontFamily: "Kanit 400",
+                          fontFamily: `${selectedFont} 400`,
                           color: "#F9F9F9",
                         }}
                       >
@@ -581,7 +581,7 @@ function Template5({ data }) {
                     <Text
                       style={{
                         fontSize: "9px",
-                        fontFamily: "Kanit 300",
+                        fontFamily: `${selectedFont} 300`,
                         color: "#F2F2F2",
                         paddingLeft: "10px",
                       }}
@@ -591,7 +591,7 @@ function Template5({ data }) {
                     <Text
                       style={{
                         fontSize: "7px",
-                        fontFamily: "Kanit 400",
+                        fontFamily: `${selectedFont} 400`,
                         color: "#F9F9F9",
                         paddingLeft: "10px",
                       }}
@@ -620,7 +620,7 @@ function Template5({ data }) {
               <Text
                 style={{
                   fontSize: "17px",
-                  fontFamily: "Kanit 400",
+                  fontFamily: `${selectedFont} 400`,
                   color: "#F9F9F9",
                   paddingBottom: "27px",
                 }}
@@ -656,7 +656,7 @@ function Template5({ data }) {
                       <Text
                         style={{
                           fontSize: "11px",
-                          fontFamily: "Kanit 400",
+                          fontFamily: `${selectedFont} 400`,
                           color: "#F9F9F9",
                         }}
                       >
@@ -667,7 +667,7 @@ function Template5({ data }) {
                     <Text
                       style={{
                         fontSize: "7px",
-                        fontFamily: "Kanit 400",
+                        fontFamily: `${selectedFont} 400`,
                         color: "#F9F9F9",
                         paddingLeft: "10px",
                       }}
@@ -680,7 +680,7 @@ function Template5({ data }) {
                     <Text
                       style={{
                         fontSize: "11px",
-                        fontFamily: "Kanit 300",
+                        fontFamily: `${selectedFont} 300`,
                         color: "#F2F2F2",
                         paddingLeft: "10px",
                         paddingTop: "17px",

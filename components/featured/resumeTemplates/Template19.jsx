@@ -11,7 +11,7 @@ import {
     Rect,
 } from "@react-pdf/renderer";
 
-function Template19({ data }) {
+function Template19({ data,selectedColor,selectedFont  }) {
     return (
         <Page size="A4" style={{ padding: 24 }}>
             <View
@@ -59,7 +59,7 @@ function Template19({ data }) {
                                     objectFit: "contain",
                                 }}
                             />
-                            <Text style={{ fontSize: 12, fontFamily:'Inter 400', color: "#000000" }}>
+                            <Text style={{ fontSize: 12, fontFamily: `${selectedFont} 400`, color: "#000000" }}>
                                 +012-3456-7890
                             </Text>
                         </View>
@@ -81,7 +81,7 @@ function Template19({ data }) {
                                     objectFit: "contain",
                                 }}
                             />
-                            <Text style={{ fontSize: 12, fontFamily:'Inter 400', color: "#000000" }}>
+                            <Text style={{ fontSize: 12, fontFamily: `${selectedFont} 400`, color: "#000000" }}>
                                 yourmail@mail.com
                             </Text>
                         </View>
@@ -103,7 +103,7 @@ function Template19({ data }) {
                                     objectFit: "contain",
                                 }}
                             />
-                            <Text style={{ fontSize: 12,fontFamily:'Inter 400', color: "#000000" }}>
+                            <Text style={{ fontSize: 12,fontFamily: `${selectedFont} 400`, color: "#000000" }}>
                                 San Francisco, CA
                             </Text>
                         </View>
@@ -118,7 +118,7 @@ function Template19({ data }) {
                         }}
                     >
                         <View style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-                            <Text style={{ fontSize: 30, fontFamily:'Inter 400', color: "#000000" }}>
+                            <Text style={{ fontSize: 30, fontFamily: `${selectedFont} 400`, color: "#000000" }}>
                                 John Doe
                             </Text>
                             <View
@@ -139,7 +139,7 @@ function Template19({ data }) {
                                     <Path d="M243 0.5H0V1.5H243V0.5Z" fill="black" />
                                 </Svg>
                                 <Text
-                                    style={{ fontSize: 14, fontFamily:'Inter 400', color: "#000000" }}
+                                    style={{ fontSize: 14, fontFamily: `${selectedFont} 400`, color: "#000000" }}
                                 >
                                     Layout Artist
                                 </Text>
@@ -154,7 +154,7 @@ function Template19({ data }) {
                                 alignItems: "flex-start",
                             }}
                         >
-                            <Text style={{ fontSize: 14, fontFamily:'Inter 400', color: "#000000" }}>
+                            <Text style={{ fontSize: 14, fontFamily: `${selectedFont} 400`, color: "#000000" }}>
                                 About me
                             </Text>
                             <Svg
@@ -166,7 +166,7 @@ function Template19({ data }) {
                             >
                                 <Path d="M436 0H0V1H436V0Z" fill="black" />
                             </Svg>
-                            <Text style={{ fontSize: 12, color: "#808285",  fontFamily:'Inter 400'}}>
+                            <Text style={{ fontSize: 12, color: "#808285",  fontFamily: `${selectedFont} 400`}}>
                                 This is where you sell yourself and be quick recruiters only
                                 skim through the rest of your resume. Show your achievements and
                                 . Use worth to them. You can go ahead and drop your objective
@@ -199,7 +199,7 @@ function Template19({ data }) {
                             borderTopColor: "#000000",
                         }}
                     >
-                        <Text style={{ fontSize: 14, fontFamily:'Inter 400', color: "#000000" }}>
+                        <Text style={{ fontSize: 14, fontFamily: `${selectedFont} 400`, color: "#000000" }}>
                             Professional Skills
                         </Text>
                     </View>
@@ -219,7 +219,7 @@ function Template19({ data }) {
                                 gap: 8,
                             }}
                         >
-                            <Text style={{ fontSize: 12, color: "#808285",  fontFamily:'Inter 400'}}>
+                            <Text style={{ fontSize: 12, color: "#808285",  fontFamily: `${selectedFont} 400`}}>
                                 Team Management
                             </Text>
                             <Svg
@@ -301,7 +301,7 @@ function Template19({ data }) {
                                     width: 268,
                                 }}
                             >
-                                <Text style={{ paddingBottom: 5 , fontFamily:'Inter 400'}}>Social Media</Text>
+                                <Text style={{ paddingBottom: 5 , fontFamily: `${selectedFont} 400`}}>Social Media</Text>
                             </View>
 
                             <View
@@ -352,7 +352,7 @@ function Template19({ data }) {
                                         <Text
                                             style={{
                                                 fontSize: 12,
-                                                fontFamily:'Inter 400',
+                                                fontFamily: `${selectedFont} 400`,
                                                 color: "#000000",
                                             }}
                                         >
@@ -361,7 +361,7 @@ function Template19({ data }) {
                                         <Text
                                             style={{
                                                 fontSize: 12,
-                                                fontFamily:'Inter 400',
+                                                fontFamily: `${selectedFont} 400`,
                                                 
                                                 color: "#000000",
                                             }}
@@ -409,7 +409,7 @@ function Template19({ data }) {
                                         <Text
                                             style={{
                                                 fontSize: 12,
-                                                fontFamily:'Inter 400',
+                                                fontFamily: `${selectedFont} 400`,
                                                 color: "#000000",
                                             }}
                                         >
@@ -418,7 +418,7 @@ function Template19({ data }) {
                                         <Text
                                             style={{
                                                 fontSize: 12,
-                                                fontFamily:'Inter 400',
+                                                fontFamily: `${selectedFont} 400`,
                                                 color: "#000000",
                                             }}
                                         >
@@ -458,7 +458,7 @@ function Template19({ data }) {
                                         <Text
                                             style={{
                                                 fontSize: 12,
-                                                fontFamily:'Inter 400',
+                                                fontFamily: `${selectedFont} 400`,
                                                 color: "#000000",
                                             }}
                                         >
@@ -467,7 +467,7 @@ function Template19({ data }) {
                                         <Text
                                             style={{
                                                 fontSize: 12,
-                                                fontFamily:'Inter 400',
+                                                fontFamily: `${selectedFont} 400`,
                                                 color: "#000000",
                                             }}
                                         >
@@ -507,7 +507,7 @@ function Template19({ data }) {
                                         <Text
                                             style={{
                                                 fontSize: 12,
-                                                fontFamily:'Inter 400',
+                                                fontFamily: `${selectedFont} 400`,
                                                 color: "#000000",
                                             }}
                                         >
@@ -516,7 +516,7 @@ function Template19({ data }) {
                                         <Text
                                             style={{
                                                 fontSize: 12,
-                                                fontFamily:'Inter 400',
+                                                fontFamily: `${selectedFont} 400`,
                                                 color: "#000000",
                                             }}
                                         >
@@ -543,7 +543,7 @@ function Template19({ data }) {
                                     width: 268,
                                 }}
                             >
-                                <Text style={{ paddingBottom: 5,fontFamily:'Inter 400', }}>EDUCATION</Text>
+                                <Text style={{ paddingBottom: 5,fontFamily: `${selectedFont} 400`, }}>EDUCATION</Text>
                             </View>
 
                             <View
@@ -555,16 +555,16 @@ function Template19({ data }) {
                                     flexWrap: "wrap",
                                 }}>
                              <View style={{display:'flex',flexDirection:'column',gap:5,width:'45%'}}>
-                                    <Text style={{fontSize:12,color:'#000000',fontFamily:'Inter 400',}}>MASTER DEGREE</Text>
-                                    <Text style={{fontSize:10,color:'#808285',fontFamily:'Inter 400',}}>Communication</Text>
-                                    <Text style={{fontSize:10,color:'#000000',fontFamily:'Inter 400',}}>San Franciso University</Text>
-                                    <Text style={{fontSize:10,color:'#000000',fontFamily:'Inter 400',}}>2016-2018</Text>
+                                    <Text style={{fontSize:12,color:'#000000',fontFamily: `${selectedFont} 400`,}}>MASTER DEGREE</Text>
+                                    <Text style={{fontSize:10,color:'#808285',fontFamily: `${selectedFont} 400`,}}>Communication</Text>
+                                    <Text style={{fontSize:10,color:'#000000',fontFamily: `${selectedFont} 400`,}}>San Franciso University</Text>
+                                    <Text style={{fontSize:10,color:'#000000',fontFamily: `${selectedFont} 400`,}}>2016-2018</Text>
                              </View>
                              <View style={{display:'flex',flexDirection:'column',gap:5,width:'45%'}}>
-                                    <Text style={{fontSize:12,color:'#000000',fontFamily:'Inter 400',}}>BACHELOR DEGREE</Text>
-                                    <Text style={{fontSize:10,color:'#808285',fontFamily:'Inter 400',}}>Communication</Text>
-                                    <Text style={{fontSize:10,color:'#000000',fontFamily:'Inter 400',}}>San Franciso University</Text>
-                                    <Text style={{fontSize:10,color:'#000000',fontFamily:'Inter 400',}}>2016-2018</Text>
+                                    <Text style={{fontSize:12,color:'#000000',fontFamily: `${selectedFont} 400`,}}>BACHELOR DEGREE</Text>
+                                    <Text style={{fontSize:10,color:'#808285',fontFamily: `${selectedFont} 400`,}}>Communication</Text>
+                                    <Text style={{fontSize:10,color:'#000000',fontFamily: `${selectedFont} 400`,}}>San Franciso University</Text>
+                                    <Text style={{fontSize:10,color:'#000000',fontFamily: `${selectedFont} 400`,}}>2016-2018</Text>
                              </View>
                                 </View>
 
@@ -586,7 +586,7 @@ function Template19({ data }) {
                                     width: 268,
                                 }}
                             >
-                                <Text style={{ paddingBottom: 5,fontFamily:'Inter 400', }}>Interests</Text>
+                                <Text style={{ paddingBottom: 5,fontFamily: `${selectedFont} 400`, }}>Interests</Text>
                             </View>                         
                                 <View
                                 style={{
@@ -601,7 +601,7 @@ function Template19({ data }) {
                 <Svg width="6" height="7" viewBox="0 0 6 7" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <Path d="M3 6.5C4.65685 6.5 6 5.15685 6 3.5C6 1.84315 4.65685 0.5 3 0.5C1.34315 0.5 0 1.84315 0 3.5C0 5.15685 1.34315 6.5 3 6.5Z" fill="#5E5F5E"/>
                 </Svg>                   
-                    <Text style={{fontSize:10,fontFamily:'Inter 400',color:'#000000'}}>CYCLING</Text>
+                    <Text style={{fontSize:10,fontFamily: `${selectedFont} 400`,color:'#000000'}}>CYCLING</Text>
                   </View>
                </View>
 
@@ -634,7 +634,7 @@ function Template19({ data }) {
                                     width: 268,
                                 }}
                             >
-                                <Text style={{ paddingBottom: 5 ,fontFamily:'Inter 400',}}>Professional Experience</Text>
+                                <Text style={{ paddingBottom: 5 ,fontFamily: `${selectedFont} 400`,}}>Professional Experience</Text>
                             </View>                         
                     
                             <View style={{display:'flex',flexDirection:'row',gap:5,alignItems:'start'}}>
@@ -642,9 +642,9 @@ function Template19({ data }) {
                 <Path d="M3 6.5C4.65685 6.5 6 5.15685 6 3.5C6 1.84315 4.65685 0.5 3 0.5C1.34315 0.5 0 1.84315 0 3.5C0 5.15685 1.34315 6.5 3 6.5Z" fill="#5E5F5E"/>
                 </Svg>   
                 <View style={{display:'flex',flexDirection:'column',gap:5}}>                
-                    <Text style={{fontSize:10,fontFamily:'Inter 400',color:'#000000'}}>Head of Design Good Company</Text>
-                    <Text style={{fontSize:10,fontFamily:'Inter 400',color:'#000000'}}>2019-2020</Text>
-                    <Text style={{fontSize:10,fontFamily:'Inter 400',color:'#000000'}}>This is where you sell yourself and be quick recruiters only skim through the rest of your resume.</Text>
+                    <Text style={{fontSize:10,fontFamily: `${selectedFont} 400`,color:'#000000'}}>Head of Design Good Company</Text>
+                    <Text style={{fontSize:10,fontFamily: `${selectedFont} 400`,color:'#000000'}}>2019-2020</Text>
+                    <Text style={{fontSize:10,fontFamily: `${selectedFont} 400`,color:'#000000'}}>This is where you sell yourself and be quick recruiters only skim through the rest of your resume.</Text>
                     </View>
                   </View>
 

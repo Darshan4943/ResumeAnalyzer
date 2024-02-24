@@ -1,14 +1,20 @@
 import { Document, Page, Text, View, StyleSheet, Image, Svg, Path, Rect, Font, Defs, ClipPath, data } from '@react-pdf/renderer';
 import React from 'react'
 
-const Template49 = ({ data }) => {
+const Template49 = ({ data,selectedColor,selectedFont  }) => {
 
   return (
     <Page size="A4" style={{ padding: 24 }}>
       <View style={{ minHeight: 793.8 }}>
 
         <View style={{ margin: -24, height: 150, backgroundColor: "#F1F2F2", paddingHorizontal: 68, paddingVertical: 18, display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
-          <View style={{ width: 114, height: 114 }}><Image src="/images/services/Ellipse_24.png"></Image></View>
+          <View style={{ width: 114, height: 114 }}>
+            {data.profilePhoto ? (
+              <Image src={URL.createObjectURL(data.profilePhoto)} alt="" style={{}} />
+            ) : (
+              <Image src="/images/services/profile.png" alt="" style={{}} />
+            )}
+          </View>
           <View style={{ display: "flex", flexDirection: "column", paddingVertical: 10 }}>
             <Text style={{ fontWeight: 600, fontSize: 32, color: "#27AAE1" }}>{data.firstName}</Text>
             <Text style={{ fontWeight: 400, fontSize: 32, color: "#414042" }}>{data.lastName}</Text>
@@ -147,7 +153,7 @@ const Template49 = ({ data }) => {
                         <Text style={{ fontWeight: 400, fontSize: 10, color: "#414142" }}>{detail.duration?.start?.year} -
                           {detail.duration?.end?.year == undefined || "Year" ? "Present" : detail.duration?.end?.year}</Text>
                       </View>
-                      <View><Text style={{ fontWeight: 400, fontSize: 10, color: "#58595B",paddingBottom:16 }}>{detail.description}</Text>
+                      <View><Text style={{ fontWeight: 400, fontSize: 10, color: "#58595B", paddingBottom: 16 }}>{detail.description}</Text>
                       </View>
                     </View>
                   </View>
@@ -180,9 +186,9 @@ const Template49 = ({ data }) => {
                   </View>
 
 
-                  <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" ,paddingLeft:20}}>
+                  <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", paddingLeft: 20 }}>
                     <Text style={{ fontWeight: 400, fontSize: 12, color: "#414142" }}>{detail.instituteName}</Text>
-                    <Text style={{ fontWeight: 400, fontSize: 10, color: "#414142" ,paddingBottom:16}}> {detail.duration?.start?.year}-
+                    <Text style={{ fontWeight: 400, fontSize: 10, color: "#414142", paddingBottom: 16 }}> {detail.duration?.start?.year}-
                       {detail.duration?.end?.year}</Text>
                   </View>
 

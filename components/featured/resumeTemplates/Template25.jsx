@@ -11,7 +11,7 @@ import {
 } from "@react-pdf/renderer";
 import React from "react";
 
-function Template25({ data }) {
+function Template25({ data,selectedColor,selectedFont  }) {
   return (
     <Page size="A4">
       <View
@@ -44,13 +44,13 @@ function Template25({ data }) {
             }}
           >
             <Text
-              style={{ fontSize: "32px", fontFamily:'Montserrat 400', color: "#231F20" }}
+              style={{ fontSize: "32px", fontFamily: `${selectedFont} 400`, color: "#231F20" }}
             >
               {data.firstName ? <>{data.firstName}</> : <>First Name</>}{" "}
               {data.lastName ? <>{data.lastName}</> : <>Last Name</>}
             </Text>
             <Text
-              style={{ fontSize: "14px", fontFamily:'Montserrat 500', color: "#8E8E8E" }}
+              style={{ fontSize: "14px", fontFamily: `${selectedFont} 500`, color: "#8E8E8E" }}
             >
               {data.designation ? <>{data.designation}</> : <>Designation</>}
             </Text>
@@ -67,7 +67,7 @@ function Template25({ data }) {
             }}
           >
             <Text
-              style={{ fontSize: "14px", fontFamily:'Montserrat 600', color: "#FFFFFF" }}
+              style={{ fontSize: "14px", fontFamily: `${selectedFont} 600`, color: "#FFFFFF" }}
             >
               CONTACT
             </Text>
@@ -127,7 +127,7 @@ function Template25({ data }) {
                 <Text
                   style={{
                     fontSize: "12px",
-                    fontFamily:'Montserrat 400',
+                    fontFamily: `${selectedFont} 400`,
                     color: "#FFFFFF",
                   }}
                 >
@@ -154,7 +154,7 @@ function Template25({ data }) {
                 <Text
                   style={{
                     fontSize: "12px",
-                    fontFamily:'Montserrat 400',
+                    fontFamily: `${selectedFont} 400`,
                     color: "#FFFFFF",
                     width: "100%",
                   }}
@@ -173,7 +173,7 @@ function Template25({ data }) {
                 <Text
                   style={{
                     fontSize: "12px",
-                    fontFamily:'Montserrat 400',
+                    fontFamily: `${selectedFont} 400`,
                     color: "#FFFFFF",
                   }}
                 >
@@ -238,7 +238,7 @@ function Template25({ data }) {
                 <Text
                   style={{
                     fontSize: "14px",
-                    fontFamily:'Montserrat 700',
+                    fontFamily: `${selectedFont} 700`,
                     color: "#414042",
                   }}
                 >
@@ -247,7 +247,7 @@ function Template25({ data }) {
                 <Text
                   style={{
                     fontSize: "12px",
-                    fontFamily:'Montserrat 400',
+                    fontFamily: `${selectedFont} 400`,
                     color: "#6D6E71",
                     width: "100%",
                   }}
@@ -288,7 +288,7 @@ function Template25({ data }) {
                 <Text
                   style={{
                     fontSize: "14px",
-                    fontFamily:'Montserrat 700',
+                    fontFamily: `${selectedFont} 700`,
                     color: "#414042",
                   }}
                 >
@@ -314,7 +314,7 @@ function Template25({ data }) {
                       <Text
                         style={{
                           fontSize: "12px",
-                          fontFamily:'Montserrat 600',
+                          fontFamily: `${selectedFont} 600`,
                           color: "#231F20",
                         }}
                       >
@@ -333,7 +333,7 @@ function Template25({ data }) {
                       <Text
                         style={{
                           fontSize: "12px",
-                          fontFamily:'Montserrat 600',
+                          fontFamily: `${selectedFont} 600`,
                           color: "#939598",
                         }}
                       >
@@ -345,7 +345,7 @@ function Template25({ data }) {
                       <Text
                         style={{
                           fontSize: "12px",
-                          fontFamily:'Montserrat 400',
+                          fontFamily: `${selectedFont} 400`,
                           color: "#6D6E71",
                           width: "100%",
                         }}
@@ -385,7 +385,7 @@ function Template25({ data }) {
                 <Text
                   style={{
                     fontSize: "14px",
-                    fontFamily:'Montserrat 700',
+                    fontFamily: `${selectedFont} 700`,
                     color: "#494949",
                   }}
                 >
@@ -428,7 +428,7 @@ function Template25({ data }) {
                         <Text
                           style={{
                             fontSize: "12px",
-                            fontFamily:'Montserrat 400',
+                            fontFamily: `${selectedFont} 400`,
                             color: "#606060",
                           }}
                         >
@@ -447,7 +447,7 @@ function Template25({ data }) {
                         <Text
                           style={{
                             fontSize: "12px",
-                            fontFamily:'Montserrat 600',
+                            fontFamily: `${selectedFont} 600`,
                             color: "#494949",
                           }}
                         >
@@ -460,7 +460,7 @@ function Template25({ data }) {
                         <Text
                           style={{
                             fontSize: "12px",
-                            fontFamily:'Montserrat 400',
+                            fontFamily: `${selectedFont} 400`,
                             color: "#606060",
                           }}
                         >
@@ -473,7 +473,7 @@ function Template25({ data }) {
                         <Text
                           style={{
                             fontSize: "12px",
-                            fontFamily:'Montserrat 600',
+                            fontFamily: `${selectedFont} 600`,
                             color: "#606060",
                           }}
                         >
@@ -498,7 +498,7 @@ function Template25({ data }) {
                 <Text
                   style={{
                     fontSize: "14px",
-                    fontFamily:'Montserrat 700',
+                    fontFamily: `${selectedFont} 700`,
                     color: "#494949",
                   }}
                 >
@@ -535,7 +535,7 @@ function Template25({ data }) {
                       <Text
                         style={{
                           fontSize: "12px",
-                          fontFamily:'Montserrat 400',
+                          fontFamily: `${selectedFont} 400`,
                           color: "#5E5F5E",
                         }}
                       >
@@ -557,7 +557,7 @@ function Template25({ data }) {
               }}
             >
               <View style={{ width: "100%", display: "flex", flexDirection: "column", gap: "16px" }}>
-                <Text style={{ fontSize: "14px", fontFamily:'Montserrat 700', color: "#FFFFFF" }}>LANGUAGE</Text>
+                <Text style={{ fontSize: "14px", fontFamily: `${selectedFont} 700`, color: "#FFFFFF" }}>LANGUAGE</Text>
                 <View>
                   {data.languages?.map((detail, index) => {
                     const calculateWidthPercentage = (rating) => {
@@ -584,7 +584,7 @@ function Template25({ data }) {
                           style={{
 
                             fontSize: 12,
-                            fontFamily:'Montserrat 600',
+                            fontFamily: `${selectedFont} 600`,
                             color: "#FFFFFF",
                           }}
                         >
@@ -655,7 +655,7 @@ function Template25({ data }) {
                 </View>
               </View>
               <View style={{ width: "100%", display: "flex", flexDirection: "column", gap: "16px" }}>
-                <Text style={{ fontSize: "14px", fontFamily:'Montserrat 600', color: "#FFFFFF" }}>SOFTWARE</Text>
+                <Text style={{ fontSize: "14px", fontFamily: `${selectedFont} 600`, color: "#FFFFFF" }}>SOFTWARE</Text>
                 <View>
                   {data.languages?.map((detail, index) => {
                     const calculateWidthPercentage = (rating) => {
@@ -682,7 +682,7 @@ function Template25({ data }) {
                           style={{
 
                             fontSize: 12,
-                            fontFamily:'Montserrat 600',
+                            fontFamily: `${selectedFont} 600`,
                             color: "#FFFFFF",
                           }}
                         >

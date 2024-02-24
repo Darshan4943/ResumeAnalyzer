@@ -1,14 +1,20 @@
 import { Document, Page, Text, View, StyleSheet, Image, Svg, Path, Rect, Font, Defs, ClipPath, data } from '@react-pdf/renderer';
 import React from 'react'
 
-const Template50 = ({ data }) => {
+const Template50 = ({ data,selectedColor,selectedFont  }) => {
 
     return (
         <Page size="A4" style={{ padding: 24 }}>
             <View style={{ minHeight: 793.8 }}>
 
                 <View style={{ margin: -24, height: 150, backgroundColor: "#F1F2F2", paddingHorizontal: 36, paddingVertical: 18, display: "flex", flexDirection: "row", justifyContent: "space-between", gap: 28 }}>
-                    <View style={{ width: 114, height: 114 }}><Image src="/images/services/Ellipse_24.png"></Image></View>
+                    <View style={{ width: 114, height: 114 }}>
+                    {data.profilePhoto ? (
+                        <Image src={URL.createObjectURL(data.profilePhoto)} alt="" style={{}} />
+                    ) : (
+                        <Image src="/images/services/profile.png" alt="" style={{}} />
+                    )}
+                        </View>
                     <View style={{ display: "flex", flexDirection: "column", paddingVertical: 10 }}>
                         <Text style={{ fontWeight: 600, fontSize: 24, color: "#27AAE1" }}>{data.firstName} {data.lastName}</Text>
 

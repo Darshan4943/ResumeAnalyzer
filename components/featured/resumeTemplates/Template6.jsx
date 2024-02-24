@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Document, Page, Text, View, StyleSheet, Image, Svg, Path, Rect, Font, Defs, ClipPath } from '@react-pdf/renderer';
 
-function Template6({ data }) {
+function Template6({ data,selectedColor,selectedFont  }) {
   //   console.log(data)
   return (
     <Page size="A4">
@@ -41,8 +41,8 @@ function Template6({ data }) {
                       />
                     </Svg>
                     <View style={{ flexDirection: "column", width: "100%", paddingLeft: 9 }}>
-                      <Text style={{ fontFamily: "Inter 500", fontSize: 14 }}>Phone</Text>
-                      <Text style={{ fontFamily: "Lato 400", fontSize: 14 }}>{data.mobileNumber}</Text>
+                      <Text style={{ fontFamily: `${selectedFont} 500`, fontSize: 14 }}>Phone</Text>
+                      <Text style={{ fontFamily: `${selectedFont} 400`, fontSize: 14 }}>{data.mobileNumber}</Text>
                     </View>
                   </View>
                   <View style={{ flexDirection: "row", gap: 6, width: "100%" }}>
@@ -60,14 +60,14 @@ function Template6({ data }) {
                       />
                     </Svg>
                     <View style={{ flexDirection: "column", width: "100%", paddingLeft: 9 }}>
-                      <Text style={{ fontFamily: "Inter 500", fontSize: 14 }}>Email</Text>
-                      <Text style={{ fontFamily: "Lato 400", fontSize: 14 }}>{data.email}</Text>
+                      <Text style={{ fontFamily: `${selectedFont} 500`, fontSize: 14 }}>Email</Text>
+                      <Text style={{ fontFamily: `${selectedFont} 400`, fontSize: 14 }}>{data.email}</Text>
                     </View>
                   </View>
                   {/* <View style={{ flexDirection: "row", gap: 6, width: "100%" }}>
                     <View style={{ flexDirection: "column", width: "100%" }}>
-                      <Text style={{ fontFamily: "Inter 500", fontSize: 14 }}>Website</Text>
-                      <Text style={{ fontFamily: "Lato 400", fontSize: 14 }}>{data.email}</Text>
+                      <Text style={{ fontFamily: `${selectedFont} 500`, fontSize: 14 }}>Website</Text>
+                      <Text style={{ fontFamily: `${selectedFont} 400`, fontSize: 14 }}>{data.email}</Text>
                     </View>
                   </View> */}
                   <View style={{ flexDirection: "row", gap: 6, width: "100%" }}>
@@ -84,8 +84,8 @@ function Template6({ data }) {
                       />
                     </Svg>
                     <View style={{ flexDirection: "column", width: "100%", paddingLeft: 9 }}>
-                      <Text style={{ fontFamily: "Inter 500", fontSize: 14 }}>Area</Text>
-                      <Text style={{ fontFamily: "Lato 400", fontSize: 14 }}>{data.location}</Text>
+                      <Text style={{ fontFamily: `${selectedFont} 500`, fontSize: 14 }}>Area</Text>
+                      <Text style={{ fontFamily: `${selectedFont} 400`, fontSize: 14 }}>{data.location}</Text>
                     </View>
                   </View>
                 </View>
@@ -96,7 +96,7 @@ function Template6({ data }) {
           <View style={{ marginLeft: 6, paddingTop: 12 }}>
             <View style={{ width: 268, flexDirection: "column", paddingBottom: 12 }}>
               <View style={{ flexDirection: "column", alignItems: "flex-start", gap: 6 }}>
-                <Text style={{ fontSize: 18, fontFamily: "Lato 700" }}>SKILLS</Text>
+                <Text style={{ fontSize: 18, fontFamily: `${selectedFont} 700` }}>SKILLS</Text>
                 <View style={{ flexDirection: "column", width: 268, gap: 6 }}>
                   {data.skills?.map((detail, index) => {
                     const calculateWidthPercentage = (rating) => {
@@ -122,7 +122,7 @@ function Template6({ data }) {
                     return (
                       <View style={{ paddingRight: 4, flexDirection: "column" }} key={index}>
                         <View style={{ flexDirection: "row", alignItems: "center", gap: 4 }}>
-                          <Text style={{ color: "#414142", fontSize: 12, width: 80, fontFamily: "Lato 400" }}>
+                          <Text style={{ color: "#414142", fontSize: 12, width: 80, fontFamily: `${selectedFont} 400` }}>
                             {detail.skill}
                           </Text>
                           <View style={{ width: "59.21%", height: 3.78, alignSelf: "flex-end", marginBottom: 1, backgroundColor: "#DCDDDE" }}>
@@ -141,7 +141,7 @@ function Template6({ data }) {
 
             <View style={{ width: 268, flexDirection: "column", paddingTop: 10, paddingBottom: 14 }}>
               <View style={{ flexDirection: "column", alignItems: "flex-start", gap: 8 }}>
-                <Text style={{ fontSize: 18, fontFamily: "Lato 700" }}>LANGAUGES</Text>
+                <Text style={{ fontSize: 18, fontFamily: `${selectedFont} 700` }}>LANGAUGES</Text>
                 <View style={{ flexDirection: "column", width: 240, gap: 6 }}>
                   {data?.languages?.length > 0 && (
                     <>
@@ -165,7 +165,7 @@ function Template6({ data }) {
                         return (
                           <View style={{ width: "100%", flexDirection: "column" }} key={index}>
                             <View style={{ flexDirection: "row", alignItems: "center" }}>
-                              <Text style={{ color: "#414142", fontSize: 11.136, width: 80, fontFamily: "Lato 400" }}>
+                              <Text style={{ color: "#414142", fontSize: 11.136, width: 80, fontFamily: `${selectedFont} 400` }}>
                                 {detail.languages}
                               </Text>
                               <View style={{ width: "59.21%", height: 3.78, alignSelf: "flex-end", marginBottom: 1, backgroundColor: "#C1C1C1" }}>
@@ -184,13 +184,13 @@ function Template6({ data }) {
             </View>
             <View style={{ height: 1, width: 240, backgroundColor: "#282829" }}></View>
             <View style={{ flexDirection: "column", gap: 2, paddingTop: 8, paddingBottom: 12 }}>
-              <Text style={{ fontSize: 16, fontFamily: "Lato 700", color: "#282829" }}>HOBBIES</Text>
+              <Text style={{ fontSize: 16, fontFamily: `${selectedFont} 700`, color: "#282829" }}>HOBBIES</Text>
 
               {data.hobbies?.map((detail, index) => (
                 <View key={index} style={{ flexDirection: "column", marginBottom: 8 }}>
                   <View style={{ flexDirection: "row", alignItems: "center", gap: 4 }}>
                     <Text style={{ color: "#282829", }}>&#8226;</Text>
-                    <Text style={{ color: "#282829", fontFamily: "Lato 400" }}>{detail.title}</Text>
+                    <Text style={{ color: "#282829", fontFamily: `${selectedFont} 400` }}>{detail.title}</Text>
                   </View>
                 </View>
               ))}
@@ -200,36 +200,36 @@ function Template6({ data }) {
         </View>
         <View style={{ flexDirection: "column", gap: 14, width: 443, paddingRight: 12 }}>
           <View style={{ width: 406, paddingTop: 80, height: 200, alignItems: 'start', justifyContent: 'start' }}>
-            <Text style={{ fontSize: 28, fontFamily: "Lato 900" }}>
+            <Text style={{ fontSize: 28, fontFamily: `${selectedFont} 700` }}>
               {data.firstName} {data.lastName}
             </Text>
-            <Text style={{ fontFamily: "Lato 500", fontSize: 16 }}>{data.designation}</Text>
+            <Text style={{ fontFamily: `${selectedFont} 500`, fontSize: 16 }}>{data.designation}</Text>
           </View>
           <View style={{ width: 441, flexDirection: "column", gap: 4 }}>
             <View style={{ width: 441, flexDirection: "column", paddingBottom: 8, gap: 8 }}>
-              <Text style={{ fontSize: 18, fontFamily: "Lato 700" }}>ABOUT ME</Text>
-              <Text wrap={true} style={{ fontSize: 14, fontFamily: "Lato 400", width: 300 }}>
+              <Text style={{ fontSize: 18, fontFamily: `${selectedFont} 700` }}>ABOUT ME</Text>
+              <Text wrap={true} style={{ fontSize: 14, fontFamily: `${selectedFont} 400`, width: 300 }}>
                 {data.summery}
               </Text>
             </View>
             <View style={{ height: 1, width: 300, backgroundColor: "#282829" }}></View>
             <View style={{ flexDirection: "column", gap: 4, width: 300, paddingTop: 12 }}>
-              <Text style={{ fontSize: 18, fontFamily: "Lato 700" }}>WORK EXPERIENCE</Text>
+              <Text style={{ fontSize: 18, fontFamily: `${selectedFont} 700` }}>WORK EXPERIENCE</Text>
               {data.experience?.map((detail, index) => (
                 <>
                   <View style={{ flexDirection: "column", gap: 6 }}>
                     <View style={{ flexDirection: "column", gap: 6 }}>
                       {/* <View style={{flexDirection:'column',gap:6}}> */}
-                      <Text style={{ fontSize: 16, fontFamily: "Lato 700" }}>
+                      <Text style={{ fontSize: 16, fontFamily: `${selectedFont} 700` }}>
                         {detail.organization}
                       </Text>
 
                       {/* </View> */}
                       <View style={{ flexDirection: "row", justifyContent: "space-between", width: 300 }}>
-                        <Text style={{ fontSize: 14, fontFamily: "Lato normal", color: "#939598", width: 100 }}>
+                        <Text style={{ fontSize: 14, fontFamily: `${selectedFont} 400`, color: "#939598", width: 100 }}>
                           {detail.designation}
                         </Text>
-                        <Text style={{ fontSize: 14, fontFamily: "Inter normal" }}>
+                        <Text style={{ fontSize: 14, fontFamily: `${selectedFont} 400` }}>
                           {" "}
                           {detail.duration?.start?.year}-{" "}
                           {detail.currentlyWorking
@@ -237,7 +237,7 @@ function Template6({ data }) {
                             : detail.duration?.end?.year}
                         </Text>
                       </View>
-                      <Text style={{ fontSize: 14, fontFamily: "Lato 400", width: 300 }}>
+                      <Text style={{ fontSize: 14, fontFamily: `${selectedFont} 400`, width: 300 }}>
                         {detail.description}
                       </Text>
                     </View>
@@ -247,23 +247,23 @@ function Template6({ data }) {
             </View>
             <View style={{ height: 1, width: 300, backgroundColor: "#282829" }}></View>
             <View style={{ flexDirection: "column", gap: 4, width: 300 }}>
-              <Text style={{ fontSize: 18, fontFamily: "Lato 700" }}> EDUCATION</Text>
+              <Text style={{ fontSize: 18, fontFamily: `${selectedFont} 700` }}> EDUCATION</Text>
               {data?.education?.map((detail, index) => (
                 <>
                   <View style={{ flexDirection: "column", gap: 5 }}>
                     <View style={{ flexDirection: "column", gap: 6 }}>
-                      <Text style={{ fontSize: 16, fontFamily: "Lato 700" }}>
+                      <Text style={{ fontSize: 16, fontFamily: `${selectedFont} 700` }}>
                         {detail.qualification}
 
                       </Text>
-                      <Text style={{ fontSize: 14, fontFamily: "Lato normal" }}>
+                      <Text style={{ fontSize: 14, fontFamily: `${selectedFont} 400` }}>
                         {detail.specialization}
                       </Text>
                       <View style={{ flexDirection: "row", justifyContent: "space-between", width: 300 }}>
-                        <Text style={{ fontSize: 14, fontFamily: "Lato normal", color: "#939598", width: 200 }}>
+                        <Text style={{ fontSize: 14, fontFamily: `${selectedFont} 400`, color: "#939598", width: 200 }}>
                           {detail.instituteName}
                         </Text>
-                        <Text style={{ fontSize: 14, fontFamily: "Inter normal" }}>
+                        <Text style={{ fontSize: 14, fontFamily: `${selectedFont} 400` }}>
                           {detail.duration?.end?.year && (
                             <>
                               {detail.duration?.start?.year}-

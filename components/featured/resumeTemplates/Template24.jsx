@@ -12,7 +12,7 @@ import {
   Rect,
 } from "@react-pdf/renderer";
 
-function Template24({ data }) {
+function Template24({ data,selectedColor,selectedFont  }) {
   return (
     <Page size="A4">
       <View
@@ -58,11 +58,11 @@ function Template24({ data }) {
           ></View>
           <View style={{ display: "flex", gap: "8px" }}>
             <View>
-              <Text style={{ fontSize: "32px", color: "#434343" ,fontFamily:'Poppins 600'}}>
+              <Text style={{ fontSize: "32px", color: "#434343" ,fontFamily: `${selectedFont} 600`}}>
                 {data.firstName ? <>{data.firstName}</> : <>First Name</>}{" "}
                 {data.lastName ? <>{data.lastName}</> : <>Last Name</>}
               </Text>
-              <Text style={{ fontSize: "14px", color: "#434343",fontFamily:'Poppins 600' }}>
+              <Text style={{ fontSize: "14px", color: "#434343",fontFamily: `${selectedFont} 600` }}>
                 {data.designation ? <>{data.designation}</> : <>designation</>}
               </Text>
             </View>
@@ -96,7 +96,7 @@ function Template24({ data }) {
                 <Text
                   style={{
                     fontSize: "12px",
-                    fontFamily:'Poppins 700',
+                    fontFamily: `${selectedFont} 700`,
                     color: "#696969",
                   }}
                 >
@@ -127,7 +127,7 @@ function Template24({ data }) {
                 <Text
                   style={{
                     fontSize: "12px",
-                    fontFamily:'Poppins 700',
+                    fontFamily: `${selectedFont} 700`,
                     color: "#696969",
                   }}
                 >
@@ -167,7 +167,7 @@ function Template24({ data }) {
                 <Text
                   style={{
                     fontSize: "12px",
-                    fontFamily:'Poppins 700',
+                    fontFamily: `${selectedFont} 700`,
                     color: "#696969",
                   }}
                 >
@@ -262,7 +262,7 @@ function Template24({ data }) {
                 <Text
                   style={{
                     fontSize: "12px",
-                    fontFamily:'Poppins 700',
+                    fontFamily: `${selectedFont} 700`,
                     color: "#696969",
                   }}
                 >
@@ -295,7 +295,7 @@ function Template24({ data }) {
               <Text
                 style={{
                   fontSize: "14px",
-                  fontFamily:'Poppins 600',
+                  fontFamily: `${selectedFont} 600`,
                   color: "#434343",
                 }}
               >
@@ -311,7 +311,7 @@ function Template24({ data }) {
               <Text
                 style={{
                   fontSize: "12px",
-                  fontFamily:'Poppins 400',
+                  fontFamily: `${selectedFont} 400`,
                   color: "#696969",
                 }}
               >
@@ -332,7 +332,7 @@ function Template24({ data }) {
               <Text
                 style={{
                   fontSize: "14px",
-                  fontFamily:'Poppins 600',
+                  fontFamily: `${selectedFont} 600`,
                   color: "#434343",
                 }}
               >
@@ -372,7 +372,7 @@ function Template24({ data }) {
                       <Text
                         style={{
                           fontSize: "12px",
-                          fontFamily:'Poppins 700',
+                          fontFamily: `${selectedFont} 700`,
                           color: "#696969",
                         }}
                       >
@@ -388,7 +388,7 @@ function Template24({ data }) {
                       <Text
                         style={{
                           fontSize: "12px",
-                          fontFamily:'Poppins 600',
+                          fontFamily: `${selectedFont} 600`,
                           color: "#F37321",
                         }}
                       >
@@ -410,7 +410,7 @@ function Template24({ data }) {
                       <Text
                         style={{
                           fontSize: "12px",
-                          fontFamily:'Poppins 700',
+                          fontFamily: `${selectedFont} 700`,
                           color: "#696969",
                         }}
                       >
@@ -419,7 +419,7 @@ function Template24({ data }) {
                       <Text
                         style={{
                           fontSize: "12px",
-                          fontFamily:'Poppins 400',
+                          fontFamily: `${selectedFont} 400`,
                           color: "#696969",
                           width: "80%",
                         }}
@@ -447,7 +447,7 @@ function Template24({ data }) {
               <Text
                 style={{
                   fontSize: "14px",
-                  fontFamily:'Poppins 600',
+                  fontFamily: `${selectedFont} 600`,
                   color: "#434343",
                 }}
               >
@@ -479,7 +479,7 @@ function Template24({ data }) {
                     <Text
                       style={{
                         fontSize: "14px",
-                        fontFamily:'Poppins 400',
+                        fontFamily: `${selectedFont} 400`,
                         color: "#F37321",
                       }}
                     >
@@ -495,7 +495,7 @@ function Template24({ data }) {
                       <Text
                         style={{
                           fontSize: "14px",
-                          fontFamily:'Poppins 400',
+                          fontFamily: `${selectedFont} 400`,
                           color: "#696969",
                         }}
                       >
@@ -504,7 +504,7 @@ function Template24({ data }) {
                       <Text
                         style={{
                           fontSize: "14px",
-                          fontFamily:'Poppins 400',
+                          fontFamily: `${selectedFont} 400`,
                           color: "#696969",
                         }}
                       >
@@ -530,7 +530,7 @@ function Template24({ data }) {
               <Text
                 style={{
                   fontSize: "14px",
-                  fontFamily:'Poppins 600',
+                  fontFamily: `${selectedFont} 600`,
                   color: "#434343",
                 }}
               >
@@ -567,7 +567,7 @@ function Template24({ data }) {
                     <Text
                       style={{
                         fontSize: "12px",
-                        fontFamily:'Poppins 600',
+                        fontFamily: `${selectedFont} 600`,
                         color: "#696969",
                         width: "60%",
                         display: "flex",
@@ -638,7 +638,7 @@ function Template24({ data }) {
               <Text
                 style={{
                   fontSize: "14px",
-                  fontFamily:'Poppins 600',
+                  fontFamily: `${selectedFont} 600`,
                   color: "#434343",
                 }}
               >
@@ -675,7 +675,7 @@ function Template24({ data }) {
                     <Text
                       style={{
                         fontSize: "12px",
-                        fontFamily:'Poppins 600',
+                        fontFamily: `${selectedFont} 600`,
                         color: "#696969",
                         width: "60%",
                         display: "flex",
@@ -746,7 +746,7 @@ function Template24({ data }) {
               <Text
                 style={{
                   fontSize: "14px",
-                  fontFamily:'Poppins 600',
+                  fontFamily: `${selectedFont} 600`,
                   color: "#434343",
                 }}
               >
@@ -772,7 +772,7 @@ function Template24({ data }) {
                   <Text
                     style={{
                       fontSize: "12px",
-                      fontFamily:'Poppins 600',
+                      fontFamily: `${selectedFont} 600`,
                       color: "#696969",
                     }}
                   >

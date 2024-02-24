@@ -2,7 +2,7 @@ import { Document, Page, Text, View, StyleSheet, Image, Svg, Path, Rect, Font, D
 
 import React from 'react'
 
-const Template47 = ({ data }) => {
+const Template47 = ({ data,selectedColor,selectedFont  }) => {
     return (
         <Page size="A4">
             <View style={{ minHeight: "841.7" }}>

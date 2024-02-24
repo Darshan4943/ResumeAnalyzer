@@ -1,6 +1,6 @@
 import React from 'react'
 import { Document, Page, Text, View, Image, StyleSheet, Svg, Path, Rect } from '@react-pdf/renderer';
-function Template23({ data }) {
+function Template23({ data,selectedColor,selectedFont  }) {
     return (
         <Page size="A4" style={{ padding: 24 }}>
             <View style={{ flexDirection: "column", gap: 24,minHeight:792, }}>
@@ -15,20 +15,20 @@ function Template23({ data }) {
                     <View style={{ flexDirection: "column", gap: 4, }}>
                         <View style={{ flexDirection: 'column', width: 360, }}>
 
-                            <Text style={{ fontSize: 48, fontFamily:'Inter 400', color: "#494949" }}>{data.firstName} </Text>
+                            <Text style={{ fontSize: 48, fontFamily: `${selectedFont} 400`, color: "#494949" }}>{data.firstName} </Text>
 
-                            <Text style={{ fontSize: 48, fontFamily:'Inter 400', color: "#494949" }}>{data.lastName}</Text>
+                            <Text style={{ fontSize: 48, fontFamily: `${selectedFont} 400`, color: "#494949" }}>{data.lastName}</Text>
 
 
                         </View>
-                        <Text style={{ fontSize: 16, fontFamily:'Inter 400', color: "#494949" }}>{data.designation}</Text>
+                        <Text style={{ fontSize: 16, fontFamily: `${selectedFont} 400`, color: "#494949" }}>{data.designation}</Text>
                     </View>
                 </View>
                 <View style={{ flexDirection: "row", gap: 16 }}>
                     <View style={{ flexDirection: "column", gap: 24, width: 326, }}>
 
                         <View style={{ display: "flex", flexDirection: "column", gap: "8", padding: 16, border: 1 }}>
-                            <Text style={{ color: "#030203", fontSize: "16px", fontFamily:'Inter 400', }}>CONTACT</Text>
+                            <Text style={{ color: "#030203", fontSize: "16px", fontFamily: `${selectedFont} 400`, }}>CONTACT</Text>
 
                             {data?.mobileNumber && (
                                 <View style={{ flexDirection: "row", gap: "12px", justifyContent: "start", alignItems: "center", padding: " 4px", }}>
@@ -38,7 +38,7 @@ function Template23({ data }) {
                                     </Svg>
 
 
-                                    <Text style={{ fontSize: "12px", flexDirection: "row", fontFamily:'Inter 400', color: "#58595B", }}>{data.mobileNumber}</Text>
+                                    <Text style={{ fontSize: "12px", flexDirection: "row", fontFamily: `${selectedFont} 400`, color: "#58595B", }}>{data.mobileNumber}</Text>
                                 </View>
                             )}
                             {data?.email && (
@@ -47,7 +47,7 @@ function Template23({ data }) {
                                         <Path d="M8.00216 9.80322L6.51532 8.43582L2.27112 12.2536C2.42543 12.4085 2.63165 12.5 2.86095 12.5H13.1362C13.3655 12.5 13.5717 12.4071 13.726 12.2536L9.48179 8.43582L8.00216 9.80322ZM13.7274 3.74642C13.5775 3.59152 13.3669 3.5 13.1376 3.5H2.8624C2.63598 3.5 2.42543 3.59293 2.27257 3.74642L8.00361 8.90198L13.7274 3.74642ZM2 4.2914V11.7691L6.14325 8.07113L2 4.2914ZM9.85675 8.06971L14 11.7677V4.28577L9.85675 8.06971Z" fill="#221F1F" />
                                     </Svg>
 
-                                    <Text style={{ fontSize: "12px", flexDirection: "row", fontFamily:'Inter 400', color: "#58595B", }}>{data.email}</Text>
+                                    <Text style={{ fontSize: "12px", flexDirection: "row", fontFamily: `${selectedFont} 400`, color: "#58595B", }}>{data.email}</Text>
                                 </View>
                             )}
 
@@ -59,7 +59,7 @@ function Template23({ data }) {
                                     </Svg>
 
 
-                                    <Text style={{ fontSize: "12px", flexDirection: "row", fontFamily:'Inter 400', color: "#58595B", }}>{data.location}</Text>
+                                    <Text style={{ fontSize: "12px", flexDirection: "row", fontFamily: `${selectedFont} 400`, color: "#58595B", }}>{data.location}</Text>
                                 </View>
                             )}
                         </View>
@@ -67,7 +67,7 @@ function Template23({ data }) {
 
                             <View style={{ display: "flex", flexDirection: "column", gap: 8 }}>
                                 <View>
-                                    <Text style={{ fontSize: 14, fontFamily:'Inter 400', color: "#000000" }}>WORK EXPERIENCE</Text>
+                                    <Text style={{ fontSize: 14, fontFamily: `${selectedFont} 400`, color: "#000000" }}>WORK EXPERIENCE</Text>
                                 </View>
                                 <View style={{ display: "flex", flexDirection: "column", gap: 16 }} >
                                     {data?.experience?.map((detail, index) => (
@@ -75,13 +75,13 @@ function Template23({ data }) {
 
 
                                             <View style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-                                                <Text style={{ fontSize: 14,fontFamily:'Inter 400', color: "#000000" }}>{detail.designation ? (<>{detail.designation}</>) : (<>Designation</>)}</Text>
+                                                <Text style={{ fontSize: 14,fontFamily: `${selectedFont} 400`, color: "#000000" }}>{detail.designation ? (<>{detail.designation}</>) : (<>Designation</>)}</Text>
                                                 <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-                                                    <Text style={{ fontSize: 12, fontFamily:'Inter 400', color: "#000000" }}>{detail.organization ? (<>{detail.organization}</>) : (<>organization</>)} </Text>
-                                                    <Text style={{ fontSize: 12, fontFamily:'Inter 400', color: "#000000" }}>{detail.duration?.start?.year}-{detail.currentlyWorking ? "Present" : detail.duration?.end?.year}</Text>
+                                                    <Text style={{ fontSize: 12, fontFamily: `${selectedFont} 400`, color: "#000000" }}>{detail.organization ? (<>{detail.organization}</>) : (<>organization</>)} </Text>
+                                                    <Text style={{ fontSize: 12, fontFamily: `${selectedFont} 400`, color: "#000000" }}>{detail.duration?.start?.year}-{detail.currentlyWorking ? "Present" : detail.duration?.end?.year}</Text>
                                                 </View>
                                                 <View style={{ flexDirection: "column", gap: 8 }}>
-                                                    <Text style={{ fontSize: 10, fontFamily:'Inter 400', color: "#000000", }}>{detail.description ? (<>{detail.description}</>) : (<>Description</>)}</Text>
+                                                    <Text style={{ fontSize: 10, fontFamily: `${selectedFont} 400`, color: "#000000", }}>{detail.description ? (<>{detail.description}</>) : (<>Description</>)}</Text>
                                                 </View>
                                             </View>
                                         </View>
@@ -91,15 +91,15 @@ function Template23({ data }) {
 
                             <View style={{ flexDirection: "column", gap: 8, width:"70%" }}>
                                 <View>
-                                    <Text style={{ fontSize: 14, fontFamily:'Inter 400', color: "#000000" }}>EDUCATION</Text>
+                                    <Text style={{ fontSize: 14, fontFamily: `${selectedFont} 400`, color: "#000000" }}>EDUCATION</Text>
                                 </View>
                                 <View style={{ display: "flex", flexDirection: "column", gap: 10, }}>
                                     {data?.education?.map((detail, index) => (
                                         <>
                                             <View style={{ }}>
-                                                <Text style={{ fontSize: 12, fontFamily:'Inter 500', color: "#000000" }}>{detail.specialization} {detail.qualification}</Text>
-                                                <Text style={{ fontSize: 10, fontFamily:'Inter 400', color: "#000000" }}>{detail.instituteName}</Text>
-                                                <Text style={{ fontSize: 10, fontFamily:'Inter 400', color: "#000000" }}>{detail.duration?.start?.year}-{detail.duration?.end?.year}</Text>
+                                                <Text style={{ fontSize: 12, fontFamily: `${selectedFont} 500`, color: "#000000" }}>{detail.specialization} {detail.qualification}</Text>
+                                                <Text style={{ fontSize: 10, fontFamily: `${selectedFont} 400`, color: "#000000" }}>{detail.instituteName}</Text>
+                                                <Text style={{ fontSize: 10, fontFamily: `${selectedFont} 400`, color: "#000000" }}>{detail.duration?.start?.year}-{detail.duration?.end?.year}</Text>
                                             </View>
                                             {index !== data.education.length - 1 &&
                                                 <View style={{ width: "100%", height: 1, backgroundColor: "#000000" }}>  </View>
@@ -121,14 +121,14 @@ function Template23({ data }) {
 
                     <View style={{ flexDirection: "column", gap: 24, width: 195 }}>
                         <View style={{ flexDirection: "column", gap: 8, }} >
-                            <Text style={{ fontSize: 16, fontFamily:'Inter 400', color: "#494949" }}>ABOUT ME</Text>
-                            <Text style={{ fontSize: 16, fontFamily:'Inter 400', color: "#494949" }}>{data.summery}</Text>
+                            <Text style={{ fontSize: 16, fontFamily: `${selectedFont} 400`, color: "#494949" }}>ABOUT ME</Text>
+                            <Text style={{ fontSize: 16, fontFamily: `${selectedFont} 400`, color: "#494949" }}>{data.summery}</Text>
                         </View>
                         <View>
                             {data?.skills?.length > 0 && (
                                 <>
                                     <View style={{ objectFit: 'contain' }}>
-                                        <Text style={{ fontSize: 16, fontFamily:'Inter 400', }}>SKILLS</Text>
+                                        <Text style={{ fontSize: 16, fontFamily: `${selectedFont} 400`, }}>SKILLS</Text>
                                     </View>
                                     <View style={{ flexDirection: 'column', gap: 14, paddingTop: 12 }}>
                                         {data.skills?.map((detail, index) => {
@@ -151,7 +151,7 @@ function Template23({ data }) {
                                             return (
                                                 <View style={{ flexDirection: 'column' }} key={index}>
                                                     <View style={{ justifyContent: 'space-between', flexDirection: 'row', alignItems: 'center' }}>
-                                                        <Text style={{ color: '#000000', fontSize: 12,fontFamily:'Inter 400', width: "45%" }}>{detail.skill}</Text>
+                                                        <Text style={{ color: '#000000', fontSize: 12,fontFamily: `${selectedFont} 400`, width: "45%" }}>{detail.skill}</Text>
                                                         <View style={{ width: '30%', height: 3.78, alignSelf: 'flex-end', marginBottom: 1, backgroundColor: '#D1D3D4', width: "40%" }}>
                                                             <View style={{ height: '100%', backgroundColor: '#000000', width: `${ratingPercentage}%` }}></View>
                                                         </View>
@@ -167,7 +167,7 @@ function Template23({ data }) {
                             {data?.languages?.length > 0 && (
                                 <>
                                     <View style={{ objectFit: 'contain' }}>
-                                        <Text style={{ fontSize: 16,fontFamily:'Inter 400' , }}>LANGUAGES</Text>
+                                        <Text style={{ fontSize: 16,fontFamily: `${selectedFont} 400` , }}>LANGUAGES</Text>
                                     </View>
                                     <View style={{ flexDirection: 'column', gap: 14, paddingTop: 12 }}>
                                         {data.languages?.map((detail, index) => {
@@ -190,7 +190,7 @@ function Template23({ data }) {
                                             return (
                                                 <View style={{ flexDirection: 'column' }} key={index}>
                                                     <View style={{ justifyContent: 'space-between', flexDirection: 'row', alignItems: 'center' }}>
-                                                        <Text style={{ color: '#000000', fontSize: 12, fontFamily:'Inter 400', width: "45%" }}>{detail.languages}</Text>
+                                                        <Text style={{ color: '#000000', fontSize: 12, fontFamily: `${selectedFont} 400`, width: "45%" }}>{detail.languages}</Text>
                                                         <View style={{ width: '30%', height: 3.78, alignSelf: 'flex-end', marginBottom: 1, backgroundColor: '#D1D3D4', width: "40%" }}>
                                                             <View style={{ height: '100%', backgroundColor: '#000000', width: `${ratingPercentage}%` }}></View>
                                                         </View>
@@ -207,7 +207,7 @@ function Template23({ data }) {
                             {data?.hobbies?.length > 0 && (
                                 <View style={{ flexDirection: 'column', gap: 16, }}>
                                     <View style={{ objectFit: 'contain' }}>
-                                        <Text style={{ fontSize: 18, fontFamily:'Inter 400', }}>HOBBIES</Text>
+                                        <Text style={{ fontSize: 18, fontFamily: `${selectedFont} 400`, }}>HOBBIES</Text>
                                     </View>
                                     <View style={{ flexDirection: 'column', gap: 16, }}>
                                         {data?.hobbies?.map((item, index) => (
@@ -216,7 +216,7 @@ function Template23({ data }) {
                                                     <Path d="M3 6.75C4.65685 6.75 6 5.40685 6 3.75C6 2.09315 4.65685 0.75 3 0.75C1.34315 0.75 0 2.09315 0 3.75C0 5.40685 1.34315 6.75 3 6.75Z" fill="black" />
                                                 </Svg>
 
-                                                <Text key={index} style={{ color: '#000000', fontSize: 14, fontFamily:'Inter 400', }}>{item?.title}</Text>
+                                                <Text key={index} style={{ color: '#000000', fontSize: 14, fontFamily: `${selectedFont} 400`, }}>{item?.title}</Text>
                                             </View>
                                         ))}
                                     </View>
