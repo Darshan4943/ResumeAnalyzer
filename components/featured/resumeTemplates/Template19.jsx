@@ -11,7 +11,7 @@ import {
     Rect,
 } from "@react-pdf/renderer";
 
-function Template19({ data,selectedColor,selectedFont  }) {
+function Template19({ data, selectedColor, selectedFont }) {
     return (
         <Page size="A4" style={{ padding: 24 }}>
             <View
@@ -42,71 +42,78 @@ function Template19({ data,selectedColor,selectedFont  }) {
                             }}
                         />
 
-                        <View
-                            style={{
-                                display: "flex",
-                                flexDirection: "row",
-                                gap: 10,
-                                alignItems: "center",
-                            }}
-                        >
-                            <Image
-                                src="/images/services/call.png"
+                        {data?.mobileNumber && (
+                            <View
                                 style={{
-                                    width: 24,
-                                    height: 24,
-                                    borderRadius: "50%",
-                                    objectFit: "contain",
+                                    display: "flex",
+                                    flexDirection: "row",
+                                    gap: 10,
+                                    alignItems: "center",
                                 }}
-                            />
-                            <Text style={{ fontSize: 12, fontFamily: `${selectedFont} 400`, color: "#000000" }}>
-                                +012-3456-7890
-                            </Text>
-                        </View>
+                            >
+                                <Image
+                                    src="/images/services/call.png"
+                                    style={{
+                                        width: 24,
+                                        height: 24,
+                                        borderRadius: "50%",
+                                        objectFit: "contain",
+                                    }}
+                                />
+                                <Text style={{ fontSize: 12, fontFamily: `${selectedFont} 400`, color: "#000000" }}>
+                                    +012-3456-7890
+                                </Text>
+                            </View>
+                        )}
 
-                        <View
-                            style={{
-                                display: "flex",
-                                flexDirection: "row",
-                                gap: 10,
-                                alignItems: "center",
-                            }}
-                        >
-                            <Image
-                                src="/images/services/mail.png"
+                        {data?.email?.length > 0 && (
+                            <View
                                 style={{
-                                    width: 24,
-                                    height: 24,
-                                    borderRadius: "50%",
-                                    objectFit: "contain",
+                                    display: "flex",
+                                    flexDirection: "row",
+                                    gap: 10,
+                                    alignItems: "center",
                                 }}
-                            />
-                            <Text style={{ fontSize: 12, fontFamily: `${selectedFont} 400`, color: "#000000" }}>
-                                yourmail@mail.com
-                            </Text>
-                        </View>
+                            >
+                                <Image
+                                    src="/images/services/mail.png"
+                                    style={{
+                                        width: 24,
+                                        height: 24,
+                                        borderRadius: "50%",
+                                        objectFit: "contain",
+                                    }}
+                                />
+                                <Text style={{ fontSize: 12, fontFamily: `${selectedFont} 400`, color: "#000000" }}>
+                                    yourmail@mail.com
+                                </Text>
+                            </View>
+                        )}
 
-                        <View
-                            style={{
-                                display: "flex",
-                                flexDirection: "row",
-                                gap: 10,
-                                alignItems: "center",
-                            }}
-                        >
-                            <Image
-                                src="/images/services/location.png"
+                        {data?.location?.length > 0 && (
+                            <View
                                 style={{
-                                    width: 24,
-                                    height: 24,
-                                    borderRadius: "50%",
-                                    objectFit: "contain",
+                                    display: "flex",
+                                    flexDirection: "row",
+                                    gap: 10,
+                                    alignItems: "center",
                                 }}
-                            />
-                            <Text style={{ fontSize: 12,fontFamily: `${selectedFont} 400`, color: "#000000" }}>
-                                San Francisco, CA
-                            </Text>
-                        </View>
+                            >
+                                <Image
+                                    src="/images/services/location.png"
+                                    style={{
+                                        width: 24,
+                                        height: 24,
+                                        borderRadius: "50%",
+                                        objectFit: "contain",
+                                    }}
+                                />
+                                <Text style={{ fontSize: 12, fontFamily: `${selectedFont} 400`, color: "#000000" }}>
+                                    San Francisco, CA
+                                </Text>
+                            </View>
+                        )}
+
                     </View>
 
                     <View
@@ -141,7 +148,7 @@ function Template19({ data,selectedColor,selectedFont  }) {
                                 <Text
                                     style={{ fontSize: 14, fontFamily: `${selectedFont} 400`, color: "#000000" }}
                                 >
-                                    Layout Artist
+                                    {data.designation}
                                 </Text>
                             </View>
                         </View>
@@ -166,7 +173,7 @@ function Template19({ data,selectedColor,selectedFont  }) {
                             >
                                 <Path d="M436 0H0V1H436V0Z" fill="black" />
                             </Svg>
-                            <Text style={{ fontSize: 12, color: "#808285",  fontFamily: `${selectedFont} 400`}}>
+                            <Text style={{ fontSize: 12, color: "#808285", fontFamily: `${selectedFont} 400` }}>
                                 This is where you sell yourself and be quick recruiters only
                                 skim through the rest of your resume. Show your achievements and
                                 . Use worth to them. You can go ahead and drop your objective
@@ -177,6 +184,7 @@ function Template19({ data,selectedColor,selectedFont  }) {
                         </View>
                     </View>
                 </View>
+
 
                 <View
                     style={{
@@ -207,22 +215,23 @@ function Template19({ data,selectedColor,selectedFont  }) {
                         style={{
                             display: "flex",
                             flexDirection: "row",
-                            gap: 70,
+                            gap: 16,
                             flexWrap: "wrap",
                         }}
                     >
-                        <View
-                            style={{
-                                display: "flex",
-                                flexDirection: "column",
-                                width: 130,
-                                gap: 8,
-                            }}
-                        >
-                            <Text style={{ fontSize: 12, color: "#808285",  fontFamily: `${selectedFont} 400`}}>
-                                Team Management
-                            </Text>
-                            <Svg
+                        {data?.skills?.map((detail, index) => (
+                            <View
+                                style={{
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    width: 170,
+                                    gap: 8,
+                                }}
+                            >
+                                <Text style={{ fontSize: 12, color: "#808285", fontFamily: `${selectedFont} 400` }}>
+                                    Team Management
+                                </Text>
+                                {/* <Svg
                                 width="130"
                                 height="12"
                                 viewBox="0 0 174 12"
@@ -269,10 +278,47 @@ function Template19({ data,selectedColor,selectedFont  }) {
                                     d="M168 12C171.314 12 174 9.31373 174 6.00002C174 2.68631 171.314 0 168 0C164.686 0 162 2.68631 162 6.00002C162 9.31373 164.686 12 168 12Z"
                                     fill="#D1D3D4"
                                 />
-                            </Svg>
-                        </View>
+                            </Svg> */}
+                                <View style={{ display: "flex", flexDirection: "row", gap: 6 }}>
+                                    {[...Array(5)].map((_, i) => (
+                                        <View key={i}>
+                                            {
+                                                detail.rating[i] === 0 ? (
+                                                    <Svg
+                                                        width="12"
+                                                        height="12"
+                                                        viewBox="0 0 12 12"
+                                                        fill="none"
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                    >
+                                                        <Path
+                                                            d="M150 12C153.314 12 156 9.31373 156 6.00002C156 2.68631 153.314 0 150 0C146.686 0 144 2.68631 144 6.00002C144 9.31373 146.686 12 150 12Z"
+                                                            fill="#D1D3D4"
+                                                        />
+                                                    </Svg>
+                                                ) : (
+                                                    <Svg
+                                                        width="12"
+                                                        height="12"
+                                                        viewBox="0 0 12 12"
+                                                        fill="none"
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                    >
+                                                        <Path
+                                                            d="M6 12C9.31371 12 12 9.31373 12 6.00002C12 2.68631 9.31371 0 6 0C2.68629 0 0 2.68631 0 6.00002C0 9.31373 2.68629 12 6 12Z"
+                                                            fill="black"
+                                                        />
+                                                    </Svg>
+                                                )
+                                            }
+                                        </View>
+                                    ))}
+                                </View>
+                            </View>
+                        ))}
                     </View>
                 </View>
+
 
                 <View
                     style={{ display: "flex", flexDirection: "row", gap: 28, width: 546 }}
@@ -301,7 +347,7 @@ function Template19({ data,selectedColor,selectedFont  }) {
                                     width: 268,
                                 }}
                             >
-                                <Text style={{ paddingBottom: 5 , fontFamily: `${selectedFont} 400`}}>Social Media</Text>
+                                <Text style={{ paddingBottom: 5, fontFamily: `${selectedFont} 400` }}>Social Media</Text>
                             </View>
 
                             <View
@@ -362,7 +408,7 @@ function Template19({ data,selectedColor,selectedFont  }) {
                                             style={{
                                                 fontSize: 12,
                                                 fontFamily: `${selectedFont} 400`,
-                                                
+
                                                 color: "#000000",
                                             }}
                                         >
@@ -543,7 +589,7 @@ function Template19({ data,selectedColor,selectedFont  }) {
                                     width: 268,
                                 }}
                             >
-                                <Text style={{ paddingBottom: 5,fontFamily: `${selectedFont} 400`, }}>EDUCATION</Text>
+                                <Text style={{ paddingBottom: 5, fontFamily: `${selectedFont} 400`, }}>EDUCATION</Text>
                             </View>
 
                             <View
@@ -554,6 +600,8 @@ function Template19({ data,selectedColor,selectedFont  }) {
                                     width: "100%",
                                     flexWrap: "wrap",
                                 }}>
+                                {data?.education?.map((detail, index) => (
+                                    <>
                              <View style={{display:'flex',flexDirection:'column',gap:5,width:'45%'}}>
                                     <Text style={{fontSize:12,color:'#000000',fontFamily: `${selectedFont} 400`,}}>MASTER DEGREE</Text>
                                     <Text style={{fontSize:10,color:'#808285',fontFamily: `${selectedFont} 400`,}}>Communication</Text>
@@ -566,6 +614,8 @@ function Template19({ data,selectedColor,selectedFont  }) {
                                     <Text style={{fontSize:10,color:'#000000',fontFamily: `${selectedFont} 400`,}}>San Franciso University</Text>
                                     <Text style={{fontSize:10,color:'#000000',fontFamily: `${selectedFont} 400`,}}>2016-2018</Text>
                              </View>
+                             </>
+                                ))}
                                 </View>
 
                         </View>
@@ -586,24 +636,24 @@ function Template19({ data,selectedColor,selectedFont  }) {
                                     width: 268,
                                 }}
                             >
-                                <Text style={{ paddingBottom: 5,fontFamily: `${selectedFont} 400`, }}>Interests</Text>
-                            </View>                         
-                                <View
+                                <Text style={{ paddingBottom: 5, fontFamily: `${selectedFont} 400`, }}>Interests</Text>
+                            </View>
+                            <View
                                 style={{
                                     display: "flex",
                                     flexDirection: "row",
                                     gap: 10,
                                     width: "100%",
                                     flexWrap: "wrap",
-                                }}>                
-                
-                <View style={{display:'flex',flexDirection:'row',gap:5,alignItems:'center'}}>
-                <Svg width="6" height="7" viewBox="0 0 6 7" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <Path d="M3 6.5C4.65685 6.5 6 5.15685 6 3.5C6 1.84315 4.65685 0.5 3 0.5C1.34315 0.5 0 1.84315 0 3.5C0 5.15685 1.34315 6.5 3 6.5Z" fill="#5E5F5E"/>
-                </Svg>                   
-                    <Text style={{fontSize:10,fontFamily: `${selectedFont} 400`,color:'#000000'}}>CYCLING</Text>
-                  </View>
-               </View>
+                                }}>
+
+                                <View style={{ display: 'flex', flexDirection: 'row', gap: 5, alignItems: 'center' }}>
+                                    <Svg width="6" height="7" viewBox="0 0 6 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <Path d="M3 6.5C4.65685 6.5 6 5.15685 6 3.5C6 1.84315 4.65685 0.5 3 0.5C1.34315 0.5 0 1.84315 0 3.5C0 5.15685 1.34315 6.5 3 6.5Z" fill="#5E5F5E" />
+                                    </Svg>
+                                    <Text style={{ fontSize: 10, fontFamily: `${selectedFont} 400`, color: '#000000' }}>CYCLING</Text>
+                                </View>
+                            </View>
 
                         </View>
 
@@ -618,7 +668,7 @@ function Template19({ data,selectedColor,selectedFont  }) {
                         }}
                     >
 
-<View
+                        <View
                             style={{
                                 display: "flex",
                                 flexDirection: "column",
@@ -634,19 +684,21 @@ function Template19({ data,selectedColor,selectedFont  }) {
                                     width: 268,
                                 }}
                             >
-                                <Text style={{ paddingBottom: 5 ,fontFamily: `${selectedFont} 400`,}}>Professional Experience</Text>
-                            </View>                         
-                    
-                            <View style={{display:'flex',flexDirection:'row',gap:5,alignItems:'start'}}>
-                <Svg width="6" height="7" viewBox="0 0 6 7" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <Path d="M3 6.5C4.65685 6.5 6 5.15685 6 3.5C6 1.84315 4.65685 0.5 3 0.5C1.34315 0.5 0 1.84315 0 3.5C0 5.15685 1.34315 6.5 3 6.5Z" fill="#5E5F5E"/>
-                </Svg>   
-                <View style={{display:'flex',flexDirection:'column',gap:5}}>                
-                    <Text style={{fontSize:10,fontFamily: `${selectedFont} 400`,color:'#000000'}}>Head of Design Good Company</Text>
-                    <Text style={{fontSize:10,fontFamily: `${selectedFont} 400`,color:'#000000'}}>2019-2020</Text>
-                    <Text style={{fontSize:10,fontFamily: `${selectedFont} 400`,color:'#000000'}}>This is where you sell yourself and be quick recruiters only skim through the rest of your resume.</Text>
-                    </View>
-                  </View>
+                                <Text style={{ paddingBottom: 5, fontFamily: `${selectedFont} 400`, }}>Professional Experience</Text>
+                            </View>
+
+                            <View style={{ display: 'flex', flexDirection: 'row', gap: 5, alignItems: 'start' }}>
+                                <Svg width="6" height="7" viewBox="0 0 6 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <Path d="M3 6.5C4.65685 6.5 6 5.15685 6 3.5C6 1.84315 4.65685 0.5 3 0.5C1.34315 0.5 0 1.84315 0 3.5C0 5.15685 1.34315 6.5 3 6.5Z" fill="#5E5F5E" />
+                                </Svg>
+                                {data.experience?.map((detail, index) => (
+                                    <View style={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
+                                        <Text style={{ fontSize: 10, fontFamily: `${selectedFont} 400`, color: '#000000' }}>Head of Design Good Company</Text>
+                                        <Text style={{ fontSize: 10, fontFamily: `${selectedFont} 400`, color: '#000000' }}>2019-2020</Text>
+                                        <Text style={{ fontSize: 10, fontFamily: `${selectedFont} 400`, color: '#000000' }}>This is where you sell yourself and be quick recruiters only skim through the rest of your resume.</Text>
+                                    </View>
+                                ))}
+                            </View>
 
                         </View>
                     </View>

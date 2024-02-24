@@ -59,6 +59,7 @@ import Template49 from "../../resumeTemplates/Template49";
 import Template51 from "../../resumeTemplates/Template51";
 import Template53 from "../../resumeTemplates/Template53";
 import Template54 from "../../resumeTemplates/Template54";
+import Template55 from "../../resumeTemplates/Template55";
 
 
 
