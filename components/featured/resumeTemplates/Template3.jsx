@@ -7,7 +7,7 @@ const Template3 = ({ data,selectedColor,selectedFont  }) => (
 
   <Page size="A4">
     <View style={{ flexDirection: "row" }}>
-      <View style={{ width: 184, backgroundColor: '#414042', minHeight: 841.7, flexDirection: "column", gap: 24, }}>
+      <View style={{ width: 184, backgroundColor: selectedColor, minHeight: 841.7, flexDirection: "column", gap: 24, }}>
         <View style={{ paddingTop: 21, paddingRight: 22, paddingLeft: 28 }}>
           <View style={{ width: 134, height: 134, flexShrink: 0, backgroundColor: 'lightgray', borderRadius: '50%', overflow: 'hidden' }}>
             {data.profilePhoto ? (
@@ -100,7 +100,7 @@ const Template3 = ({ data,selectedColor,selectedFont  }) => (
             <View style={{ flexDirection: 'column', paddingLeft: 16, paddingTop: 20, gap: 8 }}>
               {data.hobbies.map((detail, index) => (
                 <Text style={{ color: 'white', fontSize: 8.96, fontFamily: `${selectedFont} 400` }}>
-                  {detail.hobbies}
+                  {detail.title}
                 </Text>
               ))}
             </View>
@@ -132,7 +132,7 @@ const Template3 = ({ data,selectedColor,selectedFont  }) => (
         </View>
         <View style={{ flexDirection: 'column', gap: 12, paddingTop: '24px', marginLeft: '-1' }}>
           <Svg xmlns="http://www.w3.org/2000/svg" width="160" viewBox="0 0 160 27" fill="none">
-            <Path d="M146.641 27H0V0H146.641C154.018 0 160 6.04367 160 13.5C160 20.9564 154.018 27 146.641 27Z" fill="#414042" />
+            <Path d="M146.641 27H0V0H146.641C154.018 0 160 6.04367 160 13.5C160 20.9564 154.018 27 146.641 27Z" fill={selectedColor} />
             <Text x="10%" y="55%" dominantBaseline="middle" textAnchor="start" fill="white" fontSize={15} fontFamily={`${selectedFont} 400`} >EDUCATION </Text>
           </Svg>
           <View style={{ flexDirection: 'column', gap: 12, paddingLeft: '20px' }}>
@@ -158,7 +158,7 @@ const Template3 = ({ data,selectedColor,selectedFont  }) => (
         </View>
         <View style={{ flexDirection: 'column', gap: 12, paddingTop: '24px', marginLeft: '-1' }}>
           <Svg xmlns="http://www.w3.org/2000/svg" width="160" viewBox="0 0 160 27" fill="none">
-            <Path d="M146.641 27H0V0H146.641C154.018 0 160 6.04367 160 13.5C160 20.9564 154.018 27 146.641 27Z" fill="#414042" />
+            <Path d="M146.641 27H0V0H146.641C154.018 0 160 6.04367 160 13.5C160 20.9564 154.018 27 146.641 27Z" fill={selectedColor} />
             <Text x="10%" y="55%" dominantBaseline="middle" textAnchor="start" fill="white" fontSize={15} fontFamily={`${selectedFont} 400`} >EXPERIENCE </Text>
           </Svg>
           {data.experience.map((detail, index) => (

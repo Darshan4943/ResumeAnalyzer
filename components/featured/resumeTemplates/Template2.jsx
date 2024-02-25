@@ -2,8 +2,8 @@ import React from 'react'
 import { Document, Page, Text, View, Image, StyleSheet, Svg, Path, Rect } from '@react-pdf/renderer';
 function Template2({ data, selectedColor,selectedFont }) {
     return (
-        <Page size="A4" style={{ backgroundColor: "#2C2A31", paddingVertical: 24, }}  >
-            <View style={{ display: 'flex', flexDirection: 'row', breakAll: true, marginVertical: -24, }}>
+        <Page size="A4" style={{ backgroundColor: "#2C2A31",  }}  >
+            <View style={{ display: 'flex', flexDirection: 'row', breakAll: true,  }}>
                 <View style={{ paddingTop: '260px', width: '369px', paddingLeft: '16px', flexDirection: "column", justifyContent: "space-between", backgroundColor: "#FFFFFF", }}>
                     <View style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
 
@@ -57,7 +57,7 @@ function Template2({ data, selectedColor,selectedFont }) {
                                     <View style={{ backgroundColor: selectedColor, height: '3px', width: '85%' }} />
                                     <View style={{ flexDirection: "col", gap: 8 }}>
                                         {data?.languages?.map((detail, index) => (
-                                            <View key={index} style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px' }}>
+                                            <View key={index} style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px',width: '85%' }}>
                                                 <Text>{detail.languages}</Text>
                                                 <View style={{ flexDirection: 'row', gap: '8px', marginTop: '4px' }}>
                                                     {[...Array(3)].map((_, i) => (
@@ -68,7 +68,7 @@ function Template2({ data, selectedColor,selectedFont }) {
                                                                 </Svg>
                                                             ) : (
                                                                 <Svg width={8} height={8} viewBox="0 0 8 8">
-                                                                    <Path d="M4.02911 0.886719C2.23911 0.886719 0.789062 2.33771 0.789062 4.12671C0.789062 5.91571 2.24011 7.36676 4.02911 7.36676C5.81811 7.36676 7.2691 5.91571 7.2691 4.12671C7.2691 2.33771 5.81811 0.886719 4.02911 0.886719Z" fill="#F7902B" />
+                                                                    <Path d="M4.02911 0.886719C2.23911 0.886719 0.789062 2.33771 0.789062 4.12671C0.789062 5.91571 2.24011 7.36676 4.02911 7.36676C5.81811 7.36676 7.2691 5.91571 7.2691 4.12671C7.2691 2.33771 5.81811 0.886719 4.02911 0.886719Z" fill={selectedColor}/>
                                                                 </Svg>
                                                             )}
                                                         </View>
@@ -84,7 +84,7 @@ function Template2({ data, selectedColor,selectedFont }) {
                     </View>
                     <View style={{ position: "absolute", left: 0, right: 0, bottom: 0, width: '366.5px', marginTop: '8px', height: '42px', backgroundColor: selectedColor }}></View>
                 </View>
-                <View style={{ backgroundColor: '#2C2A31', width: '230px', paddingLeft: '16px', paddingBottom: '4px', minHeight: 817 }}>
+                <View style={{ backgroundColor: '#2C2A31', width: '230px', paddingLeft: '16px', paddingBottom: '4px', minHeight: 841.8 }}>
                     <View style={{ display: 'flex', flexDirection: 'column', gap: '12', alignItems: 'flex-start', marginTop: '200px' }}>
                         <View style={{ display: 'flex', flexDirection: 'column', gap: '12' }}>
                             <Text style={{ color: '#fff', fontSize: '18px', fontFamily: `${selectedFont} 600`, }}>Contact Me</Text>
@@ -146,7 +146,7 @@ function Template2({ data, selectedColor,selectedFont }) {
                                             <View key={index} style={{ display: 'flex', flexDirection: 'row' }}>
                                                 <View>
                                                     <Svg width={31} height={32} viewBox="0 0 31 32" fill="none">
-                                                        <Path d="M0.529297 31.1166C0.529297 21.0683 0.529297 11.021 0.529297 0.972656C10.5763 0.972656 20.6223 0.972656 30.6693 0.972656C30.6693 11.014 30.6693 21.0553 30.6693 31.1166C20.5953 31.1166 10.5623 31.1166 0.529297 31.1166ZM2.3063 29.3304C11.1833 29.3304 20.0353 29.3304 28.8803 29.3304C28.8803 20.4552 28.8803 11.6011 28.8803 2.75292C20.0113 2.75292 11.1653 2.75292 2.3063 2.75292C2.3063 11.6161 2.3063 20.4622 2.3063 29.3304Z" fill="#F7902B" />
+                                                        <Path d="M0.529297 31.1166C0.529297 21.0683 0.529297 11.021 0.529297 0.972656C10.5763 0.972656 20.6223 0.972656 30.6693 0.972656C30.6693 11.014 30.6693 21.0553 30.6693 31.1166C20.5953 31.1166 10.5623 31.1166 0.529297 31.1166ZM2.3063 29.3304C11.1833 29.3304 20.0353 29.3304 28.8803 29.3304C28.8803 20.4552 28.8803 11.6011 28.8803 2.75292C20.0113 2.75292 11.1653 2.75292 2.3063 2.75292C2.3063 11.6161 2.3063 20.4622 2.3063 29.3304Z" fill={selectedColor} />
                                                     </Svg>
                                                 </View>
                                                 <View style={{ display: 'flex', flexDirection: 'column', gap: '2', marginLeft: '-1.5px' }}>
@@ -155,7 +155,7 @@ function Template2({ data, selectedColor,selectedFont }) {
                                                     </Text>
                                                     <View style={{ position: 'relative' }}>
                                                         <Svg width={162} height={13} viewBox="0 0 162 13" fill="none">
-                                                            <Path d="M1.66992 6.17383H160.218" stroke="#F7902B" strokeWidth={3} strokeMiterlimit={10} strokeLinecap="round" />
+                                                            <Path d="M1.66992 6.17383H160.218" stroke={selectedColor} strokeWidth={3} strokeMiterlimit={10} strokeLinecap="round" />
                                                         </Svg>
                                                         <View style={{ position: 'absolute', top: '-10%', left: `${ratingPercentage}%` }}>
                                                             <Svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">

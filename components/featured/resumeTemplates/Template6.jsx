@@ -5,10 +5,10 @@ function Template6({ data,selectedColor,selectedFont  }) {
   //   console.log(data)
   return (
     <Page size="A4">
-      <View style={{ width: 800, flexDirection: "row", gap: 10 }}>
+      <View style={{  flexDirection: "row", gap: 10,minHeight:841.8 }}>
         <View>
           <View style={{ width: 268, flexDirection: "row" }}>
-            <View style={{ backgroundColor: "#FFC20E", width: 46 }}></View>
+            <View style={{ backgroundColor: selectedColor, width: 46 }}></View>
             <View style={{ flexDirection: "column", width: 268, marginLeft: -30, gap: 16 }}>
               <View style={{ width: 243, flexDirection: "column" }}>
                 <View style={{ paddingTop: 50, paddingLeft: 70 }}>
@@ -24,7 +24,7 @@ function Template6({ data,selectedColor,selectedFont  }) {
                   </View>
                 </View>
               </View>
-              <View style={{ flexDirection: "column", width: 268, justifyContent: "flex-start", alignItems: "flex-center", gap: 6, }}>
+              <View style={{ flexDirection: "column", width: 178, justifyContent: "flex-start", alignItems: "flex-center", gap: 6, }}>
                 <View style={{ flexDirection: "column", width: 268, gap: 3 }}>
                   <View style={{ flexDirection: "row", gap: 6, width: "100%" }}>
                     <Svg
@@ -94,7 +94,7 @@ function Template6({ data,selectedColor,selectedFont  }) {
           </View>
 
           <View style={{ marginLeft: 6, paddingTop: 12 }}>
-            <View style={{ width: 268, flexDirection: "column", paddingBottom: 12 }}>
+            <View style={{ width: 178, flexDirection: "column", paddingBottom: 12 }}>
               <View style={{ flexDirection: "column", alignItems: "flex-start", gap: 6 }}>
                 <Text style={{ fontSize: 18, fontFamily: `${selectedFont} 700` }}>SKILLS</Text>
                 <View style={{ flexDirection: "column", width: 268, gap: 6 }}>
@@ -127,7 +127,7 @@ function Template6({ data,selectedColor,selectedFont  }) {
                           </Text>
                           <View style={{ width: "59.21%", height: 3.78, alignSelf: "flex-end", marginBottom: 1, backgroundColor: "#DCDDDE" }}>
                             <View
-                              style={{ height: "100%", backgroundColor: "#282829", width: `${ratingPercentage}%` }}
+                              style={{ height: "100%", backgroundColor: selectedColor, width: `${ratingPercentage}%` }}
                             ></View>
                           </View>
                         </View>
@@ -170,7 +170,7 @@ function Template6({ data,selectedColor,selectedFont  }) {
                               </Text>
                               <View style={{ width: "59.21%", height: 3.78, alignSelf: "flex-end", marginBottom: 1, backgroundColor: "#C1C1C1" }}>
                                 <View
-                                  style={{ height: "100%", backgroundColor: "#282829", width: `${ratingPercentage}%` }}
+                                  style={{ height: "100%", backgroundColor: selectedColor, width: `${ratingPercentage}%` }}
                                 ></View>
                               </View>
                             </View>
@@ -198,8 +198,8 @@ function Template6({ data,selectedColor,selectedFont  }) {
             </View>
           </View>
         </View>
-        <View style={{ flexDirection: "column", gap: 14, width: 443, paddingRight: 12 }}>
-          <View style={{ width: 406, paddingTop: 80, height: 200, alignItems: 'start', justifyContent: 'start' }}>
+        <View style={{ flexDirection: "column", gap: 14, width: 334, paddingRight: 12 }}>
+          <View style={{ width: 300, paddingTop: 80, height: 200, alignItems: 'start', justifyContent: 'start' }}>
             <Text style={{ fontSize: 28, fontFamily: `${selectedFont} 700` }}>
               {data.firstName} {data.lastName}
             </Text>
@@ -279,6 +279,7 @@ function Template6({ data,selectedColor,selectedFont  }) {
             </View>
           </View>
         </View>
+        <View style={{width:"100%",height:12,position:"absolute",bottom:0, backgroundColor:selectedColor}}></View>
       </View>
     </Page>
 

@@ -44,9 +44,6 @@ import Template36 from "../../resumeTemplates/Template36";
 import Template20 from "../../resumeTemplates/Template20";
 import Template11 from "../../resumeTemplates/Template11";
 import Template19 from "../../resumeTemplates/Template19";
-
-
-
 import Template25 from "../../resumeTemplates/Template25";
 import Template39 from "../../resumeTemplates/Template39";
 import Template40 from "../../resumeTemplates/Template40";
@@ -60,12 +57,6 @@ import Template51 from "../../resumeTemplates/Template51";
 import Template53 from "../../resumeTemplates/Template53";
 import Template54 from "../../resumeTemplates/Template54";
 import Template55 from "../../resumeTemplates/Template55";
-
-
-
-
-
-
 import Template13 from "../../resumeTemplates/Template13";
 import Template34 from "../../resumeTemplates/Template34";
 import Template44 from "../../resumeTemplates/Template44";
@@ -418,45 +409,11 @@ const ResumePreview = ({ data, isSetEdit, selectedResumeIndex, setSelectedResume
               Edit
             </button>
 
-            {/* <button
-              className=" text-[12px] flex gap-1 items-center justify-between text-[#333] font-montserrat font-semibold px-2 py-1 rounded-[8px] border border-[#06A9EF]"
-              onClick={() => generatePdf()}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="21"
-                height="20"
-                viewBox="0 0 21 20"
-                fill="none"
-              >
-                <g mask="url(#mask0_5925_110936)">
-                  <path
-                    d="M10.5 13.157L6.94233 9.59938L7.82052 8.69554L9.875 10.75V3.75H11.125V10.75L13.1794 8.69554L14.0576 9.59938L10.5 13.157ZM5.75642 16.25C5.33547 16.25 4.97917 16.1041 4.6875 15.8125C4.39583 15.5208 4.25 15.1645 4.25 14.7435V12.484H5.49998V14.7435C5.49998 14.8077 5.52669 14.8664 5.5801 14.9199C5.63353 14.9733 5.69231 15 5.75642 15H15.2435C15.3077 15 15.3664 14.9733 15.4199 14.9199C15.4733 14.8664 15.5 14.8077 15.5 14.7435V12.484H16.75V14.7435C16.75 15.1645 16.6041 15.5208 16.3125 15.8125C16.0208 16.1041 15.6645 16.25 15.2435 16.25H5.75642Z"
-                    fill="#333333"
-                  />
-                </g>
-              </svg>
-              Download
-            </button> */}
+            
           </div>
         </div>
 
-        {/* <div style={{ position: "absolute", left: 10000 }}>
-          <div className="mt-2  " ref={resumeRef}>
-            <div className=" ">{selectResumeTemplate(selectedResumeIndex)}</div>
-          </div>
-        </div> */}
-
-        {/* <div
-          className=" border border-[#06A9EF] transform xxsm:scale-[35%] scr340:scale-[37%] scr360:scale-[39%] scr390:scale-[42%] scr420:scale-[46%] sm:scale-[53%] scr540:scale-[60%] ms:scale-[68%] scr700:scale-[80%] md:scale-[88%] scr820:scale-[95%] ml:scale-[46%] scr900:scale-[50%] lg:scale-[54%] scr1024:scale-[57%] scr1100:scale-[62%] xxlg:scale-[63%] scr1150:scale-[65%]  scale-[33%]  "
-          style={{
-            width: "49.7rem",
-            // scale: "0.65",
-            transformOrigin: "top left",
-          }}
-        >
-          {selectResumeTemplate(selectedResumeIndex)}
-        </div> */}
+        
         {selectedResumeIndex !== undefined && (
           <div
             className="  transform xxsm:scale-[35%] scr340:scale-[37%] scr360:scale-[39%] scr390:scale-[42%] scr420:scale-[46%] sm:scale-[53%] scr540:scale-[60%] ms:scale-[68%] scr700:scale-[80%] md:scale-[88%] scr820:scale-[95%] ml:scale-[46%] scr900:scale-[50%] lg:scale-[54%] scr1024:scale-[57%] scr1100:scale-[62%] xxlg:scale-[63%] scr1150:scale-[65%]  scale-[33%]  "
@@ -475,55 +432,8 @@ const ResumePreview = ({ data, isSetEdit, selectedResumeIndex, setSelectedResume
         )}
       </div>
       {preview && (
-        // <>
-        //   {" "}
-        //   <div
-        //     className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60 web"
-        //     onClick={() => setPreview(false)}
-        //   ></div>
-        //   <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center customMargins  ">
-        //     <div className="absolute bg-white overflow-y-scroll h-[90vh] p-8 rounded-[8px]">
-        //       <div className="flex gap-[16px] justify-end">
-        //         <button
-        //           onClick={pdfConverter}
-        //           className="flex gap-1 text-[12px] h-[38px] w-[90px] justify-center  text-[#FFF] font-montserrat font-semibold px-3 py-[2px] rounded-[8px] items-center border border-[#06A9EF] bg-[#06A9EF]"
-        //         >
-        //           {loading ? (
-        //             <MiniLoader />
-        //           ) : (
-        //             <>
-        //               {" "}
-        //               <img
-        //                 src="/images/services/add_link.png"
-        //                 className="h-[24px] w-[24px] rounded-[6px]"
-        //                 alt=""
-        //               />
-        //               Attach
-        //             </>
-        //           )}
-        //         </button>
-        //         <button
-        //           className=" text-[12px] text-[#333] font-montserrat font-semibold px-9 py-1 rounded-[8px] border border-[#06A9EF]"
-        //           onClick={() => generatePdf()}
-        //         >
-        //           Download Resume
-        //         </button>
-        //         <ALink href="/profile">
-        //           <button className="flex gap-1 text-[12px] h-[38px] w-[90px] justify-center  text-[#FFF] font-montserrat font-semibold px-3 py-[2px] rounded-[8px] items-center border border-[#06A9EF] bg-[#06A9EF]">
-        //             Profile
-        //           </button>
-        //         </ALink>
-        //         <div className="" onClick={() => setPreview(false)}>
-        //           <Close_svg />
-        //         </div>
-        //       </div>
-        //       <div className="mt-2 " ref={resumeRef}>
-        //         {selectResumeTemplate(selectedResumeIndex)}
-        //       </div>
-        //     </div>
-        //   </div>
-        // </>
-        <div className="fixed top-5 left-0 w-full h-full bg-gray-800 bg-opacity-50 flex justify-center items-center">
+       
+        <div className="fixed z-50 top-5 left-0 w-full h-full bg-gray-800 bg-opacity-50 flex justify-center items-center">
           <div className="bg-white p-4 rounded-lg shadow-md h-[80vh] ">
             <PDFViewer width="850" height="98%">
               <Document>{selectResumeTemplate(selectedResumeIndex)}</Document>
