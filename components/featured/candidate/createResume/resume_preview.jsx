@@ -87,7 +87,7 @@ const ResumePreview = ({ data, isSetEdit, selectedResumeIndex, setSelectedResume
     { title: 'Template8', imgUrl: '/images/templates/template8.png', index: 8, fontFamily:"Montserrat", themeColor:"#646464" },
     { title: 'Template9', imgUrl: '/images/templates/template9.png', index: 9, fontFamily:"Montserrat", themeColor:"#FFD740" },
     { title: 'Template10', imgUrl: '/images/templates/template10.png', index: 10, fontFamily:"Inter", themeColor:"#F2BE5C" },
-    { title: 'Template11', imgUrl: '/images/templates/template11.png', index: 11, fontFamily:"Montserrat", themeColor:"#1C75BC" },
+    { title: 'Template11', imgUrl: '/images/templates/template11.png', index: 11, fontFamily:"Montserrat", themeColor:"#E6E7E8" },
     { title: 'Template12', imgUrl: '/images/templates/template12.png', index: 12, fontFamily:"Lato", themeColor:"#0C2438" },
     { title: 'Template13', imgUrl: '/images/templates/template13.png', index: 13, fontFamily:"Poppins", themeColor:"#0E6CC2" },
     { title: 'Template14', imgUrl: '/images/templates/template14.png', index: 14, fontFamily:"Inter", themeColor:"#242424" },

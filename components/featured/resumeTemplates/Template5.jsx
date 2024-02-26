@@ -560,6 +560,7 @@ function Template5({ data, selectedColor, selectedFont }) {
                         flexDirection: "row",
                         display: "flex",
                         gap: "4px",
+                        alignItems:"center"
                       }}
                     >
                       <Svg width={6} height={5} viewBox="0 0 6 5">
@@ -645,6 +646,7 @@ function Template5({ data, selectedColor, selectedFont }) {
                         flexDirection: "row",
                         display: "flex",
                         gap: "4px",
+                        alignItems:"center"
                       }}
                     >
                       <Svg width={6} height={5} viewBox="0 0 6 5">

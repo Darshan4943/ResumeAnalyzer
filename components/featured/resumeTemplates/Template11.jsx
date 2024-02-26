@@ -3,11 +3,11 @@ import { Document, Page, Text, View, Image, StyleSheet, Svg, Path, Rect } from '
 
 import React from 'react';
 
-function Template11({ data,selectedColor,selectedFont  }) {
+function Template11({ data, selectedColor, selectedFont }) {
   return (
     <Page size="A4">
-      <View style={{ minHeight: 841, flexDirection: 'row' }}>
-        <View style={{ width: 245, backgroundColor: '#E6E7E8', flexDirection: 'column', paddingTop: 42, paddingLeft: 24, gap: 26, alignItems: 'flex-start' }}>
+      <View style={{ minHeight: 841.8, flexDirection: 'row' }}>
+        <View style={{ width: 245, backgroundColor: selectedColor, flexDirection: 'column', paddingTop: 42, paddingLeft: 24, gap: 26, alignItems: 'flex-start' }}>
 
           <View style={{ flexDirection: 'column' }}>
             <Text style={{ fontSize: 40, fontFamily: `${selectedFont} 700`, }}>{data.firstName}</Text>
@@ -145,7 +145,7 @@ function Template11({ data,selectedColor,selectedFont  }) {
                     <Path d="M22.4522 20.8917L20.993 22.3509C20.4461 22.8751 19.7392 23.1712 18.9856 23.1712C18.5748 23.1712 18.1653 23.0805 17.7998 22.8977C15.5417 21.8027 13.4676 20.3208 11.7109 18.5428C9.93293 16.7635 8.4497 14.7121 7.35596 12.4539C6.85444 11.3828 7.05986 10.105 7.90283 9.26204L9.38475 7.80284C9.47545 7.71214 9.56746 7.68945 9.65816 7.68945C9.77154 7.68945 9.88627 7.71214 9.95429 7.80284L13.4436 11.2921C13.5343 11.3601 13.5569 11.4749 13.5569 11.5882C13.5569 11.6789 13.5343 11.7936 13.4436 11.8617L12.0524 13.2755C12.6219 14.3012 13.3529 15.2362 14.1732 16.0806C15.0175 16.9009 15.9525 17.6318 16.9782 18.2014L18.3694 16.8102C18.5294 16.6501 18.8029 16.6501 18.9616 16.8102L22.4509 20.2995C22.4509 20.2995 22.4509 20.2995 22.4736 20.2995C22.6123 20.4822 22.6123 20.733 22.4522 20.8917Z" fill="white" />
                   </Svg>
 
-                  <View style={{ backgroundColor: "#E6E7E8", width: "250", height: "33", flexDirection: "row", alignItems: "center", paddingLeft: 16 }}>
+                  <View style={{ backgroundColor: selectedColor, width: "250", height: "33", flexDirection: "row", alignItems: "center", paddingLeft: 16 }}>
                     <Text style={{ fontSize: "12", fontFamily: `${selectedFont} 700`, }}>
                       {data.mobileNumber}
                     </Text>
@@ -161,7 +161,7 @@ function Template11({ data,selectedColor,selectedFont  }) {
                     <Path d="M22.4522 20.8917L20.993 22.3509C20.4461 22.8751 19.7392 23.1712 18.9856 23.1712C18.5748 23.1712 18.1653 23.0805 17.7998 22.8977C15.5417 21.8027 13.4676 20.3208 11.7109 18.5428C9.93293 16.7635 8.4497 14.7121 7.35596 12.4539C6.85444 11.3828 7.05986 10.105 7.90283 9.26204L9.38475 7.80284C9.47545 7.71214 9.56746 7.68945 9.65816 7.68945C9.77154 7.68945 9.88627 7.71214 9.95429 7.80284L13.4436 11.2921C13.5343 11.3601 13.5569 11.4749 13.5569 11.5882C13.5569 11.6789 13.5343 11.7936 13.4436 11.8617L12.0524 13.2755C12.6219 14.3012 13.3529 15.2362 14.1732 16.0806C15.0175 16.9009 15.9525 17.6318 16.9782 18.2014L18.3694 16.8102C18.5294 16.6501 18.8029 16.6501 18.9616 16.8102L22.4509 20.2995C22.4509 20.2995 22.4509 20.2995 22.4736 20.2995C22.6123 20.4822 22.6123 20.733 22.4522 20.8917Z" fill="white" />
                   </Svg>
 
-                  <View style={{ backgroundColor: "#E6E7E8", width: "250", height: "33", flexDirection: "row", alignItems: "center", paddingLeft: 16 }}>
+                  <View style={{ backgroundColor: selectedColor, width: "250", height: "33", flexDirection: "row", alignItems: "center", paddingLeft: 16 }}>
 
                     <Text style={{ fontSize: "12", fontFamily: `${selectedFont} 700`, }}>
                       {data.email}
@@ -178,7 +178,7 @@ function Template11({ data,selectedColor,selectedFont  }) {
                     <Path d="M22.4522 20.8917L20.993 22.3509C20.4461 22.8751 19.7392 23.1712 18.9856 23.1712C18.5748 23.1712 18.1653 23.0805 17.7998 22.8977C15.5417 21.8027 13.4676 20.3208 11.7109 18.5428C9.93293 16.7635 8.4497 14.7121 7.35596 12.4539C6.85444 11.3828 7.05986 10.105 7.90283 9.26204L9.38475 7.80284C9.47545 7.71214 9.56746 7.68945 9.65816 7.68945C9.77154 7.68945 9.88627 7.71214 9.95429 7.80284L13.4436 11.2921C13.5343 11.3601 13.5569 11.4749 13.5569 11.5882C13.5569 11.6789 13.5343 11.7936 13.4436 11.8617L12.0524 13.2755C12.6219 14.3012 13.3529 15.2362 14.1732 16.0806C15.0175 16.9009 15.9525 17.6318 16.9782 18.2014L18.3694 16.8102C18.5294 16.6501 18.8029 16.6501 18.9616 16.8102L22.4509 20.2995C22.4509 20.2995 22.4509 20.2995 22.4736 20.2995C22.6123 20.4822 22.6123 20.733 22.4522 20.8917Z" fill="white" />
                   </Svg>
 
-                  <View style={{ backgroundColor: "#E6E7E8", width: "250", height: "33", flexDirection: "row", alignItems: "center", paddingLeft: 16 }}>
+                  <View style={{ backgroundColor: selectedColor, width: "250", height: "33", flexDirection: "row", alignItems: "center", paddingLeft: 16 }}>
 
                     <Text style={{ fontSize: "12", fontFamily: `${selectedFont} 700`, }}>
                       {data.location}
