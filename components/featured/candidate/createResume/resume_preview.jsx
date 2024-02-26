@@ -78,6 +78,7 @@ import Template26 from "../../resumeTemplates/Template26";
 import Template27 from "../../resumeTemplates/Template27";
 import Template45 from "../../resumeTemplates/Template45";
 import Fonts from "@/public/fonts/fonts";
+import Template61 from "../../resumeTemplates/Template61";
 <Fonts/>
 const ResumePreview = ({ data, isSetEdit }) => {
 
@@ -201,6 +202,8 @@ const ResumePreview = ({ data, isSetEdit }) => {
           return <Template53 data={data} />;
           case 54:
           return <Template54 data={data} />;
+          case 61:
+            return <Template61 data={data} />;
 
       default:
         return <Template1 data={data} />;
@@ -256,7 +259,7 @@ const ResumePreview = ({ data, isSetEdit }) => {
       >
         <div className="rounded-[8px] bg-[#BCEBFF]  px-4 pt-[10px] ">
           <div className=" flex gap-4 pb-[10px]" style={{ overflowX: "auto" }}>
-            <img
+            {/* <img
               src="/images/services/resume1.png"
               className="h-[200px] w-[140.91px] rounded-[6px]"
               alt=""
@@ -571,6 +574,12 @@ const ResumePreview = ({ data, isSetEdit }) => {
               className="h-[200px] w-[140.91px] rounded-[6px]"
               alt=""
               onClick={() => togglePreview(true, 54)}
+            /> */}
+              <img
+              src="/images/services/template61.png"
+              className="h-[200px] w-[140.91px] rounded-[6px]"
+              alt=""
+              onClick={() => togglePreview(true, 61)}
             />
           </div>
         </div>
