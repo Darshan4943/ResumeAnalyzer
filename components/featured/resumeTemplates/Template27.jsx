@@ -1,6 +1,6 @@
 import React from 'react'
 import { Document, Page, Text, View, Image, StyleSheet, Svg, Path, Rect, Circle } from '@react-pdf/renderer';
-function Template27({ data }) {
+function Template27({ data,selectedColor,selectedFont  }) {
     return (
         <Page size="A4" style={{}}>
             <View style={{ flexDirection: "row-reverse", minHeight: 841.8 }}>
@@ -29,17 +29,17 @@ function Template27({ data }) {
                     </View>
 
                     <View style={{ paddingVertical: 15, paddingHorizontal: 52, flexDirection: "column", backgroundColor: "#2A2A2B", gap: 4 }}>
-                        <Text style={{ color: "#FFFFFF", fontSize: 32 , fontFamily:'Inter 400' }}>{data.firstName} {data.lastName}</Text>
-                        <Text style={{ color: "#FFFFFF", fontSize: 18 ,fontFamily:'Inter 400'}}>{data.designation}</Text>
+                        <Text style={{ color: "#FFFFFF", fontSize: 32 , fontFamily: `${selectedFont} 400` }}>{data.firstName} {data.lastName}</Text>
+                        <Text style={{ color: "#FFFFFF", fontSize: 18 ,fontFamily: `${selectedFont} 400`}}>{data.designation}</Text>
 
                     </View>
 
                     <View style={{ flexDirection: "column", gap: 24, padding: 24 }}>
                         <View style={{ flexDirection: "column", gap: 8 }}>
 
-                            <Text style={{ color: "#3B3A3B", fontSize: 16, paddingLeft: 69,fontFamily:'Inter 400' }}>ABOUT ME</Text>
+                            <Text style={{ color: "#3B3A3B", fontSize: 16, paddingLeft: 69,fontFamily: `${selectedFont} 400` }}>ABOUT ME</Text>
                             <View style={{ width: "240", height: 1, backgroundColor: "#6D6E71", marginLeft: 69 }}></View>
-                            <Text style={{ color: "#3B3A3B", fontSize: 12,fontFamily:'Inter 400' }}>{data.summery}</Text>
+                            <Text style={{ color: "#3B3A3B", fontSize: 12,fontFamily: `${selectedFont} 400` }}>{data.summery}</Text>
 
                         </View>
                         <View style={{ flexDirection: "column", gap: 8 }}>
@@ -50,7 +50,7 @@ function Template27({ data }) {
                                 </Svg>
 
                                 <View style={{ flexDirection: "column", gap: 8, }}>
-                                    <Text style={{ color: "#3B3A3B", fontSize: 16,fontFamily:'Inter 400' }}>EDUCATION</Text>
+                                    <Text style={{ color: "#3B3A3B", fontSize: 16,fontFamily: `${selectedFont} 400` }}>EDUCATION</Text>
                                     <View style={{ width: "240", height: 1, backgroundColor: "#6D6E71", }}></View>
                                 </View>
                             </View>
@@ -72,15 +72,15 @@ function Template27({ data }) {
                                             <View style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 16, justifyContent: "space-between", width: "30%" }}>
 
 
-                                                <Text style={{ color: "#414042", fontSize: "11px", fontFamily:'Inter 500', }}>{detail.instituteName}</Text>
+                                                <Text style={{ color: "#414042", fontSize: "11px", fontFamily: `${selectedFont} 500`, }}>{detail.instituteName}</Text>
 
 
-                                                <Text style={{ color: "#414042", fontSize: "9px", fontFamily:'Inter 400', }}>{" "}{detail.duration?.start?.year}-{detail.duration?.end?.year}</Text>
+                                                <Text style={{ color: "#414042", fontSize: "9px", fontFamily: `${selectedFont} 400`, }}>{" "}{detail.duration?.start?.year}-{detail.duration?.end?.year}</Text>
                                             </View>
                                             <View style={{ display: "flex", flexDirection: "column", gap: 4, width: "70%", }}>
 
-                                                <Text style={{ color: "#787879", fontSize: "9px", fontFamily:'Inter 400' }}>{detail.qualification}</Text>
-                                                <Text style={{ color: "#787879", fontSize: "9px", fontFamily:'Inter 400', }}>{detail.specialization}</Text>
+                                                <Text style={{ color: "#787879", fontSize: "9px", fontFamily: `${selectedFont} 400` }}>{detail.qualification}</Text>
+                                                <Text style={{ color: "#787879", fontSize: "9px", fontFamily: `${selectedFont} 400`, }}>{detail.specialization}</Text>
                                             </View>
 
                                         </View>
@@ -97,7 +97,7 @@ function Template27({ data }) {
                                 </Svg>
 
                                 <View style={{ flexDirection: "column", gap: 8, }}>
-                                    <Text style={{ color: "#3B3A3B", fontSize: 16,fontFamily:'Inter 400' }}>EXPERIENCE</Text>
+                                    <Text style={{ color: "#3B3A3B", fontSize: 16,fontFamily: `${selectedFont} 400` }}>EXPERIENCE</Text>
                                     <View style={{ width: "240", height: 1, backgroundColor: "#6D6E71", }}></View>
                                 </View>
                             </View>
@@ -119,15 +119,15 @@ function Template27({ data }) {
                                             <View style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 16, justifyContent: "space-between", width: "30%" }}>
 
 
-                                                <Text style={{ color: "#414042", fontSize: "11px", fontFamily:'Inter 500', }}>{detail.organization}</Text>
+                                                <Text style={{ color: "#414042", fontSize: "11px", fontFamily: `${selectedFont} 500`, }}>{detail.organization}</Text>
 
 
-                                                <Text style={{ color: "#414042", fontSize: "9px", fontFamily:'Inter 400', }}>{detail.duration?.start?.year}-{" "}{detail.currentlyWorking ? "Present" : detail.duration?.end?.year}</Text>
+                                                <Text style={{ color: "#414042", fontSize: "9px", fontFamily: `${selectedFont} 400`, }}>{detail.duration?.start?.year}-{" "}{detail.currentlyWorking ? "Present" : detail.duration?.end?.year}</Text>
                                             </View>
                                             <View style={{ display: "flex", flexDirection: "column", gap: 4, width: "70%", }}>
 
-                                                <Text style={{ color: "#787879", fontSize: "9px", fontFamily:'Inter 400' }}>{detail.designation}</Text>
-                                                <Text style={{ color: "#787879", fontSize: "9px", fontFamily:'Inter 400', }}>{detail.description}</Text>
+                                                <Text style={{ color: "#787879", fontSize: "9px", fontFamily: `${selectedFont} 400` }}>{detail.designation}</Text>
+                                                <Text style={{ color: "#787879", fontSize: "9px", fontFamily: `${selectedFont} 400`, }}>{detail.description}</Text>
                                             </View>
 
                                         </View>
@@ -155,7 +155,7 @@ function Template27({ data }) {
                     )}
 
                     <View style={{ flexDirection: "column", gap: 12, alignItems: "center" }}>
-                        <Text style={{ color: "#FFFFFF", fontSize: 16,fontFamily:'Inter 400' }}>CONTACT</Text>
+                        <Text style={{ color: "#FFFFFF", fontSize: 16,fontFamily: `${selectedFont} 400` }}>CONTACT</Text>
                         <View style={{ width: "100%", height: 1, backgroundColor: "#CB3122" }}></View>
                         <View style={{ flexDirection: "column", gap: 8, justifyContent: "center" }}>
                             {data?.mobileNumber && (
@@ -165,7 +165,7 @@ function Template27({ data }) {
                                         <Path fill-rule="evenodd" clip-rule="evenodd" d="M18.6724 16.275L16.2235 14.7176H16.2109C16.126 14.6625 16.0122 14.6354 15.8685 14.6354C15.6653 14.6354 15.4874 14.7086 15.3356 14.854L14.612 15.6463C14.5949 15.6643 14.5678 15.6806 14.5298 15.6941C14.4919 15.7077 14.4639 15.7149 14.4476 15.7149L14.2887 15.6806C14.183 15.658 14.0303 15.5921 13.8316 15.4828C13.6329 15.3735 13.3853 15.2027 13.0891 14.9706C12.7928 14.7384 12.454 14.4132 12.0737 13.9931C11.6844 13.583 11.3836 13.2217 11.1722 12.9073C10.9609 12.593 10.8037 12.3265 10.7025 12.1079C10.5842 11.8621 10.5083 11.6436 10.474 11.452C10.474 11.4249 10.4803 11.3906 10.4929 11.35C10.5056 11.3093 10.52 11.2795 10.5372 11.2605L11.1587 10.5912C11.2689 10.4728 11.3403 10.3265 11.3746 10.1539C11.4089 9.98139 11.3872 9.82151 11.3113 9.67607L9.95367 6.90189C9.89405 6.80162 9.82269 6.71762 9.73778 6.64987C9.65286 6.58121 9.55531 6.54688 9.44601 6.54688C9.29335 6.54688 9.15875 6.61102 9.03952 6.73839L7.35213 8.55591C7.26722 8.63811 7.19496 8.74472 7.13624 8.87751C7.07662 9.0094 7.03868 9.13948 7.02242 9.26685C7.02242 9.28492 7.01791 9.37617 7.00978 9.54057C7.00165 9.70498 7.01881 9.92991 7.06036 10.2172C7.10282 10.5044 7.18321 10.8459 7.30155 11.2416C7.41988 11.6381 7.59783 12.0798 7.8345 12.5667C8.07117 13.0546 8.38462 13.5848 8.77395 14.1585C9.16327 14.7321 9.65377 15.3337 10.2463 15.9615C10.9907 16.7727 11.6934 17.4096 12.3529 17.8748C13.0132 18.3391 13.603 18.6878 14.1234 18.92C14.6437 19.1521 15.0836 19.2985 15.4431 19.3572C15.8026 19.4159 16.0628 19.4457 16.2235 19.4457C16.2913 19.4457 16.3464 19.4439 16.388 19.4385C16.4304 19.434 16.4557 19.4312 16.4638 19.4312C16.5822 19.4132 16.7023 19.3716 16.8252 19.3084C16.948 19.2452 17.0474 19.1675 17.1232 19.0763L18.8115 17.2723C18.9552 17.1178 19.0148 16.9353 18.9895 16.7257C18.9561 16.5433 18.8504 16.3933 18.6724 16.275Z" fill="white" />
                                     </Svg>
 
-                                    <Text style={{ fontSize: "10px", paddingTop: "2px", flexDirection: "row", fontFamily:'Inter 400', color: "#fff", }}>{data.mobileNumber}</Text>
+                                    <Text style={{ fontSize: "10px", paddingTop: "2px", flexDirection: "row", fontFamily: `${selectedFont} 400`, color: "#fff", }}>{data.mobileNumber}</Text>
                                 </View>
                             )}
                             {data?.email && (
@@ -176,7 +176,7 @@ function Template27({ data }) {
                                     </Svg>
 
 
-                                    <Text style={{ fontSize: "10px", width: '80%', paddingTop: "2px", flexDirection: "row",fontFamily:'Inter 400', color: "#fff", }}>{data.email}</Text>
+                                    <Text style={{ fontSize: "10px", width: '80%', paddingTop: "2px", flexDirection: "row",fontFamily: `${selectedFont} 400`, color: "#fff", }}>{data.email}</Text>
                                 </View>
                             )}
                             {data?.location && (
@@ -186,14 +186,14 @@ function Template27({ data }) {
                                         <Path d="M12.9981 6.54688C10.4219 6.54688 8.32617 8.64248 8.32617 11.2186C8.32617 14.4153 12.5067 19.1079 12.6846 19.3057C12.8518 19.4918 13.1435 19.4918 13.3106 19.3057C13.4886 19.1079 17.6691 14.4144 17.6691 11.2186C17.6691 8.64248 15.5734 6.54688 12.9981 6.54688ZM12.9981 13.569C11.7018 13.569 10.6477 12.5148 10.6477 11.2186C10.6477 9.92243 11.7018 8.86831 12.9981 8.86831C14.2943 8.86831 15.3485 9.92243 15.3485 11.2186C15.3485 12.5139 14.2943 13.569 12.9981 13.569Z" fill="white" />
                                     </Svg>
 
-                                    <Text style={{ fontSize: "10px", flexDirection: "row", fontFamily:'Inter 400', color: "#fff", }}>{data.location}</Text>
+                                    <Text style={{ fontSize: "10px", flexDirection: "row", fontFamily: `${selectedFont} 400`, color: "#fff", }}>{data.location}</Text>
                                 </View>
                             )}
                         </View>
 
                     </View>
                     <View style={{ flexDirection: "column", gap: 12, alignItems: "center" }}>
-                        <Text style={{ color: "#FFFFFF", fontSize: 16 ,fontFamily:'Inter 400' }}> PRO SKILLS</Text>
+                        <Text style={{ color: "#FFFFFF", fontSize: 16 ,fontFamily: `${selectedFont} 400` }}> PRO SKILLS</Text>
                         <View style={{ width: "100%", height: 1, backgroundColor: "#CB3122" }}></View>
                         {data?.skills?.length > 0 && (
 
@@ -218,7 +218,7 @@ function Template27({ data }) {
                                     return (
                                         <View style={{ flexDirection: 'column', gap: 8, alignItems: "center" }} key={index}>
 
-                                            <Text style={{ color: '#FFFFFF', fontSize: 12, fontFamily:'Inter 500', }}>{detail.skill}</Text>
+                                            <Text style={{ color: '#FFFFFF', fontSize: 12, fontFamily: `${selectedFont} 500`, }}>{detail.skill}</Text>
                                             <View style={{ height: 11, backgroundColor: '#C1C1C0', width: "130", borderRadius: "50%" }}>
                                                 <View style={{ height: '100%', backgroundColor: '#CB3122', borderRadius: "50%", width: `${ratingPercentage}%` }}></View>
                                             </View>
@@ -232,7 +232,7 @@ function Template27({ data }) {
 
                     </View>
                     <View style={{ flexDirection: "column", gap: 12, alignItems: "center" }}>
-                        <Text style={{ color: "#FFFFFF", fontSize: 16 ,fontFamily:'Inter 400'}}>LANGUAGES</Text>
+                        <Text style={{ color: "#FFFFFF", fontSize: 16 ,fontFamily: `${selectedFont} 400`}}>LANGUAGES</Text>
                         <View style={{ width: "100%", height: 1, backgroundColor: "#CB3122" }}></View>
                         {data?.languages?.length > 0 && (
 
@@ -257,7 +257,7 @@ function Template27({ data }) {
                                     return (
                                         <View style={{ flexDirection: 'column', gap: 8, alignItems: "center" }} key={index}>
 
-                                            <Text style={{ color: '#FFFFFF', fontSize: 12, fontFamily:'Inter 500', }}>{detail.languages}</Text>
+                                            <Text style={{ color: '#FFFFFF', fontSize: 12, fontFamily: `${selectedFont} 500`, }}>{detail.languages}</Text>
                                             <View style={{ height: 11, backgroundColor: '#C1C1C0', width: "130", borderRadius: "50%" }}>
                                                 <View style={{ height: '100%', backgroundColor: '#CB3122', borderRadius: "50%", width: `${ratingPercentage}%` }}></View>
                                             </View>

@@ -1,7 +1,7 @@
 import { Document, Page, Text, View, StyleSheet, Image, Svg, Path, Rect, Font, Defs, ClipPath, data } from '@react-pdf/renderer';
 import React from 'react'
 
-const Template43 = ({ data }) => {
+const Template43 = ({ data,selectedColor,selectedFont  }) => {
   return (
     <Page size="A4">
 
@@ -20,8 +20,8 @@ const Template43 = ({ data }) => {
                 <Image src="/images/services/profile.png" alt="" style={{ width: "109", height: "109", borderRadius: "50%" }} />
               )}
                 <View style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-                  <Text style={{ fontSize: 26,  fontFamily:'Montserrat 400', color: "#3F2930" }}>{data.firstName}{data.lastName}</Text>
-                  <Text style={{ fontSize: 14, fontFamily:'Montserrat 300', color: "#3F2930" }}>{data.designation}</Text>
+                  <Text style={{ fontSize: 26,  fontFamily: `${selectedFont} 400`, color: "#3F2930" }}>{data.firstName}{data.lastName}</Text>
+                  <Text style={{ fontSize: 14, fontFamily: `${selectedFont} 300`, color: "#3F2930" }}>{data.designation}</Text>
                 </View>
 
               </View>
@@ -33,7 +33,7 @@ const Template43 = ({ data }) => {
                   </Svg>
 
 
-                  <Text style={{  fontFamily:'Montserrat 500', fontSize: 12, color: "#3F2930" }}>{data.mobileNumber}</Text>
+                  <Text style={{  fontFamily: `${selectedFont} 500`, fontSize: 12, color: "#3F2930" }}>{data.mobileNumber}</Text>
                 </View>
                 <View style={{ display: "flex", flexDirection: "row", gap: 6, alignItems: "center" }}>
                   <Svg width="19" height="20" viewBox="0 0 19 20" fill="#F9D3D0" xmlns="http://www.w3.org/2000/svg">
@@ -41,7 +41,7 @@ const Template43 = ({ data }) => {
                   </Svg>
 
 
-                  <Text style={{  fontFamily:'Montserrat 500', fontSize: 12, color: "#3F2930" }}>{data.location}</Text>
+                  <Text style={{  fontFamily: `${selectedFont} 500`, fontSize: 12, color: "#3F2930" }}>{data.location}</Text>
                 </View>
                 <View style={{ display: "flex", flexDirection: "row", gap: 6, alignItems: "center" }}>
                   <Svg width="19" height="20" viewBox="0 0 19 20" fill="#F9D3D0" xmlns="http://www.w3.org/2000/svg">
@@ -51,14 +51,14 @@ const Template43 = ({ data }) => {
                     <Path d="M2.5 4.43555H16.4989L9.49987 11.4158L2.5 4.43555Z" stroke="#3F2930" stroke-width="0.75" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
                   </Svg>
 
-                  <Text style={{  fontFamily:'Montserrat 500', fontSize: 12, color: "#3F2930" }}>{data.email}</Text>
+                  <Text style={{  fontFamily: `${selectedFont} 500`, fontSize: 12, color: "#3F2930" }}>{data.email}</Text>
                 </View>
               </View>
 
               <View style={{ display: "flex", flexDirection: "column", gap: 16 }}>
 
                 <View style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-                  <Text style={{ fontFamily:'Montserrat 400', fontSize: 12, color: "#3F2930" }}>SKILLS</Text>
+                  <Text style={{ fontFamily: `${selectedFont} 400`, fontSize: 12, color: "#3F2930" }}>SKILLS</Text>
                   <View style={{ width: 180, height: 1, backgroundColor: "#3F2930" }}></View>
                 </View>
                 <View
@@ -115,7 +115,7 @@ const Template43 = ({ data }) => {
                               style={{
                                 color: "#3F2930",
                                 fontSize: "12px",
-                                fontFamily:'Montserrat 500',
+                                fontFamily: `${selectedFont} 500`,
                                 width: "80px",
                               }}
                             >
@@ -150,7 +150,7 @@ const Template43 = ({ data }) => {
 
               <View style={{ display: "flex", flexDirection: "column", gap: 20 }}>
                 <View style={{ flexDirection: "column", gap: 4 }}>
-                  <Text style={{  fontFamily:'Montserrat 400',fontSize: 12, color: "#3F2930" }}>HOBBIES</Text>
+                  <Text style={{  fontFamily: `${selectedFont} 400`,fontSize: 12, color: "#3F2930" }}>HOBBIES</Text>
                   <View style={{ width: 180, height: 1, backgroundColor: "#3F2930" }}></View>
                 </View>
                 {data.hobbies?.map((detail, index) => (
@@ -206,7 +206,7 @@ const Template43 = ({ data }) => {
               <View style={{ width: 264, height: 1, backgroundColor: "#3F2930" }}></View>
             </View>
             <View>
-              <Text style={{  fontFamily:'Montserrat 400', fontSize: 10, color: "#B1A8AA" }}>{data.summery}</Text>
+              <Text style={{  fontFamily: `${selectedFont} 400`, fontSize: 10, color: "#B1A8AA" }}>{data.summery}</Text>
             </View>
           </View>
 
@@ -214,15 +214,15 @@ const Template43 = ({ data }) => {
           <View style={{ flexDirection: "column", gap: 16 }}>
 
             <View style={{ flexDirection: "column", gap: 4 }}>
-              <Text style={{  fontFamily:'Montserrat 400', fontSize: 12, color: "#3F2930" }}>EDUCATION</Text>
+              <Text style={{  fontFamily: `${selectedFont} 400`, fontSize: 12, color: "#3F2930" }}>EDUCATION</Text>
               <View style={{ width: 264, height: 1, backgroundColor: "#3F2930" }}></View>
             </View>
 
             <View style={{ flexDirection: "column", gap: 24 }}>
               {data.education?.map((detail, index) => (
                 <View style={{ flexDirection: "column", gap: 2 }} >
-                  <Text style={{  fontFamily:'Montserrat 500', fontSize: 12, color: "#3F2930" }}>{detail.duration?.start?.year}-{detail.duration?.end?.year}  {detail.qualification} - {detail.specialization}</Text>
-                  <Text style={{  fontFamily:'Montserrat 500', fontSize: 12, color: "#B1A8AA" }}>{detail.instituteName}</Text>
+                  <Text style={{  fontFamily: `${selectedFont} 500`, fontSize: 12, color: "#3F2930" }}>{detail.duration?.start?.year}-{detail.duration?.end?.year}  {detail.qualification} - {detail.specialization}</Text>
+                  <Text style={{  fontFamily: `${selectedFont} 500`, fontSize: 12, color: "#B1A8AA" }}>{detail.instituteName}</Text>
                 </View>
 
               ))}
@@ -235,7 +235,7 @@ const Template43 = ({ data }) => {
           <View style={{ flexDirection: "column", gap: 16 }}>
 
             <View style={{ flexDirection: "column", gap: 4 }}>
-              <Text style={{  fontFamily:'Montserrat 400', fontSize: 12, color: "#3F2930" }}>WORK EXPERIENCE</Text>
+              <Text style={{  fontFamily: `${selectedFont} 400`, fontSize: 12, color: "#3F2930" }}>WORK EXPERIENCE</Text>
               <View style={{ width: 264, height: 1, backgroundColor: "#3F2930" }}></View>
             </View>
 
@@ -247,11 +247,11 @@ const Template43 = ({ data }) => {
                       <Path d="M7 0.935547H0V3.0784H7V0.935547Z" fill="#3F2930" />
                     </Svg>
 
-                    <Text style={{  fontFamily:'Montserrat 500', fontSize: 12, color: "#3F2930" }}>{detail.duration?.start?.year}-{detail.currentlyWorking ? "Present" : detail.duration?.end?.year} {detail.designation} </Text>
+                    <Text style={{  fontFamily: `${selectedFont} 500`, fontSize: 12, color: "#3F2930" }}>{detail.duration?.start?.year}-{detail.currentlyWorking ? "Present" : detail.duration?.end?.year} {detail.designation} </Text>
                   </View>
-                  <Text style={{  fontFamily:'Montserrat 500', fontSize: 12, color: "#3F2930" }}>{detail.organization}</Text>
+                  <Text style={{  fontFamily: `${selectedFont} 500`, fontSize: 12, color: "#3F2930" }}>{detail.organization}</Text>
 
-                  <Text style={{  fontFamily:'Montserrat 400', fontSize: 12, color: "#B1A8AA" }}>{detail.description}</Text>
+                  <Text style={{  fontFamily: `${selectedFont} 400`, fontSize: 12, color: "#B1A8AA" }}>{detail.description}</Text>
                 </View>
 
 
@@ -262,14 +262,14 @@ const Template43 = ({ data }) => {
 
             <View style={{ flexDirection: "column", gap: 20, width: "100%" }}>
               <View style={{ flexDirection: "column", gap: 4 }}>
-                <Text style={{  fontFamily:'Montserrat 400', fontSize: 12, color: "#3F2930" }}>LANGUAGES</Text>
+                <Text style={{  fontFamily: `${selectedFont} 400`, fontSize: 12, color: "#3F2930" }}>LANGUAGES</Text>
                 <View style={{ width: 264, height: 1, backgroundColor: "#3F2930" }}></View>
               </View>
 
               <View style={{ flexDirection: "row", gap: 16, justifyContent: "space-between", width: "100%", flexWrap: 'wrap' }}>
                 {data?.languages?.map((detail, index) => (
                   <View key={index} style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", gap: "8px", width: "45%", alignItems: "center" }}>
-                    <Text style={{  fontFamily:'Montserrat 500',fontSize: 14, color: "#3F2930", width: "45%" }}>
+                    <Text style={{  fontFamily: `${selectedFont} 500`,fontSize: 14, color: "#3F2930", width: "45%" }}>
                       {detail.languages}
                     </Text>
                     <View style={{ display: "flex", gap: 8, flexDirection: "row", }}>

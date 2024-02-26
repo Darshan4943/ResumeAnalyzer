@@ -3,11 +3,11 @@ import { Document, Page, Text, View, Image, StyleSheet, Svg, Path } from '@react
 
 
 
-const Template3 = ({ data }) => (
+const Template3 = ({ data,selectedColor,selectedFont  }) => (
 
   <Page size="A4">
     <View style={{ flexDirection: "row" }}>
-      <View style={{ width: 184, backgroundColor: '#414042', minHeight: 841.7, flexDirection: "column", gap: 24, }}>
+      <View style={{ width: 184, backgroundColor: selectedColor, minHeight: 841.7, flexDirection: "column", gap: 24, }}>
         <View style={{ paddingTop: 21, paddingRight: 22, paddingLeft: 28 }}>
           <View style={{ width: 134, height: 134, flexShrink: 0, backgroundColor: 'lightgray', borderRadius: '50%', overflow: 'hidden' }}>
             {data.profilePhoto ? (
@@ -21,7 +21,7 @@ const Template3 = ({ data }) => (
         <View style={{ paddingLeft: -1, height: 27, alignItems: 'center', flexDirection: 'row' }}>
           <Svg width={125} viewBox="0 0 125 27" fill="none">
             <Path d="M112.176 26.999H0.000488281V-0.000976562H112.176C119.258 -0.000976562 125 6.04269 125 13.499C125 20.9554 119.258 26.999 112.176 26.999Z" fill="white" />
-            <Text x="10%" y="55%" dominantBaseline="middle" textAnchor="start" fill="#414042" fontSize={15} fontFamily="Inter 400">CONTACT </Text>
+            <Text x="10%" y="55%" dominantBaseline="middle" textAnchor="start" fill="#414042" fontSize={15} fontFamily={`${selectedFont} 400`}>CONTACT </Text>
           </Svg>
         </View>
 
@@ -34,7 +34,7 @@ const Template3 = ({ data }) => (
                 </Svg>
               </View>
               <View style={{ color: 'white', fontSize: 12 }}>
-                <Text style={{ fontFamily: "Lato 400" }}>{data.mobileNumber}</Text>
+                <Text style={{ fontFamily: `${selectedFont} 400` }}>{data.mobileNumber}</Text>
               </View>
             </View>
           }
@@ -46,7 +46,7 @@ const Template3 = ({ data }) => (
                 </Svg>
               </View>
               <View style={{ color: 'white', fontSize: 12 }}>
-                <Text style={{ fontFamily: "Lato 400" }}>{data.email}</Text>
+                <Text style={{ fontFamily: `${selectedFont} 400` }}>{data.email}</Text>
               </View>
             </View>
           }
@@ -59,12 +59,12 @@ const Template3 = ({ data }) => (
             <View style={{ paddingLeft: -1, height: 27, alignItems: 'center', flexDirection: 'row' }}>
               <Svg width={125} viewBox="0 0 125 27" fill="none">
                 <Path d="M112.176 26.999H0.000488281V-0.000976562H112.176C119.258 -0.000976562 125 6.04269 125 13.499C125 20.9554 119.258 26.999 112.176 26.999Z" fill="white" />
-                <Text x="10%" y="55%" dominantBaseline="middle" textAnchor="start" fill="#414042" fontSize={15} fontFamily="Inter 400">SKILLS </Text>
+                <Text x="10%" y="55%" dominantBaseline="middle" textAnchor="start" fill="#414042" fontSize={15}  fontFamily={`${selectedFont} 400`} >SKILLS </Text>
               </Svg>
             </View>
             <View style={{ flexDirection: 'column', paddingLeft: 16, paddingTop: 20, gap: 8 }}>
               {data.skills.map((detail, index) => (
-                <Text style={{ color: 'white', fontSize: 12, fontFamily: "Lato 400" }}>
+                <Text style={{ color: 'white', fontSize: 12, fontFamily: `${selectedFont} 400` }}>
                   {detail.skill}
                 </Text>
               ))}
@@ -77,12 +77,12 @@ const Template3 = ({ data }) => (
             <View style={{ paddingLeft: -1, height: 27, alignItems: 'center', flexDirection: 'row' }}>
               <Svg width={125} viewBox="0 0 125 27" fill="none">
                 <Path d="M112.176 26.999H0.000488281V-0.000976562H112.176C119.258 -0.000976562 125 6.04269 125 13.499C125 20.9554 119.258 26.999 112.176 26.999Z" fill="white" />
-                <Text x="10%" y="55%" dominantBaseline="middle" textAnchor="start" fill="#414042" fontSize={15} fontFamily="Inter 400">LANGUAGES </Text>
+                <Text x="10%" y="55%" dominantBaseline="middle" textAnchor="start" fill="#414042" fontSize={15} fontFamily={`${selectedFont} 400`}>LANGUAGES </Text>
               </Svg>
             </View>
             <View style={{ flexDirection: 'column', paddingLeft: 16, paddingTop: 20, gap: 8 }}>
               {data.languages.map((detail, index) => (
-                <Text style={{ color: 'white', fontSize: 12, fontFamily: "Lato 400" }}>
+                <Text style={{ color: 'white', fontSize: 12, fontFamily: `${selectedFont} 400` }}>
                   {detail.languages}
                 </Text>
               ))}
@@ -94,13 +94,13 @@ const Template3 = ({ data }) => (
             <View style={{ paddingLeft: -1, height: 27, alignItems: 'center', flexDirection: 'row' }}>
               <Svg width={125} viewBox="0 0 125 27" fill="none">
                 <Path d="M112.176 26.999H0.000488281V-0.000976562H112.176C119.258 -0.000976562 125 6.04269 125 13.499C125 20.9554 119.258 26.999 112.176 26.999Z" fill="white" />
-                <Text x="10%" y="55%" dominantBaseline="middle" textAnchor="start" fill="#414042" fontSize={15} fontFamily="Inter 400">HOBBIES </Text>
+                <Text x="10%" y="55%" dominantBaseline="middle" textAnchor="start" fill="#414042" fontSize={15} fontFamily={`${selectedFont} 400`}>HOBBIES </Text>
               </Svg>
             </View>
             <View style={{ flexDirection: 'column', paddingLeft: 16, paddingTop: 20, gap: 8 }}>
               {data.hobbies.map((detail, index) => (
-                <Text style={{ color: 'white', fontSize: 8.96, fontFamily: "Lato 400" }}>
-                  {detail.hobbies}
+                <Text style={{ color: 'white', fontSize: 8.96, fontFamily: `${selectedFont} 400` }}>
+                  {detail.title}
                 </Text>
               ))}
             </View>
@@ -110,12 +110,12 @@ const Template3 = ({ data }) => (
 
       <View style={{ width: '410px', paddingRight: '20px', paddingBottom: '20px' }}>
         <View style={{ paddingLeft: '20px', paddingTop: '30px', gap: '4', flexDirection: 'column' }}>
-          <Text style={{ color: '#414042', fontSize: '43.514px', fontFamily: "Inter 400" }}>
+          <Text style={{ color: '#414042', fontSize: '43.514px', fontFamily: `${selectedFont} 400` }}>
             {data.firstName}
 
 
           </Text>
-          <Text style={{ color: '#414042', fontSize: '43.514px', fontFamily: "Inter 400" }}>
+          <Text style={{ color: '#414042', fontSize: '43.514px', fontFamily: `${selectedFont} 400` }}>
 
 
             {data.lastName}
@@ -125,30 +125,30 @@ const Template3 = ({ data }) => (
           </Text>
         </View>
         <View style={{ paddingLeft: '20px', paddingTop: '40.78px', flexDirection: 'column', gap: '5.64px' }}>
-          <Text style={{ color: '#414042', fontFamily: "Inter 400" }}>About Me</Text>
-          <Text style={{ color: '#646464', breakAll: 'break-all', fontFamily: "Inter 400" }}>
+          <Text style={{ color: '#414042', fontFamily: `${selectedFont} 400` }}>About Me</Text>
+          <Text style={{ color: '#646464', breakAll: 'break-all', fontFamily: `${selectedFont} 400` }}>
             {data.summery}
           </Text>
         </View>
         <View style={{ flexDirection: 'column', gap: 12, paddingTop: '24px', marginLeft: '-1' }}>
           <Svg xmlns="http://www.w3.org/2000/svg" width="160" viewBox="0 0 160 27" fill="none">
-            <Path d="M146.641 27H0V0H146.641C154.018 0 160 6.04367 160 13.5C160 20.9564 154.018 27 146.641 27Z" fill="#414042" />
-            <Text x="10%" y="55%" dominantBaseline="middle" textAnchor="start" fill="white" fontSize={15} fontFamily="Inter 400" >EDUCATION </Text>
+            <Path d="M146.641 27H0V0H146.641C154.018 0 160 6.04367 160 13.5C160 20.9564 154.018 27 146.641 27Z" fill={selectedColor} />
+            <Text x="10%" y="55%" dominantBaseline="middle" textAnchor="start" fill="white" fontSize={15} fontFamily={`${selectedFont} 400`} >EDUCATION </Text>
           </Svg>
           <View style={{ flexDirection: 'column', gap: 12, paddingLeft: '20px' }}>
             {data.education.map((detail, index) => (
               <View style={{ flexDirection: 'column', gap: 8 }}>
                 <View style={{}}>
-                  <Text style={{ color: '#414042', fontSize: '14', fontFamily: "Lato 700" }}>
+                  <Text style={{ color: '#414042', fontSize: '14', fontFamily: `${selectedFont} 700` }}>
                     {detail.qualification}
                   </Text>
-                  <Text style={{ color: '#414042', fontSize: '12', fontFamily: "Lato 700" }}>
+                  <Text style={{ color: '#414042', fontSize: '12', fontFamily: `${selectedFont} 700` }}>
                     {detail.instituteName}
                   </Text>
                 </View>
                 <View style={{ flexDirection: 'column', gap: 4 }}>
                   <View style={{ width: '16px', height: '1px', backgroundColor: '#414042' }} />
-                  <Text style={{ color: '#414042', fontSize: 10, fontFamily: "Lato 400" }}>
+                  <Text style={{ color: '#414042', fontSize: 10, fontFamily: `${selectedFont} 400` }}>
                     {detail.duration?.end?.year ? `${detail.duration?.start?.year}-${detail.duration?.end?.year}` : ''}
                   </Text>
                 </View>
@@ -158,23 +158,23 @@ const Template3 = ({ data }) => (
         </View>
         <View style={{ flexDirection: 'column', gap: 12, paddingTop: '24px', marginLeft: '-1' }}>
           <Svg xmlns="http://www.w3.org/2000/svg" width="160" viewBox="0 0 160 27" fill="none">
-            <Path d="M146.641 27H0V0H146.641C154.018 0 160 6.04367 160 13.5C160 20.9564 154.018 27 146.641 27Z" fill="#414042" />
-            <Text x="10%" y="55%" dominantBaseline="middle" textAnchor="start" fill="white" fontSize={15} fontFamily="Inter 400" >EXPERIENCE </Text>
+            <Path d="M146.641 27H0V0H146.641C154.018 0 160 6.04367 160 13.5C160 20.9564 154.018 27 146.641 27Z" fill={selectedColor} />
+            <Text x="10%" y="55%" dominantBaseline="middle" textAnchor="start" fill="white" fontSize={15} fontFamily={`${selectedFont} 400`} >EXPERIENCE </Text>
           </Svg>
           {data.experience.map((detail, index) => (
             <View style={{ flexDirection: 'column', gap: 12 }}>
               <View style={{ flexDirection: 'column', gap: 8 }}>
-                <Text style={{ color: '#414142', paddingLeft: '18px', fontSize: '14', fontFamily: "Lato 700" }}>
+                <Text style={{ color: '#414142', paddingLeft: '18px', fontSize: '14', fontFamily: `${selectedFont} 700` }}>
                   {detail.organization}
                 </Text>
-                <Text style={{ color: '#414142', paddingLeft: '18px', fontSize: '12', fontFamily: "Lato 700" }}>
+                <Text style={{ color: '#414142', paddingLeft: '18px', fontSize: '12', fontFamily: `${selectedFont} 700` }}>
                   {detail.designation}
                 </Text>
-                <Text style={{ color: '#414142', paddingLeft: '18px', fontSize: '12', fontFamily: "Lato 700" }}>
+                <Text style={{ color: '#414142', paddingLeft: '18px', fontSize: '12', fontFamily: `${selectedFont} 400` }}>
                   {`${detail.duration?.start?.year} - ${detail.duration?.end?.year ? detail.duration?.end?.year : 'Present'}`}
                 </Text>
               </View>
-              <Text style={{ color: '#646464', paddingLeft: '18px', fontSize: '12', fontFamily: "Inter 400" }}>
+              <Text style={{ color: '#646464', paddingLeft: '18px', fontSize: '12', fontFamily: `${selectedFont} 400` }}>
                 {detail.description}
               </Text>
             </View>

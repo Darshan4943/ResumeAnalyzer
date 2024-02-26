@@ -3,7 +3,8 @@ import { toast } from "react-toastify";
 import ImageContainer from "../../../../common/image";
 import { DumyImage } from "../../../../../utils/svg";
 
-const ResumeList = ({ data, setData }) => {
+const ResumeList = ({ data, setData ,}) => {
+
   const [file, setFile] = useState(null);
   const fileRef = useRef(null);
   const [loading, setLoading] = useState(false);

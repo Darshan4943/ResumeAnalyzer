@@ -2,7 +2,7 @@ import React from 'react'
 import { Document, Page, Text, View, Image, StyleSheet, Svg, Path, Rect } from '@react-pdf/renderer';
 
 
-function Template8({ data }) {
+function Template8({ data,selectedColor,selectedFont  }) {
 
     const contactDetails = [
         {
@@ -67,8 +67,8 @@ function Template8({ data }) {
                     <View style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
                         <View style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: 282, alignItems: 'flex-start', width: 222 }}>
                             <View>
-                                <Text style={{ fontSize: 36, fontFamily: "Inter 400", color: '#000000' }}>{data.firstName}</Text>
-                                <Text style={{ fontSize: 36, fontFamily: "Inter 400", color: '#000000' }}>{data.lastName}</Text>
+                                <Text style={{ fontSize: 36, fontFamily: `${selectedFont} 400`, color: '#000000' }}>{data.firstName}</Text>
+                                <Text style={{ fontSize: 36, fontFamily: `${selectedFont} 400`, color: '#000000' }}>{data.lastName}</Text>
                             </View>
                             <View style={{ width: 161, height: 161, borderRadius: '50%', paddingLeft: 30 }}>
                                 <Image src="/images/profile/john_doe.png" style={{ borderRadius: "50%", objectFit: 'contain' }} />
@@ -77,7 +77,7 @@ function Template8({ data }) {
 
                         <View style={{ width: 222, display: 'flex', flexDirection: 'column' }}>
                             <View style={{ borderTopColor: '#000000', borderTop: 1, borderBottom: 1, borderBottomColor: '#000000' }}>
-                                <Text style={{ padding: '5px 0px 5px 10px', fontSize: 14, fontFamily: "Inter 400" }}>CONTACT</Text>
+                                <Text style={{ padding: '5px 0px 5px 10px', fontSize: 14, fontFamily: `${selectedFont} 400` }}>CONTACT</Text>
                             </View>
 
 
@@ -88,7 +88,7 @@ function Template8({ data }) {
                                     </Svg>
                                 </View>
                                 <View style={{ width: 152, borderBottom: 1, borderBottomColor: '#000000', borderLeftColor: '#000000' }}>
-                                    <Text style={{ paddingVertical: 8, paddingLeft: 15, fontSize: 10, fontFamily: "Montserrat 500", color: '#000000' }}>{data.mobileNumber}</Text>
+                                    <Text style={{ paddingVertical: 8, paddingLeft: 15, fontSize: 10, fontFamily: `${selectedFont} 500`, color: '#000000' }}>{data.mobileNumber}</Text>
                                 </View>
 
                             </View>
@@ -100,7 +100,7 @@ function Template8({ data }) {
                                     </Svg>
                                 </View>
                                 <View style={{ width: 152, borderBottom: 1, borderBottomColor: '#000000', borderLeftColor: '#000000' }}>
-                                    <Text style={{ paddingVertical: 8, paddingLeft: 15, fontSize: 10, fontFamily: "Montserrat 500", color: '#000000' }}>{data.email}</Text>
+                                    <Text style={{ paddingVertical: 8, paddingLeft: 15, fontSize: 10, fontFamily: `${selectedFont} 500`, color: '#000000' }}>{data.email}</Text>
                                 </View>
 
                             </View>
@@ -112,7 +112,7 @@ function Template8({ data }) {
                                     </Svg>
                                 </View>
                                 <View style={{ width: 152, borderBottom: 1, borderBottomColor: '#000000', borderLeftColor: '#000000' }}>
-                                    <Text style={{ paddingVertical: 8, paddingLeft: 15, fontSize: 10, fontFamily: "Montserrat 500", color: '#000000' }}>www.nomedosite.com</Text>
+                                    <Text style={{ paddingVertical: 8, paddingLeft: 15, fontSize: 10, fontFamily: `${selectedFont} 500`, color: '#000000' }}>www.nomedosite.com</Text>
                                 </View>
 
                             </View>
@@ -124,28 +124,31 @@ function Template8({ data }) {
                                     </Svg>
                                 </View>
                                 <View style={{ width: 152, borderBottom: 1, borderBottomColor: '#000000', borderLeftColor: '#000000' }}>
-                                    <Text style={{ paddingVertical: 8, paddingLeft: 15, fontSize: 10, fontFamily: "Montserrat 500", color: '#000000' }}>{data.location}</Text>
+                                    <Text style={{ paddingVertical: 8, paddingLeft: 15, fontSize: 10, fontFamily: `${selectedFont} 500`, color: '#000000' }}>{data.location}</Text>
                                 </View>
 
                             </View>
                         </View>
 
                         <View style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
+                            <View style={{ borderTopColor: '#000000', borderTop: 1, borderBottom: 1, borderBottomColor: '#000000' }}>
+                                <Text style={{ padding: '5px 0px 5px 10px', fontSize: 14, fontFamily:`${selectedFont} 400` }}>ABOUT ME</Text>
+                            </View>
                             <View style={{ paddingRight: 10, wordBreak: "break-word", width: 222 }}>
-                                <Text style={{ fontSize: 10, fontFamily: "Montserrat 500", color: '#414042' }}> {data.summery} </Text>
+                                <Text style={{ fontSize: 10, fontFamily: `${selectedFont} 500`, color: '#414042' }}> {data.summery} </Text>
                             </View>
                         </View>
 
                         {data?.skills?.length > 0 && (
                             <View style={{ display: 'flex', flexDirection: 'column', gap: 18, width: 222, wordBreak: "break-word" }}>
                                 <View style={{ borderTopColor: '#000000', borderTop: 1, borderBottom: 1, borderBottomColor: '#000000' }}>
-                                    <Text style={{ padding: '5px 0px 5px 10px', fontSize: 14, fontFamily: "Inter 400" }}>SKILLS</Text>
+                                    <Text style={{ padding: '5px 0px 5px 10px', fontSize: 14, fontFamily: `${selectedFont} 400` }}>SKILLS</Text>
                                 </View>
                                 {data?.skills?.map((detail, index) => (
                                     <View style={{ display: 'flex', flexDirection: 'column', gap: 14, wordBreak: "break-word", width: 222 }}>
                                         <View style={{ display: 'flex', flexDirection: 'row', gap: 12, alignItems: 'center', justifyContent: 'space-between', width: '90%' }}>
                                             <View style={{ Width: "60%", flexWrap: 'wrap', wordBreak: "break-word" }}>
-                                                <Text style={{ fontSize: 10, fontFamily: "Inter 400", color: '#000000', wordBreak: "break-word", width: 116 }}>{detail.skill}</Text>
+                                                <Text style={{ fontSize: 10, fontFamily: `${selectedFont} 400`, color: '#000000', wordBreak: "break-word", width: 116 }}>{detail.skill}</Text>
                                             </View>
                                             <View style={{ Width: 106, display: 'flex', flexDirection: 'row', gap: 10 }}>
                                                 {[...Array(5)].map((_, i) => (
@@ -182,16 +185,16 @@ function Template8({ data }) {
 
                             <View style={{ display: 'flex', flexDirection: 'column', gap: 26 }}>
                                 <View style={{ borderTopColor: '#000000', borderTop: 1, borderBottom: 1, borderBottomColor: '#000000' }}>
-                                    <Text style={{ padding: '5px 0px 5px 10px', fontSize: 14, fontFamily: "Inter 400" }}>EDUCATION</Text>
+                                    <Text style={{ padding: '5px 0px 5px 10px', fontSize: 14, fontFamily: `${selectedFont} 400` }}>EDUCATION</Text>
                                 </View>
                                 {data?.education?.map((detail, index) => (
                                     <>
                                         <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 5, width: 282, wordBreak: "break-word" }}>
-                                            <Text style={{ fontSize: 14, fontFamily: "Outfit 700", color: '#000000', paddingVertical: 5 }}>{" "}{detail.duration?.start?.year}-{detail.duration?.end?.year}</Text>
+                                            <Text style={{ fontSize: 14, fontFamily: `${selectedFont} 700`, color: '#000000', paddingVertical: 5 }}>{" "}{detail.duration?.start?.year}-{detail.duration?.end?.year}</Text>
                                             <View style={{ height: '100%', width: 1, backgroundColor: '#000000' }}></View>
                                             <View style={{ width: 194, display: 'flex', flexDirection: 'column', gap: 4 }}>
-                                                <Text style={{ fontSize: 12, fontFamily: "Montserrat 600", color: '#000000' }}>{detail.instituteName}</Text>
-                                                <Text style={{ fontSize: 10, fontFamily: "Montserrat 600", color: '#000000' }}>{detail.qualification} - {detail.specialization} </Text>
+                                                <Text style={{ fontSize: 12, fontFamily: `${selectedFont} 600`, color: '#000000' }}>{detail.instituteName}</Text>
+                                                <Text style={{ fontSize: 10, fontFamily: `${selectedFont} 600`, color: '#000000' }}>{detail.qualification} - {detail.specialization} </Text>
                                             </View>
                                         </View>
                                     </>
@@ -200,13 +203,13 @@ function Template8({ data }) {
 
                             <View style={{ display: 'flex', flexDirection: 'column', width: 282, gap: 18 }}>
                                 <View style={{ borderTopColor: '#000000', borderTop: 1, borderBottom: 1, borderBottomColor: '#000000' }}>
-                                    <Text style={{ padding: '5px 0px 5px 10px', fontSize: 14, fontFamily: "Inter 400" }}>EXPERIENCE</Text>
+                                    <Text style={{ padding: '5px 0px 5px 10px', fontSize: 14, fontFamily: `${selectedFont} 400` }}>EXPERIENCE</Text>
                                 </View>
                                 {data.experience?.map((detail, index) => (
                                     <View style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-                                        <Text style={{ fontSize: 12, fontFamily: "Montserrat 700", color: '#000000', }}>{detail.designation} | {" "}{detail.duration?.start?.year}-{" "}{detail.currentlyWorking ? "Present" : detail.duration?.end?.year}</Text>
-                                        <Text style={{ fontSize: 12, fontFamily: "Montserrat 500", color: '#000000', }}>{detail.organization} | {detail.location}</Text>
-                                        <Text style={{ fontSize: 10, fontFamily: "Montserrat 500", color: '#000000', }}>{detail.description} </Text>
+                                        <Text style={{ fontSize: 12, fontFamily: `${selectedFont} 700`, color: '#000000', }}>{detail.designation} | {" "}{detail.duration?.start?.year}-{" "}{detail.currentlyWorking ? "Present" : detail.duration?.end?.year}</Text>
+                                        <Text style={{ fontSize: 12, fontFamily: `${selectedFont} 500`, color: '#000000', }}>{detail.organization} | {detail.location}</Text>
+                                        <Text style={{ fontSize: 10, fontFamily: `${selectedFont} 500`, color: '#000000', }}>{detail.description} </Text>
                                     </View>
                                 ))}
                             </View>
@@ -217,7 +220,7 @@ function Template8({ data }) {
                                     social.map((e) => (
                                         <View style={{ gap: 8, display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
                                             {e.logo}
-                                            <Text style={{ fontSize: 10, fontFamily: "Montserrat 500", color: '#000000' }}>{e.text}</Text>
+                                            <Text style={{ fontSize: 10, fontFamily: `${selectedFont} 500`, color: '#000000' }}>{e.text}</Text>
 
                                         </View>
                                     ))

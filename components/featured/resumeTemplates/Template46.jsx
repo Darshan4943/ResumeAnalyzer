@@ -1,6 +1,6 @@
 import React from 'react'
 import { Document, Page, Text, View, Image, StyleSheet, Svg, Path, Rect } from '@react-pdf/renderer';
-function Template46({ data }) {
+function Template46({ data,selectedColor,selectedFont  }) {
 
     return (
         <Page size="A4">

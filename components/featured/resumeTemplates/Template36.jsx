@@ -11,7 +11,7 @@ import {
   Circle,
   Rect,
 } from "@react-pdf/renderer";
-function Template36({ data }) {
+function Template36({ data ,selectedColor,selectedFont }) {
   return (
     <Page size="A4">
       <View
@@ -26,13 +26,13 @@ function Template36({ data }) {
       >
         <View style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
           <Text
-            style={{ fontSize: "32px",  fontFamily:'Inter 400', color: "#F15A29" }}
+            style={{ fontSize: "32px",  fontFamily: `${selectedFont} 400`, color: "#F15A29" }}
           >
             {data.firstName ? <>{data.firstName}</> : <>First Name</>}{" "}
             {data.lastName ? <>{data.lastName}</> : <>Last Name</>}
           </Text>
           <Text
-            style={{ fontSize: "12px",  fontFamily:'Inter 400', color: "#58595B" }}
+            style={{ fontSize: "12px",  fontFamily: `${selectedFont} 400`, color: "#58595B" }}
           >
             {data.designation ? <>{data.designation}</> : <>Designation</>}
           </Text>
@@ -80,7 +80,7 @@ function Template36({ data }) {
               <Text
                 style={{
                   fontSize: "16px",
-                  fontFamily:'Inter 400',
+                  fontFamily: `${selectedFont} 400`,
                   color: "#F15A29",
                 }}
               >
@@ -111,7 +111,7 @@ function Template36({ data }) {
                   <Text
                     style={{
                       fontSize: "10px",
-                      fontFamily:'Lato 400',
+                      fontFamily: `${selectedFont} 400`,
                       color: "#58595B",
                     }}
                   >
@@ -157,7 +157,7 @@ function Template36({ data }) {
                   <Text
                     style={{
                       fontSize: "10px",
-                      fontFamily:'Lato 400',
+                      fontFamily: `${selectedFont} 400`,
                       color: "#58595B",
                     }}
                   >
@@ -187,7 +187,7 @@ function Template36({ data }) {
                   <Text
                     style={{
                       fontSize: "10px",
-                      fontFamily:'Lato 400',
+                      fontFamily: `${selectedFont} 400`,
                       color: "#58595B",
                     }}
                   >
@@ -217,7 +217,7 @@ function Template36({ data }) {
                   <Text
                     style={{
                       fontSize: "10px",
-                      fontFamily:'Lato 400',  
+                      fontFamily: `${selectedFont} 400`,  
                       color: "#58595B",
                     }}
                   >
@@ -239,7 +239,7 @@ function Template36({ data }) {
               <Text
                 style={{
                   fontSize: "16px",
-                  fontFamily:'Inter 400',
+                  fontFamily: `${selectedFont} 400`,
                   color: "#F15A29",
                 }}
               >
@@ -263,7 +263,7 @@ function Template36({ data }) {
                     <Text
                       style={{
                         fontSize: "10px",
-                        fontFamily:'Lato 700',
+                        fontFamily: `${selectedFont} 700`,
                         color: "#58595B",
                       }}
                     >
@@ -273,7 +273,7 @@ function Template36({ data }) {
                     <Text
                       style={{
                         fontSize: "10px",
-                        fontFamily:'Lato 700',
+                        fontFamily: `${selectedFont} 700`,
                         color: "#58595B",
                       }}
                     >
@@ -282,7 +282,7 @@ function Template36({ data }) {
                     <Text
                       style={{
                         fontSize: "10px",
-                        fontFamily:'Lato 400',
+                        fontFamily: `${selectedFont} 400`,
                         color: "#58595B",
                       }}
                     >
@@ -310,7 +310,7 @@ function Template36({ data }) {
               <Text
                 style={{
                   fontSize: "16px",
-                  fontFamily:'Inter 400',
+                  fontFamily: `${selectedFont} 400`,
                   color: "#F15A29",
                 }}
               >
@@ -375,7 +375,7 @@ function Template36({ data }) {
                                 style={{
                                   color: "#414142",
                                   fontSize: "12px",
-                                  fontFamily:'Inter 400',
+                                  fontFamily: `${selectedFont} 400`,
                                   width: "80px",
                                 }}
                               >
@@ -422,7 +422,7 @@ function Template36({ data }) {
               <Text
                 style={{
                   fontSize: "16px",
-                  fontFamily:'Inter 400',
+                  fontFamily: `${selectedFont} 400`,
                   color: "#F15A29",
                 }}
               >
@@ -440,7 +440,7 @@ function Template36({ data }) {
                   <Text
                     style={{
                       fontSize: "10px",
-                      fontFamily:'Lato 400',
+                      fontFamily: `${selectedFont} 400`,
                       color: "#58595B",
                     }}
                   >
@@ -478,7 +478,7 @@ function Template36({ data }) {
               <Text
                 style={{
                   fontSize: "16px",
-                  fontFamily:'Inter 400',
+                  fontFamily: `${selectedFont} 400`,
                   color: "#F15A29",
                 }}
               >
@@ -487,7 +487,7 @@ function Template36({ data }) {
               <Text
                 style={{
                   fontSize: "10px",
-                  fontFamily:'Lato 400',
+                  fontFamily: `${selectedFont} 400`,
                   color: "#58595B",
                 }}
               >
@@ -507,7 +507,7 @@ function Template36({ data }) {
               <Text
                 style={{
                   fontSize: "16px",
-                  fontFamily:'Inter 400',
+                  fontFamily: `${selectedFont} 400`,
                   color: "#F15A29",
                 }}
               >
@@ -538,7 +538,7 @@ function Template36({ data }) {
                       <Text
                         style={{
                           fontSize: "11px",
-                          fontFamily:'Lato 700',
+                          fontFamily: `${selectedFont} 700`,
                           color: "#58595B",
                         }}
                       >
@@ -557,7 +557,7 @@ function Template36({ data }) {
                       <Text
                         style={{
                           fontSize: "11px",
-                          fontFamily:'Lato 700',
+                          fontFamily: `${selectedFont} 700`,
                           color: "#58595B",
                         }}
                       >
@@ -567,7 +567,7 @@ function Template36({ data }) {
                     <Text
                       style={{
                         fontSize: "10px",
-                        fontFamily:'Lato 400',
+                        fontFamily: `${selectedFont} 400`,
                         color: "#58595B",
                       }}
                     >
@@ -576,7 +576,7 @@ function Template36({ data }) {
                     <Text
                       style={{
                         fontSize: "10px",
-                        fontFamily:'Lato 400',
+                        fontFamily: `${selectedFont} 400`,
                         color: "#58595B",
                       }}
                     >

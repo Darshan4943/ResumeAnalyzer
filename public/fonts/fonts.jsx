@@ -21,6 +21,36 @@ Font.register({
     family: 'Antonio 400',
     src: `https://freedygo-storage-bucket-production.s3.ap-south-1.amazonaws.com/fonts/Antonio-Regular.ttf`,
 });
+Font.register({
+
+    family: 'Antonio 300',
+    src: `https://freedygo-storage-bucket-production.s3.ap-south-1.amazonaws.com/fonts/Antonio-Thin.ttf`,
+});
+Font.register({
+
+    family: 'Roboto 700',
+    src: `https://freedygo-storage-bucket-production.s3.ap-south-1.amazonaws.com/fonts/Roboto-Bold.ttf`,
+});
+Font.register({
+
+    family: 'Roboto 600',
+    src: `https://freedygo-storage-bucket-production.s3.ap-south-1.amazonaws.com/fonts/Roboto-Bold.ttf`,
+});
+Font.register({
+
+    family: 'Roboto 500',
+    src: `https://freedygo-storage-bucket-production.s3.ap-south-1.amazonaws.com/fonts/Roboto-Medium.ttf`,
+});
+Font.register({
+
+    family: 'Roboto 400',
+    src: `https://freedygo-storage-bucket-production.s3.ap-south-1.amazonaws.com/fonts/Roboto-Regular.ttf`,
+});
+Font.register({
+
+    family: 'Roboto 300',
+    src: `https://freedygo-storage-bucket-production.s3.ap-south-1.amazonaws.com/fonts/Roboto-Thin.ttf`,
+});
 
 Font.register({
 
@@ -223,6 +253,19 @@ Font.register({
     src: `https://fonts.gstatic.com/s/lato/v16/S6u9w4BMUTPHh6UVSwiPHA.ttf`,
 });
 
+Font.register({
+    family: 'Lato 600',
+    src: `https://fonts.gstatic.com/s/lato/v16/S6u9w4BMUTPHh6UVSwiPHA.ttf`,
+});
+Font.register({
+    family: 'Lato 500',
+    src: `https://freedygo-storage-bucket-production.s3.ap-south-1.amazonaws.com/fonts/Lato-Regular.ttf`,
+});
+Font.register({
+    family: 'Lato 300',
+    src: `https://freedygo-storage-bucket-production.s3.ap-south-1.amazonaws.com/fonts/Lato-Thin.ttf`,
+});
+
 
 
 Font.register({
@@ -262,3 +305,4 @@ function Fonts() {
 }
 
 export default Fonts
+

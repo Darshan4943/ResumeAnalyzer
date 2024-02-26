@@ -1,6 +1,6 @@
 import React from 'react'
 import { Document, Page, Text, View, Image, StyleSheet, Svg, Path, Rect } from '@react-pdf/renderer';
-function Template29({ data }) {
+function Template29({ data,selectedColor,selectedFont  }) {
 
     return (
         <Page size="A4" style={{}}>
@@ -21,7 +21,7 @@ function Template29({ data }) {
                                         <View style={{ height: "24px", display: "flex", alignItems: "center" }}>
                                             <Image style={{ width: "18px", height: "18px" }} src="/images/services/telephone_white.png" alt="" />
                                         </View>
-                                        <Text style={{ fontSize: "10px", paddingTop: "2px", flexDirection: "row", fontFamily:'Montserrat 400', color: "#BEC5C6", }}>{data.mobileNumber}</Text>
+                                        <Text style={{ fontSize: "10px", paddingTop: "2px", flexDirection: "row", fontFamily: `${selectedFont} 400`, color: "#BEC5C6", }}>{data.mobileNumber}</Text>
                                     </View>
                                 )}
                                 {data?.email && (
@@ -29,7 +29,7 @@ function Template29({ data }) {
                                         <View style={{ height: "24px", display: "flex", alignItems: "center" }}>
                                             <Image style={{ width: "18px", height: "18px" }} src="/images/services/message_white.png" alt="" />
                                         </View>
-                                        <Text style={{ fontSize: "10px", width: '80%', paddingTop: "2px", flexDirection: "row", fontFamily:'Montserrat 400', color: "#BEC5C6", }}>{data.email}</Text>
+                                        <Text style={{ fontSize: "10px", width: '80%', paddingTop: "2px", flexDirection: "row", fontFamily: `${selectedFont} 400`, color: "#BEC5C6", }}>{data.email}</Text>
                                     </View>
                                 )}
                                 {data?.location && (
@@ -37,7 +37,7 @@ function Template29({ data }) {
                                         <View style={{ height: "24px", flexDirection: "row", alignItems: "center" }}>
                                             <Image style={{ width: "18px", height: "18px" }} src="/images/services/location_white.png" alt="" />
                                         </View>
-                                        <Text style={{ fontSize: "10px", flexDirection: "row", fontFamily:'Montserrat 400', color: "#BEC5C6", }}>{data.location}</Text>
+                                        <Text style={{ fontSize: "10px", flexDirection: "row", fontFamily: `${selectedFont} 400`, color: "#BEC5C6", }}>{data.location}</Text>
                                     </View>
                                 )}
                             </View>
@@ -50,12 +50,12 @@ function Template29({ data }) {
 
                             <View style={{ display: "flex", flexDirection: "column", gap: 16, alignItems: "flex-start", paddingLeft: "26px" }}>
                                 <View style={{ display: "flex", flexDirection: "row", gap: 8, alignItems: "center", padding: "8px 24px", borderColor: "white", borderWidth: 2 }}>
-                                    <Text style={{ color: "#FFF" ,fontFamily:'Montserrat 600'}}>SKILLS</Text>
+                                    <Text style={{ color: "#FFF" ,fontFamily: `${selectedFont} 600`}}>SKILLS</Text>
                                 </View>
                                 <View style={{ flexDirection: "column", gap: 16, justifyContent: "space-between", width: "100%" }}>
                                     {data?.skills?.map((detail, index) => (
                                         <View key={index} style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", gap: "8px", width: "100%" }}>
-                                            <Text style={{ fontSize: 14, color: "#FFF",fontFamily:'Montserrat 600' }}>
+                                            <Text style={{ fontSize: 14, color: "#FFF",fontFamily: `${selectedFont} 600` }}>
                                                 {detail.skill}
                                             </Text>
                                             <View style={{ display: "flex", gap: 16, flexDirection: "row", }}>
@@ -92,12 +92,12 @@ function Template29({ data }) {
 
                             <View style={{ display: "flex", flexDirection: "column", gap: 16, alignItems: "flex-start", paddingLeft: "26px" }}>
                                 <View style={{ display: "flex", flexDirection: "row", gap: 8, alignItems: "center", padding: "8px 24px", borderColor: "white", borderWidth: 2 }}>
-                                    <Text style={{ color: "#FFF",fontFamily:'Montserrat 600' }}>LANGUAGES</Text>
+                                    <Text style={{ color: "#FFF",fontFamily: `${selectedFont} 600` }}>LANGUAGES</Text>
                                 </View>
                                 <View style={{ flexDirection: "column", gap: 16, justifyContent: "space-between", width: "100%" }}>
                                     {data?.languages?.map((detail, index) => (
                                         <View key={index} style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", gap: "8px", width: "100%" }}>
-                                            <Text style={{ fontSize: 14, color: "#FFF" ,fontFamily:'Montserrat 600'}}>
+                                            <Text style={{ fontSize: 14, color: "#FFF" ,fontFamily: `${selectedFont} 600`}}>
                                                 {detail.languages}
                                             </Text>
                                             <View style={{ display: "flex", gap: 24, flexDirection: "row", }}>
@@ -130,11 +130,11 @@ function Template29({ data }) {
                         {data?.hobbies?.length > 0 && (
                             <View style={{ display: "flex", flexDirection: "column", gap: 16, alignItems: "flex-start", paddingLeft: "26px" }}>
                                 <View style={{ display: "flex", flexDirection: "row", gap: 8, alignItems: "center", padding: "8px 24px", borderColor: "white", borderWidth: 2 }}>
-                                    <Text style={{ color: "#FFF",fontFamily:'Montserrat 600' }}>HOBBIES</Text>
+                                    <Text style={{ color: "#FFF",fontFamily: `${selectedFont} 600` }}>HOBBIES</Text>
                                 </View>
                                 <View style={{ display: "grid", gridTemplateColumns: "2 1fr", gap: "16px", }}>
                                     {data?.hobbies?.map((item, index) => (
-                                        <View key={index} style={{ color: "white", fontSize: "12px",fontFamily:'Montserrat 600' }}>
+                                        <View key={index} style={{ color: "white", fontSize: "12px",fontFamily: `${selectedFont} 600` }}>
                                             <Text>
                                                 {item?.title}
                                             </Text>
@@ -149,15 +149,15 @@ function Template29({ data }) {
                 <View style={{ width: "373px", padding: " 24px", display: "flex", flexDirection: "column", gap: "24px" }}>
 
                     <View style={{ flexDirection: "column", }}>
-                        <Text style={{ color: "#324955", fontFamily:'Montserrat 700', fontSize: "36px", }}>{data.firstName} {data.lastName}</Text>
-                        <Text style={{ color: "#A9B0B3", fontFamily:'Montserrat 600', fontSize: "16px", }}>{data.designation}</Text>
+                        <Text style={{ color: "#324955", fontFamily: `${selectedFont} 700`, fontSize: "36px", }}>{data.firstName} {data.lastName}</Text>
+                        <Text style={{ color: "#A9B0B3", fontFamily: `${selectedFont} 600`, fontSize: "16px", }}>{data.designation}</Text>
                     </View>
 
 
 
                     <View style={{ display: "flex", flexDirection: "column", gap: 8, }}>
-                        <Text style={{ color: "#324955", fontFamily:'Montserrat 600', fontSize: "14px" }}>About me</Text>
-                        <Text style={{ color: "#6D6E71", fontFamily:'Montserrat 400', fontSize: "12px" }}>{data.summery}</Text>
+                        <Text style={{ color: "#324955", fontFamily: `${selectedFont} 600`, fontSize: "14px" }}>About me</Text>
+                        <Text style={{ color: "#6D6E71", fontFamily: `${selectedFont} 400`, fontSize: "12px" }}>{data.summery}</Text>
 
                     </View>
 
@@ -165,7 +165,7 @@ function Template29({ data }) {
                     {data?.education?.length > 0 && (
                         <View style={{ display: "flex", flexDirection: "column", }}>
                             <View style={{ display: "flex", flexDirection: "row", gap: 8, alignItems: "center", padding: "4px 16px", border: "1px",   }}>
-                                <Text style={{fontSize: "14px" ,fontFamily:'Montserrat 600'}}>EDUCATION</Text>
+                                <Text style={{fontSize: "14px" ,fontFamily: `${selectedFont} 600`}}>EDUCATION</Text>
                             </View>
                             <View style={{ backgroundColor: "#324955", width: 1, height: "20px", marginBottom: -6 }}></View>
                             <View style={{ display: "flex", flexDirection: "column", }} >
@@ -185,16 +185,16 @@ function Template29({ data }) {
 
                                         <View key={index} style={{ flexDirection: "column", paddingBottom: 16, gap: 4, paddingLeft: 16 }}>
                                             <View style={{ display: "flex", flexDirection: "row", gap: 8, alignItems: "center", justifyContent: "flex-start" }} >
-                                                <Text style={{ color: "#414042", fontSize: "12px", fontFamily:'Montserrat 600', }}>{detail.duration?.start?.year}-{detail.duration?.end?.year}</Text>
+                                                <Text style={{ color: "#414042", fontSize: "12px", fontFamily: `${selectedFont} 600`, }}>{detail.duration?.start?.year}-{detail.duration?.end?.year}</Text>
                                                 <View style={{ backgroundColor: "#324955", height: "1px", width: "20px" }}></View>
-                                                <Text style={{ color: "#414042", fontSize: "12px", fontFamily:'Montserrat 600', }}>{detail.instituteName}</Text>
+                                                <Text style={{ color: "#414042", fontSize: "12px", fontFamily: `${selectedFont} 600`, }}>{detail.instituteName}</Text>
 
 
                                             </View>
 
 
 
-                                            <Text style={{ color: "#787879", fontSize: "12px", fontFamily:'Montserrat 400', display: "flex", flexDirection: "column", gap: 4 }}>{detail.qualification} - {detail.specialization}</Text>
+                                            <Text style={{ color: "#787879", fontSize: "12px", fontFamily: `${selectedFont} 400`, display: "flex", flexDirection: "column", gap: 4 }}>{detail.qualification} - {detail.specialization}</Text>
 
 
                                         </View>
@@ -211,7 +211,7 @@ function Template29({ data }) {
                     {data?.experience?.length > 0 && (
                         <View style={{ display: "flex", flexDirection: "column", width: "100%", }}>
                             <View style={{ display: "flex", flexDirection: "row", gap: 8, alignItems: "center", padding: "4px 16px", border: "1px", width: "50%", }}>
-                                <Text style={{ color: "#324955",fontSize: "14px" ,fontFamily:'Montserrat 600' }}>EXPERIENCE</Text>
+                                <Text style={{ color: "#324955",fontSize: "14px" ,fontFamily: `${selectedFont} 600` }}>EXPERIENCE</Text>
                             </View>
                             <View style={{ backgroundColor: "#324955", width: 1, height: "20px", marginBottom: -6 }}></View>
                             <View style={{ display: "flex", flexDirection: "column", }} >
@@ -231,16 +231,16 @@ function Template29({ data }) {
 
                                         <View key={index} style={{ flexDirection: "column", paddingBottom: 16, gap: 4, paddingLeft: 16 }}>
                                             <View style={{ display: "flex", flexDirection: "row", gap: 8, alignItems: "center", justifyContent: "flex-start" }} >
-                                                <Text style={{ color: "#414042", fontSize: "12px", fontFamily:'Montserrat 600', }}>{detail.duration?.start?.year}-{" "}{detail.currentlyWorking ? "Present" : detail.duration?.end?.year}</Text>
+                                                <Text style={{ color: "#414042", fontSize: "12px", fontFamily: `${selectedFont} 600`, }}>{detail.duration?.start?.year}-{" "}{detail.currentlyWorking ? "Present" : detail.duration?.end?.year}</Text>
                                                 <View style={{ backgroundColor: "#324955", height: "1px", width: "20px" }}></View>
-                                                <Text style={{ color: "#414042", fontSize: "11px", fontFamily:'Montserrat 600', }}>{detail.designation}</Text>
+                                                <Text style={{ color: "#414042", fontSize: "11px", fontFamily: `${selectedFont} 600`, }}>{detail.designation}</Text>
 
 
                                             </View>
 
 
 
-                                            <Text style={{ color: "#787879", fontSize: "12px", fontFamily:'Montserrat 400', display: "flex", flexDirection: "column", gap: 4 }}>{detail.description}</Text>
+                                            <Text style={{ color: "#787879", fontSize: "12px", fontFamily: `${selectedFont} 400`, display: "flex", flexDirection: "column", gap: 4 }}>{detail.description}</Text>
 
                                         </View>
 

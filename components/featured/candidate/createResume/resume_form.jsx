@@ -10,12 +10,15 @@ import Achievement from "./components/achivement";
 import SocialLink from "./components/social_link";
 import Hobbie from "./components/hobbie";
 import Languages from "./components/languages";
+import ThemeForm from "./components/themeForm";
 
-const ResumeForm = ({ setData, data }) => {
+const ResumeForm = ({ setData, data,selectedResumeIndex ,setSelectedResumeIndex,selectedColor,setSelectedColor,setSelectedFont,selectedFont}) => {
+  console.log(5,selectedColor)
   return (
     <>
       <div className="flex flex-col ml:w-[49%] w-[100%] px-2 pb-4 gap-4 rounded-lg overflow-y-auto ">
-        <ResumeList setData={setData} data={data} />
+        <ResumeList setData={setData} data={data}  />
+        <ThemeForm selectedResumeIndex={selectedResumeIndex} selectedColor={selectedColor} setSelectedColor={setSelectedColor} setSelectedFont={setSelectedFont}  selectedFont={selectedFont}/>
         <PersonalDetails setData={setData} data={data} />
         <AboutMe setData={setData} data={data} />
         <Education setData={setData} data={data} />
@@ -26,6 +29,7 @@ const ResumeForm = ({ setData, data }) => {
         {/* <SocialLink setData={setData} data={data} /> */}
         <Hobbie setData={setData} data={data} />
         <Languages setData={setData} data={data} />
+        
       </div>
       
     </>
