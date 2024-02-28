@@ -231,3 +231,37 @@
   }
 }
 
+.li {
+  color: var(--text-prmary, #333);
+  font-family: Montserrat;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  // border: 2px #fff;
+  border-bottom: 2px solid transparent;
+  border-color: transparent;
+  transition: all 0.5s;
+}
+.li:hover {
+  border-bottom: 2px solid var(--secondary, #ffda1d);
+}
+a {
+  text-decoration: none;
+}
+
+.active {
+  border-bottom: 2px solid var(--secondary, #ffda1d);
+  color: var(--text-prmary, #333);
+  font-family: Montserrat;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+.buttonTransparent {
+  
+  border-color: transparent;
+  
+}
+

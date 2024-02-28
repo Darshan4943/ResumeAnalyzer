@@ -21,11 +21,7 @@ function CandidateHeader() {
     const toggleDropdown = () => {
         setShowDropdown(!showDropdown);
     };
-    const handleLogin = () => {
-        setlogin(true);
-        router.push("/candidate/afterLogin/home/candidateHome");
-        toggleDropdown();
-    };
+  
     const handleLogOut = () => {
         setlogin(false);
         setIsLogin(false);
@@ -48,10 +44,10 @@ function CandidateHeader() {
     return (
         <>
 
-            <div className="header_left ">
+            <div className="flex justify-center items-center list-none gap-9">
                 <Link href="/home/BeforeLoginHome">
                     {" "}
-                    <img src="/images/logo_skilotech.png" alt="" className='min-w-[172px]' />
+                    <img  src="/images/logo_skilotech.png" alt="" className='h-[58px] w-[172px]' />
                 </Link>
                 <Link
                     href="/home/BeforeLoginHome"
@@ -76,13 +72,13 @@ function CandidateHeader() {
                 
             </div>
 
-            <div className="header_right_login w-[50%]">
+            <div className=" flex gap-4 justify-end py-2 items-center w-[50%]">
 
                
                
                 <div className="flex items-center gap-[8px]">
-                    <Link href="/profile">
-                        <div className="profile_icon">
+                  
+                        <div className="w-[40px] w-[40px]">
                             {userDataGlobal?.profilePicture ? (
                                 <img
                                     className=" rounded-full object-cover h-[40px] w-[40px]"
@@ -94,15 +90,14 @@ function CandidateHeader() {
                             ) : (
                                 <img
                                     src="/images/profile_icon.png"
-                                    className="profile_icon_img"
+                                    className="rounded-[40px]"
                                     alt=""
                                 />
                             )}
                         </div>
 
-                    </Link>
                     <div>{userDataGlobal?.basics?.firstName}{" "} {userDataGlobal?.basics?.lastName}</div>
-                    <div className="user_name flex items-center relative">
+                    <div className="text-[#495057] text-[14px] font-[600] flex items-center relative">
                         <div
                             className="group"
                             style={{
@@ -118,10 +113,8 @@ function CandidateHeader() {
                                 className="h-4 w-4 ml-1 cursor-pointer group-hover:opacity-100 group-hover:visible"
                                 alt=""
                             />
-                            <div className="dropdown absolute top-[26px] mt-[1.5rem] right-0 z-10 bg-white border border-gray-200 py-2 px-3 rounded-md shadow-md opacity-0 invisible transition-opacity duration-300 group-hover:opacity-100 group-hover:visible">
-                                <Link href="/profile" className="block py-1">
-                                    Profile
-                                </Link>
+                            <div className=" absolute top-[26px] mt-[1.5rem] right-0 z-10 bg-white border border-gray-200 py-2 px-3 rounded-md shadow-md opacity-0 invisible transition-opacity duration-300 group-hover:opacity-100 group-hover:visible">
+                                
                                 <a onClick={handleLogOut} className="block py-1">
                                     LogOut
                                 </a>

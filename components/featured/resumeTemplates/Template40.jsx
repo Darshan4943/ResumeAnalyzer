@@ -4,7 +4,7 @@ function Template40({ data,selectedColor,selectedFont  }) {
     
     return (
         <Page size="A4" style={{ padding: 36 }}>
-            <View style={{ height: "122px", width: "120%", backgroundColor: "#47484C", margin: -36, flexDirection: "row", gap: 24, paddingLeft: 42 }}>
+            <View style={{ height: "122px", width: "120%", backgroundColor:selectedColor , margin: -36, flexDirection: "row", gap: 24, paddingLeft: 42 }}>
 
 
                 <View style={{  marginTop: "56px", width: "130px", height: "130px", borderRadius: "50%", border: 6, borderColor: "white"  }}>

@@ -52,6 +52,7 @@ function Template5({ data, selectedColor, selectedFont }) {
               />
             )}
           </View>
+
           <View>
             <View
               style={{
@@ -146,7 +147,7 @@ function Template5({ data, selectedColor, selectedFont }) {
                 )}
               </View>
             </View>
-            <View
+            {/* <View
               style={{
                 marginTop: "25.23px",
               }}
@@ -184,7 +185,7 @@ function Template5({ data, selectedColor, selectedFont }) {
                   </Text>
                 )}
               </View>
-            </View>
+            </View> */}
             <View
               style={{
                 marginTop: "25.23px",
@@ -226,216 +227,227 @@ function Template5({ data, selectedColor, selectedFont }) {
                 )}
               </View>
             </View>
-            <View
-              style={{
-                width: "100%",
-                height: "29.2px",
-                backgroundColor: selectedColor,
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                marginTop: "38.43px",
-              }}
-            >
-              <Text
-                style={{
-                  fontSize: "17px",
-                  fontFamily: `${selectedFont} 400`,
-                  color: "#F9F9F9",
-                }}
-              >
-                SKILLS
-              </Text>
-            </View>
-            <View
-              style={{
-                marginTop: "38.43px",
-                marginRight: "39.72px",
-                marginLeft: "27.03px",
-              }}
-            >
-              {data?.skills?.length > 0 && (
-                <>
-                  <View
+
+            {data?.skills?.length > 0 && (
+              <>
+                <View
+                  style={{
+                    width: "100%",
+                    height: "29.2px",
+                    backgroundColor: selectedColor,
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    marginTop: "38.43px",
+                  }}
+                >
+                  <Text
                     style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      gap: "12px",
+                      fontSize: "17px",
+                      fontFamily: `${selectedFont} 400`,
+                      color: "#F9F9F9",
                     }}
                   >
-                    {data.skills?.map((detail, index) => {
-                      const calculateWidthPercentage = (rating) => {
-                        let ratingPercentage = 0;
-                        if (rating && rating.length > 0) {
-                          const zerosCount = rating.filter(
-                            (val) => val === 0
-                          ).length;
+                    SKILLS
+                  </Text>
+                </View>
 
-                          if (zerosCount === 0) ratingPercentage = 100;
-                          else if (zerosCount === 1) ratingPercentage = 80;
-                          else if (zerosCount === 2) ratingPercentage = 60;
-                          else if (zerosCount === 3) ratingPercentage = 40;
-                          else if (zerosCount === 4) ratingPercentage = 20;
-                        }
-                        return ratingPercentage;
-                      };
+                <View
+                  style={{
+                    marginTop: "38.43px",
+                    marginRight: "39.72px",
+                    marginLeft: "27.03px",
+                  }}
+                >
+                  {data?.skills?.length > 0 && (
+                    <>
+                      <View
+                        style={{
+                          display: "flex",
+                          flexDirection: "column",
+                          gap: "12px",
+                        }}
+                      >
+                        {data.skills?.map((detail, index) => {
+                          const calculateWidthPercentage = (rating) => {
+                            let ratingPercentage = 0;
+                            if (rating && rating.length > 0) {
+                              const zerosCount = rating.filter(
+                                (val) => val === 0
+                              ).length;
 
-                      const ratingPercentage = calculateWidthPercentage(
-                        detail.rating
-                      );
+                              if (zerosCount === 0) ratingPercentage = 100;
+                              else if (zerosCount === 1) ratingPercentage = 80;
+                              else if (zerosCount === 2) ratingPercentage = 60;
+                              else if (zerosCount === 3) ratingPercentage = 40;
+                              else if (zerosCount === 4) ratingPercentage = 20;
+                            }
+                            return ratingPercentage;
+                          };
 
-                      return (
-                        <View
-                          key={index}
-                          style={{
-                            paddingRight: "12px",
-                            display: "flex",
-                            flexDirection: "column",
-                          }}
-                        >
-                          <View
-                            style={{
-                              display: "flex",
-                              flexDirection: "row",
-                              justifyContent: "space-between",
-                              alignItems: "center",
-                              gap: "16px",
-                            }}
-                          >
-                            <Text
-                              style={{
-                                color: "#414142",
-                                fontSize: "12px",
-                                fontFamily: `${selectedFont} 300`,
-                                width: "80px",
-                              }}
-                            >
-                              {detail.skill}
-                            </Text>
+                          const ratingPercentage = calculateWidthPercentage(
+                            detail.rating
+                          );
+
+                          return (
                             <View
+                              key={index}
                               style={{
-                                width: "59.21%",
-                                height: "3.78px",
+                                paddingRight: "12px",
                                 display: "flex",
-                                marginBottom: "1px",
-                                backgroundColor: "#C1C1C1",
+                                flexDirection: "column",
                               }}
                             >
                               <View
                                 style={{
-                                  width: `${ratingPercentage}%`,
-                                  height: "100%",
-                                  backgroundColor: selectedColor,
+                                  display: "flex",
+                                  flexDirection: "row",
+                                  justifyContent: "space-between",
+                                  alignItems: "center",
+                                  gap: "16px",
                                 }}
-                              ></View>
+                              >
+                                <Text
+                                  style={{
+                                    color: "#414142",
+                                    fontSize: "12px",
+                                    fontFamily: `${selectedFont} 300`,
+                                    width: "80px",
+                                  }}
+                                >
+                                  {detail.skill}
+                                </Text>
+                                <View
+                                  style={{
+                                    width: "59.21%",
+                                    height: "3.78px",
+                                    display: "flex",
+                                    marginBottom: "1px",
+                                    backgroundColor: "#C1C1C1",
+                                  }}
+                                >
+                                  <View
+                                    style={{
+                                      width: `${ratingPercentage}%`,
+                                      height: "100%",
+                                      backgroundColor: selectedColor,
+                                    }}
+                                  ></View>
+                                </View>
+                              </View>
                             </View>
-                          </View>
-                        </View>
-                      );
-                    })}
-                  </View>
-                </>
-              )}
-            </View>
-            <View
-              style={{
-                width: "100%",
-                height: "29.2px",
-                backgroundColor: selectedColor,
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                marginTop: "38.43px",
-              }}
-            >
-              <Text
-                style={{
-                  fontSize: "17px",
-                  fontFamily: `${selectedFont} 400`,
-                  color: "#F9F9F9",
-                }}
-              >
-                LANGUAGES
-              </Text>
-            </View>
-            <View
-              style={{
-                marginLeft: "27.11px",
-                marginRight: "39.98px",
-                marginTop: "38.43px",
-                display: "flex",
-                gap: "12px",
-              }}
-            >
-              {data?.languages?.length > 0 && (
-                <>
-                  {data.languages?.map((detail, index) => {
-                    const calculateWidthPercentage = (rating) => {
-                      let ratingPercentage = 0;
-                      if (rating && rating.length > 0) {
-                        const zerosCount = rating.filter(
-                          (val) => val === 0
-                        ).length;
+                          );
+                        })}
+                      </View>
+                    </>
+                  )}
+                </View>
+              </>
+            )}
+            {data?.languages?.length > 0 && (
+              <>
+                <View
+                  style={{
+                    width: "100%",
+                    height: "29.2px",
+                    backgroundColor: selectedColor,
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    marginTop: "38.43px",
+                  }}
+                >
+                  <Text
+                    style={{
+                      fontSize: "17px",
+                      fontFamily: `${selectedFont} 400`,
+                      color: "#F9F9F9",
+                    }}
+                  >
+                    LANGUAGES
+                  </Text>
+                </View>
+                <View
+                  style={{
+                    marginLeft: "27.11px",
+                    marginRight: "39.98px",
+                    marginTop: "38.43px",
+                    display: "flex",
+                    gap: "12px",
+                  }}
+                >
+                  {data?.languages?.length > 0 && (
+                    <>
+                      {data.languages?.map((detail, index) => {
+                        const calculateWidthPercentage = (rating) => {
+                          let ratingPercentage = 0;
+                          if (rating && rating.length > 0) {
+                            const zerosCount = rating.filter(
+                              (val) => val === 0
+                            ).length;
 
-                        if (zerosCount === 0) ratingPercentage = 100;
-                        else if (zerosCount === 1) ratingPercentage = 50;
-                        else if (zerosCount === 2) ratingPercentage = 20;
-                      }
-                      return ratingPercentage;
-                    };
-                    const ratingPercentage = calculateWidthPercentage(
-                      detail.rating
-                    );
-                    return (
-                      <View
-                        style={{
-                          width: "100%",
-                          display: "flex",
-                          flexDirection: "column",
-                        }}
-                        key={index}
-                      >
-                        <View
-                          style={{
-                            display: "flex",
-                            alignItems: "center",
-                            flexDirection: "row",
-                          }}
-                        >
-                          <Text
-                            style={{
-                              color: "#414142",
-                              fontSize: "12px",
-                              width: "80px",
-                              fontFamily: `${selectedFont} 300`
-                            }}
-                          >
-                            {detail.languages}
-                          </Text>
+                            if (zerosCount === 0) ratingPercentage = 100;
+                            else if (zerosCount === 1) ratingPercentage = 50;
+                            else if (zerosCount === 2) ratingPercentage = 20;
+                          }
+                          return ratingPercentage;
+                        };
+                        const ratingPercentage = calculateWidthPercentage(
+                          detail.rating
+                        );
+                        return (
                           <View
                             style={{
-                              width: "59.21%",
-                              height: "3.78px",
+                              width: "100%",
                               display: "flex",
-                              backgroundColor: "#C1C1C1",
+                              flexDirection: "column",
                             }}
+                            key={index}
                           >
                             <View
                               style={{
-                                width: `${ratingPercentage}%`,
-                                height: "100%",
-                                backgroundColor: selectedColor,
+                                display: "flex",
+                                alignItems: "center",
+                                flexDirection: "row",
                               }}
-                            ></View>
+                            >
+                              <Text
+                                style={{
+                                  color: "#414142",
+                                  fontSize: "12px",
+                                  width: "80px",
+                                  fontFamily: `${selectedFont} 300`
+                                }}
+                              >
+                                {detail.languages}
+                              </Text>
+                              <View
+                                style={{
+                                  width: "59.21%",
+                                  height: "3.78px",
+                                  display: "flex",
+                                  backgroundColor: "#C1C1C1",
+                                }}
+                              >
+                                <View
+                                  style={{
+                                    width: `${ratingPercentage}%`,
+                                    height: "100%",
+                                    backgroundColor: selectedColor,
+                                  }}
+                                ></View>
+                              </View>
+                            </View>
                           </View>
-                        </View>
-                      </View>
-                    );
-                  })}
-                </>
-              )}
-            </View>
+                        );
+                      })}
+                    </>
+                  )}
+                </View>
+              </>
+            )}
           </View>
+
         </View>
         <View
           style={{
@@ -453,7 +465,7 @@ function Template5({ data, selectedColor, selectedFont }) {
               style={{
                 height: "27.74px",
                 width: "27.74px",
-                backgroundColor:selectedColor,
+                backgroundColor: selectedColor,
               }}
             ></View>
           </View>
@@ -560,7 +572,7 @@ function Template5({ data, selectedColor, selectedFont }) {
                         flexDirection: "row",
                         display: "flex",
                         gap: "4px",
-                        alignItems:"center"
+                        alignItems: "center"
                       }}
                     >
                       <Svg width={6} height={5} viewBox="0 0 6 5">
@@ -646,7 +658,7 @@ function Template5({ data, selectedColor, selectedFont }) {
                         flexDirection: "row",
                         display: "flex",
                         gap: "4px",
-                        alignItems:"center"
+                        alignItems: "center"
                       }}
                     >
                       <Svg width={6} height={5} viewBox="0 0 6 5">

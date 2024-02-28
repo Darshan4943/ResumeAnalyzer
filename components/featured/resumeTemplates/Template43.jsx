@@ -7,7 +7,7 @@ const Template43 = ({ data,selectedColor,selectedFont  }) => {
 
       <View style={{ width: 595, display: "flex", flexDirection: "row", gap: 56, minHeight: 841 }}>
 
-        <View style={{ width: 248, backgroundColor: "#F9D3D0" }}>
+        <View style={{ width: 248, backgroundColor:selectedColor }}>
           <View style={{ paddingHorizontal: 34, paddingVertical: 42 }}>
 
 
@@ -278,7 +278,7 @@ const Template43 = ({ data,selectedColor,selectedFont  }) => {
                           {
                             detail.rating[i] === 0 ? (
                               <Svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <Path d="M8 0.00976562H0V8.00977H8V0.00976562Z" fill="#F9D3D0" />
+                                <Path d="M8 0.00976562H0V8.00977H8V0.00976562Z" fill={selectedColor} />
                               </Svg>
 
 

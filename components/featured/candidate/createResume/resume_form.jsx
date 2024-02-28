@@ -13,7 +13,7 @@ import Languages from "./components/languages";
 import ThemeForm from "./components/themeForm";
 
 const ResumeForm = ({ setData, data,selectedResumeIndex ,setSelectedResumeIndex,selectedColor,setSelectedColor,setSelectedFont,selectedFont}) => {
-  console.log(5,selectedColor)
+  
   return (
     <>
       <div className="flex flex-col ml:w-[40%] w-[100%]  pb-4 gap-4 rounded-lg overflow-y-auto ">

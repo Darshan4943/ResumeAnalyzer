@@ -4,15 +4,15 @@ import Link from "next/link";
 import { useSelector } from "react-redux";
 import { data } from "autoprefixer";
 import CandidateHeader from "./candidateHeader";
-import Sign_in from "../../../pages/auth/Sign_in";
-import Sign_up from "../../../pages/auth/Sign_up";
+import Sign_in from "../../models/Sign_in";
+import Sign_up from "../../models/Sign_up";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-import {auth} from "../../../utils/firebase"
+import { auth } from "../../../utils/firebase"
 import axios from "axios";
 
 function Header({ userData }) {
 
-  const auth = getAuth(); 
+  const auth = getAuth();
 
   const handleGoogle = async () => {
     const provider = new GoogleAuthProvider();
@@ -23,16 +23,16 @@ function Header({ userData }) {
         name: user.displayName,
         email: user.email
       };
-      console.log(25,userData)
-      axios.post('http://localhost:2000/api/user/google/signup', userData).then(res=>{
+      console.log(25, userData)
+      axios.post('http://localhost:2000/api/user/google/signup', userData).then(res => {
         console.log(res.data)
-        localStorage.setItem("authToken", res.data.token); 
+        localStorage.setItem("authToken", res.data.token);
         console.log('User data sent to the server:', res.data);
         router.push("/home/BeforeLoginHome");
-      }).catch(err=>{
+      }).catch(err => {
         console.log(err)
       })
-    
+
     } catch (error) {
       if (error.code === 'auth/cancelled-popup-request') {
         console.log('Sign-in with Google popup was cancelled by the user.');
@@ -105,33 +105,33 @@ function Header({ userData }) {
 
       }}
     >
-      <div className="header_parent sticky-header customMargins  z-[100]">
-        <div className="header   ">
+      <div className="flex justify-center items-center customMargins  z-[100]">
+        <div className="flex justify-between w-[100%] h-[58px] my-[16px]  gap-2 ">
 
           {!isLogin ? (
             <>
-              <div className="header_left">
+              <div className="flex items-center gap-9 ">
                 <Link href="/">
                   {" "}
-                  <img src="/images/logo_skilotech.png" alt="" />
+                  <img className="h-[58px] w-[172px]" src="/images/logo_skilotech.png" alt="" />
                 </Link>
 
 
 
               </div>
-              <div className="header_right">
+              <div className="w-[30%] gap-4  flex justify-end py-2 items-center">
                 <div
                   onClick={() => { setSignIn(true); setSignUp(false); }}
                 >
-                  <button className="header_signIn_btn  border border-transparent ">
+                  <button className=" buttonTransparent  rounded-[12px] flex justify-center items-center bg-white text-[#333] py-3 px-9 text-[16px] font-medium border border-transparent hover:border-[#06A9EF]">
                     Sign in
                   </button>
                 </div>
 
                 <button
                   onClick={() => { setSignUp(true); setSignIn(false) }}
-                  style={{ border: "1px solid var(--primary, #06A9EF)" }}
-                  className="header_signUp_btn"
+
+                  className="rounded-[12px] flex justify-center items-center bg-white text-[#333] py-3 px-9 text-[16px] font-medium border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
                 >
                   Sign Up
                 </button>
@@ -141,7 +141,7 @@ function Header({ userData }) {
                     <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
                     <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center  ">
                       <div ref={taskRef} className="absolute ">
-                        <Sign_in handleGoogle={handleGoogle}/>
+                        <Sign_in handleGoogle={handleGoogle} />
                       </div>
 
                     </div>
@@ -153,7 +153,7 @@ function Header({ userData }) {
                     <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
                     <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center  ">
                       <div ref={taskRef} className="absolute ">
-                        <Sign_up handleGoogle={handleGoogle} setSignIn={setSignIn} setSignUp={setSignUp}/>
+                        <Sign_up handleGoogle={handleGoogle} setSignIn={setSignIn} setSignUp={setSignUp} />
                       </div>
 
                     </div>

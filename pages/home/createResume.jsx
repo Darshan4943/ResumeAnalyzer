@@ -14,6 +14,10 @@ function CreateResume() {
   const userDataGlobal = useSelector((state) => state.userData);
   const taskRef = useRef(null);
   const router = useRouter();
+
+  const userData = router.query;
+ console.log(19,userData)
+
   const handleOutsideClick = (event) => {
     if (taskRef.current && !taskRef.current.contains(event.target)) {
       isSetEdit(false);
@@ -52,9 +56,11 @@ function CreateResume() {
     hobbies: [],
     languages: [],
   });
+ 
+
   useEffect(() => {
-    if (userDataGlobal?.resumeUrl) {
-      const { education, workExperiance, courses } = userDataGlobal;
+    if (userData?.resumeUrl) {
+      const { education, workExperiance, courses } = userData;
       const EducationDataToSet = education.map((element) => {
         const { institute, duration, stream, specialization, type } = element;
         return {
@@ -116,7 +122,7 @@ function CreateResume() {
         course: CourseDataToSet,
       });
     }
-  }, [userDataGlobal]);
+  }, [userData]);
 
   return (
     <div>
