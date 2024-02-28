@@ -1,9 +1,10 @@
-import MiniLoader from '@/components/common/mini-loader';
+
 import axios from 'axios';
 import { motion } from "framer-motion"
 
 import React, { useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux';
+import MiniLoader from '../../common/mini-loader';
 
 function GenerateAi() {
     const [slideRobot, setSlideRobot] = useState(false);
@@ -238,10 +239,10 @@ function GenerateAi() {
 
     return (
 
-        <div ref={generateAiRef} className=' bg-cover bg-no-repeat ml:bg_generateAi bg_generateAi1 py-[78px] mb-[36px]  w-screen  '>
-            <div className='ml:w-[90%]  md:w-[60%] ms:w-[70%] sm:w-[80%] w-[97%] flex ml:flex-row flex-col items-center gap-6 customMargins sm:px-4 xsm:px-2 px-1 rounded-[16px] py-6 ' style={{ boxShadow: "0px 4px 14px 0px rgba(0, 0, 0, 0.25)", background: "rgba(255, 255, 255, 0.25)" }} >
+        <div ref={generateAiRef} className=' bg-cover bg-no-repeat ml:bg_generateAi bg_generateAi1 py-[120px]  px-6 w-screen flex justify-center '>
+            <div className='ml:w-[100%]  md:w-[60%] ms:w-[70%] sm:w-[80%] w-[97%] flex ml:flex-row flex-col items-center justify-center gap-6 sm:px-4 xsm:px-2 px-1 rounded-[16px] py-6 customMargins ' style={{ boxShadow: "0px 4px 14px 0px rgba(0, 0, 0, 0.25)", background: "rgba(255, 255, 255, 0.25)" }} >
                 <div
-                    className=" ml:w-[37%] w-[95%] relative flex flex-col gap-2 rounded-[16px] px-4 py-6 bg-white "
+                    className=" ml:w-[33%] w-[95%] relative flex flex-col gap-2 rounded-[16px] px-4 py-6 bg-white  max-w-[413px]"
                     style={{ boxShadow: "0px 0px 26.499px 0px rgba(0, 0, 0, 0.25)" }}
                 >
                     <div className="w-full font-medium"> About Me</div>
@@ -281,7 +282,7 @@ function GenerateAi() {
                                     src="/images/home/stars.png " alt="" className={`h-[30px] w-[35px]  absolute left-[5%] `} />
                             }
 
-                            <p className={`text-[12px]  ${isClicked && "text-white "}  `}>Generate with AI</p>
+                            <p className={`text-[12px]  ${isClicked && "text-white "} font-semibold `}>Generate with AI</p>
                             {isClicked &&
                                 <p className='absolute top-[115%] left-[55%] text-[12px] font-medium '> clicked !</p>
                             }
@@ -308,16 +309,16 @@ function GenerateAi() {
                     }
 
                 </div>
-                <div className=' ml:w-[19.85%] xl:w-[217.1px] w-[70%]  flex flex-col gap-4 justify-center text-center items-center'>
+                <div className=' ml:w-[34%] xl:w-[517.1px] w-[70%]  flex flex-col gap-4 justify-center text-center items-center '>
                     <div className='flex sm:w-[95%] w-[97%] flex-wrap text-center items-center justify-center ml:text-[1.6vw] xl:text-[23.04px] text-[24px] font-bold'>
-                        <span className='text-center'>   Try our Generative AI Feature to </span> &nbsp; <span className='px-[30px] text-[#BB57E1]'>  Improve </span> &nbsp; <span className='px-[70px]'>&</span>  &nbsp; <span className='px-[30px] text-[#06A9EF]'>Enhance</span>&nbsp;your profile
+                        <span className='text-center'>   Try our Generative AI Feature to </span> &nbsp; <span className='px-[120px] text-[#BB57E1]'>  Improve </span> &nbsp; <span className='px-[150px]'>&</span>  &nbsp; <span className='px-[150px] text-[#06A9EF]'>Enhance</span>&nbsp;your profile
                     </div>
                     <div className='flex flex-col justify-center items-center gap-2 w-[90%] relative'>
 
                         <p className='text-[14px] font-semibold'>Type something about yourself & Click on</p>
                         <img src="/images/blueArrow.png " alt="" className='h-[40px]  object-contain w-[41px] absolute scr1150:top-4 -right-6 top-7 web' />
 
-                        <button className=' cursor-not-allowed w-[60%] flex gap-2 sm:px-3 px-[5px] py-2 border items-center border-[#06A9EF] bg-white rounded-[8px] min-w-[155px] sm:min-w-[170px] relative'>
+                        <button className=' cursor-not-allowed w-[35%] flex gap-2 sm:px-3 px-[5px] py-2 border items-center border-[#06A9EF] bg-white rounded-[8px] min-w-[155px] sm:min-w-[170px] relative'>
                             <img src="/images/blueArrow1.png " alt="" className='h-[40px]  object-contain w-[41px] absolute top-3 -right-10 mobile' />
                             <motion.img
                                 initial={{ translateY: '-4px' }}
@@ -329,14 +330,14 @@ function GenerateAi() {
                             />
 
 
-                            <p className=" text-[12px] text-center ">
+                            <p className=" text-[12px] text-center font-semibold ">
                                 Generate with AI
                             </p>
                         </button>
                         <p className='text-[14px] font-semibold'>to Try now!</p>
                     </div>
                 </div>
-                <div className='ml:w-[39%] w-[95%] border-dashed border-[2px] border-[#06A9EF] sm:p-2 px-1 py-1 rounded-[16px]'>
+                <div className='ml:w-[33%] w-[95%] border-dashed border-[2px] border-[#06A9EF] sm:p-2 px-1 py-1 rounded-[16px] max-w-[413px]'>
                     <div className='  flex w-full h-full flex-col gap-2 rounded-[16px] p-4 bg-white ' style={{ boxShadow: "0px 0px 26.499px 0px rgba(0, 0, 0, 0.25)" }} >
                         <p className='w-full font-medium'> About Me</p>
                         <div className="error_text_form ">{error}</div>

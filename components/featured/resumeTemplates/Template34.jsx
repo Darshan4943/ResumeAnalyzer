@@ -12,7 +12,7 @@ const Template34 = ({ data,selectedColor,selectedFont  }) => {
                         <Text style={{ fontSize: 36, fontFamily: `${selectedFont} 400`, color: '#6C83B7' }}>{data.lastName ? <>{data.lastName}</> : <>Last Name</>}</Text>
                         <Text style={{ fontSize: 13,  fontFamily: `${selectedFont} 500`, color: '#606060' }}>{data.designation ? <>{data.designation}</> : <>Designation</>}</Text>
                     </View>
-                    <View style={{ flexDirection: "column", backgroundColor: selectedColor, gap: 4, paddingBottom: 12, paddingTop: 52, paddingLeft: 41, paddingRight: 16, height: 136, width: 161 }}>
+                    <View style={{ flexDirection: "column", backgroundColor: "#6C83B7", gap: 4, paddingBottom: 12, paddingTop: 52, paddingLeft: 41, paddingRight: 16, height: 136, width: 161 }}>
                         <Text style={{ fontSize: 10,  fontFamily: `${selectedFont} 300`, color: '#F6F6F6' }}>{data.sociaLinks ? <>{data.sociaLinks}</> : <>Your Websites</>}</Text>
                         <Text style={{ fontSize: 10,  fontFamily: `${selectedFont} 300`, color: '#F6F6F6' }}>{data.email ? <>{data.email}</> : <>Your Email</>}</Text>
                         <Text style={{ fontSize: 10,  fontFamily: `${selectedFont} 300`, color: '#F6F6F6' }}>{data.mobileNumber ? (<>{data.mobileNumber}</>) : (<>Your Phone</>)}</Text>
@@ -21,12 +21,12 @@ const Template34 = ({ data,selectedColor,selectedFont  }) => {
                 </View>
 
                 <View style={{ flexDirection: "column" }}>
-                    <View style={{ width: 492, backgroundColor: selectedColor, height: 1 }}></View>
+                    <View style={{ width: 492, backgroundColor: "#6C83B7", height: 1 }}></View>
                     <Text style={{ color: "#000000",  fontFamily: `${selectedFont} 300`, fontSize: "9px", paddingTop: 15, paddingLeft: 16, paddingRight: 16 }}>{data.summery ? <>{data.summery}</> : <>About</>}</Text>
                 </View>
 
                 <View style={{ flexDirection: "column", gap: 16 }}>
-                    <View style={{ backgroundColor: selectedColor, flexDirection: "row", gap: 4 }}>
+                    <View style={{ backgroundColor: "#6C83B7", flexDirection: "row", gap: 4 }}>
                         <Text style={{ color: "#F6F6F6", width: 229, paddingLeft: 12, paddingTop: 4, paddingBottom: 4, fontSize: 12,  fontFamily: `${selectedFont} 700`, }}>Education </Text>
                         <Text style={{ color: "#F6F6F6", width: 229, paddingLeft: 12, paddingTop: 4, paddingBottom: 4, fontSize: 12,  fontFamily: `${selectedFont} 700`, }}>Experience </Text>
                     </View>
@@ -36,7 +36,7 @@ const Template34 = ({ data,selectedColor,selectedFont  }) => {
                                 <View style={{ flexDirection: "column", gap: 6, width: 217, paddingLeft: 12 }}>
                                     <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
                                         <Text style={{ fontSize: 10,  fontFamily: `${selectedFont} 500`, color: "#4C4C4C" }}>{detail.qualification ? (<>{detail.qualification}</>) : (<>Qualification</>)}</Text>
-                                        <Text style={{ fontSize: 10,  fontFamily: `${selectedFont} 700`, color: selectedColor }}>{detail.duration?.start?.year}-{detail.duration?.end?.year}</Text>
+                                        <Text style={{ fontSize: 10,  fontFamily: `${selectedFont} 700`, color: "#6C83B7" }}>{detail.duration?.start?.year}-{detail.duration?.end?.year}</Text>
                                     </View>
                                     <View>
                                         <Text style={{ fontSize: 10,  fontFamily: `${selectedFont} 300`, color: "#4C4C4C" }}>{detail.instituteName ? (<>{detail.instituteName}</>) : (<>institute Name</>)}</Text>
@@ -49,7 +49,7 @@ const Template34 = ({ data,selectedColor,selectedFont  }) => {
                                 <View style={{ flexDirection: "column", gap: 6, width: 217, paddingLeft: 12 }}>
                                     <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
                                         <Text style={{ fontSize: 10,  fontFamily: `${selectedFont} 500`, color: "#4C4C4C" }}>{detail.designation ? (<>{detail.designation}</>) : (<>Designation</>)}</Text>
-                                        <Text style={{ fontSize: 10,  fontFamily: `${selectedFont} 700`, color: selectedColor }}>{detail.duration?.start?.year}-{detail.currentlyWorking ? "Present" : detail.duration?.end?.year}</Text>
+                                        <Text style={{ fontSize: 10,  fontFamily: `${selectedFont} 700`, color: "#6C83B7" }}>{detail.duration?.start?.year}-{detail.currentlyWorking ? "Present" : detail.duration?.end?.year}</Text>
                                     </View>
                                     <View style={{ flexDirection: "column", gap: 2, }}>
                                         <Text style={{ fontSize: 10,  fontFamily: `${selectedFont} 300`, color: "#4C4C4C" }}>{detail.organization ? (<>{detail.organization}</>) : (<>organization</>)}</Text>
@@ -61,7 +61,7 @@ const Template34 = ({ data,selectedColor,selectedFont  }) => {
                     </View>
                 </View>
 
-                <View style={{ backgroundColor: selectedColor, flexDirection: "row", gap: 4 }}>
+                <View style={{ backgroundColor: "#6C83B7", flexDirection: "row", gap: 4 }}>
                     <Text style={{ color: "#F6F6F6", width: 229, paddingLeft: 12, paddingTop: 4, paddingBottom: 4, fontSize: 12,  fontFamily: `${selectedFont} 700`, }}>skills </Text>
                     <Text style={{ color: "#F6F6F6", width: 229, paddingLeft: 12, paddingTop: 4, paddingBottom: 4, fontSize: 12,  fontFamily: `${selectedFont} 700`, }}>Language </Text>
                 </View>
@@ -127,7 +127,7 @@ const Template34 = ({ data,selectedColor,selectedFont  }) => {
                                                 style={{
                                                     width: `${ratingPercentage}%`,
                                                     height: "100%",
-                                                    backgroundColor: selectedColor,
+                                                    backgroundColor: "#6C83B7",
                                                 }}
                                             ></View>
                                         </View>
@@ -161,7 +161,7 @@ const Template34 = ({ data,selectedColor,selectedFont  }) => {
                                         </Text>
                                         <View style={{ width: "59.21%", height: 3.78, alignSelf: "flex-end", marginBottom: 1, backgroundColor: "#fff" }}>
                                             <View
-                                                style={{ height: "100%", backgroundColor: selectedColor, width: `${ratingPercentage}%` }}
+                                                style={{ height: "100%", backgroundColor: "#6C83B7", width: `${ratingPercentage}%` }}
                                             ></View>
                                         </View>
                                     </View>
@@ -170,7 +170,7 @@ const Template34 = ({ data,selectedColor,selectedFont  }) => {
                         })}
                     </View>
                 </View>
-                <View style={{ height: 1, width: 491, backgroundColor: selectedColor }}></View>
+                <View style={{ height: 1, width: 491, backgroundColor: "#6C83B7" }}></View>
             </View>
         </Page>
     );

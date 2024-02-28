@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { SkillList } from "@/utils/data";
+
 import ReactSelect from "react-select";
 import { camelCase } from "../../../../../utils/middleware";
 import { toast } from "react-toastify";
-import { Close_svg } from "@/utils/svg";
+
 import { useSelector } from "react-redux";
+import { SkillList } from "../../../../../utils/data";
+import { Close_svg } from "../../../../../utils/svg";
 
 const Skills = ({ data, setData }) => {
   const [skills, setSkills] = useState([...SkillList]);

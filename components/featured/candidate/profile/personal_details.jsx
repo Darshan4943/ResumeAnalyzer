@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { Edit_icon } from "@/utils/svg";
+
 import Edit_personal_Dtls from "./modals/Edit_personal_Dtls";
+import { Edit_icon } from "../../../../utils/svg";
 const PersonalDetails = ({ userData }) => {
   const [addEditPop, setaddEditPop] = useState(false);
   console.log(6,userData);

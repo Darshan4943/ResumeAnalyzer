@@ -1,11 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
-import ALink from "@/components/alink";
+
 import { toast } from "react-toastify";
-import ImageContainer from "@/components/common/image";
+
 import axios from "axios";
-import MiniLoader from "@/components/common/mini-loader";
-import { camelCase, dateFormatter } from "@/utils/middleware";
+
+
 import { useRouter } from "next/router";
+import MiniLoader from "../../../common/mini-loader";
+import ImageContainer from "../../../common/image";
+import { camelCase } from "../../../../utils/middleware";
 
 const CandidateAiPower = ({
   setTabIndex,
@@ -153,52 +156,7 @@ const CandidateAiPower = ({
       {tabindex == 1 && (
         <>
           <div className="flex justify-center items-center  relative pb-8 ">
-            <div className="last_img_parent_head top-[100px] web ">
-              <div className="lastfour_img_cont">
-                <div className="last_img_contener1">
-                  <img
-                    src="/images/auth/employer/last1.png"
-                    alt=""
-                    className="last_img_1"
-                  />
-                </div>
-                <div className="last_img_contener2">
-                  <img
-                    src="/images/auth/employer/last2.png"
-                    alt=""
-                    className="last_img_2"
-                  />
-                </div>
-                <div className="last_img_contener3">
-                  <img
-                    src="/images/auth/employer/last3.png"
-                    alt=""
-                    className="last_img_3"
-                  />
-                </div>
-                <div className="last_img_contener4">
-                  <img
-                    src="/images/auth/employer/last4.png"
-                    alt=""
-                    className="last_img_4"
-                  />
-                </div>
-                <div className="last_img_contener5">
-                  <img
-                    src="/images/auth/employer/last5.png"
-                    alt=""
-                    className="five_img_div"
-                  />
-                </div>
-                <div className="last_img_contener6">
-                  <img
-                    src="/images/auth/employer/last6.png"
-                    alt=""
-                    className="six_img_div"
-                  />
-                </div>
-              </div>
-            </div>
+            
             <div
               className="flex flex-col gap-[36px] p-[24px] justify-center items-center rounded-[12px] ml:w-[38.33%] w-[90%] shadow_of_box  z-50 "
               style={{
@@ -325,7 +283,7 @@ const CandidateAiPower = ({
                     setTabIndex(2);
                   }}
                 >
-                  Skip
+                  Cancel
                 </button>
 
                 {/* <ALink href="/auth/candidate_register"> */}

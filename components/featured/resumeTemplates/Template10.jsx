@@ -42,21 +42,20 @@ function Template10({ data, selectedColor, selectedFont }) {
 
               </View>
             </View>
-            {data?.skills?.length > 0 && (
-              <View style={{ flexDirection: "column", gap: 12 }}>
-                <Text style={{ fontSize: 14, fontFamily: `${selectedFont} 400`, color: '#414042' }}>SKILLS</Text>
-                {data?.skills?.map((detail, index) => (
-                  <View style={{ flexDirection: "row", gap: 16 }}>
-                    <Svg width="14" height="15" viewBox="0 0 14 15" xmlns="http://www.w3.org/2000/svg">
-                      <Path fillRule="evenodd" clipRule="evenodd" d="M6.99999 3.16406C4.79135 3.16406 3 4.95541 3 7.16404C3 9.37392 4.79135 11.1641 6.99999 11.1641C9.20863 11.1641 11 9.37268 11 7.16404C11 4.95541 9.20987 3.16406 6.99999 3.16406Z" stroke={selectedColor} strokeWidth="4.0004" strokeMiterlimit="10" />
-                    </Svg>
-                    <Text style={{ fontSize: 10, fontFamily: `${selectedFont} 400`, color: '#414042' }}>{detail.skill}</Text>
-                  </View>
-                ))}
-              </View>
+            <View style={{ flexDirection: "column", gap: 12 }}>
+              <Text style={{ fontSize: 14, fontFamily: `${selectedFont} 400`, color: '#414042' }}>SKILLS</Text>
+              {data?.skills?.map((detail, index) => (
+                <View style={{ flexDirection: "row", gap: 16 }}>
+                  <Svg width="14" height="15" viewBox="0 0 14 15" xmlns="http://www.w3.org/2000/svg">
+                    <Path fillRule="evenodd" clipRule="evenodd" d="M6.99999 3.16406C4.79135 3.16406 3 4.95541 3 7.16404C3 9.37392 4.79135 11.1641 6.99999 11.1641C9.20863 11.1641 11 9.37268 11 7.16404C11 4.95541 9.20987 3.16406 6.99999 3.16406Z" stroke={selectedColor} strokeWidth="4.0004" strokeMiterlimit="10" />
+                  </Svg>
+                  <Text style={{ fontSize: 10, fontFamily: `${selectedFont} 400`, color: '#414042' }}>{detail.skill}</Text>
+                </View>
+              ))}
 
-            )}
 
+
+            </View>
             {/* <View style={{ flexDirection: "column", gap: 12 }}>
               <Text style={{ fontSize: 14, fontFamily: '400', color: '#414042' }}>TOOLS</Text>
 
@@ -249,7 +248,7 @@ function Template10({ data, selectedColor, selectedFont }) {
 
               <View style={{ display: "flex", flexDirection: "column", gap: 4, width: "100%" }}>
                 <Text style={{ color: "#282829", fontFamily: `${selectedFont} 400`, fontSize: "16px" }}>EXPERIENCE</Text>
-                <View style={{ height: "1px", marginTop: "4px", width: "100%", backgroundColor: selectedColor }}></View>
+                <View style={{ height: "1px", marginTop: "4px", width: "100%", backgroundColor: selectedColor  }}></View>
               </View>
             </View>
             {data.experience?.map((detail, index) => (
@@ -293,7 +292,7 @@ function Template10({ data, selectedColor, selectedFont }) {
 
               <View style={{ display: "flex", flexDirection: "column", gap: 4, width: "100%" }}>
                 <Text style={{ color: "#282829", fontFamily: `${selectedFont} 400`, fontSize: "16px" }}>EDUCATION</Text>
-                <View style={{ height: "1px", marginTop: "4px", width: "100%", backgroundColor: selectedColor }}></View>
+                <View style={{ height: "1px", marginTop: "4px", width: "100%", backgroundColor:selectedColor }}></View>
               </View>
             </View>
 
@@ -333,52 +332,51 @@ function Template10({ data, selectedColor, selectedFont }) {
           </View>
 
 
-          {data?.course?.length > 0 && (
-            <View style={{ flexDirection: "column", gap: 10 }} >
-              <View style={{ flexDirection: "row", gap: 8, width: "100%" }}>
-                <Svg width="33" height="33" viewBox="0 0 33 33" fill="white" xmlns="http://www.w3.org/2000/svg">
-                  <Path d="M30.3713 18.3215C31.6052 10.7188 26.4423 3.55535 18.8396 2.32148C11.2369 1.08761 4.07345 6.25056 2.83959 13.8532C1.60572 21.4559 6.76866 28.6194 14.3713 29.8533C21.974 31.0871 29.1375 25.9242 30.3713 18.3215Z" stroke={selectedColor} stroke-width="0.666734" stroke-miterlimit="10" />
-                  <Path d="M26.5106 12.0972L17.0507 7.67631C16.7098 7.51646 16.3164 7.51148 15.9717 7.66259L5.82738 12.0922C5.41027 12.2745 5.40527 12.8652 5.81989 13.0538L15.9517 17.6708C16.3077 17.8331 16.7173 17.8282 17.0682 17.6558L26.5182 13.0476C26.9165 12.854 26.9128 12.2845 26.5106 12.0972Z" stroke={selectedColor} stroke-width="0.666734" stroke-miterlimit="10" />
-                  <Path d="M9.36719 14.668V22.9303C9.36719 22.9303 16.6579 26.6931 23.0295 22.9303V14.7504L16.9676 17.7064C16.6829 17.845 16.3507 17.85 16.061 17.7177L9.36719 14.668Z" stroke={selectedColor} stroke-width="0.666734" stroke-miterlimit="10" />
-                  <Path d="M26.7812 12.6699V17.5679" stroke={selectedColor} stroke-width="0.666734" stroke-miterlimit="10" />
-                  <Path d="M26.8147 20.6061C27.7134 20.6061 28.442 19.8775 28.442 18.9788C28.442 18.0801 27.7134 17.3516 26.8147 17.3516C25.916 17.3516 25.1875 18.0801 25.1875 18.9788C25.1875 19.8775 25.916 20.6061 26.8147 20.6061Z" stroke={selectedColor} stroke-width="0.666734" stroke-miterlimit="10" />
-                </Svg>
-                <View style={{ display: "flex", flexDirection: "column", gap: 4, width: "100%" }}>
-                  <Text style={{ color: "#282829", fontFamily: `${selectedFont} 400`, fontSize: "16px" }}>COURSE</Text>
-                  <View style={{ height: "1px", marginTop: "4px", width: "100%", backgroundColor: selectedColor }}></View>
-                </View>
+
+          <View style={{ flexDirection: "column", gap: 10 }} >
+            <View style={{ flexDirection: "row", gap: 8, width: "100%" }}>
+            <Svg width="33" height="33" viewBox="0 0 33 33" fill="white" xmlns="http://www.w3.org/2000/svg">
+                <Path d="M30.3713 18.3215C31.6052 10.7188 26.4423 3.55535 18.8396 2.32148C11.2369 1.08761 4.07345 6.25056 2.83959 13.8532C1.60572 21.4559 6.76866 28.6194 14.3713 29.8533C21.974 31.0871 29.1375 25.9242 30.3713 18.3215Z" stroke={selectedColor} stroke-width="0.666734" stroke-miterlimit="10" />
+                <Path d="M26.5106 12.0972L17.0507 7.67631C16.7098 7.51646 16.3164 7.51148 15.9717 7.66259L5.82738 12.0922C5.41027 12.2745 5.40527 12.8652 5.81989 13.0538L15.9517 17.6708C16.3077 17.8331 16.7173 17.8282 17.0682 17.6558L26.5182 13.0476C26.9165 12.854 26.9128 12.2845 26.5106 12.0972Z" stroke={selectedColor} stroke-width="0.666734" stroke-miterlimit="10" />
+                <Path d="M9.36719 14.668V22.9303C9.36719 22.9303 16.6579 26.6931 23.0295 22.9303V14.7504L16.9676 17.7064C16.6829 17.845 16.3507 17.85 16.061 17.7177L9.36719 14.668Z" stroke={selectedColor} stroke-width="0.666734" stroke-miterlimit="10" />
+                <Path d="M26.7812 12.6699V17.5679" stroke={selectedColor} stroke-width="0.666734" stroke-miterlimit="10" />
+                <Path d="M26.8147 20.6061C27.7134 20.6061 28.442 19.8775 28.442 18.9788C28.442 18.0801 27.7134 17.3516 26.8147 17.3516C25.916 17.3516 25.1875 18.0801 25.1875 18.9788C25.1875 19.8775 25.916 20.6061 26.8147 20.6061Z" stroke={selectedColor} stroke-width="0.666734" stroke-miterlimit="10" />
+              </Svg>
+              <View style={{ display: "flex", flexDirection: "column", gap: 4, width: "100%" }}>
+                <Text style={{ color: "#282829", fontFamily: `${selectedFont} 400`, fontSize: "16px" }}>COURSE</Text>
+                <View style={{ height: "1px", marginTop: "4px", width: "100%", backgroundColor: selectedColor  }}></View>
               </View>
+            </View>
 
-              {data?.course?.map((detail, index) => (
-                <View style={{ flexDirection: "column", gap: 8, width: "100%" }}>
-                  <View style={{ flexDirection: "row", gap: 4, width: "100%", alignItems: "center" }}>
-                    <Svg width="6" height="5" viewBox="0 0 6 5" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <Path d="M2.9375 4.79279C2.53646 4.79279 2.17022 4.69502 1.83878 4.49947C1.50734 4.3006 1.24219 4.03545 1.04332 3.70401C0.847775 3.37257 0.75 3.00633 0.75 2.60529C0.75 2.20094 0.847775 1.83469 1.04332 1.50657C1.24219 1.17513 1.50734 0.911636 1.83878 0.716086C2.17022 0.517223 2.53646 0.417791 2.9375 0.417791C3.34186 0.417791 3.7081 0.517223 4.03622 0.716086C4.36766 0.911636 4.63116 1.17513 4.8267 1.50657C5.02557 1.83469 5.125 2.20094 5.125 2.60529C5.125 3.00633 5.02557 3.37257 4.8267 3.70401C4.63116 4.03545 4.36766 4.3006 4.03622 4.49947C3.7081 4.69502 3.34186 4.79279 2.9375 4.79279Z" fill={selectedColor} />
-                    </Svg>
+            {data?.course?.map((detail, index) => (
+              <View style={{ flexDirection: "column", gap: 8, width: "100%" }}>
+                <View style={{ flexDirection: "row", gap: 4, width: "100%", alignItems: "center" }}>
+                  <Svg width="6" height="5" viewBox="0 0 6 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <Path d="M2.9375 4.79279C2.53646 4.79279 2.17022 4.69502 1.83878 4.49947C1.50734 4.3006 1.24219 4.03545 1.04332 3.70401C0.847775 3.37257 0.75 3.00633 0.75 2.60529C0.75 2.20094 0.847775 1.83469 1.04332 1.50657C1.24219 1.17513 1.50734 0.911636 1.83878 0.716086C2.17022 0.517223 2.53646 0.417791 2.9375 0.417791C3.34186 0.417791 3.7081 0.517223 4.03622 0.716086C4.36766 0.911636 4.63116 1.17513 4.8267 1.50657C5.02557 1.83469 5.125 2.20094 5.125 2.60529C5.125 3.00633 5.02557 3.37257 4.8267 3.70401C4.63116 4.03545 4.36766 4.3006 4.03622 4.49947C3.7081 4.69502 3.34186 4.79279 2.9375 4.79279Z" fill={selectedColor} />
+                  </Svg>
 
-                    <View style={{ flexDirection: "column", gap: 3, width: "100%", paddingTop: 14 }}>
-                      <Text style={{ fontSize: 12, fontFamily: `${selectedFont} 400`, color: '#414042' }}>{detail.courseName} </Text>
-                      <Text style={{ fontSize: 12, fontFamily: `${selectedFont} 400`, color: selectedColor }}> {detail.duration?.end?.month}-
-                        {detail.duration?.end?.year}</Text>
-                    </View>
-                    <View>
-                      <Text style={{ fontSize: 10, fontFamily: `${selectedFont} 400`, color: selectedColor }}>{detail.issuedBy}</Text>
-                      <View>
-
-                      </View>
-                    </View>
+                  <View style={{ flexDirection: "column", gap: 3, width: "100%", paddingTop: 14 }}>
+                    <Text style={{ fontSize: 12, fontFamily: `${selectedFont} 400`, color: '#414042' }}>{detail.courseName} </Text>
+                    <Text style={{ fontSize: 12, fontFamily: `${selectedFont} 400`, color: selectedColor }}> {detail.duration?.end?.month}-
+                      {detail.duration?.end?.year}</Text>
                   </View>
                   <View>
+                    <Text style={{ fontSize: 10, fontFamily: `${selectedFont} 400`, color: selectedColor }}>{detail.issuedBy}</Text>
+                    <View>
 
+                    </View>
                   </View>
+                </View>
+                <View>
 
                 </View>
-              ))}
+
+              </View>
+            ))}
 
 
 
-            </View>
-          )}
+          </View>
         </View>
 
 

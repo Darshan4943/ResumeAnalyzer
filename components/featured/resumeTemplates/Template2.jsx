@@ -9,7 +9,7 @@ function Template2({ data, selectedColor,selectedFont }) {
 
                         <View style={{ flexDirection: 'column', width: '100%' }}>
                             <View style={{ flexDirection: 'column', gap: '8', width: '100%' }}>
-                                <Text style={{ color: '#3C3A40', fontSize: '20px', fontFamily: `${selectedFont} 600`, paddingTop: '13px', }}>ABOUT ME</Text>
+                                <Text style={{ color: '#3C3A40', fontSize: '20px', fontFamily: `${selectedFont} 400`, paddingTop: '13px', }}>ABOUT ME</Text>
                                 <View style={{ backgroundColor: selectedColor, height: '3px', width: '85%' }} />
                                 <Text style={{ color: '#272128', fontSize: '12px', fontFamily: `${selectedFont} 500`, maxWidth: '80%' }}>{data.summery}</Text>
                             </View>
@@ -37,7 +37,7 @@ function Template2({ data, selectedColor,selectedFont }) {
                                 <Text style={{ color: '#3C3A40', fontSize: '20px', fontFamily: `${selectedFont} 600`, paddingTop: '13px', lineHeight: 'normal' }}>EXPERIENCE</Text>
                                 <View style={{ backgroundColor: selectedColor, height: '3px', width: '85%' }} />
                                 {data?.experience?.map((detail, index) => (
-                                    <View key={index} style={{ flexDirection: 'column', gap: '2',flexWrap:"wrap" }}>
+                                    <View key={index} style={{ flexDirection: 'column', gap: '2', }}>
                                         <Text style={{ color: '#272128', fontSize: '12', fontFamily: `${selectedFont} 600`, maxWidth: '80%' }}>{detail.organization}</Text>
                                         <Text style={{ color: '#272128', fontSize: '12', fontFamily: `${selectedFont} 500`, maxWidth: '80%' }}>{detail.designation}</Text>
                                         <Text style={{ color: '#272128', fontSize: '12', fontFamily: `${selectedFont} 300`, maxWidth: '80%' }}>{detail.description}</Text>
@@ -86,27 +86,27 @@ function Template2({ data, selectedColor,selectedFont }) {
                 </View>
                 <View style={{ backgroundColor: '#2C2A31', width: '230px', paddingLeft: '16px', paddingBottom: '4px', minHeight: 841.8 }}>
                     <View style={{ display: 'flex', flexDirection: 'column', gap: '12', alignItems: 'flex-start', marginTop: '200px' }}>
-                        <View style={{ display: 'flex', flexDirection: 'column', gap: '12',maxWidth: '200px'  }}>
+                        <View style={{ display: 'flex', flexDirection: 'column', gap: '12' }}>
                             <Text style={{ color: '#fff', fontSize: '18px', fontFamily: `${selectedFont} 600`, }}>Contact Me</Text>
-                            <View style={{ display: 'flex', flexDirection: 'row', gap: 12, alignItems: 'center',}}>
+                            <View style={{ display: 'flex', flexDirection: 'row', gap: 12, alignItems: 'center' }}>
                                 <View style={{}}>
                                     <Svg width={14} height={18} viewBox="0 0 13 17" fill="none">
                                         <Path d="M6.90887 0.289062C3.60787 0.289062 0.921875 2.97441 0.921875 6.27684C0.921875 10.3744 6.27887 16.3892 6.50787 16.6432C6.72187 16.8822 7.09588 16.8812 7.30988 16.6432C7.53788 16.3892 12.8949 10.3744 12.8949 6.27684C12.8959 2.97541 10.2099 0.289062 6.90887 0.289062ZM6.90887 9.28923C5.24787 9.28923 3.89688 7.93806 3.89688 6.27684C3.89688 4.61563 5.24787 3.26446 6.90887 3.26446C8.56987 3.26446 9.92087 4.61563 9.92087 6.27684C9.92087 7.93806 8.56987 9.28923 6.90887 9.28923Z" fill={selectedColor} />
                                     </Svg>
                                 </View>
-                                <View style={{ display: 'flex', flexDirection: 'column',}}>
+                                <View style={{ display: 'flex', flexDirection: 'column' }}>
                                     <Text style={{ color: '#fff', fontSize: '10px', fontFamily: `${selectedFont} 600`, }}>Address</Text>
-                                    <Text style={{ color: '#fff', fontSize: '10px', fontFamily: `${selectedFont} 300`,flexWrap:"wrap", }}>{data.location}</Text>
+                                    <Text style={{ color: '#fff', fontSize: '10px', fontFamily: `${selectedFont} 300`, }}>{data.location}</Text>
                                 </View>
                             </View>
-                            <View style={{ display: 'flex', flexDirection: 'row', paddingTop: '10px', gap: 12, alignItems: 'center',width:"80%"  }}>
+                            <View style={{ display: 'flex', flexDirection: 'row', paddingTop: '10px', gap: 12, alignItems: 'center' }}>
                                 <Svg width="18" height="14" viewBox="0 0 18 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <Path d="M17.2752 11.222C17.2752 11.594 17.1695 11.9407 17.0025 12.243L11.6375 6.2395L16.9455 1.59527C17.1526 1.92293 17.2773 2.30765 17.2773 2.72409L17.2752 11.222ZM8.77734 7.33025L16.1633 0.868105C15.861 0.701107 15.5186 0.599609 15.1508 0.599609H2.40393C2.03611 0.599609 1.69366 0.701107 1.39137 0.868105L8.77734 7.33025ZM10.8363 6.93919L9.12614 8.43585C9.02678 8.52252 8.90206 8.56693 8.77734 8.56693C8.65262 8.56693 8.5279 8.52252 8.42855 8.43585L6.7184 6.93919L1.28356 13.0188C1.6091 13.2238 1.99172 13.3464 2.40393 13.3464H15.1508C15.563 13.3464 15.9456 13.2238 16.2711 13.0188L10.8363 6.93919ZM0.609226 1.5974C0.402063 1.92506 0.277344 2.30978 0.277344 2.72622V11.2241C0.277344 11.5961 0.380924 11.9428 0.550037 12.2451L5.91512 6.2395L0.609226 1.5974Z" fill={selectedColor} />
                                 </Svg>
 
-                                <View style={{ display: 'flex', flexDirection: 'column',  }}>
+                                <View style={{ display: 'flex', flexDirection: 'column' }}>
                                     <Text style={{ color: '#fff', fontSize: '10px', fontFamily: `${selectedFont} 600`, }}>Email</Text>
-                                    <Text style={{ color: '#fff', fontSize: '10px', fontFamily: `${selectedFont} 300`,flexDirection: 'row', flexWrap:"wrap",width:"80%" }}>{data.email}</Text>
+                                    <Text style={{ color: '#fff', fontSize: '10px', fontFamily: `${selectedFont} 300`, }}>{data.email}</Text>
                                 </View>
                             </View>
                             <View style={{ display: 'flex', flexDirection: 'row', paddingTop: '10px', gap: 12, alignItems: 'center' }}>
@@ -116,7 +116,7 @@ function Template2({ data, selectedColor,selectedFont }) {
 
                                 <View style={{ display: 'flex', flexDirection: 'column' }}>
                                     <Text style={{ color: '#fff', fontSize: '10px', fontFamily: `${selectedFont} 600`, }}>Phone</Text>
-                                    <Text style={{ color: '#fff', fontSize: '10px', fontFamily: `${selectedFont} 300`,flexWrap:"wrap"  }}>{data.mobileNumber}</Text>
+                                    <Text style={{ color: '#fff', fontSize: '10px', fontFamily: `${selectedFont} 300`, }}>{data.mobileNumber}</Text>
                                 </View>
                             </View>
                         </View>

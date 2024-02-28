@@ -1,22 +1,34 @@
-import React, { useState } from "react";
-import { motion } from "framer-motion";
-import ALink from "@/components/alink";
+import React, { useEffect, useState } from "react";
+
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 
-import PersonalDetails from "@/components/featured/candidate/registration/personal_details";
-import EducationDetails from "@/components/featured/candidate/registration/education_details";
-import ProfessionalDetails from "@/components/featured/candidate/registration/professional_details";
-import Stepper from "@/components/featured/candidate/registration/stepper";
-import CandidateAiPower from "@/components/featured/candidate/registration/candidate_ai_power";
-import { SkillList } from "@/utils/data";
-import { camelCase } from "@/utils/middleware";
+
+
+
 import axios from "axios";
 import { useDispatch } from "react-redux";
+
+
+import EducationDetails from "../../components/featured/candidate/registration/education_details";
+import ProfessionalDetails from "../../components/featured/candidate/registration/professional_details";
 import { reCallUserData } from "../../Redux/actions/user";
+
+
+import { SkillList } from "../../utils/data";
+import { camelCase } from "../../utils/middleware";
+import PersonalDetails from "../../components/featured/candidate/registration/personal_details";
+import CandidateAiPower from "../../components/featured/candidate/registration/candidate_ai_power";
+import Stepper from "../../components/featured/candidate/registration/stepper";
 function Candidate_register() {
   const [tabindex, setTabIndex] = useState(1);
   const router = useRouter();
+  const {isResume} = router.query
+  useEffect(()=>{
+    if(isResume){
+      setTabIndex(2)
+    }
+  },[isResume])
   const [file, setfile] = useState();
   const [skills, setSkills] = useState([...SkillList]);
   const [certificate, setCertificate] = useState();
@@ -27,12 +39,12 @@ function Candidate_register() {
     lastName: "",
     mobileNo: "",
     email: "",
-    password: "",
+
     dob: "",
     gender: "male",
     currentLocation: "",
-    workStatus: "experianced",
-    cv: "",
+   
+ 
     education: "10th or below",
     stream: "",
     university: "",
@@ -96,9 +108,10 @@ function Candidate_register() {
           localStorage.setItem("authToken", response.token);
           toast.success("Registration Complete");
           dispatch(reCallUserData());
-          router.push("/candidate/afterLogin/home/candidateHome");
+          router.push("/home/createResume");
         } else {
           toast.error("something went wrong");
+          router.push("/home/createResume");
         }
       })
       .catch((err) => {
@@ -113,14 +126,15 @@ function Candidate_register() {
           <div className="register_cadidate overflow-hidden">
             <div className="register_text_parent">
               <div className="register_heding">
-                <p className="register_heding_text">Register as candidate</p>
+                <p className="text-[30px] font-semibold text-white">Enter Details to Build your Professional Resume</p>
                 <p className="register_heding_desc">
-                  Start your career with Skilotech
+                  Create your Resume with Skilotech
                 </p>
               </div>
             </div>
           </div>
           {tabindex == 1 ? null : <Stepper tabindex={tabindex} data={data} />}
+       
         </div>
         <CandidateAiPower
           setTabIndex={setTabIndex}

@@ -45,7 +45,7 @@ function AddJobPreference({ setAddJobPreference,userData }) {
                     <ClosedIcon />
                 </div>
             </div>
-            <p className='text-[12px] font-normal'>Customize your job settings to match what you're looking for in a job.</p>
+            <p className='text-[12px] font-normal'>Customize your job settings to match what you are looking for in a job.</p>
 
             <div className='flex gap-6 w-full '>
                 <div className='flex flex-col gap-2 w-[48%]'>

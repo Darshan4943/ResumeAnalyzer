@@ -4,9 +4,9 @@ import { Document, Page, Text, View, StyleSheet, Image, Svg, Path, Rect, Font, D
 const Template17 = ({ data,selectedColor,selectedFont  }) => {
   return (
 
-    <Page size="A4" >
-      <View style={{ width: 595, minHeight: 841.8,  gap: 15, flexDirection: 'column', alignContent: 'center', justifyContent: 'start' ,}} >
-      <View style={{backgroundColor:selectedColor ,height:"24px",width:"100%",}}></View>
+    <Page size="A4" style={{paddingVertical: 24}}>
+      <View style={{ width: 595, minHeight: 792,  gap: 15, flexDirection: 'column', alignContent: 'center', justifyContent: 'start' ,}} >
+      <View style={{backgroundColor:"#D1D2D3" ,height:"24px",width:"100%",}}></View>
         <View style={{ flexDirection: 'row', alignItems: 'start', justifyContent: 'start', width: 595, gap: 25, paddingLeft: 20,marginTop:-24 }}>
           
           <View style={{ height: 170, width: 145 }}>
@@ -174,7 +174,7 @@ const Template17 = ({ data,selectedColor,selectedFont  }) => {
 
         </View>
 
-        <View style={{ gap: 13, flexDirection: 'row', width: 595, backgroundColor:selectedColor, paddingLeft: 20, paddingVertical: 10 }}>
+        <View style={{ gap: 13, flexDirection: 'row', width: 595, backgroundColor: '#F1F1F1', paddingLeft: 20, paddingVertical: 10 }}>
           <View style={{ width: 170, gap: 4 }}>
             <Text style={{ fontSize: 12, fontFamily: `${selectedFont} 500` }}>LANGUAGE</Text>
             <View style={{ flexDirection: "column", width: 170, gap: 6 }}>

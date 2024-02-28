@@ -1,81 +1,56 @@
 import React, { useEffect, useRef } from "react";
-const HeroSection = dynamic(
-  () => import("@/components/featured/home/hero_section"),
-  {
-    ssr: false,
-  }
-);
-import ForCandidate from "@/components/featured/home/for_candidate";
-
-import Profile_creation from "@/components/featured/home/profile_creation";
-import TrustedBySection from "@/components/featured/home/trusted_section";
-import { Background, Parallax } from "react-parallax";
-import { ReactLenis } from "@studio-freight/react-lenis";
-import JobCategories from "@/components/featured/home/job_categories";
-import dynamic from "next/dynamic";
-import Testimonial from "@/components/featured/home/Testimonial";
-import { useMediaQuery } from "@react-hook/media-query";
-import ResumeSection from "@/components/featured/home/resumeSection";
-import GenerateAi from "@/components/featured/home/GenerateAi";
-
-
+import Images from "../../components/featured/home/images";
+import GenerateAi from "../../components/featured/home/generateAi";
+import { useRouter } from 'next/router';
+import ImgCarousel from "./ImgCarousel";
 
 
 function BeforeLoginHome() {
-  const lenisRef = useRef();
-  const isViewportBelow850 = useMediaQuery("(max-width:850px)");
-
+  const router = useRouter();
   return (
-   <div>
-      {/* {isViewportBelow850 ? ( */}
-        <div className="mobile">
-    
-        <HeroSection />
-        <ResumeSection/>
-        <TrustedBySection />
-        <JobCategories />
-        <GenerateAi />
-        <ForCandidate />
-        <Profile_creation />
-        
-        <Testimonial />
-      </div>
-      {/* ) : ( */}
-        <div className="web">
-        <ReactLenis root>
-          <Parallax strength={100} className="h-[100vh]  pt-[36px]">
-            <Background className="custom-bg">
-              <HeroSection />
-              </Background>
-          </Parallax>
-              <Parallax strength={150} className="h-[52rem]  pt-[36px]">
-            <Background className="custom-bg">
-              <ResumeSection/>
-              <TrustedBySection />
-            </Background>
-          </Parallax>
-          {/* Add other Parallax components as needed */}
-          <Parallax strength={150} className="h-[40rem] pt-[70px] ">
-            <Background className="custom-bg ">
-              <JobCategories />
-            </Background>
-          </Parallax>
-          <Parallax strength={50} className="h-[39rem]  pt-[36px] ">
-            <Background className="custom-bg  ">
-              <GenerateAi />
-            </Background>
-          </Parallax>
-          <Parallax strength={300} className="h-[62rem]  pt-[36px]">
-            <Background className="custom-bg ">
-              <ForCandidate />
-            </Background>
-          </Parallax>
-          
-          <Profile_creation />
-          <Testimonial />
-        </ReactLenis>
+    <div className="">
+      <div className="flex flex-row gap-8 items-center customMargins">
+        <div className=" flex flex-col gap-6 w-[50%] text-[#333333]">
+          <div className="font-semibold scr1200:text-[72px] text-[52px] leading-none ">
+            The Best AI Resume Creator
+          </div>
+          <div className="font-medium scr1200:text-[24px] text-[20] ">
+            Craft compelling, recruiter-vetted resumes effortlessly with our cutting-edge resume builder powered by AI Generation. Tailor resumes for each role swiftly, leveraging a myriad of remarkable features. Enhance your prospects of securing an interview and distinguish yourself from competitors in just minutes.
+          </div>
+          <button onClick={() => router.push("/home/BuildResume")} className="px-9 py-4 bg-[#06A9EF] text-white w-[253px] rounded-[12px] text-[20px] font-semibold">
+            Build My Resume
+          </button>
+
         </div>
-      {/* )} */}
+        <div className="w-[50%]">
+          <Images />
+        </div>
+
+
+      </div>
+      <div className="flex items-end justify-center ">
+        <GenerateAi />
+      </div>
+
+      <div className="flex flex-row gap-9 items-center customMargins py-[142px] bg-carousel_bg bg-cover bg-no-repeat ">
+        <div className="w-[62%]">
+          <ImgCarousel />
+        </div>
+
+        <div className=" flex flex-col gap-6 w-[35%] text-[#333333]">
+          <div className="font-semibold scr1200:text-[36px] text-[30px] leading-none ">
+            Resume Templates for All Careers.
+          </div>
+          <div className="font-medium scr1200:text-[24px] text-[20px] w-[95%] break-words ">
+            Select one of our expertly designed resume templates, and you will be able to quickly and easily create a resume that fits your needs and style, even if you have never created one before using pre-approved sections that have been approved by recruiters worldwide.
+          </div>
+          <button className="px-9 py-4 bg-[#06A9EF] text-[20px] text-white w-[253px] font-semibold rounded-[12px]">
+            Get Started
+          </button>
+
+        </div>
+
+      </div>
     </div>
   );
 }

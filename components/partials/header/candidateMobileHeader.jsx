@@ -66,20 +66,18 @@ function CandidateMobileHeader() {
         <>
             <div className="flex p-2 justify-between fixed w-[100%] bg-white z-[100]  " style={{ boxShadow: "0px 1px 1px 0px rgba(0, 0, 0, 0.25)" }}>
                 <div className="flex gap-2 items-center">
-                    <div onClick={() => setIsSidebar(true)}>
-                        <img src="/images/home/menu.png" alt="" className="w-[30px] h-[30px] object-contain" />
-                    </div>
-                    {isLogin ?
-                        <div onClick={() => router.push("/candidate/afterLogin/home/candidateHome")}>
-                            <img src="/images/logo_skilotech.png" alt="" className="w-[123px] h-[40px] object-contain" />
+                    <>
+                        {isLogin &&
+                            <div onClick={() => setIsSidebar(true)}>
+                                <img src="/images/home/menu.png" alt="" className="w-[30px] h-[30px] object-contain" />
+                            </div>
+                    }
 
-                        </div>
-                        :
                         <div onClick={() => router.push("/")}>
                             <img src="/images/logo_skilotech.png" alt="" className="w-[123px] h-[40px] object-contain" />
 
                         </div>
-                    }
+                    </>
                 </div>
 
                 {isLogin ?

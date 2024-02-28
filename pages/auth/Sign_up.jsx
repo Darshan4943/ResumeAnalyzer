@@ -1,235 +1,190 @@
 import React, { useState } from "react";
-import ALink from "@/components/alink";
-import { useRouter } from "next/router";
-const ArrowLeft = ({ index }) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="25"
-    height="24"
-    viewBox="0 0 25 24"
-    fill="none"
-  >
-    <g mask="url(#mask0_3991_32467)">
-      <path
-        d="M8.525 22L6.75 20.225L14.975 12L6.75 3.775L8.525 2L18.525 12L8.525 22Z"
-        fill="#333333"
-        className={index != 2 && "svg_classs"}
-      />
-    </g>
-  </svg>
-);
 
-function Sign_up() {
+import axios from "axios";
+import { toast } from "react-toastify";
+import { useRouter } from "next/router";
+import { useDispatch } from "react-redux";
+import { reCallUserData } from "../../Redux/actions/user";
+import Link from "next/link";
+
+function Sign_up({ setIsSignIn }) {
   const router = useRouter();
+  const [data, setData] = useState({ email: "", password: "" });
+  const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState(null);
+  const dispatch = useDispatch();
+
+  const handleTogglePassword = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+    const dataToSend = {
+      email: data.email,
+      password: data.password,
+      confirmPassword: data.confirmPassword,
+    };
+    console.log("da", dataToSend);
+    axios
+      .post("https://freedygoservices.in/api/candidate/signin", dataToSend)
+      .then((res) => {
+        const response = res.data;
+        if (response.success) {
+          localStorage.setItem("authToken", response.token);
+          dispatch(reCallUserData());
+          toast.success("Sign in Successfully");
+          router.push("/candidate/afterLogin/home/candidateHome");
+          setError("Sign in Successfully");
+        } else {
+          toast.error("something went wrong");
+        }
+      })
+      .catch((err) => {
+        setError(err?.response?.data.message);
+        console.log(err.response);
+      });
+  };
+
   return (
-    <>
-      <div className="flex justify-center  items-center h-full w-full earth_container my-[3rem]">
-        <div className="w-full flex flex-col gap-[36px] pb-[10px]">
-          <div>
-            <div className="text-[#333] text-center text-[30px] ms:text-[40px] font-[600]">
-              Select a role to get started
-            </div>
-            <div className="text-[#646464] text-center text-[14px] ms:text-[16px] font-[500]">
-              We need to know which role best matches you so that we can <br />
-              personalize your experience.
-            </div>
+    <div className="flex justify-center items-center py-12 pl-[8px] pr-[8px]">
+      <form
+        onSubmit={submitHandler}
+        className="flex w-full sm:w-[464px] p-[24px] gap-[24px] flex-col justify-center items-center rounded-[24px] "
+        style={{
+          boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
+        }}
+      >
+        <div className="text-[30px] font-[600]">Sign Up</div>
+        <div className="w-full flex flex-col gap-[24px]">
+          <div className="flex flex-row px-[16px] py-[12px] border-[1px]  rounded-[8px] border-solid border-[#9D9D9D]">
+            <input
+              type="email"
+              name=""
+              id=""
+              placeholder="Enter Email"
+              value={data.email}
+              onChange={(e) => setData({ ...data, email: e.target.value })}
+              className="w-full "
+            />
           </div>
-          <div className="flex justify-center item-center">
-            <div className="flex flex-col gap-[24px] px-[8px]">
-              <ALink href="/auth/Candidate_register">
-                <div className="p-[16px] z-0 flex flex-row justify-between rounded-[16px] relative sign_up_shadow">
-                  <div className="flex flex-row justify-center item-center gap-[8px] ">
-                    <div className="flex items-center">
-                      <div className="p-[8px] border-[1px] border-[#333] rounded-[50%] sign_iu_text_border">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="25"
-                          height="24"
-                          viewBox="0 0 25 24"
-                          fill="none"
-                        >
-                          <g clipPath="url(#clip0_3813_27793)">
-                            <path
-                              d="M21.0358 12.812H19.1797C19.3689 13.33 19.4722 13.889 19.4722 14.4716V21.4864C19.4722 21.7293 19.43 21.9625 19.353 22.1793H22.4215C23.5678 22.1793 24.5002 21.2468 24.5002 20.1006V16.2765C24.5003 14.3662 22.9461 12.812 21.0358 12.812Z"
-                              fill="#333333"
-                              className="svg_classs"
-                            />
-                            <path
-                              d="M5.52806 14.4716C5.52806 13.8889 5.63142 13.33 5.8206 12.812H3.96454C2.05419 12.812 0.5 14.3662 0.5 16.2765V20.1007C0.5 21.2469 1.43249 22.1794 2.57872 22.1794H5.64726C5.57034 21.9625 5.52806 21.7293 5.52806 21.4864V14.4716Z"
-                              fill="#333333"
-                              className="svg_classs"
-                            />
-                            <path
-                              d="M14.6218 11.0071H10.3786C8.46825 11.0071 6.91406 12.5613 6.91406 14.4716V21.4865C6.91406 21.8691 7.22428 22.1794 7.60697 22.1794H17.3935C17.7761 22.1794 18.0864 21.8692 18.0864 21.4865V14.4716C18.0864 12.5613 16.5322 11.0071 14.6218 11.0071Z"
-                              fill="#333333"
-                              className="svg_classs"
-                            />
-                            <path
-                              d="M12.5005 1.82056C10.2031 1.82056 8.33398 3.68965 8.33398 5.98714C8.33398 7.5455 9.1941 8.90652 10.4643 9.62109C11.0668 9.95999 11.7614 10.1537 12.5005 10.1537C13.2397 10.1537 13.9342 9.95999 14.5367 9.62109C15.807 8.90652 16.6671 7.54546 16.6671 5.98714C16.6671 3.6897 14.798 1.82056 12.5005 1.82056Z"
-                              fill="#333333"
-                              className="svg_classs"
-                            />
-                            <path
-                              d="M5.18438 5.7041C3.46617 5.7041 2.06836 7.10192 2.06836 8.82012C2.06836 10.5383 3.46617 11.9361 5.18438 11.9361C5.62023 11.9361 6.03526 11.8459 6.41227 11.6836C7.06412 11.4029 7.60159 10.9062 7.93417 10.2839C8.16761 9.84716 8.3004 9.34892 8.3004 8.82012C8.3004 7.10196 6.90259 5.7041 5.18438 5.7041Z"
-                              fill="#333333"
-                              className="svg_classs"
-                            />
-                            <path
-                              d="M19.8172 5.7041C18.099 5.7041 16.7012 7.10192 16.7012 8.82012C16.7012 9.34897 16.834 9.8472 17.0674 10.2839C17.4 10.9062 17.9375 11.403 18.5893 11.6836C18.9663 11.8459 19.3813 11.9361 19.8172 11.9361C21.5354 11.9361 22.9332 10.5383 22.9332 8.82012C22.9332 7.10192 21.5354 5.7041 19.8172 5.7041Z"
-                              fill="#333333"
-                              className="svg_classs"
-                            />
-                          </g>
-                          <defs>
-                            <clipPath id="clip0_3813_27793">
-                              <rect
-                                width="24"
-                                height="24"
-                                fill="white"
-                                transform="translate(0.5)"
-                              />
-                            </clipPath>
-                          </defs>
-                        </svg>
-                      </div>
-                    </div>
-                    <div>
-                      <div className="text-[20px] font-[500] sign_ip_text">
-                        Candidate
-                      </div>
-                      <div className="text-[14px] font-[500] text-[#646464] sign_ip_text">
-                        I’am searching for a job
-                      </div>
-                    </div>
-                  </div>
-                  <div className="flex justify-center items-center">
-                    <ArrowLeft />
-                  </div>
-                  <div className="h-[100%] w-[0%] bg-[#06a9ef] absolute z-[-1] top-[0px] left-[0]  sign_up_blue_hover"></div>
-                </div>
-              </ALink>
-              <ALink href="/auth/Employer_register">
-                <div className="p-[16px] z-0 flex flex-row justify-between rounded-[16px] relative sign_up_shadow">
-                  <div className="flex flex-row justify-center item-center gap-[8px] ">
-                    <div className="flex items-center">
-                      {" "}
-                      <div className="p-[8px] border-[1px] border-[#333] rounded-[50%]">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="25"
-                          height="24"
-                          viewBox="0 0 25 24"
-                          fill="none"
-                        >
-                          <g clipPath="url(#clip0_3813_33761)">
-                            <path
-                              d="M8.2274 10.1756C8.44604 11.5968 9.54424 13.4056 11.3481 14.0417C12.0885 14.3001 12.8985 14.3051 13.6389 14.0367C15.4129 13.3957 16.5459 11.5919 16.7695 10.1756C17.008 10.1558 17.3211 9.82283 17.659 8.62525C18.1211 6.99038 17.6291 6.74689 17.2117 6.78664C17.2912 6.56302 17.3509 6.33444 17.3906 6.11579C18.0963 1.87706 16.0092 1.73295 16.0092 1.73295C16.0092 1.73295 15.6613 1.06708 14.752 0.565186C14.1408 0.202433 13.291 -0.0758426 12.173 0.0185724C11.8102 0.03348 11.4673 0.108018 11.1443 0.212372C10.7319 0.35151 10.3542 0.555247 10.0113 0.793769C9.59393 1.05714 9.19639 1.38511 8.84855 1.7578C8.29697 2.32429 7.80501 3.05476 7.59134 3.96413C7.41245 4.64491 7.4522 5.35551 7.60128 6.12076C7.64103 6.34438 7.70066 6.56799 7.78017 6.79161C7.36275 6.75185 6.8708 6.99535 7.33294 8.63022C7.67581 9.82283 7.98888 10.1558 8.2274 10.1756Z"
-                              fill="#333333"
-                            />
-                            <path
-                              d="M20.6957 15.7362C18.1565 15.0902 16.0943 13.6392 16.0943 13.6392L14.4842 18.7326L14.1811 19.6917L14.1761 19.6768L13.9128 20.4917L13.063 18.0816C15.1501 15.1697 12.6407 15.1995 12.5015 15.2045C12.3624 15.1995 9.85293 15.1697 11.94 18.0816L11.0903 20.4917L10.8269 19.6768L10.8219 19.6917L10.5188 18.7326L8.90381 13.6392C8.90381 13.6392 6.84159 15.0902 4.30232 15.7362C2.40905 16.2182 2.3196 18.4046 2.39414 19.483C2.39414 19.483 2.50346 20.9489 2.61279 21.5949C2.61279 21.5949 6.30988 23.995 12.5015 24C18.6932 24 22.3902 21.5949 22.3902 21.5949C22.4996 20.9489 22.6089 19.483 22.6089 19.483C22.6785 18.4046 22.589 16.2182 20.6957 15.7362Z"
-                              fill="#333333"
-                            />
-                          </g>
-                          <defs>
-                            <clipPath id="clip0_3813_33761">
-                              <rect
-                                width="24"
-                                height="24"
-                                fill="white"
-                                transform="translate(0.5)"
-                              />
-                            </clipPath>
-                          </defs>
-                        </svg>{" "}
-                      </div>
-                    </div>
-                    <div>
-                      <div className="text-[20px] font-[500] ">Employer</div>
-                      <div className="text-[14px] font-[500] text-[#646464]">
-                        I'am searching for skilled employees{" "}
-                      </div>
-                    </div>
-                  </div>
-                  <div className="flex justify-center items-center">
-                    <ArrowLeft index={2} />
-                  </div>
-                  <div className="h-[100%] w-[0%] bg-[#FFDA1D] absolute z-[-1] top-[0px] left-[0]  sign_up_blue_hover"></div>
-                </div>
-              </ALink>
-              <ALink href="/auth/Recruiter_register">
-                <div className="p-[16px] z-0 flex flex-row justify-between rounded-[16px] relative sign_up_shadow">
-                  <div className="flex flex-row justify-center item-center gap-[8px] ">
-                    <div className="flex items-center">
-                      <div className="p-[8px]  rounded-[50%] sign_iu_text_border ">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="25"
-                          height="24"
-                          viewBox="0 0 25 24"
-                          fill="none"
-                        >
-                          <g clipPath="url(#clip0_3813_27618)">
-                            <path
-                              d="M24.5 11.2851H22.115C21.7645 6.53381 17.9665 2.73605 13.2149 2.38485V0H11.7851V2.38485C7.0337 2.73605 3.23536 6.5337 2.88485 11.2851H0.5V12.7149H2.88485C3.23536 17.4666 7.0337 21.264 11.7851 21.6151V24H13.2149V21.6151C17.9665 21.264 21.7645 17.4666 22.115 12.7149H24.5V11.2851ZM12.5001 20.2215C7.96689 20.2215 4.2785 16.5331 4.2785 11.9999C4.2785 7.46677 7.96689 3.77839 12.5001 3.77839C17.0332 3.77839 20.7216 7.46677 20.7216 11.9999C20.7216 16.5331 17.0332 20.2215 12.5001 20.2215Z"
-                              fill="#333333"
-                              className="svg_classs"
-                            />
-                            <path
-                              d="M13.933 12.3476C14.9829 11.6411 15.7063 10.2475 15.7063 8.99295C15.7063 7.22277 14.2708 5.78796 12.5004 5.78796C10.7309 5.78796 9.29618 7.22335 9.29618 8.99295C9.29618 10.2475 10.0181 11.6411 11.0691 12.3476C8.55676 12.9844 6.69727 15.164 6.69727 16.7795C6.69727 18.6897 18.3049 18.6897 18.3049 16.7795C18.3049 15.1648 16.4435 12.9844 13.933 12.3476ZM12.5004 18.2108L10.8753 16.5854L12.2438 13.277H12.2294L11.6974 12.6675C11.954 12.7596 12.2221 12.8155 12.5004 12.8155C12.7782 12.8155 13.0464 12.7596 13.3032 12.6688L12.7712 13.2778H12.7587L14.1271 16.5863L12.5004 18.2108Z"
-                              fill="#333333"
-                              className="svg_classs"
-                            />
-                          </g>
-                          <defs>
-                            <clipPath id="clip0_3813_27618">
-                              <rect
-                                width="24"
-                                height="23.9999"
-                                fill="white"
-                                transform="translate(0.5)"
-                              />
-                            </clipPath>
-                          </defs>
-                        </svg>{" "}
-                      </div>
-                    </div>
-                    <div>
-                      <div className="text-[20px] font-[500] sign_ip_text">
-                        Recruiter
-                      </div>
-                      <div className="text-[14px] font-[500] text-[#646464] sign_ip_text">
-                        I’am willing to collaborate with employers{" "}
-                      </div>
-                    </div>
-                  </div>
-                  <div className="flex justify-center items-center">
-                    <ArrowLeft />
-                  </div>
-                  <div className="h-[100%] w-[0%] bg-[#06a9ef] absolute z-[-1] top-[0px] left-[0]  sign_up_blue_hover"></div>
-                </div>
-              </ALink>
-            </div>
-          </div>
-          <div className="flex items-center justify-center text-[14px] font-[500] text-[#646464]">
-            Already have an account?{" "}
-            <button>
-              <span
-                onClick={() =>
-                  router.push({
-                    pathname: "/auth",
-                    query: { signin: true },
-                  })
-                }
-                className="text-[#06A9EF] border-b-[1px] border-solid border-[#fff] hover:border-[#06A9EF] transition-all transition-[0.2s]"
+          <div className="flex flex-col gap-[10px]">
+            <div className="flex flex-row px-[16px] py-[12px] border-[1px] rounded-[8px] border-solid border-[#9D9D9D] justify-between">
+              <input
+                type={showPassword ? "text" : "password"}
+                name=""
+                id=""
+                placeholder="Enter password"
+                className="w-full"
+                value={data.password}
+                onChange={(e) => setData({ ...data, password: e.target.value })}
+              />
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                onClick={handleTogglePassword}
+                style={{ cursor: "pointer" }}
               >
-                Sign In
-              </span>
-            </button>
+                <path
+                  d="M12 16C13.25 16 14.3125 15.5625 15.1875 14.6875C16.0625 13.8125 16.5 12.75 16.5 11.5C16.5 10.25 16.0625 9.1875 15.1875 8.3125C14.3125 7.4375 13.25 7 12 7C10.75 7 9.6875 7.4375 8.8125 8.3125C7.9375 9.1875 7.5 10.25 7.5 11.5C7.5 12.75 7.9375 13.8125 8.8125 14.6875C9.6875 15.5625 10.75 16 12 16ZM12 14.2C11.25 14.2 10.6125 13.9375 10.0875 13.4125C9.5625 12.8875 9.3 12.25 9.3 11.5C9.3 10.75 9.5625 10.1125 10.0875 9.5875C10.6125 9.0625 11.25 8.8 12 8.8C12.75 8.8 13.3875 9.0625 13.9125 9.5875C14.4375 10.1125 14.7 10.75 14.7 11.5C14.7 12.25 14.4375 12.8875 13.9125 13.4125C13.3875 13.9375 12.75 14.2 12 14.2ZM12 19C9.56667 19 7.35 18.3208 5.35 16.9625C3.35 15.6042 1.9 13.7833 1 11.5C1.9 9.21667 3.35 7.39583 5.35 6.0375C7.35 4.67917 9.56667 4 12 4C14.4333 4 16.65 4.67917 18.65 6.0375C20.65 7.39583 22.1 9.21667 23 11.5C22.1 13.7833 20.65 15.6042 18.65 16.9625C16.65 18.3208 14.4333 19 12 19ZM12 17C13.8833 17 15.6125 16.5042 17.1875 15.5125C18.7625 14.5208 19.9667 13.1833 20.8 11.5C19.9667 9.81667 18.7625 8.47917 17.1875 7.4875C15.6125 6.49583 13.8833 6 12 6C10.1167 6 8.3875 6.49583 6.8125 7.4875C5.2375 8.47917 4.03333 9.81667 3.2 11.5C4.03333 13.1833 5.2375 14.5208 6.8125 15.5125C8.3875 16.5042 10.1167 17 12 17Z"
+                  fill="#9D9D9D"
+                />
+              </svg>
+            </div>
+            <div className="flex flex-row px-[16px] py-[12px] border-[1px] rounded-[8px] border-solid border-[#9D9D9D] justify-between">
+              <input
+                type={showPassword ? "text" : "password"}
+                name=""
+                id=""
+                placeholder="Confirm password"
+                className="w-full"
+                value={data.password}
+                onChange={(e) => setData({ ...data, confirmPassword: e.target.value })}
+              />
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                onClick={handleTogglePassword}
+                style={{ cursor: "pointer" }}
+              >
+                <path
+                  d="M12 16C13.25 16 14.3125 15.5625 15.1875 14.6875C16.0625 13.8125 16.5 12.75 16.5 11.5C16.5 10.25 16.0625 9.1875 15.1875 8.3125C14.3125 7.4375 13.25 7 12 7C10.75 7 9.6875 7.4375 8.8125 8.3125C7.9375 9.1875 7.5 10.25 7.5 11.5C7.5 12.75 7.9375 13.8125 8.8125 14.6875C9.6875 15.5625 10.75 16 12 16ZM12 14.2C11.25 14.2 10.6125 13.9375 10.0875 13.4125C9.5625 12.8875 9.3 12.25 9.3 11.5C9.3 10.75 9.5625 10.1125 10.0875 9.5875C10.6125 9.0625 11.25 8.8 12 8.8C12.75 8.8 13.3875 9.0625 13.9125 9.5875C14.4375 10.1125 14.7 10.75 14.7 11.5C14.7 12.25 14.4375 12.8875 13.9125 13.4125C13.3875 13.9375 12.75 14.2 12 14.2ZM12 19C9.56667 19 7.35 18.3208 5.35 16.9625C3.35 15.6042 1.9 13.7833 1 11.5C1.9 9.21667 3.35 7.39583 5.35 6.0375C7.35 4.67917 9.56667 4 12 4C14.4333 4 16.65 4.67917 18.65 6.0375C20.65 7.39583 22.1 9.21667 23 11.5C22.1 13.7833 20.65 15.6042 18.65 16.9625C16.65 18.3208 14.4333 19 12 19ZM12 17C13.8833 17 15.6125 16.5042 17.1875 15.5125C18.7625 14.5208 19.9667 13.1833 20.8 11.5C19.9667 9.81667 18.7625 8.47917 17.1875 7.4875C15.6125 6.49583 13.8833 6 12 6C10.1167 6 8.3875 6.49583 6.8125 7.4875C5.2375 8.47917 4.03333 9.81667 3.2 11.5C4.03333 13.1833 5.2375 14.5208 6.8125 15.5125C8.3875 16.5042 10.1167 17 12 17Z"
+                  fill="#9D9D9D"
+                />
+              </svg>
+            </div>
+            
+            
+            <div className="flex justify-end text-[#06A9EF] text-[12px] font-[500] ">
+              <a href="" className="already_sign">
+                Forgot password?
+              </a>
+            </div>
+            
+            <div
+              className={`flex justify-center text-[12px] font-[500] ${error === "Sign in Successfully"
+                  ? "text-green-800"
+                  : "text-red-800"
+                }`}
+            >
+              <p>{error}</p>
+            </div>
           </div>
         </div>
-      </div>
-    </>
+        <div className="w-full flex flex-col gap-[16px]">
+          <button className="w-full px-[36px] py-[12px] rounded-[12px] border-[1px] border-solid border-[#06a9ef] text-[20px] font-[500] hover:bg-[#06a9ef] hover:text-[#fff] transition-all duration-200">
+            Sign Up
+          </button>
+          <div className="flex flex-row items-center justify-center gap-[6px]">
+            <div className="w-[50%] h-[1px] bg-[#9D9D9D]"></div>Or
+            <div className="w-[50%] h-[1px] bg-[#9D9D9D]"></div>
+          </div>
+          <div className="flex flex-col gap-[16px]">
+            <Link
+              href={{
+                pathname: "/auth",
+                query: { signup: true },
+              }}>
+              <button className="w-full px-[36px] py-[12px] rounded-[12px] border-[1px] border-solid border-[#9D9D9D]   text-[16px] font-[500] text-[#333] flex items-center gap-2 justify-center continue_btn">
+                <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <g clip-path="url(#clip0_128_5190)">
+                    <path d="M24.4873 12.2245C24.4873 11.2413 24.4057 10.5237 24.229 9.77963H12.739V14.2176H19.4833C19.3474 15.3205 18.6132 16.9815 16.9814 18.0976L16.9585 18.2461L20.5915 20.9963L20.8431 21.0209C23.1547 18.9347 24.4873 15.8653 24.4873 12.2245Z" fill="#4285F4" />
+                    <path d="M12.7391 23.9176C16.0433 23.9176 18.8171 22.8545 20.8432 21.0209L16.9815 18.0976C15.9481 18.8018 14.5611 19.2934 12.7391 19.2934C9.50291 19.2934 6.75622 17.2074 5.77711 14.324L5.63359 14.3359L1.85604 17.1927L1.80664 17.3269C3.81906 21.2334 7.95273 23.9176 12.7391 23.9176Z" fill="#34A853" />
+                    <path d="M5.77702 14.324C5.51867 13.5799 5.36916 12.7826 5.36916 11.9588C5.36916 11.1349 5.51867 10.3377 5.76343 9.5936L5.75658 9.43513L1.9317 6.53241L1.80655 6.59058C0.97714 8.21168 0.501221 10.0321 0.501221 11.9588C0.501221 13.8855 0.97714 15.7058 1.80655 17.3269L5.77702 14.324Z" fill="#FBBC05" />
+                    <path d="M12.7391 4.62403C15.0371 4.62403 16.5871 5.59402 17.471 6.40461L20.9248 3.10928C18.8036 1.1826 16.0433 0 12.7391 0C7.95273 0 3.81906 2.68406 1.80664 6.59056L5.76351 9.59359C6.75622 6.7102 9.50291 4.62403 12.7391 4.62403Z" fill="#EB4335" />
+                  </g>
+                 
+                </svg>
+
+
+                Sign Up with Google
+              </button>
+            </Link>
+            <div className="text-[14px] flex justify-center font-medium items-center">
+              Already have an account ?{" "}
+              <span
+              href="/auth?signin=true"
+                className="already_sign"
+                style={{
+                  fontSize: "12px",
+                  color: "#06A9EF",
+                }}
+              >
+                <a > Sign In</a>
+              </span>
+             
+             
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
   );
 }
 

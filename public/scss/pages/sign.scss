@@ -1400,14 +1400,15 @@
   align-items: flex-start;
   gap: 24px;
   position: relative;
+  width:60%
 }
 
 
 .personal_name_parent {
   display: flex;
   align-items: flex-start;
-  gap: 20px;
-  width: 100%;
+  gap: 24px;
+width:50%
 }
 @media (max-width:850px) {
   .personal_name_parent{
@@ -1416,7 +1417,7 @@
 }
 .personal_name {
   display: flex;
-  width: 100%;
+  width:50%;
   flex-direction: column;
   align-items: flex-start;
   gap: 4px;
@@ -1471,7 +1472,7 @@
 
 .personal_single_input {
   display: flex;
-  width: 600px;
+  width:50%;
   flex-direction: column;
   align-items: flex-start;
   gap: 4px;
@@ -1663,9 +1664,9 @@ button {
 
 .notice_period {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: flex-start;
-  gap: 8px;
+  gap: 16px;
 }
 
 .radio {

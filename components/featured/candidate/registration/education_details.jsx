@@ -5,32 +5,7 @@ const EducationDetails = ({ data, setData, setTabIndex, tabindex }) => {
 
   const [formError, setFormError] = useState({})
 
-  // const validateForm = () => {
-  //   const errors = {};
-  //   if (!data.stream.trim()) {
-  //     errors.stream = "Degree is required";
-  //   }
-  //   else if (!isNaN(data.stream)) {
-  //     errors.stream = "Degree cannot be a number"
-  //   }
-  //   if (!data.university.trim()) {
-  //     errors.university = "University Name is required";
-  //   }
-  //   else if (!isNaN(data.university)) {
-  //     errors.university = "University Name cannot be a number"
-  //   }
-  //   if (!data.institute.trim()) {
-  //     errors.institute = "Collage Name is required";
-  //   }
-  //   else if (!isNaN(data.institute)) {
-  //     errors.institute = "Collage Name cannot be a number"
-  //   }
-  //   if (!data.dateOfComplition.trim()) {
-  //     errors.dateOfComplition = "Date Of Complition is required";
-  //   }
-  //   setFormError(errors)
-  //   return errors;
-  // };
+
 
 
   const validateInput = (fieldName, value) => {
@@ -111,116 +86,13 @@ const EducationDetails = ({ data, setData, setTabIndex, tabindex }) => {
         <div className="show-content">
           <div className="personal_details  p-4  pb-[96px]" >
             <div className="personal_details_form education_page ">
-            <div className="register_back_block">
-                <img
-                  className="mail_img"
-                  src="/images/auth/candidate/Group_1.png"
-                  alt=""
-                  style={{
-                    right: "-14rem",
-                    top: "2rem",
-                    width: "26%",
-                    animationDelay: 0.2,
-                  }}
-                />
+           
 
-                <img
-                  className="group_2"
-                  src="/images/auth/candidate/Group_2.png"
-                  alt=""
-                />
-
-                <img
-                  className="phone_img "
-                  src="/images/auth/candidate/Group_3.png"
-                  alt=""
-                  style={{ width: "26%", top: "37rem", right: "-19rem" }}
-                />
-
-                <img
-                  className="location_img"
-                  src="/images/auth/candidate/Group_4.png"
-                  alt=""
-                  style={{ top: "8rem", left: "-7.2rem", width: "17%" }}
-                />
-
-                <img
-                  className="data_img"
-                  src="/images/auth/candidate/Group_5.png"
-                  alt=""
-                  style={{ left: "-16rem", top: "22rem", width: "22%" }}
-                />
-
-                <img
-                  className="group_6"
-                  src="/images/auth/candidate/Group_6.png"
-                  style={{ position: "absolute" }}
-                  alt=""
-                />
-              </div>
-
-              <div className="personal_single_input">
-                <div className="personal_name">
-                  <p className="form_text_heading">Highest Education</p>
-                  <div className="education_button education_page">
-                    <button
-                      className={`gen_button ${data.education == "10th or below" && "gen_button_active"
-                        }`}
-                      onClick={(e) => {
-                        e.preventDefault();
-                        setData({ ...data, education: "10th or below" });
-                      }}
-                    >
-                      10th or below
-                    </button>
-                    <button
-                      className={`gen_button ${data.education == "12 pass" && "gen_button_active"
-                        }`}
-                      onClick={(e) => {
-                        e.preventDefault();
-                        setData({ ...data, education: "12 pass" });
-                      }}
-                    >
-                      12 pass
-                    </button>
-                    <button
-                      className={`gen_button ${data.education == "Diploma" && "gen_button_active"
-                        }`}
-                      onClick={(e) => {
-                        e.preventDefault();
-                        setData({ ...data, education: "Diploma" });
-                      }}
-                    >
-                      Diploma
-                    </button>
-                    <button
-                      className={`gen_button ${data.education == "Graduate" && "gen_button_active"
-                        }`}
-                      onClick={(e) => {
-                        e.preventDefault();
-                        setData({ ...data, education: "Graduate" });
-                      }}
-                    >
-                      Graduate
-                    </button>
-                    <button
-                      className={`gen_button ${data.education == "Post Graduate" && "gen_button_active"
-                        }`}
-                      onClick={(e) => {
-                        e.preventDefault();
-                        setData({ ...data, education: "Post Graduate" });
-                      }}
-                    >
-                      Post Graduate
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              <div className="personal_single_input">
-                <div className="personal_name">
+              <div className="flex gap-6 w-[100%]">
+              <div className="personal_single_input w-[100%]">
+                <div className="personal_name w-[100%]">
                   <p className="form_text_heading">
-                    Select Degree <span className="star">*</span>
+                    Education <span className="star">*</span>
                   </p>
                   <input
                     type="text"
@@ -234,8 +106,8 @@ const EducationDetails = ({ data, setData, setTabIndex, tabindex }) => {
                 </div>
               </div>
 
-              <div className="personal_single_input">
-                <div className="personal_name">
+              <div className="personal_single_input w-[100%]">
+                <div className="personal_name  w-[100%]">
                   <p className="form_text_heading">
                     University Name <span className="star">*</span>
                   </p>
@@ -250,9 +122,11 @@ const EducationDetails = ({ data, setData, setTabIndex, tabindex }) => {
                   {formError && <p className="text-[12px] text-[red] font-[500]">{formError?.university}</p>}
                 </div>
               </div>
-
-              <div className="personal_single_input">
-                <div className="personal_name">
+              </div>
+              
+              <div className="flex gap-6 w-[100%]">
+              <div className="personal_single_input  w-[100%]">
+                <div className="personal_name w-[100%]">
                   <p className="form_text_heading">
                     Collage Name <span className="star">*</span>
                   </p>
@@ -268,8 +142,8 @@ const EducationDetails = ({ data, setData, setTabIndex, tabindex }) => {
                 </div>
               </div>
 
-              <div className="personal_single_input">
-                <div className="personal_name">
+              <div className="personal_single_input w-[100%]">
+                <div className="personal_name w-[100%]">
                   <p className="form_text_heading">
                     Date Of Completion <span className="star">*</span>
                   </p>
@@ -283,6 +157,7 @@ const EducationDetails = ({ data, setData, setTabIndex, tabindex }) => {
                   />
                   {formError && <p className="text-[12px] text-[red] font-[500]">{formError?.dateOfComplition}</p>}
                 </div>
+              </div>
               </div>
               <div className="bottom_buttons">
                 <button

@@ -55,13 +55,15 @@ function Header({ userData }) {
           selectedPage === "/auth/Recruiter_register"
           ? " "
           : "bg-white z-[100] fixed w-[100%] "
+          
       }
       style={{
         boxShadow:
-          selectedPage === "/" ? "none" : "0px 1px 4px 0px rgba(0, 0, 0, 0.25)",
+          "0px 1px 4px 0px rgba(0, 0, 0, 0.25)",
+          
       }}
     >
-      <div className="header_parent sticky-header customMargins z-[100]">
+      <div className="header_parent sticky-header customMargins  z-[100]">
         <div className="header   ">
 
           {!isLogin ? (
@@ -72,42 +74,8 @@ function Header({ userData }) {
                   <img src="/images/logo_skilotech.png" alt="" />
                 </Link>
 
-                <Link
-                  href="/"
-                  className={selectedPage === "/" ? "active" : "li"}
-                >
-                  <li>Home</li>
-                </Link>
-                <Link
-                  href="/candidate"
-                  className={
-                    selectedPage === "/candidate"
-                      ? "active"
-                      : "li"
-                  }
-                >
-                  <li>Candidate</li>
-                </Link>
-                <Link
-                  href="/employer"
-                  className={
-                    selectedPage === "/employer"
-                      ? "active"
-                      : "li"
-                  }
-                >
-                  <li>Employer</li>
-                </Link>
-                <Link
-                  href="/recruiter"
-                  className={
-                    selectedPage === "/recruiter"
-                      ? "active"
-                      : "li"
-                  }
-                >
-                  <li>Recruiter</li>
-                </Link>
+
+
               </div>
               <div className="header_right">
                 <div

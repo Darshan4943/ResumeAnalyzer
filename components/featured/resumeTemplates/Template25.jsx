@@ -63,7 +63,7 @@ function Template25({ data,selectedColor,selectedFont  }) {
               paddingLeft: "24px",
               gap: "10px",
               width: "300px",
-              backgroundColor: selectedColor,
+              backgroundColor: "#414042",
             }}
           >
             <Text
@@ -549,7 +549,7 @@ function Template25({ data,selectedColor,selectedFont  }) {
             <View
               style={{
                 width: "100%",
-                backgroundColor: selectedColor,
+                backgroundColor: "#414042",
                 padding: "16px",
                 display: "flex",
                 flexDirection: "column",

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import generatePDF from "react-to-pdf";
 import html2canvas from "html2canvas";
 import axios from "axios";
@@ -7,8 +7,8 @@ import ReactDOMServer from "react-dom/server";
 import jsPDF from "jspdf";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { reCallUserData } from "@/Redux/actions/user";
-import MiniLoader from "@/components/common/mini-loader";
+
+
 
 import {
   PDFViewer,
@@ -69,83 +69,105 @@ import Template23 from "../../resumeTemplates/Template23";
 import Template26 from "../../resumeTemplates/Template26";
 import Template27 from "../../resumeTemplates/Template27";
 import Template45 from "../../resumeTemplates/Template45";
-import Fonts from "@/public/fonts/fonts";
+
 import Template48 from "../../resumeTemplates/Template48";
 import Template50 from "../../resumeTemplates/Template50";
 import Template56 from "../../resumeTemplates/Template56";
+import { reCallUserData } from "../../../../Redux/actions/user";
+
+import Fonts from "../../../../public/fonts/fonts";
+import MiniLoader from "../../../common/mini-loader";
+import { ClosedIcon } from "../../../../utils/svg";
 <Fonts />
 const ResumePreview = ({ data, isSetEdit, selectedResumeIndex, setSelectedResumeIndex, selectedColor, setSelectedColor, setSelectedFont, selectedFont }) => {
- 
+
   const templates = [
-    { title: 'Template1', imgUrl: '/images/templates/template1.png', index: 1, fontFamily:"Lato", themeColor:"#414042" },
-    { title: 'Template2', imgUrl: '/images/templates/template2.png', index: 2, fontFamily:"Barlow", themeColor:"#F7902B" },
-    { title: 'Template3', imgUrl: '/images/templates/template3.png', index: 3, fontFamily:"Inter", themeColor:"#414042" },
-    { title: 'Template4', imgUrl: '/images/templates/template4.png', index: 4, fontFamily:"Montserrat", themeColor:"#00AEEF" },
-    { title: 'Template5', imgUrl: '/images/templates/template5.png', index: 5, fontFamily:"Kanit", themeColor:"#316059" },
-    { title: 'Template6', imgUrl: '/images/templates/template6.png', index: 6, fontFamily:"Lato", themeColor:"#FFC20E" },
-    { title: 'Template7', imgUrl: '/images/templates/template7.png', index: 7, fontFamily:"Montserrat", themeColor:"#0077F9" },
-    { title: 'Template8', imgUrl: '/images/templates/template8.png', index: 8, fontFamily:"Montserrat", themeColor:"#646464" },
-    { title: 'Template9', imgUrl: '/images/templates/template9.png', index: 9, fontFamily:"Montserrat", themeColor:"#FFD740" },
-    { title: 'Template10', imgUrl: '/images/templates/template10.png', index: 10, fontFamily:"Inter", themeColor:"#F2BE5C" },
-    { title: 'Template11', imgUrl: '/images/templates/template11.png', index: 11, fontFamily:"Montserrat", themeColor:"#E6E7E8" },
-    { title: 'Template12', imgUrl: '/images/templates/template12.png', index: 12, fontFamily:"Lato", themeColor:"#2EA0D7" },
-    { title: 'Template13', imgUrl: '/images/templates/template13.png', index: 13, fontFamily:"Poppins", themeColor:"#0E6CC2" },
-    { title: 'Template14', imgUrl: '/images/templates/template14.png', index: 14, fontFamily:"Inter", themeColor:"#242424" },
-    { title: 'Template15', imgUrl: '/images/templates/template15.png', index: 15, fontFamily:"Inter", themeColor:"#716D6D" },
-    { title: 'Template16', imgUrl: '/images/templates/template16.png', index: 16, fontFamily:"Inter", themeColor:"#545554" },
-    { title: 'Template17', imgUrl: '/images/templates/template17.png', index: 17, fontFamily:"Montserrat", themeColor:"#D1D2D3" },
-    { title: 'Template18', imgUrl: '/images/templates/template18.png', index: 18, fontFamily:"Montserrat", themeColor:"#F1F1F1" },
-    { title: 'Template19', imgUrl: '/images/templates/template19.png', index: 19, fontFamily:"Inter", themeColor:"#000000" },
-    { title: 'Template20', imgUrl: '/images/templates/template20.png', index: 20, fontFamily:"Montserrat", themeColor:"#303030" },
-    { title: 'Template21', imgUrl: '/images/templates/template21.png', index: 21, fontFamily:"Montserrat", themeColor:"#494949" },
-    { title: 'Template22', imgUrl: '/images/templates/template22.png', index: 22, fontFamily:"Inter", themeColor:"#000000" },
-    { title: 'Template23', imgUrl: '/images/templates/template23.png', index: 23, fontFamily:"Inter", themeColor:"#000000" },
-    { title: 'Template24', imgUrl: '/images/templates/template24.png', index: 24, fontFamily:"Poppins", themeColor:"#FBEDE4" },
-    { title: 'Template25', imgUrl: '/images/templates/template25.png', index: 25, fontFamily:"Montserrat", themeColor:"#414042" },
-    { title: 'Template26', imgUrl: '/images/templates/template26.png', index: 26, fontFamily:"Montserrat", themeColor:"#414042" },
-    { title: 'Template27', imgUrl: '/images/templates/template27.png', index: 27, fontFamily:"Inter", themeColor:"#CB3122" },
-    { title: 'Template28', imgUrl: '/images/templates/template28.png', index: 28, fontFamily:"Inter", themeColor:"#2AB6BB" },
-    { title: 'Template29', imgUrl: '/images/templates/template29.png', index: 29, fontFamily:"Montserrat", themeColor:"#324955" },
-    { title: 'Template30', imgUrl: '/images/templates/template30.png', index: 30, fontFamily:"Montserrat", themeColor:"#0054A6" },
-    { title: 'Template31', imgUrl: '/images/templates/template31.png', index: 31, fontFamily:"Poppins", themeColor:"#227CFF" },
-    { title: 'Template32', imgUrl: '/images/templates/template32.png', index: 32, fontFamily:"Lato", themeColor:"#0072BC" },
-    { title: 'Template33', imgUrl: '/images/templates/template33.png', index: 33, fontFamily:"Kanit", themeColor:"#414042" },
-    { title: 'Template34', imgUrl: '/images/templates/template34.png', index: 34, fontFamily:"Poppins", themeColor:"#6C83B7" },
-    { title: 'Template35', imgUrl: '/images/templates/template35.png', index: 35, fontFamily:"Lato", themeColor:"#B3977F" },
-    { title: 'Template36', imgUrl: '/images/templates/template36.png', index: 36, fontFamily:"Lato", themeColor:"#F15A29" },
-    { title: 'Template37', imgUrl: '/images/templates/template37.png', index: 37, fontFamily:"Inter", themeColor:"#3956A3" },
-    { title: 'Template38', imgUrl: '/images/templates/template38.png', index: 38, fontFamily:"Lato", themeColor:"#C49A6C" },
-    { title: 'Template39', imgUrl: '/images/templates/template39.png', index: 39, fontFamily:"Lato", themeColor:"#030203" },
-    { title: 'Template40', imgUrl: '/images/templates/template40.png', index: 40, fontFamily:"Lato", themeColor:"#47484C" },
-    { title: 'Template41', imgUrl: '/images/templates/template41.png', index: 41, fontFamily:"Inter", themeColor:"#EDEDEE" },
-    { title: 'Template42', imgUrl: '/images/templates/template42.png', index: 42, fontFamily:"Lato", themeColor:"#414042" },
-    { title: 'Template43', imgUrl: '/images/templates/template43.png', index: 43, fontFamily:"Montserrat", themeColor:"#F9D3D0" },
-    { title: 'Template44', imgUrl: '/images/templates/template44.png', index: 44, fontFamily:"Inter", themeColor:"#C7EAFB" },
-    { title: 'Template45', imgUrl: '/images/templates/template45.png', index: 45, fontFamily:"Lato", themeColor:"#9E071C" },
-    { title: 'Template46', imgUrl: '/images/templates/template46.png', index: 46, fontFamily:"Lato", themeColor:"#00AEEF" },
-    { title: 'Template47', imgUrl: '/images/templates/template47.png', index: 47, fontFamily:"Poppins", themeColor:"#27AAE1" },
-    { title: 'Template48', imgUrl: '/images/templates/template48.png', index: 48, fontFamily:"Poppins", themeColor:"#F7941D" },
-    { title: 'Template49', imgUrl: '/images/templates/template49.png', index: 49, fontFamily:"Poppins", themeColor:"#27AAE1" },
-    { title: 'Template50', imgUrl: '/images/templates/template50.png', index: 50, fontFamily:"Inter", themeColor:"#1C75BC" },
-    { title: 'Template51', imgUrl: '/images/templates/template51.png', index: 51, fontFamily:"Inter", themeColor:"#F1D61B" },
-    { title: 'Template52', imgUrl: '/images/templates/template52.png', index: 52, fontFamily:"Lato", themeColor:"#304A9F" },
-    { title: 'Template53', imgUrl: '/images/templates/template53.png', index: 53, fontFamily:"Montserrat", themeColor:"#AC5428" },
-    { title: 'Template54', imgUrl: '/images/templates/template54.png', index: 54, fontFamily:"Montserrat", themeColor:"#83C3C9" },
-    { title: 'Template55', imgUrl: '/images/templates/template55.png', index: 55, fontFamily:"Montserrat", themeColor:"#FC9206" },
-    { title: 'Template56', imgUrl: '/images/templates/template56.png', index: 56, fontFamily:"Montserrat", themeColor:"#56C8E2" }
+    { title: 'Template1', imgUrl: '/images/templates/template1.png', index: 1, fontFamily: "Lato", themeColor: "#414042" },
+    { title: 'Template2', imgUrl: '/images/templates/template2.png', index: 2, fontFamily: "Barlow", themeColor: "#F7902B" },
+    { title: 'Template3', imgUrl: '/images/templates/template3.png', index: 3, fontFamily: "Inter", themeColor: "#414042" },
+    { title: 'Template4', imgUrl: '/images/templates/template4.png', index: 4, fontFamily: "Montserrat", themeColor: "#00AEEF" },
+    { title: 'Template5', imgUrl: '/images/templates/template5.png', index: 5, fontFamily: "Kanit", themeColor: "#316059" },
+    { title: 'Template6', imgUrl: '/images/templates/template6.png', index: 6, fontFamily: "Lato", themeColor: "#FFC20E" },
+    { title: 'Template7', imgUrl: '/images/templates/template7.png', index: 7, fontFamily: "Montserrat", themeColor: "#0077F9" },
+    { title: 'Template8', imgUrl: '/images/templates/template8.png', index: 8, fontFamily: "Montserrat", themeColor: "#646464" },
+    { title: 'Template9', imgUrl: '/images/templates/template9.png', index: 9, fontFamily: "Montserrat", themeColor: "#FFD740" },
+    { title: 'Template10', imgUrl: '/images/templates/template10.png', index: 10, fontFamily: "Inter", themeColor: "#F2BE5C" },
+    { title: 'Template11', imgUrl: '/images/templates/template11.png', index: 11, fontFamily: "Montserrat", themeColor: "#E6E7E8" },
+    { title: 'Template12', imgUrl: '/images/templates/template12.png', index: 12, fontFamily: "Lato", themeColor: "#0C2438" },
+    { title: 'Template13', imgUrl: '/images/templates/template13.png', index: 13, fontFamily: "Poppins", themeColor: "#0E6CC2" },
+    { title: 'Template14', imgUrl: '/images/templates/template14.png', index: 14, fontFamily: "Inter", themeColor: "#242424" },
+    { title: 'Template15', imgUrl: '/images/templates/template15.png', index: 15, fontFamily: "Inter", themeColor: "#716D6D" },
+    { title: 'Template16', imgUrl: '/images/templates/template16.png', index: 16, fontFamily: "Inter", themeColor: "#545554" },
+    { title: 'Template17', imgUrl: '/images/templates/template17.png', index: 17, fontFamily: "Montserrat", themeColor: "#D1D2D3" },
+    { title: 'Template18', imgUrl: '/images/templates/template18.png', index: 18, fontFamily: "Montserrat", themeColor: "#F1F1F1" },
+    { title: 'Template19', imgUrl: '/images/templates/template19.png', index: 19, fontFamily: "Inter", themeColor: "#000000" },
+    { title: 'Template20', imgUrl: '/images/templates/template20.png', index: 20, fontFamily: "Montserrat", themeColor: "#303030" },
+    { title: 'Template21', imgUrl: '/images/templates/template21.png', index: 21, fontFamily: "Montserrat", themeColor: "#494949" },
+    { title: 'Template22', imgUrl: '/images/templates/template22.png', index: 22, fontFamily: "Inter", themeColor: "#000000" },
+    { title: 'Template23', imgUrl: '/images/templates/template23.png', index: 23, fontFamily: "Inter", themeColor: "#000000" },
+    { title: 'Template24', imgUrl: '/images/templates/template24.png', index: 24, fontFamily: "Poppins", themeColor: "#FBEDE4" },
+    { title: 'Template25', imgUrl: '/images/templates/template25.png', index: 25, fontFamily: "Montserrat", themeColor: "#414042" },
+    { title: 'Template26', imgUrl: '/images/templates/template26.png', index: 26, fontFamily: "Montserrat", themeColor: "#414042" },
+    { title: 'Template27', imgUrl: '/images/templates/template27.png', index: 27, fontFamily: "Inter", themeColor: "#CB3122" },
+    { title: 'Template28', imgUrl: '/images/templates/template28.png', index: 28, fontFamily: "Inter", themeColor: "#2AB6BB" },
+    { title: 'Template29', imgUrl: '/images/templates/template29.png', index: 29, fontFamily: "Montserrat", themeColor: "#324955" },
+    { title: 'Template30', imgUrl: '/images/templates/template30.png', index: 30, fontFamily: "Montserrat", themeColor: "#0054A6" },
+    { title: 'Template31', imgUrl: '/images/templates/template31.png', index: 31, fontFamily: "Poppins", themeColor: "#227CFF" },
+    { title: 'Template32', imgUrl: '/images/templates/template32.png', index: 32, fontFamily: "Lato", themeColor: "#0072BC" },
+    { title: 'Template33', imgUrl: '/images/templates/template33.png', index: 33, fontFamily: "Kanit", themeColor: "#414042" },
+    { title: 'Template34', imgUrl: '/images/templates/template34.png', index: 34, fontFamily: "Poppins", themeColor: "#6C83B7" },
+    { title: 'Template35', imgUrl: '/images/templates/template35.png', index: 35, fontFamily: "Lato", themeColor: "#B3977F" },
+    { title: 'Template36', imgUrl: '/images/templates/template36.png', index: 36, fontFamily: "Lato", themeColor: "#F15A29" },
+    { title: 'Template37', imgUrl: '/images/templates/template37.png', index: 37, fontFamily: "Inter", themeColor: "#3956A3" },
+    { title: 'Template38', imgUrl: '/images/templates/template38.png', index: 38, fontFamily: "Lato", themeColor: "#C49A6C" },
+    { title: 'Template39', imgUrl: '/images/templates/template39.png', index: 39, fontFamily: "Lato", themeColor: "#030203" },
+    { title: 'Template40', imgUrl: '/images/templates/template40.png', index: 40, fontFamily: "Lato", themeColor: "#47484C" },
+    { title: 'Template41', imgUrl: '/images/templates/template41.png', index: 41, fontFamily: "Inter", themeColor: "#EDEDEE" },
+    { title: 'Template42', imgUrl: '/images/templates/template42.png', index: 42, fontFamily: "Lato", themeColor: "#414042" },
+    { title: 'Template43', imgUrl: '/images/templates/template43.png', index: 43, fontFamily: "Montserrat", themeColor: "#F9D3D0" },
+    { title: 'Template44', imgUrl: '/images/templates/template44.png', index: 44, fontFamily: "Inter", themeColor: "#C7EAFB" },
+    { title: 'Template45', imgUrl: '/images/templates/template45.png', index: 45, fontFamily: "Lato", themeColor: "#9E071C" },
+    { title: 'Template46', imgUrl: '/images/templates/template46.png', index: 46, fontFamily: "Lato", themeColor: "#00AEEF" },
+    { title: 'Template47', imgUrl: '/images/templates/template47.png', index: 47, fontFamily: "Poppins", themeColor: "#27AAE1" },
+    { title: 'Template48', imgUrl: '/images/templates/template48.png', index: 48, fontFamily: "Poppins", themeColor: "#F7941D" },
+    { title: 'Template49', imgUrl: '/images/templates/template49.png', index: 49, fontFamily: "Poppins", themeColor: "#27AAE1" },
+    { title: 'Template50', imgUrl: '/images/templates/template50.png', index: 50, fontFamily: "Inter", themeColor: "#1C75BC" },
+    { title: 'Template51', imgUrl: '/images/templates/template51.png', index: 51, fontFamily: "Inter", themeColor: "#F1D61B" },
+    { title: 'Template52', imgUrl: '/images/templates/template52.png', index: 52, fontFamily: "Lato", themeColor: "#304A9F" },
+    { title: 'Template53', imgUrl: '/images/templates/template53.png', index: 53, fontFamily: "Montserrat", themeColor: "#AC5428" },
+    { title: 'Template54', imgUrl: '/images/templates/template54.png', index: 54, fontFamily: "Montserrat", themeColor: "#83C3C9" },
+    { title: 'Template55', imgUrl: '/images/templates/template55.png', index: 55, fontFamily: "Montserrat", themeColor: "#FC9206" },
+    { title: 'Template56', imgUrl: '/images/templates/template56.png', index: 56, fontFamily: "Montserrat", themeColor: "#56C8E2" }
   ]
-  
+
   const renderTemplates = () => {
     return templates.map((template, index) => (
       <img
         key={index}
         src={template.imgUrl}
         className="h-[200px] w-[140.91px] rounded-[6px]"
+
         alt=""
         onClick={() => handleImageClick(template)}
       />
     ));
   };
+
+  const renderAllTemplates = () => {
+    return templates.map((template, index) => (
+      <img
+        key={index}
+        src={template.imgUrl}
+        className="h-[330px] w-[234px] rounded-[6px] transition-transform duration-300 ease-in-out hover:scale-105"
+        style={{ boxShadow: "0px 0px 26.499px 0px rgba(0, 0, 0, 0.25)" }}
+        alt=""
+        onClick={() => { handleImageClick(template); setIsAll(false); }}
+      />
+    ));
+  };
+
+
+  const [isAll, setIsAll] = useState(false)
 
   const handleImageClick = (template) => {
     togglePreview(true, template.index);
@@ -153,8 +175,7 @@ const ResumePreview = ({ data, isSetEdit, selectedResumeIndex, setSelectedResume
     setSelectedFont(template.fontFamily)
 
   };
-  const userDataGlobal = useSelector((state) => state.userData);
-  const dispatch = useDispatch();
+
   const resumeRef = useRef();
   const [preview, setPreview] = useState(false);
 
@@ -280,45 +301,28 @@ const ResumePreview = ({ data, isSetEdit, selectedResumeIndex, setSelectedResume
     }
   };
 
-  const pdfConverter = async () => {
-    html2canvas(resumeRef.current, { autoResize: true }).then((canvas) => {
-      const imgData = canvas.toDataURL("image/png");
-      setLoading(true);
-      axios
-        .put(
-          "https://freedygoservices.in/api/candidate/addResume/" +
-          userDataGlobal._id,
-          {
-            pdfContent: imgData,
-          }
-        )
-        .then((res) => {
-          setLoading(false);
-          toast.success("Resume Attaches Successfully");
-          dispatch(reCallUserData());
-        })
-        .catch((err) => {
-          toast.error("Something went wrong");
-          setLoading(false);
-          console.log(err);
-        });
-    });
-  };
-  const generatePdf = () => {
-    generatePDF(resumeRef, {
-      filename: `${userDataGlobal?.basics?.firstName}-skilotech-resume-${userDataGlobal?.resumeUrl?.length}.pdf`,
-    });
+
+
+  const taskRef = useRef(null);
+
+  const handleOutsideClick = (event) => {
+    if (taskRef.current && !taskRef.current.contains(event.target)) {
+      setIsAll(false);
+      setPreview(false)
+    }
   };
 
-  const [showPDF, setShowPDF] = useState(false);
+  useEffect(() => {
+    document.addEventListener('mousedown', handleOutsideClick);
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick);
+    };
+  }, []);
 
-  const togglePDFView = () => {
-    setShowPDF(!showPDF);
-  };
 
   return (
     <div
-      className="ml:w-[49%] w-[100%]"
+      className="ml:w-[60%] w-[100%]"
       style={{ overflow: "hidden", position: "relative" }}
     >
       <div
@@ -333,6 +337,23 @@ const ResumePreview = ({ data, isSetEdit, selectedResumeIndex, setSelectedResume
           </div>
         </div>
 
+        <div onClick={() => setIsAll(true)} className="flex justify-end text-[18px] font-[500] text-[#06A9EF] cursor-pointer">
+          See All Templets
+
+        </div>
+        {isAll &&
+          <div   >
+            <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
+            <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center  ">
+
+
+              <div ref={taskRef} className=" absolute flex p-6 bg-white rounded-[24px] shadow-md  gap-6 flex-wrap justify-center items-center w-[65%] h-[90vh] overflow-y-auto " >
+                {renderAllTemplates()}
+              </div>
+
+            </div>
+          </div>
+        }
         <div className="web" ref={resumeRef}>
           <div className="flex justify-between">
             <div className=" text-[20px]  font-montserrat font-medium flex items-center">
@@ -340,27 +361,11 @@ const ResumePreview = ({ data, isSetEdit, selectedResumeIndex, setSelectedResume
             </div>
 
             <div className="flex gap-[16px]">
-              <button
-                onClick={pdfConverter}
-                className="flex gap-1 text-[12px] h-[38px] w-[90px] justify-center  text-[#FFF] font-montserrat font-semibold px-3 py-[2px] rounded-[8px] items-center border border-[#06A9EF] bg-[#06A9EF]"
-              >
-                {loading ? (
-                  <MiniLoader />
-                ) : (
-                  <>
-                    {" "}
-                    <img
-                      src="/images/services/add_link.png"
-                      className="h-[24px] w-[24px] rounded-[6px]"
-                      alt=""
-                    />
-                    Attach
-                  </>
-                )}
-              </button>
+
+
               <button
                 onClick={() => setPreview(true)}
-                className="flex gap-1 text-[14px] w-[150px]  justify-center text-[#FFF] font-montserrat font-semibold px-3 py-[2px] rounded-[8px] items-center border border-[#06A9EF] bg-[#06A9EF]"
+                className="flex gap-1 text-[14px] w-[150px]  justify-center text-[#FFF] font-montserrat font-semibold px-3 py-2 rounded-[8px] items-center border border-[#06A9EF] bg-[#06A9EF]"
               >
                 Full Screen View
               </button>
@@ -370,24 +375,8 @@ const ResumePreview = ({ data, isSetEdit, selectedResumeIndex, setSelectedResume
 
         <div className="mobile">
           <div className="flex gap-2 scr420:gap-[16px] justify-between">
-            <button
-              onClick={pdfConverter}
-              className="flex gap-1 text-[12px] h-[38px] w-[90px] justify-center  text-[#FFF] font-montserrat font-semibold px-3 py-[2px] rounded-[8px] items-center border border-[#06A9EF] bg-[#06A9EF]"
-            >
-              {loading ? (
-                <MiniLoader />
-              ) : (
-                <>
-                  {" "}
-                  <img
-                    src="/images/services/add_link.png"
-                    className="h-[24px] w-[24px] rounded-[6px]"
-                    alt=""
-                  />
-                  Attach
-                </>
-              )}
-            </button>
+
+
             <button
               className=" text-[12px] flex gap-1 items-center justify-between text-[#333] font-montserrat font-semibold px-2 py-1 rounded-[8px] border border-[#06A9EF]"
               onClick={() => isSetEdit(true)}
@@ -409,16 +398,16 @@ const ResumePreview = ({ data, isSetEdit, selectedResumeIndex, setSelectedResume
               Edit
             </button>
 
-            
+
           </div>
         </div>
 
-        
+
         {selectedResumeIndex !== undefined && (
           <div
             className="  transform xxsm:scale-[35%] scr340:scale-[37%] scr360:scale-[39%] scr390:scale-[42%] scr420:scale-[46%] sm:scale-[53%] scr540:scale-[60%] ms:scale-[68%] scr700:scale-[80%] md:scale-[88%] scr820:scale-[95%] ml:scale-[46%] scr900:scale-[50%] lg:scale-[54%] scr1024:scale-[57%] scr1100:scale-[62%] xxlg:scale-[63%] scr1150:scale-[65%]  scale-[33%]  "
             style={{
-              width: "49.7rem",
+              width: "78.7rem",
               // scale: "0.65",
               transformOrigin: "top left",
             }}
@@ -432,15 +421,20 @@ const ResumePreview = ({ data, isSetEdit, selectedResumeIndex, setSelectedResume
         )}
       </div>
       {preview && (
-       
-        <div className="fixed z-50 top-5 left-0 w-full h-full bg-gray-800 bg-opacity-50 flex justify-center items-center">
-          <div className="bg-white p-4 rounded-lg shadow-md h-[80vh] ">
-            <PDFViewer width="850" height="98%">
-              <Document>{selectResumeTemplate(selectedResumeIndex)}</Document>
-            </PDFViewer>
-            <button onClick={() => setPreview(false)}>Close</button>
+        <>
+
+          <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
+          <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center  ">
+            <div ref={taskRef} className=" absolute bg-white  px-4 py-2 rounded-lg shadow-lg h-[90vh] flex flex-col gap-2 items-end">
+            <button onClick={() => setPreview(false)}><ClosedIcon/></button>
+              <PDFViewer width="850" height="100%">
+                <Document>{selectResumeTemplate(selectedResumeIndex)}</Document>
+              </PDFViewer>
+             
+            </div>
+
           </div>
-        </div>
+        </>
       )}
     </div>
   );

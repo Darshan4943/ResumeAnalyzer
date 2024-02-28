@@ -2,7 +2,7 @@ import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Document, Page, Text, View, StyleSheet, Image, Svg, Path, Rect, Font } from '@react-pdf/renderer';
 
 
-function Template1({ data, selectedColor, selectedFont }) {
+function Template1({ data,selectedColor,selectedFont  }) {
 
 
   return (
@@ -23,11 +23,7 @@ function Template1({ data, selectedColor, selectedFont }) {
             </Text>
           </View>
           <View style={{ width: "112px", height: "112px" }}>
-            {data.profilePhoto ? (
-              <Image src={URL.createObjectURL(data.profilePhoto)} />
-            ) : (
-              <Image src="/images/services/profile.png" />
-            )}
+            <Image src={"/images/services/profile.png"} />
           </View>
         </View>
 
@@ -53,13 +49,13 @@ function Template1({ data, selectedColor, selectedFont }) {
                     {data.mobileNumber}
                   </Text>
                 </View>
-                <View style={{ height: 24, flexDirection: 'row', alignItems: 'center', gap: "8px", width: "35%",  }}>
+                <View style={{ height: 24, flexDirection: 'row', alignItems: 'center', gap: "8px" }}>
                   <Svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <Rect width="22" height="22" fill={selectedColor} />
                     <Path d="M17.3652 14.1791C17.3652 14.4579 17.287 14.7167 17.1606 14.9443L13.1427 10.449L17.1165 6.97178C17.2709 7.2175 17.3642 7.50533 17.3642 7.81625L17.3652 14.1791ZM11.0024 11.2655L16.5318 6.42717C16.3051 6.3028 16.0493 6.22656 15.7735 6.22656H6.23032C5.95451 6.22656 5.69875 6.3028 5.47309 6.42717L11.0024 11.2655ZM12.544 10.9726L11.2642 12.0939C11.189 12.1591 11.0957 12.1912 11.0024 12.1912C10.9091 12.1912 10.8159 12.1581 10.7406 12.0929L9.46087 10.9726L5.39285 15.525C5.63657 15.6785 5.92241 15.7698 6.23133 15.7698H15.7745C16.0834 15.7698 16.3693 15.6785 16.613 15.525L12.544 10.9726ZM4.88836 6.97279C4.7339 7.21851 4.64062 7.50634 4.64062 7.81726V14.1791C4.64062 14.4579 4.71886 14.7167 4.84523 14.9443L8.8621 10.4481L4.88836 6.97279Z" fill="white" />
                   </Svg>
 
-                  <Text style={{ color: '#414042', fontSize: '10px', fontFamily: `${selectedFont} 400`,flexWrap:"wrap"}}>
+                  <Text style={{ color: '#414042', fontSize: '10px', fontFamily: `${selectedFont} 400` }}>
                     {data.email}
                   </Text>
                 </View>
@@ -103,34 +99,33 @@ function Template1({ data, selectedColor, selectedFont }) {
                 </View>
               </View>
             </View>
-            {data?.skills?.length > 0 && (
-              <View style={{ flexDirection: 'column', }}>
-                <View style={{ flexDirection: 'column', gap: 12 }}  >
-                  <Text style={{ color: '#414042', fontSize: '16px', fontFamily: `${selectedFont} 400`, }}>
-                    SKILLS
-                  </Text>
-                  <Svg width={141} height={4} viewBox="0 0 141 4" >
-                    <Path d="M140.396 1.72095H0.209961V2.72095H140.396V1.72095Z" fill="#A7A9AC" />
-                    <Path d="M35.262 0.720947H0.209961V3.72095H35.262V0.720947Z" fill={selectedColor} />
-                  </Svg>
-                  <View style={{ flexDirection: 'column', gap: 12 }}>
-                    {data.skills.map((detail, index) => (
-                      <View key={index}>
-                        <View>
-                          <Text style={{ color: '#414042', fontSize: '12px', fontFamily: `${selectedFont} 400`, }}>
-                            {detail.skill}
-                          </Text>
-                        </View>
-
+            <View style={{ flexDirection: 'column', }}>
+              <View   style={{ flexDirection: 'column', gap: 12 }}  >
+                <Text style={{ color: '#414042', fontSize: '16px', fontFamily: `${selectedFont} 400`, }}>
+                  SKILLS
+                </Text>
+                <Svg width={141} height={4} viewBox="0 0 141 4" >
+                  <Path d="M140.396 1.72095H0.209961V2.72095H140.396V1.72095Z" fill="#A7A9AC" />
+                  <Path d="M35.262 0.720947H0.209961V3.72095H35.262V0.720947Z" fill={selectedColor} />
+                </Svg>
+                <View style={{ flexDirection: 'column', gap: 12 }}>
+                  {data.skills.map((detail, index) => (
+                    <View key={index}>
+                      <View>
+                        <Text style={{ color: '#414042', fontSize: '12px', fontFamily: `${selectedFont} 400`, }}>
+                          {detail.skill}
+                        </Text>
                       </View>
-                    ))}
-                  </View>
+
+                    </View>
+                  ))}
                 </View>
               </View>
-            )}
+            </View>
+
           </View>
 
-          <View style={{ width: "1px", height: '100%', minHeight: "640px", backgroundColor: "#333" }} />
+          <View style={{ width: "1px", height: '100%', minHeight: "650px", backgroundColor: "#333" }} />
           <View style={{ width: "65%", flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start', paddingTop: "24px", gap: "36px", paddingLeft: 24 }}>
 
             <View style={{ flexDirection: 'column', width: "100%", color: '#414042', gap: 12 }}>
@@ -143,7 +138,7 @@ function Template1({ data, selectedColor, selectedFont }) {
             </View>
             <View style={{ flexDirection: 'column', gap: 12, width: "100%" }}>
               <View style={{ flexDirection: 'column', gap: 12 }}>
-                <Text style={{ color: '#414042', fontSize: '16px', fontFamily: `${selectedFont} 400`, }}>
+                <Text style={{ color: '#414042', fontSize: '16px',fontFamily: `${selectedFont} 400`,  }}>
                   EXPERIENCE
                 </Text>
                 <Svg width={141} height={4} viewBox="0 0 141 4" >
@@ -184,30 +179,30 @@ function Template1({ data, selectedColor, selectedFont }) {
                 </View>
               ))}
             </View>
-            {data?.hobbies?.length > 0 && (
-              <View style={{ flexDirection: 'column', }}>
-                <View style={{ flexDirection: 'column', gap: 12 }}>
-                  <Text style={{ color: '#414042', fontFamily: `${selectedFont} 400`, fontSize: '16px' }}>
-                    HOBBIES
-                  </Text>
-                  <Svg width={141} height={4} viewBox="0 0 141 4" >
-                    <Path d="M140.396 1.72095H0.209961V2.72095H140.396V1.72095Z" fill="#A7A9AC" />
-                    <Path d="M35.262 0.720947H0.209961V3.72095H35.262V0.720947Z" fill={selectedColor} />
-                  </Svg>
-                  <View style={{ flexDirection: 'col', gap: "12px" }}>
-                    {data.hobbies.map((detail, index) => (
-                      <View key={index}>
-                        <View>
-                          <Text style={{ color: '#414042', fontFamily: `${selectedFont} 400`, fontSize: '12px' }}>
-                            {detail.title}
-                          </Text>
-                        </View>
+
+            <View style={{ flexDirection: 'column', }}>
+              <View style={{ flexDirection: 'column', gap: 12 }}>
+                <Text style={{ color: '#414042',fontFamily: `${selectedFont} 400`, fontSize: '16px' }}>
+                  HOBBIES
+                </Text>
+                <Svg width={141} height={4} viewBox="0 0 141 4" >
+                  <Path d="M140.396 1.72095H0.209961V2.72095H140.396V1.72095Z" fill="#A7A9AC" />
+                  <Path d="M35.262 0.720947H0.209961V3.72095H35.262V0.720947Z" fill={selectedColor} />
+                </Svg>
+                <View style={{ flexDirection: 'col', gap: "12px" }}>
+                  {data.hobbies.map((detail, index) => (
+                    <View key={index}>
+                      <View>
+                        <Text style={{ color: '#414042',fontFamily: `${selectedFont} 400`, fontSize: '12px' }}>
+                          {detail.title}
+                        </Text>
                       </View>
-                    ))}
-                  </View>
+                    </View>
+                  ))}
                 </View>
               </View>
-            )}
+            </View>
+
           </View>
         </View>
 

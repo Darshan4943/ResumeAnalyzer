@@ -1,32 +1,17 @@
 import React, { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import ALink from "@/components/alink";
+
 import { toast } from "react-toastify";
-import { Visibility_off, Visibility_on, visibility_off } from "@/utils/svg";
-import PhoneInput from "react-phone-input-2";
+
+
 import "react-phone-input-2/lib/bootstrap.css";
-import ImageContainer from "@/components/common/image";
-  import { telCode } from "@/utils/data";
+
 import { useRouter } from "next/navigation";
 import { useMediaQuery } from "@react-hook/media-query";
-const AnimationDivs = () => (
-  <div className="register_back_block">
-    <img className="mail_img" src="/images/auth/candidate/Mail.png" alt="" />
-    <img className="phone_img " src="/images/auth/candidate/Phone.png" alt="" />
-    <img
-      className="location_img"
-      src="/images/auth/candidate/Location.png"
-      alt=""
-    />
-    <img className="data_img" src="/images/auth/candidate/Data.png" alt="" />
-    <img className="Group11" src="/images/auth/candidate/Group11.png" alt="" />
-    <img className="Group12" src="/images/auth/candidate/Group12.png" alt="" />
-    <img className="Group13" src="/images/auth/candidate/Group13.png" alt="" />
-    <img className="Group14" src="/images/auth/candidate/Group14.png" alt="" />
-    <img className="Group15" src="/images/auth/candidate/Group15.png" alt="" />
-    <img className="Group16" src="/images/auth/candidate/Group16.png" alt="" />
-  </div>
-);
+import { Visibility_off, Visibility_on } from "../../../../utils/svg";
+import ImageContainer from "../../../common/image";
+import { telCode } from "../../../../utils/data";
+
 const PersonalDetails = ({
   data,
   setData,
@@ -90,22 +75,7 @@ const PersonalDetails = ({
           delete errors.email;
         }
         break;
-      case "password":
-        if (!value.trim()) {
-          errors.password = "Password is required";
-        } else if (value.length < 6) {
-          errors.password = "Password should be at least 6 characters";
-        } else {
-          delete errors.password;
-        }
-        break;
-      case "confirmPassword":
-        if (value !== data.password) {
-          errors.confirmPassword = "Password did not match";
-        } else {
-          delete errors.confirmPassword;
-        }
-        break;
+      
       case "mobileNo":
         if (!value.trim()) {
           errors.mobileNo = "Mobile Number is required";
@@ -147,7 +117,7 @@ const PersonalDetails = ({
       "firstName",
       "lastName",
       "email",
-      "password",
+     
       "currentLocation",
       "mobileNo",
     ];
@@ -174,7 +144,7 @@ const PersonalDetails = ({
   const [dropdown, setDropdown] = useState(false);
   const [selectedItem, setSelectedItem] = useState(telCode[0]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [showInput, setShowInput] = useState(false); 
+  const [showInput, setShowInput] = useState(false);
 
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
@@ -184,13 +154,13 @@ const PersonalDetails = ({
     setSelectedItem(item);
     setSearchTerm("");
     setDropdown(false);
-    setShowInput(false); 
+    setShowInput(false);
   };
 
   const handleInputClick = () => {
     setDropdown(true);
     setSearchTerm("");
-    setShowInput(true); 
+    setShowInput(true);
     window.scrollTo({
       top: 300,
       behavior: "smooth",
@@ -229,13 +199,14 @@ const PersonalDetails = ({
   return (
     <>
       {tabindex == 2 && (
-        <div className={"show-content pb-8  back_img "}>
+        <div className={" pb-8  "}>
           <div className="flex flex-col gap-4">
-            <motion.div className="personal_details pt-4  pb-2">
+            <motion.div className=" flex justify-center pt-4  pb-2">
               <form className="personal_details_form education_page ">
-                <AnimationDivs />
+              
 
                 <>
+                <div className="flex gap-6 w-[100%]">
                   <div className="personal_name_parent">
                     <div className="personal_name">
                       <p className="form_text_heading">
@@ -300,89 +271,22 @@ const PersonalDetails = ({
                       </p>
                     )}
                   </div>
-
-                  <div className="personal_single_input">
-                    <div className="personal_name justify-center">
-                      <p className="form_text_heading">
-                        Password <span className="star">*</span>
-                      </p>
-
-                      <input
-                        type="password"
-                        name=""
-                        id="single_input"
-                        placeholder="Create new password"
-                        value={data.password}
-                        onChange={(e) =>
-                          handleInputChange("password", e.target.value)
-                        }
-                      />
-                      {formError && (
-                        <p className="text-[12px] text-[red] font-[500]">
-                          {formError?.password}
-                        </p>
-                      )}
-                      {/* <button
-                      className={"icon"}
-                      onClick={togglePasswordVisibility}
-                    >
-                      {isPasswordVisible ? (
-                        <Visibility_on />
-                      ) : (
-                        <Visibility_off />
-                      )}
-                    </button> */}
-                    </div>
                   </div>
-
-                  <div className="personal_single_input">
-                    <div className="personal_name justify-center">
-                      <p className="form_text_heading">
-                        Confirm Password <span className="star">*</span>
-                      </p>
-
-                      <input
-                        type={isPasswordVisible ? "text" : "password"}
-                        name=""
-                        id="single_input"
-                        placeholder="Confirm Your password"
-                        value={data.confirmPassword}
-                        onChange={(e) =>
-                          handleInputChange("confirmPassword", e.target.value)
-                        }
-                      />
-
-                      {formError && (
-                        <p className="text-[12px] text-[red] font-[500]">
-                          {formError?.confirmPassword}
-                        </p>
-                      )}
-                      <button
-                        className={"icon"}
-                        onClick={togglePasswordVisibility}
-                      >
-                        {isPasswordVisible ? (
-                          <Visibility_on />
-                        ) : (
-                          <Visibility_off />
-                        )}
-                      </button>
-                    </div>
-                  </div>
+                  <div className="flex gap-6 w-[100%]">
                   <div className="personal_single_input">
                     <p className="form_text_heading">
                       Contact Number <span className="star">*</span>
                     </p>
-                    <div className={`flex w-[100%] items-start ${ isViewportBelow850 ? "gap-[4px] " : "gap-[16px] "}`} id="single_input">
-                      <div className={`relative ${ isViewportBelow850 ? "w-[65%] " : "w-[30%] "} items-center`}>
+                    <div className={`flex w-[100%] items-start ${isViewportBelow850 ? "gap-[4px] " : "gap-[16px] "}`} id="single_input">
+                      <div className={`relative ${isViewportBelow850 ? "w-[65%] " : "w-[50%] "} items-center`}>
                         <div
-                          className="text-[14px] justify-center items-center  flex font-[500] text-[#646464]"
+                          className="  w-[100%] text-[14px] justify-center items-center  flex font-[500] text-[#646464]"
                           onClick={handleInputClick}
                         >
 
-                          <div className="flex items-center justify-center gap-2 cursor-pointer ">
-                           
-                            <div className="flex items-center  gap-1 cursor-pointer  " onClick={handleInputClick}>
+                          <div className="flex items-center justify-center gap-2 cursor-pointer  w-[100%]">
+
+                            <div className="flex items-center  gap-1 cursor-pointer  w-[100%] " onClick={handleInputClick}>
                               {showInput ? (
                                 <input
                                   className="w-[100%]  border flex justify-center items-center py-1 px-3 rounded-[8px] "
@@ -405,7 +309,7 @@ const PersonalDetails = ({
                                 </>
                               )}
                             </div>
-                           
+
 
                           </div>
 
@@ -442,7 +346,7 @@ const PersonalDetails = ({
                         type="text"
                         name=""
                         // id="single_input"
-                        placeholder= {`${ isViewportBelow850 ? "Enter Number " : "Enter Contact Number " }`}
+                        placeholder={`${isViewportBelow850 ? "Enter Number " : "Enter Contact Number "}`}
                         value={data.mobileNo}
                         onChange={(e) =>
                           handleInputChange("mobileNo", e.target.value)
@@ -472,7 +376,9 @@ const PersonalDetails = ({
                       }
                     />
                   </div>
+                  </div>
 
+                  <div className="flex gap-6 w-[100%]">
                   <div className="personal_single_input">
                     <p className="form_text_heading">
                       Gender <span className="star">*</span>
@@ -512,7 +418,7 @@ const PersonalDetails = ({
                   </div>
 
                   <div className="personal_single_input">
-                    <div className="personal_name">
+                    <div className="personal_name w-[100%]">
                       <p className="form_text_heading">
                         Current Location <span className="star">*</span>
                       </p>
@@ -538,55 +444,8 @@ const PersonalDetails = ({
                       />
                     </div>
                   </div>
-
-                  <div className="flex flex-col gap-1">
-                    <p className="form_text_heading">
-                      Experience <span className="star">*</span>
-                    </p>
-                    <div className="personal_single_input">
-                      <select
-                        id="single_input"
-                        className=""
-                        value={data.workStatus}
-                        onChange={(e) => setData({ ...data, workStatus: e.target.value })}
-                      >
-                        <option value="Management Level (20+ years)">Management Level (20+ years)</option>
-                        <option value="Mid Management Level (10-20 years)">Mid Management Level (10-20 years)</option>
-                        <option value="Senior Level (4-10 years)">Senior Level (4-10 years)</option>
-                        <option value="Junior Level (1-4 years)">Junior Level (1-4 years)</option>
-                        <option value="Fresher (0-1 year)">Fresher (0-1 year)</option>
-                      </select>
-                    </div>
                   </div>
-                  <div className="personal_single_input">
-                    <p className="form_text_heading">Upload Resume</p>
-                    {file ? (
-                      <div className="flex flex-row gap-[16px] items-center py-[16px] border border-[#bebebe] justify-center  rounded-[12px] upload-btn-wrapper w-[100%]">
-                        <input
-                          type="file"
-                          name="myfile"
-                          onChange={(e) => setfile(e.target.files[0])}
-                        />
-                        <ImageContainer
-                          src={"/images/icons/pdf_icon.png"}
-                          className={"h-[24px] w-[24px]"}
-                        />
-
-                        <span className="text-[14px] w-[56%]">{file.name}</span>
-                        <button className="px-[16px] py-[8px] border border-[#06A9EF]  rounded-[12px]">
-                          Browse file
-                        </button>
-                      </div>
-                    ) : (
-                      <div className="flex flex-row gap-[16px] items-center py-[10px] px-[16px] border border-[#bebebe] justify-start  rounded-[12px] w-[100%]">
-                        <input
-                          type="file"
-                          name="myfile"
-                          onChange={(e) => setfile(e.target.files[0])}
-                        />
-                      </div>
-                    )}
-                  </div>
+                 
 
                   <div className="bottom_buttons">
                     <button

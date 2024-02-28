@@ -10,7 +10,7 @@ const Template42 = ({ data,selectedColor,selectedFont  }) => {
 
 
 
-          <View style={{ display: "flex", flexDirection: "column", gap: 6, backgroundColor: selectedColor, paddingTop: 88, paddingHorizontal: 16, marginTop: 72, paddingBottom: 16 }}>
+          <View style={{ display: "flex", flexDirection: "column", gap: 6, backgroundColor: "#414042", paddingTop: 88, paddingHorizontal: 16, marginTop: 72, paddingBottom: 16 }}>
             <View style={{ display: "flex", flexDirection: "row", gap: 6, width: "95%", flexWrap: "wrap" }}>
               <View style={{ width: 16.76, height: 16.75, borderRadius: '50%', alignItems: 'center', justifyContent: 'center', backgroundColor: 'white' }}>
                 <Svg width={13} height={13} viewBox="0 0 10 10" fill="none">

@@ -16,7 +16,7 @@ const ResumeForm = ({ setData, data,selectedResumeIndex ,setSelectedResumeIndex,
   console.log(5,selectedColor)
   return (
     <>
-      <div className="flex flex-col ml:w-[49%] w-[100%] px-2 pb-4 gap-4 rounded-lg overflow-y-auto ">
+      <div className="flex flex-col ml:w-[40%] w-[100%]  pb-4 gap-4 rounded-lg overflow-y-auto ">
         <ResumeList setData={setData} data={data}  />
         <ThemeForm selectedResumeIndex={selectedResumeIndex} selectedColor={selectedColor} setSelectedColor={setSelectedColor} setSelectedFont={setSelectedFont}  selectedFont={selectedFont}/>
         <PersonalDetails setData={setData} data={data} />

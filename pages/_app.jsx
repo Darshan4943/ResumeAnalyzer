@@ -1,15 +1,17 @@
 "use client";
 import "/public/scss/style.scss";
 
-import Layout from "@/components/layout";
+
 import { Helmet } from "react-helmet";
 import { ReactLenis } from "@studio-freight/react-lenis";
 import { useEffect, useState } from "react";
 import { ParallaxProvider } from "react-scroll-parallax";
 import { Provider } from "react-redux";
-import Store from "@/Redux/Store";
-import { Api } from "@/Redux/Api";
+
 import '../utils/pdfFont.js'; 
+import Layout from "../components/layout.jsx";
+import Store from "../Redux/Store.js";
+import { Api } from "../Redux/Api.jsx";
 const WrappedApp = ({ Component, pageProps }) => {
   useEffect(() => {
     const getLocation = () => {

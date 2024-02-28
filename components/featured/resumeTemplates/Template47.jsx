@@ -11,7 +11,7 @@ const Template47 = ({ data,selectedColor,selectedFont  }) => {
 
                     <View style={{ display: "flex", flexDirection: "row", gap: 12 }}>
                         <View style={{ display: "flex", flexDirection: "row", gap: 28 }}>
-                            <View style={{ alignItems: "center",  flexDirection: "column", width: "87",  height: "87", borderRadius: "50%", border: "3px", borderColor:selectedColor,  }}>
+                            <View style={{ alignItems: "center",  flexDirection: "column", width: "87",  height: "87", borderRadius: "50%", border: "3px", borderColor: "#27AAE1",  }}>
 
                                 {data.profilePhoto ? (
                                     <Image src={URL.createObjectURL(data.profilePhoto)} alt="" style={{}} />
@@ -22,7 +22,7 @@ const Template47 = ({ data,selectedColor,selectedFont  }) => {
 
                             </View>
                             <View style={{ width: 242 }}>
-                                <Text style={{ fontWeight: 600, fontSize: 32, color:selectedColor }}>{data.firstName}</Text>
+                                <Text style={{ fontWeight: 600, fontSize: 32, color: "#27AAE1" }}>{data.firstName}</Text>
                                 <Text style={{ fontWeight: 400, fontSize: 32, color: "#414042" }}>{data.lastName} </Text>
                                 <Text style={{ fontWeight: 400, fontSize: 14, color: "#58595B" }}>{data.designation}</Text>
                             </View>
@@ -72,7 +72,7 @@ const Template47 = ({ data,selectedColor,selectedFont  }) => {
                                 <Path d="M18.3951 7.85428H15.4821C15.3078 6.81516 14.3531 6.01758 13.2061 6.01758H10.8721C9.72411 6.01758 8.77045 6.81611 8.59415 7.85428H5.6831C4.98889 7.85428 4.41992 8.37146 4.41992 9.00232V11.6489C4.41992 12.2836 4.96386 12.797 5.63302 12.797H10.7228C10.7389 12.4664 10.8901 12.1699 11.1265 11.9558C11.1325 11.9482 11.1416 11.9444 11.1486 11.9378C11.2017 11.8933 11.2568 11.8497 11.3159 11.8118C11.3369 11.7995 11.3619 11.79 11.384 11.7768C11.4331 11.7503 11.4822 11.7218 11.5332 11.7029C11.5743 11.6858 11.6204 11.6764 11.6635 11.665C11.7025 11.6536 11.7376 11.6394 11.7757 11.6328C11.8598 11.6158 11.949 11.6072 12.0381 11.6072C12.1283 11.6072 12.2154 11.6158 12.3006 11.6328C12.3396 11.6394 12.3747 11.6536 12.4128 11.665C12.4558 11.6764 12.4999 11.6858 12.542 11.7029C12.5951 11.7237 12.6442 11.7503 12.6932 11.7768C12.7153 11.7891 12.7393 11.7986 12.7614 11.8118C12.8205 11.8497 12.8756 11.8933 12.9266 11.9378C12.9337 11.9444 12.9427 11.9492 12.9507 11.9558C13.1881 12.1708 13.3374 12.4664 13.3544 12.797H18.4442C19.1134 12.797 19.6573 12.2835 19.6573 11.6498V9.00138C19.6583 8.37147 19.0903 7.85428 18.3951 7.85428ZM9.76417 7.85428C9.91944 7.41381 10.3552 7.09081 10.8731 7.09081H13.2071C13.725 7.09081 14.1608 7.41287 14.3161 7.85428H9.76417Z" fill="white" />
                             </Svg>
 
-                            <Text style={{ fontWeight: 600, fontSize: 14, color:selectedColor }}>EXPERIENCE</Text>
+                            <Text style={{ fontWeight: 600, fontSize: 14, color: "#27AAE1" }}>EXPERIENCE</Text>
                             <View style={{ backgroundColor: "#6D6E71", width: 450, height: 1 }}></View>
 
                         </View>
@@ -107,7 +107,7 @@ const Template47 = ({ data,selectedColor,selectedFont  }) => {
                             </Svg>
 
                             <View style={{ display: "flex", flexDirection: "row", gap: 16, justifyContent: "center", alignItems: "center" }}>
-                                <Text style={{ fontWeight: 600, fontSize: 14, color:selectedColor }}>EDUCATION</Text>
+                                <Text style={{ fontWeight: 600, fontSize: 14, color: "#27AAE1" }}>EDUCATION</Text>
                                 <View style={{ backgroundColor: "#6D6E71", width: 393, height: 1 }}></View>
                             </View>
                         </View>
@@ -141,7 +141,7 @@ const Template47 = ({ data,selectedColor,selectedFont  }) => {
 
 
                                 <View style={{ display: "flex", flexDirection: "row", gap: 16, justifyContent: "center", alignItems: "center" }}>
-                                    <Text style={{ fontWeight: 600, fontSize: 14, color:selectedColor }}>SKILLS</Text>
+                                    <Text style={{ fontWeight: 600, fontSize: 14, color: "#27AAE1" }}>SKILLS</Text>
                                     <View style={{ backgroundColor: "#6D6E71", width: 134, height: 1 }}></View>
                                 </View>
                             </View>
@@ -168,7 +168,7 @@ const Template47 = ({ data,selectedColor,selectedFont  }) => {
                                         <View style={{ flexDirection: 'column' }} key={index}>
                                             <View style={{ justifyContent: 'space-between', flexDirection: 'row', alignItems: 'center' }}>
                                                 <Svg width="6" height="7" viewBox="0 0 6 7" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <Path d="M6 3.49944L0 0V7L6 3.49944Z" fill={selectedColor} />
+                                                    <Path d="M6 3.49944L0 0V7L6 3.49944Z" fill="#27AAE1" />
                                                 </Svg>
 
                                                 <Text style={{ color: '#000000', fontSize: 12, fontWeight: '500', width: "45%" }}>{detail.skill}</Text>
@@ -197,7 +197,7 @@ const Template47 = ({ data,selectedColor,selectedFont  }) => {
 
 
                                 <View style={{ display: "flex", flexDirection: "row", gap: 16, justifyContent: "center", alignItems: "center", width: "100%" }}>
-                                    <Text style={{ fontWeight: 600, fontSize: 14, color:selectedColor }}>INTERESTS</Text>
+                                    <Text style={{ fontWeight: 600, fontSize: 14, color: "#27AAE1" }}>INTERESTS</Text>
                                     <View style={{ backgroundColor: "#6D6E71", width: 134, height: 1 }}></View>
                                 </View>
                             </View>
@@ -224,7 +224,7 @@ const Template47 = ({ data,selectedColor,selectedFont  }) => {
                                         <View style={{ flexDirection: 'column' }} key={index}>
                                             <View style={{ justifyContent: 'space-between', flexDirection: 'row', alignItems: 'center' }}>
                                                 <Svg width="6" height="7" viewBox="0 0 6 7" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <Path d="M6 3.49944L0 0V7L6 3.49944Z" fill={selectedColor} />
+                                                    <Path d="M6 3.49944L0 0V7L6 3.49944Z" fill="#27AAE1" />
                                                 </Svg>
 
                                                 <Text style={{ color: '#000000', fontSize: 12, fontWeight: '500', width: "45%" }}>{detail.title}</Text>

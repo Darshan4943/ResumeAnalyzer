@@ -1,11 +1,11 @@
-import { ClosedIcon } from '@/utils/svg';
+
 import { useRouter } from 'next/router';
 import React from 'react';
 import { useSelector } from 'react-redux';
 
 function HeaderSidebar({ selectedPage, setIsSidebar, setIsLogin, isLogin }) {
-    const list = ["Home", "Candidate", "Employer", "Recruiter"];
-    const loginList = ["Home", "Jobs", "Services"]
+   
+    const loginList = ["Home", "My Purchase"]
     const router = useRouter();
     const userDataGlobal = useSelector((state) => state.userData);
     const handleNavigation = (page) => {
@@ -36,7 +36,7 @@ function HeaderSidebar({ selectedPage, setIsSidebar, setIsLogin, isLogin }) {
         <div className=' h-[10000px] flex flex-col  pt-[3.5rem] relative ' >
             <div className='sticky top-0'>
                 <div className='flex justify-between px-4 mt-3 py-2 '>
-                    <div onClick={() => router.push("/candidate/afterLogin/home/candidateHome")}>
+                    <div onClick={() => router.push("/home/beforeLoginHome")}>
                         <img src="/images/logo_skilotech.png" alt="" className="w-[123px] h-[40px] object-contain" />
                     </div>
                     <div className='' onClick={() => { setIsSidebar(false), window.scroll(0, 0) }}>
@@ -48,26 +48,8 @@ function HeaderSidebar({ selectedPage, setIsSidebar, setIsLogin, isLogin }) {
                         </svg>
                     </div>
                 </div>
-                {!isLogin ?
-                    <div className='flex flex-col' style={{ listStyle: 'none' }}>
-
-
-                        {list.map((item, index) => (
-                            <li
-                                key={index}
-                                className='px-4 py-7 border-b-2 border-[#06A9EF]'
-                                style={{
-                                    ...getListItemStyles(`/${item.toLowerCase()}`),
-                                    ...(item === 'Home' && getListItemStyles('/')),
-                                }}
-
-                                onClick={() => item === 'Home' ? handleNavigation('/') : handleNavigation(`/${item.toLowerCase()}`)}
-                            >
-                                {item}
-                            </li>
-                        ))}
-                    </div>
-                    :
+                {!isLogin &&
+                   
                     <div className='flex flex-col' style={{ listStyle: 'none' }}>
                         <div onClick={() => router.push("/profile")} className='flex gap-4 p-4 items-center '>
                             <img
@@ -90,11 +72,11 @@ function HeaderSidebar({ selectedPage, setIsSidebar, setIsLogin, isLogin }) {
                                 key={index}
                                 className='px-4 py-7 border-b-2 border-[#06A9EF]'
                                 style={{
-                                    ...getListItemStyles(`/candidate/afterLogin/${item.toLowerCase()}/${item.toLowerCase()}`),
+                                    ...getListItemStyles(`/home/beforeLoginHome/${item.toLowerCase()}/${item.toLowerCase()}`),
                                     ...(item === 'Home' && getListItemStyles('/candidate/afterLogin/home/candidateHome')),
                                 }}
 
-                                onClick={() => item === 'Home' ? handleNavigation('/candidate/afterLogin/home/candidateHome') : handleNavigation(`/candidate/afterLogin/${item.toLowerCase()}/${item.toLowerCase()}`)}
+                                onClick={() => item === 'Home' ? handleNavigation('/home/beforeLoginHome') : handleNavigation(`/home/beforeLoginHome/${item.toLowerCase()}/${item.toLowerCase()}`)}
                             >
                                 {item}
                             </li>

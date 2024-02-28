@@ -8,7 +8,7 @@ const Template37 = ({ data,selectedColor,selectedFont  }) => {
         <View style={{ width: 202, gap: 56, minHeight: 841.8 }}>
 
           <View
-            style={{ width: 106, height: 99, backgroundColor: selectedColor, marginLeft: 52 }}
+            style={{ width: 106, height: 99, backgroundColor: "#3956A3", marginLeft: 52 }}
           ></View>
 
           <View style={{ width: 202, backgroundColor: "#F2F2F2", marginTop: 16, paddingBottom: 24 }}>
@@ -39,7 +39,7 @@ const Template37 = ({ data,selectedColor,selectedFont  }) => {
                     {data.skills.map((detail, index) => (
                       <View style={{ flexDirection: "row", gap: "8", alignItems: "center" }}>
                         <Svg width="5" height="6" viewBox="0 0 5 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <Path d="M2.43329 5.0581C3.60457 5.0581 4.55406 4.10769 4.55406 2.9353C4.55406 1.76291 3.60457 0.8125 2.43329 0.8125C1.26201 0.8125 0.3125 1.76291 0.3125 2.9353C0.3125 4.10769 1.26201 5.0581 2.43329 5.0581Z" fill={selectedColor} />
+                          <Path d="M2.43329 5.0581C3.60457 5.0581 4.55406 4.10769 4.55406 2.9353C4.55406 1.76291 3.60457 0.8125 2.43329 0.8125C1.26201 0.8125 0.3125 1.76291 0.3125 2.9353C0.3125 4.10769 1.26201 5.0581 2.43329 5.0581Z" fill="#3956A3" />
                         </Svg>
 
                         <Text style={{ fontSize: 12,  fontFamily: `${selectedFont} 400`,}}>{detail.skill}</Text>
@@ -56,7 +56,7 @@ const Template37 = ({ data,selectedColor,selectedFont  }) => {
                     {data.languages.map((detail, index) => (
                       <View style={{ flexDirection: "row", gap: "8", alignItems: "center" }}>
                         <Svg width="5" height="6" viewBox="0 0 5 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <Path d="M2.43329 5.0581C3.60457 5.0581 4.55406 4.10769 4.55406 2.9353C4.55406 1.76291 3.60457 0.8125 2.43329 0.8125C1.26201 0.8125 0.3125 1.76291 0.3125 2.9353C0.3125 4.10769 1.26201 5.0581 2.43329 5.0581Z" fill={selectedColor} />
+                          <Path d="M2.43329 5.0581C3.60457 5.0581 4.55406 4.10769 4.55406 2.9353C4.55406 1.76291 3.60457 0.8125 2.43329 0.8125C1.26201 0.8125 0.3125 1.76291 0.3125 2.9353C0.3125 4.10769 1.26201 5.0581 2.43329 5.0581Z" fill="#3956A3" />
                         </Svg>
 
                         <Text style={{ fontSize: 12,  fontFamily: `${selectedFont} 400`, }}>{detail.languages}</Text>
@@ -73,7 +73,7 @@ const Template37 = ({ data,selectedColor,selectedFont  }) => {
                     {data.hobbies.map((detail, index) => (
                       <View style={{ flexDirection: "row", gap: "8", alignItems: "center" }}>
                         <Svg width="5" height="6" viewBox="0 0 5 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <Path d="M2.43329 5.0581C3.60457 5.0581 4.55406 4.10769 4.55406 2.9353C4.55406 1.76291 3.60457 0.8125 2.43329 0.8125C1.26201 0.8125 0.3125 1.76291 0.3125 2.9353C0.3125 4.10769 1.26201 5.0581 2.43329 5.0581Z" fill={selectedColor} />
+                          <Path d="M2.43329 5.0581C3.60457 5.0581 4.55406 4.10769 4.55406 2.9353C4.55406 1.76291 3.60457 0.8125 2.43329 0.8125C1.26201 0.8125 0.3125 1.76291 0.3125 2.9353C0.3125 4.10769 1.26201 5.0581 2.43329 5.0581Z" fill="#3956A3" />
                         </Svg>
 
                         <Text style={{ fontSize: 12,  fontFamily: `${selectedFont} 400`,}}>{detail.title}</Text>
@@ -93,7 +93,7 @@ const Template37 = ({ data,selectedColor,selectedFont  }) => {
           </View>
 
           <View
-            style={{ width: 106, height: 37, backgroundColor: selectedColor, marginLeft: 52, position: "absolute", left: 0, right: 0, bottom: 0, paddingTop: 24 }}
+            style={{ width: 106, height: 37, backgroundColor: "#3956A3", marginLeft: 52, position: "absolute", left: 0, right: 0, bottom: 0, paddingTop: 24 }}
           ></View>
 
 

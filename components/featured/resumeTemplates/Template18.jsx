@@ -36,7 +36,7 @@ const Template18 = ({ data ,selectedColor,selectedFont }) => {
 
         </View>
 
-        <View style={{ gap: 13, flexDirection: 'row', width: 595, backgroundColor: selectedColor, paddingLeft: 20, paddingVertical: 10 }}>
+        <View style={{ gap: 13, flexDirection: 'row', width: 595, backgroundColor: '#F1F1F1', paddingLeft: 20, paddingVertical: 10 }}>
           <View style={{ width: 170, gap: 4 }}>
             <Text style={{ fontSize: 12, fontFamily: `${selectedFont} 500` }}>LANGUAGE</Text>
             <View style={{ flexDirection: "column", width: 170, gap: 6 }}>

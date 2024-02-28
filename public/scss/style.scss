@@ -2,13 +2,12 @@
 // @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&family=Lato:wght@400;700&display=swap");
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 @import "base/headers/header";
-@import "pages/recruiter";
+
 
 @import "base/footer";
 @import "base/model";
 @import "pages/home";
-@import "pages/_candidate";
-@import "pages/_employer";
+
 @import "pages/sign";
 @import "pages/profile";
 @import "custom";
@@ -68,6 +67,10 @@ html {
 }
 .bg-sidebarBg{
   background-image: url("../images/employer/sidebar/sidebarbg.svg");
+
+}
+.bg-carousel_bg{
+  background-image: url("../images/resumeBuilder/carousel_bg.png");
 
 }
   

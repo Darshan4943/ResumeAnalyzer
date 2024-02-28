@@ -80,7 +80,7 @@ const Template50 = ({ data,selectedColor,selectedFont  }) => {
                                 {data?.skills?.map((detail, index) => (
                                     <View style={{ flexDirection: "row", gap: 8, alignItems: "center" }}>
                                         <Svg width="7" height="8" viewBox="0 0 7 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <Path d="M3.5 7.5C5.433 7.5 7 5.933 7 4C7 2.067 5.433 0.5 3.5 0.5C1.567 0.5 0 2.067 0 4C0 5.933 1.567 7.5 3.5 7.5Z" fill={selectedColor} />
+                                            <Path d="M3.5 7.5C5.433 7.5 7 5.933 7 4C7 2.067 5.433 0.5 3.5 0.5C1.567 0.5 0 2.067 0 4C0 5.933 1.567 7.5 3.5 7.5Z" fill="#1C75BC" />
                                         </Svg>
 
 
@@ -103,7 +103,7 @@ const Template50 = ({ data,selectedColor,selectedFont  }) => {
                                 {data?.languages?.map((detail, index) => (
                                     <View style={{ flexDirection: "row", gap: 8, alignItems: "center" }}>
                                         <Svg width="7" height="8" viewBox="0 0 7 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <Path d="M3.5 7.5C5.433 7.5 7 5.933 7 4C7 2.067 5.433 0.5 3.5 0.5C1.567 0.5 0 2.067 0 4C0 5.933 1.567 7.5 3.5 7.5Z" fill={selectedColor} />
+                                            <Path d="M3.5 7.5C5.433 7.5 7 5.933 7 4C7 2.067 5.433 0.5 3.5 0.5C1.567 0.5 0 2.067 0 4C0 5.933 1.567 7.5 3.5 7.5Z" fill="#1C75BC" />
                                         </Svg>
 
                                         <Text style={{ fontSize: 10, fontWeight: 400, color: "#58595B" }}>{detail.languages}</Text>
@@ -124,7 +124,7 @@ const Template50 = ({ data,selectedColor,selectedFont  }) => {
                                 {data?.hobbies?.map((detail, index) => (
                                     <View style={{ flexDirection: "row", gap: 8, alignItems: "center" }}>
                                         <Svg width="7" height="8" viewBox="0 0 7 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <Path d="M3.5 7.5C5.433 7.5 7 5.933 7 4C7 2.067 5.433 0.5 3.5 0.5C1.567 0.5 0 2.067 0 4C0 5.933 1.567 7.5 3.5 7.5Z" fill={selectedColor} />
+                                            <Path d="M3.5 7.5C5.433 7.5 7 5.933 7 4C7 2.067 5.433 0.5 3.5 0.5C1.567 0.5 0 2.067 0 4C0 5.933 1.567 7.5 3.5 7.5Z" fill="#1C75BC" />
                                         </Svg>
 
                                         <Text style={{ fontSize: 10, fontWeight: 400, color: "#58595B" }}>{detail.title}</Text>
@@ -157,7 +157,7 @@ const Template50 = ({ data,selectedColor,selectedFont  }) => {
                                 {data?.experience?.map((detail, index) => (
                                     <View style={{ display: "flex", flexDirection: "row", gap: 16 }}>
                                         <Svg width="7" height="8" viewBox="0 0 7 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <Path d="M3.5 7.5C5.433 7.5 7 5.933 7 4C7 2.067 5.433 0.5 3.5 0.5C1.567 0.5 0 2.067 0 4C0 5.933 1.567 7.5 3.5 7.5Z" fill={selectedColor} />
+                                            <Path d="M3.5 7.5C5.433 7.5 7 5.933 7 4C7 2.067 5.433 0.5 3.5 0.5C1.567 0.5 0 2.067 0 4C0 5.933 1.567 7.5 3.5 7.5Z" fill="#1C75BC" />
                                         </Svg>
 
                                         {index !== data.education.length - 1 && (
@@ -203,7 +203,7 @@ const Template50 = ({ data,selectedColor,selectedFont  }) => {
                                     <View style={{ flexDirection: "row", gap: 16, }}>
 
                                         <Svg width="7" height="8" viewBox="0 0 7 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <Path d="M3.5 7.5C5.433 7.5 7 5.933 7 4C7 2.067 5.433 0.5 3.5 0.5C1.567 0.5 0 2.067 0 4C0 5.933 1.567 7.5 3.5 7.5Z" fill={selectedColor} />
+                                            <Path d="M3.5 7.5C5.433 7.5 7 5.933 7 4C7 2.067 5.433 0.5 3.5 0.5C1.567 0.5 0 2.067 0 4C0 5.933 1.567 7.5 3.5 7.5Z" fill="#1C75BC" />
                                         </Svg>
 
                                         {index !== data.education.length - 1 && (

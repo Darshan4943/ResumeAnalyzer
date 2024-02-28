@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Document, Page, Text, View, StyleSheet, Image, Svg, Path, Rect, Font, Defs, ClipPath } from '@react-pdf/renderer';
 
-function Template15({ data, selectedColor, selectedFont }) {
+function Template15({ data,selectedColor,selectedFont  }) {
   return (
 
     <Page>
@@ -10,9 +10,9 @@ function Template15({ data, selectedColor, selectedFont }) {
           <View style={{ width: 173, flexDirection: 'column', gap: 20 }}>
             <View style={{ width: 140, gap: 12 }}>
               <View style={{ maxWidth: 140 }}>
-                <Text style={{ fontSize: 28, fontFamily: `${selectedFont} 700`, }}>{data.firstName}</Text ><Text style={{ fontSize: 28, fontFamily: `${selectedFont} 700`, }}>{data.lastName}</Text>
+                <Text style={{ fontSize: 28,  fontFamily: `${selectedFont} 700`, }}>{data.firstName}</Text ><Text style={{ fontSize: 28, fontFamily: `${selectedFont} 700`, }}>{data.lastName}</Text>
               </View>
-              <Text style={{ fontSize: 12, fontFamily: `${selectedFont} 400`, maxWidth: 140 }}>{data.designation}</Text>
+              <Text style={{ fontSize: 12,fontFamily: `${selectedFont} 400`,maxWidth: 140 }}>{data.designation}</Text>
             </View>
             <View style={{ flexDirection: 'column', gap: 14, width: 130, gap: 4 }}>
               <View style={{ maxWidth: 120, gap: 6, flexDirection: "row", alignItems: "center", }}>
@@ -34,7 +34,7 @@ function Template15({ data, selectedColor, selectedFont }) {
                   src={("/images/services/locat.png")}
                   style={{ width: 16, height: 16, }}
                 />
-                <Text style={{ fontSize: 10, fontFamily: `${selectedFont} 400`, color: "#282627" }}>{data.location}</Text>
+                <Text style={{ fontSize: 10,fontFamily: `${selectedFont} 400`,color: "#282627" }}>{data.location}</Text>
               </View>
 
             </View>
@@ -87,12 +87,12 @@ function Template15({ data, selectedColor, selectedFont }) {
                     return (
                       <View style={{ width: "100%", flexDirection: "column" }} key={index}>
                         <View style={{ flexDirection: "row", alignItems: "center" }}>
-                          <Text style={{ color: "#414142", fontSize: 12, width: 60, fontFamily: `${selectedFont} 400`, fontWeight: "light" }}>
+                          <Text style={{ color: "#414142", fontSize: 12, width: 60, fontFamily: `${selectedFont} 400`,fontWeight: "light" }}>
                             {detail.languages}
                           </Text>
                           <View style={{ width: "59.21%", height: 3.78, alignSelf: "center", backgroundColor: "#A9AAAA" }}>
                             <View
-                              style={{ height: "100%", backgroundColor: selectedColor, width: `${ratingPercentage}%` }}
+                              style={{ height: "100%", backgroundColor: "#6D6E71", width: `${ratingPercentage}%` }}
                             ></View>
                           </View>
                         </View>
@@ -104,7 +104,7 @@ function Template15({ data, selectedColor, selectedFont }) {
             </View>
           </View>
           <View style={{ width: 170, gap: 4 }}>
-            <Text style={{ fontSize: 12, fontFamily: `${selectedFont} 400`, }}>SKILLS</Text>
+            <Text style={{ fontSize: 12, fontFamily: `${selectedFont} 400`,}}>SKILLS</Text>
             <View style={{ flexDirection: "column", width: 170, gap: 6 }}>
               {data.skills?.map((detail, index) => {
                 const calculateWidthPercentage = (rating) => {
@@ -135,7 +135,7 @@ function Template15({ data, selectedColor, selectedFont }) {
                       </Text>
                       <View style={{ width: "59.21%", height: 3.78, alignSelf: "flex-end", marginBottom: 1, backgroundColor: "#A9AAAA" }}>
                         <View
-                          style={{ height: "100%", backgroundColor: selectedColor, width: `${ratingPercentage}%` }}
+                          style={{ height: "100%", backgroundColor: "#6D6E71", width: `${ratingPercentage}%` }}
                         ></View>
                       </View>
                     </View>
@@ -144,7 +144,47 @@ function Template15({ data, selectedColor, selectedFont }) {
               })}
             </View>
           </View>
+          <View style={{ width: 170, gap: 4 }}>
+            <Text style={{ fontSize: 12, fontFamily: `${selectedFont} 400`, }}>SOFTWARE</Text>
+            {/* <View style={{ flexDirection: "column", width: 170, gap: 6 }}>
+                  {data.skills?.map((detail, index) => {
+                    const calculateWidthPercentage = (rating) => {
+                      let ratingPercentage = 0;
+                      if (rating && rating.length > 0) {
+                        const zerosCount = rating.filter(
+                          (val) => val === 0
+                        ).length;
 
+                        if (zerosCount === 0) ratingPercentage = 100;
+                        else if (zerosCount === 1) ratingPercentage = 80;
+                        else if (zerosCount === 2) ratingPercentage = 60;
+                        else if (zerosCount === 3) ratingPercentage = 40;
+                        else if (zerosCount === 4) ratingPercentage = 20;
+                      }
+                      return ratingPercentage;
+                    };
+
+                    const ratingPercentage = calculateWidthPercentage(
+                      detail.rating
+                    );
+
+                    return (
+                      <View style={{ paddingRight: 4, flexDirection: "column" }} key={index}>
+                        <View style={{ flexDirection: "row", alignItems: "center", gap: 4 }}>
+                          <Text style={{ color: "#414142", fontSize: 12, width: 80, fontFamily: `${selectedFont} 400`, }}>
+                            {detail.skill}
+                          </Text>
+                          <View style={{ width: "59.21%", height: 3.78, alignSelf: "flex-end", marginBottom: 1, backgroundColor: "#A9AAAA" }}>
+                            <View
+                              style={{ height: "100%", backgroundColor: "#6D6E71", width: `${ratingPercentage}%` }}
+                            ></View>
+                          </View>
+                        </View>
+                      </View>
+                    );
+                  })}
+                </View> */}
+          </View>
 
         </View>
         <View style={{ backgroundColor: '#8F9193', height: '1px', width: '550' }}></View>
@@ -152,7 +192,7 @@ function Template15({ data, selectedColor, selectedFont }) {
         <View style={{ width: 550, flexDirection: 'row', gap: 20 }}>
           <View style={{ width: 150, flexDirection: 'column', gap: 12 }}>
             <View style={{ gap: 10, flexDirection: 'column' }}>
-              <Text style={{ fontSize: 12, fontFamily: `${selectedFont} 400`, }}>
+              <Text style={{ fontSize: 12,fontFamily: `${selectedFont} 400`, }}>
                 EDUCATION
               </Text>
               {
@@ -187,7 +227,7 @@ function Template15({ data, selectedColor, selectedFont }) {
                 <View key={index} style={{ flexDirection: "column", }}>
                   <View style={{ flexDirection: "row", alignItems: "center", gap: 4 }}>
                     <Text style={{ color: "#282829", }}>&#8226;</Text>
-                    <Text style={{ fontFamily: `${selectedFont} 400`, color: "#5E5F5E", fontSize: 10 }}>{detail.title}</Text>
+                    <Text style={{ fontFamily: `${selectedFont} 400`,color: "#5E5F5E", fontSize: 10 }}>{detail.title}</Text>
                   </View>
                 </View>
               ))}
@@ -208,7 +248,7 @@ function Template15({ data, selectedColor, selectedFont }) {
 
           </View>
           <View style={{ flexDirection: 'column', width: 400, gap: 12 }}>
-            <Text style={{ fontSize: 12, fontFamily: `${selectedFont} 400`, }}> EXPERIENCE</Text>
+            <Text style={{ fontSize: 12,fontFamily: `${selectedFont} 400`,}}> EXPERIENCE</Text>
             <View style={{ width: 40 }}>
               <View>
 
@@ -221,7 +261,7 @@ function Template15({ data, selectedColor, selectedFont }) {
                       <View style={{ width: 340, flexDirection: 'row', gap: 10 }}>
                         <View style={{ width: 40 }} >
 
-                          <Text style={{ fontSize: 14, fontWeight: "normal", fontFamily: `${selectedFont} 400`, color: '#282627' }}>
+                          <Text style={{ fontSize: 14, fontWeight: "normal",fontFamily: `${selectedFont} 400`, color: '#282627' }}>
                             {" "}
                             {detail.duration?.start?.year}-{" "} <br />
                             {detail.currentlyWorking

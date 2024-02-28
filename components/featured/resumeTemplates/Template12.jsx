@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Document, Page, Text, View, StyleSheet, Image, Svg, Path, Rect, Font, Defs, ClipPath } from '@react-pdf/renderer';
 
-const Template12 = ({ data, selectedColor, selectedFont }) => {
+const Template12 = ({ data,selectedColor,selectedFont }) => {
 
   return (
-    <Page size="A4">
-      <View style={{ flexDirection: "column", justifyContent: "center", alignItems: "center", }}>
-        <View style={{  }}>
+    <Page>
+      <View style={{ flexDirection: "column", justifyContent: "center", alignItems: "center", width: 595 }}>
+        <View style={{ width: 595, }}>
           <View style={{ backgroundColor: "#0C2438", width: '595', position: 'relative', height: 176 }}>
-            <View style={{ backgroundColor: selectedColor, position: 'absolute', width: 495, bottom: 0, height: 75 }}>
+            <View style={{ backgroundColor: "#2EA0D7", position: 'absolute', width: 495, bottom: 0, height: 75 }}>
               <View style={{ flexDirection: "column", paddingLeft: 40, gap: 4, paddingTop: 5 }}>
                 <Text style={{ fontSize: "30px", color: '#fff', fontFamily: `${selectedFont} 400` }}>
                   {data.firstName} {data.lastName}
@@ -144,7 +144,7 @@ const Template12 = ({ data, selectedColor, selectedFont }) => {
 
 
           <View style={{ flexDirection: "column", width: "595", gap: 6, paddingLeft: 23, paddingTop: 10 }}>
-            <View style={{ flexDirection: "row", alignItems: "center", gap: 4, width: 525,justifyContent:"flex-end" }}>
+            <View style={{ flexDirection: "row", alignItems: "center", gap: 4, width: 525, }}>
               <Text style={{ fontSize: 16, fontFamily: `${selectedFont} 700`, color: "#495970", }}>
                 EXPERIENCES
               </Text>
@@ -173,7 +173,7 @@ const Template12 = ({ data, selectedColor, selectedFont }) => {
                       {detail.location}
                     </Text>
                   </View>
-                  <Text style={{ width: 300, fontSize: 10, fontFamily: `${selectedFont} 400`, color: "#676A6D" ,flexWrap:"wrap"}}>
+                  <Text style={{ width: 337, fontSize: 10, fontFamily: `${selectedFont} 400`, color: "#676A6D" }}>
                     {" "}
                     {detail.description}
                   </Text>
@@ -183,86 +183,84 @@ const Template12 = ({ data, selectedColor, selectedFont }) => {
           </View>
 
 
-          {data?.skills?.length > 0 && (
-            <View style={{ flexDirection: "column", width: "595", paddingLeft: 23, }}>
-              <View style={{ flexDirection: "row", alignItems: "center", gap: 12, width: 525 }}>
-                <Text style={{ fontSize: 16, fontFamily: `${selectedFont} 700`, color: "#495970", }}>
-                  SKILLS
-                </Text>
-                <View style={{ backgroundColor: "#B5BCC5", width: "450", height: 1 }}></View>
-              </View>
-              <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 4, paddingTop: 10, columnGap: 30 }}>
-                {data.skills?.map((detail, index) => {
-                  const calculateWidthPercentage = (rating) => {
-                    let ratingPercentage = 0;
-                    if (rating && rating.length > 0) {
-                      const zerosCount = rating.filter((val) => val === 0).length;
 
-                      if (zerosCount === 0) ratingPercentage = 100;
-                      else if (zerosCount === 1) ratingPercentage = 80;
-                      else if (zerosCount === 2) ratingPercentage = 60;
-                      else if (zerosCount === 3) ratingPercentage = 40;
-                      else if (zerosCount === 4) ratingPercentage = 20;
-                    }
-                    return ratingPercentage;
-                  };
+          <View style={{ flexDirection: "column", width: "595", paddingLeft: 23, }}>
+            <View style={{ flexDirection: "row", alignItems: "center", gap: 12, width: 525 }}>
+              <Text style={{ fontSize: 16, fontFamily: `${selectedFont} 700`, color: "#495970", }}>
+                SKILLS
+              </Text>
+              <View style={{ backgroundColor: "#B5BCC5", width: "450", height: 1 }}></View>
+            </View>
+            <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 4, paddingTop: 10, columnGap: 30 }}>
+              {data.skills?.map((detail, index) => {
+                const calculateWidthPercentage = (rating) => {
+                  let ratingPercentage = 0;
+                  if (rating && rating.length > 0) {
+                    const zerosCount = rating.filter((val) => val === 0).length;
 
-                  const ratingPercentage = calculateWidthPercentage(
-                    detail.rating
-                  );
+                    if (zerosCount === 0) ratingPercentage = 100;
+                    else if (zerosCount === 1) ratingPercentage = 80;
+                    else if (zerosCount === 2) ratingPercentage = 60;
+                    else if (zerosCount === 3) ratingPercentage = 40;
+                    else if (zerosCount === 4) ratingPercentage = 20;
+                  }
+                  return ratingPercentage;
+                };
 
-                  return (
-                    <View style={{ flexDirection: "row", alignItems: "center", gap: 8 }} key={index}>
-                      <Text style={{ color: "#545554", fontSize: 12, width: 100, fontFamily: `${selectedFont} 500` }}>
-                        {detail.skill}
-                      </Text>
-                      <View style={{ width: "100", height: 3, backgroundColor: "#DCDDDE", }}>
-                        <View style={{ width: `${ratingPercentage}%`, height: "100%", backgroundColor: selectedColor }}></View>
-                      </View>
+                const ratingPercentage = calculateWidthPercentage(
+                  detail.rating
+                );
+
+                return (
+                  <View style={{ flexDirection: "row", alignItems: "center", gap: 8 }} key={index}>
+                    <Text style={{ color: "#545554", fontSize: 12, width: 100, fontFamily: `${selectedFont} 300` }}>
+                      {detail.skill}
+                    </Text>
+                    <View style={{ width: "100", height: 3, backgroundColor: "#DCDDDE", }}>
+                      <View style={{ width: `${ratingPercentage}%`, height: "100%", backgroundColor: "#2EA0D7" }}></View>
                     </View>
-                  );
-                })}
-              </View>
-            </View>
-
-          )}
-          {data?.hobbies?.length > 0 && (
-            <View style={{ flexDirection: "column", width: "595", paddingBottom: 2, paddingLeft: 20, paddingTop: 10 }}>
-              <View style={{ flexDirection: "row", alignItems: "center", gap: 8, width: 525 }}>
-                <Text style={{ fontSize: 16, fontFamily: `${selectedFont} 700`, color: "#495970", }}>
-                  INTERESTS
-                </Text>
-                <View style={{ backgroundColor: "#B5BCC5", width: "450", height: 1 }}></View>
-              </View>
-              <View style={{ flexDirection: "row", flexWrap: "wrap", width: 595, gap: 6, paddingTop: 10 }}>
-                {data.hobbies?.map((detail, index) => (
-                  <View style={{ flexDirection: "row", alignItems: "center", gap: 4, width: 130, fontSize: 10 }}>
-                    <Text style={{ color: "#282829", }}>&#8226;</Text>
-                    <Text style={{ color: "#282829", fontFamily: `${selectedFont} 400` }}>{detail.title}</Text>
                   </View>
-                ))}
-              </View>
+                );
+              })}
             </View>
-          )}
-          {data?.languages?.length > 0 && (
-            <View style={{ flexDirection: "column", width: "595", paddingBottom: 4, paddingLeft: 20, paddingTop: 8 }}>
-              <View style={{ flexDirection: "row", alignItems: "center", gap: 6 }}>
-                <Text style={{ fontSize: 16, fontFamily: `${selectedFont} 700`, color: "#495970", }}>
-                  LANGUAGES
+          </View>
+
+
+
+          <View style={{ flexDirection: "column", width: "595", paddingBottom: 2, paddingLeft: 20, paddingTop: 10 }}>
+            <View style={{ flexDirection: "row", alignItems: "center", gap: 8, width: 525 }}>
+              <Text style={{ fontSize: 16, fontFamily: `${selectedFont} 700`, color: "#495970", }}>
+                INTERESTS
+              </Text>
+              <View style={{ backgroundColor: "#B5BCC5", width: "450", height: 1 }}></View>
+            </View>
+            <View style={{ flexDirection: "row", flexWrap: "wrap", width: 595, gap: 6, paddingTop: 10 }}>
+              {data.hobbies?.map((detail, index) => (
+                <View style={{ flexDirection: "row", alignItems: "center", gap: 4, width: 130, fontSize: 10 }}>
+                  <Text style={{ color: "#282829", }}>&#8226;</Text>
+                  <Text style={{ color: "#282829", fontFamily: `${selectedFont} 400` }}>{detail.title}</Text>
+                </View>
+              ))}
+            </View>
+          </View>
+
+          <View style={{ flexDirection: "column", width: "595", paddingBottom: 4, paddingLeft: 20, paddingTop: 8 }}>
+            <View style={{ flexDirection: "row", alignItems: "center", gap: 6 }}>
+              <Text style={{ fontSize: 16, fontFamily: `${selectedFont} 700`, color: "#495970", }}>
+                LANGUAGES
+              </Text>
+              <View style={{ backgroundColor: "#B5BCC5", width: "420", height: 1 }}></View>
+            </View>
+            <View style={{ flexDirection: "row", gap: 1, paddingTop: 8 }}>
+              {data?.languages?.map((detail, index) => (
+                <Text key={index} style={{ color: "#545554", fontSize: 14, fontFamily: `${selectedFont} 400`, }}>
+                  {detail.languages} {","}
                 </Text>
-                <View style={{ backgroundColor: "#B5BCC5", width: "420", height: 1 }}></View>
-              </View>
-              <View style={{ flexDirection: "row", gap: 1, paddingTop: 8 }}>
-                {data?.languages?.map((detail, index) => (
-                  <Text key={index} style={{ color: "#545554", fontSize: 14, fontFamily: `${selectedFont} 400`, }}>
-                    {detail.languages} {","}
-                  </Text>
-                ))}
-              </View>
+              ))}
             </View>
-          )}
+          </View>
         </View>
-    </View>
+      </View>
     </Page>
   );
 };

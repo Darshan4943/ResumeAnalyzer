@@ -53,7 +53,7 @@ function Template26({ data ,selectedColor,selectedFont }) {
                             </View>
                         </View>
                         <View style={{ flexDirection: "column", width: "100%" }} >
-                            <View style={{ borderTop: `4px ${selectedColor}`, borderLeft: "8px", borderRight: "8px", position: "relative", padding: "16px", gap: "16px" }}>
+                            <View style={{ borderTop: "4px solid #414042", borderLeft: "8px solid #414042", borderRight: "8px solid #414042", position: "relative", padding: "16px", gap: "16px" }}>
                                 <Text style={{ paddingHorizontal: "16px", paddingVertical: "10px", position: "absolute", top: -22, left: "16px", backgroundColor: "#FFF" }}>EDUCATION</Text>
                                 {data?.education?.map((detail, index) => (
                                     <View style={{ width: "100%", display: "flex", flexDirection: "column", gap: "6px", alignItems: "center" }}>
@@ -64,12 +64,12 @@ function Template26({ data ,selectedColor,selectedFont }) {
                                     </View>
                                 ))}
                             </View>
-                            <View style={{ width: "100%", flexDirection: "row", display: "flex", alignItems: "center", gap: 16, width: "100%", backgroundColor: selectedColor, paddingVertical: "6px" }}>
+                            <View style={{ width: "100%", flexDirection: "row", display: "flex", alignItems: "center", gap: 16, width: "100%", backgroundColor: "#414042", paddingVertical: "6px" }}>
                                 <View style={{ height: 3, backgroundColor: "#FFFFFF", width: "30%" }}></View>
                                 <Text style={{ color: "#FFFFFF", fontSize: "16px", fontFamily: `${selectedFont} 600` }}>SKILLS</Text>
                                 <View style={{ height: 3, backgroundColor: "#FFFFFF", width: "30%" }}></View>
                             </View>
-                            <View style={{ width: "100%", backgroundColor:selectedColor, padding: "16px", gap: "14px" }}>
+                            <View style={{ width: "100%", backgroundColor: "#414042", padding: "16px", gap: "14px" }}>
                                 {data.skills?.map((detail, index) => {
                                     const calculateWidthPercentage = (rating) => {
                                         let zerosCount = 0;
@@ -229,7 +229,7 @@ function Template26({ data ,selectedColor,selectedFont }) {
 
                     </View>
                 </View>
-                <View style={{ position:"absolute", bottom:0, backgroundColor:selectedColor, width: "100%", paddingVertical: "8px", flexDirection: "row", alignItems:"center", justifyContent:"center" }}>
+                <View style={{ position:"absolute", bottom:0, backgroundColor: "#414042", width: "100%", paddingVertical: "8px", flexDirection: "row", alignItems:"center", justifyContent:"center" }}>
                     <Text style={{ textAlign: "center", fontFamily: `${selectedFont} 400`, fontSize: 12, color: "#A7A9AC", }}>For more information you can check my online portfolio at</Text>
                     {" "}
                     <Text style={{ fontFamily: `${selectedFont} 500`, fontSize: 12, color: "#FFFFFF", }}>{data.socialLinks}</Text>
