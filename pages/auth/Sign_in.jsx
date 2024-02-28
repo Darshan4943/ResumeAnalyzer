@@ -7,29 +7,11 @@ import { useDispatch } from "react-redux";
 import { reCallUserData } from "../../Redux/actions/user";
 import Link from "next/link";
 import ForgotPassword from "./forgotPassword";
-import { GoogleAuthProvider,signInWithPopup } from "firebase/auth";
-import {auth} from "../../utils/firebase"
 
-function Sign_in({ setIsSignIn }) {
+function Sign_in({ setIsSignIn ,handleGoogle}) {
 
-  const handleGoogle = async () => {
-    const provider = new GoogleAuthProvider();
-    try {
-      await signInWithPopup(auth, provider);
-   
-      
-    } catch (error) {
-     
-      if (error.code === 'auth/cancelled-popup-request') {
-       
-        console.log('Sign-in with Google popup was cancelled by the user.');
-      } else {
-      
-        console.error('Error signing in with Google:', error.message);
-      }
-    }
-  }
   
+
   const taskRef = useRef(null);
 
   const handleOutsideClick = (event) => {
@@ -64,7 +46,7 @@ function Sign_in({ setIsSignIn }) {
     };
     console.log("da", dataToSend);
     axios
-      .post("https://freedygoservices.in/api/candidate/signin", dataToSend)
+      .post("http://localhost:2000/api/signin", dataToSend)
       .then((res) => {
         const response = res.data;
         if (response.success) {
@@ -72,7 +54,7 @@ function Sign_in({ setIsSignIn }) {
           dispatch(reCallUserData());
           toast.success("Sign in Successfully");
           router.push("/home/BeforeLoginHome");
-          setError("Sign in Successfully");
+         
         } else {
           toast.error("something went wrong");
         }
@@ -85,10 +67,10 @@ function Sign_in({ setIsSignIn }) {
 
 
   return (
-    <div className="flex justify-center items-center py-12 pl-[8px] pr-[8px]">
+    <div className=" flex justify-center items-center py-12 pl-[8px] pr-[8px]">
       <form
         onSubmit={submitHandler}
-        className="flex w-full sm:w-[464px] p-[24px] gap-[24px] flex-col justify-center items-center rounded-[24px] "
+        className="  bg-white flex w-full sm:w-[464px] p-[24px] gap-[24px] flex-col justify-center items-center rounded-[24px] "
         style={{
           boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
         }}
@@ -156,7 +138,7 @@ function Sign_in({ setIsSignIn }) {
           </div>
         </div>
         <div className="w-full flex flex-col gap-[16px]">
-          <button className="w-full px-[36px] py-[12px] rounded-[12px] border-[1px] border-solid border-[#06a9ef] text-[20px] font-[500] hover:bg-[#06a9ef] hover:text-[#fff] transition-all duration-200">
+          <button style={{ borderColor: '#06a9ef' }} className="w-full px-[36px] py-[12px] rounded-[12px] border-[1px] border-solid border-[#06a9ef] text-[20px] font-[500] hover:bg-[#06a9ef] hover:text-[#fff] transition-all duration-200">
             Sign In
           </button>
           <div className="flex flex-row items-center justify-center gap-[6px]">
@@ -169,7 +151,7 @@ function Sign_in({ setIsSignIn }) {
                 pathname: "/auth",
                 query: { signup: true },
               }}> */}
-              <button onClick={handleGoogle} className="w-full px-[36px] py-[12px] rounded-[12px] border-[1px] border-solid border-[#9D9D9D]   text-[16px] font-[500] text-[#333] flex items-center gap-2 justify-center continue_btn">
+              <div style={{ borderColor: '#9D9D9D' }} onClick={handleGoogle} className=" cursor-pointer w-full px-[36px] py-[12px] rounded-[12px] border-[1px] border-solid border-[#9D9D9D]   text-[16px] font-[500] text-[#333] flex items-center gap-2 justify-center continue_btn">
                 <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <g clip-path="url(#clip0_128_5190)">
                     <path d="M24.4873 12.2245C24.4873 11.2413 24.4057 10.5237 24.229 9.77963H12.739V14.2176H19.4833C19.3474 15.3205 18.6132 16.9815 16.9814 18.0976L16.9585 18.2461L20.5915 20.9963L20.8431 21.0209C23.1547 18.9347 24.4873 15.8653 24.4873 12.2245Z" fill="#4285F4" />
@@ -182,7 +164,7 @@ function Sign_in({ setIsSignIn }) {
 
 
                 Continue with Google
-              </button>
+              </div>
             {/* </Link> */}
             <div className="text-[12px]">
               By signing in, you agree to our{" "}
