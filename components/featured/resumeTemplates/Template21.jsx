@@ -9,9 +9,9 @@ function Template21({ data,selectedColor,selectedFont  }) {
 
                     <View style={{ flexDirection: 'column', gap: 8, paddingBottom: 16, borderBottom: 2, borderColor: "#C7C6C5", width: 360, height: 90 }}>
 
-                        <Text style={{ fontSize: 26, fontFamily: `${selectedFont} 600`, color: "#494949" }}>{data.firstName} {data.lastName}</Text>
+                        <Text style={{ fontSize: 26, fontFamily: `${selectedFont} 600`, color: selectedColor }}>{data.firstName} {data.lastName}</Text>
 
-                        <Text style={{ fontSize: 16, fontFamily: `${selectedFont} 300`, color: "#494949" }}>{data.designation}</Text>
+                        <Text style={{ fontSize: 16, fontFamily: `${selectedFont} 300`, color: selectedColor }}>{data.designation}</Text>
                     </View>
 
                     <View style={{ width: "170", height: "170", }}>
@@ -65,32 +65,32 @@ function Template21({ data,selectedColor,selectedFont  }) {
                         )}
                     </View>
                     <View style={{ flexDirection: "column", gap: 16, width: "344", marginTop: -24 }}>
-                        <Text style={{ fontSize: 16, fontFamily: `${selectedFont} 700`, color: "#494949" }}>ABOUT ME</Text>
+                        <Text style={{ fontSize: 16, fontFamily: `${selectedFont} 700`, color: selectedColor }}>ABOUT ME</Text>
                         <Text style={{ fontSize: 14, fontFamily: `${selectedFont} 500`, color: "#6D6E71" }}>{data.summery}</Text>
                     </View>
                 </View>
                 <View style={{ flexDirection: "row", gap: 24 }}>
                     <View style={{ flexDirection: "column", gap: 24, width: 271 }}>
 
-                        <View style={{ flexDirection: "column", gap: 16 }}>
+                        {/* <View style={{ flexDirection: "column", gap: 16 }}>
                             <View style={{ flexDirection: "column", gap: 8 }}>
 
-                                <Text style={{ color: '#494949', fontSize: '20px', fontFamily: `${selectedFont} 600`, paddingTop: '13px', }}>AWARDS</Text>
+                                <Text style={{ color: selectedColor, fontSize: '20px', fontFamily: `${selectedFont} 600`, paddingTop: '13px', }}>AWARDS</Text>
                                 <View style={{ backgroundColor: '#535353', height: '1px', }} />
                             </View>
                             {data?.course?.map((detail, index) => (
                                 <View style={{ flexDirection: 'row', gap: '8', }}>
                                     <Svg width="36" height="41" viewBox="0 0 36 41" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <Path d="M26.3 10.5725L29.4205 4.5H7.41992L9.5849 10.5725H26.3Z" fill="#494949" />
+                                        <Path d="M26.3 10.5725L29.4205 4.5H7.41992L9.5849 10.5725H26.3Z" fill="selectedColor" />
                                         <Path d="M29.4195 4.5L18.6863 21.2184L7.41894 4.5L4 10.6536L15.3877 28.9443L22.2937 28.8371L32.9039 10.5463L29.4195 4.5Z" fill="#CDCDCD" />
-                                        <Path d="M18.9943 36.8349C24.1602 36.8349 28.3479 32.6496 28.3479 27.4868C28.3479 22.324 24.1602 18.1387 18.9943 18.1387C13.8284 18.1387 9.64062 22.324 9.64062 27.4868C9.64062 32.6496 13.8284 36.8349 18.9943 36.8349Z" fill="#494949" />
+                                        <Path d="M18.9943 36.8349C24.1602 36.8349 28.3479 32.6496 28.3479 27.4868C28.3479 22.324 24.1602 18.1387 18.9943 18.1387C13.8284 18.1387 9.64062 22.324 9.64062 27.4868C9.64062 32.6496 13.8284 36.8349 18.9943 36.8349Z" fill="selectedColor" />
                                     </Svg>
 
                                     <View key={index} style={{ flexDirection: 'column', gap: '2', }}>
-                                        <Text style={{ color: '#494949', fontSize: '14', fontFamily: `${selectedFont} 500`, maxWidth: '80%' }}>{detail.courseName} -{detail.issuedBy}</Text>
-                                        <Text style={{ color: '#494949', fontSize: '12', fontFamily: `${selectedFont} 500`, maxWidth: '80%' }}>{detail.description}</Text>
+                                        <Text style={{ color: selectedColor, fontSize: '14', fontFamily: `${selectedFont} 500`, maxWidth: '80%' }}>{detail.courseName} -{detail.issuedBy}</Text>
+                                        <Text style={{ color: selectedColor, fontSize: '12', fontFamily: `${selectedFont} 500`, maxWidth: '80%' }}>{detail.description}</Text>
 
-                                        <Text style={{ color: '#494949', fontSize: '12', fontFamily: `${selectedFont} 300`, maxWidth: '80%' }}>
+                                        <Text style={{ color: selectedColor, fontSize: '12', fontFamily: `${selectedFont} 300`, maxWidth: '80%' }}>
                                             {detail.duration?.end?.year &&
                                                 <Text style={{ color: '#272128', fontSize: '12', fontFamily: `${selectedFont} 300`, maxWidth: '80%' }}>
                                                     {detail.duration?.end?.month}-
@@ -103,19 +103,19 @@ function Template21({ data,selectedColor,selectedFont  }) {
                             ))}
 
 
-                        </View>
+                        </View> */}
                         <View style={{ flexDirection: "column", gap: 16 }}>
 
                             {data?.skills?.length > 0 && (
                                 <View style={{ flexDirection: 'column', gap: 12 }}>
                                     <View style={{ flexDirection: "column", gap: 8 }}>
 
-                                        <Text style={{ color: '#494949', fontSize: '20px', fontFamily: `${selectedFont} 700`, paddingTop: '13px', }}>SKILLS</Text>
+                                        <Text style={{ color: selectedColor, fontSize: '20px', fontFamily: `${selectedFont} 700`, paddingTop: '13px', }}>SKILLS</Text>
                                         <View style={{ backgroundColor: '#535353', height: '1px', }} />
                                     </View>
                                     {data?.skills?.map((detail, index) => (
                                         <View key={index} style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: 8 }}>
-                                            <Text style={{ fontSize: 12 ,fontFamily: `${selectedFont} 400`,color:'#494949'}}>{detail.skill}</Text>
+                                            <Text style={{ fontSize: 12 ,fontFamily: `${selectedFont} 400`,color:"#494949"}}>{detail.skill}</Text>
                                             <View style={{ flexDirection: 'row', gap: 4, marginTop: 4 }}>
                                                 {[...Array(5)].map((_, i) => (
                                                     <View key={i}>
@@ -125,7 +125,7 @@ function Template21({ data,selectedColor,selectedFont  }) {
                                                             </Svg>
                                                         ) : (
                                                             <Svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8" fill="none">
-                                                                <Path fillRule="evenodd" clipRule="evenodd" d="M4.02911 0.886719C2.23911 0.886719 0.789062 2.33771 0.789062 4.12671C0.789062 5.91571 2.24011 7.36676 4.02911 7.36676C5.81811 7.36676 7.2691 5.91571 7.2691 4.12671C7.2691 2.33771 5.81811 0.886719 4.02911 0.886719Z" fill="#494949" />
+                                                                <Path fillRule="evenodd" clipRule="evenodd" d="M4.02911 0.886719C2.23911 0.886719 0.789062 2.33771 0.789062 4.12671C0.789062 5.91571 2.24011 7.36676 4.02911 7.36676C5.81811 7.36676 7.2691 5.91571 7.2691 4.12671C7.2691 2.33771 5.81811 0.886719 4.02911 0.886719Z" fill={selectedColor} />
                                                             </Svg>
                                                         )}
                                                     </View>
@@ -145,11 +145,11 @@ function Template21({ data,selectedColor,selectedFont  }) {
                                 <View style={{ flexDirection: 'column', gap: 12 }}>
                                     <View style={{ flexDirection: "column", gap: 8 }}>
 
-                                        <Text style={{ color: '#494949', fontSize: '20px',fontFamily: `${selectedFont} 700`, paddingTop: '13px', }}>INTERESTS</Text>
+                                        <Text style={{ color: selectedColor, fontSize: '20px',fontFamily: `${selectedFont} 700`, paddingTop: '13px', }}>INTERESTS</Text>
                                         <View style={{ backgroundColor: '#535353', height: '1px', }} />
                                     </View>
                                     {data?.hobbies?.map((detail, index) => (
-                                        <View key={index} style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: 8 }}>
+                                        <View key={index} style={{ flexDirection: 'row', alignItems: 'center',  gap: 8 }}>
                                             <Svg width="6" height="7" viewBox="0 0 6 7" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <Path d="M3 6.5C4.65685 6.5 6 5.15685 6 3.5C6 1.84315 4.65685 0.5 3 0.5C1.34315 0.5 0 1.84315 0 3.5C0 5.15685 1.34315 6.5 3 6.5Z" fill="#5E5F5E" />
                                             </Svg>
@@ -169,7 +169,7 @@ function Template21({ data,selectedColor,selectedFont  }) {
                                 <View style={{ flexDirection: 'column', gap: 12 }}>
                                     <View style={{ flexDirection: "column", gap: 8 }}>
 
-                                        <Text style={{ color: '#494949', fontSize: '20px', fontWeight: 600, paddingTop: '13px', }}>LANGUAGE</Text>
+                                        <Text style={{ color: selectedColor, fontSize: '20px', fontWeight: 600, paddingTop: '13px', }}>LANGUAGE</Text>
                                         <View style={{ backgroundColor: '#535353', height: '1px', }} />
                                     </View>
                                     {data?.languages?.map((detail, index) => (
@@ -184,7 +184,7 @@ function Template21({ data,selectedColor,selectedFont  }) {
                                                             </Svg>
                                                         ) : (
                                                             <Svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8" fill="none">
-                                                                <Path fillRule="evenodd" clipRule="evenodd" d="M4.02911 0.886719C2.23911 0.886719 0.789062 2.33771 0.789062 4.12671C0.789062 5.91571 2.24011 7.36676 4.02911 7.36676C5.81811 7.36676 7.2691 5.91571 7.2691 4.12671C7.2691 2.33771 5.81811 0.886719 4.02911 0.886719Z" fill="#494949" />
+                                                                <Path fillRule="evenodd" clipRule="evenodd" d="M4.02911 0.886719C2.23911 0.886719 0.789062 2.33771 0.789062 4.12671C0.789062 5.91571 2.24011 7.36676 4.02911 7.36676C5.81811 7.36676 7.2691 5.91571 7.2691 4.12671C7.2691 2.33771 5.81811 0.886719 4.02911 0.886719Z" fill={selectedColor} />
                                                             </Svg>
                                                         )}
                                                     </View>
@@ -206,7 +206,7 @@ function Template21({ data,selectedColor,selectedFont  }) {
 
                             <View style={{ flexDirection: "column", gap: 8 }}>
 
-                                <Text style={{ color: '#494949', fontSize: '20px', fontFamily: `${selectedFont} 700`, paddingTop: '13px', }}>EXPERIENCE</Text>
+                                <Text style={{ color: selectedColor, fontSize: '20px', fontFamily: `${selectedFont} 700`, paddingTop: '13px', }}>EXPERIENCE</Text>
                                 <View style={{ backgroundColor: '#535353', height: '1px', }} />
                             </View>
 
@@ -226,7 +226,7 @@ function Template21({ data,selectedColor,selectedFont  }) {
 
                                         <>
                                             <Svg style={{}} width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <Path d="M5.34763 10.9395C8.10906 10.9395 10.3477 8.70086 10.3477 5.93943C10.3477 3.178 8.10906 0.939453 5.34763 0.939453C2.5862 0.939453 0.347656 3.178 0.347656 5.93943C0.347656 8.70086 2.5862 10.9395 5.34763 10.9395Z" fill="#494949" />
+                                                <Path d="M5.34763 10.9395C8.10906 10.9395 10.3477 8.70086 10.3477 5.93943C10.3477 3.178 8.10906 0.939453 5.34763 0.939453C2.5862 0.939453 0.347656 3.178 0.347656 5.93943C0.347656 8.70086 2.5862 10.9395 5.34763 10.9395Z" fill={selectedColor} />
                                             </Svg>
                                             {index !== data.experience.length - 1 && (
                                                 <View style={{ width: "1px", backgroundColor: "#221F1F", height: "100%", marginLeft: -21, marginTop: 10 }}>
@@ -250,7 +250,7 @@ function Template21({ data,selectedColor,selectedFont  }) {
 
                             <View style={{ flexDirection: "column", gap: 8 }}>
 
-                                <Text style={{ color: '#494949', fontSize: '20px', fontFamily: `${selectedFont} 700`, paddingTop: '13px', }}>EDUCATION</Text>
+                                <Text style={{ color: selectedColor, fontSize: '20px', fontFamily: `${selectedFont} 700`, paddingTop: '13px', }}>EDUCATION</Text>
                                 <View style={{ backgroundColor: '#535353', height: '1px', }} />
                             </View>
 
@@ -270,7 +270,7 @@ function Template21({ data,selectedColor,selectedFont  }) {
 
                                         <>
                                             <Svg style={{}} width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <Path d="M5.34763 10.9395C8.10906 10.9395 10.3477 8.70086 10.3477 5.93943C10.3477 3.178 8.10906 0.939453 5.34763 0.939453C2.5862 0.939453 0.347656 3.178 0.347656 5.93943C0.347656 8.70086 2.5862 10.9395 5.34763 10.9395Z" fill="#494949" />
+                                                <Path d="M5.34763 10.9395C8.10906 10.9395 10.3477 8.70086 10.3477 5.93943C10.3477 3.178 8.10906 0.939453 5.34763 0.939453C2.5862 0.939453 0.347656 3.178 0.347656 5.93943C0.347656 8.70086 2.5862 10.9395 5.34763 10.9395Z" fill={selectedColor} />
                                             </Svg>
                                             {index !== data.education.length - 1 && (
                                             <View style={{ width: "1px", backgroundColor: "#221F1F", height: "100%", marginLeft: -21, marginTop: 10 }}>

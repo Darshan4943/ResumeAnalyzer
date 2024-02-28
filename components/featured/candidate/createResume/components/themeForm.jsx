@@ -14,8 +14,8 @@ function ThemeForm({ selectedResumeIndex, setSelectedColor, selectedColor, setSe
     "#646464", // 8
     "#FFD740", // 9
     "#F2BE5C", // 10
-    "#1C75BC", // 11
-    "#0C2438", // 12
+    "#E6E7E8", // 11
+    "#2EA0D7", // 12
     "#0E6CC2", // 13
     "#242424", // 14
     "#716D6D", // 15

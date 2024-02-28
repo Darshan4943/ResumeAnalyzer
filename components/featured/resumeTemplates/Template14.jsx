@@ -6,7 +6,7 @@ function Template14({ data,selectedColor,selectedFont  }) {
             <View style={{ minHeight: 792, display: "flex", flexDirection: "column", gap: 16 }}>
                 <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", }}>
                     <View style={{ width: 400.06, display: "flex", flexDirection: "column", gap: 10 }}>
-                        <Text style={{ fontSize: 32, fontFamily: `${selectedFont} 700`, color: "#242424" }}>John Doe</Text>
+                        <Text style={{ fontSize: 32, fontFamily: `${selectedFont} 700`, color: selectedColor }}>John Doe</Text>
                         <Text style={{ width: "100%", fontSize: 12, fontFamily: `${selectedFont} 400`, color: "#4D4D4D" }}>
                             Leading teams and organizations to the realization of successful outcomes at the intersection of customer needs and business goals.
                         </Text>
@@ -35,7 +35,7 @@ function Template14({ data,selectedColor,selectedFont  }) {
                         {data?.experience?.map((detail, index) => (
                             <View key={index} style={{ gap: 6, display: "flex", flexDirection: "column" }}>
                                 <View style={{ display: "flex", gap: 10 }}>
-                                    <Text style={{ fontSize: 18, fontFamily: `${selectedFont} 600`, color: "#242424" }}>apple</Text>
+                                    <Text style={{ fontSize: 18, fontFamily: `${selectedFont} 600`, color: selectedColor }}>apple</Text>
                                     <Text style={{ fontSize: 18, fontFamily: `${selectedFont} 400`, color: "#989898" }}>Staff Product Designer</Text>
                                 </View>
                                 <View style={{ display: "flex", justifyContent: "space-between" }}>
@@ -55,10 +55,10 @@ function Template14({ data,selectedColor,selectedFont  }) {
                     <View style={{ display: "flex", flexDirection: "column", gap: 8 }}>
                         {data?.education?.map((detail, index) => (
                             <View key={index} style={{ gap: 6, display: "flex", flexDirection: "column" }}>
-                                <Text style={{ fontSize: 18, fontFamily: `${selectedFont} 600`, color: "#242424" }}>B.S. Human Computer Interaction</Text>
-                                <View style={{ display: "flex", gap: 14.64 }}>
+                                <Text style={{ fontSize: 18, fontFamily: `${selectedFont} 600`, color: selectedColor }}>B.S. Human Computer Interaction</Text>
+                                <View style={{ display: "flex",flexDirection:"row", gap: 14.64 }}>
                                     <Text style={{ fontSize: 12,fontFamily: `${selectedFont} 400` }}>January 2006 — 2010</Text>
-                                    <View style={{ width: 1, backgroundColor: "#DEDEDE" }}></View>
+                                    <View style={{ width: 1,height:20, backgroundColor: "#DEDEDE" }}></View>
                                     <Text style={{fontFamily: `${selectedFont} 400`,fontSize:12}}> Rhode Island School of Design (RISD)</Text>
                                 </View>
                             </View>
@@ -71,7 +71,7 @@ function Template14({ data,selectedColor,selectedFont  }) {
                     <View style={{ display: "flex", flexDirection: "column", gap: 8 }}>
                         {data?.course?.map((detail, index) => (
                             <View key={index} style={{ gap: 6, display: "flex", flexDirection: "column" }}>
-                                <Text style={{ fontSize: 18, fontFamily: `${selectedFont} 600`, color: "#242424" }}>UX Google Certificate</Text>
+                                <Text style={{ fontSize: 18, fontFamily: `${selectedFont} 600`, color: selectedColor }}>UX Google Certificate</Text>
                                 <View style={{ display: "flex", gap: 14.64 }}>
                                     <Text style={{ fontSize: 12,fontFamily: `${selectedFont} 400` }}>January 2006 — 2010</Text>
                                     <View style={{ width: 1, backgroundColor: "#DEDEDE" }}></View>
