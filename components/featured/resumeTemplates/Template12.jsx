@@ -144,7 +144,7 @@ const Template12 = ({ data, selectedColor, selectedFont }) => {
 
 
           <View style={{ flexDirection: "column", width: "595", gap: 6, paddingLeft: 23, paddingTop: 10 }}>
-            <View style={{ flexDirection: "row", alignItems: "center", gap: 4, width: 525, }}>
+            <View style={{ flexDirection: "row", alignItems: "center", gap: 4, width: 525,justifyContent:"flex-end" }}>
               <Text style={{ fontSize: 16, fontFamily: `${selectedFont} 700`, color: "#495970", }}>
                 EXPERIENCES
               </Text>
@@ -173,7 +173,7 @@ const Template12 = ({ data, selectedColor, selectedFont }) => {
                       {detail.location}
                     </Text>
                   </View>
-                  <Text style={{ width: 337, fontSize: 10, fontFamily: `${selectedFont} 400`, color: "#676A6D" }}>
+                  <Text style={{ width: 300, fontSize: 10, fontFamily: `${selectedFont} 400`, color: "#676A6D" ,flexWrap:"wrap"}}>
                     {" "}
                     {detail.description}
                   </Text>

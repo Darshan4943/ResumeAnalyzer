@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { Document, Page, Text, View, StyleSheet, Image, Svg, Path, Rect, Font, Defs, ClipPath } from '@react-pdf/renderer';
 
-function Template6({ data,selectedColor,selectedFont  }) {
+function Template6({ data, selectedColor, selectedFont }) {
   //   console.log(data)
   return (
     <Page size="A4">
-      <View style={{  flexDirection: "row", gap: 10,minHeight:841.8 }}>
+      <View style={{ flexDirection: "row", gap: 10, minHeight: 841.8 }}>
         <View>
           <View style={{ width: 268, flexDirection: "row" }}>
             <View style={{ backgroundColor: selectedColor, width: 46 }}></View>
             <View style={{ flexDirection: "column", width: 268, marginLeft: -30, gap: 16 }}>
               <View style={{ width: 243, flexDirection: "column" }}>
-                <View style={{ paddingTop: 50, paddingLeft: 70 }}>
+                <View style={{ paddingTop: 42, paddingLeft: 70 }}>
                   <View style={{ width: 154, height: 154, flexShrink: 0, backgroundColor: "lightgray", backgroundPosition: "center", backgroundSize: "cover", borderRadius: 77, overflow: "hidden" }}>
                     {data.profilePhoto ? (
                       <Image
@@ -25,8 +25,8 @@ function Template6({ data,selectedColor,selectedFont  }) {
                 </View>
               </View>
               <View style={{ flexDirection: "column", width: 178, justifyContent: "flex-start", alignItems: "flex-center", gap: 6, }}>
-                <View style={{ flexDirection: "column", width: 268, gap: 3 }}>
-                  <View style={{ flexDirection: "row", gap: 6, width: "100%" }}>
+                <View style={{ flexDirection: "column", width: 268, gap: 8,width: "90%" }}>
+                  <View style={{ flexDirection: "row", gap: 6, width: "90%" }}>
                     <Svg
                       width="22"
                       height="22"
@@ -83,9 +83,9 @@ function Template6({ data,selectedColor,selectedFont  }) {
                         clipPath="url(#clip0_1657_45195)"
                       />
                     </Svg>
-                    <View style={{ flexDirection: "column", width: "100%", paddingLeft: 9 }}>
+                    <View style={{ flexDirection: "column", width: "70%", paddingLeft: 9,flexWrap:"wrap", }}>
                       <Text style={{ fontFamily: `${selectedFont} 500`, fontSize: 14 }}>Area</Text>
-                      <Text style={{ fontFamily: `${selectedFont} 400`, fontSize: 14 }}>{data.location}</Text>
+                      <Text style={{ fontFamily: `${selectedFont} 400`, fontSize: 14, flexWrap: "wrap" }}>{data.location}</Text>
                     </View>
                   </View>
                 </View>
@@ -94,108 +94,119 @@ function Template6({ data,selectedColor,selectedFont  }) {
           </View>
 
           <View style={{ marginLeft: 6, paddingTop: 12 }}>
-            <View style={{ width: 178, flexDirection: "column", paddingBottom: 12 }}>
-              <View style={{ flexDirection: "column", alignItems: "flex-start", gap: 6 }}>
-                <Text style={{ fontSize: 18, fontFamily: `${selectedFont} 700` }}>SKILLS</Text>
-                <View style={{ flexDirection: "column", width: 268, gap: 6 }}>
-                  {data.skills?.map((detail, index) => {
-                    const calculateWidthPercentage = (rating) => {
-                      let ratingPercentage = 0;
-                      if (rating && rating.length > 0) {
-                        const zerosCount = rating.filter(
-                          (val) => val === 0
-                        ).length;
+            {data?.skills?.length > 0 && (
+              <View style={{ width: 178, flexDirection: "column", paddingBottom: 12 }}>
+                <View style={{ flexDirection: "column", alignItems: "flex-start", gap: 6 }}>
+                  <Text style={{ fontSize: 18, fontFamily: `${selectedFont} 700` }}>SKILLS</Text>
+                  <View style={{ flexDirection: "column", width: 268, gap: 6 }}>
+                    {data.skills?.map((detail, index) => {
+                      const calculateWidthPercentage = (rating) => {
+                        let ratingPercentage = 0;
+                        if (rating && rating.length > 0) {
+                          const zerosCount = rating.filter(
+                            (val) => val === 0
+                          ).length;
 
-                        if (zerosCount === 0) ratingPercentage = 100;
-                        else if (zerosCount === 1) ratingPercentage = 80;
-                        else if (zerosCount === 2) ratingPercentage = 60;
-                        else if (zerosCount === 3) ratingPercentage = 40;
-                        else if (zerosCount === 4) ratingPercentage = 20;
-                      }
-                      return ratingPercentage;
-                    };
+                          if (zerosCount === 0) ratingPercentage = 100;
+                          else if (zerosCount === 1) ratingPercentage = 80;
+                          else if (zerosCount === 2) ratingPercentage = 60;
+                          else if (zerosCount === 3) ratingPercentage = 40;
+                          else if (zerosCount === 4) ratingPercentage = 20;
+                        }
+                        return ratingPercentage;
+                      };
 
-                    const ratingPercentage = calculateWidthPercentage(
-                      detail.rating
-                    );
+                      const ratingPercentage = calculateWidthPercentage(
+                        detail.rating
+                      );
 
-                    return (
-                      <View style={{ paddingRight: 4, flexDirection: "column" }} key={index}>
-                        <View style={{ flexDirection: "row", alignItems: "center", gap: 4 }}>
-                          <Text style={{ color: "#414142", fontSize: 12, width: 80, fontFamily: `${selectedFont} 400` }}>
-                            {detail.skill}
-                          </Text>
-                          <View style={{ width: "59.21%", height: 3.78, alignSelf: "flex-end", marginBottom: 1, backgroundColor: "#DCDDDE" }}>
-                            <View
-                              style={{ height: "100%", backgroundColor: selectedColor, width: `${ratingPercentage}%` }}
-                            ></View>
-                          </View>
-                        </View>
-                      </View>
-                    );
-                  })}
-                </View>
-              </View>
-            </View>
-            <View style={{ height: 1, width: 240, backgroundColor: "#282829" }}></View>
-
-            <View style={{ width: 268, flexDirection: "column", paddingTop: 10, paddingBottom: 14 }}>
-              <View style={{ flexDirection: "column", alignItems: "flex-start", gap: 8 }}>
-                <Text style={{ fontSize: 18, fontFamily: `${selectedFont} 700` }}>LANGAUGES</Text>
-                <View style={{ flexDirection: "column", width: 240, gap: 6 }}>
-                  {data?.languages?.length > 0 && (
-                    <>
-                      {data.languages?.map((detail, index) => {
-                        const calculateWidthPercentage = (rating) => {
-                          let ratingPercentage = 0;
-                          if (rating && rating.length > 0) {
-                            const zerosCount = rating.filter(
-                              (val) => val === 0
-                            ).length;
-
-                            if (zerosCount === 0) ratingPercentage = 100;
-                            else if (zerosCount === 1) ratingPercentage = 66;
-                            else if (zerosCount === 2) ratingPercentage = 33;
-                          }
-                          return ratingPercentage;
-                        };
-                        const ratingPercentage = calculateWidthPercentage(
-                          detail.rating
-                        );
-                        return (
-                          <View style={{ width: "100%", flexDirection: "column" }} key={index}>
-                            <View style={{ flexDirection: "row", alignItems: "center" }}>
-                              <Text style={{ color: "#414142", fontSize: 11.136, width: 80, fontFamily: `${selectedFont} 400` }}>
-                                {detail.languages}
-                              </Text>
-                              <View style={{ width: "59.21%", height: 3.78, alignSelf: "flex-end", marginBottom: 1, backgroundColor: "#C1C1C1" }}>
-                                <View
-                                  style={{ height: "100%", backgroundColor: selectedColor, width: `${ratingPercentage}%` }}
-                                ></View>
-                              </View>
+                      return (
+                        <View style={{ paddingRight: 4, flexDirection: "column" }} key={index}>
+                          <View style={{ flexDirection: "row", alignItems: "center", gap: 4 }}>
+                            <Text style={{ color: "#414142", fontSize: 12, width: 80, fontFamily: `${selectedFont} 400` }}>
+                              {detail.skill}
+                            </Text>
+                            <View style={{ width: "59.21%", height: 3.78, alignSelf: "flex-end", marginBottom: 1, backgroundColor: "#DCDDDE" }}>
+                              <View
+                                style={{ height: "100%", backgroundColor: selectedColor, width: `${ratingPercentage}%` }}
+                              ></View>
                             </View>
                           </View>
-                        );
-                      })}
-                    </>
-                  )}
-                </View>
-              </View>
-            </View>
-            <View style={{ height: 1, width: 240, backgroundColor: "#282829" }}></View>
-            <View style={{ flexDirection: "column", gap: 2, paddingTop: 8, paddingBottom: 12 }}>
-              <Text style={{ fontSize: 16, fontFamily: `${selectedFont} 700`, color: "#282829" }}>HOBBIES</Text>
-
-              {data.hobbies?.map((detail, index) => (
-                <View key={index} style={{ flexDirection: "column", marginBottom: 8 }}>
-                  <View style={{ flexDirection: "row", alignItems: "center", gap: 4 }}>
-                    <Text style={{ color: "#282829", }}>&#8226;</Text>
-                    <Text style={{ color: "#282829", fontFamily: `${selectedFont} 400` }}>{detail.title}</Text>
+                        </View>
+                      );
+                    })}
                   </View>
                 </View>
-              ))}
+              </View>
+            )}
+            {data?.skills?.length > 0 && (
+              <>
+                <View style={{ height: 1, width: 240, backgroundColor: "#282829" }}></View>
 
-            </View>
+                <View style={{ width: 268, flexDirection: "column", paddingTop: 10, paddingBottom: 14 }}>
+                  <View style={{ flexDirection: "column", alignItems: "flex-start", gap: 8 }}>
+                    <Text style={{ fontSize: 18, fontFamily: `${selectedFont} 700` }}>LANGAUGES</Text>
+                    <View style={{ flexDirection: "column", width: 240, gap: 6 }}>
+                      {data?.languages?.length > 0 && (
+                        <>
+                          {data.languages?.map((detail, index) => {
+                            const calculateWidthPercentage = (rating) => {
+                              let ratingPercentage = 0;
+                              if (rating && rating.length > 0) {
+                                const zerosCount = rating.filter(
+                                  (val) => val === 0
+                                ).length;
+
+                                if (zerosCount === 0) ratingPercentage = 100;
+                                else if (zerosCount === 1) ratingPercentage = 66;
+                                else if (zerosCount === 2) ratingPercentage = 33;
+                              }
+                              return ratingPercentage;
+                            };
+                            const ratingPercentage = calculateWidthPercentage(
+                              detail.rating
+                            );
+                            return (
+                              <View style={{ width: "100%", flexDirection: "column" }} key={index}>
+                                <View style={{ flexDirection: "row", alignItems: "center" }}>
+                                  <Text style={{ color: "#414142", fontSize: 11.136, width: 80, fontFamily: `${selectedFont} 400` }}>
+                                    {detail.languages}
+                                  </Text>
+                                  <View style={{ width: "59.21%", height: 3.78, alignSelf: "flex-end", marginBottom: 1, backgroundColor: "#C1C1C1" }}>
+                                    <View
+                                      style={{ height: "100%", backgroundColor: selectedColor, width: `${ratingPercentage}%` }}
+                                    ></View>
+                                  </View>
+                                </View>
+                              </View>
+                            );
+                          })}
+                        </>
+                      )}
+                    </View>
+                  </View>
+                </View>
+              </>
+            )}
+
+            {data?.hobbies?.length > 0 && (
+              <>
+                <View style={{ height: 1, width: 240, backgroundColor: "#282829" }}></View>
+                <View style={{ flexDirection: "column", gap: 2, paddingTop: 8, paddingBottom: 12 }}>
+                  <Text style={{ fontSize: 16, fontFamily: `${selectedFont} 700`, color: "#282829" }}>HOBBIES</Text>
+
+                  {data.hobbies?.map((detail, index) => (
+                    <View key={index} style={{ flexDirection: "column", marginBottom: 8 }}>
+                      <View style={{ flexDirection: "row", alignItems: "center", gap: 4 }}>
+                        <Text style={{ color: "#282829", }}>&#8226;</Text>
+                        <Text style={{ color: "#282829", fontFamily: `${selectedFont} 400` }}>{detail.title}</Text>
+                      </View>
+                    </View>
+                  ))}
+
+                </View>
+              </>
+            )}
           </View>
         </View>
         <View style={{ flexDirection: "column", gap: 14, width: 334, paddingRight: 12 }}>
@@ -205,7 +216,7 @@ function Template6({ data,selectedColor,selectedFont  }) {
             </Text>
             <Text style={{ fontFamily: `${selectedFont} 500`, fontSize: 16 }}>{data.designation}</Text>
           </View>
-          <View style={{ width: 441, flexDirection: "column", gap: 4 }}>
+          <View style={{ width: 441, flexDirection: "column", gap: 16 }}>
             <View style={{ width: 441, flexDirection: "column", paddingBottom: 8, gap: 8 }}>
               <Text style={{ fontSize: 18, fontFamily: `${selectedFont} 700` }}>ABOUT ME</Text>
               <Text wrap={true} style={{ fontSize: 14, fontFamily: `${selectedFont} 400`, width: 300 }}>
@@ -213,7 +224,7 @@ function Template6({ data,selectedColor,selectedFont  }) {
               </Text>
             </View>
             <View style={{ height: 1, width: 300, backgroundColor: "#282829" }}></View>
-            <View style={{ flexDirection: "column", gap: 4, width: 300, paddingTop: 12 }}>
+            <View style={{ flexDirection: "column", gap: 8, width: 300, paddingTop: 12 }}>
               <Text style={{ fontSize: 18, fontFamily: `${selectedFont} 700` }}>WORK EXPERIENCE</Text>
               {data.experience?.map((detail, index) => (
                 <>
@@ -246,7 +257,7 @@ function Template6({ data,selectedColor,selectedFont  }) {
               ))}
             </View>
             <View style={{ height: 1, width: 300, backgroundColor: "#282829" }}></View>
-            <View style={{ flexDirection: "column", gap: 4, width: 300 }}>
+            <View style={{ flexDirection: "column", gap: 8, width: 300 }}>
               <Text style={{ fontSize: 18, fontFamily: `${selectedFont} 700` }}> EDUCATION</Text>
               {data?.education?.map((detail, index) => (
                 <>
@@ -279,7 +290,7 @@ function Template6({ data,selectedColor,selectedFont  }) {
             </View>
           </View>
         </View>
-        <View style={{width:"100%",height:12,position:"absolute",bottom:0, backgroundColor:selectedColor}}></View>
+        <View style={{ width: "100%", height: 12, position: "absolute", bottom: 0, backgroundColor: selectedColor }}></View>
       </View>
     </Page>
 
