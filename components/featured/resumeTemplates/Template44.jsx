@@ -7,7 +7,7 @@ const Template44 = ({ data,selectedColor,selectedFont  }) => {
     <Page size="A4">
       <View style={{ width: 595, display: "flex", flexDirection: "row", }}>
 
-        <View style={{ width: 207, padding: 42, flexDirection: "column", gap: 34, backgroundColor: "#C7EAFB", minHeight: 841 }}>
+        <View style={{ width: 207, padding: 42, flexDirection: "column", gap: 34, backgroundColor:selectedColor, minHeight: 841 }}>
 
 
           <View style={{}}>
