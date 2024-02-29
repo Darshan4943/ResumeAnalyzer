@@ -158,14 +158,13 @@ useEffect(() => {
 }, [profileData]);
 
   useEffect(() => {
-    if (userDataGlobal?.resumeUrl) {
       const {
         firstName,
         lastName,
         email,
         mobileNo: mobileNumber,
         currentLocation,
-      } = userDataGlobal.basics;
+      } = data;
       setProfileData({
         ...profileData,
         firstName,
@@ -174,8 +173,7 @@ useEffect(() => {
         mobileNumber,
         location: currentLocation,
       });
-    }
-  }, [userDataGlobal]);
+  }, [data]);
   return (
     <>
       <div
