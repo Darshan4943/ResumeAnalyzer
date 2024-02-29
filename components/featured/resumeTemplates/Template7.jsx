@@ -91,7 +91,6 @@ function Template7({ data, selectedColor, selectedFont }) {
                     <View style={{ display: 'flex', gap: 6, flexDirection: 'column' }}>
                       {data?.course?.map((detail, index) => (
                         <>
-                          <Text style={{ fontSize: '10px', fontFamily: `${selectedFont} 400`, color: '#828186' }}>{detail?.duration?.start} - {detail?.duration?.end} </Text>
                           <Text style={{ fontSize: '12px', fontFamily: `${selectedFont} 600`, color: '#222933' }}>{detail?.courseName} </Text>
                           <Text style={{ fontSize: '10px', fontFamily: `${selectedFont} 500`, color: '#828186' }}>{detail?.issuedBy} </Text>
                         </>

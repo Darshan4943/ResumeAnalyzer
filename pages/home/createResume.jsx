@@ -15,7 +15,6 @@ function CreateResume() {
   const router = useRouter();
 
   const userData = router.query;
- console.log(19,userData)
 
   const handleOutsideClick = (event) => {
     if (taskRef.current && !taskRef.current.contains(event.target)) {
@@ -38,56 +37,218 @@ function CreateResume() {
 
   const [data, setData] = useState({
     profilePhoto: null,
-    designation: "",
-    firstName: "",
-    lastName: "",
-    mobileNumber: "",
-    email: "",
-    location: "",
+    designation: "UI/UX designer",
+    firstName: "John",
+    lastName: "Doe",
+    mobileNumber: 9325795236,
+    email: "prathmeshjadhav1014@gmail.com",
+    location: "Abd",
     summary: "",
     showSummary: true,
-    education: [],
+    education: [
+      {
+        qualification: "12th",
+        specialization: "cs",
+        instituteName: "pune",
+        type: "full-time",
+        location: "",
+        duration: {
+          start: {
+            year: "Year",
+            month: "Month",
+          },
+          end: {
+            year: "Year",
+            month: "Month",
+          },
+        },
+      },
+      {
+        qualification: "12th",
+        specialization: "cs",
+        instituteName: "pune",
+        type: "full-time",
+        location: "",
+        duration: {
+          start: {
+            year: "Year",
+            month: "Month",
+          },
+          end: {
+            year: "Year",
+            month: "Month",
+          },
+        },
+      },
+    ],
     showEducation: true,
-    experience: [],
+    experience: [
+      {
+        designation: "UI/UX designer",
+        organization: "Freedygo",
+        description:
+          " Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make",
+        currentlyWorking: true,
+        location: "Pune,Maharashtra",
+        duration: {
+          start: {
+            year: "2010",
+            month: "10",
+          },
+          end: {
+            year: "Year",
+            month: "Month",
+          },
+        },
+      },
+    ],
     showExperience: true,
-    course: [],
+    course: [
+      {
+        courseName: "asdsad",
+        issuedBy: "asd",
+        discription: "",
+        duration: {
+          start: {
+            year: "Year",
+            month: "Month",
+          },
+          end: {
+            year: "Year",
+            month: "Month",
+          },
+        },
+      },
+    ],
     showCourse: true,
-    skills: [],
+    skills: [
+      {
+        skill: "C#",
+        rating: [5, 5, 5, 5, 5],
+      },
+      {
+        skill: "Python",
+        rating: [5, 5, 5, 5, 5],
+      },
+      {
+        skill: "Ruby",
+        rating: [5, 5, 5, 5, 5],
+      },
+      {
+        skill: "Php",
+        rating: [5, 5, 5, 5, 5],
+      },
+      {
+        skill: "Angular",
+        rating: [5, 5, 5, 5, 5],
+      },
+      {
+        skill: "Express.Js",
+        rating: [5, 5, 5, 5, 5],
+      },
+      {
+        skill: "Aws",
+        rating: [5, 5, 5, 5, 5],
+      },
+    ],
     achievement: [],
     sociaLinks: [],
-    hobbies: [],
-    languages: [],
+    hobbies: [
+      {
+        title: "asdasd",
+      },
+      {
+        title: "asd",
+      },
+      {
+        title: "asd",
+      },
+      {
+        title: "adaf",
+      },
+    ],
+    languages: [
+      {
+        languages: "asd",
+        rating: [3, 3, 3],
+      },
+      {
+        languages: "asd",
+        rating: [3, 3, 3],
+      },
+      {
+        languages: "asd",
+        rating: [3, 3, 3],
+      },
+    ],
+    summery:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make",
   });
- 
- 
-  console.log(65,data)
 
   useEffect(() => {
-    const { firstName, lastName, mobileNo, email, comapanyName, currentCTC, currentLocation, dateOfComplition, dateOfJoining, dob, employmentStatus, institute, jobLocation, jobTitle } = userData;
+    const {
+      firstName,
+      lastName,
+      mobileNo,
+      email,
+      comapanyName,
+      currentCTC,
+      currentLocation,
+      dateOfComplition,
+      dateOfJoining,
+      dob,
+      employmentStatus,
+      institute,
+      jobLocation,
+      jobTitle,
+    } = userData;
 
-    setData(prevData => ({
-        ...prevData,
-        firstName,
-        lastName,
-        mobileNo,
-        email,
-        comapanyName,
-        currentCTC,
-        currentLocation,
-        dateOfComplition,
-        dob,
-        employmentStatus,
-    
-        education: [{
-            institute,
-            jobLocation,
-            jobTitle,
-            dateOfJoining
-        }],
+    setData((prevData) => ({
+      ...prevData,
+      firstName:firstName?firstName:"JOHN",
+      lastName:lastName?lastName:"DOE",
+      mobileNo,
+      email,
+      comapanyName,
+      currentCTC,
+      currentLocation,
+      dateOfComplition,
+      dob,
+      employmentStatus,
+
+      education: [
+        {
+          institute,
+          jobLocation,
+          jobTitle,
+          dateOfJoining,
+        },
+      ],
     }));
-}, [userData]);
+  }, [userData]);
 
-
+  // const [data, setData] = useState({
+  //   profilePhoto: null,
+  //   designation: "",
+  //   firstName: "",
+  //   lastName: "",
+  //   mobileNumber: "",
+  //   email: "",
+  //   location: "",
+  //   summary: "",
+  //   showSummary: true,
+  //   education: [],
+  //   showEducation: true,
+  //   experience: [],
+  //   showExperience: true,
+  //   course: [],
+  //   showCourse: true,
+  //   skills: [],
+  //   achievement: [],
+  //   sociaLinks: [],
+  //   hobbies: [],
+  //   languages: [],
+  // });
   return (
     <div>
       <div className=" bg-[#F9F9F9] pt-2 px-6">

@@ -27,8 +27,7 @@ function Header({ userData }) {
       };
       console.log(25, userData)
       axios.post('http://localhost:2000/api/user/google/signup', userData).then(res => {
-        console.log(res.data)
-        localStorage.setItem("authToken", res.data.token);
+        localStorage.setItem("authToken",JSON.stringify( res.data));
         console.log('User data sent to the server:', res.data);
         router.push("/home/BeforeLoginHome");
       }).catch(err => {

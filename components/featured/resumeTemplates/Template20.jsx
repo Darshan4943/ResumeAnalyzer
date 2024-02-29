@@ -80,20 +80,20 @@ function Template20({ data ,selectedColor,selectedFont }) {
 
             <View style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
               <Text style={{ fontSize: 12,fontFamily: `${selectedFont} 500`, color: '#282627' }}>EDUCATION</Text>
+              {data?.education?.map((detail, index) => (
 
               <View style={{ display: 'flex', flexDirection: 'row', gap: 5 }}>
                 <Svg width="6" height="7" viewBox="0 0 6 7" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <Path d="M3 6.5C4.65685 6.5 6 5.15685 6 3.5C6 1.84315 4.65685 0.5 3 0.5C1.34315 0.5 0 1.84315 0 3.5C0 5.15685 1.34315 6.5 3 6.5Z" fill="#5E5F5E" />
                 </Svg>
-                {data?.education?.map((detail, index) => (
                   <View style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
                     <Text style={{ fontSize: 10,fontFamily: `${selectedFont} 700`, color: '#6D6E71', marginBottom: 2 }}>{detail.duration?.start?.year}-{detail.duration?.end?.year}</Text>
                     <Text style={{ fontSize: 10,fontFamily: `${selectedFont} 600`, color: '#282627' }}>{detail.qualification} </Text>
                     <Text style={{ fontSize: 10,fontFamily: `${selectedFont} 400`, color: '#6D6E71' }}> {detail.specialization}</Text>
                     <Text style={{ fontSize: 10,fontFamily: `${selectedFont} 400`, color: '#6D6E71' }}>{detail.instituteName}</Text>
                   </View>
-                ))}
               </View>
+                ))}
 
             </View>
 
@@ -169,20 +169,7 @@ function Template20({ data ,selectedColor,selectedFont }) {
               </View>
             )}
 
-            <View style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-              <Text style={{ fontSize: 12,fontFamily: `${selectedFont} 500`, color: '#282627' }}>AWARDS</Text>
-
-              <View style={{ display: 'flex', flexDirection: 'row', gap: 5, alignItems: 'flex-start' }}>
-                <Svg width="6" height="7" viewBox="0 0 6 7" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <Path d="M3 6.5C4.65685 6.5 6 5.15685 6 3.5C6 1.84315 4.65685 0.5 3 0.5C1.34315 0.5 0 1.84315 0 3.5C0 5.15685 1.34315 6.5 3 6.5Z" fill="#5E5F5E" />
-                </Svg>
-                <View style={{ display: 'flex', flexDirection: 'column', gap: 5, maxWidth: '90%', }}>
-                  <Text style={{ fontSize: 10,fontFamily: `${selectedFont} 700`, color: '#282627' }}>WEB DEVELOPER OF THE YEAR</Text>
-                  <Text style={{ fontSize: 10,fontFamily: `${selectedFont} 400`, color: '#8F9193' }}>Abc Creative Studio / 2017</Text>
-
-                </View>
-              </View>
-            </View>
+            
           </View>
 
 
@@ -200,15 +187,14 @@ function Template20({ data ,selectedColor,selectedFont }) {
               ))}
             </View>
           </View>
-          {console.log(187, data)}
           {/* right */}
           <View style={{ width: 142, paddingLeft: 10 }}>
             <View style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
 
-              {data?.languages?.length > 0 && (
+              {data?.skills?.length > 0 && (
                 <View style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
                   <Text style={{ color: '#292627', fontSize: 12,fontFamily: `${selectedFont} 500`}}>SOFTWARE</Text>
-                  {data.languages?.map((detail, index) => {
+                  {data.skills?.map((detail, index) => {
                     const calculateWidthPercentage = (rating) => {
                       let zerosCount = 0;
                       if (rating && rating.length > 0) {
@@ -221,7 +207,7 @@ function Template20({ data ,selectedColor,selectedFont }) {
 
                     return (
                       <View style={{ width: 130, display: 'flex', flexDirection: 'row', alignItems: "center" }}>
-                        <Text style={{ width: 55, fontSize: 10,fontFamily: `${selectedFont} 400`, color: '#6D6E71' }}>{detail.languages}</Text>
+                        <Text style={{ width: 55, fontSize: 10,fontFamily: `${selectedFont} 400`, color: '#6D6E71' }}>{detail.skill}</Text>
 
                         <View style={{ width: 55 }}>
 
@@ -253,66 +239,22 @@ function Template20({ data ,selectedColor,selectedFont }) {
                   })}
                 </View>
               )}
+
 
               <View style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-                <Text style={{ fontSize: 12, fontFamily: `${selectedFont} 500`, color: '#282627' }}>SKILLS</Text>
+              <Text style={{ fontSize: 12,fontFamily: `${selectedFont} 500`, color: '#282627' }}>AWARDS</Text>
 
-                <View style={{ display: 'flex', flexDirection: 'row', gap: 5, alignItems: 'center' }}>
-                  <Svg width="6" height="7" viewBox="0 0 6 7" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <Path d="M3 6.5C4.65685 6.5 6 5.15685 6 3.5C6 1.84315 4.65685 0.5 3 0.5C1.34315 0.5 0 1.84315 0 3.5C0 5.15685 1.34315 6.5 3 6.5Z" fill="#5E5F5E" />
-                  </Svg>
-                  <Text style={{ fontSize: 10, fontFamily: `${selectedFont} 400`, color: '#6D6E71' }}>CYCLING</Text>
+              <View style={{ display: 'flex', flexDirection: 'row', gap: 5, alignItems: 'flex-start' }}>
+                <Svg width="6" height="7" viewBox="0 0 6 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <Path d="M3 6.5C4.65685 6.5 6 5.15685 6 3.5C6 1.84315 4.65685 0.5 3 0.5C1.34315 0.5 0 1.84315 0 3.5C0 5.15685 1.34315 6.5 3 6.5Z" fill="#5E5F5E" />
+                </Svg>
+                <View style={{ display: 'flex', flexDirection: 'column', gap: 5, maxWidth: '90%', }}>
+                  <Text style={{ fontSize: 10,fontFamily: `${selectedFont} 700`, color: '#282627' }}>WEB DEVELOPER OF THE YEAR</Text>
+                  <Text style={{ fontSize: 10,fontFamily: `${selectedFont} 400`, color: '#8F9193' }}>Abc Creative Studio / 2017</Text>
+
                 </View>
               </View>
-
-              {data?.languages?.length > 0 && (
-                <View style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-                  <Text style={{ color: '#292627', fontSize: 12, fontFamily: `${selectedFont} 500` }}>KNOWLEDGE</Text>
-                  {data.languages?.map((detail, index) => {
-                    const calculateWidthPercentage = (rating) => {
-                      let zerosCount = 0;
-                      if (rating && rating.length > 0) {
-                        zerosCount = rating.filter(val => val === 0).length;
-                      }
-                      return zerosCount;
-                    };
-
-                    const zerosCount = calculateWidthPercentage(detail.rating);
-
-                    return (
-                      <View style={{ width: 130, display: 'flex', flexDirection: 'row', alignItems: "center" }}>
-                        <Text style={{ width: 55, fontSize: 10, fontFamily: `${selectedFont} 400`, color: '#6D6E71' }}>{detail.languages}</Text>
-
-                        <View style={{ width: 55 }}>
-
-                          {zerosCount === 0 &&
-                            <Svg width="55" height="12" viewBox="0 0 88 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                              <Path d="M86.27 7H1.73003C1.32643 7 1 6.54926 1 6.00767C1 5.45192 1.32643 5 1.73003 5H86.27C86.6736 5 87 5.45074 87 6.00767C87 6.54926 86.6725 7 86.27 7Z" fill="#C7C6C5" />
-                              <Path d="M1 5C0.447715 5 0 5.44772 0 6C0 6.55228 0.447715 7 1 7V5ZM76.6667 6C76.6667 8.94552 79.0545 11.3333 82 11.3333C84.9455 11.3333 87.3333 8.94552 87.3333 6C87.3333 3.05448 84.9455 0.666667 82 0.666667C79.0545 0.666667 76.6667 3.05448 76.6667 6ZM1 7H82V5H1V7Z" fill="#3F3F3F" />
-                            </Svg>
-
-                          }
-
-                          {zerosCount === 1 &&
-                            <Svg width="55" height="11" viewBox="0 0 87 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-                              <Path d="M86.27 6.5H1.73003C1.32643 6.5 1 6.04926 1 5.50767C1 4.95192 1.32643 4.5 1.73003 4.5H86.27C86.6736 4.5 87 4.95074 87 5.50767C87 6.04926 86.6725 6.5 86.27 6.5Z" fill="#C7C6C5" />
-                              <Path d="M1 4.5C0.447715 4.5 0 4.94772 0 5.5C0 6.05228 0.447715 6.5 1 6.5V4.5ZM41.6667 5.5C41.6667 8.44552 44.0545 10.8333 47 10.8333C49.9455 10.8333 52.3333 8.44552 52.3333 5.5C52.3333 2.55448 49.9455 0.166667 47 0.166667C44.0545 0.166667 41.6667 2.55448 41.6667 5.5ZM1 6.5H47V4.5H1V6.5Z" fill="#3F3F3F" />
-                            </Svg>
-
-                          }
-
-                          {zerosCount === 2 &&
-                            <Svg width="55" height="11" viewBox="0 0 87 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-                              <Path d="M86.27 6.5H1.73003C1.32643 6.5 1 6.04926 1 5.50767C1 4.95192 1.32643 4.5 1.73003 4.5H86.27C86.6736 4.5 87 4.95074 87 5.50767C87 6.04926 86.6725 6.5 86.27 6.5Z" fill="#C7C6C5" />
-                              <Path d="M1 4.5C0.447715 4.5 0 4.94772 0 5.5C0 6.05228 0.447715 6.5 1 6.5V4.5ZM0.666667 5.5C0.666667 8.44552 3.05448 10.8333 6 10.8333C8.94552 10.8333 11.3333 8.44552 11.3333 5.5C11.3333 2.55448 8.94552 0.166667 6 0.166667C3.05448 0.166667 0.666667 2.55448 0.666667 5.5ZM1 6.5H6V4.5H1V6.5Z" fill="#3F3F3F" />
-                            </Svg>
-                          }
-                        </View>
-                      </View>
-                    );
-                  })}
-                </View>
-              )}
+            </View>
 
             </View>
 

@@ -149,8 +149,9 @@ function Template2({ data, selectedColor,selectedFont }) {
                                                         <Path d="M0.529297 31.1166C0.529297 21.0683 0.529297 11.021 0.529297 0.972656C10.5763 0.972656 20.6223 0.972656 30.6693 0.972656C30.6693 11.014 30.6693 21.0553 30.6693 31.1166C20.5953 31.1166 10.5623 31.1166 0.529297 31.1166ZM2.3063 29.3304C11.1833 29.3304 20.0353 29.3304 28.8803 29.3304C28.8803 20.4552 28.8803 11.6011 28.8803 2.75292C20.0113 2.75292 11.1653 2.75292 2.3063 2.75292C2.3063 11.6161 2.3063 20.4622 2.3063 29.3304Z" fill={selectedColor} />
                                                     </Svg>
                                                 </View>
-                                                <View style={{ display: 'flex', flexDirection: 'column', gap: '2', marginLeft: '-1.5px' }}>
-                                                    <Text style={{ color: '#fff', fontSize: '11px', fontFamily: `${selectedFont} 300`, marginLeft: '5px', }}>
+                                                <View style={{ display: 'flex', flexDirection: 'column', gap: '0', marginLeft: '-1.5px' }}>
+                                                <Text style={{ color: '#fff', fontSize: '10px', fontFamily: `${selectedFont} 300`, marginLeft: '5px',lineHeight:"1px" }}>
+
                                                         {detail.skill}
                                                     </Text>
                                                     <View style={{ position: 'relative' }}>

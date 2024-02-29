@@ -14,7 +14,6 @@ function CandidateMobileHeader() {
     const [selectedPage, setSelectedPage] = useState("");
     const router = useRouter();
     const userDataGlobal = useSelector((state) => state.userData);
-    console.log(9, userDataGlobal);
 
 
     const [login, setlogin] = useState(false);
