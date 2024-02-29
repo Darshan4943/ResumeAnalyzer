@@ -7,10 +7,22 @@ export const userAction = (date) => {
   };
 };
 
-export const reCallUserData = ()=>{
+export const reCallUserData = () => {
 
 
-  return{
-      type:"RECALL"
+  return {
+    type: "RECALL"
+  }
+}
+export const popupVisible = () => {
+  return {
+    type: "visible"
+  }
+}
+export const popupNotVisible = () => {
+
+
+  return {
+    type: "notvisible"
   }
 }

@@ -17,12 +17,13 @@ import {
   tagReducer,
   walletPointReducer,
 } from "./reducer";
-import { recallUser, userDataReducer } from "./userReducer";
+import { popupReducer, recallUser, userDataReducer } from "./userReducer";
 
 const reducers = combineReducers({
   userData: userDataReducer,
   reCallUser: recallUser,
   getAllJobs: jobReducer,
+  popupState:popupReducer
 });
 
 export default reducers;

@@ -292,9 +292,7 @@ console.log(21,data)
                     isMulti
                     className="w-full"
                     onChange={(data) => handleInputChange("keySkills", data)}
-                    // onChange={(data) => {
-                    //   setData({ ...data, keySkills: data });
-                    // }}
+                  
                     value={data.keySkills}
                   />
                   {formError && <p className="text-[12px] text-[red] font-[500]">{formError?.keySkills}</p>}

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { data } from "autoprefixer";
 import CandidateHeader from "./candidateHeader";
 import Sign_in from "../../models/Sign_in";
@@ -9,9 +9,11 @@ import Sign_up from "../../models/Sign_up";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { auth } from "../../../utils/firebase"
 import axios from "axios";
+import { popupNotVisible } from "../../../Redux/actions/user";
 
 function Header({ userData }) {
-
+  const popupState = useSelector(state => state.popupState)
+  const dispatch = useDispatch()
   const auth = getAuth();
 
   const handleGoogle = async () => {
@@ -44,7 +46,6 @@ function Header({ userData }) {
 
   const router = useRouter();
   const userDataGlobal = useSelector((state) => state.userData);
-  console.log(9, userDataGlobal);
   const [selectedPage, setSelectedPage] = useState("");
   const [signIn, setSignIn] = useState(false)
   const [signUp, setSignUp] = useState(false)
@@ -54,6 +55,16 @@ function Header({ userData }) {
   useEffect(() => {
     setSelectedPage(router.pathname);
   }, [router.pathname]);
+
+  useEffect(() => {
+    if (popupState == true) {
+
+      setSignIn(true)
+    } else {
+      setSignIn(false)
+
+    }
+  }, [popupState]);
 
   const [showDropdown, setShowDropdown] = useState(false);
 
@@ -78,6 +89,8 @@ function Header({ userData }) {
     if (taskRef.current && !taskRef.current.contains(event.target)) {
       setSignIn(false)
       setSignUp(false)
+      dispatch(popupNotVisible())
+
     }
   };
 

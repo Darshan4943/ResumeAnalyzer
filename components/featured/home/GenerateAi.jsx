@@ -239,21 +239,21 @@ function GenerateAi() {
 
     return (
 
-        <div ref={generateAiRef} className=' bg-cover bg-no-repeat ml:bg_generateAi bg_generateAi1 py-[120px]  px-6 w-screen flex justify-center '>
-            <div className='ml:w-[100%]  md:w-[60%] ms:w-[70%] sm:w-[80%] w-[97%] flex ml:flex-row flex-col items-center justify-center gap-6 sm:px-4 xsm:px-2 px-1 rounded-[16px] py-6 customMargins ' style={{ boxShadow: "0px 4px 14px 0px rgba(0, 0, 0, 0.25)", background: "rgba(255, 255, 255, 0.25)" }} >
+        <div ref={generateAiRef} className=' bg-cover bg-no-repeat ml:bg_generateAi bg_generateAi1 py-[120px]  px-[60px] w-screen flex justify-center '>
+            <div className='ml:w-[100%]  md:w-[60%] ms:w-[70%] sm:w-[80%] w-[97%] flex ml:flex-row flex-col items-center justify-center gap-6 sm:px-4 xsm:px-2 px-1 rounded-[16px] py-6  ' style={{ boxShadow: "0px 4px 14px 0px rgba(0, 0, 0, 0.25)", background: "rgba(255, 255, 255, 0.25)" }} >
                 <div
-                    className=" ml:w-[33%] w-[95%] relative flex flex-col gap-2 rounded-[16px] px-4 py-6 bg-white  max-w-[413px]"
+                    className=" ml:w-[32vw] min-w-[300px] h-[30vw] w-[95%] relative flex flex-col gap-2 rounded-[16px] px-4 py-6 bg-white  "
                     style={{ boxShadow: "0px 0px 26.499px 0px rgba(0, 0, 0, 0.25)" }}
                 >
-                    <div className="w-full font-medium"> About Me</div>
-                    <div className=" w-full text-[14px] sm:min-h-[240px] min-h-[200px] max-h-[200px] overflow-hidden p-2 font-montserrat font-small h-full border border-[#06A9EF] rounded-[8px] outline-none ">
+                    <div className="w-full font-medium text-[1.5vw]"> About Me</div>
+                    <div className=" w-full text-[1.2vw]   overflow-hidden p-2 font-montserrat font-small h-full border border-[#06A9EF] rounded-[8px] outline-none ">
 
                         {loading1 ? (
                             <div className='sm:min-h-[240px] min-h-[200px] flex justify-center items-center '>
                                 <MiniLoader />
                             </div>
                         ) : (
-                            <div className=" w-[100%]">
+                            <div className=" w-[100%] ">
                                 {animationText}
                             </div>
                         )}
@@ -282,13 +282,13 @@ function GenerateAi() {
                                     src="/images/home/stars.png " alt="" className={`h-[30px] w-[35px]  absolute left-[5%] `} />
                             }
 
-                            <p className={`text-[12px]  ${isClicked && "text-white "} font-semibold `}>Generate with AI</p>
+                            <p className={`text-[0.8vw]  ${isClicked && "text-white "} font-semibold `}>Generate with AI</p>
                             {isClicked &&
                                 <p className='absolute top-[115%] left-[55%] text-[12px] font-medium '> clicked !</p>
                             }
                         </button>
 
-                        <button className="py-2 px-4 text-[12px]  bg-[#06A9EF] rounded-[8px] text-white cursor-not-allowed">
+                        <button className="py-2 px-4 text-[0.8vw]  bg-[#06A9EF] rounded-[8px] text-white cursor-not-allowed">
                             Save
                         </button>
 
@@ -309,13 +309,19 @@ function GenerateAi() {
                     }
 
                 </div>
-                <div className=' ml:w-[34%] xl:w-[517.1px] w-[70%]  flex flex-col gap-4 justify-center text-center items-center '>
-                    <div className='flex sm:w-[95%] w-[97%] flex-wrap text-center items-center justify-center ml:text-[1.6vw] xl:text-[23.04px] text-[24px] font-bold'>
-                        <span className='text-center'>   Try our Generative AI Feature to </span> &nbsp; <span className='px-[120px] text-[#BB57E1]'>  Improve </span> &nbsp; <span className='px-[150px]'>&</span>  &nbsp; <span className='px-[150px] text-[#06A9EF]'>Enhance</span>&nbsp;your profile
+                <div className=' ml:w-[30vw]  w-[70%]  flex flex-col gap-4 justify-center text-center items-center '>
+                    <div className=' sm:w-[95%] w-[97%] flex-wrap text-center items-center justify-center text-[1.7vw]  font-bold'>
+                        <p className='text-center'>   Try our Generative AI  </p>
+                        <p className='text-center'>    Feature  </p>
+                        <p className='text-center'>   to </p>
+                        <p className=' text-[#BB57E1]'>  Improve </p>
+                        <p className=''>&</p>
+                        <p className=' text-[#06A9EF]'>Enhance</p>
+                        <p className=' '>your profile</p>
                     </div>
                     <div className='flex flex-col justify-center items-center gap-2 w-[90%] relative'>
 
-                        <p className='text-[14px] font-semibold'>Type something about yourself & Click on</p>
+                        <p className='text-[1vw] font-semibold'>Type something about yourself & Click on</p>
                         <img src="/images/blueArrow.png " alt="" className='h-[40px]  object-contain w-[41px] absolute scr1150:top-4 -right-6 top-7 web' />
 
                         <button className=' cursor-not-allowed w-[35%] flex gap-2 sm:px-3 px-[5px] py-2 border items-center border-[#06A9EF] bg-white rounded-[8px] min-w-[155px] sm:min-w-[170px] relative'>
@@ -337,9 +343,9 @@ function GenerateAi() {
                         <p className='text-[14px] font-semibold'>to Try now!</p>
                     </div>
                 </div>
-                <div className='ml:w-[33%] w-[95%] border-dashed border-[2px] border-[#06A9EF] sm:p-2 px-1 py-1 rounded-[16px] max-w-[413px]'>
+                <div className='w-[32vw] min-w-[300px] h-[30vw]  border-dashed border-[2px] border-[#06A9EF] sm:p-2 px-1 py-1 rounded-[16px] '>
                     <div className='  flex w-full h-full flex-col gap-2 rounded-[16px] p-4 bg-white ' style={{ boxShadow: "0px 0px 26.499px 0px rgba(0, 0, 0, 0.25)" }} >
-                        <p className='w-full font-medium'> About Me</p>
+                        <p className='w-full font-medium text-[1.5vw]'> About Me</p>
                         <div className="error_text_form ">{error}</div>
                         {loading ? (
                             <div className='sm:min-h-[240px] min-h-[200px] flex justify-center items-center border border-[#06A9EF] rounded-[8px]'>
@@ -350,14 +356,14 @@ function GenerateAi() {
                                 // onWheel={(e) => e.stopPropagation()}
                                 type="text"
                                 name="aboutMe"
-                                className="w-full sm:min-h-[240px] min-h-[200px] max-h-[240px] text-[14px] font-montserrat  h-full border border-[#06A9EF] rounded-[8px] outline-none p-4 "
+                                className="w-full  text-[1.2vw]  font-montserrat  h-full border border-[#06A9EF] rounded-[8px] outline-none p-4 "
                                 placeholder=" "
                                 onChange={handleTextChange}
                                 value={text}
                             />
                         )}
                         <div className='w-full flex justify-end items-center gap-2'>
-                            <div className=" scr1024:text-[12px] text-[10px] font-[400]">
+                            <div className=" text-[0.7vw] font-[400]">
                                 Remaining Attempts - <span className={`${attempt <= 0 && "text-red"} `}>{attempt}</span>
                             </div>
                             <button onClick={generateText} disabled={attempt <= 0} className={` justify-between relative flex gap-1 sm:px-1 px-[5px] py-2 border items-center border-[#06A9EF] ${stars && "bg-[#06A9EF]"}  rounded-[8px] min-w-[122px] ml:min-w-[122px] sm:min-w-[146px] scr1024:min-w-[146px] ${attempt <= 0 && " cursor-not-allowed"}`} >
@@ -382,13 +388,13 @@ function GenerateAi() {
                                 }
 
 
-                                <p className={`sm:text-[12px] ml:text-[9px] text-[9px] scr1024:text-[12px] ${stars && "text-white"}`}  >
+                                <p className={` text-[0.8vw] font-[600] ${stars && "text-white"}`}  >
                                     Generate with AI
                                 </p>
                             </button>
                             <button
 
-                                className="py-2 sm:px-4 px-3  sm:text-[12px] ml:text-[9px] text-[9px] scr1024:text-[12px] bg-[#06A9EF] rounded-[8px] text-white cursor-not-allowed "
+                                className="py-2 px-4 text-[0.8vw]  bg-[#06A9EF] rounded-[8px] text-white cursor-not-allowed "
                             >
                                 Save
                             </button>

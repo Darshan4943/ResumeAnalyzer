@@ -4,18 +4,19 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
-import { reCallUserData } from "../../Redux/actions/user";
+import { popupNotVisible, reCallUserData } from "../../Redux/actions/user";
 import Link from "next/link";
 import ForgotPassword from "./forgotPassword";
 
-function Sign_in({ setIsSignIn ,handleGoogle}) {
+function Sign_in({ setIsSignIn, handleGoogle }) {
 
-  
+  const dispatch = useDispatch()
 
   const taskRef = useRef(null);
 
   const handleOutsideClick = (event) => {
     if (taskRef.current && !taskRef.current.contains(event.target)) {
+
       setIsForgot(false)
     }
   };
@@ -32,7 +33,6 @@ function Sign_in({ setIsSignIn ,handleGoogle}) {
   const [error, setError] = useState(null);
   const [isForgot, setIsForgot] = useState(false)
 
-  const dispatch = useDispatch();
 
   const handleTogglePassword = () => {
     setShowPassword(!showPassword);
@@ -54,7 +54,7 @@ function Sign_in({ setIsSignIn ,handleGoogle}) {
           dispatch(reCallUserData());
           toast.success("Sign in Successfully");
           router.push("/home/BeforeLoginHome");
-         
+
         } else {
           toast.error("something went wrong");
         }
@@ -114,7 +114,7 @@ function Sign_in({ setIsSignIn ,handleGoogle}) {
                 />
               </svg>
             </div>
-            <div  className="flex justify-end text-[#06A9EF] text-[12px] font-[500] cursor-pointer ">
+            <div className="flex justify-end text-[#06A9EF] text-[12px] font-[500] cursor-pointer ">
               <a onClick={() => setIsForgot(true)} className="already_sign">
                 Forgot password?
               </a>
@@ -151,20 +151,20 @@ function Sign_in({ setIsSignIn ,handleGoogle}) {
                 pathname: "/auth",
                 query: { signup: true },
               }}> */}
-              <div style={{ borderColor: '#9D9D9D' }} onClick={handleGoogle} className=" cursor-pointer w-full px-[36px] py-[12px] rounded-[12px] border-[1px] border-solid border-[#9D9D9D]   text-[16px] font-[500] text-[#333] flex items-center gap-2 justify-center continue_btn">
-                <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <g clip-path="url(#clip0_128_5190)">
-                    <path d="M24.4873 12.2245C24.4873 11.2413 24.4057 10.5237 24.229 9.77963H12.739V14.2176H19.4833C19.3474 15.3205 18.6132 16.9815 16.9814 18.0976L16.9585 18.2461L20.5915 20.9963L20.8431 21.0209C23.1547 18.9347 24.4873 15.8653 24.4873 12.2245Z" fill="#4285F4" />
-                    <path d="M12.7391 23.9176C16.0433 23.9176 18.8171 22.8545 20.8432 21.0209L16.9815 18.0976C15.9481 18.8018 14.5611 19.2934 12.7391 19.2934C9.50291 19.2934 6.75622 17.2074 5.77711 14.324L5.63359 14.3359L1.85604 17.1927L1.80664 17.3269C3.81906 21.2334 7.95273 23.9176 12.7391 23.9176Z" fill="#34A853" />
-                    <path d="M5.77702 14.324C5.51867 13.5799 5.36916 12.7826 5.36916 11.9588C5.36916 11.1349 5.51867 10.3377 5.76343 9.5936L5.75658 9.43513L1.9317 6.53241L1.80655 6.59058C0.97714 8.21168 0.501221 10.0321 0.501221 11.9588C0.501221 13.8855 0.97714 15.7058 1.80655 17.3269L5.77702 14.324Z" fill="#FBBC05" />
-                    <path d="M12.7391 4.62403C15.0371 4.62403 16.5871 5.59402 17.471 6.40461L20.9248 3.10928C18.8036 1.1826 16.0433 0 12.7391 0C7.95273 0 3.81906 2.68406 1.80664 6.59056L5.76351 9.59359C6.75622 6.7102 9.50291 4.62403 12.7391 4.62403Z" fill="#EB4335" />
-                  </g>
+            <div style={{ borderColor: '#9D9D9D' }} onClick={handleGoogle} className=" cursor-pointer w-full px-[36px] py-[12px] rounded-[12px] border-[1px] border-solid border-[#9D9D9D]   text-[16px] font-[500] text-[#333] flex items-center gap-2 justify-center continue_btn">
+              <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g clip-path="url(#clip0_128_5190)">
+                  <path d="M24.4873 12.2245C24.4873 11.2413 24.4057 10.5237 24.229 9.77963H12.739V14.2176H19.4833C19.3474 15.3205 18.6132 16.9815 16.9814 18.0976L16.9585 18.2461L20.5915 20.9963L20.8431 21.0209C23.1547 18.9347 24.4873 15.8653 24.4873 12.2245Z" fill="#4285F4" />
+                  <path d="M12.7391 23.9176C16.0433 23.9176 18.8171 22.8545 20.8432 21.0209L16.9815 18.0976C15.9481 18.8018 14.5611 19.2934 12.7391 19.2934C9.50291 19.2934 6.75622 17.2074 5.77711 14.324L5.63359 14.3359L1.85604 17.1927L1.80664 17.3269C3.81906 21.2334 7.95273 23.9176 12.7391 23.9176Z" fill="#34A853" />
+                  <path d="M5.77702 14.324C5.51867 13.5799 5.36916 12.7826 5.36916 11.9588C5.36916 11.1349 5.51867 10.3377 5.76343 9.5936L5.75658 9.43513L1.9317 6.53241L1.80655 6.59058C0.97714 8.21168 0.501221 10.0321 0.501221 11.9588C0.501221 13.8855 0.97714 15.7058 1.80655 17.3269L5.77702 14.324Z" fill="#FBBC05" />
+                  <path d="M12.7391 4.62403C15.0371 4.62403 16.5871 5.59402 17.471 6.40461L20.9248 3.10928C18.8036 1.1826 16.0433 0 12.7391 0C7.95273 0 3.81906 2.68406 1.80664 6.59056L5.76351 9.59359C6.75622 6.7102 9.50291 4.62403 12.7391 4.62403Z" fill="#EB4335" />
+                </g>
 
-                </svg>
+              </svg>
 
 
-                Continue with Google
-              </div>
+              Continue with Google
+            </div>
             {/* </Link> */}
             <div className="text-[12px]">
               By signing in, you agree to our{" "}

@@ -100,7 +100,7 @@ function Footer() {
                   </p>
                 </div>
               </div>
-              <div className="footer_about_section">
+              {/* <div className="footer_about_section">
                 <p className="footer_about_P">My Account</p>
                 <div className="footer_sub_about">
                   <p className="footer_sub_about_P">Log Out</p>
@@ -110,7 +110,7 @@ function Footer() {
                     My Profile
                   </p>
                 </div>
-              </div>
+              </div> */}
 
             </div>
           </div>
