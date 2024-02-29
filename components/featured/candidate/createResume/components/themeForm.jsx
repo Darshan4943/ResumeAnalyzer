@@ -124,9 +124,11 @@ function ThemeForm({
       </div>{" "}
       <div
         style={{
+          visibility: view ? "visible" : "hidden",
           height: view ? "auto" : "0px",
           opacity: view ? 1 : 0,
           transition: "opacity 0.2s",
+
         }}
       >
         <div className=" flex  gap-2 ">

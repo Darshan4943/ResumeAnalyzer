@@ -15,7 +15,6 @@ function CreateResume() {
   const router = useRouter();
 
   const userData = router.query;
-  console.log(19, userData);
 
   const handleOutsideClick = (event) => {
     if (taskRef.current && !taskRef.current.contains(event.target)) {
@@ -25,7 +24,7 @@ function CreateResume() {
 
   useEffect(() => {
     setTimeout(() => {
-      setSelectedResumeIndex(20);
+      setSelectedResumeIndex(1);
     }, 1000);
 
     document.addEventListener("mousedown", handleOutsideClick);
@@ -39,8 +38,8 @@ function CreateResume() {
   const [data, setData] = useState({
     profilePhoto: null,
     designation: "UI/UX designer",
-    firstName: "Abd",
-    lastName: "Abd",
+    firstName: "John",
+    lastName: "Doe",
     mobileNumber: 9325795236,
     email: "prathmeshjadhav1014@gmail.com",
     location: "Abd",
@@ -185,6 +184,49 @@ function CreateResume() {
     summery:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make",
   });
+
+  useEffect(() => {
+    const {
+      firstName,
+      lastName,
+      mobileNo,
+      email,
+      comapanyName,
+      currentCTC,
+      currentLocation,
+      dateOfComplition,
+      dateOfJoining,
+      dob,
+      employmentStatus,
+      institute,
+      jobLocation,
+      jobTitle,
+    } = userData;
+
+    setData((prevData) => ({
+      ...prevData,
+      firstName:firstName?firstName:"JOHN",
+      lastName:lastName?lastName:"DOE",
+      mobileNo,
+      email,
+      comapanyName,
+      currentCTC,
+      currentLocation,
+      dateOfComplition,
+      dob,
+      employmentStatus,
+
+      education: [
+        {
+          institute,
+          jobLocation,
+          jobTitle,
+          dateOfJoining,
+        },
+      ],
+    }));
+  }, [userData]);
+
   // const [data, setData] = useState({
   //   profilePhoto: null,
   //   designation: "",
@@ -207,36 +249,6 @@ function CreateResume() {
   //   hobbies: [],
   //   languages: [],
   // });
-
-  console.log(data); 
-  console.log(65,data)
-
-  useEffect(() => {
-    const { firstName, lastName, mobileNo, email, comapanyName, currentCTC, currentLocation, dateOfComplition, dateOfJoining, dob, employmentStatus, institute, jobLocation, jobTitle } = userData;
-
-    setData(prevData => ({
-        ...prevData,
-        firstName,
-        lastName,
-        mobileNo,
-        email,
-        comapanyName,
-        currentCTC,
-        currentLocation,
-        dateOfComplition,
-        dob,
-        employmentStatus,
-    
-        education: [{
-            institute,
-            jobLocation,
-            jobTitle,
-            dateOfJoining
-        }],
-    }));
-}, [userData]);
-
-
   return (
     <div>
       <div className=" bg-[#F9F9F9] pt-2 px-6">

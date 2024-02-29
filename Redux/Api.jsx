@@ -24,12 +24,11 @@ export const Api = () => {
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      const token = localStorage.getItem("authToken");
+      const token = JSON.parse( localStorage.getItem("authToken"));
       if (token && token != "undefined") {
-        const decoded = jwtDecode(token);
-        console.log(decoded);
+        const decoded = jwtDecode(token.token);
         axios
-          .post("https://freedygoservices.in/api/candidate/" + decoded._id)
+          .get("http://localhost:2000/api/user/" + decoded._id)
           .then((res) => {
             const decode = jwtDecode(res.data.data);
             dispatch(

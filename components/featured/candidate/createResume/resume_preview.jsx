@@ -986,6 +986,54 @@ const ResumePreview = ({
       document.removeEventListener("mousedown", handleOutsideClick);
     };
   }, []);
+  const generatePDFUsingRenderer = async () => {
+    // Import the react-pdf/renderer library dynamically (for server-side rendering)
+    const ReactPDF = await import("@react-pdf/renderer");
+
+    // Render the PDF document using the defined React component
+    const { PDFViewer, renderToString } = ReactPDF.default;
+
+    // Render the React component to a string
+    const pdfString = await renderToString(
+      <>
+        {" "}
+        <Document height="1124px">
+          {selectResumeTemplate(selectedResumeIndex)}
+        </Document>
+      </>
+    );
+
+    // Convert the PDF string to a blob
+    const pdfBlob = new Blob([pdfString], { type: "application/pdf" });
+
+    return pdfBlob;
+  };
+
+  const saveResume = async () => {
+    const formData = new FormData();
+    if (Object.keys(data).length > 0) {
+      Object.keys(data).map((key) => {
+        if (Array.isArray(data[key]) && data[key].length > 0) {
+          formData.append(key, JSON.stringify(data[key]));
+        } else {
+          formData.append(key, data[key]);
+        }
+      });
+    }
+    try {
+      console.log(await generatePDFUsingRenderer());
+    } catch (e) {
+      console.log(e);
+    }
+    // axios
+    //   .post("http://localhost:2000/api/resume/add", formData)
+    //   .then((res) => {
+    //     console.log(res.data);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
+  };
 
   return (
     <div
@@ -1033,6 +1081,12 @@ const ResumePreview = ({
             </div>
 
             <div className="flex gap-[16px]">
+              {/* <button
+                onClick={() => saveResume()}
+                className="flex gap-1 text-[14px] w-[150px]  justify-center text-[#FFF] font-montserrat font-semibold px-3 py-2 rounded-[8px] items-center border border-[#06A9EF] bg-[#06A9EF]"
+              >
+                Save
+              </button> */}
               <button
                 onClick={() => setPreview(true)}
                 className="flex gap-1 text-[14px] w-[150px]  justify-center text-[#FFF] font-montserrat font-semibold px-3 py-2 rounded-[8px] items-center border border-[#06A9EF] bg-[#06A9EF]"

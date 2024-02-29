@@ -54,7 +54,7 @@ const ResumeList = ({ data, setData ,}) => {
             <ImageContainer
               src={URL.createObjectURL(file)}
               alt="Selected File"
-              className="w-[112px] h-[112px] rounded-[50%]"
+              className="w-[112px] h-[112px] rounded-[50%] object-contain"
             />
           ):
           <svg width="112" height="112" viewBox="0 0 112 112" fill="none" xmlns="http://www.w3.org/2000/svg">

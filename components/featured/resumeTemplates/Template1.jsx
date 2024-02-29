@@ -24,7 +24,7 @@ function Template1({ data, selectedColor, selectedFont }) {
           </View>
           <View style={{ width: "112px", height: "112px" }}>
             {data.profilePhoto ? (
-              <Image src={URL.createObjectURL(data.profilePhoto)} />
+              <Image src={URL.createObjectURL(data.profilePhoto)} style={{objectFit:"contain"}} />
             ) : (
               <Image src="/images/services/profile.png" />
             )}
