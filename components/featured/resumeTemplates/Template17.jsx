@@ -114,17 +114,7 @@ const Template17 = ({ data,selectedColor,selectedFont  }) => {
             </View>
 
             {/* AWORD  */}
-            <View style={{ flexDirection: 'column', maxWidth: 150, paddingTop: 10 }}>
-              <Text style={{ fontFamily: `${selectedFont} 500`, fontSize: 12, color: '#282627' }}>AWARDS</Text>
-              {/* {data.hobbies?.map((detail, index) => (
-            <View key={index} style={{ flexDirection: "column", }}>
-              <View style={{ flexDirection: "row", alignItems: "center",gap:4  }}>
-                <Text style={{  color: "#282829", }}>&#8226;</Text>
-                <Text style={{ color: "#5E5F5E" ,fontSize:10}}>{detail.title}</Text>
-              </View>
-            </View>
-          ))} */}
-            </View>
+            
 
           </View>
 
@@ -168,6 +158,42 @@ const Template17 = ({ data,selectedColor,selectedFont  }) => {
 
 
 
+            </View>
+            <View style={{ flexDirection: 'column', maxWidth: 150, paddingTop: 10 }}>
+              <Text style={{ fontFamily: `${selectedFont} 500`, fontSize: 12, color: '#282627' }}>AWARDS</Text>
+              {data?.course?.map((detail, index) => (
+              <View
+                key={index}
+                style={{ gap: 6, display: "flex", flexDirection: "column" }}
+              >
+                <Text
+                  style={{
+                    fontSize: 14,
+                    fontFamily: `${selectedFont} 500`,
+                    color: selectedColor,
+                  }}
+                >
+                  {detail.courseName}
+                </Text>
+                <View style={{ display: "flex", gap: 8 }}>
+                  <Text
+                    style={{ fontSize: 12, fontFamily: `${selectedFont} 400` }}
+                  >
+                    {detail.duration?.start?.year} -{" "}
+                    {detail.duration?.end?.year}
+                  </Text>
+                  <Text style={{ fontSize: 12, fontFamily: `${selectedFont} 400` }}>{detail.issuedBy}</Text>
+                </View>
+              </View>
+            ))}
+              {/* {data.hobbies?.map((detail, index) => (
+            <View key={index} style={{ flexDirection: "column", }}>
+              <View style={{ flexDirection: "row", alignItems: "center",gap:4  }}>
+                <Text style={{  color: "#282829", }}>&#8226;</Text>
+                <Text style={{ color: "#5E5F5E" ,fontSize:10}}>{detail.title}</Text>
+              </View>
+            </View>
+          ))} */}
             </View>
           </View>
 
@@ -216,9 +242,9 @@ const Template17 = ({ data,selectedColor,selectedFont  }) => {
               )}
             </View>
           </View>
-          <View style={{ width: 170, gap: 4 }}>
+          <View style={{ width: 340, gap: 4 }}>
             <Text style={{ fontSize: 12, fontFamily: `${selectedFont} 500` }}>SKILLS</Text>
-            <View style={{ flexDirection: "column", width: 170, gap: 6 }}>
+            <View style={{ display:'flex', flexDirection: "row", width: 340, gap: 6,flexWrap:'wrap' }}>
               {data.skills?.map((detail, index) => {
                 const calculateWidthPercentage = (rating) => {
                   let ratingPercentage = 0;
@@ -241,7 +267,7 @@ const Template17 = ({ data,selectedColor,selectedFont  }) => {
                 );
 
                 return (
-                  <View style={{ paddingRight: 4, flexDirection: "column" }} key={index}>
+                  <View style={{ paddingRight: 4, flexDirection: "column",width:"46%" }} key={index}>
                     <View style={{ flexDirection: "row", alignItems: "center", gap: 4 }}>
                       <Text style={{ color: "#414142", fontSize: 12, width: 80, fontFamily: `${selectedFont} 400` }}>
                         {detail.skill}
@@ -257,47 +283,7 @@ const Template17 = ({ data,selectedColor,selectedFont  }) => {
               })}
             </View>
           </View>
-          <View style={{ width: 170, gap: 4 }}>
-            <Text style={{ fontSize: 12, fontFamily: `${selectedFont} 500` }}>SOFTWARE</Text>
-            {/* <View style={{ flexDirection: "column", width: 170, gap: 6 }}>
-                      {data.skills?.map((detail, index) => {
-                        const calculateWidthPercentage = (rating) => {
-                          let ratingPercentage = 0;
-                          if (rating && rating.length > 0) {
-                            const zerosCount = rating.filter(
-                              (val) => val === 0
-                            ).length;
-    
-                            if (zerosCount === 0) ratingPercentage = 100;
-                            else if (zerosCount === 1) ratingPercentage = 80;
-                            else if (zerosCount === 2) ratingPercentage = 60;
-                            else if (zerosCount === 3) ratingPercentage = 40;
-                            else if (zerosCount === 4) ratingPercentage = 20;
-                          }
-                          return ratingPercentage;
-                        };
-    
-                        const ratingPercentage = calculateWidthPercentage(
-                          detail.rating
-                        );
-    
-                        return (
-                          <View style={{ paddingRight: 4, flexDirection: "column" }} key={index}>
-                            <View style={{ flexDirection: "row", alignItems: "center", gap: 4 }}>
-                              <Text style={{ color: "#414142", fontSize: 12, width: 80, fontFamily: `${selectedFont} 400`}}>
-                                {detail.skill}
-                              </Text>
-                              <View style={{ width: "59.21%", height: 3.78, alignSelf: "flex-end", marginBottom: 1, backgroundColor: "#A9AAAA" }}>
-                                <View
-                                  style={{ height: "100%", backgroundColor: "#6D6E71", width: `${ratingPercentage}%` }}
-                                ></View>
-                              </View>
-                            </View>
-                          </View>
-                        );
-                      })}
-                    </View> */}
-          </View>
+       
 
         </View>
 

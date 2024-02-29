@@ -258,7 +258,7 @@ function Template6({ data, selectedColor, selectedFont }) {
             </View>
             <View style={{ height: 1, width: 300, backgroundColor: "#282829" }}></View>
             <View style={{ flexDirection: "column", gap: 8, width: 300 }}>
-              <Text style={{ fontSize: 18, fontFamily: `${selectedFont} 700` }}> EDUCATION</Text>
+              <Text style={{ fontSize: 18, fontFamily: `${selectedFont} 700` }}>EDUCATION</Text>
               {data?.education?.map((detail, index) => (
                 <>
                   <View style={{ flexDirection: "column", gap: 5 }}>

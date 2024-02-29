@@ -37,9 +37,7 @@ const Template12 = ({ data, selectedColor, selectedFont }) => {
         </View>
         <View style={{ flexDirection: "column", gap: 8, width: 525, alignItems: "center", justifyContent: 'center' }}>
           <View style={{ flexDirection: "column", gap: 10, width: 595, padding: 20, paddingTop: 30 }}>
-            <Text style={{ fontSize: 16, fontFamily: `${selectedFont} 700`, color: "#495970" }}>
-              CONTACTS
-            </Text>
+            <Text style={{ fontSize: 16, fontFamily: `${selectedFont} 700`, color: "#495970" }}>CONTACTS</Text>
             <View style={{ width: "90.62%", flexDirection: "row", gap: 8 }}>
               <View style={{ flexDirection: "column", alignItems: "flex-start", justifyContent: "flex-start", gap: 2, width: "18.72%", maxWidth: 130 }}>
                 <Text style={{ fontSize: 12, fontFamily: `${selectedFont} 700`, color: "#495970" }}>PHONE</Text>
@@ -61,9 +59,7 @@ const Template12 = ({ data, selectedColor, selectedFont }) => {
 
           <View style={{ flexDirection: "column", width: "595", gap: 8, paddingLeft: 10 }}>
             <View style={{ flexDirection: "row", width: "525", alignItems: "center", justifyContent: 'center', gap: 6 }}>
-              <Text style={{ fontSize: 16, fontFamily: `${selectedFont} 700`, color: "#495970" }}>
-                EDUCATION
-              </Text>
+              <Text style={{ fontSize: 16, fontFamily: `${selectedFont} 700`, color: "#495970" }}>EDUCATION</Text>
               <View style={{ backgroundColor: "#B5BCC5", width: 400, height: 1 }}></View>
             </View>
             <View style={{ width: "525", flexDirection: "row", gap: 25, paddingLeft: 10 }}>
@@ -144,10 +140,8 @@ const Template12 = ({ data, selectedColor, selectedFont }) => {
 
 
           <View style={{ flexDirection: "column", width: "595", gap: 6, paddingLeft: 23, paddingTop: 10 }}>
-            <View style={{ flexDirection: "row", alignItems: "center", gap: 4, width: 525,justifyContent:"flex-end" }}>
-              <Text style={{ fontSize: 16, fontFamily: `${selectedFont} 700`, color: "#495970", }}>
-                EXPERIENCES
-              </Text>
+            <View style={{ flexDirection: "row", alignItems: "center", gap: 4, width: 525,justifyContent:"flex-start" }}>
+              <Text style={{ fontSize: 16, fontFamily: `${selectedFont} 700`, color: "#495970", }}>EXPERIENCES</Text>
               <View style={{ backgroundColor: "#B5BCC5", width: 400, height: 1 }}></View>
             </View>
             <View style={{ width: "525", flexDirection: "row", gap: 6 }}>
@@ -186,9 +180,7 @@ const Template12 = ({ data, selectedColor, selectedFont }) => {
           {data?.skills?.length > 0 && (
             <View style={{ flexDirection: "column", width: "595", paddingLeft: 23, }}>
               <View style={{ flexDirection: "row", alignItems: "center", gap: 12, width: 525 }}>
-                <Text style={{ fontSize: 16, fontFamily: `${selectedFont} 700`, color: "#495970", }}>
-                  SKILLS
-                </Text>
+                <Text style={{ fontSize: 16, fontFamily: `${selectedFont} 700`, color: "#495970", }}>SKILLS</Text>
                 <View style={{ backgroundColor: "#B5BCC5", width: "450", height: 1 }}></View>
               </View>
               <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 4, paddingTop: 10, columnGap: 30 }}>
@@ -229,9 +221,7 @@ const Template12 = ({ data, selectedColor, selectedFont }) => {
           {data?.hobbies?.length > 0 && (
             <View style={{ flexDirection: "column", width: "595", paddingBottom: 2, paddingLeft: 20, paddingTop: 10 }}>
               <View style={{ flexDirection: "row", alignItems: "center", gap: 8, width: 525 }}>
-                <Text style={{ fontSize: 16, fontFamily: `${selectedFont} 700`, color: "#495970", }}>
-                  INTERESTS
-                </Text>
+                <Text style={{ fontSize: 16, fontFamily: `${selectedFont} 700`, color: "#495970", }}>INTERESTS</Text>
                 <View style={{ backgroundColor: "#B5BCC5", width: "450", height: 1 }}></View>
               </View>
               <View style={{ flexDirection: "row", flexWrap: "wrap", width: 595, gap: 6, paddingTop: 10 }}>
@@ -247,9 +237,7 @@ const Template12 = ({ data, selectedColor, selectedFont }) => {
           {data?.languages?.length > 0 && (
             <View style={{ flexDirection: "column", width: "595", paddingBottom: 4, paddingLeft: 20, paddingTop: 8 }}>
               <View style={{ flexDirection: "row", alignItems: "center", gap: 6 }}>
-                <Text style={{ fontSize: 16, fontFamily: `${selectedFont} 700`, color: "#495970", }}>
-                  LANGUAGES
-                </Text>
+                <Text style={{ fontSize: 16, fontFamily: `${selectedFont} 700`, color: "#495970", }}>LANGUAGES</Text>
                 <View style={{ backgroundColor: "#B5BCC5", width: "420", height: 1 }}></View>
               </View>
               <View style={{ flexDirection: "row", gap: 1, paddingTop: 8 }}>

@@ -56,64 +56,6 @@ function Template10({ data, selectedColor, selectedFont }) {
               </View>
 
             )}
-
-            {/* <View style={{ flexDirection: "column", gap: 12 }}>
-              <Text style={{ fontSize: 14, fontFamily: '400', color: '#414042' }}>TOOLS</Text>
-
-              <View style={{ flexDirection: "row", gap: 16 }}>
-                <Svg width="14" height="15" viewBox="0 0 14 15" xmlns="http://www.w3.org/2000/svg">
-                  <Path fillRule="evenodd" clipRule="evenodd" d="M6.99999 3.16406C4.79135 3.16406 3 4.95541 3 7.16404C3 9.37392 4.79135 11.1641 6.99999 11.1641C9.20863 11.1641 11 9.37268 11 7.16404C11 4.95541 9.20987 3.16406 6.99999 3.16406Z" stroke="#F2BE5C" strokeWidth="4.0004" strokeMiterlimit="10" />
-                </Svg>
-                <Text style={{ fontSize: 10, fontFamily: '400', color: '#414042' }}>Tool 1</Text>
-              </View>
-
-              <View style={{ flexDirection: "row", gap: 16 }}>
-                <Svg width="14" height="15" viewBox="0 0 14 15" xmlns="http://www.w3.org/2000/svg">
-                  <Path fillRule="evenodd" clipRule="evenodd" d="M6.99999 3.16406C4.79135 3.16406 3 4.95541 3 7.16404C3 9.37392 4.79135 11.1641 6.99999 11.1641C9.20863 11.1641 11 9.37268 11 7.16404C11 4.95541 9.20987 3.16406 6.99999 3.16406Z" stroke="#F2BE5C" strokeWidth="4.0004" strokeMiterlimit="10" />
-                </Svg>
-                <Text style={{ fontSize: 10, fontFamily: '400', color: '#414042' }}>Tool 2</Text>
-              </View>
-
-
-              <View style={{ flexDirection: "row", gap: 16 }}>
-                <Svg width="14" height="15" viewBox="0 0 14 15" xmlns="http://www.w3.org/2000/svg">
-                  <Path fillRule="evenodd" clipRule="evenodd" d="M6.99999 3.16406C4.79135 3.16406 3 4.95541 3 7.16404C3 9.37392 4.79135 11.1641 6.99999 11.1641C9.20863 11.1641 11 9.37268 11 7.16404C11 4.95541 9.20987 3.16406 6.99999 3.16406Z" stroke="#F2BE5C" strokeWidth="4.0004" strokeMiterlimit="10" />
-                </Svg>
-                <Text style={{ fontSize: 10, fontFamily: '400', color: '#414042' }}>Tool 3</Text>
-              </View>
-
-              <View style={{ flexDirection: "row", gap: 16 }}>
-                <Svg width="14" height="15" viewBox="0 0 14 15" xmlns="http://www.w3.org/2000/svg">
-                  <Path fillRule="evenodd" clipRule="evenodd" d="M6.99999 3.16406C4.79135 3.16406 3 4.95541 3 7.16404C3 9.37392 4.79135 11.1641 6.99999 11.1641C9.20863 11.1641 11 9.37268 11 7.16404C11 4.95541 9.20987 3.16406 6.99999 3.16406Z" stroke="#F2BE5C" strokeWidth="4.0004" strokeMiterlimit="10" />
-                </Svg>
-                <Text style={{ fontSize: 10, fontFamily: '400', color: '#414042' }}>Tool 4</Text>
-              </View>
-
-              <View style={{ flexDirection: "row", gap: 16 }}>
-                <Svg width="14" height="15" viewBox="0 0 14 15" xmlns="http://www.w3.org/2000/svg">
-                  <Path fillRule="evenodd" clipRule="evenodd" d="M6.99999 3.16406C4.79135 3.16406 3 4.95541 3 7.16404C3 9.37392 4.79135 11.1641 6.99999 11.1641C9.20863 11.1641 11 9.37268 11 7.16404C11 4.95541 9.20987 3.16406 6.99999 3.16406Z" stroke="#F2BE5C" strokeWidth="4.0004" strokeMiterlimit="10" />
-                </Svg>
-                <Text style={{ fontSize: 10, fontFamily: '400', color: '#414042' }}>Tool 5</Text>
-              </View>
-
-              <View style={{ flexDirection: "row", gap: 16 }}>
-                <Svg width="14" height="15" viewBox="0 0 14 15" xmlns="http://www.w3.org/2000/svg">
-                  <Path fillRule="evenodd" clipRule="evenodd" d="M6.99999 3.16406C4.79135 3.16406 3 4.95541 3 7.16404C3 9.37392 4.79135 11.1641 6.99999 11.1641C9.20863 11.1641 11 9.37268 11 7.16404C11 4.95541 9.20987 3.16406 6.99999 3.16406Z" stroke="#F2BE5C" strokeWidth="4.0004" strokeMiterlimit="10" />
-                </Svg>
-                <Text style={{ fontSize: 10, fontFamily: '400', color: '#414042' }}>Tool 6</Text>
-              </View>
-
-              <View style={{ flexDirection: "row", gap: 16 }}>
-                <Svg width="14" height="15" viewBox="0 0 14 15" xmlns="http://www.w3.org/2000/svg">
-                  <Path fillRule="evenodd" clipRule="evenodd" d="M6.99999 3.16406C4.79135 3.16406 3 4.95541 3 7.16404C3 9.37392 4.79135 11.1641 6.99999 11.1641C9.20863 11.1641 11 9.37268 11 7.16404C11 4.95541 9.20987 3.16406 6.99999 3.16406Z" stroke="#F2BE5C" strokeWidth="4.0004" strokeMiterlimit="10" />
-                </Svg>
-                <Text style={{ fontSize: 10, fontFamily: '400', color: '#414042' }}>Tool 7</Text>
-              </View>
-
-            </View> */}
-
-
-
             {data?.languages?.length > 0 && (
               <>
                 <Text style={{ fontSize: 14, fontFamily: `${selectedFont} 400`, color: '#414042' }}>LANGUAGES</Text>
