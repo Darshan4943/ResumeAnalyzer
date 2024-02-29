@@ -26,7 +26,7 @@ const images = [
 
 ]
 
-export default function Home() {
+export default function Home({}) {
 
   const gallery = useRef(null);
   const [dimension, setDimension] = useState({ width: 0, height: 0 });
