@@ -58,7 +58,7 @@ function SubscriptionPlan() {
             <div className='flex gap-9'>
                 {plans.map((plan, index) => (
                     <div key={index} className=' relative mt-[40px] bg-white  flex flex-col gap-4 items-center rounded-[16px]' style={{ boxShadow: "0px 2px 15px 0px #00000033" }}>
-                        {index === 1 && <div className='absolute left-0 top-[-36px] text-[1.3vw] font-semibold px-4 pt-[6px] pb-[16px] bg-[#06A9EF] text-white rounded-t-[16px]'>Recommended</div>}
+                        {index === 1 && <div className='absolute left-0 top-[-36px] text-[1.3vw] font-semibold px-4 pt-[4px] pb-[16px] bg-[#06A9EF] text-white rounded-t-[16px]'>Recommended</div>}
                         <div className='p-4 z-20 bg-white rounded-[16px] flex flex-col gap-4 items-center'>
                             <div className='flex text-center flex-col gap-3 text-[#333333] w-[80%]'>
                                 <p className='text-[1.7vw] font-[600]'><span className='text-[#06A9EF]'>{plan.duration}</span> {plan.limit}</p>

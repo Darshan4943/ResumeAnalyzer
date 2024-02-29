@@ -80,7 +80,7 @@ const Skills = ({ data, setData }) => {
   }, [userDataGlobal]);
   return (
     <>
-      <div
+      <div  onWheel={(e) => e.stopPropagation()}
         className="flex flex-col p-4 gap-2 rounded-lg bg-white"
         style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}
       >
@@ -107,6 +107,7 @@ const Skills = ({ data, setData }) => {
           </div>
 
           <ReactSelect
+          
             options={skills.map((item) => ({
               value: item,
               label: camelCase(item),

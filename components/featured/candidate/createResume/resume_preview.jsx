@@ -1037,7 +1037,8 @@ const ResumePreview = ({
 
   return (
     <div
-      className="ml:w-[60%] w-[100%]"
+    
+      className="ml:w-[60%] w-[100%] "
       style={{ overflow: "hidden", position: "relative" }}
     >
       <div
@@ -1066,7 +1067,7 @@ const ResumePreview = ({
             <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
             <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center  ">
               <div
-                ref={taskRef}
+                ref={taskRef}  onWheel={(e) => e.stopPropagation()}
                 className=" absolute flex p-6 bg-white rounded-[24px] shadow-md  gap-6 flex-wrap justify-center items-center w-[65%] h-[90vh] overflow-y-auto "
               >
                 {renderAllTemplates()}

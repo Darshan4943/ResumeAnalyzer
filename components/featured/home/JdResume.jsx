@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { popupVisible } from '../../../Redux/actions/user';
 import { useDispatch } from 'react-redux';
+import {  useRouter } from 'next/router';
 
 function JdResume({isLogin}) {
+    const router = useRouter();
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const [isFlickering, setIsFlickering] = useState(false);
     const dispatch = useDispatch()
@@ -49,7 +51,7 @@ function JdResume({isLogin}) {
                         alt=""
                         className={`rounded-[14px] absolute w-[13vw] h-[18vw] ${
                             index === currentImageIndex
-                            ? 'bg-[#DAF2FD] border-[2px] border-[#06A9EF] transition-background-color 0.5s ease-in-out'
+                            ? 'bg-[#DAF2FD] transition-background-color 0.5s ease-in-out'
                             : 'bg-transparent'
                             } ${index === 0
                                 ? 'left-0 top-[60px]'
