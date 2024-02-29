@@ -119,7 +119,7 @@ function Template11({ data, selectedColor, selectedFont }) {
 
         </View>
 
-        <View style={{ width: 350, alignItems: 'flex-start', paddingTop: 32, paddingLeft: 24, paddingBottom: 38 }}>
+        <View style={{ width: 350, alignItems: 'flex-start', paddingTop: 32, paddingLeft: 24, paddingBottom: 38,paddingRight:16 }}>
 
           <View style={{ flexDirection: 'column', alignItems: 'flex-start', gap: 22 }}>
 
@@ -194,7 +194,7 @@ function Template11({ data, selectedColor, selectedFont }) {
                 Experience
               </Text>
               {data.experience.map((detail, index) => (
-                <View style={{ flexDirection: 'row', gap: 30 }}>
+                <View style={{ flexDirection: 'row', gap: 30 ,width:"90%"}}>
                   <View style={{ flexDirection: 'row', gap: 16 }}>
                     <View style={{ flexDirection: 'column', gap: 5, width: 124 }}>
                       <Text style={{ color: '#000000', fontSize: 12, fontFamily: `${selectedFont} 400`, }}>
@@ -212,12 +212,12 @@ function Template11({ data, selectedColor, selectedFont }) {
                       </Text>
                     </View>
 
-                    <View style={{ flexDirection: 'column', width: 246, gap: 2 }}>
+                    <View style={{ flexDirection: 'column',  gap: 2,width:"70%" }}>
                       <Text style={{ color: '#000000', fontSize: 13, fontFamily: `${selectedFont} 500`, }}>
                         {detail.designation}
                       </Text>
 
-                      <Text style={{ color: '#000000', fontSize: 10, fontFamily: `${selectedFont} 500`, }}>
+                      <Text style={{ color: '#000000', fontSize: 10, fontFamily: `${selectedFont} 500`,flexWrap:"wrap" }}>
                         {detail.description}
                       </Text>
 

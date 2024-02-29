@@ -272,7 +272,7 @@ const PersonalDetails = ({
                     )}
                   </div>
                   </div>
-                  <div className="flex gap-6 w-[100%]">
+                  <div className="flex gap-6 w-[100%] ">
                   <div className="personal_single_input">
                     <p className="form_text_heading">
                       Contact Number <span className="star">*</span>
@@ -284,7 +284,7 @@ const PersonalDetails = ({
                           onClick={handleInputClick}
                         >
 
-                          <div className="flex items-center justify-center gap-2 cursor-pointer  w-[100%]">
+                          <div className="flex items-center justify-center gap-2 cursor-pointer min-w-[140px] w-[100%]">
 
                             <div className="flex items-center  gap-1 cursor-pointer  w-[100%] " onClick={handleInputClick}>
                               {showInput ? (

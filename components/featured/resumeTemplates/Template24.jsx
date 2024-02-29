@@ -283,7 +283,7 @@ function Template24({ data,selectedColor,selectedFont  }) {
           <View style={{ display: "flex", gap: "18px", width: "100%" }}>
             <View
               style={{
-                backgroundColor: "#FBEDE4",
+                backgroundColor: selectedColor,
                 display: "flex",
                 gap: "12px",
                 padding: "12px",
@@ -320,7 +320,7 @@ function Template24({ data,selectedColor,selectedFont  }) {
             </View>
             <View
               style={{
-                backgroundColor: "#FBEDE4",
+                backgroundColor: selectedColor,
                 display: "flex",
                 gap: "12px",
                 padding: "12px",
@@ -435,7 +435,7 @@ function Template24({ data,selectedColor,selectedFont  }) {
           <View style={{ display: "flex", gap: "18px", width: "100%" }}>
             <View
               style={{
-                backgroundColor: "#FBEDE4",
+                backgroundColor: selectedColor,
                 display: "flex",
                 gap: "12px",
                 padding: "12px",
@@ -518,7 +518,7 @@ function Template24({ data,selectedColor,selectedFont  }) {
             </View>
             <View
               style={{
-                backgroundColor: "#FBEDE4",
+                backgroundColor: selectedColor,
                 display: "flex",
                 gap: "12px",
                 padding: "12px",
@@ -626,7 +626,7 @@ function Template24({ data,selectedColor,selectedFont  }) {
             </View>
             <View
               style={{
-                backgroundColor: "#FBEDE4",
+                backgroundColor: selectedColor,
                 display: "flex",
                 gap: "12px",
                 padding: "12px",
@@ -734,7 +734,7 @@ function Template24({ data,selectedColor,selectedFont  }) {
             </View>
             <View
               style={{
-                backgroundColor: "#FBEDE4",
+                backgroundColor:selectedColor,
                 display: "flex",
                 gap: "12px",
                 padding: "12px",

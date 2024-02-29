@@ -21,11 +21,11 @@ const Template48 = ({ data,selectedColor,selectedFont  }) => {
                 <Svg style={{ margin: -24, }} width="595" height="132" viewBox="0 0 595 132" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <Path d="M595 0H0V132H595V0Z" fill="#F1F2F2" />
                     <Path d="M295 132H0V0H366L295 132Z" fill="#E6E7E8" />
-                    <Path d="M60 0H28V18H60V0Z" fill="#F7941D" />
+                    <Path d="M60 0H28V18H60V0Z" fill={selectedColor} />
                 </Svg>
                 <View style={{ display: "flex", position: "absolute", flexDirection: "column", }}>
 
-                    <Text style={{ fontWeight: 600, fontSize: 32, color: "#F7941D", }}>{data.firstName}</Text>
+                    <Text style={{ fontWeight: 600, fontSize: 32, color:selectedColor, }}>{data.firstName}</Text>
                     <Text style={{ fontWeight: 400, fontSize: 32, color: "#414042" }}>{data.lastName}</Text>
                     <Text style={{ fontWeight: 400, fontSize: 14, color: "#58595B" }}>{data.designation}</Text>
                 </View>
@@ -81,7 +81,7 @@ const Template48 = ({ data,selectedColor,selectedFont  }) => {
                                 {data?.skills?.map((detail, index) => (
                                     <View style={{ flexDirection: "row", gap: 8, alignItems: "center" }}>
                                         <Svg width="6" height="7" viewBox="0 0 6 7" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <Path d="M5.99023 3.49944L-0.00976562 0V7L5.99023 3.49944Z" fill="#F7941D" />
+                                            <Path d="M5.99023 3.49944L-0.00976562 0V7L5.99023 3.49944Z" fill={selectedColor} />
                                         </Svg>
 
 
@@ -104,7 +104,7 @@ const Template48 = ({ data,selectedColor,selectedFont  }) => {
                                 {data?.languages?.map((detail, index) => (
                                     <View style={{ flexDirection: "row", gap: 8, alignItems: "center" }}>
                                         <Svg width="6" height="7" viewBox="0 0 6 7" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <Path d="M5.99023 3.49944L-0.00976562 0V7L5.99023 3.49944Z" fill="#F7941D" />
+                                            <Path d="M5.99023 3.49944L-0.00976562 0V7L5.99023 3.49944Z" fill={selectedColor} />
                                         </Svg>
                                         <Text style={{ fontSize: 10, fontWeight: 400, color: "#58595B" }}>{detail.languages}</Text>
                                     </View>
@@ -124,7 +124,7 @@ const Template48 = ({ data,selectedColor,selectedFont  }) => {
                                 {data?.hobbies?.map((detail, index) => (
                                     <View style={{ flexDirection: "row", gap: 8, alignItems: "center" }}>
                                         <Svg width="6" height="7" viewBox="0 0 6 7" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <Path d="M5.99023 3.49944L-0.00976562 0V7L5.99023 3.49944Z" fill="#F7941D" />
+                                            <Path d="M5.99023 3.49944L-0.00976562 0V7L5.99023 3.49944Z" fill={selectedColor} />
                                         </Svg>
 
                                         <Text style={{ fontSize: 10, fontWeight: 400, color: "#58595B" }}>{detail.title}</Text>
@@ -171,7 +171,7 @@ const Template48 = ({ data,selectedColor,selectedFont  }) => {
                                 {data?.experience?.map((detail, index) => (
                                     <View style={{ display: "flex", flexDirection: "row", gap: 16 }}>
                                         <Svg width="6" height="7" viewBox="0 0 6 7" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <Path d="M5.99023 3.49944L-0.00976562 0V7L5.99023 3.49944Z" fill="#F7941D" />
+                                            <Path d="M5.99023 3.49944L-0.00976562 0V7L5.99023 3.49944Z" fill={selectedColor} />
                                         </Svg>
                                         <View style={{ display: "flex", flexDirection: "column", gap: 4 }}>
                                             <View><Text style={{ fontWeight: 400, fontSize: 12, color: "#414142" }}>{detail.designation}</Text></View>
@@ -210,7 +210,7 @@ const Template48 = ({ data,selectedColor,selectedFont  }) => {
                                 <View>
                                     <View style={{ flexDirection: "row", gap: 16, }}>
                                         <Svg width="6" height="7" viewBox="0 0 6 7" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <Path d="M5.99023 3.49944L-0.00976562 0V7L5.99023 3.49944Z" fill="#F7941D" />
+                                            <Path d="M5.99023 3.49944L-0.00976562 0V7L5.99023 3.49944Z" fill={selectedColor} />
                                         </Svg>
                                         <Text style={{ fontWeight: 400, fontSize: 12, color: "#414142" }}>{detail.specialization} - {detail.qualification}</Text>
                                     </View>

@@ -29,7 +29,7 @@ function Template13({ data,selectedColor,selectedFont  }) {
                                     style={{
                                         fontSize: 20,
                                        fontFamily: `${selectedFont} 500`,
-                                        color: "#0E6CC2",
+                                        color: selectedColor,
                                     }}
                                 >{data.designation}
                                 </Text>
@@ -140,7 +140,7 @@ function Template13({ data,selectedColor,selectedFont  }) {
                                 style={{
                                     fontSize: 20,
                                    fontFamily: `${selectedFont} 500`,
-                                    color: "#0E6CC2",
+                                    color: selectedColor,
 
                                 }}
                             >
@@ -187,7 +187,7 @@ function Template13({ data,selectedColor,selectedFont  }) {
                                     style={{
                                         fontSize: 20,
                                        fontFamily: `${selectedFont} 500`,
-                                        color: "#0E6CC2",
+                                        color: selectedColor,
                                     }}
                                 >
                                     Education & Learning
@@ -226,7 +226,7 @@ function Template13({ data,selectedColor,selectedFont  }) {
                                         style={{
                                             fontSize: 20,
                                            fontFamily: `${selectedFont} 500`,
-                                            color: "#0E6CC2",
+                                            color: selectedColor,
                                         }}
                                     >
                                         SKILLS
@@ -257,7 +257,7 @@ function Template13({ data,selectedColor,selectedFont  }) {
                                         style={{
                                             fontSize: 20,
                                            fontFamily: `${selectedFont} 500`,
-                                            color: "#0E6CC2",
+                                            color: selectedColor,
                                         }}
                                     >
                                         Languages
@@ -288,7 +288,7 @@ function Template13({ data,selectedColor,selectedFont  }) {
                                         style={{
                                             fontSize: 20,
                                            fontFamily: `${selectedFont} 500`,
-                                            color: "#0E6CC2",
+                                            color: selectedColor,
                                         }}
                                     >
                                         Interests

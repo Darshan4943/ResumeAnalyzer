@@ -4,7 +4,7 @@ import ReactSelect from "react-select";
 import { toast } from "react-toastify";
 import ImageContainer from "../../../common/image";
 import { noticePeriods } from "../../../../utils/data";
-
+import { useRouter } from "next/router";
 const ProfessionalDetails = ({
 
   data,
@@ -16,11 +16,16 @@ const ProfessionalDetails = ({
   certificate,
   setCertificate,
 }) => {
-  console.log(data)
+
   const [formError, setFormError] = useState({});
-
-  
-
+console.log(21,data)
+  const router = useRouter()
+  const handleClick = () => {
+    router.push({
+      pathname: "/home/createResume",
+      query: data 
+    });
+  };
   const validateInput = (fieldName, value) => {
     const errors = { ...formError };
 
@@ -95,50 +100,8 @@ const ProfessionalDetails = ({
     validateInput(fieldName, value);
 
   };
-  const submitHandler = (e) => {
-    e.preventDefault();
+  
 
-
-    const errors = validateInput();
-    console.log(errors)
-    const requiredFields = ["workExperiance", "noticePeriod"];
-    const emptyFields = requiredFields.filter(field => !data[field]);
-
-    if (emptyFields.length > 0) {
-      toast.error("Please fill in all required fields");
-      return;
-    }
-
-    const hasErrors = Object.keys(errors).length > 0;
-    if (data.workStatus == "fresher") {
-      register_cadidate();
-    }
-    else {
-      if (hasErrors) {
-        toast.error("Please enter valid information");
-        setFormError(errors);
-      } else {
-        register_cadidate();
-
-      }
-    }
-  };
-
-
-  // const submitHandler = (e) => {
-  //   e.preventDefault();
-  //   const errors = validateForm();
-  //   if (data.workStatus == "fresher") {
-  //     register_cadidate();
-  //   } else {
-  //     if (Object.keys(errors).length === 0) {
-  //       register_cadidate();
-  //     } else {
-  //       console.log(Object.keys(errors));
-  //       toast.error("Please enter all required fields");
-  //     }
-  //   }
-  // };
   return (
     <>
       {tabindex == 4 && (
@@ -149,7 +112,7 @@ const ProfessionalDetails = ({
 
               <div className="flex gap-6 w-[100%]">
                 <div className="personal_single_input">
-                  <div className="personal_name gap-2">
+                  <div className="personal_name gap-2 w-[100%]">
                     <p className="form_text_heading">
                       Employment Status <span className="star">*</span>
                     </p>
@@ -185,7 +148,7 @@ const ProfessionalDetails = ({
 
 
                 <div className="personal_single_input w-[50%]">
-                  <div className="personal_name" style={{ gap: "10px" }}>
+                  <div className="personal_name w-[100%]" style={{ gap: "10px" }}>
                     <p className="form_text_heading">
                       Work Experience <span className="star">*</span>
                     </p>
@@ -365,9 +328,9 @@ const ProfessionalDetails = ({
                   <p className="form_text_heading">
                     Notice Period <span className="star">*</span>
                   </p>
-                  <form className="notice_period ">
+                  <form className="notice_period flex flex-wrap ">
                     {noticePeriods.map((item, index) => (
-                      <div className="radio" key={index}>
+                      <div className="radio " key={index}>
                         <input
                           type="radio"
                           value={item.value}
@@ -441,8 +404,8 @@ const ProfessionalDetails = ({
                 <button
                   className="buttons"
                   id="border_button"
-                  onClick={submitHandler}
-                // router.push("/candidate/afterLogin/home/candidateHome");
+                  onClick={handleClick}
+               
                 >
                   Continue
                 </button>

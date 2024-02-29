@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import Images from "../../components/featured/home/images";
 import GenerateAi from "../../components/featured/home/generateAi";
 import { useRouter } from "next/router";
-import ImgCarousel from "./ImgCarousel";
+import ImgCarousel from "../../components/featured/home/ImgCarousel";
 
 function BeforeLoginHome() {
   const router = useRouter();
