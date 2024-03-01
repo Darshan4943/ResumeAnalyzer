@@ -186,7 +186,7 @@ function Template1({ data, selectedColor, selectedFont }) {
                   />
                 </Svg>
                 <View style={{ flexDirection: "column", gap: 20 }}>
-                  {data.education.map((detail, index) => (
+                  {data?.education?.map((detail, index) => (
                     <View
                       key={index}
                       style={{ flexDirection: "column", gap: "12px" }}
