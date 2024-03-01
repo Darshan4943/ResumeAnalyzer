@@ -87,12 +87,13 @@ html {
   display: none;
 }
 
-.resume_list_container {
+.resumeListContainer {
   .react-pdf__Page__canvas {
     display: block !important;
     user-select: none !important;
-    width: 192px !important;
-    height: 272px !important;
+    width: 234px !important;
+    height: 330px !important;
+   
   }
 }
 .preview {
@@ -104,3 +105,4 @@ html {
     height: 100rem !important;
   }
 }
+
