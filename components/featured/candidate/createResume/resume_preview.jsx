@@ -1052,7 +1052,7 @@ const ResumePreview = ({
       >
         <div className="rounded-[8px] bg-[#BCEBFF]  px-4 pt-[10px] ">
           <div
-            className="flex gap-4 pb-[10px] flex items-center"
+            className="flex gap-4 pb-[10px]  items-center"
             style={{ overflowX: "auto" }}
           >
             {renderTemplates()}
@@ -1160,8 +1160,10 @@ const ResumePreview = ({
         </div>
         {selectedResumeIndex !== undefined && (
           <div
-            className="flex items-center justify-center w-full mt-3"
+            className="   "
             style={{
+              // width: "78.7rem",
+              // scale: "0.65",
               transformOrigin: "top left",
             }}
           >

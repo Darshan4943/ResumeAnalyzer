@@ -1,3 +1,6 @@
+import Template1 from "../components/featured/resumeTemplates/Template1";
+import Template2 from "../components/featured/resumeTemplates/Template2";
+
 export const companyLogo = [
   {
     img: "/images/home/scroller-img_1.png",
@@ -2179,6 +2182,8 @@ export const City = [
   "Ranaghat",
   "Sambalpur",
 ];
+
+
 
 export const templates = [
   {

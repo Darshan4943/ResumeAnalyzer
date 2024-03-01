@@ -117,7 +117,7 @@ function Header({ userData }) {
 
       }}
     >
-      <div className="flex justify-center items-center customMargins  z-[100]">
+      <div className="flex justify-center items-center  px-6 z-[100]">
         <div className="flex justify-between w-[100%] h-[58px] my-[16px]  gap-2 ">
 
           {!isLogin ? (

@@ -278,3 +278,23 @@ a {
 .flicker {
   animation: flicker 1s forwards; 
 }
+@keyframes moveImage {
+  0% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(25%, 25%);
+  }
+  50% {
+    transform: translate(50%, 0%);
+  }
+  75% {
+    transform: translate(50%, -20%);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+.moveImage {
+  animation: moveImage 2s infinite; 
+}

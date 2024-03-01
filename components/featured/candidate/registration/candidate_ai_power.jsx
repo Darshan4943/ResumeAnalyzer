@@ -158,7 +158,7 @@ const CandidateAiPower = ({
           <div className="flex justify-center items-center  relative pb-8 ">
             
             <div
-              className="flex flex-col gap-[36px] p-[24px] justify-center items-center rounded-[12px] ml:w-[38.33%] w-[90%] shadow_of_box  z-50 "
+              className="flex flex-col gap-[36px] p-[24px] justify-center items-center rounded-[12px] ml:w-[38.33%] w-[90%] shadow_of_box   "
               style={{
                 borderRadius: "12px",
                 background: "#FFF",
@@ -280,7 +280,7 @@ const CandidateAiPower = ({
                   className="px-9 py-3 bg-white-600 border border-[#06A9EF] font font-medium rounded-[12px]"
                   id="button"
                   onClick={() => {
-                    setTabIndex(2);
+                    router.push("/home/BuildResume");
                   }}
                 >
                   Cancel

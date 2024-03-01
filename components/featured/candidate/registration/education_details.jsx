@@ -26,11 +26,11 @@ const EducationDetails = ({ data, setData, setTabIndex, tabindex }) => {
           delete errors.university;
         }
         break;
-      case "institute":
+      case "specialization":
         if (!value.trim()) {
-          errors.institute = "Collage Name is required";
+          errors.specialization = "specialization is required";
         } else {
-          delete errors.institute;
+          delete errors.specialization;
         }
         break;
       case "dateOfComplition":
@@ -61,7 +61,7 @@ const EducationDetails = ({ data, setData, setTabIndex, tabindex }) => {
     const errors = validateInput();
   
   
-    const requiredFields = ["stream", "university", "institute", "dateOfComplition"];
+    const requiredFields = ["stream", "university", "specialization", "dateOfComplition"];
     const emptyFields = requiredFields.filter(field => !data[field]);
   
     if (emptyFields.length > 0) {
@@ -109,7 +109,26 @@ const EducationDetails = ({ data, setData, setTabIndex, tabindex }) => {
               <div className="personal_single_input w-[100%]">
                 <div className="personal_name  w-[100%]">
                   <p className="form_text_heading">
-                    University Name <span className="star">*</span>
+                  Specialization <span className="star">*</span>
+                  </p>
+                  <input
+                    type="text"
+                    name=""
+                    id="single_input"
+                    placeholder="Enter Specialization"
+                    value={data.specialization}
+                    onChange={(e) => handleInputChange("specialization", e.target.value)}
+                  />
+                  {formError && <p className="text-[12px] text-[red] font-[500]">{formError?.specialization}</p>}
+                </div>
+              </div>
+              </div>
+              
+              <div className="flex gap-6 w-[100%]">
+              <div className="personal_single_input  w-[100%]">
+                <div className="personal_name w-[100%]">
+                  <p className="form_text_heading">
+                  University / Institute Name  <span className="star">*</span>
                   </p>
                   <input
                     type="text"
@@ -120,25 +139,6 @@ const EducationDetails = ({ data, setData, setTabIndex, tabindex }) => {
                     onChange={(e) => handleInputChange("university", e.target.value)}
                   />
                   {formError && <p className="text-[12px] text-[red] font-[500]">{formError?.university}</p>}
-                </div>
-              </div>
-              </div>
-              
-              <div className="flex gap-6 w-[100%]">
-              <div className="personal_single_input  w-[100%]">
-                <div className="personal_name w-[100%]">
-                  <p className="form_text_heading">
-                    Collage Name <span className="star">*</span>
-                  </p>
-                  <input
-                    type="text"
-                    name=""
-                    id="single_input"
-                    placeholder="Enter Collage Name"
-                    value={data.institute}
-                    onChange={(e) => handleInputChange("institute", e.target.value)}
-                  />
-                  {formError && <p className="text-[12px] text-[red] font-[500]">{formError?.institute}</p>}
                 </div>
               </div>
 
