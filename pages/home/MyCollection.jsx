@@ -1,11 +1,9 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-// import { Viewer } from '@react-pdf-viewer/default-layout';
-// import '@react-pdf-viewer/default-layout/lib/styles/index.css';
+
 import { Document, Page, pdfjs } from "react-pdf";
 pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
- 
 
 const MyCollection = () => {
   const userDataGlobal = useSelector((state) => state.userData);
@@ -22,7 +20,7 @@ console.log(13,resumeList)
       });
   }, [userDataGlobal]);
 
-  const PdfViewer = () => {
+  const PdfViewer = ({ pdfUrl }) => {
     const [numPages, setNumPages] = useState();
     const [pageNumber, setPageNumber] = useState(1);
 
@@ -35,7 +33,15 @@ console.log(13,resumeList)
       
 
     return (
-      <div style={{ width: "192px", height: "272px" }}>
+      <div
+        style={{
+          width: "192px",
+          height: "272px",
+          boxShadow: "0px 0px 4px 0px rgba(0, 0, 0, 0.25)",
+          borderRadius: "6px",
+          overflow: "hidden",
+        }}
+      >
         <Document file={pdfUrl} onLoadSuccess={onDocumentLoadSuccess}>
           <Page pageNumber={pageNumber} />
         </Document>
@@ -44,16 +50,70 @@ console.log(13,resumeList)
   };
   return (
     <div className="customMargins py-6 min-h-[80vh] ">
-      <div className="flex flex-col gap-16">
+      <div className="flex flex-col gap-[16px]">
         <div className="text-[24px] font-semibold text-[#333333]">
           {" "}
           My Collection
         </div>
-        <div className="flex flex-row flex-wrap  ">
+        <div className="flex flex-row flex-wrap gap-[48px] p-[24px] bg-[#F9F9F9] rounded-[12px]  ">
           {resumeList?.map((item) => (
             <>
-              <div>
+              <div className="flex flex-col h-[300px] items-center justify-between group relative ">
                 <PdfViewer pdfUrl={item?.resumeUrl} />
+                <div className="text-[14px] text-[#333333] font-500">
+                  {item.fileName}.pdf
+                </div>
+             
+                <div className="bg-[#00000099]  absolute top-[0px] left-[0px] h-[272px] w-full rounded-[12px] opacity-0 invisible transition-opacity ease-in-out duration-[0.4s]  group-hover:opacity-100 group-hover:visible flex items-center justify-center">
+                  <div className="flex flex-col w-98 h-219 top-27.09 left-47.19 p-[12px]  rounded-lg border border-gray-200 gap-[12px] bg-[#333333CC]">
+                    <div
+                      className="flex items-center flex-col cursor-pointer"
+                      style={{
+                        borderBottom: "1px solid #646464",
+                        paddingBottom: "12px",
+                      }}
+                    >
+                      <img
+                        src="/images/icons/visibility.png"
+                        className="h-[28px] w-[28px]"
+                        alt=""
+                      />
+                      <span className="text-[14px] font-semibold text-white ">
+                        Preview
+                      </span>
+                    </div>
+                    <div
+                      className="flex items-center flex-col cursor-pointer"
+                      style={{
+                        borderBottom: "1px solid #646464",
+                        paddingBottom: "12px",
+                      }}
+                    >
+                      <img
+                        src="/images/icons/edit.png"
+                        className="h-[28px] w-[28px]"
+                        alt=""
+                      />
+                      <span className="text-[14px] font-semibold text-white ">
+                        Edit
+                      </span>
+                    </div>
+                    
+                    <a
+                      href={item.resumeUrl}
+                      className="flex items-center flex-col cursor-pointer"
+                    >
+                      <img
+                        src="/images/icons/download.png"
+                        className="h-[28px] w-[28px]"
+                        alt=""
+                      />
+                      <span className="text-[14px] font-semibold text-white ">
+                        Download
+                      </span>
+                    </a>
+                  </div>
+                </div>
               </div>
             </>
           ))}

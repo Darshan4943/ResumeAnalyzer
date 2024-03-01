@@ -1023,13 +1023,15 @@ const ResumePreview = ({
     }
     formData.append("pdfBlob", blob);
     formData.append("resumeIndex", selectedResumeIndex);
+    formData.append("fileName", "resume"+selectedResumeIndex);
     axios
       .post("http://localhost:2000/api/resume/add", formData)
       .then((res) => {
-        console.log(res.data);
+       toast.success('Resume Saved To Collection successfully')
       })
       .catch((err) => {
         console.log(err);
+        toast.success('Something went wrong ')
       });
   };
   const MyComponent = () => {
@@ -1160,14 +1162,12 @@ const ResumePreview = ({
         </div>
         {selectedResumeIndex !== undefined && (
           <div
-            className="   "
+            className=" w-full flex items-center justify-center mt-3 bg-[#525659] py-[24px] rounded-[8px]"
             style={{
-              // width: "78.7rem",
-              // scale: "0.65",
               transformOrigin: "top left",
             }}
           >
-            <PDFViewer width="80%" height="894px" showToolbar={false}>
+            <PDFViewer width="80%" height="900px" showToolbar={false}>
               <MyComponent />
             </PDFViewer>
           </div>
@@ -1179,14 +1179,16 @@ const ResumePreview = ({
           <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center  ">
             <div
               ref={taskRef}
-              className=" absolute bg-white  px-4 py-2 rounded-lg shadow-lg h-[90vh] flex flex-col gap-2 items-end"
+              className=" absolute bg-white  px-4 py-2 rounded-lg shadow-lg h-[90vh] flex flex-col gap-2 items-end w-[900px]"
             >
               <button onClick={() => setPreview(false)}>
                 <ClosedIcon />
               </button>
-              <PDFViewer width="850" height="100%">
+              <div className="w-full  bg-[#525659] h-full">
+              <PDFViewer width="750" height="100%" showToolbar={false}>
                 <Document>{selectResumeTemplate(selectedResumeIndex)}</Document>
               </PDFViewer>
+              </div>
             </div>
           </div>
         </>

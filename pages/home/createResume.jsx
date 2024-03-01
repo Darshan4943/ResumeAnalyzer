@@ -185,7 +185,7 @@ function CreateResume() {
     summery:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make",
   });
-  
+
   useEffect(() => {
     const {
       firstName,
@@ -202,22 +202,24 @@ function CreateResume() {
       companyName,
       jobLocation,
       jobTitle,
-    
+
       stream,
       university,
-      specialization
+      specialization,
     } = userData;
     const yearOfCompletion = new Date(dateOfComplition).getFullYear();
     const yearOfJoining = new Date(dateOfJoining).getFullYear();
-  
-  
+    const currentDate = new Date();
+    const currentMonth = currentDate.getMonth() + 1; // Months are zero-based, so add 1
+    const currentYear = currentDate.getFullYear();
+
     setData((prevData) => ({
       ...prevData,
       firstName: firstName ? camelCase(firstName) : "JOHN",
       lastName: lastName ? camelCase(lastName) : "DOE",
       mobileNo,
       email,
-  
+
       currentCTC,
       currentLocation,
       dateOfComplition,
@@ -226,27 +228,33 @@ function CreateResume() {
 
       education: [
         {
-          duration:{
-          end:{
-            year:yearOfCompletion,
-          },},
-          qualification:stream,
-          instituteName:university,
-          specialization
+          duration: {
+            start: {
+              year: currentYear,
+              month: currentMonth,
+            },
+            end: {
+              year: yearOfCompletion,
+              month: currentMonth,
+            },
+          },
+          qualification: stream,
+          instituteName: university,
+          specialization,
         },
       ],
       experience: [
         {
-          duration:{
-          end:{
-            year:yearOfJoining,
-          },},
-          organization:companyName,
-          location:jobLocation,
-          designation:jobTitle,
+          duration: {
+            end: {
+              year: yearOfJoining,
+            },
+          },
+          organization: companyName,
+          location: jobLocation,
+          designation: jobTitle,
         },
       ],
-    
 
       skills:
         keySkills?.length > 0 &&
@@ -257,9 +265,6 @@ function CreateResume() {
     }));
   }, [userData]);
 
-  console.log(230,userData)
-
-  console.log(data);
   // const [data, setData] = useState({
   //   profilePhoto: null,
   //   designation: "",
