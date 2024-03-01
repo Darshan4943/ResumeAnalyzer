@@ -1049,7 +1049,7 @@ const ResumePreview = ({
       >
         <div className="rounded-[8px] bg-[#BCEBFF]  px-4 pt-[10px] ">
           <div
-            className="flex gap-4 pb-[10px] flex items-center"
+            className="flex gap-4 pb-[10px]  items-center"
             style={{ overflowX: "auto" }}
           >
             {renderTemplates()}
@@ -1125,9 +1125,9 @@ const ResumePreview = ({
 
         {selectedResumeIndex !== undefined && (
           <div
-            className="  transform xxsm:scale-[35%] scr340:scale-[37%] scr360:scale-[39%] scr390:scale-[42%] scr420:scale-[46%] sm:scale-[53%] scr540:scale-[60%] ms:scale-[68%] scr700:scale-[80%] md:scale-[88%] scr820:scale-[95%] ml:scale-[46%] scr900:scale-[50%] lg:scale-[54%] scr1024:scale-[57%] scr1100:scale-[62%] xxlg:scale-[63%] scr1150:scale-[65%]  scale-[33%]  "
+            className="   "
             style={{
-              width: "78.7rem",
+              // width: "78.7rem",
               // scale: "0.65",
               transformOrigin: "top left",
             }}

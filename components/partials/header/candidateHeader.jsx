@@ -62,9 +62,16 @@ function CandidateHeader() {
         >
           <li>JD Analyser</li>
         </Link> */}
+        <Link
+          href="/transform/TransformJob"
+          className={selectedPage === "/transform/TransformJob" ? "active" : "li"}
+        >
+          <li>Transform for Job Description</li>
+        </Link>
+
       </div>
 
-      <div className=" flex gap-4 justify-end py-2 items-center w-[50%]">
+      <div className=" flex gap-4 justify-end py-2 items-center w-[50%] group group-hover:visible">
         <div className="flex items-center gap-[8px]">
           <div className="h-[40px] w-[40px]">
             {userDataGlobal?.profilePicture ? (
@@ -81,17 +88,17 @@ function CandidateHeader() {
                 style={{ textTransform: "capitalize" }}
                 alt=""
               >
-                {userDataGlobal.email.slice(0, 1)}
+                {userDataGlobal?.email?.slice(0, 1)}
               </div>
             )}
           </div>
-{
-    userDataGlobal?.name &&<div>{userDataGlobal?.name}</div>
-}
-          
-          <div className="text-[#495057] text-[14px] font-[600] flex items-center relative">
+          {
+            userDataGlobal?.name && <div>{userDataGlobal?.name}</div>
+          }
+
+          <div className="text-[#495057] text-[14px] font-[600] flex items-center relative ">
             <div
-              className="group"
+              className=""
               style={{
                 height: "50px",
                 display: "flex",
@@ -102,7 +109,7 @@ function CandidateHeader() {
             >
               <img
                 src="/images/down_arrow.png"
-                className="h-4 w-4 ml-1 cursor-pointer group-hover:opacity-100 group-hover:visible"
+                className="h-4 w-4 ml-1 cursor-pointer group-hover:opacity-100 "
                 alt=""
               />
               <div className=" cursor-pointer absolute top-[26px] mt-[1.5rem] right-0 z-10 bg-white border border-gray-200 py-2 px-3 rounded-md shadow-md opacity-0 invisible transition-opacity duration-300 group-hover:opacity-100 group-hover:visible">

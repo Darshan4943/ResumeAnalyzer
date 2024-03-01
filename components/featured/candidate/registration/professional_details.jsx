@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import ImageContainer from "../../../common/image";
 import { noticePeriods } from "../../../../utils/data";
 import { useRouter } from "next/router";
+import MiniLoader from "../../../common/mini-loader";
 const ProfessionalDetails = ({
 
   data,
@@ -16,11 +17,13 @@ const ProfessionalDetails = ({
   certificate,
   setCertificate,
 }) => {
+  const [loading, setLoading] = useState(false); 
 
   const [formError, setFormError] = useState({});
 console.log(21,data)
   const router = useRouter()
   const handleClick = () => {
+    setLoading(true);
     router.push({
       pathname: "/home/createResume",
       query: data 
@@ -282,7 +285,7 @@ console.log(21,data)
                   </div>
                 </div>
               </div>
-              <div className="flex gap-6 w-[100%]">
+              <div onWheel={(e) => e.stopPropagation()} className="flex gap-6 w-[100%]">
                 <div className="personal_single_input w-[100%]">
                   <p className="form_text_heading w-[100%]">
                     Key skills <span className="star">*</span>
@@ -405,6 +408,7 @@ console.log(21,data)
                   onClick={handleClick}
                
                 >
+                   {loading && <MiniLoader />}
                   Continue
                 </button>
               </div>
