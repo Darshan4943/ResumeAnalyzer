@@ -125,7 +125,7 @@ console.log(47,selectedSkill)
       <div>
 
       </div>
-      <div className="bg-[#F9F9F9] h-full w-full ">
+      <div onWheel={(e) => e.stopPropagation()} className="bg-[#F9F9F9] h-full w-full ">
         {toggle === 0 && (
           <div className="flex flex-col gap-[35px] pt-[24px] pb-[95px] items-start justify-start customMargins">
 
@@ -136,7 +136,7 @@ console.log(47,selectedSkill)
               }}
             >
 
-              <div className="text-[20px] font-medium">Enter Skill</div>
+              <div className="text-[20px] font-medium">Select Skill</div>
 
               <ReactSelect
                 options={skills.map((item) => ({

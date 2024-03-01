@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { popupVisible } from '../../../Redux/actions/user'
+import { useRouter } from 'next/router';
 
 function ResumeInventory({ isLogin }) {
+    const router = useRouter();
     const dispatch = useDispatch()
     return (
         <div className="flex flex-row gap-8 items-center py-9 px-4 bg-inventory bg-cover bg-no-repeat ">
