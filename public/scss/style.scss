@@ -1,8 +1,6 @@
 @charset "UTF-8";
 // @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&family=Lato:wght@400;700&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
-
-
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
 
 @import "base/footer";
 @import "base/model";
@@ -57,29 +55,34 @@ html {
   .bg_generateAi1 {
     background-image: url("../images/home/bg_generateAi1.png");
   }
-  .bg-frm{
-  background-image: url("../images/employer/frm.png");
-
+  .bg-frm {
+    background-image: url("../images/employer/frm.png");
+  }
+  .bg-sidebar {
+    background-image: url("../images/employer/sidebar/sidebarBackground.png");
+  }
+  .bg-sidebarBg {
+    background-image: url("../images/employer/sidebar/sidebarbg.svg");
+  }
+  .bg-carousel_bg {
+    background-image: url("../images/resumeBuilder/carousel_bg.png");
+  }
+  .bg-inventory {
+    background-image: url("../images/resumeBuilder/inventory.png");
+  }
+  .bg-subscriptionPlan {
+    background-image: url("../images/resumeBuilder/subscriptionPlan.png");
+  }
 }
-.bg-sidebar{
-  background-image: url("../images/employer/sidebar/sidebarBackground.png");
 
+.react-pdf__Page__canvas {
+  display: block !important;
+  user-select: none !important;
+  width: 192px !important;
+  height: 272px !important;
 }
-.bg-sidebarBg{
-  background-image: url("../images/employer/sidebar/sidebarbg.svg");
-
-}
-.bg-carousel_bg{
-  background-image: url("../images/resumeBuilder/carousel_bg.png");
-
-}
-.bg-inventory{
-  background-image: url("../images/resumeBuilder/inventory.png");
-
-}
-.bg-subscriptionPlan{
-  background-image: url("../images/resumeBuilder/subscriptionPlan.png");
-
-}
-  
+.react-pdf__Page__canvas,
+.react-pdf__Page__textContent,
+.react-pdf__Page__annotations {
+  display: none;
 }
