@@ -344,7 +344,7 @@ console.log(21,data)
                 </div>
               </div>
 
-              <div className="personal_single_input w-[100%]">
+              {/* <div className="personal_single_input w-[100%]">
                 <div className="personal_name w-[100%] gap-4">
                   <p className="form_text_heading">
                     Internship Details (Optional) 
@@ -385,7 +385,7 @@ console.log(21,data)
                   </div>
 
                 </div>
-              </div>
+              </div> */}
 
               <div className="bottom_buttons">
                 <button

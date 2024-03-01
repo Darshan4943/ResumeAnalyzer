@@ -2187,7 +2187,7 @@ export const templates = [
     index: 1,
     fontFamily: "Lato",
     themeColor: "#414042",
-    formFields: [],
+    formFields: ["hobbies"],
   },
   {
     title: "Template2",
@@ -2195,6 +2195,7 @@ export const templates = [
     index: 2,
     fontFamily: "Barlow",
     themeColor: "#F7902B",
+    formFields: ["languages"],
   },
   {
     title: "Template3",
@@ -2202,6 +2203,7 @@ export const templates = [
     index: 3,
     fontFamily: "Inter",
     themeColor: "#414042",
+    formFields: ["language", "hobbies"],
   },
   {
     title: "Template4",
