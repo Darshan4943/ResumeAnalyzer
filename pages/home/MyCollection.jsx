@@ -10,7 +10,7 @@ pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.vers
 const MyCollection = () => {
   const userDataGlobal = useSelector((state) => state.userData);
   const [resumeList, setResumeList] = useState([]);
-
+console.log(13,resumeList)
   useEffect(() => {
     axios
       .get("http://localhost:2000/api/resume/" + userDataGlobal?._id)
@@ -29,8 +29,10 @@ const MyCollection = () => {
     function onDocumentLoadSuccess(numPages) {
       setNumPages(numPages);
     }
-    const pdfUrl =
-      "https://freedygo-storage-bucket-production.s3.ap-south-1.amazonaws.com/Skilotech/resumes/demo.pdf";
+
+    const pdfUrl = resumeList.length > 0 ? resumeList[0].resumeUrl : null;
+
+      
 
     return (
       <div style={{ width: "192px", height: "272px" }}>

@@ -1,257 +1,84 @@
-import { Document, PDFViewer } from '@react-pdf/renderer';
+import { Document, Page, pdfjs } from "react-pdf";
 import React, { useEffect, useRef, useState } from 'react'
 import Template1 from '../../components/featured/resumeTemplates/Template1';
 import Template2 from '../../components/featured/resumeTemplates/Template2';
 import axios from 'axios';
+import { PDFViewer } from "@react-pdf/renderer";
+// import { PDFViewer } from "@react-pdf/renderer";
+pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
 
 function TransformJob() {
   const [selectedResumeIndex, setSelectedResumeIndex] = useState();
   const [text, setText] = useState('');
   const [data, setData] = useState({});
-  const [resumeData, setResumeData] = useState({});
-  
+
+console.log(15,selectedResumeIndex)
   const handleChange = (event) => {
     setText(event.target.value);
   };
-  console.log(16,resumeData)
-  
+  console.log(16, data)
+
   useEffect(() => {
     axios.get('http://localhost:2000/api/resume/65df36580cf0beec39f598bc')
-      .then(response => { 
+      .then(response => {
         console.log('Response data:', response.data);
-        setResumeData(response.data); 
+        setData(response.data.data);
       })
       .catch(error => {
         console.error('Error fetching data:', error);
       });
   }, []);
-  
-  useEffect(() => {
-    if (resumeData ) {
-      const {
-        firstName,
-        lastName,
-        mobileNo,
-        email,
-        keySkills,
-        currentCTC,
-        currentLocation,
-        dateOfComplition,
-        dateOfJoining,
-        dob,
-        employmentStatus,
-        companyName,
-        jobLocation,
-        jobTitle,
-        stream,
-        university,
-        specialization
-      } = resumeData;
-  
-      const yearOfCompletion = new Date(dateOfComplition).getFullYear();
-      const yearOfJoining = new Date(dateOfJoining).getFullYear();
-  
-      setData({
-        firstName: firstName ? camelCase(firstName) : "JOHN",
-        lastName: lastName ? camelCase(lastName) : "DOE",
-        mobileNo,
-        email,
-        currentCTC,
-        currentLocation,
-        dateOfComplition,
-        dob,
-        employmentStatus,
-        education: [
-          {
-            duration: {
-              end: {
-                year: yearOfCompletion,
-              },
-            },
-            qualification: stream,
-            instituteName: university,
-            specialization
-          },
-        ],
-        experience: [
-          {
-            duration: {
-              end: {
-                year: yearOfJoining,
-              },
-            },
-            organization: companyName,
-            location: jobLocation,
-            designation: jobTitle,
-          },
-        ],
-        skills:
-          keySkills?.length > 0 &&
-          JSON.parse(keySkills).map((item) => ({
-            skill: item.value,
-            rating: [5, 5, 5, 5, 5],
-          })),
-      });
+  const pdfUrl = data.length > 0 ? data[0].resumeUrl : null;
+
+  console.log(41, pdfUrl)
+
+  const PdfViewerr = () => {
+    const [numPages, setNumPages] = useState();
+    const [pageNumber, setPageNumber] = useState(1);
+
+    function onDocumentLoadSuccess(numPages) {
+      setNumPages(numPages);
     }
-  }, [resumeData]);
-  console.log(data)
-  
-  const templates = [
-    {
-      title: "Template1",
-      imgUrl: "/images/templates/template1.png",
-      index: 1,
-      fontFamily: "Lato",
-      themeColor: "#414042",
-    },
-    {
-      title: "Template2",
-      imgUrl: "/images/templates/template2.png",
-      index: 2,
-      fontFamily: "Barlow",
-      themeColor: "#F7902B",
-    },
-    {
-      title: "Template3",
-      imgUrl: "/images/templates/template3.png",
-      index: 3,
-      fontFamily: "Inter",
-      themeColor: "#414042",
-    },
-    {
-      title: "Template4",
-      imgUrl: "/images/templates/template4.png",
-      index: 4,
-      fontFamily: "Montserrat",
-      themeColor: "#00AEEF",
-    },
-    {
-      title: "Template5",
-      imgUrl: "/images/templates/template5.png",
-      index: 5,
-      fontFamily: "Kanit",
-      themeColor: "#316059",
-    },
-    {
-      title: "Template6",
-      imgUrl: "/images/templates/template6.png",
-      index: 6,
-      fontFamily: "Lato",
-      themeColor: "#FFC20E",
-    },
-    {
-      title: "Template7",
-      imgUrl: "/images/templates/template7.png",
-      index: 7,
-      fontFamily: "Montserrat",
-      themeColor: "#0077F9",
-    },
-    {
-      title: "Template8",
-      imgUrl: "/images/templates/template8.png",
-      index: 8,
-      fontFamily: "Montserrat",
-      themeColor: "#646464",
-    },
-    {
-      title: "Template9",
-      imgUrl: "/images/templates/template9.png",
-      index: 9,
-      fontFamily: "Montserrat",
-      themeColor: "#FFD740",
-    },
-    {
-      title: "Template10",
-      imgUrl: "/images/templates/template10.png",
-      index: 10,
-      fontFamily: "Inter",
-      themeColor: "#F2BE5C",
-    },
-    {
-      title: "Template11",
-      imgUrl: "/images/templates/template11.png",
-      index: 11,
-      fontFamily: "Montserrat",
-      themeColor: "#E6E7E8",
-    },
-    {
-      title: "Template12",
-      imgUrl: "/images/templates/template12.png",
-      index: 12,
-      fontFamily: "Lato",
-      themeColor: "#0C2438",
-    },
-    {
-      title: "Template13",
-      imgUrl: "/images/templates/template13.png",
-      index: 13,
-      fontFamily: "Poppins",
-      themeColor: "#0E6CC2",
-    },
-    {
-      title: "Template14",
-      imgUrl: "/images/templates/template14.png",
-      index: 14,
-      fontFamily: "Inter",
-      themeColor: "#242424",
-    },
-    {
-      title: "Template15",
-      imgUrl: "/images/templates/template15.png",
-      index: 15,
-      fontFamily: "Inter",
-      themeColor: "#716D6D",
-    },
-    {
-      title: "Template16",
-      imgUrl: "/images/templates/template53.png",
-      index: 16,
-      fontFamily: "Inter",
-      themeColor: "#545554",
-    },
-  ]
-  const renderTemplates = () => {
-    const selectedStyle = {
-      borderTop: " 4px solid #06A9EF",
-      borderBottom: "4px solid #06A9EF",
-      height: " 210px",
-      width: "auto",
-    };
-    return templates.map((template, index) => (
-      <div className='flex flex-col gap-4 h-[300px] w-[192px] items-center'>
-        <img
-          // style={selectedResumeIndex == index + 1 ? selectedStyle : {}}
-          style={{ boxShadow: "0px 0px 4px 0px rgba(0, 0, 0, 0.25)" }}
-          key={index}
-          src={template.imgUrl}
-          className="h-[272px] w-[192px] rounded-[6px] max-w-none"
-          alt=""
-          onClick={() => handleImageClick(template)}
-        />
-        <div className='text-[14px] font-[500]'> {template.title}</div>
+
+
+
+    return (
+      <div style={{ width: "192px", height: "272px" }}>
+        <Document file={pdfUrl} onLoadSuccess={onDocumentLoadSuccess}>
+          <Page pageNumber={pageNumber} />
+        </Document>
       </div>
-    ));
-  }
+    );
+  };
+
+
+
   const renderAllTemplates = () => {
-    return templates.map((template, index) => (
-      <img
-        key={index}
-        src={template.imgUrl}
-        className="h-[330px] w-[234px] rounded-[6px] transition-transform duration-300 ease-in-out hover:scale-105"
-        style={{ boxShadow: "0px 0px 26.499px 0px rgba(0, 0, 0, 0.25)" }}
-        alt=""
-        onClick={() => {
-          handleImageClick(template);
-          setIsAll(false);
-        }}
-      />
+    return data?.map((item, index) => (
+      // <img
+      //   key={index}
+      //   src={template.resumeUrl}
+      //   className="h-[330px] w-[234px] rounded-[6px] transition-transform duration-300 ease-in-out hover:scale-105"
+      //   style={{ boxShadow: "0px 0px 26.499px 0px rgba(0, 0, 0, 0.25)" }}
+      //   alt=""
+      //   onClick={() => {
+      //     handleImageClick(template);
+      //     setIsAll(false);
+      //   }}
+        
+      // />
+      <div  style={{ boxShadow: "0px 0px 26.499px 0px rgba(0, 0, 0, 0.25)" }} className="h-[330px] w-[234px] rounded-[6px] transition-transform duration-300 ease-in-out hover:scale-105"  onClick={() => setSelectedResumeIndex(item.resumeTemplateIndex)} key={index}>
+      <PdfViewerr pdfUrl={item?.resumeUrl} />
+    </div>
     ));
   };
 
   const [isAll, setIsAll] = useState(false);
 
-  const handleImageClick = (template) => {
-    togglePreview(true, template.index);
+  const handleImageClick = (item) => {
+    console.log("ok")
+    setSelectedResumeIndex(item.index);
+    togglePreview(true, item.index);
 
   };
 
@@ -384,7 +211,11 @@ function TransformJob() {
                 className="flex gap-4   py-4  items-center"
                 style={{ overflowX: "auto" }}
               >
-                {renderTemplates()}
+                {data?.map((item, index) => (
+                  <div   onClick={() => setSelectedResumeIndex(item.resumeTemplateIndex)} key={index}>
+                    <PdfViewerr pdfUrl={item?.resumeUrl} />
+                  </div>
+                ))}
               </div>
             </div>
             <div onClick={() => setIsAll(true)} className='font-medium text-[18px] text-[#06A9EF] flex justify-end'>See All</div>
@@ -394,7 +225,7 @@ function TransformJob() {
                 <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center  ">
                   <div
                     ref={taskRef} onWheel={(e) => e.stopPropagation()}
-                    className=" absolute flex p-6 bg-white rounded-[24px] shadow-md  gap-6 flex-wrap justify-center items-center w-[65%] h-[90vh] overflow-y-auto "
+                    className="resumeListContainer absolute flex p-6 bg-white rounded-[24px] shadow-md  gap-6 flex-wrap justify-center items-center w-[65%] h-[90vh] overflow-y-auto "
                   >
                     {renderAllTemplates()}
                   </div>
@@ -408,10 +239,10 @@ function TransformJob() {
           </div>
 
         </div>
-        <div className='w-full'> 
-          
-           <div className="flex justify-end w-full" ref={resumeRef}>
-        
+        <div className='w-full'>
+
+          <div className="flex justify-end w-full" ref={resumeRef}>
+
 
 
             <div className="flex gap-[16px] justify-end">
@@ -448,8 +279,8 @@ function TransformJob() {
                 Download
               </button>
             </div>
-        
-        </div>
+
+          </div>
           {selectedResumeIndex !== undefined && (
             <div
               className="   "
