@@ -31,6 +31,7 @@ export const Api = () => {
           .get("http://localhost:2000/api/user/" + decoded._id)
           .then((res) => {
             const decode = jwtDecode(res.data.data);
+            console.log(decode._doc)
             dispatch(
               userAction({
                 ...decode._doc,

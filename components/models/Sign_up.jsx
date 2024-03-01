@@ -30,7 +30,7 @@ function Sign_up({ setIsSignIn, handleGoogle, setSignIn, setSignUp }) {
       .then((res) => {
         const response = res.data;
         if (response.success) {
-          localStorage.setItem("authToken", response.token);
+          localStorage.setItem("authToken", JSON.stringify(response));
           dispatch(reCallUserData());
           toast.success("Sign up Successfully");
           router.push("/home/BeforeLoginHome");
