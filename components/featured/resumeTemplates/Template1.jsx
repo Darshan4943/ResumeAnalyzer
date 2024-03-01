@@ -77,7 +77,7 @@ function Template1({ data, selectedColor, selectedFont }) {
                   <Path d="M35.262 0.720947H0.209961V3.72095H35.262V0.720947Z" fill={selectedColor} />
                 </Svg>
                 <View style={{ flexDirection: "column", gap: 20 }}>
-                  {data.education.map((detail, index) => (
+                  {data?.education?.map((detail, index) => (
                     <View key={index} style={{ flexDirection: 'column', gap: "12px" }}>
                       <View >
                         <Text style={{ color: '#414042', fontSize: 12, fontFamily: `${selectedFont} 700`, lineHeight: 1.2 }}>

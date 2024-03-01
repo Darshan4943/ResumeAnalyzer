@@ -2,15 +2,100 @@ import { Document, PDFViewer } from '@react-pdf/renderer';
 import React, { useEffect, useRef, useState } from 'react'
 import Template1 from '../../components/featured/resumeTemplates/Template1';
 import Template2 from '../../components/featured/resumeTemplates/Template2';
+import axios from 'axios';
 
 function TransformJob() {
   const [selectedResumeIndex, setSelectedResumeIndex] = useState();
   const [text, setText] = useState('');
-
+  const [data, setData] = useState({});
+  const [resumeData, setResumeData] = useState({});
+  
   const handleChange = (event) => {
     setText(event.target.value);
   };
-
+  console.log(16,resumeData)
+  
+  useEffect(() => {
+    axios.get('http://localhost:2000/api/resume/65df36580cf0beec39f598bc')
+      .then(response => { 
+        console.log('Response data:', response.data);
+        setResumeData(response.data); 
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+      });
+  }, []);
+  
+  useEffect(() => {
+    if (resumeData ) {
+      const {
+        firstName,
+        lastName,
+        mobileNo,
+        email,
+        keySkills,
+        currentCTC,
+        currentLocation,
+        dateOfComplition,
+        dateOfJoining,
+        dob,
+        employmentStatus,
+        companyName,
+        jobLocation,
+        jobTitle,
+        stream,
+        university,
+        specialization
+      } = resumeData;
+  
+      const yearOfCompletion = new Date(dateOfComplition).getFullYear();
+      const yearOfJoining = new Date(dateOfJoining).getFullYear();
+  
+      setData({
+        firstName: firstName ? camelCase(firstName) : "JOHN",
+        lastName: lastName ? camelCase(lastName) : "DOE",
+        mobileNo,
+        email,
+        currentCTC,
+        currentLocation,
+        dateOfComplition,
+        dob,
+        employmentStatus,
+        education: [
+          {
+            duration: {
+              end: {
+                year: yearOfCompletion,
+              },
+            },
+            qualification: stream,
+            instituteName: university,
+            specialization
+          },
+        ],
+        experience: [
+          {
+            duration: {
+              end: {
+                year: yearOfJoining,
+              },
+            },
+            organization: companyName,
+            location: jobLocation,
+            designation: jobTitle,
+          },
+        ],
+        skills:
+          keySkills?.length > 0 &&
+          JSON.parse(keySkills).map((item) => ({
+            skill: item.value,
+            rating: [5, 5, 5, 5, 5],
+          })),
+      });
+    }
+  }, [resumeData]);
+  console.log(data)
+  
   const templates = [
     {
       title: "Template1",
