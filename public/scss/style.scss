@@ -86,3 +86,12 @@ html {
 .react-pdf__Page__annotations {
   display: none;
 }
+
+.resume_list_container {
+  .react-pdf__Page__canvas {
+    display: block !important;
+    user-select: none !important;
+    width: 192px !important;
+    height: 272px !important;
+  }
+}

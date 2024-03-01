@@ -7,7 +7,9 @@ const Education = ({ setData, data }) => {
 
   const [isChecked, setIsChecked] = useState(true);
   const [view, setView] = useState(false);
-
+  const currentDate = new Date();
+  const currentMonth = currentDate.getMonth() + 1; // Months are zero-based, so add 1
+  const currentYear = currentDate.getFullYear();
   const [isModified, setIsModified] = useState({ status: false, index: 0 });
   const [educationData, setEducationData] = useState({
     qualification: "",
@@ -16,8 +18,8 @@ const Education = ({ setData, data }) => {
     type: "full-time",
     location: "",
     duration: {
-      start: { year: "Year", month: "Month" },
-      end: { year: "Year", month: "Month" },
+      start: { year: currentYear, month: currentMonth },
+      end: { year: currentYear, month: currentMonth },
     },
   });
   const handleSwitchChange = () => {
