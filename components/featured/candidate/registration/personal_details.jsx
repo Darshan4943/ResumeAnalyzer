@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 
 import { toast } from "react-toastify";
 
-
 import "react-phone-input-2/lib/bootstrap.css";
 
 import { useRouter } from "next/navigation";
@@ -22,7 +21,7 @@ const PersonalDetails = ({
   error,
   setError,
 }) => {
-  const router = useRouter()
+  const router = useRouter();
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   const [formError, setFormError] = useState({});
@@ -75,7 +74,7 @@ const PersonalDetails = ({
           delete errors.email;
         }
         break;
-      
+
       case "mobileNo":
         if (!value.trim()) {
           errors.mobileNo = "Mobile Number is required";
@@ -105,8 +104,15 @@ const PersonalDetails = ({
     console.log(124, formError);
   }
   const handleInputChange = (fieldName, value) => {
-    setData({ ...data, [fieldName]: value });
-    validateInput(fieldName, value);
+    console.log(value.replace(/\D/g, "").length <= 10);
+    if (fieldName == "mobileNo") {
+      if (value.replace(/\D/g, "").length <= 10) {
+        setData({ ...data, [fieldName]: value.replace(/\D/g, "") });
+      }
+    } else {
+      setData({ ...data, [fieldName]: value });
+      validateInput(fieldName, value);
+    }
   };
   const submitHandler = (e) => {
     e.preventDefault();
@@ -117,7 +123,7 @@ const PersonalDetails = ({
       "firstName",
       "lastName",
       "email",
-     
+
       "currentLocation",
       "mobileNo",
     ];
@@ -139,19 +145,17 @@ const PersonalDetails = ({
     }
   };
 
-
-
   const [dropdown, setDropdown] = useState(false);
   const [selectedItem, setSelectedItem] = useState(telCode[0]);
   const [searchTerm, setSearchTerm] = useState("");
   const [showInput, setShowInput] = useState(false);
-
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
   };
 
   const handleItemClick = (item) => {
     setSelectedItem(item);
+    setData({ ...data, dial_code: item.dial_code });
     setSearchTerm("");
     setDropdown(false);
     setShowInput(false);
@@ -169,7 +173,6 @@ const PersonalDetails = ({
   const [filteredTelCode, setFilteredTelCode] = useState([]);
 
   useEffect(() => {
-
     const filterLogic = (item) =>
       item.code.toLowerCase().includes(searchTerm.toLowerCase()) ||
       item.dial_code.includes(searchTerm);
@@ -177,7 +180,6 @@ const PersonalDetails = ({
     const filteredCodes = telCode.filter(filterLogic);
     setFilteredTelCode(filteredCodes);
   }, [telCode, searchTerm]);
-
 
   const taskRef = useRef(null);
 
@@ -188,9 +190,9 @@ const PersonalDetails = ({
   };
 
   useEffect(() => {
-    document.addEventListener('mousedown', handleOutsideClick);
+    document.addEventListener("mousedown", handleOutsideClick);
     return () => {
-      document.removeEventListener('mousedown', handleOutsideClick);
+      document.removeEventListener("mousedown", handleOutsideClick);
     };
   }, []);
 
@@ -203,249 +205,269 @@ const PersonalDetails = ({
           <div className="flex flex-col gap-4">
             <motion.div className=" flex justify-center pt-4  pb-2">
               <form className="personal_details_form education_page ">
-              
-
                 <>
-                <div className="flex gap-6 w-[100%]">
-                  <div className="personal_name_parent">
-                    <div className="personal_name">
-                      <p className="form_text_heading">
-                        First name <span className="star">*</span>
-                      </p>
-                      <input
-                        type="text"
-                        name=""
-                        id="first_name"
-                        placeholder="Enter first name"
-                        value={data.firstName}
-                        onChange={(e) =>
-                          handleInputChange("firstName", e.target.value)
-                        }
-                      />
-                      {formError && (
-                        <p className="text-[12px] text-[red] font-[500]">
-                          {formError.firstName}
+                  <div className="flex gap-6 w-[100%]">
+                    <div className="personal_name_parent">
+                      <div className="personal_name">
+                        <p className="form_text_heading">
+                          First name <span className="star">*</span>
                         </p>
-                      )}
-                    </div>
-
-                    <div className="personal_name">
-                      <p className="form_text_heading">
-                        Last name <span className="star">*</span>
-                      </p>
-                      <input
-                        type="text"
-                        name=""
-                        id="first_name"
-                        placeholder="Enter Last name"
-                        value={data.lastName}
-                        onChange={(e) =>
-                          handleInputChange("lastName", e.target.value)
-                        }
-                      />
-                      {formError && (
-                        <p className="text-[12px] text-[red] font-[500]">
-                          {formError?.lastName}
-                        </p>
-                      )}
-                    </div>
-                  </div>
-
-                  <div className="personal_single_input">
-                    <p className="form_text_heading">
-                      Email <span className="star">*</span>
-                    </p>
-                    <input
-                      type="email"
-                      name=""
-                      id="single_input"
-                      placeholder="Enter Email"
-                      value={data.email}
-                      onChange={(e) =>
-                        handleInputChange("email", e.target.value)
-                      }
-                    />
-                    {formError && (
-                      <p className="text-[12px] text-[red] font-[500]">
-                        {formError?.email}
-                      </p>
-                    )}
-                  </div>
-                  </div>
-                  <div className="flex gap-6 w-[100%] ">
-                  <div className="personal_single_input">
-                    <p className="form_text_heading">
-                      Contact Number <span className="star">*</span>
-                    </p>
-                    <div className={`flex w-[100%] items-start ${isViewportBelow850 ? "gap-[4px] " : "gap-[16px] "}`} id="single_input">
-                      <div className={`relative ${isViewportBelow850 ? "w-[65%] " : "w-[50%] "} items-center`}>
-                        <div
-                          className="  w-[100%] text-[14px] justify-center items-center  flex font-[500] text-[#646464]"
-                          onClick={handleInputClick}
-                        >
-
-                          <div className="flex items-center justify-center gap-2 cursor-pointer min-w-[140px] w-[100%]">
-
-                            <div className="flex items-center  gap-1 cursor-pointer  w-[100%] " onClick={handleInputClick}>
-                              {showInput ? (
-                                <input
-                                  className="w-[100%]  border flex justify-center items-center py-1 px-3 rounded-[8px] "
-                                  type="text"
-                                  name=""
-                                  placeholder="Search"
-                                  value={searchTerm}
-                                  onChange={handleSearch}
-                                />
-                              ) : (
-                                <>
-                                  <img
-                                    src={`https://hatscripts.github.io/circle-flags/flags/${selectedItem.code.toLowerCase()}.svg`}
-                                    width="20px"
-                                  />
-                                  <div className={` ${isViewportBelow850 ? "text-[12px]" : "text-[16px]"}`}>
-                                    {selectedItem.code} {selectedItem.dial_code}
-                                  </div>
-                                  <img className="w-[20px] h-[20px]" src="/images/down_arrow.png" alt="" />
-                                </>
-                              )}
-                            </div>
-
-
-                          </div>
-
-
-                        </div>
-
-
-                        {dropdown && (
-                          <div ref={taskRef}
-                            className="w-[113px] font-[500] top-12 -left-1  z-10 h-[40vh] overflow-y-scroll bg-[#fff] border-[1px] border-solid border-[#9D9D9D] absolute text-[14px] p-1 flex flex-col justify-between items-center"
-                            name=""
-                            id=""
-                          >
-                            {filteredTelCode.map((item, index) => (
-                              <p
-                                className={`border-none cursor-pointer pl-[5px] flex my-2 gap-[5px] hover:bg-blue hover:text-[#fff] ${selectedItem === item ? "bg-gray-200" : ""
-                                  }`}
-                                key={index}
-                                onClick={() => handleItemClick(item)}
-                              >
-                                <img
-                                  src={`https://hatscripts.github.io/circle-flags/flags/${item.code.toLowerCase()}.svg`}
-                                  width="20px"
-                                />
-                                {item.code} {item.dial_code}
-                              </p>
-                            ))}
-                          </div>
+                        <input
+                          type="text"
+                          name=""
+                          id="first_name"
+                          placeholder="Enter first name"
+                          value={data.firstName}
+                          onChange={(e) =>
+                            handleInputChange("firstName", e.target.value)
+                          }
+                        />
+                        {formError && (
+                          <p className="text-[12px] text-[red] font-[500]">
+                            {formError.firstName}
+                          </p>
                         )}
                       </div>
 
-                      <input
-                        className="w-full mobileNo "
-                        type="text"
-                        name=""
-                        // id="single_input"
-                        placeholder={`${isViewportBelow850 ? "Enter Number " : "Enter Contact Number "}`}
-                        value={data.mobileNo}
-                        onChange={(e) =>
-                          handleInputChange("mobileNo", e.target.value)
-                        }
-                      />
+                      <div className="personal_name">
+                        <p className="form_text_heading">
+                          Last name <span className="star">*</span>
+                        </p>
+                        <input
+                          type="text"
+                          name=""
+                          id="first_name"
+                          placeholder="Enter Last name"
+                          value={data.lastName}
+                          onChange={(e) =>
+                            handleInputChange("lastName", e.target.value)
+                          }
+                        />
+                        {formError && (
+                          <p className="text-[12px] text-[red] font-[500]">
+                            {formError?.lastName}
+                          </p>
+                        )}
+                      </div>
                     </div>
 
-                    {/* Display error message if any */}
-                    {formError && (
-                      <p className="text-[12px] text-[red] font-[500]">
-                        {formError?.mobileNo}
-                      </p>
-                    )}
-                  </div>
-
-
-
-                  <div className="personal_single_input">
-                    <p className="form_text_heading">Date Of Birth</p>
-                    <input
-                      type="date"
-                      name=""
-                      id="single_input"
-                      value={data.dob}
-                      onChange={(e) =>
-                        setData({ ...data, dob: e.target.value })
-                      }
-                    />
-                  </div>
-                  </div>
-
-                  <div className="flex gap-6 w-[100%]">
-                  <div className="personal_single_input">
-                    <p className="form_text_heading">
-                      Gender <span className="star">*</span>
-                    </p>
-                    <div className="gender_button">
-                      <button
-                        className={`gen_button ${data.gender == "male" && "gen_button_active"
-                          }`}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          setData({ ...data, gender: "male" });
-                        }}
-                      >
-                        Male
-                      </button>
-                      <button
-                        className={`gen_button ${data.gender == "female" && "gen_button_active"
-                          }`}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          setData({ ...data, gender: "female" });
-                        }}
-                      >
-                        Female
-                      </button>
-                      <button
-                        className={`gen_button ${data.gender == "other" && "gen_button_active"
-                          }`}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          setData({ ...data, gender: "other" });
-                        }}
-                      >
-                        Other
-                      </button>
-                    </div>
-                  </div>
-
-                  <div className="personal_single_input">
-                    <div className="personal_name w-[100%]">
+                    <div className="personal_single_input">
                       <p className="form_text_heading">
-                        Current Location <span className="star">*</span>
+                        Email <span className="star">*</span>
                       </p>
                       <input
-                        type="text"
+                        type="email"
                         name=""
                         id="single_input"
-                        placeholder="Enter Your Location"
-                        value={data.currentLocation}
+                        placeholder="Enter Email"
+                        value={data.email}
                         onChange={(e) =>
-                          handleInputChange("currentLocation", e.target.value)
+                          handleInputChange("email", e.target.value)
                         }
                       />
                       {formError && (
                         <p className="text-[12px] text-[red] font-[500]">
-                          {formError?.currentLocation}
+                          {formError?.email}
                         </p>
                       )}
-                      <img
-                        className="icon"
-                        src="/images/auth/candidate/location_on.png"
-                        alt=""
+                    </div>
+                  </div>
+                  <div className="flex gap-6 w-[100%] ">
+                    <div className="personal_single_input">
+                      <p className="form_text_heading">
+                        Contact Number <span className="star">*</span>
+                      </p>
+                      <div
+                        className={`flex w-[100%] items-start ${
+                          isViewportBelow850 ? "gap-[4px] " : "gap-[16px] "
+                        }`}
+                        id="single_input"
+                      >
+                        <div
+                          className={`relative ${
+                            isViewportBelow850 ? "w-[65%] " : "w-[50%] "
+                          } items-center`}
+                        >
+                          <div
+                            className="  w-[100%] text-[14px] justify-center items-center  flex font-[500] text-[#646464]"
+                            onClick={handleInputClick}
+                          >
+                            <div className="flex items-center justify-center gap-2 cursor-pointer min-w-[140px] w-[100%]">
+                              <div
+                                className="flex items-center  gap-1 cursor-pointer  w-[100%] "
+                                onClick={handleInputClick}
+                              >
+                                {showInput ? (
+                                  <input
+                                    className="w-[100%]  border flex justify-center items-center py-1 px-3 rounded-[8px] "
+                                    type="text"
+                                    name=""
+                                    placeholder="Search"
+                                    value={searchTerm}
+                                    onChange={handleSearch}
+                                  />
+                                ) : (
+                                  <>
+                                    <img
+                                      src={`https://hatscripts.github.io/circle-flags/flags/${selectedItem.code.toLowerCase()}.svg`}
+                                      width="20px"
+                                    />
+                                    <div
+                                      className={` ${
+                                        isViewportBelow850
+                                          ? "text-[12px]"
+                                          : "text-[16px]"
+                                      }`}
+                                    >
+                                      {selectedItem.code}{" "}
+                                      {selectedItem.dial_code}
+                                    </div>
+                                    <img
+                                      className="w-[20px] h-[20px]"
+                                      src="/images/down_arrow.png"
+                                      alt=""
+                                    />
+                                  </>
+                                )}
+                              </div>
+                            </div>
+                          </div>
+
+                          {dropdown && (
+                            <div
+                              ref={taskRef}
+                              className="w-[113px] font-[500] top-12 -left-1  z-10 h-[40vh] overflow-y-scroll bg-[#fff] border-[1px] border-solid border-[#9D9D9D] absolute text-[14px] p-1 flex flex-col justify-between items-center"
+                              name=""
+                              id=""
+                            >
+                              {filteredTelCode.map((item, index) => (
+                                <p
+                                  className={`border-none cursor-pointer pl-[5px] flex my-2 gap-[5px] hover:bg-blue hover:text-[#fff] ${
+                                    selectedItem === item ? "bg-gray-200" : ""
+                                  }`}
+                                  key={index}
+                                  onClick={() => handleItemClick(item)}
+                                >
+                                  <img
+                                    src={`https://hatscripts.github.io/circle-flags/flags/${item.code.toLowerCase()}.svg`}
+                                    width="20px"
+                                  />
+                                  {item.code} {item.dial_code}
+                                </p>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+
+                        <input
+                          className="w-full mobileNo "
+                          type="text"
+                          name=""
+                          // id="single_input"
+                          placeholder={`${
+                            isViewportBelow850
+                              ? "Enter Number "
+                              : "Enter Contact Number "
+                          }`}
+                          value={data.mobileNo}
+                          onChange={(e) =>
+                            handleInputChange("mobileNo", e.target.value)
+                          }
+                        />
+                      </div>
+
+                      {/* Display error message if any */}
+                      {formError && (
+                        <p className="text-[12px] text-[red] font-[500]">
+                          {formError?.mobileNo}
+                        </p>
+                      )}
+                    </div>
+
+                    <div className="personal_single_input">
+                      <p className="form_text_heading">Date Of Birth</p>
+                      <input
+                        type="date"
+                        name=""
+                        id="single_input"
+                        value={data.dob}
+                        onChange={(e) =>
+                          setData({ ...data, dob: e.target.value })
+                        }
                       />
                     </div>
                   </div>
+
+                  <div className="flex gap-6 w-[100%]">
+                    <div className="personal_single_input">
+                      <p className="form_text_heading">
+                        Gender <span className="star">*</span>
+                      </p>
+                      <div className="gender_button">
+                        <button
+                          className={`gen_button ${
+                            data.gender == "male" && "gen_button_active"
+                          }`}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            setData({ ...data, gender: "male" });
+                          }}
+                        >
+                          Male
+                        </button>
+                        <button
+                          className={`gen_button ${
+                            data.gender == "female" && "gen_button_active"
+                          }`}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            setData({ ...data, gender: "female" });
+                          }}
+                        >
+                          Female
+                        </button>
+                        <button
+                          className={`gen_button ${
+                            data.gender == "other" && "gen_button_active"
+                          }`}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            setData({ ...data, gender: "other" });
+                          }}
+                        >
+                          Other
+                        </button>
+                      </div>
+                    </div>
+
+                    <div className="personal_single_input">
+                      <div className="personal_name w-[100%]">
+                        <p className="form_text_heading">
+                          Current Location <span className="star">*</span>
+                        </p>
+                        <input
+                          type="text"
+                          name=""
+                          id="single_input"
+                          placeholder="Enter Your Location"
+                          value={data.currentLocation}
+                          onChange={(e) =>
+                            handleInputChange("currentLocation", e.target.value)
+                          }
+                        />
+                        {formError && (
+                          <p className="text-[12px] text-[red] font-[500]">
+                            {formError?.currentLocation}
+                          </p>
+                        )}
+                        <img
+                          className="icon"
+                          src="/images/auth/candidate/location_on.png"
+                          alt=""
+                        />
+                      </div>
+                    </div>
                   </div>
-                 
 
                   <div className="bottom_buttons">
                     <button
@@ -470,11 +492,14 @@ const PersonalDetails = ({
               </form>
             </motion.div>
             <p className="already_text">
-              Already have an account? <span
+              Already have an account?{" "}
+              <span
                 className="cursor-pointer"
                 id="sign_in"
                 onClick={() => router.push("/auth/Sign_in")}
-              >Sign In</span>
+              >
+                Sign In
+              </span>
             </p>
           </div>
         </div>

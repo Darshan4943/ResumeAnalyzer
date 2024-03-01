@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import ReactSelect from "react-select";
 import { toast } from "react-toastify";
@@ -7,7 +6,6 @@ import { noticePeriods } from "../../../../utils/data";
 import { useRouter } from "next/router";
 import MiniLoader from "../../../common/mini-loader";
 const ProfessionalDetails = ({
-
   data,
   setData,
   setTabIndex,
@@ -20,13 +18,13 @@ const ProfessionalDetails = ({
   const [loading, setLoading] = useState(false); 
 
   const [formError, setFormError] = useState({});
-console.log(21,data)
-  const router = useRouter()
+
+  const router = useRouter();
   const handleClick = () => {
     setLoading(true);
     router.push({
       pathname: "/home/createResume",
-      query: data 
+      query: { ...data, keySkills: JSON.stringify(data.keySkills) },
     });
   };
   const validateInput = (fieldName, value) => {
@@ -101,18 +99,14 @@ console.log(21,data)
   const handleInputChange = (fieldName, value) => {
     setData({ ...data, [fieldName]: value });
     validateInput(fieldName, value);
-
   };
-  
 
   return (
     <>
       {tabindex == 4 && (
         <div className="personal_details_all">
-          <div className="personal_details p-4 pb-[96px]" >
+          <div className="personal_details p-4 pb-[96px]">
             <div className="personal_details_form education_page">
-
-
               <div className="flex gap-6 w-[100%]">
                 <div className="personal_single_input">
                   <div className="personal_name gap-2 w-[100%]">
@@ -121,9 +115,10 @@ console.log(21,data)
                     </p>
                     <div className="gender_button">
                       <button
-                        className={`gen_button ${data.employmentStatus == "employed" &&
+                        className={`gen_button ${
+                          data.employmentStatus == "employed" &&
                           "gen_button_active"
-                          }`}
+                        }`}
                         onClick={(e) => {
                           e.preventDefault();
                           setData({ ...data, employmentStatus: "employed" });
@@ -132,9 +127,10 @@ console.log(21,data)
                         Employed
                       </button>
                       <button
-                        className={`gen_button ${data.employmentStatus == "unemployed" &&
+                        className={`gen_button ${
+                          data.employmentStatus == "unemployed" &&
                           "gen_button_active"
-                          }`}
+                        }`}
                         onClick={(e) => {
                           e.preventDefault();
                           setData({ ...data, employmentStatus: "unemployed" });
@@ -142,22 +138,20 @@ console.log(21,data)
                       >
                         Unemployed
                       </button>
-
                     </div>
-
-
                   </div>
                 </div>
 
-
                 <div className="personal_single_input w-[50%]">
-                  <div className="personal_name w-[100%]" style={{ gap: "10px" }}>
+                  <div
+                    className="personal_name w-[100%]"
+                    style={{ gap: "10px" }}
+                  >
                     <p className="form_text_heading">
                       Work Experience <span className="star">*</span>
                     </p>
                     <div className="flex flex-row gap-[24px]">
                       <div>
-
                         <input
                           type="text"
                           placeholder="Years"
@@ -169,7 +163,7 @@ console.log(21,data)
                               ...data,
                               workExperiance: {
                                 ...data.workExperiance,
-                                years: e.target.value,
+                                years: e.target.value.replace(/\D/g, ""),
                               },
                             });
                           }}
@@ -181,7 +175,6 @@ console.log(21,data)
                         )}
                       </div>
                       <div>
-
                         <input
                           type="text"
                           placeholder="Months"
@@ -193,7 +186,7 @@ console.log(21,data)
                               ...data,
                               workExperiance: {
                                 ...data.workExperiance,
-                                months: e.target.value,
+                                months: e.target.value.replace(/\D/g, ""),
                               },
                             });
                           }}
@@ -215,9 +208,15 @@ console.log(21,data)
                       id="single_input"
                       placeholder="Enter Company Name"
                       value={data.companyName}
-                      onChange={(e) => handleInputChange("companyName", e.target.value)}
+                      onChange={(e) =>
+                        handleInputChange("companyName", e.target.value)
+                      }
                     />
-                    {formError && <p className="text-[12px] text-[red] font-[500]">{formError?.companyName}</p>}
+                    {formError && (
+                      <p className="text-[12px] text-[red] font-[500]">
+                        {formError?.companyName}
+                      </p>
+                    )}
                   </div>
                 </div>
 
@@ -244,9 +243,15 @@ console.log(21,data)
                           : "Enter job tittle"
                       }
                       value={data.jobTitle}
-                      onChange={(e) => handleInputChange("jobTitle", e.target.value)}
+                      onChange={(e) =>
+                        handleInputChange("jobTitle", e.target.value)
+                      }
                     />
-                    {formError && <p className="text-[12px] text-[red] font-[500]">{formError?.jobTitle}</p>}
+                    {formError && (
+                      <p className="text-[12px] text-[red] font-[500]">
+                        {formError?.jobTitle}
+                      </p>
+                    )}
                   </div>
                 </div>
               </div>
@@ -262,9 +267,15 @@ console.log(21,data)
                       id="single_input"
                       placeholder="Enter job location"
                       value={data.jobLocation}
-                      onChange={(e) => handleInputChange("jobLocation", e.target.value)}
+                      onChange={(e) =>
+                        handleInputChange("jobLocation", e.target.value)
+                      }
                     />
-                    {formError && <p className="text-[12px] text-[red] font-[500]">{formError?.jobLocation}</p>}
+                    {formError && (
+                      <p className="text-[12px] text-[red] font-[500]">
+                        {formError?.jobLocation}
+                      </p>
+                    )}
                   </div>
                 </div>
 
@@ -279,9 +290,15 @@ console.log(21,data)
                       id="single_input"
                       placeholder="Enter date of joining"
                       value={data.dateOfJoining}
-                      onChange={(e) => handleInputChange("dateOfJoining", e.target.value)}
+                      onChange={(e) =>
+                        handleInputChange("dateOfJoining", e.target.value)
+                      }
                     />
-                    {formError && <p className="text-[12px] text-[red] font-[500]">{formError?.dateOfJoining}</p>}
+                    {formError && (
+                      <p className="text-[12px] text-[red] font-[500]">
+                        {formError?.dateOfJoining}
+                      </p>
+                    )}
                   </div>
                 </div>
               </div>
@@ -295,13 +312,14 @@ console.log(21,data)
                     isMulti
                     className="w-full"
                     onChange={(data) => handleInputChange("keySkills", data)}
-                  
                     value={data.keySkills}
                   />
-                  {formError && <p className="text-[12px] text-[red] font-[500]">{formError?.keySkills}</p>}
+                  {formError && (
+                    <p className="text-[12px] text-[red] font-[500]">
+                      {formError?.keySkills}
+                    </p>
+                  )}
                 </div>
-
-
 
                 <div className="personal_single_input w-[100%]">
                   <div className="personal_name w-[100%]">
@@ -314,14 +332,17 @@ console.log(21,data)
                       id="single_input"
                       placeholder="Yearly LPA"
                       value={data.currentCTC}
-                      onChange={(e) => handleInputChange("currentCTC", e.target.value)}
+                      onChange={(e) =>
+                        handleInputChange("currentCTC", e.target.value)
+                      }
                     />
-                    {formError && <p className="text-[12px] text-[red] font-[500]">{formError?.currentCTC}</p>}
-
+                    {formError && (
+                      <p className="text-[12px] text-[red] font-[500]">
+                        {formError?.currentCTC}
+                      </p>
+                    )}
                   </div>
                 </div>
-
-
               </div>
 
               <div className="personal_single_input w-[100%] ">
@@ -336,13 +357,18 @@ console.log(21,data)
                           type="radio"
                           value={item.value}
                           checked={data.noticePeriod == item.value}
-                          onChange={(e) => handleInputChange("noticePeriod", e.target.value)}
+                          onChange={(e) =>
+                            handleInputChange("noticePeriod", e.target.value)
+                          }
                         />
                         {item.title}
                       </div>
                     ))}
-                    {formError && <p className="text-[12px] text-[red] font-[500]">{formError?.noticePeriod}</p>}
-
+                    {formError && (
+                      <p className="text-[12px] text-[red] font-[500]">
+                        {formError?.noticePeriod}
+                      </p>
+                    )}
                   </form>
                 </div>
               </div>
@@ -406,7 +432,6 @@ console.log(21,data)
                   className="buttons"
                   id="border_button"
                   onClick={handleClick}
-               
                 >
                    {loading && <MiniLoader />}
                   Continue

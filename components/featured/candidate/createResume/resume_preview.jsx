@@ -13,6 +13,7 @@ import {
   PDFDownloadLink,
   Document,
   Page,
+  BlobProvider,
 } from "@react-pdf/renderer";
 import Sample from "../../resumeTemplates/Template1";
 import Template1 from "../../resumeTemplates/Template1";
@@ -76,6 +77,7 @@ import { reCallUserData } from "../../../../Redux/actions/user";
 import Fonts from "../../../../public/fonts/fonts";
 import MiniLoader from "../../../common/mini-loader";
 import { ClosedIcon } from "../../../../utils/svg";
+// import { generatePDFUsingRenderer } from "../../../../utils/middleware";
 <Fonts />;
 const ResumePreview = ({
   data,
@@ -986,30 +988,29 @@ const ResumePreview = ({
       document.removeEventListener("mousedown", handleOutsideClick);
     };
   }, []);
+
+  const MyDocument = () => (
+    <Document height="1124px">
+      {selectResumeTemplate(selectedResumeIndex)}
+    </Document>
+  );
+
   const generatePDFUsingRenderer = async () => {
-    // Import the react-pdf/renderer library dynamically (for server-side rendering)
-    const ReactPDF = await import("@react-pdf/renderer");
+    // Render the PDF document to a blob
+    const pdfBlob = await new Promise((resolve) => {
+      const doc = React.createElement(MyDocument);
+      const pdfString = ReactDOMServer.renderToString(doc);
 
-    // Render the PDF document using the defined React component
-    const { PDFViewer, renderToString } = ReactPDF.default;
-
-    // Render the React component to a string
-    const pdfString = await renderToString(
-      <>
-        {" "}
-        <Document height="1124px">
-          {selectResumeTemplate(selectedResumeIndex)}
-        </Document>
-      </>
-    );
-
-    // Convert the PDF string to a blob
-    const pdfBlob = new Blob([pdfString], { type: "application/pdf" });
+      // Convert the rendered string to a Blob
+      const blob = new Blob([pdfString], {
+        type: "application/pdf",
+      });
+      resolve(blob);
+    });
 
     return pdfBlob;
   };
-
-  const saveResume = async () => {
+  const saveResume = async (blob) => {
     const formData = new FormData();
     if (Object.keys(data).length > 0) {
       Object.keys(data).map((key) => {
@@ -1020,24 +1021,26 @@ const ResumePreview = ({
         }
       });
     }
-    try {
-      console.log(await generatePDFUsingRenderer());
-    } catch (e) {
-      console.log(e);
-    }
-    // axios
-    //   .post("http://localhost:2000/api/resume/add", formData)
-    //   .then((res) => {
-    //     console.log(res.data);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
+    formData.append("pdfBlob", blob);
+    formData.append("resumeIndex", selectedResumeIndex);
+    axios
+      .post("http://localhost:2000/api/resume/add", formData)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
-
+  const MyComponent = () => {
+    return (
+      <Document height="1124px" dpi={72}>
+        {selectResumeTemplate(selectedResumeIndex)}
+      </Document>
+    );
+  };
   return (
     <div
-    
       className="ml:w-[60%] w-[100%] "
       style={{ overflow: "hidden", position: "relative" }}
     >
@@ -1067,7 +1070,8 @@ const ResumePreview = ({
             <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
             <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center  ">
               <div
-                ref={taskRef}  onWheel={(e) => e.stopPropagation()}
+                ref={taskRef}
+                onWheel={(e) => e.stopPropagation()}
                 className=" absolute flex p-6 bg-white rounded-[24px] shadow-md  gap-6 flex-wrap justify-center items-center w-[65%] h-[90vh] overflow-y-auto "
               >
                 {renderAllTemplates()}
@@ -1082,12 +1086,44 @@ const ResumePreview = ({
             </div>
 
             <div className="flex gap-[16px]">
-              {/* <button
-                onClick={() => saveResume()}
-                className="flex gap-1 text-[14px] w-[150px]  justify-center text-[#FFF] font-montserrat font-semibold px-3 py-2 rounded-[8px] items-center border border-[#06A9EF] bg-[#06A9EF]"
-              >
-                Save
-              </button> */}
+              {selectedResumeIndex !== undefined && (
+                <>
+                  <BlobProvider document={<MyComponent />}>
+                    {({ blob, url, loading, error }) => {
+                      return (
+                        <button
+                          onClick={() => saveResume(blob)}
+                          className="flex gap-1 text-[14px] w-[150px]  justify-center text-[#FFF] font-montserrat font-semibold px-3 py-2 rounded-[8px] items-center border border-[#06A9EF] bg-[#06A9EF]"
+                        >
+                          Save
+                        </button>
+                      );
+                    }}
+                  </BlobProvider>
+                  <PDFDownloadLink
+                    document={<MyComponent />}
+                    fileName="somename.pdf"
+                  >
+                    {({ blob, url, loading, error }) => (
+                      <button
+                        onClick={() => saveResume(blob)}
+                        className="flex gap-1 text-[14px] w-[51.4px] h-[40px]  justify-center text-[#FFF] font-montserrat font-semibold  rounded-[8px] items-center border border-[#06A9EF] bg-[#06A9EF]"
+                      >
+                        <img
+                          src="/images/download.png"
+                          style={{
+                            height: "34px",
+                            width: "34px",
+                            objectFit: "contain",
+                          }}
+                          alt=""
+                        />
+                      </button>
+                    )}
+                  </PDFDownloadLink>
+                </>
+              )}
+
               <button
                 onClick={() => setPreview(true)}
                 className="flex gap-1 text-[14px] w-[150px]  justify-center text-[#FFF] font-montserrat font-semibold px-3 py-2 rounded-[8px] items-center border border-[#06A9EF] bg-[#06A9EF]"
@@ -1122,7 +1158,6 @@ const ResumePreview = ({
             </button>
           </div>
         </div>
-
         {selectedResumeIndex !== undefined && (
           <div
             className="   "
@@ -1132,10 +1167,8 @@ const ResumePreview = ({
               transformOrigin: "top left",
             }}
           >
-            <PDFViewer width="100%" height="1160px">
-              <Document height="1124px">
-                {selectResumeTemplate(selectedResumeIndex)}
-              </Document>
+            <PDFViewer width="80%" height="894px" showToolbar={false}>
+              <MyComponent />
             </PDFViewer>
           </div>
         )}
