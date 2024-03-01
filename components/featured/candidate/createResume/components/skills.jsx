@@ -12,7 +12,7 @@ const Skills = ({ data, setData }) => {
   const [skills, setSkills] = useState([...SkillList]);
   const userDataGlobal = useSelector((state) => state.userData);
   const [saveDisabled, setSaveDisabled] = useState(false);
-  const [skillList, setSkillList] = useState([]);
+  const [skillList, setSkillList] = useState(data.skills);
   const initialRatings = Array(5).fill(5);
 
 

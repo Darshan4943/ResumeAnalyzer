@@ -5,6 +5,7 @@ import ResumePreview from "../../components/featured/candidate/createResume/resu
 import { useSelector } from "react-redux";
 import { AnimatePresence, motion } from "framer-motion";
 import { useRouter } from "next/router";
+import { camelCase } from "../../utils/middleware";
 
 function CreateResume() {
   const [selectedFont, setSelectedFont] = useState("Roboto");
@@ -201,12 +202,12 @@ function CreateResume() {
       institute,
       jobLocation,
       jobTitle,
+      keySkills,
     } = userData;
-
     setData((prevData) => ({
       ...prevData,
-      firstName:firstName?firstName:"JOHN",
-      lastName:lastName?lastName:"DOE",
+      firstName: firstName ? camelCase(firstName) : "JOHN",
+      lastName: lastName ? camelCase(lastName) : "DOE",
       mobileNo,
       email,
       comapanyName,
@@ -224,9 +225,14 @@ function CreateResume() {
           dateOfJoining,
         },
       ],
+      skills: JSON.parse(keySkills).map((item) => ({
+        skill: item.value,
+        rating: [5, 5, 5, 5, 5],
+      })),
     }));
   }, [userData]);
 
+  console.log(data);
   // const [data, setData] = useState({
   //   profilePhoto: null,
   //   designation: "",

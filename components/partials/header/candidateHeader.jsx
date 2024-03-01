@@ -81,7 +81,7 @@ function CandidateHeader() {
                 style={{ textTransform: "capitalize" }}
                 alt=""
               >
-                {userDataGlobal.email.slice(0, 1)}
+                {userDataGlobal?.email?.slice(0, 1)}
               </div>
             )}
           </div>

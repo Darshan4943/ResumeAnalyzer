@@ -14,12 +14,12 @@ import Stepper from "../../components/featured/candidate/registration/stepper";
 function Candidate_register() {
   const [tabindex, setTabIndex] = useState(1);
   const router = useRouter();
-  const {isResume} = router.query
-  useEffect(()=>{
-    if(isResume){
-      setTabIndex(2)
+  const { isResume } = router.query;
+  useEffect(() => {
+    if (isResume) {
+      setTabIndex(2);
     }
-  },[isResume])
+  }, [isResume]);
   const [file, setfile] = useState();
   const [skills, setSkills] = useState([...SkillList]);
   const [certificate, setCertificate] = useState();
@@ -45,16 +45,15 @@ function Candidate_register() {
     keySkills: "",
     currentCTC: "",
     noticePeriod: "15 days or less",
-    employmentStatus: "",
-    
-   
+    employmentStatus: "employed",
   });
- 
+
+  console.log(148, data);
+
   const [error, setError] = useState({
     firstName: { message: "Please Enter Valid First Name", view: null },
     lastName: null,
   });
-
 
   return (
     <>
@@ -63,7 +62,9 @@ function Candidate_register() {
           <div className="register_cadidate overflow-hidden">
             <div className="register_text_parent">
               <div className="register_heding">
-                <p className="text-[30px] font-semibold text-white">Enter Details to Build your Professional Resume</p>
+                <p className="text-[30px] font-semibold text-white">
+                  Enter Details to Build your Professional Resume
+                </p>
                 <p className="register_heding_desc">
                   Create your Resume with Skilotech
                 </p>
@@ -71,7 +72,6 @@ function Candidate_register() {
             </div>
           </div>
           {tabindex == 1 ? null : <Stepper tabindex={tabindex} data={data} />}
-       
         </div>
         <CandidateAiPower
           setTabIndex={setTabIndex}

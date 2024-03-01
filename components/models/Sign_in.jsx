@@ -41,7 +41,6 @@ function Sign_in({ setIsSignIn, handleGoogle }) {
       email: data.email,
       password: data.password,
     };
-    console.log("da", dataToSend);
     axios
       .post("http://localhost:2000/api/signin", dataToSend)
       .then((res) => {
