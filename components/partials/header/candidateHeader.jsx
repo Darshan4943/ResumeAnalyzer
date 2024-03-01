@@ -58,7 +58,7 @@ function CandidateHeader() {
         </Link>
         <Link
           href="/home/MyCollection"
-          className={selectedPage === "/home/BeforeLoginHome" ? "active" : "li"}
+          className={selectedPage === "/home/MyCollection" ? "active" : "li"}
         >
           <li>My Resumes</li>
         </Link>
@@ -68,12 +68,12 @@ function CandidateHeader() {
         >
           <li>JD Analyser</li>
         </Link> */}
-        <Link
+        {/* <Link
           href="/transform/TransformJob"
           className={selectedPage === "/transform/TransformJob" ? "active" : "li"}
         >
           <li>Transform for Job Description</li>
-        </Link>
+        </Link> */}
 
       </div>
 

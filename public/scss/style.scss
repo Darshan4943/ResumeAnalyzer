@@ -95,3 +95,12 @@ html {
     height: 272px !important;
   }
 }
+.preview {
+  overflow: auto;
+  .react-pdf__Page__canvas {
+    display: block !important;
+    user-select: none !important;
+    width: 50rem !important;
+    height: 100rem !important;
+  }
+}

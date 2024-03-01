@@ -1023,15 +1023,15 @@ const ResumePreview = ({
     }
     formData.append("pdfBlob", blob);
     formData.append("resumeIndex", selectedResumeIndex);
-    formData.append("fileName", "resume"+selectedResumeIndex);
+    formData.append("fileName", "resume" + selectedResumeIndex);
     axios
       .post("http://localhost:2000/api/resume/add", formData)
       .then((res) => {
-       toast.success('Resume Saved To Collection successfully')
+        toast.success("Resume Saved To Collection successfully");
       })
       .catch((err) => {
         console.log(err);
-        toast.success('Something went wrong ')
+        toast.success("Something went wrong ");
       });
   };
   const MyComponent = () => {
@@ -1107,10 +1107,7 @@ const ResumePreview = ({
                     fileName="somename.pdf"
                   >
                     {({ blob, url, loading, error }) => (
-                      <button
-                        onClick={() => saveResume(blob)}
-                        className="flex gap-1 text-[14px] w-[51.4px] h-[40px]  justify-center text-[#FFF] font-montserrat font-semibold  rounded-[8px] items-center border border-[#06A9EF] bg-[#06A9EF]"
-                      >
+                      <button className="flex gap-1 text-[14px] w-[51.4px] h-[40px]  justify-center text-[#FFF] font-montserrat font-semibold  rounded-[8px] items-center border border-[#06A9EF] bg-[#06A9EF]">
                         <img
                           src="/images/download.png"
                           style={{
@@ -1181,13 +1178,53 @@ const ResumePreview = ({
               ref={taskRef}
               className=" absolute bg-white  px-4 py-2 rounded-lg shadow-lg h-[90vh] flex flex-col gap-2 items-end w-[900px]"
             >
-              <button onClick={() => setPreview(false)}>
-                <ClosedIcon />
-              </button>
-              <div className="w-full  bg-[#525659] h-full">
-              <PDFViewer width="750" height="100%" showToolbar={false}>
-                <Document>{selectResumeTemplate(selectedResumeIndex)}</Document>
-              </PDFViewer>
+              <div className="flex gap-[16px]">
+                {" "}
+                {selectedResumeIndex !== undefined && (
+                  <>
+                    <BlobProvider document={<MyComponent />}>
+                      {({ blob, url, loading, error }) => {
+                        return (
+                          <button
+                            onClick={() => saveResume(blob)}
+                            className="flex gap-1 text-[14px] w-[150px]  justify-center text-[#FFF] font-montserrat font-semibold px-3 py-2 rounded-[8px] items-center border border-[#06A9EF] bg-[#06A9EF]"
+                          >
+                            Save
+                          </button>
+                        );
+                      }}
+                    </BlobProvider>
+                    <PDFDownloadLink
+                      document={<MyComponent />}
+                      fileName="somename.pdf"
+                    >
+                      {({ blob, url, loading, error }) => (
+                        <button className="flex gap-1 text-[14px] w-[51.4px] h-[40px]  justify-center text-[#FFF] font-montserrat font-semibold  rounded-[8px] items-center border border-[#06A9EF] bg-[#06A9EF]">
+                          <img
+                            src="/images/download.png"
+                            style={{
+                              height: "34px",
+                              width: "34px",
+                              objectFit: "contain",
+                            }}
+                            alt=""
+                          />
+                        </button>
+                      )}
+                    </PDFDownloadLink>
+                  </>
+                )}
+                <button onClick={() => setPreview(false)}>
+                  <ClosedIcon />
+                </button>
+              </div>
+
+              <div className="w-full  bg-[#525659] h-full flex items-center justify-center">
+                <PDFViewer width="750" height="100%" showToolbar={false}>
+                  <Document>
+                    {selectResumeTemplate(selectedResumeIndex)}
+                  </Document>
+                </PDFViewer>
               </div>
             </div>
           </div>
