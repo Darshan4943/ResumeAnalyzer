@@ -225,10 +225,12 @@ function CreateResume() {
           dateOfJoining,
         },
       ],
-      skills: JSON.parse(keySkills).map((item) => ({
-        skill: item.value,
-        rating: [5, 5, 5, 5, 5],
-      })),
+      skills:
+        keySkills?.length > 0 &&
+        JSON.parse(keySkills).map((item) => ({
+          skill: item.value,
+          rating: [5, 5, 5, 5, 5],
+        })),
     }));
   }, [userData]);
 

@@ -56,6 +56,12 @@ function CandidateHeader() {
         >
           <li>Home</li>
         </Link>
+        <Link
+          href="/home/MyCollection"
+          className={selectedPage === "/home/BeforeLoginHome" ? "active" : "li"}
+        >
+          <li>My Resumes</li>
+        </Link>
         {/* <Link
           href="/home/myPurchase"
           className={selectedPage === "/home/myPurchase" ? "active" : "li"}
@@ -85,10 +91,8 @@ function CandidateHeader() {
               </div>
             )}
           </div>
-{
-    userDataGlobal?.name &&<div>{userDataGlobal?.name}</div>
-}
-          
+          {userDataGlobal?.name && <div>{userDataGlobal?.name}</div>}
+
           <div className="text-[#495057] text-[14px] font-[600] flex items-center relative">
             <div
               className="group"
