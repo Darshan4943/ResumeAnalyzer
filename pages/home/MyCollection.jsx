@@ -8,7 +8,7 @@ pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.vers
 const MyCollection = () => {
   const userDataGlobal = useSelector((state) => state.userData);
   const [resumeList, setResumeList] = useState([]);
-console.log(13,resumeList)
+  console.log(13, resumeList);
   useEffect(() => {
     axios
       .get("http://localhost:2000/api/resume/" + userDataGlobal?._id)
@@ -28,9 +28,7 @@ console.log(13,resumeList)
       setNumPages(numPages);
     }
 
-    const pdfUrl = resumeList.length > 0 ? resumeList[0].resumeUrl : null;
 
-      
 
     return (
       <div
@@ -63,7 +61,7 @@ console.log(13,resumeList)
                 <div className="text-[14px] text-[#333333] font-500">
                   {item.fileName}.pdf
                 </div>
-             
+
                 <div className="bg-[#00000099]  absolute top-[0px] left-[0px] h-[272px] w-full rounded-[12px] opacity-0 invisible transition-opacity ease-in-out duration-[0.4s]  group-hover:opacity-100 group-hover:visible flex items-center justify-center">
                   <div className="flex flex-col w-98 h-219 top-27.09 left-47.19 p-[12px]  rounded-lg border border-gray-200 gap-[12px] bg-[#333333CC]">
                     <div
@@ -98,7 +96,7 @@ console.log(13,resumeList)
                         Edit
                       </span>
                     </div>
-                    
+
                     <a
                       href={item.resumeUrl}
                       className="flex items-center flex-col cursor-pointer"
