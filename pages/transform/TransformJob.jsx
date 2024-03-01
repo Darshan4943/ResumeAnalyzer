@@ -12,7 +12,7 @@ function TransformJob() {
   const [text, setText] = useState('');
   const [data, setData] = useState({});
 
-console.log(15,selectedResumeIndex)
+  console.log(15, selectedResumeIndex)
   const handleChange = (event) => {
     setText(event.target.value);
   };
@@ -43,7 +43,12 @@ console.log(15,selectedResumeIndex)
 
 
     return (
-      <div style={{ width: "192px", height: "272px" }}>
+      <div style={{
+       
+        boxShadow: "0px 0px 4px 0px rgba(0, 0, 0, 0.25)",
+        borderRadius: "6px",
+        overflow: "hidden",
+      }}>
         <Document file={pdfUrl} onLoadSuccess={onDocumentLoadSuccess}>
           <Page pageNumber={pageNumber} />
         </Document>
@@ -51,25 +56,21 @@ console.log(15,selectedResumeIndex)
     );
   };
 
+  const renderTemplates = () => {
+    return data?.map((item, index) => (
 
+      <div className="" onClick={() => { setSelectedResumeIndex(item.resumeTemplateIndex); setIsAll(false) }} key={index}>
+        <PdfViewerr pdfUrl={item?.resumeUrl} />
+      </div>
+    ));
+  };
 
   const renderAllTemplates = () => {
     return data?.map((item, index) => (
-      // <img
-      //   key={index}
-      //   src={template.resumeUrl}
-      //   className="h-[330px] w-[234px] rounded-[6px] transition-transform duration-300 ease-in-out hover:scale-105"
-      //   style={{ boxShadow: "0px 0px 26.499px 0px rgba(0, 0, 0, 0.25)" }}
-      //   alt=""
-      //   onClick={() => {
-      //     handleImageClick(template);
-      //     setIsAll(false);
-      //   }}
-        
-      // />
-      <div  style={{ boxShadow: "0px 0px 26.499px 0px rgba(0, 0, 0, 0.25)" }} className="h-[330px] w-[234px] rounded-[6px] transition-transform duration-300 ease-in-out hover:scale-105"  onClick={() => setSelectedResumeIndex(item.resumeTemplateIndex)} key={index}>
-      <PdfViewerr pdfUrl={item?.resumeUrl} />
-    </div>
+
+      <div  className="   transition-transform duration-300 ease-in-out hover:scale-105" onClick={() => { setSelectedResumeIndex(item.resumeTemplateIndex); setIsAll(false) }} key={index}>
+        <PdfViewerr className="transition-transform duration-300 ease-in-out hover:scale-105" pdfUrl={item?.resumeUrl} />
+      </div>
     ));
   };
 
@@ -207,16 +208,17 @@ console.log(15,selectedResumeIndex)
               Select from Collection
             </div>
             <div className="rounded-[16px] border bg-[#F9F9F9] border-[#DEDEDE] pl-4 pr-4 ">
+
               <div
                 className="flex gap-4   py-4  items-center"
                 style={{ overflowX: "auto" }}
               >
-                {data?.map((item, index) => (
-                  <div   onClick={() => setSelectedResumeIndex(item.resumeTemplateIndex)} key={index}>
-                    <PdfViewerr pdfUrl={item?.resumeUrl} />
-                  </div>
-                ))}
+
+                {renderTemplates()}
+
+
               </div>
+
             </div>
             <div onClick={() => setIsAll(true)} className='font-medium text-[18px] text-[#06A9EF] flex justify-end'>See All</div>
             {isAll && (
@@ -225,7 +227,7 @@ console.log(15,selectedResumeIndex)
                 <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center  ">
                   <div
                     ref={taskRef} onWheel={(e) => e.stopPropagation()}
-                    className="resumeListContainer absolute flex p-6 bg-white rounded-[24px] shadow-md  gap-6 flex-wrap justify-center items-center w-[65%] h-[90vh] overflow-y-auto "
+                    className="resumeListContainer absolute flex p-10 bg-white rounded-[24px] shadow-md  gap-6 flex-wrap   w-[65%] h-[90vh] overflow-y-auto "
                   >
                     {renderAllTemplates()}
                   </div>
