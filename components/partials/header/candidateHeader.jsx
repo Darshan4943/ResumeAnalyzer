@@ -39,7 +39,6 @@ function CandidateHeader() {
       }
     }
   });
-
   return (
     <>
       <div className="flex justify-center items-center list-none gap-9">
@@ -67,7 +66,7 @@ function CandidateHeader() {
 
       <div className=" flex gap-4 justify-end py-2 items-center w-[50%]">
         <div className="flex items-center gap-[8px]">
-          <div className="w-[40px] w-[40px]">
+          <div className="h-[40px] w-[40px]">
             {userDataGlobal?.profilePicture ? (
               <img
                 className=" rounded-full object-cover h-[40px] w-[40px]"
@@ -77,11 +76,19 @@ function CandidateHeader() {
                 }
               />
             ) : (
-              <div className="rounded-[40px]" alt=""></div>
+              <div
+                className="rounded-[40px] bg-[#06A9EF] flex items-center justify-center text-white font-semibold text-[20px] h-full"
+                style={{ textTransform: "capitalize" }}
+                alt=""
+              >
+                {userDataGlobal.email.slice(0, 1)}
+              </div>
             )}
           </div>
-
-          <div>{userDataGlobal?.name}</div>
+{
+    userDataGlobal?.name &&<div>{userDataGlobal?.name}</div>
+}
+          
           <div className="text-[#495057] text-[14px] font-[600] flex items-center relative">
             <div
               className="group"
