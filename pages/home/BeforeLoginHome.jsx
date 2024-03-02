@@ -39,12 +39,12 @@ console.log(popupState)
   return (
     <div className="">
       <div className="flex flex-row gap-8 items-center ">
-        <div className=" flex flex-col gap-6 w-[50%] text-[#333333] pl-[24px]">
+        <div className=" flex flex-col gap-6 w-[50%] text-[#333333] pl-[24px] ">
           <div className="flex flex-col gap-[24px]">
-            <div className="font-semibold text-[5vw] leading-none ">
+            <div className="font-semibold text-[4.8vw] leading-none ">
               The Best AI Resume Creator
             </div>
-            <div className="font-medium text-[1.7vw] ">
+            <div className="font-medium text-[1.5vw] ">
               Craft compelling, recruiter-vetted resumes effortlessly with our
               cutting-edge resume builder powered by AI Generation. Tailor
               resumes for each role swiftly, leveraging a myriad of remarkable
@@ -53,7 +53,7 @@ console.log(popupState)
             </div>
             <button
               onClick={ clickHandler}
-              className="px-9 py-4 bg-[#06A9EF] text-white rounded-[12px] text-[1.4vw] font-semibold"
+              className="px-9 py-4 bg-[#06A9EF] text-white rounded-[12px] text-[1.3vw] font-semibold"
               style={{ width: "fit-content" }}
             >
               Build My Resume
@@ -85,7 +85,7 @@ console.log(popupState)
             pre-approved sections that have been approved by recruiters
             worldwide.
           </div>
-          <button onClick={ clickHandler} className="px-9 py-4 bg-[#06A9EF] text-[1.4vw] text-white w-[17.7vw] font-semibold rounded-[12px]">
+          <button onClick={ clickHandler} className="px-9 py-4 bg-[#06A9EF] text-[1.3vw] text-white w-[17.7vw] font-semibold rounded-[12px]">
             Get Started
           </button>
         </div>

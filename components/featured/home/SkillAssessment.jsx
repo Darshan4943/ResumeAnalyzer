@@ -52,7 +52,7 @@ function SkillAssessment({ isLogin }) {
               <div className="flex scr1024:justify-start justify-end">
                 <button
                   onClick={handleClick}
-                  className="w-[12vw] h-[4vw]   scr1024:px-[12px]  px-3   scr1024:text-[1vw] sm:text-[2.1vw] text-[12px] font-[500]  bg-[#fff] scr1024:rounded-[12px] rounded-[6px] border-[1px] border-solid border-[#06A9EF]  transition-[0.2s]"
+                  className="w-[12vw] h-[4vw]   scr1024:px-[12px]  px-3    text-[1.3] font-[500]  bg-[#fff] scr1024:rounded-[12px] rounded-[6px] border-[1px] border-solid border-[#06A9EF]  transition-[0.2s]"
                 >
                   Get Started
                 </button>
