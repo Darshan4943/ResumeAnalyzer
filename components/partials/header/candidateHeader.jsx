@@ -10,7 +10,6 @@ function CandidateHeader() {
   const { signin, signup } = useRouter().query;
   const [login, setlogin] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
-
   useEffect(() => {
     setSelectedPage(router.pathname);
   }, [router.pathname]);

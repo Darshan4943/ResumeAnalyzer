@@ -73,7 +73,7 @@ const Template3 = ({ data, selectedColor, selectedFont }) => (
         )}
 
         {data?.languages?.length > 0 && (
-          <View key={index} style={{}}>
+          <View  style={{}}>
             <View style={{ paddingLeft: -1, height: 27, alignItems: 'center', flexDirection: 'row' }}>
               <Svg width={125} viewBox="0 0 125 27" fill="none">
                 <Path d="M112.176 26.999H0.000488281V-0.000976562H112.176C119.258 -0.000976562 125 6.04269 125 13.499C125 20.9554 119.258 26.999 112.176 26.999Z" fill="white" />

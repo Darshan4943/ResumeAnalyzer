@@ -32,7 +32,6 @@ import Template13 from "../../resumeTemplates/Template13";
 import Template14 from "../../resumeTemplates/Template14";
 import Template16 from "../../resumeTemplates/Template16";
 
-
 import Fonts from "../../../../public/fonts/fonts";
 import { ClosedIcon } from "../../../../utils/svg";
 // import { generatePDFUsingRenderer } from "../../../../utils/middleware";
@@ -709,6 +708,9 @@ const ResumePreview = ({
     formData.append("pdfBlob", blob);
     formData.append("resumeIndex", selectedResumeIndex);
     formData.append("fileName", "resume" + selectedResumeIndex);
+    formData.append("selectedColor", selectedColor);
+    formData.append("selectedFont", selectedFont);
+
     axios
       .post("https://freedygoservices.in/api/resume/add", formData)
       .then((res) => {
