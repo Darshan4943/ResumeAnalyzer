@@ -71,7 +71,7 @@ function CandidateHeader() {
 
       </div>
 
-      <div className=" flex gap-4 justify-end py-2 items-center w-[50%] group group-hover:visible">
+      <div className=" flex gap-4 justify-end py-2 items-center w-[24.9%] group group-hover:visible">
         <div className="flex items-center gap-[8px]">
           <div className="h-[40px] w-[40px]">
             {userDataGlobal?.profilePicture ? (
