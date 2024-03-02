@@ -6,7 +6,8 @@ import axios from 'axios';
 import { PDFViewer } from "@react-pdf/renderer";
 import TransformJd from "../../components/featured/home/transformJd";
 import Template3 from "../../components/featured/resumeTemplates/Template3";
-
+import Fonts from "../../public/fonts/fonts";
+<Fonts />;
 pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
 
 function TransformJob() {
@@ -247,7 +248,7 @@ function TransformJob() {
           </div>
 
         </div>
-        <div className='w-full'>
+        <div className='w-[50%] flex flex-col gap-4'>
 
           <div className="flex justify-end w-full" ref={resumeRef}>
 

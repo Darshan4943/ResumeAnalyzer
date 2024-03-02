@@ -2,29 +2,23 @@ import { Document, PDFViewer } from '@react-pdf/renderer'
 import React from 'react'
 import Template1 from '../resumeTemplates/Template1'
 
-function TransformJd({selectedResumeIndex,data,selectResumeTemplate}) {
-  
-  return (
-    <div>
-      {selectedResumeIndex !== undefined && (
-            <div
-              className="   "
-              style={{
-                // width: "78.7rem",
-                // scale: "0.65",
-                transformOrigin: "top left",
-              }}
-            >
-              <PDFViewer width="100%" height="1160px">
-                <Document height="1124px">
-                  {/* <Template1 data={data} selectedColor={data.selectedColor} selectedFont={data.selectedFont} /> */}
-                  {selectResumeTemplate(selectedResumeIndex)}
-                </Document>
-              </PDFViewer>
-            </div>
-          )}
-    </div>
-  )
+function TransformJd({ selectedResumeIndex, data, selectResumeTemplate }) {
+
+    return (
+        <div>
+            {selectedResumeIndex !== undefined && (
+
+                <div className="w-full h-full flex items-center justify-center">
+                    <PDFViewer width="90%" height="980px"  showToolbar={false}>
+                        <Document width="80%" height="100%" >
+                         
+                            {selectResumeTemplate(selectedResumeIndex)}
+                        </Document>
+                    </PDFViewer>
+                </div>
+            )}
+        </div>
+    )
 }
 
 export default TransformJd
