@@ -61,12 +61,12 @@ function CandidateHeader() {
         >
           <li>My Resumes</li>
         </Link>
-        {/* <Link
-          href="/home/MyCollection"
-          className={selectedPage === "/home/MyCollection" ? "active" : "li"}
+        <Link
+          href="/transform/TransformJob"
+          className={selectedPage === "/transform/TransformJob" ? "active" : "li"}
         >
-          <li>My Resumes</li>
-        </Link> */}
+          <li>Transform for Job Description</li>
+        </Link>
 
 
       </div>
