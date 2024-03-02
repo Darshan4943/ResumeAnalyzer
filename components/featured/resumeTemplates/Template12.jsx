@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Document, Page, Text, View, StyleSheet, Image, Svg, Path, Rect, Font, Defs, ClipPath } from '@react-pdf/renderer';
 
-const Template12 = ({ data, selectedColor, selectedFont }) => {
+const Template12 = ({ data, selectedColor, selectedFont,preview }) => {
 
   return (
     <Page size="A4">
@@ -23,8 +23,14 @@ const Template12 = ({ data, selectedColor, selectedFont }) => {
             >
               {data.profilePhoto ? (
                 <Image
-                  src={{ uri: URL.createObjectURL(data.profilePhoto) }}
-                  style={{ width: 155, height: 155, borderRadius: 80 }}
+                src={
+                  preview
+                    ? data.profilePhoto
+                    : Object.keys(data?.profilePhoto).includes("filename")
+                    ? URL.createObjectURL(data.profilePhoto)
+                    : data.profilePhoto
+                }
+                  style={{ width: 155, height: 155, borderRadius: 80,objectFit:"contain" }}
                 />
               ) : (
                 <Image
@@ -235,7 +241,7 @@ const Template12 = ({ data, selectedColor, selectedFont }) => {
             </View>
           )}
           {data?.languages?.length > 0 && (
-            <View style={{ flexDirection: "column", width: "595", paddingBottom: 4, paddingLeft: 20, paddingTop: 8 }} key={index}>
+            <View style={{ flexDirection: "column", width: "595", paddingBottom: 4, paddingLeft: 20, paddingTop: 8 }}>
               <View style={{ flexDirection: "row", alignItems: "center", gap: 6 }}>
                 <Text style={{ fontSize: 16, fontFamily: `${selectedFont} 700`, color: "#495970", }}>LANGUAGES</Text>
                 <View style={{ backgroundColor: "#B5BCC5", width: "420", height: 1 }}></View>

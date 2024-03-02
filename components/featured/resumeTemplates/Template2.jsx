@@ -655,14 +655,20 @@ function Template2({ data, selectedColor, selectedFont, preview }) {
               border: "2px",
               padding: 8,
               backgroundColor: "#fff",
+              overflow:"hidden"
             }}
           >
             {data.profilePhoto ? (
-              <Image src={ preview
-                ? data.profilePhoto
-                : Object.keys(data?.profilePhoto).includes("filename")
-                ? URL.createObjectURL(data.profilePhoto)
-                : data.profilePhoto} />
+              <Image
+                src={
+                  preview
+                    ? data.profilePhoto
+                    : Object.keys(data?.profilePhoto).includes("filename")
+                    ? URL.createObjectURL(data.profilePhoto)
+                    : data.profilePhoto
+                }
+                style={{ objectFit: "contain" }}
+              />
             ) : (
               <Image src="/images/services/profile.png" />
             )}

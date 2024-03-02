@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Document, Page, Text, View, StyleSheet, Image, Svg, Path, Rect, Font, Defs, ClipPath } from '@react-pdf/renderer';
 
-function Template6({ data, selectedColor, selectedFont }) {
+function Template6({ data, selectedColor, selectedFont,preview }) {
   //   console.log(data)
   return (
     <Page size="A4">
@@ -15,7 +15,14 @@ function Template6({ data, selectedColor, selectedFont }) {
                   <View style={{ width: 154, height: 154, flexShrink: 0, backgroundColor: "lightgray", backgroundPosition: "center", backgroundSize: "cover", borderRadius: 77, overflow: "hidden" }}>
                     {data.profilePhoto ? (
                       <Image
-                        src={URL.createObjectURL(data.profilePhoto)}
+                      src={
+                        preview
+                          ? data.profilePhoto
+                          : Object.keys(data?.profilePhoto).includes("filename")
+                          ? URL.createObjectURL(data.profilePhoto)
+                          : data.profilePhoto
+                      }
+                      style={{ objectFit: "contain" }}
                         alt=""
                       />
                     ) : (

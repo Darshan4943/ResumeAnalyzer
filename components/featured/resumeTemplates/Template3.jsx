@@ -3,7 +3,7 @@ import { Document, Page, Text, View, Image, StyleSheet, Svg, Path } from '@react
 
 
 
-const Template3 = ({ data, selectedColor, selectedFont }) => (
+const Template3 = ({ data, selectedColor, selectedFont,preview }) => (
 
   <Page size="A4">
     
@@ -12,7 +12,14 @@ const Template3 = ({ data, selectedColor, selectedFont }) => (
         <View style={{ paddingTop: 21, paddingRight: 22, paddingLeft: 28 }}>
           <View style={{ width: 134, height: 134, flexShrink: 0, backgroundColor: 'lightgray', borderRadius: '50%', overflow: 'hidden' }}>
             {data.profilePhoto ? (
-              <Image src={URL.createObjectURL(data.profilePhoto)} />
+              <Image  src={
+                preview
+                  ? data.profilePhoto
+                  : Object.keys(data?.profilePhoto).includes("filename")
+                  ? URL.createObjectURL(data.profilePhoto)
+                  : data.profilePhoto
+              }
+              style={{ objectFit: "contain" }}/>
             ) : (
               <Image src="/images/services/profile.png" />
             )}

@@ -10,8 +10,7 @@ import {
   Path,
   Rect,
 } from "@react-pdf/renderer";
-function Template5({ data, selectedColor, selectedFont }) {
-
+function Template5({ data, selectedColor, selectedFont,preview }) {
   return (
     <Page size="A4">
       <View
@@ -31,7 +30,13 @@ function Template5({ data, selectedColor, selectedFont }) {
           <View>
             {data.profilePhoto ? (
               <Image
-                src={URL.createObjectURL(data.profilePhoto)}
+                src={
+                  preview
+                    ? data.profilePhoto
+                    : Object.keys(data?.profilePhoto).includes("filename")
+                    ? URL.createObjectURL(data.profilePhoto)
+                    : data.profilePhoto
+                }
                 style={{
                   height: "230.24px",
                   width: "183.71px",
@@ -416,7 +421,7 @@ function Template5({ data, selectedColor, selectedFont }) {
                                   color: "#414142",
                                   fontSize: "12px",
                                   width: "80px",
-                                  fontFamily: `${selectedFont} 300`
+                                  fontFamily: `${selectedFont} 300`,
                                 }}
                               >
                                 {detail.languages}
@@ -447,7 +452,6 @@ function Template5({ data, selectedColor, selectedFont }) {
               </>
             )}
           </View>
-
         </View>
         <View
           style={{
@@ -562,7 +566,8 @@ function Template5({ data, selectedColor, selectedFont }) {
                 }}
               >
                 {data?.education?.map((detail, index) => (
-                  <View key={index}
+                  <View
+                    key={index}
                     style={{
                       flexDirection: "column",
                     }}
@@ -572,7 +577,7 @@ function Template5({ data, selectedColor, selectedFont }) {
                         flexDirection: "row",
                         display: "flex",
                         gap: "4px",
-                        alignItems: "center"
+                        alignItems: "center",
                       }}
                     >
                       <Svg width={6} height={5} viewBox="0 0 6 5">
@@ -648,7 +653,8 @@ function Template5({ data, selectedColor, selectedFont }) {
                 }}
               >
                 {data?.experience?.map((detail, index) => (
-                  <View key={index}
+                  <View
+                    key={index}
                     style={{
                       flexDirection: "column",
                     }}
@@ -658,7 +664,7 @@ function Template5({ data, selectedColor, selectedFont }) {
                         flexDirection: "row",
                         display: "flex",
                         gap: "4px",
-                        alignItems: "center"
+                        alignItems: "center",
                       }}
                     >
                       <Svg width={6} height={5} viewBox="0 0 6 5">

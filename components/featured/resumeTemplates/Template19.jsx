@@ -11,7 +11,7 @@ import {
   Rect,
 } from "@react-pdf/renderer";
 
-function Template19({ data, selectedColor, selectedFont }) {
+function Template19({ data, selectedColor, selectedFont, preview }) {
   return (
     <Page size="A4" style={{ padding: 24 }}>
       <View
@@ -32,15 +32,34 @@ function Template19({ data, selectedColor, selectedFont }) {
               width: 172,
             }}
           >
-            <Image
-              src="/images/profile/john_doe.png"
-              style={{
-                width: 161,
-                height: 161,
-                borderRadius: "50%",
-                objectFit: "contain",
-              }}
-            />
+            {data.profilePhoto ? (
+              <Image
+                src={
+                  preview
+                    ? data.profilePhoto
+                    : Object.keys(data?.profilePhoto).includes("filename")
+                    ? URL.createObjectURL(data.profilePhoto)
+                    : data.profilePhoto
+                }
+                alt=""
+                style={{
+                  width: 161,
+                  height: 161,
+                  borderRadius: "50%",
+                  objectFit: "contain",
+                }}
+              />
+            ) : (
+              <Image
+                src="/images/profile/john_doe.png"
+                style={{
+                  width: 161,
+                  height: 161,
+                  borderRadius: "50%",
+                  objectFit: "contain",
+                }}
+              />
+            )}
 
             {data?.mobileNumber && (
               <View
@@ -259,7 +278,8 @@ function Template19({ data, selectedColor, selectedFont }) {
             }}
           >
             {data?.skills?.map((detail, index) => (
-              <View key={index}
+              <View
+                key={index}
                 style={{
                   display: "flex",
                   flexDirection: "column",
@@ -496,7 +516,8 @@ function Template19({ data, selectedColor, selectedFont }) {
                 }}
               >
                 {data.hobbies?.map((detail, index) => (
-                  <View key={index}
+                  <View
+                    key={index}
                     style={{
                       display: "flex",
                       flexDirection: "row",
@@ -586,7 +607,8 @@ function Template19({ data, selectedColor, selectedFont }) {
                   />
                 </Svg>
                 {data.experience?.map((detail, index) => (
-                  <View key={index}
+                  <View
+                    key={index}
                     style={{ display: "flex", flexDirection: "column", gap: 5 }}
                   >
                     <Text
