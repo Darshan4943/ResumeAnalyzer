@@ -277,7 +277,6 @@ function CreateResume() {
   //   hobbies: [],
   //   languages: [],
   // });
-  console.log(userData.data)
   return (
     <div>
       <div className=" bg-[#F9F9F9] pt-2 px-6">
@@ -302,7 +301,8 @@ function CreateResume() {
                 selectedColor={selectedColor}
                 setSelectedFont={setSelectedFont}
                 selectedFont={selectedFont}
-                s
+                isEdit={userData.isEdit}
+                id={JSON.parse(userData.data)._id}
               />
             </div>
           </div>

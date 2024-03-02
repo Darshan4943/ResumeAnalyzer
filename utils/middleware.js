@@ -89,7 +89,7 @@ export const generatePDFUsingRenderer = async (MyDocument) => {
 };
 
 
-export   const selectResumeTemplate = (index,data,selectedColor,selectedFont) => {
+export   const selectResumeTemplate = (index,data,selectedColor,selectedFont,preview) => {
   switch (index) {
     case 1:
       return (
@@ -97,6 +97,7 @@ export   const selectResumeTemplate = (index,data,selectedColor,selectedFont) =>
           data={data}
           selectedColor={selectedColor}
           selectedFont={selectedFont}
+          preview={preview}
         />
       );
     case 2:

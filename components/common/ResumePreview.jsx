@@ -2,13 +2,16 @@ import { BlobProvider, Document, PDFViewer } from "@react-pdf/renderer";
 import React from "react";
 import { selectResumeTemplate } from "../../utils/middleware";
 import { ClosedIcon } from "../../utils/svg";
-
+import Fonts from "../../public/fonts/fonts";
+// import { generatePDFUsingRenderer } from "../../../../utils/middleware";
+<Fonts />;
 const ResumePreview = ({
   selectedResumeIndex,
   data,
   selectedColor,
   selectedFont,
   setPreview,
+  preview
 }) => {
   console.log(selectedResumeIndex, data, selectedColor, selectedFont);
   return (
@@ -29,7 +32,8 @@ const ResumePreview = ({
                   selectedResumeIndex,
                   data,
                   selectedColor,
-                  selectedFont
+                  selectedFont,
+                  preview
                 )}
               </Document>
             </PDFViewer>

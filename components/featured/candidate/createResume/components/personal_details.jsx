@@ -162,8 +162,9 @@ useEffect(() => {
         firstName,
         lastName,
         email,
-        mobileNo: mobileNumber,
-        currentLocation,
+        mobileNumber: mobileNumber,
+        location,
+        designation
       } = data;
       setProfileData({
         ...profileData,
@@ -171,7 +172,8 @@ useEffect(() => {
         lastName,
         email,
         mobileNumber,
-        location: currentLocation,
+        location: location,
+        designation
       });
   }, [data]);
   return (
