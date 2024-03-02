@@ -28,10 +28,9 @@ export const Api = () => {
       if (token && token != "undefined") {
         const decoded = jwtDecode(token.token);
         axios
-          .get("https://freedygoservices.in/api/user/" + decoded._id)
+          .get("https://freedygoservices.in/api/skiloteckuser/user/" + decoded._id)
           .then((res) => {
             const decode = jwtDecode(res.data.data);
-            console.log(decode._doc)
             dispatch(
               userAction({
                 ...decode._doc,
