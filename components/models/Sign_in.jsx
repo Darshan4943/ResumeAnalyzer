@@ -108,11 +108,11 @@ function Sign_in({ setIsSignIn, handleGoogle }) {
                 />
               </svg>
             </div>
-            <div className="flex justify-end text-[#06A9EF] text-[12px] font-[500] cursor-pointer ">
+            {/* <div className="flex justify-end text-[#06A9EF] text-[12px] font-[500] cursor-pointer ">
               <a onClick={() => setIsForgot(true)} className="already_sign">
                 Forgot password?
               </a>
-            </div>
+            </div> */}
             {isForgot && (
               <>
                 <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
@@ -142,16 +142,12 @@ function Sign_in({ setIsSignIn, handleGoogle }) {
           >
             Sign In
           </button>
-          <div className="flex flex-row items-center justify-center gap-[6px]">
+          {/* <div className="flex flex-row items-center justify-center gap-[6px]">
             <div className="w-[50%] h-[1px] bg-[#9D9D9D]"></div>Or
             <div className="w-[50%] h-[1px] bg-[#9D9D9D]"></div>
-          </div>
+          </div> */}
           <div className="flex flex-col gap-[16px]">
-            {/* <Link
-              href={{
-                pathname: "/auth",
-                query: { signup: true },
-              }}> */}
+{/*       
             <div
               style={{ borderColor: "#9D9D9D" }}
               onClick={handleGoogle}
@@ -184,8 +180,7 @@ function Sign_in({ setIsSignIn, handleGoogle }) {
                 </g>
               </svg>
               Continue with Google
-            </div>
-            {/* </Link> */}
+            </div> */}
             <div className="text-[12px]">
               By signing in, you agree to our{" "}
               <span

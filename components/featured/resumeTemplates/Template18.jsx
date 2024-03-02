@@ -600,7 +600,7 @@ const Template18 = ({ data ,selectedColor,selectedFont }) => {
               }}
             >
               {data?.experience?.map((detail, index) => (
-                <View
+                <View key={index}
                   style={{
                     display: "flex",
                     flexDirection: "row",
@@ -728,7 +728,7 @@ const Template18 = ({ data ,selectedColor,selectedFont }) => {
               }}
             >
               {data?.education?.map((detail, index) => (
-                <View
+                <View key={index}
                   style={{
                     display: "flex",
                     flexDirection: "row",

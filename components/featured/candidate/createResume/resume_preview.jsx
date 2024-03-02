@@ -1,11 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
-import generatePDF from "react-to-pdf";
-import html2canvas from "html2canvas";
 import axios from "axios";
-import AWS from "aws-sdk";
 import ReactDOMServer from "react-dom/server";
-import jsPDF from "jspdf";
-import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
 import {
@@ -15,7 +10,6 @@ import {
   Page,
   BlobProvider,
 } from "@react-pdf/renderer";
-import Sample from "../../resumeTemplates/Template1";
 import Template1 from "../../resumeTemplates/Template1";
 import Template2 from "../../resumeTemplates/Template2";
 import Template3 from "../../resumeTemplates/Template3";
@@ -28,54 +22,18 @@ import Template12 from "../../resumeTemplates/Template12";
 import Template15 from "../../resumeTemplates/Template15";
 import Template18 from "../../resumeTemplates/Template18";
 import Template17 from "../../resumeTemplates/Template17";
-import Template24 from "../../resumeTemplates/Template24";
 import Template8 from "../../resumeTemplates/Template8";
-import Template28 from "../../resumeTemplates/Template28";
-
-import Template30 from "../../resumeTemplates/Template30";
 import Template10 from "../../resumeTemplates/Template10";
-import Template29 from "../../resumeTemplates/Template29";
-import Template33 from "../../resumeTemplates/Template33";
-import Template32 from "../../resumeTemplates/Template32";
-import Template38 from "../../resumeTemplates/Template38";
-import Template31 from "../../resumeTemplates/Template31";
-import Template36 from "../../resumeTemplates/Template36";
 import Template20 from "../../resumeTemplates/Template20";
 import Template11 from "../../resumeTemplates/Template11";
 import Template19 from "../../resumeTemplates/Template19";
-import Template25 from "../../resumeTemplates/Template25";
-import Template39 from "../../resumeTemplates/Template39";
-import Template40 from "../../resumeTemplates/Template40";
-import Template35 from "../../resumeTemplates/Template35";
-import Template37 from "../../resumeTemplates/Template37";
-import Template41 from "../../resumeTemplates/Template41";
-import Template42 from "../../resumeTemplates/Template42";
-import Template43 from "../../resumeTemplates/Template43";
-import Template49 from "../../resumeTemplates/Template49";
-import Template51 from "../../resumeTemplates/Template51";
-import Template53 from "../../resumeTemplates/Template53";
-import Template54 from "../../resumeTemplates/Template54";
-import Template55 from "../../resumeTemplates/Template55";
 import Template13 from "../../resumeTemplates/Template13";
-import Template34 from "../../resumeTemplates/Template34";
-import Template44 from "../../resumeTemplates/Template44";
-import Template47 from "../../resumeTemplates/Template47";
+
 import Template14 from "../../resumeTemplates/Template14";
 import Template16 from "../../resumeTemplates/Template16";
-import Template21 from "../../resumeTemplates/Template21";
-import Template22 from "../../resumeTemplates/Template22";
-import Template23 from "../../resumeTemplates/Template23";
-import Template26 from "../../resumeTemplates/Template26";
-import Template27 from "../../resumeTemplates/Template27";
-import Template45 from "../../resumeTemplates/Template45";
 
-import Template48 from "../../resumeTemplates/Template48";
-import Template50 from "../../resumeTemplates/Template50";
-import Template56 from "../../resumeTemplates/Template56";
-import { reCallUserData } from "../../../../Redux/actions/user";
 
 import Fonts from "../../../../public/fonts/fonts";
-import MiniLoader from "../../../common/mini-loader";
 import { ClosedIcon } from "../../../../utils/svg";
 // import { generatePDFUsingRenderer } from "../../../../utils/middleware";
 <Fonts />;
@@ -692,279 +650,6 @@ const ResumePreview = ({
       case 20:
         return (
           <Template20
-            data={data}
-            selectedColor={selectedColor}
-            selectedFont={selectedFont}
-          />
-        );
-      case 21:
-        return (
-          <Template21
-            data={data}
-            selectedColor={selectedColor}
-            selectedFont={selectedFont}
-          />
-        );
-      case 22:
-        return (
-          <Template22
-            data={data}
-            selectedColor={selectedColor}
-            selectedFont={selectedFont}
-          />
-        );
-      case 23:
-        return (
-          <Template23
-            data={data}
-            selectedColor={selectedColor}
-            selectedFont={selectedFont}
-          />
-        );
-      case 24:
-        return (
-          <Template24
-            data={data}
-            selectedColor={selectedColor}
-            selectedFont={selectedFont}
-          />
-        );
-      case 25:
-        return (
-          <Template25
-            data={data}
-            selectedColor={selectedColor}
-            selectedFont={selectedFont}
-          />
-        );
-      case 26:
-        return (
-          <Template26
-            data={data}
-            selectedColor={selectedColor}
-            selectedFont={selectedFont}
-          />
-        );
-      case 27:
-        return (
-          <Template27
-            data={data}
-            selectedColor={selectedColor}
-            selectedFont={selectedFont}
-          />
-        );
-      case 28:
-        return (
-          <Template28
-            data={data}
-            selectedColor={selectedColor}
-            selectedFont={selectedFont}
-          />
-        );
-      case 29:
-        return (
-          <Template29
-            data={data}
-            selectedColor={selectedColor}
-            selectedFont={selectedFont}
-          />
-        );
-      case 30:
-        return (
-          <Template30
-            data={data}
-            selectedColor={selectedColor}
-            selectedFont={selectedFont}
-          />
-        );
-      case 31:
-        return (
-          <Template31
-            data={data}
-            selectedColor={selectedColor}
-            selectedFont={selectedFont}
-          />
-        );
-      case 32:
-        return (
-          <Template32
-            data={data}
-            selectedColor={selectedColor}
-            selectedFont={selectedFont}
-          />
-        );
-      case 33:
-        return (
-          <Template33
-            data={data}
-            selectedColor={selectedColor}
-            selectedFont={selectedFont}
-          />
-        );
-      case 34:
-        return (
-          <Template34
-            data={data}
-            selectedColor={selectedColor}
-            selectedFont={selectedFont}
-          />
-        );
-      case 35:
-        return (
-          <Template35
-            data={data}
-            selectedColor={selectedColor}
-            selectedFont={selectedFont}
-          />
-        );
-      case 36:
-        return (
-          <Template36
-            data={data}
-            selectedColor={selectedColor}
-            selectedFont={selectedFont}
-          />
-        );
-      case 37:
-        return (
-          <Template37
-            data={data}
-            selectedColor={selectedColor}
-            selectedFont={selectedFont}
-          />
-        );
-      case 38:
-        return (
-          <Template38
-            data={data}
-            selectedColor={selectedColor}
-            selectedFont={selectedFont}
-          />
-        );
-      case 39:
-        return (
-          <Template39
-            data={data}
-            selectedColor={selectedColor}
-            selectedFont={selectedFont}
-          />
-        );
-      case 40:
-        return (
-          <Template40
-            data={data}
-            selectedColor={selectedColor}
-            selectedFont={selectedFont}
-          />
-        );
-      case 41:
-        return (
-          <Template41
-            data={data}
-            selectedColor={selectedColor}
-            selectedFont={selectedFont}
-          />
-        );
-      case 42:
-        return (
-          <Template42
-            data={data}
-            selectedColor={selectedColor}
-            selectedFont={selectedFont}
-          />
-        );
-      case 43:
-        return (
-          <Template43
-            data={data}
-            selectedColor={selectedColor}
-            selectedFont={selectedFont}
-          />
-        );
-      case 44:
-        return (
-          <Template44
-            data={data}
-            selectedColor={selectedColor}
-            selectedFont={selectedFont}
-          />
-        );
-      case 45:
-        return (
-          <Template45
-            data={data}
-            selectedColor={selectedColor}
-            selectedFont={selectedFont}
-          />
-        );
-      case 47:
-        return (
-          <Template47
-            data={data}
-            selectedColor={selectedColor}
-            selectedFont={selectedFont}
-          />
-        );
-      case 48:
-        return (
-          <Template48
-            data={data}
-            selectedColor={selectedColor}
-            selectedFont={selectedFont}
-          />
-        );
-      case 49:
-        return (
-          <Template49
-            data={data}
-            selectedColor={selectedColor}
-            selectedFont={selectedFont}
-          />
-        );
-      case 50:
-        return (
-          <Template50
-            data={data}
-            selectedColor={selectedColor}
-            selectedFont={selectedFont}
-          />
-        );
-      case 51:
-        return (
-          <Template51
-            data={data}
-            selectedColor={selectedColor}
-            selectedFont={selectedFont}
-          />
-        );
-      case 53:
-        return (
-          <Template53
-            data={data}
-            selectedColor={selectedColor}
-            selectedFont={selectedFont}
-          />
-        );
-      case 54:
-        return (
-          <Template54
-            data={data}
-            selectedColor={selectedColor}
-            selectedFont={selectedFont}
-          />
-        );
-      case 56:
-        return (
-          <Template56
-            data={data}
-            selectedColor={selectedColor}
-            selectedFont={selectedFont}
-          />
-        );
-
-      default:
-        return (
-          <Template1
             data={data}
             selectedColor={selectedColor}
             selectedFont={selectedFont}

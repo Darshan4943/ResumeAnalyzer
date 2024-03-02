@@ -64,7 +64,7 @@ const Template3 = ({ data, selectedColor, selectedFont }) => (
             </View>
             <View style={{ flexDirection: 'column', paddingLeft: 16, paddingTop: 20, gap: 8 }}>
               {data.skills.map((detail, index) => (
-                <Text style={{ color: 'white', fontSize: 12, fontFamily: `${selectedFont} 400` }}>
+                <Text key={index} style={{ color: 'white', fontSize: 12, fontFamily: `${selectedFont} 400` }}>
                   {detail.skill}
                 </Text>
               ))}
@@ -73,7 +73,7 @@ const Template3 = ({ data, selectedColor, selectedFont }) => (
         )}
 
         {data?.languages?.length > 0 && (
-          <View style={{}}>
+          <View key={index} style={{}}>
             <View style={{ paddingLeft: -1, height: 27, alignItems: 'center', flexDirection: 'row' }}>
               <Svg width={125} viewBox="0 0 125 27" fill="none">
                 <Path d="M112.176 26.999H0.000488281V-0.000976562H112.176C119.258 -0.000976562 125 6.04269 125 13.499C125 20.9554 119.258 26.999 112.176 26.999Z" fill="white" />
@@ -82,7 +82,7 @@ const Template3 = ({ data, selectedColor, selectedFont }) => (
             </View>
             <View style={{ flexDirection: 'column', paddingLeft: 16, paddingTop: 20, gap: 8 }}>
               {data.languages.map((detail, index) => (
-                <Text style={{ color: 'white', fontSize: 12, fontFamily: `${selectedFont} 400` }}>
+                <Text  key={index} style={{ color: 'white', fontSize: 12, fontFamily: `${selectedFont} 400` }}>
                   {detail.languages}
                 </Text>
               ))}
@@ -90,7 +90,7 @@ const Template3 = ({ data, selectedColor, selectedFont }) => (
           </View>
         )}
         {data?.hobbies?.length > 0 && (
-          <View style={{}}>
+          <View  key={index}style={{}}>
             <View style={{ paddingLeft: -1, height: 27, alignItems: 'center', flexDirection: 'row' }}>
               <Svg width={125} viewBox="0 0 125 27" fill="none">
                 <Path d="M112.176 26.999H0.000488281V-0.000976562H112.176C119.258 -0.000976562 125 6.04269 125 13.499C125 20.9554 119.258 26.999 112.176 26.999Z" fill="white" />
@@ -99,7 +99,7 @@ const Template3 = ({ data, selectedColor, selectedFont }) => (
             </View>
             <View style={{ flexDirection: 'column', paddingLeft: 16, paddingTop: 20, gap: 8 }}>
               {data.hobbies.map((detail, index) => (
-                <Text style={{ color: 'white', fontSize: 8.96, fontFamily: `${selectedFont} 400` }}>
+                <Text  key={index} style={{ color: 'white', fontSize: 8.96, fontFamily: `${selectedFont} 400` }}>
                   {detail.title}
                 </Text>
               ))}
@@ -137,7 +137,7 @@ const Template3 = ({ data, selectedColor, selectedFont }) => (
           </Svg>
           <View style={{ flexDirection: 'column', gap: 12, paddingLeft: '20px', }}>
             {data.education.map((detail, index) => (
-              <View style={{ flexDirection: 'column', gap: 8 }}>
+              <View key={index} style={{ flexDirection: 'column', gap: 8 }}>
                 <View style={{}}>
                   <Text style={{ color: '#414042', fontSize: '14', fontFamily: `${selectedFont} 700` }}>
                     {detail.qualification}
@@ -162,7 +162,7 @@ const Template3 = ({ data, selectedColor, selectedFont }) => (
             <Text x="10%" y="55%" dominantBaseline="middle" textAnchor="start" fill="white" fontSize={15} fontFamily={`${selectedFont} 400`} >EXPERIENCE </Text>
           </Svg>
           {data.experience.map((detail, index) => (
-            <View style={{ flexDirection: 'column', gap: 12,  }}>
+            <View  key={index}style={{ flexDirection: 'column', gap: 12,  }}>
               <View style={{ flexDirection: 'column', gap: 8,  }}>
                 <Text style={{ color: '#414142', paddingLeft: '18px', fontSize: '14', fontFamily: `${selectedFont} 700` }}>
                   {detail.organization}

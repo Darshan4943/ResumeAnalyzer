@@ -194,7 +194,7 @@ function Template11({ data, selectedColor, selectedFont }) {
                 Experience
               </Text>
               {data.experience.map((detail, index) => (
-                <View style={{ flexDirection: 'row', gap: 30 ,width:"90%"}}>
+                <View style={{ flexDirection: 'row', gap: 30 ,width:"90%"}} key={index}>
                   <View style={{ flexDirection: 'row', gap: 16 }}>
                     <View style={{ flexDirection: 'column', gap: 5, width: 124 }}>
                       <Text style={{ color: '#000000', fontSize: 12, fontFamily: `${selectedFont} 400`, }}>
@@ -234,7 +234,7 @@ function Template11({ data, selectedColor, selectedFont }) {
                 Education
               </Text>
               {data?.education?.map((detail, index) => (
-                <View style={{ flexDirection: 'row', gap: 30 }}>
+                <View style={{ flexDirection: 'row', gap: 30 }} key={index}>
                   <View style={{ flexDirection: 'row', gap: 16 }}>
                     <View style={{ flexDirection: 'column', gap: 5, width: 124 }}>
                       <Text style={{ color: '#000000', fontSize: 12, fontFamily: `${selectedFont} 400`, }}>
@@ -273,7 +273,7 @@ function Template11({ data, selectedColor, selectedFont }) {
                 Course and certification
               </Text>
               {data?.course?.map((detail, index) => (
-                <View style={{ flexDirection: 'row', gap: 30 }}>
+                <View style={{ flexDirection: 'row', gap: 30 }} key={index}>
                   <View style={{ flexDirection: 'row', gap: 16 }}>
                     <View style={{ flexDirection: 'column', gap: 5, width: 124 }}>
                       <Text style={{ color: '#000000', fontSize: 12, fontFamily: `${selectedFont} 400`, }}>

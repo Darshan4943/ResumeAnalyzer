@@ -42,8 +42,8 @@ function CreateResume() {
     firstName: "John",
     lastName: "Doe",
     mobileNumber: 9325795236,
-    email: "prathmeshjadhav1014@gmail.com",
-    location: "Abd",
+    email: "demo@gmail.com",
+    location: "Demo",
     summary: "",
     showSummary: true,
     education: [
@@ -106,8 +106,8 @@ function CreateResume() {
     showExperience: true,
     course: [
       {
-        courseName: "asdsad",
-        issuedBy: "asd",
+        courseName: "Demo Course",
+        issuedBy: "Demo Institute",
         discription: "",
         duration: {
           start: {
@@ -143,44 +143,25 @@ function CreateResume() {
         skill: "Angular",
         rating: [5, 5, 5, 5, 5],
       },
-      {
-        skill: "Express.Js",
-        rating: [5, 5, 5, 5, 5],
-      },
-      {
-        skill: "Aws",
-        rating: [5, 5, 5, 5, 5],
-      },
+     
     ],
     achievement: [],
     sociaLinks: [],
     hobbies: [
       {
-        title: "asdasd",
+        title: "Dancing",
       },
       {
-        title: "asd",
+        title: "Writting",
       },
-      {
-        title: "asd",
-      },
-      {
-        title: "adaf",
-      },
+     
     ],
     languages: [
       {
-        languages: "asd",
+        languages: "English",
         rating: [3, 3, 3],
       },
-      {
-        languages: "asd",
-        rating: [3, 3, 3],
-      },
-      {
-        languages: "asd",
-        rating: [3, 3, 3],
-      },
+     
     ],
     summery:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make",

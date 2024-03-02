@@ -68,7 +68,7 @@ function Template16({ data,selectedColor,selectedFont }) {
   
                 <View>
                   {data?.experience?.map((detail, index) => (
-                    <View style={{ display: "flex", flexDirection: "column", }}>
+                    <View  key={index} style={{ display: "flex", flexDirection: "column", }}>
                       <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
                         <Text style={{ fontFamily: `${selectedFont} 700`, fontSize: 14, color: "#161616" }}>{detail.designation}</Text>
                         <Text style={{ fontFamily: `${selectedFont} 500`, fontSize: 10, color: "#AC5428" }}>{detail.duration?.start?.year} - {detail.duration?.end?.year == undefined || "Year" ? "Present" : detail.duration?.end?.year}</Text>
@@ -98,7 +98,7 @@ function Template16({ data,selectedColor,selectedFont }) {
   
               <View style={{ display: "flex", flexDirection: "column", gap: 24 }} >
                 {data?.education?.map((detail, index) => (
-                  <View style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+                  <View key={index} style={{ display: "flex", flexDirection: "column", gap: 4 }}>
                     <Text style={{ fontFamily: `${selectedFont} 700`, fontSize: 10, color: "#161616" }}>{detail.qualification}</Text>
                     <Text style={{ fontFamily: `${selectedFont} 500`, fontSize: 10, color: "#161616" }}>{detail.specialization}</Text>
                     <Text style={{ fontFamily: `${selectedFont} 400`, fontSize: 10, color: "#010101" }}>{detail.instituteName}</Text>

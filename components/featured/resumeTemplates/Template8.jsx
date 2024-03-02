@@ -145,7 +145,7 @@ function Template8({ data, selectedColor, selectedFont }) {
                                     <Text style={{ padding: '5px 0px 5px 10px', fontSize: 14, fontFamily: `${selectedFont} 400`,color:"white" }}>SKILLS</Text>
                                 </View>
                                 {data?.skills?.map((detail, index) => (
-                                    <View style={{ display: 'flex', flexDirection: 'column', gap: 14, wordBreak: "break-word", width: 222 }}>
+                                    <View key={index} style={{ display: 'flex', flexDirection: 'column', gap: 14, wordBreak: "break-word", width: 222 }}>
                                         <View style={{ display: 'flex', flexDirection: 'row', gap: 12, alignItems: 'center', justifyContent: 'space-between', width: '90%' }}>
                                             <View style={{ Width: "60%", flexWrap: 'wrap', wordBreak: "break-word" }}>
                                                 <Text style={{ fontSize: 10, fontFamily: `${selectedFont} 400`, color: '#000000', wordBreak: "break-word", width: 116 }}>{detail.skill}</Text>
@@ -209,7 +209,7 @@ function Template8({ data, selectedColor, selectedFont }) {
                                     <Text style={{ padding: '5px 0px 5px 10px', fontSize: 14, fontFamily: `${selectedFont} 400`,color:"white" }}>EXPERIENCE</Text>
                                 </View>
                                 {data.experience?.map((detail, index) => (
-                                    <View style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                                    <View key={index} style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
                                         <Text style={{ fontSize: 12, fontFamily: `${selectedFont} 700`, color: '#000000', }}>{detail.designation} | {" "}{detail.duration?.start?.year}-{" "}{detail.currentlyWorking ? "Present" : detail.duration?.end?.year}</Text>
                                         <Text style={{ fontSize: 12, fontFamily: `${selectedFont} 500`, color: '#000000', }}>{detail.organization} | {detail.location}</Text>
                                         <Text style={{ fontSize: 10, fontFamily: `${selectedFont} 500`, color: '#000000', }}>{detail.description} </Text>

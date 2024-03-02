@@ -562,7 +562,7 @@ function Template5({ data, selectedColor, selectedFont }) {
                 }}
               >
                 {data?.education?.map((detail, index) => (
-                  <View
+                  <View key={index}
                     style={{
                       flexDirection: "column",
                     }}
@@ -648,7 +648,7 @@ function Template5({ data, selectedColor, selectedFont }) {
                 }}
               >
                 {data?.experience?.map((detail, index) => (
-                  <View
+                  <View key={index}
                     style={{
                       flexDirection: "column",
                     }}

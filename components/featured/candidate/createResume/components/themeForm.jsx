@@ -134,7 +134,7 @@ function ThemeForm({
         <div className=" flex  gap-2 ">
           <div className=" flex flex-wrap gap-2">
             {THEME_COLORS.map((color, idx) => (
-              <div
+              <div key={idx}
                 className={`${
                   selectedColor === color ? "border" : ""
                 } rounded-[7px] h-[36px] w-[36px]   border-[#06A9EF] p-[2px] transition-transform duration-300 ease-in-out hover:scale-110`}

@@ -146,7 +146,7 @@ const Template12 = ({ data, selectedColor, selectedFont }) => {
             </View>
             <View style={{ width: "525", flexDirection: "row", gap: 6 }}>
               {data?.experience?.map((detail, index) => (
-                <View style={{ flexDirection: "column", gap: 6, width: "370" }}>
+                <View style={{ flexDirection: "column", gap: 6, width: "370" }} key={index}>
                   <Text style={{ fontSize: 10, fontFamily: `${selectedFont} 400`, color: "#495970" }}>
                     {detail.duration?.start?.year}-{" "}
                     {detail.currentlyWorking
@@ -226,7 +226,7 @@ const Template12 = ({ data, selectedColor, selectedFont }) => {
               </View>
               <View style={{ flexDirection: "row", flexWrap: "wrap", width: 595, gap: 6, paddingTop: 10 }}>
                 {data.hobbies?.map((detail, index) => (
-                  <View style={{ flexDirection: "row", alignItems: "center", gap: 4, width: 130, fontSize: 10 }}>
+                  <View key={index} style={{ flexDirection: "row", alignItems: "center", gap: 4, width: 130, fontSize: 10 }}>
                     <Text style={{ color: "#282829", }}>&#8226;</Text>
                     <Text style={{ color: "#282829", fontFamily: `${selectedFont} 400` }}>{detail.title}</Text>
                   </View>
@@ -235,7 +235,7 @@ const Template12 = ({ data, selectedColor, selectedFont }) => {
             </View>
           )}
           {data?.languages?.length > 0 && (
-            <View style={{ flexDirection: "column", width: "595", paddingBottom: 4, paddingLeft: 20, paddingTop: 8 }}>
+            <View style={{ flexDirection: "column", width: "595", paddingBottom: 4, paddingLeft: 20, paddingTop: 8 }} key={index}>
               <View style={{ flexDirection: "row", alignItems: "center", gap: 6 }}>
                 <Text style={{ fontSize: 16, fontFamily: `${selectedFont} 700`, color: "#495970", }}>LANGUAGES</Text>
                 <View style={{ backgroundColor: "#B5BCC5", width: "420", height: 1 }}></View>

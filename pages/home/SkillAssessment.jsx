@@ -190,7 +190,7 @@ console.log(47,selectedSkill)
                   </div>
                   <div className="max-h-[388px] ml:h-[388px] w-full overflow-auto ">
                     {assessmentList?.map((item) => (
-                      <div className="border-b border-solid border-[#DEDEDE] w-full">
+                      <div key={index} className="border-b border-solid border-[#DEDEDE] w-full">
                         <div class="flex flex-col-reverse text-center  ml:flex-row ml:gap-[14px] py-[8px] px-[16px] w-[90%] ml:w-full items-center self-stretch ">
                           <div className="w-full flex justify-between gap-[12px]">
                             <div className="flex  gap-3 items-center self-stretch ">

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import Images from "../../components/featured/home/images";
-import GenerateAi from "../../components/featured/home/generateAi";
+import GenerateAi from "../../components/featured/home/GenerateAi";
 import { useRouter } from "next/router";
 import ImgCarousel from "../../components/featured/home/ImgCarousel";
 import SkillAssessment from "../../components/featured/home/SkillAssessment";

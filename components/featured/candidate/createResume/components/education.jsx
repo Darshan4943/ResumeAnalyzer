@@ -89,7 +89,7 @@ const Education = ({ setData, data }) => {
           </label>
         </div>
         {data?.education.map((edu, index) => (
-          <div className="flex flex-col gap-1 p-2 rounded-[6px] border border-[#DEDEDE] break-all">
+          <div key={index} className="flex flex-col gap-1 p-2 rounded-[6px] border border-[#DEDEDE] break-all">
             <div className="flex justify-between">
               <p className="text-[14px]">
                 {edu.qualification} | {edu.duration?.start?.year} {edu.duration?.start?.year && "-"}

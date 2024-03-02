@@ -82,7 +82,7 @@ function Template20({ data ,selectedColor,selectedFont }) {
               <Text style={{ fontSize: 12,fontFamily: `${selectedFont} 500`, color: '#282627' }}>EDUCATION</Text>
               {data?.education?.map((detail, index) => (
 
-              <View style={{ display: 'flex', flexDirection: 'row', gap: 5 }}>
+              <View key={index} style={{ display: 'flex', flexDirection: 'row', gap: 5 }}>
                 <Svg width="6" height="7" viewBox="0 0 6 7" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <Path d="M3 6.5C4.65685 6.5 6 5.15685 6 3.5C6 1.84315 4.65685 0.5 3 0.5C1.34315 0.5 0 1.84315 0 3.5C0 5.15685 1.34315 6.5 3 6.5Z" fill="#5E5F5E" />
                 </Svg>
@@ -135,7 +135,7 @@ function Template20({ data ,selectedColor,selectedFont }) {
                   const zerosCount = calculateWidthPercentage(detail.rating);
 
                   return (
-                    <View style={{ width: 130, display: 'flex', flexDirection: 'row', alignItems: "center" }}>
+                    <View key={index} style={{ width: 130, display: 'flex', flexDirection: 'row', alignItems: "center" }}>
                       <Text style={{ width: 55, fontSize: 10,fontFamily: `${selectedFont} 400`, color: '#6D6E71' }}>{detail.languages}</Text>
 
                       <View style={{ width: 55 }}>
@@ -179,7 +179,7 @@ function Template20({ data ,selectedColor,selectedFont }) {
             <View style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
               <Text style={{ fontSize: 12, fontFamily: `${selectedFont} 500`, color: '#282627' }}>EXPERIENCE</Text>
               {data.experience?.map((detail, index) => (
-                <View style={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
+                <View key={index} style={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
                   <Text style={{ fontFamily: `${selectedFont} 700`, fontSize: 10, color: '#2C363D' }}>{detail.designation} </Text>
                   <Text style={{ fontFamily: `${selectedFont} 600`, fontSize: 10, color: '#939598' }}>{detail.duration?.start?.year}-{" "}{detail.currentlyWorking ? "Present" : detail.duration?.end?.year}</Text>
                   <Text style={{ fontFamily: `${selectedFont} 400`, fontSize: 10, color: '#6D6E71' }}>{detail.description} </Text>
@@ -206,7 +206,7 @@ function Template20({ data ,selectedColor,selectedFont }) {
                     const zerosCount = calculateWidthPercentage(detail.rating);
 
                     return (
-                      <View style={{ width: 130, display: 'flex', flexDirection: 'row', alignItems: "center" }}>
+                      <View key={index} style={{ width: 130, display: 'flex', flexDirection: 'row', alignItems: "center" }}>
                         <Text style={{ width: 55, fontSize: 10,fontFamily: `${selectedFont} 400`, color: '#6D6E71' }}>{detail.skill}</Text>
 
                         <View style={{ width: 55 }}>

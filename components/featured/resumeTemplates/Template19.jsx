@@ -259,7 +259,7 @@ function Template19({ data, selectedColor, selectedFont }) {
             }}
           >
             {data?.skills?.map((detail, index) => (
-              <View
+              <View key={index}
                 style={{
                   display: "flex",
                   flexDirection: "column",
@@ -496,7 +496,7 @@ function Template19({ data, selectedColor, selectedFont }) {
                 }}
               >
                 {data.hobbies?.map((detail, index) => (
-                  <View
+                  <View key={index}
                     style={{
                       display: "flex",
                       flexDirection: "row",
@@ -586,7 +586,7 @@ function Template19({ data, selectedColor, selectedFont }) {
                   />
                 </Svg>
                 {data.experience?.map((detail, index) => (
-                  <View
+                  <View key={index}
                     style={{ display: "flex", flexDirection: "column", gap: 5 }}
                   >
                     <Text

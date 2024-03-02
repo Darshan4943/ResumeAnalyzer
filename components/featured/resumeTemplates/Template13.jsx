@@ -147,7 +147,7 @@ function Template13({ data,selectedColor,selectedFont  }) {
                                 Work experience
                             </Text>
                             {data.experience.map((detail, index) => (
-                                <View style={{ flexDirection: "column", gap: 16 }}  >
+                                <View key={index} style={{ flexDirection: "column", gap: 16 }}  >
                                     <Text
                                         style={{
                                             fontSize: 18,
@@ -193,7 +193,7 @@ function Template13({ data,selectedColor,selectedFont  }) {
                                     Education & Learning
                                 </Text>
                                 {data.education.map((detail, index) => (
-                                    <View style={{ flexDirection: "column", gap: 8 }}>
+                                    <View  key={index} style={{ flexDirection: "column", gap: 8 }}>
                                         <Text
                                             style={{
                                                 fontSize: 16,
@@ -234,7 +234,7 @@ function Template13({ data,selectedColor,selectedFont  }) {
                                     <View style={{ flexDirection: "row", gap: 2, flexWrap: "wrap" }}>
                                         {data.skills.map((detail, index) => (
 
-                                            <Text
+                                            <Text key={index}
                                                 style={{
                                                     fontSize: 14,
                                                    fontFamily: `${selectedFont} 400`,
@@ -265,7 +265,7 @@ function Template13({ data,selectedColor,selectedFont  }) {
                                     <View style={{ flexDirection: "row", gap: 2, flexWrap: "wrap" }}>
                                         {data.languages.map((detail, index) => (
 
-                                            <Text
+                                            <Text key={index}
                                                 style={{
                                                     fontSize: 14,
                                                    fontFamily: `${selectedFont} 400`,
@@ -296,7 +296,7 @@ function Template13({ data,selectedColor,selectedFont  }) {
                                     <View style={{ flexDirection: "row", gap: 2, flexWrap: "wrap" }}>
                                         {data.hobbies.map((detail, index) => (
 
-                                            <Text
+                                            <Text key={index}
                                                 style={{
                                                     fontSize: 14,
                                                    fontFamily: `${selectedFont} 400`,

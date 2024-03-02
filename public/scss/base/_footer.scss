@@ -6,7 +6,7 @@
   background: #212121;
   display: flex;
   width: 100%;
-  align-items: start;
+  align-items: flex-start;
   gap: 24px;
   justify-content: center;
   align-items: center;
@@ -271,7 +271,7 @@
   .Footer_secondContainer{
     display: flex;
     width: 100% !important;
-  align-items: start !important;
+  align-items: flex-start !important;
   justify-content:  space-between !important;
 
   }

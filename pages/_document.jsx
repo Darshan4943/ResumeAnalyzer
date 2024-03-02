@@ -16,7 +16,6 @@ export default class MyDocument extends Document {
                 </Head>
                 <body>
                     <Main />
-                    <script src="js/jquery.min.js"></script>
                     <NextScript />
                 </body>
             </Html>

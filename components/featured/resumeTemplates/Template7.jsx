@@ -70,8 +70,8 @@ function Template7({ data, selectedColor, selectedFont }) {
                     <Text style={{ fontSize: 14, fontFamily: `${selectedFont} 700`, color: '#222933' }}>HOBBIES</Text>
                     <View style={{ display: 'flex', gap: 10, flexDirection: 'column' }}>
                       {data?.hobbies?.map((item, index) => (
-                        <View style={{ display: 'flex', flexDirection: 'row', gap: 10, width: 158, alignItems:"center", width: "100%" }}>
-                          <Svg width="4" height="4" viewBox="0 0 4 4" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <View  key={index} style={{ display: 'flex', flexDirection: 'row', gap: 10, width: 158, alignItems:"center", width: "100%" }}>
+                          <Svg width="4"  height="4" viewBox="0 0 4 4" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <Path fill-rule="evenodd" clip-rule="evenodd" d="M2.00001 0C0.895838 0 0 0.894449 0 2.00001C0 3.10417 0.895838 4 2.00001 4C3.10417 4 4.00001 3.10417 4.00001 2.00001C4.00001 0.895838 3.10556 0 2.00001 0Z" fill="#2A2E31" />
                           </Svg>
 
@@ -90,10 +90,10 @@ function Template7({ data, selectedColor, selectedFont }) {
                     <Text style={{ fontSize: 14, fontFamily: `${selectedFont} 700`, color: '#222933' }}>COURSES</Text>
                     <View style={{ display: 'flex', gap: 6, flexDirection: 'column' }}>
                       {data?.course?.map((detail, index) => (
-                        <>
+                        <View key={index}>
                           <Text style={{ fontSize: '12px', fontFamily: `${selectedFont} 600`, color: '#222933' }}>{detail?.courseName} </Text>
                           <Text style={{ fontSize: '10px', fontFamily: `${selectedFont} 500`, color: '#828186' }}>{detail?.issuedBy} </Text>
-                        </>
+                        </View>
                       ))}
                     </View>
                   </View>
@@ -124,7 +124,7 @@ function Template7({ data, selectedColor, selectedFont }) {
                     <Text style={{ fontSize: 14, fontFamily: `${selectedFont} 700`, color: '#222933' }}>SKILLS</Text>
                     <View style={{ display: 'flex', gap: 10, flexDirection: 'column' }}>
                       {data?.skills?.map((detail, index) => (
-                        <View style={{ display: 'flex', flexDirection: 'row', gap: 10, width: 158, justifyContent: "space-between", width: "100%" }}>
+                        <View key={index} style={{ display: 'flex', flexDirection: 'row', gap: 10, width: 158, justifyContent: "space-between", width: "100%" }}>
                           <Text style={{ width: 48, fontSize: '10px', fontFamily: `${selectedFont} 400`, color: '#828186' }}>{detail.skill}</Text>
 
                           <View style={{ width: 90, justifyContent: 'space-between', display: 'flex', flexDirection: 'row' }}>
@@ -156,7 +156,7 @@ function Template7({ data, selectedColor, selectedFont }) {
                     <Text style={{ fontSize: 14, fontFamily: `${selectedFont} 700`, color: '#222933' }}>LANGUAGES</Text>
                     <View style={{ display: 'flex', gap: 10, flexDirection: 'column' }}>
                       {data?.languages?.map((detail, index) => (
-                        <View style={{ display: 'flex', flexDirection: 'row', gap: 10, width: 158, justifyContent: "space-between", width: "100%" }}>
+                        <View key={index} style={{ display: 'flex', flexDirection: 'row', gap: 10, width: 158, justifyContent: "space-between", width: "100%" }}>
                           <Text style={{ width: 48, fontSize: '10px', fontFamily: `${selectedFont} 400`, color: '#828186' }}>{detail.languages}</Text>
                           {[...Array(3)].map((_, i) => (
                             <View key={i}>

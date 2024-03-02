@@ -140,13 +140,13 @@ function Sign_up({ setIsSignIn, handleGoogle, setSignIn, setSignUp }) {
           <button className="w-full px-[36px] py-[12px] rounded-[12px] border-[1px] border-solid border-[#06a9ef]  text-[20px] font-[500] hover:bg-[#06a9ef] hover:text-[#fff] transition-all duration-200" style={{ borderColor: '#06a9ef' }}>
             Sign Up
           </button>
-          <div className="flex flex-row items-center justify-center gap-[6px]">
+          {/* <div className="flex flex-row items-center justify-center gap-[6px]">
             <div className="w-[50%] h-[1px] bg-[#9D9D9D]"></div>Or
             <div className="w-[50%] h-[1px] bg-[#9D9D9D]"></div>
-          </div>
+          </div> */}
           <div className="flex flex-col gap-[16px]">
 
-            <div onClick={handleGoogle} style={{ borderColor: '#9D9D9D' }} className=" cursor-pointer w-full px-[36px] py-[12px] rounded-[12px] border-[1px] border-solid border-[#9D9D9D]   text-[16px] font-[500] text-[#333] flex items-center gap-2 justify-center continue_btn">
+            {/* <div onClick={handleGoogle} style={{ borderColor: '#9D9D9D' }} className=" cursor-pointer w-full px-[36px] py-[12px] rounded-[12px] border-[1px] border-solid border-[#9D9D9D]   text-[16px] font-[500] text-[#333] flex items-center gap-2 justify-center continue_btn">
               <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g clip-path="url(#clip0_128_5190)">
                   <path d="M24.4873 12.2245C24.4873 11.2413 24.4057 10.5237 24.229 9.77963H12.739V14.2176H19.4833C19.3474 15.3205 18.6132 16.9815 16.9814 18.0976L16.9585 18.2461L20.5915 20.9963L20.8431 21.0209C23.1547 18.9347 24.4873 15.8653 24.4873 12.2245Z" fill="#4285F4" />
@@ -159,7 +159,7 @@ function Sign_up({ setIsSignIn, handleGoogle, setSignIn, setSignUp }) {
 
 
               Sign Up with Google
-            </div>
+            </div> */}
 
             <div className="text-[14px] flex justify-center font-medium items-center">
               Already have an account ?{" "}

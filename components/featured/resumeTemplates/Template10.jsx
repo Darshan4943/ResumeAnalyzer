@@ -46,7 +46,7 @@ function Template10({ data, selectedColor, selectedFont }) {
               <View style={{ flexDirection: "column", gap: 12 }}>
                 <Text style={{ fontSize: 14, fontFamily: `${selectedFont} 400`, color: '#414042' }}>SKILLS</Text>
                 {data?.skills?.map((detail, index) => (
-                  <View style={{ flexDirection: "row", gap: 16 }}>
+                  <View style={{ flexDirection: "row", gap: 16 }} key={index}>
                     <Svg width="14" height="15" viewBox="0 0 14 15" xmlns="http://www.w3.org/2000/svg">
                       <Path fillRule="evenodd" clipRule="evenodd" d="M6.99999 3.16406C4.79135 3.16406 3 4.95541 3 7.16404C3 9.37392 4.79135 11.1641 6.99999 11.1641C9.20863 11.1641 11 9.37268 11 7.16404C11 4.95541 9.20987 3.16406 6.99999 3.16406Z" stroke={selectedColor} strokeWidth="4.0004" strokeMiterlimit="10" />
                     </Svg>
@@ -195,7 +195,7 @@ function Template10({ data, selectedColor, selectedFont }) {
               </View>
             </View>
             {data.experience?.map((detail, index) => (
-              <View style={{ flexDirection: "column", gap: 8, width: "100%" }}>
+              <View style={{ flexDirection: "column", gap: 8, width: "100%" }} key={index}>
                 <View style={{ flexDirection: "row", gap: 4, width: "100%", alignItems: "center" }}>
                   <Svg width="6" height="5" viewBox="0 0 6 5" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <Path d="M2.9375 4.79279C2.53646 4.79279 2.17022 4.69502 1.83878 4.49947C1.50734 4.3006 1.24219 4.03545 1.04332 3.70401C0.847775 3.37257 0.75 3.00633 0.75 2.60529C0.75 2.20094 0.847775 1.83469 1.04332 1.50657C1.24219 1.17513 1.50734 0.911636 1.83878 0.716086C2.17022 0.517223 2.53646 0.417791 2.9375 0.417791C3.34186 0.417791 3.7081 0.517223 4.03622 0.716086C4.36766 0.911636 4.63116 1.17513 4.8267 1.50657C5.02557 1.83469 5.125 2.20094 5.125 2.60529C5.125 3.00633 5.02557 3.37257 4.8267 3.70401C4.63116 4.03545 4.36766 4.3006 4.03622 4.49947C3.7081 4.69502 3.34186 4.79279 2.9375 4.79279Z" fill={selectedColor} />
@@ -240,7 +240,7 @@ function Template10({ data, selectedColor, selectedFont }) {
             </View>
 
             {data?.education?.map((detail, index) => (
-              <View style={{ flexDirection: "column", gap: 8, width: "100%" }}>
+              <View style={{ flexDirection: "column", gap: 8, width: "100%" }} key={index}>
                 <View style={{ flexDirection: "row", gap: 4, width: "100%", alignItems: "center" }}>
                   <Svg width="6" height="5" viewBox="0 0 6 5" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <Path d="M2.9375 4.79279C2.53646 4.79279 2.17022 4.69502 1.83878 4.49947C1.50734 4.3006 1.24219 4.03545 1.04332 3.70401C0.847775 3.37257 0.75 3.00633 0.75 2.60529C0.75 2.20094 0.847775 1.83469 1.04332 1.50657C1.24219 1.17513 1.50734 0.911636 1.83878 0.716086C2.17022 0.517223 2.53646 0.417791 2.9375 0.417791C3.34186 0.417791 3.7081 0.517223 4.03622 0.716086C4.36766 0.911636 4.63116 1.17513 4.8267 1.50657C5.02557 1.83469 5.125 2.20094 5.125 2.60529C5.125 3.00633 5.02557 3.37257 4.8267 3.70401C4.63116 4.03545 4.36766 4.3006 4.03622 4.49947C3.7081 4.69502 3.34186 4.79279 2.9375 4.79279Z" fill={selectedColor} />
@@ -292,7 +292,7 @@ function Template10({ data, selectedColor, selectedFont }) {
               </View>
 
               {data?.course?.map((detail, index) => (
-                <View style={{ flexDirection: "column", gap: 8, width: "100%" }}>
+                <View style={{ flexDirection: "column", gap: 8, width: "100%" }} key={index}>
                   <View style={{ flexDirection: "row", gap: 4, width: "100%", alignItems: "center" }}>
                     <Svg width="6" height="5" viewBox="0 0 6 5" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <Path d="M2.9375 4.79279C2.53646 4.79279 2.17022 4.69502 1.83878 4.49947C1.50734 4.3006 1.24219 4.03545 1.04332 3.70401C0.847775 3.37257 0.75 3.00633 0.75 2.60529C0.75 2.20094 0.847775 1.83469 1.04332 1.50657C1.24219 1.17513 1.50734 0.911636 1.83878 0.716086C2.17022 0.517223 2.53646 0.417791 2.9375 0.417791C3.34186 0.417791 3.7081 0.517223 4.03622 0.716086C4.36766 0.911636 4.63116 1.17513 4.8267 1.50657C5.02557 1.83469 5.125 2.20094 5.125 2.60529C5.125 3.00633 5.02557 3.37257 4.8267 3.70401C4.63116 4.03545 4.36766 4.3006 4.03622 4.49947C3.7081 4.69502 3.34186 4.79279 2.9375 4.79279Z" fill={selectedColor} />
