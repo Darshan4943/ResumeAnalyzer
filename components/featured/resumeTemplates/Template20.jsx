@@ -2,7 +2,7 @@ import React from 'react'
 import { Document, Page, Text, View, Image, StyleSheet, Svg, Path, Rect } from '@react-pdf/renderer';
 
 
-function Template20({ data ,selectedColor,selectedFont }) {
+function Template20({ data ,selectedColor,selectedFont,preview }) {
 
   return (
     <Page size='A4' style={{ padding: 24 }}>
@@ -20,7 +20,13 @@ function Template20({ data ,selectedColor,selectedFont }) {
 
           <View style={{ width: 152, height: 152, borderRadius: '50%', border: 4, borderColor: '#414042', overflow: 'hidden' }}>
             {data.profilePhoto ? (
-              <Image src={URL.createObjectURL(data.profilePhoto)} alt="" style={{ borderRadius: "50%", objectFit: 'contain' }} />
+              <Image src={
+                preview
+                  ? data.profilePhoto
+                  : Object.keys(data?.profilePhoto).includes("filename")
+                  ? URL.createObjectURL(data.profilePhoto)
+                  : data.profilePhoto
+              } alt="" style={{ borderRadius: "50%", objectFit: 'contain' }} />
             ) : (
               <Image src="/images/services/profile.png" alt="" style={{ borderRadius: "50%", objectFit: 'contain' }} />
             )}

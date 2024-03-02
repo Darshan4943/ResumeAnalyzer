@@ -14,7 +14,7 @@ import {
   ClipPath,
 } from "@react-pdf/renderer";
 
-function Template15({ data, selectedColor, selectedFont }) {
+function Template15({ data, selectedColor, selectedFont, preview }) {
   return (
     <Page>
       <View
@@ -132,8 +132,14 @@ function Template15({ data, selectedColor, selectedFont }) {
           <View style={{ height: 170, width: 145 }}>
             {data.profilePhoto ? (
               <Image
-                src={{ uri: URL.createObjectURL(data.profilePhoto) }}
-                style={{ width: 140, height: 170 }}
+                src={
+                  preview
+                    ? data.profilePhoto
+                    : Object.keys(data?.profilePhoto).includes("filename")
+                    ? URL.createObjectURL(data.profilePhoto)
+                    : data.profilePhoto
+                }
+                style={{ width: 140, height: 170, objectFit: "contain" }}
               />
             ) : (
               <Image
@@ -484,17 +490,16 @@ function Template15({ data, selectedColor, selectedFont }) {
                     >
                       {detail.courseName}
                     </Text>
-                    
                   </View>
                   <Text
-                      style={{
-                        fontFamily: `${selectedFont} 400`,
-                        color: "#5E5F5E",
-                        fontSize: 10,
-                      }}
-                    >
-                      {detail.issuedBy}
-                    </Text>
+                    style={{
+                      fontFamily: `${selectedFont} 400`,
+                      color: "#5E5F5E",
+                      fontSize: 10,
+                    }}
+                  >
+                    {detail.issuedBy}
+                  </Text>
                 </View>
               ))}
               {/* {data.hobbies?.map((detail, index) => (
@@ -525,7 +530,7 @@ function Template15({ data, selectedColor, selectedFont }) {
                             fontWeight: "normal",
                             fontFamily: `${selectedFont} 400`,
                             color: "#282627",
-                            textAlign:'left'
+                            textAlign: "left",
                           }}
                         >
                           {detail.duration?.start?.year} <br />

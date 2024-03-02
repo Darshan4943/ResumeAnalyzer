@@ -4,7 +4,7 @@ import { Document, Page, Text, View, Image, StyleSheet, Svg, Path, Rect } from '
 import React from 'react'
 
 
-function Template7({ data, selectedColor, selectedFont }) {
+function Template7({ data, selectedColor, selectedFont,preview }) {
   return (
     <>
 
@@ -14,7 +14,14 @@ function Template7({ data, selectedColor, selectedFont }) {
             <View style={{ width: 106, height: 106, borderRadius: 106, border: 6, borderColor: selectedColor }}>
               {data.profilePhoto ? (
                 <Image
-                  src={URL.createObjectURL(data.profilePhoto)}
+                src={
+                  preview
+                    ? data.profilePhoto
+                    : Object.keys(data?.profilePhoto).includes("filename")
+                    ? URL.createObjectURL(data.profilePhoto)
+                    : data.profilePhoto
+                }
+                style={{ objectFit: "contain" }}
                   alt=""
                 />
               ) : (
