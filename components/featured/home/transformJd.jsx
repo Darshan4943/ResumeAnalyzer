@@ -3,7 +3,7 @@ import React from 'react'
 import Template1 from '../resumeTemplates/Template1'
 
 function TransformJd({selectedResumeIndex,data,selectResumeTemplate}) {
-   console.log(6,selectedResumeIndex)
+  
   return (
     <div>
       {selectedResumeIndex !== undefined && (

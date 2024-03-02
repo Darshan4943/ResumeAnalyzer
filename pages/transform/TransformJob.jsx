@@ -14,7 +14,7 @@ function TransformJob() {
   const [text, setText] = useState('');
   const [data, setData] = useState([]);
   const [select, setSelect] = useState([]);
-console.log(16,selectedResumeIndex)
+
   const handleChange = (event) => {
     setText(event.target.value);
   };
@@ -57,7 +57,7 @@ console.log(16,selectedResumeIndex)
   const renderTemplates = () => {
     return data?.map((item, index) => (
 
-      <div className="" onClick={() => { setSelectedResumeIndex(item.resumeTemplateIndex); setIsAll(false);setSelect(item)  }} key={index}>
+      <div className="" onClick={() => { setSelectedResumeIndex(item.resumeTemplateIndex); setIsAll(false);setSelect(item) }} key={index}>
         <PdfViewerr pdfUrl={item?.resumeUrl} />
       </div>
     ));
@@ -94,21 +94,21 @@ console.log(16,selectedResumeIndex)
       case 1:
         return (
           <Template1
-          data={data} selectedColor={data.selectedColor} selectedFont={data.selectedFont}
+          data={select} selectedColor={select.selectedColor} selectedFont={select.selectedFont}
 
           />
         );
       case 2:
         return (
           <Template2
-          data={data} selectedColor={data.selectedColor} selectedFont={data.selectedFont}
+          data={select} selectedColor={daselectta.selectedColor} selectedFont={select.selectedFont}
 
           />
         );
         case 3:
         return (
           <Template3
-          data={data} selectedColor={data.selectedColor} selectedFont={data.selectedFont}
+          data={select} selectedColor={select.selectedColor} selectedFont={select.selectedFont}
 
           />
         );
@@ -117,7 +117,7 @@ console.log(16,selectedResumeIndex)
       default:
         return (
           <Template1
-          data={data} selectedColor={data.selectedColor} selectedFont={data.selectedFont}
+          data={data} selectedColor={select.selectedColor} selectedFont={select.selectedFont}
 
           />
         );
