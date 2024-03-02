@@ -61,6 +61,12 @@ function CandidateHeader() {
         >
           <li>My Resumes</li>
         </Link>
+        {/* <Link
+          href="/home/MyCollection"
+          className={selectedPage === "/home/MyCollection" ? "active" : "li"}
+        >
+          <li>My Resumes</li>
+        </Link> */}
 
 
       </div>
