@@ -14,7 +14,7 @@ function SubscriptionPlans() {
                 setIsLogin(false);
             }
         }
-    });
+    },[]);
 
     const plans = [
         {
@@ -83,7 +83,9 @@ function SubscriptionPlans() {
                                 </div>
                             ))}
                         </div>
-                        <button onClick={() => isLogin && router.push("/myPurchase/Purchase")} className="px-9 py-3 bg-[#06A9EF] text-white rounded-[12px] text-[1.4vw] font-semibold w-full">Purchase Plan</button>
+                        <button
+                        //  onClick={() => isLogin && router.push("/myPurchase/Purchase")}
+                          className="px-9 py-3 bg-[#06A9EF] text-white rounded-[12px] text-[1.4vw] font-semibold w-full">Purchase Plan</button>
                     </div>
                 </div>
             ))}

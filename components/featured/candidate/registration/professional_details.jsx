@@ -15,7 +15,7 @@ const ProfessionalDetails = ({
   certificate,
   setCertificate,
 }) => {
-  const [loading, setLoading] = useState(false); 
+  const [loading, setLoading] = useState(false);
 
   const [formError, setFormError] = useState({});
 
@@ -115,10 +115,9 @@ const ProfessionalDetails = ({
                     </p>
                     <div className="gender_button">
                       <button
-                        className={`gen_button ${
-                          data.employmentStatus == "employed" &&
+                        className={`gen_button ${data.employmentStatus == "employed" &&
                           "gen_button_active"
-                        }`}
+                          }`}
                         onClick={(e) => {
                           e.preventDefault();
                           setData({ ...data, employmentStatus: "employed" });
@@ -127,10 +126,9 @@ const ProfessionalDetails = ({
                         Employed
                       </button>
                       <button
-                        className={`gen_button ${
-                          data.employmentStatus == "unemployed" &&
+                        className={`gen_button ${data.employmentStatus == "unemployed" &&
                           "gen_button_active"
-                        }`}
+                          }`}
                         onClick={(e) => {
                           e.preventDefault();
                           setData({ ...data, employmentStatus: "unemployed" });
@@ -433,8 +431,10 @@ const ProfessionalDetails = ({
                   id="border_button"
                   onClick={handleClick}
                 >
-                   {loading && <MiniLoader />}
-                  Continue
+                  {loading && <MiniLoader />}
+                  {!loading &&
+                    "Continue"
+                  }
                 </button>
               </div>
             </div>

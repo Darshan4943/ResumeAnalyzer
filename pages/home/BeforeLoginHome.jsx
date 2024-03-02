@@ -25,7 +25,7 @@ console.log(popupState)
         setIsLogin(false);
       }
     }
-  });
+  },[]);
   const router = useRouter();
   const clickHandler = () => {
    

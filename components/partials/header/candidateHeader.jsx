@@ -37,7 +37,7 @@ function CandidateHeader() {
         setIsLogin(false);
       }
     }
-  });
+  },[]);
   return (
     <>
       <div className="flex justify-center items-center list-none gap-9">
