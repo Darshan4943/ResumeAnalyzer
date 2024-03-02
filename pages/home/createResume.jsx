@@ -24,10 +24,6 @@ function CreateResume() {
   };
 
   useEffect(() => {
-    setTimeout(() => {
-      setSelectedResumeIndex(1);
-    }, 1000);
-
     document.addEventListener("mousedown", handleOutsideClick);
     return () => {
       document.removeEventListener("mousedown", handleOutsideClick);
@@ -165,90 +161,97 @@ function CreateResume() {
   });
 
   useEffect(() => {
-    if (userData.isEdit) {
-      const data = JSON.parse(userData.data);
-      setData(data);
-      setSelectedResumeIndex(data.selectedResumeIndex);
-      setSelectedColor(data.selectedColor);
-      setSelectedFont(data.selectedFont);
-      setEnditId(data._id);
+    if (userData) {
+      if (userData.isEdit) {
+        const data = JSON.parse(userData.data);
+        setData(data);
+        console.log(data.resumeTemplateIndex);
+        setSelectedResumeIndex(data.resumeTemplateIndex);
+        setSelectedColor(data.selectedColor);
+        setSelectedFont(data.selectedFont);
+        setEnditId(data._id);
+      } else {
+        const {
+          firstName,
+          lastName,
+          mobileNo,
+          email,
+          keySkills,
+          currentCTC,
+          currentLocation,
+          dateOfComplition,
+          dateOfJoining,
+          dob,
+          employmentStatus,
+          companyName,
+          jobLocation,
+          jobTitle,
+
+          stream,
+          university,
+          specialization,
+        } = userData;
+        const yearOfCompletion = new Date(dateOfComplition).getFullYear();
+        const yearOfJoining = new Date(dateOfJoining).getFullYear();
+        const currentDate = new Date();
+        const currentMonth = currentDate.getMonth() + 1; // Months are zero-based, so add 1
+        const currentYear = currentDate.getFullYear();
+
+        setData((prevData) => ({
+          ...prevData,
+          firstName: firstName ? camelCase(firstName) : "JOHN",
+          lastName: lastName ? camelCase(lastName) : "DOE",
+          mobileNo,
+          email,
+
+          currentCTC,
+          currentLocation,
+          dateOfComplition,
+          dob,
+          employmentStatus,
+
+          education: [
+            {
+              duration: {
+                start: {
+                  year: currentYear,
+                  month: currentMonth,
+                },
+                end: {
+                  year: yearOfCompletion,
+                  month: currentMonth,
+                },
+              },
+              qualification: stream,
+              instituteName: university,
+              specialization,
+            },
+          ],
+          experience: [
+            {
+              duration: {
+                end: {
+                  year: yearOfJoining,
+                },
+              },
+              organization: companyName,
+              location: jobLocation,
+              designation: jobTitle,
+            },
+          ],
+
+          skills:
+            keySkills?.length > 0 &&
+            JSON.parse(keySkills).map((item) => ({
+              skill: item.value,
+              rating: [5, 5, 5, 5, 5],
+            })),
+        }));
+      }
     } else {
-      const {
-        firstName,
-        lastName,
-        mobileNo,
-        email,
-        keySkills,
-        currentCTC,
-        currentLocation,
-        dateOfComplition,
-        dateOfJoining,
-        dob,
-        employmentStatus,
-        companyName,
-        jobLocation,
-        jobTitle,
-
-        stream,
-        university,
-        specialization,
-      } = userData;
-      const yearOfCompletion = new Date(dateOfComplition).getFullYear();
-      const yearOfJoining = new Date(dateOfJoining).getFullYear();
-      const currentDate = new Date();
-      const currentMonth = currentDate.getMonth() + 1; // Months are zero-based, so add 1
-      const currentYear = currentDate.getFullYear();
-
-      setData((prevData) => ({
-        ...prevData,
-        firstName: firstName ? camelCase(firstName) : "JOHN",
-        lastName: lastName ? camelCase(lastName) : "DOE",
-        mobileNo,
-        email,
-
-        currentCTC,
-        currentLocation,
-        dateOfComplition,
-        dob,
-        employmentStatus,
-
-        education: [
-          {
-            duration: {
-              start: {
-                year: currentYear,
-                month: currentMonth,
-              },
-              end: {
-                year: yearOfCompletion,
-                month: currentMonth,
-              },
-            },
-            qualification: stream,
-            instituteName: university,
-            specialization,
-          },
-        ],
-        experience: [
-          {
-            duration: {
-              end: {
-                year: yearOfJoining,
-              },
-            },
-            organization: companyName,
-            location: jobLocation,
-            designation: jobTitle,
-          },
-        ],
-
-        skills:
-          keySkills?.length > 0 &&
-          JSON.parse(keySkills).map((item) => ({
-            skill: item.value,
-            rating: [5, 5, 5, 5, 5],
-          })),
-      }));
+      setTimeout(() => {
+        setSelectedResumeIndex(1);
+      }, 1000);
     }
   }, [userData]);
 
@@ -347,7 +350,6 @@ function CreateResume() {
               selectedColor={selectedColor}
               setSelectedFont={setSelectedFont}
               selectedFont={selectedFont}
-              
             />
           </div>
         </div>
