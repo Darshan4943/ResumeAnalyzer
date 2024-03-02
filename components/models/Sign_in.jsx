@@ -42,7 +42,7 @@ function Sign_in({ setIsSignIn, handleGoogle }) {
       password: data.password,
     };
     axios
-      .post("https://freedygoservices.in/api/skiloteckuser/signin", dataToSend)
+      .post("http://localhost:2000/api/skiloteckuser/signin", dataToSend)
       .then((res) => {
         const response = res.data;
         if (response.success) {

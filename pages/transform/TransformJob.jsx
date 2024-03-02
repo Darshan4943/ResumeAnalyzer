@@ -19,7 +19,7 @@ function TransformJob() {
   console.log(16, data)
 
   useEffect(() => {
-    axios.get('https://freedygoservices.in/api/resume/65df36580cf0beec39f598bc')
+    axios.get('http://localhost:2000/api/resume/65df36580cf0beec39f598bc')
       .then(response => {
         console.log('Response data:', response.data);
         setData(response.data.data);
@@ -173,7 +173,7 @@ function TransformJob() {
       console.log(e);
     }
     // axios
-    //   .post("https://freedygoservices.in/api/resume/add", formData)
+    //   .post("http://localhost:2000/api/resume/add", formData)
     //   .then((res) => {
     //     console.log(res.data);
     //   })

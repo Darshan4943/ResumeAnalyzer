@@ -1,5 +1,28 @@
 import React from "react";
 import ReactDOMServer from 'react-dom/server';
+import Template2 from "../components/featured/resumeTemplates/Template2";
+import Template3 from "../components/featured/resumeTemplates/Template3";
+import Template4 from "../components/featured/resumeTemplates/Template4";
+import Template5 from "../components/featured/resumeTemplates/Template5";
+import Template9 from "../components/featured/resumeTemplates/Template9";
+import Template7 from "../components/featured/resumeTemplates/Template7";
+import Template6 from "../components/featured/resumeTemplates/Template6";
+import Template12 from "../components/featured/resumeTemplates/Template12";
+import Template15 from "../components/featured/resumeTemplates/Template15";
+import Template18 from "../components/featured/resumeTemplates/Template18";
+import Template17 from "../components/featured/resumeTemplates/Template17";
+import Template8 from "../components/featured/resumeTemplates/Template8";
+import Template10 from "../components/featured/resumeTemplates/Template10";
+import Template20 from "../components/featured/resumeTemplates/Template20";
+import Template11 from "../components/featured/resumeTemplates/Template11";
+import Template19 from "../components/featured/resumeTemplates/Template19";
+import Template13 from "../components/featured/resumeTemplates/Template13";
+
+import Template14 from "../components/featured/resumeTemplates/Template14";
+import Template16 from "../components/featured/resumeTemplates/Template16";
+import Template1 from "../components/featured/resumeTemplates/Template1";
+
+
 export function camelCase(str) {
   return str
     ?.toLowerCase() // Convert the entire string to lowercase
@@ -63,4 +86,170 @@ export const generatePDFUsingRenderer = async (MyDocument) => {
   });
 
   return pdfBlob;
+};
+
+
+export   const selectResumeTemplate = (index,data,selectedColor,selectedFont) => {
+  switch (index) {
+    case 1:
+      return (
+        <Template1
+          data={data}
+          selectedColor={selectedColor}
+          selectedFont={selectedFont}
+        />
+      );
+    case 2:
+      return (
+        <Template2
+          data={data}
+          selectedColor={selectedColor}
+          selectedFont={selectedFont}
+        />
+      );
+    case 3:
+      return (
+        <Template3
+          data={data}
+          selectedColor={selectedColor}
+          selectedFont={selectedFont}
+        />
+      );
+    case 4:
+      return (
+        <Template4
+          data={data}
+          selectedColor={selectedColor}
+          selectedFont={selectedFont}
+        />
+      );
+    case 5:
+      return (
+        <Template5
+          data={data}
+          selectedColor={selectedColor}
+          selectedFont={selectedFont}
+        />
+      );
+    case 6:
+      return (
+        <Template6
+          data={data}
+          selectedColor={selectedColor}
+          selectedFont={selectedFont}
+        />
+      );
+    case 7:
+      return (
+        <Template7
+          data={data}
+          selectedColor={selectedColor}
+          selectedFont={selectedFont}
+        />
+      );
+    case 8:
+      return (
+        <Template8
+          data={data}
+          selectedColor={selectedColor}
+          selectedFont={selectedFont}
+        />
+      );
+    case 9:
+      return (
+        <Template9
+          data={data}
+          selectedColor={selectedColor}
+          selectedFont={selectedFont}
+        />
+      );
+    case 10:
+      return (
+        <Template10
+          data={data}
+          selectedColor={selectedColor}
+          selectedFont={selectedFont}
+        />
+      );
+    case 11:
+      return (
+        <Template11
+          data={data}
+          selectedColor={selectedColor}
+          selectedFont={selectedFont}
+        />
+      );
+    case 12:
+      return (
+        <Template12
+          data={data}
+          selectedColor={selectedColor}
+          selectedFont={selectedFont}
+        />
+      );
+    case 13:
+      return (
+        <Template13
+          data={data}
+          selectedColor={selectedColor}
+          selectedFont={selectedFont}
+        />
+      );
+    case 14:
+      return (
+        <Template14
+          data={data}
+          selectedColor={selectedColor}
+          selectedFont={selectedFont}
+        />
+      );
+    case 15:
+      return (
+        <Template15
+          data={data}
+          selectedColor={selectedColor}
+          selectedFont={selectedFont}
+        />
+      );
+    case 16:
+      return (
+        <Template16
+          data={data}
+          selectedColor={selectedColor}
+          selectedFont={selectedFont}
+        />
+      );
+    case 17:
+      return (
+        <Template17
+          data={data}
+          selectedColor={selectedColor}
+          selectedFont={selectedFont}
+        />
+      );
+    case 18:
+      return (
+        <Template18
+          data={data}
+          selectedColor={selectedColor}
+          selectedFont={selectedFont}
+        />
+      );
+    case 19:
+      return (
+        <Template19
+          data={data}
+          selectedColor={selectedColor}
+          selectedFont={selectedFont}
+        />
+      );
+    case 20:
+      return (
+        <Template20
+          data={data}
+          selectedColor={selectedColor}
+          selectedFont={selectedFont}
+        />
+      );
+  }
 };
