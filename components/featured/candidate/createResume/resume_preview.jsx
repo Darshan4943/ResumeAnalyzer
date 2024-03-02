@@ -45,6 +45,8 @@ const ResumePreview = ({
   setSelectedColor,
   setSelectedFont,
   selectedFont,
+  isEdit,
+  id,
 }) => {
   const templates = [
     {
@@ -695,31 +697,55 @@ const ResumePreview = ({
     return pdfBlob;
   };
   const saveResume = async (blob) => {
-    const formData = new FormData();
-    if (Object.keys(data).length > 0) {
-      Object.keys(data).map((key) => {
-        if (Array.isArray(data[key]) && data[key].length > 0) {
-          formData.append(key, JSON.stringify(data[key]));
-        } else {
-          formData.append(key, data[key]);
-        }
-      });
-    }
-    formData.append("pdfBlob", blob);
-    formData.append("resumeIndex", selectedResumeIndex);
-    formData.append("fileName", "resume" + selectedResumeIndex);
-    formData.append("selectedColor", selectedColor);
-    formData.append("selectedFont", selectedFont);
+    if (isEdit) {
+      const formData = new FormData();
+      if (Object.keys(data).length > 0) {
+        Object.keys(data).map((key) => {
+          if (Array.isArray(data[key]) && data[key].length > 0) {
+            formData.append(key, JSON.stringify(data[key]));
+          } else {
+            formData.append(key, data[key]);
+          }
+        });
+      }
+      formData.append("pdfBlob", blob);
 
-    axios
-      .post("http://localhost:2000/api/resume/add", formData)
-      .then((res) => {
-        toast.success("Resume Saved To Collection successfully");
-      })
-      .catch((err) => {
-        console.log(err);
-        toast.success("Something went wrong ");
-      });
+      axios
+        .put("http://localhost:2000/api/resume/" + id, formData)
+        .then((res) => {
+          toast.success("Resume Updated successfully");
+        })
+        .catch((err) => {
+          console.log(err);
+          toast.success("Something went wrong ");
+        });
+    } else {
+      const formData = new FormData();
+      if (Object.keys(data).length > 0) {
+        Object.keys(data).map((key) => {
+          if (Array.isArray(data[key]) && data[key].length > 0) {
+            formData.append(key, JSON.stringify(data[key]));
+          } else {
+            formData.append(key, data[key]);
+          }
+        });
+      }
+      formData.append("pdfBlob", blob);
+      formData.append("resumeIndex", selectedResumeIndex);
+      formData.append("fileName", "resume" + selectedResumeIndex);
+      formData.append("selectedColor", selectedColor);
+      formData.append("selectedFont", selectedFont);
+
+      axios
+        .post("http://localhost:2000/api/resume/add", formData)
+        .then((res) => {
+          toast.success("Resume Saved To Collection successfully");
+        })
+        .catch((err) => {
+          console.log(err);
+          toast.success("Something went wrong ");
+        });
+    }
   };
   const MyComponent = () => {
     return (

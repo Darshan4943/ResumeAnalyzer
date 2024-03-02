@@ -1,5 +1,5 @@
 import React from "react";
-import ReactDOMServer from 'react-dom/server';
+import ReactDOMServer from "react-dom/server";
 import Template2 from "../components/featured/resumeTemplates/Template2";
 import Template3 from "../components/featured/resumeTemplates/Template3";
 import Template4 from "../components/featured/resumeTemplates/Template4";
@@ -21,7 +21,6 @@ import Template13 from "../components/featured/resumeTemplates/Template13";
 import Template14 from "../components/featured/resumeTemplates/Template14";
 import Template16 from "../components/featured/resumeTemplates/Template16";
 import Template1 from "../components/featured/resumeTemplates/Template1";
-
 
 export function camelCase(str) {
   return str
@@ -74,11 +73,9 @@ export function formatDate(inputDate) {
 }
 
 export const generatePDFUsingRenderer = async (MyDocument) => {
-
-
   // Render the PDF document to a blob
   const pdfBlob = await new Promise((resolve) => {
-    const doc = React.createElement(<MyDocument/>);
+    const doc = React.createElement(<MyDocument />);
     const blob = new Blob([ReactDOMServer.renderToStaticMarkup(doc)], {
       type: "application/pdf",
     });
@@ -88,8 +85,13 @@ export const generatePDFUsingRenderer = async (MyDocument) => {
   return pdfBlob;
 };
 
-
-export   const selectResumeTemplate = (index,data,selectedColor,selectedFont) => {
+export const selectResumeTemplate = (
+  index,
+  data,
+  selectedColor,
+  selectedFont,
+  preview
+) => {
   switch (index) {
     case 1:
       return (
@@ -97,6 +99,7 @@ export   const selectResumeTemplate = (index,data,selectedColor,selectedFont) =>
           data={data}
           selectedColor={selectedColor}
           selectedFont={selectedFont}
+          preview={preview}
         />
       );
     case 2:
@@ -105,6 +108,7 @@ export   const selectResumeTemplate = (index,data,selectedColor,selectedFont) =>
           data={data}
           selectedColor={selectedColor}
           selectedFont={selectedFont}
+          preview={preview}
         />
       );
     case 3:
@@ -113,6 +117,7 @@ export   const selectResumeTemplate = (index,data,selectedColor,selectedFont) =>
           data={data}
           selectedColor={selectedColor}
           selectedFont={selectedFont}
+          preview={preview}
         />
       );
     case 4:
@@ -121,6 +126,7 @@ export   const selectResumeTemplate = (index,data,selectedColor,selectedFont) =>
           data={data}
           selectedColor={selectedColor}
           selectedFont={selectedFont}
+          preview={preview}
         />
       );
     case 5:
@@ -129,6 +135,7 @@ export   const selectResumeTemplate = (index,data,selectedColor,selectedFont) =>
           data={data}
           selectedColor={selectedColor}
           selectedFont={selectedFont}
+          preview={preview}
         />
       );
     case 6:
@@ -137,6 +144,7 @@ export   const selectResumeTemplate = (index,data,selectedColor,selectedFont) =>
           data={data}
           selectedColor={selectedColor}
           selectedFont={selectedFont}
+          preview={preview}
         />
       );
     case 7:
@@ -145,6 +153,7 @@ export   const selectResumeTemplate = (index,data,selectedColor,selectedFont) =>
           data={data}
           selectedColor={selectedColor}
           selectedFont={selectedFont}
+          preview={preview}
         />
       );
     case 8:
@@ -153,6 +162,7 @@ export   const selectResumeTemplate = (index,data,selectedColor,selectedFont) =>
           data={data}
           selectedColor={selectedColor}
           selectedFont={selectedFont}
+          preview={preview}
         />
       );
     case 9:
@@ -161,6 +171,7 @@ export   const selectResumeTemplate = (index,data,selectedColor,selectedFont) =>
           data={data}
           selectedColor={selectedColor}
           selectedFont={selectedFont}
+          preview={preview}
         />
       );
     case 10:
@@ -169,6 +180,7 @@ export   const selectResumeTemplate = (index,data,selectedColor,selectedFont) =>
           data={data}
           selectedColor={selectedColor}
           selectedFont={selectedFont}
+          preview={preview}
         />
       );
     case 11:
@@ -177,6 +189,7 @@ export   const selectResumeTemplate = (index,data,selectedColor,selectedFont) =>
           data={data}
           selectedColor={selectedColor}
           selectedFont={selectedFont}
+          preview={preview}
         />
       );
     case 12:
@@ -185,6 +198,7 @@ export   const selectResumeTemplate = (index,data,selectedColor,selectedFont) =>
           data={data}
           selectedColor={selectedColor}
           selectedFont={selectedFont}
+          preview={preview}
         />
       );
     case 13:
@@ -193,6 +207,7 @@ export   const selectResumeTemplate = (index,data,selectedColor,selectedFont) =>
           data={data}
           selectedColor={selectedColor}
           selectedFont={selectedFont}
+          preview={preview}
         />
       );
     case 14:
@@ -201,6 +216,7 @@ export   const selectResumeTemplate = (index,data,selectedColor,selectedFont) =>
           data={data}
           selectedColor={selectedColor}
           selectedFont={selectedFont}
+          preview={preview}
         />
       );
     case 15:
@@ -209,6 +225,7 @@ export   const selectResumeTemplate = (index,data,selectedColor,selectedFont) =>
           data={data}
           selectedColor={selectedColor}
           selectedFont={selectedFont}
+          preview={preview}
         />
       );
     case 16:
@@ -217,6 +234,7 @@ export   const selectResumeTemplate = (index,data,selectedColor,selectedFont) =>
           data={data}
           selectedColor={selectedColor}
           selectedFont={selectedFont}
+          preview={preview}
         />
       );
     case 17:
@@ -225,6 +243,7 @@ export   const selectResumeTemplate = (index,data,selectedColor,selectedFont) =>
           data={data}
           selectedColor={selectedColor}
           selectedFont={selectedFont}
+          preview={preview}
         />
       );
     case 18:
@@ -233,6 +252,7 @@ export   const selectResumeTemplate = (index,data,selectedColor,selectedFont) =>
           data={data}
           selectedColor={selectedColor}
           selectedFont={selectedFont}
+          preview={preview}
         />
       );
     case 19:
@@ -241,6 +261,7 @@ export   const selectResumeTemplate = (index,data,selectedColor,selectedFont) =>
           data={data}
           selectedColor={selectedColor}
           selectedFont={selectedFont}
+          preview={preview}
         />
       );
     case 20:
@@ -249,6 +270,7 @@ export   const selectResumeTemplate = (index,data,selectedColor,selectedFont) =>
           data={data}
           selectedColor={selectedColor}
           selectedFont={selectedFont}
+          preview={preview}
         />
       );
   }

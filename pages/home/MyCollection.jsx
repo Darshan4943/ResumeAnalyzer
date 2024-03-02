@@ -149,6 +149,7 @@ const MyCollection = () => {
             selectedColor={selected.selectedColor}
             selectedFont={selected.selectedFont}
             setPreview={setPreview}
+            preview={true}
           />
         </>
       )}

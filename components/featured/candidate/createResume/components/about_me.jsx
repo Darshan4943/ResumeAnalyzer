@@ -50,6 +50,9 @@ const AboutMe = ({ data, setData }) => {
       setText(Summery);
     }
   }, [userDataGlobal]);
+  useEffect(() => {
+    setText(data.summery);
+  }, [data]);
 
   return (
     <>
