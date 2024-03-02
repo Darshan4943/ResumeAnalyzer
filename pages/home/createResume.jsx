@@ -14,7 +14,7 @@ function CreateResume() {
   const userDataGlobal = useSelector((state) => state.userData);
   const taskRef = useRef(null);
   const router = useRouter();
-
+  const [editId, setEnditId] = useState();
   const userData = router.query;
 
   const handleOutsideClick = (event) => {
@@ -143,7 +143,6 @@ function CreateResume() {
         skill: "Angular",
         rating: [5, 5, 5, 5, 5],
       },
-     
     ],
     achievement: [],
     sociaLinks: [],
@@ -154,27 +153,26 @@ function CreateResume() {
       {
         title: "Writting",
       },
-     
     ],
     languages: [
       {
         languages: "English",
         rating: [3, 3, 3],
       },
-     
     ],
     summery:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make",
   });
 
   useEffect(() => {
-    if(userData.isEdit){
-      const data  = JSON.parse(userData.data)
+    if (userData.isEdit) {
+      const data = JSON.parse(userData.data);
       setData(data);
-      setSelectedResumeIndex(data.selectedResumeIndex)
-      setSelectedColor(data.selectedColor)
-      setSelectedFont(data.selectedFont)
-    }else{
+      setSelectedResumeIndex(data.selectedResumeIndex);
+      setSelectedColor(data.selectedColor);
+      setSelectedFont(data.selectedFont);
+      setEnditId(data._id);
+    } else {
       const {
         firstName,
         lastName,
@@ -190,7 +188,7 @@ function CreateResume() {
         companyName,
         jobLocation,
         jobTitle,
-  
+
         stream,
         university,
         specialization,
@@ -200,20 +198,20 @@ function CreateResume() {
       const currentDate = new Date();
       const currentMonth = currentDate.getMonth() + 1; // Months are zero-based, so add 1
       const currentYear = currentDate.getFullYear();
-  
+
       setData((prevData) => ({
         ...prevData,
         firstName: firstName ? camelCase(firstName) : "JOHN",
         lastName: lastName ? camelCase(lastName) : "DOE",
         mobileNo,
         email,
-  
+
         currentCTC,
         currentLocation,
         dateOfComplition,
         dob,
         employmentStatus,
-  
+
         education: [
           {
             duration: {
@@ -243,7 +241,7 @@ function CreateResume() {
             designation: jobTitle,
           },
         ],
-  
+
         skills:
           keySkills?.length > 0 &&
           JSON.parse(keySkills).map((item) => ({
@@ -252,7 +250,6 @@ function CreateResume() {
           })),
       }));
     }
-   
   }, [userData]);
 
   // const [data, setData] = useState({
@@ -302,7 +299,7 @@ function CreateResume() {
                 setSelectedFont={setSelectedFont}
                 selectedFont={selectedFont}
                 isEdit={userData.isEdit}
-                id={JSON.parse(userData.data)._id}
+                id={editId}
               />
             </div>
           </div>
@@ -350,6 +347,7 @@ function CreateResume() {
               selectedColor={selectedColor}
               setSelectedFont={setSelectedFont}
               selectedFont={selectedFont}
+              
             />
           </div>
         </div>

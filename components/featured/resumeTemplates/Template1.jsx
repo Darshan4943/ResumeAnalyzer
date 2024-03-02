@@ -56,7 +56,9 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                 src={
                   preview
                     ? data.profilePhoto
-                    : URL.createObjectURL(data.profilePhoto)
+                    : Object.keys(data?.profilePhoto).includes("filename")
+                    ? URL.createObjectURL(data.profilePhoto)
+                    : data.profilePhoto
                 }
                 style={{ objectFit: "contain" }}
               />
