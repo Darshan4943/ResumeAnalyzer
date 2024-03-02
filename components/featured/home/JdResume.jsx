@@ -30,7 +30,7 @@ function JdResume({isLogin}) {
                     </div>
                     <button
                         onClick={() => isLogin?router.push("/home/BuildResume"):  dispatch(popupVisible())}
-                        className="px-9 py-4 bg-[#06A9EF] text-white  rounded-[12px] text-[1.2vw] font-semibold"
+                        className="px-9 py-4 bg-[#06A9EF] text-white  rounded-[12px] text-[1.3vw] font-semibold"
                         style={{ width: "fit-content" }}
                     >
                         Get Started
