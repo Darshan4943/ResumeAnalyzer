@@ -142,12 +142,12 @@ function Sign_in({ setIsSignIn, handleGoogle }) {
           >
             Sign In
           </button>
-          {/* <div className="flex flex-row items-center justify-center gap-[6px]">
+          <div className="flex flex-row items-center justify-center gap-[6px]">
             <div className="w-[50%] h-[1px] bg-[#9D9D9D]"></div>Or
             <div className="w-[50%] h-[1px] bg-[#9D9D9D]"></div>
-          </div> */}
+          </div>
           <div className="flex flex-col gap-[16px]">
-{/*       
+      
             <div
               style={{ borderColor: "#9D9D9D" }}
               onClick={handleGoogle}
@@ -180,7 +180,7 @@ function Sign_in({ setIsSignIn, handleGoogle }) {
                 </g>
               </svg>
               Continue with Google
-            </div> */}
+            </div>
             <div className="text-[12px]">
               By signing in, you agree to our{" "}
               <span
