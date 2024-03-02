@@ -6,6 +6,7 @@ import { Document, Page, Text, View, Image, StyleSheet, Svg, Path } from '@react
 const Template3 = ({ data, selectedColor, selectedFont }) => (
 
   <Page size="A4">
+    
     <View style={{ flexDirection: "row" }}>
       <View style={{ width: 184, backgroundColor: selectedColor, minHeight: 841.7, flexDirection: "column", gap: 24, }}>
         <View style={{ paddingTop: 21, paddingRight: 22, paddingLeft: 28 }}>

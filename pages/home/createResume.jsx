@@ -168,82 +168,91 @@ function CreateResume() {
   });
 
   useEffect(() => {
-    const {
-      firstName,
-      lastName,
-      mobileNo,
-      email,
-      keySkills,
-      currentCTC,
-      currentLocation,
-      dateOfComplition,
-      dateOfJoining,
-      dob,
-      employmentStatus,
-      companyName,
-      jobLocation,
-      jobTitle,
-
-      stream,
-      university,
-      specialization,
-    } = userData;
-    const yearOfCompletion = new Date(dateOfComplition).getFullYear();
-    const yearOfJoining = new Date(dateOfJoining).getFullYear();
-    const currentDate = new Date();
-    const currentMonth = currentDate.getMonth() + 1; // Months are zero-based, so add 1
-    const currentYear = currentDate.getFullYear();
-
-    setData((prevData) => ({
-      ...prevData,
-      firstName: firstName ? camelCase(firstName) : "JOHN",
-      lastName: lastName ? camelCase(lastName) : "DOE",
-      mobileNo,
-      email,
-
-      currentCTC,
-      currentLocation,
-      dateOfComplition,
-      dob,
-      employmentStatus,
-
-      education: [
-        {
-          duration: {
-            start: {
-              year: currentYear,
-              month: currentMonth,
+    if(userData.isEdit){
+      const data  = JSON.parse(userData.data)
+      setData(data);
+      setSelectedResumeIndex(data.selectedResumeIndex)
+      setSelectedColor(data.selectedColor)
+      setSelectedFont(data.selectedFont)
+    }else{
+      const {
+        firstName,
+        lastName,
+        mobileNo,
+        email,
+        keySkills,
+        currentCTC,
+        currentLocation,
+        dateOfComplition,
+        dateOfJoining,
+        dob,
+        employmentStatus,
+        companyName,
+        jobLocation,
+        jobTitle,
+  
+        stream,
+        university,
+        specialization,
+      } = userData;
+      const yearOfCompletion = new Date(dateOfComplition).getFullYear();
+      const yearOfJoining = new Date(dateOfJoining).getFullYear();
+      const currentDate = new Date();
+      const currentMonth = currentDate.getMonth() + 1; // Months are zero-based, so add 1
+      const currentYear = currentDate.getFullYear();
+  
+      setData((prevData) => ({
+        ...prevData,
+        firstName: firstName ? camelCase(firstName) : "JOHN",
+        lastName: lastName ? camelCase(lastName) : "DOE",
+        mobileNo,
+        email,
+  
+        currentCTC,
+        currentLocation,
+        dateOfComplition,
+        dob,
+        employmentStatus,
+  
+        education: [
+          {
+            duration: {
+              start: {
+                year: currentYear,
+                month: currentMonth,
+              },
+              end: {
+                year: yearOfCompletion,
+                month: currentMonth,
+              },
             },
-            end: {
-              year: yearOfCompletion,
-              month: currentMonth,
-            },
+            qualification: stream,
+            instituteName: university,
+            specialization,
           },
-          qualification: stream,
-          instituteName: university,
-          specialization,
-        },
-      ],
-      experience: [
-        {
-          duration: {
-            end: {
-              year: yearOfJoining,
+        ],
+        experience: [
+          {
+            duration: {
+              end: {
+                year: yearOfJoining,
+              },
             },
+            organization: companyName,
+            location: jobLocation,
+            designation: jobTitle,
           },
-          organization: companyName,
-          location: jobLocation,
-          designation: jobTitle,
-        },
-      ],
-
-      skills:
-        keySkills?.length > 0 &&
-        JSON.parse(keySkills).map((item) => ({
-          skill: item.value,
-          rating: [5, 5, 5, 5, 5],
-        })),
-    }));
+        ],
+  
+        skills:
+          keySkills?.length > 0 &&
+          JSON.parse(keySkills).map((item) => ({
+            skill: item.value,
+            rating: [5, 5, 5, 5, 5],
+          })),
+      }));
+    }
+   
   }, [userData]);
 
   // const [data, setData] = useState({
@@ -268,6 +277,7 @@ function CreateResume() {
   //   hobbies: [],
   //   languages: [],
   // });
+  console.log(userData.data)
   return (
     <div>
       <div className=" bg-[#F9F9F9] pt-2 px-6">
