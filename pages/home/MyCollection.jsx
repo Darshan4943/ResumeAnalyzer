@@ -54,7 +54,7 @@ const MyCollection = () => {
       <div className="flex flex-col gap-[16px]">
         <div className="text-[24px] font-semibold text-[#333333]">
           {" "}
-          My Collection
+          My Resumes
         </div>
         <div className="flex flex-row flex-wrap gap-[48px] p-[24px] bg-[#F9F9F9] rounded-[12px]  ">
           {resumeList.length > 0 ? (

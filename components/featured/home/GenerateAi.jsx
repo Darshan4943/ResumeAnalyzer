@@ -249,7 +249,7 @@ function GenerateAi() {
                     <div className=" w-full text-[1.2vw]   overflow-hidden p-2 font-montserrat font-small h-full border border-[#06A9EF] rounded-[8px] outline-none ">
 
                         {loading1 ? (
-                            <div className='sm:min-h-[240px] min-h-[200px] flex justify-center items-center '>
+                            <div className='h-[100%] flex justify-center items-center '>
                                 <MiniLoader />
                             </div>
                         ) : (
@@ -348,7 +348,7 @@ function GenerateAi() {
                         <p className='w-full font-medium text-[1.5vw]'> About Me</p>
                         <div className="error_text_form ">{error}</div>
                         {loading ? (
-                            <div className='sm:min-h-[240px] min-h-[200px] flex justify-center items-center border border-[#06A9EF] rounded-[8px]'>
+                            <div className='h-[100%] flex justify-center items-center border border-[#06A9EF] rounded-[8px]'>
                                 <MiniLoader />
                             </div>
                         ) : (
