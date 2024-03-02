@@ -55,12 +55,12 @@ function CandidateHeader() {
         >
           <li>Home</li>
         </Link>
-        <Link
+        {/* <Link
           href="/myPurchase/MyPurchase"
           className={selectedPage === "/myPurchase/MyPurchase" ? "active" : "li"}
         >
           <li>My Purchase</li>
-        </Link>
+        </Link> */}
         
         <Link
           href="/home/MyCollection"
