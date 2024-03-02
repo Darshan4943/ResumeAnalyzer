@@ -242,7 +242,7 @@ function GenerateAi() {
         <div ref={generateAiRef} className=' bg-cover bg-no-repeat ml:bg_generateAi bg_generateAi1 py-[120px]  px-[60px] w-screen flex justify-center '>
             <div className='ml:w-[100%]  md:w-[60%] ms:w-[70%] sm:w-[80%] w-[97%] flex ml:flex-row flex-col items-center justify-center gap-6 sm:px-4 xsm:px-2 px-1 rounded-[16px] py-6  ' style={{ boxShadow: "0px 4px 14px 0px rgba(0, 0, 0, 0.25)", background: "rgba(255, 255, 255, 0.25)" }} >
                 <div
-                    className=" ml:w-[32vw] min-w-[300px] h-[30vw] w-[95%] relative flex flex-col gap-2 rounded-[16px] px-4 py-6 bg-white  "
+                    className=" ml:w-[28vw] min-w-[300px] h-[26vw] w-[95%] relative flex flex-col gap-2 rounded-[16px] px-4 py-6 bg-white  "
                     style={{ boxShadow: "0px 0px 26.499px 0px rgba(0, 0, 0, 0.25)" }}
                 >
                     <div className="w-full font-medium text-[1.5vw]"> About Me</div>
@@ -343,7 +343,7 @@ function GenerateAi() {
                         <p className='text-[14px] font-semibold'>to Try now!</p>
                     </div>
                 </div>
-                <div className='w-[32vw] min-w-[300px] h-[30vw]  border-dashed border-[2px] border-[#06A9EF] sm:p-2 px-1 py-1 rounded-[16px] '>
+                <div className='w-[28vw] min-w-[300px] h-[26vw]  border-dashed border-[2px] border-[#06A9EF] sm:p-2 px-1 py-1 rounded-[16px] '>
                     <div className='  flex w-full h-full flex-col gap-2 rounded-[16px] p-4 bg-white ' style={{ boxShadow: "0px 0px 26.499px 0px rgba(0, 0, 0, 0.25)" }} >
                         <p className='w-full font-medium text-[1.5vw]'> About Me</p>
                         <div className="error_text_form ">{error}</div>

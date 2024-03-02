@@ -1,0 +1,391 @@
+import React, { useEffect, useRef, useState } from 'react'
+import { telCode } from '../../../utils/data';
+import { useMediaQuery } from '@react-hook/media-query';
+
+function AccountDetails() {
+
+    const [data, setData] = useState({
+        firstName: "",
+        lastName: "",
+        mobileNo: "",
+        email: ""
+    })
+    const [formError, setFormError] = useState({});
+    const validateInput = (fieldName, value) => {
+        const errors = { ...formError };
+
+        switch (fieldName) {
+            case "firstName":
+                if (!value.trim()) {
+                    errors.firstName = "First Name is required";
+                } else if (!isNaN(value)) {
+                    errors.firstName = "First Name cannot be a number";
+                } else if (/\d/.test(value)) {
+                    errors.firstName = "First Name cannot contain numbers";
+                } else {
+                    delete errors.firstName;
+                }
+                break;
+            case "lastName":
+                if (!value.trim()) {
+                    errors.lastName = "Last Name is required";
+                } else if (!isNaN(value)) {
+                    errors.lastName = "Last Name cannot be a number";
+                } else if (/\d/.test(value)) {
+                    errors.lastName = "Last Name cannot contain numbers";
+                } else {
+                    delete errors.lastName;
+                }
+                break;
+            case "email":
+                if (!value.trim()) {
+                    errors.email = "Email is required";
+                } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+                    errors.email = "Invalid email format";
+                } else {
+                    delete errors.email;
+                }
+                break;
+
+            case "mobileNo":
+                if (!value.trim()) {
+                    errors.mobileNo = "Mobile Number is required";
+                } else if (isNaN(value)) {
+                    errors.mobileNo = "Mobile Number cannot be text";
+                } else {
+                    delete errors.mobileNo;
+                }
+                break;
+
+
+            default:
+                break;
+        }
+
+        setFormError(errors);
+
+        return errors;
+    };
+    {
+        console.log(124, formError);
+    }
+    const handleInputChange = (fieldName, value) => {
+        console.log(value.replace(/\D/g, "").length <= 10);
+        if (fieldName == "mobileNo") {
+            if (value.replace(/\D/g, "").length <= 10) {
+                setData({ ...data, [fieldName]: value.replace(/\D/g, "") });
+            }
+        } else {
+            setData({ ...data, [fieldName]: value });
+            validateInput(fieldName, value);
+        }
+    };
+    const submitHandler = (e) => {
+        e.preventDefault();
+
+        const errors = validateInput();
+
+        const requiredFields = [
+            "firstName",
+            "lastName",
+            "email",
+            "mobileNo",
+        ];
+        const emptyFields = requiredFields.filter((field) => !data[field]);
+
+        if (emptyFields.length > 0) {
+            toast.error("Please fill in all required fields");
+            return;
+        }
+
+        const hasErrors = Object.keys(errors).length > 0;
+
+        if (hasErrors) {
+            toast.error("Please enter valid information");
+            setFormError(errors);
+        } else {
+            setTabIndex(3);
+            window.scroll(0, 0);
+        }
+    };
+
+    const [dropdown, setDropdown] = useState(false);
+    const [selectedItem, setSelectedItem] = useState(telCode[0]);
+    const [searchTerm, setSearchTerm] = useState("");
+    const [showInput, setShowInput] = useState(false);
+    const handleSearch = (e) => {
+        setSearchTerm(e.target.value);
+    };
+
+    const handleItemClick = (item) => {
+        setSelectedItem(item);
+        setData({ ...data, dial_code: item.dial_code });
+        setSearchTerm("");
+        setDropdown(false);
+        setShowInput(false);
+    };
+
+    const handleInputClick = () => {
+        setDropdown(true);
+        setSearchTerm("");
+        setShowInput(true);
+        window.scrollTo({
+            top: 300,
+            behavior: "smooth",
+        });
+    };
+    const [filteredTelCode, setFilteredTelCode] = useState([]);
+
+    useEffect(() => {
+        const filterLogic = (item) =>
+            item.code.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            item.dial_code.includes(searchTerm);
+
+        const filteredCodes = telCode.filter(filterLogic);
+        setFilteredTelCode(filteredCodes);
+    }, [telCode, searchTerm]);
+
+    const taskRef = useRef(null);
+
+    const handleOutsideClick = (event) => {
+        if (taskRef.current && !taskRef.current.contains(event.target)) {
+            setDropdown(false);
+        }
+    };
+
+    useEffect(() => {
+        document.addEventListener("mousedown", handleOutsideClick);
+        return () => {
+            document.removeEventListener("mousedown", handleOutsideClick);
+        };
+    }, []);
+
+    const isViewportBelow850 = useMediaQuery("(max-width:850px)");
+
+    return (
+        <div className={" w-[60%] "}>
+            <div className="flex flex-col gap-6 w-[100%]">
+                <div className=" flex flex-col gap-4 justify-center w-[100%] ">
+                    <div className='text-[24px] font-[600] '>Account Details</div>
+                    <div className="flex flex-col gap-6 w-[100%]">
+                        <div className="flex gap-5 w-[100%] ">
+                            <div className=" w-[50%]">
+                                <p className="">
+                                    First name <span className="star">*</span>
+                                </p>
+                                <input
+                                    type="text"
+                                    name=""
+                                    id="single_input"
+                                    placeholder="Enter first name"
+                                    value={data.firstName}
+                                    onChange={(e) =>
+                                        handleInputChange("firstName", e.target.value)
+                                    }
+                                />
+                                {formError && (
+                                    <p className="text-[12px] text-[red] font-[500]">
+                                        {formError.firstName}
+                                    </p>
+                                )}
+                            </div>
+
+                            <div className="w-[50%]">
+                                <p className=" ">
+                                    Last name <span className="star">*</span>
+                                </p>
+                                <input
+                                    type="text"
+                                    name=""
+                                    id="single_input"
+                                    placeholder="Enter Last name"
+                                    value={data.lastName}
+                                    onChange={(e) =>
+                                        handleInputChange("lastName", e.target.value)
+                                    }
+                                />
+                                {formError && (
+                                    <p className="text-[12px] text-[red] font-[500]">
+                                        {formError?.lastName}
+                                    </p>
+                                )}
+                            </div>
+                        </div>
+
+                        <div className="">
+                            <p className="">
+                                Email <span className="star">*</span>
+                            </p>
+                            <input
+                                type="email"
+                                name=""
+                                id="single_input"
+                                placeholder="Enter Email"
+                                value={data.email}
+                                onChange={(e) =>
+                                    handleInputChange("email", e.target.value)
+                                }
+                            />
+                            {formError && (
+                                <p className="text-[12px] text-[red] font-[500]">
+                                    {formError?.email}
+                                </p>
+                            )}
+                        </div>
+
+
+                        <div className="">
+                            <p className="">
+                                Contact Number <span className="star">*</span>
+                            </p>
+                            <div
+                                className={`flex w-[100%] items-start ${isViewportBelow850 ? "gap-[4px] " : "gap-[16px] "
+                                    }`}
+                                id="single_input"
+                            >
+                                <div
+                                    className={`relative pl-3 ${isViewportBelow850 ? "w-[65%] " : "w-[30%] "
+                                        } items-center`}
+                                >
+                                    <div
+                                        className="  w-[80%] text-[14px] justify-center items-center  flex font-[500] text-[#646464]"
+                                        onClick={handleInputClick}
+                                    >
+                                        <div className="flex items-center justify-center gap-2 cursor-pointer min-w-[140px] w-[80%]">
+                                            <div
+                                                className="flex items-center  gap-1 cursor-pointer  w-[100%] "
+                                                onClick={handleInputClick}
+                                            >
+                                                {showInput ? (
+                                                    <input
+                                                        className="w-[100%]  border flex justify-center items-center py-1 px-3 rounded-[8px] "
+                                                        type="text"
+                                                        name=""
+                                                        placeholder="Search"
+                                                        value={searchTerm}
+                                                        onChange={handleSearch}
+                                                    />
+                                                ) : (
+                                                    <>
+                                                        <img
+                                                            src={`https://hatscripts.github.io/circle-flags/flags/${selectedItem.code.toLowerCase()}.svg`}
+                                                            width="20px"
+                                                        />
+                                                        <div
+                                                            className={` ${isViewportBelow850
+                                                                ? "text-[12px]"
+                                                                : "text-[16px]"
+                                                                }`}
+                                                        >
+                                                            {selectedItem.code}{" "}
+                                                            {selectedItem.dial_code}
+                                                        </div>
+                                                        <img
+                                                            className="w-[20px] h-[20px]"
+                                                            src="/images/down_arrow.png"
+                                                            alt=""
+                                                        />
+                                                    </>
+                                                )}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {dropdown && (
+                                        <div
+                                            ref={taskRef}
+                                            className="w-[113px] font-[500] top-12 -left-1  z-10 h-[40vh] overflow-y-scroll bg-[#fff] border-[1px] border-solid border-[#9D9D9D] absolute text-[14px] p-1 flex flex-col justify-between items-center"
+                                            name=""
+                                            id=""
+                                        >
+                                            {filteredTelCode.map((item, index) => (
+                                                <p
+                                                    className={`border-none cursor-pointer pl-[5px] flex my-2 gap-[5px] hover:bg-blue hover:text-[#fff] ${selectedItem === item ? "bg-gray-200" : ""
+                                                        }`}
+                                                    key={index}
+                                                    onClick={() => handleItemClick(item)}
+                                                >
+                                                    <img
+                                                        src={`https://hatscripts.github.io/circle-flags/flags/${item.code.toLowerCase()}.svg`}
+                                                        width="20px"
+                                                    />
+                                                    {item.code} {item.dial_code}
+                                                </p>
+                                            ))}
+                                        </div>
+                                    )}
+                                </div>
+
+                                <input
+                                    className="w-full mobileNo "
+                                    type="text"
+                                    name=""
+                                    // id="single_input"
+                                    placeholder={`${isViewportBelow850
+                                        ? "Enter Number "
+                                        : "Enter Contact Number "
+                                        }`}
+                                    value={data.mobileNo}
+                                    onChange={(e) =>
+                                        handleInputChange("mobileNo", e.target.value)
+                                    }
+                                />
+                            </div>
+
+                            {/* Display error message if any */}
+                            {formError && (
+                                <p className="text-[12px] text-[red] font-[500]">
+                                    {formError?.mobileNo}
+                                </p>
+                            )}
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div className=" flex flex-col gap-2 justify-center ">
+                    <div className='text-[24px] font-[600] '>Payment Summary</div>
+                    <div className='p-4 border border-[#06A9EF] rounded-[12px]'>
+                        <div className='flex flex-col gap-4'>
+                            <div className='flex justify-between'>
+                                <p className='text-[16px] font-semibold'>Plan - 30 Days Ultimate</p>
+                                <p className='text-[16px] font-semibold'>$ 10</p>
+
+                            </div>
+                            <div className='flex justify-between'>
+                                <p className='text-[16px] font-medium'>Estimated tax (18%)</p>
+                                <p className='text-[16px] font-medium'>$ 4</p>
+
+                            </div>
+                            <div className='h-[1px] w-full bg-[#DEDEDE]'></div>
+                            <div className='flex justify-between'>
+                                <p className='text-[20px] font-semibold'>Total</p>
+                                <p className='text-[20px] font-semibold'>$ 14</p>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div className='flex gap-3 items-center'>
+                    <input
+                        type="checkbox"
+                        className="w-4 h-4 rounded-md border border-[#06A9EF] bg-white custom-checkbox"
+
+                    />
+
+
+                    <div className='text-[16px] font-normal'>I agree to the <span className='text-[#06A9EF] border-b border-[#06A9EF]'>License Terms</span> and <span className='text-[#06A9EF] border-b border-[#06A9EF]'>User Agreement.</span></div>
+
+                </div>
+                <button className='px-9 py-3 bg-[#06A9EF] text-white rounded-[12px] text-[16px] font-semibold'>
+                    Purchase Plan
+                </button>
+            </div>
+        </div>
+    )
+}
+
+export default AccountDetails
