@@ -6,9 +6,11 @@ import { Document, Page, pdfjs } from "react-pdf";
 import { ClosedIcon } from "../../utils/svg";
 import { selectResumeTemplate } from "../../utils/middleware";
 import ResumePreview from "../../components/common/ResumePreview";
+import { useRouter } from "next/router";
 pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
 
 const MyCollection = () => {
+  const router = useRouter();
   const userDataGlobal = useSelector((state) => state.userData);
   const [resumeList, setResumeList] = useState([]);
   const [preview, setPreview] = useState(false);
@@ -87,22 +89,31 @@ const MyCollection = () => {
                             Preview
                           </span>
                         </div>
-                        {/* <div
-                              className="flex items-center flex-col cursor-pointer"
-                              style={{
-                                borderBottom: "1px solid #646464",
-                                paddingBottom: "12px",
-                              }}
-                            >
-                              <img
-                                src="/images/icons/edit.png"
-                                className="h-[28px] w-[28px]"
-                                alt=""
-                              />
-                              <span className="text-[14px] font-semibold text-white ">
-                                Edit
-                              </span>
-                            </div> */}
+                        <div
+                          onClick={() => {
+                            router.push({
+                              pathname: "/home/createResume",
+                              query: {
+                                data: JSON.stringify(item),
+                                isEdit: true,
+                              },
+                            });
+                          }}
+                          className="flex items-center flex-col cursor-pointer"
+                          style={{
+                            borderBottom: "1px solid #646464",
+                            paddingBottom: "12px",
+                          }}
+                        >
+                          <img
+                            src="/images/icons/edit.png"
+                            className="h-[28px] w-[28px]"
+                            alt=""
+                          />
+                          <span className="text-[14px] font-semibold text-white ">
+                            Edit
+                          </span>
+                        </div>
 
                         <a
                           href={item.resumeUrl}

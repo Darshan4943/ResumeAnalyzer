@@ -61,6 +61,12 @@ function CandidateHeader() {
         >
           <li>My Resumes</li>
         </Link>
+        <Link
+          href="/transform/TransformJob"
+          className={selectedPage === "/transform/TransformJob" ? "active" : "li"}
+        >
+          <li>Transform for Job Description</li>
+        </Link>
 
 
       </div>

@@ -50,6 +50,8 @@ function Sign_in({ setIsSignIn, handleGoogle }) {
           dispatch(reCallUserData());
           toast.success("Sign in Successfully");
           router.push("/home/BeforeLoginHome");
+          window.location.reload();
+        
         } else {
           toast.error("something went wrong");
         }

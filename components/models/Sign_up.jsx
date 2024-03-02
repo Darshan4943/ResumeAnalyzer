@@ -34,7 +34,7 @@ function Sign_up({ setIsSignIn, handleGoogle, setSignIn, setSignUp }) {
           dispatch(reCallUserData());
           toast.success("Sign up Successfully");
           router.push("/home/BeforeLoginHome");
-        
+          window.location.reload();
         } else {
           toast.error("something went wrong");
         }

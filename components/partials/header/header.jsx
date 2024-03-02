@@ -30,6 +30,7 @@ function Header({ userData }) {
         localStorage.setItem("authToken",JSON.stringify( res.data));
         console.log('User data sent to the server:', res.data);
         router.push("/home/BeforeLoginHome");
+        window.location.reload();
       }).catch(err => {
         console.log(err)
       })
