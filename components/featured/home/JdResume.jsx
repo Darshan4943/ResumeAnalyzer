@@ -18,54 +18,54 @@ function JdResume({ isLogin }) {
     }, []);
 
     return (
-        <div className="flex flex-row gap-8 items-center py-9 px-4 ">
-            <div className=" flex flex-col gap-6 w-[38%] text-[#000000] pl-[24px]">
-                <div className="flex flex-col gap-[24px]">
-                    <div className="font-semibold text-[2.5vw] leading-tight ">
+        <div className="flex md:flex-row flex-col-reverse gap-8 items-center py-9 md:px-6 px-3 ">
+            <div className=" flex flex-col gap-6 md:w-[38%]  ms:w-[60%] sm:w-[80%] text-[#000000] ">
+                <div className="flex flex-col gap-[24px] md:items-start items-center">
+                    <div className="font-semibold md:text-[2.5vw] text-[32px] leading-tight md:text-start text-center ">
                         <span className='text-[#06A9EF]  '>Transform</span> Resume to Match Multiple Job Description
                     </div>
-                    <div className="font-medium text-[1.4vw] text-[#333333] ">
+                    <div className="font-medium md:text-[1.4vw] text-[14px] text-[#333333] ">
                         Adapting your resume to fit various job descriptions means adjusting your skills and experiences to closely match what each job requires.
                         Boost your chances of getting noticed by hiring managers.
                     </div>
                     <button
                         onClick={() => isLogin ? router.push("/home/BuildResume") : dispatch(popupVisible())}
-                        className="px-9 py-4 bg-[#06A9EF] text-white  rounded-[12px] text-[1.3vw] font-semibold"
+                        className="px-9 py-4 bg-[#06A9EF] text-white  rounded-[12px] md:text-[1.3vw] text-[14px] font-semibold"
                         style={{ width: "fit-content" }}
                     >
                         Get Started
                     </button>
                 </div>
             </div>
-            <div className="w-[60%] relative flex justify-center h-[50vw] items-center p-5">
+            <div className="md:w-[60%] w-full relative flex sm:justify-center md:h-[47vw] sm:h-[70vw] h-[120vw] sm:items-center items-end sm:p-5">
                 <img
                     src="/images/resumeBuilder/gdResume1.png"
                     alt=""
-                    className={`w-[20vw] h-[28vw] ${isFlickering ? 'flicker' : ''}`}
+                    className={`md:w-[20vw] md:h-[28vw] sm:w-[30vw] sm:h-[40vw] w-[53vw] h-[74vw] sm:relative absolute sm:left-0 left-[8%] ${isFlickering ? 'flicker' : ''}`}
                 />
 
                 {[0, 1, 2, 3].map((index) => (
-                    <div key={index} className={` absolute w-[13vw] h-[18vw]  ${index === 0
-                        ? 'left-0 top-[60px]'
+                    <div key={index} className={` absolute    ${index === 0
+                        ? 'left-0  md:top-[20px] sm:top-[0] top-[20px]'
                         : index === 1
-                            ? 'top-[100px] right-0'
+                            ? 'md:top-[40px] sm:top-[20px] top-[-10px] sm:right-0 right-[40%]'
                             : index === 2
-                                ? 'right-6 bottom-[10px]'
-                                : 'left-6 bottom-[60px]'
+                                ? 'right-6 sm:bottom-[0px] bottom-[62%] '
+                                : 'sm:left-6 sm:bottom-[30px] bottom-[25%] left-[71%]'
                         }`} style={{
-                            borderRadius: "16px",
-                            padding: "16px",
-                            backgroundColor: index === currentImageIndex ? "#DAF2FD" : 'white',
+                            borderRadius: "1.15vw",
+                            padding: "1.15vw",
+                            backgroundColor: index === currentImageIndex ? "#DAF2FD" : 'transparent',
 
 
                         }}>
                         <img
-
+                            className='sm:w-[19vw] sm:h-[24vw]  md:w-[13vw] md:h-[17.5vw] w-[23vw] h-[35vw]'
                             src="/images/resumeBuilder/JD.png"
                             alt=""
 
                             style={{
-                                borderRadius:"16px",
+                                borderRadius:"1.15vw",
                             border: index === currentImageIndex? " 1px solid #06A9EF" : "none",
                                 boxShadow: index !== currentImageIndex ? "0px 2px 15px 0px #00000033" : 'none',
 
