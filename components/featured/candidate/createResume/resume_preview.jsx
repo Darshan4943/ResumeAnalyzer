@@ -34,6 +34,8 @@ import Template16 from "../../resumeTemplates/Template16";
 
 import Fonts from "../../../../public/fonts/fonts";
 import { ClosedIcon } from "../../../../utils/svg";
+import { useSelector } from "react-redux";
+import FileNameModel from "./components/fileNameModel";
 // import { generatePDFUsingRenderer } from "../../../../utils/middleware";
 <Fonts />;
 const ResumePreview = ({
@@ -48,6 +50,22 @@ const ResumePreview = ({
   isEdit,
   id,
 }) => {
+  const [namePreview, setNamePreview] = useState(false);
+  const [name, setName] = useState(data.firstName + "_resume");
+  const userDataGlobal = useSelector((state) => state.userData);
+  const callData = () => {
+    axios
+      .get("http://localhost:2000/api/resume/" + userDataGlobal?._id)
+      .then((res) => {
+        setName(data.firstName + "_resume" + (res.data.data.length + 1));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  useEffect(() => {
+    callData();
+  }, [userDataGlobal]);
   const templates = [
     {
       title: "Template1",
@@ -189,7 +207,6 @@ const ResumePreview = ({
       fontFamily: "Montserrat",
       themeColor: "#303030",
     },
-    
   ];
 
   const renderTemplates = () => {
@@ -424,29 +441,9 @@ const ResumePreview = ({
     };
   }, []);
 
-  const MyDocument = () => (
-    <Document height="1124px">
-      {selectResumeTemplate(selectedResumeIndex)}
-    </Document>
-  );
-
-  const generatePDFUsingRenderer = async () => {
-    // Render the PDF document to a blob
-    const pdfBlob = await new Promise((resolve) => {
-      const doc = React.createElement(MyDocument);
-      const pdfString = ReactDOMServer.renderToString(doc);
-
-      // Convert the rendered string to a Blob
-      const blob = new Blob([pdfString], {
-        type: "application/pdf",
-      });
-      resolve(blob);
-    });
-
-    return pdfBlob;
-  };
   const saveResume = async (blob) => {
     if (isEdit) {
+      setLoading(true);
       const formData = new FormData();
       if (Object.keys(data).length > 0) {
         Object.keys(data).map((key) => {
@@ -463,12 +460,18 @@ const ResumePreview = ({
         .put("http://localhost:2000/api/resume/" + id, formData)
         .then((res) => {
           toast.success("Resume Updated successfully");
+          setLoading(false);
+          callData();
         })
         .catch((err) => {
+          setLoading(false);
+
           console.log(err);
           toast.success("Something went wrong ");
         });
     } else {
+      setLoading(true);
+
       const formData = new FormData();
       if (Object.keys(data).length > 0) {
         Object.keys(data).map((key) => {
@@ -481,7 +484,7 @@ const ResumePreview = ({
       }
       formData.append("pdfBlob", blob);
       formData.append("resumeIndex", selectedResumeIndex);
-      formData.append("fileName", "resume" + selectedResumeIndex);
+      formData.append("fileName", name);
       formData.append("selectedColor", selectedColor);
       formData.append("selectedFont", selectedFont);
 
@@ -489,10 +492,13 @@ const ResumePreview = ({
         .post("http://localhost:2000/api/resume/add", formData)
         .then((res) => {
           toast.success("Resume Saved To Collection successfully");
+          setLoading(false);
+          callData();
         })
         .catch((err) => {
           console.log(err);
           toast.success("Something went wrong ");
+          setLoading(false);
         });
     }
   };
@@ -503,6 +509,7 @@ const ResumePreview = ({
       </Document>
     );
   };
+
   return (
     <div
       className="ml:w-[60%] w-[100%] "
@@ -545,8 +552,11 @@ const ResumePreview = ({
         )}
         <div className="web" ref={resumeRef}>
           <div className="flex justify-between">
-            <div className=" text-[20px]  font-montserrat font-medium flex items-center">
-              Preview
+            <div
+              className=" text-[20px]  font-montserrat font-medium flex items-center cursor-pointer"
+              onClick={() => setNamePreview(true)}
+            >
+              {name}
             </div>
 
             <div className="flex gap-[16px]">
@@ -557,16 +567,37 @@ const ResumePreview = ({
                       return (
                         <button
                           onClick={() => saveResume(blob)}
+                          disabled={loading}
                           className="flex gap-1 text-[14px] w-[150px]  justify-center text-[#FFF] font-montserrat font-semibold px-3 py-2 rounded-[8px] items-center border border-[#06A9EF] bg-[#06A9EF]"
                         >
-                          Save
+                          {loading ? (
+                            <svg
+                              aria-hidden="true"
+                              role="status"
+                              class="inline w-4 h-4 me-3 text-white animate-spin"
+                              viewBox="0 0 100 101"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                                fill="#E5E7EB"
+                              />
+                              <path
+                                d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                                fill="currentColor"
+                              />
+                            </svg>
+                          ) : (
+                            "Save"
+                          )}
                         </button>
                       );
                     }}
                   </BlobProvider>
                   <PDFDownloadLink
                     document={<MyComponent />}
-                    fileName="somename.pdf"
+                    fileName={name + ".pdf"}
                   >
                     {({ blob, url, loading, error }) => (
                       <button className="flex gap-1 text-[14px] w-[51.4px] h-[40px]  justify-center text-[#FFF] font-montserrat font-semibold  rounded-[8px] items-center border border-[#06A9EF] bg-[#06A9EF]">
@@ -691,6 +722,13 @@ const ResumePreview = ({
             </div>
           </div>
         </>
+      )}
+      {namePreview && (
+        <FileNameModel
+          data={data}
+          setNamePreview={setNamePreview}
+          setFunction={(data) => setName(data)}
+        />
       )}
     </div>
   );

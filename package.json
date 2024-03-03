@@ -55,7 +55,8 @@
     "recharts": "^2.11.0",
     "redux": "^5.0.1",
     "sass": "^1.69.5",
-    "scss": "^0.2.4"
+    "scss": "^0.2.4",
+    "swiper": "^11.0.7"
   },
   "devDependencies": {
     "autoprefixer": "^10.0.1",

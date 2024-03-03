@@ -59,32 +59,11 @@ const ProfessionalDetails = ({
           delete errors.jobLocation;
         }
         break;
-      // case "keySkills":
-      //   if (!value.keySkills?.length > 0) {
-      //     errors.keySkills = "Key Skill is required";
-      //   } else {
-      //     delete errors.keySkills;
-      //   }
-      //   break;
-      case "dateOfJoining":
-        if (!value.trim()) {
-          errors.dateOfJoining = "Date of Joining is required";
-        } else {
-          delete errors.dateOfJoining;
-        }
-        break;
       case "noticePeriod":
         if (!value.trim()) {
           errors.noticePeriod = "Notice Period is required";
         } else {
           delete errors.noticePeriod;
-        }
-        break;
-      case "currentCTC":
-        if (!value.trim()) {
-          errors.currentCTC = "Current CTC is required";
-        } else {
-          delete errors.currentCTC;
         }
         break;
 
@@ -107,6 +86,9 @@ const ProfessionalDetails = ({
         <div className="personal_details_all">
           <div className="personal_details p-4 pb-[96px]">
             <div className="personal_details_form education_page">
+              {/* {
+                  data.workStatus == 'Fresher'  && <div className="form_text_heading">Internship Details (Optional)</div>
+              } */}
               <div className="flex gap-6 w-[100%]">
                 <div className="personal_single_input">
                   <div className="personal_name gap-2 w-[100%]">
@@ -115,9 +97,10 @@ const ProfessionalDetails = ({
                     </p>
                     <div className="gender_button">
                       <button
-                        className={`gen_button ${data.employmentStatus == "employed" &&
+                        className={`gen_button ${
+                          data.employmentStatus == "employed" &&
                           "gen_button_active"
-                          }`}
+                        }`}
                         onClick={(e) => {
                           e.preventDefault();
                           setData({ ...data, employmentStatus: "employed" });
@@ -126,9 +109,10 @@ const ProfessionalDetails = ({
                         Employed
                       </button>
                       <button
-                        className={`gen_button ${data.employmentStatus == "unemployed" &&
+                        className={`gen_button ${
+                          data.employmentStatus == "unemployed" &&
                           "gen_button_active"
-                          }`}
+                        }`}
                         onClick={(e) => {
                           e.preventDefault();
                           setData({ ...data, employmentStatus: "unemployed" });
@@ -194,6 +178,7 @@ const ProfessionalDetails = ({
                   </div>
                 </div>
               </div>
+
               <div className="flex gap-6 w-[100%]">
                 <div className="personal_single_input w-[100%]">
                   <div className="personal_name w-[100%]">
@@ -300,7 +285,10 @@ const ProfessionalDetails = ({
                   </div>
                 </div>
               </div>
-              <div onWheel={(e) => e.stopPropagation()} className="flex gap-6 w-[100%]">
+              <div
+                onWheel={(e) => e.stopPropagation()}
+                className="flex gap-6 w-[100%]"
+              >
                 <div className="personal_single_input w-[100%]">
                   <p className="form_text_heading w-[100%]">
                     Key skills <span className="star">*</span>
@@ -319,7 +307,7 @@ const ProfessionalDetails = ({
                   )}
                 </div>
 
-                <div className="personal_single_input w-[100%]">
+                {/* <div className="personal_single_input w-[100%]">
                   <div className="personal_name w-[100%]">
                     <p className="form_text_heading">
                       Current CTC <span className="star">*</span>
@@ -340,7 +328,7 @@ const ProfessionalDetails = ({
                       </p>
                     )}
                   </div>
-                </div>
+                </div> */}
               </div>
 
               <div className="personal_single_input w-[100%] ">
@@ -432,9 +420,7 @@ const ProfessionalDetails = ({
                   onClick={handleClick}
                 >
                   {loading && <MiniLoader />}
-                  {!loading &&
-                    "Continue"
-                  }
+                  {!loading && "Continue"}
                 </button>
               </div>
             </div>

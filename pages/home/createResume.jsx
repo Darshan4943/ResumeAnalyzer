@@ -242,7 +242,7 @@ function CreateResume() {
           ],
 
           skills:
-          JSON.parse(keySkills)?.length > 0 &&
+          keySkills && JSON.parse(keySkills)?.length > 0 &&
             JSON.parse(keySkills).map((item) => ({
               skill: item.value,
               rating: [5, 5, 5, 5, 5],

@@ -93,6 +93,54 @@
   animation: fadeIn3 0.5s;
 }
 
+.mobile-view{
+  .gallary-container {
+    align-items: center;
+    display: flex;
+    height: 352px;
+    margin: 0 auto;
+  
+    position: relative;
+    /* background-color: red; */
+  }
+.gallary-item-1 {
+  left: -20%;
+
+  transform: translateX(-50%);
+}
+.gallary-item-2,
+.gallary-item-4 {
+  z-index: 1;
+  height: 216px;
+  width: 152px;
+}
+.gallary-item-2 {
+  left: -12%;
+  transform: translateX(-50%);
+}
+.gallary-item-3 {
+  opacity: 1;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+
+  display: flex;
+  width: 220px;
+  height: 312px;
+}
+
+.gallary-item-4 {
+  left: 108%;
+  transform: translateX(-50%);
+}
+.gallary-item-5 {
+  left: 120%;
+
+  transform: translateX(-50%);
+  animation: fadeIn3 0.5s;
+}
+
+}
 
 
 .fadeIn {

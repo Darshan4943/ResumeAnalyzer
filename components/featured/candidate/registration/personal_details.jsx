@@ -165,10 +165,10 @@ const PersonalDetails = ({
     setDropdown(true);
     setSearchTerm("");
     setShowInput(true);
-    window.scrollTo({
-      top: 300,
-      behavior: "smooth",
-    });
+    // window.scrollTo({
+    //   top: 300,
+    //   behavior: "smooth",
+    // });
   };
   const [filteredTelCode, setFilteredTelCode] = useState([]);
 
@@ -385,16 +385,31 @@ const PersonalDetails = ({
                     </div>
 
                     <div className="personal_single_input">
-                      <p className="form_text_heading">Date Of Birth</p>
-                      <input
-                        type="date"
-                        name=""
-                        id="single_input"
-                        value={data.dob}
-                        onChange={(e) =>
-                          setData({ ...data, dob: e.target.value })
-                        }
-                      />
+                      <div className="personal_name w-[100%]">
+                        <p className="form_text_heading">
+                          Current Location <span className="star">*</span>
+                        </p>
+                        <input
+                          type="text"
+                          name=""
+                          id="single_input"
+                          placeholder="Enter Your Location"
+                          value={data.currentLocation}
+                          onChange={(e) =>
+                            handleInputChange("currentLocation", e.target.value)
+                          }
+                        />
+                        {formError && (
+                          <p className="text-[12px] text-[red] font-[500]">
+                            {formError?.currentLocation}
+                          </p>
+                        )}
+                        <img
+                          className="icon"
+                          src="/images/auth/candidate/location_on.png"
+                          alt=""
+                        />
+                      </div>
                     </div>
                   </div>
 
@@ -441,30 +456,42 @@ const PersonalDetails = ({
                     </div>
 
                     <div className="personal_single_input">
-                      <div className="personal_name w-[100%]">
+                      <div className="personal_name gap-2 w-[100%]">
                         <p className="form_text_heading">
-                          Current Location <span className="star">*</span>
+                          Work Status <span className="star">*</span>
                         </p>
-                        <input
-                          type="text"
-                          name=""
-                          id="single_input"
-                          placeholder="Enter Your Location"
-                          value={data.currentLocation}
-                          onChange={(e) =>
-                            handleInputChange("currentLocation", e.target.value)
-                          }
-                        />
-                        {formError && (
-                          <p className="text-[12px] text-[red] font-[500]">
-                            {formError?.currentLocation}
-                          </p>
-                        )}
-                        <img
-                          className="icon"
-                          src="/images/auth/candidate/location_on.png"
-                          alt=""
-                        />
+                        <div className="gender_button">
+                          <button
+                            className={`gen_button ${
+                              data.workStatus == "Experienced" &&
+                              "gen_button_active"
+                            }`}
+                            onClick={(e) => {
+                              e.preventDefault();
+                              setData({
+                                ...data,
+                                workStatus: "Experienced",
+                              });
+                            }}
+                          >
+                            Experienced
+                          </button>
+                          <button
+                            className={`gen_button ${
+                              data.workStatus == "Fresher" &&
+                              "gen_button_active"
+                            }`}
+                            onClick={(e) => {
+                              e.preventDefault();
+                              setData({
+                                ...data,
+                                workStatus: "Fresher",
+                              });
+                            }}
+                          >
+                            Fresher
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>

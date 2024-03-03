@@ -37,7 +37,7 @@ function CandidateHeader() {
         setIsLogin(false);
       }
     }
-  },[]);
+  }, []);
   return (
     <>
       <div className="flex justify-center items-center list-none gap-9">
@@ -61,7 +61,7 @@ function CandidateHeader() {
         >
           <li>My Purchase</li>
         </Link> */}
-        
+
         <Link
           href="/home/MyCollection"
           className={selectedPage === "/home/MyCollection" ? "active" : "li"}
@@ -84,9 +84,7 @@ function CandidateHeader() {
         </Link> */}
         <Link
           href="/home/SkillAssessment"
-          className={
-            selectedPage === "/transform/TransformJob" ? "active" : "li"
-          }
+          className={selectedPage === "/home/SkillAssessment" ? "active" : "li"}
         >
           <li>Skill Test</li>
         </Link>

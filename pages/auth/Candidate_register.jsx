@@ -37,6 +37,7 @@ function Candidate_register() {
     university: "",
     institute: "",
     dateOfComplition: "",
+    workStatus: "Experienced",
     workExperiance: "",
     companyName: "",
     jobTitle: "",
