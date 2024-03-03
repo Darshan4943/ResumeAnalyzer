@@ -16,6 +16,9 @@ body {
   .customMargins {
     padding: 0 24px;
   }
+  .customMargins1 {
+    padding: 0 24px;
+  }
  
 }
 @media (max-width: 480px) {
@@ -32,9 +35,11 @@ body {
     margin-left: 156px;
   }
 }
+
 .customMargins1 {
-  margin: 0  auto ;
-  max-width: 1340px;
+ padding: 0 80px;
+  
+
 }
 
 div::-webkit-scrollbar {

@@ -26,6 +26,7 @@ module.exports = {
       scr820: "820px",
       ml: "851px",
       scr900:"900px",
+      scr930:"930px",
       lg: "976px",
       scr1024: "1024px",
       xxlg: "1128px",

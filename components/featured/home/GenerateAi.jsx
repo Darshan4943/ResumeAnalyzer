@@ -197,7 +197,7 @@ function GenerateAi() {
             setLoading(true);
             setStars(true)
             axios
-                .post("http://localhost:2000/api/text/regenrate", { prompt })
+                .post("https://freedygoservices.in/api/text/regenrate", { prompt })
                 .then((res) => {
                     setLoading(false);
                     setError("");
@@ -239,21 +239,21 @@ function GenerateAi() {
 
     return (
 
-        <div ref={generateAiRef} className=' bg-cover bg-no-repeat ml:bg_generateAi bg_generateAi1 py-[120px]  px-[60px] w-screen flex justify-center '>
-            <div className='ml:w-[100%]  md:w-[60%] ms:w-[70%] sm:w-[80%] w-[97%] flex ml:flex-row flex-col items-center justify-center gap-6 sm:px-4 xsm:px-2 px-1 rounded-[16px] py-6  ' style={{ boxShadow: "0px 4px 14px 0px rgba(0, 0, 0, 0.25)", background: "rgba(255, 255, 255, 0.25)" }} >
+        <div ref={generateAiRef} className=' bg-cover bg-no-repeat ml:bg_generateAi bg_generateAi1 xl:py-[120px] scr1200:py-[80px] py-[60px]  flex items-center justify-center ml:px-6 ms:px-3 p-2 w-screen  '>
+            <div className='ml:w-[100%] md:w-[60%] ms:w-[70%] sm:w-[80%] w-[97%] flex ml:flex-row flex-col items-center justify-between  gap-6 sm:px-4 xsm:px-2 px-1 rounded-[16px] py-6 ' style={{ boxShadow: "0px 4px 14px 0px rgba(0, 0, 0, 0.25)", background: "rgba(255, 255, 255, 0.25)" }} >
                 <div
-                    className=" ml:w-[28vw] min-w-[300px] h-[26vw] w-[95%] relative flex flex-col gap-2 rounded-[16px] px-4 py-6 bg-white  "
+                    className=" ml:w-[30vw] w-[95%] ml:h-[26vw] relative flex flex-col gap-2 rounded-[16px] px-4 py-6 bg-white "
                     style={{ boxShadow: "0px 0px 26.499px 0px rgba(0, 0, 0, 0.25)" }}
                 >
-                    <div className="w-full font-medium text-[1.5vw]"> About Me</div>
-                    <div className=" w-full text-[1.2vw]   overflow-hidden p-2 font-montserrat font-small h-full border border-[#06A9EF] rounded-[8px] outline-none ">
+                    <div className="w-full font-medium ml:text-[1.5vw] text-[16px]"> About Me</div>
+                    <div className=" w-full text-[14px] ml:h-[26vw] md:h-[35vw] ms:h-[30vw] scr540:h-[35vw] sm:h-[35vw] h-[50vw] overflow-hidden p-2 font-montserrat font-small border border-[#06A9EF] rounded-[8px] outline-none ">
 
                         {loading1 ? (
-                            <div className='h-[100%] flex justify-center items-center '>
+                            <div className=' h-full flex justify-center items-center '>
                                 <MiniLoader />
                             </div>
                         ) : (
-                            <div className=" w-[100%] ">
+                            <div className=" w-[100%] ml:text-[1vw] sm:text-[14px] text-[12px] ">
                                 {animationText}
                             </div>
                         )}
@@ -261,7 +261,7 @@ function GenerateAi() {
 
                     </div>
                     <div className="w-full flex justify-end items-center gap-3 ">
-                        <button className={` cursor-not-allowed  relative flex gap-2 sm:px-3 px-[5px] py-2 border items-center border-[#06A9EF] ${isClicked && "bg-[#06A9EF] "}  rounded-[8px] min-w-[155px] sm:min-w-[170px]`} style={{
+                        <button className={` cursor-not-allowed  relative flex gap-2 sm:px-3 px-[5px] py-2 border items-center border-[#06A9EF] ${isClicked && "bg-[#06A9EF] "}  rounded-[8px]  `} style={{
                             boxShadow: slideRobot ? '0px 0px 16px 0px #06A9EF' : 'none',
                             animation: slideRobot ? 'shadowAnimation 3s linear infinite' : 'none'
                         }}
@@ -282,13 +282,13 @@ function GenerateAi() {
                                     src="/images/home/stars.png " alt="" className={`h-[30px] w-[35px]  absolute left-[5%] `} />
                             }
 
-                            <p className={`text-[0.8vw]  ${isClicked && "text-white "} font-semibold `}>Generate with AI</p>
+                            <p className={` ml:text-[0.9vw] text-[12px] font-semibold ${isClicked && "text-white  "}  `}>Generate with AI</p>
                             {isClicked &&
                                 <p className='absolute top-[115%] left-[55%] text-[12px] font-medium '> clicked !</p>
                             }
                         </button>
 
-                        <button className="py-2 px-4 text-[0.8vw]  bg-[#06A9EF] rounded-[8px] text-white cursor-not-allowed">
+                        <button className="py-2 px-4 text-[12px] ml:text-[0.9vw] bg-[#06A9EF] font-semibold rounded-[8px] text-white cursor-not-allowed">
                             Save
                         </button>
 
@@ -309,8 +309,9 @@ function GenerateAi() {
                     }
 
                 </div>
-                <div className=' ml:w-[30vw]  w-[70%]  flex flex-col gap-4 justify-center text-center items-center '>
-                    <div className=' sm:w-[95%] w-[97%] flex-wrap text-center items-center justify-center text-[1.7vw]  font-bold'>
+                <div className=' ml:w-[30%] ml:h-[26vw] w-[70%]  flex flex-col gap-4 justify-center text-center items-center'>
+                    <div className='flex flex-col sm:w-[95%] w-[97%] flex-wrap text-center items-center justify-center ml:text-[1.6vw] text-[24px] font-bold'>
+
                         <p className='text-center'>   Try our Generative AI  </p>
                         <p className='text-center'>    Feature  </p>
                         <p className='text-center'>   to </p>
@@ -321,10 +322,10 @@ function GenerateAi() {
                     </div>
                     <div className='flex flex-col justify-center items-center gap-2 w-[90%] relative'>
 
-                        <p className='text-[1vw] font-semibold'>Type something about yourself & Click on</p>
+                        <p className='text-[14px] ml:text-[1vw]  font-semibold'>Type something about yourself & Click on</p>
                         <img src="/images/blueArrow.png " alt="" className='h-[40px]  object-contain w-[41px] absolute scr1150:top-4 -right-6 top-7 web' />
 
-                        <button className=' cursor-not-allowed w-[35%] flex gap-2 sm:px-3 px-[5px] py-2 border items-center border-[#06A9EF] bg-white rounded-[8px] min-w-[155px] sm:min-w-[170px] relative'>
+                        <button className=' cursor-not-allowed scr1300:min-w-[162px] scr1100:min-w-[145px]  scr1024:min-w-[135px] lg:min-w-[120px]  scr930:min-w-[115px]  scr900:min-w-[110px]  ml:min-w-[100px]  flex gap-2 sm:px-3 px-[5px] py-2 border items-center border-[#06A9EF] bg-white rounded-[8px]  relative'>
                             <img src="/images/blueArrow1.png " alt="" className='h-[40px]  object-contain w-[41px] absolute top-3 -right-10 mobile' />
                             <motion.img
                                 initial={{ translateY: '-4px' }}
@@ -336,37 +337,38 @@ function GenerateAi() {
                             />
 
 
-                            <p className=" text-[12px] text-center font-semibold ">
+                            <p className=" ml:text-[0.9vw] text-[12px] text-center font-semibold  ">
                                 Generate with AI
                             </p>
                         </button>
-                        <p className='text-[14px] font-semibold'>to Try now!</p>
+                        <p className='text-[14px] ml:text-[1vw] font-semibold'>to Try now!</p>
                     </div>
                 </div>
-                <div className='w-[28vw] min-w-[300px] h-[26vw]  border-dashed border-[2px] border-[#06A9EF] sm:p-2 px-1 py-1 rounded-[16px] '>
-                    <div className='  flex w-full h-full flex-col gap-2 rounded-[16px] p-4 bg-white ' style={{ boxShadow: "0px 0px 26.499px 0px rgba(0, 0, 0, 0.25)" }} >
-                        <p className='w-full font-medium text-[1.5vw]'> About Me</p>
-                        <div className="error_text_form ">{error}</div>
+                <div className='ml:w-[30vw] w-[95%]   border-dashed border-[2px] border-[#06A9EF] sm:p-2 px-1 py-1 rounded-[16px]'>
+                    <div className='  flex w-full ml:h-[26vw]  flex-col gap-2 rounded-[16px] p-4 bg-white ' style={{ boxShadow: "0px 0px 26.499px 0px rgba(0, 0, 0, 0.25)" }} >
+                        <p className='w-full font-medium ml:text-[1.5vw] text-[16px]'> About Me</p>
+                        <div className="error_text_form  ">{error}</div>
+                        
                         {loading ? (
-                            <div className='h-[100%] flex justify-center items-center border border-[#06A9EF] rounded-[8px]'>
+                            <div className='ml:h-[26vw] md:h-[35vw] ms:h-[30vw] scr540:h-[35vw] sm:h-[35vw] h-[50vw] flex justify-center items-center border border-[#06A9EF] rounded-[8px]'>
                                 <MiniLoader />
                             </div>
                         ) : (
                             <textarea
-                                // onWheel={(e) => e.stopPropagation()}
+                                onWheel={(e) => e.stopPropagation()}
                                 type="text"
                                 name="aboutMe"
-                                className="w-full  text-[1.2vw]  font-montserrat  h-full border border-[#06A9EF] rounded-[8px] outline-none p-4 "
+                                className="ml:h-[26vw] md:h-[35vw] ms:h-[30vw] scr540:h-[35vw] sm:h-[35vw] h-[50vw] ml:text-[1vw] sm:text-[14px] text-[12px] font-montserrat border border-[#06A9EF] rounded-[8px] outline-none p-4 "
                                 placeholder=" "
                                 onChange={handleTextChange}
                                 value={text}
                             />
                         )}
                         <div className='w-full flex justify-end items-center gap-2'>
-                            <div className=" text-[0.7vw] font-[400]">
+                            <div className=" ml:text-[0.7vw] text-[10px] font-[400]">
                                 Remaining Attempts - <span className={`${attempt <= 0 && "text-red"} `}>{attempt}</span>
                             </div>
-                            <button onClick={generateText} disabled={attempt <= 0} className={` justify-between relative flex gap-1 sm:px-1 px-[5px] py-2 border items-center border-[#06A9EF] ${stars && "bg-[#06A9EF]"}  rounded-[8px] min-w-[122px] ml:min-w-[122px] sm:min-w-[146px] scr1024:min-w-[146px] ${attempt <= 0 && " cursor-not-allowed"}`} >
+                            <button onClick={generateText} disabled={attempt <= 0} className={` justify-between scr1300:min-w-[162px] scr1100:min-w-[145px]  scr1024:min-w-[135px] lg:min-w-[120px]  scr930:min-w-[115px]  scr900:min-w-[110px]  ml:min-w-[100px] min-w-[120px] relative flex gap-1 py-2 border items-center border-[#06A9EF] ${stars && "bg-[#06A9EF]"} px-2  rounded-[8px]  ${attempt <= 0 && " cursor-not-allowed"}`} >
                                 <motion.img
                                     initial={{ translateY: '-4px' }}
                                     animate={{ translateY: '4px' }}
@@ -379,7 +381,7 @@ function GenerateAi() {
                                     <motion.img
                                         src="/images/home/stars.png"
                                         alt=""
-                                        className={`sm:h-[30px] sm:w-[35px] h-[20px] w-[25px] sm:ml-1 ml-2 absolute left-[-3%] `}
+                                        className={`sm:h-[30px] sm:w-[35px] h-[20px] w-[25px] sm:ml-1 ml-2 absolute left-[-1%] `}
                                         initial={{ opacity: 0, scale: 0.5 }}
                                         animate={{ opacity: 1, scale: 1 }}
                                         transition={{ duration: 2 }}
@@ -388,13 +390,13 @@ function GenerateAi() {
                                 }
 
 
-                                <p className={` text-[0.8vw] font-[600] ${stars && "text-white"}`}  >
+                                <p className={` ml:text-[0.9vw] text-[9px] font-semibold  ${stars && "text-white"}`}  >
                                     Generate with AI
                                 </p>
                             </button>
                             <button
 
-                                className="py-2 px-4 text-[0.8vw]  bg-[#06A9EF] rounded-[8px] text-white cursor-not-allowed "
+                                className="py-2 sm:px-4 px-3   text-[9px]  ml:text-[0.9vw] font-semibold bg-[#06A9EF] rounded-[8px] text-white cursor-not-allowed "
                             >
                                 Save
                             </button>
