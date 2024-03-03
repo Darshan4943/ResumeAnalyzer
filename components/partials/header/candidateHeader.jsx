@@ -63,12 +63,26 @@ function CandidateHeader() {
         </Link>
         <Link
           href="/transform/TransformJob"
+          className={
+            selectedPage === "/transform/TransformJob" ? "active" : "li"
+          }
+        >
+          <li>Transform for CV Job Description</li>
+        </Link>
+        {/* <Link
+          href="/transform/TransformJob"
           className={selectedPage === "/transform/TransformJob" ? "active" : "li"}
         >
-          <li>Transform for Job Description</li>
+          <li>My Purchase</li>
+        </Link> */}
+        <Link
+          href="/home/SkillAssessment"
+          className={
+            selectedPage === "/transform/TransformJob" ? "active" : "li"
+          }
+        >
+          <li>Skill Test</li>
         </Link>
-
-
       </div>
 
       <div className=" flex gap-4 justify-end py-2 items-center w-[24.9%] group group-hover:visible">

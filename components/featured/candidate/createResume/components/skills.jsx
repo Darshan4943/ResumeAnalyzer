@@ -70,14 +70,8 @@ const Skills = ({ data, setData }) => {
     setSaveDisabled(true);
   };
   useEffect(() => {
-    if (userDataGlobal?.resumeUrl) {
-      const skills = userDataGlobal.skills.map((item) => ({
-        skill: item.value,
-        rating: initialRatings,
-      }));
-      setSkillList(skills);
-    }
-  }, [userDataGlobal]);
+    setSkillList(data.skills);
+  }, [data]);
   return (
     <>
       <div  onWheel={(e) => e.stopPropagation()}

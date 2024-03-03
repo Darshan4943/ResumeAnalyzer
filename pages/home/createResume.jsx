@@ -159,18 +159,20 @@ function CreateResume() {
     summery:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make",
   });
-
   useEffect(() => {
     if (userData) {
       if (userData.isEdit) {
         const data = JSON.parse(userData.data);
         setData(data);
-        console.log(data.resumeTemplateIndex);
+        console.log(data);
         setSelectedResumeIndex(data.resumeTemplateIndex);
         setSelectedColor(data.selectedColor);
         setSelectedFont(data.selectedFont);
         setEnditId(data._id);
       } else {
+        setTimeout(() => {
+          setSelectedResumeIndex(1);
+        }, 400);
         const {
           firstName,
           lastName,
@@ -196,7 +198,6 @@ function CreateResume() {
         const currentDate = new Date();
         const currentMonth = currentDate.getMonth() + 1; // Months are zero-based, so add 1
         const currentYear = currentDate.getFullYear();
-
         setData((prevData) => ({
           ...prevData,
           firstName: firstName ? camelCase(firstName) : "JOHN",
@@ -241,7 +242,7 @@ function CreateResume() {
           ],
 
           skills:
-            keySkills?.length > 0 &&
+          JSON.parse(keySkills)?.length > 0 &&
             JSON.parse(keySkills).map((item) => ({
               skill: item.value,
               rating: [5, 5, 5, 5, 5],
@@ -249,9 +250,7 @@ function CreateResume() {
         }));
       }
     } else {
-      setTimeout(() => {
-        setSelectedResumeIndex(1);
-      }, 1000);
+     
     }
   }, [userData]);
 
