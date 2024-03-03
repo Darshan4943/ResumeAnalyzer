@@ -82,7 +82,7 @@ function Header({ userData }) {
         setIsLogin(false);
       }
     }
-  });
+  },[]);
   const taskRef = useRef(null);
 
   const handleOutsideClick = (event) => {

@@ -20,7 +20,7 @@ function ResumeInventory({ isLogin }) {
             </div>
             <div className=" flex flex-col gap-6 w-[50%] text-[#000000] pl-[24px]">
                 <div className="flex flex-col gap-[24px]">
-                    <div className="font-semibold text-[2.5vw] leading-none ">
+                    <div className="font-semibold text-[2.5vw] leading-tight">
                         <span className='text-[#06A9EF]'>My Collection</span>  is Your Personal Resume Inventory
                     </div>
                     <div className="font-medium text-[1.4vw] text-[#333333] ">

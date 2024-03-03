@@ -6,7 +6,7 @@ import ImgCarousel from "../../components/featured/home/ImgCarousel";
 import SkillAssessment from "../../components/featured/home/SkillAssessment";
 import JdResume from "../../components/featured/home/JdResume";
 import ResumeInventory from "../../components/featured/home/ResumeInventory";
-import SubscriptionPlan from "../../components/featured/home/SubscriptionPlan";
+import SubscriptionPlan from "../../components/featured/home/SubscriptionHome";
 import { popupVisible, reCallUserData } from "../../Redux/actions/user";
 import { useDispatch, useSelector } from "react-redux";
 import { recallUser } from "../../Redux/reducers/userReducer";
@@ -25,7 +25,7 @@ console.log(popupState)
         setIsLogin(false);
       }
     }
-  });
+  },[]);
   const router = useRouter();
   const clickHandler = () => {
    
@@ -41,7 +41,7 @@ console.log(popupState)
       <div className="flex flex-row gap-8 items-center ">
         <div className=" flex flex-col gap-6 w-[50%] text-[#333333] pl-[24px] ">
           <div className="flex flex-col gap-[24px]">
-            <div className="font-semibold text-[4.8vw] leading-none ">
+            <div className="font-semibold text-[4.8vw] leading-tight ">
               The Best AI Resume Creator
             </div>
             <div className="font-medium text-[1.5vw] ">
@@ -75,7 +75,7 @@ console.log(popupState)
         </div>
 
         <div className=" flex flex-col gap-6 w-[35%] text-[#333333]">
-          <div className="font-semibold  text-[2.5vw] leading-none ">
+          <div className="font-semibold  text-[2.5vw] leading-tight ">
             Resume Templates for All Careers.
           </div>
           <div className="font-medium scr1200:text-[1.67vw] text-[20px] w-[95%] break-words ">
