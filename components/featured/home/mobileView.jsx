@@ -122,8 +122,8 @@ const MobileView = ({ clickHandler, isLogin }) => {
       <div className="block lg:hidden my-4 mobile-view">
         {" "}
         <div className=" flex flex-col gap-6 w-[100%] text-[#333333] ">
-          <div className="flex flex-col items-center  px-[8px] py-[36px]">
-            <div className="font-semibold text-[34px] leading-tight ">
+          <div className="flex flex-col items-center  px-[8px] py-[36px] gap-4">
+            <div className="font-semibold text-[34px] leading-tight text-center ">
               The Best AI Resume Creator
             </div>
             <div className="font-medium text-[14px] ">
@@ -151,11 +151,11 @@ const MobileView = ({ clickHandler, isLogin }) => {
             <ImgCarousel />
           </div>
 
-          <div className=" flex flex-col gap-6 w-[100%] text-[#333333] items-center px-8">
+          <div className=" flex flex-col gap-6 w-[100%] text-[#333333] items-center ml:px-8 px-2">
             <div className="font-semibold  text-[34px] leading-tight text-center ">
               Resume Templates for All Careers.
             </div>
-            <div className="font-medium scr1200:text-[14px] text-[20px] w-[95%] break-words text-center ">
+            <div className="font-medium text-[14px] ml:text-[20px] w-[95%] break-words text-center ">
               Select one of our expertly designed resume templates, and you will
               be able to quickly and easily create a resume that fits your needs
               and style, even if you have never created one before using
@@ -180,11 +180,11 @@ const MobileView = ({ clickHandler, isLogin }) => {
               className={`w-[304px] h-[304px] object-contain`}
             />
           </div>
-          <div className=" flex flex-col gap-6 w-[100%] text-[#000000] pl-[24px] items-center px-8">
+          <div className=" flex flex-col gap-6 w-[100%] text-[#000000] pl-[24px] items-center ml:px-8 px-6">
             <div className="flex flex-col gap-[24px] items-center">
               <div className="font-semibold text-[30px] leading-tight text-center">
-                <span className="text-[#06A9EF]">My Collection</span> is Your
-                Personal Resume Inventory
+                <span className="text-[#06A9EF]">My Collection</span>
+                 <p>is Your Personal Resume Inventory</p>
               </div>
               <div className="font-medium text-[14px] text-[#333333] text-center ">
                 My Collection is your one-stop destination for organizing and
@@ -207,9 +207,9 @@ const MobileView = ({ clickHandler, isLogin }) => {
           </div>
         </div>
         <div className="flex flex-col gap-12  bg-subscriptionPlan justify-center items-left bg-cover bg-no-repeat  py-[24px]">
-          <div className="text-left px-[8px]">
+          <div className="text-center px-[8px]">
             <p className="text-[32px] text-[#333333] font-[700]">
-              Try our Subscription plans
+              Try our <span className="text-[#06A9EF]">Subscription</span>  plans
             </p>
             <p className="text-[14px] text-[#646464] font-[400]">
               Affordable plans for all the aspiring professionals.
