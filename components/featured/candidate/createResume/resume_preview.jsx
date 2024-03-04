@@ -562,6 +562,7 @@ const ResumePreview = ({
               {name}
               
             </div>
+            {selectedResumeIndex !== undefined && (
             <BlobProvider document={<MyComponent />}>
                 {({ blob, url, loading, error }) => {
                   return (
@@ -595,6 +596,7 @@ const ResumePreview = ({
                   );
                 }}
               </BlobProvider>
+            )}
               </div>
             <div className="flex sm:gap-[16px] scr1024:gap-2 gap-2 items-center justify-end ml:w-[45%] w-full">
               {selectedResumeIndex !== undefined && (
