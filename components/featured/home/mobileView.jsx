@@ -10,6 +10,7 @@ import { useDispatch } from "react-redux";
 import { useRouter } from "next/router";
 import { popupVisible } from "../../../Redux/actions/user";
 import SubscriptionPlans from "./SubscriptionPlans";
+import GenerateAi from "./GenerateAi";
 
 const images = [
   "templates/template1.png",
@@ -142,6 +143,9 @@ const MobileView = ({ clickHandler, isLogin }) => {
           </div>
           <ImageParallex />
         </div>{" "}
+        <div className="flex items-end justify-center overflow-hidden ">
+          <GenerateAi />
+        </div>
         <div className="flex flex-col gap-9 items-center  py-[72px] bg-carousel_bg bg-cover bg-no-repeat ">
           <div className="w-[100%]">
             <ImgCarousel />
@@ -166,6 +170,7 @@ const MobileView = ({ clickHandler, isLogin }) => {
             </button>
           </div>
         </div>
+       
         <SkillAssessment isLogin={isLogin} />
         <JdResume isLogin={isLogin} />
         <div className="flex flex-col gap-2 items-center  pb-[42px] bg-inventory bg-cover bg-no-repeat ">
@@ -202,13 +207,17 @@ const MobileView = ({ clickHandler, isLogin }) => {
             </div>
           </div>
         </div>
-        <div className='flex flex-col gap-12  bg-subscriptionPlan justify-center items-left bg-cover bg-no-repeat  py-[24px]'>
-            <div className='text-left px-[8px]'>
-                <p className='text-[32px] text-[#333333] font-[700]'>Try our Subscription plans</p>
-                <p className='text-[14px] text-[#646464] font-[400]'>Affordable plans for all the aspiring professionals.</p>
-            </div>
+        <div className="flex flex-col gap-12  bg-subscriptionPlan justify-center items-left bg-cover bg-no-repeat  py-[24px]">
+          <div className="text-left px-[8px]">
+            <p className="text-[32px] text-[#333333] font-[700]">
+              Try our Subscription plans
+            </p>
+            <p className="text-[14px] text-[#646464] font-[400]">
+              Affordable plans for all the aspiring professionals.
+            </p>
+          </div>
 
-            <SubscriptionPlans isLogin={isLogin} />
+          <SubscriptionPlans isLogin={isLogin} />
         </div>
       </div>
     </>
