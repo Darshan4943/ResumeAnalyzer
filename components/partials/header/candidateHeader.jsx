@@ -24,7 +24,7 @@ function CandidateHeader() {
 
   const handleLogOut = () => {
     setlogin(false);
-    setIsLogin(false);
+  setIsLogin(false);
     router.push("/");
     toggleDropdown();
     localStorage.clear();

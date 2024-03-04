@@ -32,7 +32,8 @@ function CreateResume() {
 
   const [isEdit, isSetEdit] = useState(false);
 
-  const [data, setData] = useState({
+  const [data, setData] = useState(
+    {
     profilePhoto: null,
     designation: "UI/UX designer",
     firstName: "John",
