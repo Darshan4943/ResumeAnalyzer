@@ -551,19 +551,22 @@ const ResumePreview = ({
           </div>
         )}
         <div className="" ref={resumeRef}>
-          <div className="flex justify-between flex-wrap gap-4">
+          <div className="flex justify-between flex-wrap scr1024:gap-4 gap-2">
+            <div className="flex items-center justify-between ml:w-[40%] w-full gap-4">
             <div
-              className=" text-[20px] w-full font-montserrat font-medium flex items-center justify-between cursor-pointer gap-4"
+              className=" text-[20px] font-montserrat font-medium  cursor-pointer "
               onClick={() => setNamePreview(true)}
             >
               {name}
-              <BlobProvider document={<MyComponent />}>
+              
+            </div>
+            <BlobProvider document={<MyComponent />}>
                 {({ blob, url, loading, error }) => {
                   return (
                     <button
                       onClick={() => saveResume(blob)}
                       disabled={loading}
-                      className="flex gap-1 text-[14px] sm:w-[150px]  justify-center  font-montserrat font-semibold px-3 py-1 rounded-[8px] items-center border border-[#06A9EF] "
+                      className="flex gap-1 text-[14px] sm:w-[150px]  justify-center  font-montserrat font-semibold px-3 py-2 rounded-[8px] items-center border border-[#06A9EF] "
                     >
                       {loading ? (
                         <svg
@@ -590,14 +593,14 @@ const ResumePreview = ({
                   );
                 }}
               </BlobProvider>
-            </div>
-
-            <div className="flex sm:gap-[16px] gap-2 flex-wrap justify-between w-full">
+              </div>
+            <div className="flex sm:gap-[16px] scr1024:gap-2 gap-2 items-center justify-end ml:w-[45%] w-full">
               {selectedResumeIndex !== undefined && (
                 <>
-                  <div className="flex gap-2 scr420:gap-[16px] justify-between">
+                <div className="mobile">
+                  <div className="flex gap-2 scr420:gap-[16px] justify-between ">
                     <button
-                      className=" text-[12px] flex gap-1 items-center justify-between text-[#333] font-montserrat font-semibold px-2 py-1 rounded-[8px] border border-[#06A9EF]"
+                      className=" text-[12px] flex gap-1 items-center justify-between text-[#333] font-montserrat font-semibold px-2 py-2 rounded-[8px] border border-[#06A9EF]"
                       onClick={() => isSetEdit(true)}
                     >
                       <svg
@@ -617,7 +620,7 @@ const ResumePreview = ({
                       Edit
                     </button>
                   </div>
-
+                  </div>
                   <PDFDownloadLink
                     document={<MyComponent />}
                     fileName={name + ".pdf"}
@@ -690,7 +693,7 @@ const ResumePreview = ({
           <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center  ">
             <div
               ref={taskRef}
-              className=" absolute bg-white  px-4 py-2 rounded-lg shadow-lg h-[90vh] flex flex-col gap-2 items-end w-[900px]"
+              className=" absolute bg-white  px-4 py-2 rounded-lg shadow-lg h-[90vh] flex flex-col gap-2 items-end ml:w-[60%] sm:w-[80%] w-[95%]"
             >
               <div className="flex gap-[16px]">
                 {" "}
