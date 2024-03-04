@@ -24,7 +24,7 @@ function CandidateHeader() {
 
   const handleLogOut = () => {
     setlogin(false);
-  setIsLogin(false);
+    setIsLogin(false);
     router.push("/");
     toggleDropdown();
     localStorage.clear();
@@ -43,19 +43,16 @@ function CandidateHeader() {
 
   const handleOutsideClick = (event) => {
     if (taskRef.current && !taskRef.current.contains(event.target)) {
-      
-      setIsLogout(false)
-       
+      setIsLogout(false);
     }
-};
+  };
 
-useEffect(() => {
-    document.addEventListener('mousedown', handleOutsideClick);
+  useEffect(() => {
+    document.addEventListener("mousedown", handleOutsideClick);
     return () => {
-        document.removeEventListener('mousedown', handleOutsideClick);
+      document.removeEventListener("mousedown", handleOutsideClick);
     };
-}, []);
-
+  }, []);
 
   return (
     <>
@@ -70,40 +67,51 @@ useEffect(() => {
         </Link>
         <Link
           href="/home/BeforeLoginHome"
-          className={selectedPage === "/home/BeforeLoginHome" ? "active scr1250:text-[18px] text-[16px]" : "li scr1250:text-[18px] text-[16px]"}
+          className={
+            selectedPage === "/home/BeforeLoginHome"
+              ? "active scr1250:text-[18px] text-[16px]"
+              : "li scr1250:text-[18px] text-[16px]"
+          }
         >
           <li>Home</li>
         </Link>
-        {/* <Link
-          href="/myPurchase/MyPurchase"
-          className={selectedPage === "/myPurchase/MyPurchase" ? "active" : "li"}
-        >
-          <li>My Purchase</li>
-        </Link> */}
-
         <Link
           href="/home/MyCollection"
-          className={selectedPage === "/home/MyCollection" ? "active scr1250:text-[18px] text-[16px]" : "li scr1250:text-[18px] text-[16px]"}
+          className={
+            selectedPage === "/home/MyCollection"
+              ? "active scr1250:text-[18px] text-[16px]"
+              : "li scr1250:text-[18px] text-[16px]"
+          }
         >
           <li>My Resumes</li>
         </Link>
         <Link
           href="/transform/TransformJob"
           className={
-            selectedPage === "/transform/TransformJob" ? "active scr1250:text-[18px] text-[16px]" : "li scr1250:text-[18px] text-[16px]"
+            selectedPage === "/transform/TransformJob"
+              ? "active scr1250:text-[18px] text-[16px]"
+              : "li scr1250:text-[18px] text-[16px]"
           }
         >
           <li>Transform for CV Job Description</li>
         </Link>
-        {/* <Link
-          href="/transform/TransformJob"
-          className={selectedPage === "/transform/TransformJob" ? "active scr1250:text-[18px] text-[16px]" : "li scr1250:text-[18px] text-[14px]"}
+        <Link
+          href="/purchase/MyPurchase"
+          className={
+            selectedPage === "/purchase/MyPurchase"
+              ? "active scr1250:text-[18px] text-[16px]"
+              : "li scr1250:text-[18px] text-[14px]"
+          }
         >
           <li>My Purchase</li>
-        </Link> */}
+        </Link>
         <Link
           href="/home/SkillAssessment"
-          className={selectedPage === "/home/SkillAssessment" ? "active scr1250:text-[18px] text-[16px]" : "li scr1250:text-[18px] text-[16px]"}
+          className={
+            selectedPage === "/home/SkillAssessment"
+              ? "active scr1250:text-[18px] text-[16px]"
+              : "li scr1250:text-[18px] text-[16px]"
+          }
         >
           <li>Skill Test</li>
         </Link>
@@ -130,7 +138,11 @@ useEffect(() => {
               </div>
             )}
           </div>
-          {userDataGlobal?.name && <div className="scr1250:text-[16px] text-[14px]">{userDataGlobal?.name}</div>}
+          {userDataGlobal?.name && (
+            <div className="scr1250:text-[16px] text-[14px]">
+              {userDataGlobal?.name}
+            </div>
+          )}
 
           <div className="text-[#495057] text-[14px] font-[600] flex items-center relative">
             <div
@@ -149,13 +161,16 @@ useEffect(() => {
                 className="h-4 w-4 ml-1 cursor-pointer "
                 alt=""
               />
-              {isLogout &&
-                <div ref={taskRef} className="w-[85px] flex justify-center cursor-pointer absolute top-[26px] mt-[1.5rem] right-0 z-10 bg-white border border-gray-200 py-2 px-3 rounded-md shadow-md  ">
+              {isLogout && (
+                <div
+                  ref={taskRef}
+                  className="w-[85px] flex justify-center cursor-pointer absolute top-[26px] mt-[1.5rem] right-0 z-10 bg-white border border-gray-200 py-2 px-3 rounded-md shadow-md  "
+                >
                   <a onClick={handleLogOut} className=" py-1">
                     Log Out
                   </a>
                 </div>
-              }
+              )}
             </div>
           </div>
         </div>

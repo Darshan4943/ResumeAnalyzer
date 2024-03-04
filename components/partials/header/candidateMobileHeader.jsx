@@ -39,7 +39,7 @@ function CandidateMobileHeader() {
             email: user.email
           };
          
-          axios.post('http://localhost:2000/api/skiloteckuser/user/google/signup', userData).then(res => {
+          axios.post('https://freedygoservices.in/api/skiloteckuser/user/google/signup', userData).then(res => {
             localStorage.setItem("authToken",JSON.stringify( res.data));
             console.log('User data sent to the server:', res.data);
             router.push("/home/BeforeLoginHome");

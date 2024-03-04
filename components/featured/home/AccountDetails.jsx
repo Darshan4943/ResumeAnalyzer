@@ -5,8 +5,10 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import ReactSelect from "react-select";
+import { useRouter } from "next/router";
 
 function AccountDetails({ selectedPlan }) {
+  const router = useRouter();
   const userDataGlobal = useSelector((state) => state.userData);
   function getDateAfterDays(days) {
     const currentDate = new Date();
@@ -15,23 +17,20 @@ function AccountDetails({ selectedPlan }) {
     );
     return futureDate;
   }
+  const [successModel, setSuccessModel] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [data, setData] = useState({
     firstName: "",
     lastName: "",
     mobileNo: "",
     email: "",
-    code: "",
+    dial_code: "+260",
   });
   const [filteredTelCode, setFilteredTelCode] = useState([]);
-  const [searchTerm, setSearchTerm] = useState("");
   useEffect(() => {
-    const filterLogic = (item) =>
-      item.code.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      item.dial_code.includes(searchTerm);
-
-    const filteredCodes = telCode.filter(filterLogic);
+    const filteredCodes = telCode;
     setFilteredTelCode(filteredCodes);
-  }, [telCode, searchTerm]);
+  }, [telCode]);
   const [selectedItem, setSelectedItem] = useState(telCode[telCode.length - 2]);
 
   const handleItemClick = (item) => {
@@ -108,42 +107,12 @@ function AccountDetails({ selectedPlan }) {
     }
   };
 
-  const [dropdown, setDropdown] = useState(false);
-  const [showInput, setShowInput] = useState(false);
-  const handleSearch = (e) => {
-    setSearchTerm(e.target.value);
-  };
   useEffect(() => {
     if (userDataGlobal.email) {
       setData({
         email: userDataGlobal.email,
       });
     }
-  }, []);
-
-  const handleInputClick = () => {
-    setDropdown(true);
-    setSearchTerm("");
-    setShowInput(true);
-    window.scrollTo({
-      top: 300,
-      behavior: "smooth",
-    });
-  };
-
-  const taskRef = useRef(null);
-
-  const handleOutsideClick = (event) => {
-    if (taskRef.current && !taskRef.current.contains(event.target)) {
-      setDropdown(false);
-    }
-  };
-
-  useEffect(() => {
-    document.addEventListener("mousedown", handleOutsideClick);
-    return () => {
-      document.removeEventListener("mousedown", handleOutsideClick);
-    };
   }, []);
 
   const isViewportBelow850 = useMediaQuery("(max-width:850px)");
@@ -153,87 +122,143 @@ function AccountDetails({ selectedPlan }) {
     const errors = validateInput();
     const requiredFields = ["firstName", "lastName", "email", "mobileNo"];
     const emptyFields = requiredFields.filter((field) => !data[field]);
-    // if (emptyFields.length > 0) {
-    //   toast.error("Please fill in all required fields");
-    //   return;
-    // }
+    if (emptyFields.length > 0) {
+      toast.error("Please fill in all required fields");
+      return;
+    }
     const hasErrors = Object.keys(errors).length > 0;
-    // if (hasErrors) {
-    //   toast.error("Please enter valid information");
-    //   setFormError(errors);
-    // } else {
-    // try {
-    //   const {
-    //     data: { key },
-    //   } = await axios.get(`http://localhost:2000/api/getkey`);
-    //   const { data: order } = await axios.post(
-    //     `http://localhost:2000/api/checkout/`,
-    //     {
-    //       amount: parseInt(selectedPlan.amount),
-    //     }
-    //   );
-    //   const ex = order;
-    //   const options = {
-    //     key,
-    //     amount: order.order.amount,
-    //     currency: "USD",
-    //     description: "Test Transaction",
-    //     image:
-    //       "https://freedygo-storage-bucket-production.s3.ap-south-1.amazonaws.com/Frame+427322205.png",
-    //     name: "Skiloteck",
-    //     order_id: order.order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-    //     handler: function (response) {
-    //       axios
-    //         .post("http://localhost:2000/api/add/subscription", {
-    //           ...response,
-    //           userId: userDataGlobal._id,
-    //           plan: selectedPlan.duration + " " + selectedPlan.limit,
-    //           startDate: new Date(),
-    //           endDate: getDateAfterDays(selectedPlan.days),
-    //           paidAt: new Date(),
-    //           ...data,
-    //           mobileNo: data.code + data.mobileNo,
-    //           index:selectedPlan.index
-    //         })
-    //         .then((res) => {
-    //           console.log(res.data);
-    //         })
-    //         .catch((err) => {
-    //           console.log(err);
-    //         });
-    //     },
-    //     theme: {
-    //       color: "#06A9EF",
-    //     },
-    //   };
-    //   const razor = new window.Razorpay(options);
-    //   razor.open();
-    // } catch (e) {
-    //   console.log("error", e);
-    // }
-    axios
-      .post("http://localhost:2000/api/add/subscription", {
-        userId: userDataGlobal._id,
-        plan: selectedPlan.duration + " " + selectedPlan.limit,
-        startDate: new Date(),
-        endDate: getDateAfterDays(selectedPlan.days),
-        paidAt: new Date(),
-        ...data,
-        mobileNo: data.code + data.mobileNo,
-        index: selectedPlan.index,
-      })
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    // }
+    if (hasErrors) {
+      toast.error("Please enter valid information");
+      setFormError(errors);
+    } else {
+      try {
+        setLoading(true);
+        const {
+          data: { key },
+        } = await axios.get(`https://freedygoservices.in/api/getkey`);
+        const { data: order } = await axios.post(
+          `https://freedygoservices.in/api/checkout/`,
+          {
+            amount: parseInt(selectedPlan.amount),
+          }
+        );
+        const ex = order;
+        const options = {
+          key,
+          amount: order.order.amount,
+          currency: "USD",
+          description: "Test Transaction",
+          image:
+            "https://freedygo-storage-bucket-production.s3.ap-south-1.amazonaws.com/Frame+427322205.png",
+          name: "Skiloteck",
+          order_id: order.order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+          handler: function (response) {
+            axios
+              .post("https://freedygoservices.in/api/add/subscription", {
+                // ...response,
+                userId: userDataGlobal._id,
+                plan: selectedPlan.duration + " " + selectedPlan.limit,
+                startDate: new Date(),
+                endDate: getDateAfterDays(selectedPlan.days),
+                paidAt: new Date(),
+                ...data,
+                mobileNo:data.mobileNo,
+                index: selectedPlan.index,
+              })
+              .then((res) => {
+                setLoading(false);
+                setSuccessModel(true);
+              })
+              .catch((err) => {
+                console.log(err);
+              });
+          },
+          theme: {
+            color: "#06A9EF",
+          },
+        };
+        const razor = new window.Razorpay(options);
+        razor.open();
+      } catch (e) {
+        console.log("error", e);
+        setLoading(false);
+      }
+      // setLoading(true);
+      // axios
+      //   .post("https://freedygoservices.in/api/add/subscription", {
+      //     // ...response,
+      //     userId: userDataGlobal._id,
+      //     plan: selectedPlan.duration + " " + selectedPlan.limit,
+      //     startDate: new Date(),
+      //     endDate: getDateAfterDays(selectedPlan.days),
+      //     paidAt: new Date(),
+      //     ...data,
+      //     mobileNo: data.dial_code + data.mobileNo,
+      //     index: selectedPlan.index,
+      //   })
+      //   .then((res) => {
+      //     setLoading(false);
+      //     setSuccessModel(true);
+      //   })
+      //   .catch((err) => {
+      //     console.log(err);
+      //   });
+    }
   };
-  console.log(data.mobileNo);
 
   return (
     <div className={" w-[60%] "}>
+      {successModel && (
+        <>
+          <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
+          <div className="fixed z-[2000] top-[40%] left-0 right-0  flex items-center justify-center  ">
+            <div className=" absolute rounded-[16px] bg-white shadow-lg pt-[60px] pb-6 px-11 flex flex-col gap-6 w-[25%] ">
+              <svg
+                className="absolute top-[-40px]  left-[38%] right-[62%] flex"
+                xmlns="http://www.w3.org/2000/svg"
+                width="85"
+                height="85"
+                viewBox="0 0 85 85"
+                fill="none"
+              >
+                <g clip-path="url(#clip0_6622_116765)">
+                  <rect width="85" height="85" rx="42.5" fill="#0C8A0A" />
+                  <g mask="url(#mask0_6622_116765)">
+                    <path
+                      d="M34.5 58.1875L20.1562 43.8438L24.0938 39.9062L34.5 50.3125L59.9062 24.9062L63.8438 28.8438L34.5 58.1875Z"
+                      fill="white"
+                    />
+                  </g>
+                </g>
+                <defs>
+                  <clipPath id="clip0_6622_116765">
+                    <rect width="85" height="85" rx="42.5" fill="white" />
+                  </clipPath>
+                </defs>
+              </svg>
+
+              <div className="text-center">
+                <div className="text-[24px] font-[500] text-[#333]">
+                  Payment Successful! you have purchased the plan.
+                </div>
+                <div className="text-[16px] font-[500] text-[#333]">
+                  Check your email for confirmation
+                </div>
+              </div>
+              <div className="flex justify-center">
+                <button
+                  onClick={() => {
+                    router.push("/purchase/MyPurchase");
+                  }}
+                  className="py-[12px] px-[24px] rounded-[8px] bg-[#06A9EF] text-[#fff] text-[16px] font-[500]"
+                >
+                  Done
+                </button>
+              </div>
+            </div>
+          </div>
+        </>
+      )}
       <div className="flex flex-col gap-6 w-[100%]">
         <div className=" flex flex-col gap-4 justify-center w-[100%] ">
           <div className="text-[24px] font-[600] ">Account Details</div>
@@ -313,7 +338,7 @@ function AccountDetails({ selectedPlan }) {
               >
                 <div
                   className={`relative pl-3 ${
-                    isViewportBelow850 ? "w-[65%] " : "w-[30%] "
+                    isViewportBelow850 ? "w-[65%] " : "w-[34%] "
                   } items-center`}
                 >
                   <div className="flex items-center  gap-1 cursor-pointer  w-[100%] ">
@@ -423,7 +448,27 @@ function AccountDetails({ selectedPlan }) {
           className="px-9 py-3 bg-[#06A9EF] text-white rounded-[12px] text-[16px] font-semibold"
           onClick={purchaseHandler}
         >
-          Purchase Plan
+          {loading ? (
+            <svg
+              aria-hidden="true"
+              role="status"
+              class="inline w-4 h-4 me-3 text-white animate-spin"
+              viewBox="0 0 100 101"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                fill="#E5E7EB"
+              />
+              <path
+                d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                fill="currentColor"
+              />
+            </svg>
+          ) : (
+            " Purchase Plan"
+          )}
         </button>
       </div>
     </div>

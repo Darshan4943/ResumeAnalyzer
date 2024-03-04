@@ -1,14 +1,13 @@
 "use client";
 import "/public/scss/style.scss";
 
-
 import { Helmet } from "react-helmet";
 import { ReactLenis } from "@studio-freight/react-lenis";
 import { useEffect, useState } from "react";
 import { ParallaxProvider } from "react-scroll-parallax";
 import { Provider } from "react-redux";
 
-import '../utils/pdfFont.js'; 
+import "../utils/pdfFont.js";
 import Layout from "../components/layout.jsx";
 import Store from "../Redux/Store.js";
 import { Api } from "../Redux/Api.jsx";
@@ -52,20 +51,22 @@ const WrappedApp = ({ Component, pageProps }) => {
           sizes="32x32"
           href="images/logo_header.png"
         />
-         <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+        <script
+          async
+          defer
+          src="https://checkout.razorpay.com/v1/checkout.js"
+        ></script>
       </Helmet>
       <Provider store={Store}>
-        <Api/>
-      <ParallaxProvider>
-        {/* <ReactLenis root> */}
+        <Api />
+        <ParallaxProvider>
+          {/* <ReactLenis root> */}
           <Layout>
             <Component {...pageProps} />
           </Layout>
-        {/* </ReactLenis> */}
-      </ParallaxProvider>
+          {/* </ReactLenis> */}
+        </ParallaxProvider>
       </Provider>
-
-
     </>
   );
 };
