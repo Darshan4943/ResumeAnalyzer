@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import TransformJd from "../../components/featured/home/transformJd";
 import Fonts from "../../public/fonts/fonts";
-import { UserResumes } from "./UserResumes";
+import UserResumes  from "./UserResumes";
 import axios from "axios";
 <Fonts />;
 

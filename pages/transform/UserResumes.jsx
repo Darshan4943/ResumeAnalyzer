@@ -50,7 +50,7 @@ const PdfViewer = ({ pdfUrl, isAll, index }) => {
   );
 };
 
-export const UserResumes = ({ setSelect, setIsAll, isAll }) => {
+  const UserResumes = ({ setSelect, setIsAll, isAll }) => {
   const [data, setData] = useState([]);
   const taskRef = useRef(null);
 
@@ -116,3 +116,4 @@ export const UserResumes = ({ setSelect, setIsAll, isAll }) => {
     ))
   );
 };
+export default UserResumes;

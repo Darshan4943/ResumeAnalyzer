@@ -32,7 +32,7 @@ function MyPurchase() {
                 <div style={{ boxShadow: "0px 1px 6px 0px #00000040" }} className=' flex flex-col gap-10 p-6 rounded-[16px] '>
                     <div className=' flex gap-4  border border-[#06A9EF] rounded-[16px] p-6 '>
                         {plans.map((plan, index) => (
-                            <div className='flex gap-12  w-[100%]'>
+                            <div className='flex gap-12  w-[100%]' key={index}>
 
                                 <div className='flex flex-col gap-6  w-[20%] items-center justify-between'>
                                     <div key={index} className='flex text-center flex-col gap-3 text-[#333333] w-[100%] p-4'>

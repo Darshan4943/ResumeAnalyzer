@@ -184,9 +184,12 @@ function SubscriptionPlans() {
           effect="fade"
         >
           {plans.map((plan, index) => (
-            <SwiperSlide style={{ display: "flex" }} className="justify-center">
+            <SwiperSlide
+              style={{ display: "flex" }}
+              className="justify-center"
+              key={index}
+            >
               <div
-                key={index}
                 className=" w-[258px] h-[420px] relative  bg-white  flex flex-col gap-4 items-center rounded-[16px]"
                 style={{ boxShadow: "0px 2px 15px 0px #00000033" }}
               >
