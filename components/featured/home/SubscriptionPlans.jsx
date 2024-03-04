@@ -184,7 +184,7 @@ function SubscriptionPlans() {
           effect="fade"
         >
           {plans.map((plan, index) => (
-            <SwiperSlide style={{display:'flex'}} className="justify-center">
+            <SwiperSlide style={{ display: "flex" }} className="justify-center">
               <div
                 key={index}
                 className=" w-[258px] h-[420px] relative  bg-white  flex flex-col gap-4 items-center rounded-[16px]"
@@ -202,9 +202,7 @@ function SubscriptionPlans() {
                       {plan.limit}
                     </p>
                     <p className="text-[28px] font-[700]">{plan.price}</p>
-                    <p className="text-[12px] font-[500]">
-                      {plan.description}
-                    </p>
+                    <p className="text-[12px] font-[500]">{plan.description}</p>
                     <div className="bg-[#DEDEDE] h-[2px]" />
                   </div>
                   <div className="flex gap-3 flex-col text-left">
