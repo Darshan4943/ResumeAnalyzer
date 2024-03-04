@@ -130,7 +130,7 @@ console.log(47,selectedSkill)
           <div className="flex flex-col gap-[35px] pt-[24px] pb-[95px] items-start justify-start customMargins">
 
             <div
-              className="customMargins  w-[30%] p-[16px] flex flex-col gap-[16px] rounded-[12px] bg-[#fff]"
+              className="customMargins  scr1024:w-[40%] sm:w-[60%] w-[80%] p-[16px] flex flex-col gap-[16px] rounded-[12px] bg-[#fff]"
               style={{
                 boxShadow: " 0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
               }}
@@ -166,7 +166,7 @@ console.log(47,selectedSkill)
             <div className="flex flex-col ml:flex-row justify-center items-center w-full gap-6">
               {showSecondDiv && (
                 <div className="flex flex-col justify-start items-center rounded-lg shadow-md w-full">
-                  <div className="hidden ml:block ml:flex h-16 px-4 py-3  items-center self-stretch border-b border-solid border-[#DEDEDE] bg-[#E0F6FF] rounded-lg">
+                  <div className="hidden  ml:flex h-16 px-4 py-3  items-center self-stretch border-b border-solid border-[#DEDEDE] bg-[#E0F6FF] rounded-lg">
                     <div className="flex w-[35.18%] justify-between items-center self-stretch border-r border-solid border-[#DEDEDE] ">
                       <p className="text-text-primary font-montserrat text-base font-medium leading-6">
                         Assessment Name
@@ -233,8 +233,8 @@ console.log(47,selectedSkill)
                 </div>
               )}
               <div
-                className={`p-[12px] ms:px-[60px] ms:customMargins ${showSecondDiv ? "ml:w-[50%]" : "w-[100.95%] sm:w-[60.95%]"
-                  }  px-[12px] rounded-[12px] bg-[#005A81] flex flex-col  items-center gap-[8px] scr820:gap-[16px] `}
+                className={`p-[12px] ms:px-[60px] ms:customMargins ${showSecondDiv ? "ml:w-[50%]" : "w-[100.95%] "
+                  } scr1024:w-[50%] sm:w-[85%] w-[100%]  px-[12px] rounded-[12px] bg-[#005A81] flex flex-col  items-center gap-[8px] scr820:gap-[16px] `}
               >
                 <div className="text-[20px] font-[600] text-[#fff] flex flex-row gap-[12px]">
                   <svg
