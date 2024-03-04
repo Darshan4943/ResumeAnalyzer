@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import Link from "next/link";
 function CandidateHeader() {
@@ -9,6 +9,8 @@ function CandidateHeader() {
   const [selectedPage, setSelectedPage] = useState("");
   const { signin, signup } = useRouter().query;
   const [login, setlogin] = useState(false);
+  const [isLogout, setIsLogout] = useState(false);
+  const taskRef = useRef(null);
   const [isLogin, setIsLogin] = useState(false);
   useEffect(() => {
     setSelectedPage(router.pathname);
@@ -38,6 +40,23 @@ function CandidateHeader() {
       }
     }
   }, []);
+
+  const handleOutsideClick = (event) => {
+    if (taskRef.current && !taskRef.current.contains(event.target)) {
+      
+      setIsLogout(false)
+       
+    }
+};
+
+useEffect(() => {
+    document.addEventListener('mousedown', handleOutsideClick);
+    return () => {
+        document.removeEventListener('mousedown', handleOutsideClick);
+    };
+}, []);
+
+
   return (
     <>
       <div className="flex justify-center items-center list-none gap-9">
@@ -90,7 +109,7 @@ function CandidateHeader() {
         </Link>
       </div>
 
-      <div className=" flex gap-4 justify-end py-2 items-center w-[24.9%] group group-hover:visible">
+      <div className=" flex gap-4 justify-end py-2 items-center w-[24.9%]  ">
         <div className="flex items-center gap-[8px]">
           <div className="h-[40px] w-[40px]">
             {userDataGlobal?.profilePicture ? (
@@ -125,15 +144,18 @@ function CandidateHeader() {
               }}
             >
               <img
+                onClick={() => setIsLogout(!isLogout)}
                 src="/images/down_arrow.png"
-                className="h-4 w-4 ml-1 cursor-pointer group-hover:opacity-100 "
+                className="h-4 w-4 ml-1 cursor-pointer "
                 alt=""
               />
-              <div className=" cursor-pointer absolute top-[26px] mt-[1.5rem] right-0 z-10 bg-white border border-gray-200 py-2 px-3 rounded-md shadow-md opacity-0 invisible transition-opacity duration-300 group-hover:opacity-100 group-hover:visible">
-                <a onClick={handleLogOut} className="block py-1">
-                  LogOut
-                </a>
-              </div>
+              {isLogout &&
+                <div ref={taskRef} className="w-[85px] flex justify-center cursor-pointer absolute top-[26px] mt-[1.5rem] right-0 z-10 bg-white border border-gray-200 py-2 px-3 rounded-md shadow-md  ">
+                  <a onClick={handleLogOut} className=" py-1">
+                    Log Out
+                  </a>
+                </div>
+              }
             </div>
           </div>
         </div>
