@@ -10,12 +10,13 @@ import ForgotPassword from "./forgotPassword";
 
 function Sign_in({ setIsSignIn, handleGoogle }) {
   const dispatch = useDispatch();
-
+  const sendToPurchase = JSON.parse(localStorage.getItem("purchase"));
   const taskRef = useRef(null);
 
   const handleOutsideClick = (event) => {
     if (taskRef.current && !taskRef.current.contains(event.target)) {
       setIsForgot(false);
+      localStorage.setItem("purchase", false);
     }
   };
 
@@ -23,6 +24,7 @@ function Sign_in({ setIsSignIn, handleGoogle }) {
     document.addEventListener("mousedown", handleOutsideClick);
     return () => {
       document.removeEventListener("mousedown", handleOutsideClick);
+      localStorage.setItem("purchase", false);
     };
   }, []);
   const router = useRouter();
@@ -49,9 +51,11 @@ function Sign_in({ setIsSignIn, handleGoogle }) {
           localStorage.setItem("authToken", JSON.stringify(response));
           dispatch(reCallUserData());
           toast.success("Sign in Successfully");
-          router.push("/home/BeforeLoginHome");
-          window.location.reload();
-        
+          if (sendToPurchase.status) {
+            router.push(`/purchase/details?id=${sendToPurchase.index + 1}`);
+          } else {
+            router.push("/home/BeforeLoginHome");
+          }
         } else {
           toast.error("something went wrong");
         }
@@ -149,7 +153,6 @@ function Sign_in({ setIsSignIn, handleGoogle }) {
             <div className="w-[50%] h-[1px] bg-[#9D9D9D]"></div>
           </div>
           <div className="flex flex-col gap-[16px]">
-      
             <div
               style={{ borderColor: "#9D9D9D" }}
               onClick={handleGoogle}

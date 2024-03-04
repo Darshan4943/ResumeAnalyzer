@@ -2597,3 +2597,53 @@ export const templates = [
     themeColor: "#56C8E2",
   },
 ];
+
+
+
+export const plans = [
+  {
+    duration: "1 Day",
+    limit: "One-Time",
+    price: "$ 1",
+    amount:1,
+    description: "create your first resume",
+    features: [
+      "AI Powered Resume Creation",
+      "2 Resume Uploads",
+      "Unlimited Access to 100+ Resume Templates",
+      "Unlimited Access to Skill Assessment",
+      "Resume transformation as per job description",
+      "2 resume Cloud storage",
+    ],
+  },
+  {
+    duration: "7 Days",
+    limit: "for More",
+    price: "$ 3",
+    amount: 3,
+    description: "for the active job seekers",
+    features: [
+      "AI Powered Resume Creation",
+      "6 Resume Uploads",
+      "Unlimited Access to 100+ Resume Templates",
+      "Unlimited Access to Skill Assessment",
+      "Resume transformation as per job description",
+      "6 resume Cloud storage",
+    ],
+  },
+  {
+    duration: "30 Days",
+    limit: "Ultimate",
+    amount:10,
+    price: "$ 10",
+    description: "create, save, repeat with ease",
+    features: [
+      "AI Powered Resume Creation",
+      "20 Resume Uploads",
+      "Unlimited Access to 100+ Resume Templates",
+      "Unlimited Access to Skill Assessment",
+      "Resume transformation as per job description",
+      "20 resume Cloud storage",
+    ],
+  },
+];

@@ -13,6 +13,7 @@ function Sign_up({ setIsSignIn, handleGoogle, setSignIn, setSignUp }) {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
+  const sendToPurchase = JSON.parse(localStorage.getItem("purchase"));
 
   const handleTogglePassword = () => {
     setShowPassword(!showPassword);
@@ -33,7 +34,11 @@ function Sign_up({ setIsSignIn, handleGoogle, setSignIn, setSignUp }) {
           localStorage.setItem("authToken", JSON.stringify(response));
           dispatch(reCallUserData());
           toast.success("Sign up Successfully");
-          router.push("/home/BeforeLoginHome");
+          if (sendToPurchase.status) {
+            router.push(`/purchase/details?id=${sendToPurchase.index + 1}`);
+          } else {
+            router.push("/home/BeforeLoginHome");
+          }
           window.location.reload();
         } else {
           toast.error("something went wrong");

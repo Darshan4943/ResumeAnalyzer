@@ -121,8 +121,8 @@ const MobileView = ({ clickHandler, isLogin }) => {
     <>
       <div className="block lg:hidden my-4 mobile-view">
         {" "}
-        <div className=" flex flex-col gap-6 w-[100%] text-[#333333] px-[8px] ">
-          <div className="flex flex-col items-center gap-[24px]">
+        <div className=" flex flex-col gap-6 w-[100%] text-[#333333] ">
+          <div className="flex flex-col items-center  px-[8px] py-[36px]">
             <div className="font-semibold text-[34px] leading-tight ">
               The Best AI Resume Creator
             </div>
@@ -170,7 +170,6 @@ const MobileView = ({ clickHandler, isLogin }) => {
             </button>
           </div>
         </div>
-       
         <SkillAssessment isLogin={isLogin} />
         <JdResume isLogin={isLogin} />
         <div className="flex flex-col gap-2 items-center  pb-[42px] bg-inventory bg-cover bg-no-repeat ">
