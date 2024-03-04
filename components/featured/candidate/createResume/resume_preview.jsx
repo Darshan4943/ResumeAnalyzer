@@ -554,7 +554,7 @@ const ResumePreview = ({
         )}
         <div className="" ref={resumeRef}>
           <div className="flex justify-between flex-wrap scr1024:gap-4 gap-2">
-            <div className="flex items-center justify-between ml:w-[40%] w-full gap-4">
+            <div className="flex items-center justify-between ml:w-[50%] w-full gap-4">
             <div
               className=" text-[20px] font-montserrat font-medium  cursor-pointer "
               onClick={() => setNamePreview(true)}
