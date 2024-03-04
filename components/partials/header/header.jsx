@@ -123,7 +123,7 @@ function Header({ userData }) {
         boxShadow: "0px 1px 4px 0px rgba(0, 0, 0, 0.25)",
       }}
     >
-      <div className="flex justify-center items-center  px-6 z-[100]">
+      <div className="flex justify-center items-center  scr1250:px-6 px-3 z-[100]">
         <div className="flex justify-between w-[100%] h-[58px] my-[16px]  gap-2 ">
           {!isLogin ? (
             <>
