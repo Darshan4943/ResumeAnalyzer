@@ -131,7 +131,7 @@ const ProfessionalDetails = ({
                       Work Experience <span className="star">*</span>
                     </p>
                     <div className="flex flex-row gap-[24px] w-[100%] ">
-                      <div>
+                      <div className="w-[100%]">
                         <input
                           type="text"
                           placeholder="Years"
@@ -154,10 +154,11 @@ const ProfessionalDetails = ({
                           </p>
                         )}
                       </div>
-                      <div>
+                      <div className="w-[100%]">
                         <select
                           id="single_inputt"
-                          className="w-full min-w-[125px] text-xs placeholder-[#646464] px-2"
+                          style={{ width: "100%", minWidth: "125px" }}
+                          className=" text-xs placeholder-[#646464] px-2"
                           value={data?.workExperiance?.months}
                           onChange={(e) => {
                             setData({

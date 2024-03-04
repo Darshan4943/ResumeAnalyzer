@@ -554,7 +554,7 @@ const ResumePreview = ({
         )}
         <div className="" ref={resumeRef}>
           <div className="flex justify-between flex-wrap scr1024:gap-4 gap-2">
-            <div className="flex items-center justify-between ml:w-[40%] w-full gap-4">
+            <div className="flex items-center justify-between ml:w-[50%] w-full gap-4">
             <div
               className=" text-[20px] font-montserrat font-medium  cursor-pointer "
               onClick={() => setNamePreview(true)}
@@ -562,6 +562,7 @@ const ResumePreview = ({
               {name}
               
             </div>
+            {selectedResumeIndex !== undefined && (
             <BlobProvider document={<MyComponent />}>
                 {({ blob, url, loading, error }) => {
                   return (
@@ -595,6 +596,7 @@ const ResumePreview = ({
                   );
                 }}
               </BlobProvider>
+            )}
               </div>
             <div className="flex sm:gap-[16px] scr1024:gap-2 gap-2 items-center justify-end ml:w-[45%] w-full">
               {selectedResumeIndex !== undefined && (
