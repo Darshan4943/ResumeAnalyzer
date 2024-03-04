@@ -60,10 +60,10 @@ function Candidate_register() {
     <>
       <div className=" relative !important">
         <div className="register_head sticky ml:top-[90px] top-[3.5rem] w-[100%] z-50 pb-4 bg-white">
-          <div className="register_cadidate overflow-hidden">
+          <div className="register_cadidate py-3 px-2 overflow-hidden">
             <div className="register_text_parent">
-              <div className="register_heding">
-                <p className="text-[30px] font-semibold text-white">
+              <div className="register_heding text-center">
+                <p className="ml:text-[30px] text-[24px] font-semibold text-white">
                   Enter Details to Build your Professional Resume
                 </p>
                 <p className="register_heding_desc">

@@ -26,9 +26,9 @@ function BuildResume() {
 
     return (
         <>
-            <div className="flex justify-center  h-[100vh] w-full my-[3rem] ">
+            <div className="flex justify-center  w-full my-[3rem] ">
                 <div className="w-full flex flex-col gap-[36px] pb-[10px]  items-center">
-                    <div className="w-[55%]  ">
+                    <div className="ml:w-[55%] sm:w-[80%] w-[95%] ">
                         <div className="text-[#333] text-center text-[36px] ms:text-[40px] font-[600]">
                             How would you like to create your resume?
                         </div>

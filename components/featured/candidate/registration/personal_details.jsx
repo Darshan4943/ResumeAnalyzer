@@ -10,6 +10,7 @@ import { useMediaQuery } from "@react-hook/media-query";
 import { Visibility_off, Visibility_on } from "../../../../utils/svg";
 import ImageContainer from "../../../common/image";
 import { telCode } from "../../../../utils/data";
+import ReactSelect from "react-select";
 
 const PersonalDetails = ({
   data,
@@ -146,7 +147,7 @@ const PersonalDetails = ({
   };
 
   const [dropdown, setDropdown] = useState(false);
-  const [selectedItem, setSelectedItem] = useState(telCode[0]);
+  const [selectedItem, setSelectedItem] = useState(telCode[telCode.length - 2]);
   const [searchTerm, setSearchTerm] = useState("");
   const [showInput, setShowInput] = useState(false);
   const handleSearch = (e) => {
@@ -186,6 +187,7 @@ const PersonalDetails = ({
   const handleOutsideClick = (event) => {
     if (taskRef.current && !taskRef.current.contains(event.target)) {
       setDropdown(false);
+      setShowInput(false);
     }
   };
 
@@ -204,11 +206,11 @@ const PersonalDetails = ({
         <div className={" pb-8  "}>
           <div className="flex flex-col gap-4">
             <motion.div className=" flex justify-center pt-4  pb-2">
-              <form className="personal_details_form education_page ">
+              <form className="personal_details_form scr1250:w-[60%] sm:w-[80%] w-[95%] education_page ">
                 <>
-                  <div className="flex gap-6 w-[100%]">
-                    <div className="personal_name_parent">
-                      <div className="personal_name">
+                  <div className="flex gap-6 w-[100%] ml:flex-row flex-col ">
+                    <div className="personal_name_parent flex ml:flex-row flex-col ml:w-[50%] w-[100%]">
+                      <div className="personal_name ml:w-[48%] w-[100%]">
                         <p className="form_text_heading">
                           First name <span className="star">*</span>
                         </p>
@@ -229,7 +231,7 @@ const PersonalDetails = ({
                         )}
                       </div>
 
-                      <div className="personal_name">
+                      <div className="personal_name ml:w-[48%] w-[100%]">
                         <p className="form_text_heading">
                           Last name <span className="star">*</span>
                         </p>
@@ -272,21 +274,19 @@ const PersonalDetails = ({
                       )}
                     </div>
                   </div>
-                  <div className="flex gap-6 w-[100%] ">
+                  <div className="flex gap-6 ml:flex-row flex-col  w-[100%]  ">
                     <div className="personal_single_input">
                       <p className="form_text_heading">
                         Contact Number <span className="star">*</span>
                       </p>
                       <div
-                        className={`flex w-[100%] items-start ${
-                          isViewportBelow850 ? "gap-[4px] " : "gap-[16px] "
-                        }`}
+                        className={`flex w-[100%] items-start ${isViewportBelow850 ? "gap-[4px] " : "gap-[16px] "
+                          }`}
                         id="single_input"
                       >
                         <div
-                          className={`relative ${
-                            isViewportBelow850 ? "w-[65%] " : "w-[50%] "
-                          } items-center`}
+                          className={`relative min-w-[150px] ${isViewportBelow850 ? "w-[65%] " : "w-[40%] "
+                            } items-center`}
                         >
                           <div
                             className="  w-[100%] text-[14px] justify-center items-center  flex font-[500] text-[#646464]"
@@ -297,43 +297,40 @@ const PersonalDetails = ({
                                 className="flex items-center  gap-1 cursor-pointer  w-[100%] "
                                 onClick={handleInputClick}
                               >
-                                {showInput ? (
-                                  <input
-                                    className="w-[100%]  border flex justify-center items-center py-1 px-3 rounded-[8px] "
-                                    type="text"
-                                    name=""
-                                    placeholder="Search"
-                                    value={searchTerm}
-                                    onChange={handleSearch}
-                                  />
-                                ) : (
-                                  <>
-                                    <img
-                                      src={`https://hatscripts.github.io/circle-flags/flags/${selectedItem.code.toLowerCase()}.svg`}
-                                      width="20px"
-                                    />
-                                    <div
-                                      className={` ${
-                                        isViewportBelow850
-                                          ? "text-[12px]"
-                                          : "text-[16px]"
-                                      }`}
-                                    >
-                                      {selectedItem.code}{" "}
-                                      {selectedItem.dial_code}
+
+                                <ReactSelect
+
+                                  options={filteredTelCode}
+                                  className="w-[100%] flex  items-center py-1  rounded-[8px]"
+                                  name=""
+                                  placeholder="Search"
+                                  value={selectedItem}
+                                  onChange={handleItemClick}
+                                  getOptionLabel={(option) => (
+                                    <div className="flex items-center  ">
+                                      <img
+                                        src={`https://hatscripts.github.io/circle-flags/flags/${option.code.toLowerCase()}.svg`}
+                                        width="20px"
+                                      />
+                                      <span className="ml-2">{option.code} {option.dial_code}</span>
                                     </div>
-                                    <img
-                                      className="w-[20px] h-[20px]"
-                                      src="/images/down_arrow.png"
-                                      alt=""
-                                    />
-                                  </>
-                                )}
+                                  )}
+                                  getOptionValue={(option) => option.code}
+                                  styles={{
+                                    control: (provided) => ({
+                                      ...provided,
+                                      border: 'none',
+
+                                      minWidth: "130px"
+                                    }),
+                                  }}
+                                />
+
                               </div>
                             </div>
                           </div>
 
-                          {dropdown && (
+                          {/* {dropdown && (
                             <div
                               ref={taskRef}
                               className="w-[113px] font-[500] top-12 -left-1  z-10 h-[40vh] overflow-y-scroll bg-[#fff] border-[1px] border-solid border-[#9D9D9D] absolute text-[14px] p-1 flex flex-col justify-between items-center"
@@ -356,7 +353,7 @@ const PersonalDetails = ({
                                 </p>
                               ))}
                             </div>
-                          )}
+                          )} */}
                         </div>
 
                         <input
@@ -364,11 +361,10 @@ const PersonalDetails = ({
                           type="text"
                           name=""
                           // id="single_input"
-                          placeholder={`${
-                            isViewportBelow850
+                          placeholder={`${isViewportBelow850
                               ? "Enter Number "
                               : "Enter Contact Number "
-                          }`}
+                            }`}
                           value={data.mobileNo}
                           onChange={(e) =>
                             handleInputChange("mobileNo", e.target.value)
@@ -413,16 +409,15 @@ const PersonalDetails = ({
                     </div>
                   </div>
 
-                  <div className="flex gap-6 w-[100%]">
+                  <div className="flex gap-6 w-[100%] ml:flex-row flex-col">
                     <div className="personal_single_input">
                       <p className="form_text_heading">
                         Gender <span className="star">*</span>
                       </p>
                       <div className="gender_button">
                         <button
-                          className={`gen_button ${
-                            data.gender == "male" && "gen_button_active"
-                          }`}
+                          className={`gen_button ${data.gender == "male" && "gen_button_active"
+                            }`}
                           onClick={(e) => {
                             e.preventDefault();
                             setData({ ...data, gender: "male" });
@@ -431,9 +426,8 @@ const PersonalDetails = ({
                           Male
                         </button>
                         <button
-                          className={`gen_button ${
-                            data.gender == "female" && "gen_button_active"
-                          }`}
+                          className={`gen_button ${data.gender == "female" && "gen_button_active"
+                            }`}
                           onClick={(e) => {
                             e.preventDefault();
                             setData({ ...data, gender: "female" });
@@ -442,9 +436,8 @@ const PersonalDetails = ({
                           Female
                         </button>
                         <button
-                          className={`gen_button ${
-                            data.gender == "other" && "gen_button_active"
-                          }`}
+                          className={`gen_button ${data.gender == "other" && "gen_button_active"
+                            }`}
                           onClick={(e) => {
                             e.preventDefault();
                             setData({ ...data, gender: "other" });
@@ -462,10 +455,9 @@ const PersonalDetails = ({
                         </p>
                         <div className="gender_button">
                           <button
-                            className={`gen_button ${
-                              data.workStatus == "Experienced" &&
+                            className={`gen_button ${data.workStatus == "Experienced" &&
                               "gen_button_active"
-                            }`}
+                              }`}
                             onClick={(e) => {
                               e.preventDefault();
                               setData({
@@ -477,10 +469,9 @@ const PersonalDetails = ({
                             Experienced
                           </button>
                           <button
-                            className={`gen_button ${
-                              data.workStatus == "Fresher" &&
+                            className={`gen_button ${data.workStatus == "Fresher" &&
                               "gen_button_active"
-                            }`}
+                              }`}
                             onClick={(e) => {
                               e.preventDefault();
                               setData({
@@ -496,7 +487,7 @@ const PersonalDetails = ({
                     </div>
                   </div>
 
-                  <div className="bottom_buttons">
+                  <div className="bottom_buttons font-[500]">
                     <button
                       className="buttons"
                       id="border_button"
@@ -508,7 +499,7 @@ const PersonalDetails = ({
                       Go Back
                     </button>
                     <button
-                      className="buttons"
+                      className="buttons font-[500] bg-[#06A9EF] text-white"
                       id="border_button"
                       onClick={submitHandler}
                     >
@@ -518,7 +509,7 @@ const PersonalDetails = ({
                 </>
               </form>
             </motion.div>
-           
+
           </div>
         </div>
       )}

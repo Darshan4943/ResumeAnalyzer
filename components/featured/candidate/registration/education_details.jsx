@@ -57,20 +57,20 @@ const EducationDetails = ({ data, setData, setTabIndex, tabindex }) => {
   };
   const submitHandler = (e) => {
     e.preventDefault();
-  
+
     const errors = validateInput();
-  
-  
+
+
     const requiredFields = ["stream", "university", "specialization", "dateOfComplition"];
     const emptyFields = requiredFields.filter(field => !data[field]);
-  
+
     if (emptyFields.length > 0) {
       toast.error("Please fill in all required fields");
-      return; 
+      return;
     }
-  
+
     const hasErrors = Object.keys(errors).length > 0;
-  
+
     if (hasErrors) {
       toast.error("Please enter valid information");
       setFormError(errors);
@@ -84,80 +84,80 @@ const EducationDetails = ({ data, setData, setTabIndex, tabindex }) => {
     <>
       {tabindex == 3 && (
         <div className="show-content">
-          <div className="personal_details  p-4  pb-[96px]" >
-            <div className="personal_details_form education_page ">
-           
+          <div className="personal_details  sm:p-4 p-2  pb-[96px] " >
+            <div className="personal_details_form education_page scr1250:w-[60%] sm:w-[80%] w-[100%] ">
 
-              <div className="flex gap-6 w-[100%]">
-              <div className="personal_single_input w-[100%]">
-                <div className="personal_name w-[100%]">
-                  <p className="form_text_heading">
-                    Education <span className="star">*</span>
-                  </p>
-                  <input
-                    type="text"
-                    name=""
-                    id="single_input"
-                    placeholder="Select Degree"
-                    value={data.stream}
-                    onChange={(e) => handleInputChange("stream", e.target.value)}
-                  />
-                  {formError && <p className="text-[12px] text-[red] font-[500]">{formError?.stream}</p>}
-                </div>
-              </div>
 
-              <div className="personal_single_input w-[100%]">
-                <div className="personal_name  w-[100%]">
-                  <p className="form_text_heading">
-                  Specialization <span className="star">*</span>
-                  </p>
-                  <input
-                    type="text"
-                    name=""
-                    id="single_input"
-                    placeholder="Enter Specialization"
-                    value={data.specialization}
-                    onChange={(e) => handleInputChange("specialization", e.target.value)}
-                  />
-                  {formError && <p className="text-[12px] text-[red] font-[500]">{formError?.specialization}</p>}
+              <div className="flex gap-6 w-[100%] ml:flex-row flex-col">
+                <div className="personal_single_input w-[100%]">
+                  <div className="personal_name w-[100%]">
+                    <p className="form_text_heading">
+                      Education <span className="star">*</span>
+                    </p>
+                    <input
+                      type="text"
+                      name=""
+                      id="single_input"
+                      placeholder="Select Degree"
+                      value={data.stream}
+                      onChange={(e) => handleInputChange("stream", e.target.value)}
+                    />
+                    {formError && <p className="text-[12px] text-[red] font-[500]">{formError?.stream}</p>}
+                  </div>
                 </div>
-              </div>
-              </div>
-              
-              <div className="flex gap-6 w-[100%]">
-              <div className="personal_single_input  w-[100%]">
-                <div className="personal_name w-[100%]">
-                  <p className="form_text_heading">
-                  University / Institute Name  <span className="star">*</span>
-                  </p>
-                  <input
-                    type="text"
-                    name=""
-                    id="single_input"
-                    placeholder="Enter University Name"
-                    value={data.university}
-                    onChange={(e) => handleInputChange("university", e.target.value)}
-                  />
-                  {formError && <p className="text-[12px] text-[red] font-[500]">{formError?.university}</p>}
+
+                <div className="personal_single_input w-[100%]">
+                  <div className="personal_name  w-[100%]">
+                    <p className="form_text_heading">
+                      Specialization <span className="star">*</span>
+                    </p>
+                    <input
+                      type="text"
+                      name=""
+                      id="single_input"
+                      placeholder="Enter Specialization"
+                      value={data.specialization}
+                      onChange={(e) => handleInputChange("specialization", e.target.value)}
+                    />
+                    {formError && <p className="text-[12px] text-[red] font-[500]">{formError?.specialization}</p>}
+                  </div>
                 </div>
               </div>
 
-              <div className="personal_single_input w-[100%]">
-                <div className="personal_name w-[100%]">
-                  <p className="form_text_heading">
-                    Date Of Completion <span className="star">*</span>
-                  </p>
-                  <input
-                    type="date"
-                    name=""
-                    id="single_input"
-                    placeholder="Enter Contact Number"
-                    value={data.dateOfComplition}
-                    onChange={(e) => handleInputChange("dateOfComplition", e.target.value)}
-                  />
-                  {formError && <p className="text-[12px] text-[red] font-[500]">{formError?.dateOfComplition}</p>}
+              <div className="flex gap-6 w-[100%] ml:flex-row flex-col">
+                <div className="personal_single_input  w-[100%]">
+                  <div className="personal_name w-[100%]">
+                    <p className="form_text_heading">
+                      University / Institute Name  <span className="star">*</span>
+                    </p>
+                    <input
+                      type="text"
+                      name=""
+                      id="single_input"
+                      placeholder="Enter University Name"
+                      value={data.university}
+                      onChange={(e) => handleInputChange("university", e.target.value)}
+                    />
+                    {formError && <p className="text-[12px] text-[red] font-[500]">{formError?.university}</p>}
+                  </div>
                 </div>
-              </div>
+
+                <div className="personal_single_input w-[100%]">
+                  <div className="personal_name w-[100%]">
+                    <p className="form_text_heading">
+                      Date Of Completion <span className="star">*</span>
+                    </p>
+                    <input
+                      type="date"
+                      name=""
+                      id="single_input"
+                      placeholder="Enter Contact Number"
+                      value={data.dateOfComplition}
+                      onChange={(e) => handleInputChange("dateOfComplition", e.target.value)}
+                    />
+                    {formError && <p className="text-[12px] text-[red] font-[500]">{formError?.dateOfComplition}</p>}
+                  </div>
+                </div>
               </div>
               <div className="bottom_buttons">
                 <button
@@ -171,7 +171,7 @@ const EducationDetails = ({ data, setData, setTabIndex, tabindex }) => {
                   Go Back
                 </button>
                 <button
-                  className="buttons"
+                  className="buttons bg-[#06A9EF] text-white"
                   id="border_button"
                   onClick={submitHandler}
                 >
