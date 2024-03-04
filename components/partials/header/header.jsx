@@ -136,7 +136,7 @@ function Header({ userData }) {
                 <div
                   onClick={() => { setSignIn(true); setSignUp(false); }}
                 >
-                  <button className=" buttonTransparent  rounded-[12px] flex justify-center items-center bg-white text-[#333] py-3 px-9 text-[16px] font-medium border border-transparent hover:border-[#06A9EF]">
+                  <button className=" buttonTransparent min-w-[138px] rounded-[12px] flex justify-center items-center bg-white text-[#333] py-3 px-9 text-[16px] font-medium border border-transparent hover:border-[#06A9EF]">
                     Sign in
                   </button>
                 </div>
@@ -144,7 +144,7 @@ function Header({ userData }) {
                 <button
                   onClick={() => { setSignUp(true); setSignIn(false) }}
 
-                  className="rounded-[12px] flex justify-center items-center bg-white text-[#333] py-3 px-9 text-[16px] font-medium border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
+                  className="rounded-[12px] min-w-[138px] flex justify-center items-center bg-white text-[#333] py-3 px-9 text-[16px] font-medium border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
                 >
                   Sign Up
                 </button>
@@ -154,7 +154,7 @@ function Header({ userData }) {
                     <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
                     <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center  ">
                       <div ref={taskRef} className="absolute ">
-                        <Sign_in handleGoogle={handleGoogle} />
+                        <Sign_in handleGoogle={handleGoogle} setSignIn={setSignIn} setSignUp={setSignUp} />
                       </div>
 
                     </div>

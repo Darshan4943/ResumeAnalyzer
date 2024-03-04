@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
@@ -9,22 +8,38 @@ import Link from "next/link";
 
 function Sign_up({ setIsSignIn, handleGoogle, setSignIn, setSignUp }) {
   const router = useRouter();
-  const [data, setData] = useState({ email: "", password: "" });
+  const [data, setData] = useState({ email: "", password: "", confirmPassword: "" });
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [error, setError] = useState(null);
+  const [isEmailEntered, setIsEmailEntered] = useState(false);
   const dispatch = useDispatch();
 
   const handleTogglePassword = () => {
     setShowPassword(!showPassword);
   };
 
+  const handleToggleConfirmPassword = () => {
+    setShowConfirmPassword(!showConfirmPassword);
+  };
+  const clearError = () => {
+    setError(null);
+  };
+
+
   const submitHandler = (e) => {
     e.preventDefault();
+
+    if (data.password !== data.confirmPassword) {
+      setError("Passwords do not match");
+      return;
+    }
+
     const dataToSend = {
       email: data.email,
       password: data.password,
-      
     };
+
     axios
       .post("http://localhost:2000/api/skiloteckuser/user/signup", dataToSend)
       .then((res) => {
@@ -36,7 +51,11 @@ function Sign_up({ setIsSignIn, handleGoogle, setSignIn, setSignUp }) {
           router.push("/home/BeforeLoginHome");
           window.location.reload();
         } else {
-          toast.error("something went wrong");
+          if (response.message === "user already exist") {
+            setError("User already exists");
+          } else {
+            toast.error("Something went wrong");
+          }
         }
       })
       .catch((err) => {
@@ -45,11 +64,29 @@ function Sign_up({ setIsSignIn, handleGoogle, setSignIn, setSignUp }) {
       });
   };
 
+  const handleEmailChange = (e) => {
+    const lowercaseEmail = e.target.value.toLowerCase();
+    setData({ ...data, email: lowercaseEmail });
+    setIsEmailEntered(lowercaseEmail.trim() !== '');
+    clearError();
+  };
+  
+
+  const handlePasswordChange = (e) => {
+    setData({ ...data, password: e.target.value });
+    clearError();
+  };
+
+  const handleConfirmPasswordChange = (e) => {
+    setData({ ...data, confirmPassword: e.target.value });
+    clearError();
+  };
+
   return (
     <div className="flex justify-center items-center py-12 pl-[8px] pr-[8px]">
       <form
         onSubmit={submitHandler}
-        className=" bg-white flex w-full sm:w-[464px] p-[24px] gap-[24px] flex-col justify-center items-center rounded-[24px] "
+        className=" bg-white flex w-[95%] sm:w-[464px] p-[24px] gap-[24px] flex-col justify-center items-center rounded-[24px] "
         style={{
           boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
         }}
@@ -63,7 +100,7 @@ function Sign_up({ setIsSignIn, handleGoogle, setSignIn, setSignUp }) {
               id=""
               placeholder="Enter Email"
               value={data.email}
-              onChange={(e) => setData({ ...data, email: e.target.value })}
+              onChange={handleEmailChange}
               className="w-full "
             />
           </div>
@@ -76,7 +113,8 @@ function Sign_up({ setIsSignIn, handleGoogle, setSignIn, setSignUp }) {
                 placeholder="Enter password"
                 className="w-full"
                 value={data.password}
-                onChange={(e) => setData({ ...data, password: e.target.value })}
+                required
+                onChange={handlePasswordChange}
               />
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -95,13 +133,13 @@ function Sign_up({ setIsSignIn, handleGoogle, setSignIn, setSignUp }) {
             </div>
             <div className="flex flex-row px-[16px] py-[12px] border-[1px] rounded-[8px] border-solid border-[#9D9D9D] justify-between">
               <input
-                type={showPassword ? "text" : "password"}
+                type={showConfirmPassword ? "text" : "password"}
                 name=""
                 id=""
                 placeholder="Confirm password"
                 className="w-full"
                 value={data.confirmPassword}
-                onChange={(e) => setData({ ...data, confirmPassword: e.target.value })}
+                onChange={handleConfirmPasswordChange}
               />
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -109,7 +147,7 @@ function Sign_up({ setIsSignIn, handleGoogle, setSignIn, setSignUp }) {
                 height="24"
                 viewBox="0 0 24 24"
                 fill="none"
-                onClick={handleTogglePassword}
+                onClick={handleToggleConfirmPassword}
                 style={{ cursor: "pointer" }}
               >
                 <path
@@ -119,25 +157,21 @@ function Sign_up({ setIsSignIn, handleGoogle, setSignIn, setSignUp }) {
               </svg>
             </div>
 
+            <div className={`flex justify-start text-[16px] gap-2  ${error ? "text-red font-[600]" : "text-green font-[600]"}`}>
+              {error &&
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 
-            <div className="flex justify-end text-[#06A9EF] text-[12px] font-[500] ">
-              <a href="" className="already_sign">
-                Forgot password?
-              </a>
-            </div>
-
-            <div
-              className={`flex justify-center text-[12px] font-[500] ${error === "Sign in Successfully"
-                ? "text-green-800"
-                : "text-red-800"
-                }`}
-            >
+                <g mask="url(#mask0_625_15556)">
+                  <path d="M12 17C12.2833 17 12.5208 16.9042 12.7125 16.7125C12.9042 16.5208 13 16.2833 13 16C13 15.7167 12.9042 15.4792 12.7125 15.2875C12.5208 15.0958 12.2833 15 12 15C11.7167 15 11.4792 15.0958 11.2875 15.2875C11.0958 15.4792 11 15.7167 11 16C11 16.2833 11.0958 16.5208 11.2875 16.7125C11.4792 16.9042 11.7167 17 12 17ZM11 13H13V7H11V13ZM12 22C10.6167 22 9.31667 21.7375 8.1 21.2125C6.88333 20.6875 5.825 19.975 4.925 19.075C4.025 18.175 3.3125 17.1167 2.7875 15.9C2.2625 14.6833 2 13.3833 2 12C2 10.6167 2.2625 9.31667 2.7875 8.1C3.3125 6.88333 4.025 5.825 4.925 4.925C5.825 4.025 6.88333 3.3125 8.1 2.7875C9.31667 2.2625 10.6167 2 12 2C13.3833 2 14.6833 2.2625 15.9 2.7875C17.1167 3.3125 18.175 4.025 19.075 4.925C19.975 5.825 20.6875 6.88333 21.2125 8.1C21.7375 9.31667 22 10.6167 22 12C22 13.3833 21.7375 14.6833 21.2125 15.9C20.6875 17.1167 19.975 18.175 19.075 19.075C18.175 19.975 17.1167 20.6875 15.9 21.2125C14.6833 21.7375 13.3833 22 12 22ZM12 20C14.2333 20 16.125 19.225 17.675 17.675C19.225 16.125 20 14.2333 20 12C20 9.76667 19.225 7.875 17.675 6.325C16.125 4.775 14.2333 4 12 4C9.76667 4 7.875 4.775 6.325 6.325C4.775 7.875 4 9.76667 4 12C4 14.2333 4.775 16.125 6.325 17.675C7.875 19.225 9.76667 20 12 20Z" fill="#C00000" />
+                </g>
+              </svg>
+}
               <p>{error}</p>
             </div>
           </div>
         </div>
         <div className="w-full flex flex-col gap-[16px]">
-          <button className="w-full px-[36px] py-[12px] rounded-[12px] border-[1px] border-solid border-[#06a9ef]  text-[20px] font-[500] hover:bg-[#06a9ef] hover:text-[#fff] transition-all duration-200" style={{ borderColor: '#06a9ef' }}>
+          <button disabled={!isEmailEntered} className="w-full px-[36px] py-[12px] rounded-[12px] border-[1px] border-solid border-[#06a9ef]  text-[20px] font-[500] hover:bg-[#06a9ef] hover:text-[#fff] transition-all duration-200" style={{ borderColor: '#06a9ef' }}>
             Sign Up
           </button>
           <div className="flex flex-row items-center justify-center gap-[6px]">
@@ -145,7 +179,6 @@ function Sign_up({ setIsSignIn, handleGoogle, setSignIn, setSignUp }) {
             <div className="w-[50%] h-[1px] bg-[#9D9D9D]"></div>
           </div>
           <div className="flex flex-col gap-[16px]">
-
             <div onClick={handleGoogle} style={{ borderColor: '#9D9D9D' }} className=" cursor-pointer w-full px-[36px] py-[12px] rounded-[12px] border-[1px] border-solid border-[#9D9D9D]   text-[16px] font-[500] text-[#333] flex items-center gap-2 justify-center continue_btn">
               <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g clip-path="url(#clip0_128_5190)">
@@ -161,7 +194,7 @@ function Sign_up({ setIsSignIn, handleGoogle, setSignIn, setSignUp }) {
               Sign Up with Google
             </div>
 
-            <div className="text-[14px] flex justify-center font-medium items-center">
+            <div className="text-[14px] flex justify-center font-medium items-center cursor-pointer">
               Already have an account ?{" "}
               <span
                 onClick={() => { setSignUp(false); setSignIn(true) }}
@@ -175,6 +208,29 @@ function Sign_up({ setIsSignIn, handleGoogle, setSignIn, setSignUp }) {
               </span>
 
 
+            </div>
+            <div className="text-[12px] ">
+              By signing in, you agree to our{" "}
+              <span
+                className="already_sign cursor-pointer"
+                style={{
+                  fontSize: "12px",
+                  color: "#06A9EF",
+                }}
+              >
+                <a href="">Terms & Conditions</a>
+              </span>{" "}
+              and{" "}
+              <span
+                className="already_sign cursor-pointer"
+                style={{
+                  fontSize: "12px",
+                  color: "#06A9EF",
+                }}
+              >
+                {" "}
+                <a href="">Privacy Policy.</a>
+              </span>
             </div>
           </div>
         </div>
