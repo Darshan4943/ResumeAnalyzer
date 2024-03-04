@@ -624,6 +624,28 @@ width:50%
   }
 }
 
+#single_inputt {
+  display: flex;
+  width: 100%;
+  height: 48px;
+  padding: 12px 8px;
+  align-items: center;
+
+  align-self: stretch;
+  border-radius: 8px;
+  border: 1px solid var(--placeholder, #9d9d9d);
+  background: #fff;
+}
+
+@media (max-width:420px) {
+  #single_inputt{
+    font-size: 12px;
+    padding: 12px 8px;
+  }
+ 
+}
+
+
 .single_input {
   display: flex;
   width: 600px !important;

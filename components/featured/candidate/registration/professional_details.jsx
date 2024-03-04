@@ -156,8 +156,8 @@ const ProfessionalDetails = ({
                       </div>
                       <div>
                         <select
-                          id="single_input"
-                          style={{ width: "100%", minWidth: "125px" }}
+                          id="single_inputt"
+                          className="w-full min-w-[125px] text-xs placeholder-[#646464] px-2"
                           value={data?.workExperiance?.months}
                           onChange={(e) => {
                             setData({
@@ -169,13 +169,17 @@ const ProfessionalDetails = ({
                             });
                           }}
                         >
-                          <option  id="single_input" value="">Select Month</option>
+                          <option className="text-[15px]" value="">
+                            Select Month
+                          </option>
                           {[...Array(12)].map((_, index) => (
-                            <option key={index + 1} value={(index + 1).toString()}>
+                            <option className="text-[16px]" key={index + 1} value={(index + 1).toString()}>
                               {index + 1}
                             </option>
                           ))}
                         </select>
+
+
 
                       </div>
                     </div>
