@@ -17,7 +17,7 @@ function TransformJob() {
   const transformHandler = () => {
     setLoading(true);
     axios
-      .post("https://freedygoservices.in/api/cv/transform", {
+      .post("http://localhost:2000/api/cv/transform", {
         jd: text,
         json: selected,
       })
@@ -30,6 +30,8 @@ function TransformJob() {
         console.log(err);
       });
   };
+
+  
 
   return (
     <div className=" p-6 flex flex-col gap-4">
@@ -114,13 +116,16 @@ function TransformJob() {
           </div>
         </div>
         <div className="w-[50%] flex flex-col gap-4">
-          <TransformJd
+          {
+            selected &&  <TransformJd
             data={newData !== null ? newData : selected}
             resumeTemplateIndex={selected.resumeTemplateIndex}
             selectedColor={selected.selectedColor}
             selectedFont={selected.selectedFont}
             preview={true}
           />
+          }
+         
         </div>
       </div>
     </div>

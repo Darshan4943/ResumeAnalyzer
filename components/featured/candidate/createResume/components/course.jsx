@@ -34,6 +34,7 @@ const Course = ({ data, setData }) => {
       });
       setView(false);
     }
+    setIsModified({ status: false, index: 0 })
     setCourseData({
       courseName: "",
       issuedBy: "",
@@ -43,6 +44,7 @@ const Course = ({ data, setData }) => {
         end: { year: "Year", month: "Month" },
       },
     });
+    window.scrollTo(0,0)
   };
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -89,7 +91,10 @@ const Course = ({ data, setData }) => {
         </div>
 
         {data?.course?.map((course, index) => (
-          <div key={index}  className="flex flex-col gap-1 p-2 rounded-[6px] border border-[#DEDEDE]">
+          <div
+            key={index}
+            className="flex flex-col gap-1 p-2 rounded-[6px] border border-[#DEDEDE]"
+          >
             <div className="flex justify-between">
               <p>{course.courseName}</p>
               <div className="flex gap-2">
@@ -213,7 +218,7 @@ const Course = ({ data, setData }) => {
             </svg>
             <text
               onClick={() => setView(true)}
-              className="text-[16px] font-semibold text-[#06A9EF]"
+              className="text-[16px] font-semibold text-[#06A9EF] cursor-pointer"
               disabled={!isChecked}
             >
               Add Course & Certification

@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { camelCase } from "../../../../../utils/middleware";
 import { useSelector } from "react-redux";
+import ReactSelect from "react-select";
+import { telCode } from "../../../../../utils/data";
 
 const PersonalDetails = ({ setData, data }) => {
   const userDataGlobal = useSelector((state) => state.userData);
@@ -18,6 +20,22 @@ const PersonalDetails = ({ setData, data }) => {
     location: "",
     designation: "",
   });
+  const [filteredTelCode, setFilteredTelCode] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  useEffect(() => {
+    const filterLogic = (item) =>
+      item.code.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      item.dial_code.includes(searchTerm);
+
+    const filteredCodes = telCode.filter(filterLogic);
+    setFilteredTelCode(filteredCodes);
+  }, [telCode, searchTerm]);
+  const [selectedItem, setSelectedItem] = useState(telCode[telCode.length - 2]);
+
+  const handleItemClick = (item) => {
+    setSelectedItem(item);
+    setProfileData({ ...profileData, dial_code: item.dial_code });
+  };
   const inputFields = [
     {
       label: "First Name",
@@ -45,11 +63,11 @@ const PersonalDetails = ({ setData, data }) => {
     },
     {
       label: "Mobile Number",
-      type: "number",
+      type: "text",
       name: "mobileNumber",
       placeholder: "Enter Mobile Number",
       value: profileData.mobileNumber,
-      className: " ",
+      className: " col-span-2",
     },
     {
       label: "Email Address",
@@ -69,9 +87,6 @@ const PersonalDetails = ({ setData, data }) => {
     },
   ];
 
-
-
-
   const [formErrors, setFormErrors] = useState({
     firstName: false,
     lastName: false,
@@ -84,97 +99,102 @@ const PersonalDetails = ({ setData, data }) => {
   const validateFields = () => {
     const newErrors = {};
     let allFieldsValid = true;
-  
+
     inputFields.forEach((field) => {
       const { name } = field;
-      const value = profileData[name]; 
-  
-      if (typeof value === 'string' && value.trim() === "") {
+      const value = profileData[name];
+
+      if (typeof value === "string" && value.trim() === "") {
         newErrors[name] = true;
         allFieldsValid = false;
       } else {
         newErrors[name] = false;
       }
     });
-  
-    setFormErrors({ ...newErrors }); 
+
+    setFormErrors({ ...newErrors });
     return allFieldsValid;
   };
-  
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setProfileData({
-      ...profileData,
-      [name]: value,
-    });
-    setIsModified(true);
-    setFormErrors({ ...formErrors, [name]: value.trim() === "" }); 
+    if (name == "mobileNumber") {
+      if (value.replace(/\D/g, "").length <= 10) {
+        setProfileData({
+          ...profileData,
+          [name]: value.replace(/\D/g, ""),
+        });
+        setIsModified(true);
+        setFormErrors({ ...formErrors, [name]: value.trim() === "" });
+      }
+    } else {
+      setProfileData({
+        ...profileData,
+        [name]: value,
+      });
+      setIsModified(true);
+      setFormErrors({ ...formErrors, [name]: value.trim() === "" });
+    }
   };
-
-
 
   const isDisabled = () => {
     if (!isChecked || !isModified) return true;
-  
+
     const isAnyFieldEmpty = Object.values(profileData).some((value) => {
-      if (typeof value === 'string') {
+      if (typeof value === "string") {
         return value.trim() === "";
       }
-   
-      if (typeof value === 'number') {
+
+      if (typeof value === "number") {
         return value.toString().trim() === "";
       }
-      return true; 
+      return true;
     });
-  
+
     return isAnyFieldEmpty;
   };
-  
 
-
-
-  
   const saveData = () => {
     const allFieldsValid = validateFields();
     if (allFieldsValid && isModified) {
-    setData({
-      ...data,
-      firstName: camelCase(profileData.firstName),
-      lastName: camelCase(profileData.lastName),
-      mobileNumber: profileData.mobileNumber,
-      email: profileData.email.toLowerCase(),
-      location: camelCase(profileData.location),
-      designation: profileData.designation,
-    });
-    setIsModified(false);
-  }
-};
-
-useEffect(() => {
-  const allFieldsValid = validateFields();
-  if (allFieldsValid && isModified) {
-    setIsModified(true);
-  }
-}, [profileData]);
+      setData({
+        ...data,
+        firstName: camelCase(profileData.firstName),
+        lastName: camelCase(profileData.lastName),
+        mobileNumber: profileData.mobileNumber,
+        email: profileData.email.toLowerCase(),
+        location: camelCase(profileData.location),
+        designation: profileData.designation,
+      });
+      setIsModified(false);
+    }
+  };
 
   useEffect(() => {
-      const {
-        firstName,
-        lastName,
-        email,
-        mobileNumber: mobileNumber,
-        location,
-        designation
-      } = data;
-      setProfileData({
-        ...profileData,
-        firstName,
-        lastName,
-        email,
-        mobileNumber,
-        location: location,
-        designation
-      });
+    const allFieldsValid = validateFields();
+    if (allFieldsValid && isModified) {
+      setIsModified(true);
+    }
+  }, [profileData]);
+
+  useEffect(() => {
+    const {
+      firstName,
+      lastName,
+      email,
+      mobileNumber: mobileNumber,
+      location,
+      designation,
+    } = data;
+    setProfileData({
+      ...profileData,
+      firstName,
+      lastName,
+      email,
+      mobileNumber,
+      location: location,
+      designation,
+    });
   }, [data]);
   return (
     <>
@@ -205,21 +225,94 @@ useEffect(() => {
               <div className=" text-[14px] font-montserrat  font-medium">
                 {item.label}
               </div>
-              <div className={`border-[1px] rounded-[8px] px-[16px] py-[12px] ${formErrors[item.name] ? 'border-[#C00000]' : 'border-[#9D9D9D]'} `}>
-                <input
-                  type={item.type}
-                  name={item.name}
-                  placeholder={item.placeholder}
-                  className="w-full text-[14px] font-montserrat font-small"
-                  value={profileData[item.name]}
-                  onChange={handleInputChange}
-                  disabled={!isChecked}
-                />
-               
-              </div>
+              {item.name == "mobileNumber" ? (
+                <div
+                  className={`border-[1px] rounded-[8px] ${
+                    formErrors[item.name]
+                      ? "border-[#C00000]"
+                      : "border-[#9D9D9D]"
+                  } `}
+                >
+                  <div
+                    className={`flex w-[100%] items-start "
+                          }`}
+                    id="single_input"
+                  >
+                    <div
+                      className={`relative 
+                            } items-center`}
+                    >
+                      <div className="  w-[100%] text-[14px] justify-center items-center  flex font-[500] text-[#646464]">
+                        <div className="flex items-center justify-center gap-2 cursor-pointer min-w-[160px] w-[100%]">
+                          <div className="flex items-center  gap-1 cursor-pointer  w-[100%] ">
+                            <ReactSelect
+                              options={filteredTelCode}
+                              className="w-[100%] flex  items-center py-1  rounded-[8px]"
+                              name=""
+                              placeholder="Search"
+                              value={selectedItem}
+                              onChange={handleItemClick}
+                              getOptionLabel={(option) => (
+                                <div className="flex items-center  ">
+                                  <img
+                                    src={`https://hatscripts.github.io/circle-flags/flags/${option.code.toLowerCase()}.svg`}
+                                    width="20px"
+                                  />
+                                  <span className="ml-2">
+                                    {option.code} {option.dial_code}
+                                  </span>
+                                </div>
+                              )}
+                              getOptionValue={(option) => option.code}
+                              styles={{
+                                control: (provided) => ({
+                                  ...provided,
+                                  border: "none",
+
+                                  minWidth: "130px",
+                                }),
+                              }}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <input
+                      type={item.type}
+                      name={item.name}
+                      placeholder={item.placeholder}
+                      className="w-full text-[14px] font-montserrat font-small"
+                      value={profileData[item.name]}
+                      onChange={handleInputChange}
+                      disabled={!isChecked}
+                    />
+                  </div>
+                </div>
+              ) : (
+                <div
+                  className={`border-[1px] rounded-[8px] px-[16px] py-[12px] ${
+                    formErrors[item.name]
+                      ? "border-[#C00000]"
+                      : "border-[#9D9D9D]"
+                  } `}
+                >
+                  <input
+                    type={item.type}
+                    name={item.name}
+                    placeholder={item.placeholder}
+                    className="w-full text-[14px] font-montserrat font-small"
+                    value={profileData[item.name]}
+                    onChange={handleInputChange}
+                    disabled={!isChecked}
+                  />
+                </div>
+              )}
               {formErrors[item.name] && (
-              <span className="text-[#C00000] text-[12px]">Field is required</span>
-            )}
+                <span className="text-[#C00000] text-[12px]">
+                  Field is required
+                </span>
+              )}
             </div>
           ))}
         </div>

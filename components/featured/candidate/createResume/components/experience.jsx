@@ -8,7 +8,7 @@ const Experience = ({ data, setData }) => {
   const [isModified, setIsModified] = useState({ status: false, index: 0 });
   const handleSwitchChange = () => {
     setIsChecked(!isChecked);
-    setData({...data,showExperience:!isChecked})
+    setData({ ...data, showExperience: !isChecked });
   };
   const [experienceData, setExperienceData] = useState({
     designation: "",
@@ -21,7 +21,7 @@ const Experience = ({ data, setData }) => {
       end: { year: "Year", month: "Month" },
     },
   });
- 
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setExperienceData({
@@ -43,6 +43,8 @@ const Experience = ({ data, setData }) => {
       });
       setView(false);
     }
+    setIsModified({ status: false, index: 0 });
+    window.scrollTo(0, 0);
     setExperienceData({
       designation: "",
       organization: "",
@@ -92,10 +94,14 @@ const Experience = ({ data, setData }) => {
       </div>
 
       {data?.experience?.map((exp, index) => (
-        <div key={index} className="flex flex-col gap-1 p-2 rounded-[6px] border border-[#DEDEDE] break-all">
+        <div
+          key={index}
+          className="flex flex-col gap-1 p-2 rounded-[6px] border border-[#DEDEDE] break-all"
+        >
           <div className="flex justify-between">
             <p className="text-[14px]">
-              {exp.organization} | {exp.duration?.start?.year} {exp.duration?.start?.year && "-"}
+              {exp.organization} | {exp.duration?.start?.year}{" "}
+              {exp.duration?.start?.year && "-"}
               {exp.currentlyWorking ? "Present" : exp.duration?.end?.year}
             </p>
             <div className="flex gap-2">
@@ -176,6 +182,11 @@ const Experience = ({ data, setData }) => {
                   setExperienceData({
                     ...experienceData,
                     currentlyWorking: !experienceData.currentlyWorking,
+                    end: {
+                      ...data.duration?.end,
+                      year: "Present",
+                      month: "Present",
+                    },
                   })
                 }
               />
@@ -266,7 +277,7 @@ const Experience = ({ data, setData }) => {
           </svg>
           <p
             onClick={() => setView(true)}
-            className="text-[16px] font-semibold text-[#06A9EF]"
+            className="text-[16px] font-semibold text-[#06A9EF] cursor-pointer"
             disabled={!isChecked}
           >
             Add Experience

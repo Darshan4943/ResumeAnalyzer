@@ -4,7 +4,6 @@ import { Delete_icon, Edit_icon } from "../../../../../utils/svg";
 import { useSelector } from "react-redux";
 
 const Education = ({ setData, data }) => {
-
   const [isChecked, setIsChecked] = useState(true);
   const [view, setView] = useState(false);
   const currentDate = new Date();
@@ -64,9 +63,9 @@ const Education = ({ setData, data }) => {
       });
       setView(false);
     }
+    window.scrollTo(0, 0);
   };
 
- 
   return (
     <>
       <div
@@ -89,10 +88,14 @@ const Education = ({ setData, data }) => {
           </label>
         </div>
         {data?.education.map((edu, index) => (
-          <div key={index} className="flex flex-col gap-1 p-2 rounded-[6px] border border-[#DEDEDE] break-all">
+          <div
+            key={index}
+            className="flex flex-col gap-1 p-2 rounded-[6px] border border-[#DEDEDE] break-all"
+          >
             <div className="flex justify-between">
               <p className="text-[14px]">
-                {edu.qualification} | {edu.duration?.start?.year} {edu.duration?.start?.year && "-"}
+                {edu.qualification} | {edu.duration?.start?.year}{" "}
+                {edu.duration?.start?.year && "-"}
                 {edu.duration?.end.year}
               </p>
               <div className="flex gap-2">
@@ -105,7 +108,9 @@ const Education = ({ setData, data }) => {
               </div>
             </div>
             <div className="flex gap-8 text-[12px]">
-              <p>{edu.specialization} | {edu.instituteName}</p>
+              <p>
+                {edu.specialization} | {edu.instituteName}
+              </p>
               {/* <p>University : {edu.instituteName}</p> */}
             </div>
           </div>
@@ -262,7 +267,7 @@ const Education = ({ setData, data }) => {
                 });
                 setView(true);
               }}
-              className="text-[16px] font-semibold text-[#06A9EF]"
+              className="text-[16px] font-semibold text-[#06A9EF] cursor-pointer"
               disabled={!isChecked}
             >
               Add Education

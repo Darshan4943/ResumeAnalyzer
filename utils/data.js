@@ -2183,8 +2183,6 @@ export const City = [
   "Sambalpur",
 ];
 
-
-
 export const templates = [
   {
     title: "Template1",
@@ -2240,7 +2238,7 @@ export const templates = [
     index: 7,
     fontFamily: "Montserrat",
     themeColor: "#0077F9",
-    formFields: ["course", "hobbies","language"],
+    formFields: ["course", "hobbies", "language"],
   },
   {
     title: "Template8",
@@ -2342,7 +2340,7 @@ export const templates = [
     index: 20,
     fontFamily: "Montserrat",
     themeColor: "#303030",
-    formFields: ["hobbies", "course","language"],
+    formFields: ["hobbies", "course", "language"],
   },
   {
     title: "Template21",
@@ -2598,14 +2596,14 @@ export const templates = [
   },
 ];
 
-
-
 export const plans = [
   {
     duration: "1 Day",
+    index: 1,
     limit: "One-Time",
     price: "$ 1",
-    amount:1,
+    amount: 1,
+    days: 1,
     description: "create your first resume",
     features: [
       "AI Powered Resume Creation",
@@ -2620,7 +2618,9 @@ export const plans = [
     duration: "7 Days",
     limit: "for More",
     price: "$ 3",
+    index: 2,
     amount: 3,
+    days: 7,
     description: "for the active job seekers",
     features: [
       "AI Powered Resume Creation",
@@ -2634,8 +2634,10 @@ export const plans = [
   {
     duration: "30 Days",
     limit: "Ultimate",
-    amount:10,
+    amount: 10,
     price: "$ 10",
+    days: 30,
+    index: 3,
     description: "create, save, repeat with ease",
     features: [
       "AI Powered Resume Creation",

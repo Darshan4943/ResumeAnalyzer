@@ -4,10 +4,17 @@ import { useMediaQuery } from "@react-hook/media-query";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
+import ReactSelect from "react-select";
 
 function AccountDetails({ selectedPlan }) {
   const userDataGlobal = useSelector((state) => state.userData);
-  console.log(userDataGlobal);
+  function getDateAfterDays(days) {
+    const currentDate = new Date();
+    const futureDate = new Date(
+      currentDate.getTime() + days * 24 * 60 * 60 * 1000
+    );
+    return futureDate;
+  }
   const [data, setData] = useState({
     firstName: "",
     lastName: "",
@@ -15,6 +22,26 @@ function AccountDetails({ selectedPlan }) {
     email: "",
     code: "",
   });
+  const [filteredTelCode, setFilteredTelCode] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  useEffect(() => {
+    const filterLogic = (item) =>
+      item.code.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      item.dial_code.includes(searchTerm);
+
+    const filteredCodes = telCode.filter(filterLogic);
+    setFilteredTelCode(filteredCodes);
+  }, [telCode, searchTerm]);
+  const [selectedItem, setSelectedItem] = useState(telCode[telCode.length - 2]);
+
+  const handleItemClick = (item) => {
+    setSelectedItem(item);
+    setData({ ...data, dial_code: item.dial_code });
+  };
+
+  // Example usage:
+  // 30 days after current date
+
   const [formError, setFormError] = useState({});
   const validateInput = (fieldName, value) => {
     const errors = { ...formError };
@@ -82,8 +109,6 @@ function AccountDetails({ selectedPlan }) {
   };
 
   const [dropdown, setDropdown] = useState(false);
-  const [selectedItem, setSelectedItem] = useState(telCode[0]);
-  const [searchTerm, setSearchTerm] = useState("");
   const [showInput, setShowInput] = useState(false);
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
@@ -96,14 +121,6 @@ function AccountDetails({ selectedPlan }) {
     }
   }, []);
 
-  const handleItemClick = (item) => {
-    setSelectedItem(item);
-    setData({ ...data, dial_code: item.dial_code });
-    setSearchTerm("");
-    setDropdown(false);
-    setShowInput(false);
-  };
-
   const handleInputClick = () => {
     setDropdown(true);
     setSearchTerm("");
@@ -113,16 +130,6 @@ function AccountDetails({ selectedPlan }) {
       behavior: "smooth",
     });
   };
-  const [filteredTelCode, setFilteredTelCode] = useState([]);
-
-  useEffect(() => {
-    const filterLogic = (item) =>
-      item.code.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      item.dial_code.includes(searchTerm);
-
-    const filteredCodes = telCode.filter(filterLogic);
-    setFilteredTelCode(filteredCodes);
-  }, [telCode, searchTerm]);
 
   const taskRef = useRef(null);
 
@@ -155,40 +162,75 @@ function AccountDetails({ selectedPlan }) {
     //   toast.error("Please enter valid information");
     //   setFormError(errors);
     // } else {
-      try {
-        const {
-          data: { key },
-        } = await axios.get(`http://localhost:2000/api/getkey`);
-        const { data: order } = await axios.post(
-          `http://localhost:2000/api/checkout/`,
-          {
-            amount: parseInt(selectedPlan.amount),
-          }
-        );
-        const ex = order;
-        const options = {
-          key,
-          amount: order.order.amount,
-          currency: "USD",
-          description: "Test Transaction",
-          image:
-            "https://freedygo-storage-bucket-production.s3.ap-south-1.amazonaws.com/Frame+427322205.png",
-          name: "Skiloteck",
-          order_id: order.order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-          handler: function (response) {
-            console.log(response);
-          },
-          theme: {
-            color: "#06A9EF",
-          },
-        };
-        const razor = new window.Razorpay(options);
-        razor.open();
-      } catch (e) {
-        console.log("error", e);
-      }
+    // try {
+    //   const {
+    //     data: { key },
+    //   } = await axios.get(`http://localhost:2000/api/getkey`);
+    //   const { data: order } = await axios.post(
+    //     `http://localhost:2000/api/checkout/`,
+    //     {
+    //       amount: parseInt(selectedPlan.amount),
+    //     }
+    //   );
+    //   const ex = order;
+    //   const options = {
+    //     key,
+    //     amount: order.order.amount,
+    //     currency: "USD",
+    //     description: "Test Transaction",
+    //     image:
+    //       "https://freedygo-storage-bucket-production.s3.ap-south-1.amazonaws.com/Frame+427322205.png",
+    //     name: "Skiloteck",
+    //     order_id: order.order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+    //     handler: function (response) {
+    //       axios
+    //         .post("http://localhost:2000/api/add/subscription", {
+    //           ...response,
+    //           userId: userDataGlobal._id,
+    //           plan: selectedPlan.duration + " " + selectedPlan.limit,
+    //           startDate: new Date(),
+    //           endDate: getDateAfterDays(selectedPlan.days),
+    //           paidAt: new Date(),
+    //           ...data,
+    //           mobileNo: data.code + data.mobileNo,
+    //           index:selectedPlan.index
+    //         })
+    //         .then((res) => {
+    //           console.log(res.data);
+    //         })
+    //         .catch((err) => {
+    //           console.log(err);
+    //         });
+    //     },
+    //     theme: {
+    //       color: "#06A9EF",
+    //     },
+    //   };
+    //   const razor = new window.Razorpay(options);
+    //   razor.open();
+    // } catch (e) {
+    //   console.log("error", e);
+    // }
+    axios
+      .post("http://localhost:2000/api/add/subscription", {
+        userId: userDataGlobal._id,
+        plan: selectedPlan.duration + " " + selectedPlan.limit,
+        startDate: new Date(),
+        endDate: getDateAfterDays(selectedPlan.days),
+        paidAt: new Date(),
+        ...data,
+        mobileNo: data.code + data.mobileNo,
+        index: selectedPlan.index,
+      })
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
     // }
   };
+  console.log(data.mobileNo);
 
   return (
     <div className={" w-[60%] "}>
@@ -274,81 +316,39 @@ function AccountDetails({ selectedPlan }) {
                     isViewportBelow850 ? "w-[65%] " : "w-[30%] "
                   } items-center`}
                 >
-                  <div
-                    className="  w-[80%] text-[14px] justify-center items-center  flex font-[500] text-[#646464]"
-                    onClick={handleInputClick}
-                  >
-                    <div className="flex items-center justify-center gap-2 cursor-pointer min-w-[140px] w-[80%]">
-                      <div
-                        className="flex items-center  gap-1 cursor-pointer  w-[100%] "
-                        onClick={handleInputClick}
-                      >
-                        {showInput ? (
-                          <input
-                            className="w-[100%]  border flex justify-center items-center py-1 px-3 rounded-[8px] "
-                            type="text"
-                            name=""
-                            placeholder="Search"
-                            value={searchTerm}
-                            onChange={handleSearch}
-                          />
-                        ) : (
-                          <>
-                            <img
-                              src={`https://hatscripts.github.io/circle-flags/flags/${selectedItem.code.toLowerCase()}.svg`}
-                              width="20px"
-                            />
-                            <div
-                              className={` ${
-                                isViewportBelow850
-                                  ? "text-[12px]"
-                                  : "text-[16px]"
-                              }`}
-                            >
-                              {selectedItem.code} {selectedItem.dial_code}
-                            </div>
-                            <img
-                              className="w-[20px] h-[20px]"
-                              src="/images/down_arrow.png"
-                              alt=""
-                            />
-                          </>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-
-                  {dropdown && (
-                    <div
-                      ref={taskRef}
-                      className="w-[113px] font-[500] top-12 -left-1  z-10 h-[40vh] overflow-y-scroll bg-[#fff] border-[1px] border-solid border-[#9D9D9D] absolute text-[14px] p-1 flex flex-col justify-between items-center"
+                  <div className="flex items-center  gap-1 cursor-pointer  w-[100%] ">
+                    <ReactSelect
+                      options={filteredTelCode}
+                      className="w-[100%] flex  items-center py-1  rounded-[8px]"
                       name=""
-                      id=""
-                    >
-                      {filteredTelCode.map((item, index) => (
-                        <p
-                          className={`border-none cursor-pointer pl-[5px] flex my-2 gap-[5px] hover:bg-blue hover:text-[#fff] ${
-                            selectedItem === item ? "bg-gray-200" : ""
-                          }`}
-                          key={index}
-                          onClick={() => handleItemClick(item)}
-                        >
+                      placeholder="Search"
+                      value={selectedItem}
+                      onChange={handleItemClick}
+                      getOptionLabel={(option) => (
+                        <div className="flex items-center  ">
                           <img
-                            src={`https://hatscripts.github.io/circle-flags/flags/${item.code.toLowerCase()}.svg`}
+                            src={`https://hatscripts.github.io/circle-flags/flags/${option.code.toLowerCase()}.svg`}
                             width="20px"
                           />
-                          {item.code} {item.dial_code}
-                        </p>
-                      ))}
-                    </div>
-                  )}
+                          <span className="ml-2">
+                            {option.code} {option.dial_code}
+                          </span>
+                        </div>
+                      )}
+                      getOptionValue={(option) => option.code}
+                      styles={{
+                        control: (provided) => ({
+                          ...provided,
+                          border: "none",
+
+                          minWidth: "130px",
+                        }),
+                      }}
+                    />
+                  </div>
                 </div>
 
                 <input
-                  className="w-full mobileNo "
-                  type="text"
-                  name=""
-                  // id="single_input"
                   placeholder={`${
                     isViewportBelow850
                       ? "Enter Number "
@@ -358,6 +358,10 @@ function AccountDetails({ selectedPlan }) {
                   onChange={(e) =>
                     handleInputChange("mobileNo", e.target.value)
                   }
+                  className="w-full mobileNo "
+                  type="text"
+                  name=""
+                  // id="single_input"
                 />
               </div>
 

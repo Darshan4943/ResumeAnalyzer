@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
 import { templates } from "../../utils/data";
+import { useSelector } from "react-redux";
 pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
 
 const PdfViewer = ({ pdfUrl, isAll, index }) => {
@@ -53,10 +54,11 @@ const PdfViewer = ({ pdfUrl, isAll, index }) => {
   const UserResumes = ({ setSelect, setIsAll, isAll }) => {
   const [data, setData] = useState([]);
   const taskRef = useRef(null);
+  const userDataGlobal = useSelector((state) => state.userData);
 
   useEffect(() => {
     axios
-      .get("https://freedygoservices.in/api/resume/65df36580cf0beec39f598bc")
+      .get("https://freedygoservices.in/api/resume/"+ userDataGlobal?._id)
       .then((response) => {
         setData(response.data.data);
         setSelect(response.data.data[0]);

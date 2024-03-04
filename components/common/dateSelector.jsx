@@ -25,7 +25,6 @@ const DateSelector = ({ idPrefix, dataSeter, data }) => {
     });
   };
 
-
   const handleEndMonthChange = (e) => {
     dataSeter({
       ...data,
@@ -47,7 +46,7 @@ const DateSelector = ({ idPrefix, dataSeter, data }) => {
   };
   function getYear() {
     const currentYear = new Date().getFullYear();
-    const startYear = currentYear - 100; 
+    const startYear = currentYear - 100;
 
     const years = [];
     for (let year = currentYear; year >= startYear; year--) {
@@ -56,9 +55,9 @@ const DateSelector = ({ idPrefix, dataSeter, data }) => {
 
     return years;
   }
-  
+
   return (
-    <div className="flex gap-[12px] flex_column">
+    <div className="flex gap-[14px] flex_column">
       <div className="flex flex-col gap-2">
         <div>
           <label
@@ -69,39 +68,51 @@ const DateSelector = ({ idPrefix, dataSeter, data }) => {
           </label>
         </div>
         <div className="flex gap-4">
-          <div className="flex p-2 items-center rounded-lg border border-[#646464] bg-white text-[14px]  font-montserrat font-small">
+          <div className="flex items-center rounded-lg border border-[#646464] bg-white text-[14px]  font-montserrat font-small relative min-w-[130px] w-full overflow-hidden relative">
             <select
               id={`${idPrefix}-startMonth`}
               value={data?.duration?.start?.month}
               onChange={handleStartMonthChange}
-              className="w-outline-none"
+              className="w-outline-none focus-visible:outline-none  p-2 w-full "
               style={{
                 WebkitAppearance: "none",
                 MozAppearance: "none",
                 appearance: "none",
+                position: "relative",
+                zIndex: 1,
+                background: " transparent",
               }}
             >
-              <option value="Month" disabled hidden className="px-4 md:text-[16px] text-[14px] py-2">
+              <option
+                value="Month"
+                disabled
+                hidden
+                className="px-4  text-[14px] py-2"
+              >
                 Month
               </option>
 
               {months.map((month) => (
-                <option key={month} value={month} className="px-4 md:text-[16px] text-[14px] py-2">
+                <option
+                  key={month}
+                  value={month}
+                  className="px-4 text-[14px] py-2"
+                >
                   {new Date(0, month - 1).toLocaleString("en", {
                     month: "long",
                   })}
                 </option>
               ))}
             </select>
-
-            <img
-              src="/images/down_arrow.png"
-              className="h-[20px] w-[20px]"
-              alt=""
-            />
+          
+              <img
+                src="/images/down_arrow.png"
+                className="h-[20px] w-[20px] absolute right-[4px]"
+                alt=""
+              />
           </div>
 
-          <div className="flex p-2 items-center rounded-lg border border-[#646464] bg-white text-[14px]  font-montserrat font-small">
+          <div className="flex items-center rounded-lg border border-[#646464] bg-white text-[14px]  font-montserrat font-small relative min-w-[100px] w-full overflow-hidden">
             <select
               id={`${idPrefix}-startYear`}
               value={data?.duration?.start?.year}
@@ -110,21 +121,29 @@ const DateSelector = ({ idPrefix, dataSeter, data }) => {
                 WebkitAppearance: "none",
                 MozAppearance: "none",
                 appearance: "none",
+                position: "relative",
+                zIndex: 1,
+                background: " transparent",
               }}
-              className="w-[79px] md:text-[16px] text-[14px] outline-none"
+              className="w-outline-none focus-visible:outline-none  p-2 w-full"
             >
               <option value="Year" disabled hidden>
                 Year
               </option>
               {getYear().map((year) => (
-                <option key={year} value={year} className="mt-4 md:text-[16px] text-[14px] px-4 py-2">
+                <option
+                  key={year}
+                  value={year}
+                  className="mt-4 text-[14px] px-4 py-2"
+                >
                   {year}
                 </option>
               ))}
             </select>
+
             <img
               src="/images/down_arrow.png"
-              className="h-[20px] w-[20px]"
+              className="h-[20px] w-[20px] absolute right-[4px]"
               alt=""
             />
           </div>
@@ -141,17 +160,20 @@ const DateSelector = ({ idPrefix, dataSeter, data }) => {
             </label>
           </div>
           <div className="flex gap-4">
-            <div className="flex p-2 items-center rounded-lg border border-[#646464] bg-white text-[14px]  font-montserrat font-small">
+            <div className="flex items-center rounded-lg border border-[#646464] bg-white text-[14px]  font-montserrat font-small relative min-w-[100px] w-full overflow-hidden">
               <select
                 id={`${idPrefix}-endMonth`}
                 value={data?.duration?.end?.month}
                 onChange={handleEndMonthChange}
-                className="w-[79px] outline-none"
                 style={{
                   WebkitAppearance: "none",
                   MozAppearance: "none",
                   appearance: "none",
+                  position: "relative",
+                  zIndex: 1,
+                  background: " transparent",
                 }}
+                className="w-outline-none focus-visible:outline-none  p-2 w-full"
               >
                 <option value="Month" disabled hidden>
                   Month
@@ -164,13 +186,14 @@ const DateSelector = ({ idPrefix, dataSeter, data }) => {
                   </option>
                 ))}
               </select>
+
               <img
                 src="/images/down_arrow.png"
-                className="h-[20px] w-[20px]"
+                className="h-[20px] w-[20px] absolute right-[4px]"
                 alt=""
               />
             </div>
-            <div className="flex p-2 items-center rounded-lg border border-[#646464] bg-white text-[14px] font-montserrat font-small">
+            <div className="flex items-center rounded-lg border border-[#646464] bg-white text-[14px]  font-montserrat font-small relative min-w-[100px] w-full overflow-hidden">
               <select
                 id={`${idPrefix}-endYear`}
                 value={data?.duration?.end?.year}
@@ -179,8 +202,11 @@ const DateSelector = ({ idPrefix, dataSeter, data }) => {
                   WebkitAppearance: "none",
                   MozAppearance: "none",
                   appearance: "none",
+                  position: "relative",
+                  zIndex: 1,
+                  background: " transparent",
                 }}
-                className="w-[79px] outline-none"
+                className="w-outline-none focus-visible:outline-none  p-2 w-full"
               >
                 <option value="Year" disabled hidden>
                   Year
@@ -191,9 +217,10 @@ const DateSelector = ({ idPrefix, dataSeter, data }) => {
                   </option>
                 ))}
               </select>
+
               <img
                 src="/images/down_arrow.png"
-                className="h-[20px] w-[20px]"
+                className="h-[20px] w-[20px] absolute right-[4px]"
                 alt=""
               />
             </div>

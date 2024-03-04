@@ -28,7 +28,7 @@ const AboutMe = ({ data, setData }) => {
           setError("");
           setText(res.data.data.choices[0].message.content);
           localStorage.setItem("attempts", attempt - 1);
-          getAttempts();   
+          getAttempts();
         })
         .catch((err) => {
           setLoading(false);
@@ -45,7 +45,7 @@ const AboutMe = ({ data, setData }) => {
       setAttempt(parseInt(localData));
     }
   };
-  
+
   useEffect(() => {
     getAttempts();
     if (userDataGlobal?.resumeUrl) {
@@ -55,7 +55,7 @@ const AboutMe = ({ data, setData }) => {
   }, [userDataGlobal]);
 
   useEffect(() => {
-    setText(data.summery);
+    setText(data.summery ? data.summery : "");
   }, [data]);
 
   return (
@@ -100,7 +100,7 @@ const AboutMe = ({ data, setData }) => {
           <div className="error_text_form ">{error}</div>
           <div className="text-[12px] ">
             {" "}
-            {400 - text.length} characters left
+            {400 - text?.length} characters left
           </div>
         </div>
 

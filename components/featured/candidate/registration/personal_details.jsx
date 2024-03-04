@@ -329,31 +329,6 @@ const PersonalDetails = ({
                               </div>
                             </div>
                           </div>
-
-                          {/* {dropdown && (
-                            <div
-                              ref={taskRef}
-                              className="w-[113px] font-[500] top-12 -left-1  z-10 h-[40vh] overflow-y-scroll bg-[#fff] border-[1px] border-solid border-[#9D9D9D] absolute text-[14px] p-1 flex flex-col justify-between items-center"
-                              name=""
-                              id=""
-                            >
-                              {filteredTelCode.map((item, index) => (
-                                <p
-                                  className={`border-none cursor-pointer pl-[5px] flex my-2 gap-[5px] hover:bg-blue hover:text-[#fff] ${
-                                    selectedItem === item ? "bg-gray-200" : ""
-                                  }`}
-                                  key={index}
-                                  onClick={() => handleItemClick(item)}
-                                >
-                                  <img
-                                    src={`https://hatscripts.github.io/circle-flags/flags/${item.code.toLowerCase()}.svg`}
-                                    width="20px"
-                                  />
-                                  {item.code} {item.dial_code}
-                                </p>
-                              ))}
-                            </div>
-                          )} */}
                         </div>
 
                         <input
