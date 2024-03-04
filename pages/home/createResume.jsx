@@ -278,7 +278,7 @@ console.log(32,userData)
 
   return (
     <div>
-      <div className=" bg-[#F9F9F9] pt-2 px-6">
+      <div className=" bg-[#F9F9F9] pt-2 ml:px-6 ">
         <div className="flex flex-col gap-4 py-6 customMargins">
           <div className="web">
             <div className=" h-fit flex gap-6 ">
@@ -308,16 +308,16 @@ console.log(32,userData)
 
           {isEdit && (
             <AnimatePresence>
-              <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-40"></div>
+              <div className="fixed z-[2000] top-0 right-0 left-0  bottom-0 bg-black opacity-40 "></div>
               <motion.div
                 initial={{ x: "-100%" }}
                 animate={{ x: 0 }}
                 exit={{ x: "-100%" }}
                 transition={{ duration: 0.5 }}
                 ref={taskRef}
-                className={`mobile flex flex-col gap-4 z-[2000] mr-2 py-2 rounded-[8px] absolute max-h-[80vh] overflow-x-auto bg-white`}
+                className={`mobile flex flex-col gap-4 z-[2000]  p-4 rounded-[8px] absolute max-h-[80vh] w-[95%] overflow-x-auto bg-white`}
               >
-                <div className="flex justify-between px-4 text-[18px] font-semibold">
+                <div className="flex justify-between  text-[18px] font-semibold">
                   Edit
                   <div
                     className="h-[24px] w-[24px]"

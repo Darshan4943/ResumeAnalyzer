@@ -59,18 +59,18 @@ useEffect(() => {
 
   return (
     <>
-      <div className="flex justify-center items-center list-none gap-9">
+      <div className="flex justify-center items-center list-none scr1250:gap-9 scr1024:gap-4 gap-3">
         <Link href="/home/BeforeLoginHome">
           {" "}
           <img
             src="/images/logo_skilotech.png"
             alt=""
-            className="h-[58px] w-[172px]"
+            className="scr1250:h-[58px] scr1024:h-[51px] h-[45px] scr1250:w-[172px] scr1024:w-[150px] w-[133px]"
           />
         </Link>
         <Link
           href="/home/BeforeLoginHome"
-          className={selectedPage === "/home/BeforeLoginHome" ? "active" : "li"}
+          className={selectedPage === "/home/BeforeLoginHome" ? "active scr1250:text-[18px] text-[16px]" : "li scr1250:text-[18px] text-[16px]"}
         >
           <li>Home</li>
         </Link>
@@ -83,35 +83,35 @@ useEffect(() => {
 
         <Link
           href="/home/MyCollection"
-          className={selectedPage === "/home/MyCollection" ? "active" : "li"}
+          className={selectedPage === "/home/MyCollection" ? "active scr1250:text-[18px] text-[16px]" : "li scr1250:text-[18px] text-[16px]"}
         >
           <li>My Resumes</li>
         </Link>
         <Link
           href="/transform/TransformJob"
           className={
-            selectedPage === "/transform/TransformJob" ? "active" : "li"
+            selectedPage === "/transform/TransformJob" ? "active scr1250:text-[18px] text-[16px]" : "li scr1250:text-[18px] text-[16px]"
           }
         >
           <li>Transform for CV Job Description</li>
         </Link>
         {/* <Link
           href="/transform/TransformJob"
-          className={selectedPage === "/transform/TransformJob" ? "active" : "li"}
+          className={selectedPage === "/transform/TransformJob" ? "active scr1250:text-[18px] text-[16px]" : "li scr1250:text-[18px] text-[14px]"}
         >
           <li>My Purchase</li>
         </Link> */}
         <Link
           href="/home/SkillAssessment"
-          className={selectedPage === "/home/SkillAssessment" ? "active" : "li"}
+          className={selectedPage === "/home/SkillAssessment" ? "active scr1250:text-[18px] text-[16px]" : "li scr1250:text-[18px] text-[16px]"}
         >
           <li>Skill Test</li>
         </Link>
       </div>
 
-      <div className=" flex gap-4 justify-end py-2 items-center w-[24.9%]  ">
+      <div className=" flex gap-4 justify-end py-2 items-center scr1250:w-[24.9%] w-[23%]  ">
         <div className="flex items-center gap-[8px]">
-          <div className="h-[40px] w-[40px]">
+          <div className="scr1250:h-[40px] scr1250:w-[40px] h-[30px] w-[30px]">
             {userDataGlobal?.profilePicture ? (
               <img
                 className=" rounded-full object-cover h-[40px] w-[40px]"
@@ -122,7 +122,7 @@ useEffect(() => {
               />
             ) : (
               <div
-                className="rounded-[40px] bg-[#06A9EF] flex items-center justify-center text-white font-semibold text-[20px] h-full"
+                className="rounded-[40px] bg-[#06A9EF] flex items-center justify-center text-white font-semibold scr1250:text-[20px] text-[14px] h-full"
                 style={{ textTransform: "capitalize" }}
                 alt=""
               >
@@ -130,7 +130,7 @@ useEffect(() => {
               </div>
             )}
           </div>
-          {userDataGlobal?.name && <div>{userDataGlobal?.name}</div>}
+          {userDataGlobal?.name && <div className="scr1250:text-[16px] text-[14px]">{userDataGlobal?.name}</div>}
 
           <div className="text-[#495057] text-[14px] font-[600] flex items-center relative">
             <div
