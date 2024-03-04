@@ -49,7 +49,7 @@ console.log(47,selectedSkill)
   const toggleContent = () => {
     setLoading(true);
     axios
-      .post("http://localhost:2000/api/getQuetions", {
+      .post("https://freedygoservices.in/api/getQuetions", {
         skill: selectedSkill,
       })
       .then((res) => {
@@ -81,7 +81,7 @@ console.log(47,selectedSkill)
   
       axios
         .get(
-          `http://localhost:2000/api/assessment/getByUser/${userDataGlobal._id}`
+          `https://freedygoservices.in/api/assessment/getByUser/${userDataGlobal._id}`
         )
         .then((res) => {
           setAssessmentList(res.data.data);
@@ -615,7 +615,7 @@ console.log(47,selectedSkill)
                       if (questionIndex == 9) {
                         axios
                           .post(
-                            "http://localhost:2000/api/assessment/add",
+                            "https://freedygoservices.in/api/assessment/add",
                             {
                               userId: userDataGlobal._id,
                               skill: selectedSkill,
