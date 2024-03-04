@@ -158,7 +158,7 @@ const CandidateAiPower = ({
           <div className="flex justify-center items-center  relative pb-8 ">
             
             <div
-              className="flex flex-col gap-[36px] p-[24px] justify-center items-center rounded-[12px] ml:w-[38.33%] w-[90%] shadow_of_box   "
+              className="flex flex-col gap-[36px] p-[24px] justify-center items-center rounded-[12px] ml:w-[38.33%] w-[90%] shadow_of_box ml:min-w-[500px]  "
               style={{
                 borderRadius: "12px",
                 background: "#FFF",
@@ -277,7 +277,7 @@ const CandidateAiPower = ({
 
               <div class="flex flex-row gap-[24px]">
                 <button
-                  className="px-9 py-3 bg-white-600 border border-[#06A9EF] font font-medium rounded-[12px]"
+                  className="sm:px-9 py-3 px-6 bg-white-600 border border-[#06A9EF] font font-medium rounded-[12px]"
                   id="button"
                   onClick={() => {
                     router.push("/home/BuildResume");
@@ -290,7 +290,7 @@ const CandidateAiPower = ({
 
                 <button
                   disabled={file && !loading ? false : true}
-                  className={`px-9 py-3 bg-[#06A9EF] border rounded-[12px] font-semibold text-white ${
+                  className={`sm:px-9 px-6 py-3 bg-[#06A9EF] border rounded-[12px] font-semibold text-white ${
                     file && !loading ? "opacity-100" : "opacity-50"
                   } `}
                   onClick={() => {

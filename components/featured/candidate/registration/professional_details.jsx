@@ -84,12 +84,12 @@ const ProfessionalDetails = ({
     <>
       {tabindex == 4 && (
         <div className="personal_details_all">
-          <div className="personal_details p-4 pb-[96px]">
-            <div className="personal_details_form education_page">
+          <div className="personal_details ml:p-4 p-2 pb-[96px]">
+            <div className="personal_details_form education_page scr1250:w-[60%] sm:w-[80%] w-[100%]">
               {/* {
                   data.workStatus == 'Fresher'  && <div className="form_text_heading">Internship Details (Optional)</div>
               } */}
-              <div className="flex gap-6 w-[100%]">
+              <div className="flex gap-6 w-[100%] ml:flex-row flex-col">
                 <div className="personal_single_input">
                   <div className="personal_name gap-2 w-[100%]">
                     <p className="form_text_heading">
@@ -97,10 +97,9 @@ const ProfessionalDetails = ({
                     </p>
                     <div className="gender_button">
                       <button
-                        className={`gen_button ${
-                          data.employmentStatus == "employed" &&
+                        className={`gen_button ${data.employmentStatus == "employed" &&
                           "gen_button_active"
-                        }`}
+                          }`}
                         onClick={(e) => {
                           e.preventDefault();
                           setData({ ...data, employmentStatus: "employed" });
@@ -109,10 +108,9 @@ const ProfessionalDetails = ({
                         Employed
                       </button>
                       <button
-                        className={`gen_button ${
-                          data.employmentStatus == "unemployed" &&
+                        className={`gen_button ${data.employmentStatus == "unemployed" &&
                           "gen_button_active"
-                        }`}
+                          }`}
                         onClick={(e) => {
                           e.preventDefault();
                           setData({ ...data, employmentStatus: "unemployed" });
@@ -132,13 +130,13 @@ const ProfessionalDetails = ({
                     <p className="form_text_heading">
                       Work Experience <span className="star">*</span>
                     </p>
-                    <div className="flex flex-row gap-[24px]">
+                    <div className="flex flex-row gap-[24px] w-[100%] ">
                       <div>
                         <input
                           type="text"
                           placeholder="Years"
                           id="single_input"
-                          style={{ width: "100px" }}
+                          style={{ width: "100%", minWidth: "125px" }}
                           value={data?.workExperiance?.years}
                           onChange={(e) => {
                             setData({
@@ -157,29 +155,35 @@ const ProfessionalDetails = ({
                         )}
                       </div>
                       <div>
-                        <input
-                          type="text"
-                          placeholder="Months"
+                        <select
                           id="single_input"
-                          style={{ width: "100px" }}
+                          style={{ width: "100%", minWidth: "125px" }}
                           value={data?.workExperiance?.months}
                           onChange={(e) => {
                             setData({
                               ...data,
                               workExperiance: {
                                 ...data.workExperiance,
-                                months: e.target.value.replace(/\D/g, ""),
+                                months: e.target.value,
                               },
                             });
                           }}
-                        />
+                        >
+                          <option  id="single_input" value="">Select Month</option>
+                          {[...Array(12)].map((_, index) => (
+                            <option key={index + 1} value={(index + 1).toString()}>
+                              {index + 1}
+                            </option>
+                          ))}
+                        </select>
+
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
 
-              <div className="flex gap-6 w-[100%]">
+              <div className="flex gap-6 w-[100%] ml:flex-row flex-col">
                 <div className="personal_single_input w-[100%]">
                   <div className="personal_name w-[100%]">
                     <p className="form_text_heading">
@@ -238,7 +242,7 @@ const ProfessionalDetails = ({
                   </div>
                 </div>
               </div>
-              <div className="flex gap-6 w-[100%]">
+              <div className="flex gap-6 w-[100%] ml:flex-row flex-col">
                 <div className="personal_single_input w-[100%]">
                   <div className="personal_name w-[100%]">
                     <p className="form_text_heading">
@@ -287,7 +291,7 @@ const ProfessionalDetails = ({
               </div>
               <div
                 onWheel={(e) => e.stopPropagation()}
-                className="flex gap-6 w-[100%]"
+                className="flex gap-6 w-[100%] ml:flex-row flex-col"
               >
                 <div className="personal_single_input w-[100%]">
                   <p className="form_text_heading w-[100%]">
@@ -415,7 +419,7 @@ const ProfessionalDetails = ({
                   Go Back
                 </button>
                 <button
-                  className="buttons"
+                  className="buttons bg-[#06A9EF] text-white"
                   id="border_button"
                   onClick={handleClick}
                 >

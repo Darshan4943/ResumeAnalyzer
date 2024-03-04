@@ -160,7 +160,7 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 89px;
+  
   align-items: center;
   flex-shrink: 0;
   background-color: var(--primary, #06a9ef);
@@ -205,33 +205,21 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+gap:4px
 }
 .details_radio {
   display: flex;
-  width: 744px;
+  width: 80%;
   align-items: center;
   margin-bottom: 2px;
 }
-@media (max-width:400px) {
-  .details_radio {
-    width: 230px;
-  }
-}
 
-@media only screen and (min-width: 650px) and (max-width: 900px) {
-  .details_radio{
-    width: 525px;
-  }
-}
-@media only screen and (min-width: 400px) and (max-width: 650px) {
-  .details_radio{
-    width: 330px;
-  }
-}
+
+
 
 .bg_line {
   background: #c7c7c7;
-  width: 336px;
+
   height: 2px;
 }
 
@@ -239,7 +227,7 @@
   display: flex;
   flex-direction: row;
 
-  width: 120%;
+  width: 100%;
   justify-content: space-between;
   overflow: hidden;
 }
@@ -249,26 +237,12 @@
 .detail_names_text {
   color: var(--text-prmary, #333);
   font-family: Montserrat;
-  font-size: 16px;
+  
   font-style: normal;
   font-weight: 500;
   line-height: normal;
 }
 
-@media (max-width:400px) {
-  .detail_names{
-    width: 310px;
-  }
-  .detail_names_text{
-    font-size: 11px;
-  }
-}
-
-@media only screen and (min-width: 400px) and (max-width: 650px) {
-  .detail_names_text{
-    font-size: 11px;
-  }
-}
 
 
 .personal_details {
@@ -533,7 +507,7 @@
   align-items: flex-start;
   gap: 24px;
   position: relative;
-  width:60%
+
 }
 
 
@@ -575,8 +549,8 @@ width:50%
 @media (max-width:425px) {
   .personal_details_form{
     width: 100%;
-
-    padding: 24px 8px;
+    border-radius: 12px;
+    padding: 16px 16px;
   }
   .form_text_heading{
     font-size: 14px; 
@@ -679,7 +653,7 @@ width:50%
   display: flex;
   display: flex;
   height: 32px;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
 }
 
@@ -687,7 +661,7 @@ width:50%
   border: none;
   display: flex;
   height: 32px;
-  padding: 6px 16px;
+  padding: 8px 16px;
   justify-content: center;
   align-items: center;
   gap: 8px;
@@ -698,13 +672,7 @@ width:50%
     0px 1px 2px 0px rgba(0, 0, 0, 0.3);
 }
 
-@media (max-width:420px) {
-  .gender_button{
-    width: 100%;
-    font-size: 14px;
-    padding: 5px 15px;
-  }
-}
+
 
 .gen_button:active {
   color: var(--white, #fff);
@@ -752,7 +720,7 @@ button {
 
 @media (max-width:420px) {
   .buttons{
-    padding: 5px 15px;
+    padding: 12px 24px;
     font-size: 14px;
   }
 }
