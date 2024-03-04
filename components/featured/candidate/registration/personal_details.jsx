@@ -518,16 +518,7 @@ const PersonalDetails = ({
                 </>
               </form>
             </motion.div>
-            <p className="already_text">
-              Already have an account?{" "}
-              <span
-                className="cursor-pointer"
-                id="sign_in"
-                onClick={() => router.push("/auth/Sign_in")}
-              >
-                Sign In
-              </span>
-            </p>
+           
           </div>
         </div>
       )}

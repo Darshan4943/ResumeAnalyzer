@@ -26,7 +26,7 @@ function Sign_up({ setIsSignIn, handleGoogle, setSignIn, setSignUp }) {
       
     };
     axios
-      .post("http://localhost:2000/api/skiloteckuser/user/signup", dataToSend)
+      .post("https://freedygoservices.in/api/skiloteckuser/user/signup", dataToSend)
       .then((res) => {
         const response = res.data;
         if (response.success) {

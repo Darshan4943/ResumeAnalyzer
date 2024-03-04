@@ -56,7 +56,7 @@ const PdfViewer = ({ pdfUrl, isAll, index }) => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:2000/api/resume/65df36580cf0beec39f598bc")
+      .get("https://freedygoservices.in/api/resume/65df36580cf0beec39f598bc")
       .then((response) => {
         setData(response.data.data);
         setSelect(response.data.data[0]);
