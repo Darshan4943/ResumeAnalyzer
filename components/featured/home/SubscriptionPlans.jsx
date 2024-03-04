@@ -142,6 +142,7 @@ function SubscriptionPlans() {
                     ))}
                   </div>
                   <button
+                    onClick={() => clickHandler(index)}
                     //  onClick={() => isLogin && router.push("/myPurchase/Purchase")}
                     className="px-9 py-3 bg-[#06A9EF] text-white rounded-[12px] text-[14px] font-semibold w-full"
                   >

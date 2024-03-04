@@ -162,7 +162,7 @@ function AccountDetails({ selectedPlan }) {
                 endDate: getDateAfterDays(selectedPlan.days),
                 paidAt: new Date(),
                 ...data,
-                mobileNo:data.mobileNo,
+                mobileNo: data.mobileNo,
                 index: selectedPlan.index,
               })
               .then((res) => {
@@ -182,6 +182,7 @@ function AccountDetails({ selectedPlan }) {
       } catch (e) {
         console.log("error", e);
         setLoading(false);
+        toast.error("Payment Failed");
       }
       // setLoading(true);
       // axios
