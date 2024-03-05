@@ -8,7 +8,11 @@ import Link from "next/link";
 
 function Sign_up({ setIsSignIn, handleGoogle, setSignIn, setSignUp }) {
   const router = useRouter();
-  const [data, setData] = useState({ email: "", password: "", confirmPassword: "" });
+  const [data, setData] = useState({
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [error, setError] = useState(null);
@@ -27,7 +31,6 @@ function Sign_up({ setIsSignIn, handleGoogle, setSignIn, setSignUp }) {
     setError(null);
   };
 
-
   const submitHandler = (e) => {
     e.preventDefault();
 
@@ -42,26 +45,34 @@ function Sign_up({ setIsSignIn, handleGoogle, setSignIn, setSignUp }) {
     };
 
     axios
-      .post("https://freedygoservices.in/api/skiloteckuser/user/signup", dataToSend)
+      .post(
+        "https://freedygoservices.in/api/skiloteckuser/user/signup",
+        dataToSend
+      )
       .then((res) => {
         const response = res.data;
-        if (response.success) {
-          localStorage.setItem("authToken", JSON.stringify(response));
-          dispatch(reCallUserData());
-          toast.success("Sign up Successfully");
-          if (sendToPurchase.status) {
-            router.push(`/purchase/details?id=${sendToPurchase.index + 1}`);
+        try{
+          if (response?.success) {
+            localStorage.setItem("authToken", JSON.stringify(response));
+            dispatch(reCallUserData());
+            toast.success("Sign up Successfully");
+            if (sendToPurchase && sendToPurchase?.status) {
+              router.push(`/purchase/details?id=${sendToPurchase.index + 1}`);
+            } else {
+              router.push("/home/BeforeLoginHome");
+            }
+            window.location.reload();
           } else {
-            router.push("/home/BeforeLoginHome");
+            if (response.message === "user already exist") {
+              setError("User already exists");
+            } else {
+              toast.error("Something went wrong");
+            }
           }
-          window.location.reload();
-        } else {
-          if (response.message === "user already exist") {
-            setError("User already exists");
-          } else {
-            toast.error("Something went wrong");
-          }
+        }catch(err){
+          console.log(err);
         }
+       
       })
       .catch((err) => {
         setError(err?.response?.data.message);
@@ -72,10 +83,9 @@ function Sign_up({ setIsSignIn, handleGoogle, setSignIn, setSignUp }) {
   const handleEmailChange = (e) => {
     const lowercaseEmail = e.target.value.toLowerCase();
     setData({ ...data, email: lowercaseEmail });
-    setIsEmailEntered(lowercaseEmail.trim() !== '');
+    setIsEmailEntered(lowercaseEmail.trim() !== "");
     clearError();
   };
-  
 
   const handlePasswordChange = (e) => {
     setData({ ...data, password: e.target.value });
@@ -162,21 +172,37 @@ function Sign_up({ setIsSignIn, handleGoogle, setSignIn, setSignUp }) {
               </svg>
             </div>
 
-            <div className={`flex justify-start text-[16px] gap-2  ${error ? "text-red font-[600]" : "text-green font-[600]"}`}>
-              {error &&
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-
-                <g mask="url(#mask0_625_15556)">
-                  <path d="M12 17C12.2833 17 12.5208 16.9042 12.7125 16.7125C12.9042 16.5208 13 16.2833 13 16C13 15.7167 12.9042 15.4792 12.7125 15.2875C12.5208 15.0958 12.2833 15 12 15C11.7167 15 11.4792 15.0958 11.2875 15.2875C11.0958 15.4792 11 15.7167 11 16C11 16.2833 11.0958 16.5208 11.2875 16.7125C11.4792 16.9042 11.7167 17 12 17ZM11 13H13V7H11V13ZM12 22C10.6167 22 9.31667 21.7375 8.1 21.2125C6.88333 20.6875 5.825 19.975 4.925 19.075C4.025 18.175 3.3125 17.1167 2.7875 15.9C2.2625 14.6833 2 13.3833 2 12C2 10.6167 2.2625 9.31667 2.7875 8.1C3.3125 6.88333 4.025 5.825 4.925 4.925C5.825 4.025 6.88333 3.3125 8.1 2.7875C9.31667 2.2625 10.6167 2 12 2C13.3833 2 14.6833 2.2625 15.9 2.7875C17.1167 3.3125 18.175 4.025 19.075 4.925C19.975 5.825 20.6875 6.88333 21.2125 8.1C21.7375 9.31667 22 10.6167 22 12C22 13.3833 21.7375 14.6833 21.2125 15.9C20.6875 17.1167 19.975 18.175 19.075 19.075C18.175 19.975 17.1167 20.6875 15.9 21.2125C14.6833 21.7375 13.3833 22 12 22ZM12 20C14.2333 20 16.125 19.225 17.675 17.675C19.225 16.125 20 14.2333 20 12C20 9.76667 19.225 7.875 17.675 6.325C16.125 4.775 14.2333 4 12 4C9.76667 4 7.875 4.775 6.325 6.325C4.775 7.875 4 9.76667 4 12C4 14.2333 4.775 16.125 6.325 17.675C7.875 19.225 9.76667 20 12 20Z" fill="#C00000" />
-                </g>
-              </svg>
-}
+            <div
+              className={`flex justify-start text-[16px] gap-2  ${
+                error ? "text-red font-[600]" : "text-green font-[600]"
+              }`}
+            >
+              {error && (
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g mask="url(#mask0_625_15556)">
+                    <path
+                      d="M12 17C12.2833 17 12.5208 16.9042 12.7125 16.7125C12.9042 16.5208 13 16.2833 13 16C13 15.7167 12.9042 15.4792 12.7125 15.2875C12.5208 15.0958 12.2833 15 12 15C11.7167 15 11.4792 15.0958 11.2875 15.2875C11.0958 15.4792 11 15.7167 11 16C11 16.2833 11.0958 16.5208 11.2875 16.7125C11.4792 16.9042 11.7167 17 12 17ZM11 13H13V7H11V13ZM12 22C10.6167 22 9.31667 21.7375 8.1 21.2125C6.88333 20.6875 5.825 19.975 4.925 19.075C4.025 18.175 3.3125 17.1167 2.7875 15.9C2.2625 14.6833 2 13.3833 2 12C2 10.6167 2.2625 9.31667 2.7875 8.1C3.3125 6.88333 4.025 5.825 4.925 4.925C5.825 4.025 6.88333 3.3125 8.1 2.7875C9.31667 2.2625 10.6167 2 12 2C13.3833 2 14.6833 2.2625 15.9 2.7875C17.1167 3.3125 18.175 4.025 19.075 4.925C19.975 5.825 20.6875 6.88333 21.2125 8.1C21.7375 9.31667 22 10.6167 22 12C22 13.3833 21.7375 14.6833 21.2125 15.9C20.6875 17.1167 19.975 18.175 19.075 19.075C18.175 19.975 17.1167 20.6875 15.9 21.2125C14.6833 21.7375 13.3833 22 12 22ZM12 20C14.2333 20 16.125 19.225 17.675 17.675C19.225 16.125 20 14.2333 20 12C20 9.76667 19.225 7.875 17.675 6.325C16.125 4.775 14.2333 4 12 4C9.76667 4 7.875 4.775 6.325 6.325C4.775 7.875 4 9.76667 4 12C4 14.2333 4.775 16.125 6.325 17.675C7.875 19.225 9.76667 20 12 20Z"
+                      fill="#C00000"
+                    />
+                  </g>
+                </svg>
+              )}
               <p>{error}</p>
             </div>
           </div>
         </div>
         <div className="w-full flex flex-col gap-[16px]">
-          <button disabled={!isEmailEntered} className="w-full px-[36px] py-[12px] rounded-[12px] border-[1px] border-solid border-[#06a9ef]  text-[20px] font-[500] hover:bg-[#06a9ef] hover:text-[#fff] transition-all duration-200" style={{ borderColor: '#06a9ef' }}>
+          <button
+            disabled={!isEmailEntered}
+            className="w-full px-[36px] py-[12px] rounded-[12px] border-[1px] border-solid border-[#06a9ef]  text-[20px] font-[500] hover:bg-[#06a9ef] hover:text-[#fff] transition-all duration-200"
+            style={{ borderColor: "#06a9ef" }}
+          >
             Sign Up
           </button>
           <div className="flex flex-row items-center justify-center gap-[6px]">
@@ -184,35 +210,55 @@ function Sign_up({ setIsSignIn, handleGoogle, setSignIn, setSignUp }) {
             <div className="w-[50%] h-[1px] bg-[#9D9D9D]"></div>
           </div>
           <div className="flex flex-col gap-[16px]">
-            <div onClick={handleGoogle} style={{ borderColor: '#9D9D9D' }} className=" cursor-pointer w-full px-[36px] py-[12px] rounded-[12px] border-[1px] border-solid border-[#9D9D9D]   text-[16px] font-[500] text-[#333] flex items-center gap-2 justify-center continue_btn">
-              <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <div
+              onClick={handleGoogle}
+              style={{ borderColor: "#9D9D9D" }}
+              className=" cursor-pointer w-full px-[36px] py-[12px] rounded-[12px] border-[1px] border-solid border-[#9D9D9D]   text-[16px] font-[500] text-[#333] flex items-center gap-2 justify-center continue_btn"
+            >
+              <svg
+                width="25"
+                height="24"
+                viewBox="0 0 25 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
                 <g clip-path="url(#clip0_128_5190)">
-                  <path d="M24.4873 12.2245C24.4873 11.2413 24.4057 10.5237 24.229 9.77963H12.739V14.2176H19.4833C19.3474 15.3205 18.6132 16.9815 16.9814 18.0976L16.9585 18.2461L20.5915 20.9963L20.8431 21.0209C23.1547 18.9347 24.4873 15.8653 24.4873 12.2245Z" fill="#4285F4" />
-                  <path d="M12.7391 23.9176C16.0433 23.9176 18.8171 22.8545 20.8432 21.0209L16.9815 18.0976C15.9481 18.8018 14.5611 19.2934 12.7391 19.2934C9.50291 19.2934 6.75622 17.2074 5.77711 14.324L5.63359 14.3359L1.85604 17.1927L1.80664 17.3269C3.81906 21.2334 7.95273 23.9176 12.7391 23.9176Z" fill="#34A853" />
-                  <path d="M5.77702 14.324C5.51867 13.5799 5.36916 12.7826 5.36916 11.9588C5.36916 11.1349 5.51867 10.3377 5.76343 9.5936L5.75658 9.43513L1.9317 6.53241L1.80655 6.59058C0.97714 8.21168 0.501221 10.0321 0.501221 11.9588C0.501221 13.8855 0.97714 15.7058 1.80655 17.3269L5.77702 14.324Z" fill="#FBBC05" />
-                  <path d="M12.7391 4.62403C15.0371 4.62403 16.5871 5.59402 17.471 6.40461L20.9248 3.10928C18.8036 1.1826 16.0433 0 12.7391 0C7.95273 0 3.81906 2.68406 1.80664 6.59056L5.76351 9.59359C6.75622 6.7102 9.50291 4.62403 12.7391 4.62403Z" fill="#EB4335" />
+                  <path
+                    d="M24.4873 12.2245C24.4873 11.2413 24.4057 10.5237 24.229 9.77963H12.739V14.2176H19.4833C19.3474 15.3205 18.6132 16.9815 16.9814 18.0976L16.9585 18.2461L20.5915 20.9963L20.8431 21.0209C23.1547 18.9347 24.4873 15.8653 24.4873 12.2245Z"
+                    fill="#4285F4"
+                  />
+                  <path
+                    d="M12.7391 23.9176C16.0433 23.9176 18.8171 22.8545 20.8432 21.0209L16.9815 18.0976C15.9481 18.8018 14.5611 19.2934 12.7391 19.2934C9.50291 19.2934 6.75622 17.2074 5.77711 14.324L5.63359 14.3359L1.85604 17.1927L1.80664 17.3269C3.81906 21.2334 7.95273 23.9176 12.7391 23.9176Z"
+                    fill="#34A853"
+                  />
+                  <path
+                    d="M5.77702 14.324C5.51867 13.5799 5.36916 12.7826 5.36916 11.9588C5.36916 11.1349 5.51867 10.3377 5.76343 9.5936L5.75658 9.43513L1.9317 6.53241L1.80655 6.59058C0.97714 8.21168 0.501221 10.0321 0.501221 11.9588C0.501221 13.8855 0.97714 15.7058 1.80655 17.3269L5.77702 14.324Z"
+                    fill="#FBBC05"
+                  />
+                  <path
+                    d="M12.7391 4.62403C15.0371 4.62403 16.5871 5.59402 17.471 6.40461L20.9248 3.10928C18.8036 1.1826 16.0433 0 12.7391 0C7.95273 0 3.81906 2.68406 1.80664 6.59056L5.76351 9.59359C6.75622 6.7102 9.50291 4.62403 12.7391 4.62403Z"
+                    fill="#EB4335"
+                  />
                 </g>
-
               </svg>
-
-
               Sign Up with Google
             </div>
 
             <div className="text-[14px] flex justify-center font-medium items-center cursor-pointer">
               Already have an account ?{" "}
               <span
-                onClick={() => { setSignUp(false); setSignIn(true) }}
+                onClick={() => {
+                  setSignUp(false);
+                  setSignIn(true);
+                }}
                 className="already_sign"
                 style={{
                   fontSize: "12px",
                   color: "#06A9EF",
                 }}
               >
-                <a > Sign In</a>
+                <a> Sign In</a>
               </span>
-
-
             </div>
             <div className="text-[12px] ">
               By signing in, you agree to our{" "}

@@ -132,9 +132,9 @@ const Template3 = ({ data, selectedColor, selectedFont,preview }) => (
             {data.designation}
           </Text>
         </View>
-        <View style={{ paddingLeft: '20px', paddingTop: '40.78px', flexDirection: 'column', gap: '5.64px' }}>
+        <View style={{ paddingLeft: '20px', paddingTop: '24.78px', flexDirection: 'column', gap: '5.64px' }}>
           <Text style={{ color: '#414042', fontFamily: `${selectedFont} 400` }}>About Me</Text>
-          <Text style={{ color: '#646464', breakAll: 'break-all', fontFamily: `${selectedFont} 400` }}>
+          <Text style={{ color: '#646464', breakAll: 'break-all', fontFamily: `${selectedFont} 400`, fontSize: '12.015px' }}>
             {data.summery}
           </Text>
         </View>
@@ -182,11 +182,14 @@ const Template3 = ({ data, selectedColor, selectedFont,preview }) => (
                   {`${detail.duration?.start?.year} - ${detail.duration?.end?.year ? detail.duration?.end?.year : 'Present'}`}
                 </Text>
               </View>
-              <View style={{ flexDirection: "row",flexWrap:"wrap" }}>
+              {
+                detail.description?.length>5 &&     <View style={{ flexDirection: "row",flexWrap:"wrap" }}>
                 <Text style={{ color: '#646464', paddingLeft: '18px', paddingRight: "16px", fontSize: '12', fontFamily: `${selectedFont} 400`, flexWrap: "wrap",  }}>
                   {detail.description}
                 </Text>
               </View>
+              }
+         
             </View>
           ))}
         </View>
