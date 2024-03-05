@@ -72,9 +72,7 @@ function Header({ userData }) {
   useEffect(() => {
     if (popupState == true) {
       setSignIn(true);
-    } else {
-      setSignIn(false);
-    }
+    } 
   }, [popupState]);
 
   const [showDropdown, setShowDropdown] = useState(false);
@@ -99,7 +97,7 @@ function Header({ userData }) {
     if (taskRef.current && !taskRef.current.contains(event.target)) {
       setSignIn(false);
       setSignUp(false);
-      dispatch(popupNotVisible());
+    
     }
   };
 

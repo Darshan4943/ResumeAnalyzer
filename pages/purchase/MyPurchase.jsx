@@ -27,7 +27,7 @@ function MyPurchase() {
       });
   }, [userDataGlobal]);
   return (
-    <div className="flex flex-col gap-8 pt-[34px]">
+    <div className="flex flex-col gap-8 pt-[34px] min-h-[60vh]">
       <div className="flex flex-col justify-center items-center bg-blue h-[89px]  py-3">
         <div className=" font-semibold text-[30px] text-white">My Purchase</div>
         <div className=" font-medium text-[16px] text-white">
@@ -42,8 +42,8 @@ function MyPurchase() {
           {subscription ? (
             <>
               {" "}
-              <div className=" flex gap-4  border border-[#06A9EF] rounded-[16px] p-6 ">
-                <div className="flex gap-12  w-[100%]">
+              <div className=" flex gap-4  border border-[#06A9EF] rounded-[16px] scr1200:p-6 p-3 ">
+                <div className="flex scr1200:gap-12 gap-4 w-[100%]">
                   <div className="flex flex-col gap-6  w-[20%] items-center justify-between">
                     <div className="flex text-center flex-col gap-3 text-[#333333] w-[100%] p-4">
                       <p className="text-[22px] font-[600]">
@@ -136,7 +136,7 @@ function MyPurchase() {
               <div className="flex flex-col gap-6  w-[100%] pl-4">
                 <div className="text-[20px] font-[600]"> Account Details</div>
                 <div className="flex  gap-12 w-[100%] ">
-                  <div className="flex flex-col gap-6 min-w-[30%] ">
+                  <div className="flex flex-col gap-6 scr1200:min-w-[30%] min-w-[35%] ">
                     <div className="flex  gap-4">
                       <div className="flex  gap-4 font-[700] justify-between w-[40%]">
                         <p>User Name </p>
@@ -163,10 +163,10 @@ function MyPurchase() {
                       </div>
                     </div>
                   </div>
-                  <div className="bg-[#DEDEDE] w-[1px] h-[120px]"></div>
-                  <div className="flex flex-col gap-6 min-w-[30%] ">
+                  <div className="bg-[#DEDEDE] min-w-[1px] h-[120px]"></div>
+                  <div className="flex flex-col gap-6 min-w-[55%] scr1200:min-w-[40%]">
                     <div className="flex  gap-4">
-                      <div className="flex  gap-4 font-[700] justify-between w-[40%]">
+                      <div className="flex  gap-4 font-[700] justify-between w-[30%]">
                         <p>Email Id </p>
                         <div>:</div>
                       </div>
@@ -175,7 +175,7 @@ function MyPurchase() {
                       </div>
                     </div>
                     <div className="flex  gap-4">
-                      <div className="flex  gap-4 justify-between font-[700] w-[40%]">
+                      <div className="flex  gap-4 justify-between font-[700] w-[30%]">
                         <p>Contact No</p>
                         <div>:</div>
                       </div>
@@ -185,7 +185,7 @@ function MyPurchase() {
                       </div>
                     </div>
                     <div className="flex gap-4">
-                      <div className="flex  gap-4 justify-between font-[700] w-[40%]">
+                      <div className="flex  gap-4 justify-between font-[700] w-[30%]">
                         <p>Date Of Renewal </p>
                         <div>:</div>
                       </div>

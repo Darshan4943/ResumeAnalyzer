@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import TransformJd from "../../components/featured/home/transformJd";
 import Fonts from "../../public/fonts/fonts";
-import UserResumes  from "./UserResumes";
+import UserResumes from "./UserResumes";
 import axios from "axios";
 <Fonts />;
 
@@ -39,10 +39,10 @@ function TransformJob() {
         Transform for Job Description
       </div>
       <div
-        className="flex gap-12 w-[100%] p-4 rounded-[12px]"
+        className="flex ml:flex-row flex-col gap-12 w-[100%] p-4 rounded-[12px]"
         style={{ boxShadow: "0px 1px 6px 0px #00000040" }}
       >
-        <div className="flex flex-col gap-6 w-[50%]">
+        <div className="flex flex-col gap-6 ml:w-[50%] w-[100%]">
           <div className="flex flex-col gap-4 ">
             <div className="text-[20px] font-medium">Job Description</div>
             <textarea
@@ -115,17 +115,17 @@ function TransformJob() {
             </button>
           </div>
         </div>
-        <div className="w-[50%] flex flex-col gap-4">
+        <div className="ml:w-[50%] w-[100% flex flex-col gap-4">
           {
-            selected &&  <TransformJd
-            data={newData !== null ? newData : selected}
-            resumeTemplateIndex={selected.resumeTemplateIndex}
-            selectedColor={selected.selectedColor}
-            selectedFont={selected.selectedFont}
-            preview={true}
-          />
+            selected && <TransformJd
+              data={newData !== null ? newData : selected}
+              resumeTemplateIndex={selected.resumeTemplateIndex}
+              selectedColor={selected.selectedColor}
+              selectedFont={selected.selectedFont}
+              preview={true}
+            />
           }
-         
+
         </div>
       </div>
     </div>
