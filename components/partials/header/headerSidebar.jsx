@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 
 function HeaderSidebar({ selectedPage, setIsSidebar, setIsLogin, isLogin }) {
     // const list = ["Home", "My Purchase", "Employer", "Recruiter"];
-    const loginList = ["Home",  "My Collection", "Transform for Job Description", "Skill Test", "My Purchase"]
+    const loginList = ["Home",  "My Collection", "Transform CV for Job Description", "Skill Test", "My Purchase"]
     const router = useRouter();
     const userDataGlobal = useSelector((state) => state.userData);
     console.log(11, userDataGlobal)

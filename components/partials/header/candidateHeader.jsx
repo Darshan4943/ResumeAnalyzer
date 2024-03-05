@@ -103,7 +103,7 @@ function CandidateHeader() {
               : "li scr1250:text-[18px] text-[16px]"
           }
         >
-          <li>Transform for CV Job Description</li>
+          <li>Transform CV for Job Description</li>
         </Link>
         <Link
           href="/purchase/MyPurchase"
