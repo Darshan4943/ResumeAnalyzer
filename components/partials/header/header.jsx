@@ -35,7 +35,7 @@ function Header({ userData }) {
         .then((res) => {
           localStorage.setItem("authToken", JSON.stringify(res.data));
           console.log("User data sent to the server:", res.data);
-          if (sendToPurchaseResult.status) {
+          if (sendToPurchaseResult?.status) {
             router.push(
               `/purchase/details?id=${sendToPurchaseResult.index + 1}`
             );
