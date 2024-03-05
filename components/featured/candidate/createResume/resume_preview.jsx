@@ -68,20 +68,20 @@ const ResumePreview = ({
     callData();
   }, [userDataGlobal]);
   const templates = [
-    {
-      title: "Template1",
-      imgUrl: "/images/templates/template1.png",
-      index: 1,
-      fontFamily: "Lato",
-      themeColor: "#414042",
-    },
-    {
-      title: "Template2",
-      imgUrl: "/images/templates/template2.png",
-      index: 2,
-      fontFamily: "Barlow",
-      themeColor: "#F7902B",
-    },
+    // {
+    //   title: "Template1",
+    //   imgUrl: "/images/templates/template1.png",
+    //   index: 1,
+    //   fontFamily: "Lato",
+    //   themeColor: "#414042",
+    // },
+    // {
+    //   title: "Template2",
+    //   imgUrl: "/images/templates/template2.png",
+    //   index: 2,
+    //   fontFamily: "Barlow",
+    //   themeColor: "#F7902B",
+    // },
     {
       title: "Template3",
       imgUrl: "/images/templates/template3.png",
@@ -96,62 +96,62 @@ const ResumePreview = ({
       fontFamily: "Montserrat",
       themeColor: "#00AEEF",
     },
-    {
-      title: "Template5",
-      imgUrl: "/images/templates/template5.png",
-      index: 5,
-      fontFamily: "Kanit",
-      themeColor: "#316059",
-    },
-    {
-      title: "Template6",
-      imgUrl: "/images/templates/template6.png",
-      index: 6,
-      fontFamily: "Lato",
-      themeColor: "#FFC20E",
-    },
-    {
-      title: "Template7",
-      imgUrl: "/images/templates/template7.png",
-      index: 7,
-      fontFamily: "Montserrat",
-      themeColor: "#0077F9",
-    },
-    {
-      title: "Template8",
-      imgUrl: "/images/templates/template8.png",
-      index: 8,
-      fontFamily: "Montserrat",
-      themeColor: "#646464",
-    },
-    {
-      title: "Template9",
-      imgUrl: "/images/templates/template9.png",
-      index: 9,
-      fontFamily: "Montserrat",
-      themeColor: "#FFD740",
-    },
-    {
-      title: "Template10",
-      imgUrl: "/images/templates/template10.png",
-      index: 10,
-      fontFamily: "Inter",
-      themeColor: "#F2BE5C",
-    },
-    {
-      title: "Template11",
-      imgUrl: "/images/templates/template11.png",
-      index: 11,
-      fontFamily: "Montserrat",
-      themeColor: "#E6E7E8",
-    },
-    {
-      title: "Template12",
-      imgUrl: "/images/templates/template12.png",
-      index: 12,
-      fontFamily: "Lato",
-      themeColor: "#0C2438",
-    },
+    // {
+    //   title: "Template5",
+    //   imgUrl: "/images/templates/template5.png",
+    //   index: 5,
+    //   fontFamily: "Kanit",
+    //   themeColor: "#316059",
+    // },
+    // {
+    //   title: "Template6",
+    //   imgUrl: "/images/templates/template6.png",
+    //   index: 6,
+    //   fontFamily: "Lato",
+    //   themeColor: "#FFC20E",
+    // },
+    // {
+    //   title: "Template7",
+    //   imgUrl: "/images/templates/template7.png",
+    //   index: 7,
+    //   fontFamily: "Montserrat",
+    //   themeColor: "#0077F9",
+    // },
+    // {
+    //   title: "Template8",
+    //   imgUrl: "/images/templates/template8.png",
+    //   index: 8,
+    //   fontFamily: "Montserrat",
+    //   themeColor: "#646464",
+    // },
+    // {
+    //   title: "Template9",
+    //   imgUrl: "/images/templates/template9.png",
+    //   index: 9,
+    //   fontFamily: "Montserrat",
+    //   themeColor: "#FFD740",
+    // },
+    // {
+    //   title: "Template10",
+    //   imgUrl: "/images/templates/template10.png",
+    //   index: 10,
+    //   fontFamily: "Inter",
+    //   themeColor: "#F2BE5C",
+    // },
+    // {
+    //   title: "Template11",
+    //   imgUrl: "/images/templates/template11.png",
+    //   index: 11,
+    //   fontFamily: "Montserrat",
+    //   themeColor: "#E6E7E8",
+    // },
+    // {
+    //   title: "Template12",
+    //   imgUrl: "/images/templates/template12.png",
+    //   index: 12,
+    //   fontFamily: "Lato",
+    //   themeColor: "#0C2438",
+    // },
     {
       title: "Template13",
       imgUrl: "/images/templates/template13.png",
@@ -159,34 +159,34 @@ const ResumePreview = ({
       fontFamily: "Poppins",
       themeColor: "#0E6CC2",
     },
-    {
-      title: "Template14",
-      imgUrl: "/images/templates/template14.png",
-      index: 14,
-      fontFamily: "Inter",
-      themeColor: "#242424",
-    },
-    {
-      title: "Template15",
-      imgUrl: "/images/templates/template15.png",
-      index: 15,
-      fontFamily: "Inter",
-      themeColor: "#716D6D",
-    },
-    {
-      title: "Template16",
-      imgUrl: "/images/templates/template53.png",
-      index: 16,
-      fontFamily: "Inter",
-      themeColor: "#545554",
-    },
-    {
-      title: "Template17",
-      imgUrl: "/images/templates/template17.png",
-      index: 17,
-      fontFamily: "Montserrat",
-      themeColor: "#D1D2D3",
-    },
+    // {
+    //   title: "Template14",
+    //   imgUrl: "/images/templates/template14.png",
+    //   index: 14,
+    //   fontFamily: "Inter",
+    //   themeColor: "#242424",
+    // },
+    // {
+    //   title: "Template15",
+    //   imgUrl: "/images/templates/template15.png",
+    //   index: 15,
+    //   fontFamily: "Inter",
+    //   themeColor: "#716D6D",
+    // },
+    // {
+    //   title: "Template16",
+    //   imgUrl: "/images/templates/template53.png",
+    //   index: 16,
+    //   fontFamily: "Inter",
+    //   themeColor: "#545554",
+    // },
+    // {
+    //   title: "Template17",
+    //   imgUrl: "/images/templates/template17.png",
+    //   index: 17,
+    //   fontFamily: "Montserrat",
+    //   themeColor: "#D1D2D3",
+    // },
     {
       title: "Template18",
       imgUrl: "/images/templates/template54.png",
@@ -194,20 +194,20 @@ const ResumePreview = ({
       fontFamily: "Montserrat",
       themeColor: "#F1F1F1",
     },
-    {
-      title: "Template19",
-      imgUrl: "/images/templates/template19.png",
-      index: 19,
-      fontFamily: "Inter",
-      themeColor: "#000000",
-    },
-    {
-      title: "Template20",
-      imgUrl: "/images/templates/template20.png",
-      index: 20,
-      fontFamily: "Montserrat",
-      themeColor: "#303030",
-    },
+    // {
+    //   title: "Template19",
+    //   imgUrl: "/images/templates/template19.png",
+    //   index: 19,
+    //   fontFamily: "Inter",
+    //   themeColor: "#000000",
+    // },
+    // {
+    //   title: "Template20",
+    //   imgUrl: "/images/templates/template20.png",
+    //   index: 20,
+    //   fontFamily: "Montserrat",
+    //   themeColor: "#303030",
+    // },
   ];
 
   const renderTemplates = () => {
@@ -219,7 +219,7 @@ const ResumePreview = ({
     };
     return templates.map((template, index) => (
       <img
-        style={selectedResumeIndex == index + 1 ? selectedStyle : {}}
+        style={selectedResumeIndex == template.index  ? selectedStyle : {}}
         key={index}
         src={template.imgUrl}
         className="h-[200px] w-[140.91px] rounded-[6px]"

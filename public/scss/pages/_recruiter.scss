@@ -1,0 +1,268 @@
+/* Animation section start */
+
+.recruiter_animation {
+  margin-top: 2%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+
+  .recruiter_animation_p {
+    padding-top: 4%;
+    position: absolute;
+    color: var(--text-prmary, #333);
+    font-family: Montserrat;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+  }
+
+  .vector {
+    display: flex;
+    /* justify-content: center; */
+    fill: #e4f4ff;
+    width: 90%;
+    height: 5%;
+    flex-shrink: 0;
+    margin-top: 36%;
+  }
+  .group1 {
+    display: flex;
+    justify-content: flex-end;
+    top: 15%;
+    right: 6%;
+    position: absolute;
+    width: 100%;
+  }
+  .group1 img {
+    object-fit: cover;
+    width: 24%;
+    flex-shrink: 0;
+  }
+  .group2 {
+    display: flex;
+    top: 30%;
+    right: 24%;
+    position: absolute;
+    width: 16%;
+  }
+
+  .group2 img {
+    width: 83%;
+  }
+
+  .group3 {
+    display: flex;
+    top: 29%;
+    right: 37%;
+    position: absolute;
+    width: 15%;
+    /* animation: grp_3 0.5s;
+    animation-delay: 1s;
+    opacity: 1; */
+  }
+  .group3 img {
+    width: 66%;
+  }
+
+  .group4 {
+    display: flex;
+    top: 30%;
+    right: 35%;
+    position: absolute;
+    width: 29%;
+  }
+  .group4 img {
+    width: 36%;
+  }
+
+  .group5 {
+    display: flex;
+    top: 29%;
+    right: 49%;
+    position: absolute;
+    width: 29%;
+  }
+  .group5 img {
+    width: 36%;
+  }
+
+  .group6 {
+    display: flex;
+    top: 29%;
+    right: 49%;
+    position: absolute;
+    width: 41%;
+  }
+  .group6 img {
+    width: 24%;
+  }
+
+  .group7 {
+    z-index: -1;
+    position: absolute;
+    display: flex;
+    top: 8%;
+    right: 0%;
+    width: 33%;
+  }
+  .group7 img {
+    width: 62%;
+  }
+
+  .organisation_img {
+    overflow: hidden;
+    /* padding-top: 5%; */
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  .organisation_img img {
+    width: 100%;
+  }
+  .white_back {
+    background-color: rgb(255, 255, 255);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+
+  .white_class {
+    background-color: rgb(255, 255, 255);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+
+  .collaborate_section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+    width: 100%;
+    margin-top: 5%;
+    position: absolute;
+    gap: 10px;
+  }
+@media (max-width:500px){
+  .collaborate_section{
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 10px;
+  }
+}
+
+  .collaborate_sectionn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+    width: 100%;
+
+    gap: 10px;
+  }
+  .collaborate_left {
+    display: flex;
+    justify-content: flex-start;
+    // margin-left: 10%;
+    height: 22rem;
+    flex-direction: column;
+    width: 777px;
+    gap: 24px;
+  }
+  .collaborate_left p1 {
+    max-width: 90%;
+    color: var(--text-prmary, #333);
+    font-family: Montserrat;
+    font-size: 56px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+  }
+  .collaborate_left p2 {
+    color: var(--text-prmary, #333);
+    font-family: Montserrat;
+    font-size: 26px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+  }
+  .collaborate_left p3 {
+    max-width: 100%;
+    color: var(--Text-Secondary, #646464);
+    text-align: justify;
+    font-family: Montserrat;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 28px; /* 155.556% */
+  }
+  @media (max-width:500px) {
+    .collaborate_left{
+      gap: 8px;
+      .collaborate_left p1 {
+        font-size: 30px;
+      }
+      .collaborate_left p2 {
+        font-size: 18px;
+      }
+      .collaborate_left p2 {
+        font-size: 14px;
+      }
+    }
+  }
+  .collaborate_img {
+    width: 306px;
+    height: 352px;
+  }
+  .collaborate_img img {
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+  }
+}
+
+
+@media (max-width:500px) {
+  .collaborate_img{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .collaborate_img img{
+      width: 306px;
+      height: 352px;
+    }
+  }
+}
+
+@media (max-width:851px) {
+  .heroBlock{
+    display: none!important;
+  }
+}
+.unblockRecruiter {
+  display: block; 
+}
+
+@media (min-width: 851px) {
+  .unblockRecruiter {
+    display: none!important;
+  }
+}
+
+@media(min-width:600px){
+  .flex_class{
+    display: flex!important;
+    flex-direction: row!important;
+  }
+}
+
+// meadia query start
+

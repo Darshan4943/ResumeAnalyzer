@@ -14,7 +14,6 @@ const Skills = ({ data, setData }) => {
   const [saveDisabled, setSaveDisabled] = useState(false);
   const [skillList, setSkillList] = useState(data.skills);
   const initialRatings = Array(5).fill(5);
-
   const handleStarClick = (skillIndex, starIndex) => {
     const updatedSkills = skillList.map((skill, index) => {
       if (index === skillIndex) {
@@ -83,7 +82,7 @@ const Skills = ({ data, setData }) => {
             Skills & Ratings
           </div>
           <div className="flex flex-col scr420:gap-4 gap-6">
-            {skillList?.map((skill, index) => (
+            {skillList && Array.isArray(skillList) && skillList?.map((skill, index) => (
               <div
                 key={index}
                 className="flex scr420:gap-4 gap-1 scr420:flex-row flex-col justify-between"

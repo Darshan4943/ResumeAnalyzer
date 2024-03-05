@@ -30,6 +30,8 @@ const Template18 = ({ data ,selectedColor,selectedFont,preview }) => {
               borderColor: "#83C3C9",
               padding: 12,
               borderRadius: "50%",
+              overflow:'hidden',
+              padding:'4px'
             }}
           >
             {data.profilePhoto ? (

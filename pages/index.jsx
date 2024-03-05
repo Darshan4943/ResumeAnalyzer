@@ -1,4 +1,4 @@
-import BeforeLoginHome from "./home/BeforeLoginHome";
+import BeforeLoginHome from "./home";
 
 function Home() {
   return (

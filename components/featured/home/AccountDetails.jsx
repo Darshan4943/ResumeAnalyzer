@@ -25,6 +25,7 @@ function AccountDetails({ selectedPlan }) {
     mobileNo: "",
     email: "",
     dial_code: "+260",
+    checked: false,
   });
   const [filteredTelCode, setFilteredTelCode] = useState([]);
   useEffect(() => {
@@ -37,9 +38,6 @@ function AccountDetails({ selectedPlan }) {
     setSelectedItem(item);
     setData({ ...data, dial_code: item.dial_code });
   };
-
-  // Example usage:
-  // 30 days after current date
 
   const [formError, setFormError] = useState({});
   const validateInput = (fieldName, value) => {
@@ -111,7 +109,14 @@ function AccountDetails({ selectedPlan }) {
     if (userDataGlobal.email) {
       setData({
         email: userDataGlobal.email,
+        firstName: userDataGlobal.firstName ? userDataGlobal.firstName : "",
+        lastName: userDataGlobal.lastName ? userDataGlobal.lastName : "",
+        mobileNo: userDataGlobal.mobileNo ? userDataGlobal.mobileNo : "",
+        dial_code: userDataGlobal.dial_code ? userDataGlobal.dial_codel : "",
       });
+      setSelectedItem(
+        telCode.find((item) => item.dial_code === userDataGlobal.dial_code)
+      );
     }
   }, []);
 
@@ -119,91 +124,80 @@ function AccountDetails({ selectedPlan }) {
 
   const purchaseHandler = async (e) => {
     e.preventDefault();
-    const errors = validateInput();
-    const requiredFields = ["firstName", "lastName", "email", "mobileNo"];
-    const emptyFields = requiredFields.filter((field) => !data[field]);
-    if (emptyFields.length > 0) {
-      toast.error("Please fill in all required fields");
-      return;
-    }
-    const hasErrors = Object.keys(errors).length > 0;
-    if (hasErrors) {
-      toast.error("Please enter valid information");
-      setFormError(errors);
-    } else {
-      try {
-        setLoading(true);
-        const {
-          data: { key },
-        } = await axios.get(`https://freedygoservices.in/api/getkey`);
-        const { data: order } = await axios.post(
-          `https://freedygoservices.in/api/checkout/`,
-          {
-            amount: parseInt(selectedPlan.amount),
-          }
-        );
-        const ex = order;
-        const options = {
-          key,
-          amount: order.order.amount,
-          currency: "USD",
-          description: "Test Transaction",
-          image:
-            "https://freedygo-storage-bucket-production.s3.ap-south-1.amazonaws.com/Frame+427322205.png",
-          name: "Skiloteck",
-          order_id: order.order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-          handler: function (response) {
-            axios
-              .post("https://freedygoservices.in/api/add/subscription", {
-                // ...response,
-                userId: userDataGlobal._id,
-                plan: selectedPlan.duration + " " + selectedPlan.limit,
-                startDate: new Date(),
-                endDate: getDateAfterDays(selectedPlan.days),
-                paidAt: new Date(),
-                ...data,
-                mobileNo: data.mobileNo,
-                index: selectedPlan.index,
-              })
-              .then((res) => {
-                setLoading(false);
-                setSuccessModel(true);
-              })
-              .catch((err) => {
-                console.log(err);
-              });
-          },
-          theme: {
-            color: "#06A9EF",
-          },
-        };
-        const razor = new window.Razorpay(options);
-        razor.open();
-      } catch (e) {
-        console.log("error", e);
-        setLoading(false);
-        toast.error("Payment Failed");
+    if (data.checked) {
+      const errors = validateInput();
+      const requiredFields = ["firstName", "lastName", "email", "mobileNo"];
+      const emptyFields = requiredFields.filter((field) => !data[field]);
+      if (emptyFields.length > 0) {
+        toast.error("Please fill in all required fields");
+        return;
       }
-      // setLoading(true);
-      // axios
-      //   .post("https://freedygoservices.in/api/add/subscription", {
-      //     // ...response,
-      //     userId: userDataGlobal._id,
-      //     plan: selectedPlan.duration + " " + selectedPlan.limit,
-      //     startDate: new Date(),
-      //     endDate: getDateAfterDays(selectedPlan.days),
-      //     paidAt: new Date(),
-      //     ...data,
-      //     mobileNo: data.dial_code + data.mobileNo,
-      //     index: selectedPlan.index,
-      //   })
-      //   .then((res) => {
-      //     setLoading(false);
-      //     setSuccessModel(true);
-      //   })
-      //   .catch((err) => {
-      //     console.log(err);
-      //   });
+      const hasErrors = Object.keys(errors).length > 0;
+      if (hasErrors) {
+        toast.error("Please enter valid information");
+        setFormError(errors);
+      } else {
+        try {
+          setLoading(true);
+          const {
+            data: { key },
+          } = await axios.get(`https://freedygoservices.in/api/getkey`);
+          const { data: order } = await axios.post(
+            `https://freedygoservices.in/api/checkout/`,
+            {
+              amount: parseInt(selectedPlan.amount),
+            }
+          );
+          const ex = order;
+          const options = {
+            key,
+            amount: order.order.amount,
+            currency: "USD",
+            description: "Test Transaction",
+            image:
+              "https://freedygo-storage-bucket-production.s3.ap-south-1.amazonaws.com/Frame+427322205.png",
+            name: "Skiloteck",
+            order_id: order.order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+            modal: {
+              ondismiss: function () {
+                setLoading(false);
+              },
+            },
+            handler: function (response) {
+              axios
+                .post("https://freedygoservices.in/api/add/subscription", {
+                  ...response,
+                  userId: userDataGlobal._id,
+                  plan: selectedPlan.duration + " " + selectedPlan.limit,
+                  startDate: new Date(),
+                  endDate: getDateAfterDays(selectedPlan.days),
+                  paidAt: new Date(),
+                  ...data,
+                  mobileNo: data.mobileNo,
+                  index: selectedPlan.index,
+                })
+                .then((res) => {
+                  setLoading(false);
+                  setSuccessModel(true);
+                })
+                .catch((err) => {
+                  console.log(err);
+                });
+            },
+            theme: {
+              color: "#06A9EF",
+            },
+          };
+          const razor = new window.Razorpay(options);
+          razor.open();
+        } catch (e) {
+          console.log("error", e);
+          setLoading(false);
+          toast.error("Payment Failed");
+        }
+      }
+    } else {
+      toast.error("Please accept the terms and conditions");
     }
   };
 
@@ -431,7 +425,11 @@ function AccountDetails({ selectedPlan }) {
         <div className="flex gap-3 items-center">
           <input
             type="checkbox"
+            checked={data.checked}
             className="w-4 h-4 rounded-md border border-[#06A9EF] bg-white custom-checkbox"
+            onClick={() => {
+              setData({ ...data, checked: !data.checked });
+            }}
           />
 
           <div className="text-[16px] font-normal">
@@ -448,6 +446,7 @@ function AccountDetails({ selectedPlan }) {
         <button
           className="px-9 py-3 bg-[#06A9EF] text-white rounded-[12px] text-[16px] font-semibold"
           onClick={purchaseHandler}
+          disabled={loading}
         >
           {loading ? (
             <svg

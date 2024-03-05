@@ -57,7 +57,7 @@ function CandidateHeader() {
   return (
     <>
       <div className="flex justify-center items-center list-none scr1250:gap-9 scr1024:gap-4 gap-3">
-        <Link href="/home/BeforeLoginHome">
+        <Link href="/home">
           {" "}
           <img
             src="/images/logo_skilotech.png"
@@ -66,9 +66,9 @@ function CandidateHeader() {
           />
         </Link>
         <Link
-          href="/home/BeforeLoginHome"
+          href="/home"
           className={
-            selectedPage === "/home/BeforeLoginHome"
+            selectedPage === "/home"
               ? "active scr1250:text-[18px] text-[16px]"
               : "li scr1250:text-[18px] text-[16px]"
           }

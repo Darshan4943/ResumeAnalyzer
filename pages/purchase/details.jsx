@@ -72,7 +72,7 @@ function Details() {
               </div>
             </div>
             <button
-              onClick={() => router.push("/myPurchase/MyPurchase")}
+              onClick={() => router.push("/home")}
               className="px-9 py-3 border border-[#06A9EF] w-[150px] rounded-[12px] text-[16px] font-medium "
             >
               Go Back

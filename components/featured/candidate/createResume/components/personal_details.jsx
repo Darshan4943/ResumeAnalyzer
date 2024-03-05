@@ -159,6 +159,7 @@ const PersonalDetails = ({ setData, data }) => {
     if (allFieldsValid && isModified) {
       setData({
         ...data,
+        dial_code:data.dial_code,
         firstName: camelCase(profileData.firstName),
         lastName: camelCase(profileData.lastName),
         mobileNumber: profileData.mobileNumber,
@@ -185,7 +186,11 @@ const PersonalDetails = ({ setData, data }) => {
       mobileNumber: mobileNumber,
       location,
       designation,
+      dial_code
     } = data;
+    setSelectedItem(
+      telCode.find((item) => item.dial_code === dial_code)
+    );
     setProfileData({
       ...profileData,
       firstName,
@@ -194,6 +199,7 @@ const PersonalDetails = ({ setData, data }) => {
       mobileNumber,
       location: location,
       designation,
+      dial_code
     });
   }, [data]);
   return (
