@@ -8,14 +8,14 @@ function JdResume({ isLogin }) {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const [isFlickering, setIsFlickering] = useState(false);
     const dispatch = useDispatch()
-    // useEffect(() => {
-    //     const interval = setInterval(() => {
-    //         setCurrentImageIndex(prevIndex => (prevIndex + 1) % 4);
-    //         setIsFlickering(true);
-    //         setTimeout(() => setIsFlickering(false), 500);
-    //     }, 3000);
-    //     return () => clearInterval(interval);
-    // }, []);
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setCurrentImageIndex(prevIndex => (prevIndex + 1) % 4);
+            setIsFlickering(true);
+            setTimeout(() => setIsFlickering(false), 500);
+        }, 3000);
+        return () => clearInterval(interval);
+    }, []);
 
     return (
         <div className="flex md:flex-row flex-col-reverse gap-8 items-center py-9 md:px-6 px-3 ">
