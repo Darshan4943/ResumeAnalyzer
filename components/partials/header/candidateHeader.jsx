@@ -75,7 +75,7 @@ function CandidateHeader() {
         >
           <li>Home</li>
         </Link>
-        <Link
+        {/* <Link
           href="/myClients"
           className={
             selectedPage === "/myClients"
@@ -84,7 +84,7 @@ function CandidateHeader() {
           }
         >
           <li>My Clients</li>
-        </Link>
+        </Link> */}
         <Link
           href="/home/MyCollection"
           className={
