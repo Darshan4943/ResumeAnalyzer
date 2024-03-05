@@ -202,7 +202,7 @@ function AccountDetails({ selectedPlan }) {
   };
 
   return (
-    <div className={" w-[60%] "}>
+    <div className={" scr700:w-[60%] w-[100%]"}>
       {successModel && (
         <>
           <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
@@ -332,14 +332,14 @@ function AccountDetails({ selectedPlan }) {
                 id="single_input"
               >
                 <div
-                  className={`relative pl-3 ${
-                    isViewportBelow850 ? "w-[65%] " : "w-[34%] "
+                  className={`relative  min-w-[160px] ${
+                    isViewportBelow850 ? "w-[65%] " : "w-[24%] "
                   } items-center`}
                 >
                   <div className="flex items-center  gap-1 cursor-pointer  w-[100%] ">
                     <ReactSelect
                       options={filteredTelCode}
-                      className="w-[100%] flex  items-center py-1  rounded-[8px]"
+                      className="w-[100%] flex min-w-[150px]  items-center py-1  rounded-[8px]"
                       name=""
                       placeholder="Search"
                       value={selectedItem}

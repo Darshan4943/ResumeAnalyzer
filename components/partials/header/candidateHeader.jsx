@@ -75,6 +75,16 @@ function CandidateHeader() {
         >
           <li>Home</li>
         </Link>
+        {/* <Link
+          href="/myClients"
+          className={
+            selectedPage === "/myClients"
+              ? "active scr1250:text-[18px] text-[16px]"
+              : "li scr1250:text-[18px] text-[16px]"
+          }
+        >
+          <li>My Clients</li>
+        </Link> */}
         <Link
           href="/home/MyCollection"
           className={
@@ -93,7 +103,7 @@ function CandidateHeader() {
               : "li scr1250:text-[18px] text-[16px]"
           }
         >
-          <li>Transform for CV Job Description</li>
+          <li>Transform CV for Job Description</li>
         </Link>
         <Link
           href="/purchase/MyPurchase"
