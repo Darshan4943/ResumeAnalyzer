@@ -20,12 +20,12 @@ function Details() {
           Purchase plan and make payment here to start using Skilotech
         </div>
       </div>
-      <div className="flex items-center justify-center pb-12 scr1100:px-[100px] px-6">
+      <div className="flex items-center justify-center pb-12 scr1100:px-[100px] scr700:px-6 px-2">
         <div
           style={{ boxShadow: "0px 0px 6px 0px #00000040" }}
-          className=" flex gap-12 p-6 rounded-[16px] w-[100%]"
+          className=" flex scr700:flex-row flex-col gap-12 scr700:p-6 p-3 rounded-[16px] w-[100%]"
         >
-          <div className="flex flex-col gap-4 justify-between w-[40%]">
+          <div className="flex flex-col gap-4 justify-between scr700:w-[40%] w-[100%]">
             <div className="flex flex-col gap-4 ">
               <div className="text-[24px] font-[600]">Subscription Plan</div>
 
@@ -35,16 +35,16 @@ function Details() {
                   style={{ boxShadow: "0px 0px 6px 0px #00000040" }}
                 >
                   <div className="flex text-center flex-col gap-3 text-[#333333] w-[80%]">
-                    <p className="text-[1.7vw] font-[600]">
+                    <p className="scr700:text-[1.7vw] text-[5vw] font-[600]">
                       <span className="text-[#06A9EF]">
                         {selectedPlan?.duration}
                       </span>{" "}
                       {selectedPlan?.limit}
                     </p>
-                    <p className="text-[2.5vw] font-[700]">
+                    <p className="scr700:text-[2.5vw] text-[7vw] font-[700]">
                       {selectedPlan?.price}
                     </p>
-                    <p className="text-[1.1vw] font-[500]">
+                    <p className="scr700:text-[1.1vw] text-[4vw] font-[500]">
                       {selectedPlan?.description}
                     </p>
                     <div className="bg-[#DEDEDE] h-[2px]" />
@@ -64,16 +64,17 @@ function Details() {
                             fill="#06A9EF"
                           />
                         </svg>
-                        <p className="text-[0.9vw] font-[500]">{feature}</p>
+                        <p className="scr700:text-[0.9vw] text-[3vw] font-[500]">{feature}</p>
                       </div>
                     ))}
                   </div>
                 </div>
               </div>
             </div>
+
             <button
-              onClick={() => router.push("/myPurchase/MyPurchase")}
-              className="px-9 py-3 border border-[#06A9EF] w-[150px] rounded-[12px] text-[16px] font-medium "
+              onClick={() => router.push("/purchase/MyPurchase")}
+              className="px-9 py-3 border border-[#06A9EF] w-[150px] rounded-[12px] text-[16px] font-medium scr700:block hidden"
             >
               Go Back
             </button>

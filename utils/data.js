@@ -2595,6 +2595,62 @@ export const templates = [
     themeColor: "#56C8E2",
   },
 ];
+export const details = [
+  {
+      profilePath: "/images/services/profile.png",
+      firstName: "(First Name) ",
+      lastName: "(Last Name) ",
+      designation: "Product Designer",
+      email: "Clientmailid111@gmail.com",
+      mobileNumber: "+27 87661234567",
+      location: "Pune",
+  },
+  {
+      profilePath: "/images/services/profile.png",
+      firstName: "(First Name) ",
+      lastName: "(Last Name) ",
+      designation: "Product Designer",
+      email: "Clientmailid112@gmail.com",
+      mobileNumber: "+27 87661234568",
+      location: "Mumbai",
+  },
+  {
+      profilePath: "/images/services/profile.png",
+      firstName: "(First Name) ",
+      lastName: "(Last Name) ",
+      designation: "Product Designer",
+      email: "Clientmailid113@gmail.com",
+      mobileNumber: "+27 87661234569",
+      location: "Delhi",
+  },
+  {
+      profilePath: "/images/services/profile.png",
+      firstName: "(First Name) ",
+      lastName: "(Last Name) ",
+      designation: "Product Designer",
+      email: "Clientmailid114@gmail.com",
+      mobileNumber: "+27 87661234570",
+      location: "Bangalore",
+  },
+  {
+      profilePath: "/images/services/profile.png",
+      firstName: "(First Name) ",
+      lastName: "(Last Name) ",
+      designation: "Product Designer",
+      email: "Clientmailid115@gmail.com",
+      mobileNumber: "+27 87661234571",
+      location: "Chennai",
+  },
+  {
+      profilePath: "/images/services/profile.png",
+      firstName: "(First Name) ",
+      lastName: "(Last Name) ",
+      designation: "Product Designer",
+      email: "Clientmailid116@gmail.com",
+      mobileNumber: "+27 87661234572",
+      location: "Hyderabad",
+  },
+];
 
 export const plans = [
   {

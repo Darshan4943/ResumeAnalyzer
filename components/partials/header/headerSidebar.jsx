@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 
 function HeaderSidebar({ selectedPage, setIsSidebar, setIsLogin, isLogin }) {
     // const list = ["Home", "My Purchase", "Employer", "Recruiter"];
-    const loginList = ["Home", "My Collection", "Transform for Job Description", "Skill Test","My Purchase"]
+    const loginList = ["Home", "My Clients", "My Collection", "Transform for Job Description", "Skill Test", "My Purchase"]
     const router = useRouter();
     const userDataGlobal = useSelector((state) => state.userData);
     console.log(11, userDataGlobal)
@@ -19,8 +19,8 @@ function HeaderSidebar({ selectedPage, setIsSidebar, setIsLogin, isLogin }) {
 
         const backgroundColor = isSelected ? 'rgba(6, 169, 239, 0.50)' : 'rgba(255, 255, 255, 0.50)';
         const textColor = isSelected ? '#FFF' : '#000';
-        const fontSize=isSelected ? "20px": "18px"
-        const fontWeight= isSelected ? "600" : "500"
+        const fontSize = isSelected ? "20px" : "18px"
+        const fontWeight = isSelected ? "600" : "500"
         return {
             backgroundColor,
             color: textColor,
@@ -82,8 +82,9 @@ function HeaderSidebar({ selectedPage, setIsSidebar, setIsLogin, isLogin }) {
                             key={index}
                             className='px-4 py-7 border-b-2 border-[#06A9EF] '
                             style={{
-                           
+
                                 ...(item === 'Home' && getListItemStyles('/home/BeforeLoginHome')),
+                                ...(item === 'My Clients' && getListItemStyles('/myClients')),
                                 ...(item === 'My Purchase' && getListItemStyles('/myPurchase/MyPurchase')),
                                 ...(item === 'My Collection' && getListItemStyles('/home/MyCollection')),
                                 ...(item === 'Transform for Job Description' && getListItemStyles('/transform/TransformJob')),
@@ -94,6 +95,9 @@ function HeaderSidebar({ selectedPage, setIsSidebar, setIsLogin, isLogin }) {
                                 switch (item) {
                                     case 'Home':
                                         handleNavigation('/home/BeforeLoginHome');
+                                        break;
+                                    case 'My Clients':
+                                        handleNavigation('/myClients');
                                         break;
                                     case 'My Purchase':
                                         handleNavigation('/myPurchase/MyPurchase');

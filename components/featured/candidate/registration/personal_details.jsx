@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";useMediaQuery
 import { motion } from "framer-motion";
 
 import { toast } from "react-toastify";
@@ -32,13 +32,7 @@ const PersonalDetails = ({
     setIsPasswordVisible((prevState) => !prevState);
   }
 
-  // const [selectedItem, setSelectedItem] = useState();
-
-  // const handleItemClick = (item) => {
-  //   setSelectedItem(item);
-  //   setDropdown(false);
-  // };
-  // console.log(51, selectedItem);
+  
 
   const validateInput = (fieldName, value) => {
     const errors = { ...formError };
