@@ -6,7 +6,7 @@ function ClientList({ setTabIndex, tabIndex }) {
     const router = useRouter();
     const [openPopupIndex, setOpenPopupIndex] = useState(null);
     const [selectedDetail, setSelectedDetail] = useState(null);
-    console.log(8, selectedDetail)
+   
 
 
     const taskRef = useRef(null);
