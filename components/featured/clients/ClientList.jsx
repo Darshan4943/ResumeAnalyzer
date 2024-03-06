@@ -58,7 +58,7 @@ function ClientList({ setTabIndex, tabIndex, details }) {
                   alt="image"
                 />
 
-                <svg
+                {/* <svg
                   onClick={(e) => toggleOptions(index, e)}
                   className="absolute right-[-4%] cursor-pointer"
                   width="24"
@@ -73,7 +73,7 @@ function ClientList({ setTabIndex, tabIndex, details }) {
                       fill="#646464"
                     />
                   </g>
-                </svg>
+                </svg> */}
 
                 {openPopupIndex === index && (
                   <div
