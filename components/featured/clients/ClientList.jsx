@@ -1,16 +1,17 @@
 import React, { useEffect, useRef, useState } from 'react'
 
 import { useRouter } from 'next/router';
-import { details } from "../../../utils/data";
+// import { details } from "../../../utils/data";
 import { useSelector } from 'react-redux';
 import axios from 'axios';
 function ClientList({ setTabIndex, tabIndex }) {
     const router = useRouter();
     const [openPopupIndex, setOpenPopupIndex] = useState(null);
     const [selectedDetail, setSelectedDetail] = useState(null);
-   
+   const [details, setDetails] = useState()
+
     const userDataGlobal = useSelector((state) => state.userData);
-console.log(13,userDataGlobal)
+
     const taskRef = useRef(null);
 
 
@@ -33,10 +34,10 @@ console.log(13,userDataGlobal)
         setOpenPopupIndex(openPopupIndex === index ? null : index);
         e.stopPropagation();
     };
-    const toggleDetails = (index) => {
+    const toggleDetails = (detail) => {
 
-        setSelectedDetail(details[index]);
-        router.push(`/myClients/ClientDetail?detailIndex=${index}`);
+        setSelectedDetail(details[detail]);
+        router.push(`/myClients/ClientDetail?detailIndex=${detail._id}`);
     };
 
     useEffect(() => {
@@ -46,7 +47,7 @@ console.log(13,userDataGlobal)
             `http://localhost:2000/api/client/getByRecruiter/${userDataGlobal._id}`
           )
           .then((res) => {
-            console.log(res.data.data);
+            setDetails(res.data.data);
           })
           .catch((err) => {
             console.log(err);
@@ -60,13 +61,14 @@ console.log(13,userDataGlobal)
                 <div className='text-[20px] font-medium'>
                     Total Clients (6)
                 </div>
-                <div className='flex  gap-8 flex-wrap scr700:justify-start justify-center'>
-                    {details.map((detail, index) => (
-                        <div onClick={() => toggleDetails(index)} key={index} className='flex flex-col gap-4 cursor-pointer sm:p-6 p-4 rounded-[24px]' style={{ boxShadow: "0px 2px 7px 0px #00000040" }}>
+                <div className='flex  gap-8 flex-wrap scr700:justify-start justify-center '>
+                    {details?.map((detail, index) => (
+                        <div onClick={() => toggleDetails(detail)} key={index} className='flex flex-col gap-4 cursor-pointer sm:p-6 p-4 rounded-[24px] min-w-[300px]' style={{ boxShadow: "0px 2px 7px 0px #00000040" }}>
                             <div className='flex justify-center relative'>
                                 <img
                                     className='rounded-[50%] sm:h-[120px] sm:w-[120px] h-[100px] w-[100px] '
-                                    src={detail.profilePath}
+                                    // src={detail.profilePath}
+                                    src="/images/services/profile.png"
                                     alt='image'
 
                                 />
@@ -130,7 +132,7 @@ console.log(13,userDataGlobal)
                                     </svg>
 
 
-                                    <p className='text-[14px] font-normal'>{detail.mobileNumber}</p>
+                                    <p className='text-[14px] font-normal'>{detail.mobileNo}</p>
 
                                 </div>
                                 <div className='flex  gap-2'>

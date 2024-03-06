@@ -555,7 +555,7 @@ function Recruiter_signup({}) {
                       router.push("/auth?signup=true");
                     }}
                   >
-                    Cancle
+                    Cancel
                   </button>
                   <button
                     className="buttons font-[500] bg-[#06A9EF] text-white"
