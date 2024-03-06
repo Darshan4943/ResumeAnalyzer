@@ -46,7 +46,7 @@ function Sign_in({ googleLoading, handleGoogle, setSignIn, setSignUp }) {
     e.preventDefault();
     setLoading(true);
     const dataToSend = {
-      email: data.email,
+      email: data.email.toLowerCase(),
       password: data.password,
     };
     axios
