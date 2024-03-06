@@ -212,6 +212,7 @@ function CreateResume() {
           stream,
           university,
           specialization,
+          clientId
         } = userData;
         const yearOfCompletion = new Date(dateOfComplition).getFullYear();
         const yearOfJoining = new Date(dateOfJoining).getFullYear();
@@ -231,6 +232,7 @@ function CreateResume() {
           dob,
           employmentStatus,
           dial_code,
+          clientId,
           education: [
             {
               duration: {

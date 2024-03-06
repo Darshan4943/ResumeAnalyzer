@@ -53,7 +53,7 @@ const ResumePreview = ({
   const [namePreview, setNamePreview] = useState(false);
   const [name, setName] = useState(data.firstName + "_resume");
   const userDataGlobal = useSelector((state) => state.userData);
-
+ 
   const callData = () => {
     axios
       .get("https://freedygoservices.in/api/resume/" + userDataGlobal?._id)
@@ -219,7 +219,7 @@ const ResumePreview = ({
     };
     return templates.map((template, index) => (
       <img
-        style={selectedResumeIndex == template.index  ? selectedStyle : {}}
+        style={selectedResumeIndex == template.index ? selectedStyle : {}}
         key={index}
         src={template.imgUrl}
         className="h-[200px] w-[140.91px] rounded-[6px]"
@@ -488,7 +488,13 @@ const ResumePreview = ({
       formData.append("fileName", name);
       formData.append("selectedColor", selectedColor);
       formData.append("selectedFont", selectedFont);
-      formData.append("userId", userDataGlobal._id);
+
+      if (userDataGlobal.role === "user") {
+        formData.append("userId", userDataGlobal._id);
+      } else if (userDataGlobal.role === "recruiter") {
+        formData.append("userId", data.clientId);
+        formData.append("recruiterId", userDataGlobal._id);
+      }
 
       axios
         .post("https://freedygoservices.in/api/resume/add", formData)
@@ -555,75 +561,75 @@ const ResumePreview = ({
         <div className="" ref={resumeRef}>
           <div className="flex justify-between flex-wrap scr1024:gap-4 gap-2">
             <div className="flex items-center justify-between ml:w-[50%] w-full gap-4">
-            <div
-              className=" text-[20px] font-montserrat font-medium  cursor-pointer "
-              onClick={() => setNamePreview(true)}
-            >
-              {name}
-              
-            </div>
-            {selectedResumeIndex !== undefined && (
-            <BlobProvider document={<MyComponent />}>
-                {({ blob, url, loading, error }) => {
-                  return (
-                    <button
-                      onClick={() => saveResume(blob)}
-                      disabled={loading}
-                      className="flex gap-1 text-[14px] sm:w-[150px]  justify-center  font-montserrat font-semibold px-3 py-2 rounded-[8px] items-center border border-[#06A9EF] "
-                    >
-                      {loading ? (
-                        <svg
-                          aria-hidden="true"
-                          role="status"
-                          class="inline w-4 h-4 me-3  animate-spin"
-                          viewBox="0 0 100 101"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
-                            fill="#E5E7EB"
-                          />
-                          <path
-                            d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
-                            fill="currentColor"
-                          />
-                        </svg>
-                      ) : (
-                        "Save"
-                      )}
-                    </button>
-                  );
-                }}
-              </BlobProvider>
-            )}
+              <div
+                className=" text-[20px] font-montserrat font-medium  cursor-pointer "
+                onClick={() => setNamePreview(true)}
+              >
+                {name}
+
               </div>
+              {selectedResumeIndex !== undefined && (
+                <BlobProvider document={<MyComponent />}>
+                  {({ blob, url, loading, error }) => {
+                    return (
+                      <button
+                        onClick={() => saveResume(blob)}
+                        disabled={loading}
+                        className="flex gap-1 text-[14px] sm:w-[150px]  justify-center  font-montserrat font-semibold px-3 py-2 rounded-[8px] items-center border border-[#06A9EF] "
+                      >
+                        {loading ? (
+                          <svg
+                            aria-hidden="true"
+                            role="status"
+                            class="inline w-4 h-4 me-3  animate-spin"
+                            viewBox="0 0 100 101"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                              fill="#E5E7EB"
+                            />
+                            <path
+                              d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                              fill="currentColor"
+                            />
+                          </svg>
+                        ) : (
+                          "Save"
+                        )}
+                      </button>
+                    );
+                  }}
+                </BlobProvider>
+              )}
+            </div>
             <div className="flex sm:gap-[16px] scr1024:gap-2 gap-2 items-center justify-end ml:w-[45%] w-full">
               {selectedResumeIndex !== undefined && (
                 <>
-                <div className="mobile">
-                  <div className="flex gap-2 scr420:gap-[16px] justify-between ">
-                    <button
-                      className=" text-[12px] flex gap-1 items-center justify-between text-[#333] font-montserrat font-semibold px-2 py-2 rounded-[8px] border border-[#06A9EF]"
-                      onClick={() => isSetEdit(true)}
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="21"
-                        height="20"
-                        viewBox="0 0 21 20"
-                        fill="none"
+                  <div className="mobile">
+                    <div className="flex gap-2 scr420:gap-[16px] justify-between ">
+                      <button
+                        className=" text-[12px] flex gap-1 items-center justify-between text-[#333] font-montserrat font-semibold px-2 py-2 rounded-[8px] border border-[#06A9EF]"
+                        onClick={() => isSetEdit(true)}
                       >
-                        <g mask="url(#mask0_5925_110931)">
-                          <path
-                            d="M4.66404 15.8317H5.71531L14.2458 7.30121L13.1945 6.24994L4.66404 14.7804V15.8317ZM3.41406 17.0817V14.2612L14.4061 3.27402C14.5321 3.15956 14.6712 3.07112 14.8235 3.00868C14.9757 2.94625 15.1354 2.91504 15.3025 2.91504C15.4696 2.91504 15.6314 2.94469 15.7881 3.004C15.9447 3.06329 16.0834 3.15757 16.2041 3.28683L17.2217 4.31727C17.351 4.43799 17.4431 4.57691 17.4981 4.73402C17.5532 4.89112 17.5807 5.04821 17.5807 5.20531C17.5807 5.37288 17.5521 5.5328 17.4948 5.68506C17.4376 5.83734 17.3466 5.97648 17.2217 6.1025L6.23454 17.0817H3.41406ZM13.7109 6.78479L13.1945 6.24994L14.2458 7.30121L13.7109 6.78479Z"
-                            fill="#333333"
-                          />
-                        </g>
-                      </svg>
-                      Edit
-                    </button>
-                  </div>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="21"
+                          height="20"
+                          viewBox="0 0 21 20"
+                          fill="none"
+                        >
+                          <g mask="url(#mask0_5925_110931)">
+                            <path
+                              d="M4.66404 15.8317H5.71531L14.2458 7.30121L13.1945 6.24994L4.66404 14.7804V15.8317ZM3.41406 17.0817V14.2612L14.4061 3.27402C14.5321 3.15956 14.6712 3.07112 14.8235 3.00868C14.9757 2.94625 15.1354 2.91504 15.3025 2.91504C15.4696 2.91504 15.6314 2.94469 15.7881 3.004C15.9447 3.06329 16.0834 3.15757 16.2041 3.28683L17.2217 4.31727C17.351 4.43799 17.4431 4.57691 17.4981 4.73402C17.5532 4.89112 17.5807 5.04821 17.5807 5.20531C17.5807 5.37288 17.5521 5.5328 17.4948 5.68506C17.4376 5.83734 17.3466 5.97648 17.2217 6.1025L6.23454 17.0817H3.41406ZM13.7109 6.78479L13.1945 6.24994L14.2458 7.30121L13.7109 6.78479Z"
+                              fill="#333333"
+                            />
+                          </g>
+                        </svg>
+                        Edit
+                      </button>
+                    </div>
                   </div>
                   <PDFDownloadLink
                     document={<MyComponent />}
