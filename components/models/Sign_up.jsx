@@ -24,7 +24,7 @@ function Sign_up() {
   const router = useRouter();
   return (
     <>
-      <div className="flex justify-center  items-center h-[50vh] w-full earth_container my-[3rem] ">
+      <div className="flex justify-center  items-center h-full w-full earth_container my-[3rem]">
         <div className="w-full flex flex-col gap-[36px] pb-[10px]">
           <div>
             <div className="text-[#333] text-center text-[30px] ms:text-[40px] font-[600]">

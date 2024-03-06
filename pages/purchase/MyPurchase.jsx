@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import SubscriptionPlans from "../../components/featured/home/SubscriptionPlans";
 import { plans } from "../../utils/data";
 import { useRouter } from "next/router";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { dateFormatter } from "../../utils/middleware";
+import SubscriptionPlans from "../../components/featured/home/SubscriptionPlans";
+import SubscriptionPlan from "../../components/featured/home/SubscriptionHome";
 
 function MyPurchase() {
   const [plan, setPlan] = useState({});
@@ -27,20 +28,22 @@ function MyPurchase() {
       });
   }, [userDataGlobal]);
   return (
-    <div className="flex flex-col gap-8 pt-[34px] min-h-[60vh]">
-      <div className="flex flex-col justify-center items-center text-center bg-blue   py-3">
-        <div className=" font-semibold text-[30px] text-white">My Purchase</div>
-        <div className=" font-medium text-[16px] text-white">
-          Manage your account and subscription here with Skilotech
-        </div>
-      </div>
-      <div className="ml:px-6 px-2 pb-12 w-[100%]">
-        <div
-          style={{ boxShadow: "0px 1px 6px 0px #00000040" }}
-          className=" flex flex-col gap-10 ml:p-6 p-3 rounded-[16px] "
-        >
-          {subscription ? (
-            <>
+    <div className="flex flex-col gap-8  min-h-[60vh]">
+      {subscription ? (
+        <>
+          <div className="flex flex-col justify-center items-center text-center bg-blue pt-[34px]   py-3">
+            <div className=" font-semibold text-[30px] text-white">
+              My Purchase
+            </div>
+            <div className=" font-medium text-[16px] text-white">
+              Manage your account and subscription here with Skilotech
+            </div>
+          </div>
+          <div className="ml:px-6 px-2 pb-12 w-[100%]">
+            <div
+              style={{ boxShadow: "0px 1px 6px 0px #00000040" }}
+              className=" flex flex-col gap-10 ml:p-6 p-3 rounded-[16px] "
+            >
               {" "}
               <div className=" flex gap-4  border border-[#06A9EF] rounded-[16px] scr1200:p-6 p-3 ">
                 <div className="flex scr1100:flex-row flex-col scr1200:gap-12 gap-4 w-[100%] justify-center ">
@@ -118,7 +121,7 @@ function MyPurchase() {
                     {plan?.features?.map((feature, index) => (
                       <div key={index} className="flex gap-4 items-center ">
                         <svg
-                        className="min-w-[20px]"
+                          className="min-w-[20px]"
                           width="20"
                           height="18"
                           viewBox="0 0 20 18"
@@ -134,7 +137,6 @@ function MyPurchase() {
                       </div>
                     ))}
                   </div>
-
                 </div>
               </div>
               <div className="flex flex-col gap-6  w-[100%] ml:pl-4">
@@ -201,15 +203,14 @@ function MyPurchase() {
                   </div>
                 </div>
               </div>
-            </>
-          ) : (
-            <div className="w-full text-center h-100px text-[24px] text-[#404040}">
-              No Plan Subscribed Yet
             </div>
-          )}
-          
+          </div>
+        </>
+      ) : (
+        <div className="w-full ">
+          <SubscriptionPlan />
         </div>
-      </div>
+      )}
     </div>
   );
 }
