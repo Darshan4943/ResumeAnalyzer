@@ -87,7 +87,7 @@ function HeaderSidebar({ selectedPage, setIsSidebar, setIsLogin, isLogin }) {
                                 ...(item === 'My Clients' && getListItemStyles('/myClients')),
                                 ...(item === 'My Purchase' && getListItemStyles('/myPurchase/MyPurchase')),
                                 ...(item === 'My Collection' && getListItemStyles('/home/MyCollection')),
-                                ...(item === 'Transform for Job Description' && getListItemStyles('/transform/TransformJob')),
+                                ...(item === 'Transform CV for Job Description' && getListItemStyles('/transform/TransformJob')),
                                 ...(item === 'Skill Test' && getListItemStyles('/home/SkillAssessment')),
                             }}
 
@@ -106,7 +106,7 @@ function HeaderSidebar({ selectedPage, setIsSidebar, setIsLogin, isLogin }) {
                                     case 'My Collection':
                                         handleNavigation('/home/MyCollection');
                                         break;
-                                    case 'Transform for Job Description':
+                                    case 'Transform CV for Job Description':
                                         handleNavigation('/transform/TransformJob');
                                         break;
                                     case 'Skill Test':
