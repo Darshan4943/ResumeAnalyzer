@@ -34,10 +34,14 @@ function SubscriptionPlans({ fromMain }) {
   }, [userDataGlobal]);
   const clickHandler = (index) => {
     if (isLogin) {
-      router.push(`/purchase/details?id=${index }`);
+      router.push(`/purchase/details?id=${index}`);
     } else {
       localStorage.setItem("purchase", JSON.stringify({ status: true, index }));
-      router.push("/auth?signup=true");
+      if(isUser){
+        router.push("/auth/user-signup");
+      }else{
+        router.push("/auth/recruiter-signup");
+      }
     }
   };
   return (
@@ -80,8 +84,10 @@ function SubscriptionPlans({ fromMain }) {
                     </span>
                   </div>
                   <button
+                    disabled={true}
                     onClick={() => clickHandler(index)}
                     className="px-9 py-3 bg-[#06A9EF] text-white rounded-[12px] text-[1.4vw] font-semibold w-full"
+                    style={{ opacity: 0.6 }}
                   >
                     Purchase Plan
                   </button>
@@ -180,7 +186,9 @@ function SubscriptionPlans({ fromMain }) {
                       </span>
                     </div>
                     <button
+                      style={{ opacity: 0.6 }}
                       onClick={() => clickHandler(index)}
+                      disabled={true}
                       className="px-9 py-3 bg-[#06A9EF] text-white rounded-[12px] text-[1.4vw] font-semibold w-full"
                     >
                       Purchase Plan

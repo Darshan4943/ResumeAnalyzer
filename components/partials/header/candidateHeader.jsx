@@ -24,9 +24,10 @@ function CandidateHeader() {
   const handleLogOut = () => {
     setlogin(false);
     setIsLogin(false);
-    router.push("/");
+
     toggleDropdown();
     localStorage.clear();
+    window.location.href = "/";
   };
 
   useEffect(() => {
@@ -74,7 +75,7 @@ function CandidateHeader() {
         >
           <li>Home</li>
         </Link>
-        {userDataGlobal.role === "recruiter" &&
+        {userDataGlobal.role === "recruiter" && (
           <Link
             href="/myClients"
             className={
@@ -85,8 +86,8 @@ function CandidateHeader() {
           >
             <li>My Clients</li>
           </Link>
-        }
-        {userDataGlobal.role === "user" &&
+        )}
+        {userDataGlobal.role === "user" && (
           <Link
             href="/home/MyCollection"
             className={
@@ -97,7 +98,7 @@ function CandidateHeader() {
           >
             <li>My Resumes</li>
           </Link>
-        }
+        )}
         <Link
           href="/transform/TransformJob"
           className={
@@ -118,7 +119,7 @@ function CandidateHeader() {
         >
           <li>My Purchase</li>
         </Link>
-        {userDataGlobal.role === "user" &&
+        {userDataGlobal.role === "user" && (
           <Link
             href="/home/SkillAssessment"
             className={
@@ -129,7 +130,7 @@ function CandidateHeader() {
           >
             <li>Skill Test</li>
           </Link>
-        }
+        )}
       </div>
 
       <div className=" flex gap-4 justify-end py-2 items-center scr1250:w-[24.9%] w-[23%]  ">

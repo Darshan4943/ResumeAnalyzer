@@ -24,7 +24,7 @@ function TransformJob() {
   const transformHandler = () => {
     setLoading(true);
     axios
-      .post("http://localhost:2000/api/cv/transform", {
+      .post("https://freedygoservices.in/api/cv/transform", {
         jd: text,
         json: selected,
       })
@@ -41,7 +41,7 @@ function TransformJob() {
   useEffect(() => {
     axios
       .get(
-        `http://localhost:2000/api/client/getByRecruiter/${userDataGlobal._id}`
+        `https://freedygoservices.in/api/client/getByRecruiter/${userDataGlobal._id}`
       )
       .then((res) => {
         const result = res.data.data;

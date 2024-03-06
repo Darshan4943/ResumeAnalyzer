@@ -172,7 +172,7 @@ function Sign_up() {
                   query: { signin: true },
                 })
               }
-              className="text-[#06A9EF] cursor-pointer"
+              className="text-[#06A9EF] cursor-pointer ml-1"
             >
               Sign In
             </span>

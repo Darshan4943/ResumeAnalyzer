@@ -30,156 +30,155 @@ function CreateResume() {
     };
   }, []);
   const [isEdit, isSetEdit] = useState(false);
-  // const [data, setData] = useState({
-  //   profilePhoto: null,
-  //   designation: "",
-  //   firstName: "",
-  //   lastName: "",
-  //   mobileNumber: "",
-  //   email: "",
-  //   location: "",
-  //   summary: "",
-  //   showSummary: true,
-  //   education: [],
-  //   showEducation: true,
-  //   experience: [],
-  //   showExperience: true,
-  //   course: [],
-  //   showCourse: true,
-  //   skills: [],
-  //   achievement: [],
-  //   sociaLinks: [],
-  //   hobbies: [],
-  //   languages: [],
-  // });
   const [data, setData] = useState({
     profilePhoto: null,
-    designation: "UI/UX designer",
-    firstName: "John",
-    lastName: "Doe",
-    mobileNumber: 9325795236,
-    email: "demo@gmail.com",
-    location: "Demo",
+    designation: "",
+    firstName: "",
+    lastName: "",
+    mobileNumber: "",
+    email: "",
+    location: "",
     summary: "",
     showSummary: true,
-    education: [
-      {
-        qualification: "12th",
-        specialization: "cs",
-        instituteName: "pune",
-        type: "full-time",
-        location: "",
-        duration: {
-          start: {
-            year: "Year",
-            month: "Month",
-          },
-          end: {
-            year: "Year",
-            month: "Month",
-          },
-        },
-      },
-      {
-        qualification: "12th",
-        specialization: "cs",
-        instituteName: "pune",
-        type: "full-time",
-        location: "",
-        duration: {
-          start: {
-            year: "Year",
-            month: "Month",
-          },
-          end: {
-            year: "Year",
-            month: "Month",
-          },
-        },
-      },
-    ],
+    education: [],
     showEducation: true,
-    experience: [
-      {
-        designation: "UI/UX designer",
-        organization: "Freedygo",
-        description:
-          " Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make",
-        currentlyWorking: true,
-        location: "Pune,Maharashtra",
-        duration: {
-          start: {
-            year: "2010",
-            month: "10",
-          },
-          end: {
-            year: "Year",
-            month: "Month",
-          },
-        },
-      },
-    ],
+    experience: [],
     showExperience: true,
-    course: [
-      {
-        courseName: "Demo Course",
-        issuedBy: "Demo Institute",
-        discription: "",
-        duration: {
-          start: {
-            year: "Year",
-            month: "Month",
-          },
-          end: {
-            year: "Year",
-            month: "Month",
-          },
-        },
-      },
-    ],
+    course: [],
     showCourse: true,
-    skills: [
-      {
-        skill: "C#",
-        rating: [5, 5, 5, 5, 5],
-      },
-      {
-        skill: "Python",
-        rating: [5, 5, 5, 5, 5],
-      },
-      {
-        skill: "Ruby",
-        rating: [5, 5, 5, 5, 5],
-      },
-      {
-        skill: "Php",
-        rating: [5, 5, 5, 5, 5],
-      },
-      {
-        skill: "Angular",
-        rating: [5, 5, 5, 5, 5],
-      },
-    ],
+    skills: [],
     achievement: [],
     sociaLinks: [],
-    hobbies: [
-      {
-        title: "Dancing",
-      },
-      {
-        title: "Writting",
-      },
-    ],
-    languages: [
-      {
-        languages: "English",
-        rating: [3, 3, 3],
-      },
-    ],
-    summery:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make",
+    hobbies: [],
+    languages: [],
   });
-console.log(182,selectedResumeIndex)
+  // const [data, setData] = useState({
+  //   profilePhoto: null,
+  //   designation: "UI/UX designer",
+  //   firstName: "John",
+  //   lastName: "Doe",
+  //   mobileNumber: 9325795236,
+  //   email: "demo@gmail.com",
+  //   location: "Demo",
+  //   summary: "",
+  //   showSummary: true,
+  //   education: [
+  //     {
+  //       qualification: "12th",
+  //       specialization: "cs",
+  //       instituteName: "pune",
+  //       type: "full-time",
+  //       location: "",
+  //       duration: {
+  //         start: {
+  //           year: "Year",
+  //           month: "Month",
+  //         },
+  //         end: {
+  //           year: "Year",
+  //           month: "Month",
+  //         },
+  //       },
+  //     },
+  //     {
+  //       qualification: "12th",
+  //       specialization: "cs",
+  //       instituteName: "pune",
+  //       type: "full-time",
+  //       location: "",
+  //       duration: {
+  //         start: {
+  //           year: "Year",
+  //           month: "Month",
+  //         },
+  //         end: {
+  //           year: "Year",
+  //           month: "Month",
+  //         },
+  //       },
+  //     },
+  //   ],
+  //   showEducation: true,
+  //   experience: [
+  //     {
+  //       designation: "UI/UX designer",
+  //       organization: "Freedygo",
+  //       description:
+  //         " Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make",
+  //       currentlyWorking: true,
+  //       location: "Pune,Maharashtra",
+  //       duration: {
+  //         start: {
+  //           year: "2010",
+  //           month: "10",
+  //         },
+  //         end: {
+  //           year: "Year",
+  //           month: "Month",
+  //         },
+  //       },
+  //     },
+  //   ],
+  //   showExperience: true,
+  //   course: [
+  //     {
+  //       courseName: "Demo Course",
+  //       issuedBy: "Demo Institute",
+  //       discription: "",
+  //       duration: {
+  //         start: {
+  //           year: "Year",
+  //           month: "Month",
+  //         },
+  //         end: {
+  //           year: "Year",
+  //           month: "Month",
+  //         },
+  //       },
+  //     },
+  //   ],
+  //   showCourse: true,
+  //   skills: [
+  //     {
+  //       skill: "C#",
+  //       rating: [5, 5, 5, 5, 5],
+  //     },
+  //     {
+  //       skill: "Python",
+  //       rating: [5, 5, 5, 5, 5],
+  //     },
+  //     {
+  //       skill: "Ruby",
+  //       rating: [5, 5, 5, 5, 5],
+  //     },
+  //     {
+  //       skill: "Php",
+  //       rating: [5, 5, 5, 5, 5],
+  //     },
+  //     {
+  //       skill: "Angular",
+  //       rating: [5, 5, 5, 5, 5],
+  //     },
+  //   ],
+  //   achievement: [],
+  //   sociaLinks: [],
+  //   hobbies: [
+  //     {
+  //       title: "Dancing",
+  //     },
+  //     {
+  //       title: "Writting",
+  //     },
+  //   ],
+  //   languages: [
+  //     {
+  //       languages: "English",
+  //       rating: [3, 3, 3],
+  //     },
+  //   ],
+  //   summery:
+  //     "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make",
+  // });
   useEffect(() => {
     if (userData) {
       if (userData.isEdit) {
@@ -255,6 +254,9 @@ console.log(182,selectedResumeIndex)
           experience: [
             {
               duration: {
+                start: {
+                  year: currentYear,
+                },
                 end: {
                   year: yearOfJoining,
                 },

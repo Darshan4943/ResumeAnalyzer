@@ -449,7 +449,6 @@ const ResumePreview = ({
       document.removeEventListener("mousedown", handleOutsideClick);
     };
   }, []);
-  console.log(data)
   const saveResume = async (blob) => {
     if (isEdit) {
       setLoading(true);
@@ -470,7 +469,7 @@ const ResumePreview = ({
       formData.append("pdfBlob", blob);
 
       axios
-        .put("http://localhost:2000/api/resume/" + id, formData)
+        .put("https://freedygoservices.in/api/resume/" + id, formData)
         .then((res) => {
           toast.success("Resume Updated successfully");
           setLoading(false);
@@ -509,7 +508,7 @@ const ResumePreview = ({
       }
 
       axios
-        .post("http://localhost:2000/api/resume/add", formData)
+        .post("https://freedygoservices.in/api/resume/add", formData)
         .then((res) => {
           toast.success("Resume Saved To Collection successfully");
           setLoading(false);
@@ -572,7 +571,7 @@ const ResumePreview = ({
         )}
         <div className="" ref={resumeRef}>
           <div className="flex justify-between flex-wrap scr1024:gap-4 gap-2">
-            <div className="flex items-center justify-between ml:w-[50%] w-full gap-4">
+            <div className="flex items-center justify-between ml:w-[58%] w-full gap-4">
               <div
                 className=" text-[20px] font-montserrat font-medium flex gap-3 items-center cursor-pointer "
                 onClick={() => setNamePreview(true)}
@@ -630,7 +629,7 @@ const ResumePreview = ({
                 </BlobProvider>
               )}
             </div>
-            <div className="flex sm:gap-[16px] scr1024:gap-2 gap-2 items-center justify-end ml:w-[45%] w-full">
+            <div className="flex sm:gap-[16px] scr1024:gap-2 gap-2 items-center justify-end ml:w-[32%] w-full">
               {selectedResumeIndex !== undefined && (
                 <>
                   <div className="mobile">

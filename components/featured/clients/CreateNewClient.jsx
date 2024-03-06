@@ -165,7 +165,7 @@ function CreateNewClient({ setTabIndex }) {
         formdata.append("img", file);
         formdata.append("recruiterId", userDataGlobal._id);
         const response = await axios.post(
-          "http://localhost:2000/api/client/create",
+          "https://freedygoservices.in/api/client/create",
           formdata
         );
         setData({

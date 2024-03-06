@@ -141,9 +141,9 @@ function AccountDetails({ selectedPlan }) {
           setLoading(true);
           const {
             data: { key },
-          } = await axios.get(`http://localhost:2000/api/getkey`);
+          } = await axios.get(`https://freedygoservices.in/api/getkey`);
           const { data: order } = await axios.post(
-            `http://localhost:2000/api/checkout/`,
+            `https://freedygoservices.in/api/checkout/`,
             {
               amount: parseInt(selectedPlan.amount),
             }
@@ -165,7 +165,7 @@ function AccountDetails({ selectedPlan }) {
             },
             handler: function (response) {
               axios
-                .post("http://localhost:2000/api/add/subscription", {
+                .post("https://freedygoservices.in/api/add/subscription", {
                   ...response,
                   userId: userDataGlobal._id,
                   plan: selectedPlan.duration + " " + selectedPlan.limit,
@@ -409,7 +409,7 @@ function AccountDetails({ selectedPlan }) {
               </div>
               <div className="flex justify-between">
                 <p className="text-[16px] font-medium">Estimated tax (18%)</p>
-                <p className="text-[16px] font-medium">$ 4</p>
+                <p className="text-[16px] font-medium">$ 0</p>
               </div>
               <div className="h-[1px] w-full bg-[#DEDEDE]"></div>
               <div className="flex justify-between">
