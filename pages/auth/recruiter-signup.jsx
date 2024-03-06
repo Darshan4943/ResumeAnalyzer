@@ -161,11 +161,12 @@ function Recruiter_signup({}) {
     } else {
       setLoading(true);
       axios
-        .post("http://localhost:2000/api/skiloteckuser/recruiter", data)
+        .post("http://localhost:2000/api/skiloteckuser/recruiter", {
+          ...data,
+          email: data.email.toLowerCase(),
+        })
         .then((res) => {
           const response = res.data;
-          console.log(response);
-
           try {
             if (response?.success) {
               localStorage.setItem("authToken", JSON.stringify(response));
@@ -476,7 +477,7 @@ function Recruiter_signup({}) {
                     id="border_button"
                     onClick={(e) => {
                       e.preventDefault();
-                     router.push("/auth?signup=true");
+                      router.push("/auth?signup=true");
                     }}
                   >
                     Cancle

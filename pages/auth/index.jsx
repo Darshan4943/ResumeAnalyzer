@@ -6,7 +6,6 @@ import { motion } from "framer-motion";
 import axios from "axios";
 import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
 import { useDispatch } from "react-redux";
-import { auth } from "../../utils/firebase";
 function Main_sign_page() {
   const { signin, signup } = useRouter().query;
   const [isSignIn, setIsSignIn] = useState(true);
@@ -78,7 +77,7 @@ function Main_sign_page() {
             className="earth"
           ></motion.div>
         </motion.div>
-        <div className=" z-100 bg-white">
+        <div className=" z-100">
           {signin && (
             <Sign_in
               setIsSignIn={setIsSignIn}

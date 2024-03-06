@@ -5,15 +5,61 @@ import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
 import { reCallUserData } from "../../Redux/actions/user";
 import Link from "next/link";
+import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
 
-function UserSignUp({ setIsSignIn, handleGoogle, setSignIn, setSignUp }) {
+function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
   const router = useRouter();
   const [data, setData] = useState({
     email: "",
     password: "",
     confirmPassword: "",
   });
-  
+  const [googleLoading, setGoogleLoading] = useState(false);
+  const auth = getAuth();
+  const handleGoogle = async () => {
+    const provider = new GoogleAuthProvider();
+    try {
+      setGoogleLoading(true);
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+      const userData = {
+        name: user.displayName,
+        email: user.email,
+      };
+      const sendToPurchase = localStorage.getItem("purchase");
+      const sendToPurchaseResult = JSON.parse(sendToPurchase);
+      axios
+        .post(
+          "https://freedygoservices.in/api/skiloteckuser/user/google/signup",
+          userData
+        )
+        .then((res) => {
+          localStorage.setItem("authToken", JSON.stringify(res.data));
+          if (sendToPurchaseResult?.status) {
+            localStorage.removeItem("purchase");
+            window.location.href = `/purchase/details?id=${
+              sendToPurchaseResult.index + 1
+            }`;
+          } else {
+            setGoogleLoading(false);
+            window.location.href = "/home";
+          }
+        })
+        .catch((err) => {
+          setGoogleLoading(false);
+          console.log(err);
+        });
+    } catch (error) {
+      if (error.code === "auth/cancelled-popup-request") {
+        console.log("Sign-in with Google popup was cancelled by the user.");
+      } else {
+        console.error("Error signing in with Google:", error.message);
+      }
+      setGoogleLoading(false);
+    }
+  };
+
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [isEmailEntered, setIsEmailEntered] = useState(false);
@@ -41,7 +87,7 @@ function UserSignUp({ setIsSignIn, handleGoogle, setSignIn, setSignUp }) {
     const sendToPurchase = JSON.parse(localStorage.getItem("purchase"));
 
     const dataToSend = {
-      email: data.email,
+      email: data.email.toLowerCase(),
       password: data.password,
     };
     setLoading(true);
