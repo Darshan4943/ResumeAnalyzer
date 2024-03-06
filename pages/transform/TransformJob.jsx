@@ -3,6 +3,9 @@ import TransformJd from "../../components/featured/home/transformJd";
 import Fonts from "../../public/fonts/fonts";
 import UserResumes from "./UserResumes";
 import axios from "axios";
+import { useSelector } from "react-redux";
+import ReactSelect from "react-select";
+import { data } from "autoprefixer";
 <Fonts />;
 
 function TransformJob() {
@@ -11,6 +14,10 @@ function TransformJob() {
   const [selected, setSelect] = useState({});
   const [loading, setLoading] = useState(false);
   const [newData, setNewData] = useState(null);
+  const [details, setDetails] = useState();
+  const [resumeList, setResumeList] = useState(null);
+  const [selectedClient, setSelectedClient] = useState({});
+  const userDataGlobal = useSelector((state) => state.userData);
   const handleChange = (event) => {
     setText(event.target.value);
   };
@@ -31,7 +38,50 @@ function TransformJob() {
       });
   };
 
+  useEffect(() => {
+    axios
+      .get(
+        `http://localhost:2000/api/client/getByRecruiter/${userDataGlobal._id}`
+      )
+      .then((res) => {
+        const result = res.data.data;
+        setDetails(result);
+        setSelectedClient({
+          value: res.data.data[0]?._id,
+          label: res.data.data[0]?.firstName + " " + res.data.data[0]?.lastName,
+        });
+        axios
+          .get(
+            "https://freedygoservices.in/api/resume/" + res.data.data[0]?._id
+          )
+          .then((res) => {
+            console.log("first", selectedClient, res.data.data);
+            setResumeList(res.data.data);
+            setSelect(res.data.data[0]);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [userDataGlobal]);
 
+  
+  const selectHandler = (data) => {
+    setSelectedClient(data);
+    axios
+      .get("https://freedygoservices.in/api/resume/" + data.value)
+      .then((res) => {
+        console.log("first", selectedClient, res.data.data);
+        setResumeList(res.data.data);
+        setSelect(res.data.data[0]);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <div className=" p-6 flex flex-col gap-4">
@@ -55,9 +105,34 @@ function TransformJob() {
             />
           </div>
           <div className="flex flex-col gap-4 ">
+            {userDataGlobal.role != "user" && (
+              <div className="w-full ">
+                <div className="text-[20px] font-medium">Select Client</div>
+                <ReactSelect
+                  options={details?.map((item) => ({
+                    value: item._id,
+                    label: item.firstName + " " + item.lastName,
+                  }))}
+                  className="my-4 outline outline-offset-1 outline-blue rounded-[8px]"
+                  name=""
+                  placeholder="Search"
+                  value={selectedClient}
+                  onChange={(data) => selectHandler(data)}
+                  styles={{
+                    control: (provided) => ({
+                      ...provided,
+                      border: "none",
+
+                      minWidth: "130px",
+                    }),
+                  }}
+                />
+              </div>
+            )}
             <div className="text-[20px] font-medium">
               Select from Collection
             </div>
+
             <div className="rounded-[16px] border bg-[#F9F9F9] border-[#DEDEDE] pl-4 pr-4 ">
               <div
                 className="flex gap-4   py-4  items-center"
@@ -67,6 +142,7 @@ function TransformJob() {
                   setSelect={setSelect}
                   setIsAll={setIsAll}
                   isAll={false}
+                  resumeList={resumeList}
                 />
               </div>
             </div>
@@ -81,6 +157,7 @@ function TransformJob() {
                 setSelect={setSelect}
                 setIsAll={setIsAll}
                 isAll={true}
+                resumeList={resumeList}
               />
             )}
 
@@ -116,16 +193,15 @@ function TransformJob() {
           </div>
         </div>
         <div className="ml:w-[50%] w-[100% flex flex-col gap-4">
-          {
-            selected && <TransformJd
+          {selected && (
+            <TransformJd
               data={newData !== null ? newData : selected}
               resumeTemplateIndex={selected.resumeTemplateIndex}
               selectedColor={selected.selectedColor}
               selectedFont={selected.selectedFont}
               preview={true}
             />
-          }
-
+          )}
         </div>
       </div>
     </div>

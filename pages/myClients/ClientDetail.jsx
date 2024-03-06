@@ -35,8 +35,7 @@ function ClientDetail({ tabIndex }) {
   }, [clientId]);
 
   const PdfViewer = ({ pdfUrl }) => {
-    function onDocumentLoadSuccess(numPages) {
-    }
+    function onDocumentLoadSuccess(numPages) {}
 
     return (
       <div

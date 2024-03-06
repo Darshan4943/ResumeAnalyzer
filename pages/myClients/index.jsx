@@ -1,11 +1,16 @@
 import React, { useEffect, useRef, useState } from "react";
 import ClientList from "../../components/featured/clients/ClientList";
 import CreateNewClient from "../../components/featured/clients/CreateNewClient";
+import axios from "axios";
+import { useSelector } from "react-redux";
+import Fuse from "fuse.js";
 
 function MyClients() {
   const [tabIndex, setTabIndex] = useState(0);
   const [isOptions, setIsOptions] = useState(false);
-
+  const [details, setDetails] = useState();
+  const userDataGlobal = useSelector((state) => state.userData);
+  const [allData, setAllData] = useState([]);
   const taskRef = useRef(null);
 
   const handleOutsideClick = (event) => {
@@ -20,6 +25,34 @@ function MyClients() {
       document.removeEventListener("mousedown", handleOutsideClick);
     };
   }, []);
+  useEffect(() => {
+    axios
+      .get(
+        `http://localhost:2000/api/client/getByRecruiter/${userDataGlobal._id}`
+      )
+      .then((res) => {
+        setDetails(res.data.data);
+        setAllData(res.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [userDataGlobal]);
+
+  const changeHandler = (value) => {
+    if (value.length > 0) {
+      const options = {
+        includeScore: true,
+        // Search in `author` and in `tags` array
+        keys: ["firstName", "lastName", "email", "mobileNo"],
+      };
+      const fuse = new Fuse(allData, options);
+      const result = fuse.search(value);
+      setDetails(result.map((item) => item.item));
+    } else {
+      setDetails(allData);
+    }
+  };
 
   return (
     <div className="flex justify-center">
@@ -56,14 +89,9 @@ function MyClients() {
                     className="w-full"
                     type="text"
                     placeholder="Search client name or keyword"
+                    onChange={(e) => changeHandler(e.target.value)}
                   />
                 </div>
-                <button
-                  className="text-[16px] font-semibold py-3 px-6 bg-[#06A9EF] rounded-[36px] text-white"
-                  type="button"
-                >
-                  Search
-                </button>
               </div>
               <div className="flex gap-4 items-center  justify-end relative">
                 <button
@@ -107,7 +135,7 @@ function MyClients() {
                 )}
               </div>
             </div>
-            <ClientList setTabIndex={setTabIndex} />
+            <ClientList setTabIndex={setTabIndex} details={details} />
           </div>
         </div>
       )}

@@ -51,22 +51,27 @@ const PdfViewer = ({ pdfUrl, isAll, index }) => {
   );
 };
 
-  const UserResumes = ({ setSelect, setIsAll, isAll }) => {
+const UserResumes = ({ setSelect, setIsAll, isAll, resumeList }) => {
   const [data, setData] = useState([]);
   const taskRef = useRef(null);
   const userDataGlobal = useSelector((state) => state.userData);
 
   useEffect(() => {
-    axios
-      .get("https://freedygoservices.in/api/resume/"+ userDataGlobal?._id)
-      .then((response) => {
-        setData(response.data.data);
-        setSelect(response.data.data[0]);
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-      });
-  }, []);
+    if (resumeList) {
+      setData(resumeList);
+      // setSelect(resumeList[0]);
+    } else {
+      axios
+        .get("https://freedygoservices.in/api/resume/" + userDataGlobal?._id)
+        .then((response) => {
+          setData(response.data.data);
+          setSelect(response.data.data[0]);
+        })
+        .catch((error) => {
+          console.error("Error fetching data:", error);
+        });
+    }
+  }, [resumeList]);
 
   return isAll ? (
     <div>

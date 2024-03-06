@@ -4,13 +4,10 @@ import { useRouter } from "next/router";
 // import { details } from "../../../utils/data";
 import { useSelector } from "react-redux";
 import axios from "axios";
-function ClientList({ setTabIndex, tabIndex }) {
-    const router = useRouter();
-    const [openPopupIndex, setOpenPopupIndex] = useState(null);
-    const [selectedDetail, setSelectedDetail] = useState(null);
-   const [details, setDetails] = useState()
-console.log(12,details)
-    const userDataGlobal = useSelector((state) => state.userData);
+function ClientList({ setTabIndex, tabIndex, details }) {
+  const router = useRouter();
+  const [openPopupIndex, setOpenPopupIndex] = useState(null);
+  const [selectedDetail, setSelectedDetail] = useState(null);
 
   const taskRef = useRef(null);
 
@@ -36,19 +33,6 @@ console.log(12,details)
     router.push(`/myClients/ClientDetail?detailIndex=${detail._id}`);
   };
 
-  useEffect(() => {
-    axios
-      .get(
-        `http://localhost:2000/api/client/getByRecruiter/${userDataGlobal._id}`
-      )
-      .then((res) => {
-        setDetails(res.data.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
-
   return (
     <>
       <div className="rounded-[16px]  flex flex-col gap-4 w-[98%]">
@@ -63,8 +47,8 @@ console.log(12,details)
             >
               <div className="flex justify-center relative">
                 <img
-                  className="rounded-[50%] sm:h-[120px] sm:w-[120px] h-[100px] w-[100px] " 
-                  style={{objectFit:'contain'}}
+                  className="rounded-[50%] sm:h-[120px] sm:w-[120px] h-[100px] w-[100px] "
+                  style={{ objectFit: "contain" }}
                   src={
                     detail.profilePicture
                       ? detail.profilePicture

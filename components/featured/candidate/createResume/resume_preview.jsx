@@ -441,7 +441,7 @@ const ResumePreview = ({
       document.removeEventListener("mousedown", handleOutsideClick);
     };
   }, []);
-
+console.log(data)
   const saveResume = async (blob) => {
     if (isEdit) {
       setLoading(true);
@@ -455,10 +455,14 @@ const ResumePreview = ({
           }
         });
       }
+      formData.append("resumeIndex", selectedResumeIndex);
+      formData.append("fileName", name);
+      formData.append("selectedColor", selectedColor);
+      formData.append("selectedFont", selectedFont);
       formData.append("pdfBlob", blob);
 
       axios
-        .put("https://freedygoservices.in/api/resume/" + id, formData)
+        .put("http://localhost:2000/api/resume/" + id, formData)
         .then((res) => {
           toast.success("Resume Updated successfully");
           setLoading(false);
@@ -497,7 +501,7 @@ const ResumePreview = ({
       }
 
       axios
-        .post("https://freedygoservices.in/api/resume/add", formData)
+        .post("http://localhost:2000/api/resume/add", formData)
         .then((res) => {
           toast.success("Resume Saved To Collection successfully");
           setLoading(false);
@@ -505,7 +509,7 @@ const ResumePreview = ({
         })
         .catch((err) => {
           console.log(err);
-          toast.success("Something went wrong ");
+          toast.error("Something went wrong ");
           setLoading(false);
         });
     }
