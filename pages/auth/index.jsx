@@ -67,11 +67,11 @@ function Main_sign_page() {
       <div className=" justify-center relative w-[100%] flex overflow-hidden">
         <motion.div className="earthswipe object-contain -z-10">
           <motion.div
-            initial={isSignIn ? { left: "0%" } : { right: "-30%" }}
+            initial={isSignIn ? { left: "0%" } : { right: "-25%" }}
             animate={
               isSignIn
-                ? { right: "-30%", left: "" }
-                : { left: "", right: "-30%" }
+                ? { right: "-25%", left: "" }
+                : { left: "", right: "-25%" }
             }
             transition={{ duration: 1 }}
             className="earth"
