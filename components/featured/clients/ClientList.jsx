@@ -5,12 +5,12 @@ import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 import axios from "axios";
 function ClientList({ setTabIndex, tabIndex }) {
-  const router = useRouter();
-  const [openPopupIndex, setOpenPopupIndex] = useState(null);
-  const [selectedDetail, setSelectedDetail] = useState(null);
-  const [details, setDetails] = useState();
-
-  const userDataGlobal = useSelector((state) => state.userData);
+    const router = useRouter();
+    const [openPopupIndex, setOpenPopupIndex] = useState(null);
+    const [selectedDetail, setSelectedDetail] = useState(null);
+   const [details, setDetails] = useState()
+console.log(12,details)
+    const userDataGlobal = useSelector((state) => state.userData);
 
   const taskRef = useRef(null);
 
