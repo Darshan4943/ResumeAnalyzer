@@ -49,6 +49,14 @@ function Header({ userData }) {
                     alt=""
                   />
                 </Link>
+                <Link href="/">
+                  {" "}
+                  Candidate
+                </Link>
+                <Link href="/">
+                  {" "}
+                 Recruiter
+                </Link>
               </div>
               <div className="w-[30%] gap-4  flex justify-end py-2 items-center">
                 <div
