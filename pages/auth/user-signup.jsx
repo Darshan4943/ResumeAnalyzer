@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { reCallUserData } from "../../Redux/actions/user";
 import Link from "next/link";
 import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
+import { auth } from "../../utils/firebase";
 
 function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
   const router = useRouter();
