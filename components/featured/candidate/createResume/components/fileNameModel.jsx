@@ -27,7 +27,7 @@ const FileNameModel = ({ setNamePreview, setFunction, data }) => {
               className=" font-montserrat text-xs font-semibold px-[12px] rounded-[8px] border border-[#06A9EF] w-[83px] h-[32px]"
               onClick={() => setNamePreview(false)}
             >
-              Cancle
+              Cancel
             </button>
             <button
               className={` font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px]  bg-[#06A9EF] w-[60px] h-[32px]`}
