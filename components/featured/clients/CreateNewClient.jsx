@@ -8,8 +8,9 @@ import { telCode } from "../../../utils/data";
 
 import { toast } from "react-toastify";
 import axios from "axios";
+import { useSelector } from "react-redux";
 function CreateNewClient({setTabIndex,}) {
-
+    const userDataGlobal = useSelector((state) => state.userData);
     const isViewportBelow850 = useMediaQuery("(max-width:850px)");
 
     const [data, setData] = useState({
@@ -143,8 +144,8 @@ function CreateNewClient({setTabIndex,}) {
             setFormError(errors);
         } else {
             try {
-                const response = await axios.post('http://localhost:2000/api/client/create', data);
-    
+                const response = await axios.post('http://localhost:2000/api/client/create', {...data,recruiterId:userDataGlobal._id});
+
                 console.log('Response:', response.data);
     
                 setData({

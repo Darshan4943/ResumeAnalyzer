@@ -5,7 +5,7 @@ import Link from "next/link";
 function CandidateHeader() {
   const router = useRouter();
   const userDataGlobal = useSelector((state) => state.userData);
-
+  console.log(8, userDataGlobal)
   const [selectedPage, setSelectedPage] = useState("");
   const { signin, signup } = useRouter().query;
   const [login, setlogin] = useState(false);
@@ -75,26 +75,30 @@ function CandidateHeader() {
         >
           <li>Home</li>
         </Link>
-        {/* <Link
-          href="/myClients"
-          className={
-            selectedPage === "/myClients"
-              ? "active scr1250:text-[18px] text-[16px]"
-              : "li scr1250:text-[18px] text-[16px]"
-          }
-        >
-          <li>My Clients</li>
-        </Link> */}
-        <Link
-          href="/home/MyCollection"
-          className={
-            selectedPage === "/home/MyCollection"
-              ? "active scr1250:text-[18px] text-[16px]"
-              : "li scr1250:text-[18px] text-[16px]"
-          }
-        >
-          <li>My Resumes</li>
-        </Link>
+        {userDataGlobal.role === "recruiter" &&
+          <Link
+            href="/myClients"
+            className={
+              selectedPage === "/myClients"
+                ? "active scr1250:text-[18px] text-[16px]"
+                : "li scr1250:text-[18px] text-[16px]"
+            }
+          >
+            <li>My Clients</li>
+          </Link>
+        }
+        {userDataGlobal.role === "user" &&
+          <Link
+            href="/home/MyCollection"
+            className={
+              selectedPage === "/home/MyCollection"
+                ? "active scr1250:text-[18px] text-[16px]"
+                : "li scr1250:text-[18px] text-[16px]"
+            }
+          >
+            <li>My Resumes</li>
+          </Link>
+        }
         <Link
           href="/transform/TransformJob"
           className={
@@ -115,16 +119,18 @@ function CandidateHeader() {
         >
           <li>My Purchase</li>
         </Link>
-        <Link
-          href="/home/SkillAssessment"
-          className={
-            selectedPage === "/home/SkillAssessment"
-              ? "active scr1250:text-[18px] text-[16px]"
-              : "li scr1250:text-[18px] text-[16px]"
-          }
-        >
-          <li>Skill Test</li>
-        </Link>
+        {userDataGlobal.role === "user" &&
+          <Link
+            href="/home/SkillAssessment"
+            className={
+              selectedPage === "/home/SkillAssessment"
+                ? "active scr1250:text-[18px] text-[16px]"
+                : "li scr1250:text-[18px] text-[16px]"
+            }
+          >
+            <li>Skill Test</li>
+          </Link>
+        }
       </div>
 
       <div className=" flex gap-4 justify-end py-2 items-center scr1250:w-[24.9%] w-[23%]  ">

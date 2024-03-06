@@ -2,13 +2,15 @@ import React, { useEffect, useRef, useState } from 'react'
 
 import { useRouter } from 'next/router';
 import { details } from "../../../utils/data";
+import { useSelector } from 'react-redux';
+import axios from 'axios';
 function ClientList({ setTabIndex, tabIndex }) {
     const router = useRouter();
     const [openPopupIndex, setOpenPopupIndex] = useState(null);
     const [selectedDetail, setSelectedDetail] = useState(null);
    
-
-
+    const userDataGlobal = useSelector((state) => state.userData);
+console.log(13,userDataGlobal)
     const taskRef = useRef(null);
 
 
@@ -37,7 +39,20 @@ function ClientList({ setTabIndex, tabIndex }) {
         router.push(`/myClients/ClientDetail?detailIndex=${index}`);
     };
 
-
+    useEffect(() => {
+  
+        axios
+          .get(
+            `http://localhost:2000/api/client/getByRecruiter/${userDataGlobal._id}`
+          )
+          .then((res) => {
+            console.log(res.data.data);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+    
+    }, []);
 
     return (
         <>

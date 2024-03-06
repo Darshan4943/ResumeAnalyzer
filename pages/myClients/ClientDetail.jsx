@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router';
 import { details } from "../../utils/data";
+import axios from 'axios';
 function ClientDetail({ tabIndex }) {
 
     const router = useRouter();
@@ -19,6 +20,8 @@ function ClientDetail({ tabIndex }) {
             }
         }
     }, [router.query.detailIndex]);
+
+  
 
     return (
         <div className='flex flex-col gap-4 p-6'>
