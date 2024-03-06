@@ -25,6 +25,7 @@ function CandidateHeader() {
     setlogin(false);
     setIsLogin(false);
     router.push("/");
+    window.location.reload();
     toggleDropdown();
     localStorage.clear();
   };
