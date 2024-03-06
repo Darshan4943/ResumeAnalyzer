@@ -18,7 +18,6 @@ function UserSignUp({ setIsSignIn, handleGoogle, setSignIn, setSignUp }) {
   const [error, setError] = useState(null);
   const [isEmailEntered, setIsEmailEntered] = useState(false);
   const dispatch = useDispatch();
-  const sendToPurchase = JSON.parse(localStorage.getItem("purchase"));
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const handleTogglePassword = () => {
@@ -39,6 +38,7 @@ function UserSignUp({ setIsSignIn, handleGoogle, setSignIn, setSignUp }) {
       setError("Passwords do not match");
       return;
     }
+    const sendToPurchase = JSON.parse(localStorage.getItem("purchase"));
 
     const dataToSend = {
       email: data.email,

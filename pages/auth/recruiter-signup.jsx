@@ -4,7 +4,6 @@ import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
 import { reCallUserData } from "../../Redux/actions/user";
-import Link from "next/link";
 import { telCode } from "../../utils/data";
 import { useMediaQuery } from "@react-hook/media-query";
 import { motion } from "framer-motion";
@@ -13,7 +12,6 @@ import ReactSelect from "react-select";
 function Recruiter_signup({}) {
   const router = useRouter();
   const dispatch = useDispatch();
-  const sendToPurchase = JSON.parse(localStorage.getItem("purchase"));
   const [selectedItem, setSelectedItem] = useState(telCode[telCode.length - 2]);
   const [searchTerm, setSearchTerm] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -155,6 +153,7 @@ function Recruiter_signup({}) {
     }
 
     const hasErrors = Object.keys(errors).length > 0;
+    const sendToPurchase = JSON.parse(localStorage.getItem("purchase"));
 
     if (hasErrors) {
       toast.error("Please enter valid information");

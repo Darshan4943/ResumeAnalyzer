@@ -37,7 +37,7 @@ function Sign_up() {
           </div>
           <div className="flex justify-center item-center">
             <div className="flex flex-col gap-[24px] px-[8px]">
-              <Link href="/auth/user_signup">
+              <Link href="/auth/user-signup">
                 <div className="p-[16px] z-0 flex flex-row justify-between rounded-[16px] relative sign_up_shadow">
                   <div className="flex flex-row justify-center item-center gap-[8px] ">
                     <div className="flex items-center">
@@ -109,7 +109,7 @@ function Sign_up() {
                   <div className="h-[100%] w-[0%] bg-[#06a9ef] absolute z-[-1] top-[0px] left-[0]  sign_up_blue_hover"></div>
                 </div>
               </Link>
-              <Link href="/auth/recruiter_signup">
+              <Link href="/auth/recruiter-signup">
                 <div className="p-[16px] z-0 flex flex-row justify-between rounded-[16px] relative sign_up_shadow">
                   <div className="flex flex-row justify-center item-center gap-[8px] ">
                     <div className="flex items-center">
@@ -151,7 +151,7 @@ function Sign_up() {
                         Recruiter
                       </div>
                       <div className="text-[14px] font-[500] text-[#646464] sign_ip_text">
-                        Create resumes for various client's
+                        Create resumes for various clients
                       </div>
                     </div>
                   </div>
