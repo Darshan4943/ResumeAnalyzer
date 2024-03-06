@@ -1,6 +1,27 @@
-import React from "react";
+import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
 
 function RecruiterHero() {
+  const [isLogin, setIsLogin] = useState(false);
+ 
+  useEffect(() => {
+    const token = localStorage.getItem("authToken");
+    if (token && token != "undefined") {
+      if (token) {
+        setIsLogin(true);
+      } else {
+        setIsLogin(false);
+      }
+    }
+  }, []);
+  const router = useRouter();
+  const clickHandler = () => {
+    if (isLogin) {
+      router.push("/myClients/ClientResume");
+    } else {
+      router.push("/auth?signin=true");
+    }
+  };
   return (
     <div className="flex flex-col gap-[20px]">
       <div className="ml:min-h-[560px] bg-no-repeat pt-[12px] ml:pt-[61px] overflow-hidden bg-cover bg-center bg-recruiter_back w-screen">
@@ -27,7 +48,7 @@ function RecruiterHero() {
               open doors to a multitude of career possibilities.
             </p>
           </div>
-          <div className="get_started_button ml:pb-[30px] heroBlock">
+          <div onClick={clickHandler} className="get_started_button ml:pb-[30px] heroBlock">
             <button class="mt-[13px] border-none rounded-[8px] bg-[#ffda1d] flex items-center px-[48px] py-[18px] font-bold">
               Get started
             </button>
