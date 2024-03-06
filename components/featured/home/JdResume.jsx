@@ -29,7 +29,7 @@ function JdResume({ isLogin }) {
                         Boost your chances of getting noticed by hiring managers.
                     </div>
                     <button
-                        onClick={() => isLogin ? router.push("/home/BuildResume") : dispatch(popupVisible())}
+                        onClick={() => isLogin ? router.push("/home/BuildResume") :      router.push("/auth?signin=true")}
                         className="px-9 py-4 bg-[#06A9EF] text-white  rounded-[12px] md:text-[1.3vw] text-[14px] font-semibold"
                         style={{ width: "fit-content" }}
                     >

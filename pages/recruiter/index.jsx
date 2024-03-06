@@ -6,7 +6,7 @@ import RecruiterHero from "./RecruiterHero";
 import { Background, Parallax } from "react-parallax";
 import { ReactLenis } from "@studio-freight/react-lenis";
 import { gsap } from "gsap";
-import SubscriptionPlan from "../home/SubscriptionHome";
+import SubscriptionPlan from "../../components/featured/home/SubscriptionHome";
 
 function Recruiter_page() {
   const [showAnimationn, setShowAnimation] = useState(true);
@@ -55,7 +55,7 @@ function Recruiter_page() {
           <LastSection />
         </ReactLenis>
       </div>
-      <SubscriptionPlan />
+      <SubscriptionPlan fromMain={true} />
     </>
   );
 }

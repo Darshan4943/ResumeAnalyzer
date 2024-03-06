@@ -184,7 +184,7 @@ const MobileView = ({ clickHandler, isLogin }) => {
             <div className="flex flex-col gap-[24px] items-center">
               <div className="font-semibold text-[30px] leading-tight text-center">
                 <span className="text-[#06A9EF]">My Collection</span>
-                 <p>is Your Personal Resume Inventory</p>
+                <p>is Your Personal Resume Inventory</p>
               </div>
               <div className="font-medium text-[14px] text-[#333333] text-center ">
                 My Collection is your one-stop destination for organizing and
@@ -196,7 +196,7 @@ const MobileView = ({ clickHandler, isLogin }) => {
                 onClick={() =>
                   isLogin
                     ? router.push("/home/BuildResume")
-                    : dispatch(popupVisible())
+                    : router.push("/auth?signin=true")
                 }
                 className="px-9 py-4 bg-[#06A9EF] text-white  rounded-[12px] text-[14px] font-semibold"
                 style={{ width: "fit-content" }}
@@ -209,7 +209,7 @@ const MobileView = ({ clickHandler, isLogin }) => {
         <div className="flex flex-col gap-12  bg-subscriptionPlan justify-center items-left bg-cover bg-no-repeat  py-[24px]">
           <div className="text-center px-[8px]">
             <p className="text-[32px] text-[#333333] font-[700]">
-              Try our <span className="text-[#06A9EF]">Subscription</span>  plans
+              Try our <span className="text-[#06A9EF]">Subscription</span> plans
             </p>
             <p className="text-[14px] text-[#646464] font-[400]">
               Affordable plans for all the aspiring professionals.

@@ -32,7 +32,7 @@ function CandidateHome() {
     if (isLogin) {
       router.push("/home/BuildResume");
     } else {
-      dispatch(popupVisible());
+      router.push("/auth?signin=true");
     }
   };
   return (

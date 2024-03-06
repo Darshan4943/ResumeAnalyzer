@@ -16,7 +16,7 @@ function SkillAssessment({ isLogin }) {
       router.push("/home/SkillAssessment");
     } else {
 
-      dispatch(popupVisible())
+      router.push("/auth?signin=true");
     }
   };
 
