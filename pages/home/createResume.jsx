@@ -193,6 +193,7 @@ console.log(182,selectedResumeIndex)
         setTimeout(() => {
           setSelectedResumeIndex(3);
           setSelectedColor("#414042");
+          
         }, 400);
         const {
           firstName,
