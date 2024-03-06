@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { recallUser } from "../../Redux/reducers/userReducer";
 import MobileView from "../../components/featured/home/mobileView";
 import CandidateHome from "../../components/featured/candidate";
-import Recruiter_page from "../../components/featured/recruiter";
+import Recruiter_page from "../recruiter";
 
 function BeforeLoginHome() {
   const [isLogin, setIsLogin] = useState(false);

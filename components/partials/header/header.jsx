@@ -49,13 +49,25 @@ function Header({ userData }) {
                     alt=""
                   />
                 </Link>
-                <Link href="/">
-                  {" "}
+                <Link
+                  href="/"
+                  className={
+                    selectedPage === "/" || selectedPage === "/home"
+                      ? "active scr1250:text-[18px] text-[16px]"
+                      : "li scr1250:text-[18px] text-[16px]"
+                  }
+                >
                   Candidate
                 </Link>
-                <Link href="/">
-                  {" "}
-                 Recruiter
+                <Link
+                  href="/recruiter"
+                  className={
+                    selectedPage === "/recruiter"
+                      ? "active scr1250:text-[18px] text-[16px]"
+                      : "li scr1250:text-[18px] text-[16px]"
+                  }
+                >
+                  Recruiter
                 </Link>
               </div>
               <div className="w-[30%] gap-4  flex justify-end py-2 items-center">

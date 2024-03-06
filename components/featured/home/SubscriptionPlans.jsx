@@ -8,17 +8,20 @@ import "swiper/css";
 import "swiper/css/pagination";
 import { plans } from "../../../utils/data";
 import { popupVisible } from "../../../Redux/actions/user";
-function SubscriptionPlans() {
+function SubscriptionPlans({ fromMain }) {
   const router = useRouter();
   const userDataGlobal = useSelector((state) => state.userData);
   const [subPlans, setPlans] = useState([]);
   const dispatch = useDispatch();
   const [isLogin, setIsLogin] = useState(false);
+  const [isUser, setIsUser] = useState(true);
   useEffect(() => {
-    if (userDataGlobal.role == "user") {
-      setPlans(plans.slice(0, 3));
-    } else {
+    if (userDataGlobal.role == "recruiter" || fromMain) {
+      setIsUser(false);
       setPlans(plans.slice(3));
+    } else {
+      setIsUser(true);
+      setPlans(plans.slice(0, 3));
     }
     const token = localStorage.getItem("authToken");
     if (token && token != "undefined") {
@@ -44,7 +47,9 @@ function SubscriptionPlans() {
           {subPlans.map((plan, index) => (
             <div
               key={index}
-              className=" relative mt-[40px] bg-white  flex flex-col gap-4 items-center rounded-[16px] max-w-[20vw]"
+              className={` relative mt-[40px] bg-white  flex flex-col gap-4 items-center rounded-[16px] ${
+                isUser ? "max-w-[30vw]" : "max-w-[20vw]"
+              } `}
               style={{ boxShadow: "0px 2px 15px 0px #00000033" }}
             >
               {index === 1 && (
