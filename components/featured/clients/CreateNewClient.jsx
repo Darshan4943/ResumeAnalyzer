@@ -186,10 +186,10 @@ function CreateNewClient({ setTabIndex }) {
         toast.success("Client created successfully");
       } catch (error) {
         if (error.response == "User already exist") {
-        setLoading(false);
-        toast.error("Client already exist");
+          setLoading(false);
+          toast.error("Client already exist");
         } else {
-            setLoading(false);
+          setLoading(false);
           toast.error("Failed to create client");
         }
       }
