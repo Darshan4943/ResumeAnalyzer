@@ -19,7 +19,9 @@ const PersonalDetails = ({ setData, data }) => {
     email: "",
     location: "",
     designation: "",
+    dial_code:"+260"
   });
+  console.log(23,data,profileData)
   const [filteredTelCode, setFilteredTelCode] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   useEffect(() => {
@@ -199,7 +201,7 @@ const PersonalDetails = ({ setData, data }) => {
       mobileNumber,
       location: location,
       designation,
-      dial_code
+      dial_code:dial_code?dial_code:"+260"
     });
   }, [data]);
   return (
