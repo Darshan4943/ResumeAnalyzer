@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import axios from "axios";
 import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
 import { useDispatch } from "react-redux";
+import { auth } from "../../utils/firebase";
 function Main_sign_page() {
   const { signin, signup } = useRouter().query;
   const [isSignIn, setIsSignIn] = useState(true);
@@ -67,11 +68,11 @@ function Main_sign_page() {
       <div className=" justify-center relative w-[100%] flex overflow-hidden">
         <motion.div className="earthswipe object-contain -z-10">
           <motion.div
-            initial={isSignIn ? { left: "0%" } : { right: "-25%" }}
+            initial={isSignIn ? { left: "0%" } : { right: "-30%" }}
             animate={
               isSignIn
-                ? { right: "-25%", left: "" }
-                : { left: "", right: "-25%" }
+                ? { right: "-30%", left: "" }
+                : { left: "", right: "-30%" }
             }
             transition={{ duration: 1 }}
             className="earth"

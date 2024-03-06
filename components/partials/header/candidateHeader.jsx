@@ -5,7 +5,6 @@ import Link from "next/link";
 function CandidateHeader() {
   const router = useRouter();
   const userDataGlobal = useSelector((state) => state.userData);
- 
   const [selectedPage, setSelectedPage] = useState("");
   const { signin, signup } = useRouter().query;
   const [login, setlogin] = useState(false);
@@ -140,7 +139,7 @@ function CandidateHeader() {
               <img
                 className=" rounded-full object-cover h-[40px] w-[40px]"
                 src={
-                  userDataGlobal?.profilePicture?.img ||
+                  userDataGlobal?.profilePicture ||
                   "/images/profile/profileNew.png"
                 }
               />
