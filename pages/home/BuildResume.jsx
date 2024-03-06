@@ -22,8 +22,9 @@ const ArrowLeft = ({ index }) => (
 
 function BuildResume() {
     const router = useRouter();
-
-
+    const clientId = router.query.clientId;
+   
+   
     return (
         <>
             <div className="flex justify-center  w-full my-[3rem] ">
@@ -38,7 +39,7 @@ function BuildResume() {
                     </div>
                     <div className="flex justify-center item-center">
                         <div className="flex flex-col gap-[24px] px-[8px]">
-                            <ALink href="/auth/Candidate_register?isResume=true" >
+                            <ALink href={`/auth/Candidate_register?isResume=true&clientId=${clientId}`}>
                                 <div className="px-[16px] py-9 z-0 flex flex-row justify-between rounded-[16px] gap-3 relative sign_up_shadow">
                                     <div className="flex flex-row justify-center item-center gap-[8px] ">
                                         <div className="flex items-center">
@@ -70,7 +71,7 @@ function BuildResume() {
                                     <div className="h-[100%] w-[0%] bg-[#06a9ef] absolute z-[-1] top-[0px] left-[0]  sign_up_blue_hover"></div>
                                 </div>
                             </ALink>
-                            <ALink href="/auth/Candidate_register">
+                            <ALink href={`/auth/Candidate_register?clientId=${clientId}`}>
                                 <div className="px-[16px] py-9 z-0 flex flex-row justify-between rounded-[16px] gap-3 relative sign_up_shadow">
                                     <div className="flex flex-row justify-center item-center gap-[8px] ">
                                         <div className="flex items-center">

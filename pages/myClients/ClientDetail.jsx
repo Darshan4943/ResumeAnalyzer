@@ -10,7 +10,7 @@ function ClientDetail({ tabIndex }) {
     const [details, setDetails] = useState([])
     const [reCall, forceUpdate] = useReducer((x) => x + 1.0);
     const userDataGlobal = useSelector((state) => state.userData);
-    const detailId = router.query.detailIndex;
+    const clientId = router.query.detailIndex;
    
     // useEffect(() => {
       
@@ -29,7 +29,7 @@ function ClientDetail({ tabIndex }) {
   
         axios
           .get(
-            `http://localhost:2000/api/client/getByClientId/${detailId}`
+            `http://localhost:2000/api/client/getByClientId/${clientId}`
           )
           .then((res) => {
             setDetails([res.data.data]);
@@ -38,7 +38,7 @@ function ClientDetail({ tabIndex }) {
             console.log(err);
           });
     
-    }, [detailId]);
+    }, [clientId]);
 
 
     return (
@@ -131,7 +131,7 @@ function ClientDetail({ tabIndex }) {
                 Resumes
             </div>
             <div className='rounded-[12px] border flex flex-wrap scr540:justify-start justify-center gap-9 border-[#DEDEDE] bg-[#F9F9F9] p-6'>
-                <div style={{ boxShadow: "0px 0px 10px 5px #00000040" }} className='rounded-[12px] text-center text-white justify-center flex scr540:flex-col flex-row text-[18px] items-center gap-2 font-medium  scr540:w-[192px] w-[312px]  scr540:h-[272px] h-[135px] bg-[#646464] p-6'>
+                <div onClick={()=> router.push(`/home/BuildResume?clientId=${clientId}`)} style={{ boxShadow: "0px 0px 10px 5px #00000040" }} className='rounded-[12px] text-center text-white justify-center flex scr540:flex-col flex-row text-[18px] items-center gap-2 font-medium  scr540:w-[192px] w-[312px]  scr540:h-[272px] h-[135px] bg-[#646464] p-6'>
                     <svg width="27" height="27" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M11.8187 14.6206H0.0750732V12.1079H11.8187V0.364258H14.3314V12.1079H26.075V14.6206H14.3314V26.3642H11.8187V14.6206Z" fill="white" />
                     </svg>
