@@ -468,7 +468,7 @@ const ResumePreview = ({
           setLoading(false);
 
           console.log(err);
-          toast.success("Something went wrong ");
+          toast.error("Something went wrong ");
         });
     } else {
       setLoading(true);
@@ -505,7 +505,7 @@ const ResumePreview = ({
         })
         .catch((err) => {
           console.log(err);
-          toast.success("Something went wrong ");
+          toast.error("Something went wrong ");
           setLoading(false);
         });
     }
