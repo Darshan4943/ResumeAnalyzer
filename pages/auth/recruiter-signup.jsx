@@ -476,7 +476,7 @@ function Recruiter_signup({}) {
                     id="border_button"
                     onClick={(e) => {
                       e.preventDefault();
-                     router.push("/home");
+                     router.push("/auth?signup=true");
                     }}
                   >
                     Cancle
