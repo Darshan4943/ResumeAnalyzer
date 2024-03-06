@@ -474,10 +474,10 @@ function Recruiter_signup({}) {
                   <button
                     className="buttons"
                     id="border_button"
-                    // onClick={() => {
-                    //   setTabIndex(1);
-                    //   window.scroll(0, 0);
-                    // }}
+                    onClick={(e) => {
+                      e.preventDefault();
+                     router.push("/home");
+                    }}
                   >
                     Cancle
                   </button>
