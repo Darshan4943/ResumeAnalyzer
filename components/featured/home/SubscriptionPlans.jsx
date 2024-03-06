@@ -34,7 +34,7 @@ function SubscriptionPlans({ fromMain }) {
   }, [userDataGlobal]);
   const clickHandler = (index) => {
     if (isLogin) {
-      router.push(`/purchase/details?id=${index + 1}`);
+      router.push(`/purchase/details?id=${index }`);
     } else {
       localStorage.setItem("purchase", JSON.stringify({ status: true, index }));
       router.push("/auth?signup=true");
@@ -119,7 +119,7 @@ function SubscriptionPlans({ fromMain }) {
                     ))}
                   </div>
                   <button
-                    onClick={() => clickHandler(index)}
+                    onClick={() => clickHandler(plan.index)}
                     className="px-9 py-3 bg-[#06A9EF] text-white rounded-[12px] text-[1.4vw] font-semibold w-full"
                   >
                     Purchase Plan
@@ -219,7 +219,7 @@ function SubscriptionPlans({ fromMain }) {
                       ))}
                     </div>
                     <button
-                      onClick={() => clickHandler(index)}
+                      onClick={() => clickHandler(plan.index)}
                       //  onClick={() => isLogin && router.push("/myPurchase/Purchase")}
                       className="px-9 py-3 bg-[#06A9EF] text-white rounded-[12px] text-[14px] font-semibold w-full"
                     >
