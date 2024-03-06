@@ -5,7 +5,7 @@ import Link from "next/link";
 function CandidateHeader() {
   const router = useRouter();
   const userDataGlobal = useSelector((state) => state.userData);
-  console.log(8, userDataGlobal)
+ 
   const [selectedPage, setSelectedPage] = useState("");
   const { signin, signup } = useRouter().query;
   const [login, setlogin] = useState(false);

@@ -1,27 +1,45 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useReducer, useState } from 'react'
 import { useRouter } from 'next/router';
-import { details } from "../../utils/data";
+
 import axios from 'axios';
+import { useSelector } from 'react-redux';
 function ClientDetail({ tabIndex }) {
 
     const router = useRouter();
     const [selectedDetail, setSelectedDetail] = useState([]);
+    const [details, setDetails] = useState([])
+    const [reCall, forceUpdate] = useReducer((x) => x + 1.0);
+    const userDataGlobal = useSelector((state) => state.userData);
+    const detailId = router.query.detailIndex;
+   
+    // useEffect(() => {
+      
 
-    
+    //     if (detailIndex !== undefined) {
+    //         const index = parseInt(detailIndex);
+    //         if (index >= 0 && index < details?.length) {
+    //             setSelectedDetail([details[index]]);
+    //         } else {
+    //             setSelectedDetail([]);
+    //         }
+    //     }
+    // }, [router.query.detailIndex]);
+
     useEffect(() => {
-        const detailIndex = router.query.detailIndex;
-
-        if (detailIndex !== undefined) {
-            const index = parseInt(detailIndex);
-            if (index >= 0 && index < details.length) {
-                setSelectedDetail([details[index]]);
-            } else {
-                setSelectedDetail([]);
-            }
-        }
-    }, [router.query.detailIndex]);
-
   
+        axios
+          .get(
+            `http://localhost:2000/api/client/getByClientId/${detailId}`
+          )
+          .then((res) => {
+            setDetails([res.data.data]);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+    
+    }, [detailId]);
+
 
     return (
         <div className='flex flex-col gap-4 p-6'>
@@ -37,12 +55,13 @@ function ClientDetail({ tabIndex }) {
                 My Clients
             </div>
             <div className='flex  gap-8 flex-wrap scr700:justify-start justify-center'>
-                {selectedDetail?.map((detail, index) => (
+                {details?.map((detail, index) => (
                     <div key={index} className='flex scr540:flex-row flex-col gap-8 sm:p-6 p-4 rounded-[24px]' style={{ boxShadow: "0px 2px 7px 0px #00000040" }}>
                         <div className='flex justify-center items-center relative'>
                             <img
                                 className='rounded-[50%] scr540:h-[200px] scr540:w-[200px] h-[120px] w-[120px] '
-                                src={detail.profilePath}
+                                // src={detail.profilePath}
+                                src="/images/services/profile.png"
                                 alt='image'
 
                             />
@@ -87,7 +106,7 @@ function ClientDetail({ tabIndex }) {
                                     </svg>
 
 
-                                    <p className='text-[14px] font-normal'>{detail.mobileNumber}</p>
+                                    <p className='text-[14px] font-normal'>{detail.mobileNo}</p>
 
                                 </div>
                                 <div className='flex  gap-2'>
