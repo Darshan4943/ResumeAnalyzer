@@ -423,6 +423,14 @@ const ResumePreview = ({
             selectedFont={selectedFont}
           />
         );
+      default:
+        return (
+          <Template3
+            data={data}
+            selectedColor={selectedColor}
+            selectedFont={selectedFont}
+          />
+        );
     }
   };
 
