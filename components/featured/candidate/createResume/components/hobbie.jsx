@@ -1,28 +1,38 @@
 import React, { useState } from "react";
 
-const Hobbie = ({
-  data,
-  setData,
-}) => {
+const Hobbie = ({ data, setData }) => {
   const [text, setText] = useState("");
   const [saveDisabled, setSaveDisabled] = useState(true);
 
   const deleteHobbies = (index) => {
     const updatedHobbies = data.hobbies.filter((_, i) => i !== index);
     setData({ ...data, hobbies: updatedHobbies });
-    setSaveDisabled(false); 
+    setSaveDisabled(false);
   };
 
   const handleChange = (e) => {
     setText(e.target.value);
-    setSaveDisabled(false); 
+    setSaveDisabled(false);
   };
   const addHobby = () => {
-    setSaveDisabled(true); 
-    if (text.trim() !== "") {
-     
-      setText("");
-      setData({ ...data, hobbies: [...data.hobbies, { title: text }] });
+    setSaveDisabled(true);
+    if (text.split(",").length > 1) {
+      if (text.trim() !== "") {
+        setText("");
+        console.log(text.split(","))
+        setData({
+          ...data,
+          hobbies: [
+            ...data.hobbies,
+           ...text.split(",").map((item) => ({ title: item })),
+          ],
+        });
+      }
+    } else {
+      if (text.trim() !== "") {
+        setText("");
+        setData({ ...data, hobbies: [...data.hobbies, { title: text }] });
+      }
     }
   };
 
@@ -70,7 +80,7 @@ const Hobbie = ({
               placeholder="Enter your hobbies"
               className="w-full text-[14px] font-montserrat font-small"
               value={text}
-              onChange={handleChange} 
+              onChange={handleChange}
             />
           </div>
           <div className="flex justify-end ">

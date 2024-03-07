@@ -25,7 +25,7 @@ function MyClients() {
       document.removeEventListener("mousedown", handleOutsideClick);
     };
   }, []);
-  useEffect(() => {
+  const callData = () => {
     axios
       .get(
         `https://freedygoservices.in/api/client/getByRecruiter/${userDataGlobal._id}`
@@ -37,6 +37,9 @@ function MyClients() {
       .catch((err) => {
         console.log(err);
       });
+  };
+  useEffect(() => {
+    callData();
   }, [userDataGlobal]);
 
   const changeHandler = (value) => {
@@ -44,7 +47,7 @@ function MyClients() {
       const options = {
         includeScore: true,
         // Search in `author` and in `tags` array
-        keys: ["firstName", "lastName", "email", "mobileNo"],
+        keys: ["firstName", "lastName", "email", "mobileNo","location",'designation'],
       };
       const fuse = new Fuse(allData, options);
       const result = fuse.search(value);
@@ -68,7 +71,7 @@ function MyClients() {
                 style={{ boxShadow: "0px 2px 7px 0px #00000040" }}
                 className="flex gap-4 justify-between rounded-[50px] px-4 py-3 ml:w-[82%] w-[100%] items-center "
               >
-                <div className="flex gap-4  w-[70%] items-center ">
+                <div className="flex gap-4  w-full items-center ">
                   <svg
                     width="36"
                     height="36"
@@ -101,7 +104,7 @@ function MyClients() {
                 >
                   + Create New Client
                 </button>
-                <svg
+                {/* <svg
                   className=" cursor-pointer"
                   onClick={() => setIsOptions(true)}
                   width="40"
@@ -116,9 +119,9 @@ function MyClients() {
                       fill="#1C1B1F"
                     />
                   </g>
-                </svg>
+                </svg> */}
 
-                {isOptions && (
+                {/* {isOptions && (
                   <div
                     ref={taskRef}
                     className="absolute right-5 top-16 bg-white px-2 py-4 flex flex-col gap-1 rounded-[8px]"
@@ -132,7 +135,7 @@ function MyClients() {
                       Delete All
                     </p>
                   </div>
-                )}
+                )} */}
               </div>
             </div>
             <ClientList setTabIndex={setTabIndex} details={details} />
@@ -140,7 +143,9 @@ function MyClients() {
         </div>
       )}
 
-      {tabIndex === 2 && <CreateNewClient setTabIndex={setTabIndex} />}
+      {tabIndex === 2 && (
+        <CreateNewClient setTabIndex={setTabIndex} callData={callData} />
+      )}
     </div>
   );
 }

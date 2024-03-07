@@ -10,6 +10,7 @@ import { Close_svg } from "../../../../../utils/svg";
 
 const Skills = ({ data, setData }) => {
   const [skills, setSkills] = useState([...SkillList]);
+  const [isClearable, setIsClearable] = useState({ value: "", label: "" });
   const userDataGlobal = useSelector((state) => state.userData);
   const [saveDisabled, setSaveDisabled] = useState(false);
   const [skillList, setSkillList] = useState(data.skills);
@@ -61,11 +62,13 @@ const Skills = ({ data, setData }) => {
         { skill: value.label, rating: initialRatings },
       ]);
       setSaveDisabled(false);
+      setIsClearable({ skill: value.label, rating: initialRatings });
     }
   };
   const saveHandler = () => {
     setData({ ...data, skills: skillList });
     setSaveDisabled(true);
+    setIsClearable({ value: "", label: "" });
   };
   useEffect(() => {
     setSkillList(data.skills);
@@ -82,21 +85,23 @@ const Skills = ({ data, setData }) => {
             Skills & Ratings
           </div>
           <div className="flex flex-col scr420:gap-4 gap-6">
-            {skillList && Array.isArray(skillList) && skillList?.map((skill, index) => (
-              <div
-                key={index}
-                className="flex scr420:gap-4 gap-1 scr420:flex-row flex-col justify-between"
-              >
-                <div className="flex gap-1 px-3 py-2 border border-[#06A9EF] rounded-[24px] justify-between items-center">
-                  <p className="text-[14px] font-medium">{skill?.skill}</p>
+            {skillList &&
+              Array.isArray(skillList) &&
+              skillList?.map((skill, index) => (
+                <div
+                  key={index}
+                  className="flex scr420:gap-4 gap-1 scr420:flex-row flex-col justify-between"
+                >
+                  <div className="flex gap-1 px-3 py-2 border border-[#06A9EF] rounded-[24px] justify-between items-center">
+                    <p className="text-[14px] font-medium">{skill?.skill}</p>
 
-                  <div className="" onClick={() => deleteSkill(index)}>
-                    <Close_svg height={16} width={16} />
+                    <div className="" onClick={() => deleteSkill(index)}>
+                      <Close_svg height={16} width={16} />
+                    </div>
                   </div>
+                  <div className="flex">{renderStars(index, skill)}</div>
                 </div>
-                <div className="flex">{renderStars(index, skill)}</div>
-              </div>
-            ))}
+              ))}
           </div>
           <div className="w-full text-[14px] font-montserrat  font-small">
             List your skills and strengths
@@ -109,6 +114,7 @@ const Skills = ({ data, setData }) => {
             }))}
             className="w-full"
             onChange={handleChange}
+            value={isClearable}
           />
           <div className="flex justify-end ">
             <div className="flex justify-between  py-2 gap-2">

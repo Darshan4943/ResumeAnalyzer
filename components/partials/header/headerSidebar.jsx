@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 
 function HeaderSidebar({ selectedPage, setIsSidebar, setIsLogin, isLogin }) {
     // const list = ["Home", "My Purchase", "Employer", "Recruiter"];
-    const loginList = ["Home",  "My Collection", "Transform CV for Job Description", "Skill Test", "My Purchase"]
+    const loginList = ["Home",  "My Collection", "Transform CV ", "Skill Test", "My Purchase"]
     const router = useRouter();
     const userDataGlobal = useSelector((state) => state.userData);
     console.log(11, userDataGlobal)
@@ -87,7 +87,7 @@ function HeaderSidebar({ selectedPage, setIsSidebar, setIsLogin, isLogin }) {
                                 ...(item === 'My Clients' && getListItemStyles('/myClients')),
                                 ...(item === 'My Purchase' && getListItemStyles('/myPurchase/MyPurchase')),
                                 ...(item === 'My Collection' && getListItemStyles('/home/MyCollection')),
-                                ...(item === 'Transform CV for Job Description' && getListItemStyles('/transform/TransformJob')),
+                                ...(item === 'Transform CV ' && getListItemStyles('/transform/TransformJob')),
                                 ...(item === 'Skill Test' && getListItemStyles('/home/SkillAssessment')),
                             }}
 
@@ -106,7 +106,7 @@ function HeaderSidebar({ selectedPage, setIsSidebar, setIsLogin, isLogin }) {
                                     case 'My Collection':
                                         handleNavigation('/home/MyCollection');
                                         break;
-                                    case 'Transform CV for Job Description':
+                                    case 'Transform CV ':
                                         handleNavigation('/transform/TransformJob');
                                         break;
                                     case 'Skill Test':

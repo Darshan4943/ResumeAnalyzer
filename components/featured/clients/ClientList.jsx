@@ -36,7 +36,9 @@ function ClientList({ setTabIndex, tabIndex, details }) {
   return (
     <>
       <div className="rounded-[16px]  flex flex-col gap-4 w-[98%]">
-        <div className="text-[20px] font-medium">Total Clients (6)</div>
+        <div className="text-[20px] font-medium">
+          Total Clients ({details?.length})
+        </div>
         <div className="flex  gap-8 flex-wrap scr700:justify-start justify-center ">
           {details?.map((detail, index) => (
             <div

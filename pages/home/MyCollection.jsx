@@ -87,6 +87,24 @@ const MyCollection = () => {
                             className="h-[28px] w-[28px]"
                             alt=""
                           />
+                          
+                        </div>
+                        <div
+                          className="flex items-center flex-col cursor-pointer"
+                          style={{
+                            borderBottom: "1px solid #646464",
+                            paddingBottom: "12px",
+                          }}
+                          onClick={() => {
+                            setSelected(item);
+                            setPreview(true);
+                          }}
+                        >
+                          <img
+                            src="/images/icons/visibility.png"
+                            className="h-[28px] w-[28px]"
+                            alt=""
+                          />
                           <span className="text-[14px] font-semibold text-white ">
                             Preview
                           </span>

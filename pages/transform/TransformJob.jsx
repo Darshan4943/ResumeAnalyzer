@@ -16,7 +16,7 @@ function TransformJob() {
   const [newData, setNewData] = useState(null);
   const [details, setDetails] = useState();
   const [resumeList, setResumeList] = useState(null);
-  const [selectedClient, setSelectedClient] = useState({});
+  const [selectedClient, setSelectedClient] = useState(null);
   const userDataGlobal = useSelector((state) => state.userData);
   const handleChange = (event) => {
     setText(event.target.value);
@@ -39,47 +39,51 @@ function TransformJob() {
   };
 
   useEffect(() => {
-    axios
-      .get(
-        `https://freedygoservices.in/api/client/getByRecruiter/${userDataGlobal._id}`
-      )
-      .then((res) => {
-        const result = res.data.data;
-        setDetails(result);
-        setSelectedClient({
-          value: res.data.data[0]?._id,
-          label: res.data.data[0]?.firstName + " " + res.data.data[0]?.lastName,
-        });
-        axios
-          .get(
-            "https://freedygoservices.in/api/resume/" + res.data.data[0]?._id
-          )
-          .then((res) => {
-            console.log("first", selectedClient, res.data.data);
-            setResumeList(res.data.data);
-            setSelect(res.data.data[0]);
-          })
-          .catch((err) => {
-            console.log(err);
+    if (userDataGlobal == "recruiter") {
+      axios
+        .get(
+          `https://freedygoservices.in/api/client/getByRecruiter/${userDataGlobal._id}`
+        )
+        .then((res) => {
+          const result = res.data.data;
+          setDetails(result);
+          setSelectedClient({
+            value: res.data.data[0]?._id,
+            label:
+              res.data.data[0]?.firstName + " " + res.data.data[0]?.lastName,
           });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+          axios
+            .get(
+              "https://freedygoservices.in/api/resume/" + res.data.data[0]?._id
+            )
+            .then((res) => {
+              console.log("first", selectedClient, res.data.data);
+              setResumeList(res.data.data);
+              setSelect(res.data.data[0]);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   }, [userDataGlobal]);
 
   const selectHandler = (data) => {
-    setSelectedClient(data);
-    axios
-      .get("https://freedygoservices.in/api/resume/" + data.value)
-      .then((res) => {
-        console.log("first", selectedClient, res.data.data);
-        setResumeList(res.data.data);
-        setSelect(res.data.data[0]);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    if (userDataGlobal == "recruiter") {
+      setSelectedClient(data);
+      axios
+        .get("https://freedygoservices.in/api/resume/" + data.value)
+        .then((res) => {
+          setResumeList(res.data.data);
+          setSelect(res.data.data[0]);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
 
   return (
@@ -133,21 +137,28 @@ function TransformJob() {
             </div>
 
             <div className="rounded-[16px] border bg-[#F9F9F9] border-[#DEDEDE] pl-4 pr-4 ">
-              <div
-                className="flex gap-4   py-4  items-center"
-                style={{ overflowX: "auto" }}
-              >
-                <UserResumes
-                  setSelect={setSelect}
-                  setIsAll={setIsAll}
-                  isAll={false}
-                  resumeList={resumeList}
-                />
-              </div>
+              {(resumeList?.length > 0  || userDataGlobal != "recruiter") ? (
+                <div
+                  className="flex gap-4   py-4  items-center"
+                  style={{ overflowX: "auto" }}
+                >
+                  <UserResumes
+                    setSelect={setSelect}
+                    setIsAll={setIsAll}
+                    isAll={false}
+                    resumeList={resumeList}
+                    selected={selected}
+                  />
+                </div>
+              ) : (
+                <div className="text-[20px] font-medium text-center w-full py-[24px]">
+                  No Resume Available
+                </div>
+              )}
             </div>
             <div
               onClick={() => setIsAll(true)}
-              className="font-medium text-[18px] text-[#06A9EF] flex justify-end"
+              className="font-medium text-[18px] text-[#06A9EF] flex justify-end cursor-pointer"
             >
               See All
             </div>
@@ -194,7 +205,16 @@ function TransformJob() {
         <div className="ml:w-[50%] w-[100% flex flex-col gap-4">
           {selected && (
             <TransformJd
-              data={newData !== null ? newData : selected}
+              data={
+                newData !== null
+                  ? {
+                      ...newData,
+                      summery: newData.summary
+                        ? newData.summary
+                        : newData.summery,
+                    }
+                  : selected
+              }
               resumeTemplateIndex={selected.resumeTemplateIndex}
               selectedColor={selected.selectedColor}
               selectedFont={selected.selectedFont}

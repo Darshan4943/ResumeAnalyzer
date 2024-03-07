@@ -46,15 +46,15 @@ const ResumeForm = ({
         <AboutMe setData={setData} data={data} />
         <Education setData={setData} data={data} />
         <Experience setData={setData} data={data} />
-        
+
         {formField?.includes("course") && (
-              <Course setData={setData} data={data} />
+          <Course setData={setData} data={data} />
         )}
         <Skills setData={setData} data={data} />
         {/* <Achievement setData={setData} data={data} /> */}
-    
+
         {formField?.includes("socialLinks") && (
-              <SocialLink setData={setData} data={data} />
+          <SocialLink setData={setData} data={data} />
         )}
         {formField?.includes("hobbies") && (
           <Hobbie setData={setData} data={data} />
@@ -62,6 +62,16 @@ const ResumeForm = ({
         {formField?.includes("language") && (
           <Languages setData={setData} data={data} />
         )}
+        {/* <div className="flex items-center justify-end">
+          <div
+            onClick={() => {
+              setData({ ...data });
+            }}
+            className=" font-montserrat text-white font-medium text-[14px] px-[12px] rounded-[8px]  bg-[#06A9EF] h-[32px] flex items-center cursor-pointer "
+          >
+            <span className="text-[22px] mr-2">+</span> Add Section
+          </div>
+        </div> */}
       </div>
     </>
   );

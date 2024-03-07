@@ -10,7 +10,7 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import ImageContainer from "../../common/image";
-function CreateNewClient({ setTabIndex }) {
+function CreateNewClient({ setTabIndex, callData }) {
   const userDataGlobal = useSelector((state) => state.userData);
   const isViewportBelow850 = useMediaQuery("(max-width:850px)");
   const [loading, setLoading] = useState(false);
@@ -22,6 +22,7 @@ function CreateNewClient({ setTabIndex }) {
     email: "",
     location: "",
     gender: "male",
+    img: null,
   });
   const [file, setFile] = useState(null);
   const fileRef = useRef(null);
@@ -31,7 +32,7 @@ function CreateNewClient({ setTabIndex }) {
     const selectedFile = event.target.files[0];
     if (selectedFile) {
       if (selectedFile?.type.includes("image")) {
-        setFile(selectedFile);
+        setData({ ...data, img: selectedFile });
       } else {
         toast.error("Only Image files are allowed");
       }
@@ -162,7 +163,6 @@ function CreateNewClient({ setTabIndex }) {
             formdata.append(key, data[key]);
           }
         });
-        formdata.append("img", file);
         formdata.append("recruiterId", userDataGlobal._id);
         const response = await axios.post(
           "https://freedygoservices.in/api/client/create",
@@ -177,10 +177,11 @@ function CreateNewClient({ setTabIndex }) {
           location: "",
           gender: "male",
         });
-
+        callData();
         setFormError({});
         setLoading(false);
         setTabIndex(0);
+
         window.scrollTo(0, 0);
 
         toast.success("Client created successfully");
@@ -240,9 +241,9 @@ function CreateNewClient({ setTabIndex }) {
         <div className="flex flex-col gap-4">
           <p className="text-[16px] font-medium">Profile Photo</p>
           <div className="flex sm:gap-6 gap-3">
-            {file ? (
+            {data.img ? (
               <ImageContainer
-                src={URL.createObjectURL(file)}
+                src={URL.createObjectURL(data.img)}
                 alt="Selected File"
                 className="w-[112px] h-[112px] rounded-[50%] object-contain"
               />
@@ -285,7 +286,7 @@ function CreateNewClient({ setTabIndex }) {
               <div
                 className="text-[12px] font-semibold px-4 py-2 rounded-[8px]  border border-[#06A9EF]  w-[135px] cursor-pointer"
                 onClick={() => {
-                  setFile(null);
+                  setData({ ...data, img: null });
                 }}
               >
                 Remove Picture

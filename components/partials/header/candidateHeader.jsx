@@ -107,8 +107,20 @@ function CandidateHeader() {
               : "li scr1250:text-[18px] text-[16px]"
           }
         >
-          <li>Transform CV for Job Description</li>
+          <li>Transform CV </li>
         </Link>
+        {userDataGlobal.role === "recruiter" && (
+          <Link
+            href="/transform/JobMatching"
+            className={
+              selectedPage === "/transform/JobMatching"
+                ? "active scr1250:text-[18px] text-[16px]"
+                : "li scr1250:text-[18px] text-[16px]"
+            }
+          >
+            <li>Job Description Matching</li>
+          </Link>
+        )}
         <Link
           href="/purchase/MyPurchase"
           className={
@@ -133,7 +145,7 @@ function CandidateHeader() {
         )}
       </div>
 
-      <div className=" flex gap-4 justify-end py-2 items-center scr1250:w-[24.9%] w-[23%]  ">
+      <div className=" flex gap-4 justify-end py-2 items-center scr1250:w-[18%] w-[23%]  ">
         <div className="flex items-center gap-[8px]">
           <div className="scr1250:h-[40px] scr1250:w-[40px] h-[30px] w-[30px]">
             {userDataGlobal?.profilePicture ? (

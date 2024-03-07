@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 
 const Languages = ({ setData, data }) => {
-
   const [text, setText] = useState("");
   const initialRatingsLanguages = Array(3).fill(3);
 
@@ -13,22 +12,37 @@ const Languages = ({ setData, data }) => {
 
   const handleChange = (e) => {
     setText(e.target.value);
-    setSaveDisabled(false); 
+    setSaveDisabled(false);
   };
   const addLanguages = () => {
-    setSaveDisabled(true); 
-    if (text.trim() !== "") {
-      setData({
-        ...data,
-        languages: [
-          ...data.languages,
-          { languages: text, rating: [...ratingsLanguages] },
-        ],
-      });
-      setSaveDisabled(true); 
-      setText("");
-      setRatingsLanguages(initialRatingsLanguages);
-      
+    setSaveDisabled(true);
+    if (text.split(",").length > 1) {
+      if (text.trim() !== "") {
+        setText("");
+        setData({
+          ...data,
+          languages: [
+            ...data.languages,
+            ...text.split(",").map((item) => ({
+              languages: item,
+              rating: [...ratingsLanguages],
+            })),
+          ],
+        });
+      }
+    } else {
+      if (text.trim() !== "") {
+        setData({
+          ...data,
+          languages: [
+            ...data.languages,
+            { languages: text, rating: [...ratingsLanguages] },
+          ],
+        });
+        setSaveDisabled(true);
+        setText("");
+        setRatingsLanguages(initialRatingsLanguages);
+      }
     }
   };
 
@@ -106,8 +120,8 @@ const Languages = ({ setData, data }) => {
                   {languages.rating[2] !== 0
                     ? "Expert"
                     : languages.rating[1] !== 0
-                      ? "Proficient"
-                      : "Beginner"}
+                    ? "Proficient"
+                    : "Beginner"}
                 </p>
               </div>
             </div>
@@ -122,7 +136,7 @@ const Languages = ({ setData, data }) => {
             placeholder="Enter your language"
             className="w-full text-[14px] font-montserrat font-small"
             value={text}
-            onChange={handleChange} 
+            onChange={handleChange}
           />
         </div>
         <div className="flex justify-end ">
