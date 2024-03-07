@@ -2,8 +2,17 @@ import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 
 function RecruiterHero() {
+
   const [isLogin, setIsLogin] = useState(false);
- 
+  const [visible, setvisible] = useState(false);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setvisible(true);
+    }, 500);
+
+    return () => clearTimeout(timeout);
+  }, []);
   useEffect(() => {
     const token = localStorage.getItem("authToken");
     if (token && token != "undefined") {
@@ -23,56 +32,56 @@ function RecruiterHero() {
     }
   };
   return (
-    <div className="flex flex-col gap-[20px]">
-      <div className="ml:min-h-[560px] bg-no-repeat pt-[12px] ml:pt-[61px] overflow-hidden bg-cover bg-center bg-recruiter_back w-screen">
-        <div className="customMargins">
-          <div className="expand_text">
-            <p class="text-white max-w-[250px] ml:max-w-[750px] font-montserrat ml:text-[86px] text-[28px] leading-normal ml:leading-[105px] font-bold">
-              <span className="text-[#FFDA1D]">Expand</span> your <br />
-              recruiting limits
-            </p>
-          </div>
-          <div class="ml:mt-[24px] mt-[16px]">
-            <p class="text-white max-w-[255px] ml:max-w-[60%] font-montserrat text-[20px] ml:text-[26px]  font-bold">
-              Connect with a broad{" "}
-              <span class="text-[#FFDA1D]">spectrum of Employers</span>
-            </p>
-          </div>
-          <div class="ml:bg-white h-[1px] w-[55%] my-[12px]"></div>
-          <div className="para heroBlock">
-            <p class="max-w-[55%] text-white text-justify font-montserrat font-medium leading-[20px]">
-              Your consulting firm can tap into a vast network of employers
-              through our platform. We connect you with a diverse range of
-              companies, offering an extensive talent pool and growth
-              opportunities. Join us to expand your professional horizons and
-              open doors to a multitude of career possibilities.
-            </p>
-          </div>
-          <div onClick={clickHandler} className="get_started_button ml:pb-[30px] heroBlock">
-            <button class="mt-[13px] border-none rounded-[8px] bg-[#ffda1d] flex items-center px-[48px] py-[18px] font-bold">
-              Get started
-            </button>
-          </div>
+
+    <div className=" flex flex-col justify-center items-center bg-cover  bg-hero_backGround w-screen ml:pt-[68px] sm:pt-9 pt-4 ml:h-[100vh] ml:gap-[96px] sm:gap-12 gap-6 ">
+      <div style={{
+        opacity: visible ? 1 : 0,
+        transition: "opacity 2s ease-in-out",
+      }} className='flex ml:w-[57%] w-[85%] flex-col sm:gap-6 gap-4  items-center justify-center '>
+
+        <p className=' text-center ml:text-[3.3vw] text-[7vw] font-bold leading-tight'> <span className='text-[#06A9EF]'>Empowering</span> Recruiters to
+          Create Job Winning Resumes
+        </p>
+
+
+        <div className=' text-center ml:text-[1.1vw] text-[4vw]  font-medium'>
+          Transform recruiters into resume experts! With our platform, effortlessly create customized resumes for clients. Highlight their skills and experiences to boost their career prospects. Its that easy!
         </div>
+        <button onClick={clickHandler} className='bg-[#06A9EF] text-white px-4 ml:py-3 py-2 ml:w-[167px] ml:rounded-[12px] rounded-[8px] ml:text-[16px] text-[2.5vw] font-semibold'>
+          Get Started
+        </button>
+
+      </div>
+      <div className="relative w-full ml:h-screen h-[25vw]">
+        <img
+          style={{
+            opacity: visible ? 1 : 0,
+            transition: "transform 0.5s ease-in-out",
+            transform: visible ? "translateY(0)" : "translateY(100%)",
+          }}
+          className="absolute top-[5%] left-[-5%] w-[32%]"
+          src="/images/recruiter/hero1.png"
+          alt=""
+        />
+        <img style={{
+          opacity: visible ? 1 : 0,
+          transition: "transform 0.8s ease-in-out",
+          transform: visible ? "translateY(0)" : "translateY(100%)",
+        }} className='absolute z-10 top-[-4%] left-[22%] w-[32%] ' src="/images/recruiter/hero2.png" alt="" />
+        <img style={{
+          opacity: visible ? 1 : 0,
+          transition: "transform 1.1s ease-in-out",
+          transform: visible ? "translateY(0)" : "translateY(100%)",
+        }} className='absolute  z-20 top-[-12%] left-[48%] w-[32%] ' src="/images/recruiter/hero3.png" alt="" />
+        <img style={{
+          opacity: visible ? 1 : 0,
+          transition: "transform 1.4s ease-in-out",
+          transform: visible ? "translateY(0)" : "translateY(100%)",
+        }} className='absolute z-10 top-[0%] left-[75%] w-[32%] ' src="/images/recruiter/hero4.png" alt="" />
       </div>
 
-      <div className="flex flex-col items-center justify-center unblockRecruiter">
-        <div className="flex justify-center unblockRecruiter">
-          <p class="max-w-[95%] unblockRecruiter text-[#333] text-justify font-montserrat text-[14px] font-medium leading-[20px]">
-            Your consulting firm can tap into a vast network of employers
-            through our platform. We connect you with a diverse range of
-            companies, offering an extensive talent pool and growth
-            opportunities. Join us to expand your professional horizons and open
-            doors to a multitude of career possibilities.
-          </p>
-        </div>
-        <div className="get_started_button unblockRecruiter mb-[20px]">
-          <button class="mt-[13px] border-none rounded-[6px] bg-[#ffda1d] flex items-center px-[16px] py-[8px] text-[14px] font-bold">
-            Get started
-          </button>
-        </div>
-      </div>
     </div>
+
   );
 }
 

@@ -298,3 +298,9 @@ a {
 .moveImage {
   animation: moveImage 2s infinite; 
 }
+
+
+
+.line-animation {
+  transition: width 1s ease-in-out;
+}

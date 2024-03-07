@@ -7,6 +7,7 @@ import { Background, Parallax } from "react-parallax";
 import { ReactLenis } from "@studio-freight/react-lenis";
 import { gsap } from "gsap";
 import SubscriptionPlan from "../../components/featured/home/SubscriptionHome";
+import PrecisionMatching from "./PrecisionMatching";
 
 function Recruiter_page() {
   const [showAnimationn, setShowAnimation] = useState(true);
@@ -27,8 +28,9 @@ function Recruiter_page() {
   return (
     <>
       <div className="unblockRecruiter">
-        <RecruiterHero />
-        <RecruiterAnimation />
+       
+        <div className=" overflow-hidden"> <RecruiterHero /></div>
+        <PrecisionMatching/>
         <ExpandSection />
         <LastSection />
       </div>
@@ -38,14 +40,15 @@ function Recruiter_page() {
         <ReactLenis root>
           <Parallax
             strength={300}
-            className="h-[31rem] ml:h-[45rem] pt-[36px] "
+            className=" h-[100vh] pt-[36px] "
           >
             <Background className="custom-bg  ">
               <RecruiterHero />
             </Background>
           </Parallax>
-          <div className="h-[32rem] ml:h-[92vh] pt-[3rem]">
-            <RecruiterAnimation showAnimationn={!showAnimationn} />
+          <div className="h-[32rem] ml:h-[47vw] pt-[3rem]">
+            {/* <RecruiterAnimation showAnimationn={!showAnimationn} /> */}
+            <PrecisionMatching/>
           </div>
           <Parallax strength={400} className="h-[48rem] pt-[36px] ">
             <Background className="custom-bg  ">
