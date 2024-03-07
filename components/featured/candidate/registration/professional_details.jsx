@@ -40,7 +40,7 @@ const ProfessionalDetails = ({
         break;
       case "companyName":
         if (!value.trim()) {
-          errors.companyName = "Company Name Name is required";
+          errors.companyName = "Company Name is required";
         } else {
           delete errors.companyName;
         }
@@ -97,9 +97,10 @@ const ProfessionalDetails = ({
                     </p>
                     <div className="gender_button">
                       <button
-                        className={`gen_button ${data.employmentStatus == "employed" &&
+                        className={`gen_button ${
+                          data.employmentStatus == "employed" &&
                           "gen_button_active"
-                          }`}
+                        }`}
                         onClick={(e) => {
                           e.preventDefault();
                           setData({ ...data, employmentStatus: "employed" });
@@ -108,9 +109,10 @@ const ProfessionalDetails = ({
                         Employed
                       </button>
                       <button
-                        className={`gen_button ${data.employmentStatus == "unemployed" &&
+                        className={`gen_button ${
+                          data.employmentStatus == "unemployed" &&
                           "gen_button_active"
-                          }`}
+                        }`}
                         onClick={(e) => {
                           e.preventDefault();
                           setData({ ...data, employmentStatus: "unemployed" });
@@ -174,14 +176,15 @@ const ProfessionalDetails = ({
                             Select Month
                           </option>
                           {[...Array(12)].map((_, index) => (
-                            <option className="text-[16px]" key={index + 1} value={(index + 1).toString()}>
+                            <option
+                              className="text-[16px]"
+                              key={index + 1}
+                              value={(index + 1).toString()}
+                            >
                               {index + 1}
                             </option>
                           ))}
                         </select>
-
-
-
                       </div>
                     </div>
                   </div>

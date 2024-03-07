@@ -1,1 +1,6 @@
 add loader to signup and signin with google
+
+
+implement year and month picker in registration form before resume creation
+if user enters "," seperated values in hobbies and language then consider as multiple entities 
+clear skill input after selecting the skill

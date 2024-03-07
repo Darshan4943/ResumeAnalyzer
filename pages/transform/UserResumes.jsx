@@ -4,13 +4,16 @@ import { Document, Page, pdfjs } from "react-pdf";
 import { templates } from "../../utils/data";
 import { useSelector } from "react-redux";
 pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
-
-const PdfViewer = ({ pdfUrl, isAll, index }) => {
+const selectedStyle = {
+  borderTop: " 4px solid #06A9EF",
+  borderBottom: "4px solid #06A9EF",
+};
+const PdfViewer = ({ pdfUrl, isAll, index, selected }) => {
   const [numPages, setNumPages] = useState();
   function onDocumentLoadSuccess(numPages) {
     setNumPages(numPages);
   }
-
+  console.log(123, selected);
   return (
     <div
       style={{
@@ -19,6 +22,7 @@ const PdfViewer = ({ pdfUrl, isAll, index }) => {
         overflow: "hidden",
         height: isAll ? "auto" : "272px",
         width: isAll ? "auto" : "192px",
+        ...(selected && selectedStyle),
       }}
     >
       <Document
@@ -51,16 +55,18 @@ const PdfViewer = ({ pdfUrl, isAll, index }) => {
   );
 };
 
-const UserResumes = ({ setSelect, setIsAll, isAll, resumeList }) => {
+const UserResumes = ({ setSelect, setIsAll, isAll, resumeList, selected }) => {
   const [data, setData] = useState([]);
   const taskRef = useRef(null);
   const userDataGlobal = useSelector((state) => state.userData);
 
   useEffect(() => {
-    if (resumeList) {
+    console.log("first")
+    if (userDataGlobal == "recruiter") {
       setData(resumeList);
       // setSelect(resumeList[0]);
     } else {
+      console.log("first")
       axios
         .get("https://freedygoservices.in/api/resume/" + userDataGlobal?._id)
         .then((response) => {
@@ -71,7 +77,7 @@ const UserResumes = ({ setSelect, setIsAll, isAll, resumeList }) => {
           console.error("Error fetching data:", error);
         });
     }
-  }, [resumeList]);
+  }, [userDataGlobal]);
 
   return isAll ? (
     <div>
@@ -118,7 +124,11 @@ const UserResumes = ({ setSelect, setIsAll, isAll, resumeList }) => {
         }}
         key={index}
       >
-        <PdfViewer pdfUrl={item?.resumeUrl} index={item.resumeTemplateIndex} />
+        <PdfViewer
+          pdfUrl={item?.resumeUrl}
+          index={item.resumeTemplateIndex}
+          selected={item._id == selected._id}
+        />
       </div>
     ))
   );

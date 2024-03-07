@@ -51,6 +51,7 @@ function CreateResume() {
     sociaLinks: [],
     hobbies: [],
     languages: [],
+    section: [],
   });
   // const [data, setData] = useState({
   //   profilePhoto: null,
@@ -192,7 +193,6 @@ function CreateResume() {
         setTimeout(() => {
           setSelectedResumeIndex(3);
           setSelectedColor("#414042");
-          
         }, 400);
         const {
           firstName,
@@ -213,7 +213,7 @@ function CreateResume() {
           stream,
           university,
           specialization,
-          clientId
+          clientId,
         } = userData;
         const yearOfCompletion = new Date(dateOfComplition).getFullYear();
         const yearOfJoining = new Date(dateOfJoining).getFullYear();

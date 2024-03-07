@@ -153,10 +153,10 @@ function AccountDetails({ selectedPlan }) {
             key,
             amount: order.order.amount,
             currency: "USD",
-            description: "Test Transaction",
+            description: selectedPlan.duration + " " + selectedPlan.limit,
             image:
               "https://freedygo-storage-bucket-production.s3.ap-south-1.amazonaws.com/Frame+427322205.png",
-            name: "Skiloteck",
+            name: "Skilotech",
             order_id: order.order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
             modal: {
               ondismiss: function () {
