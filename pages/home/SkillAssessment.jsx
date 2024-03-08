@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import React, { useEffect, useReducer, useState } from "react";
+import React, { useEffect, useReducer, useRef, useState } from "react";
 
 import { useSelector } from "react-redux";
 import axios from "axios";
@@ -17,13 +17,15 @@ import ReactSelect from "react-select";
 import { SkillList } from "../../utils/data";
 
 
+import generatePDF from "react-to-pdf";
+import QuestionList from "../../components/featured/home/QuestionList";
 
-import html2pdf from 'html2pdf.js';
 
 
 
 function SkillAssessment() {
 
+  const resumeRef = useRef();
   const userDataGlobal = useSelector((state) => state.userData);
   const [reCall, forceUpdate] = useReducer((x) => x + 1.0);
   const [viewAddSkill, setViewAddSkill] = useState(false);
@@ -35,7 +37,7 @@ function SkillAssessment() {
   const [answer, setAnswer] = useState([]);
   const [questionIndex, setQuestionIndex] = useState(0);
   const [loading, setLoading] = useState(false);
- 
+  const [loadingg, setLoadingg] = useState(false);
   const [isTimerOver, setIsTimerOver] = useState(false);
   const [startTimer, setStartTimer] = useState(false);
   const [showSecondDiv, setshowSecondDiv] = useState(false);
@@ -43,50 +45,43 @@ function SkillAssessment() {
 
   const [selectedSkill, setSelectedSkill] = useState();
   const [skills, setSkills] = useState(SkillList);
-  
+
   const [inputValue, setInputValue] = useState('');
 
   const handleInputChange = (selectedOption) => {
     setSelectedSkill(selectedOption.value);
     setInputValue(selectedOption.value);
   };
-console.log(47,selectedSkill)
+  console.log(47, question)
+  console.log(55, answer)
 
 
 
-const jsonSeter = (question) => {
-  return question.map((questionItem, index) => {
-    return `
-      <div class="flex flex-col gap-2 py-3">
-        <div class="flex gap-2" style="background: #fff; padding: 8px; border-radius: 8px;">
-          <div class="text-14px">${index + 1}</div>
-          <ul class="m-0 flex flex-col gap-1">
-            <li class="flex flex-row gap-2 m-0"><span>Question:</span><span>${questionItem.question}</span></li>
-            <li class="flex flex-row gap-2 m-0"><span>Answer:</span><span>${questionItem.answer}</span></li>
-            
-          </ul>
-        </div>
-      </div>
-    `;
-  }).join('');
+
+  const generatePdf = () => {
+    setLoadingg(true);
+    return new Promise((resolve, reject) => {
+        generatePDF(resumeRef, {
+            filename: `${userDataGlobal?.basics?.firstName}-skilotech-resume-${userDataGlobal?.resumeUrl?.length}.pdf`,
+        });
+        resolve();
+    }).then(() => {
+       
+        setTimeout(() => {
+            setLoadingg(false);
+        }, 3000);
+    }).catch((error) => {
+        console.error('Error generating PDF:', error);
+        setLoadingg(false);
+    });
 };
 
 
 
-const htmlMarkup = jsonSeter(question);
 
-const PDFGenerator = ({ htmlMarkup }) => {
-  const generatePDF = () => {
-    
-    html2pdf().from(htmlMarkup).save();
-  };
 
-  return (
-    <div>
-      <button onClick={generatePDF}>Generate PDF</button>
-    </div>
-  );
-};
+
+
 
   const toggleContent = () => {
     setLoading(true);
@@ -120,18 +115,18 @@ const PDFGenerator = ({ htmlMarkup }) => {
     }
   }, [questionIndex]);
   useEffect(() => {
-  
-      axios
-        .get(
-          `https://freedygoservices.in/api/assessment/getByUser/${userDataGlobal._id}`
-        )
-        .then((res) => {
-          setAssessmentList(res.data.data);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-  
+
+    axios
+      .get(
+        `https://freedygoservices.in/api/assessment/getByUser/${userDataGlobal._id}`
+      )
+      .then((res) => {
+        setAssessmentList(res.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
   }, [selectedSkill, reCall]);
 
   const answerSeter = (question, Answer) => {
@@ -237,7 +232,7 @@ const PDFGenerator = ({ htmlMarkup }) => {
                           <div className="w-full flex justify-between gap-[12px]">
                             <div className="flex  gap-3 items-center self-stretch ">
                               <div className="w-[40px] h-[40px]">
-                                <Assessmentlogo/>
+                                <Assessmentlogo />
                               </div>
                               <div className="w-full">
                                 <p className="text-text-primary font-montserrat text-base font-medium leading-6">
@@ -438,6 +433,7 @@ const PDFGenerator = ({ htmlMarkup }) => {
                     Make sure you have a stable internet connection.
                   </div>
                 </div>
+
                 <div
                   onClick={() => {
                     toggleContent();
@@ -457,6 +453,7 @@ const PDFGenerator = ({ htmlMarkup }) => {
                 </div>
               </div>
             </div>
+
           </div>
         )}
         {toggle === 1 && (
@@ -521,6 +518,7 @@ const PDFGenerator = ({ htmlMarkup }) => {
                     </defs>
                   </svg>
                   {camelCase(selectedSkill)} Assessment
+
                 </div>
                 <div className="flex flex-col gap-[24px]">
                   <div
@@ -698,6 +696,7 @@ const PDFGenerator = ({ htmlMarkup }) => {
               </div>
             </div>
             <div className="w-[8px] ml:w-[22%] h-[2px] bg-[#06A9EF] border-none"></div>
+
           </div>
         )}
         {score && (
@@ -795,12 +794,18 @@ const PDFGenerator = ({ htmlMarkup }) => {
                   <div className="text-[16px] font-[500] text-[#333] flex justify-center text-center ">
                     Better Luck next time. Visit back tomorrow for more.
                   </div>
-                  <div className="flex justify-center items-center pb-[12px]">
-                    <button onClick={() => { setToggle(0); setScore(false) }} className="border-[1px] border-solid border-[#06A9EF] rounded-[12px] px-[36px] py-[12px] text-[16px] text-[#333] font-[500]">
+                  <div className="flex justify-between items-center pb-[12px] w-[80%] pt-4">
+                    <button onClick={() => { setToggle(0); setScore(false);window.location.reload() }} className="border-[1px] border-solid border-[#06A9EF] rounded-[12px] px-[24px] py-[8px] text-[16px] text-[#333] font-[500]">
                       Close
                     </button>
+                    <button className="border-[1px] min-w-[132.78px] flex justify-center items-center border-solid border-[#06A9EF] rounded-[12px] px-[24px] py-[8px] text-[16px]  font-[500] bg-blue text-white" onClick={() => generatePdf()}>  {loadingg && <MiniLoader />}
+                      {!loadingg && "Download"}</button>
+
                   </div>
-                  {/* <PDFGenerator htmlMarkup={htmlMarkup} /> */}
+
+                  <div className="absolute overflow-hidden left-[-5000px]" ref={resumeRef}>
+                    <QuestionList questions={question} answers={answer} />
+                  </div>
                 </div>
 
 

@@ -5,7 +5,7 @@ const MiniLoader = () => {
     <div role="status">
       <svg
         aria-hidden="true"
-        class="w-8 h-8 text-[#e0e0e0] animate-spin fill-[#06a9ef]"
+        class="w-6 h-6 text-[#e0e0e0] animate-spin fill-[#06a9ef]"
         viewBox="0 0 100 101"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
