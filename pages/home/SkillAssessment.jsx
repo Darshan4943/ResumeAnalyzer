@@ -16,6 +16,12 @@ import { Assessmentlogo } from "../../utils/svg";
 import ReactSelect from "react-select";
 import { SkillList } from "../../utils/data";
 
+
+
+import html2pdf from 'html2pdf.js';
+
+
+
 function SkillAssessment() {
 
   const userDataGlobal = useSelector((state) => state.userData);
@@ -45,6 +51,42 @@ function SkillAssessment() {
     setInputValue(selectedOption.value);
   };
 console.log(47,selectedSkill)
+
+
+
+const jsonSeter = (question) => {
+  return question.map((questionItem, index) => {
+    return `
+      <div class="flex flex-col gap-2 py-3">
+        <div class="flex gap-2" style="background: #fff; padding: 8px; border-radius: 8px;">
+          <div class="text-14px">${index + 1}</div>
+          <ul class="m-0 flex flex-col gap-1">
+            <li class="flex flex-row gap-2 m-0"><span>Question:</span><span>${questionItem.question}</span></li>
+            <li class="flex flex-row gap-2 m-0"><span>Answer:</span><span>${questionItem.answer}</span></li>
+            
+          </ul>
+        </div>
+      </div>
+    `;
+  }).join('');
+};
+
+
+
+const htmlMarkup = jsonSeter(question);
+
+const PDFGenerator = ({ htmlMarkup }) => {
+  const generatePDF = () => {
+    
+    html2pdf().from(htmlMarkup).save();
+  };
+
+  return (
+    <div>
+      <button onClick={generatePDF}>Generate PDF</button>
+    </div>
+  );
+};
 
   const toggleContent = () => {
     setLoading(true);
@@ -758,6 +800,7 @@ console.log(47,selectedSkill)
                       Close
                     </button>
                   </div>
+                  {/* <PDFGenerator htmlMarkup={htmlMarkup} /> */}
                 </div>
 
 
