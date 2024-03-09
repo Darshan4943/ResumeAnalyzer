@@ -156,7 +156,7 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
     <div className="flex justify-center items-center py-12 pl-[8px] pr-[8px]">
       <form
         onSubmit={submitHandler}
-        className=" bg-white flex w-[95%] sm:w-[464px] p-[24px] gap-[24px] flex-col justify-center items-center rounded-[24px] "
+        className=" bg-white flex w-[100%] sm:w-[464px] sm:p-[24px] p-3 gap-[24px] flex-col justify-center items-center rounded-[24px] "
         style={{
           boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
         }}
@@ -268,7 +268,7 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
             <div
               onClick={handleGoogle}
               style={{ borderColor: "#9D9D9D" }}
-              className=" cursor-pointer w-full px-[36px] py-[12px] rounded-[12px] border-[1px] border-solid border-[#9D9D9D]   text-[16px] font-[500] text-[#333] flex items-center gap-2 justify-center continue_btn"
+              className=" cursor-pointer w-full sm:px-[36px] px-4 py-[12px] rounded-[12px] border-[1px] border-solid border-[#9D9D9D]   text-[16px] font-[500] text-[#333] flex items-center gap-2 justify-center continue_btn"
             >
               <svg
                 width="25"
@@ -314,7 +314,7 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
                 <a> Sign In</a>
               </span>
             </div>
-            <div className="text-[12px] ">
+            <div className="text-[12px] text-center">
               By signing in, you agree to our{" "}
               <span
                 className="already_sign cursor-pointer"

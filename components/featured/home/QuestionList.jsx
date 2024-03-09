@@ -17,13 +17,13 @@ const QuestionList = ({ questions, answers }) => {
       {data.map((questionItem, index) => (
         <div className="flex flex-col gap-2 py-3" key={index}>
           <div className='flex gap-2'>
-            <span className='font-semibold min-w-[95px]'>Question {index + 1} </span> : {questionItem.question}
+            <span className='font-semibold min-w-[95px]'>Question {index + 1} :</span> {questionItem.question}
           </div>
           <div className={`flex gap-2 font-medium ${questionItem.answer === questionItem.yourAns ? "text-[#0C8A0A]": "text-red"} `}>
-          <span className='font-semibold text-[#000000]'>Your Answer </span> : {questionItem.yourAns}
+          <span className='font-semibold text-[#000000]'>Your Answer :</span>  {questionItem.yourAns}
           </div>
           <div className='flex gap-2 font-medium'>
-          <span className='font-semibold font'>Correct Answer </span> : {questionItem.answer}
+          <span className='font-semibold font'>Correct Answer :</span>  {questionItem.answer}
           </div>
         </div>
       ))}

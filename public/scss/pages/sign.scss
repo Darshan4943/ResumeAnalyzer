@@ -99,37 +99,44 @@
   background: url("../../images/employer/world1.png");
  
  
-  animation-name: rotate;
-  animation-duration: 4s;
-  animation-iteration-count: infinite;
-  animation-timing-function: linear;
+  // animation-name: rotate;
+  // animation-duration: 4s;
+  // animation-iteration-count: infinite;
+  // animation-timing-function: linear;
   background-size: cover;
   // opacity: 0.1;
 
   position: absolute;
-  // left: 0%;
-  transform: translate(-50%, -50%);
-  top: 50%;
+  // left: -200px;
+  // transform: translate(-50%, -50%);
+  top: 20%;
 }
 .earth1 {
   position: absolute;
-  transform: translate(-50%, -50%);
-  right: -7%;
+ 
+
     width: 24%;
     height: 50%;
-    top: 50%;
+    top: 25%;
 
   opacity: 0.1;
   overflow: hidden !important;
+}
+@media (max-width:1200px) {
+  .earth{
+    width: 300px;
+  height: 300px;
+  }
+ 
 }
 .sign_up_tethescope {
   // width: 450px;
   width: 35%;
   height: 76%;
   position: absolute;
-  transform: translate(-50%, -50%);
-  top: 55%;
-  right: -14%;
+  
+  top: 15%;
+ 
   opacity: 0.1;
   overflow: hidden !important;
 }
