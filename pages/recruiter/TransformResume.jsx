@@ -41,7 +41,7 @@ function TransformResume() {
             timeoutId = setTimeout(() => {
                 setTransform(true);
                 setRepeat(true)
-            }, 5000);
+            }, 7000);
         }
     
         return () => clearTimeout(timeoutId);
@@ -52,7 +52,7 @@ function TransformResume() {
             const timer = setTimeout(() => {
                 setTransform(false)
                 setRepeat(false)
-            }, 3000);
+            }, 4000);
 
             return () => {
                 clearTimeout(timer);
@@ -64,19 +64,19 @@ function TransformResume() {
 
     return (
         <div ref={transformRef} className='flex ml:gap-[10%] ml:flex-row gap-6 flex-col-reverse  w-screen items-center justify-center ml:p-10 px-2 py-8'>
-            <div className='flex flex-col gap-6 ml:w-[51%] w-[90%] ml:items-start items-center'>
+            <div className='flex flex-col ml:gap-6 gap-4 ml:w-[51%] w-[90%] ml:items-start items-center'>
                 <div className='flex flex-col gap-2 ml:text-start text-center'>
-                    <p className='ml:text-[3.9vw] text-[5vw]  font-bold leading-tight'>  Job Ready Resumes
+                    <p className='ml:text-[3.9vw] text-[9vw]  font-bold leading-tight'>  Job Ready Resumes
                         for any  <span className='text-[#06A9EF]'>Job Description</span></p>
-                    <p className='ml:text-[1.71vw] text-[3vw] font-medium'> Transform resumes to match job descriptions Perfectly</p>
+                    <p className='ml:text-[1.71vw] text-[5vw] font-medium'> Transform resumes to match job descriptions Perfectly</p>
                 </div>
-                <div className='ml:text-[1.45vw] text-[2.5vw] font-medium ml:text-start text-center'>
+                <div className='ml:text-[1.45vw] text-[4vw] font-medium ml:text-start text-center'>
 
                     Crafting personalized resumes to fit each job perfectly, highlighting the right skills and experiences. By making sure resumes match what employers are looking for, help clients stand out and land their dream jobs
                 </div>
                 <button
                     //  onClick={clickHandler}
-                    className='bg-[#06A9EF] text-white px-4 ml:py-3 py-2 ml:w-[190px] ml:rounded-[12px] rounded-[8px] ml:text-[16px] text-[2.5vw] font-semibold'>
+                    className='bg-[#06A9EF] text-white px-4 ml:py-3 py-2 ml:w-[190px] ml:rounded-[12px] rounded-[8px] ml:text-[16px] text-[4vw] font-semibold'>
                     Transform Resume
                 </button>
 
@@ -87,7 +87,7 @@ function TransformResume() {
 
                 }} className='w-[65%] h-[80%]' src="/images/recruiter/transformResume.png" alt="" />
                 <div className='bg-[#06A9EF] absolute w-[64%] h-[99%] rounded-[14px]' style={{
-                    filter: 'opacity(0.1)', opacity: transform ? 0 : 1,
+                    filter: 'opacity(0.07)', opacity: transform ? 0 : 1,
                     transition: "opacity 1s ease-in-out",
                 }}>
 

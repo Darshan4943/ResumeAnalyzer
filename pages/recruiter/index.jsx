@@ -9,6 +9,7 @@ import { gsap } from "gsap";
 import SubscriptionPlan from "../../components/featured/home/SubscriptionHome";
 import PrecisionMatching from "./PrecisionMatching";
 import TransformResume from "./TransformResume";
+import ClientSection from "./ClientSection";
 
 function Recruiter_page() {
   const [showAnimationn, setShowAnimation] = useState(true);
@@ -33,7 +34,7 @@ function Recruiter_page() {
         <div className=" overflow-hidden "> <RecruiterHero /></div>
         <PrecisionMatching/>
         <TransformResume />
-        <LastSection />
+        <ClientSection />
       </div>
 
       <div className="heroBlock">
@@ -56,7 +57,7 @@ function Recruiter_page() {
             <TransformResume />
             </Background>
           </Parallax>
-          <LastSection />
+          <ClientSection />
         </ReactLenis>
       </div>
       <SubscriptionPlan fromMain={true} />

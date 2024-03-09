@@ -139,7 +139,7 @@ function PrecisionMatching() {
                     <div className='bg-[#DEDEDE] rounded-[16px] w-[100%] h-[8px]'>
                         <div className={`${positionIndex === 6 ? "rounded-[16px]" : "rounded-l-[16px]"} line-animation ${positionIndex === 2 ? "bg-[#0C8A0A] w-[80%]" : positionIndex === 3 ? "bg-[#C00000] w-[25%]" : positionIndex === 4 ? "bg-[#598A0A] w-[70%]" : positionIndex === 5 ? "bg-[#FFA800] w-[48%]" : positionIndex === 6 ? "bg-[#0C8A0A] w-[100%]" : ""} h-[8px]`}></div>                    </div>
                     <div className='bg-[#DEDEDE] rounded-[16px] w-[100%] h-[8px]'>
-                        <div className='bg-[#06A9EF] rounded-l-[16px] w-[50px] h-[8px]'></div>
+                        <div className='bg-[#06A9EF] rounded-l-[16px] w-[70%] h-[8px]'></div>
                     </div>
                 </div>
 
@@ -165,16 +165,16 @@ function PrecisionMatching() {
 
 
             </div>
-            <div className='flex flex-col ml:gap-6 gap-4 ml:w-[50%] w-[85%] ml:items-start items-center'>
+            <div className='flex flex-col ml:gap-6 gap-4 ml:w-[50%] w-[100%] ml:items-start items-center'>
                 <div className='flex flex-col gap-2 ml:text-start text-center'>
-                    <p className='ml:text-[3.3vw] text-[5vw] font-bold leading-tight'> <span className='text-[#06A9EF]'>Precision Matching</span> for Perfect Job Fits</p>
-                    <p className='ml:text-[1.71vw] text-[3vw] font-medium'>Unlock the power of precision matching</p>
+                    <p className='ml:text-[3.3vw] text-[9vw] font-bold leading-tight'> <span className='text-[#06A9EF]'>Precision Matching</span> for Perfect Job Fits</p>
+                    <p className='ml:text-[1.71vw] text-[5vw] font-medium'>Unlock the power of precision matching</p>
                 </div>
-                <div className='ml:text-[1.45vw] text-[2.5vw] font-medium ml:text-start text-center'>
+                <div className='ml:text-[1.45vw] text-[4vw] font-medium ml:text-start text-center'>
                     with our job description compatibility search feature. Simply input the job description, and let our AI algorithm sift through your client database to find the perfect matches, saving you time and effort.
                 </div>
-                <button className='bg-[#FFD500] flex gap-2  ml:px-4 px-2 ml:py-3 py-2 ml:w-[174px] ml:rounded-[12px] rounded-[8px] justify-center items-center' onClick={clickHandler}>
-                    <p className='ml:text-[16px] text-[2.5vw] font-semibold'>Find Matches</p>
+                <button className='bg-[#06A9EF] text-white flex gap-2  ml:px-4 px-2 ml:py-3 py-2 ml:w-[174px] ml:rounded-[12px] rounded-[8px] justify-center items-center' onClick={clickHandler}>
+                    <p className='ml:text-[16px] text-[4vw] font-semibold'>Find Matches</p>
                     <img style={{
                         
                     }} className='w-[15%] h-[15%]' src="/images/recruiter/findMatch.png" alt="" />

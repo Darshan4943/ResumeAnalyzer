@@ -69,7 +69,7 @@ function SkillAssessment() {
        
         setTimeout(() => {
             setLoadingg(false);
-        }, 3000);
+        }, 2000);
     }).catch((error) => {
         console.error('Error generating PDF:', error);
         setLoadingg(false);
@@ -794,8 +794,8 @@ function SkillAssessment() {
                   <div className="text-[16px] font-[500] text-[#333] flex justify-center text-center ">
                     Better Luck next time. Visit back tomorrow for more.
                   </div>
-                  <div className="flex justify-between items-center pb-[12px] w-[80%] pt-4">
-                    <button onClick={() => { setToggle(0); setScore(false);window.location.reload() }} className="border-[1px] border-solid border-[#06A9EF] rounded-[12px] px-[24px] py-[8px] text-[16px] text-[#333] font-[500]">
+                  <div className="flex  justify-between items-center pb-[12px] w-[80%] pt-4">
+                    <button onClick={() => { setToggle(0); setScore(false);window.location.reload() }} className="border-[1px]  border-solid border-[#06A9EF] rounded-[12px] px-[24px] py-[8px] text-[16px] text-[#333] font-[500]">
                       Close
                     </button>
                     <button className="border-[1px] min-w-[132.78px] flex justify-center items-center border-solid border-[#06A9EF] rounded-[12px] px-[24px] py-[8px] text-[16px]  font-[500] bg-blue text-white" onClick={() => generatePdf()}>  {loadingg && <MiniLoader />}

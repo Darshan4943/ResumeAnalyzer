@@ -119,7 +119,7 @@ const MobileView = ({ clickHandler, isLogin }) => {
   const dispatch = useDispatch();
   return (
     <>
-      <div className="block lg:hidden my-4 mobile-view">
+      <div className="block lg:hidden mt-4 mobile-view">
         {" "}
         <div className=" flex flex-col gap-6 w-[100%] text-[#333333] ">
           <div className="flex flex-col items-center  px-[8px] py-[36px] gap-4">

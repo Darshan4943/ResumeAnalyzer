@@ -40,6 +40,7 @@ module.exports = {
       scr1350: "1350px",
       scr1400: "1400px",
       xl: "1440px",
+      xxl:"1700px"
     },
     colors: {
       red:"#C00000",

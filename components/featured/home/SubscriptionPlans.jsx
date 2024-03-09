@@ -37,9 +37,9 @@ function SubscriptionPlans({ fromMain }) {
       router.push(`/purchase/details?id=${index}`);
     } else {
       localStorage.setItem("purchase", JSON.stringify({ status: true, index }));
-      if(isUser){
+      if (isUser) {
         router.push("/auth/user-signup");
-      }else{
+      } else {
         router.push("/auth/recruiter-signup");
       }
     }
@@ -51,13 +51,12 @@ function SubscriptionPlans({ fromMain }) {
           {subPlans.map((plan, index) => (
             <div
               key={index}
-              className={` relative mt-[40px] bg-white  flex flex-col gap-4 items-center rounded-[16px] ${
-                isUser ? "max-w-[30vw]" : "max-w-[20vw]"
-              } `}
+              className={` relative mt-[40px] bg-white  flex flex-col gap-4 items-center rounded-[16px] ${isUser ? "max-w-[30vw]" : "max-w-[20vw]"
+                } `}
               style={{ boxShadow: "0px 2px 15px 0px #00000033" }}
             >
               {index === 1 && (
-                <div className="absolute left-0 top-[-36px] text-[1.3vw] font-semibold px-4 pt-[4px] pb-[100px] bg-[#06A9EF] text-white rounded-t-[16px]">
+                <div className="absolute left-0 xxl:top-[-45px] xl:top-[-40px] scr1200:top-[-35px] top-[-28px] text-[1.3vw] font-semibold px-4 pt-[4px] pb-[50px] bg-[#06A9EF] text-white rounded-t-[16px]">
                   Recommended
                 </div>
               )}
@@ -89,7 +88,7 @@ function SubscriptionPlans({ fromMain }) {
                     className="px-9 py-3 bg-[#06A9EF] text-white rounded-[12px] text-[1.4vw] font-semibold w-full"
                     style={{ opacity: 0.6 }}
                   >
-                    Purchase Plan
+                    Contact Us
                   </button>
                 </div>
               ) : (
@@ -191,7 +190,7 @@ function SubscriptionPlans({ fromMain }) {
                       disabled={true}
                       className="px-9 py-3 bg-[#06A9EF] text-white rounded-[12px] text-[1.4vw] font-semibold w-full"
                     >
-                      Purchase Plan
+                      Contact Us
                     </button>
                   </div>
                 ) : (
