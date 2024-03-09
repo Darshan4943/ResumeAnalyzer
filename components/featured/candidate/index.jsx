@@ -37,7 +37,7 @@ function CandidateHome() {
   };
   return (
     <div className="">
-      <div className="hidden lg:block w-full">
+      <div className="hidden ml:block w-full">
         <div className="flex flex-row gap-8 items-center  ">
           <div className=" flex flex-col gap-6 w-[50%] text-[#333333] pl-[24px] ">
             <div className="flex flex-col gap-[24px]">
