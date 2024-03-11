@@ -214,6 +214,8 @@ function CreateResume() {
           university,
           specialization,
           clientId,
+          jobDuration,
+          educationDuration,
         } = userData;
         const yearOfCompletion = new Date(dateOfComplition).getFullYear();
         const yearOfJoining = new Date(dateOfJoining).getFullYear();
@@ -236,16 +238,7 @@ function CreateResume() {
           clientId,
           education: [
             {
-              duration: {
-                start: {
-                  year: currentYear,
-                  month: currentMonth,
-                },
-                end: {
-                  year: yearOfCompletion,
-                  month: currentMonth,
-                },
-              },
+              duration: educationDuration && JSON.parse(educationDuration),
               qualification: stream,
               instituteName: university,
               specialization,
@@ -253,14 +246,7 @@ function CreateResume() {
           ],
           experience: [
             {
-              duration: {
-                start: {
-                  year: currentYear,
-                },
-                end: {
-                  year: yearOfJoining,
-                },
-              },
+              duration: jobDuration && JSON.parse(jobDuration),
               organization: companyName,
               location: jobLocation,
               designation: jobTitle,
@@ -275,12 +261,69 @@ function CreateResume() {
               skill: item.value,
               rating: [5, 5, 5, 5, 5],
             })),
+          section: [
+            {
+              header: "Projects",
+              subSection: [
+                {
+                  title: "demo",
+                  duration: {
+                    start: {
+                      month: "3",
+                      year: "2021",
+                    },
+                    end: {
+                      month: "1",
+                      year: "2024",
+                    },
+                  },
+                  description:
+                    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the releaseLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release",
+                },
+                {
+                  title: "demo",
+                  duration: {
+                    start: {
+                      month: "3",
+                      year: "2021",
+                    },
+                    end: {
+                      month: "1",
+                      year: "2024",
+                    },
+                  },
+                  description:
+                    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the releaseLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release",
+                },
+              ],
+            },
+            {
+              header: "Projects",
+              subSection: [
+                {
+                  title: "demo",
+                  duration: {
+                    start: {
+                      month: "3",
+                      year: "2021",
+                    },
+                    end: {
+                      month: "1",
+                      year: "2024",
+                    },
+                  },
+                  description:
+                    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release",
+                },
+              ],
+            },
+          ],
         }));
       }
     } else {
     }
   }, [userData]);
-
+  console.log(data);
   return (
     <div>
       <div className=" bg-[#F9F9F9] pt-2 ml:px-6 ">

@@ -2,20 +2,25 @@ import React, { useRef, useState } from "react";
 import { toast } from "react-toastify";
 import ImageContainer from "../../../../common/image";
 import { DumyImage } from "../../../../../utils/svg";
+import Cropper from "react-easy-crop";
+import ImageCropper from "./imageCropper";
 
 const ResumeList = ({ data, setData }) => {
   const [file, setFile] = useState(null);
+  const [modelView, setModelView] = useState(false);
   const fileRef = useRef(null);
   const [loading, setLoading] = useState(false);
   const handleButtonClick = () => {
     fileRef.current.click();
   };
+  const [croppedImage, setCroppedImage] = useState(null);
   const handleFileChange = (event) => {
     event.preventDefault();
     const selectedFile = event.target.files[0];
     if (selectedFile) {
       if (selectedFile?.type.includes("image")) {
         setFile(selectedFile);
+        setModelView(true);
       } else {
         toast.error("Only Image files are allowed");
       }
@@ -24,6 +29,7 @@ const ResumeList = ({ data, setData }) => {
   const handleDragOver = (event) => {
     event.preventDefault();
   };
+
   return (
     <>
       {/* <div className="bg-[#06A9EF] p-4 rounded-[16px] flex justify-between text-white">
@@ -49,11 +55,11 @@ const ResumeList = ({ data, setData }) => {
       >
         <p className="text-[20px] font-medium">Upload Photo</p>
         <div className="flex gap-4 items-center justify-center">
-          {file ? (
+          {file && croppedImage ? (
             <ImageContainer
-              src={URL.createObjectURL(file)}
+              src={croppedImage.url}
               alt="Selected File"
-              className="w-[112px] h-[112px] rounded-[50%] object-contain"
+              className="w-[112px] h-[112px] rounded-[50%] object-cover"
             />
           ) : (
             <svg
@@ -128,13 +134,20 @@ const ResumeList = ({ data, setData }) => {
                 file == data?.profilePhoto ? "opacity-50" : "opacity-100"
               }`}
               onClick={() => {
-                setData({ ...data, profilePhoto: file });
+                setData({ ...data, profilePhoto: croppedImage.blob });
               }}
             >
               Save
             </button>
           </div>
         </div>
+        {modelView && (
+          <ImageCropper
+            setModelView={setModelView}
+            file={file}
+            setCroppedImage={setCroppedImage}
+          />
+        )}
       </div>
     </>
   );

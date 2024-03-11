@@ -48,7 +48,7 @@ function Template4({ data, selectedColor, selectedFont,preview }) {
                     marginBottom: "16px",
                     height: "134px",
                     borderRadius: "50%",
-                    objectFit: "contain",
+                    objectFit: "cover",
                   }}
                 />
               ) : (

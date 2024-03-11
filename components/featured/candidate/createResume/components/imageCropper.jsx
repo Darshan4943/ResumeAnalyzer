@@ -1,0 +1,57 @@
+import React, { useState } from "react";
+import { ClosedIcon } from "../../../../../utils/svg";
+import Cropper from "react-easy-crop";
+import getCroppedImg from "./cropImage";
+import axios from "axios";
+const ImageCropper = ({ setModelView, file, setCroppedImage }) => {
+  const [crop, setCrop] = useState({ x: 0, y: 0 });
+  const [zoom, setZoom] = useState(1);
+  const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
+  const showCroppedImage = async () => {
+    try {
+      const croppedImage = await getCroppedImg(
+        URL.createObjectURL(file),
+        croppedAreaPixels
+      );
+      setCroppedImage(croppedImage);
+      setModelView(false);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+  const onCropComplete = (croppedArea, croppedAreaPixels) => {
+    // console.log(croppedArea, croppedAreaPixels);
+    setCroppedAreaPixels(croppedAreaPixels);
+  };
+  return (
+    <div>
+      <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
+      <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center  ">
+        <div className=" absolute bg-white  px-4 py-2 rounded-lg shadow-lg h-[90vh] flex flex-col gap-2 items-end w-[900px]">
+          <div className="flex gap-[16px]">
+            <button onClick={() => setModelView(false)}>
+              <ClosedIcon />
+            </button>
+          </div>
+
+          <div className="w-full  bg-[#525659] h-full flex items-center justify-center relative">
+            <div className="crop-container">
+              <Cropper
+                image={URL.createObjectURL(file)}
+                crop={crop}
+                zoom={zoom}
+                aspect={4 / 3}
+                onCropChange={setCrop}
+                onCropComplete={onCropComplete}
+                onZoomChange={setZoom}
+              />
+            </div>
+          </div>
+          <button onClick={showCroppedImage}>Save</button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default ImageCropper;

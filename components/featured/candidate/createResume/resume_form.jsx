@@ -12,6 +12,7 @@ import Hobbie from "./components/hobbie";
 import Languages from "./components/languages";
 import ThemeForm from "./components/themeForm";
 import { templates } from "../../../../utils/data";
+import AddSection from "./components/addSection";
 
 const ResumeForm = ({
   setData,
@@ -30,7 +31,7 @@ const ResumeForm = ({
       templates.find((item) => item.index == selectedResumeIndex)?.formFields
     );
   }, [selectedResumeIndex]);
-
+  console.log("first", data);
   return (
     <>
       <div className="flex flex-col ml:w-[40%] w-[100%]  pb-4 gap-4 rounded-lg ">
@@ -62,16 +63,41 @@ const ResumeForm = ({
         {formField?.includes("language") && (
           <Languages setData={setData} data={data} />
         )}
-        {/* <div className="flex items-center justify-end">
+        {data.section.length > 0 && (
+          <>
+            {data.section.map((item, index) => (
+              <div key={index}>
+                <AddSection
+                  section={item.subSection}
+                  formData={item.subSection[0]}
+                  data={data}
+                  setData={setData}
+                  index={index}
+                  item={item}
+                />
+              </div>
+            ))}
+          </>
+        )}
+        <div className="flex items-center justify-end">
           <div
             onClick={() => {
-              setData({ ...data });
+              setData({
+                ...data,
+                section: [
+                  ...data.section,
+                  {
+                    header: "",
+                    subSection: [],
+                  },
+                ],
+              });
             }}
             className=" font-montserrat text-white font-medium text-[14px] px-[12px] rounded-[8px]  bg-[#06A9EF] h-[32px] flex items-center cursor-pointer "
           >
             <span className="text-[22px] mr-2">+</span> Add Section
           </div>
-        </div> */}
+        </div>
       </div>
     </>
   );

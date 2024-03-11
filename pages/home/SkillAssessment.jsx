@@ -4,10 +4,7 @@ import React, { useEffect, useReducer, useState } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
 
-
-
 // import SkillModel from "../../../../../components/featured/candidate/profile/modals/skill_modal";
-
 
 import MiniLoader from "../../components/common/mini-loader";
 import { camelCase, formatDate } from "../../utils/middleware";
@@ -15,9 +12,9 @@ import Timer from "../../components/common/timer";
 import { Assessmentlogo } from "../../utils/svg";
 import ReactSelect from "react-select";
 import { SkillList } from "../../utils/data";
+import { toast } from "react-toastify";
 
 function SkillAssessment() {
-
   const userDataGlobal = useSelector((state) => state.userData);
   const [reCall, forceUpdate] = useReducer((x) => x + 1.0);
   const [viewAddSkill, setViewAddSkill] = useState(false);
@@ -29,7 +26,7 @@ function SkillAssessment() {
   const [answer, setAnswer] = useState([]);
   const [questionIndex, setQuestionIndex] = useState(0);
   const [loading, setLoading] = useState(false);
- 
+  const [skipped, setSkipped] = useState([]);
   const [isTimerOver, setIsTimerOver] = useState(false);
   const [startTimer, setStartTimer] = useState(false);
   const [showSecondDiv, setshowSecondDiv] = useState(false);
@@ -37,34 +34,38 @@ function SkillAssessment() {
 
   const [selectedSkill, setSelectedSkill] = useState();
   const [skills, setSkills] = useState(SkillList);
-  
-  const [inputValue, setInputValue] = useState('');
+
+  const [inputValue, setInputValue] = useState("");
 
   const handleInputChange = (selectedOption) => {
     setSelectedSkill(selectedOption.value);
     setInputValue(selectedOption.value);
   };
-console.log(47,selectedSkill)
 
   const toggleContent = () => {
-    setLoading(true);
-    axios
-      .post("https://freedygoservices.in/api/getQuetions", {
-        skill: selectedSkill,
-      })
-      .then((res) => {
-        setQuestion([
-          ...question,
-          ...JSON.parse(res.data.data.choices[0].message.content),
-        ]);
-        setToggle(1);
-        setLoading(false);
-        setStartTimer(true);
-      })
-      .catch((err) => {
-        console.log(err);
-        setLoading(false);
-      });
+    if (selectedSkill) {
+      setLoading(true);
+
+      axios
+        .post("https://freedygoservices.in/api/getQuetions", {
+          skill: selectedSkill,
+        })
+        .then((res) => {
+          setQuestion([
+            ...question,
+            ...JSON.parse(res.data.data.choices[0].message.content),
+          ]);
+          setToggle(1);
+          setLoading(false);
+          setStartTimer(true);
+        })
+        .catch((err) => {
+          console.log(err);
+          setLoading(false);
+        });
+    } else {
+      toast.error("Please select a skill to start skill assessment");
+    }
   };
 
   useEffect(() => {
@@ -78,18 +79,16 @@ console.log(47,selectedSkill)
     }
   }, [questionIndex]);
   useEffect(() => {
-  
-      axios
-        .get(
-          `https://freedygoservices.in/api/assessment/getByUser/${userDataGlobal._id}`
-        )
-        .then((res) => {
-          setAssessmentList(res.data.data);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-  
+    axios
+      .get(
+        `https://freedygoservices.in/api/assessment/getByUser/${userDataGlobal._id}`
+      )
+      .then((res) => {
+        setAssessmentList(res.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, [selectedSkill, reCall]);
 
   const answerSeter = (question, Answer) => {
@@ -103,17 +102,21 @@ console.log(47,selectedSkill)
     );
     return findAnswer ? true : false;
   };
+  console.log(skipped);
   const checkAnswer = () => {
     let correctAnswer = 0;
     answer.forEach((item) => {
-      if (question[item?.question - 1]?.answer == item?.Answer) {
-        correctAnswer = correctAnswer + 1;
+      console.log(item?.question)
+      if (!skipped.includes(item?.question)) {
+        if (question[item?.question - 1]?.answer == item?.Answer) {
+          correctAnswer = correctAnswer + 1;
+        }
       }
     });
 
-
     return correctAnswer;
   };
+  console.log(checkAnswer())
   return (
     <div className="pt-2">
       {/* {viewAddSkill && (
@@ -122,20 +125,19 @@ console.log(47,selectedSkill)
           userData={userDataGlobal}
         />
       )} */}
-      <div>
-
-      </div>
-      <div onWheel={(e) => e.stopPropagation()} className="bg-[#F9F9F9] h-full w-full ">
+      <div></div>
+      <div
+        onWheel={(e) => e.stopPropagation()}
+        className="bg-[#F9F9F9] h-full w-full "
+      >
         {toggle === 0 && (
           <div className="flex flex-col gap-[35px] pt-[24px] pb-[95px] items-start justify-start customMargins">
-
             <div
               className="customMargins  scr1024:w-[40%] sm:w-[60%] w-[80%] p-[16px] flex flex-col gap-[16px] rounded-[12px] bg-[#fff]"
               style={{
                 boxShadow: " 0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
               }}
             >
-
               <div className="text-[20px] font-medium">Select Skill</div>
 
               <ReactSelect
@@ -146,8 +148,6 @@ console.log(47,selectedSkill)
                 className="w-full"
                 onChange={handleInputChange}
               />
-
-
             </div>
             {/* <div className="flex justify-start w-full ">
               <button
@@ -190,12 +190,15 @@ console.log(47,selectedSkill)
                   </div>
                   <div className="max-h-[388px] ml:h-[388px] w-full overflow-auto ">
                     {assessmentList?.map((item) => (
-                      <div key={index} className="border-b border-solid border-[#DEDEDE] w-full">
+                      <div
+                        key={index}
+                        className="border-b border-solid border-[#DEDEDE] w-full"
+                      >
                         <div class="flex flex-col-reverse text-center  ml:flex-row ml:gap-[14px] py-[8px] px-[16px] w-[90%] ml:w-full items-center self-stretch ">
                           <div className="w-full flex justify-between gap-[12px]">
                             <div className="flex  gap-3 items-center self-stretch ">
                               <div className="w-[40px] h-[40px]">
-                                <Assessmentlogo/>
+                                <Assessmentlogo />
                               </div>
                               <div className="w-full">
                                 <p className="text-text-primary font-montserrat text-base font-medium leading-6">
@@ -205,10 +208,11 @@ console.log(47,selectedSkill)
                             </div>
                             <div className="flex  justify-center  items-center self-stretch  ">
                               <p
-                                className={`${item.score > 60
-                                  ? "text-[#0C8A0A]"
-                                  : "text-[red]"
-                                  } items-center  font-montserrat text-sm font-semibold leading-7`}
+                                className={`${
+                                  item.score > 60
+                                    ? "text-[#0C8A0A]"
+                                    : "text-[red]"
+                                } items-center  font-montserrat text-sm font-semibold leading-7`}
                               >
                                 {item.score > 60 ? "Completed" : "Incomplete"}
                               </p>
@@ -233,8 +237,9 @@ console.log(47,selectedSkill)
                 </div>
               )}
               <div
-                className={`p-[12px] ms:px-[60px] ms:customMargins ${showSecondDiv ? "ml:w-[50%]" : "w-[100.95%] "
-                  } scr1024:w-[50%] sm:w-[85%] w-[100%]  px-[12px] rounded-[12px] bg-[#005A81] flex flex-col  items-center gap-[8px] scr820:gap-[16px] `}
+                className={`p-[12px] ms:px-[60px] ms:customMargins ${
+                  showSecondDiv ? "ml:w-[50%]" : "w-[100.95%] "
+                } scr1024:w-[50%] sm:w-[85%] w-[100%]  px-[12px] rounded-[12px] bg-[#005A81] flex flex-col  items-center gap-[8px] scr820:gap-[16px] `}
               >
                 <div className="text-[20px] font-[600] text-[#fff] flex flex-row gap-[12px]">
                   <svg
@@ -404,11 +409,11 @@ console.log(47,selectedSkill)
                   <button
                     className=" h-[42px] w-[108px] flex items-center justify-center  rounded-[8px] border-[1px] border-solid border-[#06A9EF] bg-[#fff] text-[#333] text-[14px] font-[500] transition-all transition-[0.2s]"
                     disabled={loading}
-                  // onClick={() =>
-                  //   setQuestionIndex(
-                  //     questionIndex + 1 < 10 ? questionIndex + 1 : 9
-                  //   )
-                  // }
+                    // onClick={() =>
+                    //   setQuestionIndex(
+                    //     questionIndex + 1 < 10 ? questionIndex + 1 : 9
+                    //   )
+                    // }
                   >
                     {loading ? <MiniLoader /> : "Start"}
                   </button>
@@ -497,11 +502,12 @@ console.log(47,selectedSkill)
                   <div className="flex flex-col ml:flex-row gap-[24px]">
                     <div className="w-full flex items-between  flex-col gap-[24px]">
                       <div
-                        className={`py-[12px] px-[16px] rounded-[6px] ml:rounded-[8px] text-[12px] ml:text-[16px] font-[600] h-[50%]  ${isSelected(
-                          question[questionIndex]?.options[0],
-                          questionIndex + 1
-                        ) && "bg-[#06A9EF] text-white"
-                          }`}
+                        className={`py-[12px] px-[16px] rounded-[6px] ml:rounded-[8px] text-[12px] ml:text-[16px] font-[600] h-[50%]  ${
+                          isSelected(
+                            question[questionIndex]?.options[0],
+                            questionIndex + 1
+                          ) && "bg-[#06A9EF] text-white"
+                        }`}
                         style={{
                           boxShadow: "0px 0px 2px 0px rgba(0, 0, 0, 0.50)",
                         }}
@@ -515,11 +521,12 @@ console.log(47,selectedSkill)
                         A) {question[questionIndex]?.options[0]}
                       </div>
                       <div
-                        className={`py-[12px] px-[16px] rounded-[6px] ml:rounded-[8px] text-[12px] ml:text-[16px] font-[600] h-[50%]  ${isSelected(
-                          question[questionIndex]?.options[2],
-                          questionIndex + 1
-                        ) && "bg-[#06A9EF] text-white"
-                          }`}
+                        className={`py-[12px] px-[16px] rounded-[6px] ml:rounded-[8px] text-[12px] ml:text-[16px] font-[600] h-[50%]  ${
+                          isSelected(
+                            question[questionIndex]?.options[2],
+                            questionIndex + 1
+                          ) && "bg-[#06A9EF] text-white"
+                        }`}
                         style={{
                           boxShadow: "0px 0px 2px 0px rgba(0, 0, 0, 0.50)",
                         }}
@@ -535,11 +542,12 @@ console.log(47,selectedSkill)
                     </div>
                     <div className="w-full flex flex-col items-between gap-[24px]">
                       <div
-                        className={`py-[12px] px-[16px] rounded-[6px] ml:rounded-[8px] text-[12px] ml:text-[16px] font-[600] h-[50%]  ${isSelected(
-                          question[questionIndex]?.options[1],
-                          questionIndex + 1
-                        ) && "bg-[#06A9EF] text-white"
-                          }`}
+                        className={`py-[12px] px-[16px] rounded-[6px] ml:rounded-[8px] text-[12px] ml:text-[16px] font-[600] h-[50%]  ${
+                          isSelected(
+                            question[questionIndex]?.options[1],
+                            questionIndex + 1
+                          ) && "bg-[#06A9EF] text-white"
+                        }`}
                         style={{
                           boxShadow: "0px 0px 2px 0px rgba(0, 0, 0, 0.50)",
                         }}
@@ -553,11 +561,12 @@ console.log(47,selectedSkill)
                         B) {question[questionIndex]?.options[1]}
                       </div>
                       <div
-                        className={`py-[12px] px-[16px] rounded-[6px] ml:rounded-[8px] text-[12px] ml:text-[16px] font-[600] h-[50%]  ${isSelected(
-                          question[questionIndex]?.options[3],
-                          questionIndex + 1
-                        ) && "bg-[#06A9EF] text-white"
-                          }`}
+                        className={`py-[12px] px-[16px] rounded-[6px] ml:rounded-[8px] text-[12px] ml:text-[16px] font-[600] h-[50%]  ${
+                          isSelected(
+                            question[questionIndex]?.options[3],
+                            questionIndex + 1
+                          ) && "bg-[#06A9EF] text-white"
+                        }`}
                         style={{
                           boxShadow: "0px 0px 2px 0px rgba(0, 0, 0, 0.50)",
                         }}
@@ -580,6 +589,37 @@ console.log(47,selectedSkill)
                     startTimer={startTimer}
                     setIsTimerOver={setIsTimerOver}
                   />
+                </div>
+                <div
+                  className="flex flex-row gap-[3px] items-center cursor-pointer text-[18px] font-[600] w-[340px] px-[12px] justify-between  rounded-[8px] border-[1px] border-solid border-[#06A9EF] bg-[#fff]"
+                  onClick={() => {
+                    if (questionIndex == 9) {
+                      axios
+                        .post(
+                          "https://freedygoservices.in/api/assessment/add",
+                          {
+                            userId: userDataGlobal._id,
+                            skill: selectedSkill,
+                            score: checkAnswer() * 10,
+                            date: new Date(),
+                          }
+                        )
+                        .then((res) => {
+                          setScore(true);
+                        })
+                        .catch((err) => {
+                          console.log(err);
+                        });
+                    } else {
+                      setQuestionIndex(
+                        questionIndex + 1 < 10 ? questionIndex + 1 : 9
+                      );
+                    }
+                    setSkipped([...skipped, questionIndex]);
+                  }}
+                >
+                  <span className="text-red">X</span>
+                  Not Relevent
                 </div>
                 <div className="flex flex-row justify-between ml:gap-[72px]">
                   <div
@@ -714,7 +754,10 @@ console.log(47,selectedSkill)
                             </div>
                           </div>
                           <div className="text-[12px] font-[400] flex justify-end">
-                            {(checkAnswer() / question.length) * 100}%
+                            {((checkAnswer() / question.length) * 100).toFixed(
+                              0
+                            )}
+                            %
                           </div>
                         </div>
                         <div>
@@ -741,26 +784,37 @@ console.log(47,selectedSkill)
                             </div>
                           </div>
                           <div className="text-[12px] font-[400] flex justify-end">
-                            {((checkAnswer() / question.length) * 100) - 100} %
+                            {(
+                              (checkAnswer() / question.length) * 100 -
+                              100
+                            ).toFixed(0)}{" "}
+                            %
                           </div>
                         </div>
                         <div className="text-[18px] text-[#5B5B5B] font-[600]">
-                          Your Grade is   {(checkAnswer() / question.length) * 100} %
+                          Your Grade is{" "}
+                          {((checkAnswer() / question.length) * 100).toFixed(0)}{" "}
+                          %
                         </div>
                       </div>
                     </div>
                   </div>
-                  <div className="text-[16px] font-[500] text-[#333] flex justify-center text-center ">
-                    Better Luck next time. Visit back tomorrow for more.
-                  </div>
+
                   <div className="flex justify-center items-center pb-[12px]">
-                    <button onClick={() => { setToggle(0); setScore(false) }} className="border-[1px] border-solid border-[#06A9EF] rounded-[12px] px-[36px] py-[12px] text-[16px] text-[#333] font-[500]">
+                    <button
+                      onClick={() => {
+                        setToggle(0);
+                        setScore(false);
+                        setQuestionIndex(0);
+                        setQuestion([]);
+                        setSkipped([])
+                      }}
+                      className="border-[1px] border-solid border-[#06A9EF] rounded-[12px] px-[36px] py-[12px] text-[16px] text-[#333] font-[500]"
+                    >
                       Close
                     </button>
                   </div>
                 </div>
-
-
               </div>
             </div>
           </>

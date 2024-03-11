@@ -21,7 +21,6 @@ const PersonalDetails = ({ setData, data }) => {
     designation: "",
     dial_code:"+260"
   });
-  console.log(23,data,profileData)
   const [filteredTelCode, setFilteredTelCode] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   useEffect(() => {

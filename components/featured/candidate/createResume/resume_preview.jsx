@@ -66,6 +66,7 @@ const ResumePreview = ({
   };
   useEffect(() => {
     callData();
+    setName(data.firstName + "_resume");
   }, [userDataGlobal]);
   const templates = [
     // {
@@ -209,58 +210,6 @@ const ResumePreview = ({
     //   themeColor: "#303030",
     // },
   ];
-
-  const renderTemplates = () => {
-    const selectedStyle = {
-      borderTop: " 4px solid #06A9EF",
-      borderBottom: "4px solid #06A9EF",
-      height: " 210px",
-      width: "auto",
-    };
-    return templates.map((template, index) => (
-      <img
-        style={selectedResumeIndex == template.index ? selectedStyle : {}}
-        key={index}
-        src={template.imgUrl}
-        className="h-[200px] w-[140.91px] rounded-[6px]"
-        alt=""
-        onClick={() => handleImageClick(template)}
-      />
-    ));
-  };
-
-  const renderAllTemplates = () => {
-    return templates.map((template, index) => (
-      <img
-        key={index}
-        src={template.imgUrl}
-        className="h-[330px] w-[234px] rounded-[6px] transition-transform duration-300 ease-in-out hover:scale-105"
-        style={{ boxShadow: "0px 0px 26.499px 0px rgba(0, 0, 0, 0.25)" }}
-        alt=""
-        onClick={() => {
-          handleImageClick(template);
-          setIsAll(false);
-        }}
-      />
-    ));
-  };
-
-  const [isAll, setIsAll] = useState(false);
-
-  const handleImageClick = (template) => {
-    togglePreview(true, template.index);
-    setSelectedColor(template.themeColor);
-    setSelectedFont(template.fontFamily);
-  };
-
-  const resumeRef = useRef();
-  const [preview, setPreview] = useState(false);
-
-  const [loading, setLoading] = useState(false);
-
-  const togglePreview = (isVisible, index) => {
-    setSelectedResumeIndex(index);
-  };
   const selectResumeTemplate = (index) => {
     switch (index) {
       case 1:
@@ -432,6 +381,58 @@ const ResumePreview = ({
           />
         );
     }
+  };
+
+  const renderTemplates = () => {
+    const selectedStyle = {
+      borderTop: " 4px solid #06A9EF",
+      borderBottom: "4px solid #06A9EF",
+      height: " 210px",
+      width: "auto",
+    };
+    return templates.map((template, index) => (
+      <img
+        style={selectedResumeIndex == template.index ? selectedStyle : {}}
+        key={index}
+        src={template.imgUrl}
+        className="h-[200px] w-[140.91px] rounded-[6px]"
+        alt=""
+        onClick={() => handleImageClick(template)}
+      />
+    ));
+  };
+
+  const renderAllTemplates = () => {
+    return templates.map((template, index) => (
+      <img
+        key={index}
+        src={template.imgUrl}
+        className="h-[330px] w-[234px] rounded-[6px] transition-transform duration-300 ease-in-out hover:scale-105"
+        style={{ boxShadow: "0px 0px 26.499px 0px rgba(0, 0, 0, 0.25)" }}
+        alt=""
+        onClick={() => {
+          handleImageClick(template);
+          setIsAll(false);
+        }}
+      />
+    ));
+  };
+
+  const [isAll, setIsAll] = useState(false);
+
+  const handleImageClick = (template) => {
+    togglePreview(true, template.index);
+    setSelectedColor(template.themeColor);
+    setSelectedFont(template.fontFamily);
+  };
+
+  const resumeRef = useRef();
+  const [preview, setPreview] = useState(false);
+
+  const [loading, setLoading] = useState(false);
+
+  const togglePreview = (isVisible, index) => {
+    setSelectedResumeIndex(index);
   };
 
   const taskRef = useRef(null);
@@ -691,30 +692,6 @@ const ResumePreview = ({
           </div>
         </div>
 
-        {/* <div className="mobile">
-          <div className="flex gap-2 scr420:gap-[16px] justify-between">
-            <button
-              className=" text-[12px] flex gap-1 items-center justify-between text-[#333] font-montserrat font-semibold px-2 py-1 rounded-[8px] border border-[#06A9EF]"
-              onClick={() => isSetEdit(true)}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="21"
-                height="20"
-                viewBox="0 0 21 20"
-                fill="none"
-              >
-                <g mask="url(#mask0_5925_110931)">
-                  <path
-                    d="M4.66404 15.8317H5.71531L14.2458 7.30121L13.1945 6.24994L4.66404 14.7804V15.8317ZM3.41406 17.0817V14.2612L14.4061 3.27402C14.5321 3.15956 14.6712 3.07112 14.8235 3.00868C14.9757 2.94625 15.1354 2.91504 15.3025 2.91504C15.4696 2.91504 15.6314 2.94469 15.7881 3.004C15.9447 3.06329 16.0834 3.15757 16.2041 3.28683L17.2217 4.31727C17.351 4.43799 17.4431 4.57691 17.4981 4.73402C17.5532 4.89112 17.5807 5.04821 17.5807 5.20531C17.5807 5.37288 17.5521 5.5328 17.4948 5.68506C17.4376 5.83734 17.3466 5.97648 17.2217 6.1025L6.23454 17.0817H3.41406ZM13.7109 6.78479L13.1945 6.24994L14.2458 7.30121L13.7109 6.78479Z"
-                    fill="#333333"
-                  />
-                </g>
-              </svg>
-              Edit
-            </button>
-          </div>
-        </div> */}
         {selectedResumeIndex !== undefined && (
           <div
             className=" w-full flex items-center justify-center mt-3 bg-[#525659] py-[24px] rounded-[8px]"

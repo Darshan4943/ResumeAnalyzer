@@ -36,6 +36,7 @@ const DateSelector = ({ idPrefix, dataSeter, data }) => {
   };
 
   const handleEndYearChange = (e) => {
+    console.log(e.target.value);
     dataSeter({
       ...data,
       duration: {
@@ -61,7 +62,7 @@ const DateSelector = ({ idPrefix, dataSeter, data }) => {
       <div className="flex flex-col gap-2">
         <div>
           <label
-            className="w-full flex gap-2 text-[14px] font-montserrat  font-medium"
+            className="w-full flex gap-2 text-[12px] font-montserrat  font-medium"
             htmlFor={`${idPrefix}-startMonth`}
           >
             Start Date
@@ -83,12 +84,7 @@ const DateSelector = ({ idPrefix, dataSeter, data }) => {
                 background: " transparent",
               }}
             >
-              <option
-                value="Month"
-                disabled
-                hidden
-                className="px-4  text-[14px] py-2"
-              >
+              <option value="" className="px-4  text-[14px] py-2">
                 Month
               </option>
 
@@ -104,12 +100,12 @@ const DateSelector = ({ idPrefix, dataSeter, data }) => {
                 </option>
               ))}
             </select>
-          
-              <img
-                src="/images/down_arrow.png"
-                className="h-[20px] w-[20px] absolute right-[4px]"
-                alt=""
-              />
+
+            <img
+              src="/images/down_arrow.png"
+              className="h-[20px] w-[20px] absolute right-[4px]"
+              alt=""
+            />
           </div>
 
           <div className="flex items-center rounded-lg border border-[#646464] bg-white text-[14px]  font-montserrat font-small relative min-w-[100px] w-full overflow-hidden">
@@ -127,7 +123,7 @@ const DateSelector = ({ idPrefix, dataSeter, data }) => {
               }}
               className="w-outline-none focus-visible:outline-none  p-2 w-full"
             >
-              <option value="Year" disabled hidden>
+              <option value="" className="px-4  text-[14px] py-2">
                 Year
               </option>
               {getYear().map((year) => (
@@ -153,7 +149,7 @@ const DateSelector = ({ idPrefix, dataSeter, data }) => {
         <div className="flex flex-col gap-2">
           <div>
             <label
-              className="w-full flex gap-2 text-[14px] font-montserrat  font-medium"
+              className="w-full flex gap-2 text-[12px] font-montserrat  font-medium"
               htmlFor={`${idPrefix}-endMonth`}
             >
               End Date
@@ -175,9 +171,7 @@ const DateSelector = ({ idPrefix, dataSeter, data }) => {
                 }}
                 className="w-outline-none focus-visible:outline-none  p-2 w-full"
               >
-                <option value="Month" disabled hidden>
-                  Month
-                </option>
+                <option value="">Month</option>
                 {months.map((month) => (
                   <option key={month} value={month} className="px-4 py-2">
                     {new Date(0, month - 1).toLocaleString("en", {
@@ -208,9 +202,7 @@ const DateSelector = ({ idPrefix, dataSeter, data }) => {
                 }}
                 className="w-outline-none focus-visible:outline-none  p-2 w-full"
               >
-                <option value="Year" disabled hidden>
-                  Year
-                </option>
+                <option value="">Year</option>
                 {getYear().map((year) => (
                   <option key={year} value={year} className="px-4 py-2">
                     {year}

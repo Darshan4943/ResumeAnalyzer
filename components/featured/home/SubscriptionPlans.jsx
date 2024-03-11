@@ -100,7 +100,7 @@ function SubscriptionPlans({ fromMain }) {
                       {plan.limit}
                     </p>
                     <p className="text-[2.5vw] font-[700]">{plan.price}</p>
-                    <p className="text-[1.1vw] font-[500]">
+                    <p className="text-[1.1vw] font-[500]" style={{textTransform:"capitalize"}}>
                       {plan.description}
                     </p>
                     <div className="bg-[#DEDEDE] h-[2px]" />

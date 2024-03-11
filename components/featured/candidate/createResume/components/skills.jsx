@@ -13,10 +13,17 @@ const Skills = ({ data, setData }) => {
   const [isClearable, setIsClearable] = useState({ value: "", label: "" });
   const userDataGlobal = useSelector((state) => state.userData);
   const [saveDisabled, setSaveDisabled] = useState(false);
-  const [skillList, setSkillList] = useState(data.skills);
+  const [skillList, setSkillList] = useState([]);
   const initialRatings = Array(5).fill(5);
+  useEffect(() => {
+    if(Array.isArray(data.skills)){
+      setSkillList(data.skills);
+
+    }
+  },[data]);
+  console.log(skillList)
   const handleStarClick = (skillIndex, starIndex) => {
-    const updatedSkills = skillList.map((skill, index) => {
+    const updatedSkills = skillList?.map((skill, index) => {
       if (index === skillIndex) {
         const updatedRatings = skill.rating.map((rating, i) =>
           i <= starIndex ? 1 : 0
@@ -34,7 +41,6 @@ const Skills = ({ data, setData }) => {
     setSkillList(updatedSkills);
     setSaveDisabled(false);
   };
-
   const renderStars = (skillIndex) => {
     const skill = skillList[skillIndex];
     if (skill && skill.rating) {
@@ -55,7 +61,7 @@ const Skills = ({ data, setData }) => {
   };
 
   const handleChange = (value) => {
-    const found = skillList.find((item) => item.skill === value.label);
+    const found = skillList?.find((item) => item.skill === value.label);
     if (!found) {
       setSkillList([
         ...skillList,
@@ -70,9 +76,7 @@ const Skills = ({ data, setData }) => {
     setSaveDisabled(true);
     setIsClearable({ value: "", label: "" });
   };
-  useEffect(() => {
-    setSkillList(data.skills);
-  }, [data]);
+
   return (
     <>
       <div

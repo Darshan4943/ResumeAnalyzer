@@ -14,9 +14,8 @@ import Stepper from "../../components/featured/candidate/registration/stepper";
 function Candidate_register() {
   const router = useRouter();
   const clientId = router.query.clientId;
-  console.log(16,clientId)
   const [tabindex, setTabIndex] = useState(1);
-  
+
   const { isResume } = router.query;
   useEffect(() => {
     if (isResume) {
@@ -50,15 +49,14 @@ function Candidate_register() {
     currentCTC: "",
     noticePeriod: "15 days or less",
     employmentStatus: "employed",
-    clientId:clientId
+    clientId: clientId,
   });
-
- 
 
   const [error, setError] = useState({
     firstName: { message: "Please Enter Valid First Name", view: null },
     lastName: null,
   });
+  console.log(data);
 
   return (
     <>

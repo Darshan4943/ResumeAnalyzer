@@ -5,6 +5,7 @@ import ImageContainer from "../../../common/image";
 import { noticePeriods } from "../../../../utils/data";
 import { useRouter } from "next/router";
 import MiniLoader from "../../../common/mini-loader";
+import DateSelector from "../../../common/dateSelector";
 const ProfessionalDetails = ({
   data,
   setData,
@@ -16,15 +17,45 @@ const ProfessionalDetails = ({
   setCertificate,
 }) => {
   const [loading, setLoading] = useState(false);
-
+  const [duration, setDuration] = useState({});
   const [formError, setFormError] = useState({});
-
   const router = useRouter();
   const handleClick = () => {
-    setLoading(true);
+    if (data.workStatus != "Fresher") {
+      const requiredFields = ["companyName", "jobLocation", "jobTitle"];
+      const emptyFields = requiredFields.filter((field) => !data[field]);
+      if (emptyFields.length > 0) {
+        toast.error("Please fill in all required fields");
+        return;
+      }
+      if (duration?.duration) {
+        if (Object.keys(duration.duration).length < 2) {
+          toast.error("Please fill duration");
+          return;
+        } else {
+          if (Object.keys(duration.duration.start).length < 2) {
+            toast.error("Please fill start duration");
+            return;
+          } else if (
+            duration.duration.end &&
+            Object.keys(duration.duration.end).length < 2
+          ) {
+            toast.error("Please fill end duration");
+            return;
+          }
+        }
+      } else {
+        toast.error("Please fill duration");
+        return;
+      }
+    }
+
+    // setLoading(true);
+    setData({ ...data, jobDuration: duration.duration });
+
     router.push({
       pathname: "/home/createResume",
-      query: { ...data, keySkills: JSON.stringify(data.keySkills) },
+      query: { ...data, keySkills: JSON.stringify(data.keySkills),jobDuration:  JSON.stringify(duration.duration),educationDuration: JSON.stringify(data.educationDuration)},
     });
   };
   const validateInput = (fieldName, value) => {
@@ -86,106 +117,79 @@ const ProfessionalDetails = ({
         <div className="personal_details_all">
           <div className="personal_details ml:p-4 p-2 pb-[96px]">
             <div className="personal_details_form education_page scr1250:w-[60%] sm:w-[80%] w-[100%]">
-              {/* {
-                  data.workStatus == 'Fresher'  && <div className="form_text_heading">Internship Details (Optional)</div>
-              } */}
-              <div className="flex gap-6 w-[100%] ml:flex-row flex-col">
-                <div className="personal_single_input">
-                  <div className="personal_name gap-2 w-[100%]">
-                    <p className="form_text_heading">
-                      Employment Status <span className="star">*</span>
-                    </p>
-                    <div className="gender_button">
-                      <button
-                        className={`gen_button ${
-                          data.employmentStatus == "employed" &&
-                          "gen_button_active"
-                        }`}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          setData({ ...data, employmentStatus: "employed" });
-                        }}
-                      >
-                        Employed
-                      </button>
-                      <button
-                        className={`gen_button ${
-                          data.employmentStatus == "unemployed" &&
-                          "gen_button_active"
-                        }`}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          setData({ ...data, employmentStatus: "unemployed" });
-                        }}
-                      >
-                        Unemployed
-                      </button>
-                    </div>
-                  </div>
+              {data.workStatus == "Fresher" && (
+                <div className="form_text_heading">
+                  Internship Details (Optional)
                 </div>
-
-                <div className="personal_single_input w-[50%]">
-                  <div
-                    className="personal_name w-[100%]"
-                    style={{ gap: "10px" }}
-                  >
-                    <p className="form_text_heading">
-                      Work Experience <span className="star">*</span>
-                    </p>
-                    <div className="flex flex-row gap-[24px] w-[100%] ">
-                      <div className="w-[100%]">
-                        <input
-                          type="text"
-                          placeholder="Years"
-                          id="single_input"
-                          style={{ width: "100%", minWidth: "125px" }}
-                          value={data?.workExperiance?.years}
-                          onChange={(e) => {
-                            setData({
-                              ...data,
-                              workExperiance: {
-                                ...data.workExperiance,
-                                years: e.target.value.replace(/\D/g, ""),
-                              },
-                            });
+              )}
+              <div className="flex gap-6 w-[100%] ml:flex-row flex-col">
+                {data.workStatus != "Fresher" && (
+                  <div className="personal_single_input">
+                    <div className="personal_name gap-2 w-[100%]">
+                      <p className="form_text_heading">
+                        Employment Status <span className="star">*</span>
+                      </p>
+                      <div className="gender_button">
+                        <button
+                          className={`gen_button ${
+                            data.employmentStatus == "employed" &&
+                            "gen_button_active"
+                          }`}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            setData({ ...data, employmentStatus: "employed" });
                           }}
-                        />
-                        {formError && (
-                          <p className="text-[12px] text-[red] font-[500]">
-                            {formError?.workExperiance}
-                          </p>
-                        )}
-                      </div>
-                      <div className="w-[100%]">
-                        <select
-                          id="single_inputt"
-                          style={{ width: "100%", minWidth: "125px" }}
-                          className=" text-xs placeholder-[#646464] px-2"
-                          value={data?.workExperiance?.months}
-                          onChange={(e) => {
+                        >
+                          Employed
+                        </button>
+                        <button
+                          className={`gen_button ${
+                            data.employmentStatus == "unemployed" &&
+                            "gen_button_active"
+                          }`}
+                          onClick={(e) => {
+                            e.preventDefault();
                             setData({
                               ...data,
-                              workExperiance: {
-                                ...data.workExperiance,
-                                months: e.target.value,
-                              },
+                              employmentStatus: "unemployed",
                             });
                           }}
                         >
-                          <option className="text-[15px]" value="">
-                            Select Month
-                          </option>
-                          {[...Array(12)].map((_, index) => (
-                            <option
-                              className="text-[16px]"
-                              key={index + 1}
-                              value={(index + 1).toString()}
-                            >
-                              {index + 1}
-                            </option>
-                          ))}
-                        </select>
+                          Unemployed
+                        </button>
                       </div>
+                    </div>
+                  </div>
+                )}
+
+                <div
+                  className={`personal_single_input  ${
+                    data.workStatus == "Fresher" ? "w-full" : "w-[50%]"
+                  }`}
+                >
+                  <div className="personal_single_input w-[100%]">
+                    <div className="personal_name w-[100%]">
+                      <p className="form_text_heading">
+                        Company Name{" "}
+                        {data.workStatus != "Fresher" && (
+                          <span className="star">*</span>
+                        )}
+                      </p>
+                      <input
+                        type="text"
+                        name=""
+                        id="single_input"
+                        placeholder="Enter Company Name"
+                        value={data.companyName}
+                        onChange={(e) =>
+                          handleInputChange("companyName", e.target.value)
+                        }
+                      />
+                      {formError && (
+                        <p className="text-[12px] text-[red] font-[500]">
+                          {formError?.companyName}
+                        </p>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -195,33 +199,8 @@ const ProfessionalDetails = ({
                 <div className="personal_single_input w-[100%]">
                   <div className="personal_name w-[100%]">
                     <p className="form_text_heading">
-                      Company Name <span className="star">*</span>
-                    </p>
-                    <input
-                      type="text"
-                      name=""
-                      id="single_input"
-                      placeholder="Enter Company Name"
-                      value={data.companyName}
-                      onChange={(e) =>
-                        handleInputChange("companyName", e.target.value)
-                      }
-                    />
-                    {formError && (
-                      <p className="text-[12px] text-[red] font-[500]">
-                        {formError?.companyName}
-                      </p>
-                    )}
-                  </div>
-                </div>
-
-                <div className="personal_single_input w-[100%]">
-                  <div className="personal_name w-[100%]">
-                    <p className="form_text_heading">
-                      {data.workStatus == "fresher" ? (
-                        <>
-                          Role<span className="star">*</span>
-                        </>
+                      {data.workStatus == "Fresher" ? (
+                        <>Role</>
                       ) : (
                         <>
                           Job tittle <span className="star">*</span>
@@ -233,7 +212,7 @@ const ProfessionalDetails = ({
                       name=""
                       id="single_input"
                       placeholder={
-                        data.workStatus == "fresher"
+                        data.workStatus == "Fresher"
                           ? "Enter Role"
                           : "Enter job tittle"
                       }
@@ -249,12 +228,16 @@ const ProfessionalDetails = ({
                     )}
                   </div>
                 </div>
-              </div>
-              <div className="flex gap-6 w-[100%] ml:flex-row flex-col">
                 <div className="personal_single_input w-[100%]">
                   <div className="personal_name w-[100%]">
                     <p className="form_text_heading">
-                      Job location <span className="star">*</span>
+                      {data.workStatus == "Fresher" ? (
+                        <>Location</>
+                      ) : (
+                        <>
+                          Job location <span className="star">*</span>
+                        </>
+                      )}
                     </p>
                     <input
                       type="text"
@@ -273,28 +256,20 @@ const ProfessionalDetails = ({
                     )}
                   </div>
                 </div>
-
-                <div className="personal_single_input w-[100%]">
-                  <div className="personal_name w-[100%]">
-                    <p className="form_text_heading">
-                      Date Of joining <span className="star">*</span>
-                    </p>
-                    <input
-                      type="date"
-                      name=""
-                      id="single_input"
-                      placeholder="Enter date of joining"
-                      value={data.dateOfJoining}
-                      onChange={(e) =>
-                        handleInputChange("dateOfJoining", e.target.value)
-                      }
-                    />
-                    {formError && (
-                      <p className="text-[12px] text-[red] font-[500]">
-                        {formError?.dateOfJoining}
-                      </p>
+              </div>
+              <div className="personal_single_input w-[100%]">
+                <div className="personal_name w-[100%]">
+                  <p className="form_text_heading">
+                    Duration{" "}
+                    {data.workStatus != "Fresher" && (
+                      <span className="star">*</span>
                     )}
-                  </div>
+                  </p>
+                  <DateSelector
+                    idPrefix="education"
+                    data={duration}
+                    dataSeter={setDuration}
+                  />
                 </div>
               </div>
               <div
@@ -302,9 +277,7 @@ const ProfessionalDetails = ({
                 className="flex gap-6 w-[100%] ml:flex-row flex-col"
               >
                 <div className="personal_single_input w-[100%]">
-                  <p className="form_text_heading w-[100%]">
-                    Key skills <span className="star">*</span>
-                  </p>
+                  <p className="form_text_heading w-[100%]">Key skills</p>
                   <ReactSelect
                     options={skills}
                     isMulti
@@ -318,101 +291,34 @@ const ProfessionalDetails = ({
                     </p>
                   )}
                 </div>
-
-                {/* <div className="personal_single_input w-[100%]">
+              </div>
+              {data.workStatus != "Fresher" && (
+                <div className="personal_single_input w-[100%] ">
                   <div className="personal_name w-[100%]">
-                    <p className="form_text_heading">
-                      Current CTC <span className="star">*</span>
-                    </p>
-                    <input
-                      type="text"
-                      name=""
-                      id="single_input"
-                      placeholder="Yearly LPA"
-                      value={data.currentCTC}
-                      onChange={(e) =>
-                        handleInputChange("currentCTC", e.target.value)
-                      }
-                    />
-                    {formError && (
-                      <p className="text-[12px] text-[red] font-[500]">
-                        {formError?.currentCTC}
-                      </p>
-                    )}
-                  </div>
-                </div> */}
-              </div>
-
-              <div className="personal_single_input w-[100%] ">
-                <div className="personal_name w-[100%]">
-                  <p className="form_text_heading">
-                    Notice Period <span className="star">*</span>
-                  </p>
-                  <form className="notice_period flex flex-wrap ">
-                    {noticePeriods.map((item, index) => (
-                      <div className="radio " key={index}>
-                        <input
-                          type="radio"
-                          value={item.value}
-                          checked={data.noticePeriod == item.value}
-                          onChange={(e) =>
-                            handleInputChange("noticePeriod", e.target.value)
-                          }
-                        />
-                        {item.title}
-                      </div>
-                    ))}
-                    {formError && (
-                      <p className="text-[12px] text-[red] font-[500]">
-                        {formError?.noticePeriod}
-                      </p>
-                    )}
-                  </form>
-                </div>
-              </div>
-
-              {/* <div className="personal_single_input w-[100%]">
-                <div className="personal_name w-[100%] gap-4">
-                  <p className="form_text_heading">
-                    Internship Details (Optional) 
-                  </p>
-                  <div className="flex gap-6 w-[100%]">
-                    <div className="personal_single_input w-[100%]">
-                      <div className="personal_name w-[100%]">
-                        <p className="form_text_heading">
-                          Company Name 
+                    <p className="form_text_heading">Notice Period</p>
+                    <form className="notice_period flex flex-wrap ">
+                      {noticePeriods.map((item, index) => (
+                        <div className="radio " key={index}>
+                          <input
+                            type="radio"
+                            value={item.value}
+                            checked={data.noticePeriod == item.value}
+                            onChange={(e) =>
+                              handleInputChange("noticePeriod", e.target.value)
+                            }
+                          />
+                          {item.title}
+                        </div>
+                      ))}
+                      {formError && (
+                        <p className="text-[12px] text-[red] font-[500]">
+                          {formError?.noticePeriod}
                         </p>
-                        <input
-                          type="text"
-                          name=""
-                          id="single_input"
-                          placeholder="Enter Company Name"
-                        
-                          
-                        />
-                    
-                      </div>
-                    </div>
-
-                    <div className="personal_single_input w-[100%]">
-                      <div className="personal_name w-[100%]">
-                        <p className="form_text_heading">
-                          location 
-                        </p>
-                        <input
-                          type="text"
-                          name=""
-                          id="single_input"
-                          placeholder="Enter job location"
-                         
-                        />
-                     
-                      </div>
-                    </div>
+                      )}
+                    </form>
                   </div>
-
                 </div>
-              </div> */}
+              )}
 
               <div className="bottom_buttons">
                 <button
