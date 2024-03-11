@@ -69,13 +69,13 @@ const ResumePreview = ({
     setName(data.firstName + "_resume");
   }, [userDataGlobal]);
   const templates = [
-    // {
-    //   title: "Template1",
-    //   imgUrl: "/images/templates/template1.png",
-    //   index: 1,
-    //   fontFamily: "Lato",
-    //   themeColor: "#414042",
-    // },
+    {
+      title: "Template1",
+      imgUrl: "/images/templates/template1.png",
+      index: 1,
+      fontFamily: "Lato",
+      themeColor: "#414042",
+    },
     // {
     //   title: "Template2",
     //   imgUrl: "/images/templates/template2.png",

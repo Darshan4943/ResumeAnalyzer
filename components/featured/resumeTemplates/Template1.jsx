@@ -14,7 +14,7 @@ import {
 
 function Template1({ data, selectedColor, selectedFont, preview }) {
   return (
-    <Page size="A4" style={{ padding: 24 }} pageMode={"fullScreen"}>
+    <Page size="A4" style={{ padding: 24 }} pageMode={"fullScreen"} wrap={true}>
       <View style={{ flexDirection: "column" }}>
         <View
           style={{
@@ -50,7 +50,12 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
               {data.designation}
             </Text>
           </View>
-          <View style={{ width: "112px", height: "112px" }}>
+          <View
+            style={{
+              width: "112px",
+              height: "112px",
+            }}
+          >
             {data.profilePhoto ? (
               <Image
                 src={
@@ -60,7 +65,12 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                     ? URL.createObjectURL(data.profilePhoto)
                     : data.profilePhoto
                 }
-                style={{ objectFit: "contain" }}
+                style={{
+                  objectFit: "cover",
+                  borderRadius: "50%",
+                  width: "112px",
+                  height: "112px",
+                }}
               />
             ) : (
               <Image src="/images/services/profile.png" />
@@ -194,6 +204,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                 <View style={{ flexDirection: "column", gap: 20 }}>
                   {data?.education?.map((detail, index) => (
                     <View
+                      wrap={false}
                       key={index}
                       style={{ flexDirection: "column", gap: "12px" }}
                     >
@@ -271,7 +282,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                   </Svg>
                   <View style={{ flexDirection: "column", gap: 12 }}>
                     {data.skills.map((detail, index) => (
-                      <View key={index}>
+                      <View key={index} wrap={false}>
                         <View>
                           <Text
                             style={{
@@ -362,7 +373,11 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                 </Svg>
               </View>
               {data.experience.map((detail, index) => (
-                <View key={index} style={{ flexDirection: "column", gap: 4 }}>
+                <View
+                  key={index}
+                  style={{ flexDirection: "column", gap: 4 }}
+                  wrap={false}
+                >
                   <View>
                     <Text
                       style={{
@@ -443,7 +458,10 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                       fill={selectedColor}
                     />
                   </Svg>
-                  <View style={{ flexDirection: "col", gap: "12px" }}>
+                  <View
+                    style={{ flexDirection: "col", gap: "12px" }}
+                    wrap={false}
+                  >
                     {data.hobbies.map((detail, index) => (
                       <View key={index}>
                         <View>
@@ -463,6 +481,92 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                 </View>
               </View>
             )}
+            {data?.section.map((item, index) => (
+              <View
+                style={{ flexDirection: "column", gap: 12, width: "100%" }}
+                key={index}
+              >
+                <View style={{ flexDirection: "column", gap: 12 }}>
+                  <Text
+                    style={{
+                      color: "#414042",
+                      fontSize: "16px",
+                      fontFamily: `${selectedFont} 400`,
+                    }}
+                  >
+                    {item?.header}
+                  </Text>
+                  <Svg width={141} height={4} viewBox="0 0 141 4">
+                    <Path
+                      d="M140.396 1.72095H0.209961V2.72095H140.396V1.72095Z"
+                      fill="#A7A9AC"
+                    />
+                    <Path
+                      d="M35.262 0.720947H0.209961V3.72095H35.262V0.720947Z"
+                      fill={selectedColor}
+                    />
+                  </Svg>
+                </View>
+                {item.subSection.map((detail, index) => (
+                  <View
+                    key={index}
+                    style={{ flexDirection: "column", gap: 4 }}
+                    wrap={false}
+                  >
+                    <View>
+                      <Text
+                        style={{
+                          color: "#414042",
+                          fontSize: 12,
+                          fontFamily: `${selectedFont} 700`,
+                          lineHeight: 1.2,
+                        }}
+                      >
+                        {detail.title}
+                      </Text>
+                    </View>
+
+                    {detail.duration?.start?.year &&
+                      detail.duration?.end?.year && (
+                        <View
+                          style={{
+                            flexDirection: "row",
+                            justifyContent: "space-between",
+                            width: "100%",
+                          }}
+                        >
+                          {" "}
+                          <View style={{}}>
+                            <Text
+                              style={{
+                                color: "#414142",
+                                fontSize: 10,
+                                fontFamily: `${selectedFont} 400`,
+                                lineHeight: 1,
+                              }}
+                            >
+                              {detail.duration?.end?.year &&
+                                `${detail.duration?.start?.year}-${detail.duration?.end?.year}`}
+                            </Text>
+                          </View>
+                        </View>
+                      )}
+
+                    <View style={{ width: "100%" }}>
+                      <Text
+                        style={{
+                          color: "#A7A9AC",
+                          fontSize: 12,
+                          fontFamily: `${selectedFont} 400`,
+                        }}
+                      >
+                        {detail.description}
+                      </Text>
+                    </View>
+                  </View>
+                ))}
+              </View>
+            ))}
           </View>
         </View>
       </View>
