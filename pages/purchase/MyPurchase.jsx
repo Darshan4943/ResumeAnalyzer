@@ -11,7 +11,7 @@ function MyPurchase() {
   const [plan, setPlan] = useState({});
   const [subscription, setSubscription] = useState(null);
   const userDataGlobal = useSelector((state) => state.userData);
-
+console.log(subscription)
   useEffect(() => {
     axios
       .get("https://freedygoservices.in/api/subscription/" + userDataGlobal._id)
@@ -87,7 +87,7 @@ function MyPurchase() {
                             <div className="text-[#0C8A0A]">:</div>
                           </div>
                           <div className="text-[16px] font-[500] text-[#0C8A0A]">
-                            {subscription?.isActive ? "Avtive" : "Inactive"}
+                            {subscription?.isActive ? "Active" : "Inactive"}
                           </div>
                         </div>
                         <div className="flex gap-4">
