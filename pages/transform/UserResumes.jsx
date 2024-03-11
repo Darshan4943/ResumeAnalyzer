@@ -61,14 +61,14 @@ const UserResumes = ({ setSelect, setIsAll, isAll, resumeList, selected }) => {
   const userDataGlobal = useSelector((state) => state.userData);
 
   useEffect(() => {
-    console.log("first")
-    if (userDataGlobal == "recruiter") {
+    console.log("first");
+    if (userDataGlobal.role == "recruiter") {
       setData(resumeList);
       // setSelect(resumeList[0]);
     } else {
-      console.log("first")
+      console.log("first");
       axios
-        .get("https://freedygoservices.in/api/resume/" + userDataGlobal?._id)
+        .get("http://localhost:2000/api/resume/" + userDataGlobal?._id)
         .then((response) => {
           setData(response.data.data);
           setSelect(response.data.data[0]);

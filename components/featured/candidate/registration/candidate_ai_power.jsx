@@ -45,7 +45,7 @@ const CandidateAiPower = ({
     const formData = new FormData();
     formData.append("file", file);
     axios
-      .post("https://freedygoservices.in/api/resumeParser", formData)
+      .post("http://localhost:2000/api/resumeParser", formData)
       .then((res) => {
         setLoading(false);
         setfile(file);

@@ -141,9 +141,9 @@ function AccountDetails({ selectedPlan }) {
           setLoading(true);
           const {
             data: { key },
-          } = await axios.get(`https://freedygoservices.in/api/getkey`);
+          } = await axios.get(`http://localhost:2000/api/getkey`);
           const { data: order } = await axios.post(
-            `https://freedygoservices.in/api/checkout/`,
+            `http://localhost:2000/api/checkout/`,
             {
               amount: parseInt(selectedPlan.amount),
             }
@@ -165,7 +165,7 @@ function AccountDetails({ selectedPlan }) {
             },
             handler: function (response) {
               axios
-                .post("https://freedygoservices.in/api/add/subscription", {
+                .post("http://localhost:2000/api/add/subscription", {
                   ...response,
                   userId: userDataGlobal._id,
                   plan: selectedPlan.duration + " " + selectedPlan.limit,

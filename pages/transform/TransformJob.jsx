@@ -24,7 +24,7 @@ function TransformJob() {
   const transformHandler = () => {
     setLoading(true);
     axios
-      .post("https://freedygoservices.in/api/cv/transform", {
+      .post("http://localhost:2000/api/cv/transform", {
         jd: text,
         json: selected,
       })
@@ -39,13 +39,16 @@ function TransformJob() {
   };
 
   useEffect(() => {
-    if (userDataGlobal == "recruiter") {
+    console.log("ok", userDataGlobal);
+
+    if (userDataGlobal.role == "recruiter") {
       axios
         .get(
-          `https://freedygoservices.in/api/client/getByRecruiter/${userDataGlobal._id}`
+          `http://localhost:2000/api/client/getByRecruiter/${userDataGlobal._id}`
         )
         .then((res) => {
           const result = res.data.data;
+
           setDetails(result);
           setSelectedClient({
             value: res.data.data[0]?._id,
@@ -53,9 +56,7 @@ function TransformJob() {
               res.data.data[0]?.firstName + " " + res.data.data[0]?.lastName,
           });
           axios
-            .get(
-              "https://freedygoservices.in/api/resume/" + res.data.data[0]?._id
-            )
+            .get("http://localhost:2000/api/resume/" + res.data.data[0]?._id)
             .then((res) => {
               console.log("first", selectedClient, res.data.data);
               setResumeList(res.data.data);
@@ -72,10 +73,10 @@ function TransformJob() {
   }, [userDataGlobal]);
 
   const selectHandler = (data) => {
-    if (userDataGlobal == "recruiter") {
+    if (userDataGlobal.role == "recruiter") {
       setSelectedClient(data);
       axios
-        .get("https://freedygoservices.in/api/resume/" + data.value)
+        .get("http://localhost:2000/api/resume/" + data.value)
         .then((res) => {
           setResumeList(res.data.data);
           setSelect(res.data.data[0]);
@@ -137,7 +138,7 @@ function TransformJob() {
             </div>
 
             <div className="rounded-[16px] border bg-[#F9F9F9] border-[#DEDEDE] pl-4 pr-4 ">
-              {(resumeList?.length > 0  || userDataGlobal != "recruiter") ? (
+              {resumeList?.length > 0 || userDataGlobal.role != "recruiter" ? (
                 <div
                   className="flex gap-4   py-4  items-center"
                   style={{ overflowX: "auto" }}
