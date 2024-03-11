@@ -18,7 +18,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
           <View
             style={{
               flexDirection: "column",
-              minHeight: "841.7px",
+              minHeight: 829.7,
               height: "100%",
               backgroundColor: "#282829",
               gap: "18px",

@@ -18,7 +18,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
           style={{
             width: 184,
             backgroundColor: selectedColor,
-            minHeight: 841.7,
+            minHeight: 829.7,
             flexDirection: "column",
             gap: 24,
           }}

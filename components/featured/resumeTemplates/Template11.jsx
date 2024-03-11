@@ -14,8 +14,8 @@ import React from "react";
 
 function Template11({ data, selectedColor, selectedFont, preview }) {
   return (
-    <Page size="A4" wrap={true} >
-      <View style={{ minHeight: 841.8, flexDirection: "row" }}>
+    <Page size="A4" wrap={true} style={{paddingTop:'12px'}}>
+      <View style={{      minHeight: 829.7, flexDirection: "row" }}>
         <View
           style={{
             width: 245,
@@ -454,7 +454,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
               </Text>
               {data.experience.map((detail, index) => (
                 <View
-                  style={{ flexDirection: "row", gap: 30, width: "90%" }}
+                  style={{ flexDirection: "row", gap:12, width: "90%",paddingRight:'12px' }}
                   key={index}
                 >
                   <View style={{ flexDirection: "row", gap: 16 }}>
@@ -679,12 +679,12 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                   {item?.header}
                 </Text>
                 {item?.subSection?.map((detail, index) => (
-                  <View style={{ flexDirection: "row", gap: 30 }} key={index}>
+                  <View style={{ flexDirection: "row", gap: 12 ,paddingRight:'12px'}} key={index}>
 
                     <View style={{ flexDirection: "row", gap: 16 }}>
 
                       <View
-                        style={{ flexDirection: "column", gap: 5, width: 124 }}
+                        style={{ flexDirection: "column", gap: 5, width: 74 }}
                       >
                         {detail.title.length > 0 && (
                         <Text
@@ -719,7 +719,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
 
                       {detail.description?.length > 5 && (
                         <View
-                          style={{ flexDirection: "column", width: 246, gap: 2 }}
+                          style={{ flexDirection: "column", width: '200px', gap: 2 }}
                         >
                           <Text
                             style={{

@@ -26,7 +26,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
             display: "flex",
             flexDirection: "column",
             gap: 40,
-            minHeight: 841.8,
+            minHeight: 829.7,
           }}
         >
           <View style={{ display: "flex", flexDirection: "column", gap: 12 }}>

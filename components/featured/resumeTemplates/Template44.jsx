@@ -4,10 +4,10 @@ import React from 'react'
 const Template44 = ({ data, selectedColor, selectedFont }) => {
 
     return (
-        <Page size="A4" wrap={true}>
+        <Page size="A4" wrap={true} style={{paddingTop:'12px'}} >
             <View style={{ width: 595, display: "flex", flexDirection: "row", }}>
 
-                <View style={{ width: 207, padding: 42, flexDirection: "column", gap: 34, backgroundColor: selectedColor, minHeight: 841 }}>
+                <View style={{ width: 207, padding: 42, flexDirection: "column", gap: 34, backgroundColor: selectedColor,      minHeight: 829.7, }}>
 
 
                     <View style={{}}>
