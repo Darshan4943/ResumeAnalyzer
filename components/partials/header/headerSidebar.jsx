@@ -1,13 +1,14 @@
 
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
-function HeaderSidebar({ selectedPage, setIsSidebar, setIsLogin, isLogin }) {
+function HeaderSidebar({ selectedPage, setIsSidebar, setIsLogin, isLogin, isSidebar }) {
     const boforeLoginList = ["Candidate", "Recruiter"];
     const loginListCandidate = ["Home", "My Resumes", "Transform CV", "Skill Test", "My Purchase"]
     const loginListRecruiter = ["Home", "My Clients", "Transform CV", "Job Description Matching", "My Purchase"]
     const router = useRouter();
+    const [visible, setvisible] = useState(false);
     const userDataGlobal = useSelector((state) => state.userData);
     console.log(11, userDataGlobal)
     const handleNavigation = (page) => {
@@ -23,6 +24,13 @@ function HeaderSidebar({ selectedPage, setIsSidebar, setIsLogin, isLogin }) {
             return loginListRecruiter
         } else return boforeLoginList
     }
+    useEffect(() => {
+        const timeout = setTimeout(() => {
+            setvisible(true);
+        }, 100);
+
+        return () => clearTimeout(timeout);
+    }, []);
 
     const getListItemStyles = (page) => {
         const isSelected = selectedPage === page;
@@ -41,15 +49,20 @@ function HeaderSidebar({ selectedPage, setIsSidebar, setIsLogin, isLogin }) {
     };
 
     const handleLogOut = () => {
-        router.push("/");
+        router.push("/");        
         setIsLogin(false);
         localStorage.clear();
+        window.location.reload();
     };
 
     return (
         <div className=' h-[10000px] flex flex-col  pt-[3.5rem] relative ' >
             <div className='sticky top-0'>
-                <div className='flex justify-between px-4 mt-3 py-2 '>
+                <div style={{
+                    opacity: visible ? 1 : 0,
+                    transform: (visible ? "translateX(0)" : "translateX(-100%)"), transition: "transform 0.5s ease-in-out",
+                }} className='flex justify-between px-4 mt-3 py-2 '>
+
                     <div onClick={() => router.push("/home")}>
                         <img src="/images/logo_skilotech.png" alt="" className="w-[123px] h-[40px] object-contain" />
                     </div>
@@ -65,7 +78,10 @@ function HeaderSidebar({ selectedPage, setIsSidebar, setIsLogin, isLogin }) {
 
                 <div className='flex flex-col' style={{ listStyle: 'none' }}>
                     {isLogin &&
-                        <div className='flex gap-4 p-4 items-center '>
+                        <div  style={{
+                            opacity: visible ? 1 : 0,
+                            transform: (visible ? "translateX(0)" : "translateX(-100%)"), transition: "transform 0.6s ease-in-out"
+                        }} className='flex gap-4 p-4 items-center '>
                             {userDataGlobal?.profilePicture ? (
                                 <img
                                     className=" rounded-full object-cover h-[40px] w-[40px]"
@@ -94,16 +110,21 @@ function HeaderSidebar({ selectedPage, setIsSidebar, setIsLogin, isLogin }) {
                             key={index}
                             className='px-4 py-6 border-b-2 border-[#06A9EF] '
                             style={{
-                                ...(item === 'Candidate' && getListItemStyles('/')),
-                                ...(item === 'Recruiter' && getListItemStyles('/recruiter')),
-                                ...(item === 'Home' && getListItemStyles('/home')),
-                                ...(item === 'My Clients' && getListItemStyles('/myClients')),
-                                ...(item === 'My Resumes' && getListItemStyles('/home/MyCollection')),
-                                ...(item === 'Transform CV' && getListItemStyles('/transform/TransformJob')),
-                                ...(item === 'Job Description Matching' && getListItemStyles('/transform/JobMatching')),
-                                ...(item === 'My Purchase' && getListItemStyles('/purchase/MyPurchase')),
-                                ...(item === 'Skill Test' && getListItemStyles('/home/SkillAssessment')),
+                                opacity: visible ? 1 : 0,
+                                transform: (visible ? "translateX(0)" : "translateX(-100%)"),
+
+                                ...(item === 'Candidate' && { ...getListItemStyles('/'), transition: "transform 0.7s ease-in-out", }),
+                                ...(item === 'Recruiter' && { ...getListItemStyles('/recruiter'), transition: "transform 0.8s ease-in-out" }),
+                                ...(item === 'Home' && { ...getListItemStyles('/home'), transition: "transform 0.7s ease-in-out" }),
+                                ...(item === 'My Clients' && { ...getListItemStyles('/myClients'), transition: "transform 0.8s ease-in-out" }),
+                                ...(item === 'My Resumes' && { ...getListItemStyles('/home/MyCollection'), transition: "transform 0.8s ease-in-out" }),
+                                ...(item === 'Transform CV' && { ...getListItemStyles('/transform/TransformJob'), transition: "transform 0.9s ease-in-out" }),
+                                ...(item === 'Job Description Matching' && { ...getListItemStyles('/transform/JobMatching'), transition: "transform 1s ease-in-out" }),
+
+                                ...(item === 'Skill Test' && { ...getListItemStyles('/home/SkillAssessment'), transition: "transform 1.1s ease-in-out" }),
+                                ...(item === 'My Purchase' && { ...getListItemStyles('/purchase/MyPurchase'), transition: "transform 1.2s ease-in-out" }),
                             }}
+
 
                             onClick={() => {
                                 switch (item) {
@@ -143,7 +164,10 @@ function HeaderSidebar({ selectedPage, setIsSidebar, setIsLogin, isLogin }) {
                         </li>
                     ))}
                     {isLogin &&
-                        <div onClick={() => handleLogOut()} className='px-4 py-7 border-b-2 border-[#06A9EF] bg-backgroundColor text-[18px] font-medium text-[#C00000]'  >
+                        <div style={{
+                            opacity: visible ? 1 : 0,
+                            transform: (visible ? "translateX(0)" : "translateX(-100%)"), transition: "transform 1.3s ease-in-out"
+                        }} onClick={() => handleLogOut()} className='px-4 py-7 border-b-2 border-[#06A9EF] bg-backgroundColor text-[18px] font-medium text-[#C00000]'  >
                             Log Out
                         </div>
                     }
