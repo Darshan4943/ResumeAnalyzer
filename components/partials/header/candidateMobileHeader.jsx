@@ -31,7 +31,7 @@ function CandidateMobileHeader() {
       >
         <div className="flex gap-2 items-center">
           <>
-            {isLogin && (
+          
               <div onClick={() => setIsSidebar(true)}>
                 <img
                   src="/images/home/menu.png"
@@ -39,8 +39,7 @@ function CandidateMobileHeader() {
                   className="w-[30px] h-[30px] object-contain"
                 />
               </div>
-            )}
-
+          
             <div onClick={() => router.push("/")}>
               <img
                 src="/images/logo_skilotech.png"
@@ -51,7 +50,7 @@ function CandidateMobileHeader() {
           </>
         </div>
 
-        {isLogin && (
+        {!isLogin && (
           <button
             onClick={() => {
               router.push("/auth?signin=true");

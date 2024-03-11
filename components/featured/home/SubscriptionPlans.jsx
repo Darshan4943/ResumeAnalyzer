@@ -37,9 +37,9 @@ function SubscriptionPlans({ fromMain }) {
       router.push(`/purchase/details?id=${index}`);
     } else {
       localStorage.setItem("purchase", JSON.stringify({ status: true, index }));
-      if(isUser){
+      if (isUser) {
         router.push("/auth/user-signup");
-      }else{
+      } else {
         router.push("/auth/recruiter-signup");
       }
     }
@@ -51,13 +51,12 @@ function SubscriptionPlans({ fromMain }) {
           {subPlans.map((plan, index) => (
             <div
               key={index}
-              className={` relative mt-[40px] bg-white  flex flex-col gap-4 items-center rounded-[16px] ${
-                isUser ? "max-w-[30vw]" : "max-w-[20vw]"
-              } `}
+              className={` relative mt-[40px] bg-white  flex flex-col gap-4 items-center rounded-[16px] ${isUser ? "max-w-[30vw]" : "max-w-[20vw]"
+                } `}
               style={{ boxShadow: "0px 2px 15px 0px #00000033" }}
             >
               {index === 1 && (
-                <div className="absolute left-0 top-[-36px] text-[1.3vw] font-semibold px-4 pt-[4px] pb-[16px] bg-[#06A9EF] text-white rounded-t-[16px]">
+                <div className="absolute left-0 xxl:top-[-45px] xl:top-[-40px] scr1200:top-[-35px] top-[-28px] text-[1.3vw] font-semibold px-4 pt-[4px] pb-[50px] bg-[#06A9EF] text-white rounded-t-[16px]">
                   Recommended
                 </div>
               )}
@@ -89,7 +88,7 @@ function SubscriptionPlans({ fromMain }) {
                     className="px-9 py-3 bg-[#06A9EF] text-white rounded-[12px] text-[1.4vw] font-semibold w-full"
                     style={{ opacity: 0.6 }}
                   >
-                    Purchase Plan
+                    Contact Us
                   </button>
                 </div>
               ) : (
@@ -136,7 +135,7 @@ function SubscriptionPlans({ fromMain }) {
           ))}
         </div>
       </div>
-      <div className="block lg:hidden w-full">
+      <div className="block lg:hidden w-full ">
         <Swiper
           slidesPerView={1}
           spaceBetween={30}
@@ -145,40 +144,40 @@ function SubscriptionPlans({ fromMain }) {
             clickable: true,
           }}
           modules={[Pagination]}
-          className="mySwiper"
+          className="mySwiper "
           effect="fade"
         >
           {subPlans.map((plan, index) => (
             <SwiperSlide
               style={{ display: "flex" }}
-              className="justify-center"
+              className="justify-center pt-6 gap-4 "
               key={index}
             >
               <div
-                className=" w-[258px] h-[420px] relative  bg-white  flex flex-col gap-4 items-center rounded-[16px] mt-[8px]"
+                className=" w-[258px] h-[420px] relative  bg-white  flex flex-col gap-4 items-center rounded-[16px] mt-[8px] mb-4"
                 style={{ boxShadow: "0px 2px 15px 0px #00000033" }}
               >
                 {index === 1 && (
-                  <div className="absolute left-0 top-[-36px] text-[1.3vw] font-semibold px-4 pt-[4px] pb-[16px] bg-[#06A9EF] text-white rounded-t-[16px]">
+                  <div className="absolute left-0 top-[-24px] ml:text-[1.3vw] text-[14px] font-semibold px-4 pt-[4px] pb-[110px] bg-[#06A9EF] text-white rounded-t-[16px]">
                     Recommended
                   </div>
                 )}
                 {plan.duration == "Enterprise" ? (
-                  <div className="p-4 z-20 bg-white rounded-[16px] flex flex-col gap-4 items-center h-full justify-between">
-                    <div className="flex text-center flex-col gap-3 text-[#333333] w-[80%] min-h-[153.4px] justify-between">
-                      <p className="text-[1.4vw] font-[600]">
+                  <div className="p-4 z-20 bg-white rounded-[16px] flex flex-col gap-10 items-center h-full ">
+                    <div className="flex text-center flex-col gap-6 text-[#333333] w-[80%]  justify-between">
+                      <p className="text-[18px] font-[600]">
                         <span className="text-[#06A9EF]">{plan.duration}</span>{" "}
                         {plan.limit}
                       </p>
-                      <p className="text-[1.1vw] font-[500]">
+                      <p className="text-[12px] font-[500]">
                         {plan.description}
                       </p>
                       <div className="bg-[#DEDEDE] h-[2px]" />
                     </div>
-                    <div className="flex gap-3 flex-col text-center items-center w-[168px]">
+                    <div className="flex gap-3 flex-col text-center items-center w-full">
                       <img
                         src="/images/support_agent.png"
-                        className="h-[80px] w-[80px]"
+                        className="h-[80px] max-w-[80px]"
                         alt=""
                       />
                       <span className="text-[16px] font-[500] text-center">
@@ -189,9 +188,9 @@ function SubscriptionPlans({ fromMain }) {
                       style={{ opacity: 0.6 }}
                       onClick={() => clickHandler(index)}
                       disabled={true}
-                      className="px-9 py-3 bg-[#06A9EF] text-white rounded-[12px] text-[1.4vw] font-semibold w-full"
+                      className="px-9 py-3 bg-[#06A9EF] text-white rounded-[12px] text-[14px] font-semibold w-full"
                     >
-                      Purchase Plan
+                      Contact Us
                     </button>
                   </div>
                 ) : (

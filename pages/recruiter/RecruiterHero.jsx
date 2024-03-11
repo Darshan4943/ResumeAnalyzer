@@ -37,9 +37,9 @@ function RecruiterHero() {
       <div style={{
         opacity: visible ? 1 : 0,
         transition: "opacity 2s ease-in-out",
-      }} className='flex ml:w-[57%] w-[85%] flex-col sm:gap-6 gap-4  items-center justify-center '>
+      }} className='flex ml:w-[57%] w-[100%] flex-col sm:gap-6 gap-4  items-center justify-center '>
 
-        <p className=' text-center ml:text-[3.3vw] text-[7vw] font-bold leading-tight'> <span className='text-[#06A9EF]'>Empowering</span> Recruiters to
+        <p className=' text-center ml:text-[3.3vw] text-[9vw] font-bold leading-tight'> <span className='text-[#06A9EF]'>Empowering</span> Recruiters to
           Create Job Winning Resumes
         </p>
 
@@ -47,7 +47,7 @@ function RecruiterHero() {
         <div className=' text-center ml:text-[1.1vw] text-[4vw]  font-medium'>
           Transform recruiters into resume experts! With our platform, effortlessly create customized resumes for clients. Highlight their skills and experiences to boost their career prospects. Its that easy!
         </div>
-        <button onClick={clickHandler} className='bg-[#06A9EF] text-white px-4 ml:py-3 py-2 ml:w-[167px] ml:rounded-[12px] rounded-[8px] ml:text-[16px] text-[2.5vw] font-semibold'>
+        <button onClick={clickHandler} className='bg-[#06A9EF] text-white px-4 ml:py-3 py-2 ml:w-[167px] ml:rounded-[12px] rounded-[8px] ml:text-[16px] text-[4vw] font-semibold'>
           Get Started
         </button>
 

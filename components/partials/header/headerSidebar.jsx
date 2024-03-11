@@ -4,8 +4,9 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 
 function HeaderSidebar({ selectedPage, setIsSidebar, setIsLogin, isLogin }) {
-    // const list = ["Home", "My Purchase", "Employer", "Recruiter"];
-    const loginList = ["Home",  "My Collection", "Transform CV ", "Skill Test", "My Purchase"]
+    const boforeLoginList = ["Candidate", "Recruiter"];
+    const loginListCandidate = ["Home", "My Resumes", "Transform CV", "Skill Test", "My Purchase"]
+    const loginListRecruiter = ["Home", "My Clients", "Transform CV", "Job Description Matching", "My Purchase"]
     const router = useRouter();
     const userDataGlobal = useSelector((state) => state.userData);
     console.log(11, userDataGlobal)
@@ -13,6 +14,15 @@ function HeaderSidebar({ selectedPage, setIsSidebar, setIsLogin, isLogin }) {
         setIsSidebar(false);
         router.push(page);
     };
+
+
+    const list = () => {
+        if (userDataGlobal.role === "user") {
+            return loginListCandidate
+        } else if (userDataGlobal.role === "recruiter") {
+            return loginListRecruiter
+        } else return boforeLoginList
+    }
 
     const getListItemStyles = (page) => {
         const isSelected = selectedPage === page;
@@ -54,60 +64,73 @@ function HeaderSidebar({ selectedPage, setIsSidebar, setIsLogin, isLogin }) {
                 </div>
 
                 <div className='flex flex-col' style={{ listStyle: 'none' }}>
-                    <div className='flex gap-4 p-4 items-center '>
-                        {userDataGlobal?.profilePicture ? (
-                            <img
-                                className=" rounded-full object-cover h-[40px] w-[40px]"
-                                src={
-                                    userDataGlobal?.profilePicture?.img ||
-                                    "/images/profile/profileNew.png"
-                                }
-                            />
-                        ) : (
-                            <div
-                                className="rounded-[40px] h-[40px] w-[40px] bg-[#06A9EF] flex items-center justify-center text-white font-semibold text-[20px] "
-                                style={{ textTransform: "capitalize" }}
-                                alt=""
-                            >
-                                {userDataGlobal?.email?.slice(0, 1)}
-                            </div>
-                        )}
-                        <div className='text-[20px] font-medium'>
-                            {userDataGlobal?.name}
+                    {isLogin &&
+                        <div className='flex gap-4 p-4 items-center '>
+                            {userDataGlobal?.profilePicture ? (
+                                <img
+                                    className=" rounded-full object-cover h-[40px] w-[40px]"
+                                    src={
+                                        userDataGlobal?.profilePicture?.img ||
+                                        "/images/profile/profileNew.png"
+                                    }
+                                />
+                            ) : (
+                                <div
+                                    className="rounded-[40px] h-[40px] w-[40px] bg-[#06A9EF] flex items-center justify-center text-white font-semibold text-[20px] "
+                                    style={{ textTransform: "capitalize" }}
+                                    alt=""
+                                >
+                                    {userDataGlobal?.email?.slice(0, 1)}
+                                </div>
+                            )}
+                            <div className='text-[20px] font-medium'>
+                                {userDataGlobal?.name}
 
+                            </div>
                         </div>
-                    </div>
-                    {loginList.map((item, index) => (
+                    }
+                    {list().map((item, index) => (
                         <li
                             key={index}
-                            className='px-4 py-7 border-b-2 border-[#06A9EF] '
+                            className='px-4 py-6 border-b-2 border-[#06A9EF] '
                             style={{
-
+                                ...(item === 'Candidate' && getListItemStyles('/')),
+                                ...(item === 'Recruiter' && getListItemStyles('/recruiter')),
                                 ...(item === 'Home' && getListItemStyles('/home')),
                                 ...(item === 'My Clients' && getListItemStyles('/myClients')),
-                                ...(item === 'My Purchase' && getListItemStyles('/myPurchase/MyPurchase')),
-                                ...(item === 'My Collection' && getListItemStyles('/home/MyCollection')),
-                                ...(item === 'Transform CV ' && getListItemStyles('/transform/TransformJob')),
+                                ...(item === 'My Resumes' && getListItemStyles('/home/MyCollection')),
+                                ...(item === 'Transform CV' && getListItemStyles('/transform/TransformJob')),
+                                ...(item === 'Job Description Matching' && getListItemStyles('/transform/JobMatching')),
+                                ...(item === 'My Purchase' && getListItemStyles('/purchase/MyPurchase')),
                                 ...(item === 'Skill Test' && getListItemStyles('/home/SkillAssessment')),
                             }}
 
                             onClick={() => {
                                 switch (item) {
+                                    case 'Candidate':
+                                        handleNavigation('/');
+                                        break;
+                                    case 'Recruiter':
+                                        handleNavigation('/recruiter');
+                                        break;
                                     case 'Home':
                                         handleNavigation('/home');
                                         break;
                                     case 'My Clients':
                                         handleNavigation('/myClients');
                                         break;
-
-                                    case 'My Purchase':
-                                        handleNavigation('/myPurchase/MyPurchase');
-                                        break;
-                                    case 'My Collection':
+                                    case 'My Resumes':
                                         handleNavigation('/home/MyCollection');
                                         break;
-                                    case 'Transform CV ':
+                                    case 'Transform CV':
                                         handleNavigation('/transform/TransformJob');
+                                        break;
+                                    case 'Job Description Matching':
+                                        handleNavigation('/transform/JobMatching');
+                                        break;
+
+                                    case 'My Purchase':
+                                        handleNavigation('/purchase/MyPurchase');
                                         break;
                                     case 'Skill Test':
                                         handleNavigation('/home/SkillAssessment');
@@ -119,9 +142,11 @@ function HeaderSidebar({ selectedPage, setIsSidebar, setIsLogin, isLogin }) {
                             {item}
                         </li>
                     ))}
-                    <div onClick={() => handleLogOut()} className='px-4 py-7 border-b-2 border-[#06A9EF] bg-backgroundColor text-[18px] font-medium text-[#C00000]'  >
-                        Log Out
-                    </div>
+                    {isLogin &&
+                        <div onClick={() => handleLogOut()} className='px-4 py-7 border-b-2 border-[#06A9EF] bg-backgroundColor text-[18px] font-medium text-[#C00000]'  >
+                            Log Out
+                        </div>
+                    }
                 </div>
 
             </div>

@@ -126,7 +126,7 @@ function CandidateHeader() {
           className={
             selectedPage === "/purchase/MyPurchase"
               ? "active scr1250:text-[18px] text-[16px]"
-              : "li scr1250:text-[18px] text-[14px]"
+              : "li scr1250:text-[18px] text-[16px]"
           }
         >
           <li>My Purchase</li>

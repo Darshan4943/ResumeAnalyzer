@@ -3,13 +3,14 @@ import SubscriptionPlans from "./SubscriptionPlans";
 
 function SubscriptionPlan({ isLogin,fromMain }) {
   return (
-    <div className="flex flex-col gap-12  bg-subscriptionPlan justify-center items-center bg-cover bg-no-repeat py-12 ">
-      <div className="text-center">
-        <p className="text-[2.9vw] text-[#333333] font-[700]">
-          Try our <span className="text-[#06A9EF]">Subscription</span> plans
+    <div className="flex flex-col lg:gap-12  gap-4 bg-subscriptionPlan justify-center items-center bg-cover bg-no-repeat py-12 ">
+      <div className="text-center w-[90%] leading-tight">
+        <p className="ml:text-[3vw] text-[8vw] text-[#333333] font-[700]">
+        Choose the <span className="text-[#06A9EF]">Subscription Plan</span> That Fits Your Needs
+            
         </p>
-        <p className="text-[1.5vw] text-[#646464] font-[400]">
-          Affordable plans for all the aspiring professionals.
+        <p className="ml:text-[1.71vw] text-[4vw] text-[#646464] font-[400]">
+        Unlock Premium Features and Enhance Your Recruiting Experience.
         </p>
       </div>
 

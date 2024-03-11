@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import React, { useEffect, useReducer, useState } from "react";
+import React, { useEffect, useReducer, useRef, useState } from "react";
 
 import { useSelector } from "react-redux";
 import axios from "axios";
@@ -14,7 +14,15 @@ import ReactSelect from "react-select";
 import { SkillList } from "../../utils/data";
 import { toast } from "react-toastify";
 
+
+import generatePDF from "react-to-pdf";
+import QuestionList from "../../components/featured/home/QuestionList";
+
+
+
+
 function SkillAssessment() {
+  const resumeRef = useRef();
   const userDataGlobal = useSelector((state) => state.userData);
   const [reCall, forceUpdate] = useReducer((x) => x + 1.0);
   const [viewAddSkill, setViewAddSkill] = useState(false);
@@ -26,7 +34,7 @@ function SkillAssessment() {
   const [answer, setAnswer] = useState([]);
   const [questionIndex, setQuestionIndex] = useState(0);
   const [loading, setLoading] = useState(false);
-  const [skipped, setSkipped] = useState([]);
+ 
   const [isTimerOver, setIsTimerOver] = useState(false);
   const [startTimer, setStartTimer] = useState(false);
   const [showSecondDiv, setshowSecondDiv] = useState(false);
@@ -37,10 +45,42 @@ function SkillAssessment() {
 
   const [inputValue, setInputValue] = useState("");
 
+  const [inputValue, setInputValue] = useState('');
+
   const handleInputChange = (selectedOption) => {
     setSelectedSkill(selectedOption.value);
     setInputValue(selectedOption.value);
   };
+  console.log(47, question)
+  console.log(55, answer)
+
+
+
+
+  const generatePdf = () => {
+    setLoadingg(true);
+    return new Promise((resolve, reject) => {
+        generatePDF(resumeRef, {
+            filename: `${userDataGlobal?.basics?.firstName}-skilotech-resume-${userDataGlobal?.resumeUrl?.length}.pdf`,
+        });
+        resolve();
+    }).then(() => {
+       
+        setTimeout(() => {
+            setLoadingg(false);
+        }, 2000);
+    }).catch((error) => {
+        console.error('Error generating PDF:', error);
+        setLoadingg(false);
+    });
+};
+
+
+
+
+
+
+
 
   const toggleContent = () => {
     if (selectedSkill) {
@@ -401,6 +441,7 @@ function SkillAssessment() {
                     Make sure you have a stable internet connection.
                   </div>
                 </div>
+
                 <div
                   onClick={() => {
                     toggleContent();
@@ -420,6 +461,7 @@ function SkillAssessment() {
                 </div>
               </div>
             </div>
+
           </div>
         )}
         {toggle === 1 && (
@@ -484,6 +526,7 @@ function SkillAssessment() {
                     </defs>
                   </svg>
                   {camelCase(selectedSkill)} Assessment
+
                 </div>
                 <div className="flex flex-col gap-[24px]">
                   <div
@@ -696,6 +739,7 @@ function SkillAssessment() {
               </div>
             </div>
             <div className="w-[8px] ml:w-[22%] h-[2px] bg-[#06A9EF] border-none"></div>
+
           </div>
         )}
         {score && (
@@ -800,7 +844,7 @@ function SkillAssessment() {
                     </div>
                   </div>
 
-                  <div className="flex justify-center items-center pb-[12px]">
+                  <div className="flex  justify-between items-center pb-[12px] w-[80%] pt-4">
                     <button
                       onClick={() => {
                         setToggle(0);
@@ -808,11 +852,18 @@ function SkillAssessment() {
                         setQuestionIndex(0);
                         setQuestion([]);
                         setSkipped([])
-                      }}
-                      className="border-[1px] border-solid border-[#06A9EF] rounded-[12px] px-[36px] py-[12px] text-[16px] text-[#333] font-[500]"
+                     ;window.location.reload() }}
+                      className="border-[1px]  border-solid border-[#06A9EF] rounded-[12px] px-[24px] py-[8px] text-[16px] text-[#333] font-[500]"
                     >
                       Close
                     </button>
+                    <button className="border-[1px] min-w-[132.78px] flex justify-center items-center border-solid border-[#06A9EF] rounded-[12px] px-[24px] py-[8px] text-[16px]  font-[500] bg-blue text-white" onClick={() => generatePdf()}>  {loadingg && <MiniLoader />}
+                      {!loadingg && "Download"}</button>
+
+                  </div>
+
+                  <div className="absolute overflow-hidden left-[-5000px]" ref={resumeRef}>
+                    <QuestionList questions={question} answers={answer} />
                   </div>
                 </div>
               </div>
