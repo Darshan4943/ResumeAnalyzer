@@ -15,7 +15,7 @@ import {
 } from "@react-pdf/renderer";
 function Template14({ data, selectedColor, selectedFont }) {
   return (
-    <Page size="A4" style={{ padding: "24px" }}>
+    <Page size="A4" style={{ padding: "24px" }} wrap={true}>
       <View
         style={{
           minHeight: 792,
@@ -36,7 +36,7 @@ function Template14({ data, selectedColor, selectedFont }) {
               width: 400.06,
               display: "flex",
               flexDirection: "column",
-              gap: 10,
+              gap: 8,
             }}
           >
             <Text
@@ -46,7 +46,7 @@ function Template14({ data, selectedColor, selectedFont }) {
                 color: selectedColor,
               }}
             >
-              John Doe
+              {data.firstName} {data.lastName}
             </Text>
             <Text
               style={{
@@ -56,8 +56,7 @@ function Template14({ data, selectedColor, selectedFont }) {
                 color: "#4D4D4D",
               }}
             >
-              Leading teams and organizations to the realization of successful
-              outcomes at the intersection of customer needs and business goals.
+              {data.summery}
             </Text>
           </View>
           <View
@@ -75,7 +74,7 @@ function Template14({ data, selectedColor, selectedFont }) {
                 color: "#4D4D4D",
               }}
             >
-              johndoe.com
+              {data.email}
             </Text>
             <Text
               style={{
@@ -84,7 +83,7 @@ function Template14({ data, selectedColor, selectedFont }) {
                 color: "#4D4D4D",
               }}
             >
-              hello@johndoe.com
+              {data.mobileNumber}
             </Text>
             <Text
               style={{
@@ -93,7 +92,7 @@ function Template14({ data, selectedColor, selectedFont }) {
                 color: "#4D4D4D",
               }}
             >
-              (310) 555 - 9572
+              {data.location}
             </Text>
           </View>
         </View>
@@ -126,19 +125,20 @@ function Template14({ data, selectedColor, selectedFont }) {
               gap: "8px",
             }}
           >
-            {data?.skills?.map((detail, index) => (
-              <Text
-                key={index}
-                style={{
-                  width: "22%",
-                  fontSize: 12,
-                  fontFamily: `${selectedFont} 400`,
-                  color: "#4D4D4D",
-                }}
-              >
-                {detail.skill}
-              </Text>
-            ))}
+            {Array.isArray(data?.skills) &&
+              data?.skills?.map((detail, index) => (
+                <Text
+                  key={index}
+                  style={{
+                    width: "22%",
+                    fontSize: 12,
+                    fontFamily: `${selectedFont} 400`,
+                    color: "#4D4D4D",
+                  }}
+                >
+                  {detail.skill}
+                </Text>
+              ))}
           </View>
         </View>
         <View
@@ -157,6 +157,7 @@ function Template14({ data, selectedColor, selectedFont }) {
           <View style={{ display: "flex", flexDirection: "column", gap: 28 }}>
             {data?.experience?.map((detail, index) => (
               <View
+                wrap={false}
                 key={index}
                 style={{ gap: 6, display: "flex", flexDirection: "column" }}
               >
@@ -238,6 +239,7 @@ function Template14({ data, selectedColor, selectedFont }) {
           <View style={{ display: "flex", flexDirection: "column", gap: 8 }}>
             {data?.education?.map((detail, index) => (
               <View
+                wrap={false}
                 key={index}
                 style={{ gap: 6, display: "flex", flexDirection: "column" }}
               >
@@ -289,9 +291,11 @@ function Template14({ data, selectedColor, selectedFont }) {
           <View style={{ display: "flex", flexDirection: "column", gap: 8 }}>
             {data?.course?.map((detail, index) => (
               <View
+                wrap={false}
                 key={index}
                 style={{ gap: 6, display: "flex", flexDirection: "column" }}
               >
+                <View style={{width:"100%",justifyContent:'space-between'}}>
                 <Text
                   style={{
                     fontSize: 18,
@@ -301,14 +305,27 @@ function Template14({ data, selectedColor, selectedFont }) {
                 >
                   {detail.courseName}
                 </Text>
+                { new Date(detail.duration?.start?.year)  &&
+                    new Date(detail.duration?.end?.year) && (
+                      <Text
+                        style={{
+                          fontSize: 12,
+                          fontFamily: `${selectedFont} 400`,
+                        }}
+                      >
+                        {detail.duration?.start?.year} -{" "}
+                        {detail.duration?.end?.year}
+                      </Text>
+                    )}
+                    </View>
                 <View style={{ display: "flex", gap: 8 }}>
+                  
+
                   <Text
                     style={{ fontSize: 12, fontFamily: `${selectedFont} 400` }}
                   >
-                    {detail.duration?.start?.year} -{" "}
-                    {detail.duration?.end?.year}
+                    {detail.issuedBy}
                   </Text>
-                  <Text style={{ fontSize: 12, fontFamily: `${selectedFont} 400` }}>{detail.issuedBy}</Text>
                 </View>
               </View>
             ))}
@@ -317,6 +334,78 @@ function Template14({ data, selectedColor, selectedFont }) {
         <View
           style={{ width: "100%", height: 1, backgroundColor: "#DEDEDE" }}
         ></View>
+        {data?.section?.map((item, index) => (
+          <View key={index}>
+            <View style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+              <Text
+                style={{
+                  fontSize: 12,
+                  fontFamily: `${selectedFont} 500`,
+                  color: "#4D4D4D",
+                }}
+              >
+                {item?.header}
+              </Text>
+              <View
+                style={{ display: "flex", flexDirection: "column", gap: 8 }}
+              >
+                {item?.subSection?.map((detail, index) => (
+                  <View
+                    wrap={false}
+                    key={index}
+                    style={{ gap: 6, display: "flex", flexDirection: "column" }}
+                  >
+                    <Text
+                      style={{
+                        fontSize: 18,
+                        fontFamily: `${selectedFont} 600`,
+                        color: selectedColor,
+                      }}
+                    >
+                      {detail.title}
+                    </Text>
+                    <View style={{ display: "flex", gap: 8 }}>
+                      {detail.duration?.start?.year &&
+                        detail.duration?.end?.year && (
+                          <Text
+                            style={{
+                              fontSize: 12,
+                              fontFamily: `${selectedFont} 400`,
+                            }}
+                          >
+                            {detail.duration?.start?.year} -{" "}
+                            {detail.duration?.end?.year}
+                          </Text>
+                        )}
+
+                      {detail.description?.length > 5 && (
+                        <View
+                          style={{
+                            flexDirection: "row",
+                            flexWrap: "wrap",
+                            paddingBottom: "8px",
+                          }}
+                        >
+                          <Text
+                            style={{
+                              fontSize: 12,
+                              fontFamily: `${selectedFont} 400`,
+                            }}
+                          >
+                            {detail.description}
+                          </Text>
+                        </View>
+                      )}
+                    </View>
+                  </View>
+                ))}
+              </View>
+            </View>
+            <View
+              style={{ width: "100%", height: 1, backgroundColor: "#DEDEDE" }}
+            ></View>
+          </View>
+        ))}
         <View style={{ display: "flex", flexDirection: "row", gap: 16 }}>
           <View
             style={{
@@ -339,6 +428,7 @@ function Template14({ data, selectedColor, selectedFont }) {
             <View style={{ display: "flex", gap: 4 }}>
               {data?.hobbies?.map((detail, index) => (
                 <Text
+                  wrap={false}
                   key={index}
                   style={{
                     fontSize: 12,
@@ -371,6 +461,7 @@ function Template14({ data, selectedColor, selectedFont }) {
             <View style={{ display: "flex", gap: 4 }}>
               {data?.languages?.map((detail, index) => (
                 <Text
+                  wrap={false}
                   key={index}
                   style={{
                     fontSize: 12,
