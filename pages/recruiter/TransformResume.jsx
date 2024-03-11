@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 function TransformResume() {
 
     const [transform, setTransform] = useState(true)
-    
+
     const [repeat, setRepeat] = useState(false);
     const [isAnimate, setIsAnimate] = useState(false);
     const transformRef = useRef(null);
@@ -36,17 +36,17 @@ function TransformResume() {
 
     useEffect(() => {
         let timeoutId;
-    
+
         if (!transform) {
             timeoutId = setTimeout(() => {
                 setTransform(true);
                 setRepeat(true)
             }, 7000);
         }
-    
+
         return () => clearTimeout(timeoutId);
     }, [transform]);
-    
+
     useEffect(() => {
         if (repeat) {
             const timer = setTimeout(() => {

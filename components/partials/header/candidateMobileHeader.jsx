@@ -69,7 +69,7 @@ function CandidateMobileHeader() {
               initial={{ x: "-100%" }}
               animate={{ x: 0 }}
               exit={{ x: "-100%" }}
-              transition={{ duration: 0.5 }}
+              transition={{ duration: 0.5, ease: "easeInOut" }}
               className="absolute z-[2000] w-full mt-[-4rem]  "
               style={{
                 background: "rgba(255, 255, 255, 0.5)",
@@ -80,11 +80,15 @@ function CandidateMobileHeader() {
                     WebkitBackdropFilter: "blur(10px)",
                   }),
                 willChange: "transform",
+                // opacity: isSidebar ? 1 : 0,
+                // transform: (isSidebar ? "translateX(0)" : "translateX(-100%)"), transition: "transform 0.4s ease-in-out",
               }}
             >
               <HeaderSidebar
+             
                 selectedPage={selectedPage}
                 setIsSidebar={setIsSidebar}
+                isSidebar={isSidebar}
                 setIsLogin={setIsLogin}
                 isLogin={isLogin}
               />
