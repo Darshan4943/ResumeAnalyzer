@@ -183,15 +183,15 @@ function CreateResume() {
   useEffect(() => {
     if (userData) {
       if (userData.isEdit) {
-        const data = JSON.parse(userData.data);
-        setData(data);
-        setSelectedResumeIndex(data.resumeTemplateIndex);
-        setSelectedColor(data.selectedColor);
-        setSelectedFont(data.selectedFont);
-        setEnditId(data._id);
+        const parsedData = JSON.parse(userData.data);
+        setData({...data,...parsedData});
+        setSelectedResumeIndex(parsedData.resumeTemplateIndex);
+        setSelectedColor(parsedData.selectedColor);
+        setSelectedFont(parsedData.selectedFont);
+        setEnditId(parsedData._id);
       } else {
         setTimeout(() => {
-          setSelectedResumeIndex(48);
+          setSelectedResumeIndex(1);
           setSelectedColor("#414042");
         }, 400);
         const {
@@ -261,63 +261,63 @@ function CreateResume() {
               skill: item.value,
               rating: [5, 5, 5, 5, 5],
             })),
-          section: [
-            {
-              header: "Projects",
-              subSection: [
-                {
-                  title: "demo",
-                  duration: {
-                    start: {
-                      month: "3",
-                      year: "2021",
-                    },
-                    end: {
-                      month: "1",
-                      year: "2024",
-                    },
-                  },
-                  description:
-                    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the releaseLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release",
-                },
-                {
-                  title: "demo",
-                  duration: {
-                    start: {
-                      month: "3",
-                      year: "2021",
-                    },
-                    end: {
-                      month: "1",
-                      year: "2024",
-                    },
-                  },
-                  description:
-                    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the releaseLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release",
-                },
-              ],
-            },
-            {
-              header: "Projects",
-              subSection: [
-                {
-                  title: "demo",
-                  duration: {
-                    start: {
-                      month: "3",
-                      year: "2021",
-                    },
-                    end: {
-                      month: "1",
-                      year: "2024",
-                    },
-                  },
-                  description:
-                    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release",
-                },
-              ],
-            },
-          ],
+          // section: [
+          //   {
+          //     header: "Projects",
+          //     subSection: [
+          //       {
+          //         title: "demo",
+          //         duration: {
+          //           start: {
+          //             month: "3",
+          //             year: "2021",
+          //           },
+          //           end: {
+          //             month: "1",
+          //             year: "2024",
+          //           },
+          //         },
+          //         description:
+          //           "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the releaseLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release",
+          //       },
+          //       {
+          //         title: "demo",
+          //         duration: {
+          //           start: {
+          //             month: "3",
+          //             year: "2021",
+          //           },
+          //           end: {
+          //             month: "1",
+          //             year: "2024",
+          //           },
+          //         },
+          //         description:
+          //           "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the releaseLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release",
+          //       },
+          //     ],
+          //   },
+          //   {
+          //     header: "Projects",
+          //     subSection: [
+          //       {
+          //         title: "demo",
+          //         duration: {
+          //           start: {
+          //             month: "3",
+          //             year: "2021",
+          //           },
+          //           end: {
+          //             month: "1",
+          //             year: "2024",
+          //           },
+          //         },
+          //         description:
+          //           "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release",
+          //       },
+          //     ],
+          //   },
+          // ],
         }));
       }
     } else {

@@ -85,7 +85,7 @@ const ResumeForm = ({
               setData({
                 ...data,
                 section: [
-                  ...data.section,
+                  ...data?.section,
                   {
                     header: "",
                     subSection: [],

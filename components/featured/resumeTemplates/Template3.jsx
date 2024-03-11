@@ -43,7 +43,8 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                       ? URL.createObjectURL(data.profilePhoto)
                       : data.profilePhoto
                   }
-                  style={{ objectFit: "cover" }}
+                  style={{ objectFit: "cover",  width: 134,
+                  height: 134, }}
                 />
               ) : (
                 <Image src="/images/services/profile.png" />
@@ -605,7 +606,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                         justifyContent: "space-between",
                         alignItems: "center",
                       }}
-                    >
+                     >
                       <Text
                         style={{
                           color: "#414142",

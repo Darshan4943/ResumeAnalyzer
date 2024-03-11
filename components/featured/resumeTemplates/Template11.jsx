@@ -13,8 +13,9 @@ import {
 import React from "react";
 
 function Template11({ data, selectedColor, selectedFont, preview }) {
+  console.log(16, data)
   return (
-    <Page size="A4">
+    <Page size="A4" wrap={true} >
       <View style={{ minHeight: 841.8, flexDirection: "row" }}>
         <View
           style={{
@@ -46,8 +47,8 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                   preview
                     ? data.profilePhoto
                     : Object.keys(data?.profilePhoto).includes("filename")
-                    ? URL.createObjectURL(data.profilePhoto)
-                    : data.profilePhoto
+                      ? URL.createObjectURL(data.profilePhoto)
+                      : data.profilePhoto
                 }
                 style={{ objectFit: "contain" }}
                 alt=""
@@ -61,7 +62,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
             )}
           </View>
 
-          <View>
+          <View wrap={false}>
             {data?.skills?.length > 0 && (
               <>
                 <View style={{ objectFit: "contain" }}>
@@ -442,7 +443,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
               )}
             </View>
 
-            <View style={{ flexDirection: "column", gap: 16, paddingTop: 24 }}>
+            <View wrap={false} style={{ flexDirection: "column", gap: 16, paddingTop: 24 }}>
               <Text
                 style={{
                   color: "#000000",
@@ -524,7 +525,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
               ))}
             </View>
 
-            <View style={{ flexDirection: "column", gap: 16, paddingTop: 24 }}>
+            <View wrap={false} style={{ flexDirection: "column", gap: 16, paddingTop: 24 }}>
               <Text
                 style={{
                   color: "#000000",
@@ -600,7 +601,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
               ))}
             </View>
 
-            <View style={{ flexDirection: "column", gap: 16, paddingTop: 24 }}>
+            <View wrap={false} style={{ flexDirection: "column", gap: 16, paddingTop: 24 }}>
               <Text
                 style={{
                   color: "#000000",
@@ -665,6 +666,80 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                 </View>
               ))}
             </View>
+            {data?.section?.map((item, index) => (
+              <View wrap={false}
+                key={index} style={{ flexDirection: "column", gap: 16, paddingTop: 24 }}>
+                <Text
+                  style={{
+                    color: "#000000",
+                    fontSize: 18,
+                    fontFamily: `${selectedFont} 700`,
+                  }}
+                >
+                  {item?.header}
+                </Text>
+                {item?.subSection?.map((detail, index) => (
+                  <View style={{ flexDirection: "row", gap: 30 }} key={index}>
+
+                    <View style={{ flexDirection: "row", gap: 16 }}>
+
+                      <View
+                        style={{ flexDirection: "column", gap: 5, width: 124 }}
+                      >
+                        {detail.title.length > 0 && (
+                        <Text
+                          style={{
+                            color: "#1C75BC",
+                            fontSize: 13,
+                            fontFamily: `${selectedFont} 700`,
+                          }}
+                        >
+                        
+                          {detail.title}
+
+                        </Text>
+                        )}
+                        {detail.duration?.start?.year &&
+                          detail.duration?.end?.year && (
+                            <Text
+                              style={{
+                                color: "#000000",
+                                fontSize: 12,
+                                fontFamily: `${selectedFont} 400`,
+                              }}
+                            >
+                              {detail.duration?.start?.year}-
+                              {detail.duration?.end?.year}
+                            </Text>
+
+                          )}
+
+
+                      </View>
+
+                      {detail.description?.length > 5 && (
+                        <View
+                          style={{ flexDirection: "column", width: 246, gap: 2 }}
+                        >
+                          <Text
+                            style={{
+                              color: "#000000",
+                              fontSize: 13,
+                              fontFamily: `${selectedFont} 500`,
+                            }}
+                          >
+                            {detail.description}
+                          </Text>
+
+
+                        </View>
+                      )}
+                    </View>
+
+                  </View>
+                ))}
+              </View>
+            ))}
           </View>
         </View>
       </View>

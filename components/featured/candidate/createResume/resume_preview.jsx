@@ -39,6 +39,7 @@ import FileNameModel from "./components/fileNameModel";
 import Template32 from "../../resumeTemplates/Template32";
 import Template39 from "../../resumeTemplates/Template39";
 import Template48 from "../../resumeTemplates/Template48";
+import Template44 from "../../resumeTemplates/Template44";
 // import { generatePDFUsingRenderer } from "../../../../utils/middleware";
 <Fonts />;
 const ResumePreview = ({
@@ -59,7 +60,7 @@ const ResumePreview = ({
 
   const callData = () => {
     axios
-      .get("http://localhost:2000/api/resume/" + userDataGlobal?._id)
+      .get("https://freedygoservices.in/api/resume/" + userDataGlobal?._id)
       .then((res) => {
         setName(data.firstName + "_resume " + (res.data.data.length + 1));
       })
@@ -142,13 +143,13 @@ const ResumePreview = ({
     //   fontFamily: "Inter",
     //   themeColor: "#F2BE5C",
     // },
-    // {
-    //   title: "Template11",
-    //   imgUrl: "/images/templates/template11.png",
-    //   index: 11,
-    //   fontFamily: "Montserrat",
-    //   themeColor: "#E6E7E8",
-    // },
+    {
+      title: "Template11",
+      imgUrl: "/images/templates/template11.png",
+      index: 11,
+      fontFamily: "Montserrat",
+      themeColor: "#E6E7E8",
+    },
     // {
     //   title: "Template12",
     //   imgUrl: "/images/templates/template12.png",
@@ -232,6 +233,13 @@ const ResumePreview = ({
       index: 48,
       fontFamily: "Montserrat",
       themeColor: "#303030",
+    },
+    {
+      title: "Template44",
+      imgUrl: "/images/templates/template44.png",
+      index: 44,
+      fontFamily: "Inter",
+      themeColor: "#C7EAFB",
     },
   ];
   const selectResumeTemplate = (index) => {
@@ -396,6 +404,14 @@ const ResumePreview = ({
             selectedFont={selectedFont}
           />
         );
+        case 44:
+          return (
+            <Template44
+              data={data}
+              selectedColor={selectedColor}
+              selectedFont={selectedFont}
+            />
+          );
       case 32:
         return (
           <Template32
@@ -518,7 +534,7 @@ const ResumePreview = ({
       formData.append("pdfBlob", blob);
 
       axios
-        .put("http://localhost:2000/api/resume/" + id, formData)
+        .put("https://freedygoservices.in/api/resume/" + id, formData)
         .then((res) => {
           toast.success("Resume Updated successfully");
           setLoading(false);
@@ -557,7 +573,7 @@ const ResumePreview = ({
       }
 
       axios
-        .post("http://localhost:2000/api/resume/add", formData)
+        .post("https://freedygoservices.in/api/resume/add", formData)
         .then((res) => {
           toast.success("Resume Saved To Collection successfully");
           setLoading(false);

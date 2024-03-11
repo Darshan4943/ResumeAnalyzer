@@ -14,7 +14,7 @@ function MyPurchase() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:2000/api/subscription/" + userDataGlobal._id)
+      .get("https://freedygoservices.in/api/subscription/" + userDataGlobal._id)
       .then((res) => {
         setSubscription(res.data.data);
         setPlan(

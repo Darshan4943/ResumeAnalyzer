@@ -47,7 +47,12 @@ const ImageCropper = ({ setModelView, file, setCroppedImage }) => {
               />
             </div>
           </div>
-          <button onClick={showCroppedImage}>Save</button>
+          <button
+            className=" font-montserrat text-white font-medium text-[14px] flex items-center justify-center px-[12px] rounded-[8px]  bg-[#06A9EF] w-[80px] h-[42px]"
+            onClick={showCroppedImage}
+          >
+            Save
+          </button>
         </div>
       </div>
     </div>

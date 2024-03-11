@@ -481,7 +481,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                 </View>
               </View>
             )}
-            {data?.section.map((item, index) => (
+            {  data?.section?.map((item, index) => (
               <View
                 style={{ flexDirection: "column", gap: 12, width: "100%" }}
                 key={index}

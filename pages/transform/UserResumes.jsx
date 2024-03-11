@@ -68,7 +68,7 @@ const UserResumes = ({ setSelect, setIsAll, isAll, resumeList, selected }) => {
     } else {
       console.log("first");
       axios
-        .get("http://localhost:2000/api/resume/" + userDataGlobal?._id)
+        .get("https://freedygoservices.in/api/resume/" + userDataGlobal?._id)
         .then((response) => {
           setData(response.data.data);
           setSelect(response.data.data[0]);

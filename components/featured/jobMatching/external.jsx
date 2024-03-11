@@ -13,24 +13,20 @@ import PdfViewer from "./PdfViewer";
 const ExternalJobMatching = () => {
   const [text, setText] = useState("");
   const [error, setError] = useState("");
-  console.log(error)
+  console.log(error);
   const [loading, setLoading] = useState("");
   const [resumeCount, setResumeCount] = useState(5);
   const userDataGlobal = useSelector((state) => state.userData);
   const [details, setDetails] = useState();
-  const [resuneList, setResuneList] = useState([
-   
-  ]);
+  const [resuneList, setResuneList] = useState([]);
   const [files, setFiles] = useState([]);
   const [preview, setPreview] = useState(false);
   const [selected, setSelected] = useState(false);
-  const [textDataFinal, setTextData] = useState([
-
-  ]);
+  const [textDataFinal, setTextData] = useState([]);
   useEffect(() => {
     axios
       .get(
-        `http://localhost:2000/api/client/getByRecruiter/${userDataGlobal._id}`
+        `https://freedygoservices.in/api/client/getByRecruiter/${userDataGlobal._id}`
       )
       .then((res) => {
         setDetails(res.data.data);
@@ -43,7 +39,7 @@ const ExternalJobMatching = () => {
   const jobMatching = () => {
     setLoading(true);
     axios
-      .post("http://localhost:2000/api/external/jobMatching", {
+      .post("https://freedygoservices.in/api/external/jobMatching", {
         jd: text,
         resumeCount,
         resumeData: textDataFinal,
@@ -149,7 +145,7 @@ const ExternalJobMatching = () => {
   };
 
   const fileChangeHandler = async (e) => {
-    setResuneList(0)
+    setResuneList(0);
     const selectedFiles = e.target.files;
     const textData = [];
     if (Object.values(selectedFiles).length) {
@@ -208,7 +204,6 @@ const ExternalJobMatching = () => {
 
   return (
     <div className="flex flex-col gap-4 min-h-[70vh] ">
-     
       <div
         className="flex ml:flex-row flex-col gap-12 w-[100%] p-4 "
         style={{
@@ -268,7 +263,7 @@ const ExternalJobMatching = () => {
               placeholder="Enter your text here..."
               className=" border border-[#06A9EF] rounded-[8px] outline-none h-auto p-2"
             />
-             {error && <div className="text-red">{error}</div>}
+            {error && <div className="text-red">{error}</div>}
           </div>
           <div className="flex flex-row gap-4 items-center">
             <span className="text-[20px] font-500">
@@ -289,7 +284,6 @@ const ExternalJobMatching = () => {
           <button
             className="px-4 py-3 bg-[#06A9EF] text-[16px] text-white font-semibold rounded-[12px] w-[166px]"
             disabled={loading || text.length < 100}
-            
             onClick={() => {
               jobMatching();
             }}
@@ -336,6 +330,9 @@ const ExternalJobMatching = () => {
                       className="flex flex-col gap-[8px] w-[44%] rounded-[16px] bg-white shadow-lg py-[16px] px-[24px]"
                       key={index}
                     >
+                      {Object.values(files).find((item, i) =>
+                        console.log(data, i)
+                      )}
                       <div className="flex flex-col gap-[4px]">
                         <div className="flex gap-[4px] text-[16px] font-500">
                           <span>{data?.first_name}</span>{" "}
@@ -345,15 +342,11 @@ const ExternalJobMatching = () => {
                       <div className="w-[100%]  px-[8px] pb-[16px] border-b-[1px] border-[#bebebe]">
                         <div className="w-full h-full rounded-[8px]    group relative flex justify-center ">
                           <PdfViewer
-                            data={textDataFinal.find(
-                              (data) => index == data.index
-                            )}
+                            data={data}
                             file={Object.values(files).find(
-                              (data, i) => index == i
+                              (item, i) => data.index == i
                             )}
                           />
-
-                        
                         </div>
                       </div>
                       {data?.percentage && (
