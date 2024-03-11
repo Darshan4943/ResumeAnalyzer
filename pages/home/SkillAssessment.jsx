@@ -22,18 +22,21 @@ import QuestionList from "../../components/featured/home/QuestionList";
 
 
 function SkillAssessment() {
+
   const resumeRef = useRef();
   const userDataGlobal = useSelector((state) => state.userData);
   const [reCall, forceUpdate] = useReducer((x) => x + 1.0);
   const [viewAddSkill, setViewAddSkill] = useState(false);
   const router = useRouter();
   const query = router.query;
+  const [skipped, setSkipped] = useState([]);
   const [toggle, setToggle] = useState(0);
   const [score, setScore] = useState(false);
   const [question, setQuestion] = useState([]);
   const [answer, setAnswer] = useState([]);
   const [questionIndex, setQuestionIndex] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [loadingg, setLoadingg] = useState(false);
  
   const [isTimerOver, setIsTimerOver] = useState(false);
   const [startTimer, setStartTimer] = useState(false);
@@ -141,7 +144,7 @@ function SkillAssessment() {
     );
     return findAnswer ? true : false;
   };
-  console.log(skipped);
+ 
   const checkAnswer = () => {
     let correctAnswer = 0;
     answer.forEach((item) => {
