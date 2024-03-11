@@ -13,7 +13,6 @@ import {
 import React from "react";
 
 function Template11({ data, selectedColor, selectedFont, preview }) {
-  console.log(16, data)
   return (
     <Page size="A4" wrap={true} >
       <View style={{ minHeight: 841.8, flexDirection: "row" }}>
