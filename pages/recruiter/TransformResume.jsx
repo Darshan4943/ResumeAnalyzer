@@ -1,14 +1,32 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { motion } from "framer-motion";
+import { useRouter } from 'next/router';
 function TransformResume() {
 
     const [transform, setTransform] = useState(true)
-
+    const [isLogin, setIsLogin] = useState(false);
     const [repeat, setRepeat] = useState(false);
     const [isAnimate, setIsAnimate] = useState(false);
     const transformRef = useRef(null);
+    const router = useRouter()
+    useEffect(() => {
+        const token = localStorage.getItem("authToken");
+        if (token && token != "undefined") {
+            if (token) {
+                setIsLogin(true);
+            } else {
+                setIsLogin(false);
+            }
+        }
+    }, []);
 
-
+    const clickHandler = () => {
+        if (isLogin) {
+            router.push("/transform/TransformJob");
+        } else {
+            router.push("/auth?signin=true");
+        }
+    };
     useEffect(() => {
         const options = {
             root: null,
@@ -75,7 +93,7 @@ function TransformResume() {
                     Crafting personalized resumes to fit each job perfectly, highlighting the right skills and experiences. By making sure resumes match what employers are looking for, help clients stand out and land their dream jobs
                 </div>
                 <button
-                    //  onClick={clickHandler}
+                     onClick={clickHandler}
                     className='bg-[#06A9EF] text-white px-4 ml:py-3 py-2 ml:w-[190px] ml:rounded-[12px] rounded-[8px] ml:text-[16px] text-[4vw] font-semibold'>
                     Transform Resume
                 </button>
