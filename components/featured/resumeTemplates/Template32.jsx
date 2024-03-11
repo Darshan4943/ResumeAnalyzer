@@ -18,7 +18,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
           <View
             style={{
               flexDirection: "column",
-              minHeight: "841.7px",
+              minHeight: 829.7,
               height: "100%",
               backgroundColor: "#F2F2F2",
               gap: "18px",
