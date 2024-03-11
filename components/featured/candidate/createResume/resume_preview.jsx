@@ -38,6 +38,7 @@ import { useSelector } from "react-redux";
 import FileNameModel from "./components/fileNameModel";
 import Template32 from "../../resumeTemplates/Template32";
 import Template39 from "../../resumeTemplates/Template39";
+import Template48 from "../../resumeTemplates/Template48";
 // import { generatePDFUsingRenderer } from "../../../../utils/middleware";
 <Fonts />;
 const ResumePreview = ({
@@ -155,13 +156,13 @@ const ResumePreview = ({
     //   fontFamily: "Lato",
     //   themeColor: "#0C2438",
     // },
-    {
-      title: "Template13",
-      imgUrl: "/images/templates/template13.png",
-      index: 13,
-      fontFamily: "Poppins",
-      themeColor: "#0E6CC2",
-    },
+    // {
+    //   title: "Template13",
+    //   imgUrl: "/images/templates/template13.png",
+    //   index: 13,
+    //   fontFamily: "Poppins",
+    //   themeColor: "#0E6CC2",
+    // },
     {
       title: "Template14",
       imgUrl: "/images/templates/template14.png",
@@ -222,6 +223,13 @@ const ResumePreview = ({
       title: "Template39",
       imgUrl: "/images/templates/template39.png",
       index: 39,
+      fontFamily: "Montserrat",
+      themeColor: "#303030",
+    },
+    {
+      title: "Template48",
+      imgUrl: "/images/templates/template48.png",
+      index: 48,
       fontFamily: "Montserrat",
       themeColor: "#303030",
     },
@@ -399,6 +407,14 @@ const ResumePreview = ({
       case 39:
         return (
           <Template39
+            data={data}
+            selectedColor={selectedColor}
+            selectedFont={selectedFont}
+          />
+        );
+      case 48:
+        return (
+          <Template48
             data={data}
             selectedColor={selectedColor}
             selectedFont={selectedFont}

@@ -855,6 +855,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
               {data.section?.map((item, index) => (
                 <View
                   wrap={false}
+                  key={index}
                   style={{
                     display: "flex",
                     flexDirection: "column",

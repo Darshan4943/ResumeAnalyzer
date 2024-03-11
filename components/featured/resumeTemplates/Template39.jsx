@@ -268,6 +268,7 @@ function Template39({ data, selectedColor, selectedFont }) {
                   {data?.skills?.map((detail, index) => (
                     <View
                       wrap={false}
+                      key={index}
                       style={{
                         flexDirection: "row",
                         gap: 8,
@@ -317,6 +318,7 @@ function Template39({ data, selectedColor, selectedFont }) {
                   {data?.languages?.map((detail, index) => (
                     <View
                       wrap={false}
+                      key={index}
                       style={{
                         flexDirection: "row",
                         gap: 8,

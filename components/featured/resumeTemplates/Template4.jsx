@@ -894,7 +894,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
           {data.section?.length > 0 &&
             data.section?.map((item, index) => (
               <View
-                index={index}
+                key={index}
                 style={{
                   display: "flex",
                   flexDirection: "column",
