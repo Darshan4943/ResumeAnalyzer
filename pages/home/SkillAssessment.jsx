@@ -43,7 +43,6 @@ function SkillAssessment() {
   const [selectedSkill, setSelectedSkill] = useState();
   const [skills, setSkills] = useState(SkillList);
 
-  const [inputValue, setInputValue] = useState("");
 
   const [inputValue, setInputValue] = useState('');
 

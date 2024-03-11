@@ -605,7 +605,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                         justifyContent: "space-between",
                         alignItems: "center",
                       }}
-                    >
+                     >
                       <Text
                         style={{
                           color: "#414142",

@@ -183,12 +183,12 @@ function CreateResume() {
   useEffect(() => {
     if (userData) {
       if (userData.isEdit) {
-        const data = JSON.parse(userData.data);
-        setData(data);
-        setSelectedResumeIndex(data.resumeTemplateIndex);
-        setSelectedColor(data.selectedColor);
-        setSelectedFont(data.selectedFont);
-        setEnditId(data._id);
+        const parsedData = JSON.parse(userData.data);
+        setData({...data,...parsedData});
+        setSelectedResumeIndex(parsedData.resumeTemplateIndex);
+        setSelectedColor(parsedData.selectedColor);
+        setSelectedFont(parsedData.selectedFont);
+        setEnditId(parsedData._id);
       } else {
         setTimeout(() => {
           setSelectedResumeIndex(1);
