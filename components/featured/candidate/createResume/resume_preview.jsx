@@ -36,6 +36,8 @@ import Fonts from "../../../../public/fonts/fonts";
 import { ClosedIcon } from "../../../../utils/svg";
 import { useSelector } from "react-redux";
 import FileNameModel from "./components/fileNameModel";
+import Template32 from "../../resumeTemplates/Template32";
+import Template39 from "../../resumeTemplates/Template39";
 // import { generatePDFUsingRenderer } from "../../../../utils/middleware";
 <Fonts />;
 const ResumePreview = ({
@@ -160,13 +162,13 @@ const ResumePreview = ({
       fontFamily: "Poppins",
       themeColor: "#0E6CC2",
     },
-    // {
-    //   title: "Template14",
-    //   imgUrl: "/images/templates/template14.png",
-    //   index: 14,
-    //   fontFamily: "Inter",
-    //   themeColor: "#242424",
-    // },
+    {
+      title: "Template14",
+      imgUrl: "/images/templates/template14.png",
+      index: 14,
+      fontFamily: "Inter",
+      themeColor: "#242424",
+    },
     // {
     //   title: "Template15",
     //   imgUrl: "/images/templates/template15.png",
@@ -209,6 +211,20 @@ const ResumePreview = ({
     //   fontFamily: "Montserrat",
     //   themeColor: "#303030",
     // },
+    {
+      title: "Template32",
+      imgUrl: "/images/templates/template32.png",
+      index: 32,
+      fontFamily: "Montserrat",
+      themeColor: "#303030",
+    },
+    {
+      title: "Template39",
+      imgUrl: "/images/templates/template39.png",
+      index: 39,
+      fontFamily: "Montserrat",
+      themeColor: "#303030",
+    },
   ];
   const selectResumeTemplate = (index) => {
     switch (index) {
@@ -367,6 +383,22 @@ const ResumePreview = ({
       case 20:
         return (
           <Template20
+            data={data}
+            selectedColor={selectedColor}
+            selectedFont={selectedFont}
+          />
+        );
+      case 32:
+        return (
+          <Template32
+            data={data}
+            selectedColor={selectedColor}
+            selectedFont={selectedFont}
+          />
+        );
+      case 39:
+        return (
+          <Template39
             data={data}
             selectedColor={selectedColor}
             selectedFont={selectedFont}

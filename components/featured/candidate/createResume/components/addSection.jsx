@@ -10,12 +10,12 @@ const AddSection = ({ data, setData, section, formData, index, item }) => {
     setIsChecked(!isChecked);
     setData({ ...data, showExperience: !isChecked });
   };
-  const [activeDate,setActiveDate] = useState(false)
+  const [activeDate, setActiveDate] = useState(false);
   const [isEdited, setIsEdited] = useState(false);
   const [header, setHeader] = useState(null);
   const [headerEditable, setHeaderEditable] = useState(false);
   const [listItems, setListItems] = useState(section);
- 
+
   useEffect(() => {
     setListItems(section);
     if (section.length > 0) {
@@ -58,7 +58,7 @@ const AddSection = ({ data, setData, section, formData, index, item }) => {
   };
   const headerSeter = () => {
     setHeaderEditable(false);
-    setIsEdited(true)
+    setIsEdited(true);
   };
   const dataSeter = () => {
     if (isModified.status) {
@@ -74,7 +74,6 @@ const AddSection = ({ data, setData, section, formData, index, item }) => {
     } else {
       setListItems([...listItems, sectionData]);
       setIsModified({ status: false, index: 0 });
-
     }
     setView(false);
     setSectionData({
@@ -87,7 +86,7 @@ const AddSection = ({ data, setData, section, formData, index, item }) => {
     const dummyData = [...data.section];
     dummyData[index].subSection = [...listItems];
     dummyData[index].header = header;
-    console.log(dummyData)
+    console.log(dummyData);
     setData({ ...data, section: dummyData });
     setIsModified({ status: false, index: 0 });
     setIsEdited(false);
@@ -191,6 +190,7 @@ const AddSection = ({ data, setData, section, formData, index, item }) => {
                 idPrefix="education"
                 data={sectionData}
                 dataSeter={setSectionData}
+                fromCreate={true}
               />
             </div>
 

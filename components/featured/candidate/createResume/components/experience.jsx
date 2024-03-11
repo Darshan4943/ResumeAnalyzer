@@ -198,6 +198,8 @@ const Experience = ({ data, setData }) => {
                 idPrefix="education"
                 data={experienceData}
                 dataSeter={setExperienceData}
+                fromCreate={true}
+
               />
             </div>
 

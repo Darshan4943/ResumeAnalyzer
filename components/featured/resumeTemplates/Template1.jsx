@@ -510,10 +510,16 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                 {item.subSection.map((detail, index) => (
                   <View
                     key={index}
-                    style={{ flexDirection: "column", gap: 4 }}
+                    style={{ flexDirection: "column", gap: 4, width: "100%" }}
                     wrap={false}
                   >
-                    <View>
+                    <View
+                      style={{
+                        width: "100%",
+                        flexDirection: "row",
+                        justifyContent: "space-between",
+                      }}
+                    >
                       <Text
                         style={{
                           color: "#414042",
@@ -524,33 +530,31 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                       >
                         {detail.title}
                       </Text>
-                    </View>
-
-                    {detail.duration?.start?.year &&
-                      detail.duration?.end?.year && (
-                        <View
-                          style={{
-                            flexDirection: "row",
-                            justifyContent: "space-between",
-                            width: "100%",
-                          }}
-                        >
-                          {" "}
-                          <View style={{}}>
-                            <Text
-                              style={{
-                                color: "#414142",
-                                fontSize: 10,
-                                fontFamily: `${selectedFont} 400`,
-                                lineHeight: 1,
-                              }}
-                            >
-                              {detail.duration?.end?.year &&
-                                `${detail.duration?.start?.year}-${detail.duration?.end?.year}`}
-                            </Text>
+                      {detail.duration?.start?.year &&
+                        detail.duration?.end?.year && (
+                          <View
+                            style={{
+                              flexDirection: "row",
+                              justifyContent: "space-between",
+                            }}
+                          >
+                            {" "}
+                            <View style={{}}>
+                              <Text
+                                style={{
+                                  color: "#414142",
+                                  fontSize: 10,
+                                  fontFamily: `${selectedFont} 400`,
+                                  lineHeight: 1,
+                                }}
+                              >
+                                {detail.duration?.end?.year &&
+                                  `${detail.duration?.start?.year}-${detail.duration?.end?.year}`}
+                              </Text>
+                            </View>
                           </View>
-                        </View>
-                      )}
+                        )}
+                    </View>
 
                     <View style={{ width: "100%" }}>
                       <Text

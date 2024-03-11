@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
-const DateSelector = ({ idPrefix, dataSeter, data }) => {
+const DateSelector = ({ idPrefix, dataSeter, data, fromCreate }) => {
   const months = Array.from({ length: 12 }, (_, index) => index + 1);
   // const years = Array.from({ length: 11 }, (_, index) => 2020 + index);
   // const years = Array.from({ length: 40 }, (_, index) => 2020 + index);
-  const [isChecked, setIsChecked] = useState(false);
+  const [isChecked, setIsChecked] = useState(true);
   const handleSwitchChange = () => {
     setIsChecked(!isChecked);
   };
@@ -60,6 +60,12 @@ const DateSelector = ({ idPrefix, dataSeter, data }) => {
     return years;
   }
 
+  useEffect(() => {
+    if (fromCreate) {
+      setIsChecked(false);
+    }
+  }, [fromCreate]);
+
   return (
     <div className="flex gap-[14px] flex_column">
       <div
@@ -77,6 +83,7 @@ const DateSelector = ({ idPrefix, dataSeter, data }) => {
         <div className="flex gap-4">
           <div className="flex items-center rounded-lg border border-[#646464] bg-white text-[14px]  font-montserrat font-small relative min-w-[110px] w-full overflow-hidden relative">
             <select
+              disabled={!isChecked}
               id={`${idPrefix}-startMonth`}
               value={data?.duration?.start?.month}
               onChange={handleStartMonthChange}
@@ -117,6 +124,7 @@ const DateSelector = ({ idPrefix, dataSeter, data }) => {
           <div className="flex items-center rounded-lg border border-[#646464] bg-white text-[14px]  font-montserrat font-small relative min-w-[100px] w-full overflow-hidden">
             <select
               id={`${idPrefix}-startYear`}
+              disabled={!isChecked}
               value={data?.duration?.start?.year}
               onChange={handleStartYearChange}
               style={{
@@ -153,8 +161,9 @@ const DateSelector = ({ idPrefix, dataSeter, data }) => {
       </div>
 
       {!data.currentlyWorking && (
-        <div className="flex flex-col gap-2"
-        style={{ opacity: isChecked ? 1 : 0.5 }}
+        <div
+          className="flex flex-col gap-2"
+          style={{ opacity: isChecked ? 1 : 0.5 }}
         >
           <div>
             <label
@@ -168,6 +177,7 @@ const DateSelector = ({ idPrefix, dataSeter, data }) => {
             <div className="flex items-center rounded-lg border border-[#646464] bg-white text-[14px]  font-montserrat font-small relative min-w-[110px] w-full overflow-hidden">
               <select
                 id={`${idPrefix}-endMonth`}
+                disabled={!isChecked}
                 value={data?.duration?.end?.month}
                 onChange={handleEndMonthChange}
                 style={{
@@ -199,6 +209,7 @@ const DateSelector = ({ idPrefix, dataSeter, data }) => {
             <div className="flex items-center rounded-lg border border-[#646464] bg-white text-[14px]  font-montserrat font-small relative min-w-[100px] w-full overflow-hidden">
               <select
                 id={`${idPrefix}-endYear`}
+                disabled={!isChecked}
                 value={data?.duration?.end?.year}
                 onChange={handleEndYearChange}
                 style={{

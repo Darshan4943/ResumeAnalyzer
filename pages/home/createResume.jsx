@@ -191,7 +191,7 @@ function CreateResume() {
         setEnditId(data._id);
       } else {
         setTimeout(() => {
-          setSelectedResumeIndex(1);
+          setSelectedResumeIndex(39);
           setSelectedColor("#414042");
         }, 400);
         const {

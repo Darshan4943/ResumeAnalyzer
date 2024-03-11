@@ -176,6 +176,7 @@ const Education = ({ setData, data }) => {
                     idPrefix="education"
                     data={educationData}
                     dataSeter={setEducationData}
+                    fromCreate={true}
                   />
                 </div>
               </div>

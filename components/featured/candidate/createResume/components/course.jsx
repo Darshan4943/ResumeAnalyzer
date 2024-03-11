@@ -152,6 +152,8 @@ const Course = ({ data, setData }) => {
                 idPrefix="education"
                 data={courseData}
                 dataSeter={setCourseData}
+                fromCreate={true}
+
               />
 
               <div className="flex flex-col gap-2 w-full">
