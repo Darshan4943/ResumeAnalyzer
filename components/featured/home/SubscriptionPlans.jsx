@@ -188,7 +188,7 @@ function SubscriptionPlans({ fromMain }) {
                       style={{ opacity: 0.6 }}
                       onClick={() => clickHandler(index)}
                       disabled={true}
-                      className="px-9 py-3 bg-[#06A9EF] text-white rounded-[12px] text-[1.4vw] font-semibold w-full"
+                      className="px-9 py-3 bg-[#06A9EF] text-white rounded-[12px] text-[14px] font-semibold w-full"
                     >
                       Contact Us
                     </button>

@@ -129,7 +129,7 @@ function TransformResume() {
 
                         transition: "opacity 1s ease-in-out"
                     }}
-                    className={`flex items-center justify-center absolute border bg-[#0C8A0A] border-[#0C8A0A]   w-[9.02%] h-[10%] top-[45%]   left-[0%]  rounded-full`}
+                    className={`flex items-center justify-center absolute border bg-[#0C8A0A] border-[#0C8A0A]   w-[9.02%] h-[10%] top-[45%]   left-[3%]  rounded-full`}
                 >
 
 
