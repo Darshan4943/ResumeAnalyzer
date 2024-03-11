@@ -239,7 +239,8 @@ const DateSelector = ({ idPrefix, dataSeter, data, fromCreate }) => {
           </div>
         </div>
       )}
-      <div className="flex flex-col gap-2">
+      {
+        fromCreate && <div className="flex flex-col gap-2">
         <div>
           <label className="switch">
             <input
@@ -251,6 +252,8 @@ const DateSelector = ({ idPrefix, dataSeter, data, fromCreate }) => {
           </label>
         </div>
       </div>
+      }
+      
     </div>
   );
 };
