@@ -13,7 +13,6 @@ function ClientDetail({ tabIndex }) {
   const clientId = router.query.detailIndex;
   const [resumeList, setResumeList] = useState([]);
 
-
   useEffect(() => {
     if (clientId) {
       axios
@@ -183,7 +182,7 @@ function ClientDetail({ tabIndex }) {
       <div className="flex text-[24px] font-semibold gap-4 items-center">
         Resumes
       </div>
-      <div className="rounded-[12px] border flex flex-wrap scr540:justify-start justify-center gap-9 border-[#DEDEDE] bg-[#F9F9F9] p-6">
+      <div className="rounded-[12px] border flex flex-wrap scr540:justify-start justify-center gap-9 border-[#DEDEDE] bg-[#F9F9F9] p-6 cursor-pointer">
         <div
           onClick={() => router.push(`/home/BuildResume?clientId=${clientId}`)}
           style={{ boxShadow: "0px 0px 10px 5px #00000040" }}

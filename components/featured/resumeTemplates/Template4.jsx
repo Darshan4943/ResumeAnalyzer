@@ -12,7 +12,7 @@ import {
 } from "@react-pdf/renderer";
 function Template4({ data, selectedColor, selectedFont, preview }) {
   return (
-    <Page size="A4" wrap={true}>
+    <Page size="A4" wrap={true} style={{paddingTop:'12px'}}>
       <View style={{ flexDirection: "row", gap: "1.5rem" }}>
         <View style={{ width: "190px" }}>
           <View

@@ -16,7 +16,7 @@ import {
 
 const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
   return (
-    <Page size="A4" wrap={true}>
+    <Page size="A4" wrap={true} style={{paddingTop:'12px'}}>
       <View style={{ width: 595, display: "flex", flexDirection: "row" }}>
         <View
           style={{

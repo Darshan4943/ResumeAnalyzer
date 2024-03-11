@@ -30,29 +30,163 @@ function CreateResume() {
     };
   }, []);
   const [isEdit, isSetEdit] = useState(false);
-  const [data, setData] = useState({
-    profilePhoto: null,
-    designation: "",
-    firstName: "",
-    lastName: "",
-    mobileNumber: "",
-    email: "",
-    location: "",
-    summary: "",
-    showSummary: true,
-    education: [],
-    showEducation: true,
-    experience: [],
-    showExperience: true,
-    course: [],
-    showCourse: true,
-    skills: [],
-    achievement: [],
-    sociaLinks: [],
-    hobbies: [],
-    languages: [],
-    section: [],
-  });
+  const [data, setData] = useState(
+    {
+      "profilePhoto": {},
+      "designation": "Pune",
+      "firstName": "Prathmesh",
+      "lastName": "Jadhav",
+      "mobileNumber": "9325795236",
+      "email": "prathmeshjadhav1014@gmail.com",
+      "location": "Pune",
+      "summary": "",
+      "showSummary": true,
+      "education": [
+          {
+              "duration": {
+                  "start": {
+                      "month": "4",
+                      "year": "2020"
+                  },
+                  "end": {
+                      "month": "1",
+                      "year": "2023"
+                  }
+              },
+              "qualification": "CS",
+              "instituteName": "Pune",
+              "specialization": "CS"
+          }
+      ],
+      "showEducation": true,
+      "experience": [
+          {
+              "designation": "UI/UX designer",
+              "organization": "Freedygo",
+              "description": " m Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchange",
+              "currentlyWorking": false,
+              "location": "Pune",
+              "duration": {
+                  "start": {
+                      "year": "2017",
+                      "month": "1"
+                  },
+                  "end": {
+                      "year": "2022",
+                      "month": "2"
+                  }
+              },
+              "end": {
+                  "year": "Present",
+                  "month": "Present"
+              }
+          },
+          {
+              "duration": {
+                  "start": {
+                      "month": "4",
+                      "year": "2020"
+                  },
+                  "end": {
+                      "month": "3",
+                      "year": "2023"
+                  }
+              },
+              "organization": "Pune",
+              "location": "Pune",
+              "designation": "Pune"
+          }
+      ],
+      "showExperience": true,
+      "course": [],
+      "showCourse": true,
+      "skills": [
+          {
+              "skill": "JavaScript",
+              "rating": [
+                  5,
+                  5,
+                  5,
+                  5,
+                  5
+              ]
+          },
+          {
+              "skill": "Java",
+              "rating": [
+                  5,
+                  5,
+                  5,
+                  5,
+                  5
+              ]
+          },
+          {
+              "skill": "C++",
+              "rating": [
+                  5,
+                  5,
+                  5,
+                  5,
+                  5
+              ]
+          },
+          {
+              "skill": "Swift",
+              "rating": [
+                  5,
+                  5,
+                  5,
+                  5,
+                  5
+              ]
+          }
+      ],
+      "achievement": [],
+      "sociaLinks": [],
+      "hobbies": [
+          {
+              "title": "Cooking"
+          },
+          {
+              "title": "coding"
+          }
+      ],
+      "languages": [],
+      "section": [
+          {
+              "header": "Projects",
+              "subSection": [
+                  {
+                      "title": "project 1",
+                      "duration": {
+                          "start": {
+                              "month": "3",
+                              "year": "2022"
+                          },
+                          "end": {
+                              "month": "5",
+                              "year": "2023"
+                          }
+                      },
+                      "description": "m Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchange"
+                  },
+                  {
+                      "title": "project 2",
+                      "duration": null,
+                      "description": "m Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchange"
+                  }
+              ]
+          }
+      ],
+      "currentCTC": "",
+      "dateOfComplition": "",
+      "dob": "",
+      "employmentStatus": "employed",
+      "clientId": "65ef17b76f81614547f6e657",
+      "summery": "m Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchange"
+  }
+  );
   // const [data, setData] = useState({
   //   profilePhoto: null,
   //   designation: "UI/UX designer",
@@ -184,7 +318,7 @@ function CreateResume() {
     if (userData) {
       if (userData.isEdit) {
         const parsedData = JSON.parse(userData.data);
-        setData({...data,...parsedData});
+        setData({ ...data, ...parsedData });
         setSelectedResumeIndex(parsedData.resumeTemplateIndex);
         setSelectedColor(parsedData.selectedColor);
         setSelectedFont(parsedData.selectedFont);

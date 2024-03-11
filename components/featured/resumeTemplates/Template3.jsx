@@ -12,7 +12,7 @@ import {
 
 const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
   return (
-    <Page size="A4" wrap={true}>
+    <Page size="A4" wrap={true} style={{paddingTop:'12px'}}>
       <View style={{ flexDirection: "row" }}>
         <View
           style={{
@@ -560,7 +560,6 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
           </View>
           {data.section?.map((item, index) => (
             <View
-              wrap={false}
               key={index}
               style={{
                 flexDirection: "column",
@@ -596,7 +595,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
               )}
 
               {item.subSection.map((detail, index) => (
-                <View key={index} style={{ flexDirection: "column", gap: 12 }}>
+                <View key={index} style={{ flexDirection: "column", gap: 12 }} wrap={false}>
                   {detail.title.length > 0 && (
                     <View
                       style={{

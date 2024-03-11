@@ -10,9 +10,9 @@ import {
   Path,
   Rect,
 } from "@react-pdf/renderer";
-function Template32({ data, selectedColor, selectedFont }) {
+function Template32({ data, selectedColor, selectedFont, preview }) {
   return (
-    <Page size="A4" wrap={true} style={{paddingTop:'12px'}}>
+    <Page size="A4" wrap={true} style={{ paddingTop: "12px" }}>
       <View style={{ flexDirection: "row", gap: "1.5rem" }}>
         <View style={{ width: "207px" }}>
           <View
@@ -33,7 +33,13 @@ function Template32({ data, selectedColor, selectedFont }) {
             >
               {data.profilePhoto ? (
                 <Image
-                  src={URL.createObjectURL(data.profilePhoto)}
+                  src={
+                    preview
+                      ? data.profilePhoto
+                      : Object.keys(data?.profilePhoto).includes("filename")
+                      ? URL.createObjectURL(data.profilePhoto)
+                      : data.profilePhoto
+                  }
                   alt=""
                   style={{
                     width: "134px",
@@ -786,7 +792,7 @@ function Template32({ data, selectedColor, selectedFont }) {
           </View>
           {data?.section?.map((item, index) => (
             <View
-            key={index}
+              key={index}
               style={{
                 display: "flex",
                 flexDirection: "row",

@@ -300,6 +300,51 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                 </View>
               </View>
             )}
+             {data?.hobbies?.length > 0 && (
+              <View style={{ flexDirection: "column" }}>
+                <View style={{ flexDirection: "column", gap: 12 }}>
+                  <Text
+                    style={{
+                      color: "#414042",
+                      fontFamily: `${selectedFont} 400`,
+                      fontSize: "16px",
+                    }}
+                  >
+                    HOBBIES
+                  </Text>
+                  <Svg width={141} height={4} viewBox="0 0 141 4">
+                    <Path
+                      d="M140.396 1.72095H0.209961V2.72095H140.396V1.72095Z"
+                      fill="#A7A9AC"
+                    />
+                    <Path
+                      d="M35.262 0.720947H0.209961V3.72095H35.262V0.720947Z"
+                      fill={selectedColor}
+                    />
+                  </Svg>
+                  <View
+                    style={{ flexDirection: "col", gap: "12px" }}
+                    wrap={false}
+                  >
+                    {data.hobbies.map((detail, index) => (
+                      <View key={index}>
+                        <View>
+                          <Text
+                            style={{
+                              color: "#414042",
+                              fontFamily: `${selectedFont} 400`,
+                              fontSize: "12px",
+                            }}
+                          >
+                            {detail.title}
+                          </Text>
+                        </View>
+                      </View>
+                    ))}
+                  </View>
+                </View>
+              </View>
+            )}
           </View>
 
           <View
@@ -436,55 +481,12 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                 </View>
               ))}
             </View>
-            {data?.hobbies?.length > 0 && (
-              <View style={{ flexDirection: "column" }}>
-                <View style={{ flexDirection: "column", gap: 12 }}>
-                  <Text
-                    style={{
-                      color: "#414042",
-                      fontFamily: `${selectedFont} 400`,
-                      fontSize: "16px",
-                    }}
-                  >
-                    HOBBIES
-                  </Text>
-                  <Svg width={141} height={4} viewBox="0 0 141 4">
-                    <Path
-                      d="M140.396 1.72095H0.209961V2.72095H140.396V1.72095Z"
-                      fill="#A7A9AC"
-                    />
-                    <Path
-                      d="M35.262 0.720947H0.209961V3.72095H35.262V0.720947Z"
-                      fill={selectedColor}
-                    />
-                  </Svg>
-                  <View
-                    style={{ flexDirection: "col", gap: "12px" }}
-                    wrap={false}
-                  >
-                    {data.hobbies.map((detail, index) => (
-                      <View key={index}>
-                        <View>
-                          <Text
-                            style={{
-                              color: "#414042",
-                              fontFamily: `${selectedFont} 400`,
-                              fontSize: "12px",
-                            }}
-                          >
-                            {detail.title}
-                          </Text>
-                        </View>
-                      </View>
-                    ))}
-                  </View>
-                </View>
-              </View>
-            )}
+           
             {  data?.section?.map((item, index) => (
               <View
                 style={{ flexDirection: "column", gap: 12, width: "100%" }}
                 key={index}
+                // wrap={false}
               >
                 <View style={{ flexDirection: "column", gap: 12 }}>
                   <Text
