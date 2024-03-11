@@ -195,9 +195,10 @@ const Template44 = ({ data, selectedColor, selectedFont }) => {
                                 <>
 
                                     <View key={index}>
-                                        <Text style={{ fontFamily: `${selectedFont} 400`, fontSize: 13, color: "#2D3033" }}>{detail?.title} / {detail?.duration?.start?.year}-{detail?.duration?.end?.year}</Text>
+                                        <Text style={{ fontFamily: `${selectedFont} 400`, fontSize: 13, color: "#2D3033" }}>{detail?.title} {detail.duration?.start?.year && detail.duration?.end?.year && <Text style={{ fontFamily: `${selectedFont} 400`, fontSize: 13, color: "#2D3033" }}>/ {detail?.duration?.start?.year}-{detail?.duration?.end?.year}</Text>}</Text>
                                         <Text style={{ fontFamily: `${selectedFont} 400`, fontSize: 12, color: "#6D6E71" }}>{detail.description}</Text>
                                     </View>
+
 
 
                                 </>
