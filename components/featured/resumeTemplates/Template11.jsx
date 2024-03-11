@@ -600,7 +600,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                 </View>
               ))}
             </View>
-
+            {data?.course?.length > 0 && (
             <View wrap={false} style={{ flexDirection: "column", gap: 16, paddingTop: 24 }}>
               <Text
                 style={{
@@ -666,6 +666,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                 </View>
               ))}
             </View>
+            )}
             {data?.section?.map((item, index) => (
               <View wrap={false}
                 key={index} style={{ flexDirection: "column", gap: 16, paddingTop: 24 }}>

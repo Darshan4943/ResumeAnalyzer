@@ -93,7 +93,7 @@ function Footer() {
                   <p className="footer_sub_about_P">Privacy Policy</p>
                   <p
                     onClick={() => router.push("/ContactUs")}
-                    className="footer_sub_about_P"
+                    className="footer_sub_about_P cursor-pointer"
                   >
                     {" "}
                     Contact Us
