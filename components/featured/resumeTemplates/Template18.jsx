@@ -16,7 +16,7 @@ import {
 
 const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
   return (
-    <Page size="A4">
+    <Page size="A4" wrap={true}>
       <View style={{ width: 595, display: "flex", flexDirection: "row" }}>
         <View
           style={{
@@ -275,6 +275,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
             >
               {data?.skills?.length > 0 && (
                 <View
+                  wrap={false}
                   style={{
                     flexDirection: "row",
                     gap: 14,
@@ -374,6 +375,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
             >
               {data?.languages?.length > 0 && (
                 <View
+                  wrap={false}
                   style={{
                     flexDirection: "row",
                     gap: 14,
@@ -632,6 +634,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
               >
                 {data?.experience?.map((detail, index) => (
                   <View
+                    wrap={false}
                     key={index}
                     style={{
                       display: "flex",
@@ -761,6 +764,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
               >
                 {data?.education?.map((detail, index) => (
                   <View
+                    wrap={false}
                     key={index}
                     style={{
                       display: "flex",
@@ -846,200 +850,154 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                   </View>
                 ))}
               </View>
-              <View
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  marginLeft: 26,
-                }}
-              >
-                {/* {data.section.map((item, index) => (
-          <View break
-            key={index}
-            style={{
-              flexDirection: "column",
-              gap: 12,
-              paddingTop: "24px",
-              marginLeft: "-1",
-              width: "100%",
-            }}
-          >
-            {item.header?.length > 0 && (
-              <Svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="160"
-                viewBox="0 0 160 27"
-                fill="none"
-              >
-                <Path
-                  d="M146.641 27H0V0H146.641C154.018 0 160 6.04367 160 13.5C160 20.9564 154.018 27 146.641 27Z"
-                  fill={selectedColor}
-                />
-                <Text
-                  x="10%"
-                  y="55%"
-                  dominantBaseline="middle"
-                  textAnchor="start"
-                  fill="white"
-                  fontSize={15}
-                  fontFamily={`${selectedFont} 400`}
+            </View>
+            <View style={{ flexDirection: "column", gap: "8px" }}>
+              {data.section?.map((item, index) => (
+                <View
+                  wrap={false}
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 16,
+                    width: "90%",
+                  }}
                 >
-                  {item.header}
-                </Text>
-              </Svg>
-            )}
-
-            {item.subSection.map((detail, index) => (
-              <View key={index} style={{ flexDirection: "column", gap: 12 }} break>
-                {detail.title.length > 0 && detail.duration && (
                   <View
-                    style={{
-                      flexDirection: "row",
-                      gap: 8,
-                      width: "100%",
-                      justifyContent: "space-between",
-                      alignItems: "center",
-                    }}
-                  >
-                    <Text
-                      style={{
-                        color: "#414142",
-                        paddingLeft: "18px",
-                        fontSize: "14",
-                        fontFamily: `${selectedFont} 700`,
-                      }}
-                    >
-                      {detail.title}
-                    </Text>
-                    {
-                       detail.duration?.start?.year && detail.duration?.end?.year  &&  <Text
-                       style={{
-                         color: "#414142",
-                         paddingLeft: "18px",
-                         fontSize: "12",
-                         fontFamily: `${selectedFont} 400`,
-                       }}
-                     >
-                       {`${
-                         detail.duration?.start?.year &&
-                         detail.duration?.start?.year
-                       } - ${
-                         detail.duration?.end?.year && detail.duration?.end?.year
-                       }`}
-                     </Text>
-                    }
-                   
-                  </View>
-                )}
-
-                {detail.description?.length > 5 && (
-                  <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
-                    <Text
-                      style={{
-                        color: "#646464",
-                        paddingLeft: "18px",
-                        paddingRight: "16px",
-                        fontSize: "12",
-                        fontFamily: `${selectedFont} 400`,
-                        flexWrap: "wrap",
-                      }}
-                    >
-                      {detail.description}
-                    </Text>
-                  </View>
-                )}
-              </View>
-            ))}
-          </View>
-        ))} */}
-                {/* {data.section?.map((detail, index) => (
-                  <View
-
-                    key={index}
-                    style={{
-                      display: "flex",
-                      flexDirection: "row",
-                      gap: index !== 0 ? 16 : 24,
-                    }}
+                    style={{ display: "flex", flexDirection: "row", gap: 6 }}
                   >
                     <Svg
-                      style={{ marginTop: 24 }}
                       width="20"
                       height="20"
                       viewBox="0 0 20 20"
-                      fill="white"
+                      fill="none"
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <Path
-                        d="M19.496 10C19.4939 15.2469 15.2405 19.5 9.99617 19.5C4.75183 19.5 0.50181 15.2469 0.50388 10C0.50595 4.75313 4.75933 0.500013 10.0037 0.500013C15.248 0.500013 19.498 4.75313 19.496 10Z"
-                        stroke="#83C3C9"
-                        stroke-miterlimit="10"
-                      />
-                      <Path
-                        d="M9.99998 16C13.3137 16 16 13.3137 16 10C16 6.6863 13.3137 4 9.99998 4C6.68628 4 4 6.6863 4 10C4 13.3137 6.68628 16 9.99998 16Z"
+                        d="M9.9993 18.3125C14.5893 18.3125 18.311 14.5913 18.3119 10.001C18.3127 5.41064 14.5925 1.68945 10.0024 1.68945C5.41237 1.68945 1.69071 5.41064 1.68985 10.001C1.68899 14.5913 5.40926 18.3125 9.9993 18.3125Z"
                         fill="#83C3C9"
                       />
                     </Svg>
-
-                    {index !== data.education.length - 1 && (
-                      <View
-                        style={{
-                          width: "1px",
-                          backgroundColor: "#83C3C9",
-                          height: "90%",
-                          marginLeft: -33,
-                          marginTop: 42.5,
-                        }}
-                      ></View>
-                    )}
-                    <View
+                    <Text
                       style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        gap: 4,
+                        fontSize: 18,
+                        fontFamily: `${selectedFont} 400`,
+                        color: "#252829",
                       }}
                     >
-                      <Text
-                        style={{
-                          fontFamily: `${selectedFont} 600`,
-                          fontSize: 12,
-                          color: "#252829",
-                        }}
-                      >
-                        {detail.qualification} in {detail.specialization}
-                      </Text>
-                      <Text
-                        style={{
-                          fontFamily: `${selectedFont} 400`,
-                          fontSize: 12,
-                          color: "#252829",
-                        }}
-                      >
-                        {detail.instituteName}
-                      </Text>
-
-                      <View
-                        style={{
-                          backgroundColor: "#555C5E",
-                          width: 282,
-                          height: 1,
-                        }}
-                      ></View>
-                      <Text
-                        style={{
-                          fontFamily: `${selectedFont} 400`,
-                          fontSize: 10,
-                          color: "#252829",
-                          marginBottom: 24,
-                        }}
-                      >
-                        {detail.duration?.start?.year}-
-                        {detail.duration?.end?.year}
-                      </Text>
-                    </View>
+                      {item?.header}
+                    </Text>
                   </View>
-                ))} */}
-              </View>
+
+                  <View
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      marginLeft: 26,
+                    }}
+                  >
+                    {item.subSection?.map((detail, index) => (
+                      <View
+                        wrap={false}
+                        key={index}
+                        style={{
+                          display: "flex",
+                          flexDirection: "row",
+                          gap: index !== 0 ? 16 : 24,
+                        }}
+                      >
+                        <Svg
+                          style={{ marginTop: 24 }}
+                          width="20"
+                          height="20"
+                          viewBox="0 0 20 20"
+                          fill="white"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <Path
+                            d="M19.496 10C19.4939 15.2469 15.2405 19.5 9.99617 19.5C4.75183 19.5 0.50181 15.2469 0.50388 10C0.50595 4.75313 4.75933 0.500013 10.0037 0.500013C15.248 0.500013 19.498 4.75313 19.496 10Z"
+                            stroke="#83C3C9"
+                            stroke-miterlimit="10"
+                          />
+                          <Path
+                            d="M9.99998 16C13.3137 16 16 13.3137 16 10C16 6.6863 13.3137 4 9.99998 4C6.68628 4 4 6.6863 4 10C4 13.3137 6.68628 16 9.99998 16Z"
+                            fill="#83C3C9"
+                          />
+                        </Svg>
+
+                        {index !== item.subSection.length - 1 && (
+                          <View
+                            style={{
+                              width: "1px",
+                              backgroundColor: "#83C3C9",
+                              height: "90%",
+                              marginLeft: -33,
+                              marginTop: 42.5,
+                            }}
+                          ></View>
+                        )}
+                        <View
+                          style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            gap: 4,
+                          }}
+                        >
+                          {detail.title.length > 0 && (
+                            <View
+                              style={{
+                                display: "flex",
+                                flexDirection: "row",
+                                width: "100%",
+                                justifyContent: "space-between",
+                              }}
+                            >
+                              <Text
+                                style={{
+                                  fontFamily: `${selectedFont} 600`,
+                                  fontSize: 12,
+                                  color: "#252829",
+                                }}
+                              >
+                                {detail.title}
+                              </Text>
+                              {detail.duration?.start?.year &&
+                                detail.duration?.end?.year && (
+                                  <Text
+                                    style={{
+                                      fontFamily: `${selectedFont} 400`,
+                                      fontSize: 10,
+                                      color: "#252829",
+                                      marginBottom: 24,
+                                    }}
+                                  >
+                                    {detail.duration?.start?.year}-
+                                    {detail.duration?.end?.year}
+                                  </Text>
+                                )}
+                            </View>
+                          )}
+
+                          {detail.description?.length > 5 && (
+                            <View
+                              style={{ flexDirection: "row", flexWrap: "wrap" }}
+                            >
+                              <Text
+                                style={{
+                                  fontFamily: `${selectedFont} 400`,
+                                  fontSize: 12,
+                                  color: "#252829",
+                                }}
+                              >
+                                {detail.description}
+                              </Text>
+                            </View>
+                          )}
+                        </View>
+                      </View>
+                    ))}
+                  </View>
+                </View>
+              ))}
             </View>
           </View>
         </View>

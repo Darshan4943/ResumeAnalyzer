@@ -4,7 +4,10 @@ const DateSelector = ({ idPrefix, dataSeter, data }) => {
   const months = Array.from({ length: 12 }, (_, index) => index + 1);
   // const years = Array.from({ length: 11 }, (_, index) => 2020 + index);
   // const years = Array.from({ length: 40 }, (_, index) => 2020 + index);
-
+  const [isChecked, setIsChecked] = useState(false);
+  const handleSwitchChange = () => {
+    setIsChecked(!isChecked);
+  };
   const handleStartMonthChange = (e) => {
     dataSeter({
       ...data,
@@ -59,7 +62,10 @@ const DateSelector = ({ idPrefix, dataSeter, data }) => {
 
   return (
     <div className="flex gap-[14px] flex_column">
-      <div className="flex flex-col gap-2">
+      <div
+        className="flex flex-col gap-2"
+        style={{ opacity: isChecked ? 1 : 0.5 }}
+      >
         <div>
           <label
             className="w-full flex gap-2 text-[12px] font-montserrat  font-medium"
@@ -69,7 +75,7 @@ const DateSelector = ({ idPrefix, dataSeter, data }) => {
           </label>
         </div>
         <div className="flex gap-4">
-          <div className="flex items-center rounded-lg border border-[#646464] bg-white text-[14px]  font-montserrat font-small relative min-w-[130px] w-full overflow-hidden relative">
+          <div className="flex items-center rounded-lg border border-[#646464] bg-white text-[14px]  font-montserrat font-small relative min-w-[110px] w-full overflow-hidden relative">
             <select
               id={`${idPrefix}-startMonth`}
               value={data?.duration?.start?.month}
@@ -145,8 +151,11 @@ const DateSelector = ({ idPrefix, dataSeter, data }) => {
           </div>
         </div>
       </div>
+
       {!data.currentlyWorking && (
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-2"
+        style={{ opacity: isChecked ? 1 : 0.5 }}
+        >
           <div>
             <label
               className="w-full flex gap-2 text-[12px] font-montserrat  font-medium"
@@ -156,7 +165,7 @@ const DateSelector = ({ idPrefix, dataSeter, data }) => {
             </label>
           </div>
           <div className="flex gap-4">
-            <div className="flex items-center rounded-lg border border-[#646464] bg-white text-[14px]  font-montserrat font-small relative min-w-[100px] w-full overflow-hidden">
+            <div className="flex items-center rounded-lg border border-[#646464] bg-white text-[14px]  font-montserrat font-small relative min-w-[110px] w-full overflow-hidden">
               <select
                 id={`${idPrefix}-endMonth`}
                 value={data?.duration?.end?.month}
@@ -219,6 +228,18 @@ const DateSelector = ({ idPrefix, dataSeter, data }) => {
           </div>
         </div>
       )}
+      <div className="flex flex-col gap-2">
+        <div>
+          <label className="switch">
+            <input
+              type="checkbox"
+              checked={isChecked}
+              onChange={handleSwitchChange}
+            />
+            <span className="slider round"></span>
+          </label>
+        </div>
+      </div>
     </div>
   );
 };

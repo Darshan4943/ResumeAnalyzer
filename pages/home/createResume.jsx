@@ -191,7 +191,7 @@ function CreateResume() {
         setEnditId(data._id);
       } else {
         setTimeout(() => {
-          setSelectedResumeIndex(3);
+          setSelectedResumeIndex(13);
           setSelectedColor("#414042");
         }, 400);
         const {
@@ -323,7 +323,6 @@ function CreateResume() {
     } else {
     }
   }, [userData]);
-  console.log(data);
   return (
     <div>
       <div className=" bg-[#F9F9F9] pt-2 ml:px-6 ">

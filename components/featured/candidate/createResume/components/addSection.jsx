@@ -10,10 +10,12 @@ const AddSection = ({ data, setData, section, formData, index, item }) => {
     setIsChecked(!isChecked);
     setData({ ...data, showExperience: !isChecked });
   };
+  const [activeDate,setActiveDate] = useState(false)
   const [isEdited, setIsEdited] = useState(false);
   const [header, setHeader] = useState(null);
   const [headerEditable, setHeaderEditable] = useState(false);
   const [listItems, setListItems] = useState(section);
+ 
   useEffect(() => {
     setListItems(section);
     if (section.length > 0) {
@@ -56,6 +58,7 @@ const AddSection = ({ data, setData, section, formData, index, item }) => {
   };
   const headerSeter = () => {
     setHeaderEditable(false);
+    setIsEdited(true)
   };
   const dataSeter = () => {
     if (isModified.status) {
@@ -67,8 +70,11 @@ const AddSection = ({ data, setData, section, formData, index, item }) => {
       });
       console.log(dumyData);
       setListItems(dumyData);
+      setIsModified({ status: false, index: 0 });
     } else {
       setListItems([...listItems, sectionData]);
+      setIsModified({ status: false, index: 0 });
+
     }
     setView(false);
     setSectionData({
@@ -81,7 +87,9 @@ const AddSection = ({ data, setData, section, formData, index, item }) => {
     const dummyData = [...data.section];
     dummyData[index].subSection = [...listItems];
     dummyData[index].header = header;
+    console.log(dummyData)
     setData({ ...data, section: dummyData });
+    setIsModified({ status: false, index: 0 });
     setIsEdited(false);
   };
   return (
@@ -216,6 +224,7 @@ const AddSection = ({ data, setData, section, formData, index, item }) => {
                     description: "",
                   });
                   setView(false);
+                  setIsModified({ status: false, index: 0 });
                 }}
               >
                 Cancel
