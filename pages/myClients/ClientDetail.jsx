@@ -9,9 +9,10 @@ function ClientDetail({ tabIndex }) {
   const router = useRouter();
   const [detail, setDetails] = useState({});
   const [preview, setPreview] = useState(false);
-  const [selected, setSelected] = useState(false);
+  const [selected, setSelected] = useState([]);
   const clientId = router.query.detailIndex;
   const [resumeList, setResumeList] = useState([]);
+
 
   useEffect(() => {
     if (clientId) {

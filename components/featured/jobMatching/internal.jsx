@@ -31,6 +31,7 @@ const PdfViewer = ({ pdfUrl }) => {
 };
 const InternalJobMatching = () => {
   const [text, setText] = useState("");
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState("");
   const [resumeCount, setResumeCount] = useState(5);
   const userDataGlobal = useSelector((state) => state.userData);
@@ -93,12 +94,18 @@ const InternalJobMatching = () => {
               value={text}
               onChange={(e) => {
                 setText(e.target.value);
+                if (e.target.value.length < 100) {
+                  setError("Minimum 100 characters required.");
+                } else {
+                  setError("");
+                }
               }}
               rows={6}
               cols={50}
               placeholder="Enter your text here..."
               className=" border border-[#06A9EF] rounded-[8px] outline-none h-auto p-2"
             />
+             {error && <div className="text-red">{error}</div>}
           </div>
           <div className="flex flex-row gap-4 items-center">
             <span className="text-[20px] font-500">
@@ -115,10 +122,11 @@ const InternalJobMatching = () => {
               placeholder="Ex. 5"
               className="h-[44px] w-[80px] p-[8px] text-[16px] text-[#646464] border border-[#DEDEDE] rounded-[8px] "
             />
+            
           </div>
           <button
             className="px-4 py-3 bg-[#06A9EF] text-[16px] text-white font-semibold rounded-[12px] w-[166px]"
-            disabled={loading}
+            disabled={loading || text.length < 100}
             onClick={() => {
               jobMatching();
             }}
@@ -191,7 +199,7 @@ const InternalJobMatching = () => {
                         </div>
                       </div>
                       <div className="w-[100%]  px-[8px] pb-[16px] border-b-[1px] border-[#bebebe]">
-                        <div className="w-full h-full rounded-[8px]  shadow  group relative ">
+                        <div className="w-full h-full rounded-[8px]  flex justify-center  group relative ">
                           <PdfViewer pdfUrl={data?.resumeUrl} />
 
                           <div className="bg-[#00000099]  absolute top-[0px] left-[0px] h-full w-full rounded-[6px] opacity-0 invisible transition-opacity ease-in-out duration-[0.4s]  group-hover:opacity-100 group-hover:visible flex items-center justify-center">

@@ -1,12 +1,52 @@
-import React from "react";
+import axios from "axios";
+import React, { useState } from "react";
+import { toast } from "react-toastify";
 
 function ContactUs() {
+  const [formData, setFormData] = useState({
+    firstName: "",
+    email: "",
+    mobileNo: "",
+    subject: "",
+    query: ""
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(
+        "http://localhost:2000/api/contactUs/create",
+        formData
+      );
+      // console.log("Response:", response.data);
+      toast.success("Contacted Successfully");
+      setFormData({
+        firstName: "",
+        email: "",
+        mobileNo: "",
+        subject: "",
+        query: ""
+      });
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
   return (
     <div className="w-[100%]  flex items-center my-[50px] justify-center customMargins">
       <div className="ml:w-[90%] rounded-[16px] w-[100%] ml:flex ml:flex-row items-center ml:items-end flex-col-reverse flex gap-4  ml:p-[24px] p-[16px] h-max-content bg-cover bg-center bg-no-repeat bg_contactUs">
-        <div className="ml:w-[50%] w-[80%] h-full justify-end gap-2 flex flex-col">
+        <div className="ml:w-[50%] sm:w-[80%] w-[100%] h-full justify-end gap-2 flex flex-col">
           <div className="flex  gap-2">
             <svg
+            className="min-w-[20px]"
               xmlns="http://www.w3.org/2000/svg"
               width="22"
               height="22"
@@ -47,54 +87,70 @@ function ContactUs() {
           </div>
         </div>
 
-        <div className="ml:w-[50%] w-[80%]"  >
-          <div className="w-[100%] items-start flex flex-col p-[16px] gap-[16px] rounded-[16px] bg-opacity-75 bg-white shadow-md">
+        <div className="ml:w-[50%] sm:w-[80%] w-[100%]"  >
+          <form onSubmit={handleSubmit} className="w-[100%] items-start flex flex-col p-[16px] gap-[16px] rounded-[16px] bg-opacity-75 bg-white shadow-md">
             <div className="flex flex-col">
               <p className="text-[20px] font-[500] leading-normal text-[#333]">Got any Questions?</p>
               <p className="text-[12px] font-[400] leading-normal text-[#333]">Our executive will get in touch with you soon</p>
             </div>
-            {/* <div className="personal_name"> */}
+
+
             <input
-              type="text"
-              name=""
               id="first_name"
+              type="text"
+              name="firstName"
+              value={formData.firstName}
+              onChange={handleChange}
               placeholder="Enter first name"
+              required
             />
-            {/* </div> */}
-
             <input
-              type="text"
-              name=""
               id="first_name"
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
               placeholder="Enter Email"
+              required
             />
             <input
-              type="text"
-              name=""
               id="first_name"
+              type="text"
+              name="mobileNo"
+              value={formData.mobileNo}
+              onChange={handleChange}
               placeholder="Enter Mobile No"
+              required
             />
-
             <input
-              type="text"
-              name=""
               id="first_name"
+              type="text"
+              name="subject"
+              value={formData.subject}
+              onChange={handleChange}
               placeholder="Subject"
+
             />
-
-            <textarea name="" className="w-[100%] px-[16px] py-[12px] rounded-[8px] text-[14px] text-[#333] h-[94px]" placeholder="Write your query here" cols="" rows=""></textarea>
-
+            <textarea
+              name="query"
+              value={formData.query}
+              onChange={handleChange}
+              className="w-[100%] px-[16px] py-[12px] rounded-[8px] text-[14px] text-[#333] h-[94px]"
+              placeholder="Write your query here"
+              required
+            ></textarea>
             <div className="w-[100%] flex justify-center">
               <button
+                type="submit"
                 className="buttons bg-[#06A9EF] text-[#fff] font-[600] rounded-lg"
                 id="border_button"
-
               >
                 Submit
               </button>
             </div>
 
-          </div>
+
+          </form>
         </div>
       </div>
     </div>

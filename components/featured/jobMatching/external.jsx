@@ -12,92 +12,20 @@ import PdfViewer from "./PdfViewer";
 
 const ExternalJobMatching = () => {
   const [text, setText] = useState("");
+  const [error, setError] = useState("");
+  console.log(error)
   const [loading, setLoading] = useState("");
   const [resumeCount, setResumeCount] = useState(5);
   const userDataGlobal = useSelector((state) => state.userData);
   const [details, setDetails] = useState();
   const [resuneList, setResuneList] = useState([
-    {
-      index: 0,
-      first_name: "Sandesh",
-      last_name: "Ghadage",
-      percentage: 75,
-      Matching_parameters: ["ReactJs", "Redux", "Associate Frontend Developer"],
-    },
-    {
-      index: 1,
-      first_name: "Neha",
-      last_name: "Rajbhar",
-      percentage: 70,
-      Matching_parameters: [
-        "React js",
-        "Redux",
-        "Advanced Java",
-        "Full stack Developer",
-      ],
-    },
+   
   ]);
   const [files, setFiles] = useState([]);
   const [preview, setPreview] = useState(false);
   const [selected, setSelected] = useState(false);
   const [textDataFinal, setTextData] = useState([
-    {
-      index: 1,
-      first_name: "Neha",
-      last_name: "Rajbhar",
-      years_of_experience: 1,
-      experience: 11,
-      programming_languages: [
-        "Javascript",
-        "React js",
-        "React Native",
-        "NodeJs",
-        "ExpressJs",
-        "Mongodb",
-        "Redux",
-        "HTML",
-        "CSS",
-        "Advance java",
-        "Mysql",
-        "Bootstrap",
-        "Tailwind CSS",
-      ],
-      skills: ["Full stack Java Developer"],
-      soft_skills: ["Time Management", "Leadership", "Creativity"],
-      tools: null,
-      education: ["Bachelor of Science in Information Technology"],
-      degrees: null,
-      text: "SKILLS  Javascript   React js   React Native  NodeJs   ExpressJs   Mongodb  Redux   HTML   CSS  Advance java   Mysql   Bootstrap  Tailwind CSS  SOFT SKILL  Time   Management  Leadership  Creativity  ACHIEVEMENT  3rd   Ranker   in   Final   year  Secured Third Rank in Final year of Graduation with  SGPA of 9.60  CERTIFICATES  Full stack Java Developer  Done certification as java developer  EDUCATION  Bachelor   of   Science   in   Information  Technology  June   2019 – March   2022  Ramanand Arya D.A.V. College, Thane Maharashtra  8.30 CGPA  Intermediate   (PCMB)  August   2017 – March   2019  K.B. College of Arts and Commerce, Thane  Maharashtra  Percentage - 46.15%  PROFESSIONAL EXPERIENCE (11 MONTHS)  Setup   My   Hotel   pvt   ltd,   Full   stack   developer  September   2023 – present   |   Pune,   India  Led the development of dynamic web applications as a MERN stack  developer, specializing in MongoDB, Express.js, React.js, and Node.js.  Contributed to the creation of robust and scalable solutions, ensuring  optimal user experiences and maintaining a keen eye for detail in a  fast-paced environment.  Kumar   InfoTech   Pvt   Ltd,   web   developer   Internship  March   2023 – August   2023  • Skilled in teamwork, owning tasks and timely deliveries.  • Integrated APIs, backend services with the frontend, data fetching  and state management using libraries like Redux toolkit or Recoil.  • Work on real life projects.  Java   Developer,   DecodeTech   PVT.   LTD  December   2022  • Intern as a Java Developer in DecodeTech pvt ltd  PROJECTS  1)   Gym   Website  April   2023 – April   2023  Tech Stack : React Js, CSS, React-Router-Dom, MUI  I have created an interactive website for a gym, with the main  focus being on designing and developing a user-friendly  interface that makes it easy for users to navigate and engage  with the content.  2)   Twitter   Clone  April   2023 – April   2023  Tech Stack : React JS, Redux, CSS, React-Router-Dom, MUI  I utilized React JS, and the Material UI library to design the  front-end of a Twitter clone website. With a focus on creating  an interactive user experience, I incorporated features that  allow users to post tweets, and like them  3)   Kanban   Board  May   2023 – May   2023  Tech Stack : React JS, CSS, React-Router-Dom, MUI, Recoil  I have created an interactive Trello Kanban Board that  provides a platform for creating lists and adding tasks with  drag and drop functionality.  4)   Real   Estate   website  August   2023 – August   2023  This is a real estate website from where a user can search for a  properties and view properties and if want to connect then can fill  contact form after filling user will get an mail on provided email id  Neha Rajbhar  rajrajbhar682@gmail.com  8591180252  LinkedIn  Github",
-    },
-    {
-      index: 0,
-      first_name: "Sandesh",
-      last_name: "Ghadage",
-      years_of_experience: null,
-      experience: null,
-      programming_languages: ["ReactJs", "React Native", "Redux"],
-      skills: ["HTML", "CSS", "Bootstrap"],
-      soft_skills: [
-        "Teamwork",
-        "Leadership",
-        "Time Management",
-        "Communication",
-      ],
-      tools: [
-        "MongoDB",
-        "Express Js",
-        "Node Js",
-        "AWS S3",
-        "AWS Route53",
-        "AWS EC2",
-      ],
-      education: [
-        "Bachelor's Degree, Marathwada Mitra Mandal Institute of Technology, Pune 8.9 CGPA",
-        "Diploma, Dr. D Y Patil school of engineering and technology, Pune. 83.59%",
-      ],
-      degrees: null,
-      text: "SKILLS  ReactJs   React Native  Redux   MongoDB  Express Js   Node Js  HTML   CSS   Bootstrap  AWS S3   AWS Route53  AWS EC2  SOFT SKILLS  Teamwork   Leadership  Time Management  Communication  INTERESTS  Multiplayer Strategy Games  Song Writing  PROFESSIONAL EXPERIENCE  Associate   Frontend   Developer,   Setup   My   Hotel   Pvt   Ltd  • Led a dedicated team of three developers in the design,  development, and deployment of the company website.  • Managed project timelines, ensuring the team's adherence to  milestones and timely delivery of key features.  • Developed cross-platform mobile applications in React  Native, demonstrating proficiency in building apps from  scratch. Successfully integrated secure REST API ʼ s and  implemented the MVC architecture with Redux state  management for efficient app development.  • Spearheaded a complete redesign of the user interface for the  company's flagship product, resulting in a modern, intuitive,  and user-friendly experience.  • As a seasoned full-stack developer, I've actively collaborated  with backend developers to seamlessly integrate new  features, fostering a cohesive and efficient end-to-end  development process.  Mentor   and   Teaching   Assistance,   FunctionUp  • Teaching assistant - Mentored and guided 120+ students.  • Assisted students in resolving coding challenges and  debugging issues, promoting a problem-solving mindset  crucial for real-world React development scenarios.  • Delivered comprehensive lessons on ReactJS, covering  fundamental concepts to advanced topics. Provided hands-  on guidance to students, ensuring a deep understanding of  React architecture, component-based development, and  state management.  Flutter   Developer,   Blockchain   Internationale  • Collaborated with the development team to debug and fix  issues, ensuring the smooth performance of the mobile  applications.  • Spearheaded the end-to-end development of multiple mobile  applications using Flutter framework, ensuring optimal  performance and user experience.  • Designed and implemented visually appealing and intuitive  user interfaces, focusing on creating a delightful user  experience.  EDUCATION  Bachelor's   Degree,  Marathwada   Mitra   Mandal   Institute   of   Technology,   Pune  8.9 CGPA  Diploma,  Dr.   D   Y   Patil   school   of   engineering   and   technology,   Pune.  83.59%  Sandesh  Ghadage  Frontend Developer  sandeshghadage3@gmail.com  7972516029  Pune, India  https://github.com/sandeshghadage  https://www.linkedin.com/in/sandesh-  ghadage/ July   2023 – present   |   Pune,   India February   2023 – June   2023   |   Bangalore,   India October   2022 – March   2023   |   Pune,   India June   2019 – May   2022   |   Pune,   India June   2016 – May   2018   |   Pune,   India",
-    },
+
   ]);
   useEffect(() => {
     axios
@@ -221,6 +149,7 @@ const ExternalJobMatching = () => {
   };
 
   const fileChangeHandler = async (e) => {
+    setResuneList(0)
     const selectedFiles = e.target.files;
     const textData = [];
     if (Object.values(selectedFiles).length) {
@@ -279,18 +208,7 @@ const ExternalJobMatching = () => {
 
   return (
     <div className="flex flex-col gap-4 min-h-[70vh] ">
-      {preview && (
-        <>
-          <ResumePreview
-            selectedResumeIndex={selected.resumeTemplateIndex}
-            data={selected}
-            selectedColor={selected.selectedColor}
-            selectedFont={selected.selectedFont}
-            setPreview={setPreview}
-            preview={true}
-          />
-        </>
-      )}
+     
       <div
         className="flex ml:flex-row flex-col gap-12 w-[100%] p-4 "
         style={{
@@ -339,12 +257,18 @@ const ExternalJobMatching = () => {
               value={text}
               onChange={(e) => {
                 setText(e.target.value);
+                if (e.target.value.length < 100) {
+                  setError("Minimum 100 characters required.");
+                } else {
+                  setError("");
+                }
               }}
               rows={6}
               cols={50}
               placeholder="Enter your text here..."
               className=" border border-[#06A9EF] rounded-[8px] outline-none h-auto p-2"
             />
+             {error && <div className="text-red">{error}</div>}
           </div>
           <div className="flex flex-row gap-4 items-center">
             <span className="text-[20px] font-500">
@@ -364,7 +288,8 @@ const ExternalJobMatching = () => {
           </div>
           <button
             className="px-4 py-3 bg-[#06A9EF] text-[16px] text-white font-semibold rounded-[12px] w-[166px]"
-            disabled={loading}
+            disabled={loading || text.length < 100}
+            
             onClick={() => {
               jobMatching();
             }}
@@ -418,7 +343,7 @@ const ExternalJobMatching = () => {
                         </div>
                       </div>
                       <div className="w-[100%]  px-[8px] pb-[16px] border-b-[1px] border-[#bebebe]">
-                        <div className="w-full h-full rounded-[8px]  shadow  group relative ">
+                        <div className="w-full h-full rounded-[8px]    group relative flex justify-center ">
                           <PdfViewer
                             data={textDataFinal.find(
                               (data) => index == data.index
@@ -428,44 +353,7 @@ const ExternalJobMatching = () => {
                             )}
                           />
 
-                          <div className="bg-[#00000099]  absolute top-[0px] left-[0px] h-full w-full rounded-[6px] opacity-0 invisible transition-opacity ease-in-out duration-[0.4s]  group-hover:opacity-100 group-hover:visible flex items-center justify-center">
-                            <div className="flex flex-col w-98 h-219 top-27.09 left-47.19 p-[12px]  rounded-lg border border-gray-200 gap-[12px] bg-[#333333CC]">
-                              <div
-                                className="flex items-center flex-col cursor-pointer"
-                                style={{
-                                  borderBottom: "1px solid #646464",
-                                  paddingBottom: "12px",
-                                }}
-                                onClick={() => {
-                                  setSelected(data);
-                                  setPreview(true);
-                                }}
-                              >
-                                <img
-                                  src="/images/icons/visibility.png"
-                                  className="h-[28px] w-[28px]"
-                                  alt=""
-                                />
-                                <span className="text-[14px] font-semibold text-white ">
-                                  Preview
-                                </span>
-                              </div>
-
-                              <a
-                                href={data.resumeUrl}
-                                className="flex items-center flex-col cursor-pointer"
-                              >
-                                <img
-                                  src="/images/icons/download.png"
-                                  className="h-[28px] w-[28px]"
-                                  alt=""
-                                />
-                                <span className="text-[14px] font-semibold text-white ">
-                                  Download
-                                </span>
-                              </a>
-                            </div>
-                          </div>
+                        
                         </div>
                       </div>
                       {data?.percentage && (

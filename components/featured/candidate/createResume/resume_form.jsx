@@ -63,9 +63,9 @@ const ResumeForm = ({
         {formField?.includes("language") && (
           <Languages setData={setData} data={data} />
         )}
-        {data.section.length > 0 && (
+        {data?.section?.length > 0 && (
           <>
-            {data.section.map((item, index) => (
+            {data?.section?.map((item, index) => (
               <div key={index}>
                 <AddSection
                   section={item.subSection}
