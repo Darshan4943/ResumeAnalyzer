@@ -10,7 +10,7 @@ const QuestionList = ({ questions, answers }) => {
     }));
     setData(updatedData);
   }, [questions, answers]);
-  console.log(13,data)
+ 
 
   return (
     <div className='w-[895px] p-6'>
