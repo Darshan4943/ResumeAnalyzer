@@ -11,7 +11,7 @@ function MyPurchase() {
   const [plan, setPlan] = useState({});
   const [subscription, setSubscription] = useState(null);
   const userDataGlobal = useSelector((state) => state.userData);
-console.log(subscription)
+
   useEffect(() => {
     axios
       .get("https://freedygoservices.in/api/subscription/" + userDataGlobal._id)
@@ -83,32 +83,36 @@ console.log(subscription)
                         </div>
                         <div className="flex  gap-4">
                           <div className="flex  gap-4 justify-between font-[700] w-[40%]">
-                            <p className="text-[#0C8A0A]">Status</p>
+                            <p className="">Status</p>
                             <div className="text-[#0C8A0A]">:</div>
                           </div>
                           <div className="text-[16px] font-[500] text-[#0C8A0A]">
                             {subscription?.isActive ? "Active" : "Inactive"}
                           </div>
                         </div>
-                        <div className="flex gap-4">
-                          <div className="flex  gap-4 justify-between font-[700] w-[40%]">
-                            <p>Date of Purchase</p>
-                            <div>:</div>
-                          </div>
-                          <div className="text-[16px] font-[500]">
-                            {dateFormatter(subscription?.startDate)}
-                          </div>
-                        </div>
-                        <div className="flex  gap-4">
-                          <div className="flex  gap-4 justify-between font-[700] w-[40%]">
-                            <p>Date of Renewal</p>
-                            <div>:</div>
-                          </div>
-                          <div className="text-[16px] font-[500]">
-                            {" "}
-                            {dateFormatter(subscription?.endDate)}
-                          </div>
-                        </div>
+                        {subscription?.isActive &&
+                          <>
+                            <div className="flex gap-4">
+                              <div className="flex  gap-4 justify-between font-[700] w-[40%]">
+                                <p>Date of Purchase</p>
+                                <div>:</div>
+                              </div>
+                              <div className="text-[16px] font-[500]">
+                                {dateFormatter(subscription?.startDate)}
+                              </div>
+                            </div>
+                            <div className="flex  gap-4">
+                              <div className="flex  gap-4 justify-between font-[700] w-[40%]">
+                                <p>Date of Renewal</p>
+                                <div>:</div>
+                              </div>
+                              <div className="text-[16px] font-[500]">
+                                {" "}
+                                {dateFormatter(subscription?.endDate)}
+                              </div>
+                            </div>
+                          </>
+                        }
                       </div>
                     </div>
                   </div>
@@ -159,15 +163,17 @@ console.log(subscription)
                       </div>
                       <div className="text-[16px] font-[500] break-all">01</div>
                     </div>
-                    <div className="flex gap-4">
-                      <div className="flex  gap-4 justify-between font-[700] w-[40%]">
-                        <p>Activated on </p>
-                        <div>:</div>
+                    {subscription?.isActive &&
+                      <div className="flex gap-4">
+                        <div className="flex  gap-4 justify-between font-[700] w-[40%]">
+                          <p>Activated on </p>
+                          <div>:</div>
+                        </div>
+                        <div className="text-[16px] font-[500] break-all">
+                          {dateFormatter(subscription?.startDate)}
+                        </div>
                       </div>
-                      <div className="text-[16px] font-[500] break-all">
-                        {dateFormatter(subscription?.startDate)}
-                      </div>
-                    </div>
+                    }
                   </div>
                   <div className="bg-[#DEDEDE] min-w-[1px] ml:h-[120px] h-[1px]"></div>
                   <div className="flex flex-col gap-6 min-w-[55%] scr1200:min-w-[40%] ">
@@ -190,16 +196,18 @@ console.log(subscription)
                         {subscription?.mobileNo}
                       </div>
                     </div>
-                    <div className="flex gap-4">
-                      <div className="flex  gap-4 justify-between font-[700] w-[30%]">
-                        <p>Date Of Renewal </p>
-                        <div>:</div>
+                    {subscription?.isActive &&
+                      <div className="flex gap-4">
+                        <div className="flex  gap-4 justify-between font-[700] w-[30%]">
+                          <p>Date Of Renewal </p>
+                          <div>:</div>
+                        </div>
+                        <div className="text-[16px] font-[500] break-all">
+                          {" "}
+                          {dateFormatter(subscription?.endDate)}
+                        </div>
                       </div>
-                      <div className="text-[16px] font-[500] break-all">
-                        {" "}
-                        {dateFormatter(subscription?.endDate)}
-                      </div>
-                    </div>
+                    }
                   </div>
                 </div>
               </div>

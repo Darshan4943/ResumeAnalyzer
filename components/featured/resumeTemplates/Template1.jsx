@@ -15,7 +15,7 @@ import {
 function Template1({ data, selectedColor, selectedFont, preview }) {
   return (
     <Page size="A4" style={{ padding: 24 }} pageMode={"fullScreen"} wrap={true}>
-      <View style={{ flexDirection: "column" }}>
+      <View style={{ flexDirection: "column" , minHeight: "792px",}}>
         <View
           style={{
             flexDirection: "row",
@@ -82,7 +82,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
           style={{ height: "1px", width: "100%", backgroundColor: "#333" }}
         />
 
-        <View style={{ flexDirection: "row" }}>
+        <View style={{ flexDirection: "row",   height: "100%", }}>
           <View style={{ flexDirection: "column", width: "35%", gap: "32px" }}>
             <View
               style={{
@@ -351,7 +351,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
             style={{
               width: "1px",
               height: "100%",
-              minHeight: "640px",
+             
               backgroundColor: "#333",
             }}
           />
