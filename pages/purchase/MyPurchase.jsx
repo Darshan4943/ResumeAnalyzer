@@ -26,7 +26,7 @@ function MyPurchase() {
         console.log(err);
       });
   }, [userDataGlobal]);
-  console.log(29,subscription)
+  console.log(29, subscription)
   return (
     <div className="flex flex-col gap-8  min-h-[60vh]">
       {subscription ? (
@@ -60,9 +60,15 @@ function MyPurchase() {
                         </p>
                         <div className="bg-[#DEDEDE] h-[2px]" />
                       </div>
-                      <button className="px-9 py-3 bg-[#DEDEDE] rounded-[12px] text-[16px] font-[600] text-white w-[60%] min-w-[160px]">
-                        Purchased
+                      {subscription?.isActive ?
+                        <button className="px-9 py-3 bg-[#DEDEDE] rounded-[12px] text-[16px] font-[600] text-white w-[60%] min-w-[160px]">
+                          Purchased
+                        </button>
+                        :
+                        <button className="px-9 py-3 bg-[#DEDEDE] rounded-[12px] text-[16px] font-[600] text-white w-[60%] min-w-[160px]">
+                        In Review
                       </button>
+                      }
                     </div>
                     <div className="flex flex-col gap-6  md:w-[60%] w-[100%]  ml:pl-4">
                       <div className="text-[20px] font-[600]">
@@ -87,11 +93,10 @@ function MyPurchase() {
                             <div className="">:</div>
                           </div>
                           <div
-                            className={`text-[16px] font-[500] ${
-                              subscription?.isActive
+                            className={`text-[16px] font-[500] ${subscription?.isActive
                                 ? "text-[#0C8A0A]"
                                 : "text-red"
-                            }`}
+                              }`}
                           >
                             {subscription?.isActive ? "Active" : "Inactive"}
                           </div>
