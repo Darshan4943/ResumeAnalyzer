@@ -83,7 +83,7 @@ function MyPurchase() {
                         <div className="flex  gap-4">
                           <div className="flex  gap-4 justify-between font-[700] w-[40%]">
                             <p className="">Status</p>
-                            <div className="text-[#0C8A0A]">:</div>
+                            <div className="">:</div>
                           </div>
                           <div
                             className={`text-[16px] font-[500] ${
