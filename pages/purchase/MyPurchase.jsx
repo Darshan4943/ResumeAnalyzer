@@ -26,6 +26,7 @@ function MyPurchase() {
         console.log(err);
       });
   }, [userDataGlobal]);
+  console.log(29,subscription)
   return (
     <div className="flex flex-col gap-8  min-h-[60vh]">
       {subscription ? (
@@ -221,7 +222,7 @@ function MyPurchase() {
         </>
       ) : (
         <div className="w-full ">
-          <SubscriptionPlan />
+          <SubscriptionPlan subscription={subscription} />
         </div>
       )}
     </div>

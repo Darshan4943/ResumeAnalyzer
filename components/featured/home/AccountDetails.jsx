@@ -18,6 +18,8 @@ function AccountDetails({ selectedPlan }) {
     return futureDate;
   }
   const [successModel, setSuccessModel] = useState(false);
+  const [error,setError] = useState()
+  console.log(22,error)
   const [popUp, setpPopUp] = useState(false);
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState({
@@ -125,6 +127,9 @@ function AccountDetails({ selectedPlan }) {
 
   const purchaseHandler = async (e) => {
     e.preventDefault();
+    if (!data.checked) {
+      setError("Please agree to the terms and conditions.");
+    } else {
     axios
       .post("https://freedygoservices.in/api/add/subscription", {
         userId: userDataGlobal._id,
@@ -144,6 +149,7 @@ function AccountDetails({ selectedPlan }) {
       .catch((err) => {
         console.log(err);
       });
+    }
     // if (data.checked) {
     //   const errors = validateInput();
     //   const requiredFields = ["firstName", "lastName", "email", "mobileNo"];
@@ -483,7 +489,7 @@ function AccountDetails({ selectedPlan }) {
             type="checkbox"
             checked={data.checked}
             className="w-4 h-4 rounded-md border border-[#06A9EF] bg-white custom-checkbox"
-            onClick={() => {
+            onClick={() => {setError(false)
               setData({ ...data, checked: !data.checked });
             }}
           />
@@ -498,7 +504,11 @@ function AccountDetails({ selectedPlan }) {
               User Agreement.
             </span>
           </div>
+         
         </div>
+        {error && 
+        <div className="text-[16px] font-semibold text-red">{error}</div>
+        }
         <button
           className="px-9 py-3 bg-[#06A9EF] text-white rounded-[12px] text-[16px] font-semibold"
           onClick={purchaseHandler}

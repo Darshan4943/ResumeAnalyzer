@@ -53,8 +53,7 @@ function SkillAssessment() {
     setSelectedSkill(selectedOption.value);
     setInputValue(selectedOption.value);
   };
-  console.log(47, question)
-  console.log(55, answer)
+ 
 
 
 

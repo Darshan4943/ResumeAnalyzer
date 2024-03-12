@@ -21,7 +21,9 @@ const PersonalDetails = ({
   file,
   error,
   setError,
+  isResume
 }) => {
+
   const router = useRouter();
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
@@ -461,9 +463,15 @@ const PersonalDetails = ({
                       className="buttons"
                       id="border_button"
                       onClick={() => {
-                        setTabIndex(1);
-                        window.scroll(0, 0);
-                      }}
+                        if (isResume) {
+                          setTabIndex(1);
+                          window.scroll(0, 0);
+                           
+                        } else {
+                          router.push("/home/BuildResume");
+                        }
+                    }}
+                    
                     >
                       Go Back
                     </button>

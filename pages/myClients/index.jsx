@@ -1,9 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import ClientList from "../../components/featured/clients/ClientList";
-import CreateNewClient from "../../components/featured/clients/CreateNewClient";
+import CreateNewClient from "./CreateNewClient";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import Fuse from "fuse.js";
+import { useRouter } from "next/router";
 
 function MyClients() {
   const [tabIndex, setTabIndex] = useState(0);
@@ -12,7 +13,7 @@ function MyClients() {
   const userDataGlobal = useSelector((state) => state.userData);
   const [allData, setAllData] = useState([]);
   const taskRef = useRef(null);
-
+  const router = useRouter();
   const handleOutsideClick = (event) => {
     if (taskRef.current && !taskRef.current.contains(event.target)) {
       setIsOptions(false);
@@ -38,6 +39,7 @@ function MyClients() {
         console.log(err);
       });
   };
+  
   useEffect(() => {
     callData();
   }, [userDataGlobal]);
@@ -98,7 +100,7 @@ function MyClients() {
               </div>
               <div className="flex gap-4 items-center  justify-end relative">
                 <button
-                  onClick={() => setTabIndex(2)}
+                  onClick={() => router.push("/myClients/CreateNewClient")}
                   className="text-[16px] font-semibold py-3 px-6 h-[48px] min-w-[212px] bg-[#06A9EF] rounded-[12px] text-white"
                   type="button"
                 >
@@ -143,9 +145,9 @@ function MyClients() {
         </div>
       )}
 
-      {tabIndex === 2 && (
+      {/* {tabIndex === 2 && (
         <CreateNewClient setTabIndex={setTabIndex} callData={callData} />
-      )}
+      )} */}
     </div>
   );
 }

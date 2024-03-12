@@ -8,13 +8,15 @@ import "swiper/css";
 import "swiper/css/pagination";
 import { plans } from "../../../utils/data";
 import { popupVisible } from "../../../Redux/actions/user";
-function SubscriptionPlans({ fromMain }) {
+import axios from "axios";
+function SubscriptionPlans({ fromMain,  }) {
   const router = useRouter();
   const userDataGlobal = useSelector((state) => state.userData);
   const [subPlans, setPlans] = useState([]);
   const dispatch = useDispatch();
   const [isLogin, setIsLogin] = useState(false);
   const [isUser, setIsUser] = useState(true);
+  const [isInInquiry, setIsInInquiry] = useState(false);
   useEffect(() => {
     if (userDataGlobal.role == "recruiter" || fromMain) {
       setIsUser(false);
@@ -32,9 +34,29 @@ function SubscriptionPlans({ fromMain }) {
       }
     }
   }, [userDataGlobal]);
+  const [subscription, setSubscription] = useState(null);
+
+  useEffect(() => {
+    axios
+      .get("https://freedygoservices.in/api/subscription/" + userDataGlobal._id)
+      .then((res) => {
+        setSubscription(res.data.data);
+       
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [userDataGlobal]);
+ 
   const clickHandler = (index) => {
     if (isLogin) {
-      router.push(`/purchase/details?id=${index}`);
+      if (subscription === null) {
+
+        router.push(`/purchase/details?id=${index}`);
+      } else {
+
+        setIsInInquiry(true);
+      }
     } else {
       localStorage.setItem("purchase", JSON.stringify({ status: true, index }));
       if (isUser) {
@@ -44,8 +66,45 @@ function SubscriptionPlans({ fromMain }) {
       }
     }
   };
+
   return (
     <>
+
+      {isInInquiry && (
+        <>
+          <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
+          <div className="fixed z-[2000] top-[40%] left-0 right-0  flex items-center justify-center  ">
+
+            <div className=' absolute rounded-[16px] bg-white shadow-lg pt-[60px] pb-6 px-11 flex flex-col gap-6 w-[22%] '>
+              <svg className="absolute top-[-40px]  left-[40%] right-[60%] flex" width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="72" height="72" rx="36" fill="#FFD500" />
+
+                <g mask="url(#mask0_1061_16836)">
+                  <path d="M34.0127 41.9866V19.3457H37.9869V41.9866H34.0127ZM34.0127 52.654V48.6798H37.9869V52.654H34.0127Z" fill="#1C1B1F" />
+                </g>
+              </svg>
+
+
+              <div className="text-center">
+                <div className="text-[24px] font-[500] text-[#333]">
+                Inquiry In Process
+                </div>
+                <div className="text-[16px] font-[500] text-[#333]">
+                <span className="text-[18px] font-[600] text-[#06A9EF]">{subscription?.plan}</span> Is Already In Inquiry
+                </div>
+              </div>
+              <div className="flex justify-center">
+                <button
+                  onClick={() => setIsInInquiry(false)}
+                  className="py-[12px] px-[36px] rounded-[8px] bg-[#06A9EF] text-[#fff] text-[16px] font-[500]"
+                >
+                  Done
+                </button>
+              </div>
+            </div>
+          </div>
+        </>
+      )}
       <div className="hidden lg:block w-full">
         <div className="flex gap-9 justify-center">
           {subPlans.map((plan, index) => (
@@ -99,7 +158,7 @@ function SubscriptionPlans({ fromMain }) {
                       {plan.limit}
                     </p>
                     <p className="text-[2.5vw] font-[700]">{plan.price}</p>
-                    <p className="text-[1.1vw] font-[500]" style={{textTransform:"capitalize"}}>
+                    <p className="text-[1.1vw] font-[500]" style={{ textTransform: "capitalize" }}>
                       {plan.description}
                     </p>
                     <div className="bg-[#DEDEDE] h-[2px]" />

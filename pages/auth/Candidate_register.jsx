@@ -14,12 +14,12 @@ import Stepper from "../../components/featured/candidate/registration/stepper";
 function Candidate_register() {
   const router = useRouter();
   const clientId = router.query.clientId;
-  const [tabindex, setTabIndex] = useState(1);
+  const [tabindex, setTabIndex] = useState(2);
 
   const { isResume } = router.query;
   useEffect(() => {
     if (isResume) {
-      setTabIndex(2);
+      setTabIndex(1);
     }
   }, [isResume]);
   const [file, setfile] = useState();
@@ -93,6 +93,7 @@ function Candidate_register() {
           file={file}
           setError={setError}
           error={error}
+          isResume={isResume}
         />
         <EducationDetails
           data={data}

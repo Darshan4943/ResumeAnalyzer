@@ -24,6 +24,7 @@ const CandidateAiPower = ({
   const handleButtonClick = () => {
     fileRef.current.click();
   };
+  
   const handleFileChange = (event) => {
     event.preventDefault();
     const selectedFile = event.target.files[0];

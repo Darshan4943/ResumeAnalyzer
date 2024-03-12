@@ -2,12 +2,13 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-
+import Fuse from "fuse.js";
 function ClientResume() {
   const router = useRouter();
-
+  const [allData, setAllData] = useState([]);
   const [details, setDetails] = useState();
   const userDataGlobal = useSelector((state) => state.userData);
+
 
   useEffect(() => {
     axios
@@ -16,12 +17,27 @@ function ClientResume() {
       )
       .then((res) => {
         setDetails(res.data.data);
+        setAllData(res.data.data);
       })
       .catch((err) => {
         console.log(err);
       });
   }, [userDataGlobal]);
 
+  const changeHandler = (value) => {
+    if (value.length > 0) {
+      const options = {
+        includeScore: true,
+        // Search in `author` and in `tags` array
+        keys: ["firstName", "lastName", "email", "mobileNo","location",'designation'],
+      };
+      const fuse = new Fuse(allData, options);
+      const result = fuse.search(value);
+      setDetails(result.map((item) => item.item));
+    } else {
+      setDetails(allData);
+    }
+  };
   return (
     <div className="flex justify-center">
       <div className="flex flex-col gap-4 sm:p-6 p-2 w-[100%]">
@@ -53,21 +69,23 @@ function ClientResume() {
                 </svg>
 
                 <input
+                onChange={(e) => changeHandler(e.target.value)}
                   className="w-full"
                   type="text"
                   placeholder="Search client name or keyword"
                 />
               </div>
-              <button
+              {/* <button
+               
                 className="text-[16px] font-semibold py-3 px-6 bg-[#06A9EF] rounded-[36px] text-white"
                 type="button"
               >
                 Search
-              </button>
+              </button> */}
             </div>
           </div>
           <div className="rounded-[16px]  flex flex-col gap-4 w-[98%]">
-            <div className="text-[20px] font-medium">Total Clients (6)</div>
+            <div className="text-[20px] font-medium">Total Clients ({details?.length})</div>
             <div className="flex  gap-8 flex-wrap scr700:justify-start justify-center ">
               {details?.map((detail, index) => (
                 <div

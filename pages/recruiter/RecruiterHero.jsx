@@ -1,10 +1,30 @@
+import axios from "axios";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 function RecruiterHero() {
 
   const [isLogin, setIsLogin] = useState(false);
   const [visible, setvisible] = useState(false);
+
+  const [details, setDetails] = useState();
+  const userDataGlobal = useSelector((state) => state.userData);
+
+console.log(14,details)
+  useEffect(() => {
+    axios
+      .get(
+        `https://freedygoservices.in/api/client/getByRecruiter/${userDataGlobal._id}`
+      )
+      .then((res) => {
+        setDetails(res.data.data);
+     
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [userDataGlobal]);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -26,11 +46,16 @@ function RecruiterHero() {
   const router = useRouter();
   const clickHandler = () => {
     if (isLogin) {
-      router.push("/myClients/ClientResume");
+      if (details.length > 0) {
+        router.push("/myClients/ClientResume");
+      } else {
+        router.push("/myClients/CreateNewClient");
+      }
     } else {
       router.push("/auth?signin=true");
     }
   };
+  
   return (
 
     <div className=" flex flex-col justify-center items-center bg-cover  bg-hero_backGround w-screen ml:pt-[68px] sm:pt-9 pt-4 ml:h-[100vh] ml:gap-[96px] sm:gap-12 gap-6 ">
