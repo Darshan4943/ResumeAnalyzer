@@ -24,7 +24,7 @@ const CandidateAiPower = ({
   const handleButtonClick = () => {
     fileRef.current.click();
   };
-  
+
   const handleFileChange = (event) => {
     event.preventDefault();
     const selectedFile = event.target.files[0];
@@ -157,7 +157,7 @@ const CandidateAiPower = ({
       {tabindex == 1 && (
         <>
           <div className="flex justify-center items-center  relative pb-8 ">
-            
+
             <div
               className="flex flex-col gap-[36px] p-[24px] justify-center items-center rounded-[12px] ml:w-[38.33%] w-[90%] shadow_of_box ml:min-w-[500px]  "
               style={{
@@ -199,13 +199,14 @@ const CandidateAiPower = ({
                     onChange={handleFileChange}
                   />
                   {file ? (
-                    <div>
-                      <div className="flex flex-row gap-[16px] items-center">
-                        <ImageContainer
+                    <div className="w-full flex justify-center">
+                      <div className="flex flex-row gap-[16px] items-center justify-between w-[80%] ">
+                        <div  className="flex flex-row gap-[16px] items-center  ">  <ImageContainer
                           src={"/images/icons/pdf_icon.png"}
                           className={"h-[24px] w-[24px]"}
                         />
-                        <span className="text-[12px] w-[40%]">{file.name}</span>
+                          <span className="text-[12px] w-[40%]">{file.name}</span></div>
+
                         <button className="px-[16px] py-[8px] border border-[#06A9EF]  rounded-[12px]">
                           Browse file
                         </button>
@@ -291,9 +292,8 @@ const CandidateAiPower = ({
 
                 <button
                   disabled={file && !loading ? false : true}
-                  className={`sm:px-9 px-6 py-3 bg-[#06A9EF] border rounded-[12px] font-semibold text-white ${
-                    file && !loading ? "opacity-100" : "opacity-50"
-                  } `}
+                  className={`sm:px-9 px-6 py-3 bg-[#06A9EF] border rounded-[12px] font-semibold text-white ${file && !loading ? "opacity-100" : "opacity-50"
+                    } `}
                   onClick={() => {
                     setTabIndex(2);
                   }}
