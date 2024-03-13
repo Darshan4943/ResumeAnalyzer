@@ -57,7 +57,7 @@ const InternalJobMatching = () => {
   const jobMatching = () => {
     setLoading(true);
     axios
-      .post("http://localhost:2000/api/jobMatching/" + userDataGlobal._id, {
+      .post("https://freedygoservices.in/api/jobMatching/" + userDataGlobal._id, {
         jd: text,
         resumeCount
       })
