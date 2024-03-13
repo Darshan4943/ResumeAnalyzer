@@ -94,9 +94,9 @@ const Education = ({ setData, data }) => {
           >
             <div className="flex justify-between">
               <p className="text-[14px]">
-                {edu.qualification} | {edu.duration?.start?.year}{" "}
-                {edu.duration?.start?.year && "-"}
-                {edu.duration?.end.year}
+                {edu.qualification} {edu.duration?.start?.year !== "Year" &&  ` ${"|"} ${edu.duration?.start?.year} 
+              ${edu.duration?.start?.year && "-"}
+              ${edu.duration?.end?.year}`}
               </p>
               <div className="flex gap-2">
                 <div onClick={() => handleEditEducation(index)}>

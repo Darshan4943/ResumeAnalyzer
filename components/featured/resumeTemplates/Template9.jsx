@@ -4,7 +4,7 @@ import { Document, Page, Text, View, StyleSheet, Image, Svg, Path, Rect } from '
 function Template9({ data, selectedColor, selectedFont }) {
 
     return (
-        <Page size="A4" style={{backgroundColor:"#F5F5F5"}}>
+        <Page size="A4" style={{ backgroundColor: "#F5F5F5" }}>
             <View style={{ flexDirection: 'column', breakAll: true, gap: 24, justifyContent: 'space-between', paddingBottom: 150, minHeight: 841.8 }}>
                 <View style={{ paddingHorizontal: 24, flexDirection: 'row', gap: 30, }}>
                     <View style={{ width: 200, flexDirection: 'column', position: 'relative', gap: 24 }}>
@@ -31,7 +31,8 @@ function Template9({ data, selectedColor, selectedFont }) {
                                 <View key={index} style={{ flexDirection: 'column', gap: 8 }}>
                                     <Text style={{ fontSize: 10, fontFamily: `${selectedFont} 700` }}>{detail.specialization} {detail.qualification}</Text>
                                     <Text style={{ fontSize: 10, fontFamily: `${selectedFont} 400` }}>{detail.instituteName}</Text>
-                                    <Text style={{ color: "#616161", fontSize: 10, fontFamily: `${selectedFont} 400` }}>{detail.duration?.start?.year} - {detail.duration?.end?.year === undefined || "Year" ? "Present" : detail.duration?.end?.year}</Text>
+                                    <Text style={{ color: "#616161", fontSize: 10, fontFamily: `${selectedFont} 400` }}>  {detail.duration?.start?.year !== "Year" &&
+                              `${detail.duration?.start?.year}-${detail.duration?.end?.year}`}</Text>
                                 </View>
                             ))}
                         </View>
@@ -69,22 +70,26 @@ function Template9({ data, selectedColor, selectedFont }) {
                         <View style={{ flexDirection: 'column', gap: 16 }}>
                             <Text style={{ fontSize: 22, color: '#27417A', fontFamily: `${selectedFont} 700` }}>EXPERIENCE</Text>
                             {data.experience.map((detail, index) => (
-                                <View key={index} style={{ flexDirection: 'row', gap: index === data.experience.length - 1 ? 12 : 36  }}>
+                                <View key={index} style={{ flexDirection: 'row', gap: index === data.experience.length - 1 ? 12 : 36 }}>
                                     <Svg width="68" height="68" viewBox="0 0 68 68" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <Path d="M61.052 40.1202C64.7294 25.0998 55.5342 9.94229 40.5138 6.2649C25.4934 2.58752 10.3359 11.7828 6.6585 26.8032C2.98111 41.8236 12.1764 56.9811 27.1968 60.6585C42.2172 64.3359 57.3747 55.1406 61.052 40.1202Z" fill={selectedColor} />
                                         <Text x="30%" y="50%" dominantBaseline="middle" textAnchor="start" fill="white" style={{ fontFamily: `${selectedFont} 700`, fontSize: "14px" }}>
-                                        {detail.duration?.start?.year}
-                                    </Text>
+                                            {detail.duration?.start?.year}
+                                        </Text>
                                     </Svg>
 
                                     {index !== data.experience.length - 1 && (
                                         <View style={{ width: "1px", backgroundColor: "#424242", height: "35%", marginLeft: -63, marginTop: 70 }}>
                                         </View>
                                     )}
-                                    <View style={{ flexDirection: 'column', gap: 8, width: 330,paddingTop:20,  }}>
+                                    <View style={{ flexDirection: 'column', gap: 8, width: 330, paddingTop: 20, }}>
                                         <Text style={{ fontSize: 12, fontFamily: `${selectedFont} 700` }}>{detail.designation}</Text>
                                         <Text style={{ fontSize: 10, fontFamily: `${selectedFont} 600` }}>{detail.organization}</Text>
-                                        <Text style={{ fontSize: 9, fontFamily: `${selectedFont} 400`, color: '#424242' }}>{detail.duration?.start?.year} - {detail.duration?.end?.year === undefined || "Year" ? "Present" : detail.duration?.end?.year}</Text>
+                                        <Text style={{ fontSize: 9, fontFamily: `${selectedFont} 400`, color: '#424242' }}>{detail.duration?.start?.year !== "Year" &&
+                                            `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
+                                                ? "Present"
+                                                : detail.duration?.end?.year}
+                         `}</Text>
                                         <Text style={{ fontSize: 10, fontFamily: `${selectedFont} 400`, color: "#616161" }}>{detail.description}</Text>
                                     </View>
                                 </View>

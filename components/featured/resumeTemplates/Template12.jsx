@@ -73,7 +73,7 @@ const Template12 = ({ data, selectedColor, selectedFont,preview }) => {
                 <View key={index} style={{ flexDirection: "column", gap: 8, width: '50%' }}>
                   <View style={{ flexDirection: "row", gap: 6 }}>
                     <View style={{ flexDirection: "column", gap: 4 }}>
-                      {detail.duration?.end?.year && (
+                      {detail.duration?.start?.year !== "Year" && (
                         <>
                           <Text style={{ fontSize: 12, fontFamily: `${selectedFont} 700`, color: "#495970" }}>
                             {detail.duration?.start?.year}
@@ -154,10 +154,11 @@ const Template12 = ({ data, selectedColor, selectedFont,preview }) => {
               {data?.experience?.map((detail, index) => (
                 <View style={{ flexDirection: "column", gap: 6, width: "370" }} key={index}>
                   <Text style={{ fontSize: 10, fontFamily: `${selectedFont} 400`, color: "#495970" }}>
-                    {detail.duration?.start?.year}-{" "}
-                    {detail.currentlyWorking
-                      ? "Present"
-                      : detail.duration?.end?.year}
+                  {detail.duration?.start?.year !== "Year" &&
+                        `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
+                          ? "Present"
+                          : detail.duration?.end?.year}
+                         `}
                   </Text>
                   <Text style={{ fontSize: 10, fontFamily: `${selectedFont} 700`, color: "#495970" }}>
                     {detail.designation}

@@ -89,8 +89,8 @@ const Template17 = ({ data,selectedColor,selectedFont,preview  }) => {
                           <Path d="M3 6.65625C4.65685 6.65625 6 5.3131 6 3.65625C6 1.9994 4.65685 0.65625 3 0.65625C1.34315 0.65625 0 1.9994 0 3.65625C0 5.3131 1.34315 6.65625 3 6.65625Z" fill="#5E5F5E" />
                         </Svg>
 
-                        <Text style={{ fontSize: 12, fontFamily: `${selectedFont} 700` }}> {detail.duration?.start?.year}-
-                          {detail.duration?.end?.year}</Text>
+                        <Text style={{ fontSize: 12, fontFamily: `${selectedFont} 700` }}>   {detail.duration?.start?.year !== "Year" &&
+                              `${detail.duration?.start?.year}-${detail.duration?.end?.year}`}</Text>
                       </View>
                       <View style={{ gap: 8, flexDirection: 'column', justifyContent: 'start', alignItems: 'start' }}>
                         <Text style={{ fontSize: 12, fontWeight: 400,fontFamily: `${selectedFont} 600`,color: '#282627', maxWidth: 150 }}> {detail.qualification}</Text>
@@ -139,10 +139,11 @@ const Template17 = ({ data,selectedColor,selectedFont,preview  }) => {
                       <Text style={{ fontSize: 10, fontFamily: `${selectedFont} 700`, color: '#2C363D' }}>   {detail.organization} -    {detail.designation}</Text>
                       <Text style={{ fontSize: 10, fontFamily: `${selectedFont} 600`, color: '#2C363D' }}>
                         {" "}
-                        {detail.duration?.start?.year}-{" "} <br />
-                        {detail.currentlyWorking
+                        {detail.duration?.start?.year !== "Year" &&
+                        `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
                           ? "Present"
                           : detail.duration?.end?.year}
+                         `}
                       </Text>
                       <Text style={{ fontSize: 10, fontFamily: `${selectedFont} 400`, color: '#6D6E71' }}> {detail.description}</Text>
 

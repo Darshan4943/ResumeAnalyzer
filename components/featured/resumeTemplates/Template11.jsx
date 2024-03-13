@@ -468,10 +468,11 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                           fontFamily: `${selectedFont} 400`,
                         }}
                       >
-                        {detail.duration?.start?.year} -
-                        {detail.duration?.end?.year == undefined || "Year"
+                       {detail.duration?.start?.year !== "Year" &&
+                        `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
                           ? "Present"
                           : detail.duration?.end?.year}
+                         `}
                       </Text>
 
                       <Text
@@ -547,8 +548,8 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                           fontFamily: `${selectedFont} 400`,
                         }}
                       >
-                        {detail.duration?.start?.year}-
-                        {detail.duration?.end?.year}
+                          {detail.duration?.start?.year !== "Year" &&
+                              `${detail.duration?.start?.year}-${detail.duration?.end?.year}`}
                       </Text>
 
                       <Text

@@ -12,7 +12,7 @@ import {
 
 const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
   return (
-    <Page size="A4" wrap={true} style={{paddingTop:'12px'}}>
+    <Page size="A4" wrap={true} style={{ paddingTop: '12px' }}>
       <View style={{ flexDirection: "row" }}>
         <View
           style={{
@@ -40,11 +40,13 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                     preview
                       ? data.profilePhoto
                       : Object.keys(data?.profilePhoto).includes("filename")
-                      ? URL.createObjectURL(data.profilePhoto)
-                      : data.profilePhoto
+                        ? URL.createObjectURL(data.profilePhoto)
+                        : data.profilePhoto
                   }
-                  style={{ objectFit: "cover",  width: 134,
-                  height: 134, }}
+                  style={{
+                    objectFit: "cover", width: 134,
+                    height: 134,
+                  }}
                 />
               ) : (
                 <Image src="/images/services/profile.png" />
@@ -199,7 +201,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
               >
                 {data.skills.map((detail, index) => (
                   <Text
-                  wrap={false}
+                    wrap={false}
                     key={index}
                     style={{
                       color: "white",
@@ -252,7 +254,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
               >
                 {data.languages.map((detail, index) => (
                   <Text
-                  wrap={false}
+                    wrap={false}
                     key={index}
                     style={{
                       color: "white",
@@ -304,7 +306,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
               >
                 {data.hobbies.map((detail, index) => (
                   <Text
-                  wrap={false}
+                    wrap={false}
                     key={index}
                     style={{
                       color: "white",
@@ -421,7 +423,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
               style={{ flexDirection: "column", gap: 12, paddingLeft: "20px" }}
             >
               {data.education.map((detail, index) => (
-                <View  wrap={false} key={index} style={{ flexDirection: "column", gap: 8 }}>
+                <View wrap={false} key={index} style={{ flexDirection: "column", gap: 8 }}>
                   <View style={{}}>
                     <Text
                       style={{
@@ -457,9 +459,8 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                         fontFamily: `${selectedFont} 400`,
                       }}
                     >
-                      {detail.duration?.end?.year
-                        ? `${detail.duration?.start?.year}-${detail.duration?.end?.year}`
-                        : ""}
+                       {detail.duration?.start?.year !== "Year" &&
+                              `${detail.duration?.start?.year}-${detail.duration?.end?.year}`}
                     </Text>
                   </View>
                 </View>
@@ -532,11 +533,11 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                       fontFamily: `${selectedFont} 400`,
                     }}
                   >
-                    {`${detail.duration?.start?.year} - ${
-                      detail.duration?.end?.year
-                        ? detail.duration?.end?.year
-                        : "Present"
-                    }`}
+                   {detail.duration?.start?.year !== "Year" &&
+                        `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
+                          ? "Present"
+                          : detail.duration?.end?.year}
+                         `}
                   </Text>
                 </View>
                 {detail.description?.length > 5 && (
@@ -560,6 +561,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
           </View>
           {data.section?.map((item, index) => (
             <View
+              wrap={false}
               key={index}
               style={{
                 flexDirection: "column",
@@ -605,7 +607,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                         justifyContent: "space-between",
                         alignItems: "center",
                       }}
-                     >
+                    >
                       <Text
                         style={{
                           color: "#414142",
@@ -626,13 +628,11 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                               fontFamily: `${selectedFont} 400`,
                             }}
                           >
-                            {`${
-                              detail.duration?.start?.year &&
+                            {`${detail.duration?.start?.year &&
                               detail.duration?.start?.year
-                            } - ${
-                              detail.duration?.end?.year &&
+                              } - ${detail.duration?.end?.year &&
                               detail.duration?.end?.year
-                            }`}
+                              }`}
                           </Text>
                         )}
                     </View>

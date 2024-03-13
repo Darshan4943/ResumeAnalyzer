@@ -249,10 +249,11 @@ function Template6({ data, selectedColor, selectedFont,preview }) {
                         </Text>
                         <Text style={{ fontSize: 14, fontFamily: `${selectedFont} 400` }}>
                           {" "}
-                          {detail.duration?.start?.year}-{" "}
-                          {detail.currentlyWorking
-                            ? "Present"
-                            : detail.duration?.end?.year}
+                          {detail.duration?.start?.year !== "Year" &&
+                        `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
+                          ? "Present"
+                          : detail.duration?.end?.year}
+                         `}
                         </Text>
                       </View>
                       <Text style={{ fontSize: 14, fontFamily: `${selectedFont} 400`, width: 300 }}>
@@ -282,12 +283,8 @@ function Template6({ data, selectedColor, selectedFont,preview }) {
                           {detail.instituteName}
                         </Text>
                         <Text style={{ fontSize: 14, fontFamily: `${selectedFont} 400` }}>
-                          {detail.duration?.end?.year && (
-                            <>
-                              {detail.duration?.start?.year}-
-                              {detail.duration?.end?.year}
-                            </>
-                          )}
+                        {detail.duration?.start?.year !== "Year" &&
+                              `${detail.duration?.start?.year}-${detail.duration?.end?.year}`}
                         </Text>
                       </View>
                     </View>

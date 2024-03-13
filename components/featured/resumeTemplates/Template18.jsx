@@ -16,7 +16,7 @@ import {
 
 const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
   return (
-    <Page size="A4" wrap={true} style={{paddingTop:'12px'}}>
+    <Page size="A4" wrap={true} style={{ paddingTop: '12px' }}>
       <View style={{ width: 595, display: "flex", flexDirection: "row" }}>
         <View
           style={{
@@ -51,8 +51,8 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                     preview
                       ? data.profilePhoto
                       : Object.keys(data?.profilePhoto).includes("filename")
-                      ? URL.createObjectURL(data.profilePhoto)
-                      : data.profilePhoto
+                        ? URL.createObjectURL(data.profilePhoto)
+                        : data.profilePhoto
                   }
                   alt=""
                   style={{
@@ -639,7 +639,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                     style={{
                       display: "flex",
                       flexDirection: "row",
-                      gap: index !== 0 ? 16 : 24,
+                      gap: index !== 0 ? 24 : 24,
                     }}
                   >
                     <Svg
@@ -695,10 +695,11 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                           color: "#252829",
                         }}
                       >
-                        {detail.duration?.start?.year} -{" "}
-                        {detail.duration?.end?.year == undefined || "Year"
-                          ? "Present"
-                          : detail.duration?.end?.year}
+                        {detail.duration?.start?.year !== "Year" &&
+                          `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
+                            ? "Present"
+                            : detail.duration?.end?.year}
+                         `}
                       </Text>
                       <View
                         style={{
@@ -769,7 +770,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                     style={{
                       display: "flex",
                       flexDirection: "row",
-                      gap: index !== 0 ? 16 : 24,
+                      gap: index !== 0 ? 24 : 24,
                     }}
                   >
                     <Svg
@@ -816,7 +817,8 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                           color: "#252829",
                         }}
                       >
-                        {detail.qualification} in {detail.specialization}
+                          {detail.duration?.start?.year !== "Year" &&
+                              `${detail.duration?.start?.year}-${detail.duration?.end?.year}`}
                       </Text>
                       <Text
                         style={{

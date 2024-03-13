@@ -242,8 +242,8 @@ function Template39({ data, selectedColor, selectedFont }) {
                             fontFamily: `${selectedFont} 400`,
                           }}
                         >
-                          {detail.duration?.start?.year}-
-                          {detail.duration?.end?.year}
+                           {detail.duration?.start?.year !== "Year" &&
+                              `${detail.duration?.start?.year}-${detail.duration?.end?.year}`}
                         </Text>
                       </View>
                     </View>
@@ -525,10 +525,11 @@ function Template39({ data, selectedColor, selectedFont }) {
                           fontFamily: `${selectedFont} 400`,
                         }}
                       >
-                        {detail.duration?.start?.year}-{" "}
-                        {detail.currentlyWorking
+                       {detail.duration?.start?.year !== "Year" &&
+                        `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
                           ? "Present"
                           : detail.duration?.end?.year}
+                         `}
                       </Text>
                     </View>
                     <Text

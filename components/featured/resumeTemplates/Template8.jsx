@@ -534,8 +534,8 @@ function Template8({ data, selectedColor, selectedFont, preview }) {
                         }}
                       >
                         {" "}
-                        {detail.duration?.start?.year}-
-                        {detail.duration?.end?.year}
+                        {detail.duration?.start?.year !== "Year" &&
+                              `${detail.duration?.start?.year}-${detail.duration?.end?.year}`}
                       </Text>
                       <View
                         style={{
@@ -612,10 +612,11 @@ function Template8({ data, selectedColor, selectedFont, preview }) {
                         color: "#000000",
                       }}
                     >
-                      {detail.designation} | {detail.duration?.start?.year}-{" "}
-                      {detail.currentlyWorking
-                        ? "Present"
-                        : detail.duration?.end?.year}
+                      {detail.designation} {detail.duration?.start?.year !== "Year" &&
+                        ` ${"|"} ${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
+                          ? "Present"
+                          : detail.duration?.end?.year}
+                         `}
                     </Text>
                     <Text
                       style={{

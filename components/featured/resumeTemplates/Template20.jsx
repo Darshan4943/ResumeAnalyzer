@@ -93,7 +93,8 @@ function Template20({ data ,selectedColor,selectedFont,preview }) {
                   <Path d="M3 6.5C4.65685 6.5 6 5.15685 6 3.5C6 1.84315 4.65685 0.5 3 0.5C1.34315 0.5 0 1.84315 0 3.5C0 5.15685 1.34315 6.5 3 6.5Z" fill="#5E5F5E" />
                 </Svg>
                   <View style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-                    <Text style={{ fontSize: 10,fontFamily: `${selectedFont} 700`, color: '#6D6E71', marginBottom: 2 }}>{detail.duration?.start?.year}-{detail.duration?.end?.year}</Text>
+                    <Text style={{ fontSize: 10,fontFamily: `${selectedFont} 700`, color: '#6D6E71', marginBottom: 2 }}>  {detail.duration?.start?.year !== "Year" &&
+                              `${detail.duration?.start?.year}-${detail.duration?.end?.year}`}</Text>
                     <Text style={{ fontSize: 10,fontFamily: `${selectedFont} 600`, color: '#282627' }}>{detail.qualification} </Text>
                     <Text style={{ fontSize: 10,fontFamily: `${selectedFont} 400`, color: '#6D6E71' }}> {detail.specialization}</Text>
                     <Text style={{ fontSize: 10,fontFamily: `${selectedFont} 400`, color: '#6D6E71' }}>{detail.instituteName}</Text>
@@ -187,7 +188,11 @@ function Template20({ data ,selectedColor,selectedFont,preview }) {
               {data.experience?.map((detail, index) => (
                 <View key={index} style={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
                   <Text style={{ fontFamily: `${selectedFont} 700`, fontSize: 10, color: '#2C363D' }}>{detail.designation} </Text>
-                  <Text style={{ fontFamily: `${selectedFont} 600`, fontSize: 10, color: '#939598' }}>{detail.duration?.start?.year}-{" "}{detail.currentlyWorking ? "Present" : detail.duration?.end?.year}</Text>
+                  <Text style={{ fontFamily: `${selectedFont} 600`, fontSize: 10, color: '#939598' }}>{detail.duration?.start?.year !== "Year" &&
+                        `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
+                          ? "Present"
+                          : detail.duration?.end?.year}
+                         `}</Text>
                   <Text style={{ fontFamily: `${selectedFont} 400`, fontSize: 10, color: '#6D6E71' }}>{detail.description} </Text>
                 </View>
               ))}

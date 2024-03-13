@@ -614,8 +614,8 @@ function Template5({ data, selectedColor, selectedFont,preview }) {
                         paddingLeft: "10px",
                       }}
                     >
-                      {detail.duration?.start?.year}-
-                      {detail.duration?.end?.year}
+                       {detail.duration?.start?.year !== "Year" &&
+                              `${detail.duration?.start?.year}-${detail.duration?.end?.year}`}
                     </Text>
                   </View>
                 ))}
@@ -692,10 +692,11 @@ function Template5({ data, selectedColor, selectedFont,preview }) {
                         paddingLeft: "10px",
                       }}
                     >
-                      {detail.duration?.start?.year}-{" "}
-                      {detail.currentlyWorking
-                        ? "Present"
-                        : detail.duration?.end?.year}
+                     {detail.duration?.start?.year !== "Year" &&
+                        `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
+                          ? "Present"
+                          : detail.duration?.end?.year}
+                         `}
                     </Text>
                     <Text
                       style={{

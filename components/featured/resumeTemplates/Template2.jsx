@@ -135,8 +135,8 @@ function Template2({ data, selectedColor, selectedFont, preview }) {
                             maxWidth: "80%",
                           }}
                         >
-                          {detail.duration?.start?.year}-
-                          {detail.duration?.end?.year}
+                           {detail.duration?.start?.year !== "Year" &&
+                              `${detail.duration?.start?.year}-${detail.duration?.end?.year}`}
                         </Text>
                       )}
                     </Text>
@@ -218,10 +218,11 @@ function Template2({ data, selectedColor, selectedFont, preview }) {
                         maxWidth: "80%",
                       }}
                     >
-                      {detail.duration?.start?.year}-{" "}
-                      {detail.currentlyWorking
-                        ? "Present"
-                        : detail.duration?.end?.year}
+                      {detail.duration?.start?.year !== "Year" &&
+                        `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
+                          ? "Present"
+                          : detail.duration?.end?.year}
+                         `}
                     </Text>
                   </View>
                 ))}

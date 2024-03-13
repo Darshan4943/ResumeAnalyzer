@@ -240,10 +240,11 @@ function Template16({ data, selectedColor, selectedFont, preview }) {
                           color: "#AC5428",
                         }}
                       >
-                        {detail.duration?.start?.year} -{" "}
-                        {detail.duration?.end?.year == undefined || "Year"
+                        {detail.duration?.start?.year !== "Year" &&
+                        `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
                           ? "Present"
                           : detail.duration?.end?.year}
+                         `}
                       </Text>
                     </View>
                     <View
@@ -338,7 +339,8 @@ function Template16({ data, selectedColor, selectedFont, preview }) {
                       color: "#AC5428",
                     }}
                   >
-                    {detail.duration?.start?.year}-{detail.duration?.end?.year}
+                      {detail.duration?.start?.year !== "Year" &&
+                              `${detail.duration?.start?.year}-${detail.duration?.end?.year}`}
                   </Text>
                 </View>
               ))}

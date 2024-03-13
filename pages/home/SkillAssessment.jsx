@@ -546,7 +546,7 @@ function SkillAssessment() {
                   <div className="flex flex-col ml:flex-row gap-[24px]">
                     <div className="w-full flex items-between  flex-col gap-[24px]">
                       <div
-                        className={`py-[12px] px-[16px] rounded-[6px] ml:rounded-[8px] text-[12px] ml:text-[16px] font-[600] h-[50%]  ${
+                        className={`py-[12px] px-[16px] break-all rounded-[6px] ml:rounded-[8px] text-[12px] ml:text-[16px] font-[600] h-[50%]  ${
                           isSelected(
                             question[questionIndex]?.options[0],
                             questionIndex + 1
@@ -565,7 +565,7 @@ function SkillAssessment() {
                         A) {question[questionIndex]?.options[0]}
                       </div>
                       <div
-                        className={`py-[12px] px-[16px] rounded-[6px] ml:rounded-[8px] text-[12px] ml:text-[16px] font-[600] h-[50%]  ${
+                        className={`py-[12px] px-[16px] break-all rounded-[6px] ml:rounded-[8px] text-[12px] ml:text-[16px] font-[600] h-[50%]  ${
                           isSelected(
                             question[questionIndex]?.options[2],
                             questionIndex + 1
@@ -586,7 +586,7 @@ function SkillAssessment() {
                     </div>
                     <div className="w-full flex flex-col items-between gap-[24px]">
                       <div
-                        className={`py-[12px] px-[16px] rounded-[6px] ml:rounded-[8px] text-[12px] ml:text-[16px] font-[600] h-[50%]  ${
+                        className={`py-[12px] px-[16px] break-all rounded-[6px] ml:rounded-[8px] text-[12px] ml:text-[16px] font-[600] h-[50%]  ${
                           isSelected(
                             question[questionIndex]?.options[1],
                             questionIndex + 1
@@ -605,7 +605,7 @@ function SkillAssessment() {
                         B) {question[questionIndex]?.options[1]}
                       </div>
                       <div
-                        className={`py-[12px] px-[16px] rounded-[6px] ml:rounded-[8px] text-[12px] ml:text-[16px] font-[600] h-[50%]  ${
+                        className={`py-[12px] px-[16px] break-all rounded-[6px] ml:rounded-[8px] text-[12px] ml:text-[16px] font-[600] h-[50%]  ${
                           isSelected(
                             question[questionIndex]?.options[3],
                             questionIndex + 1

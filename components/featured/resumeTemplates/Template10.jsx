@@ -475,10 +475,11 @@ function Template10({ data, selectedColor, selectedFont,preview }) {
                           color: selectedColor,
                         }}
                       >
-                        {detail.duration?.start?.year}-{" "}
-                        {detail.currentlyWorking
+                        {detail.duration?.start?.year !== "Year" &&
+                        `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
                           ? "Present"
                           : detail.duration?.end?.year}
+                         `}
                       </Text>
                     </View>
                     <View>
@@ -626,7 +627,8 @@ function Template10({ data, selectedColor, selectedFont,preview }) {
                         }}
                       >
                         {" "}
-                        {detail.qualification} - {detail.specialization}
+                        {detail.duration?.start?.year !== "Year" &&
+                              `${detail.duration?.start?.year}-${detail.duration?.end?.year}`}
                       </Text>
                       <Text
                         style={{

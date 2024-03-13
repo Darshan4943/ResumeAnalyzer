@@ -191,10 +191,11 @@ function Template13({ data, selectedColor, selectedFont }) {
                         color: "#797979",
                       }}
                     >
-                      {detail.organization} {detail.duration?.start?.year} -
-                      {detail.duration?.end?.year == undefined || "Year"
-                        ? "Present"
-                        : detail.duration?.end?.year}
+                      {detail.organization} {detail.duration?.start?.year !== "Year" &&
+                        `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
+                          ? "Present"
+                          : detail.duration?.end?.year}
+                         `}
                     </Text>
                     <Text
                       style={{
@@ -315,8 +316,8 @@ function Template13({ data, selectedColor, selectedFont }) {
                         color: "#797979",
                       }}
                     >
-                      {detail.instituteName} {detail.duration?.start?.year}-
-                      {detail.duration?.end?.year}
+                       {detail.duration?.start?.year !== "Year" &&
+                              `${detail.duration?.start?.year}-${detail.duration?.end?.year}`}
                     </Text>
                   </View>
                 ))}

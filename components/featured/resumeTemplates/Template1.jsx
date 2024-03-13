@@ -15,7 +15,7 @@ import {
 function Template1({ data, selectedColor, selectedFont, preview }) {
   return (
     <Page size="A4" style={{ padding: 24 }} pageMode={"fullScreen"} wrap={true}>
-      <View style={{ flexDirection: "column" , minHeight: "792px",}}>
+      <View style={{ flexDirection: "column", minHeight: "792px", }}>
         <View
           style={{
             flexDirection: "row",
@@ -62,8 +62,8 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                   preview
                     ? data.profilePhoto
                     : Object.keys(data?.profilePhoto).includes("filename")
-                    ? URL.createObjectURL(data.profilePhoto)
-                    : data.profilePhoto
+                      ? URL.createObjectURL(data.profilePhoto)
+                      : data.profilePhoto
                 }
                 style={{
                   objectFit: "cover",
@@ -82,7 +82,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
           style={{ height: "1px", width: "100%", backgroundColor: "#333" }}
         />
 
-        <View style={{ flexDirection: "row",   height: "100%", }}>
+        <View style={{ flexDirection: "row", height: "100%", }}>
           <View style={{ flexDirection: "column", width: "35%", gap: "32px" }}>
             <View
               style={{
@@ -231,6 +231,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                         </Text>
                       </View>
                       <View style={{ flexDirection: "column", gap: 2 }}>
+                        
                         <View
                           style={{
                             width: 16,
@@ -248,8 +249,11 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                               lineHeight: 1,
                             }}
                           >
-                            {detail.duration?.end?.year &&
+                            {detail.duration?.start?.year !== "Year" &&
                               `${detail.duration?.start?.year}-${detail.duration?.end?.year}`}
+
+
+                            
                           </Text>
                         </View>
                       </View>
@@ -300,7 +304,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                 </View>
               </View>
             )}
-             {data?.hobbies?.length > 0 && (
+            {data?.hobbies?.length > 0 && (
               <View style={{ flexDirection: "column" }}>
                 <View style={{ flexDirection: "column", gap: 12 }}>
                   <Text
@@ -351,7 +355,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
             style={{
               width: "1px",
               height: "100%",
-             
+
               backgroundColor: "#333",
             }}
           />
@@ -461,8 +465,12 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                           lineHeight: 1,
                         }}
                       >
-                        {detail.duration?.end?.year &&
-                          `${detail.duration?.start?.year}-${detail.duration?.end?.year}`}
+                        {detail.duration?.start?.year !== "Year" &&
+                          `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
+                            ? "Present"
+                            : detail.duration?.end?.year}
+                         `}
+
                       </Text>
                     </View>
                   </View>
@@ -481,12 +489,12 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                 </View>
               ))}
             </View>
-           
-            {  data?.section?.map((item, index) => (
+
+            {data?.section?.map((item, index) => (
               <View
                 style={{ flexDirection: "column", gap: 12, width: "100%" }}
                 key={index}
-                // wrap={false}
+              // wrap={false}
               >
                 <View style={{ flexDirection: "column", gap: 12 }}>
                   <Text

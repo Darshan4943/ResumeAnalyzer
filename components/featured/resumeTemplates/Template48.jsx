@@ -607,8 +607,8 @@ const Template48 = ({ data, selectedColor, selectedFont }) => {
                       }}
                     >
                       {" "}
-                      {detail.duration?.start?.year}-
-                      {detail.duration?.end?.year}
+                      {detail.duration?.start?.year !== "Year" &&
+                              `${detail.duration?.start?.year}-${detail.duration?.end?.year}`}
                     </Text>
                   </View>
                 </View>
@@ -720,21 +720,24 @@ const Template48 = ({ data, selectedColor, selectedFont }) => {
                               }}
                             >
                               {" "}
-                              {detail.duration?.start?.year}-
-                              {detail.duration?.end?.year}
+                              {detail.duration?.start?.year !== "Year" &&
+                                `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
+                                  ? "Present"
+                                  : detail.duration?.end?.year}
+                         `}
                             </Text>
                           </View>
                         )}
                     </View>
-                      <Text
-                        style={{
-                          fontWeight: 400,
-                          fontSize: 12,
-                          color: "#414142",
-                        }}
-                      >
-                        {detail.description}
-                      </Text>
+                    <Text
+                      style={{
+                        fontWeight: 400,
+                        fontSize: 12,
+                        color: "#414142",
+                      }}
+                    >
+                      {detail.description}
+                    </Text>
                   </View>
                 ))}
               </View>

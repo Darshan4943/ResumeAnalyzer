@@ -63,7 +63,11 @@ function Template7({ data, selectedColor, selectedFont,preview }) {
                   <View style={{ display: 'flex', gap: 6, flexDirection: 'column' }}>
                     {data.experience?.map((detail, index) => (
                       <>
-                        <Text style={{ fontSize: '10px', fontFamily: `${selectedFont} 500`, color: '#828186' }}>{" "}{detail.duration?.start?.year}-{" "}{detail.currentlyWorking ? "Present" : detail.duration?.end?.year}</Text>
+                        <Text style={{ fontSize: '10px', fontFamily: `${selectedFont} 500`, color: '#828186' }}>{" "}{detail.duration?.start?.year !== "Year" &&
+                        `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
+                          ? "Present"
+                          : detail.duration?.end?.year}
+                         `}</Text>
                         <Text style={{ fontSize: '12px', fontFamily: `${selectedFont} 600`, color: '#222933' }}>{detail.designation} </Text>
                         <Text style={{ fontSize: '10px', fontFamily: `${selectedFont} 500`, color: '#828186' }}>{detail.location}  </Text>
                         <Text style={{ fontSize: '10px', fontFamily: `${selectedFont} 400`, color: '#828186' }}>{detail.description} </Text>
@@ -116,7 +120,8 @@ function Template7({ data, selectedColor, selectedFont,preview }) {
                   <View style={{ display: 'flex', gap: 6, flexDirection: 'column' }}>
                     {data?.education?.map((detail, index) => (
                       <>
-                        <Text style={{ fontSize: '10px', fontFamily: `${selectedFont} 500`, color: '#828186' }}>{" "}{detail.duration?.start?.year}-{detail.duration?.end?.year}</Text>
+                        <Text style={{ fontSize: '10px', fontFamily: `${selectedFont} 500`, color: '#828186' }}>{" "}  {detail.duration?.start?.year !== "Year" &&
+                              `${detail.duration?.start?.year}-${detail.duration?.end?.year}`}</Text>
                         <Text style={{ fontSize: '12px', fontFamily: `${selectedFont} 600`, color: '#222933' }}>{detail.instituteName} </Text>
                         <Text style={{ fontSize: '10px', fontFamily: `${selectedFont} 500`, color: '#828186' }}>{detail.qualification} - {detail.specialization} </Text>
                       </>

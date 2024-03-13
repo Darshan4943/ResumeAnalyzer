@@ -370,8 +370,8 @@ function Template15({ data, selectedColor, selectedFont, preview }) {
 
                       <Text style={{ fontSize: 10, fontWeight: 400 }}>
                         {" "}
-                        {detail.duration?.start?.year}-
-                        {detail.duration?.end?.year}
+                        {detail.duration?.start?.year !== "Year" &&
+                              `${detail.duration?.start?.year}-${detail.duration?.end?.year}`}
                       </Text>
                     </View>
                     <View
@@ -533,10 +533,11 @@ function Template15({ data, selectedColor, selectedFont, preview }) {
                             textAlign: "left",
                           }}
                         >
-                          {detail.duration?.start?.year} <br />
-                          {detail.currentlyWorking
-                            ? "Present"
-                            : detail.duration?.end?.year}
+                         {detail.duration?.start?.year !== "Year" &&
+                        `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
+                          ? "Present"
+                          : detail.duration?.end?.year}
+                         `}
                         </Text>
                       </View>
                       <View style={{ gap: 8, flexDirection: "column" }}>

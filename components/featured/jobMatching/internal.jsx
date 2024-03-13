@@ -37,7 +37,7 @@ const InternalJobMatching = () => {
   const userDataGlobal = useSelector((state) => state.userData);
   const [details, setDetails] = useState();
   const [resuneList, setResuneList] = useState([]);
-  console.log(11,resuneList)
+
   const [preview, setPreview] = useState(false);
   const [selected, setSelected] = useState(false);
 

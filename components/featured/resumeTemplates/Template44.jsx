@@ -153,7 +153,11 @@ const Template44 = ({ data, selectedColor, selectedFont }) => {
                             </View>
                             {data?.experience?.map((detail, index) => (
                                 <View key={index} style={{ flexDirection: "column", gap: 4 }}>
-                                    <Text style={{ fontFamily: `${selectedFont} 400`, fontSize: 14, color: "#2D3033" }}>{detail.organization ? (<>{detail.organization}</>) : (<>organization</>)} / {detail.duration?.start?.year}-{detail.currentlyWorking ? "Present" : detail.duration?.end?.year}</Text>
+                                    <Text style={{ fontFamily: `${selectedFont} 400`, fontSize: 14, color: "#2D3033" }}>{detail.organization ? (<>{detail.organization}</>) : (<>organization</>)} / {detail.duration?.start?.year !== "Year" &&
+                        `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
+                          ? "Present"
+                          : detail.duration?.end?.year}
+                         `}</Text>
                                     <Text style={{ fontFamily: `${selectedFont} 400`, fontSize: 12, color: "#6D6E71" }}>{detail.designation ? (<>{detail.designation}</>) : (<>Designation</>)}</Text>
                                     <Text style={{ fontFamily: `${selectedFont} 400`, fontSize: 10, color: "#6D6E71" }}>{detail.description ? (<>{detail.description}</>) : (<>Description</>)}</Text>
                                 </View>
@@ -166,7 +170,8 @@ const Template44 = ({ data, selectedColor, selectedFont }) => {
                         </View>
                         {data?.education?.map((detail, index) => (
                             <View key={index}>
-                                <Text style={{ fontFamily: `${selectedFont} 400`, fontSize: 13, color: "#2D3033" }}>{detail.qualification} / {detail.duration?.start?.year}-{detail.duration?.end?.year}</Text>
+                                <Text style={{ fontFamily: `${selectedFont} 400`, fontSize: 13, color: "#2D3033" }}>{detail.qualification} /   {detail.duration?.start?.year !== "Year" &&
+                              `${detail.duration?.start?.year}-${detail.duration?.end?.year}`}</Text>
                                 <Text style={{ fontFamily: `${selectedFont} 400`, fontSize: 12, color: "#6D6E71" }}>{detail.instituteName}</Text>
                             </View>
                         ))}

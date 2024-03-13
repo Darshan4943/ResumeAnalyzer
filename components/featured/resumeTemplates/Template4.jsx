@@ -610,8 +610,8 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                           }}
                         >
                           {" "}
-                          {detail.duration?.start?.year}-
-                          {detail.duration?.end?.year}
+                          {detail.duration?.start?.year !== "Year" &&
+                              `${detail.duration?.start?.year}-${detail.duration?.end?.year}`}
                         </Text>
                       </View>
                       <View
@@ -727,10 +727,11 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                         }}
                       >
                         {" "}
-                        {detail.duration?.start?.year}-{" "}
-                        {detail.currentlyWorking
+                        {detail.duration?.start?.year !== "Year" &&
+                        `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
                           ? "Present"
                           : detail.duration?.end?.year}
+                         `}
                       </Text>
                     </View>
 

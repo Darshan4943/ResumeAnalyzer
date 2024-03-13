@@ -72,6 +72,7 @@ const Experience = ({ data, setData }) => {
       experience: data.experience.filter((item, i) => i !== index),
     });
   };
+  console.log(75, data)
   return (
     <div
       className="flex flex-col p-4 gap-2 rounded-lg bg-white"
@@ -100,9 +101,10 @@ const Experience = ({ data, setData }) => {
         >
           <div className="flex justify-between">
             <p className="text-[14px]">
-              {exp.organization} | {exp.duration?.start?.year}{" "}
-              {exp.duration?.start?.year && "-"}
-              {exp.currentlyWorking ? "Present" : exp.duration?.end?.year}
+              {exp.organization} {exp.duration?.start?.year !== "Year" &&  ` ${"|"} ${exp.duration?.start?.year} 
+              ${exp.duration?.start?.year && "-"}
+              ${exp.currentlyWorking ? "Present" : exp.duration?.end?.year}`}
+
             </p>
             <div className="flex gap-2">
               <div onClick={() => handleEditExperience(index)}>
