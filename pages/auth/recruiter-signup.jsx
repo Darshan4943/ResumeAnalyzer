@@ -10,7 +10,7 @@ import { motion } from "framer-motion";
 import ReactSelect from "react-select";
 import ImageContainer from "../../components/common/image";
 
-function Recruiter_signup({}) {
+function Recruiter_signup({ }) {
   const router = useRouter();
   const dispatch = useDispatch();
   const [selectedItem, setSelectedItem] = useState(telCode[telCode.length - 2]);
@@ -19,6 +19,7 @@ function Recruiter_signup({}) {
   const [filteredTelCode, setFilteredTelCode] = useState([]);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false)
   const [data, setData] = useState({
     firstName: "",
     lastName: "",
@@ -34,13 +35,19 @@ function Recruiter_signup({}) {
     event.preventDefault();
     const selectedFile = event.target.files[0];
     if (selectedFile) {
-      if (selectedFile?.type.includes("image")) {
-        setFile(selectedFile);
+      if (selectedFile.type.includes("image")) {
+        if (selectedFile.size > 1041416) {
+          setError("File is too large. Maximum size allowed is 1 MB.");
+        } else {
+          setFile(selectedFile);
+          setError(false);
+        }
       } else {
         toast.error("Only Image files are allowed");
       }
     }
   };
+
   const isViewportBelow850 = useMediaQuery("(max-width:850px)");
   const [formError, setFormError] = useState({});
   const validateInput = (fieldName, value) => {
@@ -194,9 +201,8 @@ function Recruiter_signup({}) {
               dispatch(reCallUserData());
               toast.success("Sign up Successfully");
               if (sendToPurchase && sendToPurchase?.status) {
-                window.location.href = `/purchase/details?id=${
-                  sendToPurchase.index + 1
-                }`;
+                window.location.href = `/purchase/details?id=${sendToPurchase.index + 1
+                  }`;
                 setLoading(false);
               } else {
                 window.location.href = `/home`;
@@ -277,7 +283,7 @@ function Recruiter_signup({}) {
 
                   <div className="flex flex-col gap-3 w-[168px] text-center items-center ">
                     <p className="text-[12px] font-normal">
-                      Allowed file formats: jpg, jpeg | up to 1.5 MB
+                      Allowed file formats: jpg, jpeg | up to 1 MB
                     </p>
                     <div className="text-[12px] font-semibold px-4 py-2 rounded-[8px] bg-[#06A9EF] text-white w-[135px] upload-btn-wrapper">
                       <input
@@ -292,12 +298,16 @@ function Recruiter_signup({}) {
                       className="text-[12px] font-semibold px-4 py-2 rounded-[8px]  border border-[#06A9EF]  w-[135px] cursor-pointer"
                       onClick={() => {
                         setFile(null);
+                        setError(false)
                       }}
                     >
                       Remove Picture
                     </div>
                   </div>
+
                 </div>
+                {error &&
+                  <div className="text-[16px] text-red">{error}</div>}
                 <div className="flex gap-6 w-[100%] ml:flex-row flex-col ">
                   <div className="personal_name_parent flex ml:flex-row flex-col ml:w-[50%] w-[100%]">
                     <div className="personal_name ml:w-[48%] w-[100%]">
@@ -347,15 +357,13 @@ function Recruiter_signup({}) {
                       Contact Number <span className="star">*</span>
                     </p>
                     <div
-                      className={`flex w-[100%] items-start ${
-                        isViewportBelow850 ? "gap-[4px] " : "gap-[16px] "
-                      }`}
+                      className={`flex w-[100%] items-start ${isViewportBelow850 ? "gap-[4px] " : "gap-[16px] "
+                        }`}
                       id="single_input"
                     >
                       <div
-                        className={`relative min-w-[150px] ${
-                          isViewportBelow850 ? "w-[65%] " : "w-[40%] "
-                        } items-center`}
+                        className={`relative min-w-[150px] ${isViewportBelow850 ? "w-[65%] " : "w-[40%] "
+                          } items-center`}
                       >
                         <div className="  w-[100%] text-[14px] justify-center items-center  flex font-[500] text-[#646464]">
                           <div className="flex items-center justify-center gap-2 cursor-pointer min-w-[140px] w-[100%]">
@@ -398,11 +406,10 @@ function Recruiter_signup({}) {
                         type="text"
                         name=""
                         // id="single_input"
-                        placeholder={`${
-                          isViewportBelow850
+                        placeholder={`${isViewportBelow850
                             ? "Enter Number "
                             : "Enter Contact Number "
-                        }`}
+                          }`}
                         value={data.mobileNo}
                         onChange={(e) =>
                           handleInputChange("mobileNo", e.target.value)

@@ -14,6 +14,7 @@ function CreateNewClient({ setTabIndex }) {
   const userDataGlobal = useSelector((state) => state.userData);
   const isViewportBelow850 = useMediaQuery("(max-width:850px)");
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false)
   const [data, setData] = useState({
     firstName: "",
     lastName: "",
@@ -32,7 +33,13 @@ function CreateNewClient({ setTabIndex }) {
     const selectedFile = event.target.files[0];
     if (selectedFile) {
       if (selectedFile?.type.includes("image")) {
-        setData({ ...data, img: selectedFile });
+      
+        if (selectedFile.size > 1041416) {
+          setError("File is too large. Maximum size allowed is 1 MB.");
+        } else {
+          setData({ ...data, img: selectedFile });
+          setError(false);
+        }
       } else {
         toast.error("Only Image files are allowed");
       }
@@ -290,7 +297,7 @@ function CreateNewClient({ setTabIndex }) {
 
               <div className="flex flex-col gap-3 w-[168px] text-center items-center ">
                 <p className="text-[12px] font-normal">
-                  Allowed file formats: jpg, jpeg | up to 1.5 MB
+                  Allowed file formats: jpg, jpeg | up to 1 MB
                 </p>
                 <div className="text-[12px] font-semibold px-4 py-2 rounded-[8px] bg-[#06A9EF] text-white w-[135px] upload-btn-wrapper">
                   <input
@@ -305,13 +312,15 @@ function CreateNewClient({ setTabIndex }) {
                   className="text-[12px] font-semibold px-4 py-2 rounded-[8px]  border border-[#06A9EF]  w-[135px] cursor-pointer"
                   onClick={() => {
                     setData({ ...data, img: null });
+                    setError(false)
                   }}
                 >
                   Remove Picture
                 </div>
               </div>
             </div>
-
+            {error &&
+                  <div className="text-[16px] text-red">{error}</div>}
             <div>
               <div className="flex flex-col gap-4">
                 <div className=" flex justify-center pt-4  pb-2">
