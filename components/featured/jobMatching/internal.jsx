@@ -37,7 +37,7 @@ const InternalJobMatching = () => {
   const userDataGlobal = useSelector((state) => state.userData);
   const [details, setDetails] = useState();
   const [resuneList, setResuneList] = useState([]);
-
+  console.log(11,resuneList)
   const [preview, setPreview] = useState(false);
   const [selected, setSelected] = useState(false);
 
@@ -53,10 +53,11 @@ const InternalJobMatching = () => {
         console.log(err);
       });
   }, [userDataGlobal]);
+  
   const jobMatching = () => {
     setLoading(true);
     axios
-      .post("https://freedygoservices.in/api/jobMatching/" + userDataGlobal._id, {
+      .post("http://localhost:2000/api/jobMatching/" + userDataGlobal._id, {
         jd: text,
         resumeCount
       })
@@ -177,14 +178,12 @@ const InternalJobMatching = () => {
                         <div className="flex gap-[4px] text-[16px] font-500">
                           <span>
                             {
-                              details.find((item) => item._id == data.userId)
-                                ?.firstName
+                              data?.firstName
                             }
                           </span>{" "}
                           <span>
                             {
-                              details.find((item) => item._id == data.userId)
-                                ?.lastName
+                              data?.lastName
                             }
                           </span>
                         </div>
@@ -192,8 +191,7 @@ const InternalJobMatching = () => {
                           <DesignationSVG />
                           <span className="text-[14px] font-500 ">
                             {
-                              details.find((item) => item._id == data.userId)
-                                ?.designation
+                             data?.designation
                             }
                           </span>
                         </div>

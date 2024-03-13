@@ -23,6 +23,7 @@ const ExternalJobMatching = () => {
   const [preview, setPreview] = useState(false);
   const [selected, setSelected] = useState(false);
   const [textDataFinal, setTextData] = useState([]);
+
   useEffect(() => {
     axios
       .get(
