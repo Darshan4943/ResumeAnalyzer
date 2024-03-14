@@ -59,7 +59,26 @@ const MyCollection = () => {
           My Resumes
         </div>
         <div className="flex flex-row flex-wrap gap-[48px] p-[24px] bg-[#F9F9F9] rounded-[12px]  ">
-          {resumeList.length > 0 ? (
+        <div
+              onClick={() => router.push(`/home/BuildResume`)}
+              style={{ boxShadow: "0px 0px 10px 5px #00000040" }}
+              className="rounded-[12px] text-center text-white justify-center flex scr540:flex-col flex-row text-[18px] items-center gap-2 font-medium  scr540:w-[192px] w-[312px]  scr540:h-[272px] h-[135px] bg-[#646464] p-6 cursor-pointer"
+            >
+              <svg
+                width="27"
+                height="27"
+                viewBox="0 0 27 27"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M11.8187 14.6206H0.0750732V12.1079H11.8187V0.364258H14.3314V12.1079H26.075V14.6206H14.3314V26.3642H11.8187V14.6206Z"
+                  fill="white"
+                />
+              </svg>
+
+              <p>Create New Resume</p>
+            </div>
             <>
               {resumeList?.map((item) => (
                 <>
@@ -154,11 +173,9 @@ const MyCollection = () => {
                 </>
               ))}
             </>
-          ) : (
-            <div className="text-[24px] font-semibold text-center text-[#404040] w-full">
-              No Resume Created Yet
-            </div>
-          )}
+        
+           
+         
         </div>
       </div>
       {preview && (

@@ -9,10 +9,12 @@ import { useMediaQuery } from "@react-hook/media-query";
 import { motion } from "framer-motion";
 import ReactSelect from "react-select";
 import ImageContainer from "../../components/common/image";
+import ImageCropper from "../../components/featured/candidate/createResume/components/imageCropper";
 
 function Recruiter_signup({ }) {
   const router = useRouter();
   const dispatch = useDispatch();
+  const [modelView, setModelView] = useState(false);
   const [selectedItem, setSelectedItem] = useState(telCode[telCode.length - 2]);
   const [searchTerm, setSearchTerm] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -20,6 +22,7 @@ function Recruiter_signup({ }) {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false)
+  const [croppedImage, setCroppedImage] = useState(null);
   const [data, setData] = useState({
     firstName: "",
     lastName: "",
@@ -27,26 +30,31 @@ function Recruiter_signup({ }) {
     email: "",
     currentLocation: "",
     dial_code: "+260",
+    img:null
   });
   const [file, setFile] = useState(null);
   const fileRef = useRef(null);
-
+console.log(37,data.img)
   const handleFileChange = (event) => {
     event.preventDefault();
     const selectedFile = event.target.files[0];
     if (selectedFile) {
       if (selectedFile.type.includes("image")) {
-        if (selectedFile.size > 1041416) {
-          setError("File is too large. Maximum size allowed is 1 MB.");
-        } else {
+       
           setFile(selectedFile);
+          setModelView(true);
           setError(false);
-        }
+      
       } else {
         toast.error("Only Image files are allowed");
       }
     }
   };
+  useEffect(() => {
+    setData({ ...data, img: croppedImage?.blob});
+  }, [croppedImage]);
+
+ 
 
   const isViewportBelow850 = useMediaQuery("(max-width:850px)");
   const [formError, setFormError] = useState({});
@@ -190,7 +198,7 @@ function Recruiter_signup({ }) {
           formdata.append(key, data[key]);
         }
       });
-      formdata.append("img", file);
+      // formdata.append("img", file);
       axios
         .post("https://freedygoservices.in/api/skiloteckuser/recruiter", formdata)
         .then((res) => {
@@ -230,6 +238,15 @@ function Recruiter_signup({ }) {
     }
   };
   return (
+    <>
+
+    {modelView && (
+      <ImageCropper
+        setModelView={setModelView}
+        file={file}
+        setCroppedImage={setCroppedImage}
+      />
+    )}
     <div className=" relative !important">
       <div className="register_head sticky ml:top-[50px] top-[2rem] w-[100%] z-50 pb-4 ml:pt-10 pt-6 bg-white">
         <div className="register_cadidate py-3 px-2 overflow-hidden">
@@ -252,12 +269,12 @@ function Recruiter_signup({ }) {
               <>
                 <p className="text-[16px] font-medium">Profile Photo</p>
                 <div className="flex sm:gap-6 gap-3">
-                  {file ? (
-                    <ImageContainer
-                      src={URL.createObjectURL(file)}
-                      alt="Selected File"
-                      className="w-[112px] h-[112px] rounded-[50%] object-contain"
-                    />
+                {file && croppedImage ? (
+                 <ImageContainer
+                 src={croppedImage.url}
+                 alt="Selected File"
+                 className="w-[112px] h-[112px] rounded-[50%] object-cover"
+               />
                   ) : (
                     <svg
                       width="112"
@@ -598,6 +615,7 @@ function Recruiter_signup({ }) {
         </div>
       </div>
     </div>
+    </>
   );
 }
 

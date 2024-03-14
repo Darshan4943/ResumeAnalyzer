@@ -17,6 +17,7 @@ import { toast } from "react-toastify";
 
 import generatePDF from "react-to-pdf";
 import QuestionList from "../../components/featured/home/QuestionList";
+import SkillModel from "../../components/featured/candidate/createResume/components/SkillModel";
 
 
 
@@ -37,7 +38,7 @@ function SkillAssessment() {
   const [questionIndex, setQuestionIndex] = useState(0);
   const [loading, setLoading] = useState(false);
   const [loadingg, setLoadingg] = useState(false);
- 
+
   const [isTimerOver, setIsTimerOver] = useState(false);
   const [startTimer, setStartTimer] = useState(false);
   const [showSecondDiv, setshowSecondDiv] = useState(false);
@@ -45,6 +46,8 @@ function SkillAssessment() {
 
   const [selectedSkill, setSelectedSkill] = useState();
   const [skills, setSkills] = useState(SkillList);
+  const [userSkills, setUserSkills] = useState();
+  const [data, setData] = useState([])
 
 
   const [inputValue, setInputValue] = useState('');
@@ -53,34 +56,48 @@ function SkillAssessment() {
     setSelectedSkill(selectedOption.value);
     setInputValue(selectedOption.value);
   };
- 
 
+  useEffect(() => {
+    axios
+      .get("https://freedygoservices.in/api/resume/" + userDataGlobal?._id)
+      .then((res) => {
+        setData(res.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [userDataGlobal]);
 
+  useEffect(() => {
+    const skillsSet = new Set();
+    data.forEach(item => {
 
+      item.skills.forEach(skillObj => {
+        skillsSet.add(skillObj.skill);
+      });
+
+    });
+
+    setUserSkills(Array.from(skillsSet));
+  }, [data]);
 
   const generatePdf = () => {
     setLoadingg(true);
     return new Promise((resolve, reject) => {
-        generatePDF(resumeRef, {
-            filename: `${userDataGlobal?.basics?.firstName}-skilotech-resume-${userDataGlobal?.resumeUrl?.length}.pdf`,
-        });
-        resolve();
+      generatePDF(resumeRef, {
+        filename: `${userDataGlobal?.basics?.firstName}-skilotech-resume-${userDataGlobal?.resumeUrl?.length}.pdf`,
+      });
+      resolve();
     }).then(() => {
-       
-        setTimeout(() => {
-            setLoadingg(false);
-        }, 2000);
-    }).catch((error) => {
-        console.error('Error generating PDF:', error);
+
+      setTimeout(() => {
         setLoadingg(false);
+      }, 2000);
+    }).catch((error) => {
+      console.error('Error generating PDF:', error);
+      setLoadingg(false);
     });
-};
-
-
-
-
-
-
+  };
 
 
   const toggleContent = () => {
@@ -130,7 +147,7 @@ function SkillAssessment() {
       .catch((err) => {
         console.log(err);
       });
-  }, [selectedSkill, reCall]);
+  }, [selectedSkill, reCall, userDataGlobal]);
 
   const answerSeter = (question, Answer) => {
     const dummyData = [...answer];
@@ -143,7 +160,7 @@ function SkillAssessment() {
     );
     return findAnswer ? true : false;
   };
- 
+
   const checkAnswer = () => {
     let correctAnswer = 0;
     answer.forEach((item) => {
@@ -160,131 +177,118 @@ function SkillAssessment() {
   console.log(checkAnswer())
   return (
     <div className="pt-2">
-      {/* {viewAddSkill && (
-        <SkillModel
-          handleImageClick={setViewAddSkill}
-          userData={userDataGlobal}
-        />
-      )} */}
-      <div></div>
+
+
       <div
         onWheel={(e) => e.stopPropagation()}
         className="bg-[#F9F9F9] h-full w-full "
       >
         {toggle === 0 && (
-          <div className="flex flex-col gap-[35px] pt-[24px] pb-[95px] items-start justify-start customMargins">
-            <div
-              className="customMargins  scr1024:w-[40%] sm:w-[60%] w-[80%] p-[16px] flex flex-col gap-[16px] rounded-[12px] bg-[#fff]"
-              style={{
-                boxShadow: " 0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
-              }}
-            >
-              <div className="text-[20px] font-medium">Select Skill</div>
 
-              <ReactSelect
-                options={skills.map((item) => ({
-                  value: item,
-                  label: camelCase(item),
-                }))}
-                className="w-full"
-                onChange={handleInputChange}
-              />
-            </div>
-            {/* <div className="flex justify-start w-full ">
-              <button
-                className="text-[#C00000] "
-                onClick={() => setshowSecondDiv(!showSecondDiv)}
-              >
-                {!showSecondDiv ? (
-                  <span className="text-[#0C8A0A] font-montserrat text-lg font-medium leading-normal">
-                    Results
-                  </span>
-                ) : (
-                  "X Close"
-                )}
-              </button>
-            </div> */}
-            <div className="flex flex-col ml:flex-row justify-center items-center w-full gap-6">
-              {showSecondDiv && (
-                <div className="flex flex-col justify-start items-center rounded-lg shadow-md w-full">
-                  <div className="hidden  ml:flex h-16 px-4 py-3  items-center self-stretch border-b border-solid border-[#DEDEDE] bg-[#E0F6FF] rounded-lg">
-                    <div className="flex w-[35.18%] justify-between items-center self-stretch border-r border-solid border-[#DEDEDE] ">
-                      <p className="text-text-primary font-montserrat text-base font-medium leading-6">
-                        Assessment Name
-                      </p>
-                    </div>
-                    <div className="flex w-[19.95%] justify-center items-center self-stretch border-r border-solid border-[#DEDEDE] ">
-                      <p className="text-text-primary font-montserrat text-base font-medium leading-6">
-                        Status
-                      </p>
-                    </div>
-                    <div className="flex w-[19.95%] justify-center items-center self-stretch border-r border-solid border-[#DEDEDE] ">
-                      <p className="text-text-primary font-montserrat text-base font-medium leading-6">
-                        Date
-                      </p>
-                    </div>
-                    <div className="flex w-[19.95%] justify-center items-center self-stretch  ">
-                      <p className="text-text-primary font-montserrat text-base font-medium leading-6">
-                        Grade
-                      </p>
-                    </div>
+
+          <div className="flex flex-col gap-[35px] pt-[24px] pb-[95px] items-center  px-6">
+           <div
+                  className="  w-[90%] p-[16px] flex justify-between items-center  gap-[16px] rounded-[12px] bg-[#fff]"
+                  style={{
+                    boxShadow: " 0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
+                  }}
+                >
+              
+              {viewAddSkill ?
+
+                <div
+                  className="customMargins  w-[100%] p-[16px] flex justify-between items-center  gap-[16px] rounded-[12px] bg-[#fff]"
+                 
+                >
+                  <div className="flex flex-col gap-4 w-[40%]">
+                    <div className="text-[20px] font-medium">Select Skill</div>
+
+                    <ReactSelect
+                      options={skills.map((item) => ({
+                        value: item,
+                        label: camelCase(item),
+                      }))}
+                      className="w-full"
+                      onChange={handleInputChange}
+                    />
                   </div>
-                  <div className="max-h-[388px] ml:h-[388px] w-full overflow-auto ">
-                    {assessmentList?.map((item) => (
-                      <div
-                        key={index}
-                        className="border-b border-solid border-[#DEDEDE] w-full"
-                      >
-                        <div class="flex flex-col-reverse text-center  ml:flex-row ml:gap-[14px] py-[8px] px-[16px] w-[90%] ml:w-full items-center self-stretch ">
-                          <div className="w-full flex justify-between gap-[12px]">
-                            <div className="flex  gap-3 items-center self-stretch ">
-                              <div className="w-[40px] h-[40px]">
-                                <Assessmentlogo />
-                              </div>
-                              <div className="w-full">
-                                <p className="text-text-primary font-montserrat text-base font-medium leading-6">
-                                  {item.skill}
-                                </p>
-                              </div>
-                            </div>
-                            <div className="flex  justify-center  items-center self-stretch  ">
-                              <p
-                                className={`${
-                                  item.score > 60
-                                    ? "text-[#0C8A0A]"
-                                    : "text-[red]"
-                                } items-center  font-montserrat text-sm font-semibold leading-7`}
-                              >
-                                {item.score > 60 ? "Completed" : "Incomplete"}
-                              </p>
-                            </div>
-                          </div>
-                          <div className="w-full ml:w-[80%] flex justify-between gap-[12px]">
-                            <div className="flex  justify-center items-center self-stretch ">
-                              <p className="text-[14px] font-montserrat text-base font-medium leading-6">
-                                {item?.date && formatDate(item?.date)}
-                              </p>
-                            </div>
-                            <div className="flex  justify-center ml:w-[50%]  items-center self-stretch  ">
-                              <p className="text-[#0C8A0A] items-center  font-montserrat text-sm font-semibold leading-7">
-                                {item.score}
-                              </p>
-                            </div>
-                          </div>
-                        </div>
+                  <button onClick={() => setViewAddSkill(false)} className="rounded-[12px] px-4 py-2 flex gap-2 justify-center items-center bg-blue text-white h-[50px] font-semibold">
+                    Select From My Skills
+                    <svg width="15" height="14" viewBox="0 0 15 14" fill="none" xlgns="http://www.w3.org/2000/svg">
+                      <path d="M6.5 8H0.5V6H6.5V0H8.5V6H14.5V8H8.5V14H6.5V8Z" fill="white" />
+                    </svg>
+
+                  </button>
+
+                </div>
+                :
+                <div
+                  className="customMargins  w-[100%] p-[16px] flex flex-col gap-[16px] rounded-[12px] bg-[#fff] justify-center min-h-[123.50px]"
+                 
+                >
+
+                  <div className="flex flex-row  justify-between items-center">
+                    <div className="flex flex-col  gap-4">
+                      <div className="text-[20px] font-medium">My Skills</div>
+
+
+                      <div className="w-full flex flex-row gap-[16px] overflow-x-auto flex-wrap ">
+                        {userSkills?.map((item, index) => (
+                          <button
+                            key={index}
+                            onClick={() => {
+                              setSelectedSkill(item);
+                            }}
+                            className={`px-4 py-2 border-[1px] border-solid border-[#06A9EF] rounded-[25px] text-[14px]  font-medium text-[#333]  transition-[0.2s] ${selectedSkill == item && "bg-[#06A9EF] text-white"
+                              }`}
+                          >
+                            {item}
+                          </button>
+                        ))}
                       </div>
-                    ))}
+                    </div>
+                    <button onClick={() => setViewAddSkill(true)} className="rounded-[12px] px-[22.8px] py-2 flex gap-2 justify-center items-center bg-blue text-white h-[50px] font-semibold">
+                      Select Another Skill
+                      <svg width="15" height="14" viewBox="0 0 15 14" fill="none" xlgns="http://www.w3.org/2000/svg">
+                        <path d="M6.5 8H0.5V6H6.5V0H8.5V6H14.5V8H8.5V14H6.5V8Z" fill="white" />
+                      </svg>
+
+                    </button>
                   </div>
                 </div>
-              )}
-              <div
-                className={`p-[12px] ms:px-[60px] ms:customMargins ${
-                  showSecondDiv ? "ml:w-[50%]" : "w-[100.95%] "
-                } scr1024:w-[50%] sm:w-[85%] w-[100%]  px-[12px] rounded-[12px] bg-[#005A81] flex flex-col  items-center gap-[8px] scr820:gap-[16px] `}
+              }
+
+              <div className="flex justify-start min-w-[150px]">
+                <button
+                  className="text-[#C00000] "
+                  onClick={() => setshowSecondDiv(!showSecondDiv)}
+                >
+                  {!showSecondDiv ? (
+                      <button  className="rounded-[12px] px-4 py-2 flex gap-2 justify-center items-center bg-blue text-white h-[50px] font-semibold">
+                     View Results
+                      
+  
+                    </button>
+                  ) : (
+                    <button  className="rounded-[12px] px-4 py-2 flex gap-2 justify-center items-center bg-blue text-white h-[50px] font-semibold">
+                     Hide Results
+                      
+  
+                    </button>
+                  )}
+                </button>
+              </div>
+
+            </div>
+
+            <div className="flex flex-col lg:flex-row justify-center items-center w-[100%] gap-6">
+            <div
+                className={`p-[12px] ms:px-[60px] ms:customMargins ${showSecondDiv ? "lg:w-[50%]" : "w-[100.95%] "
+                  } scr1024:w-[50%] sm:w-[85%] w-[100%]  px-[12px] rounded-[12px] bg-[#005A81] flex flex-col  items-center gap-[8px] scr820:gap-[16px] `}
               >
                 <div className="text-[20px] font-[600] text-[#fff] flex flex-row gap-[12px]">
                   <svg
-                    xmlns="http://www.w3.org/2000/svg"
+                    xlgns="http://www.w3.org/2000/svg"
                     width="30"
                     height="30"
                     viewBox="0 0 30 30"
@@ -349,7 +353,7 @@ function SkillAssessment() {
                     }}
                   >
                     <svg
-                      xmlns="http://www.w3.org/2000/svg"
+                      xlgns="http://www.w3.org/2000/svg"
                       width="30"
                       height="30"
                       viewBox="0 0 40 40"
@@ -378,7 +382,7 @@ function SkillAssessment() {
                     }}
                   >
                     <svg
-                      xmlns="http://www.w3.org/2000/svg"
+                      xlgns="http://www.w3.org/2000/svg"
                       width="30"
                       height="30"
                       viewBox="0 0 40 40"
@@ -406,7 +410,7 @@ function SkillAssessment() {
                     }}
                   >
                     <svg
-                      xmlns="http://www.w3.org/2000/svg"
+                      xlgns="http://www.w3.org/2000/svg"
                       width="30"
                       height="30"
                       viewBox="0 0 40 40"
@@ -451,28 +455,100 @@ function SkillAssessment() {
                   <button
                     className=" h-[42px] w-[108px] flex items-center justify-center  rounded-[8px] border-[1px] border-solid border-[#06A9EF] bg-[#fff] text-[#333] text-[14px] font-[500] transition-all transition-[0.2s]"
                     disabled={loading}
-                    // onClick={() =>
-                    //   setQuestionIndex(
-                    //     questionIndex + 1 < 10 ? questionIndex + 1 : 9
-                    //   )
-                    // }
+                  // onClick={() =>
+                  //   setQuestionIndex(
+                  //     questionIndex + 1 < 10 ? questionIndex + 1 : 9
+                  //   )
+                  // }
                   >
                     {loading ? <MiniLoader /> : "Start"}
                   </button>
                 </div>
               </div>
+              {showSecondDiv && (
+                <div className="flex flex-col justify-start items-center rounded-lg shadow-md lg:w-[60%] sm:w-[85%]  w-[100%] ">
+                  <div className="flex h-16 px-4 py-3  items-center self-stretch border-b border-solid border-[#DEDEDE] bg-[#E0F6FF] rounded-lg justify-between">
+                    <div className="flex w-[35.18%] justify-between items-center self-stretch border-r border-solid border-[#DEDEDE] ">
+                      <p className="text-text-primary font-montserrat text-base font-medium leading-6">
+                        Assessment Name
+                      </p>
+                    </div>
+                    {/* <div className="flex w-[19.95%] justify-center items-center self-stretch border-r border-solid border-[#DEDEDE] ">
+                      <p className="text-text-primary font-montserrat text-base font-medium leading-6">
+                        Status
+                      </p>
+                    </div> */}
+                    <div className="flex w-[19.95%] justify-center items-center self-stretch border-r border-solid border-[#DEDEDE] ">
+                      <p className="text-text-primary font-montserrat text-base font-medium leading-6">
+                        Date
+                      </p>
+                    </div>
+                    <div className="flex w-[19.95%] justify-center items-center self-stretch  ">
+                      <p className="text-text-primary font-montserrat text-base font-medium leading-6">
+                        Grade
+                      </p>
+                    </div>
+                  </div>
+                  <div className="max-h-[388px] lg:h-[300px] w-full overflow-auto ">
+                    {assessmentList?.map((item, index) => (
+                      <div
+                        key={index}
+                        className="border-b border-solid border-[#DEDEDE] w-full"
+                      >
+                        <div class="flex  text-center  justify-between flex-row lg:gap-[14px] py-[8px] px-[16px]  w-[93%] lg:w-full items-center self-stretch ">
+                          <div className=" lg:w-[40%] w-[50%]  flex justify-between gap-[12px]">
+                            <div className="flex  gap-3 items-center self-stretch ">
+                              <div className="w-[40px] h-[40px]">
+                                <Assessmentlogo />
+                              </div>
+                              <div className="w-full">
+                                <p className="text-text-primary font-montserrat text-base font-medium leading-6">
+                                  {item.skill}
+                                </p>
+                              </div>
+                            </div>
+                            {/* <div className="flex  justify-center  items-center self-stretch  ">
+                              <p
+                                className={`${item.score > 60
+                                  ? "text-[#0C8A0A]"
+                                  : "text-[red]"
+                                  } items-center  font-montserrat text-sm font-semibold leading-7`}
+                              >
+                                {item.score > 60 ? "Completed" : "Incomplete"}
+                              </p>
+                            </div> */}
+                          </div>
+                          <div className="lg:w-[48%] w-[45%] flex justify-between gap-[12px]">
+                            <div className="flex  justify-center items-center self-stretch ">
+                              <p className="text-[14px] font-montserrat text-base font-medium leading-6">
+                                {item?.date && formatDate(item?.date)}
+                              </p>
+                            </div>
+                            <div className="flex  justify-center lg:w-[40%]  items-center self-stretch  ">
+                              <p className="text-[#0C8A0A] items-center  font-montserrat text-sm font-semibold leading-7">
+                                {item.score}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+             
             </div>
 
           </div>
         )}
         {toggle === 1 && (
           <div className="w-full flex justify-between items-center gap-[0px] scr540:gap-[24px] flex-row py-[36px] gap-[8px]">
-            <div className="w-[8px] ml:w-[22%] h-[2px] bg-[#06A9EF] border-none"></div>
-            <div className="w-full   ml:max-w-[903px] flex flex-col gap-[24px]">
-              <div className="bg-[#fff] border-[2px] border-solid border-[#06A9EF] rounded-[12px] py-[24px] px-[16px] ml:px-[60px] flex flex-col gap-[12px]">
-                <div className="w-full flex flex-row justify-center gap-[12px] text-[14px] ml:text-[20px] font-[600]">
+            <div className="w-[8px] lg:w-[22%] h-[2px] bg-[#06A9EF] border-none"></div>
+            <div className="w-full   lg:max-w-[903px] flex flex-col gap-[24px]">
+              <div className="bg-[#fff] border-[2px] border-solid border-[#06A9EF] rounded-[12px] py-[24px] px-[16px] lg:px-[60px] flex flex-col gap-[12px]">
+                <div className="w-full flex flex-row justify-center gap-[12px] text-[14px] lg:text-[20px] font-[600]">
                   <svg
-                    xmlns="http://www.w3.org/2000/svg"
+                    xlgns="http://www.w3.org/2000/svg"
                     width="30"
                     height="30"
                     viewBox="0 0 30 30"
@@ -531,27 +607,26 @@ function SkillAssessment() {
                 </div>
                 <div className="flex flex-col gap-[24px]">
                   <div
-                    className="rounded-[6px] ml:rounded-[16px] flex flex-col gap-[12px] p-[24px] bg-[#E0F6FF]"
+                    className="rounded-[6px] lg:rounded-[16px] flex flex-col gap-[12px] p-[24px] bg-[#E0F6FF]"
                     style={{
                       boxShadow: "  0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
                     }}
                   >
-                    <div className="text-[14px] ml:text-[20px] text-[#06A9EF] font-[600]">
+                    <div className="text-[14px] lg:text-[20px] text-[#06A9EF] font-[600]">
                       Question {questionIndex + 1}
                     </div>
-                    <div className="text-[12px] ml:text-[16px] text-[#333] font-[600]">
+                    <div className="text-[12px] lg:text-[16px] text-[#333] font-[600]">
                       {question[questionIndex]?.question}
                     </div>
                   </div>
-                  <div className="flex flex-col ml:flex-row gap-[24px]">
+                  <div className="flex flex-col lg:flex-row gap-[24px]">
                     <div className="w-full flex items-between  flex-col gap-[24px]">
                       <div
-                        className={`py-[12px] px-[16px] break-all rounded-[6px] ml:rounded-[8px] text-[12px] ml:text-[16px] font-[600] h-[50%]  ${
-                          isSelected(
-                            question[questionIndex]?.options[0],
-                            questionIndex + 1
-                          ) && "bg-[#06A9EF] text-white"
-                        }`}
+                        className={`py-[12px] px-[16px] break-all rounded-[6px] lg:rounded-[8px] text-[12px] lg:text-[16px] font-[600] h-[50%]  ${isSelected(
+                          question[questionIndex]?.options[0],
+                          questionIndex + 1
+                        ) && "bg-[#06A9EF] text-white"
+                          }`}
                         style={{
                           boxShadow: "0px 0px 2px 0px rgba(0, 0, 0, 0.50)",
                         }}
@@ -565,12 +640,11 @@ function SkillAssessment() {
                         A) {question[questionIndex]?.options[0]}
                       </div>
                       <div
-                        className={`py-[12px] px-[16px] break-all rounded-[6px] ml:rounded-[8px] text-[12px] ml:text-[16px] font-[600] h-[50%]  ${
-                          isSelected(
-                            question[questionIndex]?.options[2],
-                            questionIndex + 1
-                          ) && "bg-[#06A9EF] text-white"
-                        }`}
+                        className={`py-[12px] px-[16px] break-all rounded-[6px] lg:rounded-[8px] text-[12px] lg:text-[16px] font-[600] h-[50%]  ${isSelected(
+                          question[questionIndex]?.options[2],
+                          questionIndex + 1
+                        ) && "bg-[#06A9EF] text-white"
+                          }`}
                         style={{
                           boxShadow: "0px 0px 2px 0px rgba(0, 0, 0, 0.50)",
                         }}
@@ -586,12 +660,11 @@ function SkillAssessment() {
                     </div>
                     <div className="w-full flex flex-col items-between gap-[24px]">
                       <div
-                        className={`py-[12px] px-[16px] break-all rounded-[6px] ml:rounded-[8px] text-[12px] ml:text-[16px] font-[600] h-[50%]  ${
-                          isSelected(
-                            question[questionIndex]?.options[1],
-                            questionIndex + 1
-                          ) && "bg-[#06A9EF] text-white"
-                        }`}
+                        className={`py-[12px] px-[16px] break-all rounded-[6px] lg:rounded-[8px] text-[12px] lg:text-[16px] font-[600] h-[50%]  ${isSelected(
+                          question[questionIndex]?.options[1],
+                          questionIndex + 1
+                        ) && "bg-[#06A9EF] text-white"
+                          }`}
                         style={{
                           boxShadow: "0px 0px 2px 0px rgba(0, 0, 0, 0.50)",
                         }}
@@ -605,12 +678,11 @@ function SkillAssessment() {
                         B) {question[questionIndex]?.options[1]}
                       </div>
                       <div
-                        className={`py-[12px] px-[16px] break-all rounded-[6px] ml:rounded-[8px] text-[12px] ml:text-[16px] font-[600] h-[50%]  ${
-                          isSelected(
-                            question[questionIndex]?.options[3],
-                            questionIndex + 1
-                          ) && "bg-[#06A9EF] text-white"
-                        }`}
+                        className={`py-[12px] px-[16px] break-all rounded-[6px] lg:rounded-[8px] text-[12px] lg:text-[16px] font-[600] h-[50%]  ${isSelected(
+                          question[questionIndex]?.options[3],
+                          questionIndex + 1
+                        ) && "bg-[#06A9EF] text-white"
+                          }`}
                         style={{
                           boxShadow: "0px 0px 2px 0px rgba(0, 0, 0, 0.50)",
                         }}
@@ -627,8 +699,8 @@ function SkillAssessment() {
                   </div>
                 </div>
               </div>
-              <div className="flex flex-col ml:flex-row w-full gap-[12px]  justify-center">
-                <div className="w-full  flex justify-center ml:justify-start">
+              <div className="flex flex-col lg:flex-row w-full gap-[12px]  justify-center">
+                <div className="w-full  flex justify-center lg:justify-start">
                   <Timer
                     startTimer={startTimer}
                     setIsTimerOver={setIsTimerOver}
@@ -665,7 +737,7 @@ function SkillAssessment() {
                   <span className="text-red">X</span>
                   Not Relevent
                 </div>
-                <div className="flex flex-row justify-between ml:gap-[72px]">
+                <div className="flex flex-row justify-between lg:gap-[72px]">
                   <div
                     className="flex flex-row gap-[3px] items-center justify-center text-[18px] font-[600]"
                     onClick={() =>
@@ -675,7 +747,7 @@ function SkillAssessment() {
                     }
                   >
                     <svg
-                      xmlns="http://www.w3.org/2000/svg"
+                      xlgns="http://www.w3.org/2000/svg"
                       width="40"
                       height="40"
                       viewBox="0 0 40 40"
@@ -722,7 +794,7 @@ function SkillAssessment() {
                   >
                     {questionIndex == 9 ? "Submit" : "Next"}
                     <svg
-                      xmlns="http://www.w3.org/2000/svg"
+                      xlgns="http://www.w3.org/2000/svg"
                       width="40"
                       height="40"
                       viewBox="0 0 40 40"
@@ -739,7 +811,7 @@ function SkillAssessment() {
                 </div>
               </div>
             </div>
-            <div className="w-[8px] ml:w-[22%] h-[2px] bg-[#06A9EF] border-none"></div>
+            <div className="w-[8px] lg:w-[22%] h-[2px] bg-[#06A9EF] border-none"></div>
 
           </div>
         )}
@@ -783,7 +855,7 @@ function SkillAssessment() {
                             <div className="text-[14px] font-[600] text-[#646464] flex gap-[4px]">
                               You got Right{" "}
                               <svg
-                                xmlns="http://www.w3.org/2000/svg"
+                                xlgns="http://www.w3.org/2000/svg"
                                 width="20"
                                 height="21"
                                 viewBox="0 0 20 21"
@@ -813,7 +885,7 @@ function SkillAssessment() {
                             <div className="text-[14px] font-[600] text-[#646464] flex gap-[4px]">
                               You got Wrong{" "}
                               <svg
-                                xmlns="http://www.w3.org/2000/svg"
+                                xlgns="http://www.w3.org/2000/svg"
                                 width="20"
                                 height="21"
                                 viewBox="0 0 20 21"
@@ -853,7 +925,8 @@ function SkillAssessment() {
                         setQuestionIndex(0);
                         setQuestion([]);
                         setSkipped([])
-                     ;window.location.reload() }}
+                          ; window.location.reload()
+                      }}
                       className="border-[1px]  border-solid border-[#06A9EF] rounded-[12px] px-[24px] py-[8px] text-[16px] text-[#333] font-[500]"
                     >
                       Close

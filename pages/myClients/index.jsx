@@ -39,7 +39,7 @@ function MyClients() {
         console.log(err);
       });
   };
-  
+
   useEffect(() => {
     callData();
   }, [userDataGlobal]);
@@ -49,7 +49,7 @@ function MyClients() {
       const options = {
         includeScore: true,
         // Search in `author` and in `tags` array
-        keys: ["firstName", "lastName", "email", "mobileNo","location",'designation'],
+        keys: ["firstName", "lastName", "email", "mobileNo", "location", 'designation'],
       };
       const fuse = new Fuse(allData, options);
       const result = fuse.search(value);
@@ -140,7 +140,31 @@ function MyClients() {
                 )} */}
               </div>
             </div>
-            <ClientList setTabIndex={setTabIndex} details={details} />
+            {details?.length > 0 ?
+              <ClientList setTabIndex={setTabIndex} details={details} />
+              :
+              <div
+
+                onClick={() => router.push("/myClients/CreateNewClient")}
+                style={{ boxShadow: "0px 0px 10px 5px #00000040" }}
+                className="rounded-[12px] text-center text-white justify-center mt-[16px] flex scr540:flex-col flex-row text-[18px] items-center gap-2 font-medium  scr540:w-[192px] w-[312px]  scr540:h-[272px] h-[135px] bg-[#646464] p-6 cursor-pointer"
+              >
+                <svg
+                  width="27"
+                  height="27"
+                  viewBox="0 0 27 27"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M11.8187 14.6206H0.0750732V12.1079H11.8187V0.364258H14.3314V12.1079H26.075V14.6206H14.3314V26.3642H11.8187V14.6206Z"
+                    fill="white"
+                  />
+                </svg>
+
+                <p>Create New Client</p>
+              </div>
+            }
           </div>
         </div>
       )}

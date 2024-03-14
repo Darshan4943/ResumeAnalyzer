@@ -3,7 +3,9 @@ import { ClosedIcon } from "../../../../../utils/svg";
 import Cropper from "react-easy-crop";
 import getCroppedImg from "./cropImage";
 import axios from "axios";
+import MiniLoader from "../../../../common/mini-loader";
 const ImageCropper = ({ setModelView, file, setCroppedImage }) => {
+  const [loading, setLoading] = useState(false);
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
@@ -49,9 +51,14 @@ const ImageCropper = ({ setModelView, file, setCroppedImage }) => {
           </div>
           <button
             className=" font-montserrat text-white font-medium text-[14px] flex items-center justify-center px-[12px] rounded-[8px]  bg-[#06A9EF] w-[80px] h-[42px]"
-            onClick={showCroppedImage}
+            onClick={() => {
+              showCroppedImage();
+              setLoading(true);
+            }}
+
           >
-            Save
+            {loading && <MiniLoader />}
+            {!loading && "Save"}
           </button>
         </div>
       </div>

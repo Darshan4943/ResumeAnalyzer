@@ -10,11 +10,13 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import ImageContainer from "../../components/common/image";
+import ImageCropper from "../../components/featured/candidate/createResume/components/imageCropper";
 function CreateNewClient({ setTabIndex }) {
   const userDataGlobal = useSelector((state) => state.userData);
   const isViewportBelow850 = useMediaQuery("(max-width:850px)");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false)
+  const [modelView, setModelView] = useState(false);
   const [data, setData] = useState({
     firstName: "",
     lastName: "",
@@ -27,24 +29,31 @@ function CreateNewClient({ setTabIndex }) {
   });
   const [file, setFile] = useState(null);
   const fileRef = useRef(null);
-
+  const [croppedImage, setCroppedImage] = useState(null);
+ 
   const handleFileChange = (event) => {
     event.preventDefault();
     const selectedFile = event.target.files[0];
     if (selectedFile) {
       if (selectedFile?.type.includes("image")) {
       
-        if (selectedFile.size > 1041416) {
-          setError("File is too large. Maximum size allowed is 1 MB.");
-        } else {
+        
           setData({ ...data, img: selectedFile });
+          setModelView(true);
           setError(false);
-        }
+       
       } else {
         toast.error("Only Image files are allowed");
       }
     }
   };
+
+  useEffect(() => {
+    setData({ ...data, img: croppedImage?.blob});
+  }, [croppedImage]);
+
+ 
+ 
 
   const callData = () => {
     axios
@@ -188,6 +197,8 @@ function CreateNewClient({ setTabIndex }) {
           }
         });
         formdata.append("recruiterId", userDataGlobal._id);
+        formdata.append("img", croppedImage);
+       
         const response = await axios.post(
           "https://freedygoservices.in/api/client/create",
           formdata
@@ -200,6 +211,7 @@ function CreateNewClient({ setTabIndex }) {
           email: "",
           location: "",
           gender: "male",
+        
         });
         callData();
         setFormError({});
@@ -256,7 +268,16 @@ function CreateNewClient({ setTabIndex }) {
   }, []);
 
   return (
+    <>
+    {modelView && (
+      <ImageCropper
+        setModelView={setModelView}
+        file={data.img}
+        setCroppedImage={setCroppedImage}
+      />
+    )}
     <div className="flex justify-center">
+      
       <div className="flex flex-col  gap-4 sm:p-6 p-2 scr1200:w-[70%] sm:w-[90%] w-[100%] ">
         <p className="text-[24px] font-semibold">Create New Client</p>
         <div
@@ -266,12 +287,12 @@ function CreateNewClient({ setTabIndex }) {
           <div className="flex flex-col gap-4">
             <p className="text-[16px] font-medium">Profile Photo</p>
             <div className="flex sm:gap-6 gap-3">
-              {data.img ? (
-                <ImageContainer
-                  src={URL.createObjectURL(data.img)}
-                  alt="Selected File"
-                  className="w-[112px] h-[112px] rounded-[50%] object-contain"
-                />
+              {data.img && croppedImage ? (
+                 <ImageContainer
+                 src={croppedImage.url}
+                 alt="Selected File"
+                 className="w-[112px] h-[112px] rounded-[50%] object-cover"
+               />
               ) : (
                 <svg
                   width="112"
@@ -299,7 +320,7 @@ function CreateNewClient({ setTabIndex }) {
                 <p className="text-[12px] font-normal">
                   Allowed file formats: jpg, jpeg | up to 1 MB
                 </p>
-                <div className="text-[12px] font-semibold px-4 py-2 rounded-[8px] bg-[#06A9EF] text-white w-[135px] upload-btn-wrapper">
+                <div className="text-[12px] font-semibold px-4 py-2 rounded-[8px] bg-[#06A9EF] text-white w-[135px] upload-btn-wrapper ">
                   <input
                     type="file"
                     ref={fileRef}
@@ -602,6 +623,7 @@ function CreateNewClient({ setTabIndex }) {
         </div>
       </div>
     </div>
+    </>
   );
 }
 
