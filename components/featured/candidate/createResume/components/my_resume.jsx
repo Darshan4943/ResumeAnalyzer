@@ -43,7 +43,7 @@ const ResumeList = ({ data, setData }) => {
    
   //     setCroppedImage({ url: data.profilePhoto });
   // //  setFile(data.profilePhoto)
-  // }, [data.profilePhoto]);
+  // }, [data]);
 
 
   return (
