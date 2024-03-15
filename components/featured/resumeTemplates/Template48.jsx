@@ -56,6 +56,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
             position: "absolute",
             right: 48,
             top: -12,
+            objectFit:"contain"
           }}
         >
           {data.profilePhoto ? (

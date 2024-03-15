@@ -281,7 +281,7 @@ function SkillAssessment() {
 
             </div>
 
-            <div className="flex flex-col lg:flex-row justify-center items-center w-[100%] gap-6">
+            <div className="flex flex-col lg:flex-row justify-center items-center w-[90%] gap-6">
             <div
                 className={`p-[12px] ms:px-[60px] ms:customMargins ${showSecondDiv ? "lg:w-[50%]" : "w-[100.95%] "
                   } scr1024:w-[50%] sm:w-[85%] w-[100%]  px-[12px] rounded-[12px] bg-[#005A81] flex flex-col  items-center gap-[8px] scr820:gap-[16px] `}
@@ -489,7 +489,7 @@ function SkillAssessment() {
                       </p>
                     </div>
                   </div>
-                  <div className="max-h-[388px] lg:h-[300px] w-full overflow-auto ">
+                  <div className="max-h-[388px] lg:h-[285px] w-full overflow-auto ">
                     {assessmentList?.map((item, index) => (
                       <div
                         key={index}
