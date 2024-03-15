@@ -1,20 +1,39 @@
 import { Document, Page, Text, View, StyleSheet, Image, Svg, Path, Rect, Font, Defs, ClipPath, data } from '@react-pdf/renderer';
 import React from 'react'
 
-const Template44 = ({ data, selectedColor, selectedFont }) => {
+const Template44 = ({ data, selectedColor, selectedFont,preview }) => {
 
     return (
-        <Page size="A4" wrap={true} style={{paddingTop:'12px'}} >
+        <Page size="A4" wrap={true} style={{ paddingTop: '12px' }} >
             <View style={{ width: 595, display: "flex", flexDirection: "row", }}>
 
-                <View style={{ width: 207, padding: 42, flexDirection: "column", gap: 34, backgroundColor: selectedColor,      minHeight: 829.7, }}>
+                <View style={{ width: 207, padding: 42, flexDirection: "column", gap: 34, backgroundColor: selectedColor, minHeight: 829.7, }}>
 
 
                     <View style={{}}>
                         {data.profilePhoto ? (
-                            <Image src={URL.createObjectURL(data.profilePhoto)} alt="" style={{ width: "123px", marginBottom: "16px", height: "123px", borderRadius: "50%" }} />
+                            <Image
+                                src={
+                                    preview
+                                        ? data.profilePhoto
+                                        : Object.keys(data?.profilePhoto).includes("filename")
+                                            ? URL.createObjectURL(data.profilePhoto)
+                                            : data.profilePhoto
+                                }
+                                style={{
+                                    objectFit: "cover",
+                                    borderRadius: "50%",
+                                    width: "112px",
+                                    height: "112px",
+                                }}
+                            />
                         ) : (
-                            <Image src="/images/services/profile.png" alt="" style={{ width: "123px", height: "123px", borderRadius: "50%" }} />
+                            <Image style={{
+                                objectFit: "cover",
+                                borderRadius: "50%",
+                                width: "112px",
+                                height: "112px",
+                            }} src="/images/services/profile.png" />
                         )}
                     </View>
 
@@ -154,9 +173,9 @@ const Template44 = ({ data, selectedColor, selectedFont }) => {
                             {data?.experience?.map((detail, index) => (
                                 <View key={index} style={{ flexDirection: "column", gap: 4 }}>
                                     <Text style={{ fontFamily: `${selectedFont} 400`, fontSize: 14, color: "#2D3033" }}>{detail.organization ? (<>{detail.organization}</>) : (<>organization</>)} / {detail.duration?.start?.year !== "Year" &&
-                        `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
-                          ? "Present"
-                          : detail.duration?.end?.year}
+                                        `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
+                                            ? "Present"
+                                            : detail.duration?.end?.year}
                          `}</Text>
                                     <Text style={{ fontFamily: `${selectedFont} 400`, fontSize: 12, color: "#6D6E71" }}>{detail.designation ? (<>{detail.designation}</>) : (<>Designation</>)}</Text>
                                     <Text style={{ fontFamily: `${selectedFont} 400`, fontSize: 10, color: "#6D6E71" }}>{detail.description ? (<>{detail.description}</>) : (<>Description</>)}</Text>
@@ -171,7 +190,7 @@ const Template44 = ({ data, selectedColor, selectedFont }) => {
                         {data?.education?.map((detail, index) => (
                             <View key={index}>
                                 <Text style={{ fontFamily: `${selectedFont} 400`, fontSize: 13, color: "#2D3033" }}>{detail.qualification} /   {detail.duration?.start?.year !== "Year" &&
-                              `${detail.duration?.start?.year}-${detail.duration?.end?.year}`}</Text>
+                                    `${detail.duration?.start?.year}-${detail.duration?.end?.year}`}</Text>
                                 <Text style={{ fontFamily: `${selectedFont} 400`, fontSize: 12, color: "#6D6E71" }}>{detail.instituteName}</Text>
                             </View>
                         ))}

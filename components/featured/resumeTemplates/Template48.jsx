@@ -15,7 +15,8 @@ import {
 } from "@react-pdf/renderer";
 import React from "react";
 
-const Template48 = ({ data, selectedColor, selectedFont }) => {
+const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
+  console.log(19,data)
   return (
     <Page size="A4" style={{ padding: 24 }} wrap={true}>
       <View style={{ minHeight: 793.8 }}>
@@ -59,12 +60,22 @@ const Template48 = ({ data, selectedColor, selectedFont }) => {
         >
           {data.profilePhoto ? (
             <Image
-              src={URL.createObjectURL(data.profilePhoto)}
-              alt=""
-              style={{ borderRadius: "50%", width: 106, height: 106 }}
+              src={
+                preview
+                  ? data.profilePhoto
+                  : Object.keys(data?.profilePhoto).includes("filename")
+                    ? URL.createObjectURL(data.profilePhoto)
+                    : data.profilePhoto
+              }
+              style={{
+               
+                borderRadius: "50%",
+                width: "106px",
+                height: "106px",
+              }}
             />
           ) : (
-            <Image src="/images/services/profile.png" alt="" style={{}} />
+            <Image src="/images/services/profile.png" />
           )}
         </View>
 
@@ -608,7 +619,7 @@ const Template48 = ({ data, selectedColor, selectedFont }) => {
                     >
                       {" "}
                       {detail.duration?.start?.year !== "Year" &&
-                              `${detail.duration?.start?.year}-${detail.duration?.end?.year}`}
+                        `${detail.duration?.start?.year}-${detail.duration?.end?.year}`}
                     </Text>
                   </View>
                 </View>

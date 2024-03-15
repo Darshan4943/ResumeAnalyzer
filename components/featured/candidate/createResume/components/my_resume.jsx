@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
 import ImageContainer from "../../../../common/image";
 import { DumyImage } from "../../../../../utils/svg";
@@ -6,6 +6,7 @@ import Cropper from "react-easy-crop";
 import ImageCropper from "./imageCropper";
 
 const ResumeList = ({ data, setData }) => {
+
   const [file, setFile] = useState(null);
   const [modelView, setModelView] = useState(false);
   const fileRef = useRef(null);
@@ -29,6 +30,21 @@ const ResumeList = ({ data, setData }) => {
   const handleDragOver = (event) => {
     event.preventDefault();
   };
+  console.log(9,file)
+ 
+
+  const removeImgae=() => {
+    
+      setCroppedImage({ url:"/images/services/profile.png"  });
+    
+  };
+  
+  // useEffect(() => {
+   
+  //     setCroppedImage({ url: data.profilePhoto });
+  // //  setFile(data.profilePhoto)
+  // }, [data.profilePhoto]);
+
 
   return (
     <>
@@ -55,7 +71,7 @@ const ResumeList = ({ data, setData }) => {
       >
         <p className="text-[20px] font-medium">Upload Photo</p>
         <div className="flex gap-4 items-center justify-center">
-          {file && croppedImage ? (
+          { croppedImage ? (
             <ImageContainer
               src={croppedImage.url}
               alt="Selected File"
@@ -107,9 +123,7 @@ const ResumeList = ({ data, setData }) => {
           <div className="flex justify-between  py-2 gap-2">
             <button
               className=" font-montserrat text-xs font-semibold px-[12px] rounded-[8px] border border-[#06A9EF] w-[83px] h-[32px]"
-              onClick={() => {
-                setFile(null);
-              }}
+              onClick={() => removeImgae()}
             >
               Remove
             </button>
@@ -119,7 +133,7 @@ const ResumeList = ({ data, setData }) => {
                 file == data?.profilePhoto ? "opacity-50" : "opacity-100"
               }`}
               onClick={() => {
-                setData({ ...data, profilePhoto: croppedImage.blob });
+                setData({ ...data, profilePhoto: croppedImage?.blob });
               }}
             >
               Save

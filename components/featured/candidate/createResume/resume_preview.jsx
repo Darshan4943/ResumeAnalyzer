@@ -232,7 +232,7 @@ const ResumePreview = ({
       imgUrl: "/images/templates/template48.png",
       index: 48,
       fontFamily: "Montserrat",
-      themeColor: "#303030",
+      themeColor: "#F7941D",
     },
     {
       title: "Template44",

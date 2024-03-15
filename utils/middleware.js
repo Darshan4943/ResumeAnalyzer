@@ -21,6 +21,10 @@ import Template13 from "../components/featured/resumeTemplates/Template13";
 import Template14 from "../components/featured/resumeTemplates/Template14";
 import Template16 from "../components/featured/resumeTemplates/Template16";
 import Template1 from "../components/featured/resumeTemplates/Template1";
+import Template32 from "../components/featured/resumeTemplates/Template32";
+import Template39 from "../components/featured/resumeTemplates/Template39";
+import Template44 from "../components/featured/resumeTemplates/Template44";
+import Template48 from "../components/featured/resumeTemplates/Template48";
 
 export function camelCase(str) {
   return str
@@ -273,5 +277,42 @@ export const selectResumeTemplate = (
           preview={preview}
         />
       );
+      case 32:
+        return (
+          <Template32
+            data={data}
+            selectedColor={selectedColor}
+            selectedFont={selectedFont}
+            preview={preview}
+          />
+        );
+        case 39:
+          return (
+            <Template39
+              data={data}
+              selectedColor={selectedColor}
+              selectedFont={selectedFont}
+              preview={preview}
+            />
+          );
+          case 44:
+            return (
+              <Template44
+                data={data}
+                selectedColor={selectedColor}
+                selectedFont={selectedFont}
+                preview={preview}
+              />
+            );
+            case 48:
+            return (
+              <Template48
+                data={data}
+                selectedColor={selectedColor}
+                selectedFont={selectedFont}
+                preview={preview}
+              />
+            );
+
   }
 };

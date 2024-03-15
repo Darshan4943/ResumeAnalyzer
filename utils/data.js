@@ -2535,7 +2535,7 @@ export const templates = [
     title: "Template48",
     imgUrl: "/images/templates/template48.png",
     index: 48,
-    fontFamily: "Poppins",
+    fontFamily: "Montserrat",
     themeColor: "#F7941D",
   },
   {

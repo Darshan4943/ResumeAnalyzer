@@ -10,7 +10,7 @@ import {
   Path,
   Rect,
 } from "@react-pdf/renderer";
-function Template39({ data, selectedColor, selectedFont }) {
+function Template39({ data, selectedColor, selectedFont,preview }) {
   return (
     <Page size="A4" style={{ padding: 24 }} wrap={true}>
       <View
@@ -25,27 +25,30 @@ function Template39({ data, selectedColor, selectedFont }) {
         <View style={{ width: "156px" }}>
           <View style={{ flexDirection: "column", gap: "24px" }}>
             <View style={{ flexDirection: "column" }}>
-              {data.profilePhoto ? (
-                <Image
-                  src={URL.createObjectURL(data.profilePhoto)}
-                  alt=""
-                  style={{
-                    width: "114px",
-                    height: "114px",
-                    borderRadius: "50%",
-                  }}
-                />
-              ) : (
-                <Image
-                  src="/images/services/profile.png"
-                  alt=""
-                  style={{
-                    width: "114px",
-                    height: "114px",
-                    borderRadius: "50%",
-                  }}
-                />
-              )}
+            {data.profilePhoto ? (
+                            <Image
+                                src={
+                                    preview
+                                        ? data.profilePhoto
+                                        : Object.keys(data?.profilePhoto).includes("filename")
+                                            ? URL.createObjectURL(data.profilePhoto)
+                                            : data.profilePhoto
+                                }
+                                style={{
+                                    objectFit: "cover",
+                                    borderRadius: "50%",
+                                    width: "112px",
+                                    height: "112px",
+                                }}
+                            />
+                        ) : (
+                            <Image style={{
+                                objectFit: "cover",
+                                borderRadius: "50%",
+                                width: "112px",
+                                height: "112px",
+                            }} src="/images/services/profile.png" />
+                        )}
             </View>
 
             <View
