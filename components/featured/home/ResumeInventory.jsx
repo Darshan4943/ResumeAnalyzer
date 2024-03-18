@@ -23,9 +23,13 @@ function ResumeInventory({ isLogin }) {
           </div>
           <div className="font-medium text-[1.4vw] text-[#333333] ">
             My Collection is your one-stop destination for organizing and
-            managing your personalized resume collection. Seamlessly store,
-            update, and tailor your resumes for various job opportunities with
+            managing your <span className="text-[#06A9EF]">personalized resume collections.</span> 
+        
+          </div>
+          <div className="font-medium text-[1.4vw] text-[#333333] ">
+          <span className="text-[#06A9EF]">Seamlessly store, update, and tailor</span> your differently crafted resumes for various job opportunities with
             ease.
+           
           </div>
           <button
             onClick={() =>

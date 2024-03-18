@@ -121,6 +121,18 @@ function CandidateHeader() {
             <li>Job Description Matching</li>
           </Link>
         )}
+         {userDataGlobal.role === "recruiter" && (
+          <Link
+            href="/collection/collection"
+            className={
+              selectedPage === "/collection/collection"
+                ? "active scr1250:text-[18px] text-[16px]"
+                : "li scr1250:text-[18px] text-[16px]"
+            }
+          >
+            <li>Collection</li>
+          </Link>
+        )}
         <Link
           href="/purchase/MyPurchase"
           className={
@@ -129,7 +141,7 @@ function CandidateHeader() {
               : "li scr1250:text-[18px] text-[16px]"
           }
         >
-          <li>My Purchase</li>
+          <li>My Purchases</li>
         </Link>
         {userDataGlobal.role === "user" && (
           <Link
@@ -140,7 +152,7 @@ function CandidateHeader() {
                 : "li scr1250:text-[18px] text-[16px]"
             }
           >
-            <li>Skill Test</li>
+            <li>Skill Assessments</li>
           </Link>
         )}
       </div>

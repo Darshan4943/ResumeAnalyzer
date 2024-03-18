@@ -40,10 +40,10 @@ function ClientSection() {
           </p>
         </div>
         <div className="ml:text-[1.45vw] text-[4vw] font-medium ml:text-start text-center">
-          We make it simple to keep track of your client’s details and their
-          resumes all in one place. Easily organize and access client data,
+          We make it simple to keep track of your clients details and their
+          resumes all in one place with privacy. Easily organize and access client data,
           ensuring efficiency and convenience for recruiters managing profiles
-          and resumes.{" "}
+          & CVs
         </div>
         <button
           onClick={clickHandler}

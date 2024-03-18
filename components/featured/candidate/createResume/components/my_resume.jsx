@@ -30,7 +30,7 @@ const ResumeList = ({ data, setData }) => {
   const handleDragOver = (event) => {
     event.preventDefault();
   };
-  console.log(9,file)
+ 
  
 
   const removeImgae=() => {

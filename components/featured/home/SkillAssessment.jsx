@@ -81,8 +81,7 @@ function SkillAssessment({ isLogin }) {
                 Gain Valuable Insights
               </div>
               <div className="scr1024:text-[1.2vw] text-[2vw] font-[400] ">
-                get Insights with Personalized assessments designed to highlight
-                your strengths.{" "}
+                Discover Strengths. Personalized Insights
               </div>
             </div>
           </MouseParallaxChild>
@@ -98,11 +97,10 @@ function SkillAssessment({ isLogin }) {
           >
             <div className="flex flex-col scr1024:w-[80%] w-[100%] gap-[8px] text-[#333] leading-tight p-1">
               <div className="scr1024:text-[1.7vw] text-[2.5vw] font-[600] text-center scr1024:text-start">
-                Limit-Pushing Challenges
+                Challenges your limits
               </div>
               <div className="scr1024:text-[1.2vw] text-[2vw] font-[400]  ">
-                Test your abilities with skill assessments that encourage you to
-                reach new heights.{" "}
+                Sharpen your skills, gain confidence, reach new heights
               </div>
             </div>
             <div className="flex justify-center items-center ">

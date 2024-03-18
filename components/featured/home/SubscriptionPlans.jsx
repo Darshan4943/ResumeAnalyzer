@@ -175,8 +175,9 @@ function SubscriptionPlans({ fromMain }) {
                   </div>
                   <div className="flex gap-3 flex-col text-left">
                     {plan.features.map((feature, index) => (
-                      <div key={index} className="flex gap-3 items-center">
+                      <div key={index} className="flex gap-3 ">
                         <svg
+                        className="min-w-[20px]"
                           width="20"
                           height="18"
                           viewBox="0 0 20 18"

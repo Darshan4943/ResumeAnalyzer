@@ -5,8 +5,8 @@ import { useSelector } from 'react-redux';
 
 function HeaderSidebar({ selectedPage, setIsSidebar, setIsLogin, isLogin, isSidebar }) {
     const boforeLoginList = ["Candidate", "Recruiter"];
-    const loginListCandidate = ["Home", "My Resumes", "Transform CV", "Skill Test", "My Purchase"]
-    const loginListRecruiter = ["Home", "My Clients", "Transform CV", "Job Description Matching", "My Purchase"]
+    const loginListCandidate = ["Home", "My Resumes", "Transform CV", "Skill Assessments", "My Purchases"]
+    const loginListRecruiter = ["Home", "My Clients", "Transform CV", "Job Description Matching", "My Purchases"]
     const router = useRouter();
     const [visible, setvisible] = useState(false);
     const userDataGlobal = useSelector((state) => state.userData);
@@ -121,8 +121,8 @@ function HeaderSidebar({ selectedPage, setIsSidebar, setIsLogin, isLogin, isSide
                                 ...(item === 'Transform CV' && { ...getListItemStyles('/transform/TransformJob'), transition: "transform 0.9s ease-in-out" }),
                                 ...(item === 'Job Description Matching' && { ...getListItemStyles('/transform/JobMatching'), transition: "transform 1s ease-in-out" }),
 
-                                ...(item === 'Skill Test' && { ...getListItemStyles('/home/SkillAssessment'), transition: "transform 1.1s ease-in-out" }),
-                                ...(item === 'My Purchase' && { ...getListItemStyles('/purchase/MyPurchase'), transition: "transform 1.2s ease-in-out" }),
+                                ...(item === 'Skill Assessments' && { ...getListItemStyles('/home/SkillAssessment'), transition: "transform 1.1s ease-in-out" }),
+                                ...(item === 'My Purchases' && { ...getListItemStyles('/purchase/MyPurchase'), transition: "transform 1.2s ease-in-out" }),
                             }}
 
 
@@ -150,10 +150,10 @@ function HeaderSidebar({ selectedPage, setIsSidebar, setIsLogin, isLogin, isSide
                                         handleNavigation('/transform/JobMatching');
                                         break;
 
-                                    case 'My Purchase':
+                                    case 'My Purchases':
                                         handleNavigation('/purchase/MyPurchase');
                                         break;
-                                    case 'Skill Test':
+                                    case 'Skill Assessments':
                                         handleNavigation('/home/SkillAssessment');
                                         break;
                                     default:
