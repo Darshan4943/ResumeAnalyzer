@@ -15,10 +15,13 @@ function Collection() {
   const [isCreate, setIsCreate] = useState(false)
   const [tabIndex, setTabIndex] = useState(0)
   const [data, setData] = useState()
+  const [clientData,setClientData] = useState()
   const [isCreateFolder, setIsCreateFolder] = useState(false)
   const [folderName, setFolderName] = useState('Untitled folder');
   const inputRef = useRef(null);
-
+  const [tab, setTab] = useState(0)
+  const [isMyClients, setIsMyClients] = useState(false)
+  const [isMyFolders, setIsMyFolders] = useState(false)
 
   useEffect(() => {
 
@@ -28,6 +31,7 @@ function Collection() {
   }, [isCreate]);
 
   useEffect(() => {
+  
     axios
       .get(
         `http://localhost:2000/api/folder/getFolders/${userDataGlobal._id}`
@@ -39,7 +43,8 @@ function Collection() {
       .catch((err) => {
         console.log(err);
       });
-  }, [data]);
+ 
+  }, [tab]);
 
 
 
@@ -61,21 +66,43 @@ function Collection() {
   };
 
   const addFolder = async () => {
-    try {
-      const newFolderData = {
-        folderName: folderName,
-        recruiterId: userDataGlobal._id
-      };
+ 
+      try {
+        const newFolderData = {
+          folderName: folderName,
+          recruiterId: userDataGlobal._id
+        };
 
-      const response = await axios.post("http://localhost:2000/api/folder/create", newFolderData);
+        const response = await axios.post("http://localhost:2000/api/folder/create", newFolderData);
 
-      toast.success("Folder created successfully");
-      setIsCreateFolder(false);
-      setFolderName('Untitled folder');
-    } catch (error) {
-      console.error('Error creating folder:', error);
-    }
+        toast.success("Folder created successfully");
+        setIsCreateFolder(false);
+        setFolderName('Untitled folder');
+      } catch (error) {
+        console.error('Error creating folder:', error);
+      }
+    
   };
+  const callData = () => {
+
+      axios
+        .get(
+          `https://freedygoservices.in/api/client/getByRecruiter/${userDataGlobal._id}`
+        )
+        .then((res) => {
+         
+          setClientData(res.data.data);
+
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+  
+  }
+  useEffect(() => {
+    callData();
+  }, [tab,userDataGlobal]);
+
 
 
   // const [data, setData] = useState([
@@ -259,7 +286,7 @@ function Collection() {
 
             </button>
             <div className='flex flex-col gap-2 w-full' >
-              <button onClick={() => ""} className=" rounded-[30px] text-[16px] font-semibold px-6 py-2 flex gap-2 justify-start items-center    ">
+              <button onClick={() => {setTab(0);setTabIndex(0)}} className={`rounded-[30px] text-[16px] font-semibold px-6 py-2 flex gap-2 justify-start items-center  ${tab===0 && "bg-[#C2E7FF]"}   `}>
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
 
                   <g mask="url(#mask0_1148_17425)">
@@ -270,7 +297,7 @@ function Collection() {
                 My Clients
 
               </button>
-              <button onClick={() => ""} className=" rounded-[30px] text-[16px] font-semibold px-6 py-2 flex gap-2 justify-start items-center  bg-[#C2E7FF]  ">
+              <button onClick={() => {setTab(1);setTabIndex(0)}} className= {`rounded-[30px] text-[16px] font-semibold px-6 py-2 flex gap-2 justify-start items-center  ${tab===1 && "bg-[#C2E7FF]"}  `}>
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
 
                   <g mask="url(#mask0_1148_17425)">
@@ -306,10 +333,10 @@ function Collection() {
           </div>
 
         </div>
-       
-          
-          <Folders tabIndex={tabIndex} setTabIndex={setTabIndex} data={data} setData={setData} />
-   
+
+
+        <Folders tabIndex={tabIndex} setTabIndex={setTabIndex} data={data} setData={setData} clientData={clientData} setClientData={setClientData} tab={tab}/>
+
 
       </div>
 
