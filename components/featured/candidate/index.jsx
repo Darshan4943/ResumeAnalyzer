@@ -78,9 +78,11 @@ function CandidateHome() {
               Resume Templates for All <span className="text-[#06A9EF]">Careers and Levels.</span>
             </div>
             <div className="font-medium scr1200:text-[1.67vw] text-[20px] w-[95%] break-words ">
-              Select one of our <span className="text-[#06A9EF]">expert-designed resume templates </span>and create a resume that fits your needs
-              and style.No Experienced needed! <span className="text-[#06A9EF]">Stand out from the crowd</span>  with a resume built on one of the best recruiter approved templates.
-              
+              <p>  Select one of our <span className="text-[#06A9EF]">expert-designed resume templates </span>and create a resume that fits your needs
+                and style.No Experienced needed!</p>
+              <p><span className="text-[#06A9EF]">Stand out from the crowd</span>  with a resume built on one of the best recruiter approved templates.</p>
+
+
             </div>
             <button
               onClick={clickHandler}
