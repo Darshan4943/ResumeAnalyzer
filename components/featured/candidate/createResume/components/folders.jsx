@@ -2,12 +2,12 @@ import Fuse from 'fuse.js';
 import React, { useEffect, useState } from 'react'
 import Files from './files';
 
-function Folders({ tabIndex, setTabIndex, data, setData }) {
+function Folders({ tabIndex, setTabIndex, data, setData, clientData, setClientData, tab }) {
 
     const [folderData, setFolderData] = useState([]);
-    const [files, setFiles] = useState([])
+    const [files, setFiles] = useState()
     const [filesAll, setFilesAll] = useState([])
-
+    const [select, setSelect] = useState(false)
     const [selectedFile, setSelectedFile] = useState(null);
 
     const handleFileChange = (event, folderName) => {
@@ -29,8 +29,8 @@ function Folders({ tabIndex, setTabIndex, data, setData }) {
 
     useEffect(() => {
 
-        setFiles(folderData.files)
-        setFilesAll(folderData.files)
+
+        setFilesAll(files)
 
     }, [folderData]);
 
@@ -38,11 +38,11 @@ function Folders({ tabIndex, setTabIndex, data, setData }) {
         if (value.length > 0) {
             const options = {
                 includeScore: true,
-                keys: ['name', "category"],
+                keys: ['fileName', "category"],
             };
             const fuse = new Fuse(filesAll, options);
             const result = fuse.search(value);
-            console.log(result, folderData);
+            console.log(45, result);
             setFiles(result.map((item) => item.item));
         } else {
 
@@ -71,18 +71,81 @@ function Folders({ tabIndex, setTabIndex, data, setData }) {
             <div className='flex flex-col gap-4  border border-[#DEDEDE] bg-white p-6 rounded-[16px] h-full '>
 
                 <div className='flex  gap-4 w-full justify-between '>
-                    <div className='flex gap-12  items-center w-[25%]'>
-                        {tabIndex === 1 &&
-                            <>
-                                <div className='flex gap-4  items-center '>
-                                    <svg className='bg-[#FFF] p-2 rounded-[50%] border border-[#DEDEDE] cursor-pointer' onClick={() => setTabIndex(0)} width="40" height="40" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M5.95831 15.3892L15.9584 25.3892L14 27.3337L0.666687 14.0003L14 0.666992L15.9584 2.61141L5.95831 12.6115H27.3334V15.3892H5.95831Z" fill="#1C1B1F" />
+                    <div className='flex gap-12  items-center w-[45%] h-[40px]'>
+                        {select ?
+
+                            <div className='bg-[#D1EDFF] flex gap-4 rounded-[50px] pl-[6px] pr-4 py-[6px] items-center w-full min-w-[440px]'>
+                                <div onClick={() => setSelect(false)} style={{ boxShadow: "0px 1px 2px 0px #00000040" }} className='bg-[#F9F9F9] rounded-[50%] p-[8.5px]  cursor-pointer'>
+                                    <svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M1.5 10.5L0.5 9.5L4.5 5.5L0.5 1.5L1.5 0.5L5.5 4.5L9.5 0.5L10.5 1.5L6.5 5.5L10.5 9.5L9.5 10.5L5.5 6.5L1.5 10.5Z" fill="#333333" />
                                     </svg>
-                                    <div className='text-[18px] font-medium py-2 px-4 rounded-[36px] border border-blue'>
-                                        {folderData.folderName}
+                                </div>
+                                <div className='flex gap-4  justify-between w-full '>
+                                    <div className='flex gap-2 text-[14px] font-medium'>
+                                        <label className="flex items-center gap-2 text-[14px] font-medium">
+                                            Select All
+                                            <input
+                                                type="checkbox"
+                                                className=" rounded-[4.5px] pl-[4px] pr-[20px] py-[2px] outline-none text-[14px] font-medium custom-checkbox"
+                                                style={{ width: '20px', height: '20px',  }}
+                                            />
+
+                                        </label>
+                                    </div>
+
+
+                                    <div className='flex gap-3 min-w-[160px] justify-between'>
+                                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+                                            <g mask="url(#mask0_1381_18129)">
+                                                <path d="M10.1641 11.6654L8.8099 13.0195L9.97656 14.1862L13.3307 10.832L9.97656 7.47786L8.8099 8.64453L10.1641 9.9987H6.66406V11.6654H10.1641ZM3.33073 16.6654C2.8724 16.6654 2.48003 16.5022 2.15365 16.1758C1.82726 15.8494 1.66406 15.457 1.66406 14.9987V4.9987C1.66406 4.54036 1.82726 4.148 2.15365 3.82161C2.48003 3.49523 2.8724 3.33203 3.33073 3.33203H8.33073L9.9974 4.9987H16.6641C17.1224 4.9987 17.5148 5.16189 17.8411 5.48828C18.1675 5.81467 18.3307 6.20703 18.3307 6.66536V14.9987C18.3307 15.457 18.1675 15.8494 17.8411 16.1758C17.5148 16.5022 17.1224 16.6654 16.6641 16.6654H3.33073ZM3.33073 14.9987H16.6641V6.66536H9.3099L7.64323 4.9987H3.33073V14.9987Z" fill="#333333" />
+                                            </g>
+                                        </svg>
+
+                                        <div className='min-w-[1px] h-full bg-[#06A9EF] '> </div>
+                                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+                                            <g mask="url(#mask0_1381_18133)">
+                                                <path d="M7.5 15.0003C7.04167 15.0003 6.64931 14.8371 6.32292 14.5107C5.99653 14.1844 5.83333 13.792 5.83333 13.3337V3.33366C5.83333 2.87533 5.99653 2.48296 6.32292 2.15658C6.64931 1.83019 7.04167 1.66699 7.5 1.66699H15C15.4583 1.66699 15.8507 1.83019 16.1771 2.15658C16.5035 2.48296 16.6667 2.87533 16.6667 3.33366V13.3337C16.6667 13.792 16.5035 14.1844 16.1771 14.5107C15.8507 14.8371 15.4583 15.0003 15 15.0003H7.5ZM7.5 13.3337H15V3.33366H7.5V13.3337ZM4.16667 18.3337C3.70833 18.3337 3.31597 18.1705 2.98958 17.8441C2.66319 17.5177 2.5 17.1253 2.5 16.667V5.00033H4.16667V16.667H13.3333V18.3337H4.16667Z" fill="#333333" />
+                                            </g>
+                                        </svg>
+                                        <div className='min-w-[1px] h-full bg-[#06A9EF] '> </div>
+                                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+                                            <g mask="url(#mask0_1381_18138)">
+                                                <path d="M5.83594 17.5C5.3776 17.5 4.98524 17.3368 4.65885 17.0104C4.33247 16.684 4.16927 16.2917 4.16927 15.8333V5H3.33594V3.33333H7.5026V2.5H12.5026V3.33333H16.6693V5H15.8359V15.8333C15.8359 16.2917 15.6727 16.684 15.3464 17.0104C15.02 17.3368 14.6276 17.5 14.1693 17.5H5.83594ZM14.1693 5H5.83594V15.8333H14.1693V5ZM7.5026 14.1667H9.16927V6.66667H7.5026V14.1667ZM10.8359 14.1667H12.5026V6.66667H10.8359V14.1667Z" fill="#333333" />
+                                            </g>
+                                        </svg>
+                                        <div className='min-w-[1px] h-full bg-[#06A9EF] '> </div>
+
+                                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+                                            <g mask="url(#mask0_1381_18142)">
+                                                <path d="M2 20V16H18V20H2ZM5.5 12.5H6.5625L12.375 6.6875L11.8333 6.125L11.3125 5.625L5.5 11.4375V12.5ZM4 14V10.8142L12.375 2.4375C12.5278 2.28472 12.6933 2.17361 12.8716 2.10417C13.0499 2.03472 13.2374 2 13.4341 2C13.6308 2 13.8194 2.03472 14 2.10417C14.1806 2.17361 14.3479 2.28431 14.5022 2.43627L15.5625 3.5C15.7153 3.65278 15.8264 3.81944 15.8958 4C15.9653 4.18056 16 4.37081 16 4.57077C16 4.75823 15.9656 4.94256 15.8969 5.12377C15.8281 5.30498 15.7188 5.47057 15.5688 5.62054L7.1875 14H4ZM12.375 6.6875L11.8333 6.125L11.3125 5.625L12.375 6.6875Z" fill="#333333" />
+                                            </g>
+                                        </svg>
+
+                                    </div>
+                                    <div className='text-[14px] font-semibold'>
+                                        0 selected
                                     </div>
                                 </div>
-                                {/* <button className='px-4 py-2 bg-blue text-white rounded-[8px] font-medium flex gap-2 items-center upload-btn-wrapper'>
+
+                            </div>
+                            :
+                            <>
+                                {tabIndex === 1 &&
+                                    <>
+                                        <div className='flex gap-4  items-center h-[40px] '>
+                                            <svg className='bg-[#FFF] p-2 rounded-[50%] border border-[#DEDEDE] cursor-pointer' onClick={() => setTabIndex(0)} width="40" height="40" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M5.95831 15.3892L15.9584 25.3892L14 27.3337L0.666687 14.0003L14 0.666992L15.9584 2.61141L5.95831 12.6115H27.3334V15.3892H5.95831Z" fill="#1C1B1F" />
+                                            </svg>
+                                            <div className='text-[18px] font-medium py-[5.8px] px-4 rounded-[36px] border border-blue'>
+                                                {tab === 0 ? folderData?.firstName : folderData?.folderName}
+                                            </div>
+
+                                        </div>
+                                        {/* <button className='px-4 py-2 bg-blue text-white rounded-[8px] font-medium flex gap-2 items-center upload-btn-wrapper'>
                                 <svg width="15" height="14" viewBox="0 0 15 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M6.5 8H0.5V6H6.5V0H8.5V6H14.5V8H8.5V14H6.5V8Z" fill="white" />
                                 </svg>
@@ -90,28 +153,29 @@ function Folders({ tabIndex, setTabIndex, data, setData }) {
 
                                 <div>Upload files</div>
                             </button> */}
+                                    </>
+                                }
                             </>
                         }
-
                     </div>
                     <div className=' w-[80%] flex justify-end gap-4 items-center h-[38px] '>
-                        <div className='rounded-[30px] py-2 px-3 flex gap-2 bg-[#E9EEF6] w-[50%] items-center h-[38px]  '>
+                        <div className='rounded-[30px] py-2 px-3 flex gap-2 bg-[#E9EEF6] w-[50%] items-center h-[40px]  '>
 
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M15.499 15.5L18.999 19L15.499 15.5ZM4.99902 11C4.99902 11.7879 5.15422 12.5681 5.45575 13.2961C5.75727 14.0241 6.19923 14.6855 6.75638 15.2426C7.31353 15.7998 7.97497 16.2417 8.70292 16.5433C9.43088 16.8448 10.2111 17 10.999 17C11.787 17 12.5672 16.8448 13.2951 16.5433C14.0231 16.2417 14.6845 15.7998 15.2417 15.2426C15.7988 14.6855 16.2408 14.0241 16.5423 13.2961C16.8438 12.5681 16.999 11.7879 16.999 11C16.999 9.4087 16.3669 7.88258 15.2417 6.75736C14.1164 5.63214 12.5903 5 10.999 5C9.40772 5 7.8816 5.63214 6.75638 6.75736C5.63116 7.88258 4.99902 9.4087 4.99902 11V11Z" stroke="#1F1F1F" stroke-width="1.71429" stroke-linecap="round" stroke-linejoin="round" />
                             </svg>
 
                             <input
-                                onChange={(e) => changeHandler(e.target.value)}
+                                // onChange={(e) => changeHandler(e.target.value)}
                                 className="w-full bg-[#E9EEF6] text-[#333333]"
                                 type="text"
 
                                 placeholder="Search File"
                             />
                         </div>
-                        <div className=' flex gap-2 px-5 py-2 bg-[#E9EEF6] rounded-[30px] w-[30%] min-w-[289px]'>
+                        <div className=' flex gap-2 px-5 py-2 bg-[#E9EEF6] rounded-[30px] w-[30%] min-w-[289px] h-[40px]'>
 
-                            <div className=' flex gap-2 text-[14px] font-medium  items-center '>
+                            <div onClick={() => setSelect(!select)} className=' flex gap-2 text-[14px] font-medium  items-center cursor-pointer '>
                                 <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
 
                                     <g mask="url(#mask0_1148_17404)">
@@ -152,7 +216,7 @@ function Folders({ tabIndex, setTabIndex, data, setData }) {
                 </div>
 
                 <div className='h-[1px] w-full bg-[#DEDEDE]'></div>
-                <Files setTabIndex={setTabIndex} setFolderData={setFolderData} tabIndex={tabIndex} data={data} setData={setData} files={files} />
+                <Files setSelect={setSelect} select={select} setTabIndex={setTabIndex} setFolderData={setFolderData} tabIndex={tabIndex} data={data} setData={setData} files={files} setFiles={setFiles} clientData={clientData} setClientData={setClientData} tab={tab} />
 
             </div>
         </div>
