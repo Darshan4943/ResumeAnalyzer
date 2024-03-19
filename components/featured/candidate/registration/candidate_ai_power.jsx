@@ -4,7 +4,6 @@ import { toast } from "react-toastify";
 
 import axios from "axios";
 
-
 import { useRouter } from "next/router";
 import MiniLoader from "../../../common/mini-loader";
 import ImageContainer from "../../../common/image";
@@ -24,7 +23,7 @@ const CandidateAiPower = ({
   const handleButtonClick = () => {
     fileRef.current.click();
   };
-
+  const [fileData, setFileData] = useState(null);
   const handleFileChange = (event) => {
     event.preventDefault();
     const selectedFile = event.target.files[0];
@@ -42,15 +41,21 @@ const CandidateAiPower = ({
   };
 
   const sendFile = (file) => {
-    setLoading(true);
+    setfile(file);
+  };
+  const navigate = () => {
     const formData = new FormData();
+    setLoading(true);
     formData.append("file", file);
     axios
       .post("https://freedygoservices.in/api/resumeParser", formData)
       .then((res) => {
         setLoading(false);
         setfile(file);
-        setToState(res.data);
+        localStorage.setItem("parsedResume", JSON.stringify(res.data.data));
+        router.push({
+          pathname: "/home/createResume",
+        });
       })
       .catch((err) => {
         setLoading(false);
@@ -157,7 +162,6 @@ const CandidateAiPower = ({
       {tabindex == 1 && (
         <>
           <div className="flex justify-center items-center  relative pb-8 ">
-
             <div
               className="flex flex-col gap-[36px] p-[24px] justify-center items-center rounded-[12px] ml:w-[38.33%] w-[90%] shadow_of_box ml:min-w-[500px]  "
               style={{
@@ -185,6 +189,7 @@ const CandidateAiPower = ({
               {loading ? (
                 <div class="border-dashed border-[3px] border-[#333] flex flex-col w-full rounded-[12px] px-[42px] py-[24px] items-center gap-[8px] upload-btn-wrapper min-h-[6rem]">
                   <MiniLoader />
+                  <span>Analyzing Resume, Please Wait...</span>
                 </div>
               ) : (
                 <div
@@ -201,11 +206,16 @@ const CandidateAiPower = ({
                   {file ? (
                     <div className="w-full flex justify-center">
                       <div className="flex flex-row gap-[16px] items-center justify-between w-[80%] ">
-                        <div  className="flex flex-row gap-[16px] items-center  ">  <ImageContainer
-                          src={"/images/icons/pdf_icon.png"}
-                          className={"h-[24px] w-[24px]"}
-                        />
-                          <span className="text-[12px] w-[40%]">{file.name}</span></div>
+                        <div className="flex flex-row gap-[16px] items-center  ">
+                          {" "}
+                          <ImageContainer
+                            src={"/images/icons/pdf_icon.png"}
+                            className={"h-[24px] w-[24px]"}
+                          />
+                          <span className="text-[12px] w-[40%]">
+                            {file.name}
+                          </span>
+                        </div>
 
                         <button className="px-[16px] py-[8px] border border-[#06A9EF]  rounded-[12px]">
                           Browse file
@@ -263,7 +273,10 @@ const CandidateAiPower = ({
                       <div class="flex flex-col gap-[4px]	font-normal	">
                         <div class="flex text-center justify-center  scr420:text-[14px] scr360:text-[12px] text-[10px] text-[#515B6F]">
                           drag and drop or{" "}
-                          <span onClick={handleButtonClick} class="text-[#06A9EF]">
+                          <span
+                            onClick={handleButtonClick}
+                            class="text-[#06A9EF]"
+                          >
                             &nbsp;Browse file{" "}
                           </span>
                           &nbsp;to upload
@@ -292,11 +305,10 @@ const CandidateAiPower = ({
 
                 <button
                   disabled={file && !loading ? false : true}
-                  className={`sm:px-9 px-6 py-3 bg-[#06A9EF] border rounded-[12px] font-semibold text-white ${file && !loading ? "opacity-100" : "opacity-50"
-                    } `}
-                  onClick={() => {
-                    setTabIndex(2);
-                  }}
+                  className={`sm:px-9 px-6 py-3 bg-[#06A9EF] border rounded-[12px] font-semibold text-white ${
+                    file && !loading ? "opacity-100" : "opacity-50"
+                  } `}
+                  onClick={navigate}
                 >
                   Continue
                 </button>

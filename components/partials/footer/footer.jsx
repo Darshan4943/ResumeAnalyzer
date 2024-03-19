@@ -62,17 +62,17 @@ function Footer() {
             </div>
         </div>
         <div className="Footer_secondContainer ">
-          <div className="flex gap-4 footerThird w-full scr420:justify-center justify-between break-word">
+          <div className="flex gap-4 footerThird w-full scr420:justify-center justify-between break-word pt-6">
             <div className="flex flex-col justify-between gap-4  flex-wrap address">
               <div className="footer_sub_address">
                 <div>
                   <p className="footer_address_P">Address</p>
                 </div>
-                <div className="footer_add">
-                  <div>
+                <div className="footer_add  ">
+                  <div className="leading-10">
                     <p className="text-[#fff] font-[600]">Offices :</p>
-                    <p className="footer_address_Para">
-                      Pune India, <br /> Harare Zimbabwe,<br /> London United Kingdom
+                    <p className="footer_address_Para leading-6">
+                    Harare, Zimbabwe  <br />  Pune, India<br /> London, United Kingdom
                     </p>
                   </div>
                 </div>
@@ -80,7 +80,7 @@ function Footer() {
               <div className=" flex flex-col flex-wrap  ">
                 <p className="footer_address_Email">Email </p>
                 <p className="footer_address_Email_font flex flex-wrap">
-                  info@skilotech.com
+                  support@skilotech.com
                 </p>
               </div>
             </div>

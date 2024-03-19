@@ -70,7 +70,7 @@ console.log(14,details)
 
 
         <div className=' text-center ml:text-[1.1vw] text-[4vw]  font-medium'>
-          Transform recruiters into resume experts! With our platform, effortlessly create customized resumes for clients. Highlight their skills and experiences to boost their career prospects. Its that easy!
+          Transform recruiters into resume experts! With our platform, effortlessly create customized resumes for clients, manage multiple CVs and many more.
         </div>
         <button onClick={clickHandler} className='bg-[#06A9EF] text-white px-4 ml:py-3 py-2 ml:w-[167px] ml:rounded-[12px] rounded-[8px] ml:text-[16px] text-[4vw] font-semibold'>
           Get Started

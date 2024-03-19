@@ -10,7 +10,7 @@ function SubscriptionPlan({ isLogin,fromMain }) {
             
         </p>
         <p className="ml:text-[1.71vw] text-[4vw] text-[#646464] font-[400]">
-        Unlock Premium Features and Enhance Your Recruiting Experience.
+        Unlock Premium Features and Enhance Your Experience.
         </p>
       </div>
 

@@ -17,7 +17,7 @@ function Details() {
       <div className="flex flex-col justify-center items-center bg-blue h-[89px]  py-3">
         <div className=" font-semibold text-[30px] text-white">Purchase</div>
         <div className=" font-medium text-[16px] text-white">
-          Purchase plan and make payment here to start using Skilotech
+          Purchase plan and make payment
         </div>
       </div>
       <div className="flex items-center justify-center pb-12 scr1100:px-[100px] scr700:px-6 px-2">

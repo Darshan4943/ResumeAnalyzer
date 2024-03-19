@@ -42,14 +42,14 @@ function CandidateHome() {
           <div className=" flex flex-col gap-6 w-[50%] text-[#333333] pl-[24px] ">
             <div className="flex flex-col gap-[24px]">
               <div className="font-semibold text-[4.8vw] leading-tight ">
-                The Best AI Resume Creator
+                The Ultimate AI Resume Builder
               </div>
               <div className="font-medium text-[1.5vw] ">
                 Craft compelling, recruiter-vetted resumes effortlessly with our
-                cutting-edge resume builder powered by AI Generation. Tailor
+                cutting-edge resume builder powered by Generative AI. Tailor
                 resumes for each role swiftly, leveraging a myriad of remarkable
                 features. Enhance your prospects of securing an interview and
-                distinguish yourself from competitors in just minutes.
+                distinguish yourself from competitors in just few minutes.
               </div>
               <button
                 onClick={clickHandler}
@@ -75,14 +75,14 @@ function CandidateHome() {
 
           <div className=" flex flex-col gap-6 w-[35%] text-[#333333]">
             <div className="font-semibold  text-[2.5vw] leading-tight ">
-              Resume Templates for All Careers.
+              Resume Templates for All <span className="text-[#06A9EF]">Careers and Levels.</span>
             </div>
             <div className="font-medium scr1200:text-[1.67vw] text-[20px] w-[95%] break-words ">
-              Select one of our expertly designed resume templates, and you will
-              be able to quickly and easily create a resume that fits your needs
-              and style, even if you have never created one before using
-              pre-approved sections that have been approved by recruiters
-              worldwide.
+              <p>  Select one of our <span className="text-[#06A9EF]">expert-designed resume templates </span>and create a resume that fits your needs
+                and style.No Experienced needed!</p>
+              <p><span className="text-[#06A9EF]">Stand out from the crowd</span>  with a resume built on one of the best recruiter approved templates.</p>
+
+
             </div>
             <button
               onClick={clickHandler}

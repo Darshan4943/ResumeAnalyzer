@@ -31,8 +31,7 @@ function Sign_up() {
               Select a role to get started
             </div>
             <div className="text-[#646464] text-center text-[14px] ms:text-[16px] font-[500]">
-              We need to know which role best matches you so that we can <br />
-              personalize your experience.
+             In the process we will help you personalize your experience.
             </div>
           </div>
           <div className="flex justify-center item-center">

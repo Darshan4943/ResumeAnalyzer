@@ -282,9 +282,9 @@ function GenerateAi() {
                                     src="/images/home/stars.png " alt="" className={`h-[30px] w-[35px]  absolute left-[5%] `} />
                             }
 
-                            <p className={` ml:text-[0.9vw] text-[12px] font-semibold ${isClicked && "text-white  "}  `}>Generate with AI</p>
+                            <p className={` ml:text-[0.9vw] text-[12px] font-semibold ${isClicked && "text-white"}`}>Generate with AI</p>
                             {isClicked &&
-                                <p className='absolute top-[115%] left-[55%] text-[12px] font-medium '> clicked !</p>
+                                <p className='absolute top-[115%] left-[65%] text-[12px] font-medium '> Clicked !</p>
                             }
                         </button>
 
@@ -309,20 +309,19 @@ function GenerateAi() {
                     }
 
                 </div>
-                <div className=' ml:w-[30%] ml:h-[26vw] w-[70%]  flex flex-col gap-4 justify-center text-center items-center'>
+                <div className=' ml:w-[30%] ml:h-[26vw] w-[95%]  flex flex-col gap-4 justify-center text-center items-center ml:leading-loose'>
                     <div className='flex flex-col sm:w-[95%] w-[97%] flex-wrap text-center items-center justify-center ml:text-[1.6vw] text-[24px] font-bold'>
 
                         <p className='text-center'>   Try our Generative AI  </p>
-                        <p className='text-center'>    Feature  </p>
-                        <p className='text-center'>   to </p>
-                        <p className=' text-[#BB57E1]'>  Improve </p>
-                        <p className=''>&</p>
-                        <p className=' text-[#06A9EF]'>Enhance</p>
+                        <p className='text-center'>    Feature  to </p>
+
+                        <p className=' text-[#BB57E1]'>  Improve <span className='text-[#000000]'>&</span> Enhance </p>
+
                         <p className=' '>your profile</p>
                     </div>
                     <div className='flex flex-col justify-center items-center gap-2 w-[90%] relative'>
 
-                        <p className='text-[14px] ml:text-[1vw]  font-semibold'>Type something about yourself & Click on</p>
+                        <p className='text-[14px] ml:text-[1vw]  font-semibold'>Write something about yourself & Click on</p>
                         <img src="/images/blueArrow.png " alt="" className='h-[40px]  object-contain w-[41px] absolute scr1150:top-4 -right-6 top-7 web' />
 
                         <button className=' cursor-not-allowed scr1300:min-w-[162px] scr1100:min-w-[145px]  scr1024:min-w-[135px] lg:min-w-[120px]  scr930:min-w-[115px]  scr900:min-w-[110px]  ml:min-w-[100px]  flex gap-2 sm:px-3 px-[5px] py-2 border items-center border-[#06A9EF] bg-white rounded-[8px]  relative'>
@@ -341,14 +340,14 @@ function GenerateAi() {
                                 Generate with AI
                             </p>
                         </button>
-                        <p className='text-[14px] ml:text-[1vw] font-semibold'>to Try now!</p>
+                        <p className='text-[14px] ml:text-[1.5vw] text-[#295488] font-bold'>Try now!</p>
                     </div>
                 </div>
                 <div className='ml:w-[30vw] w-[95%]   border-dashed border-[2px] border-[#06A9EF] sm:p-2 px-1 py-1 rounded-[16px]'>
                     <div className='  flex w-full ml:h-[26vw]  flex-col gap-2 rounded-[16px] p-4 bg-white ' style={{ boxShadow: "0px 0px 26.499px 0px rgba(0, 0, 0, 0.25)" }} >
                         <p className='w-full font-medium ml:text-[1.5vw] text-[16px]'> About Me</p>
                         <div className="error_text_form  ">{error}</div>
-                        
+
                         {loading ? (
                             <div className='ml:h-[26vw] md:h-[35vw] ms:h-[30vw] scr540:h-[35vw] sm:h-[35vw] h-[50vw] flex justify-center items-center border border-[#06A9EF] rounded-[8px]'>
                                 <MiniLoader />

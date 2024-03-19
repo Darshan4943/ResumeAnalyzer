@@ -90,10 +90,10 @@ function TransformResume() {
                 </div>
                 <div className='ml:text-[1.45vw] text-[4vw] font-medium ml:text-start text-center'>
 
-                    Crafting personalized resumes to fit each job perfectly, highlighting the right skills and experiences. By making sure resumes match what employers are looking for, help clients stand out and land their dream jobs
+                    <span className='text-[#06A9EF]'>Crafting personalized resumes </span>to fit each job perfectly by highlighting the right skills and experiences. By making sure resumes match what employers are looking for, <span className='text-[#06A9EF]'>help candidates stand out</span> and land their dream jobs.
                 </div>
                 <button
-                     onClick={clickHandler}
+                    onClick={clickHandler}
                     className='bg-[#06A9EF] text-white px-4 ml:py-3 py-2 ml:w-[190px] ml:rounded-[12px] rounded-[8px] ml:text-[16px] text-[4vw] font-semibold'>
                     Transform Resume
                 </button>

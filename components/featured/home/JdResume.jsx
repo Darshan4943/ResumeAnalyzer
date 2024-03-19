@@ -22,14 +22,14 @@ function JdResume({ isLogin }) {
             <div className=" flex flex-col gap-6 md:w-[38%]  ms:w-[60%] sm:w-[80%] text-[#000000] ">
                 <div className="flex flex-col gap-[24px] md:items-start items-center">
                     <div className="font-semibold md:text-[2.5vw] text-[32px] leading-tight md:text-start text-center ">
-                        <span className='text-[#06A9EF]  '>Transform</span> Resume to Match Multiple Job Description
+                        <span className='text-[#06A9EF]'>Transform</span> Resume to Match Multiple <span className='text-[#06A9EF]'>Job Description</span>
                     </div>
                     <div className="font-medium md:text-[1.4vw] text-[14px] text-[#333333] ">
-                        Adapting your resume to fit various job descriptions means adjusting your skills and experiences to closely match what each job requires.
-                        Boost your chances of getting noticed by hiring managers.
+                        <span className='text-[#06A9EF]'>Adapting your resume</span> to fit various job descriptions means adjusting your skills and experiences to closely match what each job requires.
+                        <span className='text-[#06A9EF]'> Boost your chances </span>  of getting noticed by relevant hiring managers.
                     </div>
                     <button
-                        onClick={() => isLogin ? router.push("/home/BuildResume") :      router.push("/auth?signin=true")}
+                        onClick={() => isLogin ? router.push("/home/BuildResume") : router.push("/auth?signin=true")}
                         className="px-9 py-4 bg-[#06A9EF] text-white  rounded-[12px] md:text-[1.3vw] text-[14px] font-semibold"
                         style={{ width: "fit-content" }}
                     >
@@ -65,8 +65,8 @@ function JdResume({ isLogin }) {
                             alt=""
 
                             style={{
-                                borderRadius:"1.15vw",
-                            border: index === currentImageIndex? " 1px solid #06A9EF" : "none",
+                                borderRadius: "1.15vw",
+                                border: index === currentImageIndex ? " 1px solid #06A9EF" : "none",
                                 boxShadow: index !== currentImageIndex ? "0px 2px 15px 0px #00000033" : 'none',
 
 
