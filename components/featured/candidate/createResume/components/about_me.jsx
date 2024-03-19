@@ -98,10 +98,10 @@ const AboutMe = ({ data, setData }) => {
         </div>
         <div className="flex items-center justify-between gap-3 w-[100%]  ">
           <div className="error_text_form ">{error}</div>
-          <div className="text-[12px] ">
+          {/* <div className="text-[12px] ">
             {" "}
             {400 - text?.length} characters left
-          </div>
+          </div> */}
         </div>
 
         <div className="flex justify-end items-center gap-3 ">
