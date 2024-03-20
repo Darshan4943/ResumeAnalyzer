@@ -40,7 +40,7 @@ function BuildResume() {
           </div>
           <div className="flex justify-center item-center">
             <div className="flex flex-col gap-[24px] px-[8px]">
-              <ALink href={`/home/createResume?clientId=${clientId}`}>
+              <ALink href={`/home/createResume?clientId=${clientId}`} onClick={()=>localStorage.removeItem("parsedResume")}>
                 <div className="px-[16px] py-9 z-0 flex flex-row justify-between rounded-[16px] gap-3 relative sign_up_shadow">
                   <div className="flex flex-row justify-center item-center gap-[8px] ">
                     <div className="flex items-center">

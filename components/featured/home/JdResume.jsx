@@ -30,7 +30,7 @@ function JdResume({ isLogin }) {
                     </div>
                     <button
                         onClick={() => isLogin ? router.push("/home/BuildResume") : router.push("/auth?signin=true")}
-                        className="px-9 py-4 bg-[#06A9EF] text-white  rounded-[12px] md:text-[1.3vw] text-[14px] font-semibold"
+                        className="ml:px-9 ml:py-4 px-6 py-3 bg-[#06A9EF] text-white  rounded-[12px] md:text-[1.3vw] text-[14px] font-semibold"
                         style={{ width: "fit-content" }}
                     >
                         Get Started
