@@ -404,14 +404,14 @@ const ResumePreview = ({
             selectedFont={selectedFont}
           />
         );
-        case 44:
-          return (
-            <Template44
-              data={data}
-              selectedColor={selectedColor}
-              selectedFont={selectedFont}
-            />
-          );
+      case 44:
+        return (
+          <Template44
+            data={data}
+            selectedColor={selectedColor}
+            selectedFont={selectedFont}
+          />
+        );
       case 32:
         return (
           <Template32
@@ -514,6 +514,7 @@ const ResumePreview = ({
       document.removeEventListener("mousedown", handleOutsideClick);
     };
   }, []);
+  console.log(data);
   const saveResume = async (blob) => {
     if (isEdit) {
       setLoading(true);
@@ -555,7 +556,9 @@ const ResumePreview = ({
           if (Array.isArray(data[key]) && data[key].length > 0) {
             formData.append(key, JSON.stringify(data[key]));
           } else {
-            formData.append(key, data[key]);
+            if (data[key] != undefined) {
+              formData.append(key, data[key]);
+            }
           }
         });
       }

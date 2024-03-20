@@ -21,7 +21,6 @@ const Skills = ({ data, setData }) => {
 
     }
   },[data]);
-  console.log(skillList)
   const handleStarClick = (skillIndex, starIndex) => {
     const updatedSkills = skillList?.map((skill, index) => {
       if (index === skillIndex) {

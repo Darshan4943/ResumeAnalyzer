@@ -63,30 +63,32 @@ function TransformJd({
             </svg>
             Edit
           </button> */}
-      {resumeTemplateIndex !== undefined && (
-
-          <PDFDownloadLink document={<MyComponent />} fileName="somename.pdf">
-            {({ blob, url, loading, error }) => (
-              <button className="flex gap-1 text-[14px]   justify-center text-[#fff] font-montserrat font-semibold px-4 py-2 rounded-[8px] items-center border border-[#06A9EF] bg-[#06A9EF]">
-                <svg
-                  width="20"
-                  height="20"
-                  viewBox="0 0 20 20"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <g mask="url(#mask0_461_22942)">
-                    <path
-                      d="M9.99967 13.3333L5.83301 9.16668L6.99967 7.95834L9.16634 10.125V3.33334H10.833V10.125L12.9997 7.95834L14.1663 9.16668L9.99967 13.3333ZM4.99967 16.6667C4.54134 16.6667 4.14898 16.5035 3.82259 16.1771C3.4962 15.8507 3.33301 15.4583 3.33301 15V12.5H4.99967V15H14.9997V12.5H16.6663V15C16.6663 15.4583 16.5031 15.8507 16.1768 16.1771C15.8504 16.5035 15.458 16.6667 14.9997 16.6667H4.99967Z"
-                      fill="#fff"
-                    />
-                  </g>
-                </svg>
-                Download
-              </button>
-            )}
-          </PDFDownloadLink>
-      )}
+          {resumeTemplateIndex !== undefined && (
+            <PDFDownloadLink
+              document={<MyComponent />}
+              fileName="Skilotech_resume.pdf"
+            >
+              {({ blob, url, loading, error }) => (
+                <button className="flex gap-1 text-[14px]   justify-center text-[#fff] font-montserrat font-semibold px-4 py-2 rounded-[8px] items-center border border-[#06A9EF] bg-[#06A9EF]">
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 20 20"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <g mask="url(#mask0_461_22942)">
+                      <path
+                        d="M9.99967 13.3333L5.83301 9.16668L6.99967 7.95834L9.16634 10.125V3.33334H10.833V10.125L12.9997 7.95834L14.1663 9.16668L9.99967 13.3333ZM4.99967 16.6667C4.54134 16.6667 4.14898 16.5035 3.82259 16.1771C3.4962 15.8507 3.33301 15.4583 3.33301 15V12.5H4.99967V15H14.9997V12.5H16.6663V15C16.6663 15.4583 16.5031 15.8507 16.1768 16.1771C15.8504 16.5035 15.458 16.6667 14.9997 16.6667H4.99967Z"
+                        fill="#fff"
+                      />
+                    </g>
+                  </svg>
+                  Download
+                </button>
+              )}
+            </PDFDownloadLink>
+          )}
         </div>
       </div>
       {resumeTemplateIndex !== undefined && (

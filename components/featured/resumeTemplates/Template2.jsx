@@ -12,7 +12,7 @@ import {
 } from "@react-pdf/renderer";
 function Template2({ data, selectedColor, selectedFont, preview }) {
   return (
-    <Page size="A4" style={{ backgroundColor: "#2C2A31" }}>
+    <Page size="A4" style={{ backgroundColor: "#2C2A31" }} wrap={true}>
       <View style={{ display: "flex", flexDirection: "row", breakAll: true }}>
         <View
           style={{
@@ -135,8 +135,8 @@ function Template2({ data, selectedColor, selectedFont, preview }) {
                             maxWidth: "80%",
                           }}
                         >
-                           {detail.duration?.start?.year !== "Year" &&
-                              `${detail.duration?.start?.year}-${detail.duration?.end?.year}`}
+                          {detail.duration?.start?.year !== "Year" &&
+                            `${detail.duration?.start?.year}-${detail.duration?.end?.year}`}
                         </Text>
                       )}
                     </Text>
@@ -219,9 +219,11 @@ function Template2({ data, selectedColor, selectedFont, preview }) {
                       }}
                     >
                       {detail.duration?.start?.year !== "Year" &&
-                        `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
-                          ? "Present"
-                          : detail.duration?.end?.year}
+                        `${detail.duration?.start?.year}-${" "}${
+                          detail.currentlyWorking
+                            ? "Present"
+                            : detail.duration?.end?.year
+                        }
                          `}
                     </Text>
                   </View>
@@ -656,7 +658,7 @@ function Template2({ data, selectedColor, selectedFont, preview }) {
               border: "2px",
               padding: 8,
               backgroundColor: "#fff",
-              overflow:"hidden"
+              overflow: "hidden",
             }}
           >
             {data.profilePhoto ? (

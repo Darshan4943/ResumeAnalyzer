@@ -121,7 +121,7 @@ function CandidateHeader() {
             <li>Job Description Matching</li>
           </Link>
         )}
-         {userDataGlobal.role === "recruiter" && (
+         {/* {userDataGlobal.role === "recruiter" && (
           <Link
             href="/collection/collection"
             className={
@@ -132,7 +132,7 @@ function CandidateHeader() {
           >
             <li>Collection</li>
           </Link>
-        )}
+        )} */}
         <Link
           href="/purchase/MyPurchase"
           className={

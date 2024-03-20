@@ -16,7 +16,7 @@ function CreateResume() {
   const router = useRouter();
   const [editId, setEnditId] = useState();
   const userData = router.query;
-
+  const currentYear = new Date().getFullYear();
   const handleOutsideClick = (event) => {
     if (taskRef.current && !taskRef.current.contains(event.target)) {
       isSetEdit(false);
@@ -30,159 +30,105 @@ function CreateResume() {
     };
   }, []);
   const [isEdit, isSetEdit] = useState(false);
-  const [data, setData] = useState(
-    {
-      profilePhoto: null,
-      designation: "",
-      firstName: "",
-      lastName: "",
-      mobileNumber: "",
-      email: "",
-      location: "",
-      summary: "",
-      showSummary: true,
-      education: [],
-      showEducation: true,
-      experience: [],
-      showExperience: true,
-      course: [],
-      showCourse: true,
-      skills: [],
-      achievement: [],
-      sociaLinks: [],
-      hobbies: [],
-      languages: [],
-      section: [],
+  const [data, setData] = useState({
+    profilePhoto: null,
+    designation: "",
+    firstName: "",
+    lastName: "",
+    mobileNumber: "",
+    email: "",
+    location: "",
+    summary: "",
+    showSummary: true,
+    education: [],
+    showEducation: true,
+    experience: [],
+    showExperience: true,
+    course: [],
+    showCourse: true,
+    skills: [],
+    achievement: [],
+    sociaLinks: [],
+    hobbies: [],
+    languages: [],
+    section: [],
+  });
+  function extractMobileNumber(inputString) {
+    var regex = /[0-9]{10}/g;
 
-    }
-  );
-  // const [data, setData] = useState({
-  //   profilePhoto: null,
-  //   designation: "UI/UX designer",
-  //   firstName: "John",
-  //   lastName: "Doe",
-  //   mobileNumber: 9325795236,
-  //   email: "demo@gmail.com",
-  //   location: "Demo",
-  //   summary: "",
-  //   showSummary: true,
-  //   education: [
-  //     {
-  //       qualification: "12th",
-  //       specialization: "cs",
-  //       instituteName: "pune",
-  //       type: "full-time",
-  //       location: "",
-  //       duration: {
-  //         start: {
-  //           year: "Year",
-  //           month: "Month",
-  //         },
-  //         end: {
-  //           year: "Year",
-  //           month: "Month",
-  //         },
-  //       },
-  //     },
-  //     {
-  //       qualification: "12th",
-  //       specialization: "cs",
-  //       instituteName: "pune",
-  //       type: "full-time",
-  //       location: "",
-  //       duration: {
-  //         start: {
-  //           year: "Year",
-  //           month: "Month",
-  //         },
-  //         end: {
-  //           year: "Year",
-  //           month: "Month",
-  //         },
-  //       },
-  //     },
-  //   ],
-  //   showEducation: true,
-  //   experience: [
-  //     {
-  //       designation: "UI/UX designer",
-  //       organization: "Freedygo",
-  //       description:
-  //         " Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make",
-  //       currentlyWorking: true,
-  //       location: "Pune,Maharashtra",
-  //       duration: {
-  //         start: {
-  //           year: "2010",
-  //           month: "10",
-  //         },
-  //         end: {
-  //           year: "Year",
-  //           month: "Month",
-  //         },
-  //       },
-  //     },
-  //   ],
-  //   showExperience: true,
-  //   course: [
-  //     {
-  //       courseName: "Demo Course",
-  //       issuedBy: "Demo Institute",
-  //       discription: "",
-  //       duration: {
-  //         start: {
-  //           year: "Year",
-  //           month: "Month",
-  //         },
-  //         end: {
-  //           year: "Year",
-  //           month: "Month",
-  //         },
-  //       },
-  //     },
-  //   ],
-  //   showCourse: true,
-  //   skills: [
-  //     {
-  //       skill: "C#",
-  //       rating: [5, 5, 5, 5, 5],
-  //     },
-  //     {
-  //       skill: "Python",
-  //       rating: [5, 5, 5, 5, 5],
-  //     },
-  //     {
-  //       skill: "Ruby",
-  //       rating: [5, 5, 5, 5, 5],
-  //     },
-  //     {
-  //       skill: "Php",
-  //       rating: [5, 5, 5, 5, 5],
-  //     },
-  //     {
-  //       skill: "Angular",
-  //       rating: [5, 5, 5, 5, 5],
-  //     },
-  //   ],
-  //   achievement: [],
-  //   sociaLinks: [],
-  //   hobbies: [
-  //     {
-  //       title: "Dancing",
-  //     },
-  //     {
-  //       title: "Writting",
-  //     },
-  //   ],
-  //   languages: [
-  //     {
-  //       languages: "English",
-  //       rating: [3, 3, 3],
-  //     },
-  //   ],
-  //   summery:
-  //     "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make",
-  // });
+    var matches = inputString.slice(3, 14).match(regex);
+    return matches ? matches[0] : null;
+  }
+  const parsedDataSeter = () => {
+    const parsedData = JSON.parse(localStorage.getItem("parsedResume"));
+    const {
+      first_name,
+      last_name,
+      emails,
+      phone_numbers,
+      profession,
+      summary,
+      address,
+      skills,
+    } = parsedData.basics;
+    const languages = parsedData.languages;
+    const educations = parsedData.educations;
+    const experience = parsedData.professional_experiences;
+    const courses = parsedData.issuing_organization;
+    setData({
+      ...data,
+      firstName: first_name,
+      lastName: last_name,
+      email: emails[0],
+      dial_code: phone_numbers[0].slice(0, 3),
+      mobileNumber: extractMobileNumber(phone_numbers[0]),
+      designation: profession,
+      summery: summary,
+      location: address,
+      skills: skills?.map((item) => ({
+        skill: item,
+        rating: [5, 5, 5, 5, 5],
+      })),
+      languages: languages?.map((item) => ({
+        languages: item.name,
+        rating: [3, 3, 3],
+      })),
+      education: educations?.map((item) => ({
+        qualification: item.description,
+        specialization: "",
+        instituteName: item.issuing_organization,
+        type: "full-time",
+        location: "",
+        duration: {
+          start: {
+            year: item.start_year ? item.start_year : currentYear,
+            month: null,
+          },
+          end: {
+            year: item.end_year ? item.end_year : currentYear,
+            month: null,
+          },
+        },
+      })),
+      experience: experience?.map((item) => ({
+        designation: item.title,
+        organization: item.company,
+        description: item.description,
+        currentlyWorking: false,
+        location: item.location,
+        duration: {
+          start: { year: item.start_date.year, month: null },
+          end: { year: item.end_date.year, month: null },
+        },
+      })),
+      course: courses?.map((item) => ({
+        courseName: "",
+        issuedBy: item.issuing_organization,
+        discription: item.description,
+      })),
+    });
+  };
+
   useEffect(() => {
     if (userData) {
       if (userData.isEdit) {
@@ -197,133 +143,8 @@ function CreateResume() {
           setSelectedResumeIndex(1);
           setSelectedColor("#414042");
         }, 400);
-        const {
-          firstName,
-          lastName,
-          mobileNo,
-          email,
-          keySkills,
-          currentCTC,
-          currentLocation,
-          dateOfComplition,
-          dateOfJoining,
-          dob,
-          employmentStatus,
-          companyName,
-          jobLocation,
-          jobTitle,
-          dial_code,
-          stream,
-          university,
-          specialization,
-          clientId,
-          jobDuration,
-          educationDuration,
-        } = userData;
-        const yearOfCompletion = new Date(dateOfComplition).getFullYear();
-        const yearOfJoining = new Date(dateOfJoining).getFullYear();
-        const currentDate = new Date();
-        const currentMonth = currentDate.getMonth() + 1; // Months are zero-based, so add 1
-        const currentYear = currentDate.getFullYear();
-        setData((prevData) => ({
-          ...prevData,
-          firstName: firstName ? camelCase(firstName) : "JOHN",
-          lastName: lastName ? camelCase(lastName) : "DOE",
-          mobileNumber: mobileNo,
-          email,
-          designation: jobTitle,
-          currentCTC,
-          location: currentLocation,
-          dateOfComplition,
-          dob,
-          employmentStatus,
-          dial_code,
-          clientId,
-          education: [
-            {
-              duration: educationDuration && JSON.parse(educationDuration),
-              qualification: stream,
-              instituteName: university,
-              specialization,
-            },
-          ],
-          experience: [
-            {
-              duration: jobDuration && JSON.parse(jobDuration),
-              organization: companyName,
-              location: jobLocation,
-              designation: jobTitle,
-            },
-          ],
-
-          skills:
-            keySkills?.length > 0 &&
-            JSON.parse(keySkills)?.length > 0 &&
-            Array.isArray(JSON.parse(keySkills)) &&
-            JSON.parse(keySkills)?.map((item) => ({
-              skill: item.value,
-              rating: [5, 5, 5, 5, 5],
-            })),
-          // section: [
-          //   {
-          //     header: "Projects",
-          //     subSection: [
-          //       {
-          //         title: "demo",
-          //         duration: {
-          //           start: {
-          //             month: "3",
-          //             year: "2021",
-          //           },
-          //           end: {
-          //             month: "1",
-          //             year: "2024",
-          //           },
-          //         },
-          //         description:
-          //           "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the releaseLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release",
-          //       },
-          //       {
-          //         title: "demo",
-          //         duration: {
-          //           start: {
-          //             month: "3",
-          //             year: "2021",
-          //           },
-          //           end: {
-          //             month: "1",
-          //             year: "2024",
-          //           },
-          //         },
-          //         description:
-          //           "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the releaseLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release",
-          //       },
-          //     ],
-          //   },
-          //   {
-          //     header: "Projects",
-          //     subSection: [
-          //       {
-          //         title: "demo",
-          //         duration: {
-          //           start: {
-          //             month: "3",
-          //             year: "2021",
-          //           },
-          //           end: {
-          //             month: "1",
-          //             year: "2024",
-          //           },
-          //         },
-          //         description:
-          //           "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release",
-          //       },
-          //     ],
-          //   },
-          // ],
-        }));
+        parsedDataSeter();
       }
-    } else {
     }
   }, [userData]);
   return (
@@ -390,7 +211,7 @@ function CreateResume() {
             </AnimatePresence>
           )}
           <div className="mobile">
-            <ResumePreview
+            {/* <ResumePreview
               data={data}
               isSetEdit={isSetEdit}
               selectedResumeIndex={selectedResumeIndex}
@@ -399,7 +220,7 @@ function CreateResume() {
               selectedColor={selectedColor}
               setSelectedFont={setSelectedFont}
               selectedFont={selectedFont}
-            />
+            /> */}
           </div>
         </div>
       </div>

@@ -9,9 +9,9 @@ import SubscriptionPlan from "../../components/featured/home/SubscriptionHome";
 
 function MyPurchase() {
   const [plan, setPlan] = useState({});
- 
+
   const [subscription, setSubscription] = useState(null);
-  console.log(12,subscription)
+  console.log(12, subscription);
   const userDataGlobal = useSelector((state) => state.userData);
   useEffect(() => {
     axios
@@ -28,7 +28,7 @@ function MyPurchase() {
         console.log(err);
       });
   }, [userDataGlobal]);
-  console.log(29, subscription)
+  console.log(29, subscription);
   return (
     <div className="flex flex-col gap-8  min-h-[60vh]">
       {subscription ? (
@@ -53,24 +53,26 @@ function MyPurchase() {
                     <div className="flex flex-col gap-6  md:w-[40%] w-[100%] items-center justify-between">
                       <div className="flex text-center flex-col gap-3 text-[#333333] w-[100%] p-4">
                         <p className="text-[22px] font-[600]">
-                          <span className="text-[#06A9EF]">{plan.duration}</span>{" "}
+                          <span className="text-[#06A9EF]">
+                            {plan.duration}
+                          </span>{" "}
                           {plan.limit}
                         </p>
                         <p className="text-[36px] font-[700]">{plan.price}</p>
                         <p className="text-[14px] font-[500]">
-                        Your Plan Validity is {plan.days} days
+                          Your Plan Validity is {plan.days} days
                         </p>
                         <div className="bg-[#DEDEDE] h-[2px]" />
                       </div>
-                      {subscription?.isActive ?
+                      {subscription?.isActive ? (
                         <button className="px-9 py-3 bg-[#DEDEDE] rounded-[12px] text-[16px] font-[600] text-white w-[60%] min-w-[160px]">
                           Purchased
                         </button>
-                        :
+                      ) : (
                         <button className="px-9 py-3 bg-[#DEDEDE] rounded-[12px] text-[16px] font-[600] text-white w-[60%] min-w-[160px]">
-                        In Review
-                      </button>
-                      }
+                          In Review
+                        </button>
+                      )}
                     </div>
                     <div className="flex flex-col gap-6  md:w-[60%] w-[100%]  ml:pl-4">
                       <div className="text-[20px] font-[600]">
@@ -84,7 +86,7 @@ function MyPurchase() {
                             <div>:</div>
                           </div>
                           <div className="text-[16px] font-[500]">
-                            {plan.duration} plan 
+                            {plan.duration} plan
                             {/* {"("}
                             {plan.limit}
                             {")"} */}
@@ -96,15 +98,16 @@ function MyPurchase() {
                             <div className="">:</div>
                           </div>
                           <div
-                            className={`text-[16px] font-[500] ${subscription?.isActive
+                            className={`text-[16px] font-[500] ${
+                              subscription?.isActive
                                 ? "text-[#0C8A0A]"
                                 : "text-red"
-                              }`}
+                            }`}
                           >
                             {subscription?.isActive ? "Active" : "Inactive"}
                           </div>
                         </div>
-                        {subscription?.isActive &&
+                        {subscription?.isActive && (
                           <>
                             <div className="flex gap-4">
                               <div className="flex  gap-4 justify-between font-[700] w-[40%]">
@@ -126,7 +129,7 @@ function MyPurchase() {
                               </div>
                             </div>
                           </>
-                        }
+                        )}
                       </div>
                     </div>
                   </div>
@@ -177,7 +180,7 @@ function MyPurchase() {
                       </div>
                       <div className="text-[16px] font-[500] break-all">01</div>
                     </div>
-                    {subscription?.isActive &&
+                    {subscription?.isActive && (
                       <div className="flex gap-4">
                         <div className="flex  gap-4 justify-between font-[700] w-[40%]">
                           <p>Activated on </p>
@@ -187,7 +190,7 @@ function MyPurchase() {
                           {dateFormatter(subscription?.startDate)}
                         </div>
                       </div>
-                    }
+                    )}
                   </div>
                   <div className="bg-[#DEDEDE] min-w-[1px] ml:h-[120px] h-[1px]"></div>
                   <div className="flex flex-col gap-6 min-w-[55%] scr1200:min-w-[40%] ">
@@ -210,7 +213,7 @@ function MyPurchase() {
                         {subscription?.mobileNo}
                       </div>
                     </div>
-                    {subscription?.isActive &&
+                    {subscription?.isActive && (
                       <div className="flex gap-4">
                         <div className="flex  gap-4 justify-between font-[700] w-[30%]">
                           <p>Date Of Renewal </p>
@@ -221,7 +224,7 @@ function MyPurchase() {
                           {dateFormatter(subscription?.endDate)}
                         </div>
                       </div>
-                    }
+                    )}
                   </div>
                 </div>
               </div>
