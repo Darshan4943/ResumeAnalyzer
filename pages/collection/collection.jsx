@@ -34,7 +34,7 @@ function Collection() {
   
     axios
       .get(
-        `http://localhost:2000/api/folder/getFolders/${userDataGlobal._id}`
+        `https://freedygoservices.in/api/folder/getFolders/${userDataGlobal._id}`
       )
       .then((res) => {
         setData(res.data.data);
@@ -73,7 +73,7 @@ function Collection() {
           recruiterId: userDataGlobal._id
         };
 
-        const response = await axios.post("http://localhost:2000/api/folder/create", newFolderData);
+        const response = await axios.post("https://freedygoservices.in/api/folder/create", newFolderData);
 
         toast.success("Folder created successfully");
         setIsCreateFolder(false);

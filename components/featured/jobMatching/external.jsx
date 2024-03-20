@@ -77,7 +77,7 @@ const ExternalJobMatching = () => {
       url: "https://ai-textraction.p.rapidapi.com/textraction",
       headers: {
         "content-type": "application/json",
-        "X-RapidAPI-Key": "8ffd958bacmsh889c078a456bd48p14d53fjsn79a50f97f6ea",
+        "X-RapidAPI-Key": "8acc5edc36msh86f288e64ab4567p16d578jsnde15737cfd5e",
         "X-RapidAPI-Host": "ai-textraction.p.rapidapi.com",
       },
       data: {
