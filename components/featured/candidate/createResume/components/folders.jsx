@@ -2,14 +2,16 @@ import Fuse from 'fuse.js';
 import React, { useEffect, useState } from 'react'
 import Files from './files';
 
-function Folders({ tabIndex, setTabIndex, data, setData, clientData, setClientData, tab }) {
+function Folders({ tabIndex, setTabIndex, data, setData, clientData, setClientData, tab,setFolderData,folderData }) {
 
-    const [folderData, setFolderData] = useState([]);
+  
     const [files, setFiles] = useState()
     const [filesAll, setFilesAll] = useState([])
     const [select, setSelect] = useState(false)
     const [selectedFile, setSelectedFile] = useState(null);
-
+    const [selectedIndexes, setSelectedIndexes] = useState([]);
+    const [selectAll, setSelectAll] = useState(false);
+    const [isList,setIsList]= useState(false)
     const handleFileChange = (event, folderName) => {
         const uploadedFiles = event.target.files;
         const newFiles = Array.from(uploadedFiles);
@@ -42,12 +44,20 @@ function Folders({ tabIndex, setTabIndex, data, setData, clientData, setClientDa
             };
             const fuse = new Fuse(filesAll, options);
             const result = fuse.search(value);
-            console.log(45, result);
+           
             setFiles(result.map((item) => item.item));
         } else {
 
             setFiles(filesAll)
         }
+    };
+    const toggleSelectAll = () => {
+        if (selectAll) {
+            setSelectedIndexes([]);
+        } else {
+            setSelectedIndexes(Array.from({ length: clientData.length }, (_, index) => index));
+        }
+        setSelectAll(!selectAll);
     };
 
 
@@ -55,15 +65,14 @@ function Folders({ tabIndex, setTabIndex, data, setData, clientData, setClientDa
         <div className='flex flex-col gap-4 w-[80%] '>
             <div className='flex justify-between'>
                 <p className='text-[24px] font-semibold'>My Collection</p>
-                <div className='bg-[#FFFFFF] rounded-[36px] py-[10px] px-3 flex gap-2 items-center' style={{ boxShadow: "0px 1px 2px 0px #00000040" }}>
-                    <svg width="18" height="14" viewBox="0 0 18 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M6.50033 11.9997H15.667V9.77051H6.50033V11.9997ZM2.33366 4.22884H4.83366V1.99967H2.33366V4.22884ZM2.33366 8.12467H4.83366V5.89551H2.33366V8.12467ZM2.33366 11.9997H4.83366V9.77051H2.33366V11.9997ZM6.50033 8.12467H15.667V5.89551H6.50033V8.12467ZM6.50033 4.22884H15.667V1.99967H6.50033V4.22884ZM2.33366 13.6663C1.87533 13.6663 1.48296 13.5031 1.15658 13.1768C0.830187 12.8504 0.666992 12.458 0.666992 11.9997V1.99967C0.666992 1.54134 0.830187 1.14898 1.15658 0.822591C1.48296 0.496202 1.87533 0.333008 2.33366 0.333008H15.667C16.1253 0.333008 16.5177 0.496202 16.8441 0.822591C17.1705 1.14898 17.3337 1.54134 17.3337 1.99967V11.9997C17.3337 12.458 17.1705 12.8504 16.8441 13.1768C16.5177 13.5031 16.1253 13.6663 15.667 13.6663H2.33366Z" fill="#808080" />
+                <div className='bg-[#FFFFFF] rounded-[36px] py-[10px] px-3 flex gap-2 items-center ' style={{ boxShadow: "0px 1px 2px 0px #00000040" }}>
+                    <svg className='cursor-pointer' onClick={()=>setIsList(true)} width="18" height="14" viewBox="0 0 18 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M6.50033 11.9997H15.667V9.77051H6.50033V11.9997ZM2.33366 4.22884H4.83366V1.99967H2.33366V4.22884ZM2.33366 8.12467H4.83366V5.89551H2.33366V8.12467ZM2.33366 11.9997H4.83366V9.77051H2.33366V11.9997ZM6.50033 8.12467H15.667V5.89551H6.50033V8.12467ZM6.50033 4.22884H15.667V1.99967H6.50033V4.22884ZM2.33366 13.6663C1.87533 13.6663 1.48296 13.5031 1.15658 13.1768C0.830187 12.8504 0.666992 12.458 0.666992 11.9997V1.99967C0.666992 1.54134 0.830187 1.14898 1.15658 0.822591C1.48296 0.496202 1.87533 0.333008 2.33366 0.333008H15.667C16.1253 0.333008 16.5177 0.496202 16.8441 0.822591C17.1705 1.14898 17.3337 1.54134 17.3337 1.99967V11.9997C17.3337 12.458 17.1705 12.8504 16.8441 13.1768C16.5177 13.5031 16.1253 13.6663 15.667 13.6663H2.33366Z" fill={isList ? "#333333" : "#808080"}  />
                     </svg>
                     <div className='h-full w-[1px] bg-[#DEDEDE]'></div>
-                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M0.5 7.16667V0.5H7.16667V7.16667H0.5ZM0.5 15.5V8.83333H7.16667V15.5H0.5ZM8.83333 7.16667V0.5H15.5V7.16667H8.83333ZM8.83333 15.5V8.83333H15.5V15.5H8.83333ZM2.16667 5.5H5.5V2.16667H2.16667V5.5ZM10.5 5.5H13.8333V2.16667H10.5V5.5ZM10.5 13.8333H13.8333V10.5H10.5V13.8333ZM2.16667 13.8333H5.5V10.5H2.16667V13.8333Z" fill="#333333" />
+                    <svg className='cursor-pointer'  onClick={()=>setIsList(false)} width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M0.5 7.16667V0.5H7.16667V7.16667H0.5ZM0.5 15.5V8.83333H7.16667V15.5H0.5ZM8.83333 7.16667V0.5H15.5V7.16667H8.83333ZM8.83333 15.5V8.83333H15.5V15.5H8.83333ZM2.16667 5.5H5.5V2.16667H2.16667V5.5ZM10.5 5.5H13.8333V2.16667H10.5V5.5ZM10.5 13.8333H13.8333V10.5H10.5V13.8333ZM2.16667 13.8333H5.5V10.5H2.16667V13.8333Z" fill={!isList ? "#333333" : "#808080"}  />
                     </svg>
-
 
                 </div>
             </div>
@@ -80,14 +89,16 @@ function Folders({ tabIndex, setTabIndex, data, setData, clientData, setClientDa
                                         <path d="M1.5 10.5L0.5 9.5L4.5 5.5L0.5 1.5L1.5 0.5L5.5 4.5L9.5 0.5L10.5 1.5L6.5 5.5L10.5 9.5L9.5 10.5L5.5 6.5L1.5 10.5Z" fill="#333333" />
                                     </svg>
                                 </div>
-                                <div className='flex gap-4  justify-between w-full '>
+                                <div className='flex  gap-4   justify-between w-full '>
                                     <div className='flex gap-2 text-[14px] font-medium'>
                                         <label className="flex items-center gap-2 text-[14px] font-medium">
                                             Select All
                                             <input
                                                 type="checkbox"
-                                                className=" rounded-[4.5px] pl-[4px] pr-[20px] py-[2px] outline-none text-[14px] font-medium custom-checkbox"
+                                                className=" rounded-[4.5px] pl-[4px] pr-[20px] py-[2px] outline-none text-[14px] font-medium custom-checkbox cursor-pointer"
                                                 style={{ width: '20px', height: '20px',  }}
+                                                checked={selectAll}
+                                                onChange={toggleSelectAll}
                                             />
 
                                         </label>
@@ -126,8 +137,8 @@ function Folders({ tabIndex, setTabIndex, data, setData, clientData, setClientDa
                                         </svg>
 
                                     </div>
-                                    <div className='text-[14px] font-semibold'>
-                                        0 selected
+                                    <div className='text-[14px] font-semibold min-w-[85px] flex justify-end'>
+                                        {selectedIndexes.length} selected
                                     </div>
                                 </div>
 
@@ -216,7 +227,7 @@ function Folders({ tabIndex, setTabIndex, data, setData, clientData, setClientDa
                 </div>
 
                 <div className='h-[1px] w-full bg-[#DEDEDE]'></div>
-                <Files setSelect={setSelect} select={select} setTabIndex={setTabIndex} setFolderData={setFolderData} tabIndex={tabIndex} data={data} setData={setData} files={files} setFiles={setFiles} clientData={clientData} setClientData={setClientData} tab={tab} />
+                <Files isList={isList} selectedIndexes={selectedIndexes} setSelectedIndexes={setSelectedIndexes}  setSelect={setSelect} select={select} setTabIndex={setTabIndex} setFolderData={setFolderData} tabIndex={tabIndex} data={data} setData={setData} files={files} setFiles={setFiles} clientData={clientData} setClientData={setClientData} tab={tab} />
 
             </div>
         </div>
