@@ -6,6 +6,7 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import ReactSelect from "react-select";
 import { data } from "autoprefixer";
+import { ListSvg, PDFSvgSM, SearchIcon, TileViewSvg } from "../../utils/svg";
 <Fonts />;
 
 function TransformJob() {
@@ -18,6 +19,8 @@ function TransformJob() {
   const [resumeList, setResumeList] = useState(null);
   const [selectedClient, setSelectedClient] = useState(null);
   const userDataGlobal = useSelector((state) => state.userData);
+  const [count, setCount] = useState(0);
+  const [view, setView] = useState(0);
   const handleChange = (event) => {
     setText(event.target.value);
   };
@@ -56,7 +59,9 @@ function TransformJob() {
               res.data.data[0]?.firstName + " " + res.data.data[0]?.lastName,
           });
           axios
-            .get("https://freedygoservices.in/api/resume/" + res.data.data[0]?._id)
+            .get(
+              "https://freedygoservices.in/api/resume/" + res.data.data[0]?._id
+            )
             .then((res) => {
               console.log("first", selectedClient, res.data.data);
               setResumeList(res.data.data);
@@ -89,24 +94,13 @@ function TransformJob() {
 
   return (
     <div className=" p-6 flex flex-col gap-4">
-      <div className=" font-semibold text-[24px]">
-        Transform for Job Description
-      </div>
       <div
         className="flex ml:flex-row flex-col gap-12 w-[100%] p-4 rounded-[12px]"
         style={{ boxShadow: "0px 1px 6px 0px #00000040" }}
       >
         <div className="flex flex-col gap-6 ml:w-[50%] w-[100%]">
-          <div className="flex flex-col gap-4 ">
-            <div className="text-[20px] font-medium">Job Description</div>
-            <textarea
-              value={text}
-              onChange={handleChange}
-              rows={6}
-              cols={50}
-              placeholder="Enter your text here..."
-              className=" border border-[#06A9EF] rounded-[8px] outline-none h-auto p-2"
-            />
+          <div className="text-[20px] font-medium text-[#333333]">
+            Transform for Job Description
           </div>
           <div className="flex flex-col gap-4 ">
             {userDataGlobal.role != "user" && (
@@ -133,15 +127,35 @@ function TransformJob() {
                 />
               </div>
             )}
-            <div className="text-[20px] font-medium">
-              Select from Collection
+            <div className="text-[18px] font-medium text-[#333333]">
+              Select Resume from Collection
             </div>
 
-            <div className="rounded-[16px] border bg-[#F9F9F9] border-[#DEDEDE] pl-4 pr-4 ">
+            {/* <div className="rounded-[16px] border bg-[#F9F9F9] border-[#DEDEDE] p-[16px] flex flex-col gap-[16px]">
+              <div className="flex flex-row items-center justify-between gap-[12px] ">
+                <div className="flex flex-row items-center gap-[12px] ">
+                  <div className="flex flex-row gap-[8px] py-[8px] px-[12px] h-[40px] bg-[#fff] border border-[#DEDEDE] rounded-[30px] items-center">
+                    <SearchIcon />
+                    <input
+                      type="text"
+                      className="bg-[#fff] text-[#333333] placeholder:text-[#333333] "
+                      placeholder="Search"
+                    />
+                  </div>
+                  
+                </div>
+                <span className="text-[14px] text-[#808080]">
+                  {userDataGlobal.role == "recruiter"
+                    ? resumeList?.length
+                    : count}
+                  {" Items"}
+                </span>
+              </div>
+              <div className="border-b-[1px] border-[#DEDEDE] w-full h-[1px]"></div>
+
               {resumeList?.length > 0 || userDataGlobal.role != "recruiter" ? (
                 <div
-                  className="flex gap-4   py-4  items-center"
-                  style={{ overflowX: "auto" }}
+                  className="flex flex-row flex-wrap gap-4   py-4  h-[247px] overflow-y-auto bg-[#FFFFFF] border-[1px] border-[#DEDEDE] rounded-[16px] p-[8px]"
                 >
                   <UserResumes
                     setSelect={setSelect}
@@ -149,6 +163,7 @@ function TransformJob() {
                     isAll={false}
                     resumeList={resumeList}
                     selected={selected}
+                    setCount={setCount}
                   />
                 </div>
               ) : (
@@ -156,22 +171,43 @@ function TransformJob() {
                   No Resume Available
                 </div>
               )}
-            </div>
-            <div
+            </div> */}
+             <UserResumes
+                    setSelect={setSelect}
+                    setIsAll={setIsAll}
+                    isAll={false}
+                    resumeList={resumeList}
+                    selected={selected}
+                    setCount={setCount}
+                    selectedClient={selectedClient}
+                  />
+            {/* <div
               onClick={() => setIsAll(true)}
               className="font-medium text-[18px] text-[#06A9EF] flex justify-end cursor-pointer"
             >
               See All
-            </div>
-            {isAll && (
+            </div> */}
+            {/* {isAll && (
               <UserResumes
                 setSelect={setSelect}
                 setIsAll={setIsAll}
                 isAll={true}
                 resumeList={resumeList}
               />
-            )}
-
+            )} */}
+          </div>
+          <div className="flex flex-col gap-4 ">
+            <div className="text-[18px] font-medium text-[#333333]">
+              Enter Job Description
+            </div>
+            <textarea
+              value={text}
+              onChange={handleChange}
+              rows={6}
+              cols={50}
+              placeholder="Enter your text here..."
+              className=" border border-[#DEDEDE] rounded-[8px] outline-none h-auto p-2 bg-[#F7F7F7]"
+            />
             <button
               className="px-4 py-3 bg-[#06A9EF] text-[16px] text-white w-[188px] font-semibold rounded-[12px]"
               disabled={loading}
@@ -207,12 +243,12 @@ function TransformJob() {
           {selected && (
             <TransformJd
               data={
-                newData !== null
+                newData && Object.keys(newData)?.length > 0
                   ? {
                       ...newData,
-                      summery: newData.summary
+                      summery: newData?.summary
                         ? newData.summary
-                        : newData.summery,
+                        : newData?.summery,
                     }
                   : selected
               }

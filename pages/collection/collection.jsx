@@ -35,7 +35,7 @@ function Collection() {
 
     axios
       .get(
-        `http://localhost:2000/api/folder/getFolders/${userDataGlobal._id}`
+        `https://freedygoservices.in/api/folder/getFolders/${userDataGlobal._id}`
       )
       .then((res) => {
 

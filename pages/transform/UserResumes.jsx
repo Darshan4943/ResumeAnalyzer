@@ -3,6 +3,8 @@ import React, { useEffect, useRef, useState } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
 import { templates } from "../../utils/data";
 import { useSelector } from "react-redux";
+import { PDFSvg, SearchIcon } from "../../utils/svg";
+import Fuse from "fuse.js";
 pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
 const selectedStyle = {
   borderTop: " 4px solid #06A9EF",
@@ -13,7 +15,6 @@ const PdfViewer = ({ pdfUrl, isAll, index, selected }) => {
   function onDocumentLoadSuccess(numPages) {
     setNumPages(numPages);
   }
-  console.log(123, selected);
   return (
     <div
       style={{
@@ -55,82 +56,117 @@ const PdfViewer = ({ pdfUrl, isAll, index, selected }) => {
   );
 };
 
-const UserResumes = ({ setSelect, setIsAll, isAll, resumeList, selected }) => {
+const UserResumes = ({
+  setSelect,
+  setIsAll,
+  isAll,
+  resumeList,
+  selected,
+  setCount,
+  selectedClient,
+}) => {
   const [data, setData] = useState([]);
   const taskRef = useRef(null);
   const userDataGlobal = useSelector((state) => state.userData);
-
+  const [allData, setAllData] = useState([]);
   useEffect(() => {
-    console.log("first");
     if (userDataGlobal.role == "recruiter") {
       setData(resumeList);
+      setAllData(resumeList);
+      console.log(75, resumeList);
       // setSelect(resumeList[0]);
     } else {
-      console.log("first");
       axios
         .get("https://freedygoservices.in/api/resume/" + userDataGlobal?._id)
         .then((response) => {
           setData(response.data.data);
+          setAllData(response.data.data);
+          setCount(response.data.data.length);
           setSelect(response.data.data[0]);
         })
         .catch((error) => {
           console.error("Error fetching data:", error);
         });
     }
-  }, [userDataGlobal]);
+  }, [userDataGlobal, selectedClient]);
 
-  return isAll ? (
-    <div>
-      <div className="fixed z-[200] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
-      <div
-        className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center  "
-        onClick={(e) => {
-          e.stopPropagation();
-          setIsAll(false);
-        }}
-      >
-        <div
-          ref={taskRef}
-          onWheel={(e) => e.stopPropagation()}
-          className="resumeListContainer absolute flex p-10 bg-white rounded-[24px] shadow-md  gap-6 flex-wrap   w-[65%] h-[90vh] overflow-y-auto items-center justify-center "
-        >
-          {data?.map((item, index) => (
-            <div
-              className="   transition-transform duration-300 ease-in-out hover:scale-105"
-              onClick={() => {
-                setIsAll(false);
-                setSelect(item);
-              }}
-              key={index}
-            >
-              <PdfViewer
-                isAll={isAll}
-                className="transition-transform duration-300 ease-in-out hover:scale-105"
-                pdfUrl={item?.resumeUrl}
-                index={item.resumeTemplateIndex}
+  const searchHandler = (value) => {
+    if (value.length > 0) {
+      const options = {
+        includeScore: true,
+        keys: [
+          "firstName",
+          "lastName",
+          "email",
+          "mobileNo",
+          "location",
+          "designation",
+          "fileName",
+        ],
+      };
+      const fuse = new Fuse(allData, options);
+      const result = fuse.search(value);
+      setData(result.map((item) => item.item));
+    } else {
+      setData(allData);
+    }
+  };
+  return (
+    <>
+      <div className="rounded-[16px] border bg-[#F9F9F9] border-[#DEDEDE] p-[16px] flex flex-col gap-[16px]">
+        <div className="flex flex-row items-center justify-between gap-[12px] ">
+          <div className="flex flex-row items-center gap-[12px] ">
+            <div className="flex flex-row gap-[8px] py-[8px] px-[12px] h-[40px] bg-[#fff] border border-[#DEDEDE] rounded-[30px] items-center">
+              <SearchIcon />
+              <input
+                type="text"
+                className="bg-[#fff] text-[#333333] placeholder:text-[#333333] "
+                placeholder="Search"
+                onChange={(e) => searchHandler(e.target.value)}
               />
             </div>
-          ))}
+          </div>
+          <span className="text-[14px] text-[#808080]">
+            {data?.length}
+            {" Items"}
+          </span>
         </div>
+        <div className="border-b-[1px] border-[#DEDEDE] w-full h-[1px]"></div>
+
+        {data?.length > 0 ? (
+          <div
+            className="flex flex-row flex-wrap gap-4   py-4  h-[247px] overflow-y-auto bg-[#FFFFFF] border-[1px] border-[#DEDEDE] rounded-[16px] p-[8px]"
+            // style={{ overflowX: "auto" }}
+          >
+            {data?.map((item, index) => (
+              <>
+                <div
+                  className="w-[98px] flex flex-col gap-[6px]  items-center py-4 min-h-[90px] rounded-[8px] "
+                  style={{
+                    background:
+                      item._id == selected?._id ? "#D1EDFF" : "transparent",
+                    height: "fit-content",
+                  }}
+                  onClick={() => {
+                    setIsAll(false);
+                    setSelect(item);
+                  }}
+                >
+                  <PDFSvg />
+                  <span className="text-[16px] text-[#333333]">
+                    {item.fileName}
+                  </span>
+                </div>
+              </>
+            ))}
+          </div>
+        ) : (
+          <div className="text-[20px] font-medium text-center w-full py-[24px]">
+            No Resume Available
+          </div>
+        )}
       </div>
-    </div>
-  ) : (
-    data?.map((item, index) => (
-      <div
-        className=""
-        onClick={() => {
-          setIsAll(false);
-          setSelect(item);
-        }}
-        key={index}
-      >
-        <PdfViewer
-          pdfUrl={item?.resumeUrl}
-          index={item.resumeTemplateIndex}
-          selected={item._id == selected._id}
-        />
-      </div>
-    ))
+    </>
   );
 };
 export default UserResumes;

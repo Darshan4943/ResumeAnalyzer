@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import { AnimatePresence, motion } from "framer-motion";
 import { useRouter } from "next/router";
 import { camelCase } from "../../utils/middleware";
+import axios from "axios";
 
 function CreateResume() {
   const [selectedFont, setSelectedFont] = useState("Roboto");
@@ -16,13 +17,13 @@ function CreateResume() {
   const router = useRouter();
   const [editId, setEnditId] = useState();
   const userData = router.query;
+  const { clientId } = router.query;
   const currentYear = new Date().getFullYear();
   const handleOutsideClick = (event) => {
     if (taskRef.current && !taskRef.current.contains(event.target)) {
       isSetEdit(false);
     }
   };
-
   useEffect(() => {
     document.addEventListener("mousedown", handleOutsideClick);
     return () => {
@@ -61,72 +62,95 @@ function CreateResume() {
   }
   const parsedDataSeter = () => {
     const parsedData = JSON.parse(localStorage.getItem("parsedResume"));
-    const {
-      first_name,
-      last_name,
-      emails,
-      phone_numbers,
-      profession,
-      summary,
-      address,
-      skills,
-    } = parsedData.basics;
-    const languages = parsedData.languages;
-    const educations = parsedData.educations;
-    const experience = parsedData.professional_experiences;
-    const courses = parsedData.issuing_organization;
-    setData({
-      ...data,
-      firstName: first_name,
-      lastName: last_name,
-      email: emails[0],
-      dial_code: phone_numbers[0].slice(0, 3),
-      mobileNumber: extractMobileNumber(phone_numbers[0]),
-      designation: profession,
-      summery: summary,
-      location: address,
-      skills: skills?.map((item) => ({
-        skill: item,
-        rating: [5, 5, 5, 5, 5],
-      })),
-      languages: languages?.map((item) => ({
-        languages: item.name,
-        rating: [3, 3, 3],
-      })),
-      education: educations?.map((item) => ({
-        qualification: item.description,
-        specialization: "",
-        instituteName: item.issuing_organization,
-        type: "full-time",
-        location: "",
-        duration: {
-          start: {
-            year: item.start_year ? item.start_year : currentYear,
-            month: null,
+    if (parsedData) {
+      const {
+        first_name,
+        last_name,
+        emails,
+        phone_numbers,
+        profession,
+        summary,
+        address,
+        skills,
+      } = parsedData.basics;
+      const languages = parsedData.languages;
+      const educations = parsedData.educations;
+      const experience = parsedData.professional_experiences;
+      const courses = parsedData.issuing_organization;
+      setData({
+        ...data,
+        clientId: clientId ? clientId : null,
+        firstName: first_name,
+        lastName: last_name,
+        email: emails[0],
+        dial_code: phone_numbers[0].slice(0, 3),
+        mobileNumber: extractMobileNumber(phone_numbers[0]),
+        designation: profession,
+        summery: summary,
+        location: address,
+        skills: skills?.map((item) => ({
+          skill: item,
+          rating: [5, 5, 5, 5, 5],
+        })),
+        languages: languages?.map((item) => ({
+          languages: item.name,
+          rating: [3, 3, 3],
+        })),
+        education: educations?.map((item) => ({
+          qualification: item.description,
+          specialization: "",
+          instituteName: item.issuing_organization,
+          type: "full-time",
+          location: "",
+          duration: {
+            start: {
+              year: item.start_year ? item.start_year : currentYear,
+              month: null,
+            },
+            end: {
+              year: item.end_year ? item.end_year : currentYear,
+              month: null,
+            },
           },
-          end: {
-            year: item.end_year ? item.end_year : currentYear,
-            month: null,
+        })),
+        experience: experience?.map((item) => ({
+          designation: item.title,
+          organization: item.company,
+          description: item.description,
+          currentlyWorking: false,
+          location: item.location,
+          duration: {
+            start: { year: item.start_date.year, month: null },
+            end: { year: item.end_date.year, month: null },
           },
-        },
-      })),
-      experience: experience?.map((item) => ({
-        designation: item.title,
-        organization: item.company,
-        description: item.description,
-        currentlyWorking: false,
-        location: item.location,
-        duration: {
-          start: { year: item.start_date.year, month: null },
-          end: { year: item.end_date.year, month: null },
-        },
-      })),
-      course: courses?.map((item) => ({
-        courseName: "",
-        issuedBy: item.issuing_organization,
-        discription: item.description,
-      })),
-    });
+        })),
+        course: courses?.map((item) => ({
+          courseName: "",
+          issuedBy: item.issuing_organization,
+          discription: item.description,
+        })),
+      });
+    }
+    if (clientId) {
+      axios
+        .get(`https://freedygoservices.in/api/client/getByClientId/${clientId}`)
+        .then((res) => {
+          const result = res.data.data;
+          setData({
+            ...data,
+            clientId,
+            designation: result.designation,
+            email: result.email,
+            firstName: result.firstName,
+            lastName: result.lastName,
+            location: result.location,
+            mobileNumber: result.mobileNo,
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
 
   useEffect(() => {
