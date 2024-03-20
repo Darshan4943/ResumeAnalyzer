@@ -124,18 +124,18 @@ const MobileView = ({ clickHandler, isLogin }) => {
         <div className=" flex flex-col gap-6 w-[100%] text-[#333333] ">
           <div className="flex flex-col items-center  px-[8px] py-[36px] gap-4">
             <div className="font-semibold text-[34px] leading-tight text-center ">
-              The Best AI Resume Creator
+              The Ultimate AI Resume Builder
             </div>
-            <div className="font-medium text-[14px] ">
+            <div className="font-medium text-[14px] text-center ">
               Craft compelling, recruiter-vetted resumes effortlessly with our
-              cutting-edge resume builder powered by AI Generation. Tailor
+              cutting-edge resume builder powered by Generative AI . Tailor
               resumes for each role swiftly, leveraging a myriad of remarkable
               features. Enhance your prospects of securing an interview and
-              distinguish yourself from competitors in just minutes.
+              distinguish yourself from competitors in just few minutes.
             </div>
             <button
               onClick={clickHandler}
-              className="px-9 py-4 bg-[#06A9EF] text-white rounded-[12px] text-[14px] font-semibold"
+              className="px-6 py-3 bg-[#06A9EF] text-white rounded-[12px] text-[14px] font-semibold"
               style={{ width: "fit-content" }}
             >
               Build My Resume
@@ -153,18 +153,16 @@ const MobileView = ({ clickHandler, isLogin }) => {
 
           <div className=" flex flex-col gap-6 w-[100%] text-[#333333] items-center ml:px-8 px-2">
             <div className="font-semibold  text-[34px] leading-tight text-center ">
-              Resume Templates for All Careers.
+            Resume Templates for All <span className="text-[#06A9EF]">Careers and Levels.</span>
             </div>
             <div className="font-medium text-[14px] ml:text-[20px] w-[95%] break-words text-center ">
-              Select one of our expertly designed resume templates, and you will
-              be able to quickly and easily create a resume that fits your needs
-              and style, even if you have never created one before using
-              pre-approved sections that have been approved by recruiters
-              worldwide.
+            <p>  Select one of our <span className="text-[#06A9EF]">expert-designed resume templates </span>and create a resume that fits your needs
+                and style.No Experienced needed!</p>
+              <p><span className="text-[#06A9EF]">Stand out from the crowd</span>  with a resume built on one of the best recruiter approved templates.</p>
             </div>
             <button
               onClick={clickHandler}
-              className="px-9 py-4 bg-[#06A9EF] text-[14px] text-white w-[auto] font-semibold rounded-[12px]"
+              className="px-6 py-3 bg-[#06A9EF] text-[14px] text-white w-[auto] font-semibold rounded-[12px]"
             >
               Get Started
             </button>
@@ -183,14 +181,17 @@ const MobileView = ({ clickHandler, isLogin }) => {
           <div className=" flex flex-col gap-6 w-[100%] text-[#000000] pl-[24px] items-center ml:px-8 px-6">
             <div className="flex flex-col gap-[24px] items-center">
               <div className="font-semibold text-[30px] leading-tight text-center">
-                <span className="text-[#06A9EF]">My Collection</span>
-                <p>is Your Personal Resume Inventory</p>
+              <span className="text-[#06A9EF]">My Collection</span> is Your
+            Personal Resume Inventory
               </div>
               <div className="font-medium text-[14px] text-[#333333] text-center ">
-                My Collection is your one-stop destination for organizing and
-                managing your personalized resume collection. Seamlessly store,
-                update, and tailor your resumes for various job opportunities
-                with ease.
+              My Collection is your one-stop destination for organizing and
+            managing your <span className="text-[#06A9EF]">personalized resume collections.</span> 
+              </div>
+              
+            <div className="font-medium text-[14px] text-[#333333] text-center ">
+            <span className="text-[#06A9EF]">Seamlessly store, update, and tailor</span> your differently crafted resumes for various job opportunities with
+            ease.
               </div>
               <button
                 onClick={() =>
@@ -198,7 +199,7 @@ const MobileView = ({ clickHandler, isLogin }) => {
                     ? router.push("/home/BuildResume")
                     : router.push("/auth?signin=true")
                 }
-                className="px-9 py-4 bg-[#06A9EF] text-white  rounded-[12px] text-[14px] font-semibold"
+                className="px-6 py-3 bg-[#06A9EF] text-white  rounded-[12px] text-[14px] font-semibold"
                 style={{ width: "fit-content" }}
               >
                 Get Started

@@ -280,6 +280,7 @@ function SubscriptionPlans({ fromMain }) {
                       {plan.features.map((feature, index) => (
                         <div key={index} className="flex gap-3 items-center">
                           <svg
+                          className="min-w-[20px]"
                             width="20"
                             height="18"
                             viewBox="0 0 20 18"
