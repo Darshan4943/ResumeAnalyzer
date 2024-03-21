@@ -89,7 +89,7 @@ const Column = ({ images, y }) => {
               className='rounded-[16px]'
               src={`/images/${src}`}
               alt='image'
-              fill
+          
               style={{
                 boxShadow: "0px 2px 15px 0px #00000033"
               }}

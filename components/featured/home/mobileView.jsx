@@ -102,7 +102,7 @@ const Column = ({ images, y }) => {
               className="rounded-[16px]"
               src={`/images/${src}`}
               alt="image"
-              fill
+              fill="true"
               style={{
                 boxShadow: "0px 2px 15px 0px #00000033",
               }}
@@ -175,6 +175,7 @@ const MobileView = ({ clickHandler, isLogin }) => {
             <img
               src="/images/resumeBuilder/resumeInventory.png"
               alt=""
+              fill="true"
               className={`w-[304px] h-[304px] object-contain`}
             />
           </div>
