@@ -11,7 +11,7 @@ function Files({ isList, tabIndex, setTabIndex, data, setData, setFolderData, fi
 
     const [clientResumes, setClientResumes] = useState()
     const dispatch = useDispatch();
-    console.log(files)
+
     const openFolder = (index, item) => {
 
         setClientId(data[index]._id);
@@ -57,10 +57,10 @@ function Files({ isList, tabIndex, setTabIndex, data, setData, setFolderData, fi
     return (
         <>
             {tab === 1 &&
-                <MyFolders isList={isList} selectedIndexes={selectedIndexes} setSelectedIndexes={setSelectedIndexes} setSelect={setSelect} select={select} setTabIndex={setTabIndex} setFolderData={setFolderData} tabIndex={tabIndex} data={data} setData={setData} files={files} setFiles={setFiles} clientData={clientData} setClientData={setClientData} tab={tab} openFolder={openFolder} />
+                <MyFolders isList={isList} selectedIndexes={selectedIndexes} setSelectedIndexes={setSelectedIndexes} setSelect={setSelect} select={select} setTabIndex={setTabIndex} setFolderData={setFolderData} tabIndex={tabIndex} data={data} setData={setData} files={files} setFiles={setFiles} clientData={clientData} setClientData={setClientData} tab={tab} openFolder={openFolder} toggleSelect={toggleSelect} />
             }
             {tab === 0 &&
-                <ClientFolders isList={isList} selectedIndexes={selectedIndexes} setSelectedIndexes={setSelectedIndexes} setSelect={setSelect} select={select} setTabIndex={setTabIndex} setFolderData={setFolderData} tabIndex={tabIndex} data={data} setData={setData} files={files} setFiles={setFiles} clientData={clientData} setClientData={setClientData} tab={tab} openClientFolder={openClientFolder} />
+                <ClientFolders isList={isList} selectedIndexes={selectedIndexes} setSelectedIndexes={setSelectedIndexes} setSelect={setSelect} select={select} setTabIndex={setTabIndex} setFolderData={setFolderData} tabIndex={tabIndex} data={data} setData={setData} files={files} setFiles={setFiles} clientData={clientData} setClientData={setClientData} tab={tab} openClientFolder={openClientFolder} toggleSelect={toggleSelect} />
             }
         </>
     )

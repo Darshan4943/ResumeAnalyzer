@@ -35,7 +35,7 @@ function Collection() {
 
     axios
       .get(
-        `https://freedygoservices.in/api/folder/getFolders/${userDataGlobal._id}`
+        `http://localhost:2000/api/folder/getFolders/${userDataGlobal._id}`
       )
       .then((res) => {
 
@@ -52,19 +52,19 @@ function Collection() {
   const handleFileChange = (event, folderName) => {
     const uploadedFiles = event.target.files;
     const newFiles = Array.from(uploadedFiles);
-  
+
     const newData = folderData.map(folder => {
-        if (folder.folderName === folderName) {
-            return {
-                ...folder,
-                files: newFiles
-            };
-        }
-        return folder;
+      if (folder.folderName === folderName) {
+        return {
+          ...folder,
+          files: newFiles
+        };
+      }
+      return folder;
     });
 
     setData(newData);
-};
+  };
 
 
   const addFolder = async () => {
@@ -85,7 +85,7 @@ function Collection() {
     }
 
   };
-  const callData = () => {
+  useEffect(() => {
 
     axios
       .get(
@@ -100,10 +100,8 @@ function Collection() {
         console.log(err);
       });
 
-  }
-  useEffect(() => {
-    callData();
-  }, [tab, userDataGlobal]);
+
+  }, [tab, userDataGlobal,]);
 
 
 

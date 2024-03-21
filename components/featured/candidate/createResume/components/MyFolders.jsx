@@ -1,6 +1,6 @@
 import React from 'react'
 
-function MyFolders({ isList, tabIndex, setTabIndex, data, setData, setFolderData, files, setFiles, clientData, setClientData, tab, select, setSelect, selectedIndexes, setSelectedIndexes,openFolder }) {
+function MyFolders({toggleSelect, isList, tabIndex, setTabIndex, data, setData, setFolderData, files, setFiles, clientData, setClientData, tab, select, setSelect, selectedIndexes, setSelectedIndexes,openFolder }) {
     return (
         <div className=''>
             {tabIndex === 0 &&
