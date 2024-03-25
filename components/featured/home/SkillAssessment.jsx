@@ -22,7 +22,7 @@ function SkillAssessment({ isLogin }) {
 
   return (
     <>
-      <div class=" scr1024:py-[120px] sm:px-6 px-3 pt-6 pb-12 scr1024:px-[80px]  bg-SkillAssessment bg-cover bg-no-repeat min-h-[350px] scr360:min-h-[370px] sm:min-h-[400px] scr540:min-h-[440px] ms:min-h-[480px] scr700:min-h-[530px] ml:min-h-[570px] scr1024:min-h-[30vw]  ">
+      <div className=" scr1024:py-[120px] sm:px-6 px-3 pt-6 pb-12 scr1024:px-[80px]  bg-SkillAssessment bg-cover bg-no-repeat min-h-[350px] scr360:min-h-[370px] sm:min-h-[400px] scr540:min-h-[440px] ms:min-h-[480px] scr700:min-h-[530px] ml:min-h-[570px] scr1024:min-h-[30vw]  ">
         <MouseParallaxContainer
           globalFactorX={0.4}
           globalFactorY={0.4}

@@ -62,7 +62,7 @@ function Footer() {
             </div>
         </div>
         <div className="Footer_secondContainer ">
-          <div className="flex gap-4 footerThird w-full scr420:justify-center justify-between break-word pt-6">
+          <div className="flex gap-4 footerThird ml:w-[45%] scr420:justify-between justify-between break-word pt-6">
             <div className="flex flex-col justify-between gap-4  flex-wrap address">
               <div className="footer_sub_address">
                 <div>
@@ -114,7 +114,7 @@ function Footer() {
 
             </div>
           </div>
-          <div className="footer_input_conatainer">
+          <div className="footer_input_conatainer ml:w-[60%]  items-center">
             <p className="footer_input_conatainer_P text-center">
               Like to stay market relevant  with news and updates?{" "}
             </p>
@@ -129,7 +129,7 @@ function Footer() {
               <div className="footer_inner_input_box"></div>
               <button className="footer_input_btn">Subscribe</button>
             </div>
-            <div className="flex gap-4 justify-center">
+            {/* <div className="flex gap-4 justify-center">
               <img
                 className="playstore"
                 src="/images/playStore.png"
@@ -140,7 +140,7 @@ function Footer() {
                 src="/images/iosStore.png"
                 alt=""
               />
-            </div>
+            </div> */}
           </div>
           <div className="mobile">
               <div className=" flex sm:gap-6 gap-4 items-center">

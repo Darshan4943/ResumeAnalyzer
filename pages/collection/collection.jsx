@@ -13,9 +13,10 @@ function Collection() {
   const userDataGlobal = useSelector((state) => state.userData);
   const dispatch = useDispatch();
   const [isCreate, setIsCreate] = useState(false)
+  const [folderData, setFolderData] = useState([]);
   const [tabIndex, setTabIndex] = useState(0)
   const [data, setData] = useState()
-  const [clientData,setClientData] = useState()
+  const [clientData, setClientData] = useState()
   const [isCreateFolder, setIsCreateFolder] = useState(false)
   const [folderName, setFolderName] = useState('Untitled folder');
   const inputRef = useRef(null);
@@ -31,32 +32,32 @@ function Collection() {
   }, [isCreate]);
 
   useEffect(() => {
-  
+
     axios
       .get(
-        `https://freedygoservices.in/api/folder/getFolders/${userDataGlobal._id}`
+        `http://localhost:2000/api/folder/getFolders/${userDataGlobal._id}`
       )
       .then((res) => {
+
         setData(res.data.data);
         dispatch(reCallUserData());
       })
       .catch((err) => {
         console.log(err);
       });
- 
-  }, [tab]);
 
+  }, [tab]);
 
 
   const handleFileChange = (event, folderName) => {
     const uploadedFiles = event.target.files;
     const newFiles = Array.from(uploadedFiles);
 
-    const newData = data.map(folder => {
-      if (folder.name === folderName) {
+    const newData = folderData.map(folder => {
+      if (folder.folderName === folderName) {
         return {
           ...folder,
-          files: [...folder.files, ...newFiles]
+          files: newFiles
         };
       }
       return folder;
@@ -65,43 +66,42 @@ function Collection() {
     setData(newData);
   };
 
+
   const addFolder = async () => {
- 
-      try {
-        const newFolderData = {
-          folderName: folderName,
-          recruiterId: userDataGlobal._id
-        };
 
-        const response = await axios.post("https://freedygoservices.in/api/folder/create", newFolderData);
+    try {
+      const newFolderData = {
+        folderName: folderName,
+        recruiterId: userDataGlobal._id
+      };
 
-        toast.success("Folder created successfully");
-        setIsCreateFolder(false);
-        setFolderName('Untitled folder');
-      } catch (error) {
-        console.error('Error creating folder:', error);
-      }
-    
+      const response = await axios.post("http://localhost:2000/api/folder/create", newFolderData);
+
+      toast.success("Folder created successfully");
+      setIsCreateFolder(false);
+      setFolderName('Untitled folder');
+    } catch (error) {
+      console.error('Error creating folder:', error);
+    }
+
   };
-  const callData = () => {
-
-      axios
-        .get(
-          `https://freedygoservices.in/api/client/getByRecruiter/${userDataGlobal._id}`
-        )
-        .then((res) => {
-         
-          setClientData(res.data.data);
-
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-  
-  }
   useEffect(() => {
-    callData();
-  }, [tab,userDataGlobal]);
+
+    axios
+      .get(
+        `https://freedygoservices.in/api/client/getByRecruiter/${userDataGlobal._id}`
+      )
+      .then((res) => {
+
+        setClientData(res.data.data);
+
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+
+  }, [tab, userDataGlobal,]);
 
 
 
@@ -255,17 +255,19 @@ function Collection() {
                       </svg>
                       New Folder
                     </div>
-                    <div className='flex gap-1 items-center upload-btn-wrapper'>
+                    {tabIndex === 1 &&
+                      <div className='flex gap-1 items-center upload-btn-wrapper'>
 
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 
-                        <g mask="url(#mask0_1304_20136)">
-                          <path d="M11.25 18.3846H12.7499V13.9499L14.6 15.7999L15.6538 14.7307L12 11.0769L8.34615 14.7307L9.41535 15.7846L11.25 13.9499V18.3846ZM6.3077 21.5C5.80257 21.5 5.375 21.325 5.025 20.975C4.675 20.625 4.5 20.1974 4.5 19.6923V4.3077C4.5 3.80257 4.675 3.375 5.025 3.025C5.375 2.675 5.80257 2.5 6.3077 2.5H14.25L19.5 7.74995V19.6923C19.5 20.1974 19.325 20.625 18.975 20.975C18.625 21.325 18.1974 21.5 17.6922 21.5H6.3077ZM13.5 8.49995V3.99998H6.3077C6.23077 3.99998 6.16024 4.03203 6.09612 4.09613C6.03202 4.16024 5.99997 4.23077 5.99997 4.3077V19.6923C5.99997 19.7692 6.03202 19.8397 6.09612 19.9038C6.16024 19.9679 6.23077 20 6.3077 20H17.6922C17.7692 20 17.8397 19.9679 17.9038 19.9038C17.9679 19.8397 18 19.7692 18 19.6923V8.49995H13.5Z" fill="#1C1B1F" />
-                        </g>
-                      </svg>
-                      <input multiple type="file" accept=".pdf,.doc,.docx" onChange={(event) => handleFileChange(event, folderData.name)} />
-                      Upload Files
-                    </div>
+                          <g mask="url(#mask0_1304_20136)">
+                            <path d="M11.25 18.3846H12.7499V13.9499L14.6 15.7999L15.6538 14.7307L12 11.0769L8.34615 14.7307L9.41535 15.7846L11.25 13.9499V18.3846ZM6.3077 21.5C5.80257 21.5 5.375 21.325 5.025 20.975C4.675 20.625 4.5 20.1974 4.5 19.6923V4.3077C4.5 3.80257 4.675 3.375 5.025 3.025C5.375 2.675 5.80257 2.5 6.3077 2.5H14.25L19.5 7.74995V19.6923C19.5 20.1974 19.325 20.625 18.975 20.975C18.625 21.325 18.1974 21.5 17.6922 21.5H6.3077ZM13.5 8.49995V3.99998H6.3077C6.23077 3.99998 6.16024 4.03203 6.09612 4.09613C6.03202 4.16024 5.99997 4.23077 5.99997 4.3077V19.6923C5.99997 19.7692 6.03202 19.8397 6.09612 19.9038C6.16024 19.9679 6.23077 20 6.3077 20H17.6922C17.7692 20 17.8397 19.9679 17.9038 19.9038C17.9679 19.8397 18 19.7692 18 19.6923V8.49995H13.5Z" fill="#1C1B1F" />
+                          </g>
+                        </svg>
+                        <input multiple type="file" accept=".pdf,.doc,.docx" onChange={(event) => handleFileChange(event, folderData.folderName)} />
+                        Upload Files
+                      </div>
+                    }
                     <div className='flex gap-1 items-center'>
 
                       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -286,7 +288,7 @@ function Collection() {
 
             </button>
             <div className='flex flex-col gap-2 w-full' >
-              <button onClick={() => {setTab(0);setTabIndex(0)}} className={`rounded-[30px] text-[16px] font-semibold px-6 py-2 flex gap-2 justify-start items-center  ${tab===0 && "bg-[#C2E7FF]"}   `}>
+              <button onClick={() => { setTab(0); setTabIndex(0) }} className={`rounded-[30px] text-[16px] font-semibold px-6 py-2 flex gap-2 justify-start items-center  ${tab === 0 && "bg-[#C2E7FF]"}   `}>
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
 
                   <g mask="url(#mask0_1148_17425)">
@@ -297,7 +299,7 @@ function Collection() {
                 My Clients
 
               </button>
-              <button onClick={() => {setTab(1);setTabIndex(0)}} className= {`rounded-[30px] text-[16px] font-semibold px-6 py-2 flex gap-2 justify-start items-center  ${tab===1 && "bg-[#C2E7FF]"}  `}>
+              <button onClick={() => { setTab(1); setTabIndex(0) }} className={`rounded-[30px] text-[16px] font-semibold px-6 py-2 flex gap-2 justify-start items-center  ${tab === 1 && "bg-[#C2E7FF]"}  `}>
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
 
                   <g mask="url(#mask0_1148_17425)">
@@ -335,7 +337,7 @@ function Collection() {
         </div>
 
 
-        <Folders tabIndex={tabIndex} setTabIndex={setTabIndex} data={data} setData={setData} clientData={clientData} setClientData={setClientData} tab={tab}/>
+        <Folders folderData={folderData} setFolderData={setFolderData} tabIndex={tabIndex} setTabIndex={setTabIndex} data={data} setData={setData} clientData={clientData} setClientData={setClientData} tab={tab} />
 
 
       </div>
