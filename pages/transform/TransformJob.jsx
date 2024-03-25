@@ -113,7 +113,7 @@ function TransformJob() {
                   }))}
                   className="my-4 outline outline-offset-1 outline-blue rounded-[8px]"
                   name=""
-                  placeholder="Search"
+                  placeholder="Select"
                   value={selectedClient}
                   onChange={(data) => selectHandler(data)}
                   styles={{

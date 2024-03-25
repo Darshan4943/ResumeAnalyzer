@@ -143,7 +143,7 @@ const PersonalDetails = ({
   };
 
   const [dropdown, setDropdown] = useState(false);
-  const [selectedItem, setSelectedItem] = useState(telCode[telCode.length - 2]);
+  const [selectedItem, setSelectedItem] = useState();
   const [searchTerm, setSearchTerm] = useState("");
   const [showInput, setShowInput] = useState(false);
   const handleSearch = (e) => {
@@ -299,7 +299,7 @@ const PersonalDetails = ({
                                   options={filteredTelCode}
                                   className="w-[100%] flex  items-center py-1  rounded-[8px]"
                                   name=""
-                                  placeholder="Search"
+                                  placeholder="Select"
                                   value={selectedItem}
                                   onChange={handleItemClick}
                                   getOptionLabel={(option) => (

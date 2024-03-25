@@ -4,6 +4,7 @@ import { useDispatch, useSelector, useStore } from "react-redux";
 import { userAction } from "./actions/user";
 import { jwtDecode } from "jwt-decode";
 import { setJob } from "./actions";
+import moment from "moment";
 
 export const Api = () => {
   const store = useStore();
@@ -12,23 +13,16 @@ export const Api = () => {
 
   const dispatch = useDispatch();
   const reCallUser = useSelector((state) => state.reCallUser);
-  function shuffle(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-      let j = Math.floor(Math.random() * (i + 1));
-      let temp = array[i];
-      array[i] = array[j];
-      array[j] = temp;
-    }
-    return array;
-  }
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      const token = JSON.parse( localStorage.getItem("authToken"));
+      const token = JSON.parse(localStorage.getItem("authToken"));
       if (token && token != "undefined") {
         const decoded = jwtDecode(token.token);
         axios
-          .get("https://freedygoservices.in/api/skiloteckuser/user/" + decoded._id)
+          .get(
+            "https://freedygoservices.in/api/skiloteckuser/user/" + decoded._id
+          )
           .then((res) => {
             const decode = jwtDecode(res.data.data);
             dispatch(
@@ -44,7 +38,34 @@ export const Api = () => {
       }
     }
   }, [reCallUser]);
+
   useEffect(() => {
+    if (userDataGlobal) {
+      axios
+        .get(
+          "https://freedygoservices.in/api/subscription/" + userDataGlobal._id
+        )
+        .then((res) => {
+          localStorage.setItem("uploadCount", res.data.data.resumeUpladed);
+          if (new Date(moment().format()) > new Date(res.data.data.endDate)) {
+            axios
+              .get(
+                "https://freedygoservices.in/api/subscription/update/" +
+                  userDataGlobal._id
+              )
+              .then((res) => {
+                console.log(res.data);
+              })
+              .catch((err) => {
+                console.log(err);
+              });
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+
     if (userDataGlobal?.skills) {
       axios
         .post("https://freedygoservices.in/api/job/getAll", {

@@ -121,7 +121,7 @@ const UserResumes = ({
               <input
                 type="text"
                 className="bg-[#fff] text-[#333333] placeholder:text-[#333333] "
-                placeholder="Search"
+                placeholder="Select"
                 onChange={(e) => searchHandler(e.target.value)}
               />
             </div>

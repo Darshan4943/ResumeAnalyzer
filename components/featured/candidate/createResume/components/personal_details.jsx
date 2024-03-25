@@ -31,7 +31,7 @@ const PersonalDetails = ({ setData, data }) => {
     const filteredCodes = telCode.filter(filterLogic);
     setFilteredTelCode(filteredCodes);
   }, [telCode, searchTerm]);
-  const [selectedItem, setSelectedItem] = useState(telCode[telCode.length - 2]);
+  const [selectedItem, setSelectedItem] = useState();
 
   const handleItemClick = (item) => {
     setSelectedItem(item);
@@ -256,7 +256,7 @@ const PersonalDetails = ({ setData, data }) => {
                               options={filteredTelCode}
                               className="w-[100%] flex  items-center py-1  rounded-[8px]"
                               name=""
-                              placeholder="Search"
+                              placeholder="Select"
                               value={selectedItem}
                               onChange={handleItemClick}
                               getOptionLabel={(option) => (

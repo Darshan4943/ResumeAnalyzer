@@ -11,7 +11,6 @@ function MyPurchase() {
   const [plan, setPlan] = useState({});
 
   const [subscription, setSubscription] = useState(null);
-  console.log(12, subscription);
   const userDataGlobal = useSelector((state) => state.userData);
   useEffect(() => {
     axios
@@ -28,7 +27,6 @@ function MyPurchase() {
         console.log(err);
       });
   }, [userDataGlobal]);
-  console.log(29, subscription);
   return (
     <div className="flex flex-col gap-8  min-h-[60vh]">
       {subscription ? (

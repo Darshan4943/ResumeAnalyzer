@@ -23,7 +23,9 @@ const CandidateAiPower = ({
   const handleButtonClick = () => {
     fileRef.current.click();
   };
+  const { clientId } = router.query;
   const [fileData, setFileData] = useState(null);
+  const [uploadLimit, setUploadLimit] = useState(0);
   const handleFileChange = (event) => {
     event.preventDefault();
     const selectedFile = event.target.files[0];
@@ -54,7 +56,7 @@ const CandidateAiPower = ({
         setfile(file);
         localStorage.setItem("parsedResume", JSON.stringify(res.data.data));
         router.push({
-          pathname: "/home/createResume",
+          pathname: "/home/createResume?clientId=" + clientId,
         });
       })
       .catch((err) => {
@@ -156,7 +158,7 @@ const CandidateAiPower = ({
       url: dataFromApi.url,
     });
   };
-
+// TODO
   return (
     <>
       {tabindex == 1 && (

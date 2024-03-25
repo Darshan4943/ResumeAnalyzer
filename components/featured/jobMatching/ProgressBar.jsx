@@ -5,7 +5,7 @@ const Progress_bar = ({ progress }) => {
     width: "100%",
     // backgroundColor: "#8080804d",
     // margin: 50
-    height: "12px",
+    height: "10px",
     display: "flex",
     alignItems: "flex-start",
     position: "relative",
@@ -18,7 +18,7 @@ const Progress_bar = ({ progress }) => {
     width: `${progress}%`,
     backgroundColor: "#0C8A0A",
     borderRadius: 40,
-    height: "12px",
+    height: "10px",
     textAlign: "right",
     display: "flex",
     alignItems: "center",
@@ -44,7 +44,7 @@ const Progress_bar = ({ progress }) => {
         </div>
         <span className="text-[14px] font-semibold">{progress}%</span>
       </div>
-    </div>
+  </div>
   );
 };
 
