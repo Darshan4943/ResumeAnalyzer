@@ -347,7 +347,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                       <View
                         style={{
                           flexDirection: "row",
-                          gap: "0.25rem",
+                          gap: "8px",
                           marginTop: "4px",
                         }}
                       >
@@ -417,9 +417,9 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                 </View>
                 <View
                   style={{
-                    display: "grid",
-                    gridTemplateColumns: "2 1fr",
-                    gap: " 16px",
+                    display: "flex",
+                    flexDirection:"column",
+                      gap:"8px",
                     marginLeft: "16px",
                   }}
                 >
@@ -507,7 +507,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                 style={{
                   color: "#787879",
                   fontSize: "16px",
-                  paddingLeft: 8,
+                  paddingLeft: 36,
                   fontFamily: `${selectedFont} 400`,
                 }}
               >
@@ -572,6 +572,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                         display: "flex",
                         justifyContent: "space-between",
                         alignItems: "start",
+                        width: "95%",
                       }}
                     >
                       <View
@@ -637,6 +638,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
               </View>
             </View>
           </View>
+          
           <View
             style={{
               display: "flex",
@@ -657,8 +659,8 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
               style={{
                 display: "flex",
                 flexDirection: "column",
-                gap: 16,
-                width: "90%",
+                gap: 24,
+                width: "95%",
               }}
             >
               <View
@@ -683,7 +685,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                 ></View>
               </View>
               <View
-                style={{ display: "flex", flexDirection: "column", gap: 2 }}
+                style={{ display: "flex", flexDirection: "column", gap: 16 }}
               >
                 {data?.experience?.map((detail, index) => (
                   <View
@@ -696,8 +698,10 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                         display: "flex",
                         flexDirection: "row",
                         gap: 8,
+                        width: "98%",
                         alignItems: "center",
                         justifyContent: "space-between",
+                        
                       }}
                     >
                       <View
@@ -758,7 +762,6 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
               </View>
             </View>
           </View>
-
           {data?.skills?.length > 0 && (
             <View
               style={{
@@ -775,7 +778,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                   flexDirection: "row",
                   gap: 8,
                   alignItems: "center",
-                  width: "100%",
+                
                 }}
               >
                 <Image
@@ -785,7 +788,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                     display: "flex",
                     alignItems: "flex-end",
                   }}
-                  src="/images/services/profile_img.png"
+                  src="/images/services/skills.png"
                   alt=""
                 />
                 <View
@@ -819,7 +822,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                   flexDirection: "column",
                   gap: 8,
                   justifyContent: "space-between",
-                  width: "100%",
+                  width: "95%",
                 }}
               >
                 {data?.skills?.map((detail, index) => (
@@ -833,6 +836,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                       justifyContent: "space-between",
                       gap: "8",
                       width: "100%",
+                      paddingLeft:36
                     }}
                   >
                     <Text
@@ -902,6 +906,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                   gap: 16,
                   alignItems: "flex-start",
                   paddingTop: "26px",
+                 
                 }}
               >
                 <View
@@ -960,8 +965,9 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                   {item?.subSection?.map((detail, index) => (
                     <View
                       key={index}
-                      style={{ display: "flex", alignItems: "start", gap: 4 }}
+                      style={{ display: "flex", alignItems: "start", gap: 4 ,   marginLeft:"36px",}}
                       wrap={false}
+                      
                     >
                       {detail.title.length > 0 && (
                         <View
@@ -970,6 +976,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                             flexDirection: "row",
                             gap: 8,
                             alignItems: "center",
+                         
                             justifyContent: "space-between",
                           }}
                         >
