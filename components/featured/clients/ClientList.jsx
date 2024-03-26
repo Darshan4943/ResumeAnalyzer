@@ -35,7 +35,7 @@ function ClientList({ setTabIndex, tabIndex, details }) {
 
   return (
     <>
-      <div className="rounded-[16px]  flex flex-col gap-4 w-[98%]">
+      <div className="rounded-[16px]  flex flex-col gap-4 w-[98%] break-all">
         <div className="text-[20px] font-medium">
           Total Clients ({details?.length})
         </div>
@@ -44,7 +44,7 @@ function ClientList({ setTabIndex, tabIndex, details }) {
             <div
               onClick={() => toggleDetails(detail)}
               key={index}
-              className="flex flex-col gap-4 cursor-pointer sm:p-6 p-4 rounded-[24px] min-w-[300px]"
+              className="flex flex-col gap-4 cursor-pointer sm:p-6 p-4 rounded-[24px] min-w-[300px]  max-w-[300px]"
               style={{ boxShadow: "0px 2px 7px 0px #00000040" }}
             >
               <div className="flex justify-center relative">

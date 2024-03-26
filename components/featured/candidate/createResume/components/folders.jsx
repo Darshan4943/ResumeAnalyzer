@@ -13,7 +13,8 @@ function Folders({ tabIndex, setTabIndex, data, setData, clientData, setClientDa
     const [selectedIndexes, setSelectedIndexes] = useState([]);
     const [selectAll, setSelectAll] = useState(false);
     const [isList, setIsList] = useState(false)
-
+    const [isMove, setIsMove] = useState(false)
+   
     const handleFileChange = (event, folderName) => {
         const uploadedFiles = event.target.files;
         const newFiles = Array.from(uploadedFiles);
@@ -67,12 +68,12 @@ function Folders({ tabIndex, setTabIndex, data, setData, clientData, setClientDa
         switch (sort[selectedIndex]) {
             case "A to Z":
                 return data.sort((a, b) => a.firstName.localeCompare(b.firstName));
-                
+
             case "Date Modified":
                 return data.sort((a, b) => a.createdAt.localeCompare(b.createdAt));
-               
+
             case "Type":
-               
+
             default:
                 return data;
         }
@@ -128,13 +129,14 @@ function Folders({ tabIndex, setTabIndex, data, setData, clientData, setClientDa
 
 
                                     <div className='flex gap-3 min-w-[160px] justify-between'>
-                                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <div className=' cursor-pointer' onClick={() => setIsMove(!isMove)}>
+                                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
 
-                                            <g mask="url(#mask0_1381_18129)">
-                                                <path d="M10.1641 11.6654L8.8099 13.0195L9.97656 14.1862L13.3307 10.832L9.97656 7.47786L8.8099 8.64453L10.1641 9.9987H6.66406V11.6654H10.1641ZM3.33073 16.6654C2.8724 16.6654 2.48003 16.5022 2.15365 16.1758C1.82726 15.8494 1.66406 15.457 1.66406 14.9987V4.9987C1.66406 4.54036 1.82726 4.148 2.15365 3.82161C2.48003 3.49523 2.8724 3.33203 3.33073 3.33203H8.33073L9.9974 4.9987H16.6641C17.1224 4.9987 17.5148 5.16189 17.8411 5.48828C18.1675 5.81467 18.3307 6.20703 18.3307 6.66536V14.9987C18.3307 15.457 18.1675 15.8494 17.8411 16.1758C17.5148 16.5022 17.1224 16.6654 16.6641 16.6654H3.33073ZM3.33073 14.9987H16.6641V6.66536H9.3099L7.64323 4.9987H3.33073V14.9987Z" fill="#333333" />
-                                            </g>
-                                        </svg>
-
+                                                <g mask="url(#mask0_1381_18129)">
+                                                    <path d="M10.1641 11.6654L8.8099 13.0195L9.97656 14.1862L13.3307 10.832L9.97656 7.47786L8.8099 8.64453L10.1641 9.9987H6.66406V11.6654H10.1641ZM3.33073 16.6654C2.8724 16.6654 2.48003 16.5022 2.15365 16.1758C1.82726 15.8494 1.66406 15.457 1.66406 14.9987V4.9987C1.66406 4.54036 1.82726 4.148 2.15365 3.82161C2.48003 3.49523 2.8724 3.33203 3.33073 3.33203H8.33073L9.9974 4.9987H16.6641C17.1224 4.9987 17.5148 5.16189 17.8411 5.48828C18.1675 5.81467 18.3307 6.20703 18.3307 6.66536V14.9987C18.3307 15.457 18.1675 15.8494 17.8411 16.1758C17.5148 16.5022 17.1224 16.6654 16.6641 16.6654H3.33073ZM3.33073 14.9987H16.6641V6.66536H9.3099L7.64323 4.9987H3.33073V14.9987Z" fill="#333333" />
+                                                </g>
+                                            </svg>
+                                        </div>
                                         <div className='min-w-[1px] h-full bg-[#06A9EF] '> </div>
                                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
 
@@ -272,7 +274,7 @@ function Folders({ tabIndex, setTabIndex, data, setData, clientData, setClientDa
                 </div>
 
                 <div className='h-[1px] w-full bg-[#DEDEDE]'></div>
-                <Files isList={isList} selectedIndexes={selectedIndexes} setSelectedIndexes={setSelectedIndexes} setSelect={setSelect} select={select} setTabIndex={setTabIndex} setFolderData={setFolderData} tabIndex={tabIndex} data={data} setData={setData} files={files} setFiles={setFiles} clientData={clientData} setClientData={setClientData} tab={tab} />
+                <Files isMove={isMove} setIsMove={setIsMove} isList={isList} selectedIndexes={selectedIndexes} setSelectedIndexes={setSelectedIndexes} setSelect={setSelect} select={select} setTabIndex={setTabIndex} setFolderData={setFolderData} tabIndex={tabIndex} data={data} setData={setData} files={files} setFiles={setFiles} clientData={clientData} setClientData={setClientData} tab={tab} />
 
             </div>
         </div>

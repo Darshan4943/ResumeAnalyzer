@@ -5,8 +5,8 @@ import { useDispatch } from 'react-redux';
 import ClientFolders from './clientFolders';
 import MyFolders from './MyFolders';
 
-function Files({ isList, tabIndex, setTabIndex, data, setData, setFolderData, files, setFiles, clientData, setClientData, tab, select, setSelect, selectedIndexes, setSelectedIndexes }) {
-
+function Files({ setIsMove,isMove,isList, tabIndex, setTabIndex, data, setData, setFolderData, files, setFiles, clientData, setClientData, tab, select, setSelect, selectedIndexes, setSelectedIndexes }) {
+   
     const [clientId, setClientId] = useState()
 
     const [clientResumes, setClientResumes] = useState()
@@ -57,7 +57,7 @@ function Files({ isList, tabIndex, setTabIndex, data, setData, setFolderData, fi
     return (
         <>
             {tab === 1 &&
-                <MyFolders isList={isList} selectedIndexes={selectedIndexes} setSelectedIndexes={setSelectedIndexes} setSelect={setSelect} select={select} setTabIndex={setTabIndex} setFolderData={setFolderData} tabIndex={tabIndex} data={data} setData={setData} files={files} setFiles={setFiles} clientData={clientData} setClientData={setClientData} tab={tab} openFolder={openFolder} toggleSelect={toggleSelect} />
+                <MyFolders setIsMove={setIsMove} isMove={isMove} isList={isList} selectedIndexes={selectedIndexes} setSelectedIndexes={setSelectedIndexes} setSelect={setSelect} select={select} setTabIndex={setTabIndex} setFolderData={setFolderData} tabIndex={tabIndex} data={data} setData={setData} files={files} setFiles={setFiles} clientData={clientData} setClientData={setClientData} tab={tab} openFolder={openFolder} toggleSelect={toggleSelect} />
             }
             {tab === 0 &&
                 <ClientFolders isList={isList} selectedIndexes={selectedIndexes} setSelectedIndexes={setSelectedIndexes} setSelect={setSelect} select={select} setTabIndex={setTabIndex} setFolderData={setFolderData} tabIndex={tabIndex} data={data} setData={setData} files={files} setFiles={setFiles} clientData={clientData} setClientData={setClientData} tab={tab} openClientFolder={openClientFolder} toggleSelect={toggleSelect} />
