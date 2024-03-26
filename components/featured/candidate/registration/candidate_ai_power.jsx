@@ -56,7 +56,7 @@ const CandidateAiPower = ({
         setfile(file);
         localStorage.setItem("parsedResume", JSON.stringify(res.data.data));
         router.push({
-          pathname: "/home/createResume?clientId=" + clientId,
+          pathname: `/home/createResume${'?clientId='+clientId}` ,
         });
       })
       .catch((err) => {

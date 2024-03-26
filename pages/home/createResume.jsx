@@ -12,6 +12,7 @@ function CreateResume() {
   const [selectedFont, setSelectedFont] = useState("Roboto");
   const [selectedColor, setSelectedColor] = useState();
   const [selectedResumeIndex, setSelectedResumeIndex] = useState();
+  const [render, setRender] = useState(true);
   const userDataGlobal = useSelector((state) => state.userData);
   const taskRef = useRef(null);
   const router = useRouter();
@@ -171,6 +172,10 @@ function CreateResume() {
       }
     }
   }, [userData]);
+  useEffect(() => {
+    setRender(false)
+    setTimeout(() => setRender(true), 400);
+  }, [data]);
   return (
     <div>
       <div className=" bg-[#F9F9F9] pt-2 ml:px-6 ">
@@ -197,6 +202,7 @@ function CreateResume() {
                 selectedFont={selectedFont}
                 isEdit={userData.isEdit}
                 id={editId}
+                render={render}
               />
             </div>
           </div>
