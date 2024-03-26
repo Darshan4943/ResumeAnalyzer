@@ -459,8 +459,8 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                         fontFamily: `${selectedFont} 400`,
                       }}
                     >
-                       {detail.duration?.start?.year !== "Year" &&
-                              `${detail.duration?.start?.year}-${detail.duration?.end?.year}`}
+                      {detail.duration?.start?.year !== "Year" &&
+                        `${detail.duration?.start?.year}-${detail.duration?.end?.year}`}
                     </Text>
                   </View>
                 </View>
@@ -502,7 +502,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
               <View
                 wrap={false}
                 key={index}
-                style={{ flexDirection: "column", gap: 12 }}
+                style={{ flexDirection: "column", gap: 4 }}
               >
                 <View style={{ flexDirection: "column", gap: 8 }}>
                   <Text
@@ -533,10 +533,10 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                       fontFamily: `${selectedFont} 400`,
                     }}
                   >
-                   {detail.duration?.start?.year !== "Year" &&
-                        `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
-                          ? "Present"
-                          : detail.duration?.end?.year}
+                    {detail.duration?.start?.year !== "Year" &&
+                      `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
+                        ? "Present"
+                        : detail.duration?.end?.year}
                          `}
                   </Text>
                 </View>

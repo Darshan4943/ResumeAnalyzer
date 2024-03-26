@@ -539,6 +539,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
               paddingHorizontal: 24,
               paddingTop: 24,
               paddingBottom: 33,
+              marginLeft:-4
             }}
           >
             <Svg
@@ -896,6 +897,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                       display: "flex",
                       flexDirection: "column",
                       marginLeft: 26,
+                      gap:16
                     }}
                   >
                     {item.subSection?.map((detail, index) => (
@@ -909,7 +911,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                         }}
                       >
                         <Svg
-                          style={{ marginTop: 24 }}
+                          style={{ marginTop: 8 }}
                           width="20"
                           height="20"
                           viewBox="0 0 20 20"
@@ -933,8 +935,8 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                               width: "1px",
                               backgroundColor: "#83C3C9",
                               height: "90%",
-                              marginLeft: -33,
-                              marginTop: 42.5,
+                              marginLeft: -34.5,
+                              marginTop: 28,
                             }}
                           ></View>
                         )}

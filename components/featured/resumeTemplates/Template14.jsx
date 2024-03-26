@@ -161,7 +161,7 @@ function Template14({ data, selectedColor, selectedFont }) {
                 key={index}
                 style={{ gap: 6, display: "flex", flexDirection: "column" }}
               >
-                <View style={{ display: "flex", gap: 10 }}>
+                <View style={{ display: "flex", gap: 10, flexDirection: "row" }}>
                   <Text
                     style={{
                       fontSize: 18,
@@ -195,9 +195,9 @@ function Template14({ data, selectedColor, selectedFont }) {
                   >
                     {" "}
                     {detail.duration?.start?.year !== "Year" &&
-                        `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
-                          ? "Present"
-                          : detail.duration?.end?.year}
+                      `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
+                        ? "Present"
+                        : detail.duration?.end?.year}
                          `}
                   </Text>
                   <Text
@@ -237,7 +237,7 @@ function Template14({ data, selectedColor, selectedFont }) {
           >
             EDUCATION
           </Text>
-          <View style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+          <View style={{ display: "flex", flexDirection: "column", gap: 16 }}>
             {data?.education?.map((detail, index) => (
               <View
                 wrap={false}
@@ -251,20 +251,23 @@ function Template14({ data, selectedColor, selectedFont }) {
                     color: selectedColor,
                   }}
                 >
-                  {detail.qualification} , {detail.specialization}
+                  {detail.qualification} - {detail.specialization}
                 </Text>
                 <View
                   style={{ display: "flex", flexDirection: "row", gap: 14.64 }}
-                >
+                > 
                   <Text
                     style={{ fontSize: 12, fontFamily: `${selectedFont} 400` }}
                   >
-                     {detail.duration?.start?.year !== "Year" &&
-                              `${detail.duration?.start?.year}-${detail.duration?.end?.year}`}
+                    {detail.duration?.start?.year !== "Year" &&
+                      `${detail.duration?.start?.year}-${detail.duration?.end?.year}`}
                   </Text>
-                  <View
-                    style={{ width: 1, height: 20, backgroundColor: "#DEDEDE" }}
-                  ></View>
+               
+                
+                    <View
+                      style={{ width: 1, height: 20, backgroundColor: "#DEDEDE" }}
+                    ></View>
+                
                   <Text
                     style={{ fontFamily: `${selectedFont} 400`, fontSize: 12 }}
                   >
@@ -276,62 +279,66 @@ function Template14({ data, selectedColor, selectedFont }) {
             ))}
           </View>
         </View>
-        <View
-          style={{ width: "100%", height: 1, backgroundColor: "#DEDEDE" }}
-        ></View>
-        <View style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-          <Text
-            style={{
-              fontSize: 12,
-              fontFamily: `${selectedFont} 500`,
-              color: "#4D4D4D",
-            }}
-          >
-            CERTIFICATION
-          </Text>
-          <View style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-            {data?.course?.map((detail, index) => (
-              <View
-                wrap={false}
-                key={index}
-                style={{ gap: 6, display: "flex", flexDirection: "column" }}
+        {data?.course?.length > 0 && (
+          <>
+            <View
+              style={{ width: "100%", height: 1, backgroundColor: "#DEDEDE" }}
+            ></View>
+            <View style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+              <Text
+                style={{
+                  fontSize: 12,
+                  fontFamily: `${selectedFont} 500`,
+                  color: "#4D4D4D",
+                }}
               >
-                <View style={{width:"100%",justifyContent:'space-between'}}>
-                <Text
-                  style={{
-                    fontSize: 18,
-                    fontFamily: `${selectedFont} 600`,
-                    color: selectedColor,
-                  }}
-                >
-                  {detail.courseName}
-                </Text>
-                { new Date(detail.duration?.start?.year)  &&
-                    new Date(detail.duration?.end?.year) && (
+                CERTIFICATION
+              </Text>
+              <View style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                {data?.course?.map((detail, index) => (
+                  <View
+                    wrap={false}
+                    key={index}
+                    style={{ gap: 6, display: "flex", flexDirection: "column" }}
+                  >
+                    <View style={{ width: "100%", justifyContent: 'space-between' }}>
                       <Text
                         style={{
-                          fontSize: 12,
-                          fontFamily: `${selectedFont} 400`,
+                          fontSize: 18,
+                          fontFamily: `${selectedFont} 600`,
+                          color: selectedColor,
                         }}
                       >
-                        {detail.duration?.start?.year} -{" "}
-                        {detail.duration?.end?.year}
+                        {detail.courseName}
                       </Text>
-                    )}
+                      {new Date(detail.duration?.start?.year) &&
+                        new Date(detail.duration?.end?.year) && (
+                          <Text
+                            style={{
+                              fontSize: 12,
+                              fontFamily: `${selectedFont} 400`,
+                            }}
+                          >
+                            {detail.duration?.start?.year} -{" "}
+                            {detail.duration?.end?.year}
+                          </Text>
+                        )}
                     </View>
-                <View style={{ display: "flex", gap: 8 }}>
-                  
+                    <View style={{ display: "flex", gap: 8 }}>
 
-                  <Text
-                    style={{ fontSize: 12, fontFamily: `${selectedFont} 400` }}
-                  >
-                    {detail.issuedBy}
-                  </Text>
-                </View>
+
+                      <Text
+                        style={{ fontSize: 12, fontFamily: `${selectedFont} 400` }}
+                      >
+                        {detail.issuedBy}
+                      </Text>
+                    </View>
+                  </View>
+                ))}
               </View>
-            ))}
-          </View>
-        </View>
+            </View>
+          </>
+        )}
         <View
           style={{ width: "100%", height: 1, backgroundColor: "#DEDEDE" }}
         ></View>
@@ -407,74 +414,79 @@ function Template14({ data, selectedColor, selectedFont }) {
             ></View>
           </View>
         ))}
+
         <View style={{ display: "flex", flexDirection: "row", gap: 16 }}>
-          <View
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              width: "50%",
-              gap: 12,
-            }}
-          >
-            <Text
+          {data?.hobbies?.length > 0 && (
+            <View
               style={{
-                fontSize: 12,
-                fontFamily: `${selectedFont} 500`,
-                color: "#4D4D4D",
+                display: "flex",
+                flexDirection: "column",
+                width: "50%",
+                gap: 12,
               }}
             >
-              {" "}
-              HOBBIES
-            </Text>
-            <View style={{ display: "flex", gap: 4 }}>
-              {data?.hobbies?.map((detail, index) => (
-                <Text
-                  wrap={false}
-                  key={index}
-                  style={{
-                    fontSize: 12,
-                    fontFamily: `${selectedFont} 500`,
-                    color: "#4D4D4D",
-                  }}
-                >
-                  {detail.title}
-                </Text>
-              ))}
+              <Text
+                style={{
+                  fontSize: 12,
+                  fontFamily: `${selectedFont} 500`,
+                  color: "#4D4D4D",
+                }}
+              >
+                {" "}
+                HOBBIES
+              </Text>
+              <View style={{ display: "flex", gap: 4 }}>
+                {data?.hobbies?.map((detail, index) => (
+                  <Text
+                    wrap={false}
+                    key={index}
+                    style={{
+                      fontSize: 12,
+                      fontFamily: `${selectedFont} 500`,
+                      color: "#4D4D4D",
+                    }}
+                  >
+                    {detail.title}
+                  </Text>
+                ))}
+              </View>
             </View>
-          </View>
-          <View
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              width: "50%",
-              gap: 12,
-            }}
-          >
-            <Text
+          )}
+          {data?.languages?.length > 0 && (
+            <View
               style={{
-                fontSize: 12,
-                fontFamily: `${selectedFont} 400`,
-                color: "#4D4D4D",
+                display: "flex",
+                flexDirection: "column",
+                width: "50%",
+                gap: 12,
               }}
             >
-              LANGUAGES
-            </Text>
-            <View style={{ display: "flex", gap: 4 }}>
-              {data?.languages?.map((detail, index) => (
-                <Text
-                  wrap={false}
-                  key={index}
-                  style={{
-                    fontSize: 12,
-                    fontFamily: `${selectedFont} 400`,
-                    color: "#4D4D4D",
-                  }}
-                >
-                  {detail.languages}
-                </Text>
-              ))}
+              <Text
+                style={{
+                  fontSize: 12,
+                  fontFamily: `${selectedFont} 400`,
+                  color: "#4D4D4D",
+                }}
+              >
+                LANGUAGES
+              </Text>
+              <View style={{ display: "flex", gap: 4 }}>
+                {data?.languages?.map((detail, index) => (
+                  <Text
+                    wrap={false}
+                    key={index}
+                    style={{
+                      fontSize: 12,
+                      fontFamily: `${selectedFont} 400`,
+                      color: "#4D4D4D",
+                    }}
+                  >
+                    {detail.languages}
+                  </Text>
+                ))}
+              </View>
             </View>
-          </View>
+          )}
         </View>
       </View>
     </Page>

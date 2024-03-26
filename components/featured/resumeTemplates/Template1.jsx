@@ -448,7 +448,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                         fontSize: 10,
                         fontFamily: `${selectedFont} 400`,
                         lineHeight: 1.2,
-                        width:'70%'
+                        width:'100%'
                       }}
                     >
                       {detail.organization}
@@ -558,7 +558,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                                 }}
                               >
                                 {detail.duration?.end?.year &&
-                                  `${detail.duration?.start?.year}-${detail.duration?.end?.year}`}
+                                  `${detail.duration?.start?.year}- ${" "}${detail.duration?.end?.year}`}
                               </Text>
                             </View>
                           </View>
