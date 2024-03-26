@@ -53,6 +53,7 @@ const ResumePreview = ({
   selectedFont,
   isEdit,
   id,
+  render
 }) => {
   const [namePreview, setNamePreview] = useState(false);
   const [name, setName] = useState(data.firstName + "_resume");
@@ -588,13 +589,13 @@ const ResumePreview = ({
         });
     }
   };
-  // const MyComponent = () => {
-  //   return (
-  //     <Document height="1124px" dpi={72}>
-  //       {selectResumeTemplate(selectedResumeIndex)}
-  //     </Document>
-  //   );
-  // };
+  const MyComponent = () => {
+    return (
+      <Document height="1124px" dpi={72}>
+        {selectResumeTemplate(selectedResumeIndex)}
+      </Document>
+    );
+  };
 
   return (
     <div
@@ -659,7 +660,7 @@ const ResumePreview = ({
                   </g>
                 </svg>
               </div>
-              {/* {selectedResumeIndex !== undefined && (
+              {selectedResumeIndex !== undefined && (
                 <BlobProvider document={<MyComponent />}>
                   {({ blob, url, loading, error }) => {
                     return (
@@ -693,7 +694,7 @@ const ResumePreview = ({
                     );
                   }}
                 </BlobProvider>
-              )} */}
+              )}
             </div>
             <div className="flex sm:gap-[16px] scr1024:gap-2 gap-2 items-center justify-end ml:w-[32%] w-full">
               {selectedResumeIndex !== undefined && (
@@ -722,7 +723,7 @@ const ResumePreview = ({
                       </button>
                     </div>
                   </div>
-                  {/* <PDFDownloadLink
+                  <PDFDownloadLink
                     document={<MyComponent />}
                     fileName={name + ".pdf"}
                   >
@@ -744,7 +745,7 @@ const ResumePreview = ({
                         </svg>
                       </button>
                     )}
-                  </PDFDownloadLink> */}
+                  </PDFDownloadLink>
                 </>
               )}
 
@@ -758,7 +759,7 @@ const ResumePreview = ({
           </div>
         </div>
 
-        {/* {selectedResumeIndex !== undefined && (
+        {selectedResumeIndex !== undefined && (
           <div
             className=" w-full flex items-center justify-center mt-3 bg-[#525659] py-[24px] rounded-[8px]"
             style={{
@@ -769,20 +770,22 @@ const ResumePreview = ({
               <MyComponent />
             </PDFViewer>
           </div>
-        )} */}
-        <div
+        )}
+        {/* <div
           className=" w-full flex items-center justify-center mt-3 bg-[#525659] py-[24px] rounded-[8px]"
           style={{
             transformOrigin: "top left",
           }}
         >
-          {/* {selectResumeTemplate(selectedResumeIndex)} */}
-          <Template1
+          {
+            render &&<Template1
             data={data}
             selectedColor={selectedColor}
             selectedFont={selectedFont}
           />
-        </div>
+          }
+          
+        </div> */}
       </div>
       {preview && (
         <>
@@ -792,7 +795,7 @@ const ResumePreview = ({
               ref={taskRef}
               className=" absolute bg-white  px-4 py-2 rounded-lg shadow-lg h-[90vh] flex flex-col gap-2 items-end ml:w-[60%] sm:w-[80%] w-[95%]"
             >
-              {/* <div className="flex gap-[16px]">
+              <div className="flex gap-[16px]">
                 {" "}
                 {selectedResumeIndex !== undefined && (
                   <>
@@ -839,7 +842,7 @@ const ResumePreview = ({
                     {selectResumeTemplate(selectedResumeIndex)}
                   </Document>
                 </PDFViewer>
-              </div> */}
+              </div>
             </div>
           </div>
         </>
