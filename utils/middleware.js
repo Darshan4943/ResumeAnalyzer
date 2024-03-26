@@ -33,6 +33,27 @@ export function camelCase(str) {
       return word.toUpperCase(); // Convert the first character of each word to uppercase
     });
 }
+export const dateSeter = (date) => {
+  const monthLater = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+  const d = new Date(date);
+  const year = d.getFullYear();
+  const month = d.getMonth();
+  const day = d.getDate();
+  return `${day} ${monthLater[month]} ${year} `;
+};
 
 export const dateFormatter = (date) => {
   const currentDate = new Date(date);

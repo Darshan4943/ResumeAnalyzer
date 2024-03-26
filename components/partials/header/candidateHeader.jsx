@@ -121,9 +121,9 @@ function CandidateHeader() {
             <li>Job Description Matching</li>
           </Link>
         )}
-         {/* {userDataGlobal.role === "recruiter" && (
+         {userDataGlobal.role === "recruiter" && (
           <Link
-            href="/collection/collection"
+            href="/collection"
             className={
               selectedPage === "/collection/collection"
                 ? "active scr1250:text-[18px] text-[16px]"
@@ -132,7 +132,7 @@ function CandidateHeader() {
           >
             <li>Collection</li>
           </Link>
-        )} */}
+        )}
         <Link
           href="/purchase/MyPurchase"
           className={
