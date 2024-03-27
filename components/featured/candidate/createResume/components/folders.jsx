@@ -9,7 +9,6 @@ function Folders({
   data,
   setData,
   clientData,
-  setClientData,
   tab,
   setFolderData,
   folderData,
@@ -17,6 +16,7 @@ function Folders({
   parentId,
   setFolderList,
   loading,
+  query
 }) {
   const [isSort, setIsSort] = useState(false);
   const [sortSelect, setSortSelect] = useState(1);
@@ -78,7 +78,6 @@ function Folders({
   const handleSortSelect = (index) => {
     setSortSelect(index);
     const sortedData = sortClientData([...clientData], index);
-    setClientData(sortedData);
   };
 
   return (
@@ -400,11 +399,11 @@ function Folders({
             files={files}
             setFiles={setFiles}
             clientData={clientData}
-            setClientData={setClientData}
             tab={tab}
             setParentId={setParentId}
             parentId={parentId}
             setFolderList={setFolderList}
+            query={query}
           />
         )}
       </div>

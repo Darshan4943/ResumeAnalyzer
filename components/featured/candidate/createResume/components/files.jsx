@@ -4,6 +4,7 @@ import { reCallUserData } from "../../../../../Redux/actions/user";
 import { useDispatch } from "react-redux";
 import ClientFolders from "./clientFolders";
 import MyFolders from "./MyFolders";
+import { useRouter } from "next/router";
 
 function Files({
   isList,
@@ -15,7 +16,6 @@ function Files({
   files,
   setFiles,
   clientData,
-  setClientData,
   tab,
   select,
   setSelect,
@@ -24,33 +24,25 @@ function Files({
   setParentId,
   parentId,
   setFolderList,
+  query,
 }) {
   const [clientId, setClientId] = useState();
+  const router = useRouter();
   const [clientResumes, setClientResumes] = useState();
   const dispatch = useDispatch();
-  const getParentData = (parentId) => {
-    axios
-      .get(`http://localhost:2000/api/folder/getByParentId/${parentId}`)
-      .then((res) => {
-        console.log(res.data.data);
-        setFolderData(res.data.data);
-        setFolderList(res.data.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+
   const openFolder = (index, parentId) => {
-    setParentId(parentId);
-    getParentData(parentId);
-
-    setTabIndex(1);
+    router.push({
+      pathname: "/collection",
+      query: { ...query, parentId },
+    });
   };
 
-  const openClientFolder = (index, parentId) => {
-    setClientId(data[index]._id);
-    setFolderData(data[index]);
-    setTabIndex(1);
+  const openClientFolder = (index, clientId) => {
+    router.push({
+      pathname: "/collection",
+      query: { ...query, clientId },
+    });
   };
   const toggleSelect = (index) => {
     if (selectedIndexes.includes(index)) {
@@ -96,9 +88,8 @@ function Files({
           files={files}
           setFiles={setFiles}
           clientData={clientData}
-          setClientData={setClientData}
           tab={tab}
-          openFolder={openFolder}
+          openFolder={tab === 0 ? openClientFolder : openFolder}
           toggleSelect={toggleSelect}
         />
       )}
@@ -117,10 +108,10 @@ function Files({
           files={files}
           setFiles={setFiles}
           clientData={clientData}
-          setClientData={setClientData}
           tab={tab}
           openClientFolder={openClientFolder}
           toggleSelect={toggleSelect}
+          query={query}
         />
       )}
     </>

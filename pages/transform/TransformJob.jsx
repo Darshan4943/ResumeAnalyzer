@@ -27,7 +27,7 @@ function TransformJob() {
   const transformHandler = () => {
     setLoading(true);
     axios
-      .post("https://freedygoservices.in/api/cv/transform", {
+      .post("http://localhost:2000/api/cv/transform", {
         jd: text,
         json: selected,
       })

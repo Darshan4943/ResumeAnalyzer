@@ -40,31 +40,37 @@ export const Api = () => {
   }, [reCallUser]);
 
   useEffect(() => {
-    if (userDataGlobal) {
-      axios
-        .get(
-          "https://freedygoservices.in/api/subscription/" + userDataGlobal._id
-        )
-        .then((res) => {
-          localStorage.setItem("uploadCount", res.data.data.resumeUpladed);
-          if (new Date(moment().format()) > new Date(res.data.data.endDate)) {
-            axios
-              .get(
-                "https://freedygoservices.in/api/subscription/update/" +
-                  userDataGlobal._id
-              )
-              .then((res) => {
-                console.log(res.data);
-              })
-              .catch((err) => {
-                console.log(err);
-              });
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+    const resumeUploadCoount = localStorage.getItem("uploadCount");
+    console.log(resumeUploadCoount)
+
+    if (!resumeUploadCoount) {
+      localStorage.setItem("uploadCount", 2);
     }
+    // if (userDataGlobal) {
+    //   axios
+    //     .get(
+    //       "https://freedygoservices.in/api/subscription/" + userDataGlobal._id
+    //     )
+    //     .then((res) => {
+    //       localStorage.setItem("uploadCount", res.data.data.resumeUpladed);
+    //       if (new Date(moment().format()) > new Date(res.data.data.endDate)) {
+    //         axios
+    //           .get(
+    //             "https://freedygoservices.in/api/subscription/update/" +
+    //               userDataGlobal._id
+    //           )
+    //           .then((res) => {
+    //             console.log(res.data);
+    //           })
+    //           .catch((err) => {
+    //             console.log(err);
+    //           });
+    //       }
+    //     })
+    //     .catch((err) => {
+    //       console.log(err);
+    //     });
+    // }
 
     if (userDataGlobal?.skills) {
       axios

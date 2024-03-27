@@ -131,8 +131,7 @@ function CreateResume() {
           discription: item.description,
         })),
       });
-    }
-    if (clientId) {
+    } else if (clientId) {
       axios
         .get(`https://freedygoservices.in/api/client/getByClientId/${clientId}`)
         .then((res) => {

@@ -11,20 +11,20 @@ import { useRouter } from "next/router";
 
 function Collection() {
   const router = useRouter();
-  const { clients, folders } = router.query;
+  const { clients, folders, clientId, parentId } = router.query;
   const userDataGlobal = useSelector((state) => state.userData);
   const [isCreate, setIsCreate] = useState(false);
   const [folderData, setFolderData] = useState([]);
   const [tabIndex, setTabIndex] = useState(0);
   const [data, setData] = useState();
   const [folderList, setFolderList] = useState(null);
-  const [clientData, setClientData] = useState();
   const [isCreateFolder, setIsCreateFolder] = useState(false);
   const [folderName, setFolderName] = useState("Untitled folder");
   const inputRef = useRef(null);
-  const [tab, setTab] = useState(0);
-  const [parentId, setParentId] = useState(null);
+  const [tab, setTab] = useState(null);
+  const [ParentId, setParentId] = useState(null);
   const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     if (inputRef.current) {
       inputRef.current.select();
@@ -35,12 +35,54 @@ function Collection() {
     if (folders == "true") {
       setTab(1);
       setTabIndex(0);
+      if (parentId) {
+        setParentId(parentId);
+        getParentData(parentId);
+      } else {
+        getFolderData();
+      }
+    } else if (clients == "true") {
+      setTab(0);
+      setTabIndex(0);
+      if (clientId) {
+        getClientData(clientId);
+      } else {
+        getClients();
+      }
     } else {
       setTab(0);
       setTabIndex(0);
+      getClients();
     }
-  }, [clients, folders]);
-  const getData = () => {
+  }, [clients, folders, clientId, parentId, userDataGlobal]);
+
+  const getParentData = (parentId) => {
+    axios
+      .get(`http://localhost:2000/api/folder/getByParentId/${parentId}`)
+      .then((res) => {
+        setFolderList(res.data.data);
+        setTimeout(() => {
+          setLoading(false);
+        }, 1000);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  const getClientData = (clientId) => {
+    axios
+      .get("https://freedygoservices.in/api/resume/" + clientId)
+      .then((res) => {
+        setFolderList(res.data.data);
+        setTimeout(() => {
+          setLoading(false);
+        }, 1000);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  const getFolderData = () => {
     setLoading(true);
     axios
       .get(`http://localhost:2000/api/folder/get/${userDataGlobal._id}`)
@@ -55,9 +97,24 @@ function Collection() {
         console.log(err);
       });
   };
-  useEffect(() => {
-    getData();
-  }, [tab]);
+  const getClients = () => {
+    setLoading(true);
+    axios
+      .get(
+        `https://freedygoservices.in/api/client/getByRecruiter/${userDataGlobal._id}`
+      )
+      .then((res) => {
+        console.log(res.data.data);
+        setFolderList(res.data.data);
+        setTimeout(() => {
+          setLoading(false);
+        }, 1000);
+      })
+      .catch((err) => {
+        setLoading(false);
+        console.log(err);
+      });
+  };
 
   const handleFileChange = (event, folderName) => {
     const uploadedFiles = event.target.files;
@@ -76,19 +133,6 @@ function Collection() {
     setData(newData);
   };
 
-  useEffect(() => {
-    axios
-      .get(
-        `https://freedygoservices.in/api/client/getByRecruiter/${userDataGlobal._id}`
-      )
-      .then((res) => {
-        setClientData(res.data.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [tab, userDataGlobal]);
-
   const createFolder = () => {
     const formData = new FormData();
     formData.append("fileName", folderName);
@@ -97,7 +141,7 @@ function Collection() {
     axios
       .post("http://localhost:2000/api/folder/create", formData)
       .then((res) => {
-        getData();
+        getFolderData();
         setIsCreateFolder(false);
         setFolderName("Untitled folder");
         toast.success("Folder created successfully");
@@ -191,34 +235,8 @@ function Collection() {
                       </svg>
                       New Folder
                     </div>
-                    {tabIndex === 1 && (
-                      <div className="flex gap-1 items-center upload-btn-wrapper">
-                        <svg
-                          width="24"
-                          height="24"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <g mask="url(#mask0_1304_20136)">
-                            <path
-                              d="M11.25 18.3846H12.7499V13.9499L14.6 15.7999L15.6538 14.7307L12 11.0769L8.34615 14.7307L9.41535 15.7846L11.25 13.9499V18.3846ZM6.3077 21.5C5.80257 21.5 5.375 21.325 5.025 20.975C4.675 20.625 4.5 20.1974 4.5 19.6923V4.3077C4.5 3.80257 4.675 3.375 5.025 3.025C5.375 2.675 5.80257 2.5 6.3077 2.5H14.25L19.5 7.74995V19.6923C19.5 20.1974 19.325 20.625 18.975 20.975C18.625 21.325 18.1974 21.5 17.6922 21.5H6.3077ZM13.5 8.49995V3.99998H6.3077C6.23077 3.99998 6.16024 4.03203 6.09612 4.09613C6.03202 4.16024 5.99997 4.23077 5.99997 4.3077V19.6923C5.99997 19.7692 6.03202 19.8397 6.09612 19.9038C6.16024 19.9679 6.23077 20 6.3077 20H17.6922C17.7692 20 17.8397 19.9679 17.9038 19.9038C17.9679 19.8397 18 19.7692 18 19.6923V8.49995H13.5Z"
-                              fill="#1C1B1F"
-                            />
-                          </g>
-                        </svg>
-                        <input
-                          multiple
-                          type="file"
-                          accept=".pdf,.doc,.docx"
-                          onChange={(event) =>
-                            handleFileChange(event, folderData.folderName)
-                          }
-                        />
-                        Upload Files
-                      </div>
-                    )}
-                    <div className="flex gap-1 items-center">
+
+                    <div className="flex gap-1 items-center upload-btn-wrapper">
                       <svg
                         width="24"
                         height="24"
@@ -226,14 +244,22 @@ function Collection() {
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
                       >
-                        <g mask="url(#mask0_1304_20148)">
+                        <g mask="url(#mask0_1304_20136)">
                           <path
-                            d="M11.25 16.6153H12.75V12.1653L14.6096 14.025L15.6634 12.9711L12 9.3077L8.35578 12.9519L9.4096 14.0057L11.25 12.1653V16.6153ZM4.3077 19.5C3.80257 19.5 3.375 19.325 3.025 18.975C2.675 18.625 2.5 18.1974 2.5 17.6923V6.3077C2.5 5.80257 2.675 5.375 3.025 5.025C3.375 4.675 3.80257 4.5 4.3077 4.5H9.79803L11.798 6.5H19.6923C20.1974 6.5 20.625 6.675 20.975 7.025C21.325 7.375 21.5 7.80257 21.5 8.3077V17.6923C21.5 18.1974 21.325 18.625 20.975 18.975C20.625 19.325 20.1974 19.5 19.6923 19.5H4.3077ZM4.3077 18H19.6923C19.782 18 19.8557 17.9711 19.9134 17.9134C19.9711 17.8557 20 17.782 20 17.6923V8.3077C20 8.21795 19.9711 8.14422 19.9134 8.08652C19.8557 8.02883 19.782 7.99998 19.6923 7.99998H11.1846L9.1846 5.99998H4.3077C4.21795 5.99998 4.14423 6.02882 4.08653 6.08652C4.02883 6.14423 3.99998 6.21795 3.99998 6.3077V17.6923C3.99998 17.782 4.02883 17.8557 4.08653 17.9134C4.14423 17.9711 4.21795 18 4.3077 18Z"
+                            d="M11.25 18.3846H12.7499V13.9499L14.6 15.7999L15.6538 14.7307L12 11.0769L8.34615 14.7307L9.41535 15.7846L11.25 13.9499V18.3846ZM6.3077 21.5C5.80257 21.5 5.375 21.325 5.025 20.975C4.675 20.625 4.5 20.1974 4.5 19.6923V4.3077C4.5 3.80257 4.675 3.375 5.025 3.025C5.375 2.675 5.80257 2.5 6.3077 2.5H14.25L19.5 7.74995V19.6923C19.5 20.1974 19.325 20.625 18.975 20.975C18.625 21.325 18.1974 21.5 17.6922 21.5H6.3077ZM13.5 8.49995V3.99998H6.3077C6.23077 3.99998 6.16024 4.03203 6.09612 4.09613C6.03202 4.16024 5.99997 4.23077 5.99997 4.3077V19.6923C5.99997 19.7692 6.03202 19.8397 6.09612 19.9038C6.16024 19.9679 6.23077 20 6.3077 20H17.6922C17.7692 20 17.8397 19.9679 17.9038 19.9038C17.9679 19.8397 18 19.7692 18 19.6923V8.49995H13.5Z"
                             fill="#1C1B1F"
                           />
                         </g>
                       </svg>
-                      Upload Folder
+                      <input
+                        multiple
+                        type="file"
+                        accept=".pdf,.doc,.docx"
+                        onChange={(event) =>
+                          handleFileChange(event, folderData.folderName)
+                        }
+                      />
+                      Upload Files
                     </div>
                   </div>
                 </>
@@ -328,13 +354,11 @@ function Collection() {
           setTabIndex={setTabIndex}
           data={folderList}
           setData={setData}
-          clientData={clientData}
-          setClientData={setClientData}
+          clientData={folderList}
           tab={tab}
-          setParentId={setParentId}
-          parentId={parentId}
           setFolderList={setFolderList}
           loading={loading}
+          query={router.query}
         />
       </div>
     </>

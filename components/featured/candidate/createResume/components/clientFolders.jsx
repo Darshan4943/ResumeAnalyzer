@@ -19,6 +19,7 @@ function ClientFolders({
   selectedIndexes,
   setSelectedIndexes,
   openClientFolder,
+  query,
 }) {
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -30,7 +31,7 @@ function ClientFolders({
       })
       .replace(/\//g, "-");
   };
-
+  const { clientId } = query;
 
   useEffect(() => {
     if (files && Array.isArray(files) && files.length > 0) {
@@ -100,7 +101,14 @@ function ClientFolders({
                           />
                         )}
                       </div>
-                      {item.firstName} {item.lastName}
+                      {clientId ? (
+                        item.fileName
+                      ) : (
+                        <>
+                          {" "}
+                          {item.firstName} {item.lastName}
+                        </>
+                      )}
                     </div>
                   </>
                 ))
@@ -182,115 +190,6 @@ function ClientFolders({
               />
               <div className="text-[20px] font-medium text-[#808080]">
                 No Folders Available{" "}
-              </div>
-            </div>
-          )}
-        </div>
-      )}
-      {tabIndex === 1 && (
-        <div className=" gap-[1px] p-4 bg-white w-full min-h-[60vh]">
-          {files?.length > 0 ? (
-            <>
-              {!isList ? (
-                files?.map((item, index) => (
-                  <>
-                    <div
-                      onClick={() => {
-                        !select && openClientFolder(index, item._id);
-                      }}
-                      key={index}
-                      className=" break-all flex flex-col items-center text-center cursor-pointer h-fit w-[120px] px-2"
-                    >
-                      <div className=" relative">
-                        <img
-                          src={`/images/recruiter/${item.fileExtension}.png`}
-                          width="48px"
-                          height="48px"
-                        />
-
-                        {select && (
-                          <input
-                            type="checkbox"
-                            className=" absolute right-[-15%] top-0 rounded-[4.5px] pl-[4px] pr-[20px] py-[2px] outline-none text-[14px] font-medium custom-checkbox"
-                            style={{ width: "20px", height: "20px" }}
-                            onClick={(e) => e.stopPropagation()}
-                            checked={selectedIndexes.includes(index)}
-                            onChange={() => toggleSelect(index)}
-                          />
-                        )}
-                      </div>
-
-                      {item.fileName}
-                    </div>
-                  </>
-                ))
-              ) : (
-                <table className="w-[100%]">
-                  <thead>
-                    <tr>
-                      <th className="py-3 px-4 rounded-l-[12px] bg-[#C2E7FF] w-[30%] text-left">
-                        Name
-                      </th>
-                      <th className="py-3 px-4 bg-[#C2E7FF] w-[25%] text-left">
-                        Date Modified
-                      </th>
-                      <th className="py-3 px-4 bg-[#C2E7FF] w-[20%] text-left">
-                        Category
-                      </th>
-                      <th className="py-3 px-4 rounded-r-[12px] bg-[#C2E7FF] w-[25%] text-left">
-                        Size
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {files.map((item, index) => (
-                      <tr
-                        key={index}
-                        onClick={() => openClientFolder(index, item._id)}
-                        className=""
-                      >
-                        <td className="px-4 py-2 font-medium flex gap-2 relative items-center ">
-                          {select && (
-                            <input
-                              type="checkbox"
-                              className="   rounded-[4.5px]  outline-none text-[14px] font-medium custom-checkbox"
-                              style={{ width: "20px", height: "20px" }}
-                              onClick={(e) => e.stopPropagation()}
-                              checked={selectedIndexes.includes(index)}
-                              onChange={() => toggleSelect(index)}
-                            />
-                          )}
-                          <img
-                            src={`/images/recruiter/${item.fileExtension}.png`}
-                            width="24px"
-                            height="24px"
-                          />
-                          {item.fileName}
-                        </td>
-                        <td className="px-4 py-2 text-[#858585]">
-                          {formatDate(item?.updatedAt)}
-                        </td>
-                        <td className="px-4 py-2 text-[#858585]">
-                          {item?.category}
-                        </td>
-                        <td className="px-4 py-2 text-[#858585]">
-                          {item?.size}
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              )}
-            </>
-          ) : (
-            <div className="w-full h-full flex flex-col gap-6 justify-center items-center">
-              <img
-                src="/images/noFile.png"
-                className="h-[300px] w-[375px]"
-                alt=""
-              />
-              <div className="text-[20px] font-medium text-[#808080]">
-                No Files Available{" "}
               </div>
             </div>
           )}
