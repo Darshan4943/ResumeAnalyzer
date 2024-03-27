@@ -498,66 +498,64 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                 EXPERIENCE{" "}
               </Text>
             </Svg>
-            {data.experience.map((detail, index) => (
-              <View
-                wrap={false}
-                key={index}
-                style={{ flexDirection: "column", gap: 4 }}
-              >
-                <View style={{ flexDirection: "column", gap: 8 }}>
-                  <Text
-                    style={{
-                      color: "#414142",
-                      paddingLeft: "18px",
-                      fontSize: "14",
-                      fontFamily: `${selectedFont} 700`,
-                    }}
-                  >
-                    {detail.organization}
-                  </Text>
-                  <Text
-                    style={{
-                      color: "#414142",
-                      paddingLeft: "18px",
-                      fontSize: "12",
-                      fontFamily: `${selectedFont} 700`,
-                    }}
-                  >
-                    {detail.designation}
-                  </Text>
-                  <Text
-                    style={{
-                      color: "#414142",
-                      paddingLeft: "18px",
-                      fontSize: "12",
-                      fontFamily: `${selectedFont} 400`,
-                    }}
-                  >
-                    {detail.duration?.start?.year !== "Year" &&
-                      `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
-                        ? "Present"
-                        : detail.duration?.end?.year}
-                         `}
-                  </Text>
-                </View>
-                {detail.description?.length > 5 && (
-                  <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
+            <View style={{ flexDirection: "column", gap: 24 }}>
+              {data.experience.map((detail, index) => (
+                <View
+                  wrap={false}
+                  key={index}
+                  style={{ flexDirection: "column", gap: 4 }}
+                >
+                  <View style={{ flexDirection: "column", gap: 8 }}>
                     <Text
                       style={{
-                        color: "#646464",
+                        color: "#414142",
                         paddingLeft: "18px",
-                        paddingRight: "16px",
-                        fontSize: "12",
-                        fontFamily: `${selectedFont} 400`,
-                        flexWrap: "wrap",
+                        fontSize: "14",
+                        fontFamily: `${selectedFont} 700`,
                       }}
                     >
-                      {detail.description}
+                      {detail.organization}
+                    </Text>
+                    <Text
+                      style={{
+                        color: "#414142",
+                        paddingLeft: "18px",
+                        fontSize: "12",
+                        fontFamily: `${selectedFont} 700`,
+                      }}
+                    >
+                      {detail.designation}
+                    </Text>
+                    <Text
+                      style={{
+                        color: "#414142",
+                        paddingLeft: "18px",
+                        fontSize: "12",
+                        fontFamily: `${selectedFont} 400`,
+                      }}
+                    >
+                      {detail.duration?.start?.year !== "Year" && `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking ? "Present" : detail.duration?.end?.year}`}
                     </Text>
                   </View>
-                )}
-              </View>
-            ))}
+                  {detail.description?.length > 5 && (
+                    <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
+                      <Text
+                        style={{
+                          color: "#646464",
+                          paddingLeft: "18px",
+                          paddingRight: "16px",
+                          fontSize: "12",
+                          fontFamily: `${selectedFont} 400`,
+                          flexWrap: "wrap",
+                        }}
+                      >
+                        {detail.description}
+                      </Text>
+                    </View>
+                  )}
+                </View>
+              ))}
+            </View>
           </View>
           {data.section?.map((item, index) => (
             <View

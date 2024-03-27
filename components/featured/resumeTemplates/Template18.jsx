@@ -344,6 +344,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
               )}
             </View>
           </View>
+          {data?.languages?.length > 0 && (
           <View
             style={{
               display: "flex",
@@ -353,6 +354,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
               alignItems: "center",
             }}
           >
+
             <View>
               <Text
                 style={{
@@ -373,77 +375,79 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                 flexWrap: "wrap",
               }}
             >
-              {data?.languages?.length > 0 && (
-                <View
-                  wrap={false}
-                  style={{
-                    flexDirection: "row",
-                    gap: 14,
-                    width: "100%",
-                    flexWrap: "wrap",
-                  }}
-                >
-                  {data.languages?.map((detail, index) => {
-                    const calculateWidthPercentage = (rating) => {
-                      let ratingPercentage = 0;
-                      if (rating && rating.length > 0) {
-                        const zerosCount = rating.filter(
-                          (val) => val === 0
-                        ).length;
 
-                        if (zerosCount === 0) ratingPercentage = 100;
-                        else if (zerosCount === 1) ratingPercentage = 80;
-                        else if (zerosCount === 2) ratingPercentage = 60;
-                        else if (zerosCount === 3) ratingPercentage = 40;
-                        else if (zerosCount === 4) ratingPercentage = 20;
-                      }
-                      return ratingPercentage;
-                    };
+              <View
+                wrap={false}
+                style={{
+                  flexDirection: "row",
+                  gap: 14,
+                  width: "100%",
+                  flexWrap: "wrap",
+                }}
+              >
+                {data.languages?.map((detail, index) => {
+                  const calculateWidthPercentage = (rating) => {
+                    let ratingPercentage = 0;
+                    if (rating && rating.length > 0) {
+                      const zerosCount = rating.filter(
+                        (val) => val === 0
+                      ).length;
 
-                    const ratingPercentage = calculateWidthPercentage(
-                      detail.rating
-                    );
+                      if (zerosCount === 0) ratingPercentage = 100;
+                      else if (zerosCount === 1) ratingPercentage = 80;
+                      else if (zerosCount === 2) ratingPercentage = 60;
+                      else if (zerosCount === 3) ratingPercentage = 40;
+                      else if (zerosCount === 4) ratingPercentage = 20;
+                    }
+                    return ratingPercentage;
+                  };
 
-                    return (
+                  const ratingPercentage = calculateWidthPercentage(
+                    detail.rating
+                  );
+
+                  return (
+                    <View
+                      style={{
+                        flexDirection: "column",
+                        gap: 8,
+                        width: "40%",
+                      }}
+                      key={index}
+                    >
+                      <Text
+                        style={{
+                          color: "#FFFFFF",
+                          fontSize: 12,
+                          fontFamily: `${selectedFont} 400`,
+                        }}
+                      >
+                        {detail.languages}
+                      </Text>
                       <View
                         style={{
-                          flexDirection: "column",
-                          gap: 8,
-                          width: "40%",
+                          height: 6,
+                          backgroundColor: "#555C5E",
+                          width: "60",
                         }}
-                        key={index}
                       >
-                        <Text
-                          style={{
-                            color: "#FFFFFF",
-                            fontSize: 12,
-                            fontFamily: `${selectedFont} 400`,
-                          }}
-                        >
-                          {detail.languages}
-                        </Text>
                         <View
                           style={{
-                            height: 6,
-                            backgroundColor: "#555C5E",
-                            width: "60",
+                            height: "100%",
+                            backgroundColor: "#83C3C9",
+                            width: `${ratingPercentage}%`,
                           }}
-                        >
-                          <View
-                            style={{
-                              height: "100%",
-                              backgroundColor: "#83C3C9",
-                              width: `${ratingPercentage}%`,
-                            }}
-                          ></View>
-                        </View>
+                        ></View>
                       </View>
-                    );
-                  })}
-                </View>
-              )}
+                    </View>
+                  );
+                })}
+              </View>
+
             </View>
+
           </View>
+          )}
           {/* <View
           style={{
             display: "flex",
@@ -539,7 +543,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
               paddingHorizontal: 24,
               paddingTop: 24,
               paddingBottom: 33,
-              marginLeft:-4
+              marginLeft: -4
             }}
           >
             <Svg
@@ -640,7 +644,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                     style={{
                       display: "flex",
                       flexDirection: "row",
-                      gap: index !== 0 ? 24 : 24,
+                      gap: index !== 0 ? 16 : 24,
                     }}
                   >
                     <Svg
@@ -696,11 +700,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                           color: "#252829",
                         }}
                       >
-                        {detail.duration?.start?.year !== "Year" &&
-                          `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
-                            ? "Present"
-                            : detail.duration?.end?.year}
-                         `}
+                        {detail.duration?.start?.year !== "Year" && `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking ? "Present": detail.duration?.end?.year}`}
                       </Text>
                       <View
                         style={{
@@ -771,7 +771,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                     style={{
                       display: "flex",
                       flexDirection: "row",
-                      gap: index !== 0 ? 24 : 24,
+                      gap: index !== 0 ? 16 : 24,
                     }}
                   >
                     <Svg
@@ -818,8 +818,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                           color: "#252829",
                         }}
                       >
-                          {detail.duration?.start?.year !== "Year" &&
-                              `${detail.duration?.start?.year}-${detail.duration?.end?.year}`}
+                          {detail.qualification} -  {detail.specialization}
                       </Text>
                       <Text
                         style={{
@@ -846,8 +845,8 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                           marginBottom: 24,
                         }}
                       >
-                        {detail.duration?.start?.year}-
-                        {detail.duration?.end?.year}
+                       {detail.duration?.start?.year !== "Year" &&
+                          `${detail.duration?.start?.year}-${detail.duration?.end?.year}`}
                       </Text>
                     </View>
                   </View>
@@ -897,7 +896,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                       display: "flex",
                       flexDirection: "column",
                       marginLeft: 26,
-                      gap:16
+                      gap: 16
                     }}
                   >
                     {item.subSection?.map((detail, index) => (

@@ -260,7 +260,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
           style={{
             width: 350,
             alignItems: "flex-start",
-            paddingTop: 32,
+            paddingTop: 16,
             paddingLeft: 24,
             paddingBottom: 38,
             paddingRight: 16,

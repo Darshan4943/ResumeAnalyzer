@@ -360,7 +360,7 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
 
         <View
           style={{
-            width: "324px",
+            width: "400px",
             padding: " 16px",
             display: "flex",
             flexDirection: "column",
