@@ -15,7 +15,6 @@ const MatchingDetails = ({ data, setSelectedFile, files, extractedData }) => {
       return "/images/pdfIcon.png";
     }
   };
-  console.log(data);
   return (
     <>
       <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
@@ -140,7 +139,7 @@ const MatchingDetails = ({ data, setSelectedFile, files, extractedData }) => {
               </div>
             )}
 
-            {data?.matching_parameters_in_detail &&
+            {data?.percentage>0 &&  data?.matching_parameters_in_detail &&
               Object.keys(data.matching_parameters_in_detail).length > 0 && (
                 <div className="flex flex-col gap-[8px]  justify-between relative  w-full ">
                   <span className="text-[#333333] text-[16px] font-semibold">
@@ -154,14 +153,16 @@ const MatchingDetails = ({ data, setSelectedFile, files, extractedData }) => {
                         <span className="text-[#333333] text-[12px] font-semibold">
                           Required
                         </span>
-                        {
-                                        console.log(data.matching_parameters_in_detail["required"])
-                                    }
+                        {console.log(
+                          data.matching_parameters_in_detail["required"]
+                        )}
                         {Object.keys(
                           data.matching_parameters_in_detail["required"]
                         ).map(
                           (item, index) =>
-                            data.matching_parameters_in_detail["required"][item] && (
+                            data.matching_parameters_in_detail["required"][
+                              item
+                            ] && (
                               <li
                                 key={index}
                                 className="text-[#333333] text-[12px] font-500 flex flex-row items-top gap-[8px]"
@@ -183,16 +184,23 @@ const MatchingDetails = ({ data, setSelectedFile, files, extractedData }) => {
                                   </svg>
                                 </div>
                                 <span style={{ textTransform: "capitalize" }}>
-                              
-                                  {item} {Array.isArray(data.matching_parameters_in_detail[
+                                  {item}{" "}
+                                  {Array.isArray(
+                                    data.matching_parameters_in_detail[
                                       "required"
-                                    ][item]) && ":"}
+                                    ][item]
+                                  ) && ":"}
                                   {data.matching_parameters_in_detail[
                                     "required"
                                   ][item] &&
                                     data.matching_parameters_in_detail[
                                       "required"
                                     ][item].length > 0 &&
+                                    Array.isArray(
+                                      data.matching_parameters_in_detail[
+                                        "required"
+                                      ][item]
+                                    ) &&
                                     data.matching_parameters_in_detail[
                                       "required"
                                     ][item]?.join(", ")}
@@ -214,7 +222,9 @@ const MatchingDetails = ({ data, setSelectedFile, files, extractedData }) => {
                           data.matching_parameters_in_detail["provided"]
                         ).map(
                           (item, index) =>
-                            data.matching_parameters_in_detail["provided"][item] && (
+                            data.matching_parameters_in_detail["provided"][
+                              item
+                            ] && (
                               <li
                                 key={index}
                                 className="text-[#333333] text-[12px] font-500 flex flex-row items-top gap-[8px]"
@@ -236,15 +246,23 @@ const MatchingDetails = ({ data, setSelectedFile, files, extractedData }) => {
                                   </svg>
                                 </div>
                                 <span style={{ textTransform: "capitalize" }}>
-                                  {item} {Array.isArray(data.matching_parameters_in_detail[
+                                  {item}{" "}
+                                  {Array.isArray(
+                                    data.matching_parameters_in_detail[
                                       "provided"
-                                    ][item]) && ":"}
+                                    ][item]
+                                  ) && ":"}
                                   {data.matching_parameters_in_detail[
                                     "provided"
                                   ][item] &&
                                     data.matching_parameters_in_detail[
                                       "provided"
                                     ][item].length > 0 &&
+                                    Array.isArray(
+                                      data.matching_parameters_in_detail[
+                                        "provided"
+                                      ][item]
+                                    ) &&
                                     data.matching_parameters_in_detail[
                                       "provided"
                                     ][item]?.join(", ")}

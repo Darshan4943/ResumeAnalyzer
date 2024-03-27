@@ -505,9 +505,25 @@ const ExternalJobMatching = () => {
                         </span>
                       </div>
                       <div className="w-[100%]  px-[8px] pb-[16px] border-b-[1px] border-[#bebebe]"></div>
-                      {data?.percentage ? (
+                      {data?.percentage > 0 ? (
                         <Progress_bar progress={data.percentage} />
-                      ) : null}
+                      ) : (
+                        <div
+                          className="flex flex-row gap-2 items-center justify-between "
+                          style={{ width: "100%" }}
+                        >
+                          <div
+                            style={{
+                              width: "80%",
+                              background: "#8080804d",
+                              borderRadius: 12,
+                              fontSize: "8px",
+                              height: "10px",
+                            }}
+                          ></div>
+                          <span className="text-[14px] font-semibold">0%</span>
+                        </div>
+                      )}
                     </div>
                   ))}
               </>

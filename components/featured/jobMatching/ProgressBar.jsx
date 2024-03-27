@@ -44,7 +44,7 @@ const Progress_bar = ({ progress }) => {
         </div>
         <span className="text-[14px] font-semibold">{progress}%</span>
       </div>
-  </div>
+    </div>
   );
 };
 
