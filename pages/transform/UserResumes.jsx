@@ -64,30 +64,35 @@ const UserResumes = ({
   selected,
   setCount,
   selectedClient,
+  setNewData
 }) => {
   const [data, setData] = useState([]);
   const taskRef = useRef(null);
   const userDataGlobal = useSelector((state) => state.userData);
   const [allData, setAllData] = useState([]);
   useEffect(() => {
-    if (userDataGlobal.role == "recruiter") {
-      setData(resumeList);
-      setAllData(resumeList);
-      // setSelect(resumeList[0]);
-    } else {
-      axios
-        .get("https://freedygoservices.in/api/resume/" + userDataGlobal?._id)
-        .then((response) => {
-          setData(response.data.data);
-          setAllData(response.data.data);
-          setCount(response.data.data.length);
-          setSelect(response.data.data[0]);
-        })
-        .catch((error) => {
-          console.error("Error fetching data:", error);
-        });
+    if(userDataGlobal){
+      if (userDataGlobal.role == "recruiter") {
+        console.log("first",resumeList)
+        setData(resumeList);
+        setAllData(resumeList);
+        // setSelect(resumeList[0]);
+      } else if(userDataGlobal.role == "user") {
+        axios
+          .get("https://freedygoservices.in/api/resume/" + userDataGlobal?._id)
+          .then((response) => {
+            setData(response.data.data);
+            setAllData(response.data.data);
+            setCount(response.data.data.length);
+            setSelect(response.data.data[0]);
+          })
+          .catch((error) => {
+            console.error("Error fetching data:", error);
+          });
+      }
     }
-  }, [userDataGlobal, selectedClient]);
+    
+  }, [userDataGlobal, selectedClient,resumeList]);
 
   const searchHandler = (value) => {
     if (value.length > 0) {
@@ -140,7 +145,7 @@ const UserResumes = ({
             {data?.map((item, index) => (
               <>
                 <div
-                  className="w-[98px] flex flex-col gap-[6px]  items-center py-4 min-h-[90px] rounded-[8px] "
+                  className="w-[98px] flex flex-col gap-[6px]  items-center py-4 min-h-[90px] rounded-[8px] cursor-pointer "
                   style={{
                     background:
                       item._id == selected?._id ? "#D1EDFF" : "transparent",
@@ -149,10 +154,11 @@ const UserResumes = ({
                   onClick={() => {
                     setIsAll(false);
                     setSelect(item);
+                    setNewData(null)
                   }}
                 >
                   <PDFSvg />
-                  <span className="text-[16px] text-[#333333]">
+                  <span className="text-[16px] text-[#333333] text-center">
                     {item.fileName}
                   </span>
                 </div>

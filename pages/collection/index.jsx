@@ -1,5 +1,5 @@
 import Fuse from "fuse.js";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useReducer, useRef, useState } from "react";
 import Folders from "../../components/featured/candidate/createResume/components/folders";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -8,10 +8,15 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { reCallUserData } from "../../Redux/actions/user";
 import { useRouter } from "next/router";
+import Tesseract from "tesseract.js";
+import PizZip from "pizzip";
+import { pdfjs } from "react-pdf";
+import Docxtemplater from "docxtemplater";
+pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
 
 function Collection() {
   const router = useRouter();
-  const { clients, folders, clientId, parentId } = router.query;
+  const { clients, folders, clientId, parentId, trash } = router.query;
   const userDataGlobal = useSelector((state) => state.userData);
   const [isCreate, setIsCreate] = useState(false);
   const [folderData, setFolderData] = useState([]);
@@ -23,8 +28,29 @@ function Collection() {
   const inputRef = useRef(null);
   const [tab, setTab] = useState(null);
   const [ParentId, setParentId] = useState(null);
+  const [isFile, setIsFile] = useState(false);
   const [loading, setLoading] = useState(true);
-
+  const [textDataFinal, setTextData] = useState([]);
+  const [files, setFiles] = useState([]);
+  const fileRef = useRef(null);
+  const [recall, setRecall] = useReducer((x) => x + 1, 0);
+  const fileToText = (file, pageNumber) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = function (event) {
+        const typedarray = new Uint8Array(event.target.result);
+        pdfjs.getDocument(typedarray).promise.then(function (pdf) {
+          pdf.getPage(pageNumber).then(function (page) {
+            page.getTextContent().then(function (textContent) {
+              const textItems = textContent.items.map((item) => item.str);
+              resolve(textItems.join(" "));
+            });
+          });
+        });
+      };
+      reader.readAsArrayBuffer(file);
+    });
+  };
   useEffect(() => {
     if (inputRef.current) {
       inputRef.current.select();
@@ -49,16 +75,20 @@ function Collection() {
       } else {
         getClients();
       }
+    } else if (trash == "true") {
+      setTab(2);
+      setTabIndex(0);
+      getTrashed();
     } else {
       setTab(0);
       setTabIndex(0);
       getClients();
     }
-  }, [clients, folders, clientId, parentId, userDataGlobal]);
+  }, [clients, folders, clientId, parentId, userDataGlobal, recall]);
 
   const getParentData = (parentId) => {
     axios
-      .get(`http://localhost:2000/api/folder/getByParentId/${parentId}`)
+      .get(`https://freedygoservices.in/api/folder/getByParentId/${parentId}`)
       .then((res) => {
         setFolderList(res.data.data);
         setTimeout(() => {
@@ -85,7 +115,7 @@ function Collection() {
   const getFolderData = () => {
     setLoading(true);
     axios
-      .get(`http://localhost:2000/api/folder/get/${userDataGlobal._id}`)
+      .get(`https://freedygoservices.in/api/folder/get/${userDataGlobal._id}`)
       .then((res) => {
         setFolderList(res.data.data);
         setTimeout(() => {
@@ -115,22 +145,19 @@ function Collection() {
         console.log(err);
       });
   };
-
-  const handleFileChange = (event, folderName) => {
-    const uploadedFiles = event.target.files;
-    const newFiles = Array.from(uploadedFiles);
-
-    const newData = folderData.map((folder) => {
-      if (folder.folderName === folderName) {
-        return {
-          ...folder,
-          files: newFiles,
-        };
-      }
-      return folder;
-    });
-
-    setData(newData);
+  const getTrashed = () => {
+    setLoading(true);
+    axios
+      .get(`https://freedygoservices.in/api/folder/getTrashed/${userDataGlobal._id}`)
+      .then((res) => {
+        setFolderList(res.data.data);
+        setTimeout(() => {
+          setLoading(false);
+        }, 1000);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const createFolder = () => {
@@ -138,10 +165,12 @@ function Collection() {
     formData.append("fileName", folderName);
     formData.append("type", "folder");
     formData.append("userId", userDataGlobal._id);
+    formData.append("parentId", ParentId ? ParentId : undefined);
+
     axios
-      .post("http://localhost:2000/api/folder/create", formData)
+      .post("https://freedygoservices.in/api/folder/create", formData)
       .then((res) => {
-        getFolderData();
+        setRecall();
         setIsCreateFolder(false);
         setFolderName("Untitled folder");
         toast.success("Folder created successfully");
@@ -151,6 +180,80 @@ function Collection() {
       });
   };
 
+  const addFiles = () => {
+    const formData = new FormData();
+    formData.append("fileName", folderName);
+    formData.append("type", "file");
+    formData.append("userId", userDataGlobal._id);
+    for (let i = 0; i < files.length; i++) {
+      formData.append("files", files[i]);
+    }
+    formData.append("parentId", ParentId ? ParentId : undefined);
+    axios
+      .post("https://freedygoservices.in/api/folder/addFiles", formData)
+      .then((res) => {
+        setRecall();
+        setIsCreateFolder(false);
+        setFolderName("Untitled folder");
+        toast.success("Folder created successfully");
+      })
+      .catch((err) => {
+        toast.error("Something went wrong");
+      });
+  };
+
+  const handleButtonClick = () => {
+    fileRef.current.click();
+  };
+  const handleFileChange = async (e) => {
+    const selectedFiles = e.target.files;
+    const textData = [];
+    if (Object.values(selectedFiles).length) {
+      const promise = Object.values(selectedFiles).map((file, index) => {
+        if (
+          file.type ==
+          "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+        ) {
+          const reader = new FileReader();
+          reader.onload = async (e) => {
+            const content = e.target.result;
+            var doc = new Docxtemplater(new PizZip(content), {
+              delimiters: {
+                start: "12op1j2po1j2poj1po",
+                end: "op21j4po21jp4oj1op24j",
+              },
+            });
+            var text = doc.getFullText();
+
+            textData.push({ index, text });
+          };
+          reader.readAsBinaryString(file);
+        } else if (file.type == "image/png") {
+          Tesseract.recognize(file, "eng", {
+            logger: (m) => console.log(m),
+          }).then(async ({ data: { text } }) => {
+            textData.push({ index, text });
+          });
+        } else if (file.type == "application/pdf") {
+          let fullText = "";
+          const pdfTextPromises = [];
+
+          for (let i = 1; i <= 1; i++) {
+            pdfTextPromises.push(fileToText(file, i));
+          }
+
+          Promise.all(pdfTextPromises).then(async (texts) => {
+            fullText = texts.join("");
+            textData.push({ index, text: fullText });
+          });
+        }
+      });
+      await Promise.all(promise);
+    }
+    setTextData(textData);
+    setFiles(selectedFiles);
+  };
+
   return (
     <>
       {isCreateFolder && (
@@ -158,14 +261,110 @@ function Collection() {
           <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
           <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center customMargins   ">
             <div className="absolute  w-[30%] rounded-[14px] bg-white p-4 flex flex-col gap-6 ">
-              <div className="text-[24px] font-medium">New Folder</div>
-              <input
-                className="border border-blue rounded-[8px] py-2 px-4"
-                ref={inputRef}
-                type="text"
-                value={folderName}
-                onChange={(e) => setFolderName(e.target.value)}
-              />
+              <div className="text-[24px] font-medium">
+                New {isFile ? "Files" : "Folder"}
+              </div>
+              {isFile ? (
+                <div
+                  ref={fileRef}
+                  onDrop={handleFileChange}
+                  class="border-dashed border-[3px] border-[#333] flex flex-row w-full justify-center rounded-[12px] px-[8px] py-[24px] items-center gap-[8px] upload-btn-wrapper min-h-[126px]"
+                >
+                  <input
+                    type="file"
+                    name="myfile"
+                    onChange={handleFileChange}
+                    multiple
+                  />
+                  {Object.keys(files).length > 0 ? (
+                    <div className="w-full flex justify-center items-center">
+                      <div className="flex flex-row gap-[16px] items-center justify-between w-[80%]  ">
+                        <div className="flex flex-row gap-[16px] items-center  ">
+                          <span className="tex-[16px] font-[500]">
+                            ({Object.values(files).length}) Files Selected
+                          </span>
+                        </div>
+                        <button
+                          className="px-[16px] py-[8px] border border-[#06A9EF]  rounded-[12px]"
+                          onClick={handleButtonClick}
+                        >
+                          Browse file
+                        </button>
+                      </div>
+                    </div>
+                  ) : (
+                    <>
+                      <div className="  flex  flex-col  items-center">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="40"
+                          height="40"
+                          viewBox="0 0 40 40"
+                          fill="none"
+                          onClick={handleButtonClick}
+                        >
+                          <g clipPath="url(#clip0_4121_52475)">
+                            <path
+                              d="M25 13.3333H25.0167"
+                              stroke="#06A9EF"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
+                            <path
+                              d="M28.3327 6.66669H11.666C8.90459 6.66669 6.66602 8.90526 6.66602 11.6667V28.3334C6.66602 31.0948 8.90459 33.3334 11.666 33.3334H28.3327C31.0941 33.3334 33.3327 31.0948 33.3327 28.3334V11.6667C33.3327 8.90526 31.0941 6.66669 28.3327 6.66669Z"
+                              stroke="#06A9EF"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
+                            <path
+                              d="M6.66602 25L13.3327 18.3333C14.0928 17.6019 14.955 17.2169 15.8327 17.2169C16.7104 17.2169 17.5726 17.6019 18.3327 18.3333L26.666 26.6666"
+                              stroke="#06A9EF"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
+                            <path
+                              d="M23.334 23.3334L25.0007 21.6667C25.7607 20.9353 26.623 20.5502 27.5007 20.5502C28.3783 20.5502 29.2406 20.9353 30.0006 21.6667L33.334 25"
+                              stroke="#06A9EF"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
+                          </g>
+                          <defs>
+                            <clipPath id="clip0_4121_52475">
+                              <rect width="40" height="40" fill="white" />
+                            </clipPath>
+                          </defs>
+                        </svg>
+                      </div>
+                      <div class="flex flex-col gap-[4px]	font-normal	">
+                        <div class="flex text-center justify-center  scr420:text-[14px] scr360:text-[12px] text-[10px] text-[#515B6F]">
+                          <span
+                            onClick={handleButtonClick}
+                            class="text-[#06A9EF]"
+                          >
+                            &nbsp;Browse file{" "}
+                          </span>
+                          &nbsp;to upload PDF or DOCS
+                        </div>
+                        <p class="text-center text-[12px] font-normal text-[#7C8493]"></p>
+                      </div>
+                    </>
+                  )}
+                </div>
+              ) : (
+                <input
+                  className="border border-blue rounded-[8px] py-2 px-4"
+                  ref={inputRef}
+                  type="text"
+                  value={folderName}
+                  onChange={(e) => setFolderName(e.target.value)}
+                />
+              )}
+
               <div className="flex justify-end gap-6 text-blue font-medium">
                 <button
                   onClick={() => {
@@ -175,7 +374,9 @@ function Collection() {
                 >
                   Cancel
                 </button>
-                <button onClick={createFolder}>Create</button>
+                <button onClick={isFile ? addFiles : createFolder}>
+                  {isFile ? "Add Files" : "Create"}
+                </button>
               </div>
             </div>
           </div>
@@ -190,9 +391,9 @@ function Collection() {
                 setIsCreate(!isCreate);
                 e.stopPropagation();
               }}
-              className={`rounded-[8px] text-[14px] font-semibold px-4 py-2 flex gap-2 justify-center relative items-center w-[98px] bg-blue text-white ${
-                tabIndex === 1 && "opacity-100"
-              } `}
+              disabled={tab != 1}
+              className={`rounded-[8px] text-[14px] font-semibold px-4 py-2 flex gap-2 justify-center relative items-center w-[98px] bg-blue text-white `}
+              style={{ opacity: tab == 1 ? 1 : 0.6 }}
             >
               <svg
                 width="24"
@@ -216,7 +417,10 @@ function Collection() {
                     style={{ boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)" }}
                   >
                     <div
-                      onClick={(e) => setIsCreateFolder(true)}
+                      onClick={(e) => {
+                        setIsFile(false);
+                        setIsCreateFolder(true);
+                      }}
                       className="flex gap-1 items-center"
                     >
                       <svg
@@ -236,7 +440,13 @@ function Collection() {
                       New Folder
                     </div>
 
-                    <div className="flex gap-1 items-center upload-btn-wrapper">
+                    <div
+                      className="flex gap-1 items-center upload-btn-wrapper"
+                      onClick={(e) => {
+                        setIsFile(true);
+                        setIsCreateFolder(true);
+                      }}
+                    >
                       <svg
                         width="24"
                         height="24"
@@ -251,14 +461,14 @@ function Collection() {
                           />
                         </g>
                       </svg>
-                      <input
+                      {/* <input
                         multiple
                         type="file"
                         accept=".pdf,.doc,.docx"
                         onChange={(event) =>
                           handleFileChange(event, folderData.folderName)
                         }
-                      />
+                      /> */}
                       Upload Files
                     </div>
                   </div>
@@ -317,8 +527,12 @@ function Collection() {
                 My Folders
               </button>
               <button
-                onClick={() => ""}
-                className=" rounded-[30px] text-[16px] font-semibold px-6 py-2 flex gap-2 justify-start items-center    "
+                onClick={() => {
+                  router.push("/collection?trash=true");
+                }}
+                className={`rounded-[30px] text-[16px] font-semibold px-6 py-2 flex gap-2 justify-start items-center  ${
+                  tab === 2 && "bg-[#C2E7FF]"
+                }  `}
               >
                 <svg
                   width="20"
@@ -359,6 +573,7 @@ function Collection() {
           setFolderList={setFolderList}
           loading={loading}
           query={router.query}
+          setRecall={setRecall}
         />
       </div>
     </>

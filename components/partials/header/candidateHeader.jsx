@@ -99,7 +99,7 @@ function CandidateHeader() {
             <li>My Resumes</li>
           </Link>
         )}
-        {/* <Link
+        <Link
           href="/transform/TransformJob"
           className={
             selectedPage === "/transform/TransformJob"
@@ -108,7 +108,7 @@ function CandidateHeader() {
           }
         >
           <li>Transform CV </li>
-        </Link> */}
+        </Link>
         {userDataGlobal.role === "recruiter" && (
           <Link
             href="/transform/JobMatching"
@@ -121,7 +121,7 @@ function CandidateHeader() {
             <li>Job Description Matching</li>
           </Link>
         )}
-        {/* {userDataGlobal.role === "recruiter" && (
+        {userDataGlobal.role === "recruiter" && (
           <Link
             href="/collection"
             className={
@@ -132,7 +132,7 @@ function CandidateHeader() {
           >
             <li>Collection</li>
           </Link>
-        )} */}
+        )}
         <Link
           href="/purchase/MyPurchase"
           className={
