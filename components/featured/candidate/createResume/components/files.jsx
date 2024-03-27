@@ -31,18 +31,28 @@ function Files({
   const [clientResumes, setClientResumes] = useState();
   const dispatch = useDispatch();
 
-  const openFolder = (index, parentId) => {
-    router.push({
-      pathname: "/collection",
-      query: { ...query, parentId },
-    });
+  const openFolder = (index, parentId, name, item) => {
+    if (item?.type == "file") {
+      window.location.href = item.file;
+    } else {
+      localStorage.setItem("previousPage", window.location.href);
+      router.push({
+        pathname: "/collection",
+        query: { ...query, name, parentId },
+      });
+    }
   };
 
-  const openClientFolder = (index, clientId) => {
-    router.push({
-      pathname: "/collection",
-      query: { ...query, clientId },
-    });
+  const openClientFolder = (index, clientId, name, item) => {
+    if (item?.resumeUrl?.includes("pdf")) {
+      window.location.href = item.resumeUrl;
+    } else {
+      localStorage.setItem("previousPage", window.location.href);
+      router.push({
+        pathname: "/collection",
+        query: { ...query, name, clientId },
+      });
+    }
   };
   const toggleSelect = (index) => {
     if (selectedIndexes.includes(index)) {
@@ -73,7 +83,7 @@ function Files({
 
   return (
     <>
-      {tab === 1 && (
+      {(tab === 1 || tab === 2) && (
         <MyFolders
           isList={isList}
           selectedIndexes={selectedIndexes}

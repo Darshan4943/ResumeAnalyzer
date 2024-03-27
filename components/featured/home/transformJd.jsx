@@ -29,7 +29,6 @@ function TransformJd({
       </Document>
     );
 };
-  console.log(data)
   return (
     <div>
       <div className="flex justify-end w-full">

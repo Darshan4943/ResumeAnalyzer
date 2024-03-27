@@ -41,7 +41,6 @@ export const Api = () => {
 
   useEffect(() => {
     const resumeUploadCoount = localStorage.getItem("uploadCount");
-    console.log(resumeUploadCoount)
 
     if (!resumeUploadCoount) {
       localStorage.setItem("uploadCount", 2);

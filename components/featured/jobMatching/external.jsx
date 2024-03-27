@@ -27,6 +27,7 @@ const ExternalJobMatching = () => {
   const [preview, setPreview] = useState(false);
   const [selected, setSelected] = useState(false);
   const [textDataFinal, setTextData] = useState([]);
+
   const [extractedData, setExtractedData] = useState([]);
   const fileRef = useRef(null);
   useEffect(() => {
@@ -41,6 +42,7 @@ const ExternalJobMatching = () => {
         console.log(err);
       });
   }, [userDataGlobal]);
+
   const handleButtonClick = () => {
     fileRef.current.click();
   };
@@ -48,7 +50,7 @@ const ExternalJobMatching = () => {
   const jobMatching = () => {
     setLoading(true);
     axios
-      .post("http://localhost:2000/api/external/jobMatching", {
+      .post("https://freedygoservices.in/api/external/jobMatching", {
         jd: text,
         resumeCount,
         resumeData: extractedData,
@@ -89,7 +91,7 @@ const ExternalJobMatching = () => {
   const extractData = async () => {
     setLoading(true);
     axios
-      .post("http://localhost:2000/api/resume/extraction", {
+      .post("https://freedygoservices.in/api/resume/extraction", {
         data: textDataFinal,
       })
       .then((res) => {
@@ -502,8 +504,7 @@ const ExternalJobMatching = () => {
                           See More
                         </span>
                       </div>
-                      <div className="w-[100%]  px-[8px] pb-[16px] border-b-[1px] border-[#bebebe]">
-                      </div>
+                      <div className="w-[100%]  px-[8px] pb-[16px] border-b-[1px] border-[#bebebe]"></div>
                       {data?.percentage ? (
                         <Progress_bar progress={data.percentage} />
                       ) : null}

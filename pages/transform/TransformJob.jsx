@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import ReactSelect from "react-select";
 import { data } from "autoprefixer";
 import { ListSvg, PDFSvgSM, SearchIcon, TileViewSvg } from "../../utils/svg";
+import EarthLoader from "../../components/common/EarthLoader";
 <Fonts />;
 
 function TransformJob() {
@@ -24,16 +25,29 @@ function TransformJob() {
   const handleChange = (event) => {
     setText(event.target.value);
   };
+  console.log(newData);
   const transformHandler = () => {
     setLoading(true);
     axios
-      .post("http://localhost:2000/api/cv/transform", {
+      .post("https://freedygoservices.in/api/cv/transform", {
         jd: text,
         json: selected,
       })
       .then((res) => {
         setLoading(false);
-        setNewData(res.data.data);
+        const { skills, summery, experience } = res.data.data;
+        setNewData({
+          ...selected,
+          skills:
+            selected.skills.length > 0
+              ? skills
+              : skills?.map((item) => ({
+                  skill: item,
+                  rating: [5, 5, 5, 5, 5],
+                })),
+          summery: summery,
+          experience,
+        });
       })
       .catch((err) => {
         setLoading(false);
@@ -42,8 +56,6 @@ function TransformJob() {
   };
 
   useEffect(() => {
-    console.log("ok", userDataGlobal);
-
     if (userDataGlobal.role == "recruiter") {
       axios
         .get(
@@ -63,7 +75,6 @@ function TransformJob() {
               "https://freedygoservices.in/api/resume/" + res.data.data[0]?._id
             )
             .then((res) => {
-              console.log("first", selectedClient, res.data.data);
               setResumeList(res.data.data);
               setSelect(res.data.data[0]);
             })
@@ -94,6 +105,7 @@ function TransformJob() {
 
   return (
     <div className=" p-6 flex flex-col gap-4">
+      {loading && <EarthLoader />}
       <div
         className="flex ml:flex-row flex-col gap-12 w-[100%] p-4 rounded-[12px]"
         style={{ boxShadow: "0px 1px 6px 0px #00000040" }}
@@ -131,70 +143,16 @@ function TransformJob() {
               Select Resume from Collection
             </div>
 
-            {/* <div className="rounded-[16px] border bg-[#F9F9F9] border-[#DEDEDE] p-[16px] flex flex-col gap-[16px]">
-              <div className="flex flex-row items-center justify-between gap-[12px] ">
-                <div className="flex flex-row items-center gap-[12px] ">
-                  <div className="flex flex-row gap-[8px] py-[8px] px-[12px] h-[40px] bg-[#fff] border border-[#DEDEDE] rounded-[30px] items-center">
-                    <SearchIcon />
-                    <input
-                      type="text"
-                      className="bg-[#fff] text-[#333333] placeholder:text-[#333333] "
-                      placeholder="Search"
-                    />
-                  </div>
-                  
-                </div>
-                <span className="text-[14px] text-[#808080]">
-                  {userDataGlobal.role == "recruiter"
-                    ? resumeList?.length
-                    : count}
-                  {" Items"}
-                </span>
-              </div>
-              <div className="border-b-[1px] border-[#DEDEDE] w-full h-[1px]"></div>
-
-              {resumeList?.length > 0 || userDataGlobal.role != "recruiter" ? (
-                <div
-                  className="flex flex-row flex-wrap gap-4   py-4  h-[247px] overflow-y-auto bg-[#FFFFFF] border-[1px] border-[#DEDEDE] rounded-[16px] p-[8px]"
-                >
-                  <UserResumes
-                    setSelect={setSelect}
-                    setIsAll={setIsAll}
-                    isAll={false}
-                    resumeList={resumeList}
-                    selected={selected}
-                    setCount={setCount}
-                  />
-                </div>
-              ) : (
-                <div className="text-[20px] font-medium text-center w-full py-[24px]">
-                  No Resume Available
-                </div>
-              )}
-            </div> */}
-             <UserResumes
-                    setSelect={setSelect}
-                    setIsAll={setIsAll}
-                    isAll={false}
-                    resumeList={resumeList}
-                    selected={selected}
-                    setCount={setCount}
-                    selectedClient={selectedClient}
-                  />
-            {/* <div
-              onClick={() => setIsAll(true)}
-              className="font-medium text-[18px] text-[#06A9EF] flex justify-end cursor-pointer"
-            >
-              See All
-            </div> */}
-            {/* {isAll && (
-              <UserResumes
-                setSelect={setSelect}
-                setIsAll={setIsAll}
-                isAll={true}
-                resumeList={resumeList}
-              />
-            )} */}
+            <UserResumes
+              setSelect={setSelect}
+              setIsAll={setIsAll}
+              isAll={false}
+              resumeList={resumeList}
+              selected={selected}
+              setCount={setCount}
+              selectedClient={selectedClient}
+              setNewData={setNewData}
+            />
           </div>
           <div className="flex flex-col gap-4 ">
             <div className="text-[18px] font-medium text-[#333333]">
