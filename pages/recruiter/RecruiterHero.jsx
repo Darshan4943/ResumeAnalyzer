@@ -46,8 +46,8 @@ console.log(14,details)
   const router = useRouter();
   const clickHandler = () => {
     if (isLogin) {
-      if (details.length > 0) {
-        router.push("/myClients/ClientResume");
+      if (details?.length > 0) {
+        router.push("/myClients");
       } else {
         router.push("/myClients/CreateNewClient");
       }

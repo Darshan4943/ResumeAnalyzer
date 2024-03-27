@@ -150,7 +150,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                     flexDirection: "row",
                     alignItems: "center",
                     gap: "8px",
-                    width: "35%",
+                    width: "100%",
                   }}
                 >
                   <Svg
@@ -280,7 +280,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                       fill={selectedColor}
                     />
                   </Svg>
-                  <View style={{ flexDirection: "column", gap: 12 }}>
+                  <View style={{ flexDirection: "column", gap: 8 }}>
                     {data.skills.map((detail, index) => (
                       <View key={index} wrap={false}>
                         <View>
@@ -323,7 +323,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                     />
                   </Svg>
                   <View
-                    style={{ flexDirection: "col", gap: "12px" }}
+                    style={{ flexDirection: "col", gap: "8px" }}
                     wrap={false}
                   >
                     {data.hobbies.map((detail, index) => (
