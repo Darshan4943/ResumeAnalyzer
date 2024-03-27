@@ -53,6 +53,7 @@ const ResumePreview = ({
   selectedFont,
   isEdit,
   id,
+  render
 }) => {
   const [namePreview, setNamePreview] = useState(false);
   const [name, setName] = useState(data.firstName + "_resume");
@@ -218,7 +219,7 @@ const ResumePreview = ({
       imgUrl: "/images/templates/template32.png",
       index: 32,
       fontFamily: "Montserrat",
-      themeColor: "#303030",
+      themeColor: "#0072BC",
     },
     {
       title: "Template39",
@@ -514,7 +515,6 @@ const ResumePreview = ({
       document.removeEventListener("mousedown", handleOutsideClick);
     };
   }, []);
-  console.log(data);
   const saveResume = async (blob) => {
     if (isEdit) {
       setLoading(true);
@@ -771,6 +771,21 @@ const ResumePreview = ({
             </PDFViewer>
           </div>
         )}
+        {/* <div
+          className=" w-full flex items-center justify-center mt-3 bg-[#525659] py-[24px] rounded-[8px]"
+          style={{
+            transformOrigin: "top left",
+          }}
+        >
+          {
+            render &&<Template1
+            data={data}
+            selectedColor={selectedColor}
+            selectedFont={selectedFont}
+          />
+          }
+          
+        </div> */}
       </div>
       {preview && (
         <>

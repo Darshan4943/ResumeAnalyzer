@@ -31,7 +31,6 @@ const ResumeForm = ({
       templates.find((item) => item.index == selectedResumeIndex)?.formFields
     );
   }, [selectedResumeIndex]);
-  console.log("first", data);
   return (
     <>
       <div className="flex flex-col ml:w-[40%] w-[100%]  pb-4 gap-4 rounded-lg ">

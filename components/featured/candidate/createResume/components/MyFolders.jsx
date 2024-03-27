@@ -1,7 +1,11 @@
-import axios from "axios";
-import React, { useEffect } from "react";
+import React from "react";
+import {
+  convertBytes,
+  dateSeter,
+  formatDate,
+} from "../../../../../utils/middleware";
 
-function ClientFolders({
+function MyFolders({
   toggleSelect,
   isList,
   tabIndex,
@@ -18,57 +22,21 @@ function ClientFolders({
   setSelect,
   selectedIndexes,
   setSelectedIndexes,
-  openClientFolder,
-  query,
+  openFolder,
 }) {
-  const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    return date
-      .toLocaleDateString("en-GB", {
-        day: "2-digit",
-        month: "2-digit",
-        year: "numeric",
-      })
-      .replace(/\//g, "-");
-  };
-  const { clientId } = query;
-
-  useEffect(() => {
-    if (files && Array.isArray(files) && files.length > 0) {
-      axios
-        .head(files[0].resumeUrl)
-        .then((response) => {
-          const contentLengthBytes = parseInt(
-            response.headers["content-length"],
-            10
-          );
-          const contentLengthKB = contentLengthBytes / 1024;
-          setFiles((prevFiles) => {
-            const updatedFiles = [...prevFiles];
-            updatedFiles[0].size = contentLengthKB.toFixed(2) + " KB";
-            return updatedFiles;
-          });
-        })
-        .catch((error) => {
-          console.error("There was a problem with the request:", error);
-        });
-    } else {
-      console.error("Files array is either undefined, not an array, or empty.");
-    }
-  }, [isList]);
 
   return (
     <div className="">
       {tabIndex === 0 && (
         <div className="rounded-[16px] p-4 flex flex-row gap-y-6 flex-wrap  w-full h-full">
-          {clientData?.length > 0 ? (
+          {data?.length > 0 ? (
             <>
               {!isList ? (
-                clientData?.map((item, index) => (
+                data?.map((item, index) => (
                   <>
                     <div
                       onClick={() => {
-                        !select && openClientFolder(index, item._id);
+                        !select && openFolder(index, item._id);
                       }}
                       key={index}
                       className=" break-all flex flex-col items-center text-center cursor-pointer h-fit w-[120px] px-2"
@@ -101,14 +69,8 @@ function ClientFolders({
                           />
                         )}
                       </div>
-                      {clientId ? (
-                        item.fileName
-                      ) : (
-                        <>
-                          {" "}
-                          {item.firstName} {item.lastName}
-                        </>
-                      )}
+
+                      {item.fileName}
                     </div>
                   </>
                 ))
@@ -122,22 +84,19 @@ function ClientFolders({
                       <th className="py-3 px-4 bg-[#C2E7FF] w-[25%] text-left">
                         Date Modified
                       </th>
-                      <th className="py-3 px-4 bg-[#C2E7FF] w-[20%] text-left">
-                        Category
-                      </th>
                       <th className="py-3 px-4 rounded-r-[12px] bg-[#C2E7FF] w-[25%] text-left">
                         Size
                       </th>
                     </tr>
                   </thead>
                   <tbody>
-                    {clientData.map((item, index) => (
+                    {data.map((item, index) => (
                       <tr
                         key={index}
-                        onClick={() => openClientFolder(index, item._id)}
+                        onClick={() => openFolder(index, item._id)}
                         className=""
                       >
-                        <td className="px-4 py-2 font-medium flex gap-2 relative items-center cursor-pointer ">
+                        <td className="px-4 py-2 font-medium flex gap-2 relative items-center ">
                           {select && (
                             <input
                               type="checkbox"
@@ -148,32 +107,13 @@ function ClientFolders({
                               onChange={() => toggleSelect(index)}
                             />
                           )}
-                          <svg
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              d="M21.4286 4.49999H12.5299L11.5263 2.45093C11.3138 2.01394 10.9857 1.64642 10.5792 1.38999C10.1727 1.13355 9.70391 0.998462 9.22603 1.00001H2.57143C1.88967 1.00078 1.23606 1.27758 0.753981 1.7697C0.271907 2.26181 0.000748696 2.92904 0 3.625V19.3749C0.000748696 20.0709 0.271907 20.7381 0.753981 21.2302C1.23606 21.7223 1.88967 21.9991 2.57143 21.9999H21.4286C22.1103 21.9991 22.7639 21.7223 23.246 21.2302C23.7281 20.7381 23.9993 20.0709 24 19.3749V7.12497C23.9993 6.42902 23.7281 5.76179 23.246 5.26968C22.7639 4.77756 22.1103 4.50076 21.4286 4.49999Z"
-                              fill="#4294FF"
-                            />
-                            <path
-                              d="M22.0543 21.9122C21.851 21.9725 21.6402 22.0019 21.4286 21.9997H2.57143C1.89006 21.9977 1.23716 21.7205 0.755352 21.2286C0.273547 20.7368 0.00199013 20.0703 1.77688e-07 19.3747V3.62483C-0.000193566 3.09445 0.158055 2.57663 0.45363 2.14045C0.749206 1.70427 1.16805 1.37047 1.65429 1.18359C4.05429 8.0523 9.66857 18.5085 22.0543 21.9122Z"
-                              fill="#2965ED"
-                            />
-                          </svg>
-                          {item.firstName} {item.lastName}
+                          {item.fileName}
                         </td>
                         <td className="px-4 py-2 text-[#858585]">
-                          {formatDate(item?.updatedAt)}
+                          {dateSeter(item.updatedAt)}
                         </td>
                         <td className="px-4 py-2 text-[#858585]">
-                          {item?.category}
-                        </td>
-                        <td className="px-4 py-2 text-[#858585]">
-                          {item?.size}
+                          {convertBytes(item.size)}
                         </td>
                       </tr>
                     ))}
@@ -195,8 +135,53 @@ function ClientFolders({
           )}
         </div>
       )}
+      {tabIndex === 1 && (
+        <div className=" gap-[1px] p-4 bg-white w-full min-h-[60vh]">
+          {files?.length > 0 ? (
+            <table className="w-[100%] ">
+              <thead>
+                <tr>
+                  <th className="py-3 px-4 rounded-l-[12px] bg-[#C2E7FF] w-[30%] text-left">
+                    Name
+                  </th>
+                  <th className="py-3 px-4 bg-[#C2E7FF] w-[25%] text-left">
+                    Date Modified
+                  </th>
+                  <th className="py-3 px-4 bg-[#C2E7FF] w-[20%] text-left">
+                    Category
+                  </th>
+                  <th className="py-3 px-4 rounded-r-[12px] bg-[#C2E7FF] w-[25%] text-left">
+                    Size
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {files.map((item, index) => (
+                  <tr key={index} className="">
+                    <td className="px-4 py-2 font-medium">{item.fileName}</td>
+                    {/* <td className='px-4 py-2 text-[#858585]'>{item.dateModified}</td>
+                            <td className='px-4 py-2 text-[#858585]'>{item.category}</td>
+                            <td className='px-4 py-2 text-[#858585]'>{item.size}</td> */}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          ) : (
+            <div className="w-full h-full flex flex-col gap-6 justify-center items-center">
+              <img
+                src="/images/noFile.png"
+                className="h-[300px] w-[375px]"
+                alt=""
+              />
+              <div className="text-[20px] font-medium text-[#808080]">
+                No Files Available{" "}
+              </div>
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 }
 
-export default ClientFolders;
+export default MyFolders;

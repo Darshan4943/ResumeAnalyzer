@@ -33,6 +33,27 @@ export function camelCase(str) {
       return word.toUpperCase(); // Convert the first character of each word to uppercase
     });
 }
+export const dateSeter = (date) => {
+  const monthLater = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+  const d = new Date(date);
+  const year = d.getFullYear();
+  const month = d.getMonth();
+  const day = d.getDate();
+  return `${day} ${monthLater[month]} ${year} `;
+};
 
 export const dateFormatter = (date) => {
   const currentDate = new Date(date);
@@ -88,6 +109,13 @@ export const generatePDFUsingRenderer = async (MyDocument) => {
 
   return pdfBlob;
 };
+export function convertBytes(bytes) {
+  const sizes = ['Bytes', 'KB', 'MB'];
+  if (bytes == 0) return '0 Byte';
+  const i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
+  return (bytes / Math.pow(1024, i)).toFixed(2) + ' ' + sizes[i];
+}
+
 
 export const selectResumeTemplate = (
   index,

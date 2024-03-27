@@ -18,8 +18,8 @@ function AccountDetails({ selectedPlan }) {
     return futureDate;
   }
   const [successModel, setSuccessModel] = useState(false);
-  const [error,setError] = useState()
-  console.log(22,error)
+  const [error, setError] = useState();
+  console.log(22, error);
   const [popUp, setpPopUp] = useState(false);
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState({
@@ -27,7 +27,7 @@ function AccountDetails({ selectedPlan }) {
     lastName: "",
     mobileNo: "",
     email: "",
-    dial_code: "+260",
+    dial_code: "",
     checked: false,
   });
   const [filteredTelCode, setFilteredTelCode] = useState([]);
@@ -35,7 +35,7 @@ function AccountDetails({ selectedPlan }) {
     const filteredCodes = telCode;
     setFilteredTelCode(filteredCodes);
   }, [telCode]);
-  const [selectedItem, setSelectedItem] = useState(telCode[telCode.length - 2]);
+  const [selectedItem, setSelectedItem] = useState();
 
   const handleItemClick = (item) => {
     setSelectedItem(item);
@@ -130,25 +130,25 @@ function AccountDetails({ selectedPlan }) {
     if (!data.checked) {
       setError("Please agree to the terms and conditions.");
     } else {
-    axios
-      .post("https://freedygoservices.in/api/add/subscription", {
-        userId: userDataGlobal._id,
-        plan: selectedPlan.duration + " " + selectedPlan.limit,
-        startDate: new Date(),
-        endDate: getDateAfterDays(selectedPlan.days),
-        paidAt: new Date(),
-        ...data,
-        mobileNo: data.mobileNo,
-        index: selectedPlan.index,
-      })
-      .then((res) => {
-        setLoading(false);
-        setpPopUp(true);
-        // setSuccessModel(true);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+      axios
+        .post("https://freedygoservices.in/api/add/subscription", {
+          userId: userDataGlobal._id,
+          plan: selectedPlan.duration + " " + selectedPlan.limit,
+          startDate: new Date(),
+          endDate: getDateAfterDays(selectedPlan.days),
+          paidAt: new Date(),
+          ...data,
+          mobileNo: data.mobileNo,
+          index: selectedPlan.index,
+        })
+        .then((res) => {
+          setLoading(false);
+          setpPopUp(true);
+          // setSuccessModel(true);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
     // if (data.checked) {
     //   const errors = validateInput();
@@ -403,7 +403,7 @@ function AccountDetails({ selectedPlan }) {
                       options={filteredTelCode}
                       className="w-[100%] flex min-w-[150px]  items-center py-1  rounded-[8px]"
                       name=""
-                      placeholder="Search"
+                      placeholder="Select"
                       value={selectedItem}
                       onChange={handleItemClick}
                       getOptionLabel={(option) => (
@@ -489,7 +489,8 @@ function AccountDetails({ selectedPlan }) {
             type="checkbox"
             checked={data.checked}
             className="w-4 h-4 rounded-md border border-[#06A9EF] bg-white custom-checkbox"
-            onClick={() => {setError(false)
+            onClick={() => {
+              setError(false);
               setData({ ...data, checked: !data.checked });
             }}
           />
@@ -504,11 +505,10 @@ function AccountDetails({ selectedPlan }) {
               User Agreement.
             </span>
           </div>
-         
         </div>
-        {error && 
-        <div className="text-[16px] font-semibold text-red">{error}</div>
-        }
+        {error && (
+          <div className="text-[16px] font-semibold text-red">{error}</div>
+        )}
         <button
           className="px-9 py-3 bg-[#06A9EF] text-white rounded-[12px] text-[16px] font-semibold"
           onClick={purchaseHandler}

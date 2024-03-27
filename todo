@@ -1,6 +1,86 @@
-add loader to signup and signin with google
+// add loader to signup and signin with google
 
 
-implement year and month picker in registration form before resume creation
-if user enters "," seperated values in hobbies and language then consider as multiple entities 
-clear skill input after selecting the skill
+// implement year and month picker in registration form before resume creation
+// if user enters "," seperated values in hobbies and language then consider as multiple entities 
+// clear skill input after selecting the skill
+
+
+
+
+// const options = {
+//       method: "POST",
+//       url: "https://ai-textraction.p.rapidapi.com/textraction",
+//       headers: {
+//         "content-type": "application/json",
+//         "X-RapidAPI-Key": "80eb46ad3emsh732639cf5754b1fp175f05jsn58a55fe74349",
+//         "X-RapidAPI-Host": "ai-textraction.p.rapidapi.com",
+//       },
+//       data: {
+//         text,
+//         entities: [
+//           {
+//             var_name: "first_name",
+//             type: "string",
+//             description: "first name of the person",
+//           },
+//           {
+//             var_name: "last_name",
+//             type: "string",
+//             description: "last name of the person",
+//           },
+//           {
+//             var_name: "years_of_experience",
+//             type: "integer",
+//             description: "years of experience",
+//           },
+//           {
+//             var_name: "designation",
+//             type: "string",
+//             description: "designation",
+//           },
+//           {
+//             var_name: "experience",
+//             type: "integer",
+//             description: "persons work experience",
+//           },
+//           {
+//             var_name: "programming_languages",
+//             type: "array[string]",
+//             description: "programming languages experienced with",
+//           },
+//           {
+//             var_name: "skills",
+//             type: "array[string]",
+//             description: "persons skills",
+//           },
+//           {
+//             var_name: "soft_skills",
+//             type: "array[string]",
+//             description: "persons soft skills",
+//           },
+//           {
+//             var_name: "tools",
+//             type: "array[string]",
+//             description: "tools experienced with",
+//           },
+//           {
+//             var_name: "education",
+//             type: "array[string]",
+//             description: "education of person",
+//           },
+//           {
+//             var_name: "degrees",
+//             type: "array[string]",
+//             description: "degrees of person",
+//           },
+//         ],
+//       },
+//     };
+
+//     try {
+//       const response = await axios.request(options);
+//       return response.data.results;
+//     } catch (error) {
+//       console.error(error);
+//     }

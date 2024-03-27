@@ -15,7 +15,7 @@ function Recruiter_signup({ }) {
   const router = useRouter();
   const dispatch = useDispatch();
   const [modelView, setModelView] = useState(false);
-  const [selectedItem, setSelectedItem] = useState(telCode[telCode.length - 2]);
+  const [selectedItem, setSelectedItem] = useState();
   const [searchTerm, setSearchTerm] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [filteredTelCode, setFilteredTelCode] = useState([]);
@@ -389,7 +389,7 @@ console.log(37,data.img)
                                 options={filteredTelCode}
                                 className="w-[100%] flex  items-center py-1  rounded-[8px]"
                                 name=""
-                                placeholder="Search"
+                                placeholder="Select"
                                 value={selectedItem}
                                 onChange={handleItemClick}
                                 getOptionLabel={(option) => (

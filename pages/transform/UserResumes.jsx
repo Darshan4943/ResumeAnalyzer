@@ -73,7 +73,6 @@ const UserResumes = ({
     if (userDataGlobal.role == "recruiter") {
       setData(resumeList);
       setAllData(resumeList);
-      console.log(75, resumeList);
       // setSelect(resumeList[0]);
     } else {
       axios
@@ -121,7 +120,7 @@ const UserResumes = ({
               <input
                 type="text"
                 className="bg-[#fff] text-[#333333] placeholder:text-[#333333] "
-                placeholder="Search"
+                placeholder="Select"
                 onChange={(e) => searchHandler(e.target.value)}
               />
             </div>

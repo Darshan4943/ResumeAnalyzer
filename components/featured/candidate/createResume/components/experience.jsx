@@ -72,7 +72,6 @@ const Experience = ({ data, setData }) => {
       experience: data.experience.filter((item, i) => i !== index),
     });
   };
-  console.log(75, data)
   return (
     <div
       className="flex flex-col p-4 gap-2 rounded-lg bg-white"

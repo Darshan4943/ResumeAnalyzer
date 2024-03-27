@@ -27,7 +27,7 @@ function TransformJob() {
   const transformHandler = () => {
     setLoading(true);
     axios
-      .post("https://freedygoservices.in/api/cv/transform", {
+      .post("http://localhost:2000/api/cv/transform", {
         jd: text,
         json: selected,
       })
@@ -113,7 +113,7 @@ function TransformJob() {
                   }))}
                   className="my-4 outline outline-offset-1 outline-blue rounded-[8px]"
                   name=""
-                  placeholder="Search"
+                  placeholder="Select"
                   value={selectedClient}
                   onChange={(data) => selectHandler(data)}
                   styles={{

@@ -23,7 +23,14 @@ const CandidateAiPower = ({
   const handleButtonClick = () => {
     fileRef.current.click();
   };
+
+  const { clientId } = router.query;
   const [fileData, setFileData] = useState(null);
+  const [uploadLimit, setUploadLimit] = useState(0);
+  useEffect(() => {
+    const resumeUploadCount = localStorage.getItem("uploadCount");
+    setUploadLimit(resumeUploadCount ? resumeUploadCount : 0);
+  }, []);
   const handleFileChange = (event) => {
     event.preventDefault();
     const selectedFile = event.target.files[0];
@@ -44,6 +51,10 @@ const CandidateAiPower = ({
     setfile(file);
   };
   const navigate = () => {
+    if (uploadLimit == 0) {
+      toast.error("Seems you have no upload attempts left update your plan");
+      return;
+    }
     const formData = new FormData();
     setLoading(true);
     formData.append("file", file);
@@ -53,9 +64,7 @@ const CandidateAiPower = ({
         setLoading(false);
         setfile(file);
         localStorage.setItem("parsedResume", JSON.stringify(res.data.data));
-        router.push({
-          pathname: "/home/createResume",
-        });
+        router.push(`/home/createResume?clientId=${clientId}`);
       })
       .catch((err) => {
         setLoading(false);
@@ -156,7 +165,7 @@ const CandidateAiPower = ({
       url: dataFromApi.url,
     });
   };
-
+  // TODO
   return (
     <>
       {tabindex == 1 && (
@@ -186,109 +195,115 @@ const CandidateAiPower = ({
                   </p>
                 </div>
               </div>
-              {loading ? (
-                <div class="border-dashed border-[3px] border-[#333] flex flex-col w-full rounded-[12px] px-[42px] py-[24px] items-center gap-[8px] upload-btn-wrapper min-h-[6rem]">
-                  <MiniLoader />
-                  <span>Analyzing Resume, Please Wait...</span>
-                </div>
-              ) : (
-                <div
-                  ref={fileRef}
-                  onDragOver={handleDragOver}
-                  onDrop={handleFileChange}
-                  class="border-dashed border-[3px] border-[#333] flex flex-col w-full rounded-[12px] px-[8px] py-[24px] items-center gap-[8px] upload-btn-wrapper min-h-[6rem]"
-                >
-                  <input
-                    type="file"
-                    name="myfile"
-                    onChange={handleFileChange}
-                  />
-                  {file ? (
-                    <div className="w-full flex justify-center">
-                      <div className="flex flex-row gap-[16px] items-center justify-between w-[80%] ">
-                        <div className="flex flex-row gap-[16px] items-center  ">
-                          {" "}
-                          <ImageContainer
-                            src={"/images/icons/pdf_icon.png"}
-                            className={"h-[24px] w-[24px]"}
-                          />
-                          <span className="text-[12px] w-[40%]">
-                            {file.name}
-                          </span>
-                        </div>
+              <div className="w-full flex flex-col gap-[16px] ">
+                {" "}
+                {loading ? (
+                  <div class="border-dashed border-[3px] border-[#333] flex flex-col w-full rounded-[12px] px-[42px] py-[24px] items-center gap-[8px] upload-btn-wrapper min-h-[6rem]">
+                    <MiniLoader />
+                    <span>Analyzing Resume, Please Wait...</span>
+                  </div>
+                ) : (
+                  <div
+                    ref={fileRef}
+                    onDragOver={handleDragOver}
+                    onDrop={handleFileChange}
+                    class="border-dashed border-[3px] border-[#333] flex flex-col w-full rounded-[12px] px-[8px] py-[24px] items-center gap-[8px] upload-btn-wrapper min-h-[6rem]"
+                  >
+                    <input
+                      type="file"
+                      name="myfile"
+                      onChange={handleFileChange}
+                    />
+                    {file ? (
+                      <div className="w-full flex justify-center">
+                        <div className="flex flex-row gap-[16px] items-center justify-between w-[80%] ">
+                          <div className="flex flex-row gap-[16px] items-center  ">
+                            {" "}
+                            <ImageContainer
+                              src={"/images/icons/pdf_icon.png"}
+                              className={"h-[24px] w-[24px]"}
+                            />
+                            <span className="text-[12px] w-[40%]">
+                              {file.name}
+                            </span>
+                          </div>
 
-                        <button className="px-[16px] py-[8px] border border-[#06A9EF]  rounded-[12px]">
-                          Browse file
-                        </button>
-                      </div>
-                    </div>
-                  ) : (
-                    <>
-                      <div className="  flex  flex-col  items-center">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="40"
-                          height="40"
-                          viewBox="0 0 40 40"
-                          fill="none"
-                          onClick={handleButtonClick}
-                        >
-                          <g clipPath="url(#clip0_4121_52475)">
-                            <path
-                              d="M25 13.3333H25.0167"
-                              stroke="#06A9EF"
-                              strokeWidth="2"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            />
-                            <path
-                              d="M28.3327 6.66669H11.666C8.90459 6.66669 6.66602 8.90526 6.66602 11.6667V28.3334C6.66602 31.0948 8.90459 33.3334 11.666 33.3334H28.3327C31.0941 33.3334 33.3327 31.0948 33.3327 28.3334V11.6667C33.3327 8.90526 31.0941 6.66669 28.3327 6.66669Z"
-                              stroke="#06A9EF"
-                              strokeWidth="2"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            />
-                            <path
-                              d="M6.66602 25L13.3327 18.3333C14.0928 17.6019 14.955 17.2169 15.8327 17.2169C16.7104 17.2169 17.5726 17.6019 18.3327 18.3333L26.666 26.6666"
-                              stroke="#06A9EF"
-                              strokeWidth="2"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            />
-                            <path
-                              d="M23.334 23.3334L25.0007 21.6667C25.7607 20.9353 26.623 20.5502 27.5007 20.5502C28.3783 20.5502 29.2406 20.9353 30.0006 21.6667L33.334 25"
-                              stroke="#06A9EF"
-                              strokeWidth="2"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            />
-                          </g>
-                          <defs>
-                            <clipPath id="clip0_4121_52475">
-                              <rect width="40" height="40" fill="white" />
-                            </clipPath>
-                          </defs>
-                        </svg>
-                      </div>
-                      <div class="flex flex-col gap-[4px]	font-normal	">
-                        <div class="flex text-center justify-center  scr420:text-[14px] scr360:text-[12px] text-[10px] text-[#515B6F]">
-                          drag and drop or{" "}
-                          <span
-                            onClick={handleButtonClick}
-                            class="text-[#06A9EF]"
-                          >
-                            &nbsp;Browse file{" "}
-                          </span>
-                          &nbsp;to upload
+                          <button className="px-[16px] py-[8px] border border-[#06A9EF]  rounded-[12px]">
+                            Browse file
+                          </button>
                         </div>
-                        <p class="text-center text-[12px] font-normal text-[#7C8493]">
-                          PDF or DOCS
-                        </p>
                       </div>
-                    </>
-                  )}
-                </div>
-              )}
+                    ) : (
+                      <>
+                        <div className="  flex  flex-col  items-center">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="40"
+                            height="40"
+                            viewBox="0 0 40 40"
+                            fill="none"
+                            onClick={handleButtonClick}
+                          >
+                            <g clipPath="url(#clip0_4121_52475)">
+                              <path
+                                d="M25 13.3333H25.0167"
+                                stroke="#06A9EF"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                              />
+                              <path
+                                d="M28.3327 6.66669H11.666C8.90459 6.66669 6.66602 8.90526 6.66602 11.6667V28.3334C6.66602 31.0948 8.90459 33.3334 11.666 33.3334H28.3327C31.0941 33.3334 33.3327 31.0948 33.3327 28.3334V11.6667C33.3327 8.90526 31.0941 6.66669 28.3327 6.66669Z"
+                                stroke="#06A9EF"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                              />
+                              <path
+                                d="M6.66602 25L13.3327 18.3333C14.0928 17.6019 14.955 17.2169 15.8327 17.2169C16.7104 17.2169 17.5726 17.6019 18.3327 18.3333L26.666 26.6666"
+                                stroke="#06A9EF"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                              />
+                              <path
+                                d="M23.334 23.3334L25.0007 21.6667C25.7607 20.9353 26.623 20.5502 27.5007 20.5502C28.3783 20.5502 29.2406 20.9353 30.0006 21.6667L33.334 25"
+                                stroke="#06A9EF"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                              />
+                            </g>
+                            <defs>
+                              <clipPath id="clip0_4121_52475">
+                                <rect width="40" height="40" fill="white" />
+                              </clipPath>
+                            </defs>
+                          </svg>
+                        </div>
+                        <div class="flex flex-col gap-[4px]	font-normal	">
+                          <div class="flex text-center justify-center  scr420:text-[14px] scr360:text-[12px] text-[10px] text-[#515B6F]">
+                            drag and drop or{" "}
+                            <span
+                              onClick={handleButtonClick}
+                              class="text-[#06A9EF]"
+                            >
+                              &nbsp;Browse file{" "}
+                            </span>
+                            &nbsp;to upload
+                          </div>
+                          <p class="text-center text-[12px] font-normal text-[#7C8493]">
+                            PDF or DOCS
+                          </p>
+                        </div>
+                      </>
+                    )}
+                  </div>
+                )}
+                <span className="text-[14px] text-right">
+                  {uploadLimit} Remaining Attempts
+                </span>
+              </div>
 
               <div class="flex flex-row gap-[24px]">
                 <button

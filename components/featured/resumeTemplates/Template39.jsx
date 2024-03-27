@@ -10,7 +10,7 @@ import {
   Path,
   Rect,
 } from "@react-pdf/renderer";
-function Template39({ data, selectedColor, selectedFont,preview }) {
+function Template39({ data, selectedColor, selectedFont, preview }) {
   return (
     <Page size="A4" style={{ padding: 24 }} wrap={true}>
       <View
@@ -25,30 +25,30 @@ function Template39({ data, selectedColor, selectedFont,preview }) {
         <View style={{ width: "156px" }}>
           <View style={{ flexDirection: "column", gap: "24px" }}>
             <View style={{ flexDirection: "column" }}>
-            {data.profilePhoto ? (
-                            <Image
-                                src={
-                                    preview
-                                        ? data.profilePhoto
-                                        : Object.keys(data?.profilePhoto).includes("filename")
-                                            ? URL.createObjectURL(data.profilePhoto)
-                                            : data.profilePhoto
-                                }
-                                style={{
-                                    objectFit: "cover",
-                                    borderRadius: "50%",
-                                    width: "112px",
-                                    height: "112px",
-                                }}
-                            />
-                        ) : (
-                            <Image style={{
-                                objectFit: "cover",
-                                borderRadius: "50%",
-                                width: "112px",
-                                height: "112px",
-                            }} src="/images/services/profile.png" />
-                        )}
+              {data.profilePhoto ? (
+                <Image
+                  src={
+                    preview
+                      ? data.profilePhoto
+                      : Object.keys(data?.profilePhoto).includes("filename")
+                        ? URL.createObjectURL(data.profilePhoto)
+                        : data.profilePhoto
+                  }
+                  style={{
+                    objectFit: "cover",
+                    borderRadius: "50%",
+                    width: "112px",
+                    height: "112px",
+                  }}
+                />
+              ) : (
+                <Image style={{
+                  objectFit: "cover",
+                  borderRadius: "50%",
+                  width: "112px",
+                  height: "112px",
+                }} src="/images/services/profile.png" />
+              )}
             </View>
 
             <View
@@ -245,8 +245,8 @@ function Template39({ data, selectedColor, selectedFont,preview }) {
                             fontFamily: `${selectedFont} 400`,
                           }}
                         >
-                           {detail.duration?.start?.year !== "Year" &&
-                              `${detail.duration?.start?.year}-${detail.duration?.end?.year}`}
+                          {detail.duration?.start?.year !== "Year" &&
+                            `${detail.duration?.start?.year}-${detail.duration?.end?.year}`}
                         </Text>
                       </View>
                     </View>
@@ -360,7 +360,7 @@ function Template39({ data, selectedColor, selectedFont,preview }) {
 
         <View
           style={{
-            width: "324px",
+            width: "400px",
             padding: " 16px",
             display: "flex",
             flexDirection: "column",
@@ -411,7 +411,7 @@ function Template39({ data, selectedColor, selectedFont,preview }) {
                 fontSize: "16px",
               }}
             >
-              About me
+              ABOUT ME
             </Text>
 
             <Text
@@ -528,10 +528,10 @@ function Template39({ data, selectedColor, selectedFont,preview }) {
                           fontFamily: `${selectedFont} 400`,
                         }}
                       >
-                       {detail.duration?.start?.year !== "Year" &&
-                        `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
-                          ? "Present"
-                          : detail.duration?.end?.year}
+                        {detail.duration?.start?.year !== "Year" &&
+                          `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
+                            ? "Present"
+                            : detail.duration?.end?.year}
                          `}
                       </Text>
                     </View>

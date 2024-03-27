@@ -260,7 +260,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
           style={{
             width: 350,
             alignItems: "flex-start",
-            paddingTop: 32,
+            paddingTop: 16,
             paddingLeft: 24,
             paddingBottom: 38,
             paddingRight: 16,
@@ -459,7 +459,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                 >
                   <View style={{ flexDirection: "row", gap: 16 }}>
                     <View
-                      style={{ flexDirection: "column", gap: 5, width: 124 }}
+                      style={{ flexDirection: "column", gap: 2, width: 124 }}
                     >
                       <Text
                         style={{
@@ -574,7 +574,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                     </View>
 
                     <View
-                      style={{ flexDirection: "column", width: 246, gap: 2 }}
+                      style={{ flexDirection: "column", width: "70%", gap: 2 }}
                     >
                       <Text
                         style={{
@@ -624,8 +624,13 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                           fontFamily: `${selectedFont} 400`,
                         }}
                       >
-                        {detail.duration?.start?.year}-
-                        {detail.duration?.end?.year}
+                       {detail.duration?.start?.year !== "Year" &&
+                        `${detail.duration?.start?.year}-${" "}${
+                          detail.currentlyWorking
+                            ? "Present"
+                            : detail.duration?.end?.year
+                        }
+                         `}
                       </Text>
 
                       <Text
@@ -640,7 +645,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                     </View>
 
                     <View
-                      style={{ flexDirection: "column", width: 246, gap: 2 }}
+                      style={{ flexDirection: "column", width: "70%", gap: 2 }}
                     >
                       <Text
                         style={{
@@ -685,7 +690,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                     <View style={{ flexDirection: "row", gap: 16 }}>
 
                       <View
-                        style={{ flexDirection: "column", gap: 5, width: 74 }}
+                        style={{ flexDirection: "column", gap: 5, width: 124 }}
                       >
                         {detail.title.length > 0 && (
                         <Text
@@ -718,9 +723,9 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
 
                       </View>
 
-                      {detail.description?.length > 5 && (
+                      {detail.description?.length > 0 && (
                         <View
-                          style={{ flexDirection: "column", width: '200px', gap: 2 }}
+                          style={{ flexDirection: "column", width: '70%', gap: 2 }}
                         >
                           <Text
                             style={{

@@ -136,3 +136,137 @@ html {
   transform: translate(-50%, -50%);
 }
 
+.earth_loader {
+  .loading_dots {
+    width: 110px;
+    margin-left: 17px;
+  }
+
+  .loading_dots:after {
+    overflow: hidden;
+    display: inline-block;
+    vertical-align: bottom;
+    -webkit-animation: ellipsis steps(4, end) 900ms infinite;
+    animation: ellipsis steps(4, end) 900ms infinite;
+    content: "\2026"; /* ascii code for the ellipsis character */
+    width: 0px;
+  }
+
+  @keyframes ellipsis {
+    to {
+      width: 1.25em;
+    }
+  }
+
+  @-webkit-keyframes ellipsis {
+    to {
+      width: 1.25em;
+    }
+  }
+  .glass {
+    position: absolute;
+    top: 4px;
+    left: 15px;
+    -webkit-animation: myOrbit 2s linear infinite; /* Chrome, Safari 5 */
+    -moz-animation: myOrbit 2s linear infinite; /* Firefox 5-15 */
+    -o-animation: myOrbit 2s linear infinite; /* Opera 12+ */
+    animation: myOrbit 2s linear infinite; /* Chrome, Firefox 16+, 
+                                                   IE 10+, Safari 5 */
+  }
+  @-webkit-keyframes myOrbit {
+    from {
+      -webkit-transform: rotate(0deg) translateX(40px) rotate(0deg);
+    }
+    to {
+      -webkit-transform: rotate(360deg) translateX(40px) rotate(-360deg);
+    }
+  }
+
+  @-moz-keyframes myOrbit {
+    from {
+      -moz-transform: rotate(0deg) translateX(40px) rotate(0deg);
+    }
+    to {
+      -moz-transform: rotate(360deg) translateX(40px) rotate(-360deg);
+    }
+  }
+
+  @-o-keyframes myOrbit {
+    from {
+      -o-transform: rotate(0deg) translateX(40px) rotate(0deg);
+    }
+    to {
+      -o-transform: rotate(360deg) translateX(40px) rotate(-360deg);
+    }
+  }
+
+  @keyframes myOrbit {
+    from {
+      transform: rotate(0deg) translateX(40px) rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg) translateX(40px) rotate(-360deg);
+    }
+  }
+}
+
+.miniLoader {
+  .box {
+    width: 100%;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+  }
+
+  .container {
+    height: 15px;
+    width: 105px;
+    display: flex;
+    position: relative;
+    .circle {
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      background-color: #06a9ef;
+      animation: move 500ms linear 0ms infinite;
+      margin-right: 30px;
+
+      &:first-child {
+        position: absolute;
+        top: 0;
+        left: 0;
+        animation: grow 500ms linear 0ms infinite;
+      }
+
+      &:last-child {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin-right: 0;
+        animation: grow 500ms linear 0s infinite reverse;
+      }
+    }
+  }
+
+  @keyframes grow {
+    from {
+      transform: scale(0, 0);
+      opacity: 0;
+    }
+    to {
+      transform: scale(1, 1);
+      opacity: 1;
+    }
+  }
+
+  @keyframes move {
+    from {
+      transform: translateX(0px);
+    }
+    to {
+      transform: translateX(45px);
+    }
+  }
+}
