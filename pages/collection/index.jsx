@@ -18,6 +18,7 @@ function Collection() {
   const router = useRouter();
   const { clients, folders, clientId, parentId, trash } = router.query;
   const userDataGlobal = useSelector((state) => state.userData);
+
   const [isCreate, setIsCreate] = useState(false);
   const [folderData, setFolderData] = useState([]);
   const [tabIndex, setTabIndex] = useState(0);
@@ -148,7 +149,9 @@ function Collection() {
   const getTrashed = () => {
     setLoading(true);
     axios
-      .get(`https://freedygoservices.in/api/folder/getTrashed/${userDataGlobal._id}`)
+      .get(
+        `https://freedygoservices.in/api/folder/getTrashed/${userDataGlobal._id}`
+      )
       .then((res) => {
         setFolderList(res.data.data);
         setTimeout(() => {

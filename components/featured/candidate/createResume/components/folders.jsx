@@ -219,7 +219,7 @@ function Folders({
                   </div>
 
                   <div className="flex gap-3 min-w-[160px] justify-end">
-                    {trash ? null : (
+                    {
                       <>
                         {" "}
                         <svg
@@ -257,7 +257,7 @@ function Folders({
                           {" "}
                         </div>
                       </>
-                    )}
+                    }
 
                     <svg
                       onClick={deleteFiles}
