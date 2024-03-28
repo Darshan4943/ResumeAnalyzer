@@ -51,7 +51,9 @@ export const Api = () => {
     //       "https://freedygoservices.in/api/subscription/" + userDataGlobal._id
     //     )
     //     .then((res) => {
-    //       localStorage.setItem("uploadCount", res.data.data.resumeUpladed);
+    //       console.log(res.data)
+    //       // localStorage.setItem("uploadCount", res.data.data.resumeUpladed);
+    //       console.log(new Date(moment().format()) > new Date(res.data.data.endDate))
     //       if (new Date(moment().format()) > new Date(res.data.data.endDate)) {
     //         axios
     //           .get(
