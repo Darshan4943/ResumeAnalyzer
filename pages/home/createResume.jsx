@@ -240,7 +240,7 @@ function CreateResume() {
             </AnimatePresence>
           )}
           <div className="mobile">
-            {/* <ResumePreview
+            <ResumePreview
               data={data}
               isSetEdit={isSetEdit}
               selectedResumeIndex={selectedResumeIndex}
@@ -249,7 +249,10 @@ function CreateResume() {
               selectedColor={selectedColor}
               setSelectedFont={setSelectedFont}
               selectedFont={selectedFont}
-            /> */}
+              isEdit={userData.isEdit}
+              id={editId}
+              render={render}
+            />
           </div>
         </div>
       </div>
