@@ -18,7 +18,7 @@ function Collection() {
   const router = useRouter();
   const { clients, folders, clientId, parentId, trash } = router.query;
   const userDataGlobal = useSelector((state) => state.userData);
-
+  const [rename, setRename] = useState(null);
   const [isCreate, setIsCreate] = useState(false);
   const [folderData, setFolderData] = useState([]);
   const [tabIndex, setTabIndex] = useState(0);
@@ -577,6 +577,7 @@ function Collection() {
           loading={loading}
           query={router.query}
           setRecall={setRecall}
+          setRename={setRename}
         />
       </div>
     </>
