@@ -21,6 +21,7 @@ function Folders({
   loading,
   query,
   setRecall,
+  setRename
 }) {
   const router = useRouter();
   const [mainData, setMainData] = useState(data);
@@ -68,13 +69,34 @@ function Folders({
       return;
     }
     axios
-      .post("https://freedygoservices.in/api/folder/delete", {
+      .post("http://localhost:2000/api/folder/delete", {
         ids,
         type: trash ? 2 : 1,
       })
       .then((res) => {
         setRecall();
-        toast.success(res.data.message);
+        toast.success('Documents deleted successfully');
+        setSelectedIndexes([]);
+        setSelect(false);
+      })
+      .catch((err) => {
+        toast.error("Something went wrong");
+      });
+  };
+  const restoreFile = () => {
+    const ids = selectedIndexes.map((item) => data[item]._id);
+    if (ids.length == 0) {
+      toast.error("Please select file to delete");
+      return;
+    }
+    axios
+      .post("https://freedygoservices.in/api/folder/restore", {
+        ids,
+        type: trash ? 2 : 1,
+      })
+      .then((res) => {
+        setRecall();
+        toast.success('Documents restored successfully');
         setSelectedIndexes([]);
         setSelect(false);
       })
@@ -219,7 +241,26 @@ function Folders({
                   </div>
 
                   <div className="flex gap-3 min-w-[160px] justify-end">
-                    {
+                    {trash ? (
+                      <>
+                        <svg
+                          onClick={restoreFile}
+                          width="20"
+                          height="20"
+                          viewBox="0 0 20 20"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <g mask="url(#mask0_1721_19645)">
+                            <path
+                              d="M10 14C10.9722 14 11.7986 13.6597 12.4792 12.9792C13.1597 12.2986 13.5 11.4722 13.5 10.5C13.5 9.52778 13.1597 8.70139 12.4792 8.02083C11.7986 7.34028 10.9722 7 10 7C9.46715 7 8.96935 7.11458 8.5066 7.34375C8.04387 7.57292 7.65278 7.875 7.33333 8.25V7H6.33333V10H9.33333V9H8C8.23611 8.69444 8.52778 8.45139 8.875 8.27083C9.22222 8.09028 9.59722 8 10 8C10.6923 8 11.282 8.24381 11.7692 8.73144C12.2564 9.21905 12.5 9.80933 12.5 10.5023C12.5 11.1952 12.2564 11.7847 11.7692 12.2708C11.282 12.7569 10.6923 13 10 13C9.59722 13 9.22222 12.9097 8.875 12.7292C8.52778 12.5486 8.23611 12.3056 8 12H6.85417C7.13194 12.5972 7.54861 13.0799 8.10417 13.4479C8.65972 13.816 9.29167 14 10 14ZM5.4941 18C5.08137 18 4.72917 17.8531 4.4375 17.5594C4.14583 17.2656 4 16.9125 4 16.5V3.5C4 3.0875 4.14687 2.73438 4.44062 2.44063C4.73437 2.14688 5.0875 2 5.5 2H12L16 6V16.5C16 16.9125 15.853 17.2656 15.5591 17.5594C15.2652 17.8531 14.9119 18 14.4992 18H5.4941ZM5.5 16.5H14.5V6.625L11.375 3.5H5.5V16.5Z"
+                              fill="#333333"
+                            />
+                          </g>
+                        </svg>
+                        <div className="min-w-[1px] h-full bg-[#06A9EF] " />
+                      </>
+                    ) : (
                       <>
                         {" "}
                         <svg
@@ -257,7 +298,7 @@ function Folders({
                           {" "}
                         </div>
                       </>
-                    }
+                    )}
 
                     <svg
                       onClick={deleteFiles}
@@ -274,13 +315,14 @@ function Folders({
                         />
                       </g>
                     </svg>
-                    {trash ? null : (
+                    {trash || selectedIndexes.length>1 ? null : (
                       <>
                         {" "}
                         <div className="min-w-[1px] h-full bg-[#06A9EF] ">
                           {" "}
                         </div>
                         <svg
+                        onClick={()=>setRename(selectedIndexes[0])}
                           width="20"
                           height="20"
                           viewBox="0 0 20 20"

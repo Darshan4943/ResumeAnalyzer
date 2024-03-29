@@ -79,7 +79,7 @@ const UserResumes = ({
         // setSelect(resumeList[0]);
       } else if(userDataGlobal.role == "user") {
         axios
-          .get("https://freedygoservices.in/api/resume/" + userDataGlobal?._id)
+          .get("http://localhost:2000/api/resume/" + userDataGlobal?._id)
           .then((response) => {
             setData(response.data.data);
             setAllData(response.data.data);

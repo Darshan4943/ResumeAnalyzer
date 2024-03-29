@@ -61,7 +61,7 @@ const ResumePreview = ({
 
   const callData = () => {
     axios
-      .get("https://freedygoservices.in/api/resume/" + userDataGlobal?._id)
+      .get("http://localhost:2000/api/resume/" + userDataGlobal?._id)
       .then((res) => {
         setName(data.firstName + "_resume " + (res.data.data.length + 1));
       })
@@ -535,7 +535,7 @@ const ResumePreview = ({
       formData.append("pdfBlob", blob);
 
       axios
-        .put("https://freedygoservices.in/api/resume/" + id, formData)
+        .put("http://localhost:2000/api/resume/" + id, formData)
         .then((res) => {
           toast.success("Resume Updated successfully");
           setLoading(false);
@@ -576,7 +576,7 @@ const ResumePreview = ({
       }
 
       axios
-        .post("https://freedygoservices.in/api/resume/add", formData)
+        .post("http://localhost:2000/api/resume/add", formData)
         .then((res) => {
           toast.success("Resume Saved To Collection successfully");
           setLoading(false);

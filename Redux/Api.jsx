@@ -21,7 +21,7 @@ export const Api = () => {
         const decoded = jwtDecode(token.token);
         axios
           .get(
-            "https://freedygoservices.in/api/skiloteckuser/user/" + decoded._id
+            "http://localhost:2000/api/skiloteckuser/user/" + decoded._id
           )
           .then((res) => {
             const decode = jwtDecode(res.data.data);
@@ -48,7 +48,7 @@ export const Api = () => {
     // if (userDataGlobal) {
     //   axios
     //     .get(
-    //       "https://freedygoservices.in/api/subscription/" + userDataGlobal._id
+    //       "http://localhost:2000/api/subscription/" + userDataGlobal._id
     //     )
     //     .then((res) => {
     //       console.log(res.data)
@@ -57,7 +57,7 @@ export const Api = () => {
     //       if (new Date(moment().format()) > new Date(res.data.data.endDate)) {
     //         axios
     //           .get(
-    //             "https://freedygoservices.in/api/subscription/update/" +
+    //             "http://localhost:2000/api/subscription/update/" +
     //               userDataGlobal._id
     //           )
     //           .then((res) => {
@@ -75,7 +75,7 @@ export const Api = () => {
 
     if (userDataGlobal?.skills) {
       axios
-        .post("https://freedygoservices.in/api/job/getAll", {
+        .post("http://localhost:2000/api/job/getAll", {
           requiredSkills: userDataGlobal.skills?.map((item) => item.value),
         })
         .then((res) => {

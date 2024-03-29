@@ -133,7 +133,7 @@ function CreateResume() {
       });
     } else if (clientId) {
       axios
-        .get(`https://freedygoservices.in/api/client/getByClientId/${clientId}`)
+        .get(`http://localhost:2000/api/client/getByClientId/${clientId}`)
         .then((res) => {
           const result = res.data.data;
           setData({
@@ -240,7 +240,7 @@ function CreateResume() {
             </AnimatePresence>
           )}
           <div className="mobile">
-            {/* <ResumePreview
+            <ResumePreview
               data={data}
               isSetEdit={isSetEdit}
               selectedResumeIndex={selectedResumeIndex}
@@ -249,7 +249,10 @@ function CreateResume() {
               selectedColor={selectedColor}
               setSelectedFont={setSelectedFont}
               selectedFont={selectedFont}
-            /> */}
+              isEdit={userData.isEdit}
+              id={editId}
+              render={render}
+            />
           </div>
         </div>
       </div>
