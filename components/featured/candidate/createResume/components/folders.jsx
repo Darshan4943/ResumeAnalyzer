@@ -90,7 +90,7 @@ function Folders({
       return;
     }
     axios
-      .post("https://freedygoservices.in/api/folder/restore", {
+      .post("http://localhost:2000/api/folder/restore", {
         ids,
         type: trash ? 2 : 1,
       })
