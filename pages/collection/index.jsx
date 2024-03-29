@@ -12,6 +12,7 @@ import Tesseract from "tesseract.js";
 import PizZip from "pizzip";
 import { pdfjs } from "react-pdf";
 import Docxtemplater from "docxtemplater";
+import { resolve } from "styled-jsx/css";
 pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
 
 function Collection() {
@@ -89,7 +90,7 @@ function Collection() {
 
   const getParentData = (parentId) => {
     axios
-      .get(`https://freedygoservices.in/api/folder/getByParentId/${parentId}`)
+      .get(`http://localhost:2000/api/folder/getByParentId/${parentId}`)
       .then((res) => {
         setFolderList(res.data.data);
         setTimeout(() => {
@@ -102,7 +103,7 @@ function Collection() {
   };
   const getClientData = (clientId) => {
     axios
-      .get("https://freedygoservices.in/api/resume/" + clientId)
+      .get("http://localhost:2000/api/resume/" + clientId)
       .then((res) => {
         setFolderList(res.data.data);
         setTimeout(() => {
@@ -116,7 +117,7 @@ function Collection() {
   const getFolderData = () => {
     setLoading(true);
     axios
-      .get(`https://freedygoservices.in/api/folder/get/${userDataGlobal._id}`)
+      .get(`http://localhost:2000/api/folder/get/${userDataGlobal._id}`)
       .then((res) => {
         setFolderList(res.data.data);
         setTimeout(() => {
@@ -132,7 +133,7 @@ function Collection() {
     setLoading(true);
     axios
       .get(
-        `https://freedygoservices.in/api/client/getByRecruiter/${userDataGlobal._id}`
+        `http://localhost:2000/api/client/getByRecruiter/${userDataGlobal._id}`
       )
       .then((res) => {
         console.log(res.data.data);
@@ -150,7 +151,7 @@ function Collection() {
     setLoading(true);
     axios
       .get(
-        `https://freedygoservices.in/api/folder/getTrashed/${userDataGlobal._id}`
+        `http://localhost:2000/api/folder/getTrashed/${userDataGlobal._id}`
       )
       .then((res) => {
         setFolderList(res.data.data);
@@ -171,7 +172,7 @@ function Collection() {
     formData.append("parentId", ParentId ? ParentId : undefined);
 
     axios
-      .post("https://freedygoservices.in/api/folder/create", formData)
+      .post("http://localhost:2000/api/folder/create", formData)
       .then((res) => {
         setRecall();
         setIsCreateFolder(false);
@@ -183,26 +184,97 @@ function Collection() {
       });
   };
 
-  const addFiles = () => {
+
+  const textExtractor = async (textData) => {
+
+    const { data } = await axios
+      .post("http://localhost:2000/api/resume/extraction", {
+        data: [{ text: textData }],
+      })
+    return data.data
+  }
+
+
+
+
+  const addFiles = async () => {
+    let extractionCount = 0
     const formData = new FormData();
     formData.append("fileName", folderName);
     formData.append("type", "file");
     formData.append("userId", userDataGlobal._id);
-    for (let i = 0; i < files.length; i++) {
-      formData.append("files", files[i]);
-    }
-    formData.append("parentId", ParentId ? ParentId : undefined);
-    axios
-      .post("https://freedygoservices.in/api/folder/addFiles", formData)
-      .then((res) => {
-        setRecall();
-        setIsCreateFolder(false);
-        setFolderName("Untitled folder");
-        toast.success("Folder created successfully");
+    const resolveData = new Promise(async (resolve, reject) => {
+      const promise = Object.values(files).map(async (file) => {
+        formData.append("files", file);
+        if (
+          file.type ==
+          "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+        ) {
+          const reader = new FileReader();
+          reader.onload = async (e) => {
+            const content = e.target.result;
+            var doc = new Docxtemplater(new PizZip(content), {
+              delimiters: {
+                start: "12op1j2po1j2poj1po",
+                end: "op21j4po21jp4oj1op24j",
+              },
+            });
+            var text = doc.getFullText();
+            const parsedData = await textExtractor(text)
+            formData.append('parsedData', parsedData)
+            extractionCount += 1;
+
+          };
+          reader.readAsBinaryString(file);
+        } else if (file.type == "image/png") {
+          Tesseract.recognize(
+            file,
+            "eng", // Language code (English in this case)
+            { logger: (m) => console.log(m) } // Optional logger callback
+          ).then(async ({ data: { text } }) => {
+            const parsedData = await textExtractor(text)
+            formData.append('parsedData', parsedData)
+            extractionCount += 1;
+
+            // textData.push({ index, text });
+          });
+        } else if (file.type == "application/pdf") {
+          let fullText = "";
+          const pdfTextPromises = [];
+
+          for (let i = 1; i <= 1; i++) {
+            pdfTextPromises.push(fileToText(file, i));
+          }
+
+          Promise.all(pdfTextPromises).then(async (texts) => {
+            fullText = texts.join("");
+            const parsedData = await textExtractor(fullText)
+            formData.append('parsedData', parsedData)
+            extractionCount += 1;
+          });
+        }
+        return
       })
-      .catch((err) => {
-        toast.error("Something went wrong");
-      });
+      formData.append("parentId", ParentId ? ParentId : undefined);
+      await Promise.all(promise)
+      resolve({ success: true })
+    })
+    resolveData.then(res => {
+      console.log(res)
+    })
+
+
+    // axios
+    //   .post("http://localhost:2000/api/folder/addFiles", formData)
+    //   .then((res) => {
+    //     setRecall();
+    //     setIsCreateFolder(false);
+    //     setFolderName("Untitled folder");
+    //     toast.success("Folder created successfully");
+    //   })
+    //   .catch((err) => {
+    //     toast.error("Something went wrong");
+    //   });
   };
 
   const handleButtonClick = () => {
@@ -483,9 +555,8 @@ function Collection() {
                 onClick={() => {
                   router.push("/collection?clients=true");
                 }}
-                className={`rounded-[30px] text-[16px] font-semibold px-6 py-2 flex gap-2 justify-start items-center  ${
-                  tab === 0 && "bg-[#C2E7FF]"
-                }   `}
+                className={`rounded-[30px] text-[16px] font-semibold px-6 py-2 flex gap-2 justify-start items-center  ${tab === 0 && "bg-[#C2E7FF]"
+                  }   `}
               >
                 <svg
                   width="20"
@@ -509,9 +580,8 @@ function Collection() {
                   // setTabIndex(0);
                   router.push("/collection?folders=true");
                 }}
-                className={`rounded-[30px] text-[16px] font-semibold px-6 py-2 flex gap-2 justify-start items-center  ${
-                  tab === 1 && "bg-[#C2E7FF]"
-                }  `}
+                className={`rounded-[30px] text-[16px] font-semibold px-6 py-2 flex gap-2 justify-start items-center  ${tab === 1 && "bg-[#C2E7FF]"
+                  }  `}
               >
                 <svg
                   width="20"
@@ -533,9 +603,8 @@ function Collection() {
                 onClick={() => {
                   router.push("/collection?trash=true");
                 }}
-                className={`rounded-[30px] text-[16px] font-semibold px-6 py-2 flex gap-2 justify-start items-center  ${
-                  tab === 2 && "bg-[#C2E7FF]"
-                }  `}
+                className={`rounded-[30px] text-[16px] font-semibold px-6 py-2 flex gap-2 justify-start items-center  ${tab === 2 && "bg-[#C2E7FF]"
+                  }  `}
               >
                 <svg
                   width="20"

@@ -68,7 +68,7 @@ function Folders({
       return;
     }
     axios
-      .post("https://freedygoservices.in/api/folder/delete", {
+      .post("http://localhost:2000/api/folder/delete", {
         ids,
         type: trash ? 2 : 1,
       })
