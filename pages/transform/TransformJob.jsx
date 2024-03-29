@@ -111,7 +111,7 @@ function TransformJob() {
         style={{ boxShadow: "0px 1px 6px 0px #00000040" }}
       >
         <div className="flex flex-col gap-6 ml:w-[50%] w-[100%]">
-          <div className="text-[20px] font-medium text-[#333333]">
+          <div className="sm:text-[20px] text-[16px] font-medium text-[#333333]">
             Transform for Job Description
           </div>
           <div className="flex flex-col gap-4 ">
@@ -140,7 +140,7 @@ function TransformJob() {
               </div>
             )}
             <div className="text-[18px] font-medium text-[#333333]">
-              Select Resume from Collection
+              Select Resume
             </div>
 
             <UserResumes
@@ -214,6 +214,7 @@ function TransformJob() {
               selectedColor={selected.selectedColor}
               selectedFont={selected.selectedFont}
               preview={true}
+              selected={selected}
             />
           )}
         </div>

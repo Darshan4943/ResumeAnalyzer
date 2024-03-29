@@ -117,20 +117,20 @@ const UserResumes = ({
   };
   return (
     <>
-      <div className="rounded-[16px] border bg-[#F9F9F9] border-[#DEDEDE] p-[16px] flex flex-col gap-[16px]">
-        <div className="flex flex-row items-center justify-between gap-[12px] ">
-          <div className="flex flex-row items-center gap-[12px] ">
-            <div className="flex flex-row gap-[8px] py-[8px] px-[12px] h-[40px] bg-[#fff] border border-[#DEDEDE] rounded-[30px] items-center">
+      <div className="rounded-[16px] border bg-[#F9F9F9] border-[#DEDEDE] sm:p-[16px] p-2 flex flex-col gap-[16px]">
+        <div className="flex flex-row items-center justify-between sm:gap-[12px] gap-1  ">
+         
+            <div className="flex flex-row gap-[8px] py-[8px] sm:px-[12px] px-1 h-[40px] bg-[#fff] border border-[#DEDEDE] rounded-[30px] items-center">
               <SearchIcon />
               <input
                 type="text"
-                className="bg-[#fff] text-[#333333] placeholder:text-[#333333] "
+                className="bg-[#fff] text-[#333333] placeholder:text-[#333333]  w-[75%]"
                 placeholder="Select"
                 onChange={(e) => searchHandler(e.target.value)}
               />
             </div>
-          </div>
-          <span className="text-[14px] text-[#808080]">
+         
+          <span className="text-[14px] text-[#808080] w-[35%] flex justify-end">
             {data?.length}
             {" Items"}
           </span>
