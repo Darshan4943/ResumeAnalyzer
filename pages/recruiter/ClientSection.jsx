@@ -27,7 +27,7 @@ function ClientSection() {
     <div className="flex ml:flex-row flex-col gap-12 w-[100%] items-center justify-between  ml:py-12 py-6 ">
       <div className=" ml:w-[45%] w-[100%]">
         <img
-          className="min-w-[40%] h-[39%] "
+          className="min-w-[40%]  "
           src="/images/recruiter/ResumeSection.png"
           alt=""
         />

@@ -36,7 +36,7 @@ const PdfViewer = ({ pdfUrl }) => {
 };
 const JdMatching = ({ details, resuneList }) => {
 
-    console.log(38, resuneList)
+  
     const [preview, setPreview] = useState(false);
     const [selected, setSelected] = useState(false);
 

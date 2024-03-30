@@ -20,15 +20,15 @@ const JobMatching = () => {
   const [tab, setTab] = useState(null);
   const [ParentId, setParentId] = useState(null);
   const [selectedOptions, setSelectedOptions] = useState({
-    value: "My Clients",
-    label: "My Clients"
+    value: "My Collection",
+    label: "My Collection"
   });
   const { clients, folders, clientId, parentId, trash } = router.query;
   const [isBack, setIsBack] = useState(false)
   const [recall, setRecall] = useReducer((x) => x + 1, 0);
 
   const [options, setOptions] = useState([
-    "My Clients", "My Collection", "Upload File"
+     "My Collection", "Upload File"
   ]);
 
   const [text, setText] = useState("");
@@ -36,56 +36,18 @@ const JobMatching = () => {
   const [loadingg, setLoadingg] = useState("");
   const [resumeCount, setResumeCount] = useState(5);
 
-  //   const [details, setDetails] = useState();
+  const [selectedIndexes, setSelectedIndexes] = useState(() => {
+    const storedIndexes = localStorage.getItem("selectedIndexes");
+    return storedIndexes ? JSON.parse(storedIndexes) : [];
+});
   const [resuneList, setResuneList] = useState([]);
-  console.log(details)
-  // useEffect(() => {
-  //   if (selectedOptions && selectedOptions.value === "My Clients") {
-  //     axios
-  //       .get(
-  //         `http://localhost:2000/api/client/getByRecruiter/${userDataGlobal._id}`
-  //       )
-  //       .then((res) => {
-  //         const result = res.data.data;
-
-  //         setDetails(result);
-
-  //         axios
-  //           .get(
-  //             "http://localhost:2000/api/resume/" + res.data.data[0]?._id
-  //           )
-  //           .then((res) => {
-  //             setResumeList(res.data.data);
-  //             setSelect(res.data.data[0]);
-  //           })
-  //           .catch((err) => {
-  //             console.log(err);
-  //           });
-  //       })
-  //       .catch((err) => {
-  //         console.log(err);
-  //       });
-  //   }
-  // }, [selectedOptions]);
-
+  
+  
   const selectOptions = (selectedOption) => {
     setSelectedOptions(selectedOption);
   };
 
-  const selectHandler = (index) => {
-    if (selectedOptions.value === "My Clients") {
-      setSelectedClient(index);
-      axios
-        .get("http://localhost:2000/api/resume/" + details[index]._id)
-        .then((res) => {
-          setResumeList(res.data.data);
-          setDetails(res.data.data);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
-  };
+
 
   useEffect(() => {
     if (selectedOptions.value === "My Collection") {
@@ -211,7 +173,7 @@ const JobMatching = () => {
             }}
           />
 
-          <JdFiles details={details} query={router.query} selectedOptions={selectedOptions.value} />
+          <JdFiles details={details} query={router.query} selectedOptions={selectedOptions.value} setSelectedIndexes={setSelectedIndexes} selectedIndexes={selectedIndexes} />
           <JdDescription text={text} error={error} resumeCount={resumeCount} loadingg={loadingg} setText={setText} setError={setError} setResumeCount={setResumeCount} jobMatching={jobMatching} />
 
         </div>

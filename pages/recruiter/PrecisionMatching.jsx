@@ -121,10 +121,10 @@ function PrecisionMatching() {
     return (
         <div ref={precisionRef} className='flex ml:flex-row flex-col gap-12 w-[100%] items-center justify-center sm:px-6 px-2 ml:py-1 py-6 overflow-hidden'>
             <div className='relative ml:w-[46%] w-[100%]'>
-                <img className='min-w-[46%] h-[40%] ' src="/images/recruiter/recruiterAni.png" alt="" />
+                <img className='min-w-[46%] ' src="/images/recruiter/recruiterAni.png" alt="" />
                 <motion.img
                     animate={controls}
-                    className='absolute w-[32%] h-[38%]'
+                    className='absolute w-[32%] '
                     src="/images/recruiter/magnify.png"
                     alt=""
                 />

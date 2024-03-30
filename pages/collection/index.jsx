@@ -53,6 +53,7 @@ function Collection() {
       reader.readAsArrayBuffer(file);
     });
   };
+  console.log(56,parentId)
   useEffect(() => {
     if (inputRef.current) {
       inputRef.current.select();

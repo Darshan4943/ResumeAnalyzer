@@ -1,12 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { DocSVG, PDFSvg, SearchIcon } from '../../../../../utils/svg';
 import { useRouter } from 'next/router';
 
-function JdFiles(details, query, selectedOptions) {
-  
+function JdFiles({ details, query, selectedOptions, selectedIndexes, setSelectedIndexes }) {
+
     const router = useRouter();
+
+    const [selectAll, setSelectAll] = useState(false);
     const { clientId } = query;
-  
+    console.log(36, selectedIndexes)
 
     const openFolder = (index, parentId, name, item) => {
         if (item?.type == "file") {
@@ -20,22 +22,23 @@ function JdFiles(details, query, selectedOptions) {
         }
     };
 
-    const openClientFolder = (index, clientId, name, item) => {
-        if (item?.resumeUrl?.includes("pdf")) {
-            window.location.href = item.resumeUrl;
-        } else {
-            localStorage.setItem("previousPage", window.location.href);
-            router.push({
-                pathname: "/transform/JobMatching",
-                query: { ...query, clients: true, name, clientId },
-            });
-        }
-    };
+    // const openClientFolder = (index, clientId, name, item) => {
+    //     if (item?.resumeUrl?.includes("pdf")) {
+    //         window.location.href = item.resumeUrl;
+    //     } else {
+    //         localStorage.setItem("previousPage", window.location.href);
+    //         router.push({
+    //             pathname: "/transform/JobMatching",
+    //             query: { ...query, clients: true, name, clientId },
+    //         });
+    //     }
+    // };
 
     const fileIconSeter = (data) => {
-        if (data.resumeUrl?.includes("docx") || data.resumeUrl?.includes("doc")) {
+
+        if (data.fileName?.includes("docx") || data.fileName?.includes("doc")) {
             return <DocSVG />;
-        } else if (data.resumeUrl?.includes("pdf")) {
+        } else if (data.fileName?.includes("pdf")) {
             return <PDFSvg />;
         } else {
             return (
@@ -57,6 +60,19 @@ function JdFiles(details, query, selectedOptions) {
                 </svg>
             );
         }
+    };
+
+    const toggleSelect = (itemId) => {
+        let updatedIndexes;
+        if (selectedIndexes?.includes(itemId)) {
+            updatedIndexes = selectedIndexes.filter((id) => id !== itemId);
+        } else {
+            updatedIndexes = [...selectedIndexes, itemId];
+        }
+    
+        localStorage.setItem("selectedIndexes", JSON.stringify(updatedIndexes));
+    
+        setSelectedIndexes(updatedIndexes);
     };
     return (
         <div className="rounded-[16px] border bg-[#F9F9F9] border-[#DEDEDE] p-[16px] flex flex-col gap-[16px]">
@@ -86,38 +102,36 @@ function JdFiles(details, query, selectedOptions) {
             </div>
             <div className="border-b-[1px] border-[#DEDEDE] w-full h-[1px]"></div>
 
-            {details.details?.length > 0 ? (
+            {details?.length > 0 ? (
                 <div
                     className="flex flex-row flex-wrap gap-4   py-4  h-[247px] overflow-y-auto bg-[#FFFFFF] border-[1px] border-[#DEDEDE] rounded-[16px] p-[8px]"
                 // style={{ overflowX: "auto" }}
                 >
-                    {details?.details?.map((item, index) => (
+                    {details?.map((item, index) => (
                         <>
-                            <div key={index} onClick={() => {
-
-                                openClientFolder(
-                                    index,
-                                    item._id,
-                                    clientId
-                                        ? item.fileName
-                                        : item.firstName + " " + item.lastName,
-                                    item
-                                );
-                            }}
-                                className="w-[98px] flex flex-col gap-[6px]  items-center py-4 min-h-[90px] rounded-[8px] cursor-pointer "
+                            <div key={index} onClick={() =>
+                                openFolder(index, item._id, item.fileName, item)
+                            }
+                                className="w-[98px] flex flex-col gap-[6px]   items-center py-4 min-h-[90px] rounded-[8px] cursor-pointer "
 
                             >
-                                {fileIconSeter(item)}
-
+                                <div className='relative'>
+                                    {fileIconSeter(item)}
+                                    {/* {select && ( */}
+                                    <input
+                                        type="checkbox"
+                                        className=" absolute right-[-15%] top-0 rounded-[4.5px] pl-[4px] pr-[20px] py-[2px] outline-none text-[14px] font-medium custom-checkbox"
+                                        style={{ width: "20px", height: "20px" }}
+                                        onClick={(e) => e.stopPropagation()}
+                                        checked={selectedIndexes?.includes(item._id)}
+                                        onChange={() => toggleSelect(item._id)}
+                                    />
+                                    {/* )} */}
+                                </div>
                                 <span className="text-[16px] text-[#333333] text-center">
-                                    {details.selectedOptions === "My Clients" &&
-                                        <>
-                                            {item.firstName}  {item.lastName}</>
-                                    }
-                                    {details.selectedOptions === "My Collection" &&
-                                        <>
-                                            {item.fileName}</>
-                                    }
+
+                                    {item.fileName}
+
                                 </span>
                             </div>
                         </>
