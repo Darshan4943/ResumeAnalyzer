@@ -4,7 +4,7 @@ import {
   dateSeter,
   formatDate,
 } from "../../../../../utils/middleware";
-import { DocSVG, PDFSvg } from "../../../../../utils/svg";
+import { DocSVG, PDFSvg, PNGICON } from "../../../../../utils/svg";
 
 function MyFolders({
   toggleSelect,

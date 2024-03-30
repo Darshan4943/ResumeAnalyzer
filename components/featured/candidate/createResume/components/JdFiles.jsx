@@ -40,7 +40,7 @@ function JdFiles({
 
   const fileIconSeter = (data) => {
     if (data.fileName?.includes("docx") || data.fileName?.includes("doc")) {
-      return <img src="/images/docIcon.png" className="h-[48px] w-[48px]" />;
+      return <img src="/images/docIcon.png" className="h-[48px] w-[48px]" />;m
     } else if (data.fileName?.includes("pdf")) {
       return <PDFSvg />;
     } else if (
