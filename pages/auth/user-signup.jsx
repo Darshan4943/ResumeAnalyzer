@@ -31,7 +31,7 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
       const sendToPurchaseResult = JSON.parse(sendToPurchase);
       axios
         .post(
-          "http://localhost:2000/api/skiloteckuser/user/google/signup",
+          "https://freedygoservices.in/api/skiloteckuser/user/google/signup",
           userData
         )
         .then((res) => {
@@ -93,7 +93,7 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
     setLoading(true);
     axios
       .post(
-        "http://localhost:2000/api/skiloteckuser/user/signup",
+        "https://freedygoservices.in/api/skiloteckuser/user/signup",
         dataToSend
       )
       .then((res) => {

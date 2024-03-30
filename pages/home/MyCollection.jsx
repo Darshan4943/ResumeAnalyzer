@@ -19,7 +19,7 @@ const MyCollection = () => {
   const [selected, setSelected] = useState(false);
   useEffect(() => {
     axios
-      .get("http://localhost:2000/api/resume/" + userDataGlobal?._id)
+      .get("https://freedygoservices.in/api/resume/" + userDataGlobal?._id)
       .then((res) => {
         setResumeList(res.data.data);
       })

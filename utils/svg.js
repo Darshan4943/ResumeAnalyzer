@@ -426,6 +426,9 @@ export const PDFSvg = () => (
 export const DocSVG = () => (
   <img src="images/docIcon.png" className="h-[48px] w-[48px]" />
 );
+export const PNGICON = () => (
+  <img src="/images/Document.png" className="h-[48px] w-[48px] object-contain" />
+);
 export const PDFSvgSM = () => (
   <svg
     width="24"
