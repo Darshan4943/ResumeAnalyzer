@@ -45,7 +45,7 @@ function MyFolders({
   return (
     <div className="">
       {tabIndex === 0 && (
-        <div className="rounded-[16px] p-4 flex flex-row gap-y-6 flex-wrap  w-full h-full">
+        <div className="rounded-[16px] sm:p-4 flex flex-row gap-y-6 flex-wrap  w-full h-full">
           {data?.length > 0 ? (
             <>
               {!isList ? (

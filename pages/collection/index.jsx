@@ -53,7 +53,7 @@ function Collection() {
       reader.readAsArrayBuffer(file);
     });
   };
-  console.log(56,parentId)
+  console.log(56, parentId)
   useEffect(() => {
     if (inputRef.current) {
       inputRef.current.select();
@@ -252,19 +252,19 @@ function Collection() {
       });
       formData.append("parentId", ParentId ? ParentId : undefined);
       axios
-      .post("http://localhost:2000/api/folder/addFiles", formData)
-      .then((res) => {
-        setRecall();
-        setIsCreateFolder(false);
-        setFolderName("Untitled folder");
-        toast.success("Folder created successfully");
-      })
-      .catch((err) => {
-        toast.error("Something went wrong");
-      });
+        .post("http://localhost:2000/api/folder/addFiles", formData)
+        .then((res) => {
+          setRecall();
+          setIsCreateFolder(false);
+          setFolderName("Untitled folder");
+          toast.success("Folder created successfully");
+        })
+        .catch((err) => {
+          toast.error("Something went wrong");
+        });
     });
 
-  
+
   };
 
   const handleButtonClick = () => {
@@ -448,16 +448,17 @@ function Collection() {
         </>
       )}
 
-      <div className="  flex justify-between  gap-4 p-6 min-h-[80vh] bg-[#F9F9F9] pb-12">
-        <div className="flex flex-col gap-5  justify-between w-[20%] min-h-[50vh]">
+      <div className="  flex ml:flex-row flex-col ml:justify-between  gap-4 ms:p-6 p-2 min-h-[80vh] bg-[#F9F9F9] pb-12">
+        <div className="flex flex-col gap-5  justify-between ml:w-[20%] w-[100%] ml:min-h-[50vh]">
           <div className="flex flex-col gap-5 ">
+            <p className="text-[24px] font-semibold ml:hidden block">My Collection</p>
             <button
               onClick={(e) => {
                 setIsCreate(!isCreate);
                 e.stopPropagation();
               }}
               disabled={tab != 1}
-              className={`rounded-[8px] text-[14px] font-semibold px-4 py-2 flex gap-2 justify-center relative items-center w-[98px] bg-blue text-white `}
+              className={`rounded-[8px] text-[14px] font-semibold px-4 py-2 ml:flex hidden gap-2 justify-center relative items-center w-[98px] bg-blue text-white `}
               style={{ opacity: tab == 1 ? 1 : 0.6 }}
             >
               <svg
@@ -478,7 +479,7 @@ function Collection() {
               {isCreate && (
                 <>
                   <div
-                    className="absolute flex flex-col text-[14px] text-[#000000] rounded-[8px] left-0 right-0 z-10 top-[110%] w-[165px] p-4 gap-4 bg-white"
+                    className="absolute flex text-[14px] text-[#000000] rounded-[8px] left-0 right-0 z-10 top-[110%] w-[165px] p-4 gap-4 bg-white"
                     style={{ boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)" }}
                   >
                     <div
@@ -486,7 +487,7 @@ function Collection() {
                         setIsFile(false);
                         setIsCreateFolder(true);
                       }}
-                      className="flex gap-1 items-center"
+                      className="flex gap-1  items-center"
                     >
                       <svg
                         width="24"
@@ -540,14 +541,13 @@ function Collection() {
                 </>
               )}
             </button>
-            <div className="flex flex-col gap-2 w-full">
+            <div className="flex ml:flex-col flex-row  scr480:gap-2 w-full justify-between">
               <button
                 onClick={() => {
                   router.push("/collection?clients=true");
                 }}
-                className={`rounded-[30px] text-[16px] font-semibold px-6 py-2 flex gap-2 justify-start items-center  ${
-                  tab === 0 && "bg-[#C2E7FF]"
-                }   `}
+                className={`rounded-[30px] scr480:text-[16px] text-[12px] font-semibold scr900:px-6 scr480:px-4 px-2  py-2 flex gap-2 ml:justify-start justify-center items-center ml:min-w-full scr480:min-w-[30%] min-w-[110px] ${tab === 0 && "bg-[#C2E7FF]"
+                  }   `}
               >
                 <svg
                   width="20"
@@ -571,9 +571,8 @@ function Collection() {
                   // setTabIndex(0);
                   router.push("/collection?folders=true");
                 }}
-                className={`rounded-[30px] text-[16px] font-semibold px-6 py-2 flex gap-2 justify-start items-center  ${
-                  tab === 1 && "bg-[#C2E7FF]"
-                }  `}
+                className={`rounded-[30px] scr480:text-[16px] text-[12px] font-semibold scr900:px-6 scr480:px-4 px-2 py-2 flex gap-2 ml:justify-start justify-center items-center ml:min-w-full scr480:min-w-[30%] min-w-[110px]   ${tab === 1 && "bg-[#C2E7FF]"
+                  }  `}
               >
                 <svg
                   width="20"
@@ -595,9 +594,8 @@ function Collection() {
                 onClick={() => {
                   router.push("/collection?trash=true");
                 }}
-                className={`rounded-[30px] text-[16px] font-semibold px-6 py-2 flex gap-2 justify-start items-center  ${
-                  tab === 2 && "bg-[#C2E7FF]"
-                }  `}
+                className={`rounded-[30px] scr480:text-[16px] text-[12px] font-semibold scr900:px-6 scr480:px-4 px-2 py-2 flex gap-2 ml:justify-start justify-center items-center ml:min-w-full scr480:min-w-[30%] min-w-[80px]  ${tab === 2 && "bg-[#C2E7FF]"
+                  }  `}
               >
                 <svg
                   width="20"
@@ -617,7 +615,7 @@ function Collection() {
               </button>
             </div>
           </div>
-          <div className="border border-[#DEDEDE] rounded-[14px] py-2 px-4 flex flex-col gap-2 bg-white">
+          <div className="border border-[#DEDEDE] rounded-[14px] py-2 px-4 ml:flex hidden flex-col gap-2 bg-white">
             <p className="text-[14px] font-semibold">Cloud Storage</p>
             <div className="h-[6px] rounded-[6px] bg-[#DEDEDE] relative">
               <div className="absolute h-[6px] rounded-[6px]  bg-blue w-[30%]"></div>
@@ -640,6 +638,10 @@ function Collection() {
           query={router.query}
           setRecall={setRecall}
           setRename={setRename}
+          isCreate={isCreate}
+          setIsCreate={setIsCreate}
+          setIsFile={setIsFile}
+          setIsCreateFolder={setIsCreateFolder}
         />
       </div>
     </>
