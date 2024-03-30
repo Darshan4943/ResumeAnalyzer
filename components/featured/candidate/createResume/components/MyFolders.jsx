@@ -21,6 +21,12 @@ function MyFolders({
       return <DocSVG />;
     } else if (data.fileName.includes("pdf")) {
       return <PDFSvg />;
+    }else if (
+      data.fileName?.includes("png") ||
+      data.fileName?.includes("jpg") ||
+      data.fileName?.includes("jpeg")
+    ) {
+      return <PNGICON />;
     } else {
       return (
         <svg
