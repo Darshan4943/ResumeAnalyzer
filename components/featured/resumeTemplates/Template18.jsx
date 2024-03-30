@@ -173,34 +173,34 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                   <Path
                     d="M12.6685 11.4664H3.33303C1.94017 11.4664 0.800781 10.3006 0.800781 8.87534V3.65747C0.800781 2.23226 1.94017 1.06641 3.33303 1.06641H12.6685C14.0614 1.06641 15.2008 2.23226 15.2008 3.65747V8.87534C15.2002 10.3006 14.0608 11.4664 12.6685 11.4664Z"
                     stroke="#83C3C9"
-                    stroke-width="0.75"
+                    strokeWidth="0.75"
                     stroke-miterlimit="10"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                   />
                   <Path
                     d="M0.800781 3.6582L8.00078 8.62547L15.2002 3.6582"
                     stroke="#83C3C9"
-                    stroke-width="0.75"
+                    strokeWidth="0.75"
                     stroke-miterlimit="10"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                   />
                   <Path
                     d="M10.168 7.13086L15.1063 9.38114"
                     stroke="#83C3C9"
-                    stroke-width="0.75"
+                    strokeWidth="0.75"
                     stroke-miterlimit="10"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                   />
                   <Path
                     d="M0.800781 8.87591L5.67854 7.02344"
                     stroke="#83C3C9"
-                    stroke-width="0.75"
+                    strokeWidth="0.75"
                     stroke-miterlimit="10"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                   />
                 </Svg>
 

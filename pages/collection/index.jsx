@@ -12,13 +12,14 @@ import Tesseract from "tesseract.js";
 import PizZip from "pizzip";
 import { pdfjs } from "react-pdf";
 import Docxtemplater from "docxtemplater";
+import { resolve } from "styled-jsx/css";
 pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
 
 function Collection() {
   const router = useRouter();
   const { clients, folders, clientId, parentId, trash } = router.query;
   const userDataGlobal = useSelector((state) => state.userData);
-
+  const [rename, setRename] = useState(null);
   const [isCreate, setIsCreate] = useState(false);
   const [folderData, setFolderData] = useState([]);
   const [tabIndex, setTabIndex] = useState(0);
@@ -52,6 +53,7 @@ function Collection() {
       reader.readAsArrayBuffer(file);
     });
   };
+  console.log(56,parentId)
   useEffect(() => {
     if (inputRef.current) {
       inputRef.current.select();
@@ -149,9 +151,7 @@ function Collection() {
   const getTrashed = () => {
     setLoading(true);
     axios
-      .get(
-        `https://freedygoservices.in/api/folder/getTrashed/${userDataGlobal._id}`
-      )
+      .get(`https://freedygoservices.in/api/folder/getTrashed/${userDataGlobal._id}`)
       .then((res) => {
         setFolderList(res.data.data);
         setTimeout(() => {
@@ -183,16 +183,75 @@ function Collection() {
       });
   };
 
-  const addFiles = () => {
+  const textExtractor = async (textData) => {
+    const { data } = await axios.post(
+      "https://freedygoservices.in/api/resume/extraction",
+      {
+        data: textData,
+      }
+    );
+    return data.data;
+  };
+  const parseData = () => {
+    return new Promise((resolve, reject) => {
+      const textData = [];
+      Object.values(files).forEach(async (file, index) => {
+        if (
+          file.type ==
+          "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+        ) {
+          const reader = new FileReader();
+          reader.onload = async (e) => {
+            const content = e.target.result;
+            var doc = new Docxtemplater(new PizZip(content), {
+              delimiters: {
+                start: "12op1j2po1j2poj1po",
+                end: "op21j4po21jp4oj1op24j",
+              },
+            });
+            var text = doc.getFullText();
+            textData.push({ text, index });
+          };
+          reader.readAsBinaryString(file);
+        } else if (file.type == "image/png") {
+          Tesseract.recognize(file, "eng", {
+            logger: (m) => console.log(m),
+          }).then(async ({ data: { text } }) => {
+            textData.push({ text, index });
+          });
+        } else if (file.type == "application/pdf") {
+          let fullText = "";
+          const pdfTextPromises = [];
+          for (let i = 1; i <= 1; i++) {
+            pdfTextPromises.push(fileToText(file, i));
+          }
+          Promise.all(pdfTextPromises).then(async (texts) => {
+            fullText = texts.join("");
+            textData.push({ text: fullText, index });
+          });
+        }
+        return;
+      });
+      setTimeout(() => {
+        resolve(textData);
+      }, 1000);
+    });
+  };
+  const addFiles = async () => {
     const formData = new FormData();
-    formData.append("fileName", folderName);
-    formData.append("type", "file");
-    formData.append("userId", userDataGlobal._id);
-    for (let i = 0; i < files.length; i++) {
-      formData.append("files", files[i]);
-    }
-    formData.append("parentId", ParentId ? ParentId : undefined);
-    axios
+
+    parseData().then(async (data) => {
+      const extractedData = await textExtractor(data);
+      formData.append("fileName", folderName);
+      formData.append("type", "file");
+      formData.append("userId", userDataGlobal._id);
+      formData.append("extractedData", JSON.stringify(extractedData));
+      Object.values(files).map(async (file, index) => {
+        formData.append("files", file);
+        return;
+      });
+      formData.append("parentId", ParentId ? ParentId : undefined);
+      axios
       .post("https://freedygoservices.in/api/folder/addFiles", formData)
       .then((res) => {
         setRecall();
@@ -203,6 +262,9 @@ function Collection() {
       .catch((err) => {
         toast.error("Something went wrong");
       });
+    });
+
+  
   };
 
   const handleButtonClick = () => {
@@ -577,6 +639,7 @@ function Collection() {
           loading={loading}
           query={router.query}
           setRecall={setRecall}
+          setRename={setRename}
         />
       </div>
     </>

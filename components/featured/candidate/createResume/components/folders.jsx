@@ -21,6 +21,7 @@ function Folders({
   loading,
   query,
   setRecall,
+  setRename
 }) {
   const router = useRouter();
   const [mainData, setMainData] = useState(data);
@@ -74,7 +75,28 @@ function Folders({
       })
       .then((res) => {
         setRecall();
-        toast.success(res.data.message);
+        toast.success('Documents deleted successfully');
+        setSelectedIndexes([]);
+        setSelect(false);
+      })
+      .catch((err) => {
+        toast.error("Something went wrong");
+      });
+  };
+  const restoreFile = () => {
+    const ids = selectedIndexes.map((item) => data[item]._id);
+    if (ids.length == 0) {
+      toast.error("Please select file to delete");
+      return;
+    }
+    axios
+      .post("https://freedygoservices.in/api/folder/restore", {
+        ids,
+        type: trash ? 2 : 1,
+      })
+      .then((res) => {
+        setRecall();
+        toast.success('Documents restored successfully');
         setSelectedIndexes([]);
         setSelect(false);
       })
@@ -219,7 +241,26 @@ function Folders({
                   </div>
 
                   <div className="flex gap-3 min-w-[160px] justify-end">
-                    {
+                    {trash ? (
+                      <>
+                        <svg
+                          onClick={restoreFile}
+                          width="20"
+                          height="20"
+                          viewBox="0 0 20 20"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <g mask="url(#mask0_1721_19645)">
+                            <path
+                              d="M10 14C10.9722 14 11.7986 13.6597 12.4792 12.9792C13.1597 12.2986 13.5 11.4722 13.5 10.5C13.5 9.52778 13.1597 8.70139 12.4792 8.02083C11.7986 7.34028 10.9722 7 10 7C9.46715 7 8.96935 7.11458 8.5066 7.34375C8.04387 7.57292 7.65278 7.875 7.33333 8.25V7H6.33333V10H9.33333V9H8C8.23611 8.69444 8.52778 8.45139 8.875 8.27083C9.22222 8.09028 9.59722 8 10 8C10.6923 8 11.282 8.24381 11.7692 8.73144C12.2564 9.21905 12.5 9.80933 12.5 10.5023C12.5 11.1952 12.2564 11.7847 11.7692 12.2708C11.282 12.7569 10.6923 13 10 13C9.59722 13 9.22222 12.9097 8.875 12.7292C8.52778 12.5486 8.23611 12.3056 8 12H6.85417C7.13194 12.5972 7.54861 13.0799 8.10417 13.4479C8.65972 13.816 9.29167 14 10 14ZM5.4941 18C5.08137 18 4.72917 17.8531 4.4375 17.5594C4.14583 17.2656 4 16.9125 4 16.5V3.5C4 3.0875 4.14687 2.73438 4.44062 2.44063C4.73437 2.14688 5.0875 2 5.5 2H12L16 6V16.5C16 16.9125 15.853 17.2656 15.5591 17.5594C15.2652 17.8531 14.9119 18 14.4992 18H5.4941ZM5.5 16.5H14.5V6.625L11.375 3.5H5.5V16.5Z"
+                              fill="#333333"
+                            />
+                          </g>
+                        </svg>
+                        <div className="min-w-[1px] h-full bg-[#06A9EF] " />
+                      </>
+                    ) : (
                       <>
                         {" "}
                         <svg
@@ -257,7 +298,7 @@ function Folders({
                           {" "}
                         </div>
                       </>
-                    }
+                    )}
 
                     <svg
                       onClick={deleteFiles}
@@ -274,13 +315,14 @@ function Folders({
                         />
                       </g>
                     </svg>
-                    {trash ? null : (
+                    {trash || selectedIndexes.length>1 ? null : (
                       <>
                         {" "}
                         <div className="min-w-[1px] h-full bg-[#06A9EF] ">
                           {" "}
                         </div>
                         <svg
+                        onClick={()=>setRename(selectedIndexes[0])}
                           width="20"
                           height="20"
                           viewBox="0 0 20 20"
@@ -340,9 +382,9 @@ function Folders({
                 <path
                   d="M15.499 15.5L18.999 19L15.499 15.5ZM4.99902 11C4.99902 11.7879 5.15422 12.5681 5.45575 13.2961C5.75727 14.0241 6.19923 14.6855 6.75638 15.2426C7.31353 15.7998 7.97497 16.2417 8.70292 16.5433C9.43088 16.8448 10.2111 17 10.999 17C11.787 17 12.5672 16.8448 13.2951 16.5433C14.0231 16.2417 14.6845 15.7998 15.2417 15.2426C15.7988 14.6855 16.2408 14.0241 16.5423 13.2961C16.8438 12.5681 16.999 11.7879 16.999 11C16.999 9.4087 16.3669 7.88258 15.2417 6.75736C14.1164 5.63214 12.5903 5 10.999 5C9.40772 5 7.8816 5.63214 6.75638 6.75736C5.63116 7.88258 4.99902 9.4087 4.99902 11V11Z"
                   stroke="#1F1F1F"
-                  stroke-width="1.71429"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeWidth="1.71429"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 />
               </svg>
 
@@ -398,7 +440,7 @@ function Folders({
                   <div className="w-[1px] h-full bg-white"></div>
                   <div
                     onClick={() => setIsSort(!isSort)}
-                    className=" flex gap-2 text-[14px] font-medium items-center relative cursor-pointer"
+                    className=" flex gap-2 text-[14px] font-medium items-center relative cursor-pointer w-[78px]"
                   >
                     <svg
                       width="18"
