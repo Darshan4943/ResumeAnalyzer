@@ -54,7 +54,7 @@ function TransformJd({
       }
 
       axios
-        .post("http://localhost:2000/api/resume/add", formData)
+        .post("https://freedygoservices.in/api/resume/add", formData)
         .then((res) => {
           toast.success("Resume Saved To Collection successfully");
           setLoading(false);

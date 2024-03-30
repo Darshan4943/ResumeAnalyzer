@@ -131,7 +131,7 @@ function AccountDetails({ selectedPlan }) {
       setError("Please agree to the terms and conditions.");
     } else {
       axios
-        .post("http://localhost:2000/api/add/subscription", {
+        .post("https://freedygoservices.in/api/add/subscription", {
           userId: userDataGlobal._id,
           plan: selectedPlan.duration + " " + selectedPlan.limit,
           startDate: new Date(),
@@ -167,9 +167,9 @@ function AccountDetails({ selectedPlan }) {
     //       setLoading(true);
     //       const {
     //         data: { key },
-    //       } = await axios.get(`http://localhost:2000/api/getkey`);
+    //       } = await axios.get(`https://freedygoservices.in/api/getkey`);
     //       const { data: order } = await axios.post(
-    //         `http://localhost:2000/api/checkout/`,
+    //         `https://freedygoservices.in/api/checkout/`,
     //         {
     //           amount: parseInt(selectedPlan.amount),
     //         }
@@ -191,7 +191,7 @@ function AccountDetails({ selectedPlan }) {
     //         },
     //         handler: function (response) {
     //           axios
-    //             .post("http://localhost:2000/api/add/subscription", {
+    //             .post("https://freedygoservices.in/api/add/subscription", {
     //               ...response,
     //               userId: userDataGlobal._id,
     //               plan: selectedPlan.duration + " " + selectedPlan.limit,
