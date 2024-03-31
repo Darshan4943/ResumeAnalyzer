@@ -79,7 +79,7 @@ function ClientFolders({
   return (
     <div className="">
       {tabIndex === 0 && (
-        <div className="rounded-[16px] p-4 flex flex-row gap-y-6 flex-wrap  w-full h-full">
+        <div className="rounded-[16px] sm:p-4 flex flex-row gap-y-6 flex-wrap  w-full h-full">
           {clientData?.length > 0 ? (
             <>
               {!isList ? (
@@ -98,7 +98,7 @@ function ClientFolders({
                           );
                       }}
                       key={index}
-                      className=" break-all flex flex-col gap-[8px] items-center text-center cursor-pointer h-fit w-[142px] px-[8px]"
+                      className=" break-all flex flex-col gap-[8px] items-center text-center cursor-pointer h-fit sm:w-[142px] w-[135px] px-[8px]"
                     >
                       <div className=" relative">
                         {fileIconSeter(item)}
@@ -123,16 +123,16 @@ function ClientFolders({
                   </>
                 ))
               ) : (
-                <table className="w-[100%]">
+                <table className="w-[100%] text-[12px] sm:text-[16px]">
                   <thead>
                     <tr>
-                      <th className="py-3 px-4 rounded-l-[12px] bg-[#C2E7FF] w-[30%] text-left">
+                      <th className="py-3 sm:px-4 px-2 rounded-l-[12px] bg-[#C2E7FF] w-[30%] text-left">
                         Name
                       </th>
-                      <th className="py-3 px-4 bg-[#C2E7FF] w-[25%] text-left">
+                      <th className="py-3 sm:px-4 px-2 bg-[#C2E7FF] w-[25%] text-left">
                         Date Modified
                       </th>
-                      <th className="py-3 px-4 rounded-r-[12px] bg-[#C2E7FF] w-[25%] text-left">
+                      <th className="py-3 sm:px-4 px-2 rounded-r-[12px] bg-[#C2E7FF] w-[25%] text-left">
                         Size
                       </th>
                     </tr>
@@ -153,7 +153,7 @@ function ClientFolders({
                         }
                         className="cursor-pointer"
                       >
-                        <td className="px-4 py-2 font-medium flex gap-2 relative items-center ">
+                        <td className="sm:px-4 px-2 py-2 font-medium flex gap-2 relative items-center ">
                           {select && (
                             <input
                               type="checkbox"
@@ -168,10 +168,10 @@ function ClientFolders({
                             ? item.fileName
                             : item.firstName + " " + item.lastName}
                         </td>
-                        <td className="px-4 py-2 text-[#858585]">
+                        <td className="sm:px-4 px-2 py-2 text-[#858585]">
                           {dateSeter(item.updatedAt)}
                         </td>
-                        <td className="px-4 py-2 text-[#858585]">
+                        <td className="sm:px-4 px-2 py-2 text-[#858585]">
                           {convertBytes(item.size)}
                         </td>
                       </tr>

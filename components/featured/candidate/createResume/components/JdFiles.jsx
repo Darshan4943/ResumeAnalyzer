@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { DocSVG, PDFSvg, PNGICON, SearchIcon } from "../../../../../utils/svg";
 import { useRouter } from "next/router";
+import MiniLoader from "../../../../common/miniLoader";
 
 function JdFiles({
   details,
@@ -8,6 +9,7 @@ function JdFiles({
   selectedOptions,
   selectedIndexes,
   setSelectedIndexes,
+  loading,
 }) {
   const router = useRouter();
 
@@ -40,7 +42,8 @@ function JdFiles({
 
   const fileIconSeter = (data) => {
     if (data.fileName?.includes("docx") || data.fileName?.includes("doc")) {
-      return <img src="/images/docIcon.png" className="h-[48px] w-[48px]" />;m
+      return <img src="/images/docIcon.png" className="h-[48px] w-[48px]" />;
+      m;
     } else if (data.fileName?.includes("pdf")) {
       return <PDFSvg />;
     } else if (
@@ -70,13 +73,33 @@ function JdFiles({
       );
     }
   };
+  function getAllFiles(obj) {
+    let files = [];
 
-  const toggleSelect = (itemId) => {
+    function traverse(node) {
+      if (node.type === "file") {
+        files.push({
+          ...node,
+        });
+      } else if (node.files && node.files.length > 0) {
+        files.push({
+          ...node,
+        });
+        node.files.forEach((child) => traverse(child));
+      }
+    }
+
+    traverse(obj);
+    return files;
+  }
+
+  const toggleSelect = (itemId, item) => {
+    const ids = [...getAllFiles(item).map((item) => item._id)];
     let updatedIndexes;
     if (selectedIndexes?.includes(itemId)) {
-      updatedIndexes = selectedIndexes.filter((id) => id !== itemId);
+      updatedIndexes = selectedIndexes.filter((id) => !ids.includes(id));
     } else {
-      updatedIndexes = [...selectedIndexes, itemId];
+      updatedIndexes = [...selectedIndexes, ...ids];
     }
 
     localStorage.setItem("selectedIndexes", JSON.stringify(updatedIndexes));
@@ -119,13 +142,16 @@ function JdFiles({
         </span>
       </div>
       <div className="border-b-[1px] border-[#DEDEDE] w-full h-[1px]"></div>
-
-      {details?.length > 0 ? (
-        <div
-          className="flex flex-row flex-wrap gap-4   py-4  h-[247px] overflow-y-auto bg-[#FFFFFF] border-[1px] border-[#DEDEDE] rounded-[16px] p-[8px]"
-          // style={{ overflowX: "auto" }}
-        >
-          {details?.map((item, index) => (
+      <div
+        className="flex flex-row flex-wrap gap-4   py-4  h-[247px] overflow-y-auto bg-[#FFFFFF] border-[1px] border-[#DEDEDE] rounded-[16px] p-[8px]"
+        // style={{ overflowX: "auto" }}
+      >
+        {loading ? (
+          <div className="w-full ">
+          <MiniLoader />
+          </div>
+        ) : details?.length > 0 ? (
+          details?.map((item, index) => (
             <>
               <div
                 key={index}
@@ -135,13 +161,14 @@ function JdFiles({
                 <div className="relative">
                   {fileIconSeter(item)}
                   {/* {select && ( */}
+
                   <input
                     type="checkbox"
                     className=" absolute right-[-15%] top-0 rounded-[4.5px] pl-[4px] pr-[20px] py-[2px] outline-none text-[14px] font-medium custom-checkbox"
                     style={{ width: "20px", height: "20px" }}
                     onClick={(e) => e.stopPropagation()}
                     checked={selectedIndexes?.includes(item._id)}
-                    onChange={() => toggleSelect(item._id)}
+                    onChange={() => toggleSelect(item._id, item)}
                   />
                   {/* )} */}
                 </div>
@@ -150,13 +177,13 @@ function JdFiles({
                 </span>
               </div>
             </>
-          ))}
-        </div>
-      ) : (
-        <div className="text-[20px] font-medium text-center w-full py-[24px]">
-          No Resume Available
-        </div>
-      )}
+          ))
+        ) : (
+          <div className="text-[20px] font-medium text-center w-full py-[24px]">
+            No Resume Available
+          </div>
+        )}
+      </div>
     </div>
   );
 }

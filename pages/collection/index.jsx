@@ -13,6 +13,7 @@ import PizZip from "pizzip";
 import { pdfjs } from "react-pdf";
 import Docxtemplater from "docxtemplater";
 import { resolve } from "styled-jsx/css";
+import MiniLoader from "../../components/common/miniLoader";
 pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
 
 function Collection() {
@@ -32,10 +33,12 @@ function Collection() {
   const [ParentId, setParentId] = useState(null);
   const [isFile, setIsFile] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [fileLoader, setFileLoader] = useState(false);
   const [textDataFinal, setTextData] = useState([]);
   const [files, setFiles] = useState([]);
   const fileRef = useRef(null);
   const [recall, setRecall] = useReducer((x) => x + 1, 0);
+  console.log(recall);
   const fileToText = (file, pageNumber) => {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
@@ -53,40 +56,42 @@ function Collection() {
       reader.readAsArrayBuffer(file);
     });
   };
-  console.log(56,parentId)
+
   useEffect(() => {
     if (inputRef.current) {
       inputRef.current.select();
     }
   }, [isCreate]);
-
-  useEffect(() => {
-    if (folders == "true") {
-      setTab(1);
-      setTabIndex(0);
-      if (parentId) {
-        setParentId(parentId);
-        getParentData(parentId);
-      } else {
-        getFolderData();
-      }
-    } else if (clients == "true") {
-      setTab(0);
-      setTabIndex(0);
-      if (clientId) {
-        getClientData(clientId);
-      } else {
-        getClients();
-      }
-    } else if (trash == "true") {
-      setTab(2);
-      setTabIndex(0);
-      getTrashed();
+const getData= ()=>{
+  if (folders == "true") {
+    setTab(1);
+    setTabIndex(0);
+    if (parentId) {
+      setParentId(parentId);
+      getParentData(parentId);
     } else {
-      setTab(0);
-      setTabIndex(0);
+      getFolderData();
+    }
+  } else if (clients == "true") {
+    setTab(0);
+    setTabIndex(0);
+    if (clientId) {
+      getClientData(clientId);
+    } else {
       getClients();
     }
+  } else if (trash == "true") {
+    setTab(2);
+    setTabIndex(0);
+    getTrashed();
+  } else {
+    setTab(0);
+    setTabIndex(0);
+    getClients();
+  }
+}
+  useEffect(() => {
+    getData()
   }, [clients, folders, clientId, parentId, userDataGlobal, recall]);
 
   const getParentData = (parentId) => {
@@ -238,6 +243,14 @@ function Collection() {
     });
   };
   const addFiles = async () => {
+    setFileLoader(true);
+    if (Object.keys(files).length == 0) {
+      toast.error("No File Selected");
+      setFileLoader(false);
+
+      return;
+    }
+
     const formData = new FormData();
 
     parseData().then(async (data) => {
@@ -252,19 +265,21 @@ function Collection() {
       });
       formData.append("parentId", ParentId ? ParentId : undefined);
       axios
-      .post("https://freedygoservices.in/api/folder/addFiles", formData)
-      .then((res) => {
-        setRecall();
-        setIsCreateFolder(false);
-        setFolderName("Untitled folder");
-        toast.success("Folder created successfully");
-      })
-      .catch((err) => {
-        toast.error("Something went wrong");
-      });
+        .post("https://freedygoservices.in/api/folder/addFiles", formData)
+        .then((res) => {
+          setFolderName("Untitled folder");
+          toast.success("Folder created successfully");
+          setTimeout(() => {
+            setFileLoader(false);
+            setIsCreateFolder(false);
+            getData()
+          }, 1000);
+        })
+        .catch((err) => {
+          setFileLoader(false);
+          toast.error("Something went wrong");
+        });
     });
-
-  
   };
 
   const handleButtonClick = () => {
@@ -333,90 +348,106 @@ function Collection() {
                 <div
                   ref={fileRef}
                   onDrop={handleFileChange}
-                  class="border-dashed border-[3px] border-[#333] flex flex-row w-full justify-center rounded-[12px] px-[8px] py-[24px] items-center gap-[8px] upload-btn-wrapper min-h-[126px]"
+                  class="border-dashed border-[3px] border-[#b4b4b4] flex flex-row w-full justify-center rounded-[12px] px-[8px] py-[24px] items-center gap-[8px] upload-btn-wrapper min-h-[126px]"
                 >
-                  <input
-                    type="file"
-                    name="myfile"
-                    onChange={handleFileChange}
-                    multiple
-                  />
-                  {Object.keys(files).length > 0 ? (
-                    <div className="w-full flex justify-center items-center">
-                      <div className="flex flex-row gap-[16px] items-center justify-between w-[80%]  ">
-                        <div className="flex flex-row gap-[16px] items-center  ">
-                          <span className="tex-[16px] font-[500]">
-                            ({Object.values(files).length}) Files Selected
-                          </span>
+                  {fileLoader ? (
+                    <div className="miniLoader">
+                      <div className="box " style={{ height: "auto" }}>
+                        <div class="container">
+                          <span class="circle"></span>
+                          <span class="circle"></span>
+                          <span class="circle"></span>
+                          <span class="circle"></span>
                         </div>
-                        <button
-                          className="px-[16px] py-[8px] border border-[#06A9EF]  rounded-[12px]"
-                          onClick={handleButtonClick}
-                        >
-                          Browse file
-                        </button>
                       </div>
                     </div>
                   ) : (
                     <>
-                      <div className="  flex  flex-col  items-center">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="40"
-                          height="40"
-                          viewBox="0 0 40 40"
-                          fill="none"
-                          onClick={handleButtonClick}
-                        >
-                          <g clipPath="url(#clip0_4121_52475)">
-                            <path
-                              d="M25 13.3333H25.0167"
-                              stroke="#06A9EF"
-                              strokeWidth="2"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            />
-                            <path
-                              d="M28.3327 6.66669H11.666C8.90459 6.66669 6.66602 8.90526 6.66602 11.6667V28.3334C6.66602 31.0948 8.90459 33.3334 11.666 33.3334H28.3327C31.0941 33.3334 33.3327 31.0948 33.3327 28.3334V11.6667C33.3327 8.90526 31.0941 6.66669 28.3327 6.66669Z"
-                              stroke="#06A9EF"
-                              strokeWidth="2"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            />
-                            <path
-                              d="M6.66602 25L13.3327 18.3333C14.0928 17.6019 14.955 17.2169 15.8327 17.2169C16.7104 17.2169 17.5726 17.6019 18.3327 18.3333L26.666 26.6666"
-                              stroke="#06A9EF"
-                              strokeWidth="2"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            />
-                            <path
-                              d="M23.334 23.3334L25.0007 21.6667C25.7607 20.9353 26.623 20.5502 27.5007 20.5502C28.3783 20.5502 29.2406 20.9353 30.0006 21.6667L33.334 25"
-                              stroke="#06A9EF"
-                              strokeWidth="2"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            />
-                          </g>
-                          <defs>
-                            <clipPath id="clip0_4121_52475">
-                              <rect width="40" height="40" fill="white" />
-                            </clipPath>
-                          </defs>
-                        </svg>
-                      </div>
-                      <div class="flex flex-col gap-[4px]	font-normal	">
-                        <div class="flex text-center justify-center  scr420:text-[14px] scr360:text-[12px] text-[10px] text-[#515B6F]">
-                          <span
-                            onClick={handleButtonClick}
-                            class="text-[#06A9EF]"
-                          >
-                            &nbsp;Browse file{" "}
-                          </span>
-                          &nbsp;to upload PDF or DOCS
+                      {" "}
+                      <input
+                        type="file"
+                        name="myfile"
+                        onChange={handleFileChange}
+                        multiple
+                      />
+                      {Object.keys(files).length > 0 ? (
+                        <div className="w-full flex justify-center items-center">
+                          <div className="flex flex-row gap-[16px] items-center justify-between w-[80%]  ">
+                            <div className="flex flex-row gap-[16px] items-center  ">
+                              <span className="tex-[16px] font-[500]">
+                                ({Object.values(files).length}) Files Selected
+                              </span>
+                            </div>
+                            <button
+                              className="px-[16px] py-[8px] border border-[#06A9EF]  rounded-[12px]"
+                              onClick={handleButtonClick}
+                            >
+                              Browse file
+                            </button>
+                          </div>
                         </div>
-                        <p class="text-center text-[12px] font-normal text-[#7C8493]"></p>
-                      </div>
+                      ) : (
+                        <>
+                          <div className="  flex  flex-col  items-center">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="40"
+                              height="40"
+                              viewBox="0 0 40 40"
+                              fill="none"
+                              onClick={handleButtonClick}
+                            >
+                              <g clipPath="url(#clip0_4121_52475)">
+                                <path
+                                  d="M25 13.3333H25.0167"
+                                  stroke="#06A9EF"
+                                  strokeWidth="2"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                                <path
+                                  d="M28.3327 6.66669H11.666C8.90459 6.66669 6.66602 8.90526 6.66602 11.6667V28.3334C6.66602 31.0948 8.90459 33.3334 11.666 33.3334H28.3327C31.0941 33.3334 33.3327 31.0948 33.3327 28.3334V11.6667C33.3327 8.90526 31.0941 6.66669 28.3327 6.66669Z"
+                                  stroke="#06A9EF"
+                                  strokeWidth="2"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                                <path
+                                  d="M6.66602 25L13.3327 18.3333C14.0928 17.6019 14.955 17.2169 15.8327 17.2169C16.7104 17.2169 17.5726 17.6019 18.3327 18.3333L26.666 26.6666"
+                                  stroke="#06A9EF"
+                                  strokeWidth="2"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                                <path
+                                  d="M23.334 23.3334L25.0007 21.6667C25.7607 20.9353 26.623 20.5502 27.5007 20.5502C28.3783 20.5502 29.2406 20.9353 30.0006 21.6667L33.334 25"
+                                  stroke="#06A9EF"
+                                  strokeWidth="2"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                              </g>
+                              <defs>
+                                <clipPath id="clip0_4121_52475">
+                                  <rect width="40" height="40" fill="white" />
+                                </clipPath>
+                              </defs>
+                            </svg>
+                          </div>
+                          <div class="flex flex-col gap-[4px]	font-normal	">
+                            <div class="flex text-center justify-center  scr420:text-[14px] scr360:text-[12px] text-[10px] text-[#515B6F]">
+                              <span
+                                onClick={handleButtonClick}
+                                class="text-[#06A9EF]"
+                              >
+                                &nbsp;Browse file{" "}
+                              </span>
+                              &nbsp;to upload PDF or DOCS
+                            </div>
+                            <p class="text-center text-[12px] font-normal text-[#7C8493]"></p>
+                          </div>
+                        </>
+                      )}
                     </>
                   )}
                 </div>
@@ -432,6 +463,8 @@ function Collection() {
 
               <div className="flex justify-end gap-6 text-blue font-medium">
                 <button
+                  disabled={fileLoader}
+                  style={{ opacity: fileLoader ? 0.5 : 1 }}
                   onClick={() => {
                     setIsCreateFolder(false);
                     setFolderName("Untitled folder");
@@ -439,7 +472,14 @@ function Collection() {
                 >
                   Cancel
                 </button>
-                <button onClick={isFile ? addFiles : createFolder}>
+                <button
+                  disabled={fileLoader || Object.values(files).length == 0}
+                  style={{
+                    opacity:
+                      fileLoader || Object.values(files).length == 0 ? 0.5 : 1,
+                  }}
+                  onClick={isFile ? addFiles : createFolder}
+                >
                   {isFile ? "Add Files" : "Create"}
                 </button>
               </div>
@@ -448,16 +488,19 @@ function Collection() {
         </>
       )}
 
-      <div className="  flex justify-between  gap-4 p-6 min-h-[80vh] bg-[#F9F9F9] pb-12">
-        <div className="flex flex-col gap-5  justify-between w-[20%] min-h-[50vh]">
+      <div className="  flex ml:flex-row flex-col ml:justify-between  gap-4 ms:p-6 p-2 min-h-[80vh] bg-[#F9F9F9] pb-12">
+        <div className="flex flex-col gap-5  justify-between ml:w-[20%] w-[100%] ml:min-h-[50vh]">
           <div className="flex flex-col gap-5 ">
+            <p className="text-[24px] font-semibold ml:hidden block">
+              My Collection
+            </p>
             <button
               onClick={(e) => {
                 setIsCreate(!isCreate);
                 e.stopPropagation();
               }}
               disabled={tab != 1}
-              className={`rounded-[8px] text-[14px] font-semibold px-4 py-2 flex gap-2 justify-center relative items-center w-[98px] bg-blue text-white `}
+              className={`rounded-[8px] text-[14px] font-semibold px-4 py-2 ml:flex  hidden gap-2 justify-center relative items-center w-[98px] bg-blue text-white `}
               style={{ opacity: tab == 1 ? 1 : 0.6 }}
             >
               <svg
@@ -478,7 +521,7 @@ function Collection() {
               {isCreate && (
                 <>
                   <div
-                    className="absolute flex flex-col text-[14px] text-[#000000] rounded-[8px] left-0 right-0 z-10 top-[110%] w-[165px] p-4 gap-4 bg-white"
+                    className="absolute flex-col text-[14px] text-[#000000] rounded-[8px] left-0 right-0 z-10 top-[110%] w-[165px] p-4 gap-8 bg-white"
                     style={{ boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)" }}
                   >
                     <div
@@ -486,7 +529,7 @@ function Collection() {
                         setIsFile(false);
                         setIsCreateFolder(true);
                       }}
-                      className="flex gap-1 items-center"
+                      className="flex gap-1  items-center h-[44px]"
                     >
                       <svg
                         width="24"
@@ -540,12 +583,12 @@ function Collection() {
                 </>
               )}
             </button>
-            <div className="flex flex-col gap-2 w-full">
+            <div className="flex ml:flex-col flex-row  scr480:gap-2 w-full justify-between">
               <button
                 onClick={() => {
                   router.push("/collection?clients=true");
                 }}
-                className={`rounded-[30px] text-[16px] font-semibold px-6 py-2 flex gap-2 justify-start items-center  ${
+                className={`rounded-[30px] scr480:text-[16px] text-[12px] font-semibold scr900:px-6 scr480:px-4 px-2  py-2 flex gap-2 ml:justify-start justify-center items-center ml:min-w-full scr480:min-w-[30%] min-w-[110px] ${
                   tab === 0 && "bg-[#C2E7FF]"
                 }   `}
               >
@@ -571,7 +614,7 @@ function Collection() {
                   // setTabIndex(0);
                   router.push("/collection?folders=true");
                 }}
-                className={`rounded-[30px] text-[16px] font-semibold px-6 py-2 flex gap-2 justify-start items-center  ${
+                className={`rounded-[30px] scr480:text-[16px] text-[12px] font-semibold scr900:px-6 scr480:px-4 px-2 py-2 flex gap-2 ml:justify-start justify-center items-center ml:min-w-full scr480:min-w-[30%] min-w-[110px]   ${
                   tab === 1 && "bg-[#C2E7FF]"
                 }  `}
               >
@@ -595,7 +638,7 @@ function Collection() {
                 onClick={() => {
                   router.push("/collection?trash=true");
                 }}
-                className={`rounded-[30px] text-[16px] font-semibold px-6 py-2 flex gap-2 justify-start items-center  ${
+                className={`rounded-[30px] scr480:text-[16px] text-[12px] font-semibold scr900:px-6 scr480:px-4 px-2 py-2 flex gap-2 ml:justify-start justify-center items-center ml:min-w-full scr480:min-w-[30%] min-w-[80px]  ${
                   tab === 2 && "bg-[#C2E7FF]"
                 }  `}
               >
@@ -617,7 +660,7 @@ function Collection() {
               </button>
             </div>
           </div>
-          <div className="border border-[#DEDEDE] rounded-[14px] py-2 px-4 flex flex-col gap-2 bg-white">
+          <div className="border border-[#DEDEDE] rounded-[14px] py-2 px-4 ml:flex hidden flex-col gap-2 bg-white">
             <p className="text-[14px] font-semibold">Cloud Storage</p>
             <div className="h-[6px] rounded-[6px] bg-[#DEDEDE] relative">
               <div className="absolute h-[6px] rounded-[6px]  bg-blue w-[30%]"></div>
@@ -640,6 +683,10 @@ function Collection() {
           query={router.query}
           setRecall={setRecall}
           setRename={setRename}
+          isCreate={isCreate}
+          setIsCreate={setIsCreate}
+          setIsFile={setIsFile}
+          setIsCreateFolder={setIsCreateFolder}
         />
       </div>
     </>
