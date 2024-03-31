@@ -1,8 +1,34 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Progress_bar from "./ProgressBar";
-import CloseIcon, { DesignationSVG } from "../../../utils/svg";
-import { convertBytes } from "../../../utils/middleware";
+import CloseIcon, {
+  DesignationSVG,
+  DocSVG,
+  PDFSvg,
+  PNGICON,
+} from "../../../utils/svg";
+import { convertBytes, fileIconSeter } from "../../../utils/middleware";
+function FileSizeDisplay({ fileUrl }) {
+  const [fileSize, setFileSize] = useState(null);
 
+  useEffect(() => {
+    const getFileSize = async () => {
+      try {
+        const response = await fetch(fileUrl);
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const size = response.headers.get("content-length");
+        setFileSize(parseInt(size, 10));
+      } catch (error) {
+        console.error("Error calculating file size:", error);
+      }
+    };
+
+    getFileSize();
+  }, [fileUrl]);
+
+  return <span>{convertBytes(fileSize)}</span>;
+}
 const MatchingDetails = ({ data, setSelectedFile, files, extractedData }) => {
   const imageSeter = (data) => {
     const file = Object.values(files)?.find((item, i) => data.index == i);
@@ -15,6 +41,7 @@ const MatchingDetails = ({ data, setSelectedFile, files, extractedData }) => {
       return "/images/pdfIcon.png";
     }
   };
+
   return (
     <>
       <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
@@ -38,38 +65,21 @@ const MatchingDetails = ({ data, setSelectedFile, files, extractedData }) => {
             <div className="flex gap-[4px] items-center ">
               <DesignationSVG />
               <span className="text-[14px] font-semibold">
-                {
-                  extractedData.find((item, i) => item.index == data.index)
-                    ?.designation
-                }
+                {data?.designation}
               </span>{" "}
             </div>
           </div>
           <div className="border border-[#DEDEDE] w-full rounded-[8px] p-[16px] flex flex-row justify-between items-center">
             <div className="flex flex-row gap-[8px]">
-              {files && (
-                <>
-                  <img
-                    src={imageSeter(data)}
-                    className="w-[48px] h-[48px] "
-                    alt=""
-                  />
-                  <div className="flex flex-col justify-between ">
-                    <span className="text-[14px] text-[#333333]">
-                      {
-                        Object.values(files).find((item, i) => data.index == i)
-                          ?.name
-                      }
-                    </span>
-                    <span className="text-[14px] text-[#808080]">
-                      {convertBytes(
-                        Object.values(files).find((item, i) => data.index == i)
-                          ?.size
-                      )}
-                    </span>
-                  </div>
-                </>
-              )}
+              {fileIconSeter(data)}
+              <div className="flex flex-col justify-between ">
+                <span className="text-[14px] text-[#333333]">
+                  {data.fileName}
+                </span>
+                <span className="text-[14px] text-[#808080]">
+                <FileSizeDisplay fileUrl={data?.resumeUrl}/>
+                </span>
+              </div>
             </div>
             <div className="flex flex-row gap-[8px] items-center">
               <span className="text-[14px] text-[#06A9EF] font-500 cursor-pointer">
@@ -77,10 +87,8 @@ const MatchingDetails = ({ data, setSelectedFile, files, extractedData }) => {
               </span>
 
               <svg
-                onClick={() =>
-                  handleDownload(
-                    Object.values(files).find((item, i) => data.index == i)
-                  )
+                 onClick={() =>
+                  (window.location.href = data?.resumeUrl)
                 }
                 width="14"
                 height="14"
@@ -139,7 +147,8 @@ const MatchingDetails = ({ data, setSelectedFile, files, extractedData }) => {
               </div>
             )}
 
-            {data?.percentage>0 &&  data?.matching_parameters_in_detail &&
+            {data?.percentage > 0 &&
+              data?.matching_parameters_in_detail &&
               Object.keys(data.matching_parameters_in_detail).length > 0 && (
                 <div className="flex flex-col gap-[8px]  justify-between relative  w-full ">
                   <span className="text-[#333333] text-[16px] font-semibold">
