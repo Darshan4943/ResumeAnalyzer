@@ -132,7 +132,7 @@ function JdFiles({
               type="text"
               className="bg-[#fff] text-[#333333] placeholder:text-[#333333] "
               placeholder="Select"
-            // onChange={(e) => searchHandler(e.target.value)}
+              // onChange={(e) => searchHandler(e.target.value)}
             />
           </div>
         </div>
@@ -144,10 +144,10 @@ function JdFiles({
       <div className="border-b-[1px] border-[#DEDEDE] w-full h-[1px]"></div>
       <div
         className="flex flex-row flex-wrap gap-4   py-4  h-[247px] overflow-y-auto bg-[#FFFFFF] border-[1px] border-[#DEDEDE] rounded-[16px] p-[8px]"
-      // style={{ overflowX: "auto" }}
+        // style={{ overflowX: "auto" }}
       >
         {loading ? (
-          <div className="w-full ">
+          <div className="w-full "> 
             <MiniLoader />
           </div>
         ) : details?.length > 0 ? (
@@ -161,7 +161,9 @@ function JdFiles({
                 <div className="relative">
                   {fileIconSeter(item)}
                   {/* {select && ( */}
-                  {(getAllFiles(item).filter(item=>item.type=="file")?.length > 0 || item.type === "file") &&
+                  {(getAllFiles(item).filter((item) => item.type == "file")
+                    ?.length > 0 ||
+                    item.type === "file") && (
                     <input
                       type="checkbox"
                       className=" absolute right-[-15%] top-0 rounded-[4.5px] pl-[4px] pr-[20px] py-[2px] outline-none text-[14px] font-medium custom-checkbox"
@@ -170,7 +172,7 @@ function JdFiles({
                       checked={selectedIndexes?.includes(item._id)}
                       onChange={() => toggleSelect(item._id, item)}
                     />
-                  }
+                  )}
                   {/* )} */}
                 </div>
 
