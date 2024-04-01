@@ -27,6 +27,7 @@ function Folders({
   setIsFile,
   setIsCreateFolder,
 }) {
+ 
   const router = useRouter();
   const [mainData, setMainData] = useState(data);
   const [mainDataAll, setMainDataAll] = useState(data);
@@ -41,8 +42,8 @@ function Folders({
   const [selectAll, setSelectAll] = useState(false);
   const [isList, setIsList] = useState(false);
   const [previousPage, setpreviousPage] = useState(null);
-  console.log(select)
-  console.log(name)
+  const [showDelete, setShowDelete] = useState(false)
+
   const handleFileChange = (event, folderName) => {
     const uploadedFiles = event.target.files;
     const newFiles = Array.from(uploadedFiles);
@@ -142,6 +143,7 @@ function Folders({
   };
 
   const sort = ["A to Z", "Date Modified", "Size"];
+
   const sortClientData = (data, selectedIndex) => {
     switch (sort[selectedIndex]) {
       case "A to Z":
@@ -164,7 +166,7 @@ function Folders({
     if (sortSelect == 0) {
       return data?.sort((a, b) => a.fileName.localeCompare(b.fileName));
     } else if (sortSelect == 1) {
-      return data?.sort((a, b) => a.updatedAt - b.updatedAt);
+      return data?.sort((a, b) =>  a.updatedAt.localeCompare(b.updatedAt));
     } else if (sortSelect == 2) {
       return data?.sort((a, b) => a.size - b.size);
     }
@@ -298,7 +300,7 @@ function Folders({
         </div>
       </div>
 
-      <div className="flex flex-col gap-4  border border-[#DEDEDE] bg-white ms:p-6 p-3  rounded-[16px] h-full ">
+      <div className="flex flex-col gap-4  border border-[#DEDEDE] bg-white ms:p-6 p-2  rounded-[16px] h-full ">
         <div className="flex flex-col-reverse gap-4 w-full  ">
           <div className={` ${select ? "flex" : "hidden"} gap-12  items-center w-[100%] h-[40px] `}>
             {select ? (
@@ -389,27 +391,31 @@ function Folders({
                             />
                           </g>
                         </svg>
+                        {!clients &&
                         <div className="min-w-[1px] h-full bg-[#06A9EF] ">
                           {" "}
                         </div>
+}
                       </>
                     )}
-
-                    <svg
-                      onClick={deleteFiles}
-                      width="20"
-                      height="20"
-                      viewBox="0 0 20 20"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <g mask="url(#mask0_1381_18138)">
-                        <path
-                          d="M5.83594 17.5C5.3776 17.5 4.98524 17.3368 4.65885 17.0104C4.33247 16.684 4.16927 16.2917 4.16927 15.8333V5H3.33594V3.33333H7.5026V2.5H12.5026V3.33333H16.6693V5H15.8359V15.8333C15.8359 16.2917 15.6727 16.684 15.3464 17.0104C15.02 17.3368 14.6276 17.5 14.1693 17.5H5.83594ZM14.1693 5H5.83594V15.8333H14.1693V5ZM7.5026 14.1667H9.16927V6.66667H7.5026V14.1667ZM10.8359 14.1667H12.5026V6.66667H10.8359V14.1667Z"
-                          fill="#333333"
-                        />
-                      </g>
-                    </svg>
+                    {!clients &&
+                      <svg
+                    
+                      onClick={() => (selectedIndexes.length > 0 && setShowDelete(true))}
+                        width="20"
+                        height="20"
+                        viewBox="0 0 20 20"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <g mask="url(#mask0_1381_18138)">
+                          <path
+                            d="M5.83594 17.5C5.3776 17.5 4.98524 17.3368 4.65885 17.0104C4.33247 16.684 4.16927 16.2917 4.16927 15.8333V5H3.33594V3.33333H7.5026V2.5H12.5026V3.33333H16.6693V5H15.8359V15.8333C15.8359 16.2917 15.6727 16.684 15.3464 17.0104C15.02 17.3368 14.6276 17.5 14.1693 17.5H5.83594ZM14.1693 5H5.83594V15.8333H14.1693V5ZM7.5026 14.1667H9.16927V6.66667H7.5026V14.1667ZM10.8359 14.1667H12.5026V6.66667H10.8359V14.1667Z"
+                            fill="#333333"
+                          />
+                        </g>
+                      </svg>
+                    }
                     {trash || selectedIndexes.length > 1 ? null : (
                       <>
                         {" "}
@@ -655,6 +661,56 @@ function Folders({
             query={query}
           />
         )}
+
+        {
+          showDelete   &&
+          <>
+            <div className="opacity-25 fixed inset-0 z-[120] bg-black"></div>
+
+            <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-[130] outline-none focus:outline-none">
+              <div className="delete_modal_container pt-[16px]">
+                <div className="flex items-center gap-3">
+                  <img
+                    src="/images/icons/delete_icon.png"
+                    className=" w-[40px] h-[40px] "
+                    alt=""
+                  />
+                  {trash ?
+                    <p className="text-[20px] font-[500] text-[#C00000] text-center">Delete Permanantly?</p>
+                    :
+                    <p className="text-[20px] font-[500] text-[#C00000] text-center">Move to Trash</p>
+                  }
+                </div>
+
+                <div className="w-full d-flex flex-column justify-center items-center">
+
+                {trash ?
+                <p className="text-[14px] font-[500]  text-center px-8">
+               Are you sure you want to delete this selection from trash?
+              </p>
+                :
+                  <p className="text-[14px] font-[500]  text-center px-8">
+                    Are you sure you want delete this selection?
+                  </p>
+}
+                </div>
+                <div className="w-full flex justify-between flex-row">
+                  <button
+                    onClick={() => { setShowDelete(false) }}
+                    className="text-[16px] font-[600] text-[#06A9EF] rounded-[12px] bg-[#fff] border-[1px] border-[#06A9EF] px-[36px] py-[8px]" >
+                    {" "}
+                    No
+                  </button>
+                  <button
+                    onClick={() => { deleteFiles(); setShowDelete(false) }}
+                    className="text-[16px] font-[600] text-[#fff] rounded-[12px] bg-[#C00000] px-[36px] py-[8px]">
+                    Yes
+                  </button>
+                </div>
+              </div>
+            </div>
+          </>
+        }
       </div>
     </div>
   );

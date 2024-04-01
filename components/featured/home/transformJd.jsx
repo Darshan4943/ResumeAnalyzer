@@ -83,8 +83,8 @@ function TransformJd({
   return (
     <div>
       <div className="flex justify-end w-full">
-        <div className="flex gap-[16px] justify-end">
-          {/* <BlobProvider document={<MyComponent />}>
+        <div className="ml:flex hidden gap-[16px] justify-end">
+          <BlobProvider document={<MyComponent />}>
             {({ blob, url, loading, error }) => {
               return (
                 <button
@@ -95,7 +95,7 @@ function TransformJd({
                 </button>
               );
             }}
-          </BlobProvider> */}
+          </BlobProvider>
 
           {/* <button className="flex gap-1 text-[14px]   justify-center text-[#646464] font-montserrat font-semibold px-4 py-2 rounded-[8px] items-center border border-[#333333] bg-[#DEDEDE]">
             <svg
@@ -120,7 +120,7 @@ function TransformJd({
               fileName="Skilotech_resume.pdf"
             >
               {({ blob, url, loading, error }) => (
-                <button className="ml:flex hidden gap-1 text-[14px]   justify-center text-[#fff] font-montserrat font-semibold px-4 py-2 rounded-[8px] items-center border border-[#06A9EF] bg-[#06A9EF]">
+                <button className="flex  gap-1 text-[14px]   justify-center text-[#fff] font-montserrat font-semibold px-4 py-2 rounded-[8px] items-center border border-[#06A9EF] bg-[#06A9EF]">
                   <svg
                     width="20"
                     height="20"

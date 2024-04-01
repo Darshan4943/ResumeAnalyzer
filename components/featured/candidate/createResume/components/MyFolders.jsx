@@ -33,7 +33,7 @@ function MyFolders({
                           openFolder(index, item._id, item.fileName, item);
                       }}
                       key={index}
-                      className=" break-all flex flex-col gap-[8px] items-center text-center cursor-pointer h-fit w-[142px] px-[8px]"
+                      className=" break-all h-[74px] flex flex-col gap-[8px] items-center text-center cursor-pointer  w-[142px] px-[8px]"
                     >
                       <div className=" relative">
                         {fileIconSeter(item)}
@@ -48,7 +48,7 @@ function MyFolders({
                           />
                         )}
                       </div>
-                      <span className="text-[12px]"> {item.fileName}</span>
+                      <span style={{ overflow: 'hidden', }} className="text-[12px]">  {item.fileName.length > 17 ? `${item.fileName.slice(0, 16)}...` : item.fileName}</span>
                     </div>
                   </>
                 ))
@@ -87,7 +87,7 @@ function MyFolders({
                               onChange={() => toggleSelect(index)}
                             />
                           )}
-                          {item.fileName}
+                         {item.fileName.length > 25 ? `${item.fileName.slice(0, 25)}...` : item.fileName}
                         </td>
                         <td className="px-4 py-2 text-[#858585]">
                           {dateSeter(item.updatedAt)}
