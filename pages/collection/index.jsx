@@ -583,14 +583,13 @@ const getData= ()=>{
                 </>
               )}
             </button>
-            <div className="flex ml:flex-col flex-row  scr480:gap-2 w-full justify-between">
+            <div className="flex ml:flex-col flex-row  sm:gap-2 w-full justify-between">
               <button
                 onClick={() => {
                   router.push("/collection?clients=true");
                 }}
-                className={`rounded-[30px] scr480:text-[16px] text-[12px] font-semibold scr900:px-6 scr480:px-4 px-2  py-2 flex gap-2 ml:justify-start justify-center items-center ml:min-w-full scr480:min-w-[30%] min-w-[110px] ${
-                  tab === 0 && "bg-[#C2E7FF]"
-                }   `}
+                className={`rounded-[30px] sm:text-[16px] text-[12px] font-semibold scr900:px-6 sm:px-4 px-2  py-2 flex gap-2 ml:justify-start justify-center items-center ml:min-w-full sm:min-w-[30%] min-w-[110px] ${tab === 0 && "bg-[#C2E7FF]"
+                  }   `}
               >
                 <svg
                   width="20"
@@ -614,9 +613,8 @@ const getData= ()=>{
                   // setTabIndex(0);
                   router.push("/collection?folders=true");
                 }}
-                className={`rounded-[30px] scr480:text-[16px] text-[12px] font-semibold scr900:px-6 scr480:px-4 px-2 py-2 flex gap-2 ml:justify-start justify-center items-center ml:min-w-full scr480:min-w-[30%] min-w-[110px]   ${
-                  tab === 1 && "bg-[#C2E7FF]"
-                }  `}
+                className={`rounded-[30px] sm:text-[16px] text-[12px] font-semibold scr900:px-6 sm:px-4 px-2 py-2 flex gap-2 ml:justify-start justify-center items-center ml:min-w-full sm:min-w-[30%] min-w-[110px]   ${tab === 1 && "bg-[#C2E7FF]"
+                  }  `}
               >
                 <svg
                   width="20"
@@ -638,9 +636,8 @@ const getData= ()=>{
                 onClick={() => {
                   router.push("/collection?trash=true");
                 }}
-                className={`rounded-[30px] scr480:text-[16px] text-[12px] font-semibold scr900:px-6 scr480:px-4 px-2 py-2 flex gap-2 ml:justify-start justify-center items-center ml:min-w-full scr480:min-w-[30%] min-w-[80px]  ${
-                  tab === 2 && "bg-[#C2E7FF]"
-                }  `}
+                className={`rounded-[30px] sm:text-[16px] text-[12px] font-semibold scr900:px-6 sm:px-4 px-2 py-2 flex gap-2 ml:justify-start justify-center items-center ml:min-w-full sm:min-w-[30%] min-w-[80px]  ${tab === 2 && "bg-[#C2E7FF]"
+                  }  `}
               >
                 <svg
                   width="20"
