@@ -27,6 +27,7 @@ function Folders({
   setIsFile,
   setIsCreateFolder,
 }) {
+ 
   const router = useRouter();
   const [mainData, setMainData] = useState(data);
   const [mainDataAll, setMainDataAll] = useState(data);
@@ -41,8 +42,8 @@ function Folders({
   const [selectAll, setSelectAll] = useState(false);
   const [isList, setIsList] = useState(false);
   const [previousPage, setpreviousPage] = useState(null);
-  console.log(select)
-  console.log(name)
+  const [showDelete, setShowDelete] = useState(false)
+
   const handleFileChange = (event, folderName) => {
     const uploadedFiles = event.target.files;
     const newFiles = Array.from(uploadedFiles);
@@ -396,7 +397,8 @@ function Folders({
                     )}
 
                     <svg
-                      onClick={deleteFiles}
+                  
+                      onClick={() => (selectedIndexes.length > 0 && setShowDelete(true))}
                       width="20"
                       height="20"
                       viewBox="0 0 20 20"
@@ -655,6 +657,56 @@ function Folders({
             query={query}
           />
         )}
+
+        {
+          showDelete   &&
+          <>
+            <div className="opacity-25 fixed inset-0 z-[120] bg-black"></div>
+
+            <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-[130] outline-none focus:outline-none">
+              <div className="delete_modal_container pt-[16px]">
+                <div className="flex items-center gap-3">
+                  <img
+                    src="/images/icons/delete_icon.png"
+                    className=" w-[40px] h-[40px] "
+                    alt=""
+                  />
+                  {trash ?
+                    <p className="text-[20px] font-[500] text-[#C00000] text-center">Delete Permanantly?</p>
+                    :
+                    <p className="text-[20px] font-[500] text-[#C00000] text-center">Move to Trash</p>
+                  }
+                </div>
+
+                <div className="w-full d-flex flex-column justify-center items-center">
+
+                {trash ?
+                <p className="text-[14px] font-[500]  text-center px-8">
+               Are you sure you want to delete this selection from trash?
+              </p>
+                :
+                  <p className="text-[14px] font-[500]  text-center px-8">
+                    Are you sure you want delete this selection?
+                  </p>
+}
+                </div>
+                <div className="w-full flex justify-between flex-row">
+                  <button
+                    onClick={() => { setShowDelete(false) }}
+                    className="text-[16px] font-[600] text-[#06A9EF] rounded-[12px] bg-[#fff] border-[1px] border-[#06A9EF] px-[36px] py-[8px]" >
+                    {" "}
+                    No
+                  </button>
+                  <button
+                    onClick={() => { deleteFiles(); setShowDelete(false) }}
+                    className="text-[16px] font-[600] text-[#fff] rounded-[12px] bg-[#C00000] px-[36px] py-[8px]">
+                    Yes
+                  </button>
+                </div>
+              </div>
+            </div>
+          </>
+        }
       </div>
     </div>
   );
