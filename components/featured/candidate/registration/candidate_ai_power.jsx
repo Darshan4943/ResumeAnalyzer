@@ -8,7 +8,29 @@ import { useRouter } from "next/router";
 import MiniLoader from "../../../common/mini-loader";
 import ImageContainer from "../../../common/image";
 import { camelCase } from "../../../../utils/middleware";
+import Docxtemplater from "docxtemplater";
+import PizZip from "pizzip";
+import { pdfjs } from "react-pdf";
+import Tesseract from "tesseract.js";
+pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
 
+const fileToText = (file, pageNumber) => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = function (event) {
+      const typedarray = new Uint8Array(event.target.result);
+      pdfjs.getDocument(typedarray).promise.then(function (pdf) {
+        pdf.getPage(pageNumber).then(function (page) {
+          page.getTextContent().then(function (textContent) {
+            const textItems = textContent.items.map((item) => item.str);
+            resolve(textItems.join(" "));
+          });
+        });
+      });
+    };
+    reader.readAsArrayBuffer(file);
+  });
+};
 const CandidateAiPower = ({
   setTabIndex,
   tabindex,
@@ -50,26 +72,73 @@ const CandidateAiPower = ({
   const sendFile = (file) => {
     setfile(file);
   };
+  const extracteText = (file) => {
+    return new Promise((resolve, reject) => {
+      const textData = [];
+      if (
+        file.type ==
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+      ) {
+        const reader = new FileReader();
+        reader.onload = async (e) => {
+          const content = e.target.result;
+          var doc = new Docxtemplater(new PizZip(content), {
+            delimiters: {
+              start: "12op1j2po1j2poj1po",
+              end: "op21j4po21jp4oj1op24j",
+            },
+          });
+          var text = doc.getFullText();
+          textData.push({ text });
+        };
+        reader.readAsBinaryString(file);
+      } else if (file.type == "image/png") {
+        Tesseract.recognize(file, "eng", {
+          logger: (m) => console.log(m),
+        }).then(async ({ data: { text } }) => {
+          textData.push({ text });
+        });
+      } else if (file.type == "application/pdf") {
+        let fullText = "";
+        const pdfTextPromises = [];
+        for (let i = 1; i <= 1; i++) {
+          pdfTextPromises.push(fileToText(file, i));
+        }
+        Promise.all(pdfTextPromises).then(async (texts) => {
+          fullText = texts.join("");
+          textData.push({ text: fullText });
+        });
+      }
+      setTimeout(() => {
+        resolve(textData);
+      }, 1000);
+    });
+  };
   const navigate = () => {
     if (uploadLimit == 0) {
       toast.error("Seems you have no upload attempts left update your plan");
       return;
     }
-    const formData = new FormData();
     setLoading(true);
-    formData.append("file", file);
-    axios
-      .post("https://freedygoservices.in/api/resumeParser", formData)
-      .then((res) => {
-        setLoading(false);
-        setfile(file);
-        localStorage.setItem("parsedResume", JSON.stringify(res.data.data));
-        router.push(`/home/createResume?clientId=${clientId}`);
-      })
-      .catch((err) => {
-        setLoading(false);
-        console.log(err);
-      });
+    extracteText(file).then((result) => {
+      axios
+        .post("https://freedygoservices.in/api/resume/extraction", {
+          data: result,
+        })
+        .then((res) => {
+          setLoading(false);
+          setfile(file);
+          localStorage.setItem(
+            "parsedResume",
+            JSON.stringify(res.data.data[0])
+          );
+          router.push(`/home/createResume?clientId=${clientId}`);
+        })
+        .catch((err) => {
+          setLoading(false);
+          console.log(err);
+        });
+    });
   };
 
   function convertMonthsToYearsAndMonths(totalMonths) {
