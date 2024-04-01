@@ -589,7 +589,6 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
 
 export default Template1;
 
-
 // import React, { useEffect, useRef, useState } from "react";
 
 // function Template1({ data }) {
@@ -601,9 +600,9 @@ export default Template1;
 //   const experienceContainer = useRef(null);
 //   const [firstPageData, setFirstPageData] = useState([]);
 //   const [secondPageData, setSecondPageData] = useState([]);
-//   useEffect(() => {
-//     const dataForFirstPage = { education: [], skills: [],experience:[] };
-//     const dataForSecondPage = { education: [], skills: [] };
+//   const dataSeter = () => {
+//     const dataForFirstPage = { education: [], skills: [], experience: [] };
+//     const dataForSecondPage = { education: [], skills: [], experience: [] };
 //     const pageHeight = 842 - 48;
 //     let remainingHeightLeft = pageHeight;
 //     let remainingHeightRight = pageHeight;
@@ -616,11 +615,11 @@ export default Template1;
 //       const height = summaryContainer.current.clientHeight;
 //       remainingHeightRight = pageHeight - height;
 //     }
-
 //     if (contactContainer.current) {
 //       const height = contactContainer.current.clientHeight;
 //       remainingHeightLeft = remainingHeightLeft - height;
 //     }
+
 //     const educationDivHeight = remainingHeightLeft - 77;
 //     let educationDivHeightremaining = educationDivHeight;
 //     if (educationContainer.current) {
@@ -662,6 +661,55 @@ export default Template1;
 //         educationContainer.current.clientHeight + 77;
 //       remainingHeightLeft = remainingHeightLeft - educationContainerHeight;
 //     }
+//     const experienceDivHeight = remainingHeightRight - 77;
+//     let experienceDivHeightremaining = experienceDivHeight;
+//     if (experienceContainer.current) {
+//       [
+//         ...data?.experience,
+//         ...data?.experience,
+//         ...data?.experience,
+//         ...data?.experience,
+//       ]?.forEach((detail, index) => {
+//         const parentDiv = document.createElement("div");
+//         parentDiv.innerHTML = `
+//         <div className="flex flex-col">
+//         <p className="text-[#414042] font-lato text-[12px] font-bold">  ${
+//           detail.organization
+//         }</p>
+
+//         <div className="flex justify-between">
+//           <p className="text-[#414042] font-lato text-[11px] font-bold">   ${
+//             detail.designation
+//           } </p>
+//           <p className="text-[#414042] font-lato text-[11px] font-normal leading-normal">
+//             ${detail.duration?.start?.year} -
+//             ${
+//               detail.duration?.end?.year === "Year" ||
+//               detail.duration?.end === undefined
+//                 ? "Present"
+//                 : detail.duration?.end?.year
+//             } </p>
+//         </div>
+//         <p className="text-[#414042]  font-inter text-[11px] font-normal leading-normal">${
+//           detail.description
+//         }</p>
+//       </div>
+
+//     `;
+//         experienceContainer.current.appendChild(parentDiv);
+//         const height = parentDiv.clientHeight;
+//         experienceDivHeightremaining -= height;
+//         if (experienceDivHeightremaining < height) {
+//           experienceContainer.current.removeChild(parentDiv);
+//           dataForSecondPage.experience.push(detail);
+//         } else {
+//           dataForFirstPage.experience.push(detail);
+//         }
+//       });
+//       const educationContainerHeight =
+//         educationContainer.current.clientHeight + 77;
+//       remainingHeightRight = remainingHeightRight - educationContainerHeight;
+//     }
 //     const skillDivHeight = remainingHeightLeft - 77;
 //     let skillDivHeightremaining = skillDivHeight;
 //     if (skillContainer.current) {
@@ -692,9 +740,16 @@ export default Template1;
 //     }
 //     setFirstPageData(dataForFirstPage);
 //     setSecondPageData(dataForSecondPage);
+//   };
+//   useEffect(() => {
+//     setTimeout(() => {
+//       try {
+//         dataSeter();
+//       } catch (err) {
+//         console.log(err);
+//       }
+//     }, 200);
 //   }, [data]);
-
-//   // console.log(data)
 //   return (
 //     <>
 //       <div className=" h-[842px] pt-[10px] pr-[26px] pl-[21px] w-[800px]  flex-col bg-[#fff] absolute left-[1000px] ">
@@ -834,65 +889,8 @@ export default Template1;
 //               <div
 //                 className="flex flex-col gap-[16px]"
 //                 ref={educationContainer}
-//               >
-//                 {/* {data.education.map((detail, index) => (
-//                   <div>
-//                     <div className="">
-//                       <p className="text-[#414042]  font-lato text-[10px] font-[700] leading-normal break-all">
-//                         {detail.qualification}
-//                       </p>
-//                       <p className="text-[#414042]  font-lato text-[10px] font-[700] leading-normal  break-all">
-//                         {detail.instituteName}
-//                       </p>
-//                     </div>
-//                     <div className="pt-[11.49px]">
-//                       <div className="w-[16px] h-[1px]  bg-[#414042]"></div>
-//                     </div>
-//                     <div className="pt-[1.81px]">
-//                       <p className="text-[#414042]  font-lato text-[8.962px] font-normal leading-normal">
-//                         {detail.duration?.end?.year && (
-//                           <>
-//                             {detail.duration?.start?.year}-
-//                             {detail.duration?.end?.year}
-//                           </>
-//                         )}
-//                       </p>
-//                     </div>
-//                   </div>
-//                 ))} */}
-//               </div>
+//               ></div>
 //             </div>
-//             {/* {data?.skills?.length > 0 && (
-//               <div className="flex flex-col items-start justify-start pt-6 gap-2">
-//                 <p className="text-[#414042] font-inter font-[400px] text-[22px] ">
-//                   Skills
-//                 </p>
-//                 <svg
-//                   xmlns="http://www.w3.org/2000/svg"
-//                   width="141"
-//                   height="4"
-//                   viewBox="0 0 141 4"
-//                   fill="none"
-//                 >
-//                   <path
-//                     d="M140.396 1.72095H0.209961V2.72095H140.396V1.72095Z"
-//                     fill="#A7A9AC"
-//                   />
-//                   <path
-//                     d="M35.262 0.720947H0.209961V3.72095H35.262V0.720947Z"
-//                     fill="#414042"
-//                   />
-//                 </svg>
-
-//                 <div className="flex flex-col  gap-[9.81px] ">
-//                   {data.skills.map((detail, index) => (
-//                     <p className="text-[#414042] text-[10px] font-normal font-lato">
-//                       {detail.skill}
-//                     </p>
-//                   ))}
-//                 </div>
-//               </div>
-//             )} */}
 //             <div className="flex flex-col items-start justify-start pt-6 gap-2">
 //               <p className="text-[#414042] font-inter font-[400px] text-[22px] ">
 //                 Skills
@@ -943,7 +941,6 @@ export default Template1;
 //                   fill="#A7A9AC"
 //                 />
 //               </svg>
-
 
 //               <div className="flex flex-col gap-2" ref={experienceContainer}>
 //                 {/* {data.experience.map((detail, index) => (
@@ -1168,47 +1165,56 @@ export default Template1;
 //                   {data.summery}
 //                 </p>
 //               </div>
-//               {/* <div className="flex flex-col gap-[5.64px] ">
-//               <p className="text-[#414042] text-[22px] font-normal">
-//                 Experience
-//               </p>
+//               <div className="flex flex-col gap-[5.64px] ">
+//                 <p className="text-[#414042] text-[22px] font-normal">
+//                   Experience
+//                 </p>
 
-//               <svg
-//                 xmlns="http://www.w3.org/2000/svg"
-//                 width="292"
-//                 height="2"
-//                 viewBox="0 0 292 2"
-//                 fill="none"
-//               >
-//                 <path
-//                   d="M291.902 0.540039H0.458984V1.54004H291.902V0.540039Z"
-//                   fill="#A7A9AC"
-//                 />
-//               </svg>
+//                 <svg
+//                   xmlns="http://www.w3.org/2000/svg"
+//                   width="292"
+//                   height="2"
+//                   viewBox="0 0 292 2"
+//                   fill="none"
+//                 >
+//                   <path
+//                     d="M291.902 0.540039H0.458984V1.54004H291.902V0.540039Z"
+//                     fill="#A7A9AC"
+//                   />
+//                 </svg>
+//                 <div className="flex flex-col gap-6 mt-4">
+//                   {firstPageData?.experience?.map((detail, index) => (
+//                     <div className="flex flex-col gap-1">
+//                       <p className="text-[#414042] font-lato text-[12px] font-bold">
+//                         {" "}
+//                         {detail.organization}
+//                       </p>
 
-
-//               <div className="flex flex-col gap-2">
-//                 {data.experience.map((detail, index) => (
-//                   <div className="flex flex-col">
-//                     <p className="text-[#414042] font-lato text-[12px] font-bold">  {detail.organization}</p>
-
-//                     <div className="flex justify-between">
-//                       <p className="text-[#414042] font-lato text-[11px] font-bold">   {detail.designation} </p>
-//                       <p className="text-[#414042] font-lato text-[11px] font-normal leading-normal">
-//                         {detail.duration?.start?.year} -
-//                         {detail.duration?.end?.year === "Year" || detail.duration?.end === undefined ? "Present" : detail.duration?.end?.year} </p>
+//                       <div className="flex justify-between">
+//                         <p className="text-[#414042] font-lato text-[11px] font-bold">
+//                           {" "}
+//                           {detail.designation}{" "}
+//                         </p>
+//                         <p className="text-[#414042] font-lato text-[11px] font-normal leading-normal">
+//                           {detail.duration?.start?.year} -
+//                           {detail.duration?.end?.year === "Year" ||
+//                           detail.duration?.end === undefined
+//                             ? "Present"
+//                             : detail.duration?.end?.year}{" "}
+//                         </p>
+//                       </div>
+//                       <p className="text-[#414042]  font-inter text-[11px] font-normal leading-normal">
+//                         {detail.description}
+//                       </p>
 //                     </div>
-//                     <p className="text-[#414042]  font-inter text-[11px] font-normal leading-normal">{detail.description}</p>
-//                   </div>
-
-
-//                 ))}
+//                   ))}
+//                 </div>
 //               </div>
-//             </div> */}
 //             </div>
 //           </div>
 //         </div>
-//         <div className=" h-[842px] p-[24px] w-[800px] flex flex-col bg-[#fff]">
+
+//         <div className=" h-[842px] p-[24px] w-[800px] flex flex-col bg-[#fff] overflow-hidden">
 //           <div className="flex h-full">
 //             <div className="flex flex-col w-[276px]   ">
 //               {secondPageData?.education?.length > 0 && (
@@ -1300,7 +1306,57 @@ export default Template1;
 //                 </div>
 //               )}
 //             </div>
-//             <div className="w-[1px] h-full bg-[#414042]"></div>
+//             <div className="w-[1px] bg-[#414042] h-full"></div>
+
+//             <div className="pl-[28px]  flex flex-col gap-8 w-[470px] ">
+//               {secondPageData?.experience?.length > 0 && (
+//               <div className="flex flex-col gap-[5.64px] ">
+//               <p className="text-[#414042] text-[22px] font-normal">
+//                 Experience
+//               </p>
+
+//               <svg
+//                 xmlns="http://www.w3.org/2000/svg"
+//                 width="292"
+//                 height="2"
+//                 viewBox="0 0 292 2"
+//                 fill="none"
+//               >
+//                 <path
+//                   d="M291.902 0.540039H0.458984V1.54004H291.902V0.540039Z"
+//                   fill="#A7A9AC"
+//                 />
+//               </svg>
+//               <div className="flex flex-col gap-6 mt-4">
+//                 {firstPageData?.experience?.map((detail, index) => (
+//                   <div className="flex flex-col gap-1">
+//                     <p className="text-[#414042] font-lato text-[12px] font-bold">
+//                       {" "}
+//                       {detail.organization}
+//                     </p>
+
+//                     <div className="flex justify-between">
+//                       <p className="text-[#414042] font-lato text-[11px] font-bold">
+//                         {" "}
+//                         {detail.designation}{" "}
+//                       </p>
+//                       <p className="text-[#414042] font-lato text-[11px] font-normal leading-normal">
+//                         {detail.duration?.start?.year} -
+//                         {detail.duration?.end?.year === "Year" ||
+//                         detail.duration?.end === undefined
+//                           ? "Present"
+//                           : detail.duration?.end?.year}{" "}
+//                       </p>
+//                     </div>
+//                     <p className="text-[#414042]  font-inter text-[11px] font-normal leading-normal">
+//                       {detail.description}
+//                     </p>
+//                   </div>
+//                 ))}
+//               </div>
+//             </div>
+//               )}
+//             </div>
 //           </div>
 //         </div>
 //       </div>

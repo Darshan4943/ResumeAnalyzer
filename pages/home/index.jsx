@@ -39,7 +39,12 @@ function BeforeLoginHome() {
   };
   return (
     <div className="">
-      {userDataGlobal.role == "recruiter" ? <Recruiter_page /> : <CandidateHome />}
+      {userDataGlobal.role == "recruiter" ? (
+        <Recruiter_page />
+      ) : (
+        <CandidateHome />
+      )}
+  
     </div>
   );
 }
