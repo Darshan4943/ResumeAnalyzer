@@ -369,6 +369,7 @@ const getData= ()=>{
                         name="myfile"
                         onChange={handleFileChange}
                         multiple
+                        accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,"
                       />
                       {Object.keys(files).length > 0 ? (
                         <div className="w-full flex justify-center items-center">
