@@ -13,7 +13,6 @@ function JdFiles({
   loading,
 }) {
   const router = useRouter();
-console.log(details)
   const [selectAll, setSelectAll] = useState(false);
   const { clientId } = query;
 
@@ -162,7 +161,7 @@ console.log(details)
                 <div className="relative">
                   {fileIconSeter(item)}
                   {/* {select && ( */}
-                  {(item?.files?.length > 0 || item.type === "file") &&
+                  {(getAllFiles(item).filter(item=>item.type=="file")?.length > 0 || item.type === "file") &&
                     <input
                       type="checkbox"
                       className=" absolute right-[-15%] top-0 rounded-[4.5px] pl-[4px] pr-[20px] py-[2px] outline-none text-[14px] font-medium custom-checkbox"
