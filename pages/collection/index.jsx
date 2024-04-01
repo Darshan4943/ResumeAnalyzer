@@ -268,12 +268,13 @@ const getData= ()=>{
         .post("https://freedygoservices.in/api/folder/addFiles", formData)
         .then((res) => {
           setFolderName("Untitled folder");
-          toast.success("Folder created successfully");
+          toast.success("File Uploaded successfully");
           setTimeout(() => {
             setFileLoader(false);
             setIsCreateFolder(false);
             getData()
           }, 1000);
+          setFiles([])
         })
         .catch((err) => {
           setFileLoader(false);
@@ -474,10 +475,11 @@ const getData= ()=>{
                   Cancel
                 </button>
                 <button
-                  disabled={fileLoader || Object.values(files).length == 0}
+                 disabled={fileLoader || (isFile ? Object.values(files).length === 0 : !folderName)}
+
                   style={{
                     opacity:
-                      fileLoader || Object.values(files).length == 0 ? 0.5 : 1,
+                      fileLoader || (isFile ? Object.values(files).length === 0 : !folderName) ? 0.5 : 1,
                   }}
                   onClick={isFile ? addFiles : createFolder}
                 >

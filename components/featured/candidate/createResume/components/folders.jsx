@@ -298,7 +298,7 @@ function Folders({
         </div>
       </div>
 
-      <div className="flex flex-col gap-4  border border-[#DEDEDE] bg-white ms:p-6 p-3  rounded-[16px] h-full ">
+      <div className="flex flex-col gap-4  border border-[#DEDEDE] bg-white ms:p-6 p-2  rounded-[16px] h-full ">
         <div className="flex flex-col-reverse gap-4 w-full  ">
           <div className={` ${select ? "flex" : "hidden"} gap-12  items-center w-[100%] h-[40px] `}>
             {select ? (
@@ -389,27 +389,30 @@ function Folders({
                             />
                           </g>
                         </svg>
+                        {!clients &&
                         <div className="min-w-[1px] h-full bg-[#06A9EF] ">
                           {" "}
                         </div>
+}
                       </>
                     )}
-
-                    <svg
-                      onClick={deleteFiles}
-                      width="20"
-                      height="20"
-                      viewBox="0 0 20 20"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <g mask="url(#mask0_1381_18138)">
-                        <path
-                          d="M5.83594 17.5C5.3776 17.5 4.98524 17.3368 4.65885 17.0104C4.33247 16.684 4.16927 16.2917 4.16927 15.8333V5H3.33594V3.33333H7.5026V2.5H12.5026V3.33333H16.6693V5H15.8359V15.8333C15.8359 16.2917 15.6727 16.684 15.3464 17.0104C15.02 17.3368 14.6276 17.5 14.1693 17.5H5.83594ZM14.1693 5H5.83594V15.8333H14.1693V5ZM7.5026 14.1667H9.16927V6.66667H7.5026V14.1667ZM10.8359 14.1667H12.5026V6.66667H10.8359V14.1667Z"
-                          fill="#333333"
-                        />
-                      </g>
-                    </svg>
+                    {!clients &&
+                      <svg
+                        onClick={deleteFiles}
+                        width="20"
+                        height="20"
+                        viewBox="0 0 20 20"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <g mask="url(#mask0_1381_18138)">
+                          <path
+                            d="M5.83594 17.5C5.3776 17.5 4.98524 17.3368 4.65885 17.0104C4.33247 16.684 4.16927 16.2917 4.16927 15.8333V5H3.33594V3.33333H7.5026V2.5H12.5026V3.33333H16.6693V5H15.8359V15.8333C15.8359 16.2917 15.6727 16.684 15.3464 17.0104C15.02 17.3368 14.6276 17.5 14.1693 17.5H5.83594ZM14.1693 5H5.83594V15.8333H14.1693V5ZM7.5026 14.1667H9.16927V6.66667H7.5026V14.1667ZM10.8359 14.1667H12.5026V6.66667H10.8359V14.1667Z"
+                            fill="#333333"
+                          />
+                        </g>
+                      </svg>
+                    }
                     {trash || selectedIndexes.length > 1 ? null : (
                       <>
                         {" "}
