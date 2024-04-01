@@ -78,6 +78,7 @@ function CreateResume() {
       const educations = parsedData.education;
       const experience = parsedData["work experience"];
       const courses = parsedData.issuing_organization;
+      console.log(experience);
       setData({
         ...data,
         clientId: clientId ? clientId : null,
@@ -121,8 +122,11 @@ function CreateResume() {
           currentlyWorking: false,
           location: item.location,
           duration: {
-            start: { year: item.start_date.year, month: null },
-            end: { year: item.end_date.year, month: null },
+            start: { year: item.start_date?.year, month: null },
+            end: {
+              year: item.is_current ? currentYear : item.end_date?.year,
+              month: null,
+            },
           },
         })),
         course: courses?.map((item) => ({
