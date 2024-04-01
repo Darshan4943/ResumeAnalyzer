@@ -87,7 +87,7 @@ function MyFolders({
                               onChange={() => toggleSelect(index)}
                             />
                           )}
-                          {item.fileName}
+                         {item.fileName.length > 25 ? `${item.fileName.slice(0, 25)}...` : item.fileName}
                         </td>
                         <td className="px-4 py-2 text-[#858585]">
                           {dateSeter(item.updatedAt)}

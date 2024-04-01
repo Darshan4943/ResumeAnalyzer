@@ -143,6 +143,7 @@ function Folders({
   };
 
   const sort = ["A to Z", "Date Modified", "Size"];
+
   const sortClientData = (data, selectedIndex) => {
     switch (sort[selectedIndex]) {
       case "A to Z":
@@ -165,7 +166,7 @@ function Folders({
     if (sortSelect == 0) {
       return data?.sort((a, b) => a.fileName.localeCompare(b.fileName));
     } else if (sortSelect == 1) {
-      return data?.sort((a, b) => a.updatedAt - b.updatedAt);
+      return data?.sort((a, b) =>  a.updatedAt.localeCompare(b.updatedAt));
     } else if (sortSelect == 2) {
       return data?.sort((a, b) => a.size - b.size);
     }

@@ -146,13 +146,13 @@ const JobMatching = () => {
   };
 
   return (
-    <div className=" p-6 flex flex-col gap-6 min-h-[80vh]  ">
+    <div className=" md:p-6 p-3 flex flex-col gap-6 min-h-[80vh]  ">
       {loadingg && <EarthLoader />}
-      <div className=" font-semibold text-[24px]">Job Description Matching</div>
+      <div className=" font-semibold md:text-[24px] text-[20px]">Job Description Matching</div>
       <div className="bg-[#DEDEDE] w-full h-[1px]"></div>
 
-      <div className="flex gap-4 h-full">
-        <div className="w-[40%] flex  flex-col gap-6">
+      <div className="flex ml:flex-row flex-col gap-4 h-full">
+        <div className="ml:w-[40%] w-full flex  flex-col gap-6">
           <ReactSelect
             options={options?.map((item, index) => ({
               value: item,
@@ -191,8 +191,8 @@ const JobMatching = () => {
             jobMatching={jobMatching}
           />
         </div>
-        <div className="bg-[#DEDEDE] h-screen w-[1px]"></div>
-        <div className="w-[60%]">
+        <div className="bg-[#DEDEDE] ml:h-screen h-[1px] ml:w-[1px] w-full"></div>
+        <div className="ml:w-[60%] w-full">
           <JdMatching details={details} resuneList={resuneList} />
         </div>
       </div>

@@ -27,12 +27,12 @@ function JdDescription({
           rows={6}
           cols={50}
           placeholder="Enter your text here..."
-          className=" border border-[#06A9EF] rounded-[8px] outline-none h-auto p-2"
+          className=" border border-[#06A9EF] rounded-[8px] outline-none h-auto p-2 md:text-[16px] text-[14px]"
         />
         {error && <div className="text-red">{error}</div>}
       </div>
       <div className="flex flex-row gap-4 items-center">
-        <span className="text-[20px] font-500">
+        <span className="md:text-[20px] text-[14px] font-500">
           Select search Results Limit{" "}
         </span>
         <input
@@ -44,11 +44,12 @@ function JdDescription({
           name=""
           id=""
           placeholder="Ex. 5"
-          className="h-[44px] w-[80px] p-[8px] text-[16px] text-[#646464] border border-[#DEDEDE] rounded-[8px] "
+          className="md:h-[44px] h-[40px]  w-[80px] p-[8px] text-[16px] text-[#646464] border border-[#DEDEDE] rounded-[8px] leading-tight"
         />
       </div>
+      <div className="w-full flex ml:justify-start justify-center">
       <button
-        className="px-4 py-3 bg-[#06A9EF] text-[16px] text-white font-semibold rounded-[12px] w-[166px]"
+        className="px-4 py-3 bg-[#06A9EF] text-[16px] text-white font-semibold rounded-[12px] md:w-[166px] scr420:w-[200px] w-full"
         style={{opacity:loadingg || text.length < 100?0.5:1}}
         disabled={loadingg || text.length < 100}
         onClick={() => {
@@ -74,7 +75,7 @@ function JdDescription({
             />
           </svg>
         ) : (
-          <div className="flex gap-[8px] w-full justify-between">
+          <div className="flex gap-[8px] w-full justify-center">
             Find Match{" "}
             <img
               src="/images/icons/person_search.png"
@@ -84,6 +85,7 @@ function JdDescription({
           </div>
         )}
       </button>
+      </div>
     </div>
   );
 }
