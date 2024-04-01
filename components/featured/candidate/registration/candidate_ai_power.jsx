@@ -282,6 +282,7 @@ const CandidateAiPower = ({
                       type="file"
                       name="myfile"
                       onChange={handleFileChange}
+                      accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,"
                     />
                     {file ? (
                       <div className="w-full flex justify-center">

@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import MiniLoader from "../../../../common/miniLoader";
 
 function JdFiles({
+  files,
   details,
   query,
   selectedOptions,
@@ -12,7 +13,6 @@ function JdFiles({
   loading,
 }) {
   const router = useRouter();
-
   const [selectAll, setSelectAll] = useState(false);
   const { clientId } = query;
 
@@ -147,8 +147,8 @@ function JdFiles({
         // style={{ overflowX: "auto" }}
       >
         {loading ? (
-          <div className="w-full ">
-          <MiniLoader />
+          <div className="w-full "> 
+            <MiniLoader />
           </div>
         ) : details?.length > 0 ? (
           details?.map((item, index) => (
@@ -161,18 +161,22 @@ function JdFiles({
                 <div className="relative">
                   {fileIconSeter(item)}
                   {/* {select && ( */}
-
-                  <input
-                    type="checkbox"
-                    className=" absolute right-[-15%] top-0 rounded-[4.5px] pl-[4px] pr-[20px] py-[2px] outline-none text-[14px] font-medium custom-checkbox"
-                    style={{ width: "20px", height: "20px" }}
-                    onClick={(e) => e.stopPropagation()}
-                    checked={selectedIndexes?.includes(item._id)}
-                    onChange={() => toggleSelect(item._id, item)}
-                  />
+                  {(getAllFiles(item).filter((item) => item.type == "file")
+                    ?.length > 0 ||
+                    item.type === "file") && (
+                    <input
+                      type="checkbox"
+                      className=" absolute right-[-15%] top-0 rounded-[4.5px] pl-[4px] pr-[20px] py-[2px] outline-none text-[14px] font-medium custom-checkbox"
+                      style={{ width: "20px", height: "20px" }}
+                      onClick={(e) => e.stopPropagation()}
+                      checked={selectedIndexes?.includes(item._id)}
+                      onChange={() => toggleSelect(item._id, item)}
+                    />
+                  )}
                   {/* )} */}
                 </div>
-                <span className="text-[16px] text-[#333333] text-center">
+
+                <span className="text-[16px] text-[#333333] text-center break-all">
                   {item.fileName}
                 </span>
               </div>

@@ -62,36 +62,36 @@ function Collection() {
       inputRef.current.select();
     }
   }, [isCreate]);
-const getData= ()=>{
-  if (folders == "true") {
-    setTab(1);
-    setTabIndex(0);
-    if (parentId) {
-      setParentId(parentId);
-      getParentData(parentId);
+  const getData = () => {
+    if (folders == "true") {
+      setTab(1);
+      setTabIndex(0);
+      if (parentId) {
+        setParentId(parentId);
+        getParentData(parentId);
+      } else {
+        getFolderData();
+      }
+    } else if (clients == "true") {
+      setTab(0);
+      setTabIndex(0);
+      if (clientId) {
+        getClientData(clientId);
+      } else {
+        getClients();
+      }
+    } else if (trash == "true") {
+      setTab(2);
+      setTabIndex(0);
+      getTrashed();
     } else {
-      getFolderData();
-    }
-  } else if (clients == "true") {
-    setTab(0);
-    setTabIndex(0);
-    if (clientId) {
-      getClientData(clientId);
-    } else {
+      setTab(0);
+      setTabIndex(0);
       getClients();
     }
-  } else if (trash == "true") {
-    setTab(2);
-    setTabIndex(0);
-    getTrashed();
-  } else {
-    setTab(0);
-    setTabIndex(0);
-    getClients();
-  }
-}
+  };
   useEffect(() => {
-    getData()
+    getData();
   }, [clients, folders, clientId, parentId, userDataGlobal, recall]);
 
   const getParentData = (parentId) => {
@@ -156,7 +156,9 @@ const getData= ()=>{
   const getTrashed = () => {
     setLoading(true);
     axios
-      .get(`https://freedygoservices.in/api/folder/getTrashed/${userDataGlobal._id}`)
+      .get(
+        `https://freedygoservices.in/api/folder/getTrashed/${userDataGlobal._id}`
+      )
       .then((res) => {
         setFolderList(res.data.data);
         setTimeout(() => {
@@ -272,7 +274,7 @@ const getData= ()=>{
           setTimeout(() => {
             setFileLoader(false);
             setIsCreateFolder(false);
-            getData()
+            getData();
           }, 1000);
         })
         .catch((err) => {
@@ -369,6 +371,7 @@ const getData= ()=>{
                         name="myfile"
                         onChange={handleFileChange}
                         multiple
+                        accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,"
                       />
                       {Object.keys(files).length > 0 ? (
                         <div className="w-full flex justify-center items-center">
@@ -588,8 +591,9 @@ const getData= ()=>{
                 onClick={() => {
                   router.push("/collection?clients=true");
                 }}
-                className={`rounded-[30px] sm:text-[16px] text-[12px] font-semibold scr900:px-6 sm:px-4 px-2  py-2 flex gap-2 ml:justify-start justify-center items-center ml:min-w-full sm:min-w-[30%] min-w-[110px] ${tab === 0 && "bg-[#C2E7FF]"
-                  }   `}
+                className={`rounded-[30px] sm:text-[16px] text-[12px] font-semibold scr900:px-6 sm:px-4 px-2  py-2 flex gap-2 ml:justify-start justify-center items-center ml:min-w-full sm:min-w-[30%] min-w-[110px] ${
+                  tab === 0 && "bg-[#C2E7FF]"
+                }   `}
               >
                 <svg
                   width="20"
@@ -613,8 +617,9 @@ const getData= ()=>{
                   // setTabIndex(0);
                   router.push("/collection?folders=true");
                 }}
-                className={`rounded-[30px] sm:text-[16px] text-[12px] font-semibold scr900:px-6 sm:px-4 px-2 py-2 flex gap-2 ml:justify-start justify-center items-center ml:min-w-full sm:min-w-[30%] min-w-[110px]   ${tab === 1 && "bg-[#C2E7FF]"
-                  }  `}
+                className={`rounded-[30px] sm:text-[16px] text-[12px] font-semibold scr900:px-6 sm:px-4 px-2 py-2 flex gap-2 ml:justify-start justify-center items-center ml:min-w-full sm:min-w-[30%] min-w-[110px]   ${
+                  tab === 1 && "bg-[#C2E7FF]"
+                }  `}
               >
                 <svg
                   width="20"
@@ -636,8 +641,9 @@ const getData= ()=>{
                 onClick={() => {
                   router.push("/collection?trash=true");
                 }}
-                className={`rounded-[30px] sm:text-[16px] text-[12px] font-semibold scr900:px-6 sm:px-4 px-2 py-2 flex gap-2 ml:justify-start justify-center items-center ml:min-w-full sm:min-w-[30%] min-w-[80px]  ${tab === 2 && "bg-[#C2E7FF]"
-                  }  `}
+                className={`rounded-[30px] sm:text-[16px] text-[12px] font-semibold scr900:px-6 sm:px-4 px-2 py-2 flex gap-2 ml:justify-start justify-center items-center ml:min-w-full sm:min-w-[30%] min-w-[80px]  ${
+                  tab === 2 && "bg-[#C2E7FF]"
+                }  `}
               >
                 <svg
                   width="20"
