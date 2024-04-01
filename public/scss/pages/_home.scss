@@ -91,6 +91,9 @@
 
   transform: translateX(-50%);
   animation: fadeIn3 0.5s;
+  height: 0;
+  width: 0;
+  opacity: 0;
 }
 
 .mobile-view{
@@ -105,7 +108,8 @@
   }
 .gallary-item-1 {
   left: -20%;
-
+  height: 0;
+  width: 0;
   transform: translateX(-50%);
 }
 .gallary-item-2,
@@ -138,6 +142,8 @@
 
   transform: translateX(-50%);
   animation: fadeIn3 0.5s;
+  height: 0;
+  width: 0;
 }
 
 }

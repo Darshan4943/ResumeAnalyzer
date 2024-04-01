@@ -3,12 +3,17 @@ import { useRouter } from "next/router";
 import Header from "./partials/header/header";
 import Footer from "./partials/footer/footer";
 import { useRef, useEffect, useState } from "react";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import Breadcrumb from "./common/BreadCrumb";
+import "react-toastify/dist/ReactToastify.css";
 
+const customToastStyles = `
+  .toast-success {
+    background-color: green;
+    color: white;
+  }
+`;
 import CandidateMobileHeader from "./partials/header/candidateMobileHeader";
-
-
 
 function Layout({ children }) {
   const router = useRouter();
@@ -20,7 +25,6 @@ function Layout({ children }) {
 
   const Temp = () => (
     <>
-
       <div className="mobile">
         <div>
           <CandidateMobileHeader />
@@ -37,13 +41,12 @@ function Layout({ children }) {
 
         <Footer />
       </div>
-
     </>
   );
- 
+
   return (
     <>
-       <Temp />
+      <Temp />
       <ToastContainer
         position="bottom-right"
         autoClose={3000}
@@ -56,6 +59,7 @@ function Layout({ children }) {
         pauseOnHover
         theme="light"
       />
+
     </>
   );
 }

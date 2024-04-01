@@ -131,8 +131,7 @@ const JdMatching = ({ details, resuneList }) => {
                             </span>
                             <span className="text-[14px] text-[#808080]">
                               {/* {getFileSize(data?.resumeUrl)} */}
-                              <FileSizeDisplay fileUrl={data?.resumeUrl}/>
-                         
+                              <FileSizeDisplay fileUrl={data?.resumeUrl} />
                             </span>
                           </div>
                         </div>

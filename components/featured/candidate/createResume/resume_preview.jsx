@@ -766,9 +766,14 @@ const ResumePreview = ({
               transformOrigin: "top left",
             }}
           >
-            <PDFViewer width="80%" height="900px" showToolbar={false}>
+             <Template1
+            data={data}
+            selectedColor={selectedColor}
+            selectedFont={selectedFont}
+          />
+            {/* <PDFViewer width="80%" height="900px" showToolbar={false}>
               <MyComponent />
-            </PDFViewer>
+            </PDFViewer> */}
           </div>
         )}
         {/* <div
