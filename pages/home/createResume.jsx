@@ -67,26 +67,26 @@ function CreateResume() {
       const {
         first_name,
         last_name,
-        emails,
-        phone_numbers,
-        profession,
+        email,
+        mobileNo,
+        designation,
         summary,
         address,
         skills,
-      } = parsedData.basics;
+      } = parsedData;
       const languages = parsedData.languages;
-      const educations = parsedData.educations;
-      const experience = parsedData.professional_experiences;
+      const educations = parsedData.education;
+      const experience = parsedData["work experience"];
       const courses = parsedData.issuing_organization;
       setData({
         ...data,
         clientId: clientId ? clientId : null,
         firstName: first_name,
         lastName: last_name,
-        email: emails[0],
-        dial_code: phone_numbers[0].slice(0, 3),
-        mobileNumber: extractMobileNumber(phone_numbers[0]),
-        designation: profession,
+        email: email,
+        dial_code: null,
+        mobileNumber: mobileNo,
+        designation: designation,
         summery: summary,
         location: address,
         skills: skills?.map((item) => ({
@@ -98,9 +98,9 @@ function CreateResume() {
           rating: [3, 3, 3],
         })),
         education: educations?.map((item) => ({
-          qualification: item.description,
-          specialization: "",
-          instituteName: item.issuing_organization,
+          qualification: item.courseName,
+          specialization: item["Specialization/Board"],
+          instituteName: item["University Name"],
           type: "full-time",
           location: "",
           duration: {
@@ -172,7 +172,7 @@ function CreateResume() {
     }
   }, [userData]);
   useEffect(() => {
-    setRender(false)
+    setRender(false);
     setTimeout(() => setRender(true), 400);
   }, [data]);
   return (
