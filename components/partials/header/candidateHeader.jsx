@@ -96,7 +96,7 @@ function CandidateHeader() {
         </Link>
         <div className="relative ">
           <div
-            onClick={() => setServices(true)}
+            onClick={() => setServices(!isServices)}
             className={
               " text-[16px] flex gap-2  items-center font-semibold p-3 hover:bg-[#EAF7FF] rounded-[14px] cursor-pointer "
             }

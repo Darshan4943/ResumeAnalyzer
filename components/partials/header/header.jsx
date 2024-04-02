@@ -30,13 +30,13 @@ function Header({ userData }) {
         selectedPage === "/auth/Employer_register" ||
         selectedPage === "/auth/Recruiter_register"
           ? " "
-          : "bg-white z-[100] fixed w-[100%] "
+          : "bg-white z-[100] fixed w-[100%]  "
       }
       style={{
         border: '1.5px solid #DEDEDE'
     }}
     >
-      <div className="flex justify-center items-center  scr1250:px-6 px-3 z-[100]">
+      <div className="flex justify-center items-center  scr1250:px-6 px-3 z-[100] ">
         <div className="flex justify-between w-[100%] h-[58px] my-[16px]  gap-2 ">
           {!isLogin ? (
             <>
