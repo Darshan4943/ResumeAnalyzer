@@ -180,7 +180,7 @@ function JdFiles({
                   {/* )} */}
                 </div>
 
-                <span className="md:text-[16px] text-[12px] text-[#333333] text-center break-all">
+                <span className="md:text-[14px] text-[12px] text-[#333333] text-center break-all">
                   {item.fileName.length > 17 ? `${item.fileName.slice(0, 17)}...` : item.fileName}
                 </span>
               </div>

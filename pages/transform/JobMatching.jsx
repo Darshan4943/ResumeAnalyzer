@@ -315,9 +315,9 @@ const JobMatching = () => {
   };
 
   return (
-    <div className=" md:p-6 p-3 flex flex-col gap-6 min-h-[80vh]  ">
+    <div className=" md:py-6 py-3 flex flex-col gap-4 min-h-[80vh] customMargins ">
       {loadingg && <EarthLoader />}
-      <div className=" font-semibold md:text-[24px] text-[20px]">
+      <div className=" font-semibold  text-[20px]">
         Job Description Matching
       </div>
       <div className="bg-[#DEDEDE] w-full h-[1px]"></div>

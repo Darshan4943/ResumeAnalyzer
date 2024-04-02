@@ -13,21 +13,21 @@ function Details() {
   }, [id]);
 
   return (
-    <div className="pt-2 flex flex-col gap-9">
+    <div className=" flex flex-col gap-9">
       <div className="flex flex-col justify-center items-center bg-blue h-[89px]  py-3">
-        <div className=" font-semibold text-[30px] text-white">Purchase</div>
+        <div className=" font-semibold text-[30px] text-white leading-tight">Purchase</div>
         <div className=" font-medium text-[16px] text-white">
           Purchase plan and make payment
         </div>
       </div>
-      <div className="flex items-center justify-center pb-12 scr1100:px-[100px] scr700:px-6 px-2">
+      <div className="flex items-center justify-center pb-12  px-2 customMargins">
         <div
           style={{ boxShadow: "0px 0px 6px 0px #00000040" }}
-          className=" flex scr700:flex-row flex-col gap-12 scr700:p-6 p-3 rounded-[16px] w-[100%]"
+          className=" flex scr700:flex-row flex-col gap-12 scr700:p-6 p-3 rounded-[16px] items-center w-[100%]"
         >
-          <div className="flex flex-col gap-4 justify-between scr700:w-[40%] w-[100%]">
+          <div className="flex flex-col gap-4 justify-between  scr700:w-[40%] md:w-[90%] w-[95%] ">
             <div className="flex flex-col gap-4 ">
-              <div className="text-[24px] font-[600]">Subscription Plan</div>
+              <div className="text-[16px] font-[600]">Subscription Plan</div>
 
               <div className=" relative bg-white  flex flex-col gap-4 items-center rounded-[16px] ">
                 <div

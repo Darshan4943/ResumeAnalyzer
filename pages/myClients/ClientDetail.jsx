@@ -55,13 +55,13 @@ function ClientDetail({ tabIndex }) {
   };
 
   return (
-    <div className="flex flex-col gap-4 p-6 customMargins">
-      <div className="flex text-[24px] font-semibold gap-4 items-center">
+    <div className="flex flex-col gap-4 py-6 customMargins">
+      <div className="flex text-[18px] font-semibold gap-4 items-center">
         <svg
           className=" cursor-pointer"
           onClick={() => router.push("/myClients")}
-          width="40"
-          height="40"
+          width="24"
+          height="24"
           viewBox="0 0 40 40"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -77,10 +77,10 @@ function ClientDetail({ tabIndex }) {
       </div>
       <div className="flex  gap-8 flex-wrap scr700:justify-start justify-center">
         <div
-          className="flex scr540:flex-row flex-col gap-8 sm:p-6 p-4 rounded-[24px]"
+          className="flex scr540:flex-row flex-col gap-8 sm:p-6 p-4 rounded-[24px] w-[50%]"
           style={{ boxShadow: "0px 2px 7px 0px #00000040" }}
         >
-          <div className="flex justify-center items-center relative">
+          <div className="flex justify-center items-center relative ">
             <img
               className="rounded-[50%] scr540:h-[200px] scr540:w-[200px] h-[120px] w-[120px] "
               style={{ objectFit: "contain" }}
@@ -179,32 +179,35 @@ function ClientDetail({ tabIndex }) {
           </div>
         </div>
       </div>
-      <div className="flex text-[24px] font-semibold gap-4 items-center">
+      <div className="flex text-[18px] font-semibold gap-4 items-center">
         Resumes
       </div>
-      <div className="rounded-[12px] border flex flex-wrap scr540:justify-start justify-center gap-9 border-[#DEDEDE] bg-[#F9F9F9] p-6 cursor-pointer">
-        <div
-          onClick={() => router.push(`/home/BuildResume?clientId=${clientId}`)}
-          style={{ boxShadow: "0px 0px 10px 5px #00000040" }}
-          className="rounded-[12px] text-center text-white justify-center flex scr540:flex-col flex-row text-[18px] items-center gap-2 font-medium  scr540:w-[192px] w-[312px]  scr540:h-[272px] h-[135px] bg-[#646464] p-6 cursor-pointer"
-        >
-          <svg
-            width="27"
-            height="27"
-            viewBox="0 0 27 27"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M11.8187 14.6206H0.0750732V12.1079H11.8187V0.364258H14.3314V12.1079H26.075V14.6206H14.3314V26.3642H11.8187V14.6206Z"
-              fill="white"
-            />
-          </svg>
-
-          <p>Create New Resume</p>
-        </div>
+      <div className="w-full rounded-[12px] border flex flex-wrap scr540:justify-start justify-center gap-9 border-[#DEDEDE] bg-[#F9F9F9] p-6 cursor-pointer">
+        
         <div className="flex flex-row flex-wrap gap-6">
+        <div
+            onClick={() => router.push(`/home/BuildResume?clientId=${clientId}`)}
+            style={{ boxShadow: "0px 0px 10px 5px #00000040" }}
+            className="rounded-[12px] text-center text-white justify-center flex scr540:flex-col flex-row text-[18px] items-center gap-2 font-medium  scr540:w-[192px] w-[312px]  scr540:h-[272px] h-[135px] bg-[#646464] p-6 cursor-pointer"
+          >
+            <svg
+              width="27"
+              height="27"
+              viewBox="0 0 27 27"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M11.8187 14.6206H0.0750732V12.1079H11.8187V0.364258H14.3314V12.1079H26.075V14.6206H14.3314V26.3642H11.8187V14.6206Z"
+                fill="white"
+              />
+            </svg>
+  
+            <p>Create New Resume</p>
+          </div>
           {resumeList?.map((item, index) => (
+           
+           
             <div
               key={index}
               className="flex flex-col h-[300px] items-center justify-between group relative "
@@ -278,6 +281,7 @@ function ClientDetail({ tabIndex }) {
                 </div>
               </div>
             </div>
+            
           ))}
         </div>
         {preview && (

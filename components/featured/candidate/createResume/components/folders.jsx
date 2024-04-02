@@ -173,8 +173,8 @@ function Folders({
   };
   return (
     <div className="flex flex-col gap-4 ml:w-[80%] w-[100%] ">
-      <div className="flex justify-between">
-        <p className="text-[24px] font-semibold ml:block hidden">My Collection</p>
+      <div className="flex justify-between items-center">
+        <p className="text-[18px] font-semibold ml:block hidden">My Collection</p>
         <button
           onClick={(e) => {
             setIsCreate(!isCreate);

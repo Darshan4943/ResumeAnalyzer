@@ -318,8 +318,8 @@ function AccountDetails({ selectedPlan }) {
       )}
       <div className="flex flex-col gap-6 w-[100%]">
         <div className=" flex flex-col gap-4 justify-center w-[100%] ">
-          <div className="text-[24px] font-[600] ">Account Details</div>
-          <div className="flex flex-col gap-6 w-[100%]">
+          <div className="text-[18px] font-[600] ">Account Details</div>
+          <div className="flex flex-col gap-6 w-[100%] text-[14px]">
             <div className="flex gap-5 w-[100%] ">
               <div className=" w-[50%]">
                 <p className="">
@@ -458,25 +458,25 @@ function AccountDetails({ selectedPlan }) {
         </div>
 
         <div className=" flex flex-col gap-2 justify-center ">
-          <div className="text-[24px] font-[600] ">Payment Summary</div>
+          <div className="text-[16px] font-[600] ">Payment Summary</div>
           <div className="p-4 border border-[#06A9EF] rounded-[12px]">
             <div className="flex flex-col gap-4">
               <div className="flex justify-between">
-                <p className="text-[16px] font-semibold">
+                <p className="text-[14px] font-semibold">
                   {selectedPlan?.duration} {selectedPlan?.limit}
                 </p>
-                <p className="text-[16px] font-semibold">
+                <p className="text-[14px] font-semibold">
                   {selectedPlan?.price}
                 </p>
               </div>
               <div className="flex justify-between">
-                <p className="text-[16px] font-medium">Estimated tax (18%)</p>
-                <p className="text-[16px] font-medium">$ 0</p>
+                <p className="text-[14px] font-medium">Estimated tax (18%)</p>
+                <p className="text-[14px] font-medium">$ 0</p>
               </div>
               <div className="h-[1px] w-full bg-[#DEDEDE]"></div>
               <div className="flex justify-between">
-                <p className="text-[20px] font-semibold">Total</p>
-                <p className="text-[20px] font-semibold">
+                <p className="text-[16px] font-semibold">Total</p>
+                <p className="text-[16px] font-semibold">
                   {" "}
                   {selectedPlan?.price}
                 </p>
@@ -495,7 +495,7 @@ function AccountDetails({ selectedPlan }) {
             }}
           />
 
-          <div className="text-[16px] font-normal">
+          <div className="text-[14px] font-normal">
             I agree to the{" "}
             <span className="text-[#06A9EF] border-b border-[#06A9EF] cursor-pointer">
               License Terms

@@ -181,8 +181,8 @@ function CreateResume() {
   }, [data]);
   return (
     <div>
-      <div className=" bg-[#F9F9F9] pt-2 ml:px-6 ">
-        <div className="flex flex-col gap-4 py-6 customMargins">
+      <div className=" bg-[#F9F9F9] pt-2 customMargins ">
+        <div className="flex flex-col gap-4 py-6 ">
           <div className="web">
             <div className=" h-fit flex gap-6 ">
               <ResumeForm
