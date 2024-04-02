@@ -125,7 +125,7 @@ function CandidateHeader() {
           <Link
             href="/collection"
             className={
-              selectedPage === "/collection/collection"
+              selectedPage === "/collection"
                 ? "active scr1250:text-[18px] text-[16px]"
                 : "li scr1250:text-[18px] text-[16px]"
             }
