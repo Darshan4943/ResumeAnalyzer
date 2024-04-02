@@ -55,7 +55,7 @@ function ClientDetail({ tabIndex }) {
   };
 
   return (
-    <div className="flex flex-col gap-4 p-6">
+    <div className="flex flex-col gap-4 p-6 customMargins">
       <div className="flex text-[24px] font-semibold gap-4 items-center">
         <svg
           className=" cursor-pointer"
