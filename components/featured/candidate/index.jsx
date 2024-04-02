@@ -75,14 +75,24 @@ function CandidateHome() {
 
           <div className=" flex flex-col gap-6 w-[35%] text-[#333333]">
             <div className="font-semibold  text-[2.5vw] leading-tight ">
-              Resume Templates for All <span className="text-[#06A9EF]">Careers and Levels.</span>
+              Resume Templates for All{" "}
+              <span className="text-[#06A9EF]">Careers and Levels.</span>
             </div>
             <div className="font-medium scr1200:text-[1.67vw] text-[20px] w-[95%] break-words ">
-              <p>  Select one of our <span className="text-[#06A9EF]">expert-designed resume templates </span>and create a resume that fits your needs
-                and style.No Experienced needed!</p>
-              <p><span className="text-[#06A9EF]">Stand out from the crowd</span>  with a resume built on one of the best recruiter approved templates.</p>
-
-
+              <p>
+                {" "}
+                Select one of our{" "}
+                <span className="text-[#06A9EF]">
+                  expert-designed resume templates{" "}
+                </span>
+                and create a resume that fits your needs and style.No
+                Experienced needed!
+              </p>
+              <p>
+                <span className="text-[#06A9EF]">Stand out from the crowd</span>{" "}
+                with a resume built on one of the best recruiter approved
+                templates.
+              </p>
             </div>
             <button
               onClick={clickHandler}

@@ -417,7 +417,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                   />
                 </Svg>
               </View>
-              {data.experience.map((detail, index) => (
+              {data?.experience?.map((detail, index) => (
                 <View
                   key={index}
                   style={{ flexDirection: "column", gap: 4 }}

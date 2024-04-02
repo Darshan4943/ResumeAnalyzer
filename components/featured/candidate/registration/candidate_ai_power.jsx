@@ -101,7 +101,7 @@ const CandidateAiPower = ({
       } else if (file.type == "application/pdf") {
         let fullText = "";
         const pdfTextPromises = [];
-        for (let i = 1; i <= 1; i++) {
+        for (let i = 1; i <= 2; i++) {
           pdfTextPromises.push(fileToText(file, i));
         }
         Promise.all(pdfTextPromises).then(async (texts) => {
@@ -122,7 +122,7 @@ const CandidateAiPower = ({
     setLoading(true);
     extracteText(file).then((result) => {
       axios
-        .post("https://freedygoservices.in/api/resume/extraction", {
+        .post("http://localhost:2000/api/resume/extraction", {
           data: result,
         })
         .then((res) => {
