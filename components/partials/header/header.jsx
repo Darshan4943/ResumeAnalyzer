@@ -33,8 +33,8 @@ function Header({ userData }) {
           : "bg-white z-[100] fixed w-[100%] "
       }
       style={{
-        boxShadow: "0px 1px 4px 0px rgba(0, 0, 0, 0.25)",
-      }}
+        border: '1.5px solid #DEDEDE'
+    }}
     >
       <div className="flex justify-center items-center  scr1250:px-6 px-3 z-[100]">
         <div className="flex justify-between w-[100%] h-[58px] my-[16px]  gap-2 ">

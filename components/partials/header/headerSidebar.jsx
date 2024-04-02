@@ -10,7 +10,7 @@ function HeaderSidebar({ selectedPage, setIsSidebar, setIsLogin, isLogin, isSide
     const router = useRouter();
     const [visible, setvisible] = useState(false);
     const userDataGlobal = useSelector((state) => state.userData);
-    console.log(11, userDataGlobal)
+  
     const handleNavigation = (page) => {
         setIsSidebar(false);
         router.push(page);
