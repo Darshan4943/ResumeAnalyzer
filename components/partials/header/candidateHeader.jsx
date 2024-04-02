@@ -58,21 +58,21 @@ function CandidateHeader() {
 
   return (
     <>
-      <div className="flex justify-center items-center list-none scr1250:gap-9 scr1024:gap-4 gap-3">
+      <div className="flex justify-center items-center list-none  gap-9 ">
         <Link href="/home">
           {" "}
           <img
             src="/images/logo_skilotech.png"
             alt=""
-            className="scr1250:h-[58px] scr1024:h-[51px] h-[45px] scr1250:w-[172px] scr1024:w-[150px] w-[133px]"
+            className="w-[131px] h-[44px]"
           />
         </Link>
         <Link
           href="/home"
           className={
             selectedPage === "/home"
-              ? "text-[16px] flex gap-2 items-center bg-[#EAF7FF] p-3 font-semibold rounded-[14px]"
-              : " text-[16px] flex gap-2 items-center font-semibold p-3 hover:bg-[#EAF7FF] rounded-[14px] "
+              ? "text-[16px] flex gap-2 items-center bg-[#EAF7FF] p-[10px] font-semibold rounded-[14px]"
+              : " text-[16px] flex gap-2 items-center font-semibold p-[10px] hover:bg-[#EAF7FF] rounded-[14px] "
           }
         >
           <svg
@@ -109,7 +109,7 @@ function CandidateHeader() {
           <div
             onClick={() => setServices(!isServices)}
             className={
-              " text-[16px] flex gap-2  items-center font-semibold p-3 hover:bg-[#EAF7FF] rounded-[14px] cursor-pointer "
+              " text-[16px] flex gap-2  items-center font-semibold p-[10px] hover:bg-[#EAF7FF] rounded-[14px] cursor-pointer "
             }
           >
             <svg
@@ -148,8 +148,8 @@ function CandidateHeader() {
           href="/jobs/list"
           className={
             selectedPage === "/jobs/list"
-              ? "text-[16px] flex gap-2 items-center bg-[#EAF7FF] p-3 font-semibold rounded-[14px]"
-              : " text-[16px] flex gap-2 items-center font-semibold p-3 hover:bg-[#EAF7FF] rounded-[14px] "
+              ? "text-[16px] flex gap-2 items-center bg-[#EAF7FF] p-[10px] font-semibold rounded-[14px]"
+              : " text-[16px] flex gap-2 items-center font-semibold p-[10px] hover:bg-[#EAF7FF] rounded-[14px] "
           }
         >
           <svg
@@ -264,9 +264,9 @@ function CandidateHeader() {
         )} */}
       </div>
 
-      <div className=" flex gap-4 justify-end py-2 items-center scr1250:w-[18%] w-[23%]  ">
+      <div className=" flex gap-4 justify-end  items-center scr1250:w-[18%] w-[23%]  ">
         <div className="flex items-center gap-[8px]">
-          <div className="scr1250:h-[40px] scr1250:w-[40px] h-[30px] w-[30px]">
+          <div className=" h-[40px] w-[40px]">
             {userDataGlobal?.profilePicture ? (
               <img
                 className=" rounded-full object-cover h-[40px] w-[40px]"
