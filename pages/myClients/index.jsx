@@ -67,7 +67,7 @@ function MyClients() {
   };
 
   return (
-    <div className="flex justify-center">
+    <div className="flex justify-center customMargins">
       {tabIndex === 0 && (
         <div className="flex flex-col gap-4 sm:p-6 p-2 w-[100%]">
           <div className="text-[24px] font-semibold">My Clients</div>
