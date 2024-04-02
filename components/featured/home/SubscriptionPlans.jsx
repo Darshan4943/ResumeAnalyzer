@@ -117,8 +117,9 @@ function SubscriptionPlans({ fromMain }) {
           {subPlans.map((plan, index) => (
             <div
               key={index}
-              className={` relative mt-[40px] bg-white  flex flex-col gap-4 items-center rounded-[16px] ${isUser ? "max-w-[30vw]" : "max-w-[20vw]"
-                } `}
+              className={` relative mt-[40px] bg-white  flex flex-col gap-4 items-center rounded-[16px] purchase-plan-card ${
+                isUser ? "max-w-[30vw]" : "max-w-[20vw] "
+              } `}
               style={{ boxShadow: "0px 2px 15px 0px #00000033" }}
             >
               {index === 1 && (
@@ -177,7 +178,7 @@ function SubscriptionPlans({ fromMain }) {
                     {plan.features.map((feature, index) => (
                       <div key={index} className="flex gap-3 ">
                         <svg
-                        className="min-w-[20px]"
+                          className="min-w-[20px]"
                           width="20"
                           height="18"
                           viewBox="0 0 20 18"
@@ -280,7 +281,7 @@ function SubscriptionPlans({ fromMain }) {
                       {plan.features.map((feature, index) => (
                         <div key={index} className="flex gap-3 items-center">
                           <svg
-                          className="min-w-[20px]"
+                            className="min-w-[20px]"
                             width="20"
                             height="18"
                             viewBox="0 0 20 18"

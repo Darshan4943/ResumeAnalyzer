@@ -87,7 +87,7 @@ const Education = ({ setData, data }) => {
             <span className="slider round"></span>
           </label>
         </div>
-        {data?.education.map((edu, index) => (
+        {data?.education?.map((edu, index) => (
           <div
             key={index}
             className="flex flex-col gap-1 p-2 rounded-[6px] border border-[#DEDEDE] break-all"
