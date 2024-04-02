@@ -5,8 +5,22 @@ import { useSelector } from 'react-redux';
 function Services({ setServices }) {
     const router = useRouter();
     const userDataGlobal = useSelector((state) => state.userData);
-    const loginListCandidate = ["My Resumes", "Transform CV", "Skill Assessments", "My Purchases"]
-    const loginListRecruiter = ["My Clients", "Transform CV", "Job Description Matching", "Collection", "My Purchases"]
+    const loginListCandidate = [
+        { name: "Create New Resume", imgSrc: "/images/resumeBuilder/createResume.png" },
+        { name: "My Resumes", imgSrc: "/images/resumeBuilder/myResume.png" },
+        { name: "Transform CV", imgSrc: "/images/resumeBuilder/transform_cv.png" },
+        { name: "Skill Assessments", imgSrc: "/images/resumeBuilder/skill_assessments.png" },
+        { name: "My Purchases", imgSrc: "/images/resumeBuilder/my_purchases.png" }
+    ];
+
+    const loginListRecruiter = [
+        { name: "Create New Resume", imgSrc: "/images/resumeBuilder/createResume.png" },
+        { name: "My Clients", imgSrc: "/images/resumeBuilder/my_clients.png" },
+        { name: "Transform CV", imgSrc: "/images/resumeBuilder/transform_cv.png" },
+        { name: "Job Description Matching", imgSrc: "/images/resumeBuilder/job_description_matching.png" },
+        { name: "My Collection", imgSrc: "/images/resumeBuilder/collection.png" },
+        { name: "My Purchases", imgSrc: "/images/resumeBuilder/my_purchases.png" }
+    ];
     const [visible, setvisible] = useState(false);
     const [selectedPage, setSelectedPage] = useState("");
 
@@ -18,7 +32,7 @@ function Services({ setServices }) {
         setServices(false);
         router.push(page);
     };
-    
+
 
     const getListItemStyles = (page) => {
         const isSelected = selectedPage === page;
@@ -53,26 +67,27 @@ function Services({ setServices }) {
             {list().map((item, index) => (
                 <li
                     key={index}
-                    className='px-4 py-4 '
+                    className='px-4 py-4 hover:bg-[#EAF7FF] '
                     style={{
                         // opacity: visible ? 1 : 0,
                         // transform: (visible ? "translateX(0)" : "translateX(-100%)"),
 
-                        ...(item === 'Candidate' && { ...getListItemStyles('/'), transition: "transform 0.7s ease-in-out", }),
-                        ...(item === 'Recruiter' && { ...getListItemStyles('/recruiter'), transition: "transform 0.8s ease-in-out" }),
-                        ...(item === 'Home' && { ...getListItemStyles('/home'), transition: "transform 0.7s ease-in-out" }),
-                        ...(item === 'My Clients' && { ...getListItemStyles('/myClients'), transition: "transform 0.8s ease-in-out" }),
-                        ...(item === 'My Resumes' && { ...getListItemStyles('/home/MyCollection'), transition: "transform 0.8s ease-in-out" }),
-                        ...(item === 'Transform CV' && { ...getListItemStyles('/transform/TransformJob'), transition: "transform 0.9s ease-in-out" }),
-                        ...(item === 'Job Description Matching' && { ...getListItemStyles('/transform/JobMatching'), transition: "transform 1s ease-in-out" }),
-                        ...(item === 'Collection' && { ...getListItemStyles('/collection'), transition: "transform 1.1s ease-in-out" }),
-                        ...(item === 'Skill Assessments' && { ...getListItemStyles('/home/SkillAssessment'), transition: "transform 1.1s ease-in-out" }),
-                        ...(item === 'My Purchases' && { ...getListItemStyles('/purchase/MyPurchase'), transition: "transform 1.2s ease-in-out" }),
+                        ...(item.name === 'Candidate' && { ...getListItemStyles('/'), transition: "transform 0.7s ease-in-out", }),
+                        ...(item.name === 'Recruiter' && { ...getListItemStyles('/recruiter'), transition: "transform 0.8s ease-in-out" }),
+                        ...(item.name === 'Home' && { ...getListItemStyles('/home'), transition: "transform 0.7s ease-in-out" }),
+                        ...(item.name === 'Create New Resume' && { ...getListItemStyles('/home/BuildResume'), transition: "transform 0.8s ease-in-out" }),
+                        ...(item.name === 'My Clients' && { ...getListItemStyles('/myClients'), transition: "transform 0.8s ease-in-out" }),
+                        ...(item.name === 'My Resumes' && { ...getListItemStyles('/home/MyCollection'), transition: "transform 0.8s ease-in-out" }),
+                        ...(item.name === 'Transform CV' && { ...getListItemStyles('/transform/TransformJob'), transition: "transform 0.9s ease-in-out" }),
+                        ...(item.name === 'Job Description Matching' && { ...getListItemStyles('/transform/JobMatching'), transition: "transform 1s ease-in-out" }),
+                        ...(item.name === 'My Collection' && { ...getListItemStyles('/collection'), transition: "transform 1.1s ease-in-out" }),
+                        ...(item.name === 'Skill Assessments' && { ...getListItemStyles('/home/SkillAssessment'), transition: "transform 1.1s ease-in-out" }),
+                        ...(item.name === 'My Purchases' && { ...getListItemStyles('/purchase/MyPurchase'), transition: "transform 1.2s ease-in-out" }),
                     }}
 
 
                     onClick={() => {
-                        switch (item) {
+                        switch (item.name) {
                             case 'Candidate':
                                 handleNavigation('/');
                                 break;
@@ -81,6 +96,9 @@ function Services({ setServices }) {
                                 break;
                             case 'Home':
                                 handleNavigation('/home');
+                                break;
+                            case 'Create New Resume':
+                                handleNavigation('/home/BuildResume');
                                 break;
                             case 'My Clients':
                                 handleNavigation('/myClients');
@@ -98,7 +116,7 @@ function Services({ setServices }) {
                             case 'My Purchases':
                                 handleNavigation('/purchase/MyPurchase');
                                 break;
-                            case 'Collection':
+                            case 'My Collection':
                                 handleNavigation('/collection');
                                 break;
                             case 'Skill Assessments':
@@ -107,8 +125,16 @@ function Services({ setServices }) {
                             default:
                                 break;
                         }
-                    }}                            >
-                    {item}
+                    }}
+                >
+                    <div className="flex items-center gap-3">
+                        <img
+                            src={item.imgSrc}
+                            alt=""
+                            className="w-[24px] h-[24px]"
+                        />
+                        <span>{item.name}</span>
+                    </div>
                 </li>
             ))}
         </div>

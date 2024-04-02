@@ -30,21 +30,21 @@ function Header({ userData }) {
         selectedPage === "/auth/Employer_register" ||
         selectedPage === "/auth/Recruiter_register"
           ? " "
-          : "bg-white z-[100] fixed w-[100%] "
+          : "bg-white z-[100] fixed w-[100%]  "
       }
       style={{
         border: '1.5px solid #DEDEDE'
     }}
     >
-      <div className="flex justify-center items-center  scr1250:px-6 px-3 z-[100]">
-        <div className="flex justify-between w-[100%] h-[58px] my-[16px]  gap-2 ">
+      <div className="flex justify-center items-center   z-[100] customMargins">
+        <div className="flex justify-between w-[100%]  my-[8px]  gap-2 ">
           {!isLogin ? (
             <>
               <div className="flex items-center gap-9 ">
                 <Link href="/">
                   {" "}
                   <img
-                    className="h-[58px] w-[172px]"
+                    className="h-[44px] w-[131px]"
                     src="/images/logo_skilotech.png"
                     alt=""
                   />
@@ -70,7 +70,7 @@ function Header({ userData }) {
                   Recruiter
                 </Link>
               </div>
-              <div className="w-[30%] gap-4  flex justify-end py-2 items-center">
+              <div className="w-[30%] gap-4  flex justify-end  items-center">
                 <div
                   onClick={() => {
                     router.push("/auth?signin=true");
