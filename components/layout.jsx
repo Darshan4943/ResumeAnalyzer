@@ -37,7 +37,7 @@ function Layout({ children }) {
         <div>
           <Header />
         </div>
-        <div className="pt-[3.4rem] ">{children}</div>
+        <div className="pt-[3.5rem] ">{children}</div>
 
         <Footer />
       </div>
