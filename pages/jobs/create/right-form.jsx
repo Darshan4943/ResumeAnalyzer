@@ -1,10 +1,21 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ReactSelect from "react-select";
 import { camelCase } from "../../../utils/middleware";
 import { SkillList } from "../../../utils/data";
-import Editor from "../../../components/editor/Editor";
+import Tiptap from "../../../components/editor/Tiptap";
 
-const Rightform = () => {
+const Rightform = ({ data, setData }) => {
+  // const [component, setComponent] = useState(null);
+
+  // useEffect(() => {
+  //   const timer = setTimeout(async () => {
+  //     const importedComponent = await import('../../../components/editor/Editor'); // Dynamically import the component after 1 second
+  //     setComponent(importedComponent.default); // Set the imported component to state
+  //   }, 1000);
+
+  //   return () => clearTimeout(timer); // Cleanup the timer on component unmount
+  // }, []); // Empty dependency array to ensure useEffect runs only once
+
   return (
     <div className="flex flex-col w-[50%] gap-[24px]">
       <div className="flex flex-col w-full gap-[16px]">
@@ -22,7 +33,7 @@ const Rightform = () => {
           <label className="text-[#333333] text-[14px] font-medium">
             Job Description
           </label>
-          <Editor/>
+          <Tiptap data={data} value={"description"} setData={setData} placeholder={"Enter Job Description here"} />
         </div>
       </div>
       <div className="flex flex-col w-full gap-[16px]">

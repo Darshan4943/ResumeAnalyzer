@@ -44,10 +44,24 @@ const WrappedApp = ({ Component, pageProps }) => {
   }, []);
   return (
     <>
-     <Head>
-     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDza9g3mPKYY6cwOmpHFKT8-VjYLSl1EdU&libraries=places"></script>
-
-    </Head>
+      <Head>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDza9g3mPKYY6cwOmpHFKT8-VjYLSl1EdU&libraries=places"></script>
+        <link
+          rel="stylesheet"
+          href="https://unpkg.com/react-quill@1.3.3/dist/quill.snow.css"
+        />
+        <script
+          src="https://unpkg.com/react@16/umd/react.development.js"
+          crossorigin
+        ></script>
+        <script
+          src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"
+          crossorigin
+        ></script>
+        <script src="https://unpkg.com/react-quill@1.3.3/dist/react-quill.js"></script>
+        <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+        <script type="text/babel" src="/my-scripts.js"></script>
+      </Head>
       <Helmet>
         <title>Skilotech</title>
         <link
@@ -56,7 +70,7 @@ const WrappedApp = ({ Component, pageProps }) => {
           sizes="32x32"
           href="images/logo_header.png"
         />
-         
+
         <script
           async
           defer

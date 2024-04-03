@@ -5,6 +5,11 @@ import Leftform from "./left-form";
 
 const Index = () => {
   const [file, setFile] = useState(null);
+  const [data, setData] = useState({
+    description: "",
+    "about-organization": "",
+  });
+
 
   return (
     <div className="min-h-[90vh] pt-[16px] customMargins flex flex-col gap-[16px] post-job pb-[4rem]">
@@ -15,8 +20,8 @@ const Index = () => {
         </div>
       </div>
       <div className="flex flex-row justify-between ">
-        <Leftform setFile={setFile} file={file} />
-        <Rightform />
+        <Leftform setFile={setFile} file={file} setData={setData} data={data} />
+        <Rightform setData={setData} data={data} />
       </div>
     </div>
   );

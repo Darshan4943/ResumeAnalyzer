@@ -6,7 +6,8 @@ import PlacesAutocomplete, {
   getLatLng,
 } from "react-places-autocomplete";
 import { PlusAddLogo } from "../../../utils/svg";
-const Leftform = ({ file, setFile }) => {
+import Tiptap from "../../../components/editor/Tiptap";
+const Leftform = ({ file, setFile,data,setData }) => {
   const fileRef = useRef();
   const [modelView, setModelView] = useState(false);
   const [croppedImage, setCroppedImage] = useState(null);
@@ -237,7 +238,7 @@ const Leftform = ({ file, setFile }) => {
           <label className="text-[#333333] text-[14px] font-medium">
             About Organization
           </label>
-          <textarea className="input" rows="4" cols="50"></textarea>
+          <Tiptap data={data} value={"about-organization"} setData={setData} placeholder={"Enter About Organization here"} />
         </div>
       </div>
     </div>
