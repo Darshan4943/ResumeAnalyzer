@@ -112,14 +112,13 @@ function SubscriptionPlans({ fromMain }) {
           </div>
         </>
       )}
-      <div className="hidden lg:block w-full">
+      <div className="hidden lg:block w-full ">
         <div className="flex gap-9 justify-center">
           {subPlans.map((plan, index) => (
             <div
               key={index}
-              className={` relative mt-[40px] bg-white  flex flex-col gap-4 items-center rounded-[16px] purchase-plan-card ${
-                isUser ? "max-w-[20vw]" : "max-w-[20vw] "
-              } `}
+              className={` relative mt-[40px] bg-white  flex flex-col gap-4 items-center rounded-[16px] purchase-plan-card ${isUser ? "max-w-[20vw]" : "max-w-[19vw] "
+                } `}
               style={{ boxShadow: "0px 2px 15px 0px #00000033" }}
             >
               {index === 1 && (

@@ -42,7 +42,7 @@ function Recruiter_page() {
         <ReactLenis root>
           <Parallax
             strength={300}
-            className=" h-[100vh] pt-[28px] "
+            className=" h-[100vh]  "
           >
             <Background className="custom-bg  ">
               <RecruiterHero />
