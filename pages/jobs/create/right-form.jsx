@@ -41,7 +41,7 @@ const Rightform = ({ data, setData }) => {
         <div className="flex flex-row justify-between">
           <div className=" w-[31%] flex flex-col gap-[8px] ">
             <label className="text-[#333333] text-[14px] font-medium">
-              Job Title
+              Salary Type
             </label>
             <div className="flex items-center rounded-lg border border-[#DEDEDE] bg-white text-[14px]  font-montserrat font-small relative min-w-[100px] overflow-hidden h-[48px]">
               <select

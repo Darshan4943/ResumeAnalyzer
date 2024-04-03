@@ -9,8 +9,15 @@ const Index = () => {
     companyName: null,
     jobTitle: null,
     location: [],
-    description: "",
     "about-organization": "",
+    description: "",
+    salaryType: "",
+    minSalary: 0,
+    maxSalary: 0,
+    requiredQualification: "",
+    requiredSkills: "",
+    deadLine: null,
+    experiance: null,
   });
 
   return (
