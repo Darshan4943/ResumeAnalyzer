@@ -31,18 +31,18 @@ function MyPurchase() {
     <div className="flex flex-col gap-8  min-h-[60vh]">
       {subscription ? (
         <>
-          <div className="flex flex-col justify-center items-center text-center bg-blue pt-[34px]   py-3">
-            <div className=" font-semibold text-[30px] text-white">
+          <div className="flex flex-col justify-center items-center text-center bg-blue    py-3">
+            <div className=" font-semibold text-[30px] text-white leading-tight">
               My Purchase
             </div>
             <div className=" font-medium text-[16px] text-white">
               Manage your account and subscription
             </div>
           </div>
-          <div className="ml:px-6 px-2 pb-12 w-[100%]">
+          <div className=" pb-12 w-[100%] customMargins">
             <div
-              style={{ boxShadow: "0px 1px 6px 0px #00000040" }}
-              className=" flex flex-col gap-10 ml:p-6 p-3 rounded-[16px] "
+              // style={{ boxShadow: "0px 1px 6px 0px #00000040" }}
+              className=" flex flex-col gap-10  rounded-[16px] "
             >
               {" "}
               <div className=" flex gap-4  border border-[#06A9EF] rounded-[16px] scr1200:p-6 p-3 ">
@@ -50,13 +50,13 @@ function MyPurchase() {
                   <div className="flex md:flex-row flex-col gap-6  scr1100:w-[60%] w-[100%] items-center justify-between ">
                     <div className="flex flex-col gap-6  md:w-[40%] w-[100%] items-center justify-between">
                       <div className="flex text-center flex-col gap-3 text-[#333333] w-[100%] p-4">
-                        <p className="text-[22px] font-[600]">
+                        <p className="text-[20px] font-[600]">
                           <span className="text-[#06A9EF]">
                             {plan.duration}
                           </span>{" "}
                           {plan.limit}
                         </p>
-                        <p className="text-[36px] font-[700]">{plan.price}</p>
+                        <p className="text-[32px] font-[700]">{plan.price}</p>
                         <p className="text-[14px] font-[500]">
                           Your Plan Validity is {plan.days} days
                         </p>
@@ -73,17 +73,17 @@ function MyPurchase() {
                       )}
                     </div>
                     <div className="flex flex-col gap-6  md:w-[60%] w-[100%]  ml:pl-4">
-                      <div className="text-[20px] font-[600]">
+                      <div className="text-[18px] font-[600]">
                         {" "}
                         Plan summary
                       </div>
                       <div className="flex flex-col gap-9 w-[100%] ">
                         <div className="flex  gap-4">
-                          <div className="flex  gap-4 font-[700] justify-between w-[40%]">
+                          <div className="flex text-[14px]  gap-4 font-[700] justify-between w-[40%]">
                             <p>Plan Name</p>
                             <div>:</div>
                           </div>
-                          <div className="text-[16px] font-[500]">
+                          <div className="text-[14px] font-[500]">
                             {plan.duration} plan
                             {/* {"("}
                             {plan.limit}
@@ -91,12 +91,12 @@ function MyPurchase() {
                           </div>
                         </div>
                         <div className="flex  gap-4">
-                          <div className="flex  gap-4 justify-between font-[700] w-[40%]">
+                          <div className="flex text-[14px]  gap-4 justify-between font-[700] w-[40%]">
                             <p className="">Status</p>
                             <div className="">:</div>
                           </div>
                           <div
-                            className={`text-[16px] font-[500] ${
+                            className={`text-[14px] font-[500] ${
                               subscription?.isActive
                                 ? "text-[#0C8A0A]"
                                 : "text-red"
@@ -133,7 +133,7 @@ function MyPurchase() {
                   </div>
                   <div className="bg-[#DEDEDE] w-[1px] h-[100%]"></div>
                   <div className="flex gap-3 flex-col text-left">
-                    <div className="text-[20px] font-[600]">
+                    <div className="text-[18px] font-[600]">
                       {" "}
                       Available Services
                     </div>
@@ -152,39 +152,39 @@ function MyPurchase() {
                             fill="#06A9EF"
                           />
                         </svg>
-                        <p className="text-[16px] font-[500]">{feature}</p>
+                        <p className="text-[14px] font-[500]">{feature}</p>
                       </div>
                     ))}
                   </div>
                 </div>
               </div>
               <div className="flex flex-col gap-6  w-[100%] ml:pl-4">
-                <div className="text-[20px] font-[600]"> Account Details</div>
+                <div className="text-[18px] font-[600]"> Account Details</div>
                 <div className="flex ml:flex-row flex-col gap-12 w-[100%] ">
                   <div className="flex flex-col gap-6 scr1200:min-w-[30%] min-w-[35%] ">
                     <div className="flex  gap-4">
-                      <div className="flex  gap-4 font-[700] justify-between w-[40%]">
+                      <div className="flex  gap-4 font-[700] text-[14px] justify-between w-[40%]">
                         <p>User Name </p>
                         <div>:</div>
                       </div>
-                      <div className="text-[16px] font-[500] capitalize break-all">
+                      <div className="text-[14px] font-[500] capitalize break-all">
                         {subscription?.firstName} {subscription?.lastName}
                       </div>
                     </div>
                     <div className="flex  gap-4">
-                      <div className="flex  gap-4 justify-between font-[700] w-[40%]">
+                      <div className="flex text-[14px] gap-4 justify-between font-[700] w-[40%]">
                         <p>User ID</p>
                         <div>:</div>
                       </div>
-                      <div className="text-[16px] font-[500] break-all">01</div>
+                      <div className="text-[14px] font-[500] break-all">01</div>
                     </div>
                     {subscription?.isActive && (
                       <div className="flex gap-4">
-                        <div className="flex  gap-4 justify-between font-[700] w-[40%]">
+                        <div className="flex  text-[14px] gap-4 justify-between font-[700] w-[40%]">
                           <p>Activated on </p>
                           <div>:</div>
                         </div>
-                        <div className="text-[16px] font-[500] break-all">
+                        <div className="text-[14px] font-[500] break-all">
                           {dateFormatter(subscription?.startDate)}
                         </div>
                       </div>

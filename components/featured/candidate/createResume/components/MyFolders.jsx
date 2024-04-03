@@ -55,14 +55,14 @@ function MyFolders({
               ) : (
                 <table className="w-[100%]">
                   <thead>
-                    <tr>
-                      <th className="py-3 px-4 rounded-l-[12px] bg-[#C2E7FF] w-[30%] text-left">
+                    <tr className="">
+                      <th className="py-3 px-4 rounded-l-[12px] bg-[#C2E7FF] text-[14px] w-[30%] text-left border-r border-[#FFF]">
                         Name
                       </th>
-                      <th className="py-3 px-4 bg-[#C2E7FF] w-[25%] text-left">
+                      <th className="py-3 px-4 bg-[#C2E7FF] w-[25%] text-left text-[14px] border-r border-[#FFF]">
                         Date Modified
                       </th>
-                      <th className="py-3 px-4 rounded-r-[12px] bg-[#C2E7FF] w-[25%] text-left">
+                      <th className="py-3 px-4 rounded-r-[12px] bg-[#C2E7FF] text-[14px] w-[25%] text-left">
                         Size
                       </th>
                     </tr>
@@ -76,7 +76,7 @@ function MyFolders({
                         }
                         className="cursor-pointer"
                       >
-                        <td className="px-4 py-2 font-medium flex gap-2 relative items-center ">
+                        <td className="px-4 py-2 text-[14px] font-medium flex gap-2 relative items-center ">
                           {select && (
                             <input
                               type="checkbox"
@@ -89,10 +89,10 @@ function MyFolders({
                           )}
                          {item.fileName.length > 25 ? `${item.fileName.slice(0, 25)}...` : item.fileName}
                         </td>
-                        <td className="px-4 py-2 text-[#858585]">
+                        <td className="px-4 py-2 text-[#858585] text-[14px]">
                           {dateSeter(item.updatedAt)}
                         </td>
-                        <td className="px-4 py-2 text-[#858585]">
+                        <td className="px-4 py-2 text-[#858585] text-[14px]">
                           {convertBytes(item.size)}
                         </td>
                       </tr>
@@ -121,7 +121,7 @@ function MyFolders({
             <table className="w-[100%] ">
               <thead>
                 <tr>
-                  <th className="py-3 px-4 rounded-l-[12px] bg-[#C2E7FF] w-[30%] text-left">
+                  <th className="py-3 px-4 rounded-l-[12px] bg-[#C2E7FF] w-[30%] text-left  ">
                     Name
                   </th>
                   <th className="py-3 px-4 bg-[#C2E7FF] w-[25%] text-left">
