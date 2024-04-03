@@ -6,10 +6,12 @@ import Leftform from "./left-form";
 const Index = () => {
   const [file, setFile] = useState(null);
   const [data, setData] = useState({
+    companyName: null,
+    jobTitle: null,
+    location: [],
     description: "",
     "about-organization": "",
   });
-
 
   return (
     <div className="min-h-[90vh] pt-[16px] customMargins flex flex-col gap-[16px] post-job pb-[4rem]">
