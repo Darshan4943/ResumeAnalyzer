@@ -264,7 +264,7 @@ function CandidateHeader() {
         )} */}
       </div>
 
-      <div className=" flex gap-4 justify-end  items-center scr1250:w-[18%] w-[23%]  ">
+      <div className=" flex gap-4 justify-end  items-center scr1250:w-[25%] w-[23%]  ">
         <div className="flex items-center gap-[8px]">
           <div className=" h-[40px] w-[40px]">
             {userDataGlobal?.profilePicture ? (
