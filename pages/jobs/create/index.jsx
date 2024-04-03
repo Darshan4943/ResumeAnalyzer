@@ -1,0 +1,25 @@
+import React, { useRef, useState } from "react";
+import { LeftArow } from "../../../utils/svg";
+import Rightform from "./right-form";
+import Leftform from "./left-form";
+
+const Index = () => {
+  const [file, setFile] = useState(null);
+
+  return (
+    <div className="min-h-[90vh] pt-[16px] customMargins flex flex-col gap-[16px] post-job pb-[4rem]">
+      <div className="flex items-center gap-[8px] ">
+        <LeftArow />
+        <div className="text-[18px] font-medium text-[#FFFFFF] py-[8px] px-[12px] header w-[50%]">
+          Job Listings
+        </div>
+      </div>
+      <div className="flex flex-row justify-between ">
+        <Leftform setFile={setFile} file={file} />
+        <Rightform />
+      </div>
+    </div>
+  );
+};
+
+export default Index;
