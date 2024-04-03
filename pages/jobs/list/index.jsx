@@ -1,14 +1,17 @@
 import React from "react";
 import { AddIcon } from "../../../utils/svg";
+import { useRouter } from "next/router";
 
 const Index = () => {
+  const router = useRouter();
+
   return (
     <div className="job-list customMargins flex flex-col gap-[16px] ">
       <div className="flex justify-between items-center header w-full">
         <span className="text-[18px] font-medium text-[#FFFFFF] py-[8px] px-[12px] ">
           Job Listings
         </span>
-        <button className="text-[16px] font-medium text-[#FFFFFF] bg-[#06A9EF] px-[12px] py-[8px] rounded-[8px] flex flex-row items-center gap-[4px] ">
+        <button className="text-[16px] font-medium text-[#FFFFFF] bg-[#06A9EF] px-[12px] py-[8px] rounded-[8px] flex flex-row items-center gap-[4px] " onClick={()=>router.push('/jobs/create')}>
           <AddIcon color={"#fff"} /> Create New Job
         </button>
       </div>

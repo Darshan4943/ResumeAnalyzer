@@ -33,11 +33,11 @@ function Header({ userData }) {
           : "bg-white z-[100] fixed w-[100%]  "
       }
       style={{
-        border: '1.5px solid #DEDEDE'
-    }}
+        border: "1.5px solid #DEDEDE",
+      }}
     >
       <div className="flex justify-center items-center   z-[100] customMargins">
-        <div className="flex justify-between w-[100%]  my-[8px]  gap-2 ">
+        <div className="flex justify-between w-[100%]  h-[56px]  gap-2 ">
           {!isLogin ? (
             <>
               <div className="flex items-center gap-9 ">

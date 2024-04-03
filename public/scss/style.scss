@@ -6,6 +6,7 @@
 @import "base/model";
 @import "pages/home";
 @import "pages/job-list";
+@import "pages/editor";
 
 @import "pages/sign";
 
@@ -69,7 +70,12 @@ html {
     background-image: url("../images/employer/sidebar/sidebarbg.svg");
   }
   .bg-carousel_bg {
-    background-image: url("../images/resumeBuilder/carousel_bg.png");
+    background-image: url("../images/resumeBuilder/temp.png");
+    background-position-y: 26rem;
+  }
+  .temp-bg-gradient {
+    background-image: url("../images/resumeBuilder/temp-bg.png");
+    background-size: cover;
   }
   .bg-inventory {
     background-image: url("../images/resumeBuilder/inventory.png");
@@ -227,7 +233,6 @@ html {
     display: flex;
     justify-content: center;
     align-items: center;
-    
   }
 
   .container {
