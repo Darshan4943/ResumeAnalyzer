@@ -33,7 +33,7 @@ function Header({ userData }) {
           : "bg-white z-[100] fixed w-[100%]  "
       }
       style={{
-        border: "1.5px solid #DEDEDE",
+        borderBottom: "1.5px solid #DEDEDE",
       }}
     >
       <div className="flex justify-center items-center   z-[100] customMargins">
