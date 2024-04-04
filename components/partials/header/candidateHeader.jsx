@@ -105,9 +105,12 @@ function CandidateHeader() {
 
           <li>Home</li>
         </Link>
-        <div className="relative ">
+        <Link className="relative "
+         href="/services"
+        >
+          
           <div
-            onClick={() => setServices(!isServices)}
+            // onClick={() => setServices(!isServices)}
             className={
               " text-[14px] flex gap-2  items-center font-semibold p-[10px] hover:bg-[#EAF7FF] rounded-[14px] cursor-pointer "
             }
@@ -143,7 +146,7 @@ function CandidateHeader() {
             <li>Services</li>
           </div>
           {isServices && <Services setServices={setServices} />}
-        </div>
+        </Link>
         <Link
           href="/jobs/list"
           className={

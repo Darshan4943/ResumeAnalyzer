@@ -44,6 +44,18 @@
 
   border-radius: 6px;
 }
+.header1 {
+  background: rgb(6, 169, 239);
+  background: linear-gradient(
+    90deg,
+    rgba(6, 169, 239, 1) 0%,
+    rgb(40, 183, 244) 20%,
+    rgb(83, 198, 247) 40%,
+    rgba(255, 255, 255, 1) 90%
+  );
+
+  border-radius: 6px;
+}
 .post-job{
   .form-group{
     width: 100%;
