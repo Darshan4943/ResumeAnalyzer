@@ -228,7 +228,7 @@ const Leftform = ({
             type="text"
             placeholder="Enter Company name"
             className="input"
-            value={data.companyName}
+            value={data?.companyName}
             onChange={(e) => {
               setData({ ...data, companyName: e.target.value });
             }}
@@ -262,8 +262,8 @@ const Leftform = ({
             </div>
           </div>
           <div className="flex flex-row flex-wrap gap-3">
-            {data?.location?.map((item) => (
-              <div className="py-[4px] px-[8px] bg-[#effaff] rounded-[8px] flex flex-row gap-3 items-center ">
+            {data?.location?.map((item,index) => (
+              <div key={index} className="py-[4px] px-[8px] bg-[#effaff] rounded-[8px] flex flex-row gap-3 items-center ">
                 <span> {item}</span>
                 <span
                   className="text-[14px]  cursor-pointer font-medium "

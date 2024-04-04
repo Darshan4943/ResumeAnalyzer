@@ -71,7 +71,9 @@ const JobListing = ({ jobs }) => {
                             </>
                           ) : (
                             <div className="text-[14px]">
-                              {data["justification Of Matching"]}
+                              {data && data["justification Of Matching"]
+                                ? data["justification Of Matching"]
+                                : null}
                             </div>
                           )}
                         </ul>
@@ -102,9 +104,9 @@ const JobListing = ({ jobs }) => {
                       <div className="flex flex-row justify-between items-center">
                         {(
                           data?.percentage > 0 &&
+                          data &&
                           data["justification Of Matching"]?.length > 0 &&
-                          data["justification Of Matching"]
-                            .toLowerCase()
+                          data["justification Of Matching"]?.toLowerCase()
                             .split(" ")
                             .includes("no")
                             ? false

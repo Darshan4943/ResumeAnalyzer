@@ -19,8 +19,8 @@ const Tiptap = ({ data, setData, value, placeholder }) => {
   });
 
   return (
-    <div>
-      <Toolbar editor={editor} content={data[value]} />
+   data && <div>
+      <Toolbar editor={editor} content={data[value] ? data[value] : ""} />
       <EditorContent style={{ whiteSpace: "pre-line" }} editor={editor} />
     </div>
   );
