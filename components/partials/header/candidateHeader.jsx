@@ -147,7 +147,7 @@ function CandidateHeader() {
           </div>
           {isServices && <Services setServices={setServices} />}
         </Link>
-        <Link
+        {/* <Link
           href={userDataGlobal.role === "user" ? "/jobs/search" : "/jobs/list"}
           className={
             (selectedPage === userDataGlobal.role) === "user"
@@ -186,7 +186,7 @@ function CandidateHeader() {
           </svg>
 
           <li>Jobs</li>
-        </Link>
+        </Link> */}
       </div>
       {/* <div className="flex justify-center items-center list-none  gap-9 ">
         <Link href="/home">

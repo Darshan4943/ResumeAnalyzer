@@ -31,7 +31,7 @@ const Rightform = ({ data, setData, file, croppedImage }) => {
     }
     formData.append("createdBy", userDataGlobal._id);
     axios
-      .post("http://localhost:2000/api/job/add", formData)
+      .post("https://freedygoservices.in/api/job/add", formData)
       .then((res) => {
         toast.success("Job Post Created Successfully");
         setLoading(false);

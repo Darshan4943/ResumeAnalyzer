@@ -11,7 +11,7 @@ function Services() {
         { name: "Transform CV", imgSrc: "/images/resumeBuilder/transform_cv.png", desc: "Modify CV with AI to match any job description & get shortlisted.", color: "#428FF5" },
         { name: "Skill Assessments", imgSrc: "/images/resumeBuilder/skill_assessments.png", desc: "Test your skills and improve knowledge to crack job interviews.", color: "#FE7701" },
         { name: "My Purchases", imgSrc: "/images/resumeBuilder/my_purchases.png", desc: "Details of subscription plan and paid services.", color: "#8901FF" },
-        { name: "Search Jobs", imgSrc: "/images/resumeBuilder/job.png", desc: "Find jobs matching to a particular resume and apply easily.", color: "#6441A5",new: "New"  }
+        // { name: "Search Jobs", imgSrc: "/images/resumeBuilder/job.png", desc: "Find jobs matching to a particular resume and apply easily.", color: "#6441A5",new: "New"  }
     ];
 
     const loginListRecruiter = [
@@ -21,7 +21,7 @@ function Services() {
         { name: "Job Description Matching", imgSrc: "/images/resumeBuilder/job_description_matching.png", desc: "Check eligibility level of multiple resumes with a job description.", color: "#B847FF" },
         { name: "My Collection", imgSrc: "/images/resumeBuilder/collection.png", desc: "Save multiple resumes with multiple clients in cloud storage.", color: "#45ABA0" },
         { name: "My Purchases", imgSrc: "/images/resumeBuilder/my_purchases.png", desc: "Details of subscription plan and paid services.", color: "#8901FF" },
-        { name: "Post Jobs", imgSrc: "/images/resumeBuilder/job.png", desc: "Post new job openings to connect with more candidates.", color: "#6441A5", new: "New" }
+        // { name: "Post Jobs", imgSrc: "/images/resumeBuilder/job.png", desc: "Post new job openings to connect with more candidates.", color: "#6441A5", new: "New" }
     ];
     const [visible, setVisible] = useState(false);
 

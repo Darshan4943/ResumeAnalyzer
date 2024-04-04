@@ -215,7 +215,7 @@ const Index = () => {
   const searchJob = () => {
     setLoading(true);
     axios
-      .post("http://localhost:2000/api/job/search", {
+      .post("https://freedygoservices.in/api/job/search", {
         ...selected,
         resumeCount,
         threshold,
