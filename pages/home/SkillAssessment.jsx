@@ -702,7 +702,7 @@ function SkillAssessment() {
                   />
                 </div>
                 <div
-                  className="flex flex-row gap-[3px] items-center cursor-pointer text-[18px] font-[600] w-[340px] px-[12px] justify-between  rounded-[8px] border-[1px] border-solid border-[#06A9EF] bg-[#fff]"
+                  className="flex flex-row gap-[3px] items-center cursor-pointer text-[18px] font-[600] min-w-[174px] w-[289px] px-[12px] justify-between  rounded-[8px] border-[1px] border-solid border-[#06A9EF] bg-[#fff]"
                   onClick={() => {
                     if (questionIndex == 9) {
                       axios
