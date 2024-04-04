@@ -30,7 +30,6 @@ function Layout({ children }) {
           <CandidateMobileHeader />
         </div>
         <div className="pt-[3.5rem]  ">{children}</div>
-        <Footer />
       </div>
 
       <div className="web">
@@ -39,7 +38,6 @@ function Layout({ children }) {
         </div>
         <div className="pt-[3.5rem] ">{children}</div>
 
-        <Footer />
       </div>
     </>
   );
