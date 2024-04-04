@@ -65,8 +65,8 @@ const Index = () => {
             <>
               {jobPost.length > 0 ? (
                 <>
-                  {jobPost.map((item) => (
-                    <div className="job-card">
+                  {jobPost.map((item,index) => (
+                    <div key={index} className="job-card">
                       <div className="px-[16px] flex flex-row justify-between">
                         <div className="flex flex-col gap-[2px]">
                           <span className="text-[16px] text-[#06A9EF] font-medium">
