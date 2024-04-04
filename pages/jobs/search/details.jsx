@@ -21,7 +21,7 @@ const Details = ({ data, setSelectedFile, files, extractedData }) => {
               </span>
             </div>
             <div className="flex gap-[12px] items-center ">
-              <span className="text-[14px] font-500">{data.companyName}</span>
+              <span className="text-[14px] font-500">{data?.companyName}</span>
               <span className="text-[14px] font-500">
                 {data?.location.join(",")}
               </span>
@@ -30,9 +30,10 @@ const Details = ({ data, setSelectedFile, files, extractedData }) => {
           <div className="w-[100%]  px-[8px] pb-[16px] border-b-[1px] border-[#bebebe]"></div>
           {(
             data?.percentage > 0 &&
+            data &&
             data["justification Of Matching"]?.length > 0 &&
             data["justification Of Matching"]
-              .toLowerCase()
+              ?.toLowerCase()
               .split(" ")
               .includes("no")
               ? false
@@ -42,7 +43,7 @@ const Details = ({ data, setSelectedFile, files, extractedData }) => {
           ) : null}
           <div className="w-full flex flex-row justify-between ">
             <div className="flex flex-col gap-4  mt-6 w-[48%]">
-              {data["Matching parameters"].length > 0 && (
+              {data && data["Matching parameters"]?.length > 0 && (
                 <div className="flex flex-col gap-[8px] min-h-[157px] justify-top relative w-full ">
                   <span className="text-[#333333] text-[16px] font-semibold ">
                     Matching Parameters
@@ -69,7 +70,7 @@ const Details = ({ data, setSelectedFile, files, extractedData }) => {
                   </ul>
                 </div>
               )}
-              {data["justification Of Matching"]?.length > 0 && (
+              {data && data["justification Of Matching"]?.length > 0 && (
                 <div className="flex flex-col gap-[8px]  justify-between relative  w-full ">
                   <span className="text-[#333333] text-[16px] font-semibold">
                     Justification

@@ -55,7 +55,7 @@ const Rightform = ({ data, setData, file, croppedImage }) => {
             type="text"
             placeholder="Add job title / role"
             className="input"
-            value={data.jobTitle}
+            value={data?.jobTitle}
             onChange={(e) => {
               setData({ ...data, jobTitle: e.target.value });
             }}
@@ -90,7 +90,7 @@ const Rightform = ({ data, setData, file, croppedImage }) => {
                   zIndex: 1,
                   background: " transparent",
                 }}
-                value={data.salaryType}
+                value={data?.salaryType}
                 onChange={(e) => {
                   setData({ ...data, salaryType: e.target.value });
                 }}
@@ -116,7 +116,7 @@ const Rightform = ({ data, setData, file, croppedImage }) => {
               type="text"
               placeholder=""
               className="border border-[#DEDEDE] rounded-[6px] py-[8px] px-[16px] "
-              value={data.minSalary}
+              value={data?.minSalary}
               onChange={(e) => {
                 setData({ ...data, minSalary: e.target.value });
               }}
@@ -130,7 +130,7 @@ const Rightform = ({ data, setData, file, croppedImage }) => {
               type="text"
               placeholder=""
               className="border border-[#DEDEDE] rounded-[6px] py-[8px] px-[16px] "
-              value={data.maxSalary}
+              value={data?.maxSalary}
               onChange={(e) => {
                 setData({ ...data, maxSalary: e.target.value });
               }}
@@ -145,7 +145,7 @@ const Rightform = ({ data, setData, file, croppedImage }) => {
             type="text"
             placeholder="Required Qualtification"
             className="input"
-            value={data.requiredQualification}
+            value={data?.requiredQualification}
             onChange={(e) => {
               setData({ ...data, requiredQualification: e.target.value });
             }}
@@ -166,7 +166,7 @@ const Rightform = ({ data, setData, file, croppedImage }) => {
             }
           />
           <div className="flex flex-row flex-wrap gap-3">
-            {data.skills.map((item,index) => (
+            {data?.skills?.map((item,index) => (
               <div key={index} className="py-[4px] px-[8px] bg-[#effaff] rounded-[8px] flex flex-row gap-3 items-center ">
                 <span> {item}</span>
                 <span
@@ -193,7 +193,7 @@ const Rightform = ({ data, setData, file, croppedImage }) => {
               type="date"
               placeholder="Required Qualtification"
               className="border border-[#DEDEDE] rounded-[6px] py-[8px] px-[16px]"
-              value={data.deadLine}
+              value={data?.deadLine}
               onChange={(e) => {
                 setData({ ...data, deadLine: e.target.value });
               }}
@@ -212,7 +212,7 @@ const Rightform = ({ data, setData, file, croppedImage }) => {
                   position: "relative",
                   background: " transparent",
                 }}
-                value={data.experiance}
+                value={data?.experiance}
                 onChange={(e) => {
                   setData({ ...data, experiance: e.target.value });
                 }}

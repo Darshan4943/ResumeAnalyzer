@@ -9,8 +9,8 @@ const Index = () => {
   const [croppedImage, setCroppedImage] = useState(null);
   const router = useRouter()
   const [data, setData] = useState({
-    companyName: null,
-    jobTitle: null,
+    companyName: "",
+    jobTitle: "",
     location: [],
     aboutOrganization: "",
     description: "",
@@ -19,8 +19,8 @@ const Index = () => {
     maxSalary: 0,
     requiredQualification: "",
     requiredSkills: "",
-    deadLine: null,
-    experiance: null,
+    deadLine: "",
+    experiance: "",
     skills: [],
   });
   return (
