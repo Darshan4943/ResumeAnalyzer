@@ -64,12 +64,12 @@ function CandidateHome() {
             <Home />
           </div>
         </div>
-        <div className="flex items-end justify-center overflow-hidden ">
+        <div className="flex items-end justify-center  ">
           <GenerateAi />
         </div>
 
         <div  
-        className=" bg-resume_bg bg-cover bg-no-repeat  py-[80px] overflow-hidden ">
+        className=" bg-resume_bg bg-cover bg-no-repeat  py-[80px]  ">
         
           <div className=" flex flex-row gap-9 items-center customMargins">
             <div className="w-[65%] bg-gradient bg-contain bg-no-repeat   ">
