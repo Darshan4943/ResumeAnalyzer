@@ -68,11 +68,11 @@ function Services() {
     return (
         <div className=' py-10  customMargins w-full '>
             <div className='scr1400:px-[4%] flex gap-9 justify-center w-full'>
-                <div onClick={()=>router.push("/home")} onMouseEnter={() => {
+                <div onClick={() => router.push("/home")} onMouseEnter={() => {
                     setVisible1(true);
 
                 }}
-                    onMouseLeave={() => setVisible1(false)} className={`rounded-[24px] bg-[#F9F9F9]  flex flex-col justify-between gap-2  p-6 min-w-[272px]  h-[186px] leading-tight border cursor-pointer ${!visible1 ? " border-[#DEDEDE]" :"border-[#F9F9F9]" }`}>
+                    onMouseLeave={() => setVisible1(false)} className={`rounded-[24px] bg-[#F9F9F9]  flex flex-col justify-between gap-2  p-6 min-w-[272px]  h-[186px] leading-tight border cursor-pointer ${!visible1 ? " border-[#DEDEDE]" : "border-[#F9F9F9]"}`}>
                     <div className={`svg-transition flex justify-end ${visible1 ? 'svg-original' : 'svg-left'}`}>
                         <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg" className={`svg-transition ${visible1 ? 'svg-original' : 'svg-left'}`}>
 
@@ -154,7 +154,7 @@ function Services() {
                                 }}
                                 onMouseLeave={() => setVisible(false)}
                             >
-                                <div className={`flex items-start gap-[60px] p-4  ${ visible !== index ?  "border border-[#DEDEDE]" :"border border-[#FFF]" } rounded-[16px] cursor-pointer w-[359.33px] `}>
+                                <div className={`flex items-start gap-[60px] p-4  ${visible !== index ? "border border-[#DEDEDE]" : "border border-[#FFF]"} rounded-[16px] cursor-pointer w-[359.33px] `}>
                                     <div className="flex items-center gap-3">
                                         <img
                                             src={item.imgSrc}
