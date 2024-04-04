@@ -335,7 +335,7 @@ export const Assessmentlogo = ({ className }) => (
     </defs>
   </svg>
 );
-export const PlusAddLogo = ({ className }) => (
+export const PlusAddLogo = ({ className,color="#646464" }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="24"
@@ -345,7 +345,7 @@ export const PlusAddLogo = ({ className }) => (
     className={className}
   >
     <g mask="url(#mask0_7974_135514)">
-      <path d="M11 13H5V11H11V5H13V11H19V13H13V19H11V13Z" fill="#646464" />
+      <path d="M11 13H5V11H11V5H13V11H19V13H13V19H11V13Z" fill={color} />
     </g>
   </svg>
 );

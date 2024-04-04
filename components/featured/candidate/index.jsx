@@ -115,6 +115,7 @@ function CandidateHome() {
       </div>
 
       <MobileView clickHandler={clickHandler} isLogin={isLogin} />
+      
     </div>
   );
 }

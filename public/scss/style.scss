@@ -286,6 +286,19 @@ html {
   }
 }
 
-ul,ol{
+ul,
+ol {
   list-style: unset !important;
+}
+
+.move {
+  transition: all .3s linear;
+}
+@keyframes move {
+  from {
+    transform: translateX(0px);
+  }
+  to {
+    transform: translateX(45px);
+  }
 }

@@ -127,7 +127,7 @@ const Toolbar = ({ editor, content }) => {
           className={
             editor.isActive("undo")
               ? "p-2 rounded-lg bg-[#effaff]"
-              : "text-sky-400 p-2 hover:bg-[#effaff]  p-1 hover:rounded-lg"
+              : "text-sky-400 p-2 hover:bg-[#effaff] hover:rounded-lg"
           }
         >
           <Undo className="w-5 h-5" />

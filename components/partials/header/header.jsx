@@ -44,7 +44,7 @@ function Header({ userData }) {
                 <Link href="/">
                   {" "}
                   <img
-                    className="h-[44px] w-[131px]"
+                    className="object-contain h-[36px]"
                     src="/images/logo_skilotech.png"
                     alt=""
                   />
@@ -53,8 +53,8 @@ function Header({ userData }) {
                   href="/"
                   className={
                     selectedPage === "/" || selectedPage === "/home"
-                      ? "active scr1250:text-[18px] text-[16px]"
-                      : "li scr1250:text-[18px] text-[16px]"
+                      ? "active scr1250:text-[16px] text-[16px]"
+                      : "li scr1250:text-[16px] text-[16px]"
                   }
                 >
                   Candidate
@@ -63,8 +63,8 @@ function Header({ userData }) {
                   href="/recruiter"
                   className={
                     selectedPage === "/recruiter"
-                      ? "active scr1250:text-[18px] text-[16px]"
-                      : "li scr1250:text-[18px] text-[16px]"
+                      ? "active scr1250:text-[16px] text-[16px]"
+                      : "li scr1250:text-[16px] text-[16px]"
                   }
                 >
                   Recruiter
@@ -76,7 +76,7 @@ function Header({ userData }) {
                     router.push("/auth?signin=true");
                   }}
                 >
-                  <button className=" buttonTransparent min-w-[138px] rounded-[12px] flex justify-center items-center bg-white text-[#333] py-3 px-9 text-[16px] font-medium border border-transparent hover:border-[#06A9EF]">
+                  <button className=" buttonTransparent min-w-[138px] rounded-[12px] flex justify-center items-center bg-white text-[#333] py-2 px-6 text-[16px] font-medium border border-transparent hover:border-[#06A9EF]">
                     Sign in
                   </button>
                 </div>
@@ -85,7 +85,7 @@ function Header({ userData }) {
                   onClick={() => {
                     router.push("/auth?signup=true");
                   }}
-                  className="rounded-[12px] min-w-[138px] flex justify-center items-center bg-white text-[#333] py-3 px-9 text-[16px] font-medium border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
+                  className="rounded-[12px] min-w-[138px] flex justify-center items-center bg-white text-[#333] py-2 px-6 text-[16px] font-medium border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
                 >
                   Sign Up
                 </button>

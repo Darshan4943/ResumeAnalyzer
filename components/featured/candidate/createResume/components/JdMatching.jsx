@@ -127,13 +127,14 @@ const JdMatching = ({ details, resuneList }) => {
                           {fileIconSeter(data)}
                           <div className="flex flex-col justify-between break-all w-full ">
                             <span className="md:text-[14px] text-[14px] text-[#333333] font-medium">
-                            {data.fileName.length > 17 ? `${data.fileName.slice(0, 16)}...` : data.fileName}
+                              {data.fileName.length > 17
+                                ? `${data.fileName.slice(0, 16)}...`
+                                : data.fileName}
                             </span>
                             <div className="flex gap-2 justify-between">
                               <span className="md:text-[14px] text-[14px] text-[#808080] font-medium">
                                 {/* {getFileSize(data?.resumeUrl)} */}
                                 <FileSizeDisplay fileUrl={data?.resumeUrl} />
-
                               </span>
                               <div className="flex flex-row gap-[8px] items-center">
                                 <span className="md:text-[14px] text-[14px] text-[#06A9EF] font-[600] cursor-pointer">
@@ -160,7 +161,6 @@ const JdMatching = ({ details, resuneList }) => {
                             </div>
                           </div>
                         </div>
-
                       </div>
                       <div className="flex flex-col gap-[12px] min-h-[157px] justify-start relative ">
                         <span className="text-[#333333] text-[16px] font-[500]">

@@ -145,9 +145,11 @@ function CandidateHeader() {
           {isServices && <Services setServices={setServices} />}
         </div>
         <Link
-          href="/jobs/list"
+          href={userDataGlobal.role === "user" ? "/jobs/search" : "/jobs/list"}
           className={
-            selectedPage === "/jobs/list"
+            (selectedPage === userDataGlobal.role) === "user"
+              ? "/jobs/search"
+              : "/jobs/list"
               ? "text-[14px] flex gap-2 items-center bg-[#EAF7FF]  py-[8px] px-[12px] font-semibold rounded-[14px]"
               : " text-[14px] flex gap-2 items-center font-semibold py-[8px] px-[12px]  hover:bg-[#EAF7FF] rounded-[14px] "
           }

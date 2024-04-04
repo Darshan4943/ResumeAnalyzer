@@ -9,7 +9,7 @@ const Tiptap = ({ data, setData, value, placeholder }) => {
     editorProps: {
       attributes: {
         class:
-          "flex flex-col px-4 py-3 justify-start border-b border-r border-l border-[#DEDEDE] text-gray-400 items-start w-full gap-3 font-medium text-[16px] pt-4 rounded-bl-md rounded-br-md outline-none min-h-[200px] cursor-auto ",
+          "flex flex-col px-4 py-3 justify-start border-b border-r border-l border-[#DEDEDE] text-[#333333] items-start w-full gap-3 font-medium text-[16px] pt-4 rounded-bl-md rounded-br-md outline-none min-h-[200px] cursor-auto ",
       },
     },
     content: `<p>${placeholder}</p>`,

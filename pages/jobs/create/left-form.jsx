@@ -7,10 +7,17 @@ import PlacesAutocomplete, {
 } from "react-places-autocomplete";
 import { PlusAddLogo } from "../../../utils/svg";
 import Tiptap from "../../../components/editor/Tiptap";
-const Leftform = ({ file, setFile,data,setData }) => {
+const Leftform = ({
+  file,
+  setFile,
+  data,
+  setData,
+  croppedImage,
+  setCroppedImage,
+}) => {
   const fileRef = useRef();
+  const [loactionText, setLoactionText] = useState(null);
   const [modelView, setModelView] = useState(false);
-  const [croppedImage, setCroppedImage] = useState(null);
   const handleFileChange = (event) => {
     event.preventDefault();
     const selectedFile = event.target.files[0];
@@ -221,6 +228,10 @@ const Leftform = ({ file, setFile,data,setData }) => {
             type="text"
             placeholder="Enter Company name"
             className="input"
+            value={data.companyName}
+            onChange={(e) => {
+              setData({ ...data, companyName: e.target.value });
+            }}
           />
         </div>
         <div className="form-group">
@@ -228,17 +239,57 @@ const Leftform = ({ file, setFile,data,setData }) => {
             Location
           </label>
           <div className="w-full relative ">
-            <input type="text" placeholder="Location" className="input" />
-            <div className=" absolute right-3 top-[12px] ">
-              <PlusAddLogo />
+            <input
+              type="text"
+              placeholder="Location"
+              className="input"
+              value={loactionText}
+              onChange={(e) => setLoactionText(e.target.value)}
+            />
+            <div
+              className=" absolute right-3 top-[12px] "
+              onClick={() => {
+                setData({
+                  ...data,
+                  location: [...data.location, loactionText],
+                });
+                setLoactionText("");
+              }}
+            >
+              <PlusAddLogo
+                color={loactionText?.length > 0 ? "#646464" : "#bebebe"}
+              />
             </div>
+          </div>
+          <div className="flex flex-row flex-wrap gap-3">
+            {data?.location?.map((item) => (
+              <div className="py-[4px] px-[8px] bg-[#effaff] rounded-[8px] flex flex-row gap-3 items-center ">
+                <span> {item}</span>
+                <span
+                  className="text-[14px]  cursor-pointer font-medium "
+                  onClick={() =>
+                    setData({
+                      ...data,
+                      location: data.location.filter((data) => data != item),
+                    })
+                  }
+                >
+                  X
+                </span>
+              </div>
+            ))}
           </div>
         </div>
         <div className="form-group">
           <label className="text-[#333333] text-[14px] font-medium">
             About Organization
           </label>
-          <Tiptap data={data} value={"about-organization"} setData={setData} placeholder={"Enter About Organization here"} />
+          <Tiptap
+            data={data}
+            value={"aboutOrganization"}
+            setData={setData}
+            placeholder={"Enter About Organization here"}
+          />
         </div>
       </div>
     </div>

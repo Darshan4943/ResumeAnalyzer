@@ -10,6 +10,7 @@ import SubscriptionPlan from "../../components/featured/home/SubscriptionHome";
 import PrecisionMatching from "./PrecisionMatching";
 import TransformResume from "./TransformResume";
 import ClientSection from "./ClientSection";
+import Footer from "../../components/partials/footer/footer";
 
 function Recruiter_page() {
   const [showAnimationn, setShowAnimation] = useState(true);
@@ -61,6 +62,8 @@ function Recruiter_page() {
         </ReactLenis>
       </div>
       <SubscriptionPlan fromMain={true} />
+      <Footer
+       />
     </>
   );
 }
