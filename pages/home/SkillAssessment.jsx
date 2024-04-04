@@ -209,7 +209,7 @@ function SkillAssessment() {
                             onClick={() => {
                               setSelectedSkill(item);
                             }}
-                            className={`px-4 py-2 border-[1px] border-solid border-[#06A9EF] rounded-[25px] text-[14px]  font-medium text-[#333]  transition-[0.2s] ${selectedSkill == item && "bg-[#06A9EF] text-white"
+                            className={`ml:px-4 ml:py-2 px-2 py-1 border-[1px] border-solid border-[#06A9EF] rounded-[25px] ml:text-[14px] text-[12px] font-medium text-[#333]  transition-[0.2s] ${selectedSkill == item && "bg-[#06A9EF] text-white"
                               }`}
                           >
                             {item}
@@ -226,7 +226,7 @@ function SkillAssessment() {
               {!viewAddSkill ? (
                 <button
                   onClick={() => setViewAddSkill(true)}
-                  className="rounded-[12px] ml:px-[22.8px] px-3  ml:min-w-[235px] min-w-[180px] py-2  flex gap-2 ml:text-[16px] scr420:text-[14px] text-[12px] justify-center items-center bg-blue text-white scr420:h-[50px] h-[40px] font-semibold"
+                  className="rounded-[12px] ml:px-[22.8px] px-3  ml:min-w-[235px] min-w-[180px] py-2  flex gap-2 ml:text-[16px] scr420:text-[14px] text-[12px] justify-center items-center bg-blue text-white ml:h-[50px] h-[40px] font-semibold"
                 >
                   Select Another Skill
                   <svg
@@ -245,7 +245,7 @@ function SkillAssessment() {
               ):(
                 <button
                   onClick={() => setViewAddSkill(false)}
-                  className="rounded-[12px] ml:px-[22.8px] px-3  ml:min-w-[235px] min-w-[180px] py-2  flex gap-2 ml:text-[16px] scr420:text-[14px] text-[12px] justify-center items-center bg-blue text-white scr420:h-[50px] h-[40px] font-semibold"
+                  className="rounded-[12px] ml:px-[22.8px] px-3  ml:min-w-[235px] min-w-[180px] py-2  flex gap-2 ml:text-[16px] scr420:text-[14px] text-[12px] justify-center items-center bg-blue text-white ml:h-[50px] h-[40px] font-semibold"
                 >
                   Select From My Skills
                   <svg
@@ -267,11 +267,11 @@ function SkillAssessment() {
                   onClick={() => setshowSecondDiv(!showSecondDiv)}
                 >
                   {!showSecondDiv ? (
-                    <button className="rounded-[12px] ml:text-[16px] text-[12px] scr420:px-4 px-2 scr420:py-2 py-2 flex gap-2 justify-center items-center bg-blue text-white scr420:h-[50px] h-[40px] font-semibold">
+                    <button className="rounded-[12px] ml:text-[16px] text-[12px] scr420:px-4 px-2 scr420:py-2 py-2 flex gap-2 justify-center items-center bg-blue text-white ml:h-[50px] h-[40px] font-semibold">
                       View Results
                     </button>
                   ) : (
-                    <button className="rounded-[12px]  ml:text-[16px] text-[12px] scr420:px-4 px-2 scr420:py-2 py-2 flex gap-2 justify-center items-center bg-blue text-white scr420:h-[50px] h-[40px] font-semibold">
+                    <button className="rounded-[12px]  ml:text-[16px] text-[12px] scr420:px-4 px-2 scr420:py-2 py-2 flex gap-2 justify-center items-center bg-blue text-white ml:h-[50px] h-[40px] font-semibold">
                       Hide Results
                     </button>
                   )}

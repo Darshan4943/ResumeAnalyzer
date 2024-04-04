@@ -180,8 +180,8 @@ function CreateResume() {
     setTimeout(() => setRender(true), 400);
   }, [data]);
   return (
-    <div>
-      <div className=" bg-[#F9F9F9] pt-2 customMargins ">
+    <div className="bg-[#F9F9F9]">
+      <div className="  pt-2 customMargins ">
         <div className="flex flex-col gap-4 py-6 ">
           <div className="web">
             <div className=" h-fit flex gap-6 ">
