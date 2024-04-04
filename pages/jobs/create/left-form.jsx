@@ -228,7 +228,7 @@ const Leftform = ({
             type="text"
             placeholder="Enter Company name"
             className="input"
-            value={data.companyName}
+            value={data?.companyName}
             onChange={(e) => {
               setData({ ...data, companyName: e.target.value });
             }}
