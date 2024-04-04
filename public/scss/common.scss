@@ -385,18 +385,7 @@ a {
 }
 
 
-.svg-transition {
-  transition: transform 0.5s ease-in-out;
-}
 
-
-.svg-original {
-  transform: translateX(0);
-  opacity: 1;
-}
-
-
-.svg-left {
-opacity: 0;
-  transform: translateX(-14px); 
+.group:hover .icon-path {
+  fill: #06A9EF;
 }
