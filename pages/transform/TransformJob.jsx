@@ -104,7 +104,7 @@ function TransformJob() {
   };
 
   return (
-    <div className=" p-6 flex flex-col gap-4">
+    <div className=" py-6 flex flex-col gap-4 customMargins">
       {loading && <EarthLoader />}
       <div
         className="flex ml:flex-row flex-col gap-12 w-[100%] p-4 rounded-[12px]"
@@ -117,7 +117,7 @@ function TransformJob() {
           <div className="flex flex-col gap-4 ">
             {userDataGlobal.role != "user" && (
               <div className="w-full ">
-                <div className="text-[20px] font-medium">Select Client</div>
+                <div className="text-[16px] font-medium">Select Client</div>
                 <ReactSelect
                   options={details?.map((item) => ({
                     value: item._id,
@@ -139,7 +139,7 @@ function TransformJob() {
                 />
               </div>
             )}
-            <div className="text-[18px] font-medium text-[#333333]">
+            <div className="text-[16px] font-medium text-[#333333]">
               Select Resume
             </div>
 

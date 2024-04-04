@@ -13,6 +13,8 @@ import { recallUser } from "../../Redux/reducers/userReducer";
 import MobileView from "../../components/featured/home/mobileView";
 import CandidateHome from "../../components/featured/candidate";
 import Recruiter_page from "../recruiter";
+import RecruiterHome from "../recruiter/RecruiterHome";
+import Footer from "../../components/partials/footer/footer";
 
 function BeforeLoginHome() {
   const [isLogin, setIsLogin] = useState(false);
@@ -39,7 +41,14 @@ function BeforeLoginHome() {
   };
   return (
     <div className="">
-      {userDataGlobal.role == "recruiter" ? <Recruiter_page /> : <CandidateHome />}
+      {userDataGlobal.role == "recruiter" ? (
+        <Recruiter_page />
+        // <RecruiterHome/>
+      ) : (
+        <CandidateHome />
+      )}
+        <Footer />
+  
     </div>
   );
 }

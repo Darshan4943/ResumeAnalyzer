@@ -6,11 +6,11 @@ import { useSelector } from 'react-redux';
 function HeaderSidebar({ selectedPage, setIsSidebar, setIsLogin, isLogin, isSidebar }) {
     const boforeLoginList = ["Candidate", "Recruiter"];
     const loginListCandidate = ["Home", "My Resumes", "Transform CV", "Skill Assessments", "My Purchases"]
-    const loginListRecruiter = ["Home", "My Clients", "Transform CV", "Job Description Matching", "My Purchases"]
+    const loginListRecruiter = ["Home", "My Clients", "Transform CV", "Job Description Matching", "Collection", "My Purchases"]
     const router = useRouter();
     const [visible, setvisible] = useState(false);
     const userDataGlobal = useSelector((state) => state.userData);
-    console.log(11, userDataGlobal)
+  
     const handleNavigation = (page) => {
         setIsSidebar(false);
         router.push(page);
@@ -49,7 +49,7 @@ function HeaderSidebar({ selectedPage, setIsSidebar, setIsLogin, isLogin, isSide
     };
 
     const handleLogOut = () => {
-        router.push("/");        
+        router.push("/");
         setIsLogin(false);
         localStorage.clear();
         window.location.reload();
@@ -78,7 +78,7 @@ function HeaderSidebar({ selectedPage, setIsSidebar, setIsLogin, isLogin, isSide
 
                 <div className='flex flex-col' style={{ listStyle: 'none' }}>
                     {isLogin &&
-                        <div  style={{
+                        <div style={{
                             opacity: visible ? 1 : 0,
                             transform: (visible ? "translateX(0)" : "translateX(-100%)"), transition: "transform 0.6s ease-in-out"
                         }} className='flex gap-4 p-4 items-center '>
@@ -120,7 +120,7 @@ function HeaderSidebar({ selectedPage, setIsSidebar, setIsLogin, isLogin, isSide
                                 ...(item === 'My Resumes' && { ...getListItemStyles('/home/MyCollection'), transition: "transform 0.8s ease-in-out" }),
                                 ...(item === 'Transform CV' && { ...getListItemStyles('/transform/TransformJob'), transition: "transform 0.9s ease-in-out" }),
                                 ...(item === 'Job Description Matching' && { ...getListItemStyles('/transform/JobMatching'), transition: "transform 1s ease-in-out" }),
-
+                                ...(item === 'Collection' && { ...getListItemStyles('/collection'), transition: "transform 1.1s ease-in-out" }),
                                 ...(item === 'Skill Assessments' && { ...getListItemStyles('/home/SkillAssessment'), transition: "transform 1.1s ease-in-out" }),
                                 ...(item === 'My Purchases' && { ...getListItemStyles('/purchase/MyPurchase'), transition: "transform 1.2s ease-in-out" }),
                             }}
@@ -152,6 +152,9 @@ function HeaderSidebar({ selectedPage, setIsSidebar, setIsLogin, isLogin, isSide
 
                                     case 'My Purchases':
                                         handleNavigation('/purchase/MyPurchase');
+                                        break;
+                                    case 'Collection':
+                                        handleNavigation('/collection');
                                         break;
                                     case 'Skill Assessments':
                                         handleNavigation('/home/SkillAssessment');

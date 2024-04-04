@@ -119,7 +119,7 @@ function PrecisionMatching() {
 
 
     return (
-        <div ref={precisionRef} className='flex ml:flex-row flex-col gap-12 w-[100%] items-center justify-center sm:px-6 px-2 ml:py-1 py-6 overflow-hidden'>
+        <div ref={precisionRef} className='flex ml:flex-row flex-col gap-12 w-[100%] items-center justify-center   ml:py-1 py-6 overflow-hidden customMargins'>
             <div className='relative ml:w-[46%] w-[100%]'>
                 <img className='min-w-[46%] ' src="/images/recruiter/recruiterAni.png" alt="" />
                 <motion.img
@@ -165,12 +165,12 @@ function PrecisionMatching() {
 
 
             </div>
-            <div className='flex flex-col ml:gap-6 gap-4 ml:w-[50%] w-[100%] ml:items-start items-center'>
+            <div className='flex flex-col ml:gap-6 gap-4 ml:w-[50%] w-[100%] ml:items-start items-center '>
                 <div className='flex flex-col gap-2 ml:text-start text-center'>
-                    <p className='ml:text-[3.3vw] text-[9vw] font-bold leading-tight'> <span className='text-[#06A9EF]'>Precision Matching</span> for Perfect Job Fits</p>
-                    <p className='ml:text-[1.71vw] text-[5vw] font-medium'>Unlock the power of precision matching with our job description <span className='text-[#06A9EF]'>compatibility search</span> feature.</p>
+                    <p className='ml:text-[3vw] text-[9vw] font-bold leading-tight'> <span className='text-[#06A9EF]'>Precision Matching</span> for Perfect Job Fits</p>
+                    <p className='ml:text-[1.3vw] text-[5vw] font-medium'>Unlock the power of precision matching with our job description <span className='text-[#06A9EF]'>compatibility search</span> feature.</p>
                 </div>
-                <div className='ml:text-[1.45vw] text-[4vw] font-medium ml:text-start text-center'>
+                <div className='ml:text-[1.2vw] text-[4vw] font-medium ml:text-start text-center'>
                 Simply input the job description and let our AI algorith filter through your client database to find the perfect matches, saving you considerable time and money.
                 </div>
                 <button className='bg-[#06A9EF] text-white flex gap-2  ml:px-4 px-2 ml:py-3 py-2 ml:w-[174px] ml:rounded-[12px] rounded-[8px] justify-center items-center' onClick={clickHandler}>

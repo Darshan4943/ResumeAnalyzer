@@ -67,23 +67,24 @@ function MyClients() {
   };
 
   return (
-    <div className="flex justify-center">
+    <div className="flex justify-center customMargins py-6">
       {tabIndex === 0 && (
-        <div className="flex flex-col gap-4 sm:p-6 p-2 w-[100%]">
-          <div className="text-[24px] font-semibold">My Clients</div>
+        <div className="flex flex-col gap-4  w-[100%]">
+          <div className="text-[20px] font-semibold">My Clients</div>
           <div
             style={{ boxShadow: "0px 2px 7px 0px #00000040" }}
             className="flex flex-col gap-4 sm:p-6 px-2 py-3 rounded-[24px]"
           >
-            <div className="flex ml:flex-row flex-col gap-4  justify-end ml:items-center items-end ">
+            <div className="flex ml:flex-row flex-col gap-4  justify-between ml:items-center items-end ">
               <div
                 style={{ boxShadow: "0px 2px 7px 0px #00000040" }}
                 className="flex gap-4 justify-between rounded-[50px] px-4 py-3 ml:w-[82%] w-[100%] items-center "
               >
                 <div className="flex gap-4  w-full items-center ">
                   <svg
-                    width="36"
-                    height="36"
+                    className="min-w-[24px]"
+                    width="24"
+                    height="24"
                     viewBox="0 0 36 36"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
@@ -98,7 +99,7 @@ function MyClients() {
                   </svg>
 
                   <input
-                    className="w-full"
+                    className="w-full h-[24px]"
                     type="text"
                     placeholder="Search client name or keyword"
                     onChange={(e) => changeHandler(e.target.value)}
@@ -108,10 +109,16 @@ function MyClients() {
               <div className="flex gap-4 items-center  justify-end relative">
                 <button
                   onClick={() => router.push("/myClients/CreateNewClient")}
-                  className="text-[16px] font-semibold py-3 px-6 h-[48px] min-w-[212px] bg-[#06A9EF] rounded-[12px] text-white"
+                  className="text-[16px] font-semibold py-3 px-6 h-[48px] min-w-[228px] flex gap-1 bg-[#06A9EF] rounded-[12px] text-white"
                   type="button"
                 >
-                  + Create New Client
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+                    <g mask="url(#mask0_612_10078)">
+                      <path d="M11 13H5V11H11V5H13V11H19V13H13V19H11V13Z" fill="white" />
+                    </g>
+                  </svg>
+                  Create New Client
                 </button>
                 {/* <svg
                   className=" cursor-pointer"

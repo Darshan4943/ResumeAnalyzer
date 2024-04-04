@@ -126,10 +126,10 @@ function ClientFolders({
                 <table className="w-[100%] text-[12px] sm:text-[16px]">
                   <thead>
                     <tr>
-                      <th className="py-3 sm:px-4 px-2 rounded-l-[12px] bg-[#C2E7FF] w-[30%] text-left">
+                      <th className="py-3 sm:px-4 px-2 rounded-l-[12px] bg-[#C2E7FF] w-[30%] text-left border-r border-[#FFF]">
                         Name
                       </th>
-                      <th className="py-3 sm:px-4 px-2 bg-[#C2E7FF] w-[25%] text-left">
+                      <th className="py-3 sm:px-4 px-2 bg-[#C2E7FF] w-[25%] text-left border-r border-[#FFF]">
                         Date Modified
                       </th>
                       <th className="py-3 sm:px-4 px-2 rounded-r-[12px] bg-[#C2E7FF] w-[25%] text-left">

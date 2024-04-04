@@ -14,7 +14,7 @@ const ArrowLeft = ({ index }) => (
       <path
         d="M8.525 22L6.75 20.225L14.975 12L6.75 3.775L8.525 2L18.525 12L8.525 22Z"
         fill="#333333"
-        className={index != 2 && "svg_classs"}
+        className={index != 1 && "svg_classs"}
       />
     </g>
   </svg>
@@ -89,26 +89,26 @@ function BuildResume() {
                         xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
-                          className="svg_classs"
+                          
                           d="M38.3333 59.2308H41.6667V43.5833L48.6667 50.5833L51.0257 48.2052L40 37.1795L28.9743 48.2052L31.3526 50.5642L38.3333 43.5833V59.2308ZM22.0512 70C20.5171 70 19.2361 69.4861 18.2083 68.4583C17.1805 67.4306 16.6667 66.1496 16.6667 64.6154V15.3846C16.6667 13.8504 17.1805 12.5694 18.2083 11.5417C19.2361 10.5139 20.5171 10 22.0512 10H48.3333L63.3333 25V64.6154C63.3333 66.1496 62.8194 67.4306 61.7917 68.4583C60.7639 69.4861 59.4829 70 57.9487 70H22.0512ZM46.6667 26.6667V13.3333H22.0512C21.5385 13.3333 21.0684 13.547 20.641 13.9743C20.2137 14.4017 20 14.8718 20 15.3846V64.6154C20 65.1282 20.2137 65.5983 20.641 66.0257C21.0684 66.453 21.5385 66.6667 22.0512 66.6667H57.9487C58.4615 66.6667 58.9316 66.453 59.359 66.0257C59.7863 65.5983 60 65.1282 60 64.6154V26.6667H46.6667Z"
                           fill="#333333"
                         />
                       </svg>
 
                       <div>
-                        <div className="text-[20px] font-[500] sign_ip_text">
+                        <div className="text-[20px] font-[500]  ">
                           Already Have a Resume
                         </div>
-                        <div className="text-[14px] font-[500] text-[#646464] sign_ip_text">
+                        <div className="text-[14px] font-[500] text-[#646464] ">
                           Upload your resume
                         </div>
                       </div>
                     </div>
                   </div>
                   <div className="flex justify-center items-center">
-                    <ArrowLeft />
+                    <ArrowLeft index={1} />
                   </div>
-                  <div className="h-[100%] w-[0%] bg-[#06a9ef] absolute z-[-1] top-[0px] left-[0]  sign_up_blue_hover"></div>
+                  <div className="h-[100%] w-[0%] bg-[#FFD500] absolute z-[-1] top-[0px] left-[0]  sign_up_blue_hover"></div>
                 </div>
               </ALink>
             </div>

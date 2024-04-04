@@ -39,12 +39,12 @@ function CandidateHome() {
     <div className="">
       <div className="hidden ml:block w-full">
         <div className="flex flex-row gap-8 items-center  ">
-          <div className=" flex flex-col gap-6 w-[50%] text-[#333333] pl-[24px] ">
-            <div className="flex flex-col gap-[24px]">
-              <div className="font-semibold text-[4.8vw] leading-tight ">
+          <div className=" flex flex-col gap-6 w-[50%] text-[#333333] ">
+            <div className="flex flex-col gap-[24px] pl-[112px]">
+              <div className="font-semibold text-[4vw] leading-tight ">
                 The Ultimate AI Resume Builder
               </div>
-              <div className="font-medium text-[1.5vw] ">
+              <div className="font-medium text-[1.2vw] ">
                 Craft compelling, recruiter-vetted resumes effortlessly with our
                 cutting-edge resume builder powered by Generative AI. Tailor
                 resumes for each role swiftly, leveraging a myriad of remarkable
@@ -53,7 +53,7 @@ function CandidateHome() {
               </div>
               <button
                 onClick={clickHandler}
-                className="px-9 py-4 bg-[#06A9EF] text-white rounded-[12px] text-[1.3vw] font-semibold"
+                className="px-6 py-3 bg-[#06A9EF] text-white rounded-[12px] text-[1.2vw] font-semibold"
                 style={{ width: "fit-content" }}
               >
                 Build My Resume
@@ -64,33 +64,48 @@ function CandidateHome() {
             <Home />
           </div>
         </div>
-        <div className="flex items-end justify-center overflow-hidden ">
+        <div className="flex items-end justify-center  ">
           <GenerateAi />
         </div>
 
-        <div className="flex flex-row gap-9 items-center  py-[142px] bg-carousel_bg bg-cover bg-no-repeat ">
-          <div className="w-[62%]">
-            <ImgCarousel />
-          </div>
-
-          <div className=" flex flex-col gap-6 w-[35%] text-[#333333]">
-            <div className="font-semibold  text-[2.5vw] leading-tight ">
-              Resume Templates for All <span className="text-[#06A9EF]">Careers and Levels.</span>
+        <div  
+        className=" bg-resume_bg bg-cover bg-no-repeat  py-[80px]  ">
+        
+          <div className=" flex flex-row gap-9 items-center customMargins">
+            <div className="w-[65%] bg-gradient bg-contain bg-no-repeat   ">
+              <ImgCarousel />
             </div>
-            <div className="font-medium scr1200:text-[1.67vw] text-[20px] w-[95%] break-words ">
-              <p>  Select one of our <span className="text-[#06A9EF]">expert-designed resume templates </span>and create a resume that fits your needs
-                and style.No Experienced needed!</p>
-              <p><span className="text-[#06A9EF]">Stand out from the crowd</span>  with a resume built on one of the best recruiter approved templates.</p>
 
-
+            <div className=" flex flex-col gap-6 w-[35%] text-[#333333]">
+              <div className="font-semibold  text-[2.5vw] leading-tight ">
+                Resume Templates for All{" "}
+                <span className="text-[#06A9EF]">Careers and Levels.</span>
+              </div>
+              <div className="font-medium scr1200:text-[1.2vw] text-[20px] w-[95%] break-words ">
+                <p>
+                  {" "}
+                  Select one of our{" "}
+                  <span className="text-[#06A9EF]">
+                    expert-designed resume templates{" "}
+                  </span>
+                  and create a resume that fits your needs and style.No
+                  Experienced needed!
+                </p>
+                <p>
+                  <span className="text-[#06A9EF]">Stand out from the crowd</span>{" "}
+                  with a resume built on one of the best recruiter approved
+                  templates.
+                </p>
+              </div>
+              <button
+                onClick={clickHandler}
+                className="px-6 py-3 bg-[#06A9EF] text-[1.2vw] text-white w-[13vw] font-semibold rounded-[12px]"
+              >
+                Get Started
+              </button>
             </div>
-            <button
-              onClick={clickHandler}
-              className="px-9 py-4 bg-[#06A9EF] text-[1.3vw] text-white w-[17.7vw] font-semibold rounded-[12px]"
-            >
-              Get Started
-            </button>
           </div>
+  
         </div>
 
         <SkillAssessment isLogin={isLogin} />
@@ -100,6 +115,7 @@ function CandidateHome() {
       </div>
 
       <MobileView clickHandler={clickHandler} isLogin={isLogin} />
+      
     </div>
   );
 }

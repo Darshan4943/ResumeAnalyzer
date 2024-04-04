@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import MiniLoader from "../../../../common/miniLoader";
 
 function JdFiles({
+  files,
   details,
   query,
   selectedOptions,
@@ -12,11 +13,12 @@ function JdFiles({
   loading,
 }) {
   const router = useRouter();
-
   const [selectAll, setSelectAll] = useState(false);
-  const { clientId } = query;
+  const { clientId,name } = query;
+ 
 
   const openFolder = (index, parentId, name, item) => {
+  
     if (item?.type == "file") {
       window.location.href = item.file;
     } else {
@@ -110,33 +112,35 @@ function JdFiles({
     <div className="rounded-[16px] border bg-[#F9F9F9] border-[#DEDEDE] p-[16px] flex flex-col gap-[16px]">
       <div className="flex flex-row items-center justify-between gap-[12px] ">
         <div className="flex flex-row items-center gap-[12px] cursor-pointer ">
-          <svg
-            onClick={() => router.back()}
-            width="32"
-            height="32"
-            viewBox="0 0 32 32"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <g mask="url(#mask0_1706_29363)">
-              <path
-                d="M9.56631 17.1108L17.5663 25.1108L15.9997 26.6663L5.33301 15.9997L15.9997 5.33301L17.5663 6.88854L9.56631 14.8886H26.6663V17.1108H9.56631Z"
-                fill="#1C1B1F"
-              />
-            </g>
-          </svg>
-
+          {name && (
+            <svg
+              onClick={() => router.back()}
+              width="32"
+              height="32"
+              viewBox="0 0 32 32"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g mask="url(#mask0_1706_29363)">
+                <path
+                  d="M9.56631 17.1108L17.5663 25.1108L15.9997 26.6663L5.33301 15.9997L15.9997 5.33301L17.5663 6.88854L9.56631 14.8886H26.6663V17.1108H9.56631Z"
+                  fill="#1C1B1F"
+                />
+              </g>
+            </svg>
+          )}
           <div className="flex flex-row gap-[8px] py-[8px] px-[12px] h-[40px] bg-[#fff] border border-[#DEDEDE] rounded-[30px] items-center">
             <SearchIcon />
             <input
+           
               type="text"
-              className="bg-[#fff] text-[#333333] placeholder:text-[#333333] "
-              placeholder="Select"
-              // onChange={(e) => searchHandler(e.target.value)}
+              className="bg-[#fff] text-[#333333] placeholder:text-[#333333] w-[80%]"
+              placeholder="Search"
+            // onChange={(e) => searchHandler(e.target.value)}
             />
           </div>
         </div>
-        <span className="text-[14px] text-[#808080]">
+        <span className="text-[14px] text-[#808080] min-w-[75px] flex justify-end">
           {details?.length}
           {" Items"}
         </span>
@@ -144,11 +148,11 @@ function JdFiles({
       <div className="border-b-[1px] border-[#DEDEDE] w-full h-[1px]"></div>
       <div
         className="flex flex-row flex-wrap gap-4   py-4  h-[247px] overflow-y-auto bg-[#FFFFFF] border-[1px] border-[#DEDEDE] rounded-[16px] p-[8px]"
-        // style={{ overflowX: "auto" }}
+      // style={{ overflowX: "auto" }}
       >
         {loading ? (
           <div className="w-full ">
-          <MiniLoader />
+            <MiniLoader />
           </div>
         ) : details?.length > 0 ? (
           details?.map((item, index) => (
@@ -161,19 +165,23 @@ function JdFiles({
                 <div className="relative">
                   {fileIconSeter(item)}
                   {/* {select && ( */}
-
-                  <input
-                    type="checkbox"
-                    className=" absolute right-[-15%] top-0 rounded-[4.5px] pl-[4px] pr-[20px] py-[2px] outline-none text-[14px] font-medium custom-checkbox"
-                    style={{ width: "20px", height: "20px" }}
-                    onClick={(e) => e.stopPropagation()}
-                    checked={selectedIndexes?.includes(item._id)}
-                    onChange={() => toggleSelect(item._id, item)}
-                  />
+                  {(getAllFiles(item).filter((item) => item.type == "file")
+                    ?.length > 0 ||
+                    item.type === "file") && (
+                      <input
+                        type="checkbox"
+                        className=" absolute right-[-15%] top-0 rounded-[4.5px] pl-[4px] pr-[20px] py-[2px] outline-none text-[14px] font-medium custom-checkbox"
+                        style={{ width: "20px", height: "20px" }}
+                        onClick={(e) => e.stopPropagation()}
+                        checked={selectedIndexes?.includes(item._id)}
+                        onChange={() => toggleSelect(item._id, item)}
+                      />
+                    )}
                   {/* )} */}
                 </div>
-                <span className="text-[16px] text-[#333333] text-center">
-                  {item.fileName}
+
+                <span className="md:text-[14px] text-[12px] text-[#333333] text-center break-all">
+                  {item.fileName.length > 17 ? `${item.fileName.slice(0, 17)}...` : item.fileName}
                 </span>
               </div>
             </>

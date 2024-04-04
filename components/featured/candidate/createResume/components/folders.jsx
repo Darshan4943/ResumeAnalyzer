@@ -27,6 +27,7 @@ function Folders({
   setIsFile,
   setIsCreateFolder,
 }) {
+ 
   const router = useRouter();
   const [mainData, setMainData] = useState(data);
   const [mainDataAll, setMainDataAll] = useState(data);
@@ -41,6 +42,8 @@ function Folders({
   const [selectAll, setSelectAll] = useState(false);
   const [isList, setIsList] = useState(false);
   const [previousPage, setpreviousPage] = useState(null);
+  const [showDelete, setShowDelete] = useState(false)
+
   const handleFileChange = (event, folderName) => {
     const uploadedFiles = event.target.files;
     const newFiles = Array.from(uploadedFiles);
@@ -140,6 +143,7 @@ function Folders({
   };
 
   const sort = ["A to Z", "Date Modified", "Size"];
+
   const sortClientData = (data, selectedIndex) => {
     switch (sort[selectedIndex]) {
       case "A to Z":
@@ -160,17 +164,17 @@ function Folders({
   };
   const sortData = (data) => {
     if (sortSelect == 0) {
-      return data.sort((a, b) => a.fileName.localeCompare(b.fileName));
+      return data?.sort((a, b) => a.fileName.localeCompare(b.fileName));
     } else if (sortSelect == 1) {
-      return data.sort((a, b) => a.updatedAt - b.updatedAt);
+      return data?.sort((a, b) =>  a.updatedAt.localeCompare(b.updatedAt));
     } else if (sortSelect == 2) {
-      return data.sort((a, b) => a.size - b.size);
+      return data?.sort((a, b) => a.size - b.size);
     }
   };
   return (
     <div className="flex flex-col gap-4 ml:w-[80%] w-[100%] ">
-      <div className="flex justify-between">
-        <p className="text-[24px] font-semibold ml:block hidden">My Collection</p>
+      <div className="flex justify-between items-center">
+        <p className="text-[18px] font-semibold ml:block hidden">My Collection</p>
         <button
           onClick={(e) => {
             setIsCreate(!isCreate);
@@ -296,11 +300,11 @@ function Folders({
         </div>
       </div>
 
-      <div className="flex flex-col gap-4  border border-[#DEDEDE] bg-white ms:p-6 p-3  rounded-[16px] h-full ">
+      <div className="flex flex-col gap-4  border border-[#DEDEDE] bg-white ms:p-6 p-2  rounded-[16px] h-full ">
         <div className="flex flex-col-reverse gap-4 w-full  ">
           <div className={` ${select ? "flex" : "hidden"} gap-12  items-center w-[100%] h-[40px] `}>
             {select ? (
-              <div className="bg-[#D1EDFF] flex scr420:gap-4  gap-2 rounded-[50px] pl-[6px] scr420:pr-4 pr-2 py-[6px] items-center w-full scr540:min-w-[440px]  ">
+              <div className="bg-[#D1EDFF] flex sm:gap-4  gap-2 rounded-[50px] pl-[6px] sm:pr-4 pr-2 py-[6px] items-center w-full scr540:min-w-[440px]  ">
                 <div
                   onClick={() => setSelect(false)}
                   style={{ boxShadow: "0px 1px 2px 0px #00000040" }}
@@ -319,7 +323,7 @@ function Folders({
                     />
                   </svg>
                 </div>
-                <div className="flex ms:gap-6 scr420:gap-4 gap-2 w-full scr540:justify-start justify-between ">
+                <div className="flex ms:gap-6 sm:gap-4 gap-2 w-full scr540:justify-start justify-between ">
                   <div className="flex gap-2 text-[14px] font-medium">
                     <label className="flex items-center gap-2 text-[14px] font-medium">
                       Select All
@@ -387,27 +391,31 @@ function Folders({
                             />
                           </g>
                         </svg>
+                        {!clients &&
                         <div className="min-w-[1px] h-full bg-[#06A9EF] ">
                           {" "}
                         </div>
+}
                       </>
                     )}
-
-                    <svg
-                      onClick={deleteFiles}
-                      width="20"
-                      height="20"
-                      viewBox="0 0 20 20"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <g mask="url(#mask0_1381_18138)">
-                        <path
-                          d="M5.83594 17.5C5.3776 17.5 4.98524 17.3368 4.65885 17.0104C4.33247 16.684 4.16927 16.2917 4.16927 15.8333V5H3.33594V3.33333H7.5026V2.5H12.5026V3.33333H16.6693V5H15.8359V15.8333C15.8359 16.2917 15.6727 16.684 15.3464 17.0104C15.02 17.3368 14.6276 17.5 14.1693 17.5H5.83594ZM14.1693 5H5.83594V15.8333H14.1693V5ZM7.5026 14.1667H9.16927V6.66667H7.5026V14.1667ZM10.8359 14.1667H12.5026V6.66667H10.8359V14.1667Z"
-                          fill="#333333"
-                        />
-                      </g>
-                    </svg>
+                    {!clients &&
+                      <svg
+                    
+                      onClick={() => (selectedIndexes.length > 0 && setShowDelete(true))}
+                        width="20"
+                        height="20"
+                        viewBox="0 0 20 20"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <g mask="url(#mask0_1381_18138)">
+                          <path
+                            d="M5.83594 17.5C5.3776 17.5 4.98524 17.3368 4.65885 17.0104C4.33247 16.684 4.16927 16.2917 4.16927 15.8333V5H3.33594V3.33333H7.5026V2.5H12.5026V3.33333H16.6693V5H15.8359V15.8333C15.8359 16.2917 15.6727 16.684 15.3464 17.0104C15.02 17.3368 14.6276 17.5 14.1693 17.5H5.83594ZM14.1693 5H5.83594V15.8333H14.1693V5ZM7.5026 14.1667H9.16927V6.66667H7.5026V14.1667ZM10.8359 14.1667H12.5026V6.66667H10.8359V14.1667Z"
+                            fill="#333333"
+                          />
+                        </g>
+                      </svg>
+                    }
                     {trash || selectedIndexes.length > 1 ? null : (
                       <>
                         {" "}
@@ -432,29 +440,29 @@ function Folders({
                       </>
                     )}
                   </div>
-                 
+
 
                   <div className="text-[14px] font-semibold min-w-[85px] items-center flex justify-end">
                     {selectedIndexes.length} selected
                   </div>
                   <svg className="scr540:hidden" width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  
-                  <g mask="url(#mask0_1759_35016)">
-                    <path d="M13.9997 20.6673C13.5413 20.6673 13.149 20.5041 12.8226 20.1777C12.4962 19.8513 12.333 19.459 12.333 19.0007C12.333 18.5423 12.4962 18.15 12.8226 17.8236C13.149 17.4972 13.5413 17.334 13.9997 17.334C14.458 17.334 14.8504 17.4972 15.1768 17.8236C15.5031 18.15 15.6663 18.5423 15.6663 19.0007C15.6663 19.459 15.5031 19.8513 15.1768 20.1777C14.8504 20.5041 14.458 20.6673 13.9997 20.6673ZM13.9997 15.6673C13.5413 15.6673 13.149 15.5041 12.8226 15.1777C12.4962 14.8513 12.333 14.459 12.333 14.0007C12.333 13.5423 12.4962 13.15 12.8226 12.8236C13.149 12.4972 13.5413 12.334 13.9997 12.334C14.458 12.334 14.8504 12.4972 15.1768 12.8236C15.5031 13.15 15.6663 13.5423 15.6663 14.0007C15.6663 14.459 15.5031 14.8513 15.1768 15.1777C14.8504 15.5041 14.458 15.6673 13.9997 15.6673ZM13.9997 10.6673C13.5413 10.6673 13.149 10.5041 12.8226 10.1777C12.4962 9.85135 12.333 9.45898 12.333 9.00065C12.333 8.54232 12.4962 8.14996 12.8226 7.82357C13.149 7.49718 13.5413 7.33398 13.9997 7.33398C14.458 7.33398 14.8504 7.49718 15.1768 7.82357C15.5031 8.14996 15.6663 8.54232 15.6663 9.00065C15.6663 9.45898 15.5031 9.85135 15.1768 10.1777C14.8504 10.5041 14.458 10.6673 13.9997 10.6673Z" fill="#1C1B1F" />
-                  </g>
-                </svg>
+
+                    <g mask="url(#mask0_1759_35016)">
+                      <path d="M13.9997 20.6673C13.5413 20.6673 13.149 20.5041 12.8226 20.1777C12.4962 19.8513 12.333 19.459 12.333 19.0007C12.333 18.5423 12.4962 18.15 12.8226 17.8236C13.149 17.4972 13.5413 17.334 13.9997 17.334C14.458 17.334 14.8504 17.4972 15.1768 17.8236C15.5031 18.15 15.6663 18.5423 15.6663 19.0007C15.6663 19.459 15.5031 19.8513 15.1768 20.1777C14.8504 20.5041 14.458 20.6673 13.9997 20.6673ZM13.9997 15.6673C13.5413 15.6673 13.149 15.5041 12.8226 15.1777C12.4962 14.8513 12.333 14.459 12.333 14.0007C12.333 13.5423 12.4962 13.15 12.8226 12.8236C13.149 12.4972 13.5413 12.334 13.9997 12.334C14.458 12.334 14.8504 12.4972 15.1768 12.8236C15.5031 13.15 15.6663 13.5423 15.6663 14.0007C15.6663 14.459 15.5031 14.8513 15.1768 15.1777C14.8504 15.5041 14.458 15.6673 13.9997 15.6673ZM13.9997 10.6673C13.5413 10.6673 13.149 10.5041 12.8226 10.1777C12.4962 9.85135 12.333 9.45898 12.333 9.00065C12.333 8.54232 12.4962 8.14996 12.8226 7.82357C13.149 7.49718 13.5413 7.33398 13.9997 7.33398C14.458 7.33398 14.8504 7.49718 15.1768 7.82357C15.5031 8.14996 15.6663 8.54232 15.6663 9.00065C15.6663 9.45898 15.5031 9.85135 15.1768 10.1777C14.8504 10.5041 14.458 10.6673 13.9997 10.6673Z" fill="#1C1B1F" />
+                    </g>
+                  </svg>
 
                 </div>
               </div>
             ) : (
-              <>
-                {name && (
-                  <div className="flex gap-4  items-center h-[40px] ">
+              <div className="mobile">
+                {/* {name && (
+                  <div className="flex gap-4  items-center h-[40px] min-w-[185px] ">
                     <svg
                       className="bg-[#FFF] p-2 rounded-[50%] border border-[#DEDEDE] cursor-pointer"
                       onClick={() => router.back()}
-                      width="40"
-                      height="40"
+                      width="36"
+                      height="36"
                       viewBox="0 0 28 28"
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
@@ -464,65 +472,89 @@ function Folders({
                         fill="#1C1B1F"
                       />
                     </svg>
-                    <div className="text-[18px] font-medium py-[5.8px] px-4 rounded-[36px] border border-blue">
+                    <div className="text-[14px] font-medium py-[5.8px] px-4 rounded-[36px] border border-blue">
                       {name}
                     </div>
                   </div>
-                )}
-              </>
+                )} */}
+              </div>
             )}
           </div>
-          <div className=" w-[100%] flex justify-end gap-4 items-center h-[38px] ">
-            <div className="rounded-[30px] py-2 px-3 flex gap-2 bg-[#E9EEF6] w-[336px]  items-center h-[40px] scr420:min-w-[138px] min-w-[60%]  ">
-              <svg
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M15.499 15.5L18.999 19L15.499 15.5ZM4.99902 11C4.99902 11.7879 5.15422 12.5681 5.45575 13.2961C5.75727 14.0241 6.19923 14.6855 6.75638 15.2426C7.31353 15.7998 7.97497 16.2417 8.70292 16.5433C9.43088 16.8448 10.2111 17 10.999 17C11.787 17 12.5672 16.8448 13.2951 16.5433C14.0231 16.2417 14.6845 15.7998 15.2417 15.2426C15.7988 14.6855 16.2408 14.0241 16.5423 13.2961C16.8438 12.5681 16.999 11.7879 16.999 11C16.999 9.4087 16.3669 7.88258 15.2417 6.75736C14.1164 5.63214 12.5903 5 10.999 5C9.40772 5 7.8816 5.63214 6.75638 6.75736C5.63116 7.88258 4.99902 9.4087 4.99902 11V11Z"
-                  stroke="#1F1F1F"
-                  strokeWidth="1.71429"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-
-              <input
-                onChange={(e) => changeHandler(e.target.value)}
-                className="w-full bg-[#E9EEF6] text-[#333333]"
-                type="text"
-                placeholder="Search File"
-              />
+          <div className="flex justify-between ml:gap-4 gap-2">
+            <div className="">
+              {name && (
+                <div className="flex gap-4  items-center h-[40px] ml:min-w-[185px] ">
+                  <svg
+                    className="bg-[#FFF] p-2 rounded-[50%] border border-[#DEDEDE] cursor-pointer"
+                    onClick={() => router.back()}
+                    width="36"
+                    height="36"
+                    viewBox="0 0 28 28"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M5.95831 15.3892L15.9584 25.3892L14 27.3337L0.666687 14.0003L14 0.666992L15.9584 2.61141L5.95831 12.6115H27.3334V15.3892H5.95831Z"
+                      fill="#1C1B1F"
+                    />
+                  </svg>
+                  <div className="text-[14px] font-medium py-[5.8px] px-4 rounded-[36px] border border-blue web">
+                    {name}
+                  </div>
+                </div>
+              )}
             </div>
-            <div className=" flex gap-2 px-5 py-2 bg-[#E9EEF6] rounded-[30px] scr420:w-[210px] h-[40px]">
-              <div
-                onClick={() => setSelect(!select)}
-                className=" flex gap-2 text-[14px] font-medium  items-center cursor-pointer "
-              >
+            <div className=" ml:w-[65%] w-[80%] flex justify-end ml:gap-4 gap-2 items-center h-[38px] ">
+              <div className="rounded-[30px] py-2 px-3 flex gap-2 bg-[#E9EEF6] w-[336px]  items-center h-[40px] sm:min-w-[138px] min-w-[60%]  ">
                 <svg
-                  width="18"
-                  height="18"
-                  viewBox="0 0 18 18"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
                 >
-                  <g mask="url(#mask0_1148_17404)">
-                    <path
-                      d="M11.8548 15.3759C11.548 15.3759 11.2839 15.2651 11.0622 15.0435C10.8406 14.8219 10.7298 14.5577 10.7298 14.251V11.1067C10.7298 10.8 10.8406 10.5358 11.0622 10.3142C11.2839 10.0926 11.548 9.98175 11.8548 9.98175H14.999C15.3057 9.98175 15.5699 10.0926 15.7915 10.3142C16.0132 10.5358 16.124 10.8 16.124 11.1067V14.251C16.124 14.5577 16.0132 14.8219 15.7915 15.0435C15.5699 15.2651 15.3057 15.3759 14.999 15.3759H11.8548ZM11.8548 14.251H14.999V11.1067H11.8548V14.251ZM1.87402 13.2413V12.1163H8.33556V13.2413H1.87402ZM11.8548 8.02016C11.548 8.02016 11.2839 7.90935 11.0622 7.68773C10.8406 7.4661 10.7298 7.20193 10.7298 6.8952V3.75096C10.7298 3.44423 10.8406 3.18006 11.0622 2.95843C11.2839 2.7368 11.548 2.62598 11.8548 2.62598H14.999C15.3057 2.62598 15.5699 2.7368 15.7915 2.95843C16.0132 3.18006 16.124 3.44423 16.124 3.75096V6.8952C16.124 7.20193 16.0132 7.4661 15.7915 7.68773C15.5699 7.90935 15.3057 8.02016 14.999 8.02016H11.8548ZM11.8548 6.8952H14.999V3.75096H11.8548V6.8952ZM1.87402 5.88557V4.76059H8.33556V5.88557H1.87402Z"
-                      fill="#333333"
-                    />
-                  </g>
+                  <path
+                    d="M15.499 15.5L18.999 19L15.499 15.5ZM4.99902 11C4.99902 11.7879 5.15422 12.5681 5.45575 13.2961C5.75727 14.0241 6.19923 14.6855 6.75638 15.2426C7.31353 15.7998 7.97497 16.2417 8.70292 16.5433C9.43088 16.8448 10.2111 17 10.999 17C11.787 17 12.5672 16.8448 13.2951 16.5433C14.0231 16.2417 14.6845 15.7998 15.2417 15.2426C15.7988 14.6855 16.2408 14.0241 16.5423 13.2961C16.8438 12.5681 16.999 11.7879 16.999 11C16.999 9.4087 16.3669 7.88258 15.2417 6.75736C14.1164 5.63214 12.5903 5 10.999 5C9.40772 5 7.8816 5.63214 6.75638 6.75736C5.63116 7.88258 4.99902 9.4087 4.99902 11V11Z"
+                    stroke="#1F1F1F"
+                    strokeWidth="1.71429"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
                 </svg>
 
-                <p className="scr420:block  hidden">Select</p>
+                <input
+                  onChange={(e) => changeHandler(e.target.value)}
+                  className="w-full bg-[#E9EEF6] text-[#333333]"
+                  type="text"
+                  placeholder="Search File"
+                />
               </div>
-              {trash ? null : (
-                <>
-                  {" "}
-                  {/* <div className="w-[1px] h-full bg-white"></div>
+              <div className=" flex gap-2 px-5 py-2 bg-[#E9EEF6] rounded-[30px] sm:w-[210px] h-[40px]">
+                <div
+                  onClick={() => setSelect(!select)}
+                  className=" flex gap-2 text-[14px] font-medium  items-center cursor-pointer "
+                >
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 18 18"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <g mask="url(#mask0_1148_17404)">
+                      <path
+                        d="M11.8548 15.3759C11.548 15.3759 11.2839 15.2651 11.0622 15.0435C10.8406 14.8219 10.7298 14.5577 10.7298 14.251V11.1067C10.7298 10.8 10.8406 10.5358 11.0622 10.3142C11.2839 10.0926 11.548 9.98175 11.8548 9.98175H14.999C15.3057 9.98175 15.5699 10.0926 15.7915 10.3142C16.0132 10.5358 16.124 10.8 16.124 11.1067V14.251C16.124 14.5577 16.0132 14.8219 15.7915 15.0435C15.5699 15.2651 15.3057 15.3759 14.999 15.3759H11.8548ZM11.8548 14.251H14.999V11.1067H11.8548V14.251ZM1.87402 13.2413V12.1163H8.33556V13.2413H1.87402ZM11.8548 8.02016C11.548 8.02016 11.2839 7.90935 11.0622 7.68773C10.8406 7.4661 10.7298 7.20193 10.7298 6.8952V3.75096C10.7298 3.44423 10.8406 3.18006 11.0622 2.95843C11.2839 2.7368 11.548 2.62598 11.8548 2.62598H14.999C15.3057 2.62598 15.5699 2.7368 15.7915 2.95843C16.0132 3.18006 16.124 3.44423 16.124 3.75096V6.8952C16.124 7.20193 16.0132 7.4661 15.7915 7.68773C15.5699 7.90935 15.3057 8.02016 14.999 8.02016H11.8548ZM11.8548 6.8952H14.999V3.75096H11.8548V6.8952ZM1.87402 5.88557V4.76059H8.33556V5.88557H1.87402Z"
+                        fill="#333333"
+                      />
+                    </g>
+                  </svg>
+
+                  <p className="sm:block  hidden">Select</p>
+                </div>
+                {trash ? null : (
+                  <>
+                    {" "}
+                    {/* <div className="w-[1px] h-full bg-white"></div>
                   <div className="  flex gap-2 text-[14px] font-medium items-center  ">
                     <svg
                       width="18"
@@ -540,65 +572,66 @@ function Folders({
                     </svg>
                     Filter
                   </div> */}
-                  <div className="w-[1px] h-full bg-white"></div>
-                  <div
-                    onClick={() => setIsSort(!isSort)}
-                    className=" flex gap-2 text-[14px] font-medium items-center relative cursor-pointer scr420:w-[78px]"
-                  >
-                    <svg
-                      width="18"
-                      height="18"
-                      viewBox="0 0 18 18"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
+                    <div className="w-[1px] h-full bg-white"></div>
+                    <div
+                      onClick={() => setIsSort(!isSort)}
+                      className=" flex gap-2 text-[14px] font-medium items-center relative cursor-pointer sm:w-[78px]"
                     >
-                      <g mask="url(#mask0_1142_17256)">
-                        <path
-                          d="M6.30289 9.48938V4.02879L4.17692 6.15476L3.375 5.36439L6.86537 1.87402L10.3557 5.36439L9.55384 6.15476L7.42787 4.02879V9.48938H6.30289ZM11.1274 16.124L7.63701 12.6336L8.43891 11.8432L10.5649 13.9692V8.50864H11.6899V13.9692L13.8158 11.8432L14.6177 12.6336L11.1274 16.124Z"
-                          fill="#333333"
-                        />
-                      </g>
-                    </svg>
-                    <p className="scr420:block  hidden">Sort By</p>
-                    {isSort && (
-                      <>
-                        <div
-                          className="absolute flex flex-col text-[14px] text-[#000000] rounded-[8px] right-[-20%] z-10 top-[140%] min-w-[150px] p-4 gap-4 bg-white"
-                          style={{
-                            boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
-                          }}
-                        >
-                          {sort?.map((item, index) => (
-                            <div
-                              key={index}
-                              onClick={() => handleSortSelect(index)}
-                              className="flex gap-2 items-center"
-                            >
-                              {sortSelect === index ? (
-                                <svg
-                                  width="8"
-                                  height="8"
-                                  viewBox="0 0 8 8"
-                                  fill="none"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <path
-                                    d="M4.00295 7.5C3.02876 7.5 2.20139 7.1607 1.52083 6.48211C0.840278 5.80351 0.5 4.97712 0.5 4.00295C0.5 3.02876 0.839296 2.20139 1.51789 1.52083C2.19649 0.840278 3.02288 0.5 3.99705 0.5C4.97124 0.5 5.79861 0.839295 6.47917 1.51789C7.15972 2.19649 7.5 3.02288 7.5 3.99705C7.5 4.97124 7.1607 5.79861 6.48211 6.47917C5.80351 7.15972 4.97712 7.5 4.00295 7.5Z"
-                                    fill="#808080"
-                                  />
-                                </svg>
-                              ) : (
-                                <div className="w-[8px] h-[8px]"> </div>
-                              )}
-                              {item}
-                            </div>
-                          ))}
-                        </div>
-                      </>
-                    )}
-                  </div>
-                </>
-              )}
+                      <svg
+                        width="18"
+                        height="18"
+                        viewBox="0 0 18 18"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <g mask="url(#mask0_1142_17256)">
+                          <path
+                            d="M6.30289 9.48938V4.02879L4.17692 6.15476L3.375 5.36439L6.86537 1.87402L10.3557 5.36439L9.55384 6.15476L7.42787 4.02879V9.48938H6.30289ZM11.1274 16.124L7.63701 12.6336L8.43891 11.8432L10.5649 13.9692V8.50864H11.6899V13.9692L13.8158 11.8432L14.6177 12.6336L11.1274 16.124Z"
+                            fill="#333333"
+                          />
+                        </g>
+                      </svg>
+                      <p className="sm:block  hidden">Sort By</p>
+                      {isSort && (
+                        <>
+                          <div
+                            className="absolute flex flex-col text-[14px] text-[#000000] rounded-[8px] right-[-20%] z-10 top-[140%] min-w-[150px] p-4 gap-4 bg-white"
+                            style={{
+                              boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
+                            }}
+                          >
+                            {sort?.map((item, index) => (
+                              <div
+                                key={index}
+                                onClick={() => handleSortSelect(index)}
+                                className="flex gap-2 items-center"
+                              >
+                                {sortSelect === index ? (
+                                  <svg
+                                    width="8"
+                                    height="8"
+                                    viewBox="0 0 8 8"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      d="M4.00295 7.5C3.02876 7.5 2.20139 7.1607 1.52083 6.48211C0.840278 5.80351 0.5 4.97712 0.5 4.00295C0.5 3.02876 0.839296 2.20139 1.51789 1.52083C2.19649 0.840278 3.02288 0.5 3.99705 0.5C4.97124 0.5 5.79861 0.839295 6.47917 1.51789C7.15972 2.19649 7.5 3.02288 7.5 3.99705C7.5 4.97124 7.1607 5.79861 6.48211 6.47917C5.80351 7.15972 4.97712 7.5 4.00295 7.5Z"
+                                      fill="#808080"
+                                    />
+                                  </svg>
+                                ) : (
+                                  <div className="w-[8px] h-[8px]"> </div>
+                                )}
+                                {item}
+                              </div>
+                            ))}
+                          </div>
+                        </>
+                      )}
+                    </div>
+                  </>
+                )}
+              </div>
             </div>
           </div>
         </div>
@@ -628,6 +661,56 @@ function Folders({
             query={query}
           />
         )}
+
+        {
+          showDelete   &&
+          <>
+            <div className="opacity-25 fixed inset-0 z-[120] bg-black"></div>
+
+            <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-[130] outline-none focus:outline-none">
+              <div className="delete_modal_container pt-[16px]">
+                <div className="flex items-center gap-3">
+                  <img
+                    src="/images/icons/delete_icon.png"
+                    className=" w-[40px] h-[40px] "
+                    alt=""
+                  />
+                  {trash ?
+                    <p className="text-[20px] font-[500] text-[#C00000] text-center">Delete Permanantly?</p>
+                    :
+                    <p className="text-[20px] font-[500] text-[#C00000] text-center">Move to Trash</p>
+                  }
+                </div>
+
+                <div className="w-full d-flex flex-column justify-center items-center">
+
+                {trash ?
+                <p className="text-[14px] font-[500]  text-center px-8">
+               Are you sure you want to delete this selection from trash?
+              </p>
+                :
+                  <p className="text-[14px] font-[500]  text-center px-8">
+                    Are you sure you want delete this selection?
+                  </p>
+}
+                </div>
+                <div className="w-full flex justify-between flex-row">
+                  <button
+                    onClick={() => { setShowDelete(false) }}
+                    className="text-[16px] font-[600] text-[#06A9EF] rounded-[12px] bg-[#fff] border-[1px] border-[#06A9EF] px-[36px] py-[8px]" >
+                    {" "}
+                    No
+                  </button>
+                  <button
+                    onClick={() => { deleteFiles(); setShowDelete(false) }}
+                    className="text-[16px] font-[600] text-[#fff] rounded-[12px] bg-[#C00000] px-[36px] py-[8px]">
+                    Yes
+                  </button>
+                </div>
+              </div>
+            </div>
+          </>
+        }
       </div>
     </div>
   );

@@ -112,12 +112,12 @@ function SubscriptionPlans({ fromMain }) {
           </div>
         </>
       )}
-      <div className="hidden lg:block w-full">
+      <div className="hidden lg:block w-full ">
         <div className="flex gap-9 justify-center">
           {subPlans.map((plan, index) => (
             <div
               key={index}
-              className={` relative mt-[40px] bg-white  flex flex-col gap-4 items-center rounded-[16px] ${isUser ? "max-w-[30vw]" : "max-w-[20vw]"
+              className={` relative mt-[40px] bg-white  flex flex-col gap-4 items-center rounded-[16px] purchase-plan-card ${isUser ? "max-w-[20vw]" : "max-w-[19vw] "
                 } `}
               style={{ boxShadow: "0px 2px 15px 0px #00000033" }}
             >
@@ -128,12 +128,12 @@ function SubscriptionPlans({ fromMain }) {
               )}
               {plan.duration == "Enterprise" ? (
                 <div className="p-4 z-20 bg-white rounded-[16px] flex flex-col gap-4 items-center h-full justify-between">
-                  <div className="flex text-center flex-col gap-3 text-[#333333] w-[80%] min-h-[153.4px] justify-between">
+                  <div className="flex text-center flex-col gap-3 text-[#333333]  min-h-[153.4px] justify-between">
                     <p className="text-[1.4vw] font-[600]">
                       <span className="text-[#06A9EF]">{plan.duration}</span>{" "}
                       {plan.limit}
                     </p>
-                    <p className="text-[1.1vw] font-[500]">
+                    <p className="text-[1vw] font-[500]">
                       {plan.description}
                     </p>
                     <div className="bg-[#DEDEDE] h-[2px]" />
@@ -159,14 +159,14 @@ function SubscriptionPlans({ fromMain }) {
                 </div>
               ) : (
                 <div className="p-4 z-20 bg-white rounded-[16px] flex flex-col gap-4 items-center h-full justify-between">
-                  <div className="flex text-center flex-col gap-3 text-[#333333] w-[80%]">
+                  <div className="flex text-center flex-col gap-3 text-[#333333] ">
                     <p className="text-[1.4vw] font-[600]">
                       <span className="text-[#06A9EF]">{plan.duration}</span>{" "}
                       {plan.limit}
                     </p>
                     <p className="text-[2.5vw] font-[700]">{plan.price}</p>
                     <p
-                      className="text-[1.1vw] font-[500]"
+                      className="text-[1vw] font-[500]"
                       style={{ textTransform: "capitalize" }}
                     >
                       {plan.description}
@@ -175,9 +175,9 @@ function SubscriptionPlans({ fromMain }) {
                   </div>
                   <div className="flex gap-3 flex-col text-left">
                     {plan.features.map((feature, index) => (
-                      <div key={index} className="flex gap-3 ">
+                      <div key={index} className="flex gap-3 items-start ">
                         <svg
-                        className="min-w-[20px]"
+                          className="min-w-[20px]"
                           width="20"
                           height="18"
                           viewBox="0 0 20 18"
@@ -189,13 +189,13 @@ function SubscriptionPlans({ fromMain }) {
                             fill="#06A9EF"
                           />
                         </svg>
-                        <p className="text-[0.9vw] font-[500]">{feature}</p>
+                        <p className="text-[0.8vw] font-[500]">{feature}</p>
                       </div>
                     ))}
                   </div>
                   <button
                     onClick={() => clickHandler(plan.index)}
-                    className="px-9 py-3 bg-[#06A9EF] text-white rounded-[12px] text-[1.4vw] font-semibold w-full"
+                    className="px-6 py-3 bg-[#06A9EF] text-white rounded-[12px] text-[1.2vw] font-semibold w-full"
                   >
                     Purchase Plan
                   </button>
@@ -224,7 +224,7 @@ function SubscriptionPlans({ fromMain }) {
               key={index}
             >
               <div
-                className=" w-[258px] h-[420px] relative  bg-white  flex flex-col gap-4 items-center rounded-[16px] mt-[8px] mb-4"
+                className=" w-[300px] h-[420px] relative  bg-white  flex flex-col gap-4 items-center rounded-[16px] mt-[8px] mb-4"
                 style={{ boxShadow: "0px 2px 15px 0px #00000033" }}
               >
                 {index === 1 && (
@@ -264,7 +264,7 @@ function SubscriptionPlans({ fromMain }) {
                     </button>
                   </div>
                 ) : (
-                  <div className="p-4 z-20 bg-white rounded-[16px] flex flex-col gap-4 items-center w-[258px] h-[420px]">
+                  <div className="p-4 z-20 bg-white rounded-[16px] flex flex-col gap-4 items-center w-[300px] h-[420px]">
                     <div className="flex text-center flex-col gap-3 text-[#333333] w-[80%]">
                       <p className="text-[18px] font-[600]">
                         <span className="text-[#06A9EF]">{plan.duration}</span>{" "}
@@ -278,9 +278,9 @@ function SubscriptionPlans({ fromMain }) {
                     </div>
                     <div className="flex gap-3 flex-col text-left">
                       {plan.features.map((feature, index) => (
-                        <div key={index} className="flex gap-3 items-center">
+                        <div key={index} className="flex gap-3 items-start">
                           <svg
-                          className="min-w-[20px]"
+                            className="min-w-[20px]"
                             width="20"
                             height="18"
                             viewBox="0 0 20 18"

@@ -64,7 +64,7 @@ console.log(14,details)
         transition: "opacity 2s ease-in-out",
       }} className='flex ml:w-[57%] w-[100%] flex-col sm:gap-6 gap-4  items-center justify-center '>
 
-        <p className=' text-center ml:text-[3.3vw] text-[9vw] font-bold leading-tight'> <span className='text-[#06A9EF]'>Empowering</span> Recruiters to
+        <p className=' text-center ml:text-[3vw] text-[9vw] font-bold leading-tight'> <span className='text-[#06A9EF]'>Empowering</span> Recruiters to
           Create Job Winning Resumes
         </p>
 
