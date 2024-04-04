@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import React, { useEffect, useReducer, useRef, useState } from "react";
 
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 
 // import SkillModel from "../../../../../components/featured/candidate/profile/modals/skill_modal";
@@ -17,6 +17,7 @@ import { toast } from "react-toastify";
 import generatePDF from "react-to-pdf";
 import QuestionList from "../../components/featured/home/QuestionList";
 import SkillModel from "../../components/featured/candidate/createResume/components/SkillModel";
+import { reCallUserData } from "../../Redux/actions/user";
 
 function SkillAssessment() {
   const resumeRef = useRef();
@@ -33,7 +34,7 @@ function SkillAssessment() {
   const [questionIndex, setQuestionIndex] = useState(0);
   const [loading, setLoading] = useState(false);
   const [loadingg, setLoadingg] = useState(false);
-
+  const dispatch = useDispatch();
   const [isTimerOver, setIsTimerOver] = useState(false);
   const [startTimer, setStartTimer] = useState(false);
   const [showSecondDiv, setshowSecondDiv] = useState(false);
@@ -262,7 +263,7 @@ function SkillAssessment() {
                   </svg>
                 </button>
               )}
-                <button
+                <div
                   className="text-[#C00000]  ml:min-w-[150px] scr420:min-w-[125px] min-w-[96px] ml:text-[16px] scr420:text-[14px] text-[12px]  "
                   onClick={() => setshowSecondDiv(!showSecondDiv)}
                 >
@@ -275,7 +276,7 @@ function SkillAssessment() {
                       Hide Results
                     </button>
                   )}
-                </button>
+                </div>
               </div>
             </div>
 
@@ -919,7 +920,8 @@ function SkillAssessment() {
                         setQuestionIndex(0);
                         setQuestion([]);
                         setSkipped([]);
-                        window.location.reload();
+                        // window.location.reload();
+                        dispatch(reCallUserData());
                       }}
                       className="border-[1px]  border-solid border-[#06A9EF] rounded-[12px] px-[24px] py-[8px] text-[16px] text-[#333] font-[500]"
                     >
