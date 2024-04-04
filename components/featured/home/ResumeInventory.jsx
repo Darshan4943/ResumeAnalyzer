@@ -7,7 +7,7 @@ function ResumeInventory({ isLogin }) {
   const router = useRouter();
   const dispatch = useDispatch();
   return (
-    <div className=" bg-bg_inventory bg-cover bg-no-repeat w-screen">
+    <div className=" bg-bg_inventory bg-cover bg-no-repeat ">
       <div className="customMargins flex flex-row gap-8 items-center">
         <div className="w-[60%]  flex justify-center  items-center ">
           <img
