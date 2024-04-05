@@ -39,12 +39,12 @@ console.log(12,details)
     }
   };
   return (
-    <div className="flex justify-center">
-      <div className="flex flex-col gap-4 sm:p-6 p-2 w-[100%]">
+    <div className="flex justify-center customMargins">
+      <div className="flex flex-col gap-4 sm:py-6 py-2 w-[100%]">
         <div className="text-[24px] font-semibold">My Clients</div>
         <div
-          style={{ boxShadow: "0px 2px 7px 0px #00000040" }}
-          className="flex flex-col gap-4 sm:p-6 px-2 py-3 rounded-[24px]"
+          // style={{ boxShadow: "0px 2px 7px 0px #00000040" }}
+          className="flex flex-col gap-4  rounded-[24px]"
         >
           <div className="flex ml:flex-row flex-col gap-4  justify-end ml:items-center items-end ">
             <div

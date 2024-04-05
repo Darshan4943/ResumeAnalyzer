@@ -80,6 +80,10 @@ div.hide-scrollbar::-webkit-scrollbar-thumb {
 .mobile {
   display: none;
 }
+.web {
+  display: block;
+}
+
 
 @media (max-width: 850px) {
   .mobile {
