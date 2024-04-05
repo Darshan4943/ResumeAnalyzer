@@ -16,7 +16,7 @@ const Index = () => {
   const getData = () => {
     setLoading(true);
     axios
-      .get("http://localhost:2000/api/job/getByCreatedId/" + userDataGlobal._id)
+      .get("https://freedygoservices.in/api/job/getByCreatedId/" + userDataGlobal._id)
       .then((res) => {
         setLoading(false);
         setJobPost(res.data);

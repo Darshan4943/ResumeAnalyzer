@@ -57,7 +57,7 @@ function MyClients() {
       return;
     }
 
-    axios.delete("http://localhost:2000/api/client/deleteClients", { data: { ids } })
+    axios.delete("https://freedygoservices.in/api/client/deleteClients", { data: { ids } })
       .then(response => {
         console.log(response.data);
         dispatch(reCallUserData());

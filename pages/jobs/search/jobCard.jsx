@@ -11,7 +11,7 @@ const JobCard = ({ data, setJd, resume, jd }) => {
   const getData = () => {
     setLoading(true);
     axios
-      .get("http://localhost:2000/api/job/getById/" + data._id)
+      .get("https://freedygoservices.in/api/job/getById/" + data._id)
       .then((res) => {
         setLoading(false);
         console.log(res.data);
@@ -34,7 +34,7 @@ const JobCard = ({ data, setJd, resume, jd }) => {
   const applyForJob = (data) => {
     setLoading(true);
     axios
-      .post("http://localhost:2000/api/job/apply/" + data._id, {
+      .post("https://freedygoservices.in/api/job/apply/" + data._id, {
         userId: userDataGlobal._id,
         resumeId: resume._id,
         percentage: data?.percentage,
