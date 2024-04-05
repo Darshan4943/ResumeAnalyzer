@@ -176,7 +176,7 @@ const Details = ({ data, setJd, files, extractedData, resume }) => {
                       Matching Parameters
                     </span>
                     <ul className="flex flex-col gap-[4px]">
-                      {data["Matching parameters"].map((item, i) => (
+                      {data["Matching parameters"]&&data["Matching parameters"]?.map((item, i) => (
                         <li
                           key={i}
                           className="text-[#333333] text-[14px] font-500 flex flex-row items-center gap-[8px]"
