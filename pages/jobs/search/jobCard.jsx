@@ -37,7 +37,7 @@ const JobCard = ({ data, setJd, resume, jd }) => {
       .post("http://localhost:2000/api/job/apply/" + data._id, {
         userId: userDataGlobal._id,
         resumeId: resume._id,
-        percentage: data.percentage,
+        percentage: data?.percentage,
       })
       .then((res) => {
         setLoading(false);
@@ -61,7 +61,7 @@ const JobCard = ({ data, setJd, resume, jd }) => {
             className="text-[14px] font-500 "
             style={{ borderRight: "1px solid #bebebe", paddingRight: "8px" }}
           >
-            {data.companyName}
+            {data?.companyName}
           </div>
           <span className="text-[14px] font-500">
             {data?.location?.join(",")}
@@ -73,10 +73,10 @@ const JobCard = ({ data, setJd, resume, jd }) => {
           Matching based on
         </span>
         <ul className="flex flex-col gap-[4px]">
-          {data["Matching parameters"]?.length > 0 ? (
+          {data && data["Matching parameters"] && data["Matching parameters"]?.length > 0 ? (
             <>
               {" "}
-              {data["Matching parameters"]?.map((item, i) => (
+              {data["Matching parameters"]&& data["Matching parameters"]?.map((item, i) => (
                 <li
                   key={i}
                   className="text-[#333333] text-[14px] font-[500] flex flex-row items-center gap-[8px]"
@@ -140,7 +140,7 @@ const JobCard = ({ data, setJd, resume, jd }) => {
             : true
         ) ? (
           <div style={{ width: "60%" }}>
-            <Progress_bar progress={data.percentage} />
+            <Progress_bar progress={data?.percentage} />
           </div>
         ) : (
           <div
