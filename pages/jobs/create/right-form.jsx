@@ -166,8 +166,11 @@ const Rightform = ({ data, setData, file, croppedImage }) => {
             }
           />
           <div className="flex flex-row flex-wrap gap-3">
-            {data?.skills?.map((item,index) => (
-              <div key={index} className="py-[4px] px-[8px] bg-[#effaff] rounded-[8px] flex flex-row gap-3 items-center ">
+            {data?.skills?.map((item, index) => (
+              <div
+                key={index}
+                className="py-[4px] px-[8px] bg-[#effaff] rounded-[8px] flex flex-row gap-3 items-center "
+              >
                 <span> {item}</span>
                 <span
                   className="text-[14px]  cursor-pointer font-medium "

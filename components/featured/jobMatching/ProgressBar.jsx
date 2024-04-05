@@ -34,7 +34,7 @@ const Progress_bar = ({ progress }) => {
       >
         <div
           style={{
-            width: "80%",
+            width: "88%",
             background: "#8080804d",
             borderRadius: 12,
             fontSize: "8px",

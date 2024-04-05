@@ -31,9 +31,11 @@ function Recruiter_page() {
   return (
     <>
       <div className="unblockRecruiter">
-       
-        <div className=" overflow-hidden "> <RecruiterHero /></div>
-        <PrecisionMatching/>
+        <div className=" overflow-hidden ">
+          {" "}
+          <RecruiterHero />
+        </div>
+        <PrecisionMatching />
         <TransformResume />
         <ClientSection />
       </div>
@@ -41,29 +43,28 @@ function Recruiter_page() {
       <div className="heroBlock">
         {" "}
         <ReactLenis root>
-          <Parallax
-            strength={300}
-            className=" h-[100vh]  "
-          >
+          <Parallax strength={300} className=" h-[100vh]  ">
             <Background className="custom-bg  ">
               <RecruiterHero />
             </Background>
           </Parallax>
           <div className="h-[32rem] ml:h-[47vw] pt-[3rem]">
             {/* <RecruiterAnimation showAnimationn={!showAnimationn} /> */}
-            <PrecisionMatching/>
+            <PrecisionMatching />
           </div>
-          <Parallax strength={400} className="h-[32rem] ml:h-[50vw] pt-[36px] flex items-center ">
+          <Parallax
+            strength={400}
+            className="h-[32rem] ml:h-[50vw] pt-[36px] flex items-center "
+          >
             <Background className="custom-bg  ">
-            <TransformResume />
+              <TransformResume />
             </Background>
           </Parallax>
           <ClientSection />
         </ReactLenis>
       </div>
       <SubscriptionPlan fromMain={true} />
-      <Footer
-       />
+      <Footer />
     </>
   );
 }

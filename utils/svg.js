@@ -227,7 +227,7 @@ export const Close_svg = ({ handleImageClick, width = 40, height = 40 }) => (
     </svg>
   </>
 );
-export const AddIcon = ({ className,color="#646464" }) => (
+export const AddIcon = ({ className, color = "#646464" }) => (
   <>
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -243,11 +243,11 @@ export const AddIcon = ({ className,color="#646464" }) => (
     </svg>
   </>
 );
-export const ClosedIcon = ({ className }) => (
+export const ClosedIcon = ({ className ,size=40 }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width="40"
-    height="40"
+    width={size}
+    height={size}
     viewBox="0 0 40 40"
     fill="none"
     className={className}
@@ -335,7 +335,7 @@ export const Assessmentlogo = ({ className }) => (
     </defs>
   </svg>
 );
-export const PlusAddLogo = ({ className,color="#646464" }) => (
+export const PlusAddLogo = ({ className, color = "#646464" }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="24"
@@ -429,6 +429,53 @@ export const DocSVG = () => (
 export const PNGICON = () => (
   <img src="/images/Document.png" className="h-[48px] w-[48px] object-contain" />
 );
+
+export const ServiceCross = () => (
+
+  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+   
+    <g mask="url(#mask0_1620_20360)">
+      <path d="M5.83303 7.08333L2.5 3.75V2.5H3.75L5.83333 4.58333L10 8.75V10H8.75L5.83303 7.08333ZM2.5 17.5V16.25L5.83333 12.9167L8.75 10H10V11.25L5.83333 15.4167L3.75 17.5H2.5ZM10 10V8.75L14.1667 4.58333L16.25 2.5H17.5V3.75L14.1667 7.08333L11.25 10H10ZM14.1667 15.4167L10 11.25V10H11.25L14.1667 12.9167L17.5 16.25V17.5H16.25L14.1667 15.4167Z" fill="url(#paint0_linear_1620_20360)" />
+    </g>
+    <defs>
+      <linearGradient id="paint0_linear_1620_20360" x1="2.5" y1="10" x2="17.5" y2="10" gradientUnits="userSpaceOnUse">
+        <stop stop-color="#06A9EF" />
+        <stop offset="1" stop-color="#55CCFF" />
+      </linearGradient>
+    </defs>
+  </svg>
+)
+export const Service = () => (
+
+  <svg
+    width="20"
+    height="20"
+    viewBox="0 0 20 20"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <g mask="url(#mask0_1861_9684)">
+      <path
+        d="M2.5 9.16667V2.5H9.16667V9.16667H2.5ZM2.5 17.5V10.8333H9.16667V17.5H2.5ZM10.8333 9.16667V2.5H17.5V9.16667H10.8333ZM10.8333 17.5V10.8333H17.5V17.5H10.8333ZM4.16667 7.5H7.5V4.16667H4.16667V7.5ZM12.5 7.5H15.8333V4.16667H12.5V7.5ZM12.5 15.8333H15.8333V12.5H12.5V15.8333ZM4.16667 15.8333H7.5V12.5H4.16667V15.8333Z"
+        fill="url(#paint0_linear_1861_9684)"
+      />
+    </g>
+    <defs>
+      <linearGradient
+        id="paint0_linear_1861_9684"
+        x1="2.5"
+        y1="10"
+        x2="17.5"
+        y2="10"
+        gradientUnits="userSpaceOnUse"
+      >
+        <stop stop-color="#06A9EF" />
+        <stop offset="1" stop-color="#55CCFF" />
+      </linearGradient>
+    </defs>
+  </svg>
+)
+
 export const PDFSvgSM = () => (
   <svg
     width="24"

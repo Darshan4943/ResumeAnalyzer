@@ -2,10 +2,11 @@ import React, { useEffect, useRef, useState } from "react";
 import ClientList from "../../components/featured/clients/ClientList";
 import CreateNewClient from "./CreateNewClient";
 import axios from "axios";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import Fuse from "fuse.js";
 import { useRouter } from "next/router";
-
+import { reCallUserData } from "../../Redux/actions/user";
+import { toast } from "react-toastify";
 function MyClients() {
   const [tabIndex, setTabIndex] = useState(0);
   const [isOptions, setIsOptions] = useState(false);
@@ -13,7 +14,11 @@ function MyClients() {
   const userDataGlobal = useSelector((state) => state.userData);
   const [allData, setAllData] = useState([]);
   const taskRef = useRef(null);
+  const [select, setSelect] = useState(false);
   const router = useRouter();
+  const [selectAll, setSelectAll] = useState(false);
+  const [selectedIndexes, setSelectedIndexes] = useState([]);
+  const dispatch = useDispatch();
   const handleOutsideClick = (event) => {
     if (taskRef.current && !taskRef.current.contains(event.target)) {
       setIsOptions(false);
@@ -44,6 +49,28 @@ function MyClients() {
     callData();
   }, [userDataGlobal]);
 
+  const deleteClient = () => {
+    const ids = selectedIndexes.map((item) => details[item]._id);
+
+    if (ids.length === 0) {
+      toast.error("Please select file to delete");
+      return;
+    }
+
+    axios.delete("https://freedygoservices.in/api/client/deleteClients", { data: { ids } })
+      .then(response => {
+        console.log(response.data);
+        dispatch(reCallUserData());
+        toast.success("Client Deleted successfully");
+        setSelectedIndexes([])
+        setSelect(false)
+
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  };
+
   const changeHandler = (value) => {
     if (value.length > 0) {
       const options = {
@@ -66,19 +93,30 @@ function MyClients() {
     }
   };
 
+  const toggleSelectAll = () => {
+    if (selectAll) {
+      setSelectedIndexes([]);
+    } else {
+      setSelectedIndexes(
+        Array.from({ length: details.length }, (_, index) => index)
+      );
+    }
+    setSelectAll(!selectAll);
+  };
   return (
     <div className="flex justify-center customMargins py-6">
       {tabIndex === 0 && (
         <div className="flex flex-col gap-4  w-[100%]">
           <div className="text-[20px] font-semibold">My Clients</div>
+          <div className="bg-[#DEDEDE] w-full h-[1px]"></div>
           <div
-            style={{ boxShadow: "0px 2px 7px 0px #00000040" }}
-            className="flex flex-col gap-4 sm:p-6 px-2 py-3 rounded-[24px]"
+            // style={{ boxShadow: "0px 2px 7px 0px #00000040" }}
+            className="flex flex-col gap-4  py-3 rounded-[24px]"
           >
-            <div className="flex ml:flex-row flex-col gap-4  justify-between ml:items-center items-end ">
+            <div className="flex ml:flex-row flex-col gap-4  justify-between ml:items-center ms:items-end items-end ">
               <div
                 style={{ boxShadow: "0px 2px 7px 0px #00000040" }}
-                className="flex gap-4 justify-between rounded-[50px] px-4 py-3 ml:w-[82%] w-[100%] items-center "
+                className="flex gap-4 justify-between rounded-[50px] px-4 py-3 ml:w-[58%] w-[100%] items-center "
               >
                 <div className="flex gap-4  w-full items-center ">
                   <svg
@@ -106,10 +144,100 @@ function MyClients() {
                   />
                 </div>
               </div>
-              <div className="flex gap-4 items-center  justify-end relative">
+              <div className="flex gap-4  ms:items-center items-end justify-end relative">
+                {!select &&
+                  <div onClick={() => setSelect(!select)} className="scr420:py-3 scr420:px-4 px-2 py-2 flex gap-2 text-[16px] font-semibold bg-[#E9EEF6] rounded-[8px] items-center cursor-pointer">
+                    <svg width="22" height="22" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+                      <g mask="url(#mask0_2185_10021)">
+                        <path d="M13.1724 17.0836C12.8315 17.0836 12.538 16.9605 12.2918 16.7142C12.0455 16.468 11.9224 16.1744 11.9224 15.8336V12.34C11.9224 11.9992 12.0455 11.7057 12.2918 11.4595C12.538 11.2132 12.8315 11.0901 13.1724 11.0901H16.666C17.0068 11.0901 17.3003 11.2132 17.5465 11.4595C17.7928 11.7057 17.9159 11.9992 17.9159 12.34V15.8336C17.9159 16.1744 17.7928 16.468 17.5465 16.7142C17.3003 16.9605 17.0068 17.0836 16.666 17.0836H13.1724ZM13.1724 15.8336H16.666V12.34H13.1724V15.8336ZM2.08264 14.7118V13.4618H9.26212V14.7118H2.08264ZM13.1724 8.91053C12.8315 8.91053 12.538 8.78741 12.2918 8.54116C12.0455 8.29491 11.9224 8.00138 11.9224 7.66058V4.16697C11.9224 3.82617 12.0455 3.53264 12.2918 3.28639C12.538 3.04012 12.8315 2.91699 13.1724 2.91699H16.666C17.0068 2.91699 17.3003 3.04012 17.5465 3.28639C17.7928 3.53264 17.9159 3.82617 17.9159 4.16697V7.66058C17.9159 8.00138 17.7928 8.29491 17.5465 8.54116C17.3003 8.78741 17.0068 8.91053 16.666 8.91053H13.1724ZM13.1724 7.66058H16.666V4.16697H13.1724V7.66058ZM2.08264 6.53876V5.28878H9.26212V6.53876H2.08264Z" fill="#333333" />
+                      </g>
+                    </svg>
+                    Select
+                  </div>
+                }
+                <div className={` ${select ? "flex" : "hidden"} gap-12  items-center w-[100%]  `}>
+                  {select && (
+                    <div className="bg-[#D1EDFF] flex scr420:gap-4  gap-2 rounded-[50px] px-3  scr420:py-3 py-2 items-center w-full scr420:min-w-[316px] scr420:h-[48px] h-[40px]  ">
+                      <div
+                        onClick={() => setSelect(false)}
+                        style={{ boxShadow: "0px 1px 2px 0px #00000040" }}
+                        className="bg-[#F9F9F9] rounded-[50%] p-[8.5px]  cursor-pointer"
+                      >
+                        <svg
+                          width="12"
+                          height="12"
+                          viewBox="0 0 11 11"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M1.5 10.5L0.5 9.5L4.5 5.5L0.5 1.5L1.5 0.5L5.5 4.5L9.5 0.5L10.5 1.5L6.5 5.5L10.5 9.5L9.5 10.5L5.5 6.5L1.5 10.5Z"
+                            fill="#333333"
+                          />
+                        </svg>
+                      </div>
+                      <div className="flex ms:gap-6 sm:gap-4 gap-2 w-full scr540:justify-start justify-between items-center ">
+                        <div className="flex gap-2 text-[14px] font-medium">
+                          <label className="flex items-center gap-2 scr420:text-[14px] text-[13px] font-medium">
+                            Select All
+                            <input
+                              type="checkbox"
+                              className=" rounded-[4.5px] pl-[4px] pr-[20px] py-[2px] outline-none text-[14px] font-medium custom-checkbox cursor-pointer"
+                              style={{ width: "20px", height: "20px" }}
+                              checked={selectAll}
+                              onChange={toggleSelectAll}
+                            />
+                          </label>
+                        </div>
+
+
+                        <svg
+
+                          onClick={() => deleteClient()}
+                          width="20"
+                          height="20"
+                          viewBox="0 0 20 20"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <g mask="url(#mask0_1381_18138)">
+                            <path
+                              d="M5.83594 17.5C5.3776 17.5 4.98524 17.3368 4.65885 17.0104C4.33247 16.684 4.16927 16.2917 4.16927 15.8333V5H3.33594V3.33333H7.5026V2.5H12.5026V3.33333H16.6693V5H15.8359V15.8333C15.8359 16.2917 15.6727 16.684 15.3464 17.0104C15.02 17.3368 14.6276 17.5 14.1693 17.5H5.83594ZM14.1693 5H5.83594V15.8333H14.1693V5ZM7.5026 14.1667H9.16927V6.66667H7.5026V14.1667ZM10.8359 14.1667H12.5026V6.66667H10.8359V14.1667Z"
+                              fill="#333333"
+                            />
+                          </g>
+                        </svg>
+
+                        <div className="scr420:text-[14px] text-[13px] font-semibold min-w-[85px] items-center flex justify-end">
+                          {selectedIndexes.length}  selected
+                        </div>
+                      
+
+                      </div>
+                    </div>
+                  )
+                  }
+                </div>
+                {!select &&
+                  <button
+                    onClick={() => router.push("/myClients/CreateNewClient")}
+                    className="ml:hidden scr420:text-[16px] text-[14px] font-semibold scr420:py-3 scr420:px-6 px-2 py-2 scr420:h-[48px]  scr420:min-w-[228px] flex gap-1 bg-[#06A9EF] rounded-[12px] text-white"
+                    type="button"
+                  >
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+                      <g mask="url(#mask0_612_10078)">
+                        <path d="M11 13H5V11H11V5H13V11H19V13H13V19H11V13Z" fill="white" />
+                      </g>
+                    </svg>
+                    Create New Client
+                  </button>
+                }
+
                 <button
                   onClick={() => router.push("/myClients/CreateNewClient")}
-                  className="text-[16px] font-semibold py-3 px-6 h-[48px] min-w-[228px] flex gap-1 bg-[#06A9EF] rounded-[12px] text-white"
+                  className=" ml:flex hidden text-[16px] font-semibold py-3 px-6 h-[48px] min-w-[228px] gap-1 bg-[#06A9EF] rounded-[12px] text-white"
                   type="button"
                 >
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -120,22 +248,6 @@ function MyClients() {
                   </svg>
                   Create New Client
                 </button>
-                {/* <svg
-                  className=" cursor-pointer"
-                  onClick={() => setIsOptions(true)}
-                  width="40"
-                  height="40"
-                  viewBox="0 0 40 40"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <g mask="url(#mask0_635_20303)">
-                    <path
-                      d="M19.9961 33.3337C19.3228 33.3337 18.7477 33.0939 18.2709 32.6145C17.794 32.135 17.5556 31.5586 17.5556 30.8853C17.5556 30.212 17.7953 29.6369 18.2748 29.1601C18.7543 28.6832 19.3307 28.4448 20.0039 28.4448C20.6772 28.4448 21.2523 28.6846 21.7292 29.164C22.206 29.6435 22.4444 30.2199 22.4444 30.8932C22.4444 31.5665 22.2047 32.1415 21.7252 32.6184C21.2458 33.0952 20.6694 33.3337 19.9961 33.3337ZM19.9961 22.4447C19.3228 22.4447 18.7477 22.205 18.2709 21.7255C17.794 21.2461 17.5556 20.6697 17.5556 19.9964C17.5556 19.3231 17.7953 18.748 18.2748 18.2712C18.7543 17.7943 19.3307 17.5559 20.0039 17.5559C20.6772 17.5559 21.2523 17.7956 21.7292 18.2751C22.206 18.7546 22.4444 19.331 22.4444 20.0042C22.4444 20.6775 22.2047 21.2526 21.7252 21.7295C21.2458 22.2063 20.6694 22.4447 19.9961 22.4447ZM19.9961 11.5558C19.3228 11.5558 18.7477 11.3161 18.2709 10.8366C17.794 10.3571 17.5556 9.78077 17.5556 9.10749C17.5556 8.43419 17.7953 7.85912 18.2748 7.38228C18.7543 6.90542 19.3307 6.66699 20.0039 6.66699C20.6772 6.66699 21.2523 6.90673 21.7292 7.3862C22.206 7.86567 22.4444 8.44205 22.4444 9.11533C22.4444 9.78863 22.2047 10.3637 21.7252 10.8406C21.2458 11.3174 20.6694 11.5558 19.9961 11.5558Z"
-                      fill="#1C1B1F"
-                    />
-                  </g>
-                </svg> */}
 
                 {/* {isOptions && (
                   <div
@@ -155,7 +267,9 @@ function MyClients() {
               </div>
             </div>
             {details?.length > 0 ? (
-              <ClientList setTabIndex={setTabIndex} details={details} />
+              <ClientList setTabIndex={setTabIndex} details={details} selectedIndexes={selectedIndexes}
+                setSelectedIndexes={setSelectedIndexes}
+                setSelect={setSelect} select={select} />
             ) : (
               <div
                 onClick={() => router.push("/myClients/CreateNewClient")}

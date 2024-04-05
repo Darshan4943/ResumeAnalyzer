@@ -4,7 +4,9 @@ import { useRouter } from "next/router";
 // import { details } from "../../../utils/data";
 import { useSelector } from "react-redux";
 import axios from "axios";
-function ClientList({ setTabIndex, tabIndex, details }) {
+function ClientList({ setTabIndex, tabIndex, details, setSelect,
+  selectedIndexes,
+  setSelectedIndexes,select }) {
   const router = useRouter();
   const [openPopupIndex, setOpenPopupIndex] = useState(null);
   const [selectedDetail, setSelectedDetail] = useState(null);
@@ -32,7 +34,13 @@ function ClientList({ setTabIndex, tabIndex, details }) {
     setSelectedDetail(details[detail]);
     router.push(`/myClients/ClientDetail?detailIndex=${detail._id}`);
   };
-
+  const toggleSelect = (index) => {
+    if (selectedIndexes.includes(index)) {
+      setSelectedIndexes(selectedIndexes.filter((i) => i !== index));
+    } else {
+      setSelectedIndexes([...selectedIndexes, index]);
+    }
+  };
   return (
     <>
       <div className="rounded-[16px]  flex flex-col gap-4 w-[100%] break-all">
@@ -48,6 +56,16 @@ function ClientList({ setTabIndex, tabIndex, details }) {
               style={{ boxShadow: "0px 2px 7px 0px #00000040" }}
             >
               <div className="flex justify-center relative">
+                {select && (
+                  <input
+                    type="checkbox"
+                    className=" absolute left-[0%] top-0 rounded-[4.5px] pl-[4px] pr-[20px] py-[2px] outline-none text-[14px] font-medium custom-checkbox"
+                    style={{ width: "20px", height: "20px" }}
+                    onClick={(e) => e.stopPropagation()}
+                    checked={selectedIndexes.includes(index)}
+                    onChange={() => toggleSelect(index)}
+                  />
+                )}
                 <img
                   className="rounded-[50%] sm:h-[120px] sm:w-[120px] h-[100px] w-[100px] "
                   style={{ objectFit: "contain" }}
