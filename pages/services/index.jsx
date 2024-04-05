@@ -158,7 +158,7 @@ function Services({ isServices,isMove,setIsMove }) {
                         </div>
                     </div>
                     <div className='flex flex-col gap-6 w-[750px]   '>
-                        <div onClick={() => setIsServices(!isServices)} className='header1 text-[16px] font-semibold px-4 py-2 h-[36px] leading-tight text-[#FFF] w-[159px] '>Services</div>
+                        <div  className='header1 text-[16px] font-semibold px-4 py-2 h-[36px] leading-tight text-[#FFF] w-[180px] '>Services</div>
                         <div className='flex gap-6 flex-wrap'>
                             {list().map((item, index) => (
                                 <div
