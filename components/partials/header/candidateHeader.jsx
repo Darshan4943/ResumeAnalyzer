@@ -15,6 +15,7 @@ function CandidateHeader() {
   const taskRef = useRef(null);
   const [isLogin, setIsLogin] = useState(false);
   const [isServices, setServices] = useState(false);
+  const [isMove, setIsMove] = useState(false)
   useEffect(() => {
     setSelectedPage(router.pathname);
   }, [router.pathname]);
@@ -57,6 +58,19 @@ function CandidateHeader() {
       document.removeEventListener("mousedown", handleOutsideClick);
     };
   }, []);
+
+  useEffect(() => {
+    if (!isMove) {
+        const imagedownTimer = setTimeout(() => {
+          setServices(false);
+        }, 300);
+
+        return () => {
+            clearTimeout(imagedownTimer);
+        };
+    }
+}, [isMove]);
+
 
   return (
     <>
@@ -124,7 +138,7 @@ function CandidateHeader() {
             </div>
             :
             <div
-              onClick={() => setServices(false)}
+              onClick={() => {setIsMove(false)}}
               className={
                 " text-[14px] flex gap-2  items-center font-semibold p-[10px] hover:bg-[#EAF7FF] rounded-[14px] cursor-pointer "
               }
@@ -135,7 +149,7 @@ function CandidateHeader() {
              
             </div>
           }
-          {isServices && <Services setServices={setServices} isServices={isServices} />}
+          {isServices && <Services setServices={setServices} isServices={isServices} setIsMove={setIsMove} isMove={isMove} />}
         </div>
         {/* <Link
           href={userDataGlobal.role === "user" ? "/jobs/search" : "/jobs/list"}
