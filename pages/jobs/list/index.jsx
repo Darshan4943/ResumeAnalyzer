@@ -16,13 +16,13 @@ const Index = () => {
   const getData = () => {
     setLoading(true);
     axios
-      .get("https://freedygoservices.in/api/job/getById/" + userDataGlobal._id)
+      .get("http://localhost:2000/api/job/getByCreatedId/" + userDataGlobal._id)
       .then((res) => {
         setLoading(false);
         setJobPost(res.data);
       })
       .catch((err) => {
-        setLocation(false);
+        setLoading(false);
         console.log(err);
       });
   };
@@ -65,8 +65,14 @@ const Index = () => {
             <>
               {jobPost.length > 0 ? (
                 <>
-                  {jobPost.map((item,index) => (
-                    <div key={index} className="job-card">
+                  {jobPost.map((item, index) => (
+                    <div
+                      key={index}
+                      className="job-card"
+                      onClick={() =>
+                        router.push("/jobs/details?id=" + item._id)
+                      }
+                    >
                       <div className="px-[16px] flex flex-row justify-between">
                         <div className="flex flex-col gap-[2px]">
                           <span className="text-[16px] text-[#06A9EF] font-medium">

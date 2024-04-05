@@ -34,7 +34,7 @@ const JobMatching = () => {
   const [isBack, setIsBack] = useState(false);
   const [recall, setRecall] = useReducer((x) => x + 1, 0);
 
-  const [options, setOptions] = useState(["My Collection", "Upload File"]);
+  const [options, setOptions] = useState(["My Collection"]);
 
   const [text, setText] = useState("");
   const [error, setError] = useState("");

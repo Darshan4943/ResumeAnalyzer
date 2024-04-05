@@ -387,3 +387,28 @@ export const selectResumeTemplate = (
 
   }
 };
+
+
+export const daysCalculator =(date)=>{
+    const givenDate = new Date(date);
+    
+    const today = new Date();
+    const difference = today - givenDate;
+    const daysDifference = Math.floor(difference / (1000 * 60 * 60 * 24));
+    if (daysDifference < 1) {
+      return 'Today';
+    } else if (daysDifference < 2) {
+      return 'Yesterday';
+    } else if (daysDifference < 7) {
+      return `${daysDifference} days ago`;
+    } else if (daysDifference < 30) {
+      const weeks = Math.floor(daysDifference / 7);
+      return `${weeks} week${weeks > 1 ? 's' : ''} ago`;
+    } else if (daysDifference < 365) {
+      const months = Math.floor(daysDifference / 30);
+      return `${months} month${months > 1 ? 's' : ''} ago`;
+    } else {
+      const years = Math.floor(daysDifference / 365);
+      return `${years} year${years > 1 ? 's' : ''} ago`;
+    }
+}
