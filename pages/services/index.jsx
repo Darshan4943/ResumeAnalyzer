@@ -87,7 +87,7 @@ function Services({ isServices, isMove, setIsMove }) {
         switch (itemName) {
 
             case 'Create New Resume':
-                handleNavigation('/home/BuildResume');
+                handleNavigation(userDataGlobal.role === "user" ? '/home/BuildResume': '/myClients/ClientResume');
                 break;
             case 'My Clients':
                 handleNavigation('/myClients');

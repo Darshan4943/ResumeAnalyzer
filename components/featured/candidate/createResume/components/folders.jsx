@@ -27,7 +27,7 @@ function Folders({
   setIsFile,
   setIsCreateFolder,
 }) {
- 
+
   const router = useRouter();
   const [mainData, setMainData] = useState(data);
   const [mainDataAll, setMainDataAll] = useState(data);
@@ -43,7 +43,7 @@ function Folders({
   const [isList, setIsList] = useState(false);
   const [previousPage, setpreviousPage] = useState(null);
   const [showDelete, setShowDelete] = useState(false)
-
+  const [isOption, setIsOption] = useState(false)
   const handleFileChange = (event, folderName) => {
     const uploadedFiles = event.target.files;
     const newFiles = Array.from(uploadedFiles);
@@ -166,7 +166,7 @@ function Folders({
     if (sortSelect == 0) {
       return data?.sort((a, b) => a.fileName.localeCompare(b.fileName));
     } else if (sortSelect == 1) {
-      return data?.sort((a, b) =>  a.updatedAt.localeCompare(b.updatedAt));
+      return data?.sort((a, b) => a.updatedAt.localeCompare(b.updatedAt));
     } else if (sortSelect == 2) {
       return data?.sort((a, b) => a.size - b.size);
     }
@@ -304,7 +304,7 @@ function Folders({
         <div className="flex flex-col-reverse gap-4 w-full  ">
           <div className={` ${select ? "flex" : "hidden"} gap-12  items-center w-[100%] h-[40px] `}>
             {select ? (
-              <div className="bg-[#D1EDFF] flex sm:gap-4  gap-2 rounded-[50px] pl-[6px] sm:pr-4 pr-2 py-[6px] items-center w-full scr540:min-w-[440px]  ">
+              <div className="bg-[#D1EDFF] relative flex sm:gap-4  gap-2 rounded-[50px] pl-[6px] sm:pr-4 pr-2 py-[6px] items-center w-full scr540:min-w-[440px]  ">
                 <div
                   onClick={() => setSelect(false)}
                   style={{ boxShadow: "0px 1px 2px 0px #00000040" }}
@@ -392,16 +392,16 @@ function Folders({
                           </g>
                         </svg>
                         {!clients &&
-                        <div className="min-w-[1px] h-full bg-[#06A9EF] ">
-                          {" "}
-                        </div>
-}
+                          <div className="min-w-[1px] h-full bg-[#06A9EF] ">
+                            {" "}
+                          </div>
+                        }
                       </>
                     )}
                     {!clients &&
                       <svg
-                    
-                      onClick={() => (selectedIndexes.length > 0 && setShowDelete(true))}
+
+                        onClick={() => (selectedIndexes.length > 0 && setShowDelete(true))}
                         width="20"
                         height="20"
                         viewBox="0 0 20 20"
@@ -445,13 +445,29 @@ function Folders({
                   <div className="text-[14px] font-semibold min-w-[85px] items-center flex justify-end">
                     {selectedIndexes.length} selected
                   </div>
-                  <svg className="scr540:hidden" width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  {!clients &&
+                    <svg onClick={() => setIsOption(!isOption)} className="scr540:hidden" width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
 
-                    <g mask="url(#mask0_1759_35016)">
-                      <path d="M13.9997 20.6673C13.5413 20.6673 13.149 20.5041 12.8226 20.1777C12.4962 19.8513 12.333 19.459 12.333 19.0007C12.333 18.5423 12.4962 18.15 12.8226 17.8236C13.149 17.4972 13.5413 17.334 13.9997 17.334C14.458 17.334 14.8504 17.4972 15.1768 17.8236C15.5031 18.15 15.6663 18.5423 15.6663 19.0007C15.6663 19.459 15.5031 19.8513 15.1768 20.1777C14.8504 20.5041 14.458 20.6673 13.9997 20.6673ZM13.9997 15.6673C13.5413 15.6673 13.149 15.5041 12.8226 15.1777C12.4962 14.8513 12.333 14.459 12.333 14.0007C12.333 13.5423 12.4962 13.15 12.8226 12.8236C13.149 12.4972 13.5413 12.334 13.9997 12.334C14.458 12.334 14.8504 12.4972 15.1768 12.8236C15.5031 13.15 15.6663 13.5423 15.6663 14.0007C15.6663 14.459 15.5031 14.8513 15.1768 15.1777C14.8504 15.5041 14.458 15.6673 13.9997 15.6673ZM13.9997 10.6673C13.5413 10.6673 13.149 10.5041 12.8226 10.1777C12.4962 9.85135 12.333 9.45898 12.333 9.00065C12.333 8.54232 12.4962 8.14996 12.8226 7.82357C13.149 7.49718 13.5413 7.33398 13.9997 7.33398C14.458 7.33398 14.8504 7.49718 15.1768 7.82357C15.5031 8.14996 15.6663 8.54232 15.6663 9.00065C15.6663 9.45898 15.5031 9.85135 15.1768 10.1777C14.8504 10.5041 14.458 10.6673 13.9997 10.6673Z" fill="#1C1B1F" />
-                    </g>
-                  </svg>
+                      <g mask="url(#mask0_1759_35016)">
+                        <path d="M13.9997 20.6673C13.5413 20.6673 13.149 20.5041 12.8226 20.1777C12.4962 19.8513 12.333 19.459 12.333 19.0007C12.333 18.5423 12.4962 18.15 12.8226 17.8236C13.149 17.4972 13.5413 17.334 13.9997 17.334C14.458 17.334 14.8504 17.4972 15.1768 17.8236C15.5031 18.15 15.6663 18.5423 15.6663 19.0007C15.6663 19.459 15.5031 19.8513 15.1768 20.1777C14.8504 20.5041 14.458 20.6673 13.9997 20.6673ZM13.9997 15.6673C13.5413 15.6673 13.149 15.5041 12.8226 15.1777C12.4962 14.8513 12.333 14.459 12.333 14.0007C12.333 13.5423 12.4962 13.15 12.8226 12.8236C13.149 12.4972 13.5413 12.334 13.9997 12.334C14.458 12.334 14.8504 12.4972 15.1768 12.8236C15.5031 13.15 15.6663 13.5423 15.6663 14.0007C15.6663 14.459 15.5031 14.8513 15.1768 15.1777C14.8504 15.5041 14.458 15.6673 13.9997 15.6673ZM13.9997 10.6673C13.5413 10.6673 13.149 10.5041 12.8226 10.1777C12.4962 9.85135 12.333 9.45898 12.333 9.00065C12.333 8.54232 12.4962 8.14996 12.8226 7.82357C13.149 7.49718 13.5413 7.33398 13.9997 7.33398C14.458 7.33398 14.8504 7.49718 15.1768 7.82357C15.5031 8.14996 15.6663 8.54232 15.6663 9.00065C15.6663 9.45898 15.5031 9.85135 15.1768 10.1777C14.8504 10.5041 14.458 10.6673 13.9997 10.6673Z" fill="#1C1B1F" />
+                      </g>
+                    </svg>
+                  }
+                  {isOption && (
+                    <div
+                      onClick={() => (selectedIndexes.length > 0 && setShowDelete(true))}
+                      className="absolute right-3 top-10 bg-white px-2 py-4 flex flex-col gap-1 rounded-[8px]"
+                      style={{
+                        boxShadow: "0px 1px 2px 0px #00000040",
+                      }}
+                    >
 
+
+                      <p className="text-[14px] text-red font-medium">
+                        Delete
+                      </p>
+                    </div>
+                  )}
                 </div>
               </div>
             ) : (
@@ -663,7 +679,7 @@ function Folders({
         )}
 
         {
-          showDelete   &&
+          showDelete &&
           <>
             <div className="opacity-25 fixed inset-0 z-[120] bg-black"></div>
 
@@ -684,15 +700,15 @@ function Folders({
 
                 <div className="w-full d-flex flex-column justify-center items-center">
 
-                {trash ?
-                <p className="text-[14px] font-[500]  text-center px-8">
-               Are you sure you want to delete this selection from trash?
-              </p>
-                :
-                  <p className="text-[14px] font-[500]  text-center px-8">
-                    Are you sure you want delete this selection?
-                  </p>
-}
+                  {trash ?
+                    <p className="text-[14px] font-[500]  text-center px-8">
+                      Are you sure you want to delete this selection from trash?
+                    </p>
+                    :
+                    <p className="text-[14px] font-[500]  text-center px-8">
+                      Are you sure you want delete this selection?
+                    </p>
+                  }
                 </div>
                 <div className="w-full flex justify-between flex-row">
                   <button
