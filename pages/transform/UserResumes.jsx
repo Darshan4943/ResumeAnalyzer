@@ -64,20 +64,20 @@ const UserResumes = ({
   selected,
   setCount,
   selectedClient,
-  setNewData
+  setNewData,
 }) => {
   const [data, setData] = useState([]);
   const taskRef = useRef(null);
   const userDataGlobal = useSelector((state) => state.userData);
   const [allData, setAllData] = useState([]);
   useEffect(() => {
-    if(userDataGlobal){
+    if (userDataGlobal) {
       if (userDataGlobal.role == "recruiter") {
-        console.log("first",resumeList)
+        console.log("first", resumeList);
         setData(resumeList);
         setAllData(resumeList);
         // setSelect(resumeList[0]);
-      } else if(userDataGlobal.role == "user") {
+      } else if (userDataGlobal.role == "user") {
         axios
           .get("https://freedygoservices.in/api/resume/" + userDataGlobal?._id)
           .then((response) => {
@@ -91,8 +91,7 @@ const UserResumes = ({
           });
       }
     }
-    
-  }, [userDataGlobal, selectedClient,resumeList]);
+  }, [userDataGlobal, selectedClient, resumeList]);
 
   const searchHandler = (value) => {
     if (value.length > 0) {
@@ -119,17 +118,16 @@ const UserResumes = ({
     <>
       <div className="rounded-[16px] border bg-[#F9F9F9] border-[#DEDEDE] sm:p-[16px] p-2 flex flex-col gap-[16px]">
         <div className="flex flex-row items-center justify-between sm:gap-[12px] gap-1  ">
-         
-            <div className="flex flex-row gap-[8px] py-[8px] sm:px-[12px] px-1 h-[40px] bg-[#fff] border border-[#DEDEDE] rounded-[30px] items-center">
-              <SearchIcon />
-              <input
-                type="text"
-                className="bg-[#fff] text-[#333333] placeholder:text-[#333333]  w-[75%]"
-                placeholder="Select"
-                onChange={(e) => searchHandler(e.target.value)}
-              />
-            </div>
-         
+          <div className="flex flex-row gap-[8px] py-[8px] sm:px-[12px] px-1 h-[40px] bg-[#fff] border border-[#DEDEDE] rounded-[30px] items-center">
+            <SearchIcon />
+            <input
+              type="text"
+              className="bg-[#fff] text-[#333333] placeholder:text-[#333333]  w-[75%]"
+              placeholder="Select"
+              onChange={(e) => searchHandler(e.target.value)}
+            />
+          </div>
+
           <span className="text-[14px] text-[#808080] w-[35%] flex justify-end">
             {data?.length}
             {" Items"}
@@ -154,11 +152,14 @@ const UserResumes = ({
                   onClick={() => {
                     setIsAll(false);
                     setSelect(item);
-                    setNewData(null)
+                    setNewData(null);
                   }}
                 >
                   <PDFSvg />
-                  <span className="text-[16px] text-[#333333] text-center">
+                  <span
+                    className="text-[14px] text-[#333333] text-center"
+                    style={{ wordBreak: "break-all" }}
+                  >
                     {item.fileName}
                   </span>
                 </div>

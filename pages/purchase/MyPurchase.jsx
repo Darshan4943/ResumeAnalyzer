@@ -230,7 +230,7 @@ function MyPurchase() {
           </div>
         </>
       ) : (
-        <div className="w-full ">
+        <div className="w-full  ">
           <SubscriptionPlan subscription={subscription} />
         </div>
       )}
