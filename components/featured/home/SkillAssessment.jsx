@@ -54,7 +54,7 @@ function SkillAssessment({ isLogin }) {
               <div className="flex scr1024:justify-start justify-end">
                 <button
                   onClick={handleClick}
-                  className=" scr1024:w-[11vw] scr1024:h-[3.5vw]   scr1024:px-[12px]  px-4 py-2    scr1024:text-[1.2vw] text-[12px] font-[500]  bg-[#fff] scr1024:rounded-[12px] rounded-[6px] border-[1px] border-solid border-[#06A9EF]  transition-[0.2s]"
+                  className=" scr1024:w-[11vw] scr1024:h-[3.5vw]   scr1024:px-[12px]  px-4 py-2    scr1024:text-[1.11111vw] text-[12px] font-[500]  bg-[#fff] scr1024:rounded-[12px] rounded-[6px] border-[1px] border-solid border-[#06A9EF]  transition-[0.2s]"
                 >
                   Get Started
                 </button>
@@ -79,7 +79,7 @@ function SkillAssessment({ isLogin }) {
               />
             </div>
             <div className="flex flex-col gap-[8px] scr1024:w-[80%] w-[100%]  text-[#333] leading-tight p-1">
-              <div className="scr1024:text-[1.7vw] sm:text-[2.5vw] text-[10px] font-[600]  text-center scr1024:text-start">
+              <div className="scr1024:text-[1.4vw] sm:text-[2.5vw] text-[10px] font-[600]  text-center scr1024:text-start">
                 Gain Valuable Insights
               </div>
               <div className="scr1024:text-[1.2vw] sm:text-[2vw] text-[7px] font-[400] ">
@@ -98,7 +98,7 @@ function SkillAssessment({ isLogin }) {
             }}
           >
             <div className="flex flex-col scr1024:w-[80%] w-[100%] gap-[8px] text-[#333] leading-tight p-1">
-              <div className="scr1024:text-[1.7vw] sm:text-[2.5vw] text-[10px] font-[600] text-center scr1024:text-start">
+              <div className="scr1024:text-[1.4vw] sm:text-[2.5vw] text-[10px] font-[600] text-center scr1024:text-start">
                 Challenges your limits
               </div>
               <div className="scr1024:text-[1.2vw] sm:text-[2vw] text-[7px] font-[400]  ">
