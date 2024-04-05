@@ -2,8 +2,8 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
 
-function Services({ isServices,isMove,setIsMove }) {
-    
+function Services({ isServices, isMove, setIsMove }) {
+
     const router = useRouter();
 
     useEffect(() => {
@@ -85,15 +85,7 @@ function Services({ isServices,isMove,setIsMove }) {
 
     function handleItemClick(itemName) {
         switch (itemName) {
-            case 'Candidate':
-                handleNavigation('/');
-                break;
-            case 'Recruiter':
-                handleNavigation('/recruiter');
-                break;
-            case 'Home':
-                handleNavigation('/home');
-                break;
+
             case 'Create New Resume':
                 handleNavigation('/home/BuildResume');
                 break;
@@ -158,7 +150,7 @@ function Services({ isServices,isMove,setIsMove }) {
                         </div>
                     </div>
                     <div className='flex flex-col gap-6 w-[750px]   '>
-                        <div  className='header1 text-[16px] font-semibold px-4 py-2 h-[36px] leading-tight text-[#FFF] w-[180px] '>Services</div>
+                        <div className='header1 text-[16px] font-semibold px-4 py-2 h-[36px] leading-tight text-[#FFF] w-[180px] '>Services</div>
                         <div className='flex gap-6 flex-wrap'>
                             {list().map((item, index) => (
                                 <div
