@@ -53,7 +53,7 @@ function CandidateHome() {
               </div>
               <button
                 onClick={clickHandler}
-                className="px-6 py-3 bg-[#06A9EF] text-white rounded-[12px] text-[1.2vw] font-semibold"
+                className="px-6 py-3 bg-[#06A9EF] text-white rounded-[12px] text-[1.11111vw] font-semibold"
                 style={{ width: "fit-content" }}
               >
                 Build My Resume
@@ -99,7 +99,7 @@ function CandidateHome() {
               </div>
               <button
                 onClick={clickHandler}
-                className="px-6 py-3 bg-[#06A9EF] text-[1.2vw] text-white w-[13vw] font-semibold rounded-[12px]"
+                className="px-6 py-3 bg-[#06A9EF] text-[1.11111vw] text-white w-[13vw] font-semibold rounded-[12px]"
               >
                 Get Started
               </button>

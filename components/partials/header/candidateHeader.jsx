@@ -2,7 +2,9 @@ import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import Link from "next/link";
-import Services from "../../featured/candidate/createResume/components/services";
+import Services from "../../../pages/services";
+import { Service, ServiceCross } from "../../../utils/svg";
+
 function CandidateHeader() {
   const router = useRouter();
   const userDataGlobal = useSelector((state) => state.userData);
@@ -13,6 +15,7 @@ function CandidateHeader() {
   const taskRef = useRef(null);
   const [isLogin, setIsLogin] = useState(false);
   const [isServices, setServices] = useState(false);
+  const [isMove, setIsMove] = useState(false)
   useEffect(() => {
     setSelectedPage(router.pathname);
   }, [router.pathname]);
@@ -56,6 +59,19 @@ function CandidateHeader() {
     };
   }, []);
 
+  useEffect(() => {
+    if (!isMove) {
+        const imagedownTimer = setTimeout(() => {
+          setServices(false);
+        }, 300);
+
+        return () => {
+            clearTimeout(imagedownTimer);
+        };
+    }
+}, [isMove]);
+
+
   return (
     <>
       <div className="flex justify-center items-center list-none  gap-9 ">
@@ -68,6 +84,7 @@ function CandidateHeader() {
           />
         </Link>
         <Link
+          onClick={() => setServices(false)}
           href="/home"
           className={
             selectedPage === "/home"
@@ -105,48 +122,35 @@ function CandidateHeader() {
 
           <li>Home</li>
         </Link>
-        <Link className="relative "
-         href="/services"
+        <div className="relative "
+        //  href="/services"
         >
-          
-          <div
-            // onClick={() => setServices(!isServices)}
-            className={
-              " text-[14px] flex gap-2  items-center font-semibold p-[10px] hover:bg-[#EAF7FF] rounded-[14px] cursor-pointer "
-            }
-          >
-            <svg
-              width="20"
-              height="20"
-              viewBox="0 0 20 20"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
+          {!isServices ?
+            <div
+              onClick={() => setServices(true)}
+              className={
+                " text-[14px] flex gap-2  items-center font-semibold p-[10px] hover:bg-[#EAF7FF] rounded-[14px] cursor-pointer "
+              }
             >
-              <g mask="url(#mask0_1861_9684)">
-                <path
-                  d="M2.5 9.16667V2.5H9.16667V9.16667H2.5ZM2.5 17.5V10.8333H9.16667V17.5H2.5ZM10.8333 9.16667V2.5H17.5V9.16667H10.8333ZM10.8333 17.5V10.8333H17.5V17.5H10.8333ZM4.16667 7.5H7.5V4.16667H4.16667V7.5ZM12.5 7.5H15.8333V4.16667H12.5V7.5ZM12.5 15.8333H15.8333V12.5H12.5V15.8333ZM4.16667 15.8333H7.5V12.5H4.16667V15.8333Z"
-                  fill="url(#paint0_linear_1861_9684)"
-                />
-              </g>
-              <defs>
-                <linearGradient
-                  id="paint0_linear_1861_9684"
-                  x1="2.5"
-                  y1="10"
-                  x2="17.5"
-                  y2="10"
-                  gradientUnits="userSpaceOnUse"
-                >
-                  <stop stop-color="#06A9EF" />
-                  <stop offset="1" stop-color="#55CCFF" />
-                </linearGradient>
-              </defs>
-            </svg>
+              <Service />
 
-            <li>Services</li>
-          </div>
-          {isServices && <Services setServices={setServices} />}
-        </Link>
+              <li>Services</li>
+            </div>
+            :
+            <div
+              onClick={() => {setIsMove(false)}}
+              className={
+                " text-[14px] flex gap-2  items-center font-semibold p-[10px] hover:bg-[#EAF7FF] rounded-[14px] cursor-pointer "
+              }
+            >
+               <li>Services</li>
+              < ServiceCross />
+
+             
+            </div>
+          }
+          {isServices && <Services setServices={setServices} isServices={isServices} setIsMove={setIsMove} isMove={isMove} />}
+        </div>
         {/* <Link
           href={userDataGlobal.role === "user" ? "/jobs/search" : "/jobs/list"}
           className={
