@@ -187,6 +187,10 @@ function SkillAssessment() {
                     <div className="text-[20px] font-medium">Select Skill</div>
 
                     <ReactSelect
+                      onInputChange={(data) => {
+                        setSkills([data, ...skills]);
+                      }}
+                      
                       options={skills.map((item) => ({
                         value: item,
                         label: camelCase(item),
@@ -195,7 +199,6 @@ function SkillAssessment() {
                       onChange={handleInputChange}
                     />
                   </div>
-                 
                 </div>
               ) : (
                 <div className="  ml:w-[45%] w-[100%] flex flex-col gap-[16px] rounded-[12px] bg-[#fff] ml:justify-between justify-center ">
@@ -210,59 +213,59 @@ function SkillAssessment() {
                             onClick={() => {
                               setSelectedSkill(item);
                             }}
-                            className={`ml:px-4 ml:py-2 px-2 py-1 border-[1px] border-solid border-[#06A9EF] rounded-[25px] ml:text-[14px] text-[12px] font-medium text-[#333]  transition-[0.2s] ${selectedSkill == item && "bg-[#06A9EF] text-white"
-                              }`}
+                            className={`ml:px-4 ml:py-2 px-2 py-1 border-[1px] border-solid border-[#06A9EF] rounded-[25px] ml:text-[14px] text-[12px] font-medium text-[#333]  transition-[0.2s] ${
+                              selectedSkill == item && "bg-[#06A9EF] text-white"
+                            }`}
                           >
                             {item}
                           </button>
                         ))}
                       </div>
                     </div>
-
                   </div>
                 </div>
               )}
 
               <div className="flex justify-end scr420:gap-4 gap-2 ml:w-[50%] w-[100%]">
-              {!viewAddSkill ? (
-                <button
-                  onClick={() => setViewAddSkill(true)}
-                  className="rounded-[12px] ml:px-[22.8px] px-3  ml:min-w-[235px] min-w-[180px] py-2  flex gap-2 ml:text-[16px] scr420:text-[14px] text-[12px] justify-center items-center bg-blue text-white ml:h-[50px] h-[40px] font-semibold"
-                >
-                  Select Another Skill
-                  <svg
-                    width="15"
-                    height="14"
-                    viewBox="0 0 15 14"
-                    fill="none"
-                    xlgns="http://www.w3.org/2000/svg"
+                {!viewAddSkill ? (
+                  <button
+                    onClick={() => setViewAddSkill(true)}
+                    className="rounded-[12px] ml:px-[22.8px] px-3  ml:min-w-[235px] min-w-[180px] py-2  flex gap-2 ml:text-[16px] scr420:text-[14px] text-[12px] justify-center items-center bg-blue text-white ml:h-[50px] h-[40px] font-semibold"
                   >
-                    <path
-                      d="M6.5 8H0.5V6H6.5V0H8.5V6H14.5V8H8.5V14H6.5V8Z"
-                      fill="white"
-                    />
-                  </svg>
-                </button>
-              ):(
-                <button
-                  onClick={() => setViewAddSkill(false)}
-                  className="rounded-[12px] ml:px-[22.8px] px-3  ml:min-w-[235px] min-w-[180px] py-2  flex gap-2 ml:text-[16px] scr420:text-[14px] text-[12px] justify-center items-center bg-blue text-white ml:h-[50px] h-[40px] font-semibold"
-                >
-                  Select From My Skills
-                  <svg
-                    width="15"
-                    height="14"
-                    viewBox="0 0 15 14"
-                    fill="none"
-                    xlgns="http://www.w3.org/2000/svg"
+                    Select Another Skill
+                    <svg
+                      width="15"
+                      height="14"
+                      viewBox="0 0 15 14"
+                      fill="none"
+                      xlgns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M6.5 8H0.5V6H6.5V0H8.5V6H14.5V8H8.5V14H6.5V8Z"
+                        fill="white"
+                      />
+                    </svg>
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => setViewAddSkill(false)}
+                    className="rounded-[12px] ml:px-[22.8px] px-3  ml:min-w-[235px] min-w-[180px] py-2  flex gap-2 ml:text-[16px] scr420:text-[14px] text-[12px] justify-center items-center bg-blue text-white ml:h-[50px] h-[40px] font-semibold"
                   >
-                    <path
-                      d="M6.5 8H0.5V6H6.5V0H8.5V6H14.5V8H8.5V14H6.5V8Z"
-                      fill="white"
-                    />
-                  </svg>
-                </button>
-              )}
+                    Select From My Skills
+                    <svg
+                      width="15"
+                      height="14"
+                      viewBox="0 0 15 14"
+                      fill="none"
+                      xlgns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M6.5 8H0.5V6H6.5V0H8.5V6H14.5V8H8.5V14H6.5V8Z"
+                        fill="white"
+                      />
+                    </svg>
+                  </button>
+                )}
                 <div
                   className="text-[#C00000]  ml:min-w-[150px] scr420:min-w-[125px] min-w-[96px] ml:text-[16px] scr420:text-[14px] text-[12px]  "
                   onClick={() => setshowSecondDiv(!showSecondDiv)}
@@ -282,8 +285,9 @@ function SkillAssessment() {
 
             <div className="flex flex-col lg:flex-row justify-center items-center w-[100%] gap-6">
               <div
-                className={`p-[12px] ms:px-[60px] ms:customMargins ${showSecondDiv ? "lg:w-[50%]" : "w-[100.95%] "
-                  } scr1024:w-[50%] sm:w-[85%] w-[100%]  px-[12px] rounded-[12px] bg-[#005A81] flex flex-col  items-center gap-[8px] scr820:gap-[16px] `}
+                className={`p-[12px] ms:px-[60px] ms:customMargins ${
+                  showSecondDiv ? "lg:w-[50%]" : "w-[100.95%] "
+                } scr1024:w-[50%] sm:w-[85%] w-[100%]  px-[12px] rounded-[12px] bg-[#005A81] flex flex-col  items-center gap-[8px] scr820:gap-[16px] `}
               >
                 <div className="text-[20px] font-[600] text-[#fff] flex flex-row gap-[12px]">
                   <svg
@@ -454,11 +458,11 @@ function SkillAssessment() {
                   <button
                     className=" h-[42px] w-[108px] flex items-center justify-center  rounded-[8px] border-[1px] border-solid border-[#06A9EF] bg-[#fff] text-[#333] text-[14px] font-[500] transition-all transition-[0.2s]"
                     disabled={loading}
-                  // onClick={() =>
-                  //   setQuestionIndex(
-                  //     questionIndex + 1 < 10 ? questionIndex + 1 : 9
-                  //   )
-                  // }
+                    // onClick={() =>
+                    //   setQuestionIndex(
+                    //     questionIndex + 1 < 10 ? questionIndex + 1 : 9
+                    //   )
+                    // }
                   >
                     {loading ? <MiniLoader /> : "Start"}
                   </button>
@@ -484,7 +488,7 @@ function SkillAssessment() {
                     </div>
                     <div className="flex w-[19.95%] justify-center items-center self-stretch  ">
                       <p className="text-text-primary font-montserrat text-base font-medium leading-6">
-                        Grade
+                        Score
                       </p>
                     </div>
                   </div>
@@ -525,7 +529,7 @@ function SkillAssessment() {
                             </div>
                             <div className="flex  justify-center lg:w-[40%]  items-center self-stretch  ">
                               <p className="text-[#0C8A0A] items-center  font-montserrat text-sm font-semibold leading-7">
-                                {item.score}
+                                {item.score / 10} / 10
                               </p>
                             </div>
                           </div>
@@ -618,11 +622,12 @@ function SkillAssessment() {
                   <div className="flex flex-col lg:flex-row gap-[24px]">
                     <div className="w-full flex items-between  flex-col gap-[24px]">
                       <div
-                        className={`py-[12px] px-[16px] break-all rounded-[6px] lg:rounded-[8px] text-[12px] lg:text-[16px] font-[600] h-[50%]  ${isSelected(
-                          question[questionIndex]?.options[0],
-                          questionIndex + 1
-                        ) && "bg-[#06A9EF] text-white"
-                          }`}
+                        className={`py-[12px] px-[16px] break-all rounded-[6px] lg:rounded-[8px] text-[12px] lg:text-[16px] font-[600] h-[50%]  ${
+                          isSelected(
+                            question[questionIndex]?.options[0],
+                            questionIndex + 1
+                          ) && "bg-[#06A9EF] text-white"
+                        }`}
                         style={{
                           boxShadow: "0px 0px 2px 0px rgba(0, 0, 0, 0.50)",
                         }}
@@ -636,11 +641,12 @@ function SkillAssessment() {
                         A) {question[questionIndex]?.options[0]}
                       </div>
                       <div
-                        className={`py-[12px] px-[16px] break-all rounded-[6px] lg:rounded-[8px] text-[12px] lg:text-[16px] font-[600] h-[50%]  ${isSelected(
-                          question[questionIndex]?.options[2],
-                          questionIndex + 1
-                        ) && "bg-[#06A9EF] text-white"
-                          }`}
+                        className={`py-[12px] px-[16px] break-all rounded-[6px] lg:rounded-[8px] text-[12px] lg:text-[16px] font-[600] h-[50%]  ${
+                          isSelected(
+                            question[questionIndex]?.options[2],
+                            questionIndex + 1
+                          ) && "bg-[#06A9EF] text-white"
+                        }`}
                         style={{
                           boxShadow: "0px 0px 2px 0px rgba(0, 0, 0, 0.50)",
                         }}
@@ -656,11 +662,12 @@ function SkillAssessment() {
                     </div>
                     <div className="w-full flex flex-col items-between gap-[24px]">
                       <div
-                        className={`py-[12px] px-[16px] break-all rounded-[6px] lg:rounded-[8px] text-[12px] lg:text-[16px] font-[600] h-[50%]  ${isSelected(
-                          question[questionIndex]?.options[1],
-                          questionIndex + 1
-                        ) && "bg-[#06A9EF] text-white"
-                          }`}
+                        className={`py-[12px] px-[16px] break-all rounded-[6px] lg:rounded-[8px] text-[12px] lg:text-[16px] font-[600] h-[50%]  ${
+                          isSelected(
+                            question[questionIndex]?.options[1],
+                            questionIndex + 1
+                          ) && "bg-[#06A9EF] text-white"
+                        }`}
                         style={{
                           boxShadow: "0px 0px 2px 0px rgba(0, 0, 0, 0.50)",
                         }}
@@ -674,11 +681,12 @@ function SkillAssessment() {
                         B) {question[questionIndex]?.options[1]}
                       </div>
                       <div
-                        className={`py-[12px] px-[16px] break-all rounded-[6px] lg:rounded-[8px] text-[12px] lg:text-[16px] font-[600] h-[50%]  ${isSelected(
-                          question[questionIndex]?.options[3],
-                          questionIndex + 1
-                        ) && "bg-[#06A9EF] text-white"
-                          }`}
+                        className={`py-[12px] px-[16px] break-all rounded-[6px] lg:rounded-[8px] text-[12px] lg:text-[16px] font-[600] h-[50%]  ${
+                          isSelected(
+                            question[questionIndex]?.options[3],
+                            questionIndex + 1
+                          ) && "bg-[#06A9EF] text-white"
+                        }`}
                         style={{
                           boxShadow: "0px 0px 2px 0px rgba(0, 0, 0, 0.50)",
                         }}
@@ -702,37 +710,8 @@ function SkillAssessment() {
                     setIsTimerOver={setIsTimerOver}
                   />
                 </div>
-                <div
-                  className="flex flex-row gap-[3px] items-center cursor-pointer text-[18px] font-[600] min-w-[174px] w-[289px] px-[12px] justify-between  rounded-[8px] border-[1px] border-solid border-[#06A9EF] bg-[#fff]"
-                  onClick={() => {
-                    if (questionIndex == 9) {
-                      axios
-                        .post(
-                          "https://freedygoservices.in/api/assessment/add",
-                          {
-                            userId: userDataGlobal._id,
-                            skill: selectedSkill,
-                            score: checkAnswer() * 10,
-                            date: new Date(),
-                          }
-                        )
-                        .then((res) => {
-                          setScore(true);
-                        })
-                        .catch((err) => {
-                          console.log(err);
-                        });
-                    } else {
-                      setQuestionIndex(
-                        questionIndex + 1 < 10 ? questionIndex + 1 : 9
-                      );
-                    }
-                    setSkipped([...skipped, questionIndex]);
-                  }}
-                >
-                  <span className="text-red">X</span>
-                  Not Relevent
-                </div>
+                <div></div>
+
                 <div className="flex flex-row justify-between lg:gap-[72px]">
                   <div
                     className="flex flex-row gap-[3px] items-center justify-center text-[18px] font-[600]"
