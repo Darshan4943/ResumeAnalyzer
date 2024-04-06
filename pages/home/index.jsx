@@ -15,6 +15,7 @@ import CandidateHome from "../../components/featured/candidate";
 import Recruiter_page from "../recruiter";
 import RecruiterHome from "../recruiter/RecruiterHome";
 import Footer from "../../components/partials/footer/footer";
+import Dashboard from "../dashboard";
 
 function BeforeLoginHome() {
   const [isLogin, setIsLogin] = useState(false);
@@ -43,11 +44,11 @@ function BeforeLoginHome() {
     <div className="">
       {userDataGlobal.role == "recruiter" ? (
         <Recruiter_page />
-        // <RecruiterHome/>
+        // <Dashboard/>
       ) : (
         <CandidateHome />
       )}
-  
+   
     </div>
   );
 }
