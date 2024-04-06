@@ -10,7 +10,7 @@ import MiniLoader from "../../../components/common/miniLoader";
 
 const Index = () => {
   const router = useRouter();
-  const { id } = router.query;
+  const { id, isUser } = router.query;
   const [loading, setLoading] = useState(true);
   const [tab, setTab] = useState(0);
   const userDataGlobal = useSelector((state) => state.userData);
@@ -85,15 +85,17 @@ const Index = () => {
             >
               Job Details
             </div>
-            <div
-              className="text-[16px] font-semibold text-[#333333] pb-[8px] cursor-pointer "
-              onClick={() => setTab(1)}
-              style={{
-                borderBottom: `4px solid ${tab == 1 ? "#06A9EF" : "white"}`,
-              }}
-            >
-              Applicants
-            </div>
+            {isUser ? null : (
+              <div
+                className="text-[16px] font-semibold text-[#333333] pb-[8px] cursor-pointer "
+                onClick={() => setTab(1)}
+                style={{
+                  borderBottom: `4px solid ${tab == 1 ? "#06A9EF" : "white"}`,
+                }}
+              >
+                Applicants
+              </div>
+            )}
           </div>
           {tab == 0 && (
             <Details applications={applications} jobPost={jobPost} />

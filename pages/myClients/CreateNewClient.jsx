@@ -12,6 +12,7 @@ import { useSelector } from "react-redux";
 import ImageContainer from "../../components/common/image";
 import ImageCropper from "../../components/featured/candidate/createResume/components/imageCropper";
 function CreateNewClient({ setTabIndex }) {
+  const router = useRouter();
   const userDataGlobal = useSelector((state) => state.userData);
   const isViewportBelow850 = useMediaQuery("(max-width:850px)");
   const [loading, setLoading] = useState(false);
@@ -33,14 +34,20 @@ function CreateNewClient({ setTabIndex }) {
 
   const handleFileChange = (event) => {
     event.preventDefault();
+    console.log("first");
     const selectedFile = event.target.files[0];
+    console.log(selectedFile);
     if (selectedFile) {
-      if (selectedFile?.type.includes("image")) {
-        setData({ ...data, img: selectedFile });
-        setModelView(true);
-        setError(false);
+      if (selectedFile && selectedFile.size <= 2 * 1024 * 1024) {
+        if (selectedFile?.type.includes("image")) {
+          setData({ ...data, img: selectedFile });
+          setModelView(true);
+          setError(false);
+        } else {
+          toast.error("Only Image files are allowed");
+        }
       } else {
-        toast.error("Only Image files are allowed");
+        toast.error("Please select a file that is  2 MB.");
       }
     }
   };
@@ -65,7 +72,6 @@ function CreateNewClient({ setTabIndex }) {
     callData();
   }, [userDataGlobal]);
 
-  const router = useRouter();
 
   const [formError, setFormError] = useState({});
 
@@ -322,6 +328,7 @@ function CreateNewClient({ setTabIndex }) {
                     className="text-[12px] font-semibold px-4 py-2 rounded-[8px]  border border-[#06A9EF]  w-[135px] cursor-pointer"
                     onClick={() => {
                       setData({ ...data, img: null });
+                      setCroppedImage(null);
                       setError(false);
                     }}
                   >
@@ -572,16 +579,8 @@ function CreateNewClient({ setTabIndex }) {
                           </div>
                         </div>
 
-                        <div className="bottom_buttons font-[500]">
-                          <button
-                            className="buttons"
-                            id="border_button"
-                            onClick={() => {
-                              router.push("/myClients");
-                            }}
-                          >
-                            Go Back
-                          </button>
+                        <div className="bottom_buttons  font-[500]">
+                         
                           <button
                             className="buttons font-[500] bg-[#06A9EF] text-white"
                             id="border_button"

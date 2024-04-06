@@ -17,7 +17,7 @@ function ClientSection() {
   const router = useRouter();
   const clickHandler = () => {
     if (isLogin) {
-      router.push("/myClients/ClientResume");
+      router.push("/myClients");
     } else {
       router.push("/auth?signin=true");
     }

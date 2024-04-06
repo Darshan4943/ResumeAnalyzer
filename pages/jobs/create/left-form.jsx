@@ -16,7 +16,7 @@ const Leftform = ({
   setCroppedImage,
 }) => {
   const fileRef = useRef();
-  const [loactionText, setLoactionText] = useState(null);
+  const [loactionText, setLoactionText] = useState("");
   const [modelView, setModelView] = useState(false);
   const handleFileChange = (event) => {
     event.preventDefault();
@@ -246,8 +246,9 @@ const Leftform = ({
               value={loactionText}
               onChange={(e) => setLoactionText(e.target.value)}
             />
-            <div
+            <button
               className=" absolute right-3 top-[12px] "
+              disabled={loactionText?.length == 0}
               onClick={() => {
                 setData({
                   ...data,
@@ -259,11 +260,14 @@ const Leftform = ({
               <PlusAddLogo
                 color={loactionText?.length > 0 ? "#646464" : "#bebebe"}
               />
-            </div>
+            </button>
           </div>
           <div className="flex flex-row flex-wrap gap-3">
-            {data?.location?.map((item,index) => (
-              <div key={index} className="py-[4px] px-[8px] bg-[#effaff] rounded-[8px] flex flex-row gap-3 items-center ">
+            {data?.location?.map((item, index) => (
+              <div
+                key={index}
+                className="py-[4px] px-[8px] bg-[#effaff] rounded-[8px] flex flex-row gap-3 items-center "
+              >
                 <span> {item}</span>
                 <span
                   className="text-[14px]  cursor-pointer font-medium "
@@ -282,14 +286,17 @@ const Leftform = ({
         </div>
         <div className="form-group">
           <label className="text-[#333333] text-[14px] font-medium">
-            About Organization
+            Job Description
           </label>
-          <Tiptap
+          {
+            data && data["description"] &&  <Tiptap
             data={data}
-            value={"aboutOrganization"}
+            value={"description"}
             setData={setData}
-            placeholder={"Enter About Organization here"}
+            placeholder={"Enter Job Description here"}
           />
+          }
+         
         </div>
       </div>
     </div>

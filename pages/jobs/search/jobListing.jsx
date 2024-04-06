@@ -10,7 +10,7 @@ const JobListing = ({ jobs, resume }) => {
   const [jd, setJd] = useState(null);
 
   return (
-    <div className="flex flex-col gap-4 min-h-[70vh] ">
+    <div className="flex flex-col gap-4 min-h-[70vh] overflow-auto ">
       {jd && <Details data={jd} setJd={setJd} resume={resume} />}
       <div className="flex ml:flex-row flex-col gap-12 w-[100%] ">
         <div className="ml:w-[100%] w-[100%]  flex flex-col gap-[16px] ">

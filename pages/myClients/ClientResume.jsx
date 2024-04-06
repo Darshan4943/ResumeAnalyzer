@@ -51,7 +51,7 @@ console.log(12,details)
               style={{ boxShadow: "0px 2px 7px 0px #00000040" }}
               className="flex gap-4 justify-between rounded-[50px] px-4 py-3  w-[100%] items-center "
             >
-              <div className="flex gap-4  w-[70%] items-center ">
+              <div className="flex gap-4  w-[100%] items-center ">
                 <svg
                   width="36"
                   height="36"
