@@ -187,10 +187,13 @@ function SkillAssessment() {
                     <div className="text-[20px] font-medium">Select Skill</div>
 
                     <ReactSelect
-                      onInputChange={(data) => {
-                        setSkills([data, ...skills]);
-                      }}
+                     onInputChange={(data) => {
                       
+                      setSkills([
+                        { value: data, label: data },
+                        ...skills,
+                      ]);
+                    }}
                       options={skills.map((item) => ({
                         value: item,
                         label: camelCase(item),
@@ -710,8 +713,37 @@ function SkillAssessment() {
                     setIsTimerOver={setIsTimerOver}
                   />
                 </div>
-                <div></div>
-
+                <div
+                  className="flex flex-row gap-[3px] items-center cursor-pointer text-[18px] font-[600] min-w-[174px] w-fit px-[12px] justify-between  rounded-[8px] border-[1px] border-solid border-[#06A9EF] bg-[#fff]"
+                  onClick={() => {
+                    if (questionIndex == 9) {
+                      axios
+                        .post(
+                          "https://freedygoservices.in/api/assessment/add",
+                          {
+                            userId: userDataGlobal._id,
+                            skill: selectedSkill,
+                            score: checkAnswer() * 10,
+                            date: new Date(),
+                          }
+                        )
+                        .then((res) => {
+                          setScore(true);
+                        })
+                        .catch((err) => {
+                          console.log(err);
+                        });
+                    } else {
+                      setQuestionIndex(
+                        questionIndex + 1 < 10 ? questionIndex + 1 : 9
+                      );
+                    }
+                    setSkipped([...skipped, questionIndex]);
+                  }}
+                >
+                  <span className="text-red">X</span>
+                  Not Relevent
+                </div>
                 <div className="flex flex-row justify-between lg:gap-[72px]">
                   <div
                     className="flex flex-row gap-[3px] items-center justify-center text-[18px] font-[600]"
