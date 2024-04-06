@@ -99,6 +99,9 @@ const SkillModel = ({ userData, handleImageClick, setIsComponentOpen }) => {
                 value: item,
                 label: camelCase(item),
               }))}
+              onInputChange={(data) => {
+                setSkills([data, ...skills]);
+              }}
               className="w-[100%]"
               onChange={(data) => {
                 const isAlreadySelected = skil.some(
