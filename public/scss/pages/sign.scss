@@ -715,7 +715,7 @@ width:50%
 .bottom_buttons {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: flex-start;
   align-self: stretch;
 }

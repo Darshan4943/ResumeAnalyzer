@@ -4,9 +4,15 @@ import { useRouter } from "next/router";
 // import { details } from "../../../utils/data";
 import { useSelector } from "react-redux";
 import axios from "axios";
-function ClientList({ setTabIndex, tabIndex, details, setSelect,
+function ClientList({
+  setTabIndex,
+  tabIndex,
+  details,
+  setSelect,
   selectedIndexes,
-  setSelectedIndexes,select }) {
+  setSelectedIndexes,
+  select,
+}) {
   const router = useRouter();
   const [openPopupIndex, setOpenPopupIndex] = useState(null);
   const [selectedDetail, setSelectedDetail] = useState(null);

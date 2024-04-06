@@ -6,7 +6,7 @@ import CandidateHeader from "./candidateHeader";
 function Header({ userData }) {
   const router = useRouter();
   const [selectedPage, setSelectedPage] = useState("");
-  const [isLogin, setIsLogin] = useState(false);
+  const [isLogin, setIsLogin] = useState(null);
 
   useEffect(() => {
     setSelectedPage(router.pathname);
@@ -20,6 +20,9 @@ function Header({ userData }) {
       } else {
         setIsLogin(false);
       }
+    }else{
+      setIsLogin(false);
+
     }
   }, []);
 

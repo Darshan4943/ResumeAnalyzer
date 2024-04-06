@@ -67,7 +67,7 @@ const DateSelector = ({ idPrefix, dataSeter, data, fromCreate }) => {
   }, [fromCreate]);
 
   return (
-    <div className="flex gap-[14px] flex_column">
+    <div className="flex gap-[14px] flex-wrap relative">
       <div
         className="flex flex-col gap-2"
         style={{ opacity: isChecked ? 1 : 0.5 }}
@@ -240,7 +240,7 @@ const DateSelector = ({ idPrefix, dataSeter, data, fromCreate }) => {
         </div>
       )}
       {
-        fromCreate && <div className="flex flex-col gap-2">
+        fromCreate && <div className="flex flex-col gap-2 absolute right-0 top-[-6px] " >
         <div>
           <label className="switch">
             <input

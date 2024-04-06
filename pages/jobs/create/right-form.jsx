@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 
-const Rightform = ({ data, setData, file, croppedImage }) => {
+const Rightform = ({ data, setData, file, croppedImage, isEditable, id }) => {
   const [loading, setLoading] = useState(false);
   const userDataGlobal = useSelector((state) => state.userData);
   const router = useRouter();
@@ -31,9 +31,13 @@ const Rightform = ({ data, setData, file, croppedImage }) => {
     }
     formData.append("createdBy", userDataGlobal._id);
     axios
-      .post("https://freedygoservices.in/api/job/add", formData)
+      .post("http://localhost:2000/api/job/add/" + id, formData)
       .then((res) => {
-        toast.success("Job Post Created Successfully");
+        if (id) {
+          toast.success("Job Post Updated Successfully");
+        } else {
+          toast.success("Job Post Created Successfully");
+        }
         setLoading(false);
         router.push("/jobs/list");
       })
@@ -61,17 +65,7 @@ const Rightform = ({ data, setData, file, croppedImage }) => {
             }}
           />
         </div>
-        <div className="form-group">
-          <label className="text-[#333333] text-[14px] font-medium">
-            Job Description
-          </label>
-          <Tiptap
-            data={data}
-            value={"description"}
-            setData={setData}
-            placeholder={"Enter Job Description here"}
-          />
-        </div>
+    
       </div>
       <div className="flex flex-col w-full gap-[16px]">
         <span className="text-[18px] text-[#333333] font-medium">Salary</span>
@@ -243,7 +237,7 @@ const Rightform = ({ data, setData, file, croppedImage }) => {
           Cancel
         </button>
         <button
-          className="rounded-[12px] py-[12px] px-[24px] border bg-[#06A9EF] border-[#06A9EF] text-[16px] font-medium text-[#ffffff] w-[180px]"
+          className="rounded-[12px] py-[12px] px-[24px] border bg-[#06A9EF] border-[#06A9EF] text-[16px] font-medium text-[#ffffff] w-[190px]"
           onClick={postJob}
         >
           {loading ? (
@@ -264,6 +258,8 @@ const Rightform = ({ data, setData, file, croppedImage }) => {
                 fill="currentColor"
               />
             </svg>
+          ) : id ? (
+            "Update Job Post"
           ) : (
             " Create Job Post"
           )}

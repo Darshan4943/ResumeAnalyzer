@@ -19,8 +19,6 @@ function Main_sign_page() {
       setIsSignIn(false);
     }
   }, [signin, signup]);
-  console.log(22, signup)
-
   const handleGoogle = async () => {
     const provider = new GoogleAuthProvider();
     try {
@@ -42,8 +40,9 @@ function Main_sign_page() {
           localStorage.setItem("authToken", JSON.stringify(res.data));
           if (sendToPurchaseResult?.status) {
             localStorage.removeItem("purchase");
-            window.location.href = `/purchase/details?id=${sendToPurchaseResult.index + 1
-              }`;
+            window.location.href = `/purchase/details?id=${
+              sendToPurchaseResult.index + 1
+            }`;
           } else {
             setGoogleLoading(false);
             window.location.href = "/home";
@@ -57,7 +56,7 @@ function Main_sign_page() {
       if (error.code === "auth/cancelled-popup-request") {
         console.log("Sign-in with Google popup was cancelled by the user.");
       } else {
-        console.error("Error signing in with Google:", error.message);
+        console.log("Error signing in with Google:", error.message);
       }
       setGoogleLoading(false);
     }
@@ -66,18 +65,18 @@ function Main_sign_page() {
   return (
     <div>
       <div className=" justify-center relative w-[100%] flex overflow-hidden">
-        <motion.div className="earth object-contain -z-10 web"
+        <motion.div
+          className="earth object-contain -z-10 web"
           initial={{
             right: signin ? "0%" : "",
-            left: signup ? "0%" : ""
+            left: signup ? "0%" : "",
           }}
           animate={{
             right: signin ? "85%" : "",
-            left: signup ? "85%" : ""
+            left: signup ? "85%" : "",
           }}
           transition={{ duration: 1 }}
         />
-
 
         <div className=" z-100">
           {signin && (
@@ -90,18 +89,17 @@ function Main_sign_page() {
           {signup && <Sign_up handleGoogle={handleGoogle} />}
         </div>
 
-        <div className="rightEarth -z-10 web" >
+        <div className="rightEarth -z-10 web">
           <motion.img
             initial={{
               left: signin ? "10%" : "",
-              right: signup ? "10%" : ""
+              right: signup ? "10%" : "",
             }}
             animate={{
               left: signin ? "75%" : "",
-              right: signup ? "75%" : ""
+              right: signup ? "75%" : "",
             }}
             transition={{ duration: 1 }}
-
             src="/images/Earth.png"
             alt=""
             className="earth1 object-contain"
@@ -109,16 +107,14 @@ function Main_sign_page() {
           <motion.img
             initial={{
               left: signin ? "0%" : "",
-              right: signup ? "0%" : ""
+              right: signup ? "0%" : "",
             }}
             animate={{
               left: signin ? "75%" : "",
               right: signup ? "75%" : "",
-              scaleX: signup ? -1 : 1, 
-             
+              scaleX: signup ? -1 : 1,
             }}
             transition={{ duration: 1 }}
-
             src="images/employer/Employer_hire_candidates/tethescope.png"
             alt=""
             className="sign_up_tethescope object-contain absolute"

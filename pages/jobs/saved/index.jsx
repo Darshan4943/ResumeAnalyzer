@@ -8,22 +8,23 @@ import { dateSeter } from "../../../utils/middleware";
 import MiniLoader from "../../../components/common/miniLoader";
 import { PencilLineIcon } from "lucide-react";
 
-const Index = () => {
+const Saved = () => {
   const router = useRouter();
   const userDataGlobal = useSelector((state) => state.userData);
-
+  const isUser = userDataGlobal?.role == "user";
   const [loading, setLoading] = useState(false);
   const [jobPost, setJobPost] = useState([]);
   const getData = () => {
     setLoading(true);
     axios
-      .get(
-        "https://freedygoservices.in/api/job/getByCreatedId/" +
-          userDataGlobal._id
-      )
+      .post("http://localhost:2000/api/job/byIds", {
+        ids: userDataGlobal?.savedJobs
+          ?.map((item) => item.id)
+          .filter((item) => item != "undefined"),
+      })
       .then((res) => {
         setLoading(false);
-        setJobPost(res.data);
+        setJobPost(res.data.data);
       })
       .catch((err) => {
         setLoading(false);
@@ -52,14 +53,8 @@ const Index = () => {
     <div className="job-list customMargins flex flex-col gap-[16px] ">
       <div className="flex justify-between items-center header w-full">
         <span className="text-[18px] font-medium text-[#FFFFFF] py-[8px] px-[12px] ">
-          Job Listings
+          Saved Jobs
         </span>
-        <button
-          className="text-[16px] font-medium text-[#FFFFFF] bg-[#06A9EF] px-[12px] py-[8px] rounded-[8px] flex flex-row items-center gap-[4px] "
-          onClick={() => router.push("/jobs/create")}
-        >
-          <AddIcon color={"#fff"} /> Create New Job
-        </button>
       </div>
       <div>
         <div className="flex flex-row flex-wrap gap-x-[34px]  gap-y-[24px] ">
@@ -76,7 +71,9 @@ const Index = () => {
                       key={index}
                       className="job-card"
                       onClick={() =>
-                        router.push("/jobs/details?id=" + item._id)
+                        router.push(
+                          "/jobs/details?id=" + item._id + "&isUser=" + isUser
+                        )
                       }
                     >
                       <div className="px-[16px] flex flex-row justify-between">
@@ -101,23 +98,6 @@ const Index = () => {
                               Closed
                             </div>
                           )}
-                          <div
-                            className="cursor-pointer"
-                            onClick={(e) => {
-                              e.stopPropagation(); // prevent
-                              router.push("/jobs/create?id=" + item._id);
-                            }}
-                          >
-                            <PencilLineIcon color="#646464" />
-                          </div>
-                        </div>
-                      </div>
-                      <div className="px-[16px] flex flex-row justify-around bg-[#EFFAFF] items-center">
-                        <div className="text-[14px] font-semibold text-[#333333] w-[50%] text-left">
-                          Total Applications
-                        </div>
-                        <div className="text-[36px] font-semibold text-[#333333] w-[50%] text-center">
-                          {item?.applications?.length}
                         </div>
                       </div>
                       <div className="px-[16px] flex flex-row justify-between items-center">
@@ -154,4 +134,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default Saved;

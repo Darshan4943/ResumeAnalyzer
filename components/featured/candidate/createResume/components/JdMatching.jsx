@@ -137,9 +137,7 @@ const JdMatching = ({ details, resuneList }) => {
                                 <FileSizeDisplay fileUrl={data?.resumeUrl} />
                               </span>
                               <div className="flex flex-row gap-[8px] items-center">
-                                <span className="md:text-[14px] text-[14px] text-[#06A9EF] font-[600] cursor-pointer">
-                                  Preview
-                                </span>
+                                
 
                                 <svg
                                   onClick={() =>
@@ -162,12 +160,12 @@ const JdMatching = ({ details, resuneList }) => {
                           </div>
                         </div>
                       </div>
-                      <div className="flex flex-col gap-[12px] min-h-[157px] justify-start relative ">
+                      <div className="flex flex-col gap-[12px] min-h-[197px] justify-start relative ">
                         <span className="text-[#333333] text-[16px] font-[500]">
                           Matching Parameters
                         </span>
                         <ul className="flex flex-col gap-[4px]">
-                          {data?.matching_parameters?.map((item, i) => (
+                          {data?.matching_parameters.slice(0,3)?.map((item, i) => (
                             <li
                               key={i}
                               className="text-[#333333] text-[14px] font-[500] flex flex-row items-center gap-[8px]"
