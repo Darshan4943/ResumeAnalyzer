@@ -270,8 +270,8 @@ function CreateNewClient({ setTabIndex }) {
         <div className="flex flex-col  gap-4 sm:p-6 p-2 scr1200:w-[70%] sm:w-[90%] w-[100%] ">
           <p className="text-[24px] font-semibold">Create New Client</p>
           <div
-            className="flex flex-col gap-9 rounded-[16px] sm:p-6 p-2"
-            style={{ boxShadow: "0px 1px 6px 0px #00000040" }}
+            className="flex flex-col gap-9 rounded-[16px] sm:py-6 py-2"
+            // style={{ boxShadow: "0px 1px 6px 0px #00000040" }}
           >
             <div className="flex flex-col gap-4">
               <p className="text-[16px] font-medium">Profile Photo</p>
@@ -419,7 +419,7 @@ function CreateNewClient({ setTabIndex }) {
                                   isViewportBelow850 ? "w-[65%] " : "w-[40%] "
                                 } items-center`}
                               >
-                                <div className="  w-[100%] text-[14px] justify-center items-center  flex font-[500] text-[#646464]">
+                                <div className="  w-[100%] sm:text-[14px] text-[13px] justify-center items-center  flex font-[500] text-[#646464]">
                                   <div className="flex items-center justify-center gap-2 cursor-pointer min-w-[140px] w-[100%]">
                                     <div className="flex items-center  gap-1 cursor-pointer  w-[100%] ">
                                       <ReactSelect
@@ -456,7 +456,7 @@ function CreateNewClient({ setTabIndex }) {
                               </div>
 
                               <input
-                                className="w-full mobileNo "
+                                className="w-full mobileNo  "
                                 type="text"
                                 name=""
                                 // id="single_input"

@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 function ClientList({ setTabIndex, tabIndex, details, setSelect,
   selectedIndexes,
-  setSelectedIndexes,select }) {
+  setSelectedIndexes,select,deleteClient }) {
   const router = useRouter();
   const [openPopupIndex, setOpenPopupIndex] = useState(null);
   const [selectedDetail, setSelectedDetail] = useState(null);
@@ -16,6 +16,7 @@ function ClientList({ setTabIndex, tabIndex, details, setSelect,
   const handleOutsideClick = (event) => {
     if (taskRef.current && !taskRef.current.contains(event.target)) {
       setOpenPopupIndex(null);
+      setSelectedIndexes([])
     }
   };
 
@@ -78,8 +79,8 @@ function ClientList({ setTabIndex, tabIndex, details, setSelect,
                   alt="image"
                 />
 
-                {/* <svg
-                  onClick={(e) => toggleOptions(index, e)}
+                <svg
+                  onClick={(e) => {toggleOptions(index, e);toggleSelect(index);}}
                   className="absolute right-[-4%] cursor-pointer"
                   width="24"
                   height="24"
@@ -93,19 +94,19 @@ function ClientList({ setTabIndex, tabIndex, details, setSelect,
                       fill="#646464"
                     />
                   </g>
-                </svg> */}
+                </svg>
 
                 {openPopupIndex === index && (
                   <div
                     ref={taskRef}
-                    className="absolute right-[-38%] bg-white px-2 py-4 flex flex-col gap-1 rounded-[8px]"
+                    className="absolute right-[-30%] bg-white px-2 py-4 flex flex-col gap-1 rounded-[8px]"
                     style={{
                       boxShadow: "0px 1px 2px 0px #00000040",
                     }}
                   >
-                    <p className="text-[14px] font-medium">View Client</p>
-                    <p className="text-[14px] font-medium">Select</p>
-                    <p className="text-[14px] text-red font-medium">Delete</p>
+                    <p onClick={() => toggleDetails(detail)} className="text-[14px] font-medium">View Client</p>
+                   
+                    <p  onClick={(e) => {e.stopPropagation();deleteClient()}}  className="text-[14px] text-red font-medium">Delete</p>
                   </div>
                 )}
               </div>
