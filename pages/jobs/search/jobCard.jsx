@@ -53,7 +53,7 @@ const JobCard = ({ data, setJd, resume, jd }) => {
   };
   const SaveJob = (id) => {
     axios
-      .post(`http://localhost:2000/api/saveJob/${userDataGlobal._id}/${id}`)
+      .post(`https://freedygoservices.in/api/saveJob/${userDataGlobal._id}/${id}`)
       .then((res) => {
         dispatch(reCallUserData());
         toast.success("Job Saved  Successfully");

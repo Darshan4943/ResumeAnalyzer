@@ -75,9 +75,9 @@ function ClientDetail({ tabIndex }) {
         </svg>
         My Clients
       </div>
-      <div className="flex  gap-8 flex-wrap scr700:justify-start justify-center">
+      <div className="flex  gap-8 flex-wrap scr700:justify-start justify-center ">
         <div
-          className="flex scr540:flex-row flex-col gap-8 sm:p-6 p-4 rounded-[24px] w-[50%]"
+          className="flex scr540:flex-row flex-col gap-8 sm:p-6 p-4 rounded-[24px] w-[50%] scr540:min-w-[500px] min-w-[280px]"
           style={{ boxShadow: "0px 2px 7px 0px #00000040" }}
         >
           <div className="flex justify-center items-center relative ">
@@ -188,7 +188,7 @@ function ClientDetail({ tabIndex }) {
         <div
             onClick={() => router.push(`/home/BuildResume?clientId=${clientId}`)}
             style={{ boxShadow: "0px 0px 10px 5px #00000040" }}
-            className="rounded-[12px] text-center text-white justify-center flex scr540:flex-col flex-row text-[18px] items-center gap-2 font-medium  scr540:w-[192px] w-[312px]  scr540:h-[272px] h-[135px] bg-[#646464] p-6 cursor-pointer"
+            className="rounded-[12px] text-center text-white justify-center flex scr540:flex-col flex-row text-[18px] items-center gap-2 font-medium  scr540:w-[192px] w-[280px]  scr540:h-[272px] h-[135px] bg-[#646464] p-6 cursor-pointer"
           >
             <svg
               width="27"

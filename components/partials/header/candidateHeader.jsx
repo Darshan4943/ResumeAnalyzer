@@ -373,7 +373,7 @@ function CandidateHeader() {
               {isLogout && (
                 <div
                   ref={taskRef}
-                  className="w-[85px] flex justify-center cursor-pointer absolute top-[26px] mt-[1.5rem] right-0 z-10 bg-white border border-gray-200 py-2 px-3 rounded-md shadow-md  "
+                  className="w-[85px] flex justify-center cursor-pointer absolute top-[26px] mt-[1.3rem] right-0 z-[5000] bg-white border border-gray-200 py-2 px-3 rounded-md shadow-md  "
                 >
                   <a onClick={handleLogOut} className=" py-1">
                     Log Out
