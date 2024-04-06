@@ -5,12 +5,12 @@ import { useSelector } from 'react-redux';
 
 function HeaderSidebar({ selectedPage, setIsSidebar, setIsLogin, isLogin, isSidebar }) {
     const boforeLoginList = ["Candidate", "Recruiter"];
-    const loginListCandidate = ["Home", "My Resumes", "Transform CV", "Skill Assessments", "My Purchases"]
-    const loginListRecruiter = ["Home", "My Clients", "Transform CV", "Job Description Matching", "Collection", "My Purchases"]
+    const loginListCandidate = ["Home", "My Resumes", "Transform CV", "Skill Assessments", "Search Jobs", "My Purchases"]
+    const loginListRecruiter = ["Home", "My Clients", "Transform CV", "Job Description Matching", "Collection", "Post Jobs", "My Purchases"]
     const router = useRouter();
     const [visible, setvisible] = useState(false);
     const userDataGlobal = useSelector((state) => state.userData);
-  
+
     const handleNavigation = (page) => {
         setIsSidebar(false);
         router.push(page);
@@ -49,14 +49,20 @@ function HeaderSidebar({ selectedPage, setIsSidebar, setIsLogin, isLogin, isSide
     };
 
     const handleLogOut = () => {
-        router.push("/");
+
         setIsLogin(false);
         localStorage.clear();
-        window.location.reload();
+   
+        if (userDataGlobal.role === "user") {
+            router.push("/");
+        }
+        else {
+            router.push("/recruiter");
+        }
     };
 
     return (
-        <div className=' h-[10000px] flex flex-col  pt-[3.5rem] relative ' >
+        <div className=' h-[10000px] flex flex-col  pt-[3.5rem] relative overflow-y-auto ' >
             <div className='sticky top-0'>
                 <div style={{
                     opacity: visible ? 1 : 0,
@@ -122,6 +128,8 @@ function HeaderSidebar({ selectedPage, setIsSidebar, setIsLogin, isLogin, isSide
                                 ...(item === 'Job Description Matching' && { ...getListItemStyles('/transform/JobMatching'), transition: "transform 1s ease-in-out" }),
                                 ...(item === 'Collection' && { ...getListItemStyles('/collection'), transition: "transform 1.1s ease-in-out" }),
                                 ...(item === 'Skill Assessments' && { ...getListItemStyles('/home/SkillAssessment'), transition: "transform 1.1s ease-in-out" }),
+                                ...(item === 'Search Jobs' && { ...getListItemStyles('/jobs/search'), transition: "transform 1.1s ease-in-out" }),
+                                ...(item === 'Post Jobs' && { ...getListItemStyles('/jobs/list'), transition: "transform 1.1s ease-in-out" }),
                                 ...(item === 'My Purchases' && { ...getListItemStyles('/purchase/MyPurchase'), transition: "transform 1.2s ease-in-out" }),
                             }}
 
@@ -158,6 +166,12 @@ function HeaderSidebar({ selectedPage, setIsSidebar, setIsLogin, isLogin, isSide
                                         break;
                                     case 'Skill Assessments':
                                         handleNavigation('/home/SkillAssessment');
+                                        break;
+                                    case 'Post Jobs':
+                                        handleNavigation('/jobs/list');
+                                        break;
+                                    case 'Search Jobs':
+                                        handleNavigation('/jobs/search');
                                         break;
                                     default:
                                         break;

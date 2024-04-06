@@ -47,7 +47,6 @@ function BeforeLoginHome() {
       ) : (
         <CandidateHome />
       )}
-        <Footer />
   
     </div>
   );

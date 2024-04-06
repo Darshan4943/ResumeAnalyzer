@@ -15,7 +15,7 @@ function CandidateHeader() {
   const taskRef = useRef(null);
   const [isLogin, setIsLogin] = useState(false);
   const [isServices, setServices] = useState(false);
-  const [isMove, setIsMove] = useState(false)
+  const [isMove, setIsMove] = useState(false);
   useEffect(() => {
     setSelectedPage(router.pathname);
   }, [router.pathname]);
@@ -61,16 +61,15 @@ function CandidateHeader() {
 
   useEffect(() => {
     if (!isMove) {
-        const imagedownTimer = setTimeout(() => {
-          setServices(false);
-        }, 300);
+      const imagedownTimer = setTimeout(() => {
+        setServices(false);
+      }, 300);
 
-        return () => {
-            clearTimeout(imagedownTimer);
-        };
+      return () => {
+        clearTimeout(imagedownTimer);
+      };
     }
-}, [isMove]);
-
+  }, [isMove]);
 
   return (
     <>
@@ -122,10 +121,11 @@ function CandidateHeader() {
 
           <li>Home</li>
         </Link>
-        <div className="relative "
-        //  href="/services"
+        <div
+          className="relative "
+          //  href="/services"
         >
-          {!isServices ?
+          {!isServices ? (
             <div
               onClick={() => setServices(true)}
               className={
@@ -136,20 +136,28 @@ function CandidateHeader() {
 
               <li>Services</li>
             </div>
-            :
+          ) : (
             <div
-              onClick={() => {setIsMove(false)}}
+              onClick={() => {
+                setIsMove(false);
+              }}
               className={
-                " text-[14px] flex gap-2  items-center font-semibold p-[10px] hover:bg-[#EAF7FF] rounded-[14px] cursor-pointer "
+                " text-[14px] flex gap-2  items-center font-semibold p-[10px] hover:bg-[#EAF7FF] bg-[#EAF7FF] rounded-[14px] cursor-pointer "
               }
             >
-               <li>Services</li>
-              < ServiceCross />
+              <Service />
 
-             
+              <li>Services</li>
             </div>
-          }
-          {isServices && <Services setServices={setServices} isServices={isServices} setIsMove={setIsMove} isMove={isMove} />}
+          )}
+          {isServices && (
+            <Services
+              setServices={setServices}
+              isServices={isServices}
+              setIsMove={setIsMove}
+              isMove={isMove}
+            />
+          )}
         </div>
         {/* <Link
           href={userDataGlobal.role === "user" ? "/jobs/search" : "/jobs/list"}
@@ -365,7 +373,7 @@ function CandidateHeader() {
               {isLogout && (
                 <div
                   ref={taskRef}
-                  className="w-[85px] flex justify-center cursor-pointer absolute top-[26px] mt-[1.5rem] right-0 z-10 bg-white border border-gray-200 py-2 px-3 rounded-md shadow-md  "
+                  className="w-[85px] flex justify-center cursor-pointer absolute top-[26px] mt-[1.3rem] right-0 z-[5000] bg-white border border-gray-200 py-2 px-3 rounded-md shadow-md  "
                 >
                   <a onClick={handleLogOut} className=" py-1">
                     Log Out

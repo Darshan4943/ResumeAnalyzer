@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import MobileView from "../home/mobileView";
 import ImageSlider from "../home/ImgCarousel";
 import Home from "../home/images";
+import Footer from "../../partials/footer/footer";
 
 function CandidateHome() {
   const [isLogin, setIsLogin] = useState(false);
@@ -112,6 +113,8 @@ function CandidateHome() {
         <JdResume isLogin={isLogin} />
         <ResumeInventory isLogin={isLogin} />
         <SubscriptionPlan isLogin={isLogin} />
+        <Footer />
+
       </div>
 
       <MobileView clickHandler={clickHandler} isLogin={isLogin} />

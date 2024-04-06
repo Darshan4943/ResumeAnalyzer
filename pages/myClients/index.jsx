@@ -116,7 +116,7 @@ function MyClients() {
             <div className="flex ml:flex-row flex-col gap-4  justify-between ml:items-center ms:items-end items-end ">
               <div
                 style={{ boxShadow: "0px 2px 7px 0px #00000040" }}
-                className="flex gap-4 justify-between rounded-[50px] px-4 py-3 ml:w-[58%] w-[100%] items-center "
+                className="flex scr420:gap-4 gap-2 scr420:justify-between justify-start rounded-[50px] px-4 py-3 ml:w-[58%] w-[100%] items-center "
               >
                 <div className="flex gap-4  w-full items-center ">
                   <svg
@@ -137,7 +137,7 @@ function MyClients() {
                   </svg>
 
                   <input
-                    className="w-full h-[24px]"
+                    className="w-full h-[24px] scr420:text-[16px] text-[14px]"
                     type="text"
                     placeholder="Search client name or keyword"
                     onChange={(e) => changeHandler(e.target.value)}
@@ -193,7 +193,7 @@ function MyClients() {
 
 
                         <svg
-
+                          className=" cursor-pointer"
                           onClick={() => deleteClient()}
                           width="20"
                           height="20"
@@ -269,7 +269,7 @@ function MyClients() {
             {details?.length > 0 ? (
               <ClientList setTabIndex={setTabIndex} details={details} selectedIndexes={selectedIndexes}
                 setSelectedIndexes={setSelectedIndexes}
-                setSelect={setSelect} select={select} />
+                setSelect={setSelect} select={select} deleteClient={deleteClient} />
             ) : (
               <div
                 onClick={() => router.push("/myClients/CreateNewClient")}

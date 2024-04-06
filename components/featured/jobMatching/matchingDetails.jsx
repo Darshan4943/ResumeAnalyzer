@@ -81,9 +81,6 @@ const MatchingDetails = ({ data, setSelectedFile, files, extractedData }) => {
                   <FileSizeDisplay fileUrl={data?.resumeUrl} />
                 </span>
                 <div className="flex flex-row gap-[8px] items-center">
-                  <span className="text-[14px] text-[#06A9EF] font-500 cursor-pointer">
-                    Preview
-                  </span>
 
                   <svg
                     onClick={() =>

@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { DocSVG, PDFSvg, PNGICON, SearchIcon } from "../../../../../utils/svg";
 import { useRouter } from "next/router";
 import MiniLoader from "../../../../common/miniLoader";
+import Fuse from "fuse.js";
 
 function JdFiles({
   files,
@@ -14,11 +15,14 @@ function JdFiles({
 }) {
   const router = useRouter();
   const [selectAll, setSelectAll] = useState(false);
-  const { clientId,name } = query;
- 
-
+  const { clientId, name } = query;
+  const [data, setData] = useState([]);
+  const [allData, setAllData] = useState([]);
+  useEffect(() => {
+    setData(details);
+    setAllData(details);
+  }, [details]);
   const openFolder = (index, parentId, name, item) => {
-  
     if (item?.type == "file") {
       window.location.href = item.file;
     } else {
@@ -94,6 +98,19 @@ function JdFiles({
     traverse(obj);
     return files;
   }
+  const changeHandler = (value) => {
+    if (value.length > 0) {
+      const options = {
+        includeScore: true,
+        keys: ["fileName"],
+      };
+      const fuse = new Fuse(allData, options);
+      const result = fuse.search(value);
+      setData(result.map((item) => item.item));
+    } else {
+      setData(allData);
+    }
+  };
 
   const toggleSelect = (itemId, item) => {
     const ids = [...getAllFiles(item).map((item) => item._id)];
@@ -129,33 +146,37 @@ function JdFiles({
               </g>
             </svg>
           )}
+          {name && (
+            <span className="text-[16px] text-[#333333] font-normal">
+              {name}
+            </span>
+          )}
           <div className="flex flex-row gap-[8px] py-[8px] px-[12px] h-[40px] bg-[#fff] border border-[#DEDEDE] rounded-[30px] items-center">
             <SearchIcon />
             <input
-           
               type="text"
               className="bg-[#fff] text-[#333333] placeholder:text-[#333333] w-[80%]"
               placeholder="Search"
-            // onChange={(e) => searchHandler(e.target.value)}
+              onChange={(e) => changeHandler(e.target.value)}
             />
           </div>
         </div>
         <span className="text-[14px] text-[#808080] min-w-[75px] flex justify-end">
-          {details?.length}
+          {data?.length}
           {" Items"}
         </span>
       </div>
       <div className="border-b-[1px] border-[#DEDEDE] w-full h-[1px]"></div>
       <div
         className="flex flex-row flex-wrap gap-4   py-4  h-[247px] overflow-y-auto bg-[#FFFFFF] border-[1px] border-[#DEDEDE] rounded-[16px] p-[8px]"
-      // style={{ overflowX: "auto" }}
+        // style={{ overflowX: "auto" }}
       >
         {loading ? (
           <div className="w-full ">
             <MiniLoader />
           </div>
-        ) : details?.length > 0 ? (
-          details?.map((item, index) => (
+        ) : data?.length > 0 ? (
+          data?.map((item, index) => (
             <>
               <div
                 key={index}
@@ -168,20 +189,22 @@ function JdFiles({
                   {(getAllFiles(item).filter((item) => item.type == "file")
                     ?.length > 0 ||
                     item.type === "file") && (
-                      <input
-                        type="checkbox"
-                        className=" absolute right-[-15%] top-0 rounded-[4.5px] pl-[4px] pr-[20px] py-[2px] outline-none text-[14px] font-medium custom-checkbox"
-                        style={{ width: "20px", height: "20px" }}
-                        onClick={(e) => e.stopPropagation()}
-                        checked={selectedIndexes?.includes(item._id)}
-                        onChange={() => toggleSelect(item._id, item)}
-                      />
-                    )}
+                    <input
+                      type="checkbox"
+                      className=" absolute right-[-15%] top-0 rounded-[4.5px] pl-[4px] pr-[20px] py-[2px] outline-none text-[14px] font-medium custom-checkbox"
+                      style={{ width: "20px", height: "20px" }}
+                      onClick={(e) => e.stopPropagation()}
+                      checked={selectedIndexes?.includes(item._id)}
+                      onChange={() => toggleSelect(item._id, item)}
+                    />
+                  )}
                   {/* )} */}
                 </div>
 
                 <span className="md:text-[14px] text-[12px] text-[#333333] text-center break-all">
-                  {item.fileName.length > 17 ? `${item.fileName.slice(0, 17)}...` : item.fileName}
+                  {item.fileName.length > 17
+                    ? `${item.fileName.slice(0, 17)}...`
+                    : item.fileName}
                 </span>
               </div>
             </>
