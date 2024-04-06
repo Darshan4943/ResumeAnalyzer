@@ -288,15 +288,14 @@ const Leftform = ({
           <label className="text-[#333333] text-[14px] font-medium">
             Job Description
           </label>
-          {
-            data && data["description"] &&  <Tiptap
-            data={data}
-            value={"description"}
-            setData={setData}
-            placeholder={"Enter Job Description here"}
-          />
-          }
-         
+          {data && data["description"] && (
+            <Tiptap
+              data={data}
+              value={"description"}
+              setData={setData}
+              placeholder={"Enter Job Description here"}
+            />
+          )}
         </div>
       </div>
     </div>
