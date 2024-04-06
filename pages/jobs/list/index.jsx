@@ -56,7 +56,7 @@ const Index = () => {
         </button>
       </div>
       <div>
-        <div className="flex flex-row flex-wrap gap-x-[34px]  gap-y-[24px] ">
+        <div className=" flex flex-row flex-wrap gap-x-[34px]  gap-y-[24px] ">
           {loading ? (
             <div className="w-full flex items-center justify-center h-[80vh]">
               <MiniLoader />
