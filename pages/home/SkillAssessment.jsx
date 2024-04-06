@@ -187,13 +187,9 @@ function SkillAssessment() {
                     <div className="text-[20px] font-medium">Select Skill</div>
 
                     <ReactSelect
-                     onInputChange={(data) => {
-                      
-                      setSkills([
-                        { value: data, label: data },
-                        ...skills,
-                      ]);
-                    }}
+                      onInputChange={(data) => {
+                        setSkills([data, ...skills]);
+                      }}
                       options={skills.map((item) => ({
                         value: item,
                         label: camelCase(item),
