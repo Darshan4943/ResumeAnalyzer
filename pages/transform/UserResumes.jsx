@@ -139,6 +139,7 @@ const UserResumes = ({
           <div
             className="flex flex-row flex-wrap gap-4   py-4  h-[247px] overflow-y-auto bg-[#FFFFFF] border-[1px] border-[#DEDEDE] rounded-[16px] p-[8px]"
             // style={{ overflowX: "auto" }}
+            onWheel={(e) => e.stopPropagation()}
           >
             {data?.map((item, index) => (
               <>
