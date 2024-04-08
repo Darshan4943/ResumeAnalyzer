@@ -13,6 +13,8 @@ function Dashboard() {
     used: { uploads: 0, download: 0, save: 0, clients: 0 },
     total: { uploads: 0, download: 0, save: 0, clients: 0 },
   });
+
+  const [isActive, setIsActive] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState(null);
   const handleNavigation = (page) => {
     router.push(page);
@@ -113,12 +115,11 @@ function Dashboard() {
     const clientCount = localStorage.getItem("clientCount");
     const planActive = localStorage.getItem("planActive");
     const plan = plans.find((item) => item.index == selectedPlan);
-
     if (plan) {
       setSelectedPlan(plan);
-    }
-
+    
     if (planActive == "true") {
+      setIsActive(true);
       setLimits({
         used: {
           uploads: plan.limits.uploads - parseInt(uploadCount),
@@ -129,8 +130,8 @@ function Dashboard() {
         total: plan.limits,
       });
     }
+}
   }, []);
- 
 
   return (
     <div className="customMargins flex flex-col gap-12 py-6 min-h-[70vh]">
@@ -159,10 +160,12 @@ function Dashboard() {
               >
                 Hello,
               </div>
-              <div className="text-[24px] text-[#FFFFFF] font-semibold leading-tight">
-                <p> {camelCase(userDataGlobal?.firstName)}</p>
-                <p> {camelCase(userDataGlobal?.lastName)}!</p>
-              </div>
+              {userDataGlobal?.firstName && (
+                <div className="text-[24px] text-[#FFFFFF] font-semibold leading-tight">
+                  <p> {camelCase(userDataGlobal?.firstName)}</p>
+                  <p> {camelCase(userDataGlobal?.lastName)}!</p>
+                </div>
+              )}
             </div>
           </div>
           <div className="text-[14px] font-medium text-[#FFFFFF] flex flex-col gap-4">
@@ -190,7 +193,11 @@ function Dashboard() {
             </div>
           </div>
         </div>
-        <Summery limits={limits} selectedPlan={selectedPlan} />
+        <Summery
+          limits={limits}
+          selectedPlan={selectedPlan}
+          isActive={isActive}
+        />
       </div>
       <div className="flex gap-12 flex-wrap justify-center">
         {list().map((item, index) => (

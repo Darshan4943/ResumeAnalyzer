@@ -2713,7 +2713,13 @@ export const plans = [
       "Resume transformations as per job descriptions",
       "20 resume Cloud storage",
     ],
+    limits: {
+      uploads: 20,
+      download: 20,
+      save: 20,
+    },
   },
+
   {
     duration: "Starter",
     limit: "Plan",
@@ -2753,8 +2759,8 @@ export const plans = [
     ],
     limits: {
       uploads: 50,
-      download: 100,
-      save: 100,
+      download: 200,
+      save: 200,
       clients: 50,
     },
   },

@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
-function Summary({ limits, selectedPlan }) {
+function Summary({ limits, selectedPlan, isActive }) {
   const router = useRouter();
   const [progress, setProgress] = useState(0);
   const [daysRemaing, setDaysRemaing] = useState(0);
@@ -70,7 +70,6 @@ function Summary({ limits, selectedPlan }) {
 
       <div className="flex xxlg:flex-row flex-col xxlg:gap-4 gap-6">
         <div className="flex flex-col gap-3 xxlg:w-[50%] w-full">
-          <p className="font-medium">Credit balance</p>
           <div className="flex scr420:flex-row flex-col scr1400:gap-12 xxlg:gap-4 gap-12 items-center justify-center ">
             <div className="flex flex-col gap-4 ">
               <div className="flex items-center justify-center">
@@ -115,14 +114,14 @@ function Summary({ limits, selectedPlan }) {
               </div>
             </div>
             <div className="flex flex-col gap-4">
-              {selectedPlan ? (
+              {isActive ? (
                 <div className="">
                   {" "}
                   <p className="text-[20px] font-medium">
                     $ {selectedPlan?.amount}
                   </p>{" "}
                   <p className="text-[12px] font-medium">
-                    Your Plan Validity is 25 Days
+                    Your Plan Validity is {selectedPlan?.days} Days
                   </p>
                 </div>
               ) : (
