@@ -147,6 +147,7 @@ const CandidateAiPower = ({
           data: result,
         })
         .then((res) => {
+          console.log(res.data.data)
           if (Object.keys(res.data.data).length > 0) {
             localStorage.setItem(
               "parsedResume",
@@ -178,10 +179,10 @@ const CandidateAiPower = ({
               })
               .catch((err) => {
                 localStorage.setItem("uploadCount", 0);
-                  setLoading(false);
-                  setfile(file);
+                setLoading(false);
+                setfile(file);
 
-                  router.push(`/home/createResume?clientId=${clientId}`);
+                router.push(`/home/createResume?clientId=${clientId}`);
               });
           } else {
             toast.error("Unable to parse resume, please try again later");
@@ -195,98 +196,7 @@ const CandidateAiPower = ({
     });
   };
 
-  function convertMonthsToYearsAndMonths(totalMonths) {
-    const years = Math.floor(totalMonths / 12);
-    const remainingMonths = totalMonths % 12;
 
-    return {
-      years: years ? years : 1,
-      months: remainingMonths,
-    };
-  }
-
-  const setToState = (dataFromApi) => {
-    const {
-      first_name,
-      last_name,
-      gender,
-      emails,
-      phone_numbers,
-      address,
-      summary,
-      skills,
-      date_of_birth,
-    } = dataFromApi.data.basics;
-    const { end_year, issuing_organization, description } =
-      dataFromApi.data.educations[0];
-
-    const trainings_and_certifications =
-      dataFromApi.data.trainings_and_certifications;
-    const professional_experiences = dataFromApi.data.professional_experiences;
-    const total_experience_in_months = professional_experiences.reduce(
-      (total, experience) => total + experience.duration_in_months,
-      0
-    );
-    const isCurrentlyWorking = professional_experiences.find(
-      (item) => item.is_current == true
-    );
-    let jobTitle = "";
-    let companyName = "";
-    if (isCurrentlyWorking) {
-      const { title, company } = isCurrentlyWorking;
-      jobTitle = title;
-      companyName = company;
-    }
-
-    setData({
-      ...data,
-      firstName: camelCase(first_name),
-      lastName: camelCase(last_name),
-      mobileNo: phone_numbers[0],
-      // mobileNo: `91${phone_numbers[0]}`,
-      email: emails[0],
-      password: "",
-      dob:
-        date_of_birth.year != null &&
-        dateFormatter(
-          new Date(
-            date_of_birth.year,
-            date_of_birth.month - 1,
-            date_of_birth.day
-          )
-        ),
-      gender: gender ? gender : "male",
-      currentLocation: "",
-      workStatus:
-        professional_experiences.length > 0 ? "experianced" : "fresher",
-      education: "10th or below",
-      stream: description.split("\n")[0],
-      university: "",
-      institute: issuing_organization,
-      dateOfComplition: "",
-      courses: trainings_and_certifications
-        .map((entry) => entry.issuing_organization)
-        .join("\n"),
-      awards: "",
-      workExperiance: {
-        ...convertMonthsToYearsAndMonths(total_experience_in_months),
-      },
-      companyName: companyName,
-      jobTitle: jobTitle,
-      jobLocation: "",
-      dateOfJoining: "",
-      keySkills: skills.map((item) => ({
-        value: item,
-        label: camelCase(item),
-      })),
-      currentCTC: null,
-      noticePeriod: "15 days or less",
-      isCurrentlyWorking: isCurrentlyWorking ? true : false,
-      employmentStatus: isCurrentlyWorking ? "employed" : "unemployed",
-      summary: summary,
-      url: dataFromApi.url,
-    });
-  };
   const fileIconSeter = (data) => {
     if (data.name.includes("docx") || data.name.includes("doc")) {
       return <DocSVG />;

@@ -89,7 +89,7 @@
 // add main loader to whole website
 
 // enable scrollbar in every text area
-
+x;
 // add same popup to change resume name
 
 // remove toast of job search  (http://localhost:3000/jobs/search)
@@ -104,5 +104,6 @@
 
 // check everywhere for the restrictions and limitations and show respective popups (in development)
 
+//
 
-// 
+// if user not exist in the collection then active a plan for 

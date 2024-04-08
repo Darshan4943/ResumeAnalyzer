@@ -1,22 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
-import Images from "../../components/featured/home/images";
-import GenerateAi from "../../components/featured/home/GenerateAi";
 import { useRouter } from "next/router";
-import ImgCarousel from "../../components/featured/home/ImgCarousel";
-import SkillAssessment from "../../components/featured/home/SkillAssessment";
-import JdResume from "../../components/featured/home/JdResume";
-import ResumeInventory from "../../components/featured/home/ResumeInventory";
-import SubscriptionPlan from "../../components/featured/home/SubscriptionHome";
 import { popupVisible, reCallUserData } from "../../Redux/actions/user";
 import { useDispatch, useSelector } from "react-redux";
-import { recallUser } from "../../Redux/reducers/userReducer";
-import MobileView from "../../components/featured/home/mobileView";
 import CandidateHome from "../../components/featured/candidate";
-import Recruiter_page from "../recruiter";
-import RecruiterHome from "../recruiter/RecruiterHome";
-import Footer from "../../components/partials/footer/footer";
 import Dashboard from "../dashboard";
 import PlanExpiredModal from "../../components/models/planExpiredModal";
+import AdminDashboard from "../dashboard/adminDashboard";
 
 function BeforeLoginHome() {
   const [isLogin, setIsLogin] = useState(false);
@@ -44,7 +33,15 @@ function BeforeLoginHome() {
   return (
     <div className="">
       <PlanExpiredModal />
-      {isLogin ? <Dashboard /> : <CandidateHome />}
+      {isLogin ? (
+        userDataGlobal?.role == "admin" ? (
+          <AdminDashboard />
+        ) : (
+          <Dashboard />
+        )
+      ) : (
+        <CandidateHome />
+      )}
     </div>
   );
 }

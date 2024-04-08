@@ -17,6 +17,7 @@ import Docxtemplater from "docxtemplater";
 
 const JobMatching = () => {
   const [loading, setLoading] = useState(true);
+  const [isAnimate,setIsAnimate] =useState(true)
   const router = useRouter();
   const fileRef = useRef(null);
   const userDataGlobal = useSelector((state) => state.userData);
@@ -138,6 +139,7 @@ const JobMatching = () => {
 
   const jobMatching = () => {
     setLoadingg(true);
+    setIsAnimate(false)
     axios
       .post("https://freedygoservices.in/api/external/jobMatching/", {
         jd: text,
@@ -496,7 +498,7 @@ const JobMatching = () => {
         </div>
         <div className="bg-[#DEDEDE] ml:h-screen h-[1px] ml:w-[1px] w-full"></div>
         <div className="ml:w-[60%] w-full">
-          <JdMatching details={details} resuneList={resuneList} />
+          <JdMatching details={details} resuneList={resuneList}  isAnimate={isAnimate} />
         </div>
       </div>
     </div>
