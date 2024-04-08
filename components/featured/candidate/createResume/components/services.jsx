@@ -59,7 +59,7 @@ function Services({ setServices }) {
     }
     return (
         <div
-            className='absolute top-[56px] bg-[#FFF] rounded-b-[16px] w-[287px] '
+            className='absolute top-[50px] bg-[#FFF] rounded-b-[16px] w-[287px]  '
             style={{
                 boxShadow: "0px 4px 6px 0px rgba(0, 0, 0, 0.25)"
             }}

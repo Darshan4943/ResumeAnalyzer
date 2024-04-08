@@ -131,12 +131,9 @@ function AccountDetails({ selectedPlan }) {
       setError("Please agree to the terms and conditions.");
     } else {
       axios
-        .post("https://freedygoservices.in/api/add/subscription", {
+        .post("http://localhost:2000/api/add/subscription", {
           userId: userDataGlobal._id,
           plan: selectedPlan.duration + " " + selectedPlan.limit,
-          startDate: new Date(),
-          endDate: getDateAfterDays(selectedPlan.days),
-          paidAt: new Date(),
           ...data,
           mobileNo: data.mobileNo,
           index: selectedPlan.index,
@@ -228,7 +225,7 @@ function AccountDetails({ selectedPlan }) {
   };
 
   return (
-    <div className={" scr700:w-[60%] w-[100%]"}>
+    <div className={" w-[60%] plan-container  "} >
       {popUp && (
         <>
           <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
@@ -388,14 +385,17 @@ function AccountDetails({ selectedPlan }) {
                 Contact Number <span className="star">*</span>
               </p>
               <div
-                className={`flex w-[100%] items-start ${
+                className={`flex w-[100%]  items-start ${
                   isViewportBelow850 ? "gap-[4px] " : "gap-[16px] "
                 }`}
                 id="single_input"
+                style={{
+                  padding:'0px 8px',
+                }}
               >
                 <div
-                  className={`relative  min-w-[160px] ${
-                    isViewportBelow850 ? "w-[65%] " : "w-[24%] "
+                  className={`relative  min-w-[120px] ${
+                    isViewportBelow850 ? "w-[65%] " : "w-[18%] "
                   } items-center`}
                 >
                   <div className="flex items-center  gap-1 cursor-pointer  w-[100%] ">
@@ -404,6 +404,7 @@ function AccountDetails({ selectedPlan }) {
                       className="w-[100%] flex min-w-[150px]  items-center py-1  rounded-[8px]"
                       name=""
                       placeholder="Select"
+                      style={{outline:"unset"}}
                       value={selectedItem}
                       onChange={handleItemClick}
                       getOptionLabel={(option) => (
@@ -440,7 +441,7 @@ function AccountDetails({ selectedPlan }) {
                   onChange={(e) =>
                     handleInputChange("mobileNo", e.target.value)
                   }
-                  className="w-full mobileNo "
+                  className="w-full mobileNo h-full p-0 "
                   type="text"
                   name=""
                   // id="single_input"

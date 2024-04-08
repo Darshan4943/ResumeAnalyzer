@@ -32,7 +32,7 @@ function CandidateMobileHeader() {
         <div className="flex gap-2 items-center">
           <>
           
-              <div onClick={() => setIsSidebar(true)}>
+              <div onClick={() => {setIsSidebar(true);window.scrollTo(0, 0)}}>
                 <img
                   src="/images/home/menu.png"
                   alt=""

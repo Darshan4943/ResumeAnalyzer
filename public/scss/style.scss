@@ -6,8 +6,10 @@
 @import "base/model";
 @import "pages/home";
 @import "pages/job-list";
+@import "pages/editor";
 
 @import "pages/sign";
+@import "pages/modal";
 
 @import "custom";
 @import "common";
@@ -69,10 +71,24 @@ html {
     background-image: url("../images/employer/sidebar/sidebarbg.svg");
   }
   .bg-carousel_bg {
-    background-image: url("../images/resumeBuilder/carousel_bg.png");
+    background-image: url("../images/resumeBuilder/temp.png");
+    background-position-y: 26rem;
+  }
+  .temp-bg-gradient {
+    background-image: url("../images/resumeBuilder/temp-bg.png");
+    background-size: cover;
   }
   .bg-inventory {
     background-image: url("../images/resumeBuilder/inventory.png");
+  }
+  .bg-bg_inventory {
+    background-image: url("../images/resumeBuilder/bg_inventory.png");
+  }
+  .bg-resume_bg {
+    background-image: url("../images/resumeBuilder/resume_bg.png");
+  }
+  .bg-gradient {
+    background-image: url("../images/resumeBuilder/gradient.png");
   }
   .bg-subscriptionPlan {
     background-image: url("../images/resumeBuilder/subscriptionPlan.png");
@@ -218,7 +234,6 @@ html {
     display: flex;
     justify-content: center;
     align-items: center;
-    
   }
 
   .container {
@@ -269,5 +284,22 @@ html {
     to {
       transform: translateX(45px);
     }
+  }
+}
+
+ul,
+ol {
+  list-style: unset !important;
+}
+
+.move {
+  transition: all .3s linear;
+}
+@keyframes move {
+  from {
+    transform: translateX(0px);
+  }
+  to {
+    transform: translateX(45px);
   }
 }

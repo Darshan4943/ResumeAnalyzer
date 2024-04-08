@@ -34,7 +34,7 @@ const JobMatching = () => {
   const [isBack, setIsBack] = useState(false);
   const [recall, setRecall] = useReducer((x) => x + 1, 0);
 
-  const [options, setOptions] = useState(["My Collection", "Upload File"]);
+  const [options, setOptions] = useState(["My Collection"]);
 
   const [text, setText] = useState("");
   const [error, setError] = useState("");
@@ -256,7 +256,7 @@ const JobMatching = () => {
             setIsCreateFolder(false);
             getData();
           }, 1000);
-          setFiles([])
+          setFiles([]);
         })
         .catch((err) => {
           setFileLoader(false);
@@ -324,7 +324,7 @@ const JobMatching = () => {
 
       <div className="flex ml:flex-row flex-col gap-4 h-full">
         <div className="ml:w-[40%] w-full flex  flex-col gap-6">
-          <ReactSelect
+          {/* <ReactSelect
             options={options?.map((item, index) => ({
               value: item,
               label: item,
@@ -341,7 +341,10 @@ const JobMatching = () => {
                 minWidth: "130px",
               }),
             }}
-          />
+          /> */}
+          <div className="text-[18px] text-[#333333] font-medium">
+            Select From Collection
+          </div>
           {selectedOptions.value == "Upload File" ? (
             <div className="flex flex-col gap-4 ">
               <div

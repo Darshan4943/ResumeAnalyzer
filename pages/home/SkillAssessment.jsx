@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import React, { useEffect, useReducer, useRef, useState } from "react";
 
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 
 // import SkillModel from "../../../../../components/featured/candidate/profile/modals/skill_modal";
@@ -17,6 +17,7 @@ import { toast } from "react-toastify";
 import generatePDF from "react-to-pdf";
 import QuestionList from "../../components/featured/home/QuestionList";
 import SkillModel from "../../components/featured/candidate/createResume/components/SkillModel";
+import { reCallUserData } from "../../Redux/actions/user";
 
 function SkillAssessment() {
   const resumeRef = useRef();
@@ -33,7 +34,7 @@ function SkillAssessment() {
   const [questionIndex, setQuestionIndex] = useState(0);
   const [loading, setLoading] = useState(false);
   const [loadingg, setLoadingg] = useState(false);
-
+  const dispatch = useDispatch();
   const [isTimerOver, setIsTimerOver] = useState(false);
   const [startTimer, setStartTimer] = useState(false);
   const [showSecondDiv, setshowSecondDiv] = useState(false);
@@ -186,6 +187,9 @@ function SkillAssessment() {
                     <div className="text-[20px] font-medium">Select Skill</div>
 
                     <ReactSelect
+                      onInputChange={(data) => {
+                        setSkills([data, ...skills]);
+                      }}
                       options={skills.map((item) => ({
                         value: item,
                         label: camelCase(item),
@@ -194,7 +198,6 @@ function SkillAssessment() {
                       onChange={handleInputChange}
                     />
                   </div>
-                 
                 </div>
               ) : (
                 <div className="  ml:w-[45%] w-[100%] flex flex-col gap-[16px] rounded-[12px] bg-[#fff] ml:justify-between justify-center ">
@@ -209,80 +212,81 @@ function SkillAssessment() {
                             onClick={() => {
                               setSelectedSkill(item);
                             }}
-                            className={`px-4 py-2 border-[1px] border-solid border-[#06A9EF] rounded-[25px] text-[14px]  font-medium text-[#333]  transition-[0.2s] ${selectedSkill == item && "bg-[#06A9EF] text-white"
-                              }`}
+                            className={`ml:px-4 ml:py-2 px-2 py-1 border-[1px] border-solid border-[#06A9EF] rounded-[25px] ml:text-[14px] text-[12px] font-medium text-[#333]  transition-[0.2s] ${
+                              selectedSkill == item && "bg-[#06A9EF] text-white"
+                            }`}
                           >
                             {item}
                           </button>
                         ))}
                       </div>
                     </div>
-
                   </div>
                 </div>
               )}
 
               <div className="flex justify-end scr420:gap-4 gap-2 ml:w-[50%] w-[100%]">
-              {!viewAddSkill ? (
-                <button
-                  onClick={() => setViewAddSkill(true)}
-                  className="rounded-[12px] ml:px-[22.8px] px-3  ml:min-w-[235px] min-w-[180px] py-2  flex gap-2 ml:text-[16px] scr420:text-[14px] text-[12px] justify-center items-center bg-blue text-white scr420:h-[50px] h-[40px] font-semibold"
-                >
-                  Select Another Skill
-                  <svg
-                    width="15"
-                    height="14"
-                    viewBox="0 0 15 14"
-                    fill="none"
-                    xlgns="http://www.w3.org/2000/svg"
+                {!viewAddSkill ? (
+                  <button
+                    onClick={() => setViewAddSkill(true)}
+                    className="rounded-[12px] ml:px-[22.8px] px-3  ml:min-w-[235px] min-w-[180px] py-2  flex gap-2 ml:text-[16px] scr420:text-[14px] text-[12px] justify-center items-center bg-blue text-white ml:h-[50px] h-[40px] font-semibold"
                   >
-                    <path
-                      d="M6.5 8H0.5V6H6.5V0H8.5V6H14.5V8H8.5V14H6.5V8Z"
-                      fill="white"
-                    />
-                  </svg>
-                </button>
-              ):(
-                <button
-                  onClick={() => setViewAddSkill(false)}
-                  className="rounded-[12px] ml:px-[22.8px] px-3  ml:min-w-[235px] min-w-[180px] py-2  flex gap-2 ml:text-[16px] scr420:text-[14px] text-[12px] justify-center items-center bg-blue text-white scr420:h-[50px] h-[40px] font-semibold"
-                >
-                  Select From My Skills
-                  <svg
-                    width="15"
-                    height="14"
-                    viewBox="0 0 15 14"
-                    fill="none"
-                    xlgns="http://www.w3.org/2000/svg"
+                    Select Another Skill
+                    <svg
+                      width="15"
+                      height="14"
+                      viewBox="0 0 15 14"
+                      fill="none"
+                      xlgns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M6.5 8H0.5V6H6.5V0H8.5V6H14.5V8H8.5V14H6.5V8Z"
+                        fill="white"
+                      />
+                    </svg>
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => setViewAddSkill(false)}
+                    className="rounded-[12px] ml:px-[22.8px] px-3  ml:min-w-[235px] min-w-[180px] py-2  flex gap-2 ml:text-[16px] scr420:text-[14px] text-[12px] justify-center items-center bg-blue text-white ml:h-[50px] h-[40px] font-semibold"
                   >
-                    <path
-                      d="M6.5 8H0.5V6H6.5V0H8.5V6H14.5V8H8.5V14H6.5V8Z"
-                      fill="white"
-                    />
-                  </svg>
-                </button>
-              )}
-                <button
+                    Select From My Skills
+                    <svg
+                      width="15"
+                      height="14"
+                      viewBox="0 0 15 14"
+                      fill="none"
+                      xlgns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M6.5 8H0.5V6H6.5V0H8.5V6H14.5V8H8.5V14H6.5V8Z"
+                        fill="white"
+                      />
+                    </svg>
+                  </button>
+                )}
+                <div
                   className="text-[#C00000]  ml:min-w-[150px] scr420:min-w-[125px] min-w-[96px] ml:text-[16px] scr420:text-[14px] text-[12px]  "
                   onClick={() => setshowSecondDiv(!showSecondDiv)}
                 >
                   {!showSecondDiv ? (
-                    <button className="rounded-[12px] ml:text-[16px] text-[12px] scr420:px-4 px-2 scr420:py-2 py-2 flex gap-2 justify-center items-center bg-blue text-white scr420:h-[50px] h-[40px] font-semibold">
+                    <button className="rounded-[12px] ml:text-[16px] text-[12px] scr420:px-4 px-2 scr420:py-2 py-2 flex gap-2 justify-center items-center bg-blue text-white ml:h-[50px] h-[40px] font-semibold">
                       View Results
                     </button>
                   ) : (
-                    <button className="rounded-[12px]  ml:text-[16px] text-[12px] scr420:px-4 px-2 scr420:py-2 py-2 flex gap-2 justify-center items-center bg-blue text-white scr420:h-[50px] h-[40px] font-semibold">
+                    <button className="rounded-[12px]  ml:text-[16px] text-[12px] scr420:px-4 px-2 scr420:py-2 py-2 flex gap-2 justify-center items-center bg-blue text-white ml:h-[50px] h-[40px] font-semibold">
                       Hide Results
                     </button>
                   )}
-                </button>
+                </div>
               </div>
             </div>
 
             <div className="flex flex-col lg:flex-row justify-center items-center w-[100%] gap-6">
               <div
-                className={`p-[12px] ms:px-[60px] ms:customMargins ${showSecondDiv ? "lg:w-[50%]" : "w-[100.95%] "
-                  } scr1024:w-[50%] sm:w-[85%] w-[100%]  px-[12px] rounded-[12px] bg-[#005A81] flex flex-col  items-center gap-[8px] scr820:gap-[16px] `}
+                className={`p-[12px] ms:px-[60px] ms:customMargins ${
+                  showSecondDiv ? "lg:w-[50%]" : "w-[100.95%] "
+                } scr1024:w-[50%] sm:w-[85%] w-[100%]  px-[12px] rounded-[12px] bg-[#005A81] flex flex-col  items-center gap-[8px] scr820:gap-[16px] `}
               >
                 <div className="text-[20px] font-[600] text-[#fff] flex flex-row gap-[12px]">
                   <svg
@@ -451,13 +455,13 @@ function SkillAssessment() {
                   }}
                 >
                   <button
-                    className=" h-[42px] w-[108px] flex items-center justify-center  rounded-[8px] border-[1px] border-solid border-[#06A9EF] bg-[#fff] text-[#333] text-[14px] font-[500] transition-all transition-[0.2s]"
+                    className=" h-[42px] w-[108px] flex items-center justify-center  rounded-[8px] border-[1px] border-solid border-[#06A9EF] bg-[#fff] text-[#333] text-[14px] font-[500] "
                     disabled={loading}
-                  // onClick={() =>
-                  //   setQuestionIndex(
-                  //     questionIndex + 1 < 10 ? questionIndex + 1 : 9
-                  //   )
-                  // }
+                    // onClick={() =>
+                    //   setQuestionIndex(
+                    //     questionIndex + 1 < 10 ? questionIndex + 1 : 9
+                    //   )
+                    // }
                   >
                     {loading ? <MiniLoader /> : "Start"}
                   </button>
@@ -483,7 +487,7 @@ function SkillAssessment() {
                     </div>
                     <div className="flex w-[19.95%] justify-center items-center self-stretch  ">
                       <p className="text-text-primary font-montserrat text-base font-medium leading-6">
-                        Grade
+                        Score
                       </p>
                     </div>
                   </div>
@@ -524,7 +528,7 @@ function SkillAssessment() {
                             </div>
                             <div className="flex  justify-center lg:w-[40%]  items-center self-stretch  ">
                               <p className="text-[#0C8A0A] items-center  font-montserrat text-sm font-semibold leading-7">
-                                {item.score}
+                                {item.score / 10} / 10
                               </p>
                             </div>
                           </div>
@@ -538,7 +542,7 @@ function SkillAssessment() {
           </div>
         )}
         {toggle === 1 && (
-          <div className="w-full flex justify-between items-center gap-[0px] scr540:gap-[24px] flex-row py-[36px] gap-[8px]">
+          <div className="w-full flex justify-between items-center scr540:gap-[24px] flex-row py-[36px] gap-[8px]">
             <div className="w-[8px] lg:w-[22%] h-[2px] bg-[#06A9EF] border-none"></div>
             <div className="w-full   lg:max-w-[903px] flex flex-col gap-[24px]">
               <div className="bg-[#fff] border-[2px] border-solid border-[#06A9EF] rounded-[12px] py-[24px] px-[16px] lg:px-[60px] flex flex-col gap-[12px]">
@@ -617,11 +621,12 @@ function SkillAssessment() {
                   <div className="flex flex-col lg:flex-row gap-[24px]">
                     <div className="w-full flex items-between  flex-col gap-[24px]">
                       <div
-                        className={`py-[12px] px-[16px] break-all rounded-[6px] lg:rounded-[8px] text-[12px] lg:text-[16px] font-[600] h-[50%]  ${isSelected(
-                          question[questionIndex]?.options[0],
-                          questionIndex + 1
-                        ) && "bg-[#06A9EF] text-white"
-                          }`}
+                        className={`py-[12px] px-[16px] break-all rounded-[6px] lg:rounded-[8px] text-[12px] lg:text-[16px] font-[600] h-[50%]  ${
+                          isSelected(
+                            question[questionIndex]?.options[0],
+                            questionIndex + 1
+                          ) && "bg-[#06A9EF] text-white"
+                        }`}
                         style={{
                           boxShadow: "0px 0px 2px 0px rgba(0, 0, 0, 0.50)",
                         }}
@@ -635,11 +640,12 @@ function SkillAssessment() {
                         A) {question[questionIndex]?.options[0]}
                       </div>
                       <div
-                        className={`py-[12px] px-[16px] break-all rounded-[6px] lg:rounded-[8px] text-[12px] lg:text-[16px] font-[600] h-[50%]  ${isSelected(
-                          question[questionIndex]?.options[2],
-                          questionIndex + 1
-                        ) && "bg-[#06A9EF] text-white"
-                          }`}
+                        className={`py-[12px] px-[16px] break-all rounded-[6px] lg:rounded-[8px] text-[12px] lg:text-[16px] font-[600] h-[50%]  ${
+                          isSelected(
+                            question[questionIndex]?.options[2],
+                            questionIndex + 1
+                          ) && "bg-[#06A9EF] text-white"
+                        }`}
                         style={{
                           boxShadow: "0px 0px 2px 0px rgba(0, 0, 0, 0.50)",
                         }}
@@ -655,11 +661,12 @@ function SkillAssessment() {
                     </div>
                     <div className="w-full flex flex-col items-between gap-[24px]">
                       <div
-                        className={`py-[12px] px-[16px] break-all rounded-[6px] lg:rounded-[8px] text-[12px] lg:text-[16px] font-[600] h-[50%]  ${isSelected(
-                          question[questionIndex]?.options[1],
-                          questionIndex + 1
-                        ) && "bg-[#06A9EF] text-white"
-                          }`}
+                        className={`py-[12px] px-[16px] break-all rounded-[6px] lg:rounded-[8px] text-[12px] lg:text-[16px] font-[600] h-[50%]  ${
+                          isSelected(
+                            question[questionIndex]?.options[1],
+                            questionIndex + 1
+                          ) && "bg-[#06A9EF] text-white"
+                        }`}
                         style={{
                           boxShadow: "0px 0px 2px 0px rgba(0, 0, 0, 0.50)",
                         }}
@@ -673,11 +680,12 @@ function SkillAssessment() {
                         B) {question[questionIndex]?.options[1]}
                       </div>
                       <div
-                        className={`py-[12px] px-[16px] break-all rounded-[6px] lg:rounded-[8px] text-[12px] lg:text-[16px] font-[600] h-[50%]  ${isSelected(
-                          question[questionIndex]?.options[3],
-                          questionIndex + 1
-                        ) && "bg-[#06A9EF] text-white"
-                          }`}
+                        className={`py-[12px] px-[16px] break-all rounded-[6px] lg:rounded-[8px] text-[12px] lg:text-[16px] font-[600] h-[50%]  ${
+                          isSelected(
+                            question[questionIndex]?.options[3],
+                            questionIndex + 1
+                          ) && "bg-[#06A9EF] text-white"
+                        }`}
                         style={{
                           boxShadow: "0px 0px 2px 0px rgba(0, 0, 0, 0.50)",
                         }}
@@ -702,7 +710,9 @@ function SkillAssessment() {
                   />
                 </div>
                 <div
-                  className="flex flex-row gap-[3px] items-center cursor-pointer text-[18px] font-[600] w-[340px] px-[12px] justify-between  rounded-[8px] border-[1px] border-solid border-[#06A9EF] bg-[#fff]"
+                    style={{ opacity: loading ? "0.5" : 1 }}
+                    disabled={loading}
+                  className="flex flex-row gap-[3px] items-center cursor-pointer text-[18px] font-[600] min-w-[174px] w-fit px-[12px] justify-between  rounded-[8px] border-[1px] border-solid border-[#06A9EF] bg-[#fff]"
                   onClick={() => {
                     if (questionIndex == 9) {
                       axios
@@ -759,9 +769,10 @@ function SkillAssessment() {
                   </div>
 
                   <button
-                    disabled={loading}
                     className="flex flex-row gap-[3px] items-center justify-center text-[18px] font-[600] "
                     style={{ opacity: loading ? "0.5" : 1 }}
+                    disabled={loading}
+
                     onClick={() => {
                       if (questionIndex == 9) {
                         axios
@@ -919,7 +930,8 @@ function SkillAssessment() {
                         setQuestionIndex(0);
                         setQuestion([]);
                         setSkipped([]);
-                        window.location.reload();
+                        // window.location.reload();
+                        dispatch(reCallUserData());
                       }}
                       className="border-[1px]  border-solid border-[#06A9EF] rounded-[12px] px-[24px] py-[8px] text-[16px] text-[#333] font-[500]"
                     >

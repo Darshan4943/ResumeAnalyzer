@@ -36,13 +36,13 @@ const ImageCropper = ({ setModelView, file, setCroppedImage }) => {
             </button>
           </div>
 
-          <div className="w-full  bg-[#525659] h-full flex items-center justify-center relative">
-            <div className="crop-container">
+          <div className="w-full  h-full flex items-center justify-center relative">
+            <div className="crop-container overflow-hidden rounded-[12px]">
               <Cropper
                 image={URL.createObjectURL(file)}
                 crop={crop}
                 zoom={zoom}
-                aspect={4 / 3}
+                aspect={1/1}
                 onCropChange={setCrop}
                 onCropComplete={onCropComplete}
                 onZoomChange={setZoom}

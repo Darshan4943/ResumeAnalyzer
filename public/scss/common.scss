@@ -321,3 +321,71 @@ a {
     transform: rotate(-360deg);
   }
 }
+///////////////////////////////////
+
+.createResume{
+  transition: all 2s;
+}
+.createResume:hover {
+  background: rgba(255, 255, 255, 1);
+  background:  linear-gradient(31.62deg, rgba(6, 169, 239, 0.15) 14.94%, rgba(162, 227, 255, 0.15) 99.61%);
+ 
+  
+}
+.myClinet:hover{
+  background: rgba(255, 255, 255, 1);
+  background:   linear-gradient(85.58deg, rgba(255, 222, 0, 0.15) 65.23%, rgba(253, 89, 0, 0.15) 96.45%);
+
+ 
+  
+}
+.TransFormCV:hover{
+  background: rgba(255, 255, 255, 1);
+  background: linear-gradient(0deg, rgba(59, 139, 245, 0.15) 0.56%, rgba(199, 213, 243, 0.15) 100%);
+ 
+  
+  
+}
+.MyResume:hover{
+  background: rgba(255, 255, 255, 1);
+  background:  linear-gradient(90deg, rgba(0, 210, 239, 0.15) 0%, rgba(141, 198, 63, 0.15) 100%);
+ 
+ 
+  
+}
+.JobDes:hover{
+  background: rgba(255, 255, 255, 1);
+  background: linear-gradient(90deg, rgba(255, 129, 255, 0.15) 0%, rgba(169, 58, 255, 0.15) 100.03%);
+
+}
+.MyCollection:hover{
+  background: rgba(255, 255, 255, 1);
+  background: linear-gradient(180deg, rgba(56, 184, 89, 0.15) -44.44%, rgba(76, 162, 204, 0.15) 100%);
+
+}
+.SkillAss:hover{
+  background: rgba(255, 255, 255, 1);
+  background: linear-gradient(45.46deg, rgba(252, 68, 34, 0.15) 4.03%, rgba(255, 187, 50, 0.15) 89.99%);
+
+}
+.MyPurchase:hover{
+  background: rgba(255, 255, 255, 1);
+  background: linear-gradient(180deg, rgba(225, 0, 255, 0.1) -319.33%, rgba(127, 0, 255, 0.1) 103.69%);
+
+}
+.searchJobs:hover{
+  background: rgba(255, 255, 255, 1);
+  background: linear-gradient(180deg, rgba(100, 65, 165, 0.15) 0%, rgba(42, 8, 69, 0.15) 100%);
+
+}
+.postJobs:hover{
+  background: rgba(255, 255, 255, 1);
+  background: linear-gradient(180deg, rgba(100, 65, 165, 0.15) 0%, rgba(42, 8, 69, 0.15) 100%);
+
+}
+
+
+
+.group:hover .icon-path {
+  fill: #06A9EF;
+}

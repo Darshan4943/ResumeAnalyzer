@@ -25,7 +25,6 @@ function TransformJob() {
   const handleChange = (event) => {
     setText(event.target.value);
   };
-  console.log(newData);
   const transformHandler = () => {
     setLoading(true);
     axios

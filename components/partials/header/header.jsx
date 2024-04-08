@@ -6,7 +6,7 @@ import CandidateHeader from "./candidateHeader";
 function Header({ userData }) {
   const router = useRouter();
   const [selectedPage, setSelectedPage] = useState("");
-  const [isLogin, setIsLogin] = useState(false);
+  const [isLogin, setIsLogin] = useState(null);
 
   useEffect(() => {
     setSelectedPage(router.pathname);
@@ -20,6 +20,9 @@ function Header({ userData }) {
       } else {
         setIsLogin(false);
       }
+    }else{
+      setIsLogin(false);
+
     }
   }, []);
 
@@ -33,18 +36,18 @@ function Header({ userData }) {
           : "bg-white z-[100] fixed w-[100%]  "
       }
       style={{
-        border: '1.5px solid #DEDEDE'
-    }}
+        borderBottom: "1.5px solid #DEDEDE",
+      }}
     >
       <div className="flex justify-center items-center   z-[100] customMargins">
-        <div className="flex justify-between w-[100%]  my-[8px]  gap-2 ">
+        <div className="flex justify-between w-[100%]  h-[56px]  gap-2 ">
           {!isLogin ? (
             <>
               <div className="flex items-center gap-9 ">
                 <Link href="/">
                   {" "}
                   <img
-                    className="h-[44px] w-[131px]"
+                    className="object-contain h-[36px]"
                     src="/images/logo_skilotech.png"
                     alt=""
                   />
@@ -53,8 +56,8 @@ function Header({ userData }) {
                   href="/"
                   className={
                     selectedPage === "/" || selectedPage === "/home"
-                      ? "active scr1250:text-[18px] text-[16px]"
-                      : "li scr1250:text-[18px] text-[16px]"
+                      ? "active scr1250:text-[16px] text-[16px]"
+                      : "li scr1250:text-[16px] text-[16px]"
                   }
                 >
                   Candidate
@@ -63,8 +66,8 @@ function Header({ userData }) {
                   href="/recruiter"
                   className={
                     selectedPage === "/recruiter"
-                      ? "active scr1250:text-[18px] text-[16px]"
-                      : "li scr1250:text-[18px] text-[16px]"
+                      ? "active scr1250:text-[16px] text-[16px]"
+                      : "li scr1250:text-[16px] text-[16px]"
                   }
                 >
                   Recruiter
@@ -76,7 +79,7 @@ function Header({ userData }) {
                     router.push("/auth?signin=true");
                   }}
                 >
-                  <button className=" buttonTransparent min-w-[138px] rounded-[12px] flex justify-center items-center bg-white text-[#333] py-3 px-9 text-[16px] font-medium border border-transparent hover:border-[#06A9EF]">
+                  <button className=" buttonTransparent min-w-[138px] rounded-[12px] flex justify-center items-center bg-white text-[#333] py-2 px-6 text-[16px] font-medium border border-transparent hover:border-[#06A9EF]">
                     Sign in
                   </button>
                 </div>
@@ -85,7 +88,7 @@ function Header({ userData }) {
                   onClick={() => {
                     router.push("/auth?signup=true");
                   }}
-                  className="rounded-[12px] min-w-[138px] flex justify-center items-center bg-white text-[#333] py-3 px-9 text-[16px] font-medium border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
+                  className="rounded-[12px] min-w-[138px] flex justify-center items-center bg-white text-[#333] py-2 px-6 text-[16px] font-medium border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
                 >
                   Sign Up
                 </button>

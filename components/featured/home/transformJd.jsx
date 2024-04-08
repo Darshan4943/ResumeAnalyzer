@@ -70,6 +70,7 @@ function TransformJd({
     <div>
       <div className="flex justify-end w-full">
         <div className="ml:flex hidden gap-[16px] justify-end">
+        {resumeTemplateIndex !== undefined && (
           <BlobProvider document={<MyComponent />}>
             {({ blob, url, loading, error }) => {
               return (
@@ -81,7 +82,7 @@ function TransformJd({
                 </button>
               );
             }}
-          </BlobProvider>
+          </BlobProvider>)}
 
           {/* <button className="flex gap-1 text-[14px]   justify-center text-[#646464] font-montserrat font-semibold px-4 py-2 rounded-[8px] items-center border border-[#333333] bg-[#DEDEDE]">
             <svg

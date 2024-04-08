@@ -1,0 +1,118 @@
+  // const [address, setAddress] = useState("");
+  // const handleChangeLatLng = (newAddress) => {
+  //   setAddress(newAddress);
+  // };
+  // const reverseGeocode = (lat, lng) => {
+  //   axios
+  //     .get(
+  //       `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=AIzaSyDza9g3mPKYY6cwOmpHFKT8-VjYLSl1EdU`
+  //     )
+  //     .then((response) => {
+  //       const results = response.data.results;
+  //       if (results.length > 0) {
+  //         const addressComponents = results[1].formatted_address;
+  //       } else {
+  //         console.error("No results found for reverse geocoding.");
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error fetching reverse geocoding data:", error);
+  //     });
+  // };
+  // const handleSelect = (newAddress) => {
+  //   geocodeByAddress(newAddress)
+  //     .then((results) => getLatLng(results[0]))
+  //     .then((latLng) => {
+  //       reverseGeocode(latLng.lat, latLng.lng);
+  //     })
+  //     .catch((error) => console.error("Error", error));
+  // };
+
+
+
+  {/* <div style={{ width: "100%" }}>
+            <PlacesAutocomplete
+                  value={address}
+                  onChange={handleChangeLatLng}
+                  onSelect={handleSelect}
+                  shouldFetchSuggestions={address.length >= 3}
+                >
+                  {({
+                    getInputProps,
+                    suggestions,
+                    getSuggestionItemProps,
+                    loading,
+                  }) => {
+                    return (
+                      <div>
+                        {
+                            console.log(suggestions)
+                        }
+                        <input
+                          {...getInputProps({
+                            placeholder: "Search Places ...",
+                            class: "login__form__field",
+                            style: {
+                              border: "1px solid #4040402e",
+                              height: "100%",
+                            },
+                          })}
+                          onBlur={() => {}}
+                        />
+
+                        <div className="">
+                          {address.length >= 3 && (
+                            <div
+                            className="autoComplete-positionPicker"
+                            >
+                              {suggestions.length > 0 ? (
+                                suggestions.map((suggestion) => {
+                                  const className = suggestion.active
+                                    ? "suggestion-item--active"
+                                    : "suggestion-item";
+                                  const style = suggestion.active
+                                    ? {
+                                        backgroundColor: "#fafafa",
+                                        cursor: "pointer",
+                                      }
+                                    : {
+                                        backgroundColor: "#ffffff",
+                                        cursor: "pointer",
+                                      };
+                                  return (
+                                    <div
+                                      {...getSuggestionItemProps(suggestion, {
+                                        className,
+                                        style,
+                                      })}
+                                      style={{
+                                        padding: "5px",
+                                        display: "flex",
+                                        alignItems: "center",
+                                        gap: 8,
+                                        cursor: "pointer",
+                                      }}
+                                    >
+                                      <img
+                                        src="images/pin.png"
+                                        style={{
+                                          height: "15px",
+                                          objectFit: "contian",
+                                        }}
+                                        alt=""
+                                      />
+                                      <span>{suggestion.description}</span>
+                                    </div>
+                                  );
+                                })
+                              ) : (
+                                <>No Location Found</>
+                              )}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    );
+                  }}
+                </PlacesAutocomplete>
+          </div> */}

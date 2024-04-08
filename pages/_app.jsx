@@ -11,6 +11,7 @@ import "../utils/pdfFont.js";
 import Layout from "../components/layout.jsx";
 import Store from "../Redux/Store.js";
 import { Api } from "../Redux/Api.jsx";
+import Head from "next/head.js";
 const WrappedApp = ({ Component, pageProps }) => {
   useEffect(() => {
     const getLocation = () => {
@@ -43,6 +44,7 @@ const WrappedApp = ({ Component, pageProps }) => {
   }, []);
   return (
     <>
+      
       <Helmet>
         <title>Skilotech</title>
         <link
@@ -51,6 +53,7 @@ const WrappedApp = ({ Component, pageProps }) => {
           sizes="32x32"
           href="images/logo_header.png"
         />
+
         <script
           async
           defer

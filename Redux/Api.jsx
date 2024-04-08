@@ -5,6 +5,7 @@ import { userAction } from "./actions/user";
 import { jwtDecode } from "jwt-decode";
 import { setJob } from "./actions";
 import moment from "moment";
+import { plans } from "../utils/data";
 
 export const Api = () => {
   const store = useStore();
@@ -40,46 +41,38 @@ export const Api = () => {
   }, [reCallUser]);
 
   useEffect(() => {
-    const resumeUploadCoount = localStorage.getItem("uploadCount");
+    const planActive =
+      localStorage.getItem("planActive") == true ? true : false;
+    const uploadCount = localStorage.getItem("uploadCount");
 
-    if (!resumeUploadCoount) {
-      localStorage.setItem("uploadCount", 2);
-    }
-    // if (userDataGlobal) {
-    //   axios
-    //     .get(
-    //       "https://freedygoservices.in/api/subscription/" + userDataGlobal._id
-    //     )
-    //     .then((res) => {
-    //       console.log(res.data)
-    //       // localStorage.setItem("uploadCount", res.data.data.resumeUpladed);
-    //       console.log(new Date(moment().format()) > new Date(res.data.data.endDate))
-    //       if (new Date(moment().format()) > new Date(res.data.data.endDate)) {
-    //         axios
-    //           .get(
-    //             "https://freedygoservices.in/api/subscription/update/" +
-    //               userDataGlobal._id
-    //           )
-    //           .then((res) => {
-    //             console.log(res.data);
-    //           })
-    //           .catch((err) => {
-    //             console.log(err);
-    //           });
-    //       }
-    //     })
-    //     .catch((err) => {
-    //       console.log(err);
-    //     });
-    // }
-
-    if (userDataGlobal?.skills) {
+    if (userDataGlobal) {
       axios
-        .post("https://freedygoservices.in/api/job/getAll", {
-          requiredSkills: userDataGlobal.skills?.map((item) => item.value),
-        })
+        .get("http://localhost:2000/api/subscription/" + userDataGlobal._id)
         .then((res) => {
-          dispatch(setJob(res.data));
+          const result = res.data.data;
+
+          if (result) {
+            const selectedPlan = plans.find(
+              (item) => item.duration + " " + item.limit == result.plan
+            );
+            localStorage.setItem("activePlan", selectedPlan.index);
+            localStorage.setItem("uploadCount", result.resumeUpladed);
+            localStorage.setItem("planActive", result.isActive);
+            localStorage.setItem("downloadCount", result.resumeDownloads);
+            localStorage.setItem("saveCount", result.resumeSaves.num);
+            localStorage.setItem("clientCount", result.clientStored);
+          } else {
+            if (!planActive && uploadCount == 0) {
+              localStorage.setItem("uploadCount", 0);
+            } else {
+              localStorage.setItem("uploadCount", 1);
+            }
+
+            localStorage.setItem("planActive", false);
+            localStorage.setItem("downloadCount", 0);
+            localStorage.setItem("saveCount", 0);
+            localStorage.setItem("clientCount", 0);
+          }
         })
         .catch((err) => {
           console.log(err);

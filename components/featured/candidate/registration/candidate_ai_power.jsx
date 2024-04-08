@@ -12,6 +12,9 @@ import Docxtemplater from "docxtemplater";
 import PizZip from "pizzip";
 import { pdfjs } from "react-pdf";
 import Tesseract from "tesseract.js";
+import { DocSVG, PDFSvg, PNGICON } from "../../../../utils/svg";
+import { useSelector } from "react-redux";
+import LimitUsedModal from "../../../models/limitUsedModal";
 pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
 
 const fileToText = (file, pageNumber) => {
@@ -20,12 +23,17 @@ const fileToText = (file, pageNumber) => {
     reader.onload = function (event) {
       const typedarray = new Uint8Array(event.target.result);
       pdfjs.getDocument(typedarray).promise.then(function (pdf) {
-        pdf.getPage(pageNumber).then(function (page) {
-          page.getTextContent().then(function (textContent) {
-            const textItems = textContent.items.map((item) => item.str);
-            resolve(textItems.join(" "));
+        try {
+          pdf.getPage(pageNumber).then(function (page) {
+            page.getTextContent().then(function (textContent) {
+              const textItems = textContent.items.map((item) => item.str);
+              resolve(textItems.join(" "));
+            });
           });
-        });
+        } catch (err) {
+          reject(err);
+          return;
+        }
       });
     };
     reader.readAsArrayBuffer(file);
@@ -49,6 +57,9 @@ const CandidateAiPower = ({
   const { clientId } = router.query;
   const [fileData, setFileData] = useState(null);
   const [uploadLimit, setUploadLimit] = useState(0);
+  const userDataGlobal = useSelector((state) => state.userData);
+  const [limitUsedModal, setLimitUsedModal] = useState(false);
+
   useEffect(() => {
     const resumeUploadCount = localStorage.getItem("uploadCount");
     setUploadLimit(resumeUploadCount ? resumeUploadCount : 0);
@@ -72,8 +83,8 @@ const CandidateAiPower = ({
   const sendFile = (file) => {
     setfile(file);
   };
-  const extracteText = (file) => {
-    return new Promise((resolve, reject) => {
+  const extracteText = async (file) => {
+    return new Promise(async (resolve, reject) => {
       const textData = [];
       if (
         file.type ==
@@ -101,13 +112,23 @@ const CandidateAiPower = ({
       } else if (file.type == "application/pdf") {
         let fullText = "";
         const pdfTextPromises = [];
-        for (let i = 1; i <= 2; i++) {
+        const fileUrl = URL.createObjectURL(file);
+
+        const loadingTask = pdfjs.getDocument(fileUrl);
+        const pdf = await loadingTask.promise;
+
+        for (let i = 1; i <= pdf.numPages; i++) {
           pdfTextPromises.push(fileToText(file, i));
         }
-        Promise.all(pdfTextPromises).then(async (texts) => {
-          fullText = texts.join("");
-          textData.push({ text: fullText });
-        });
+        Promise.all(pdfTextPromises)
+          .then(async (texts) => {
+            fullText = texts.join("");
+            textData.push({ text: fullText });
+          })
+          .catch((err) => {
+            reject(err);
+            return;
+          });
       }
       setTimeout(() => {
         resolve(textData);
@@ -115,8 +136,8 @@ const CandidateAiPower = ({
     });
   };
   const navigate = () => {
-    if (uploadLimit == 0) {
-      toast.error("Seems you have no upload attempts left update your plan");
+    if (uploadLimit <= 0) {
+      setLimitUsedModal(true);
       return;
     }
     setLoading(true);
@@ -126,17 +147,50 @@ const CandidateAiPower = ({
           data: result,
         })
         .then((res) => {
-          setLoading(false);
-          setfile(file);
-          localStorage.setItem(
-            "parsedResume",
-            JSON.stringify(res.data.data[0])
-          );
-          router.push(`/home/createResume?clientId=${clientId}`);
+          if (Object.keys(res.data.data).length > 0) {
+            localStorage.setItem(
+              "parsedResume",
+              JSON.stringify(res.data.data[0])
+            );
+            axios
+              .put(
+                "http://localhost:2000/api/subscription/updateUploadLimit/" +
+                  userDataGlobal._id
+              )
+              .then((res) => {
+                const result = res.data;
+                if (result.success) {
+                  localStorage.setItem(
+                    "uploadCount",
+                    result.data.resumeUpladed
+                  );
+                  setLoading(false);
+                  setfile(file);
+
+                  router.push(`/home/createResume?clientId=${clientId}`);
+                } else {
+                  localStorage.setItem("uploadCount", 0);
+                  setLoading(false);
+                  setfile(file);
+
+                  router.push(`/home/createResume?clientId=${clientId}`);
+                }
+              })
+              .catch((err) => {
+                localStorage.setItem("uploadCount", 0);
+                  setLoading(false);
+                  setfile(file);
+
+                  router.push(`/home/createResume?clientId=${clientId}`);
+              });
+          } else {
+            toast.error("Unable to parse resume, please try again later");
+          }
         })
         .catch((err) => {
           setLoading(false);
           console.log(err);
+          extracteText();
         });
     });
   };
@@ -183,7 +237,6 @@ const CandidateAiPower = ({
       jobTitle = title;
       companyName = company;
     }
-    console.log("first", description.split("\n"));
 
     setData({
       ...data,
@@ -234,9 +287,42 @@ const CandidateAiPower = ({
       url: dataFromApi.url,
     });
   };
-  // TODO
+  const fileIconSeter = (data) => {
+    if (data.name.includes("docx") || data.name.includes("doc")) {
+      return <DocSVG />;
+    } else if (data.name.includes("pdf")) {
+      return <PDFSvg />;
+    } else if (
+      data.name?.includes("png") ||
+      data.name?.includes("jpg") ||
+      data.name?.includes("jpeg")
+    ) {
+      return <PNGICON />;
+    } else {
+      return (
+        <svg
+          width="57"
+          height="48"
+          viewBox="0 0 57 48"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg "
+        >
+          <path
+            d="M50.4997 7.99998H29.7362L27.3944 3.31641C26.8987 2.31758 26.1333 1.47753 25.1847 0.891397C24.2361 0.305266 23.1423 -0.00351467 22.0273 3.01816e-05H6.49996C4.90921 0.00177713 3.38411 0.634475 2.25928 1.75931C1.13445 2.88414 0.501747 4.40924 0.5 5.99999V41.9998C0.501747 43.5905 1.13445 45.1156 2.25928 46.2405C3.38411 47.3653 4.90921 47.998 6.49996 47.9997H50.4997C52.0904 47.998 53.6155 47.3653 54.7404 46.2405C55.8652 45.1156 56.4979 43.5905 56.4996 41.9998V13.9999C56.4979 12.4092 55.8652 10.8841 54.7404 9.75926C53.6155 8.63443 52.0904 8.00173 50.4997 7.99998Z"
+            fill="#4294FF"
+          />
+          <path
+            d="M51.9597 47.7996C51.4854 47.9373 50.9935 48.0047 50.4997 47.9996H6.49996C4.9101 47.995 3.38668 47.3614 2.26248 46.2371C1.13827 45.1129 0.504644 43.5895 0.5 41.9997V5.99989C0.499548 4.7876 0.868792 3.60401 1.55846 2.60702C2.24814 1.61003 3.22544 0.847069 4.35998 0.419922C9.95994 16.1198 23.0599 40.0197 51.9597 47.7996Z"
+            fill="#2965ED"
+          />
+        </svg>
+      );
+    }
+  };
   return (
     <>
+      <LimitUsedModal visible={limitUsedModal} setVisible={setLimitUsedModal} />
+
       {tabindex == 1 && (
         <>
           <div className="flex justify-center items-center  relative pb-8 ">
@@ -287,13 +373,10 @@ const CandidateAiPower = ({
                     {file ? (
                       <div className="w-full flex justify-center">
                         <div className="flex flex-row gap-[16px] items-center justify-between w-[80%] ">
-                          <div className="flex flex-row gap-[16px] items-center  ">
+                          <div className="flex flex-row gap-[16px] items-center w-[60%]  ">
                             {" "}
-                            <ImageContainer
-                              src={"/images/icons/pdf_icon.png"}
-                              className={"h-[24px] w-[24px]"}
-                            />
-                            <span className="text-[12px] w-[40%]">
+                            {fileIconSeter(file)}
+                            <span className="text-[12px] w-[80%]">
                               {file.name}
                             </span>
                           </div>

@@ -11,6 +11,7 @@ import { useRouter } from "next/router";
 import { popupVisible } from "../../../Redux/actions/user";
 import SubscriptionPlans from "./SubscriptionPlans";
 import GenerateAi from "./GenerateAi";
+import Footer from "../../partials/footer/footer";
 
 const images = [
   "templates/template1.png",
@@ -220,6 +221,8 @@ const MobileView = ({ clickHandler, isLogin }) => {
 
           <SubscriptionPlans isLogin={isLogin} />
         </div>
+        <Footer />
+
       </div>
     </>
   );

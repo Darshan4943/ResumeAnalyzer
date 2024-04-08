@@ -14,6 +14,9 @@ import MobileView from "../../components/featured/home/mobileView";
 import CandidateHome from "../../components/featured/candidate";
 import Recruiter_page from "../recruiter";
 import RecruiterHome from "../recruiter/RecruiterHome";
+import Footer from "../../components/partials/footer/footer";
+import Dashboard from "../dashboard";
+import PlanExpiredModal from "../../components/models/planExpiredModal";
 
 function BeforeLoginHome() {
   const [isLogin, setIsLogin] = useState(false);
@@ -40,13 +43,8 @@ function BeforeLoginHome() {
   };
   return (
     <div className="">
-      {userDataGlobal.role == "recruiter" ? (
-        <Recruiter_page />
-        // <RecruiterHome/>
-      ) : (
-        <CandidateHome />
-      )}
-  
+      <PlanExpiredModal />
+      {isLogin ? <Dashboard /> : <CandidateHome />}
     </div>
   );
 }

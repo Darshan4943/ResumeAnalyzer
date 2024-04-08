@@ -81,9 +81,6 @@ const MatchingDetails = ({ data, setSelectedFile, files, extractedData }) => {
                   <FileSizeDisplay fileUrl={data?.resumeUrl} />
                 </span>
                 <div className="flex flex-row gap-[8px] items-center">
-                  <span className="text-[14px] text-[#06A9EF] font-500 cursor-pointer">
-                    Preview
-                  </span>
 
                   <svg
                     onClick={() =>
@@ -118,7 +115,7 @@ const MatchingDetails = ({ data, setSelectedFile, files, extractedData }) => {
                   Matching Parameters
                 </span>
                 <ul className="flex flex-col gap-[4px]">
-                  {data.matching_parameters.map((item, i) => (
+                  {data?.matching_parameters.map((item, i) => (
                     <li
                       key={i}
                       className="text-[#333333] text-[14px] font-500 flex flex-row items-center gap-[8px]"
