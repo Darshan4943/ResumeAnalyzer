@@ -56,22 +56,21 @@ function CreateNewClient({ setTabIndex }) {
     setData({ ...data, img: croppedImage?.blob });
   }, [croppedImage]);
 
-  const callData = () => {
-    axios
-      .get(
-        `https://freedygoservices.in/api/client/getByRecruiter/${userDataGlobal._id}`
-      )
-      .then((res) => {
-        setDetails(res.data.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-  useEffect(() => {
-    callData();
-  }, [userDataGlobal]);
-
+  // const callData = () => {
+  //   axios
+  //     .get(
+  //       `http://localhost:2000/api/client/getByRecruiter/${userDataGlobal._id}`
+  //     )
+  //     .then((res) => {
+  //       setDetails(res.data.data);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
+  // useEffect(() => {
+  //   callData();
+  // }, [userDataGlobal]);
 
   const [formError, setFormError] = useState({});
 
@@ -199,7 +198,7 @@ function CreateNewClient({ setTabIndex }) {
         formdata.append("img", croppedImage);
 
         const response = await axios.post(
-          "https://freedygoservices.in/api/client/create",
+          "http://localhost:2000/api/client/create",
           formdata
         );
         setData({
@@ -211,14 +210,16 @@ function CreateNewClient({ setTabIndex }) {
           location: "",
           gender: "male",
         });
-        callData();
+        const clientSaveLimit = localStorage.getItem("clientCount");
+        localStorage.setItem("clientCount", clientSaveLimit - 1);
+
         setFormError({});
         setLoading(false);
         router.push("/myClients");
 
         toast.success("Client created successfully");
       } catch (error) {
-        if (error.response == "User already exist") {
+        if (error.response?.data.message == "User already exist") {
           setLoading(false);
           toast.error("Client already exist");
         } else {
@@ -580,7 +581,6 @@ function CreateNewClient({ setTabIndex }) {
                         </div>
 
                         <div className="bottom_buttons  font-[500]">
-                         
                           <button
                             className="buttons font-[500] bg-[#06A9EF] text-white"
                             id="border_button"

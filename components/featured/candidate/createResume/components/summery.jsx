@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 function Summary({ limits, selectedPlan }) {
   const router = useRouter();
   const [progress, setProgress] = useState(0);
-  const [daysRemaing,setDaysRemaing] = useState(0);
+  const [daysRemaing, setDaysRemaing] = useState(0);
   const userDataGlobal = useSelector((state) => state.userData);
   const circumference = 2 * Math.PI * 70;
   const dashOffset = circumference - (progress / 100) * circumference;
@@ -49,9 +49,9 @@ function Summary({ limits, selectedPlan }) {
         .then((res) => {
           const result = res.data.data;
           if (result.startDate) {
-            console.log((calculateDaysRemaining(result.startDate, result.endDate) /
-            selectedPlan.days) *
-            100)
+            setDaysRemaing(
+              calculateDaysRemaining(result.startDate, result.endDate)
+            );
             setProgress(
               (calculateDaysRemaining(result.startDate, result.endDate) /
                 selectedPlan.days) *
@@ -99,7 +99,7 @@ function Summary({ limits, selectedPlan }) {
                   className="absolute flex flex-col  items-center justify-center text-[18px] font-semibold bg-white w-[110px] h-[110px] rounded-full"
                   style={{ boxShadow: "0px 0px 2px 0px #00000040" }}
                 >
-                  {100 - progress} %
+                  {daysRemaing} days
                   <p className="text-[12px] font-medium">Remaining</p>
                 </div>
               </div>
