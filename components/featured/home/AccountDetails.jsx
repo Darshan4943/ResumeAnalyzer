@@ -441,7 +441,7 @@ function AccountDetails({ selectedPlan }) {
                   onChange={(e) =>
                     handleInputChange("mobileNo", e.target.value)
                   }
-                  className="w-full mobileNo h-full p-0 "
+                  className="w-full mobileNo h-full pl-[20px] "
                   type="text"
                   name=""
                   // id="single_input"
