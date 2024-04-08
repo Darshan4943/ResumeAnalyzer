@@ -17,6 +17,7 @@ import RecruiterHome from "../recruiter/RecruiterHome";
 import Footer from "../../components/partials/footer/footer";
 import Dashboard from "../dashboard";
 import PlanExpiredModal from "../../components/models/planExpiredModal";
+import AdminDashboard from "../dashboard/adminDashboard";
 
 function BeforeLoginHome() {
   const [isLogin, setIsLogin] = useState(false);
@@ -44,7 +45,15 @@ function BeforeLoginHome() {
   return (
     <div className="">
       <PlanExpiredModal />
-      {isLogin ? <Dashboard /> : <CandidateHome />}
+      {isLogin ? (
+        userDataGlobal?.role == "admin" ? (
+          <AdminDashboard />
+        ) : (
+          <Dashboard />
+        )
+      ) : (
+        <CandidateHome />
+      )}
     </div>
   );
 }
