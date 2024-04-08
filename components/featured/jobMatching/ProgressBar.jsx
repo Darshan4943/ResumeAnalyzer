@@ -26,13 +26,14 @@ const Progress_bar = ({ progress }) => {
     color: "#fff",
   };
 
-  function formatNumber(number) {
-    if (Number.isInteger(number)) {
-        return number.toString();
-    } else {
-        return number.toFixed(2);
-    }
-}
+  // function formatNumber(number) {
+  //   if (Number.isInteger(number)) {
+  //     return number.toString();
+  //   } else {
+  //     return number.toFixed(2);
+  //   }
+  // }
+  
   return (
     <div style={Parentdiv}>
       <div
@@ -49,7 +50,7 @@ const Progress_bar = ({ progress }) => {
         >
           <div style={Childdiv1}></div>
         </div>
-        <span className="text-[14px] font-semibold">{formatNumber(progress)}%</span>
+        <span className="text-[14px] font-semibold">{progress}%</span>
       </div>
     </div>
   );
