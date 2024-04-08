@@ -41,6 +41,7 @@ import Template39 from "../../resumeTemplates/Template39";
 import Template48 from "../../resumeTemplates/Template48";
 import Template44 from "../../resumeTemplates/Template44";
 import MiniLoader from "../../../common/miniLoader";
+import LimitUsedModal from "../../../models/limitUsedModal";
 // import { generatePDFUsingRenderer } from "../../../../utils/middleware";
 <Fonts />;
 const ResumePreview = ({
@@ -59,6 +60,24 @@ const ResumePreview = ({
   const [namePreview, setNamePreview] = useState(false);
   const [name, setName] = useState(data.firstName + "_resume");
   const userDataGlobal = useSelector((state) => state.userData);
+  const [downloadBtnLoading, setDownloadBtnLoading] = useState(false);
+  const [downloadLimit, setDownloadLimit] = useState(0);
+  const [saveLimit, setSaveLimit] = useState(0);
+  const [limitUsedModal, setLimitUsedModal] = useState(false);
+  const getLimits = () => {
+    const downloadCount = localStorage.getItem("downloadCount");
+    const saveCount = localStorage.getItem("saveCount");
+    if (downloadCount) {
+      setDownloadLimit(downloadCount);
+    }
+    if (saveCount) {
+      setSaveLimit(saveCount);
+    }
+  };
+
+  useEffect(() => {
+    getLimits();
+  }, []);
 
   const callData = () => {
     axios
@@ -519,7 +538,11 @@ const ResumePreview = ({
   const handleLoad = () => {
     setLoading(false);
   };
-  const saveResume = async (blob) => {
+  const saveResume = async (blob, download) => {
+    if (saveLimit == 0) {
+      setLimitUsedModal(true);
+      return;
+    }
     if (isEdit) {
       setLoading(true);
       const formData = new FormData();
@@ -541,6 +564,8 @@ const ResumePreview = ({
       axios
         .put("https://freedygoservices.in/api/resume/" + id, formData)
         .then((res) => {
+          localStorage.setItem("saveCount", saveLimit - 1);
+          getLimits();
           toast.success("Resume Updated successfully");
           setTimeout(() => {
             setLoading(false);
@@ -584,6 +609,19 @@ const ResumePreview = ({
       axios
         .post("https://freedygoservices.in/api/resume/add", formData)
         .then((res) => {
+          const pdfUrl = res.data.data.resumeUrl;
+
+          localStorage.setItem("saveCount", saveLimit - 1);
+          if (download) {
+            const link = document.createElement("a");
+            link.href = pdfUrl;
+            link.download = res.data.data.fileName;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+          }
+
+          getLimits();
           toast.success("Resume Saved To Collection successfully");
           setLoading(false);
           callData();
@@ -594,6 +632,24 @@ const ResumePreview = ({
           setLoading(false);
         });
     }
+  };
+  const updateDownloadCount = async () => {
+    setDownloadBtnLoading(true);
+    axios
+      .put(
+        "https://freedygoservices.in/api/subscription/updateDownloadLimit/" +
+          userDataGlobal._id
+      )
+      .then((res) => {
+        const result = res.data;
+        localStorage.setItem("downloadCount", result.data.resumeDownloads);
+        getLimits();
+        setDownloadBtnLoading(false);
+      })
+      .catch((err) => {
+        toast.error("Something went wrong Please try again");
+        setDownloadBtnLoading(false);
+      });
   };
   const MyComponent = () => {
     return (
@@ -636,11 +692,60 @@ const ResumePreview = ({
       </button>
     );
   };
+
+  const DownloadButton = () => (
+    <BlobProvider document={<MyComponent />}>
+      {({ blob, url, loading, error }) => (
+        <button
+          onClick={() => saveResume(blob, true)}
+          disabled={loading}
+          className="flex gap-1 text-[14px] w-fit  justify-center  font-montserrat font-semibold px-3 py-2 rounded-[8px] items-center border border-[#06A9EF] "
+        >
+          {loading ? (
+            <svg
+              aria-hidden="true"
+              role="status"
+              class="inline w-4 h-4 me-3  animate-spin"
+              viewBox="0 0 100 101"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                fill="#E5E7EB"
+              />
+              <path
+                d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                fill="currentColor"
+              />
+            </svg>
+          ) : (
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 20 20"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g mask="url(#mask0_635_20356)">
+                <path
+                  d="M9.99967 13.333L5.83301 9.16634L6.99967 7.95801L9.16634 10.1247V3.33301H10.833V10.1247L12.9997 7.95801L14.1663 9.16634L9.99967 13.333ZM4.99967 16.6663C4.54134 16.6663 4.14898 16.5031 3.82259 16.1768C3.4962 15.8504 3.33301 15.458 3.33301 14.9997V12.4997H4.99967V14.9997H14.9997V12.4997H16.6663V14.9997C16.6663 15.458 16.5031 15.8504 16.1768 16.1768C15.8504 16.5031 15.458 16.6663 14.9997 16.6663H4.99967Z"
+                  fill="#333333"
+                />
+              </g>
+            </svg>
+          )}
+        </button>
+      )}
+    </BlobProvider>
+  );
+
   return (
     <div
       className="ml:w-[60%] w-[100%] "
       style={{ overflow: "hidden", position: "relative" }}
     >
+      <LimitUsedModal visible={limitUsedModal} setVisible={setLimitUsedModal} />
       <div
         className="flex  h-fit flex-col w-full  sm:p-4 p-2 gap-[14px] rounded-lg bg-white shadow-md"
         style={{
@@ -734,37 +839,34 @@ const ResumePreview = ({
                       </button>
                     </div>
                   </div>
-                  <PDFDownloadLink
-                    document={<MyComponent />}
-                    fileName={name + ".pdf"}
-                  >
-                    {({ blob, url, loading, error }) => (
-                      <button className="flex gap-1 text-[14px] w-[51.4px] h-[40px]  justify-center  font-montserrat font-semibold  rounded-[8px] items-center border border-[#06A9EF] ">
-                        <svg
-                          width="20"
-                          height="20"
-                          viewBox="0 0 20 20"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <g mask="url(#mask0_635_20356)">
-                            <path
-                              d="M9.99967 13.333L5.83301 9.16634L6.99967 7.95801L9.16634 10.1247V3.33301H10.833V10.1247L12.9997 7.95801L14.1663 9.16634L9.99967 13.333ZM4.99967 16.6663C4.54134 16.6663 4.14898 16.5031 3.82259 16.1768C3.4962 15.8504 3.33301 15.458 3.33301 14.9997V12.4997H4.99967V14.9997H14.9997V12.4997H16.6663V14.9997C16.6663 15.458 16.5031 15.8504 16.1768 16.1768C15.8504 16.5031 15.458 16.6663 14.9997 16.6663H4.99967Z"
-                              fill="#333333"
-                            />
-                          </g>
-                        </svg>
-                      </button>
-                    )}
-                  </PDFDownloadLink>
+                  <DownloadButton />
                 </>
               )}
 
               <button
                 onClick={() => setPreview(true)}
-                className="flex gap-1 text-[14px] w-[150px]  justify-center  font-montserrat font-semibold px-3 py-2 rounded-[8px] items-center border border-[#06A9EF] b"
+                className="flex gap-1 text-[14px] w-fit justify-center  font-montserrat font-semibold px-3 py-2 rounded-[8px] items-center border border-[#06A9EF] b"
               >
-                Full Screen View
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 410 410"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M161.051 248.95C157.057 244.957 150.565 244.957 146.571 248.95L82.1206 313.401V256.2C82.1206 250.548 77.5331 245.96 71.8806 245.96C66.2281 245.96 61.6406 250.548 61.6406 256.2V338.12C61.6406 339.451 61.9069 340.783 62.4393 342.032C63.4633 344.53 65.4704 346.537 67.9894 347.582C69.2182 348.073 70.5494 348.36 71.8806 348.36H153.801C159.453 348.36 164.041 343.773 164.041 338.12C164.041 332.468 159.453 327.88 153.801 327.88H96.6L161.03 263.45C165.044 259.436 165.044 252.964 161.051 248.95Z"
+                    fill="#333333"
+                  />
+                  <path
+                    d="M342.032 62.4189C340.782 61.9273 339.451 61.6406 338.12 61.6406H256.2C250.547 61.6406 245.96 66.2281 245.96 71.8806C245.96 77.5331 250.547 82.1206 256.2 82.1206H313.401L248.971 146.551C244.977 150.544 244.977 157.036 248.971 161.03C250.957 163.037 253.579 164.041 256.2 164.041C258.821 164.041 261.443 163.037 263.45 161.051L327.88 96.6V153.801C327.88 159.453 332.467 164.041 338.12 164.041C343.772 164.041 348.36 159.453 348.36 153.801V71.8806C348.36 70.5494 348.094 69.2182 347.561 67.9689C346.537 65.4704 344.53 63.4633 342.032 62.4189Z"
+                    fill="#333333"
+                  />
+                  <path
+                    d="M358.6 0.200195H51.4002C23.1788 0.200195 0.200195 23.1583 0.200195 51.4002V358.6C0.200195 386.842 23.1788 409.8 51.4002 409.8H358.6C386.822 409.8 409.8 386.842 409.8 358.6V51.4002C409.8 23.1583 386.822 0.200195 358.6 0.200195ZM389.32 358.6C389.32 375.537 375.537 389.32 358.6 389.32H51.4002C34.4632 389.32 20.6802 375.537 20.6802 358.6V51.4002C20.6802 34.4632 34.4632 20.6802 51.4002 20.6802H358.6C375.537 20.6802 389.32 34.4632 389.32 51.4002V358.6Z"
+                    fill="#333333"
+                  />
+                </svg>
               </button>
             </div>
           </div>
@@ -782,11 +884,7 @@ const ResumePreview = ({
                 <MiniLoader />
               </div>
             ) : (
-              <PDFViewer
-                width="80%"
-                height="900px"
-                showToolbar={false}
-              >
+              <PDFViewer width="80%" height="900px" showToolbar={false}>
                 <MyComponent />
               </PDFViewer>
             )}
@@ -832,24 +930,7 @@ const ResumePreview = ({
                         );
                       }}
                     </BlobProvider>
-                    <PDFDownloadLink
-                      document={<MyComponent />}
-                      fileName="somename.pdf"
-                    >
-                      {({ blob, url, loading, error }) => (
-                        <button className="flex gap-1 text-[14px] w-[51.4px] h-[40px]  justify-center text-[#FFF] font-montserrat font-semibold  rounded-[8px] items-center border border-[#06A9EF] bg-[#06A9EF]">
-                          <img
-                            src="/images/download.png"
-                            style={{
-                              height: "34px",
-                              width: "34px",
-                              objectFit: "contain",
-                            }}
-                            alt=""
-                          />
-                        </button>
-                      )}
-                    </PDFDownloadLink>
+                    <DownloadButton />
                   </>
                 )}
                 <button onClick={() => setPreview(false)}>

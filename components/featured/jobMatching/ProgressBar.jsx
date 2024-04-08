@@ -26,6 +26,14 @@ const Progress_bar = ({ progress }) => {
     color: "#fff",
   };
 
+  // function formatNumber(number) {
+  //   if (Number.isInteger(number)) {
+  //     return number.toString();
+  //   } else {
+  //     return number.toFixed(2);
+  //   }
+  // }
+  
   return (
     <div style={Parentdiv}>
       <div

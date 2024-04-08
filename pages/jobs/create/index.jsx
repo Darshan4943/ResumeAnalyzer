@@ -19,7 +19,7 @@ const Index = () => {
     jobTitle: "",
     location: [],
     aboutOrganization: "",
-    description: "",
+    description: "Enter Job Description here",
     salaryType: "",
     minSalary: 0,
     maxSalary: 0,
@@ -29,7 +29,7 @@ const Index = () => {
     experiance: "",
     skills: [],
   });
-  console.log(data)
+  
   const getData = () => {
     setLoading(true);
     axios
@@ -87,14 +87,14 @@ const Index = () => {
       ) : (
         <>
           <div className="flex items-center gap-[8px] ">
-            <div onClick={() => router.back()}>
+            <div className=" cursor-pointer" onClick={() => router.back()}>
               <LeftArow />
             </div>
-            <div className="text-[18px] font-medium text-[#FFFFFF] py-[8px] px-[12px] header w-[50%]">
+            <div className="text-[18px] font-medium text-[#FFFFFF] py-[8px] px-[12px] header w-[50%] min-w-[270px]">
               Job Listings
             </div>
           </div>
-          <div className="flex flex-row justify-between ">
+          <div className="flex md:flex-row flex-col justify-between ">
             <Leftform
               setFile={setFile}
               file={file}

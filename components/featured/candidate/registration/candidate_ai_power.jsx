@@ -13,6 +13,8 @@ import PizZip from "pizzip";
 import { pdfjs } from "react-pdf";
 import Tesseract from "tesseract.js";
 import { DocSVG, PDFSvg, PNGICON } from "../../../../utils/svg";
+import { useSelector } from "react-redux";
+import LimitUsedModal from "../../../models/limitUsedModal";
 pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
 
 const fileToText = (file, pageNumber) => {
@@ -21,12 +23,17 @@ const fileToText = (file, pageNumber) => {
     reader.onload = function (event) {
       const typedarray = new Uint8Array(event.target.result);
       pdfjs.getDocument(typedarray).promise.then(function (pdf) {
-        pdf.getPage(pageNumber).then(function (page) {
-          page.getTextContent().then(function (textContent) {
-            const textItems = textContent.items.map((item) => item.str);
-            resolve(textItems.join(" "));
+        try {
+          pdf.getPage(pageNumber).then(function (page) {
+            page.getTextContent().then(function (textContent) {
+              const textItems = textContent.items.map((item) => item.str);
+              resolve(textItems.join(" "));
+            });
           });
-        });
+        } catch (err) {
+          reject(err);
+          return;
+        }
       });
     };
     reader.readAsArrayBuffer(file);
@@ -50,6 +57,9 @@ const CandidateAiPower = ({
   const { clientId } = router.query;
   const [fileData, setFileData] = useState(null);
   const [uploadLimit, setUploadLimit] = useState(0);
+  const userDataGlobal = useSelector((state) => state.userData);
+  const [limitUsedModal, setLimitUsedModal] = useState(false);
+
   useEffect(() => {
     const resumeUploadCount = localStorage.getItem("uploadCount");
     setUploadLimit(resumeUploadCount ? resumeUploadCount : 0);
@@ -73,8 +83,8 @@ const CandidateAiPower = ({
   const sendFile = (file) => {
     setfile(file);
   };
-  const extracteText = (file) => {
-    return new Promise((resolve, reject) => {
+  const extracteText = async (file) => {
+    return new Promise(async (resolve, reject) => {
       const textData = [];
       if (
         file.type ==
@@ -102,13 +112,23 @@ const CandidateAiPower = ({
       } else if (file.type == "application/pdf") {
         let fullText = "";
         const pdfTextPromises = [];
-        for (let i = 1; i <= 2; i++) {
+        const fileUrl = URL.createObjectURL(file);
+
+        const loadingTask = pdfjs.getDocument(fileUrl);
+        const pdf = await loadingTask.promise;
+
+        for (let i = 1; i <= pdf.numPages; i++) {
           pdfTextPromises.push(fileToText(file, i));
         }
-        Promise.all(pdfTextPromises).then(async (texts) => {
-          fullText = texts.join("");
-          textData.push({ text: fullText });
-        });
+        Promise.all(pdfTextPromises)
+          .then(async (texts) => {
+            fullText = texts.join("");
+            textData.push({ text: fullText });
+          })
+          .catch((err) => {
+            reject(err);
+            return;
+          });
       }
       setTimeout(() => {
         resolve(textData);
@@ -116,8 +136,8 @@ const CandidateAiPower = ({
     });
   };
   const navigate = () => {
-    if (uploadLimit == 0) {
-      toast.error("Seems you have no upload attempts left update your plan");
+    if (uploadLimit <= 0) {
+      setLimitUsedModal(true);
       return;
     }
     setLoading(true);
@@ -127,13 +147,46 @@ const CandidateAiPower = ({
           data: result,
         })
         .then((res) => {
-          setLoading(false);
-          setfile(file);
-          localStorage.setItem(
-            "parsedResume",
-            JSON.stringify(res.data.data[0])
-          );
-          router.push(`/home/createResume?clientId=${clientId}`);
+          console.log(res.data.data)
+          if (Object.keys(res.data.data).length > 0) {
+            localStorage.setItem(
+              "parsedResume",
+              JSON.stringify(res.data.data[0])
+            );
+            axios
+              .put(
+                "https://freedygoservices.in/api/subscription/updateUploadLimit/" +
+                  userDataGlobal._id
+              )
+              .then((res) => {
+                const result = res.data;
+                if (result.success) {
+                  localStorage.setItem(
+                    "uploadCount",
+                    result.data.resumeUpladed
+                  );
+                  setLoading(false);
+                  setfile(file);
+
+                  router.push(`/home/createResume?clientId=${clientId}`);
+                } else {
+                  localStorage.setItem("uploadCount", 0);
+                  setLoading(false);
+                  setfile(file);
+
+                  router.push(`/home/createResume?clientId=${clientId}`);
+                }
+              })
+              .catch((err) => {
+                localStorage.setItem("uploadCount", 0);
+                setLoading(false);
+                setfile(file);
+
+                router.push(`/home/createResume?clientId=${clientId}`);
+              });
+          } else {
+            toast.error("Unable to parse resume, please try again later");
+          }
         })
         .catch((err) => {
           setLoading(false);
@@ -143,98 +196,7 @@ const CandidateAiPower = ({
     });
   };
 
-  function convertMonthsToYearsAndMonths(totalMonths) {
-    const years = Math.floor(totalMonths / 12);
-    const remainingMonths = totalMonths % 12;
 
-    return {
-      years: years ? years : 1,
-      months: remainingMonths,
-    };
-  }
-
-  const setToState = (dataFromApi) => {
-    const {
-      first_name,
-      last_name,
-      gender,
-      emails,
-      phone_numbers,
-      address,
-      summary,
-      skills,
-      date_of_birth,
-    } = dataFromApi.data.basics;
-    const { end_year, issuing_organization, description } =
-      dataFromApi.data.educations[0];
-
-    const trainings_and_certifications =
-      dataFromApi.data.trainings_and_certifications;
-    const professional_experiences = dataFromApi.data.professional_experiences;
-    const total_experience_in_months = professional_experiences.reduce(
-      (total, experience) => total + experience.duration_in_months,
-      0
-    );
-    const isCurrentlyWorking = professional_experiences.find(
-      (item) => item.is_current == true
-    );
-    let jobTitle = "";
-    let companyName = "";
-    if (isCurrentlyWorking) {
-      const { title, company } = isCurrentlyWorking;
-      jobTitle = title;
-      companyName = company;
-    }
-
-    setData({
-      ...data,
-      firstName: camelCase(first_name),
-      lastName: camelCase(last_name),
-      mobileNo: phone_numbers[0],
-      // mobileNo: `91${phone_numbers[0]}`,
-      email: emails[0],
-      password: "",
-      dob:
-        date_of_birth.year != null &&
-        dateFormatter(
-          new Date(
-            date_of_birth.year,
-            date_of_birth.month - 1,
-            date_of_birth.day
-          )
-        ),
-      gender: gender ? gender : "male",
-      currentLocation: "",
-      workStatus:
-        professional_experiences.length > 0 ? "experianced" : "fresher",
-      education: "10th or below",
-      stream: description.split("\n")[0],
-      university: "",
-      institute: issuing_organization,
-      dateOfComplition: "",
-      courses: trainings_and_certifications
-        .map((entry) => entry.issuing_organization)
-        .join("\n"),
-      awards: "",
-      workExperiance: {
-        ...convertMonthsToYearsAndMonths(total_experience_in_months),
-      },
-      companyName: companyName,
-      jobTitle: jobTitle,
-      jobLocation: "",
-      dateOfJoining: "",
-      keySkills: skills.map((item) => ({
-        value: item,
-        label: camelCase(item),
-      })),
-      currentCTC: null,
-      noticePeriod: "15 days or less",
-      isCurrentlyWorking: isCurrentlyWorking ? true : false,
-      employmentStatus: isCurrentlyWorking ? "employed" : "unemployed",
-      summary: summary,
-      url: dataFromApi.url,
-    });
-  };
   const fileIconSeter = (data) => {
     if (data.name.includes("docx") || data.name.includes("doc")) {
       return <DocSVG />;
@@ -269,6 +231,8 @@ const CandidateAiPower = ({
   };
   return (
     <>
+      <LimitUsedModal visible={limitUsedModal} setVisible={setLimitUsedModal} />
+
       {tabindex == 1 && (
         <>
           <div className="flex justify-center items-center  relative pb-8 ">

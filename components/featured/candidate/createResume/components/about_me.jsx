@@ -11,7 +11,7 @@ const AboutMe = ({ data, setData }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [isChecked, setIsChecked] = useState(true);
-
+  const [isPlanActive, setIsPlanActive] = useState(false);
   const handleSwitchChange = () => {
     setIsChecked(!isChecked);
     setData({ ...data, showSummary: !isChecked });
@@ -27,8 +27,10 @@ const AboutMe = ({ data, setData }) => {
           setLoading(false);
           setError("");
           setText(res.data.data.choices[0].message.content);
-          localStorage.setItem("attempts", attempt - 1);
-          getAttempts();
+          if (!isPlanActive) {
+            localStorage.setItem("attempts", attempt - 1);
+            getAttempts();
+          }
         })
         .catch((err) => {
           setLoading(false);
@@ -47,6 +49,12 @@ const AboutMe = ({ data, setData }) => {
   };
 
   useEffect(() => {
+    const planActive = localStorage.getItem("planActive");
+    if (planActive) {
+      setIsPlanActive(true);
+    } else {
+      setIsPlanActive(false);
+    }
     getAttempts();
     if (userDataGlobal?.resumeUrl) {
       const Summery = userDataGlobal.summary;
@@ -105,14 +113,19 @@ const AboutMe = ({ data, setData }) => {
         </div>
 
         <div className="flex justify-end items-center gap-3 ">
-          <div className="text-[10px] font-[400]">
-            Remaining Attempts - {attempt}
-          </div>
+          {isPlanActive ? null : (
+            <div className="text-[10px] font-[400]">
+              Remaining Attempts - {attempt}
+            </div>
+          )}
+
           <button
             className=" flex gap-1 items-center font-montserrat text-xs font-semibold btn_outline"
             onClick={generateText}
-            style={{ opacity: text === data?.summery ? 0.5 : 1 }}
-            disabled={text === data?.summery || !isChecked}
+            style={{
+              opacity: text === data?.summery || text.length == 0 ? 0.5 : 1,
+            }}
+            disabled={text === data?.summery || !isChecked || text.length == 0}
           >
             <SparklingStarts />
             Generate with AI

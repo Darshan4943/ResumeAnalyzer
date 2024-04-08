@@ -3,7 +3,7 @@ import SubscriptionPlans from "./SubscriptionPlans";
 
 function SubscriptionPlan({ isLogin, fromMain }) {
   return (
-    <div className=" bg-subscriptionPlan  bg-cover bg-no-repeat   pb-12 min-h-[93vh]">
+    <div className=" bg-subscriptionPlan  bg-cover bg-no-repeat   pb-12 min-h-[95vh]">
       <div className="flex flex-col lg:gap-12 justify-center items-center gap-4 customMargins ">
         <div className="text-center w-[90%] leading-tight">
           <p className="ml:text-[2.5vw] text-[8vw] text-[#333333] font-[700]">

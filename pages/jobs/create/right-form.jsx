@@ -49,7 +49,7 @@ const Rightform = ({ data, setData, file, croppedImage, isEditable, id }) => {
   };
 
   return (
-    <div className="flex flex-col w-[50%] gap-[24px]">
+    <div className="flex flex-col md:w-[50%] w-full gap-[24px] ml:pt-0 pt-6">
       <div className="flex flex-col w-full gap-[16px]">
         <div className="form-group">
           <label className="text-[#333333] text-[14px] font-medium">
@@ -69,8 +69,8 @@ const Rightform = ({ data, setData, file, croppedImage, isEditable, id }) => {
       </div>
       <div className="flex flex-col w-full gap-[16px]">
         <span className="text-[18px] text-[#333333] font-medium">Salary</span>
-        <div className="flex flex-row justify-between">
-          <div className=" w-[31%] flex flex-col gap-[8px] ">
+        <div className="flex sm:flex-row flex-col sm:gap-0 gap-4 justify-between">
+          <div className=" sm:w-[31%] w-full flex flex-col gap-[8px] ">
             <label className="text-[#333333] text-[14px] font-medium">
               Salary Type
             </label>
@@ -102,7 +102,7 @@ const Rightform = ({ data, setData, file, croppedImage, isEditable, id }) => {
               />
             </div>
           </div>
-          <div className=" w-[31%] flex flex-col gap-[8px] ">
+          <div className=" sm:w-[31%] w-full flex flex-col gap-[8px] ">
             <label className="text-[#333333] text-[14px] font-medium">
               Min Salary
             </label>
@@ -116,7 +116,7 @@ const Rightform = ({ data, setData, file, croppedImage, isEditable, id }) => {
               }}
             />
           </div>
-          <div className=" w-[31%] flex flex-col gap-[8px] ">
+          <div className="sm:w-[31%] w-full flex flex-col gap-[8px] ">
             <label className="text-[#333333] text-[14px] font-medium">
               Max Salary
             </label>
@@ -181,8 +181,8 @@ const Rightform = ({ data, setData, file, croppedImage, isEditable, id }) => {
             ))}
           </div>
         </div>
-        <div className="flex flex-row justify-between">
-          <div className=" w-[48%] flex flex-col gap-[8px] ">
+        <div className="flex sm:flex-row flex-col sm:gap-0 gap-4 justify-between">
+          <div className=" sm:w-[48%] w-full flex flex-col gap-[8px] ">
             <label className="text-[#333333] text-[14px] font-medium">
               Application Deadline
             </label>
@@ -196,7 +196,7 @@ const Rightform = ({ data, setData, file, croppedImage, isEditable, id }) => {
               }}
             />
           </div>
-          <div className=" w-[48%] flex flex-col gap-[8px] ">
+          <div className=" sm:w-[48%] w-full flex flex-col gap-[8px] ">
             <label className="text-[#333333] text-[14px] font-medium">
               Experience
             </label>
@@ -244,7 +244,7 @@ const Rightform = ({ data, setData, file, croppedImage, isEditable, id }) => {
             <svg
               aria-hidden="true"
               role="status"
-              class="inline w-4 h-4 me-3  animate-spin"
+              className="inline w-4 h-4 me-3  animate-spin"
               viewBox="0 0 100 101"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"

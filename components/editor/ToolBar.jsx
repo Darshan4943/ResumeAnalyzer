@@ -21,7 +21,7 @@ const Toolbar = ({ editor, content }) => {
   }
   return (
     <div
-      className="px-4 py-3 rounded-tl-md rounded-tr-md flex justify-between items-start
+      className="sm:px-4 px-2 sm:py-3 py-2 rounded-tl-md rounded-tr-md flex justify-between items-start
     gap-5 w-full flex-wrap border border-[#DEDEDE]"
     >
       <div className="flex justify-start items-center gap-3 w-full lg:w-10/12 flex-wrap ">
@@ -36,7 +36,7 @@ const Toolbar = ({ editor, content }) => {
               : "text-sky-400 p-2"
           }
         >
-          <Bold className="w-5 h-5" />
+          <Bold className="sm:w-5 sm:h-5 w-3 h-3" />
         </button>
         <button
           onClick={(e) => {
@@ -49,7 +49,7 @@ const Toolbar = ({ editor, content }) => {
               : "text-sky-400 p-2"
           }
         >
-          <Italic className="w-5 h-5" />
+          <Italic className="sm:w-5 sm:h-5 w-3 h-3" />
         </button>
 
         <button
@@ -63,7 +63,7 @@ const Toolbar = ({ editor, content }) => {
               : "text-sky-400 p-2"
           }
         >
-          <Strikethrough className="w-5 h-5" />
+          <Strikethrough className="sm:w-5 sm:h-5 w-3 h-3" />
         </button>
         <button
           onClick={(e) => {
@@ -76,7 +76,7 @@ const Toolbar = ({ editor, content }) => {
               : "text-sky-400 p-2"
           }
         >
-          <Heading2 className="w-5 h-5" />
+          <Heading2 className="sm:w-5 sm:h-5 w-3 h-3" />
         </button>
 
         <button
@@ -90,7 +90,7 @@ const Toolbar = ({ editor, content }) => {
               : "text-sky-400 p-2"
           }
         >
-          <List className="w-5 h-5" />
+          <List className="sm:w-5 sm:h-5 w-3 h-3" />
         </button>
         <button
           onClick={(e) => {
@@ -103,7 +103,7 @@ const Toolbar = ({ editor, content }) => {
               : "text-sky-400 p-2"
           }
         >
-          <ListOrdered className="w-5 h-5" />
+          <ListOrdered className="sm:w-5 sm:h-5 w-3 h-3" />
         </button>
         <button
           onClick={(e) => {
@@ -116,7 +116,7 @@ const Toolbar = ({ editor, content }) => {
               : "text-sky-400 p-2"
           }
         >
-          <Quote className="w-5 h-5" />
+          <Quote className="sm:w-5 sm:h-5 w-3 h-3" />
         </button>
 
         <button
@@ -130,7 +130,7 @@ const Toolbar = ({ editor, content }) => {
               : "text-sky-400 p-2 hover:bg-[#effaff] hover:rounded-lg"
           }
         >
-          <Undo className="w-5 h-5" />
+          <Undo className="sm:w-5 sm:h-5 w-3 h-3" />
         </button>
         <button
           onClick={(e) => {
@@ -140,10 +140,10 @@ const Toolbar = ({ editor, content }) => {
           className={
             editor.isActive("redo")
               ? "p-2 rounded-lg bg-[#effaff]"
-              : "text-sky-400 p-2 hover:bg-[#effaff]  p-1 hover:rounded-lg"
+              : "text-sky-400  hover:bg-[#effaff]  p-1 hover:rounded-lg"
           }
         >
-          <Redo className="w-5 h-5" />
+          <Redo className="sm:w-5 sm:h-5 w-3 h-3" />
         </button>
       </div>
     </div>

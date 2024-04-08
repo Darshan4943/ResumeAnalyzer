@@ -78,7 +78,6 @@ function CreateResume() {
       const educations = parsedData.education;
       const experience = parsedData["work experience"];
       const courses = parsedData.issuing_organization;
-      console.log(experience);
       setData({
         ...data,
         clientId: clientId ? clientId : null,
