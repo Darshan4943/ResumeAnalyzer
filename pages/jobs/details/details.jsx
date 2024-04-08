@@ -3,14 +3,14 @@ import { dateSeter } from "../../../utils/middleware";
 
 const Details = ({ jobPost }) => {
   return (
-    <div className="py-[16px] px-[24px] flex flex-col gap-[24px] ">
+    <div className="py-[16px] sm:px-[24px] px-2 flex flex-col gap-[24px]  ">
       <div className="w-full">
         <span className="text-[20px] text-[#333333] font-semibold">
           {jobPost?.jobTitle}
         </span>
       </div>
-      <div className="flex flex-row flex-wrap justify-between">
-        <div className="flex flex-col w-[48%] gap-[16px]">
+      <div className="flex md:flex-row flex-col flex-wrap justify-between">
+        <div className="flex flex-col md:w-[48%] w-full gap-[16px]">
           <div className="flex flex-col gap-[8px] border-b-[1px] border-[#bebebe] pb-[16px]">
             <span className="text-[18px] text-[#333333] font-medium">
               {jobPost?.jobTitle}
@@ -55,7 +55,7 @@ const Details = ({ jobPost }) => {
             />
           </div>
         </div>
-        <div className="flex flex-col w-[48%] gap-[24px]">
+        <div className="flex flex-col md:w-[48%] w-full gap-[24px]">
           <span className="text-[18px] text-[#333333] font-medium">
             About this role
           </span>
