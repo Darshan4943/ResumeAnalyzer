@@ -39,6 +39,7 @@ const Applications = ({ jobPost, applications }) => {
       </div>
       <div>
         {applications?.length > 0 ? (
+          <>
           <table className="w-full">
             <thead className="w-full">
               <tr className="w-full bg-[#06A9EF] flex flex-row justify-between items-center px-[24px] py-[12px]">
@@ -75,8 +76,9 @@ const Applications = ({ jobPost, applications }) => {
             </thead>
             <tbody>
               {applications?.map((item, index) => (
+                <>
                 <tr
-                  className="w-full  flex flex-row justify-between items-center px-[24px] py-[16px] border-b-[1px] border-[#bebebe]"
+                  className="scr1024:w-full w-[95%]  flex flex-row justify-between items-center px-[24px] py-[16px]"
                   key={index}
                 >
                   <th className="w-[5%] flex items-center justify-center">
@@ -118,7 +120,7 @@ const Applications = ({ jobPost, applications }) => {
                   </th>
                   <th className="text-[14px] font-semibold text-[#333333] w-[15%]">
                     <button
-                      className="bg-[#E9EEF6] py-[8px] px-[16px] rounded-[8px]"
+                      className="bg-[#E9EEF6] py-[8px] px-[16px] rounded-[8px] min-w-[146px]"
                       onClick={() =>
                         router.push(
                           `/jobs/details/applicant-details?applicant=${item.resumeId}&job-post=${jobPost._id}`
@@ -129,9 +131,13 @@ const Applications = ({ jobPost, applications }) => {
                     </button>
                   </th>
                 </tr>
+                 <div className="w-full h-[1px] bg-[#E9EEF6]">  </div>
+                 </>
               ))}
             </tbody>
           </table>
+         
+          </>
         ) : (
           <div className="flex items-center justify-center w-full text-[24px] text-[#bebebe] font-semibold h-[40vh]">
             No Applications Recived Yet !

@@ -17,7 +17,6 @@ const Tiptap = ({ data, setData, value, placeholder }) => {
       setData({ ...data, [value]: editor.getHTML() });
     },
   });
-  console.log(data[value]);
   return (
     data && (
       <div>
