@@ -85,7 +85,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
             style={{
               flexDirection: "column",
               gap: 8,
-              paddingLeft: 16,
+              paddingLeft: 8,
               paddingRight: 8,
               width: "80%",
             }}
@@ -112,7 +112,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                   </Svg>
                 </View>
                 <View
-                  style={{ color: "white", fontSize: 12, flexDirection: "row" }}
+                  style={{ color: "white", fontSize: 10, flexDirection: "row" }}
                 >
                   <Text
                     style={{
@@ -148,7 +148,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                   </Svg>
                 </View>
                 <View
-                  style={{ color: "white", flexDirection: "row", fontSize: 12 }}
+                  style={{ color: "white", flexDirection: "row", fontSize: 10 }}
                 >
                   <Text
                     style={{
@@ -422,7 +422,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
             <View
               style={{ flexDirection: "column", gap: 12, paddingLeft: "20px" }}
             >
-              {data.education.map((detail, index) => (
+              {data.education?.map((detail, index) => (
                 <View wrap={false} key={index} style={{ flexDirection: "column", gap: 8 }}>
                   <View style={{}}>
                     <Text
