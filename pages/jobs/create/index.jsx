@@ -87,7 +87,7 @@ const Index = () => {
       ) : (
         <>
           <div className="flex items-center gap-[8px] ">
-            <div onClick={() => router.back()}>
+            <div className=" cursor-pointer" onClick={() => router.back()}>
               <LeftArow />
             </div>
             <div className="text-[18px] font-medium text-[#FFFFFF] py-[8px] px-[12px] header w-[50%] min-w-[270px]">

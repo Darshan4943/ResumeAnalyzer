@@ -74,7 +74,7 @@ const Index = () => {
                   {jobPost.map((item, index) => (
                     <div
                       key={index}
-                      className="job-card sm:min-w-[350px] min-w-[300px]"
+                      className="job-card sm:min-w-[300px] w-full  sm:max-w-[380px]"
                       onClick={() =>
                         router.push("/jobs/details?id=" + item._id)
                       }

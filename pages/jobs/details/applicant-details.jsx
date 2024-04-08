@@ -59,25 +59,25 @@ const ApplicantDetails = () => {
   );
   return (
     <div
-      className="min-h-[90vh] my-[16px] rounded-[16px] customMargins flex flex-col gap-[24px] p-[24px] "
-      style={{ boxShadow: " 0px 1px 2px 0px #00000040" }}
+      className="min-h-[90vh] my-[16px] rounded-[16px] customMargins  "
+
     >
       {loading ? (
         <div className="flex items-center justify-center h-[70vh] ">
           <MiniLoader />
         </div>
       ) : (
-        <>
+        <div className="rounded-[16px] min-h-[90vh]  sm:p-[24px] p-2 flex flex-col gap-[24px]" style={{ boxShadow: " 0px 1px 2px 0px #00000040" }}>
           <div className="flex items-center gap-[8px] ">
-            <div onClick={() => router.back()}>
+            <div className=" cursor-pointer" onClick={() => router.back()}>
               <LeftArow />
             </div>
-            <div className="text-[18px] font-medium text-[#FFFFFF] py-[8px] px-[12px] header w-[50%]">
+            <div className="text-[18px] font-medium text-[#FFFFFF] py-[8px] px-[12px] sm:header header1 w-[50%] min-w-[250px]">
               Applicant Details
             </div>
           </div>
-          <div className="flex flex-row justify-between ">
-            <div className="flex flex-col w-[38%] gap-[16px]">
+          <div className="flex ml:flex-row flex-col gap-4 justify-between ">
+            <div className="flex flex-col ml:w-[38%] w-full gap-[16px]">
               <div className="flex flex-row gap-[16px]">
                 <img
                   src={
@@ -88,7 +88,7 @@ const ApplicantDetails = () => {
                   alt="img"
                   className="h-[96px] w-[96px] object-contain rounded-[50%]"
                 />
-                <div className="flex flex-col gap-[8px]">
+                <div className="flex flex-col gap-[8px] justify-center">
                   <span className="text-[18px] text-[#333333] font-medium">
                     {application?.firstName + " " + application?.lastName}
                   </span>
@@ -179,9 +179,11 @@ const ApplicantDetails = () => {
                 </div>
               </div>
             </div>
-            <div className="flex flex-col w-[58%]">
+            <div className="bg-[#D6DDEB] w-full h-[1px] mobile"> </div>
+
+            <div className="flex flex-col ml:w-[58%] w-full">
               <div
-                className="flex flex-row gap-[40px] px-[24px]"
+                className="flex flex-row gap-[40px] ml:px-[24px]"
                 style={{ borderBottom: "1px solid #bebebe" }}
               >
                 <div
@@ -204,7 +206,7 @@ const ApplicantDetails = () => {
                 </div>
               </div>
               {tab == 0 && (
-                <div className="flex flex-col p-[24px] gap-[16px]">
+                <div className="flex flex-col ml:p-[24px] py-4 gap-[16px]">
                   <div className="flex flex-col gap-[16px] border-b-[1px] border-[#D6DDEB] pb-[16px]">
                     <span className="text-[16px] text-[#333333] font-semibold">
                       Personal Info
@@ -238,8 +240,8 @@ const ApplicantDetails = () => {
                         {application?.summery}
                       </span>
                     </div>
-                    <div className="flex flex-row gap-[16px]">
-                      <div className="w-[30%] flex flex-col gap-[16px] ">
+                    <div className="flex ms:flex-row flex-col gap-[16px]">
+                      <div className="ms:w-[30%] w-full flex flex-col gap-[16px] ">
                         <div className="flex flex-col">
                           <span className="text-[16px] text-[#333333] font-medium">
                             Current Job
@@ -259,7 +261,7 @@ const ApplicantDetails = () => {
                           </span>
                         </div>
                       </div>
-                      <div className="w-[70%] flex flex-col gap-[16px] ">
+                      <div className="ms:w-[70%] w-full flex flex-col gap-[16px] ">
                         <span className="text-[16px] text-[#333333] font-medium">
                           Skills
                         </span>
@@ -292,7 +294,7 @@ const ApplicantDetails = () => {
               )}
             </div>
           </div>
-        </>
+        </div>
       )}
     </div>
   );
