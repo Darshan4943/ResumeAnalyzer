@@ -455,7 +455,7 @@ function SkillAssessment() {
                   }}
                 >
                   <button
-                    className=" h-[42px] w-[108px] flex items-center justify-center  rounded-[8px] border-[1px] border-solid border-[#06A9EF] bg-[#fff] text-[#333] text-[14px] font-[500] transition-all transition-[0.2s]"
+                    className=" h-[42px] w-[108px] flex items-center justify-center  rounded-[8px] border-[1px] border-solid border-[#06A9EF] bg-[#fff] text-[#333] text-[14px] font-[500] "
                     disabled={loading}
                     // onClick={() =>
                     //   setQuestionIndex(
@@ -542,7 +542,7 @@ function SkillAssessment() {
           </div>
         )}
         {toggle === 1 && (
-          <div className="w-full flex justify-between items-center gap-[0px] scr540:gap-[24px] flex-row py-[36px] gap-[8px]">
+          <div className="w-full flex justify-between items-center scr540:gap-[24px] flex-row py-[36px] gap-[8px]">
             <div className="w-[8px] lg:w-[22%] h-[2px] bg-[#06A9EF] border-none"></div>
             <div className="w-full   lg:max-w-[903px] flex flex-col gap-[24px]">
               <div className="bg-[#fff] border-[2px] border-solid border-[#06A9EF] rounded-[12px] py-[24px] px-[16px] lg:px-[60px] flex flex-col gap-[12px]">

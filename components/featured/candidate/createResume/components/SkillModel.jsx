@@ -119,7 +119,7 @@ const SkillModel = ({ userData, handleImageClick, setIsComponentOpen }) => {
           </p>
           <div className="w-full flex items-end justify-end self-stretch">
             <button
-              className="flex items-center justify-center px-4 py-2 font-Montserrat text-[14px] md:text-16 md:px-4 md:py-2 px-[8px] py-[5px] font-medium leading-normal rounded-md border-[#06A9EF]  bg-white "
+              className="flex items-center justify-center font-Montserrat text-[14px] md:text-16 md:px-4 md:py-2 px-[8px] py-[5px] font-medium leading-normal rounded-md border-[#06A9EF]  bg-white "
               onClick={() => handleImageClick(false)}
             >
               Cancel

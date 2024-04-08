@@ -13,6 +13,8 @@ import PizZip from "pizzip";
 import { pdfjs } from "react-pdf";
 import Tesseract from "tesseract.js";
 import { DocSVG, PDFSvg, PNGICON } from "../../../../utils/svg";
+import { useSelector } from "react-redux";
+import LimitUsedModal from "../../../models/limitUsedModal";
 pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
 
 const fileToText = (file, pageNumber) => {
@@ -21,12 +23,17 @@ const fileToText = (file, pageNumber) => {
     reader.onload = function (event) {
       const typedarray = new Uint8Array(event.target.result);
       pdfjs.getDocument(typedarray).promise.then(function (pdf) {
-        pdf.getPage(pageNumber).then(function (page) {
-          page.getTextContent().then(function (textContent) {
-            const textItems = textContent.items.map((item) => item.str);
-            resolve(textItems.join(" "));
+        try {
+          pdf.getPage(pageNumber).then(function (page) {
+            page.getTextContent().then(function (textContent) {
+              const textItems = textContent.items.map((item) => item.str);
+              resolve(textItems.join(" "));
+            });
           });
-        });
+        } catch (err) {
+          reject(err);
+          return;
+        }
       });
     };
     reader.readAsArrayBuffer(file);
@@ -50,6 +57,9 @@ const CandidateAiPower = ({
   const { clientId } = router.query;
   const [fileData, setFileData] = useState(null);
   const [uploadLimit, setUploadLimit] = useState(0);
+  const userDataGlobal = useSelector((state) => state.userData);
+  const [limitUsedModal, setLimitUsedModal] = useState(false);
+
   useEffect(() => {
     const resumeUploadCount = localStorage.getItem("uploadCount");
     setUploadLimit(resumeUploadCount ? resumeUploadCount : 0);
@@ -73,8 +83,8 @@ const CandidateAiPower = ({
   const sendFile = (file) => {
     setfile(file);
   };
-  const extracteText = (file) => {
-    return new Promise((resolve, reject) => {
+  const extracteText = async (file) => {
+    return new Promise(async (resolve, reject) => {
       const textData = [];
       if (
         file.type ==
@@ -102,13 +112,23 @@ const CandidateAiPower = ({
       } else if (file.type == "application/pdf") {
         let fullText = "";
         const pdfTextPromises = [];
-        for (let i = 1; i <= 2; i++) {
+        const fileUrl = URL.createObjectURL(file);
+
+        const loadingTask = pdfjs.getDocument(fileUrl);
+        const pdf = await loadingTask.promise;
+
+        for (let i = 1; i <= pdf.numPages; i++) {
           pdfTextPromises.push(fileToText(file, i));
         }
-        Promise.all(pdfTextPromises).then(async (texts) => {
-          fullText = texts.join("");
-          textData.push({ text: fullText });
-        });
+        Promise.all(pdfTextPromises)
+          .then(async (texts) => {
+            fullText = texts.join("");
+            textData.push({ text: fullText });
+          })
+          .catch((err) => {
+            reject(err);
+            return;
+          });
       }
       setTimeout(() => {
         resolve(textData);
@@ -116,24 +136,56 @@ const CandidateAiPower = ({
     });
   };
   const navigate = () => {
-    if (uploadLimit == 0) {
-      toast.error("Seems you have no upload attempts left update your plan");
+    if (uploadLimit <= 0) {
+      setLimitUsedModal(true);
       return;
     }
     setLoading(true);
     extracteText(file).then((result) => {
       axios
-        .post("https://freedygoservices.in/api/resume/extraction", {
+        .post("http://localhost:2000/api/resume/extraction", {
           data: result,
         })
         .then((res) => {
-          setLoading(false);
-          setfile(file);
-          localStorage.setItem(
-            "parsedResume",
-            JSON.stringify(res.data.data[0])
-          );
-          router.push(`/home/createResume?clientId=${clientId}`);
+          if (Object.keys(res.data.data).length > 0) {
+            localStorage.setItem(
+              "parsedResume",
+              JSON.stringify(res.data.data[0])
+            );
+            axios
+              .put(
+                "http://localhost:2000/api/subscription/updateUploadLimit/" +
+                  userDataGlobal._id
+              )
+              .then((res) => {
+                const result = res.data;
+                if (result.success) {
+                  localStorage.setItem(
+                    "uploadCount",
+                    result.data.resumeUpladed
+                  );
+                  setLoading(false);
+                  setfile(file);
+
+                  router.push(`/home/createResume?clientId=${clientId}`);
+                } else {
+                  localStorage.setItem("uploadCount", 0);
+                  setLoading(false);
+                  setfile(file);
+
+                  router.push(`/home/createResume?clientId=${clientId}`);
+                }
+              })
+              .catch((err) => {
+                localStorage.setItem("uploadCount", 0);
+                  setLoading(false);
+                  setfile(file);
+
+                  router.push(`/home/createResume?clientId=${clientId}`);
+              });
+          } else {
+            toast.error("Unable to parse resume, please try again later");
+          }
         })
         .catch((err) => {
           setLoading(false);
@@ -269,6 +321,8 @@ const CandidateAiPower = ({
   };
   return (
     <>
+      <LimitUsedModal visible={limitUsedModal} setVisible={setLimitUsedModal} />
+
       {tabindex == 1 && (
         <>
           <div className="flex justify-center items-center  relative pb-8 ">
