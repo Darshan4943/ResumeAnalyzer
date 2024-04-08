@@ -6,13 +6,15 @@ import CandidateHome from "../../components/featured/candidate";
 import Dashboard from "../dashboard";
 import PlanExpiredModal from "../../components/models/planExpiredModal";
 import AdminDashboard from "../dashboard/adminDashboard";
+import MiniLoader from "../../components/common/miniLoader";
 
 function BeforeLoginHome() {
   const [isLogin, setIsLogin] = useState(false);
   const dispatch = useDispatch();
   const userDataGlobal = useSelector((state) => state.userData);
-
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
+    setLoading(true);
     const token = localStorage.getItem("authToken");
     if (token && token != "undefined") {
       if (token) {
@@ -21,6 +23,9 @@ function BeforeLoginHome() {
         setIsLogin(false);
       }
     }
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
   }, []);
   const router = useRouter();
   const clickHandler = () => {
@@ -30,7 +35,11 @@ function BeforeLoginHome() {
       dispatch(popupVisible());
     }
   };
-  return (
+  return loading ? (
+    <div className="h-[60vh] w-full flex items-center justify-center">
+      <MiniLoader />
+    </div>
+  ) : (
     <div className="">
       <PlanExpiredModal />
       {isLogin ? (

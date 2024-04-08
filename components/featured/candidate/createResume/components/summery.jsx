@@ -144,9 +144,12 @@ function Summary({ limits, selectedPlan, isActive }) {
 
               <div className="relative  w-[45%]  h-[10px] bg-[#DEDEDE] rounded-[6px]">
                 <div
-                  className={`absolute w-[${
+                 style={{
+                  width: `${Math.round(
                     (limits.used.uploads / limits.total.uploads) * 100
-                  }%] h-[10px] bg-[#06A9EF] rounded-[6px]`}
+                  )}%`,
+                }}
+                  className={`absolute  h-[10px] bg-[#06A9EF] rounded-[6px]`}
                 ></div>
               </div>
               <p className="min-w-[55px]">
@@ -158,9 +161,12 @@ function Summary({ limits, selectedPlan, isActive }) {
 
               <div className="relative  w-[45%]  h-[10px] bg-[#DEDEDE] rounded-[6px]">
                 <div
-                  className={`absolute w-[${Math.round(
-                    (limits.used.download / limits.total.download) * 100
-                  )}%] h-[10px] bg-[#06A9EF] rounded-[6px]`}
+                  className={`absolute  h-[10px] bg-[#06A9EF] rounded-[6px]`}
+                  style={{
+                    width: `${Math.round(
+                      (limits.used.download / limits.total.download) * 100
+                    )}%`,
+                  }}
                 ></div>
               </div>
               <p className="min-w-[55px]">

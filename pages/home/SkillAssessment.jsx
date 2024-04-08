@@ -656,7 +656,7 @@ function SkillAssessment() {
                           )
                         }
                       >
-                        C){question[questionIndex]?.options[2]}
+                        C) {question[questionIndex]?.options[2]}
                       </div>
                     </div>
                     <div className="w-full flex flex-col items-between gap-[24px]">
@@ -702,17 +702,17 @@ function SkillAssessment() {
                   </div>
                 </div>
               </div>
-              <div className="flex flex-col lg:flex-row w-full gap-[12px]  justify-center">
-                <div className="w-full  flex justify-center lg:justify-start">
+              <div className="flex flex-col lg:flex-row w-full gap-[16px]  justify-center items-center">
+                <div className="w-full  flex justify-center lg:justify-start  ">
                   <Timer
                     startTimer={startTimer}
                     setIsTimerOver={setIsTimerOver}
                   />
                 </div>
                 <div
-                    style={{ opacity: loading ? "0.5" : 1 }}
-                    disabled={loading}
-                  className="flex flex-row gap-[3px] items-center cursor-pointer text-[18px] font-[600] min-w-[174px] w-fit px-[12px] justify-between  rounded-[8px] border-[1px] border-solid border-[#06A9EF] bg-[#fff]"
+                  style={{ opacity: loading ? "0.5" : 1 }}
+                  disabled={loading}
+                  className="flex flex-row gap-[3px] items-center cursor-pointer text-[18px] font-[600] min-w-[174px] w-fit px-[12px] py-[8px] justify-between  rounded-[8px] border-[1px] border-solid border-[#06A9EF] bg-[#fff]"
                   onClick={() => {
                     if (questionIndex == 9) {
                       axios
@@ -742,7 +742,7 @@ function SkillAssessment() {
                   <span className="text-red">X</span>
                   Not Relevent
                 </div>
-                <div className="flex flex-row justify-between lg:gap-[72px]">
+                <div className="flex flex-row justify-between lg:gap-[72px] w-full">
                   <div
                     className="flex flex-row gap-[3px] items-center justify-center text-[18px] font-[600]"
                     onClick={() =>
@@ -772,7 +772,6 @@ function SkillAssessment() {
                     className="flex flex-row gap-[3px] items-center justify-center text-[18px] font-[600] "
                     style={{ opacity: loading ? "0.5" : 1 }}
                     disabled={loading}
-
                     onClick={() => {
                       if (questionIndex == 9) {
                         axios
@@ -914,9 +913,8 @@ function SkillAssessment() {
                           </div>
                         </div>
                         <div className="text-[18px] text-[#5B5B5B] font-[600]">
-                          Your Grade is{" "}
-                          {((checkAnswer() / question.length) * 100).toFixed(0)}{" "}
-                          %
+                          Your Score is{" "}
+                          {((checkAnswer() / question.length) * 100) / 10}/10{" "}
                         </div>
                       </div>
                     </div>

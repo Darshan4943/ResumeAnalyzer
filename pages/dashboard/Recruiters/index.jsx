@@ -13,7 +13,7 @@ const Index = () => {
   const getData = () => {
     setLoading(true);
     axios
-      .get("http://localhost:2000/api/recruiters")
+      .get("https://freedygoservices.in/api/recruiters")
       .then((res) => {
         setUserList(res.data.users.results);
         setTotalCount(res.data.totalCount);

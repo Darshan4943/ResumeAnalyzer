@@ -19,7 +19,7 @@ const Index = () => {
     jobTitle: "",
     location: [],
     aboutOrganization: "",
-    description: "",
+    description: "Enter Job Description here",
     salaryType: "",
     minSalary: 0,
     maxSalary: 0,

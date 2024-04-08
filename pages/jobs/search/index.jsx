@@ -30,7 +30,6 @@ const Index = () => {
           setJobs(result);
           setLoading(false);
         } else {
-          toast.error("Something went wrong. Please try again");
           setLoading(false);
           fetchData();
         }
@@ -132,7 +131,7 @@ const Index = () => {
 
           <div className="bg-[#DEDEDE] ml:h-full h-[1px] ml:w-[1px] w-full"></div>
           <div className="ml:w-[56%] w-full">
-            <JobListing jobs={jobs} resume={selected} />
+            <JobListing jobs={jobs} resume={selected} resumeCount={resumeCount} />
           </div>
         </div>
       </div>

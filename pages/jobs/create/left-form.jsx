@@ -5,8 +5,10 @@ import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
 } from "react-places-autocomplete";
-import { PlusAddLogo } from "../../../utils/svg";
+import { PlusAddLogo, SparklingStarts } from "../../../utils/svg";
 import Tiptap from "../../../components/editor/Tiptap";
+import axios from "axios";
+import MiniLoader from "../../../components/common/mini-loader";
 const Leftform = ({
   file,
   setFile,
@@ -33,7 +35,29 @@ const Leftform = ({
   const handleButtonClick = () => {
     fileRef.current.click();
   };
+  const [loading, setLoading] = useState(false);
 
+  const generateText = () => {
+    const prompt = `Original Paragraph:\n${data.description}\n\nNew Paragraph:\n`;
+    if (data.description.length > 100) {
+      setLoading(true);
+      axios
+        .post("https://freedygoservices.in/api/text/regenrate", { prompt })
+        .then((res) => {
+          setLoading(false);
+          setData({
+            ...data,
+            description: res.data.data.choices[0].message.content,
+          });
+        })
+        .catch((err) => {
+          setLoading(false);
+          console.log(err);
+        });
+    } else {
+      setError("Minimum 100 characters required");
+    }
+  };
   return (
     <div className="flex flex-col md:w-[40%] w-full gap-[24px]">
       {modelView && (
@@ -133,7 +157,10 @@ const Leftform = ({
                   </svg>
                   <div className="flex flex-col gap-[4px]	font-medium	">
                     <div className="flex text-center justify-center  scr420:text-[14px] scr360:text-[12px] text-[10px] text-[#515B6F]">
-                      <span onClick={handleButtonClick} className="text-[#06A9EF]">
+                      <span
+                        onClick={handleButtonClick}
+                        className="text-[#06A9EF]"
+                      >
                         &nbsp;Browse file{" "}
                       </span>
                       &nbsp;to upload Image
@@ -206,7 +233,10 @@ const Leftform = ({
                 </svg>
                 <div className="flex flex-col gap-[4px]	font-medium	">
                   <div className="flex text-center justify-center  scr420:text-[14px] scr360:text-[12px] text-[10px] text-[#515B6F]">
-                    <span onClick={handleButtonClick} className="text-[#06A9EF]">
+                    <span
+                      onClick={handleButtonClick}
+                      className="text-[#06A9EF]"
+                    >
                       &nbsp;Browse file{" "}
                     </span>
                     &nbsp;to upload Image
@@ -288,8 +318,8 @@ const Leftform = ({
           <label className="text-[#333333] text-[14px] font-medium">
             Job Description
           </label>
-         
-          {data &&  (
+
+          {data && (
             <Tiptap
               data={data}
               value={"description"}
@@ -297,6 +327,22 @@ const Leftform = ({
               placeholder={"Enter Job Description here"}
             />
           )}
+          <div className="w-full flex  justify-end mt-3 ">
+            {" "}
+            {/* <button
+              className=" flex gap-1 items-center font-montserrat text-xs font-semibold btn_outline"
+              onClick={generateText}
+            >
+              {loading ? (
+                <MiniLoader />
+              ) : (
+                <>
+                  <SparklingStarts />
+                  Generate with AI
+                </>
+              )}
+            </button> */}
+          </div>
         </div>
       </div>
     </div>

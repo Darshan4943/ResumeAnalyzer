@@ -9,6 +9,7 @@ import Progress_bar from "../../../components/featured/jobMatching/ProgressBar";
 import CloseIcon, { ClosedIcon } from "../../../utils/svg";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const Details = ({ data, setJd, files, extractedData, resume }) => {
   const [loading, setLoading] = useState(true);
@@ -129,7 +130,7 @@ const Details = ({ data, setJd, files, extractedData, resume }) => {
             </div>
 
             <div className="w-full flex flex-row justify-between mt-6 h-[71%]  ">
-              <div
+              <div onWheel={(e) => e.stopPropagation()}
                 className="flex flex-col gap-[24px]   w-[49%]  h-[100%] overflow-auto"
                 style={{
                   paddingRight: "12px",
@@ -354,7 +355,7 @@ const Details = ({ data, setJd, files, extractedData, resume }) => {
                   )}
               </div>
 
-              <div className="w-[48%] flex flex-col gap-[24px]  h-[100%] overflow-auto relative ">
+              <div onWheel={(e) => e.stopPropagation()} className="w-[48%] flex flex-col gap-[24px]  h-[100%] overflow-auto relative ">
                 <span className="text-[#333333] text-[18px] font-semibold sticky top-0 w-full bg-white">
                   Job Description
                 </span>

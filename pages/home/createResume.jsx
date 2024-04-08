@@ -167,7 +167,7 @@ function CreateResume() {
         setEnditId(parsedData._id);
       } else {
         setTimeout(() => {
-          setSelectedResumeIndex(3);
+          setSelectedResumeIndex(1);
           setSelectedColor("#414042");
         }, 400);
         parsedDataSeter();

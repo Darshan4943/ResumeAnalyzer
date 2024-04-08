@@ -14,7 +14,7 @@ import ImageCropper from "../../components/featured/candidate/createResume/compo
 function Recruiter_signup({}) {
   const router = useRouter();
   const { byAdmin } = router.query;
-  
+
   const dispatch = useDispatch();
   const [modelView, setModelView] = useState(false);
   const [selectedItem, setSelectedItem] = useState();
@@ -22,6 +22,7 @@ function Recruiter_signup({}) {
   const [showPassword, setShowPassword] = useState(false);
   const [filteredTelCode, setFilteredTelCode] = useState([]);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [selectedPlan, setSelectedPlan] = useState(plans[3]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [croppedImage, setCroppedImage] = useState(null);
@@ -207,7 +208,7 @@ function Recruiter_signup({}) {
       });
       formdata.append("byAdmin", byAdmin);
       axios
-        .post("http://localhost:2000/api/skiloteckuser/recruiter", formdata)
+        .post("https://freedygoservices.in/api/skiloteckuser/recruiter", formdata)
         .then((res) => {
           const response = res.data;
           try {
@@ -279,61 +280,67 @@ function Recruiter_signup({}) {
             <motion.div className=" flex justify-center pt-4  pb-2">
               <div className="personal_details_form scr1250:w-[60%] sm:w-[80%] w-[95%] education_page ">
                 <>
-                  <p className="text-[16px] font-medium">Profile Photo</p>
-                  <div className="flex sm:gap-6 gap-3">
-                    {file && croppedImage ? (
-                      <ImageContainer
-                        src={croppedImage.url}
-                        alt="Selected File"
-                        className="w-[112px] h-[112px] rounded-[50%] object-cover"
-                      />
-                    ) : (
-                      <svg
-                        width="112"
-                        height="112"
-                        viewBox="0 0 112 112"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M56 112C86.9279 112 112 86.9279 112 56C112 25.0721 86.9279 0 56 0C25.0721 0 0 25.0721 0 56C0 86.9279 25.0721 112 56 112Z"
-                          fill="#EFFAFF"
-                        />
-                        <path
-                          d="M72.8477 57.6827C82.1815 49.1895 82.1815 35.4193 72.8477 26.9261C63.514 18.4329 48.381 18.4329 39.0472 26.9261C29.7135 35.4193 29.7135 49.1895 39.0472 57.6827C48.381 66.176 63.514 66.1759 72.8477 57.6827Z"
-                          fill="#D4E5EF"
-                        />
-                        <path
-                          d="M55.9999 112C73.0337 112 88.289 104.393 98.5599 92.3928C93.1095 75.6573 76.1192 66.7704 55.9999 66.7704C35.8806 66.7704 18.8903 75.6573 13.4399 92.3928C23.7108 104.393 38.9661 112 55.9999 112Z"
-                          fill="#D4E5EF"
-                        />
-                      </svg>
-                    )}
+                  {byAdmin ? null : (
+                    <>
+                      {" "}
+                      <p className="text-[16px] font-medium">Profile Photo</p>
+                      <div className="flex sm:gap-6 gap-3">
+                        {file && croppedImage ? (
+                          <ImageContainer
+                            src={croppedImage.url}
+                            alt="Selected File"
+                            className="w-[112px] h-[112px] rounded-[50%] object-cover"
+                          />
+                        ) : (
+                          <svg
+                            width="112"
+                            height="112"
+                            viewBox="0 0 112 112"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M56 112C86.9279 112 112 86.9279 112 56C112 25.0721 86.9279 0 56 0C25.0721 0 0 25.0721 0 56C0 86.9279 25.0721 112 56 112Z"
+                              fill="#EFFAFF"
+                            />
+                            <path
+                              d="M72.8477 57.6827C82.1815 49.1895 82.1815 35.4193 72.8477 26.9261C63.514 18.4329 48.381 18.4329 39.0472 26.9261C29.7135 35.4193 29.7135 49.1895 39.0472 57.6827C48.381 66.176 63.514 66.1759 72.8477 57.6827Z"
+                              fill="#D4E5EF"
+                            />
+                            <path
+                              d="M55.9999 112C73.0337 112 88.289 104.393 98.5599 92.3928C93.1095 75.6573 76.1192 66.7704 55.9999 66.7704C35.8806 66.7704 18.8903 75.6573 13.4399 92.3928C23.7108 104.393 38.9661 112 55.9999 112Z"
+                              fill="#D4E5EF"
+                            />
+                          </svg>
+                        )}
 
-                    <div className="flex flex-col gap-3 w-[168px] text-center items-center ">
-                      <p className="text-[12px] font-normal">
-                        Allowed file formats: jpg, jpeg | up to 2 MB
-                      </p>
-                      <div className="text-[12px] font-semibold px-4 py-2 rounded-[8px] bg-[#06A9EF] text-white w-[135px] upload-btn-wrapper">
-                        <input
-                          type="file"
-                          ref={fileRef}
-                          onChange={handleFileChange}
-                          accept="image/*"
-                        />
-                        Upload Picture
+                        <div className="flex flex-col gap-3 w-[168px] text-center items-center ">
+                          <p className="text-[12px] font-normal">
+                            Allowed file formats: jpg, jpeg | up to 2 MB
+                          </p>
+                          <div className="text-[12px] font-semibold px-4 py-2 rounded-[8px] bg-[#06A9EF] text-white w-[135px] upload-btn-wrapper">
+                            <input
+                              type="file"
+                              ref={fileRef}
+                              onChange={handleFileChange}
+                              accept="image/*"
+                            />
+                            Upload Picture
+                          </div>
+                          <div
+                            className="text-[12px] font-semibold px-4 py-2 rounded-[8px]  border border-[#06A9EF]  w-[135px] cursor-pointer"
+                            onClick={() => {
+                              setFile(null);
+                              setError(false);
+                            }}
+                          >
+                            Remove Picture
+                          </div>
+                        </div>
                       </div>
-                      <div
-                        className="text-[12px] font-semibold px-4 py-2 rounded-[8px]  border border-[#06A9EF]  w-[135px] cursor-pointer"
-                        onClick={() => {
-                          setFile(null);
-                          setError(false);
-                        }}
-                      >
-                        Remove Picture
-                      </div>
-                    </div>
-                  </div>
+                    </>
+                  )}
+
                   {error && <div className="text-[16px] text-red">{error}</div>}
                   <div className="flex gap-6 w-[100%] ml:flex-row flex-col ">
                     <div className="personal_name_parent flex ml:flex-row flex-col ml:w-[50%] w-[100%]">
@@ -515,7 +522,11 @@ function Recruiter_signup({}) {
                           <div className="flex flex-col gap-[16px]">
                             {plans.slice(3, 6).map((item, index) => (
                               <div
-                                className="flex flex-row gap-[16px] px-[24px] py-[12px] w-full h-[76px] items-center rounded-[16px]"
+                                onClick={() => setSelectedPlan(item)}
+                                className={`flex flex-row gap-[16px] px-[24px] py-[12px] w-full h-[76px] items-center rounded-[16px] ${
+                                  selectedPlan.index == item.index &&
+                                  "bg-[#d7f3ff]"
+                                }`}
                                 key={index}
                                 style={{
                                   boxShadow: "0px 1px 2px 0px #00000040",
@@ -537,8 +548,63 @@ function Recruiter_signup({}) {
                             <div></div>
                           </div>
                         </div>
-                        <div className="flex flex-col gap-[24px] w-[48%]">
-
+                        <div className="flex flex-col gap-[24px] w-[48%] items-center">
+                          <div
+                            className={` relative mt-[40px] bg-white  flex flex-col gap-4 items-center rounded-[16px] purchase-plan-card  max-w-[19vw]`}
+                            style={{ boxShadow: "0px 2px 15px 0px #00000033" }}
+                          >
+                            <div className="p-4 z-20 bg-white rounded-[16px] flex flex-col gap-4 items-center h-full justify-between">
+                              <div className="flex text-center flex-col gap-3 text-[#333333] ">
+                                <p className="text-[1.4vw] font-[600]">
+                                  <span className="text-[#06A9EF]">
+                                    {selectedPlan.duration}
+                                  </span>{" "}
+                                  {selectedPlan.limit}
+                                </p>
+                                <p className="text-[2.5vw] font-[700]">
+                                  {selectedPlan.price}
+                                </p>
+                                <p
+                                  className="text-[1vw] font-[500]"
+                                  style={{ textTransform: "capitalize" }}
+                                >
+                                  {selectedPlan.description}
+                                </p>
+                                <div className="bg-[#DEDEDE] h-[2px]" />
+                              </div>
+                              <div className="flex gap-3 flex-col text-left">
+                                {selectedPlan.features.map((feature, index) => (
+                                  <div
+                                    key={index}
+                                    className="flex gap-3 items-start "
+                                  >
+                                    <svg
+                                      className="min-w-[20px]"
+                                      width="20"
+                                      height="18"
+                                      viewBox="0 0 20 18"
+                                      fill="none"
+                                      xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                      <path
+                                        d="M7.16683 17.75L5.5835 15.0833L2.5835 14.4167L2.87516 11.3333L0.833496 9L2.87516 6.66667L2.5835 3.58333L5.5835 2.91667L7.16683 0.25L10.0002 1.45833L12.8335 0.25L14.4168 2.91667L17.4168 3.58333L17.1252 6.66667L19.1668 9L17.1252 11.3333L17.4168 14.4167L14.4168 15.0833L12.8335 17.75L10.0002 16.5417L7.16683 17.75ZM9.12516 11.9583L13.8335 7.25L12.6668 6.04167L9.12516 9.58333L7.3335 7.83333L6.16683 9L9.12516 11.9583Z"
+                                        fill="#06A9EF"
+                                      />
+                                    </svg>
+                                    <p className="text-[0.8vw] font-[500]">
+                                      {feature}
+                                    </p>
+                                  </div>
+                                ))}
+                              </div>
+                              <button
+                                onClick={() => clickHandler(selectedPlan.index)}
+                                className="px-6 py-3 bg-[#06A9EF] text-white rounded-[12px] text-[1.2vw] font-semibold w-full"
+                              >
+                                Purchase Plan
+                              </button>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </>
