@@ -19,7 +19,7 @@ function MyPurchase() {
         setSubscription(res.data.data);
         setPlan(
           plans.find(
-            (item) => item.duration + " " + item.limit == res.data.data.plan
+            (item) => item.duration + " " + item.limit == res.data.data?.plan
           )
         );
       })
@@ -62,13 +62,20 @@ function MyPurchase() {
                         </p>
                         <div className="bg-[#DEDEDE] h-[2px]" />
                       </div>
-                      {subscription?.isActive ? (
-                        <button className="px-9 py-3 bg-[#DEDEDE] rounded-[12px] text-[16px] font-[600] text-white w-[60%] min-w-[160px]">
-                          Purchased
-                        </button>
-                      ) : (
+                      {subscription?.inReview ? (
                         <button className="px-9 py-3 bg-[#DEDEDE] rounded-[12px] text-[16px] font-[600] text-white w-[60%] min-w-[160px]">
                           In Review
+                        </button>
+                      ) : (
+                        <button
+                          disabled={subscription?.isActive}
+                          className={`px-9 py-3  ${
+                            subscription?.isActive
+                              ? "bg-[#DEDEDE] "
+                              : "bg-[#06a9ef]"
+                          } rounded-[12px] text-[16px] font-[600] text-white w-[60%] min-w-[160px]`}
+                        >
+                          {subscription?.isActive ? "Purchased" : "Purchase"}
                         </button>
                       )}
                     </div>
@@ -85,9 +92,6 @@ function MyPurchase() {
                           </div>
                           <div className="text-[14px] font-[500]">
                             {plan.duration} plan
-                            {/* {"("}
-                            {plan.limit}
-                            {")"} */}
                           </div>
                         </div>
                         <div className="flex  gap-4">
@@ -99,10 +103,16 @@ function MyPurchase() {
                             className={`text-[14px] font-[500] ${
                               subscription?.isActive
                                 ? "text-[#0C8A0A]"
+                                : subscription?.inReview
+                                ? "text-[#06a9ef]"
                                 : "text-red"
                             }`}
                           >
-                            {subscription?.isActive ? "Active" : "Inactive"}
+                            {subscription?.isActive
+                              ? "Active"
+                              : subscription?.inReview
+                              ? "In Review"
+                              : "Expired"}
                           </div>
                         </div>
                         {subscription?.isActive && (
