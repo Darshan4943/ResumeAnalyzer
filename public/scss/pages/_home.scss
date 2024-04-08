@@ -1,0 +1,259 @@
+.HomepageCarousel {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  overflow: hidden;
+  margin-top: 24px;
+}
+.gallary {
+  width: 100%;
+  position: relative;
+}
+.gallary-container {
+  align-items: center;
+  display: flex;
+  height: 35vw;
+  margin: 0 auto;
+
+  position: relative;
+  /* background-color: red; */
+}
+.gallary-item {
+  position: absolute;
+  transition: all 0.7s ease-in-out;
+
+  object-fit: contain;
+
+  display: flex;
+  width: 14.1vw;
+  height: 19.7vw;
+  max-width:299px ;
+  max-height: 418px;
+
+  justify-content: center;
+  align-items: center;
+}
+
+// @media (max-width: 1350px) {
+//   .gallary-item {
+//     width: 200px;
+//     height: 280px;
+//   }
+//   .gallary-item-3 {
+//     width: 270px !important;
+//     height: 380px !important;
+//   }
+// }
+
+// @media (max-width: 1200px) {
+//   .gallary-item {
+//     width: 160px;
+//     height: 225px;
+//   }
+//   .gallary-item-3 {
+//     width: 230px !important;
+//     height: 322px !important;
+//   }
+// }
+
+.gallary-item-1 {
+  left: -20%;
+
+  transform: translateX(-50%);
+}
+.gallary-item-2,
+.gallary-item-4 {
+  z-index: 1;
+  max-width:233px ;
+  max-height: 326px;
+}
+.gallary-item-2 {
+  left: 15%;
+  transform: translateX(-50%);
+}
+.gallary-item-3 {
+  opacity: 1;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+
+  display: flex;
+  width: 20.7vw;
+  height: 29vw;
+
+}
+
+.gallary-item-4 {
+  left: 85%;
+  transform: translateX(-50%);
+}
+.gallary-item-5 {
+  left: 120%;
+
+  transform: translateX(-50%);
+  animation: fadeIn3 0.5s;
+  height: 0;
+  width: 0;
+  opacity: 0;
+}
+
+.mobile-view {
+  .gallary-container {
+    align-items: center;
+    display: flex;
+    height: 352px;
+    margin: 0 auto;
+
+    position: relative;
+    /* background-color: red; */
+  }
+  .gallary-item-1 {
+    left: -20%;
+    height: 0;
+    width: 0;
+    transform: translateX(-50%);
+  }
+  .gallary-item-2,
+  .gallary-item-4 {
+    z-index: 1;
+    height: 216px;
+    width: 152px;
+  
+  }
+  .gallary-item-2 {
+    left: 20%;
+    transform: translateX(-50%);
+  }
+  .gallary-item-3 {
+    opacity: 1;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+
+    display: flex;
+    width: 180px;
+    height: 255px;
+  }
+
+  .gallary-item-4 {
+    left: 80%;
+    transform: translateX(-50%);
+  }
+  .gallary-item-5 {
+    left: 120%;
+
+    transform: translateX(-50%);
+    animation: fadeIn3 0.5s;
+    height: 0;
+    width: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .gallary-item-4 {
+    left: 90% !important;
+    transform: translateX(-50%);
+  }
+  .gallary-item-2 {
+    left: 10% !important;
+    transform: translateX(-50%);
+  }
+}
+@media (max-width: 450px) {
+  .gallary-item-4 {
+    left: 100% !important;
+    transform: translateX(-50%);
+  }
+  .gallary-item-2 {
+    left: 0% !important;
+    transform: translateX(-50%);
+  }
+}
+@media (max-width: 360px) {
+  .gallary-item-4 {
+    left: 110% !important;
+    transform: translateX(-50%);
+  }
+  .gallary-item-2 {
+    left: -10% !important;
+    transform: translateX(-50%);
+  }
+}
+.fadeIn {
+  animation: fadeIn 0.8s;
+}
+
+@keyframes fadeIn {
+  0% {
+    left: 70%;
+    transform: translateX(-50%);
+    width: 628px;
+    height: 320px;
+    z-index: 2;
+  }
+  100% {
+    left: 50%;
+    transform: translateX(-50%);
+    width: 788px;
+    height: 400px;
+    z-index: 2;
+  }
+}
+@keyframes fadeIn2 {
+  0% {
+    z-index: 1;
+  }
+  100% {
+    z-index: 1;
+  }
+}
+@keyframes fadeIn3 {
+  0% {
+    /* display: none; */
+    opacity: 0;
+    width: 160px;
+    height: 74px;
+    left: 100%;
+  }
+  /* 90%{
+    opacity: 0;
+    width: 0px;
+    height: 0px;
+  } */
+
+  100% {
+    opacity: 0;
+    width: 160px;
+    height: 74px;
+    left: 90%;
+  }
+}
+
+.filp_animation {
+  animation: flip 1s ease-in-out 1;
+}
+@keyframes flip {
+  0% {
+    -webkit-transform: rotateY(360deg);
+  }
+  100% {
+    -webkit-transform: rotateY(0deg);
+  }
+}
+
+.purchase-plan-card {
+  -webkit-transition: all 0.6s ease;
+  -moz-transition: all 0.6s ease;
+  -o-transition: all 0.6s ease;
+  transition: all 0.6s ease;
+
+  &:hover {
+    box-shadow: 0px 2px 15px 0px #06a9ef69 !important;
+    transform: scale(1.02);
+    -webkit-transform: scale(1.02);
+    -moz-transform: scale(1.02);
+    -ms-transform: scale(1.02);
+    -o-transform: scale(1.02);
+    transform: scale(1.02);
+  }
+}

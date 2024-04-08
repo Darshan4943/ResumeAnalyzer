@@ -1,0 +1,34 @@
+import React, { useState, useEffect } from 'react';
+
+const QuestionList = ({ questions, answers }) => {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const updatedData = questions.map((questionItem, index) => ({
+      ...questionItem,
+      yourAns: answers[index]?.Answer,
+    }));
+    setData(updatedData);
+  }, [questions, answers]);
+ 
+
+  return (
+    <div className='w-[895px] p-6'>
+      {data.map((questionItem, index) => (
+        <div className="flex flex-col gap-2 py-3" key={index}>
+          <div className='flex gap-2'>
+            <span className='font-semibold min-w-[95px]'>Question {index + 1} :</span> {questionItem.question}
+          </div>
+          <div className={`flex gap-2 font-medium ${questionItem.answer === questionItem.yourAns ? "text-[#0C8A0A]": "text-red"} `}>
+          <span className='font-semibold text-[#000000]'>Your Answer :</span>  {questionItem.yourAns}
+          </div>
+          <div className='flex gap-2 font-medium'>
+          <span className='font-semibold font'>Correct Answer :</span>  {questionItem.answer}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+};
+
+export default QuestionList;
