@@ -499,7 +499,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
               </Text>
             </Svg>
             <View style={{ flexDirection: "column", gap: 24 }}>
-              {data.experience.map((detail, index) => (
+              {data.experience?.map((detail, index) => (
                 <View
                   wrap={false}
                   key={index}
