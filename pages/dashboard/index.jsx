@@ -155,7 +155,7 @@ function Dashboard() {
                 style={{
                   background:
                     "linear-gradient(89.03deg, #FFFFFF 0.83%, rgba(255, 254, 254, 0) 98.41%)",
-                  boxShadow: "0px 2px 2px 0px rgba(103, 100, 100, 0.25)",
+               
                 }}
               >
                 Hello,

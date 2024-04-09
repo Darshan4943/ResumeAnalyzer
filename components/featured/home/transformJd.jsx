@@ -5,12 +5,13 @@ import {
   Page,
   BlobProvider,
 } from "@react-pdf/renderer";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Template1 from "../resumeTemplates/Template1";
 import { selectResumeTemplate } from "../../../utils/middleware";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import FileNameModel from "../candidate/createResume/components/fileNameModel";
 
 function TransformJd({
   resumeTemplateIndex,
@@ -20,10 +21,14 @@ function TransformJd({
   preview,
   selected,
 }) {
+  const [namePreview, setNamePreview] = useState(false);
+
   const [loading, setLoading] = useState(false);
-  const [name, setName] = useState(data.firstName + "_resume");
+  const [name, setName] = useState(data?.firstName + "_resume");
+  useEffect(() => {
+    setName(data?.firstName + "_resume");
+  }, [data]);
   const userDataGlobal = useSelector((state) => state.userData);
-  console.log(data);
   const saveResume = async (blob) => {
     setLoading(true);
 
@@ -32,6 +37,8 @@ function TransformJd({
       Object.keys(data).map((key) => {
         if (Array.isArray(data[key]) && data[key].length > 0) {
           formData.append(key, JSON.stringify(data[key]));
+        } else if (key == "fileName") {
+          formData.append("fileName", name);
         } else {
           if (data[key] != undefined) {
             formData.append(key, data[key]);
@@ -68,39 +75,50 @@ function TransformJd({
   };
   return (
     <div>
-      <div className="flex justify-end w-full">
-        <div className="ml:flex hidden gap-[16px] justify-end">
-        {resumeTemplateIndex !== undefined && (
-          <BlobProvider document={<MyComponent />}>
-            {({ blob, url, loading, error }) => {
-              return (
-                <button
-                  onClick={() => saveResume(blob)}
-                  className="flex gap-1 text-[14px] w-[150px]  justify-center text-[#FFF] font-montserrat font-semibold px-3 py-2 rounded-[8px] items-center border border-[#06A9EF] bg-[#06A9EF]"
-                >
-                  Save
-                </button>
-              );
-            }}
-          </BlobProvider>)}
-
-          {/* <button className="flex gap-1 text-[14px]   justify-center text-[#646464] font-montserrat font-semibold px-4 py-2 rounded-[8px] items-center border border-[#333333] bg-[#DEDEDE]">
+      {namePreview && (
+        <FileNameModel
+          data={data}
+          setNamePreview={setNamePreview}
+          setFunction={(data) => setName(data)}
+        />
+      )}
+      <div className="flex justify-between w-full">
+      <div
+            className=" text-[18px] font-montserrat font-medium flex gap-3 items-center cursor-pointer max-w-[300px]"
+            onClick={() => setNamePreview(true)}
+          >
+            <p>{name}</p>
             <svg
-              width="20"
-              height="20"
-              viewBox="0 0 20 20"
-              fill="none"
               xmlns="http://www.w3.org/2000/svg"
+              width="18"
+              height="18"
+              viewBox="0 0 21 20"
+              fill="none"
             >
-              <g mask="url(#mask0_461_22933)">
+              <g mask="url(#mask0_5925_110931)">
                 <path
-                  d="M4.16667 15.8333H5.35417L13.5 7.6875L12.3125 6.5L4.16667 14.6458V15.8333ZM2.5 17.5V13.9583L13.5 2.97917C13.6667 2.82639 13.8507 2.70833 14.0521 2.625C14.2535 2.54167 14.4653 2.5 14.6875 2.5C14.9097 2.5 15.125 2.54167 15.3333 2.625C15.5417 2.70833 15.7222 2.83333 15.875 3L17.0208 4.16667C17.1875 4.31944 17.309 4.5 17.3854 4.70833C17.4618 4.91667 17.5 5.125 17.5 5.33333C17.5 5.55556 17.4618 5.76736 17.3854 5.96875C17.309 6.17014 17.1875 6.35417 17.0208 6.52083L6.04167 17.5H2.5ZM12.8958 7.10417L12.3125 6.5L13.5 7.6875L12.8958 7.10417Z"
+                  d="M4.66404 15.8317H5.71531L14.2458 7.30121L13.1945 6.24994L4.66404 14.7804V15.8317ZM3.41406 17.0817V14.2612L14.4061 3.27402C14.5321 3.15956 14.6712 3.07112 14.8235 3.00868C14.9757 2.94625 15.1354 2.91504 15.3025 2.91504C15.4696 2.91504 15.6314 2.94469 15.7881 3.004C15.9447 3.06329 16.0834 3.15757 16.2041 3.28683L17.2217 4.31727C17.351 4.43799 17.4431 4.57691 17.4981 4.73402C17.5532 4.89112 17.5807 5.04821 17.5807 5.20531C17.5807 5.37288 17.5521 5.5328 17.4948 5.68506C17.4376 5.83734 17.3466 5.97648 17.2217 6.1025L6.23454 17.0817H3.41406ZM13.7109 6.78479L13.1945 6.24994L14.2458 7.30121L13.7109 6.78479Z"
                   fill="#646464"
                 />
               </g>
             </svg>
-            Edit
-          </button> */}
+          </div>
+        <div className="ml:flex hidden gap-[16px] justify-end">
+         
+          {resumeTemplateIndex !== undefined && (
+            <BlobProvider document={<MyComponent />}>
+              {({ blob, url, loading, error }) => {
+                return (
+                  <button
+                    onClick={() => saveResume(blob)}
+                    className="flex gap-1 text-[14px] w-[150px]  justify-center text-[#FFF] font-montserrat font-semibold px-3 py-2 rounded-[8px] items-center border border-[#06A9EF] bg-[#06A9EF]"
+                  >
+                    Save
+                  </button>
+                );
+              }}
+            </BlobProvider>
+          )}
           {resumeTemplateIndex !== undefined && (
             <PDFDownloadLink
               document={<MyComponent />}

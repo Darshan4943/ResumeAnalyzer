@@ -49,13 +49,13 @@ const Index = () => {
   };
 
   return (
-    <div className="job-list customMargins flex flex-col gap-[16px] ">
-      <div className="flex justify-between items-center header w-full">
-        <span className="text-[18px] font-medium text-[#FFFFFF] py-[8px] px-[12px] ">
+    <div className="job-list customMargins flex flex-col gap-[16px]  ">
+      <div className="flex sm:flex-row flex-col gap-4 justify-between sm:items-center items-end w-full">
+        <span className="text-[18px] font-medium text-[#FFFFFF] py-[8px] px-[12px] header w-full ">
           Job Listings
         </span>
         <button
-          className="text-[16px] font-medium text-[#FFFFFF] bg-[#06A9EF] px-[12px] py-[8px] rounded-[8px] flex flex-row items-center gap-[4px] "
+          className="text-[16px] font-medium text-[#FFFFFF] bg-[#06A9EF] px-[12px] py-[8px] rounded-[8px] flex flex-row items-center gap-[4px] min-w-[190px] "
           onClick={() => router.push("/jobs/create")}
         >
           <AddIcon color={"#fff"} /> Create New Job
@@ -74,12 +74,12 @@ const Index = () => {
                   {jobPost.map((item, index) => (
                     <div
                       key={index}
-                      className="job-card"
+                      className="job-card sm:min-w-[300px] w-full  sm:max-w-[380px]"
                       onClick={() =>
                         router.push("/jobs/details?id=" + item._id)
                       }
                     >
-                      <div className="px-[16px] flex flex-row justify-between">
+                      <div className="px-[16px] flex flex-row justify-between ">
                         <div className="flex flex-col gap-[2px]">
                           <span className="text-[16px] text-[#06A9EF] font-medium">
                             {item.jobTitle}

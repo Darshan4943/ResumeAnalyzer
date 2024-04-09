@@ -6,7 +6,7 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import JobCard from "./jobCard";
 
-const JobListing = ({ jobs, resume }) => {
+const JobListing = ({ jobs, resume, resumeCount }) => {
   const [jd, setJd] = useState(null);
 
   return (
@@ -20,9 +20,15 @@ const JobListing = ({ jobs, resume }) => {
               <>
                 {jobs
                   ?.sort((a, b) => b.percentage - a.percentage)
+                  ?.slice(0, resumeCount)
                   ?.map((data, index) => (
                     <div key={index} className=" md:w-[48%] max-w-[380px]">
-                      <JobCard data={data} setJd={setJd} resume={resume} jd={jd} />
+                      <JobCard
+                        data={data}
+                        setJd={setJd}
+                        resume={resume}
+                        jd={jd}
+                      />
                     </div>
                   ))}
               </>

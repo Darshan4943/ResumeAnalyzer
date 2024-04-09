@@ -1,6 +1,7 @@
 .job-list {
-  height: 90vh;
+  min-height: 90vh;
   padding-top: 16px !important;
+  padding-bottom: 16px !important;
   
  
   @media (min-width: 1480px) {

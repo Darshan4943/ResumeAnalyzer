@@ -131,7 +131,7 @@ function AccountDetails({ selectedPlan }) {
       setError("Please agree to the terms and conditions.");
     } else {
       axios
-        .post("http://localhost:2000/api/add/subscription", {
+        .post("https://freedygoservices.in/api/add/subscription", {
           userId: userDataGlobal._id,
           plan: selectedPlan.duration + " " + selectedPlan.limit,
           ...data,
@@ -225,7 +225,7 @@ function AccountDetails({ selectedPlan }) {
   };
 
   return (
-    <div className={" w-[60%] plan-container  "} >
+    <div className={" w-[60%] plan-container  "}>
       {popUp && (
         <>
           <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
@@ -247,7 +247,7 @@ function AccountDetails({ selectedPlan }) {
               </svg>
               <div className="flex flex-col gap-2 text-center">
                 <text className="text-[24px] font-medium">
-                  We will be in touch with you
+                  Our Team Will Reach Out To You Shortly
                 </text>
 
                 {/* <text className="text-[16px] font-medium">Check your email for confirmation</text> */}
@@ -390,7 +390,7 @@ function AccountDetails({ selectedPlan }) {
                 }`}
                 id="single_input"
                 style={{
-                  padding:'0px 8px',
+                  padding: "0px 8px",
                 }}
               >
                 <div
@@ -404,7 +404,7 @@ function AccountDetails({ selectedPlan }) {
                       className="w-[100%] flex min-w-[150px]  items-center py-1  rounded-[8px]"
                       name=""
                       placeholder="Select"
-                      style={{outline:"unset"}}
+                      style={{ outline: "unset" }}
                       value={selectedItem}
                       onChange={handleItemClick}
                       getOptionLabel={(option) => (
@@ -441,7 +441,7 @@ function AccountDetails({ selectedPlan }) {
                   onChange={(e) =>
                     handleInputChange("mobileNo", e.target.value)
                   }
-                  className="w-full mobileNo h-full p-0 "
+                  className="w-full mobileNo h-full pl-[20px] "
                   type="text"
                   name=""
                   // id="single_input"

@@ -7,12 +7,12 @@ const Applications = ({ jobPost, applications }) => {
   const [selectedCandidate, setSelectedCandidate] = useState([]);
   return (
     <>
-      <div className="p-[24px] flex flex-row gap-[16px] items-center justify-between">
+      <div className="sm:p-[24px] p-3 flex sm:flex-row flex-col-reverse gap-[16px] sm:items-center items-start justify-between w-full">
         <span className="text-[16px] text-[#333333] font-semibold ">
           Total Applicants : {jobPost?.applications?.length}
         </span>
-        <div>
-          <div className="flex flex-row gap-[8px] py-[12px] px-[16px] bg-[#92DEFF] rounded-[8px]">
+        <div className="sm:w-fit  w-full">
+          <div className="flex flex-row gap-[8px] py-[12px] px-[16px] bg-[#92DEFF] justify-center items-center rounded-[8px] w-full">
             <svg
               width="22"
               height="18"
@@ -39,105 +39,189 @@ const Applications = ({ jobPost, applications }) => {
       </div>
       <div>
         {applications?.length > 0 ? (
-          <table className="w-full">
-            <thead className="w-full">
-              <tr className="w-full bg-[#06A9EF] flex flex-row justify-between items-center px-[24px] py-[12px]">
-                <th className="w-[5%] flex items-center justify-center">
-                  <input
-                    type="checkbox"
-                    className="h-[18px] w-[18px]"
-                    checked={selectedCandidate.length > 0}
-                    onChange={() => {
-                      if (selectedCandidate.length > 0) {
-                        setSelectedCandidate([]);
-                      } else {
-                        setSelectedCandidate(applications);
-                      }
-                    }}
-                  />
-                </th>
-                <th className="text-[16px] font-semibold text-white w-[25%] text-left ">
-                  Name of Candidate
-                </th>
-                <th className="text-[16px] font-semibold text-white w-[15%] text-center ">
-                  Location
-                </th>
-                <th className="text-[16px] font-semibold text-white w-[15%]">
-                  Profile Match
-                </th>
-                <th className="text-[16px] font-semibold text-white w-[15%]">
-                  Applied Date
-                </th>
-                <th className="text-[16px] font-semibold text-white w-[15%]">
-                  Action
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {applications?.map((item, index) => (
-                <tr
-                  className="w-full  flex flex-row justify-between items-center px-[24px] py-[16px] border-b-[1px] border-[#bebebe]"
-                  key={index}
-                >
-                  <th className="w-[5%] flex items-center justify-center">
-                    <input
-                      type="checkbox"
-                      className="h-[14px] w-[14px]"
-                      onChange={() => {
-                        if (selectedCandidate.length > 0) {
-                          setSelectedCandidate([]);
-                        } else {
-                          setSelectedCandidate(applications);
-                        }
-                      }}
-                    />
-                  </th>
+          <>
+            <div className="web">
+              <table className="w-full ">
+                <thead className="w-full">
+                  <tr className="w-full bg-[#06A9EF] flex flex-row justify-between items-center px-[24px] py-[12px]">
+                    <th className="w-[5%] flex items-center justify-center">
+                      <input
+                        type="checkbox"
+                        className="h-[18px] w-[18px]"
+                        checked={selectedCandidate.length > 0}
+                        onChange={() => {
+                          if (selectedCandidate.length > 0) {
+                            setSelectedCandidate([]);
+                          } else {
+                            setSelectedCandidate(applications);
+                          }
+                        }}
+                      />
+                    </th>
+                    <th className="text-[16px] font-semibold text-white w-[25%] text-left ">
+                      Name of Candidate
+                    </th>
+                    <th className="text-[16px] font-semibold text-white w-[15%] text-center ">
+                      Location
+                    </th>
+                    <th className="text-[16px] font-semibold text-white w-[15%]">
+                      Profile Match
+                    </th>
+                    <th className="text-[16px] font-semibold text-white w-[15%]">
+                      Applied Date
+                    </th>
+                    <th className="text-[16px] font-semibold text-white w-[15%]">
+                      Action
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {applications?.map((item, index) => (
+                    <>
+                      <tr
+                        className="scr1024:w-full w-[95%]  flex flex-row justify-between items-center px-[24px] py-[16px]"
+                        key={index}
+                      >
+                        <th className="w-[5%] flex items-center justify-center">
+                          <input
+                            type="checkbox"
+                            className="h-[14px] w-[14px]"
+                            onChange={() => {
+                              if (selectedCandidate.length > 0) {
+                                setSelectedCandidate([]);
+                              } else {
+                                setSelectedCandidate(applications);
+                              }
+                            }}
+                          />
+                        </th>
 
-                  <th className="  w-[25%] flex flex-row items-center gap-[8px]">
-                    <img
-                      src={
-                        item.profilePhoto
-                          ? item.profilePhoto
-                          : "/images/services/profile.png"
-                      }
-                      alt="Selected File"
-                      className="w-[40px] h-[40px] rounded-[50%] object-cover"
-                    />
-                    <span className="text-[14px] font-semibold text-[#333333] text-left">
-                      {item.firstName + " " + item.lastName}
-                    </span>
-                  </th>
-                  <th className="text-[14px] font-normal text-[#333333] w-[15%] text-center ">
-                    {item?.location}
-                  </th>
-                  <th className="text-[14px] font-semibold text-[#333333] w-[15%]">
-                    {item.matchingPercentage}%
-                  </th>
-                  <th className="text-[14px] font-semibold text-[#333333] w-[15%]">
-                    {dateSeter(item.appliedOn)}
-                  </th>
-                  <th className="text-[14px] font-semibold text-[#333333] w-[15%]">
-                    <button
-                      className="bg-[#E9EEF6] py-[8px] px-[16px] rounded-[8px]"
-                      onClick={() =>
-                        router.push(
-                          `/jobs/details/applicant-details?applicant=${item.resumeId}&job-post=${jobPost._id}`
-                        )
-                      }
-                    >
-                      See Application
-                    </button>
-                  </th>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+                        <th className="  w-[25%] flex flex-row items-center gap-[8px]">
+                          <img
+                            src={
+                              item.profilePhoto
+                                ? item.profilePhoto
+                                : "/images/services/profile.png"
+                            }
+                            alt="Selected File"
+                            className="w-[40px] h-[40px] rounded-[50%] object-cover"
+                          />
+                          <span className="text-[14px] font-semibold text-[#333333] text-left">
+                            {item.firstName + " " + item.lastName}
+                          </span>
+                        </th>
+                        <th className="text-[14px] font-normal text-[#333333] w-[15%] text-center ">
+                          {item?.location}
+                        </th>
+                        <th className="text-[14px] font-semibold text-[#333333] w-[15%]">
+                          {item.matchingPercentage}%
+                        </th>
+                        <th className="text-[14px] font-semibold text-[#333333] w-[15%]">
+                          {dateSeter(item.appliedOn)}
+                        </th>
+                        <th className="text-[14px] font-semibold text-[#333333] w-[15%]">
+                          <button
+                            className="bg-[#E9EEF6] py-[8px] px-[16px] rounded-[8px] min-w-[146px]"
+                            onClick={() =>
+                              router.push(
+                                `/jobs/details/applicant-details?applicant=${item.resumeId}&job-post=${jobPost._id}`
+                              )
+                            }
+                          >
+                            See Application
+                          </button>
+                        </th>
+                      </tr>
+                      <div className="w-full h-[1px] bg-[#E9EEF6]">  </div>
+                    </>
+                  ))}
+                </tbody>
+              </table>
+
+            </div>
+            <div className="mobile">
+              <div className="w-full h-[1px] bg-[#E9EEF6]">  </div>
+              <div className="flex flex-col ">
+                {applications?.map((item, index) => (
+                  <>
+                    <div key={index} className="flex flex-col sm:p-6 p-3 gap-3  ">
+                      <div className="flex gap-6 items-center">
+                        <input
+                          type="checkbox"
+                          className="h-[24px] w-[24px]"
+                          onChange={() => {
+                            if (selectedCandidate.length > 0) {
+                              setSelectedCandidate([]);
+                            } else {
+                              setSelectedCandidate(applications);
+                            }
+                          }}
+                        />
+                        <img
+                          src={
+                            item.profilePhoto
+                              ? item.profilePhoto
+                              : "/images/services/profile.png"
+                          }
+                          alt="Selected File"
+                          className="w-[40px] h-[40px] rounded-[50%] object-cover"
+                        />
+                        <span className="text-[14px] font-semibold text-[#333333] text-left">
+                          {item.firstName + " " + item.lastName}
+                        </span>
+
+                      </div>
+                      <div className="flex flex-col gap-1 w-full">
+                        <div className="flex justify-between ">
+                          <p className="text-[14px] text-[#808080] font-medium w-[60%]">Profile Match</p>
+                          <div className=" flex justify-center text-[14px] font-semibold text-[#333333] w-[40%]">
+                            {item.matchingPercentage}%
+                          </div>
+                        </div>
+                        <div className="bg-[#DEDEDE] w-full h-[1px]"></div>
+                        <div className="flex justify-between ">
+                          <p className="text-[14px] text-[#808080] font-medium w-[60%]">Applied Date</p>
+                          <div className=" flex justify-center text-[14px] font-semibold text-[#333333] w-[40%]">
+                            {dateSeter(item.appliedOn)}
+                          </div>
+                        </div>
+                        {/* <div className="bg-[#DEDEDE] w-full h-[1px]"></div>
+                        <div className="flex justify-between ">
+                          <p className="text-[14px] text-[#808080] font-medium w-[20%]">Location</p>
+                          <div className=" flex justify-center text-[14px] font-semibold text-[#333333] w-[80%]">
+                          {item?.location}
+                          </div>
+                        </div> */}
+                      </div>
+                      <button
+                        className="bg-[#E9EEF6] py-[8px] px-[16px] rounded-[8px] w-full text-[14px] font-semibold"
+                        onClick={() =>
+                          router.push(
+                            `/jobs/details/applicant-details?applicant=${item.resumeId}&job-post=${jobPost._id}`
+                          )
+                        }
+                      >
+                        See Application
+                      </button>
+
+                    </div>
+                    <div className="bg-[#E9EEF6] w-full h-[2px]"></div>
+
+                  </>
+                ))}
+
+              </div>
+
+
+            </div>
+          </>
         ) : (
           <div className="flex items-center justify-center w-full text-[24px] text-[#bebebe] font-semibold h-[40vh]">
             No Applications Recived Yet !
           </div>
         )}
       </div>
+
     </>
   );
 };

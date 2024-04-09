@@ -562,7 +562,7 @@ const ResumePreview = ({
       formData.append("pdfBlob", blob);
 
       axios
-        .put("http://localhost:2000/api/resume/" + id, formData)
+        .put("https://freedygoservices.in/api/resume/" + id, formData)
         .then((res) => {
           localStorage.setItem("saveCount", saveLimit - 1);
           getLimits();
@@ -607,7 +607,7 @@ const ResumePreview = ({
       }
 
       axios
-        .post("http://localhost:2000/api/resume/add", formData)
+        .post("https://freedygoservices.in/api/resume/add", formData)
         .then((res) => {
           const pdfUrl = res.data.data.resumeUrl;
 
@@ -637,7 +637,7 @@ const ResumePreview = ({
     setDownloadBtnLoading(true);
     axios
       .put(
-        "http://localhost:2000/api/subscription/updateDownloadLimit/" +
+        "https://freedygoservices.in/api/subscription/updateDownloadLimit/" +
           userDataGlobal._id
       )
       .then((res) => {
