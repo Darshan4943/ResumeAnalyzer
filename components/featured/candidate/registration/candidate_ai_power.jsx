@@ -291,7 +291,7 @@ const CandidateAiPower = ({
                             </span>
                           </div>
 
-                          <button className="px-[16px] py-[8px] border border-[#06A9EF]  rounded-[12px]">
+                          <button className="px-[8px] py-[6px] border border-[#06A9EF]  rounded-[12px] text-[12px] scr360:text-[16px]">
                             Browse file
                           </button>
                         </div>
@@ -363,7 +363,7 @@ const CandidateAiPower = ({
                     )}
                   </div>
                 )}
-                <span className="text-[14px] text-right">
+                <span className="text-[12px] scr360:text-[14px] text-right">
                   {uploadLimit} Remaining Attempts
                 </span>
               </div>
