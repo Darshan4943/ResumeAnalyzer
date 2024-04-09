@@ -70,7 +70,7 @@ function SubscriptionPlans({ fromMain }) {
         <>
           <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
           <div className="fixed z-[2000] top-[40%] left-0 right-0  flex items-center justify-center  ">
-            <div className=" absolute rounded-[16px] bg-white shadow-lg pt-[60px] pb-6 px-11 flex flex-col gap-6 w-[22%] ">
+            <div className=" absolute rounded-[16px] bg-white shadow-lg pt-[60px] pb-6 px-11 flex flex-col gap-6  m-w-[22%] ">
               <svg
                 className="absolute top-[-40px]  left-[40%] right-[60%] flex"
                 width="72"
