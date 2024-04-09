@@ -34,8 +34,6 @@ const PersonalDetails = ({
     setIsPasswordVisible((prevState) => !prevState);
   }
 
-  
-
   const validateInput = (fieldName, value) => {
     const errors = { ...formError };
 

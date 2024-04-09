@@ -213,6 +213,7 @@ function CreateResume() {
             <AnimatePresence>
               <div className="fixed z-[2000] top-0 right-0 left-0  bottom-0 bg-black opacity-40 "></div>
               <motion.div
+              onWheel={(e) => e.stopPropagation()} 
                 initial={{ x: "-100%" }}
                 animate={{ x: 0 }}
                 exit={{ x: "-100%" }}

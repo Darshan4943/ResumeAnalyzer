@@ -14,6 +14,9 @@ const Index = () => {
   const [jobPost, setJobPost] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const [formError, setFormError] = useState({});
+
+
   const [data, setData] = useState({
     companyName: "",
     jobTitle: "",
@@ -29,7 +32,7 @@ const Index = () => {
     experiance: "",
     skills: [],
   });
-  
+
   const getData = () => {
     setLoading(true);
     axios
@@ -78,6 +81,46 @@ const Index = () => {
       setLoading(false);
     }
   }, [id]);
+
+
+
+
+  const validateInput = (fieldName, value) => {
+    const errors = { ...formError };
+
+    switch (fieldName) {
+      case "companyName":
+        if (!value.trim()) {
+          errors.companyName = "Company Name is required";
+        } else if (!isNaN(value)) {
+          errors.companyName = "Company Name cannot be a number";
+        } else if (/\d/.test(value)) {
+          errors.companyName = "Company Name cannot contain numbers";
+        } else {
+          delete errors.companyName;
+        }
+        break;
+
+     
+      case "jobTitle":
+        if (!value || value.length === 0) {
+          errors.jobTitle = "Job Title is required";
+        } else {
+          delete errors.jobTitle;
+        }
+        break;
+    
+
+      default:
+        break;
+    }
+
+    setFormError(errors);
+
+    return errors;
+  };
+
+
   return (
     <div className="min-h-[90vh] pt-[16px] customMargins flex flex-col gap-[16px] post-job pb-[4rem]">
       {loading ? (
@@ -102,6 +145,9 @@ const Index = () => {
               data={data}
               setCroppedImage={setCroppedImage}
               croppedImage={croppedImage}
+              validateInput={validateInput}
+              formError={formError}
+              setFormError={setFormError}
             />
             <Rightform
               setData={setData}
@@ -110,6 +156,9 @@ const Index = () => {
               croppedImage={croppedImage}
               isEditable={id ? true : false}
               id={id}
+              validateInput={validateInput}
+              formError={formError}
+              setFormError={setFormError}
             />
           </div>
         </>

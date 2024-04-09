@@ -19,7 +19,7 @@ const Index = () => {
     axios
       .get(
         "https://freedygoservices.in/api/job/getByCreatedId/" +
-          userDataGlobal._id
+        userDataGlobal._id
       )
       .then((res) => {
         setLoading(false);
@@ -129,14 +129,17 @@ const Index = () => {
                             {dateSeter(item.createdAt)}
                           </span>
                         </div>
-                        <div className="flex flex-col">
-                          <span className="text-[12px] font-semibold text-[#646464]">
-                            Due On
-                          </span>
-                          <span className="text-[12px] font-semibold text-[#333333]">
-                            {dateSeter(item.deadLine)}
-                          </span>
-                        </div>
+                        {item.deadLine &&
+                          <div className="flex flex-col">
+                            <span className="text-[12px] font-semibold text-[#646464]">
+                              Due On
+                            </span>
+
+                            <span className="text-[12px] font-semibold text-[#333333]">
+                              {dateSeter(item.deadLine)}
+                            </span>
+                          </div>
+                        }
                       </div>
                     </div>
                   ))}

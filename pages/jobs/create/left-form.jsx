@@ -16,6 +16,9 @@ const Leftform = ({
   setData,
   croppedImage,
   setCroppedImage,
+  validateInput,
+  formError,
+  setFormError
 }) => {
   const fileRef = useRef();
   const [loactionText, setLoactionText] = useState("");
@@ -58,6 +61,7 @@ const Leftform = ({
       setError("Minimum 100 characters required");
     }
   };
+  
   return (
     <div className="flex flex-col md:w-[40%] w-full gap-[24px]">
       {modelView && (
@@ -252,7 +256,7 @@ const Leftform = ({
       <div className="flex flex-col gap-[16px]">
         <div className="form-group">
           <label className="text-[#333333] text-[14px] font-medium">
-            Company Name
+            Company Name <span className="text-red">*</span>
           </label>
           <input
             type="text"
@@ -260,13 +264,18 @@ const Leftform = ({
             className="input"
             value={data?.companyName}
             onChange={(e) => {
-              setData({ ...data, companyName: e.target.value });
+              setData({ ...data, companyName: e.target.value }); validateInput("companyName", e.target.value);
             }}
           />
+          {formError && (
+            <p className="text-[12px] text-[red] font-[500]">
+              {formError.companyName}
+            </p>
+          )}
         </div>
         <div className="form-group">
           <label className="text-[#333333] text-[14px] font-medium">
-            Location
+            Location <span className="text-red">*</span>
           </label>
           <div className="w-full relative ">
             <input
@@ -274,24 +283,32 @@ const Leftform = ({
               placeholder="Location"
               className="input"
               value={loactionText}
-              onChange={(e) => setLoactionText(e.target.value)}
+              onChange={(e) => {setLoactionText(e.target.value); }}
             />
             <button
               className=" absolute right-3 top-[12px] "
               disabled={loactionText?.length == 0}
               onClick={() => {
+               
                 setData({
                   ...data,
                   location: [...data.location, loactionText],
                 });
                 setLoactionText("");
+                setFormError({})
               }}
             >
               <PlusAddLogo
                 color={loactionText?.length > 0 ? "#646464" : "#bebebe"}
               />
             </button>
+           
           </div>
+          {formError && (
+            <p className="text-[12px] text-[red] font-[500]">
+              {formError.location}
+            </p>
+          )}
           <div className="flex flex-row flex-wrap gap-3">
             {data?.location?.map((item, index) => (
               <div

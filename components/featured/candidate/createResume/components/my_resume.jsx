@@ -30,17 +30,17 @@ const ResumeList = ({ data, setData }) => {
   const handleDragOver = (event) => {
     event.preventDefault();
   };
- 
- 
 
-  const removeImgae=() => {
-    
-      setCroppedImage({ url:"/images/services/profile.png"  });
-    
+
+
+  const removeImgae = () => {
+
+    setCroppedImage({ url: "/images/services/profile.png" });
+
   };
-  
+
   // useEffect(() => {
-   
+
   //     setCroppedImage({ url: data.profilePhoto });
   // //  setFile(data.profilePhoto)
   // }, [data]);
@@ -70,8 +70,8 @@ const ResumeList = ({ data, setData }) => {
         style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}
       >
         <p className="text-[20px] font-medium">Upload Photo</p>
-        <div className="flex gap-4 items-center justify-center">
-          { croppedImage ? (
+        <div className="flex sm:flex-row flex-col gap-4 items-center justify-center">
+          {croppedImage ? (
             <ImageContainer
               src={croppedImage.url}
               alt="Selected File"
@@ -79,10 +79,10 @@ const ResumeList = ({ data, setData }) => {
             />
           ) : (
             <img
-            src="/images/services/profile.png"
-            alt="Selected File"
-            className="w-[112px] h-[112px] rounded-[50%] object-cover"
-          />
+              src="/images/services/profile.png"
+              alt="Selected File"
+              className="w-[112px] h-[112px] rounded-[50%] object-cover"
+            />
           )}
           <div
             class="border-dashed border-[3px] border-[#06A9EF] flex flex-col rounded-[12px] p-4 items-center upload-btn-wrapper"
@@ -119,8 +119,8 @@ const ResumeList = ({ data, setData }) => {
             </div>
           </div>
         </div>
-        <div className="flex justify-end ">
-          <div className="flex justify-between  py-2 gap-2">
+        <div className="flex justify-between sm:justify-end  ">
+          <div className="flex justify-between  py-2 gap-2 sm:w-fit w-full">
             <button
               className=" font-montserrat text-xs font-semibold px-[12px] rounded-[8px] border border-[#06A9EF] w-[83px] h-[32px]"
               onClick={() => removeImgae()}
@@ -129,9 +129,8 @@ const ResumeList = ({ data, setData }) => {
             </button>
             <button
               disabled={file == data?.profilePhoto}
-              className={` font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px]  bg-[#06A9EF] w-[60px] h-[32px] ${
-                file == data?.profilePhoto ? "opacity-50" : "opacity-100"
-              }`}
+              className={` font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px]  bg-[#06A9EF] w-[60px] h-[32px] ${file == data?.profilePhoto ? "opacity-50" : "opacity-100"
+                }`}
               onClick={() => {
                 setData({ ...data, profilePhoto: croppedImage?.blob });
               }}
