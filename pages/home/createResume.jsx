@@ -94,7 +94,7 @@ function CreateResume() {
           rating: [5, 5, 5, 5, 5],
         })),
         languages: languages?.map((item) => ({
-          languages: item.name,
+          languages: item,
           rating: [3, 3, 3],
         })),
         education: educations?.map((item) => ({
