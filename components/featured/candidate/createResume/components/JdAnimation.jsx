@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
-function JdAnimation({ details }) {
+function JdAnimation({ details ,count}) {
     const router = useRouter();
     const userDataGlobal = useSelector((state) => state.userData);
     const [borderline, setBorderLine] = useState(false)
@@ -101,15 +101,20 @@ function JdAnimation({ details }) {
     return (
         <div className="flex flex-col gap-6 w-[100%] items-center ">
             {userDataGlobal.role === "user" ?
-                <div className="flex flex-col gap-4 items-center">
-                    <p className=" text-[20px] font-semibold"> To transform your resume, you will have to first create and save your resume in “My Resumes” section.</p>
-                    <button className="flex justify-center px-4 py-2 rounded-[12px] bg-blue font-medium text-white w-[160px]">Create Resume</button>
-                </div>
+                <>
+                    {count == 0 &&
+                        <div className="flex flex-col gap-4 items-center">
+                            <p className=" text-[16px] font-semibold"> To transform your resume, you will have to first create and save your resume in “My Resumes” section.</p>
+                            <button onClick={() => router.push("/home/MyCollection")} className="flex justify-center px-4 py-2 rounded-[12px] bg-blue font-medium text-white w-[160px]">Create Resume</button>
+                        </div>
+                    }
+                </>
+
                 :
                 <>
                     {details?.length == 0 &&
                         <div className="flex flex-col gap-4 items-center">
-                            <p className=" text-[20px] font-semibold"> To transform your resume, you will have to first create Client.</p>
+                            <p className=" text-[16px] font-semibold"> To transform your resume, you will have to first create Client.</p>
 
                             <button onClick={() => router.push("/myClients")} className="flex justify-center px-4 py-2 rounded-[12px] bg-blue text-white w-[150px] font-medium">Create Client</button>
 
@@ -119,7 +124,7 @@ function JdAnimation({ details }) {
             }
             <div className="ml:flex hidden flex-col gap-12 w-[100%] max-w-[925px] ">
 
-                <div className="w-[100%] flex justify-between gap-4 p-[22px] scr1150:p-[44px]">
+                <div className="w-[100%] flex justify-between gap-4 p-[60px] ">
                     <div className="flex flex-col items-center gap-[24px] w-[50%]">
                         <div className="flex flex-col gap-[24px]">
                             <div className="flex gap-[8px] ">
