@@ -4,19 +4,17 @@ import List from "./list";
 import { AddIcon } from "../../../utils/svg";
 import { useRouter } from "next/router";
 import MiniLoader from "../../../components/common/miniLoader";
-
 const Index = () => {
-  const [userList, setUserList] = useState([]);
+  const [list, setList] = useState([]);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const [totalCount, setTotalCount] = useState(0);
-  const [selectedCandidate, setSelectedCandidate] = useState([]);
   const getData = () => {
     setLoading(true);
     axios
-      .get("http://localhost:2000/api/recruiters")
+      .get("http://localhost:2000/api/enquires")
       .then((res) => {
-        setUserList(res.data.users.results);
+        setList(res.data.data.results);
         setTotalCount(res.data.totalCount);
         setLoading(false);
       })
@@ -33,15 +31,8 @@ const Index = () => {
       <div className="customMargins py-[24px] flex flex-col gap-[16px]">
         <div className="flex w-full flex-row justify-between items-center">
           <span className="text-[24px] text-[#333333] font-semibold">
-            Recruiter List
+            Enquiries
           </span>
-          <button
-            className="buttons font-[500] bg-[#06A9EF] text-white flex flex-row gap-2"
-            id="border_button"
-            onClick={() => router.push("/auth/recruiter-signup?byAdmin=true")}
-          >
-            <AddIcon color={"#fff"} /> Add Recruiter
-          </button>
         </div>
         <div
           className="min-h-[90vh]  rounded-[16px] customMargins flex flex-col gap-[16px] py-[24px] w-full "
@@ -49,7 +40,7 @@ const Index = () => {
         >
           <div className="flex flex-row w-full justify-between items-center px-[16px]">
             <span className="text-[18px] text-[#333333] font-medium">
-              Total Recruiters - {totalCount}
+              Total Enquiries - {totalCount}
             </span>
             <div className="rounded-[30px] py-2 px-3 flex gap-2 bg-[#E9EEF6] w-[336px]  items-center h-[40px] sm:min-w-[138px] min-w-[60%]  ">
               <svg
@@ -81,11 +72,7 @@ const Index = () => {
               <MiniLoader />
             </div>
           ) : (
-            <List
-              userList={userList}
-              setSelectedCandidate={setSelectedCandidate}
-              selectedCandidate={selectedCandidate}
-            />
+            <List list={list} />
           )}
         </div>
       </div>

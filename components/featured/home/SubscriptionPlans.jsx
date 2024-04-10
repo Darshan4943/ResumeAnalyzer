@@ -46,10 +46,9 @@ function SubscriptionPlans({ fromMain }) {
         console.log(err);
       });
   }, [userDataGlobal]);
-
   const clickHandler = (index) => {
     if (isLogin) {
-      if (subscription === null) {
+      if (subscription === null || subscription==undefined) {
         router.push(`/purchase/details?id=${index}`);
       } else {
         setIsInInquiry(true);

@@ -145,6 +145,17 @@ function CandidateHeader() {
             >
               <li>Candidates</li>
             </Link>
+            <Link
+              onClick={() => setServices(false)}
+              href="/dashboard/Enquiries"
+              className={
+                selectedPage === "/dashboard/Enquiries"
+                  ? "text-[14px] flex gap-2 items-center bg-[#EAF7FF] py-[8px] px-[12px] font-semibold rounded-[14px]"
+                  : " text-[14px] flex gap-2 items-center font-semibold py-[8px] px-[12px] hover:bg-[#EAF7FF] rounded-[14px] "
+              }
+            >
+              <li>Enquiries</li>
+            </Link>
           </>
         ) : (
           <>
