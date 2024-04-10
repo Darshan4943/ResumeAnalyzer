@@ -70,7 +70,7 @@ console.log(12,details)
 
                 <input
                   onChange={(e) => changeHandler(e.target.value)}
-                  className="w-full"
+                  className="w-full  sm:placeholder:text-[16px] placeholder:text-[14px] "
                   type="text"
                   placeholder="Search client name or keyword"
                 />

@@ -282,16 +282,18 @@ const CandidateAiPower = ({
                     />
                     {file ? (
                       <div className="w-full flex justify-center">
-                        <div className="flex flex-row gap-[16px] items-center justify-between w-[80%] ">
-                          <div className="flex flex-row gap-[16px] items-center w-[60%]  ">
+                        <div className="flex scr420:flex-row flex-col gap-[16px] items-center justify-between md:w-[80%] w-[95%]">
+                          <div className="flex flex-row gap-[16px] items-center scr420:w-[60%] w-full scr420:justify-start justify-center  ">
                             {" "}
+                            <div className="">
                             {fileIconSeter(file)}
+                            </div>
                             <span className="text-[12px] w-[80%]">
                               {file.name}
                             </span>
                           </div>
 
-                          <button className="px-[8px] py-[6px] border border-[#06A9EF]  rounded-[12px] text-[12px] scr360:text-[16px]">
+                          <button className="sm:px-[8px] px-1 py-[6px] border border-[#06A9EF]  rounded-[12px] text-[12px] sm:text-[16px] sm:min-w-[105px] min-w-[90px]  ">
                             Browse file
                           </button>
                         </div>

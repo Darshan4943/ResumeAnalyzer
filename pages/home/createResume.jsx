@@ -184,28 +184,32 @@ function CreateResume() {
         <div className="flex flex-col gap-4 py-6 ">
           <div className="web">
             <div className=" h-fit flex gap-6 ">
-              <ResumeForm
-                data={data}
-                setData={setData}
-                selectedResumeIndex={selectedResumeIndex}
-                setSelectedResumeIndex={setSelectedResumeIndex}
-                setSelectedColor={setSelectedColor}
-                selectedColor={selectedColor}
-                setSelectedFont={setSelectedFont}
-                selectedFont={selectedFont}
-              />
-              <ResumePreview
-                data={data}
-                selectedResumeIndex={selectedResumeIndex}
-                setSelectedResumeIndex={setSelectedResumeIndex}
-                setSelectedColor={setSelectedColor}
-                selectedColor={selectedColor}
-                setSelectedFont={setSelectedFont}
-                selectedFont={selectedFont}
-                isEdit={userData.isEdit}
-                id={editId}
-                render={render}
-              />
+              <div className="h-[173vh] w-[78%] overflow-y-scroll scrollbar-hidden " onWheel={(e)=>{e.stopPropagation()}}>
+                <ResumeForm
+                  selectedFont={selectedFont}
+                  data={data}
+                  setData={setData}
+                  selectedResumeIndex={selectedResumeIndex}
+                  setSelectedResumeIndex={setSelectedResumeIndex}
+                  setSelectedColor={setSelectedColor}
+                  selectedColor={selectedColor}
+                  setSelectedFont={setSelectedFont}
+                />
+              </div>
+              <div className="sticky">
+                <ResumePreview
+                  data={data}
+                  selectedResumeIndex={selectedResumeIndex}
+                  setSelectedResumeIndex={setSelectedResumeIndex}
+                  setSelectedColor={setSelectedColor}
+                  selectedColor={selectedColor}
+                  setSelectedFont={setSelectedFont}
+                  selectedFont={selectedFont}
+                  isEdit={userData.isEdit}
+                  id={editId}
+                  render={render}
+                />
+              </div>
             </div>
           </div>
 
@@ -219,7 +223,7 @@ function CreateResume() {
                 exit={{ x: "-100%" }}
                 transition={{ duration: 0.5 }}
                 ref={taskRef}
-                className={`mobile flex flex-col gap-4 z-[2000]  p-4 rounded-[8px] absolute max-h-[80vh] w-[95%] overflow-x-auto bg-white`}
+                className={`mobile flex flex-col gap-4 z-[2000]  sm:p-4 p-2 rounded-[8px] absolute max-h-[80vh] w-[95%] overflow-x-auto bg-white`}
               >
                 <div className="flex justify-between  text-[18px] font-semibold">
                   Edit

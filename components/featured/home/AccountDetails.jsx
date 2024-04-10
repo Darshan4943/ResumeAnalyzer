@@ -570,7 +570,7 @@ function AccountDetails({ selectedPlan, recruiterid,role }) {
             Cancel
           </button>
           <button
-            className="buttons font-[500] bg-[#06A9EF] text-white min-w-[190px]"
+            className="buttons font-[500] bg-[#06A9EF] text-white sm:min-w-[190px]"
             id="border_button"
             onClick={purchaseHandler}
           >

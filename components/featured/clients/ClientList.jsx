@@ -105,7 +105,7 @@ function ClientList({
                 {openPopupIndex === index && (
                   <div
                     ref={taskRef}
-                    className="absolute right-[-30%] bg-white px-2 py-4 flex flex-col gap-1 rounded-[8px]"
+                    className="absolute sm:right-[-30%] right-[-35px] bg-white px-2 py-4 flex flex-col gap-1 rounded-[8px]"
                     style={{
                       boxShadow: "0px 1px 2px 0px #00000040",
                     }}
