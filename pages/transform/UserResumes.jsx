@@ -70,6 +70,7 @@ const UserResumes = ({
   const taskRef = useRef(null);
   const userDataGlobal = useSelector((state) => state.userData);
   const [allData, setAllData] = useState([]);
+  
   useEffect(() => {
     if (userDataGlobal) {
       if (userDataGlobal.role == "recruiter") {

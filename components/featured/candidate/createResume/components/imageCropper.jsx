@@ -29,7 +29,7 @@ const ImageCropper = ({ setModelView, file, setCroppedImage }) => {
     <div>
       <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
       <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center  ">
-        <div className=" absolute bg-white  px-4 py-2 rounded-lg shadow-lg  flex flex-col gap-2 items-end ml:h-[50vw] ml:w-[60vw] sm:h-[60vw] sm:w-[70vw] w-[80vw] h-[80vw]">
+        <div className=" absolute bg-white  px-4 py-2 rounded-lg shadow-lg  flex flex-col gap-2 items-end max-h-[500px] max-w-[600px] ml:h-[50vw] ml:w-[60vw] sm:h-[60vw] sm:w-[70vw] w-[80vw] h-[80vw]">
           <div className="flex gap-[16px]">
             <button onClick={() => setModelView(false)}>
               <ClosedIcon />
@@ -37,7 +37,7 @@ const ImageCropper = ({ setModelView, file, setCroppedImage }) => {
           </div>
 
           <div className="w-full  h-full flex items-center justify-center relative">
-            <div className="crop-container overflow-hidden rounded-[12px] ml:w-[50vw] ml:h-[35vw] sm:h-[45vw] sm:w-[60vw] h-[50vw] w-[70vw]  ">
+            <div className="crop-container overflow-hidden rounded-[12px] max-h-[400px] max-w-[400px] ml:w-[50vw] ml:h-[35vw] sm:h-[45vw] sm:w-[60vw] h-[50vw] w-[70vw]  ">
               <Cropper
                 image={URL.createObjectURL(file)}
                 crop={crop}
