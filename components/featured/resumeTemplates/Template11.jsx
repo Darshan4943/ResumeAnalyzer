@@ -452,7 +452,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
               >
                 Experience
               </Text>
-              {data.experience.map((detail, index) => (
+              {data.experience?.map((detail, index) => (
                 <View
                   style={{ flexDirection: "row", gap:12, width: "90%",paddingRight:'12px' }}
                   key={index}

@@ -217,12 +217,13 @@ function CreateResume() {
             <AnimatePresence>
               <div className="fixed z-[2000] top-0 right-0 left-0  bottom-0 bg-black opacity-40 "></div>
               <motion.div
+              onWheel={(e) => e.stopPropagation()} 
                 initial={{ x: "-100%" }}
                 animate={{ x: 0 }}
                 exit={{ x: "-100%" }}
                 transition={{ duration: 0.5 }}
                 ref={taskRef}
-                className={`mobile flex flex-col gap-4 z-[2000]  p-4 rounded-[8px] absolute max-h-[80vh] w-[95%] overflow-x-auto bg-white`}
+                className={`mobile flex flex-col gap-4 z-[2000]  sm:p-4 p-2 rounded-[8px] absolute max-h-[80vh] w-[95%] overflow-x-auto bg-white`}
               >
                 <div className="flex justify-between  text-[18px] font-semibold">
                   Edit

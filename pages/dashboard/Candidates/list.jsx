@@ -25,13 +25,7 @@ const List = ({ userList, selectedCandidate, setSelectedCandidate }) => {
                 />
               </th>
               <th className="text-[16px] font-semibold text-white w-[25%] text-left ">
-                Name
-              </th>
-              <th className="text-[16px] font-semibold text-white w-[15%] text-center ">
-                Mobile Number
-              </th>
-              <th className="text-[16px] font-semibold text-white w-[15%] text-center ">
-                Location
+                Email
               </th>
               <th className="text-[16px] font-semibold text-white w-[15%]">
                 Created At
@@ -84,14 +78,8 @@ const List = ({ userList, selectedCandidate, setSelectedCandidate }) => {
                     className="w-[40px] h-[40px] rounded-[50%] object-cover"
                   />
                   <span className="text-[14px] font-semibold text-[#333333] text-left">
-                    {item.firstName + " " + item.lastName}
+                    {item.email }
                   </span>
-                </th>
-                <th className="text-[14px] font-normal text-[#333333] w-[15%] text-center ">
-                  {item?.mobileNo}
-                </th>
-                <th className="text-[14px] font-semibold text-[#333333] w-[15%]">
-                  {item.location ? item.location : "-"}
                 </th>
                 <th className="text-[14px] font-semibold text-[#333333] w-[15%]">
                   {dateSeter(item.createdAt)}
@@ -108,7 +96,7 @@ const List = ({ userList, selectedCandidate, setSelectedCandidate }) => {
                     } py-[8px] px-[16px] rounded-[8px]`}
                     onClick={() =>
                       router.push(
-                        `/dashboard/Recruiters/plans?recruiterid=${item._id}`
+                        `/dashboard/Candidates/plans?recruiterid=${item._id}&role=${item.role}`
                       )
                     }
                   >

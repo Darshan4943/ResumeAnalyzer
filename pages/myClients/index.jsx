@@ -137,7 +137,7 @@ function MyClients() {
                   </svg>
 
                   <input
-                    className="w-full h-[24px] scr420:text-[16px] text-[14px]"
+                    className="w-full h-[24px] scr420:text-[16px] sm:text-[14px] sm:placeholder:text-[16px] placeholder:text-[14px]"
                     type="text"
                     placeholder="Search client name or keyword"
                     onChange={(e) => changeHandler(e.target.value)}
@@ -158,7 +158,7 @@ function MyClients() {
                 }
                 <div className={` ${select ? "flex" : "hidden"} gap-12  items-center w-[100%]  `}>
                   {select && (
-                    <div className="bg-[#D1EDFF] flex scr420:gap-4  gap-2 rounded-[50px] px-3  scr420:py-3 py-2 items-center w-full scr420:min-w-[316px] scr420:h-[48px] h-[40px]  ">
+                    <div className="bg-[#D1EDFF] flex scr420:gap-4  gap-2 rounded-[50px] px-3 scr420:py-3 py-2 items-center w-full scr420:min-w-[316px] min-w-[300px]  scr420:h-[48px] h-[40px]  ">
                       <div
                         onClick={() => setSelect(false)}
                         style={{ boxShadow: "0px 1px 2px 0px #00000040" }}

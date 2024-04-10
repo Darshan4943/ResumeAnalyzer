@@ -173,7 +173,7 @@ function Dashboard() {
             lands your dream job effortlessly.
             <div
               onClick={() => toggle()}
-              className="rounded-[8px] bg-[#FFFFFF] px-4 py-3 text-[16px] flex gap-1 text-[#06A9EF] justify-center items-center leading-tight ml:w-full w-[150px] cursor-pointer"
+              className="rounded-[8px] bg-[#FFFFFF] px-4 py-3 text-[16px] flex gap-1 text-[#06A9EF] justify-center items-center leading-tight ml:w-full w-[152px] cursor-pointer"
             >
               Get Started
               <svg

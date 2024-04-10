@@ -8,44 +8,91 @@ import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 
-const Rightform = ({ data, setData, file, croppedImage, isEditable, id }) => {
+const Rightform = ({ data, setData, file, croppedImage, isEditable, id, validateInput, formError, setFormError }) => {
   const [loading, setLoading] = useState(false);
   const userDataGlobal = useSelector((state) => state.userData);
   const router = useRouter();
 
   const postJob = () => {
-    setLoading(true);
-    const formData = new FormData();
-    if (Object.keys(data).length > 0) {
-      Object.keys(data).map((key) => {
-        if (Array.isArray(data[key]) && data[key].length > 0) {
-          formData.append(key, JSON.stringify(data[key]));
-        } else {
-          formData.append(key, data[key]);
-        }
-      });
-    }
-    if (croppedImage) {
-      formData.append("logo", croppedImage.blob);
-      formData.append("fileName", file.name);
-    }
-    formData.append("createdBy", userDataGlobal._id);
-    axios
-      .post("https://freedygoservices.in/api/job/add/" + id, formData)
-      .then((res) => {
-        if (id) {
-          toast.success("Job Post Updated Successfully");
-        } else {
-          toast.success("Job Post Created Successfully");
-        }
-        setLoading(false);
-        router.push("/jobs/list");
-      })
-      .catch((err) => {
-        setLoading(false);
 
-        console.log(err);
-      });
+
+    const errors = validateInput();
+    if (!data.skills || data.skills.length === 0) {
+      setFormError(formError => ({
+        ...formError, skills: "Skills are required"
+      }))
+    }
+    if (!data.location || data.location.length === 0) {
+      setFormError(formError => ({
+        ...formError,
+        location: "Location is required"
+      }));
+    }
+    const requiredFields = [
+      "companyName",
+      "jobTitle",
+
+
+    ];
+    const emptyFields = requiredFields.filter((field) => !data[field]);
+
+    if (emptyFields.length > 0) {
+      toast.error("Please fill in all required fields");
+      if (emptyFields.includes("companyName")) {
+        setFormError(formError => ({
+          ...formError,
+          companyName: "Company Name is required"
+        }));
+      }
+      if (emptyFields.includes("jobTitle")) {
+        setFormError(formError => ({
+          ...formError,
+          jobTitle: "Job Title is required"
+        }));
+      }
+      return;
+    }
+
+    const hasErrors = Object.keys(errors).length > 0;
+
+    if (hasErrors) {
+      toast.error("Please enter valid information");
+      setFormError(errors);
+    }
+    else {
+      setLoading(true);
+      const formData = new FormData();
+      if (Object.keys(data).length > 0) {
+        Object.keys(data).map((key) => {
+          if (Array.isArray(data[key]) && data[key].length > 0) {
+            formData.append(key, JSON.stringify(data[key]));
+          } else {
+            formData.append(key, data[key]);
+          }
+        });
+      }
+      if (croppedImage) {
+        formData.append("logo", croppedImage.blob);
+        formData.append("fileName", file.name);
+      }
+      formData.append("createdBy", userDataGlobal._id);
+      axios
+        .post("https://freedygoservices.in/api/job/add/" + id, formData)
+        .then((res) => {
+          if (id) {
+            toast.success("Job Post Updated Successfully");
+          } else {
+            toast.success("Job Post Created Successfully");
+          }
+          setLoading(false);
+          router.push("/jobs/list");
+        })
+        .catch((err) => {
+          setLoading(false);
+
+          console.log(err);
+        });
+    }
   };
 
   return (
@@ -53,7 +100,7 @@ const Rightform = ({ data, setData, file, croppedImage, isEditable, id }) => {
       <div className="flex flex-col w-full gap-[16px]">
         <div className="form-group">
           <label className="text-[#333333] text-[14px] font-medium">
-            Job Title
+            Job Title <span className="text-red">*</span>
           </label>
           <input
             type="text"
@@ -61,11 +108,16 @@ const Rightform = ({ data, setData, file, croppedImage, isEditable, id }) => {
             className="input"
             value={data?.jobTitle}
             onChange={(e) => {
-              setData({ ...data, jobTitle: e.target.value });
+              setData({ ...data, jobTitle: e.target.value }); validateInput("jobTitle", e.target.value)
             }}
           />
+          {formError && (
+            <p className="text-[12px] text-[red] font-[500]">
+              {formError.jobTitle}
+            </p>
+          )}
         </div>
-    
+
       </div>
       <div className="flex flex-col w-full gap-[16px]">
         <span className="text-[18px] text-[#333333] font-medium">Salary</span>
@@ -90,7 +142,7 @@ const Rightform = ({ data, setData, file, croppedImage, isEditable, id }) => {
                 }}
                 className="w-outline-none focus-visible:outline-none  p-2 w-full h-[48px] "
               >
-                <option value="Annual">Select</option>
+                <option value="Select">Select</option>
                 <option value="Annual">Annual</option>
                 <option value="Monthly">Monthly</option>
               </select>
@@ -147,7 +199,7 @@ const Rightform = ({ data, setData, file, croppedImage, isEditable, id }) => {
         </div>
         <div className="form-group">
           <label className="text-[#333333] text-[14px] font-medium">
-            Required Skills
+            Required Skills <span className="text-red">*</span>
           </label>
           <ReactSelect
             options={SkillList.map((item) => ({
@@ -155,10 +207,22 @@ const Rightform = ({ data, setData, file, croppedImage, isEditable, id }) => {
               label: camelCase(item),
             }))}
             className="w-full"
-            onChange={(skill) =>
-              setData({ ...data, skills: [...data.skills, skill.value] })
-            }
+            onChange={(skill) => {
+
+              setData({
+                ...data,
+                skills: [...data.skills, skill.value]
+              });
+
+
+              setFormError({});
+            }}
           />
+          {formError && (
+            <p className="text-[12px] text-[red] font-[500]">
+              {formError.skills}
+            </p>
+          )}
           <div className="flex flex-row flex-wrap gap-3">
             {data?.skills?.map((item, index) => (
               <div
@@ -180,6 +244,7 @@ const Rightform = ({ data, setData, file, croppedImage, isEditable, id }) => {
               </div>
             ))}
           </div>
+
         </div>
         <div className="flex sm:flex-row flex-col sm:gap-0 gap-4 justify-between">
           <div className=" sm:w-[48%] w-full flex flex-col gap-[8px] ">

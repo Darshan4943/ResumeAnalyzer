@@ -94,7 +94,7 @@ const Index = () => {
                   }}
                   class="w-[88%] h-2 bg-[#DEDEDE] rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
                 />
-                <div className="w-[10%]">{threshold} %</div>
+                <div className="w-[10%] text-[14px]">{threshold}%</div>
               </div>
             </div>
             <button

@@ -12,7 +12,10 @@ import Layout from "../components/layout.jsx";
 import Store from "../Redux/Store.js";
 import { Api } from "../Redux/Api.jsx";
 import Head from "next/head.js";
+import EarthLoader from "../components/common/EarthLoader.jsx";
 const WrappedApp = ({ Component, pageProps }) => {
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     const getLocation = () => {
       navigator.geolocation.getCurrentPosition(
@@ -41,10 +44,15 @@ const WrappedApp = ({ Component, pageProps }) => {
     };
 
     getLocation();
+    setLoading(true);
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+
+    return () => clearTimeout(timer);
   }, []);
   return (
     <>
-      
       <Helmet>
         <title>Skilotech</title>
         <link
@@ -62,6 +70,36 @@ const WrappedApp = ({ Component, pageProps }) => {
       </Helmet>
       <Provider store={Store}>
         <Api />
+        {loading && (
+          <>
+            <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-white"></div>
+            <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center  ">
+              <div className="relative earth_loader flex flex-col items-center justify-center gap-[24px]">
+                <div>
+                  <img
+                    src="/images/loader/earth.png"
+                    alt=""
+                    className="h-[100px] w-[100px]"
+                  />
+                  <img
+                    src="/images/loader/glass.png"
+                    alt=""
+                    className="h-[126px] w-[117px] object-contain glass"
+                  />
+                </div>
+                <div className="flex flex-col items-center justify-center relative z-100">
+                  <span
+                    className=" text-left text-[#333333] text-[16px] loading_dots"
+                    style={{ marginLeft: "44px" }}
+                  >
+                    Loading{" "}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </>
+        )}
+
         <ParallaxProvider>
           {/* <ReactLenis root> */}
           <Layout>

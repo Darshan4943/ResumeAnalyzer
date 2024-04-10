@@ -12,7 +12,7 @@ function BeforeLoginHome() {
   const [isLogin, setIsLogin] = useState(false);
   const dispatch = useDispatch();
   const userDataGlobal = useSelector((state) => state.userData);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     setLoading(true);
     const token = localStorage.getItem("authToken");

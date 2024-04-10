@@ -70,7 +70,7 @@ function CandidateHome() {
         </div>
 
         <div  
-        className=" bg-resume_bg bg-cover bg-no-repeat  py-[80px]  ">
+        className=" bg-resume_bg bg-cover bg-no-repeat  pb-[80px]  ">
         
           <div className=" flex flex-row gap-9 items-center customMargins">
             <div className="w-[65%] bg-gradient bg-contain bg-no-repeat   ">
