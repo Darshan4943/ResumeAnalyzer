@@ -33,7 +33,7 @@ const ResumeForm = ({
   }, [selectedResumeIndex]);
   return (
     <>
-      <div className="flex flex-col ml:w-[40%] w-[100%]  pb-4 gap-4 rounded-lg ">
+      <div className="flex flex-col ml:w-[100%] w-[100%]  pb-4 gap-4 rounded-lg ">
         <ResumeList setData={setData} data={data} />
         <ThemeForm
           selectedResumeIndex={selectedResumeIndex}

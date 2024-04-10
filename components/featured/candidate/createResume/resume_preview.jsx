@@ -742,7 +742,7 @@ const ResumePreview = ({
 
   return (
     <div
-      className="ml:w-[60%] w-[100%] "
+      className="ml:w-[100%] w-[100%] "
       style={{ overflow: "hidden", position: "relative" }}
     >
       <LimitUsedModal visible={limitUsedModal} setVisible={setLimitUsedModal} />
