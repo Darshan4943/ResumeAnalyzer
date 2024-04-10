@@ -27,6 +27,7 @@
     "chart.js": "^4.4.1",
     "docxtemplater": "^3.46.0",
     "faker": "^6.6.6",
+    "file-saver": "^2.0.5",
     "firebase": "^10.8.0",
     "framer-motion": "^10.16.16",
     "fuse.js": "^7.0.0",
@@ -68,7 +69,8 @@
     "sass": "^1.69.5",
     "scss": "^0.2.4",
     "swiper": "^11.0.7",
-    "tesseract.js": "^5.0.5"
+    "tesseract.js": "^5.0.5",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "autoprefixer": "^10.0.1",

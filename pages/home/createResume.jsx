@@ -184,28 +184,32 @@ function CreateResume() {
         <div className="flex flex-col gap-4 py-6 ">
           <div className="web">
             <div className=" h-fit flex gap-6 ">
-              <ResumeForm
-                data={data}
-                setData={setData}
-                selectedResumeIndex={selectedResumeIndex}
-                setSelectedResumeIndex={setSelectedResumeIndex}
-                setSelectedColor={setSelectedColor}
-                selectedColor={selectedColor}
-                setSelectedFont={setSelectedFont}
-                selectedFont={selectedFont}
-              />
-              <ResumePreview
-                data={data}
-                selectedResumeIndex={selectedResumeIndex}
-                setSelectedResumeIndex={setSelectedResumeIndex}
-                setSelectedColor={setSelectedColor}
-                selectedColor={selectedColor}
-                setSelectedFont={setSelectedFont}
-                selectedFont={selectedFont}
-                isEdit={userData.isEdit}
-                id={editId}
-                render={render}
-              />
+              <div className="h-[173vh] w-[78%] overflow-y-scroll scrollbar-hidden " onWheel={(e)=>{e.stopPropagation()}}>
+                <ResumeForm
+                  selectedFont={selectedFont}
+                  data={data}
+                  setData={setData}
+                  selectedResumeIndex={selectedResumeIndex}
+                  setSelectedResumeIndex={setSelectedResumeIndex}
+                  setSelectedColor={setSelectedColor}
+                  selectedColor={selectedColor}
+                  setSelectedFont={setSelectedFont}
+                />
+              </div>
+              <div className="sticky">
+                <ResumePreview
+                  data={data}
+                  selectedResumeIndex={selectedResumeIndex}
+                  setSelectedResumeIndex={setSelectedResumeIndex}
+                  setSelectedColor={setSelectedColor}
+                  selectedColor={selectedColor}
+                  setSelectedFont={setSelectedFont}
+                  selectedFont={selectedFont}
+                  isEdit={userData.isEdit}
+                  id={editId}
+                  render={render}
+                />
+              </div>
             </div>
           </div>
 
