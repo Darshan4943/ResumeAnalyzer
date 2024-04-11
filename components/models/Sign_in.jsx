@@ -115,7 +115,7 @@ function Sign_in({ googleLoading, handleGoogle, setSignIn, setSignUp }) {
               required
             />
           </div>
-          <div className="flex flex-col gap-[10px] relative mb-4">
+          <div className="flex flex-col gap-[10px] relative ">
             <div className="flex flex-row px-[16px] py-[12px] border-[1px] rounded-[8px] border-solid border-[#9D9D9D] justify-between">
               <input
                 type={showPassword ? "text" : "password"}
@@ -162,7 +162,7 @@ function Sign_in({ googleLoading, handleGoogle, setSignIn, setSignUp }) {
               )}
             </div>
             <div className="flex justify-end text-[#06A9EF] text-[12px] font-[500] cursor-pointer ">
-              <a onClick={() => setIsForgot(true)} className="already_sign">
+              <a onClick={() => setIsForgot(true)}>
                 Forgot password?
               </a>
             </div>
