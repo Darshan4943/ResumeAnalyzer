@@ -70,6 +70,7 @@ const UserResumes = ({
   const taskRef = useRef(null);
   const userDataGlobal = useSelector((state) => state.userData);
   const [allData, setAllData] = useState([]);
+  
   useEffect(() => {
     if (userDataGlobal) {
       if (userDataGlobal.role == "recruiter") {
@@ -169,7 +170,7 @@ const UserResumes = ({
           </div>
         ) : (
           <div className="text-[20px] font-medium text-center w-full py-[24px]">
-            No Resume Available
+            No Resume Available, <br/> Please create resume 
           </div>
         )}
       </div>
