@@ -14,13 +14,13 @@ const LimitUsedModal = ({ setVisible, visible }) => {
             <div className="flex flex-col gap-[16px]">
               <div className="flex flex-col gap-[12px]">
                 <img
-                  src="/images/LimitError.png"
+                  src="/images/exp.png"
                   alt=""
-                  className="h-[168px] object-contain"
+                  className="h-[221px] object-contain"
                 />
-                <span className="text-[30px] text-[#C00000] font-semibold text-center">
+                {/* <span className="text-[30px] text-[#C00000] font-semibold text-center">
                   Limits Exceeded!
-                </span>
+                </span> */}
               </div>
               <span className="scr420:text-[16px] text-[14px] text-[#333333] font-medium text-center">
                 Please Upgrade your Subscription Plan and continue using our
