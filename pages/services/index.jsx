@@ -239,7 +239,7 @@ function Services({ isServices, isMove, setIsMove }) {
                       />
                     </g>
                   </svg>
-                  <p className="text-[14px] font-medium">DashBoard</p>
+                  <p className="text-[14px] font-medium">Dashboard</p>
                   <p className="text-[12px] font-medium text-[#808080]">
                     Go to your personalised home page
                   </p>

@@ -91,7 +91,7 @@ function SubscriptionPlans({ fromMain }) {
 
               <div className="text-center">
                 <div className="text-[24px] font-[500] text-[#333]">
-                  Inquiry In Process
+                    Activation in progress
                 </div>
                 <div className="text-[16px] font-[500] text-[#333]">
                   <span className="text-[18px] font-[600] text-[#06A9EF]">
