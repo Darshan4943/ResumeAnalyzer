@@ -38,7 +38,7 @@ function Dashboard() {
       name: "Skill Assessments",
       imgSrc: "/images/resumeBuilder/skill_assessments.png",
     },
-    // { name: "My Purchases", imgSrc: "/images/resumeBuilder/my_purchases.png" },
+    { name: "My Purchases", imgSrc: "/images/resumeBuilder/my_purchases.png" },
     { name: "Search Jobs", imgSrc: "/images/resumeBuilder/job.png" },
   ];
 
@@ -54,7 +54,7 @@ function Dashboard() {
       imgSrc: "/images/resumeBuilder/job_description_matching.png",
     },
     { name: "My Collection", imgSrc: "/images/resumeBuilder/collection.png" },
-    // { name: "My Purchases", imgSrc: "/images/resumeBuilder/my_purchases.png" },
+    { name: "My Purchases", imgSrc: "/images/resumeBuilder/my_purchases.png" },
     { name: "Post Jobs", imgSrc: "/images/resumeBuilder/job.png" },
   ];
 

@@ -366,7 +366,7 @@ console.log(246,question)
                   } scr1024:w-[50%] sm:w-[85%] w-[100%]  px-[12px] rounded-[12px] bg-[#005A81] flex flex-col  items-center gap-[8px] scr820:gap-[16px] `}
               >
                 <div className="text-[20px] font-[600] text-[#fff] flex flex-row gap-[12px]">
-                  <AssessmentSvg />
+                  <Assessmentlogo />
                   {camelCase(selectedSkill)} Assessment
                 </div>
                 <div className="flex w-full gap-[6px] xsm:gap-[8px] sm:justify-between text-center ">
@@ -570,7 +570,7 @@ console.log(246,question)
           //   <div className="w-full   lg:max-w-[903px] flex flex-col gap-[24px]">
           //     <div className="bg-[#fff] border-[2px] border-solid border-[#06A9EF] rounded-[12px] py-[24px] px-[16px] lg:px-[60px] flex flex-col gap-[12px]">
           //       <div className="w-full flex flex-row justify-center gap-[12px] text-[14px] lg:text-[20px] font-[600]">
-          //         <AssessmentSvg />
+          //         <Assessmentlogo />
           //         {camelCase(selectedSkill)} Assessment
           //       </div>
           //       <div className="flex flex-col gap-[24px]">
@@ -771,8 +771,8 @@ console.log(246,question)
           <div className="flex flex-col gap-4 customMargins py-12">
             <div className="flex flex-col gap-4">
               <div className="flex gap-4 justify-between items-center">
-                <div className="flex gap-4 items-center lg:text-[20px] text-[14px] font-medium">
-                  <AssessmentSvg />
+                <div className="flex gap-4 items-center sm:text-[20px] scr360:text-[18px] text-[16px] font-medium">
+                  <Assessmentlogo />
                   <p>{camelCase(selectedSkill)} Assessment</p>
 
                 </div>
@@ -797,7 +797,7 @@ console.log(246,question)
               <div className="bg-white p-4 rounded-[16px] flex flex-col gap-9 " style={{ boxShadow: "0px 1px 2px 0px #00000040" }}>
                 <div className="flex flex-col gap-6 ">
                   <p className="text-[#333333] font-medium">   Question {questionIndex + 1}</p>
-                  <div className="flex flex-col gap-8 text-[#333333] font-medium lg:text-[16px] text-[14px]">
+                  <div className="flex flex-col gap-8 text-[#333333] font-medium ms:text-[16px] text-[14px]">
                     <p> {question[questionIndex]?.question}</p>
                     
 
@@ -815,7 +815,7 @@ console.log(246,question)
                           checked={isSelected(option, questionIndex + 1)}
                           onChange={() => answerSetter(questionIndex + 1, option)}
                         />
-                        <label htmlFor={`option${index}`} className="text-[14px] lg:text-[16px] font-[500]">
+                        <label htmlFor={`option${index}`} className="text-[14px] ms:text-[16px] font-[500]">
                            {option}
                         </label>
                       </div>
@@ -914,11 +914,9 @@ console.log(246,question)
                         </div>
                         <div className="">
                           <div className="flex justify-between items-center">
-                            <div className="text-[22px] font-[600] text-[#263751]">
-                              {checkAnswer()} Answers
-                            </div>
+                           
                             <div className="text-[14px] font-[600] text-[#646464] flex gap-[4px]">
-                              You got Right{" "}
+                             
                               <svg
                                 xlgns="http://www.w3.org/2000/svg"
                                 width="20"
@@ -933,22 +931,19 @@ console.log(246,question)
                                   />
                                 </g>
                               </svg>
+                              You got Right{" "}
+                            </div>
+                            <div className="text-[22px] font-[600] text-[#263751]">
+                              {checkAnswer()} Answers
                             </div>
                           </div>
-                          <div className="text-[12px] font-[400] flex justify-end">
-                            {((checkAnswer() / question.length) * 100).toFixed(
-                              0
-                            )}
-                            %
-                          </div>
+                          
                         </div>
                         <div>
                           <div className="flex justify-between items-center">
-                            <div className="text-[22px] font-[600] text-[#263751]">
-                              {answer.length - checkAnswer()} Answers
-                            </div>
+                            
                             <div className="text-[14px] font-[600] text-[#646464] flex gap-[4px]">
-                              You got Wrong{" "}
+                              
                               <svg
                                 xlgns="http://www.w3.org/2000/svg"
                                 width="20"
@@ -963,15 +958,13 @@ console.log(246,question)
                                   />
                                 </g>
                               </svg>
+                              You got Wrong{" "}
+                            </div>
+                            <div className="text-[22px] font-[600] text-[#263751]">
+                              {answer.length - checkAnswer()} Answers
                             </div>
                           </div>
-                          <div className="text-[12px] font-[400] flex justify-end">
-                            {(
-                              (checkAnswer() / question.length) * 100 -
-                              100
-                            ).toFixed(0)}{" "}
-                            %
-                          </div>
+                          
                         </div>
                         <div className="text-[18px] text-[#5B5B5B] font-[600]">
                           Your Score is{" "}

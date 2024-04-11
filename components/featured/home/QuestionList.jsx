@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { camelCase } from '../../../utils/middleware';
-import { AssessmentSvg } from '../../../utils/svg';
+import {  Assessmentlogo } from '../../../utils/svg';
 
 const QuestionList = ({ questions, answers, selectedSkill, checkAnswer }) => {
   const [data, setData] = useState([]);
@@ -24,7 +24,7 @@ const QuestionList = ({ questions, answers, selectedSkill, checkAnswer }) => {
           className="object-contain h-[40px]"
         />
         <div className='flex gap-3 items-center '>
-          <AssessmentSvg />
+          <Assessmentlogo />
           <span className='mt-[-14px] text-[18px] font-semibold'> {camelCase(selectedSkill)} Assessment</span>
 
         </div>
