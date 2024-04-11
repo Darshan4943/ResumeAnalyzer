@@ -765,7 +765,7 @@ const ResumePreview = ({
           onClick={() => setIsAll(true)}
           className="flex justify-end text-[18px] font-[500] text-[#06A9EF] cursor-pointer"
         >
-          See All Templets
+          See All Templats
         </div>
         {isAll && (
           <div>

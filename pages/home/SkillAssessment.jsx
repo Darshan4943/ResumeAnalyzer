@@ -289,7 +289,7 @@ function SkillAssessment() {
                 } scr1024:w-[50%] sm:w-[85%] w-[100%]  px-[12px] rounded-[12px] bg-[#005A81] flex flex-col  items-center gap-[8px] scr820:gap-[16px] `}
               >
                 <div className="text-[20px] font-[600] text-[#fff] flex flex-row gap-[12px]">
-                 <AssessmentSvg/>
+                  <Assessmentlogo/>
                   {camelCase(selectedSkill)} Assessment
                 </div>
                 <div className="flex w-full gap-[6px] xsm:gap-[8px] sm:justify-between text-center ">
