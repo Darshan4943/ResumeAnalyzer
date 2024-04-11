@@ -1,11 +1,69 @@
-import React, { useState } from 'react'
+import axios from 'axios';
+import React, { useEffect, useState } from 'react'
+import { toast } from "react-toastify";
 
 function ForgotPassword({ setIsForgot }) {
     const [tabIndex, setTabIndex] = useState(1)
     const [verify, setVerify] = useState(false)
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-   
+    const [email, setEmail] = useState();
+    const [otp, setOtp] = useState(null)
+    const [otpEntered, setOtpEntered] = useState(null)
+    const [timer, setTimer] = useState(30)
+    const handleVerification = (e) => {
+        e.preventDefault();
+        let otp = Math.floor(100000 + Math.random() * 900000);
+        setOtp(otp)
+        axios.post('http://localhost:2000/api/otpMail', { userEmail: email, otp }).then(res => {
+            const result = res.data;
+            if (result.success) {
+                setVerify(true)
+            } else {
+                toast.error('something went wrong')
+            }
+        }).catch(err => {
+            toast.error('something went wrong')
+
+        })
+    }
+
+    const verifyOtp = () => {
+        if (otp == otpEntered) {
+            setTabIndex(2)
+        } else {
+            toast.error('OTP does not match')
+        }
+    }
+
+
+    useEffect(() => {
+
+        if (verify) {
+
+            const timerInterval = setInterval(() => {
+
+                setTimer((prevTimer) => {
+                    if (prevTimer > 0) {
+                        return prevTimer - 1;
+                    }
+                 
+            })
+                      
+        
+
+                        if (timer === 0) {
+                          
+                            clearInterval(timerInterval);
+                            // console.log("Timer has ended");
+                        }
+                    }, 1000);
+            }
+
+      }, [verify])
+
+  
+
 
     return (
         <>
@@ -28,6 +86,7 @@ function ForgotPassword({ setIsForgot }) {
                             id="email"
                             placeholder="Enter Email"
                             className='border border-[#DEDEDE] rounded-[8px] px-4 py-3 w-[100%]'
+                            onChange={(e) => setEmail(e.target.value)}
 
                         />
 
@@ -43,7 +102,7 @@ function ForgotPassword({ setIsForgot }) {
                                 id="email"
                                 placeholder="Enter Otp"
                                 className='border border-[#DEDEDE] rounded-[8px] px-4 py-3 w-[100%]'
-
+                                onChange={(e) => setOtpEntered(parseInt(e.target.value))}
                             />
 
 
@@ -53,7 +112,7 @@ function ForgotPassword({ setIsForgot }) {
                             <div className='text-[12px] flex gap-2 font-[600] '>
                                 <p className='text-[#404040]'>Didn’t you receive any code?</p>
                                 <p className='text-[#BEBEBE]'>Re-send Code</p>
-                                <p className='text-[#C00000]'>00:38</p>
+                                <p className='text-[#C00000]'>{` ${timer} seconds remaining`}</p>
 
                             </div>
 
@@ -61,11 +120,11 @@ function ForgotPassword({ setIsForgot }) {
                     }
 
                     {verify ?
-                        <button onClick={() => setTabIndex(2)} className='border border-[#06A9EF] text-white text-[20px] font-[500] bg-[#06A9EF] rounded-[12px] px-4 py-3 w-[100%]'>
+                        <button onClick={verifyOtp} className='border border-[#06A9EF] text-white text-[20px] font-[500] bg-[#06A9EF] rounded-[12px] px-4 py-3 w-[100%]'>
                             Verify & Proceed
                         </button>
                         :
-                        <button onClick={() => setVerify(true)} className='border border-[#06A9EF] text-white text-[20px] font-[500] bg-[#06A9EF] rounded-[12px] px-4 py-3 w-[100%]'>
+                        <button onClick={handleVerification} className='border border-[#06A9EF] text-white text-[20px] font-[500] bg-[#06A9EF] rounded-[12px] px-4 py-3 w-[100%]'>
                             Verify Email
                         </button>
                     }
@@ -88,7 +147,7 @@ function ForgotPassword({ setIsForgot }) {
                         </p>
                         <div className="flex flex-row px-[16px] py-[12px] border-[1px] rounded-[8px] border-solid border-[#9D9D9D] justify-between">
                             <input
-                                 type={showPassword ? "text" : "password"}
+                                type={showPassword ? "text" : "password"}
                                 name=""
                                 id="email"
                                 placeholder="Enter Password"
@@ -99,7 +158,7 @@ function ForgotPassword({ setIsForgot }) {
                                 height="24"
                                 viewBox="0 0 24 24"
                                 fill="none"
-                                onClick={()=>setShowPassword(!showPassword)}
+                                onClick={() => setShowPassword(!showPassword)}
                                 style={{ cursor: "pointer" }}
                             >
                                 <path
@@ -127,7 +186,7 @@ function ForgotPassword({ setIsForgot }) {
                                 height="24"
                                 viewBox="0 0 24 24"
                                 fill="none"
-                                onClick={()=>setShowConfirmPassword(!showConfirmPassword)}
+                                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                                 style={{ cursor: "pointer" }}
                             >
                                 <path

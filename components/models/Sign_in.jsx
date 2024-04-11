@@ -161,11 +161,11 @@ function Sign_in({ googleLoading, handleGoogle, setSignIn, setSignUp }) {
                 </svg>
               )}
             </div>
-            {/* <div className="flex justify-end text-[#06A9EF] text-[12px] font-[500] cursor-pointer ">
+            <div className="flex justify-end text-[#06A9EF] text-[12px] font-[500] cursor-pointer ">
               <a onClick={() => setIsForgot(true)} className="already_sign">
                 Forgot password?
               </a>
-            </div> */}
+            </div>
             {isForgot && (
               <>
                 <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
