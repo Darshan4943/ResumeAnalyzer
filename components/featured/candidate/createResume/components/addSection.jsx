@@ -103,7 +103,7 @@ const AddSection = ({ data, setData, section, formData, index, item }) => {
         <p className="flex flex-row gap-2">
           <input
             type="text"
-            placeholder="Enter Header"
+            placeholder="Enter Section Header"
             className={`${
               headerEditable ? "w-full" : "w-[120px]"
             }  text-[20px]   font-[500]  ${

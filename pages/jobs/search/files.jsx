@@ -54,7 +54,7 @@ const Files = ({ selected, setSelected }) => {
                 <div
                   key={index}
                   onClick={() => setSelected(item)}
-                  className={`w-[108px] flex flex-col gap-[6px]   items-center py-4 h-fit rounded-[8px] cursor-pointer ${
+                  className={`w-[108px] flex flex-col gap-[6px] relative group items-center py-4 h-fit rounded-[8px] cursor-pointer ${
                     selected._id == item._id && "bg-[#effaff]"
                   } `}
                 >
@@ -65,6 +65,9 @@ const Files = ({ selected, setSelected }) => {
                   <span className="md:text-[14px] text-[12px] text-[#333333] text-center break-all">
                     {item.fileName}.pdf
                   </span>
+                  <div className="absolute text-[10px] opacity-0 transition-opacity duration-500 group-hover:opacity-100  word-break bottom-[-5px] text-[#fff] bg-[#333] px-[6px] py-[3px] rounded-[5px]">
+                  {item.fileName}
+                  </div>
                 </div>
               </>
             ))

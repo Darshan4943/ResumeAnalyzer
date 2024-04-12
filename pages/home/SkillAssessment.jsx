@@ -45,9 +45,9 @@ function SkillAssessment() {
   const [skills, setSkills] = useState(SkillList);
   const [userSkills, setUserSkills] = useState();
   const [data, setData] = useState([]);
-
+  const [timer, setTimer] = useState(30);
   const [inputValue, setInputValue] = useState("");
-
+  const [level, setLevel] = useState("advanced")
   const handleInputChange = (selectedOption) => {
     setSelectedSkill(selectedOption.value);
     setInputValue(selectedOption.value);
@@ -99,8 +99,9 @@ function SkillAssessment() {
       setLoading(true);
 
       axios
-        .post("https://freedygoservices.in/api/getQuetions", {
+        .post("http://localhost:2000/api/getQuetions", {
           skill: selectedSkill,
+          level: level
         })
         .then((res) => {
           setQuestion([
@@ -120,6 +121,78 @@ function SkillAssessment() {
     }
   };
 
+
+  // useEffect(() => {
+  //   let timer;
+  //   if (startTimer) {
+  //     timer = setTimeout(() => {
+  //       if (questionIndex + 1 < question.length) {
+  //         setQuestionIndex(questionIndex + 1);
+  //         setStartTimer(false);
+  //         setTimer(30); 
+  //       } else {
+
+  //       }
+  //     }, 30000);
+  //   }
+
+  //   return () => clearTimeout(timer);
+  // }, [startTimer, questionIndex, question]);
+
+
+  useEffect(() => {
+
+    setStartTimer(true);
+
+  }, [questionIndex]);
+
+
+  const sumbit = () => {
+    setStartTimer(false);
+    setTimer(30);
+    if (questionIndex == 9) {
+      axios
+        .post(
+          "https://freedygoservices.in/api/assessment/add",
+          {
+            userId: userDataGlobal._id,
+            skill: selectedSkill,
+            score: checkAnswer() * 10,
+            date: new Date(),
+          }
+        )
+        .then((res) => {
+          setScore(true);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      setTimer(30);
+      setQuestionIndex(
+        questionIndex + 1 < 10 ? questionIndex + 1 : 9
+      );
+
+    }
+  }
+
+
+  useEffect(() => {
+    let timer;
+    if (questionIndex) {
+      timer = setTimeout(() => {
+        if (questionIndex === 9) {
+          sumbit()
+        }
+      }, 30000);
+    }
+
+    return () => clearTimeout(timer);
+  }, [questionIndex]);
+
+
+
+
   useEffect(() => {
     if (
       questionIndex == 1 ||
@@ -130,6 +203,7 @@ function SkillAssessment() {
       toggleContent();
     }
   }, [questionIndex]);
+
   useEffect(() => {
     axios
       .get(
@@ -143,7 +217,7 @@ function SkillAssessment() {
       });
   }, [selectedSkill, reCall, userDataGlobal]);
 
-  const answerSeter = (question, Answer) => {
+  const answerSetter = (question, Answer) => {
     const dummyData = [...answer];
     dummyData[question - 1] = { Answer, question: question };
     setAnswer(dummyData);
@@ -168,6 +242,11 @@ function SkillAssessment() {
 
     return correctAnswer;
   };
+
+
+console.log(246,question)
+
+
   return (
     <div className="">
       <div
@@ -213,9 +292,8 @@ function SkillAssessment() {
                             onClick={() => {
                               setSelectedSkill(item);
                             }}
-                            className={`ml:px-4 ml:py-2 px-2 py-1 border-[1px] border-solid border-[#06A9EF] rounded-[25px] ml:text-[14px] text-[12px] font-medium text-[#333]  transition-[0.2s] ${
-                              selectedSkill == item && "bg-[#06A9EF] text-white"
-                            }`}
+                            className={`ml:px-4 ml:py-2 px-2 py-1 border-[1px] border-solid border-[#06A9EF] rounded-[25px] ml:text-[14px] text-[12px] font-medium text-[#333]  transition-[0.2s] ${selectedSkill == item && "bg-[#06A9EF] text-white"
+                              }`}
                           >
                             {item}
                           </button>
@@ -285,12 +363,11 @@ function SkillAssessment() {
 
             <div className="flex flex-col lg:flex-row justify-center items-center w-[100%] gap-6">
               <div
-                className={`p-[12px] ms:px-[60px] ms:customMargins ${
-                  showSecondDiv ? "lg:w-[50%]" : "w-[100.95%] "
-                } scr1024:w-[50%] sm:w-[85%] w-[100%]  px-[12px] rounded-[12px] bg-[#005A81] flex flex-col  items-center gap-[8px] scr820:gap-[16px] `}
+                className={`p-[12px] ms:px-[60px] ms:customMargins ${showSecondDiv ? "lg:w-[50%]" : "w-[100.95%] "
+                  } scr1024:w-[50%] sm:w-[85%] w-[100%]  px-[12px] rounded-[12px] bg-[#005A81] flex flex-col  items-center gap-[8px] scr820:gap-[16px] `}
               >
                 <div className="text-[20px] font-[600] text-[#fff] flex flex-row gap-[12px]">
-                 <AssessmentSvg/>
+                  <Assessmentlogo />
                   {camelCase(selectedSkill)} Assessment
                 </div>
                 <div className="flex w-full gap-[6px] xsm:gap-[8px] sm:justify-between text-center ">
@@ -404,11 +481,11 @@ function SkillAssessment() {
                   <button
                     className=" h-[42px] w-[108px] flex items-center justify-center  rounded-[8px] border-[1px] border-solid border-[#06A9EF] bg-[#fff] text-[#333] text-[14px] font-[500] "
                     disabled={loading}
-                    // onClick={() =>
-                    //   setQuestionIndex(
-                    //     questionIndex + 1 < 10 ? questionIndex + 1 : 9
-                    //   )
-                    // }
+                  // onClick={() =>
+                  //   setQuestionIndex(
+                  //     questionIndex + 1 < 10 ? questionIndex + 1 : 9
+                  //   )
+                  // }
                   >
                     {loading ? <MiniLoader /> : "Start"}
                   </button>
@@ -489,182 +566,269 @@ function SkillAssessment() {
           </div>
         )}
         {toggle === 1 && (
-          <div className="w-full flex justify-between items-center scr540:gap-[24px] flex-row py-[36px] gap-[8px]">
-            <div className="w-[8px] lg:w-[22%] h-[2px] bg-[#06A9EF] border-none"></div>
-            <div className="w-full   lg:max-w-[903px] flex flex-col gap-[24px]">
-              <div className="bg-[#fff] border-[2px] border-solid border-[#06A9EF] rounded-[12px] py-[24px] px-[16px] lg:px-[60px] flex flex-col gap-[12px]">
-                <div className="w-full flex flex-row justify-center gap-[12px] text-[14px] lg:text-[20px] font-[600]">
-                <AssessmentSvg/>
-                  {camelCase(selectedSkill)} Assessment
-                </div>
-                <div className="flex flex-col gap-[24px]">
-                  <div
-                    className="rounded-[6px] lg:rounded-[16px] flex flex-col gap-[12px] p-[24px] bg-[#E0F6FF]"
-                    style={{
-                      boxShadow: "  0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
-                    }}
-                  >
-                    <div className="text-[14px] lg:text-[20px] text-[#06A9EF] font-[600]">
-                      Question {questionIndex + 1}
-                    </div>
-                    <div className="text-[12px] lg:text-[16px] text-[#333] font-[600]">
-                      {question[questionIndex]?.question}
-                    </div>
-                  </div>
-                  <div className="flex flex-col lg:flex-row gap-[24px]">
-                    <div className="w-full flex items-between  flex-col gap-[24px]">
-                      <div
-                        className={`py-[12px] px-[16px] break-all rounded-[6px] lg:rounded-[8px] text-[12px] lg:text-[16px] font-[600] h-[50%]  ${
-                          isSelected(
-                            question[questionIndex]?.options[0],
-                            questionIndex + 1
-                          ) && "bg-[#06A9EF] text-white"
-                        }`}
-                        style={{
-                          boxShadow: "0px 0px 2px 0px rgba(0, 0, 0, 0.50)",
-                        }}
-                        onClick={() =>
-                          answerSeter(
-                            questionIndex + 1,
-                            question[questionIndex]?.options[0]
-                          )
-                        }
-                      >
-                        A) {question[questionIndex]?.options[0]}
-                      </div>
-                      <div
-                        className={`py-[12px] px-[16px] break-all rounded-[6px] lg:rounded-[8px] text-[12px] lg:text-[16px] font-[600] h-[50%]  ${
-                          isSelected(
-                            question[questionIndex]?.options[2],
-                            questionIndex + 1
-                          ) && "bg-[#06A9EF] text-white"
-                        }`}
-                        style={{
-                          boxShadow: "0px 0px 2px 0px rgba(0, 0, 0, 0.50)",
-                        }}
-                        onClick={() =>
-                          answerSeter(
-                            questionIndex + 1,
-                            question[questionIndex]?.options[2]
-                          )
-                        }
-                      >
-                        C) {question[questionIndex]?.options[2]}
-                      </div>
-                    </div>
-                    <div className="w-full flex flex-col items-between gap-[24px]">
-                      <div
-                        className={`py-[12px] px-[16px] break-all rounded-[6px] lg:rounded-[8px] text-[12px] lg:text-[16px] font-[600] h-[50%]  ${
-                          isSelected(
-                            question[questionIndex]?.options[1],
-                            questionIndex + 1
-                          ) && "bg-[#06A9EF] text-white"
-                        }`}
-                        style={{
-                          boxShadow: "0px 0px 2px 0px rgba(0, 0, 0, 0.50)",
-                        }}
-                        onClick={() =>
-                          answerSeter(
-                            questionIndex + 1,
-                            question[questionIndex]?.options[1]
-                          )
-                        }
-                      >
-                        B) {question[questionIndex]?.options[1]}
-                      </div>
-                      <div
-                        className={`py-[12px] px-[16px] break-all rounded-[6px] lg:rounded-[8px] text-[12px] lg:text-[16px] font-[600] h-[50%]  ${
-                          isSelected(
-                            question[questionIndex]?.options[3],
-                            questionIndex + 1
-                          ) && "bg-[#06A9EF] text-white"
-                        }`}
-                        style={{
-                          boxShadow: "0px 0px 2px 0px rgba(0, 0, 0, 0.50)",
-                        }}
-                        onClick={() =>
-                          answerSeter(
-                            questionIndex + 1,
-                            question[questionIndex]?.options[3]
-                          )
-                        }
-                      >
-                        D) {question[questionIndex]?.options[3]}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="flex flex-col lg:flex-row w-full gap-[16px]  justify-center items-center">
-                <div className="w-full  flex justify-center lg:justify-start  ">
-                  <Timer
-                    startTimer={startTimer}
-                    setIsTimerOver={setIsTimerOver}
-                  />
-                </div>
-                <div
-                  style={{ opacity: loading ? "0.5" : 1 }}
-                  disabled={loading}
-                  className="flex flex-row gap-[3px] items-center cursor-pointer text-[18px] font-[600] min-w-[174px] w-fit px-[12px] py-[8px] justify-between  rounded-[8px] border-[1px] border-solid border-[#06A9EF] bg-[#fff]"
-                  onClick={() => {
-                    if (questionIndex == 9) {
-                      axios
-                        .post(
-                          "https://freedygoservices.in/api/assessment/add",
-                          {
-                            userId: userDataGlobal._id,
-                            skill: selectedSkill,
-                            score: checkAnswer() * 10,
-                            date: new Date(),
-                          }
-                        )
-                        .then((res) => {
-                          setScore(true);
-                        })
-                        .catch((err) => {
-                          console.log(err);
-                        });
-                    } else {
-                      setQuestionIndex(
-                        questionIndex + 1 < 10 ? questionIndex + 1 : 9
-                      );
-                    }
-                    setSkipped([...skipped, questionIndex]);
-                  }}
-                >
-                  <span className="text-red">X</span>
-                  Not Relevent
-                </div>
-                <div className="flex flex-row justify-between lg:gap-[72px] w-full">
-                  <div
-                    className="flex flex-row gap-[3px] items-center justify-center text-[18px] font-[600]"
-                    onClick={() =>
-                      setQuestionIndex(
-                        questionIndex - 1 >= 0 ? questionIndex - 1 : 0
-                      )
-                    }
-                  >
-                    <svg
-                      xlgns="http://www.w3.org/2000/svg"
-                      width="40"
-                      height="40"
-                      viewBox="0 0 40 40"
-                      fill="none"
-                    >
-                      <g mask="url(#mask0_4403_58165)">
-                        <path
-                          d="M17.9367 19.9998L23.2027 25.2658L21.7444 26.7658L14.9785 19.9998L21.7444 13.2338L23.2027 14.7338L17.9367 19.9998ZM19.9959 35.8331C22.1858 35.8331 24.2442 35.4175 26.1711 34.5864C28.098 33.7553 29.7742 32.6228 31.1995 31.1888C32.6249 29.7548 33.7534 28.0765 34.5848 26.154C35.4163 24.2315 35.832 22.1811 35.832 20.0026C35.832 17.8127 35.4165 15.7543 34.5854 13.8274C33.7543 11.9005 32.6263 10.2244 31.2016 8.79901C29.7769 7.37362 28.1015 6.24519 26.1754 5.41371C24.2494 4.58224 22.1914 4.1665 20.0015 4.1665C17.8116 4.1665 15.7579 4.58206 13.8402 5.41317C11.9226 6.24428 10.2465 7.3722 8.81182 8.79692C7.37718 10.2217 6.24413 11.8971 5.41265 13.8231C4.58118 15.7492 4.16545 17.8071 4.16545 19.997C4.16545 22.1755 4.581 24.2264 5.41211 26.1498C6.24323 28.0731 7.37578 29.7521 8.80978 31.1867C10.2438 32.6214 11.9192 33.7544 13.8359 34.5859C15.7527 35.4174 17.8061 35.8331 19.9959 35.8331Z"
-                          fill="#06A9EF"
-                        />
-                      </g>
-                    </svg>
-                    Previous
-                  </div>
+          // <div className="w-full flex justify-between items-center scr540:gap-[24px] flex-row py-[36px] gap-[8px]">
+          //   <div className="w-[8px] lg:w-[22%] h-[2px] bg-[#06A9EF] border-none"></div>
+          //   <div className="w-full   lg:max-w-[903px] flex flex-col gap-[24px]">
+          //     <div className="bg-[#fff] border-[2px] border-solid border-[#06A9EF] rounded-[12px] py-[24px] px-[16px] lg:px-[60px] flex flex-col gap-[12px]">
+          //       <div className="w-full flex flex-row justify-center gap-[12px] text-[14px] lg:text-[20px] font-[600]">
+          //         <Assessmentlogo />
+          //         {camelCase(selectedSkill)} Assessment
+          //       </div>
+          //       <div className="flex flex-col gap-[24px]">
+          //         <div
+          //           className="rounded-[6px] lg:rounded-[16px] flex flex-col gap-[12px] p-[24px] bg-[#E0F6FF]"
+          //           style={{
+          //             boxShadow: "  0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
+          //           }}
+          //         >
+          //           <div className="text-[14px] lg:text-[20px] text-[#06A9EF] font-[600]">
+          //             Question {questionIndex + 1}
+          //           </div>
+          //           <div className="text-[12px] lg:text-[16px] text-[#333] font-[600]">
+          //             {question[questionIndex]?.question}
+          //           </div>
+          //         </div>
+          //         <div className="flex flex-col lg:flex-row gap-[24px]">
+          //           <div className="w-full flex items-between  flex-col gap-[24px]">
+          //             <div
+          //               className={`py-[12px] px-[16px] break-all rounded-[6px] lg:rounded-[8px] text-[12px] lg:text-[16px] font-[600] h-[50%]  ${isSelected(
+          //                 question[questionIndex]?.options[0],
+          //                 questionIndex + 1
+          //               ) && "bg-[#06A9EF] text-white"
+          //                 }`}
+          //               style={{
+          //                 boxShadow: "0px 0px 2px 0px rgba(0, 0, 0, 0.50)",
+          //               }}
+          //               onClick={() =>
+          //                 answerSeter(
+          //                   questionIndex + 1,
+          //                   question[questionIndex]?.options[0]
+          //                 )
+          //               }
+          //             >
+          //               A) {question[questionIndex]?.options[0]}
+          //             </div>
+          //             <div
+          //               className={`py-[12px] px-[16px] break-all rounded-[6px] lg:rounded-[8px] text-[12px] lg:text-[16px] font-[600] h-[50%]  ${isSelected(
+          //                 question[questionIndex]?.options[2],
+          //                 questionIndex + 1
+          //               ) && "bg-[#06A9EF] text-white"
+          //                 }`}
+          //               style={{
+          //                 boxShadow: "0px 0px 2px 0px rgba(0, 0, 0, 0.50)",
+          //               }}
+          //               onClick={() =>
+          //                 answerSeter(
+          //                   questionIndex + 1,
+          //                   question[questionIndex]?.options[2]
+          //                 )
+          //               }
+          //             >
+          //               C) {question[questionIndex]?.options[2]}
+          //             </div>
+          //           </div>
+          //           <div className="w-full flex flex-col items-between gap-[24px]">
+          //             <div
+          //               className={`py-[12px] px-[16px] break-all rounded-[6px] lg:rounded-[8px] text-[12px] lg:text-[16px] font-[600] h-[50%]  ${isSelected(
+          //                 question[questionIndex]?.options[1],
+          //                 questionIndex + 1
+          //               ) && "bg-[#06A9EF] text-white"
+          //                 }`}
+          //               style={{
+          //                 boxShadow: "0px 0px 2px 0px rgba(0, 0, 0, 0.50)",
+          //               }}
+          //               onClick={() =>
+          //                 answerSeter(
+          //                   questionIndex + 1,
+          //                   question[questionIndex]?.options[1]
+          //                 )
+          //               }
+          //             >
+          //               B) {question[questionIndex]?.options[1]}
+          //             </div>
+          //             <div
+          //               className={`py-[12px] px-[16px] break-all rounded-[6px] lg:rounded-[8px] text-[12px] lg:text-[16px] font-[600] h-[50%]  ${isSelected(
+          //                 question[questionIndex]?.options[3],
+          //                 questionIndex + 1
+          //               ) && "bg-[#06A9EF] text-white"
+          //                 }`}
+          //               style={{
+          //                 boxShadow: "0px 0px 2px 0px rgba(0, 0, 0, 0.50)",
+          //               }}
+          //               onClick={() =>
+          //                 answerSeter(
+          //                   questionIndex + 1,
+          //                   question[questionIndex]?.options[3]
+          //                 )
+          //               }
+          //             >
+          //               D) {question[questionIndex]?.options[3]}
+          //             </div>
+          //           </div>
+          //         </div>
+          //       </div>
+          //     </div>
+          //     <div className="flex flex-col lg:flex-row w-full gap-[16px]  justify-center items-center">
+          //       <div className="w-full  flex justify-center lg:justify-start  ">
+          //         <Timer
+          //           startTimer={startTimer}
+          //           setIsTimerOver={setIsTimerOver}
+          //           questionIndex={questionIndex}
+          //           timer={timer}
+          //           setTimer={setTimer}
+          //           setQuestionIndex={setQuestionIndex}
+          //           setStartTimer={setStartTimer}
+          //           question={question}
+          //         />
+          //       </div>
+          //       <div
+          //         style={{ opacity: loading ? "0.5" : 1 }}
+          //         disabled={loading}
+          //         className="flex flex-row gap-[3px] items-center cursor-pointer text-[18px] font-[600] min-w-[174px] w-fit px-[12px] py-[8px] justify-between  rounded-[8px] border-[1px] border-solid border-[#06A9EF] bg-[#fff]"
+          //         onClick={() => {
+          //           if (questionIndex == 9) {
+          //             axios
+          //               .post(
+          //                 "https://freedygoservices.in/api/assessment/add",
+          //                 {
+          //                   userId: userDataGlobal._id,
+          //                   skill: selectedSkill,
+          //                   score: checkAnswer() * 10,
+          //                   date: new Date(),
+          //                 }
+          //               )
+          //               .then((res) => {
+          //                 setScore(true);
+          //               })
+          //               .catch((err) => {
+          //                 console.log(err);
+          //               });
+          //           } else {
+          //             setQuestionIndex(
+          //               questionIndex + 1 < 10 ? questionIndex + 1 : 9
+          //             );
+          //           }
+          //           setSkipped([...skipped, questionIndex]);
+          //         }}
+          //       >
+          //         <span className="text-red">X</span>
+          //         Not Relevent
+          //       </div>
+          //       <div className="flex flex-row justify-between lg:gap-[72px] w-full">
+          //         <div
+          //           className="flex flex-row gap-[3px] items-center justify-center text-[18px] font-[600]"
+          //           onClick={() =>
+          //             setQuestionIndex(
+          //               questionIndex - 1 >= 0 ? questionIndex - 1 : 0
+          //             )
+          //           }
+          //         >
+          //           <svg
+          //             xlgns="http://www.w3.org/2000/svg"
+          //             width="40"
+          //             height="40"
+          //             viewBox="0 0 40 40"
+          //             fill="none"
+          //           >
+          //             <g mask="url(#mask0_4403_58165)">
+          //               <path
+          //                 d="M17.9367 19.9998L23.2027 25.2658L21.7444 26.7658L14.9785 19.9998L21.7444 13.2338L23.2027 14.7338L17.9367 19.9998ZM19.9959 35.8331C22.1858 35.8331 24.2442 35.4175 26.1711 34.5864C28.098 33.7553 29.7742 32.6228 31.1995 31.1888C32.6249 29.7548 33.7534 28.0765 34.5848 26.154C35.4163 24.2315 35.832 22.1811 35.832 20.0026C35.832 17.8127 35.4165 15.7543 34.5854 13.8274C33.7543 11.9005 32.6263 10.2244 31.2016 8.79901C29.7769 7.37362 28.1015 6.24519 26.1754 5.41371C24.2494 4.58224 22.1914 4.1665 20.0015 4.1665C17.8116 4.1665 15.7579 4.58206 13.8402 5.41317C11.9226 6.24428 10.2465 7.3722 8.81182 8.79692C7.37718 10.2217 6.24413 11.8971 5.41265 13.8231C4.58118 15.7492 4.16545 17.8071 4.16545 19.997C4.16545 22.1755 4.581 24.2264 5.41211 26.1498C6.24323 28.0731 7.37578 29.7521 8.80978 31.1867C10.2438 32.6214 11.9192 33.7544 13.8359 34.5859C15.7527 35.4174 17.8061 35.8331 19.9959 35.8331Z"
+          //                 fill="#06A9EF"
+          //               />
+          //             </g>
+          //           </svg>
+          //           Previous
+          //         </div>
 
-                  <button
-                    className="flex flex-row gap-[3px] items-center justify-center text-[18px] font-[600] "
+          //         <button
+          //           className="flex flex-row gap-[3px] items-center justify-center text-[18px] font-[600] "
+          //           style={{ opacity: loading ? "0.5" : 1 }}
+          //           disabled={loading}
+          //           onClick={() => {
+          //             sumbit()
+          //           }}
+          //         >
+          //           {questionIndex == 9 ? "Submit" : "Next"}
+          //           <svg
+          //             xlgns="http://www.w3.org/2000/svg"
+          //             width="40"
+          //             height="40"
+          //             viewBox="0 0 40 40"
+          //             fill="none"
+          //           >
+          //             <g mask="url(#mask0_4403_58171)">
+          //               <path
+          //                 d="M22.0633 19.9998L16.7973 25.2658L18.2556 26.7658L25.0215 19.9998L18.2556 13.2338L16.7973 14.7338L22.0633 19.9998ZM20.0041 35.8331C17.8142 35.8331 15.7558 35.4175 13.8289 34.5864C11.902 33.7553 10.2258 32.6228 8.80047 31.1888C7.37508 29.7548 6.24665 28.0765 5.41518 26.154C4.58371 24.2315 4.16797 22.1811 4.16797 20.0026C4.16797 17.8127 4.58352 15.7543 5.41464 13.8274C6.24575 11.9005 7.37366 10.2244 8.79839 8.79901C10.2231 7.37362 11.8985 6.24519 13.8246 5.41371C15.7506 4.58224 17.8086 4.1665 19.9985 4.1665C22.1884 4.1665 24.2421 4.58206 26.1598 5.41317C28.0774 6.24428 29.7535 7.3722 31.1882 8.79692C32.6228 10.2217 33.7559 11.8971 34.5873 13.8231C35.4188 15.7492 35.8346 17.8071 35.8346 19.997C35.8346 22.1755 35.419 24.2264 34.5879 26.1498C33.7568 28.0731 32.6242 29.7521 31.1902 31.1867C29.7562 32.6214 28.0808 33.7544 26.1641 34.5859C24.2473 35.4174 22.1939 35.8331 20.0041 35.8331Z"
+          //                 fill="#06A9EF"
+          //               />
+          //             </g>
+          //           </svg>
+          //         </button>
+          //       </div>
+          //     </div>
+          //   </div>
+          //   <div className="w-[8px] lg:w-[22%] h-[2px] bg-[#06A9EF] border-none"></div>
+          // </div>
+          <div className="flex flex-col gap-4 customMargins py-12">
+            <div className="flex flex-col gap-4">
+              <div className="flex gap-4 justify-between items-center">
+                <div className="flex gap-4 items-center sm:text-[20px] scr360:text-[18px] text-[16px] font-medium">
+                  <Assessmentlogo />
+                  <p>{camelCase(selectedSkill)} Assessment</p>
+
+                </div>
+                <Timer
+                  startTimer={startTimer}
+                  setIsTimerOver={setIsTimerOver}
+                  questionIndex={questionIndex}
+                  timer={timer}
+                  setTimer={setTimer}
+                  setQuestionIndex={setQuestionIndex}
+                  setStartTimer={setStartTimer}
+                  question={question}
+                />
+              </div>
+              <div className="flex gap-4 w-full items-center" >
+                <div className=" relative h-[10px] rounded-[6px] bg-[#DEDEDE] w-full">
+                  <div className={`absolute h-[10px] rounded-[6px] bg-[#06A9EF] w-[${(questionIndex + 1) * 10}%] `}>
+                  </div>
+                </div>
+                <p className="text-[16px] flex justify-end font-semibold w-[60px]"> {questionIndex + 1} / 10</p>
+              </div>
+              <div className="bg-white p-4 rounded-[16px] flex flex-col gap-9 " style={{ boxShadow: "0px 1px 2px 0px #00000040" }}>
+                <div className="flex flex-col gap-6 ">
+                  <p className="text-[#333333] font-medium">   Question {questionIndex + 1}</p>
+                  <div className="flex flex-col gap-8 text-[#333333] font-medium ms:text-[16px] text-[14px]">
+                    <p> {question[questionIndex]?.question}</p>
+                    
+
+                  </div>
+                  <div className="w-full flex  flex-col gap-5">
+                  <p className="text-[#808080] text-[12px]">Multiple options may be correct</p>
+                    {question[questionIndex]?.options.map((option, index) => (
+                      <div key={index} className="flex items-center gap-4">
+                        <input
+                          type="radio"
+                          className="custom-radio w-[20px] h-[20px]"
+                          id={`option${index}`}
+                          name="options"
+                          value={option}
+                          checked={isSelected(option, questionIndex + 1)}
+                          onChange={() => answerSetter(questionIndex + 1, option)}
+                        />
+                        <label htmlFor={`option${index}`} className="text-[14px] ms:text-[16px] font-[500]">
+                           {option}
+                        </label>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <div className="flex gap-6 ">
+
+                  <div
                     style={{ opacity: loading ? "0.5" : 1 }}
                     disabled={loading}
+                    className="flex flex-row gap-[3px] items-center cursor-pointer text-[16px] font-[500]   px-[24px] py-[12px] justify-between leading-tight  rounded-[12px] border-[1px] border-solid border-[#06A9EF] "
                     onClick={() => {
                       if (questionIndex == 9) {
                         axios
@@ -688,29 +852,34 @@ function SkillAssessment() {
                           questionIndex + 1 < 10 ? questionIndex + 1 : 9
                         );
                       }
+                      setSkipped([...skipped, questionIndex]);
+                    }}
+                  >
+
+                    Skip
+                  </div>
+
+                  <button
+                    className="flex flex-row gap-[3px] items-center px-6 py-3 rounded-[12px] bg-blue leading-tight text-white justify-center text-[16px] font-[600] "
+                    style={{ opacity: loading ? "0.5" : 1 }}
+                    disabled={loading}
+                    onClick={() => {
+                      sumbit()
                     }}
                   >
                     {questionIndex == 9 ? "Submit" : "Next"}
-                    <svg
-                      xlgns="http://www.w3.org/2000/svg"
-                      width="40"
-                      height="40"
-                      viewBox="0 0 40 40"
-                      fill="none"
-                    >
-                      <g mask="url(#mask0_4403_58171)">
-                        <path
-                          d="M22.0633 19.9998L16.7973 25.2658L18.2556 26.7658L25.0215 19.9998L18.2556 13.2338L16.7973 14.7338L22.0633 19.9998ZM20.0041 35.8331C17.8142 35.8331 15.7558 35.4175 13.8289 34.5864C11.902 33.7553 10.2258 32.6228 8.80047 31.1888C7.37508 29.7548 6.24665 28.0765 5.41518 26.154C4.58371 24.2315 4.16797 22.1811 4.16797 20.0026C4.16797 17.8127 4.58352 15.7543 5.41464 13.8274C6.24575 11.9005 7.37366 10.2244 8.79839 8.79901C10.2231 7.37362 11.8985 6.24519 13.8246 5.41371C15.7506 4.58224 17.8086 4.1665 19.9985 4.1665C22.1884 4.1665 24.2421 4.58206 26.1598 5.41317C28.0774 6.24428 29.7535 7.3722 31.1882 8.79692C32.6228 10.2217 33.7559 11.8971 34.5873 13.8231C35.4188 15.7492 35.8346 17.8071 35.8346 19.997C35.8346 22.1755 35.419 24.2264 34.5879 26.1498C33.7568 28.0731 32.6242 29.7521 31.1902 31.1867C29.7562 32.6214 28.0808 33.7544 26.1641 34.5859C24.2473 35.4174 22.1939 35.8331 20.0041 35.8331Z"
-                          fill="#06A9EF"
-                        />
-                      </g>
-                    </svg>
+
                   </button>
+
+
                 </div>
+
               </div>
             </div>
-            <div className="w-[8px] lg:w-[22%] h-[2px] bg-[#06A9EF] border-none"></div>
+
           </div>
+
+
         )}
         {score && (
           <>
@@ -746,11 +915,9 @@ function SkillAssessment() {
                         </div>
                         <div className="">
                           <div className="flex justify-between items-center">
-                            <div className="text-[22px] font-[600] text-[#263751]">
-                              {checkAnswer()} Answers
-                            </div>
+                           
                             <div className="text-[14px] font-[600] text-[#646464] flex gap-[4px]">
-                              You got Right{" "}
+                             
                               <svg
                                 xlgns="http://www.w3.org/2000/svg"
                                 width="20"
@@ -765,22 +932,19 @@ function SkillAssessment() {
                                   />
                                 </g>
                               </svg>
+                              You got Right{" "}
+                            </div>
+                            <div className="text-[22px] font-[600] text-[#263751]">
+                              {checkAnswer()} Answers
                             </div>
                           </div>
-                          <div className="text-[12px] font-[400] flex justify-end">
-                            {((checkAnswer() / question.length) * 100).toFixed(
-                              0
-                            )}
-                            %
-                          </div>
+                          
                         </div>
                         <div>
                           <div className="flex justify-between items-center">
-                            <div className="text-[22px] font-[600] text-[#263751]">
-                              {answer.length - checkAnswer()} Answers
-                            </div>
+                            
                             <div className="text-[14px] font-[600] text-[#646464] flex gap-[4px]">
-                              You got Wrong{" "}
+                              
                               <svg
                                 xlgns="http://www.w3.org/2000/svg"
                                 width="20"
@@ -795,15 +959,13 @@ function SkillAssessment() {
                                   />
                                 </g>
                               </svg>
+                              You got Wrong{" "}
+                            </div>
+                            <div className="text-[22px] font-[600] text-[#263751]">
+                              {answer.length - checkAnswer()} Answers
                             </div>
                           </div>
-                          <div className="text-[12px] font-[400] flex justify-end">
-                            {(
-                              (checkAnswer() / question.length) * 100 -
-                              100
-                            ).toFixed(0)}{" "}
-                            %
-                          </div>
+                          
                         </div>
                         <div className="text-[18px] text-[#5B5B5B] font-[600]">
                           Your Score is{" "}
@@ -850,7 +1012,7 @@ function SkillAssessment() {
           </>
         )}
       </div>
-    </div>
+    </div >
   );
 }
 

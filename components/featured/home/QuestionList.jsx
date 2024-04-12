@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { camelCase } from '../../../utils/middleware';
-import { AssessmentSvg } from '../../../utils/svg';
+import {  Assessmentlogo } from '../../../utils/svg';
 
 const QuestionList = ({ questions, answers, selectedSkill, checkAnswer }) => {
   const [data, setData] = useState([]);
@@ -24,7 +24,7 @@ const QuestionList = ({ questions, answers, selectedSkill, checkAnswer }) => {
           className="object-contain h-[40px]"
         />
         <div className='flex gap-3 items-center '>
-          <AssessmentSvg />
+          <Assessmentlogo />
           <span className='mt-[-14px] text-[18px] font-semibold'> {camelCase(selectedSkill)} Assessment</span>
 
         </div>
@@ -39,14 +39,14 @@ const QuestionList = ({ questions, answers, selectedSkill, checkAnswer }) => {
       <div className='flex flex-col gap-2 '>
         {data.map((questionItem, index) => (
           <div className="flex flex-col gap-1 py-2" key={index}>
-            <div className='flex gap-2'>
-              <span className='font-semibold min-w-[95px]'>Question {index + 1} :</span> {questionItem.question}
+            <div className='flex gap-2 font-medium'>
+              <span className='font-semibold min-w-[130px]'>Question {index + 1} </span> <span className='text-[#000000]'>:</span> {questionItem.question}
             </div>
             <div className={`flex gap-2 font-medium ${questionItem.answer === questionItem.yourAns ? "text-[#0C8A0A]" : "text-red"} `}>
-              <span className='font-semibold text-[#000000] min-w-[120px]'>Your Answer :</span>  {questionItem.yourAns}
+              <span className='font-semibold text-[#000000] min-w-[130px]'>Your Answer </span> <span className='text-[#000000]'>:</span> {questionItem.yourAns}
             </div>
             <div className='flex gap-2 font-medium'>
-              <span className='font-semibold font min-w-[140px]'>Correct Answer :</span>  {questionItem.answer}
+              <span className='font-semibold font min-w-[130px]'>Correct Answer </span> <span className='text-[#000000]'>:</span> {questionItem.answer}
             </div>
           </div>
         ))}

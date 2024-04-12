@@ -21,46 +21,46 @@ body {
   }
 }
 
-// @media (min-width: 1450px) {
-//   .customMargins {
-//     max-width: 1240px;
-//   }
-// }
-// @media (min-width: 1600px) {
-//   .customMargins {
-//     max-width: 1440px;
-//   }
-// }
-// @media (max-width: 1440px) {
-//   .customMargins {
-//     padding: 0px 112px;
-//   }
-// }
+@media (min-width: 1450px) {
+  .customMargins {
+    max-width: 1240px;
+  }
+}
+@media (min-width: 1600px) {
+  .customMargins {
+    max-width: 1440px;
+  }
+}
+@media (max-width: 1440px) {
+  .customMargins {
+    padding: 0px 112px;
+  }
+}
 
-// @media (max-width: 1280px) {
-//   .customMargins {
-//     padding: 0px 24px;
-//   }
-// }
+@media (max-width: 1280px) {
+  .customMargins {
+    padding: 0px 24px;
+  }
+}
 
-// @media (max-width: 500px) {
-//   .customMargins {
-//     padding: 0px 8px;
-//   }
-// }
+@media (max-width: 500px) {
+  .customMargins {
+    padding: 0px 8px;
+  }
+}
 
 
-// @media (max-width: 480px) {
-//   .customMargins1 {
-//     padding: 0 2px;
-//   }
-// }
+@media (max-width: 480px) {
+  .customMargins1 {
+    padding: 0 2px;
+  }
+}
 
-// @media (min-width: 1440px) {
-//   .customMargins1 {
-//     margin-left: 156px;
-//   }
-// }
+@media (min-width: 1440px) {
+  .customMargins1 {
+    margin-left: 156px;
+  }
+}
 
 .customMargins1 {
   padding: 0 80px;

@@ -43,12 +43,12 @@ function Services({ isServices, isMove, setIsMove }) {
       desc: "Test your skills and improve knowledge to crack job interviews.",
       color: "#FE7701",
     },
-    {
-      name: "My Purchases",
-      imgSrc: "/images/resumeBuilder/my_purchases.png",
-      desc: "Details of subscription plan and paid services.",
-      color: "#8901FF",
-    },
+    // {
+    //   name: "My Purchases",
+    //   imgSrc: "/images/resumeBuilder/my_purchases.png",
+    //   desc: "Details of subscription plan and paid services.",
+    //   color: "#8901FF",
+    // },
     {
       name: "Search Jobs",
       imgSrc: "/images/resumeBuilder/job.png",
@@ -89,12 +89,12 @@ function Services({ isServices, isMove, setIsMove }) {
       desc: "Save multiple resumes with multiple clients in cloud storage.",
       color: "#45ABA0",
     },
-    {
-      name: "My Purchases",
-      imgSrc: "/images/resumeBuilder/my_purchases.png",
-      desc: "Details of subscription plan and paid services.",
-      color: "#8901FF",
-    },
+    // {
+    //   name: "My Purchases",
+    //   imgSrc: "/images/resumeBuilder/my_purchases.png",
+    //   desc: "Details of subscription plan and paid services.",
+    //   color: "#8901FF",
+    // },
     {
       name: "Post Jobs",
       imgSrc: "/images/resumeBuilder/job.png",
@@ -239,7 +239,7 @@ function Services({ isServices, isMove, setIsMove }) {
                       />
                     </g>
                   </svg>
-                  <p className="text-[14px] font-medium">DashBoard</p>
+                  <p className="text-[14px] font-medium">Dashboard</p>
                   <p className="text-[12px] font-medium text-[#808080]">
                     Go to your personalised home page
                   </p>

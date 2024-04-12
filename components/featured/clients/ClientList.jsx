@@ -112,7 +112,7 @@ function ClientList({
                   >
                     <p onClick={() => toggleDetails(detail)} className="text-[14px] font-medium">View Client</p>
                    
-                    <p  onClick={(e) => {e.stopPropagation();deleteClient()}}  className="text-[14px] text-red font-medium">Delete</p>
+                    <p  onClick={(e) => {e.stopPropagation();deleteClient(); setOpenPopupIndex(null);}}  className="text-[14px] text-red font-medium">Delete</p>
                   </div>
                 )}
               </div>
