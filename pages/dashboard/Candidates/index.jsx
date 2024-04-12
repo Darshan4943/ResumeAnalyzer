@@ -16,7 +16,7 @@ const Index = () => {
   const getData = () => {
     setLoading(true);
     axios
-      .get("http://localhost:2000/api/candidates")
+      .get("https://freedygoservices.in/api/candidates")
       .then((res) => {
         setUserList(res.data.users.results);
         setTotalCount(res.data.totalCount);

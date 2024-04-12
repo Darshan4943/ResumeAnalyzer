@@ -15,6 +15,7 @@ const Index = () => {
   const [tab, setTab] = useState(0);
   const userDataGlobal = useSelector((state) => state.userData);
   const [jobPost, setJobPost] = useState(null);
+  
   const [applications, setApplications] = useState([]);
   const getData = () => {
     setLoading(true);

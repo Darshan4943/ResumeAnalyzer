@@ -99,7 +99,7 @@ function SkillAssessment() {
       setLoading(true);
 
       axios
-        .post("http://localhost:2000/api/getQuetions", {
+        .post("https://freedygoservices.in/api/getQuetions", {
           skill: selectedSkill,
           level: level
         })

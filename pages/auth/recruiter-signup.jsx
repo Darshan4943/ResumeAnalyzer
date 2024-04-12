@@ -208,7 +208,7 @@ function Recruiter_signup({}) {
       });
       formdata.append("byAdmin", byAdmin);
       axios
-        .post("http://localhost:2000/api/skiloteckuser/recruiter", formdata)
+        .post("https://freedygoservices.in/api/skiloteckuser/recruiter", formdata)
         .then((res) => {
           const response = res.data;
           try {

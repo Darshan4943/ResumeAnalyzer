@@ -12,16 +12,26 @@ const Rightform = ({ data, setData, file, croppedImage, isEditable, id, validate
   const [loading, setLoading] = useState(false);
   const userDataGlobal = useSelector((state) => state.userData);
   const router = useRouter();
-
+  const [skills, setSkills] = useState(SkillList);
+  const [skillText,setSkillText] = useState("")
   const postJob = () => {
 
 
     const errors = validateInput();
-    if (!data.skills || data.skills.length === 0) {
+    if (!data.mustSkills || data.mustSkills.length === 0) {
       setFormError(formError => ({
-        ...formError, skills: "Skills are required"
+        ...formError, mustSkills: "Must have Skills are required"
       }))
     }
+
+    if (!data.goodSkills || data.goodSkills.length === 0) {
+      setFormError(formError => ({
+        ...formError, goodSkills: " Good to have Skills are required"
+      }))
+    }
+
+
+
     if (!data.location || data.location.length === 0) {
       setFormError(formError => ({
         ...formError,
@@ -94,6 +104,8 @@ const Rightform = ({ data, setData, file, croppedImage, isEditable, id, validate
         });
     }
   };
+
+
 
   return (
     <div className="flex flex-col md:w-[50%] w-full gap-[24px] ml:pt-0 pt-6">
@@ -199,20 +211,74 @@ const Rightform = ({ data, setData, file, croppedImage, isEditable, id, validate
         </div>
         <div className="form-group">
           <label className="text-[#333333] text-[14px] font-medium">
-            Required Skills <span className="text-red">*</span>
+            Must have  Skills <span className="text-red">*</span>
+          </label>
+          <ReactSelect
+            onInputChange={(data) => {
+              setSkills([data, ...skills]);
+            }}
+            options={skills.map((item) => ({
+              value: item,
+              label: camelCase(item),
+            }))}
+            className="w-full"
+            onChange={(mustSkill) => {
+
+              setData({
+                ...data,
+                mustSkills: [...data.mustSkills, mustSkill.value]
+              });
+
+              setFormError({});
+            }}
+          />
+          {formError && (
+            <p className="text-[12px] text-[red] font-[500]">
+              {formError.mustSkills}
+            </p>
+          )}
+          <div className="flex flex-row flex-wrap gap-3">
+            {data?.mustSkills?.map((item, index) => (
+              <div
+                key={index}
+                className="py-[4px] px-[8px] bg-[#effaff] rounded-[8px] flex flex-row gap-3 items-center "
+              >
+                <span> {item}</span>
+                <span
+                  className="text-[14px]  cursor-pointer font-medium "
+                  onClick={() =>
+
+                    setData({
+                      ...data,
+                      mustSkills: data.mustSkills.filter((data) => data != item),
+                    })
+                  }
+                >
+                  X
+                </span>
+              </div>
+            ))}
+          </div>
+
+          <label className="text-[#333333] text-[14px] font-medium mt-[12px]">
+            Good to have Skills <span className="text-red">*</span>
           </label>
           <ReactSelect
             options={SkillList.map((item) => ({
               value: item,
               label: camelCase(item),
             }))}
+            onInputChange={(data) => {
+              setSkills([data, ...skills]);
+            }}
             className="w-full"
-            onChange={(skill) => {
+            onChange={(goodSkill) => {
 
               setData({
                 ...data,
-                skills: [...data.skills, skill.value]
+                goodSkills: [...data.goodSkills, goodSkill.value]
               });
+
 
 
               setFormError({});
@@ -220,11 +286,12 @@ const Rightform = ({ data, setData, file, croppedImage, isEditable, id, validate
           />
           {formError && (
             <p className="text-[12px] text-[red] font-[500]">
-              {formError.skills}
+              {formError.goodSkills}
             </p>
           )}
+
           <div className="flex flex-row flex-wrap gap-3">
-            {data?.skills?.map((item, index) => (
+            {data?.goodSkills?.map((item, index) => (
               <div
                 key={index}
                 className="py-[4px] px-[8px] bg-[#effaff] rounded-[8px] flex flex-row gap-3 items-center "
@@ -235,7 +302,7 @@ const Rightform = ({ data, setData, file, croppedImage, isEditable, id, validate
                   onClick={() =>
                     setData({
                       ...data,
-                      skills: data.skills.filter((data) => data != item),
+                      goodSkills: data.goodSkills.filter((data) => data != item),
                     })
                   }
                 >
