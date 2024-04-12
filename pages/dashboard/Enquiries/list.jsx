@@ -8,8 +8,9 @@ const List = ({ list }) => {
   return (
     <>
       {list?.length > 0 ? (
+        <div className="w-full h-[72px] overflow-auto relative">
         <table className="w-full">
-          <thead className="w-full">
+          <thead className="w-full sticky top-0">
             <tr className="w-full bg-[#06A9EF] flex flex-row justify-between items-center px-[24px] py-[12px]">
               <th className="text-[16px] font-semibold text-white w-[5%] text-center ">
                 Sr.no
@@ -87,6 +88,7 @@ const List = ({ list }) => {
             ))}
           </tbody>
         </table>
+        </div>
       ) : (
         <div className="flex items-center justify-center w-full text-[24px] text-[#bebebe] font-semibold h-[40vh]">
           No Recruiter Available !

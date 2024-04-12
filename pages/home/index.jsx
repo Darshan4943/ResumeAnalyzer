@@ -14,8 +14,8 @@ function BeforeLoginHome() {
   const dispatch = useDispatch();
   const userDataGlobal = useSelector((state) => state.userData);
   const [loading, setLoading] = useState(true);
+  const [visible,setVisible] = useState(false)
   useEffect(() => {
-    setLoading(true);
     const token = localStorage.getItem("authToken");
     if (token && token != "undefined") {
       if (token) {
@@ -24,9 +24,16 @@ function BeforeLoginHome() {
         setIsLogin(false);
       }
     }
-    setTimeout(() => {
+    
+    const timer = setTimeout(() => {
       setLoading(false);
+      if(userDataGlobal?.tempPassword?.length>0){
+        setVisible(true)
+      }
     }, 1000);
+
+    return () => clearTimeout(timer);
+
   }, []);
   const router = useRouter();
   const clickHandler = () => {
@@ -43,7 +50,6 @@ function BeforeLoginHome() {
   ) : (
     <div className="">
       <PlanExpiredModal />
-      {userDataGlobal?.tempPassword && <ResetPasswordModal /> }
       {isLogin ? (
         userDataGlobal?.role == "admin" ? (
           <AdminDashboard />

@@ -167,7 +167,7 @@ function AccountDetails({ selectedPlan, recruiterid,role }) {
           mobileNo: data.mobileNo,
           index: selectedPlan.index,
           isAdmin: userDataGlobal.role == "admin",
-          role:userDataGlobal.role
+          role:userDataGlobal?.role
         })
         .then((res) => {
           setLoading(false);
