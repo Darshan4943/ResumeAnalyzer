@@ -33,7 +33,7 @@ function MyFolders({
                           openFolder(index, item._id, item.fileName, item);
                       }}
                       key={index}
-                      className=" break-all h-[74px] flex flex-col gap-[8px] items-center text-center cursor-pointer  w-[142px] px-[8px]"
+                      className=" break-all h-[74px] flex flex-col gap-[8px] group relative items-center text-center cursor-pointer  w-[142px] px-[8px]"
                     >
                       <div className=" relative">
                         {fileIconSeter(item)}
@@ -49,6 +49,9 @@ function MyFolders({
                         )}
                       </div>
                       <span style={{ overflow: 'hidden', }} className="text-[12px]">  {item.fileName.length > 17 ? `${item.fileName.slice(0, 16)}...` : item.fileName}</span>
+                      <div className="absolute text-[10px] opacity-0 transition-opacity duration-500 group-hover:opacity-100  word-break bottom-[-20px] text-[#fff] bg-[#333] px-[6px] py-[3px] rounded-[5px]">
+                  {item.fileName}
+                  </div>
                     </div>
                   </>
                 ))
