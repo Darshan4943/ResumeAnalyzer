@@ -241,12 +241,8 @@ function CandidateHeader() {
       <div className=" flex gap-4 justify-end  items-center w-[30%]  ">
         <div className="flex items-center gap-[8px]">
           <div className=" h-[36px] w-[36px]"
-       
-          
           >
-            <Link href="/profile">
-            
-           
+            {/* <Link href="/profile"> */}
             {userDataGlobal?.profilePicture ? (
               <img
                 className=" rounded-full object-cover h-[36px] w-[36px]"
@@ -264,7 +260,7 @@ function CandidateHeader() {
                 {userDataGlobal?.email?.slice(0, 1)}
               </div>
             )}
-           </Link>
+           {/* </Link> */}
           </div>
           {userDataGlobal?.name && (
             <div className="scr1250:text-[14px] text-[14px]">
@@ -294,6 +290,9 @@ function CandidateHeader() {
                   ref={taskRef}
                   className="w-[130px] flex flex-col gap-2 justify-center cursor-pointer absolute top-[26px] mt-[1.3rem] right-0 z-[5000] bg-white border border-gray-200 py-2 px-3 rounded-md shadow-md  "
                 >
+                   <a onClick={()=>router.push("/profile")} className=" ">
+                    My Profile
+                  </a> 
                  
                   <a onClick={()=>router.push("/purchase/MyPurchase")} className=" ">
                     My Purchases
