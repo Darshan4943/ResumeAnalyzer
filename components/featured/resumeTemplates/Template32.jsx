@@ -860,7 +860,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                         fontSize: "16px",
                       }}
                     >
-                      {item.header}
+                      {item?.header}
                     </Text>
                   </View>
                   <View
