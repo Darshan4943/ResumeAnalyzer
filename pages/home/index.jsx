@@ -7,6 +7,7 @@ import Dashboard from "../dashboard";
 import PlanExpiredModal from "../../components/models/planExpiredModal";
 import AdminDashboard from "../dashboard/adminDashboard";
 import MiniLoader from "../../components/common/miniLoader";
+import ResetPasswordModal from "../../components/models/resetPasswordModal";
 
 function BeforeLoginHome() {
   const [isLogin, setIsLogin] = useState(false);
@@ -42,6 +43,7 @@ function BeforeLoginHome() {
   ) : (
     <div className="">
       <PlanExpiredModal />
+      {userDataGlobal?.tempPassword && <ResetPasswordModal /> }
       {isLogin ? (
         userDataGlobal?.role == "admin" ? (
           <AdminDashboard />

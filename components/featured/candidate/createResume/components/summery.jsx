@@ -68,7 +68,7 @@ function Summary({ limits, selectedPlan, isActive }) {
             );
             setProgress(
               (calculateDaysRemaining(result.startDate, result.endDate) /
-                selectedPlan.days) *
+                selectedPlan?.days) *
                 100
             );
           }
