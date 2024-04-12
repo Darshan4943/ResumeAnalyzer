@@ -94,7 +94,7 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
     setLoading(true);
     axios
       .post(
-        "http://localhost:2000/api/skiloteckuser/user/signup",
+        "https://freedygoservices.in/api/skiloteckuser/user/signup",
         dataToSend
       )
       .then((res) => {

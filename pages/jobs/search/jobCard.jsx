@@ -11,6 +11,7 @@ const JobCard = ({ data, setJd, resume, jd }) => {
   const userDataGlobal = useSelector((state) => state.userData);
   const [isApplied, setIsApplied] = useState(true);
   const dispatch = useDispatch();
+ 
   const getData = () => {
     setLoading(true);
     if (data) {

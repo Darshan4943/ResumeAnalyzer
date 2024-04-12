@@ -148,7 +148,7 @@ const CandidateAiPower = ({
         })
         .then((res) => {
           console.log(res.data.data)
-          if (Object.keys(res.data.data).length > 0) {
+          if (Object.keys(res.data.data[0]).length > 0) {
             localStorage.setItem(
               "parsedResume",
               JSON.stringify(res.data.data[0])
