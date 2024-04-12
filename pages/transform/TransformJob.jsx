@@ -167,7 +167,12 @@ function TransformJob() {
                 }
               </>}
             <div className="text-[16px] font-medium text-[#333333]">
-              Select Resume
+              {userDataGlobal.role == "recruiter" ?
+
+                "Select Resume" :
+                "Select Resume from My Resumes"
+              }
+
             </div>
 
             <UserResumes

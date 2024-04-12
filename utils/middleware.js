@@ -55,7 +55,7 @@ export const dateSeter = (date) => {
   const day = d.getDate();
   return `${day} ${monthLater[month]} ${year} `;
 };
-export   const fileIconSeter = (data) => {
+export const fileIconSeter = (data) => {
   if (data.fileName.includes("docx") || data.fileName.includes("doc")) {
     return <DocSVG />;
   } else if (data.fileName.includes("pdf")) {
@@ -142,23 +142,23 @@ export const generatePDFUsingRenderer = async (MyDocument) => {
   return pdfBlob;
 };
 export function convertBytes(bytes) {
-  const sizes = ['Bytes', 'KB', 'MB'];
-  if (bytes == 0) return '0 Byte';
+  const sizes = ["Bytes", "KB", "MB"];
+  if (bytes == 0) return "0 Byte";
   const i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
-  return (bytes / Math.pow(1024, i)).toFixed(2) + ' ' + sizes[i];
+  return (bytes / Math.pow(1024, i)).toFixed(2) + " " + sizes[i];
 }
-export const  getFileSize = (url) =>{
+export const getFileSize = (url) => {
   return fetch(url)
-    .then(response => {
+    .then((response) => {
       if (!response.ok) {
-        throw new Error('Network response was not ok');
+        throw new Error("Network response was not ok");
       }
-      return response.headers.get('content-length');
+      return response.headers.get("content-length");
     })
-    .then(size => {
+    .then((size) => {
       return parseInt(size, 10);
     });
-}
+};
 
 export const selectResumeTemplate = (
   index,
@@ -348,67 +348,65 @@ export const selectResumeTemplate = (
           preview={preview}
         />
       );
-      case 32:
-        return (
-          <Template32
-            data={data}
-            selectedColor={selectedColor}
-            selectedFont={selectedFont}
-            preview={preview}
-          />
-        );
-        case 39:
-          return (
-            <Template39
-              data={data}
-              selectedColor={selectedColor}
-              selectedFont={selectedFont}
-              preview={preview}
-            />
-          );
-          case 44:
-            return (
-              <Template44
-                data={data}
-                selectedColor={selectedColor}
-                selectedFont={selectedFont}
-                preview={preview}
-              />
-            );
-            case 48:
-            return (
-              <Template48
-                data={data}
-                selectedColor={selectedColor}
-                selectedFont={selectedFont}
-                preview={preview}
-              />
-            );
-
+    case 32:
+      return (
+        <Template32
+          data={data}
+          selectedColor={selectedColor}
+          selectedFont={selectedFont}
+          preview={preview}
+        />
+      );
+    case 39:
+      return (
+        <Template39
+          data={data}
+          selectedColor={selectedColor}
+          selectedFont={selectedFont}
+          preview={preview}
+        />
+      );
+    case 44:
+      return (
+        <Template44
+          data={data}
+          selectedColor={selectedColor}
+          selectedFont={selectedFont}
+          preview={preview}
+        />
+      );
+    case 48:
+      return (
+        <Template48
+          data={data}
+          selectedColor={selectedColor}
+          selectedFont={selectedFont}
+          preview={preview}
+        />
+      );
   }
 };
 
+export const daysCalculator = (date) => {
+  const givenDate = new Date(date);
 
-export const daysCalculator =(date)=>{
-    const givenDate = new Date(date);
-    
-    const today = new Date();
-    const difference = today - givenDate;
-    const daysDifference = Math.floor(difference / (1000 * 60 * 60 * 24));
-    if (daysDifference < 1) {
-      return 'Today';
-    } else if (daysDifference < 2) {
-      return 'Yesterday';
-    } else if (daysDifference < 7) {
-      return `${daysDifference} days ago`;
-    } else if (daysDifference < 30) {
-      const weeks = Math.floor(daysDifference / 7);
-      return `${weeks} week${weeks > 1 ? 's' : ''} ago`;
-    } else if (daysDifference < 365) {
-      const months = Math.floor(daysDifference / 30);
-      return `${months} month${months > 1 ? 's' : ''} ago`;
-    } else {
-      const years = Math.floor(daysDifference / 365);
-      return `${years} year${years > 1 ? 's' : ''} ago`;
-    }
-}
+  const today = new Date();
+  const difference = today - givenDate;
+  const daysDifference = Math.floor(difference / (1000 * 60 * 60 * 24));
+  if (daysDifference < 1) {
+    return "Today";
+  } else if (daysDifference < 2) {
+    return "Yesterday";
+  } else if (daysDifference < 7) {
+    return `${daysDifference} days ago`;
+  } else if (daysDifference < 30) {
+    const weeks = Math.floor(daysDifference / 7);
+    return `${weeks} week${weeks > 1 ? "s" : ""} ago`;
+  } else if (daysDifference < 365) {
+    const months = Math.floor(daysDifference / 30);
+    return `${months} month${months > 1 ? "s" : ""} ago`;
+  } else {
+    const years = Math.floor(daysDifference / 365);
+    return `${years} year${years > 1 ? "s" : ""} ago`;
+  }
+};

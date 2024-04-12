@@ -6,6 +6,7 @@ import axios from "axios";
 
 // import SkillModel from "../../../../../components/featured/candidate/profile/modals/skill_modal";
 
+
 import MiniLoader from "../../components/common/mini-loader";
 import { camelCase, formatDate } from "../../utils/middleware";
 import Timer from "../../components/common/timer";
