@@ -240,7 +240,13 @@ function CandidateHeader() {
 
       <div className=" flex gap-4 justify-end  items-center w-[30%]  ">
         <div className="flex items-center gap-[8px]">
-          <div className=" h-[36px] w-[36px]">
+          <div className=" h-[36px] w-[36px]"
+       
+          
+          >
+            <Link href="/profile">
+            
+           
             {userDataGlobal?.profilePicture ? (
               <img
                 className=" rounded-full object-cover h-[36px] w-[36px]"
@@ -258,6 +264,7 @@ function CandidateHeader() {
                 {userDataGlobal?.email?.slice(0, 1)}
               </div>
             )}
+           </Link>
           </div>
           {userDataGlobal?.name && (
             <div className="scr1250:text-[14px] text-[14px]">
