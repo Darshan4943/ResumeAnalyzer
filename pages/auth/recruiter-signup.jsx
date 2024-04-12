@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { reCallUserData } from "../../Redux/actions/user";
 import { plans, telCode } from "../../utils/data";
 import { useMediaQuery } from "@react-hook/media-query";
@@ -13,7 +13,9 @@ import ImageCropper from "../../components/featured/candidate/createResume/compo
 
 function Recruiter_signup({}) {
   const router = useRouter();
-  const { byAdmin } = router.query;
+  const { byAdmin, isUpdate } = router.query;
+
+  const userDataGlobal = useSelector((state) => state.userData);
 
   const dispatch = useDispatch();
   const [modelView, setModelView] = useState(false);
@@ -56,6 +58,11 @@ function Recruiter_signup({}) {
   useEffect(() => {
     setData({ ...data, img: croppedImage?.blob });
   }, [croppedImage]);
+
+  useEffect(() => {
+    const { email, mobileNo,firstName,lastName ,role ,location} = userDataGlobal;
+    setData({ ...data, email, mobileNo, firstName, lastName,role,currentLocation:location });
+  }, []);
 
   const isViewportBelow850 = useMediaQuery("(max-width:850px)");
   const [formError, setFormError] = useState({});
