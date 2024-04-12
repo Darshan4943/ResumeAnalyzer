@@ -263,7 +263,7 @@ const CandidateAiPower = ({
               <div className="w-full flex flex-col gap-[16px] ">
                 {" "}
                 {loading ? (
-                  <div class="border-dashed border-[3px] border-[#333] flex flex-col w-full rounded-[12px] px-[42px] py-[24px] items-center gap-[8px] upload-btn-wrapper min-h-[6rem]">
+                  <div className="border-dashed border-[3px] border-[#333] flex flex-col w-full rounded-[12px] px-[42px] py-[24px] items-center gap-[8px] upload-btn-wrapper min-h-[6rem]">
                     <MiniLoader />
                     <span>Analyzing Resume, Please Wait...</span>
                   </div>
@@ -272,7 +272,7 @@ const CandidateAiPower = ({
                     ref={fileRef}
                     onDragOver={handleDragOver}
                     onDrop={handleFileChange}
-                    class="border-dashed border-[3px] border-[#333] flex flex-col w-full rounded-[12px] px-[8px] py-[24px] items-center gap-[8px] upload-btn-wrapper min-h-[6rem]"
+                    className="border-dashed border-[3px] border-[#333] flex flex-col w-full rounded-[12px] px-[8px] py-[24px] items-center gap-[8px] upload-btn-wrapper min-h-[6rem]"
                   >
                     <input
                       type="file"
@@ -346,18 +346,18 @@ const CandidateAiPower = ({
                             </defs>
                           </svg>
                         </div>
-                        <div class="flex flex-col gap-[4px]	font-normal	">
-                          <div class="flex text-center justify-center  scr420:text-[14px] scr360:text-[12px] text-[10px] text-[#515B6F]">
+                        <div className="flex flex-col gap-[4px]	font-normal	">
+                          <div className="flex text-center justify-center  scr420:text-[14px] scr360:text-[12px] text-[10px] text-[#515B6F]">
                             drag and drop or{" "}
                             <span
                               onClick={handleButtonClick}
-                              class="text-[#06A9EF]"
+                              className="text-[#06A9EF]"
                             >
                               &nbsp;Browse file{" "}
                             </span>
                             &nbsp;to upload
                           </div>
-                          <p class="text-center text-[12px] font-normal text-[#7C8493]">
+                          <p className="text-center text-[12px] font-normal text-[#7C8493]">
                             PDF or DOCS
                           </p>
                         </div>
@@ -370,7 +370,7 @@ const CandidateAiPower = ({
                 </span>
               </div>
 
-              <div class="flex flex-row gap-[24px]">
+              <div className="flex flex-row gap-[24px]">
                 <button
                   className="sm:px-9 py-3 px-6 bg-white-600 border border-[#06A9EF] font font-medium rounded-[12px]"
                   id="button"

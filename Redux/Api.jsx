@@ -76,6 +76,8 @@ export const Api = () => {
             localStorage.setItem("downloadCount", result.resumeDownloads);
             localStorage.setItem("saveCount", result.resumeSaves.num);
             localStorage.setItem("clientCount", result.clientStored);
+            localStorage.setItem("planAvailable", true);
+
           } else {
             if (!planActive && uploadCount == 0) {
               localStorage.setItem("uploadCount", 0);
@@ -84,6 +86,8 @@ export const Api = () => {
             }
 
             localStorage.setItem("planActive", false);
+            localStorage.setItem("planAvailable", false);
+
             localStorage.setItem("downloadCount", 0);
             localStorage.setItem("saveCount", 0);
             localStorage.setItem("clientCount", 0);

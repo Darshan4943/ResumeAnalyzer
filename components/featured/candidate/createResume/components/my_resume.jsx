@@ -85,7 +85,7 @@ const ResumeList = ({ data, setData }) => {
             />
           )}
           <div
-            class="border-dashed border-[3px] border-[#06A9EF] flex flex-col rounded-[12px] p-4 items-center upload-btn-wrapper"
+            className="border-dashed border-[3px] border-[#06A9EF] flex flex-col rounded-[12px] p-4 items-center upload-btn-wrapper"
             onDragOver={handleDragOver}
             ref={fileRef}
             onDrop={handleFileChange}
@@ -95,8 +95,8 @@ const ResumeList = ({ data, setData }) => {
             <div className="  flex  flex-col  items-center">
               <DumyImage />
             </div>
-            <div class="flex flex-col gap-[4px]	font-normal	">
-              <div class="flex text-center justify-center  text-[14px] text-[#515B6F]">
+            <div className="flex flex-col gap-[4px]	font-normal	">
+              <div className="flex text-center justify-center  text-[14px] text-[#515B6F]">
                 <input
                   type="file"
                   ref={fileRef}
@@ -106,13 +106,13 @@ const ResumeList = ({ data, setData }) => {
                 />
                 <p
                   onClick={handleButtonClick}
-                  class="text-[#06A9EF] font-medium"
+                  className="text-[#06A9EF] font-medium"
                 >
                   &nbsp;Browse file{" "}
                 </p>
                 &nbsp;or drag and drop
               </div>
-              <p class="text-center text-[14px] font-normal text-[#333]">
+              <p className="text-center text-[14px] font-normal text-[#333]">
                 {" "}
                 Allowed file formats: jpg, jpeg | up to 1.5 MB
               </p>

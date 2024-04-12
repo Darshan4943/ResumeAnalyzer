@@ -521,7 +521,7 @@ console.log(246,question)
                         key={index}
                         className="border-b border-solid border-[#DEDEDE] w-full"
                       >
-                        <div class="flex  text-center  justify-between flex-row lg:gap-[14px] py-[8px] px-[16px]  w-[93%] lg:w-full items-center self-stretch ">
+                        <div className="flex  text-center  justify-between flex-row lg:gap-[14px] py-[8px] px-[16px]  w-[93%] lg:w-full items-center self-stretch ">
                           <div className=" lg:w-[40%] w-[50%]  flex justify-between gap-[12px]">
                             <div className="flex  gap-3 items-center self-stretch ">
                               <div className="w-[40px] h-[40px]">
