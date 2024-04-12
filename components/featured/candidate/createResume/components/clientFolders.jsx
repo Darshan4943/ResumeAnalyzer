@@ -98,7 +98,7 @@ function ClientFolders({
                           );
                       }}
                       key={index}
-                      className=" break-all flex flex-col gap-[8px] items-center text-center cursor-pointer h-fit sm:w-[142px] w-[135px] px-[8px]"
+                      className=" break-all relative group flex flex-col gap-[8px] items-center text-center cursor-pointer h-fit sm:w-[142px] w-[135px] px-[8px]"
                     >
                       <div className=" relative">
                         {fileIconSeter(item)}
@@ -119,6 +119,11 @@ function ClientFolders({
                           ? item.fileName
                           : item.firstName + " " + item.lastName}
                       </span>
+                      <div className="absolute text-[10px] opacity-0 transition-opacity duration-500 group-hover:opacity-100  word-break bottom-[-20px] text-[#fff] bg-[#333] px-[6px] py-[3px] rounded-[5px]">
+                      {clientId
+                          ? item.fileName
+                          : item.firstName + " " + item.lastName}
+                  </div>
                     </div>
                   </>
                 ))

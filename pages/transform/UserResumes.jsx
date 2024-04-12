@@ -145,7 +145,7 @@ const UserResumes = ({
             {data?.map((item, index) => (
               <>
                 <div
-                  className="w-[98px] flex flex-col gap-[6px]  items-center py-4 min-h-[90px] rounded-[8px] cursor-pointer "
+                  className="w-[98px] flex flex-col relative group gap-[6px]  items-center py-4 min-h-[90px] rounded-[8px] cursor-pointer "
                   style={{
                     background:
                       item._id == selected?._id ? "#D1EDFF" : "transparent",
@@ -164,6 +164,9 @@ const UserResumes = ({
                   >
                     {item.fileName}
                   </span>
+                  <div className="absolute text-[10px] opacity-0 transition-opacity duration-500 group-hover:opacity-100  word-break bottom-[-10px] text-[#fff] bg-[#333] px-[6px] py-[3px] rounded-[5px]">
+                  {item.fileName}
+                  </div>
                 </div>
               </>
             ))}
