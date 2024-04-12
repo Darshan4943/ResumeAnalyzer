@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
-const Timer = ({ startTimer, setIsTimerOver }) => {
-  const [timer, setTimer] = useState(20 * 60); // 20 minutes in seconds
+const Timer = ({ startTimer, setIsTimerOver,questionIndex,timer,setTimer ,setQuestionIndex,setStartTimer,question}) => {
+   // 20 minutes in seconds
   const formatTime = (seconds) => {
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = seconds % 60;
@@ -9,6 +9,7 @@ const Timer = ({ startTimer, setIsTimerOver }) => {
       remainingSeconds
     ).padStart(2, "0")}`;
   };
+
   useEffect(() => {
     if (startTimer) {
       const intervalId = setInterval(() => {
@@ -16,21 +17,28 @@ const Timer = ({ startTimer, setIsTimerOver }) => {
           if (prevTimer > 0) {
             return prevTimer - 1;
           } else {
-            clearInterval(intervalId);
-            setIsTimerOver(true);
-            console.log("Timer is over!");
-            return 0;
+            if (questionIndex + 1 < question.length) {
+              setQuestionIndex(questionIndex + 1);
+              setStartTimer(false);
+              setTimer(30); 
+              console.log("Timer is over!");
+              return 0;
+            } 
+           
+           
           }
         });
       }, 1000);
 
       return () => clearInterval(intervalId);
     }
-  }, [startTimer]);
+  }, [startTimer,questionIndex,question]);
+
+ 
   return (
     <>
-      <div className=" rounded-[8px] border-[1px] border-solid border-[#06A9EF] bg-[#fff] flex flex-row gap-[8px] text-[14px] ml:text-[18px] font-[600] p-[8px]">
-        <svg
+      <div className=" text-[#808080] text-[16px] font-medium">
+        {/* <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"
@@ -43,8 +51,8 @@ const Timer = ({ startTimer, setIsTimerOver }) => {
               fill="#06A9EF"
             />
           </g>
-        </svg>
-        Time remaining: {formatTime(timer)}
+        </svg> */}
+         {formatTime(timer)}
       </div>
     </>
   );

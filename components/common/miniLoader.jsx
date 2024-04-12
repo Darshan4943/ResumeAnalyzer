@@ -3,12 +3,12 @@ import React from "react";
 const MiniLoader = () => {
   return (
     <div className="miniLoader">
-      <div class="box">
-        <div class="container">
-          <span class="circle"></span>
-          <span class="circle"></span>
-          <span class="circle"></span>
-          <span class="circle"></span>
+      <div className="box">
+        <div className="container">
+          <span className="circle"></span>
+          <span className="circle"></span>
+          <span className="circle"></span>
+          <span className="circle"></span>
         </div>
       </div>
     </div>

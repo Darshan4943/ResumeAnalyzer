@@ -168,7 +168,7 @@ function JdFiles({
       </div>
       <div className="border-b-[1px] border-[#DEDEDE] w-full h-[1px]"></div>
       <div
-        className="flex flex-row flex-wrap gap-4   py-4  h-[247px] overflow-y-auto bg-[#FFFFFF] border-[1px] border-[#DEDEDE] rounded-[16px] p-[8px]"
+        className="flex flex-row flex-wrap gap-4  py-4  h-[247px] overflow-y-auto bg-[#FFFFFF] border-[1px] border-[#DEDEDE] rounded-[16px] p-[8px]"
         // style={{ overflowX: "auto" }}
       >
         {loading ? (
@@ -181,7 +181,7 @@ function JdFiles({
               <div
                 key={index}
                 onClick={() => openFolder(index, item._id, item.fileName, item)}
-                className="w-[98px] flex flex-col gap-[6px]   items-center py-4 min-h-[90px] rounded-[8px] cursor-pointer "
+                className="w-[98px] flex flex-col gap-[6px] relative group  items-center py-4 min-h-[90px] rounded-[8px] cursor-pointer "
               >
                 <div className="relative">
                   {fileIconSeter(item)}
@@ -206,6 +206,9 @@ function JdFiles({
                     ? `${item.fileName.slice(0, 17)}...`
                     : item.fileName}
                 </span>
+                <div className="absolute text-[10px] opacity-0 overflow-visible transition-opacity duration-500 group-hover:opacity-100  word-break bottom-[-5px] text-[#fff] bg-[#333] px-[6px] py-[3px] rounded-[5px]">
+                  {item.fileName}
+                  </div>
               </div>
             </>
           ))

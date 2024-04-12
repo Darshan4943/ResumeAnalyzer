@@ -5,7 +5,7 @@ function searchBar() {
         <div>
         <div className="candidate_searchbox">
 
-            <div class="mt-8 flex justify-between z-10 gap-5 px-6 py-4 items-center rounded-[16px] bg-white shadow-xl min-h-[93.33px] relative mb-11 max-scr1100:gap-2 max-scr1024:gap-1 max-scr1024:max-w-[600px] 
+            <div className="mt-8 flex justify-between z-10 gap-5 px-6 py-4 items-center rounded-[16px] bg-white shadow-xl min-h-[93.33px] relative mb-11 max-scr1100:gap-2 max-scr1024:gap-1 max-scr1024:max-w-[600px] 
                                         xl:min-w-[840px] scr1400:max-w-[840px]   scr1350:max-w-[800px]  scr1300:max-w-[770px]  scr1250:max-w-[770px]   scr1200:max-w-[735px] scr1150:max-w-[700px] scr1100:max-w-[680px] scr1024:max-w-[600px] ">
                 <div className="flex items-center justify-between ">
 

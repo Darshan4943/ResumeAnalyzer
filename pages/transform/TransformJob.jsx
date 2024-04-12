@@ -6,11 +6,14 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import ReactSelect from "react-select";
 import { data } from "autoprefixer";
+import { motion } from "framer-motion";
 import { ListSvg, PDFSvgSM, SearchIcon, TileViewSvg } from "../../utils/svg";
 import EarthLoader from "../../components/common/EarthLoader";
+import JdAnimation from "../../components/featured/candidate/createResume/components/JdAnimation";
 <Fonts />;
 
 function TransformJob() {
+  const [animate, setAnimate] = useState(true)
   const [isAll, setIsAll] = useState(false);
   const [text, setText] = useState("");
   const [selected, setSelect] = useState({});
@@ -27,6 +30,7 @@ function TransformJob() {
   };
   const transformHandler = () => {
     setLoading(true);
+
     axios
       .post("https://freedygoservices.in/api/cv/transform", {
         jd: text,
@@ -41,19 +45,21 @@ function TransformJob() {
             selected.skills.length > 0
               ? skills
               : skills?.map((item) => ({
-                  skill: item,
-                  rating: [5, 5, 5, 5, 5],
-                })),
+                skill: item,
+                rating: [5, 5, 5, 5, 5],
+              })),
           summery: summery,
           experience,
         });
+        setAnimate(false)
       })
       .catch((err) => {
         setLoading(false);
         console.log(err);
       });
   };
-
+  console.log(60, details?.length)
+  console.log(61, resumeList)
   useEffect(() => {
     if (userDataGlobal.role == "recruiter") {
       axios
@@ -69,17 +75,23 @@ function TransformJob() {
             label:
               res.data.data[0]?.firstName + " " + res.data.data[0]?.lastName,
           });
-          axios
-            .get(
-              "https://freedygoservices.in/api/resume/" + res.data.data[0]?._id
-            )
-            .then((res) => {
-              setResumeList(res.data.data);
-              setSelect(res.data.data[0]);
-            })
-            .catch((err) => {
-              console.log(err);
-            });
+          if (result?.length > 0) {
+            axios
+              .get(
+                "https://freedygoservices.in/api/resume/" + res.data.data[0]?._id
+              )
+              .then((res) => {
+
+
+                setResumeList(res.data.data);
+
+                setSelect(res.data.data[0]);
+
+              })
+              .catch((err) => {
+                console.log(err);
+              });
+          }
         })
         .catch((err) => {
           console.log(err);
@@ -102,44 +114,65 @@ function TransformJob() {
     }
   };
 
-  return (
-    <div className=" py-6 flex flex-col gap-4 customMargins">
-      {loading && <EarthLoader />}
-      <div
-        className="flex ml:flex-row flex-col gap-12 w-[100%] p-4 rounded-[12px]"
-        style={{ boxShadow: "0px 1px 6px 0px #00000040" }}
-      >
-        <div className="flex flex-col gap-6 ml:w-[50%] w-[100%]">
-          <div className="sm:text-[20px] text-[16px] font-medium text-[#333333]">
-            Transform for Job Description
-          </div>
-          <div className="flex flex-col gap-4 ">
-            {userDataGlobal.role != "user" && (
-              <div className="w-full ">
-                <div className="text-[16px] font-medium">Select Client</div>
-                <ReactSelect
-                  options={details?.map((item) => ({
-                    value: item._id,
-                    label: item.firstName + " " + item.lastName,
-                  }))}
-                  className="my-4 outline outline-offset-1 outline-blue rounded-[8px]"
-                  name=""
-                  placeholder="Select"
-                  value={selectedClient}
-                  onChange={(data) => selectHandler(data)}
-                  styles={{
-                    control: (provided) => ({
-                      ...provided,
-                      border: "none",
+  console.log(110, count)
 
-                      minWidth: "130px",
-                    }),
-                  }}
-                />
-              </div>
-            )}
+
+  return (
+    <div className=" py-6 flex flex-col gap-2  customMargins">
+      {loading && <EarthLoader />}
+
+      <div className="sm:text-[20px] text-[16px] font-medium text-[#333333] ">
+        Transform for Job Description
+
+      </div>
+
+
+      <div
+        className="flex ml:flex-row flex-col gap-12 w-[100%] justify-center rounded-[12px]"
+
+      >
+
+        <div className="flex flex-col gap-6 ml:w-[50%] w-[100%]">
+
+          <div className="flex flex-col gap-4 ">
+            {details?.length > 0 &&
+              <>
+                {
+                  userDataGlobal.role !== "user" && (
+
+                    <div className="w-full ">
+                      <div className="text-[16px] font-medium">Select Client</div>
+                      <ReactSelect
+                        options={details?.map((item) => ({
+                          value: item._id,
+                          label: item.firstName + " " + item.lastName,
+                        }))}
+                        className="my-4 outline outline-offset-1 outline-blue rounded-[8px]"
+                        name=""
+                        placeholder="Select"
+                        value={selectedClient}
+                        onChange={(data) => selectHandler(data)}
+                        styles={{
+                          control: (provided) => ({
+                            ...provided,
+                            border: "none",
+
+                            minWidth: "130px",
+                          }),
+                        }}
+                      />
+                    </div>
+
+                  )
+                }
+              </>}
             <div className="text-[16px] font-medium text-[#333333]">
-              Select Resume
+              {userDataGlobal.role == "recruiter" ?
+
+                "Select Resume" :
+                "Select Resume from My Resumes"
+              }
+
             </div>
 
             <UserResumes
@@ -176,7 +209,7 @@ function TransformJob() {
                 <svg
                   aria-hidden="true"
                   role="status"
-                  class="inline w-4 h-4 me-3 text-white animate-spin"
+                  className="inline w-4 h-4 me-3 text-white animate-spin"
                   viewBox="0 0 100 101"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
@@ -196,27 +229,33 @@ function TransformJob() {
             </button>
           </div>
         </div>
-        <div className="ml:w-[50%] w-[100% flex flex-col gap-4">
-          {selected && (
-            <TransformJd
-              data={
-                newData && Object.keys(newData)?.length > 0
-                  ? {
+        {/* } */}
+        {!animate ?
+          <div className="ml:w-[50%] w-[100% flex flex-col gap-4">
+            {selected && (
+              <TransformJd
+                data={
+                  newData && Object.keys(newData)?.length > 0
+                    ? {
                       ...newData,
                       summery: newData?.summary
                         ? newData.summary
                         : newData?.summery,
                     }
-                  : selected
-              }
-              resumeTemplateIndex={selected.resumeTemplateIndex}
-              selectedColor={selected.selectedColor}
-              selectedFont={selected.selectedFont}
-              preview={true}
-              selected={selected}
-            />
-          )}
-        </div>
+                    : selected
+                }
+                resumeTemplateIndex={selected.resumeTemplateIndex}
+                selectedColor={selected.selectedColor}
+                selectedFont={selected.selectedFont}
+                preview={true}
+                selected={selected}
+              />
+            )}
+          </div>
+          :
+
+          <JdAnimation details={details} count={count} />
+        }
       </div>
     </div>
   );

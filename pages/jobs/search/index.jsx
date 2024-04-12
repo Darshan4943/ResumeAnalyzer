@@ -92,9 +92,9 @@ const Index = () => {
                   onChange={(e) => {
                     setThreshold(e.target.value);
                   }}
-                  class="w-[88%] h-2 bg-[#DEDEDE] rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
+                  className="w-[88%] h-2 bg-[#DEDEDE] rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
                 />
-                <div className="w-[10%]">{threshold} %</div>
+                <div className="w-[10%] text-[14px]">{threshold}%</div>
               </div>
             </div>
             <button
@@ -107,7 +107,7 @@ const Index = () => {
                 <svg
                   aria-hidden="true"
                   role="status"
-                  class="inline w-4 h-4  text-white animate-spin"
+                  className="inline w-4 h-4  text-white animate-spin"
                   viewBox="0 0 100 101"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"

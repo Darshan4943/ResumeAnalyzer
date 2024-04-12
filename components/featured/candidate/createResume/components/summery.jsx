@@ -10,6 +10,8 @@ function Summary({ limits, selectedPlan, isActive }) {
   const userDataGlobal = useSelector((state) => state.userData);
   const circumference = 2 * Math.PI * 70;
   const dashOffset = circumference - (progress / 100) * circumference;
+  const [subscription, setSubscription] = useState(null);
+
   const calculateOverallPercentage = (used, total) => {
     let totalUsed = 0;
     let totalLimit = 0;
@@ -32,7 +34,19 @@ function Summary({ limits, selectedPlan, isActive }) {
     if (overallPercentage != "NaN") {
       setProgress(overallPercentage);
     }
-  }, []);
+    if (userDataGlobal) {
+      axios
+        .get(
+          "https://freedygoservices.in/api/subscription/" + userDataGlobal._id
+        )
+        .then((res) => {
+          setSubscription(res.data.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [userDataGlobal]);
   const calculateDaysRemaining = (startDate, endDate) => {
     const start = new Date(startDate);
     const end = new Date(endDate);
@@ -54,7 +68,7 @@ function Summary({ limits, selectedPlan, isActive }) {
             );
             setProgress(
               (calculateDaysRemaining(result.startDate, result.endDate) /
-                selectedPlan.days) *
+                selectedPlan?.days) *
                 100
             );
           }
@@ -114,15 +128,32 @@ function Summary({ limits, selectedPlan, isActive }) {
               </div>
             </div>
             <div className="flex flex-col gap-4">
-              {isActive ? (
+              {isActive || subscription?.inReview ? (
                 <div className="">
                   {" "}
-                  <p className="text-[20px] font-medium">
-                    $ {selectedPlan?.amount}
-                  </p>{" "}
-                  <p className="text-[12px] font-medium">
-                    Your Plan Validity is {selectedPlan?.days} Days
-                  </p>
+                  {subscription?.inReview ? (
+                    <>
+                      <p className="text-[20px] font-medium">
+                        $ {subscription?.plan}
+                      </p>{" "}
+                      <div
+                        className={`flex px-6 py-2  mt-5 text-[#bebebe]  bg-[#E9EEF6]
+                      font-medium justify-center items-center rounded-[6px]  min-w-[168.8px] cursor-pointer`}
+                      >
+                        In Review
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      {" "}
+                      <p className="text-[20px] font-medium">
+                        $ {selectedPlan?.amount}
+                      </p>{" "}
+                      <p className="text-[12px] font-medium">
+                        Your Plan Validity is {selectedPlan?.days} Days
+                      </p>
+                    </>
+                  )}
                 </div>
               ) : (
                 <div
@@ -144,11 +175,11 @@ function Summary({ limits, selectedPlan, isActive }) {
 
               <div className="relative  w-[45%]  h-[10px] bg-[#DEDEDE] rounded-[6px]">
                 <div
-                 style={{
-                  width: `${Math.round(
-                    (limits.used.uploads / limits.total.uploads) * 100
-                  )}%`,
-                }}
+                  style={{
+                    width: `${Math.round(
+                      (limits.used.uploads / limits.total.uploads) * 100
+                    )}%`,
+                  }}
                   className={`absolute  h-[10px] bg-[#06A9EF] rounded-[6px]`}
                 ></div>
               </div>

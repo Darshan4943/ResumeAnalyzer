@@ -147,7 +147,7 @@ const MobileView = ({ clickHandler, isLogin }) => {
         <div className="flex items-end justify-center overflow-hidden ">
           <GenerateAi />
         </div>
-        <div className="flex flex-col gap-9 items-center  py-[72px] bg-carousel_bg bg-cover bg-no-repeat ">
+        <div className="flex flex-col gap-9 items-center  pb-[72px] bg-carousel_bg bg-cover bg-no-repeat ">
           <div className="w-[100%]">
             <ImgCarousel />
           </div>

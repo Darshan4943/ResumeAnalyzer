@@ -94,7 +94,7 @@ function CreateResume() {
           rating: [5, 5, 5, 5, 5],
         })),
         languages: languages?.map((item) => ({
-          languages: item.name,
+          languages: item,
           rating: [3, 3, 3],
         })),
         education: educations?.map((item) => ({
@@ -184,28 +184,32 @@ function CreateResume() {
         <div className="flex flex-col gap-4 py-6 ">
           <div className="web">
             <div className=" h-fit flex gap-6 ">
-              <ResumeForm
-                data={data}
-                setData={setData}
-                selectedResumeIndex={selectedResumeIndex}
-                setSelectedResumeIndex={setSelectedResumeIndex}
-                setSelectedColor={setSelectedColor}
-                selectedColor={selectedColor}
-                setSelectedFont={setSelectedFont}
-                selectedFont={selectedFont}
-              />
-              <ResumePreview
-                data={data}
-                selectedResumeIndex={selectedResumeIndex}
-                setSelectedResumeIndex={setSelectedResumeIndex}
-                setSelectedColor={setSelectedColor}
-                selectedColor={selectedColor}
-                setSelectedFont={setSelectedFont}
-                selectedFont={selectedFont}
-                isEdit={userData.isEdit}
-                id={editId}
-                render={render}
-              />
+              <div className="h-[173vh] w-[78%] overflow-y-scroll scrollbar-hidden " onWheel={(e)=>{e.stopPropagation()}}>
+                <ResumeForm
+                  selectedFont={selectedFont}
+                  data={data}
+                  setData={setData}
+                  selectedResumeIndex={selectedResumeIndex}
+                  setSelectedResumeIndex={setSelectedResumeIndex}
+                  setSelectedColor={setSelectedColor}
+                  selectedColor={selectedColor}
+                  setSelectedFont={setSelectedFont}
+                />
+              </div>
+              <div className="sticky">
+                <ResumePreview
+                  data={data}
+                  selectedResumeIndex={selectedResumeIndex}
+                  setSelectedResumeIndex={setSelectedResumeIndex}
+                  setSelectedColor={setSelectedColor}
+                  selectedColor={selectedColor}
+                  setSelectedFont={setSelectedFont}
+                  selectedFont={selectedFont}
+                  isEdit={userData.isEdit}
+                  id={editId}
+                  render={render}
+                />
+              </div>
             </div>
           </div>
 
@@ -213,12 +217,13 @@ function CreateResume() {
             <AnimatePresence>
               <div className="fixed z-[2000] top-0 right-0 left-0  bottom-0 bg-black opacity-40 "></div>
               <motion.div
+              onWheel={(e) => e.stopPropagation()} 
                 initial={{ x: "-100%" }}
                 animate={{ x: 0 }}
                 exit={{ x: "-100%" }}
                 transition={{ duration: 0.5 }}
                 ref={taskRef}
-                className={`mobile flex flex-col gap-4 z-[2000]  p-4 rounded-[8px] absolute max-h-[80vh] w-[95%] overflow-x-auto bg-white`}
+                className={`mobile flex flex-col gap-4 z-[2000]  sm:p-4 p-2 rounded-[8px] absolute max-h-[80vh] w-[95%] overflow-x-auto bg-white`}
               >
                 <div className="flex justify-between  text-[18px] font-semibold">
                   Edit

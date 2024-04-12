@@ -34,8 +34,6 @@ const PersonalDetails = ({
     setIsPasswordVisible((prevState) => !prevState);
   }
 
-  
-
   const validateInput = (fieldName, value) => {
     const errors = { ...formError };
 
@@ -97,9 +95,7 @@ const PersonalDetails = ({
 
     return errors;
   };
-  {
-    console.log(124, formError);
-  }
+ 
   const handleInputChange = (fieldName, value) => {
     console.log(value.replace(/\D/g, "").length <= 10);
     if (fieldName == "mobileNo") {

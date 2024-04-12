@@ -99,11 +99,11 @@ const AddSection = ({ data, setData, section, formData, index, item }) => {
         opacity: isChecked ? 1 : 0.5,
       }}
     >
-      <div className="w-full flex justify-between ">
+      <div className="w-full flex  gap-2 justify-between ">
         <p className="flex flex-row gap-2">
           <input
             type="text"
-            placeholder="Enter Header"
+            placeholder="Enter Section Header"
             className={`${
               headerEditable ? "w-full" : "w-[120px]"
             }  text-[20px]   font-[500]  ${

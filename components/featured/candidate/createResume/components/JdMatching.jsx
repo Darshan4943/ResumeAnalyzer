@@ -190,7 +190,7 @@ const JdMatching = ({ details, resuneList, isAnimate }) => {
       )}
       <div className="flex ml:flex-row flex-col gap-12 w-[100%] ">
         {!isAnimate ?
-          <div className="ml:w-[100%] w-[100%]  flex flex-col gap-[16px] ">
+          <div className="ml:w-[100%] w-[100%]  flex flex-col  gap-[16px] ">
             <div>Total Results ({resuneList?.length})</div>
             <div className=" flex flex-row flex-wrap ml:justify-between justify-center  gap-[24px] ">
               {resuneList?.length > 0 ? (
@@ -320,7 +320,7 @@ const JdMatching = ({ details, resuneList, isAnimate }) => {
 
           </div>
           :
-          <div className="ml:flex hidden flex-col gap-12 w-[100%] ">
+          <div className="ml:flex hidden flex-col gap-12 w-[100%] items-center justify-center ">
             <div className="w-[100%] flex justify-between gap-4 p-[22px] scr1150:p-[44px]">
               <div className="flex flex-col items-center gap-[24px] w-[50%]">
                 <div className="flex flex-col gap-[24px]">
@@ -331,7 +331,7 @@ const JdMatching = ({ details, resuneList, isAnimate }) => {
                     }} className="  h-[29px] min-w-[29px] flex rounded-[50%]">
                       <div className="text-[#fff] flex items-center justify-center text-center  h-[29px] w-[29px] font-[600] " >1</div>
                     </div>
-                    <div className="font-[500] text-center max-w-[250px] text-[14px] text-[#333]">Upload file or Select Resume from Collection</div>
+                    <div className="font-[500] text-center max-w-[250px] text-[14px] text-[#333]">Select Resume from Collection</div>
                   </div>
                 </div>
 
@@ -405,9 +405,8 @@ const JdMatching = ({ details, resuneList, isAnimate }) => {
               </div>
             </div>
 
-
-            <div className="w-[100%] flex justify-between overflow-hidden gap-4 p-[22px] scr1150:p-[44px]">
-              <div className="flex flex-col items-center overflow-hidden gap-[24px] w-[50%]">
+            <div className="w-[100%] flex justify-center items-center overflow-hidden gap-4 p-[22px] scr1150:p-[44px]">
+              <div className="flex flex-col items-center overflow-hidden gap-[24px] w-[60%]">
                 <div className="flex flex-col gap-[24px]">
                   <div className="flex gap-[8px] items-center">
                     <div style={{
@@ -416,7 +415,7 @@ const JdMatching = ({ details, resuneList, isAnimate }) => {
                     }} className="  h-[29px] min-w-[29px] flex rounded-[50%]">
                       <div className="text-[#fff] flex items-center justify-center text-center  h-[29px] w-[29px] font-[600] " >3</div>
                     </div>
-                    <div className="font-[500] text-center max-w-[250px] text-[14px] text-[#333]">Hit ‘Transform Resume’ to reframe resume as per Job Description</div>
+                    <div className="font-[500] text-center text-[14px] text-[#333]">Select the result limit you like & Hit ‘Find Matches’</div>
                   </div>
                 </div>
 
@@ -427,7 +426,7 @@ const JdMatching = ({ details, resuneList, isAnimate }) => {
                     initial={{ borderBottomColor: '#008DCA', borderBottomWidth: "5px", opacity: 1 }}
                     animate={{ borderBottomWidth: three ? "0px" : '5px', translateX: moveLeft ? '-300px' : '0px' }}
                     transition={{ delay: moveLeft ? 0 : 1, duration: moveLeft ? 0.5 : 0.01 }}
-                    className="font-[600]  mb-[10px] text-[10px] opacity-0 bg-[#06A9EF] rounded-[5px] text-[#fff] px-[5px] py-[8px]">Transform Resume
+                    className="font-[600]  mb-[10px] text-[10px] opacity-0 bg-[#06A9EF] rounded-[5px] text-[#fff] px-[5px] py-[8px]">Find Matches
                   </motion.button>
 
 
@@ -438,7 +437,7 @@ const JdMatching = ({ details, resuneList, isAnimate }) => {
 
                   <motion.img
                     initial={{ top: '4px', right: '-200px' }}
-                    animate={{ top: moveLeft ? '7px' : '4px', right: moveLeft ? '0px' : '-250px' }}
+                    animate={{ top: moveLeft ? '7px' : '4px', right: moveLeft ? '0px' : '-350px' }}
                     transition={{}}
                     src="/images/resumeBuilder/Frame12.png" className="w-[85px] h-[95px] absolute " alt="" />
 
@@ -446,69 +445,7 @@ const JdMatching = ({ details, resuneList, isAnimate }) => {
                 </div>
 
               </div>
-              <div className="flex flex-col items-center w-[50%]">
-                <div className="flex flex-col gap-[24px]">
-                  <div className="flex gap-[8px] items-center ">
-                    <div style={{
-                      background: "rgb(6,169,239)",
-                      background: "linear-gradient(14deg, rgba(6,169,239,1) 0%, rgba(85,204,255,1) 70%)"
-                    }} className="  h-[29px] min-w-[29px] flex rounded-[50%]">
-                      <div className="text-[#fff] flex items-center justify-center text-center  h-[29px] w-[29px] font-[600] " >4</div>
-                    </div>
-                    <div className="font-[500] text-center max-w-[250px] text-[14px] text-[#333]">Compare Modified version of your resume with Old one.</div>
-                  </div>
-                </div>
-
-                <div className=" justify-center relative h-[100%] overflow-hidden w-[200px] pt-[38px] flex-wrap flex ">
-                  <motion.img
-                    initial={{ opacity: 1, translateX: '0px' }}
-                    animate={{ opacity: four ? 0.5 : 1, translateX: four ? "-18px" : '0px' }}
-                    transition={{ duration: 0.5, delay: 1 }}
-                    src="/images/resumeBuilder/Frame5.svg" className="w-[56px] absolute h-[66px]" alt="" />
-
-                  <motion.img
-                    initial={{ right: '-100px' }}
-                    animate={{ right: four ? '25px' : '-100px' }}
-                    transition={{ duration: 0.5, delay: 1 }}
-                    src="/images/resumeBuilder/Frame5.svg" className="w-[56px] absolute h-[66px]" alt="" />
-
-
-                  <motion.svg
-                    initial={{ top: '41px', right: '13px', opacity: 0 }}
-                    animate={{ opacity: four ? 1 : 0 }}
-                    transition={{ duration: 0.5, delay: 3 }}
-                    className='absolute'
-                    width="14" height="14" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M5.56526 0.0548299C6.2505 2.97225 8.03293 4.73086 10.9493 5.42859C10.986 5.43675 11.0064 5.47348 10.9982 5.50612C10.9941 5.5306 10.9737 5.551 10.9493 5.55508C8.00846 6.22833 6.25458 8.02775 5.56118 10.9493C5.55302 10.986 5.51631 11.0064 5.47961 10.9982C5.45513 10.9941 5.43474 10.9737 5.43066 10.9493C4.75766 8.00735 2.97523 6.24874 0.0507309 5.54692C0.0140217 5.53876 -0.00637211 5.50204 0.00178548 5.46532C0.00586428 5.44083 0.0262581 5.42043 0.0507309 5.41635C2.97523 4.7431 4.74134 2.96817 5.43882 0.05075C5.44698 0.0140272 5.48368 -0.00637449 5.52039 0.00178613C5.54079 0.0181074 5.56118 0.0344284 5.56526 0.0548299Z" fill="#FFDA1D" />
-                  </motion.svg>
-
-                  <motion.svg
-                    initial={{ top: '33px', right: '9px', opacity: 0 }}
-                    animate={{ opacity: four ? 1 : 0 }}
-                    transition={{ duration: 0.5, delay: 3.1 }}
-                    className='absolute' width="8" height="8" viewBox="0 0 4 4" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M2.02677 0.0190071C2.27662 1.07643 2.92357 1.71891 3.98099 1.97323C3.99438 1.97769 4.0033 1.99108 3.99884 2.00446C3.99884 2.01338 3.98992 2.02231 3.98099 2.02231C2.91465 2.2677 2.27663 2.92357 2.02231 3.98099C2.01785 3.99438 2.00446 4.0033 1.99108 3.99884C1.98215 3.99438 1.97769 3.98992 1.97323 3.98099C1.72784 2.91019 1.08089 2.27216 0.0190075 2.01785C0.00562238 2.01339 -0.00330108 2 0.00116061 1.98661C0.00116061 1.97769 0.0100841 1.96877 0.0190075 1.96877C1.08089 1.72337 1.72337 1.08089 1.97769 0.0190071C1.98215 0.00562206 1.99554 -0.00330105 2.00892 0.00116064C2.02231 0.00562234 2.02677 0.0100838 2.02677 0.0190071Z" fill="#FFDA1D" />
-                  </motion.svg>
-
-
-                  <motion.svg
-                    initial={{ top: '20px', right: '16px', opacity: 0 }}
-                    animate={{ opacity: four ? 1 : 0 }}
-                    transition={{ duration: 0.5, delay: 3.2 }}
-                    className='absolute' width="10" height="10" viewBox="0 0 6 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M3.03598 0.0306877C3.40847 1.62222 4.38201 2.58307 5.97354 2.96402C5.99471 2.96825 6.00317 2.98942 5.99894 3.00635C5.99471 3.01905 5.98624 3.03175 5.97354 3.03175C4.36931 3.4 3.40847 4.38201 3.03175 5.97354C3.02751 5.99471 3.00635 6.00317 2.98942 5.99894C2.97672 5.99471 2.96402 5.98624 2.96402 5.97354C2.59577 4.36931 1.62222 3.40847 0.026455 3.02328C0.00529101 3.01905 -0.0031746 2.99788 0.0010582 2.98095C0.00529101 2.96825 0.0137566 2.95556 0.026455 2.95556C1.62222 2.5873 2.5873 1.62222 2.96825 0.026455C2.97249 0.00529094 2.99365 -0.0031746 3.01058 0.00105821C3.02328 0.00952381 3.03598 0.0179893 3.03598 0.0306877Z" fill="#FFDA1D" />
-                  </motion.svg>
-
-                  <motion.img
-                    initial={{ top: '80px', right: '40px', opacity: 1 }}
-                    animate={{ opacity: four ? 0 : 1 }}
-                    transition={{ duration: 0.1, delay: 4 }}
-                    src="/images/resumeBuilder/arrow_selector_tool.png" className="w-[10px] absolute h-[15px] " alt="" />
-
-
-                </div>
-
-              </div>
+             
             </div>
           </div>
         }

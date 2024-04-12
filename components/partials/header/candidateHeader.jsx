@@ -145,6 +145,17 @@ function CandidateHeader() {
             >
               <li>Candidates</li>
             </Link>
+            <Link
+              onClick={() => setServices(false)}
+              href="/dashboard/Enquiries"
+              className={
+                selectedPage === "/dashboard/Enquiries"
+                  ? "text-[14px] flex gap-2 items-center bg-[#EAF7FF] py-[8px] px-[12px] font-semibold rounded-[14px]"
+                  : " text-[14px] flex gap-2 items-center font-semibold py-[8px] px-[12px] hover:bg-[#EAF7FF] rounded-[14px] "
+              }
+            >
+              <li>Enquiries</li>
+            </Link>
           </>
         ) : (
           <>
@@ -227,9 +238,10 @@ function CandidateHeader() {
         )}
       </div>
 
-      <div className=" flex gap-4 justify-end  items-center scr1250:w-[25%] w-[23%]  ">
-        <div className="flex items-center gap-[8px]">
-          <div className=" h-[36px] w-[36px]">
+      <div  className="relative flex gap-4 justify-end  items-center w-[30%]  ">
+        <div onClick={() => setIsLogout(!isLogout)} className="flex items-center gap-[8px] cursor-pointer">
+          <div className=" h-[36px] w-[36px]"
+          >
             {userDataGlobal?.profilePicture ? (
               <img
                 className=" rounded-full object-cover h-[36px] w-[36px]"
@@ -266,24 +278,32 @@ function CandidateHeader() {
               }}
             >
               <img
-                onClick={() => setIsLogout(!isLogout)}
+                
                 src="/images/down_arrow.png"
                 className="h-4 w-4 ml-1 cursor-pointer "
                 alt=""
               />
-              {isLogout && (
+              
+            </div>
+          </div>
+        </div>
+        {isLogout && (
                 <div
                   ref={taskRef}
-                  className="w-[85px] flex justify-center cursor-pointer absolute top-[26px] mt-[1.3rem] right-0 z-[5000] bg-white border border-gray-200 py-2 px-3 rounded-md shadow-md  "
+                  className="w-[140px] flex flex-col gap-2 justify-center cursor-pointer absolute top-[26px] mt-[1.6rem] right-0 z-[5000] bg-white border border-gray-200 py-2 px-3 rounded-md shadow-md  "
                 >
-                  <a onClick={handleLogOut} className=" py-1">
+                   <a onClick={()=>router.push("/profile")} className=" ">
+                    My Profile
+                  </a> 
+                 
+                  <a onClick={()=>router.push("/purchase/MyPurchase")} className=" ">
+                    My Purchases
+                  </a>
+                  <a onClick={handleLogOut} className=" ">
                     Log Out
                   </a>
                 </div>
               )}
-            </div>
-          </div>
-        </div>
       </div>
     </>
   );

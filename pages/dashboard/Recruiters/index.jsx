@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import List from "./list";
 import { AddIcon } from "../../../utils/svg";
 import { useRouter } from "next/router";
+import MiniLoader from "../../../components/common/miniLoader";
 
 const Index = () => {
   const [userList, setUserList] = useState([]);
@@ -75,11 +76,17 @@ const Index = () => {
               />
             </div>
           </div>
-          <List
-            userList={userList}
-            setSelectedCandidate={setSelectedCandidate}
-            selectedCandidate={selectedCandidate}
-          />
+          {loading ? (
+            <div className="flex w-full items-center justify-center h-[70vh]">
+              <MiniLoader />
+            </div>
+          ) : (
+            <List
+              userList={userList}
+              setSelectedCandidate={setSelectedCandidate}
+              selectedCandidate={selectedCandidate}
+            />
+          )}
         </div>
       </div>
     </>
