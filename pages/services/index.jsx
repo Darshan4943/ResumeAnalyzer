@@ -233,7 +233,7 @@ function Services({ isServices, isMove, setIsMove }) {
                   >
                     <g mask="url(#mask0_2038_22277)">
                       <path
-                        class="icon-path"
+                        className="icon-path"
                         d="M7.99997 25.3332H12.4615V17.4101H19.5384V25.3332H24V13.3332L16 7.30755L7.99997 13.3332V25.3332ZM6 27.3331V12.3332L16 4.80762L25.9999 12.3332V27.3331H17.5384V19.4101H14.4615V27.3331H6Z"
                         fill="#808080"
                       />

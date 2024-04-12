@@ -351,16 +351,16 @@ function Collection() {
                 <div
                   ref={fileRef}
                   onDrop={handleFileChange}
-                  class="border-dashed border-[3px] border-[#b4b4b4] flex flex-row w-full justify-center rounded-[12px] px-[8px] py-[24px] items-center gap-[8px] upload-btn-wrapper min-h-[126px]"
+                  className="border-dashed border-[3px] border-[#b4b4b4] flex flex-row w-full justify-center rounded-[12px] px-[8px] py-[24px] items-center gap-[8px] upload-btn-wrapper min-h-[126px]"
                 >
                   {fileLoader ? (
                     <div className="miniLoader">
                       <div className="box " style={{ height: "auto" }}>
-                        <div class="container">
-                          <span class="circle"></span>
-                          <span class="circle"></span>
-                          <span class="circle"></span>
-                          <span class="circle"></span>
+                        <div className="container">
+                          <span className="circle"></span>
+                          <span className="circle"></span>
+                          <span className="circle"></span>
+                          <span className="circle"></span>
                         </div>
                       </div>
                     </div>
@@ -438,17 +438,17 @@ function Collection() {
                               </defs>
                             </svg>
                           </div>
-                          <div class="flex flex-col gap-[4px]	font-normal	">
-                            <div class="flex text-center justify-center  scr420:text-[14px] scr360:text-[12px] text-[10px] text-[#515B6F]">
+                          <div className="flex flex-col gap-[4px]	font-normal	">
+                            <div className="flex text-center justify-center  scr420:text-[14px] scr360:text-[12px] text-[10px] text-[#515B6F]">
                               <span
                                 onClick={handleButtonClick}
-                                class="text-[#06A9EF]"
+                                className="text-[#06A9EF]"
                               >
                                 &nbsp;Browse file{" "}
                               </span>
                               &nbsp;to upload PDF or DOCS
                             </div>
-                            <p class="text-center text-[12px] font-normal text-[#7C8493]"></p>
+                            <p className="text-center text-[12px] font-normal text-[#7C8493]"></p>
                           </div>
                         </>
                       )}

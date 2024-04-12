@@ -8,7 +8,7 @@ const List = ({ list }) => {
   return (
     <>
       {list?.length > 0 ? (
-        <div className="w-full h-[72px] overflow-auto relative">
+        <div className="w-full h-[72vh] overflow-auto relative">
         <table className="w-full">
           <thead className="w-full sticky top-0">
             <tr className="w-full bg-[#06A9EF] flex flex-row justify-between items-center px-[24px] py-[12px]">
