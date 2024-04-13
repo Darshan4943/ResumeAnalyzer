@@ -10,14 +10,22 @@ const Index = () => {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const [totalCount, setTotalCount] = useState(0);
+  const [totalPages,setTotalpages] = useState(0);
   const [selectedCandidate, setSelectedCandidate] = useState([]);
+  const [currentPage, setCurrentPage] = useState(0)
+  const [limit, setLimit] = useState(0)
+
   const getData = () => {
     setLoading(true);
     axios
       .get("http://localhost:2000/api/recruiters")
       .then((res) => {
+        console.log(1111,res.data)
         setUserList(res.data.users.results);
         setTotalCount(res.data.totalCount);
+        setTotalpages(res.data.totalPages);
+        setLimit(res.data.users.next.limit);
+        setCurrentPage(res.data.users.next.page);
         setLoading(false);
       })
       .catch((err) => {
@@ -30,6 +38,7 @@ const Index = () => {
   }, []);
   return (
     <>
+   {/* { console.log("limit",currentPage)} */}
       <div className="customMargins py-[24px] flex flex-col gap-[16px]">
         <div className="flex w-full flex-row justify-between items-center">
           <span className="text-[24px] text-[#333333] font-semibold">
@@ -44,7 +53,7 @@ const Index = () => {
           </button>
         </div>
         <div
-          className="min-h-[90vh]  rounded-[16px] customMargins flex flex-col gap-[16px] py-[24px] w-full "
+          className="min-h-[65vh]  rounded-[16px] customMargins flex flex-col gap-[16px] py-[24px] w-full "
           style={{ boxShadow: " 0px 1px 2px 0px #00000040" }}
         >
           <div className="flex flex-row w-full justify-between items-center px-[16px]">
@@ -82,6 +91,10 @@ const Index = () => {
             </div>
           ) : (
             <List
+            currentPage={currentPage}
+            limit={limit}
+            setCurrentPage={setCurrentPage}
+            totalPages={totalPages}
               userList={userList}
               setSelectedCandidate={setSelectedCandidate}
               selectedCandidate={selectedCandidate}

@@ -7,7 +7,7 @@ const List = ({ userList, selectedCandidate, setSelectedCandidate }) => {
   return (
     <>
       {userList?.length > 0 ? (
-        <div className="w-full h-[72px] overflow-auto relative">
+        <div className="w-full h-[72vh] overflow-auto relative">
         <table className="w-full">
           <thead className="w-full sticky top-0">
        
