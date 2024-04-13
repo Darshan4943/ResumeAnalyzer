@@ -10,35 +10,55 @@ const Index = () => {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const [totalCount, setTotalCount] = useState(0);
-  const [totalPages,setTotalpages] = useState(0);
+  const [totalPages, setTotalpages] = useState(0);
   const [selectedCandidate, setSelectedCandidate] = useState([]);
   const [currentPage, setCurrentPage] = useState(0)
-  const [limit, setLimit] = useState(0)
-
+  const [limit, setLimit] = useState(10)
+  const [page, setPage] = useState(1)
+  const [data, setData] = useState([]);
+  const [miniLoading, setMiniloading] = useState(false);
   const getData = () => {
-    setLoading(true);
+
+
     axios
-      .get("https://freedygoservices.in/api/recruiters")
+      .get("http://localhost:2000/api/recruiters", {
+        params: { page, limit }
+      })
       .then((res) => {
-        console.log(1111,res.data)
+
+        setData(res.data.users)
         setUserList(res.data.users.results);
         setTotalCount(res.data.totalCount);
         setTotalpages(res.data.totalPages);
-        setLimit(res.data.users.next.limit);
-        setCurrentPage(res.data.users.next.page);
+        setLimit(res?.data?.users?.current?.limit);
+        setCurrentPage(res?.data?.users?.current?.page);
+
+
         setLoading(false);
+        setTimeout(() => {
+          setMiniloading(false);
+        }, 1000);
       })
       .catch((err) => {
         console.log(err);
         setLoading(false);
+        setMiniloading(false);
       });
   };
   useEffect(() => {
+    setLoading(true);
     getData();
   }, []);
+
+  useEffect(() => {
+    setMiniloading(true)
+    getData();
+
+  }, [page, limit]);
+
   return (
     <>
-   {/* { console.log("limit",currentPage)} */}
+      {/* { console.log("limit",currentPage)} */}
       <div className="customMargins py-[24px] flex flex-col gap-[16px]">
         <div className="flex w-full flex-row justify-between items-center">
           <span className="text-[24px] text-[#333333] font-semibold">
@@ -91,10 +111,15 @@ const Index = () => {
             </div>
           ) : (
             <List
-            currentPage={currentPage}
-            limit={limit}
-            setCurrentPage={setCurrentPage}
-            totalPages={totalPages}
+              miniLoading={miniLoading}
+              data={data}
+              currentPage={currentPage}
+              limit={limit}
+              page={page}
+              setPage={setPage}
+              setLimit={setLimit}
+              setCurrentPage={setCurrentPage}
+              totalPages={totalPages}
               userList={userList}
               setSelectedCandidate={setSelectedCandidate}
               selectedCandidate={selectedCandidate}

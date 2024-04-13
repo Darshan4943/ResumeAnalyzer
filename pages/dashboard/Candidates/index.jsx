@@ -10,26 +10,57 @@ const Index = () => {
   const [userList, setUserList] = useState([]);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
-  const [totalCount, setTotalCount] = useState(0);
-  const [selectedCandidate, setSelectedCandidate] = useState([]);
+
   const [uploadPopUp, setUploadPopUp] = useState(false);
+  const [totalCount, setTotalCount] = useState(0);
+  const [totalPages,setTotalpages] = useState(0);
+  const [selectedCandidate, setSelectedCandidate] = useState([]);
+  const [currentPage, setCurrentPage] = useState(0)
+  const [limit, setLimit] = useState(10)
+  const [page, setPage] = useState(1)
+  const [data, setData] = useState([]);
+  const [miniLoading, setMiniloading] = useState(false);
   const getData = () => {
-    setLoading(true);
+   
     axios
-      .get("https://freedygoservices.in/api/candidates")
+      .get("http://localhost:2000/api/candidates", {
+        params: { page, limit }
+      })
       .then((res) => {
         setUserList(res.data.users.results);
         setTotalCount(res.data.totalCount);
-        setLoading(false);
+        setData(res.data.users)
+       
+        setTotalpages(res.data.totalPages);
+        setLimit(res?.data?.users?.current?.limit);
+        setCurrentPage(res?.data?.users?.current?.page);
+        
+          setLoading(false);
+
+          setTimeout(() => {
+            setMiniloading(false);
+          }, 1000);
+       
+   
       })
       .catch((err) => {
         console.log(err);
         setLoading(false);
+         setMiniloading(false);
       });
   };
   useEffect(() => {
+
+    setLoading(true);
+    
     getData();
   }, []);
+
+  useEffect(() => {
+    
+    setMiniloading(true)
+    getData();
+  }, [page,limit]);
   return (
     <>
       {uploadPopUp && (
@@ -87,6 +118,15 @@ const Index = () => {
             </div>
           ) : (
             <List
+            miniLoading={miniLoading}
+            data={data}
+            currentPage={currentPage}
+            limit={limit}
+            page={page}
+            setPage={setPage}
+            setLimit={setLimit}
+            setCurrentPage={setCurrentPage}
+            totalPages={totalPages}
               userList={userList}
               setSelectedCandidate={setSelectedCandidate}
               selectedCandidate={selectedCandidate}
