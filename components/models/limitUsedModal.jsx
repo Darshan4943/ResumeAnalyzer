@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 const LimitUsedModal = ({ setVisible, visible }) => {
   const router = useRouter();
   const [planAvailable, setplanAvailable] = useState(false)
+
   useEffect(() => {
     const planavailable = localStorage.getItem("planAvailable")=='true'?true:false
     if (planavailable) {
@@ -22,12 +23,12 @@ const LimitUsedModal = ({ setVisible, visible }) => {
               <div className="flex flex-col gap-[12px]">
             
                 <img
-                  src={planAvailable ? "/images/resumeBuilder/required.png":"/images/resumeBuilder/exceed.png"}
+                  src={planAvailable ? "/images/resumeBuilder/exceed.png":"/images/resumeBuilder/required.png"}
                   alt=""
                   className="h-[184px] object-contain"
                 />
                 {
-                  planAvailable &&  <span className="text-[30px] text-[#C00000] font-semibold text-center">
+                  !planAvailable &&  <span className="text-[30px] text-[#C00000] font-semibold text-center">
                   Subscription Required 
                 </span>
                 }
