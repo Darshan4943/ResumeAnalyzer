@@ -14,7 +14,6 @@ import ImageCropper from "../../components/featured/candidate/createResume/compo
 function Recruiter_signup({}) {
   const router = useRouter();
   const { byAdmin, isUpdate } = router.query;
-
   const userDataGlobal = useSelector((state) => state.userData);
 
   const dispatch = useDispatch();
@@ -60,8 +59,20 @@ function Recruiter_signup({}) {
   }, [croppedImage]);
 
   useEffect(() => {
-    const { email, mobileNo,firstName,lastName ,role ,location} = userDataGlobal;
-    setData({ ...data, email, mobileNo, firstName, lastName,role,currentLocation:location });
+    const { email, mobileNo, firstName, lastName, role, location,profilePicture } =
+      userDataGlobal;
+    setData({
+      ...data,
+      email,
+      mobileNo,
+      firstName,
+      lastName,
+      role,
+      currentLocation: location,
+    });
+    if(profilePicture){
+      setCroppedImage({url:profilePicture})
+    }
   }, []);
 
   const isViewportBelow850 = useMediaQuery("(max-width:850px)");
@@ -119,22 +130,27 @@ function Recruiter_signup({}) {
         }
         break;
       case "password":
-        if (!value.trim() || value.trim().length < 6) {
-          errors.password = "Password must be at least 6 characters long";
-        } else {
-          delete errors.password;
+        if (!isUpdate) {
+          if (!value.trim() || value.trim().length < 6) {
+            errors.password = "Password must be at least 6 characters long";
+          } else {
+            delete errors.password;
+          }
+          if (!value.trim() || value.trim() != data.confirmPassword) {
+            errors.confirmPassword = "Password do not match";
+          } else {
+            delete errors.confirmPassword;
+          }
         }
-        if (!value.trim() || value.trim() != data.confirmPassword) {
-          errors.confirmPassword = "Password do not match";
-        } else {
-          delete errors.confirmPassword;
-        }
+
         break;
       case "confirmPassword":
-        if (!value.trim() || value.trim() != data.password) {
-          errors.confirmPassword = "Password do not match";
-        } else {
-          delete errors.confirmPassword;
+        if (!isUpdate) {
+          if (!value.trim() || value.trim() != data.password) {
+            errors.confirmPassword = "Password do not match";
+          } else {
+            delete errors.confirmPassword;
+          }
         }
         break;
 
@@ -189,7 +205,6 @@ function Recruiter_signup({}) {
       "mobileNo",
     ];
     const emptyFields = requiredFields.filter((field) => !data[field]);
-
     if (emptyFields.length > 0) {
       toast.error("Please fill in all required fields");
       return;
@@ -202,7 +217,10 @@ function Recruiter_signup({}) {
       toast.error("Please enter valid information");
       setFormError(errors);
     } else {
-      setLoading(true);
+      const url = isUpdate
+        ? "http://localhost:2000/api/updateUser"
+        : "https://freedygoservices.in/api/skiloteckuser/recruiter";
+      // setLoading(true);
       const formdata = new FormData();
       Object.keys(data).forEach((key) => {
         if (key == "email") {
@@ -213,27 +231,36 @@ function Recruiter_signup({}) {
           formdata.append(key, data[key]);
         }
       });
+      if (isUpdate) {
+        formdata.append("role", userDataGlobal?.role);
+      }
       formdata.append("byAdmin", byAdmin);
       axios
-        .post("https://freedygoservices.in/api/skiloteckuser/recruiter", formdata)
+        .post(url, formdata)
         .then((res) => {
           const response = res.data;
           try {
             if (response?.success) {
-              if (byAdmin) {
-                router.push("/dashboard/Recruiters");
+              if (isUpdate) {
+                dispatch(reCallUserData())
+                toast.success("Updated Successfully");
+                router.push("/profile");
               } else {
-                localStorage.setItem("authToken", JSON.stringify(response));
-                dispatch(reCallUserData());
-                toast.success("Sign up Successfully");
-                if (sendToPurchase && sendToPurchase?.status) {
-                  window.location.href = `/purchase/details?id=${
-                    sendToPurchase.index + 1
-                  }`;
-                  setLoading(false);
+                if (byAdmin) {
+                  router.push("/dashboard/Recruiters");
                 } else {
-                  window.location.href = `/home`;
-                  setLoading(false);
+                  localStorage.setItem("authToken", JSON.stringify(response));
+                  dispatch(reCallUserData());
+                  toast.success("Sign up Successfully");
+                  if (sendToPurchase && sendToPurchase?.status) {
+                    window.location.href = `/purchase/details?id=${
+                      sendToPurchase.index + 1
+                    }`;
+                    setLoading(false);
+                  } else {
+                    window.location.href = `/home`;
+                    setLoading(false);
+                  }
                 }
               }
             } else {
@@ -292,7 +319,7 @@ function Recruiter_signup({}) {
                       {" "}
                       <p className="text-[16px] font-medium">Profile Photo</p>
                       <div className="flex sm:gap-6 gap-3">
-                        {file && croppedImage ? (
+                        {croppedImage ? (
                           <ImageContainer
                             src={croppedImage.url}
                             alt="Selected File"
@@ -519,7 +546,7 @@ function Recruiter_signup({}) {
                       </div>
                     </div>
                   </div>
-                  {byAdmin ? null : (
+                  {byAdmin || isUpdate ? null : (
                     <div className="flex gap-6 w-[100%] ml:flex-row flex-col">
                       <div className="personal_single_input">
                         <div className="personal_name w-[100%] relative">
