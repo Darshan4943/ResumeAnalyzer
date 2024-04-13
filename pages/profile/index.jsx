@@ -9,13 +9,8 @@ const Profile = () => {
   const router = useRouter();
 
   const userDataGlobal = useSelector((state) => state.userData);
-
-
-  
   const data = userDataGlobal;
-  console.log(data);
 
-  // console.log(userDataGlobal);
   return (
     <div className=" py-6 w-[100%] customMargins">
       <div className="w-[100%] gap-4 flex flex-col">
@@ -30,8 +25,8 @@ const Profile = () => {
             }}
           >
             {
-              data?.profilePicture ? data.profilePicture :   <img
-              src="/images/profile/john_doe.png"
+                <img
+              src={ data?.profilePicture ? data.profilePicture:"/images/profile/john_doe.png"}
               alt=""
               className="object-contain h-[180px] w-[180px] flex justify-center rounded-full overflow-hidden "
             />
@@ -39,11 +34,11 @@ const Profile = () => {
           
             <div className="flex flex-col w-[100%] lg:w-[80%] gap-4">
               <div className="flex flex-col w-[100%]">
-                <p className="text-[18px] font-Montserrat font-medium text-[#333]">
+                {/* <p className="text-[18px] font-Montserrat font-medium text-[#333]">
                   {data?.firstName && data?.lastName
                     ? `${data.firstName} ${data.lastName}`
                     : null}
-                </p>
+                </p> */}
 
                 <div className="w-[100%] flex gap-[6px]">
                   {data.role === "recruiter" ? (
@@ -74,7 +69,12 @@ const Profile = () => {
                         User Name <span>:</span>{" "}
                       </p>
                       <p className="w-[50%] sm:text-[14px] text-[12px] font-Montserrat font-medium text-[#333]">
-                        {data?.name ? data.name : '-'}
+                        {/* {data?.name ? data.name : '-'} */}
+                        <p className="break-all sm:text-[14px] text-[12px]   font-Montserrat font-medium text-[#333]">
+                  {data?.firstName && data?.lastName
+                    ? `${data.firstName} ${data.lastName}`
+                    : null}
+                </p>
                       </p>
                     </div>
                     <div className="w-[100%] flex gap-4 items-center">

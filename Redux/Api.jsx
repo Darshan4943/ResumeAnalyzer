@@ -99,6 +99,6 @@ export const Api = () => {
     }
   }, [userDataGlobal, reCallUser]);
 
-  console.log(123,visible && loading == false);
+  // console.log(123,visible && loading == false);
   return <>{visible && loading == false ? <ResetPasswordModal /> : null}</>;
 };
