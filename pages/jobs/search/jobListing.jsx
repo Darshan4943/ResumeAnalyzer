@@ -19,8 +19,7 @@ const JobListing = ({ jobs, resume, resumeCount }) => {
             {jobs?.length > 0 ? (
               <>
                 {jobs
-                  ?.sort((a, b) => b.percentage - a.percentage)
-                  ?.slice(0, resumeCount)
+      
                   ?.map((data, index) => (
                     <div key={index} className=" md:w-[48%] max-w-[380px]">
                       <JobCard
