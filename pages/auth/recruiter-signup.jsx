@@ -218,7 +218,7 @@ function Recruiter_signup({}) {
       setFormError(errors);
     } else {
       const url = isUpdate
-        ? "http://localhost:2000/api/updateUser"
+        ? "https://freedygoservices.in/api/updateUser"
         : "https://freedygoservices.in/api/skiloteckuser/recruiter";
       // setLoading(true);
       const formdata = new FormData();
