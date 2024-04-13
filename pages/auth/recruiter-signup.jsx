@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { reCallUserData } from "../../Redux/actions/user";
 import { plans, telCode } from "../../utils/data";
 import { useMediaQuery } from "@react-hook/media-query";
@@ -13,7 +13,8 @@ import ImageCropper from "../../components/featured/candidate/createResume/compo
 
 function Recruiter_signup({}) {
   const router = useRouter();
-  const { byAdmin } = router.query;
+  const { byAdmin, isUpdate } = router.query;
+  const userDataGlobal = useSelector((state) => state.userData);
 
   const dispatch = useDispatch();
   const [modelView, setModelView] = useState(false);
@@ -56,6 +57,23 @@ function Recruiter_signup({}) {
   useEffect(() => {
     setData({ ...data, img: croppedImage?.blob });
   }, [croppedImage]);
+
+  useEffect(() => {
+    const { email, mobileNo, firstName, lastName, role, location,profilePicture } =
+      userDataGlobal;
+    setData({
+      ...data,
+      email,
+      mobileNo,
+      firstName,
+      lastName,
+      role,
+      currentLocation: location,
+    });
+    if(profilePicture){
+      setCroppedImage({url:profilePicture})
+    }
+  }, []);
 
   const isViewportBelow850 = useMediaQuery("(max-width:850px)");
   const [formError, setFormError] = useState({});
@@ -112,22 +130,27 @@ function Recruiter_signup({}) {
         }
         break;
       case "password":
-        if (!value.trim() || value.trim().length < 6) {
-          errors.password = "Password must be at least 6 characters long";
-        } else {
-          delete errors.password;
+        if (!isUpdate) {
+          if (!value.trim() || value.trim().length < 6) {
+            errors.password = "Password must be at least 6 characters long";
+          } else {
+            delete errors.password;
+          }
+          if (!value.trim() || value.trim() != data.confirmPassword) {
+            errors.confirmPassword = "Password do not match";
+          } else {
+            delete errors.confirmPassword;
+          }
         }
-        if (!value.trim() || value.trim() != data.confirmPassword) {
-          errors.confirmPassword = "Password do not match";
-        } else {
-          delete errors.confirmPassword;
-        }
+
         break;
       case "confirmPassword":
-        if (!value.trim() || value.trim() != data.password) {
-          errors.confirmPassword = "Password do not match";
-        } else {
-          delete errors.confirmPassword;
+        if (!isUpdate) {
+          if (!value.trim() || value.trim() != data.password) {
+            errors.confirmPassword = "Password do not match";
+          } else {
+            delete errors.confirmPassword;
+          }
         }
         break;
 
@@ -182,7 +205,6 @@ function Recruiter_signup({}) {
       "mobileNo",
     ];
     const emptyFields = requiredFields.filter((field) => !data[field]);
-
     if (emptyFields.length > 0) {
       toast.error("Please fill in all required fields");
       return;
@@ -195,7 +217,10 @@ function Recruiter_signup({}) {
       toast.error("Please enter valid information");
       setFormError(errors);
     } else {
-      setLoading(true);
+      const url = isUpdate
+        ? "http://localhost:2000/api/updateUser"
+        : "https://freedygoservices.in/api/skiloteckuser/recruiter";
+      // setLoading(true);
       const formdata = new FormData();
       Object.keys(data).forEach((key) => {
         if (key == "email") {
@@ -206,27 +231,36 @@ function Recruiter_signup({}) {
           formdata.append(key, data[key]);
         }
       });
+      if (isUpdate) {
+        formdata.append("role", userDataGlobal?.role);
+      }
       formdata.append("byAdmin", byAdmin);
       axios
-        .post("http://localhost:2000/api/skiloteckuser/recruiter", formdata)
+        .post(url, formdata)
         .then((res) => {
           const response = res.data;
           try {
             if (response?.success) {
-              if (byAdmin) {
-                router.push("/dashboard/Recruiters");
+              if (isUpdate) {
+                dispatch(reCallUserData())
+                toast.success("Updated Successfully");
+                router.push("/profile");
               } else {
-                localStorage.setItem("authToken", JSON.stringify(response));
-                dispatch(reCallUserData());
-                toast.success("Sign up Successfully");
-                if (sendToPurchase && sendToPurchase?.status) {
-                  window.location.href = `/purchase/details?id=${
-                    sendToPurchase.index + 1
-                  }`;
-                  setLoading(false);
+                if (byAdmin) {
+                  router.push("/dashboard/Recruiters");
                 } else {
-                  window.location.href = `/home`;
-                  setLoading(false);
+                  localStorage.setItem("authToken", JSON.stringify(response));
+                  dispatch(reCallUserData());
+                  toast.success("Sign up Successfully");
+                  if (sendToPurchase && sendToPurchase?.status) {
+                    window.location.href = `/purchase/details?id=${
+                      sendToPurchase.index + 1
+                    }`;
+                    setLoading(false);
+                  } else {
+                    window.location.href = `/home`;
+                    setLoading(false);
+                  }
                 }
               }
             } else {
@@ -285,7 +319,7 @@ function Recruiter_signup({}) {
                       {" "}
                       <p className="text-[16px] font-medium">Profile Photo</p>
                       <div className="flex sm:gap-6 gap-3">
-                        {file && croppedImage ? (
+                        {croppedImage ? (
                           <ImageContainer
                             src={croppedImage.url}
                             alt="Selected File"
@@ -512,7 +546,7 @@ function Recruiter_signup({}) {
                       </div>
                     </div>
                   </div>
-                  {byAdmin ? null : (
+                  {byAdmin || isUpdate ? null : (
                     <div className="flex gap-6 w-[100%] ml:flex-row flex-col">
                       <div className="personal_single_input">
                         <div className="personal_name w-[100%] relative">
@@ -655,7 +689,7 @@ function Recruiter_signup({}) {
                         <svg
                           aria-hidden="true"
                           role="status"
-                          class="inline w-4 h-4  text-white animate-spin"
+                          className="inline w-4 h-4  text-white animate-spin"
                           viewBox="0 0 100 101"
                           fill="none"
                           xmlns="http://www.w3.org/2000/svg"

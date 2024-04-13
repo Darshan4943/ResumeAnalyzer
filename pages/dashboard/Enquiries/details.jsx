@@ -17,7 +17,7 @@ function Details() {
     if (id) {
       setLoading(true);
       axios
-        .get("http://localhost:2000/api/subscription/byId/" + id)
+        .get("https://freedygoservices.in/api/subscription/byId/" + id)
         .then((res) => {
           setSubscription(res.data.data);
           setuserData(res.data.userData);
@@ -44,7 +44,7 @@ function Details() {
     setBtnLoading(true);
     axios
       .put(
-        "http://localhost:2000/api/subscription/active/" + subscription.email
+        "https://freedygoservices.in/api/subscription/active/" + subscription.email
       )
       .then((res) => {
         setBtnLoading(false);
@@ -210,7 +210,7 @@ function Details() {
                       <svg
                         aria-hidden="true"
                         role="status"
-                        class="inline w-4 h-4  text-white animate-spin"
+                        className="inline w-4 h-4  text-white animate-spin"
                         viewBox="0 0 100 101"
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"

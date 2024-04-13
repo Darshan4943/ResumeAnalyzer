@@ -6,6 +6,13 @@ import { useSelector } from "react-redux";
 
 const LimitUsedModal = ({ setVisible, visible }) => {
   const router = useRouter();
+  const [planAvailable, setplanAvailable] = useState(false)
+  useEffect(() => {
+    const planavailable = localStorage.getItem("planAvailable")=='true'?true:false
+    if (planavailable) {
+      setplanAvailable(planavailable)
+    }
+  }, [])
   return (
     visible && (
       <div className="expiryModel ">
@@ -13,14 +20,18 @@ const LimitUsedModal = ({ setVisible, visible }) => {
           <div className="container sm:w-[432px] w-[90vw] scr420:p-4 p-2">
             <div className="flex flex-col gap-[16px]">
               <div className="flex flex-col gap-[12px]">
+            
                 <img
-                  src="/images/exp.png"
+                  src={planAvailable ? "/images/resumeBuilder/required.png":"/images/resumeBuilder/exceed.png"}
                   alt=""
-                  className="h-[221px] object-contain"
+                  className="h-[184px] object-contain"
                 />
-                {/* <span className="text-[30px] text-[#C00000] font-semibold text-center">
-                  Limits Exceeded!
-                </span> */}
+                {
+                  planAvailable &&  <span className="text-[30px] text-[#C00000] font-semibold text-center">
+                  Subscription Required 
+                </span>
+                }
+               
               </div>
               <span className="scr420:text-[16px] text-[14px] text-[#333333] font-medium text-center">
                 Please Upgrade your Subscription Plan and continue using our

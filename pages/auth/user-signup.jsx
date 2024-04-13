@@ -94,7 +94,7 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
     setLoading(true);
     axios
       .post(
-        "http://localhost:2000/api/skiloteckuser/user/signup",
+        "https://freedygoservices.in/api/skiloteckuser/user/signup",
         dataToSend
       )
       .then((res) => {
@@ -249,7 +249,7 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
             <div
               className={`flex justify-start text-[16px] gap-2  ${error ? "text-red font-[600]" : "text-green font-[600]"
                 }`}
-            >
+            >  
               {error && (
                 <svg
                   width="24"
@@ -265,7 +265,7 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
                     />
                   </g>
                 </svg>
-              )}
+              )}  
               <p>{error}</p>
             </div>
           </div>

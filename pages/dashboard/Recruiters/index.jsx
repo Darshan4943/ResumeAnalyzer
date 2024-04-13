@@ -18,7 +18,7 @@ const Index = () => {
   const getData = () => {
     setLoading(true);
     axios
-      .get("http://localhost:2000/api/recruiters")
+      .get("https://freedygoservices.in/api/recruiters")
       .then((res) => {
         console.log(1111,res.data)
         setUserList(res.data.users.results);

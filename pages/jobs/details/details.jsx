@@ -94,10 +94,25 @@ const Details = ({ jobPost }) => {
           <div className=" border-b-[1px] border-[#DEDEDE] w-full h-[1px]"></div>
           <div className="flex flex-col gap-[16px]">
             <span className="text-[16px] text-[#333333] font-semibold">
-              Required Skills{" "}
+              Must have Skills{" "}
             </span>
             <div className="flex flex-row flex-wrap gap-[12px]">
-              {jobPost?.skills?.map((item, index) => (
+              {jobPost?.mustSkills?.map((item, index) => (
+                <div
+                  key={index}
+                  className="text-[14px] text-[#333333] text-medium py-[8px] rounded-[25px] px-[16px] border border-[#06A9EF]"
+                >
+                  {item}
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="flex flex-col gap-[16px]">
+            <span className="text-[16px] text-[#333333] font-semibold">
+              Good to have Skills{" "}
+            </span>
+            <div className="flex flex-row flex-wrap gap-[12px]">
+              {jobPost?.goodSkills?.map((item, index) => (
                 <div
                   key={index}
                   className="text-[14px] text-[#333333] text-medium py-[8px] rounded-[25px] px-[16px] border border-[#06A9EF]"
