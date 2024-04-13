@@ -70,7 +70,7 @@ const Profile = () => {
                       </p>
                       <p className="w-[50%] sm:text-[14px] text-[12px] font-Montserrat font-medium text-[#333]">
                         {/* {data?.name ? data.name : '-'} */}
-                        <p className="break-all sm:text-[14px] text-[12px]  font-Montserrat font-medium text-[#333]">
+                        <p className="break-all sm:text-[14px] text-[12px]   font-Montserrat font-medium text-[#333]">
                   {data?.firstName && data?.lastName
                     ? `${data.firstName} ${data.lastName}`
                     : null}
@@ -127,7 +127,7 @@ const Profile = () => {
               </div>
             </div>
           </div>
-          <div
+          {/* <div
             className=" bg-[#fff] ml:W-[5%] w-[48px] h-[5%] p-3 rounded-xl"
             onClick={()=>router.push(`/auth/recruiter-signup?isUpdate=true` )}
             style={{
@@ -139,7 +139,7 @@ const Profile = () => {
               className="w-[24px] h-[24px] object-contain"
               alt=""
             />
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
