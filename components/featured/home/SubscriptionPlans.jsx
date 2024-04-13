@@ -48,7 +48,7 @@ function SubscriptionPlans({ fromMain }) {
   }, [userDataGlobal]);
   const clickHandler = (index) => {
     if (isLogin) {
-      if (subscription === null || subscription==undefined) {
+      if ((subscription === null || subscription==undefined ) || !subscription.inReview) {
         router.push(`/purchase/details?id=${index}`);
       } else {
         setIsInInquiry(true);

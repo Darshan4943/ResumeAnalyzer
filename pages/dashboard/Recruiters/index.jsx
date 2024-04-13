@@ -10,26 +10,55 @@ const Index = () => {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const [totalCount, setTotalCount] = useState(0);
+  const [totalPages, setTotalpages] = useState(0);
   const [selectedCandidate, setSelectedCandidate] = useState([]);
+  const [currentPage, setCurrentPage] = useState(0)
+  const [limit, setLimit] = useState(10)
+  const [page, setPage] = useState(1)
+  const [data, setData] = useState([]);
+  const [miniLoading, setMiniloading] = useState(false);
   const getData = () => {
-    setLoading(true);
+
+
     axios
-      .get("https://freedygoservices.in/api/recruiters")
+      .get("https://freedygoservices.in/api/recruiters", {
+        params: { page, limit }
+      })
       .then((res) => {
+
+        setData(res.data.users)
         setUserList(res.data.users.results);
         setTotalCount(res.data.totalCount);
+        setTotalpages(res.data.totalPages);
+        setLimit(res?.data?.users?.current?.limit);
+        setCurrentPage(res?.data?.users?.current?.page);
+
+
         setLoading(false);
+        setTimeout(() => {
+          setMiniloading(false);
+        }, 1000);
       })
       .catch((err) => {
         console.log(err);
         setLoading(false);
+        setMiniloading(false);
       });
   };
   useEffect(() => {
+    setLoading(true);
     getData();
   }, []);
+
+  useEffect(() => {
+    setMiniloading(true)
+    getData();
+
+  }, [page, limit]);
+
   return (
     <>
+      {/* { console.log("limit",currentPage)} */}
       <div className="customMargins py-[24px] flex flex-col gap-[16px]">
         <div className="flex w-full flex-row justify-between items-center">
           <span className="text-[24px] text-[#333333] font-semibold">
@@ -44,7 +73,7 @@ const Index = () => {
           </button>
         </div>
         <div
-          className="min-h-[90vh]  rounded-[16px] customMargins flex flex-col gap-[16px] py-[24px] w-full "
+          className="min-h-[65vh]  rounded-[16px] customMargins flex flex-col gap-[16px] py-[24px] w-full "
           style={{ boxShadow: " 0px 1px 2px 0px #00000040" }}
         >
           <div className="flex flex-row w-full justify-between items-center px-[16px]">
@@ -82,6 +111,15 @@ const Index = () => {
             </div>
           ) : (
             <List
+              miniLoading={miniLoading}
+              data={data}
+              currentPage={currentPage}
+              limit={limit}
+              page={page}
+              setPage={setPage}
+              setLimit={setLimit}
+              setCurrentPage={setCurrentPage}
+              totalPages={totalPages}
               userList={userList}
               setSelectedCandidate={setSelectedCandidate}
               selectedCandidate={selectedCandidate}

@@ -57,7 +57,6 @@ function Candidate_register() {
     lastName: null,
   });
 
-
   return (
     <>
       <div className=" relative !important">

@@ -820,7 +820,6 @@ function SkillAssessment() {
 
                   </div>
                   <div className="w-full flex  flex-col gap-5">
-                    <p className="text-[#808080] text-[12px]">Multiple options may be correct</p>
                     {question[questionIndex]?.options.map((option, index) => (
                       <div key={index} className="flex items-center gap-4">
                         <input
