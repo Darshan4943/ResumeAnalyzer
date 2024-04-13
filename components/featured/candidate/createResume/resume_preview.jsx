@@ -883,15 +883,15 @@ const ResumePreview = ({
               transformOrigin: "top left",
             }}
           >
-            {loading ? (
+            {/* {loading ? (
               <div>
                 <MiniLoader />
               </div>
-            ) : (
+            ) : ( */}
               <PDFViewer width="80%" height="900px" showToolbar={false}>
                 <MyComponent />
               </PDFViewer>
-            )}
+            {/* )} */}
           </div>
         )}
         {/* <div
