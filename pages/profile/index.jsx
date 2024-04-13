@@ -22,9 +22,9 @@ const Profile = () => {
         <p className="text-[24px] font-Montserrat font-semibold text-[#333]">
           My Profile
         </p>
-        <div className="w-[100%] md:flex md:flex-row  flex scr500:flex-col gap-4 flex-col-reverse  ">
+        <div className="w-[100%] ml:flex ml:flex-row  flex scr500:flex-col gap-4 flex-col-reverse  ">
           <div
-            className="flex md:flex-row flex-col items-center justify-start w-[100%] md:w-[93%] p-6 gap-[34px] rounded-2xl bg-[#fff] "
+            className="flex ml:flex-row flex-col items-center justify-start w-[100%] ml:w-[100%] p-6 gap-[34px] rounded-2xl bg-[#fff] "
             style={{
               boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
             }}
@@ -37,7 +37,7 @@ const Profile = () => {
             />
             }
           
-            <div className="flex flex-col w-[100%] lg:w-[70%] gap-4">
+            <div className="flex flex-col w-[100%] lg:w-[80%] gap-4">
               <div className="flex flex-col w-[100%]">
                 <p className="text-[18px] font-Montserrat font-medium text-[#333]">
                   {data?.firstName && data?.lastName
@@ -67,8 +67,8 @@ const Profile = () => {
                 <p className="text-[18px] font-Montserrat font-semibold text-[#333]">
                   Account Details
                 </p>
-                <div className="flex scr540:flex-row flex-col lg:gap-[46px] gap-[20px]">
-                  <div className="scr540:w-[45%] w-[100%] gap-6 flex flex-col ">
+                <div className="flex scr540:flex-row flex-col scr1024:gap-[46px] gap-[20px]">
+                  <div className="scr540:w-[60%] ml:w-[40%] w-[100%] gap-6 flex flex-col ">
                     <div className="w-[100%] flex gap-4 items-center">
                       <p className="w-[50%] text-[14px] font-Montserrat font-bold text-[#333] flex justify-between">
                         User Name <span>:</span>{" "}
@@ -94,15 +94,15 @@ const Profile = () => {
                       </p>
                     </div>
                   </div>
-                  <div className="h-[1px] scr540:w-[1px] w-[100%] md:h-[170px] scr1024:h-[102px] scr540:h-[180px] bg-[#DEDEDE]">
+                  <div className="h-[1px] scr540:w-[1px] w-[100%] ml:h-[170px] scr1024:h-[102px] scr540:h-[180px] bg-[#DEDEDE]">
                     {" "}
                   </div>
-                  <div className="scr540:w-[45%] w-[100%] gap-6 flex flex-col ">
+                  <div className=" ml:w-[60%] w-[100%] gap-6 flex flex-col ">
                     <div className="w-[100%] flex gap-4 items-center">
                       <p className="w-[50%] text-[14px] font-Montserrat font-bold text-[#333] flex justify-between">
                         Email ID <span>:</span>{" "}
                       </p>
-                      <p className="w-[50%] sm:text-[14px] text-[12px] font-Montserrat font-medium text-[#333]">
+                      <p className="w-[50%] break-all sm:text-[14px] text-[12px] font-Montserrat font-medium text-[#333]">
                         {data.email}
                       </p>
                     </div>
@@ -128,7 +128,7 @@ const Profile = () => {
             </div>
           </div>
           {/* <div
-            className=" bg-[#fff] md:W-[5%] w-[48px] h-[5%] p-3 rounded-xl"
+            className=" bg-[#fff] ml:W-[5%] w-[48px] h-[5%] p-3 rounded-xl"
             onClick={()=>router.push(`/auth/recruiter-signup?isUpdate=true` )}
             style={{
               boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
