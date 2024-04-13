@@ -47,7 +47,7 @@ function SkillAssessment() {
   const [data, setData] = useState([]);
   const [timer, setTimer] = useState(30);
   const [inputValue, setInputValue] = useState("");
-  const [level, setLevel] = useState("advanced")
+  const [level, setLevel] = useState("Intermediate")
   const handleInputChange = (selectedOption) => {
     setSelectedSkill(selectedOption.value);
     setInputValue(selectedOption.value);
@@ -244,7 +244,7 @@ function SkillAssessment() {
   };
 
 
-console.log(246,question)
+
 
 
   return (
@@ -256,7 +256,7 @@ console.log(246,question)
         {toggle === 0 && (
           <div className="flex flex-col gap-[35px] pt-[24px] pb-[95px] items-center  customMargins">
             <div
-              className="  w-[100%] ml:p-[16px] p-2 flex ml:flex-row flex-col justify-between ml:items-end items-end  gap-[16px] rounded-[12px] bg-[#fff]"
+              className="  w-[100%] ml:p-[16px] p-2 flex ml:flex-row flex-col justify-between  gap-[16px] rounded-[12px] bg-[#fff]"
               style={{
                 boxShadow: " 0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
               }}
@@ -304,59 +304,75 @@ console.log(246,question)
                 </div>
               )}
 
-              <div className="flex justify-end scr420:gap-4 gap-2 ml:w-[50%] w-[100%]">
-                {!viewAddSkill ? (
-                  <button
-                    onClick={() => setViewAddSkill(true)}
-                    className="rounded-[12px] ml:px-[22.8px] px-3  ml:min-w-[235px] min-w-[180px] py-2  flex gap-2 ml:text-[16px] scr420:text-[14px] text-[12px] justify-center items-center bg-blue text-white ml:h-[50px] h-[40px] font-semibold"
-                  >
-                    Select Another Skill
-                    <svg
-                      width="15"
-                      height="14"
-                      viewBox="0 0 15 14"
-                      fill="none"
-                      xlgns="http://www.w3.org/2000/svg"
+              <div className="flex flex-col justify-end scr420:gap-4 gap-3 ml:w-[50%] w-[100%]">
+
+                <div className="flex flex-col gap-2 font-medium justify-end items-end ">
+                  <div className="ml:w-[380px] scr390:w-[342px] w-[290px] flex flex-col gap-2 ">
+                    Difficulty Level
+
+                    <div className="flex scr390:text-[14px] text-[13px] font-medium rounded-[6px] p-[6px] border border-[#DEDEDE] scr390:w-[342px] w-[290px]">
+                      <button onClick={()=>setLevel("Easy")} className={`flex justify-center items-center w-[109px] py-1 ${level === "Easy" && "bg-blue rounded-[4px] text-white"}`}> Easy</button>
+                      <button onClick={()=>setLevel("Intermediate")} className={`flex justify-center items-center w-[109px] py-1 ${level === "Intermediate" && "bg-blue rounded-[4px] text-white"}`}> Intermediate</button>
+                      <button onClick={()=>setLevel("Advanced")} className={`flex justify-center items-center w-[109px] py-1 ${level === "Advanced" && "bg-blue rounded-[4px] text-white"}`}> Advanced</button>
+
+                    </div>
+                  </div>
+                </div>
+                <div className="flex gap-2 justify-end ">
+                  {!viewAddSkill ? (
+                    <button
+                      onClick={() => setViewAddSkill(true)}
+                      className="rounded-[12px] ml:px-[22.8px] px-3  ml:min-w-[235px] min-w-[180px] py-2  flex gap-2 ml:text-[16px] scr420:text-[14px] text-[12px] justify-center items-center bg-blue text-white ml:h-[50px] h-[40px] font-semibold"
                     >
-                      <path
-                        d="M6.5 8H0.5V6H6.5V0H8.5V6H14.5V8H8.5V14H6.5V8Z"
-                        fill="white"
-                      />
-                    </svg>
-                  </button>
-                ) : (
-                  <button
-                    onClick={() => setViewAddSkill(false)}
-                    className="rounded-[12px] ml:px-[22.8px] px-3  ml:min-w-[235px] min-w-[180px] py-2  flex gap-2 ml:text-[16px] scr420:text-[14px] text-[12px] justify-center items-center bg-blue text-white ml:h-[50px] h-[40px] font-semibold"
-                  >
-                    Select From My Skills
-                    <svg
-                      width="15"
-                      height="14"
-                      viewBox="0 0 15 14"
-                      fill="none"
-                      xlgns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M6.5 8H0.5V6H6.5V0H8.5V6H14.5V8H8.5V14H6.5V8Z"
-                        fill="white"
-                      />
-                    </svg>
-                  </button>
-                )}
-                <div
-                  className="text-[#C00000]  ml:min-w-[150px] scr420:min-w-[125px] min-w-[96px] ml:text-[16px] scr420:text-[14px] text-[12px]  "
-                  onClick={() => setshowSecondDiv(!showSecondDiv)}
-                >
-                  {!showSecondDiv ? (
-                    <button className="rounded-[12px] ml:text-[16px] text-[12px] scr420:px-4 px-2 scr420:py-2 py-2 flex gap-2 justify-center items-center bg-blue text-white ml:h-[50px] h-[40px] font-semibold">
-                      View Results
+                      Select Another Skill
+                      <svg
+                        width="15"
+                        height="14"
+                        viewBox="0 0 15 14"
+                        fill="none"
+                        xlgns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M6.5 8H0.5V6H6.5V0H8.5V6H14.5V8H8.5V14H6.5V8Z"
+                          fill="white"
+                        />
+                      </svg>
                     </button>
                   ) : (
-                    <button className="rounded-[12px]  ml:text-[16px] text-[12px] scr420:px-4 px-2 scr420:py-2 py-2 flex gap-2 justify-center items-center bg-blue text-white ml:h-[50px] h-[40px] font-semibold">
-                      Hide Results
+                    <button
+                      onClick={() => setViewAddSkill(false)}
+                      className="rounded-[12px] ml:px-[22.8px] px-3  ml:min-w-[235px] min-w-[180px] py-2  flex gap-2 ml:text-[16px] scr420:text-[14px] text-[12px] justify-center items-center bg-blue text-white ml:h-[50px] h-[40px] font-semibold"
+                    >
+                      Select From My Skills
+                      <svg
+                        width="15"
+                        height="14"
+                        viewBox="0 0 15 14"
+                        fill="none"
+                        xlgns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M6.5 8H0.5V6H6.5V0H8.5V6H14.5V8H8.5V14H6.5V8Z"
+                          fill="white"
+                        />
+                      </svg>
                     </button>
                   )}
+
+                  <div
+                    className="text-[#C00000]  ml:min-w-[136px] scr420:min-w-[112px] min-w-[96px] ml:text-[16px] scr420:text-[14px] text-[12px]  "
+                    onClick={() => setshowSecondDiv(!showSecondDiv)}
+                  >
+                    {!showSecondDiv ? (
+                      <button className="rounded-[12px] ml:text-[16px] text-[12px] scr420:px-4 px-2 scr420:py-2 py-2 flex gap-2 justify-center items-center bg-blue text-white ml:h-[50px] h-[40px] font-semibold">
+                        View Results
+                      </button>
+                    ) : (
+                      <button className="rounded-[12px]  ml:text-[16px] text-[12px] scr420:px-4 px-2 scr420:py-2 py-2 flex gap-2 justify-center items-center bg-blue text-white ml:h-[50px] h-[40px] font-semibold">
+                        Hide Results
+                      </button>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
@@ -795,16 +811,16 @@ console.log(246,question)
                 </div>
                 <p className="text-[16px] flex justify-end font-semibold w-[60px]"> {questionIndex + 1} / 10</p>
               </div>
-              <div className="bg-white p-4 rounded-[16px] flex flex-col gap-9 " style={{ boxShadow: "0px 1px 2px 0px #00000040" }}>
+              <div className="bg-white p-4 rounded-[16px] flex flex-col gap-9 mt-2" style={{ boxShadow: "0px 1px 2px 0px #00000040" }}>
                 <div className="flex flex-col gap-6 ">
                   <p className="text-[#333333] font-medium">   Question {questionIndex + 1}</p>
                   <div className="flex flex-col gap-8 text-[#333333] font-medium ms:text-[16px] text-[14px]">
                     <p> {question[questionIndex]?.question}</p>
-                    
+
 
                   </div>
                   <div className="w-full flex  flex-col gap-5">
-                  <p className="text-[#808080] text-[12px]">Multiple options may be correct</p>
+                    <p className="text-[#808080] text-[12px]">Multiple options may be correct</p>
                     {question[questionIndex]?.options.map((option, index) => (
                       <div key={index} className="flex items-center gap-4">
                         <input
@@ -817,7 +833,7 @@ console.log(246,question)
                           onChange={() => answerSetter(questionIndex + 1, option)}
                         />
                         <label htmlFor={`option${index}`} className="text-[14px] ms:text-[16px] font-[500]">
-                           {option}
+                          {option}
                         </label>
                       </div>
                     ))}
@@ -829,30 +845,33 @@ console.log(246,question)
                     style={{ opacity: loading ? "0.5" : 1 }}
                     disabled={loading}
                     className="flex flex-row gap-[3px] items-center cursor-pointer text-[16px] font-[500]   px-[24px] py-[12px] justify-between leading-tight  rounded-[12px] border-[1px] border-solid border-[#06A9EF] "
+                    // onClick={() => {
+                    //   if (questionIndex == 9) {
+                    //     axios
+                    //       .post(
+                    //         "https://freedygoservices.in/api/assessment/add",
+                    //         {
+                    //           userId: userDataGlobal._id,
+                    //           skill: selectedSkill,
+                    //           score: checkAnswer() * 10,
+                    //           date: new Date(),
+                    //         }
+                    //       )
+                    //       .then((res) => {
+                    //         setScore(true);
+                    //       })
+                    //       .catch((err) => {
+                    //         console.log(err);
+                    //       });
+                    //   } else {
+                    //     setQuestionIndex(
+                    //       questionIndex + 1 < 10 ? questionIndex + 1 : 9
+                    //     );
+                    //   }
+                    //   setSkipped([...skipped, questionIndex]);
+                    // }}
                     onClick={() => {
-                      if (questionIndex == 9) {
-                        axios
-                          .post(
-                            "https://freedygoservices.in/api/assessment/add",
-                            {
-                              userId: userDataGlobal._id,
-                              skill: selectedSkill,
-                              score: checkAnswer() * 10,
-                              date: new Date(),
-                            }
-                          )
-                          .then((res) => {
-                            setScore(true);
-                          })
-                          .catch((err) => {
-                            console.log(err);
-                          });
-                      } else {
-                        setQuestionIndex(
-                          questionIndex + 1 < 10 ? questionIndex + 1 : 9
-                        );
-                      }
-                      setSkipped([...skipped, questionIndex]);
+                      sumbit()
                     }}
                   >
 
@@ -915,9 +934,9 @@ console.log(246,question)
                         </div>
                         <div className="">
                           <div className="flex justify-between items-center">
-                           
+
                             <div className="text-[14px] font-[600] text-[#646464] flex gap-[4px]">
-                             
+
                               <svg
                                 xlgns="http://www.w3.org/2000/svg"
                                 width="20"
@@ -938,13 +957,13 @@ console.log(246,question)
                               {checkAnswer()} Answers
                             </div>
                           </div>
-                          
+
                         </div>
                         <div>
                           <div className="flex justify-between items-center">
-                            
+
                             <div className="text-[14px] font-[600] text-[#646464] flex gap-[4px]">
-                              
+
                               <svg
                                 xlgns="http://www.w3.org/2000/svg"
                                 width="20"
@@ -965,7 +984,7 @@ console.log(246,question)
                               {answer.length - checkAnswer()} Answers
                             </div>
                           </div>
-                          
+
                         </div>
                         <div className="text-[18px] text-[#5B5B5B] font-[600]">
                           Your Score is{" "}
@@ -983,7 +1002,7 @@ console.log(246,question)
                         setQuestionIndex(0);
                         setQuestion([]);
                         setSkipped([]);
-                        // window.location.reload();
+                        window.location.reload();
                         dispatch(reCallUserData());
                       }}
                       className="border-[1px]  border-solid border-[#06A9EF] rounded-[12px] px-[24px] py-[8px] text-[16px] text-[#333] font-[500]"
