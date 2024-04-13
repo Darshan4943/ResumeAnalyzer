@@ -7,7 +7,9 @@ function Home() {
   const userDataGlobal = useSelector((state) => state.userData);
   const [loading, setLoading] = useState(true);
   const [visible,setVisible] = useState(false)
+  const [isLogin, setIsLogin] = useState(false);
   useEffect(() => {
+
     const token = localStorage.getItem("authToken");
     if (token && token != "undefined") {
       if (token) {
@@ -26,6 +28,7 @@ function Home() {
     return () => clearTimeout(timer);
 
   }, []);
+  
   return (
     <>
 
