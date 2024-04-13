@@ -79,7 +79,7 @@ function SkillAssessment() {
     setLoadingg(true);
     return new Promise((resolve, reject) => {
       generatePDF(resumeRef, {
-        filename: `${userDataGlobal?.name}-skilotech-resume.pdf`,
+        filename: `${selectedSkill}-assessment-skilotech.pdf`,
       });
       resolve();
     })
