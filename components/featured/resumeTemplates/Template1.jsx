@@ -62,8 +62,8 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                   preview
                     ? data.profilePhoto
                     : Object.keys(data?.profilePhoto).includes("filename")
-                    ? URL.createObjectURL(data.profilePhoto)
-                    : data.profilePhoto
+                      ? URL.createObjectURL(data.profilePhoto)
+                      : data.profilePhoto
                 }
                 style={{
                   objectFit: "cover",
@@ -448,7 +448,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                         fontSize: 10,
                         fontFamily: `${selectedFont} 400`,
                         lineHeight: 1.2,
-                        width:'100%'
+                        width: '100%'
                       }}
                     >
                       {detail.organization}
@@ -463,10 +463,9 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                         }}
                       >
                         {detail.duration?.start?.year !== "Year" &&
-                          `${detail.duration?.start?.year}-${" "}${
-                            detail.currentlyWorking
-                              ? "Present"
-                              : detail.duration?.end?.year
+                          `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
+                            ? "Present"
+                            : detail.duration?.end?.year
                           }
                          `}
                       </Text>
@@ -493,7 +492,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
               <View
                 style={{ flexDirection: "column", gap: 12, width: "100%" }}
                 key={index}
-                // wrap={false}
+              wrap={false}
               >
                 <View style={{ flexDirection: "column", gap: 12 }}>
                   <Text
@@ -501,9 +500,10 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                       color: "#414042",
                       fontSize: "16px",
                       fontFamily: `${selectedFont} 400`,
+
                     }}
                   >
-                    {item?.header}
+                    {item?.header.toUpperCase()}
                   </Text>
                   <Svg width={141} height={4} viewBox="0 0 141 4">
                     <Path
@@ -565,7 +565,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                         )}
                     </View>
 
-                    <View style={{ width: "100%" }}>
+                    <View style={{ width: "100%", flexWrap:"wrap", paddingRight:"4px"}}>
                       <Text
                         style={{
                           color: "#A7A9AC",

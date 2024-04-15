@@ -11,6 +11,7 @@ import {
   Rect,
 } from "@react-pdf/renderer";
 function Template32({ data, selectedColor, selectedFont, preview }) {
+  console.log(1111,data)
   return (
     <Page size="A4" wrap={true} style={{ paddingTop: "12px" }}>
       <View style={{ flexDirection: "row", gap: "1.5rem" }}>
@@ -37,8 +38,8 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                     preview
                       ? data.profilePhoto
                       : Object.keys(data?.profilePhoto).includes("filename")
-                      ? URL.createObjectURL(data.profilePhoto)
-                      : data.profilePhoto
+                        ? URL.createObjectURL(data.profilePhoto)
+                        : data.profilePhoto
                   }
                   alt=""
                   style={{
@@ -46,7 +47,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                     marginBottom: "16px",
                     height: "134px",
                     borderRadius: "50%",
-                    objectFit:"cover"
+                    objectFit: "cover"
                   }}
                 />
               ) : (
@@ -607,7 +608,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                         >
                           {" "}
                           {detail.duration?.start?.year !== "Year" &&
-                              `${detail.duration?.start?.year}-${detail.duration?.end?.year}`}
+                            `${detail.duration?.start?.year}-${detail.duration?.end?.year}`}
                         </Text>
                       </View>
                       <View
@@ -752,10 +753,10 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                             fontFamily: `${selectedFont} 400`,
                           }}
                         >
-                         {detail.duration?.start?.year !== "Year" &&
-                        `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
-                          ? "Present"
-                          : detail.duration?.end?.year}
+                          {detail.duration?.start?.year !== "Year" &&
+                            `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
+                              ? "Present"
+                              : detail.duration?.end?.year}
                          `}
                         </Text>
                       </View>
@@ -860,7 +861,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                         fontSize: "16px",
                       }}
                     >
-                      {item.header}
+                       {item?.header}
                     </Text>
                   </View>
                   <View
