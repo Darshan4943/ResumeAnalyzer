@@ -141,7 +141,7 @@ const JobMatching = () => {
     setLoadingg(true);
     setIsAnimate(false)
     axios
-      .post("http://localhost:2000/api/external/jobMatching/", {
+      .post("https://freedygoservices.in/api/external/jobMatching/", {
         jd: text,
         resumeCount,
         ids: selectedIndexes,
