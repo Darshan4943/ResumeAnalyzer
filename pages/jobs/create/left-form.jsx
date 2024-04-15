@@ -295,9 +295,10 @@ const Leftform = ({
                   location: [...data.location, loactionText],
                 });
                 setLoactionText("");
-                setFormError(formError => ({
-                  ...formError, location:""
-                }))
+                setFormError(formError => {
+                  delete formError.location;
+                  return formError;
+                });
               }}
             >
               <PlusAddLogo
