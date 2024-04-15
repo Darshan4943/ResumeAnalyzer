@@ -67,9 +67,10 @@ const Rightform = ({ data, setData, file, croppedImage, isEditable, id, validate
 
  
 
-    if (formError) {
+    const hasEmptyField = Object.values(formError).some(error => error === '');
+
+    if (hasEmptyField) {
       toast.error("Please fill in all required fields");
-     
     }
     else {
       setLoading(true);
