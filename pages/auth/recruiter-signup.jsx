@@ -309,7 +309,7 @@ function Recruiter_signup({ }) {
     e.preventDefault();
     let otp = Math.floor(100000 + Math.random() * 900000);
     setOtp(otp)
-    axios.post('http://localhost:2000/api/otpMailSignup', { userEmail: data.email, otp }).then(res => {
+    axios.post('https://freedygoservices.in/api/otpMailSignup', { userEmail: data.email, otp }).then(res => {
       setLoadingg(false)
       const result = res.data;
       if (result.success) {
