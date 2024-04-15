@@ -10,8 +10,10 @@ import { motion } from "framer-motion";
 import ReactSelect from "react-select";
 import ImageContainer from "../../components/common/image";
 import ImageCropper from "../../components/featured/candidate/createResume/components/imageCropper";
+import MiniLoader from "../../components/common/mini-loader";
 
-function Recruiter_signup({}) {
+
+function Recruiter_signup({ }) {
   const router = useRouter();
   const { byAdmin, isUpdate } = router.query;
   const userDataGlobal = useSelector((state) => state.userData);
@@ -25,8 +27,17 @@ function Recruiter_signup({}) {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState(plans[3]);
   const [loading, setLoading] = useState(false);
+  const [loadingg, setLoadingg] = useState(false);
   const [error, setError] = useState(false);
   const [croppedImage, setCroppedImage] = useState(null);
+  const [timer, setTimer] = useState(30)
+  const [resend, setResend] = useState(false);
+  const [isSend, setIssend] = useState(false);
+  const [verify, setVerify] = useState(false)
+  const [otp, setOtp] = useState(null)
+  const [otpEntered, setOtpEntered] = useState(null)
+  const [verified, setVerified] = useState(false)
+  const [otpError, setOtpError] = useState("")
   const [data, setData] = useState({
     firstName: "",
     lastName: "",
@@ -36,6 +47,7 @@ function Recruiter_signup({}) {
     dial_code: "+260",
     img: null,
   });
+  console.log(data)
   const [file, setFile] = useState(null);
   const fileRef = useRef(null);
   const handleFileChange = (event) => {
@@ -59,7 +71,7 @@ function Recruiter_signup({}) {
   }, [croppedImage]);
 
   useEffect(() => {
-    const { email, mobileNo, firstName, lastName, role, location,profilePicture } =
+    const { email, mobileNo, firstName, lastName, role, location, profilePicture } =
       userDataGlobal;
     setData({
       ...data,
@@ -70,8 +82,8 @@ function Recruiter_signup({}) {
       role,
       currentLocation: location,
     });
-    if(profilePicture){
-      setCroppedImage({url:profilePicture})
+    if (profilePicture) {
+      setCroppedImage({ url: profilePicture })
     }
   }, []);
 
@@ -216,6 +228,11 @@ function Recruiter_signup({}) {
     if (hasErrors) {
       toast.error("Please enter valid information");
       setFormError(errors);
+    }
+    else if (!verified) {
+      setOtpError("Email Verification Required")
+      toast.error("Email Verification Required");
+
     } else {
       const url = isUpdate
         ? "https://freedygoservices.in/api/updateUser"
@@ -253,9 +270,8 @@ function Recruiter_signup({}) {
                   dispatch(reCallUserData());
                   toast.success("Sign up Successfully");
                   if (sendToPurchase && sendToPurchase?.status) {
-                    window.location.href = `/purchase/details?id=${
-                      sendToPurchase.index + 1
-                    }`;
+                    window.location.href = `/purchase/details?id=${sendToPurchase.index + 1
+                      }`;
                     setLoading(false);
                   } else {
                     window.location.href = `/home`;
@@ -283,6 +299,72 @@ function Recruiter_signup({}) {
           setLoading(false);
         });
     }
+  };
+
+  const handleVerification = (e) => {
+
+    setResend(false)
+    setTimer(30);
+    setLoadingg(true)
+    e.preventDefault();
+    let otp = Math.floor(100000 + Math.random() * 900000);
+    setOtp(otp)
+    axios.post('http://localhost:2000/api/otpMailSignup', { userEmail: data.email, otp }).then(res => {
+      setLoadingg(false)
+      const result = res.data;
+      if (result.success) {
+        setVerify(true)
+
+      } else if (result.message === "user already exist") {
+        toast.error("User already exists");
+      } else {
+        toast.error("Something went wrong");
+      }
+    }).catch((err) => {
+      toast.error(err?.response?.data.message)
+      setLoadingg(false)
+
+    })
+  }
+
+  useEffect(() => {
+    if (verify) {
+      const timerInterval = setInterval(() => {
+        setTimer((prevTimer) => {
+          if (prevTimer > 0) {
+            return prevTimer - 1;
+          } else {
+            clearInterval(timerInterval);
+            setResend(true);
+            return 0;
+          }
+        });
+      }, 1000);
+
+      return () => clearInterval(timerInterval);
+    }
+  }, [verify, resend]);
+
+  useEffect(() => {
+    if (!verify) {
+      setTimer(30);
+      setResend(false);
+    }
+  }, [verify]);
+
+  const verifyOtp = () => {
+    if (otp == otpEntered) {
+      setVerified(true)
+    } else {
+      toast.error('OTP does not match')
+    }
+  }
+  const formatTime = (seconds) => {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    return `${String(minutes).padStart(2, "0")}:${String(
+      remainingSeconds
+    ).padStart(2, "0")}`;
   };
   return (
     <>
@@ -377,8 +459,8 @@ function Recruiter_signup({}) {
 
                   {error && <div className="text-[16px] text-red">{error}</div>}
                   <div className="flex gap-6 w-[100%] ml:flex-row flex-col ">
-                    <div className="personal_name_parent flex ml:flex-row flex-col ml:w-[50%] w-[100%]">
-                      <div className="personal_name ml:w-[48%] w-[100%]">
+                    <div className="personal_name_parent flex ml:flex-row flex-col ml:w-[48%] w-[100%]">
+                      <div className="personal_name ml:w-[47%] w-[100%]">
                         <p className="form_text_heading">
                           First name <span className="star">*</span>
                         </p>
@@ -399,7 +481,7 @@ function Recruiter_signup({}) {
                         )}
                       </div>
 
-                      <div className="personal_name ml:w-[48%] w-[100%]">
+                      <div className="personal_name ml:w-[47%] w-[100%]">
                         <p className="form_text_heading">
                           Last name <span className="star">*</span>
                         </p>
@@ -425,15 +507,13 @@ function Recruiter_signup({}) {
                         Contact Number <span className="star">*</span>
                       </p>
                       <div
-                        className={`flex w-[100%] items-start ${
-                          isViewportBelow850 ? "gap-[4px] " : "gap-[16px] "
-                        }`}
+                        className={`flex w-[100%] items-start ${isViewportBelow850 ? "gap-[4px] " : "gap-[16px] "
+                          }`}
                         id="single_input"
                       >
                         <div
-                          className={`relative min-w-[150px] ${
-                            isViewportBelow850 ? "w-[65%] " : "w-[40%] "
-                          } items-center`}
+                          className={`relative min-w-[150px] ${isViewportBelow850 ? "w-[65%] " : "w-[40%] "
+                            } items-center`}
                         >
                           <div className="  w-[100%] text-[14px] justify-center items-center  flex font-[500] text-[#646464]">
                             <div className="flex items-center justify-center gap-2 cursor-pointer min-w-[140px] w-[100%]">
@@ -476,11 +556,10 @@ function Recruiter_signup({}) {
                           type="text"
                           name=""
                           // id="single_input"
-                          placeholder={`${
-                            isViewportBelow850
-                              ? "Enter Number "
-                              : "Enter Contact Number "
-                          }`}
+                          placeholder={`${isViewportBelow850
+                            ? "Enter Number "
+                            : "Enter Contact Number "
+                            }`}
                           value={data.mobileNo}
                           onChange={(e) =>
                             handleInputChange("mobileNo", e.target.value)
@@ -496,28 +575,96 @@ function Recruiter_signup({}) {
                       )}
                     </div>
                   </div>
-                  <div className="flex gap-6 ml:flex-row flex-col  w-[100%]  ">
-                    <div className="personal_single_input">
-                      <p className="form_text_heading">
-                        Email <span className="star">*</span>
-                      </p>
-                      <input
-                        type="email"
-                        name=""
-                        id="single_input"
-                        placeholder="Enter Email"
-                        value={data.email}
-                        onChange={(e) =>
-                          handleInputChange("email", e.target.value)
-                        }
-                      />
-                      {formError && (
-                        <p className="text-[12px] text-[red] font-[500]">
-                          {formError?.email}
+                  <div className="flex gap-6 ml:flex-row flex-col  w-[100%]">
+                    <div className="flex flex-col gap-4 w-[50%]">
+                      <div className="personal_single_input w-[100%]">
+                        <p className="form_text_heading">
+                          Email <span className="star">*</span>
                         </p>
-                      )}
-                    </div>
+                        <div className="flex gap-2 items-center justify-center">
+                          <input
+                            type="email"
+                            name=""
+                            id="single_input"
+                            placeholder="Enter Email"
+                            value={data.email}
+                            onChange={(e) =>{
+                              handleInputChange("email", e.target.value);setVerify(false);setVerified(false)}
+                            }
+                          />
+                          {!verified &&
+                          <>
+                          {!verify ?
+                            <button onClick={handleVerification} className=" min-w-[150px] text-[16px] font-medium flex justify-center items-center border border-blue bg-blue text-white  py-3 px-4 rounded-[8px] leading-tight h-[48px] ">
+                              {loadingg ?
+                                <MiniLoader /> :
+                                <>
 
+                                  Verify Email
+
+                                </>
+                              }
+                            </button>
+                            :
+                            <button className=" min-w-[150px] text-[16px] font-medium flex justify-center items-center border border-blue text-[#C00000]  py-3 px-4 rounded-[8px] leading-tight h-[48px] ">
+                              {loadingg ?
+                                <MiniLoader /> :
+                                <>
+
+                                  {!resend ?
+                                    <p >{formatTime(timer)}</p>:
+
+                                    <p  onClick={handleVerification}>Resend Code</p>
+
+                                  }
+
+                                </>
+                              }
+                            </button>
+                          }
+                          </>
+                        }
+                        </div>
+                        {formError && (
+                          <p className="text-[12px] text-[red] font-[500]">
+                            {formError?.email}
+                          </p>
+                        )}
+                      </div>
+                      {verify &&
+                        <div className="flex flex-col gap-2 font-medium">
+                          Enter Code
+                          <div className="flex gap-4 h-[48px]  items-center ">
+                            <input
+                              type="text"
+                              name=""
+                              id="single_input"
+                              placeholder="Enter Otp"
+                              className='border border-[#DEDEDE] rounded-[8px] px-4 py-3 w-[50%] leading-tight'
+                              onChange={(e) => setOtpEntered(parseInt(e.target.value))}
+                            />
+                           { !verified && 
+                            <button onClick={verifyOtp} className="flex justify-center  items-center py-3 px-4 bg-blue text-white rounded-[12px] leading-tight">
+                              Verify
+
+                            </button>
+}
+                            {verified &&
+                              <div className="flex gap-2 text-[14px] font-medium items-center text-[#0C8A0A]">
+                                <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+                                  <g mask="url(#mask0_662_15219)">
+                                    <path d="M10.6 17.1L17.65 10.05L16.25 8.65L10.6 14.3L7.75 11.45L6.35 12.85L10.6 17.1ZM12 22.5C10.6167 22.5 9.31667 22.2375 8.1 21.7125C6.88333 21.1875 5.825 20.475 4.925 19.575C4.025 18.675 3.3125 17.6167 2.7875 16.4C2.2625 15.1833 2 13.8833 2 12.5C2 11.1167 2.2625 9.81667 2.7875 8.6C3.3125 7.38333 4.025 6.325 4.925 5.425C5.825 4.525 6.88333 3.8125 8.1 3.2875C9.31667 2.7625 10.6167 2.5 12 2.5C13.3833 2.5 14.6833 2.7625 15.9 3.2875C17.1167 3.8125 18.175 4.525 19.075 5.425C19.975 6.325 20.6875 7.38333 21.2125 8.6C21.7375 9.81667 22 11.1167 22 12.5C22 13.8833 21.7375 15.1833 21.2125 16.4C20.6875 17.6167 19.975 18.675 19.075 19.575C18.175 20.475 17.1167 21.1875 15.9 21.7125C14.6833 22.2375 13.3833 22.5 12 22.5ZM12 20.5C14.2333 20.5 16.125 19.725 17.675 18.175C19.225 16.625 20 14.7333 20 12.5C20 10.2667 19.225 8.375 17.675 6.825C16.125 5.275 14.2333 4.5 12 4.5C9.76667 4.5 7.875 5.275 6.325 6.825C4.775 8.375 4 10.2667 4 12.5C4 14.7333 4.775 16.625 6.325 18.175C7.875 19.725 9.76667 20.5 12 20.5Z" fill="#0C8A0A" />
+                                  </g>
+                                </svg>
+                                Verified
+                              </div>
+                            }
+                          </div>
+
+                        </div>
+                      }
+                    </div>
                     <div className="personal_single_input">
                       <div className="personal_name w-[100%]">
                         <p className="form_text_heading">
@@ -681,6 +828,7 @@ function Recruiter_signup({}) {
                       Cancel
                     </button>
                     <button
+
                       className="buttons font-[500] bg-[#06A9EF] text-white"
                       id="border_button"
                       onClick={submitHandler}
