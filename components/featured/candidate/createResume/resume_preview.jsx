@@ -540,99 +540,104 @@ const ResumePreview = ({
     setLoading(false);
   };
   const saveResume = async (blob, download) => {
-    if (saveLimit == 0) {
-      setLimitUsedModal(true);
-      return;
-    }
-    if (isEdit) {
-      setLoading(true);
-      const formData = new FormData();
-      if (Object.keys(data).length > 0) {
-        Object.keys(data).map((key) => {
-          if (Array.isArray(data[key]) && data[key].length > 0) {
-            formData.append(key, JSON.stringify(data[key]));
-          } else {
-            formData.append(key, data[key]);
-          }
-        });
+    if(Object.keys(blob).length>0){
+      if (saveLimit == 0) {
+        setLimitUsedModal(true);
+        return;
       }
-      formData.append("resumeIndex", selectedResumeIndex);
-      formData.append("fileName", name);
-      formData.append("selectedColor", selectedColor);
-      formData.append("selectedFont", selectedFont);
-      formData.append("pdfBlob", blob);
-
-      axios
-        .put("https://freedygoservices.in/api/resume/" + id, formData)
-        .then((res) => {
-          localStorage.setItem("saveCount", saveLimit - 1);
-          getLimits();
-          toast.success("Resume Updated successfully");
-          setTimeout(() => {
-            setLoading(false);
-          }, 1000);
-          callData();
-        })
-        .catch((err) => {
-          setLoading(false);
-
-          console.log(err);
-          toast.error("Something went wrong ");
-        });
-    } else {
-      setLoading(true);
-
-      const formData = new FormData();
-      if (Object.keys(data).length > 0) {
-        Object.keys(data).map((key) => {
-          if (Array.isArray(data[key]) && data[key].length > 0) {
-            formData.append(key, JSON.stringify(data[key]));
-          } else {
-            if (data[key] != undefined) {
+      if (isEdit) {
+        setLoading(true);
+        const formData = new FormData();
+        if (Object.keys(data).length > 0) {
+          Object.keys(data).map((key) => {
+            if (Array.isArray(data[key]) && data[key].length > 0) {
+              formData.append(key, JSON.stringify(data[key]));
+            } else {
               formData.append(key, data[key]);
             }
-          }
-        });
+          });
+        }
+        formData.append("resumeIndex", selectedResumeIndex);
+        formData.append("fileName", name);
+        formData.append("selectedColor", selectedColor);
+        formData.append("selectedFont", selectedFont);
+        formData.append("pdfBlob", blob);
+  
+        axios
+          .put("https://freedygoservices.in/api/resume/" + id, formData)
+          .then((res) => {
+            localStorage.setItem("saveCount", saveLimit - 1);
+            getLimits();
+            toast.success("Resume Updated successfully");
+            setTimeout(() => {
+              setLoading(false);
+            }, 1000);
+            callData();
+          })
+          .catch((err) => {
+            setLoading(false);
+  
+            console.log(err);
+            toast.error("Something went wrong ");
+          });
+      } else {
+        setLoading(true);
+  
+        const formData = new FormData();
+        if (Object.keys(data).length > 0) {
+          Object.keys(data).map((key) => {
+            if (Array.isArray(data[key]) && data[key].length > 0) {
+              formData.append(key, JSON.stringify(data[key]));
+            } else {
+              if (data[key] != undefined) {
+                formData.append(key, data[key]);
+              }
+            }
+          });
+        }
+        formData.append("pdfBlob", blob);
+        formData.append("resumeIndex", selectedResumeIndex);
+        formData.append("fileName", name);
+        formData.append("selectedColor", selectedColor);
+        formData.append("selectedFont", selectedFont);
+  
+        if (userDataGlobal.role === "user") {
+          formData.append("userId", userDataGlobal._id);
+        } else if (userDataGlobal.role === "recruiter") {
+          formData.append("userId", data.clientId);
+          formData.append("recruiterId", userDataGlobal._id);
+        }
+  
+        axios
+          .post("https://freedygoservices.in/api/resume/add", formData)
+          .then((res) => {
+            const pdfUrl = res.data.data.resumeUrl;
+  
+            localStorage.setItem("saveCount", saveLimit - 1);
+            if (download) {
+              const link = document.createElement("a");
+              link.href = pdfUrl;
+              link.download = res.data.data.fileName;
+              document.body.appendChild(link);
+              link.click();
+              document.body.removeChild(link);
+            }
+  
+            getLimits();
+            toast.success("Resume Saved To Collection successfully");
+            setLoading(false);
+            callData();
+          })
+          .catch((err) => {
+            console.log(err);
+            toast.error("Something went wrong ");
+            setLoading(false);
+          });
       }
-      formData.append("pdfBlob", blob);
-      formData.append("resumeIndex", selectedResumeIndex);
-      formData.append("fileName", name);
-      formData.append("selectedColor", selectedColor);
-      formData.append("selectedFont", selectedFont);
-
-      if (userDataGlobal.role === "user") {
-        formData.append("userId", userDataGlobal._id);
-      } else if (userDataGlobal.role === "recruiter") {
-        formData.append("userId", data.clientId);
-        formData.append("recruiterId", userDataGlobal._id);
-      }
-
-      axios
-        .post("https://freedygoservices.in/api/resume/add", formData)
-        .then((res) => {
-          const pdfUrl = res.data.data.resumeUrl;
-
-          localStorage.setItem("saveCount", saveLimit - 1);
-          if (download) {
-            const link = document.createElement("a");
-            link.href = pdfUrl;
-            link.download = res.data.data.fileName;
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-          }
-
-          getLimits();
-          toast.success("Resume Saved To Collection successfully");
-          setLoading(false);
-          callData();
-        })
-        .catch((err) => {
-          console.log(err);
-          toast.error("Something went wrong ");
-          setLoading(false);
-        });
+    }else{
+      toast.error("Something went wrong, Please try again")
     }
+   
   };
   const updateDownloadCount = async () => {
     setDownloadBtnLoading(true);
@@ -660,9 +665,7 @@ const ResumePreview = ({
     );
   };
   const SaveBTN = (blob, url, loading) => {
-    useEffect(() => {
-      setLoading(loading);
-    }, [loading]);
+    
     return (
       <button
         onClick={() => saveResume(blob)}
@@ -880,15 +883,15 @@ const ResumePreview = ({
               transformOrigin: "top left",
             }}
           >
-            {loading ? (
+            {/* {loading ? (
               <div>
                 <MiniLoader />
               </div>
-            ) : (
+            ) : ( */}
               <PDFViewer width="80%" height="900px" showToolbar={false}>
                 <MyComponent />
               </PDFViewer>
-            )}
+            {/* )} */}
           </div>
         )}
         {/* <div

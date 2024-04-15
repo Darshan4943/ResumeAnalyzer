@@ -160,10 +160,10 @@ const List = ({ userList,miniLoading, selectedCandidate, setSelectedCandidate, d
         <div className="flex items-center" style={{ radious: '0px 0px 16px 16px' }} >
         <div className="mr-4">{miniLoading && <MiniLoader />}</div>
           <p className="text-[14px] text-[#646464] font-[500]">pages<span className="text-[#333] px-[10px] font-[600]" >{currentPage}</span> of <span className="text-[#333] px-[10px]  font-[600]">{totalPages}</span></p>
-          <button disabled={!data.previous}>
+          <button disabled={!data?.previous}>
           <svg onClick={prevPage}  width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g clip-path="url(#clip0_2529_10517)">
-              <path d="M15 6L9 12L15 18" stroke={data.previous ? "#333333" : "#646464"} stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M15 6L9 12L15 18" stroke={data?.previous ? "#333333" : "#646464"} stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
             </g>
             <defs>
               <clipPath id="clip0_2529_10517">
@@ -172,11 +172,11 @@ const List = ({ userList,miniLoading, selectedCandidate, setSelectedCandidate, d
             </defs>
           </svg>
           </button>
-          <button disabled={!data.next}>
+          <button disabled={!data?.next}>
           <svg width="25" height="24"
             onClick={nextPage}  viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g clip-path="url(#clip0_2529_10530)">
-              <path d="M9.375 6L15.625 12L9.375 18" stroke={data.next ? "#333333" : "#646464"} stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M9.375 6L15.625 12L9.375 18" stroke={data?.next ? "#333333" : "#646464"} stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
             </g>
             <defs>
               <clipPath id="clip0_2529_10530">

@@ -27,7 +27,8 @@ const Index = () => {
       .then((res) => {
         if (res.data.success) {
           const result = res.data?.data;
-          setJobs(result);
+          setJobs(result?.sort((a, b) => b.percentage - a.percentage)
+            ?.slice(0, resumeCount));
           setLoading(false);
         } else {
           setLoading(false);

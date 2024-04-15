@@ -21,7 +21,7 @@ const Index = () => {
 
 
     axios
-      .get("http://localhost:2000/api/recruiters", {
+      .get("https://freedygoservices.in/api/recruiters", {
         params: { page, limit }
       })
       .then((res) => {
