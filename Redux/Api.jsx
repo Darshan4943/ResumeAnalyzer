@@ -6,15 +6,28 @@ import { jwtDecode } from "jwt-decode";
 import { setJob } from "./actions";
 import moment from "moment";
 import { plans } from "../utils/data";
+import ResetPasswordModal from "../components/models/resetPasswordModal";
 
 export const Api = () => {
   const store = useStore();
   const [loading, setLoading] = useState(true);
   const userDataGlobal = useSelector((state) => state.userData);
+  const [visible, setVisible] = useState(false);
 
   const dispatch = useDispatch();
   const reCallUser = useSelector((state) => state.reCallUser);
+  useEffect(() => {
+    if (userDataGlobal?.tempPassword?.length > 0) {
 
+    const timer = setTimeout(() => {
+      setLoading(false);
+        setVisible(true);
+    }, 3400);
+
+    return () => clearTimeout(timer);
+  }
+
+  }, [userDataGlobal]);
   useEffect(() => {
     if (typeof window !== "undefined") {
       const token = JSON.parse(localStorage.getItem("authToken"));
@@ -47,7 +60,9 @@ export const Api = () => {
 
     if (userDataGlobal) {
       axios
-        .get("https://freedygoservices.in/api/subscription/" + userDataGlobal._id)
+        .get(
+          "https://freedygoservices.in/api/subscription/" + userDataGlobal._id
+        )
         .then((res) => {
           const result = res.data.data;
 
@@ -61,6 +76,8 @@ export const Api = () => {
             localStorage.setItem("downloadCount", result.resumeDownloads);
             localStorage.setItem("saveCount", result.resumeSaves.num);
             localStorage.setItem("clientCount", result.clientStored);
+            localStorage.setItem("planAvailable", true);
+
           } else {
             if (!planActive && uploadCount == 0) {
               localStorage.setItem("uploadCount", 0);
@@ -69,6 +86,8 @@ export const Api = () => {
             }
 
             localStorage.setItem("planActive", false);
+            localStorage.setItem("planAvailable", false);
+
             localStorage.setItem("downloadCount", 0);
             localStorage.setItem("saveCount", 0);
             localStorage.setItem("clientCount", 0);
@@ -80,5 +99,6 @@ export const Api = () => {
     }
   }, [userDataGlobal, reCallUser]);
 
-  return <></>;
+  // console.log(123,visible && loading == false);
+  return <>{visible && loading == false ? <ResetPasswordModal /> : null}</>;
 };

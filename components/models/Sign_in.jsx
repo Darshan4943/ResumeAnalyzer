@@ -115,7 +115,7 @@ function Sign_in({ googleLoading, handleGoogle, setSignIn, setSignUp }) {
               required
             />
           </div>
-          <div className="flex flex-col gap-[10px] relative mb-4">
+          <div className="flex flex-col gap-[10px] relative ">
             <div className="flex flex-row px-[16px] py-[12px] border-[1px] rounded-[8px] border-solid border-[#9D9D9D] justify-between">
               <input
                 type={showPassword ? "text" : "password"}
@@ -161,31 +161,16 @@ function Sign_in({ googleLoading, handleGoogle, setSignIn, setSignUp }) {
                 </svg>
               )}
             </div>
-            {/* <div className="flex justify-end text-[#06A9EF] text-[12px] font-[500] cursor-pointer ">
-              <a onClick={() => setIsForgot(true)} className="already_sign">
-                Forgot password?
-              </a>
-            </div> */}
-            {isForgot && (
-              <>
-                <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
-                <div
-                  ref={taskRef}
-                  className="fixed z-[2000] top-[40%] left-0 right-0  flex items-center justify-center  "
-                >
-                  <ForgotPassword setIsForgot={setIsForgot} />
-                </div>
-              </>
-            )}
+            <div className="flex justify-between text-[#06A9EF] text-[12px] font-[500] cursor-pointer ">
             {error && (
               <div
-                className={`flex justify-start text-[16px] gap-2  absolute bottom-[-30px]  ${
+                className={`flex justify-start scr420:text-[16px] text-[13px] gap-2  items-center bottom-[-30px] w-full  ${
                   error ? "text-[#c00000] font-[600]" : "text-green font-[600]"
                 }`}
               >
+                <div className="w-[18px] h-[18px] scr420:w-[24px] scr420:h-[24px]">
                 <svg
-                  width="24"
-                  height="24"
+                  
                   viewBox="0 0 24 24"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
@@ -197,9 +182,26 @@ function Sign_in({ googleLoading, handleGoogle, setSignIn, setSignUp }) {
                     />
                   </g>
                 </svg>
+                </div>
                 <p>{error}</p>
               </div>
             )}
+              <a className="flex justify-end w-full" onClick={() => setIsForgot(true)}>
+                Forgot password?
+              </a>
+            </div>
+            {isForgot && (
+              <>
+                <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
+                <div
+                  ref={taskRef}
+                  className="fixed z-[2000] top-[40%] left-0 right-0  flex items-center justify-center  "
+                >
+                  <ForgotPassword setIsForgot={setIsForgot} />
+                </div>
+              </>
+            )}
+
           </div>
         </div>
         <div className="w-full flex flex-col gap-[16px]">
@@ -214,7 +216,7 @@ function Sign_in({ googleLoading, handleGoogle, setSignIn, setSignUp }) {
               <div role="status">
                 <svg
                   aria-hidden="true"
-                  class="inline w-6 h-6 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
+                  className="inline w-6 h-6 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
                   viewBox="0 0 100 101"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
@@ -228,7 +230,7 @@ function Sign_in({ googleLoading, handleGoogle, setSignIn, setSignUp }) {
                     fill="#fff"
                   />
                 </svg>
-                <span class="sr-only">Loading...</span>
+                <span className="sr-only">Loading...</span>
               </div>
             ) : (
               "Sign In"
@@ -249,7 +251,7 @@ function Sign_in({ googleLoading, handleGoogle, setSignIn, setSignUp }) {
                 <div role="status">
                   <svg
                     aria-hidden="true"
-                    class="inline w-6 h-6 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
+                    className="inline w-6 h-6 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
                     viewBox="0 0 100 101"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
@@ -263,7 +265,7 @@ function Sign_in({ googleLoading, handleGoogle, setSignIn, setSignUp }) {
                       fill="#06a9ef"
                     />
                   </svg>
-                  <span class="sr-only">Loading...</span>
+                  <span className="sr-only">Loading...</span>
                 </div>
               ) : (
                 <>

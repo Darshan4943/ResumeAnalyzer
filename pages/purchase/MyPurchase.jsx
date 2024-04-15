@@ -47,7 +47,7 @@ function MyPurchase() {
         <>
           {subscription ? (
             <>
-              <div className="flex flex-col justify-center items-center text-center bg-blue    py-3">
+              <div className="flex flex-col justify-center items-center text-center bg-blue  py-3">
                 <div className=" font-semibold text-[30px] text-white leading-tight">
                   My Purchase
                 </div>
@@ -257,7 +257,7 @@ function MyPurchase() {
               </div>
             </>
           ) : (
-            <div className="w-full  ">
+            <div className="w-full py-3  ">
               <SubscriptionPlan subscription={subscription} />
             </div>
           )}

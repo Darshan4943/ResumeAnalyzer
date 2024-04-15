@@ -43,12 +43,12 @@ function Services({ isServices, isMove, setIsMove }) {
       desc: "Test your skills and improve knowledge to crack job interviews.",
       color: "#FE7701",
     },
-    {
-      name: "My Purchases",
-      imgSrc: "/images/resumeBuilder/my_purchases.png",
-      desc: "Details of subscription plan and paid services.",
-      color: "#8901FF",
-    },
+    // {
+    //   name: "My Purchases",
+    //   imgSrc: "/images/resumeBuilder/my_purchases.png",
+    //   desc: "Details of subscription plan and paid services.",
+    //   color: "#8901FF",
+    // },
     {
       name: "Search Jobs",
       imgSrc: "/images/resumeBuilder/job.png",
@@ -89,12 +89,12 @@ function Services({ isServices, isMove, setIsMove }) {
       desc: "Save multiple resumes with multiple clients in cloud storage.",
       color: "#45ABA0",
     },
-    {
-      name: "My Purchases",
-      imgSrc: "/images/resumeBuilder/my_purchases.png",
-      desc: "Details of subscription plan and paid services.",
-      color: "#8901FF",
-    },
+    // {
+    //   name: "My Purchases",
+    //   imgSrc: "/images/resumeBuilder/my_purchases.png",
+    //   desc: "Details of subscription plan and paid services.",
+    //   color: "#8901FF",
+    // },
     {
       name: "Post Jobs",
       imgSrc: "/images/resumeBuilder/job.png",
@@ -233,13 +233,13 @@ function Services({ isServices, isMove, setIsMove }) {
                   >
                     <g mask="url(#mask0_2038_22277)">
                       <path
-                        class="icon-path"
+                        className="icon-path"
                         d="M7.99997 25.3332H12.4615V17.4101H19.5384V25.3332H24V13.3332L16 7.30755L7.99997 13.3332V25.3332ZM6 27.3331V12.3332L16 4.80762L25.9999 12.3332V27.3331H17.5384V19.4101H14.4615V27.3331H6Z"
                         fill="#808080"
                       />
                     </g>
                   </svg>
-                  <p className="text-[14px] font-medium">DashBoard</p>
+                  <p className="text-[14px] font-medium">Dashboard</p>
                   <p className="text-[12px] font-medium text-[#808080]">
                     Go to your personalised home page
                   </p>

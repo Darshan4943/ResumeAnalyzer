@@ -302,13 +302,14 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
             )}
             {data?.hobbies?.length > 0 && (
               <View style={{ flexDirection: "column" }}>
-                <View style={{ flexDirection: "column", gap: 12 }}>
+                <View style={{ flexDirection: "column", gap: 12 }} >
                   <Text
                     style={{
                       color: "#414042",
                       fontFamily: `${selectedFont} 400`,
                       fontSize: "16px",
                     }}
+                  
                   >
                     HOBBIES
                   </Text>
@@ -627,18 +628,18 @@ export default Template1;
 //         const parentDiv = document.createElement("div");
 //         parentDiv.innerHTML = `
 //       <div>
-//         <p class="text-[#414042] font-lato text-[10px] font-[700] leading-normal break-all">${
+//         <p className="text-[#414042] font-lato text-[10px] font-[700] leading-normal break-all">${
 //           detail.qualification
 //         }</p>
-//         <p class="text-[#414042] font-lato text-[10px] font-[700] leading-normal break-all">${
+//         <p className="text-[#414042] font-lato text-[10px] font-[700] leading-normal break-all">${
 //           detail.instituteName
 //         }</p>
 //       </div>
-//       <div class="pt-[11.49px]">
-//         <div class="w-[16px] h-[1px] bg-[#414042]"></div>
+//       <div className="pt-[11.49px]">
+//         <div className="w-[16px] h-[1px] bg-[#414042]"></div>
 //       </div>
-//       <div class="pt-[1.81px]">
-//         <p class="text-[#414042] font-lato text-[8.962px] font-normal leading-normal">
+//       <div className="pt-[1.81px]">
+//         <p className="text-[#414042] font-lato text-[8.962px] font-normal leading-normal">
 //           ${
 //             detail.duration?.end?.year
 //               ? `${detail.duration?.start?.year}-${detail.duration?.end?.year}`
@@ -767,7 +768,7 @@ export default Template1;
 //               {data.designation}
 //             </p>
 //           </div>
-//           <div class="w-[130px] h-[130px] flex-shrink-0 bg-lightgray bg-center bg-cover rounded-full overflow-hidden ">
+//           <div className="w-[130px] h-[130px] flex-shrink-0 bg-lightgray bg-center bg-cover rounded-full overflow-hidden ">
 //             {data.profilePhoto ? (
 //               <img src={URL.createObjectURL(data.profilePhoto)} alt="" />
 //             ) : (
@@ -976,7 +977,7 @@ export default Template1;
 //                 {data.designation}
 //               </p>
 //             </div>
-//             <div class="w-[130px] h-[130px] flex-shrink-0 bg-lightgray bg-center bg-cover rounded-full overflow-hidden ">
+//             <div className="w-[130px] h-[130px] flex-shrink-0 bg-lightgray bg-center bg-cover rounded-full overflow-hidden ">
 //               {data.profilePhoto ? (
 //                 <img src={URL.createObjectURL(data.profilePhoto)} alt="" />
 //               ) : (

@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import { toast } from "react-toastify";
-
+import * as FileSaver from "file-saver";
+import * as XLSX from "xlsx";
 const UploadModal = ({ role, setUploadPopUp }) => {
   const [file, setFile] = useState(null);
   const fileRef = useRef(null);
@@ -27,6 +28,31 @@ const UploadModal = ({ role, setUploadPopUp }) => {
   const handleDragOver = (event) => {
     event.preventDefault();
   };
+  const CountArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+
+  const submitHandler = () => {
+    const promise = new Promise((resolve, reject) => {
+      const fileReader = new FileReader();
+      fileReader.readAsArrayBuffer(file);
+      fileReader.onload = (e) => {
+        const ExportArray = [];
+        const bufferArray = e.target.result;
+        const wb = XLSX.read(bufferArray, { type: "buffer" });
+        CountArray.slice(0, wb.SheetNames.length).forEach((item, index) => {
+          const wsname = wb.SheetNames[index];
+          const ws = wb.Sheets[wsname];
+          const data = XLSX.utils.sheet_to_json(ws);
+          ExportArray.push(...data);
+        });
+        resolve(ExportArray);
+      };
+      fileReader.onerror = (error) => {
+        reject(error);
+      };
+    });
+    promise.then((res) => {});
+  };
+
   return (
     <>
       {" "}
@@ -38,7 +64,7 @@ const UploadModal = ({ role, setUploadPopUp }) => {
           </span>
           <div className="flex sm:flex-row flex-col gap-4 items-center justify-center w-full">
             <div
-              class="border-dashed border-[3px] border-[#06A9EF] flex flex-col rounded-[12px] p-4 items-center justify-center upload-btn-wrapper w-full min-h-[6rem]"
+              className="border-dashed border-[3px] border-[#06A9EF] flex flex-col rounded-[12px] p-4 items-center justify-center upload-btn-wrapper w-full min-h-[6rem]"
               onDragOver={handleDragOver}
               ref={fileRef}
               onDrop={handleFileChange}
@@ -62,8 +88,8 @@ const UploadModal = ({ role, setUploadPopUp }) => {
                   </button>
                 </div>
               ) : (
-                <div class="flex flex-col gap-[4px]	font-normal	">
-                  <div class="flex text-center justify-center  text-[14px] text-[#515B6F]">
+                <div className="flex flex-col gap-[4px]	font-normal	">
+                  <div className="flex text-center justify-center  text-[14px] text-[#515B6F]">
                     <input
                       type="file"
                       ref={fileRef}
@@ -73,13 +99,13 @@ const UploadModal = ({ role, setUploadPopUp }) => {
                     />
                     <p
                       onClick={handleButtonClick}
-                      class="text-[#06A9EF] font-medium"
+                      className="text-[#06A9EF] font-medium"
                     >
                       &nbsp;Browse file{" "}
                     </p>
                     &nbsp;or drag and drop
                   </div>
-                  <p class="text-center text-[14px] font-normal text-[#333]">
+                  <p className="text-center text-[14px] font-normal text-[#333]">
                     {" "}
                     Allowed file formats: Excel
                   </p>
@@ -96,7 +122,7 @@ const UploadModal = ({ role, setUploadPopUp }) => {
             </button>
             <button
               className="py-[12px] px-[36px] rounded-[12px] font-[500] bg-[#06A9EF] border border-[#06A9EF] text-white flex flex-row gap-2"
-              onClick={() => setUploadPopUp(false)}
+              onClick={submitHandler}
             >
               Save
             </button>

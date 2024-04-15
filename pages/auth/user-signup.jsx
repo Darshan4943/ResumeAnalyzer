@@ -7,6 +7,7 @@ import { reCallUserData } from "../../Redux/actions/user";
 import Link from "next/link";
 import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
 import { auth } from "../../utils/firebase";
+import MiniLoader from "../../components/common/mini-loader";
 
 function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
   const router = useRouter();
@@ -248,7 +249,7 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
             <div
               className={`flex justify-start text-[16px] gap-2  ${error ? "text-red font-[600]" : "text-green font-[600]"
                 }`}
-            >
+            >  
               {error && (
                 <svg
                   width="24"
@@ -264,7 +265,7 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
                     />
                   </g>
                 </svg>
-              )}
+              )}  
               <p>{error}</p>
             </div>
           </div>
@@ -275,7 +276,10 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
             className="w-full px-[36px] py-[12px] rounded-[12px] border-[1px] border-solid border-[#06a9ef]  text-[20px] font-[500] hover:bg-[#06a9ef] hover:text-[#fff] transition-all duration-200"
             style={{ borderColor: "#06a9ef" }}
           >
-            Sign Up
+            {
+              loading ? <MiniLoader/> :"Sign Up"
+            }
+            
           </button>
           <div className="flex flex-row items-center justify-center gap-[6px]">
             <div className="w-[50%] h-[1px] bg-[#9D9D9D]"></div>Or

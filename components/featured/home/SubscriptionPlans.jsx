@@ -48,7 +48,7 @@ function SubscriptionPlans({ fromMain }) {
   }, [userDataGlobal]);
   const clickHandler = (index) => {
     if (isLogin) {
-      if (subscription === null || subscription==undefined) {
+      if ((subscription === null || subscription==undefined ) || !subscription.inReview) {
         router.push(`/purchase/details?id=${index}`);
       } else {
         setIsInInquiry(true);
@@ -90,7 +90,7 @@ function SubscriptionPlans({ fromMain }) {
 
               <div className="text-center">
                 <div className="text-[24px] font-[500] text-[#333]">
-                  Inquiry In Process
+                    Activation in progress
                 </div>
                 <div className="text-[16px] font-[500] text-[#333]">
                   <span className="text-[18px] font-[600] text-[#06A9EF]">

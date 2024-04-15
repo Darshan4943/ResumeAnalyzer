@@ -30,7 +30,8 @@ const Index = () => {
     requiredSkills: "",
     deadLine: "",
     experiance: "",
-    skills: [],
+    mustSkills: [],
+    goodSkills: [],
   });
 
   const getData = () => {
@@ -51,7 +52,9 @@ const Index = () => {
           requiredSkills,
           deadLine,
           experiance,
-          skills,
+          mustSkills,
+          goodSkills
+
         } = res.data.data;
         setData({
           ...data,
@@ -66,7 +69,8 @@ const Index = () => {
           requiredSkills,
           deadLine,
           experiance,
-          skills,
+          mustSkills,
+          goodSkills
         });
       })
       .catch((err) => {

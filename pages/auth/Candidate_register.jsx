@@ -56,7 +56,6 @@ function Candidate_register() {
     firstName: { message: "Please Enter Valid First Name", view: null },
     lastName: null,
   });
-  console.log(data);
 
   return (
     <>

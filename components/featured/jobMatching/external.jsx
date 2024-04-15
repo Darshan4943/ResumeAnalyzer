@@ -192,7 +192,7 @@ const ExternalJobMatching = () => {
             <div
               ref={fileRef}
               onDrop={handleFileChange}
-              class="border-dashed border-[3px] border-[#333] flex flex-row w-full justify-center rounded-[12px] px-[8px] py-[24px] items-center gap-[8px] upload-btn-wrapper min-h-[126px]"
+              className="border-dashed border-[3px] border-[#333] flex flex-row w-full justify-center rounded-[12px] px-[8px] py-[24px] items-center gap-[8px] upload-btn-wrapper min-h-[126px]"
             >
               <input
                 type="file"
@@ -264,14 +264,14 @@ const ExternalJobMatching = () => {
                       </defs>
                     </svg>
                   </div>
-                  <div class="flex flex-col gap-[4px]	font-normal	">
-                    <div class="flex text-center justify-center  scr420:text-[14px] scr360:text-[12px] text-[10px] text-[#515B6F]">
-                      <span onClick={handleButtonClick} class="text-[#06A9EF]">
+                  <div className="flex flex-col gap-[4px]	font-normal	">
+                    <div className="flex text-center justify-center  scr420:text-[14px] scr360:text-[12px] text-[10px] text-[#515B6F]">
+                      <span onClick={handleButtonClick} className="text-[#06A9EF]">
                         &nbsp;Browse file{" "}
                       </span>
                       &nbsp;to upload PDF or DOCS
                     </div>
-                    <p class="text-center text-[12px] font-normal text-[#7C8493]"></p>
+                    <p className="text-center text-[12px] font-normal text-[#7C8493]"></p>
                   </div>
                 </>
               )}
@@ -360,7 +360,7 @@ const ExternalJobMatching = () => {
               <svg
                 aria-hidden="true"
                 role="status"
-                class="inline w-4 h-4  text-white animate-spin"
+                className="inline w-4 h-4  text-white animate-spin"
                 viewBox="0 0 100 101"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"

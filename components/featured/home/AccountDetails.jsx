@@ -88,6 +88,13 @@ function AccountDetails({ selectedPlan, recruiterid,role }) {
           delete errors.mobileNo;
         }
         break;
+      case "dial_code":
+        if (!value.trim()) {
+          errors.mobileNo = "dial_code is required";
+        }  else {
+          delete errors.dial_code;
+        }
+        break;
 
       default:
         break;
@@ -152,7 +159,7 @@ function AccountDetails({ selectedPlan, recruiterid,role }) {
     } else {
       setLoading(true);
       axios
-        .post("http://localhost:2000/api/add/subscription", {
+        .post("https://freedygoservices.in/api/add/subscription", {
           userId:
             userDataGlobal.role == "admin" ? recruiterid : userDataGlobal._id,
           plan: selectedPlan.duration + " " + selectedPlan.limit,
@@ -160,6 +167,7 @@ function AccountDetails({ selectedPlan, recruiterid,role }) {
           mobileNo: data.mobileNo,
           index: selectedPlan.index,
           isAdmin: userDataGlobal.role == "admin",
+          role:userDataGlobal?.role
         })
         .then((res) => {
           setLoading(false);
@@ -578,7 +586,7 @@ function AccountDetails({ selectedPlan, recruiterid,role }) {
               <svg
                 aria-hidden="true"
                 role="status"
-                class="inline w-4 h-4  text-white animate-spin"
+                className="inline w-4 h-4  text-white animate-spin"
                 viewBox="0 0 100 101"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"

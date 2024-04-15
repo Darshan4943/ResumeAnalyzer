@@ -107,10 +107,12 @@ const AddSection = ({ data, setData, section, formData, index, item }) => {
 
           <input
             type="text"
-            placeholder="Enter Header"
-            className={`${headerEditable ? "w-full" : "w-[120px]"
-              }  text-[18px]   font-[500]  ${headerEditable && "border border-[#bebebe] px-[8px]"
-              } rounded-lg`}
+            placeholder="Enter Section Header"
+            className={`${
+              headerEditable ? "w-full" : "w-[120px]"
+            }  text-[20px]   font-[500]  ${
+              headerEditable && "border border-[#bebebe] px-[8px]"
+            } rounded-lg`}
             onChange={(e) => setHeader(e.target.value)}
             value={header}
             disabled={!headerEditable}
