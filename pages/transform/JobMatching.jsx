@@ -30,7 +30,7 @@ const JobMatching = () => {
     value: "My Collection",
     label: "My Collection",
   });
-  console.log(selectedOptions);
+ 
   const { clients, folders, clientId, parentId, trash } = router.query;
   const [isBack, setIsBack] = useState(false);
   const [recall, setRecall] = useReducer((x) => x + 1, 0);
@@ -141,7 +141,7 @@ const JobMatching = () => {
     setLoadingg(true);
     setIsAnimate(false)
     axios
-      .post("https://freedygoservices.in/api/external/jobMatching/", {
+      .post("http://localhost:2000/api/external/jobMatching/", {
         jd: text,
         resumeCount,
         ids: selectedIndexes,
@@ -155,6 +155,7 @@ const JobMatching = () => {
         console.log(err);
       });
   };
+  
   const fileToText = (file, pageNumber) => {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();

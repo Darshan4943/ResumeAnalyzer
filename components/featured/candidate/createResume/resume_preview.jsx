@@ -515,7 +515,7 @@ const ResumePreview = ({
 
   const resumeRef = useRef();
   const [preview, setPreview] = useState(false);
-
+const [isDisabled,setdisabled] =useState(false)
   const [loading, setLoading] = useState(true);
 
   const togglePreview = (isVisible, index) => {
@@ -539,14 +539,17 @@ const ResumePreview = ({
   const handleLoad = () => {
     setLoading(false);
   };
+  
   const saveResume = async (blob, download) => {
-    if(Object.keys(blob).length>0){
+    setdisabled(true);
+    if(blob !==null){
       if (saveLimit == 0) {
         setLimitUsedModal(true);
         return;
       }
       if (isEdit) {
         setLoading(true);
+       
         const formData = new FormData();
         if (Object.keys(data).length > 0) {
           Object.keys(data).map((key) => {
@@ -572,6 +575,9 @@ const ResumePreview = ({
             setTimeout(() => {
               setLoading(false);
             }, 1000);
+            setTimeout(() => {
+              setdisabled(false);
+            }, 10000);
             callData();
           })
           .catch((err) => {
@@ -626,6 +632,9 @@ const ResumePreview = ({
             getLimits();
             toast.success("Resume Saved To Collection successfully");
             setLoading(false);
+            setTimeout(() => {
+              setdisabled(false);
+            }, 10000);
             callData();
           })
           .catch((err) => {
@@ -696,13 +705,12 @@ const ResumePreview = ({
       </button>
     );
   };
-
   const DownloadButton = () => (
-    <BlobProvider document={<MyComponent />}>
+    <BlobProvider document={<MyComponent />} fileName="demo.pdf" >
       {({ blob, url, loading, error }) => (
         <button
           onClick={() => saveResume(blob, true)}
-          disabled={loading}
+          disabled={isDisabled}
           className="flex gap-1 text-[14px] w-fit  justify-center  font-montserrat font-semibold px-3 py-2 rounded-[8px] items-center border border-[#06A9EF] "
         >
           {loading ? (
