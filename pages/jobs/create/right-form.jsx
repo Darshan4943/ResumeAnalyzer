@@ -221,10 +221,7 @@ const Rightform = ({ data, setData, file, croppedImage, isEditable, id, validate
                 mustSkills: [...data.mustSkills, mustSkill.value]
               });
 
-              setFormError(formError => {
-                delete formError.mustSkills;
-                return formError;
-              });
+              setFormError({})
             }}
           />
           {formError && (
@@ -276,10 +273,7 @@ const Rightform = ({ data, setData, file, croppedImage, isEditable, id, validate
 
 
 
-              setFormError(formError => {
-                delete formError.goodSkills;
-                return formError;
-              });
+              setFormError({})
             }}
           />
           {formError && (

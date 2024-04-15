@@ -296,10 +296,11 @@ const Leftform = ({
                 });
                 setLoactionText("");
                 
-                setFormError(formError => {
-                  delete formError.location;
-                  return formError;
-                });
+                // setFormError(formError => {
+                //   delete formError.location;
+                //   return formError;
+                // });
+                setFormError({})
               }}
             >
               <PlusAddLogo
