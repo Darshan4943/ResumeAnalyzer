@@ -786,7 +786,7 @@ const [isDisabled,setdisabled] =useState(false)
               <div
                 ref={taskRef}
                 onWheel={(e) => e.stopPropagation()}
-                className=" absolute flex p-6 bg-white rounded-[24px] shadow-md  gap-6 flex-wrap justify-center items-center ml:w-[65%] w-[90%] h-[90vh] overflow-y-auto "
+                className=" absolute top-[72px] flex p-6 bg-white rounded-[24px] shadow-md  gap-6 flex-wrap justify-center items-center ml:w-[65%] w-[90%] h-[90vh] overflow-y-auto "
               >
                 {renderAllTemplates()}
               </div>
@@ -855,7 +855,7 @@ const [isDisabled,setdisabled] =useState(false)
                 </>
               )}
 
-              <button
+              {/* <button
                 onClick={() => setPreview(true)}
                 className="flex gap-1 text-[14px] w-fit justify-center  font-montserrat font-semibold px-3 py-2 rounded-[8px] items-center border border-[#06A9EF] b"
               >
@@ -879,7 +879,7 @@ const [isDisabled,setdisabled] =useState(false)
                     fill="#333333"
                   />
                 </svg>
-              </button>
+              </button> */}
             </div>
           </div>
         </div>
