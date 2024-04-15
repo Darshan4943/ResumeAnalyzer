@@ -18,6 +18,7 @@ import {
 pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
 
 function FileSizeDisplay({ fileUrl }) {
+  console.log(21,fileUrl)
   const [fileSize, setFileSize] = useState(null);
 
   useEffect(() => {
@@ -228,6 +229,7 @@ const JdMatching = ({ details, resuneList, isAnimate }) => {
                               <div className="flex gap-2 justify-between">
                                 <span className="md:text-[14px] text-[14px] text-[#808080] font-medium">
                                   {/* {getFileSize(data?.resumeUrl)} */}
+                                  {console.log(99,data)}
                                   <FileSizeDisplay fileUrl={data?.resumeUrl} />
                                 </span>
                                 <div className="flex flex-row gap-[8px] items-center">
