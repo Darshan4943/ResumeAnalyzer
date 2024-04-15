@@ -13,102 +13,91 @@ const Rightform = ({ data, setData, file, croppedImage, isEditable, id, validate
   const userDataGlobal = useSelector((state) => state.userData);
   const router = useRouter();
   const [skills, setSkills] = useState(SkillList);
-  const [skillText,setSkillText] = useState("")
+  const [skillText, setSkillText] = useState("")
   console.log(formError)
+
+  
   const postJob = () => {
-
-
- 
-
+    let hasError = false;
+  
+    
     if (!data.mustSkills || data.mustSkills.length === 0) {
       setFormError(formError => ({
         ...formError, mustSkills: "Must have Skills are required"
-      }))
+      }));
+      hasError = true;
     }
-
+  
     if (!data.goodSkills || data.goodSkills.length === 0) {
       setFormError(formError => ({
         ...formError, goodSkills: " Good to have Skills are required"
-      }))
+      }));
+      hasError = true;
     }
-
-
-
+  
     if (!data.location || data.location.length === 0) {
       setFormError(formError => ({
         ...formError,
         location: "Location is required"
       }));
+      hasError = true;
     }
+  
     const requiredFields = [
       "companyName",
       "jobTitle",
-
-
     ];
     const emptyFields = requiredFields.filter((field) => !data[field]);
-
+  
     if (emptyFields.length > 0) {
       toast.error("Please fill in all required fields");
-      if (emptyFields.includes("companyName")) {
+      emptyFields.forEach(field => {
         setFormError(formError => ({
           ...formError,
-          companyName: "Company Name is required"
+          [field]: `${field.charAt(0).toUpperCase() + field.slice(1)} is required`
         }));
-      }
-      if (emptyFields.includes("jobTitle")) {
-        setFormError(formError => ({
-          ...formError,
-          jobTitle: "Job Title is required"
-        }));
-      }
-      return;
+      });
+      hasError = true;
     }
-
- 
-
-    const hasEmptyField = Object.values(formError).some(error => error === '');
-
-    if (hasEmptyField) {
-      toast.error("Please fill in all required fields");
+  
+    if (hasError) {
+      return; 
     }
-    else {
-      setLoading(true);
-      const formData = new FormData();
-      if (Object.keys(data).length > 0) {
-        Object.keys(data).map((key) => {
-          if (Array.isArray(data[key]) && data[key].length > 0) {
-            formData.append(key, JSON.stringify(data[key]));
-          } else {
-            formData.append(key, data[key]);
-          }
-        });
-      }
-      if (croppedImage) {
-        formData.append("logo", croppedImage.blob);
-        formData.append("fileName", file.name);
-      }
-      formData.append("createdBy", userDataGlobal._id);
-      axios
-        .post("https://freedygoservices.in/api/job/add/" + id, formData)
-        .then((res) => {
-          if (id) {
-            toast.success("Job Post Updated Successfully");
-          } else {
-            toast.success("Job Post Created Successfully");
-          }
-          setLoading(false);
-          router.push("/jobs/list");
-        })
-        .catch((err) => {
-          setLoading(false);
-
-          console.log(err);
-        });
+  
+  
+    setLoading(true);
+    const formData = new FormData();
+    if (Object.keys(data).length > 0) {
+      Object.keys(data).forEach((key) => {
+        if (Array.isArray(data[key]) && data[key].length > 0) {
+          formData.append(key, JSON.stringify(data[key]));
+        } else {
+          formData.append(key, data[key]);
+        }
+      });
     }
+    if (croppedImage) {
+      formData.append("logo", croppedImage.blob);
+      formData.append("fileName", file.name);
+    }
+    formData.append("createdBy", userDataGlobal._id);
+    axios
+      .post("https://freedygoservices.in/api/job/add/" + id, formData)
+      .then((res) => {
+        if (id) {
+          toast.success("Job Post Updated Successfully");
+        } else {
+          toast.success("Job Post Created Successfully");
+        }
+        setLoading(false);
+        router.push("/jobs/list");
+      })
+      .catch((err) => {
+        setLoading(false);
+        console.log(err);
+      });
   };
-
-
+  
 
   return (
     <div className="flex flex-col md:w-[50%] w-full gap-[24px] ml:pt-0 pt-6">

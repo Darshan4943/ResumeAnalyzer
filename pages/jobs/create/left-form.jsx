@@ -295,6 +295,7 @@ const Leftform = ({
                   location: [...data.location, loactionText],
                 });
                 setLoactionText("");
+                
                 setFormError(formError => {
                   delete formError.location;
                   return formError;
