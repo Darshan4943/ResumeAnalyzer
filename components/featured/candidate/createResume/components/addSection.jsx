@@ -12,7 +12,7 @@ const AddSection = ({ data, setData, section, formData, index, item }) => {
   };
   const [activeDate, setActiveDate] = useState(false);
   const [isEdited, setIsEdited] = useState(false);
-  const [header, setHeader] = useState(null);
+  const [header, setHeader] = useState("");
   const [headerEditable, setHeaderEditable] = useState(false);
   const [listItems, setListItems] = useState(section);
 
@@ -91,7 +91,10 @@ const AddSection = ({ data, setData, section, formData, index, item }) => {
     setIsModified({ status: false, index: 0 });
     setIsEdited(false);
   };
+  // console.log(first)
+  console.log(header)
   return (
+
     <div
       className="flex flex-col p-4 gap-2 rounded-lg bg-white"
       style={{
@@ -101,6 +104,7 @@ const AddSection = ({ data, setData, section, formData, index, item }) => {
     >
       <div className="w-full flex  gap-2 justify-between ">
         <p className="flex flex-row gap-2">
+
           <input
             type="text"
             placeholder="Enter Section Header"
@@ -112,6 +116,7 @@ const AddSection = ({ data, setData, section, formData, index, item }) => {
             onChange={(e) => setHeader(e.target.value)}
             value={header}
             disabled={!headerEditable}
+            onBlur={() => headerSeter()}
           />
           {!headerEditable && (
             <button onClick={() => setHeaderEditable(true)}>
@@ -120,12 +125,7 @@ const AddSection = ({ data, setData, section, formData, index, item }) => {
           )}
         </p>
         {headerEditable ? (
-          <button
-            className=" font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px]  bg-[#06A9EF] w-[60px] h-[32px]"
-            onClick={headerSeter}
-          >
-            Save
-          </button>
+          null
         ) : (
           <button onClick={deleteSection} className="cursor-pointer">
             <Delete_icon />
@@ -232,9 +232,9 @@ const AddSection = ({ data, setData, section, formData, index, item }) => {
               <button
                 onClick={dataSeter}
                 disabled={!isChecked}
-                className=" font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px]  bg-[#06A9EF] w-[60px] h-[32px]"
+                className=" font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px]  bg-[#06A9EF]  h-[32px]"
               >
-                Save
+                Save Details
               </button>
             </div>
           </div>
@@ -263,15 +263,15 @@ const AddSection = ({ data, setData, section, formData, index, item }) => {
               className="text-[16px] font-semibold text-[#06A9EF] cursor-pointer"
               disabled={!isChecked}
             >
-              Add 
+              Add
             </p>
           </div>
           {!view && isEdited && (
             <button
               onClick={saveHandler}
-              className=" font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px]  bg-[#06A9EF] w-[60px] h-[32px]"
+              className=" font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px]  bg-[#06A9EF]  h-[32px]"
             >
-              Save
+              Save Sections
             </button>
           )}
         </div>
