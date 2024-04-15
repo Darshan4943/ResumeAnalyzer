@@ -14,10 +14,12 @@ const Rightform = ({ data, setData, file, croppedImage, isEditable, id, validate
   const router = useRouter();
   const [skills, setSkills] = useState(SkillList);
   const [skillText,setSkillText] = useState("")
+  console.log(Object.keys(formError).length)
   const postJob = () => {
 
 
     const errors = validateInput();
+
     if (!data.mustSkills || data.mustSkills.length === 0) {
       setFormError(formError => ({
         ...formError, mustSkills: "Must have Skills are required"
@@ -63,10 +65,10 @@ const Rightform = ({ data, setData, file, croppedImage, isEditable, id, validate
       return;
     }
 
-    const hasErrors = Object.keys(errors).length > 0;
+  
 
-    if (hasErrors) {
-      toast.error("Please enter valid information");
+    if (Object.keys(formError).length >0) {
+      toast.error("Please fill in all required fields");
       setFormError(errors);
     }
     else {
@@ -133,8 +135,8 @@ const Rightform = ({ data, setData, file, croppedImage, isEditable, id, validate
       </div>
       <div className="flex flex-col w-full gap-[16px]">
         <span className="text-[18px] text-[#333333] font-medium">Salary</span>
-        <div className="flex sm:flex-row flex-col sm:gap-0 gap-4 justify-between">
-          <div className=" sm:w-[31%] w-full flex flex-col gap-[8px] ">
+        <div className="flex sm:flex-row flex-col sm:gap-4 gap-4 justify-between">
+          <div className=" sm:w-[50%] w-full flex flex-col gap-[8px] ">
             <label className="text-[#333333] text-[14px] font-medium">
               Salary Type
             </label>
@@ -166,7 +168,7 @@ const Rightform = ({ data, setData, file, croppedImage, isEditable, id, validate
               />
             </div>
           </div>
-          <div className=" sm:w-[31%] w-full flex flex-col gap-[8px] ">
+          {/* <div className=" sm:w-[31%] w-full flex flex-col gap-[8px] ">
             <label className="text-[#333333] text-[14px] font-medium">
               Min Salary
             </label>
@@ -179,10 +181,10 @@ const Rightform = ({ data, setData, file, croppedImage, isEditable, id, validate
                 setData({ ...data, minSalary: e.target.value });
               }}
             />
-          </div>
-          <div className="sm:w-[31%] w-full flex flex-col gap-[8px] ">
+          </div> */}
+          <div className="sm:w-[50%] w-full flex flex-col gap-[8px] ">
             <label className="text-[#333333] text-[14px] font-medium">
-              Max Salary
+              Maximum Salary
             </label>
             <input
               type="text"
@@ -229,7 +231,10 @@ const Rightform = ({ data, setData, file, croppedImage, isEditable, id, validate
                 mustSkills: [...data.mustSkills, mustSkill.value]
               });
 
-              setFormError({});
+              setFormError(formError => {
+                delete formError.mustSkills;
+                return formError;
+              });
             }}
           />
           {formError && (
@@ -281,7 +286,10 @@ const Rightform = ({ data, setData, file, croppedImage, isEditable, id, validate
 
 
 
-              setFormError({});
+              setFormError(formError => {
+                delete formError.goodSkills;
+                return formError;
+              });
             }}
           />
           {formError && (
