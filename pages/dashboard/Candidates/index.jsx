@@ -29,8 +29,7 @@ const Index = () => {
       .then((res) => {
         setUserList(res.data.users.results);
         setTotalCount(res.data.totalCount);
-        setData(res.data.users)
-       
+        setData(res.data.users)       
         setTotalpages(res.data.totalPages);
         setLimit(res?.data?.users?.current?.limit);
         setCurrentPage(res?.data?.users?.current?.page);
@@ -61,6 +60,7 @@ const Index = () => {
     setMiniloading(true)
     getData();
   }, [page,limit]);
+  
   return (
     <>
       {uploadPopUp && (

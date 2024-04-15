@@ -8,15 +8,36 @@ const Index = () => {
   const [list, setList] = useState([]);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const [miniLoading, setMiniloading] = useState(false);
   const [totalCount, setTotalCount] = useState(0);
+  const [userList, setUserList] = useState([]);
+  const [uploadPopUp, setUploadPopUp] = useState(false);
+  const [totalPages,setTotalpages] = useState(0);
+  const [selectedCandidate, setSelectedCandidate] = useState([]);
+  const [currentPage, setCurrentPage] = useState(0)
+  const [limit, setLimit] = useState(10)
+  const [page, setPage] = useState(1)
+  const [data, setData] = useState([]);
+
   const getData = () => {
     setLoading(true);
     axios
-      .get("https://freedygoservices.in/api/enquires")
+      .get("http://localhost:2000/api/enquires", {
+        params: { page, limit }
+      })
       .then((res) => {
+        console.log(res)
         setList(res.data.data.results);
         setTotalCount(res.data.totalCount);
+        setTotalpages(res.data.totalPages);
+        setLimit(res?.data?.data?.current?.limit);
+        setCurrentPage(res?.data?.data?.current?.page);
         setLoading(false);
+
+        setTimeout(() => {
+          setMiniloading(false);
+        }, 1000);
+
       })
       .catch((err) => {
         console.log(err);
@@ -24,8 +45,18 @@ const Index = () => {
       });
   };
   useEffect(() => {
+
+    setLoading(true);
+    
     getData();
   }, []);
+
+  useEffect(() => {
+    
+    setMiniloading(true)
+    getData();
+  }, [page,limit]); 
+
   return (
     <>
       <div className="customMargins py-[24px] flex flex-col gap-[16px]">
@@ -72,8 +103,25 @@ const Index = () => {
               <MiniLoader />
             </div>
           ) : (
-            <List list={list} />
+            <List list={list}
+            miniLoading={miniLoading}
+            data={data}
+            currentPage={currentPage}
+            limit={limit}
+            page={page}
+            setPage={setPage}
+            setLimit={setLimit}
+            setCurrentPage={setCurrentPage}
+            totalPages={totalPages}
+              userList={userList}
+              setSelectedCandidate={setSelectedCandidate}
+              selectedCandidate={selectedCandidate}
+            />
           )}
+        </div>
+
+        <div>
+
         </div>
       </div>
     </>
