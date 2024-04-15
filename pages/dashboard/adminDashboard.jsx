@@ -3,11 +3,13 @@
 // import ChartComponent, { Bars } from "@/components/common/Bars";
 // import StackedBarChart from "@/components/common/StackedBarChart";
 import { TablePagination } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 
-function adminDashboard({ toggleContentt }) {
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+
+function AdminDashboard({ toggleContentt }) {
+
+  const [page, setPage] = useState(0)
+  const [rowsPerPage, setRowsPerPage] = useState(5)
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -760,8 +762,8 @@ function adminDashboard({ toggleContentt }) {
               borderBottom: "1px solid var(--Neutrals-20, #D6DDEB)",
             }}
           >
-            {applicant_head.map((applicant_head) => (
-              <div className="w-[20%] flex items-center gap-6 justify-evenly ">
+            {applicant_head.map((applicant_head,index) => (
+              <div key={index} className="w-[20%] flex items-center gap-6 justify-evenly ">
                 <div>{applicant_head.check}</div>
 
                 <div className="flex  justify-between items-center gap-[8px]">
@@ -1013,4 +1015,4 @@ function adminDashboard({ toggleContentt }) {
   );
 }
 
-export default adminDashboard;
+export default AdminDashboard;
