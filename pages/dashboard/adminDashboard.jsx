@@ -3,18 +3,78 @@
 // import ChartComponent, { Bars } from "@/components/common/Bars";
 // import StackedBarChart from "@/components/common/StackedBarChart";
 import { TablePagination } from "@mui/material";
-import { useState } from "react";
+import  axios  from "axios";
+import { useEffect, useState } from "react";
 
 
 function AdminDashboard({ toggleContentt }) {
 
   const [page, setPage] = useState(0)
+  const [loading, setLoading] = useState(false);
   const [rowsPerPage, setRowsPerPage] = useState(5)
-
+  const [recruiterData, setRecruiterData] = useState([]);
+  const [candidateData, setCandidateData] = useState([]);
+  const [inquiriesData, setInquiriesData] = useState([]);
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
+  const getData = () => {
 
+
+    axios
+      .get("https://freedygoservices.in/api/recruiters")
+      .then((res) => {
+
+        setRecruiterData(res.data)
+        setUserList(res.data.users.results);
+       
+
+        setLoading(false);
+      
+      })
+      .catch((err) => {
+        console.log(err);
+        setLoading(false);
+        // setMiniloading(false);
+      });
+
+      axios
+      .get("https://freedygoservices.in/api/candidates")
+      .then((res) => {
+        
+        setCandidateData(res.data)       
+       
+        
+          setLoading(false);
+
+       
+   
+      })
+      .catch((err) => {
+        console.log(err);
+        setLoading(false);
+       
+      });
+
+      axios
+      .get("https://freedygoservices.in/api/enquires")
+      .then((res) => {
+       
+        setInquiriesData(res.data)
+        setLoading(false);
+
+       
+
+      })
+      .catch((err) => {
+        console.log(err);
+        setLoading(false);
+      });
+  };
+  useEffect(() => {
+    setLoading(true);
+    getData();
+  }, []);
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
@@ -272,7 +332,7 @@ function AdminDashboard({ toggleContentt }) {
         >
           <div className="flex items-center justify-between self-stretch">
             <p className="text-[#333] font-feature-settings-cv11 font-montserrat text-[36px] ml:text-[48px] font-semibold leading-normal">
-              77
+              {recruiterData.totalCount}
             </p>
             <div className="w-[69%]">
               <p className="ml:text-[18px] text-[16px] leading-4 font-medium font-montserrat ">
@@ -321,7 +381,7 @@ function AdminDashboard({ toggleContentt }) {
         >
           <div className="flex items-center justify-between self-stretch">
             <p className="text-[#333] font-feature-settings-cv11 font-montserrat text-[36px] ml:text-[48px] font-semibold leading-normal">
-              03
+            {candidateData.totalCount}
             </p>
             <div className="w-[69%]">
               <p className="ml:text-[18px] text-[16px] leading-4 font-medium font-montserrat ">
@@ -373,7 +433,7 @@ function AdminDashboard({ toggleContentt }) {
         >
           <div className="flex items-center justify-between self-stretch">
             <p className="text-[#333] font-feature-settings-cv11 font-montserrat text-[36px] ml:text-[48px] font-semibold leading-normal">
-              04
+            {inquiriesData.totalCount}
             </p>
             <div className="w-[69%]">
               <p className="ml:text-[18px] text-[16px] leading-4 font-medium font-montserrat ">
@@ -762,7 +822,7 @@ function AdminDashboard({ toggleContentt }) {
               borderBottom: "1px solid var(--Neutrals-20, #D6DDEB)",
             }}
           >
-            {applicant_head.map((applicant_head,index) => (
+            {applicant_head.map((applicant_head, index) => (
               <div key={index} className="w-[20%] flex items-center gap-6 justify-evenly ">
                 <div>{applicant_head.check}</div>
 
