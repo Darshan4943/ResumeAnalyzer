@@ -82,7 +82,7 @@ const ResumePreview = ({
 
   const callData = () => {
     axios
-      .get("https://freedygoservices.in/api/resume/" + userDataGlobal?._id)
+      .get("http://localhost:2000/api/resume/" + userDataGlobal?._id)
       .then((res) => {
         setName(data.firstName + "_resume " + (res.data.data.length + 1));
       })
@@ -567,7 +567,7 @@ const [isDisabled,setdisabled] =useState(false)
         formData.append("pdfBlob", blob);
   
         axios
-          .put("https://freedygoservices.in/api/resume/" + id, formData)
+          .put("http://localhost:2000/api/resume/" + id, formData)
           .then((res) => {
             localStorage.setItem("saveCount", saveLimit - 1);
             getLimits();
@@ -601,6 +601,7 @@ const [isDisabled,setdisabled] =useState(false)
             }
           });
         }
+        console.log(blob)
         formData.append("pdfBlob", blob);
         formData.append("resumeIndex", selectedResumeIndex);
         formData.append("fileName", name);
@@ -615,7 +616,7 @@ const [isDisabled,setdisabled] =useState(false)
         }
   
         axios
-          .post("https://freedygoservices.in/api/resume/add", formData)
+          .post("http://localhost:2000/api/resume/add", formData)
           .then((res) => {
             const pdfUrl = res.data.data.resumeUrl;
   
@@ -652,7 +653,7 @@ const [isDisabled,setdisabled] =useState(false)
     setDownloadBtnLoading(true);
     axios
       .put(
-        "https://freedygoservices.in/api/subscription/updateDownloadLimit/" +
+        "http://localhost:2000/api/subscription/updateDownloadLimit/" +
           userDataGlobal._id
       )
       .then((res) => {
@@ -896,9 +897,14 @@ const [isDisabled,setdisabled] =useState(false)
                 <MiniLoader />
               </div>
             ) : ( */}
-              <PDFViewer width="80%" height="900px" showToolbar={false}>
+              {/* <PDFViewer width="80%" height="900px" showToolbar={false}>
                 <MyComponent />
-              </PDFViewer>
+              </PDFViewer> */}
+              <Template1
+            data={data}
+            selectedColor={selectedColor}
+            selectedFont={selectedFont}
+          />
             {/* )} */}
           </div>
         )}
@@ -951,11 +957,17 @@ const [isDisabled,setdisabled] =useState(false)
               </div>
 
               <div className="w-full  bg-[#525659] h-full flex items-center justify-center">
-                <PDFViewer width="750" height="100%" showToolbar={false}>
+                {/* <PDFViewer width="750" height="100%" showToolbar={false}>
                   <Document>
                     {selectResumeTemplate(selectedResumeIndex)}
                   </Document>
-                </PDFViewer>
+                </PDFViewer> */}
+                
+                  <Template1
+            data={data}
+            selectedColor={selectedColor}
+            selectedFont={selectedFont}
+          />
               </div>
             </div>
           </div>

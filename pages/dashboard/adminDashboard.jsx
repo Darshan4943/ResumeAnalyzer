@@ -22,7 +22,7 @@ function AdminDashboard({ toggleContentt }) {
 
 
     axios
-      .get("https://freedygoservices.in/api/recruiters")
+      .get("http://localhost:2000/api/recruiters")
       .then((res) => {
 
         setRecruiterData(res.data)
@@ -39,7 +39,7 @@ function AdminDashboard({ toggleContentt }) {
       });
 
       axios
-      .get("https://freedygoservices.in/api/candidates")
+      .get("http://localhost:2000/api/candidates")
       .then((res) => {
         
         setCandidateData(res.data)       
@@ -57,7 +57,7 @@ function AdminDashboard({ toggleContentt }) {
       });
 
       axios
-      .get("https://freedygoservices.in/api/enquires")
+      .get("http://localhost:2000/api/enquires")
       .then((res) => {
        
         setInquiriesData(res.data)

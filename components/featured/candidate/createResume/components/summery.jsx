@@ -15,7 +15,7 @@ function Summary({ limits, selectedPlan, isActive }) {
   const [downloadsRemaining,setDownloadsRemaining] = useState(0)
   const [clientsRemaining,setClientsRemaining] = useState(0)
 
-  console.log(18,clientsRemaining)
+
   const calculateOverallPercentage = (used, total) => {
     let totalUsed = 0;
     let totalLimit = 0;
@@ -41,7 +41,7 @@ function Summary({ limits, selectedPlan, isActive }) {
     if (userDataGlobal) {
       axios
         .get(
-          "https://freedygoservices.in/api/subscription/" + userDataGlobal._id
+          "http://localhost:2000/api/subscription/" + userDataGlobal._id
         )
         .then((res) => {
           setSubscription(res.data.data);
@@ -57,7 +57,7 @@ function Summary({ limits, selectedPlan, isActive }) {
     const today = new Date();
     const start = new Date(startDate);
     const end = new Date(endDate);
-    console.log(start, end, today)
+  
 
     const differenceMs = end - today;
     const remainingDays = Math.ceil(differenceMs / (1000 * 60 * 60 * 24));
@@ -68,11 +68,11 @@ function Summary({ limits, selectedPlan, isActive }) {
     if (userDataGlobal) {
       axios
         .get(
-          "https://freedygoservices.in/api/subscription/" + userDataGlobal._id
+          "http://localhost:2000/api/subscription/" + userDataGlobal._id
         )
         .then((res) => {
           const result = res.data.data;
-          console.log(result)
+        
           setUploadsRemaining(result.resumeUpladed)
           setDownloadsRemaining(parseInt(result.resumeSaves.num))
           setClientsRemaining(result.clientStored)
