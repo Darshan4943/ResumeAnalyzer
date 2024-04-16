@@ -22,7 +22,7 @@ const SkillModel = ({ userData, handleImageClick, setIsComponentOpen }) => {
   const handleSubmit = () => {
     axios
       .put(
-        "https://freedygoservices.in/api/candidate/updateSkills/" +
+        "http://locahost:2000/api/candidate/updateSkills/" +
           userDataGlobal._id,
 
         { skills: skil }

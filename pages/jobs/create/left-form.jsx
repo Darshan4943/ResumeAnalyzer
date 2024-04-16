@@ -45,7 +45,7 @@ const Leftform = ({
     if (data.description.length > 100) {
       setLoading(true);
       axios
-        .post("https://freedygoservices.in/api/text/regenrate", { prompt })
+        .post("http://locahost:2000/api/text/regenrate", { prompt })
         .then((res) => {
           setLoading(false);
           setData({

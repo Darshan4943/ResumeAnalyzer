@@ -32,7 +32,7 @@ function TransformJob() {
     setLoading(true);
 
     axios
-      .post("https://freedygoservices.in/api/cv/transform", {
+      .post("http://locahost:2000/api/cv/transform", {
         jd: text,
         json: selected,
       })
@@ -64,7 +64,7 @@ function TransformJob() {
     if (userDataGlobal.role == "recruiter") {
       axios
         .get(
-          `https://freedygoservices.in/api/client/getByRecruiter/${userDataGlobal._id}`
+          `http://locahost:2000/api/client/getByRecruiter/${userDataGlobal._id}`
         )
         .then((res) => {
           const result = res.data.data;
@@ -78,7 +78,7 @@ function TransformJob() {
           if (result?.length > 0) {
             axios
               .get(
-                "https://freedygoservices.in/api/resume/" + res.data.data[0]?._id
+                "http://locahost:2000/api/resume/" + res.data.data[0]?._id
               )
               .then((res) => {
 
@@ -103,7 +103,7 @@ function TransformJob() {
     if (userDataGlobal.role == "recruiter") {
       setSelectedClient(data);
       axios
-        .get("https://freedygoservices.in/api/resume/" + data.value)
+        .get("http://locahost:2000/api/resume/" + data.value)
         .then((res) => {
           setResumeList(res.data.data);
           setSelect(res.data.data[0]);

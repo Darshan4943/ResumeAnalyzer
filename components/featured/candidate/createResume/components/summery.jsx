@@ -37,7 +37,7 @@ function Summary({ limits, selectedPlan, isActive }) {
     if (userDataGlobal) {
       axios
         .get(
-          "https://freedygoservices.in/api/subscription/" + userDataGlobal._id
+          "http://locahost:2000/api/subscription/" + userDataGlobal._id
         )
         .then((res) => {
           setSubscription(res.data.data);
@@ -58,7 +58,7 @@ function Summary({ limits, selectedPlan, isActive }) {
     if (userDataGlobal) {
       axios
         .get(
-          "https://freedygoservices.in/api/subscription/" + userDataGlobal._id
+          "http://locahost:2000/api/subscription/" + userDataGlobal._id
         )
         .then((res) => {
           const result = res.data.data;

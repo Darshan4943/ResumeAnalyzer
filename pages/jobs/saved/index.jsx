@@ -17,7 +17,7 @@ const Saved = () => {
   const getData = () => {
     setLoading(true);
     axios
-      .post("https://freedygoservices.in/api/job/byIds", {
+      .post("http://locahost:2000/api/job/byIds", {
         ids: userDataGlobal?.savedJobs
           ?.map((item) => item.id)
           .filter((item) => item != "undefined"),

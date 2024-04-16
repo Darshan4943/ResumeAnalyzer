@@ -18,7 +18,7 @@ const Index = () => {
     setLoading(true);
     axios
       .get(
-        "https://freedygoservices.in/api/job/getByCreatedId/" +
+        "http://locahost:2000/api/job/getByCreatedId/" +
         userDataGlobal._id
       )
       .then((res) => {

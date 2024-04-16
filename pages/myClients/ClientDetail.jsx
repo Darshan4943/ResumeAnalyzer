@@ -16,7 +16,7 @@ function ClientDetail({ tabIndex }) {
   useEffect(() => {
     if (clientId) {
       axios
-        .get(`https://freedygoservices.in/api/client/getByClientId/${clientId}`)
+        .get(`http://locahost:2000/api/client/getByClientId/${clientId}`)
         .then((res) => {
           setDetails(res.data.data);
         })
@@ -24,7 +24,7 @@ function ClientDetail({ tabIndex }) {
           console.log(err);
         });
       axios
-        .get("https://freedygoservices.in/api/resume/" + clientId)
+        .get("http://locahost:2000/api/resume/" + clientId)
         .then((res) => {
           setResumeList(res.data.data);
         })

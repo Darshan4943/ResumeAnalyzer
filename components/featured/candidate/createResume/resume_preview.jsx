@@ -82,7 +82,7 @@ const ResumePreview = ({
 
   const callData = () => {
     axios
-      .get("https://freedygoservices.in/api/resume/" + userDataGlobal?._id)
+      .get("http://locahost:2000/api/resume/" + userDataGlobal?._id)
       .then((res) => {
         setName(data.firstName + "_resume " + (res.data.data.length + 1));
       })
@@ -564,7 +564,7 @@ const ResumePreview = ({
         formData.append("pdfBlob", blob);
   
         axios
-          .put("https://freedygoservices.in/api/resume/" + id, formData)
+          .put("http://locahost:2000/api/resume/" + id, formData)
           .then((res) => {
             localStorage.setItem("saveCount", saveLimit - 1);
             getLimits();
@@ -609,7 +609,7 @@ const ResumePreview = ({
         }
   
         axios
-          .post("https://freedygoservices.in/api/resume/add", formData)
+          .post("http://locahost:2000/api/resume/add", formData)
           .then((res) => {
             const pdfUrl = res.data.data.resumeUrl;
   
@@ -643,7 +643,7 @@ const ResumePreview = ({
     setDownloadBtnLoading(true);
     axios
       .put(
-        "https://freedygoservices.in/api/subscription/updateDownloadLimit/" +
+        "http://locahost:2000/api/subscription/updateDownloadLimit/" +
           userDataGlobal._id
       )
       .then((res) => {

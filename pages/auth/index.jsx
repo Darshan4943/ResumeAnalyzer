@@ -33,7 +33,7 @@ function Main_sign_page() {
       const sendToPurchaseResult = JSON.parse(sendToPurchase);
       axios
         .post(
-          "https://freedygoservices.in/api/skiloteckuser/user/google/signup",
+          "http://locahost:2000/api/skiloteckuser/user/google/signup",
           userData
         )
         .then((res) => {

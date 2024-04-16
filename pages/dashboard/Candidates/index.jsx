@@ -23,7 +23,7 @@ const Index = () => {
   const getData = () => {
    
     axios
-      .get("https://freedygoservices.in/api/candidates", {
+      .get("http://locahost:2000/api/candidates", {
         params: { page, limit }
       })
       .then((res) => {
