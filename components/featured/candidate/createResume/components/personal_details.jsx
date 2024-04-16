@@ -9,6 +9,9 @@ const PersonalDetails = ({ setData, data }) => {
 
   const [isChecked, setIsChecked] = useState(true);
   const [isModified, setIsModified] = useState(false);
+  const [filteredTelCode, setFilteredTelCode] = useState([]);
+  const [selectedItem, setSelectedItem] = useState();
+  const [searchTerm, setSearchTerm] = useState("");
   const handleSwitchChange = () => {
     setIsChecked(!isChecked);
   };
@@ -21,8 +24,7 @@ const PersonalDetails = ({ setData, data }) => {
     designation: "",
     dial_code:"+260"
   });
-  const [filteredTelCode, setFilteredTelCode] = useState([]);
-  const [searchTerm, setSearchTerm] = useState("");
+
   useEffect(() => {
     const filterLogic = (item) =>
       item.code.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -31,7 +33,7 @@ const PersonalDetails = ({ setData, data }) => {
     const filteredCodes = telCode.filter(filterLogic);
     setFilteredTelCode(filteredCodes);
   }, [telCode, searchTerm]);
-  const [selectedItem, setSelectedItem] = useState();
+
 
   const handleItemClick = (item) => {
     setSelectedItem(item);
@@ -97,6 +99,8 @@ const PersonalDetails = ({ setData, data }) => {
     designation: false,
   });
 
+ 
+
   const validateFields = () => {
     const newErrors = {};
     let allFieldsValid = true;
@@ -113,7 +117,7 @@ const PersonalDetails = ({ setData, data }) => {
       }
     });
 
-    setFormErrors({ ...newErrors });
+    // setFormErrors({ ...newErrors });
     return allFieldsValid;
   };
 
