@@ -55,7 +55,7 @@ function SkillAssessment() {
 
   useEffect(() => {
     axios
-      .get("http://locahost:2000/api/resume/" + userDataGlobal?._id)
+      .get("http://localhost:2000/api/resume/" + userDataGlobal?._id)
       .then((res) => {
         setData(res.data.data);
       })
@@ -99,7 +99,7 @@ function SkillAssessment() {
       setLoading(true);
 
       axios
-        .post("http://locahost:2000/api/getQuetions", {
+        .post("http://localhost:2000/api/getQuetions", {
           skill: selectedSkill,
           level: level
         })
@@ -153,7 +153,7 @@ function SkillAssessment() {
     if (questionIndex == 9) {
       axios
         .post(
-          "http://locahost:2000/api/assessment/add",
+          "http://localhost:2000/api/assessment/add",
           {
             userId: userDataGlobal._id,
             skill: selectedSkill,
@@ -207,7 +207,7 @@ function SkillAssessment() {
   useEffect(() => {
     axios
       .get(
-        `http://locahost:2000/api/assessment/getByUser/${userDataGlobal._id}`
+        `http://localhost:2000/api/assessment/getByUser/${userDataGlobal._id}`
       )
       .then((res) => {
         setAssessmentList(res.data.data);
@@ -705,7 +705,7 @@ function SkillAssessment() {
           //           if (questionIndex == 9) {
           //             axios
           //               .post(
-          //                 "http://locahost:2000/api/assessment/add",
+          //                 "http://localhost:2000/api/assessment/add",
           //                 {
           //                   userId: userDataGlobal._id,
           //                   skill: selectedSkill,
@@ -848,7 +848,7 @@ function SkillAssessment() {
                     //   if (questionIndex == 9) {
                     //     axios
                     //       .post(
-                    //         "http://locahost:2000/api/assessment/add",
+                    //         "http://localhost:2000/api/assessment/add",
                     //         {
                     //           userId: userDataGlobal._id,
                     //           skill: selectedSkill,

@@ -45,7 +45,7 @@ const Leftform = ({
     if (data.description.length > 100) {
       setLoading(true);
       axios
-        .post("http://locahost:2000/api/text/regenrate", { prompt })
+        .post("http://localhost:2000/api/text/regenrate", { prompt })
         .then((res) => {
           setLoading(false);
           setData({
@@ -295,6 +295,11 @@ const Leftform = ({
                   location: [...data.location, loactionText],
                 });
                 setLoactionText("");
+                
+                // setFormError(formError => {
+                //   delete formError.location;
+                //   return formError;
+                // });
                 setFormError({})
               }}
             >

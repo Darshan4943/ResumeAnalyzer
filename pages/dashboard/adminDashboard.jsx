@@ -22,7 +22,7 @@ function AdminDashboard({ toggleContentt }) {
 
 
     axios
-      .get("http://locahost:2000/api/recruiters")
+      .get("http://localhost:2000/api/recruiters")
       .then((res) => {
 
         setRecruiterData(res.data)
@@ -38,8 +38,8 @@ function AdminDashboard({ toggleContentt }) {
         // setMiniloading(false);
       });
 
-    axios
-      .get("http://locahost:2000/api/candidates")
+      axios
+      .get("http://localhost:2000/api/candidates")
       .then((res) => {
 
         setCandidateData(res.data)
@@ -56,8 +56,8 @@ function AdminDashboard({ toggleContentt }) {
 
       });
 
-    axios
-      .get("http://locahost:2000/api/enquires")
+      axios
+      .get("http://localhost:2000/api/enquires")
       .then((res) => {
 
         setInquiriesData(res.data)

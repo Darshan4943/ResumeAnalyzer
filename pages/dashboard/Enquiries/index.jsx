@@ -22,7 +22,7 @@ const Index = () => {
   const getData = () => {
     setLoading(true);
     axios
-      .get("http://locahost:2000/api/enquires", {
+      .get("http://localhost:2000/api/enquires", {
         params: { page, limit }
       })
       .then((res) => {

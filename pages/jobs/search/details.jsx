@@ -19,7 +19,7 @@ const Details = ({ data, setJd, files, extractedData, resume }) => {
   const getData = () => {
     setLoading(true);
     axios
-      .get("http://locahost:2000/api/job/getById/" + data._id)
+      .get("http://localhost:2000/api/job/getById/" + data._id)
       .then((res) => {
         setLoading(false);
         setIsApplied(
@@ -41,7 +41,7 @@ const Details = ({ data, setJd, files, extractedData, resume }) => {
   const applyForJob = (data) => {
     setLoading(true);
     axios
-      .post("http://locahost:2000/api/job/apply/" + data._id, {
+      .post("http://localhost:2000/api/job/apply/" + data._id, {
         userId: userDataGlobal._id,
         resumeId: resume._id,
         percentage: data.percentage,

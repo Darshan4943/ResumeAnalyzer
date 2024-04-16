@@ -59,7 +59,7 @@ function CreateNewClient({ setTabIndex }) {
   // const callData = () => {
   //   axios
   //     .get(
-  //       `http://locahost:2000/api/client/getByRecruiter/${userDataGlobal._id}`
+  //       `http://localhost:2000/api/client/getByRecruiter/${userDataGlobal._id}`
   //     )
   //     .then((res) => {
   //       setDetails(res.data.data);
@@ -198,7 +198,7 @@ function CreateNewClient({ setTabIndex }) {
         formdata.append("img", croppedImage);
 
         const response = await axios.post(
-          "http://locahost:2000/api/client/create",
+          "http://localhost:2000/api/client/create",
           formdata
         );
         setData({

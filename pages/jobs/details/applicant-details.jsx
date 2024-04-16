@@ -22,7 +22,7 @@ const ApplicantDetails = () => {
   const getData = () => {
     setLoading(true);
     axios
-      .get("http://locahost:2000/api/job/getById/" + query["job-post"])
+      .get("http://localhost:2000/api/job/getById/" + query["job-post"])
       .then((res) => {
         setLoading(false);
         setJobPost(res.data.data);

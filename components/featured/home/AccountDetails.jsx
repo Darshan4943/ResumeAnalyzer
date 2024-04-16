@@ -120,7 +120,7 @@ function AccountDetails({ selectedPlan, recruiterid,role }) {
       if (recruiterid) {
         axios
           .get(
-            "http://locahost:2000/api/skiloteckuser/user/" + recruiterid
+            "http://localhost:2000/api/skiloteckuser/user/" + recruiterid
           )
           .then((res) => {
             const decode = jwtDecode(res.data.data);
@@ -159,7 +159,7 @@ function AccountDetails({ selectedPlan, recruiterid,role }) {
     } else {
       setLoading(true);
       axios
-        .post("http://locahost:2000/api/add/subscription", {
+        .post("http://localhost:2000/api/add/subscription", {
           userId:
             userDataGlobal.role == "admin" ? recruiterid : userDataGlobal._id,
           plan: selectedPlan.duration + " " + selectedPlan.limit,
@@ -195,9 +195,9 @@ function AccountDetails({ selectedPlan, recruiterid,role }) {
     //       setLoading(true);
     //       const {
     //         data: { key },
-    //       } = await axios.get(`http://locahost:2000/api/getkey`);
+    //       } = await axios.get(`http://localhost:2000/api/getkey`);
     //       const { data: order } = await axios.post(
-    //         `http://locahost:2000/api/checkout/`,
+    //         `http://localhost:2000/api/checkout/`,
     //         {
     //           amount: parseInt(selectedPlan.amount),
     //         }
@@ -219,7 +219,7 @@ function AccountDetails({ selectedPlan, recruiterid,role }) {
     //         },
     //         handler: function (response) {
     //           axios
-    //             .post("http://locahost:2000/api/add/subscription", {
+    //             .post("http://localhost:2000/api/add/subscription", {
     //               ...response,
     //               userId: userDataGlobal._id,
     //               plan: selectedPlan.duration + " " + selectedPlan.limit,

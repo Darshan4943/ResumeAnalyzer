@@ -21,7 +21,7 @@ const Index = () => {
 
 
     axios
-      .get("http://locahost:2000/api/recruiters", {
+      .get("http://localhost:2000/api/recruiters", {
         params: { page, limit }
       })
       .then((res) => {

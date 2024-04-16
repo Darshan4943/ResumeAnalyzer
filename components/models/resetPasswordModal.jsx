@@ -48,7 +48,7 @@ const ResetPasswordModal = ({ visible }) => {
     }
     setLoading(true);
     axios
-      .post("http://locahost:2000/api/updatePassword", {
+      .post("http://localhost:2000/api/updatePassword", {
         email: userDataGlobal.email,
         newPassword: data.new,
       })

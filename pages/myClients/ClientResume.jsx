@@ -13,7 +13,7 @@ console.log(12,details)
   useEffect(() => {
     axios
       .get(
-        `http://locahost:2000/api/client/getByRecruiter/${userDataGlobal._id}`
+        `http://localhost:2000/api/client/getByRecruiter/${userDataGlobal._id}`
       )
       .then((res) => {
         setDetails(res.data.data);

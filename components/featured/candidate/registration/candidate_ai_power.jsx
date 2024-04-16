@@ -143,7 +143,7 @@ const CandidateAiPower = ({
     setLoading(true);
     extracteText(file).then((result) => {
       axios
-        .post("http://locahost:2000/api/resume/extraction", {
+        .post("http://localhost:2000/api/resume/extraction", {
           data: result,
         })
         .then((res) => {
@@ -155,7 +155,7 @@ const CandidateAiPower = ({
             );
             axios
               .put(
-                "http://locahost:2000/api/subscription/updateUploadLimit/" +
+                "http://localhost:2000/api/subscription/updateUploadLimit/" +
                   userDataGlobal._id
               )
               .then((res) => {

@@ -23,7 +23,7 @@ const Index = () => {
   const getData = () => {
    
     axios
-      .get("http://locahost:2000/api/candidates", {
+      .get("http://localhost:2000/api/candidates", {
         params: { page, limit }
       })
       .then((res) => {

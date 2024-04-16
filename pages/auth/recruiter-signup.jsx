@@ -235,8 +235,8 @@ function Recruiter_signup({ }) {
 
     } else {
       const url = isUpdate
-        ? "http://locahost:2000/api/updateUser"
-        : "http://locahost:2000/api/skiloteckuser/recruiter";
+        ? "http://localhost:2000/api/updateUser"
+        : "http://localhost:2000/api/skiloteckuser/recruiter";
       // setLoading(true);
       const formdata = new FormData();
       Object.keys(data).forEach((key) => {
@@ -309,7 +309,7 @@ function Recruiter_signup({ }) {
     e.preventDefault();
     let otp = Math.floor(100000 + Math.random() * 900000);
     setOtp(otp)
-    axios.post('http://locahost:2000/api/otpMailSignup', { userEmail: data.email, otp }).then(res => {
+    axios.post('http://localhost:2000/api/otpMailSignup', { userEmail: data.email, otp }).then(res => {
       setLoadingg(false)
       const result = res.data;
       if (result.success) {

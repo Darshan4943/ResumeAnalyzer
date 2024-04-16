@@ -18,7 +18,7 @@ const Index = () => {
     setLoading(true);
     axios
       .get(
-        "http://locahost:2000/api/job/getByCreatedId/" +
+        "http://localhost:2000/api/job/getByCreatedId/" +
         userDataGlobal._id
       )
       .then((res) => {
@@ -76,19 +76,19 @@ const Index = () => {
                       key={index}
                       className="job-card sm:min-w-[300px] w-full  sm:max-w-[380px]"
                       onClick={() =>
-                        router.push("/jobs/details?id=" + item._id)
+                        router.push("/jobs/details?id=" + item?._id)
                       }
                     >
                       <div className="px-[16px] flex flex-row justify-between ">
                         <div className="flex flex-col gap-[2px]">
                           <span className="text-[16px] text-[#06A9EF] font-medium">
-                            {item.jobTitle}
+                            {item?.jobTitle}
                           </span>
                           <span className="text-[12px] text-[#646464] font-medium">
-                            {item.location.join(",")}
+                            {item?.location?.join(",")}
                           </span>
                           <span className="text-[10px] text-[#2706EF] font-medium">
-                            {item.experiance}
+                            {item?.experiance}
                           </span>
                         </div>
                         <div className="flex flex-row gap-2">
@@ -105,7 +105,7 @@ const Index = () => {
                             className="cursor-pointer"
                             onClick={(e) => {
                               e.stopPropagation(); // prevent
-                              router.push("/jobs/create?id=" + item._id);
+                              router.push("/jobs/create?id=" + item?._id);
                             }}
                           >
                             <PencilLineIcon color="#646464" />

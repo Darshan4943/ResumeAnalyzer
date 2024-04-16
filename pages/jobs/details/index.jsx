@@ -21,7 +21,7 @@ const Index = () => {
     setLoading(true);
     if (id) {
       axios
-        .get("http://locahost:2000/api/job/getById/" + id)
+        .get("http://localhost:2000/api/job/getById/" + id)
         .then((res) => {
           setLoading(false);
           setJobPost(res.data.data);

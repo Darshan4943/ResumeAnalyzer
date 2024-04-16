@@ -49,7 +49,7 @@ function TransformJd({
     formData.append("pdfBlob", blob);
 
     axios
-      .post("http://locahost:2000/api/resume/add", formData)
+      .post("http://localhost:2000/api/resume/add", formData)
       .then((res) => {
         toast.success("Resume Saved To Collection successfully");
         setLoading(false);
