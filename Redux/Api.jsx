@@ -35,7 +35,7 @@ export const Api = () => {
         const decoded = jwtDecode(token.token);
         axios
           .get(
-            "https://freedygoservices.in/api/skiloteckuser/user/" + decoded._id
+            "http://localhost:2000/api/skiloteckuser/user/" + decoded._id
           )
           .then((res) => {
             const decode = jwtDecode(res.data.data);
@@ -61,7 +61,7 @@ export const Api = () => {
     if (userDataGlobal) {
       axios
         .get(
-          "https://freedygoservices.in/api/subscription/" + userDataGlobal._id
+          "http://localhost:2000/api/subscription/" + userDataGlobal._id
         )
         .then((res) => {
           const result = res.data.data;

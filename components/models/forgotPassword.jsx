@@ -25,7 +25,7 @@ function ForgotPassword({ setIsForgot }) {
         e.preventDefault();
         let otp = Math.floor(100000 + Math.random() * 900000);
         setOtp(otp)
-        axios.post('https://freedygoservices.in/api/otpMail', { userEmail: email, otp }).then(res => {
+        axios.post('http://locahost:2000/api/otpMail', { userEmail: email, otp }).then(res => {
             setLoading(false)
             const result = res.data;
             if (result.success) {
@@ -58,7 +58,7 @@ function ForgotPassword({ setIsForgot }) {
                 return;
             }
 
-            const response = await axios.post('https://freedygoservices.in/api/updatePassword', {
+            const response = await axios.post('http://locahost:2000/api/updatePassword', {
                 email: email,
                 newPassword: password,
             });

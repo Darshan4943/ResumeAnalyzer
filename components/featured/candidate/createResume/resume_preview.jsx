@@ -82,7 +82,7 @@ const ResumePreview = ({
 
   const callData = () => {
     axios
-      .get("https://freedygoservices.in/api/resume/" + userDataGlobal?._id)
+      .get("http://localhost:2000/api/resume/" + userDataGlobal?._id)
       .then((res) => {
         setName(data.firstName + "_resume " + (res.data.data.length + 1));
       })
@@ -515,7 +515,7 @@ const ResumePreview = ({
 
   const resumeRef = useRef();
   const [preview, setPreview] = useState(false);
-
+const [isDisabled,setdisabled] =useState(false)
   const [loading, setLoading] = useState(true);
 
   const togglePreview = (isVisible, index) => {
@@ -539,14 +539,17 @@ const ResumePreview = ({
   const handleLoad = () => {
     setLoading(false);
   };
+  
   const saveResume = async (blob, download) => {
-    if(Object.keys(blob).length>0){
+    setdisabled(true);
+    if(blob !==null){
       if (saveLimit == 0) {
         setLimitUsedModal(true);
         return;
       }
       if (isEdit) {
         setLoading(true);
+       
         const formData = new FormData();
         if (Object.keys(data).length > 0) {
           Object.keys(data).map((key) => {
@@ -564,7 +567,7 @@ const ResumePreview = ({
         formData.append("pdfBlob", blob);
   
         axios
-          .put("https://freedygoservices.in/api/resume/" + id, formData)
+          .put("http://localhost:2000/api/resume/" + id, formData)
           .then((res) => {
             localStorage.setItem("saveCount", saveLimit - 1);
             getLimits();
@@ -572,6 +575,9 @@ const ResumePreview = ({
             setTimeout(() => {
               setLoading(false);
             }, 1000);
+            setTimeout(() => {
+              setdisabled(false);
+            }, 10000);
             callData();
           })
           .catch((err) => {
@@ -595,6 +601,7 @@ const ResumePreview = ({
             }
           });
         }
+        console.log(blob)
         formData.append("pdfBlob", blob);
         formData.append("resumeIndex", selectedResumeIndex);
         formData.append("fileName", name);
@@ -609,7 +616,7 @@ const ResumePreview = ({
         }
   
         axios
-          .post("https://freedygoservices.in/api/resume/add", formData)
+          .post("http://localhost:2000/api/resume/add", formData)
           .then((res) => {
             const pdfUrl = res.data.data.resumeUrl;
   
@@ -626,6 +633,9 @@ const ResumePreview = ({
             getLimits();
             toast.success("Resume Saved To Collection successfully");
             setLoading(false);
+            setTimeout(() => {
+              setdisabled(false);
+            }, 10000);
             callData();
           })
           .catch((err) => {
@@ -643,7 +653,7 @@ const ResumePreview = ({
     setDownloadBtnLoading(true);
     axios
       .put(
-        "https://freedygoservices.in/api/subscription/updateDownloadLimit/" +
+        "http://localhost:2000/api/subscription/updateDownloadLimit/" +
           userDataGlobal._id
       )
       .then((res) => {
@@ -696,13 +706,12 @@ const ResumePreview = ({
       </button>
     );
   };
-
   const DownloadButton = () => (
-    <BlobProvider document={<MyComponent />}>
+    <BlobProvider document={<MyComponent />} fileName="demo.pdf" >
       {({ blob, url, loading, error }) => (
         <button
           onClick={() => saveResume(blob, true)}
-          disabled={loading}
+          disabled={isDisabled}
           className="flex gap-1 text-[14px] w-fit  justify-center  font-montserrat font-semibold px-3 py-2 rounded-[8px] items-center border border-[#06A9EF] "
         >
           {loading ? (
@@ -778,7 +787,7 @@ const ResumePreview = ({
               <div
                 ref={taskRef}
                 onWheel={(e) => e.stopPropagation()}
-                className=" absolute flex p-6 bg-white rounded-[24px] shadow-md  gap-6 flex-wrap justify-center items-center ml:w-[65%] w-[90%] h-[90vh] overflow-y-auto "
+                className=" absolute top-[72px] flex p-6 bg-white rounded-[24px] shadow-md  gap-6 flex-wrap justify-center items-center ml:w-[65%] w-[90%] h-[90vh] overflow-y-auto "
               >
                 {renderAllTemplates()}
               </div>
@@ -847,7 +856,7 @@ const ResumePreview = ({
                 </>
               )}
 
-              <button
+              {/* <button
                 onClick={() => setPreview(true)}
                 className="flex gap-1 text-[14px] w-fit justify-center  font-montserrat font-semibold px-3 py-2 rounded-[8px] items-center border border-[#06A9EF] b"
               >
@@ -871,7 +880,7 @@ const ResumePreview = ({
                     fill="#333333"
                   />
                 </svg>
-              </button>
+              </button> */}
             </div>
           </div>
         </div>
@@ -888,9 +897,14 @@ const ResumePreview = ({
                 <MiniLoader />
               </div>
             ) : ( */}
-              <PDFViewer width="80%" height="900px" showToolbar={false}>
+              {/* <PDFViewer width="80%" height="900px" showToolbar={false}>
                 <MyComponent />
-              </PDFViewer>
+              </PDFViewer> */}
+              <Template1
+            data={data}
+            selectedColor={selectedColor}
+            selectedFont={selectedFont}
+          />
             {/* )} */}
           </div>
         )}
@@ -943,11 +957,17 @@ const ResumePreview = ({
               </div>
 
               <div className="w-full  bg-[#525659] h-full flex items-center justify-center">
-                <PDFViewer width="750" height="100%" showToolbar={false}>
+                {/* <PDFViewer width="750" height="100%" showToolbar={false}>
                   <Document>
                     {selectResumeTemplate(selectedResumeIndex)}
                   </Document>
-                </PDFViewer>
+                </PDFViewer> */}
+                
+                  <Template1
+            data={data}
+            selectedColor={selectedColor}
+            selectedFont={selectedFont}
+          />
               </div>
             </div>
           </div>
