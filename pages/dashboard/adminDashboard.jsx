@@ -4,8 +4,12 @@
 // import StackedBarChart from "@/components/common/StackedBarChart";
 import { TablePagination } from "@mui/material";
 import axios from "axios";
+
+
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { dateSeter } from "../../utils/middleware";
+import { plans } from "../../utils/data";
 
 
 function AdminDashboard({ toggleContentt }) {
@@ -71,7 +75,7 @@ function AdminDashboard({ toggleContentt }) {
     axios
       .get("http://localhost:2000/api/enquires")
       .then((res) => {
-
+        setList(res.data.data.results);
         setInquiriesData(res.data)
         setLoading(false);
 
@@ -129,7 +133,7 @@ function AdminDashboard({ toggleContentt }) {
 
 
   return (
-    <div className=" ml:h-[80vh] w-[100%] customMargins overflow-y-auto">
+    <div className=" flex flex-col gap-12 w-[100%] customMargins ">
 
 
       <div className="ml:pt-5 pt-4 lg:flex flex lg:flex-row flex-col flex-wrap items-start lg:justify-between gap-3">
@@ -238,7 +242,13 @@ function AdminDashboard({ toggleContentt }) {
 
         </div>
       </div>
+      <div>
+
+        chart
+      </div>
       <>
+
+
         {list?.length > 0 ? (
           <div className="w-full h-[72vh] overflow-auto relative">
             <table className="w-full">
@@ -269,7 +279,7 @@ function AdminDashboard({ toggleContentt }) {
                 </tr>
               </thead>
               <tbody>
-                {list?.map((item, index) => (
+                {list?.slice(0,5).map((item, index) => (
                   <tr
                     className="w-full  flex flex-row justify-between items-center px-[24px] py-[16px] border-b-[1px] border-[#bebebe]"
                     key={index}
@@ -323,7 +333,7 @@ function AdminDashboard({ toggleContentt }) {
           </div>
         ) : (
           <div className="flex items-center justify-center w-full text-[24px] text-[#bebebe] font-semibold h-[40vh]">
-            No Recruiter Available !
+            No Request Available !
           </div>
         )}
 
