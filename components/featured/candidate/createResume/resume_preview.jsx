@@ -42,6 +42,7 @@ import Template48 from "../../resumeTemplates/Template48";
 import Template44 from "../../resumeTemplates/Template44";
 import MiniLoader from "../../../common/miniLoader";
 import LimitUsedModal from "../../../models/limitUsedModal";
+import Resume2 from "../../resumeTemplates/Resume2";
 // import { generatePDFUsingRenderer } from "../../../../utils/middleware";
 <Fonts />;
 const ResumePreview = ({
@@ -900,7 +901,7 @@ const [isDisabled,setdisabled] =useState(false)
               {/* <PDFViewer width="80%" height="900px" showToolbar={false}>
                 <MyComponent />
               </PDFViewer> */}
-              <Template1
+              <Resume2
             data={data}
             selectedColor={selectedColor}
             selectedFont={selectedFont}

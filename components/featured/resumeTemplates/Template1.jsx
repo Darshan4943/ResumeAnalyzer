@@ -593,7 +593,6 @@
 import React, { useEffect, useRef, useState } from "react";
 
 function Template1({ data }) {
-  
   const topContainer = useRef(null);
   const summaryContainer = useRef(null);
   const educationContainer = useRef(null);
@@ -602,7 +601,6 @@ function Template1({ data }) {
   const experienceContainer = useRef(null);
   const [firstPageData, setFirstPageData] = useState([]);
   const [secondPageData, setSecondPageData] = useState([]);
-
   const dataSeter = () => {
     const dataForFirstPage = { education: [], skills: [], experience: [] };
     const dataForSecondPage = { education: [], skills: [], experience: [] };
