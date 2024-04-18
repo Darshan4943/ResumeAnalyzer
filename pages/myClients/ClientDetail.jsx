@@ -2,17 +2,21 @@ import React, { useEffect, useReducer, useState } from "react";
 import { useRouter } from "next/router";
 import { Document, Page, pdfjs } from "react-pdf";
 import axios from "axios";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import ResumePreview from "../../components/common/ResumePreview";
+import { reCallUserData } from "../../Redux/actions/user";
+import { toast } from "react-toastify";
 pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
 function ClientDetail({ tabIndex }) {
+
   const router = useRouter();
   const [detail, setDetails] = useState({});
   const [preview, setPreview] = useState(false);
   const [selected, setSelected] = useState([]);
   const clientId = router.query.detailIndex;
   const [resumeList, setResumeList] = useState([]);
-
+  const dispatch = useDispatch();
+  const [selectedIndexes, setSelectedIndexes] = useState([]);
   useEffect(() => {
     if (clientId) {
       axios
@@ -33,9 +37,40 @@ function ClientDetail({ tabIndex }) {
         });
     }
   }, [clientId]);
+console.log(40,detail)
+
+const toggleSelect = (index) => {
+  if (selectedIndexes.includes(index)) {
+    setSelectedIndexes(selectedIndexes.filter((i) => i !== index));
+  } else {
+    setSelectedIndexes([...selectedIndexes, index]);
+  }
+}; 
+
+  const deleteClient = () => {
+
+    const ids = selectedIndexes.map((item) => detail[item]?._id);
+
+    if (ids.length === 0) {
+      toast.error("Please select file to delete");
+      return;
+    }
+
+    axios.delete("http://localhost:2000/api/resume/deleteResume", { data: { ids } })
+      .then(response => {
+        console.log(response.data);
+        dispatch(reCallUserData());
+        toast.success("Resume Deleted successfully");
+        setSelectedIndexes([])
+    
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  };
 
   const PdfViewer = ({ pdfUrl }) => {
-    function onDocumentLoadSuccess(numPages) {}
+    function onDocumentLoadSuccess(numPages) { }
 
     return (
       <div
@@ -183,9 +218,9 @@ function ClientDetail({ tabIndex }) {
         Resumes
       </div>
       <div className="w-full rounded-[12px] border flex flex-wrap scr540:justify-start justify-center gap-9 border-[#DEDEDE] bg-[#F9F9F9] p-6 cursor-pointer">
-        
+
         <div className="flex flex-row flex-wrap gap-6">
-        <div
+          <div
             onClick={() => router.push(`/home/BuildResume?clientId=${clientId}`)}
             style={{ boxShadow: "0px 0px 10px 5px #00000040" }}
             className="rounded-[12px] text-center text-white justify-center flex scr540:flex-col flex-row text-[18px] items-center gap-2 font-medium  scr540:w-[192px] w-[280px]  scr540:h-[272px] h-[135px] bg-[#646464] p-6 cursor-pointer"
@@ -202,12 +237,12 @@ function ClientDetail({ tabIndex }) {
                 fill="white"
               />
             </svg>
-  
+
             <p>Create New Resume</p>
           </div>
           {resumeList?.map((item, index) => (
-           
-           
+
+
             <div
               key={index}
               className="flex flex-col h-[300px] items-center justify-between group relative "
@@ -278,10 +313,24 @@ function ClientDetail({ tabIndex }) {
                       Download
                     </span>
                   </a>
+                  <a
+                    onClick={() => toggleSelect(index)}
+
+                    className="flex items-center flex-col cursor-pointer"
+                  >
+                    <img
+                      src="/images/icons/download.png"
+                      className="h-[28px] w-[28px]"
+                      alt=""
+                    />
+                    <span className="text-[14px] font-semibold text-white ">
+                      Delete
+                    </span>
+                  </a>
                 </div>
               </div>
             </div>
-            
+
           ))}
         </div>
         {preview && (
