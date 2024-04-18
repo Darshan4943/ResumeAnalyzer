@@ -10,6 +10,9 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { dateSeter } from "../../utils/middleware";
 import { plans } from "../../utils/data";
+import StackedBarChart from "../../components/common/StackedBarChart";
+import StackedBarChartCan from "../../components/common/StackedBarChartCand";
+import StackedBarChartCand from "../../components/common/StackedBarChartCand";
 
 
 function AdminDashboard({ toggleContentt }) {
@@ -20,6 +23,9 @@ function AdminDashboard({ toggleContentt }) {
   const [recruiterData, setRecruiterData] = useState([]);
   const [candidateData, setCandidateData] = useState([]);
   const [inquiriesData, setInquiriesData] = useState([]);
+  const [activeRecruiters, setActiveRecruiters] = useState([]);
+  const [result, setResult] = useState()
+  console.log(102,result)
   const [activeplans, setActivePlans] = useState();
 
   const handleChangePage = (event, newPage) => {
@@ -86,7 +92,16 @@ function AdminDashboard({ toggleContentt }) {
         console.log(err);
         setLoading(false);
       });
+
+    axios
+      .get("http://localhost:2000/api/activeRecruiters")
+      .then((res) => {
+        console.log(res)
+        setResult(res.data);
+      })
   };
+
+
   useEffect(() => {
     setLoading(true);
     getData();
@@ -137,8 +152,8 @@ function AdminDashboard({ toggleContentt }) {
 
 
       <div className="ml:pt-5 pt-4 lg:flex flex lg:flex-row flex-col flex-wrap items-start lg:justify-between gap-3">
-        <div
-          className="flex py-2 px-4 ml:p-4 flex-col justify-center items-start lg:w-[24%] w-[100%] gap-[6px]  ml:gap-4"
+        <div onClick={() => router.push("/dashboard/Recruiters")}
+          className="flex py-2 px-4 ml:p-4 flex-col justify-center items-start lg:w-[24%] w-[100%] gap-[6px]  ml:gap-4 cursor-pointer"
           style={{
             borderRadius: "12px",
             borderLeft: "4px solid #57697B",
@@ -160,10 +175,11 @@ function AdminDashboard({ toggleContentt }) {
               alt=""
             />
           </div>
-
         </div>
-        <div
-          className="flex py-2 px-4 ml:p-4 flex-col justify-center items-start lg:w-[24%] w-[100%] gap-[6px]  ml:gap-4"
+
+
+        <div onClick={() => router.push("/dashboard/Candidates")}
+          className="flex py-2 px-4 ml:p-4 flex-col justify-center items-start lg:w-[24%] w-[100%] gap-[6px]  ml:gap-4 cursor-pointer"
           style={{
             borderRadius: "12px",
             borderLeft: "4px solid #57697B",
@@ -186,10 +202,11 @@ function AdminDashboard({ toggleContentt }) {
               alt=""
             />
           </div>
-
         </div>
-        <div
-          className="flex py-2 px-4 ml:p-4 flex-col justify-center items-start lg:w-[24%] w-[100%] gap-[6px]  ml:gap-4"
+
+
+        <div onClick={() => router.push("/dashboard/Enquiries")}
+          className="flex py-2 px-4 ml:p-4 flex-col justify-center items-start lg:w-[24%] w-[100%] gap-[6px]  ml:gap-4 cursor-pointer"
           style={{
             borderRadius: "12px",
             borderLeft: "4px solid #57697B",
@@ -212,10 +229,11 @@ function AdminDashboard({ toggleContentt }) {
               alt=""
             />
           </div>
-
-
         </div>
+
+
         <div
+          // onClick={() => router.push("/dashboard/Recruiters")}
           className="flex py-2 px-4 ml:p-4 flex-col justify-center items-start lg:w-[24%] w-[100%] gap-[6px]  ml:gap-4"
           style={{
             borderRadius: "12px",
@@ -233,18 +251,41 @@ function AdminDashboard({ toggleContentt }) {
                 Active Plans
               </p>
             </div>
-            <img
+            {/* <img
               src="/images/afterLoginHome/arrow_forward_ios.png"
               className="h-[24px] w-[24px]"
               alt=""
-            />
+            /> */}
           </div>
-
         </div>
       </div>
-      <div>
-
-        chart
+      <div className="flex w-full justify-evenly gap-[16px]">
+        <div className="w-[35%] h-[450px] overflow-hidden" style={{
+          borderRadius: "14px",
+          backgroundColor: "#fff",
+          boxShadow: "1px 0px 4px 0px rgba(0, 0, 0, 0.25)",
+        }}>{result?.ActiveRecruiter && (
+          <StackedBarChart
+            title={"Active/Inactive Recruiters "}
+            data={[
+              { asset: "Active", Recruiters:result?.ActiveRecruiter },
+              { asset: "Inactive", Recruiters:result?.InActiveRecruiter},
+            ]} />)}
+        </div>
+        <div className="w-[35%] h-[450px] overflow-hidden" style={{
+          borderRadius: "14px",
+          backgroundColor: "#fff",
+          boxShadow: "1px 0px 4px 0px rgba(0, 0, 0, 0.25)",
+        }}>
+          {result?.ActiveCandidate && (
+          <StackedBarChartCand
+            title={"Active/Inactive Candidates "}
+            data={[
+              { asset: "Active", Candidates:result?.ActiveCandidate },
+              { asset: "Inactive", Candidates:result?.InActiveCandidate},
+            ]} />
+          )}
+        </div>
       </div>
       <>
 
@@ -279,7 +320,7 @@ function AdminDashboard({ toggleContentt }) {
                 </tr>
               </thead>
               <tbody>
-                {list?.slice(0,5).map((item, index) => (
+                {list?.slice(0, 5).map((item, index) => (
                   <tr
                     className="w-full  flex flex-row justify-between items-center px-[24px] py-[16px] border-b-[1px] border-[#bebebe]"
                     key={index}
