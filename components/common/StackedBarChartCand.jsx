@@ -2,7 +2,7 @@ import { AgChartsReact } from "ag-charts-react";
 import { useState } from "react";
 
 
-const StackedBarChart = ({ data, title,  }) => {
+const StackedBarChartCand = ({ data, title,  }) => {
     const [options, setOptions] = useState({
         data,
         title: {
@@ -13,7 +13,7 @@ const StackedBarChart = ({ data, title,  }) => {
             {
                 type: "donut",
                 calloutLabelKey: "asset",
-                angleKey: "Recruiters",
+                angleKey: "Candidates",
                 innerRadiusRatio: 0.6,
             },
         ],
@@ -22,4 +22,4 @@ const StackedBarChart = ({ data, title,  }) => {
     return <AgChartsReact options={options} />;
 };
 
-export default StackedBarChart;
+export default StackedBarChartCand;
