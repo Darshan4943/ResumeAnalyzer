@@ -1,12 +1,15 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { Document, Page, pdfjs } from "react-pdf";
 import { ClosedIcon } from "../../utils/svg";
 import { selectResumeTemplate } from "../../utils/middleware";
 import ResumePreview from "../../components/common/ResumePreview";
 import { useRouter } from "next/router";
+import { reCallUserData } from "../../Redux/actions/user";
+import DeleteModal from "../../components/common/deleteModal";
+import { toast } from "react-toastify";
 pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
 
 const MyCollection = () => {
@@ -14,9 +17,13 @@ const MyCollection = () => {
   const userDataGlobal = useSelector((state) => state.userData);
 
   const [resumeList, setResumeList] = useState([]);
-
+  const [view , setView] = useState(false);
+  const [deleted,setDeleted] = useState(false)
   const [preview, setPreview] = useState(false);
   const [selected, setSelected] = useState(false);
+  const dispatch = useDispatch();
+  const [selectedIndexes, setSelectedIndexes] = useState([]);
+
   useEffect(() => {
     axios
       .get("http://localhost:2000/api/resume/" + userDataGlobal?._id)
@@ -26,71 +33,133 @@ const MyCollection = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, [userDataGlobal]);
+  }, [userDataGlobal,deleted]);
 
-  const PdfViewer = ({ pdfUrl }) => {
-    const [numPages, setNumPages] = useState();
-
-    function onDocumentLoadSuccess(numPages) {
-      setNumPages(numPages);
+  const toggleSelect = (index) => {
+ 
+    if (selectedIndexes.includes(index)) {
+      setSelectedIndexes(selectedIndexes.filter((i) => i !== index));
+    } else {
+      setSelectedIndexes([...selectedIndexes, index]);
     }
+  }; 
+  
+  
+  
+    const deleteResume = () => {
+  
+      const ids = selectedIndexes.map((item) => resumeList[item]?._id);
+    console.log(ids)
+  
+      if (ids.length === 0) {
+        toast.error("Please select file to delete");
+        return;
+      }
+  
+      axios.delete("http://localhost:2000/api/resume/deleteResume", { data: { ids } })
+        .then(response => {
+         
+         
+          toast.success("Resume Deleted successfully");
+         
+          setView(false)
+          setDeleted(!deleted)
+          dispatch(reCallUserData());
+          setSelectedIndexes([])
+      
+        })
+        .catch(error => {
+    
+            console.error('Error:', error);
+          });
+      };
+      
+      const closeDeleteModal = () => {
+    setView(false)
+      }
 
-    return (
-      <div
-        style={{
-          width: "192px",
-          height: "272px",
-          boxShadow: "0px 0px 4px 0px rgba(0, 0, 0, 0.25)",
-          borderRadius: "6px",
-          overflow: "hidden",
-        }}
-      >
-        <Document file={pdfUrl} onLoadSuccess={onDocumentLoadSuccess}>
-          <Page pageNumber={1} />
-        </Document>
-      </div>
-    );
-  };
-  return (
-    <div className="customMargins py-6 min-h-[80vh] ">
-      <div className="flex flex-col gap-[16px]">
-        <div className="text-[24px] font-semibold text-[#333333]">
-          {" "}
-          My Resumes
+    const PdfViewer = ({ pdfUrl }) => {
+      const [numPages, setNumPages] = useState();
+
+      function onDocumentLoadSuccess(numPages) {
+        setNumPages(numPages);
+      }
+      
+
+      return (
+        <div
+          style={{
+            width: "192px",
+            height: "272px",
+            boxShadow: "0px 0px 4px 0px rgba(0, 0, 0, 0.25)",
+            borderRadius: "6px",
+            overflow: "hidden",
+          }}
+        >
+          <Document file={pdfUrl} onLoadSuccess={onDocumentLoadSuccess}>
+            <Page pageNumber={1} />
+          </Document>
         </div>
-        <div className="flex flex-row flex-wrap gap-[48px] p-[24px] bg-[#F9F9F9] rounded-[12px]  ">
-          <div
-            onClick={() => router.push(`/home/BuildResume`)}
-            style={{ boxShadow: "0px 0px 10px 5px #00000040" }}
-            className="rounded-[12px] text-center text-white justify-center flex scr540:flex-col flex-row text-[18px] items-center gap-2 font-medium  scr540:w-[192px] w-[312px]  scr540:h-[272px] h-[135px] bg-[#646464] p-6 cursor-pointer"
-          >
-            <svg
-              width="27"
-              height="27"
-              viewBox="0 0 27 27"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M11.8187 14.6206H0.0750732V12.1079H11.8187V0.364258H14.3314V12.1079H26.075V14.6206H14.3314V26.3642H11.8187V14.6206Z"
-                fill="white"
-              />
-            </svg>
-
-            <p>Create New Resume</p>
+      );
+    };
+    return (
+      <div className="customMargins py-6 min-h-[80vh] ">
+        <div className="flex flex-col gap-[16px]">
+          <div className="text-[24px] font-semibold text-[#333333]">
+            {" "}
+            My Resumes
           </div>
-          <>
-            {resumeList?.map((item) => (
-              <>
-                <div className="flex flex-col h-[300px] items-center justify-between group relative ">
-                  <PdfViewer pdfUrl={item?.resumeUrl} />
-                  <div className="text-[14px] text-[#333333] font-500">
-                    {item.fileName}
-                  </div>
+          <div className="flex flex-row flex-wrap gap-[48px] p-[24px] bg-[#F9F9F9] rounded-[12px]  ">
+            <div
+              onClick={() => router.push(`/home/BuildResume`)}
+              style={{ boxShadow: "0px 0px 10px 5px #00000040" }}
+              className="rounded-[12px] text-center text-white justify-center flex scr540:flex-col flex-row text-[18px] items-center gap-2 font-medium  scr540:w-[192px] w-[312px]  scr540:h-[272px] h-[135px] bg-[#646464] p-6 cursor-pointer"
+            >
+              <svg
+                width="27"
+                height="27"
+                viewBox="0 0 27 27"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M11.8187 14.6206H0.0750732V12.1079H11.8187V0.364258H14.3314V12.1079H26.075V14.6206H14.3314V26.3642H11.8187V14.6206Z"
+                  fill="white"
+                />
+              </svg>
 
-                  <div className="bg-[#00000099]  absolute top-[0px] left-[0px] h-[272px] w-full rounded-[6px] opacity-0 invisible transition-opacity ease-in-out duration-[0.4s]  group-hover:opacity-100 group-hover:visible flex items-center justify-center">
-                    <div className="flex flex-col w-98 h-219 top-27.09 left-47.19 p-[12px]  rounded-lg border border-gray-200 gap-[12px] bg-[#333333CC]">
-                      {/* <div
+              <p>Create New Resume</p>
+            </div>
+            <>
+              {resumeList?.map((item,index) => (
+                <>
+                  <div key={index} className="flex flex-col h-[300px] items-center justify-between group relative ">
+                    <PdfViewer pdfUrl={item?.resumeUrl} />
+                    <div className="text-[14px] text-[#333333] font-500">
+                      {item.fileName}
+                    </div>
+
+                    <div className="bg-[#00000099]  absolute top-[0px] left-[0px] h-[272px] w-full rounded-[6px] opacity-0 invisible transition-opacity ease-in-out duration-[0.4s]  group-hover:opacity-100 group-hover:visible flex items-center justify-center">
+                      <div className="flex flex-col w-98 h-219 top-27.09 left-47.19 p-[12px]  rounded-lg border border-gray-200 gap-[12px] bg-[#333333CC]">
+                        {/* <div
+                            className="flex items-center flex-col cursor-pointer"
+                            style={{
+                              borderBottom: "1px solid #646464",
+                              paddingBottom: "12px",
+                            }}
+                            onClick={() => {
+                              setSelected(item);
+                              setPreview(true);
+                            }}
+                          >
+                            <img
+                              src="/images/icons/visibility.png"
+                              className="h-[28px] w-[28px]"
+                              alt=""
+                            />
+                            
+                          </div> */}
+                        <div
                           className="flex items-center flex-col cursor-pointer"
                           style={{
                             borderBottom: "1px solid #646464",
@@ -103,92 +172,91 @@ const MyCollection = () => {
                         >
                           <img
                             src="/images/icons/visibility.png"
-                            className="h-[28px] w-[28px]"
+                            className="h-[24px] w-[24px]"
                             alt=""
                           />
-                          
-                        </div> */}
-                      <div
-                        className="flex items-center flex-col cursor-pointer"
-                        style={{
-                          borderBottom: "1px solid #646464",
-                          paddingBottom: "12px",
-                        }}
-                        onClick={() => {
-                          setSelected(item);
-                          setPreview(true);
-                        }}
-                      >
-                        <img
-                          src="/images/icons/visibility.png"
-                          className="h-[28px] w-[28px]"
-                          alt=""
-                        />
-                        <span className="text-[14px] font-semibold text-white ">
-                          Preview
-                        </span>
-                      </div>
-                      <div
-                        onClick={() => {
-                          router.push({
-                            pathname: "/home/createResume",
-                            query: {
-                              data: JSON.stringify(item),
-                              isEdit: true,
-                            },
-                          });
-                        }}
-                        className="flex items-center flex-col cursor-pointer"
-                        style={{
-                          borderBottom: "1px solid #646464",
-                          paddingBottom: "12px",
-                        }}
-                      >
-                        <img
-                          src="/images/icons/edit.png"
-                          className="h-[28px] w-[28px]"
-                          alt=""
-                        />
-                        <span className="text-[14px] font-semibold text-white ">
-                          Edit
-                        </span>
-                      </div>
+                          <span className="text-[12px] font-semibold text-white ">
+                            Preview
+                          </span>
+                        </div>
+                        <div
+                          onClick={() => {
+                            router.push({
+                              pathname: "/home/createResume",
+                              query: {
+                                data: JSON.stringify(item),
+                                isEdit: true,
+                              },
+                            });
+                          }}
+                          className="flex items-center flex-col cursor-pointer"
+                          style={{
+                            borderBottom: "1px solid #646464",
+                            paddingBottom: "12px",
+                          }}
+                        >
+                          <img
+                            src="/images/icons/edit.png"
+                            className="h-[24px] w-[24px]"
+                            alt=""
+                          />
+                          <span className="text-[12px] font-semibold text-white ">
+                            Edit
+                          </span>
+                        </div>
 
-                      <a
-                        href={item.resumeUrl}
-                        className="flex items-center flex-col cursor-pointer"
-                      >
+                        <a
+                          href={item.resumeUrl}
+                          className="flex items-center flex-col cursor-pointer"
+                        >
+                          <img
+                            src="/images/icons/download.png"
+                            className="h-[24px] w-[24px]"
+                            alt=""
+                          />
+                          <span className="text-[12px] font-semibold text-white ">
+                            Download
+                          </span>
+                        </a>
+                        <a
+                      onClick={() => {toggleSelect(index); setView(true)}}
+    
+                      className="flex items-center flex-col cursor-pointer"
+                    >
                         <img
-                          src="/images/icons/download.png"
-                          className="h-[28px] w-[28px]"
+                          src="/images/icons/delete_icon.png"
+                          className="h-[24px] w-[24px]"
                           alt=""
                         />
-                        <span className="text-[14px] font-semibold text-white ">
-                          Download
-                        </span>
-                      </a>
+                      <span className="text-[12px] font-semibold text-white ">
+                        Delete
+                      </span>
+                    </a>
+                      {
+                        view && <DeleteModal deleteHandler={deleteResume} closeDeleteModal={closeDeleteModal}/>
+                      }
+                      </div>
                     </div>
                   </div>
-                </div>
-              </>
-            ))}
-          </>
+                </>
+              ))}
+            </>
+          </div>
         </div>
+        {preview && (
+          <>
+            <ResumePreview
+              selectedResumeIndex={selected.resumeTemplateIndex}
+              data={selected}
+              selectedColor={selected.selectedColor}
+              selectedFont={selected.selectedFont}
+              setPreview={setPreview}
+              preview={true}
+            />
+          </>
+        )}
       </div>
-      {preview && (
-        <>
-          <ResumePreview
-            selectedResumeIndex={selected.resumeTemplateIndex}
-            data={selected}
-            selectedColor={selected.selectedColor}
-            selectedFont={selected.selectedFont}
-            setPreview={setPreview}
-            preview={true}
-          />
-        </>
-      )}
-    </div>
-  );
-};
+    );
+  };
 
-export default MyCollection;
+  export default MyCollection;

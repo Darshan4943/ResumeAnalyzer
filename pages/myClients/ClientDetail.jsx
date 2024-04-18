@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import ResumePreview from "../../components/common/ResumePreview";
 import { reCallUserData } from "../../Redux/actions/user";
 import { toast } from "react-toastify";
+import DeleteModal from "../../components/common/deleteModal";
 pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
 function ClientDetail({ tabIndex }) {
 
@@ -15,8 +16,11 @@ function ClientDetail({ tabIndex }) {
   const [selected, setSelected] = useState([]);
   const clientId = router.query.detailIndex;
   const [resumeList, setResumeList] = useState([]);
+  const [view, setView] = useState(false);
+  const [deleted, setDeleted] = useState(false)
   const dispatch = useDispatch();
   const [selectedIndexes, setSelectedIndexes] = useState([]);
+
   useEffect(() => {
     if (clientId) {
       axios
@@ -36,20 +40,24 @@ function ClientDetail({ tabIndex }) {
           console.log(err);
         });
     }
-  }, [clientId]);
-console.log(40,detail)
+  }, [clientId, deleted]);
 
-const toggleSelect = (index) => {
-  if (selectedIndexes.includes(index)) {
-    setSelectedIndexes(selectedIndexes.filter((i) => i !== index));
-  } else {
-    setSelectedIndexes([...selectedIndexes, index]);
-  }
-}; 
 
-  const deleteClient = () => {
+  const toggleSelect = (index) => {
 
-    const ids = selectedIndexes.map((item) => detail[item]?._id);
+    if (selectedIndexes.includes(index)) {
+      setSelectedIndexes(selectedIndexes.filter((i) => i !== index));
+    } else {
+      setSelectedIndexes([...selectedIndexes, index]);
+    }
+  };
+
+
+
+  const deleteResume = () => {
+
+    const ids = selectedIndexes.map((item) => resumeList[item]?._id);
+    console.log(ids)
 
     if (ids.length === 0) {
       toast.error("Please select file to delete");
@@ -58,17 +66,25 @@ const toggleSelect = (index) => {
 
     axios.delete("http://localhost:2000/api/resume/deleteResume", { data: { ids } })
       .then(response => {
-        console.log(response.data);
-        dispatch(reCallUserData());
+
+
         toast.success("Resume Deleted successfully");
+
+        setView(false)
+        setDeleted(!deleted)
+        dispatch(reCallUserData());
         setSelectedIndexes([])
-    
+
       })
       .catch(error => {
+
         console.error('Error:', error);
       });
   };
 
+  const closeDeleteModal = () => {
+    setView(false)
+  }
   const PdfViewer = ({ pdfUrl }) => {
     function onDocumentLoadSuccess(numPages) { }
 
@@ -245,7 +261,7 @@ const toggleSelect = (index) => {
 
             <div
               key={index}
-              className="flex flex-col h-[300px] items-center justify-between group relative "
+              className="flex flex-col w-[192px] break-all items-center justify-between group relative "
             >
               <PdfViewer pdfUrl={item?.resumeUrl} />
               <div className="text-[14px] text-[#333333] font-500">
@@ -267,10 +283,10 @@ const toggleSelect = (index) => {
                   >
                     <img
                       src="/images/icons/visibility.png"
-                      className="h-[28px] w-[28px]"
+                      className="h-[24px] w-[24px]"
                       alt=""
                     />
-                    <span className="text-[14px] font-semibold text-white ">
+                    <span className="text-[12px] font-semibold text-white ">
                       Preview
                     </span>
                   </div>
@@ -292,10 +308,10 @@ const toggleSelect = (index) => {
                   >
                     <img
                       src="/images/icons/edit.png"
-                      className="h-[28px] w-[28px]"
+                      className="h-[24px] w-[24px]"
                       alt=""
                     />
-                    <span className="text-[14px] font-semibold text-white ">
+                    <span className="text-[12px] font-semibold text-white ">
                       Edit
                     </span>
                   </div>
@@ -306,27 +322,30 @@ const toggleSelect = (index) => {
                   >
                     <img
                       src="/images/icons/download.png"
-                      className="h-[28px] w-[28px]"
+                      className="h-[24px] w-[24px]"
                       alt=""
                     />
-                    <span className="text-[14px] font-semibold text-white ">
+                    <span className="text-[12px] font-semibold text-white ">
                       Download
                     </span>
                   </a>
                   <a
-                    onClick={() => toggleSelect(index)}
+                    onClick={() => { toggleSelect(index); setView(true) }}
 
                     className="flex items-center flex-col cursor-pointer"
                   >
                     <img
-                      src="/images/icons/download.png"
-                      className="h-[28px] w-[28px]"
+                      src="/images\icons\delete_icon.png"
+                      className="h-[24px] w-[24px]"
                       alt=""
                     />
-                    <span className="text-[14px] font-semibold text-white ">
+                    <span className="text-[12px] font-semibold text-white ">
                       Delete
                     </span>
                   </a>
+                  {
+                    view && <DeleteModal deleteHandler={deleteResume} closeDeleteModal={closeDeleteModal} />
+                  }
                 </div>
               </div>
             </div>
