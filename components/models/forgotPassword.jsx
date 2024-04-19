@@ -74,8 +74,6 @@ function ForgotPassword({ setIsForgot }) {
         }
     };
 
-
-
     useEffect(() => {
         if (verify) {
             const timerInterval = setInterval(() => {
