@@ -94,7 +94,7 @@ const AboutMe = ({ data, setData }) => {
             <textarea
               type="text"
               name="aboutMe"
-              className="w-full text-[14px] font-montserrat font-small h-full outline-none"
+              className="w-full text-[14px] font-montserrat font-small min-h-[70px] outline-none"
               placeholder="Enter text"
               maxLength={400} // Set maximum length
               onChange={(e) => {
