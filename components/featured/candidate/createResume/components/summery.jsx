@@ -127,7 +127,7 @@ function Summary({ limits, selectedPlan, isActive }) {
                   className="absolute flex flex-col  items-center justify-center text-[18px] font-semibold bg-white w-[110px] h-[110px] rounded-full"
                   style={{ boxShadow: "0px 0px 2px 0px #00000040" }}
                 >
-                  {daysRemaing} days
+                {daysRemaing <= 0 ? "0" : daysRemaing } days
                   <p className="text-[12px] font-medium">Remaining</p>
                 </div>
               </div>
@@ -236,7 +236,8 @@ function Summary({ limits, selectedPlan, isActive }) {
                 </div>
                 <p className="min-w-[55px]">
                   {" "}
-                  {limits.total.clients-clientsRemaining}/{limits.total.clients}
+                  {clientsRemaining > 0 ? limits.total.clients-clientsRemaining : "0"}/{limits.total.clients}
+                 {/* { console.log(12121,clientsRemaining)} */}
                 </p>
               </div>
             )}

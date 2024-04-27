@@ -4,9 +4,9 @@ import { useDispatch, useSelector, useStore } from "react-redux";
 import { userAction } from "./actions/user";
 import { jwtDecode } from "jwt-decode";
 import { setJob } from "./actions";
-import moment from "moment";
 import { plans } from "../utils/data";
 import ResetPasswordModal from "../components/models/resetPasswordModal";
+import moment from 'moment';
 
 export const Api = () => {
   const store = useStore();
@@ -15,17 +15,22 @@ export const Api = () => {
   const [visible, setVisible] = useState(false);
 
   const dispatch = useDispatch();
+
+  let timezone = moment().format('YYYY-MM-DD')
+
+
+
   const reCallUser = useSelector((state) => state.reCallUser);
   useEffect(() => {
     if (userDataGlobal?.tempPassword?.length > 0) {
 
-    const timer = setTimeout(() => {
-      setLoading(false);
+      const timer = setTimeout(() => {
+        setLoading(false);
         setVisible(true);
-    }, 3400);
+      }, 3400);
 
-    return () => clearTimeout(timer);
-  }
+      return () => clearTimeout(timer);
+    }
 
   }, [userDataGlobal]);
   useEffect(() => {
@@ -77,22 +82,38 @@ export const Api = () => {
             localStorage.setItem("saveCount", result.resumeSaves.num);
             localStorage.setItem("clientCount", result.clientStored);
             localStorage.setItem("planAvailable", true);
+            let newEnddate = moment(result.endDate).format('YYYY-MM-DD')
+            // { console.log(999, timezone >= newEnddate ? "active" : "inactive") }
+            if (timezone >= newEnddate && result.isActive) {
+              axios.put('http://localhost:2000/api/subscription/update/' + userDataGlobal._id).then(res => {
+                if (res.data.success) {
+                  window.location.reload()
+                }
+              }).catch(err => {
+                console.log(err)
+              })
+              }
 
-          } else {
-            if (!planActive && uploadCount == 0) {
-              localStorage.setItem("uploadCount", 0);
-            } else {
-              localStorage.setItem("uploadCount", 1);
-            }
-
-            localStorage.setItem("planActive", false);
-            localStorage.setItem("planAvailable", false);
-
-            localStorage.setItem("downloadCount", 0);
-            localStorage.setItem("saveCount", 0);
-            localStorage.setItem("clientCount", 0);
+            // console.log(33333,moment(result.endDate).format('YYYY-MM-DD'))
+            // console.log(44444,moment(timezone).format('YYYY-MM-DD'))
+            // console.log(55555,moment(result.endDate).isBefore(moment(timezone).format('YYYY-MM-DD')))
           }
-        })
+
+            else {
+              if (!planActive && uploadCount == 0) {
+                localStorage.setItem("uploadCount", 0);
+              } else {
+                localStorage.setItem("uploadCount", 1);
+              }
+
+              localStorage.setItem("planActive", false);
+              localStorage.setItem("planAvailable", false);
+
+              localStorage.setItem("downloadCount", 0);
+              localStorage.setItem("saveCount", 0);
+              localStorage.setItem("clientCount", 0);
+            }
+          })
         .catch((err) => {
           console.log(err);
         });

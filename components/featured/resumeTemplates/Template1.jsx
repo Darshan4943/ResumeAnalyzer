@@ -667,9 +667,6 @@ function Template1({ data }) {
     if (experienceContainer.current) {
       [
         ...data?.experience,
-        ...data?.experience,
-        ...data?.experience,
-        ...data?.experience,
       ]?.forEach((detail, index) => {
         const parentDiv = document.createElement("div");
         parentDiv.innerHTML = `

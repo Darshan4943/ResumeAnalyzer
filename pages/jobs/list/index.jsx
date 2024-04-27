@@ -310,7 +310,7 @@ const Index = () => {
           )}
 
           <button
-            onClick={() => router.push("/myClients/CreateNewClient")}
+            onClick={() => router.push("/jobs/create")}
             className=" ml:flex hidden text-[16px] font-semibold py-3 px-6 h-[48px] min-w-[228px] gap-1 bg-[#06A9EF] rounded-[12px] text-white"
             type="button"
           >
@@ -328,7 +328,7 @@ const Index = () => {
                 />
               </g>
             </svg>
-            Create New Client
+            Create New Job
           </button>
 
           {/* {isOptions && (

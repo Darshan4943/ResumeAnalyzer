@@ -901,7 +901,7 @@ const [isDisabled,setdisabled] =useState(false)
               {/* <PDFViewer width="80%" height="900px" showToolbar={false}>
                 <MyComponent />
               </PDFViewer> */}
-              <Resume2
+              <Template1
             data={data}
             selectedColor={selectedColor}
             selectedFont={selectedFont}
