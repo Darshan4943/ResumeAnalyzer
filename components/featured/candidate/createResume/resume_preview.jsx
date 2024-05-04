@@ -9,6 +9,7 @@ import {
   Document,
   Page,
   BlobProvider,
+  pdf,
 } from "@react-pdf/renderer";
 import Template1 from "../../resumeTemplates/Template1";
 import Template2 from "../../resumeTemplates/Template2";
@@ -65,7 +66,7 @@ const ResumePreview = ({
   const [downloadLimit, setDownloadLimit] = useState(0);
   const [saveLimit, setSaveLimit] = useState(0);
   const [limitUsedModal, setLimitUsedModal] = useState(false);
-  console.log(67,userDataGlobal)
+  // console.log(67, userDataGlobal);
   const getLimits = () => {
     const downloadCount = localStorage.getItem("downloadCount");
     const saveCount = localStorage.getItem("saveCount");
@@ -516,7 +517,7 @@ const ResumePreview = ({
 
   const resumeRef = useRef();
   const [preview, setPreview] = useState(false);
-const [isDisabled,setdisabled] =useState(false)
+  const [isDisabled, setdisabled] = useState(false);
   const [loading, setLoading] = useState(true);
 
   const togglePreview = (isVisible, index) => {
@@ -540,17 +541,17 @@ const [isDisabled,setdisabled] =useState(false)
   const handleLoad = () => {
     setLoading(false);
   };
-  
+
   const saveResume = async (blob, download) => {
     setdisabled(true);
-    if(blob !==null){
+    if (blob !== null) {
       if (saveLimit == 0) {
         setLimitUsedModal(true);
         return;
       }
       if (isEdit) {
         setLoading(true);
-       
+
         const formData = new FormData();
         if (Object.keys(data).length > 0) {
           Object.keys(data).map((key) => {
@@ -566,7 +567,7 @@ const [isDisabled,setdisabled] =useState(false)
         formData.append("selectedColor", selectedColor);
         formData.append("selectedFont", selectedFont);
         formData.append("pdfBlob", blob);
-  
+
         axios
           .put("http://localhost:2000/api/resume/" + id, formData)
           .then((res) => {
@@ -583,13 +584,13 @@ const [isDisabled,setdisabled] =useState(false)
           })
           .catch((err) => {
             setLoading(false);
-  
+
             console.log(err);
             toast.error("Something went wrong ");
           });
       } else {
         setLoading(true);
-  
+
         const formData = new FormData();
         if (Object.keys(data).length > 0) {
           Object.keys(data).map((key) => {
@@ -602,25 +603,25 @@ const [isDisabled,setdisabled] =useState(false)
             }
           });
         }
-        console.log(blob)
+
         formData.append("pdfBlob", blob);
         formData.append("resumeIndex", selectedResumeIndex);
         formData.append("fileName", name);
         formData.append("selectedColor", selectedColor);
         formData.append("selectedFont", selectedFont);
-  
+
         if (userDataGlobal.role === "user") {
           formData.append("userId", userDataGlobal._id);
         } else if (userDataGlobal.role === "recruiter") {
           formData.append("userId", data.clientId);
           formData.append("recruiterId", userDataGlobal._id);
         }
-  
+
         axios
           .post("http://localhost:2000/api/resume/add", formData)
           .then((res) => {
             const pdfUrl = res.data.data.resumeUrl;
-  
+
             localStorage.setItem("saveCount", saveLimit - 1);
             if (download) {
               const link = document.createElement("a");
@@ -630,7 +631,7 @@ const [isDisabled,setdisabled] =useState(false)
               link.click();
               document.body.removeChild(link);
             }
-  
+
             getLimits();
             toast.success("Resume Saved To Collection successfully");
             setLoading(false);
@@ -645,10 +646,9 @@ const [isDisabled,setdisabled] =useState(false)
             setLoading(false);
           });
       }
-    }else{
-      toast.error("Something went wrong, Please try again")
+    } else {
+      toast.error("Something went wrong, Please try again");
     }
-   
   };
   const updateDownloadCount = async () => {
     setDownloadBtnLoading(true);
@@ -675,11 +675,28 @@ const [isDisabled,setdisabled] =useState(false)
       </Document>
     );
   };
+
+  const generatePDFBlob = async () => {
+    try {
+      const blob = await pdf(<MyComponent />).toBlob();
+
+      // console.log("Generated Blob size:", blob.size);
+      // console.log("Generated Blob type:", blob.type);
+
+      const arrayBuffer = await blob.arrayBuffer();
+      if (arrayBuffer) {
+        saveResume(blob);
+      }
+
+      // console.log("ArrayBuffer:", arrayBuffer);
+    } catch (error) {
+      console.error("Error generating PDF Blob:", error);
+    }
+  };
   const SaveBTN = (blob, url, loading) => {
-    
     return (
       <button
-        onClick={() => saveResume(blob)}
+        onClick={() => generatePDFBlob()}
         disabled={loading}
         className="flex gap-1 text-[14px] sm:w-[150px]  justify-center  font-montserrat font-semibold px-3 py-2 rounded-[8px] items-center border border-[#06A9EF] "
       >
@@ -708,7 +725,7 @@ const [isDisabled,setdisabled] =useState(false)
     );
   };
   const DownloadButton = () => (
-    <BlobProvider document={<MyComponent />} fileName="demo.pdf" >
+    <BlobProvider document={<MyComponent />} fileName="demo.pdf">
       {({ blob, url, loading, error }) => (
         <button
           onClick={() => saveResume(blob, true)}
@@ -819,11 +836,11 @@ const [isDisabled,setdisabled] =useState(false)
                 </svg>
               </div>
               {selectedResumeIndex !== undefined && (
-                <BlobProvider document={<MyComponent />}>
-                  {({ blob, url, loading, error }) => (
-                    <SaveBTN blob={blob} loading={loading} />
-                  )}
-                </BlobProvider>
+                // <BlobProvider document={<MyComponent />}>
+                //   {({ blob, url, loading, error }) => (
+                <SaveBTN />
+                //   )}
+                // </BlobProvider>
               )}
             </div>
             <div className="flex sm:gap-[16px] scr1024:gap-2 gap-2 items-center justify-end ml:w-[32%] w-full">
@@ -898,14 +915,10 @@ const [isDisabled,setdisabled] =useState(false)
                 <MiniLoader />
               </div>
             ) : ( */}
-              {/* <PDFViewer width="80%" height="900px" showToolbar={false}>
-                <MyComponent />
-              </PDFViewer> */}
-              <Template1
-            data={data}
-            selectedColor={selectedColor}
-            selectedFont={selectedFont}
-          />
+            <PDFViewer width="80%" height="900px" showToolbar={false}>
+              <MyComponent />
+            </PDFViewer>
+
             {/* )} */}
           </div>
         )}
@@ -958,17 +971,11 @@ const [isDisabled,setdisabled] =useState(false)
               </div>
 
               <div className="w-full  bg-[#525659] h-full flex items-center justify-center">
-                {/* <PDFViewer width="750" height="100%" showToolbar={false}>
+                <PDFViewer width="750" height="100%" showToolbar={false}>
                   <Document>
                     {selectResumeTemplate(selectedResumeIndex)}
                   </Document>
-                </PDFViewer> */}
-                
-                  <Template1
-            data={data}
-            selectedColor={selectedColor}
-            selectedFont={selectedFont}
-          />
+                </PDFViewer>
               </div>
             </div>
           </div>
