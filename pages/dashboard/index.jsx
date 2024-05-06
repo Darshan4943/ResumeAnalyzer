@@ -114,7 +114,9 @@ function Dashboard() {
     const saveCount = localStorage.getItem("saveCount");
     const clientCount = localStorage.getItem("clientCount");
     const planActive = localStorage.getItem("planActive");
+    
     const plan = plans.find((item) => item.index == selectedPlan);
+    console.log(118,plan)
     if (plan) {
       setSelectedPlan(plan);
     

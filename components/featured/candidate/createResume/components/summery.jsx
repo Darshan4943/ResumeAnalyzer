@@ -65,7 +65,7 @@ function Summary({ limits, selectedPlan, isActive }) {
     return remainingDays;
   };
   useEffect(() => {
-    if (userDataGlobal) {
+    if (userDataGlobal && isActive) {
       axios
         .get(
           "http://localhost:2000/api/subscription/" + userDataGlobal._id
@@ -204,7 +204,7 @@ function Summary({ limits, selectedPlan, isActive }) {
             </div>
             <div className="flex gap-4 items-center">
               <p className=" min-w-[164px]">Total Save/Downloads</p>
-
+              { console.log(12121,uploadsRemaining)}
               <div className="relative  w-[45%]  h-[10px] bg-[#DEDEDE] rounded-[6px]">
                 <div
                   className={`absolute  h-[10px] bg-[#06A9EF] rounded-[6px]`}
@@ -236,8 +236,8 @@ function Summary({ limits, selectedPlan, isActive }) {
                 </div>
                 <p className="min-w-[55px]">
                   {" "}
-                  {clientsRemaining > 0 ? limits.total.clients-clientsRemaining : "0"}/{limits.total.clients}
-                 {/* { console.log(12121,clientsRemaining)} */}
+                  { limits.total.clients-clientsRemaining }/{limits.total.clients}
+               
                 </p>
               </div>
             )}
