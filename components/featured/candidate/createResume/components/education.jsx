@@ -94,7 +94,9 @@ const Education = ({ setData, data }) => {
           >
             <div className="flex justify-between">
               <p className="text-[14px]">
-                {edu.qualification} {edu.duration?.start?.year !== "Year" &&  ` ${"|"} ${edu.duration?.start?.year} 
+                {edu.qualification}{" "}
+                {edu.duration?.start?.year != "Year" &&
+                  ` ${"|"} ${edu.duration?.start?.year} 
               ${edu.duration?.start?.year && "-"}
               ${edu.duration?.end?.year}`}
               </p>
@@ -109,7 +111,9 @@ const Education = ({ setData, data }) => {
             </div>
             <div className="flex gap-8 text-[12px]">
               <p>
-                {edu.specialization} | {edu.instituteName}
+                {edu.specialization}{" "}
+                {edu.specialization && edu.instituteName && `|`}{" "}
+                {edu.instituteName}
               </p>
               {/* <p>University : {edu.instituteName}</p> */}
             </div>

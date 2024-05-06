@@ -2,16 +2,24 @@ import React, { useEffect, useReducer, useState } from "react";
 import { useRouter } from "next/router";
 import { Document, Page, pdfjs } from "react-pdf";
 import axios from "axios";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import ResumePreview from "../../components/common/ResumePreview";
+import { reCallUserData } from "../../Redux/actions/user";
+import { toast } from "react-toastify";
+import DeleteModal from "../../components/common/deleteModal";
 pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
 function ClientDetail({ tabIndex }) {
+
   const router = useRouter();
   const [detail, setDetails] = useState({});
   const [preview, setPreview] = useState(false);
   const [selected, setSelected] = useState([]);
   const clientId = router.query.detailIndex;
   const [resumeList, setResumeList] = useState([]);
+  const [view, setView] = useState(false);
+  const [deleted, setDeleted] = useState(false)
+  const dispatch = useDispatch();
+  const [selectedIndexes, setSelectedIndexes] = useState([]);
 
   useEffect(() => {
     if (clientId) {
@@ -32,10 +40,53 @@ function ClientDetail({ tabIndex }) {
           console.log(err);
         });
     }
-  }, [clientId]);
+  }, [clientId, deleted]);
 
+
+  const toggleSelect = (index) => {
+
+    if (selectedIndexes.includes(index)) {
+      setSelectedIndexes(selectedIndexes.filter((i) => i !== index));
+    } else {
+      setSelectedIndexes([...selectedIndexes, index]);
+    }
+  };
+
+
+
+  const deleteResume = () => {
+
+    const ids = selectedIndexes.map((item) => resumeList[item]?._id);
+    console.log(ids)
+
+    if (ids.length === 0) {
+      toast.error("Please select file to delete");
+      return;
+    }
+
+    axios.delete("https://freedygoservices.in/api/resume/deleteResume", { data: { ids } })
+      .then(response => {
+
+
+        toast.success("Resume Deleted successfully");
+
+        setView(false)
+        setDeleted(!deleted)
+        dispatch(reCallUserData());
+        setSelectedIndexes([])
+
+      })
+      .catch(error => {
+
+        console.error('Error:', error);
+      });
+  };
+
+  const closeDeleteModal = () => {
+    setView(false)
+  }
   const PdfViewer = ({ pdfUrl }) => {
-    function onDocumentLoadSuccess(numPages) {}
+    function onDocumentLoadSuccess(numPages) { }
 
     return (
       <div
@@ -183,9 +234,9 @@ function ClientDetail({ tabIndex }) {
         Resumes
       </div>
       <div className="w-full rounded-[12px] border flex flex-wrap scr540:justify-start justify-center gap-9 border-[#DEDEDE] bg-[#F9F9F9] p-6 cursor-pointer">
-        
+
         <div className="flex flex-row flex-wrap gap-6">
-        <div
+          <div
             onClick={() => router.push(`/home/BuildResume?clientId=${clientId}`)}
             style={{ boxShadow: "0px 0px 10px 5px #00000040" }}
             className="rounded-[12px] text-center text-white justify-center flex scr540:flex-col flex-row text-[18px] items-center gap-2 font-medium  scr540:w-[192px] w-[280px]  scr540:h-[272px] h-[135px] bg-[#646464] p-6 cursor-pointer"
@@ -202,15 +253,15 @@ function ClientDetail({ tabIndex }) {
                 fill="white"
               />
             </svg>
-  
+
             <p>Create New Resume</p>
           </div>
           {resumeList?.map((item, index) => (
-           
-           
+
+
             <div
               key={index}
-              className="flex flex-col h-[300px] items-center justify-between group relative "
+              className="flex flex-col w-[192px] break-all items-center justify-between group relative "
             >
               <PdfViewer pdfUrl={item?.resumeUrl} />
               <div className="text-[14px] text-[#333333] font-500">
@@ -232,10 +283,10 @@ function ClientDetail({ tabIndex }) {
                   >
                     <img
                       src="/images/icons/visibility.png"
-                      className="h-[28px] w-[28px]"
+                      className="h-[24px] w-[24px]"
                       alt=""
                     />
-                    <span className="text-[14px] font-semibold text-white ">
+                    <span className="text-[12px] font-semibold text-white ">
                       Preview
                     </span>
                   </div>
@@ -257,10 +308,10 @@ function ClientDetail({ tabIndex }) {
                   >
                     <img
                       src="/images/icons/edit.png"
-                      className="h-[28px] w-[28px]"
+                      className="h-[24px] w-[24px]"
                       alt=""
                     />
-                    <span className="text-[14px] font-semibold text-white ">
+                    <span className="text-[12px] font-semibold text-white ">
                       Edit
                     </span>
                   </div>
@@ -271,17 +322,34 @@ function ClientDetail({ tabIndex }) {
                   >
                     <img
                       src="/images/icons/download.png"
-                      className="h-[28px] w-[28px]"
+                      className="h-[24px] w-[24px]"
                       alt=""
                     />
-                    <span className="text-[14px] font-semibold text-white ">
+                    <span className="text-[12px] font-semibold text-white ">
                       Download
                     </span>
                   </a>
+                  <a
+                    onClick={() => { toggleSelect(index); setView(true) }}
+
+                    className="flex items-center flex-col cursor-pointer"
+                  >
+                    <img
+                      src="/images\icons\delete_icon.png"
+                      className="h-[24px] w-[24px]"
+                      alt=""
+                    />
+                    <span className="text-[12px] font-semibold text-white ">
+                      Delete
+                    </span>
+                  </a>
+                  {
+                    view && <DeleteModal deleteHandler={deleteResume} closeDeleteModal={closeDeleteModal} />
+                  }
                 </div>
               </div>
             </div>
-            
+
           ))}
         </div>
         {preview && (

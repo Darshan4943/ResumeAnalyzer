@@ -92,10 +92,10 @@ const Details = ({ data, setJd, files, extractedData, resume }) => {
               <div className="w-full flex justify-between">
                 <div className="flex flex-col gap-[8px] mt-2  ">
                   <span className="text-[14px] font-500">
-                    Apply Before : {dateSeter(data?.deadLine)}
+                    Apply Before : {data?.deadLine !== undefined && NaN ? dateSeter(data?.deadLine) :''}
                   </span>
                   <span className="text-[14px] font-500">
-                    Job Posted On : {dateSeter(data?.createdAt)}
+                    Job Posted On : {data?.createdAt !== undefined && NaN ? dateSeter(data?.createdAt) : ''}
                   </span>
                 </div>
                 <button

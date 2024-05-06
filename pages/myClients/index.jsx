@@ -7,6 +7,7 @@ import Fuse from "fuse.js";
 import { useRouter } from "next/router";
 import { reCallUserData } from "../../Redux/actions/user";
 import { toast } from "react-toastify";
+import LimitUsedModal from "../../components/models/limitUsedModal";
 function MyClients() {
   const [tabIndex, setTabIndex] = useState(0);
   const [isOptions, setIsOptions] = useState(false);
@@ -18,7 +19,20 @@ function MyClients() {
   const router = useRouter();
   const [selectAll, setSelectAll] = useState(false);
   const [selectedIndexes, setSelectedIndexes] = useState([]);
+  const [ClientCount, setClientCount] = useState(0)
+  console.log(ClientCount)
+  const [limitPopUp, setLimitPopUp] = useState(false)
   const dispatch = useDispatch();
+
+  const getLimits = () => {
+    const clientCount = localStorage.getItem("clientCount");
+    setClientCount(parseInt(clientCount))
+  }
+
+  useEffect(() => {
+    getLimits();
+  }, []);
+
   const handleOutsideClick = (event) => {
     if (taskRef.current && !taskRef.current.contains(event.target)) {
       setIsOptions(false);
@@ -212,7 +226,7 @@ function MyClients() {
                         <div className="scr420:text-[14px] text-[13px] font-semibold min-w-[85px] items-center flex justify-end">
                           {selectedIndexes.length}  selected
                         </div>
-                      
+
 
                       </div>
                     </div>
@@ -221,7 +235,13 @@ function MyClients() {
                 </div>
                 {!select &&
                   <button
-                    onClick={() => router.push("/myClients/CreateNewClient")}
+                    onClick={() => {
+                      if (ClientCount === 0) {
+                        setLimitPopUp(true);
+                      } else {
+                        router.push("/myClients/CreateNewClient");
+                      }
+                    }}
                     className="ml:hidden scr420:text-[16px] text-[14px] font-semibold scr420:py-3 scr420:px-6 px-2 py-2 scr420:h-[48px]  scr420:min-w-[228px] flex gap-1 bg-[#06A9EF] rounded-[12px] text-white"
                     type="button"
                   >
@@ -236,7 +256,13 @@ function MyClients() {
                 }
 
                 <button
-                  onClick={() => router.push("/myClients/CreateNewClient")}
+                  onClick={() => {
+                    if (ClientCount === 0) {
+                      setLimitPopUp(true);
+                    } else {
+                      router.push("/myClients/CreateNewClient");
+                    }
+                  }}
                   className=" ml:flex hidden text-[16px] font-semibold py-3 px-6 h-[48px] min-w-[228px] gap-1 bg-[#06A9EF] rounded-[12px] text-white"
                   type="button"
                 >
@@ -272,7 +298,16 @@ function MyClients() {
                 setSelect={setSelect} select={select} deleteClient={deleteClient} />
             ) : (
               <div
-                onClick={() => router.push("/myClients/CreateNewClient")}
+
+                onClick={() => {
+                  if (ClientCount === 0) {
+                    setLimitPopUp(true);
+                  } else {
+                    router.push("/myClients/CreateNewClient");
+                  }
+                }}
+
+
                 style={{ boxShadow: "0px 0px 10px 5px #00000040" }}
                 className="rounded-[12px] text-center text-white justify-center mt-[16px] flex scr540:flex-col flex-row text-[18px] items-center gap-2 font-medium  scr540:w-[192px] w-[312px]  scr540:h-[272px] h-[135px] bg-[#646464] p-6 cursor-pointer"
               >
@@ -292,6 +327,10 @@ function MyClients() {
                 <p>Create New Client</p>
               </div>
             )}
+            {limitPopUp &&
+
+              <LimitUsedModal visible={limitPopUp} setVisible={setLimitPopUp} />
+            }
           </div>
         </div>
       )}

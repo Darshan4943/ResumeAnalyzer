@@ -8,7 +8,7 @@ import ReactSelect from "react-select";
 import { useRouter } from "next/router";
 import { jwtDecode } from "jwt-decode";
 
-function AccountDetails({ selectedPlan, recruiterid,role }) {
+function AccountDetails({ selectedPlan, recruiterid, role }) {
   const router = useRouter();
   const userDataGlobal = useSelector((state) => state.userData);
   function getDateAfterDays(days) {
@@ -91,7 +91,7 @@ function AccountDetails({ selectedPlan, recruiterid,role }) {
       case "dial_code":
         if (!value.trim()) {
           errors.mobileNo = "dial_code is required";
-        }  else {
+        } else {
           delete errors.dial_code;
         }
         break;
@@ -150,33 +150,51 @@ function AccountDetails({ selectedPlan, recruiterid,role }) {
     }
   }, []);
 
+  function findEmptyKey(obj) {
+    let empty = [];
+
+    for (const key in obj) {
+      if (obj.hasOwnProperty(key) && obj[key] == "") {
+        empty.push(key);
+      }
+    }
+    return empty;
+  }
+
   const isViewportBelow850 = useMediaQuery("(max-width:850px)");
 
   const purchaseHandler = async (e) => {
     e.preventDefault();
+
+    const found = findEmptyKey(data);
+
     if (!data.checked) {
       setError("Please agree to the terms and conditions.");
     } else {
-      setLoading(true);
-      axios
-        .post("https://freedygoservices.in/api/add/subscription", {
-          userId:
-            userDataGlobal.role == "admin" ? recruiterid : userDataGlobal._id,
-          plan: selectedPlan.duration + " " + selectedPlan.limit,
-          ...data,
-          mobileNo: data.mobileNo,
-          index: selectedPlan.index,
-          isAdmin: userDataGlobal.role == "admin",
-          role:userDataGlobal?.role
-        })
-        .then((res) => {
-          setLoading(false);
-          setPopUp(true);
-          // setSuccessModel(true);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      if (found.length > 0) {
+        setError(`Please fill all require fields .`);
+      } else {
+        setLoading(true);
+        axios
+          .post("https://freedygoservices.in/api/add/subscription", {
+            userId:
+              userDataGlobal.role == "admin" ? recruiterid : userDataGlobal._id,
+            plan: selectedPlan.duration + " " + selectedPlan.limit,
+            ...data,
+            mobileNo: data.mobileNo,
+            index: selectedPlan.index,
+            isAdmin: userDataGlobal.role == "admin",
+            role: userDataGlobal?.role,
+          })
+          .then((res) => {
+            setLoading(false);
+            setPopUp(true);
+            // setSuccessModel(true);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
     }
     // if (data.checked) {
     //   const errors = validateInput();
@@ -300,13 +318,14 @@ function AccountDetails({ selectedPlan, recruiterid,role }) {
                     ? "Plan Activated Successfully"
                     : "Our Team Will Reach Out To You Shortly"}
                 </text>
-
               </div>
               <button
                 onClick={() =>
                   router.push(
                     userDataGlobal.role == "admin"
-                      ? role=='user'?"/dashboard/Candidates":"/dashboard/Recruiters"
+                      ? role == "user"
+                        ? "/dashboard/Candidates"
+                        : "/dashboard/Recruiters"
                       : "/purchase/MyPurchase"
                   )
                 }

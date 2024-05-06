@@ -15,7 +15,7 @@ function Summary({ limits, selectedPlan, isActive }) {
   const [downloadsRemaining,setDownloadsRemaining] = useState(0)
   const [clientsRemaining,setClientsRemaining] = useState(0)
 
-  console.log(18,clientsRemaining)
+
   const calculateOverallPercentage = (used, total) => {
     let totalUsed = 0;
     let totalLimit = 0;
@@ -57,7 +57,7 @@ function Summary({ limits, selectedPlan, isActive }) {
     const today = new Date();
     const start = new Date(startDate);
     const end = new Date(endDate);
-    console.log(start, end, today)
+  
 
     const differenceMs = end - today;
     const remainingDays = Math.ceil(differenceMs / (1000 * 60 * 60 * 24));
@@ -65,14 +65,14 @@ function Summary({ limits, selectedPlan, isActive }) {
     return remainingDays;
   };
   useEffect(() => {
-    if (userDataGlobal) {
+    if (userDataGlobal && isActive) {
       axios
         .get(
           "https://freedygoservices.in/api/subscription/" + userDataGlobal._id
         )
         .then((res) => {
           const result = res.data.data;
-          console.log(result)
+        
           setUploadsRemaining(result.resumeUpladed)
           setDownloadsRemaining(parseInt(result.resumeSaves.num))
           setClientsRemaining(result.clientStored)
@@ -127,7 +127,7 @@ function Summary({ limits, selectedPlan, isActive }) {
                   className="absolute flex flex-col  items-center justify-center text-[18px] font-semibold bg-white w-[110px] h-[110px] rounded-full"
                   style={{ boxShadow: "0px 0px 2px 0px #00000040" }}
                 >
-                  {daysRemaing} days
+                {daysRemaing <= 0 ? "0" : daysRemaing } days
                   <p className="text-[12px] font-medium">Remaining</p>
                 </div>
               </div>
@@ -204,7 +204,7 @@ function Summary({ limits, selectedPlan, isActive }) {
             </div>
             <div className="flex gap-4 items-center">
               <p className=" min-w-[164px]">Total Save/Downloads</p>
-
+              { console.log(12121,uploadsRemaining)}
               <div className="relative  w-[45%]  h-[10px] bg-[#DEDEDE] rounded-[6px]">
                 <div
                   className={`absolute  h-[10px] bg-[#06A9EF] rounded-[6px]`}
@@ -236,7 +236,8 @@ function Summary({ limits, selectedPlan, isActive }) {
                 </div>
                 <p className="min-w-[55px]">
                   {" "}
-                  {limits.total.clients-clientsRemaining}/{limits.total.clients}
+                  { limits.total.clients-clientsRemaining }/{limits.total.clients}
+               
                 </p>
               </div>
             )}

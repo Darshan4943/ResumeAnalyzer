@@ -19,12 +19,16 @@ const ResumeList = ({ data, setData }) => {
     event.preventDefault();
     const selectedFile = event.target.files[0];
     if (selectedFile) {
+      if (selectedFile && selectedFile.size <= 2 * 1024 * 1024){
       if (selectedFile?.type.includes("image")) {
         setFile(selectedFile);
         setModelView(true);
       } else {
         toast.error("Only Image files are allowed");
       }
+    } else {
+      toast.error("Please select a file that is  2 MB.");
+    }
     }
   };
   const handleDragOver = (event) => {
@@ -114,7 +118,7 @@ const ResumeList = ({ data, setData }) => {
               </div>
               <p className="text-center text-[14px] font-normal text-[#333]">
                 {" "}
-                Allowed file formats: jpg, jpeg | up to 1.5 MB
+                Allowed file formats: jpg, jpeg | up to 2.0 MB
               </p>
             </div>
           </div>

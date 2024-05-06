@@ -15,7 +15,13 @@ import {
 function Template1({ data, selectedColor, selectedFont, preview }) {
   return (
     <Page size="A4" style={{ padding: 24 }} pageMode={"fullScreen"} wrap={true}>
-      <View style={{ flexDirection: "column", minHeight: "792px" }}>
+      <View
+        style={{
+          flexDirection: "column",
+          minHeight: "792px",
+          // backgroundColor: "red",
+        }}
+      >
         <View
           style={{
             flexDirection: "row",
@@ -62,8 +68,8 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                   preview
                     ? data.profilePhoto
                     : Object.keys(data?.profilePhoto).includes("filename")
-                      ? URL.createObjectURL(data.profilePhoto)
-                      : data.profilePhoto
+                    ? URL.createObjectURL(data.profilePhoto)
+                    : data.profilePhoto
                 }
                 style={{
                   objectFit: "cover",
@@ -231,13 +237,15 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                         </Text>
                       </View>
                       <View style={{ flexDirection: "column", gap: 2 }}>
-                        <View
-                          style={{
-                            width: 16,
-                            height: 1,
-                            backgroundColor: "#414042",
-                          }}
-                        />
+                        {detail.duration?.start?.year != "Year" && (
+                          <View
+                            style={{
+                              width: 16,
+                              height: 1,
+                              backgroundColor: "#414042",
+                            }}
+                          />
+                        )}
 
                         <View style={{}}>
                           <Text
@@ -302,14 +310,13 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
             )}
             {data?.hobbies?.length > 0 && (
               <View style={{ flexDirection: "column" }}>
-                <View style={{ flexDirection: "column", gap: 12 }} >
+                <View style={{ flexDirection: "column", gap: 12 }}>
                   <Text
                     style={{
                       color: "#414042",
                       fontFamily: `${selectedFont} 400`,
                       fontSize: "16px",
                     }}
-                  
                   >
                     HOBBIES
                   </Text>
@@ -449,7 +456,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                         fontSize: 10,
                         fontFamily: `${selectedFont} 400`,
                         lineHeight: 1.2,
-                        width: '100%'
+                        width: "100%",
                       }}
                     >
                       {detail.organization}
@@ -464,9 +471,10 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                         }}
                       >
                         {detail.duration?.start?.year !== "Year" &&
-                          `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
-                            ? "Present"
-                            : detail.duration?.end?.year
+                          `${detail.duration?.start?.year}-${" "}${
+                            detail.currentlyWorking
+                              ? "Present"
+                              : detail.duration?.end?.year
                           }
                          `}
                       </Text>
@@ -493,7 +501,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
               <View
                 style={{ flexDirection: "column", gap: 12, width: "100%" }}
                 key={index}
-              wrap={false}
+                wrap={false}
               >
                 <View style={{ flexDirection: "column", gap: 12 }}>
                   <Text
@@ -501,7 +509,6 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                       color: "#414042",
                       fontSize: "16px",
                       fontFamily: `${selectedFont} 400`,
-
                     }}
                   >
                     {item?.header.toUpperCase()}
@@ -559,14 +566,22 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                                 }}
                               >
                                 {detail.duration?.end?.year &&
-                                  `${detail.duration?.start?.year}- ${" "}${detail.duration?.end?.year}`}
+                                  `${detail.duration?.start?.year}- ${" "}${
+                                    detail.duration?.end?.year
+                                  }`}
                               </Text>
                             </View>
                           </View>
                         )}
                     </View>
 
-                    <View style={{ width: "100%", flexWrap:"wrap", paddingRight:"4px"}}>
+                    <View
+                      style={{
+                        width: "100%",
+                        flexWrap: "wrap",
+                        paddingRight: "4px",
+                      }}
+                    >
                       <Text
                         style={{
                           color: "#A7A9AC",
@@ -666,9 +681,6 @@ export default Template1;
 //     let experienceDivHeightremaining = experienceDivHeight;
 //     if (experienceContainer.current) {
 //       [
-//         ...data?.experience,
-//         ...data?.experience,
-//         ...data?.experience,
 //         ...data?.experience,
 //       ]?.forEach((detail, index) => {
 //         const parentDiv = document.createElement("div");
@@ -957,7 +969,6 @@ export default Template1;
 //                     <p className="text-[#414042]  font-inter text-[11px] font-normal leading-normal">{detail.description}</p>
 //                   </div>
 
-
 //                 ))} */}
 //               </div>
 //             </div>
@@ -1096,7 +1107,7 @@ export default Template1;
 //                   </div>
 //                   <div className="flex flex-col gap-[16px]">
 //                     {firstPageData?.education?.map((detail, index) => (
-//                       <div>
+//                       <div key={index}>
 //                         <div className="">
 //                           <p className="text-[#414042]  font-lato text-[10px] font-[700] leading-normal break-all">
 //                             {detail.qualification}
@@ -1147,7 +1158,7 @@ export default Template1;
 
 //                   <div className="flex flex-col  gap-[8px] ">
 //                     {firstPageData.skills.map((detail, index) => (
-//                       <p className="text-[#414042] text-[10px] font-normal font-lato">
+//                       <p  key={index} className="text-[#414042] text-[10px] font-normal font-lato">
 //                         {detail.skill}
 //                       </p>
 //                     ))}
@@ -1185,7 +1196,7 @@ export default Template1;
 //                 </svg>
 //                 <div className="flex flex-col gap-6 mt-4">
 //                   {firstPageData?.experience?.map((detail, index) => (
-//                     <div className="flex flex-col gap-1">
+//                     <div  key={index} className="flex flex-col gap-1">
 //                       <p className="text-[#414042] font-lato text-[12px] font-bold">
 //                         {" "}
 //                         {detail.organization}
@@ -1244,7 +1255,7 @@ export default Template1;
 //                   </div>
 //                   <div className="flex flex-col gap-[16px]">
 //                     {secondPageData?.education?.map((detail, index) => (
-//                       <div>
+//                       <div  key={index}>
 //                         <div className="">
 //                           <p className="text-[#414042]  font-lato text-[10px] font-[700] leading-normal break-all">
 //                             {detail.qualification}
@@ -1299,7 +1310,7 @@ export default Template1;
 
 //                   <div className="flex flex-col  gap-[8px] ">
 //                     {secondPageData.skills.map((detail, index) => (
-//                       <p className="text-[#414042] text-[10px] font-normal font-lato">
+//                       <p  key={index} className="text-[#414042] text-[10px] font-normal font-lato">
 //                         {detail.skill}
 //                       </p>
 //                     ))}
@@ -1330,7 +1341,7 @@ export default Template1;
 //               </svg>
 //               <div className="flex flex-col gap-6 mt-4">
 //                 {firstPageData?.experience?.map((detail, index) => (
-//                   <div className="flex flex-col gap-1">
+//                   <div  key={index} className="flex flex-col gap-1">
 //                     <p className="text-[#414042] font-lato text-[12px] font-bold">
 //                       {" "}
 //                       {detail.organization}

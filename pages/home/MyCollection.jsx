@@ -1,12 +1,15 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { Document, Page, pdfjs } from "react-pdf";
 import { ClosedIcon } from "../../utils/svg";
 import { selectResumeTemplate } from "../../utils/middleware";
 import ResumePreview from "../../components/common/ResumePreview";
 import { useRouter } from "next/router";
+import { reCallUserData } from "../../Redux/actions/user";
+import DeleteModal from "../../components/common/deleteModal";
+import { toast } from "react-toastify";
 pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
 
 const MyCollection = () => {
@@ -14,9 +17,13 @@ const MyCollection = () => {
   const userDataGlobal = useSelector((state) => state.userData);
 
   const [resumeList, setResumeList] = useState([]);
-
+  const [view, setView] = useState(false);
+  const [deleted, setDeleted] = useState(false);
   const [preview, setPreview] = useState(false);
   const [selected, setSelected] = useState(false);
+  const dispatch = useDispatch();
+  const [selectedIndexes, setSelectedIndexes] = useState([]);
+
   useEffect(() => {
     axios
       .get("https://freedygoservices.in/api/resume/" + userDataGlobal?._id)
@@ -26,7 +33,45 @@ const MyCollection = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, [userDataGlobal]);
+  }, [userDataGlobal, deleted]);
+
+  const toggleSelect = (index) => {
+    if (selectedIndexes.includes(index)) {
+      setSelectedIndexes(selectedIndexes.filter((i) => i !== index));
+    } else {
+      setSelectedIndexes([...selectedIndexes, index]);
+    }
+  };
+
+  const deleteResume = () => {
+    const ids = selectedIndexes.map((item) => resumeList[item]?._id);
+    console.log(ids);
+
+    if (ids.length === 0) {
+      toast.error("Please select file to delete");
+      return;
+    }
+
+    axios
+      .delete("https://freedygoservices.in/api/resume/deleteResume", {
+        data: { ids },
+      })
+      .then((response) => {
+        toast.success("Resume Deleted successfully");
+
+        setView(false);
+        setDeleted(!deleted);
+        dispatch(reCallUserData());
+        setSelectedIndexes([]);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  };
+
+  const closeDeleteModal = () => {
+    setView(false);
+  };
 
   const PdfViewer = ({ pdfUrl }) => {
     const [numPages, setNumPages] = useState();
@@ -80,9 +125,12 @@ const MyCollection = () => {
             <p>Create New Resume</p>
           </div>
           <>
-            {resumeList?.map((item) => (
+            {resumeList?.map((item, index) => (
               <>
-                <div className="flex flex-col h-[300px] items-center justify-between group relative ">
+                <div
+                  key={index}
+                  className="flex flex-col h-[300px] items-center justify-between group relative "
+                >
                   <PdfViewer pdfUrl={item?.resumeUrl} />
                   <div className="text-[14px] text-[#333333] font-500">
                     {item.fileName}
@@ -91,23 +139,23 @@ const MyCollection = () => {
                   <div className="bg-[#00000099]  absolute top-[0px] left-[0px] h-[272px] w-full rounded-[6px] opacity-0 invisible transition-opacity ease-in-out duration-[0.4s]  group-hover:opacity-100 group-hover:visible flex items-center justify-center">
                     <div className="flex flex-col w-98 h-219 top-27.09 left-47.19 p-[12px]  rounded-lg border border-gray-200 gap-[12px] bg-[#333333CC]">
                       {/* <div
-                          className="flex items-center flex-col cursor-pointer"
-                          style={{
-                            borderBottom: "1px solid #646464",
-                            paddingBottom: "12px",
-                          }}
-                          onClick={() => {
-                            setSelected(item);
-                            setPreview(true);
-                          }}
-                        >
-                          <img
-                            src="/images/icons/visibility.png"
-                            className="h-[28px] w-[28px]"
-                            alt=""
-                          />
-                          
-                        </div> */}
+                            className="flex items-center flex-col cursor-pointer"
+                            style={{
+                              borderBottom: "1px solid #646464",
+                              paddingBottom: "12px",
+                            }}
+                            onClick={() => {
+                              setSelected(item);
+                              setPreview(true);
+                            }}
+                          >
+                            <img
+                              src="/images/icons/visibility.png"
+                              className="h-[28px] w-[28px]"
+                              alt=""
+                            />
+                            
+                          </div> */}
                       <div
                         className="flex items-center flex-col cursor-pointer"
                         style={{
@@ -121,10 +169,10 @@ const MyCollection = () => {
                       >
                         <img
                           src="/images/icons/visibility.png"
-                          className="h-[28px] w-[28px]"
+                          className="h-[24px] w-[24px]"
                           alt=""
                         />
-                        <span className="text-[14px] font-semibold text-white ">
+                        <span className="text-[12px] font-semibold text-white ">
                           Preview
                         </span>
                       </div>
@@ -146,10 +194,10 @@ const MyCollection = () => {
                       >
                         <img
                           src="/images/icons/edit.png"
-                          className="h-[28px] w-[28px]"
+                          className="h-[24px] w-[24px]"
                           alt=""
                         />
-                        <span className="text-[14px] font-semibold text-white ">
+                        <span className="text-[12px] font-semibold text-white ">
                           Edit
                         </span>
                       </div>
@@ -160,13 +208,35 @@ const MyCollection = () => {
                       >
                         <img
                           src="/images/icons/download.png"
-                          className="h-[28px] w-[28px]"
+                          className="h-[24px] w-[24px]"
                           alt=""
                         />
-                        <span className="text-[14px] font-semibold text-white ">
+                        <span className="text-[12px] font-semibold text-white ">
                           Download
                         </span>
                       </a>
+                      <a
+                        onClick={() => {
+                          toggleSelect(index);
+                          setView(true);
+                        }}
+                        className="flex items-center flex-col cursor-pointer"
+                      >
+                        <img
+                          src="/images/icons/delete_icon.png"
+                          className="h-[24px] w-[24px]"
+                          alt=""
+                        />
+                        <span className="text-[12px] font-semibold text-white ">
+                          Delete
+                        </span>
+                      </a>
+                      {view && (
+                        <DeleteModal
+                          deleteHandler={deleteResume}
+                          closeDeleteModal={closeDeleteModal}
+                        />
+                      )}
                     </div>
                   </div>
                 </div>

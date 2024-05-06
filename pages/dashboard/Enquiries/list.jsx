@@ -113,7 +113,7 @@ const List = ({ list, miniLoading, data, page, setPage, userList, setLimit, sele
         </div>
       ) : (
         <div className="flex items-center justify-center w-full text-[24px] text-[#bebebe] font-semibold h-[40vh]">
-          No Recruiter Available !
+          No Inquiries Available !
         </div>
       )}
 
@@ -172,7 +172,6 @@ const List = ({ list, miniLoading, data, page, setPage, userList, setLimit, sele
           </button>
 
         </div>
-        {console.log(222, currentPage)}
       </div>
     </>
   );

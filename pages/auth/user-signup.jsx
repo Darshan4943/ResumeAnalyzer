@@ -274,10 +274,10 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
           <button
             disabled={!isEmailEntered}
             className="w-full px-[36px] py-[12px] rounded-[12px] border-[1px] border-solid border-[#06a9ef]  text-[20px] font-[500] hover:bg-[#06a9ef] hover:text-[#fff] transition-all duration-200"
-            style={{ borderColor: "#06a9ef" }}
+            style={{ borderColor: "#06a9ef" ,display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}
           >
             {
-              loading ? <MiniLoader/> :"Sign Up"
+              loading ? <MiniLoader/> : "Sign Up"
             }
             
           </button>

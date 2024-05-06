@@ -9,7 +9,6 @@ function ClientResume() {
   const [details, setDetails] = useState();
   const userDataGlobal = useSelector((state) => state.userData);
 
-console.log(12,details)
   useEffect(() => {
     axios
       .get(

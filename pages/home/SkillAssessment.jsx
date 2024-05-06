@@ -6,7 +6,6 @@ import axios from "axios";
 
 // import SkillModel from "../../../../../components/featured/candidate/profile/modals/skill_modal";
 
-
 import MiniLoader from "../../components/common/mini-loader";
 import { camelCase, formatDate } from "../../utils/middleware";
 import Timer from "../../components/common/timer";
@@ -47,7 +46,7 @@ function SkillAssessment() {
   const [data, setData] = useState([]);
   const [timer, setTimer] = useState(30);
   const [inputValue, setInputValue] = useState("");
-  const [level, setLevel] = useState("Intermediate")
+  const [level, setLevel] = useState("Intermediate");
   const handleInputChange = (selectedOption) => {
     setSelectedSkill(selectedOption.value);
     setInputValue(selectedOption.value);
@@ -97,30 +96,30 @@ function SkillAssessment() {
   const toggleContent = () => {
     if (selectedSkill) {
       setLoading(true);
-
-      axios
-        .post("https://freedygoservices.in/api/getQuetions", {
-          skill: selectedSkill,
-          level: level
-        })
-        .then((res) => {
-          setQuestion([
-            ...question,
-            ...JSON.parse(res.data.data.choices[0].message.content),
-          ]);
-          setToggle(1);
-          setLoading(false);
-          setStartTimer(true);
-        })
-        .catch((err) => {
-          console.log(err);
-          setLoading(false);
-        });
+      if (question.length < 11) {
+        axios
+          .post("https://freedygoservices.in/api/getQuetions", {
+            skill: selectedSkill,
+            level: level,
+          })
+          .then((res) => {
+            setQuestion([
+              ...question,
+              ...JSON.parse(res.data.data.choices[0].message.content),
+            ]);
+            setToggle(1);
+            setLoading(false);
+            setStartTimer(true);
+          })
+          .catch((err) => {
+            console.log(err);
+            setLoading(false);
+          });
+      }
     } else {
       toast.error("Please select a skill to start skill assessment");
     }
   };
-
 
   // useEffect(() => {
   //   let timer;
@@ -129,7 +128,7 @@ function SkillAssessment() {
   //       if (questionIndex + 1 < question.length) {
   //         setQuestionIndex(questionIndex + 1);
   //         setStartTimer(false);
-  //         setTimer(30); 
+  //         setTimer(30);
   //       } else {
 
   //       }
@@ -139,28 +138,26 @@ function SkillAssessment() {
   //   return () => clearTimeout(timer);
   // }, [startTimer, questionIndex, question]);
 
-
   useEffect(() => {
-
     setStartTimer(true);
-
   }, [questionIndex]);
-
 
   const sumbit = () => {
     setStartTimer(false);
+
     setTimer(30);
+    if (question.length < 11) {
+      toggleContent();
+    }
+
     if (questionIndex == 9) {
       axios
-        .post(
-          "https://freedygoservices.in/api/assessment/add",
-          {
-            userId: userDataGlobal._id,
-            skill: selectedSkill,
-            score: checkAnswer() * 10,
-            date: new Date(),
-          }
-        )
+        .post("https://freedygoservices.in/api/assessment/add", {
+          userId: userDataGlobal._id,
+          skill: selectedSkill,
+          score: checkAnswer() * 10,
+          date: new Date(),
+        })
         .then((res) => {
           setScore(true);
         })
@@ -169,29 +166,22 @@ function SkillAssessment() {
         });
     } else {
       setTimer(30);
-      setQuestionIndex(
-        questionIndex + 1 < 10 ? questionIndex + 1 : 9
-      );
-
+      setQuestionIndex(questionIndex + 1 < 10 ? questionIndex + 1 : 9);
     }
-  }
-
+  };
 
   useEffect(() => {
     let timer;
     if (questionIndex) {
       timer = setTimeout(() => {
         if (questionIndex === 9) {
-          sumbit()
+          sumbit();
         }
       }, 30000);
     }
 
     return () => clearTimeout(timer);
   }, [questionIndex]);
-
-
-
 
   useEffect(() => {
     if (
@@ -220,7 +210,9 @@ function SkillAssessment() {
   const answerSetter = (question, Answer) => {
     const dummyData = [...answer];
     dummyData[question - 1] = { Answer, question: question };
-    setAnswer(dummyData);
+
+    const filtered = dummyData.filter((item) => item != undefined);
+    setAnswer(filtered);
   };
   const isSelected = (Answer, question) => {
     const findAnswer = answer.find(
@@ -232,7 +224,6 @@ function SkillAssessment() {
   const checkAnswer = () => {
     let correctAnswer = 0;
     answer.forEach((item) => {
-      console.log(item?.question);
       if (!skipped.includes(item?.question)) {
         if (question[item?.question - 1]?.answer == item?.Answer) {
           correctAnswer = correctAnswer + 1;
@@ -242,10 +233,6 @@ function SkillAssessment() {
 
     return correctAnswer;
   };
-
-
-
-
 
   return (
     <div className="">
@@ -292,8 +279,9 @@ function SkillAssessment() {
                             onClick={() => {
                               setSelectedSkill(item);
                             }}
-                            className={`ml:px-4 ml:py-2 px-2 py-1 border-[1px] border-solid border-[#06A9EF] rounded-[25px] ml:text-[14px] text-[12px] font-medium text-[#333]  transition-[0.2s] ${selectedSkill == item && "bg-[#06A9EF] text-white"
-                              }`}
+                            className={`ml:px-4 ml:py-2 px-2 py-1 border-[1px] border-solid border-[#06A9EF] rounded-[25px] ml:text-[14px] text-[12px] font-medium text-[#333]  transition-[0.2s] ${
+                              selectedSkill == item && "bg-[#06A9EF] text-white"
+                            }`}
                           >
                             {item}
                           </button>
@@ -305,16 +293,39 @@ function SkillAssessment() {
               )}
 
               <div className="flex flex-col justify-end scr420:gap-4 gap-3 ml:w-[50%] w-[100%]">
-
                 <div className="flex flex-col gap-2 font-medium justify-end items-end ">
                   <div className="ml:w-[380px] scr390:w-[342px] w-[290px] flex flex-col gap-2 ">
                     Difficulty Level
-
                     <div className="flex scr390:text-[14px] text-[13px] font-medium rounded-[6px] p-[6px] border border-[#DEDEDE] scr390:w-[342px] w-[290px]">
-                      <button onClick={()=>setLevel("Easy")} className={`flex justify-center items-center w-[109px] py-1 ${level === "Easy" && "bg-blue rounded-[4px] text-white"}`}> Easy</button>
-                      <button onClick={()=>setLevel("Intermediate")} className={`flex justify-center items-center w-[109px] py-1 ${level === "Intermediate" && "bg-blue rounded-[4px] text-white"}`}> Intermediate</button>
-                      <button onClick={()=>setLevel("Advanced")} className={`flex justify-center items-center w-[109px] py-1 ${level === "Advanced" && "bg-blue rounded-[4px] text-white"}`}> Advanced</button>
-
+                      <button
+                        onClick={() => setLevel("Easy")}
+                        className={`flex justify-center items-center w-[109px] py-1 ${
+                          level === "Easy" && "bg-blue rounded-[4px] text-white"
+                        }`}
+                      >
+                        {" "}
+                        Easy
+                      </button>
+                      <button
+                        onClick={() => setLevel("Intermediate")}
+                        className={`flex justify-center items-center w-[109px] py-1 ${
+                          level === "Intermediate" &&
+                          "bg-blue rounded-[4px] text-white"
+                        }`}
+                      >
+                        {" "}
+                        Intermediate
+                      </button>
+                      <button
+                        onClick={() => setLevel("Advanced")}
+                        className={`flex justify-center items-center w-[109px] py-1 ${
+                          level === "Advanced" &&
+                          "bg-blue rounded-[4px] text-white"
+                        }`}
+                      >
+                        {" "}
+                        Advanced
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -379,8 +390,9 @@ function SkillAssessment() {
 
             <div className="flex flex-col lg:flex-row justify-center items-center w-[100%] gap-6">
               <div
-                className={`p-[12px] ms:px-[60px] ms:customMargins ${showSecondDiv ? "lg:w-[50%]" : "w-[100.95%] "
-                  } scr1024:w-[50%] sm:w-[85%] w-[100%]  px-[12px] rounded-[12px] bg-[#005A81] flex flex-col  items-center gap-[8px] scr820:gap-[16px] `}
+                className={`p-[12px] ms:px-[60px] ms:customMargins ${
+                  showSecondDiv ? "lg:w-[50%]" : "w-[100.95%] "
+                } scr1024:w-[50%] sm:w-[85%] w-[100%]  px-[12px] rounded-[12px] bg-[#005A81] flex flex-col  items-center gap-[8px] scr820:gap-[16px] `}
               >
                 <div className="text-[20px] font-[600] text-[#fff] flex flex-row gap-[12px]">
                   <Assessmentlogo />
@@ -497,11 +509,11 @@ function SkillAssessment() {
                   <button
                     className=" h-[42px] w-[108px] flex items-center justify-center  rounded-[8px] border-[1px] border-solid border-[#06A9EF] bg-[#fff] text-[#333] text-[14px] font-[500] "
                     disabled={loading}
-                  // onClick={() =>
-                  //   setQuestionIndex(
-                  //     questionIndex + 1 < 10 ? questionIndex + 1 : 9
-                  //   )
-                  // }
+                    // onClick={() =>
+                    //   setQuestionIndex(
+                    //     questionIndex + 1 < 10 ? questionIndex + 1 : 9
+                    //   )
+                    // }
                   >
                     {loading ? <MiniLoader /> : "Start"}
                   </button>
@@ -791,7 +803,6 @@ function SkillAssessment() {
                 <div className="flex gap-4 items-center sm:text-[20px] scr360:text-[18px] text-[16px] font-medium">
                   <Assessmentlogo />
                   <p>{camelCase(selectedSkill)} Assessment</p>
-
                 </div>
                 <Timer
                   startTimer={startTimer}
@@ -804,20 +815,30 @@ function SkillAssessment() {
                   question={question}
                 />
               </div>
-              <div className="flex gap-4 w-full items-center" >
+              <div className="flex gap-4 w-full items-center">
                 <div className=" relative h-[10px] rounded-[6px] bg-[#DEDEDE] w-full">
-                  <div className={`absolute h-[10px] rounded-[6px] bg-[#06A9EF] w-[${(questionIndex + 1) * 10}%] `}>
-                  </div>
+                  <div
+                    className={`absolute h-[10px] rounded-[6px] bg-[#06A9EF] w-[${
+                      (questionIndex + 1) * 10
+                    }%] `}
+                  ></div>
                 </div>
-                <p className="text-[16px] flex justify-end font-semibold w-[60px]"> {questionIndex + 1} / 10</p>
+                <p className="text-[16px] flex justify-end font-semibold w-[60px]">
+                  {" "}
+                  {questionIndex + 1} / 10
+                </p>
               </div>
-              <div className="bg-white p-4 rounded-[16px] flex flex-col gap-9 mt-2" style={{ boxShadow: "0px 1px 2px 0px #00000040" }}>
+              <div
+                className="bg-white p-4 rounded-[16px] flex flex-col gap-9 mt-2"
+                style={{ boxShadow: "0px 1px 2px 0px #00000040" }}
+              >
                 <div className="flex flex-col gap-6 ">
-                  <p className="text-[#333333] font-medium">   Question {questionIndex + 1}</p>
+                  <p className="text-[#333333] font-medium">
+                    {" "}
+                    Question {questionIndex + 1}
+                  </p>
                   <div className="flex flex-col gap-8 text-[#333333] font-medium ms:text-[16px] text-[14px]">
                     <p> {question[questionIndex]?.question}</p>
-
-
                   </div>
                   <div className="w-full flex  flex-col gap-5">
                     {question[questionIndex]?.options.map((option, index) => (
@@ -829,9 +850,14 @@ function SkillAssessment() {
                           name="options"
                           value={option}
                           checked={isSelected(option, questionIndex + 1)}
-                          onChange={() => answerSetter(questionIndex + 1, option)}
+                          onChange={() =>
+                            answerSetter(questionIndex + 1, option)
+                          }
                         />
-                        <label htmlFor={`option${index}`} className="text-[14px] ms:text-[16px] font-[500]">
+                        <label
+                          htmlFor={`option${index}`}
+                          className="text-[14px] ms:text-[16px] font-[500]"
+                        >
                           {option}
                         </label>
                       </div>
@@ -839,8 +865,7 @@ function SkillAssessment() {
                   </div>
                 </div>
                 <div className="flex gap-6 ">
-
-                  <div
+                  <button
                     style={{ opacity: loading ? "0.5" : 1 }}
                     disabled={loading}
                     className="flex flex-row gap-[3px] items-center cursor-pointer text-[16px] font-[500]   px-[24px] py-[12px] justify-between leading-tight  rounded-[12px] border-[1px] border-solid border-[#06A9EF] "
@@ -870,34 +895,26 @@ function SkillAssessment() {
                     //   setSkipped([...skipped, questionIndex]);
                     // }}
                     onClick={() => {
-                      sumbit()
+                      sumbit();
                     }}
                   >
-
                     Skip
-                  </div>
+                  </button>
 
                   <button
                     className="flex flex-row gap-[3px] items-center px-6 py-3 rounded-[12px] bg-blue leading-tight text-white justify-center text-[16px] font-[600] "
                     style={{ opacity: loading ? "0.5" : 1 }}
                     disabled={loading}
                     onClick={() => {
-                      sumbit()
+                      sumbit();
                     }}
                   >
                     {questionIndex == 9 ? "Submit" : "Next"}
-
                   </button>
-
-
                 </div>
-
               </div>
             </div>
-
           </div>
-
-
         )}
         {score && (
           <>
@@ -933,9 +950,7 @@ function SkillAssessment() {
                         </div>
                         <div className="">
                           <div className="flex justify-between items-center">
-
                             <div className="text-[14px] font-[600] text-[#646464] flex gap-[4px]">
-
                               <svg
                                 xlgns="http://www.w3.org/2000/svg"
                                 width="20"
@@ -956,13 +971,10 @@ function SkillAssessment() {
                               {checkAnswer()} Answers
                             </div>
                           </div>
-
                         </div>
                         <div>
                           <div className="flex justify-between items-center">
-
                             <div className="text-[14px] font-[600] text-[#646464] flex gap-[4px]">
-
                               <svg
                                 xlgns="http://www.w3.org/2000/svg"
                                 width="20"
@@ -983,7 +995,6 @@ function SkillAssessment() {
                               {answer.length - checkAnswer()} Answers
                             </div>
                           </div>
-
                         </div>
                         <div className="text-[18px] text-[#5B5B5B] font-[600]">
                           Your Score is{" "}
@@ -1022,7 +1033,12 @@ function SkillAssessment() {
                     className="absolute overflow-hidden left-[-5000px]"
                     ref={resumeRef}
                   >
-                    <QuestionList questions={question} answers={answer} selectedSkill={selectedSkill} checkAnswer={checkAnswer} />
+                    <QuestionList
+                      questions={question}
+                      answers={answer}
+                      selectedSkill={selectedSkill}
+                      checkAnswer={checkAnswer}
+                    />
                   </div>
                 </div>
               </div>
@@ -1030,7 +1046,7 @@ function SkillAssessment() {
           </>
         )}
       </div>
-    </div >
+    </div>
   );
 }
 
