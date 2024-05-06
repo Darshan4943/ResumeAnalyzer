@@ -237,13 +237,15 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                         </Text>
                       </View>
                       <View style={{ flexDirection: "column", gap: 2 }}>
-                        <View
-                          style={{
-                            width: 16,
-                            height: 1,
-                            backgroundColor: "#414042",
-                          }}
-                        />
+                        {detail.duration?.start?.year != "Year" && (
+                          <View
+                            style={{
+                              width: 16,
+                              height: 1,
+                              backgroundColor: "#414042",
+                            }}
+                          />
+                        )}
 
                         <View style={{}}>
                           <Text
