@@ -127,7 +127,6 @@ const MyCollection = () => {
           <>
             {resumeList?.map((item, index) => (
               <>
-                {console.log(100, item)}
                 <div
                   key={index}
                   className="flex flex-col h-[300px] items-center justify-between group relative "

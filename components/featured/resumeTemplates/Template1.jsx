@@ -13,7 +13,6 @@ import {
 } from "@react-pdf/renderer";
 
 function Template1({ data, selectedColor, selectedFont, preview }) {
-  console.log(199, data);
   return (
     <Page size="A4" style={{ padding: 24 }} pageMode={"fullScreen"} wrap={true}>
       <View

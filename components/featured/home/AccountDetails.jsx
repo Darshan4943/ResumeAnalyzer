@@ -160,12 +160,12 @@ function AccountDetails({ selectedPlan, recruiterid, role }) {
   }
 
   const isViewportBelow850 = useMediaQuery("(max-width:850px)");
-  console.log(154, formError);
+
   const purchaseHandler = async (e) => {
     e.preventDefault();
-    console.log(166, data);
+
     const found = findEmptyKey(data);
-    console.log(159, found);
+
     if (!data.checked) {
       setError("Please agree to the terms and conditions.");
     } else {
