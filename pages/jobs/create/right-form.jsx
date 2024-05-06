@@ -82,7 +82,7 @@ const Rightform = ({ data, setData, file, croppedImage, isEditable, id, validate
     }
     formData.append("createdBy", userDataGlobal._id);
     axios
-      .post("http://localhost:2000/api/job/add/" + id, formData)
+      .post("https://freedygoservices.in/api/job/add/" + id, formData)
       .then((res) => {
         if (id) {
           toast.success("Job Post Updated Successfully");

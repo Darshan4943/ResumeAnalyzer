@@ -18,7 +18,7 @@ function MyPurchase() {
       setLoading(true);
       axios
         .get(
-          "http://localhost:2000/api/subscription/" + userDataGlobal._id
+          "https://freedygoservices.in/api/subscription/" + userDataGlobal._id
         )
         .then((res) => {
           setSubscription(res.data.data);

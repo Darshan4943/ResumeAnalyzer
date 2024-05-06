@@ -40,7 +40,7 @@ export const Api = () => {
         const decoded = jwtDecode(token.token);
         axios
           .get(
-            "http://localhost:2000/api/skiloteckuser/user/" + decoded._id
+            "https://freedygoservices.in/api/skiloteckuser/user/" + decoded._id
           )
           .then((res) => {
             const decode = jwtDecode(res.data.data);
@@ -66,7 +66,7 @@ export const Api = () => {
     if (userDataGlobal) {
       axios
         .get(
-          "http://localhost:2000/api/subscription/" + userDataGlobal._id
+          "https://freedygoservices.in/api/subscription/" + userDataGlobal._id
         )
         .then((res) => {
           const result = res.data.data;
@@ -85,7 +85,7 @@ export const Api = () => {
             let newEnddate = moment(result.endDate).format('YYYY-MM-DD')
             // { console.log(999, timezone >= newEnddate ? "active" : "inactive") }
             if (timezone >= newEnddate && result.isActive) {
-              axios.put('http://localhost:2000/api/subscription/update/' + userDataGlobal._id).then(res => {
+              axios.put('https://freedygoservices.in/api/subscription/update/' + userDataGlobal._id).then(res => {
                 if (res.data.success) {
                   window.location.reload()
                 }
