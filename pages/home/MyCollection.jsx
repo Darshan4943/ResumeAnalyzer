@@ -53,7 +53,7 @@ const MyCollection = () => {
     }
 
     axios
-      .delete("http://localhost:2000/api/resume/deleteResume", {
+      .delete("https://freedygoservices.in/api/resume/deleteResume", {
         data: { ids },
       })
       .then((response) => {

@@ -176,7 +176,7 @@ function AccountDetails({ selectedPlan, recruiterid, role }) {
       } else {
         setLoading(true);
         axios
-          .post("http://localhost:2000/api/add/subscription", {
+          .post("https://freedygoservices.in/api/add/subscription", {
             userId:
               userDataGlobal.role == "admin" ? recruiterid : userDataGlobal._id,
             plan: selectedPlan.duration + " " + selectedPlan.limit,
