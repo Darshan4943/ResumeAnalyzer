@@ -1,7 +1,17 @@
 import React, { useEffect, useState } from "react";
 
-const Timer = ({ startTimer, setIsTimerOver,questionIndex,timer,setTimer ,setQuestionIndex,setStartTimer,question}) => {
-   // 20 minutes in seconds
+const Timer = ({
+  startTimer,
+  setIsTimerOver,
+  questionIndex,
+  timer,
+  setTimer,
+  setQuestionIndex,
+  setStartTimer,
+  question,
+  answerSetter,
+}) => {
+  // 20 minutes in seconds
   const formatTime = (seconds) => {
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = seconds % 60;
@@ -18,23 +28,25 @@ const Timer = ({ startTimer, setIsTimerOver,questionIndex,timer,setTimer ,setQue
             return prevTimer - 1;
           } else {
             if (questionIndex + 1 < question.length) {
+              answerSetter(
+                questionIndex + 1,
+                "",
+                question[questionIndex]?.question
+              );
               setQuestionIndex(questionIndex + 1);
               setStartTimer(false);
-              setTimer(30); 
-              console.log("Timer is over!");
+              setTimer(30);
+              // console.log("Timer is over!");
               return 0;
-            } 
-           
-           
+            }
           }
         });
       }, 1000);
 
       return () => clearInterval(intervalId);
     }
-  }, [startTimer,questionIndex,question]);
+  }, [startTimer, questionIndex, question]);
 
- 
   return (
     <>
       <div className=" text-[#808080] text-[16px] font-medium">
@@ -52,7 +64,7 @@ const Timer = ({ startTimer, setIsTimerOver,questionIndex,timer,setTimer ,setQue
             />
           </g>
         </svg> */}
-         {formatTime(timer)}
+        {formatTime(timer)}
       </div>
     </>
   );

@@ -21,10 +21,11 @@ function MyPurchase() {
           "https://freedygoservices.in/api/subscription/" + userDataGlobal._id
         )
         .then((res) => {
-          setSubscription(res.data.data);
+          setSubscription(res.data.findIsActive);
           setPlan(
             plans.find(
-              (item) => item.duration + " " + item.limit == res.data.data?.plan
+              (item) =>
+                item.duration + " " + item.limit == res.data.findIsActive?.plan
             )
           );
           setTimeout(() => {
@@ -37,6 +38,7 @@ function MyPurchase() {
         });
     }
   }, [userDataGlobal]);
+
   return (
     <div className="flex flex-col gap-8  min-h-[60vh]">
       {loading ? (
@@ -68,15 +70,15 @@ function MyPurchase() {
                           <div className="flex text-center flex-col gap-3 text-[#333333] w-[100%] p-4">
                             <p className="text-[20px] font-[600]">
                               <span className="text-[#06A9EF]">
-                                {plan.duration}
+                                {plan?.duration}
                               </span>{" "}
-                              {plan.limit}
+                              {plan?.limit}
                             </p>
                             <p className="text-[32px] font-[700]">
-                              {plan.price}
+                              {plan?.price}
                             </p>
                             <p className="text-[14px] font-[500]">
-                              Your Plan Validity is {plan.days} days
+                              Your Plan Validity is {plan?.days} days
                             </p>
                             <div className="bg-[#DEDEDE] h-[2px]" />
                           </div>
@@ -111,7 +113,7 @@ function MyPurchase() {
                                 <div>:</div>
                               </div>
                               <div className="text-[14px] font-[500]">
-                                {plan.duration} plan
+                                {plan?.duration} plan
                               </div>
                             </div>
                             <div className="flex  gap-4">

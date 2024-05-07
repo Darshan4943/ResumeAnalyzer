@@ -40,7 +40,7 @@ function SubscriptionPlans({ fromMain }) {
     axios
       .get("https://freedygoservices.in/api/subscription/" + userDataGlobal._id)
       .then((res) => {
-        setSubscription(res.data.data);
+        setSubscription(res.data.findIsActive);
       })
       .catch((err) => {
         console.log(err);
@@ -48,7 +48,11 @@ function SubscriptionPlans({ fromMain }) {
   }, [userDataGlobal]);
   const clickHandler = (index) => {
     if (isLogin) {
-      if ((subscription === null || subscription==undefined ) || !subscription.inReview) {
+      if (
+        subscription === null ||
+        subscription == undefined ||
+        !subscription.inReview
+      ) {
         router.push(`/purchase/details?id=${index}`);
       } else {
         setIsInInquiry(true);
@@ -90,7 +94,7 @@ function SubscriptionPlans({ fromMain }) {
 
               <div className="text-center">
                 <div className="text-[24px] font-[500] text-[#333]">
-                    Activation in progress
+                  Activation in progress
                 </div>
                 <div className="text-[16px] font-[500] text-[#333]">
                   <span className="text-[18px] font-[600] text-[#06A9EF]">
@@ -116,8 +120,9 @@ function SubscriptionPlans({ fromMain }) {
           {subPlans.map((plan, index) => (
             <div
               key={index}
-              className={` relative mt-[40px] bg-white  flex flex-col gap-4 items-center rounded-[16px] purchase-plan-card ${isUser ? "max-w-[19vw]" : "max-w-[19vw] "
-                } `}
+              className={` relative mt-[40px] bg-white  flex flex-col gap-4 items-center rounded-[16px] purchase-plan-card ${
+                isUser ? "max-w-[19vw]" : "max-w-[19vw] "
+              } `}
               style={{ boxShadow: "0px 2px 15px 0px #00000033" }}
             >
               {index === 1 && (
@@ -132,9 +137,7 @@ function SubscriptionPlans({ fromMain }) {
                       <span className="text-[#06A9EF]">{plan.duration}</span>{" "}
                       {plan.limit}
                     </p>
-                    <p className="text-[1vw] font-[500]">
-                      {plan.description}
-                    </p>
+                    <p className="text-[1vw] font-[500]">{plan.description}</p>
                     <div className="bg-[#DEDEDE] h-[2px]" />
                   </div>
                   <div className="flex gap-3 flex-col text-center items-center w-[168px]">
