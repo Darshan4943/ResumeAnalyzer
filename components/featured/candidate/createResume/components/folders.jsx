@@ -75,7 +75,7 @@ function Folders({
       return;
     }
     axios
-      .post("http://localhost:2000/api/folder/delete", {
+      .post("https://freedygoservices.in/api/folder/delete", {
         ids,
         type: trash ? 2 : 1,
       })
@@ -96,7 +96,7 @@ function Folders({
       return;
     }
     axios
-      .post("http://localhost:2000/api/folder/restore", {
+      .post("https://freedygoservices.in/api/folder/restore", {
         ids,
         type: trash ? 2 : 1,
       })

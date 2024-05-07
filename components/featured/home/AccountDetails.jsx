@@ -119,7 +119,9 @@ function AccountDetails({ selectedPlan, recruiterid, role }) {
     if (userDataGlobal.email) {
       if (recruiterid) {
         axios
-          .get("http://localhost:2000/api/skiloteckuser/user/" + recruiterid)
+          .get(
+            "https://freedygoservices.in/api/skiloteckuser/user/" + recruiterid
+          )
           .then((res) => {
             const decode = jwtDecode(res.data.data);
             setData({
@@ -174,7 +176,7 @@ function AccountDetails({ selectedPlan, recruiterid, role }) {
       } else {
         setLoading(true);
         axios
-          .post("http://localhost:2000/api/add/subscription", {
+          .post("https://freedygoservices.in/api/add/subscription", {
             userId:
               userDataGlobal.role == "admin" ? recruiterid : userDataGlobal._id,
             plan: selectedPlan.duration + " " + selectedPlan.limit,
@@ -211,9 +213,9 @@ function AccountDetails({ selectedPlan, recruiterid, role }) {
     //       setLoading(true);
     //       const {
     //         data: { key },
-    //       } = await axios.get(`http://localhost:2000/api/getkey`);
+    //       } = await axios.get(`https://freedygoservices.in/api/getkey`);
     //       const { data: order } = await axios.post(
-    //         `http://localhost:2000/api/checkout/`,
+    //         `https://freedygoservices.in/api/checkout/`,
     //         {
     //           amount: parseInt(selectedPlan.amount),
     //         }
@@ -235,7 +237,7 @@ function AccountDetails({ selectedPlan, recruiterid, role }) {
     //         },
     //         handler: function (response) {
     //           axios
-    //             .post("http://localhost:2000/api/add/subscription", {
+    //             .post("https://freedygoservices.in/api/add/subscription", {
     //               ...response,
     //               userId: userDataGlobal._id,
     //               plan: selectedPlan.duration + " " + selectedPlan.limit,

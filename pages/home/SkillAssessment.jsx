@@ -68,7 +68,7 @@ function SkillAssessment() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:2000/api/resume/" + userDataGlobal?._id)
+      .get("https://freedygoservices.in/api/resume/" + userDataGlobal?._id)
       .then((res) => {
         setData(res.data.data);
       })
@@ -112,7 +112,7 @@ function SkillAssessment() {
       setLoading(true);
       if (question.length < 10) {
         axios
-          .post("http://localhost:2000/api/getQuetions", {
+          .post("https://freedygoservices.in/api/getQuetions", {
             skill: selectedSkill,
             level: level,
           })
@@ -166,7 +166,7 @@ function SkillAssessment() {
 
     if (questionIndex == 9) {
       axios
-        .post("http://localhost:2000/api/assessment/add", {
+        .post("https://freedygoservices.in/api/assessment/add", {
           userId: userDataGlobal._id,
           skill: selectedSkill,
           score: checkAnswer() * 10,
@@ -211,7 +211,7 @@ function SkillAssessment() {
   useEffect(() => {
     axios
       .get(
-        `http://localhost:2000/api/assessment/getByUser/${userDataGlobal._id}`
+        `https://freedygoservices.in/api/assessment/getByUser/${userDataGlobal._id}`
       )
       .then((res) => {
         setAssessmentList(res.data.data);
@@ -756,7 +756,7 @@ function SkillAssessment() {
           //           if (questionIndex == 9) {
           //             axios
           //               .post(
-          //                 "http://localhost:2000/api/assessment/add",
+          //                 "https://freedygoservices.in/api/assessment/add",
           //                 {
           //                   userId: userDataGlobal._id,
           //                   skill: selectedSkill,
@@ -921,7 +921,7 @@ function SkillAssessment() {
                     //   if (questionIndex == 9) {
                     //     axios
                     //       .post(
-                    //         "http://localhost:2000/api/assessment/add",
+                    //         "https://freedygoservices.in/api/assessment/add",
                     //         {
                     //           userId: userDataGlobal._id,
                     //           skill: selectedSkill,
