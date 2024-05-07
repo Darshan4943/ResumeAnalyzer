@@ -47,6 +47,20 @@ function SkillAssessment() {
   const [timer, setTimer] = useState(30);
   const [inputValue, setInputValue] = useState("");
   const [level, setLevel] = useState("Intermediate");
+  const [skippedArray, setSkippedArray] = useState([
+    { question: 1, isSkiped: true, Answer: "" },
+    { question: 2, isSkiped: true, Answer: "" },
+    { question: 3, isSkiped: true, Answer: "" },
+    { question: 4, isSkiped: true, Answer: "" },
+    { question: 5, isSkiped: true, Answer: "" },
+    { question: 6, isSkiped: true, Answer: "" },
+    { question: 7, isSkiped: true, Answer: "" },
+    { question: 8, isSkiped: true, Answer: "" },
+    { question: 9, isSkiped: true, Answer: "" },
+    { question: 10, isSkiped: true, Answer: "" },
+  ]);
+
+  const [isSkiped, setIsSkiped] = useState(false);
   const handleInputChange = (selectedOption) => {
     setSelectedSkill(selectedOption.value);
     setInputValue(selectedOption.value);
@@ -96,7 +110,7 @@ function SkillAssessment() {
   const toggleContent = () => {
     if (selectedSkill) {
       setLoading(true);
-      if (question.length < 11) {
+      if (question.length < 10) {
         axios
           .post("http://localhost:2000/api/getQuetions", {
             skill: selectedSkill,
@@ -146,7 +160,7 @@ function SkillAssessment() {
     setStartTimer(false);
 
     setTimer(30);
-    if (question.length < 11) {
+    if (question.length < 10) {
       toggleContent();
     }
 
@@ -208,21 +222,46 @@ function SkillAssessment() {
   }, [selectedSkill, reCall, userDataGlobal]);
 
   const answerSetter = (question, Answer) => {
-    const dummyData = [...answer];
-    dummyData[question - 1] = { Answer, question: question };
+    // console.log(211, question, Answer);
+    // const dummyData = [...answer];
+    const skip = skippedArray.find((item) => {
+      if (item.question == question && Answer != "") {
+        return true;
+      }
+      return false;
+    });
+    // console.log(237, skip);
+    if (skip) {
+      skip.isSkiped = false;
+      skip.Answer = Answer;
 
-    const filtered = dummyData.filter((item) => item != undefined);
-    setAnswer(filtered);
+      const updatedSkippedArray = skippedArray.map((item) => {
+        if (item.question == skip.question) {
+          return skip;
+        }
+        return item;
+      });
+
+      setSkippedArray(updatedSkippedArray);
+      setAnswer(updatedSkippedArray);
+    }
+
+    // dummyData[question - 1] = { Answer, question: question };
+    // console.log(214, dummyData);
   };
+
+  // console.log(244, skippedArray);
   const isSelected = (Answer, question) => {
     const findAnswer = answer.find(
       (data) => data?.Answer === Answer && data?.question == question
     );
+
     return findAnswer ? true : false;
   };
 
   const checkAnswer = () => {
     let correctAnswer = 0;
+
     answer.forEach((item) => {
       if (!skipped.includes(item?.question)) {
         if (question[item?.question - 1]?.answer == item?.Answer) {
@@ -813,6 +852,7 @@ function SkillAssessment() {
                   setQuestionIndex={setQuestionIndex}
                   setStartTimer={setStartTimer}
                   question={question}
+                  answerSetter={answerSetter}
                 />
               </div>
               <div className="flex gap-4 w-full items-center">
@@ -849,9 +889,17 @@ function SkillAssessment() {
                           id={`option${index}`}
                           name="options"
                           value={option}
-                          checked={isSelected(option, questionIndex + 1)}
+                          checked={isSelected(
+                            option,
+                            questionIndex + 1,
+                            question[questionIndex]?.question
+                          )}
                           onChange={() =>
-                            answerSetter(questionIndex + 1, option)
+                            answerSetter(
+                              questionIndex + 1,
+                              option,
+                              question[questionIndex]?.question
+                            )
                           }
                         />
                         <label

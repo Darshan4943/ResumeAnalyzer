@@ -114,25 +114,52 @@ function Dashboard() {
     const saveCount = localStorage.getItem("saveCount");
     const clientCount = localStorage.getItem("clientCount");
     const planActive = localStorage.getItem("planActive");
-    
-    const plan = plans.find((item) => item.index == selectedPlan);
-    console.log(118,plan)
-    if (plan) {
-      setSelectedPlan(plan);
-    
-    if (planActive == "true") {
-      setIsActive(true);
-      setLimits({
-        used: {
-          uploads: plan.limits.uploads - parseInt(uploadCount),
-          download: plan.limits.download - parseInt(saveCount),
-          save: plan.limits.save - parseInt(saveCount),
-          clients: plan.limits.clients - parseInt(clientCount),
-        },
-        total: plan.limits,
-      });
+
+    // const plan = plans.find((item) => item.index == selectedPlan);
+    // console.log(118, plan);
+    // if (plan) {
+    //   setSelectedPlan(plan);
+
+    if (userDataGlobal) {
+      axios
+        .get("http://localhost:2000/api/subscription/" + userDataGlobal._id)
+        .then((res) => {
+          const plan = plans.find(
+            (item) =>
+              item.duration + " " + item.limit == res.data.findIsActive?.plan
+          );
+          if (plan) {
+            setIsActive(true);
+            setSelectedPlan(plan);
+          }
+          setLimits({
+            used: {
+              uploads: plan.limits.uploads - parseInt(uploadCount),
+              download: plan.limits.download - parseInt(saveCount),
+              save: plan.limits.save - parseInt(saveCount),
+              clients: plan.limits.clients - parseInt(clientCount),
+            },
+            total: plan.limits,
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
-}
+
+    // if (planActive == "true") {
+    //   setIsActive(true);
+    // setLimits({
+    //   used: {
+    //     uploads: plan.limits.uploads - parseInt(uploadCount),
+    //     download: plan.limits.download - parseInt(saveCount),
+    //     save: plan.limits.save - parseInt(saveCount),
+    //     clients: plan.limits.clients - parseInt(clientCount),
+    //   },
+    //   total: plan.limits,
+    // });
+    // }
+    // }
   }, []);
 
   return (
@@ -157,7 +184,6 @@ function Dashboard() {
                 style={{
                   background:
                     "linear-gradient(89.03deg, #FFFFFF 0.83%, rgba(255, 254, 254, 0) 98.41%)",
-               
                 }}
               >
                 Hello,

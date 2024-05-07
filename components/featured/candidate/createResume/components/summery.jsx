@@ -2,6 +2,7 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { plans } from "../../../../../utils/data";
 
 function Summary({ limits, selectedPlan, isActive }) {
   const router = useRouter();
@@ -11,10 +12,10 @@ function Summary({ limits, selectedPlan, isActive }) {
   const circumference = 2 * Math.PI * 70;
   const dashOffset = circumference - (progress / 100) * circumference;
   const [subscription, setSubscription] = useState(null);
-  const [uploadsRemaining,setUploadsRemaining] = useState(0)
-  const [downloadsRemaining,setDownloadsRemaining] = useState(0)
-  const [clientsRemaining,setClientsRemaining] = useState(0)
-
+  const [uploadsRemaining, setUploadsRemaining] = useState(0);
+  const [downloadsRemaining, setDownloadsRemaining] = useState(0);
+  const [clientsRemaining, setClientsRemaining] = useState(0);
+  const [plan, setPlan] = useState({});
 
   const calculateOverallPercentage = (used, total) => {
     let totalUsed = 0;
@@ -40,11 +41,15 @@ function Summary({ limits, selectedPlan, isActive }) {
     }
     if (userDataGlobal) {
       axios
-        .get(
-          "http://localhost:2000/api/subscription/" + userDataGlobal._id
-        )
+        .get("http://localhost:2000/api/subscription/" + userDataGlobal._id)
         .then((res) => {
-          setSubscription(res.data.data);
+          setSubscription(res.data.findIsActive);
+          setPlan(
+            plans.find(
+              (item) =>
+                item.duration + " " + item.limit == res.data.findIsActive?.plan
+            )
+          );
         })
         .catch((err) => {
           console.log(err);
@@ -53,11 +58,9 @@ function Summary({ limits, selectedPlan, isActive }) {
   }, [userDataGlobal]);
 
   const calculateDaysRemaining = (startDate, endDate) => {
-
     const today = new Date();
     const start = new Date(startDate);
     const end = new Date(endDate);
-  
 
     const differenceMs = end - today;
     const remainingDays = Math.ceil(differenceMs / (1000 * 60 * 60 * 24));
@@ -65,18 +68,16 @@ function Summary({ limits, selectedPlan, isActive }) {
     return remainingDays;
   };
   useEffect(() => {
-    if (userDataGlobal && isActive) {
+    if (userDataGlobal) {
       axios
-        .get(
-          "http://localhost:2000/api/subscription/" + userDataGlobal._id
-        )
+        .get("http://localhost:2000/api/subscription/" + userDataGlobal._id)
         .then((res) => {
-          const result = res.data.data;
-        
-          setUploadsRemaining(result.resumeUpladed)
-          setDownloadsRemaining(parseInt(result.resumeSaves.num))
-          setClientsRemaining(result.clientStored)
-  
+          const result = res.data.findIsActive;
+
+          setUploadsRemaining(result.resumeUpladed);
+          setDownloadsRemaining(parseInt(result.resumeSaves.num));
+          setClientsRemaining(result.clientStored);
+
           if (result.startDate) {
             setDaysRemaing(
               calculateDaysRemaining(result.startDate, result.endDate)
@@ -84,7 +85,7 @@ function Summary({ limits, selectedPlan, isActive }) {
             setProgress(
               (calculateDaysRemaining(result.startDate, result.endDate) /
                 selectedPlan?.days) *
-              100
+                100
             );
           }
         })
@@ -92,7 +93,7 @@ function Summary({ limits, selectedPlan, isActive }) {
           console.log(err);
         });
     }
-  }, [userDataGlobal, selectedPlan]);
+  }, [userDataGlobal]);
   return (
     <div className="bg-[#F9F9F9] rounded-[16px] p-4 flex flex-col gap-2 w-full">
       <p className="text-[18px] font-semibold "> Usage Summary</p>
@@ -127,7 +128,7 @@ function Summary({ limits, selectedPlan, isActive }) {
                   className="absolute flex flex-col  items-center justify-center text-[18px] font-semibold bg-white w-[110px] h-[110px] rounded-full"
                   style={{ boxShadow: "0px 0px 2px 0px #00000040" }}
                 >
-                {daysRemaing <= 0 ? "0" : daysRemaing } days
+                  {daysRemaing <= 0 ? "0" : daysRemaing} days
                   <p className="text-[12px] font-medium">Remaining</p>
                 </div>
               </div>
@@ -162,10 +163,10 @@ function Summary({ limits, selectedPlan, isActive }) {
                     <>
                       {" "}
                       <p className="text-[20px] font-medium">
-                        $ {selectedPlan?.amount}
+                        $ {plan?.amount}
                       </p>{" "}
                       <p className="text-[12px] font-medium">
-                        Your Plan Validity is {selectedPlan?.days} Days
+                        Your Plan Validity is {plan?.days} Days
                       </p>
                     </>
                   )}
@@ -192,32 +193,37 @@ function Summary({ limits, selectedPlan, isActive }) {
                 <div
                   style={{
                     width: `${Math.round(
-                      ((limits.total.uploads-uploadsRemaining) / limits.total.uploads) * 100
+                      ((limits.total.uploads - uploadsRemaining) /
+                        limits.total.uploads) *
+                        100
                     )}%`,
                   }}
                   className={`absolute  h-[10px] bg-[#06A9EF] rounded-[6px]`}
                 ></div>
               </div>
               <p className="min-w-[55px]">
-                {limits.total.uploads-uploadsRemaining}/{limits.total.uploads}
+                {limits.total.uploads - uploadsRemaining}/{limits.total.uploads}
               </p>
             </div>
             <div className="flex gap-4 items-center">
               <p className=" min-w-[164px]">Total Save/Downloads</p>
-              { console.log(12121,uploadsRemaining)}
+
               <div className="relative  w-[45%]  h-[10px] bg-[#DEDEDE] rounded-[6px]">
                 <div
                   className={`absolute  h-[10px] bg-[#06A9EF] rounded-[6px]`}
                   style={{
                     width: `${Math.round(
-                      ((limits.total.download-downloadsRemaining) / limits.total.download) * 100
+                      ((limits.total.download - downloadsRemaining) /
+                        limits.total.download) *
+                        100
                     )}%`,
                   }}
                 ></div>
               </div>
               <p className="min-w-[55px]">
                 {" "}
-                {limits.total.download-downloadsRemaining}/{limits.total.download}
+                {limits.total.download - downloadsRemaining}/
+                {limits.total.download}
               </p>
             </div>
             {userDataGlobal?.role != "user" && (
@@ -226,18 +232,20 @@ function Summary({ limits, selectedPlan, isActive }) {
 
                 <div className="relative  w-[45%]  h-[10px] bg-[#DEDEDE] rounded-[6px]">
                   <div
-                  style={{
-                    width: `${Math.round(
-                      ((limits.total.clients-clientsRemaining) / limits.total.clients) * 100
-                    )}%`,
-                  }}
+                    style={{
+                      width: `${Math.round(
+                        ((limits.total.clients - clientsRemaining) /
+                          limits.total.clients) *
+                          100
+                      )}%`,
+                    }}
                     className={`absolute  h-[10px] bg-[#06A9EF] rounded-[6px]`}
                   ></div>
                 </div>
                 <p className="min-w-[55px]">
                   {" "}
-                  { limits.total.clients-clientsRemaining }/{limits.total.clients}
-               
+                  {limits.total.clients - clientsRemaining}/
+                  {limits.total.clients}
                 </p>
               </div>
             )}

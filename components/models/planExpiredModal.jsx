@@ -20,7 +20,10 @@ const PlanExpiredModal = () => {
         .get("http://locahost:2000/api/subscription/" + userDataGlobal._id)
         .then((res) => {
           if (res.data.success) {
-            if (new Date(moment().format()) > new Date(res.data.data.endDate)) {
+            if (
+              new Date(moment().format()) >
+              new Date(res.data.findIsActive.endDate)
+            ) {
               axios
                 .put(
                   "http://locahost:2000/api/subscription/update/" +
