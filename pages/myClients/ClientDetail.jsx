@@ -9,7 +9,6 @@ import { toast } from "react-toastify";
 import DeleteModal from "../../components/common/deleteModal";
 pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
 function ClientDetail({ tabIndex }) {
-
   const router = useRouter();
   const [detail, setDetails] = useState({});
   const [preview, setPreview] = useState(false);
@@ -17,7 +16,7 @@ function ClientDetail({ tabIndex }) {
   const clientId = router.query.detailIndex;
   const [resumeList, setResumeList] = useState([]);
   const [view, setView] = useState(false);
-  const [deleted, setDeleted] = useState(false)
+  const [deleted, setDeleted] = useState(false);
   const dispatch = useDispatch();
   const [selectedIndexes, setSelectedIndexes] = useState([]);
 
@@ -42,9 +41,7 @@ function ClientDetail({ tabIndex }) {
     }
   }, [clientId, deleted]);
 
-
   const toggleSelect = (index) => {
-
     if (selectedIndexes.includes(index)) {
       setSelectedIndexes(selectedIndexes.filter((i) => i !== index));
     } else {
@@ -52,41 +49,37 @@ function ClientDetail({ tabIndex }) {
     }
   };
 
-
-
   const deleteResume = () => {
-
     const ids = selectedIndexes.map((item) => resumeList[item]?._id);
-    console.log(ids)
+    console.log(ids);
 
     if (ids.length === 0) {
       toast.error("Please select file to delete");
       return;
     }
 
-    axios.delete("https://freedygoservices.in/api/resume/deleteResume", { data: { ids } })
-      .then(response => {
-
-
+    axios
+      .delete("https://freedygoservices.in/api/resume/deleteResume", {
+        data: { ids },
+      })
+      .then((response) => {
         toast.success("Resume Deleted successfully");
 
-        setView(false)
-        setDeleted(!deleted)
+        setView(false);
+        setDeleted(!deleted);
         dispatch(reCallUserData());
-        setSelectedIndexes([])
-
+        setSelectedIndexes([]);
       })
-      .catch(error => {
-
-        console.error('Error:', error);
+      .catch((error) => {
+        console.error("Error:", error);
       });
   };
 
   const closeDeleteModal = () => {
-    setView(false)
-  }
+    setView(false);
+  };
   const PdfViewer = ({ pdfUrl }) => {
-    function onDocumentLoadSuccess(numPages) { }
+    function onDocumentLoadSuccess(numPages) {}
 
     return (
       <div
@@ -234,10 +227,11 @@ function ClientDetail({ tabIndex }) {
         Resumes
       </div>
       <div className="w-full rounded-[12px] border flex flex-wrap scr540:justify-start justify-center gap-9 border-[#DEDEDE] bg-[#F9F9F9] p-6 cursor-pointer">
-
         <div className="flex flex-row flex-wrap gap-6">
           <div
-            onClick={() => router.push(`/home/BuildResume?clientId=${clientId}`)}
+            onClick={() =>
+              router.push(`/home/BuildResume?clientId=${clientId}`)
+            }
             style={{ boxShadow: "0px 0px 10px 5px #00000040" }}
             className="rounded-[12px] text-center text-white justify-center flex scr540:flex-col flex-row text-[18px] items-center gap-2 font-medium  scr540:w-[192px] w-[280px]  scr540:h-[272px] h-[135px] bg-[#646464] p-6 cursor-pointer"
           >
@@ -257,8 +251,6 @@ function ClientDetail({ tabIndex }) {
             <p>Create New Resume</p>
           </div>
           {resumeList?.map((item, index) => (
-
-
             <div
               key={index}
               className="flex flex-col w-[192px] break-all items-center justify-between group relative "
@@ -330,8 +322,10 @@ function ClientDetail({ tabIndex }) {
                     </span>
                   </a>
                   <a
-                    onClick={() => { toggleSelect(index); setView(true) }}
-
+                    onClick={() => {
+                      toggleSelect(index);
+                      setView(true);
+                    }}
                     className="flex items-center flex-col cursor-pointer"
                   >
                     <img
@@ -343,13 +337,15 @@ function ClientDetail({ tabIndex }) {
                       Delete
                     </span>
                   </a>
-                  {
-                    view && <DeleteModal deleteHandler={deleteResume} closeDeleteModal={closeDeleteModal} />
-                  }
+                  {view && (
+                    <DeleteModal
+                      deleteHandler={deleteResume}
+                      closeDeleteModal={closeDeleteModal}
+                    />
+                  )}
                 </div>
               </div>
             </div>
-
           ))}
         </div>
         {preview && (

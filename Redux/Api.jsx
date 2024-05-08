@@ -67,7 +67,7 @@ export const Api = () => {
         .then((res) => {
           const result = res.data.findIsActive;
 
-          if (result) {
+          if (result.isActive == true) {
             const selectedPlan = plans.find(
               (item) => item.duration + " " + item.limit == result.plan
             );

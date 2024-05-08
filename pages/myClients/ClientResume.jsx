@@ -28,7 +28,14 @@ function ClientResume() {
       const options = {
         includeScore: true,
         // Search in `author` and in `tags` array
-        keys: ["firstName", "lastName", "email", "mobileNo", "location", 'designation'],
+        keys: [
+          "firstName",
+          "lastName",
+          "email",
+          "mobileNo",
+          "location",
+          "designation",
+        ],
       };
       const fuse = new Fuse(allData, options);
       const result = fuse.search(value);
@@ -84,11 +91,13 @@ function ClientResume() {
             </div>
           </div>
           <div className="rounded-[16px]  flex flex-col gap-4 w-[98%]">
-          {details?.length > 0 &&
-            <div className="text-[20px] font-medium">Total Clients ({details?.length})</div>
-          }
+            {details?.length > 0 && (
+              <div className="text-[20px] font-medium">
+                Total Clients ({details?.length})
+              </div>
+            )}
             <div className="flex  gap-8 flex-wrap scr700:justify-start justify-center ">
-              {details?.length > 0 ?
+              {details?.length > 0 ? (
                 <>
                   {details?.map((detail, index) => (
                     <div
@@ -157,7 +166,9 @@ function ClientResume() {
                             </g>
                           </svg>
 
-                          <p className="text-[14px] font-normal">{detail.email}</p>
+                          <p className="text-[14px] font-normal">
+                            {detail.email}
+                          </p>
                         </div>
                         <div className="flex  gap-2">
                           <svg
@@ -203,11 +214,9 @@ function ClientResume() {
                     </div>
                   ))}
                 </>
-                :
-
+              ) : (
                 <div
-
-                onClick={() => router.push("/myClients/CreateNewClient")}
+                  onClick={() => router.push("/myClients/CreateNewClient")}
                   style={{ boxShadow: "0px 0px 10px 5px #00000040" }}
                   className="rounded-[12px] text-center text-white justify-center flex scr540:flex-col flex-row text-[18px] items-center gap-2 font-medium  scr540:w-[192px] w-[312px]  scr540:h-[272px] h-[135px] bg-[#646464] p-6 cursor-pointer"
                 >
@@ -226,8 +235,7 @@ function ClientResume() {
 
                   <p>Create New Client</p>
                 </div>
-
-              }
+              )}
             </div>
           </div>
         </div>

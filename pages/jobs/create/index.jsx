@@ -16,7 +16,6 @@ const Index = () => {
 
   const [formError, setFormError] = useState({});
 
-
   const [data, setData] = useState({
     companyName: "",
     jobTitle: "",
@@ -53,8 +52,7 @@ const Index = () => {
           deadLine,
           experiance,
           mustSkills,
-          goodSkills
-
+          goodSkills,
         } = res.data.data;
         setData({
           ...data,
@@ -70,7 +68,7 @@ const Index = () => {
           deadLine,
           experiance,
           mustSkills,
-          goodSkills
+          goodSkills,
         });
       })
       .catch((err) => {
@@ -85,9 +83,6 @@ const Index = () => {
       setLoading(false);
     }
   }, [id]);
-
-
-
 
   const validateInput = (fieldName, value) => {
     const errors = { ...formError };
@@ -105,7 +100,6 @@ const Index = () => {
         }
         break;
 
-     
       case "jobTitle":
         if (!value || value.length === 0) {
           errors.jobTitle = "Job Title is required";
@@ -113,7 +107,6 @@ const Index = () => {
           delete errors.jobTitle;
         }
         break;
-    
 
       default:
         break;
@@ -123,7 +116,6 @@ const Index = () => {
 
     return errors;
   };
-
 
   return (
     <div className="min-h-[90vh] pt-[16px] customMargins flex flex-col gap-[16px] post-job pb-[4rem]">

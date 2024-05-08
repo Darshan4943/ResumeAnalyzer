@@ -276,7 +276,7 @@ function Collection() {
             setIsCreateFolder(false);
             getData();
           }, 1000);
-          setFiles([])
+          setFiles([]);
         })
         .catch((err) => {
           setFileLoader(false);
@@ -477,11 +477,16 @@ function Collection() {
                   Cancel
                 </button>
                 <button
-                  disabled={fileLoader || (isFile ? Object.values(files).length === 0 : !folderName)}
-
+                  disabled={
+                    fileLoader ||
+                    (isFile ? Object.values(files).length === 0 : !folderName)
+                  }
                   style={{
                     opacity:
-                      fileLoader || (isFile ? Object.values(files).length === 0 : !folderName) ? 0.5 : 1,
+                      fileLoader ||
+                      (isFile ? Object.values(files).length === 0 : !folderName)
+                        ? 0.5
+                        : 1,
                   }}
                   onClick={isFile ? addFiles : createFolder}
                 >
@@ -527,7 +532,9 @@ function Collection() {
                   <>
                     <div
                       className="absolute flex-col text-[14px] text-[#000000] rounded-[8px] left-0 right-0 z-10 top-[110%] w-[165px] p-4 gap-8 bg-white"
-                      style={{ boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)" }}
+                      style={{
+                        boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
+                      }}
                     >
                       <div
                         onClick={(e) => {
@@ -593,8 +600,9 @@ function Collection() {
                   onClick={() => {
                     router.push("/collection?clients=true");
                   }}
-                  className={`rounded-[30px] sm:text-[14px] text-[12px] font-semibold scr900:px-6 sm:px-4 px-2  py-2 flex gap-2 ml:justify-start justify-center items-center ml:min-w-full sm:min-w-[30%] min-w-[110px] ${tab === 0 && "bg-[#C2E7FF]"
-                    }   `}
+                  className={`rounded-[30px] sm:text-[14px] text-[12px] font-semibold scr900:px-6 sm:px-4 px-2  py-2 flex gap-2 ml:justify-start justify-center items-center ml:min-w-full sm:min-w-[30%] min-w-[110px] ${
+                    tab === 0 && "bg-[#C2E7FF]"
+                  }   `}
                 >
                   <svg
                     width="20"
@@ -618,8 +626,9 @@ function Collection() {
                     // setTabIndex(0);
                     router.push("/collection?folders=true");
                   }}
-                  className={`rounded-[30px] sm:text-[14px] text-[12px] font-semibold scr900:px-6 sm:px-4 px-2 py-2 flex gap-2 ml:justify-start justify-center items-center ml:min-w-full sm:min-w-[30%] min-w-[110px]   ${tab === 1 && "bg-[#C2E7FF]"
-                    }  `}
+                  className={`rounded-[30px] sm:text-[14px] text-[12px] font-semibold scr900:px-6 sm:px-4 px-2 py-2 flex gap-2 ml:justify-start justify-center items-center ml:min-w-full sm:min-w-[30%] min-w-[110px]   ${
+                    tab === 1 && "bg-[#C2E7FF]"
+                  }  `}
                 >
                   <svg
                     width="20"
@@ -641,8 +650,9 @@ function Collection() {
                   onClick={() => {
                     router.push("/collection?trash=true");
                   }}
-                  className={`rounded-[30px] sm:text-[14px] text-[12px] font-semibold scr900:px-6 sm:px-4 px-2 py-2 flex gap-2 ml:justify-start justify-center items-center ml:min-w-full sm:min-w-[30%] min-w-[80px]  ${tab === 2 && "bg-[#C2E7FF]"
-                    }  `}
+                  className={`rounded-[30px] sm:text-[14px] text-[12px] font-semibold scr900:px-6 sm:px-4 px-2 py-2 flex gap-2 ml:justify-start justify-center items-center ml:min-w-full sm:min-w-[30%] min-w-[80px]  ${
+                    tab === 2 && "bg-[#C2E7FF]"
+                  }  `}
                 >
                   <svg
                     width="20"

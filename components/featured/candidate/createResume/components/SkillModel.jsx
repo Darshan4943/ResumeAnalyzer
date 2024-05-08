@@ -2,7 +2,6 @@ import React, { useState } from "react";
 
 import { toast } from "react-toastify";
 
-
 import { useDispatch, useSelector } from "react-redux";
 import { reCallUserData } from "../../../../../Redux/actions/user";
 import axios from "axios";
@@ -41,7 +40,6 @@ const SkillModel = ({ userData, handleImageClick, setIsComponentOpen }) => {
     setSkil(skil.filter((item) => item.value !== value));
   };
 
-
   return (
     <>
       <div id="demo-modal" className="modal ">
@@ -66,7 +64,7 @@ const SkillModel = ({ userData, handleImageClick, setIsComponentOpen }) => {
             Skills
           </p>
           <div className="skill_buttons">
-            {skil?.map((item,index) => (
+            {skil?.map((item, index) => (
               <div key={index} className="skill_button text-[#25324B] ">
                 {item.label}
                 <div onClick={() => deleteHandler(item.value)}>

@@ -15,7 +15,7 @@ const Index = () => {
   const [tab, setTab] = useState(0);
   const userDataGlobal = useSelector((state) => state.userData);
   const [jobPost, setJobPost] = useState(null);
-  
+
   const [applications, setApplications] = useState([]);
   const getData = () => {
     setLoading(true);
@@ -39,23 +39,23 @@ const Index = () => {
   }, [id]);
 
   return (
-    <div
-      className="min-h-[90vh] my-[16px] customMargins flex flex-col gap-[16px] "
-    
-    >
+    <div className="min-h-[90vh] my-[16px] customMargins flex flex-col gap-[16px] ">
       {loading ? (
         <div className="flex items-center justify-center h-[70vh] ">
           <MiniLoader />
         </div>
       ) : (
-        <div className="rounded-[16px] min-h-[90vh]"  style={{ boxShadow: " 0px 1px 2px 0px #00000040" }}>
+        <div
+          className="rounded-[16px] min-h-[90vh]"
+          style={{ boxShadow: " 0px 1px 2px 0px #00000040" }}
+        >
           <div className="sm:p-[24px] p-3 flex flex-row gap-[16px] items-center">
             <div
               className="h-[36px] w-[36px] rounded-[36px] border border-[#bebebe] flex items-center justify-center cursor-pointer "
               onClick={() => router.back()}
             >
               <svg
-              className=" cursor-pointer"
+                className=" cursor-pointer"
                 width="16"
                 height="16"
                 viewBox="0 0 16 16"

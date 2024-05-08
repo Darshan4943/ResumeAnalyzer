@@ -70,7 +70,7 @@ const UserResumes = ({
   const taskRef = useRef(null);
   const userDataGlobal = useSelector((state) => state.userData);
   const [allData, setAllData] = useState([]);
-  
+
   useEffect(() => {
     if (userDataGlobal) {
       if (userDataGlobal.role == "recruiter") {
@@ -165,7 +165,7 @@ const UserResumes = ({
                     {item.fileName}
                   </span>
                   <div className="absolute text-[10px] opacity-0 transition-opacity duration-500 group-hover:opacity-100  word-break bottom-[-10px] text-[#fff] bg-[#333] px-[6px] py-[3px] rounded-[5px]">
-                  {item.fileName}
+                    {item.fileName}
                   </div>
                 </div>
               </>
@@ -173,7 +173,7 @@ const UserResumes = ({
           </div>
         ) : (
           <div className="text-[20px] font-medium text-center w-full py-[24px]">
-            No Resume Available, <br/> Please create resume 
+            No Resume Available, <br /> Please create resume
           </div>
         )}
       </div>

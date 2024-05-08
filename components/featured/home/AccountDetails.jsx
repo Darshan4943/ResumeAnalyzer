@@ -82,6 +82,8 @@ function AccountDetails({ selectedPlan, recruiterid, role }) {
       case "mobileNo":
         if (!value.trim()) {
           errors.mobileNo = "Mobile Number is required";
+        } else if (value.trim().length < 10) {
+          errors.mobileNo = "Mobile Number should be 10 digits";
         } else if (isNaN(value)) {
           errors.mobileNo = "Mobile Number cannot be text";
         } else {
@@ -109,10 +111,9 @@ function AccountDetails({ selectedPlan, recruiterid, role }) {
       if (value.replace(/\D/g, "").length <= 10) {
         setData({ ...data, [fieldName]: value.replace(/\D/g, "") });
       }
-    } else {
-      setData({ ...data, [fieldName]: value });
-      validateInput(fieldName, value);
     }
+    setData({ ...data, [fieldName]: value });
+    validateInput(fieldName, value);
   };
 
   useEffect(() => {

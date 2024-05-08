@@ -18,7 +18,7 @@ const Leftform = ({
   setCroppedImage,
   validateInput,
   formError,
-  setFormError
+  setFormError,
 }) => {
   const fileRef = useRef();
   const [loactionText, setLoactionText] = useState("");
@@ -61,7 +61,7 @@ const Leftform = ({
       setError("Minimum 100 characters required");
     }
   };
-  
+
   return (
     <div className="flex flex-col md:w-[40%] w-full gap-[24px]">
       {modelView && (
@@ -264,7 +264,8 @@ const Leftform = ({
             className="input"
             value={data?.companyName}
             onChange={(e) => {
-              setData({ ...data, companyName: e.target.value }); validateInput("companyName", e.target.value);
+              setData({ ...data, companyName: e.target.value });
+              validateInput("companyName", e.target.value);
             }}
           />
           {formError && (
@@ -283,31 +284,31 @@ const Leftform = ({
               placeholder="Location"
               className="input"
               value={loactionText}
-              onChange={(e) => {setLoactionText(e.target.value); }}
+              onChange={(e) => {
+                setLoactionText(e.target.value);
+              }}
             />
             <button
               className=" absolute right-3 top-[12px] "
               disabled={loactionText?.length == 0}
               onClick={() => {
-               
                 setData({
                   ...data,
                   location: [...data.location, loactionText],
                 });
                 setLoactionText("");
-                
+
                 // setFormError(formError => {
                 //   delete formError.location;
                 //   return formError;
                 // });
-                setFormError({})
+                setFormError({});
               }}
             >
               <PlusAddLogo
                 color={loactionText?.length > 0 ? "#646464" : "#bebebe"}
               />
             </button>
-           
           </div>
           {formError && (
             <p className="text-[12px] text-[red] font-[500]">

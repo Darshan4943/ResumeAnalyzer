@@ -34,7 +34,7 @@ const ResetPasswordModal = ({ visible }) => {
       setError("Current password does not match");
       return true;
     }
-    if (data.new == null ||data?.new?.length < 6) {
+    if (data.new == null || data?.new?.length < 6) {
       setError("New password must have at least 6 characters");
       return true;
     }
@@ -42,7 +42,11 @@ const ResetPasswordModal = ({ visible }) => {
       setError("New password and current password cannot be same");
       return true;
     }
-    if (data.new == null || data?.newConfirm==null|| data?.newConfirm != data?.new) {
+    if (
+      data.new == null ||
+      data?.newConfirm == null ||
+      data?.newConfirm != data?.new
+    ) {
       setError("Password does not match");
       return true;
     }

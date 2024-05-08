@@ -53,16 +53,19 @@ const InternalJobMatching = () => {
         console.log(err);
       });
   }, [userDataGlobal]);
-  
+
   const jobMatching = () => {
     setLoading(true);
     axios
-      .post("https://freedygoservices.in/api/jobMatching/" + userDataGlobal._id, {
-        jd: text,
-        resumeCount
-      })
+      .post(
+        "https://freedygoservices.in/api/jobMatching/" + userDataGlobal._id,
+        {
+          jd: text,
+          resumeCount,
+        }
+      )
       .then((res) => {
-        console.log(res.data)
+        console.log(res.data);
         setResuneList(res.data.data);
         setLoading(false);
       })
@@ -86,7 +89,10 @@ const InternalJobMatching = () => {
       )}
       <div
         className="flex ml:flex-row flex-col gap-12 w-[100%] p-4 "
-        style={{ boxShadow: "0px 1px 6px 0px rgb(84 84 84 / 25%)",borderRadius:"0px 12px 12px 12px" }}
+        style={{
+          boxShadow: "0px 1px 6px 0px rgb(84 84 84 / 25%)",
+          borderRadius: "0px 12px 12px 12px",
+        }}
       >
         <div className="flex flex-col gap-6 ml:w-[50%] w-[50%]">
           <div className="flex flex-col gap-4 ">
@@ -106,7 +112,7 @@ const InternalJobMatching = () => {
               placeholder="Enter your text here..."
               className=" border border-[#06A9EF] rounded-[8px] outline-none h-auto p-2"
             />
-             {error && <div className="text-red">{error}</div>}
+            {error && <div className="text-red">{error}</div>}
           </div>
           <div className="flex flex-row gap-4 items-center">
             <span className="text-[20px] font-500">
@@ -123,7 +129,6 @@ const InternalJobMatching = () => {
               placeholder="Ex. 5"
               className="h-[44px] w-[80px] p-[8px] text-[16px] text-[#646464] border border-[#DEDEDE] rounded-[8px] "
             />
-            
           </div>
           <button
             className="px-4 py-3 bg-[#06A9EF] text-[16px] text-white font-semibold rounded-[12px] w-[166px]"
@@ -176,23 +181,13 @@ const InternalJobMatching = () => {
                     >
                       <div className="flex flex-col gap-[4px]">
                         <div className="flex gap-[4px] text-[16px] font-500">
-                          <span>
-                            {
-                              data?.firstName
-                            }
-                          </span>{" "}
-                          <span>
-                            {
-                              data?.lastName
-                            }
-                          </span>
+                          <span>{data?.firstName}</span>{" "}
+                          <span>{data?.lastName}</span>
                         </div>
                         <div className="flex gap-[4px] items-center ">
                           <DesignationSVG />
                           <span className="text-[14px] font-500 ">
-                            {
-                             data?.designation
-                            }
+                            {data?.designation}
                           </span>
                         </div>
                       </div>

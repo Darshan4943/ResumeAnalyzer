@@ -12,27 +12,23 @@ const Index = () => {
   const [totalCount, setTotalCount] = useState(0);
   const [totalPages, setTotalpages] = useState(0);
   const [selectedCandidate, setSelectedCandidate] = useState([]);
-  const [currentPage, setCurrentPage] = useState(0)
-  const [limit, setLimit] = useState(10)
-  const [page, setPage] = useState(1)
+  const [currentPage, setCurrentPage] = useState(0);
+  const [limit, setLimit] = useState(10);
+  const [page, setPage] = useState(1);
   const [data, setData] = useState([]);
   const [miniLoading, setMiniloading] = useState(false);
   const getData = () => {
-
-
     axios
       .get("https://freedygoservices.in/api/recruiters", {
-        params: { page, limit }
+        params: { page, limit },
       })
       .then((res) => {
-
-        setData(res.data.users)
+        setData(res.data.users);
         setUserList(res.data.users.results);
         setTotalCount(res.data.totalCount);
         setTotalpages(res.data.totalPages);
         setLimit(res?.data?.users?.current?.limit);
         setCurrentPage(res?.data?.users?.current?.page);
-
 
         setLoading(false);
         setTimeout(() => {
@@ -51,9 +47,8 @@ const Index = () => {
   }, []);
 
   useEffect(() => {
-    setMiniloading(true)
+    setMiniloading(true);
     getData();
-
   }, [page, limit]);
 
   return (
