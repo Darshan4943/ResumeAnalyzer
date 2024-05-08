@@ -693,11 +693,13 @@ const ResumePreview = ({
       console.error("Error generating PDF Blob:", error);
     }
   };
+
   const SaveBTN = (blob, url, loading) => {
     return (
       <button
         onClick={() => generatePDFBlob()}
-        disabled={loading}
+        disabled={isDisabled}
+        style={{ opacity: isDisabled ? "0.5" : 1 }}
         className="flex gap-1 text-[14px] sm:w-[150px]  justify-center  font-montserrat font-semibold px-3 py-2 rounded-[8px] items-center border border-[#06A9EF] "
       >
         {loading ? (
@@ -730,6 +732,7 @@ const ResumePreview = ({
         <button
           onClick={() => saveResume(blob, true)}
           disabled={isDisabled}
+          style={{ opacity: isDisabled ? "0.5" : 1 }}
           className="flex gap-1 text-[14px] w-fit  justify-center  font-montserrat font-semibold px-3 py-2 rounded-[8px] items-center border border-[#06A9EF] "
         >
           {loading ? (
@@ -838,7 +841,7 @@ const ResumePreview = ({
               {selectedResumeIndex !== undefined && (
                 // <BlobProvider document={<MyComponent />}>
                 //   {({ blob, url, loading, error }) => (
-                <SaveBTN />
+                <SaveBTN loading={loading} />
                 //   )}
                 // </BlobProvider>
               )}

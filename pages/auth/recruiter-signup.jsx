@@ -48,6 +48,7 @@ function Recruiter_signup({}) {
   });
   console.log(data);
   const [file, setFile] = useState(null);
+
   const fileRef = useRef(null);
   const handleFileChange = (event) => {
     event.preventDefault();
@@ -58,6 +59,7 @@ function Recruiter_signup({}) {
         setFile(selectedFile);
         setModelView(true);
         setError(false);
+        event.target.value = "";
       } else {
         toast.error("Only Image files are allowed");
       }
@@ -455,6 +457,7 @@ function Recruiter_signup({}) {
                             className="text-[12px] font-semibold px-4 py-2 rounded-[8px]  border border-[#06A9EF]  w-[135px] cursor-pointer"
                             onClick={() => {
                               setFile(null);
+                              setCroppedImage(null);
                               setError(false);
                             }}
                           >
