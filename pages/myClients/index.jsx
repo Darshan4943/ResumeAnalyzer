@@ -19,15 +19,15 @@ function MyClients() {
   const router = useRouter();
   const [selectAll, setSelectAll] = useState(false);
   const [selectedIndexes, setSelectedIndexes] = useState([]);
-  const [ClientCount, setClientCount] = useState(0)
-  console.log(ClientCount)
-  const [limitPopUp, setLimitPopUp] = useState(false)
+  const [ClientCount, setClientCount] = useState(0);
+  console.log(ClientCount);
+  const [limitPopUp, setLimitPopUp] = useState(false);
   const dispatch = useDispatch();
 
   const getLimits = () => {
     const clientCount = localStorage.getItem("clientCount");
-    setClientCount(parseInt(clientCount))
-  }
+    setClientCount(parseInt(clientCount));
+  };
 
   useEffect(() => {
     getLimits();
@@ -71,17 +71,19 @@ function MyClients() {
       return;
     }
 
-    axios.delete("https://freedygoservices.in/api/client/deleteClients", { data: { ids } })
-      .then(response => {
+    axios
+      .delete("https://freedygoservices.in/api/client/deleteClients", {
+        data: { ids },
+      })
+      .then((response) => {
         console.log(response.data);
         dispatch(reCallUserData());
         toast.success("Client Deleted successfully");
-        setSelectedIndexes([])
-        setSelect(false)
-
+        setSelectedIndexes([]);
+        setSelect(false);
       })
-      .catch(error => {
-        console.error('Error:', error);
+      .catch((error) => {
+        console.error("Error:", error);
       });
   };
 
@@ -159,18 +161,33 @@ function MyClients() {
                 </div>
               </div>
               <div className="flex gap-4  ms:items-center items-end justify-end relative">
-                {!select &&
-                  <div onClick={() => setSelect(!select)} className="scr420:py-3 scr420:px-4 px-2 py-2 flex gap-2 text-[16px] font-semibold bg-[#E9EEF6] rounded-[8px] items-center cursor-pointer">
-                    <svg width="22" height="22" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-
+                {!select && (
+                  <div
+                    onClick={() => setSelect(!select)}
+                    className="scr420:py-3 scr420:px-4 px-2 py-2 flex gap-2 text-[16px] font-semibold bg-[#E9EEF6] rounded-[8px] items-center cursor-pointer"
+                  >
+                    <svg
+                      width="22"
+                      height="22"
+                      viewBox="0 0 20 20"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
                       <g mask="url(#mask0_2185_10021)">
-                        <path d="M13.1724 17.0836C12.8315 17.0836 12.538 16.9605 12.2918 16.7142C12.0455 16.468 11.9224 16.1744 11.9224 15.8336V12.34C11.9224 11.9992 12.0455 11.7057 12.2918 11.4595C12.538 11.2132 12.8315 11.0901 13.1724 11.0901H16.666C17.0068 11.0901 17.3003 11.2132 17.5465 11.4595C17.7928 11.7057 17.9159 11.9992 17.9159 12.34V15.8336C17.9159 16.1744 17.7928 16.468 17.5465 16.7142C17.3003 16.9605 17.0068 17.0836 16.666 17.0836H13.1724ZM13.1724 15.8336H16.666V12.34H13.1724V15.8336ZM2.08264 14.7118V13.4618H9.26212V14.7118H2.08264ZM13.1724 8.91053C12.8315 8.91053 12.538 8.78741 12.2918 8.54116C12.0455 8.29491 11.9224 8.00138 11.9224 7.66058V4.16697C11.9224 3.82617 12.0455 3.53264 12.2918 3.28639C12.538 3.04012 12.8315 2.91699 13.1724 2.91699H16.666C17.0068 2.91699 17.3003 3.04012 17.5465 3.28639C17.7928 3.53264 17.9159 3.82617 17.9159 4.16697V7.66058C17.9159 8.00138 17.7928 8.29491 17.5465 8.54116C17.3003 8.78741 17.0068 8.91053 16.666 8.91053H13.1724ZM13.1724 7.66058H16.666V4.16697H13.1724V7.66058ZM2.08264 6.53876V5.28878H9.26212V6.53876H2.08264Z" fill="#333333" />
+                        <path
+                          d="M13.1724 17.0836C12.8315 17.0836 12.538 16.9605 12.2918 16.7142C12.0455 16.468 11.9224 16.1744 11.9224 15.8336V12.34C11.9224 11.9992 12.0455 11.7057 12.2918 11.4595C12.538 11.2132 12.8315 11.0901 13.1724 11.0901H16.666C17.0068 11.0901 17.3003 11.2132 17.5465 11.4595C17.7928 11.7057 17.9159 11.9992 17.9159 12.34V15.8336C17.9159 16.1744 17.7928 16.468 17.5465 16.7142C17.3003 16.9605 17.0068 17.0836 16.666 17.0836H13.1724ZM13.1724 15.8336H16.666V12.34H13.1724V15.8336ZM2.08264 14.7118V13.4618H9.26212V14.7118H2.08264ZM13.1724 8.91053C12.8315 8.91053 12.538 8.78741 12.2918 8.54116C12.0455 8.29491 11.9224 8.00138 11.9224 7.66058V4.16697C11.9224 3.82617 12.0455 3.53264 12.2918 3.28639C12.538 3.04012 12.8315 2.91699 13.1724 2.91699H16.666C17.0068 2.91699 17.3003 3.04012 17.5465 3.28639C17.7928 3.53264 17.9159 3.82617 17.9159 4.16697V7.66058C17.9159 8.00138 17.7928 8.29491 17.5465 8.54116C17.3003 8.78741 17.0068 8.91053 16.666 8.91053H13.1724ZM13.1724 7.66058H16.666V4.16697H13.1724V7.66058ZM2.08264 6.53876V5.28878H9.26212V6.53876H2.08264Z"
+                          fill="#333333"
+                        />
                       </g>
                     </svg>
                     Select
                   </div>
-                }
-                <div className={` ${select ? "flex" : "hidden"} gap-12  items-center w-[100%]  `}>
+                )}
+                <div
+                  className={` ${
+                    select ? "flex" : "hidden"
+                  } gap-12  items-center w-[100%]  `}
+                >
                   {select && (
                     <div className="bg-[#D1EDFF] flex scr420:gap-4  gap-2 rounded-[50px] px-3 scr420:py-3 py-2 items-center w-full scr420:min-w-[316px] min-w-[300px]  scr420:h-[48px] h-[40px]  ">
                       <div
@@ -205,7 +222,6 @@ function MyClients() {
                           </label>
                         </div>
 
-
                         <svg
                           className=" cursor-pointer"
                           onClick={() => deleteClient()}
@@ -224,16 +240,13 @@ function MyClients() {
                         </svg>
 
                         <div className="scr420:text-[14px] text-[13px] font-semibold min-w-[85px] items-center flex justify-end">
-                          {selectedIndexes.length}  selected
+                          {selectedIndexes.length} selected
                         </div>
-
-
                       </div>
                     </div>
-                  )
-                  }
+                  )}
                 </div>
-                {!select &&
+                {!select && (
                   <button
                     onClick={() => {
                       if (ClientCount === 0) {
@@ -245,15 +258,23 @@ function MyClients() {
                     className="ml:hidden scr420:text-[16px] text-[14px] font-semibold scr420:py-3 scr420:px-6 px-2 py-2 scr420:h-[48px]  scr420:min-w-[228px] flex gap-1 bg-[#06A9EF] rounded-[12px] text-white"
                     type="button"
                   >
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
                       <g mask="url(#mask0_612_10078)">
-                        <path d="M11 13H5V11H11V5H13V11H19V13H13V19H11V13Z" fill="white" />
+                        <path
+                          d="M11 13H5V11H11V5H13V11H19V13H13V19H11V13Z"
+                          fill="white"
+                        />
                       </g>
                     </svg>
                     Create New Client
                   </button>
-                }
+                )}
 
                 <button
                   onClick={() => {
@@ -266,10 +287,18 @@ function MyClients() {
                   className=" ml:flex hidden text-[16px] font-semibold py-3 px-6 h-[48px] min-w-[228px] gap-1 bg-[#06A9EF] rounded-[12px] text-white"
                   type="button"
                 >
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
                     <g mask="url(#mask0_612_10078)">
-                      <path d="M11 13H5V11H11V5H13V11H19V13H13V19H11V13Z" fill="white" />
+                      <path
+                        d="M11 13H5V11H11V5H13V11H19V13H13V19H11V13Z"
+                        fill="white"
+                      />
                     </g>
                   </svg>
                   Create New Client
@@ -293,12 +322,17 @@ function MyClients() {
               </div>
             </div>
             {details?.length > 0 ? (
-              <ClientList setTabIndex={setTabIndex} details={details} selectedIndexes={selectedIndexes}
+              <ClientList
+                setTabIndex={setTabIndex}
+                details={details}
+                selectedIndexes={selectedIndexes}
                 setSelectedIndexes={setSelectedIndexes}
-                setSelect={setSelect} select={select} deleteClient={deleteClient} />
+                setSelect={setSelect}
+                select={select}
+                deleteClient={deleteClient}
+              />
             ) : (
               <div
-
                 onClick={() => {
                   if (ClientCount === 0) {
                     setLimitPopUp(true);
@@ -306,8 +340,6 @@ function MyClients() {
                     router.push("/myClients/CreateNewClient");
                   }
                 }}
-
-
                 style={{ boxShadow: "0px 0px 10px 5px #00000040" }}
                 className="rounded-[12px] text-center text-white justify-center mt-[16px] flex scr540:flex-col flex-row text-[18px] items-center gap-2 font-medium  scr540:w-[192px] w-[312px]  scr540:h-[272px] h-[135px] bg-[#646464] p-6 cursor-pointer"
               >
@@ -327,10 +359,9 @@ function MyClients() {
                 <p>Create New Client</p>
               </div>
             )}
-            {limitPopUp &&
-
+            {limitPopUp && (
               <LimitUsedModal visible={limitPopUp} setVisible={setLimitPopUp} />
-            }
+            )}
           </div>
         </div>
       )}

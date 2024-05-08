@@ -18,7 +18,10 @@ const Index = () => {
   const getData = () => {
     setLoading(true);
     axios
-      .get("https://freedygoservices.in/api/job/getByCreatedId/" + userDataGlobal._id)
+      .get(
+        "https://freedygoservices.in/api/job/getByCreatedId/" +
+          userDataGlobal._id
+      )
       .then((res) => {
         setLoading(false);
         setJobPost(res.data);
@@ -68,10 +71,12 @@ const Index = () => {
 
   const deleteJob = (id) => {
     axios
-      .post("https://freedygoservices.in/api/jobs/deleteJobs", { ids: selectedIndexes })
+      .post("https://freedygoservices.in/api/jobs/deleteJobs", {
+        ids: selectedIndexes,
+      })
       .then((response) => {
         console.log(response.data);
-        setSelectAll([])
+        setSelectAll([]);
         getData();
         toast.success("Client Deleted successfully");
       })

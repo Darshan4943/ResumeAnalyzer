@@ -39,6 +39,8 @@ function MyPurchase() {
     }
   }, [userDataGlobal]);
 
+  console.log(41, subscription);
+
   return (
     <div className="flex flex-col gap-8  min-h-[60vh]">
       {loading ? (

@@ -13,58 +13,53 @@ const Index = () => {
 
   const [uploadPopUp, setUploadPopUp] = useState(false);
   const [totalCount, setTotalCount] = useState(0);
-  const [totalPages,setTotalpages] = useState(0);
+  const [totalPages, setTotalpages] = useState(0);
   const [selectedCandidate, setSelectedCandidate] = useState([]);
-  const [currentPage, setCurrentPage] = useState(0)
-  const [limit, setLimit] = useState(10)
-  const [page, setPage] = useState(1)
+  const [currentPage, setCurrentPage] = useState(0);
+  const [limit, setLimit] = useState(10);
+  const [page, setPage] = useState(1);
   const [data, setData] = useState([]);
   const [miniLoading, setMiniloading] = useState(false);
   const getData = () => {
-   
     axios
       .get("https://freedygoservices.in/api/candidates", {
-        params: { page, limit }
+        params: { page, limit },
       })
       .then((res) => {
         setUserList(res.data.users.results);
         setTotalCount(res.data.totalCount);
-        setData(res.data.users)       
+        setData(res.data.users);
         setTotalpages(res.data.totalPages);
         setLimit(res?.data?.users?.current?.limit);
         setCurrentPage(res?.data?.users?.current?.page);
-        
-          setLoading(false);
 
-          setTimeout(() => {
-            setMiniloading(false);
-          }, 1000);
-       
-   
+        setLoading(false);
+
+        setTimeout(() => {
+          setMiniloading(false);
+        }, 1000);
       })
       .catch((err) => {
         console.log(err);
         setLoading(false);
-         setMiniloading(false);
+        setMiniloading(false);
       });
   };
   useEffect(() => {
-
     setLoading(true);
-    
+
     getData();
   }, []);
 
   useEffect(() => {
-    
-    setMiniloading(true)
+    setMiniloading(true);
     getData();
-  }, [page,limit]);
-  
+  }, [page, limit]);
+
   return (
     <>
       {uploadPopUp && (
-        <UploadModal role={'user'} setUploadPopUp={setUploadPopUp} />
+        <UploadModal role={"user"} setUploadPopUp={setUploadPopUp} />
       )}
       <div className="customMargins py-[24px] flex flex-col gap-[16px]">
         <div className="flex w-full flex-row justify-between items-center">
@@ -118,15 +113,15 @@ const Index = () => {
             </div>
           ) : (
             <List
-            miniLoading={miniLoading}
-            data={data}
-            currentPage={currentPage}
-            limit={limit}
-            page={page}
-            setPage={setPage}
-            setLimit={setLimit}
-            setCurrentPage={setCurrentPage}
-            totalPages={totalPages}
+              miniLoading={miniLoading}
+              data={data}
+              currentPage={currentPage}
+              limit={limit}
+              page={page}
+              setPage={setPage}
+              setLimit={setLimit}
+              setCurrentPage={setCurrentPage}
+              totalPages={totalPages}
               userList={userList}
               setSelectedCandidate={setSelectedCandidate}
               selectedCandidate={selectedCandidate}

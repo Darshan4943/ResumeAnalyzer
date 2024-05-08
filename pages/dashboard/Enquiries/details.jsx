@@ -44,7 +44,8 @@ function Details() {
     setBtnLoading(true);
     axios
       .put(
-        "https://freedygoservices.in/api/subscription/active/" + subscription.email
+        "https://freedygoservices.in/api/subscription/active/" +
+          subscription.email
       )
       .then((res) => {
         setBtnLoading(false);
@@ -172,7 +173,9 @@ function Details() {
                     <div className="flex flex-col gap-[16px]">
                       <div className="flex flex-row gap-2 text-[16px] text-[#333333] font-medium">
                         <div className="w-[30%]">Name :</div>
-                        <div className="w-[70%]">{userData?.firstName} {userData?.lastName}</div>
+                        <div className="w-[70%]">
+                          {userData?.firstName} {userData?.lastName}
+                        </div>
                       </div>
                       <div className="flex flex-row gap-2 text-[16px] text-[#333333] font-medium">
                         <div className="w-[30%]">Email :</div>
@@ -180,7 +183,9 @@ function Details() {
                       </div>
                       <div className="flex flex-row gap-2 text-[16px] text-[#333333] font-medium">
                         <div className="w-[30%]">Mobile No :</div>
-                        <div className="w-[70%]">{userData?.dial_code}  {userData?.mobileNo}</div>
+                        <div className="w-[70%]">
+                          {userData?.dial_code} {userData?.mobileNo}
+                        </div>
                       </div>
                       <div className="flex flex-row gap-2 text-[16px] text-[#333333] font-medium">
                         <div className="w-[30%]">Role :</div>

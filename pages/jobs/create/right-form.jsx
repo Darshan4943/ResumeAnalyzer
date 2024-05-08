@@ -8,63 +8,71 @@ import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 
-const Rightform = ({ data, setData, file, croppedImage, isEditable, id, validateInput, formError, setFormError }) => {
+const Rightform = ({
+  data,
+  setData,
+  file,
+  croppedImage,
+  isEditable,
+  id,
+  validateInput,
+  formError,
+  setFormError,
+}) => {
   const [loading, setLoading] = useState(false);
   const userDataGlobal = useSelector((state) => state.userData);
   const router = useRouter();
   const [skills, setSkills] = useState(SkillList);
-  const [skillText, setSkillText] = useState("")
-  console.log(formError)
+  const [skillText, setSkillText] = useState("");
+  console.log(formError);
 
-  
   const postJob = () => {
     let hasError = false;
-  
-    
+
     if (!data.mustSkills || data.mustSkills.length === 0) {
-      setFormError(formError => ({
-        ...formError, mustSkills: "Must have Skills are required"
-      }));
-      hasError = true;
-    }
-  
-    if (!data.goodSkills || data.goodSkills.length === 0) {
-      setFormError(formError => ({
-        ...formError, goodSkills: " Good to have Skills are required"
-      }));
-      hasError = true;
-    }
-  
-    if (!data.location || data.location.length === 0) {
-      setFormError(formError => ({
+      setFormError((formError) => ({
         ...formError,
-        location: "Location is required"
+        mustSkills: "Must have Skills are required",
       }));
       hasError = true;
     }
-  
-    const requiredFields = [
-      "companyName",
-      "jobTitle",
-    ];
+
+    if (!data.goodSkills || data.goodSkills.length === 0) {
+      setFormError((formError) => ({
+        ...formError,
+        goodSkills: " Good to have Skills are required",
+      }));
+      hasError = true;
+    }
+
+    if (!data.location || data.location.length === 0) {
+      setFormError((formError) => ({
+        ...formError,
+        location: "Location is required",
+      }));
+      hasError = true;
+    }
+
+    const requiredFields = ["companyName", "jobTitle"];
     const emptyFields = requiredFields.filter((field) => !data[field]);
-  
+
     if (emptyFields.length > 0) {
       toast.error("Please fill in all required fields");
-      emptyFields.forEach(field => {
-        setFormError(formError => ({
+      emptyFields.forEach((field) => {
+        setFormError((formError) => ({
           ...formError,
-          [field]: `${field.charAt(0).toUpperCase() + field.slice(1)} is required`
+          [field]: `${
+            field.charAt(0).toUpperCase() + field.slice(1)
+          } is required`,
         }));
       });
       hasError = true;
     }
-  
+
     if (hasError) {
-      return; 
+      return;
     }
-  
-  
+
     setLoading(true);
     const formData = new FormData();
     if (Object.keys(data).length > 0) {
@@ -97,7 +105,6 @@ const Rightform = ({ data, setData, file, croppedImage, isEditable, id, validate
         console.log(err);
       });
   };
-  
 
   return (
     <div className="flex flex-col md:w-[50%] w-full gap-[24px] ml:pt-0 pt-6">
@@ -112,7 +119,8 @@ const Rightform = ({ data, setData, file, croppedImage, isEditable, id, validate
             className="input"
             value={data?.jobTitle}
             onChange={(e) => {
-              setData({ ...data, jobTitle: e.target.value }); validateInput("jobTitle", e.target.value)
+              setData({ ...data, jobTitle: e.target.value });
+              validateInput("jobTitle", e.target.value);
             }}
           />
           {formError && (
@@ -121,7 +129,6 @@ const Rightform = ({ data, setData, file, croppedImage, isEditable, id, validate
             </p>
           )}
         </div>
-
       </div>
       <div className="flex flex-col w-full gap-[16px]">
         <span className="text-[18px] text-[#333333] font-medium">Salary</span>
@@ -203,7 +210,7 @@ const Rightform = ({ data, setData, file, croppedImage, isEditable, id, validate
         </div>
         <div className="form-group">
           <label className="text-[#333333] text-[14px] font-medium">
-            Must have  Skills <span className="text-red">*</span>
+            Must have Skills <span className="text-red">*</span>
           </label>
           <ReactSelect
             onInputChange={(data) => {
@@ -215,13 +222,12 @@ const Rightform = ({ data, setData, file, croppedImage, isEditable, id, validate
             }))}
             className="w-full"
             onChange={(mustSkill) => {
-
               setData({
                 ...data,
-                mustSkills: [...data.mustSkills, mustSkill.value]
+                mustSkills: [...data.mustSkills, mustSkill.value],
               });
 
-              setFormError({})
+              setFormError({});
             }}
           />
           {formError && (
@@ -239,10 +245,11 @@ const Rightform = ({ data, setData, file, croppedImage, isEditable, id, validate
                 <span
                   className="text-[14px]  cursor-pointer font-medium "
                   onClick={() =>
-
                     setData({
                       ...data,
-                      mustSkills: data.mustSkills.filter((data) => data != item),
+                      mustSkills: data.mustSkills.filter(
+                        (data) => data != item
+                      ),
                     })
                   }
                 >
@@ -265,15 +272,12 @@ const Rightform = ({ data, setData, file, croppedImage, isEditable, id, validate
             }}
             className="w-full"
             onChange={(goodSkill) => {
-
               setData({
                 ...data,
-                goodSkills: [...data.goodSkills, goodSkill.value]
+                goodSkills: [...data.goodSkills, goodSkill.value],
               });
 
-
-
-              setFormError({})
+              setFormError({});
             }}
           />
           {formError && (
@@ -294,7 +298,9 @@ const Rightform = ({ data, setData, file, croppedImage, isEditable, id, validate
                   onClick={() =>
                     setData({
                       ...data,
-                      goodSkills: data.goodSkills.filter((data) => data != item),
+                      goodSkills: data.goodSkills.filter(
+                        (data) => data != item
+                      ),
                     })
                   }
                 >
@@ -303,7 +309,6 @@ const Rightform = ({ data, setData, file, croppedImage, isEditable, id, validate
               </div>
             ))}
           </div>
-
         </div>
         <div className="flex sm:flex-row flex-col sm:gap-0 gap-4 justify-between">
           <div className=" sm:w-[48%] w-full flex flex-col gap-[8px] ">

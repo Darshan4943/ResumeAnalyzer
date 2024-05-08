@@ -12,7 +12,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 const Details = ({ data, setJd, files, extractedData, resume }) => {
-  console.log(14, data)
+  console.log(14, data);
   const [loading, setLoading] = useState(true);
   const userDataGlobal = useSelector((state) => state.userData);
   const [isApplied, setIsApplied] = useState(true);
@@ -92,10 +92,16 @@ const Details = ({ data, setJd, files, extractedData, resume }) => {
               <div className="w-full flex justify-between">
                 <div className="flex flex-col gap-[8px] mt-2  ">
                   <span className="text-[14px] font-500">
-                    Apply Before : {data?.deadLine !== undefined && NaN ? dateSeter(data?.deadLine) :''}
+                    Apply Before :{" "}
+                    {data?.deadLine !== undefined && NaN
+                      ? dateSeter(data?.deadLine)
+                      : ""}
                   </span>
                   <span className="text-[14px] font-500">
-                    Job Posted On : {data?.createdAt !== undefined && NaN ? dateSeter(data?.createdAt) : ''}
+                    Job Posted On :{" "}
+                    {data?.createdAt !== undefined && NaN
+                      ? dateSeter(data?.createdAt)
+                      : ""}
                   </span>
                 </div>
                 <button
@@ -131,7 +137,8 @@ const Details = ({ data, setJd, files, extractedData, resume }) => {
             </div>
 
             <div className="w-full flex flex-row justify-between mt-6 h-[71%]  ">
-              <div onWheel={(e) => e.stopPropagation()}
+              <div
+                onWheel={(e) => e.stopPropagation()}
                 className="flex flex-col gap-[24px]   w-[49%]  h-[100%] overflow-auto"
                 style={{
                   paddingRight: "12px",
@@ -159,12 +166,12 @@ const Details = ({ data, setJd, files, extractedData, resume }) => {
                   <div className="w-[100%]">
                     {(
                       data?.percentage > 0 &&
-                        data &&
-                        data["justification Of Matching"]?.length > 0 &&
-                        data["justification Of Matching"]
-                          ?.toLowerCase()
-                          .split(" ")
-                          .includes("no")
+                      data &&
+                      data["justification Of Matching"]?.length > 0 &&
+                      data["justification Of Matching"]
+                        ?.toLowerCase()
+                        .split(" ")
+                        .includes("no")
                         ? false
                         : true
                     ) ? (
@@ -178,24 +185,25 @@ const Details = ({ data, setJd, files, extractedData, resume }) => {
                       Matching Parameters
                     </span>
                     <ul className="flex flex-col gap-[4px]">
-                      {data["Matching parameters"] && data["Matching parameters"]?.map((item, i) => (
-                        <li
-                          key={i}
-                          className="text-[#333333] text-[14px] font-500 flex flex-row items-center gap-[8px]"
-                        >
-                          <svg
-                            width="10"
-                            height="10"
-                            viewBox="0 0 10 10"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
+                      {data["Matching parameters"] &&
+                        data["Matching parameters"]?.map((item, i) => (
+                          <li
+                            key={i}
+                            className="text-[#333333] text-[14px] font-500 flex flex-row items-center gap-[8px]"
                           >
-                            <circle cx="5" cy="5" r="5" fill="#D9D9D9" />
-                          </svg>
+                            <svg
+                              width="10"
+                              height="10"
+                              viewBox="0 0 10 10"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <circle cx="5" cy="5" r="5" fill="#D9D9D9" />
+                            </svg>
 
-                          {item}
-                        </li>
-                      ))}
+                            {item}
+                          </li>
+                        ))}
                     </ul>
                   </div>
                 )}
@@ -229,45 +237,48 @@ const Details = ({ data, setJd, files, extractedData, resume }) => {
                               Required
                             </span>
 
-                            {
-                              Array.isArray(data['Matching parameters details']['required']) ?
-                               data['Matching parameters details']['required']?.map((item, index) => (
-                                <li
-                                  key={index}
-                                  className="text-[#333333] text-[12px] font-500 flex flex-row items-top gap-[8px]"
-                                >
-                                  <div className="w-[10px] mt-[5px]">
-                                    <svg
-                                      width="10"
-                                      height="10"
-                                      viewBox="0 0 10 10"
-                                      fill="none"
-                                      xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                      <circle
-                                        cx="5"
-                                        cy="5"
-                                        r="5"
-                                        fill="#D9D9D9"
-                                      />
-                                    </svg>
-                                  </div>
-                                  <span
-                                    style={{ textTransform: "capitalize" }}
+                            {Array.isArray(
+                              data["Matching parameters details"]["required"]
+                            )
+                              ? data["Matching parameters details"][
+                                  "required"
+                                ]?.map((item, index) => (
+                                  <li
+                                    key={index}
+                                    className="text-[#333333] text-[12px] font-500 flex flex-row items-top gap-[8px]"
                                   >
-                                    {item}{" "}
-
-                                  </span>
-                                </li>
-                              ))
-                                :
-                                Object.keys(
-                                  data["Matching parameters details"]["required"]
+                                    <div className="w-[10px] mt-[5px]">
+                                      <svg
+                                        width="10"
+                                        height="10"
+                                        viewBox="0 0 10 10"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                      >
+                                        <circle
+                                          cx="5"
+                                          cy="5"
+                                          r="5"
+                                          fill="#D9D9D9"
+                                        />
+                                      </svg>
+                                    </div>
+                                    <span
+                                      style={{ textTransform: "capitalize" }}
+                                    >
+                                      {item}{" "}
+                                    </span>
+                                  </li>
+                                ))
+                              : Object.keys(
+                                  data["Matching parameters details"][
+                                    "required"
+                                  ]
                                 ).map(
                                   (item, index) =>
-                                    data["Matching parameters details"]["required"][
-                                    item
-                                    ] && (
+                                    data["Matching parameters details"][
+                                      "required"
+                                    ][item] && (
                                       <li
                                         key={index}
                                         className="text-[#333333] text-[12px] font-500 flex flex-row items-top gap-[8px]"
@@ -289,12 +300,14 @@ const Details = ({ data, setJd, files, extractedData, resume }) => {
                                           </svg>
                                         </div>
                                         <span
-                                          style={{ textTransform: "capitalize" }}
+                                          style={{
+                                            textTransform: "capitalize",
+                                          }}
                                         >
                                           {item}{" "}
                                           {Array.isArray(
                                             data["Matching parameters details"][
-                                            "required"
+                                              "required"
                                             ][item]
                                           ) && ":"}
                                           {data["Matching parameters details"][
@@ -304,9 +317,9 @@ const Details = ({ data, setJd, files, extractedData, resume }) => {
                                               "required"
                                             ][item].length > 0 &&
                                             Array.isArray(
-                                              data["Matching parameters details"][
-                                              "required"
-                                              ][item]
+                                              data[
+                                                "Matching parameters details"
+                                              ]["required"][item]
                                             ) &&
                                             data["Matching parameters details"][
                                               "required"
@@ -314,8 +327,7 @@ const Details = ({ data, setJd, files, extractedData, resume }) => {
                                         </span>
                                       </li>
                                     )
-                                )
-                            }
+                                )}
                           </ul>
                         )}
                       {data["Matching parameters details"]["provided"] &&
@@ -326,97 +338,107 @@ const Details = ({ data, setJd, files, extractedData, resume }) => {
                             <span className="text-[#333333] text-[12px] font-semibold">
                               Provided
                             </span>
-                            {
-                              Array.isArray(data['Matching parameters details']['provided']) ? data['Matching parameters details']['provided']?.map((item, index) => (
-                                <li
-                                  key={index}
-                                  className="text-[#333333] text-[12px] font-500 flex flex-row items-top gap-[8px]"
-                                >
-                                  <div className="w-[10px] mt-[5px]">
-                                    <svg
-                                      width="10"
-                                      height="10"
-                                      viewBox="0 0 10 10"
-                                      fill="none"
-                                      xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                      <circle
-                                        cx="5"
-                                        cy="5"
-                                        r="5"
-                                        fill="#D9D9D9"
-                                      />
-                                    </svg>
-                                  </div>
-                                  <span
-                                    style={{ textTransform: "capitalize" }}
+                            {Array.isArray(
+                              data["Matching parameters details"]["provided"]
+                            )
+                              ? data["Matching parameters details"][
+                                  "provided"
+                                ]?.map((item, index) => (
+                                  <li
+                                    key={index}
+                                    className="text-[#333333] text-[12px] font-500 flex flex-row items-top gap-[8px]"
                                   >
-                                    {item}{" "}
-
-                                  </span>
-                                </li>
-                              )) : Object.keys(
-                                data["Matching parameters details"]["provided"]
-                              ).map(
-                                (item, index) =>
-                                  data["Matching parameters details"]["provided"][
-                                  item
-                                  ] && (
-                                    <li
-                                      key={index}
-                                      className="text-[#333333] text-[12px] font-500 flex flex-row items-top gap-[8px]"
-                                    >
-                                      <div className="w-[10px] mt-[5px]">
-                                        <svg
-                                          width="10"
-                                          height="10"
-                                          viewBox="0 0 10 10"
-                                          fill="none"
-                                          xmlns="http://www.w3.org/2000/svg"
-                                        >
-                                          <circle
-                                            cx="5"
-                                            cy="5"
-                                            r="5"
-                                            fill="#D9D9D9"
-                                          />
-                                        </svg>
-                                      </div>
-                                      <span
-                                        style={{ textTransform: "capitalize" }}
+                                    <div className="w-[10px] mt-[5px]">
+                                      <svg
+                                        width="10"
+                                        height="10"
+                                        viewBox="0 0 10 10"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
                                       >
-                                        {item}{" "}
-                                        {Array.isArray(
-                                          data["Matching parameters details"][
-                                          "provided"
-                                          ][item]
-                                        ) && ":"}
-                                        {data["Matching parameters details"][
-                                          "provided"
-                                        ][item] &&
-                                          data["Matching parameters details"][
-                                            "provided"
-                                          ][item].length > 0 &&
-                                          Array.isArray(
+                                        <circle
+                                          cx="5"
+                                          cy="5"
+                                          r="5"
+                                          fill="#D9D9D9"
+                                        />
+                                      </svg>
+                                    </div>
+                                    <span
+                                      style={{ textTransform: "capitalize" }}
+                                    >
+                                      {item}{" "}
+                                    </span>
+                                  </li>
+                                ))
+                              : Object.keys(
+                                  data["Matching parameters details"][
+                                    "provided"
+                                  ]
+                                ).map(
+                                  (item, index) =>
+                                    data["Matching parameters details"][
+                                      "provided"
+                                    ][item] && (
+                                      <li
+                                        key={index}
+                                        className="text-[#333333] text-[12px] font-500 flex flex-row items-top gap-[8px]"
+                                      >
+                                        <div className="w-[10px] mt-[5px]">
+                                          <svg
+                                            width="10"
+                                            height="10"
+                                            viewBox="0 0 10 10"
+                                            fill="none"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                          >
+                                            <circle
+                                              cx="5"
+                                              cy="5"
+                                              r="5"
+                                              fill="#D9D9D9"
+                                            />
+                                          </svg>
+                                        </div>
+                                        <span
+                                          style={{
+                                            textTransform: "capitalize",
+                                          }}
+                                        >
+                                          {item}{" "}
+                                          {Array.isArray(
                                             data["Matching parameters details"][
-                                            "provided"
+                                              "provided"
                                             ][item]
-                                          ) &&
-                                          data["Matching parameters details"][
+                                          ) && ":"}
+                                          {data["Matching parameters details"][
                                             "provided"
-                                          ][item]?.join(", ")}
-                                      </span>
-                                    </li>
-                                  )
-                              )
-                            }
+                                          ][item] &&
+                                            data["Matching parameters details"][
+                                              "provided"
+                                            ][item].length > 0 &&
+                                            Array.isArray(
+                                              data[
+                                                "Matching parameters details"
+                                              ]["provided"][item]
+                                            ) &&
+                                            data["Matching parameters details"][
+                                              "provided"
+                                            ][item]?.join(", ")}
+                                        </span>
+                                      </li>
+                                    )
+                                )}
                           </ul>
                         )}
                     </div>
                   )}
               </div>
 
-              <div onWheel={(e) => e.stopPropagation()} className="w-[48%] flex flex-col gap-[24px]  h-[100%] overflow-auto relative ">
+              <div
+                onWheel={(e) => e.stopPropagation()}
+                className="w-[48%] flex flex-col gap-[24px]  h-[100%] overflow-auto relative "
+              >
                 <span className="text-[#333333] text-[18px] font-semibold sticky top-0 w-full bg-white">
                   Job Description
                 </span>

@@ -58,16 +58,16 @@ const ApplicantDetails = () => {
     </Document>
   );
   return (
-    <div
-      className="min-h-[90vh] my-[16px] rounded-[16px] customMargins  "
-
-    >
+    <div className="min-h-[90vh] my-[16px] rounded-[16px] customMargins  ">
       {loading ? (
         <div className="flex items-center justify-center h-[70vh] ">
           <MiniLoader />
         </div>
       ) : (
-        <div className="rounded-[16px] min-h-[90vh]  sm:p-[24px] p-2 flex flex-col gap-[24px]" style={{ boxShadow: " 0px 1px 2px 0px #00000040" }}>
+        <div
+          className="rounded-[16px] min-h-[90vh]  sm:p-[24px] p-2 flex flex-col gap-[24px]"
+          style={{ boxShadow: " 0px 1px 2px 0px #00000040" }}
+        >
           <div className="flex items-center gap-[8px] ">
             <div className=" cursor-pointer" onClick={() => router.back()}>
               <LeftArow />

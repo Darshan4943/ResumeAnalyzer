@@ -266,7 +266,10 @@ const ExternalJobMatching = () => {
                   </div>
                   <div className="flex flex-col gap-[4px]	font-normal	">
                     <div className="flex text-center justify-center  scr420:text-[14px] scr360:text-[12px] text-[10px] text-[#515B6F]">
-                      <span onClick={handleButtonClick} className="text-[#06A9EF]">
+                      <span
+                        onClick={handleButtonClick}
+                        className="text-[#06A9EF]"
+                      >
                         &nbsp;Browse file{" "}
                       </span>
                       &nbsp;to upload PDF or DOCS

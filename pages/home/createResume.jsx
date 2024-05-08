@@ -184,7 +184,12 @@ function CreateResume() {
         <div className="flex flex-col gap-4 py-6 ">
           <div className="web">
             <div className=" h-fit flex gap-6 ">
-              <div className="h-[213vh] w-[78%] overflow-y-scroll scrollbar-hidden " onWheel={(e)=>{e.stopPropagation()}}>
+              <div
+                className="h-[213vh] w-[78%] overflow-y-scroll scrollbar-hidden "
+                onWheel={(e) => {
+                  e.stopPropagation();
+                }}
+              >
                 <ResumeForm
                   selectedFont={selectedFont}
                   data={data}
@@ -217,7 +222,7 @@ function CreateResume() {
             <AnimatePresence>
               <div className="fixed z-[2000] top-0 right-0 left-0  bottom-0 bg-black opacity-40 "></div>
               <motion.div
-              onWheel={(e) => e.stopPropagation()} 
+                onWheel={(e) => e.stopPropagation()}
                 initial={{ x: "-100%" }}
                 animate={{ x: 0 }}
                 exit={{ x: "-100%" }}

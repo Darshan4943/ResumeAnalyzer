@@ -147,7 +147,7 @@ const CandidateAiPower = ({
           data: result,
         })
         .then((res) => {
-          console.log(res.data.data)
+          console.log(res.data.data);
           if (Object.keys(res.data.data[0]).length > 0) {
             localStorage.setItem(
               "parsedResume",
@@ -195,7 +195,6 @@ const CandidateAiPower = ({
         });
     });
   };
-
 
   const fileIconSeter = (data) => {
     if (data.name.includes("docx") || data.name.includes("doc")) {
@@ -285,9 +284,7 @@ const CandidateAiPower = ({
                         <div className="flex scr420:flex-row flex-col gap-[16px] items-center justify-between md:w-[80%] w-[95%]">
                           <div className="flex flex-row gap-[16px] items-center scr420:w-[60%] w-full scr420:justify-start justify-center  ">
                             {" "}
-                            <div className="">
-                            {fileIconSeter(file)}
-                            </div>
+                            <div className="">{fileIconSeter(file)}</div>
                             <span className="text-[12px] w-[80%]">
                               {file.name}
                             </span>

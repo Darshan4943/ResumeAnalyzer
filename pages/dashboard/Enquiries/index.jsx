@@ -12,21 +12,21 @@ const Index = () => {
   const [totalCount, setTotalCount] = useState(0);
   const [userList, setUserList] = useState([]);
   const [uploadPopUp, setUploadPopUp] = useState(false);
-  const [totalPages,setTotalpages] = useState(0);
+  const [totalPages, setTotalpages] = useState(0);
   const [selectedCandidate, setSelectedCandidate] = useState([]);
-  const [currentPage, setCurrentPage] = useState(0)
-  const [limit, setLimit] = useState(10)
-  const [page, setPage] = useState(1)
+  const [currentPage, setCurrentPage] = useState(0);
+  const [limit, setLimit] = useState(10);
+  const [page, setPage] = useState(1);
   const [data, setData] = useState([]);
 
   const getData = () => {
     setLoading(true);
     axios
       .get("https://freedygoservices.in/api/enquires", {
-        params: { page, limit }
+        params: { page, limit },
       })
       .then((res) => {
-        console.log(res)
+        console.log(res);
         setList(res.data.data.results);
         setTotalCount(res.data.totalCount);
         setTotalpages(res.data.totalPages);
@@ -37,7 +37,6 @@ const Index = () => {
         setTimeout(() => {
           setMiniloading(false);
         }, 1000);
-
       })
       .catch((err) => {
         console.log(err);
@@ -45,17 +44,15 @@ const Index = () => {
       });
   };
   useEffect(() => {
-
     setLoading(true);
-    
+
     getData();
   }, []);
 
   useEffect(() => {
-    
-    setMiniloading(true)
+    setMiniloading(true);
     getData();
-  }, [page,limit]); 
+  }, [page, limit]);
 
   return (
     <>
@@ -103,16 +100,17 @@ const Index = () => {
               <MiniLoader />
             </div>
           ) : (
-            <List list={list}
-            miniLoading={miniLoading}
-            data={data}
-            currentPage={currentPage}
-            limit={limit}
-            page={page}
-            setPage={setPage}
-            setLimit={setLimit}
-            setCurrentPage={setCurrentPage}
-            totalPages={totalPages}
+            <List
+              list={list}
+              miniLoading={miniLoading}
+              data={data}
+              currentPage={currentPage}
+              limit={limit}
+              page={page}
+              setPage={setPage}
+              setLimit={setLimit}
+              setCurrentPage={setCurrentPage}
+              totalPages={totalPages}
               userList={userList}
               setSelectedCandidate={setSelectedCandidate}
               selectedCandidate={selectedCandidate}
@@ -120,9 +118,7 @@ const Index = () => {
           )}
         </div>
 
-        <div>
-
-        </div>
+        <div></div>
       </div>
     </>
   );

@@ -66,7 +66,7 @@ const Files = ({ selected, setSelected }) => {
                     {item.fileName}.pdf
                   </span>
                   <div className="absolute text-[10px] opacity-0 transition-opacity duration-500 group-hover:opacity-100  word-break bottom-[-5px] text-[#fff] bg-[#333] px-[6px] py-[3px] rounded-[5px]">
-                  {item.fileName}
+                    {item.fileName}
                   </div>
                 </div>
               </>

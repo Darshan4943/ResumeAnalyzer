@@ -13,7 +13,7 @@ import JdAnimation from "../../components/featured/candidate/createResume/compon
 <Fonts />;
 
 function TransformJob() {
-  const [animate, setAnimate] = useState(true)
+  const [animate, setAnimate] = useState(true);
   const [isAll, setIsAll] = useState(false);
   const [text, setText] = useState("");
   const [selected, setSelect] = useState({});
@@ -45,21 +45,21 @@ function TransformJob() {
             selected.skills.length > 0
               ? skills
               : skills?.map((item) => ({
-                skill: item,
-                rating: [5, 5, 5, 5, 5],
-              })),
+                  skill: item,
+                  rating: [5, 5, 5, 5, 5],
+                })),
           summery: summery,
           experience,
         });
-        setAnimate(false)
+        setAnimate(false);
       })
       .catch((err) => {
         setLoading(false);
         console.log(err);
       });
   };
-  console.log(60, details?.length)
-  console.log(61, resumeList)
+  console.log(60, details?.length);
+  console.log(61, resumeList);
   useEffect(() => {
     if (userDataGlobal.role == "recruiter") {
       axios
@@ -78,15 +78,13 @@ function TransformJob() {
           if (result?.length > 0) {
             axios
               .get(
-                "https://freedygoservices.in/api/resume/" + res.data.data[0]?._id
+                "https://freedygoservices.in/api/resume/" +
+                  res.data.data[0]?._id
               )
               .then((res) => {
-
-
                 setResumeList(res.data.data);
 
                 setSelect(res.data.data[0]);
-
               })
               .catch((err) => {
                 console.log(err);
@@ -114,8 +112,7 @@ function TransformJob() {
     }
   };
 
-  console.log(110, count)
-
+  console.log(110, count);
 
   return (
     <div className=" py-6 flex flex-col gap-2  customMargins">
@@ -123,56 +120,43 @@ function TransformJob() {
 
       <div className="sm:text-[20px] text-[16px] font-medium text-[#333333] ">
         Transform for Job Description
-
       </div>
 
-
-      <div
-        className="flex ml:flex-row flex-col gap-12 w-[100%] justify-center rounded-[12px]"
-
-      >
-
+      <div className="flex ml:flex-row flex-col gap-12 w-[100%] justify-center rounded-[12px]">
         <div className="flex flex-col gap-6 ml:w-[50%] w-[100%]">
-
           <div className="flex flex-col gap-4 ">
-            {details?.length > 0 &&
+            {details?.length > 0 && (
               <>
-                {
-                  userDataGlobal.role !== "user" && (
+                {userDataGlobal.role !== "user" && (
+                  <div className="w-full ">
+                    <div className="text-[16px] font-medium">Select Client</div>
+                    <ReactSelect
+                      options={details?.map((item) => ({
+                        value: item._id,
+                        label: item.firstName + " " + item.lastName,
+                      }))}
+                      className="my-4 outline outline-offset-1 outline-blue rounded-[8px]"
+                      name=""
+                      placeholder="Select"
+                      value={selectedClient}
+                      onChange={(data) => selectHandler(data)}
+                      styles={{
+                        control: (provided) => ({
+                          ...provided,
+                          border: "none",
 
-                    <div className="w-full ">
-                      <div className="text-[16px] font-medium">Select Client</div>
-                      <ReactSelect
-                        options={details?.map((item) => ({
-                          value: item._id,
-                          label: item.firstName + " " + item.lastName,
-                        }))}
-                        className="my-4 outline outline-offset-1 outline-blue rounded-[8px]"
-                        name=""
-                        placeholder="Select"
-                        value={selectedClient}
-                        onChange={(data) => selectHandler(data)}
-                        styles={{
-                          control: (provided) => ({
-                            ...provided,
-                            border: "none",
-
-                            minWidth: "130px",
-                          }),
-                        }}
-                      />
-                    </div>
-
-                  )
-                }
-              </>}
+                          minWidth: "130px",
+                        }),
+                      }}
+                    />
+                  </div>
+                )}
+              </>
+            )}
             <div className="text-[16px] font-medium text-[#333333]">
-              {userDataGlobal.role == "recruiter" ?
-
-                "Select Resume" :
-                "Select Resume from My Resumes"
-              }
-
+              {userDataGlobal.role == "recruiter"
+                ? "Select Resume"
+                : "Select Resume from My Resumes"}
             </div>
 
             <UserResumes
@@ -230,18 +214,18 @@ function TransformJob() {
           </div>
         </div>
         {/* } */}
-        {!animate ?
+        {!animate ? (
           <div className="ml:w-[50%] w-[100% flex flex-col gap-4">
             {selected && (
               <TransformJd
                 data={
                   newData && Object.keys(newData)?.length > 0
                     ? {
-                      ...newData,
-                      summery: newData?.summary
-                        ? newData.summary
-                        : newData?.summery,
-                    }
+                        ...newData,
+                        summery: newData?.summary
+                          ? newData.summary
+                          : newData?.summery,
+                      }
                     : selected
                 }
                 resumeTemplateIndex={selected.resumeTemplateIndex}
@@ -252,10 +236,9 @@ function TransformJob() {
               />
             )}
           </div>
-          :
-
+        ) : (
           <JdAnimation details={details} count={count} />
-        }
+        )}
       </div>
     </div>
   );
