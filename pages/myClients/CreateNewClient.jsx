@@ -34,15 +34,16 @@ function CreateNewClient({ setTabIndex }) {
 
   const handleFileChange = (event) => {
     event.preventDefault();
-    console.log("first");
+
     const selectedFile = event.target.files[0];
-    console.log(selectedFile);
+
     if (selectedFile) {
       if (selectedFile && selectedFile.size <= 2 * 1024 * 1024) {
         if (selectedFile?.type.includes("image")) {
           setData({ ...data, img: selectedFile });
           setModelView(true);
           setError(false);
+          event.target.value = "";
         } else {
           toast.error("Only Image files are allowed");
         }
