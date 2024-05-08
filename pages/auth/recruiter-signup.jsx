@@ -49,7 +49,6 @@ function Recruiter_signup({}) {
   console.log(data);
   const [file, setFile] = useState(null);
 
-  console.log(267, file);
   const fileRef = useRef(null);
   const handleFileChange = (event) => {
     event.preventDefault();

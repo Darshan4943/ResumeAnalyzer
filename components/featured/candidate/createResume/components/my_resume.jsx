@@ -6,7 +6,6 @@ import Cropper from "react-easy-crop";
 import ImageCropper from "./imageCropper";
 
 const ResumeList = ({ data, setData }) => {
-
   const [file, setFile] = useState(null);
   const [modelView, setModelView] = useState(false);
   const fileRef = useRef(null);
@@ -19,28 +18,25 @@ const ResumeList = ({ data, setData }) => {
     event.preventDefault();
     const selectedFile = event.target.files[0];
     if (selectedFile) {
-      if (selectedFile && selectedFile.size <= 2 * 1024 * 1024){
-      if (selectedFile?.type.includes("image")) {
-        setFile(selectedFile);
-        setModelView(true);
+      if (selectedFile && selectedFile.size <= 2 * 1024 * 1024) {
+        if (selectedFile?.type.includes("image")) {
+          setFile(selectedFile);
+          setModelView(true);
+          event.target.value = "";
+        } else {
+          toast.error("Only Image files are allowed");
+        }
       } else {
-        toast.error("Only Image files are allowed");
+        toast.error("Please select a file that is  2 MB.");
       }
-    } else {
-      toast.error("Please select a file that is  2 MB.");
-    }
     }
   };
   const handleDragOver = (event) => {
     event.preventDefault();
   };
 
-
-
   const removeImgae = () => {
-
     setCroppedImage({ url: "/images/services/profile.png" });
-
   };
 
   // useEffect(() => {
@@ -48,7 +44,6 @@ const ResumeList = ({ data, setData }) => {
   //     setCroppedImage({ url: data.profilePhoto });
   // //  setFile(data.profilePhoto)
   // }, [data]);
-
 
   return (
     <>
@@ -133,8 +128,9 @@ const ResumeList = ({ data, setData }) => {
             </button>
             <button
               disabled={file == data?.profilePhoto}
-              className={` font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px]  bg-[#06A9EF] w-[60px] h-[32px] ${file == data?.profilePhoto ? "opacity-50" : "opacity-100"
-                }`}
+              className={` font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px]  bg-[#06A9EF] w-[60px] h-[32px] ${
+                file == data?.profilePhoto ? "opacity-50" : "opacity-100"
+              }`}
               onClick={() => {
                 setData({ ...data, profilePhoto: croppedImage?.blob });
               }}

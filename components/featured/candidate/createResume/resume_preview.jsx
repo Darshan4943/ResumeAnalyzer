@@ -694,7 +694,6 @@ const ResumePreview = ({
     }
   };
 
-  console.log(700, loading, isDisabled);
   const SaveBTN = (blob, url, loading) => {
     return (
       <button
