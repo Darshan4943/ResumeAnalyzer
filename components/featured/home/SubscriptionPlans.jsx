@@ -38,7 +38,7 @@ function SubscriptionPlans({ fromMain }) {
 
   useEffect(() => {
     axios
-      .get("https://freedygoservices.in/api/subscription/" + userDataGlobal._id)
+      .get("https://jamblix.com/api/subscription/" + userDataGlobal._id)
       .then((res) => {
         setSubscription(res.data.findIsActive);
       })

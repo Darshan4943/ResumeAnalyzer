@@ -18,7 +18,7 @@ function MyPurchase() {
       setLoading(true);
       axios
         .get(
-          "https://freedygoservices.in/api/subscription/" + userDataGlobal._id
+          "https://jamblix.com/api/subscription/" + userDataGlobal._id
         )
         .then((res) => {
           setSubscription(res.data.findIsActive);

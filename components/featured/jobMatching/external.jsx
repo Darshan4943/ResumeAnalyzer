@@ -33,7 +33,7 @@ const ExternalJobMatching = () => {
   useEffect(() => {
     axios
       .get(
-        `https://freedygoservices.in/api/client/getByRecruiter/${userDataGlobal._id}`
+        `https://jamblix.com/api/client/getByRecruiter/${userDataGlobal._id}`
       )
       .then((res) => {
         setDetails(res.data.data);
@@ -50,7 +50,7 @@ const ExternalJobMatching = () => {
   const jobMatching = () => {
     setLoading(true);
     axios
-      .post("https://freedygoservices.in/api/external/jobMatching", {
+      .post("https://jamblix.com/api/external/jobMatching", {
         jd: text,
         resumeCount,
         resumeData: extractedData,
@@ -91,7 +91,7 @@ const ExternalJobMatching = () => {
   const extractData = async () => {
     setLoading(true);
     axios
-      .post("https://freedygoservices.in/api/resume/extraction", {
+      .post("https://jamblix.com/api/resume/extraction", {
         data: textDataFinal,
       })
       .then((res) => {
