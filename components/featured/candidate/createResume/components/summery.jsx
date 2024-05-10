@@ -9,8 +9,11 @@ function Summary({ limits, selectedPlan, isActive }) {
   const [progress, setProgress] = useState(0);
   const [daysRemaing, setDaysRemaing] = useState(0);
   const userDataGlobal = useSelector((state) => state.userData);
-  const circumference = 2 * Math.PI * 70;
-  const dashOffset = circumference - (progress / 100) * circumference;
+  const [circumference, setCircumference] = useState(2 * Math.PI * 70);
+  // const circumference = 2 * Math.PI * 70;
+  const [dashOffset, setDashOffset] = useState(2 * Math.PI * 70);
+
+  // const dashOffset = circumference - (progress / 100) * circumference;
   const [subscription, setSubscription] = useState(null);
   const [uploadsRemaining, setUploadsRemaining] = useState(0);
   const [downloadsRemaining, setDownloadsRemaining] = useState(0);
@@ -27,23 +30,22 @@ function Summary({ limits, selectedPlan, isActive }) {
       totalLimit += total[category];
     }
     const percentage = (totalUsed / totalLimit) * 100;
+
     return percentage.toFixed(2);
   };
+  console.log(progress);
+  useEffect(() => {
+    const dashOffset = circumference - (progress / 100) * circumference;
+
+    if (dashOffset != "NaN") {
+      setDashOffset(dashOffset);
+    }
+  }, [circumference, progress]);
 
   useEffect(() => {
-    const overallPercentage = calculateOverallPercentage(
-      limits.used,
-      limits.total
-    );
-
-    if (overallPercentage != "NaN") {
-      setProgress(overallPercentage);
-    }
     if (userDataGlobal) {
       axios
-        .get(
-          "https://freedygoservices.in/api/subscription/" + userDataGlobal._id
-        )
+        .get("https://freedygoservices.in/api/subscription/" + userDataGlobal._id)
         .then((res) => {
           setSubscription(res.data.findIsActive);
           setPlan(
@@ -65,16 +67,15 @@ function Summary({ limits, selectedPlan, isActive }) {
     const end = new Date(endDate);
 
     const differenceMs = end - today;
+
     const remainingDays = Math.ceil(differenceMs / (1000 * 60 * 60 * 24));
 
-    return remainingDays;
+    return remainingDays <= 0 ? 0 : remainingDays;
   };
   useEffect(() => {
     if (userDataGlobal) {
       axios
-        .get(
-          "https://freedygoservices.in/api/subscription/" + userDataGlobal._id
-        )
+        .get("https://freedygoservices.in/api/subscription/" + userDataGlobal._id)
         .then((res) => {
           const result = res.data.findIsActive;
 
@@ -97,7 +98,7 @@ function Summary({ limits, selectedPlan, isActive }) {
           console.log(err);
         });
     }
-  }, [userDataGlobal]);
+  }, [userDataGlobal, selectedPlan]);
   return (
     <div className="bg-[#F9F9F9] rounded-[16px] p-4 flex flex-col gap-2 w-full">
       <p className="text-[18px] font-semibold "> Usage Summary</p>
@@ -132,7 +133,7 @@ function Summary({ limits, selectedPlan, isActive }) {
                   className="absolute flex flex-col  items-center justify-center text-[18px] font-semibold bg-white w-[110px] h-[110px] rounded-full"
                   style={{ boxShadow: "0px 0px 2px 0px #00000040" }}
                 >
-                  {daysRemaing <= 0 ? "0" : daysRemaing} days
+                  {daysRemaing} days
                   <p className="text-[12px] font-medium">Remaining</p>
                 </div>
               </div>

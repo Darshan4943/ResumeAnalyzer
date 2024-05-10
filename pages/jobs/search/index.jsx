@@ -27,6 +27,7 @@ const Index = () => {
       .then((res) => {
         if (res.data.success) {
           const result = res.data?.data;
+          console.log(66, result);
           setJobs(
             result
               ?.sort((a, b) => b.percentage - a.percentage)
