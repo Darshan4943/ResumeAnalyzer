@@ -68,7 +68,7 @@ function SkillAssessment() {
 
   useEffect(() => {
     axios
-      .get("https://freedygoservices.in/api/resume/" + userDataGlobal?._id)
+      .get("https://jamblix.com/api/resume/" + userDataGlobal?._id)
       .then((res) => {
         setData(res.data.data);
       })
@@ -112,7 +112,7 @@ function SkillAssessment() {
       setLoading(true);
       if (question.length < 10) {
         axios
-          .post("https://freedygoservices.in/api/getQuetions", {
+          .post("https://jamblix.com/api/getQuetions", {
             skill: selectedSkill,
             level: level,
           })
@@ -166,7 +166,7 @@ function SkillAssessment() {
 
     if (questionIndex == 9) {
       axios
-        .post("https://freedygoservices.in/api/assessment/add", {
+        .post("https://jamblix.com/api/assessment/add", {
           userId: userDataGlobal._id,
           skill: selectedSkill,
           score: checkAnswer() * 10,
@@ -211,7 +211,7 @@ function SkillAssessment() {
   useEffect(() => {
     axios
       .get(
-        `https://freedygoservices.in/api/assessment/getByUser/${userDataGlobal._id}`
+        `https://jamblix.com/api/assessment/getByUser/${userDataGlobal._id}`
       )
       .then((res) => {
         setAssessmentList(res.data.data);
@@ -756,7 +756,7 @@ function SkillAssessment() {
           //           if (questionIndex == 9) {
           //             axios
           //               .post(
-          //                 "https://freedygoservices.in/api/assessment/add",
+          //                 "https://jamblix.com/api/assessment/add",
           //                 {
           //                   userId: userDataGlobal._id,
           //                   skill: selectedSkill,
@@ -921,7 +921,7 @@ function SkillAssessment() {
                     //   if (questionIndex == 9) {
                     //     axios
                     //       .post(
-                    //         "https://freedygoservices.in/api/assessment/add",
+                    //         "https://jamblix.com/api/assessment/add",
                     //         {
                     //           userId: userDataGlobal._id,
                     //           skill: selectedSkill,

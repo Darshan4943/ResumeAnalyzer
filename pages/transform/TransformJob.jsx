@@ -28,7 +28,7 @@ function TransformJob() {
 
  
   const [isValid, setIsValid] = useState(false);
-console.log(31,isValid)
+console.log(31,selected)
   const handleChange = (event) => {
     const inputText = event.target.value;
     setText(inputText);
@@ -38,7 +38,7 @@ console.log(31,isValid)
     setLoading(true);
 
     axios
-      .post("https://freedygoservices.in/api/cv/transform", {
+      .post("https://jamblix.com/api/cv/transform", {
         jd: text,
         json: selected,
       })
@@ -69,7 +69,7 @@ console.log(31,isValid)
     if (userDataGlobal.role == "recruiter") {
       axios
         .get(
-          `https://freedygoservices.in/api/client/getByRecruiter/${userDataGlobal._id}`
+          `https://jamblix.com/api/client/getByRecruiter/${userDataGlobal._id}`
         )
         .then((res) => {
           const result = res.data.data;
@@ -83,7 +83,7 @@ console.log(31,isValid)
           if (result?.length > 0) {
             axios
               .get(
-                "https://freedygoservices.in/api/resume/" +
+                "https://jamblix.com/api/resume/" +
                   res.data.data[0]?._id
               )
               .then((res) => {
@@ -106,7 +106,7 @@ console.log(31,isValid)
     if (userDataGlobal.role == "recruiter") {
       setSelectedClient(data);
       axios
-        .get("https://freedygoservices.in/api/resume/" + data.value)
+        .get("https://jamblix.com/api/resume/" + data.value)
         .then((res) => {
           setResumeList(res.data.data);
           setSelect(res.data.data[0]);
@@ -189,7 +189,8 @@ console.log(31,isValid)
             />
             <button
               className="px-4 py-3 bg-[#06A9EF] text-[16px] text-white w-[188px] font-semibold rounded-[12px]"
-              disabled={loading || !isValid}
+              disabled={loading || !isValid || Object.keys(selected).length <=0 }
+              style={{ opacity: loading || !isValid || Object.keys(selected).length <= 0 ? 0.5 : 1 }}
               onClick={() => {
                 transformHandler();
               }}

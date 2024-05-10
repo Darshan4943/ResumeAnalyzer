@@ -30,7 +30,7 @@ function AdminDashboard({ toggleContentt }) {
   };
   const getData = () => {
     axios
-      .get("https://freedygoservices.in/api/recruiters")
+      .get("https://jamblix.com/api/recruiters")
       .then((res) => {
         setRecruiterData(res.data);
         setUserList(res.data.users.results);
@@ -43,7 +43,7 @@ function AdminDashboard({ toggleContentt }) {
         // setMiniloading(false);
       });
     axios
-      .get("https://freedygoservices.in/api/activeSubscription")
+      .get("https://jamblix.com/api/activeSubscription")
       .then((res) => {
         console.log(444, res.data.data);
         setActivePlans(res.data.data);
@@ -53,7 +53,7 @@ function AdminDashboard({ toggleContentt }) {
       });
 
     axios
-      .get("https://freedygoservices.in/api/candidates")
+      .get("https://jamblix.com/api/candidates")
       .then((res) => {
         setCandidateData(res.data);
 
@@ -65,7 +65,7 @@ function AdminDashboard({ toggleContentt }) {
       });
 
     axios
-      .get("https://freedygoservices.in/api/enquires")
+      .get("https://jamblix.com/api/enquires")
       .then((res) => {
         setList(res.data.data.results);
         setInquiriesData(res.data);
@@ -77,7 +77,7 @@ function AdminDashboard({ toggleContentt }) {
       });
 
     axios
-      .get("https://freedygoservices.in/api/activeRecruiters")
+      .get("https://jamblix.com/api/activeRecruiters")
       .then((res) => {
         console.log(res);
         setResult(res.data);

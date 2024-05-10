@@ -21,7 +21,7 @@ const Index = () => {
     setLoading(true);
     if (id) {
       axios
-        .get("https://freedygoservices.in/api/job/getById/" + id)
+        .get("https://jamblix.com/api/job/getById/" + id)
         .then((res) => {
           setLoading(false);
           setJobPost(res.data.data);
