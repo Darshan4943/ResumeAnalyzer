@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import Fuse from "fuse.js";
+import LimitUsedModal from "../../components/models/limitUsedModal";
 function ClientResume() {
   const router = useRouter();
   const [allData, setAllData] = useState([]);
