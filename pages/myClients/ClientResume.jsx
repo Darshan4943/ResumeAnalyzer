@@ -21,7 +21,7 @@ function ClientResume() {
   useEffect(() => {
     axios
       .get(
-        `https://jamblix.com/api/client/getByRecruiter/${userDataGlobal._id}`
+        `https://freedygoservices.in/api/client/getByRecruiter/${userDataGlobal._id}`
       )
       .then((res) => {
         setDetails(res.data.data);
