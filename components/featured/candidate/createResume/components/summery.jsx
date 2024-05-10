@@ -33,7 +33,7 @@ function Summary({ limits, selectedPlan, isActive }) {
 
     return percentage.toFixed(2);
   };
-
+  console.log(progress);
   useEffect(() => {
     const dashOffset = circumference - (progress / 100) * circumference;
 
@@ -69,8 +69,9 @@ function Summary({ limits, selectedPlan, isActive }) {
     const end = new Date(endDate);
 
     const differenceMs = end - today;
-    const remainingDays = Math.ceil(differenceMs / (1000 * 60 * 60 * 24));
 
+    const remainingDays = Math.ceil(differenceMs / (1000 * 60 * 60 * 24));
+    console.log(72, remainingDays);
     return remainingDays;
   };
   useEffect(() => {
