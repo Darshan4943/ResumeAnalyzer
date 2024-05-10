@@ -32,7 +32,7 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
       const sendToPurchaseResult = JSON.parse(sendToPurchase);
       axios
         .post(
-          "https://jamblix.com/api/skiloteckuser/user/google/signup",
+          "https://freedygoservices.in/api/skiloteckuser/user/google/signup",
           userData
         )
         .then((res) => {
@@ -94,7 +94,7 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
     setLoading(true);
     axios
       .post(
-        "https://jamblix.com/api/skiloteckuser/user/signup",
+        "https://freedygoservices.in/api/skiloteckuser/user/signup",
         dataToSend
       )
       .then((res) => {

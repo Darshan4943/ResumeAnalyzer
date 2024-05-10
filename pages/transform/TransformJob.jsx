@@ -38,7 +38,7 @@ console.log(31,selected)
     setLoading(true);
 
     axios
-      .post("https://jamblix.com/api/cv/transform", {
+      .post("https://freedygoservices.in/api/cv/transform", {
         jd: text,
         json: selected,
       })
@@ -69,7 +69,7 @@ console.log(31,selected)
     if (userDataGlobal.role == "recruiter") {
       axios
         .get(
-          `https://jamblix.com/api/client/getByRecruiter/${userDataGlobal._id}`
+          `https://freedygoservices.in/api/client/getByRecruiter/${userDataGlobal._id}`
         )
         .then((res) => {
           const result = res.data.data;
@@ -83,7 +83,7 @@ console.log(31,selected)
           if (result?.length > 0) {
             axios
               .get(
-                "https://jamblix.com/api/resume/" +
+                "https://freedygoservices.in/api/resume/" +
                   res.data.data[0]?._id
               )
               .then((res) => {
@@ -106,7 +106,7 @@ console.log(31,selected)
     if (userDataGlobal.role == "recruiter") {
       setSelectedClient(data);
       axios
-        .get("https://jamblix.com/api/resume/" + data.value)
+        .get("https://freedygoservices.in/api/resume/" + data.value)
         .then((res) => {
           setResumeList(res.data.data);
           setSelect(res.data.data[0]);
