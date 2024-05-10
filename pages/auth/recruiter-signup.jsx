@@ -241,8 +241,8 @@ function Recruiter_signup({}) {
       toast.error("Email Verification Required");
     } else {
       const url = isUpdate
-        ? "https://jamblix.com/api/updateUser"
-        : "https://jamblix.com/api/skiloteckuser/recruiter";
+        ? "https://freedygoservices.in/api/updateUser"
+        : "https://freedygoservices.in/api/skiloteckuser/recruiter";
       // setLoading(true);
       const formdata = new FormData();
       Object.keys(data).forEach((key) => {
@@ -316,7 +316,7 @@ function Recruiter_signup({}) {
     let otp = Math.floor(100000 + Math.random() * 900000);
     setOtp(otp);
     axios
-      .post("https://jamblix.com/api/otpMailSignup", {
+      .post("https://freedygoservices.in/api/otpMailSignup", {
         userEmail: data.email,
         otp,
       })

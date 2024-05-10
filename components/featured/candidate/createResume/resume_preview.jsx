@@ -84,7 +84,7 @@ const ResumePreview = ({
 
   const callData = () => {
     axios
-      .get("https://jamblix.com/api/resume/" + userDataGlobal?._id)
+      .get("https://freedygoservices.in/api/resume/" + userDataGlobal?._id)
       .then((res) => {
         setName(data.firstName + "_resume " + (res.data.data.length + 1));
       })
@@ -569,7 +569,7 @@ const ResumePreview = ({
         formData.append("pdfBlob", blob);
 
         axios
-          .put("https://jamblix.com/api/resume/" + id, formData)
+          .put("https://freedygoservices.in/api/resume/" + id, formData)
           .then((res) => {
             localStorage.setItem("saveCount", saveLimit - 1);
             getLimits();
@@ -618,7 +618,7 @@ const ResumePreview = ({
         }
 
         axios
-          .post("https://jamblix.com/api/resume/add", formData)
+          .post("https://freedygoservices.in/api/resume/add", formData)
           .then((res) => {
             const pdfUrl = res.data.data.resumeUrl;
 
@@ -654,7 +654,7 @@ const ResumePreview = ({
     setDownloadBtnLoading(true);
     axios
       .put(
-        "https://jamblix.com/api/subscription/updateDownloadLimit/" +
+        "https://freedygoservices.in/api/subscription/updateDownloadLimit/" +
           userDataGlobal._id
       )
       .then((res) => {

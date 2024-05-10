@@ -20,8 +20,6 @@ function Summary({ limits, selectedPlan, isActive }) {
   const calculateOverallPercentage = (used, total) => {
     let totalUsed = 0;
     let totalLimit = 0;
-
-    // Sum up used and total limits for each category
     for (const category in used) {
       totalUsed += used[category];
       totalLimit += total[category];
@@ -41,9 +39,7 @@ function Summary({ limits, selectedPlan, isActive }) {
     }
     if (userDataGlobal) {
       axios
-        .get(
-          "https://jamblix.com/api/subscription/" + userDataGlobal._id
-        )
+        .get("https://freedygoservices.in/api/subscription/" + userDataGlobal._id)
         .then((res) => {
           setSubscription(res.data.findIsActive);
           setPlan(
@@ -72,9 +68,7 @@ function Summary({ limits, selectedPlan, isActive }) {
   useEffect(() => {
     if (userDataGlobal) {
       axios
-        .get(
-          "https://jamblix.com/api/subscription/" + userDataGlobal._id
-        )
+        .get("https://freedygoservices.in/api/subscription/" + userDataGlobal._id)
         .then((res) => {
           const result = res.data.findIsActive;
 

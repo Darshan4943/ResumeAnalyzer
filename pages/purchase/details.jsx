@@ -3,12 +3,22 @@ import AccountDetails from "../../components/featured/home/AccountDetails";
 import { useRouter } from "next/router";
 import { plans } from "../../utils/data";
 import MiniLoader from "../../components/common/miniLoader";
+import axios from "axios";
 
 function Details() {
   const router = useRouter();
-  const { id, recruiterid,role } = router.query;
+  const { id, recruiterid, role, success, canceled } = router.query;
   const [loading, setLoading] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState({});
+  const [exchangeRate, setexchangeRate] = useState(1);
+  const [icon, seticon] = useState("$");
+
+  useEffect(() => {
+    const exchangeRate = localStorage.getItem("exchangeRate");
+    const icon = localStorage.getItem("icon");
+    setexchangeRate(exchangeRate);
+    seticon(icon);
+  }, []);
   useEffect(() => {
     setSelectedPlan(plans.find((item, index) => index == id - 1));
     setLoading(true);
@@ -18,6 +28,28 @@ function Details() {
 
     return () => clearTimeout(timer);
   }, [id]);
+  useEffect(() => {
+    if (success == "true") {
+      axios
+        .post("https://freedygoservices.in/api/add/subscription", {
+          userId:
+            userDataGlobal.role == "admin" ? recruiterid : userDataGlobal._id,
+          plan: selectedPlan.duration + " " + selectedPlan.limit,
+          ...data,
+          mobileNo: data.mobileNo,
+          index: selectedPlan.index,
+          isAdmin: true,
+          role: userDataGlobal?.role,
+        })
+        .then((res) => {
+          setLoading(false);
+          setPopUp(true);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [success]);
 
   return (
     <div className=" flex flex-col gap-9">
@@ -52,9 +84,12 @@ function Details() {
                     </span>{" "}
                     {selectedPlan?.limit}
                   </p>
-                  <p className="scr700:text-[2.5vw] text-[7vw] font-[700]">
-                    {selectedPlan?.price}
-                  </p>
+                  <div className="flex flex-row gap-2 w-full items-center justify-center">
+                    <p className="text-[2.5vw] font-[700]">{icon}</p>
+                    <p className="text-[2.5vw] font-[700]">
+                      {Math.ceil(selectedPlan.amount * exchangeRate)}
+                    </p>
+                  </div>
                   <p className="scr700:text-[1.1vw] text-[4vw] font-[500]">
                     {selectedPlan?.description}
                   </p>

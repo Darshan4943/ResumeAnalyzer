@@ -4,10 +4,9 @@ import { useDispatch, useSelector, useStore } from "react-redux";
 import { userAction } from "./actions/user";
 import { jwtDecode } from "jwt-decode";
 import { setJob } from "./actions";
-import { plans } from "../utils/data";
+import { currenciesWithIcons, currencyMap, plans } from "../utils/data";
 import ResetPasswordModal from "../components/models/resetPasswordModal";
 import moment from "moment";
-
 export const Api = () => {
   const store = useStore();
   const [loading, setLoading] = useState(true);
@@ -35,9 +34,7 @@ export const Api = () => {
       if (token && token != "undefined") {
         const decoded = jwtDecode(token.token);
         axios
-          .get(
-            "https://jamblix.com/api/skiloteckuser/user/" + decoded._id
-          )
+          .get("https://freedygoservices.in/api/skiloteckuser/user/" + decoded._id)
           .then((res) => {
             const decode = jwtDecode(res.data.data);
             dispatch(
@@ -61,13 +58,11 @@ export const Api = () => {
 
     if (userDataGlobal) {
       axios
-        .get(
-          "https://jamblix.com/api/subscription/" + userDataGlobal._id
-        )
+        .get("https://freedygoservices.in/api/subscription/" + userDataGlobal._id)
         .then((res) => {
           const result = res.data.findIsActive;
 
-          if (result.isActive == true) {
+          if (result?.isActive == true) {
             const selectedPlan = plans.find(
               (item) => item.duration + " " + item.limit == result.plan
             );
@@ -83,7 +78,7 @@ export const Api = () => {
             if (timezone >= newEnddate && result.isActive) {
               axios
                 .put(
-                  "https://jamblix.com/api/subscription/update/" +
+                  "https://freedygoservices.in/api/subscription/update/" +
                     userDataGlobal._id
                 )
                 .then((res) => {
@@ -119,7 +114,40 @@ export const Api = () => {
         });
     }
   }, [userDataGlobal, reCallUser]);
+  const getExhangeRate = async () => {
+    try {
+      const response = await fetch("https://ipapi.co/json/");
+      const data = await response.json();
+      const countryCode = data.country_code;
+      const country = currencyMap.find(
+        (item) => item.countryCode == countryCode
+      );
+      const currency = country ? country.currency : "USD";
+      const icon = currenciesWithIcons.find(
+        (item) => item.icon == currency.toLowerCase()
+      );
+      const symbol = icon ? icon.symbol : currency;
+      const exchangeRate = await axios.get(
+        "https://freedygoservices.in/api/exchangeRate/" + currency
+      );
+      localStorage.setItem("exchangeRate", exchangeRate.data.rate);
+      localStorage.setItem("currency", currency);
+      localStorage.setItem("icon", symbol);
+    } catch (err) {
+      console.log(err);
+    }
 
+    // if(data.rates[selectedCurrency]){
+    //   // Convert 1 USD to selected currency
+    //   const converted = 1 * data.rates[selectedCurrency];
+    //   setConvertedAmount(converted);
+    // } else {
+    //   setConvertedAmount(null);
+    // }
+  };
+  useEffect(() => {
+    getExhangeRate();
+  }, []);
   // console.log(123,visible && loading == false);
   return <>{visible && loading == false ? <ResetPasswordModal /> : null}</>;
 };
