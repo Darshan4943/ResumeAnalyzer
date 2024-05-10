@@ -9,8 +9,11 @@ function Summary({ limits, selectedPlan, isActive }) {
   const [progress, setProgress] = useState(0);
   const [daysRemaing, setDaysRemaing] = useState(0);
   const userDataGlobal = useSelector((state) => state.userData);
-  const circumference = 2 * Math.PI * 70;
-  const dashOffset = circumference - (progress / 100) * circumference;
+  const [circumference, setCircumference] = useState(2 * Math.PI * 70);
+  // const circumference = 2 * Math.PI * 70;
+  const [dashOffset, setDashOffset] = useState(2 * Math.PI * 70);
+
+  // const dashOffset = circumference - (progress / 100) * circumference;
   const [subscription, setSubscription] = useState(null);
   const [uploadsRemaining, setUploadsRemaining] = useState(0);
   const [downloadsRemaining, setDownloadsRemaining] = useState(0);
@@ -27,18 +30,19 @@ function Summary({ limits, selectedPlan, isActive }) {
       totalLimit += total[category];
     }
     const percentage = (totalUsed / totalLimit) * 100;
+
     return percentage.toFixed(2);
   };
 
   useEffect(() => {
-    const overallPercentage = calculateOverallPercentage(
-      limits.used,
-      limits.total
-    );
+    const dashOffset = circumference - (progress / 100) * circumference;
 
-    if (overallPercentage != "NaN") {
-      setProgress(overallPercentage);
+    if (dashOffset != "NaN") {
+      setDashOffset(dashOffset);
     }
+  }, [circumference, progress]);
+
+  useEffect(() => {
     if (userDataGlobal) {
       axios
         .get(
@@ -97,7 +101,7 @@ function Summary({ limits, selectedPlan, isActive }) {
           console.log(err);
         });
     }
-  }, [userDataGlobal]);
+  }, [userDataGlobal, selectedPlan]);
   return (
     <div className="bg-[#F9F9F9] rounded-[16px] p-4 flex flex-col gap-2 w-full">
       <p className="text-[18px] font-semibold "> Usage Summary</p>
