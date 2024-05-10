@@ -25,8 +25,14 @@ function TransformJob() {
   const userDataGlobal = useSelector((state) => state.userData);
   const [count, setCount] = useState(0);
   const [view, setView] = useState(0);
+
+ 
+  const [isValid, setIsValid] = useState(false);
+console.log(31,selected)
   const handleChange = (event) => {
-    setText(event.target.value);
+    const inputText = event.target.value;
+    setText(inputText);
+    setIsValid(inputText.length >= 100);
   };
   const transformHandler = () => {
     setLoading(true);
@@ -58,8 +64,7 @@ function TransformJob() {
         console.log(err);
       });
   };
-  console.log(60, details?.length);
-  console.log(61, resumeList);
+ 
   useEffect(() => {
     if (userDataGlobal.role == "recruiter") {
       axios
@@ -184,7 +189,8 @@ function TransformJob() {
             />
             <button
               className="px-4 py-3 bg-[#06A9EF] text-[16px] text-white w-[188px] font-semibold rounded-[12px]"
-              disabled={loading}
+              disabled={loading || !isValid || Object.keys(selected).length <=0 }
+              style={{ opacity: loading || !isValid || Object.keys(selected).length <= 0 ? 0.5 : 1 }}
               onClick={() => {
                 transformHandler();
               }}

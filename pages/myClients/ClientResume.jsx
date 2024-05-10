@@ -3,12 +3,22 @@ import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import Fuse from "fuse.js";
+import LimitUsedModal from "../../components/models/limitUsedModal";
 function ClientResume() {
   const router = useRouter();
   const [allData, setAllData] = useState([]);
   const [details, setDetails] = useState();
+  const [ClientCount, setClientCount] = useState(0);
   const userDataGlobal = useSelector((state) => state.userData);
+  const [limitPopUp, setLimitPopUp] = useState(false);
+  const getLimits = () => {
+    const clientCount = localStorage.getItem("clientCount");
+    setClientCount(parseInt(clientCount));
+  };
 
+  useEffect(() => {
+    getLimits();
+  }, []);
   useEffect(() => {
     axios
       .get(
@@ -216,7 +226,13 @@ function ClientResume() {
                 </>
               ) : (
                 <div
-                  onClick={() => router.push("/myClients/CreateNewClient")}
+                onClick={() => {
+                  if (ClientCount === 0) {
+                    setLimitPopUp(true);
+                  } else {
+                    router.push("/myClients/CreateNewClient");
+                  }
+                }}
                   style={{ boxShadow: "0px 0px 10px 5px #00000040" }}
                   className="rounded-[12px] text-center text-white justify-center flex scr540:flex-col flex-row text-[18px] items-center gap-2 font-medium  scr540:w-[192px] w-[312px]  scr540:h-[272px] h-[135px] bg-[#646464] p-6 cursor-pointer"
                 >
@@ -239,6 +255,9 @@ function ClientResume() {
             </div>
           </div>
         </div>
+        {limitPopUp && (
+              <LimitUsedModal visible={limitPopUp} setVisible={setLimitPopUp} />
+            )}
       </div>
     </div>
   );

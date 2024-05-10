@@ -71,16 +71,19 @@ const Details = ({ jobPost }) => {
                 Apply Before
               </span>
               <span className="text-[16px] text-[#333333] font-semibold">
-                {jobPost?.deadLine !== undefined && NaN ? dateSeter(jobPost?.deadLine) : ""}
+                {jobPost?.deadLine !== undefined
+                  ? dateSeter(jobPost?.deadLine)
+                  : ""}
               </span>
-
             </div>
             <div className="w-full flex flex-row justify-between">
               <span className="text-[16px] text-[#333333] font-normal">
                 Job Posted On
               </span>
               <span className="text-[16px] text-[#333333] font-semibold">
-                {jobPost?.createdAt !== undefined && NaN ? dateSeter(jobPost?.createdAt) : ''}
+                {jobPost?.createdAt !== undefined
+                  ? dateSeter(jobPost?.createdAt)
+                  : ""}
               </span>
             </div>
             <div className="w-full flex flex-row justify-between">
