@@ -2674,6 +2674,7 @@ export const plans = [
       download: 2,
       save: 2,
     },
+    productName: "prod_Q4yJKFQ7PRjm3j",
   },
   {
     duration: "7 Days",
@@ -2696,6 +2697,7 @@ export const plans = [
       download: 6,
       save: 6,
     },
+    productName: "prod_Q4yJG2hoYMF1ge",
   },
   {
     duration: "30 Days",
@@ -2718,6 +2720,7 @@ export const plans = [
       download: 20,
       save: 20,
     },
+    productName: "prod_Q4yJRU5temf1TO",
   },
 
   {
@@ -2741,6 +2744,7 @@ export const plans = [
       save: 40,
       clients: 10,
     },
+    productName: "prod_Q4yKm4oiNLHCt0",
   },
   {
     duration: "Professional",
@@ -2763,6 +2767,7 @@ export const plans = [
       save: 200,
       clients: 50,
     },
+    productName: "prod_Q4yL0i1GFLpaZW",
   },
   {
     duration: "Premium",
@@ -2785,6 +2790,7 @@ export const plans = [
       save: 400,
       clients: 100,
     },
+    productName: "prod_Q4yK1cvFOCzcVC",
   },
 
   {
@@ -2811,3 +2817,388 @@ export const plans = [
     },
   },
 ];
+
+export const currencyMap = [
+  { countryCode: "AF", currency: "AFN" }, // Afghanistan
+  { countryCode: "AL", currency: "ALL" }, // Albania
+  { countryCode: "DZ", currency: "DZD" }, // Algeria
+  { countryCode: "AS", currency: "USD" }, // American Samoa
+  { countryCode: "AD", currency: "EUR" }, // Andorra
+  { countryCode: "AO", currency: "AOA" }, // Angola
+  { countryCode: "AI", currency: "XCD" }, // Anguilla
+  { countryCode: "AQ", currency: "USD" }, // Antarctica
+  { countryCode: "AG", currency: "XCD" }, // Antigua and Barbuda
+  { countryCode: "AR", currency: "ARS" }, // Argentina
+  { countryCode: "AM", currency: "AMD" }, // Armenia
+  { countryCode: "AW", currency: "AWG" }, // Aruba
+  { countryCode: "AU", currency: "AUD" }, // Australia
+  { countryCode: "AT", currency: "EUR" }, // Austria
+  { countryCode: "AZ", currency: "AZN" }, // Azerbaijan
+  { countryCode: "BS", currency: "BSD" }, // Bahamas
+  { countryCode: "BH", currency: "BHD" }, // Bahrain
+  { countryCode: "BD", currency: "BDT" }, // Bangladesh
+  { countryCode: "BB", currency: "BBD" }, // Barbados
+  { countryCode: "BY", currency: "BYN" }, // Belarus
+  { countryCode: "BE", currency: "EUR" }, // Belgium
+  { countryCode: "BZ", currency: "BZD" }, // Belize
+  { countryCode: "BJ", currency: "XOF" }, // Benin
+  { countryCode: "BM", currency: "BMD" }, // Bermuda
+  { countryCode: "BT", currency: "BTN" }, // Bhutan
+  { countryCode: "BO", currency: "BOB" }, // Bolivia
+  { countryCode: "BQ", currency: "USD" }, // Bonaire, Sint Eustatius and Saba
+  { countryCode: "BA", currency: "BAM" }, // Bosnia and Herzegovina
+  { countryCode: "BW", currency: "BWP" }, // Botswana
+  { countryCode: "BV", currency: "NOK" }, // Bouvet Island
+  { countryCode: "BR", currency: "BRL" }, // Brazil
+  { countryCode: "IO", currency: "USD" }, // British Indian Ocean Territory
+  { countryCode: "BN", currency: "BND" }, // Brunei Darussalam
+  { countryCode: "BG", currency: "BGN" }, // Bulgaria
+  { countryCode: "BF", currency: "XOF" }, // Burkina Faso
+  { countryCode: "BI", currency: "BIF" }, // Burundi
+  { countryCode: "CV", currency: "CVE" }, // Cabo Verde
+  { countryCode: "KH", currency: "KHR" }, // Cambodia
+  { countryCode: "CM", currency: "XAF" }, // Cameroon
+  { countryCode: "CA", currency: "CAD" }, // Canada
+  { countryCode: "KY", currency: "KYD" }, // Cayman Islands
+  { countryCode: "CF", currency: "XAF" }, // Central African Republic
+  { countryCode: "TD", currency: "XAF" }, // Chad
+  { countryCode: "CL", currency: "CLP" }, // Chile
+  { countryCode: "CN", currency: "CNY" }, // China
+  { countryCode: "CX", currency: "AUD" }, // Christmas Island
+  { countryCode: "CC", currency: "AUD" }, // Cocos (Keeling) Islands
+  { countryCode: "CO", currency: "COP" }, // Colombia
+  { countryCode: "KM", currency: "KMF" }, // Comoros
+  { countryCode: "CD", currency: "CDF" }, // Congo, Democratic Republic of the
+  { countryCode: "CG", currency: "XAF" }, // Congo, Republic of the
+  { countryCode: "CK", currency: "NZD" }, // Cook Islands
+  { countryCode: "CR", currency: "CRC" }, // Costa Rica
+  { countryCode: "HR", currency: "HRK" }, // Croatia
+  { countryCode: "CU", currency: "CUP" }, // Cuba
+  { countryCode: "CW", currency: "ANG" }, // Curaçao
+  { countryCode: "CY", currency: "EUR" }, // Cyprus
+  { countryCode: "CZ", currency: "CZK" }, // Czech Republic
+  { countryCode: "DK", currency: "DKK" }, // Denmark
+  { countryCode: "DJ", currency: "DJF" }, // Djibouti
+  { countryCode: "DM", currency: "XCD" }, // Dominica
+  { countryCode: "DO", currency: "DOP" }, // Dominican Republic
+  { countryCode: "EC", currency: "USD" }, // Ecuador
+  { countryCode: "EG", currency: "EGP" }, // Egypt
+  { countryCode: "SV", currency: "USD" }, // El Salvador
+  { countryCode: "GQ", currency: "XAF" }, // Equatorial Guinea
+  { countryCode: "ER", currency: "ERN" }, // Eritrea
+  { countryCode: "EE", currency: "EUR" }, // Estonia
+  { countryCode: "SZ", currency: "SZL" }, // Eswatini (Swaziland)
+  { countryCode: "ET", currency: "ETB" }, // Ethiopia
+  { countryCode: "FK", currency: "FKP" }, // Falkland Islands
+  { countryCode: "FO", currency: "DKK" }, // Faroe Islands
+  { countryCode: "FJ", currency: "FJD" }, // Fiji
+  { countryCode: "FI", currency: "EUR" }, // Finland
+  { countryCode: "FR", currency: "EUR" }, // France
+  { countryCode: "GF", currency: "EUR" }, // French Guiana
+  { countryCode: "PF", currency: "XPF" }, // French Polynesia
+  { countryCode: "TF", currency: "EUR" }, // French Southern Territories
+  { countryCode: "GA", currency: "XAF" }, // Gabon
+  { countryCode: "GM", currency: "GMD" }, // Gambia
+  { countryCode: "GE", currency: "GEL" }, // Georgia
+  { countryCode: "DE", currency: "EUR" }, // Germany
+  { countryCode: "GH", currency: "GHS" }, // Ghana
+  { countryCode: "GI", currency: "GIP" }, // Gibraltar
+  { countryCode: "GR", currency: "EUR" }, // Greece
+  { countryCode: "GL", currency: "DKK" }, // Greenland
+  { countryCode: "GD", currency: "XCD" }, // Grenada
+  { countryCode: "GP", currency: "EUR" }, // Guadeloupe
+  { countryCode: "GU", currency: "USD" }, // Guam
+  { countryCode: "GT", currency: "GTQ" }, // Guatemala
+  { countryCode: "GG", currency: "GBP" }, // Guernsey
+  { countryCode: "GN", currency: "GNF" }, // Guinea
+  { countryCode: "GW", currency: "XOF" }, // Guinea-Bissau
+  { countryCode: "GY", currency: "GYD" }, // Guyana
+  { countryCode: "HT", currency: "HTG" }, // Haiti
+  { countryCode: "HM", currency: "AUD" }, // Heard and McDonald Islands
+  { countryCode: "VA", currency: "EUR" }, // Holy See
+  { countryCode: "HN", currency: "HNL" }, // Honduras
+  { countryCode: "HK", currency: "HKD" }, // Hong Kong
+  { countryCode: "HU", currency: "HUF" }, // Hungary
+  { countryCode: "IS", currency: "ISK" }, // Iceland
+  { countryCode: "IN", currency: "INR" }, // India
+  { countryCode: "ID", currency: "IDR" }, // Indonesia
+  { countryCode: "IR", currency: "IRR" }, // Iran
+  { countryCode: "IQ", currency: "IQD" }, // Iraq
+  { countryCode: "IE", currency: "EUR" }, // Ireland
+  { countryCode: "IM", currency: "GBP" }, // Isle of Man
+  { countryCode: "IL", currency: "ILS" }, // Israel
+  { countryCode: "IT", currency: "EUR" }, // Italy
+  { countryCode: "CI", currency: "XOF" }, // Ivory Coast
+  { countryCode: "JM", currency: "JMD" }, // Jamaica
+  { countryCode: "JP", currency: "JPY" }, // Japan
+  { countryCode: "JE", currency: "GBP" }, // Jersey
+  { countryCode: "JO", currency: "JOD" }, // Jordan
+  { countryCode: "KZ", currency: "KZT" }, // Kazakhstan
+  { countryCode: "KE", currency: "KES" }, // Kenya
+  { countryCode: "KI", currency: "AUD" }, // Kiribati
+  { countryCode: "KW", currency: "KWD" }, // Kuwait
+  { countryCode: "KG", currency: "KGS" }, // Kyrgyzstan
+  { countryCode: "LA", currency: "LAK" }, // Laos
+  { countryCode: "LV", currency: "EUR" }, // Latvia
+  { countryCode: "LB", currency: "LBP" }, // Lebanon
+  { countryCode: "LS", currency: "LSL" }, // Lesotho
+  { countryCode: "LR", currency: "LRD" }, // Liberia
+  { countryCode: "LY", currency: "LYD" }, // Libya
+  { countryCode: "LI", currency: "CHF" }, // Liechtenstein
+  { countryCode: "LT", currency: "EUR" }, // Lithuania
+  { countryCode: "LU", currency: "EUR" }, // Luxembourg
+  { countryCode: "MO", currency: "MOP" }, // Macau
+  { countryCode: "MG", currency: "MGA" }, // Madagascar
+  { countryCode: "MW", currency: "MWK" }, // Malawi
+  { countryCode: "MY", currency: "MYR" }, // Malaysia
+  { countryCode: "MV", currency: "MVR" }, // Maldives
+  { countryCode: "ML", currency: "XOF" }, // Mali
+  { countryCode: "MT", currency: "EUR" }, // Malta
+  { countryCode: "MH", currency: "USD" }, // Marshall Islands
+  { countryCode: "MQ", currency: "EUR" }, // Martinique
+  { countryCode: "MR", currency: "MRU" }, // Mauritania
+  { countryCode: "MU", currency: "MUR" }, // Mauritius
+  { countryCode: "YT", currency: "EUR" }, // Mayotte
+  { countryCode: "MX", currency: "MXN" }, // Mexico
+  { countryCode: "FM", currency: "USD" }, // Micronesia
+  { countryCode: "MD", currency: "MDL" }, // Moldova
+  { countryCode: "MC", currency: "EUR" }, // Monaco
+  { countryCode: "MN", currency: "MNT" }, // Mongolia
+  { countryCode: "ME", currency: "EUR" }, // Montenegro
+  { countryCode: "MS", currency: "XCD" }, // Montserrat
+  { countryCode: "MA", currency: "MAD" }, // Morocco
+  { countryCode: "MZ", currency: "MZN" }, // Mozambique
+  { countryCode: "MM", currency: "MMK" }, // Myanmar
+  { countryCode: "NA", currency: "NAD" }, // Namibia
+  { countryCode: "NR", currency: "AUD" }, // Nauru
+  { countryCode: "NP", currency: "NPR" }, // Nepal
+  { countryCode: "NL", currency: "EUR" }, // Netherlands
+  { countryCode: "NC", currency: "XPF" }, // New Caledonia
+  { countryCode: "NZ", currency: "NZD" }, // New Zealand
+  { countryCode: "NI", currency: "NIO" }, // Nicaragua
+  { countryCode: "NE", currency: "XOF" }, // Niger
+  { countryCode: "NG", currency: "NGN" }, // Nigeria
+  { countryCode: "NU", currency: "NZD" }, // Niue
+  { countryCode: "NF", currency: "AUD" }, // Norfolk Island
+  { countryCode: "KP", currency: "KPW" }, // North Korea
+  { countryCode: "MK", currency: "MKD" }, // North Macedonia
+  { countryCode: "MP", currency: "USD" }, // Northern Mariana Islands
+  { countryCode: "NO", currency: "NOK" }, // Norway
+  { countryCode: "OM", currency: "OMR" }, // Oman
+  { countryCode: "PK", currency: "PKR" }, // Pakistan
+  { countryCode: "PW", currency: "USD" }, // Palau
+  { countryCode: "PS", currency: "ILS" }, // Palestine
+  { countryCode: "PA", currency: "PAB" }, // Panama
+  { countryCode: "PG", currency: "PGK" }, // Papua New Guinea
+  { countryCode: "PY", currency: "PYG" }, // Paraguay
+  { countryCode: "PE", currency: "PEN" }, // Peru
+  { countryCode: "PH", currency: "PHP" }, // Philippines
+  { countryCode: "PN", currency: "NZD" }, // Pitcairn
+  { countryCode: "PL", currency: "PLN" }, // Poland
+  { countryCode: "PT", currency: "EUR" }, // Portugal
+  { countryCode: "PR", currency: "USD" }, // Puerto Rico
+  { countryCode: "QA", currency: "QAR" }, // Qatar
+  { countryCode: "XK", currency: "EUR" }, // Republic of Kosovo
+  { countryCode: "RE", currency: "EUR" }, // Réunion
+  { countryCode: "RO", currency: "RON" }, // Romania
+  { countryCode: "RU", currency: "RUB" }, // Russia
+  { countryCode: "RW", currency: "RWF" }, // Rwanda
+  { countryCode: "BL", currency: "EUR" }, // Saint Barthélemy
+  { countryCode: "SH", currency: "SHP" }, // Saint Helena
+  { countryCode: "KN", currency: "XCD" }, // Saint Kitts and Nevis
+  { countryCode: "LC", currency: "XCD" }, // Saint Lucia
+  { countryCode: "MF", currency: "EUR" }, // Saint Martin
+  { countryCode: "PM", currency: "EUR" }, // Saint Pierre and Miquelon
+  { countryCode: "VC", currency: "XCD" }, // Saint Vincent and the Grenadines
+  { countryCode: "WS", currency: "WST" }, // Samoa
+  { countryCode: "SM", currency: "EUR" }, // San Marino
+  { countryCode: "ST", currency: "STN" }, // Sao Tome and Principe
+  { countryCode: "SA", currency: "SAR" }, // Saudi Arabia
+  { countryCode: "SN", currency: "XOF" }, // Senegal
+  { countryCode: "RS", currency: "RSD" }, // Serbia
+  { countryCode: "SC", currency: "SCR" }, // Seychelles
+  { countryCode: "SL", currency: "SLL" }, // Sierra Leone
+  { countryCode: "SG", currency: "SGD" }, // Singapore
+  { countryCode: "SX", currency: "ANG" }, // Sint Maarten
+  { countryCode: "SK", currency: "EUR" }, // Slovakia
+  { countryCode: "SI", currency: "EUR" }, // Slovenia
+  { countryCode: "SB", currency: "SBD" }, // Solomon Islands
+  { countryCode: "SO", currency: "SOS" }, // Somalia
+  { countryCode: "ZA", currency: "ZAR" }, // South Africa
+  { countryCode: "GS", currency: "GBP" }, // South Georgia
+  { countryCode: "KR", currency: "KRW" }, // South Korea
+  { countryCode: "SS", currency: "SSP" }, // South Sudan
+  { countryCode: "ES", currency: "EUR" }, // Spain
+  { countryCode: "LK", currency: "LKR" }, // Sri Lanka
+  { countryCode: "SD", currency: "SDG" }, // Sudan
+  { countryCode: "SR", currency: "SRD" }, // Suriname
+  { countryCode: "SJ", currency: "NOK" }, // Svalbard and Jan Mayen Islands
+  { countryCode: "SE", currency: "SEK" }, // Sweden
+  { countryCode: "CH", currency: "CHF" }, // Switzerland
+  { countryCode: "SY", currency: "SYP" }, // Syria
+  { countryCode: "TW", currency: "TWD" }, // Taiwan
+  { countryCode: "TJ", currency: "TJS" }, // Tajikistan
+  { countryCode: "TZ", currency: "TZS" }, // Tanzania
+  { countryCode: "TH", currency: "THB" }, // Thailand
+  { countryCode: "TL", currency: "USD" }, // Timor-Leste
+  { countryCode: "TG", currency: "XOF" }, // Togo
+  { countryCode: "TK", currency: "NZD" }, // Tokelau
+  { countryCode: "TO", currency: "TOP" }, // Tonga
+  { countryCode: "TT", currency: "TTD" }, // Trinidad and Tobago
+  { countryCode: "TN", currency: "TND" }, // Tunisia
+  { countryCode: "TR", currency: "TRY" }, // Turkey
+  { countryCode: "TM", currency: "TMT" }, // Turkmenistan
+  { countryCode: "TC", currency: "USD" }, // Turks and Caicos Islands
+  { countryCode: "TV", currency: "AUD" }, // Tuvalu
+  { countryCode: "UG", currency: "UGX" }, // Uganda
+  { countryCode: "UA", currency: "UAH" }, // Ukraine
+  { countryCode: "AE", currency: "AED" }, // United Arab Emirates
+  { countryCode: "GB", currency: "GBP" }, // United Kingdom
+  { countryCode: "US", currency: "USD" }, // United States
+  { countryCode: "UM", currency: "USD" }, // United States Minor Outlying Islands
+  { countryCode: "UY", currency: "UYU" }, // Uruguay
+  { countryCode: "UZ", currency: "UZS" }, // Uzbekistan
+  { countryCode: "VU", currency: "VUV" }, // Vanuatu
+  { countryCode: "VE", currency: "VES" }, // Venezuela
+  { countryCode: "VN", currency: "VND" }, // Vietnam
+  { countryCode: "VG", currency: "USD" }, // Virgin Islands, British
+  { countryCode: "VI", currency: "USD" }, // Virgin Islands, U.S.
+  { countryCode: "WF", currency: "XPF" }, // Wallis and Futuna Islands
+  { countryCode: "EH", currency: "MAD" }, // Western Sahara
+  { countryCode: "YE", currency: "YER" }, // Yemen
+  { countryCode: "ZM", currency: "ZMW" }, // Zambia
+  { countryCode: "ZW", currency: "ZWL" }, // Zimbabwe
+];
+
+export const currenciesWithIcons = [
+  { name: "US Dollar", symbol: "$", icon: "usd" },
+  { name: "Euro", symbol: "€", icon: "eur" },
+  { name: "British Pound", symbol: "£", icon: "gbp" },
+  { name: "Japanese Yen", symbol: "¥", icon: "jpy" },
+  { name: "Australian Dollar", symbol: "A$", icon: "aud" },
+  { name: "Canadian Dollar", symbol: "CA$", icon: "cad" },
+  { name: "Swiss Franc", symbol: "CHF", icon: "chf" },
+  { name: "Chinese Yuan", symbol: "CN¥", icon: "cny" },
+  { name: "Swedish Krona", symbol: "kr", icon: "sek" },
+  { name: "New Zealand Dollar", symbol: "NZ$", icon: "nzd" },
+  { name: "Mexican Peso", symbol: "Mex$", icon: "mxn" },
+  { name: "Singapore Dollar", symbol: "S$", icon: "sgd" },
+  { name: "Hong Kong Dollar", symbol: "HK$", icon: "hkd" },
+  { name: "Norwegian Krone", symbol: "kr", icon: "nok" },
+  { name: "South Korean Won", symbol: "₩", icon: "krw" },
+  { name: "Turkish Lira", symbol: "₺", icon: "try" },
+  { name: "Indian Rupee", symbol: "₹", icon: "inr" },
+  { name: "Brazilian Real", symbol: "R$", icon: "brl" },
+  { name: "Russian Ruble", symbol: "₽", icon: "rub" },
+  { name: "South African Rand", symbol: "R", icon: "zar" },
+  { name: "Emirati Dirham", symbol: "د.إ", icon: "aed" },
+  { name: "Saudi Riyal", symbol: "ر.س", icon: "sar" },
+  { name: "Polish Złoty", symbol: "zł", icon: "pln" },
+  { name: "Danish Krone", symbol: "kr", icon: "dkk" },
+  { name: "Thai Baht", symbol: "฿", icon: "thb" },
+  { name: "Indonesian Rupiah", symbol: "Rp", icon: "idr" },
+  { name: "Malaysian Ringgit", symbol: "RM", icon: "myr" },
+  { name: "Philippine Peso", symbol: "₱", icon: "php" },
+  { name: "Vietnamese Đồng", symbol: "₫", icon: "vnd" },
+  { name: "Egyptian Pound", symbol: "E£", icon: "egp" },
+  { name: "Israeli New Shekel", symbol: "₪", icon: "ils" },
+  { name: "Argentine Peso", symbol: "AR$", icon: "ars" },
+  { name: "Chilean Peso", symbol: "CL$", icon: "clp" },
+  { name: "Colombian Peso", symbol: "COL$", icon: "cop" },
+  { name: "Peruvian Sol", symbol: "S/", icon: "pen" },
+  { name: "Ukrainian Hryvnia", symbol: "₴", icon: "uah" },
+  { name: "Czech Koruna", symbol: "Kč", icon: "czk" },
+  { name: "Hungarian Forint", symbol: "Ft", icon: "huf" },
+  { name: "Icelandic Króna", symbol: "kr", icon: "isk" },
+  { name: "Croatian Kuna", symbol: "kn", icon: "hrk" },
+  { name: "Romanian Leu", symbol: "lei", icon: "ron" },
+  { name: "Serbian Dinar", symbol: "дин.", icon: "rsd" },
+  { name: "Bulgarian Lev", symbol: "лв", icon: "bgn" },
+  { name: "Kenyan Shilling", symbol: "KSh", icon: "kes" },
+  { name: "Nigerian Naira", symbol: "₦", icon: "ngn" },
+  { name: "Bangladeshi Taka", symbol: "৳", icon: "bdt" },
+  { name: "Pakistani Rupee", symbol: "Rs", icon: "pkr" },
+  { name: "Sri Lankan Rupee", symbol: "Rs", icon: "lkr" },
+  { name: "Moroccan Dirham", symbol: "DH", icon: "mad" },
+  { name: "Tunisian Dinar", symbol: "د.ت", icon: "tnd" },
+  { name: "Algerian Dinar", symbol: "د.ج", icon: "dzd" },
+  { name: "Ghanaian Cedi", symbol: "₵", icon: "ghs" },
+  { name: "Ugandan Shilling", symbol: "USh", icon: "ugx" },
+  { name: "Tanzanian Shilling", symbol: "TSh", icon: "tzs" },
+  { name: "Costa Rican Colón", symbol: "₡", icon: "crc" },
+  { name: "Uruguayan Peso", symbol: "$U", icon: "uyu" },
+  { name: "Nicaraguan Córdoba", symbol: "C$", icon: "nio" },
+  { name: "Dominican Peso", symbol: "RD$", icon: "dop" },
+  { name: "Guatemalan Quetzal", symbol: "Q", icon: "gtq" },
+  { name: "Panamanian Balboa", symbol: "B/.", icon: "pab" },
+  { name: "Honduran Lempira", symbol: "L", icon: "hnl" },
+  { name: "Salvadoran Colón", symbol: "₡", icon: "svc" },
+  { name: "Haitian Gourde", symbol: "G", icon: "htg" },
+  { name: "Belize Dollar", symbol: "BZ$", icon: "bzd" },
+  { name: "Paraguayan Guaraní", symbol: "₲", icon: "pyg" },
+  { name: "Bolivian Boliviano", symbol: "Bs", icon: "bob" },
+  { name: "Fijian Dollar", symbol: "FJ$", icon: "fjd" },
+  { name: "Malawian Kwacha", symbol: "MK", icon: "mwk" },
+  { name: "Zambian Kwacha", symbol: "ZK", icon: "zmw" },
+  { name: "Namibian Dollar", symbol: "N$", icon: "nad" },
+  { name: "East Caribbean Dollar", symbol: "EC$", icon: "xcd" },
+  { name: "CFA Franc BEAC", symbol: "FCFA", icon: "xaf" },
+  { name: "CFA Franc BCEAO", symbol: "CFA", icon: "xof" },
+  { name: "CFP Franc", symbol: "CFPF", icon: "xpf" },
+  { name: "Mauritian Rupee", symbol: "Rs", icon: "mur" },
+  { name: "Seychellois Rupee", symbol: "Rs", icon: "scr" },
+  { name: "Malagasy Ariary", symbol: "Ar", icon: "mga" },
+  { name: "Comorian Franc", symbol: "CF", icon: "kmf" },
+  { name: "Cape Verdean Escudo", symbol: "Esc", icon: "cve" },
+  { name: "Botswana Pula", symbol: "P", icon: "bwp" },
+  { name: "Mauritanian Ouguiya", symbol: "UM", icon: "mru" },
+  { name: "Surinamese Dollar", symbol: "$", icon: "srd" },
+  { name: "Guyanese Dollar", symbol: "$", icon: "gyd" },
+  { name: "Uruguayan Peso", symbol: "$U", icon: "uyu" },
+  { name: "Cuban Convertible Peso", symbol: "CUC$", icon: "cuc" },
+  { name: "Bahamian Dollar", symbol: "B$", icon: "bsd" },
+  { name: "Barbadian Dollar", symbol: "Bds$", icon: "bbd" },
+  { name: "Bermudian Dollar", symbol: "BD$", icon: "bmd" },
+  { name: "Aruban Florin", symbol: "Afl.", icon: "awg" },
+  { name: "Netherlands Antillean Guilder", symbol: "NAƒ", icon: "ang" },
+  { name: "Trinidad and Tobago Dollar", symbol: "TT$", icon: "ttd" },
+  { name: "Jamaican Dollar", symbol: "J$", icon: "jmd" },
+  { name: "Trinidad and Tobago Dollar", symbol: "TT$", icon: "ttd" },
+  { name: "Solomon Islands Dollar", symbol: "SI$", icon: "sbd" },
+  { name: "Vanuatu Vatu", symbol: "VT", icon: "vuv" },
+  { name: "Samoa Tala", symbol: "WS$", icon: "wst" },
+  { name: "Tongan Pa'anga", symbol: "T$", icon: "top" },
+  { name: "Central African CFA Franc", symbol: "FCFA", icon: "xaf" },
+  { name: "Myanmar Kyat", symbol: "K", icon: "mmk" },
+  { name: "Laotian Kip", symbol: "₭", icon: "lak" },
+  { name: "Cambodian Riel", symbol: "៛", icon: "khr" },
+  { name: "Bhutanese Ngultrum", symbol: "Nu.", icon: "btn" },
+  { name: "Nepalese Rupee", symbol: "रू", icon: "npr" },
+  { name: "Afghan Afghani", symbol: "؋", icon: "afn" },
+  { name: "Falkland Islands Pound", symbol: "FK£", icon: "fkp" },
+  { name: "Gibraltar Pound", symbol: "£", icon: "gip" },
+  { name: "Saint Helena Pound", symbol: "£", icon: "shp" },
+  { name: "Faroese Króna", symbol: "kr", icon: "fof" },
+  { name: "Greenlandic Krone", symbol: "kr", icon: "glf" },
+  { name: "Djiboutian Franc", symbol: "Fdj", icon: "djf" },
+  { name: "Rwandan Franc", symbol: "RF", icon: "rwf" },
+  { name: "Tajikistani Somoni", symbol: "SM", icon: "tjs" },
+  { name: "Turkmenistan Manat", symbol: "m", icon: "tmt" },
+  { name: "Uzbekistani Som", symbol: "сўм", icon: "uzs" },
+  { name: "Belizean Dollar", symbol: "BZ$", icon: "bzd" },
+  { name: "Dominican Peso", symbol: "RD$", icon: "dop" },
+  { name: "Gibraltar Pound", symbol: "£", icon: "gip" },
+  { name: "Saint Helena Pound", symbol: "£", icon: "shp" },
+  { name: "Saint Kitts and Nevis Dollar", symbol: "EC$", icon: "xcd" },
+  { name: "Saint Lucian Dollar", symbol: "$", icon: "xcd" },
+  { name: "East Caribbean Dollar", symbol: "EC$", icon: "xcd" },
+  { name: "Saint Vincent and the Grenadines Dollar", symbol: "$", icon: "xcd" },
+  { name: "Cook Islands Dollar", symbol: "$", icon: "nzd" },
+  { name: "Fijian Dollar", symbol: "$", icon: "fjd" },
+  { name: "Solomon Islands Dollar", symbol: "$", icon: "sbd" },
+  { name: "Kiribati Dollar", symbol: "$", icon: "aud" },
+  { name: "Tuvaluan Dollar", symbol: "$", icon: "aud" },
+  { name: "Niue Dollar", symbol: "$", icon: "nzd" },
+  { name: "Tokelau Dollar", symbol: "$", icon: "nzd" },
+];
+

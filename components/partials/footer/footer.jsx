@@ -89,8 +89,8 @@ function Footer() {
               <div className="footer_about_section ">
                 <p className="footer_about_P">About</p>
                 <div className="footer_sub_about">
-                  <p className="footer_sub_about_P">Terms and Conditions</p>
-                  <p className="footer_sub_about_P">Privacy Policy</p>
+                  <p onClick={() => router.push("/TermsAndConditions")} className="footer_sub_about_P cursor-pointer">Terms and Conditions</p>
+                  <p onClick={() => router.push("/PrivacyPolicy")} className="footer_sub_about_P cursor-pointer">Privacy Policy</p>
                   <p
                     onClick={() => router.push("/ContactUs")}
                     className="footer_sub_about_P cursor-pointer"

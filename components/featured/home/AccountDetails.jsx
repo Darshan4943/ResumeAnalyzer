@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { telCode } from "../../../utils/data";
+import { currencyMap, telCode } from "../../../utils/data";
 import { useMediaQuery } from "@react-hook/media-query";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -7,17 +7,23 @@ import { useSelector } from "react-redux";
 import ReactSelect from "react-select";
 import { useRouter } from "next/router";
 import { jwtDecode } from "jwt-decode";
+import { loadStripe } from "@stripe/stripe-js";
+import stripe from "stripe";
+
+const stripeInstance = stripe(
+  "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"
+);
 
 function AccountDetails({ selectedPlan, recruiterid, role }) {
   const router = useRouter();
   const userDataGlobal = useSelector((state) => state.userData);
-  function getDateAfterDays(days) {
-    const currentDate = new Date();
-    const futureDate = new Date(
-      currentDate.getTime() + days * 24 * 60 * 60 * 1000
-    );
-    return futureDate;
-  }
+  const [exchangeRate, setexchangeRate] = useState(1);
+
+  useEffect(() => {
+    const exchangeRate = localStorage.getItem("exchangeRate");
+
+    setexchangeRate(exchangeRate);
+  }, []);
   const [successModel, setSuccessModel] = useState(false);
   const [error, setError] = useState();
   const [popUp, setPopUp] = useState(false);
@@ -120,9 +126,7 @@ function AccountDetails({ selectedPlan, recruiterid, role }) {
     if (userDataGlobal.email) {
       if (recruiterid) {
         axios
-          .get(
-            "https://freedygoservices.in/api/skiloteckuser/user/" + recruiterid
-          )
+          .get("https://freedygoservices.in/api/skiloteckuser/user/" + recruiterid)
           .then((res) => {
             const decode = jwtDecode(res.data.data);
             setData({
@@ -149,6 +153,10 @@ function AccountDetails({ selectedPlan, recruiterid, role }) {
         );
       }
     }
+    const jsonData = JSON.parse(localStorage.getItem("paymentDetails"));
+    if (jsonData) {
+      setData(jsonData);
+    }
   }, []);
 
   function findEmptyKey(obj) {
@@ -163,10 +171,27 @@ function AccountDetails({ selectedPlan, recruiterid, role }) {
   }
 
   const isViewportBelow850 = useMediaQuery("(max-width:850px)");
-
+  const getPriceId = async (obj) => {
+    const currency = localStorage.getItem("currency");
+    localStorage.setItem("paymentDetails", JSON.stringify(data));
+    if (currency) {
+      const { data } = await axios.post(
+        "https://freedygoservices.in/api/getPriceId",
+        {
+          amount: Math.ceil(selectedPlan.amount * exchangeRate) * 100,
+          productName: selectedPlan.productName,
+          currency: currency,
+        }
+      );
+      if (data.success) {
+        return data.id;
+      }
+    } else {
+      toast.error("Something went wrong");
+    }
+  };
   const purchaseHandler = async (e) => {
     e.preventDefault();
-
     const found = findEmptyKey(data);
 
     if (!data.checked) {
@@ -176,102 +201,21 @@ function AccountDetails({ selectedPlan, recruiterid, role }) {
         setError(`Please fill all require fields .`);
       } else {
         setLoading(true);
-        axios
-          .post("https://freedygoservices.in/api/add/subscription", {
-            userId:
-              userDataGlobal.role == "admin" ? recruiterid : userDataGlobal._id,
-            plan: selectedPlan.duration + " " + selectedPlan.limit,
-            ...data,
-            mobileNo: data.mobileNo,
-            index: selectedPlan.index,
-            isAdmin: userDataGlobal.role == "admin",
-            role: userDataGlobal?.role,
-          })
-          .then((res) => {
-            setLoading(false);
-            setPopUp(true);
-            // setSuccessModel(true);
-          })
-          .catch((err) => {
-            console.log(err);
-          });
+        try {
+          const priceId = await getPriceId();
+          axios
+            .post("https://freedygoservices.in/api/proceed/payment", { priceId })
+            .then((res) => {
+              if (res.data.success) {
+                window.location.href = res.data.url;
+              }
+            });
+        } catch (err) {
+          console.log(err, "error");
+          // res.status(err.statusCode || 500).json(err.message);
+        }
       }
     }
-    // if (data.checked) {
-    //   const errors = validateInput();
-    //   const requiredFields = ["firstName", "lastName", "email", "mobileNo"];
-    //   const emptyFields = requiredFields.filter((field) => !data[field]);
-    //   if (emptyFields.length > 0) {
-    //     toast.error("Please fill in all required fields");
-    //     return;
-    //   }
-    //   const hasErrors = Object.keys(errors).length > 0;
-    //   if (hasErrors) {
-    //     toast.error("Please enter valid information");
-    //     setFormError(errors);
-    //   } else {
-    //     try {
-    //       setLoading(true);
-    //       const {
-    //         data: { key },
-    //       } = await axios.get(`https://freedygoservices.in/api/getkey`);
-    //       const { data: order } = await axios.post(
-    //         `https://freedygoservices.in/api/checkout/`,
-    //         {
-    //           amount: parseInt(selectedPlan.amount),
-    //         }
-    //       );
-    //       const ex = order;
-    //       const options = {
-    //         key,
-    //         amount: order.order.amount,
-    //         currency: "USD",
-    //         description: selectedPlan.duration + " " + selectedPlan.limit,
-    //         image:
-    //           "https://freedygo-storage-bucket-production.s3.ap-south-1.amazonaws.com/Frame+427322205.png",
-    //         name: "Skilotech",
-    //         order_id: order.order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-    //         modal: {
-    //           ondismiss: function () {
-    //             setLoading(false);
-    //           },
-    //         },
-    //         handler: function (response) {
-    //           axios
-    //             .post("https://freedygoservices.in/api/add/subscription", {
-    //               ...response,
-    //               userId: userDataGlobal._id,
-    //               plan: selectedPlan.duration + " " + selectedPlan.limit,
-    //               startDate: new Date(),
-    //               endDate: getDateAfterDays(selectedPlan.days),
-    //               paidAt: new Date(),
-    //               ...data,
-    //               mobileNo: data.mobileNo,
-    //               index: selectedPlan.index,
-    //             })
-    //             .then((res) => {
-    //               setLoading(false);
-    //               setSuccessModel(true);
-    //             })
-    //             .catch((err) => {
-    //               console.log(err);
-    //             });
-    //         },
-    //         theme: {
-    //           color: "#06A9EF",
-    //         },
-    //       };
-    //       const razor = new window.Razorpay(options);
-    //       razor.open();
-    //     } catch (e) {
-    //       console.log("error", e);
-    //       setLoading(false);
-    //       toast.error("Payment Failed");
-    //     }
-    //   }
-    // } else {
-    //   toast.error("Please accept the terms and conditions");
-    // }
   };
 
   return (
@@ -546,10 +490,7 @@ function AccountDetails({ selectedPlan, recruiterid, role }) {
                   {selectedPlan?.price}
                 </p>
               </div>
-              <div className="flex justify-between">
-                <p className="text-[14px] font-medium">Estimated tax (18%)</p>
-                <p className="text-[14px] font-medium">$ 0</p>
-              </div>
+
               <div className="h-[1px] w-full bg-[#DEDEDE]"></div>
               <div className="flex justify-between">
                 <p className="text-[16px] font-semibold">Total</p>

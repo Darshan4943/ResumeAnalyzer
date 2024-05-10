@@ -17,7 +17,14 @@ function SubscriptionPlans({ fromMain }) {
   const [isLogin, setIsLogin] = useState(false);
   const [isUser, setIsUser] = useState(true);
   const [isInInquiry, setIsInInquiry] = useState(false);
+  const [exchangeRate, setexchangeRate] = useState(1);
+  const [icon, seticon] = useState("$");
+
   useEffect(() => {
+    const exchangeRate = localStorage.getItem("exchangeRate");
+    const icon = localStorage.getItem("icon");
+    setexchangeRate(exchangeRate);
+    seticon(icon);
     if (userDataGlobal.role == "recruiter" || fromMain) {
       setIsUser(false);
       setPlans(plans.slice(3));
@@ -166,7 +173,13 @@ function SubscriptionPlans({ fromMain }) {
                       <span className="text-[#06A9EF]">{plan.duration}</span>{" "}
                       {plan.limit}
                     </p>
-                    <p className="text-[2.5vw] font-[700]">{plan.price}</p>
+                    <div className="flex flex-row gap-2 w-full items-center justify-center">
+                      <p className="text-[2.5vw] font-[700]">{icon}</p>
+                      <p className="text-[2.5vw] font-[700]">
+                        {Math.ceil(plan.amount * exchangeRate)}
+                      </p>
+                    </div>
+
                     <p
                       className="text-[1vw] font-[500]"
                       style={{ textTransform: "capitalize" }}
@@ -272,6 +285,12 @@ function SubscriptionPlans({ fromMain }) {
                         <span className="text-[#06A9EF]">{plan.duration}</span>{" "}
                         {plan.limit}
                       </p>
+                      <div className="flex flex-row gap-2 w-full items-center justify-center">
+                        <p className="text-[28px] font-[700]">{icon}</p>
+                        <p className="text-[28px] font-[700]">
+                          {Math.ceil(plan.amount * exchangeRate)}
+                        </p>
+                      </div>
                       <p className="text-[28px] font-[700]">{plan.price}</p>
                       <p className="text-[12px] font-[500]">
                         {plan.description}
