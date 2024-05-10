@@ -121,7 +121,7 @@ function AccountDetails({ selectedPlan, recruiterid, role }) {
       if (recruiterid) {
         axios
           .get(
-            "https://jamblix.com/api/skiloteckuser/user/" + recruiterid
+            "https://freedygoservices.in/api/skiloteckuser/user/" + recruiterid
           )
           .then((res) => {
             const decode = jwtDecode(res.data.data);
@@ -177,7 +177,7 @@ function AccountDetails({ selectedPlan, recruiterid, role }) {
       } else {
         setLoading(true);
         axios
-          .post("https://jamblix.com/api/add/subscription", {
+          .post("https://freedygoservices.in/api/add/subscription", {
             userId:
               userDataGlobal.role == "admin" ? recruiterid : userDataGlobal._id,
             plan: selectedPlan.duration + " " + selectedPlan.limit,
@@ -214,9 +214,9 @@ function AccountDetails({ selectedPlan, recruiterid, role }) {
     //       setLoading(true);
     //       const {
     //         data: { key },
-    //       } = await axios.get(`https://jamblix.com/api/getkey`);
+    //       } = await axios.get(`https://freedygoservices.in/api/getkey`);
     //       const { data: order } = await axios.post(
-    //         `https://jamblix.com/api/checkout/`,
+    //         `https://freedygoservices.in/api/checkout/`,
     //         {
     //           amount: parseInt(selectedPlan.amount),
     //         }
@@ -238,7 +238,7 @@ function AccountDetails({ selectedPlan, recruiterid, role }) {
     //         },
     //         handler: function (response) {
     //           axios
-    //             .post("https://jamblix.com/api/add/subscription", {
+    //             .post("https://freedygoservices.in/api/add/subscription", {
     //               ...response,
     //               userId: userDataGlobal._id,
     //               plan: selectedPlan.duration + " " + selectedPlan.limit,

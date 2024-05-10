@@ -36,7 +36,7 @@ export const Api = () => {
         const decoded = jwtDecode(token.token);
         axios
           .get(
-            "https://jamblix.com/api/skiloteckuser/user/" + decoded._id
+            "https://freedygoservices.in/api/skiloteckuser/user/" + decoded._id
           )
           .then((res) => {
             const decode = jwtDecode(res.data.data);
@@ -62,7 +62,7 @@ export const Api = () => {
     if (userDataGlobal) {
       axios
         .get(
-          "https://jamblix.com/api/subscription/" + userDataGlobal._id
+          "https://freedygoservices.in/api/subscription/" + userDataGlobal._id
         )
         .then((res) => {
           const result = res.data.findIsActive;
@@ -83,7 +83,7 @@ export const Api = () => {
             if (timezone >= newEnddate && result.isActive) {
               axios
                 .put(
-                  "https://jamblix.com/api/subscription/update/" +
+                  "https://freedygoservices.in/api/subscription/update/" +
                     userDataGlobal._id
                 )
                 .then((res) => {

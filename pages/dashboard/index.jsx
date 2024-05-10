@@ -123,7 +123,7 @@ function Dashboard() {
     if (userDataGlobal) {
       axios
         .get(
-          "https://jamblix.com/api/subscription/" + userDataGlobal._id
+          "https://freedygoservices.in/api/subscription/" + userDataGlobal._id
         )
         .then((res) => {
           const plan = plans.find(
@@ -133,22 +133,29 @@ function Dashboard() {
           if (plan) {
             setIsActive(true);
             setSelectedPlan(plan);
+            console.log(134, plan, uploadCount, saveCount, clientCount);
+            setLimits({
+              used: {
+                uploads: plan.limits.uploads - parseInt(uploadCount),
+                download: plan.limits.download - parseInt(saveCount),
+                save: plan.limits.save - parseInt(saveCount),
+                clients: plan.limits.clients - parseInt(clientCount),
+              },
+              total: plan.limits,
+            });
+            console.log(
+              144,
+              plan.limits.uploads - parseInt(uploadCount),
+              plan.limits.download - parseInt(saveCount),
+              plan.limits.save - parseInt(saveCount)
+            );
           }
-          setLimits({
-            used: {
-              uploads: plan.limits.uploads - parseInt(uploadCount),
-              download: plan.limits.download - parseInt(saveCount),
-              save: plan.limits.save - parseInt(saveCount),
-              clients: plan.limits.clients - parseInt(clientCount),
-            },
-            total: plan.limits,
-          });
         })
         .catch((err) => {
           console.log(err);
         });
     }
-
+    console.log(156, limits);
     // if (planActive == "true") {
     //   setIsActive(true);
     // setLimits({
@@ -162,7 +169,7 @@ function Dashboard() {
     // });
     // }
     // }
-  }, []);
+  }, [userDataGlobal]);
 
   return (
     <div className="customMargins flex flex-col gap-12 py-6 min-h-[70vh]">

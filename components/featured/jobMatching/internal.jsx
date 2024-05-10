@@ -44,7 +44,7 @@ const InternalJobMatching = () => {
   useEffect(() => {
     axios
       .get(
-        `https://jamblix.com/api/client/getByRecruiter/${userDataGlobal._id}`
+        `https://freedygoservices.in/api/client/getByRecruiter/${userDataGlobal._id}`
       )
       .then((res) => {
         setDetails(res.data.data);
@@ -58,7 +58,7 @@ const InternalJobMatching = () => {
     setLoading(true);
     axios
       .post(
-        "https://jamblix.com/api/jobMatching/" + userDataGlobal._id,
+        "https://freedygoservices.in/api/jobMatching/" + userDataGlobal._id,
         {
           jd: text,
           resumeCount,

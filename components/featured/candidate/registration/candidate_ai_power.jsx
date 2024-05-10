@@ -143,7 +143,7 @@ const CandidateAiPower = ({
     setLoading(true);
     extracteText(file).then((result) => {
       axios
-        .post("https://jamblix.com/api/resume/extraction", {
+        .post("https://freedygoservices.in/api/resume/extraction", {
           data: result,
         })
         .then((res) => {
@@ -155,7 +155,7 @@ const CandidateAiPower = ({
             );
             axios
               .put(
-                "https://jamblix.com/api/subscription/updateUploadLimit/" +
+                "https://freedygoservices.in/api/subscription/updateUploadLimit/" +
                   userDataGlobal._id
               )
               .then((res) => {

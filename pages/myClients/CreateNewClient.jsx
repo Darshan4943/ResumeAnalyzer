@@ -60,7 +60,7 @@ function CreateNewClient({ setTabIndex }) {
   // const callData = () => {
   //   axios
   //     .get(
-  //       `https://jamblix.com/api/client/getByRecruiter/${userDataGlobal._id}`
+  //       `https://freedygoservices.in/api/client/getByRecruiter/${userDataGlobal._id}`
   //     )
   //     .then((res) => {
   //       setDetails(res.data.data);
@@ -199,7 +199,7 @@ function CreateNewClient({ setTabIndex }) {
         formdata.append("img", croppedImage);
 
         const response = await axios.post(
-          "https://jamblix.com/api/client/create",
+          "https://freedygoservices.in/api/client/create",
           formdata
         );
         setData({

@@ -44,6 +44,7 @@ import Template44 from "../../resumeTemplates/Template44";
 import MiniLoader from "../../../common/miniLoader";
 import LimitUsedModal from "../../../models/limitUsedModal";
 import Resume2 from "../../resumeTemplates/Resume2";
+import Resume1 from "../../resumeTemplates/Resume1";
 // import { generatePDFUsingRenderer } from "../../../../utils/middleware";
 <Fonts />;
 const ResumePreview = ({
@@ -84,7 +85,7 @@ const ResumePreview = ({
 
   const callData = () => {
     axios
-      .get("https://jamblix.com/api/resume/" + userDataGlobal?._id)
+      .get("https://freedygoservices.in/api/resume/" + userDataGlobal?._id)
       .then((res) => {
         setName(data.firstName + "_resume " + (res.data.data.length + 1));
       })
@@ -518,6 +519,7 @@ const ResumePreview = ({
   const resumeRef = useRef();
   const [preview, setPreview] = useState(false);
   const [isDisabled, setdisabled] = useState(false);
+  const [saveDisabled, setSaveDisabled] = useState(false);
   const [loading, setLoading] = useState(true);
 
   const togglePreview = (isVisible, index) => {
@@ -544,12 +546,14 @@ const ResumePreview = ({
 
   const saveResume = async (blob, download) => {
     setdisabled(true);
+
     if (blob !== null) {
       if (saveLimit == 0) {
         setLimitUsedModal(true);
         return;
       }
       if (isEdit) {
+        setSaveDisabled(true);
         setLoading(true);
 
         const formData = new FormData();
@@ -569,11 +573,15 @@ const ResumePreview = ({
         formData.append("pdfBlob", blob);
 
         axios
-          .put("https://jamblix.com/api/resume/" + id, formData)
+          .put("https://freedygoservices.in/api/resume/" + id, formData)
           .then((res) => {
             localStorage.setItem("saveCount", saveLimit - 1);
             getLimits();
             toast.success("Resume Updated successfully");
+            setTimeout(() => {
+              setSaveDisabled(false);
+            }, 3000);
+
             setTimeout(() => {
               setLoading(false);
             }, 1000);
@@ -584,12 +592,13 @@ const ResumePreview = ({
           })
           .catch((err) => {
             setLoading(false);
-
+            setSaveDisabled(false);
             console.log(err);
             toast.error("Something went wrong ");
           });
       } else {
         setLoading(true);
+        setSaveDisabled(true);
 
         const formData = new FormData();
         if (Object.keys(data).length > 0) {
@@ -618,7 +627,7 @@ const ResumePreview = ({
         }
 
         axios
-          .post("https://jamblix.com/api/resume/add", formData)
+          .post("https://freedygoservices.in/api/resume/add", formData)
           .then((res) => {
             const pdfUrl = res.data.data.resumeUrl;
 
@@ -634,6 +643,9 @@ const ResumePreview = ({
 
             getLimits();
             toast.success("Resume Saved To Collection successfully");
+            setTimeout(() => {
+              setSaveDisabled(false);
+            }, 3000);
             setLoading(false);
             setTimeout(() => {
               setdisabled(false);
@@ -643,6 +655,7 @@ const ResumePreview = ({
           .catch((err) => {
             console.log(err);
             toast.error("Something went wrong ");
+            setSaveDisabled(false);
             setLoading(false);
           });
       }
@@ -654,7 +667,7 @@ const ResumePreview = ({
     setDownloadBtnLoading(true);
     axios
       .put(
-        "https://jamblix.com/api/subscription/updateDownloadLimit/" +
+        "https://freedygoservices.in/api/subscription/updateDownloadLimit/" +
           userDataGlobal._id
       )
       .then((res) => {
@@ -693,13 +706,13 @@ const ResumePreview = ({
       console.error("Error generating PDF Blob:", error);
     }
   };
-
+  console.log(704, saveDisabled);
   const SaveBTN = (blob, url, loading) => {
     return (
       <button
         onClick={() => generatePDFBlob()}
-        disabled={isDisabled}
-        style={{ opacity: isDisabled ? "0.5" : 1 }}
+        disabled={saveDisabled}
+        style={{ opacity: saveDisabled ? "0.5" : 1 }}
         className="flex gap-1 text-[14px] sm:w-[150px]  justify-center  font-montserrat font-semibold px-3 py-2 rounded-[8px] items-center border border-[#06A9EF] "
       >
         {loading ? (
@@ -731,8 +744,8 @@ const ResumePreview = ({
       {({ blob, url, loading, error }) => (
         <button
           onClick={() => saveResume(blob, true)}
-          disabled={isDisabled}
-          style={{ opacity: isDisabled ? "0.5" : 1 }}
+          disabled={saveDisabled}
+          style={{ opacity: saveDisabled ? "0.5" : 1 }}
           className="flex gap-1 text-[14px] w-fit  justify-center  font-montserrat font-semibold px-3 py-2 rounded-[8px] items-center border border-[#06A9EF] "
         >
           {loading ? (
@@ -908,38 +921,37 @@ const ResumePreview = ({
 
         {selectedResumeIndex !== undefined && (
           <div
-            className=" w-full flex items-center justify-center mt-3 bg-[#525659] py-[24px] rounded-[8px] min-h-[700px]"
-            style={{
-              transformOrigin: "top left",
-            }}
+          // className=" w-full flex items-center justify-center mt-3 bg-[#525659] py-[24px] rounded-[8px] min-h-[700px]"
+          // style={{
+          //   transformOrigin: "top left",
+          // }}
           >
             {/* {loading ? (
               <div>
                 <MiniLoader />
               </div>
             ) : ( */}
-            <PDFViewer width="80%" height="900px" showToolbar={false}>
+            {/* <PDFViewer width="80%" height="900px" showToolbar={false}>
               <MyComponent />
-            </PDFViewer>
+            </PDFViewer> */}
 
             {/* )} */}
           </div>
         )}
-        {/* <div
+        <div
           className=" w-full flex items-center justify-center mt-3 bg-[#525659] py-[24px] rounded-[8px]"
           style={{
             transformOrigin: "top left",
           }}
         >
-          {
-            render &&<Template1
-            data={data}
-            selectedColor={selectedColor}
-            selectedFont={selectedFont}
-          />
-          }
-          
-        </div> */}
+          {render && (
+            <Resume1
+              data={data}
+              selectedColor={selectedColor}
+              selectedFont={selectedFont}
+            />
+          )}
+        </div>
       </div>
       {preview && (
         <>
