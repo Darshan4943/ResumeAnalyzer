@@ -35,9 +35,7 @@ export const Api = () => {
       if (token && token != "undefined") {
         const decoded = jwtDecode(token.token);
         axios
-          .get(
-            "https://jamblix.com/api/skiloteckuser/user/" + decoded._id
-          )
+          .get("https://jamblix.com/api/skiloteckuser/user/" + decoded._id)
           .then((res) => {
             const decode = jwtDecode(res.data.data);
             dispatch(
@@ -61,9 +59,7 @@ export const Api = () => {
 
     if (userDataGlobal) {
       axios
-        .get(
-          "https://jamblix.com/api/subscription/" + userDataGlobal._id
-        )
+        .get("https://jamblix.com/api/subscription/" + userDataGlobal._id)
         .then((res) => {
           const result = res.data.findIsActive;
 

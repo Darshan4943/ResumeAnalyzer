@@ -33,7 +33,7 @@ function Summary({ limits, selectedPlan, isActive }) {
 
     return percentage.toFixed(2);
   };
-
+  console.log(progress);
   useEffect(() => {
     const dashOffset = circumference - (progress / 100) * circumference;
 
@@ -45,9 +45,7 @@ function Summary({ limits, selectedPlan, isActive }) {
   useEffect(() => {
     if (userDataGlobal) {
       axios
-        .get(
-          "https://jamblix.com/api/subscription/" + userDataGlobal._id
-        )
+        .get("https://jamblix.com/api/subscription/" + userDataGlobal._id)
         .then((res) => {
           setSubscription(res.data.findIsActive);
           setPlan(
@@ -69,6 +67,7 @@ function Summary({ limits, selectedPlan, isActive }) {
     const end = new Date(endDate);
 
     const differenceMs = end - today;
+
     const remainingDays = Math.ceil(differenceMs / (1000 * 60 * 60 * 24));
 
     return remainingDays <= 0 ? 0 : remainingDays;
@@ -76,9 +75,7 @@ function Summary({ limits, selectedPlan, isActive }) {
   useEffect(() => {
     if (userDataGlobal) {
       axios
-        .get(
-          "https://jamblix.com/api/subscription/" + userDataGlobal._id
-        )
+        .get("https://jamblix.com/api/subscription/" + userDataGlobal._id)
         .then((res) => {
           const result = res.data.findIsActive;
 
@@ -136,7 +133,7 @@ function Summary({ limits, selectedPlan, isActive }) {
                   className="absolute flex flex-col  items-center justify-center text-[18px] font-semibold bg-white w-[110px] h-[110px] rounded-full"
                   style={{ boxShadow: "0px 0px 2px 0px #00000040" }}
                 >
-                  { daysRemaing} days
+                  {daysRemaing} days
                   <p className="text-[12px] font-medium">Remaining</p>
                 </div>
               </div>

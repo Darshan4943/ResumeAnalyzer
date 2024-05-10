@@ -56,6 +56,8 @@ const Details = ({ data, setJd, files, extractedData, resume }) => {
         setLoading(false);
       });
   };
+
+  console.log(61, data);
   return (
     <>
       <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
@@ -93,13 +95,13 @@ const Details = ({ data, setJd, files, extractedData, resume }) => {
                 <div className="flex flex-col gap-[8px] mt-2  ">
                   <span className="text-[14px] font-500">
                     Apply Before :{" "}
-                    {data?.deadLine !== undefined && NaN
+                    {data?.deadLine != undefined
                       ? dateSeter(data?.deadLine)
                       : ""}
                   </span>
                   <span className="text-[14px] font-500">
                     Job Posted On :{" "}
-                    {data?.createdAt !== undefined && NaN
+                    {data?.createdAt !== undefined
                       ? dateSeter(data?.createdAt)
                       : ""}
                   </span>
