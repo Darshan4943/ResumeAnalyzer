@@ -19,7 +19,7 @@ const Index = () => {
   const fetchData = () => {
     setLoading(true);
     axios
-      .post("https://freedygoservices.in/api/job/search", {
+      .post("https://jamblix.com/api/job/search", {
         ...selected,
         resumeCount,
         threshold,

@@ -45,9 +45,7 @@ function Summary({ limits, selectedPlan, isActive }) {
   useEffect(() => {
     if (userDataGlobal) {
       axios
-        .get(
-          "https://freedygoservices.in/api/subscription/" + userDataGlobal._id
-        )
+        .get("https://jamblix.com/api/subscription/" + userDataGlobal._id)
         .then((res) => {
           setSubscription(res.data.findIsActive);
           setPlan(
@@ -71,15 +69,13 @@ function Summary({ limits, selectedPlan, isActive }) {
     const differenceMs = end - today;
 
     const remainingDays = Math.ceil(differenceMs / (1000 * 60 * 60 * 24));
-    console.log(72, remainingDays);
-    return remainingDays;
+
+    return remainingDays <= 0 ? 0 : remainingDays;
   };
   useEffect(() => {
     if (userDataGlobal) {
       axios
-        .get(
-          "https://freedygoservices.in/api/subscription/" + userDataGlobal._id
-        )
+        .get("https://jamblix.com/api/subscription/" + userDataGlobal._id)
         .then((res) => {
           const result = res.data.findIsActive;
 
@@ -137,7 +133,7 @@ function Summary({ limits, selectedPlan, isActive }) {
                   className="absolute flex flex-col  items-center justify-center text-[18px] font-semibold bg-white w-[110px] h-[110px] rounded-full"
                   style={{ boxShadow: "0px 0px 2px 0px #00000040" }}
                 >
-                  {daysRemaing <= 0 ? "0" : daysRemaing} days
+                  {daysRemaing} days
                   <p className="text-[12px] font-medium">Remaining</p>
                 </div>
               </div>
