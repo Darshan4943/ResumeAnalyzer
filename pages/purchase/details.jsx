@@ -125,6 +125,7 @@ function Details() {
               role={role}
               setSuccessModel={setSuccessModel}
               success={success}
+              canceled={canceled}
             />
           </div>
         </div>
