@@ -20,7 +20,7 @@ function AccountDetails({
   role,
   setSuccessModel,
   success,
-  canceled
+  canceled,
 }) {
   const router = useRouter();
   const userDataGlobal = useSelector((state) => state.userData);
@@ -45,7 +45,6 @@ function AccountDetails({
     dial_code: "",
     checked: false,
   });
-  console.log(data)
 
   const [filteredTelCode, setFilteredTelCode] = useState([]);
   useEffect(() => {
@@ -134,7 +133,7 @@ function AccountDetails({
   };
   useEffect(() => {
     const jsonData = JSON.parse(localStorage.getItem("paymentDetails"));
-    console.log(jsonData)
+    console.log(jsonData);
     if (jsonData) {
       setData({ ...data, jsonData });
     }
@@ -162,7 +161,7 @@ function AccountDetails({
               loading: false,
             });
           }, 2000);
-          localStorage.removeItem("paymentDetails")
+          localStorage.removeItem("paymentDetails");
         })
         .catch((err) => {
           console.log(err);
@@ -173,8 +172,7 @@ function AccountDetails({
     const jsonData = JSON.parse(localStorage.getItem("paymentDetails"));
     if (jsonData) {
       setData({ ...jsonData });
-    }
-    else {
+    } else {
       if (recruiterid) {
         axios
           .get(
@@ -240,7 +238,7 @@ function AccountDetails({
     }
   };
   const purchaseHandler = async (e) => {
-    localStorage.setItem("paymentDetails", JSON.stringify(data))
+    localStorage.setItem("paymentDetails", JSON.stringify(data));
     e.preventDefault();
     const found = findEmptyKey(data);
 
@@ -406,16 +404,18 @@ function AccountDetails({
                 Contact Number <span className="star">*</span>
               </p>
               <div
-                className={`flex w-[100%]  items-start ${isViewportBelow850 ? "gap-[4px] " : "gap-[16px] "
-                  }`}
+                className={`flex w-[100%]  items-start ${
+                  isViewportBelow850 ? "gap-[4px] " : "gap-[16px] "
+                }`}
                 id="single_input"
                 style={{
                   padding: "0px 8px",
                 }}
               >
                 <div
-                  className={`relative  min-w-[120px] ${isViewportBelow850 ? "w-[65%] " : "w-[18%] "
-                    } items-center`}
+                  className={`relative  min-w-[120px] ${
+                    isViewportBelow850 ? "w-[65%] " : "w-[18%] "
+                  } items-center`}
                 >
                   <div className="flex items-center  gap-1 cursor-pointer  w-[100%] ">
                     <ReactSelect
@@ -451,18 +451,20 @@ function AccountDetails({
                 </div>
 
                 <input
-                  placeholder={`${isViewportBelow850
-                    ? "Enter Number "
-                    : "Enter Contact Number "
-                    }`}
+                  placeholder={`${
+                    isViewportBelow850
+                      ? "Enter Number "
+                      : "Enter Contact Number "
+                  }`}
                   value={data.mobileNo}
+                  maxLength={10}
                   onChange={(e) =>
                     handleInputChange("mobileNo", e.target.value)
                   }
                   className="w-full mobileNo h-full pl-[20px] "
                   type="text"
                   name=""
-                // id="single_input"
+                  // id="single_input"
                 />
               </div>
 
