@@ -48,7 +48,8 @@ function MyFolders({
                           />
                         )}
                       </div>
-                      <span style={{ overflow: 'hidden', }} className="text-[12px]">   </span>
+                      
+                      <span style={{ overflow: 'hidden', }} className="text-[12px]">   {item.fileName} </span>
                       <div className="absolute text-[10px] opacity-0 transition-opacity duration-500 group-hover:opacity-100  word-break bottom-[-20px] text-[#fff] bg-[#333] px-[6px] py-[3px] rounded-[5px]">
                         {item.fileName}
                       </div>
