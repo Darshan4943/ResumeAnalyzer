@@ -20,6 +20,7 @@ function AccountDetails({
   role,
   setSuccessModel,
   success,
+  canceled,
 }) {
   const router = useRouter();
   const userDataGlobal = useSelector((state) => state.userData);
@@ -132,8 +133,9 @@ function AccountDetails({
   };
   useEffect(() => {
     const jsonData = JSON.parse(localStorage.getItem("paymentDetails"));
+    console.log(jsonData);
     if (jsonData) {
-      setData(jsonData);
+      setData({ ...data, jsonData });
     }
     if (success == "true" && userDataGlobal) {
       setSuccessModel({
@@ -159,6 +161,7 @@ function AccountDetails({
               loading: false,
             });
           }, 2000);
+          localStorage.removeItem("paymentDetails");
         })
         .catch((err) => {
           console.log(err);
@@ -166,7 +169,10 @@ function AccountDetails({
     }
   }, [success, userDataGlobal]);
   useEffect(() => {
-    if (userDataGlobal.email) {
+    const jsonData = JSON.parse(localStorage.getItem("paymentDetails"));
+    if (jsonData) {
+      setData({ ...jsonData });
+    } else {
       if (recruiterid) {
         axios
           .get(
@@ -232,6 +238,7 @@ function AccountDetails({
     }
   };
   const purchaseHandler = async (e) => {
+    localStorage.setItem("paymentDetails", JSON.stringify(data));
     e.preventDefault();
     const found = findEmptyKey(data);
 
@@ -245,7 +252,7 @@ function AccountDetails({
         try {
           const priceId = await getPriceId();
           axios
-            .post("https://freedygoservices.in/api/proceed/payment", {
+            .post("http://localhost:2000/api/proceed/payment", {
               priceId,
             })
             .then((res) => {
@@ -479,9 +486,9 @@ function AccountDetails({
                 <p className="text-[14px] font-semibold">
                   {selectedPlan?.duration} {selectedPlan?.limit}
                 </p>
-                <div className="flex flex-row gap-2 w-full items-center justify-center">
-                  <p className="text-[2.5vw] font-[700]">{icon}</p>
-                  <p className="text-[2.5vw] font-[700]">
+                <div className="flex flex-row gap-2 w-full items-center justify-end">
+                  <p className="text-[14px] font-[700]">{icon}</p>
+                  <p className="text-[14px] font-[700]">
                     {Math.ceil(selectedPlan.amount * exchangeRate)}
                   </p>
                 </div>
@@ -490,9 +497,9 @@ function AccountDetails({
               <div className="h-[1px] w-full bg-[#DEDEDE]"></div>
               <div className="flex justify-between">
                 <p className="text-[16px] font-semibold">Total</p>
-                <div className="flex flex-row gap-2 w-full items-center justify-center">
-                  <p className="text-[2.5vw] font-[700]">{icon}</p>
-                  <p className="text-[2.5vw] font-[700]">
+                <div className="flex flex-row gap-2 w-full items-center justify-end">
+                  <p className="text-[14px] font-[700]">{icon}</p>
+                  <p className="text-[14px] font-[700]">
                     {Math.ceil(selectedPlan.amount * exchangeRate)}
                   </p>
                 </div>
