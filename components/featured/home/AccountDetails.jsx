@@ -24,9 +24,12 @@ function AccountDetails({
   const router = useRouter();
   const userDataGlobal = useSelector((state) => state.userData);
   const [exchangeRate, setexchangeRate] = useState(1);
+  const [icon, seticon] = useState("$");
 
   useEffect(() => {
     const exchangeRate = localStorage.getItem("exchangeRate");
+    const icon = localStorage.getItem("icon");
+    seticon(icon);
     setexchangeRate(exchangeRate);
   }, []);
 
@@ -41,6 +44,7 @@ function AccountDetails({
     dial_code: "",
     checked: false,
   });
+  
   const [filteredTelCode, setFilteredTelCode] = useState([]);
   useEffect(() => {
     const filteredCodes = telCode;
@@ -474,18 +478,23 @@ function AccountDetails({
                 <p className="text-[14px] font-semibold">
                   {selectedPlan?.duration} {selectedPlan?.limit}
                 </p>
-                <p className="text-[14px] font-semibold">
-                  {selectedPlan?.price}
-                </p>
+                <div className="flex flex-row gap-2 w-full items-center justify-center">
+                    <p className="text-[2.5vw] font-[700]">{icon}</p>
+                    <p className="text-[2.5vw] font-[700]">
+                      {Math.ceil(selectedPlan.amount * exchangeRate)}
+                    </p>
+                  </div>
               </div>
 
               <div className="h-[1px] w-full bg-[#DEDEDE]"></div>
               <div className="flex justify-between">
                 <p className="text-[16px] font-semibold">Total</p>
-                <p className="text-[16px] font-semibold">
-                  {" "}
-                  {selectedPlan?.price}
-                </p>
+                <div className="flex flex-row gap-2 w-full items-center justify-center">
+                    <p className="text-[2.5vw] font-[700]">{icon}</p>
+                    <p className="text-[2.5vw] font-[700]">
+                      {Math.ceil(selectedPlan.amount * exchangeRate)}
+                    </p>
+                  </div>
               </div>
             </div>
           </div>
