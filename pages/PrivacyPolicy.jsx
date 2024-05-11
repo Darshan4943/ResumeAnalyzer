@@ -17,21 +17,21 @@ function PrivacyPolicy() {
 
                 <h2 className='text-[16px] font-medium my-2'>Data Controller:</h2>
 
-                <p>Your personal data is managed by Skilotech, identified as the “Controller”.</p>
+                <p>Your personal data is managed by Skilotech, identified as the {`“Controller”`}.</p>
 
                 <p>Questions about personal data? Reach out to our data protection officer at <a href="mailto:support@skilotech.com">support@skilotech.com</a>.</p>
 
                 <h2 className='text-[16px] font-medium my-2'>Purpose and Legal Basis for Data Processing:</h2>
 
-                <p>Your personal data is processed through our online platform, skilotech.com (“Platform”), and our mobile app Skilotech: AI Resume Builder (“Mobile App”).</p>
+                <p>Your personal data is processed through our online platform, skilotech.com {`(“Platform”)`}, and our mobile app Skilotech: AI Resume Builder {`(“Mobile App”)`}.</p>
 
-                <p>With the information you provide, our system creates CVs, cover letters, or personal websites, with the option to engage our AI-powered solutions for this purpose (collectively referred to as the “Services”). Please refer to our Platform and Terms and Conditions for detailed descriptions.</p>
+                <p>With the information you provide, our system creates CVs, cover letters, or personal websites, with the option to engage our AI-powered solutions for this purpose {`(collectively referred to as the “Services”)`}. Please refer to our Platform and Terms and Conditions for detailed descriptions.</p>
 
                 <p>By using our Services, you consent to processing your data for entering into and fulfilling agreements concerning our Services, including account creation.</p>
 
                 <p>Compliance with statutory obligations necessitates data processing.</p>
 
-                <p>We inform you about offers, special deals, and new products via email newsletters and marketing materials, using your provided data (primarily email) for direct marketing purposes. You retain the right to opt-out of such processing.</p>
+                <p>We inform you about offers, special deals, and new products via email newsletters and marketing materials, using your provided data {`(primarily email)`} for direct marketing purposes. You retain the right to opt-out of such processing.</p>
 
                 <p>We analyze usage patterns to improve our Services and ensure platform security. You can object to this processing.</p>
 
@@ -49,7 +49,7 @@ function PrivacyPolicy() {
 
                 <h2 className='text-[16px] font-medium my-2'>Data Retention:</h2>
 
-                <p>Data is stored until account closure. After closure, data remains accessible for 30 days, after which it's permanently deleted.</p>
+                <p>Data is stored until account closure. After closure, data remains accessible for 30 days, after which it{`'`}s permanently deleted.</p>
 
                 <p>Un-closed accounts retain data for up to 5 years post-last login.</p>
 
