@@ -20,6 +20,7 @@ function AccountDetails({
   role,
   setSuccessModel,
   success,
+  canceled
 }) {
   const router = useRouter();
   const userDataGlobal = useSelector((state) => state.userData);
@@ -44,7 +45,8 @@ function AccountDetails({
     dial_code: "",
     checked: false,
   });
-  
+  console.log(data)
+
   const [filteredTelCode, setFilteredTelCode] = useState([]);
   useEffect(() => {
     const filteredCodes = telCode;
@@ -132,8 +134,9 @@ function AccountDetails({
   };
   useEffect(() => {
     const jsonData = JSON.parse(localStorage.getItem("paymentDetails"));
+    console.log(jsonData)
     if (jsonData) {
-      setData(jsonData);
+      setData({ ...data, jsonData });
     }
     if (success == "true" && userDataGlobal) {
       setSuccessModel({
@@ -159,6 +162,7 @@ function AccountDetails({
               loading: false,
             });
           }, 2000);
+          localStorage.removeItem("paymentDetails")
         })
         .catch((err) => {
           console.log(err);
@@ -166,7 +170,11 @@ function AccountDetails({
     }
   }, [success, userDataGlobal]);
   useEffect(() => {
-    if (userDataGlobal.email) {
+    const jsonData = JSON.parse(localStorage.getItem("paymentDetails"));
+    if (jsonData) {
+      setData({ ...jsonData });
+    }
+    else {
       if (recruiterid) {
         axios
           .get(
@@ -232,6 +240,7 @@ function AccountDetails({
     }
   };
   const purchaseHandler = async (e) => {
+    localStorage.setItem("paymentDetails", JSON.stringify(data))
     e.preventDefault();
     const found = findEmptyKey(data);
 
@@ -245,7 +254,7 @@ function AccountDetails({
         try {
           const priceId = await getPriceId();
           axios
-            .post("https://freedygoservices.in/api/proceed/payment", {
+            .post("http://localhost:2000/api/proceed/payment", {
               priceId,
             })
             .then((res) => {
@@ -397,18 +406,16 @@ function AccountDetails({
                 Contact Number <span className="star">*</span>
               </p>
               <div
-                className={`flex w-[100%]  items-start ${
-                  isViewportBelow850 ? "gap-[4px] " : "gap-[16px] "
-                }`}
+                className={`flex w-[100%]  items-start ${isViewportBelow850 ? "gap-[4px] " : "gap-[16px] "
+                  }`}
                 id="single_input"
                 style={{
                   padding: "0px 8px",
                 }}
               >
                 <div
-                  className={`relative  min-w-[120px] ${
-                    isViewportBelow850 ? "w-[65%] " : "w-[18%] "
-                  } items-center`}
+                  className={`relative  min-w-[120px] ${isViewportBelow850 ? "w-[65%] " : "w-[18%] "
+                    } items-center`}
                 >
                   <div className="flex items-center  gap-1 cursor-pointer  w-[100%] ">
                     <ReactSelect
@@ -444,11 +451,10 @@ function AccountDetails({
                 </div>
 
                 <input
-                  placeholder={`${
-                    isViewportBelow850
-                      ? "Enter Number "
-                      : "Enter Contact Number "
-                  }`}
+                  placeholder={`${isViewportBelow850
+                    ? "Enter Number "
+                    : "Enter Contact Number "
+                    }`}
                   value={data.mobileNo}
                   onChange={(e) =>
                     handleInputChange("mobileNo", e.target.value)
@@ -456,7 +462,7 @@ function AccountDetails({
                   className="w-full mobileNo h-full pl-[20px] "
                   type="text"
                   name=""
-                  // id="single_input"
+                // id="single_input"
                 />
               </div>
 
@@ -478,23 +484,23 @@ function AccountDetails({
                 <p className="text-[14px] font-semibold">
                   {selectedPlan?.duration} {selectedPlan?.limit}
                 </p>
-                <div className="flex flex-row gap-2 w-full items-center justify-center">
-                    <p className="text-[2.5vw] font-[700]">{icon}</p>
-                    <p className="text-[2.5vw] font-[700]">
-                      {Math.ceil(selectedPlan.amount * exchangeRate)}
-                    </p>
-                  </div>
+                <div className="flex flex-row gap-2 w-full items-center justify-end">
+                  <p className="text-[14px] font-[700]">{icon}</p>
+                  <p className="text-[14px] font-[700]">
+                    {Math.ceil(selectedPlan.amount * exchangeRate)}
+                  </p>
+                </div>
               </div>
 
               <div className="h-[1px] w-full bg-[#DEDEDE]"></div>
               <div className="flex justify-between">
                 <p className="text-[16px] font-semibold">Total</p>
-                <div className="flex flex-row gap-2 w-full items-center justify-center">
-                    <p className="text-[2.5vw] font-[700]">{icon}</p>
-                    <p className="text-[2.5vw] font-[700]">
-                      {Math.ceil(selectedPlan.amount * exchangeRate)}
-                    </p>
-                  </div>
+                <div className="flex flex-row gap-2 w-full items-center justify-end">
+                  <p className="text-[14px] font-[700]">{icon}</p>
+                  <p className="text-[14px] font-[700]">
+                    {Math.ceil(selectedPlan.amount * exchangeRate)}
+                  </p>
+                </div>
               </div>
             </div>
           </div>
