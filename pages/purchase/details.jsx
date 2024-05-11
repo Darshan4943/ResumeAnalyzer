@@ -4,15 +4,23 @@ import { useRouter } from "next/router";
 import { plans } from "../../utils/data";
 import MiniLoader from "../../components/common/miniLoader";
 import axios from "axios";
+import PaymentSuccess from "../../components/models/paymentSuccess";
+import { useSelector } from "react-redux";
+import PaymentCanceled from "../../components/models/paymentCanceled";
 
 function Details() {
   const router = useRouter();
   const { id, recruiterid, role, success, canceled } = router.query;
   const [loading, setLoading] = useState(false);
+  const userDataGlobal = useSelector((state) => state.userData);
   const [selectedPlan, setSelectedPlan] = useState({});
   const [exchangeRate, setexchangeRate] = useState(1);
   const [icon, seticon] = useState("$");
-
+  const [successModel, setSuccessModel] = useState({
+    visible: false,
+    loading: false,
+  });
+  const [cancelModel, setCancelModel] = useState(false);
   useEffect(() => {
     const exchangeRate = localStorage.getItem("exchangeRate");
     const icon = localStorage.getItem("icon");
@@ -29,28 +37,13 @@ function Details() {
     return () => clearTimeout(timer);
   }, [id]);
   useEffect(() => {
-    if (success == "true") {
-      axios
-        .post("https://freedygoservices.in/api/add/subscription", {
-          userId:
-            userDataGlobal.role == "admin" ? recruiterid : userDataGlobal._id,
-          plan: selectedPlan.duration + " " + selectedPlan.limit,
-          ...data,
-          mobileNo: data.mobileNo,
-          index: selectedPlan.index,
-          isAdmin: true,
-          role: userDataGlobal?.role,
-        })
-        .then((res) => {
-          setLoading(false);
-          setPopUp(true);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+    if (canceled == "true") {
+      setCancelModel(true);
     }
-  }, [success]);
-
+  }, [success, canceled]);
+  const navigate = () => {
+    router.push("/purchase/MyPurchase");
+  };
   return (
     <div className=" flex flex-col gap-9">
       <div className="flex flex-col justify-center items-center bg-blue h-[89px]  py-3">
@@ -61,6 +54,13 @@ function Details() {
           Purchase plan and make payment
         </div>
       </div>
+      {successModel.visible && (
+        <PaymentSuccess
+          successFunction={navigate}
+          loading={successModel.loading}
+        />
+      )}
+      {cancelModel && <PaymentCanceled setCancelModel={setCancelModel} />}
       {loading ? (
         <div className="flex w-full items-center justify-center h-[70vh]">
           <MiniLoader />
@@ -123,6 +123,8 @@ function Details() {
               selectedPlan={selectedPlan}
               recruiterid={recruiterid}
               role={role}
+              setSuccessModel={setSuccessModel}
+              success={success}
             />
           </div>
         </div>

@@ -4,7 +4,12 @@ import { useDispatch, useSelector, useStore } from "react-redux";
 import { userAction } from "./actions/user";
 import { jwtDecode } from "jwt-decode";
 import { setJob } from "./actions";
-import { currenciesWithIcons, currencyMap, plans } from "../utils/data";
+import {
+  currenciesWithIcons,
+  currencyMap,
+  plans,
+  telCode,
+} from "../utils/data";
 import ResetPasswordModal from "../components/models/resetPasswordModal";
 import moment from "moment";
 export const Api = () => {
@@ -34,7 +39,9 @@ export const Api = () => {
       if (token && token != "undefined") {
         const decoded = jwtDecode(token.token);
         axios
-          .get("https://freedygoservices.in/api/skiloteckuser/user/" + decoded._id)
+          .get(
+            "https://freedygoservices.in/api/skiloteckuser/user/" + decoded._id
+          )
           .then((res) => {
             const decode = jwtDecode(res.data.data);
             dispatch(
@@ -58,7 +65,9 @@ export const Api = () => {
 
     if (userDataGlobal) {
       axios
-        .get("https://freedygoservices.in/api/subscription/" + userDataGlobal._id)
+        .get(
+          "https://freedygoservices.in/api/subscription/" + userDataGlobal._id
+        )
         .then((res) => {
           const result = res.data.findIsActive;
 
@@ -114,39 +123,56 @@ export const Api = () => {
         });
     }
   }, [userDataGlobal, reCallUser]);
-  const getExhangeRate = async () => {
-    try {
-      const response = await fetch("https://ipapi.co/json/");
-      const data = await response.json();
-      const countryCode = data.country_code;
-      const country = currencyMap.find(
-        (item) => item.countryCode == countryCode
+  const getLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          console.log(position.coords);
+          axios
+            .get(
+              `https://maps.googleapis.com/maps/api/geocode/json?latlng=${position.coords.latitude},${position.coords.longitude}&key=AIzaSyC18Xg49QgJj0NYpDikCbDwaWS00tKUpnM`
+            )
+            .then(async (response) => {
+              const results = response.data.results;
+              const countryData = response.data.results.find((result) =>
+                result.types.includes("country")
+              );
+              if (countryData) {
+                const country = countryData.formatted_address;
+                const codeJson = telCode.find((item) => item.name == country);
+                const Country = currencyMap.find(
+                  (item) => item.countryCode == codeJson.code
+                );
+                const currency = Country ? Country.currency : "USD";
+                const icon = currenciesWithIcons.find(
+                  (item) => item.icon == currency.toLowerCase()
+                );
+                const symbol = icon ? icon.symbol : currency;
+                const exchangeRate = await axios.get(
+                  "https://freedygoservices.in/api/exchangeRate/" + currency
+                );
+                localStorage.setItem("exchangeRate", exchangeRate.data.rate);
+                localStorage.setItem("currency", currency);
+                localStorage.setItem("icon", symbol);
+              } else {
+                console.log(err);
+              }
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        },
+        (error) => {
+          setError(error.message);
+        }
       );
-      const currency = country ? country.currency : "USD";
-      const icon = currenciesWithIcons.find(
-        (item) => item.icon == currency.toLowerCase()
-      );
-      const symbol = icon ? icon.symbol : currency;
-      const exchangeRate = await axios.get(
-        "https://freedygoservices.in/api/exchangeRate/" + currency
-      );
-      localStorage.setItem("exchangeRate", exchangeRate.data.rate);
-      localStorage.setItem("currency", currency);
-      localStorage.setItem("icon", symbol);
-    } catch (err) {
-      console.log(err);
+    } else {
+      setError("Geolocation is not supported by this browser.");
     }
-
-    // if(data.rates[selectedCurrency]){
-    //   // Convert 1 USD to selected currency
-    //   const converted = 1 * data.rates[selectedCurrency];
-    //   setConvertedAmount(converted);
-    // } else {
-    //   setConvertedAmount(null);
-    // }
   };
+
   useEffect(() => {
-    getExhangeRate();
+    getLocation();
   }, []);
   // console.log(123,visible && loading == false);
   return <>{visible && loading == false ? <ResetPasswordModal /> : null}</>;
