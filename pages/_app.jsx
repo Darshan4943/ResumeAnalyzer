@@ -66,10 +66,7 @@ const WrappedApp = ({ Component, pageProps }) => {
           defer
           src="https://checkout.razorpay.com/v1/checkout.js"
         ></script>
-        <script
-          type="text/javascript"
-          src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC18Xg49QgJj0NYpDikCbDwaWS00tKUpnM&libraries=places"
-        />
+       
       </Helmet>
       <Provider store={Store}>
         <Api />
