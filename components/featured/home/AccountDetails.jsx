@@ -14,17 +14,22 @@ const stripeInstance = stripe(
   "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"
 );
 
-function AccountDetails({ selectedPlan, recruiterid, role }) {
+function AccountDetails({
+  selectedPlan,
+  recruiterid,
+  role,
+  setSuccessModel,
+  success,
+}) {
   const router = useRouter();
   const userDataGlobal = useSelector((state) => state.userData);
   const [exchangeRate, setexchangeRate] = useState(1);
 
   useEffect(() => {
     const exchangeRate = localStorage.getItem("exchangeRate");
-
     setexchangeRate(exchangeRate);
   }, []);
-  const [successModel, setSuccessModel] = useState(false);
+
   const [error, setError] = useState();
   const [popUp, setPopUp] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -121,12 +126,48 @@ function AccountDetails({ selectedPlan, recruiterid, role }) {
     setData({ ...data, [fieldName]: value });
     validateInput(fieldName, value);
   };
-
+  useEffect(() => {
+    const jsonData = JSON.parse(localStorage.getItem("paymentDetails"));
+    if (jsonData) {
+      setData(jsonData);
+    }
+    if (success == "true" && userDataGlobal) {
+      setSuccessModel({
+        visible: true,
+        loading: true,
+      });
+      axios
+        .post("https://freedygoservices.in/api/add/subscription", {
+          userId: userDataGlobal._id,
+          plan: selectedPlan.duration + " " + selectedPlan.limit,
+          ...jsonData,
+          mobileNo: jsonData.mobileNo,
+          index: selectedPlan.index,
+          isAdmin: true,
+          role: userDataGlobal?.role,
+          isPaid: true,
+          paidAt: new Date(),
+        })
+        .then((res) => {
+          setTimeout(() => {
+            setSuccessModel({
+              visible: true,
+              loading: false,
+            });
+          }, 2000);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [success, userDataGlobal]);
   useEffect(() => {
     if (userDataGlobal.email) {
       if (recruiterid) {
         axios
-          .get("https://freedygoservices.in/api/skiloteckuser/user/" + recruiterid)
+          .get(
+            "https://freedygoservices.in/api/skiloteckuser/user/" + recruiterid
+          )
           .then((res) => {
             const decode = jwtDecode(res.data.data);
             setData({
@@ -152,10 +193,6 @@ function AccountDetails({ selectedPlan, recruiterid, role }) {
           telCode.find((item) => item.dial_code === userDataGlobal.dial_code)
         );
       }
-    }
-    const jsonData = JSON.parse(localStorage.getItem("paymentDetails"));
-    if (jsonData) {
-      setData(jsonData);
     }
   }, []);
 
@@ -204,7 +241,9 @@ function AccountDetails({ selectedPlan, recruiterid, role }) {
         try {
           const priceId = await getPriceId();
           axios
-            .post("https://freedygoservices.in/api/proceed/payment", { priceId })
+            .post("https://freedygoservices.in/api/proceed/payment", {
+              priceId,
+            })
             .then((res) => {
               if (res.data.success) {
                 window.location.href = res.data.url;
@@ -278,57 +317,6 @@ function AccountDetails({ selectedPlan, recruiterid, role }) {
               >
                 Done
               </button>
-            </div>
-          </div>
-        </>
-      )}
-      {successModel && (
-        <>
-          <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
-          <div className="fixed z-[2000] top-[40%] left-0 right-0  flex items-center justify-center  ">
-            <div className=" absolute rounded-[16px] bg-white shadow-lg pt-[60px] pb-6 px-11 flex flex-col gap-6 w-[25%] ">
-              <svg
-                className="absolute top-[-40px]  left-[38%] right-[62%] flex"
-                xmlns="http://www.w3.org/2000/svg"
-                width="85"
-                height="85"
-                viewBox="0 0 85 85"
-                fill="none"
-              >
-                <g clip-path="url(#clip0_6622_116765)">
-                  <rect width="85" height="85" rx="42.5" fill="#0C8A0A" />
-                  <g mask="url(#mask0_6622_116765)">
-                    <path
-                      d="M34.5 58.1875L20.1562 43.8438L24.0938 39.9062L34.5 50.3125L59.9062 24.9062L63.8438 28.8438L34.5 58.1875Z"
-                      fill="white"
-                    />
-                  </g>
-                </g>
-                <defs>
-                  <clipPath id="clip0_6622_116765">
-                    <rect width="85" height="85" rx="42.5" fill="white" />
-                  </clipPath>
-                </defs>
-              </svg>
-
-              <div className="text-center">
-                <div className="text-[24px] font-[500] text-[#333]">
-                  Payment Successful! you have purchased the plan.
-                </div>
-                <div className="text-[16px] font-[500] text-[#333]">
-                  Check your email for confirmation
-                </div>
-              </div>
-              <div className="flex justify-center">
-                <button
-                  onClick={() => {
-                    router.push("/purchase/MyPurchase");
-                  }}
-                  className="py-[12px] px-[24px] rounded-[8px] bg-[#06A9EF] text-[#fff] text-[16px] font-[500]"
-                >
-                  Done
-                </button>
-              </div>
             </div>
           </div>
         </>

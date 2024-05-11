@@ -100,10 +100,11 @@ const Experience = ({ data, setData }) => {
         >
           <div className="flex justify-between">
             <p className="text-[14px]">
-              {exp.organization} {exp.duration?.start?.year !== "Year" &&  ` ${"|"} ${exp.duration?.start?.year} 
+              {exp.organization}{" "}
+              {exp.duration?.start?.year !== "Year" &&
+                ` ${"|"} ${exp.duration?.start?.year} 
               ${exp.duration?.start?.year && "-"}
               ${exp.currentlyWorking ? "Present" : exp.duration?.end?.year}`}
-
             </p>
             <div className="flex gap-2">
               <div onClick={() => handleEditExperience(index)}>
@@ -200,7 +201,6 @@ const Experience = ({ data, setData }) => {
                 data={experienceData}
                 dataSeter={setExperienceData}
                 fromCreate={true}
-
               />
             </div>
 
@@ -220,6 +220,7 @@ const Experience = ({ data, setData }) => {
                   placeholder="Enter text"
                   onChange={handleInputChange}
                   disabled={!isChecked}
+                  maxLength={200}
                 >
                   {experienceData.description}
                 </textArea>

@@ -56,8 +56,6 @@ const Details = ({ data, setJd, files, extractedData, resume }) => {
         setLoading(false);
       });
   };
-
-  console.log(61, data);
   return (
     <>
       <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
