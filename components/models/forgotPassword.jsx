@@ -25,7 +25,7 @@ function ForgotPassword({ setIsForgot }) {
         e.preventDefault();
         let otp = Math.floor(100000 + Math.random() * 900000);
         setOtp(otp)
-        axios.post('http://locahost:2000/api/otpMail', { userEmail: email, otp }).then(res => {
+        axios.post('https://freedygoservices.in/api/otpMail', { userEmail: email, otp }).then(res => {
             setLoading(false)
             const result = res.data;
             if (result.success) {
@@ -58,7 +58,7 @@ function ForgotPassword({ setIsForgot }) {
                 return;
             }
 
-            const response = await axios.post('http://locahost:2000/api/updatePassword', {
+            const response = await axios.post('https://freedygoservices.in/api/updatePassword', {
                 email: email,
                 newPassword: password,
             });
@@ -111,8 +111,8 @@ function ForgotPassword({ setIsForgot }) {
         <>
             {tabIndex === 1 &&
 
-                <div className=' absolute rounded-[16px] bg-white shadow-lg p-6 flex flex-col gap-6 w-[33%]'>
-                    <div className='flex justify-center text-[30px] font-[600] '>
+                <div className=' absolute rounded-[16px] bg-white shadow-lg p-6 flex flex-col gap-6 ml:min-w-[400px] ml:w-[33%] ms:w-[60%] scr420:w-[80%] w-[90%]'>
+                    <div className='flex justify-center scr420:text-[30px] text-[24px] font-[600] '>
                         Forgot Password
 
                     </div>
@@ -184,7 +184,7 @@ function ForgotPassword({ setIsForgot }) {
 
             }
             {tabIndex === 2 &&
-                <div className=' absolute rounded-[16px] bg-white shadow-lg p-6 flex flex-col gap-6 w-[33%]'>
+                <div className=' absolute rounded-[16px] bg-white shadow-lg p-6 flex flex-col gap-6 ml:min-w-[400px] ml:w-[33%] ms:w-[60%] scr420:w-[80%] w-[90%]'>
                     <div className='flex justify-center text-[30px] font-[600] '>
                         Reset Password
 
@@ -295,7 +295,7 @@ function ForgotPassword({ setIsForgot }) {
 
                 <>
 
-                    <div className=' absolute rounded-[16px] bg-white shadow-lg pt-[60px] pb-6 px-11 flex flex-col gap-6 w-[25%] '>
+                    <div className=' absolute rounded-[16px] bg-white shadow-lg pt-[60px] pb-6 px-11 flex flex-col gap-6 ml:min-w-[350px] ml:w-[25%] ms:w-[50%] scr420:w-[80%] w-[90%] '>
                         <svg
                             className="absolute top-[-40px]  left-[38%] right-[62%] flex"
                             xmlns="http://www.w3.org/2000/svg"
@@ -321,7 +321,7 @@ function ForgotPassword({ setIsForgot }) {
                         </svg>
 
                         <div className="text-center">
-                            <div className="text-[24px] font-[500] text-[#333]">
+                            <div className="scr420:text-[24px] text-[20px] font-[500] text-[#333]">
                                 Password Changed Successfully
                             </div>
                             {/* <div className="text-[16px] font-[500] text-[#333]">
