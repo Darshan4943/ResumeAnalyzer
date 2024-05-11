@@ -92,7 +92,7 @@ export const Api = () => {
                 )
                 .then((res) => {
                   if (res.data.success) {
-                    window.location.reload();
+                    // window.location.reload();
                   }
                 })
                 .catch((err) => {
