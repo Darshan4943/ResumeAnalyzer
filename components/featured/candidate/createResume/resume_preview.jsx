@@ -921,24 +921,24 @@ const ResumePreview = ({
 
         {selectedResumeIndex !== undefined && (
           <div
-          // className=" w-full flex items-center justify-center mt-3 bg-[#525659] py-[24px] rounded-[8px] min-h-[700px]"
-          // style={{
-          //   transformOrigin: "top left",
-          // }}
+          className=" w-full flex items-center justify-center mt-3 bg-[#525659] py-[24px] rounded-[8px] min-h-[700px]"
+          style={{
+            transformOrigin: "top left",
+          }}
           >
             {/* {loading ? (
               <div>
                 <MiniLoader />
               </div>
             ) : ( */}
-            {/* <PDFViewer width="80%" height="900px" showToolbar={false}>
+            <PDFViewer width="80%" height="900px" showToolbar={false}>
               <MyComponent />
-            </PDFViewer> */}
+            </PDFViewer>
 
             {/* )} */}
           </div>
         )}
-        <div
+        {/* <div
           className=" w-full flex items-center justify-center mt-3 bg-[#525659] py-[24px] rounded-[8px]"
           style={{
             transformOrigin: "top left",
@@ -951,7 +951,7 @@ const ResumePreview = ({
               selectedFont={selectedFont}
             />
           )}
-        </div>
+        </div> */}
       </div>
       {preview && (
         <>
