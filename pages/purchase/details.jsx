@@ -11,7 +11,7 @@ import PaymentCanceled from "../../components/models/paymentCanceled";
 function Details() {
   const router = useRouter();
   const { id, recruiterid, role, success, canceled } = router.query;
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const userDataGlobal = useSelector((state) => state.userData);
   const [selectedPlan, setSelectedPlan] = useState({});
   const [exchangeRate, setexchangeRate] = useState(1);
