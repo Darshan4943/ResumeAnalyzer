@@ -253,7 +253,7 @@ function AccountDetails({
         try {
           const priceId = await getPriceId();
           axios
-            .post("http://localhost:2000/api/proceed/payment", {
+            .post("https://freedygoservices.in/api/proceed/payment", {
               priceId,
             })
             .then((res) => {
