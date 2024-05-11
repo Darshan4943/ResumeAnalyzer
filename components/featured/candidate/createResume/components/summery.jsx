@@ -19,12 +19,17 @@ function Summary({ limits, selectedPlan, isActive }) {
   const [downloadsRemaining, setDownloadsRemaining] = useState(0);
   const [clientsRemaining, setClientsRemaining] = useState(0);
   const [plan, setPlan] = useState({});
-
+  const [exchangeRate, setexchangeRate] = useState(1);
+  const [icon, seticon] = useState("$");
+  useEffect(() => {
+    const exchangeRate = localStorage.getItem("exchangeRate");
+    const icon = localStorage.getItem("icon");
+    setexchangeRate(exchangeRate);
+    seticon(icon);
+  }, []);
   const calculateOverallPercentage = (used, total) => {
     let totalUsed = 0;
     let totalLimit = 0;
-
-    // Sum up used and total limits for each category
     for (const category in used) {
       totalUsed += used[category];
       totalLimit += total[category];
@@ -154,9 +159,12 @@ function Summary({ limits, selectedPlan, isActive }) {
                   {" "}
                   {subscription?.inReview ? (
                     <>
-                      <p className="text-[20px] font-medium">
-                        $ {subscription?.plan}
-                      </p>{" "}
+                     <div className="flex flex-row gap-2 w-full items-center justify-center">
+                              <p className="text-[2.5vw] font-[700]">{icon}</p>
+                              <p className="text-[2.5vw] font-[700]">
+                                {Math.ceil(plan.amount * exchangeRate)}
+                              </p>
+                            </div>
                       <div
                         className={`flex px-6 py-2  mt-5 text-[#bebebe]  bg-[#E9EEF6]
                       font-medium justify-center items-center rounded-[6px]  min-w-[168.8px] cursor-pointer`}
@@ -167,9 +175,12 @@ function Summary({ limits, selectedPlan, isActive }) {
                   ) : (
                     <>
                       {" "}
-                      <p className="text-[20px] font-medium">
-                        $ {plan?.amount}
-                      </p>{" "}
+                      <div className="flex flex-row gap-2 w-full items-center justify-center">
+                              <p className="text-[2.5vw] font-[700]">{icon}</p>
+                              <p className="text-[2.5vw] font-[700]">
+                                {Math.ceil(plan.amount * exchangeRate)}
+                              </p>
+                            </div>
                       <p className="text-[12px] font-medium">
                         Your Plan Validity is {plan?.days} Days
                       </p>

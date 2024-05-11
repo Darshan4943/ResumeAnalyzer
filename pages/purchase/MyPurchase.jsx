@@ -13,6 +13,14 @@ function MyPurchase() {
   const [loading, setLoading] = useState(false);
   const [subscription, setSubscription] = useState(null);
   const userDataGlobal = useSelector((state) => state.userData);
+  const [exchangeRate, setexchangeRate] = useState(1);
+  const [icon, seticon] = useState("$");
+  useEffect(() => {
+    const exchangeRate = localStorage.getItem("exchangeRate");
+    const icon = localStorage.getItem("icon");
+    setexchangeRate(exchangeRate);
+    seticon(icon);
+  }, []);
   useEffect(() => {
     if (userDataGlobal) {
       setLoading(true);
@@ -76,9 +84,13 @@ function MyPurchase() {
                               </span>{" "}
                               {plan?.limit}
                             </p>
-                            <p className="text-[32px] font-[700]">
-                              {plan?.price}
-                            </p>
+                            <div className="flex flex-row gap-2 w-full items-center justify-center">
+                              <p className="text-[2.5vw] font-[700]">{icon}</p>
+                              <p className="text-[2.5vw] font-[700]">
+                                {Math.ceil(plan.amount * exchangeRate)}
+                              </p>
+                            </div>
+
                             <p className="text-[14px] font-[500]">
                               Your Plan Validity is {plan?.days} days
                             </p>

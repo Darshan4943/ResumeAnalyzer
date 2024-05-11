@@ -590,7 +590,7 @@ function Recruiter_signup({}) {
                     </div>
                   </div>
                   <div className="flex gap-6 ml:flex-row flex-col  w-[100%]">
-                    <div className="flex flex-col gap-4 w-[50%]">
+                    <div className="flex flex-col gap-4 ml:w-[50%] w-[100%]">
                       <div className="personal_single_input w-[100%]">
                         <p className="form_text_heading">
                           Email <span className="star">*</span>
@@ -613,7 +613,7 @@ function Recruiter_signup({}) {
                               {!verify ? (
                                 <button
                                   onClick={handleVerification}
-                                  className=" min-w-[150px] text-[16px] font-medium flex justify-center items-center border border-blue bg-blue text-white  py-3 px-4 rounded-[8px] leading-tight h-[48px] "
+                                  className=" ms:min-w-[150px] min-w-[95px] ms:text-[16px] text-[12px] font-medium flex justify-center items-center border border-blue bg-blue text-white  py-3 ms:px-4 px-2 rounded-[8px] leading-tight h-[48px] "
                                 >
                                   {loadingg ? (
                                     <MiniLoader />

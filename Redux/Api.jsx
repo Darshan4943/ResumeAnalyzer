@@ -4,10 +4,14 @@ import { useDispatch, useSelector, useStore } from "react-redux";
 import { userAction } from "./actions/user";
 import { jwtDecode } from "jwt-decode";
 import { setJob } from "./actions";
-import { plans } from "../utils/data";
+import {
+  currenciesWithIcons,
+  currencyMap,
+  plans,
+  telCode,
+} from "../utils/data";
 import ResetPasswordModal from "../components/models/resetPasswordModal";
 import moment from "moment";
-
 export const Api = () => {
   const store = useStore();
   const [loading, setLoading] = useState(true);
@@ -67,7 +71,7 @@ export const Api = () => {
         .then((res) => {
           const result = res.data.findIsActive;
 
-          if (result.isActive == true) {
+          if (result?.isActive == true) {
             const selectedPlan = plans.find(
               (item) => item.duration + " " + item.limit == result.plan
             );
@@ -119,7 +123,57 @@ export const Api = () => {
         });
     }
   }, [userDataGlobal, reCallUser]);
+  const getLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          console.log(position.coords);
+          axios
+            .get(
+              `https://maps.googleapis.com/maps/api/geocode/json?latlng=${position.coords.latitude},${position.coords.longitude}&key=AIzaSyC18Xg49QgJj0NYpDikCbDwaWS00tKUpnM`
+            )
+            .then(async (response) => {
+              const results = response.data.results;
+              const countryData = response.data.results.find((result) =>
+                result.types.includes("country")
+              );
+              if (countryData) {
+                const country = countryData.formatted_address;
+                const codeJson = telCode.find((item) => item.name == country);
+                const Country = currencyMap.find(
+                  (item) => item.countryCode == codeJson.code
+                );
+                const currency = Country ? Country.currency : "USD";
+                const icon = currenciesWithIcons.find(
+                  (item) => item.icon == currency.toLowerCase()
+                );
+                const symbol = icon ? icon.symbol : currency;
+                const exchangeRate = await axios.get(
+                  "https://freedygoservices.in/api/exchangeRate/" + currency
+                );
+                localStorage.setItem("exchangeRate", exchangeRate.data.rate);
+                localStorage.setItem("currency", currency);
+                localStorage.setItem("icon", symbol);
+              } else {
+                console.log(err);
+              }
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        },
+        (error) => {
+          setError(error.message);
+        }
+      );
+    } else {
+      setError("Geolocation is not supported by this browser.");
+    }
+  };
 
+  useEffect(() => {
+    getLocation();
+  }, []);
   // console.log(123,visible && loading == false);
   return <>{visible && loading == false ? <ResetPasswordModal /> : null}</>;
 };

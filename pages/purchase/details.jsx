@@ -3,12 +3,30 @@ import AccountDetails from "../../components/featured/home/AccountDetails";
 import { useRouter } from "next/router";
 import { plans } from "../../utils/data";
 import MiniLoader from "../../components/common/miniLoader";
+import axios from "axios";
+import PaymentSuccess from "../../components/models/paymentSuccess";
+import { useSelector } from "react-redux";
+import PaymentCanceled from "../../components/models/paymentCanceled";
 
 function Details() {
   const router = useRouter();
-  const { id, recruiterid,role } = router.query;
+  const { id, recruiterid, role, success, canceled } = router.query;
   const [loading, setLoading] = useState(false);
+  const userDataGlobal = useSelector((state) => state.userData);
   const [selectedPlan, setSelectedPlan] = useState({});
+  const [exchangeRate, setexchangeRate] = useState(1);
+  const [icon, seticon] = useState("$");
+  const [successModel, setSuccessModel] = useState({
+    visible: false,
+    loading: false,
+  });
+  const [cancelModel, setCancelModel] = useState(false);
+  useEffect(() => {
+    const exchangeRate = localStorage.getItem("exchangeRate");
+    const icon = localStorage.getItem("icon");
+    setexchangeRate(exchangeRate);
+    seticon(icon);
+  }, []);
   useEffect(() => {
     setSelectedPlan(plans.find((item, index) => index == id - 1));
     setLoading(true);
@@ -18,7 +36,14 @@ function Details() {
 
     return () => clearTimeout(timer);
   }, [id]);
-
+  useEffect(() => {
+    if (canceled == "true") {
+      setCancelModel(true);
+    }
+  }, [success, canceled]);
+  const navigate = () => {
+    router.push("/purchase/MyPurchase");
+  };
   return (
     <div className=" flex flex-col gap-9">
       <div className="flex flex-col justify-center items-center bg-blue h-[89px]  py-3">
@@ -29,6 +54,13 @@ function Details() {
           Purchase plan and make payment
         </div>
       </div>
+      {successModel.visible && (
+        <PaymentSuccess
+          successFunction={navigate}
+          loading={successModel.loading}
+        />
+      )}
+      {cancelModel && <PaymentCanceled setCancelModel={setCancelModel} />}
       {loading ? (
         <div className="flex w-full items-center justify-center h-[70vh]">
           <MiniLoader />
@@ -52,9 +84,12 @@ function Details() {
                     </span>{" "}
                     {selectedPlan?.limit}
                   </p>
-                  <p className="scr700:text-[2.5vw] text-[7vw] font-[700]">
-                    {selectedPlan?.price}
-                  </p>
+                  <div className="flex flex-row gap-2 w-full items-center justify-center">
+                    <p className="text-[2.5vw] font-[700]">{icon}</p>
+                    <p className="text-[2.5vw] font-[700]">
+                      {Math.ceil(selectedPlan.amount * exchangeRate)}
+                    </p>
+                  </div>
                   <p className="scr700:text-[1.1vw] text-[4vw] font-[500]">
                     {selectedPlan?.description}
                   </p>
@@ -88,6 +123,8 @@ function Details() {
               selectedPlan={selectedPlan}
               recruiterid={recruiterid}
               role={role}
+              setSuccessModel={setSuccessModel}
+              success={success}
             />
           </div>
         </div>
