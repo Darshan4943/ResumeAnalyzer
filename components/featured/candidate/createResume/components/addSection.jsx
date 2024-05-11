@@ -215,6 +215,19 @@ const AddSection = ({ data, setData, section, formData, index, item }) => {
               <button
                 className=" font-montserrat text-xs font-semibold px-[12px] rounded-[8px] border border-[#06A9EF] w-[80px] h-[32px]"
                 onClick={() => {
+                  setData({
+                    ...data,
+                    section: [
+                      ...data?.section.filter((item) => {
+                        item.header == "" || item.subSection == [];
+                      }),
+                      // {
+                      //   header: "",
+                      //   subSection: [],
+                      // },
+                    ],
+                  });
+
                   setSectionData({
                     title: "",
                     duration: null,
