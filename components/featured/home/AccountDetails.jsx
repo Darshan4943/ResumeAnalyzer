@@ -44,7 +44,7 @@ function AccountDetails({
     dial_code: "",
     checked: false,
   });
-  
+
   const [filteredTelCode, setFilteredTelCode] = useState([]);
   useEffect(() => {
     const filteredCodes = telCode;
@@ -450,6 +450,7 @@ function AccountDetails({
                       : "Enter Contact Number "
                   }`}
                   value={data.mobileNo}
+                  maxLength={10}
                   onChange={(e) =>
                     handleInputChange("mobileNo", e.target.value)
                   }
@@ -479,22 +480,22 @@ function AccountDetails({
                   {selectedPlan?.duration} {selectedPlan?.limit}
                 </p>
                 <div className="flex flex-row gap-2 w-full items-center justify-center">
-                    <p className="text-[2.5vw] font-[700]">{icon}</p>
-                    <p className="text-[2.5vw] font-[700]">
-                      {Math.ceil(selectedPlan.amount * exchangeRate)}
-                    </p>
-                  </div>
+                  <p className="text-[2.5vw] font-[700]">{icon}</p>
+                  <p className="text-[2.5vw] font-[700]">
+                    {Math.ceil(selectedPlan.amount * exchangeRate)}
+                  </p>
+                </div>
               </div>
 
               <div className="h-[1px] w-full bg-[#DEDEDE]"></div>
               <div className="flex justify-between">
                 <p className="text-[16px] font-semibold">Total</p>
                 <div className="flex flex-row gap-2 w-full items-center justify-center">
-                    <p className="text-[2.5vw] font-[700]">{icon}</p>
-                    <p className="text-[2.5vw] font-[700]">
-                      {Math.ceil(selectedPlan.amount * exchangeRate)}
-                    </p>
-                  </div>
+                  <p className="text-[2.5vw] font-[700]">{icon}</p>
+                  <p className="text-[2.5vw] font-[700]">
+                    {Math.ceil(selectedPlan.amount * exchangeRate)}
+                  </p>
+                </div>
               </div>
             </div>
           </div>
