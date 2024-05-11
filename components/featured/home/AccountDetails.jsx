@@ -133,11 +133,10 @@ function AccountDetails({
   };
   useEffect(() => {
     const jsonData = JSON.parse(localStorage.getItem("paymentDetails"));
-    console.log(jsonData);
     if (jsonData) {
       setData({ ...data, jsonData });
     }
-    if (success == "true" && userDataGlobal) {
+    if (success == "true" && userDataGlobal && selectedPlan && exchangeRate && icon) {
       setSuccessModel({
         visible: true,
         loading: true,
@@ -153,6 +152,8 @@ function AccountDetails({
           role: userDataGlobal?.role,
           isPaid: true,
           paidAt: new Date(),
+          amount: Math.ceil(selectedPlan.amount * exchangeRate),
+          icon: icon
         })
         .then((res) => {
           setTimeout(() => {
@@ -167,7 +168,7 @@ function AccountDetails({
           console.log(err);
         });
     }
-  }, [success, userDataGlobal]);
+  }, [success, userDataGlobal, selectedPlan, exchangeRate, icon]);
   useEffect(() => {
     const jsonData = JSON.parse(localStorage.getItem("paymentDetails"));
     if (jsonData) {
@@ -404,18 +405,16 @@ function AccountDetails({
                 Contact Number <span className="star">*</span>
               </p>
               <div
-                className={`flex w-[100%]  items-start ${
-                  isViewportBelow850 ? "gap-[4px] " : "gap-[16px] "
-                }`}
+                className={`flex w-[100%]  items-start ${isViewportBelow850 ? "gap-[4px] " : "gap-[16px] "
+                  }`}
                 id="single_input"
                 style={{
                   padding: "0px 8px",
                 }}
               >
                 <div
-                  className={`relative  min-w-[120px] ${
-                    isViewportBelow850 ? "w-[65%] " : "w-[18%] "
-                  } items-center`}
+                  className={`relative  min-w-[120px] ${isViewportBelow850 ? "w-[65%] " : "w-[18%] "
+                    } items-center`}
                 >
                   <div className="flex items-center  gap-1 cursor-pointer  w-[100%] ">
                     <ReactSelect
@@ -451,11 +450,10 @@ function AccountDetails({
                 </div>
 
                 <input
-                  placeholder={`${
-                    isViewportBelow850
+                  placeholder={`${isViewportBelow850
                       ? "Enter Number "
                       : "Enter Contact Number "
-                  }`}
+                    }`}
                   value={data.mobileNo}
                   maxLength={10}
                   onChange={(e) =>
@@ -464,7 +462,7 @@ function AccountDetails({
                   className="w-full mobileNo h-full pl-[20px] "
                   type="text"
                   name=""
-                  // id="single_input"
+                // id="single_input"
                 />
               </div>
 
