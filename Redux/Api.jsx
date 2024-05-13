@@ -87,8 +87,8 @@ export const Api = () => {
             if (timezone >= newEnddate && result.isActive) {
               axios
                 .put(
-                  "https://freedygoservices.in/api/subscription/update/" +
-                    userDataGlobal._id
+                  "http://localhost:2000/api/subscription/update/" +
+                    result._id
                 )
                 .then((res) => {
                   if (res.data.success) {

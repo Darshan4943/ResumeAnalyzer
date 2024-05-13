@@ -254,7 +254,7 @@ function AccountDetails({
           const priceId = await getPriceId();
           axios
             .post("https://freedygoservices.in/api/proceed/payment", {
-              priceId,
+              priceId,id:selectedPlan.index
             })
             .then((res) => {
               if (res.data.success) {
