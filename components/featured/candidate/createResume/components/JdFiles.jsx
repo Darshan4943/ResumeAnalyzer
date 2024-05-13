@@ -12,7 +12,10 @@ function JdFiles({
   selectedIndexes,
   setSelectedIndexes,
   loading,
+  setSelectedIndexesFilesType,
+  selectedIndexesFileTypes,
 }) {
+  console.log(16, selectedIndexes);
   const router = useRouter();
   const [selectAll, setSelectAll] = useState(false);
   const { clientId, name } = query;
@@ -81,7 +84,7 @@ function JdFiles({
   };
   function getAllFiles(obj) {
     let files = [];
-
+    console.log(84, obj);
     function traverse(node) {
       if (node.type === "file") {
         files.push({
@@ -96,6 +99,7 @@ function JdFiles({
     }
 
     traverse(obj);
+    console.log(100, files);
     return files;
   }
   const changeHandler = (value) => {
@@ -113,14 +117,23 @@ function JdFiles({
   };
 
   const toggleSelect = (itemId, item) => {
+    console.log(116, itemId, item);
+    const fileType = [
+      ...getAllFiles(item)
+        .filter((data) => data.type == "file")
+        .map((item) => item._id),
+    ];
+    console.log("filetypes", fileType);
+    setSelectedIndexesFilesType(fileType);
     const ids = [...getAllFiles(item).map((item) => item._id)];
     let updatedIndexes;
+    console.log(119, selectedIndexes, ids);
     if (selectedIndexes?.includes(itemId)) {
       updatedIndexes = selectedIndexes.filter((id) => !ids?.includes(id));
     } else {
       updatedIndexes = [...selectedIndexes, ...ids];
     }
-
+    localStorage.setItem("selectedIndexesFileType", JSON.stringify(fileType));
     localStorage.setItem("selectedIndexes", JSON.stringify(updatedIndexes));
 
     setSelectedIndexes(updatedIndexes);
@@ -208,7 +221,7 @@ function JdFiles({
                 </span>
                 <div className="absolute text-[10px] opacity-0 overflow-visible transition-opacity duration-500 group-hover:opacity-100  word-break bottom-[-5px] text-[#fff] bg-[#333] px-[6px] py-[3px] rounded-[5px]">
                   {item.fileName}
-                  </div>
+                </div>
               </div>
             </>
           ))

@@ -44,6 +44,7 @@ const JobMatching = () => {
   const [files, setFiles] = useState([]);
 
   const [selectedIndexes, setSelectedIndexes] = useState([]);
+  const [selectedIndexesFileTypes, setSelectedIndexesFilesType] = useState([]);
   const [resuneList, setResuneList] = useState([]);
   const selectOptions = (selectedOption) => {
     setSelectedOptions(selectedOption);
@@ -51,6 +52,7 @@ const JobMatching = () => {
   const handleButtonClick = () => {
     fileRef.current.click();
   };
+
   useEffect(() => {
     if (selectedOptions.value === "My Collection") {
       setTab(1);
@@ -71,6 +73,12 @@ const JobMatching = () => {
       }
     }
     const storedIndexes = localStorage.getItem("selectedIndexes");
+    const storedIndexesFileType = localStorage.getItem(
+      "selectedIndexesFileType"
+    );
+    if (storedIndexesFileType) {
+      setSelectedIndexesFilesType(JSON.parse(storedIndexesFileType));
+    }
 
     if (storedIndexes) {
       setSelectedIndexes(JSON.parse(storedIndexes));
@@ -125,7 +133,7 @@ const JobMatching = () => {
         `https://freedygoservices.in/api/client/getByRecruiter/${userDataGlobal._id}`
       )
       .then((res) => {
-        console.log(res.data.data);
+        // console.log(res.data.data);
         setDetails(res.data.data);
         setTimeout(() => {
           setLoading(false);
@@ -140,14 +148,14 @@ const JobMatching = () => {
   const jobMatching = () => {
     setLoadingg(true);
     setIsAnimate(false);
+
     axios
       .post("https://freedygoservices.in/api/external/jobMatching/", {
         jd: text,
         resumeCount,
-        ids: selectedIndexes,
+        ids: selectedIndexesFileTypes,
       })
       .then((res) => {
-        console.log(res.data);
         setResuneList(res.data.data);
         setLoadingg(false);
       })
@@ -483,6 +491,8 @@ const JobMatching = () => {
               setSelectedIndexes={setSelectedIndexes}
               selectedIndexes={selectedIndexes}
               loading={loading}
+              selectedIndexesFileTypes={selectedIndexesFileTypes}
+              setSelectedIndexesFilesType={setSelectedIndexesFilesType}
             />
           )}
 

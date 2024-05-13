@@ -31,6 +31,10 @@ const Education = ({ setData, data }) => {
       ...educationData,
       [name]: value,
     });
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: value.trim() === '' ? `${name.charAt(0).toUpperCase() + name.slice(1)} is required` : '',
+    }));
   };
   const handleDeleteEducation = (index) => {
     setData({
@@ -49,21 +53,52 @@ const Education = ({ setData, data }) => {
       // setEducationData(updatedEducationData);
     }
   };
-  const handleSave = () => {
-    if (isModified.status === true) {
-      const dumyData = data.education;
-      const index = isModified.index;
-      dumyData.splice(index, 1, educationData);
-      setData({ ...data, education: dumyData });
-      setView(false);
-    } else {
-      setData({
-        ...data,
-        education: [educationData, ...data.education],
-      });
-      setView(false);
+
+  const [errors, setErrors] = useState({
+    qualification: '',
+    specialization: '',
+    instituteName: '',
+  });
+
+  // Validation function
+  const validateForm = () => {
+    let newErrors = {};
+
+    if (!educationData.qualification.trim()) {
+      newErrors.qualification = 'Course name is required';
     }
-    window.scrollTo(0, 0);
+
+    if (!educationData.specialization.trim()) {
+      newErrors.specialization = 'Specialization / Board is required';
+    }
+
+    if (!educationData.instituteName.trim()) {
+      newErrors.instituteName = 'University Name is required';
+    }
+
+    setErrors(newErrors);
+
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSave = () => {
+    if (validateForm()) {
+      if (isModified.status === true) {
+        const dumyData = data.education;
+        const index = isModified.index;
+        dumyData.splice(index, 1, educationData);
+        setData({ ...data, education: dumyData });
+        setView(false);
+      } else {
+        setData({
+          ...data,
+          education: [educationData, ...data.education],
+        });
+        setView(false);
+      }
+      window.scrollTo(0, 0);
+    }
+  
   };
 
   return (
@@ -138,6 +173,7 @@ const Education = ({ setData, data }) => {
                     disabled={!isChecked}
                   />
                 </div>
+                {errors.qualification && <span className="text-[red] text-[12px]">{errors.qualification}</span>}
               </div>
               <div className="flex flex-col gap-2 w-full">
                 <div className="w-full text-[14px] font-montserrat  font-medium">
@@ -154,6 +190,7 @@ const Education = ({ setData, data }) => {
                     disabled={!isChecked}
                   />
                 </div>
+                {errors.specialization && <span className="text-[red] text-[12px]">{errors.specialization}</span>}
               </div>
               <div className="flex flex-col gap-2 w-full">
                 <div className=" text-[14px] font-montserrat  font-medium">
@@ -170,6 +207,7 @@ const Education = ({ setData, data }) => {
                     disabled={!isChecked}
                   />
                 </div>
+                {errors.instituteName && <span className="text-[red] text-[12px]">{errors.instituteName}</span>}
               </div>
               <div className="flex flex-col gap-2 w-full">
                 <div className="w-full text-[14px] font-montserrat  font-medium">
@@ -228,7 +266,7 @@ const Education = ({ setData, data }) => {
                   Update to Profile
                 </button> */}
                 <button
-                  onClick={handleSave}
+                  onClick={ handleSave }
                   className=" font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px]  bg-[#06A9EF] w-[60px] h-[32px]"
                 >
                   Save
