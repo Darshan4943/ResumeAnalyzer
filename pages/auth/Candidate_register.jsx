@@ -60,7 +60,7 @@ function Candidate_register() {
   return (
     <>
       <div className=" relative !important">
-        <div className="register_head sticky ml:top-[90px] top-[3.5rem] w-[100%] z-50 pb-4 bg-white">
+        <div className="register_head sticky mt-[30px] ml:top-[55px] top-[3.5rem] w-[100%] z-50 pb-4 bg-white">
           <div className="register_cadidate py-3 px-2 overflow-hidden">
             <div className="register_text_parent">
               <div className="register_heding text-center">
