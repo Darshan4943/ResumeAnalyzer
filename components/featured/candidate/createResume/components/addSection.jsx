@@ -92,9 +92,8 @@ const AddSection = ({ data, setData, section, formData, index, item }) => {
     setIsEdited(false);
   };
   // console.log(first)
-  console.log(header)
+  console.log(header);
   return (
-
     <div
       className="flex flex-col p-4 gap-2 rounded-lg bg-white"
       style={{
@@ -104,7 +103,6 @@ const AddSection = ({ data, setData, section, formData, index, item }) => {
     >
       <div className="w-full flex  gap-2 justify-between ">
         <p className="flex flex-row gap-2">
-
           <input
             type="text"
             placeholder="Enter Section Header"
@@ -124,9 +122,7 @@ const AddSection = ({ data, setData, section, formData, index, item }) => {
             </button>
           )}
         </p>
-        {headerEditable ? (
-          null
-        ) : (
+        {headerEditable ? null : (
           <button onClick={deleteSection} className="cursor-pointer">
             <Delete_icon />
           </button>
@@ -207,6 +203,7 @@ const AddSection = ({ data, setData, section, formData, index, item }) => {
                   placeholder="Enter text"
                   onChange={handleInputChange}
                   disabled={!isChecked}
+                  maxLength={200}
                 >
                   {sectionData.description}
                 </textArea>
@@ -218,6 +215,19 @@ const AddSection = ({ data, setData, section, formData, index, item }) => {
               <button
                 className=" font-montserrat text-xs font-semibold px-[12px] rounded-[8px] border border-[#06A9EF] w-[80px] h-[32px]"
                 onClick={() => {
+                  setData({
+                    ...data,
+                    section: [
+                      ...data?.section.filter((item) => {
+                        item.header == "" || item.subSection == [];
+                      }),
+                      // {
+                      //   header: "",
+                      //   subSection: [],
+                      // },
+                    ],
+                  });
+
                   setSectionData({
                     title: "",
                     duration: null,

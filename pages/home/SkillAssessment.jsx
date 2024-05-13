@@ -7,7 +7,7 @@ import axios from "axios";
 // import SkillModel from "../../../../../components/featured/candidate/profile/modals/skill_modal";
 
 import MiniLoader from "../../components/common/mini-loader";
-import { camelCase, formatDate } from "../../utils/middleware";
+import { camelCase, dateSeter, formatDate } from "../../utils/middleware";
 import Timer from "../../components/common/timer";
 import { AssessmentSvg, Assessmentlogo } from "../../utils/svg";
 import ReactSelect from "react-select";
@@ -184,18 +184,18 @@ function SkillAssessment() {
     }
   };
 
-  useEffect(() => {
-    let timer;
-    if (questionIndex) {
-      timer = setTimeout(() => {
-        if (questionIndex === 9) {
-          sumbit();
-        }
-      }, 30000);
-    }
+  // useEffect(() => {
+  //   let timer;
+  //   if (questionIndex) {
+  //     timer = setTimeout(() => {
+  //       if (questionIndex === 9) {
+  //         sumbit();
+  //       }
+  //     }, 30000);
+  //   }
 
-    return () => clearTimeout(timer);
-  }, [questionIndex]);
+  //   return () => clearTimeout(timer);
+  // }, [questionIndex]);
 
   useEffect(() => {
     if (
@@ -272,6 +272,22 @@ function SkillAssessment() {
 
     return correctAnswer;
   };
+
+  function convertToDateTime(dateString) {
+    var date = new Date(dateString);
+
+    var hour = date.getHours();
+    var minute = date.getMinutes();
+
+    var period = hour >= 12 ? "PM" : "AM";
+    hour = hour % 12 || 12;
+
+    minute = (minute < 10 ? "0" : "") + minute;
+
+    var formattedTime = hour + ":" + minute + " " + period;
+
+    return formattedTime;
+  }
 
   return (
     <div className="">
@@ -576,6 +592,11 @@ function SkillAssessment() {
                         Date
                       </p>
                     </div>
+                    <div className="flex w-[19.95%] justify-center items-center self-stretch border-r border-solid border-[#DEDEDE] ">
+                      <p className="text-text-primary font-montserrat text-base font-medium leading-6">
+                        Time
+                      </p>
+                    </div>
                     <div className="flex w-[19.95%] justify-center items-center self-stretch  ">
                       <p className="text-text-primary font-montserrat text-base font-medium leading-6">
                         Score
@@ -611,10 +632,15 @@ function SkillAssessment() {
                               </p>
                             </div> */}
                           </div>
-                          <div className="lg:w-[48%] w-[45%] flex justify-between gap-[12px]">
+                          <div className="lg:w-[66%] w-[62%] flex justify-between gap-[12px] ">
                             <div className="flex  justify-center items-center self-stretch ">
                               <p className="text-[14px] font-montserrat text-base font-medium leading-6">
                                 {item?.date && formatDate(item?.date)}
+                              </p>
+                            </div>
+                            <div className="flex  justify-center items-center self-stretch ">
+                              <p className="text-[14px] font-montserrat text-base font-medium leading-6">
+                                {item?.date && convertToDateTime(item?.date)}
                               </p>
                             </div>
                             <div className="flex  justify-center lg:w-[40%]  items-center self-stretch  ">

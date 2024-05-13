@@ -8,11 +8,22 @@ import SubscriptionPlans from "../../components/featured/home/SubscriptionPlans"
 import SubscriptionPlan from "../../components/featured/home/SubscriptionHome";
 import MiniLoader from "../../components/common/miniLoader";
 
-function MyPurchase() {
+function MyPurchase() { 
+  const router = useRouter();
+
   const [plan, setPlan] = useState({});
   const [loading, setLoading] = useState(false);
   const [subscription, setSubscription] = useState(null);
+  console.log(15,subscription)
   const userDataGlobal = useSelector((state) => state.userData);
+  const [exchangeRate, setexchangeRate] = useState(1);
+  const [icon, seticon] = useState("$");
+  useEffect(() => {
+    const exchangeRate = localStorage.getItem("exchangeRate");
+    const icon = localStorage.getItem("icon");
+    setexchangeRate(exchangeRate);
+    seticon(icon);
+  }, []);
   useEffect(() => {
     if (userDataGlobal) {
       setLoading(true);
@@ -76,9 +87,13 @@ function MyPurchase() {
                               </span>{" "}
                               {plan?.limit}
                             </p>
-                            <p className="text-[32px] font-[700]">
-                              {plan?.price}
-                            </p>
+                            <div className="flex flex-row gap-2 w-full items-center justify-center">
+                              <p className="text-[2.5vw] font-[700]">{icon}</p>
+                              <p className="text-[2.5vw] font-[700]">
+                                {Math.ceil(plan.amount * exchangeRate)}
+                              </p>
+                            </div>
+
                             <p className="text-[14px] font-[500]">
                               Your Plan Validity is {plan?.days} days
                             </p>
@@ -90,12 +105,13 @@ function MyPurchase() {
                             </button>
                           ) : (
                             <button
+                            onClick={() => router.push("/purchase/plans")}
                               disabled={subscription?.isActive}
                               className={`px-9 py-3  ${
                                 subscription?.isActive
                                   ? "bg-[#DEDEDE] "
                                   : "bg-[#06a9ef]"
-                              } rounded-[12px] text-[16px] font-[600] text-white w-[60%] min-w-[160px]`}
+                              } rounded-[12px] text-[16px] font-[600] text-white w-[60%] min-w-[160px] `}
                             >
                               {subscription?.isActive
                                 ? "Purchased"
