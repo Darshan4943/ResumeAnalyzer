@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import ReactSelect from "react-select";
+import CreatableSelect from 'react-select/creatable';
 import { camelCase } from "../../../../../utils/middleware";
 import { toast } from "react-toastify";
 
@@ -110,7 +110,7 @@ const Skills = ({ data, setData }) => {
             List your skills and strengths
           </div>
 
-          <ReactSelect
+          <CreatableSelect
             options={skills.map((item) => ({
               value: item,
               label: camelCase(item),

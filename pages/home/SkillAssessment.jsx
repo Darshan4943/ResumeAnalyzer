@@ -10,7 +10,7 @@ import MiniLoader from "../../components/common/mini-loader";
 import { camelCase, dateSeter, formatDate } from "../../utils/middleware";
 import Timer from "../../components/common/timer";
 import { AssessmentSvg, Assessmentlogo } from "../../utils/svg";
-import ReactSelect from "react-select";
+import CreatableSelect from 'react-select/creatable';
 import { SkillList } from "../../utils/data";
 import { toast } from "react-toastify";
 
@@ -351,9 +351,9 @@ function SkillAssessment() {
                         </div>
                       </div>
                     </div>
-                    <ReactSelect
+                    <CreatableSelect 
                       onInputChange={(data) => {
-                        setSkills([data, ...skills]);
+                        // setSkills([data, ...skills]);
                       }}
                       options={skills.map((item) => ({
                         value: item,
