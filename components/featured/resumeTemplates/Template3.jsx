@@ -441,7 +441,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                         fontFamily: `${selectedFont} 700`,
                       }}
                     >
-                      {detail.instituteName}
+                      {detail.instituteName}  {"/"} {detail.specialization}
                     </Text>
                   </View>
                   <View style={{ flexDirection: "column", gap: 4 }}>

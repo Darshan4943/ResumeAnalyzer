@@ -14,6 +14,7 @@ import ResetPasswordModal from "../components/models/resetPasswordModal";
 import moment from "moment";
 export const Api = () => {
   const store = useStore();
+  const [error, setError] = useState(false)
   const [loading, setLoading] = useState(true);
   const userDataGlobal = useSelector((state) => state.userData);
   const [visible, setVisible] = useState(false);
