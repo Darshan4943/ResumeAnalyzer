@@ -28,27 +28,31 @@ const Experience = ({ data, setData }) => {
       ...experienceData,
       [name]: value,
     });
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: value.trim() === '' ? `${name.charAt(0).toUpperCase() + name.slice(1)} is required` : '',
+    }));
   };
-  const handleSave = () => {
+const handleSave = () => {
+  if (validateForm()) {
     if (isModified.status === true) {
-      const dumyData = data.experience;
+      const dummyData = [...data.experience];
       const index = isModified.index;
-      dumyData.splice(index, 1, experienceData);
-      setData({ ...data, experience: dumyData });
+      dummyData.splice(index, 1, experienceData);
+      setData({ ...data, experience: dummyData });
       setView(false);
     } else {
       setData({
         ...data,
         experience: [experienceData, ...data.experience],
       });
-      setView(false);
+     {validateForm ? setView(false) : setView(true)}; 
     }
     setIsModified({ status: false, index: 0 });
-    window.scrollTo(0, 0);
     setExperienceData({
       designation: "",
       organization: "",
-      description: " ",
+      description: "",
       currentlyWorking: true,
       location: "",
       duration: {
@@ -56,7 +60,12 @@ const Experience = ({ data, setData }) => {
         end: { year: "Year", month: "Month" },
       },
     });
-  };
+  } else {
+    setView(true); 
+  }
+};
+
+  
   const handleEditExperience = (index) => {
     const dataToEdit = data.experience[index];
 
@@ -72,6 +81,34 @@ const Experience = ({ data, setData }) => {
       experience: data.experience.filter((item, i) => i !== index),
     });
   };
+
+  const [errors, setErrors] = useState({
+    designation: '',
+    organization: '',
+    description: '',
+  });
+
+  // Validation function
+  const validateForm = () => {
+    let newErrors = {};
+
+    if (!experienceData.designation.trim()) {
+      newErrors.designation = 'Designation is required';
+    }
+
+    if (!experienceData.organization.trim()) {
+      newErrors.organization = 'Organization is required';
+    }
+
+    if (!experienceData.location.trim()) {
+      newErrors.location = 'Location is required';
+    }
+
+    setErrors(newErrors);
+
+    return Object.keys(newErrors).length === 0;
+  };
+
   return (
     <div
       className="flex flex-col p-4 gap-2 rounded-lg bg-white"
@@ -138,6 +175,8 @@ const Experience = ({ data, setData }) => {
                   disabled={!isChecked}
                 />
               </div>
+              {errors.designation && <span className="text-[red] text-[12px]">{errors.designation}</span>}
+
             </div>
             <div className="flex w-full gap-2 ">
               <div className="flex flex-col gap-2 w-[50%]">
@@ -155,6 +194,8 @@ const Experience = ({ data, setData }) => {
                     disabled={!isChecked}
                   />
                 </div>
+                {errors.organization && <span className="text-[red] text-[12px]">{errors.organization}</span>}
+
               </div>
               <div className="flex flex-col gap-2 w-[50%]">
                 <div className="w-full text-[14px] font-montserrat  font-medium">
@@ -171,9 +212,10 @@ const Experience = ({ data, setData }) => {
                     disabled={!isChecked}
                   />
                 </div>
+                {errors.location && <span className="text-[red] text-[12px]">{errors.location}</span>}
+
               </div>
             </div>
-
             <div className="w-full flex gap-2 text-[14px] font-montserrat  font-medium items-center">
               <input
                 type="checkbox"
