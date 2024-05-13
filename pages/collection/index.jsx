@@ -672,13 +672,13 @@ function Collection() {
                 </button>
               </div>
             </div>
-            <div className="border border-[#DEDEDE] rounded-[14px] py-2 px-4 ml:flex hidden flex-col gap-2 bg-white">
+            {/* <div className="border border-[#DEDEDE] rounded-[14px] py-2 px-4 ml:flex hidden flex-col gap-2 bg-white">
               <p className="text-[14px] font-semibold">Cloud Storage</p>
               <div className="h-[6px] rounded-[6px] bg-[#DEDEDE] relative">
                 <div className="absolute h-[6px] rounded-[6px]  bg-blue w-[30%]"></div>
               </div>
               <p className="text-[14px] font-normal">400 mb of 2 GB used</p>
-            </div>
+            </div> */}
           </div>
 
           <Folders

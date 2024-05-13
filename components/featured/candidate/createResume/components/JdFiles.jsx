@@ -47,15 +47,15 @@ function JdFiles({
   // };
 
   const fileIconSeter = (data) => {
-    if (data.fileName?.includes("docx") || data.fileName?.includes("doc")) {
+    if (data.fileName?.includes("docx") || data?.fileName?.includes("doc")) {
       return <img src="/images/docIcon.png" className="h-[48px] w-[48px]" />;
       m;
-    } else if (data.fileName?.includes("pdf")) {
+    } else if (data?.fileName?.includes("pdf")) {
       return <PDFSvg />;
     } else if (
-      data.fileName?.includes("png") ||
-      data.fileName?.includes("jpg") ||
-      data.fileName?.includes("jpeg")
+      data?.fileName?.includes("png") ||
+      data?.fileName?.includes("jpg") ||
+      data?.fileName?.includes("jpeg")
     ) {
       return <PNGICON />;
     } else {
@@ -116,7 +116,7 @@ function JdFiles({
     const ids = [...getAllFiles(item).map((item) => item._id)];
     let updatedIndexes;
     if (selectedIndexes?.includes(itemId)) {
-      updatedIndexes = selectedIndexes.filter((id) => !ids.includes(id));
+      updatedIndexes = selectedIndexes.filter((id) => !ids?.includes(id));
     } else {
       updatedIndexes = [...selectedIndexes, ...ids];
     }
