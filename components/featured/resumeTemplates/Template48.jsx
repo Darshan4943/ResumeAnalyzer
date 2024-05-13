@@ -16,7 +16,7 @@ import {
 import React from "react";
 
 const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
-  console.log(19, data)
+  console.log(19, data);
   return (
     <Page size="A4" style={{ padding: 24 }} wrap={true}>
       <View style={{ minHeight: 793.8 }}>
@@ -56,7 +56,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
             position: "absolute",
             right: 48,
             top: -12,
-            objectFit: "contain"
+            objectFit: "contain",
           }}
         >
           {data.profilePhoto ? (
@@ -65,11 +65,10 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                 preview
                   ? data.profilePhoto
                   : Object.keys(data?.profilePhoto).includes("filename")
-                    ? URL.createObjectURL(data.profilePhoto)
-                    : data.profilePhoto
+                  ? URL.createObjectURL(data.profilePhoto)
+                  : data.profilePhoto
               }
               style={{
-
                 borderRadius: "50%",
                 width: "106px",
                 height: "106px",
@@ -246,128 +245,132 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
               </View>
             </View>
             {data?.languages?.length > 0 && (
-            <View style={{ display: "flex", flexDirection: "column", gap: 12 }}>
               <View
-                style={{ display: "flex", flexDirection: "column", gap: 4 }}
+                style={{ display: "flex", flexDirection: "column", gap: 12 }}
               >
-                <Text
-                  style={{ fontSize: 14, fontWeight: 400, color: "#383839" }}
+                <View
+                  style={{ display: "flex", flexDirection: "column", gap: 4 }}
                 >
-                  LANGUAGES
-                </Text>
-                <Svg
-                  width="176"
-                  height="2"
-                  viewBox="0 0 176 2"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <Path d="M36 0H0V2H36V0Z" fill="#58595B" />
-                  <Path d="M176 0.5H36V1.5H176V0.5Z" fill="#A7A9AC" />
-                </Svg>
-              </View>
-
-              <View
-                style={{ display: "flex", flexDirection: "column", gap: 8 }}
-              >
-                {data?.languages?.map((detail, index) => (
-                  <View
-                    key={index}
-                    wrap={false}
-                    style={{
-                      flexDirection: "row",
-                      gap: 8,
-                      alignItems: "center",
-                    }}
+                  <Text
+                    style={{ fontSize: 14, fontWeight: 400, color: "#383839" }}
                   >
-                    <Svg
-                      width="6"
-                      height="7"
-                      viewBox="0 0 6 7"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <Path
-                        d="M5.99023 3.49944L-0.00976562 0V7L5.99023 3.49944Z"
-                        fill={selectedColor}
-                      />
-                    </Svg>
-                    <Text
+                    LANGUAGES
+                  </Text>
+                  <Svg
+                    width="176"
+                    height="2"
+                    viewBox="0 0 176 2"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <Path d="M36 0H0V2H36V0Z" fill="#58595B" />
+                    <Path d="M176 0.5H36V1.5H176V0.5Z" fill="#A7A9AC" />
+                  </Svg>
+                </View>
+
+                <View
+                  style={{ display: "flex", flexDirection: "column", gap: 8 }}
+                >
+                  {data?.languages?.map((detail, index) => (
+                    <View
+                      key={index}
+                      wrap={false}
                       style={{
-                        fontSize: 10,
-                        fontWeight: 400,
-                        color: "#58595B",
+                        flexDirection: "row",
+                        gap: 8,
+                        alignItems: "center",
                       }}
                     >
-                      {detail.languages}
-                    </Text>
-                  </View>
-                ))}
+                      <Svg
+                        width="6"
+                        height="7"
+                        viewBox="0 0 6 7"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <Path
+                          d="M5.99023 3.49944L-0.00976562 0V7L5.99023 3.49944Z"
+                          fill={selectedColor}
+                        />
+                      </Svg>
+                      <Text
+                        style={{
+                          fontSize: 10,
+                          fontWeight: 400,
+                          color: "#58595B",
+                        }}
+                      >
+                        {detail.languages}
+                      </Text>
+                    </View>
+                  ))}
+                </View>
               </View>
-            </View>
             )}
-             {data?.hobbies?.length > 0 && (
-            <View style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+            {data?.hobbies?.length > 0 && (
               <View
-                style={{ display: "flex", flexDirection: "column", gap: 4 }}
+                style={{ display: "flex", flexDirection: "column", gap: 12 }}
               >
-                <Text
-                  style={{ fontSize: 14, fontWeight: 400, color: "#383839" }}
+                <View
+                  style={{ display: "flex", flexDirection: "column", gap: 4 }}
                 >
-                  HOBBIES
-                </Text>
-                <Svg
-                  width="176"
-                  height="2"
-                  viewBox="0 0 176 2"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <Path d="M36 0H0V2H36V0Z" fill="#58595B" />
-                  <Path d="M176 0.5H36V1.5H176V0.5Z" fill="#A7A9AC" />
-                </Svg>
-              </View>
-
-              <View
-                style={{ display: "flex", flexDirection: "column", gap: 8 }}
-              >
-                {data?.hobbies?.map((detail, index) => (
-                  <View
-                    key={index}
-                    wrap={false}
-                    style={{
-                      flexDirection: "row",
-                      gap: 8,
-                      alignItems: "center",
-                    }}
+                  <Text
+                    style={{ fontSize: 14, fontWeight: 400, color: "#383839" }}
                   >
-                    <Svg
-                      width="6"
-                      height="7"
-                      viewBox="0 0 6 7"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <Path
-                        d="M5.99023 3.49944L-0.00976562 0V7L5.99023 3.49944Z"
-                        fill={selectedColor}
-                      />
-                    </Svg>
+                    HOBBIES
+                  </Text>
+                  <Svg
+                    width="176"
+                    height="2"
+                    viewBox="0 0 176 2"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <Path d="M36 0H0V2H36V0Z" fill="#58595B" />
+                    <Path d="M176 0.5H36V1.5H176V0.5Z" fill="#A7A9AC" />
+                  </Svg>
+                </View>
 
-                    <Text
+                <View
+                  style={{ display: "flex", flexDirection: "column", gap: 8 }}
+                >
+                  {data?.hobbies?.map((detail, index) => (
+                    <View
+                      key={index}
+                      wrap={false}
                       style={{
-                        fontSize: 10,
-                        fontWeight: 400,
-                        color: "#58595B",
+                        flexDirection: "row",
+                        gap: 8,
+                        alignItems: "center",
                       }}
                     >
-                      {detail.title}
-                    </Text>
-                  </View>
-                ))}
+                      <Svg
+                        width="6"
+                        height="7"
+                        viewBox="0 0 6 7"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <Path
+                          d="M5.99023 3.49944L-0.00976562 0V7L5.99023 3.49944Z"
+                          fill={selectedColor}
+                        />
+                      </Svg>
+
+                      <Text
+                        style={{
+                          fontSize: 10,
+                          fontWeight: 400,
+                          color: "#58595B",
+                        }}
+                      >
+                        {detail.title}
+                      </Text>
+                    </View>
+                  ))}
+                </View>
               </View>
-            </View>
-             )}
+            )}
           </View>
 
           <View
@@ -387,12 +390,19 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                 >
                   About Me
                 </Text>
-                <Svg width="341" height="3" viewBox="0 0 341 3" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <Path d="M35.9902 0H-0.00976562V3H35.9902V0Z" fill="#58595B" />
+                <Svg
+                  width="341"
+                  height="3"
+                  viewBox="0 0 341 3"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <Path
+                    d="M35.9902 0H-0.00976562V3H35.9902V0Z"
+                    fill="#58595B"
+                  />
                   <Path d="M340.99 1H35.9902V2H340.99V1Z" fill="#939598" />
                 </Svg>
-
-
               </View>
 
               <View>
@@ -425,74 +435,118 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                     Experience
                   </Text>
                 </View>
-                <Svg width="341" height="3" viewBox="0 0 341 3" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <Path d="M35.9902 0H-0.00976562V3H35.9902V0Z" fill="#58595B" />
+                <Svg
+                  width="341"
+                  height="3"
+                  viewBox="0 0 341 3"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <Path
+                    d="M35.9902 0H-0.00976562V3H35.9902V0Z"
+                    fill="#58595B"
+                  />
                   <Path d="M340.99 1H35.9902V2H340.99V1Z" fill="#939598" />
                 </Svg>
               </View>
-              <View style={{ flexDirection: "column", gap: 6 }}>
-               
-                 {data?.experience?.map((detail, index) => (
-                <View key={index} wrap={false}>
-                  <View style={{ flexDirection: "row", gap: 16 ,alignItems:"center"}}>
-                    <Svg
-                      width="6"
-                      height="7"
-                      viewBox="0 0 6 7"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <Path
-                        d="M5.99023 3.49944L-0.00976562 0V7L5.99023 3.49944Z"
-                        fill={selectedColor}
-                      />
-                    </Svg>
-                    <Text
-                      style={{
-                        fontWeight: 400,
-                        fontSize: 12,
-                        color: "#414142",
-                      }}
-                    >
-                      {detail.designation} 
-                    </Text>
-                  </View>
+              <View
+                style={{ flexDirection: "column", gap: "14px", display: "flex" }}
+              >
+                {/* <View style={{ flexDirection: "column", gap: '2px' ,display:'flex'}}> */}
 
+                {data?.experience?.map((detail, index) => (
                   <View
-                    style={{
-                      display: "flex",
-                      flexDirection: "row",
-                      justifyContent: "space-between",
-                      paddingLeft: 20,
-                    }}
+                    key={index}
+                    wrap={false}
+                    style={{ display: "flex", flexDirection: "column" ,}}
                   >
-                    <Text
+                    <View
                       style={{
-                        fontWeight: 400,
-                        fontSize: 12,
-                        color: "#414142",
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: "2px",
+                          height:'30px'
+
+
                       }}
                     >
-                     {detail.organization} | {detail.location}
-                    </Text>
-                    <Text
-                      style={{
-                        fontWeight: 400,
-                        fontSize: 10,
-                        color: "#414142",
-                        paddingBottom: 16,
-                      }}
-                    >
-                      {detail.duration?.start?.year} -
+                      <View
+                        style={{
+                          flexDirection: "row",
+                          gap: 16,
+                          alignItems: "center",
+                        }}
+                      >
+                        <Svg
+                          width="6"
+                          height="7"
+                          viewBox="0 0 6 7"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <Path
+                            d="M5.99023 3.49944L-0.00976562 0V7L5.99023 3.49944Z"
+                            fill={selectedColor}
+                          />
+                        </Svg>
+                        <Text
+                          style={{
+                            fontWeight: 400,
+                            fontSize: 12,
+                            // color: "#414142",
+                          }}
+                        >
+                          {detail.designation}
+                        </Text>
+                      </View>
+
+                      <View
+                        style={{
+                          display: "flex",
+                          flexDirection: "row",
+                          justifyContent: "space-between",
+                          paddingLeft: 20,
+                        }}
+                      >
+                        <Text
+                          style={{
+                            fontWeight: 400,
+                            fontSize: 12,
+                            color: "#414142",
+                          }}
+                        >
+                          {detail.organization} | {detail.location}
+                        </Text>
+                        <Text
+                          style={{
+                            fontWeight: 400,
+                            fontSize: 10,
+                            color: "#414142",
+                            paddingBottom: 16,
+                          }}
+                        >
+                          {detail.duration?.start?.year} -
                           {detail.duration?.end?.year == undefined || "Year"
                             ? "Present"
                             : detail.duration?.end?.year}
-                    </Text>
+                        </Text>
+                      </View>
+                    </View>
+                    <View style={{ width: "100%" }}>
+                      <Text
+                        style={{
+                          fontFamily: `${selectedFont} 400`,
+                          fontSize: 10,
+                          color: "#6D6E71",
+                        }}
+                      >
+                        {detail.description}
+                      </Text>
+                    </View>
                   </View>
-                </View>
-              ))}
+                ))}
+                {/* </View> */}
               </View>
-             
             </View>
 
             <View style={{ display: "flex", flexDirection: "column", gap: 12 }}>
@@ -529,14 +583,29 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                     Education{" "}
                   </Text>
                 </View>
-                <Svg width="341" height="3" viewBox="0 0 341 3" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <Path d="M35.9902 0H-0.00976562V3H35.9902V0Z" fill="#58595B" />
+                <Svg
+                  width="341"
+                  height="3"
+                  viewBox="0 0 341 3"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <Path
+                    d="M35.9902 0H-0.00976562V3H35.9902V0Z"
+                    fill="#58595B"
+                  />
                   <Path d="M340.99 1H35.9902V2H340.99V1Z" fill="#939598" />
                 </Svg>
               </View>
               {data?.education?.map((detail, index) => (
                 <View key={index} wrap={false}>
-                  <View style={{ flexDirection: "row", gap: 16 ,alignItems:"center"}}>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      gap: 16,
+                      alignItems: "center",
+                    }}
+                  >
                     <Svg
                       width="6"
                       height="7"
@@ -637,10 +706,19 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                       {item.header}
                     </Text>
                   </View>
-                  <Svg width="341" height="3" viewBox="0 0 341 3" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <Path d="M35.9902 0H-0.00976562V3H35.9902V0Z" fill="#58595B" />
-                  <Path d="M340.99 1H35.9902V2H340.99V1Z" fill="#939598" />
-                </Svg>
+                  <Svg
+                    width="341"
+                    height="3"
+                    viewBox="0 0 341 3"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <Path
+                      d="M35.9902 0H-0.00976562V3H35.9902V0Z"
+                      fill="#58595B"
+                    />
+                    <Path d="M340.99 1H35.9902V2H340.99V1Z" fill="#939598" />
+                  </Svg>
                 </View>
                 {item?.subSection?.map((detail, index) => (
                   <View key={index} wrap={false}>
@@ -651,7 +729,13 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                         alignItems: "center",
                       }}
                     >
-                      <View style={{ flexDirection: "row", gap: 16,alignItems:"center" }}>
+                      <View
+                        style={{
+                          flexDirection: "row",
+                          gap: 16,
+                          alignItems: "center",
+                        }}
+                      >
                         <Svg
                           width="6"
                           height="7"
@@ -689,14 +773,15 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                                 fontWeight: 400,
                                 fontSize: 10,
                                 color: "#414142",
-                               
                               }}
                             >
                               {" "}
                               {detail.duration?.start?.year !== "Year" &&
-                                `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
-                                  ? "Present"
-                                  : detail.duration?.end?.year}
+                                `${detail.duration?.start?.year}-${" "}${
+                                  detail.currentlyWorking
+                                    ? "Present"
+                                    : detail.duration?.end?.year
+                                }
                          `}
                             </Text>
                           </View>

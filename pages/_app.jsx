@@ -61,12 +61,12 @@ const WrappedApp = ({ Component, pageProps }) => {
           sizes="32x32"
           href="images/logo_header.png"
         />
-
         <script
           async
           defer
           src="https://checkout.razorpay.com/v1/checkout.js"
         ></script>
+       
       </Helmet>
       <Provider store={Store}>
         <Api />

@@ -185,7 +185,7 @@ function CreateResume() {
           <div className="web">
             <div className=" h-fit flex gap-6 ">
               <div
-                className="h-[213vh] w-[78%] overflow-y-scroll scrollbar-hidden "
+                className="h-[83.4rem] w-[78%] overflow-y-scroll scrollbar-hidden "
                 onWheel={(e) => {
                   e.stopPropagation();
                 }}

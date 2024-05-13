@@ -130,8 +130,12 @@ function Dashboard() {
             (item) =>
               item.duration + " " + item.limit == res.data.findIsActive?.plan
           );
-          if (plan) {
+          if(res.data.findIsActive.isActive===true){
             setIsActive(true);
+          }
+          console.log(133,res.data)
+          if (plan) {
+            
             setSelectedPlan(plan);
             console.log(134, plan, uploadCount, saveCount, clientCount);
             setLimits({

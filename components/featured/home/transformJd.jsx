@@ -12,6 +12,7 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import FileNameModel from "../candidate/createResume/components/fileNameModel";
+import LimitUsedModal from "../../models/limitUsedModal";
 
 function TransformJd({
   resumeTemplateIndex,
@@ -22,15 +23,40 @@ function TransformJd({
   selected,
 }) {
   const [namePreview, setNamePreview] = useState(false);
+  const [downloadBtnLoading, setDownloadBtnLoading] = useState(false);
+  const [downloadLimit, setDownloadLimit] = useState(0);
 
   const [loading, setLoading] = useState(false);
   const [name, setName] = useState(data?.firstName + "_resume");
+  const [saveLimit, setSaveLimit] = useState(0);
+  const [limitUsedModal, setLimitUsedModal] = useState(false);
+
+  const getLimits = () => {
+    const downloadCount = localStorage.getItem("downloadCount");
+    const saveCount = localStorage.getItem("saveCount");
+    if (downloadCount) {
+      setDownloadLimit(downloadCount);
+    }
+    if (saveCount) {
+      setSaveLimit(saveCount);
+    }
+  };
+
+  useEffect(() => {
+    getLimits();
+  }, []);
+
   useEffect(() => {
     setName(data?.firstName + "_resume");
   }, [data]);
   const userDataGlobal = useSelector((state) => state.userData);
-  const saveResume = async (blob) => {
+  const saveResume = async (blob, download) => {
     setLoading(true);
+
+    if (saveLimit <= 0) {
+      setLimitUsedModal(true);
+      return;
+    }
 
     const formData = new FormData();
     if (Object.keys(data).length > 0) {
@@ -51,6 +77,19 @@ function TransformJd({
     axios
       .post("https://freedygoservices.in/api/resume/add", formData)
       .then((res) => {
+        const pdfUrl = res.data.data.resumeUrl;
+
+        localStorage.setItem("saveCount", saveLimit - 1);
+        if (download) {
+          const link = document.createElement("a");
+          link.href = pdfUrl;
+          link.download = res.data.data.fileName;
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        }
+
+        getLimits();
         toast.success("Resume Saved To Collection successfully");
         setLoading(false);
       })
@@ -73,6 +112,7 @@ function TransformJd({
       </Document>
     );
   };
+
   return (
     <div>
       {namePreview && (
@@ -82,6 +122,8 @@ function TransformJd({
           setFunction={(data) => setName(data)}
         />
       )}
+
+      <LimitUsedModal visible={limitUsedModal} setVisible={setLimitUsedModal} />
       <div className="flex justify-between w-full">
         <div
           className=" text-[18px] font-montserrat font-medium flex gap-3 items-center cursor-pointer max-w-[300px]"
@@ -119,30 +161,75 @@ function TransformJd({
             </BlobProvider>
           )}
           {resumeTemplateIndex !== undefined && (
-            <PDFDownloadLink
-              document={<MyComponent />}
-              fileName="Skilotech_resume.pdf"
-            >
+            // <PDFDownloadLink
+            //   document={<MyComponent />}
+            //   fileName="Skilotech_resume.pdf"
+            // >
+            //   {({ blob, url, loading, error }) => (
+            //     <button className="flex  gap-1 text-[14px]   justify-center text-[#fff] font-montserrat font-semibold px-4 py-2 rounded-[8px] items-center border border-[#06A9EF] bg-[#06A9EF]">
+            //       <svg
+            //         width="20"
+            //         height="20"
+            //         viewBox="0 0 20 20"
+            //         fill="none"
+            //         xmlns="http://www.w3.org/2000/svg"
+            //       >
+            //         <g mask="url(#mask0_461_22942)">
+            //           <path
+            //             d="M9.99967 13.3333L5.83301 9.16668L6.99967 7.95834L9.16634 10.125V3.33334H10.833V10.125L12.9997 7.95834L14.1663 9.16668L9.99967 13.3333ZM4.99967 16.6667C4.54134 16.6667 4.14898 16.5035 3.82259 16.1771C3.4962 15.8507 3.33301 15.4583 3.33301 15V12.5H4.99967V15H14.9997V12.5H16.6663V15C16.6663 15.4583 16.5031 15.8507 16.1768 16.1771C15.8504 16.5035 15.458 16.6667 14.9997 16.6667H4.99967Z"
+            //             fill="#fff"
+            //           />
+            //         </g>
+            //       </svg>
+            //       Downl
+            //     </button>
+            //   )}
+            // </PDFDownloadLink>
+            <BlobProvider document={<MyComponent />} fileName="demo.pdf">
               {({ blob, url, loading, error }) => (
-                <button className="flex  gap-1 text-[14px]   justify-center text-[#fff] font-montserrat font-semibold px-4 py-2 rounded-[8px] items-center border border-[#06A9EF] bg-[#06A9EF]">
-                  <svg
-                    width="20"
-                    height="20"
-                    viewBox="0 0 20 20"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <g mask="url(#mask0_461_22942)">
+                <button
+                  onClick={() => saveResume(blob, true)}
+                  // disabled={saveDisabled}
+                  // style={{ opacity: saveDisabled ? "0.5" : 1 }}
+                  className="flex gap-1 text-[14px] w-fit  justify-center  font-montserrat font-semibold px-3 py-2 rounded-[8px] items-center border border-[#06A9EF] "
+                >
+                  {loading ? (
+                    <svg
+                      aria-hidden="true"
+                      role="status"
+                      className="inline w-4 h-4 me-3  animate-spin"
+                      viewBox="0 0 100 101"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
                       <path
-                        d="M9.99967 13.3333L5.83301 9.16668L6.99967 7.95834L9.16634 10.125V3.33334H10.833V10.125L12.9997 7.95834L14.1663 9.16668L9.99967 13.3333ZM4.99967 16.6667C4.54134 16.6667 4.14898 16.5035 3.82259 16.1771C3.4962 15.8507 3.33301 15.4583 3.33301 15V12.5H4.99967V15H14.9997V12.5H16.6663V15C16.6663 15.4583 16.5031 15.8507 16.1768 16.1771C15.8504 16.5035 15.458 16.6667 14.9997 16.6667H4.99967Z"
-                        fill="#fff"
+                        d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                        fill="#E5E7EB"
                       />
-                    </g>
-                  </svg>
-                  Download
+                      <path
+                        d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                  ) : (
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 20 20"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <g mask="url(#mask0_635_20356)">
+                        <path
+                          d="M9.99967 13.333L5.83301 9.16634L6.99967 7.95801L9.16634 10.1247V3.33301H10.833V10.1247L12.9997 7.95801L14.1663 9.16634L9.99967 13.333ZM4.99967 16.6663C4.54134 16.6663 4.14898 16.5031 3.82259 16.1768C3.4962 15.8504 3.33301 15.458 3.33301 14.9997V12.4997H4.99967V14.9997H14.9997V12.4997H16.6663V14.9997C16.6663 15.458 16.5031 15.8504 16.1768 16.1768C15.8504 16.5031 15.458 16.6663 14.9997 16.6663H4.99967Z"
+                          fill="#333333"
+                        />
+                      </g>
+                    </svg>
+                  )}
                 </button>
               )}
-            </PDFDownloadLink>
+            </BlobProvider>
           )}
         </div>
       </div>
