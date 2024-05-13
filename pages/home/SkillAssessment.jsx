@@ -184,18 +184,18 @@ function SkillAssessment() {
     }
   };
 
-  useEffect(() => {
-    let timer;
-    if (questionIndex) {
-      timer = setTimeout(() => {
-        if (questionIndex === 9) {
-          sumbit();
-        }
-      }, 30000);
-    }
+  // useEffect(() => {
+  //   let timer;
+  //   if (questionIndex) {
+  //     timer = setTimeout(() => {
+  //       if (questionIndex === 9) {
+  //         sumbit();
+  //       }
+  //     }, 30000);
+  //   }
 
-    return () => clearTimeout(timer);
-  }, [questionIndex]);
+  //   return () => clearTimeout(timer);
+  // }, [questionIndex]);
 
   useEffect(() => {
     if (
