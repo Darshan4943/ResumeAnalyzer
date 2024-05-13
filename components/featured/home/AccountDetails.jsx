@@ -536,7 +536,7 @@ function AccountDetails({
             id="border_button"
             onClick={(e) => {
               e.preventDefault();
-              router.back();
+              router.push("/purchase/plans");
             }}
           >
             Cancel
