@@ -264,7 +264,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                 SKILLS
               </Text>
             </View>
-            <View
+            {/* <View
               style={{
                 display: "flex",
                 flexDirection: "row",
@@ -342,9 +342,101 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                   })}
                 </View>
               )}
-            </View>
+            </View> */}
+             {data?.skills?.length > 0 && (
+              <View style={{ flexDirection: "column", gap: 16 }}>
+                
+
+                <View style={{ flexDirection: "column", gap: 12 }}>
+                  {data?.skills?.map((detail, index) => (
+                    <View
+                      wrap={false}
+                      key={index}
+                      style={{
+                        flexDirection: "row",
+                        gap: 8,
+                        alignItems: "start",
+                      }}
+                    >
+                      <Svg
+                        width="8"
+                        height="9"
+                        viewBox="0 0 8 9"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <Path
+                          d="M3.89326 7.79296C5.7673 7.79296 7.2865 6.2723 7.2865 4.39648C7.2865 2.52066 5.7673 1 3.89326 1C2.01922 1 0.5 2.52066 0.5 4.39648C0.5 6.2723 2.01922 7.79296 3.89326 7.79296Z"
+                          fill="#59595C"
+                        />
+                      </Svg>
+
+                      <Text
+                        style={{
+                          fontFamily: `${selectedFont} 400`,
+                          color: "#fff",
+                          fontSize: "14",
+                        }}
+                      >
+                        {detail.skill}
+                      </Text>
+                    </View>
+                  ))}
+                </View>
+              </View>
+            )}
+            {data?.languages?.length > 0 && (
+              <View style={{ flexDirection: "column", gap: 16 }}>
+                <Text
+                  style={{
+                    fontFamily: `${selectedFont} 400`,
+                    color: "#030203",
+                    fontSize: "16",
+                  }}
+                >
+                  LANGUAGES
+                </Text>
+
+                <View style={{ flexDirection: "column", gap: 12 }}>
+                  {data?.languages?.map((detail, index) => (
+                    <View
+                      wrap={false}
+                      key={index}
+                      style={{
+                        flexDirection: "row",
+                        gap: 8,
+                        alignItems: "center",
+                      }}
+                    >
+                      <Svg
+                        width="8"
+                        height="9"
+                        viewBox="0 0 8 9"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <Path
+                          d="M3.89326 7.79296C5.7673 7.79296 7.2865 6.2723 7.2865 4.39648C7.2865 2.52066 5.7673 1 3.89326 1C2.01922 1 0.5 2.52066 0.5 4.39648C0.5 6.2723 2.01922 7.79296 3.89326 7.79296Z"
+                          fill="#59595C"
+                        />
+                      </Svg>
+
+                      <Text
+                        style={{
+                          fontFamily: `${selectedFont} 400`,
+                          color: "#58595B",
+                          fontSize: "14",
+                        }}
+                      >
+                        {detail.languages}
+                      </Text>
+                    </View>
+                  ))}
+                </View>
+              </View>
+            )}
           </View>
-          {data?.languages?.length > 0 && (
+          {/* {data?.languages?.length > 0 && (
           <View
             style={{
               display: "flex",
@@ -447,7 +539,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
             </View>
 
           </View>
-          )}
+          )} */}
           {/* <View
           style={{
             display: "flex",

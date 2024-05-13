@@ -453,6 +453,7 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
                     gap: 16,
                     alignItems: "start",
                     justifyContent: "start",
+                    width:'95%'
                   }}
                 >
                   <View style={{ flexDirection: "column" }}>
@@ -490,7 +491,7 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
                   <View
                     style={{
                       flexDirection: "column",
-                      gap: 8,
+                      gap: 6,
                       justifyContent: "space-between",
                     }}
                   >
