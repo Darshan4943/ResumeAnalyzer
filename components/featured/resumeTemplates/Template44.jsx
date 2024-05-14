@@ -111,6 +111,7 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
             <View
               style={{
                 display: "flex",
+                paddingHorizontal:"8px",
                 flexDirection: "column",
                 gap: 2,
                 justifyContent: "center",
@@ -412,7 +413,7 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
           </View>
           {data?.experience?.length > 0 && (
             <View
-              wrap={false}
+              
               style={{ display: "flex", flexDirection: "column", gap: 15 }}
             >
               <View
