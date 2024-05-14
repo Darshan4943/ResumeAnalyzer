@@ -45,6 +45,7 @@ function SkillAssessment() {
   const [userSkills, setUserSkills] = useState();
   const [data, setData] = useState([]);
   const [timer, setTimer] = useState(30);
+  const [isSubmit, setIsSubmit] = useState(false)
   const [inputValue, setInputValue] = useState("");
   const [level, setLevel] = useState("Intermediate");
   const [skippedArray, setSkippedArray] = useState([
@@ -189,18 +190,18 @@ function SkillAssessment() {
     }
   };
 
-  // useEffect(() => {
-  //   let timer;
-  //   if (questionIndex) {
-  //     timer = setTimeout(() => {
-  //       if (questionIndex === 9) {
-  //         sumbit();
-  //       }
-  //     }, 30000);
-  //   }
+  useEffect(() => {
+    let timer;
+    if (questionIndex) {
+      timer = setTimeout(() => {
+        if (questionIndex === 9 && !isSubmit ) {
+          sumbit();
+        }
+      }, 30000);
+    }
 
-  //   return () => clearTimeout(timer);
-  // }, [questionIndex]);
+    return () => clearTimeout(timer);
+  }, [questionIndex]);
 
   useEffect(() => {
     if (
@@ -966,10 +967,10 @@ function SkillAssessment() {
                   </div>
                   <div className="w-full flex  flex-col gap-5">
                     {question[questionIndex]?.options.map((option, index) => (
-                      <div key={index} className="flex items-center gap-4">
+                      <div key={index} className="flex items-start gap-4">
                         <input
                           type="radio"
-                          className="custom-radio w-[20px] h-[20px]"
+                          className="custom-radio min-w-[17px] min-h-[17px] mt-[2px]"
                           id={`option${index}`}
                           name="options"
                           value={option}
@@ -988,7 +989,7 @@ function SkillAssessment() {
                         />
                         <label
                           htmlFor={`option${index}`}
-                          className="text-[14px] ms:text-[16px] font-[500]"
+                          className="text-[14px] ms:text-[16px] font-[500] leading-tight"
                         >
                           {option}
                         </label>
@@ -1039,6 +1040,9 @@ function SkillAssessment() {
                     disabled={loading}
                     onClick={() => {
                       sumbit();
+                      if (questionIndex === 9) {
+                        setIsSubmit(true);
+                      }
                     }}
                   >
                     {questionIndex == 9 ? "Submit" : "Next"}
