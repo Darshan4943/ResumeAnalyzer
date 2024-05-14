@@ -23,7 +23,7 @@ function SkillAssessment({ isLogin }) {
   return (
     <div
     //  className=" bg-SkillAssessment bg-cover bg-no-repeat"
-     >
+    >
       <div className=" customMargins scr1024:py-[120px]  pt-6 pb-12  min-h-[30vw]  ">
         <MouseParallaxContainer
           globalFactorX={0.4}

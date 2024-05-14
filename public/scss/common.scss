@@ -91,9 +91,7 @@
   border-right: 4px solid var(--primary, #06a9ef);
   background: var(--white, #fff);
   box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
-
 }
-
 
 .resume_file {
   .resume_file_container {
@@ -234,7 +232,7 @@
 .li {
   color: var(--text-prmary, #333);
   font-family: Montserrat;
-  
+
   font-style: normal;
   font-weight: 500;
   line-height: normal;
@@ -254,29 +252,26 @@ a {
   border-bottom: 2px solid var(--secondary, #ffda1d);
   color: var(--text-prmary, #333);
   font-family: Montserrat;
- 
+
   font-style: normal;
   font-weight: 700;
   line-height: normal;
 }
 .buttonTransparent {
-  
   border-color: transparent;
-  
 }
 
 @keyframes flicker {
   0% {
     transform: rotateY(0deg);
-}
-100% {
+  }
+  100% {
     transform: rotateY(180deg);
-}
-
+  }
 }
 
 .flicker {
-  animation: flicker 1s forwards; 
+  animation: flicker 1s forwards;
 }
 @keyframes moveImage {
   0% {
@@ -296,10 +291,8 @@ a {
   }
 }
 .moveImage {
-  animation: moveImage 2s infinite; 
+  animation: moveImage 2s infinite;
 }
-
-
 
 .line-animation {
   transition: width 1s ease-in-out;
@@ -323,69 +316,97 @@ a {
 }
 ///////////////////////////////////
 
-.createResume{
+.createResume {
   transition: all 2s;
 }
 .createResume:hover {
   background: rgba(255, 255, 255, 1);
-  background:  linear-gradient(31.62deg, rgba(6, 169, 239, 0.15) 14.94%, rgba(162, 227, 255, 0.15) 99.61%);
- 
-  
+  background: linear-gradient(
+    31.62deg,
+    rgba(6, 169, 239, 0.15) 14.94%,
+    rgba(162, 227, 255, 0.15) 99.61%
+  );
 }
-.myClinet:hover{
+.myClinet:hover {
   background: rgba(255, 255, 255, 1);
-  background:   linear-gradient(85.58deg, rgba(255, 222, 0, 0.15) 65.23%, rgba(253, 89, 0, 0.15) 96.45%);
-
- 
-  
+  background: linear-gradient(
+    85.58deg,
+    rgba(255, 222, 0, 0.15) 65.23%,
+    rgba(253, 89, 0, 0.15) 96.45%
+  );
 }
-.TransFormCV:hover{
+.TransFormCV:hover {
   background: rgba(255, 255, 255, 1);
-  background: linear-gradient(0deg, rgba(59, 139, 245, 0.15) 0.56%, rgba(199, 213, 243, 0.15) 100%);
- 
-  
-  
+  background: linear-gradient(
+    0deg,
+    rgba(59, 139, 245, 0.15) 0.56%,
+    rgba(199, 213, 243, 0.15) 100%
+  );
 }
-.MyResume:hover{
+.MyResume:hover {
   background: rgba(255, 255, 255, 1);
-  background:  linear-gradient(90deg, rgba(0, 210, 239, 0.15) 0%, rgba(141, 198, 63, 0.15) 100%);
- 
- 
-  
+  background: linear-gradient(
+    90deg,
+    rgba(0, 210, 239, 0.15) 0%,
+    rgba(141, 198, 63, 0.15) 100%
+  );
 }
-.JobDes:hover{
+.JobDes:hover {
   background: rgba(255, 255, 255, 1);
-  background: linear-gradient(90deg, rgba(255, 129, 255, 0.15) 0%, rgba(169, 58, 255, 0.15) 100.03%);
-
+  background: linear-gradient(
+    90deg,
+    rgba(255, 129, 255, 0.15) 0%,
+    rgba(169, 58, 255, 0.15) 100.03%
+  );
 }
-.MyCollection:hover{
+.MyCollection:hover {
   background: rgba(255, 255, 255, 1);
-  background: linear-gradient(180deg, rgba(56, 184, 89, 0.15) -44.44%, rgba(76, 162, 204, 0.15) 100%);
-
+  background: linear-gradient(
+    180deg,
+    rgba(56, 184, 89, 0.15) -44.44%,
+    rgba(76, 162, 204, 0.15) 100%
+  );
 }
-.SkillAss:hover{
+.SkillAss:hover {
   background: rgba(255, 255, 255, 1);
-  background: linear-gradient(45.46deg, rgba(252, 68, 34, 0.15) 4.03%, rgba(255, 187, 50, 0.15) 89.99%);
-
+  background: linear-gradient(
+    45.46deg,
+    rgba(252, 68, 34, 0.15) 4.03%,
+    rgba(255, 187, 50, 0.15) 89.99%
+  );
 }
-.MyPurchase:hover{
+.MyPurchase:hover {
   background: rgba(255, 255, 255, 1);
-  background: linear-gradient(180deg, rgba(225, 0, 255, 0.1) -319.33%, rgba(127, 0, 255, 0.1) 103.69%);
-
+  background: linear-gradient(
+    180deg,
+    rgba(225, 0, 255, 0.1) -319.33%,
+    rgba(127, 0, 255, 0.1) 103.69%
+  );
 }
-.searchJobs:hover{
+.searchJobs:hover {
   background: rgba(255, 255, 255, 1);
-  background: linear-gradient(180deg, rgba(100, 65, 165, 0.15) 0%, rgba(42, 8, 69, 0.15) 100%);
-
+  background: linear-gradient(
+    180deg,
+    rgba(100, 65, 165, 0.15) 0%,
+    rgba(42, 8, 69, 0.15) 100%
+  );
 }
-.postJobs:hover{
+.postJobs:hover {
   background: rgba(255, 255, 255, 1);
-  background: linear-gradient(180deg, rgba(100, 65, 165, 0.15) 0%, rgba(42, 8, 69, 0.15) 100%);
-
+  background: linear-gradient(
+    180deg,
+    rgba(100, 65, 165, 0.15) 0%,
+    rgba(42, 8, 69, 0.15) 100%
+  );
 }
-
-
 
 .group:hover .icon-path {
-  fill: #06A9EF;
+  fill: #06a9ef;
+}
+.btn_hover_effect{
+  transition: all 0.2s;
+}
+.btn_hover_effect:hover {
+  background-color: #ffda1d;
+  color: #333;
 }

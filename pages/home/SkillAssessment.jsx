@@ -45,6 +45,7 @@ function SkillAssessment() {
   const [userSkills, setUserSkills] = useState();
   const [data, setData] = useState([]);
   const [timer, setTimer] = useState(30);
+  const [isSubmit, setIsSubmit] = useState(false)
   const [inputValue, setInputValue] = useState("");
   const [level, setLevel] = useState("Intermediate");
   const [skippedArray, setSkippedArray] = useState([
@@ -67,7 +68,7 @@ function SkillAssessment() {
   };
   const handleLevelChange = (event) => {
     setLevel(event.target.value);
-   
+
   };
   console.log(level)
 
@@ -189,18 +190,18 @@ function SkillAssessment() {
     }
   };
 
-  // useEffect(() => {
-  //   let timer;
-  //   if (questionIndex) {
-  //     timer = setTimeout(() => {
-  //       if (questionIndex === 9) {
-  //         sumbit();
-  //       }
-  //     }, 30000);
-  //   }
+  useEffect(() => {
+    let timer;
+    if (questionIndex) {
+      timer = setTimeout(() => {
+        if (questionIndex === 9 && !isSubmit ) {
+          sumbit();
+        }
+      }, 30000);
+    }
 
-  //   return () => clearTimeout(timer);
-  // }, [questionIndex]);
+    return () => clearTimeout(timer);
+  }, [questionIndex]);
 
   useEffect(() => {
     if (
@@ -317,7 +318,7 @@ function SkillAssessment() {
 
                         <button
                           onClick={() => setViewAddSkill(false)}
-                          className="rounded-[12px] ml:px-[22.8px] px-3  ml:min-w-[235px] min-w-[180px] py-2  flex gap-2 ml:text-[16px] scr420:text-[14px] text-[12px] justify-center items-center bg-blue text-white ml:h-[40px] h-[40px] font-semibold"
+                          className=" rounded-[12px] ml:px-[22.8px] px-3  ml:min-w-[235px] min-w-[180px] py-2  flex gap-2 ml:text-[16px] scr420:text-[14px] text-[12px] justify-center items-center bg-blue text-white ml:h-[40px] h-[40px] font-semibold"
                         >
                           Select From My Skills
                           <svg
@@ -340,7 +341,7 @@ function SkillAssessment() {
                           onClick={() => setshowSecondDiv(!showSecondDiv)}
                         >
                           {!showSecondDiv ? (
-                            <button className="rounded-[12px] ml:text-[16px] text-[12px] scr420:px-4 px-2 scr420:py-2 py-2 flex gap-2 justify-center items-center bg-blue text-white ml:h-[40px] h-[40px] font-semibold">
+                            <button className="  rounded-[12px] ml:text-[16px] text-[12px] scr420:px-4 px-2 scr420:py-2 py-2 flex gap-2 justify-center items-center bg-blue text-white ml:h-[40px] h-[40px] font-semibold">
                               View Results
                             </button>
                           ) : (
@@ -351,7 +352,7 @@ function SkillAssessment() {
                         </div>
                       </div>
                     </div>
-                    <CreatableSelect 
+                    <CreatableSelect
                       onInputChange={(data) => {
                         // setSkills([data, ...skills]);
                       }}
@@ -373,20 +374,11 @@ function SkillAssessment() {
                         <div className="flex gap-2 justify-end ">
                           <button
                             onClick={() => setViewAddSkill(true)}
-                            className="rounded-[12px] ml:px-[22.8px] px-3  ml:min-w-[235px] min-w-[180px] py-2  flex gap-2 ml:text-[16px] scr420:text-[14px] text-[12px] justify-center items-center bg-blue text-white  h-[40px] font-semibold"
+                            className="btn_hover_effect rounded-[12px] ml:px-[22.8px] px-3  ml:min-w-[235px] min-w-[180px] py-2  flex gap-2 ml:text-[16px] scr420:text-[14px] text-[12px] justify-center items-center bg-blue text-white  h-[40px] font-semibold"
                           >
                             Select Another Skill
-                            <svg
-                              width="15"
-                              height="14"
-                              viewBox="0 0 15 14"
-                              fill="none"
-                              xlgns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M6.5 8H0.5V6H6.5V0H8.5V6H14.5V8H8.5V14H6.5V8Z"
-                                fill="white"
-                              />
+                            <svg class="w-4 h-4 hover:fill-current hover:text-gray-700" viewBox="0 0 15 14" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M6.5 8H0.5V6H6.5V0H8.5V6H14.5V8H8.5V14H6.5V8Z" fill="currentColor" />
                             </svg>
                           </button>
                           <div
@@ -394,7 +386,7 @@ function SkillAssessment() {
                             onClick={() => setshowSecondDiv(!showSecondDiv)}
                           >
                             {!showSecondDiv ? (
-                              <button className="rounded-[12px] ml:text-[16px] text-[12px] scr420:px-4 px-2 scr420:py-2 py-2 flex gap-2 justify-center items-center bg-blue text-white ml:h-[40px] h-[40px] font-semibold">
+                              <button className="btn_hover_effect rounded-[12px] ml:text-[16px] text-[12px] scr420:px-4 px-2 scr420:py-2 py-2 flex gap-2 justify-center items-center bg-blue text-white ml:h-[40px] h-[40px] font-semibold">
                                 View Results
                               </button>
                             ) : (
@@ -453,7 +445,7 @@ function SkillAssessment() {
                     </div>
                     <div className="w-full flex justify-end">
                       <button
-                        onClick={() => {  toggleContent() ;setisLevel(false) }}
+                        onClick={() => { toggleContent(); setisLevel(false) }}
                         className={`flex justify-center items-center w-[90px] py-1 text-[16px]
                               bg-blue rounded-[8px] text-white
                               }`}
@@ -621,7 +613,7 @@ function SkillAssessment() {
 
                 >
                   <button
-                    className=" h-[42px] w-[108px] flex items-center justify-center  rounded-[8px] border-[1px] border-solid border-[#06A9EF] bg-[#fff] text-[#333] text-[14px] font-[500] "
+                    className="btn_hover_effect hover:border-[#ffc82c] h-[42px] w-[108px] flex items-center justify-center  rounded-[8px] border-[1px] border-solid border-[#06A9EF] bg-[#fff] text-[#333] text-[14px] font-[500] "
                     disabled={loading}
                   // onClick={() =>
                   //   setQuestionIndex(
@@ -966,10 +958,10 @@ function SkillAssessment() {
                   </div>
                   <div className="w-full flex  flex-col gap-5">
                     {question[questionIndex]?.options.map((option, index) => (
-                      <div key={index} className="flex items-center gap-4">
+                      <div key={index} className="flex items-start gap-4">
                         <input
                           type="radio"
-                          className="custom-radio w-[20px] h-[20px]"
+                          className="custom-radio min-w-[17px] min-h-[17px] mt-[2px]"
                           id={`option${index}`}
                           name="options"
                           value={option}
@@ -988,7 +980,7 @@ function SkillAssessment() {
                         />
                         <label
                           htmlFor={`option${index}`}
-                          className="text-[14px] ms:text-[16px] font-[500]"
+                          className="text-[14px] ms:text-[16px] font-[500] leading-tight"
                         >
                           {option}
                         </label>
@@ -1039,6 +1031,9 @@ function SkillAssessment() {
                     disabled={loading}
                     onClick={() => {
                       sumbit();
+                      if (questionIndex === 9) {
+                        setIsSubmit(true);
+                      }
                     }}
                   >
                     {questionIndex == 9 ? "Submit" : "Next"}

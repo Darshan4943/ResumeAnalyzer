@@ -254,7 +254,7 @@ function AccountDetails({
           const priceId = await getPriceId();
           axios
             .post("https://freedygoservices.in/api/proceed/payment", {
-              priceId,id:selectedPlan.index
+              priceId, id: selectedPlan.index
             })
             .then((res) => {
               if (res.data.success) {
@@ -451,8 +451,8 @@ function AccountDetails({
 
                 <input
                   placeholder={`${isViewportBelow850
-                      ? "Enter Number "
-                      : "Enter Contact Number "
+                    ? "Enter Number "
+                    : "Enter Contact Number "
                     }`}
                   value={data.mobileNo}
                   maxLength={10}

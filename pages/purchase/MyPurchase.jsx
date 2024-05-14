@@ -8,13 +8,13 @@ import SubscriptionPlans from "../../components/featured/home/SubscriptionPlans"
 import SubscriptionPlan from "../../components/featured/home/SubscriptionHome";
 import MiniLoader from "../../components/common/miniLoader";
 
-function MyPurchase() { 
+function MyPurchase() {
   const router = useRouter();
 
   const [plan, setPlan] = useState({});
   const [loading, setLoading] = useState(false);
   const [subscription, setSubscription] = useState(null);
-  console.log(15,subscription)
+  console.log(15, subscription)
   const userDataGlobal = useSelector((state) => state.userData);
   const [exchangeRate, setexchangeRate] = useState(1);
   const [icon, seticon] = useState("$");
@@ -88,8 +88,8 @@ function MyPurchase() {
                               {plan?.limit}
                             </p>
                             <div className="flex flex-row gap-2 w-full items-center justify-center">
-                              <p className="text-[2.5vw] font-[700]">{icon}</p>
-                              <p className="text-[2.5vw] font-[700]">
+                              <p className="text-[24px] scr1024:text-[2.5vw] font-[700]">{icon}</p>
+                              <p className="text-[24px] scr1024:text-[2.5vw] font-[700]">
                                 {Math.ceil(plan.amount * exchangeRate)}
                               </p>
                             </div>
@@ -105,13 +105,12 @@ function MyPurchase() {
                             </button>
                           ) : (
                             <button
-                            onClick={() => router.push("/purchase/plans")}
+                              onClick={() => router.push("/purchase/plans")}
                               disabled={subscription?.isActive}
-                              className={`px-9 py-3  ${
-                                subscription?.isActive
-                                  ? "bg-[#DEDEDE] "
-                                  : "bg-[#06a9ef]"
-                              } rounded-[12px] text-[16px] font-[600] text-white w-[60%] min-w-[160px] `}
+                              className={`px-9 py-3  ${subscription?.isActive
+                                ? "bg-[#DEDEDE] "
+                                : "bg-[#06a9ef]"
+                                } rounded-[12px] text-[16px] font-[600] text-white w-[60%] min-w-[160px] `}
                             >
                               {subscription?.isActive
                                 ? "Purchased"
@@ -140,19 +139,18 @@ function MyPurchase() {
                                 <div className="">:</div>
                               </div>
                               <div
-                                className={`text-[14px] font-[500] ${
-                                  subscription?.isActive
-                                    ? "text-[#0C8A0A]"
-                                    : subscription?.inReview
+                                className={`text-[14px] font-[500] ${subscription?.isActive
+                                  ? "text-[#0C8A0A]"
+                                  : subscription?.inReview
                                     ? "text-[#06a9ef]"
                                     : "text-red"
-                                }`}
+                                  }`}
                               >
                                 {subscription?.isActive
                                   ? "Active"
                                   : subscription?.inReview
-                                  ? "In Review"
-                                  : "Expired"}
+                                    ? "In Review"
+                                    : "Expired"}
                               </div>
                             </div>
                             {subscription?.isActive && (

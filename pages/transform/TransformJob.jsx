@@ -16,7 +16,7 @@ function TransformJob() {
   const [animate, setAnimate] = useState(true);
   const [isAll, setIsAll] = useState(false);
   const [text, setText] = useState("");
-  const [selected, setSelect] = useState({});
+  const [selected, setSelect] = useState(null);
   const [loading, setLoading] = useState(false);
   const [newData, setNewData] = useState(null);
   const [details, setDetails] = useState();
@@ -25,14 +25,20 @@ function TransformJob() {
   const userDataGlobal = useSelector((state) => state.userData);
   const [count, setCount] = useState(0);
   const [view, setView] = useState(0);
+  const [errors, setErrors] = useState("");
 
- 
   const [isValid, setIsValid] = useState(false);
-console.log(31,selected)
+  console.log(31, selected);
   const handleChange = (event) => {
     const inputText = event.target.value;
     setText(inputText);
     setIsValid(inputText.length >= 100);
+
+    if (inputText.length < 100) {
+      setErrors("Minimum 100 characters required.");
+    } else {
+      setErrors("");
+    }
   };
   const transformHandler = () => {
     setLoading(true);
@@ -64,7 +70,7 @@ console.log(31,selected)
         console.log(err);
       });
   };
- 
+
   useEffect(() => {
     if (userDataGlobal.role == "recruiter") {
       axios
@@ -182,15 +188,35 @@ console.log(31,selected)
             <textarea
               value={text}
               onChange={handleChange}
+              maxLength={200}
               rows={6}
               cols={50}
               placeholder="Enter your text here..."
               className=" border border-[#DEDEDE] rounded-[8px] outline-none h-auto p-2 bg-[#F7F7F7]"
             />
+
+            <p className="text-sm text-red">{errors}</p>
             <button
               className="px-4 py-3 bg-[#06A9EF] text-[16px] text-white w-[188px] font-semibold rounded-[12px]"
-              disabled={loading || !isValid || Object.keys(selected).length <=0 }
-              style={{ opacity: loading || !isValid || Object.keys(selected).length <= 0 ? 0.5 : 1 }}
+              disabled={
+                loading ||
+                !isValid ||
+                // (selected == null && Object?.keys(selected)?.length <= 0)
+                selected == null ||
+                (typeof selected === "object" &&
+                  Object.keys(selected).length <= 0)
+              }
+              style={{
+                opacity:
+                  loading ||
+                  !isValid ||
+                  // (selected == null && Object?.keys(selected)?.length <= 0)
+                  selected == null ||
+                  (typeof selected === "object" &&
+                    Object.keys(selected).length <= 0)
+                    ? 0.5
+                    : 1,
+              }}
               onClick={() => {
                 transformHandler();
               }}
