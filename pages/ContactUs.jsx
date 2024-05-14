@@ -23,7 +23,7 @@ function ContactUs() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "https://freedygoservices.in/api/contactUs/create",
+        "http://localhost:2000/api/contactUs/create",
         formData
       );
       // console.log("Response:", response.data);
@@ -41,9 +41,9 @@ function ContactUs() {
   };
 
   return (
-    <div className="w-[100%]  flex items-center my-[50px] justify-center customMargins">
-      <div className="ml:w-[90%] rounded-[16px] w-[100%] ml:flex ml:flex-row items-center ml:items-end flex-col-reverse flex gap-4  ml:p-[24px] p-[16px] h-max-content bg-cover bg-center bg-no-repeat bg_contactUs">
-        <div className="ml:w-[50%] sm:w-[80%] w-[100%] h-full justify-end gap-2 flex flex-col">
+    <div className="w-[100%]  flex items-center my-[50px] justify-center customMargins ">
+      <div className="ml:w-[90%] rounded-[16px] w-[100%] ml:flex ml:flex-row items-center ml:items-end flex-col-reverse flex gap-4  ml:p-[24px] p-[16px]  h-max-content bg-cover bg-center bg-no-repeat bg_contactUs">
+        <div className="ml:w-[50%] sm:w-[80%] w-[100%] h-full justify-end gap-2 flex flex-col ">
           <div className="flex  gap-2">
             <svg
               className="min-w-[20px]"
@@ -61,8 +61,7 @@ function ContactUs() {
               </g>
             </svg>
             <p className="text-[14px] text-[#fff] font-[400] leading-[16px]">
-              Model Colony, Next to Sahastrabuddhe, Near Dnyaneshwar Paduka
-              Chowk, Pune 411016
+            Harare, Zimbabwe | Pune, India | London, United Kingdom
             </p>
           </div>
           <div className="flex  gap-2">
@@ -81,28 +80,10 @@ function ContactUs() {
               </g>
             </svg>
             <p className="text-[14px] text-[#fff] font-[400] leading-[16px]">
-              operations@skilotech.com
+              support@skilotech.com
             </p>
           </div>
-          <div className="flex  gap-2">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
-              viewBox="0 0 20 20"
-              fill="none"
-            >
-              <g mask="url(#mask0_5716_135597)">
-                <path
-                  d="M16.1996 17.0836C14.6291 17.0836 13.0514 16.7185 11.4665 15.9883C9.88154 15.258 8.42536 14.2278 7.09791 12.8977C5.77045 11.5676 4.74161 10.1114 4.01137 8.52916C3.28113 6.9469 2.91602 5.37051 2.91602 3.80001C2.91602 3.54772 2.99935 3.33748 3.16602 3.16928C3.33268 3.00109 3.54102 2.91699 3.79102 2.91699H6.50893C6.7194 2.91699 6.90504 2.98564 7.06583 3.12293C7.22662 3.26022 7.32891 3.42983 7.3727 3.63174L7.85027 6.08364C7.88339 6.31121 7.87645 6.50672 7.82943 6.67018C7.78243 6.83364 7.69803 6.97092 7.57622 7.08203L5.65156 8.95543C5.96139 9.52274 6.31529 10.0593 6.71327 10.5652C7.11124 11.0711 7.54206 11.5543 8.00572 12.0147C8.463 12.472 8.94912 12.8967 9.46408 13.2888C9.97904 13.6809 10.5351 14.0457 11.1323 14.3833L13.0025 12.4971C13.1329 12.3614 13.2907 12.2664 13.4761 12.2119C13.6615 12.1574 13.854 12.144 14.0538 12.1718L16.3679 12.643C16.5784 12.6985 16.7501 12.8059 16.8831 12.9651C17.0161 13.1243 17.0826 13.3048 17.0826 13.5067V16.2086C17.0826 16.4586 16.9985 16.667 16.8303 16.8336C16.6622 17.0003 16.4519 17.0836 16.1996 17.0836ZM5.06022 7.77276L6.54741 6.34968C6.57412 6.32831 6.59148 6.29892 6.5995 6.26153C6.60751 6.22413 6.60618 6.18941 6.59549 6.15737L6.23331 4.29518C6.22263 4.25244 6.20393 4.2204 6.17722 4.19903C6.15052 4.17766 6.11579 4.16697 6.07306 4.16697H4.29099C4.25895 4.16697 4.23224 4.17766 4.21087 4.19903C4.18949 4.2204 4.17881 4.2471 4.17881 4.27916C4.22154 4.8486 4.31476 5.42713 4.45845 6.01474C4.60216 6.60235 4.80275 7.18836 5.06022 7.77276ZM12.3102 14.9747C12.8626 15.2321 13.4387 15.429 14.0386 15.5652C14.6385 15.7014 15.1991 15.7824 15.7205 15.808C15.7525 15.808 15.7792 15.7973 15.8006 15.776C15.822 15.7546 15.8327 15.7279 15.8327 15.6958V13.9426C15.8327 13.8999 15.822 13.8652 15.8006 13.8384C15.7792 13.8117 15.7472 13.793 15.7045 13.7823L13.9545 13.4266C13.9224 13.4159 13.8944 13.4146 13.8703 13.4226C13.8463 13.4306 13.8209 13.448 13.7942 13.4747L12.3102 14.9747Z"
-                  fill="#06A9EF"
-                />
-              </g>
-            </svg>
-            <p className="text-[14px] text-[#fff] font-[400] leading-[16px]">
-              +27 70570 97790
-            </p>
-          </div>
+          
         </div>
 
         <div className="ml:w-[50%] sm:w-[80%] w-[100%]">

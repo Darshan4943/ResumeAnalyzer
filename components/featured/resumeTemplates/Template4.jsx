@@ -137,7 +137,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                   <View
                     style={{
                       flexDirection: "row",
-                      gap: "12px",
+                      gap: "8px",
                       justifyContent: "start",
                       alignItems: "center",
                       // marginLeft: "16px",
@@ -183,7 +183,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                     style={{
                       flexDirection: "row",
                       breakAll: true,
-                      gap: "12px",
+                      gap: "8px",
                       justifyContent: "start",
                       alignItems: "center",
                       // marginLeft: "16px",
@@ -241,7 +241,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                       flexDirection: "row",
                       breakAll: true,
                       justifyContent: "start",
-                      gap: "12px",
+                      gap: "8px",
                       alignItems: "center",
                       // marginLeft: "16px",
                       paddingRight: " 4px",
