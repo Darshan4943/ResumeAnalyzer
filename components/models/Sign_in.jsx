@@ -323,18 +323,18 @@ function Sign_in({ googleLoading, handleGoogle, setSignIn, setSignUp }) {
             <div className="text-[12px] text-center ">
               By signing in, you agree to our{" "}
               <span
-              
+              onClick={() => router.push("/TermsAndConditions")}
                 className="already_sign cursor-pointer"
                 style={{
                   fontSize: "12px",
                   color: "#06A9EF",
                 }}
               >
-                <a href="/TermsAndConditions">Terms & Conditions</a>
+                <a >Terms & Conditions</a>
               </span>{" "}
               and{" "}
               <span
-              
+              onClick={() => router.push("/PrivacyPolicy")}
                 className="already_sign cursor-pointer"
                 style={{
                   fontSize: "12px",
@@ -342,7 +342,7 @@ function Sign_in({ googleLoading, handleGoogle, setSignIn, setSignUp }) {
                 }}
               >
                 {" "}
-                <a href="/PrivacyPolicy">Privacy Policy.</a>
+                <a >Privacy Policy.</a>
               </span>
             </div>
           </div>
