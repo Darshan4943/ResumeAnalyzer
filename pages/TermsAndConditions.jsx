@@ -3,7 +3,7 @@ import React from 'react';
 function TermsAndConditions() {
   return (
     <div className='w-full customMargins pt-6'>
-      <div className="text-[18px] font-medium text-[#FFFFFF] py-[8px] px-[12px] header w-full ">
+      <div className="text-[18px] font-medium text-[#FFFFFF] py-[8px] px-[12px] header1 w-full ">
         Terms and Conditions
       </div>
 

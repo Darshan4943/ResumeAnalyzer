@@ -15,6 +15,7 @@ function JdFiles({
   setSelectedIndexesFilesType,
   selectedIndexesFileTypes,
 }) {
+  console.log(16, selectedIndexes);
   const router = useRouter();
   const [selectAll, setSelectAll] = useState(false);
   const { clientId, name } = query;

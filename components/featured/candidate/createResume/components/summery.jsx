@@ -190,7 +190,7 @@ function Summary({ limits, selectedPlan, isActive }) {
               ) : (
                 <div
                   onClick={() => router.push("/purchase/plans")}
-                  className="flex px-6 py-2 text-white font-medium justify-center items-center rounded-[6px] bg-[#06A9EF] min-w-[168.8px] cursor-pointer"
+                  className="btn_hover_effect flex px-6 py-2 text-white font-medium justify-center items-center rounded-[6px] bg-[#06A9EF] min-w-[168.8px] cursor-pointer"
                 >
                   Purchase Plan
                 </div>

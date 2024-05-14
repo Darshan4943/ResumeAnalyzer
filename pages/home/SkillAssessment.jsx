@@ -10,7 +10,7 @@ import MiniLoader from "../../components/common/mini-loader";
 import { camelCase, dateSeter, formatDate } from "../../utils/middleware";
 import Timer from "../../components/common/timer";
 import { AssessmentSvg, Assessmentlogo } from "../../utils/svg";
-import ReactSelect from "react-select";
+import CreatableSelect from 'react-select/creatable';
 import { SkillList } from "../../utils/data";
 import { toast } from "react-toastify";
 
@@ -39,12 +39,13 @@ function SkillAssessment() {
   const [startTimer, setStartTimer] = useState(false);
   const [showSecondDiv, setshowSecondDiv] = useState(false);
   const [assessmentList, setAssessmentList] = useState([]);
-
+  const [isLevel, setisLevel] = useState(false);
   const [selectedSkill, setSelectedSkill] = useState();
   const [skills, setSkills] = useState(SkillList);
   const [userSkills, setUserSkills] = useState();
   const [data, setData] = useState([]);
   const [timer, setTimer] = useState(30);
+  const [isSubmit, setIsSubmit] = useState(false)
   const [inputValue, setInputValue] = useState("");
   const [level, setLevel] = useState("Intermediate");
   const [skippedArray, setSkippedArray] = useState([
@@ -65,6 +66,11 @@ function SkillAssessment() {
     setSelectedSkill(selectedOption.value);
     setInputValue(selectedOption.value);
   };
+  const handleLevelChange = (event) => {
+    setLevel(event.target.value);
+   
+  };
+  console.log(level)
 
   useEffect(() => {
     axios
@@ -184,18 +190,18 @@ function SkillAssessment() {
     }
   };
 
-  // useEffect(() => {
-  //   let timer;
-  //   if (questionIndex) {
-  //     timer = setTimeout(() => {
-  //       if (questionIndex === 9) {
-  //         sumbit();
-  //       }
-  //     }, 30000);
-  //   }
+  useEffect(() => {
+    let timer;
+    if (questionIndex) {
+      timer = setTimeout(() => {
+        if (questionIndex === 9 && !isSubmit ) {
+          sumbit();
+        }
+      }, 30000);
+    }
 
-  //   return () => clearTimeout(timer);
-  // }, [questionIndex]);
+    return () => clearTimeout(timer);
+  }, [questionIndex]);
 
   useEffect(() => {
     if (
@@ -293,7 +299,7 @@ function SkillAssessment() {
     <div className="">
       <div
         onWheel={(e) => e.stopPropagation()}
-        className="bg-[#F9F9F9] h-[94vh] w-full "
+        className="bg-[#F9F9F9] w-full "
       >
         {toggle === 0 && (
           <div className="flex flex-col gap-[35px] pt-[24px] pb-[95px] items-center  customMargins">
@@ -304,13 +310,51 @@ function SkillAssessment() {
               }}
             >
               {viewAddSkill ? (
-                <div className="  ml:w-[45%] w-[100%] flex justify-between ml:items-center items-end  gap-[16px] rounded-[12px] bg-[#fff]">
+                <div className=" w-[100%] flex justify-between ml:items-center items-end  gap-[16px] rounded-[12px] bg-[#fff]">
                   <div className="flex flex-col gap-4 w-[100%]">
-                    <div className="text-[20px] font-medium">Select Skill</div>
+                    <div className="flex scr540:flex-row flex-col  justify-between">
+                      <div className="text-[20px] font-medium">Select Skill</div>
+                      <div className="flex gap-2 justify-end ">
 
-                    <ReactSelect
+                        <button
+                          onClick={() => setViewAddSkill(false)}
+                          className="btn_hover_effect rounded-[12px] ml:px-[22.8px] px-3  ml:min-w-[235px] min-w-[180px] py-2  flex gap-2 ml:text-[16px] scr420:text-[14px] text-[12px] justify-center items-center bg-blue text-white ml:h-[40px] h-[40px] font-semibold"
+                        >
+                          Select From My Skills
+                          <svg
+                            width="15"
+                            height="14"
+                            viewBox="0 0 15 14"
+                            fill="none"
+                            xlgns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M6.5 8H0.5V6H6.5V0H8.5V6H14.5V8H8.5V14H6.5V8Z"
+                              fill="white"
+                            />
+                          </svg>
+                        </button>
+
+
+                        <div
+                          className="text-[#C00000]  ml:min-w-[136px] scr420:min-w-[112px] min-w-[96px] ml:text-[16px] scr420:text-[14px] text-[12px]  "
+                          onClick={() => setshowSecondDiv(!showSecondDiv)}
+                        >
+                          {!showSecondDiv ? (
+                            <button className="btn_hover_effect rounded-[12px] ml:text-[16px] text-[12px] scr420:px-4 px-2 scr420:py-2 py-2 flex gap-2 justify-center items-center bg-blue text-white ml:h-[40px] h-[40px] font-semibold">
+                              View Results
+                            </button>
+                          ) : (
+                            <button className="rounded-[12px]  ml:text-[16px] text-[12px] scr420:px-4 px-2 scr420:py-2 py-2 flex gap-2 justify-center items-center bg-blue text-white ml:h-[40px] h-[40px] font-semibold">
+                              Hide Results
+                            </button>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                    <CreatableSelect 
                       onInputChange={(data) => {
-                        setSkills([data, ...skills]);
+                        // setSkills([data, ...skills]);
                       }}
                       options={skills.map((item) => ({
                         value: item,
@@ -322,11 +366,46 @@ function SkillAssessment() {
                   </div>
                 </div>
               ) : (
-                <div className="  ml:w-[45%] w-[100%] flex flex-col gap-[16px] rounded-[12px] bg-[#fff] ml:justify-between justify-center ">
+                <div className="  w-[100%] flex flex-col gap-[16px] rounded-[12px] bg-[#fff] ml:justify-between justify-center ">
                   <div className="flex flex-row gap-4  justify-between items-end w-full">
                     <div className="flex flex-col  gap-4 w-[100%]">
-                      <div className="text-[20px] font-medium">My Skills</div>
-
+                      <div className="flex  scr540:flex-row flex-col justify-between">
+                        <div className="text-[20px] font-medium">My Skills</div>
+                        <div className="flex gap-2 justify-end ">
+                          <button
+                            onClick={() => setViewAddSkill(true)}
+                            className="rounded-[12px] ml:px-[22.8px] px-3  ml:min-w-[235px] min-w-[180px] py-2  flex gap-2 ml:text-[16px] scr420:text-[14px] text-[12px] justify-center items-center bg-blue text-white  h-[40px] font-semibold"
+                          >
+                            Select Another Skill
+                            <svg
+                              width="15"
+                              height="14"
+                              viewBox="0 0 15 14"
+                              fill="none"
+                              xlgns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M6.5 8H0.5V6H6.5V0H8.5V6H14.5V8H8.5V14H6.5V8Z"
+                                fill="white"
+                              />
+                            </svg>
+                          </button>
+                          <div
+                            className="text-[#C00000]  ml:min-w-[136px] scr420:min-w-[112px] min-w-[96px] ml:text-[16px] scr420:text-[14px] text-[12px]  "
+                            onClick={() => setshowSecondDiv(!showSecondDiv)}
+                          >
+                            {!showSecondDiv ? (
+                              <button className="rounded-[12px] ml:text-[16px] text-[12px] scr420:px-4 px-2 scr420:py-2 py-2 flex gap-2 justify-center items-center bg-blue text-white ml:h-[40px] h-[40px] font-semibold">
+                                View Results
+                              </button>
+                            ) : (
+                              <button className="rounded-[12px]  ml:text-[16px] text-[12px] scr420:px-4 px-2 scr420:py-2 py-2 flex gap-2 justify-center items-center bg-blue text-white ml:h-[40px] h-[40px] font-semibold">
+                                Hide Results
+                              </button>
+                            )}
+                          </div>
+                        </div>
+                      </div>
                       <div className="w-full flex flex-row gap-[16px] overflow-x-auto flex-wrap ">
                         {userSkills?.map((item, index) => (
                           <button
@@ -334,9 +413,8 @@ function SkillAssessment() {
                             onClick={() => {
                               setSelectedSkill(item);
                             }}
-                            className={`ml:px-4 ml:py-2 px-2 py-1 border-[1px] border-solid border-[#06A9EF] rounded-[25px] ml:text-[14px] text-[12px] font-medium text-[#333]  transition-[0.2s] ${
-                              selectedSkill == item && "bg-[#06A9EF] text-white"
-                            }`}
+                            className={`ml:px-4 ml:py-2 px-2 py-1 border-[1px] border-solid border-[#06A9EF] rounded-[25px] ml:text-[14px] text-[12px] font-medium text-[#333]  transition-[0.2s] ${selectedSkill == item && "bg-[#06A9EF] text-white"
+                              }`}
                           >
                             {item}
                           </button>
@@ -346,108 +424,90 @@ function SkillAssessment() {
                   </div>
                 </div>
               )}
+            </div>
+            {isLevel &&
+              <>
+                <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
+                <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center customMargins   ">
 
-              <div className="flex flex-col justify-end scr420:gap-4 gap-3 ml:w-[50%] w-[100%]">
-                <div className="flex flex-col gap-2 font-medium justify-end items-end ">
-                  <div className="ml:w-[380px] scr390:w-[342px] w-[290px] flex flex-col gap-2 ">
+                  <div className="flex sm:p-4 p-2 flex-col text-[20px] leading-tight font-bold justify-center  scr420:gap-4 gap-3 min-w-[300px]  bg-white rounded-[16px]  ">
                     Difficulty Level
-                    <div className="flex scr390:text-[14px] text-[13px] font-medium rounded-[6px] p-[6px] border border-[#DEDEDE] scr390:w-[342px] w-[290px]">
+                    <div className="flex sm:gap-4 gap-2 justify-between sm:text-[16px] text-[14px] font-medium">
+                      <div>
+                        <label className="flex gap-2 items-center">
+                          <input className="h-[15px] w-[15px]" type="radio" name="level" value="Easy" onChange={handleLevelChange} checked={level === "Easy"} />
+                          Easy
+                        </label>
+                      </div>
+                      <div>
+                        <label className="flex gap-2 items-center">
+                          <input className="h-[15px] w-[15px]" type="radio" name="level" value="Intermediate" onChange={handleLevelChange} checked={level === "Intermediate"} />
+                          Intermediate
+                        </label>
+                      </div>
+                      <div>
+                        <label className="flex gap-2 items-center">
+                          <input className="h-[15px] w-[15px]" type="radio" name="level" value="Advanced" onChange={handleLevelChange} checked={level === "Advanced"} />
+                          Advanced
+                        </label>
+                      </div>
+                    </div>
+                    <div className="w-full flex justify-end">
                       <button
-                        onClick={() => setLevel("Easy")}
-                        className={`flex justify-center items-center w-[109px] py-1 ${
-                          level === "Easy" && "bg-blue rounded-[4px] text-white"
-                        }`}
+                        onClick={() => {  toggleContent() ;setisLevel(false) }}
+                        className={`flex justify-center items-center w-[90px] py-1 text-[16px]
+                              bg-blue rounded-[8px] text-white
+                              }`}
                       >
                         {" "}
-                        Easy
-                      </button>
-                      <button
-                        onClick={() => setLevel("Intermediate")}
-                        className={`flex justify-center items-center w-[109px] py-1 ${
-                          level === "Intermediate" &&
-                          "bg-blue rounded-[4px] text-white"
-                        }`}
-                      >
-                        {" "}
-                        Intermediate
-                      </button>
-                      <button
-                        onClick={() => setLevel("Advanced")}
-                        className={`flex justify-center items-center w-[109px] py-1 ${
-                          level === "Advanced" &&
-                          "bg-blue rounded-[4px] text-white"
-                        }`}
-                      >
-                        {" "}
-                        Advanced
+                        Start
                       </button>
                     </div>
-                  </div>
-                </div>
-                <div className="flex gap-2 justify-end ">
-                  {!viewAddSkill ? (
-                    <button
-                      onClick={() => setViewAddSkill(true)}
-                      className="rounded-[12px] ml:px-[22.8px] px-3  ml:min-w-[235px] min-w-[180px] py-2  flex gap-2 ml:text-[16px] scr420:text-[14px] text-[12px] justify-center items-center bg-blue text-white ml:h-[50px] h-[40px] font-semibold"
-                    >
-                      Select Another Skill
-                      <svg
-                        width="15"
-                        height="14"
-                        viewBox="0 0 15 14"
-                        fill="none"
-                        xlgns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M6.5 8H0.5V6H6.5V0H8.5V6H14.5V8H8.5V14H6.5V8Z"
-                          fill="white"
-                        />
-                      </svg>
-                    </button>
-                  ) : (
-                    <button
-                      onClick={() => setViewAddSkill(false)}
-                      className="rounded-[12px] ml:px-[22.8px] px-3  ml:min-w-[235px] min-w-[180px] py-2  flex gap-2 ml:text-[16px] scr420:text-[14px] text-[12px] justify-center items-center bg-blue text-white ml:h-[50px] h-[40px] font-semibold"
-                    >
-                      Select From My Skills
-                      <svg
-                        width="15"
-                        height="14"
-                        viewBox="0 0 15 14"
-                        fill="none"
-                        xlgns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M6.5 8H0.5V6H6.5V0H8.5V6H14.5V8H8.5V14H6.5V8Z"
-                          fill="white"
-                        />
-                      </svg>
-                    </button>
-                  )}
+                    {/* <div className="flex flex-col gap-2 font-medium justify-center items-center ">
+                      <div className="ml:w-[380px] scr390:w-[342px] w-[290px] flex flex-col gap-2 ">
+                        Difficulty Level
+                        <div className="flex scr390:text-[14px] text-[13px] font-medium rounded-[6px] p-[6px] border border-[#DEDEDE] scr390:w-[342px] w-[290px]">
+                          <button
+                            onClick={() => { setLevel("Easy"); setisLevel(false) }}
+                            className={`flex justify-center items-center w-[109px] py-1 ${level === "Easy" && "bg-blue rounded-[4px] text-white"
+                              }`}
+                          >
+                            {" "}
+                            Easy
+                          </button>
+                          <button
+                            onClick={() => { setLevel("Intermediate"); setisLevel(false) }}
+                            className={`flex justify-center items-center w-[109px] py-1 ${level === "Intermediate" &&
+                              "bg-blue rounded-[4px] text-white"
+                              }`}
+                          >
+                            {" "}
+                            Intermediate
+                          </button>
+                          <button
+                            onClick={() => { setLevel("Advanced"); setisLevel(false) }}
+                            className={`flex justify-center items-center w-[109px] py-1 ${level === "Advanced" &&
+                              "bg-blue rounded-[4px] text-white"
+                              }`}
+                          >
+                            {" "}
+                            Advanced
+                          </button>
+                        </div>
+                      </div>
+                    </div> */}
 
-                  <div
-                    className="text-[#C00000]  ml:min-w-[136px] scr420:min-w-[112px] min-w-[96px] ml:text-[16px] scr420:text-[14px] text-[12px]  "
-                    onClick={() => setshowSecondDiv(!showSecondDiv)}
-                  >
-                    {!showSecondDiv ? (
-                      <button className="rounded-[12px] ml:text-[16px] text-[12px] scr420:px-4 px-2 scr420:py-2 py-2 flex gap-2 justify-center items-center bg-blue text-white ml:h-[50px] h-[40px] font-semibold">
-                        View Results
-                      </button>
-                    ) : (
-                      <button className="rounded-[12px]  ml:text-[16px] text-[12px] scr420:px-4 px-2 scr420:py-2 py-2 flex gap-2 justify-center items-center bg-blue text-white ml:h-[50px] h-[40px] font-semibold">
-                        Hide Results
-                      </button>
-                    )}
                   </div>
-                </div>
-              </div>
-            </div>
 
+                </div>
+
+              </>
+
+            }
             <div className="flex flex-col lg:flex-row justify-center items-center w-[100%] gap-6">
               <div
-                className={`p-[12px] ms:px-[60px] ms:customMargins ${
-                  showSecondDiv ? "lg:w-[50%]" : "w-[100.95%] "
-                } scr1024:w-[50%] sm:w-[85%] w-[100%]  px-[12px] rounded-[12px] bg-[#005A81] flex flex-col  items-center gap-[8px] scr820:gap-[16px] `}
+                className={`p-[12px] ms:px-[60px] ms:customMargins ${showSecondDiv ? "lg:w-[50%]" : "w-[100.95%] "
+                  } scr1024:w-[50%] sm:w-[85%] w-[100%]  px-[12px] rounded-[12px] bg-[#005A81] flex flex-col  items-center gap-[8px] scr820:gap-[16px] `}
               >
                 <div className="text-[20px] font-[600] text-[#fff] flex flex-row gap-[12px]">
                   <Assessmentlogo />
@@ -505,10 +565,10 @@ function SkillAssessment() {
                       </g>
                     </svg>
                     <div className="text-[12px] scr820:text-[18px] text-[#fff] font-[600] flex flex-col items-center">
-                      20 Minutes
+                      5 Minutes
                     </div>
                     <div className="text-[10px] scr820:text-[13px] text-[#fff] font-[500] flex flex-col items-center">
-                      2 minute per Question
+                      30 seconds per Question
                     </div>
                   </div>
                   <div
@@ -557,20 +617,20 @@ function SkillAssessment() {
                 </div>
 
                 <div
-                  onClick={() => {
-                    toggleContent();
-                  }}
+                  onClick={() => { setisLevel(true) }}
+
+
                 >
                   <button
                     className=" h-[42px] w-[108px] flex items-center justify-center  rounded-[8px] border-[1px] border-solid border-[#06A9EF] bg-[#fff] text-[#333] text-[14px] font-[500] "
                     disabled={loading}
-                    // onClick={() =>
-                    //   setQuestionIndex(
-                    //     questionIndex + 1 < 10 ? questionIndex + 1 : 9
-                    //   )
-                    // }
+                  // onClick={() =>
+                  //   setQuestionIndex(
+                  //     questionIndex + 1 < 10 ? questionIndex + 1 : 9
+                  //   )
+                  // }
                   >
-                    {loading ? <MiniLoader /> : "Start"}
+                    {loading ? <MiniLoader /> : " Get Started"}
                   </button>
                 </div>
               </div>
@@ -884,9 +944,8 @@ function SkillAssessment() {
               <div className="flex gap-4 w-full items-center">
                 <div className=" relative h-[10px] rounded-[6px] bg-[#DEDEDE] w-full">
                   <div
-                    className={`absolute h-[10px] rounded-[6px] bg-[#06A9EF] w-[${
-                      (questionIndex + 1) * 10
-                    }%] `}
+                    className={`absolute h-[10px] rounded-[6px] bg-[#06A9EF] w-[${(questionIndex + 1) * 10
+                      }%] `}
                   ></div>
                 </div>
                 <p className="text-[16px] flex justify-end font-semibold w-[60px]">
@@ -908,10 +967,10 @@ function SkillAssessment() {
                   </div>
                   <div className="w-full flex  flex-col gap-5">
                     {question[questionIndex]?.options.map((option, index) => (
-                      <div key={index} className="flex items-center gap-4">
+                      <div key={index} className="flex items-start gap-4">
                         <input
                           type="radio"
-                          className="custom-radio w-[20px] h-[20px]"
+                          className="custom-radio min-w-[17px] min-h-[17px] mt-[2px]"
                           id={`option${index}`}
                           name="options"
                           value={option}
@@ -930,7 +989,7 @@ function SkillAssessment() {
                         />
                         <label
                           htmlFor={`option${index}`}
-                          className="text-[14px] ms:text-[16px] font-[500]"
+                          className="text-[14px] ms:text-[16px] font-[500] leading-tight"
                         >
                           {option}
                         </label>
@@ -981,6 +1040,9 @@ function SkillAssessment() {
                     disabled={loading}
                     onClick={() => {
                       sumbit();
+                      if (questionIndex === 9) {
+                        setIsSubmit(true);
+                      }
                     }}
                   >
                     {questionIndex == 9 ? "Submit" : "Next"}

@@ -197,6 +197,7 @@ function TransformJob() {
 
             <p className="text-sm text-red">{errors}</p>
             <button
+<<<<<<< HEAD
               className="px-4 py-3 bg-[#06A9EF] text-[16px] text-white w-[188px] font-semibold rounded-[12px]"
               disabled={
                 loading ||
@@ -217,6 +218,11 @@ function TransformJob() {
                     ? 0.5
                     : 1,
               }}
+=======
+              className="px-4 py-3 bg-[#06A9EF] text-[14px] text-white w-[188px] font-semibold rounded-[12px]"
+              disabled={loading || !isValid || Object.keys(selected).length <=0 }
+              style={{ opacity: loading || !isValid || Object.keys(selected).length <= 0 ? 0.5 : 1 }}
+>>>>>>> 7102f08b79b60bab3cb55990158394b2647f723d
               onClick={() => {
                 transformHandler();
               }}

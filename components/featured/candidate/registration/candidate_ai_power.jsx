@@ -142,57 +142,65 @@ const CandidateAiPower = ({
     }
     setLoading(true);
     extracteText(file).then((result) => {
-      axios
-        .post("https://freedygoservices.in/api/resume/extraction", {
-          data: result,
-        })
-        .then((res) => {
-          console.log(res.data.data);
-          if (Object.keys(res.data.data[0]).length > 0) {
-            localStorage.setItem(
-              "parsedResume",
-              JSON.stringify(res.data.data[0])
-            );
-            axios
-              .put(
-                "https://freedygoservices.in/api/subscription/updateUploadLimit/" +
+     
+      if (result[0]?.text?.length > 0) {
+        axios
+          .post("https://freedygoservices.in/api/resume/extraction", {
+            data: result,
+          })
+          .then((res) => {
+            if (Object.keys(res.data.data[0]).length > 0) {
+              localStorage.setItem(
+                "parsedResume",
+                JSON.stringify(res.data.data[0])
+              );
+              axios
+                .put(
+                  "https://freedygoservices.in/api/subscription/updateUploadLimit/" +
                   userDataGlobal._id
-              )
-              .then((res) => {
-                const result = res.data;
-                if (result.success) {
-                  localStorage.setItem(
-                    "uploadCount",
-                    result.data.resumeUpladed
-                  );
-                  setLoading(false);
-                  setfile(file);
+                )
+                .then((res) => {
+                  const result = res.data;
+                  if (result.success) {
+                    localStorage.setItem(
+                      "uploadCount",
+                      result.data.resumeUpladed
+                    );
+                    setLoading(false);
+                    setfile(file);
 
-                  router.push(`/home/createResume?clientId=${clientId}`);
-                } else {
+                    router.push(`/home/createResume?clientId=${clientId}`);
+                  } else {
+                    localStorage.setItem("uploadCount", 0);
+                    setLoading(false);
+                    setfile(file);
+
+                    router.push(`/home/createResume?clientId=${clientId}`);
+                  }
+                })
+                .catch((err) => {
                   localStorage.setItem("uploadCount", 0);
                   setLoading(false);
                   setfile(file);
 
                   router.push(`/home/createResume?clientId=${clientId}`);
-                }
-              })
-              .catch((err) => {
-                localStorage.setItem("uploadCount", 0);
-                setLoading(false);
-                setfile(file);
-
-                router.push(`/home/createResume?clientId=${clientId}`);
-              });
-          } else {
-            toast.error("Unable to parse resume, please try again later");
-          }
-        })
-        .catch((err) => {
-          setLoading(false);
-          console.log(err);
-          extracteText();
-        });
+                });
+            } else {
+              
+              toast.error("Unable to parse resume, please try again later");
+              
+            }
+          })
+          .catch((err) => {
+            setLoading(false);
+            console.log(err);
+            extracteText();
+          });
+      }else{
+        toast.error("Error while parsing resume please try again")
+        setLoading(false);
+        setfile()
+      }
     });
   };
 
@@ -382,9 +390,8 @@ const CandidateAiPower = ({
 
                 <button
                   disabled={file && !loading ? false : true}
-                  className={`sm:px-9 px-6 py-3 bg-[#06A9EF] border rounded-[12px] font-semibold text-white ${
-                    file && !loading ? "opacity-100" : "opacity-50"
-                  } `}
+                  className={`sm:px-9 px-6 py-3 bg-[#06A9EF] border rounded-[12px] font-semibold text-white ${file && !loading ? "opacity-100" : "opacity-50"
+                    } `}
                   onClick={navigate}
                 >
                   Continue
