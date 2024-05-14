@@ -18,6 +18,12 @@ function ContactUs() {
       [name]: value,
     }));
   };
+  function handleKeyPress(event) {
+    const charCode = event.which ? event.which : event.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+      event.preventDefault();
+    }
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -61,10 +67,10 @@ function ContactUs() {
               </g>
             </svg>
             <p className="text-[14px] text-[#fff] font-[400] leading-[16px]">
-            Harare, Zimbabwe | Pune, India | London, United Kingdom
+              Harare, Zimbabwe | Pune, India | London, United Kingdom
             </p>
           </div>
-          <div className="flex items-center  gap-2">
+          <div className="flex items-center gap-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="20"
@@ -83,7 +89,7 @@ function ContactUs() {
               support@skilotech.com
             </p>
           </div>
-          
+
         </div>
 
         <div className="ml:w-[50%] sm:w-[80%] w-[100%]">
@@ -126,8 +132,13 @@ function ContactUs() {
               onChange={handleChange}
               placeholder="Enter Mobile No"
               required
+              maxLength={10}
+              minLength={10}
+              onKeyPress={handleKeyPress}
+
             />
             <input
+              required
               id="first_name"
               type="text"
               name="subject"
