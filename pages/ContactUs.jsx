@@ -18,6 +18,12 @@ function ContactUs() {
       [name]: value,
     }));
   };
+  function handleKeyPress(event) {
+    const charCode = event.which ? event.which : event.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+      event.preventDefault();
+    }
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -44,7 +50,7 @@ function ContactUs() {
     <div className="w-[100%]  flex items-center my-[50px] justify-center customMargins ">
       <div className="ml:w-[90%] rounded-[16px] w-[100%] ml:flex ml:flex-row items-center ml:items-end flex-col-reverse flex gap-4  ml:p-[24px] p-[16px]  h-max-content bg-cover bg-center bg-no-repeat bg_contactUs">
         <div className="ml:w-[50%] sm:w-[80%] w-[100%] h-full justify-end gap-2 flex flex-col ">
-          <div className="flex  gap-2">
+          <div className="flex items-center gap-2">
             <svg
               className="min-w-[20px]"
               xmlns="http://www.w3.org/2000/svg"
@@ -61,10 +67,10 @@ function ContactUs() {
               </g>
             </svg>
             <p className="text-[14px] text-[#fff] font-[400] leading-[16px]">
-            Harare, Zimbabwe | Pune, India | London, United Kingdom
+              Harare, Zimbabwe | Pune, India | London, United Kingdom
             </p>
           </div>
-          <div className="flex  gap-2">
+          <div className="flex items-center gap-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="20"
@@ -83,7 +89,7 @@ function ContactUs() {
               support@skilotech.com
             </p>
           </div>
-          
+
         </div>
 
         <div className="ml:w-[50%] sm:w-[80%] w-[100%]">
@@ -126,8 +132,13 @@ function ContactUs() {
               onChange={handleChange}
               placeholder="Enter Mobile No"
               required
+              maxLength={10}
+              minLength={10}
+              onKeyPress={handleKeyPress}
+
             />
             <input
+              required
               id="first_name"
               type="text"
               name="subject"
