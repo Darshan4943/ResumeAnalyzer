@@ -23,7 +23,7 @@ export const Api = () => {
 
   let timezone = moment().format("YYYY-MM-DD HH:mm:ss");
 
-console.log(25,timezone)
+// console.log(25,timezone)
   const reCallUser = useSelector((state) => state.reCallUser);
   useEffect(() => {
     if (userDataGlobal?.tempPassword?.length > 0) {
@@ -85,7 +85,7 @@ console.log(25,timezone)
             localStorage.setItem("clientCount", result.clientStored);
             localStorage.setItem("planAvailable", true);
             let newEnddate = moment(result.endDate).format("YYYY-MM-DD HH:mm:ss");
-            console.log(87,newEnddate)
+            // console.log(87,newEnddate)
             // { console.log(999, timezone >= newEnddate ? "active" : "inactive") }
             if (timezone >= newEnddate && result.isActive) {
               axios
