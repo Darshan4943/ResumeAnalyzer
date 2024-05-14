@@ -23,7 +23,7 @@ function ContactUs() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:2000/api/contactUs/create",
+        "https://freedygoservices.in/api/contactUs/create",
         formData
       );
       // console.log("Response:", response.data);

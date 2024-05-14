@@ -323,16 +323,18 @@ function Sign_in({ googleLoading, handleGoogle, setSignIn, setSignUp }) {
             <div className="text-[12px] text-center ">
               By signing in, you agree to our{" "}
               <span
+              
                 className="already_sign cursor-pointer"
                 style={{
                   fontSize: "12px",
                   color: "#06A9EF",
                 }}
               >
-                <a href="">Terms & Conditions</a>
+                <a href="/TermsAndConditions">Terms & Conditions</a>
               </span>{" "}
               and{" "}
               <span
+              
                 className="already_sign cursor-pointer"
                 style={{
                   fontSize: "12px",
@@ -340,7 +342,7 @@ function Sign_in({ googleLoading, handleGoogle, setSignIn, setSignUp }) {
                 }}
               >
                 {" "}
-                <a href="">Privacy Policy.</a>
+                <a href="/PrivacyPolicy">Privacy Policy.</a>
               </span>
             </div>
           </div>
