@@ -44,7 +44,7 @@ function ContactUs() {
     <div className="w-[100%]  flex items-center my-[50px] justify-center customMargins ">
       <div className="ml:w-[90%] rounded-[16px] w-[100%] ml:flex ml:flex-row items-center ml:items-end flex-col-reverse flex gap-4  ml:p-[24px] p-[16px]  h-max-content bg-cover bg-center bg-no-repeat bg_contactUs">
         <div className="ml:w-[50%] sm:w-[80%] w-[100%] h-full justify-end gap-2 flex flex-col ">
-          <div className="flex  gap-2">
+          <div className="flex items-center gap-2">
             <svg
               className="min-w-[20px]"
               xmlns="http://www.w3.org/2000/svg"
@@ -64,7 +64,7 @@ function ContactUs() {
             Harare, Zimbabwe | Pune, India | London, United Kingdom
             </p>
           </div>
-          <div className="flex  gap-2">
+          <div className="flex items-center  gap-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="20"
