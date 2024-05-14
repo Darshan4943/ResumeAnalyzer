@@ -84,7 +84,7 @@ function JdFiles({
   };
   function getAllFiles(obj) {
     let files = [];
-    console.log(84, obj);
+
     function traverse(node) {
       if (node.type === "file") {
         files.push({
@@ -99,7 +99,7 @@ function JdFiles({
     }
 
     traverse(obj);
-    console.log(100, files);
+
     return files;
   }
   const changeHandler = (value) => {
@@ -117,17 +117,16 @@ function JdFiles({
   };
 
   const toggleSelect = (itemId, item) => {
-    console.log(116, itemId, item);
     const fileType = [
       ...getAllFiles(item)
         .filter((data) => data.type == "file")
         .map((item) => item._id),
     ];
-    console.log("filetypes", fileType);
+
     setSelectedIndexesFilesType(fileType);
     const ids = [...getAllFiles(item).map((item) => item._id)];
     let updatedIndexes;
-    console.log(119, selectedIndexes, ids);
+
     if (selectedIndexes?.includes(itemId)) {
       updatedIndexes = selectedIndexes.filter((id) => !ids?.includes(id));
     } else {
