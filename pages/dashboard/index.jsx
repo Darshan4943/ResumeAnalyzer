@@ -130,12 +130,12 @@ function Dashboard() {
             (item) =>
               item.duration + " " + item.limit == res.data.findIsActive?.plan
           );
-          if(res.data.findIsActive.isActive===true){
+          if (res.data.findIsActive.isActive === true) {
             setIsActive(true);
           }
-          console.log(133,res.data)
+          console.log(133, res.data)
           if (plan) {
-            
+
             setSelectedPlan(plan);
             console.log(134, plan, uploadCount, saveCount, clientCount);
             setLimits({
@@ -214,7 +214,7 @@ function Dashboard() {
             lands your dream job effortlessly.
             <div
               onClick={() => toggle()}
-              className="rounded-[8px] bg-[#FFFFFF] px-4 py-3 text-[16px] flex gap-1 text-[#06A9EF] justify-center items-center leading-tight ml:w-full w-[152px] cursor-pointer"
+              className="  rounded-[8px] bg-[#FFFFFF] px-4 py-3 text-[16px] flex gap-1 text-[#06A9EF] justify-center items-center leading-tight ml:w-full w-[152px] cursor-pointer"
             >
               Get Started
               <svg

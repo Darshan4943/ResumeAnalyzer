@@ -5,7 +5,7 @@ const PaymentCanceled = ({ setCancelModel, loading }) => {
   return (
     <div className="expiryModel">
       <div className="modal">
-        <div className="bg-white p-[16px] rounded-[18px] w-[400px] min-h-[220px] flex flex-col gap-6 items-center justify-center">
+        <div className="bg-white p-[16px] rounded-[18px] w-[300px] scr420:w-[400px] ml:w-[400px] min-h-[220px] flex flex-col gap-6 items-center justify-center">
           <div className="flex flex-col gap-[16px]">
             <div className="flex flex-row items-center gap-[12px]">
               <svg
@@ -21,11 +21,11 @@ const PaymentCanceled = ({ setCancelModel, loading }) => {
                 />
               </svg>
 
-              <span className="text-[30px] text-[#333333] font-semibold text-center">
+              <span className="text-[20px] scr390:text-[24px] ml:text-[30px] text-[#333333] font-semibold text-center">
                 Payment Cancelled !
               </span>
             </div>
-            <span className="text-[16px] text-[#333333] font-medium text-center">
+            <span className="text-[12px] scr390:text-[14px] ml:text-[16px] text-[#333333] font-medium text-center">
               Payment Cancelled, please try again.
             </span>
           </div>

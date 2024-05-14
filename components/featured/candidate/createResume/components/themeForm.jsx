@@ -94,10 +94,10 @@ function ThemeForm({
       }}
     >
       <div
-        className="flex items-center w-full justify-between gap-2"
+        className="flex wrap items-center w-full justify-between gap-2"
         onClick={() => setView(!view)}
       >
-        <div className="flex xxlg:flex-row flex-col gap-[16px]">
+        <div className="flex w-full wrap gap-[16px]">
           <div className="flex items-center  gap-2 bg-[#06A9EF] py-[8px] px-[16px] rounded-[12px]">
             <svg
               width="24"
@@ -113,7 +113,7 @@ function ThemeForm({
                 />
               </g>
             </svg>
-            <h1 className="text-lg font-medium tracking-wide text-[#fff]">
+            <h1 className="text-[20px] font-medium tracking-wide text-[#fff]">
               Customize
             </h1>
           </div>
@@ -156,13 +156,13 @@ function ThemeForm({
           </div>
         </div>
         <div className=" flex xxlg:items-center items-end h-full">
-        <img
-          src="\images\auth\candidate\arrow_forward_ios.png"
-          style={{ height: "24px", width: "24px", objectFit: "contain" }}
-          alt=""
-        />
+          <img
+            src="\images\auth\candidate\arrow_forward_ios.png"
+            style={{ height: "24px", width: "24px", objectFit: "contain" }}
+            alt=""
+          />
         </div>
-      </div>{" "}
+      </div>
       <div
         style={{
           visibility: view ? "visible" : "hidden",
@@ -171,7 +171,7 @@ function ThemeForm({
           transition: "opacity 0.2s",
         }}
       >
-        <div className=" flex  gap-2 ">
+        <div className=" flex  gap-2 flex-col">
           <div className=" flex flex-wrap gap-2">
             {THEME_COLORS.map((color, idx) => (
               <div
@@ -198,7 +198,7 @@ function ThemeForm({
           <div className="mt-2 flex flex-wrap gap-3">
             {fontFamily.map((font, idx) => (
               <div
-                className={`flex h-[40px] w-[115px] cursor-pointer items-center justify-center rounded-md text-sm border transition-transform duration-300 ease-in-out hover:scale-105 ${selectedFont === font ? "text-white" : ""
+                className={`flex h-[40px] w-[110px] cursor-pointer items-center justify-center rounded-md text-sm border transition-transform duration-300 ease-in-out hover:scale-105 ${selectedFont === font ? "text-white" : ""
                   }`}
                 style={{
                   backgroundColor: selectedFont === font ? "#06A9EF" : "",

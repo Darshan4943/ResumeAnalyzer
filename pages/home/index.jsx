@@ -14,7 +14,7 @@ function BeforeLoginHome() {
   const dispatch = useDispatch();
   const userDataGlobal = useSelector((state) => state.userData);
   const [loading, setLoading] = useState(true);
-  const [visible,setVisible] = useState(false)
+  const [visible, setVisible] = useState(false)
   useEffect(() => {
     const token = localStorage.getItem("authToken");
     if (token && token != "undefined") {
@@ -24,10 +24,10 @@ function BeforeLoginHome() {
         setIsLogin(false);
       }
     }
-    
+
     const timer = setTimeout(() => {
       setLoading(false);
-      if(userDataGlobal?.tempPassword?.length>0){
+      if (userDataGlobal?.tempPassword?.length > 0) {
         setVisible(true)
       }
     }, 1000);
