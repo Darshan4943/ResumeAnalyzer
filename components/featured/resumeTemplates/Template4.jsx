@@ -132,7 +132,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                   </Text>
                 </Svg>
               </View>
-              <View style={{ display:"flex", flexDirection:"column", gap:"8px"}}>
+              <View style={{ display:"flex", flexDirection:"column", gap:"8px",width:'100%',alignItems:'start'}}>
                 {data?.mobileNumber && (
                   <View
                     style={{
@@ -140,8 +140,8 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                       gap: "12px",
                       justifyContent: "start",
                       alignItems: "center",
-                      marginLeft: "16px",
-                      paddingRight: " 4px",
+                      // marginLeft: "16px",
+                      paddingRight: "4px",
                       paddingTop: "5px",
                     }}
                   >
@@ -186,7 +186,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                       gap: "12px",
                       justifyContent: "start",
                       alignItems: "center",
-                      marginLeft: "16px",
+                      // marginLeft: "16px",
                       paddingRight: " 4px",
                     }}
                   >
@@ -243,7 +243,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                       justifyContent: "start",
                       gap: "12px",
                       alignItems: "center",
-                      marginLeft: "16px",
+                      // marginLeft: "16px",
                       paddingRight: " 4px",
                     }}
                   >
@@ -323,7 +323,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                     paddingRight: "16px",
                     gap: "8px",
                     justifyContent: "space-between",
-                    marginLeft: "16px",
+                    // marginLeft: "16px",
                   }}
                 >
                   {data?.languages?.map((detail, index) => (
@@ -769,12 +769,14 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
           </View>
           {data?.skills?.length > 0 && (
             <View
+            wrap={false}
               style={{
                 display: "flex",
                 flexDirection: "column",
                 gap: 16,
                 alignItems: "flex-start",
                 paddingTop: "26px",
+                
               }}
             >
               <View

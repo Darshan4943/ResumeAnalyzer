@@ -345,8 +345,6 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
             </View> */}
              {data?.skills?.length > 0 && (
               <View style={{ flexDirection: "column", gap: 16 }}>
-                
-
                 <View style={{ flexDirection: "column", gap: 12 }}>
                   {data?.skills?.map((detail, index) => (
                     <View
