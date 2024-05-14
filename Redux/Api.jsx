@@ -75,6 +75,8 @@ export const Api = () => {
             const selectedPlan = plans.find(
               (item) => item.duration + " " + item.limit == result.plan
             );
+
+            console.log(79, result);
             localStorage.setItem("activePlan", selectedPlan.index);
             localStorage.setItem("uploadCount", result.resumeUpladed);
             localStorage.setItem("planActive", result.isActive);

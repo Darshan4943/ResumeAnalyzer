@@ -82,7 +82,7 @@ const ResumePreview = ({
   useEffect(() => {
     getLimits();
   }, []);
-
+  console.log(85, saveLimit);
   const callData = () => {
     axios
       .get("https://freedygoservices.in/api/resume/" + userDataGlobal?._id)
@@ -548,7 +548,8 @@ const ResumePreview = ({
     setdisabled(true);
 
     if (blob !== null) {
-      if (saveLimit == 0) {
+      console.log(551, saveLimit);
+      if (saveLimit <= 0) {
         setLimitUsedModal(true);
         return;
       }
@@ -573,7 +574,7 @@ const ResumePreview = ({
         formData.append("pdfBlob", blob);
 
         axios
-          .put("https://freedygoservices.in/api/resume/" + id, formData)
+          .put("http://localhost:2000/api/resume/" + id, formData)
           .then((res) => {
             localStorage.setItem("saveCount", saveLimit - 1);
             getLimits();
@@ -627,7 +628,7 @@ const ResumePreview = ({
         }
 
         axios
-          .post("https://freedygoservices.in/api/resume/add", formData)
+          .post("http://localhost:2000/api/resume/add", formData)
           .then((res) => {
             const pdfUrl = res.data.data.resumeUrl;
 
@@ -921,10 +922,10 @@ const ResumePreview = ({
 
         {selectedResumeIndex !== undefined && (
           <div
-          className=" w-full flex items-center justify-center mt-3 bg-[#525659] py-[24px] rounded-[8px] min-h-[700px]"
-          style={{
-            transformOrigin: "top left",
-          }}
+            className=" w-full flex items-center justify-center mt-3 bg-[#525659] py-[24px] rounded-[8px] min-h-[700px]"
+            style={{
+              transformOrigin: "top left",
+            }}
           >
             {/* {loading ? (
               <div>
