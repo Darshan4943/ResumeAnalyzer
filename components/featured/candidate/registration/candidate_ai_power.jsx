@@ -188,7 +188,8 @@ const CandidateAiPower = ({
             } else {
               
               toast.error("Unable to parse resume, please try again later");
-              
+              setLoading(false);
+              setfile()
             }
           })
           .catch((err) => {
