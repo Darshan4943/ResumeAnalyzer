@@ -299,7 +299,7 @@ function SkillAssessment() {
     <div className="">
       <div
         onWheel={(e) => e.stopPropagation()}
-        className="bg-[#F9F9F9] w-full "
+        className="bg-[#F9F9F9] w-full h-[90vh] "
       >
         {toggle === 0 && (
           <div className="flex flex-col gap-[35px] pt-[24px] pb-[95px] items-center  customMargins">
