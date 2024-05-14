@@ -64,7 +64,7 @@ const Saved = () => {
             </div>
           ) : (
             <>
-              {jobPost.length > 0 ? (
+              {jobPost?.length > 0 ? (
                 <>
                   {jobPost.map((item, index) => (
                     <div

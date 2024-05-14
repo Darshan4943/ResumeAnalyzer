@@ -189,11 +189,10 @@ function Services({ isServices, isMove, setIsMove }) {
     <div className="fixed z-[2000] top-[57px] left-0 right-0 bottom-0 flex  justify-center w-full bg-[#FFF]   ">
       <div className=" py-10  w-full ">
         <div
-          className={`scr1400:px-[4%] flex gap-9 justify-center w-full transform transition-transform   ease-in-out ${
-            isMove
+          className={`scr1400:px-[4%] flex gap-9 justify-center w-full transform transition-transform   ease-in-out ${isMove
               ? "translate-y-0  opacity-100"
               : "translate-y-[30px] opacity-0 move"
-          }`}
+            }`}
           style={{ transition: " all .2s linear" }}
         >
           <div className="flex flex-col gap-[24px]">
@@ -247,7 +246,7 @@ function Services({ isServices, isMove, setIsMove }) {
               </div>
             </div>
 
-            <button className="flex flex-row gap-[8px] w-full border border-[#DEDEDE] bg-[#F9F9F9] rounded-[6px] py-[10px] px-[8px] items-center" onClick={()=>router.push('/jobs/saved')}>
+            <button className="flex flex-row gap-[8px] w-full border border-[#DEDEDE] bg-[#F9F9F9] rounded-[6px] py-[10px] px-[8px] items-center" onClick={() => router.push('/jobs/saved')}>
               <svg
                 width="12"
                 height="16"
@@ -300,11 +299,10 @@ function Services({ isServices, isMove, setIsMove }) {
                   onMouseLeave={() => setVisible(false)}
                 >
                   <div
-                    className={`flex items-start gap-[20px] p-4  ${
-                      visible !== index
+                    className={`flex items-start gap-[20px] p-4  ${visible !== index
                         ? "border border-[#DEDEDE]"
                         : "border border-[#FFF]"
-                    } rounded-[16px] cursor-pointer w-[359.33px] `}
+                      } rounded-[16px] cursor-pointer w-[359.33px] `}
                   >
                     <div className="flex items-center gap-3">
                       <img

@@ -188,7 +188,7 @@ console.log(31,selected)
               className=" border border-[#DEDEDE] rounded-[8px] outline-none h-auto p-2 bg-[#F7F7F7]"
             />
             <button
-              className="px-4 py-3 bg-[#06A9EF] text-[16px] text-white w-[188px] font-semibold rounded-[12px]"
+              className="px-4 py-3 bg-[#06A9EF] text-[14px] text-white w-[188px] font-semibold rounded-[12px]"
               disabled={loading || !isValid || Object.keys(selected).length <=0 }
               style={{ opacity: loading || !isValid || Object.keys(selected).length <= 0 ? 0.5 : 1 }}
               onClick={() => {

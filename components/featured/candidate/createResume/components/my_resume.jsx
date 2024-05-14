@@ -69,7 +69,7 @@ const ResumeList = ({ data, setData }) => {
         style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}
       >
         <p className="text-[20px] font-medium">Upload Photo</p>
-        <div className="flex sm:flex-row flex-col gap-4 items-center justify-center">
+        <div className="flex sm:flex-row ml:flex-col xxlg:flex-row  flex-col gap-4 items-center justify-center">
           {croppedImage ? (
             <ImageContainer
               src={croppedImage.url}
