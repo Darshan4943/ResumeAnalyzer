@@ -9,7 +9,7 @@ import axios from "axios";
 import MiniLoader from "../../components/common/mini-loader";
 import { camelCase, dateSeter, formatDate } from "../../utils/middleware";
 import Timer from "../../components/common/timer";
-import { AssessmentSvg, Assessmentlogo } from "../../utils/svg";
+import CloseIcon, { AssessmentSvg, Assessmentlogo, Close_svg } from "../../utils/svg";
 import CreatableSelect from 'react-select/creatable';
 import { SkillList } from "../../utils/data";
 import { toast } from "react-toastify";
@@ -422,7 +422,13 @@ function SkillAssessment() {
                 <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center customMargins   ">
 
                   <div className="flex sm:p-4 p-2 flex-col text-[20px] leading-tight font-bold justify-center  scr420:gap-4 gap-3 min-w-[300px]  bg-white rounded-[16px]  ">
-                    Difficulty Level
+                    <div className="flex justify-between"> 
+                      Difficulty Level
+                      <div onClick={() => { setisLevel(false) }} className="cursor-pointer">
+                      <CloseIcon/>
+                      </div>
+                    </div>
+                    
                     <div className="flex sm:gap-4 gap-2 justify-between sm:text-[16px] text-[14px] font-medium">
                       <div>
                         <label className="flex gap-2 items-center">
