@@ -57,9 +57,9 @@ function TransformJob() {
             selected.skills.length > 0
               ? skills
               : skills?.map((item) => ({
-                  skill: item,
-                  rating: [5, 5, 5, 5, 5],
-                })),
+                skill: item,
+                rating: [5, 5, 5, 5, 5],
+              })),
           summery: summery,
           experience,
         });
@@ -90,7 +90,7 @@ function TransformJob() {
             axios
               .get(
                 "https://freedygoservices.in/api/resume/" +
-                  res.data.data[0]?._id
+                res.data.data[0]?._id
               )
               .then((res) => {
                 setResumeList(res.data.data);
@@ -209,11 +209,11 @@ function TransformJob() {
               style={{
                 opacity:
                   loading ||
-                  !isValid ||
-                  // (selected == null && Object?.keys(selected)?.length <= 0)
-                  selected == null ||
-                  (typeof selected === "object" &&
-                    Object.keys(selected).length <= 0)
+                    !isValid ||
+                    // (selected == null && Object?.keys(selected)?.length <= 0)
+                    selected == null ||
+                    (typeof selected === "object" &&
+                      Object.keys(selected).length <= 0)
                     ? 0.5
                     : 1,
               }}
@@ -253,11 +253,11 @@ function TransformJob() {
                 data={
                   newData && Object.keys(newData)?.length > 0
                     ? {
-                        ...newData,
-                        summery: newData?.summary
-                          ? newData.summary
-                          : newData?.summery,
-                      }
+                      ...newData,
+                      summery: newData?.summary
+                        ? newData.summary
+                        : newData?.summery,
+                    }
                     : selected
                 }
                 resumeTemplateIndex={selected.resumeTemplateIndex}
