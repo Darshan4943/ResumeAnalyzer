@@ -94,6 +94,7 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
               gap: 16,
               justifyContent: "center",
               alignItems: "center",
+              
             }}
           >
             <View>
@@ -133,6 +134,7 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
                   fontFamily: `${selectedFont} 400`,
                   fontSize: 10,
                   color: "#282829",
+                  paddingHorizontal:'16px'
                 }}
               >
                 {data.location ? <>{data.location}</> : <>Your Address</>}
@@ -176,7 +178,6 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
                 gap: 2,
                 justifyContent: "center",
                 alignItems: "center",
-                gap: 2,
               }}
             >
               <Text
@@ -347,12 +348,16 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
                 <View
                   style={{
                     display: "flex",
-                    flexDirection: "row",
-                    flexWrap: "wrap",
-                    rowGap:'10px',
+                    // flexDirection: "row",
+                    flexDirection:'column',
+
+                    // flexWrap: "wrap",
+                    // rowGap:'10px',
                     alignItems:'center',
                     width:'100%',
-                    paddingHorizontal:'4px'
+                    paddingHorizontal:'8px',
+                    gap:'8px'
+
                   }}
                 >
                   {data?.skills?.map((detail, index) => (
@@ -362,8 +367,8 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
                       style={{
                         color: "#414042",
                         fontSize: "12px",
-                        width: "calc(50% - 4px)",
-                        // width:'100%'
+                        // width: "calc(50% - 4px)",
+                        width:'100%'
                       }}
                     >
                       <Text style={{ fontFamily: `${selectedFont} 400` }}>
@@ -478,7 +483,7 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
             </View>
           )}
           <View
-            wrap={false}
+            // wrap={false}
             style={{ display: "flex", flexDirection: "column", gap: 15 }}
           >
             <View
