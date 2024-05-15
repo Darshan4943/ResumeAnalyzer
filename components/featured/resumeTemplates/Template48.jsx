@@ -540,6 +540,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                         style={{
                           fontFamily: `${selectedFont} 400`,
                           fontSize: 10,
+                          paddingLeft: 20,
                           color: "#6D6E71",
                         }}
                       >
@@ -601,7 +602,11 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                 </Svg>
               </View>
               {data?.education?.map((detail, index) => (
-                <View key={index} wrap={false}>
+                <View key={index} wrap={false} style={{
+                  flexDirection: "col",
+                  gap: 8,
+                 
+                }} >
                   <View
                     style={{
                       flexDirection: "row",
