@@ -23,7 +23,6 @@ function Details() {
   const [cancelModel, setCancelModel] = useState(false);
   const [isRetry, setIsRetry] = useState(true);
 
-  console.log(26, cancelModel);
   useEffect(() => {
     const exchangeRate = localStorage.getItem("exchangeRate");
     const icon = localStorage.getItem("icon");
@@ -40,11 +39,12 @@ function Details() {
     return () => clearTimeout(timer);
   }, [id]);
 
-  console.log(42, canceled);
-
   useEffect(() => {
-    if (canceled == "true" && isRetry == true) {
-      setCancelModel(true);
+    console.log(229999, "hii");
+    if (canceled == "true") {
+      const timer = setTimeout(() => {
+        setCancelModel(true);
+      }, 2000);
     }
   }, [success, canceled]);
   const navigate = () => {
