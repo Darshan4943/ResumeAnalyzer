@@ -310,7 +310,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                     key={index}
                     style={{
                       color: "white",
-                      fontSize: 8.96,
+                      fontSize: 12,
                       fontFamily: `${selectedFont} 400`,
                     }}
                   >
