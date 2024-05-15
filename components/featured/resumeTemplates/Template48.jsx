@@ -450,7 +450,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                 </Svg>
               </View>
               <View
-                style={{ flexDirection: "column", gap: "14px", display: "flex" }}
+                style={{ flexDirection: "column", gap: "18px", display: "flex" }}
               >
                 {/* <View style={{ flexDirection: "column", gap: '2px' ,display:'flex'}}> */}
 
@@ -458,14 +458,14 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                   <View
                     key={index}
                     wrap={false}
-                    style={{ display: "flex", flexDirection: "column" ,}}
+                    style={{ display: "flex", flexDirection: "column" ,gap:'14px'}}
                   >
                     <View
                       style={{
                         display: "flex",
                         flexDirection: "column",
-                        gap: "2px",
-                          height:'30px'
+                        gap: "8px",
+                          // height:'30px'
 
 
                       }}
@@ -506,6 +506,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                           flexDirection: "row",
                           justifyContent: "space-between",
                           paddingLeft: 20,
+                          width:'100%'
                         }}
                       >
                         <Text
@@ -513,6 +514,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                             fontWeight: 400,
                             fontSize: 12,
                             color: "#414142",
+                            maxWidth:'70%'
                           }}
                         >
                           {detail.organization} | {detail.location}
@@ -523,6 +525,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                             fontSize: 10,
                             color: "#414142",
                             paddingBottom: 16,
+                            maxWidth:'20%'
                           }}
                         >
                           {detail.duration?.start?.year} -

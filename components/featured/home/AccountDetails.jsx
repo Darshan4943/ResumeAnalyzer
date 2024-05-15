@@ -542,7 +542,7 @@ function AccountDetails({
             Cancel
           </button>
           <button
-            className="buttons font-[500] bg-[#06A9EF] text-white sm:min-w-[191px]"
+            className="buttons font-[500] bg-[#06A9EF] hover:bg-[#ffda1d] text-white sm:min-w-[191px]"
             id="border_button"
             onClick={purchaseHandler}
           >
@@ -565,7 +565,7 @@ function AccountDetails({
                 />
               </svg>
             ) : (
-              " Purchase Plan"
+              "Purchase Plan"
             )}
           </button>
         </div>
