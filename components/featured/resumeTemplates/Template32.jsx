@@ -781,7 +781,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                         <Text
                           style={{
                             color: "#787879",
-                            fontSize: "9px",
+                            fontSize: "10px",
                             fontFamily: `${selectedFont} 400`,
                           }}
                         >
