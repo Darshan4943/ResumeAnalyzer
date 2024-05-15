@@ -364,7 +364,7 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
             padding: " 16px",
             display: "flex",
             flexDirection: "column",
-            gap: "42px",
+            gap: "32px",
           }}
         >
           <View style={{ flexDirection: "column", marginTop: 24, gap: 4 }}>

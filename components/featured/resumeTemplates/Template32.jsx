@@ -11,10 +11,10 @@ import {
   Rect,
 } from "@react-pdf/renderer";
 function Template32({ data, selectedColor, selectedFont, preview }) {
-  console.log(1111,data)
+
   return (
     <Page size="A4" wrap={true} style={{ paddingTop: "12px" }}>
-      <View style={{ flexDirection: "row", gap: "1.5rem" }}>
+      <View style={{ flexDirection: "row", gap: "1.5rem" ,marginTop:"-12px"}}>
         <View style={{ width: "207px" }}>
           <View
             style={{
@@ -195,6 +195,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                     alignItems: "center",
                     marginLeft: "24px",
                     paddingRight: " 4px",
+                    maxWidth:"70%"
                   }}
                 >
                   <Svg
