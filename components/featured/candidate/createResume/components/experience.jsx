@@ -30,42 +30,46 @@ const Experience = ({ data, setData }) => {
     });
     setErrors((prevErrors) => ({
       ...prevErrors,
-      [name]: value.trim() === '' ? `${name.charAt(0).toUpperCase() + name.slice(1)} is required` : '',
+      [name]:
+        value.trim() === ""
+          ? `${name.charAt(0).toUpperCase() + name.slice(1)} is required`
+          : "",
     }));
   };
-const handleSave = () => {
-  if (validateForm()) {
-    if (isModified.status === true) {
-      const dummyData = [...data.experience];
-      const index = isModified.index;
-      dummyData.splice(index, 1, experienceData);
-      setData({ ...data, experience: dummyData });
-      setView(false);
-    } else {
-      setData({
-        ...data,
-        experience: [experienceData, ...data.experience],
+  const handleSave = () => {
+    if (validateForm()) {
+      if (isModified.status === true) {
+        const dummyData = [...data.experience];
+        const index = isModified.index;
+        dummyData.splice(index, 1, experienceData);
+        setData({ ...data, experience: dummyData });
+        setView(false);
+      } else {
+        setData({
+          ...data,
+          experience: [experienceData, ...data.experience],
+        });
+        {
+          validateForm ? setView(false) : setView(true);
+        }
+      }
+      setIsModified({ status: false, index: 0 });
+      setExperienceData({
+        designation: "",
+        organization: "",
+        description: "",
+        currentlyWorking: true,
+        location: "",
+        duration: {
+          start: { year: "Year", month: "Month" },
+          end: { year: "Year", month: "Month" },
+        },
       });
-     {validateForm ? setView(false) : setView(true)}; 
+    } else {
+      setView(true);
     }
-    setIsModified({ status: false, index: 0 });
-    setExperienceData({
-      designation: "",
-      organization: "",
-      description: "",
-      currentlyWorking: true,
-      location: "",
-      duration: {
-        start: { year: "Year", month: "Month" },
-        end: { year: "Year", month: "Month" },
-      },
-    });
-  } else {
-    setView(true); 
-  }
-};
+  };
 
-  
   const handleEditExperience = (index) => {
     const dataToEdit = data.experience[index];
 
@@ -83,9 +87,9 @@ const handleSave = () => {
   };
 
   const [errors, setErrors] = useState({
-    designation: '',
-    organization: '',
-    description: '',
+    designation: "",
+    organization: "",
+    description: "",
   });
 
   // Validation function
@@ -93,15 +97,15 @@ const handleSave = () => {
     let newErrors = {};
 
     if (!experienceData.designation.trim()) {
-      newErrors.designation = 'Designation is required';
+      newErrors.designation = "Designation is required";
     }
 
     if (!experienceData.organization.trim()) {
-      newErrors.organization = 'Organization is required';
+      newErrors.organization = "Organization is required";
     }
 
     if (!experienceData.location.trim()) {
-      newErrors.location = 'Location is required';
+      newErrors.location = "Location is required";
     }
 
     setErrors(newErrors);
@@ -176,8 +180,11 @@ const handleSave = () => {
                   disabled={!isChecked}
                 />
               </div>
-              {errors.designation && <span className="text-[red] text-[12px]">{errors.designation}</span>}
-
+              {errors.designation && (
+                <span className="text-[red] text-[12px]">
+                  {errors.designation}
+                </span>
+              )}
             </div>
             <div className="flex w-full gap-2 ">
               <div className="flex flex-col gap-2 w-[50%]">
@@ -195,8 +202,11 @@ const handleSave = () => {
                     disabled={!isChecked}
                   />
                 </div>
-                {errors.organization && <span className="text-[red] text-[12px]">{errors.organization}</span>}
-
+                {errors.organization && (
+                  <span className="text-[red] text-[12px]">
+                    {errors.organization}
+                  </span>
+                )}
               </div>
               <div className="flex flex-col gap-2 w-[50%]">
                 <div className="w-full text-[14px] font-montserrat  font-medium">
@@ -213,8 +223,11 @@ const handleSave = () => {
                     disabled={!isChecked}
                   />
                 </div>
-                {errors.location && <span className="text-[red] text-[12px]">{errors.location}</span>}
-
+                {errors.location && (
+                  <span className="text-[red] text-[12px]">
+                    {errors.location}
+                  </span>
+                )}
               </div>
             </div>
             <div className="w-full flex gap-2 text-[14px] font-montserrat  font-medium items-center">

@@ -87,7 +87,7 @@ const CandidateAiPower = ({
     return new Promise(async (resolve, reject) => {
       const textData = [];
       if (
-        file.type ==
+        file?.type ==
         "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
       ) {
         const reader = new FileReader();
@@ -142,7 +142,6 @@ const CandidateAiPower = ({
     }
     setLoading(true);
     extracteText(file).then((result) => {
-     
       if (result[0]?.text?.length > 0) {
         axios
           .post("https://freedygoservices.in/api/resume/extraction", {
@@ -157,7 +156,7 @@ const CandidateAiPower = ({
               axios
                 .put(
                   "https://freedygoservices.in/api/subscription/updateUploadLimit/" +
-                  userDataGlobal._id
+                    userDataGlobal._id
                 )
                 .then((res) => {
                   const result = res.data;
@@ -186,9 +185,7 @@ const CandidateAiPower = ({
                   router.push(`/home/createResume?clientId=${clientId}`);
                 });
             } else {
-              
               toast.error("Unable to parse resume, please try again later");
-              
             }
           })
           .catch((err) => {
@@ -196,10 +193,10 @@ const CandidateAiPower = ({
             console.log(err);
             extracteText();
           });
-      }else{
-        toast.error("Error while parsing resume please try again")
+      } else {
+        toast.error("Error while parsing resume please try again");
         setLoading(false);
-        setfile()
+        setfile();
       }
     });
   };
@@ -390,8 +387,9 @@ const CandidateAiPower = ({
 
                 <button
                   disabled={file && !loading ? false : true}
-                  className={`sm:px-9 px-6 py-3 bg-[#06A9EF] border rounded-[12px] font-semibold text-white ${file && !loading ? "opacity-100" : "opacity-50"
-                    } `}
+                  className={`sm:px-9 px-6 py-3 bg-[#06A9EF] border rounded-[12px] font-semibold text-white ${
+                    file && !loading ? "opacity-100" : "opacity-50"
+                  } `}
                   onClick={navigate}
                 >
                   Continue
