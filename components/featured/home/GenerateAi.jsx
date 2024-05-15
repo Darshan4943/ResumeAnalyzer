@@ -443,14 +443,14 @@ function GenerateAi() {
                   )}
 
                   <p
-                    className={` ml:text-[0.9vw] text-[9px] font-semibold  ${
+                    className={` text-[12px] font-semibold  ${
                       stars && "text-white"
                     }`}
                   >
                     Generate with AI
                   </p>
                 </button>
-                <button className="py-2 sm:px-4 px-3   text-[9px]  ml:text-[0.9vw] font-semibold bg-[#06A9EF] rounded-[8px] text-white cursor-not-allowed ">
+                <button className="py-2 sm:px-4 px-3 btn_hover_effect  text-[9px]  ml:text-[0.9vw] font-semibold bg-[#06A9EF] rounded-[8px] text-white cursor-not-allowed ">
                   Save
                 </button>
               </div>
