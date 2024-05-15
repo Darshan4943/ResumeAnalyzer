@@ -85,16 +85,17 @@ function Template14({ data, selectedColor, selectedFont }) {
             >
               {data.mobileNumber}
             </Text>
-            <Text
+            {/* <Text
               style={{
-                width:"100%",
+              
+              
                 fontSize: 12,
                 fontFamily: `${selectedFont} 400`,
                 color: "#4D4D4D",
               }}
             >
               {data.location}
-            </Text>
+            </Text> */}
           </View>
         </View>
         <View

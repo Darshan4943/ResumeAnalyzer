@@ -15,7 +15,7 @@ import React from "react";
 function Template11({ data, selectedColor, selectedFont, preview }) {
   return (
     <Page size="A4" wrap={true} style={{paddingTop:'12px'}}>
-      <View style={{      minHeight: 829.7, flexDirection: "row" }}>
+      <View style={{      minHeight: 829.7, flexDirection: "row",marginTop:'-12px' }}>
         <View
           style={{
             width: 245,
@@ -726,12 +726,12 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
 
                       {detail.description?.length > 0 && (
                         <View
-                          style={{ flexDirection: "column", width: '70%', gap: 2 }}
+                          style={{ flexDirection: "column", width: '65%', gap: 2 }}
                         >
                           <Text
                             style={{
                               color: "#000000",
-                              fontSize: 13,
+                              fontSize: 12,
                               fontFamily: `${selectedFont} 500`,
                             }}
                           >

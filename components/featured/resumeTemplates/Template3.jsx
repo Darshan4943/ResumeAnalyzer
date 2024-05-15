@@ -13,7 +13,7 @@ import {
 const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
   return (
     <Page size="A4" wrap={true} style={{ paddingTop: '12px' }}>
-      <View style={{ flexDirection: "row" }}>
+      <View style={{ flexDirection: "row" ,marginTop: '-12px'}}>
         <View
           style={{
             width: 184,
@@ -310,7 +310,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                     key={index}
                     style={{
                       color: "white",
-                      fontSize: 8.96,
+                      fontSize: 12,
                       fontFamily: `${selectedFont} 400`,
                     }}
                   >

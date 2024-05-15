@@ -572,7 +572,7 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
                 {item?.header}
               </Text>
 
-              <View style={{ flexDirection: "column" }}>
+              <View style={{ flexDirection: "column",gap:"8px" }}>
                 {item?.subSection?.map((detail, index) => (
                   <View
                     wrap={false}
