@@ -21,6 +21,9 @@ function Details() {
     loading: false,
   });
   const [cancelModel, setCancelModel] = useState(false);
+  const [isRetry, setIsRetry] = useState(true);
+
+  console.log(26, cancelModel);
   useEffect(() => {
     const exchangeRate = localStorage.getItem("exchangeRate");
     const icon = localStorage.getItem("icon");
@@ -36,8 +39,11 @@ function Details() {
 
     return () => clearTimeout(timer);
   }, [id]);
+
+  console.log(42, canceled);
+
   useEffect(() => {
-    if (canceled == "true") {
+    if (canceled == "true" && isRetry == true) {
       setCancelModel(true);
     }
   }, [success, canceled]);
@@ -60,7 +66,14 @@ function Details() {
           loading={successModel.loading}
         />
       )}
-      {cancelModel && <PaymentCanceled setCancelModel={setCancelModel} />}
+      {cancelModel && (
+        <PaymentCanceled
+          setCancelModel={setCancelModel}
+          canceled={canceled}
+          setIsRetry={setIsRetry}
+          isRetry={isRetry}
+        />
+      )}
       {loading ? (
         <div className="flex w-full items-center justify-center h-[70vh]">
           <MiniLoader />
