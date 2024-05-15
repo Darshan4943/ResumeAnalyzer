@@ -50,7 +50,7 @@ function Template14({ data, selectedColor, selectedFont }) {
             </Text>
             <Text
               style={{
-                width: "100%",
+                width: "80%",
                 fontSize: 12,
                 fontFamily: `${selectedFont} 400`,
                 color: "#4D4D4D",
@@ -87,6 +87,7 @@ function Template14({ data, selectedColor, selectedFont }) {
             </Text>
             <Text
               style={{
+                width:"100%",
                 fontSize: 12,
                 fontFamily: `${selectedFont} 400`,
                 color: "#4D4D4D",
@@ -161,15 +162,16 @@ function Template14({ data, selectedColor, selectedFont }) {
                 key={index}
                 style={{ gap: 6, display: "flex", flexDirection: "column" }}
               >
-                <View style={{ display: "flex", gap: 10, flexDirection: "row" }}>
+                <View style={{ display: "flex", gap: 10, flexDirection: "row",width:"90%" }}>
                   <Text
                     style={{
+                      width:"70%",
                       fontSize: 18,
                       fontFamily: `${selectedFont} 600`,
                       color: selectedColor,
                     }}
                   >
-                    {" "}
+                    
                     {detail.organization}
                   </Text>
                   <Text
