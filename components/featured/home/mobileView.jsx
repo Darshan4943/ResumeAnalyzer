@@ -115,7 +115,7 @@ const Column = ({ images, y }) => {
   );
 };
 
-const MobileView = ({ clickHandler, isLogin }) => {
+const MobileView = ({ clickHandler, isLogin ,isSubscribe,setIsSubcrib}) => {
   const router = useRouter();
   const dispatch = useDispatch();
   return (
@@ -221,7 +221,7 @@ const MobileView = ({ clickHandler, isLogin }) => {
 
           <SubscriptionPlans isLogin={isLogin} />
         </div>
-        <Footer />
+        <Footer isSubscribe={isSubscribe} setIsSubcrib={setIsSubcrib}/>
 
       </div>
     </>
