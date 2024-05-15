@@ -500,9 +500,9 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
 
             {data?.section?.map((item, index) => (
               <View
-                style={{ flexDirection: "column", gap: 12, width: "100%" }}
+                style={{ flexDirection: "column", gap: 16, width: "100%" }}
                 key={index}
-                wrap={false}
+              
               >
                 <View style={{ flexDirection: "column", gap: 12 }}>
                   <Text
@@ -528,7 +528,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                 {item.subSection.map((detail, index) => (
                   <View
                     key={index}
-                    style={{ flexDirection: "column", gap: 4, width: "100%" }}
+                    style={{ flexDirection: "column", gap: 12, width: "100%" }}
                     wrap={false}
                   >
                     <View

@@ -403,7 +403,8 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                       style={{
                         flexDirection: "row",
                         gap: 8,
-                        alignItems: "center",
+                        alignItems: "start",
+                        justifyContent:"start"
                       }}
                     >
                       <Svg
