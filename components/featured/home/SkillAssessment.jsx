@@ -54,7 +54,7 @@ function SkillAssessment({ isLogin }) {
               <div className="flex justify-start">
                 <button
                   onClick={handleClick}
-                  className=" scr1024:w-[11vw] scr1024:h-[3.5vw]   scr1024:px-[12px]  sm:px-4 sm:py-2  px-2 py-1   scr1024:text-[1.11111vw] sm:text-[12px] text-[10px] font-[500]  bg-[#fff] scr1024:rounded-[12px] rounded-[6px] border-[1px] border-solid border-[#06A9EF]  transition-[0.2s]"
+                  className=" scr1024:w-[11vw] scr1024:h-[3.5vw]   scr1024:px-[12px]  sm:px-4 sm:py-2  px-2 py-1   scr1024:text-[1.11111vw] sm:text-[12px] text-[10px] font-[500]  bg-[#fff] scr1024:rounded-[12px] rounded-[6px] border-[1px] border-solid border-[#06A9EF] hover:bg-[#06A9EF] hover:text-[#fff] transition-[0.2s]"
                 >
                   Get Started
                 </button>
