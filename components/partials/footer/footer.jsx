@@ -1,8 +1,32 @@
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useState } from "react";
 
-function Footer() {
-  const router = useRouter();
+function Footer({ isSubscribe, setIsSubcrib }) {
+  const [email, setEmail] = useState('');
+  const [isSubscribed, setIsSubscribed] = useState(false);
+  const [error, setError] = useState('');
+
+  const handleChange = (event) => {
+    const value = event.target.value;
+    setEmail(value);
+
+    if (value.includes('.com')) {
+      setError('');
+    } else {
+      setError('! Email must contain @ and .com');
+    }
+  };
+
+  const handleSubscribed = () => {
+    if (email.trim() !== '' && !error) {
+      setIsSubscribed(true);
+      // Add any additional subscription logic here, e.g., API call
+      console.log('Subscribed with email:', email);
+    } else {
+      console.log('Valid email is required to subscribe');
+    }
+  };
+
   return (
     <div
       className="footer "
@@ -32,34 +56,34 @@ function Footer() {
           </p>
 
           <div className="web">
-              <div className=" flex gap-6 ">
-                <img
-                  className="media"
-                  src="/images/home/facebook_icon.png"
-                  alt=""
-                />
-                <img
-                  className="media"
-                  src="/images/home/twitter_icon.png"
-                  alt=""
-                />
-                <img
-                  className="media"
-                  src="/images/home/instagram_icon.png"
-                  alt=""
-                />
-                <img
-                  className="media"
-                  src="/images/home/linkedin_icon.png"
-                  alt=""
-                />
-                <img
-                  className="media"
-                  src="/images/home/youtube_icon.png"
-                  alt=""
-                />
-              </div>
+            <div className=" flex gap-6 ">
+              <img
+                className="media"
+                src="/images/home/facebook_icon.png"
+                alt=""
+              />
+              <img
+                className="media"
+                src="/images/home/twitter_icon.png"
+                alt=""
+              />
+              <img
+                className="media"
+                src="/images/home/instagram_icon.png"
+                alt=""
+              />
+              <img
+                className="media"
+                src="/images/home/linkedin_icon.png"
+                alt=""
+              />
+              <img
+                className="media"
+                src="/images/home/youtube_icon.png"
+                alt=""
+              />
             </div>
+          </div>
         </div>
         <div className="Footer_secondContainer ">
           <div className="flex gap-4 footerThird ml:w-[45%] scr420:justify-between justify-between break-word pt-6">
@@ -72,7 +96,7 @@ function Footer() {
                   <div className="leading-10">
                     <p className="text-[#fff] font-[600]">Offices :</p>
                     <p className="footer_address_Para leading-6">
-                    Harare, Zimbabwe  <br />  Pune, India<br /> London, United Kingdom
+                      Harare, Zimbabwe  <br />  Pune, India<br /> London, United Kingdom
                     </p>
                   </div>
                 </div>
@@ -118,16 +142,23 @@ function Footer() {
             <p className="footer_input_conatainer_P text-center">
               Like to stay market relevant  with news and updates?{" "}
             </p>
-            <div className="footer_input ">
+            <div className="footer_input relative ">
               <input
                 className="footer_input_bar"
                 type="text"
-                name=""
                 placeholder="Enter your email address here..."
-                id=""
+                value={email}
+                onChange={handleChange}
+                required
               />
+              {error && <div className="error_message text-[8px] absolute bg-white px-[4px] py-[0.5px] rounded-[4px] font-[500] top-[60px] left-[10px] text-red">{error}</div>}
               <div className="footer_inner_input_box"></div>
-              <button className="footer_input_btn">Subscribe</button>
+              <button onClick={handleSubscribed}
+                className="footer_input_btn btn_hover_effect"
+                disabled={error || email.trim() === ''}>
+                Subscribe
+              </button>
+              {isSubscribed && <p className="subscription_message">Thank you for subscribing!</p>}
             </div>
             {/* <div className="flex gap-4 justify-center">
               <img
@@ -143,37 +174,37 @@ function Footer() {
             </div> */}
           </div>
           <div className="mobile">
-              <div className=" flex sm:gap-6 gap-4 items-center">
-                <div className="text-[#06A9EF] sm:text-[24px] text-[14px]">
+            <div className=" flex sm:gap-6 gap-4 items-center">
+              <div className="text-[#06A9EF] sm:text-[24px] text-[14px]">
                 Connect us
-                </div>
-                <img
-                  className="media"
-                  src="/images/home/facebook_icon.png"
-                  alt=""
-                />
-                <img
-                  className="media"
-                  src="/images/home/twitter_icon.png"
-                  alt=""
-                />
-                <img
-                  className="media"
-                  src="/images/home/instagram_icon.png"
-                  alt=""
-                />
-                <img
-                  className="media"
-                  src="/images/home/linkedin_icon.png"
-                  alt=""
-                />
-                <img
-                  className="media"
-                  src="/images/home/youtube_icon.png"
-                  alt=""
-                />
               </div>
+              <img
+                className="media"
+                src="/images/home/facebook_icon.png"
+                alt=""
+              />
+              <img
+                className="media"
+                src="/images/home/twitter_icon.png"
+                alt=""
+              />
+              <img
+                className="media"
+                src="/images/home/instagram_icon.png"
+                alt=""
+              />
+              <img
+                className="media"
+                src="/images/home/linkedin_icon.png"
+                alt=""
+              />
+              <img
+                className="media"
+                src="/images/home/youtube_icon.png"
+                alt=""
+              />
             </div>
+          </div>
 
         </div>
 
@@ -194,6 +225,7 @@ function Footer() {
       <div className="footer_copyright">
         Copyright © 2024 Skilotech. All rights reserved.
       </div>
+
     </div>
   );
 }

@@ -41,7 +41,7 @@ function JdResume({ isLogin }) {
                 ? router.push("/transform/TransformJob")
                 : router.push("/auth?signin=true")
             }
-            className="ml:px-6 ml:py-3 px-6 py-3 bg-[#06A9EF] text-white  rounded-[12px] md:text-[1.11111vw] text-[14px] font-semibold"
+            className="btn_hover_effect ml:px-6 ml:py-3 px-6 py-3 bg-[#06A9EF] text-white  rounded-[12px] md:text-[1.11111vw] text-[14px] font-semibold"
             style={{ width: "fit-content" }}
           >
             Get Started
