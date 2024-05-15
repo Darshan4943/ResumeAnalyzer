@@ -429,7 +429,7 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
             style={{
               display: "flex",
               flexDirection: "column",
-              gap: 24,
+              gap: 20,
               width: "100%",
             }}
           >
@@ -443,14 +443,14 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
               EXPERIENCE
             </Text>
 
-            <View style={{ flexDirection: "column" }}>
+            <View style={{ flexDirection: "column",gap:'8px' }}>
               {data?.experience?.map((detail, index) => (
                 <View
                   wrap={false}
                   key={index}
                   style={{
                     flexDirection: "row",
-                    gap: 16,
+                    gap: 12,
                     alignItems: "start",
                     justifyContent: "start",
                     width:'95%'
@@ -505,12 +505,13 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
                       {detail.designation}{" "}
                     </Text>
 
-                    <View style={{ flexDirection: "row", gap: 4 }}>
+                    <View style={{ flexDirection: "row", gap: 4,justifyContent:'space-between' }}>
                       <Text
                         style={{
                           color: "#58595B",
                           fontSize: "12px",
                           fontFamily: `${selectedFont} 400`,
+                          maxWidth:'70%'
                         }}
                       >
                         {detail.organization}
@@ -527,6 +528,7 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
                           color: "#58595B",
                           fontSize: "12px",
                           fontFamily: `${selectedFont} 400`,
+                          maxWidth:"30%"
                         }}
                       >
                         {detail.duration?.start?.year !== "Year" &&
