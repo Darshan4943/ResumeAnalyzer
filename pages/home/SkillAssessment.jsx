@@ -9,8 +9,12 @@ import axios from "axios";
 import MiniLoader from "../../components/common/mini-loader";
 import { camelCase, dateSeter, formatDate } from "../../utils/middleware";
 import Timer from "../../components/common/timer";
-import CloseIcon, { AssessmentSvg, Assessmentlogo, Close_svg } from "../../utils/svg";
-import CreatableSelect from 'react-select/creatable';
+import CloseIcon, {
+  AssessmentSvg,
+  Assessmentlogo,
+  Close_svg,
+} from "../../utils/svg";
+import CreatableSelect from "react-select/creatable";
 import { SkillList } from "../../utils/data";
 import { toast } from "react-toastify";
 
@@ -45,7 +49,7 @@ function SkillAssessment() {
   const [userSkills, setUserSkills] = useState();
   const [data, setData] = useState([]);
   const [timer, setTimer] = useState(30);
-  const [isSubmit, setIsSubmit] = useState(false)
+  const [isSubmit, setIsSubmit] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const [level, setLevel] = useState("Intermediate");
   const [skippedArray, setSkippedArray] = useState([
@@ -60,6 +64,35 @@ function SkillAssessment() {
     { question: 9, isSkiped: true, Answer: "" },
     { question: 10, isSkiped: true, Answer: "" },
   ]);
+  const [uniqueQuestions, setUniqueQuestions] = useState([]);
+
+  useEffect(() => {
+    const uniqueQuestionsSet = new Set();
+    const filteredQuestions = [];
+
+    question.forEach((data) => {
+      if (
+        !uniqueQuestionsSet.has(data.question) &&
+        filteredQuestions.length < 10
+      ) {
+        uniqueQuestionsSet.add(data.question);
+        filteredQuestions.push(data);
+      }
+    });
+    setUniqueQuestions(filteredQuestions);
+
+    // while (filteredQuestions.length < 10) {
+    //   toggleContent(); // This function should generate a new unique question
+    //   // if (!uniqueQuestionsSet.has(newQuestion.question)) {
+    //   //   uniqueQuestionsSet.add(newQuestion.question);
+    //   //   filteredQuestions.push(newQuestion);
+    //   // }
+    // }
+
+    if (filteredQuestions.length < 10 && selectedSkill) {
+      toggleContent();
+    }
+  }, [question]);
 
   const [isSkiped, setIsSkiped] = useState(false);
   const handleInputChange = (selectedOption) => {
@@ -68,9 +101,7 @@ function SkillAssessment() {
   };
   const handleLevelChange = (event) => {
     setLevel(event.target.value);
-
   };
-  console.log(level)
 
   useEffect(() => {
     axios
@@ -116,7 +147,7 @@ function SkillAssessment() {
   const toggleContent = () => {
     if (selectedSkill) {
       setLoading(true);
-      if (question.length < 10) {
+      if (uniqueQuestions.length < 10) {
         axios
           .post("https://freedygoservices.in/api/getQuetions", {
             skill: selectedSkill,
@@ -166,9 +197,9 @@ function SkillAssessment() {
     setStartTimer(false);
 
     setTimer(30);
-    if (question.length < 10) {
-      toggleContent();
-    }
+    // if (question.length < 10) {
+    //   toggleContent();
+    // }
 
     if (questionIndex == 9) {
       axios
@@ -203,16 +234,16 @@ function SkillAssessment() {
     return () => clearTimeout(timer);
   }, [questionIndex]);
 
-  useEffect(() => {
-    if (
-      questionIndex == 1 ||
-      questionIndex == 2 ||
-      questionIndex == 3 ||
-      questionIndex == 4
-    ) {
-      toggleContent();
-    }
-  }, [questionIndex]);
+  // useEffect(() => {
+  //   if (
+  //     questionIndex == 1 ||
+  //     questionIndex == 2 ||
+  //     questionIndex == 3 ||
+  //     questionIndex == 4
+  //   ) {
+  //     toggleContent();
+  //   }
+  // }, [questionIndex]);
 
   useEffect(() => {
     axios
@@ -270,7 +301,7 @@ function SkillAssessment() {
 
     answer.forEach((item) => {
       if (!skipped.includes(item?.question)) {
-        if (question[item?.question - 1]?.answer == item?.Answer) {
+        if (uniqueQuestions[item?.question - 1]?.answer == item?.Answer) {
           correctAnswer = correctAnswer + 1;
         }
       }
@@ -313,15 +344,24 @@ function SkillAssessment() {
                 <div className=" w-[100%] flex justify-between ml:items-center items-end  gap-[16px] rounded-[12px] bg-[#fff]">
                   <div className="flex flex-col gap-4 w-[100%]">
                     <div className="flex scr540:flex-row flex-col  justify-between">
-                      <div className="text-[20px] font-medium">Select Skill</div>
+                      <div className="text-[20px] font-medium">
+                        Select Skill
+                      </div>
                       <div className="flex gap-2 justify-end ">
                         <button
                           onClick={() => setViewAddSkill(false)}
                           className="btn_hover_effect rounded-[12px] ml:px-[22.8px] px-3  ml:min-w-[235px] min-w-[180px] py-2  flex gap-2 ml:text-[16px] scr420:text-[14px] text-[12px] justify-center items-center bg-blue text-white ml:h-[40px] h-[40px] font-semibold"
                         >
                           Select From My Skills
-                          <svg class="w-4 h-4 hover:fill-current hover:text-gray-700" viewBox="0 0 15 14" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M6.5 8H0.5V6H6.5V0H8.5V6H14.5V8H8.5V14H6.5V8Z" fill="currentColor" />
+                          <svg
+                            class="w-4 h-4 hover:fill-current hover:text-gray-700"
+                            viewBox="0 0 15 14"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M6.5 8H0.5V6H6.5V0H8.5V6H14.5V8H8.5V14H6.5V8Z"
+                              fill="currentColor"
+                            />
                           </svg>
                         </button>
                         <div
@@ -365,8 +405,15 @@ function SkillAssessment() {
                             className="btn_hover_effect rounded-[12px] ml:px-[22.8px] px-3  ml:min-w-[235px] min-w-[180px] py-2  flex gap-2 ml:text-[16px] scr420:text-[14px] text-[12px] justify-center items-center bg-blue text-white  h-[40px] font-semibold"
                           >
                             Select Another Skill
-                            <svg class="w-4 h-4 hover:fill-current hover:text-gray-700" viewBox="0 0 15 14" xmlns="http://www.w3.org/2000/svg">
-                              <path d="M6.5 8H0.5V6H6.5V0H8.5V6H14.5V8H8.5V14H6.5V8Z" fill="currentColor" />
+                            <svg
+                              class="w-4 h-4 hover:fill-current hover:text-gray-700"
+                              viewBox="0 0 15 14"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M6.5 8H0.5V6H6.5V0H8.5V6H14.5V8H8.5V14H6.5V8Z"
+                                fill="currentColor"
+                              />
                             </svg>
                           </button>
                           <div
@@ -392,8 +439,9 @@ function SkillAssessment() {
                             onClick={() => {
                               setSelectedSkill(item);
                             }}
-                            className={`ml:px-4 ml:py-2 px-2 py-1 border-[1px] border-solid border-[#06A9EF] rounded-[25px] ml:text-[14px] text-[12px] font-medium text-[#333]  transition-[0.2s] ${selectedSkill == item && "bg-[#06A9EF] text-white"
-                              }`}
+                            className={`ml:px-4 ml:py-2 px-2 py-1 border-[1px] border-solid border-[#06A9EF] rounded-[25px] ml:text-[14px] text-[12px] font-medium text-[#333]  transition-[0.2s] ${
+                              selectedSkill == item && "bg-[#06A9EF] text-white"
+                            }`}
                           >
                             {item}
                           </button>
@@ -404,41 +452,69 @@ function SkillAssessment() {
                 </div>
               )}
             </div>
-            {isLevel &&
+            {isLevel && (
               <>
                 <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
                 <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center customMargins   ">
-
                   <div className="flex sm:p-4 p-2 flex-col text-[20px] leading-tight font-bold justify-center  scr420:gap-4 gap-3 min-w-[300px]  bg-white rounded-[16px]  ">
                     <div className="flex justify-between">
                       Difficulty Level
-                      <div onClick={() => { setisLevel(false) }} className="cursor-pointer">
+                      <div
+                        onClick={() => {
+                          setisLevel(false);
+                        }}
+                        className="cursor-pointer"
+                      >
                         <CloseIcon />
                       </div>
                     </div>
                     <div className="flex sm:gap-4 gap-2 justify-between sm:text-[16px] text-[14px] font-medium">
                       <div>
                         <label className="flex gap-2 items-center">
-                          <input className="h-[15px] w-[15px]" type="radio" name="level" value="Easy" onChange={handleLevelChange} checked={level === "Easy"} />
+                          <input
+                            className="h-[15px] w-[15px]"
+                            type="radio"
+                            name="level"
+                            value="Easy"
+                            onChange={handleLevelChange}
+                            checked={level === "Easy"}
+                          />
                           Easy
                         </label>
                       </div>
                       <div>
                         <label className="flex gap-2 items-center">
-                          <input className="h-[15px] w-[15px]" type="radio" name="level" value="Intermediate" onChange={handleLevelChange} checked={level === "Intermediate"} />
+                          <input
+                            className="h-[15px] w-[15px]"
+                            type="radio"
+                            name="level"
+                            value="Intermediate"
+                            onChange={handleLevelChange}
+                            checked={level === "Intermediate"}
+                          />
                           Intermediate
                         </label>
                       </div>
                       <div>
                         <label className="flex gap-2 items-center">
-                          <input className="h-[15px] w-[15px]" type="radio" name="level" value="Advanced" onChange={handleLevelChange} checked={level === "Advanced"} />
+                          <input
+                            className="h-[15px] w-[15px]"
+                            type="radio"
+                            name="level"
+                            value="Advanced"
+                            onChange={handleLevelChange}
+                            checked={level === "Advanced"}
+                          />
                           Advanced
                         </label>
                       </div>
                     </div>
                     <div className="w-full flex justify-end">
                       <button
-                        onClick={() => { toggleContent(); setisLevel(false) }}
+                        onClick={() => {
+                          toggleContent();
+                          setisLevel(false);
+                        }}
                         className={`flex justify-center items-center w-[90px] py-1 text-[16px]
                               bg-blue rounded-[8px] text-white
                               }`}
@@ -480,18 +556,15 @@ function SkillAssessment() {
                         </div>
                       </div>
                     </div> */}
-
                   </div>
-
                 </div>
-
               </>
-
-            }
+            )}
             <div className="flex flex-col lg:flex-row justify-center items-center w-[100%] gap-6">
               <div
-                className={`p-[12px] ms:px-[60px] ms:customMargins ${showSecondDiv ? "lg:w-[50%]" : "w-[100.95%] "
-                  } scr1024:w-[50%] sm:w-[85%] w-[100%]  px-[12px] rounded-[12px] bg-[#005A81] flex flex-col  items-center gap-[8px] scr820:gap-[16px] `}
+                className={`p-[12px] ms:px-[60px] ms:customMargins ${
+                  showSecondDiv ? "lg:w-[50%]" : "w-[100.95%] "
+                } scr1024:w-[50%] sm:w-[85%] w-[100%]  px-[12px] rounded-[12px] bg-[#005A81] flex flex-col  items-center gap-[8px] scr820:gap-[16px] `}
               >
                 <div className="text-[20px] font-[600] text-[#fff] flex flex-row gap-[12px]">
                   <Assessmentlogo />
@@ -601,18 +674,18 @@ function SkillAssessment() {
                 </div>
 
                 <div
-                  onClick={() => { setisLevel(true) }}
-
-
+                  onClick={() => {
+                    setisLevel(true);
+                  }}
                 >
                   <button
                     className="btn_hover_effect hover:border-[#ffc82c] h-[42px] w-[108px] flex items-center justify-center  rounded-[8px] border-[1px] border-solid border-[#06A9EF] bg-[#fff] text-[#333] text-[14px] font-[500] "
                     disabled={loading}
-                  // onClick={() =>
-                  //   setQuestionIndex(
-                  //     questionIndex + 1 < 10 ? questionIndex + 1 : 9
-                  //   )
-                  // }
+                    // onClick={() =>
+                    //   setQuestionIndex(
+                    //     questionIndex + 1 < 10 ? questionIndex + 1 : 9
+                    //   )
+                    // }
                   >
                     {loading ? <MiniLoader /> : " Get Started"}
                   </button>
@@ -921,15 +994,16 @@ function SkillAssessment() {
                   setTimer={setTimer}
                   setQuestionIndex={setQuestionIndex}
                   setStartTimer={setStartTimer}
-                  question={question}
+                  question={uniqueQuestions}
                   answerSetter={answerSetter}
                 />
               </div>
               <div className="flex gap-4 w-full items-center">
                 <div className=" relative h-[10px] rounded-[6px] bg-[#DEDEDE] w-full">
                   <div
-                    className={`absolute h-[10px] rounded-[6px] bg-[#06A9EF] w-[${(questionIndex + 1) * 10
-                      }%] `}
+                    className={`absolute h-[10px] rounded-[6px] bg-[#06A9EF] w-[${
+                      (questionIndex + 1) * 10
+                    }%] `}
                   ></div>
                 </div>
                 <p className="text-[16px] flex justify-end font-semibold w-[60px]">
@@ -947,38 +1021,40 @@ function SkillAssessment() {
                     Question {questionIndex + 1}
                   </p>
                   <div className="flex flex-col gap-8 text-[#333333] font-medium ms:text-[16px] text-[14px]">
-                    <p> {question[questionIndex]?.question}</p>
+                    <p> {uniqueQuestions[questionIndex]?.question}</p>
                   </div>
                   <div className="w-full flex  flex-col gap-5">
-                    {question[questionIndex]?.options.map((option, index) => (
-                      <div key={index} className="flex items-start gap-4">
-                        <input
-                          type="radio"
-                          className="custom-radio min-w-[17px] min-h-[17px] mt-[2px]"
-                          id={`option${index}`}
-                          name="options"
-                          value={option}
-                          checked={isSelected(
-                            option,
-                            questionIndex + 1,
-                            question[questionIndex]?.question
-                          )}
-                          onChange={() =>
-                            answerSetter(
-                              questionIndex + 1,
+                    {uniqueQuestions[questionIndex]?.options.map(
+                      (option, index) => (
+                        <div key={index} className="flex items-start gap-4">
+                          <input
+                            type="radio"
+                            className="custom-radio min-w-[17px] min-h-[17px] mt-[2px]"
+                            id={`option${index}`}
+                            name="options"
+                            value={option}
+                            checked={isSelected(
                               option,
-                              question[questionIndex]?.question
-                            )
-                          }
-                        />
-                        <label
-                          htmlFor={`option${index}`}
-                          className="text-[14px] ms:text-[16px] font-[500] leading-tight"
-                        >
-                          {option}
-                        </label>
-                      </div>
-                    ))}
+                              questionIndex + 1,
+                              uniqueQuestions[questionIndex]?.question
+                            )}
+                            onChange={() =>
+                              answerSetter(
+                                questionIndex + 1,
+                                option,
+                                uniqueQuestions[questionIndex]?.question
+                              )
+                            }
+                          />
+                          <label
+                            htmlFor={`option${index}`}
+                            className="text-[14px] ms:text-[16px] font-[500] leading-tight"
+                          >
+                            {option}
+                          </label>
+                        </div>
+                      )
+                    )}
                   </div>
                 </div>
                 <div className="flex gap-6 ">
@@ -1118,7 +1194,9 @@ function SkillAssessment() {
                         </div>
                         <div className="text-[18px] text-[#5B5B5B] font-[600]">
                           Your Score is{" "}
-                          {((checkAnswer() / question.length) * 100) / 10}/10{" "}
+                          {((checkAnswer() / uniqueQuestions.length) * 100) /
+                            10}
+                          /10{" "}
                         </div>
                       </div>
                     </div>
@@ -1154,7 +1232,7 @@ function SkillAssessment() {
                     ref={resumeRef}
                   >
                     <QuestionList
-                      questions={question}
+                      questions={uniqueQuestions}
                       answers={answer}
                       selectedSkill={selectedSkill}
                       checkAnswer={checkAnswer}
