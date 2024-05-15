@@ -431,6 +431,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                   >
                     <Text
                       style={{
+                        
                         fontSize: "12",
                         fontFamily: `${selectedFont} 700`,
                       }}
@@ -442,7 +443,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
               )}
             </View>
 
-            <View wrap={false} style={{ flexDirection: "column", gap: 16, paddingTop: 24 }}>
+            <View  style={{ flexDirection: "column", gap: 24, paddingTop: 24 }}>
               <Text
                 style={{
                   color: "#000000",

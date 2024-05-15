@@ -273,6 +273,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                         fontFamily: `${selectedFont} 400`,
                         color: "#fff",
                         flexWrap: "wrap",
+                        width:"90%"
                       }}
                     >
                       {data.location}
@@ -712,7 +713,8 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                           display: "flex",
                           flexDirection: "row",
                           gap: 8,
-                          alignItems: "center",
+                          alignItems: "start",
+                          width:"70%"
                         }}
                       >
                         <Text style={{ marginTop: "-1px" }}>{">"}</Text>
