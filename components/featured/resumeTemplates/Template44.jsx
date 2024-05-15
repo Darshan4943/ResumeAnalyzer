@@ -18,7 +18,7 @@ import React from "react";
 const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
   return (
     <Page size="A4" wrap={true} style={{ paddingTop: "12px" }}>
-      <View style={{ width: 595, display: "flex", flexDirection: "row" }}>
+      <View style={{ width: 595, display: "flex", flexDirection: "row",marginTop:"-12px" }}>
         <View
           style={{
             width: 207,
