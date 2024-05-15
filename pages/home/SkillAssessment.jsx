@@ -9,7 +9,11 @@ import axios from "axios";
 import MiniLoader from "../../components/common/mini-loader";
 import { camelCase, dateSeter, formatDate } from "../../utils/middleware";
 import Timer from "../../components/common/timer";
-import { AssessmentSvg, Assessmentlogo } from "../../utils/svg";
+import CloseIcon, {
+  AssessmentSvg,
+  Assessmentlogo,
+  Close_svg,
+} from "../../utils/svg";
 import CreatableSelect from "react-select/creatable";
 import { SkillList } from "../../utils/data";
 import { toast } from "react-toastify";
@@ -326,7 +330,7 @@ function SkillAssessment() {
     <div className="">
       <div
         onWheel={(e) => e.stopPropagation()}
-        className="bg-[#F9F9F9] w-full "
+        className="bg-[#F9F9F9] w-full h-[92vh] "
       >
         {toggle === 0 && (
           <div className="flex flex-col gap-[35px] pt-[24px] pb-[95px] items-center  customMargins">
@@ -346,33 +350,30 @@ function SkillAssessment() {
                       <div className="flex gap-2 justify-end ">
                         <button
                           onClick={() => setViewAddSkill(false)}
-                          className=" rounded-[12px] ml:px-[22.8px] px-3  ml:min-w-[235px] min-w-[180px] py-2  flex gap-2 ml:text-[16px] scr420:text-[14px] text-[12px] justify-center items-center bg-blue text-white ml:h-[40px] h-[40px] font-semibold"
+                          className="btn_hover_effect rounded-[12px] ml:px-[22.8px] px-3  ml:min-w-[235px] min-w-[180px] py-2  flex gap-2 ml:text-[16px] scr420:text-[14px] text-[12px] justify-center items-center bg-blue text-white ml:h-[40px] h-[40px] font-semibold"
                         >
                           Select From My Skills
                           <svg
-                            width="15"
-                            height="14"
+                            class="w-4 h-4 hover:fill-current hover:text-gray-700"
                             viewBox="0 0 15 14"
-                            fill="none"
-                            xlgns="http://www.w3.org/2000/svg"
+                            xmlns="http://www.w3.org/2000/svg"
                           >
                             <path
                               d="M6.5 8H0.5V6H6.5V0H8.5V6H14.5V8H8.5V14H6.5V8Z"
-                              fill="white"
+                              fill="currentColor"
                             />
                           </svg>
                         </button>
-
                         <div
                           className="text-[#C00000]  ml:min-w-[136px] scr420:min-w-[112px] min-w-[96px] ml:text-[16px] scr420:text-[14px] text-[12px]  "
                           onClick={() => setshowSecondDiv(!showSecondDiv)}
                         >
                           {!showSecondDiv ? (
-                            <button className="  rounded-[12px] ml:text-[16px] text-[12px] scr420:px-4 px-2 scr420:py-2 py-2 flex gap-2 justify-center items-center bg-blue text-white ml:h-[40px] h-[40px] font-semibold">
+                            <button className=" btn_hover_effect rounded-[12px] ml:text-[16px] text-[12px] scr420:px-4 px-2 scr420:py-2 py-2 flex gap-2 justify-center items-center bg-blue text-white ml:h-[40px] h-[40px] font-semibold">
                               View Results
                             </button>
                           ) : (
-                            <button className="rounded-[12px]  ml:text-[16px] text-[12px] scr420:px-4 px-2 scr420:py-2 py-2 flex gap-2 justify-center items-center bg-blue text-white ml:h-[40px] h-[40px] font-semibold">
+                            <button className="btn_hover_effect rounded-[12px]  ml:text-[16px] text-[12px] scr420:px-4 px-2 scr420:py-2 py-2 flex gap-2 justify-center items-center bg-blue text-white ml:h-[40px] h-[40px] font-semibold">
                               Hide Results
                             </button>
                           )}
@@ -424,7 +425,7 @@ function SkillAssessment() {
                                 View Results
                               </button>
                             ) : (
-                              <button className="rounded-[12px]  ml:text-[16px] text-[12px] scr420:px-4 px-2 scr420:py-2 py-2 flex gap-2 justify-center items-center bg-blue text-white ml:h-[40px] h-[40px] font-semibold">
+                              <button className="btn_hover_effect rounded-[12px]  ml:text-[16px] text-[12px] scr420:px-4 px-2 scr420:py-2 py-2 flex gap-2 justify-center items-center bg-blue text-white ml:h-[40px] h-[40px] font-semibold">
                                 Hide Results
                               </button>
                             )}
@@ -456,7 +457,17 @@ function SkillAssessment() {
                 <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
                 <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center customMargins   ">
                   <div className="flex sm:p-4 p-2 flex-col text-[20px] leading-tight font-bold justify-center  scr420:gap-4 gap-3 min-w-[300px]  bg-white rounded-[16px]  ">
-                    Difficulty Level
+                    <div className="flex justify-between">
+                      Difficulty Level
+                      <div
+                        onClick={() => {
+                          setisLevel(false);
+                        }}
+                        className="cursor-pointer"
+                      >
+                        <CloseIcon />
+                      </div>
+                    </div>
                     <div className="flex sm:gap-4 gap-2 justify-between sm:text-[16px] text-[14px] font-medium">
                       <div>
                         <label className="flex gap-2 items-center">
@@ -698,11 +709,11 @@ function SkillAssessment() {
                         Date
                       </p>
                     </div>
-                    <div className="flex w-[19.95%] justify-center items-center self-stretch border-r border-solid border-[#DEDEDE] ">
+                    {/* <div className="flex w-[19.95%] justify-center items-center self-stretch border-r border-solid border-[#DEDEDE] ">
                       <p className="text-text-primary font-montserrat text-base font-medium leading-6">
                         Time
                       </p>
-                    </div>
+                    </div> */}
                     <div className="flex w-[19.95%] justify-center items-center self-stretch  ">
                       <p className="text-text-primary font-montserrat text-base font-medium leading-6">
                         Score
@@ -744,11 +755,11 @@ function SkillAssessment() {
                                 {item?.date && formatDate(item?.date)}
                               </p>
                             </div>
-                            <div className="flex  justify-center items-center self-stretch ">
+                            {/* <div className="flex  justify-center items-center self-stretch ">
                               <p className="text-[14px] font-montserrat text-base font-medium leading-6">
                                 {item?.date && convertToDateTime(item?.date)}
                               </p>
-                            </div>
+                            </div> */}
                             <div className="flex  justify-center lg:w-[40%]  items-center self-stretch  ">
                               <p className="text-[#0C8A0A] items-center  font-montserrat text-sm font-semibold leading-7">
                                 {item.score / 10} / 10

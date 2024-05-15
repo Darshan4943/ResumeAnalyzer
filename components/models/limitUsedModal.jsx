@@ -28,20 +28,20 @@ const LimitUsedModal = ({ setVisible, visible }) => {
                   className="h-[184px] object-contain"
                 />
                 {
-                  !planAvailable && <span className="text-[30px] text-[#C00000] font-semibold text-center">
+                  !planAvailable && <span className="text-[22px] ml:text-[30px] text-[#C00000] font-semibold text-center">
                     Subscription Required
                   </span>
                 }
 
               </div>
-              <span className="scr420:text-[16px] text-[14px] text-[#333333] font-medium text-center">
+              <span className="ml:text-[16px] text-[14px] text-[#333333] font-medium text-center">
                 Please Upgrade your Subscription Plan and continue using our
                 best Ai powered services.
               </span>
             </div>
             <div className="flex flex-row justify-between items-center gap-[16px] w-[90%] ">
               <button
-                className="border-[#C00000] py-[12px] scr420:px-[24px] px-3 border text-[#C00000] text-[16px] font-semibold rounded-[12px] "
+                className="border-[#C00000] py-[12px] scr420:px-[24px] px-3 border text-[#C00000] text-[12px] ml:text-[16px] font-semibold rounded-[12px] "
                 onClick={() => {
                   setVisible(false);
                 }}
@@ -50,7 +50,7 @@ const LimitUsedModal = ({ setVisible, visible }) => {
               </button>
               <button
                 onClick={() => router.push("/purchase/plans")}
-                className="border-[#06A9EF] py-[12px] scr420:px-[24px] px-3 border text-[#fff] bg-[#06A9EF] text-[16px] font-semibold rounded-[12px] "
+                className="border-[#06A9EF] py-[12px] scr420:px-[24px] px-3 border text-[#fff] bg-[#06A9EF] text-[12px] ml:text-[16px] font-semibold rounded-[12px] "
               >
                 Purchase Plan
               </button>

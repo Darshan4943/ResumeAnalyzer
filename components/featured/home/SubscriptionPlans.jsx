@@ -127,7 +127,7 @@ function SubscriptionPlans({ fromMain }) {
           {subPlans.map((plan, index) => (
             <div
               key={index}
-              className={` relative mt-[40px] bg-white  flex flex-col gap-4 items-center rounded-[16px] purchase-plan-card ${isUser ? "max-w-[19vw]" : "max-w-[19vw] "
+              className={`group relative mt-[40px] bg-white  flex flex-col gap-4 items-center rounded-[16px] purchase-plan-card ${isUser ? "max-w-[19vw]" : "max-w-[19vw] "
                 } `}
               style={{ boxShadow: "0px 2px 15px 0px #00000033" }}
             >
@@ -209,7 +209,7 @@ function SubscriptionPlans({ fromMain }) {
                   </div>
                   <button
                     onClick={() => clickHandler(plan.index)}
-                    className="px-6 py-3 bg-[#06A9EF] text-white rounded-[12px] text-[1.2vw] font-semibold w-full"
+                    className="px-6 py-3 bg-[#06A9EF] text-white rounded-[12px] text-[1.2vw] font-semibold w-full group-hover:bg-[#ffda1d] group-hover:text-[#333] transition-all "
                   >
                     Purchase Plan
                   </button>
@@ -290,7 +290,7 @@ function SubscriptionPlans({ fromMain }) {
                           {Math.ceil(plan.amount * exchangeRate)}
                         </p>
                       </div>
-                    
+
                       <p className="text-[12px] font-[500]">
                         {plan.description}
                       </p>
