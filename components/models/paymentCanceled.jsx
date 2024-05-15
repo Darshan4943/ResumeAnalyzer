@@ -1,7 +1,13 @@
 import React from "react";
 import MiniLoader from "../common/mini-loader";
 
-const PaymentCanceled = ({ setCancelModel, loading }) => {
+const PaymentCanceled = ({
+  setCancelModel,
+  loading,
+  canceled,
+  isRetry,
+  setIsRetry,
+}) => {
   return (
     <div className="expiryModel">
       <div className="modal">
@@ -33,6 +39,7 @@ const PaymentCanceled = ({ setCancelModel, loading }) => {
             <button
               onClick={() => {
                 setCancelModel(false);
+                setIsRetry(false);
               }}
               className="border-[#06A9EF] py-[12px] px-[24px] border text-[#fff] bg-[#06A9EF] text-[16px] font-semibold rounded-[12px] "
             >
