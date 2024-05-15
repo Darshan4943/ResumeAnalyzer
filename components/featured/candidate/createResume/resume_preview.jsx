@@ -82,7 +82,7 @@ const ResumePreview = ({
   useEffect(() => {
     getLimits();
   }, []);
-  console.log(85, saveLimit);
+  
   const callData = () => {
     axios
       .get("https://freedygoservices.in/api/resume/" + userDataGlobal?._id)
@@ -707,7 +707,7 @@ const ResumePreview = ({
       console.error("Error generating PDF Blob:", error);
     }
   };
-  console.log(704, saveDisabled);
+
   const SaveBTN = (blob, url, loading) => {
     return (
       <button
