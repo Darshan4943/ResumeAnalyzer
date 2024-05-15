@@ -63,6 +63,7 @@ function CreateResume() {
   }
   const parsedDataSeter = () => {
     const parsedData = JSON.parse(localStorage.getItem("parsedResume"));
+  
     if (parsedData) {
       const {
         first_name,
@@ -76,7 +77,11 @@ function CreateResume() {
       } = parsedData;
       const languages = parsedData.languages;
       const educations = parsedData.education;
-      const experience = parsedData["work experience"];
+      const experience = parsedData["work experience"]
+        ? parsedData["work experience"]
+        : parsedData.work_experience
+        ? parsedData.work_experience
+        : [];
       const courses = parsedData.issuing_organization;
       setData({
         ...data,
