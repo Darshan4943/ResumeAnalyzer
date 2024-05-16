@@ -364,7 +364,7 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
             padding: " 16px",
             display: "flex",
             flexDirection: "column",
-            gap: "42px",
+            gap: "32px",
           }}
         >
           <View style={{ flexDirection: "column", marginTop: 24, gap: 4 }}>
@@ -572,7 +572,7 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
                 {item?.header}
               </Text>
 
-              <View style={{ flexDirection: "column" }}>
+              <View style={{ flexDirection: "column",gap:"8px" }}>
                 {item?.subSection?.map((detail, index) => (
                   <View
                     wrap={false}
