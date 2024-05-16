@@ -45,7 +45,7 @@ function GenerateAi() {
 
   useEffect(() => {
     const originalText =
-      "  Hello! I'm Darshan, a tech enthusiast and creative developer. I enjoy crafting elegant solutions to complex problems, always exploring new technologies. Let's build something amazing together!";
+      "  Hello! I'm John Doe, a tech enthusiast and creative developer. I enjoy crafting elegant solutions to complex problems, always exploring new technologies. Let's build something amazing together!";
     let currentIndex = 0;
 
     if (isAnimate) {
@@ -64,7 +64,7 @@ function GenerateAi() {
 
   useEffect(() => {
     const originalText =
-      " Hey there! I'm Darshan, a passionate tech aficionado and innovative developer. I thrive on finding sophisticated answers to intricate challenges, constantly researching and experimenting with cutting-edge technologies. Let's collaborate and create something truly remarkable! ";
+      " Hey there! I'm John Doe, a passionate tech aficionado and innovative developer. I thrive on finding sophisticated answers to intricate challenges, constantly researching and experimenting with cutting-edge technologies. Let's collaborate and create something truly remarkable! ";
     let currentIndex = 0;
     if (isAnimateSecond) {
       const interval = setInterval(() => {
