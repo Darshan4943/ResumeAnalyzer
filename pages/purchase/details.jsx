@@ -40,7 +40,6 @@ function Details() {
   }, [id]);
 
   useEffect(() => {
-    console.log(229999, "hii");
     if (canceled == "true") {
       const timer = setTimeout(() => {
         setCancelModel(true);
