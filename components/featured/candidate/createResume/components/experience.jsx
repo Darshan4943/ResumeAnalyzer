@@ -5,6 +5,7 @@ import { Delete_icon, Edit_icon } from "../../../../../utils/svg";
 const Experience = ({ data, setData }) => {
   const [isChecked, setIsChecked] = useState(true);
   const [view, setView] = useState(false);
+  const [editingIndex, setEditingIndex] = useState(null);
   const [isModified, setIsModified] = useState({ status: false, index: 0 });
   const handleSwitchChange = () => {
     setIsChecked(!isChecked);
@@ -112,7 +113,10 @@ const Experience = ({ data, setData }) => {
 
     return Object.keys(newErrors).length === 0;
   };
-
+  const handleEditClick = (index) => {
+    setEditingIndex(index);
+    handleEditExperience(index);
+  };
   return (
     <div
       className="flex flex-col p-4 gap-2 rounded-lg bg-white"
@@ -137,8 +141,8 @@ const Experience = ({ data, setData }) => {
       {data?.experience?.map((exp, index) => (
         <div
           key={index}
-          className="flex flex-col gap-1 p-2 rounded-[6px] border border-[#DEDEDE] break-all"
-        >
+          className={`flex flex-col gap-1 p-2 rounded-[6px]  border break-all ${editingIndex === index ? "border-[#06A9EF] border-[2px]" : "border-[#DEDEDE]"
+            }`}>
           <div className="flex justify-between">
             <p className="text-[14px]">
               {exp?.organization}{" "}
@@ -148,7 +152,7 @@ const Experience = ({ data, setData }) => {
               ${exp?.currentlyWorking ? "Present" : exp?.duration?.end?.year}`}
             </p>
             <div className="flex gap-2">
-              <div onClick={() => handleEditExperience(index)}>
+              <div onClick={() => handleEditClick(index)}>
                 <Edit_icon />
               </div>
               <div onClick={() => handleDeleteExperience(index)}>
