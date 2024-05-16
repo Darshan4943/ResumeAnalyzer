@@ -624,7 +624,7 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
                           <Text
                             style={{
                               fontFamily: `${selectedFont} 400`,
-                              fontSize: 13,
+                              fontSize: 14,
                               color: "#2D3033",
                             }}
                           >
@@ -636,7 +636,7 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
                     <Text
                       style={{
                         fontFamily: `${selectedFont} 400`,
-                        fontSize: 12,
+                        fontSize: 10,
                         color: "#6D6E71",
                       }}
                     >
