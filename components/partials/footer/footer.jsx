@@ -103,8 +103,8 @@ function Footer({ isSubscribe, setIsSubcrib }) {
               </div>
               <div className=" flex flex-col flex-wrap  ">
                 <p className="footer_address_Email">Email </p>
-                <p className="footer_address_Email_font flex flex-wrap">
-                  support@skilotech.com
+                <p className="footer_address_Email_font flex flex-wrap ">
+                  <a href="mailto:support@skilotech.com">support@skilotech.com</a>
                 </p>
               </div>
             </div>
