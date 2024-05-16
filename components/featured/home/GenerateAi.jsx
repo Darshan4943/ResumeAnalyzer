@@ -249,9 +249,8 @@ function GenerateAi() {
             </div>
             <div className="w-full flex justify-end items-center gap-3 ">
               <button
-                className={` cursor-not-allowed  relative flex gap-2 sm:px-3 px-[5px] py-2 border items-center border-[#06A9EF] ${
-                  isClicked && "bg-[#06A9EF] "
-                }  rounded-[8px]  `}
+                className={` cursor-not-allowed  relative flex gap-2 sm:px-3 px-[5px] py-2 border items-center border-[#06A9EF] ${isClicked && "bg-[#06A9EF] "
+                  }  rounded-[8px]  `}
                 style={{
                   boxShadow: slideRobot ? "0px 0px 16px 0px #06A9EF" : "none",
                   animation: slideRobot
@@ -283,9 +282,8 @@ function GenerateAi() {
                 )}
 
                 <p
-                  className={` ml:text-[0.9vw] text-[12px] font-semibold ${
-                    isClicked && "text-white"
-                  }`}
+                  className={` ml:text-[0.9vw] text-[12px] font-semibold ${isClicked && "text-white"
+                    }`}
                 >
                   Generate with AI
                 </p>
@@ -403,7 +401,7 @@ function GenerateAi() {
                   value={text}
                 />
               )}
-              <div className="w-full flex justify-end items-center gap-2">
+              <div className="w-full flex-wrap scr420:flex-nowrap flex justify-end items-center gap-2">
                 <div className=" ml:text-[0.7vw] text-[10px] font-[400]">
                   Remaining Attempts -{" "}
                   <span className={`${attempt <= 0 && "text-red"} `}>
@@ -413,11 +411,9 @@ function GenerateAi() {
                 <button
                   onClick={generateText}
                   disabled={attempt <= 0}
-                  className={` justify-between scr1300:min-w-[162px] scr1100:min-w-[145px]  scr1024:min-w-[135px] lg:min-w-[120px]  scr930:min-w-[115px]  scr900:min-w-[110px]  ml:min-w-[100px] min-w-[120px] relative flex gap-1 py-2 border items-center border-[#06A9EF] ${
-                    stars && "bg-[#06A9EF]"
-                  } px-2  rounded-[8px]  ${
-                    attempt <= 0 && " cursor-not-allowed"
-                  }`}
+                  className={` justify-between scr1300:min-w-[162px] scr1100:min-w-[145px]  scr1024:min-w-[135px] lg:min-w-[120px]  scr930:min-w-[115px]  scr900:min-w-[110px]  ml:min-w-[100px] min-w-[120px] relative flex gap-1 py-2 border items-center border-[#06A9EF] ${stars && "bg-[#06A9EF]"
+                    } px-2  rounded-[8px]  ${attempt <= 0 && " cursor-not-allowed"
+                    }`}
                 >
                   <motion.img
                     initial={{ translateY: "-4px" }}
@@ -443,9 +439,8 @@ function GenerateAi() {
                   )}
 
                   <p
-                    className={` text-[12px] font-semibold  ${
-                      stars && "text-white"
-                    }`}
+                    className={` text-[12px] font-semibold  ${stars && "text-white"
+                      }`}
                   >
                     Generate with AI
                   </p>
