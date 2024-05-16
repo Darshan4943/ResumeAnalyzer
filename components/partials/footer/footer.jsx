@@ -1,32 +1,55 @@
 import { useRouter } from "next/router";
 import React, { useState } from "react";
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function Footer({ isSubscribe, setIsSubcrib }) {
   const [email, setEmail] = useState('');
   const [isSubscribed, setIsSubscribed] = useState(false);
   const [error, setError] = useState('');
   const router = useRouter();
+
+
   const handleChange = (event) => {
     const value = event.target.value;
     setEmail(value);
 
-    if (value.includes('.com')) {
+    if (value.includes('.com' && '@')) {
       setError('');
     } else {
-      setError('! Email must contain @ and .com');
+      setError('! please enter a valid email');
     }
   };
 
-  const handleSubscribed = () => {
+  // const notify = () => toast("Wow so easy!");
+
+  // const handleSubscribed = (e) => {
+  //   e.preventdefault();
+  //   toast.error("something went wrong")
+  //   console.log("click")
+  //   if (email.trim() !== '' && !error) {
+  //     setIsSubscribed(true);
+  //     // Add any additional subscription logic here, e.g., API call
+  //     console.log('Subscribed with email:', email);
+  //     toast.error("Something Went Wrong!")
+  //   } else {
+  //     console.log('Valid email is required to subscribe');
+  //   }
+  // };
+
+
+  const handleSubscribed = (e) => {
+    e.preventDefault()
+
     if (email.trim() !== '' && !error) {
       setIsSubscribed(true);
-      // Add any additional subscription logic here, e.g., API call
-      console.log('Subscribed with email:', email);
+      toast.success("Subscribe successfully")
+      // console.log('Subscribed with email:', email);
+
     } else {
       console.log('Valid email is required to subscribe');
+      toast.error("please enter a valid email")
     }
-  };
-
+  }
   return (
     <div
       className="footer "
@@ -151,14 +174,15 @@ function Footer({ isSubscribe, setIsSubcrib }) {
                 onChange={handleChange}
                 required
               />
-              {error && <div className="error_message text-[8px] absolute bg-white px-[4px] py-[0.5px] rounded-[4px] font-[500] top-[60px] left-[10px] text-red">{error}</div>}
+              {/* {error && <div className="error_message text-[8px] absolute bg-white px-[4px] py-[0.5px] rounded-[4px] font-[500] top-[60px] left-[10px] text-red">{error}</div>} */}
               <div className="footer_inner_input_box"></div>
               <button onClick={handleSubscribed}
                 className="footer_input_btn btn_hover_effect"
-                disabled={error || email.trim() === ''}>
+              // disabled={error || email.trim() === ''}
+              >
                 Subscribe
               </button>
-              {isSubscribed && <p className="subscription_message">Thank you for subscribing!</p>}
+              {/* {isSubscribed && <p className="subscription_message">Thank you for subscribing!</p>} */}
             </div>
             {/* <div className="flex gap-4 justify-center">
               <img
