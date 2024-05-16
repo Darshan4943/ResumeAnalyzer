@@ -5,7 +5,7 @@ function Footer({ isSubscribe, setIsSubcrib }) {
   const [email, setEmail] = useState('');
   const [isSubscribed, setIsSubscribed] = useState(false);
   const [error, setError] = useState('');
-
+  const router = useRouter();
   const handleChange = (event) => {
     const value = event.target.value;
     setEmail(value);
