@@ -244,106 +244,34 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
               </View>
             </View>
           </View>
-          <View
-            style={{
+
+          {data?.skills?.length > 0 && (
+            <View style={{
               display: "flex",
               flexDirection: "column",
               gap: 16,
               justifyContent: "center",
               alignItems: "center",
-            }}
-          >
-            <View>
-              <Text
-                style={{
-                  fontFamily: `${selectedFont} 400`,
-                  fontSize: 18,
-                  color: "#FFFFFF",
-                }}
-              >
-                SKILLS
-              </Text>
-            </View>
-            {/* <View
-              style={{
+            }}>
+              <View style={{
                 display: "flex",
-                flexDirection: "row",
+                flexDirection: "column",
                 gap: 16,
-                width: "100%",
-                flexWrap: "wrap",
-              }}
-            >
-              {data?.skills?.length > 0 && (
-                <View
-                  wrap={false}
+                justifyContent: "center",
+                alignItems: "center",
+              }} >
+                <Text
                   style={{
-                    flexDirection: "row",
-                    gap: 14,
-                    width: "100%",
-                    flexWrap: "wrap",
+                    fontFamily: `${selectedFont} 400`,
+                    fontSize: 18,
+                    color: "#FFFFFF",
                   }}
                 >
-                  {data.skills?.map((detail, index) => {
-                    const calculateWidthPercentage = (rating) => {
-                      let ratingPercentage = 0;
-                      if (rating && rating.length > 0) {
-                        const zerosCount = rating.filter(
-                          (val) => val === 0
-                        ).length;
+                  SKILLS
+                </Text>
+              </View>
 
-                        if (zerosCount === 0) ratingPercentage = 100;
-                        else if (zerosCount === 1) ratingPercentage = 80;
-                        else if (zerosCount === 2) ratingPercentage = 60;
-                        else if (zerosCount === 3) ratingPercentage = 40;
-                        else if (zerosCount === 4) ratingPercentage = 20;
-                      }
-                      return ratingPercentage;
-                    };
 
-                    const ratingPercentage = calculateWidthPercentage(
-                      detail.rating
-                    );
-
-                    return (
-                      <View
-                        style={{
-                          flexDirection: "column",
-                          gap: 8,
-                          width: "40%",
-                        }}
-                        key={index}
-                      >
-                        <Text
-                          style={{
-                            color: "#FFFFFF",
-                            fontSize: 12,
-                            fontFamily: `${selectedFont} 400`,
-                          }}
-                        >
-                          {detail.skill}
-                        </Text>
-                        <View
-                          style={{
-                            height: 6,
-                            backgroundColor: "#555C5E",
-                            width: "60",
-                          }}
-                        >
-                          <View
-                            style={{
-                              height: "100%",
-                              backgroundColor: "#83C3C9",
-                              width: `${ratingPercentage}%`,
-                            }}
-                          ></View>
-                        </View>
-                      </View>
-                    );
-                  })}
-                </View>
-              )}
-            </View> */}
-            {data?.skills?.length > 0 && (
               <View style={{ flexDirection: "column", gap: 16 }}>
                 <View style={{ flexDirection: "column", gap: 12 }}>
                   {data?.skills?.map((detail, index) => (
@@ -353,7 +281,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                       style={{
                         flexDirection: "row",
                         gap: 8,
-                        alignItems: "start",
+                        alignItems: "center",
                       }}
                     >
                       <Svg
@@ -382,9 +310,22 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                   ))}
                 </View>
               </View>
-            )}
-            {data?.languages?.length > 0 && (
-              <View wrap={false} style={{ flexDirection: "column", gap: 16 }}>
+            </View>
+          )}
+          {data?.languages?.length > 0 && (
+            <View wrap={false} style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: 16,
+              
+            }}>
+              <View wrap={false} style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: 16,
+                justifyContent: "center",
+                alignItems: "center",
+              }}>
                 <Text
                   style={{
                     fontFamily: `${selectedFont} 400`,
@@ -394,47 +335,48 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                 >
                   LANGUAGES
                 </Text>
+              </View>
+              <View style={{ flexDirection: "column", gap: 12, justifyContent: "start" }}>
+                {data?.languages?.map((detail, index) => (
+                  <View
 
-                <View style={{ flexDirection: "column", gap: 12 }}>
-                  {data?.languages?.map((detail, index) => (
-                    <View
+                    key={index}
+                    style={{
+                      flexDirection: "row",
+                      gap: 8,
+                      alignItems: "center",
 
-                      key={index}
+                    }}
+                  >
+                    <Svg
+                      width="8"
+                      height="9"
+                      viewBox="0 0 8 9"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <Path
+                        d="M3.89326 7.79296C5.7673 7.79296 7.2865 6.2723 7.2865 4.39648C7.2865 2.52066 5.7673 1 3.89326 1C2.01922 1 0.5 2.52066 0.5 4.39648C0.5 6.2723 2.01922 7.79296 3.89326 7.79296Z"
+                        fill="#59595C"
+                      />
+                    </Svg>
+
+                    <Text
                       style={{
-                        flexDirection: "row",
-                        gap: 8,
-                        alignItems: "start",
-                        justifyContent:"start"
+                        fontFamily: `${selectedFont} 400`,
+                        color: "#fff",
+                        fontSize: "14",
                       }}
                     >
-                      <Svg
-                        width="8"
-                        height="9"
-                        viewBox="0 0 8 9"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <Path
-                          d="M3.89326 7.79296C5.7673 7.79296 7.2865 6.2723 7.2865 4.39648C7.2865 2.52066 5.7673 1 3.89326 1C2.01922 1 0.5 2.52066 0.5 4.39648C0.5 6.2723 2.01922 7.79296 3.89326 7.79296Z"
-                          fill="#59595C"
-                        />
-                      </Svg>
-
-                      <Text
-                        style={{
-                          fontFamily: `${selectedFont} 400`,
-                          color: "#fff",
-                          fontSize: "14",
-                        }}
-                      >
-                        {detail.languages}
-                      </Text>
-                    </View>
-                  ))}
-                </View>
+                      {detail.languages}
+                    </Text>
+                  </View>
+                ))}
               </View>
-            )}
-          </View>
+            </View>
+          )}
+
+
           {/* {data?.languages?.length > 0 && (
           <View
             style={{
@@ -862,7 +804,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                     style={{
                       display: "flex",
                       flexDirection: "row",
-                      gap: index === data.education.length - 1  ? 16 : 24,
+                      gap: index === data.education.length - 1 ? 16 : 24,
                     }}
                   >
                     <Svg
@@ -1063,7 +1005,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                                       fontFamily: `${selectedFont} 400`,
                                       fontSize: 10,
                                       color: "#252829",
-                                    
+
                                     }}
                                   >
                                     {detail.duration?.start?.year}-
