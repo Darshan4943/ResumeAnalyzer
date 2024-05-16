@@ -39,7 +39,8 @@ const PaymentCanceled = ({
             <button
               onClick={() => {
                 setCancelModel(false);
-                setIsRetry(false);
+                localStorage.removeItem('paymentId');
+                // setIsRetry(false);
               }}
               className="border-[#06A9EF] py-[12px] px-[24px] border text-[#fff] bg-[#06A9EF] text-[16px] font-semibold rounded-[12px] "
             >
