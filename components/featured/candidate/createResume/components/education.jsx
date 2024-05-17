@@ -10,6 +10,7 @@ const Education = ({ setData, data }) => {
   const currentMonth = currentDate.getMonth() + 1; // Months are zero-based, so add 1
   const currentYear = currentDate.getFullYear();
   const [isModified, setIsModified] = useState({ status: false, index: 0 });
+  const [editingIndex, setEditingIndex] = useState(null);
   const [educationData, setEducationData] = useState({
     qualification: "",
     specialization: "",
@@ -98,9 +99,12 @@ const Education = ({ setData, data }) => {
       }
       window.scrollTo(0, 0);
     }
-  
-  };
 
+  };
+  const handleEditClick = (index) => {
+    setEditingIndex(index);
+    handleEditEducation(index);
+  };
   return (
     <>
       <div
@@ -125,8 +129,8 @@ const Education = ({ setData, data }) => {
         {data?.education?.map((edu, index) => (
           <div
             key={index}
-            className="flex flex-col gap-1 p-2 rounded-[6px] border border-[#DEDEDE] break-all"
-          >
+            className={`flex flex-col gap-1 p-2 rounded-[6px]  border break-all ${editingIndex === index ? "border-[#06A9EF] border-[2px]" : "border-[#DEDEDE]"
+              }`}>
             <div className="flex justify-between">
               <p className="text-[14px]">
                 {edu.qualification}{" "}
@@ -136,12 +140,16 @@ const Education = ({ setData, data }) => {
               ${edu.duration?.end?.year}`}
               </p>
               <div className="flex gap-2">
-                <div onClick={() => handleEditEducation(index)}>
-                  <Edit_icon />
-                </div>
-                <div onClick={() => handleDeleteEducation(index)}>
-                  <Delete_icon />
-                </div>
+                <button>
+                  <div onClick={() => handleEditClick(index)}>
+                    <Edit_icon />
+                  </div>
+                </button>
+                <button>
+                  <div onClick={() => handleDeleteEducation(index)}>
+                    <Delete_icon />
+                  </div>
+                </button>
               </div>
             </div>
             <div className="flex gap-8 text-[12px]">
@@ -266,7 +274,7 @@ const Education = ({ setData, data }) => {
                   Update to Profile
                 </button> */}
                 <button
-                  onClick={ handleSave }
+                  onClick={handleSave}
                   className=" font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px]  bg-[#06A9EF] w-[60px] h-[32px]"
                 >
                   Save
