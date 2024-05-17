@@ -45,7 +45,7 @@ function SkillAssessment() {
   const [assessmentList, setAssessmentList] = useState([]);
   const [isLevel, setisLevel] = useState(false);
   const [selectedSkill, setSelectedSkill] = useState();
-  const [skills, setSkills] = useState(SkillList);
+  // const [skills, setSkills] = useState(SkillList);
   const [userSkills, setUserSkills] = useState();
   const [data, setData] = useState([]);
   const [timer, setTimer] = useState(30);
@@ -65,6 +65,24 @@ function SkillAssessment() {
     { question: 10, isSkiped: true, Answer: "" },
   ]);
   const [uniqueQuestions, setUniqueQuestions] = useState([]);
+
+              // START 
+  const [skills, setSkills] = useState([]);
+  const [skillList, setSkillList] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:2000/api/AllSkills")
+      .then((res) => {
+        const names = res.data.map(skill => skill.name);
+       
+        setSkills(names);
+    })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [skillList]);
+
 
   useEffect(() => {
     const uniqueQuestionsSet = new Set();
@@ -380,7 +398,17 @@ function SkillAssessment() {
                         </div>
                       </div>
                     </div>
+                 
                     <CreatableSelect
+                        options={skills.map((item) => ({
+                          value: item,
+                          label: item,
+                        }))}
+                     
+                      className="w-full"
+                      onChange={handleInputChange}
+                    />
+                    {/* <CreatableSelect
                       onInputChange={(data) => {
                         // setSkills([data, ...skills]);
                       }}
@@ -390,7 +418,7 @@ function SkillAssessment() {
                       }))}
                       className="w-full"
                       onChange={handleInputChange}
-                    />
+                    /> */}
                   </div>
                 </div>
               ) : (
