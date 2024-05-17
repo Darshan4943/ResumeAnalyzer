@@ -86,7 +86,7 @@ function ContactUs() {
               </g>
             </svg>
             <p className="text-[14px] text-[#fff] font-[400] leading-[16px]">
-              support@skilotech.com
+              <a href="mailto:support@skilotech.com">support@skilotech.com</a>
             </p>
           </div>
 
@@ -150,14 +150,14 @@ function ContactUs() {
               name="query"
               value={formData.query}
               onChange={handleChange}
-              className="w-[100%] px-[16px] py-[12px] rounded-[8px] text-[14px] text-[#333] h-[94px]"
+              className="w-[100%] placeholder-xl px-[16px] py-[12px] rounded-[8px] text-[14px] text-[#333] h-[94px]"
               placeholder="Write your query here"
               required
             ></textarea>
             <div className="w-[100%] flex justify-center">
               <button
                 type="submit"
-                className="buttons bg-[#06A9EF] text-[#fff] font-[600] rounded-lg"
+                className="buttons hover:bg-[#333] btn_hover_effect bg-[#06A9EF] text-[#fff] font-[600] rounded-lg"
                 id="border_button"
               >
                 Submit
