@@ -31,6 +31,7 @@ function Details() {
   }, []);
   useEffect(() => {
     setSelectedPlan(plans.find((item, index) => index == id - 1));
+    console.log(34,id,)
     setLoading(true);
     const timer = setTimeout(() => {
       setLoading(false);
@@ -39,14 +40,13 @@ function Details() {
     return () => clearTimeout(timer);
   }, [id]);
 
-  useEffect(() => {
-    console.log(229999, "hii");
-    if (canceled == "true") {
-      const timer = setTimeout(() => {
-        setCancelModel(true);
-      }, 2000);
-    }
-  }, [success, canceled]);
+  // useEffect(() => {
+  //   if (canceled == "true") {
+  //     const timer = setTimeout(() => {
+  //       setCancelModel(true);
+  //     }, 2000);
+  //   }
+  // }, [success, canceled]);
   const navigate = () => {
     router.push("/purchase/MyPurchase");
   };
@@ -100,7 +100,7 @@ function Details() {
                   <div className="flex flex-row gap-2 w-full items-center justify-center">
                     <p className="text-[2.5vw] font-[700]">{icon}</p>
                     <p className="text-[2.5vw] font-[700]">
-                      {Math.ceil(selectedPlan.amount * exchangeRate)}
+                      {Math.ceil(selectedPlan?.amount * exchangeRate)}
                     </p>
                   </div>
                   <p className="scr700:text-[1.1vw] text-[4vw] font-[500]">
@@ -139,6 +139,7 @@ function Details() {
               setSuccessModel={setSuccessModel}
               success={success}
               canceled={canceled}
+              setCancelModel={setCancelModel}
             />
           </div>
         </div>
