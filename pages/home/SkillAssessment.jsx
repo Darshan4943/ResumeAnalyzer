@@ -72,7 +72,7 @@ function SkillAssessment() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:2000/api/AllSkills")
+      .get("https://freedygoservices.in/api/AllSkills")
       .then((res) => {
         const names = res.data.map(skill => skill.name);
        

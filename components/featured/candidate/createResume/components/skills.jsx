@@ -42,7 +42,7 @@ const Skills = ({ data, setData }) => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:2000/api/AllSkills")
+      .get("https://freedygoservices.in/api/AllSkills")
       .then((res) => {
         const names = res.data.map(skill => skill.name);
        
@@ -82,7 +82,7 @@ const Skills = ({ data, setData }) => {
     const found = skillList?.find((item) => item.skill.name === value.label);
     if (!found) {
       try {
-        const response = await fetch('http://localhost:2000/api/skills', {
+        const response = await fetch('https://freedygoservices.in/api/skills', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

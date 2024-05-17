@@ -369,7 +369,7 @@ function AccountDetails({
       handleRetrieveSession(storedId);
     }
  
-  }, [storedId,userDataGlobal]);
+  }, [storedId]);
 
 
   return (
