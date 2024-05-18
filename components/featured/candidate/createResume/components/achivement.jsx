@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import DateSelector from "../../../../common/dateSelector";
 import { Delete_icon, Edit_icon } from "../../../../../utils/svg";
 
-const Achievement = ({ data, setData }) => {
+const Achievement = ({ data, setData ,achievement, setAchievement}) => {
   const [isChecked, setIsChecked] = useState(true);
   const [view, setView] = useState(false);
   const [isModified, setIsModified] = useState({ status: false, index: 0 });
@@ -125,7 +125,7 @@ const Achievement = ({ data, setData }) => {
             </div>
           </div>
         ))}
-        {view && (
+        {/* {view && ( */}
           <div>
             <div className="flex flex-col gap-3">
               <div className="flex flex-col gap-2 w-full">
@@ -251,7 +251,7 @@ const Achievement = ({ data, setData }) => {
                 <button
                   className=" font-montserrat text-xs font-semibold px-[12px] rounded-[8px] border border-[#06A9EF] w-[80px] h-[32px]"
                   onClick={() => {
-                    setView(false);
+                    setAchievement(false);
                   }}
                 >
                   Cancel
@@ -260,7 +260,7 @@ const Achievement = ({ data, setData }) => {
                   Update to Profile
                 </button> */}
                 <button
-                  onClick={handleSave}
+                  onClick={() =>{setAchievement(false);handleSave}}
                   disabled={!isChecked}
                   className=" font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px]  bg-[#06A9EF] w-[60px] h-[32px]"
                 >
@@ -269,8 +269,8 @@ const Achievement = ({ data, setData }) => {
               </div>
             </div>
           </div>
-        )}
-        {!view && (
+        {/* )} */}
+        {/* {!view && (
           <div className="flex gap-1">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -294,7 +294,7 @@ const Achievement = ({ data, setData }) => {
               Add Achievements
             </p>
           </div>
-        )}
+        )} */}
       </div>
     </>
   );

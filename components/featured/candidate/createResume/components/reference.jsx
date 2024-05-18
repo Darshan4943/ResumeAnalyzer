@@ -1,0 +1,317 @@
+import React, { useEffect, useState } from "react";
+import { camelCase } from "../../../../../utils/middleware";
+import { useSelector } from "react-redux";
+import ReactSelect from "react-select";
+import { telCode } from "../../../../../utils/data";
+
+const Reference = ({ setData, data }) => {
+  const userDataGlobal = useSelector((state) => state.userData);
+
+  const [isChecked, setIsChecked] = useState(true);
+  const [isModified, setIsModified] = useState(false);
+  const [filteredTelCode, setFilteredTelCode] = useState([]);
+  const [selectedItem, setSelectedItem] = useState();
+  const [searchTerm, setSearchTerm] = useState("");
+  const handleSwitchChange = () => {
+    setIsChecked(!isChecked);
+  };
+  const [referenceData, setReferenceData] = useState({
+    fullName: "",
+    company: "",
+    mobileNumber: "",
+    email: "",
+    dial_code:"+260"
+  });
+
+  useEffect(() => {
+    const filterLogic = (item) =>
+      item.code.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      item.dial_code.includes(searchTerm);
+
+    const filteredCodes = telCode.filter(filterLogic);
+    setFilteredTelCode(filteredCodes);
+  }, [telCode, searchTerm]);
+
+
+  const handleItemClick = (item) => {
+    setSelectedItem(item);
+    setReferenceData({ ...referenceData, dial_code: item.dial_code });
+  };
+  const inputFields = [
+    {
+      label: "Full Name",
+      type: "text",
+      name: "fullName",
+      placeholder: "Entet Full Name",
+      value: referenceData.fullName,
+      className: " ",
+    },
+    {
+      label: "Company",
+      type: "text",
+      name: "company",
+      placeholder: "Company Name",
+      value: referenceData.company,
+      className: " ",
+    },
+
+    {
+      label: "Mobile Number",
+      type: "text",
+      name: "mobileNumber",
+      placeholder: "Enter Mobile Number",
+      value: referenceData.mobileNumber,
+      className: " col-span-2",
+    },
+    {
+      label: "Email Address",
+      type: "email",
+      name: "email",
+      placeholder: "Enter Email Address",
+      value: referenceData.email,
+      className: " col-span-2",
+    },
+
+  ];
+
+  const [formErrors, setFormErrors] = useState({
+    fullName: false,
+    company: false,
+    mobileNumber: false,
+    email: false,
+
+  });
+
+ 
+
+  const validateFields = () => {
+    const newErrors = {};
+    let allFieldsValid = true;
+
+    inputFields.forEach((field) => {
+      const { name } = field;
+      const value = referenceData[name];
+
+      if (typeof value === "string" && value.trim() === "") {
+        newErrors[name] = true;
+        allFieldsValid = false;
+      } else {
+        newErrors[name] = false;
+      }
+    });
+
+    // setFormErrors({ ...newErrors });
+    return allFieldsValid;
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    if (name == "mobileNumber") {
+      if (value.replace(/\D/g, "").length <= 10) {
+        setReferenceData({
+          ...referenceData,
+          [name]: value.replace(/\D/g, ""),
+        });
+        setIsModified(true);
+        setFormErrors({ ...formErrors, [name]: value.trim() === "" });
+      }
+    } else {
+      setReferenceData({
+        ...referenceData,
+        [name]: value,
+      });
+      setIsModified(true);
+      setFormErrors({ ...formErrors, [name]: value.trim() === "" });
+    }
+  };
+
+  const isDisabled = () => {
+    if (!isChecked || !isModified) return true;
+
+    const isAnyFieldEmpty = Object.values(referenceData).some((value) => {
+      if (typeof value === "string") {
+        return value.trim() === "";
+      }
+
+      if (typeof value === "number") {
+        return value.toString().trim() === "";
+      }
+      return true;
+    });
+
+    return isAnyFieldEmpty;
+  };
+
+  const saveData = () => {
+    const allFieldsValid = validateFields();
+    if (allFieldsValid && isModified) {
+      setData({
+        ...data,
+
+        reference:[referenceData, ...data.reference]
+ 
+      });
+      setIsModified(false);
+    }
+  };
+
+  useEffect(() => {
+    const allFieldsValid = validateFields();
+    if (allFieldsValid && isModified) {
+      setIsModified(true);
+    }
+  }, [referenceData]);
+
+  useEffect(() => {
+    const {
+        fullName,
+        company,
+      email,
+      mobileNumber: mobileNumber,
+      dial_code
+    } = data;
+    setSelectedItem(
+      telCode.find((item) => item.dial_code === dial_code)
+    );
+    setReferenceData({
+      ...referenceData,
+      fullName,
+      company,
+      email,
+      mobileNumber,
+      dial_code:dial_code?dial_code:"+260"
+    });
+  }, [data]);
+
+//  console.log(3333,data)
+  return (
+    <>
+      <div
+        className="flex flex-col sm:p-4 p-2 gap-2 rounded-lg bg-white"
+        style={{
+          boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)",
+          opacity: isChecked ? 1 : 0.5,
+        }}
+      >
+        <div className="w-full flex justify-between text-[20px] font-montserrat font-medium">
+          <p> Reference Details</p>
+         
+        </div>
+        <div className="grid grid-cols-2 gap-4">
+          {inputFields.map((item, index) => (
+            <div
+              className={`flex flex-col gap-2 w-full ${item.className}`}
+              key={index}
+            >
+              <div className=" text-[14px] font-montserrat  font-medium">
+                {item.label}
+              </div>
+              {item.name == "mobileNumber" ? (
+                <div
+                  className={`border-[1px] rounded-[8px] ${
+                    formErrors[item.name]
+                      ? "border-[#C00000]"
+                      : "border-[#9D9D9D]"
+                  } `}
+                >
+                  <div
+                    className={`flex w-[100%] items-start "
+                          }`}
+                    id="single_input"
+                  >
+                    <div
+                      className={`relative 
+                            } items-center`}
+                    >
+                      <div className="  w-[100%] text-[14px] justify-center items-center  flex font-[500] text-[#646464]">
+                        <div className="flex items-center justify-center gap-2 cursor-pointer min-w-[160px] w-[100%]">
+                          <div className="flex items-center  gap-1 cursor-pointer  w-[100%] ">
+                            <ReactSelect
+                              options={filteredTelCode}
+                              className="w-[100%] flex  items-center py-1  rounded-[8px]"
+                              name=""
+                              placeholder="Select"
+                              value={selectedItem}
+                              onChange={handleItemClick}
+                              getOptionLabel={(option) => (
+                                <div className="flex items-center  ">
+                                  <img
+                                    src={`https://hatscripts.github.io/circle-flags/flags/${option.code.toLowerCase()}.svg`}
+                                    width="20px"
+                                  />
+                                  <span className="ml-2">
+                                    {option.code} {option.dial_code}
+                                  </span>
+                                </div>
+                              )}
+                              getOptionValue={(option) => option.code}
+                              styles={{
+                                control: (provided) => ({
+                                  ...provided,
+                                  border: "none",
+
+                                  minWidth: "130px",
+                                }),
+                              }}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <input
+                      type={item.type}
+                      name={item.name}
+                      placeholder={item.placeholder}
+                      className="w-full text-[14px] font-montserrat font-small"
+                      value={referenceData[item.name]}
+                      onChange={handleInputChange}
+                      disabled={!isChecked}
+                    />
+                  </div>
+                </div>
+              ) : (
+                <div
+                  className={`border-[1px] rounded-[8px] px-[16px] py-[12px] ${
+                    formErrors[item.name]
+                      ? "border-[#C00000]"
+                      : "border-[#9D9D9D]"
+                  } `}
+                >
+                  <input
+                    type={item.type}
+                    name={item.name}
+                    placeholder={item.placeholder}
+                    className="w-full text-[14px] font-montserrat font-small"
+                    value={referenceData[item.name]}
+                    onChange={handleInputChange}
+                    disabled={!isChecked}
+                  />
+                </div>
+              )}
+              {formErrors[item.name] && (
+                <span className="text-[#C00000] text-[12px]">
+                  Field is required
+                </span>
+              )}
+            </div>
+          ))}
+        </div>
+        <div className="flex justify-end ">
+          <div className="flex justify-between  py-2 gap-2">
+            <button
+              className=" font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px]  bg-[#06A9EF] w-[60px] h-[32px]"
+            //   style={{ opacity: isDisabled() ? 0.5 : 1 }}
+              onClick={saveData}
+            //   disabled={isDisabled() || !isChecked}
+            >
+              Save
+            </button>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default Reference;
