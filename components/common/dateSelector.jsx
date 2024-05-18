@@ -5,9 +5,9 @@ const DateSelector = ({ idPrefix, dataSeter, data, fromCreate }) => {
   // const years = Array.from({ length: 11 }, (_, index) => 2020 + index);
   // const years = Array.from({ length: 40 }, (_, index) => 2020 + index);
   const [isChecked, setIsChecked] = useState(true);
-  const handleSwitchChange = () => {
-    setIsChecked(!isChecked);
-  };
+  // const handleSwitchChange = () => {
+  //   setIsChecked(!isChecked);
+  // };
   const handleStartMonthChange = (e) => {
     dataSeter({
       ...data,
@@ -60,11 +60,11 @@ const DateSelector = ({ idPrefix, dataSeter, data, fromCreate }) => {
     return years;
   }
 
-  useEffect(() => {
-    if (fromCreate) {
-      setIsChecked(false);
-    }
-  }, [fromCreate]);
+  // useEffect(() => {
+  //   if (fromCreate) {
+  //     setIsChecked(false);
+  //   }
+  // }, [fromCreate]);
 
   return (
     <div className="flex gap-[14px] flex-wrap relative">
@@ -83,7 +83,7 @@ const DateSelector = ({ idPrefix, dataSeter, data, fromCreate }) => {
         <div className="flex gap-4">
           <div className="flex items-center rounded-lg border border-[#646464] bg-white text-[14px]  font-montserrat font-small relative min-w-[110px] w-full overflow-hidden relative">
             <select
-              disabled={!isChecked}
+              // disabled={!isChecked}
               id={`${idPrefix}-startMonth`}
               value={data?.duration?.start?.month}
               onChange={handleStartMonthChange}
@@ -177,7 +177,7 @@ const DateSelector = ({ idPrefix, dataSeter, data, fromCreate }) => {
             <div className="flex items-center rounded-lg border border-[#646464] bg-white text-[14px]  font-montserrat font-small relative min-w-[110px] w-full overflow-hidden">
               <select
                 id={`${idPrefix}-endMonth`}
-                disabled={!isChecked}
+                // disabled={!isChecked}
                 value={data?.duration?.end?.month}
                 onChange={handleEndMonthChange}
                 style={{
@@ -209,7 +209,7 @@ const DateSelector = ({ idPrefix, dataSeter, data, fromCreate }) => {
             <div className="flex items-center rounded-lg border border-[#646464] bg-white text-[14px]  font-montserrat font-small relative min-w-[100px] w-full overflow-hidden">
               <select
                 id={`${idPrefix}-endYear`}
-                disabled={!isChecked}
+                // disabled={!isChecked}
                 value={data?.duration?.end?.year}
                 onChange={handleEndYearChange}
                 style={{
@@ -242,14 +242,14 @@ const DateSelector = ({ idPrefix, dataSeter, data, fromCreate }) => {
       {
         fromCreate && <div className="flex flex-col gap-2 absolute right-0 top-[-6px] " >
         <div>
-          <label className="switch">
+          {/* <label className="switch">
             <input
               type="checkbox"
               checked={isChecked}
               onChange={handleSwitchChange}
             />
             <span className="slider round"></span>
-          </label>
+          </label> */}
         </div>
       </div>
       }

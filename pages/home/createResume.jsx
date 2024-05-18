@@ -53,7 +53,10 @@ function CreateResume() {
     sociaLinks: [],
     hobbies: [],
     languages: [],
+    internship:[],
+    reference:[],
     section: [],
+
   });
   function extractMobileNumber(inputString) {
     var regex = /[0-9]{10}/g;
@@ -141,7 +144,7 @@ function CreateResume() {
       });
     } else if (clientId) {
       axios
-        .get(`https://freedygoservices.in/api/client/getByClientId/${clientId}`)
+        .get(`http://localhost:2000/api/client/getByClientId/${clientId}`)
         .then((res) => {
           const result = res.data.data;
           setData({
