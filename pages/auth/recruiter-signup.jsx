@@ -244,8 +244,8 @@ function Recruiter_signup({ }) {
     }
     else {
       const url = isUpdate
-        ? "http://localhost:2000/api/updateUser"
-        : "http://localhost:2000/api/skiloteckuser/recruiter";
+        ? "https://freedygoservices.in/api/updateUser"
+        : "https://freedygoservices.in/api/skiloteckuser/recruiter";
       // setLoading(true);
       const formdata = new FormData();
       Object.keys(data).forEach((key) => {
@@ -318,7 +318,7 @@ function Recruiter_signup({ }) {
     let otp = Math.floor(100000 + Math.random() * 900000);
     setOtp(otp);
     axios
-      .post("http://localhost:2000/api/otpMailSignup", {
+      .post("https://freedygoservices.in/api/otpMailSignup", {
         userEmail: data.email,
         otp,
       })

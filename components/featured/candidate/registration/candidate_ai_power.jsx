@@ -144,7 +144,7 @@ const CandidateAiPower = ({
     extracteText(file).then((result) => {
       if (result[0]?.text?.length > 0) {
         axios
-          .post("http://localhost:2000/api/resume/extraction", {
+          .post("https://freedygoservices.in/api/resume/extraction", {
             data: result,
           })
           .then((res) => {
@@ -155,7 +155,7 @@ const CandidateAiPower = ({
               );
               axios
                 .put(
-                  "http://localhost:2000/api/subscription/updateUploadLimit/" +
+                  "https://freedygoservices.in/api/subscription/updateUploadLimit/" +
                     userDataGlobal._id
                 )
                 .then((res) => {

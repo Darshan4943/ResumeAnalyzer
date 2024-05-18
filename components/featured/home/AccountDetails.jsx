@@ -196,7 +196,7 @@ function AccountDetails({
       if (recruiterid) {
         axios
           .get(
-            "http://localhost:2000/api/skiloteckuser/user/" + recruiterid
+            "https://freedygoservices.in/api/skiloteckuser/user/" + recruiterid
           )
           .then((res) => {
             const decode = jwtDecode(res.data.data);
@@ -246,7 +246,7 @@ function AccountDetails({
     localStorage.setItem("paymentDetails", JSON.stringify(data));
     if (currency) {
       const { data } = await axios.post(
-        "http://localhost:2000/api/getPriceId",
+        "https://freedygoservices.in/api/getPriceId",
         {
           amount: Math.ceil(selectedPlan.amount * exchangeRate) * 100,
           productName: selectedPlan.productName,

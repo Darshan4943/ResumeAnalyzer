@@ -62,6 +62,7 @@ const ResumePreview = ({
 }) => {
   const [namePreview, setNamePreview] = useState(false);
   const [name, setName] = useState(data.firstName + "_resume");
+  console.log(65,name)
   const userDataGlobal = useSelector((state) => state.userData);
   const [downloadBtnLoading, setDownloadBtnLoading] = useState(false);
   const [downloadLimit, setDownloadLimit] = useState(0);
@@ -85,8 +86,9 @@ const ResumePreview = ({
   
   const callData = () => {
     axios
-      .get("http://localhost:2000/api/resume/" + userDataGlobal?._id)
+      .get("https://freedygoservices.in/api/resume/" + userDataGlobal?._id)
       .then((res) => {
+        console.log(91,res.data)
         setName(data.firstName + "_resume " + (res.data.data.length + 1));
       })
       .catch((err) => {
@@ -97,7 +99,8 @@ const ResumePreview = ({
   useEffect(() => {
     callData();
     setName(data.firstName + "_resume");
-  }, [userDataGlobal]);
+  }, [userDataGlobal,data.firstName]);
+
   const templates = [
     {
       title: "Template1",
@@ -668,7 +671,7 @@ const ResumePreview = ({
     setDownloadBtnLoading(true);
     axios
       .put(
-        "http://localhost:2000/api/subscription/updateDownloadLimit/" +
+        "https://freedygoservices.in/api/subscription/updateDownloadLimit/" +
           userDataGlobal._id
       )
       .then((res) => {
