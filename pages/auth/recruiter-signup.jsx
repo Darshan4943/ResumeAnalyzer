@@ -237,10 +237,12 @@ function Recruiter_signup({ }) {
     if (hasErrors) {
       toast.error("Please enter valid information");
       setFormError(errors);
-    } else if (!verified && !isUpdate) {
+    }
+    else if (!verified && !isUpdate) {
       setOtpError("Email Verification Required");
       toast.error("Email Verification Required");
-    } else {
+    }
+    else {
       const url = isUpdate
         ? "https://freedygoservices.in/api/updateUser"
         : "https://freedygoservices.in/api/skiloteckuser/recruiter";
@@ -386,22 +388,24 @@ function Recruiter_signup({ }) {
         />
       )}
       <div className=" relative !important">
-        <div className="register_head sticky ml:top-[50px] top-[2rem] w-[100%] z-50 pb-4 ml:pt-10 pt-6 bg-white">
-          <div className="register_cadidate py-3 px-2 overflow-hidden">
-            <div className="register_text_parent">
-              <div className="register_heding text-center">
-                <p className="ml:text-[30px] text-[24px] font-semibold text-white">
-                  Register as Recruiter
-                </p>
-                <p className="register_heding_desc">
-                  Fill up these details to start using the services from
-                  Skilotech
-                </p>
+        {!isUpdate &&
+          <div className="register_head sticky ml:top-[50px] top-[2rem] w-[100%] z-50 pb-4 ml:pt-10 pt-6 bg-white">
+            <div className="register_cadidate py-3 px-2 overflow-hidden">
+              <div className="register_text_parent">
+                <div className="register_heding text-center">
+                  <p className="ml:text-[30px] text-[24px] font-semibold text-white">
+                    Register as Recruiter
+                  </p>
+                  <p className="register_heding_desc">
+                    Fill up these details to start using the services from
+                    Skilotech
+                  </p>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div className={" pb-8  "}>
+        }
+        <div className={` ${isUpdate && "pt-12"} pb-8  `}>
           <div className="flex flex-col gap-4">
             <motion.div className=" flex justify-center pt-4  pb-2">
               <div className="personal_details_form scr1250:w-[60%] sm:w-[80%] w-[95%] education_page  ">
@@ -568,8 +572,8 @@ function Recruiter_signup({ }) {
                           name=""
                           // id="single_input"
                           placeholder={`${isViewportBelow850
-                              ? "Enter Number "
-                              : "Enter Contact Number "
+                            ? "Enter Number "
+                            : "Enter Contact Number "
                             }`}
                           value={data.mobileNo}
                           onChange={(e) =>

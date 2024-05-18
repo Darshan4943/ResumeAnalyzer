@@ -129,7 +129,7 @@ const Profile = () => {
             </div>
           </div>
           <div
-            className=" bg-[#fff] ml:W-[5%] w-[48px] h-[5%] p-3 rounded-xl"
+            className=" bg-[#fff] ml:W-[5%] w-[48px] h-[5%] p-3 rounded-xl cursor-pointer"
             onClick={()=>router.push(`/auth/recruiter-signup?isUpdate=true` )}
             style={{
               boxShadow: "0px 1px 2px 0px rgba(0, 0, 0, 0.25)",
