@@ -72,7 +72,7 @@ function TermsAndConditions() {
         <p>Skilotech may update or revise these Terms from time to time without prior notice. Any changes to these Terms will be effective immediately upon posting the revised Terms on the Services. Your continued use of the Services after the posting of the revised Terms constitutes your acceptance of the changes.</p>
 
         <h2 className="text-[16px] font-semibold mb-2">20. Questions</h2>
-        <p>If you have any questions or concerns about these Terms or our Services, please contact us at Support@Skilotech.com.</p>
+        <p>If you have any questions or concerns about these Terms or our Services, please contact us at <a href="mailto:support@skilotech.com">support@skilotech.com</a></p>
       </div>
     </div>
   );

@@ -12,9 +12,10 @@ import ImageContainer from "../../components/common/image";
 import ImageCropper from "../../components/featured/candidate/createResume/components/imageCropper";
 import MiniLoader from "../../components/common/mini-loader";
 
-function Recruiter_signup({}) {
+function Recruiter_signup({ }) {
   const router = useRouter();
   const { byAdmin, isUpdate } = router.query;
+  console.log(18, isUpdate)
   const userDataGlobal = useSelector((state) => state.userData);
 
   const dispatch = useDispatch();
@@ -236,7 +237,7 @@ function Recruiter_signup({}) {
     if (hasErrors) {
       toast.error("Please enter valid information");
       setFormError(errors);
-    } else if (!verified) {
+    } else if (!verified && !isUpdate) {
       setOtpError("Email Verification Required");
       toast.error("Email Verification Required");
     } else {
@@ -276,9 +277,8 @@ function Recruiter_signup({}) {
                   dispatch(reCallUserData());
                   toast.success("Sign up Successfully");
                   if (sendToPurchase && sendToPurchase?.status) {
-                    window.location.href = `/purchase/details?id=${
-                      sendToPurchase.index + 1
-                    }`;
+                    window.location.href = `/purchase/details?id=${sendToPurchase.index + 1
+                      }`;
                     setLoading(false);
                   } else {
                     window.location.href = `/home`;
@@ -518,15 +518,13 @@ function Recruiter_signup({}) {
                         Contact Number <span className="star">*</span>
                       </p>
                       <div
-                        className={`flex w-[100%] items-start ${
-                          isViewportBelow850 ? "gap-[4px] " : "gap-[16px] "
-                        }`}
+                        className={`flex w-[100%] items-start ${isViewportBelow850 ? "gap-[4px] " : "gap-[16px] "
+                          }`}
                         id="single_input"
                       >
                         <div
-                          className={`relative min-w-[150px] ${
-                            isViewportBelow850 ? "w-[65%] " : "w-[40%] "
-                          } items-center`}
+                          className={`relative min-w-[150px] ${isViewportBelow850 ? "w-[65%] " : "w-[40%] "
+                            } items-center`}
                         >
                           <div className="  w-[100%] text-[14px] justify-center items-center  flex font-[500] text-[#646464]">
                             <div className="flex items-center justify-center gap-2 cursor-pointer min-w-[140px] w-[100%]">
@@ -569,11 +567,10 @@ function Recruiter_signup({}) {
                           type="text"
                           name=""
                           // id="single_input"
-                          placeholder={`${
-                            isViewportBelow850
+                          placeholder={`${isViewportBelow850
                               ? "Enter Number "
                               : "Enter Contact Number "
-                          }`}
+                            }`}
                           value={data.mobileNo}
                           onChange={(e) =>
                             handleInputChange("mobileNo", e.target.value)
@@ -597,6 +594,8 @@ function Recruiter_signup({}) {
                         </p>
                         <div className="flex gap-2 items-center justify-center">
                           <input
+                            disabled={isUpdate}
+                            style={{ opacity: isUpdate ? "0.5" : "1" }}
                             type="email"
                             name=""
                             id="single_input"
@@ -611,16 +610,18 @@ function Recruiter_signup({}) {
                           {!verified && (
                             <>
                               {!verify ? (
-                                <button
-                                  onClick={handleVerification}
-                                  className=" ms:min-w-[150px] min-w-[95px] ms:text-[16px] text-[12px] font-medium flex justify-center items-center border border-blue bg-blue text-white  py-3 ms:px-4 px-2 rounded-[8px] leading-tight h-[48px] "
-                                >
-                                  {loadingg ? (
-                                    <MiniLoader />
-                                  ) : (
-                                    <>Verify Email</>
-                                  )}
-                                </button>
+                                !isUpdate && (
+                                  <button
+                                    onClick={handleVerification}
+                                    className="ms:min-w-[150px] min-w-[95px] ms:text-[16px] text-[12px] font-medium flex justify-center items-center border border-blue bg-blue text-white py-3 ms:px-4 px-2 rounded-[8px] leading-tight h-[48px]"
+                                  >
+                                    {loadingg ? (
+                                      <MiniLoader />
+                                    ) : (
+                                      <>Verify Email</>
+                                    )}
+                                  </button>
+                                )
                               ) : (
                                 <button className=" min-w-[150px] text-[16px] font-medium flex justify-center items-center border border-blue text-[#C00000]  py-3 px-4 rounded-[8px] leading-tight h-[48px] ">
                                   {loadingg ? (

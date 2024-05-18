@@ -771,7 +771,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                       >
                         <Text
                           style={{
-                            color: "#787879",
+                            color: "#414042",
                             fontSize: "9px",
                             fontFamily: `${selectedFont} 700`,
                           }}
@@ -780,7 +780,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                         </Text>
                         <Text
                           style={{
-                            color: "#787879",
+                            color: "#888888",
                             fontSize: "10px",
                             fontFamily: `${selectedFont} 400`,
                           }}
@@ -796,6 +796,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
           </View>
           {data?.section?.map((item, index) => (
             <View
+            wrap={false}
               key={index}
               style={{
                 display: "flex",
@@ -874,6 +875,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                   ></View>
                 </View>
                 <View
+                  wrap={false}
                   style={{
                     display: "flex",
                     flexDirection: "column",
@@ -884,7 +886,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                   {item?.subSection?.map((detail, index) => (
                     <>
                       <View
-                        wrap={false}
+                      
                         key={index}
                         style={{
                           display: "flex",
@@ -937,7 +939,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                           <Text
                             style={{
                               color: "#787879",
-                              fontSize: "9px",
+                              fontSize: "10px",
                               fontFamily: `${selectedFont} 400`,
                             }}
                           >
