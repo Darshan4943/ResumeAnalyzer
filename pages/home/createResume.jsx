@@ -144,7 +144,7 @@ function CreateResume() {
       });
     } else if (clientId) {
       axios
-        .get(`https://freedygoservices.in/api/client/getByClientId/${clientId}`)
+        .get(`http://localhost:2000/api/client/getByClientId/${clientId}`)
         .then((res) => {
           const result = res.data.data;
           setData({
@@ -221,6 +221,7 @@ function CreateResume() {
                   isEdit={userData.isEdit}
                   id={editId}
                   render={render}
+                  clientId={clientId}
                 />
               </div>
             </div>
@@ -273,6 +274,7 @@ function CreateResume() {
               isEdit={userData.isEdit}
               id={editId}
               render={render}
+              clientId={clientId}
             />
           </div>
         </div>

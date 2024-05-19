@@ -45,7 +45,7 @@ export const Api = () => {
         const decoded = jwtDecode(token.token);
         axios
           .get(
-            "https://freedygoservices.in/api/skiloteckuser/user/" + decoded._id
+            "http://localhost:2000/api/skiloteckuser/user/" + decoded._id
           )
           .then((res) => {
             const decode = jwtDecode(res.data.data);
@@ -71,7 +71,7 @@ export const Api = () => {
     if (userDataGlobal) {
       axios
         .get(
-          "https://freedygoservices.in/api/subscription/" + userDataGlobal._id
+          "http://localhost:2000/api/subscription/" + userDataGlobal._id
         )
         .then((res) => {
           const result = res.data.findIsActive;
@@ -97,7 +97,7 @@ export const Api = () => {
             if (timezone >= newEnddate && result.isActive) {
               axios
                 .put(
-                  "https://freedygoservices.in/api/subscription/update/" +
+                  "http://localhost:2000/api/subscription/update/" +
                     result._id
                 )
                 .then((res) => {
@@ -160,7 +160,7 @@ export const Api = () => {
   //               );
   //               const symbol = icon ? icon.symbol : currency;
   //               const exchangeRate = await axios.get(
-  //                 "https://freedygoservices.in/api/exchangeRate/" + currency
+  //                 "http://localhost:2000/api/exchangeRate/" + currency
   //               );
   //               localStorage.setItem("exchangeRate", exchangeRate.data.rate);
   //               localStorage.setItem("currency", currency);
@@ -251,7 +251,7 @@ export const Api = () => {
           );
           const symbol = icon ? icon.symbol : currency;
           const exchangeRate = await axios.get(
-            `https://freedygoservices.in/api/exchangeRate/${currency}`
+            `http://localhost:2000/api/exchangeRate/${currency}`
           );
           localStorage.setItem("exchangeRate", exchangeRate.data.rate);
           localStorage.setItem("currency", currency);

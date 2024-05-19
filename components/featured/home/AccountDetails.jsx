@@ -159,7 +159,7 @@ function AccountDetails({
   //       loading: true,
   //     });
   //     axios
-  //       .post("https://freedygoservices.in/api/add/subscription", {
+  //       .post("http://localhost:2000/api/add/subscription", {
   //         userId: userDataGlobal._id,
   //         plan: selectedPlan.duration + " " + selectedPlan.limit,
   //         ...jsonData,
@@ -196,7 +196,7 @@ function AccountDetails({
       if (recruiterid) {
         axios
           .get(
-            "https://freedygoservices.in/api/skiloteckuser/user/" + recruiterid
+            "http://localhost:2000/api/skiloteckuser/user/" + recruiterid
           )
           .then((res) => {
             const decode = jwtDecode(res.data.data);
@@ -246,7 +246,7 @@ function AccountDetails({
     localStorage.setItem("paymentDetails", JSON.stringify(data));
     if (currency) {
       const { data } = await axios.post(
-        "https://freedygoservices.in/api/getPriceId",
+        "http://localhost:2000/api/getPriceId",
         {
           amount: Math.ceil(selectedPlan.amount * exchangeRate) * 100,
           productName: selectedPlan.productName,
@@ -275,7 +275,7 @@ function AccountDetails({
         try {
           const priceId = await getPriceId();
           axios
-            .post("https://freedygoservices.in/api/proceed/payment", {
+            .post("http://localhost:2000/api/proceed/payment", {
               priceId,
               id: selectedPlan.index,
             })
@@ -300,7 +300,7 @@ function AccountDetails({
   const handleRetrieveSession = useMemo(() => async (storedId) => {
     try {
       setSuccessModel({ visible: true, loading: true });
-      const response = await axios.get('https://freedygoservices.in/api/retrieve/session', {
+      const response = await axios.get('http://localhost:2000/api/retrieve/session', {
         params: { storedId }
       });
       const session = response.data;
@@ -333,7 +333,7 @@ function AccountDetails({
     }
 
     try {
-      await axios.post('https://freedygoservices.in/api/add/subscription', {
+      await axios.post('http://localhost:2000/api/add/subscription', {
         userId: userDataGlobal._id,
         plan: `${selectedPlan.duration} ${selectedPlan.limit}`,
         ...jsonData,

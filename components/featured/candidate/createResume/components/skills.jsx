@@ -11,7 +11,7 @@ import axios from "axios";
 
 const Skills = ({ data, setData }) => {
   const [skills, setSkills] = useState([]);
-  
+  console.log(14,skills)
   const [isClearable, setIsClearable] = useState({ value: "", label: "" });
   // console.log(isClearable)
   const userDataGlobal = useSelector((state) => state.userData);
@@ -42,8 +42,9 @@ const Skills = ({ data, setData }) => {
 
   useEffect(() => {
     axios
-      .get("https://freedygoservices.in/api/AllSkills")
+      .get("http://localhost:2000/api/AllSkills")
       .then((res) => {
+        console.log(res)
         const names = res.data.map(skill => skill.name);
        
         setSkills(names);
@@ -51,7 +52,7 @@ const Skills = ({ data, setData }) => {
       .catch((err) => {
         console.log(err);
       });
-  }, [skillList]);
+  }, []);
   // console.log(skillList)
 
   const deleteSkill = (index) => {
@@ -82,7 +83,7 @@ const Skills = ({ data, setData }) => {
     const found = skillList?.find((item) => item.skill.name === value.label);
     if (!found) {
       try {
-        const response = await fetch('https://freedygoservices.in/api/skills', {
+        const response = await fetch('http://localhost:2000/api/skills', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

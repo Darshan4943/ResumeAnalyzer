@@ -59,14 +59,17 @@ const ResumePreview = ({
   isEdit,
   id,
   render,
+  clientId
 }) => {
+  console.log(64,clientId)
   const [namePreview, setNamePreview] = useState(false);
   const [name, setName] = useState(data.firstName + "_resume");
-  console.log(65,name)
+  console.log(65, name)
   const userDataGlobal = useSelector((state) => state.userData);
   const [downloadBtnLoading, setDownloadBtnLoading] = useState(false);
   const [downloadLimit, setDownloadLimit] = useState(0);
   const [saveLimit, setSaveLimit] = useState(0);
+
   const [limitUsedModal, setLimitUsedModal] = useState(false);
   // console.log(67, userDataGlobal);
   const getLimits = () => {
@@ -83,23 +86,28 @@ const ResumePreview = ({
   useEffect(() => {
     getLimits();
   }, []);
-  
+
   const callData = () => {
-    axios
-      .get("https://freedygoservices.in/api/resume/" + userDataGlobal?._id)
-      .then((res) => {
-        console.log(91,res.data)
-        setName(data.firstName + "_resume " + (res.data.data.length + 1));
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    const id = clientId === "undefined" ? userDataGlobal?._id  : clientId;
+    if (id) {
+      axios
+        .get(`http://localhost:2000/api/resume/${id}`)
+        .then((res) => {
+          // Remove .pdf extension from filenames
+          const filenamesWithoutExtension = res.data.data.map(item => item.fileName.replace(/\.pdf$/, ""));
+         
+          setName(data.firstName + "_resume " + (res.data.data.length + 1));
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
 
   useEffect(() => {
     callData();
     setName(data.firstName + "_resume");
-  }, [userDataGlobal,data.firstName]);
+  }, [userDataGlobal, data.firstName]);
 
   const templates = [
     {
@@ -577,7 +585,7 @@ const ResumePreview = ({
         formData.append("pdfBlob", blob);
 
         axios
-          .put("https://freedygoservices.in/api/resume/" + id, formData)
+          .put("http://localhost:2000/api/resume/" + id, formData)
           .then((res) => {
             localStorage.setItem("saveCount", saveLimit - 1);
             getLimits();
@@ -631,7 +639,7 @@ const ResumePreview = ({
         }
 
         axios
-          .post("https://freedygoservices.in/api/resume/add", formData)
+          .post("http://localhost:2000/api/resume/add", formData)
           .then((res) => {
             const pdfUrl = res.data.data.resumeUrl;
 
@@ -671,8 +679,8 @@ const ResumePreview = ({
     setDownloadBtnLoading(true);
     axios
       .put(
-        "https://freedygoservices.in/api/subscription/updateDownloadLimit/" +
-          userDataGlobal._id
+        "http://localhost:2000/api/subscription/updateDownloadLimit/" +
+        userDataGlobal._id
       )
       .then((res) => {
         const result = res.data;
@@ -1005,6 +1013,7 @@ const ResumePreview = ({
           data={data}
           setNamePreview={setNamePreview}
           setFunction={(data) => setName(data)}
+          clientId={clientId}
         />
       )}
     </div>

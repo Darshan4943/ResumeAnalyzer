@@ -123,7 +123,7 @@ function Dashboard() {
     if (userDataGlobal) {
       axios
         .get(
-          "https://freedygoservices.in/api/subscription/" + userDataGlobal._id
+          "http://localhost:2000/api/subscription/" + userDataGlobal._id
         )
         .then((res) => {
           const plan = plans.find(

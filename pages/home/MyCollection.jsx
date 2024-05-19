@@ -26,7 +26,7 @@ const MyCollection = () => {
 
   useEffect(() => {
     axios
-      .get("https://freedygoservices.in/api/resume/" + userDataGlobal?._id)
+      .get("http://localhost:2000/api/resume/" + userDataGlobal?._id)
       .then((res) => {
         setResumeList(res.data.data);
       })
@@ -53,7 +53,7 @@ const MyCollection = () => {
     }
 
     axios
-      .delete("https://freedygoservices.in/api/resume/deleteResume", {
+      .delete("http://localhost:2000/api/resume/deleteResume", {
         data: { ids },
       })
       .then((response) => {
