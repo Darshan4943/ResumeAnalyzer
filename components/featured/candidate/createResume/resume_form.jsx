@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import ResumeList from "./components/my_resume";
 import PersonalDetails from "./components/personal_details";
 import AboutMe from "./components/about_me";
@@ -25,6 +25,7 @@ const ResumeForm = ({
   setSelectedColor,
   setSelectedFont,
   selectedFont,
+  templates
 }) => {
   const [formField, setFormField] = useState([]);
   const [view, setView] = useState(false)
@@ -40,10 +41,101 @@ const ResumeForm = ({
   const [achievement, setAchievement] = useState(false)
   const [intern, setIntern] = useState(false)
   const [showReference, setShowReference] = useState(false)
+  const [isAll, setIsAll] = useState(false);
+
+  const handleImageClick = (template) => {
+    togglePreview(true, template.index);
+    setSelectedColor(template.themeColor);
+    setSelectedFont(template.fontFamily);
+  };
+
+  const togglePreview = (isVisible, index) => {
+    setSelectedResumeIndex(index);
+  };
+
+  const taskRef = useRef(null);
+
+  const handleOutsideClick = (event) => {
+    if (taskRef.current && !taskRef.current.contains(event.target)) {
+      setIsAll(false);
+  
+    }
+  };
+  useEffect(() => {
+    document.addEventListener("mousedown", handleOutsideClick);
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, []);
+  const renderTemplates = () => {
+    const selectedStyle = {
+      borderTop: " 4px solid #06A9EF",
+      borderBottom: "4px solid #06A9EF",
+      height: " 210px",
+      width: "auto",
+    };
+    return templates.map((template, index) => (
+      <img
+        style={selectedResumeIndex == template.index ? selectedStyle : {}}
+        key={index}
+        src={template.imgUrl}
+        className="h-[200px] w-[140.91px] rounded-[6px]"
+        alt=""
+        onClick={() => handleImageClick(template)}
+      />
+    ));
+  };
+
+  const renderAllTemplates = () => {
+    return templates.map((template, index) => (
+      <img
+        key={index}
+        src={template.imgUrl}
+        className="h-[330px] w-[234px] rounded-[6px] transition-transform duration-300 ease-in-out hover:scale-105"
+        style={{ boxShadow: "0px 0px 26.499px 0px rgba(0, 0, 0, 0.25)" }}
+        alt=""
+        onClick={() => {
+          handleImageClick(template);
+          setIsAll(false);
+        }}
+      />
+    ));
+  };
 
   return (
     <>
       <div className="flex flex-col pr-[10px] ml:w-[100%] w-[100%]  pb-4 gap-4 rounded-lg ">
+      <div className="rounded-[8px] bg-[#BCEBFF]  px-4 pt-[10px] ">
+          <div
+            className="flex gap-4 pb-[10px]  items-center"
+            style={{ overflowX: "auto" }}
+          >
+            {renderTemplates()}
+          </div>
+        </div>
+
+        <div
+          onClick={() => setIsAll(true)}
+          className="flex justify-end text-[18px] font-[500] text-[#06A9EF] cursor-pointer"
+        >
+          See All Templates
+        </div>
+        {isAll && (
+          <div>
+            <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
+            <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center  ">
+              <div
+                ref={taskRef}
+                onWheel={(e) => e.stopPropagation()}
+                className=" absolute top-[72px] flex p-6 bg-white rounded-[24px] shadow-md  gap-6 flex-wrap justify-center items-center ml:w-[65%] w-[90%] h-[90vh] overflow-y-auto "
+              >
+                {renderAllTemplates()}
+              </div>
+            </div>
+          </div>
+        )}
+
+        
         <ResumeList setData={setData} data={data} />
         <ThemeForm
           selectedResumeIndex={selectedResumeIndex}

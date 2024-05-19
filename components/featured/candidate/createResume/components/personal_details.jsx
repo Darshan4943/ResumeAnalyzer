@@ -121,8 +121,9 @@ const PersonalDetails = ({ setData, data }) => {
     return allFieldsValid;
   };
 
-  const handleInputChange = (e) => {
+  const  handleInputChange = (e) => {
     const { name, value } = e.target;
+    
     if (name == "mobileNumber") {
       if (value.replace(/\D/g, "").length <= 10) {
         setProfileData({
