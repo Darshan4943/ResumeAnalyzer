@@ -161,11 +161,13 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                   }}
                 >
                   <Svg
+                  
                     width="22"
                     height="22"
                     viewBox="0 0 22 22"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
+                    style={{ minWidth: '22px', minHeight: '22px' }}
                   >
                     <Rect width="22" height="22" fill={selectedColor} />
                     <Path
@@ -397,7 +399,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                 style={{
                   color: "#6D6E71",
                   fontSize: "10px",
-                  lineHeight: 1.6,
+                  lineHeight: 1.2,
                   fontFamily: `${selectedFont} 400`,
                 }}
               >
@@ -438,7 +440,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                         color: "#414042",
                         fontSize: 12,
                         fontFamily: `${selectedFont} 700`,
-                        lineHeight: 1.2,
+                        lineHeight: 1.5 ,
                       }}
                     >
                       {detail.designation}
@@ -456,7 +458,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                         color: "#414042",
                         fontSize: 10,
                         fontFamily: `${selectedFont} 400`,
-                        lineHeight: 1.2,
+                        lineHeight: 1.5 ,
                         width: "100%",
                       }}
                     >
@@ -468,7 +470,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                           color: "#414142",
                           fontSize: 10,
                           fontFamily: `${selectedFont} 400`,
-                          lineHeight: 1,
+                          lineHeight: 1.5 ,
                         }}
                       >
                         {detail.duration?.start?.year !== "Year" &&
@@ -487,7 +489,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                       style={{
                         color: "#6D6E71",
                         fontSize: "10px",
-                        lineHeight: 1.6,
+                        lineHeight: 1.2 ,
                         fontFamily: `${selectedFont} 400`,
                       }}
                     >
@@ -540,10 +542,10 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                     >
                       <Text
                         style={{
-                          color: "#414042",
+                          color: "#414142",
                           fontSize: 12,
                           fontFamily: `${selectedFont} 700`,
-                          lineHeight: 1.2,
+                          lineHeight: 1.5,
                         }}
                       >
                         {detail.title}
@@ -563,7 +565,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                                   color: "#414142",
                                   fontSize: 10,
                                   fontFamily: `${selectedFont} 400`,
-                                  lineHeight: 1,
+                                  lineHeight: 1.5,
                                 }}
                               >
                                 {detail.duration?.end?.year &&
@@ -585,8 +587,9 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                     >
                       <Text
                         style={{
-                          color: "#A7A9AC",
-                          fontSize: 12,
+                          color: "#6D6E71",
+                          fontSize: "10px",
+                          lineHeight: 1.2 ,
                           fontFamily: `${selectedFont} 400`,
                         }}
                       >

@@ -60,7 +60,8 @@ const CandidateAiPower = ({
   const userDataGlobal = useSelector((state) => state.userData);
   const [limitUsedModal, setLimitUsedModal] = useState(false);
   const [resumeErrorPopup, setResumeErrorPopup] = useState(false);
-
+  const [count, setCount] = useState(0)
+  
   useEffect(() => {
     const resumeUploadCount = localStorage.getItem("uploadCount");
     setUploadLimit(resumeUploadCount ? resumeUploadCount : 0);
@@ -143,6 +144,7 @@ const CandidateAiPower = ({
     }
     setLoading(true);
     extracteText(file).then((result) => {
+      console.log(145, result)
       if (result[0]?.text?.length > 0) {
         axios
           .post("http://localhost:2000/api/resume/extraction", {
@@ -150,6 +152,7 @@ const CandidateAiPower = ({
           })
           .then((res) => {
             if (Object.keys(res.data.data[0]).length > 0) {
+
               localStorage.setItem(
                 "parsedResume",
                 JSON.stringify(res.data.data[0])
@@ -157,7 +160,7 @@ const CandidateAiPower = ({
               axios
                 .put(
                   "http://localhost:2000/api/subscription/updateUploadLimit/" +
-                    userDataGlobal._id
+                  userDataGlobal._id
                 )
                 .then((res) => {
                   const result = res.data;
@@ -186,11 +189,18 @@ const CandidateAiPower = ({
                   router.push(`/home/createResume?clientId=${clientId}`);
                 });
             } else {
-              setResumeErrorPopup(true);
-              toast.error("Unable to parse resume, please try again later");
-              setLoading(false);
-              setfile();
+              setCount(count + 1)
+              if (count <= 1) {
+                navigate()
+              }
+              else {
+                setResumeErrorPopup(true)
+                // toast.error("Unable to parse resume, please try again later");
+                setLoading(false);
+                setfile();
+              }
             }
+
           })
           .catch((err) => {
             setLoading(false);
@@ -199,7 +209,7 @@ const CandidateAiPower = ({
           });
       } else {
         setResumeErrorPopup(true);
-        toast.error("Error while parsing resume please try again");
+        // toast.error("Error while parsing resume please try again");
         setLoading(false);
         setfile();
       }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Progress_bar from "./ProgressBar";
 import CloseIcon, {
   DesignationSVG,
@@ -41,10 +41,24 @@ const MatchingDetails = ({ data, setSelectedFile, files, extractedData }) => {
       return "/images/pdfIcon.png";
     }
   };
+  const taskRef = useRef(null);
+
+  const handleOutsideClick = (event) => {
+    if (taskRef.current && !taskRef.current.contains(event.target)) {
+      setSelectedFile(null)
+  
+    }
+  };
+  useEffect(() => {
+    document.addEventListener("mousedown", handleOutsideClick);
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, []);
 
   return (
     <>
-      <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
+      <div ref={taskRef} className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
       <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center    px-4 py-4 ">
         <div className=" absolute bg-white rounded-lg    px-4 py-4   shadow-lg min-h-[500px] max-h-[600px] overflow-x-auto  items-end ml:w-[40vw] sm:w-[70%] w-[90%] flex flex-col gap-[8px]">
           <div className="flex flex-col gap-[4px]  w-full relative">

@@ -71,7 +71,7 @@ function ThemeForm({
     "Inter",
     "Outfit",
     "Kanit",
-    "Antonio",
+   
   ];
 
   const handleColorClick = (color) => {
