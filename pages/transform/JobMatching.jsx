@@ -75,9 +75,8 @@ const JobMatching = () => {
       }
     }
     const storedIndexes = localStorage.getItem("selectedIndexes");
-    const storedIndexesFileType = localStorage.getItem(
-      "selectedIndexesFileType"
-    );
+    const storedIndexesFileType = localStorage.getItem("selectedIndexesFileType");
+    
     if (storedIndexesFileType) {
       setSelectedIndexesFilesType(JSON.parse(storedIndexesFileType));
     }
