@@ -52,7 +52,7 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
             </View>
 
             <View
-              style={{ display: "flex", flexDirection: "column", gap: "8" }}
+              style={{ display: "flex", flexDirection: "column", gap: "8" ,maxWidth:'100%' }}
             >
               <Text
                 style={{
@@ -71,8 +71,8 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
                     gap: "12px",
                     justifyContent: "start",
                     alignItems: "center",
-                    paddingRight: " 4px",
                     paddingTop: "5px",
+                    paddingHorizontal:'2px',
                   }}
                 >
                   <Svg
@@ -105,11 +105,13 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
                 <View
                   style={{
                     flexDirection: "row",
-                    breakAll: true,
+                    // breakAll: true,
                     gap: "12px",
                     justifyContent: "start",
                     alignItems: "center",
-                    paddingRight: " 4px",
+                    paddingHorizontal:'2px',
+                    maxWidth:"100%",
+                  
                   }}
                 >
                   <Svg
@@ -148,7 +150,7 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
                     justifyContent: "start",
                     gap: "12px",
                     alignItems: "center",
-                    paddingRight: " 4px",
+                    paddingHorizontal:'2px',
                   }}
                 >
                   <Svg
@@ -367,7 +369,8 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
             gap: "32px",
           }}
         >
-          <View style={{ flexDirection: "column", marginTop: 24, gap: 4 }}>
+          <View style={{ flexDirection: "column", marginTop: 24, gap: 4 ,maxWidth:'100%'}}>
+           <View style={{maxWidth:"100%"}}>
             <Text
               style={{
                 color: "#030203",
@@ -377,6 +380,8 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
             >
               {data.firstName} {data.lastName}
             </Text>
+            </View>
+            {/* <View style={{maxWidth:"80%" ,paddingHorizontal:'20px'}}> */}
             <Text
               style={{
                 fontSize: "14px",
@@ -386,6 +391,7 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
             >
               {data.designation}
             </Text>
+            {/* </View> */}
             <View
               style={{
                 height: "1px",
@@ -505,7 +511,8 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
                       {detail.designation}{" "}
                     </Text>
 
-                    <View style={{ flexDirection: "row", gap: 4,justifyContent:'space-between' }}>
+                    <View style={{ flexDirection: "row", gap: 4,justifyContent:'space-between' ,maxWidth:'100%'}}>
+                    <View style={{ flexDirection: "row", gap: 4 ,maxWidth:'80%'}}>
                       <Text
                         style={{
                           color: "#58595B",
@@ -516,19 +523,26 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
                       >
                         {detail.organization}
                       </Text>
-                      <View
+                      {/* <View
                         style={{
                           backgroundColor: "#58595B",
                           height: "12px",
                           width: "1px",
                         }}
-                      ></View>
+                      >
+                      </View>   */}
+                      </View>
+                      <View
+                        style={{
+                          
+                        }}
+                      >
                       <Text
                         style={{
                           color: "#58595B",
                           fontSize: "12px",
                           fontFamily: `${selectedFont} 400`,
-                          maxWidth:"30%"
+                          // maxWidth:"30%"
                         }}
                       >
                         {detail.duration?.start?.year !== "Year" &&
@@ -537,6 +551,7 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
                             : detail.duration?.end?.year}
                          `}
                       </Text>
+                    </View>
                     </View>
                     <Text
                       style={{

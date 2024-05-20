@@ -16,10 +16,12 @@ import {
 import React from "react";
 
 const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
-  console.log(19, data);
+  // console.log(19, data);
   return (
     <Page size="A4" style={{ padding: 24 }} wrap={true}>
-      <View style={{ minHeight: 793.8 }}>
+      {/* <View style={{ minHeight: 793.8 }}> */}
+      {/* <View> */}
+      <View>
         <Svg
           style={{ margin: -24 }}
           width="595"
@@ -37,6 +39,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
             display: "flex",
             position: "absolute",
             flexDirection: "column",
+            maxWidth:'60%'
           }}
         >
           <Text style={{ fontWeight: 600, fontSize: 32, color: selectedColor }}>
@@ -554,7 +557,9 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
             </View>
 
             <View style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-              <View style={{ display: "flex", flexDirection: "col", gap: 4 }}>
+              <View 
+              
+              style={{ display: "flex", flexDirection: "col", gap: 4 }}>
                 <View style={{ display: "flex", flexDirection: "row", gap: 8 }}>
                   <Svg
                     width="21"

@@ -179,7 +179,7 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
                 justifyContent: "center",
                 alignItems: "center",
                 maxWidth:'100%',
-                paddingHorizontal:'10px '
+                paddingHorizontal:'10px'
               }}
             >
               <Text
@@ -392,7 +392,7 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
             gap: 44,
           }}
         >
-          <View style={{ display: "flex", flexDirection: "column", gap: 2 }}>
+          <View style={{ display: "flex", flexDirection: "column", gap: 2 , maxWidth:'100%' }}>
             <Text
               style={{
                 fontFamily: `${selectedFont} 400`,

@@ -162,7 +162,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                   {data.mobileNumber}
                 </Text>
               </View>
-              <View style={{ display: "flex", flexDirection: "row", gap: 6,maxWidth:'100%',paddingHorizontal:'8px' }}>
+              <View style={{ display: "flex", flexDirection: "row", gap: 6,maxWidth:'100%', }}>
                 <Svg
                   width="16"
                   height="12"
@@ -627,7 +627,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
               gap: 6,
               paddingTop: 24,
               paddingLeft: 24,
-              paddingRight: 24,
+              
               gap: 24,
             }}
           >
@@ -998,20 +998,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                               >
                                 {detail.title}
                               </Text>
-                              {detail.duration?.start?.year &&
-                                detail.duration?.end?.year && (
-                                  <Text
-                                    style={{
-                                      fontFamily: `${selectedFont} 400`,
-                                      fontSize: 10,
-                                      color: "#252829",
-
-                                    }}
-                                  >
-                                    {detail.duration?.start?.year}-
-                                    {detail.duration?.end?.year}
-                                  </Text>
-                                )}
+                            
                             </View>
                           )}
                           <View
@@ -1036,6 +1023,20 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                               </Text>
                             </View>
                           )}
+                            {detail.duration?.start?.year &&
+                                detail.duration?.end?.year && (
+                                  <Text
+                                    style={{
+                                      fontFamily: `${selectedFont} 400`,
+                                      fontSize: 10,
+                                      color: "#252829",
+
+                                    }}
+                                  >
+                                    {detail.duration?.start?.year}-
+                                    {detail.duration?.end?.year}
+                                  </Text>
+                                )}
                         </View>
                       </View>
                     ))}
