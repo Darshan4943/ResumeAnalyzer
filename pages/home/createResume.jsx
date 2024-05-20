@@ -381,7 +381,7 @@ function CreateResume() {
                   setSelectedColor={setSelectedColor}
                   selectedColor={selectedColor}
                   setSelectedFont={setSelectedFont}
-                  templates={templates}
+                  template={templates}
                 />
               </div>
               <div className="sticky top-[88px]  h-[50rem] w-[60%] ">
@@ -432,7 +432,7 @@ function CreateResume() {
                   selectedColor={selectedColor}
                   setSelectedFont={setSelectedFont}
                   selectedFont={selectedFont}
-                  templates={templates}
+                  template={templates}
                 />
               </motion.div>
             </AnimatePresence>

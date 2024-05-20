@@ -50,6 +50,7 @@ const AddSection = ({ data, setData, section, formData, index, item }) => {
     setSectionData(listItems[index]);
     setIsModified({ status: true, index });
     setView(true);
+    setIsEdited(true)
   };
 
   const deleteHandler = (index) => {

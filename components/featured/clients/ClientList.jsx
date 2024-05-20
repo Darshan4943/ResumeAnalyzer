@@ -11,7 +11,8 @@ function ClientList({
   setSelect,
   selectedIndexes,
   setSelectedIndexes,
-  select,deleteClient,
+  select, deleteClient,
+  ClientCount
 }) {
   const router = useRouter();
   const [openPopupIndex, setOpenPopupIndex] = useState(null);
@@ -50,11 +51,39 @@ function ClientList({
   };
   return (
     <>
+
       <div className="rounded-[16px]  flex flex-col gap-4 w-[100%] break-all">
         <div className="text-[16px] font-medium">
           Total Clients ({details?.length})
         </div>
-        <div className="flex  gap-8 flex-wrap scr700:justify-start justify-center ">
+
+        <div className="flex  gap-8 flex-wrap scr700:justify-start justify-center  ">
+          <div
+            onClick={() => {
+              if (ClientCount === 0) {
+                setLimitPopUp(true);
+              } else {
+                router.push("/myClients/CreateNewClient");
+              }
+            }}
+            style={{ boxShadow: "0px 0px 10px 5px #00000040" }}
+            className="rounded-[24px] text-center text-white justify-center hidden  ms:flex scr540:flex-col flex-row text-[18px] items-center gap-2 font-medium  min-w-[268px]  max-w-[268px] bg-[#646464] p-6 cursor-pointer"
+          >
+            <svg
+              width="27"
+              height="27"
+              viewBox="0 0 27 27"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M11.8187 14.6206H0.0750732V12.1079H11.8187V0.364258H14.3314V12.1079H26.075V14.6206H14.3314V26.3642H11.8187V14.6206Z"
+                fill="white"
+              />
+            </svg>
+
+            <p>Create New Client</p>
+          </div>
           {details?.map((detail, index) => (
             <div
               onClick={() => toggleDetails(detail)}
@@ -86,7 +115,7 @@ function ClientList({
                 />
 
                 <svg
-                  onClick={(e) => {toggleOptions(index, e);toggleSelect(index);}}
+                  onClick={(e) => { toggleOptions(index, e); toggleSelect(index); }}
                   className="absolute right-[-4%] cursor-pointer"
                   width="24"
                   height="24"
@@ -111,8 +140,8 @@ function ClientList({
                     }}
                   >
                     <p onClick={() => toggleDetails(detail)} className="text-[14px] font-medium">View Client</p>
-                   
-                    <p  onClick={(e) => {e.stopPropagation();deleteClient(); setOpenPopupIndex(null);}}  className="text-[14px] text-red font-medium">Delete</p>
+
+                    <p onClick={(e) => { e.stopPropagation(); deleteClient(); setOpenPopupIndex(null); }} className="text-[14px] text-red font-medium">Delete</p>
                   </div>
                 )}
               </div>

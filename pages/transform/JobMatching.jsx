@@ -53,6 +53,8 @@ const JobMatching = () => {
     fileRef.current.click();
   };
 
+
+  
   useEffect(() => {
     if (selectedOptions.value === "My Collection") {
       setTab(1);
@@ -321,7 +323,7 @@ const JobMatching = () => {
       });
       await Promise.all(promise);
     }
-    setTextData(textData);
+    // setTextData(textData);
     setFiles(selectedFiles);
   };
 

@@ -27,7 +27,7 @@ const ResumeList = ({ data, setData }) => {
           toast.error("Only Image files are allowed");
         }
       } else {
-        toast.error("Please select a file that is  2 MB.");
+        toast.error("Please select a file which is less than 2 MB.");
       }
     }
   };
