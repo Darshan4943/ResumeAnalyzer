@@ -22,7 +22,7 @@ const Index = () => {
   const getData = () => {
     setLoading(true);
     axios
-      .get("https://freedygoservices.in/api/enquires", {
+      .get("http://localhost:2000/api/enquires", {
         params: { page, limit },
       })
       .then((res) => {
@@ -63,7 +63,7 @@ const Index = () => {
           </span>
         </div>
         <div
-          className="min-h-[90vh]  rounded-[16px] customMargins flex flex-col gap-[16px] py-[24px] w-full "
+          className="h-[77vh]  rounded-[16px] customMargins flex flex-col gap-[16px] py-[24px] w-full "
           style={{ boxShadow: " 0px 1px 2px 0px #00000040" }}
         >
           <div className="flex flex-row w-full justify-between items-center px-[16px]">

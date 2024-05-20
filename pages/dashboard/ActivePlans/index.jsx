@@ -4,37 +4,39 @@ import List from "./list";
 import { AddIcon } from "../../../utils/svg";
 import { useRouter } from "next/router";
 import MiniLoader from "../../../components/common/miniLoader";
-import UploadModal from "../../../components/models/uploadModal";
 
-const Index = () => {
-  const [userList, setUserList] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const router = useRouter();
-
-  const [uploadPopUp, setUploadPopUp] = useState(false);
-  const [totalCount, setTotalCount] = useState(0);
-  const [totalPages, setTotalpages] = useState(0);
-  const [selectedCandidate, setSelectedCandidate] = useState([]);
+function ActivePlans() {
+  const [miniLoading, setMiniloading] = useState(false);
+  const [data, setData] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [limit, setLimit] = useState(10);
+  const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
-  const [data, setData] = useState([]);
-  const [miniLoading, setMiniloading] = useState(false);
+  const [totalPages, setTotalpages] = useState(0);
+  const [userList, setUserList] = useState([]);
+  const [selectedCandidate, setSelectedCandidate] = useState([]);
+  const [totalCount, setTotalCount] = useState(0);
+
+  console.log(14141414, data)
+
+
+
   const getData = () => {
     axios
-      .get("http://localhost:2000/api/candidates", {
-        params: { page, limit },
+      .get('http://localhost:2000/api/activeSubscription', {
+        params: { page: currentPage, limit },
       })
       .then((res) => {
-        setUserList(res.data.users.results);
+        console.log(123, res.data);
+
+        setData(res.data.data);
+        setUserList(res.data.data); // Assuming this is the correct field
         setTotalCount(res.data.totalCount);
-        setData(res.data.users);
-        setTotalpages(res.data.totalPages);
-        setLimit(res?.data?.users?.current?.limit);
-        setCurrentPage(res?.data?.users?.current?.page);
+        setTotalPages(res.data.totalPages);
+        setLimit(res?.data?.users?.current?.limit || limit);
+        setCurrentPage(res?.data?.users?.current?.page || currentPage);
 
         setLoading(false);
-
         setTimeout(() => {
           setMiniloading(false);
         }, 1000);
@@ -45,42 +47,30 @@ const Index = () => {
         setMiniloading(false);
       });
   };
+
   useEffect(() => {
     setLoading(true);
-
     getData();
-  }, []);
-
-  useEffect(() => {
-    setMiniloading(true);
-    getData();
-  }, [page, limit]);
-
+  }, [currentPage, limit]);
   return (
     <>
-      {uploadPopUp && (
-        <UploadModal role={"user"} setUploadPopUp={setUploadPopUp} />
-      )}
+      {/* { console.log("limit",currentPage)} */}
       <div className="customMargins py-[24px] flex flex-col gap-[16px]">
         <div className="flex w-full flex-row justify-between items-center">
           <span className="text-[24px] text-[#333333] font-semibold">
-            Candidate List
+            Active List
           </span>
-          <button
-            className="buttons font-[500] bg-[#06A9EF] text-white flex flex-row gap-2"
-            id="border_button"
-            onClick={() => setUploadPopUp(true)}
-          >
-            <AddIcon color={"#fff"} /> Add Candidate
-          </button>
+
         </div>
         <div
-          className="h-[77vh]  rounded-[16px] customMargins flex flex-col gap-[16px] py-[24px] w-full "
+          className="min-h-[65vh]  rounded-[16px] customMargins flex flex-col gap-[16px] py-[24px] w-full "
           style={{ boxShadow: " 0px 1px 2px 0px #00000040" }}
         >
           <div className="flex flex-row w-full justify-between items-center px-[16px]">
             <span className="text-[18px] text-[#333333] font-medium">
-              Total Candidates - {totalCount}
+              Total Active - {data.length}
+              {/* Total Recruiters - {data.users ? data.users.results.length : 0} */}
+
             </span>
             <div className="rounded-[30px] py-2 px-3 flex gap-2 bg-[#E9EEF6] w-[336px]  items-center h-[40px] sm:min-w-[138px] min-w-[60%]  ">
               <svg
@@ -130,7 +120,7 @@ const Index = () => {
         </div>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default Index;
+export default ActivePlans
