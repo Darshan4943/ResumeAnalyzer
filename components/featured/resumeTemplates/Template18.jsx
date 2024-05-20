@@ -162,7 +162,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                   {data.mobileNumber}
                 </Text>
               </View>
-              <View style={{ display: "flex", flexDirection: "row", gap: 6 }}>
+              <View style={{ display: "flex", flexDirection: "row", gap: 6,maxWidth:'100%',paddingHorizontal:'8px' }}>
                 <Svg
                   width="16"
                   height="12"

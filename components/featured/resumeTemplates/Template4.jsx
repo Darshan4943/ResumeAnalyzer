@@ -771,7 +771,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
           </View>
           {data?.skills?.length > 0 && (
             <View
-            wrap={false}
+            
               style={{
                 display: "flex",
                 flexDirection: "column",
