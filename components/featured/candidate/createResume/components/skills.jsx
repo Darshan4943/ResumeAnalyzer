@@ -11,7 +11,7 @@ import axios from "axios";
 
 const Skills = ({ data, setData }) => {
   const [skills, setSkills] = useState([]);
-  
+  console.log(14,skills)
   const [isClearable, setIsClearable] = useState({ value: "", label: "" });
   // console.log(isClearable)
   const userDataGlobal = useSelector((state) => state.userData);
@@ -44,6 +44,7 @@ const Skills = ({ data, setData }) => {
     axios
       .get("http://localhost:2000/api/AllSkills")
       .then((res) => {
+        console.log(res)
         const names = res.data.map(skill => skill.name);
        
         setSkills(names);
@@ -51,7 +52,7 @@ const Skills = ({ data, setData }) => {
       .catch((err) => {
         console.log(err);
       });
-  }, [skillList]);
+  }, []);
   // console.log(skillList)
 
   const deleteSkill = (index) => {

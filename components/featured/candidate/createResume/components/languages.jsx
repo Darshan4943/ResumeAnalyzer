@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const Languages = ({ setData, data }) => {
+const Languages = ({ setData, data, languages,  setLanguages }) => {
   const [text, setText] = useState("");
   const initialRatingsLanguages = Array(3).fill(3);
 

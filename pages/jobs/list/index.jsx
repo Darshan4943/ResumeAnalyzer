@@ -19,7 +19,7 @@ const Index = () => {
     setLoading(true);
     axios
       .get(
-        "https://freedygoservices.in/api/job/getByCreatedId/" +
+        "http://localhost:2000/api/job/getByCreatedId/" +
           userDataGlobal._id
       )
       .then((res) => {
@@ -71,7 +71,7 @@ const Index = () => {
 
   const deleteJob = (id) => {
     axios
-      .post("https://freedygoservices.in/api/jobs/deleteJobs", {
+      .post("http://localhost:2000/api/jobs/deleteJobs", {
         ids: selectedIndexes,
       })
       .then((response) => {

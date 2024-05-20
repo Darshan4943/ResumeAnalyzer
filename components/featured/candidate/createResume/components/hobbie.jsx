@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const Hobbie = ({ data, setData }) => {
+const Hobbie = ({ data, setData, hobbies, setHobbies }) => {
   const [text, setText] = useState("");
   const [saveDisabled, setSaveDisabled] = useState(true);
 

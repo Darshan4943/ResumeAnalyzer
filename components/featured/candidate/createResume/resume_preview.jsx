@@ -59,13 +59,17 @@ const ResumePreview = ({
   isEdit,
   id,
   render,
+  clientId
 }) => {
+
   const [namePreview, setNamePreview] = useState(false);
   const [name, setName] = useState(data.firstName + "_resume");
+
   const userDataGlobal = useSelector((state) => state.userData);
   const [downloadBtnLoading, setDownloadBtnLoading] = useState(false);
   const [downloadLimit, setDownloadLimit] = useState(0);
   const [saveLimit, setSaveLimit] = useState(0);
+  const [resumeLoading, setResumeLoading] = useState(false);
   const [limitUsedModal, setLimitUsedModal] = useState(false);
   // console.log(67, userDataGlobal);
   const getLimits = () => {
@@ -82,192 +86,39 @@ const ResumePreview = ({
   useEffect(() => {
     getLimits();
   }, []);
-  
+
+  useEffect(() => {
+    setResumeLoading(true);
+    const timer = setTimeout(() => {
+      setResumeLoading(false);
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, [data,selectedFont,selectedColor]);
+
   const callData = () => {
-    axios
-      .get("https://freedygoservices.in/api/resume/" + userDataGlobal?._id)
-      .then((res) => {
-        setName(data.firstName + "_resume " + (res.data.data.length + 1));
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    const id = clientId === "undefined" ? userDataGlobal?._id : clientId;
+    if (id) {
+      axios
+        .get(`http://localhost:2000/api/resume/${id}`)
+        .then((res) => {
+          // Remove .pdf extension from filenames
+          const filenamesWithoutExtension = res.data.data.map(item => item.fileName.replace(/\.pdf$/, ""));
+
+          setName(data.firstName + "_resume " + (res.data.data.length + 1));
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
 
   useEffect(() => {
     callData();
     setName(data.firstName + "_resume");
-  }, [userDataGlobal]);
-  const templates = [
-    {
-      title: "Template1",
-      imgUrl: "/images/templates/template1.png",
-      index: 1,
-      fontFamily: "Lato",
-      themeColor: "#414042",
-    },
-    // {
-    //   title: "Template2",
-    //   imgUrl: "/images/templates/template2.png",
-    //   index: 2,
-    //   fontFamily: "Barlow",
-    //   themeColor: "#F7902B",
-    // },
-    {
-      title: "Template3",
-      imgUrl: "/images/templates/template3.png",
-      index: 3,
-      fontFamily: "Inter",
-      themeColor: "#414042",
-    },
-    {
-      title: "Template4",
-      imgUrl: "/images/templates/template4.png",
-      index: 4,
-      fontFamily: "Montserrat",
-      themeColor: "#00AEEF",
-    },
-    // {
-    //   title: "Template5",
-    //   imgUrl: "/images/templates/template5.png",
-    //   index: 5,
-    //   fontFamily: "Kanit",
-    //   themeColor: "#316059",
-    // },
-    // {
-    //   title: "Template6",
-    //   imgUrl: "/images/templates/template6.png",
-    //   index: 6,
-    //   fontFamily: "Lato",
-    //   themeColor: "#FFC20E",
-    // },
-    // {
-    //   title: "Template7",
-    //   imgUrl: "/images/templates/template7.png",
-    //   index: 7,
-    //   fontFamily: "Montserrat",
-    //   themeColor: "#0077F9",
-    // },
-    // {
-    //   title: "Template8",
-    //   imgUrl: "/images/templates/template8.png",
-    //   index: 8,
-    //   fontFamily: "Montserrat",
-    //   themeColor: "#646464",
-    // },
-    // {
-    //   title: "Template9",
-    //   imgUrl: "/images/templates/template9.png",
-    //   index: 9,
-    //   fontFamily: "Montserrat",
-    //   themeColor: "#FFD740",
-    // },
-    // {
-    //   title: "Template10",
-    //   imgUrl: "/images/templates/template10.png",
-    //   index: 10,
-    //   fontFamily: "Inter",
-    //   themeColor: "#F2BE5C",
-    // },
-    {
-      title: "Template11",
-      imgUrl: "/images/templates/template11.png",
-      index: 11,
-      fontFamily: "Montserrat",
-      themeColor: "#E6E7E8",
-    },
-    // {
-    //   title: "Template12",
-    //   imgUrl: "/images/templates/template12.png",
-    //   index: 12,
-    //   fontFamily: "Lato",
-    //   themeColor: "#0C2438",
-    // },
-    // {
-    //   title: "Template13",
-    //   imgUrl: "/images/templates/template13.png",
-    //   index: 13,
-    //   fontFamily: "Poppins",
-    //   themeColor: "#0E6CC2",
-    // },
-    {
-      title: "Template14",
-      imgUrl: "/images/templates/template14.png",
-      index: 14,
-      fontFamily: "Inter",
-      themeColor: "#242424",
-    },
-    // {
-    //   title: "Template15",
-    //   imgUrl: "/images/templates/template15.png",
-    //   index: 15,
-    //   fontFamily: "Inter",
-    //   themeColor: "#716D6D",
-    // },
-    // {
-    //   title: "Template16",
-    //   imgUrl: "/images/templates/template53.png",
-    //   index: 16,
-    //   fontFamily: "Inter",
-    //   themeColor: "#545554",
-    // },
-    // {
-    //   title: "Template17",
-    //   imgUrl: "/images/templates/template17.png",
-    //   index: 17,
-    //   fontFamily: "Montserrat",
-    //   themeColor: "#D1D2D3",
-    // },
-    {
-      title: "Template18",
-      imgUrl: "/images/templates/template54.png",
-      index: 18,
-      fontFamily: "Montserrat",
-      themeColor: "#F1F1F1",
-    },
-    // {
-    //   title: "Template19",
-    //   imgUrl: "/images/templates/template19.png",
-    //   index: 19,
-    //   fontFamily: "Inter",
-    //   themeColor: "#000000",
-    // },
-    // {
-    //   title: "Template20",
-    //   imgUrl: "/images/templates/template20.png",
-    //   index: 20,
-    //   fontFamily: "Montserrat",
-    //   themeColor: "#303030",
-    // },
-    {
-      title: "Template32",
-      imgUrl: "/images/templates/template32.png",
-      index: 32,
-      fontFamily: "Montserrat",
-      themeColor: "#0072BC",
-    },
-    {
-      title: "Template39",
-      imgUrl: "/images/templates/template39.png",
-      index: 39,
-      fontFamily: "Montserrat",
-      themeColor: "#303030",
-    },
-    {
-      title: "Template48",
-      imgUrl: "/images/templates/template48.png",
-      index: 48,
-      fontFamily: "Montserrat",
-      themeColor: "#F7941D",
-    },
-    {
-      title: "Template44",
-      imgUrl: "/images/templates/template44.png",
-      index: 44,
-      fontFamily: "Inter",
-      themeColor: "#C7EAFB",
-    },
-  ];
+  }, [userDataGlobal, data.firstName]);
+
+
   const selectResumeTemplate = (index) => {
     switch (index) {
       case 1:
@@ -473,73 +324,19 @@ const ResumePreview = ({
     }
   };
 
-  const renderTemplates = () => {
-    const selectedStyle = {
-      borderTop: " 4px solid #06A9EF",
-      borderBottom: "4px solid #06A9EF",
-      height: " 210px",
-      width: "auto",
-    };
-    return templates.map((template, index) => (
-      <img
-        style={selectedResumeIndex == template.index ? selectedStyle : {}}
-        key={index}
-        src={template.imgUrl}
-        className="h-[200px] w-[140.91px] rounded-[6px]"
-        alt=""
-        onClick={() => handleImageClick(template)}
-      />
-    ));
-  };
 
-  const renderAllTemplates = () => {
-    return templates.map((template, index) => (
-      <img
-        key={index}
-        src={template.imgUrl}
-        className="h-[330px] w-[234px] rounded-[6px] transition-transform duration-300 ease-in-out hover:scale-105"
-        style={{ boxShadow: "0px 0px 26.499px 0px rgba(0, 0, 0, 0.25)" }}
-        alt=""
-        onClick={() => {
-          handleImageClick(template);
-          setIsAll(false);
-        }}
-      />
-    ));
-  };
 
-  const [isAll, setIsAll] = useState(false);
 
-  const handleImageClick = (template) => {
-    togglePreview(true, template.index);
-    setSelectedColor(template.themeColor);
-    setSelectedFont(template.fontFamily);
-  };
 
-  const resumeRef = useRef();
+
   const [preview, setPreview] = useState(false);
   const [isDisabled, setdisabled] = useState(false);
   const [saveDisabled, setSaveDisabled] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  const togglePreview = (isVisible, index) => {
-    setSelectedResumeIndex(index);
-  };
 
-  const taskRef = useRef(null);
 
-  const handleOutsideClick = (event) => {
-    if (taskRef.current && !taskRef.current.contains(event.target)) {
-      setIsAll(false);
-      setPreview(false);
-    }
-  };
-  useEffect(() => {
-    document.addEventListener("mousedown", handleOutsideClick);
-    return () => {
-      document.removeEventListener("mousedown", handleOutsideClick);
-    };
-  }, []);
+  const resumeRef = useRef();
   const handleLoad = () => {
     setLoading(false);
   };
@@ -574,7 +371,7 @@ const ResumePreview = ({
         formData.append("pdfBlob", blob);
 
         axios
-          .put("https://freedygoservices.in/api/resume/" + id, formData)
+          .put("http://localhost:2000/api/resume/" + id, formData)
           .then((res) => {
             localStorage.setItem("saveCount", saveLimit - 1);
             getLimits();
@@ -628,7 +425,7 @@ const ResumePreview = ({
         }
 
         axios
-          .post("https://freedygoservices.in/api/resume/add", formData)
+          .post("http://localhost:2000/api/resume/add", formData)
           .then((res) => {
             const pdfUrl = res.data.data.resumeUrl;
 
@@ -668,8 +465,8 @@ const ResumePreview = ({
     setDownloadBtnLoading(true);
     axios
       .put(
-        "https://freedygoservices.in/api/subscription/updateDownloadLimit/" +
-          userDataGlobal._id
+        "http://localhost:2000/api/subscription/updateDownloadLimit/" +
+        userDataGlobal._id
       )
       .then((res) => {
         const result = res.data;
@@ -682,9 +479,11 @@ const ResumePreview = ({
         setDownloadBtnLoading(false);
       });
   };
-  const MyComponent = () => {
+  const  MyComponent = () => {
     return (
       <Document height="1124px" dpi={72}>
+
+
         {selectResumeTemplate(selectedResumeIndex)}
       </Document>
     );
@@ -791,7 +590,10 @@ const ResumePreview = ({
   return (
     <div
       className="ml:w-[100%] w-[100%] "
-      style={{ overflow: "hidden", position: "relative" }}
+      style={{
+        position: "relative", overflowY: "auto",
+        maxHeight: "85vh",
+      }}
     >
       <LimitUsedModal visible={limitUsedModal} setVisible={setLimitUsedModal} />
       <div
@@ -800,38 +602,10 @@ const ResumePreview = ({
           boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)",
         }}
       >
-        <div className="rounded-[8px] bg-[#BCEBFF]  px-4 pt-[10px] ">
-          <div
-            className="flex gap-4 pb-[10px]  items-center"
-            style={{ overflowX: "auto" }}
-          >
-            {renderTemplates()}
-          </div>
-        </div>
 
-        <div
-          onClick={() => setIsAll(true)}
-          className="flex justify-end text-[18px] font-[500] text-[#06A9EF] cursor-pointer"
-        >
-          See All Templates
-        </div>
-        {isAll && (
-          <div>
-            <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
-            <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center  ">
-              <div
-                ref={taskRef}
-                onWheel={(e) => e.stopPropagation()}
-                className=" absolute top-[72px] flex p-6 bg-white rounded-[24px] shadow-md  gap-6 flex-wrap justify-center items-center ml:w-[65%] w-[90%] h-[90vh] overflow-y-auto "
-              >
-                {renderAllTemplates()}
-              </div>
-            </div>
-          </div>
-        )}
         <div className="" ref={resumeRef}>
-          <div className="flex justify-between flex-wrap scr1024:gap-4 gap-2">
-            <div className="flex items-center justify-between ml:w-[58%] w-full gap-4">
+          <div className="flex justify-between flex-wrap scr1024:gap-4 gap-2 ">
+            <div className="flex items-center justify-between ml:w-[58%] w-full gap-4 ">
               <div
                 className=" text-[20px] font-montserrat font-medium flex gap-3 items-center cursor-pointer "
                 onClick={() => setNamePreview(true)}
@@ -922,7 +696,7 @@ const ResumePreview = ({
 
         {selectedResumeIndex !== undefined && (
           <div
-            className=" w-full flex items-center justify-center mt-3 bg-[#525659] py-[24px] rounded-[8px] min-h-[700px]"
+            className=" w-full flex items-center justify-center mt-3 bg-[#525659] py-[24px] rounded-[8px] min-h-[700px]  "
             style={{
               transformOrigin: "top left",
             }}
@@ -932,10 +706,13 @@ const ResumePreview = ({
                 <MiniLoader />
               </div>
             ) : ( */}
-            <PDFViewer width="80%" height="900px" showToolbar={false}>
-              <MyComponent />
-            </PDFViewer>
 
+            {resumeLoading ? <MiniLoader />
+              :
+              <PDFViewer width="90%" height="900px" showToolbar={false}  >
+                <MyComponent />
+              </PDFViewer>
+            }
             {/* )} */}
           </div>
         )}
@@ -1002,6 +779,7 @@ const ResumePreview = ({
           data={data}
           setNamePreview={setNamePreview}
           setFunction={(data) => setName(data)}
+          clientId={clientId}
         />
       )}
     </div>

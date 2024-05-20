@@ -45,7 +45,7 @@ export const Api = () => {
         const decoded = jwtDecode(token.token);
         axios
           .get(
-            "https://freedygoservices.in/api/skiloteckuser/user/" + decoded._id
+            "http://localhost:2000/api/skiloteckuser/user/" + decoded._id
           )
           .then((res) => {
             const decode = jwtDecode(res.data.data);
@@ -71,7 +71,7 @@ export const Api = () => {
     if (userDataGlobal) {
       axios
         .get(
-          "https://freedygoservices.in/api/subscription/" + userDataGlobal._id
+          "http://localhost:2000/api/subscription/" + userDataGlobal._id
         )
         .then((res) => {
           const result = res.data.findIsActive;
@@ -81,7 +81,7 @@ export const Api = () => {
               (item) => item.duration + " " + item.limit == result.plan
             );
 
-            console.log(79, result);
+          
             localStorage.setItem("activePlan", selectedPlan.index);
             localStorage.setItem("uploadCount", result.resumeUpladed);
             localStorage.setItem("planActive", result.isActive);
@@ -97,7 +97,7 @@ export const Api = () => {
             if (timezone >= newEnddate && result.isActive) {
               axios
                 .put(
-                  "https://freedygoservices.in/api/subscription/update/" +
+                  "http://localhost:2000/api/subscription/update/" +
                     result._id
                 )
                 .then((res) => {
@@ -160,7 +160,7 @@ export const Api = () => {
   //               );
   //               const symbol = icon ? icon.symbol : currency;
   //               const exchangeRate = await axios.get(
-  //                 "https://freedygoservices.in/api/exchangeRate/" + currency
+  //                 "http://localhost:2000/api/exchangeRate/" + currency
   //               );
   //               localStorage.setItem("exchangeRate", exchangeRate.data.rate);
   //               localStorage.setItem("currency", currency);
@@ -189,13 +189,15 @@ export const Api = () => {
   const getLocation = () => {
     if (navigator.geolocation) {
       navigator.permissions.query({ name: "geolocation" }).then((result) => {
-        console.log(192, result);
+        
         if (result.state === "granted") {
           // Permission was already granted
           navigator.geolocation.getCurrentPosition(
             successCallback,
-            errorCallback
+            errorCallback,
+           
           );
+      
         } else if (result.state === "prompt") {
           // Permission is being requested
           navigator.geolocation.getCurrentPosition(
@@ -205,6 +207,7 @@ export const Api = () => {
         } else if (result.state === "denied") {
           // Permission was denied
           setEnablePopup(true);
+         
         }
 
         result.onchange = function () {
@@ -213,6 +216,10 @@ export const Api = () => {
               successCallback,
               errorCallback
             );
+            setEnablePopup(false);
+          }
+          else{
+            setEnablePopup(true);
           }
         };
       });
@@ -244,7 +251,7 @@ export const Api = () => {
           );
           const symbol = icon ? icon.symbol : currency;
           const exchangeRate = await axios.get(
-            `https://freedygoservices.in/api/exchangeRate/${currency}`
+            `http://localhost:2000/api/exchangeRate/${currency}`
           );
           localStorage.setItem("exchangeRate", exchangeRate.data.rate);
           localStorage.setItem("currency", currency);

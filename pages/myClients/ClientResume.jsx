@@ -22,7 +22,7 @@ function ClientResume() {
   useEffect(() => {
     axios
       .get(
-        `https://freedygoservices.in/api/client/getByRecruiter/${userDataGlobal._id}`
+        `http://localhost:2000/api/client/getByRecruiter/${userDataGlobal._id}`
       )
       .then((res) => {
         setDetails(res.data.data);
@@ -115,7 +115,7 @@ function ClientResume() {
                         router.push(`/home/BuildResume?clientId=${detail._id}`)
                       }
                       key={index}
-                      className="flex flex-col gap-4 cursor-pointer sm:p-6 p-4 rounded-[24px] sm:min-w-[300px] min-w-[280px]"
+                      className="flex flex-col gap-4 cursor-pointer sm:p-6 p-4 rounded-[24px] sm:min-w-[300px] min-w-[280px] max-w-[300px] break-all"
                       style={{ boxShadow: "0px 2px 7px 0px #00000040" }}
                     >
                       <div className="flex justify-center relative">

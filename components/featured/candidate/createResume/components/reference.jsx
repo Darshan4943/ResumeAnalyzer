@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import ReactSelect from "react-select";
 import { telCode } from "../../../../../utils/data";
 
-const PersonalDetails = ({ setData, data }) => {
+const Reference = ({ setData, data }) => {
   const userDataGlobal = useSelector((state) => state.userData);
 
   const [isChecked, setIsChecked] = useState(true);
@@ -15,13 +15,11 @@ const PersonalDetails = ({ setData, data }) => {
   const handleSwitchChange = () => {
     setIsChecked(!isChecked);
   };
-  const [profileData, setProfileData] = useState({
-    firstName: "",
-    lastName: "",
+  const [referenceData, setReferenceData] = useState({
+    fullName: "",
+    company: "",
     mobileNumber: "",
     email: "",
-    location: "",
-    designation: "",
     dial_code:"+260"
   });
 
@@ -37,39 +35,32 @@ const PersonalDetails = ({ setData, data }) => {
 
   const handleItemClick = (item) => {
     setSelectedItem(item);
-    setProfileData({ ...profileData, dial_code: item.dial_code });
+    setReferenceData({ ...referenceData, dial_code: item.dial_code });
   };
   const inputFields = [
     {
-      label: "First Name",
+      label: "Full Name",
       type: "text",
-      name: "firstName",
-      placeholder: "Entet First Name",
-      value: profileData.firstName,
+      name: "fullName",
+      placeholder: "Entet Full Name",
+      value: referenceData.fullName,
       className: " ",
     },
     {
-      label: "Last Name",
+      label: "Company",
       type: "text",
-      name: "lastName",
-      placeholder: "Enter Last Name",
-      value: profileData.lastName,
+      name: "company",
+      placeholder: "Company Name",
+      value: referenceData.company,
       className: " ",
     },
-    {
-      label: "Designation",
-      type: "text",
-      name: "designation",
-      placeholder: "Enter designation",
-      value: profileData.designation,
-      className: " col-span-2",
-    },
+
     {
       label: "Mobile Number",
       type: "text",
       name: "mobileNumber",
       placeholder: "Enter Mobile Number",
-      value: profileData.mobileNumber,
+      value: referenceData.mobileNumber,
       className: " col-span-2",
     },
     {
@@ -77,26 +68,18 @@ const PersonalDetails = ({ setData, data }) => {
       type: "email",
       name: "email",
       placeholder: "Enter Email Address",
-      value: profileData.email,
+      value: referenceData.email,
       className: " col-span-2",
     },
-    {
-      label: "Current Location",
-      type: "text",
-      name: "location",
-      placeholder: "Current Location",
-      value: profileData.location,
-      className: " col-span-2",
-    },
+
   ];
 
   const [formErrors, setFormErrors] = useState({
-    firstName: false,
-    lastName: false,
+    fullName: false,
+    company: false,
     mobileNumber: false,
     email: false,
-    location: false,
-    designation: false,
+
   });
 
  
@@ -107,7 +90,7 @@ const PersonalDetails = ({ setData, data }) => {
 
     inputFields.forEach((field) => {
       const { name } = field;
-      const value = profileData[name];
+      const value = referenceData[name];
 
       if (typeof value === "string" && value.trim() === "") {
         newErrors[name] = true;
@@ -121,21 +104,20 @@ const PersonalDetails = ({ setData, data }) => {
     return allFieldsValid;
   };
 
-  const  handleInputChange = (e) => {
+  const handleInputChange = (e) => {
     const { name, value } = e.target;
-    
     if (name == "mobileNumber") {
       if (value.replace(/\D/g, "").length <= 10) {
-        setProfileData({
-          ...profileData,
+        setReferenceData({
+          ...referenceData,
           [name]: value.replace(/\D/g, ""),
         });
         setIsModified(true);
         setFormErrors({ ...formErrors, [name]: value.trim() === "" });
       }
     } else {
-      setProfileData({
-        ...profileData,
+      setReferenceData({
+        ...referenceData,
         [name]: value,
       });
       setIsModified(true);
@@ -146,7 +128,7 @@ const PersonalDetails = ({ setData, data }) => {
   const isDisabled = () => {
     if (!isChecked || !isModified) return true;
 
-    const isAnyFieldEmpty = Object.values(profileData).some((value) => {
+    const isAnyFieldEmpty = Object.values(referenceData).some((value) => {
       if (typeof value === "string") {
         return value.trim() === "";
       }
@@ -165,13 +147,9 @@ const PersonalDetails = ({ setData, data }) => {
     if (allFieldsValid && isModified) {
       setData({
         ...data,
-        dial_code:data.dial_code,
-        firstName: camelCase(profileData.firstName),
-        lastName: camelCase(profileData.lastName),
-        mobileNumber: profileData.mobileNumber,
-        email: profileData.email.toLowerCase(),
-        location: camelCase(profileData.location),
-        designation: profileData.designation,
+
+        reference:[referenceData, ...data.reference]
+ 
       });
       setIsModified(false);
     }
@@ -182,32 +160,30 @@ const PersonalDetails = ({ setData, data }) => {
     if (allFieldsValid && isModified) {
       setIsModified(true);
     }
-  }, [profileData]);
+  }, [referenceData]);
 
   useEffect(() => {
     const {
-      firstName,
-      lastName,
+        fullName,
+        company,
       email,
       mobileNumber: mobileNumber,
-      location,
-      designation,
       dial_code
     } = data;
     setSelectedItem(
       telCode.find((item) => item.dial_code === dial_code)
     );
-    setProfileData({
-      ...profileData,
-      firstName,
-      lastName,
+    setReferenceData({
+      ...referenceData,
+      fullName,
+      company,
       email,
       mobileNumber,
-      location: location,
-      designation,
       dial_code:dial_code?dial_code:"+260"
     });
   }, [data]);
+
+//  console.log(3333,data)
   return (
     <>
       <div
@@ -218,15 +194,8 @@ const PersonalDetails = ({ setData, data }) => {
         }}
       >
         <div className="w-full flex justify-between text-[20px] font-montserrat font-medium">
-          <p> Personal Details</p>
-          <label className="switch">
-            <input
-              type="checkbox"
-              checked={isChecked}
-              onChange={handleSwitchChange}
-            />
-            <span className="slider round"></span>
-          </label>
+          <p> Reference Details</p>
+         
         </div>
         <div className="grid grid-cols-2 gap-4">
           {inputFields.map((item, index) => (
@@ -295,7 +264,7 @@ const PersonalDetails = ({ setData, data }) => {
                       name={item.name}
                       placeholder={item.placeholder}
                       className="w-full text-[14px] font-montserrat font-small"
-                      value={profileData[item.name]}
+                      value={referenceData[item.name]}
                       onChange={handleInputChange}
                       disabled={!isChecked}
                     />
@@ -314,7 +283,7 @@ const PersonalDetails = ({ setData, data }) => {
                     name={item.name}
                     placeholder={item.placeholder}
                     className="w-full text-[14px] font-montserrat font-small"
-                    value={profileData[item.name]}
+                    value={referenceData[item.name]}
                     onChange={handleInputChange}
                     disabled={!isChecked}
                   />
@@ -330,17 +299,11 @@ const PersonalDetails = ({ setData, data }) => {
         </div>
         <div className="flex justify-end ">
           <div className="flex justify-between  py-2 gap-2">
-            {/* <button
-              className=" font-montserrat text-xs font-semibold px-[12px] rounded-[8px] border border-[#06A9EF] w-[137px] h-[32px]"
-              disabled={!isChecked}
-            >
-              Update to Profile
-            </button> */}
             <button
               className=" font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px]  bg-[#06A9EF] w-[60px] h-[32px]"
-              style={{ opacity: isDisabled() ? 0.5 : 1 }}
+            //   style={{ opacity: isDisabled() ? 0.5 : 1 }}
               onClick={saveData}
-              disabled={isDisabled() || !isChecked}
+            //   disabled={isDisabled() || !isChecked}
             >
               Save
             </button>
@@ -351,4 +314,4 @@ const PersonalDetails = ({ setData, data }) => {
   );
 };
 
-export default PersonalDetails;
+export default Reference;

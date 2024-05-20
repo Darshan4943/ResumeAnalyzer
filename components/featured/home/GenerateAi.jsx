@@ -186,7 +186,7 @@ function GenerateAi() {
       setLoading(true);
       setStars(true);
       axios
-        .post("https://freedygoservices.in/api/text/regenrate", { prompt })
+        .post("http://localhost:2000/api/text/regenrate", { prompt })
         .then((res) => {
           setLoading(false);
           setError("");
