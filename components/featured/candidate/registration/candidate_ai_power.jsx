@@ -157,7 +157,7 @@ const CandidateAiPower = ({
               axios
                 .put(
                   "http://localhost:2000/api/subscription/updateUploadLimit/" +
-                  userDataGlobal._id
+                    userDataGlobal._id
                 )
                 .then((res) => {
                   const result = res.data;

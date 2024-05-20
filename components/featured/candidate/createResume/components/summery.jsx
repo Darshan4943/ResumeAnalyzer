@@ -162,7 +162,7 @@ function Summary({ limits, selectedPlan, isActive }) {
                      <div className="flex flex-row gap-2 w-full items-center justify-center">
                               <p className="text-[2.5vw] font-[700]">{icon}</p>
                               <p className="text-[2.5vw] font-[700]">
-                                {Math.ceil(plan.amount * exchangeRate)}
+                                {Math.ceil(plan?.amount * exchangeRate)}
                               </p>
                             </div>
                       <div
@@ -178,7 +178,7 @@ function Summary({ limits, selectedPlan, isActive }) {
                       <div className="flex flex-row gap-2 w-full items-center justify-center">
                               <p className="text-[2vw] font-[700]">{icon}</p>
                               <p className="text-[2vw] font-[700]">
-                                {Math.ceil(plan.amount * exchangeRate)}
+                                {Math.ceil(plan?.amount * exchangeRate)}
                               </p>
                             </div>
                       <p className="text-[12px] font-medium">

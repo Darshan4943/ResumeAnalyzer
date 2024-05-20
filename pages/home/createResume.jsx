@@ -20,6 +20,180 @@ function CreateResume() {
   const userData = router.query;
   const { clientId } = router.query;
   const currentYear = new Date().getFullYear();
+
+
+  const templates = [
+    {
+      title: "Template1",
+      imgUrl: "/images/templates/template1.png",
+      index: 1,
+      fontFamily: "Lato",
+      themeColor: "#414042",
+    },
+    // {
+    //   title: "Template2",
+    //   imgUrl: "/images/templates/template2.png",
+    //   index: 2,
+    //   fontFamily: "Barlow",
+    //   themeColor: "#F7902B",
+    // },
+    {
+      title: "Template3",
+      imgUrl: "/images/templates/template3.png",
+      index: 3,
+      fontFamily: "Inter",
+      themeColor: "#414042",
+    },
+    {
+      title: "Template4",
+      imgUrl: "/images/templates/template4.png",
+      index: 4,
+      fontFamily: "Montserrat",
+      themeColor: "#00AEEF",
+    },
+    // {
+    //   title: "Template5",
+    //   imgUrl: "/images/templates/template5.png",
+    //   index: 5,
+    //   fontFamily: "Kanit",
+    //   themeColor: "#316059",
+    // },
+    // {
+    //   title: "Template6",
+    //   imgUrl: "/images/templates/template6.png",
+    //   index: 6,
+    //   fontFamily: "Lato",
+    //   themeColor: "#FFC20E",
+    // },
+    // {
+    //   title: "Template7",
+    //   imgUrl: "/images/templates/template7.png",
+    //   index: 7,
+    //   fontFamily: "Montserrat",
+    //   themeColor: "#0077F9",
+    // },
+    // {
+    //   title: "Template8",
+    //   imgUrl: "/images/templates/template8.png",
+    //   index: 8,
+    //   fontFamily: "Montserrat",
+    //   themeColor: "#646464",
+    // },
+    // {
+    //   title: "Template9",
+    //   imgUrl: "/images/templates/template9.png",
+    //   index: 9,
+    //   fontFamily: "Montserrat",
+    //   themeColor: "#FFD740",
+    // },
+    // {
+    //   title: "Template10",
+    //   imgUrl: "/images/templates/template10.png",
+    //   index: 10,
+    //   fontFamily: "Inter",
+    //   themeColor: "#F2BE5C",
+    // },
+    {
+      title: "Template11",
+      imgUrl: "/images/templates/template11.png",
+      index: 11,
+      fontFamily: "Montserrat",
+      themeColor: "#E6E7E8",
+    },
+    // {
+    //   title: "Template12",
+    //   imgUrl: "/images/templates/template12.png",
+    //   index: 12,
+    //   fontFamily: "Lato",
+    //   themeColor: "#0C2438",
+    // },
+    // {
+    //   title: "Template13",
+    //   imgUrl: "/images/templates/template13.png",
+    //   index: 13,
+    //   fontFamily: "Poppins",
+    //   themeColor: "#0E6CC2",
+    // },
+    {
+      title: "Template14",
+      imgUrl: "/images/templates/template14.png",
+      index: 14,
+      fontFamily: "Inter",
+      themeColor: "#242424",
+    },
+    // {
+    //   title: "Template15",
+    //   imgUrl: "/images/templates/template15.png",
+    //   index: 15,
+    //   fontFamily: "Inter",
+    //   themeColor: "#716D6D",
+    // },
+    // {
+    //   title: "Template16",
+    //   imgUrl: "/images/templates/template53.png",
+    //   index: 16,
+    //   fontFamily: "Inter",
+    //   themeColor: "#545554",
+    // },
+    // {
+    //   title: "Template17",
+    //   imgUrl: "/images/templates/template17.png",
+    //   index: 17,
+    //   fontFamily: "Montserrat",
+    //   themeColor: "#D1D2D3",
+    // },
+    {
+      title: "Template18",
+      imgUrl: "/images/templates/template54.png",
+      index: 18,
+      fontFamily: "Montserrat",
+      themeColor: "#F1F1F1",
+    },
+    // {
+    //   title: "Template19",
+    //   imgUrl: "/images/templates/template19.png",
+    //   index: 19,
+    //   fontFamily: "Inter",
+    //   themeColor: "#000000",
+    // },
+    // {
+    //   title: "Template20",
+    //   imgUrl: "/images/templates/template20.png",
+    //   index: 20,
+    //   fontFamily: "Montserrat",
+    //   themeColor: "#303030",
+    // },
+    {
+      title: "Template32",
+      imgUrl: "/images/templates/template32.png",
+      index: 32,
+      fontFamily: "Montserrat",
+      themeColor: "#0072BC",
+    },
+    {
+      title: "Template39",
+      imgUrl: "/images/templates/template39.png",
+      index: 39,
+      fontFamily: "Montserrat",
+      themeColor: "#303030",
+    },
+    {
+      title: "Template48",
+      imgUrl: "/images/templates/template48.png",
+      index: 48,
+      fontFamily: "Montserrat",
+      themeColor: "#F7941D",
+    },
+    {
+      title: "Template44",
+      imgUrl: "/images/templates/template44.png",
+      index: 44,
+      fontFamily: "Inter",
+      themeColor: "#C7EAFB",
+    },
+  ];
+
+
   const handleOutsideClick = (event) => {
     if (taskRef.current && !taskRef.current.contains(event.target)) {
       isSetEdit(false);
@@ -53,7 +227,10 @@ function CreateResume() {
     sociaLinks: [],
     hobbies: [],
     languages: [],
+    // internship:[],
+    // reference:[],
     section: [],
+
   });
   function extractMobileNumber(inputString) {
     var regex = /[0-9]{10}/g;
@@ -188,9 +365,9 @@ function CreateResume() {
       <div className="  pt-2 customMargins ">
         <div className="flex flex-col gap-4 py-6 ">
           <div className="web">
-            <div className=" h-fit flex gap-6 ">
+            <div className=" h-fit flex gap-6 relative ">
               <div
-                className="h-[83.4rem] w-[78%] overflow-y-scroll scrollbar-hidden "
+                className=" w-[40%]  "
                 onWheel={(e) => {
                   e.stopPropagation();
                 }}
@@ -204,9 +381,10 @@ function CreateResume() {
                   setSelectedColor={setSelectedColor}
                   selectedColor={selectedColor}
                   setSelectedFont={setSelectedFont}
+                  templates={templates}
                 />
               </div>
-              <div className="sticky">
+              <div className="sticky top-[88px]  h-[50rem] w-[60%] ">
                 <ResumePreview
                   data={data}
                   selectedResumeIndex={selectedResumeIndex}
@@ -218,6 +396,7 @@ function CreateResume() {
                   isEdit={userData.isEdit}
                   id={editId}
                   render={render}
+                  clientId={clientId}
                 />
               </div>
             </div>
@@ -253,6 +432,7 @@ function CreateResume() {
                   selectedColor={selectedColor}
                   setSelectedFont={setSelectedFont}
                   selectedFont={selectedFont}
+                  templates={templates}
                 />
               </motion.div>
             </AnimatePresence>
@@ -270,6 +450,7 @@ function CreateResume() {
               isEdit={userData.isEdit}
               id={editId}
               render={render}
+              clientId={clientId}
             />
           </div>
         </div>

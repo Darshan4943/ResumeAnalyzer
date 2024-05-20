@@ -2,14 +2,15 @@ import React, { useState } from "react";
 import DateSelector from "../../../../common/dateSelector";
 import { Delete_icon, Edit_icon } from "../../../../../utils/svg";
 
-const Course = ({ data, setData,course, setCourse}) => {
+const Internships = ({ data, setData,setIntern,intern}) => {
   const [isChecked, setIsChecked] = useState(true);
   // const [view, setView] = useState(false);
   const [isModified, setIsModified] = useState({ status: false, index: 0 });
-  const [courseData, setCourseData] = useState({
-    courseName: "",
-    issuedBy: "",
+  const [internShipData, setInternshipData] = useState({
+    jobTittle: "",
+    Employer: "",
     discription: "",
+    city:"",
     duration: {
       start: { year: "Year", month: "Month" },
       end: { year: "Year", month: "Month" },
@@ -22,86 +23,78 @@ const Course = ({ data, setData,course, setCourse}) => {
 
   const handleSave = () => {
     if (isModified.status === true) {
-      const dumyData = data.course;
+      const dumyData = data.internship;
       const index = isModified.index;
-      dumyData.splice(index, 1, courseData);
-      setData({ ...data, course: dumyData });
-      setView(false);
+      dumyData.splice(index, 1, internShipData);
+      setData({ ...data, intership: dumyData });
     } else {
       setData({
         ...data,
-        course: [courseData, ...data.course],
+        internship: [internShipData, ...data.internship],
       });
-  
+
     }
     setIsModified({ status: false, index: 0 })
-    setCourseData({
-      courseName: "",
-      issuedBy: "",
-      discription: "",
+    setInternshipData({
+        jobTittle: "",
+        Employer: "",
+        discription: "",
+        city:"",
       duration: {
         start: { year: "Year", month: "Month" },
         end: { year: "Year", month: "Month" },
       },
     });
     window.scrollTo(0,0)
+    setIntern(false);
   };
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setCourseData({
-      ...courseData,
+    setInternshipData({
+      ...internShipData,
       [name]: value,
     });
   };
   const handleEditCourse = (index) => {
-    const dataToEdit = data.course[index];
+    const dataToEdit = data.internship[index];
 
     if (dataToEdit) {
-      setView(true);
-      setCourseData({ ...dataToEdit });
+      setInternshipData({ ...dataToEdit });
       setIsModified({ status: true, index });
     }
   };
   const handleDeleteCourse = (index) => {
     setData({
       ...data,
-      course: data.course.filter((item, i) => i !== index),
+      intership: data.internship.filter((item, i) => i !== index),
     });
   };
 
- { console.log(12121,data)}
+//   console.log(131313,data)
+
+  
   return (
     <>
-
-        
-
-        {data?.course?.map((course, index) => (
-          <>
-                <div
+      <div
         className="flex flex-col p-4 gap-2 rounded-lg bg-white"
         style={{
           boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)",
           opacity: isChecked ? 1 : 0.5,
         }}
       >
-          <div className="w-full flex justify-between text-[20px] font-montserrat font-medium">
-          <p className="w-[80%]"> Course and Certification</p>
+        <div className="w-full flex justify-between text-[20px] font-montserrat font-medium">
+          <p className="w-[80%]"> Internship</p>
 
-          {/* <label className="switch">
-            <input
-              type="checkbox"
-              checked={isChecked}
-              onChange={handleSwitchChange}
-            />
-            <span className="slider round"></span>
-          </label> */}
         </div>
+
+        {data?.internship?.map((internship, index) => (
           <div
             key={index}
             className="flex flex-col gap-1 p-2 rounded-[6px] border border-[#DEDEDE]"
           >
             <div className="flex justify-between">
-              <p>{course.courseName}</p>
+              <p>{internship.jobTittle}</p>
               <div className="flex gap-2">
                 <div onClick={() => handleEditCourse(index)}>
                   <Edit_icon />
@@ -112,25 +105,23 @@ const Course = ({ data, setData,course, setCourse}) => {
               </div>
             </div>
           </div>
-          </div>
-          </>
         ))}
 
-        {course && (
+        {intern && (
           <div>
             <div className="flex flex-col gap-3">
               <div className="flex gap-4">
                 <div className="flex flex-col gap-2 w-[50%]">
                   <div className=" text-[14px] font-montserrat  font-medium">
-                    Certificate Name
+                    Job Tittle
                   </div>
                   <div className=" border-[1px] border-[#9D9D9D] rounded-[8px] px-[16px] py-[12px]">
                     <input
                       type="text"
-                      name="courseName"
+                      name="jobTittle"
                       placeholder="Enter Certificate Name"
                       className="w-full text-[14px] font-montserrat font-small "
-                      value={courseData.courseName}
+                      value={internShipData.jobTittle}
                       onChange={handleInputChange}
                       disabled={!isChecked}
                     />
@@ -138,16 +129,16 @@ const Course = ({ data, setData,course, setCourse}) => {
                 </div>
                 <div className="flex flex-col gap-2 w-[50%]">
                   <div className="w-full text-[14px] font-montserrat  font-medium">
-                    Issued by
+                    Employer
                   </div>
                   <div className="w-full border-[1px] border-[#9D9D9D] rounded-[8px] px-[16px] py-[12px]">
                     <input
                       type="text"
-                      name="issuedBy"
+                      name="Employer"
                       id=""
                       placeholder="Issued by"
                       className="w-full text-[14px] font-montserrat font-small "
-                      value={courseData.issuedBy}
+                      value={internShipData.Employer}
                       onChange={handleInputChange}
                       disabled={!isChecked}
                     />
@@ -155,10 +146,32 @@ const Course = ({ data, setData,course, setCourse}) => {
                 </div>
               </div>
 
+
+             {/* city here */}
+              <div className="flex gap-4">
+                <div className="flex flex-col gap-2 w-[50%]">
+                  <div className=" text-[14px] font-montserrat  font-medium">
+                    city
+                  </div>
+                  <div className=" border-[1px] border-[#9D9D9D] rounded-[8px] px-[16px] py-[12px]">
+                    <input
+                      type="text"
+                      name="city"
+                      placeholder="Enter Certificate Name"
+                      className="w-full text-[14px] font-montserrat font-small "
+                      value={internShipData.city}
+                      onChange={handleInputChange}
+                      disabled={!isChecked}
+                    />
+                  </div>
+                </div>
+                
+              </div>
+
               <DateSelector
                 idPrefix="education"
-                data={courseData}
-                dataSeter={setCourseData}
+                data={internShipData}
+                dataSeter={setInternshipData}
                 fromCreate={true}
 
               />
@@ -175,13 +188,13 @@ const Course = ({ data, setData,course, setCourse}) => {
                     id=""
                     className="w-full h-full text-[14px] font-montserrat font-small outline-none  min-h-[140px]"
                     onChange={(e) => {
-                      setCourseData({
-                        ...courseData,
+                      setInternshipData({
+                        ...internShipData,
                         discription: e.target.value,
                       });
                     }}
                   >
-                    {courseData.discription}
+                    {internShipData.discription}
                   </textArea>
                 </div>
               </div>
@@ -191,7 +204,7 @@ const Course = ({ data, setData,course, setCourse}) => {
               <div className="flex justify-between  py-2 gap-2">
                 <button
                   className=" font-montserrat text-xs font-semibold px-[12px] rounded-[8px] border border-[#06A9EF] w-[80px] h-[32px]"
-                  onClick={() => setCourse(false)}
+                  onClick={() => setIntern(false)}
                 >
                   Cancel
                 </button>
@@ -199,7 +212,7 @@ const Course = ({ data, setData,course, setCourse}) => {
                   Update to Profile
                 </button> */}
                 <button
-                  onClick={()=>{setCourse(false);handleSave()}}
+                  onClick={()=>{handleSave()}}
                   // disabled={!isChecked}
                   
                   className=" font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px]  bg-[#06A9EF] w-[60px] h-[32px]"
@@ -209,35 +222,11 @@ const Course = ({ data, setData,course, setCourse}) => {
               </div>
             </div>
           </div>
-         )}
-        {/* {!view && (
-          <div className="flex gap-1">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-            >
-              <g mask="url(#mask0_5716_136351)">
-                <path
-                  d="M11 13H5V11H11V5H13V11H19V13H13V19H11V13Z"
-                  fill="#06A9EF"
-                />
-              </g>
-            </svg>
-            <text
-              onClick={() => setView(true)}
-              className="text-[16px] font-semibold text-[#06A9EF] cursor-pointer"
-              disabled={!isChecked}
-            >
-              Add Course & Certification
-            </text>
-          </div>
-        )} */}
-      
+       )} 
+
+      </div>
     </>
   );
 };
 
-export default Course;
+export default Internships;

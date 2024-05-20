@@ -45,7 +45,7 @@ function SkillAssessment() {
   const [assessmentList, setAssessmentList] = useState([]);
   const [isLevel, setisLevel] = useState(false);
   const [selectedSkill, setSelectedSkill] = useState();
-  const [skills, setSkills] = useState(SkillList);
+  // const [skills, setSkills] = useState(SkillList);
   const [userSkills, setUserSkills] = useState();
   const [data, setData] = useState([]);
   const [timer, setTimer] = useState(30);
@@ -66,6 +66,63 @@ function SkillAssessment() {
   ]);
   const [uniqueQuestions, setUniqueQuestions] = useState([]);
 
+  // START
+  const [skills, setSkills] = useState([]);
+  const [skillList, setSkillList] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:2000/api/AllSkills")
+      .then((res) => {
+        const names = res.data.map((skill) => skill.name);
+
+        setSkills(names);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [skillList]);
+
+  const handleInputChange = async (selectedOption) => {
+    const found = skillList?.find(
+      (item) => item.skill.name === selectedOption.label
+    );
+    if (!found) {
+      try {
+        const response = await fetch("http://localhost:2000/api/skills", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ name: selectedOption.label }),
+        });
+
+        if (response.ok) {
+          const newSkill = { skill: selectedOption.label };
+          setSkillList([...skillList, newSkill]);
+          setSelectedSkill(selectedOption.value);
+          setInputValue(selectedOption.value);
+          
+        } else {
+          console.error("Failed to add skill:", response.statusText);
+        }
+      } catch (error) {
+        console.error("Error adding skill:", error.message);
+      }
+    }
+  };
+  const handleLevelChange = (event) => {
+    setLevel(event.target.value);
+  };
+
+  // const handleInputChange = (selectedOption) => {
+  //   setSelectedSkill(selectedOption.value);
+  //   setInputValue(selectedOption.value);
+  // };
+  // const handleLevelChange = (event) => {
+  //   setLevel(event.target.value);
+  // };
+
   useEffect(() => {
     const uniqueQuestionsSet = new Set();
     const filteredQuestions = [];
@@ -83,10 +140,10 @@ function SkillAssessment() {
 
     // while (filteredQuestions.length < 10) {
     //   toggleContent(); // This function should generate a new unique question
-    //   // if (!uniqueQuestionsSet.has(newQuestion.question)) {
-    //   //   uniqueQuestionsSet.add(newQuestion.question);
-    //   //   filteredQuestions.push(newQuestion);
-    //   // }
+    // if (!uniqueQuestionsSet.has(newQuestion.question)) {
+    //   uniqueQuestionsSet.add(newQuestion.question);
+    //   filteredQuestions.push(newQuestion);
+    // }
     // }
 
     if (filteredQuestions.length < 10 && selectedSkill) {
@@ -95,13 +152,14 @@ function SkillAssessment() {
   }, [question]);
 
   const [isSkiped, setIsSkiped] = useState(false);
-  const handleInputChange = (selectedOption) => {
-    setSelectedSkill(selectedOption.value);
-    setInputValue(selectedOption.value);
-  };
-  const handleLevelChange = (event) => {
-    setLevel(event.target.value);
-  };
+
+  // const handleInputChange = (selectedOption) => {
+  //   setSelectedSkill(selectedOption.value);
+  //   setInputValue(selectedOption.value);
+  // };
+  // const handleLevelChange = (event) => {
+  //   setLevel(event.target.value);
+  // };
 
   useEffect(() => {
     axios
@@ -380,7 +438,16 @@ function SkillAssessment() {
                         </div>
                       </div>
                     </div>
+
                     <CreatableSelect
+                      options={skills.map((item) => ({
+                        value: item,
+                        label: item,
+                      }))}
+                      className="w-full"
+                      onChange={handleInputChange}
+                    />
+                    {/* <CreatableSelect
                       onInputChange={(data) => {
                         // setSkills([data, ...skills]);
                       }}
@@ -390,7 +457,7 @@ function SkillAssessment() {
                       }))}
                       className="w-full"
                       onChange={handleInputChange}
-                    />
+                    /> */}
                   </div>
                 </div>
               ) : (

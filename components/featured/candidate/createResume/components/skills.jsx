@@ -5,12 +5,15 @@ import { camelCase } from "../../../../../utils/middleware";
 import { toast } from "react-toastify";
 
 import { useSelector } from "react-redux";
-import { SkillList } from "../../../../../utils/data";
+// import { SkillList } from "../../../../../utils/data";
 import { Close_svg } from "../../../../../utils/svg";
+import axios from "axios";
 
 const Skills = ({ data, setData }) => {
-  const [skills, setSkills] = useState([...SkillList]);
+  const [skills, setSkills] = useState([]);
+  console.log(14,skills)
   const [isClearable, setIsClearable] = useState({ value: "", label: "" });
+  // console.log(isClearable)
   const userDataGlobal = useSelector((state) => state.userData);
   const [saveDisabled, setSaveDisabled] = useState(false);
   const [skillList, setSkillList] = useState([]);
@@ -19,8 +22,10 @@ const Skills = ({ data, setData }) => {
     if(Array.isArray(data.skills)){
       setSkillList(data.skills);
 
-    }
+    } 
   },[data]);
+
+
   const handleStarClick = (skillIndex, starIndex) => {
     const updatedSkills = skillList?.map((skill, index) => {
       if (index === skillIndex) {
@@ -34,6 +39,21 @@ const Skills = ({ data, setData }) => {
     setSkillList(updatedSkills);
     setSaveDisabled(false);
   };
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:2000/api/AllSkills")
+      .then((res) => {
+        console.log(res)
+        const names = res.data.map(skill => skill.name);
+       
+        setSkills(names);
+    })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+  // console.log(skillList)
 
   const deleteSkill = (index) => {
     const updatedSkills = skillList.filter((_, i) => i !== index);
@@ -59,17 +79,32 @@ const Skills = ({ data, setData }) => {
     }
   };
 
-  const handleChange = (value) => {
-    const found = skillList?.find((item) => item.skill === value.label);
+  const handleChange = async (value) => {
+    const found = skillList?.find((item) => item.skill.name === value.label);
     if (!found) {
-      setSkillList([
-        ...skillList,
-        { skill: value.label, rating: initialRatings },
-      ]);
-      setSaveDisabled(false);
-      setIsClearable({ skill: value.label, rating: initialRatings });
+      try {
+        const response = await fetch('http://localhost:2000/api/skills', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ name: value.label }),
+        });
+  
+        if (response.ok) {
+          const newSkill = { skill: value.label, rating: initialRatings };
+          setSkillList([...skillList, newSkill]);
+          setSaveDisabled(false);
+          setIsClearable(newSkill);
+        } else {
+          console.error('Failed to add skill:', response.statusText);
+        }
+      } catch (error) {
+        console.error('Error adding skill:', error.message);
+      }
     }
   };
+  
   const saveHandler = () => {
     setData({ ...data, skills: skillList });
     setSaveDisabled(true);
@@ -113,11 +148,12 @@ const Skills = ({ data, setData }) => {
           <CreatableSelect
             options={skills.map((item) => ({
               value: item,
-              label: camelCase(item),
+              label: item,
             }))}
             className="w-full"
             onChange={handleChange}
             value={isClearable}
+            
           />
           <div className="flex justify-end ">
             <div className="flex justify-between  py-2 gap-2">

@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import Link from "next/link";
 import Services from "../../../pages/services";
 import { Service, ServiceCross } from "../../../utils/svg";
+import { camelCase } from "../../../utils/middleware";
 
 function CandidateHeader() {
   const router = useRouter();
@@ -271,9 +272,9 @@ function CandidateHeader() {
               </div>
             )}
           </div>
-          {userDataGlobal?.name && (
+          {userDataGlobal?.firstName && (
             <div className="scr1250:text-[14px] text-[14px]">
-              {userDataGlobal?.name}
+             {camelCase(userDataGlobal?.firstName)} {camelCase(userDataGlobal?.lastName)}
             </div>
           )}
 
