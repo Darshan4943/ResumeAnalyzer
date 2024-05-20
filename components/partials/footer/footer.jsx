@@ -39,12 +39,10 @@ function Footer({ isSubscribe, setIsSubcrib }) {
 
   const handleSubscribed = (e) => {
     e.preventDefault()
-
     if (email.trim() !== '' && !error) {
       setIsSubscribed(true);
       toast.success("Subscribe successfully")
       // console.log('Subscribed with email:', email);
-
     } else {
       console.log('Valid email is required to subscribe');
       toast.error("please enter a valid email")
@@ -77,7 +75,6 @@ function Footer({ isSubscribe, setIsSubcrib }) {
             Skilotech is the modern talent platform powered by Artificial
             Intelligence for career development and recruitment.
           </p>
-
           <div className="web">
             <div className=" flex gap-6 ">
               <img
@@ -131,7 +128,6 @@ function Footer({ isSubscribe, setIsSubcrib }) {
                 </p>
               </div>
             </div>
-
             <div className="flex flex-col gap-4 ">
               <div className="footer_about_section ">
                 <p className="footer_about_P">About</p>

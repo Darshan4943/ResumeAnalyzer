@@ -13,7 +13,7 @@ import {
 function Template4({ data, selectedColor, selectedFont, preview }) {
   return (
     <Page size="A4" wrap={true} style={{ paddingTop: "12px" }}>
-      <View style={{ flexDirection: "row", gap: "1.5rem" ,marginTop: "-12px"}}>
+      <View style={{ flexDirection: "row", gap: "1.5rem", marginTop: "-12px" }}>
         <View style={{ width: "190px" }}>
           <View
             style={{
@@ -39,8 +39,8 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                     preview
                       ? data.profilePhoto
                       : Object.keys(data?.profilePhoto).includes("filename")
-                      ? URL.createObjectURL(data.profilePhoto)
-                      : data.profilePhoto
+                        ? URL.createObjectURL(data.profilePhoto)
+                        : data.profilePhoto
                   }
                   alt=""
                   style={{
@@ -132,7 +132,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                   </Text>
                 </Svg>
               </View>
-              <View style={{ display:"flex", flexDirection:"column", gap:"8px",width:'100%',alignItems:'start'}}>
+              <View style={{ display: "flex", flexDirection: "column", gap: "8px", width: '100%', alignItems: 'start' }}>
                 {data?.mobileNumber && (
                   <View
                     style={{
@@ -273,7 +273,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                         fontFamily: `${selectedFont} 400`,
                         color: "#fff",
                         flexWrap: "wrap",
-                        width:"90%"
+                        width: "90%"
                       }}
                     >
                       {data.location}
@@ -594,13 +594,17 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                             display: "flex",
                             flexDirection: "row",
                             gap: 8,
+                            flexWrap: "wrap",
                             alignItems: "center",
+                            width:"80%",
                           }}
                         >
                           <Text style={{ marginTop: "-1px" }}>{">"}</Text>
                           <Text
                             style={{
                               color: "#414042",
+
+                              flexWrap: "wrap",
                               fontSize: "11px",
                               fontFamily: `${selectedFont} 400`,
                             }}
@@ -714,7 +718,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                           flexDirection: "row",
                           gap: 8,
                           alignItems: "start",
-                          width:"70%"
+                          width: "70%"
                         }}
                       >
                         <Text style={{ marginTop: "-1px" }}>{">"}</Text>
@@ -737,10 +741,9 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                       >
                         {" "}
                         {detail.duration?.start?.year !== "Year" &&
-                          `${detail.duration?.start?.year}-${" "}${
-                            detail.currentlyWorking
-                              ? "Present"
-                              : detail.duration?.end?.year
+                          `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
+                            ? "Present"
+                            : detail.duration?.end?.year
                           }
                          `}
                       </Text>
@@ -771,14 +774,14 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
           </View>
           {data?.skills?.length > 0 && (
             <View
-            wrap={false}
+            
               style={{
                 display: "flex",
                 flexDirection: "column",
                 gap: 16,
                 alignItems: "flex-start",
                 paddingTop: "26px",
-                
+
               }}
             >
               <View

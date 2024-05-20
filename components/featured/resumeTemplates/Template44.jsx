@@ -178,6 +178,8 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
                 gap: 2,
                 justifyContent: "center",
                 alignItems: "center",
+                maxWidth:'100%',
+                paddingHorizontal:'10px '
               }}
             >
               <Text

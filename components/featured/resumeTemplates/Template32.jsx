@@ -148,6 +148,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                     alignItems: "center",
                     marginLeft: "24px",
                     paddingRight: " 4px",
+                    maxWidth:'100%'
                   }}
                 >
                   <Svg

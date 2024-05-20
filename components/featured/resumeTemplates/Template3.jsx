@@ -148,7 +148,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                   </Svg>
                 </View>
                 <View
-                  style={{ color: "white", flexDirection: "row", fontSize: 10 }}
+                  style={{ color: "white", flexDirection: "row", fontSize: 10, maxWidth:'100%' }}
                 >
                   <Text
                     style={{
@@ -164,7 +164,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
           </View>
 
           {data?.skills?.length > 0 && (
-            <View style={{}}>
+            <View style={{maxWidth:'100%'}}>
               <View
                 style={{
                   paddingLeft: -1,
@@ -197,6 +197,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                   paddingLeft: 16,
                   paddingTop: 20,
                   gap: 8,
+                  maxWidth:'80%'
                 }}
               >
                 {data.skills.map((detail, index) => (
@@ -501,7 +502,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
             <View style={{ flexDirection: "column", gap: 24 }}>
               {data.experience?.map((detail, index) => (
                 <View
-                  wrap={false}
+                  // wrap={false}
                   key={index}
                   style={{ flexDirection: "column", gap: 4 }}
                 >
