@@ -94,6 +94,7 @@ function AdminDashboard({ toggleContentt }) {
   };
   {
     console.log(333, inquiriesData);
+
   }
 
   const [list, setList] = useState([]);
@@ -128,6 +129,7 @@ function AdminDashboard({ toggleContentt }) {
     setPage(1);
   };
 
+
   return (
     <div className=" flex flex-col gap-12 w-[100%] customMargins ">
       <div className="ml:pt-5 pt-4 lg:flex flex lg:flex-row flex-col flex-wrap items-start lg:justify-between gap-3">
@@ -148,6 +150,7 @@ function AdminDashboard({ toggleContentt }) {
             <div className="w-[69%]">
               <p className="ml:text-[16px] text-[14px] leading-4 font-medium font-montserrat ">
                 Total Recruiter{" "}
+
               </p>
             </div>
             <img
@@ -185,7 +188,7 @@ function AdminDashboard({ toggleContentt }) {
           </div>
         </div>
 
-        <div
+        {/* <div
           onClick={() => router.push("/dashboard/Enquiries")}
           className="flex py-2 px-4 ml:p-4 flex-col justify-center items-start lg:w-[24%] w-[100%] gap-[6px]  ml:gap-4 cursor-pointer"
           style={{
@@ -210,10 +213,10 @@ function AdminDashboard({ toggleContentt }) {
               alt=""
             />
           </div>
-        </div>
+        </div> */}
 
         <div
-          // onClick={() => router.push("/dashboard/Recruiters")}
+          onClick={() => router.push("/dashboard/ActivePlans")}
           className="flex py-2 px-4 ml:p-4 flex-col justify-center items-start lg:w-[24%] w-[100%] gap-[6px]  ml:gap-4"
           style={{
             borderRadius: "12px",
@@ -231,11 +234,11 @@ function AdminDashboard({ toggleContentt }) {
                 Active Plans
               </p>
             </div>
-            {/* <img
+            <img
               src="/images/afterLoginHome/arrow_forward_ios.png"
               className="h-[24px] w-[24px]"
               alt=""
-            /> */}
+            />
           </div>
         </div>
       </div>
