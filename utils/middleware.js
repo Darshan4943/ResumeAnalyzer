@@ -56,9 +56,9 @@ export const dateSeter = (date) => {
   return `${day} ${monthLater[month]} ${year} `;
 };
 export const fileIconSeter = (data) => {
-  if (data.fileName.includes("docx") || data.fileName.includes("doc")) {
+  if (data.fileName.includes("docx") || data.fileName.toLowerCase().includes("doc")) {
     return <DocSVG />;
-  } else if (data.fileName.includes("pdf")) {
+  } else if (data.fileName?.toLowerCase().includes("pdf")) {
     return <PDFSvg />;
   } else if (
     data.fileName?.includes("png") ||
