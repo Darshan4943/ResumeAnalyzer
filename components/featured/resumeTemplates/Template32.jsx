@@ -736,7 +736,8 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                 {data?.experience?.map((detail, index) => (
                   <>
                     <View
-                      wrap={false}
+                      wrap={true}
+                      // wrap={false}
                       key={index}
                       style={{ display: "flex", flexDirection: "row", gap: 16 }}
                     >

@@ -63,7 +63,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                   }}
                 />
               )}
-              <View style={{ display: "flex" }}>
+              <View style={{ display: "flex", marginBottom:"6px" }}>
                 <Text
                   style={{
                     color: "#fff",
@@ -88,6 +88,8 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                   fontSize: "8px",
                   fontFamily: `${selectedFont} 500`,
                   color: selectedColor,
+                  marginRight: "16px",
+                  marginLeft: "16px",
                 }}
               >
                 {data.designation}
@@ -594,7 +596,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                             display: "flex",
                             flexDirection: "row",
                             gap: 8,
-                            flexWrap: "wrap",
+                            
                             alignItems: "center",
                             width:"80%",
                           }}
@@ -854,11 +856,12 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                       style={{
                         fontSize: 12,
                         fontFamily: `${selectedFont} 400`,
+                        marginRight:"6px"
                       }}
                     >
                       {detail.skill}
                     </Text>
-                    <View
+                    {/* <View
                       style={{
                         display: "flex",
                         gap: 16,
@@ -901,7 +904,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                           )}
                         </View>
                       ))}
-                    </View>
+                    </View> */}
                   </View>
                 ))}
               </View>
