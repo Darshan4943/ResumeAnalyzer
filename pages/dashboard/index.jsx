@@ -90,7 +90,7 @@ function Dashboard() {
       name: "Job Description Matching",
       imgSrc: "/images/resumeBuilder/job_description_matching.png",
     },
-    { name: "My Collection", imgSrc: "/images/resumeBuilder/collechttp://localhost:2000My Purchases", imgSrc: "/images/resumeBuilder/my_purchases.png" },
+    { name: "My Collection", imgSrc: "/images/resumeBuilder/collechttps://freedygoservices.inMy Purchases", imgSrc: "/images/resumeBuilder/my_purchases.png" },
     { name: "Post Jobs", imgSrc: "/images/resumeBuilder/job.png" },
   ];
 
@@ -210,15 +210,15 @@ function Dashboard() {
     // }
   }, [userDataGlobal]);
 
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const storedData = localStorage.getItem("userData");
-      if (storedData) {
-        setData(JSON.parse(storedData));
-      }
-      // setIsClient(true);
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (typeof window !== "undefined") {
+  //     const storedData = localStorage.getItem("userData");
+  //     if (storedData) {
+  //       setData(JSON.parse(storedData));
+  //     }
+  //     // setIsClient(true);
+  //   }
+  // }, []);
 
   // const MyComponent = ({ selectedResumeIndex }) => {
   //   console.log(220, selectedResumeIndex);
