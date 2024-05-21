@@ -5,14 +5,7 @@ import { camelCase } from "../../utils/middleware";
 import Summery from "../../components/featured/candidate/createResume/components/summery";
 import { useRouter } from "next/router";
 import { plans } from "../../utils/data";
-import {
-  PDFViewer,
-  PDFDownloadLink,
-  Document,
-  Page,
-  BlobProvider,
-  pdf,
-} from "@react-pdf/renderer";
+
 
 import axios from "axios";
 import Template1 from "../../components/featured/resumeTemplates/Template1";
@@ -40,8 +33,6 @@ import Template32 from "../../components/featured/resumeTemplates/Template32";
 import Template39 from "../../components/featured/resumeTemplates/Template39";
 import Template48 from "../../components/featured/resumeTemplates/Template48";
 import Template44 from "../../components/featured/resumeTemplates/Template44";
-import PdfViewer from "../../components/featured/jobMatching/PdfViewer";
-import ALink from "../../components/alink";
 
 function Dashboard() {
   const userDataGlobal = useSelector((state) => state.userData);
