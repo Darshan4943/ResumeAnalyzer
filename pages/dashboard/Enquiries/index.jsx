@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import List from "./list";
-import { AddIcon } from "../../../utils/svg";
+
 import { useRouter } from "next/router";
 import MiniLoader from "../../../components/common/miniLoader";
 const Index = () => {
