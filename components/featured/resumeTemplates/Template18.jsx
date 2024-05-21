@@ -667,7 +667,8 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                 style={{
                   display: "flex",
                   flexDirection: "column",
-                  marginLeft: 26,
+                  marginLeft: 26, 
+                  
                 }}
               >
                 {data?.experience?.map((detail, index) => (

@@ -130,14 +130,14 @@ const Skills = ({ data, setData }) => {
                   key={index}
                   className="flex w-full scr420:gap-4 gap-1 scr420:flex-row flex-col justify-between"
                 >
-                  <div className="flex w-[50%] gap-1 px-3 py-2 border border-[#06A9EF] rounded-[24px] justify-between items-center">
-                    <p className="text-[14px] font-medium">{skill?.skill}</p>
+                  <div className="flex w-[50%]  gap-1 px-3 py-2 border border-[#06A9EF] overflow-hidden rounded-[24px] justify-between items-center">
+                    <p className="text-[14px] flex-wrap overflow-auto w-full font-medium">{skill?.skill}</p>
 
                     <div className="" onClick={() => deleteSkill(index)}>
                       <Close_svg height={16} width={16} />
                     </div>
                   </div>
-                  <div className="flex w-[50%">{renderStars(index, skill)}</div>
+                  <div className="flex w-50%">{renderStars(index, skill)}</div>
                 </div>
               ))}
           </div>

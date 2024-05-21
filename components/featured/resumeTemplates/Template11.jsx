@@ -111,7 +111,9 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                               fontSize: 12,
                               fontFamily: `${selectedFont} 500`,
                               width: "100%",
-                              flexWrap: "wrap"
+                              flexWrap: "wrap",
+                              marginRight:"6px",
+                              overflow:"hidden"
                             }}
                           >
                             {detail.skill}

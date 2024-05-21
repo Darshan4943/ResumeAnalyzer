@@ -103,7 +103,7 @@ const ResumePreview = ({
       axios
         .get(`http://localhost:2000/api/resume/${id}`)
         .then((res) => {
-      
+
 
           setName(data.firstName + "_resume " + (res.data.data.length + 1));
         })
@@ -716,11 +716,11 @@ const ResumePreview = ({
             {/* )} */}
             {resumeLoading &&
               <div className=" absolute w-[90%] flex items-center justify-center bg-white py-[24px] rounded-[8px] min-h-[900px]  "
-              style={{
-                transformOrigin: "top left",
-              }}>
+                style={{
+                  transformOrigin: "top left",
+                }}>
                 <div className="z-[2000]">
-                <MiniLoader />
+                  <MiniLoader />
                 </div>
               </div>
             }
