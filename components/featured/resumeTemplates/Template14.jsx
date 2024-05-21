@@ -63,7 +63,7 @@ function Template14({ data, selectedColor, selectedFont }) {
             style={{
               display: "flex",
               flexDirection: "column",
-              gap: 2,
+              gap: 6,
               alignItems: "flex-end",
               maxWidth:"30%"
             }}
@@ -85,6 +85,15 @@ function Template14({ data, selectedColor, selectedFont }) {
               }}
             >
               {data.mobileNumber}
+            </Text>
+            <Text
+              style={{
+                fontSize: 12,
+                fontFamily: `${selectedFont} 400`,
+                color: "#4D4D4D",
+              }}
+            >
+              {data.location}
             </Text>
           </View>
         </View>
@@ -170,7 +179,7 @@ function Template14({ data, selectedColor, selectedFont }) {
           >
             EXPERIENCE
           </Text>
-          <View style={{ display: "flex", flexDirection: "column", gap: 28 }}>
+          <View style={{ display: "flex", flexDirection: "column", gap: 12 }}>
             {data?.experience?.map((detail, index) => (
               <View
                 wrap={false}
@@ -611,9 +620,10 @@ function Template14({ data, selectedColor, selectedFont }) {
                     wrap={false}
                     key={index}
                     style={{
-                      fontSize: 18,
-                      fontFamily: `${selectedFont} 500`,
-                      color: "#4D4D4D",
+                      fontSize: 14,
+                      fontFamily: `${selectedFont} 400`,
+                      color: "#989898",
+                      marginLeft:'6px'
                     }}
                   >
                     {detail.title}
@@ -646,9 +656,10 @@ function Template14({ data, selectedColor, selectedFont }) {
                     wrap={false}
                     key={index}
                     style={{
-                      fontSize: 12,
+                      fontSize: 14,
                       fontFamily: `${selectedFont} 400`,
-                      color: "#4D4D4D",
+                      color: "#989898",
+                      
                     }}
                   >
                     {detail.languages}
