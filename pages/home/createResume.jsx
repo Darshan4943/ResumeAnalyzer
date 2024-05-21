@@ -207,7 +207,7 @@ function CreateResume() {
   const [dataFromLocal, setDataFromLocal] = useState([]);
   useEffect(() => {
     const storedData = JSON.parse(localStorage.getItem("allData"));
-  
+    console.log(2355, storedData);
     if (storedData) {
       setDataFromLocal(storedData);
     }
@@ -347,7 +347,7 @@ function CreateResume() {
     hobbies: [],
     languages: [],
     section: [],
-    selectedResumeIndex: 1,
+    selectedResumeIndex: 0,
     selectedColor: "",
     selectedFont: "",
     createdAt: "",
@@ -366,11 +366,11 @@ function CreateResume() {
     }
   }, []);
 
-  // useEffect(() => {
-  //   if (isClient) {
-  //     localStorage.setItem("userData", JSON.stringify(data));
-  //   }
-  // }, [data, isClient]);
+  useEffect(() => {
+    if (isClient) {
+      localStorage.setItem("userData", JSON.stringify(data));
+    }
+  }, [data, isClient]);
 
   function extractMobileNumber(inputString) {
     var regex = /[0-9]{10}/g;
@@ -397,8 +397,8 @@ function CreateResume() {
       const experience = parsedData["work experience"]
         ? parsedData["work experience"]
         : parsedData.work_experience
-        ? parsedData.work_experience
-        : [];
+          ? parsedData.work_experience
+          : [];
       const courses = parsedData.issuing_organization;
       setData({
         ...data,
