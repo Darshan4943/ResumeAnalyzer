@@ -21,7 +21,6 @@ function CreateResume() {
   const { clientId } = router.query;
   const currentYear = new Date().getFullYear();
 
-
   const templates = [
     {
       title: "Template1",
@@ -193,7 +192,6 @@ function CreateResume() {
     },
   ];
 
-
   const handleOutsideClick = (event) => {
     if (taskRef.current && !taskRef.current.contains(event.target)) {
       isSetEdit(false);
@@ -206,7 +204,128 @@ function CreateResume() {
     };
   }, []);
   const [isEdit, isSetEdit] = useState(false);
-  const [data, setData] = useState({
+  const [dataFromLocal, setDataFromLocal] = useState([]);
+  useEffect(() => {
+    const storedData = JSON.parse(localStorage.getItem("allData"));
+    console.log(2355, storedData);
+    if (storedData) {
+      setDataFromLocal(storedData);
+    }
+  }, []);
+  // const [data, setData] = useState({
+  //   profilePhoto: null,
+  //   designation: dataFromLocal?.designation ? dataFromLocal?.designation : "",
+  //   firstName: dataFromLocal?.firstName ? dataFromLocal?.firstName : "",
+  //   lastName: dataFromLocal?.lastName ? dataFromLocal?.lastName : "",
+  //   mobileNumber: dataFromLocal?.mobileNumber
+  //     ? dataFromLocal?.mobileNumber
+  //     : "",
+  //   email: dataFromLocal?.email ? dataFromLocal?.email : "",
+  //   location: dataFromLocal?.location ? dataFromLocal?.location : "",
+  //   summary: dataFromLocal?.summary ? dataFromLocal?.summary : "",
+  //   showSummary: true,
+  //   education: dataFromLocal?.education ? dataFromLocal?.education : [],
+  //   showEducation: true,
+  //   experience: dataFromLocal?.experience ? dataFromLocal?.experience : [],
+  //   showExperience: true,
+  //   course: dataFromLocal?.course ? dataFromLocal?.course : [],
+  //   showCourse: true,
+  //   skills: dataFromLocal?.skills ? dataFromLocal?.skills : [],
+  //   achievement: dataFromLocal?.achievement ? dataFromLocal?.achievement : [],
+  //   sociaLinks: dataFromLocal?.sociaLinks ? dataFromLocal?.sociaLinks : [],
+  //   hobbies: dataFromLocal?.hobbies ? dataFromLocal?.hobbies : [],
+  //   languages: dataFromLocal?.languages ? dataFromLocal?.languages : [],
+  //   // internship:[],
+  //   // reference:[],
+  //   section: dataFromLocal?.section ? dataFromLocal?.section : [],
+  // });
+
+  // const [data, setData] = useState(() => {
+  //   // Check if data exists in localStorage, if not, initialize it with the default state
+  //   // const storedData = localStorage.getItem("userData");
+  //   // return storedData
+  //   //   ? JSON.parse(storedData)
+  //   //   : {
+  //   //       profilePhoto: null,
+  //   //       designation: "",
+  //   //       firstName: "",
+  //   //       lastName: "",
+  //   //       mobileNumber: "",
+  //   //       email: "",
+  //   //       location: "",
+  //   //       summary: "",
+  //   //       showSummary: true,
+  //   //       education: [],
+  //   //       showEducation: true,
+  //   //       experience: [],
+  //   //       showExperience: true,
+  //   //       course: [],
+  //   //       showCourse: true,
+  //   //       skills: [],
+  //   //       achievement: [],
+  //   //       sociaLinks: [],
+  //   //       hobbies: [],
+  //   //       languages: [],
+  //   //       section: [],
+  //   //     };
+
+  //   if (typeof window !== "undefined") {
+  //     // Check if data exists in localStorage, if not, initialize it with the default state
+  //     // console.log(274, "i am in");
+  //     const storedData = localStorage.getItem("userData");
+  //     return storedData
+  //       ? JSON.parse(storedData)
+  //       : {
+  //           profilePhoto: null,
+  //           designation: "",
+  //           firstName: "",
+  //           lastName: "",
+  //           mobileNumber: "",
+  //           email: "",
+  //           location: "",
+  //           summary: "",
+  //           showSummary: true,
+  //           education: [],
+  //           showEducation: true,
+  //           experience: [],
+  //           showExperience: true,
+  //           course: [],
+  //           showCourse: true,
+  //           skills: [],
+  //           achievement: [],
+  //           sociaLinks: [],
+  //           hobbies: [],
+  //           languages: [],
+  //           section: [],
+  //         };
+  //   } else {
+  //     return {
+  //       profilePhoto: null,
+  //       designation: "",
+  //       firstName: "",
+  //       lastName: "",
+  //       mobileNumber: "",
+  //       email: "",
+  //       location: "",
+  //       summary: "",
+  //       showSummary: true,
+  //       education: [],
+  //       showEducation: true,
+  //       experience: [],
+  //       showExperience: true,
+  //       course: [],
+  //       showCourse: true,
+  //       skills: [],
+  //       achievement: [],
+  //       sociaLinks: [],
+  //       hobbies: [],
+  //       languages: [],
+  //       section: [],
+  //     };
+  //   }
+  // });
+
+  const defaultState = {
     profilePhoto: null,
     designation: "",
     firstName: "",
@@ -227,11 +346,32 @@ function CreateResume() {
     sociaLinks: [],
     hobbies: [],
     languages: [],
-    // internship:[],
-    // reference:[],
     section: [],
+    selectedResumeIndex: 0,
+    selectedColor: "",
+    selectedFont: "",
+    createdAt: "",
+  };
 
-  });
+  const [data, setData] = useState(defaultState);
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const storedData = localStorage.getItem("userData");
+      if (storedData) {
+        setData(JSON.parse(storedData));
+      }
+      setIsClient(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (isClient) {
+      localStorage.setItem("userData", JSON.stringify(data));
+    }
+  }, [data, isClient]);
+
   function extractMobileNumber(inputString) {
     var regex = /[0-9]{10}/g;
 
@@ -240,7 +380,7 @@ function CreateResume() {
   }
   const parsedDataSeter = () => {
     const parsedData = JSON.parse(localStorage.getItem("parsedResume"));
-  
+
     if (parsedData) {
       const {
         first_name,
@@ -318,7 +458,7 @@ function CreateResume() {
       });
     } else if (clientId) {
       axios
-        .get(`http://localhost:2000/api/client/getByClientId/${clientId}`)
+        .get(`https://freedygoservices.in/api/client/getByClientId/${clientId}`)
         .then((res) => {
           const result = res.data.data;
           setData({
@@ -360,6 +500,7 @@ function CreateResume() {
     setRender(false);
     setTimeout(() => setRender(true), 400);
   }, [data]);
+
   return (
     <div className="bg-[#F9F9F9]">
       <div className="  pt-2 customMargins ">

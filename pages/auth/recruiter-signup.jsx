@@ -12,10 +12,10 @@ import ImageContainer from "../../components/common/image";
 import ImageCropper from "../../components/featured/candidate/createResume/components/imageCropper";
 import MiniLoader from "../../components/common/mini-loader";
 
-function Recruiter_signup({ }) {
+function Recruiter_signup({}) {
   const router = useRouter();
   const { byAdmin, isUpdate } = router.query;
-  console.log(18, isUpdate)
+  console.log(18, isUpdate);
   const userDataGlobal = useSelector((state) => state.userData);
 
   const dispatch = useDispatch();
@@ -237,15 +237,13 @@ function Recruiter_signup({ }) {
     if (hasErrors) {
       toast.error("Please enter valid information");
       setFormError(errors);
-    }
-    else if (!verified && !isUpdate) {
+    } else if (!verified && !isUpdate) {
       setOtpError("Email Verification Required");
       toast.error("Email Verification Required");
-    }
-    else {
+    } else {
       const url = isUpdate
-        ? "http://localhost:2000/api/updateUser"
-        : "http://localhost:2000/api/skiloteckuser/recruiter";
+        ? "https://freedygoservices.in/api/updateUser"
+        : "https://freedygoservices.in/api/skiloteckuser/recruiter";
       // setLoading(true);
       const formdata = new FormData();
       Object.keys(data).forEach((key) => {
@@ -279,8 +277,9 @@ function Recruiter_signup({ }) {
                   dispatch(reCallUserData());
                   toast.success("Sign up Successfully");
                   if (sendToPurchase && sendToPurchase?.status) {
-                    window.location.href = `/purchase/details?id=${sendToPurchase.index + 1
-                      }`;
+                    window.location.href = `/purchase/details?id=${
+                      sendToPurchase.index + 1
+                    }`;
                     setLoading(false);
                   } else {
                     window.location.href = `/home`;
@@ -318,7 +317,7 @@ function Recruiter_signup({ }) {
     let otp = Math.floor(100000 + Math.random() * 900000);
     setOtp(otp);
     axios
-      .post("http://localhost:2000/api/otpMailSignup", {
+      .post("https://freedygoservices.in/api/otpMailSignup", {
         userEmail: data.email,
         otp,
       })
@@ -388,7 +387,7 @@ function Recruiter_signup({ }) {
         />
       )}
       <div className=" relative !important">
-        {!isUpdate &&
+        {!isUpdate && (
           <div className="register_head sticky ml:top-[50px] top-[2rem] w-[100%] z-50 pb-4 ml:pt-10 pt-6 bg-white">
             <div className="register_cadidate py-3 px-2 overflow-hidden">
               <div className="register_text_parent">
@@ -404,7 +403,7 @@ function Recruiter_signup({ }) {
               </div>
             </div>
           </div>
-        }
+        )}
         <div className={` ${isUpdate && "pt-12"} pb-8  `}>
           <div className="flex flex-col gap-4">
             <motion.div className=" flex justify-center pt-4  pb-2">
@@ -522,13 +521,15 @@ function Recruiter_signup({ }) {
                         Contact Number <span className="star">*</span>
                       </p>
                       <div
-                        className={`flex w-[100%] items-start ${isViewportBelow850 ? "gap-[4px] " : "gap-[16px] "
-                          }`}
+                        className={`flex w-[100%] items-start ${
+                          isViewportBelow850 ? "gap-[4px] " : "gap-[16px] "
+                        }`}
                         id="single_input"
                       >
                         <div
-                          className={`relative min-w-[150px] ${isViewportBelow850 ? "w-[65%] " : "w-[40%] "
-                            } items-center`}
+                          className={`relative min-w-[150px] ${
+                            isViewportBelow850 ? "w-[65%] " : "w-[40%] "
+                          } items-center`}
                         >
                           <div className="  w-[100%] text-[14px] justify-center items-center  flex font-[500] text-[#646464]">
                             <div className="flex items-center justify-center gap-2 cursor-pointer min-w-[140px] w-[100%]">
@@ -571,10 +572,11 @@ function Recruiter_signup({ }) {
                           type="text"
                           name=""
                           // id="single_input"
-                          placeholder={`${isViewportBelow850
-                            ? "Enter Number "
-                            : "Enter Contact Number "
-                            }`}
+                          placeholder={`${
+                            isViewportBelow850
+                              ? "Enter Number "
+                              : "Enter Contact Number "
+                          }`}
                           value={data.mobileNo}
                           onChange={(e) =>
                             handleInputChange("mobileNo", e.target.value)

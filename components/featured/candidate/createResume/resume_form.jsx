@@ -25,22 +25,22 @@ const ResumeForm = ({
   setSelectedColor,
   setSelectedFont,
   selectedFont,
-  templates
+  templates,
 }) => {
   const [formField, setFormField] = useState([]);
-  const [view, setView] = useState(false)
+  const [view, setView] = useState(false);
   useEffect(() => {
     setFormField(
       templates.find((item) => item.index == selectedResumeIndex)?.formFields
     );
   }, [selectedResumeIndex]);
 
-  const [course, setCourse] = useState(false)
-  const [languages, setLanguages] = useState(false)
-  const [hobbies, setHobbies] = useState(false)
-  const [achievement, setAchievement] = useState(false)
-  const [intern, setIntern] = useState(false)
-  const [showReference, setShowReference] = useState(false)
+  const [course, setCourse] = useState(false);
+  const [languages, setLanguages] = useState(false);
+  const [hobbies, setHobbies] = useState(false);
+  const [achievement, setAchievement] = useState(false);
+  const [intern, setIntern] = useState(false);
+  const [showReference, setShowReference] = useState(false);
   const [isAll, setIsAll] = useState(false);
 
   const handleImageClick = (template) => {
@@ -58,7 +58,6 @@ const ResumeForm = ({
   const handleOutsideClick = (event) => {
     if (taskRef.current && !taskRef.current.contains(event.target)) {
       setIsAll(false);
-  
     }
   };
   useEffect(() => {
@@ -105,7 +104,7 @@ const ResumeForm = ({
   return (
     <>
       <div className="flex flex-col pr-[10px] ml:w-[100%] w-[100%]  pb-4 gap-4 rounded-lg ">
-      <div className="rounded-[8px] bg-[#BCEBFF]  px-4 pt-[10px] ">
+        <div className="rounded-[8px] bg-[#BCEBFF]  px-4 pt-[10px] ">
           <div
             className="flex gap-4 pb-[10px]  items-center"
             style={{ overflowX: "auto" }}
@@ -135,7 +134,6 @@ const ResumeForm = ({
           </div>
         )}
 
-        
         <ResumeList setData={setData} data={data} />
         <ThemeForm
           selectedResumeIndex={selectedResumeIndex}
@@ -144,11 +142,16 @@ const ResumeForm = ({
           setSelectedFont={setSelectedFont}
           selectedFont={selectedFont}
         />
-        <PersonalDetails setData={setData} data={data} />
+        <PersonalDetails
+          setData={setData}
+          data={data}
+          selectedResumeIndex={selectedResumeIndex}
+          selectedColor={selectedColor}
+          selectedFont={selectedFont}
+        />
         <AboutMe setData={setData} data={data} />
         <Education setData={setData} data={data} />
         <Experience setData={setData} data={data} />
-
 
         <Course setData={setData} data={data} />
 
@@ -198,8 +201,6 @@ const ResumeForm = ({
             className=" font-montserrat text-white font-medium text-[14px] px-[12px] rounded-[8px]  bg-[#06A9EF] h-[32px] flex items-center cursor-pointer "
           >
             <span className="text-[22px] mr-2">+</span> Add Section
-
-
           </div>
 
           {/* <div onClick={() => setCourse(!course)} className=" font-montserrat text-white font-medium text-[14px] px-[12px] rounded-[8px]  bg-[#06A9EF] h-[32px] flex items-center cursor-pointer "
@@ -207,7 +208,6 @@ const ResumeForm = ({
             <span className="text-[22px] mr-2" >+</span> course
 
           </div> */}
-
         </div>
 
         {/* <Course setData={setData} data={data} view={view} course={course} setCourse={setCourse} />
@@ -277,8 +277,6 @@ const ResumeForm = ({
         {
           showReference && <Reference setData={setData} data={data} view={view} showReference={showReference} setShowReference={setShowReference} />
         } */}
-
-
       </div>
     </>
   );

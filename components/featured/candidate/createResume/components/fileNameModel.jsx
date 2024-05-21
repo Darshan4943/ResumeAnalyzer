@@ -2,27 +2,28 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
-const FileNameModel = ({ setNamePreview, setFunction, data, clientId}) => {
+const FileNameModel = ({ setNamePreview, setFunction, data, clientId }) => {
   const [name, setName] = useState(data.firstName + "_resume");
   const [existingNames, setExistingNames] = useState([]);
-  console.log(8,existingNames)
+  console.log(8, existingNames);
   const [error, setError] = useState("");
   const userDataGlobal = useSelector((state) => state.userData);
 
-
   const callData = () => {
-    const id = clientId === "undefined" ? userDataGlobal?._id  : clientId;
+    const id = clientId === "undefined" ? userDataGlobal?._id : clientId;
     if (id) {
       axios
-        .get(`http://localhost:2000/api/resume/${id}`)
+        .get(`https://freedygoservices.in/api/resume/${id}`)
         .then((res) => {
-          const filenamesWithoutExtension = res.data.data.map(item => item.fileName.replace(/\.pdf$/, ""));
-        setExistingNames(filenamesWithoutExtension);
-         
+          const filenamesWithoutExtension = res.data.data.map((item) =>
+            item.fileName.replace(/\.pdf$/, "")
+          );
+          setExistingNames(filenamesWithoutExtension);
+
           setName(data.firstName + "_resume " + (res.data.data.length + 1));
         })
         .catch((err) => {
-          console.log(err); 
+          console.log(err);
         });
     }
   };
@@ -56,13 +57,11 @@ const FileNameModel = ({ setNamePreview, setFunction, data, clientId}) => {
               className="py-[12px] px-[16px] text-[14px] w-full border rounded-[8px] border-[#DEDEDE] h-[48px]"
               onChange={(e) => {
                 setName(e.target.value);
-                setError(""); 
+                setError("");
               }}
             />
             {error && (
-              <div className="text-red font-medium text-sm mt-1">
-                {error}
-              </div>
+              <div className="text-red font-medium text-sm mt-1">{error}</div>
             )}
           </div>
           <div className="flex justify-between py-2 gap-2">
