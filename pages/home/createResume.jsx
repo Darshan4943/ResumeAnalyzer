@@ -207,7 +207,7 @@ function CreateResume() {
   const [dataFromLocal, setDataFromLocal] = useState([]);
   useEffect(() => {
     const storedData = JSON.parse(localStorage.getItem("allData"));
-    console.log(2355, storedData);
+  
     if (storedData) {
       setDataFromLocal(storedData);
     }
@@ -366,11 +366,11 @@ function CreateResume() {
     }
   }, []);
 
-  useEffect(() => {
-    if (isClient) {
-      localStorage.setItem("userData", JSON.stringify(data));
-    }
-  }, [data, isClient]);
+  // useEffect(() => {
+  //   if (isClient) {
+  //     localStorage.setItem("userData", JSON.stringify(data));
+  //   }
+  // }, [data, isClient]);
 
   function extractMobileNumber(inputString) {
     var regex = /[0-9]{10}/g;
