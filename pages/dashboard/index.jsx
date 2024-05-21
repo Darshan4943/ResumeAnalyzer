@@ -220,14 +220,14 @@ function Dashboard() {
     }
   }, []);
 
-  const MyComponent = ({ selectedResumeIndex }) => {
-    console.log(220, selectedResumeIndex);
-    return (
-      <PDFViewer width="220px" height="226px" showToolbar={false}>
-        <Document>{selectResumeTemplate(selectedResumeIndex)}</Document>
-      </PDFViewer>
-    );
-  };
+  // const MyComponent = ({ selectedResumeIndex }) => {
+  //   console.log(220, selectedResumeIndex);
+  //   return (
+  //     <PDFViewer width="220" height="226" showToolbar={false}>
+  //       <Document>{selectResumeTemplate(selectedResumeIndex)}</Document>
+  //     </PDFViewer>
+  //   );
+  // };
 
   console.log(210, data);
   const selectResumeTemplate = (index) => {
@@ -525,19 +525,19 @@ function Dashboard() {
           </div>
         ))}
       </div>
-      {data !== undefined && Object.keys(data).length > 0 && (
+      {/* {data !== undefined && Object.keys(data).length > 0 && (
         <div
-          // style={{ border: "2px solid red" }}
+        
           className="flex gap-6 flex-wrap flex-col "
         >
           <div className="text-[24px] font-Montserrat font-medium">
             Continue where you left
           </div>
           <div className="w-[495px] h-[281px] g-[36px] p-[24px] bg-[#F9F9F9] rounded-[24px] flex flex-row">
-            <div className="w-7/12 h-full ">
+            <div className="w-[60%] h-full ">
               <MyComponent selectedResumeIndex={data?.selectedResumeIndex} />
             </div>
-            <div className="w-5/12  flex flex-col gap-2">
+            <div className="w-[40%] flex flex-col gap-2">
               <span className="font-Montserrat text-[24px] font-medium text-[#333333]">
                 Untitled file
               </span>
@@ -581,7 +581,7 @@ function Dashboard() {
             </div>
           </div>
         </div>
-      )}
+      )} */}
     </div>
   );
 }

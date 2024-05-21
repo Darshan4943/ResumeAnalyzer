@@ -351,6 +351,7 @@ function CreateResume() {
     selectedColor: "",
     selectedFont: "",
     createdAt: "",
+    clientId:clientId
   };
 
   const [data, setData] = useState(defaultState);
