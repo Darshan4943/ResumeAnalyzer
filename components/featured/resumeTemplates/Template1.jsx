@@ -500,8 +500,8 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                       </Text>
                     </View>
                   </View>
-                  <View
-                    style={{ backgroundColor: "#333", height: "1px", width: "16px" }}></View>
+                  {/* <View
+                    style={{ backgroundColor: "#333", height: "1px", width: "16px" }}></View> */}
                 </>
               ))}
             </View>
