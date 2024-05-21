@@ -184,7 +184,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                       fontSize: "10px",
                       fontFamily: `${selectedFont} 400`,
                       flexWrap: "wrap",
-                      width: "100%",
+                      width: "80%",
 
                     }}
                   >
@@ -219,20 +219,10 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                     <View
                       wrap={false}
                       key={index}
-                      style={{ flexDirection: "column", gap: "12px" }}
+                      style={{ flexDirection: "column", gap: "4px" }}
                     >
                       <View>
-                        <Text
-                          style={{
-                            color: "#414042",
-                            fontSize: 8.962,
-                            fontFamily: `${selectedFont} 400`,
-                            lineHeight: 1,
-                          }}
-                        >
-                          {detail.duration?.start?.year !== "Year" &&
-                            `${detail.duration?.start?.year}-${detail.duration?.end?.year}`}
-                        </Text>
+
                         <Text
                           style={{
                             color: "#414042",
@@ -266,6 +256,17 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                           />
                         )}
                       </View>
+                      <Text
+                        style={{
+                          color: "#414042",
+                          fontSize: 8.962,
+                          fontFamily: `${selectedFont} 400`,
+                          lineHeight: 1,
+                        }}
+                      >
+                        {detail.duration?.start?.year !== "Year" &&
+                          `${detail.duration?.start?.year}-${detail.duration?.end?.year}`}
+                      </Text>
                     </View>
                   ))}
                 </View>
@@ -551,7 +552,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                           fontSize: 12,
                           fontFamily: `${selectedFont} 700`,
                           lineHeight: 1.5,
-                          width:"70%"
+                          width: "70%"
                         }}
                       >
                         {detail.title}
