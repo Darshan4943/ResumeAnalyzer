@@ -209,6 +209,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                       fontSize: 12,
                       marginRight: "6px",
                       fontFamily: `${selectedFont} 400`,
+                      overflow:"hidden"
                     }}
                   >
                     {detail.skill}
