@@ -23,13 +23,13 @@ function CreateResume() {
 
 
   const templates = [
-    {
-      title: "Template1",
-      imgUrl: "/images/templates/template1.png",
-      index: 1,
-      fontFamily: "Lato",
-      themeColor: "#414042",
-    },
+    // {
+    //   title: "Template1",
+    //   imgUrl: "/images/templates/template1.png",
+    //   index: 1,
+    //   fontFamily: "Lato",
+    //   themeColor: "#414042",
+    // },
     // {
     //   title: "Template2",
     //   imgUrl: "/images/templates/template2.png",
@@ -37,20 +37,20 @@ function CreateResume() {
     //   fontFamily: "Barlow",
     //   themeColor: "#F7902B",
     // },
-    {
-      title: "Template3",
-      imgUrl: "/images/templates/template3.png",
-      index: 3,
-      fontFamily: "Inter",
-      themeColor: "#414042",
-    },
-    {
-      title: "Template4",
-      imgUrl: "/images/templates/template4.png",
-      index: 4,
-      fontFamily: "Montserrat",
-      themeColor: "#00AEEF",
-    },
+    // {
+    //   title: "Template3",
+    //   imgUrl: "/images/templates/template3.png",
+    //   index: 3,
+    //   fontFamily: "Inter",
+    //   themeColor: "#414042",
+    // },
+    // {
+    //   title: "Template4",
+    //   imgUrl: "/images/templates/template4.png",
+    //   index: 4,
+    //   fontFamily: "Montserrat",
+    //   themeColor: "#00AEEF",
+    // },
     // {
     //   title: "Template5",
     //   imgUrl: "/images/templates/template5.png",
@@ -93,13 +93,13 @@ function CreateResume() {
     //   fontFamily: "Inter",
     //   themeColor: "#F2BE5C",
     // },
-    {
-      title: "Template11",
-      imgUrl: "/images/templates/template11.png",
-      index: 11,
-      fontFamily: "Montserrat",
-      themeColor: "#E6E7E8",
-    },
+    // {
+    //   title: "Template11",
+    //   imgUrl: "/images/templates/template11.png",
+    //   index: 11,
+    //   fontFamily: "Montserrat",
+    //   themeColor: "#E6E7E8",
+    // },
     // {
     //   title: "Template12",
     //   imgUrl: "/images/templates/template12.png",
@@ -114,13 +114,13 @@ function CreateResume() {
     //   fontFamily: "Poppins",
     //   themeColor: "#0E6CC2",
     // },
-    {
-      title: "Template14",
-      imgUrl: "/images/templates/template14.png",
-      index: 14,
-      fontFamily: "Inter",
-      themeColor: "#242424",
-    },
+    // {
+    //   title: "Template14",
+    //   imgUrl: "/images/templates/template14.png",
+    //   index: 14,
+    //   fontFamily: "Inter",
+    //   themeColor: "#242424",
+    // },
     // {
     //   title: "Template15",
     //   imgUrl: "/images/templates/template15.png",
@@ -142,13 +142,13 @@ function CreateResume() {
     //   fontFamily: "Montserrat",
     //   themeColor: "#D1D2D3",
     // },
-    {
-      title: "Template18",
-      imgUrl: "/images/templates/template54.png",
-      index: 18,
-      fontFamily: "Montserrat",
-      themeColor: "#F1F1F1",
-    },
+    // {
+    //   title: "Template18",
+    //   imgUrl: "/images/templates/template54.png",
+    //   index: 18,
+    //   fontFamily: "Montserrat",
+    //   themeColor: "#F1F1F1",
+    // },
     // {
     //   title: "Template19",
     //   imgUrl: "/images/templates/template19.png",
@@ -163,20 +163,20 @@ function CreateResume() {
     //   fontFamily: "Montserrat",
     //   themeColor: "#303030",
     // },
-    {
-      title: "Template32",
-      imgUrl: "/images/templates/template32.png",
-      index: 32,
-      fontFamily: "Montserrat",
-      themeColor: "#0072BC",
-    },
-    {
-      title: "Template39",
-      imgUrl: "/images/templates/template39.png",
-      index: 39,
-      fontFamily: "Montserrat",
-      themeColor: "#303030",
-    },
+    // {
+    //   title: "Template32",
+    //   imgUrl: "/images/templates/template32.png",
+    //   index: 32,
+    //   fontFamily: "Montserrat",
+    //   themeColor: "#0072BC",
+    // },
+    // {
+    //   title: "Template39",
+    //   imgUrl: "/images/templates/template39.png",
+    //   index: 39,
+    //   fontFamily: "Montserrat",
+    //   themeColor: "#303030",
+    // },
     {
       title: "Template48",
       imgUrl: "/images/templates/template48.png",
