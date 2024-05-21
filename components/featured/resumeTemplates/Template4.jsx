@@ -1011,6 +1011,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                                 color: "#414042",
                                 fontSize: "11px",
                                 fontFamily: `${selectedFont} 400`,
+                                width:"70%"
                               }}
                             >
                               {detail.title}
