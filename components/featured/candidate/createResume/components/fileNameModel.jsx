@@ -14,7 +14,7 @@ const FileNameModel = ({ setNamePreview, setFunction, data, clientId}) => {
     const id = clientId === "undefined" ? userDataGlobal?._id  : clientId;
     if (id) {
       axios
-        .get(`http://localhost:2000/api/resume/${id}`)
+        .get(`https://freedygoservices.in/api/resume/${id}`)
         .then((res) => {
           const filenamesWithoutExtension = res.data.data.map(item => item.fileName.replace(/\.pdf$/, ""));
         setExistingNames(filenamesWithoutExtension);

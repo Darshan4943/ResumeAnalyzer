@@ -318,7 +318,7 @@ function CreateResume() {
       });
     } else if (clientId) {
       axios
-        .get(`http://localhost:2000/api/client/getByClientId/${clientId}`)
+        .get(`https://freedygoservices.in/api/client/getByClientId/${clientId}`)
         .then((res) => {
           const result = res.data.data;
           setData({
