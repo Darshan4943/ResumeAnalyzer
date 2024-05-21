@@ -626,7 +626,8 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
               flexDirection: "column",
               gap: 6,
               paddingTop: 24,
-              paddingLeft: 24,
+              // paddingLeft: 8,
+              paddingRight:12,
               
               gap: 24,
             }}
@@ -639,7 +640,8 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                 width: "90%",
               }}
             >
-              <View style={{ display: "flex", flexDirection: "row", gap: 6 }}>
+                    
+              <View style={{ display: "flex", flexDirection: "row", gap: 6,paddingLeft:'24px' }}>
                 <Svg
                   width="20"
                   height="20"
@@ -766,7 +768,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                 width: "90%",
               }}
             >
-              <View style={{ display: "flex", flexDirection: "row", gap: 6 }}>
+              <View style={{ display: "flex", flexDirection: "row", gap: 6,paddingLeft:'24px'  }}>
                 <Svg
                   width="20"
                   height="20"
@@ -887,7 +889,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
               </View>
             </View>
 
-            <View style={{ flexDirection: "column", gap: "8px" }}>
+            <View style={{ flexDirection: "column", gap: "8px" ,}}>
               {data.section?.map((item, index) => (
                 <View
                   wrap={false}
@@ -900,7 +902,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                   }}
                 >
                   <View
-                    style={{ display: "flex", flexDirection: "row", gap: 6, }}
+                    style={{ display: "flex", flexDirection: "row", gap: 6, paddingLeft:'24px'}}
                   >
                     <Svg
                       width="20"
