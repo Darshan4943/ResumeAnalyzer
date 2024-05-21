@@ -22,7 +22,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
       {/* <View style={{ minHeight: 793.8 }}> */}
       {/* <View> */}
       <View>
-        <Svg
+        {/* <Svg
           style={{ margin: -24 }}
           width="595"
           height="132"
@@ -33,13 +33,13 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
           <Path d="M595 0H0V132H595V0Z" fill="#F1F2F2" />
           <Path d="M295 132H0V0H366L295 132Z" fill="#E6E7E8" />
           <Path d="M60 0H28V18H60V0Z" fill={selectedColor} />
-        </Svg>
+        </Svg> */}
         <View
           style={{
             display: "flex",
-            position: "absolute",
+            // position: "absolute",
             flexDirection: "column",
-            maxWidth:'60%'
+            maxWidth: "60%",
           }}
         >
           <Text style={{ fontWeight: 600, fontSize: 32, color: selectedColor }}>
@@ -453,7 +453,11 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                 </Svg>
               </View>
               <View
-                style={{ flexDirection: "column", gap: "18px", display: "flex" }}
+                style={{
+                  flexDirection: "column",
+                  gap: "18px",
+                  display: "flex",
+                }}
               >
                 {/* <View style={{ flexDirection: "column", gap: '2px' ,display:'flex'}}> */}
 
@@ -461,16 +465,18 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                   <View
                     key={index}
                     wrap={false}
-                    style={{ display: "flex", flexDirection: "column" ,gap:'14px'}}
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: "14px",
+                    }}
                   >
                     <View
                       style={{
                         display: "flex",
                         flexDirection: "column",
                         gap: "8px",
-                          // height:'30px'
-
-
+                        // height:'30px'
                       }}
                     >
                       <View
@@ -509,7 +515,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                           flexDirection: "row",
                           justifyContent: "space-between",
                           paddingLeft: 20,
-                          width:'100%'
+                          width: "100%",
                         }}
                       >
                         <Text
@@ -517,7 +523,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                             fontWeight: 400,
                             fontSize: 12,
                             color: "#414142",
-                            maxWidth:'70%'
+                            maxWidth: "70%",
                           }}
                         >
                           {detail.organization} | {detail.location}
@@ -528,7 +534,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                             fontSize: 10,
                             color: "#414142",
                             paddingBottom: 16,
-                            maxWidth:'20%'
+                            maxWidth: "20%",
                           }}
                         >
                           {detail.duration?.start?.year} -
@@ -557,9 +563,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
             </View>
 
             <View style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-              <View 
-              
-              style={{ display: "flex", flexDirection: "col", gap: 4 }}>
+              <View style={{ display: "flex", flexDirection: "col", gap: 4 }}>
                 <View style={{ display: "flex", flexDirection: "row", gap: 8 }}>
                   <Svg
                     width="21"
@@ -607,11 +611,14 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                 </Svg>
               </View>
               {data?.education?.map((detail, index) => (
-                <View key={index} wrap={false} style={{
-                  flexDirection: "col",
-                  gap: 8,
-                 
-                }} >
+                <View
+                  key={index}
+                  wrap={false}
+                  style={{
+                    flexDirection: "col",
+                    gap: 8,
+                  }}
+                >
                   <View
                     style={{
                       flexDirection: "row",
@@ -636,6 +643,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                         fontWeight: 400,
                         fontSize: 12,
                         color: "#414142",
+                        paddingRight:'16px'
                       }}
                     >
                       {detail.specialization} - {detail.qualification}
@@ -648,6 +656,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                       flexDirection: "row",
                       justifyContent: "space-between",
                       paddingLeft: 20,
+                      maxWidth: "100%",
                     }}
                   >
                     <Text
@@ -655,6 +664,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                         fontWeight: 400,
                         fontSize: 12,
                         color: "#414142",
+                        maxWidth: "70%",
                       }}
                     >
                       {detail.instituteName}
@@ -665,6 +675,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                         fontSize: 10,
                         color: "#414142",
                         paddingBottom: 16,
+                        maxWidth: "20%",
                       }}
                     >
                       {" "}
@@ -678,11 +689,16 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
             {data?.section?.map((item, index) => (
               <View
                 key={index}
-                style={{ display: "flex", flexDirection: "column", gap: 12 }}
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: 12,
+                  maxWidth: "100%",
+                }}
               >
-                <View style={{ display: "flex", flexDirection: "col", gap: 4 }}>
+                <View style={{ display: "flex", flexDirection: "col", gap: 6 }}>
                   <View
-                    style={{ display: "flex", flexDirection: "row", gap: 8 }}
+                    style={{ display: "flex", flexDirection: "row", gap: 10 }}
                   >
                     <Svg
                       width="21"
@@ -714,6 +730,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                         fontSize: 14,
                         fontWeight: 400,
                         color: "#383839",
+                        paddingRight: "24px",
                       }}
                     >
                       {item.header}
@@ -734,12 +751,13 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                   </Svg>
                 </View>
                 {item?.subSection?.map((detail, index) => (
-                  <View key={index} wrap={false}>
+                  <View key={index} wrap={false} style={{ maxWidth: "100%" }}>
                     <View
                       style={{
                         flexDirection: "row",
                         justifyContent: "space-between",
                         alignItems: "center",
+                        maxWidth: "80%",
                       }}
                     >
                       <View
@@ -747,6 +765,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                           flexDirection: "row",
                           gap: 16,
                           alignItems: "center",
+                          maxWidth:'100%'
                         }}
                       >
                         <Svg
@@ -766,21 +785,22 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                             fontWeight: 400,
                             fontSize: 14,
                             color: "#414142",
+                            maxWidth: "100%",
+                            // paddingRight:'24px'
                           }}
                         >
                           {detail.title}
                         </Text>
                       </View>
-                      {detail.duration?.start?.year &&
-                        detail.duration?.end?.year && (
-                          <View
+                      {/* <View
                             style={{
                               display: "flex",
-                              flexDirection: "row",
-                              justifyContent: "space-between",
-                              paddingLeft: 20,
+                              maxWidth:'20%'
                             }}
                           >
+                      {detail.duration?.start?.year &&
+                        detail.duration?.end?.year && (
+                        
                             <Text
                               style={{
                                 fontWeight: 400,
@@ -797,19 +817,56 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                                 }
                          `}
                             </Text>
-                          </View>
                         )}
+                          </View> */}
                     </View>
-                    <Text
+                    <View
                       style={{
-                        fontWeight: 400,
-                        fontSize: 12,
-                        color: "#414142",
-                        paddingLeft: 24,
+                        display: "flex",
+                        flexDirection: "row",
+                        justifyContent: "space-between",
+                        // paddingLeft: 20,
+                        maxWidth: "100%",
                       }}
                     >
-                      {detail.description}
-                    </Text>
+                      <Text
+                        style={{
+                          fontWeight: 400,
+                          fontSize: 12,
+                          color: "#414142",
+                          // paddingLeft: 24,
+                          maxWidth:'80%'
+                        }}
+                      >
+                        {detail.description}
+                      </Text>
+                      <View
+                        style={{
+                          display: "flex",
+                          maxWidth: "20%",
+                        }}
+                      >
+                        {detail.duration?.start?.year &&
+                          detail.duration?.end?.year && (
+                            <Text
+                              style={{
+                                fontWeight: 400,
+                                fontSize: 10,
+                                color: "#414142",
+                              }}
+                            >
+                              {" "}
+                              {detail.duration?.start?.year !== "Year" &&
+                                `${detail.duration?.start?.year}-${" "}${
+                                  detail.currentlyWorking
+                                    ? "Present"
+                                    : detail.duration?.end?.year
+                                }
+                         `}
+                            </Text>
+                          )}
+                      </View>
+                    </View>
                   </View>
                 ))}
               </View>

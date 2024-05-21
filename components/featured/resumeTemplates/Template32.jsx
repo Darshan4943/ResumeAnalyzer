@@ -810,7 +810,8 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
           </View>
           {data?.section?.map((item, index) => (
             <View
-              wrap={false}
+              // wrap={false}
+              wrap={true}
               key={index}
               style={{
                 display: "flex",

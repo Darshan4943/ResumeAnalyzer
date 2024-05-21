@@ -204,7 +204,8 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
                 {data?.education?.map((detail, index) => (
                   <>
                     <View
-                      wrap={false}
+                      wrap={true}
+                      // wrap={false}
                       key={index}
                       style={{
                         display: "flex",
