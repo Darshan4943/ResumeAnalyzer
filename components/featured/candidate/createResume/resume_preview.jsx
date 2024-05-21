@@ -101,7 +101,7 @@ const ResumePreview = ({
     if (id) {
       axios
         .get(`https://freedygoservices.in/api/resume/${id}`)
-        .get(`https://freedygoservices.in/api/resume/${id}`)
+        
         .then((res) => {
           // Remove .pdf extension from filenames
           const filenamesWithoutExtension = res.data.data.map((item) =>
