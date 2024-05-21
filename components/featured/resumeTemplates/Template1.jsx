@@ -546,6 +546,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                           fontSize: 12,
                           fontFamily: `${selectedFont} 700`,
                           lineHeight: 1.5,
+                          width:"70%"
                         }}
                       >
                         {detail.title}

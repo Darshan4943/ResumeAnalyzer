@@ -613,6 +613,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                           paddingLeft: "18px",
                           fontSize: "14",
                           fontFamily: `${selectedFont} 700`,
+                          width:"70%"
                         }}
                       >
                         {detail.title}
