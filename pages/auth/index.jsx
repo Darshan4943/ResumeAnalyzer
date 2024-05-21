@@ -33,15 +33,16 @@ function Main_sign_page() {
       const sendToPurchaseResult = JSON.parse(sendToPurchase);
       axios
         .post(
-          "http://localhost:2000/api/skiloteckuser/user/google/signup",
+          "https://freedygoservices.in/api/skiloteckuser/user/google/signup",
           userData
         )
         .then((res) => {
           localStorage.setItem("authToken", JSON.stringify(res.data));
           if (sendToPurchaseResult?.status) {
             localStorage.removeItem("purchase");
-            window.location.href = `/purchase/details?id=${sendToPurchaseResult.index + 1
-              }`;
+            window.location.href = `/purchase/details?id=${
+              sendToPurchaseResult.index + 1
+            }`;
           } else {
             setGoogleLoading(false);
             window.location.href = "/home";

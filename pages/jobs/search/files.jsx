@@ -13,7 +13,7 @@ const Files = ({ selected, setSelected }) => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get("http://localhost:2000/api/resume/" + userDataGlobal?._id)
+      .get("https://freedygoservices.in/api/resume/" + userDataGlobal?._id)
       .then((res) => {
         setResumeList(res.data.data);
         setLoading(false);

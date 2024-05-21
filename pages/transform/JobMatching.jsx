@@ -88,7 +88,7 @@ const JobMatching = () => {
 
   const getParentData = (parentId) => {
     axios
-      .get(`http://localhost:2000/api/folder/getByParentId/${parentId}`)
+      .get(`https://freedygoservices.in/api/folder/getByParentId/${parentId}`)
       .then((res) => {
         setDetails(res.data.data);
         setTimeout(() => {
@@ -101,7 +101,7 @@ const JobMatching = () => {
   };
   const getClientData = (clientId) => {
     axios
-      .get("http://localhost:2000/api/resume/" + clientId)
+      .get("https://freedygoservices.in/api/resume/" + clientId)
       .then((res) => {
         setDetails(res.data.data);
         setTimeout(() => {
@@ -115,7 +115,7 @@ const JobMatching = () => {
   const getFolderData = () => {
     setLoading(true);
     axios
-      .get(`http://localhost:2000/api/folder/get/${userDataGlobal._id}`)
+      .get(`https://freedygoservices.in/api/folder/get/${userDataGlobal._id}`)
       .then((res) => {
         setDetails(res.data.data);
         setTimeout(() => {
@@ -131,7 +131,7 @@ const JobMatching = () => {
     setLoading(true);
     axios
       .get(
-        `http://localhost:2000/api/client/getByRecruiter/${userDataGlobal._id}`
+        `https://freedygoservices.in/api/client/getByRecruiter/${userDataGlobal._id}`
       )
       .then((res) => {
         // console.log(res.data.data);
@@ -151,7 +151,7 @@ const JobMatching = () => {
     setIsAnimate(false);
 
     axios
-      .post("http://localhost:2000/api/external/jobMatching/", {
+      .post("https://freedygoservices.in/api/external/jobMatching/", {
         jd: text,
         resumeCount,
         ids: selectedIndexesFileTypes,
@@ -184,7 +184,7 @@ const JobMatching = () => {
   };
   const textExtractor = async (textData) => {
     const { data } = await axios.post(
-      "http://localhost:2000/api/resume/extraction",
+      "https://freedygoservices.in/api/resume/extraction",
       {
         data: textData,
       }
@@ -259,7 +259,7 @@ const JobMatching = () => {
       });
       formData.append("parentId", ParentId ? ParentId : undefined);
       axios
-        .post("http://localhost:2000/api/folder/addFiles", formData)
+        .post("https://freedygoservices.in/api/folder/addFiles", formData)
         .then((res) => {
           setFolderName("Untitled folder");
           toast.success("File Uploaded successfully");

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import CreatableSelect from 'react-select/creatable';
+import CreatableSelect from "react-select/creatable";
 import { camelCase } from "../../../../../utils/middleware";
 import { toast } from "react-toastify";
 
@@ -11,7 +11,7 @@ import axios from "axios";
 
 const Skills = ({ data, setData }) => {
   const [skills, setSkills] = useState([]);
-  console.log(14,skills)
+  console.log(14, skills);
   const [isClearable, setIsClearable] = useState({ value: "", label: "" });
   // console.log(isClearable)
   const userDataGlobal = useSelector((state) => state.userData);
@@ -19,12 +19,10 @@ const Skills = ({ data, setData }) => {
   const [skillList, setSkillList] = useState([]);
   const initialRatings = Array(5).fill(5);
   useEffect(() => {
-    if(Array.isArray(data.skills)){
+    if (Array.isArray(data.skills)) {
       setSkillList(data.skills);
-
-    } 
-  },[data]);
-
+    }
+  }, [data]);
 
   const handleStarClick = (skillIndex, starIndex) => {
     const updatedSkills = skillList?.map((skill, index) => {
@@ -42,13 +40,13 @@ const Skills = ({ data, setData }) => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:2000/api/AllSkills")
+      .get("https://freedygoservices.in/api/AllSkills")
       .then((res) => {
-        console.log(res)
-        const names = res.data.map(skill => skill.name);
-       
+        console.log(res);
+        const names = res.data.map((skill) => skill.name);
+
         setSkills(names);
-    })
+      })
       .catch((err) => {
         console.log(err);
       });
@@ -83,28 +81,28 @@ const Skills = ({ data, setData }) => {
     const found = skillList?.find((item) => item.skill.name === value.label);
     if (!found) {
       try {
-        const response = await fetch('http://localhost:2000/api/skills', {
-          method: 'POST',
+        const response = await fetch("https://freedygoservices.in/api/skills", {
+          method: "POST",
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
           body: JSON.stringify({ name: value.label }),
         });
-  
+
         if (response.ok) {
           const newSkill = { skill: value.label, rating: initialRatings };
           setSkillList([...skillList, newSkill]);
           setSaveDisabled(false);
           setIsClearable(newSkill);
         } else {
-          console.error('Failed to add skill:', response.statusText);
+          console.error("Failed to add skill:", response.statusText);
         }
       } catch (error) {
-        console.error('Error adding skill:', error.message);
+        console.error("Error adding skill:", error.message);
       }
     }
   };
-  
+
   const saveHandler = () => {
     setData({ ...data, skills: skillList });
     setSaveDisabled(true);
@@ -131,7 +129,9 @@ const Skills = ({ data, setData }) => {
                   className="flex w-full scr420:gap-4 gap-1 scr420:flex-row flex-col justify-between"
                 >
                   <div className="flex w-[50%]  gap-1 px-3 py-2 border border-[#06A9EF] overflow-hidden rounded-[24px] justify-between items-center">
-                    <p className="text-[14px] flex-wrap w-[45%] brack-all w-full font-medium">{skill?.skill}</p>
+                    <p className="text-[14px] flex-wrap w-[45%] brack-all w-full font-medium">
+                      {skill?.skill}
+                    </p>
 
                     <div className="" onClick={() => deleteSkill(index)}>
                       <Close_svg height={16} width={16} />
@@ -153,7 +153,6 @@ const Skills = ({ data, setData }) => {
             className="w-full"
             onChange={handleChange}
             value={isClearable}
-            
           />
           <div className="flex justify-end ">
             <div className="flex justify-between  py-2 gap-2">

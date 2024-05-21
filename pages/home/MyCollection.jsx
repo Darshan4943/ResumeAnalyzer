@@ -26,7 +26,7 @@ const MyCollection = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:2000/api/resume/" + userDataGlobal?._id)
+      .get("https://freedygoservices.in/api/resume/" + userDataGlobal?._id)
       .then((res) => {
         setResumeList(res.data.data);
       })
@@ -53,7 +53,7 @@ const MyCollection = () => {
     }
 
     axios
-      .delete("http://localhost:2000/api/resume/deleteResume", {
+      .delete("https://freedygoservices.in/api/resume/deleteResume", {
         data: { ids },
       })
       .then((response) => {
@@ -133,7 +133,9 @@ const MyCollection = () => {
                 >
                   <PdfViewer pdfUrl={item?.resumeUrl} />
                   <div className="text-[14px] text-[#333333] font-500">
-                  {item.fileName.length > 17 ? `${item.fileName.slice(0, 16)}...` : item.fileName}
+                    {item.fileName.length > 17
+                      ? `${item.fileName.slice(0, 16)}...`
+                      : item.fileName}
                   </div>
 
                   <div className="bg-[#00000099]  absolute top-[0px] left-[0px] h-[272px] w-full rounded-[6px] opacity-0 invisible transition-opacity ease-in-out duration-[0.4s]  group-hover:opacity-100 group-hover:visible flex items-center justify-center">

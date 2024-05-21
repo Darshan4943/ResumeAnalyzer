@@ -17,7 +17,7 @@ function Details() {
     if (id) {
       setLoading(true);
       axios
-        .get("http://localhost:2000/api/subscription/byId/" + id)
+        .get("https://freedygoservices.in/api/subscription/byId/" + id)
         .then((res) => {
           setSubscription(res.data.data);
           setuserData(res.data.userData);
@@ -44,7 +44,7 @@ function Details() {
     setBtnLoading(true);
     axios
       .put(
-        "http://localhost:2000/api/subscription/active/" +
+        "https://freedygoservices.in/api/subscription/active/" +
           subscription.email
       )
       .then((res) => {

@@ -23,7 +23,7 @@ function ClientDetail({ tabIndex }) {
   useEffect(() => {
     if (clientId) {
       axios
-        .get(`http://localhost:2000/api/client/getByClientId/${clientId}`)
+        .get(`https://freedygoservices.in/api/client/getByClientId/${clientId}`)
         .then((res) => {
           setDetails(res.data.data);
         })
@@ -31,7 +31,7 @@ function ClientDetail({ tabIndex }) {
           console.log(err);
         });
       axios
-        .get("http://localhost:2000/api/resume/" + clientId)
+        .get("https://freedygoservices.in/api/resume/" + clientId)
         .then((res) => {
           setResumeList(res.data.data);
         })
@@ -59,7 +59,7 @@ function ClientDetail({ tabIndex }) {
     }
 
     axios
-      .delete("http://localhost:2000/api/resume/deleteResume", {
+      .delete("https://freedygoservices.in/api/resume/deleteResume", {
         data: { ids },
       })
       .then((response) => {

@@ -28,11 +28,11 @@ function AccountDetails({
   const [exchangeRate, setexchangeRate] = useState(1);
   const [icon, seticon] = useState("$");
 
-  const storedId = localStorage.getItem('paymentId');
+  const storedId = localStorage.getItem("paymentId");
   const [sessionId, setSessionId] = useState("");
   const [payment_status, setPaymentStatus] = useState(null);
 
-  console.log(payment_status)
+  console.log(payment_status);
 
   useEffect(() => {
     const exchangeRate = localStorage.getItem("exchangeRate");
@@ -53,7 +53,6 @@ function AccountDetails({
     checked: false,
   });
   const jsonData = JSON.parse(localStorage.getItem("paymentDetails"));
-
 
   const [filteredTelCode, setFilteredTelCode] = useState([]);
   useEffect(() => {
@@ -141,7 +140,6 @@ function AccountDetails({
     validateInput(fieldName, value);
   };
 
-
   // useEffect(() => {
   //   const jsonData = JSON.parse(localStorage.getItem("paymentDetails"));
   //   if (jsonData) {
@@ -159,7 +157,7 @@ function AccountDetails({
   //       loading: true,
   //     });
   //     axios
-  //       .post("http://localhost:2000/api/add/subscription", {
+  //       .post("https://freedygoservices.in/api/add/subscription", {
   //         userId: userDataGlobal._id,
   //         plan: selectedPlan.duration + " " + selectedPlan.limit,
   //         ...jsonData,
@@ -196,7 +194,7 @@ function AccountDetails({
       if (recruiterid) {
         axios
           .get(
-            "http://localhost:2000/api/skiloteckuser/user/" + recruiterid
+            "https://freedygoservices.in/api/skiloteckuser/user/" + recruiterid
           )
           .then((res) => {
             const decode = jwtDecode(res.data.data);
@@ -226,9 +224,6 @@ function AccountDetails({
     }
   }, []);
 
-
-
-
   function findEmptyKey(obj) {
     let empty = [];
 
@@ -246,7 +241,7 @@ function AccountDetails({
     localStorage.setItem("paymentDetails", JSON.stringify(data));
     if (currency) {
       const { data } = await axios.post(
-        "http://localhost:2000/api/getPriceId",
+        "https://freedygoservices.in/api/getPriceId",
         {
           amount: Math.ceil(selectedPlan.amount * exchangeRate) * 100,
           productName: selectedPlan.productName,
@@ -275,18 +270,15 @@ function AccountDetails({
         try {
           const priceId = await getPriceId();
           axios
-            .post("http://localhost:2000/api/proceed/payment", {
+            .post("https://freedygoservices.in/api/proceed/payment", {
               priceId,
               id: selectedPlan.index,
             })
             .then((res) => {
-
               if (res.data.success) {
-                setSessionId(res.data.id)
-                localStorage.setItem('paymentId', res.data.id);
+                setSessionId(res.data.id);
+                localStorage.setItem("paymentId", res.data.id);
                 window.location.href = res.data.url;
-
-
               }
             });
         } catch (err) {
@@ -297,43 +289,49 @@ function AccountDetails({
     }
   };
 
-  const handleRetrieveSession = useMemo(() => async (storedId) => {
-    try {
-      setSuccessModel({ visible: true, loading: true });
-      const response = await axios.get('http://localhost:2000/api/retrieve/session', {
-        params: { storedId }
-      });
-      const session = response.data;
-      console.log('Retrieved session:', session);
-      setPaymentStatus(session.payment_status);
+  const handleRetrieveSession = useMemo(
+    () => async (storedId) => {
+      try {
+        setSuccessModel({ visible: true, loading: true });
+        const response = await axios.get(
+          "https://freedygoservices.in/api/retrieve/session",
+          {
+            params: { storedId },
+          }
+        );
+        const session = response.data;
+        console.log("Retrieved session:", session);
+        setPaymentStatus(session.payment_status);
 
-      if (session.payment_status === 'paid' &&
-           userDataGlobal &&
-           selectedPlan &&
-           exchangeRate &&
-           icon) {
-        handlePaidSession(session);
-      } else {
-        console.error('Payment failed:', session);
-        setTimeout(() => {
-          setCancelModel(true);
-        }, 1500);
+        if (
+          session.payment_status === "paid" &&
+          userDataGlobal &&
+          selectedPlan &&
+          exchangeRate &&
+          icon
+        ) {
+          handlePaidSession(session);
+        } else {
+          console.error("Payment failed:", session);
+          setTimeout(() => {
+            setCancelModel(true);
+          }, 1500);
+        }
+      } catch (error) {
+        console.error("Error retrieving session:", error);
       }
-    } catch (error) {
-      console.error('Error retrieving session:', error);
-
-    }
-  }, []);
+    },
+    []
+  );
 
   const handlePaidSession = async (session) => {
-
-    const jsonData = JSON.parse(localStorage.getItem('paymentDetails'));
+    const jsonData = JSON.parse(localStorage.getItem("paymentDetails"));
     if (jsonData) {
       setData((prevData) => ({ ...prevData, ...jsonData }));
     }
 
     try {
-      await axios.post('http://localhost:2000/api/add/subscription', {
+      await axios.post("https://freedygoservices.in/api/add/subscription", {
         userId: userDataGlobal._id,
         plan: `${selectedPlan.duration} ${selectedPlan.limit}`,
         ...jsonData,
@@ -345,32 +343,28 @@ function AccountDetails({
         paidAt: new Date(),
         amount: Math.ceil(selectedPlan.amount * exchangeRate),
         icon: icon,
-        paymentId: session.id
+        paymentId: session.id,
       });
 
-      console.log('Subscription added successfully');
+      console.log("Subscription added successfully");
 
-      localStorage.removeItem('paymentId');
+      localStorage.removeItem("paymentId");
 
       setTimeout(() => {
         setSuccessModel({ visible: true, loading: false });
       }, 1000);
 
-      localStorage.removeItem('paymentDetails');
+      localStorage.removeItem("paymentDetails");
     } catch (error) {
-
-      console.error('Error adding subscription:', error);
+      console.error("Error adding subscription:", error);
     }
-
   };
 
   useEffect(() => {
     if (storedId) {
       handleRetrieveSession(storedId);
     }
- 
   }, [storedId]);
-
 
   return (
     <div className={" w-[60%] plan-container  "}>
@@ -508,16 +502,18 @@ function AccountDetails({
                 Contact Number <span className="star">*</span>
               </p>
               <div
-                className={`flex w-[100%]  items-start ${isViewportBelow850 ? "gap-[4px] " : "gap-[16px] "
-                  }`}
+                className={`flex w-[100%]  items-start ${
+                  isViewportBelow850 ? "gap-[4px] " : "gap-[16px] "
+                }`}
                 id="single_input"
                 style={{
                   padding: "0px 8px",
                 }}
               >
                 <div
-                  className={`relative  min-w-[120px] ${isViewportBelow850 ? "w-[65%] " : "w-[18%] "
-                    } items-center`}
+                  className={`relative  min-w-[120px] ${
+                    isViewportBelow850 ? "w-[65%] " : "w-[18%] "
+                  } items-center`}
                 >
                   <div className="flex items-center  gap-1 cursor-pointer  w-[100%] ">
                     <ReactSelect
@@ -553,10 +549,11 @@ function AccountDetails({
                 </div>
 
                 <input
-                  placeholder={`${isViewportBelow850
-                    ? "Enter Number "
-                    : "Enter Contact Number "
-                    }`}
+                  placeholder={`${
+                    isViewportBelow850
+                      ? "Enter Number "
+                      : "Enter Contact Number "
+                  }`}
                   value={data.mobileNo}
                   maxLength={10}
                   onChange={(e) =>
@@ -565,7 +562,7 @@ function AccountDetails({
                   className="w-full mobileNo h-full pl-[20px] "
                   type="text"
                   name=""
-                // id="single_input"
+                  // id="single_input"
                 />
               </div>
 

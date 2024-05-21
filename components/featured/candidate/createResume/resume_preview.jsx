@@ -60,9 +60,8 @@ const ResumePreview = ({
   isEdit,
   id,
   render,
-  clientId
+  clientId,
 }) => {
-
   const [namePreview, setNamePreview] = useState(false);
   const [name, setName] = useState(data.firstName + "_resume");
 
@@ -101,9 +100,13 @@ const ResumePreview = ({
     const id = clientId === "undefined" ? userDataGlobal?._id : clientId;
     if (id) {
       axios
-        .get(`http://localhost:2000/api/resume/${id}`)
+        .get(`https://freedygoservices.in/api/resume/${id}`)
+        
         .then((res) => {
-
+          // Remove .pdf extension from filenames
+          const filenamesWithoutExtension = res.data.data.map((item) =>
+            item.fileName.replace(/\.pdf$/, "")
+          );
 
           setName(data.firstName + "_resume " + (res.data.data.length + 1));
         })
@@ -117,7 +120,6 @@ const ResumePreview = ({
     callData();
     setName(data.firstName + "_resume");
   }, [userDataGlobal, data.firstName]);
-
 
   const selectResumeTemplate = (index) => {
     switch (index) {
@@ -324,17 +326,10 @@ const ResumePreview = ({
     }
   };
 
-
-
-
-
-
   const [preview, setPreview] = useState(false);
   const [isDisabled, setdisabled] = useState(false);
   const [saveDisabled, setSaveDisabled] = useState(false);
   const [loading, setLoading] = useState(true);
-
-
 
   const resumeRef = useRef();
   const handleLoad = () => {
@@ -371,7 +366,7 @@ const ResumePreview = ({
         formData.append("pdfBlob", blob);
 
         axios
-          .put("http://localhost:2000/api/resume/" + id, formData)
+          .put("https://freedygoservices.in/api/resume/" + id, formData)
           .then((res) => {
             localStorage.setItem("saveCount", saveLimit - 1);
             getLimits();
@@ -425,7 +420,7 @@ const ResumePreview = ({
         }
 
         axios
-          .post("http://localhost:2000/api/resume/add", formData)
+          .post("https://freedygoservices.in/api/resume/add", formData)
           .then((res) => {
             const pdfUrl = res.data.data.resumeUrl;
 
@@ -441,6 +436,7 @@ const ResumePreview = ({
 
             getLimits();
             toast.success("Resume Saved To Collection successfully");
+            localStorage.removeItem("userData");
             setTimeout(() => {
               setSaveDisabled(false);
             }, 3000);
@@ -465,8 +461,8 @@ const ResumePreview = ({
     setDownloadBtnLoading(true);
     axios
       .put(
-        "http://localhost:2000/api/subscription/updateDownloadLimit/" +
-        userDataGlobal._id
+        "https://freedygoservices.in/api/subscription/updateDownloadLimit/" +
+          userDataGlobal._id
       )
       .then((res) => {
         const result = res.data;
@@ -482,8 +478,6 @@ const ResumePreview = ({
   const MyComponent = () => {
     return (
       <Document height="1124px" dpi={72}>
-
-
         {selectResumeTemplate(selectedResumeIndex)}
       </Document>
     );
@@ -591,7 +585,8 @@ const ResumePreview = ({
     <div
       className="ml:w-[100%] w-[100%] "
       style={{
-        position: "relative", overflowY: "auto",
+        position: "relative",
+        overflowY: "auto",
         maxHeight: "88vh",
       }}
     >
@@ -602,7 +597,6 @@ const ResumePreview = ({
           boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)",
         }}
       >
-
         <div className="" ref={resumeRef}>
           <div className="flex justify-between flex-wrap scr1024:gap-4 gap-2 ">
             <div className="flex items-center justify-between ml:w-[58%] w-full gap-4 ">
@@ -707,24 +701,23 @@ const ResumePreview = ({
               </div>
             ) : ( */}
 
-
-
-            <PDFViewer width="90%" height="900px" showToolbar={false}  >
+            <PDFViewer width="90%" height="900px" showToolbar={false}>
               <MyComponent />
             </PDFViewer>
 
             {/* )} */}
-            {resumeLoading &&
-              <div className=" absolute w-[90%] flex items-center justify-center bg-white py-[24px] rounded-[8px] min-h-[900px]  "
+            {resumeLoading && (
+              <div
+                className=" absolute w-[90%] flex items-center justify-center bg-white py-[24px] rounded-[8px] min-h-[900px]  "
                 style={{
                   transformOrigin: "top left",
-                }}>
+                }}
+              >
                 <div className="z-[2000]">
                   <MiniLoader />
                 </div>
               </div>
-            }
-
+            )}
           </div>
         )}
 

@@ -22,7 +22,7 @@ function ClientResume() {
   useEffect(() => {
     axios
       .get(
-        `http://localhost:2000/api/client/getByRecruiter/${userDataGlobal._id}`
+        `https://freedygoservices.in/api/client/getByRecruiter/${userDataGlobal._id}`
       )
       .then((res) => {
         setDetails(res.data.data);
@@ -253,13 +253,13 @@ function ClientResume() {
                 </>
               ) : (
                 <div
-                onClick={() => {
-                  if (ClientCount === 0) {
-                    setLimitPopUp(true);
-                  } else {
-                    router.push("/myClients/CreateNewClient");
-                  }
-                }}
+                  onClick={() => {
+                    if (ClientCount === 0) {
+                      setLimitPopUp(true);
+                    } else {
+                      router.push("/myClients/CreateNewClient");
+                    }
+                  }}
                   style={{ boxShadow: "0px 0px 10px 5px #00000040" }}
                   className="rounded-[12px] text-center text-white justify-center flex scr540:flex-col flex-row text-[18px] items-center gap-2 font-medium  scr540:w-[192px] w-[312px]  scr540:h-[272px] h-[135px] bg-[#646464] p-6 cursor-pointer"
                 >
@@ -283,8 +283,8 @@ function ClientResume() {
           </div>
         </div>
         {limitPopUp && (
-              <LimitUsedModal visible={limitPopUp} setVisible={setLimitPopUp} />
-            )}
+          <LimitUsedModal visible={limitPopUp} setVisible={setLimitPopUp} />
+        )}
       </div>
     </div>
   );
