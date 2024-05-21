@@ -37,12 +37,14 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
             display: "flex",
             position: "absolute",
             flexDirection: "column",
+            gap: "4px",
+            width: "55%"
           }}
         >
-          <Text style={{ fontWeight: 600, fontSize: 32, color: selectedColor }}>
+          <Text style={{ fontWeight: 600, fontSize: 28, color: selectedColor }}>
             {data.firstName}
           </Text>
-          <Text style={{ fontWeight: 400, fontSize: 32, color: "#414042" }}>
+          <Text style={{ fontWeight: 400, fontSize: 28, color: "#414042" }}>
             {data.lastName}
           </Text>
           <Text style={{ fontWeight: 400, fontSize: 14, color: "#58595B" }}>
@@ -65,8 +67,8 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                 preview
                   ? data.profilePhoto
                   : Object.keys(data?.profilePhoto).includes("filename")
-                  ? URL.createObjectURL(data.profilePhoto)
-                  : data.profilePhoto
+                    ? URL.createObjectURL(data.profilePhoto)
+                    : data.profilePhoto
               }
               style={{
                 borderRadius: "50%",
@@ -458,14 +460,14 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                   <View
                     key={index}
                     wrap={false}
-                    style={{ display: "flex", flexDirection: "column" ,gap:'14px'}}
+                    style={{ display: "flex", flexDirection: "column", gap: '14px' }}
                   >
                     <View
                       style={{
                         display: "flex",
                         flexDirection: "column",
                         gap: "8px",
-                          // height:'30px'
+                        // height:'30px'
 
 
                       }}
@@ -473,7 +475,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                       <View
                         style={{
                           flexDirection: "row",
-                          gap: 16,
+                          gap: 14,
                           alignItems: "center",
                         }}
                       >
@@ -506,7 +508,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                           flexDirection: "row",
                           justifyContent: "space-between",
                           paddingLeft: 20,
-                          width:'100%'
+                          width: '100%'
                         }}
                       >
                         <Text
@@ -514,7 +516,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                             fontWeight: 400,
                             fontSize: 12,
                             color: "#414142",
-                            maxWidth:'70%'
+                            maxWidth: '70%'
                           }}
                         >
                           {detail.organization} | {detail.location}
@@ -525,7 +527,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                             fontSize: 10,
                             color: "#414142",
                             paddingBottom: 16,
-                            maxWidth:'20%'
+                            maxWidth: '20%'
                           }}
                         >
                           {detail.duration?.start?.year} -
@@ -605,7 +607,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                 <View key={index} wrap={false} style={{
                   flexDirection: "col",
                   gap: 8,
-                 
+
                 }} >
                   <View
                     style={{
@@ -729,7 +731,12 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                   </Svg>
                 </View>
                 {item?.subSection?.map((detail, index) => (
-                  <View key={index} wrap={false}>
+                  <View key={index} wrap={false} style={{
+                    flexDirection: "column",
+                  
+                    alignItems: "center",
+                    gap:"16px"
+                  }}>
                     <View
                       style={{
                         flexDirection: "row",
@@ -742,6 +749,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                           flexDirection: "row",
                           gap: 16,
                           alignItems: "center",
+                          width: "70%"
                         }}
                       >
                         <Svg
@@ -759,8 +767,8 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                         <Text
                           style={{
                             fontWeight: 400,
-                            fontSize: 14,
-                            color: "#414142",
+                            fontSize: 12,
+                            // color: "#414142",
                           }}
                         >
                           {detail.title}
@@ -785,10 +793,9 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                             >
                               {" "}
                               {detail.duration?.start?.year !== "Year" &&
-                                `${detail.duration?.start?.year}-${" "}${
-                                  detail.currentlyWorking
-                                    ? "Present"
-                                    : detail.duration?.end?.year
+                                `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
+                                  ? "Present"
+                                  : detail.duration?.end?.year
                                 }
                          `}
                             </Text>
@@ -798,9 +805,10 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                     <Text
                       style={{
                         fontWeight: 400,
-                        fontSize: 12,
-                        color: "#414142",
+                        fontSize: 10,
+                        color: "#6D6E71",
                         paddingLeft: 24,
+
                       }}
                     >
                       {detail.description}

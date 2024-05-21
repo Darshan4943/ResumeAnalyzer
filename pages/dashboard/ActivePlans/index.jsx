@@ -4,36 +4,39 @@ import List from "./list";
 import { AddIcon } from "../../../utils/svg";
 import { useRouter } from "next/router";
 import MiniLoader from "../../../components/common/miniLoader";
-const Index = () => {
-  const [list, setList] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const router = useRouter();
+
+function ActivePlans() {
   const [miniLoading, setMiniloading] = useState(false);
-  const [totalCount, setTotalCount] = useState(0);
-  const [userList, setUserList] = useState([]);
-  const [uploadPopUp, setUploadPopUp] = useState(false);
-  const [totalPages, setTotalpages] = useState(0);
-  const [selectedCandidate, setSelectedCandidate] = useState([]);
+  const [data, setData] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [limit, setLimit] = useState(10);
+  const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
-  const [data, setData] = useState([]);
+  const [totalPages, setTotalpages] = useState(0);
+  const [userList, setUserList] = useState([]);
+  const [selectedCandidate, setSelectedCandidate] = useState([]);
+  const [totalCount, setTotalCount] = useState(0);
+
+  console.log(14141414, data)
+
+
 
   const getData = () => {
-    setLoading(true);
     axios
-      .get("https://freedygoservices.in/api/enquires", {
-        params: { page, limit },
+      .get('https://freedygoservices.in/api/activeSubscription', {
+        params: { page: currentPage, limit },
       })
       .then((res) => {
-        console.log(res);
-        setList(res.data.data.results);
-        setTotalCount(res.data.totalCount);
-        setTotalpages(res.data.totalPages);
-        setLimit(res?.data?.data?.current?.limit);
-        setCurrentPage(res?.data?.data?.current?.page);
-        setLoading(false);
+        console.log(123, res.data);
 
+        setData(res.data.data);
+        setUserList(res.data.data); // Assuming this is the correct field
+        setTotalCount(res.data.totalCount);
+        setTotalPages(res.data.totalPages);
+        setLimit(res?.data?.users?.current?.limit || limit);
+        setCurrentPage(res?.data?.users?.current?.page || currentPage);
+
+        setLoading(false);
         setTimeout(() => {
           setMiniloading(false);
         }, 1000);
@@ -41,34 +44,33 @@ const Index = () => {
       .catch((err) => {
         console.log(err);
         setLoading(false);
+        setMiniloading(false);
       });
   };
+
   useEffect(() => {
     setLoading(true);
-
     getData();
-  }, []);
-
-  useEffect(() => {
-    setMiniloading(true);
-    getData();
-  }, [page, limit]);
-
+  }, [currentPage, limit]);
   return (
     <>
+      {/* { console.log("limit",currentPage)} */}
       <div className="customMargins py-[24px] flex flex-col gap-[16px]">
         <div className="flex w-full flex-row justify-between items-center">
           <span className="text-[24px] text-[#333333] font-semibold">
-            Enquiries
+            Active List
           </span>
+
         </div>
         <div
-          className="h-[77vh]  rounded-[16px] customMargins flex flex-col gap-[16px] py-[24px] w-full "
+          className="min-h-[65vh]  rounded-[16px] customMargins flex flex-col gap-[16px] py-[24px] w-full "
           style={{ boxShadow: " 0px 1px 2px 0px #00000040" }}
         >
           <div className="flex flex-row w-full justify-between items-center px-[16px]">
             <span className="text-[18px] text-[#333333] font-medium">
-              Total Enquiries - {totalCount}
+              Total Active - {data.length}
+              {/* Total Recruiters - {data.users ? data.users.results.length : 0} */}
+
             </span>
             <div className="rounded-[30px] py-2 px-3 flex gap-2 bg-[#E9EEF6] w-[336px]  items-center h-[40px] sm:min-w-[138px] min-w-[60%]  ">
               <svg
@@ -101,7 +103,6 @@ const Index = () => {
             </div>
           ) : (
             <List
-              list={list}
               miniLoading={miniLoading}
               data={data}
               currentPage={currentPage}
@@ -117,11 +118,9 @@ const Index = () => {
             />
           )}
         </div>
-
-        <div></div>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default Index;
+export default ActivePlans

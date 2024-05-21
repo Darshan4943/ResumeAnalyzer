@@ -25,7 +25,7 @@ const ResumeForm = ({
   setSelectedColor,
   setSelectedFont,
   selectedFont,
-  templates,
+  template,
 }) => {
   const [formField, setFormField] = useState([]);
   const [view, setView] = useState(false);
@@ -68,12 +68,12 @@ const ResumeForm = ({
   }, []);
   const renderTemplates = () => {
     const selectedStyle = {
-      borderTop: " 4px solid #06A9EF",
-      borderBottom: "4px solid #06A9EF",
+      border: " 4px solid #06A9EF",
+
       height: " 210px",
       width: "auto",
     };
-    return templates.map((template, index) => (
+    return template.map((template, index) => (
       <img
         style={selectedResumeIndex == template.index ? selectedStyle : {}}
         key={index}
@@ -86,7 +86,7 @@ const ResumeForm = ({
   };
 
   const renderAllTemplates = () => {
-    return templates.map((template, index) => (
+    return template.map((template, index) => (
       <img
         key={index}
         src={template.imgUrl}

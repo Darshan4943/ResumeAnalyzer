@@ -52,7 +52,7 @@ function ClientFolders({
   }, [isList]);
 
   const fileIconSeter = (data) => {
-    if (data?.resumeUrl?.includes("pdf")) {
+    if (data?.resumeUrl?.toLowerCase().includes("pdf")) {
       return <PDFSvg />;
     } else {
       return (

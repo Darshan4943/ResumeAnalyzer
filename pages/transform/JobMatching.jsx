@@ -53,6 +53,8 @@ const JobMatching = () => {
     fileRef.current.click();
   };
 
+
+  
   useEffect(() => {
     if (selectedOptions.value === "My Collection") {
       setTab(1);
@@ -73,9 +75,8 @@ const JobMatching = () => {
       }
     }
     const storedIndexes = localStorage.getItem("selectedIndexes");
-    const storedIndexesFileType = localStorage.getItem(
-      "selectedIndexesFileType"
-    );
+    const storedIndexesFileType = localStorage.getItem("selectedIndexesFileType");
+    
     if (storedIndexesFileType) {
       setSelectedIndexesFilesType(JSON.parse(storedIndexesFileType));
     }
@@ -321,7 +322,7 @@ const JobMatching = () => {
       });
       await Promise.all(promise);
     }
-    setTextData(textData);
+    // setTextData(textData);
     setFiles(selectedFiles);
   };
 

@@ -11,10 +11,9 @@ import {
   Rect,
 } from "@react-pdf/renderer";
 function Template32({ data, selectedColor, selectedFont, preview }) {
-
   return (
     <Page size="A4" wrap={true} style={{ paddingTop: "12px" }}>
-      <View style={{ flexDirection: "row", gap: "1.5rem" ,marginTop:"-12px"}}>
+      <View style={{ flexDirection: "row", gap: "1.5rem", marginTop: "-12px" }}>
         <View style={{ width: "207px" }}>
           <View
             style={{
@@ -30,6 +29,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                 alignItems: "center",
                 marginTop: "35px",
                 flexDirection: "column",
+                maxWidth: "100%",
               }}
             >
               {data.profilePhoto ? (
@@ -38,8 +38,8 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                     preview
                       ? data.profilePhoto
                       : Object.keys(data?.profilePhoto).includes("filename")
-                        ? URL.createObjectURL(data.profilePhoto)
-                        : data.profilePhoto
+                      ? URL.createObjectURL(data.profilePhoto)
+                      : data.profilePhoto
                   }
                   alt=""
                   style={{
@@ -47,7 +47,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                     marginBottom: "16px",
                     height: "134px",
                     borderRadius: "50%",
-                    objectFit: "cover"
+                    objectFit: "cover",
                   }}
                 />
               ) : (
@@ -67,8 +67,13 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                   marginTop: 24,
                   gap: 4,
                   alignItems: "center",
+                  maxWidth: "100%",
+                  // paddingHorizontal:'10px'
+                 
                 }}
               >
+                <View style={{maxWidth:"100%",paddingHorizontal:'14px',flexDirection:'column'}}>
+
                 <Text
                   style={{
                     color: "#414042",
@@ -78,6 +83,9 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                 >
                   {data.firstName}
                 </Text>
+                {/* </View> */}
+                {/* <View style={{maxWidth:"100%",paddingHorizontal:'14px'}}> */}
+
                 <Text
                   style={{
                     color: selectedColor,
@@ -88,15 +96,18 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                   {data.lastName}
                 </Text>
               </View>
-              <Text
-                style={{
-                  fontSize: "12px",
-                  fontFamily: `${selectedFont} 400`,
-                  color: "#414042",
-                }}
-              >
-                {data.designation}
-              </Text>
+              </View>
+              <View style={{ maxWidth: "100%", paddingHorizontal: "14px" }}>
+                <Text
+                  style={{
+                    fontSize: "12px",
+                    fontFamily: `${selectedFont} 400`,
+                    color: "#414042",
+                  }}
+                >
+                  {data.designation}
+                </Text>
+              </View>
             </View>
             <View
               style={{ display: "flex", flexDirection: "column", gap: "8" }}
@@ -148,6 +159,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                     alignItems: "center",
                     marginLeft: "24px",
                     paddingRight: " 4px",
+                    maxWidth: "100%",
                   }}
                 >
                   <Svg
@@ -195,7 +207,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                     alignItems: "center",
                     marginLeft: "24px",
                     paddingRight: " 4px",
-                    maxWidth:"70%"
+                    maxWidth: "70%",
                   }}
                 >
                   <Svg
@@ -724,7 +736,8 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                 {data?.experience?.map((detail, index) => (
                   <>
                     <View
-                      wrap={false}
+                      wrap={true}
+                      // wrap={false}
                       key={index}
                       style={{ display: "flex", flexDirection: "row", gap: 16 }}
                     >
@@ -755,9 +768,11 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                           }}
                         >
                           {detail.duration?.start?.year !== "Year" &&
-                            `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
-                              ? "Present"
-                              : detail.duration?.end?.year}
+                            `${detail.duration?.start?.year}-${" "}${
+                              detail.currentlyWorking
+                                ? "Present"
+                                : detail.duration?.end?.year
+                            }
                          `}
                         </Text>
                       </View>
@@ -796,7 +811,8 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
           </View>
           {data?.section?.map((item, index) => (
             <View
-            wrap={false}
+              // wrap={false}
+              wrap={true}
               key={index}
               style={{
                 display: "flex",
@@ -863,7 +879,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                         fontSize: "16px",
                       }}
                     >
-                       {item?.header}
+                      {item?.header}
                     </Text>
                   </View>
                   <View
@@ -886,7 +902,6 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                   {item?.subSection?.map((detail, index) => (
                     <>
                       <View
-                      
                         key={index}
                         style={{
                           display: "flex",

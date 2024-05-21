@@ -13,7 +13,7 @@ import {
 function Template4({ data, selectedColor, selectedFont, preview }) {
   return (
     <Page size="A4" wrap={true} style={{ paddingTop: "12px" }}>
-      <View style={{ flexDirection: "row", gap: "1.5rem" ,marginTop: "-12px"}}>
+      <View style={{ flexDirection: "row", gap: "1.5rem", marginTop: "-12px" }}>
         <View style={{ width: "190px" }}>
           <View
             style={{
@@ -39,8 +39,8 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                     preview
                       ? data.profilePhoto
                       : Object.keys(data?.profilePhoto).includes("filename")
-                      ? URL.createObjectURL(data.profilePhoto)
-                      : data.profilePhoto
+                        ? URL.createObjectURL(data.profilePhoto)
+                        : data.profilePhoto
                   }
                   alt=""
                   style={{
@@ -63,7 +63,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                   }}
                 />
               )}
-              <View style={{ display: "flex" }}>
+              <View style={{ display: "flex", marginBottom:"6px" }}>
                 <Text
                   style={{
                     color: "#fff",
@@ -88,6 +88,8 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                   fontSize: "8px",
                   fontFamily: `${selectedFont} 500`,
                   color: selectedColor,
+                  marginRight: "16px",
+                  marginLeft: "16px",
                 }}
               >
                 {data.designation}
@@ -132,7 +134,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                   </Text>
                 </Svg>
               </View>
-              <View style={{ display:"flex", flexDirection:"column", gap:"8px",width:'100%',alignItems:'start'}}>
+              <View style={{ display: "flex", flexDirection: "column", gap: "8px", width: '100%', alignItems: 'start' }}>
                 {data?.mobileNumber && (
                   <View
                     style={{
@@ -273,7 +275,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                         fontFamily: `${selectedFont} 400`,
                         color: "#fff",
                         flexWrap: "wrap",
-                        width:"90%"
+                        width: "90%"
                       }}
                     >
                       {data.location}
@@ -594,13 +596,17 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                             display: "flex",
                             flexDirection: "row",
                             gap: 8,
+                            
                             alignItems: "center",
+                            width:"80%",
                           }}
                         >
                           <Text style={{ marginTop: "-1px" }}>{">"}</Text>
                           <Text
                             style={{
                               color: "#414042",
+
+                              flexWrap: "wrap",
                               fontSize: "11px",
                               fontFamily: `${selectedFont} 400`,
                             }}
@@ -714,7 +720,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                           flexDirection: "row",
                           gap: 8,
                           alignItems: "start",
-                          width:"70%"
+                          width: "70%"
                         }}
                       >
                         <Text style={{ marginTop: "-1px" }}>{">"}</Text>
@@ -737,10 +743,9 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                       >
                         {" "}
                         {detail.duration?.start?.year !== "Year" &&
-                          `${detail.duration?.start?.year}-${" "}${
-                            detail.currentlyWorking
-                              ? "Present"
-                              : detail.duration?.end?.year
+                          `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
+                            ? "Present"
+                            : detail.duration?.end?.year
                           }
                          `}
                       </Text>
@@ -771,14 +776,14 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
           </View>
           {data?.skills?.length > 0 && (
             <View
-            wrap={false}
+            
               style={{
                 display: "flex",
                 flexDirection: "column",
                 gap: 16,
                 alignItems: "flex-start",
                 paddingTop: "26px",
-                
+
               }}
             >
               <View
@@ -851,11 +856,12 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                       style={{
                         fontSize: 12,
                         fontFamily: `${selectedFont} 400`,
+                        marginRight:"6px"
                       }}
                     >
                       {detail.skill}
                     </Text>
-                    <View
+                    {/* <View
                       style={{
                         display: "flex",
                         gap: 16,
@@ -898,7 +904,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                           )}
                         </View>
                       ))}
-                    </View>
+                    </View> */}
                   </View>
                 ))}
               </View>
@@ -1005,6 +1011,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                                 color: "#414042",
                                 fontSize: "11px",
                                 fontFamily: `${selectedFont} 400`,
+                                width:"70%"
                               }}
                             >
                               {detail.title}

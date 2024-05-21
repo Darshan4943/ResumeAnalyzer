@@ -41,10 +41,11 @@ import Template32 from "../../resumeTemplates/Template32";
 import Template39 from "../../resumeTemplates/Template39";
 import Template48 from "../../resumeTemplates/Template48";
 import Template44 from "../../resumeTemplates/Template44";
-import MiniLoader from "../../../common/miniLoader";
+
 import LimitUsedModal from "../../../models/limitUsedModal";
 import Resume2 from "../../resumeTemplates/Resume2";
 import Resume1 from "../../resumeTemplates/Resume1";
+import MiniLoader from "../../../common/miniLoader";
 // import { generatePDFUsingRenderer } from "../../../../utils/middleware";
 <Fonts />;
 const ResumePreview = ({
@@ -86,19 +87,20 @@ const ResumePreview = ({
     getLimits();
   }, []);
 
-  useEffect(() => {
-    setResumeLoading(true);
-    const timer = setTimeout(() => {
-      setResumeLoading(false);
-    }, 1000);
+  // useEffect(() => {
+  //   setResumeLoading(true);
+  //   const timer = setTimeout(() => {
+  //     setResumeLoading(false);
+  //   }, 2000);
 
-    return () => clearTimeout(timer);
-  }, [data, selectedFont, selectedColor]);
+  //   return () => clearTimeout(timer);
+  // }, [data, selectedFont, selectedColor]);
 
   const callData = () => {
     const id = clientId === "undefined" ? userDataGlobal?._id : clientId;
     if (id) {
       axios
+        .get(`https://freedygoservices.in/api/resume/${id}`)
         .get(`https://freedygoservices.in/api/resume/${id}`)
         .then((res) => {
           // Remove .pdf extension from filenames
@@ -585,7 +587,7 @@ const ResumePreview = ({
       style={{
         position: "relative",
         overflowY: "auto",
-        maxHeight: "85vh",
+        maxHeight: "88vh",
       }}
     >
       <LimitUsedModal visible={limitUsedModal} setVisible={setLimitUsedModal} />
@@ -688,7 +690,7 @@ const ResumePreview = ({
 
         {selectedResumeIndex !== undefined && (
           <div
-            className=" w-full flex items-center justify-center mt-3 bg-[#525659] py-[24px] rounded-[8px] min-h-[700px]  "
+            className=" w-full flex items-center justify-center  bg-[#525659] py-[24px] rounded-[8px] min-h-[700px] relative  "
             style={{
               transformOrigin: "top left",
             }}
@@ -699,16 +701,26 @@ const ResumePreview = ({
               </div>
             ) : ( */}
 
-            {resumeLoading ? (
-              <MiniLoader />
-            ) : (
-              <PDFViewer width="90%" height="900px" showToolbar={false}>
-                <MyComponent />
-              </PDFViewer>
-            )}
+            <PDFViewer width="90%" height="900px" showToolbar={false}>
+              <MyComponent />
+            </PDFViewer>
+
             {/* )} */}
+            {resumeLoading && (
+              <div
+                className=" absolute w-[90%] flex items-center justify-center bg-white py-[24px] rounded-[8px] min-h-[900px]  "
+                style={{
+                  transformOrigin: "top left",
+                }}
+              >
+                <div className="z-[2000]">
+                  <MiniLoader />
+                </div>
+              </div>
+            )}
           </div>
         )}
+
         {/* <div
           className=" w-full flex items-center justify-center mt-3 bg-[#525659] py-[24px] rounded-[8px]"
           style={{

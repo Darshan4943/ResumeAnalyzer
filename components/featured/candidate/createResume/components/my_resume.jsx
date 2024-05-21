@@ -27,7 +27,7 @@ const ResumeList = ({ data, setData }) => {
           toast.error("Only Image files are allowed");
         }
       } else {
-        toast.error("Please select a file that is  2 MB.");
+        toast.error("Please select a file which is less than 2 MB.");
       }
     }
   };
@@ -128,9 +128,8 @@ const ResumeList = ({ data, setData }) => {
             </button>
             <button
               disabled={file == data?.profilePhoto}
-              className={` font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px]  bg-[#06A9EF] w-[60px] h-[32px] ${
-                file == data?.profilePhoto ? "opacity-50" : "opacity-100"
-              }`}
+              className={` font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px]  bg-[#06A9EF] w-[60px] h-[32px] ${file == data?.profilePhoto ? "opacity-50" : "opacity-100"
+                }`}
               onClick={() => {
                 setData({ ...data, profilePhoto: croppedImage?.blob });
               }}

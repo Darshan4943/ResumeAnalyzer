@@ -20,8 +20,8 @@ const LimitUsedModal = ({ setVisible, visible }) => {
       <div className="expiryModel ">
         <div className="modal">
           <div className="container sm:w-[432px] w-[90vw] scr420:p-4 p-2">
-            <div className="flex flex-col gap-[16px]">
-              <div className="flex flex-col gap-[12px]">
+            <div className="flex flex-col gap-[12px]">
+              <div className="flex flex-col ">
                 <img
                   src={
                     planAvailable
@@ -29,7 +29,7 @@ const LimitUsedModal = ({ setVisible, visible }) => {
                       : "/images/resumeBuilder/required.png"
                   }
                   alt=""
-                  className="h-[184px] object-contain"
+                  className="h-[166px] object-contain"
                 />
                 {!planAvailable && (
                   <span className="text-[22px] ml:text-[30px] text-[#C00000] font-semibold text-center">

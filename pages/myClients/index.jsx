@@ -330,6 +330,7 @@ function MyClients() {
                 setSelect={setSelect}
                 select={select}
                 deleteClient={deleteClient}
+                ClientCount={ClientCount}
               />
             ) : (
               <div
