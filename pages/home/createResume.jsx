@@ -347,7 +347,7 @@ function CreateResume() {
     hobbies: [],
     languages: [],
     section: [],
-    selectedResumeIndex: 0,
+    selectedResumeIndex: 1,
     selectedColor: "",
     selectedFont: "",
     createdAt: "",
@@ -397,8 +397,8 @@ function CreateResume() {
       const experience = parsedData["work experience"]
         ? parsedData["work experience"]
         : parsedData.work_experience
-          ? parsedData.work_experience
-          : [];
+        ? parsedData.work_experience
+        : [];
       const courses = parsedData.issuing_organization;
       setData({
         ...data,
