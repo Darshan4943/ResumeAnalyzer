@@ -5,14 +5,14 @@ import { camelCase } from "../../utils/middleware";
 import Summery from "../../components/featured/candidate/createResume/components/summery";
 import { useRouter } from "next/router";
 import { plans } from "../../utils/data";
-import {
-  PDFViewer,
-  PDFDownloadLink,
-  Document,
-  Page,
-  BlobProvider,
-  pdf,
-} from "@react-pdf/renderer";
+// import {
+//   PDFViewer,
+//   PDFDownloadLink,
+//   Document,
+//   Page,
+//   BlobProvider,
+//   pdf,
+// } from "@react-pdf/renderer";
 
 import axios from "axios";
 import Template1 from "../../components/featured/resumeTemplates/Template1";
@@ -221,14 +221,14 @@ function Dashboard() {
     }
   }, []);
 
-  const MyComponent = ({ selectedResumeIndex }) => {
-    console.log(220, selectedResumeIndex);
-    return (
-      <PDFViewer width="220px" height="226px" showToolbar={false}>
-        <Document>{selectResumeTemplate(selectedResumeIndex)}</Document>
-      </PDFViewer>
-    );
-  };
+  // const MyComponent = ({ selectedResumeIndex }) => {
+  //   console.log(220, selectedResumeIndex);
+  //   return (
+  //     <PDFViewer width="220px" height="226px" showToolbar={false}>
+  //       <Document>{selectResumeTemplate(selectedResumeIndex)}</Document>
+  //     </PDFViewer>
+  //   );
+  // };
 
   console.log(210, data);
   const selectResumeTemplate = (index) => {
@@ -535,9 +535,9 @@ function Dashboard() {
             Continue where you left
           </div>
           <div className="w-[495px] h-[281px] g-[36px] p-[24px] bg-[#F9F9F9] rounded-[24px] flex flex-row">
-            <div className="w-7/12 h-full ">
+            {/* <div className="w-7/12 h-full ">
               <MyComponent selectedResumeIndex={data?.selectedResumeIndex} />
-            </div>
+            </div> */}
             <div className="w-5/12  flex flex-col gap-2">
               <span className="font-Montserrat text-[24px] font-medium text-[#333333]">
                 Untitled file
