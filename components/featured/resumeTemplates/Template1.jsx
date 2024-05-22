@@ -228,7 +228,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                             color: "#414042",
                             fontSize: 12,
                             fontFamily: `${selectedFont} 700`,
-                            lineHeight: 1.2,
+                            // lineHeight: 1.2,
                             marginRight: "6px"
                           }}
                         >
@@ -239,7 +239,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                             color: "#414042",
                             fontSize: 12,
                             fontFamily: `${selectedFont} 700`,
-                            lineHeight: 1.2,
+                            // lineHeight: 1.2,
                           }}
                         >
                           {detail.instituteName}
@@ -261,7 +261,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                           color: "#414042",
                           fontSize: 8.962,
                           fontFamily: `${selectedFont} 400`,
-                          lineHeight: 1,
+                          // lineHeight: 1,
                         }}
                       >
                         {detail.duration?.start?.year !== "Year" &&
@@ -403,7 +403,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                 style={{
                   color: "#6D6E71",
                   fontSize: "10px",
-                  lineHeight: 1.2,
+                  // lineHeight: 1.2,
                   fontFamily: `${selectedFont} 400`,
                 }}
               >
@@ -445,7 +445,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                           color: "#414042",
                           fontSize: 12,
                           fontFamily: `${selectedFont} 700`,
-                          lineHeight: 1.5,
+                          // lineHeight: 1.5,
                         }}
                       >
                         {detail.designation}
@@ -463,7 +463,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                           color: "#414042",
                           fontSize: 10,
                           fontFamily: `${selectedFont} 400`,
-                          lineHeight: 1.5,
+                          // lineHeight: 1.5,
                           width: "100%",
                         }}
                       >
@@ -475,7 +475,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                             color: "#414142",
                             fontSize: 10,
                             fontFamily: `${selectedFont} 400`,
-                            lineHeight: 1.5,
+                            // lineHeight: 1.5,
                           }}
                         >
                           {detail.duration?.start?.year !== "Year" &&
@@ -492,7 +492,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                         style={{
                           color: "#6D6E71",
                           fontSize: "10px",
-                          lineHeight: 1.2,
+                          // lineHeight: 1.2,
                           fontFamily: `${selectedFont} 400`,
                         }}
                       >
@@ -551,7 +551,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                           color: "#414142",
                           fontSize: 12,
                           fontFamily: `${selectedFont} 700`,
-                          lineHeight: 1.5,
+                          // lineHeight: 1.5,
                           width: "70%"
                         }}
                       >
@@ -572,7 +572,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                                   color: "#414142",
                                   fontSize: 10,
                                   fontFamily: `${selectedFont} 400`,
-                                  lineHeight: 1.5,
+                                  // lineHeight: 1.5,
                                 }}
                               >
                                 {detail.duration?.end?.year &&
@@ -595,7 +595,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                         style={{
                           color: "#6D6E71",
                           fontSize: "10px",
-                          lineHeight: 1.2,
+                          // lineHeight: 1.2,
                           fontFamily: `${selectedFont} 400`,
                         }}
                       >
