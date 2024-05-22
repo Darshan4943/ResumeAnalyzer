@@ -7,6 +7,7 @@ const Experience = ({ data, setData }) => {
   const [view, setView] = useState(false);
   const [editingIndex, setEditingIndex] = useState(null);
   const [isModified, setIsModified] = useState({ status: false, index: 0 });
+  const [error, setError] = useState("");
   const handleSwitchChange = () => {
     setIsChecked(!isChecked);
     setData({ ...data, showExperience: !isChecked });
@@ -25,10 +26,19 @@ const Experience = ({ data, setData }) => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setExperienceData({
-      ...experienceData,
+
+    if (name === "description") {
+      if (value.length >= 1000 || experienceData.description === 1000) {
+        setError("Maximum 1000 characters allowed");
+      } else {
+        setError("");
+      }
+    }
+    setExperienceData((prevData) => ({
+      ...prevData,
       [name]: value,
-    });
+    }));
+
     setErrors((prevErrors) => ({
       ...prevErrors,
       [name]:
@@ -37,6 +47,7 @@ const Experience = ({ data, setData }) => {
           : "",
     }));
   };
+
   const handleSave = () => {
     if (validateForm()) {
       if (isModified.status === true) {
@@ -141,8 +152,12 @@ const Experience = ({ data, setData }) => {
       {data?.experience?.map((exp, index) => (
         <div
           key={index}
-          className={`flex flex-col gap-1 p-2 rounded-[6px]  border break-all ${editingIndex === index ? "border-[#06A9EF] border-[2px]" : "border-[#DEDEDE]"
-            }`}>
+          className={`flex flex-col gap-1 p-2 rounded-[6px]  border break-all ${
+            editingIndex === index
+              ? "border-[#06A9EF] border-[2px]"
+              : "border-[#DEDEDE]"
+          }`}
+        >
           <div className="flex justify-between">
             <p className="text-[14px]">
               {exp?.organization}{" "}
@@ -279,11 +294,12 @@ const Experience = ({ data, setData }) => {
                   placeholder="Enter text"
                   onChange={handleInputChange}
                   disabled={!isChecked}
-                  maxLength={200}
+                  maxLength={1000}
                 >
                   {experienceData.description}
                 </textArea>
               </div>
+              {error && <span className="text-[red] text-[12px]">{error}</span>}
             </div>
           </div>
           <div className="flex justify-end ">

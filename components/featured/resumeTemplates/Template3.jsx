@@ -209,7 +209,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                       fontSize: 12,
                       marginRight: "6px",
                       fontFamily: `${selectedFont} 400`,
-                      overflow:"hidden"
+                      overflow: "hidden"
                     }}
                   >
                     {detail.skill}
@@ -220,7 +220,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
           )}
 
           {data?.languages?.length > 0 && (
-            <View style={{}}>
+            <View  wrap={false} style={{}}>
               <View
                 style={{
                   paddingLeft: -1,
@@ -261,6 +261,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                     key={index}
                     style={{
                       color: "white",
+                      width:"95%",
                       fontSize: 12,
                       fontFamily: `${selectedFont} 400`,
                     }}
@@ -272,7 +273,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
             </View>
           )}
           {data?.hobbies?.length > 0 && (
-            <View style={{}}>
+            <View  wrap={false} style={{}}>
               <View
                 style={{
                   paddingLeft: -1,
@@ -309,11 +310,12 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
               >
                 {data.hobbies.map((detail, index) => (
                   <Text
-                    wrap={false}
+                   
                     key={index}
                     style={{
                       color: "white",
                       fontSize: 12,
+                      width:"95%",
                       fontFamily: `${selectedFont} 400`,
                     }}
                   >
@@ -428,16 +430,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
               {data.education?.map((detail, index) => (
                 <View wrap={false} key={index} style={{ flexDirection: "column", gap: 8 }}>
                   <View style={{}}>
-                    <Text
-                      style={{
-                        color: "#414042",
-                        fontSize: 10,
-                        fontFamily: `${selectedFont} 400`,
-                      }}
-                    >
-                      {detail.duration?.start?.year !== "Year" &&
-                        `${detail.duration?.start?.year}-${detail.duration?.end?.year}`}
-                    </Text>
+
                     <Text
                       style={{
                         color: "#414042",
@@ -465,6 +458,16 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                         backgroundColor: "#414042",
                       }}
                     />
+                    <Text
+                      style={{
+                        color: "#414042",
+                        fontSize: 10,
+                        fontFamily: `${selectedFont} 400`,
+                      }}
+                    >
+                      {detail.duration?.start?.year !== "Year" &&
+                        `${detail.duration?.start?.year}-${detail.duration?.end?.year}`}
+                    </Text>
 
                   </View>
                 </View>
@@ -472,6 +475,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
             </View>
           </View>
           <View
+        
             style={{
               flexDirection: "column",
               gap: 12,
@@ -508,9 +512,30 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                   <View
                     // wrap={false}
                     key={index}
-                    style={{ flexDirection: "column", gap: 4 }}
+                    style={{ flexDirection: "column", gap: 8 }}
                   >
                     <View style={{ flexDirection: "column", gap: 8 }}>
+                      <Text
+                        style={{
+                          color: "#414142",
+                          paddingLeft: "18px",
+                          fontSize: "14",
+                          fontFamily: `${selectedFont} 700`,
+                        }}
+                      >
+                        {detail.designation}
+                      </Text>
+                      <Text
+                        style={{
+                          color: "#414142",
+                          paddingLeft: "18px",
+                          fontSize: "12",
+                          fontFamily: `${selectedFont} 700`,
+                        }}
+                      >
+                        {detail.organization}
+                      </Text>
+
                       <Text
                         style={{
                           color: "#414142",
@@ -520,26 +545,6 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                         }}
                       >
                         {detail.duration?.start?.year !== "Year" && `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking ? "Present" : detail.duration?.end?.year}`}
-                      </Text>
-                      <Text
-                        style={{
-                          color: "#414142",
-                          paddingLeft: "18px",
-                          fontSize: "14",
-                          fontFamily: `${selectedFont} 700`,
-                        }}
-                      >
-                        {detail.organization}
-                      </Text>
-                      <Text
-                        style={{
-                          color: "#414142",
-                          paddingLeft: "18px",
-                          fontSize: "12",
-                          fontFamily: `${selectedFont} 700`,
-                        }}
-                      >
-                        {detail.designation}
                       </Text>
 
                     </View>
@@ -561,14 +566,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                     )}
 
                   </View>
-                  <View
-                    style={{
-                      width: "16px",
-                      height: "1px",
-                      marginLeft: "18px",
-                      backgroundColor: "#414042",
-                    }}
-                  />
+
                 </>
               ))}
             </View>
@@ -628,7 +626,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                           paddingLeft: "18px",
                           fontSize: "14",
                           fontFamily: `${selectedFont} 700`,
-                          width:"70%"
+                          width: "70%"
                         }}
                       >
                         {detail.title}

@@ -4,35 +4,9 @@ import { useSelector } from "react-redux";
 import { camelCase } from "../../utils/middleware";
 import Summery from "../../components/featured/candidate/createResume/components/summery";
 import { useRouter } from "next/router";
-import { plans } from "../../utils/data";
-
+import { plans, templates } from "../../utils/data";
 
 import axios from "axios";
-import Template1 from "../../components/featured/resumeTemplates/Template1";
-import Template2 from "../../components/featured/resumeTemplates/Template2";
-import Template3 from "../../components/featured/resumeTemplates/Template3";
-import Template4 from "../../components/featured/resumeTemplates/Template4";
-import Template5 from "../../components/featured/resumeTemplates/Template5";
-import Template6 from "../../components/featured/resumeTemplates/Template6";
-import Template7 from "../../components/featured/resumeTemplates/Template7";
-import Template8 from "../../components/featured/resumeTemplates/Template8";
-import Template9 from "../../components/featured/resumeTemplates/Template9";
-import Template10 from "../../components/featured/resumeTemplates/Template10";
-import Template11 from "../../components/featured/resumeTemplates/Template11";
-import Template12 from "../../components/featured/resumeTemplates/Template12";
-
-import Template13 from "../../components/featured/resumeTemplates/Template13";
-import Template14 from "../../components/featured/resumeTemplates/Template14";
-import Template15 from "../../components/featured/resumeTemplates/Template15";
-import Template16 from "../../components/featured/resumeTemplates/Template16";
-import Template17 from "../../components/featured/resumeTemplates/Template17";
-import Template18 from "../../components/featured/resumeTemplates/Template18";
-import Template19 from "../../components/featured/resumeTemplates/Template19";
-import Template20 from "../../components/featured/resumeTemplates/Template20";
-import Template32 from "../../components/featured/resumeTemplates/Template32";
-import Template39 from "../../components/featured/resumeTemplates/Template39";
-import Template48 from "../../components/featured/resumeTemplates/Template48";
-import Template44 from "../../components/featured/resumeTemplates/Template44";
 
 function Dashboard() {
   const userDataGlobal = useSelector((state) => state.userData);
@@ -81,7 +55,12 @@ function Dashboard() {
       name: "Job Description Matching",
       imgSrc: "/images/resumeBuilder/job_description_matching.png",
     },
-    { name: "My Collection", imgSrc: "/images/resumeBuilder/collechttps://freedygoservices.inMy Purchases", imgSrc: "/images/resumeBuilder/my_purchases.png" },
+    {
+      name: "My Collection",
+      imgSrc:
+        "/images/resumeBuilder/collechttps://freedygoservices.inMy Purchases",
+      imgSrc: "/images/resumeBuilder/my_purchases.png",
+    },
     { name: "Post Jobs", imgSrc: "/images/resumeBuilder/job.png" },
   ];
 
@@ -160,10 +139,10 @@ function Dashboard() {
           if (res.data.findIsActive.isActive === true) {
             setIsActive(true);
           }
-          console.log(133, res.data);
+
           if (plan) {
             setSelectedPlan(plan);
-            console.log(134, plan, uploadCount, saveCount, clientCount);
+
             setLimits({
               used: {
                 uploads: plan.limits.uploads - parseInt(uploadCount),
@@ -173,19 +152,13 @@ function Dashboard() {
               },
               total: plan.limits,
             });
-            console.log(
-              144,
-              plan.limits.uploads - parseInt(uploadCount),
-              plan.limits.download - parseInt(saveCount),
-              plan.limits.save - parseInt(saveCount)
-            );
           }
         })
         .catch((err) => {
           console.log(err);
         });
     }
-    console.log(156, limits);
+
     // if (planActive == "true") {
     //   setIsActive(true);
     // setLimits({
@@ -201,15 +174,15 @@ function Dashboard() {
     // }
   }, [userDataGlobal]);
 
-  // useEffect(() => {
-  //   if (typeof window !== "undefined") {
-  //     const storedData = localStorage.getItem("userData");
-  //     if (storedData) {
-  //       setData(JSON.parse(storedData));
-  //     }
-  //     // setIsClient(true);
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const storedData = localStorage.getItem("userData");
+      if (storedData) {
+        setData(JSON.parse(storedData));
+      }
+      // setIsClient(true);
+    }
+  }, []);
 
   // const MyComponent = ({ selectedResumeIndex }) => {
   //   console.log(220, selectedResumeIndex);
@@ -220,212 +193,23 @@ function Dashboard() {
   //   );
   // };
 
-  console.log(210, data);
-  const selectResumeTemplate = (index) => {
-    console.log(212, index);
-    switch (index) {
-      case 1:
-        return (
-          <Template1
-            data={data}
-            selectedColor={data?.selectedColor}
-            selectedFont={data?.selectedFont}
-          />
-        );
-      case 2:
-        return (
-          <Template2
-            data={data}
-            selectedColor={data?.selectedColor}
-            selectedFont={data?.selectedFont}
-          />
-        );
-      case 3:
-        return (
-          <Template3
-            data={data}
-            selectedColor={data?.selectedColor}
-            selectedFont={data?.selectedFont}
-          />
-        );
-      case 4:
-        return (
-          <Template4
-            data={data}
-            selectedColor={data?.selectedColor}
-            selectedFont={data?.selectedFont}
-          />
-        );
-      case 5:
-        return (
-          <Template5
-            data={data}
-            selectedColor={data?.selectedColor}
-            selectedFont={data?.selectedFont}
-          />
-        );
-      case 6:
-        return (
-          <Template6
-            data={data}
-            selectedColor={data?.selectedColor}
-            selectedFont={data?.selectedFont}
-          />
-        );
-      case 7:
-        return (
-          <Template7
-            data={data}
-            selectedColor={data?.selectedColor}
-            selectedFont={data?.selectedFont}
-          />
-        );
-      case 8:
-        return (
-          <Template8
-            data={data}
-            selectedColor={data?.selectedColor}
-            selectedFont={data?.selectedFont}
-          />
-        );
-      case 9:
-        return (
-          <Template9
-            data={data}
-            selectedColor={data?.selectedColor}
-            selectedFont={data?.selectedFont}
-          />
-        );
-      case 10:
-        return (
-          <Template10
-            data={data}
-            selectedColor={data?.selectedColor}
-            selectedFont={data?.selectedFont}
-          />
-        );
-      case 11:
-        return (
-          <Template11
-            data={data}
-            selectedColor={data?.selectedColor}
-            selectedFont={data?.selectedFont}
-          />
-        );
-      case 12:
-        return (
-          <Template12
-            data={data}
-            selectedColor={data?.selectedColor}
-            selectedFont={data?.selectedFont}
-          />
-        );
-      case 13:
-        return (
-          <Template13
-            data={data}
-            selectedColor={data?.selectedColor}
-            selectedFont={data?.selectedFont}
-          />
-        );
-      case 14:
-        return (
-          <Template14
-            data={data}
-            selectedColor={data?.selectedColor}
-            selectedFont={data?.selectedFont}
-          />
-        );
-      case 15:
-        return (
-          <Template15
-            data={data}
-            selectedColor={data?.selectedColor}
-            selectedFont={data?.selectedFont}
-          />
-        );
-      case 16:
-        return (
-          <Template16
-            data={data}
-            selectedColor={data?.selectedColor}
-            selectedFont={data?.selectedFont}
-          />
-        );
-      case 17:
-        return (
-          <Template17
-            data={data}
-            selectedColor={data?.selectedColor}
-            selectedFont={data?.selectedFont}
-          />
-        );
-      case 18:
-        return (
-          <Template18
-            data={data}
-            selectedColor={data?.selectedColor}
-            selectedFont={data?.selectedFont}
-          />
-        );
-      case 19:
-        return (
-          <Template19
-            data={data}
-            selectedColor={data?.selectedColor}
-            selectedFont={data?.selectedFont}
-          />
-        );
-      case 20:
-        return (
-          <Template20
-            data={data}
-            selectedColor={data?.selectedColor}
-            selectedFont={data?.selectedFont}
-          />
-        );
-      case 44:
-        return (
-          <Template44
-            data={data}
-            selectedColor={data?.selectedColor}
-            selectedFont={data?.selectedFont}
-          />
-        );
-      case 32:
-        return (
-          <Template32
-            data={data}
-            selectedColor={data?.selectedColor}
-            selectedFont={data?.selectedFont}
-          />
-        );
-      case 39:
-        return (
-          <Template39
-            data={data}
-            selectedColor={data?.selectedColor}
-            selectedFont={data?.selectedFont}
-          />
-        );
-      case 48:
-        return (
-          <Template48
-            data={data}
-            selectedColor={data?.selectedColor}
-            selectedFont={data?.selectedFont}
-          />
-        );
-      default:
-        return (
-          <Template3
-            data={data}
-            selectedColor={data?.selectedColor}
-            selectedFont={data?.selectedFont}
-          />
-        );
+  function formatDate(inputDate) {
+    const dateObj = new Date(inputDate);
+    const day = dateObj.getUTCDate().toString().padStart(2, "0");
+    const month = (dateObj.getUTCMonth() + 1).toString().padStart(2, "0"); // Months are 0-indexed
+    const year = dateObj.getUTCFullYear();
+
+    return `${day}/${month}/${year}`;
+  }
+
+  function hasNonEmptyKey(obj) {
+    for (let key in obj) {
+      if (key !== "") {
+        return true;
+      }
     }
-  };
+    return false;
+  }
 
   return (
     <div className="customMargins flex flex-col gap-12 py-6 min-h-[70vh]">
@@ -516,73 +300,92 @@ function Dashboard() {
           </div>
         ))}
       </div>
-      {/* {data !== undefined && Object.keys(data).length > 0 && (
-        <div
-        
-          className="flex gap-6 flex-wrap flex-col "
-        >
-          <div className="text-[24px] font-Montserrat font-medium">
-            Continue where you left
-          </div>
-          <div className="w-[495px] h-[281px] g-[36px] p-[24px] bg-[#F9F9F9] rounded-[24px] flex flex-row">
-            <div className="w-[60%] h-full ">
-              <MyComponent selectedResumeIndex={data?.selectedResumeIndex} />
+
+      {userDataGlobal.role === "user" &&
+        data !== undefined &&
+        hasNonEmptyKey(data) && (
+          <div className="flex gap-6 flex-wrap flex-col ">
+            <div className="text-[24px] font-Montserrat font-medium">
+              Continue where you left
             </div>
-            <div className="w-[40%] flex flex-col gap-2">
-              <span className="font-Montserrat text-[24px] font-medium text-[#333333]">
-                Untitled file
-              </span>
-              <span className="font-Montserrat text-[14px]  text-[#808080]">
-                Updated on 5 March, 10:54
-              </span>
-
-              <div
-               
-               onClick={() => {localStorage.removeItem("parsedResume");router.push("/home/createResume")}}
-              >
-                <div className="flex flex-row gap-2">
-                  <svg
-                    width="25"
-                    height="24"
-                    viewBox="0 0 25 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <g mask="url(#mask0_2918_34640)">
-                      <path
-                        d="M5.86719 19H7.29219L17.0672 9.225L15.6422 7.8L5.86719 17.575V19ZM3.86719 21V16.75L17.0672 3.575C17.2672 3.39167 17.488 3.25 17.7297 3.15C17.9714 3.05 18.2255 3 18.4922 3C18.7589 3 19.0172 3.05 19.2672 3.15C19.5172 3.25 19.7339 3.4 19.9172 3.6L21.2922 5C21.4922 5.18333 21.638 5.4 21.7297 5.65C21.8214 5.9 21.8672 6.15 21.8672 6.4C21.8672 6.66667 21.8214 6.92083 21.7297 7.1625C21.638 7.40417 21.4922 7.625 21.2922 7.825L8.11719 21H3.86719ZM16.3422 8.525L15.6422 7.8L17.0672 9.225L16.3422 8.525Z"
-                        fill="#06A9EF"
-                      />
-                    </g>
-                  </svg>
-
-                  <p className="font-Montserrat text-[16px] font-medium text-[#333333]">
-                    Edit
-                  </p>
-                </div>
+            <div className="w-[440px] h-[281px] g-[36px] p-[24px] bg-[#F9F9F9] rounded-[24px] flex flex-row">
+              <div className="w-[50%] h-full">
+                {templates.find(
+                  (item) => item.index === data.selectedResumeIndex
+                ) && (
+                  <img
+                    src={
+                      templates.find(
+                        (item) => item.index === data.selectedResumeIndex
+                      ).imgUrl
+                    }
+                    style={{
+                      height: "100%",
+                      width: "90%",
+                      objectFit: "cover",
+                    }}
+                    alt={`Resume template ${data.selectedResumeIndex}`} // Adding an alt attribute for accessibility
+                  />
+                )}
               </div>
-              <button
-                className="w-[154px] h-[36px] px-[6px] py-[6px] rounded-[8px] bg-[#06A9EF] text-[#FFFFFF] text-[14px]"
-                onClick={() => {
-                  localStorage.removeItem("userData");
-                }}
-              >
-                Cancel
-              </button>
+
+              <div className="w-[50%] flex flex-col gap-2">
+                <span className="font-Montserrat text-[24px] font-medium text-[#333333]">
+                  Untitled file
+                </span>
+                <span className="font-Montserrat text-[14px]  text-[#808080]">
+                  Updated on {formatDate(data?.createdAt)}
+                </span>
+
+                <div
+                  onClick={() => {
+                    localStorage.removeItem("parsedResume");
+                    // router.push(
+                    //   `/home/createResume?clientId=${
+                    //     data?.clientId
+                    //   }&continueEdit=${true}`
+                    // );
+
+                    router.push(
+                      `/home/createResume?clientId=${data?.clientId}&continueEdit=true`
+                    );
+                  }}
+                >
+                  <div className="flex flex-row gap-2">
+                    <svg
+                      width="25"
+                      height="24"
+                      viewBox="0 0 25 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <g mask="url(#mask0_2918_34640)">
+                        <path
+                          d="M5.86719 19H7.29219L17.0672 9.225L15.6422 7.8L5.86719 17.575V19ZM3.86719 21V16.75L17.0672 3.575C17.2672 3.39167 17.488 3.25 17.7297 3.15C17.9714 3.05 18.2255 3 18.4922 3C18.7589 3 19.0172 3.05 19.2672 3.15C19.5172 3.25 19.7339 3.4 19.9172 3.6L21.2922 5C21.4922 5.18333 21.638 5.4 21.7297 5.65C21.8214 5.9 21.8672 6.15 21.8672 6.4C21.8672 6.66667 21.8214 6.92083 21.7297 7.1625C21.638 7.40417 21.4922 7.625 21.2922 7.825L8.11719 21H3.86719ZM16.3422 8.525L15.6422 7.8L17.0672 9.225L16.3422 8.525Z"
+                          fill="#06A9EF"
+                        />
+                      </g>
+                    </svg>
+
+                    <p className="font-Montserrat text-[16px] font-medium text-[#333333]">
+                      Edit
+                    </p>
+                  </div>
+                </div>
+                <button
+                  className="w-[154px] h-[36px] px-[6px] py-[6px] rounded-[8px] bg-[#06A9EF] text-[#FFFFFF] text-[14px]"
+                  onClick={() => {
+                    localStorage.removeItem("userData");
+                  }}
+                >
+                  Cancel
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      )} */}
+        )}
     </div>
   );
 }
-
-// width: Hug (154px)px;
-// height: Hug (36px)px;
-// padding: 6px 12px 6px 12px;
-// gap: 8px;
-// border-radius: 8px 0px 0px 0px;
-// opacity: 0px;
-// background: #06A9EF;
 
 export default Dashboard;
