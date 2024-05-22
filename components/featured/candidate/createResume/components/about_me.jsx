@@ -71,6 +71,7 @@ const AboutMe = ({ data, setData }) => {
     e.preventDefault();
     const newText = e.target.value;
     if (newText.length >= 400 || text.length > 400) {
+      setText(newText.slice(0, 400));
       setError("Maximum 400 characters allowed");
     } else {
       setError("");
@@ -106,7 +107,7 @@ const AboutMe = ({ data, setData }) => {
             <textarea
               type="text"
               name="aboutMe"
-              className="w-full text-[14px] font-montserrat font-small min-h-[110px] outline-none"
+              className="w-full text-[14px] font-montserrat font-small min-h-[170px] outline-none"
               placeholder="Enter text"
               maxLength={400} // Set maximum length
               // onChange={(e) => {
@@ -148,7 +149,7 @@ const AboutMe = ({ data, setData }) => {
             className=" font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px]  bg-[#06A9EF] w-[60px] h-[32px] "
             onClick={() => setData({ ...data, summery: text })}
             style={{ opacity: text === data?.summery ? 0.5 : 1 }}
-            disabled={text === data?.summery || !isChecked}
+            disabled={text === data?.summery || !isChecked || text.length === 0}
           >
             Save
           </button>
