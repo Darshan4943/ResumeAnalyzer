@@ -302,7 +302,7 @@ const CandidateAiPower = ({
                           <div className="flex flex-row gap-[16px] items-center scr420:w-[60%] w-full scr420:justify-start justify-center  ">
                             {" "}
                             <div className="">{fileIconSeter(file)}</div>
-                            <span className="text-[12px] w-[80%]">
+                            <span className="text-[12px] w-[80%] break-all">
                               {file.name}
                             </span>
                           </div>

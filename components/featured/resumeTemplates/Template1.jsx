@@ -53,7 +53,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
               </Text>
             </View>
             <Text
-              style={{ color: "#414042", fontFamily: `${selectedFont} 400` }}
+              style={{ color: "#414042", fontFamily: `${selectedFont} 400` ,width:"80%"}}
             >
               {data.designation}
             </Text>
@@ -537,7 +537,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                   <View
                     key={index}
                     style={{ flexDirection: "column", gap: 12, width: "100%" }}
-                   
+
                   >
                     <View
                       style={{

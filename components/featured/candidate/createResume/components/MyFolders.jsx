@@ -63,7 +63,7 @@ function MyFolders({
                       <th className="py-3 px-4 rounded-l-[12px] bg-[#C2E7FF] text-[14px] w-[30%] text-left border-r border-[#FFF]">
                         Name
                       </th>
-                      <th className="py-3 px-4 bg-[#C2E7FF] w-[25%] text-left text-[14px] border-r border-[#FFF]">
+                      <th className="py-3 px-4 bg-[#C2E7FF] w-[25%] text-left text-[14px] border-r border-[#FFF]  rounded-r-[12px]">
                         Date Modified
                       </th>
                       {/* <th className="py-3 px-4 rounded-r-[12px] bg-[#C2E7FF] text-[14px] w-[25%] text-left">

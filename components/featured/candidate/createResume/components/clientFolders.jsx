@@ -134,12 +134,12 @@ function ClientFolders({
                       <th className="py-3 sm:px-4 px-2 rounded-l-[12px] bg-[#C2E7FF] w-[30%] text-left border-r border-[#FFF]">
                         Name
                       </th>
-                      <th className="py-3 sm:px-4 px-2 bg-[#C2E7FF] w-[25%] text-left border-r border-[#FFF]">
+                      <th className="py-3 sm:px-4 px-2 bg-[#C2E7FF] w-[25%] text-left border-r border-[#FFF]  rounded-r-[12px]">
                         Date Modified
                       </th>
-                      <th className="py-3 sm:px-4 px-2 rounded-r-[12px] bg-[#C2E7FF] w-[25%] text-left">
+                      {/* <th className="py-3 sm:px-4 px-2 rounded-r-[12px] bg-[#C2E7FF] w-[25%] text-left">
                         Size
-                      </th>
+                      </th> */}
                     </tr>
                   </thead>
                   <tbody>
@@ -176,9 +176,9 @@ function ClientFolders({
                         <td className="sm:px-4 px-2 py-2 text-[#858585]">
                           {dateSeter(item.updatedAt)}
                         </td>
-                        <td className="sm:px-4 px-2 py-2 text-[#858585]">
+                        {/* <td className="sm:px-4 px-2 py-2 text-[#858585]">
                           {convertBytes(item.size)}
-                        </td>
+                        </td> */}
                       </tr>
                     ))}
                   </tbody>
