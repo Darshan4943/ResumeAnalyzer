@@ -445,6 +445,7 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
           </View>
           {data?.experience?.length > 0 && (
             <View style={{ display: "flex", flexDirection: "column", gap: 15 }}
+            wrap={data?.experience?.length > 1 ? true : false}
            
             >
               <View

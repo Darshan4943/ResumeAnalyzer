@@ -22,6 +22,7 @@ const Education = ({ setData, data }) => {
       end: { year: currentYear, month: currentMonth },
     },
   });
+  console.log(25,educationData)
   const handleSwitchChange = () => {
     setIsChecked(!isChecked);
     setData({ ...data, showEducation: !isChecked });
@@ -137,7 +138,7 @@ const Education = ({ setData, data }) => {
                 {edu.duration?.start?.year != "Year" &&
                   ` ${"|"} ${edu.duration?.start?.year} 
               ${edu.duration?.start?.year && "-"}
-              ${edu.duration?.end?.year}`}
+              ${ edu.duration?.end?.year === "Year" ? "Present" :edu.duration?.end?.year}`}
               </p>
               <div className="flex gap-2">
                 <button>

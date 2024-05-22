@@ -107,13 +107,13 @@ function CreateResume() {
     //   fontFamily: "Lato",
     //   themeColor: "#0C2438",
     // },
-    // {
-    //   title: "Template13",
-    //   imgUrl: "/images/templates/template13.png",
-    //   index: 13,
-    //   fontFamily: "Poppins",
-    //   themeColor: "#0E6CC2",
-    // },
+    {
+      title: "Template13",
+      imgUrl: "/images/templates/template13.png",
+      index: 13,
+      fontFamily: "Poppins",
+      themeColor: "#0E6CC2",
+    },
     {
       title: "Template14",
       imgUrl: "/images/templates/template14.png",
@@ -128,13 +128,13 @@ function CreateResume() {
     //   fontFamily: "Inter",
     //   themeColor: "#716D6D",
     // },
-    // {
-    //   title: "Template16",
-    //   imgUrl: "/images/templates/template53.png",
-    //   index: 16,
-    //   fontFamily: "Inter",
-    //   themeColor: "#545554",
-    // },
+    {
+      title: "Template16",
+      imgUrl: "/images/templates/template53.png",
+      index: 16,
+      fontFamily: "Inter",
+      themeColor: "#545554",
+    },
     // {
     //   title: "Template17",
     //   imgUrl: "/images/templates/template17.png",
@@ -149,13 +149,13 @@ function CreateResume() {
       fontFamily: "Montserrat",
       themeColor: "#F1F1F1",
     },
-    // {
-    //   title: "Template19",
-    //   imgUrl: "/images/templates/template19.png",
-    //   index: 19,
-    //   fontFamily: "Inter",
-    //   themeColor: "#000000",
-    // },
+    {
+      title: "Template19",
+      imgUrl: "/images/templates/template19.png",
+      index: 19,
+      fontFamily: "Inter",
+      themeColor: "#000000",
+    },
     // {
     //   title: "Template20",
     //   imgUrl: "/images/templates/template20.png",
@@ -191,6 +191,14 @@ function CreateResume() {
       fontFamily: "Inter",
       themeColor: "#C7EAFB",
     },
+
+    {
+      title: "Template47",
+      imgUrl: "/images/templates/template47.png",
+      index: 47,
+      fontFamily: "Poppins",
+      themeColor: "#27AAE1",
+    },
   ];
 
   const handleOutsideClick = (event) => {
@@ -205,7 +213,14 @@ function CreateResume() {
     };
   }, []);
   const [isEdit, isSetEdit] = useState(false);
+  const [dataFromLocal, setDataFromLocal] = useState([]);
+  useEffect(() => {
+    const storedData = JSON.parse(localStorage.getItem("allData"));
 
+    if (storedData) {
+      setDataFromLocal(storedData);
+    }
+  }, []);
   // const [data, setData] = useState({
   //   profilePhoto: null,
   //   designation: dataFromLocal?.designation ? dataFromLocal?.designation : "",
@@ -468,7 +483,7 @@ function CreateResume() {
       });
     } else if (clientId) {
       axios
-        .get(`https://freedygoservices.in/api/client/getByClientId/${clientId}`)
+        .get(`http://localhost:2000/api/client/getByClientId/${clientId}`)
         .then((res) => {
           const result = res.data.data;
           setData({
