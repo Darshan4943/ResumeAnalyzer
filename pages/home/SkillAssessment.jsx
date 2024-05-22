@@ -262,7 +262,7 @@ function SkillAssessment() {
 
     if (questionIndex == 9) {
       axios
-        .post("http://localhost:2000/api/assessment/add", {
+        .post("https://freedygoservices.in/api/assessment/add", {
           userId: userDataGlobal._id,
           skill: selectedSkill,
           score: checkAnswer() * 10,
