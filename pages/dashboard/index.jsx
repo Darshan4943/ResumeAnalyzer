@@ -211,7 +211,6 @@ function Dashboard() {
     return false;
   }
 
-  console.log(222222, hasNonEmptyKey(data));
   return (
     <div className="customMargins flex flex-col gap-12 py-6 min-h-[70vh]">
       <div className="flex ml:flex-row flex-col gap-4">
