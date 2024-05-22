@@ -357,8 +357,7 @@ function CreateResume() {
     languages: [],
     section: [],
     selectedResumeIndex: selectedResumeIndex ? selectedResumeIndex : 1,
-    selectedColor: "",
-    selectedFont: "",
+
     createdAt: "",
     clientId: clientId,
   };
