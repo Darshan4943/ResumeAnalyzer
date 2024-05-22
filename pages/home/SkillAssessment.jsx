@@ -22,6 +22,7 @@ import generatePDF from "react-to-pdf";
 import QuestionList from "../../components/featured/home/QuestionList";
 import SkillModel from "../../components/featured/candidate/createResume/components/SkillModel";
 import { reCallUserData } from "../../Redux/actions/user";
+import { TRUE } from "sass";
 
 function SkillAssessment() {
   const resumeRef = useRef();
@@ -261,14 +262,22 @@ function SkillAssessment() {
 
     if (questionIndex == 9) {
       axios
-        .post("https://freedygoservices.in/api/assessment/add", {
+        .post("http://localhost:2000/api/assessment/add", {
           userId: userDataGlobal._id,
           skill: selectedSkill,
           score: checkAnswer() * 10,
           date: new Date(),
         })
         .then((res) => {
-          setScore(true);
+          setToggle(0);
+          setLoading(false);
+         
+          setIsSubmit(true)
+          
+          setTimeout(() => {
+            setScore(true);
+          }, 500);
+          
         })
         .catch((err) => {
           console.log(err);
@@ -281,9 +290,9 @@ function SkillAssessment() {
 
   useEffect(() => {
     let timer;
-    if (questionIndex) {
+    if (questionIndex && isSubmit ===true) {
       timer = setTimeout(() => {
-        if (questionIndex === 9 && !isSubmit) {
+        if (questionIndex === 9 && isSubmit===true) {
           sumbit();
         }
       }, 30000);
@@ -383,6 +392,7 @@ function SkillAssessment() {
 
     return formattedTime;
   }
+  console.log(1,uniqueQuestions)
 
   return (
     <div className="">
@@ -1272,12 +1282,13 @@ function SkillAssessment() {
                   <div className="flex  justify-between items-center pb-[12px] w-[80%] pt-4">
                     <button
                       onClick={() => {
-                        setToggle(0);
+                       
                         setScore(false);
-                        setQuestionIndex(0);
+                        setSelectedSkill()
+                     setQuestionIndex(0)
                         setQuestion([]);
                         setSkipped([]);
-                        window.location.reload();
+                        // window.location.reload();
                         dispatch(reCallUserData());
                       }}
                       className="border-[1px]  border-solid border-[#06A9EF] rounded-[12px] px-[24px] py-[8px] text-[16px] text-[#333] font-[500]"
