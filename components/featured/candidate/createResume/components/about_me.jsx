@@ -18,7 +18,6 @@ const AboutMe = ({ data, setData }) => {
     setData({ ...data, showSummary: !isChecked });
   };
 
-
   const generateText = () => {
     const prompt = `Original Paragraph:\n${text}\n\nNew Paragraph:\n`;
     if (text.length > 100) {
@@ -80,6 +79,7 @@ const AboutMe = ({ data, setData }) => {
     }
   };
 
+  console.log(444, isChecked)
   return (
     <>
       <div
@@ -116,6 +116,7 @@ const AboutMe = ({ data, setData }) => {
               // }}
               onChange={handleTextChange}
               value={text}
+              disabled={!isChecked}
             />
           )}
         </div>

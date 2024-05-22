@@ -138,7 +138,6 @@ const Experience = ({ data, setData }) => {
     >
       <div className="w-full flex justify-between text-[20px] font-montserrat font-medium">
         <p> Experience</p>
-
         <label className="switch">
           <input
             type="checkbox"
@@ -339,7 +338,7 @@ const Experience = ({ data, setData }) => {
       )}
 
       {!view && (
-        <div className="flex gap-1">
+        <div className="flex gap-1" onClick={() => setView(true)}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -355,7 +354,7 @@ const Experience = ({ data, setData }) => {
             </g>
           </svg>
           <p
-            onClick={() => setView(true)}
+            // onClick={() => setView(true)}
             className="text-[16px] font-semibold text-[#06A9EF] cursor-pointer"
             disabled={!isChecked}
           >
