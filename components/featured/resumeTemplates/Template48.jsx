@@ -584,7 +584,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                   </Svg>
 
                   <Text
-                    style={{ fontSize: 14, fontWeight: 400, color: "#383839" }}
+                    style={{ fontSize: 14, fontFamily: `${selectedFont} 400`, color: "#383839" }}
                   >
                     Education{" "}
                   </Text>
@@ -630,7 +630,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                     </Svg>
                     <Text
                       style={{
-                        fontWeight: 400,
+                        fontFamily: `${selectedFont} 400`,
                         fontSize: 12,
                         color: "#414142",
                       }}
@@ -649,7 +649,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                   >
                     <Text
                       style={{
-                        fontWeight: 400,
+                        fontFamily: `${selectedFont} 400`,
                         fontSize: 12,
                         color: "#414142",
                       }}
@@ -658,7 +658,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                     </Text>
                     <Text
                       style={{
-                        fontWeight: 400,
+                        fontFamily: `${selectedFont} 400`,
                         fontSize: 10,
                         color: "#414142",
                         paddingBottom: 16,
@@ -709,7 +709,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                     <Text
                       style={{
                         fontSize: 14,
-                        fontWeight: 400,
+                        fontFamily: `${selectedFont} 400`,
                         color: "#383839",
                       }}
                     >
@@ -766,7 +766,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                         </Svg>
                         <Text
                           style={{
-                            fontWeight: 400,
+                            fontFamily: `${selectedFont} 400`,
                             fontSize: 12,
                             // color: "#414142",
                           }}
@@ -786,7 +786,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                           >
                             <Text
                               style={{
-                                fontWeight: 400,
+                                fontFamily: `${selectedFont} 400`,
                                 fontSize: 10,
                                 color: "#414142",
                               }}
@@ -804,7 +804,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                     </View>
                     <Text
                       style={{
-                        fontWeight: 400,
+                        fontFamily: `${selectedFont} 400`,
                         fontSize: 10,
                         color: "#6D6E71",
                         paddingLeft: 24,
