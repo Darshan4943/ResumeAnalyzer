@@ -198,6 +198,13 @@ function CreateResume() {
       fontFamily: "Poppins",
       themeColor: "#27AAE1",
     },
+    {
+      title: "Template30",
+      imgUrl: "/images/templates/template30.png",
+      index: 30,
+      fontFamily: "Lato",
+      themeColor: "#414042",
+    },
   ];
 
   const handleOutsideClick = (event) => {
