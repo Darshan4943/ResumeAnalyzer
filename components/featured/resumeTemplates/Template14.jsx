@@ -147,7 +147,9 @@ function Template14({ data, selectedColor, selectedFont }) {
               flexDirection: "row",
               flexWrap: "wrap",
               width: "100%",
-              gap: "8px",
+              gap: "26px",
+              // rowGap:'26px',
+              // columnGap:'8px'
             }}
           >
             {Array.isArray(data?.skills) &&
@@ -155,8 +157,8 @@ function Template14({ data, selectedColor, selectedFont }) {
                 <Text
                   key={index}
                   style={{
-                    width: "23%", // Slightly less than 25% to account for gaps
-                    fontSize: 12,
+                    // width: "23%", // Slightly less than 25% to account for gaps
+                    fontSize: 11,
                     fontFamily: `${selectedFont} 400`,
                     color: "#4D4D4D",
                   }}
@@ -169,7 +171,9 @@ function Template14({ data, selectedColor, selectedFont }) {
         <View
           style={{ width: "100%", height: 1, backgroundColor: "#DEDEDE" }}
         ></View>
-        <View style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+        <View style={{ display: "flex", flexDirection: "column", gap: 12 }}
+        wrap={data?.experience?.length > 1 ? true : false}
+        >
           <Text
             style={{
               fontSize: 18,
@@ -184,7 +188,7 @@ function Template14({ data, selectedColor, selectedFont }) {
               <View
                 wrap={false}
                 key={index}
-                style={{ gap: 6, display: "flex", flexDirection: "column" }}
+                style={{ gap: 4, display: "flex", flexDirection: "column" }}
               >
                 <View
                   style={{
@@ -211,7 +215,7 @@ function Template14({ data, selectedColor, selectedFont }) {
                       fontSize: 14,
                       fontFamily: `${selectedFont} 400`,
                       color: "#4D4D4D",
-                      marginLeft: 10, // Add margin for spacing if needed
+                      // marginLeft: 10, // Add margin for spacing if needed
                     }}
                   >
                     {detail.duration?.start?.year !== "Year" &&
@@ -227,7 +231,10 @@ function Template14({ data, selectedColor, selectedFont }) {
                   style={{
                     display: "flex",
                     flexDirection: "column",
-                    gap: "6px",
+                    gap: "4px",
+                    justifyContent:'flex-start',
+                    alignItems:'flex-start'
+
                   }}
                 >
                   <Text
