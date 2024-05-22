@@ -3,6 +3,7 @@ import { SparklingStarts } from "../../../../../utils/svg";
 import axios from "axios";
 import MiniLoader from "../../../../common/mini-loader";
 import { useSelector } from "react-redux";
+import { textFieldClasses } from "@mui/material";
 
 const AboutMe = ({ data, setData }) => {
   const userDataGlobal = useSelector((state) => state.userData);
@@ -66,6 +67,17 @@ const AboutMe = ({ data, setData }) => {
     setText(data.summery ? data.summery : "");
   }, [data]);
 
+  const handleTextChange = (e) => {
+    e.preventDefault();
+    const newText = e.target.value;
+    if (newText.length >= 400 || text.length > 400) {
+      setError("Maximum 400 characters allowed");
+    } else {
+      setError("");
+      setText(newText);
+    }
+  };
+
   return (
     <>
       <div
@@ -97,18 +109,20 @@ const AboutMe = ({ data, setData }) => {
               className="w-full text-[14px] font-montserrat font-small min-h-[110px] outline-none"
               placeholder="Enter text"
               maxLength={400} // Set maximum length
-              onChange={(e) => {
-                setText(e.target.value.slice(0, 400)); // Limit input to 400 characters
-              }}
+              // onChange={(e) => {
+              //   setText(e.target.value.slice(0, 400)); // Limit input to 400 characters
+              // }}
+              onChange={handleTextChange}
               value={text}
             />
           )}
         </div>
         <div className="flex items-center justify-between gap-3 w-[100%]  ">
           <div className="error_text_form ">{error}</div>
-          {/* <div className="text-[12px] ">
+          {/** <div className="text-[12px] ">
             {" "}
             {400 - text?.length} characters left
+            
           </div> */}
         </div>
 

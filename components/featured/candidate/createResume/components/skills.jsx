@@ -11,7 +11,7 @@ import axios from "axios";
 
 const Skills = ({ data, setData }) => {
   const [skills, setSkills] = useState([]);
-  
+  const [skillerror, setSkillError] = useState("");
   const [isClearable, setIsClearable] = useState({ value: "", label: "" });
   // console.log(isClearable)
   const userDataGlobal = useSelector((state) => state.userData);
@@ -78,7 +78,7 @@ const Skills = ({ data, setData }) => {
   };
 
   const handleChange = async (value) => {
-    const found = skillList?.find((item) => item.skill.name === value.label);
+    const found = skillList?.find((item) => item.skill === value.label);
     if (!found) {
       try {
         const response = await fetch("https://freedygoservices.in/api/skills", {
@@ -100,6 +100,11 @@ const Skills = ({ data, setData }) => {
       } catch (error) {
         console.error("Error adding skill:", error.message);
       }
+    } else {
+      setSkillError("Already Listed!");
+      setTimeout(() => {
+        setSkillError("");
+      }, 2000);
     }
   };
 
@@ -154,6 +159,9 @@ const Skills = ({ data, setData }) => {
             onChange={handleChange}
             value={isClearable}
           />
+          {skillerror && (
+            <span className="text-[red] text-[12px]">{skillerror}</span>
+          )}
           <div className="flex justify-end ">
             <div className="flex justify-between  py-2 gap-2">
               {/* <button className=" font-montserrat text-xs font-semibold px-[12px] rounded-[8px] border border-[#06A9EF] w-[137px] h-[32px]">

@@ -71,7 +71,6 @@ function ThemeForm({
     "Inter",
     "Outfit",
     "Kanit",
-   
   ];
 
   const handleColorClick = (color) => {
@@ -113,7 +112,7 @@ function ThemeForm({
                 />
               </g>
             </svg>
-            <h1 className="text-[20px] font-medium tracking-wide text-[#fff]">
+            <h1 className="text-[20px] font-medium tracking-wide text-[#fff] cursor-pointer">
               Customize
             </h1>
           </div>
@@ -131,7 +130,7 @@ function ThemeForm({
                   fill="#646464"
                 />
               </svg>
-              <h1 className="text-lg font-medium tracking-wide text-[#646464]">
+              <h1 className="text-lg font-medium tracking-wide text-[#646464] cursor-pointer">
                 Fonts
               </h1>
             </div>
@@ -149,7 +148,7 @@ function ThemeForm({
                 />
               </svg>
 
-              <h1 className="text-lg font-medium tracking-wide text-[#646464]">
+              <h1 className="text-lg font-medium tracking-wide text-[#646464] cursor-pointer">
                 Colors
               </h1>
             </div>
@@ -176,8 +175,9 @@ function ThemeForm({
             {THEME_COLORS.map((color, idx) => (
               <div
                 key={idx}
-                className={`${selectedColor === color ? "border" : ""
-                  } rounded-[7px] h-[36px] w-[36px]   border-[#06A9EF] p-[2px] transition-transform duration-300 ease-in-out hover:scale-110`}
+                className={`${
+                  selectedColor === color ? "border" : ""
+                } rounded-[7px] h-[36px] w-[36px]   border-[#06A9EF] p-[2px] transition-transform duration-300 ease-in-out hover:scale-110`}
               >
                 <div
                   className={`flex h-full w-full cursor-pointer items-center justify-center rounded-[5px]  text-sm text-white  `}
@@ -198,8 +198,9 @@ function ThemeForm({
           <div className="mt-2 flex flex-wrap gap-3">
             {fontFamily.map((font, idx) => (
               <div
-                className={`flex h-[40px] w-[110px] cursor-pointer items-center justify-center rounded-md text-sm border transition-transform duration-300 ease-in-out hover:scale-105 ${selectedFont === font ? "text-white" : ""
-                  }`}
+                className={`flex h-[40px] w-[110px] cursor-pointer items-center justify-center rounded-md text-sm border transition-transform duration-300 ease-in-out hover:scale-105 ${
+                  selectedFont === font ? "text-white" : ""
+                }`}
                 style={{
                   backgroundColor: selectedFont === font ? "#06A9EF" : "",
                   fontFamily: font,
