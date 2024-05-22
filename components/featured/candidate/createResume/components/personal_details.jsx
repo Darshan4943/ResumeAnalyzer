@@ -4,7 +4,13 @@ import { useSelector } from "react-redux";
 import ReactSelect from "react-select";
 import { telCode } from "../../../../../utils/data";
 
-const PersonalDetails = ({ setData, data }) => {
+const PersonalDetails = ({
+  setData,
+  data,
+  selectedFont,
+  selectedColor,
+  selectedResumeIndex,
+}) => {
   const userDataGlobal = useSelector((state) => state.userData);
 
   const [isChecked, setIsChecked] = useState(true);
@@ -22,7 +28,7 @@ const PersonalDetails = ({ setData, data }) => {
     email: "",
     location: "",
     designation: "",
-    dial_code:"+260"
+    dial_code: "+260",
   });
 
   useEffect(() => {
@@ -33,7 +39,6 @@ const PersonalDetails = ({ setData, data }) => {
     const filteredCodes = telCode.filter(filterLogic);
     setFilteredTelCode(filteredCodes);
   }, [telCode, searchTerm]);
-
 
   const handleItemClick = (item) => {
     setSelectedItem(item);
@@ -99,8 +104,6 @@ const PersonalDetails = ({ setData, data }) => {
     designation: false,
   });
 
- 
-
   const validateFields = () => {
     const newErrors = {};
     let allFieldsValid = true;
@@ -121,9 +124,9 @@ const PersonalDetails = ({ setData, data }) => {
     return allFieldsValid;
   };
 
-  const  handleInputChange = (e) => {
+  const handleInputChange = (e) => {
     const { name, value } = e.target;
-    
+
     if (name == "mobileNumber") {
       if (value.replace(/\D/g, "").length <= 10) {
         setProfileData({
@@ -165,13 +168,17 @@ const PersonalDetails = ({ setData, data }) => {
     if (allFieldsValid && isModified) {
       setData({
         ...data,
-        dial_code:data.dial_code,
+        dial_code: data.dial_code,
         firstName: camelCase(profileData.firstName),
         lastName: camelCase(profileData.lastName),
         mobileNumber: profileData.mobileNumber,
         email: profileData.email.toLowerCase(),
         location: camelCase(profileData.location),
         designation: profileData.designation,
+        selectedResumeIndex: selectedResumeIndex,
+        selectedColor: selectedColor,
+        selectedFont: selectedFont,
+        createdAt: data.createdAt || new Date().toISOString(),
       });
       setIsModified(false);
     }
@@ -192,11 +199,9 @@ const PersonalDetails = ({ setData, data }) => {
       mobileNumber: mobileNumber,
       location,
       designation,
-      dial_code
+      dial_code,
     } = data;
-    setSelectedItem(
-      telCode.find((item) => item.dial_code === dial_code)
-    );
+    setSelectedItem(telCode.find((item) => item.dial_code === dial_code));
     setProfileData({
       ...profileData,
       firstName,
@@ -205,7 +210,7 @@ const PersonalDetails = ({ setData, data }) => {
       mobileNumber,
       location: location,
       designation,
-      dial_code:dial_code?dial_code:"+260"
+      dial_code: dial_code ? dial_code : "+260",
     });
   }, [data]);
   return (

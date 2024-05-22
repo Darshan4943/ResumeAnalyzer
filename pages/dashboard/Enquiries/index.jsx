@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import List from "./list";
-import { AddIcon } from "../../../utils/svg";
+
 import { useRouter } from "next/router";
 import MiniLoader from "../../../components/common/miniLoader";
 const Index = () => {
@@ -22,7 +22,7 @@ const Index = () => {
   const getData = () => {
     setLoading(true);
     axios
-      .get("http://localhost:2000/api/enquires", {
+      .get("https://freedygoservices.in/api/enquires", {
         params: { page, limit },
       })
       .then((res) => {

@@ -45,7 +45,7 @@ function SubscriptionPlans({ fromMain }) {
 
   useEffect(() => {
     axios
-      .get("http://localhost:2000/api/subscription/" + userDataGlobal._id)
+      .get("https://freedygoservices.in/api/subscription/" + userDataGlobal._id)
       .then((res) => {
         setSubscription(res.data.findIsActive);
       })
@@ -127,8 +127,9 @@ function SubscriptionPlans({ fromMain }) {
           {subPlans.map((plan, index) => (
             <div
               key={index}
-              className={`group relative mt-[40px] bg-white  flex flex-col gap-4 items-center rounded-[16px] purchase-plan-card ${isUser ? "max-w-[19vw]" : "max-w-[19vw] "
-                } `}
+              className={`group relative mt-[40px] bg-white  flex flex-col gap-4 items-center rounded-[16px] purchase-plan-card ${
+                isUser ? "max-w-[19vw]" : "max-w-[19vw] "
+              } `}
               style={{ boxShadow: "0px 2px 15px 0px #00000033" }}
             >
               {index === 1 && (
