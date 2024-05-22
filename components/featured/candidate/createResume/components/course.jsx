@@ -69,7 +69,7 @@ const Course = ({ data, setData,course, setCourse}) => {
     });
   };
 
- { console.log(12121,data)}
+
   return (
     <>
 

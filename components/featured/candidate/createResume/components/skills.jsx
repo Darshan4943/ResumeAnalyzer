@@ -11,7 +11,7 @@ import axios from "axios";
 
 const Skills = ({ data, setData }) => {
   const [skills, setSkills] = useState([]);
-  console.log(14, skills);
+  
   const [isClearable, setIsClearable] = useState({ value: "", label: "" });
   // console.log(isClearable)
   const userDataGlobal = useSelector((state) => state.userData);

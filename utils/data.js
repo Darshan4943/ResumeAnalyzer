@@ -2530,6 +2530,7 @@ export const templates = [
     index: 47,
     fontFamily: "Poppins",
     themeColor: "#27AAE1",
+    formFields: ["hobbies"],
   },
   {
     title: "Template48",

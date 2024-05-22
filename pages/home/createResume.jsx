@@ -190,6 +190,14 @@ function CreateResume() {
       fontFamily: "Inter",
       themeColor: "#C7EAFB",
     },
+    
+    {
+      title: "Template47",
+      imgUrl: "/images/templates/template47.png",
+      index: 47,
+      fontFamily: "Poppins",
+      themeColor: "#27AAE1",
+    },
   ];
 
   const handleOutsideClick = (event) => {
@@ -207,7 +215,7 @@ function CreateResume() {
   const [dataFromLocal, setDataFromLocal] = useState([]);
   useEffect(() => {
     const storedData = JSON.parse(localStorage.getItem("allData"));
-    console.log(2355, storedData);
+    
     if (storedData) {
       setDataFromLocal(storedData);
     }
