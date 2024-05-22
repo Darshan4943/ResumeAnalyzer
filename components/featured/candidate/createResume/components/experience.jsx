@@ -7,7 +7,7 @@ const Experience = ({ data, setData }) => {
   const [view, setView] = useState(false);
   const [editingIndex, setEditingIndex] = useState(null);
   const [isModified, setIsModified] = useState({ status: false, index: 0 });
-  const [error, setError] = useState("ERRR");
+  const [error, setError] = useState("");
   const handleSwitchChange = () => {
     setIsChecked(!isChecked);
     setData({ ...data, showExperience: !isChecked });
