@@ -2268,7 +2268,7 @@ export const templates = [
     index: 11,
     fontFamily: "Montserrat",
     themeColor: "#E6E7E8",
-    formFields: ["course", "hobbies"],
+    formFields: ["language", "hobbies"],
   },
   {
     title: "Template12",

@@ -238,6 +238,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                 </View>
                 <View
                   style={{
+                    width: 180, 
                     flexDirection: "row",
                     flexWrap: "wrap",
                     gap: 14,
@@ -249,8 +250,9 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                       key={index}
                       style={{
                         color: "#000000",
-                        fontSize: 14,
+                        fontSize: 12,
                         fontFamily: `${selectedFont} 500`,
+                        width:"90%"
                       }}
                     >
                       {item?.title}
@@ -449,7 +451,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                       style={{
                         color: "#000000",
                         fontSize: 12,
-                        width: "30%",
+                       
                         fontFamily: `${selectedFont} 400`,
                       }}
                     >
@@ -559,7 +561,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
               ))}
             </View>
 
-            <View wrap={false} style={{ flexDirection: "column", gap: 24, paddingTop: 24 }}>
+            <View  style={{ flexDirection: "column", gap: 24, paddingTop: 24 }}>
               <Text
                 style={{
                   color: "#000000",
@@ -571,7 +573,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
               </Text>
               {data?.education?.map((detail, index) => (
                 <>
-                  <View key={index} style={{ flexDirection: "column", gap: 10, width: "100%" }}>
+                  <View wrap={false} key={index} style={{ flexDirection: "column", gap: 10, width: "100%" }}>
                     <View style={{ flexDirection: "row", width: "100%", justifyContent: "space-between" }}>
                       <Text
                         style={{
@@ -761,7 +763,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
               </View>
             )}
             {data?.section?.map((item, index) => (
-              <View wrap={false}
+              <View 
                 key={index} style={{ flexDirection: "column", gap: 16, paddingTop: 24 }}>
                 <Text
                   style={{
@@ -773,18 +775,19 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                   {item?.header}
                 </Text>
                 {item?.subSection?.map((detail, index) => (
-                  <View style={{ flexDirection: "row", gap: 12, paddingRight: '12px' }} key={index}>
+                  <View style={{ flexDirection: "row", gap: 12, }} key={index}>
 
-                    <View style={{ flexDirection: "row", gap: 16 }}>
+                    <View style={{ flexDirection: "column", gap: 16,width: '100%' }}>
 
                       <View
-                        style={{ flexDirection: "column", gap: 5, width: 124 }}
+                        style={{ flexDirection: "row", gap: 5, justifyContent:"space-around",width: '100%'}}
                       >
                         {detail.title.length > 0 && (
                           <Text
                             style={{
                               color: "#1C75BC",
                               fontSize: 13,
+                              width: "70%" ,
                               fontFamily: `${selectedFont} 700`,
                             }}
                           >
@@ -813,7 +816,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
 
                       {detail.description?.length > 0 && (
                         <View
-                          style={{ flexDirection: "column", width: '65%', gap: 2 }}
+                          style={{ flexDirection: "column", width: '100%', gap: 2 }}
                         >
                           <Text
                             style={{

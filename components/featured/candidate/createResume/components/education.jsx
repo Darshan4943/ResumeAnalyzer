@@ -176,7 +176,7 @@ const Education = ({ setData, data }) => {
                     type="text"
                     name="qualification"
                     placeholder="Enter Course name"
-                    className="w-full text-[14px] font-montserrat font-small"
+                    className="w-full text-[14px]  leading-tight"
                     value={educationData.qualification}
                     onChange={handleInputChangeEducation}
                     disabled={!isChecked}
@@ -193,7 +193,7 @@ const Education = ({ setData, data }) => {
                     type="text"
                     name="specialization"
                     placeholder="Enter your specialization/board"
-                    className="w-full text-[14px] font-montserrat font-small "
+                    className="w-full text-[14px]  "
                     value={educationData.specialization}
                     onChange={handleInputChangeEducation}
                     disabled={!isChecked}

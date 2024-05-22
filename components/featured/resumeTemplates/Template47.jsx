@@ -23,7 +23,7 @@ const Template47 = ({ data, selectedColor, selectedFont, preview }) => {
                                     justifyContent: "center",
                                     alignItems: "center",
                                     border: 3,
-                                    borderColor: "#27AAE1",
+                                    borderColor: selectedColor,
 
                                     borderRadius: "50%",
                                     overflow: "hidden",
@@ -60,7 +60,7 @@ const Template47 = ({ data, selectedColor, selectedFont, preview }) => {
                                 )}
                             </View>
                             <View style={{ width: 242 }}>
-                                <Text style={{ fontFamily: `${selectedFont} 600`, fontSize: 32, color: "#27AAE1" }}>{data.firstName}</Text>
+                                <Text style={{ fontFamily: `${selectedFont} 600`, fontSize: 32, color: selectedColor }}>{data.firstName}</Text>
                                 <Text style={{ fontFamily: `${selectedFont} 400`, fontSize: 32, color: "#414042" }}>{data.lastName} </Text>
                                 <Text style={{ fontFamily: `${selectedFont} 400`, fontSize: 14, color: "#58595B" }}>{data.designation}</Text>
                             </View>

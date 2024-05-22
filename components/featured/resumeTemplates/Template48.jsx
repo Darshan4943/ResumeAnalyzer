@@ -459,7 +459,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                 {data?.experience?.map((detail, index) => (
                   <View
                     key={index}
-                    wrap={false}
+                   
                     style={{ display: "flex", flexDirection: "column", gap: '14px' }}
                   >
                     <View
@@ -731,7 +731,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                   </Svg>
                 </View>
                 {item?.subSection?.map((detail, index) => (
-                  <View key={index} wrap={false} style={{
+                  <View key={index}  style={{
                     flexDirection: "column",
                   
                     alignItems: "center",

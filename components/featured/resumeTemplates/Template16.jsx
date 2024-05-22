@@ -226,7 +226,7 @@ function Template16({ data, selectedColor, selectedFont, preview }) {
                         display: "flex",
                         flexDirection: "row",
                         justifyContent: "space-between",
-                        alignItems: "center"
+                        alignItems: "start"
                       }}
                     >
                       <Text
@@ -290,7 +290,7 @@ function Template16({ data, selectedColor, selectedFont, preview }) {
             </View>
             {data.section?.length > 0 &&
               data.section.map((item, index) => (
-                <View style={{ display: "flex", flexDirection: "column", width: "100%", gap: 16 }}>
+                <View  key={index} style={{ display: "flex", flexDirection: "column", width: "100%", gap: 16 }}>
                   <View>
                     <Text
                       style={{
