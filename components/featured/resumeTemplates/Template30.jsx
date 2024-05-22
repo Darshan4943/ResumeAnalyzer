@@ -277,6 +277,7 @@ function Template30({ data, selectedColor, selectedFont }) {
                 <View style={{ flexDirection: "column", gap: 12 }}>
                   {data?.skills?.map((detail, index) => (
                     <Text
+                    key={index}
                       style={{
                         color: "#58595B",
                         fontSize: "14",
