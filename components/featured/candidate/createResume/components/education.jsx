@@ -22,7 +22,7 @@ const Education = ({ setData, data }) => {
       end: { year: currentYear, month: currentMonth },
     },
   });
-  console.log(25,educationData)
+
   const handleSwitchChange = () => {
     setIsChecked(!isChecked);
     setData({ ...data, showEducation: !isChecked });
@@ -35,7 +35,10 @@ const Education = ({ setData, data }) => {
     });
     setErrors((prevErrors) => ({
       ...prevErrors,
-      [name]: value.trim() === '' ? `${name.charAt(0).toUpperCase() + name.slice(1)} is required` : '',
+      [name]:
+        value.trim() === ""
+          ? `${name.charAt(0).toUpperCase() + name.slice(1)} is required`
+          : "",
     }));
   };
   const handleDeleteEducation = (index) => {
@@ -57,9 +60,9 @@ const Education = ({ setData, data }) => {
   };
 
   const [errors, setErrors] = useState({
-    qualification: '',
-    specialization: '',
-    instituteName: '',
+    qualification: "",
+    specialization: "",
+    instituteName: "",
   });
 
   // Validation function
@@ -67,15 +70,15 @@ const Education = ({ setData, data }) => {
     let newErrors = {};
 
     if (!educationData.qualification.trim()) {
-      newErrors.qualification = 'Course name is required';
+      newErrors.qualification = "Course name is required";
     }
 
     if (!educationData.specialization.trim()) {
-      newErrors.specialization = 'Specialization / Board is required';
+      newErrors.specialization = "Specialization / Board is required";
     }
 
     if (!educationData.instituteName.trim()) {
-      newErrors.instituteName = 'University Name is required';
+      newErrors.instituteName = "University Name is required";
     }
 
     setErrors(newErrors);
@@ -100,7 +103,6 @@ const Education = ({ setData, data }) => {
       }
       window.scrollTo(0, 0);
     }
-
   };
   const handleEditClick = (index) => {
     setEditingIndex(index);
@@ -130,15 +132,23 @@ const Education = ({ setData, data }) => {
         {data?.education?.map((edu, index) => (
           <div
             key={index}
-            className={`flex flex-col gap-1 p-2 rounded-[6px]  border break-all ${editingIndex === index ? "border-[#06A9EF] border-[2px]" : "border-[#DEDEDE]"
-              }`}>
+            className={`flex flex-col gap-1 p-2 rounded-[6px]  border break-all ${
+              editingIndex === index
+                ? "border-[#06A9EF] border-[2px]"
+                : "border-[#DEDEDE]"
+            }`}
+          >
             <div className="flex justify-between">
               <p className="text-[14px]">
                 {edu.qualification}{" "}
                 {edu.duration?.start?.year != "Year" &&
                   ` ${"|"} ${edu.duration?.start?.year} 
               ${edu.duration?.start?.year && "-"}
-              ${ edu.duration?.end?.year === "Year" ? "Present" :edu.duration?.end?.year}`}
+              ${
+                edu.duration?.end?.year === "Year"
+                  ? "Present"
+                  : edu.duration?.end?.year
+              }`}
               </p>
               <div className="flex gap-2">
                 <button>
@@ -182,7 +192,11 @@ const Education = ({ setData, data }) => {
                     disabled={!isChecked}
                   />
                 </div>
-                {errors.qualification && <span className="text-[red] text-[12px]">{errors.qualification}</span>}
+                {errors.qualification && (
+                  <span className="text-[red] text-[12px]">
+                    {errors.qualification}
+                  </span>
+                )}
               </div>
               <div className="flex flex-col gap-2 w-full">
                 <div className="w-full text-[14px] font-montserrat  font-medium">
@@ -199,7 +213,11 @@ const Education = ({ setData, data }) => {
                     disabled={!isChecked}
                   />
                 </div>
-                {errors.specialization && <span className="text-[red] text-[12px]">{errors.specialization}</span>}
+                {errors.specialization && (
+                  <span className="text-[red] text-[12px]">
+                    {errors.specialization}
+                  </span>
+                )}
               </div>
               <div className="flex flex-col gap-2 w-full">
                 <div className=" text-[14px] font-montserrat  font-medium">
@@ -216,7 +234,11 @@ const Education = ({ setData, data }) => {
                     disabled={!isChecked}
                   />
                 </div>
-                {errors.instituteName && <span className="text-[red] text-[12px]">{errors.instituteName}</span>}
+                {errors.instituteName && (
+                  <span className="text-[red] text-[12px]">
+                    {errors.instituteName}
+                  </span>
+                )}
               </div>
               <div className="flex flex-col gap-2 w-full">
                 <div className="w-full text-[14px] font-montserrat  font-medium">
@@ -285,7 +307,27 @@ const Education = ({ setData, data }) => {
           </div>
         )}
         {!view && (
-          <div className="flex gap-1">
+          <div
+            className="flex gap-1"
+            onClick={() => {
+              setEducationData({
+                qualification: "",
+                specialization: "",
+                instituteName: "",
+                type: "full-time",
+                location: "",
+                duration: {
+                  start: { year: "Year", month: "Month" },
+                  end: { year: "Year", month: "Month" },
+                },
+              });
+              setIsModified({
+                status: false,
+                index: 0,
+              });
+              setView(true);
+            }}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -301,24 +343,24 @@ const Education = ({ setData, data }) => {
               </g>
             </svg>
             <p
-              onClick={() => {
-                setEducationData({
-                  qualification: "",
-                  specialization: "",
-                  instituteName: "",
-                  type: "full-time",
-                  location: "",
-                  duration: {
-                    start: { year: "Year", month: "Month" },
-                    end: { year: "Year", month: "Month" },
-                  },
-                });
-                setIsModified({
-                  status: false,
-                  index: 0,
-                });
-                setView(true);
-              }}
+              // onClick={() => {
+              //   setEducationData({
+              //     qualification: "",
+              //     specialization: "",
+              //     instituteName: "",
+              //     type: "full-time",
+              //     location: "",
+              //     duration: {
+              //       start: { year: "Year", month: "Month" },
+              //       end: { year: "Year", month: "Month" },
+              //     },
+              //   });
+              //   setIsModified({
+              //     status: false,
+              //     index: 0,
+              //   });
+              //   setView(true);
+              // }}
               className="text-[16px] font-semibold text-[#06A9EF] cursor-pointer"
               disabled={!isChecked}
             >

@@ -18,7 +18,8 @@ function CreateResume() {
   const router = useRouter();
   const [editId, setEnditId] = useState();
   const userData = router.query;
-  const { clientId } = router.query;
+  // const { clientId, continueEdit } = router.query;
+  const { clientId, continueEdit } = router.query;
   const currentYear = new Date().getFullYear();
 
   const templates = [
@@ -146,7 +147,7 @@ function CreateResume() {
       imgUrl: "/images/templates/template54.png",
       index: 18,
       fontFamily: "Montserrat",
-      themeColor: "#F1F1F1",
+      themeColor: "#242424",
     },
     {
       title: "Template19",
@@ -190,13 +191,20 @@ function CreateResume() {
       fontFamily: "Inter",
       themeColor: "#C7EAFB",
     },
-    
+
     {
       title: "Template47",
       imgUrl: "/images/templates/template47.png",
       index: 47,
       fontFamily: "Poppins",
       themeColor: "#27AAE1",
+    },
+    {
+      title: "Template30",
+      imgUrl: "/images/templates/template30.png",
+      index: 30,
+      fontFamily: "Lato",
+      themeColor: "#414042",
     },
   ];
 
@@ -215,7 +223,7 @@ function CreateResume() {
   const [dataFromLocal, setDataFromLocal] = useState([]);
   useEffect(() => {
     const storedData = JSON.parse(localStorage.getItem("allData"));
-    
+
     if (storedData) {
       setDataFromLocal(storedData);
     }
@@ -355,19 +363,24 @@ function CreateResume() {
     hobbies: [],
     languages: [],
     section: [],
-    selectedResumeIndex: 1,
-    
+    selectedResumeIndex: selectedResumeIndex ? selectedResumeIndex : 1,
+
     createdAt: "",
-    clientId:clientId
+    clientId: clientId,
   };
 
   const [data, setData] = useState(defaultState);
   const [isClient, setIsClient] = useState(false);
+  const [isDataInLocal, setIsDataInLocal] = useState(false);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
       const storedData = localStorage.getItem("userData");
       if (storedData) {
+        setIsDataInLocal(true);
+        const parsedData = JSON.parse(storedData);
+
+        setSelectedResumeIndex(parsedData.selectedResumeIndex);
         setData(JSON.parse(storedData));
       }
       setIsClient(true);
@@ -375,7 +388,17 @@ function CreateResume() {
   }, []);
 
   useEffect(() => {
-    if (isClient) {
+    if (isClient && clientId == "undefined") {
+      setData({
+        ...data,
+
+        selectedResumeIndex: selectedResumeIndex,
+      });
+    }
+  }, [selectedResumeIndex]);
+
+  useEffect(() => {
+    if (isClient && clientId == "undefined") {
       localStorage.setItem("userData", JSON.stringify(data));
     }
   }, [data, isClient]);
@@ -490,17 +513,21 @@ function CreateResume() {
     if (userData) {
       if (userData.isEdit) {
         const parsedData = JSON.parse(userData.data);
+
         setData({ ...data, ...parsedData });
         setSelectedResumeIndex(parsedData.resumeTemplateIndex);
         setSelectedColor(parsedData.selectedColor);
         setSelectedFont(parsedData.selectedFont);
         setEnditId(parsedData._id);
+      } else if (continueEdit) {
       } else {
         setTimeout(() => {
           setSelectedResumeIndex(1);
           setSelectedColor("#414042");
         }, 400);
-        parsedDataSeter();
+        if (isDataInLocal === false) {
+          parsedDataSeter();
+        }
       }
     }
   }, [userData]);

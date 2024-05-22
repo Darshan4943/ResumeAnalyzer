@@ -176,8 +176,7 @@ const PersonalDetails = ({
         location: camelCase(profileData.location),
         designation: profileData.designation,
         selectedResumeIndex: selectedResumeIndex,
-        selectedColor: selectedColor,
-        selectedFont: selectedFont,
+
         createdAt: data.createdAt || new Date().toISOString(),
       });
       setIsModified(false);
@@ -224,14 +223,14 @@ const PersonalDetails = ({
       >
         <div className="w-full flex justify-between text-[20px] font-montserrat font-medium">
           <p> Personal Details</p>
-          <label className="switch">
+          {/**  <label className="switch">
             <input
               type="checkbox"
               checked={isChecked}
               onChange={handleSwitchChange}
             />
             <span className="slider round"></span>
-          </label>
+          </label> */}
         </div>
         <div className="grid grid-cols-2 gap-4">
           {inputFields.map((item, index) => (

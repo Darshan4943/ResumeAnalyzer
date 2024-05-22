@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const Languages = ({ setData, data, languages,  setLanguages }) => {
+const Languages = ({ setData, data, languages, setLanguages }) => {
   const [text, setText] = useState("");
   const initialRatingsLanguages = Array(3).fill(3);
 
@@ -95,8 +95,8 @@ const Languages = ({ setData, data, languages,  setLanguages }) => {
         </div>
         <div className="flex flex-col gap-4">
           {data?.languages?.map((languages, index) => (
-            <div key={index} className="flex gap-4 justify-between">
-              <div className="flex gap-1 px-3 py-2 border border-[#06A9EF] rounded-[24px] justify-between items-center">
+            <div key={index} className="flex gap-4 flex-wrap justify-between">
+              <div className="flex gap-1 px-3 py-2 border md:w-[48%] border-[#06A9EF] rounded-[24px] justify-between items-center">
                 <p className="text-[14px] font-medium">{languages.languages}</p>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -114,7 +114,7 @@ const Languages = ({ setData, data, languages,  setLanguages }) => {
                   </g>
                 </svg>
               </div>
-              <div className="flex border ml:w-[60%] w-[70%] flex-wrap border-[#DEDEDE] px-2 py-2 rounded-[8px] items-center justify-between">
+              <div className="flex border md:w-[48%] flex-wrap border-[#DEDEDE] px-2 py-2 rounded-[8px] items-center justify-between">
                 {renderStarsLanguages(index)}
                 <p>
                   {languages.rating[2] !== 0

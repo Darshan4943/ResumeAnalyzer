@@ -24,7 +24,7 @@
     "@tiptap/starter-kit": "^2.2.4",
     "@tsparticles/react": "^3.0.0",
     "ag-charts-community": "^9.3.1",
-    "ag-charts-react": "^9.2.1",
+    "ag-charts-react": "^9.3.1",
     "apexcharts": "^3.48.0",
     "aws-sdk": "^2.1529.0",
     "axios": "^1.6.2",
