@@ -176,8 +176,7 @@ const PersonalDetails = ({
         location: camelCase(profileData.location),
         designation: profileData.designation,
         selectedResumeIndex: selectedResumeIndex,
-        selectedColor: selectedColor,
-        selectedFont: selectedFont,
+
         createdAt: data.createdAt || new Date().toISOString(),
       });
       setIsModified(false);
