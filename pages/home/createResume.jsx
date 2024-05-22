@@ -147,7 +147,7 @@ function CreateResume() {
       imgUrl: "/images/templates/template54.png",
       index: 18,
       fontFamily: "Montserrat",
-      themeColor: "#F1F1F1",
+      themeColor: "#242424",
     },
     {
       title: "Template19",
