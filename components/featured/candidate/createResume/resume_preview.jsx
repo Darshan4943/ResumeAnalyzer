@@ -47,6 +47,7 @@ import Resume2 from "../../resumeTemplates/Resume2";
 import Resume1 from "../../resumeTemplates/Resume1";
 import MiniLoader from "../../../common/miniLoader";
 import Template47 from "../../resumeTemplates/Template47";
+import Template30 from "../../resumeTemplates/Template30";
 // import { generatePDFUsingRenderer } from "../../../../utils/middleware";
 <Fonts />;
 const ResumePreview = ({
@@ -324,9 +325,17 @@ const ResumePreview = ({
               selectedFont={selectedFont}
             />
           );
+        case 30:
+          return (
+            <Template30
+              data={data}
+              selectedColor={selectedColor}
+              selectedFont={selectedFont}
+            />
+          );
       default:
         return (
-          <Template3
+          <Template30
             data={data}
             selectedColor={selectedColor}
             selectedFont={selectedFont}

@@ -509,7 +509,7 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
                       {detail.description}
                     </Text>
                   </View>
-                ))}
+                ))} 
               </View>
             </View>
           )}
