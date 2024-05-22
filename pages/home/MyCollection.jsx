@@ -45,7 +45,6 @@ const MyCollection = () => {
 
   const deleteResume = () => {
     const ids = selectedIndexes.map((item) => resumeList[item]?._id);
-    console.log(ids);
 
     if (ids.length === 0) {
       toast.error("Please select file to delete");
