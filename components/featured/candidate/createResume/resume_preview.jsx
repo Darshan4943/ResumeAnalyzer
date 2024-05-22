@@ -46,6 +46,7 @@ import LimitUsedModal from "../../../models/limitUsedModal";
 import Resume2 from "../../resumeTemplates/Resume2";
 import Resume1 from "../../resumeTemplates/Resume1";
 import MiniLoader from "../../../common/miniLoader";
+import Template47 from "../../resumeTemplates/Template47";
 // import { generatePDFUsingRenderer } from "../../../../utils/middleware";
 <Fonts />;
 const ResumePreview = ({
@@ -315,6 +316,14 @@ const ResumePreview = ({
             selectedFont={selectedFont}
           />
         );
+        case 47:
+          return (
+            <Template47
+              data={data}
+              selectedColor={selectedColor}
+              selectedFont={selectedFont}
+            />
+          );
       default:
         return (
           <Template3
