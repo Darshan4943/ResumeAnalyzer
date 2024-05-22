@@ -201,6 +201,17 @@ function Dashboard() {
 
     return `${day}/${month}/${year}`;
   }
+
+  function hasNonEmptyKey(obj) {
+    for (let key in obj) {
+      if (key !== "") {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  console.log(222222, hasNonEmptyKey(data));
   return (
     <div className="customMargins flex flex-col gap-12 py-6 min-h-[70vh]">
       <div className="flex ml:flex-row flex-col gap-4">
@@ -293,7 +304,7 @@ function Dashboard() {
 
       {userDataGlobal.role === "user" &&
         data !== undefined &&
-        Object.keys(data).length > 0 && (
+        hasNonEmptyKey(data) && (
           <div className="flex gap-6 flex-wrap flex-col ">
             <div className="text-[24px] font-Montserrat font-medium">
               Continue where you left
