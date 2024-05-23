@@ -148,35 +148,37 @@ function SkillAssessment() {
   // };
 
   useEffect(() => {
-    const uniqueQuestionsSet = new Set();
-    const filteredQuestions = [];
+    if (question.length > 0) {
+      const uniqueQuestionsSet = new Set();
+      const filteredQuestions = [];
 
-    question.forEach((data) => {
+      question.forEach((data) => {
+        if (
+          !uniqueQuestionsSet.has(data.question) && assesmentType === "Normal"
+            ? filteredQuestions.length < 10
+            : filteredQuestions.length < 60
+        ) {
+          uniqueQuestionsSet.add(data.question);
+          filteredQuestions.push(data);
+        }
+      });
+      setUniqueQuestions(filteredQuestions);
+
+      // while (filteredQuestions.length < 10) {
+      //   toggleContent(); // This function should generate a new unique question
+      // if (!uniqueQuestionsSet.has(newQuestion.question)) {
+      //   uniqueQuestionsSet.add(newQuestion.question);
+      //   filteredQuestions.push(newQuestion);
+      // }
+      // }
+
       if (
-        !uniqueQuestionsSet.has(data.question) && assesmentType === "Normal"
+        assesmentType === "Normal"
           ? filteredQuestions.length < 10
-          : filteredQuestions.length < 60
+          : filteredQuestions.length < 60 && selectedSkill
       ) {
-        uniqueQuestionsSet.add(data.question);
-        filteredQuestions.push(data);
+        toggleContent();
       }
-    });
-    setUniqueQuestions(filteredQuestions);
-
-    // while (filteredQuestions.length < 10) {
-    //   toggleContent(); // This function should generate a new unique question
-    // if (!uniqueQuestionsSet.has(newQuestion.question)) {
-    //   uniqueQuestionsSet.add(newQuestion.question);
-    //   filteredQuestions.push(newQuestion);
-    // }
-    // }
-
-    if (
-      assesmentType === "Normal"
-        ? filteredQuestions.length < 10
-        : filteredQuestions.length < 60 && selectedSkill
-    ) {
-      toggleContent();
     }
   }, [question]);
 
