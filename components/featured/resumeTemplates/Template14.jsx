@@ -170,7 +170,6 @@ function Template14({ data, selectedColor, selectedFont }) {
         </View>
         <View
         wrap={data?.experience?.length > 1 ? true : false}
-        
         > 
           
         <View
@@ -184,6 +183,7 @@ function Template14({ data, selectedColor, selectedFont }) {
               fontSize: 18,
               fontFamily: `${selectedFont} 500`,
               color: "#4D4D4D",
+              marginTop:'4px'
             }}
           >
             EXPERIENCE
