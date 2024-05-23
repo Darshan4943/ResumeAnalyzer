@@ -541,6 +541,10 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
             {data?.education?.map((detail, index) => (
               <View key={index}
               wrap={false}
+              style={{
+                gap: 4,
+              }}
+
               >
                 <Text
                   style={{
@@ -562,6 +566,15 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
                 >
                   {detail.instituteName}
                 </Text>
+                <Text
+                      style={{
+                        fontFamily: `${selectedFont} 400`,
+                        fontSize: 10,
+                        color: "#6D6E71",
+                      }}
+                    >
+                      {detail.specialization}
+                    </Text>
               </View>
             ))}
           </View>
