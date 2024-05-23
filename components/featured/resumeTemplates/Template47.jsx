@@ -171,8 +171,8 @@ const Template47 = ({ data, selectedColor, selectedFont, preview }) => {
                                             <Text style={{ fontSize: 12, color: "#383839", fontFamily: `${selectedFont} 500`, width: 379 }}>{detail.specialization} - {detail.qualification}</Text>
                                         </View>
                                         <View style={{ display: "flex", flexDirection: "row", gap: 12 }}>
-                                            <Text style={{ fontSize: 12, color: "#383839", fontFamily: `${selectedFont} 500`, width: 132 }}>{detail.duration?.start?.year}-
-                                                {detail.duration?.end?.year} </Text>
+                                            <Text style={{ fontSize: 12, color: "#383839", fontFamily: `${selectedFont} 500`, width: 132 }}> {detail.duration?.start?.year !== "Year" &&
+                          `${detail.duration?.start?.year}-${detail.duration?.end?.year ==="Year" ? "Pursuing" : detail.duration?.end?.year}`} </Text>
                                         </View>
                                     </View>
 

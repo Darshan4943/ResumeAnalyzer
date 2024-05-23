@@ -470,8 +470,8 @@ function Template30({ data, selectedColor, selectedFont }) {
                             fontFamily: `${selectedFont} 500`,
                           }}
                         >
-                          {detail.duration?.start?.year}-
-                          {detail.duration?.end?.year}
+                          {detail.duration?.start?.year !== "Year" &&
+                          `${detail.duration?.start?.year}-${detail.duration?.end?.year ==="Year" ? "Pursuing" : detail.duration?.end?.year}`}
                         </Text>
                       </View>
 
