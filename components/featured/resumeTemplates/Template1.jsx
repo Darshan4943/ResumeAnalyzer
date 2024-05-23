@@ -36,6 +36,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                   color: "#414042",
                   fontSize: 43,
                   width: "80%",
+                  lineHeight: 1.2,
                   fontFamily: `${selectedFont} 400`,
                 }}
               >
@@ -45,6 +46,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                 style={{
                   color: "#414042",
                   fontSize: 43,
+                  lineHeight: 1.2,
                   width: "80%",
                   fontFamily: `${selectedFont} 400`,
                 }}
@@ -57,6 +59,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                 color: "#414042",
                 fontFamily: `${selectedFont} 400`,
                 width: "80%",
+                lineHeight: 1.2,
               }}
             >
               {data.designation}
@@ -220,7 +223,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                     <View
                       wrap={false}
                       key={index}
-                      style={{ flexDirection: "column", gap: "4px" }}
+                      style={{ flexDirection: "column", gap: "8px" }}
                     >
                       <View>
                         <Text
@@ -228,7 +231,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                             color: "#414042",
                             fontSize: 12,
                             fontFamily: `${selectedFont} 700`,
-                            // lineHeight: 1.2,
+                            lineHeight: 1.5,
                             marginRight: "6px",
                           }}
                         >
@@ -239,7 +242,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                             color: "#414042",
                             fontSize: 12,
                             fontFamily: `${selectedFont} 700`,
-                            // lineHeight: 1.2,
+                            lineHeight: 1.5,
                           }}
                         >
                           {detail.instituteName}
@@ -261,11 +264,11 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                           color: "#414042",
                           fontSize: 8.962,
                           fontFamily: `${selectedFont} 400`,
-                          // lineHeight: 1,
+                          lineHeight: 1.5,
                         }}
                       >
                         {detail.duration?.start?.year !== "Year" &&
-                          `${detail.duration?.start?.year}-${detail.duration?.end?.year}`}
+                          `${detail.duration?.start?.year}-${detail.duration?.end?.year ==="Year" ? "Pursuing" : detail.duration?.end?.year}`}
                       </Text>
                     </View>
                   ))}
@@ -437,7 +440,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                   <View
                     key={index}
                     style={{ flexDirection: "column", gap: 2 }}
-                    wrap={false}
+                   
                   >
                     <View>
                       <Text

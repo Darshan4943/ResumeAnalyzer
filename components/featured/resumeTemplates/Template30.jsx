@@ -10,7 +10,7 @@ import {
   Path,
   Rect,
 } from "@react-pdf/renderer";
-function Template30({ data, selectedColor, selectedFont }) {
+function Template30({ data, selectedColor, selectedFont ,preview }) {
   return (
     <Page size="A4" style={{ padding: 24 }}>
       <View style={{ flexDirection: "column", gap: 24, maxWidth: "100%" }}>
@@ -36,7 +36,13 @@ function Template30({ data, selectedColor, selectedFont }) {
           >
             {data.profilePhoto ? (
               <Image
-                src={URL.createObjectURL(data.profilePhoto)}
+              src={
+                preview
+                  ? data.profilePhoto
+                  : Object.keys(data?.profilePhoto).includes("filename")
+                  ? URL.createObjectURL(data.profilePhoto)
+                  : data.profilePhoto
+              }
                 alt=""
                 style={{ width: "153", height: "153", borderRadius: "50%" }}
               />
@@ -476,8 +482,8 @@ function Template30({ data, selectedColor, selectedFont }) {
                             fontFamily: `${selectedFont} 500`,
                           }}
                         >
-                          {detail.duration?.start?.year}-
-                          {detail.duration?.end?.year}
+                          {detail.duration?.start?.year !== "Year" &&
+                          `${detail.duration?.start?.year}-${detail.duration?.end?.year ==="Year" ? "Pursuing" : detail.duration?.end?.year}`}
                         </Text>
                       </View>
 

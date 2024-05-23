@@ -556,7 +556,7 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
                 >
                   {detail.qualification} /{" "}
                   {detail.duration?.start?.year !== "Year" &&
-                    `${detail.duration?.start?.year}-${detail.duration?.end?.year}`}
+                          `${detail.duration?.start?.year}-${detail.duration?.end?.year ==="Year" ? "Pursuing" : detail.duration?.end?.year}`}
                 </Text>
                 <Text
                   style={{

@@ -83,7 +83,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                 gap: 6,
                 justifyContent: "center",
                 alignItems: "center",
-                marginTop:'18px'
+                marginTop: '18px'
               }}
             >
               <Text
@@ -105,12 +105,12 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                 {data.lastName}
               </Text>
               <View
-                        style={{
-                          backgroundColor: "#555C5E",
-                          width: '60%',
-                          height: 1,
-                        }}
-                      ></View>
+                style={{
+                  backgroundColor: "#555C5E",
+                  width: '60%',
+                  height: 1,
+                }}
+              ></View>
               <Text
                 style={{
                   fontFamily: `${selectedFont} 400`,
@@ -171,7 +171,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                   {data.mobileNumber}
                 </Text>
               </View>
-              <View style={{ display: "flex", flexDirection: "row", gap: 6,maxWidth:'100%', }}>
+              <View style={{ display: "flex", flexDirection: "row", gap: 6, maxWidth: '100%', }}>
                 <Svg
                   width="16"
                   height="12"
@@ -328,7 +328,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
               gap: 16,
               justifyContent: "start",
               alignItems: "start",
-              
+
             }}>
               <View wrap={false} style={{
                 display: "flex",
@@ -589,7 +589,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
               paddingTop: 24,
               paddingBottom: 33,
               marginLeft: -4,
-            backgroundColor: selectedColor,
+              backgroundColor: selectedColor,
 
             }}
           >
@@ -636,15 +636,15 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
             </View>
           </View>
           <View
-          
+
             style={{
               display: "flex",
               flexDirection: "column",
-            
+
               paddingTop: 24,
               // paddingLeft: 8,
-              paddingRight:12,
-              
+              paddingRight: 12,
+
               gap: 20,
             }}
           >
@@ -657,8 +657,8 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
               }}
               wrap={data?.experience?.length > 1 ? true : false}
             >
-                    
-              <View style={{ display: "flex", flexDirection: "row", gap: 6,paddingLeft:'22px',paddingRight:'24px' }}>
+
+              <View style={{ display: "flex", flexDirection: "row", gap: 6, paddingLeft: '22px', paddingRight: '24px' }}>
                 <Svg
                   width="20"
                   height="20"
@@ -686,8 +686,8 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                 style={{
                   display: "flex",
                   flexDirection: "column",
-                  marginLeft: 46, 
-                  
+                  marginLeft: 46,
+
                 }}
               >
                 {data?.experience?.map((detail, index) => (
@@ -697,7 +697,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                     style={{
                       display: "flex",
                       flexDirection: "row",
-                      gap:10
+                      gap: 10
                       // gap: index === data.experience.length - 1 ? 16 : 24,
                     }}
                   >
@@ -788,7 +788,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
               }}
               // wrap={data?.education?.length > 1 ? true : false}
             >
-              <View style={{ display: "flex", flexDirection: "row", gap: 6,paddingLeft:'22px'  }}>
+              <View style={{ display: "flex", flexDirection: "row", gap: 6, paddingLeft: '22px' }}>
                 <Svg
                   width="20"
                   height="20"
@@ -817,7 +817,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                   display: "flex",
                   flexDirection: "column",
                   marginLeft: 26,
-                  gap:20
+                  gap: 20
                 }}
               >
                 {data?.education?.map((detail, index) => (
@@ -887,16 +887,16 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                       >
                         {detail.instituteName}
                       </Text> */}
-                        <Text
+                      <Text
                         style={{
                           fontFamily: `${selectedFont} 400`,
                           fontSize: 12,
                           color: "#252829",
-                         
+
                         }}
                       >
-                        {detail.duration?.start?.year !== "Year" &&
-                          `${detail.duration?.start?.year}-${detail.duration?.end?.year}`}
+                       {detail.duration?.start?.year !== "Year" &&
+                          `${detail.duration?.start?.year}-${detail.duration?.end?.year ==="Year" ? "Pursuing" : detail.duration?.end?.year}`}
                       </Text>
 
                       <View
@@ -947,7 +947,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                   }}
                 >
                   <View
-                    style={{ display: "flex", flexDirection: "row", gap: 6, paddingLeft:'22px'}}
+                    style={{ display: "flex", flexDirection: "row", gap: 6, paddingLeft: '22px' }}
                   >
                     <Svg
                       width="20"
@@ -987,12 +987,12 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                         style={{
                           display: "flex",
                           flexDirection: "row",
-                          gap:10
+                          gap: 10
                         }}
                       >
-                      
 
-                       
+
+
                         <View
                           style={{
                             display: "flex",
@@ -1007,7 +1007,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                                 flexDirection: "column",
                                 width: "100%",
                                 // justifyContent: "space-between",
-                                gap:4
+                                gap: 4
                               }}
                             >
                               <Text
@@ -1020,28 +1020,28 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                                 {detail.title}
                               </Text>
                               <Text
-                        style={{
-                          fontFamily: `${selectedFont} 400`,
-                          fontSize: 12,
-                          color: "#252829",
-                        }}
-                      >
-                          {detail.duration?.start?.year &&
-                                detail.duration?.end?.year && (
-                                  <Text
-                                    style={{
-                                      fontFamily: `${selectedFont} 400`,
-                                      fontSize: 12,
-                                      color: "#252829",
+                                style={{
+                                  fontFamily: `${selectedFont} 400`,
+                                  fontSize: 12,
+                                  color: "#252829",
+                                }}
+                              >
+                                {detail.duration?.start?.year &&
+                                  detail.duration?.end?.year && (
+                                    <Text
+                                      style={{
+                                        fontFamily: `${selectedFont} 400`,
+                                        fontSize: 12,
+                                        color: "#252829",
 
-                                    }}
-                                  >
-                                    {detail.duration?.start?.year}-
-                                    {detail.duration?.end?.year}
-                                  </Text>
-                                )}
-                      </Text>
-                            
+                                      }}
+                                    >
+                                      {detail.duration?.start?.year}-
+                                      {detail.duration?.end?.year}
+                                    </Text>
+                                  )}
+                              </Text>
+
                             </View>
                           )}
                           <View
@@ -1066,7 +1066,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                               </Text>
                             </View>
                           )}
-                          
+
                         </View>
                       </View>
                     ))}
