@@ -1,13 +1,21 @@
 import React, { useEffect, useState } from "react";
 
-const DateSelector = ({ idPrefix, dataSeter, data, fromCreate }) => {
+const DateSelector = ({
+  idPrefix,
+  dataSeter,
+  data,
+  fromCreate,
+  isPursuingChecked,
+}) => {
   const months = Array.from({ length: 12 }, (_, index) => index + 1);
   // const years = Array.from({ length: 11 }, (_, index) => 2020 + index);
   // const years = Array.from({ length: 40 }, (_, index) => 2020 + index);
   const [isChecked, setIsChecked] = useState(true);
+  const [isError, setIsError] = useState("");
   // const handleSwitchChange = () => {
   //   setIsChecked(!isChecked);
   // };
+
   const handleStartMonthChange = (e) => {
     dataSeter({
       ...data,
@@ -19,13 +27,18 @@ const DateSelector = ({ idPrefix, dataSeter, data, fromCreate }) => {
   };
 
   const handleStartYearChange = (e) => {
-    dataSeter({
-      ...data,
-      duration: {
-        ...data.duration,
-        start: { ...data.duration?.start, year: e.target.value },
-      },
-    });
+  
+    const value = e.target.value;
+    if (value) {
+      dataSeter({
+        ...data,
+        duration: {
+          ...data.duration,
+          start: { ...data.duration?.start, year: e.target.value },
+        },
+      });
+    }
+    setIsError("required!");
   };
 
   const handleEndMonthChange = (e) => {
@@ -39,7 +52,7 @@ const DateSelector = ({ idPrefix, dataSeter, data, fromCreate }) => {
   };
 
   const handleEndYearChange = (e) => {
-    console.log(e.target.value);
+   
     dataSeter({
       ...data,
       duration: {
@@ -48,10 +61,10 @@ const DateSelector = ({ idPrefix, dataSeter, data, fromCreate }) => {
       },
     });
   };
+
   function getYear() {
     const currentYear = new Date().getFullYear();
     const startYear = currentYear - 100;
-
     const years = [];
     for (let year = currentYear; year >= startYear; year--) {
       years.push(year);
@@ -150,6 +163,7 @@ const DateSelector = ({ idPrefix, dataSeter, data, fromCreate }) => {
                 </option>
               ))}
             </select>
+            {isError && <span style={{ color: "red" }}>isError</span>}
 
             <img
               src="/images/down_arrow.png"
@@ -239,10 +253,11 @@ const DateSelector = ({ idPrefix, dataSeter, data, fromCreate }) => {
           </div>
         </div>
       )}
-      {
-        fromCreate && <div className="flex flex-col gap-2 absolute right-0 top-[-6px] " >
-        <div>
-          {/* <label className="switch">
+
+      {fromCreate && (
+        <div className="flex flex-col gap-2 absolute right-0 top-[-6px] ">
+          <div>
+            {/* <label className="switch">
             <input
               type="checkbox"
               checked={isChecked}
@@ -250,10 +265,9 @@ const DateSelector = ({ idPrefix, dataSeter, data, fromCreate }) => {
             />
             <span className="slider round"></span>
           </label> */}
+          </div>
         </div>
-      </div>
-      }
-      
+      )}
     </div>
   );
 };

@@ -187,6 +187,7 @@ const AddSection = ({ data, setData, section, formData, index, item }) => {
                   value={sectionData.title}
                   onChange={handleInputChange}
                   disabled={!isChecked}
+                  maxLength={100}
                 />
               </div>
             </div>
