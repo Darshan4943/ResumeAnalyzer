@@ -180,7 +180,7 @@ function Template13({ data, selectedColor, selectedFont }) {
                     <View
                       key={index}
                       style={{ flexDirection: "column", }}
-                      wrap={false}
+                      // wrap={false}
                     >
                       <Text
                         style={{
