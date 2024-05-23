@@ -180,7 +180,7 @@ function Template13({ data, selectedColor, selectedFont }) {
                     <View
                       key={index}
                       style={{ flexDirection: "column", }}
-                      wrap={false}
+                      // wrap={false}
                     >
                       <Text
                         style={{
@@ -263,7 +263,7 @@ function Template13({ data, selectedColor, selectedFont }) {
                     color: selectedColor,
                   }}
                 >
-                  Education & Learning
+                  Education
                 </Text>
                 {data.education.map((detail, index) => (
                   <>
@@ -300,8 +300,8 @@ function Template13({ data, selectedColor, selectedFont }) {
                             color: "#797979",
                           }}
                         >
-                          {detail.duration?.start?.year !== "Year" &&
-                            `${detail.duration?.start?.year}-${detail.duration?.end?.year}`}
+                           {detail.duration?.start?.year !== "Year" &&
+                          `${detail.duration?.start?.year}-${detail.duration?.end?.year ==="Year" ? "Pursuing" : detail.duration?.end?.year}`}
                         </Text>
                       </View>
                     </View>
@@ -381,7 +381,7 @@ function Template13({ data, selectedColor, selectedFont }) {
                     <View
                       style={{ flexDirection: "column", marginTop: "24px", gap: 16, width: 261 }}
                       key={index}
-                      wrap={false}
+                      // wrap={false}
                     >
                       <Text
                         style={{
@@ -404,7 +404,7 @@ function Template13({ data, selectedColor, selectedFont }) {
                             <View
                               key={index}
                               style={{ flexDirection: "column", }}
-                              wrap={false}
+                           
                             >
                               <Text
                                 style={{

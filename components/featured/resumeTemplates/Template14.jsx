@@ -169,8 +169,7 @@ function Template14({ data, selectedColor, selectedFont }) {
           </View>
         </View>
         <View
-        wrap={data?.experience?.length > 1 ? true : false}
-        
+        // wrap={data?.experience?.length > 1 ? true : false}
         > 
           
         <View
@@ -184,6 +183,7 @@ function Template14({ data, selectedColor, selectedFont }) {
               fontSize: 18,
               fontFamily: `${selectedFont} 500`,
               color: "#4D4D4D",
+              marginTop:'4px'
             }}
           >
             EXPERIENCE
@@ -191,7 +191,7 @@ function Template14({ data, selectedColor, selectedFont }) {
           <View style={{ display: "flex", flexDirection: "column", gap: 12 }}>
             {data?.experience?.map((detail, index) => (
               <View
-                wrap={false}
+                // wrap={false}
                 key={index}
                 style={{ gap: 4, display: "flex", flexDirection: "column" }}
               >
@@ -392,7 +392,7 @@ function Template14({ data, selectedColor, selectedFont }) {
                     }}
                   >
                     {detail.duration?.start?.year !== "Year" &&
-                      `${detail.duration?.start?.year}-${detail.duration?.end?.year}`}
+                          `${detail.duration?.start?.year}-${detail.duration?.end?.year ==="Year" ? "Pursuing" : detail.duration?.end?.year}`}
                   </Text>
                 </View>
 
@@ -499,21 +499,13 @@ function Template14({ data, selectedColor, selectedFont }) {
         {data?.section?.map((item, index) => (
           <View key={index}>
             <View style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-              {/* <Text
-                style={{
-                  fontSize: 18,
-                  fontFamily: `${selectedFont} 500`,
-                  color: "#4D4D4D",
-                }}
-              >
-                {item?.header}
-              </Text> */}
+             
               <View
                 style={{ display: "flex", flexDirection: "column", gap: 8 }}
               >
                 {item?.subSection?.map((detail, index) => (
                   <View
-                    wrap={false}
+                    // wrap={false}
                     key={index}
                     style={{ gap: 6, display: "flex", flexDirection: "column" }}
                   >

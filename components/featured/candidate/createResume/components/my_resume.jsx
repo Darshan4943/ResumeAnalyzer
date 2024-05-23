@@ -45,6 +45,7 @@ const ResumeList = ({ data, setData }) => {
   // //  setFile(data.profilePhoto)
   // }, [data]);
 
+  console.log(7787, data);
   return (
     <>
       {/* <div className="bg-[#06A9EF] p-4 rounded-[16px] flex justify-between text-white">
@@ -127,9 +128,10 @@ const ResumeList = ({ data, setData }) => {
               Remove
             </button>
             <button
-              disabled={file == data?.profilePhoto}
-              className={` font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px]  bg-[#06A9EF] w-[60px] h-[32px] ${file == data?.profilePhoto ? "opacity-50" : "opacity-100"
-                }`}
+              disabled={file == !data?.profilePhoto}
+              className={` font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px]  bg-[#06A9EF] w-[60px] h-[32px] ${
+                file == !data?.profilePhoto ? "opacity-50" : "opacity-100"
+              }`}
               onClick={() => {
                 setData({ ...data, profilePhoto: croppedImage?.blob });
               }}

@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 
 const Education = ({ setData, data }) => {
   const [isChecked, setIsChecked] = useState(true);
+  const [isPursuingChecked, setIsPursuingChecked] = useState(true);
   const [view, setView] = useState(false);
   const currentDate = new Date();
   const currentMonth = currentDate.getMonth() + 1; // Months are zero-based, so add 1
@@ -17,6 +18,7 @@ const Education = ({ setData, data }) => {
     instituteName: "",
     type: "full-time",
     location: "",
+    isEducation: true,
     duration: {
       start: { year: currentYear, month: currentMonth },
       end: { year: currentYear, month: currentMonth },
@@ -108,6 +110,7 @@ const Education = ({ setData, data }) => {
     setEditingIndex(index);
     handleEditEducation(index);
   };
+  console.log(777, isPursuingChecked);
   return (
     <>
       <div
@@ -243,16 +246,28 @@ const Education = ({ setData, data }) => {
                   </span>
                 )}
               </div>
+
               <div className="flex flex-col gap-2 w-full">
                 <div className="w-full text-[14px] font-montserrat  font-medium">
                   Passing Year
                 </div>
+                {/***   <div className="w-full flex gap-2 text-[14px] font-montserrat  font-medium items-center">
+                  <input
+                    type="checkbox"
+                    className="w-4 h-4 rounded-md border-2 border-[#06A9EF] bg-white"
+                    checked={isPursuingChecked}
+                    onChange={() => setIsPursuingChecked(!isPursuingChecked)}
+                  />
+                  <label>Currently Pursuing</label>
+                </div>
+*/}
                 <div>
                   <DateSelector
                     idPrefix="education"
                     data={educationData}
                     dataSeter={setEducationData}
                     fromCreate={true}
+                    isPursuingChecked
                   />
                 </div>
               </div>

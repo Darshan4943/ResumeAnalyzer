@@ -1,6 +1,6 @@
 import React from "react";
 
-const DeleteModal = ({ deleteHandler, closeDeleteModal, }) => {
+const DeleteModal = ({ deleteHandler, closeDeleteModal }) => {
   return (
     <>
       <div className="opacity-25 fixed inset-0 z-[120] bg-black"></div>
@@ -15,7 +15,7 @@ const DeleteModal = ({ deleteHandler, closeDeleteModal, }) => {
           <div className="w-full d-flex flex-column justify-center items-center">
             <h1 className="text-[24px] text-center">Delete</h1>
             <p className="text-[16px] text-center">
-              Are you sure you want delete this Resume?
+              Are you sure you want to delete this Resume?
             </p>
           </div>
           <div className="w-full flex justify-between flex-row">
