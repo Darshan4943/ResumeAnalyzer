@@ -513,6 +513,7 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
               </View>
             </View>
           )}
+           {data?.education?.length > 0 && (
           <View
             // wrap={false}
             style={{ display: "flex", flexDirection: "column", gap: 15 }}
@@ -578,6 +579,7 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
               </View>
             ))}
           </View>
+        )}
           {data?.course?.length > 0 && (
             <View
               wrap={false}
@@ -632,7 +634,7 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
           {data?.section?.map((item, index) => (
             <View
               // wrap={false}
-              wrap={data?.experience?.length > 1 ? true : false}
+              wrap={data?.section?.length > 1 ? true : false}
               key={index}
               style={{ display: "flex", flexDirection: "column", gap: 15 }}
             >

@@ -186,7 +186,7 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
                 </View>
               )}
             </View>
-
+            {data?.education?.length > 0 && (
             <View
               style={{
                 display: "flex",
@@ -194,6 +194,7 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
                 gap: 24,
                 width: "100%",
               }}
+              wrap={data?.education?.length > 1 ? true : false}
             >
               <Text
                 style={{
@@ -211,7 +212,7 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
                 {data?.education?.map((detail, index) => (
                   <>
                     <View
-                      wrap={true}
+                      // wrap={true}
                       // wrap={false}
                       key={index}
                       style={{
@@ -273,7 +274,7 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
                 ))}
               </View>
             </View>
-
+            )}
             <View
               wrap={false}
               style={{ display: "flex", flexDirection: "column", gap: 8 }}
@@ -595,6 +596,7 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
               ))}
             </View>
           </View> */}
+           {data?.experience?.length > 0 && (
           <View style={{ flexDirection: "column", gap: 12, width: "100%" }}>
             <View style={{ flexDirection: "column", gap: 12 }}>
               <Text
@@ -678,6 +680,7 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
               </>
             ))}
           </View>
+           )}
           {data?.section?.map((item, index) => (
             <View
               key={index}
@@ -702,7 +705,7 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
               <View style={{ flexDirection: "column", gap: "8px" }}>
                 {item?.subSection?.map((detail, index) => (
                   <View
-                    // wrap={false}
+                    wrap={false}
                     key={index}
                     style={{
                       flexDirection: "column",
@@ -732,7 +735,7 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
                       >
                         {detail?.title}{" "}
                       </Text>
-                      {detail.duration?.start?.year &&
+                      {/* {detail.duration?.start?.year &&
                         detail.duration?.end?.year && (
                           <View style={{ flexDirection: "row", gap: 4 }}>
                             <Text
@@ -746,7 +749,7 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
                               {detail.duration?.end?.year}
                             </Text>
                           </View>
-                        )}
+                        )} */}
                         </View>
 
                       <Text

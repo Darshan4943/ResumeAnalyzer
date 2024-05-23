@@ -54,6 +54,7 @@ function Template30({ data, selectedColor, selectedFont }) {
               gap: 4,
               maxWidth: "40%",
               display: "flex",
+              paddingVertical:'6px'
             }}
           >
             <Text
@@ -219,7 +220,10 @@ function Template30({ data, selectedColor, selectedFont }) {
         </View>
         <View style={{ flexDirection: "row", gap: 24 }}>
           <View style={{ flexDirection: "column", gap: 24, width: 160 }}>
-            <View style={{ flexDirection: "column", gap: 16 }}>
+         {data?.summery?.length > 0 && (
+            <View style={{ flexDirection: "column", gap: 16 }}
+            
+            >
               <View
                 style={{
                   width: "100%",
@@ -251,6 +255,8 @@ function Template30({ data, selectedColor, selectedFont }) {
                 {data.summery}
               </Text>
             </View>
+
+          )} 
             {data?.skills?.length > 0 && (
               <View style={{ flexDirection: "column", gap: 16 }}>
                 <View

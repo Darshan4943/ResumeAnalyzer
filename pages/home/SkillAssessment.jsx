@@ -18,14 +18,18 @@ import CreatableSelect from "react-select/creatable";
 import { SkillList } from "../../utils/data";
 import { toast } from "react-toastify";
 
-import generatePDF from "react-to-pdf";
+import generatePDF, { Resolution, Margin } from "react-to-pdf";
 import QuestionList from "../../components/featured/home/QuestionList";
 import SkillModel from "../../components/featured/candidate/createResume/components/SkillModel";
 import { reCallUserData } from "../../Redux/actions/user";
+import Certificate from "../../components/featured/home/Certificate";
+
+import { pdf } from "@react-pdf/renderer";
 import { TRUE } from "sass";
 
 function SkillAssessment() {
   const resumeRef = useRef();
+  const resumeRef1 = useRef();
   const userDataGlobal = useSelector((state) => state.userData);
   const [reCall, forceUpdate] = useReducer((x) => x + 1.0);
   const [viewAddSkill, setViewAddSkill] = useState(false);
@@ -38,6 +42,7 @@ function SkillAssessment() {
   const [answer, setAnswer] = useState([]);
   const [questionIndex, setQuestionIndex] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [btnEnable, setBtnEnable] = useState(false);
   const [loadingg, setLoadingg] = useState(false);
   const dispatch = useDispatch();
   const [isTimerOver, setIsTimerOver] = useState(false);
@@ -53,18 +58,36 @@ function SkillAssessment() {
   const [isSubmit, setIsSubmit] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const [level, setLevel] = useState("Intermediate");
+  const [assesmentType, setAssesmentType] = useState("Normal");
   const [skippedArray, setSkippedArray] = useState([
-    { question: 1, isSkiped: true, Answer: "" },
-    { question: 2, isSkiped: true, Answer: "" },
-    { question: 3, isSkiped: true, Answer: "" },
-    { question: 4, isSkiped: true, Answer: "" },
-    { question: 5, isSkiped: true, Answer: "" },
-    { question: 6, isSkiped: true, Answer: "" },
-    { question: 7, isSkiped: true, Answer: "" },
-    { question: 8, isSkiped: true, Answer: "" },
-    { question: 9, isSkiped: true, Answer: "" },
-    { question: 10, isSkiped: true, Answer: "" },
+    // { question: 1, isSkiped: true, Answer: "" },
+    // { question: 2, isSkiped: true, Answer: "" },
+    // { question: 3, isSkiped: true, Answer: "" },
+    // { question: 4, isSkiped: true, Answer: "" },
+    // { question: 5, isSkiped: true, Answer: "" },
+    // { question: 6, isSkiped: true, Answer: "" },
+    // { question: 7, isSkiped: true, Answer: "" },
+    // { question: 8, isSkiped: true, Answer: "" },
+    // { question: 9, isSkiped: true, Answer: "" },
+    // { question: 10, isSkiped: true, Answer: "" },
   ]);
+  console.log(66699, toggle);
+  useEffect(() => {
+    setSkippedArray(fillArray());
+  }, [assesmentType]);
+
+  const fillArray = () => {
+    let count = assesmentType === "Normal" ? 10 : 60;
+    let array = [];
+
+    for (let i = 0; i < count; i++) {
+      array.push({ question: i + 1, isSkiped: true, Answer: "" });
+    }
+    return array;
+  };
+
+  console.log(833, skippedArray);
+
   const [uniqueQuestions, setUniqueQuestions] = useState([]);
 
   // START
@@ -130,8 +153,9 @@ function SkillAssessment() {
 
     question.forEach((data) => {
       if (
-        !uniqueQuestionsSet.has(data.question) &&
-        filteredQuestions.length < 10
+        !uniqueQuestionsSet.has(data.question) && assesmentType === "Normal"
+          ? filteredQuestions.length < 10
+          : filteredQuestions.length < 60
       ) {
         uniqueQuestionsSet.add(data.question);
         filteredQuestions.push(data);
@@ -147,7 +171,11 @@ function SkillAssessment() {
     // }
     // }
 
-    if (filteredQuestions.length < 10 && selectedSkill) {
+    if (
+      assesmentType === "Normal"
+        ? filteredQuestions.length < 10
+        : filteredQuestions.length < 60 && selectedSkill
+    ) {
       toggleContent();
     }
   }, [question]);
@@ -203,16 +231,48 @@ function SkillAssessment() {
       });
   };
 
+  const generatePdf2 = () => {
+    // setLoadingg(true);
+    return new Promise((resolve, reject) => {
+      generatePDF(resumeRef1, {
+        filename: `${"certificate"}-assessment-skilotech.pdf`,
+        resolution: Resolution.HIGH,
+        page: {
+          // // margin is in MM, default is Margin.NONE = 0
+          // margin: Margin.SMALL,
+          // default is 'A4'
+          format: "letter",
+          // default is 'portrait'
+          orientation: "landscape",
+        },
+      });
+      resolve();
+    })
+      .then(() => {
+        setTimeout(() => {
+          // setLoadingg(false);
+        }, 2000);
+      })
+      .catch((error) => {
+        console.error("Error generating PDF:", error);
+        // setLoadingg(false);
+      });
+  };
   const toggleContent = () => {
     if (selectedSkill) {
       setLoading(true);
-      if (uniqueQuestions.length < 10) {
+      if (
+        assesmentType === "Normal"
+          ? uniqueQuestions.length < 10
+          : uniqueQuestions.length < 60
+      ) {
         axios
           .post("https://freedygoservices.in/api/getQuetions", {
             skill: selectedSkill,
             level: level,
           })
           .then((res) => {
+            console.log(2443, res);
             setQuestion([
               ...question,
               ...JSON.parse(res.data.data.choices[0].message.content),
@@ -230,6 +290,12 @@ function SkillAssessment() {
       toast.error("Please select a skill to start skill assessment");
     }
   };
+
+  useEffect(() => {
+    if (uniqueQuestions.length > questionIndex + 2) {
+      setBtnEnable(true);
+    }
+  }, [questionIndex]);
 
   // useEffect(() => {
   //   let timer;
@@ -260,39 +326,50 @@ function SkillAssessment() {
     //   toggleContent();
     // }
 
-    if (questionIndex == 9) {
+    if (assesmentType === "Normal" ? questionIndex == 9 : questionIndex == 59) {
       axios
         .post("https://freedygoservices.in/api/assessment/add", {
           userId: userDataGlobal._id,
           skill: selectedSkill,
-          score: checkAnswer() * 10,
+          score: checkAnswer() * assesmentType === "Normal" ? 10 : 60,
           date: new Date(),
         })
         .then((res) => {
           setToggle(0);
           setLoading(false);
-         
-          setIsSubmit(true)
-          
+
+          setIsSubmit(true);
+
           setTimeout(() => {
             setScore(true);
           }, 500);
-          
         })
         .catch((err) => {
           console.log(err);
         });
     } else {
       setTimer(30);
-      setQuestionIndex(questionIndex + 1 < 10 ? questionIndex + 1 : 9);
+      setQuestionIndex(
+        questionIndex + 1 < assesmentType === "Normal"
+          ? 10
+          : 60
+          ? questionIndex + 1
+          : assesmentType === "Normal"
+          ? 9
+          : 59
+      );
     }
   };
 
   useEffect(() => {
     let timer;
-    if (questionIndex && isSubmit ===true) {
+    if (questionIndex && isSubmit === true) {
       timer = setTimeout(() => {
-        if (questionIndex === 9 && isSubmit===true) {
+        if (
+          assesmentType === "Normal"
+            ? questionIndex === 9
+            : questionIndex === 59 && !isSubmit
+        ) {
           sumbit();
         }
       }, 30000);
@@ -392,7 +469,19 @@ function SkillAssessment() {
 
     return formattedTime;
   }
-  console.log(1,uniqueQuestions)
+  console.log(1, uniqueQuestions);
+
+  function calculateMarkOutOf60() {
+    let correctAnswers = checkAnswer();
+    let totalQuestions = uniqueQuestions.length;
+
+    // Calculate percentage score
+    let percentageScore = (correctAnswers * 100) / totalQuestions;
+
+    // Convert percentage to a mark out of 60
+
+    return percentageScore + `%`;
+  }
 
   return (
     <div className="">
@@ -401,7 +490,29 @@ function SkillAssessment() {
         className="bg-[#F9F9F9] w-full h-[92vh] "
       >
         {toggle === 0 && (
-          <div className="flex flex-col gap-[35px] pt-[24px] pb-[95px] items-center  customMargins">
+          <div className="flex flex-col gap-[16px] pt-[24px] pb-[95px] items-center  customMargins">
+            <div className=" w-[100%] flex flex-row gap-[8px]">
+              <button
+                className={` rounded-[12px] ml:px-[22.8px] px-3 ${
+                  assesmentType === "Normal"
+                    ? "bg-blue text-white btn_hover_effect"
+                    : "bg-white text-[#333] border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
+                } ml:min-w-[235px] min-w-[180px] py-2  flex gap-2 ml:text-[16px] scr420:text-[14px] text-[12px] justify-center items-center   h-[40px] font-semibold`}
+                onClick={() => setAssesmentType("Normal")}
+              >
+                Normal Assesment
+              </button>
+              <button
+                className={`rounded-[12px] min-w-[138px] flex justify-center items-center ${
+                  assesmentType === "Certificate"
+                    ? "bg-blue text-white btn_hover_effect"
+                    : "bg-white text-[#333] border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
+                }  py-2 px-6 text-[16px] font-medium `}
+                onClick={() => setAssesmentType("Certificate")}
+              >
+                Certified Assesment
+              </button>
+            </div>
             <div
               className="  w-[100%] ml:p-[16px] p-2 flex ml:flex-row flex-col justify-between  gap-[16px] rounded-[12px] bg-[#fff]"
               style={{
@@ -671,7 +782,7 @@ function SkillAssessment() {
                       </g>
                     </svg>
                     <div className="text-[12px] scr820:text-[18px] text-[#fff] font-[600] flex flex-col items-center">
-                      10 MCQs
+                      {assesmentType === "Normal" ? 10 : 60} MCQs
                     </div>
                     <div className="text-[10px] scr820:text-[13px] text-[#fff] font-[500] flex flex-col items-center">
                       4 Options each
@@ -699,7 +810,7 @@ function SkillAssessment() {
                       </g>
                     </svg>
                     <div className="text-[12px] scr820:text-[18px] text-[#fff] font-[600] flex flex-col items-center">
-                      5 Minutes
+                      {assesmentType === "Normal" ? 5 : 30} Minutes
                     </div>
                     <div className="text-[10px] scr820:text-[13px] text-[#fff] font-[500] flex flex-col items-center">
                       30 seconds per Question
@@ -727,7 +838,9 @@ function SkillAssessment() {
                       </g>
                     </svg>
                     <div className="text-[12px] scr820:text-[18px] text-[#fff] font-[600] flex flex-col items-center">
-                      Quick Result
+                      {assesmentType === "Normal"
+                        ? "Quick Result"
+                        : "Quick Certification"}
                     </div>
                     <div className="text-[10px] scr820:text-[13px] text-[#fff] font-[500] flex flex-col items-center">
                       See your score after the Test
@@ -1079,13 +1192,13 @@ function SkillAssessment() {
                 <div className=" relative h-[10px] rounded-[6px] bg-[#DEDEDE] w-full">
                   <div
                     className={`absolute h-[10px] rounded-[6px] bg-[#06A9EF] w-[${
-                      (questionIndex + 1) * 10
+                      (questionIndex + 1) * assesmentType === "Normal" ? 10 : 60
                     }%] `}
                   ></div>
                 </div>
                 <p className="text-[16px] flex justify-end font-semibold w-[60px]">
                   {" "}
-                  {questionIndex + 1} / 10
+                  {questionIndex + 1} / {assesmentType === "Normal" ? 10 : 60}
                 </p>
               </div>
               <div
@@ -1136,8 +1249,8 @@ function SkillAssessment() {
                 </div>
                 <div className="flex gap-6 ">
                   <button
-                    style={{ opacity: loading ? "0.5" : 1 }}
-                    disabled={loading}
+                    style={{ opacity: !btnEnable ? "0.5" : 1 }}
+                    disabled={!btnEnable}
                     className="flex flex-row gap-[3px] items-center cursor-pointer text-[16px] font-[500]   px-[24px] py-[12px] justify-between leading-tight  rounded-[12px] border-[1px] border-solid border-[#06A9EF] "
                     // onClick={() => {
                     //   if (questionIndex == 9) {
@@ -1173,16 +1286,23 @@ function SkillAssessment() {
 
                   <button
                     className="flex flex-row gap-[3px] items-center px-6 py-3 rounded-[12px] bg-blue leading-tight text-white justify-center text-[16px] font-[600] "
-                    style={{ opacity: loading ? "0.5" : 1 }}
-                    disabled={loading}
+                    style={{ opacity: !btnEnable ? "0.5" : 1 }}
+                    disabled={!btnEnable}
                     onClick={() => {
                       sumbit();
-                      if (questionIndex === 9) {
+                      let result = assesmentType === "Normal" ? 9 : 59;
+                      if (questionIndex === result) {
                         setIsSubmit(true);
                       }
                     }}
                   >
-                    {questionIndex == 9 ? "Submit" : "Next"}
+                    {assesmentType === "Normal"
+                      ? questionIndex == 9
+                        ? "Submit"
+                        : "Next"
+                      : questionIndex == 59
+                      ? "Submit"
+                      : "Next"}
                   </button>
                 </div>
               </div>
@@ -1271,32 +1391,68 @@ function SkillAssessment() {
                         </div>
                         <div className="text-[18px] text-[#5B5B5B] font-[600]">
                           Your Score is{" "}
-                          {((checkAnswer() / uniqueQuestions.length) * 100) /
-                            10}
-                          /10{" "}
+                          {assesmentType === "Normal" &&
+                            ((checkAnswer() / uniqueQuestions.length) * 100) /
+                              10}
+                          {assesmentType === "Normal" && `/${10}`}
+                          {assesmentType !== "Normal" && calculateMarkOutOf60()}
+                          {assesmentType !== "Normal" && (
+                            <div className="text-[18px] text-[#5B5B5B] font-[600]">
+                              {calculateMarkOutOf60()}
+                            </div>
+                          )}
                         </div>
+
+                        {assesmentType !== "Normal" && (
+                          <>
+                            {calculateMarkOutOf60() > 42 ? (
+                              <div className="text-[18px] text-[#0C8A0A] font-[600]">
+                                You are eligible for Certificate
+                              </div>
+                            ) : (
+                              <di className="text-[18px] text-[#C00000] font-[600]">
+                                You are not eligible for Certificate
+                              </di>
+                            )}
+                          </>
+                        )}
                       </div>
                     </div>
                   </div>
 
-                  <div className="flex  justify-between items-center pb-[12px] w-[80%] pt-4">
+                  <div
+                    className={`flex  justify-between items-center pb-[12px] ${
+                      assesmentType !== "Normal" && calculateMarkOutOf60() > 42
+                        ? "sm:w-[90%] w-[95%]"
+                        : "w-[80%]"
+                    } `}
+                  >
                     <button
                       onClick={() => {
-                       
                         setScore(false);
-                        setSelectedSkill()
-                     setQuestionIndex(0)
+                        setSelectedSkill();
+                        setQuestionIndex(0);
                         setQuestion([]);
                         setSkipped([]);
                         // window.location.reload();
                         dispatch(reCallUserData());
                       }}
-                      className="border-[1px]  border-solid border-[#06A9EF] rounded-[12px] px-[24px] py-[8px] text-[16px] text-[#333] font-[500]"
+                      className="border-[1px]  border-solid border-[#06A9EF] rounded-[12px] px-[14px] sm:px-[24px] py-[8px] text-[12px] scr700:text-[16px] text-[#333] font-[500]"
                     >
                       Close
                     </button>
+
+                    {assesmentType !== "Normal" &&
+                      calculateMarkOutOf60() > 42 && (
+                        <button
+                          className="border-[1px] min-w-[132.78px] flex justify-center items-center border-solid border-[#06A9EF] rounded-[12px] px-[12px] sm:px-[14px] py-[8px] text-[12px] scr700:text-[16px]  font-[500] bg-blue text-white"
+                          onClick={() => generatePdf2()}
+                        >
+                          Download Certificate
+                        </button>
+                      )}
                     <button
-                      className="border-[1px] min-w-[132.78px] flex justify-center items-center border-solid border-[#06A9EF] rounded-[12px] px-[24px] py-[8px] text-[16px]  font-[500] bg-blue text-white"
+                      className="border-[1px] min-w-[60.78px] sm:min-w-[132.78px] flex justify-center items-center border-solid border-[#06A9EF] rounded-[12px] px-[8px] sm:px-[24px] py-[8px] text-[12px] scr700:text-[16px] font-[500] bg-blue text-white"
                       onClick={() => generatePdf()}
                     >
                       {" "}
@@ -1315,6 +1471,13 @@ function SkillAssessment() {
                       selectedSkill={selectedSkill}
                       checkAnswer={checkAnswer}
                     />
+                  </div>
+
+                  <div
+                    className="absolute overflow-hidden left-[-8000px]"
+                    ref={resumeRef1}
+                  >
+                    <Certificate />
                   </div>
                 </div>
               </div>
