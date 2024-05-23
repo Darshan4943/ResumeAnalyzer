@@ -22,7 +22,8 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
           style={{
             width: 207,
             padding: 24,
-            backgroundColor: "#252829",
+            // backgroundColor: "#252829",
+            backgroundColor: selectedColor,
             display: "flex",
             flexDirection: "column",
             gap: 40,
@@ -152,7 +153,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                   width="16"
                   height="15"
                   viewBox="0 0 16 15"
-                  fill="none"
+                  fill="#252829"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <Path
@@ -583,11 +584,13 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
               display: "flex",
               flexDirection: "row",
               gap: 10,
-              backgroundColor: "#252829",
+              // backgroundColor: "#252829",
               paddingHorizontal: 24,
               paddingTop: 24,
               paddingBottom: 33,
-              marginLeft: -4
+              marginLeft: -4,
+            backgroundColor: selectedColor,
+
             }}
           >
             <Svg
@@ -625,6 +628,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                   fontSize: 10,
                   fontFamily: `${selectedFont} 400`,
                   color: "#FFFFFF",
+
                 }}
               >
                 {data.summery}
@@ -632,7 +636,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
             </View>
           </View>
           <View
-           wrap={data?.experience?.length > 1 ? true : false}
+          
             style={{
               display: "flex",
               flexDirection: "column",
@@ -651,6 +655,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                 gap: 16,
                 width: "90%",
               }}
+              wrap={data?.experience?.length > 1 ? true : false}
             >
                     
               <View style={{ display: "flex", flexDirection: "row", gap: 6,paddingLeft:'22px',paddingRight:'24px' }}>
@@ -932,7 +937,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
             >
               {data.section?.map((item, index) => (
                 <View
-                  wrap={false}
+                  // wrap={false}
                   key={index}
                   style={{
                     display: "flex",

@@ -137,7 +137,10 @@ const CandidateAiPower = ({
       }, 1000);
     });
   };
+  
   const navigate = () => {
+
+   
     if (uploadLimit <= 0) {
       setLimitUsedModal(true);
       return;
@@ -188,15 +191,9 @@ const CandidateAiPower = ({
                   router.push(`/home/createResume?clientId=${clientId}`);
                 });
             } else {
+            
               setCount(count + 1);
-              if (count <= 1) {
-                navigate();
-              } else {
-                setResumeErrorPopup(true);
-                // toast.error("Unable to parse resume, please try again later");
-                setLoading(false);
-                setfile();
-              }
+             
             }
           })
           .catch((err) => {
@@ -212,6 +209,18 @@ const CandidateAiPower = ({
       }
     });
   };
+
+  useEffect(() => {
+  
+    if(count >=2){
+      setLoading(false);
+      setfile();
+      setResumeErrorPopup(true);
+      setCount(0)
+    }else{
+      navigate
+    }
+  }, [count]);
 
   const fileIconSeter = (data) => {
     if (data.name.includes("docx") || data.name.includes("doc")) {
@@ -302,7 +311,7 @@ const CandidateAiPower = ({
                           <div className="flex flex-row gap-[16px] items-center scr420:w-[60%] w-full scr420:justify-start justify-center  ">
                             {" "}
                             <div className="">{fileIconSeter(file)}</div>
-                            <span className="text-[12px] w-[80%]">
+                            <span className="text-[12px] w-[80%] break-all">
                               {file.name}
                             </span>
                           </div>

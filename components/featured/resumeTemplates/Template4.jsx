@@ -348,8 +348,8 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                           flexDirection: "row",
                           fontFamily: `${selectedFont} 400`,
                           color: "#fff",
-                          width:"90%",
-                          flexWrap:"wrap"
+                          width: "90%",
+                          flexWrap: "wrap"
                         }}
                       >
                         {detail.languages}
@@ -437,9 +437,11 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                     <View
                       wrap={false}
                       key={index}
-                      
-                      style={{ color: "white", fontSize: "12px", width:"90%",
-                      flexWrap:"wrap" }}
+
+                      style={{
+                        color: "white", fontSize: "12px", width: "90%",
+                        flexWrap: "wrap"
+                      }}
                     >
                       <Text style={{ fontFamily: `${selectedFont} 400` }}>
                         {item?.title}
@@ -582,6 +584,8 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                       wrap={false}
                       style={{
                         display: "flex",
+                        flexDirection: "column",
+                        gap:"4px",
                         justifyContent: "space-between",
                         alignItems: "start",
                         width: "95%",
@@ -859,7 +863,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                   >
                     <Text
                       style={{
-                        fontSize: 12,
+                        fontSize: 11,
                         fontFamily: `${selectedFont} 400`,
                         marginRight: "6px"
                       }}

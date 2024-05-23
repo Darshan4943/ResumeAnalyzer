@@ -25,6 +25,7 @@ import { reCallUserData } from "../../Redux/actions/user";
 import Certificate from "../../components/featured/home/Certificate";
 
 import { pdf } from "@react-pdf/renderer";
+import { TRUE } from "sass";
 
 function SkillAssessment() {
   const resumeRef = useRef();
@@ -334,7 +335,14 @@ function SkillAssessment() {
           date: new Date(),
         })
         .then((res) => {
-          setScore(true);
+          setToggle(0);
+          setLoading(false);
+
+          setIsSubmit(true);
+
+          setTimeout(() => {
+            setScore(true);
+          }, 500);
         })
         .catch((err) => {
           console.log(err);
@@ -355,10 +363,12 @@ function SkillAssessment() {
 
   useEffect(() => {
     let timer;
-    if (questionIndex) {
+    if (questionIndex && isSubmit === true) {
       timer = setTimeout(() => {
         if (
-          (questionIndex === assesmentType) === "Normal" ? 9 : 59 && !isSubmit
+          assesmentType === "Normal"
+            ? questionIndex === 9
+            : questionIndex === 59 && !isSubmit
         ) {
           sumbit();
         }
@@ -459,6 +469,7 @@ function SkillAssessment() {
 
     return formattedTime;
   }
+  console.log(1, uniqueQuestions);
 
   function calculateMarkOutOf60() {
     let correctAnswers = checkAnswer();
@@ -1418,12 +1429,12 @@ function SkillAssessment() {
                   >
                     <button
                       onClick={() => {
-                        setToggle(0);
                         setScore(false);
+                        setSelectedSkill();
                         setQuestionIndex(0);
                         setQuestion([]);
                         setSkipped([]);
-                        window.location.reload();
+                        // window.location.reload();
                         dispatch(reCallUserData());
                       }}
                       className="border-[1px]  border-solid border-[#06A9EF] rounded-[12px] px-[14px] sm:px-[24px] py-[8px] text-[12px] scr700:text-[16px] text-[#333] font-[500]"

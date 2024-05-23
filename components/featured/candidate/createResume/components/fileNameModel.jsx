@@ -7,6 +7,17 @@ const FileNameModel = ({ setNamePreview, setFunction, data, clientId }) => {
   const [existingNames, setExistingNames] = useState([]);
   console.log(8, existingNames);
   const [error, setError] = useState("");
+
+
+  const handleChange = (e) => {
+    const value = e.target.value;
+    if (value.length <= 40) {
+      setName(value);
+      setError("");
+    } else {
+      setError("File name cannot exceed 40 characters");
+    }
+  };
   const userDataGlobal = useSelector((state) => state.userData);
 
   const callData = () => {
@@ -55,10 +66,7 @@ const FileNameModel = ({ setNamePreview, setFunction, data, clientId }) => {
               placeholder="Enter File Name"
               value={name}
               className="py-[12px] px-[16px] text-[14px] w-full border rounded-[8px] border-[#DEDEDE] h-[48px]"
-              onChange={(e) => {
-                setName(e.target.value);
-                setError("");
-              }}
+              onChange={handleChange}
             />
             {error && (
               <div className="text-red font-medium text-sm mt-1">{error}</div>

@@ -2268,7 +2268,7 @@ export const templates = [
     index: 11,
     fontFamily: "Montserrat",
     themeColor: "#E6E7E8",
-    formFields: ["course", "hobbies"],
+    formFields: ["language", "hobbies"],
   },
   {
     title: "Template12",
@@ -2323,7 +2323,7 @@ export const templates = [
     imgUrl: "/images/templates/template18.png",
     index: 18,
     fontFamily: "Montserrat",
-    themeColor: "#F1F1F1",
+    themeColor: "#242424",
     formFields: ["language"],
   },
   {

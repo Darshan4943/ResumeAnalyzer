@@ -75,7 +75,7 @@ const PersonalDetails = ({
       name: "mobileNumber",
       placeholder: "Enter Mobile Number",
       value: profileData.mobileNumber,
-      className: " col-span-2",
+      className: " col-span-2 ",
     },
     {
       label: "Email Address",
@@ -223,14 +223,14 @@ const PersonalDetails = ({
       >
         <div className="w-full flex justify-between text-[20px] font-montserrat font-medium">
           <p> Personal Details</p>
-          <label className="switch">
+          {/**  <label className="switch">
             <input
               type="checkbox"
               checked={isChecked}
               onChange={handleSwitchChange}
             />
             <span className="slider round"></span>
-          </label>
+          </label> */}
         </div>
         <div className="grid grid-cols-2 gap-4">
           {inputFields.map((item, index) => (
@@ -238,19 +238,19 @@ const PersonalDetails = ({
               className={`flex flex-col gap-2 w-full ${item.className}`}
               key={index}
             >
-              <div className=" text-[14px] font-montserrat  font-medium">
+              <div className=" text-[14px]  font-medium">
                 {item.label}
               </div>
               {item.name == "mobileNumber" ? (
                 <div
-                  className={`border-[1px] rounded-[8px] ${
+                  className={`rounded-[8px] ${
                     formErrors[item.name]
                       ? "border-[#C00000]"
                       : "border-[#9D9D9D]"
                   } `}
                 >
                   <div
-                    className={`flex w-[100%] items-start "
+                    className={`flex w-[100%] items-start  "
                           }`}
                     id="single_input"
                   >
@@ -263,7 +263,7 @@ const PersonalDetails = ({
                           <div className="flex items-center  gap-1 cursor-pointer  w-[100%] ">
                             <ReactSelect
                               options={filteredTelCode}
-                              className="w-[100%] flex  items-center py-1  rounded-[8px]"
+                              className="w-[100%] flex  items-center py-2  rounded-[8px]"
                               name=""
                               placeholder="Select"
                               value={selectedItem}
@@ -298,16 +298,17 @@ const PersonalDetails = ({
                       type={item.type}
                       name={item.name}
                       placeholder={item.placeholder}
-                      className="w-full text-[14px] font-montserrat font-small"
+                      className="w-full text-[14px] "
                       value={profileData[item.name]}
                       onChange={handleInputChange}
                       disabled={!isChecked}
+                     
                     />
                   </div>
                 </div>
               ) : (
                 <div
-                  className={`border-[1px] rounded-[8px] px-[16px] py-[12px] ${
+                  className={`border-[1px] rounded-[8px] px-[16px] py-2   ${
                     formErrors[item.name]
                       ? "border-[#C00000]"
                       : "border-[#9D9D9D]"
@@ -317,10 +318,11 @@ const PersonalDetails = ({
                     type={item.type}
                     name={item.name}
                     placeholder={item.placeholder}
-                    className="w-full text-[14px] font-montserrat font-small"
+                    className="w-full text-[14px] "
                     value={profileData[item.name]}
                     onChange={handleInputChange}
                     disabled={!isChecked}
+                    maxLength={100}
                   />
                 </div>
               )}

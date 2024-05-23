@@ -53,7 +53,11 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
               </Text>
             </View>
             <Text
-              style={{ color: "#414042", fontFamily: `${selectedFont} 400` }}
+              style={{
+                color: "#414042",
+                fontFamily: `${selectedFont} 400`,
+                width: "80%",
+              }}
             >
               {data.designation}
             </Text>
@@ -70,8 +74,8 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                   preview
                     ? data.profilePhoto
                     : Object.keys(data?.profilePhoto).includes("filename")
-                      ? URL.createObjectURL(data.profilePhoto)
-                      : data.profilePhoto
+                    ? URL.createObjectURL(data.profilePhoto)
+                    : data.profilePhoto
                 }
                 style={{
                   objectFit: "cover",
@@ -154,22 +158,20 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                 </View>
                 <View
                   style={{
-
                     flexDirection: "row",
                     alignItems: "center",
                     gap: "8px",
                     width: "100%",
-                    maxWidth: "150px"
+                    maxWidth: "150px",
                   }}
                 >
                   <Svg
-
                     width="22"
                     height="22"
                     viewBox="0 0 22 22"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
-                    style={{ minWidth: '22px', minHeight: '22px' }}
+                    style={{ minWidth: "22px", minHeight: "22px" }}
                   >
                     <Rect width="22" height="22" fill={selectedColor} />
                     <Path
@@ -185,7 +187,6 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                       fontFamily: `${selectedFont} 400`,
                       flexWrap: "wrap",
                       width: "80%",
-
                     }}
                   >
                     {data.email}
@@ -222,14 +223,13 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                       style={{ flexDirection: "column", gap: "4px" }}
                     >
                       <View>
-
                         <Text
                           style={{
                             color: "#414042",
                             fontSize: 12,
                             fontFamily: `${selectedFont} 700`,
                             // lineHeight: 1.2,
-                            marginRight: "6px"
+                            marginRight: "6px",
                           }}
                         >
                           {detail.qualification}
@@ -403,7 +403,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                 style={{
                   color: "#6D6E71",
                   fontSize: "10px",
-                  // lineHeight: 1.2,
+                  lineHeight: 1.2,
                   fontFamily: `${selectedFont} 400`,
                 }}
               >
@@ -445,7 +445,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                           color: "#414042",
                           fontSize: 12,
                           fontFamily: `${selectedFont} 700`,
-                          // lineHeight: 1.5,
+                          lineHeight: 1.5,
                         }}
                       >
                         {detail.designation}
@@ -463,7 +463,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                           color: "#414042",
                           fontSize: 10,
                           fontFamily: `${selectedFont} 400`,
-                          // lineHeight: 1.5,
+                          lineHeight: 1.5,
                           width: "100%",
                         }}
                       >
@@ -475,13 +475,14 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                             color: "#414142",
                             fontSize: 10,
                             fontFamily: `${selectedFont} 400`,
-                            // lineHeight: 1.5,
+                            lineHeight: 1.5,
                           }}
                         >
                           {detail.duration?.start?.year !== "Year" &&
-                            `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
-                              ? "Present"
-                              : detail.duration?.end?.year
+                            `${detail.duration?.start?.year}-${" "}${
+                              detail.currentlyWorking
+                                ? "Present"
+                                : detail.duration?.end?.year
                             }
                          `}
                         </Text>
@@ -492,7 +493,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                         style={{
                           color: "#6D6E71",
                           fontSize: "10px",
-                          // lineHeight: 1.2,
+                          lineHeight: 1.2,
                           fontFamily: `${selectedFont} 400`,
                         }}
                       >
@@ -510,7 +511,6 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
               <View
                 style={{ flexDirection: "column", gap: 16, width: "100%" }}
                 key={index}
-
               >
                 <View style={{ flexDirection: "column", gap: 12 }}>
                   <Text
@@ -537,7 +537,6 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                   <View
                     key={index}
                     style={{ flexDirection: "column", gap: 12, width: "100%" }}
-                    wrap={false}
                   >
                     <View
                       style={{
@@ -551,8 +550,8 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                           color: "#414142",
                           fontSize: 12,
                           fontFamily: `${selectedFont} 700`,
-                          // lineHeight: 1.5,
-                          width: "70%"
+                          lineHeight: 1.5,
+                          width: "70%",
                         }}
                       >
                         {detail.title}
@@ -572,11 +571,12 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                                   color: "#414142",
                                   fontSize: 10,
                                   fontFamily: `${selectedFont} 400`,
-                                  // lineHeight: 1.5,
+                                  lineHeight: 1.5,
                                 }}
                               >
                                 {detail.duration?.end?.year &&
-                                  `${detail.duration?.start?.year}- ${" "}${detail.duration?.end?.year
+                                  `${detail.duration?.start?.year}- ${" "}${
+                                    detail.duration?.end?.year
                                   }`}
                               </Text>
                             </View>
@@ -595,7 +595,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                         style={{
                           color: "#6D6E71",
                           fontSize: "10px",
-                          // lineHeight: 1.2,
+                          lineHeight: 1.2,
                           fontFamily: `${selectedFont} 400`,
                         }}
                       >
@@ -614,4 +614,3 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
 }
 
 export default Template1;
-

@@ -169,10 +169,15 @@ function Template14({ data, selectedColor, selectedFont }) {
           </View>
         </View>
         <View
+        wrap={data?.experience?.length > 1 ? true : false}
+        
+        > 
+          
+        <View
           style={{ width: "100%", height: 1, backgroundColor: "#DEDEDE" }}
         ></View>
         <View style={{ display: "flex", flexDirection: "column", gap: 12 }}
-        wrap={data?.experience?.length > 1 ? true : false}
+        // wrap={data?.experience?.length > 1 ? true : false}
         >
           <Text
             style={{
@@ -270,6 +275,7 @@ function Template14({ data, selectedColor, selectedFont }) {
               </View>
             ))}
           </View>
+        </View>
         </View>
         <View
           style={{ width: "100%", height: 1, backgroundColor: "#DEDEDE" }}

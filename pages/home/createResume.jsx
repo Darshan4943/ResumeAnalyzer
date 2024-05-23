@@ -147,7 +147,7 @@ function CreateResume() {
       imgUrl: "/images/templates/template54.png",
       index: 18,
       fontFamily: "Montserrat",
-      themeColor: "#F1F1F1",
+      themeColor: "#242424",
     },
     {
       title: "Template19",
@@ -198,6 +198,13 @@ function CreateResume() {
       index: 47,
       fontFamily: "Poppins",
       themeColor: "#27AAE1",
+    },
+    {
+      title: "Template30",
+      imgUrl: "/images/templates/template30.png",
+      index: 30,
+      fontFamily: "Lato",
+      themeColor: "#414042",
     },
   ];
 
