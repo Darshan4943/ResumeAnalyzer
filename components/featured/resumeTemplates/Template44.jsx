@@ -539,7 +539,13 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
               </Text>
             </View>
             {data?.education?.map((detail, index) => (
-              <View key={index}>
+              <View key={index}
+              wrap={false}
+              style={{
+                gap: 4,
+              }}
+
+              >
                 <Text
                   style={{
                     fontFamily: `${selectedFont} 400`,
@@ -560,6 +566,15 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
                 >
                   {detail.instituteName}
                 </Text>
+                <Text
+                      style={{
+                        fontFamily: `${selectedFont} 400`,
+                        fontSize: 10,
+                        color: "#6D6E71",
+                      }}
+                    >
+                      {detail.specialization}
+                    </Text>
               </View>
             ))}
           </View>
@@ -616,7 +631,8 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
 
           {data?.section?.map((item, index) => (
             <View
-              wrap={false}
+              // wrap={false}
+              wrap={data?.experience?.length > 1 ? true : false}
               key={index}
               style={{ display: "flex", flexDirection: "column", gap: 15 }}
             >
@@ -642,7 +658,9 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
               </View>
               {item?.subSection?.map((detail, index) => (
                 <>
-                  <View key={index}>
+                  <View key={index}
+                  wrap={false}
+                  >
                     <Text
                       style={{
                         fontFamily: `${selectedFont} 400`,
