@@ -137,7 +137,10 @@ const CandidateAiPower = ({
       }, 1000);
     });
   };
+  
   const navigate = () => {
+
+   
     if (uploadLimit <= 0) {
       setLimitUsedModal(true);
       return;
@@ -188,15 +191,9 @@ const CandidateAiPower = ({
                   router.push(`/home/createResume?clientId=${clientId}`);
                 });
             } else {
+            
               setCount(count + 1);
-              if (count <= 1) {
-                navigate();
-              } else {
-                setResumeErrorPopup(true);
-                // toast.error("Unable to parse resume, please try again later");
-                setLoading(false);
-                setfile();
-              }
+             
             }
           })
           .catch((err) => {
@@ -212,6 +209,18 @@ const CandidateAiPower = ({
       }
     });
   };
+
+  useEffect(() => {
+  
+    if(count >=2){
+      setLoading(false);
+      setfile();
+      setResumeErrorPopup(true);
+      setCount(0)
+    }else{
+      navigate
+    }
+  }, [count]);
 
   const fileIconSeter = (data) => {
     if (data.name.includes("docx") || data.name.includes("doc")) {

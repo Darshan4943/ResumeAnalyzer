@@ -122,7 +122,7 @@ const Template47 = ({ data, selectedColor, selectedFont, preview }) => {
                             <View style={{ display: "flex", flexDirection: "column", gap: 16 }}>
                                 {data?.experience?.map((detail, index) => (
                                     <View
-                                        wrap={false}
+                                        // wrap={false}
                                         key={index}
                                         style={{ display: "flex", flexDirection: "column", }}>
                                         <View style={{ display: "flex", flexDirection: "row", gap: 12 }}>
@@ -171,8 +171,8 @@ const Template47 = ({ data, selectedColor, selectedFont, preview }) => {
                                             <Text style={{ fontSize: 12, color: "#383839", fontFamily: `${selectedFont} 500`, width: 379 }}>{detail.specialization} - {detail.qualification}</Text>
                                         </View>
                                         <View style={{ display: "flex", flexDirection: "row", gap: 12 }}>
-                                            <Text style={{ fontSize: 12, color: "#383839", fontFamily: `${selectedFont} 500`, width: 132 }}>{detail.duration?.start?.year}-
-                                                {detail.duration?.end?.year} </Text>
+                                            <Text style={{ fontSize: 12, color: "#383839", fontFamily: `${selectedFont} 500`, width: 132 }}> {detail.duration?.start?.year !== "Year" &&
+                          `${detail.duration?.start?.year}-${detail.duration?.end?.year ==="Year" ? "Pursuing" : detail.duration?.end?.year}`} </Text>
                                         </View>
                                     </View>
 
@@ -184,7 +184,7 @@ const Template47 = ({ data, selectedColor, selectedFont, preview }) => {
 
                     {data?.section?.map((item, index) => (
                         <View
-                        wrap={false}
+                        // wrap={false}
                             key={index}
                             style={{ display: "flex", flexDirection: "column", gap: 12 }}
                         >
@@ -204,7 +204,9 @@ const Template47 = ({ data, selectedColor, selectedFont, preview }) => {
                             </View>
 
                             {item?.subSection?.map((detail, index) => (
-                                <View key={index} wrap={false} style={{
+                                <View key={index} 
+                                // wrap={false}
+                                 style={{
                                     flexDirection: "column",
 
                                     alignItems: "center",

@@ -632,7 +632,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                         >
                           {" "}
                           {detail.duration?.start?.year !== "Year" &&
-                            `${detail.duration?.start?.year}-${detail.duration?.end?.year}`}
+                          `${detail.duration?.start?.year}-${detail.duration?.end?.year ==="Year" ? "Pursuing" : detail.duration?.end?.year}`}
                         </Text>
                       </View>
                       <View
@@ -709,7 +709,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
               >
                 {data?.experience?.map((detail, index) => (
                   <View
-                    wrap={false}
+                  
                     key={index}
                     style={{ display: "flex", alignItems: "start", gap: 4 }}
                   >
@@ -849,7 +849,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
               >
                 {data?.skills?.map((detail, index) => (
                   <View
-                    wrap={false}
+                    
                     key={index}
                     style={{
                       display: "flex",

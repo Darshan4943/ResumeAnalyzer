@@ -445,7 +445,7 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
           </View>
           {data?.experience?.length > 0 && (
             <View style={{ display: "flex", flexDirection: "column", gap: 15 }}
-            wrap={data?.experience?.length > 1 ? true : false}
+            // wrap={data?.experience?.length > 1 ? true : false}
            
             >
               <View
@@ -471,7 +471,7 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
               <View style={{ flexDirection: "column", gap: 16 }}>
                 {data?.experience?.map((detail, index) => (
                   <View key={index} style={{ flexDirection: "column", gap: 4, }}
-                  wrap={false}
+                  // wrap={false}
                   
                   >
                     
@@ -513,10 +513,11 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
               </View>
             </View>
           )}
+           {data?.education?.length > 0 && (
           <View
             // wrap={false}
             style={{ display: "flex", flexDirection: "column", gap: 15 }}
-            wrap={data?.education?.length > 1 ? true : false}
+            // wrap={data?.education?.length > 1 ? true : false}
           >
             <View
               style={{
@@ -539,7 +540,13 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
               </Text>
             </View>
             {data?.education?.map((detail, index) => (
-              <View key={index}>
+              <View key={index}
+              wrap={false}
+              style={{
+                gap: 4,
+              }}
+
+              >
                 <Text
                   style={{
                     fontFamily: `${selectedFont} 400`,
@@ -549,7 +556,7 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
                 >
                   {detail.qualification} /{" "}
                   {detail.duration?.start?.year !== "Year" &&
-                    `${detail.duration?.start?.year}-${detail.duration?.end?.year}`}
+                          `${detail.duration?.start?.year}-${detail.duration?.end?.year ==="Year" ? "Pursuing" : detail.duration?.end?.year}`}
                 </Text>
                 <Text
                   style={{
@@ -560,9 +567,19 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
                 >
                   {detail.instituteName}
                 </Text>
+                <Text
+                      style={{
+                        fontFamily: `${selectedFont} 400`,
+                        fontSize: 10,
+                        color: "#6D6E71",
+                      }}
+                    >
+                      {detail.specialization}
+                    </Text>
               </View>
             ))}
           </View>
+        )}
           {data?.course?.length > 0 && (
             <View
               wrap={false}
@@ -616,7 +633,8 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
 
           {data?.section?.map((item, index) => (
             <View
-              wrap={false}
+              // wrap={false}
+              // wrap={data?.section?.length > 1 ? true : false}
               key={index}
               style={{ display: "flex", flexDirection: "column", gap: 15 }}
             >
@@ -642,7 +660,9 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
               </View>
               {item?.subSection?.map((detail, index) => (
                 <>
-                  <View key={index}>
+                  <View key={index}
+                  // wrap={false}
+                  >
                     <Text
                       style={{
                         fontFamily: `${selectedFont} 400`,

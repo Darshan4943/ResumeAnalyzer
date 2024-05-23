@@ -79,7 +79,7 @@ const AboutMe = ({ data, setData }) => {
     }
   };
 
-  console.log(444, isChecked)
+ 
   return (
     <>
       <div

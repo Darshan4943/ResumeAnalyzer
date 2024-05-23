@@ -10,7 +10,7 @@ import {
   Path,
   Rect,
 } from "@react-pdf/renderer";
-function Template30({ data, selectedColor, selectedFont }) {
+function Template30({ data, selectedColor, selectedFont ,preview }) {
   return (
     <Page size="A4" style={{ padding: 24 }}>
       <View style={{ flexDirection: "column", gap: 24, maxWidth: "100%" }}>
@@ -36,7 +36,13 @@ function Template30({ data, selectedColor, selectedFont }) {
           >
             {data.profilePhoto ? (
               <Image
-                src={URL.createObjectURL(data.profilePhoto)}
+              src={
+                preview
+                  ? data.profilePhoto
+                  : Object.keys(data?.profilePhoto).includes("filename")
+                  ? URL.createObjectURL(data.profilePhoto)
+                  : data.profilePhoto
+              }
                 alt=""
                 style={{ width: "153", height: "153", borderRadius: "50%" }}
               />
@@ -54,6 +60,7 @@ function Template30({ data, selectedColor, selectedFont }) {
               gap: 4,
               maxWidth: "40%",
               display: "flex",
+              paddingVertical:'6px'
             }}
           >
             <Text
@@ -219,7 +226,10 @@ function Template30({ data, selectedColor, selectedFont }) {
         </View>
         <View style={{ flexDirection: "row", gap: 24 }}>
           <View style={{ flexDirection: "column", gap: 24, width: 160 }}>
-            <View style={{ flexDirection: "column", gap: 16 }}>
+         {data?.summery?.length > 0 && (
+            <View style={{ flexDirection: "column", gap: 16 }}
+            
+            >
               <View
                 style={{
                   width: "100%",
@@ -251,6 +261,8 @@ function Template30({ data, selectedColor, selectedFont }) {
                 {data.summery}
               </Text>
             </View>
+
+          )} 
             {data?.skills?.length > 0 && (
               <View style={{ flexDirection: "column", gap: 16 }}>
                 <View
@@ -400,7 +412,7 @@ function Template30({ data, selectedColor, selectedFont }) {
             {data?.education?.length > 0 && (
               <View
                 style={{ flexDirection: "column", gap: 16 }}
-                //   wrap={data?.experience?.length > 1 ? true : false}
+                  // wrap={data?.experience?.length > 1 ? true : false}
               >
                 <View style={{ flexDirection: "row", alignItems: "center" }}>
                   <View
@@ -432,6 +444,7 @@ function Template30({ data, selectedColor, selectedFont }) {
                     <View
                       key={index}
                       style={{ display: "flex", alignItems: "start", gap: 4 }}
+                      wrap={false}
                     >
                       <View
                         style={{
@@ -469,8 +482,8 @@ function Template30({ data, selectedColor, selectedFont }) {
                             fontFamily: `${selectedFont} 500`,
                           }}
                         >
-                          {detail.duration?.start?.year}-
-                          {detail.duration?.end?.year}
+                          {detail.duration?.start?.year !== "Year" &&
+                          `${detail.duration?.start?.year}-${detail.duration?.end?.year ==="Year" ? "Pursuing" : detail.duration?.end?.year}`}
                         </Text>
                       </View>
 
@@ -491,8 +504,7 @@ function Template30({ data, selectedColor, selectedFont }) {
 
             {data?.section?.map((item, index) => (
               <View
-                // wrap={false}
-                wrap={data?.section?.length > 1 ? true : false}
+                // wrap={data?.section?.length > 1 ? true : false}
                 key={index}
                 style={{ display: "flex", flexDirection: "column", gap: 15 }}
               >
@@ -523,42 +535,10 @@ function Template30({ data, selectedColor, selectedFont }) {
 
                 {item?.subSection?.map((detail, index) => (
                   <>
-                    {/* <View key={index}>
-                      <Text
-                        style={{
-                          fontFamily: `${selectedFont} 400`,
-                          fontSize: 13,
-                          color: "#2D3033",
-                        }}
-                      >
-                        {detail?.title}{" "}
-                        {detail.duration?.start?.year &&
-                          detail.duration?.end?.year && (
-                            <Text
-                              style={{
-                                fontFamily: `${selectedFont} 400`,
-                                fontSize: 14,
-                                color: "#2D3033",
-                              }}
-                            >
-                              / {detail?.duration?.start?.year}-
-                              {detail?.duration?.end?.year}
-                            </Text>
-                          )}
-                      </Text>
-                      <Text
-                        style={{
-                          fontFamily: `${selectedFont} 400`,
-                          fontSize: 10,
-                          color: "#6D6E71",
-                        }}
-                      >
-                        {detail.description}
-                      </Text>
-                    </View> */}
                      <View
                       key={index}
                       style={{ display: "flex", alignItems: "start", gap: 4 }}
+                      // wrap={false}
                     >
                       <View
                         style={{

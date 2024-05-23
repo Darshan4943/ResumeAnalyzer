@@ -440,6 +440,7 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                         gap: 5,
                         width: "100%",
                       }}
+                      wrap={false}
                     >
                       <View style={{ flexDirection: "row", justifyContent: "space-between", gap: 10 }}>
                         <Text
@@ -465,7 +466,7 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                           }}
                         >
                           {detail.duration?.start?.year !== "Year" &&
-                            `${detail.duration?.start?.year}-${detail.duration?.end?.year}`}
+                          `${detail.duration?.start?.year}-${detail.duration?.end?.year ==="Year" ? "Pursuing" : detail.duration?.end?.year}`}
                         </Text>
                       </View>
                       <Text
