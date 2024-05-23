@@ -196,6 +196,7 @@ const Experience = ({ data, setData }) => {
                   value={experienceData.designation}
                   onChange={handleInputChange}
                   disabled={!isChecked}
+                  maxLength={200}
                 />
               </div>
               {errors.designation && (
@@ -218,6 +219,7 @@ const Experience = ({ data, setData }) => {
                     value={experienceData.organization}
                     onChange={handleInputChange}
                     disabled={!isChecked}
+                    maxLength={200}
                   />
                 </div>
                 {errors.organization && (
@@ -239,6 +241,7 @@ const Experience = ({ data, setData }) => {
                     value={experienceData.location}
                     onChange={handleInputChange}
                     disabled={!isChecked}
+                    maxLength={200}
                   />
                 </div>
                 {errors.location && (

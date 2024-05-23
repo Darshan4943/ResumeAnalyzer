@@ -190,6 +190,7 @@ const Education = ({ setData, data }) => {
                     value={educationData.qualification}
                     onChange={handleInputChangeEducation}
                     disabled={!isChecked}
+                    maxLength={100}
                   />
                 </div>
                 {errors.qualification && (
@@ -211,6 +212,7 @@ const Education = ({ setData, data }) => {
                     value={educationData.specialization}
                     onChange={handleInputChangeEducation}
                     disabled={!isChecked}
+                    maxLength={100}
                   />
                 </div>
                 {errors.specialization && (
@@ -232,6 +234,7 @@ const Education = ({ setData, data }) => {
                     value={educationData.instituteName}
                     onChange={handleInputChangeEducation}
                     disabled={!isChecked}
+                    maxLength={200}
                   />
                 </div>
                 {errors.instituteName && (

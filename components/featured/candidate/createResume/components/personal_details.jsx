@@ -302,6 +302,7 @@ const PersonalDetails = ({
                       value={profileData[item.name]}
                       onChange={handleInputChange}
                       disabled={!isChecked}
+                     
                     />
                   </div>
                 </div>
@@ -321,6 +322,7 @@ const PersonalDetails = ({
                     value={profileData[item.name]}
                     onChange={handleInputChange}
                     disabled={!isChecked}
+                    maxLength={100}
                   />
                 </div>
               )}
