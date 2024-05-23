@@ -38,7 +38,7 @@ function Collection() {
   const [files, setFiles] = useState([]);
   const fileRef = useRef(null);
   const [recall, setRecall] = useReducer((x) => x + 1, 0);
-  console.log(recall);
+ 
 
   const fileToText = (file, pageNumber) => {
     return new Promise((resolve, reject) => {

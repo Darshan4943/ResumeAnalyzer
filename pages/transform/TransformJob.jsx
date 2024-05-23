@@ -28,7 +28,7 @@ function TransformJob() {
   const [errors, setErrors] = useState("");
 
   const [isValid, setIsValid] = useState(false);
-  console.log(31, selected);
+
   const handleChange = (event) => {
     const inputText = event.target.value;
     setText(inputText);
@@ -123,7 +123,7 @@ function TransformJob() {
     }
   };
 
-  console.log(110, count);
+
 
   return (
     <div className=" py-6 flex flex-col gap-2  customMargins">

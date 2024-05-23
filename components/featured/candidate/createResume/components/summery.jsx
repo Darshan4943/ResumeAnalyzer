@@ -38,7 +38,7 @@ function Summary({ limits, selectedPlan, isActive }) {
 
     return percentage.toFixed(2);
   };
-  console.log(progress);
+  
   useEffect(() => {
     const dashOffset = circumference - (progress / 100) * circumference;
 

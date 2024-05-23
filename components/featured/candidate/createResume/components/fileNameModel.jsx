@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 const FileNameModel = ({ setNamePreview, setFunction, data, clientId }) => {
   const [name, setName] = useState(data.firstName + "_resume");
   const [existingNames, setExistingNames] = useState([]);
-  console.log(8, existingNames);
+
   const [error, setError] = useState("");
 
 

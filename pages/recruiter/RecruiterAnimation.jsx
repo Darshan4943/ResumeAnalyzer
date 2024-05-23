@@ -84,7 +84,7 @@ function RecruiterAnimation({ showAnimationn }) {
       };
     }
   }, [showAnimationn]);
-  console.log(81, slideCollab);
+
 
   return (
     <div className="customMargins ">

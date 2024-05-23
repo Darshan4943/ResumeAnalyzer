@@ -17,7 +17,7 @@ function ActivePlans() {
   const [selectedCandidate, setSelectedCandidate] = useState([]);
   const [totalCount, setTotalCount] = useState(0);
 
-  console.log(14141414, data)
+ 
 
 
 

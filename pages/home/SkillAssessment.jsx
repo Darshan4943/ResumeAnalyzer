@@ -71,7 +71,7 @@ function SkillAssessment() {
     // { question: 9, isSkiped: true, Answer: "" },
     // { question: 10, isSkiped: true, Answer: "" },
   ]);
-  console.log(66699, toggle);
+
   useEffect(() => {
     setSkippedArray(fillArray());
   }, [assesmentType]);
@@ -86,7 +86,7 @@ function SkillAssessment() {
     return array;
   };
 
-  console.log(833, skippedArray);
+
 
   const [uniqueQuestions, setUniqueQuestions] = useState([]);
 

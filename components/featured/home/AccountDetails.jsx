@@ -32,7 +32,7 @@ function AccountDetails({
   const [sessionId, setSessionId] = useState("");
   const [payment_status, setPaymentStatus] = useState(null);
 
-  console.log(payment_status);
+ 
 
   useEffect(() => {
     const exchangeRate = localStorage.getItem("exchangeRate");

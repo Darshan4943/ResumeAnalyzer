@@ -24,7 +24,7 @@ const Rightform = ({
   const router = useRouter();
   const [skills, setSkills] = useState(SkillList);
   const [skillText, setSkillText] = useState("");
-  console.log(formError);
+
 
   const postJob = () => {
     let hasError = false;

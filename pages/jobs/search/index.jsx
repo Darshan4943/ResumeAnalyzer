@@ -52,7 +52,7 @@ const Index = () => {
   const jobFilter = () => {
     return jobs;
   };
-  console.log(jobFilter());
+
   return (
     <>
       {loading && <EarthLoader />}

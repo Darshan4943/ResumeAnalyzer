@@ -110,7 +110,7 @@ const Education = ({ setData, data }) => {
     setEditingIndex(index);
     handleEditEducation(index);
   };
-  console.log(777, isPursuingChecked);
+ 
   return (
     <>
       <div

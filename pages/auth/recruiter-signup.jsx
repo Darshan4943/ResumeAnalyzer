@@ -15,7 +15,7 @@ import MiniLoader from "../../components/common/mini-loader";
 function Recruiter_signup({}) {
   const router = useRouter();
   const { byAdmin, isUpdate } = router.query;
-  console.log(18, isUpdate);
+ 
   const userDataGlobal = useSelector((state) => state.userData);
 
   const dispatch = useDispatch();
@@ -47,7 +47,7 @@ function Recruiter_signup({}) {
     dial_code: "+260",
     img: null,
   });
-  console.log(data);
+ 
   const [file, setFile] = useState(null);
 
   const fileRef = useRef(null);
