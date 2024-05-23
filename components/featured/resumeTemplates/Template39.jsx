@@ -194,7 +194,7 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
                 gap: 24,
                 width: "100%",
               }}
-              wrap={data?.education?.length > 1 ? true : false}
+              // wrap={data?.education?.length > 1 ? true : false}
             >
               <Text
                 style={{
@@ -213,7 +213,7 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
                   <>
                     <View
                       // wrap={true}
-                      // wrap={false}
+                      wrap={false}
                       key={index}
                       style={{
                         display: "flex",
@@ -615,7 +615,7 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
                 <View
                   key={index}
                   style={{ flexDirection: "column", gap: '8px' }}
-                  wrap={false}
+                  // wrap={false}
                 >
                   <View>
                     <Text
@@ -684,7 +684,7 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
           {data?.section?.map((item, index) => (
             <View
               key={index}
-              wrap={false}
+              // wrap={false}
               style={{
                 display: "flex",
                 flexDirection: "column",
@@ -705,7 +705,7 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
               <View style={{ flexDirection: "column", gap: "8px" }}>
                 {item?.subSection?.map((detail, index) => (
                   <View
-                    wrap={false}
+                    // wrap={false}
                     key={index}
                     style={{
                       flexDirection: "column",

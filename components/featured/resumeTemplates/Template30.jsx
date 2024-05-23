@@ -406,7 +406,7 @@ function Template30({ data, selectedColor, selectedFont }) {
             {data?.education?.length > 0 && (
               <View
                 style={{ flexDirection: "column", gap: 16 }}
-                  wrap={data?.experience?.length > 1 ? true : false}
+                  // wrap={data?.experience?.length > 1 ? true : false}
               >
                 <View style={{ flexDirection: "row", alignItems: "center" }}>
                   <View
@@ -498,7 +498,7 @@ function Template30({ data, selectedColor, selectedFont }) {
 
             {data?.section?.map((item, index) => (
               <View
-                wrap={data?.section?.length > 1 ? true : false}
+                // wrap={data?.section?.length > 1 ? true : false}
                 key={index}
                 style={{ display: "flex", flexDirection: "column", gap: 15 }}
               >
@@ -532,7 +532,7 @@ function Template30({ data, selectedColor, selectedFont }) {
                      <View
                       key={index}
                       style={{ display: "flex", alignItems: "start", gap: 4 }}
-                      wrap={false}
+                      // wrap={false}
                     >
                       <View
                         style={{

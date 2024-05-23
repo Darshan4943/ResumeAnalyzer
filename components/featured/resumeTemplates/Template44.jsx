@@ -445,7 +445,7 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
           </View>
           {data?.experience?.length > 0 && (
             <View style={{ display: "flex", flexDirection: "column", gap: 15 }}
-            wrap={data?.experience?.length > 1 ? true : false}
+            // wrap={data?.experience?.length > 1 ? true : false}
            
             >
               <View
@@ -471,7 +471,7 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
               <View style={{ flexDirection: "column", gap: 16 }}>
                 {data?.experience?.map((detail, index) => (
                   <View key={index} style={{ flexDirection: "column", gap: 4, }}
-                  wrap={false}
+                  // wrap={false}
                   
                   >
                     
@@ -517,7 +517,7 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
           <View
             // wrap={false}
             style={{ display: "flex", flexDirection: "column", gap: 15 }}
-            wrap={data?.education?.length > 1 ? true : false}
+            // wrap={data?.education?.length > 1 ? true : false}
           >
             <View
               style={{
@@ -634,7 +634,7 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
           {data?.section?.map((item, index) => (
             <View
               // wrap={false}
-              wrap={data?.section?.length > 1 ? true : false}
+              // wrap={data?.section?.length > 1 ? true : false}
               key={index}
               style={{ display: "flex", flexDirection: "column", gap: 15 }}
             >
@@ -661,7 +661,7 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
               {item?.subSection?.map((detail, index) => (
                 <>
                   <View key={index}
-                  wrap={false}
+                  // wrap={false}
                   >
                     <Text
                       style={{

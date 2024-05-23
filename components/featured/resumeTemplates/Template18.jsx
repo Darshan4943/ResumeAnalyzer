@@ -786,7 +786,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                 gap: 16,
                 width: "90%",
               }}
-              wrap={data?.education?.length > 1 ? true : false}
+              // wrap={data?.education?.length > 1 ? true : false}
             >
               <View style={{ display: "flex", flexDirection: "row", gap: 6,paddingLeft:'22px'  }}>
                 <Svg
@@ -933,7 +933,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
             </View>
 
             <View style={{ flexDirection: "column", gap: "8px" ,}}
-            wrap={data?.section?.length > 1 ? true : false}
+            // wrap={data?.section?.length > 1 ? true : false}
             >
               {data.section?.map((item, index) => (
                 <View
@@ -982,7 +982,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                   >
                     {item.subSection?.map((detail, index) => (
                       <View
-                        wrap={false}
+                        // wrap={false}
                         key={index}
                         style={{
                           display: "flex",

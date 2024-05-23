@@ -740,7 +740,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                 {data?.experience?.map((detail, index) => (
                   <>
                     <View
-                      wrap={true}
+                      // wrap={true}
                       // wrap={false}
                       key={index}
                       style={{ display: "flex", flexDirection: "row", gap: 16 }}
@@ -816,7 +816,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
           {data?.section?.map((item, index) => (
             <View
               // wrap={false}
-              wrap={true}
+              // wrap={true}
               key={index}
               style={{
                 display: "flex",
@@ -895,7 +895,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                   ></View>
                 </View>
                 <View
-                  wrap={false}
+                  // wrap={false}
                   style={{
                     display: "flex",
                     flexDirection: "column",

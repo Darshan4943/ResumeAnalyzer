@@ -440,6 +440,7 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                         gap: 5,
                         width: "100%",
                       }}
+                      wrap={false}
                     >
                       <View style={{ flexDirection: "row", justifyContent: "space-between", gap: 10 }}>
                         <Text

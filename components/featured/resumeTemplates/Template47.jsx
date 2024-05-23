@@ -122,7 +122,7 @@ const Template47 = ({ data, selectedColor, selectedFont, preview }) => {
                             <View style={{ display: "flex", flexDirection: "column", gap: 16 }}>
                                 {data?.experience?.map((detail, index) => (
                                     <View
-                                        wrap={false}
+                                        // wrap={false}
                                         key={index}
                                         style={{ display: "flex", flexDirection: "column", }}>
                                         <View style={{ display: "flex", flexDirection: "row", gap: 12 }}>
@@ -184,7 +184,7 @@ const Template47 = ({ data, selectedColor, selectedFont, preview }) => {
 
                     {data?.section?.map((item, index) => (
                         <View
-                        wrap={false}
+                        // wrap={false}
                             key={index}
                             style={{ display: "flex", flexDirection: "column", gap: 12 }}
                         >
@@ -204,7 +204,9 @@ const Template47 = ({ data, selectedColor, selectedFont, preview }) => {
                             </View>
 
                             {item?.subSection?.map((detail, index) => (
-                                <View key={index} wrap={false} style={{
+                                <View key={index} 
+                                // wrap={false}
+                                 style={{
                                     flexDirection: "column",
 
                                     alignItems: "center",
