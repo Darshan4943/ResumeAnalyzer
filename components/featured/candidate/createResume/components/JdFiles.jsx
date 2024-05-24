@@ -15,7 +15,6 @@ function JdFiles({
   setSelectedIndexesFilesType,
   selectedIndexesFileTypes,
 }) {
- 
   const router = useRouter();
   const [selectAll, setSelectAll] = useState(false);
   const { clientId, name } = query;
@@ -82,7 +81,7 @@ function JdFiles({
       );
     }
   };
- 
+
   function getAllFiles(obj) {
     let files = [];
 
@@ -117,30 +116,30 @@ function JdFiles({
     }
   };
 
-
   const toggleSelect = (itemId, item) => {
     const fileType = [
       ...getAllFiles(item)
         .filter((data) => data.type === "file")
         .map((item) => item._id),
     ];
-  
+
     let NewUpdatedIndexes;
-  
+
     if (selectedIndexesFileTypes.some((id) => fileType.includes(id))) {
-      
-      NewUpdatedIndexes = selectedIndexesFileTypes.filter((id) => !fileType.includes(id));
+      NewUpdatedIndexes = selectedIndexesFileTypes.filter(
+        (id) => !fileType.includes(id)
+      );
     } else {
-      
       NewUpdatedIndexes = [...selectedIndexesFileTypes, ...fileType];
     }
-  
-   
-    localStorage.setItem("selectedIndexesFileType", JSON.stringify(NewUpdatedIndexes));
-    
-    
+
+    localStorage.setItem(
+      "selectedIndexesFileType",
+      JSON.stringify(NewUpdatedIndexes)
+    );
+
     setSelectedIndexesFilesType(NewUpdatedIndexes);
-    
+
     const ids = [...getAllFiles(item).map((item) => item._id)];
     let updatedIndexes;
 
@@ -149,7 +148,7 @@ function JdFiles({
     } else {
       updatedIndexes = [...selectedIndexes, ...ids];
     }
-   
+
     localStorage.setItem("selectedIndexes", JSON.stringify(updatedIndexes));
 
     setSelectedIndexes(updatedIndexes);

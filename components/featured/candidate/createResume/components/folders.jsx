@@ -721,7 +721,7 @@ function Folders({
                     </p>
                   ) : (
                     <p className="text-[14px] font-[500]  text-center px-8">
-                      Are you sure you want delete this selection?
+                      Are you sure you want to delete this selection?
                     </p>
                   )}
                 </div>

@@ -28,6 +28,7 @@ export const Api = () => {
 
   // console.log(25,timezone)
   const reCallUser = useSelector((state) => state.reCallUser);
+
   useEffect(() => {
     if (userDataGlobal?.tempPassword?.length > 0) {
       const timer = setTimeout(() => {
@@ -38,6 +39,7 @@ export const Api = () => {
       return () => clearTimeout(timer);
     }
   }, [userDataGlobal]);
+
   useEffect(() => {
     if (typeof window !== "undefined") {
       const token = JSON.parse(localStorage.getItem("authToken"));
@@ -266,6 +268,30 @@ export const Api = () => {
     getLocation();
   }, []);
   // console.log(123,visible && loading == false);
+
+  const getFolderData = async () => {
+    console.log("userId", userDataGlobal);
+    if (userDataGlobal) {
+      axios
+        .get(`http://localhost:2000/api/folder/get/${userDataGlobal._id}`)
+        .then((res) => {
+          // setFolderList(res.data.data);
+          console.log("new uploaded data", res.data.data);
+          setTimeout(() => {
+            setLoading(false);
+          }, 1000);
+        })
+        .catch((err) => {
+          setLoading(false);
+          console.log(err);
+        });
+    }
+  };
+
+  useEffect(() => {
+    getFolderData();
+  }, [userDataGlobal]);
+
   return (
     <>
       {enablePopup && (

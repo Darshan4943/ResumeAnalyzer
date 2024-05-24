@@ -58,6 +58,8 @@ const JobMatching = () => {
       setTab(1);
 
       if (parentId) {
+        console.log(1111, parentId);
+        localStorage.setItem("parentId", parentId);
         setParentId(parentId);
         getParentData(parentId);
       } else {
