@@ -17,13 +17,9 @@ function ActivePlans() {
   const [selectedCandidate, setSelectedCandidate] = useState([]);
   const [totalCount, setTotalCount] = useState(0);
 
- 
-
-
-
   const getData = () => {
     axios
-      .get('https://jamblix.com/api/activeSubscription', {
+      .get("https://jamblix.com/api/activeSubscription", {
         params: { page: currentPage, limit },
       })
       .then((res) => {
@@ -60,7 +56,6 @@ function ActivePlans() {
           <span className="text-[24px] text-[#333333] font-semibold">
             Active List
           </span>
-
         </div>
         <div
           className="min-h-[65vh]  rounded-[16px] customMargins flex flex-col gap-[16px] py-[24px] w-full "
@@ -70,7 +65,6 @@ function ActivePlans() {
             <span className="text-[18px] text-[#333333] font-medium">
               Total Active - {data.length}
               {/* Total Recruiters - {data.users ? data.users.results.length : 0} */}
-
             </span>
             <div className="rounded-[30px] py-2 px-3 flex gap-2 bg-[#E9EEF6] w-[336px]  items-center h-[40px] sm:min-w-[138px] min-w-[60%]  ">
               <svg
@@ -120,7 +114,7 @@ function ActivePlans() {
         </div>
       </div>
     </>
-  )
+  );
 }
 
-export default ActivePlans
+export default ActivePlans;

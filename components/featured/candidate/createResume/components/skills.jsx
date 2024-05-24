@@ -185,8 +185,6 @@
 
 // export default Skills;
 
-
-
 import React, { useEffect, useState } from "react";
 import CreatableSelect from "react-select/creatable";
 import { useSelector } from "react-redux";
@@ -235,7 +233,9 @@ const Skills = ({ data, setData }) => {
       return skill.rating.map((rating, index) => (
         <img
           key={`star_${index}`}
-          src={rating ? "/images/services/Star.png" : "/images/services/Star1.png"}
+          src={
+            rating ? "/images/services/Star.png" : "/images/services/Star1.png"
+          }
           alt=""
           className="h-[30px] w-[30px]"
           onClick={() => handleStarClick(skillIndex, index)}
@@ -246,10 +246,9 @@ const Skills = ({ data, setData }) => {
     }
   };
 
-
   useEffect(() => {
     axios
-      .get("https://jamblix.com/api/AllSkills")
+      .get("https://jamblix.com/api/allskills")
       .then((res) => {
         const names = res.data.map((skill) => skill.name);
         const uniqueNames = Array.from(new Set(names));
@@ -263,16 +262,17 @@ const Skills = ({ data, setData }) => {
   const handleChange = async (value) => {
     const newSkill = { skill: value.label, rating: initialRatings };
     setSkillList((prevSkillList) => {
-   
-      const isSkillAlreadyAdded = prevSkillList.some((item) => item.skill === value.label);
-      
+      const isSkillAlreadyAdded = prevSkillList.some(
+        (item) => item.skill === value.label
+      );
+
       if (!isSkillAlreadyAdded) {
         return [...prevSkillList, newSkill];
       }
       return prevSkillList;
     });
-  
-    const found = skills.includes(value.label); 
+
+    const found = skills.includes(value.label);
     if (!found) {
       try {
         const response = await fetch("https://jamblix.com/api/skills", {
@@ -282,11 +282,11 @@ const Skills = ({ data, setData }) => {
           },
           body: JSON.stringify({ name: value.label }),
         });
-  
+
         if (response.ok) {
           setSaveDisabled(false);
-          setSkills([...skills, value.label]); 
-          
+          setSkills([...skills, value.label]);
+
           setIsClearable(newSkill);
         } else {
           console.error("Failed to add skill:", response.statusText);
@@ -302,7 +302,7 @@ const Skills = ({ data, setData }) => {
     }
     setSaveDisabled(false);
   };
-  
+
   const saveHandler = () => {
     setData({ ...data, skills: skillList });
     setSaveDisabled(true);
@@ -310,23 +310,37 @@ const Skills = ({ data, setData }) => {
   };
 
   return (
-    <div className="flex flex-col p-4 gap-2 rounded-lg bg-white" style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}>
+    <div
+      className="flex flex-col p-4 gap-2 rounded-lg bg-white"
+      style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}
+    >
       <div className="flex flex-col gap-2 w-full">
-        <div className="w-full text-[20px] font-montserrat font-medium">Skills & Ratings</div>
-        <div className="flex flex-col scr420:gap-4 gap-6">
-          {skillList && Array.isArray(skillList) && skillList.map((skill, index) => (
-            <div key={index} className="flex w-full scr420:gap-4 gap-1 scr420:flex-row flex-col justify-between">
-              <div className="flex w-[50%] gap-1 px-3 py-2 border border-[#06A9EF] overflow-hidden rounded-[24px] justify-between items-center">
-                <p className="text-[14px] flex-wrap w-[45%] brack-all w-full font-medium">{skill?.skill}</p>
-                <div className="" onClick={() => deleteSkill(index)}>
-                  <Close_svg height={16} width={16} />
-                </div>
-              </div>
-              <div className="flex w-50%">{renderStars(index)}</div>
-            </div>
-          ))}
+        <div className="w-full text-[20px] font-montserrat font-medium">
+          Skills & Ratings
         </div>
-        <div className="w-full text-[14px] font-montserrat font-small">List your skills and strengths</div>
+        <div className="flex flex-col scr420:gap-4 gap-6">
+          {skillList &&
+            Array.isArray(skillList) &&
+            skillList.map((skill, index) => (
+              <div
+                key={index}
+                className="flex w-full scr420:gap-4 gap-1 scr420:flex-row flex-col justify-between"
+              >
+                <div className="flex w-[50%] gap-1 px-3 py-2 border border-[#06A9EF] overflow-hidden rounded-[24px] justify-between items-center">
+                  <p className="text-[14px] flex-wrap w-[45%] brack-all w-full font-medium">
+                    {skill?.skill}
+                  </p>
+                  <div className="" onClick={() => deleteSkill(index)}>
+                    <Close_svg height={16} width={16} />
+                  </div>
+                </div>
+                <div className="flex w-50%">{renderStars(index)}</div>
+              </div>
+            ))}
+        </div>
+        <div className="w-full text-[14px] font-montserrat font-small">
+          List your skills and strengths
+        </div>
         <CreatableSelect
           options={skills.map((item) => ({ value: item, label: item }))}
           className="w-full"
@@ -334,7 +348,6 @@ const Skills = ({ data, setData }) => {
           value={isClearable}
         />
         {/* {skillerror && <span className="text-[red] text-[12px]">{skillerror}</span>} */}
-     
 
         <div className="flex justify-end">
           <div className="flex justify-between py-2 gap-2">

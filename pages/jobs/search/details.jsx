@@ -12,7 +12,6 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 const Details = ({ data, setJd, files, extractedData, resume }) => {
-
   const [loading, setLoading] = useState(true);
   const userDataGlobal = useSelector((state) => state.userData);
   const [isApplied, setIsApplied] = useState(true);
