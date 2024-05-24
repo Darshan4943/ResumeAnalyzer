@@ -344,7 +344,7 @@ const ResumePreview = ({
           );
       default:
         return (
-          <Template30
+          <Template1
             data={data}
             selectedColor={selectedColor}
             selectedFont={selectedFont}

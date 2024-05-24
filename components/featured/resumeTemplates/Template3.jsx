@@ -617,7 +617,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                         gap: 8,
                         width: "100%",
                         justifyContent: "space-between",
-                        alignItems: "center",
+                        alignItems: "start",
                       }}
                     >
                       <Text
