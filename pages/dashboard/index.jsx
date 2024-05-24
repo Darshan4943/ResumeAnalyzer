@@ -58,7 +58,7 @@ function Dashboard() {
     },
     {
       name: "My Collection",
-      imgSrc: "/images/resumeBuilder/collechttps://jamblix.comMy Purchases",
+      imgSrc: "/images/resumeBuilder/collechttp://localhost:2000My Purchases",
       imgSrc: "/images/resumeBuilder/my_purchases.png",
     },
     { name: "Post Jobs", imgSrc: "/images/resumeBuilder/job.png" },
@@ -131,7 +131,7 @@ function Dashboard() {
 
     if (userDataGlobal) {
       axios
-        .get("https://jamblix.com/api/subscription/" + userDataGlobal._id)
+        .get("http://localhost:2000/api/subscription/" + userDataGlobal._id)
         .then((res) => {
           const plan = plans.find(
             (item) =>

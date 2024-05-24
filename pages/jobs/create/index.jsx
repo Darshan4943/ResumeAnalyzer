@@ -36,7 +36,7 @@ const Index = () => {
   const getData = () => {
     setLoading(true);
     axios
-      .get("https://jamblix.com/api/job/getById/" + id)
+      .get("http://localhost:2000/api/job/getById/" + id)
       .then((res) => {
         setLoading(false);
         const {

@@ -33,7 +33,7 @@ function Main_sign_page() {
       const sendToPurchaseResult = JSON.parse(sendToPurchase);
       axios
         .post(
-          "https://jamblix.com/api/skiloteckuser/user/google/signup",
+          "http://localhost:2000/api/skiloteckuser/user/google/signup",
           userData
         )
         .then((res) => {
