@@ -14,11 +14,13 @@ import { pdfjs } from "react-pdf";
 import Docxtemplater from "docxtemplater";
 import { resolve } from "styled-jsx/css";
 import MiniLoader from "../../components/common/miniLoader";
+import { recallUser } from "../../Redux/reducers/userReducer";
 pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
 
 function Collection() {
   const router = useRouter();
   const { clients, folders, clientId, parentId, trash } = router.query;
+  const dispatch = useDispatch();
   const userDataGlobal = useSelector((state) => state.userData);
   const [rename, setRename] = useState(null);
   const [isCreate, setIsCreate] = useState(false);
@@ -38,7 +40,6 @@ function Collection() {
   const [files, setFiles] = useState([]);
   const fileRef = useRef(null);
   const [recall, setRecall] = useReducer((x) => x + 1, 0);
- 
 
   const fileToText = (file, pageNumber) => {
     return new Promise((resolve, reject) => {
@@ -70,6 +71,7 @@ function Collection() {
       if (parentId) {
         setParentId(parentId);
         getParentData(parentId);
+        // dispatch(recallUser())
       } else {
         getFolderData();
       }
@@ -100,6 +102,7 @@ function Collection() {
       .get(`https://freedygoservices.in/api/folder/getByParentId/${parentId}`)
       .then((res) => {
         setFolderList(res.data.data);
+        console.log("parentData", res.data.data);
         setTimeout(() => {
           setLoading(false);
         }, 1000);
@@ -127,6 +130,7 @@ function Collection() {
       .get(`https://freedygoservices.in/api/folder/get/${userDataGlobal._id}`)
       .then((res) => {
         setFolderList(res.data.data);
+        console.log(111, res.data.data);
         setTimeout(() => {
           setLoading(false);
         }, 1000);
@@ -162,6 +166,7 @@ function Collection() {
       )
       .then((res) => {
         setFolderList(res.data.data);
+        console.log(1111, res.data.data);
         setTimeout(() => {
           setLoading(false);
         }, 1000);
@@ -200,6 +205,7 @@ function Collection() {
     );
     return data.data;
   };
+
   const parseData = () => {
     return new Promise((resolve, reject) => {
       const textData = [];
@@ -245,45 +251,90 @@ function Collection() {
       }, 1000);
     });
   };
+
+  // const addFiles = async () => {
+  //   setFileLoader(true);
+  //   if (Object.keys(files).length == 0) {
+  //     toast.error("No File Selected");
+  //     setFileLoader(false);
+
+  //     return;
+  //   }
+
+  //   const formData = new FormData();
+
+  //   parseData().then(async (data) => {
+  //     const extractedData = await data;
+  //     formData.append("fileName", folderName);
+  //     formData.append("type", "file");
+  //     formData.append("userId", userDataGlobal._id);
+  //     formData.append("extractedData", JSON.stringify(extractedData));
+  //     Object.values(files).map(async (file, index) => {
+  //       formData.append("files", file);
+  //       return;
+  //     });
+  //     console.log("data", formData);
+  //     formData.append("parentId", ParentId ? ParentId : undefined);
+  //     axios
+  //       .post("https://freedygoservices.in/api/folder/addFiles", formData)
+  //       .then((res) => {
+  //         setFolderName("Untitled folder");
+  //         toast.success("File Uploaded successfully");
+  //         setTimeout(() => {
+  //           setFileLoader(false);
+  //           setIsCreateFolder(false);
+  //           getData();
+  //         }, 1000);
+  //         setFiles([]);
+  //       })
+  //       .catch((err) => {
+  //         setFileLoader(false);
+  //         toast.error("Something went wrong");
+  //       });
+  //   });
+  // };
+
   const addFiles = async () => {
     setFileLoader(true);
-    if (Object.keys(files).length == 0) {
+    if (Object.keys(files).length === 0) {
       toast.error("No File Selected");
       setFileLoader(false);
-
       return;
     }
 
     const formData = new FormData();
-
-    parseData().then(async (data) => {
-      const extractedData = await textExtractor(data);
+    try {
+      const data = await parseData();
       formData.append("fileName", folderName);
       formData.append("type", "file");
       formData.append("userId", userDataGlobal._id);
-      formData.append("extractedData", JSON.stringify(extractedData));
-      Object.values(files).map(async (file, index) => {
+      formData.append("extractedData", data);
+      formData.append("isSync", false);
+      Object.values(files).forEach((file) => {
         formData.append("files", file);
-        return;
       });
+
       formData.append("parentId", ParentId ? ParentId : undefined);
-      axios
-        .post("https://freedygoservices.in/api/folder/addFiles", formData)
-        .then((res) => {
-          setFolderName("Untitled folder");
-          toast.success("File Uploaded successfully");
-          setTimeout(() => {
-            setFileLoader(false);
-            setIsCreateFolder(false);
-            getData();
-          }, 1000);
-          setFiles([]);
-        })
-        .catch((err) => {
-          setFileLoader(false);
-          toast.error("Something went wrong");
-        });
-    });
+
+      const response = await axios.post(
+        "http://localhost:2000/api/folder/addTextFiles",
+        formData
+      );
+
+      console.log(66, response.data);
+      setFolderName("Untitled folder");
+      toast.success("File Uploaded successfully");
+      setTimeout(() => {
+        setFileLoader(false);
+        setIsCreateFolder(false);
+        getData();
+      }, 1000);
+      setFiles([]);
+    } catch (error) {
+      setFileLoader(false);
+      toast.error("Something went wrong");
+      console.error(error);
+    }
   };
 
   const handleButtonClick = () => {
@@ -485,7 +536,7 @@ function Collection() {
                   style={{
                     opacity:
                       fileLoader ||
-                        (isFile ? Object.values(files).length === 0 : !folderName)
+                      (isFile ? Object.values(files).length === 0 : !folderName)
                         ? 0.5
                         : 1,
                   }}
@@ -601,8 +652,9 @@ function Collection() {
                   onClick={() => {
                     router.push("/collection?clients=true");
                   }}
-                  className={`rounded-[30px] sm:text-[14px] text-[12px] font-semibold scr900:px-6 sm:px-4 px-2  py-2 flex gap-2 ml:justify-start justify-center items-center ml:min-w-full sm:min-w-[30%] min-w-[110px] ${tab === 0 && "bg-[#C2E7FF]"
-                    }   `}
+                  className={`rounded-[30px] sm:text-[14px] text-[12px] font-semibold scr900:px-6 sm:px-4 px-2  py-2 flex gap-2 ml:justify-start justify-center items-center ml:min-w-full sm:min-w-[30%] min-w-[110px] ${
+                    tab === 0 && "bg-[#C2E7FF]"
+                  }   `}
                 >
                   <svg
                     width="20"
@@ -626,8 +678,9 @@ function Collection() {
                     // setTabIndex(0);
                     router.push("/collection?folders=true");
                   }}
-                  className={`rounded-[30px] sm:text-[14px] text-[12px] font-semibold scr900:px-6 sm:px-4 px-2 py-2 flex gap-2 ml:justify-start justify-center items-center ml:min-w-full sm:min-w-[30%] min-w-[110px]   ${tab === 1 && "bg-[#C2E7FF]"
-                    }  `}
+                  className={`rounded-[30px] sm:text-[14px] text-[12px] font-semibold scr900:px-6 sm:px-4 px-2 py-2 flex gap-2 ml:justify-start justify-center items-center ml:min-w-full sm:min-w-[30%] min-w-[110px]   ${
+                    tab === 1 && "bg-[#C2E7FF]"
+                  }  `}
                 >
                   <svg
                     width="20"
@@ -649,8 +702,9 @@ function Collection() {
                   onClick={() => {
                     router.push("/collection?trash=true");
                   }}
-                  className={`rounded-[30px] sm:text-[14px] text-[12px] font-semibold scr900:px-6 sm:px-4 px-2 py-2 flex gap-2 ml:justify-start justify-center items-center ml:min-w-full sm:min-w-[30%] min-w-[80px]  ${tab === 2 && "bg-[#C2E7FF]"
-                    }  `}
+                  className={`rounded-[30px] sm:text-[14px] text-[12px] font-semibold scr900:px-6 sm:px-4 px-2 py-2 flex gap-2 ml:justify-start justify-center items-center ml:min-w-full sm:min-w-[30%] min-w-[80px]  ${
+                    tab === 2 && "bg-[#C2E7FF]"
+                  }  `}
                 >
                   <svg
                     width="20"

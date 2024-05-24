@@ -53,13 +53,13 @@ const JobMatching = () => {
     fileRef.current.click();
   };
 
-
-  
   useEffect(() => {
     if (selectedOptions.value === "My Collection") {
       setTab(1);
 
       if (parentId) {
+        console.log(1111, parentId);
+        localStorage.setItem("parentId", parentId);
         setParentId(parentId);
         getParentData(parentId);
       } else {
@@ -75,8 +75,10 @@ const JobMatching = () => {
       }
     }
     const storedIndexes = localStorage.getItem("selectedIndexes");
-    const storedIndexesFileType = localStorage.getItem("selectedIndexesFileType");
-    
+    const storedIndexesFileType = localStorage.getItem(
+      "selectedIndexesFileType"
+    );
+
     if (storedIndexesFileType) {
       setSelectedIndexesFilesType(JSON.parse(storedIndexesFileType));
     }
