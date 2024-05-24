@@ -27,7 +27,6 @@ const DateSelector = ({
   };
 
   const handleStartYearChange = (e) => {
-  
     const value = e.target.value;
     if (value) {
       dataSeter({
@@ -52,7 +51,6 @@ const DateSelector = ({
   };
 
   const handleEndYearChange = (e) => {
-   
     dataSeter({
       ...data,
       duration: {
@@ -163,7 +161,6 @@ const DateSelector = ({
                 </option>
               ))}
             </select>
-            {isError && <span style={{ color: "red" }}>isError</span>}
 
             <img
               src="/images/down_arrow.png"
