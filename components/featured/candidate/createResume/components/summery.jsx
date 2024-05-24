@@ -38,7 +38,7 @@ function Summary({ limits, selectedPlan, isActive }) {
 
     return percentage.toFixed(2);
   };
-  console.log(progress);
+  
   useEffect(() => {
     const dashOffset = circumference - (progress / 100) * circumference;
 
@@ -50,7 +50,9 @@ function Summary({ limits, selectedPlan, isActive }) {
   useEffect(() => {
     if (userDataGlobal) {
       axios
-        .get("https://freedygoservices.in/api/subscription/" + userDataGlobal._id)
+        .get(
+          "https://jamblix.com/api/subscription/" + userDataGlobal._id
+        )
         .then((res) => {
           setSubscription(res.data.findIsActive);
           setPlan(
@@ -80,7 +82,9 @@ function Summary({ limits, selectedPlan, isActive }) {
   useEffect(() => {
     if (userDataGlobal) {
       axios
-        .get("https://freedygoservices.in/api/subscription/" + userDataGlobal._id)
+        .get(
+          "https://jamblix.com/api/subscription/" + userDataGlobal._id
+        )
         .then((res) => {
           const result = res.data.findIsActive;
 
@@ -159,12 +163,12 @@ function Summary({ limits, selectedPlan, isActive }) {
                   {" "}
                   {subscription?.inReview ? (
                     <>
-                     <div className="flex flex-row gap-2 w-full items-center justify-center">
-                              <p className="text-[2.5vw] font-[700]">{icon}</p>
-                              <p className="text-[2.5vw] font-[700]">
-                                {Math.ceil(plan.amount * exchangeRate)}
-                              </p>
-                            </div>
+                      <div className="flex flex-row gap-2 w-full items-center justify-center">
+                        <p className="text-[2.5vw] font-[700]">{icon}</p>
+                        <p className="text-[2.5vw] font-[700]">
+                          {Math.ceil(plan?.amount * exchangeRate)}
+                        </p>
+                      </div>
                       <div
                         className={`flex px-6 py-2  mt-5 text-[#bebebe]  bg-[#E9EEF6]
                       font-medium justify-center items-center rounded-[6px]  min-w-[168.8px] cursor-pointer`}
@@ -176,11 +180,11 @@ function Summary({ limits, selectedPlan, isActive }) {
                     <>
                       {" "}
                       <div className="flex flex-row gap-2 w-full items-center justify-center">
-                              <p className="text-[2vw] font-[700]">{icon}</p>
-                              <p className="text-[2vw] font-[700]">
-                                {Math.ceil(plan.amount * exchangeRate)}
-                              </p>
-                            </div>
+                        <p className="text-[2vw] font-[700]">{icon}</p>
+                        <p className="text-[2vw] font-[700]">
+                          {Math.ceil(plan?.amount * exchangeRate)}
+                        </p>
+                      </div>
                       <p className="text-[12px] font-medium">
                         Your Plan Validity is {plan?.days} Days
                       </p>

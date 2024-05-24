@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import DateSelector from "../../../../common/dateSelector";
 import { Delete_icon, Edit_icon } from "../../../../../utils/svg";
 
-const Course = ({ data, setData }) => {
+const Course = ({ data, setData,course, setCourse}) => {
   const [isChecked, setIsChecked] = useState(true);
-  const [view, setView] = useState(false);
+  // const [view, setView] = useState(false);
   const [isModified, setIsModified] = useState({ status: false, index: 0 });
   const [courseData, setCourseData] = useState({
     courseName: "",
@@ -32,7 +32,7 @@ const Course = ({ data, setData }) => {
         ...data,
         course: [courseData, ...data.course],
       });
-      setView(false);
+  
     }
     setIsModified({ status: false, index: 0 })
     setCourseData({
@@ -68,29 +68,34 @@ const Course = ({ data, setData }) => {
       course: data.course.filter((item, i) => i !== index),
     });
   };
+
+
   return (
     <>
-      <div
+
+        
+
+        {data?.course?.map((course, index) => (
+          <>
+                <div
         className="flex flex-col p-4 gap-2 rounded-lg bg-white"
         style={{
           boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)",
           opacity: isChecked ? 1 : 0.5,
         }}
       >
-        <div className="w-full flex justify-between text-[20px] font-montserrat font-medium">
+          <div className="w-full flex justify-between text-[20px] font-montserrat font-medium">
           <p className="w-[80%]"> Course and Certification</p>
 
-          <label className="switch">
+          {/* <label className="switch">
             <input
               type="checkbox"
               checked={isChecked}
               onChange={handleSwitchChange}
             />
             <span className="slider round"></span>
-          </label>
+          </label> */}
         </div>
-
-        {data?.course?.map((course, index) => (
           <div
             key={index}
             className="flex flex-col gap-1 p-2 rounded-[6px] border border-[#DEDEDE]"
@@ -107,9 +112,11 @@ const Course = ({ data, setData }) => {
               </div>
             </div>
           </div>
+          </div>
+          </>
         ))}
 
-        {view && (
+        {course && (
           <div>
             <div className="flex flex-col gap-3">
               <div className="flex gap-4">
@@ -184,7 +191,7 @@ const Course = ({ data, setData }) => {
               <div className="flex justify-between  py-2 gap-2">
                 <button
                   className=" font-montserrat text-xs font-semibold px-[12px] rounded-[8px] border border-[#06A9EF] w-[80px] h-[32px]"
-                  onClick={() => setView(false)}
+                  onClick={() => setCourse(false)}
                 >
                   Cancel
                 </button>
@@ -192,8 +199,9 @@ const Course = ({ data, setData }) => {
                   Update to Profile
                 </button> */}
                 <button
-                  onClick={handleSave}
-                  disabled={!isChecked}
+                  onClick={()=>{setCourse(false);handleSave()}}
+                  // disabled={!isChecked}
+                  
                   className=" font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px]  bg-[#06A9EF] w-[60px] h-[32px]"
                 >
                   Save
@@ -201,8 +209,8 @@ const Course = ({ data, setData }) => {
               </div>
             </div>
           </div>
-        )}
-        {!view && (
+         )}
+        {/* {!view && (
           <div className="flex gap-1">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -226,8 +234,8 @@ const Course = ({ data, setData }) => {
               Add Course & Certification
             </text>
           </div>
-        )}
-      </div>
+        )} */}
+      
     </>
   );
 };

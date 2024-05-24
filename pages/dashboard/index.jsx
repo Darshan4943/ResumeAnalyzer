@@ -4,8 +4,10 @@ import { useSelector } from "react-redux";
 import { camelCase } from "../../utils/middleware";
 import Summery from "../../components/featured/candidate/createResume/components/summery";
 import { useRouter } from "next/router";
-import { plans } from "../../utils/data";
+import { plans, templates } from "../../utils/data";
+
 import axios from "axios";
+
 function Dashboard() {
   const userDataGlobal = useSelector((state) => state.userData);
   const router = useRouter();
@@ -13,7 +15,7 @@ function Dashboard() {
     used: { uploads: 0, download: 0, save: 0, clients: 0 },
     total: { uploads: 0, download: 0, save: 0, clients: 0 },
   });
-
+  const [data, setData] = useState({});
   const [isActive, setIsActive] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState(null);
   const handleNavigation = (page) => {
@@ -53,8 +55,12 @@ function Dashboard() {
       name: "Job Description Matching",
       imgSrc: "/images/resumeBuilder/job_description_matching.png",
     },
-    { name: "My Collection", imgSrc: "/images/resumeBuilder/collection.png" },
-    { name: "My Purchases", imgSrc: "/images/resumeBuilder/my_purchases.png" },
+    {
+      name: "My Collection",
+      imgSrc:
+        "/images/resumeBuilder/collechttps://jamblix.comMy Purchases",
+      imgSrc: "/images/resumeBuilder/my_purchases.png",
+    },
     { name: "Post Jobs", imgSrc: "/images/resumeBuilder/job.png" },
   ];
 
@@ -123,7 +129,7 @@ function Dashboard() {
     if (userDataGlobal) {
       axios
         .get(
-          "https://freedygoservices.in/api/subscription/" + userDataGlobal._id
+          "https://jamblix.com/api/subscription/" + userDataGlobal._id
         )
         .then((res) => {
           const plan = plans.find(
@@ -133,11 +139,10 @@ function Dashboard() {
           if (res.data.findIsActive.isActive === true) {
             setIsActive(true);
           }
-          console.log(133, res.data)
-          if (plan) {
 
+          if (plan) {
             setSelectedPlan(plan);
-            console.log(134, plan, uploadCount, saveCount, clientCount);
+
             setLimits({
               used: {
                 uploads: plan.limits.uploads - parseInt(uploadCount),
@@ -147,19 +152,13 @@ function Dashboard() {
               },
               total: plan.limits,
             });
-            console.log(
-              144,
-              plan.limits.uploads - parseInt(uploadCount),
-              plan.limits.download - parseInt(saveCount),
-              plan.limits.save - parseInt(saveCount)
-            );
           }
         })
         .catch((err) => {
           console.log(err);
         });
     }
-    console.log(156, limits);
+
     // if (planActive == "true") {
     //   setIsActive(true);
     // setLimits({
@@ -174,6 +173,43 @@ function Dashboard() {
     // }
     // }
   }, [userDataGlobal]);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const storedData = localStorage.getItem("userData");
+      if (storedData) {
+        setData(JSON.parse(storedData));
+      }
+      // setIsClient(true);
+    }
+  }, []);
+
+  // const MyComponent = ({ selectedResumeIndex }) => {
+  //   console.log(220, selectedResumeIndex);
+  //   return (
+  //     <PDFViewer width="220" height="226" showToolbar={false}>
+  //       <Document>{selectResumeTemplate(selectedResumeIndex)}</Document>
+  //     </PDFViewer>
+  //   );
+  // };
+
+  function formatDate(inputDate) {
+    const dateObj = new Date(inputDate);
+    const day = dateObj.getUTCDate().toString().padStart(2, "0");
+    const month = (dateObj.getUTCMonth() + 1).toString().padStart(2, "0"); // Months are 0-indexed
+    const year = dateObj.getUTCFullYear();
+
+    return `${day}/${month}/${year}`;
+  }
+
+  function hasNonEmptyKey(obj) {
+    for (let key in obj) {
+      if (key !== "") {
+        return true;
+      }
+    }
+    return false;
+  }
 
   return (
     <div className="customMargins flex flex-col gap-12 py-6 min-h-[70vh]">
@@ -240,7 +276,10 @@ function Dashboard() {
           isActive={isActive}
         />
       </div>
-      <div className="flex gap-12 flex-wrap justify-center">
+      <div
+        // style={{ border: "2px solid red" }}
+        className="flex gap-12 flex-wrap justify-center"
+      >
         {list().map((item, index) => (
           <div
             key={index}
@@ -261,6 +300,90 @@ function Dashboard() {
           </div>
         ))}
       </div>
+
+      {userDataGlobal.role === "user" &&
+        data !== undefined &&
+        hasNonEmptyKey(data) && (
+          <div className="flex gap-6 flex-wrap flex-col ">
+            <div className="text-[24px] font-Montserrat font-medium">
+              Continue where you left
+            </div>
+            <div className="w-[440px] h-[281px] g-[36px] p-[24px] bg-[#F9F9F9] rounded-[24px] flex flex-row">
+              <div className="w-[50%] h-full">
+                {templates.find(
+                  (item) => item.index === data.selectedResumeIndex
+                ) && (
+                  <img
+                    src={
+                      templates.find(
+                        (item) => item.index === data.selectedResumeIndex
+                      ).imgUrl
+                    }
+                    style={{
+                      height: "100%",
+                      width: "90%",
+                      objectFit: "cover",
+                    }}
+                    alt={`Resume template ${data.selectedResumeIndex}`} // Adding an alt attribute for accessibility
+                  />
+                )}
+              </div>
+
+              <div className="w-[50%] flex flex-col gap-2">
+                <span className="font-Montserrat text-[24px] font-medium text-[#333333]">
+                  Untitled file
+                </span>
+                <span className="font-Montserrat text-[14px]  text-[#808080]">
+                  Updated on {formatDate(data?.createdAt)}
+                </span>
+
+                <div
+                  onClick={() => {
+                    localStorage.removeItem("parsedResume");
+                    // router.push(
+                    //   `/home/createResume?clientId=${
+                    //     data?.clientId
+                    //   }&continueEdit=${true}`
+                    // );
+
+                    router.push(
+                      `/home/createResume?clientId=${data?.clientId}&continueEdit=true`
+                    );
+                  }}
+                >
+                  <div className="flex flex-row gap-2">
+                    <svg
+                      width="25"
+                      height="24"
+                      viewBox="0 0 25 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <g mask="url(#mask0_2918_34640)">
+                        <path
+                          d="M5.86719 19H7.29219L17.0672 9.225L15.6422 7.8L5.86719 17.575V19ZM3.86719 21V16.75L17.0672 3.575C17.2672 3.39167 17.488 3.25 17.7297 3.15C17.9714 3.05 18.2255 3 18.4922 3C18.7589 3 19.0172 3.05 19.2672 3.15C19.5172 3.25 19.7339 3.4 19.9172 3.6L21.2922 5C21.4922 5.18333 21.638 5.4 21.7297 5.65C21.8214 5.9 21.8672 6.15 21.8672 6.4C21.8672 6.66667 21.8214 6.92083 21.7297 7.1625C21.638 7.40417 21.4922 7.625 21.2922 7.825L8.11719 21H3.86719ZM16.3422 8.525L15.6422 7.8L17.0672 9.225L16.3422 8.525Z"
+                          fill="#06A9EF"
+                        />
+                      </g>
+                    </svg>
+
+                    <p className="font-Montserrat text-[16px] font-medium text-[#333333]">
+                      Edit
+                    </p>
+                  </div>
+                </div>
+                <button
+                  className="w-[154px] h-[36px] px-[6px] py-[6px] rounded-[8px] bg-[#06A9EF] text-[#FFFFFF] text-[14px]"
+                  onClick={() => {
+                    localStorage.removeItem("userData");
+                  }}
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
     </div>
   );
 }

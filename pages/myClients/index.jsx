@@ -20,7 +20,7 @@ function MyClients() {
   const [selectAll, setSelectAll] = useState(false);
   const [selectedIndexes, setSelectedIndexes] = useState([]);
   const [ClientCount, setClientCount] = useState(0);
-  console.log(ClientCount);
+  
   const [limitPopUp, setLimitPopUp] = useState(false);
   const dispatch = useDispatch();
 
@@ -48,7 +48,7 @@ function MyClients() {
   const callData = () => {
     axios
       .get(
-        `https://freedygoservices.in/api/client/getByRecruiter/${userDataGlobal._id}`
+        `https://jamblix.com/api/client/getByRecruiter/${userDataGlobal._id}`
       )
       .then((res) => {
         setDetails(res.data.data);
@@ -72,7 +72,7 @@ function MyClients() {
     }
 
     axios
-      .delete("https://freedygoservices.in/api/client/deleteClients", {
+      .delete("https://jamblix.com/api/client/deleteClients", {
         data: { ids },
       })
       .then((response) => {
@@ -330,6 +330,7 @@ function MyClients() {
                 setSelect={setSelect}
                 select={select}
                 deleteClient={deleteClient}
+                ClientCount={ClientCount}
               />
             ) : (
               <div

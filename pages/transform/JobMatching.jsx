@@ -53,6 +53,8 @@ const JobMatching = () => {
     fileRef.current.click();
   };
 
+
+  
   useEffect(() => {
     if (selectedOptions.value === "My Collection") {
       setTab(1);
@@ -73,9 +75,8 @@ const JobMatching = () => {
       }
     }
     const storedIndexes = localStorage.getItem("selectedIndexes");
-    const storedIndexesFileType = localStorage.getItem(
-      "selectedIndexesFileType"
-    );
+    const storedIndexesFileType = localStorage.getItem("selectedIndexesFileType");
+    
     if (storedIndexesFileType) {
       setSelectedIndexesFilesType(JSON.parse(storedIndexesFileType));
     }
@@ -87,7 +88,7 @@ const JobMatching = () => {
 
   const getParentData = (parentId) => {
     axios
-      .get(`https://freedygoservices.in/api/folder/getByParentId/${parentId}`)
+      .get(`https://jamblix.com/api/folder/getByParentId/${parentId}`)
       .then((res) => {
         setDetails(res.data.data);
         setTimeout(() => {
@@ -100,7 +101,7 @@ const JobMatching = () => {
   };
   const getClientData = (clientId) => {
     axios
-      .get("https://freedygoservices.in/api/resume/" + clientId)
+      .get("https://jamblix.com/api/resume/" + clientId)
       .then((res) => {
         setDetails(res.data.data);
         setTimeout(() => {
@@ -114,7 +115,7 @@ const JobMatching = () => {
   const getFolderData = () => {
     setLoading(true);
     axios
-      .get(`https://freedygoservices.in/api/folder/get/${userDataGlobal._id}`)
+      .get(`https://jamblix.com/api/folder/get/${userDataGlobal._id}`)
       .then((res) => {
         setDetails(res.data.data);
         setTimeout(() => {
@@ -130,7 +131,7 @@ const JobMatching = () => {
     setLoading(true);
     axios
       .get(
-        `https://freedygoservices.in/api/client/getByRecruiter/${userDataGlobal._id}`
+        `https://jamblix.com/api/client/getByRecruiter/${userDataGlobal._id}`
       )
       .then((res) => {
         // console.log(res.data.data);
@@ -150,7 +151,7 @@ const JobMatching = () => {
     setIsAnimate(false);
 
     axios
-      .post("https://freedygoservices.in/api/external/jobMatching/", {
+      .post("https://jamblix.com/api/external/jobMatching/", {
         jd: text,
         resumeCount,
         ids: selectedIndexesFileTypes,
@@ -183,7 +184,7 @@ const JobMatching = () => {
   };
   const textExtractor = async (textData) => {
     const { data } = await axios.post(
-      "https://freedygoservices.in/api/resume/extraction",
+      "https://jamblix.com/api/resume/extraction",
       {
         data: textData,
       }
@@ -258,7 +259,7 @@ const JobMatching = () => {
       });
       formData.append("parentId", ParentId ? ParentId : undefined);
       axios
-        .post("https://freedygoservices.in/api/folder/addFiles", formData)
+        .post("https://jamblix.com/api/folder/addFiles", formData)
         .then((res) => {
           setFolderName("Untitled folder");
           toast.success("File Uploaded successfully");
@@ -321,7 +322,7 @@ const JobMatching = () => {
       });
       await Promise.all(promise);
     }
-    setTextData(textData);
+    // setTextData(textData);
     setFiles(selectedFiles);
   };
 

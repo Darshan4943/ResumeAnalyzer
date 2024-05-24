@@ -28,7 +28,7 @@ function TransformJob() {
   const [errors, setErrors] = useState("");
 
   const [isValid, setIsValid] = useState(false);
-  console.log(31, selected);
+
   const handleChange = (event) => {
     const inputText = event.target.value;
     setText(inputText);
@@ -44,7 +44,7 @@ function TransformJob() {
     setLoading(true);
 
     axios
-      .post("https://freedygoservices.in/api/cv/transform", {
+      .post("https://jamblix.com/api/cv/transform", {
         jd: text,
         json: selected,
       })
@@ -57,9 +57,9 @@ function TransformJob() {
             selected.skills.length > 0
               ? skills
               : skills?.map((item) => ({
-                skill: item,
-                rating: [5, 5, 5, 5, 5],
-              })),
+                  skill: item,
+                  rating: [5, 5, 5, 5, 5],
+                })),
           summery: summery,
           experience,
         });
@@ -75,7 +75,7 @@ function TransformJob() {
     if (userDataGlobal.role == "recruiter") {
       axios
         .get(
-          `https://freedygoservices.in/api/client/getByRecruiter/${userDataGlobal._id}`
+          `https://jamblix.com/api/client/getByRecruiter/${userDataGlobal._id}`
         )
         .then((res) => {
           const result = res.data.data;
@@ -89,8 +89,8 @@ function TransformJob() {
           if (result?.length > 0) {
             axios
               .get(
-                "https://freedygoservices.in/api/resume/" +
-                res.data.data[0]?._id
+                "https://jamblix.com/api/resume/" +
+                  res.data.data[0]?._id
               )
               .then((res) => {
                 setResumeList(res.data.data);
@@ -112,7 +112,7 @@ function TransformJob() {
     if (userDataGlobal.role == "recruiter") {
       setSelectedClient(data);
       axios
-        .get("https://freedygoservices.in/api/resume/" + data.value)
+        .get("https://jamblix.com/api/resume/" + data.value)
         .then((res) => {
           setResumeList(res.data.data);
           setSelect(res.data.data[0]);
@@ -123,7 +123,7 @@ function TransformJob() {
     }
   };
 
-  console.log(110, count);
+
 
   return (
     <div className=" py-6 flex flex-col gap-2  customMargins">
@@ -209,11 +209,11 @@ function TransformJob() {
               style={{
                 opacity:
                   loading ||
-                    !isValid ||
-                    // (selected == null && Object?.keys(selected)?.length <= 0)
-                    selected == null ||
-                    (typeof selected === "object" &&
-                      Object.keys(selected).length <= 0)
+                  !isValid ||
+                  // (selected == null && Object?.keys(selected)?.length <= 0)
+                  selected == null ||
+                  (typeof selected === "object" &&
+                    Object.keys(selected).length <= 0)
                     ? 0.5
                     : 1,
               }}
@@ -253,11 +253,11 @@ function TransformJob() {
                 data={
                   newData && Object.keys(newData)?.length > 0
                     ? {
-                      ...newData,
-                      summery: newData?.summary
-                        ? newData.summary
-                        : newData?.summery,
-                    }
+                        ...newData,
+                        summery: newData?.summary
+                          ? newData.summary
+                          : newData?.summery,
+                      }
                     : selected
                 }
                 resumeTemplateIndex={selected.resumeTemplateIndex}

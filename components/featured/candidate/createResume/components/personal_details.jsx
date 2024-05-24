@@ -4,7 +4,13 @@ import { useSelector } from "react-redux";
 import ReactSelect from "react-select";
 import { telCode } from "../../../../../utils/data";
 
-const PersonalDetails = ({ setData, data }) => {
+const PersonalDetails = ({
+  setData,
+  data,
+  selectedFont,
+  selectedColor,
+  selectedResumeIndex,
+}) => {
   const userDataGlobal = useSelector((state) => state.userData);
 
   const [isChecked, setIsChecked] = useState(true);
@@ -22,7 +28,7 @@ const PersonalDetails = ({ setData, data }) => {
     email: "",
     location: "",
     designation: "",
-    dial_code:"+260"
+    dial_code: "+260",
   });
 
   useEffect(() => {
@@ -33,7 +39,6 @@ const PersonalDetails = ({ setData, data }) => {
     const filteredCodes = telCode.filter(filterLogic);
     setFilteredTelCode(filteredCodes);
   }, [telCode, searchTerm]);
-
 
   const handleItemClick = (item) => {
     setSelectedItem(item);
@@ -70,7 +75,7 @@ const PersonalDetails = ({ setData, data }) => {
       name: "mobileNumber",
       placeholder: "Enter Mobile Number",
       value: profileData.mobileNumber,
-      className: " col-span-2",
+      className: " col-span-2 ",
     },
     {
       label: "Email Address",
@@ -99,8 +104,6 @@ const PersonalDetails = ({ setData, data }) => {
     designation: false,
   });
 
- 
-
   const validateFields = () => {
     const newErrors = {};
     let allFieldsValid = true;
@@ -123,6 +126,7 @@ const PersonalDetails = ({ setData, data }) => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+
     if (name == "mobileNumber") {
       if (value.replace(/\D/g, "").length <= 10) {
         setProfileData({
@@ -164,13 +168,16 @@ const PersonalDetails = ({ setData, data }) => {
     if (allFieldsValid && isModified) {
       setData({
         ...data,
-        dial_code:data.dial_code,
+        dial_code: data.dial_code,
         firstName: camelCase(profileData.firstName),
         lastName: camelCase(profileData.lastName),
         mobileNumber: profileData.mobileNumber,
         email: profileData.email.toLowerCase(),
         location: camelCase(profileData.location),
         designation: profileData.designation,
+        selectedResumeIndex: selectedResumeIndex,
+
+        createdAt: data.createdAt || new Date().toISOString(),
       });
       setIsModified(false);
     }
@@ -191,11 +198,9 @@ const PersonalDetails = ({ setData, data }) => {
       mobileNumber: mobileNumber,
       location,
       designation,
-      dial_code
+      dial_code,
     } = data;
-    setSelectedItem(
-      telCode.find((item) => item.dial_code === dial_code)
-    );
+    setSelectedItem(telCode.find((item) => item.dial_code === dial_code));
     setProfileData({
       ...profileData,
       firstName,
@@ -204,7 +209,7 @@ const PersonalDetails = ({ setData, data }) => {
       mobileNumber,
       location: location,
       designation,
-      dial_code:dial_code?dial_code:"+260"
+      dial_code: dial_code ? dial_code : "+260",
     });
   }, [data]);
   return (
@@ -218,14 +223,14 @@ const PersonalDetails = ({ setData, data }) => {
       >
         <div className="w-full flex justify-between text-[20px] font-montserrat font-medium">
           <p> Personal Details</p>
-          <label className="switch">
+          {/**  <label className="switch">
             <input
               type="checkbox"
               checked={isChecked}
               onChange={handleSwitchChange}
             />
             <span className="slider round"></span>
-          </label>
+          </label> */}
         </div>
         <div className="grid grid-cols-2 gap-4">
           {inputFields.map((item, index) => (
@@ -233,19 +238,17 @@ const PersonalDetails = ({ setData, data }) => {
               className={`flex flex-col gap-2 w-full ${item.className}`}
               key={index}
             >
-              <div className=" text-[14px] font-montserrat  font-medium">
-                {item.label}
-              </div>
+              <div className=" text-[14px]  font-medium">{item.label}</div>
               {item.name == "mobileNumber" ? (
                 <div
-                  className={`border-[1px] rounded-[8px] ${
+                  className={`rounded-[8px] ${
                     formErrors[item.name]
                       ? "border-[#C00000]"
                       : "border-[#9D9D9D]"
                   } `}
                 >
                   <div
-                    className={`flex w-[100%] items-start "
+                    className={`flex w-[100%] items-start  "
                           }`}
                     id="single_input"
                   >
@@ -258,7 +261,7 @@ const PersonalDetails = ({ setData, data }) => {
                           <div className="flex items-center  gap-1 cursor-pointer  w-[100%] ">
                             <ReactSelect
                               options={filteredTelCode}
-                              className="w-[100%] flex  items-center py-1  rounded-[8px]"
+                              className="w-[100%] flex  items-center py-2  rounded-[8px]"
                               name=""
                               placeholder="Select"
                               value={selectedItem}
@@ -293,7 +296,7 @@ const PersonalDetails = ({ setData, data }) => {
                       type={item.type}
                       name={item.name}
                       placeholder={item.placeholder}
-                      className="w-full text-[14px] font-montserrat font-small"
+                      className="w-full text-[14px] "
                       value={profileData[item.name]}
                       onChange={handleInputChange}
                       disabled={!isChecked}
@@ -302,7 +305,7 @@ const PersonalDetails = ({ setData, data }) => {
                 </div>
               ) : (
                 <div
-                  className={`border-[1px] rounded-[8px] px-[16px] py-[12px] ${
+                  className={`border-[1px] rounded-[8px] px-[16px] py-2   ${
                     formErrors[item.name]
                       ? "border-[#C00000]"
                       : "border-[#9D9D9D]"
@@ -312,10 +315,11 @@ const PersonalDetails = ({ setData, data }) => {
                     type={item.type}
                     name={item.name}
                     placeholder={item.placeholder}
-                    className="w-full text-[14px] font-montserrat font-small"
+                    className="w-full text-[14px] "
                     value={profileData[item.name]}
                     onChange={handleInputChange}
                     disabled={!isChecked}
+                    maxLength={item.name==="firstName" || item.name==="lastName"  ? 25 : 100}
                   />
                 </div>
               )}

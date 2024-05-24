@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { currencyMap, telCode } from "../../../utils/data";
 import { useMediaQuery } from "@react-hook/media-query";
 import axios from "axios";
@@ -21,11 +21,18 @@ function AccountDetails({
   setSuccessModel,
   success,
   canceled,
+  setCancelModel,
 }) {
   const router = useRouter();
   const userDataGlobal = useSelector((state) => state.userData);
   const [exchangeRate, setexchangeRate] = useState(1);
   const [icon, seticon] = useState("$");
+
+  const storedId = localStorage.getItem("paymentId");
+  const [sessionId, setSessionId] = useState("");
+  const [payment_status, setPaymentStatus] = useState(null);
+
+ 
 
   useEffect(() => {
     const exchangeRate = localStorage.getItem("exchangeRate");
@@ -45,6 +52,7 @@ function AccountDetails({
     dial_code: "",
     checked: false,
   });
+  const jsonData = JSON.parse(localStorage.getItem("paymentDetails"));
 
   const [filteredTelCode, setFilteredTelCode] = useState([]);
   useEffect(() => {
@@ -131,50 +139,53 @@ function AccountDetails({
     setData({ ...data, [fieldName]: value });
     validateInput(fieldName, value);
   };
-  useEffect(() => {
-    const jsonData = JSON.parse(localStorage.getItem("paymentDetails"));
-    if (jsonData) {
-      setData({ ...data, jsonData });
-    }
-    if (
-      success == "true" &&
-      userDataGlobal &&
-      selectedPlan &&
-      exchangeRate &&
-      icon
-    ) {
-      setSuccessModel({
-        visible: true,
-        loading: true,
-      });
-      axios
-        .post("https://freedygoservices.in/api/add/subscription", {
-          userId: userDataGlobal._id,
-          plan: selectedPlan.duration + " " + selectedPlan.limit,
-          ...jsonData,
-          mobileNo: jsonData.mobileNo,
-          index: selectedPlan.index,
-          isAdmin: true,
-          role: userDataGlobal?.role,
-          isPaid: true,
-          paidAt: new Date(),
-          amount: Math.ceil(selectedPlan.amount * exchangeRate),
-          icon: icon,
-        })
-        .then((res) => {
-          setTimeout(() => {
-            setSuccessModel({
-              visible: true,
-              loading: false,
-            });
-          }, 2000);
-          localStorage.removeItem("paymentDetails");
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
-  }, [success, userDataGlobal, selectedPlan, exchangeRate, icon]);
+
+  // useEffect(() => {
+  //   const jsonData = JSON.parse(localStorage.getItem("paymentDetails"));
+  //   if (jsonData) {
+  //     setData({ ...data, jsonData });
+  //   }
+  //   if (
+  //     success == "true" &&
+  //     userDataGlobal &&
+  //     selectedPlan &&
+  //     exchangeRate &&
+  //     icon
+  //   ) {
+  //     setSuccessModel({
+  //       visible: true,
+  //       loading: true,
+  //     });
+  //     axios
+  //       .post("https://jamblix.com/api/add/subscription", {
+  //         userId: userDataGlobal._id,
+  //         plan: selectedPlan.duration + " " + selectedPlan.limit,
+  //         ...jsonData,
+  //         mobileNo: jsonData.mobileNo,
+  //         index: selectedPlan.index,
+  //         isAdmin: true,
+  //         role: userDataGlobal?.role,
+  //         isPaid: true,
+  //         paidAt: new Date(),
+  //         amount: Math.ceil(selectedPlan.amount * exchangeRate),
+  //         icon: icon,
+
+  //       })
+  //       .then((res) => {
+  //         setTimeout(() => {
+  //           setSuccessModel({
+  //             visible: true,
+  //             loading: false,
+  //           });
+  //         }, 2000);
+  //         localStorage.removeItem("paymentDetails");
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //       });
+  //   }
+  // }, [success, userDataGlobal, selectedPlan, exchangeRate, icon]);
+
   useEffect(() => {
     const jsonData = JSON.parse(localStorage.getItem("paymentDetails"));
     if (jsonData) {
@@ -183,7 +194,7 @@ function AccountDetails({
       if (recruiterid) {
         axios
           .get(
-            "https://freedygoservices.in/api/skiloteckuser/user/" + recruiterid
+            "https://jamblix.com/api/skiloteckuser/user/" + recruiterid
           )
           .then((res) => {
             const decode = jwtDecode(res.data.data);
@@ -230,7 +241,7 @@ function AccountDetails({
     localStorage.setItem("paymentDetails", JSON.stringify(data));
     if (currency) {
       const { data } = await axios.post(
-        "https://freedygoservices.in/api/getPriceId",
+        "https://jamblix.com/api/getPriceId",
         {
           amount: Math.ceil(selectedPlan.amount * exchangeRate) * 100,
           productName: selectedPlan.productName,
@@ -259,12 +270,14 @@ function AccountDetails({
         try {
           const priceId = await getPriceId();
           axios
-            .post("https://freedygoservices.in/api/proceed/payment", {
+            .post("https://jamblix.com/api/proceed/payment", {
               priceId,
               id: selectedPlan.index,
             })
             .then((res) => {
               if (res.data.success) {
+                setSessionId(res.data.id);
+                localStorage.setItem("paymentId", res.data.id);
                 window.location.href = res.data.url;
               }
             });
@@ -275,6 +288,83 @@ function AccountDetails({
       }
     }
   };
+
+  const handleRetrieveSession = useMemo(
+    () => async (storedId) => {
+      try {
+        setSuccessModel({ visible: true, loading: true });
+        const response = await axios.get(
+          "https://jamblix.com/api/retrieve/session",
+          {
+            params: { storedId },
+          }
+        );
+        const session = response.data;
+        console.log("Retrieved session:", session);
+        setPaymentStatus(session.payment_status);
+
+        if (
+          session.payment_status === "paid" &&
+          userDataGlobal &&
+          selectedPlan &&
+          exchangeRate &&
+          icon
+        ) {
+          handlePaidSession(session);
+        } else {
+          console.error("Payment failed:", session);
+          setTimeout(() => {
+            setCancelModel(true);
+          }, 1500);
+        }
+      } catch (error) {
+        console.error("Error retrieving session:", error);
+      }
+    },
+    []
+  );
+
+  const handlePaidSession = async (session) => {
+    const jsonData = JSON.parse(localStorage.getItem("paymentDetails"));
+    if (jsonData) {
+      setData((prevData) => ({ ...prevData, ...jsonData }));
+    }
+
+    try {
+      await axios.post("https://jamblix.com/api/add/subscription", {
+        userId: userDataGlobal._id,
+        plan: `${selectedPlan.duration} ${selectedPlan.limit}`,
+        ...jsonData,
+        mobileNo: jsonData?.mobileNo,
+        index: selectedPlan.index,
+        isAdmin: true,
+        role: userDataGlobal?.role,
+        isPaid: true,
+        paidAt: new Date(),
+        amount: Math.ceil(selectedPlan.amount * exchangeRate),
+        icon: icon,
+        paymentId: session.id,
+      });
+
+      console.log("Subscription added successfully");
+
+      localStorage.removeItem("paymentId");
+
+      setTimeout(() => {
+        setSuccessModel({ visible: true, loading: false });
+      }, 1000);
+
+      localStorage.removeItem("paymentDetails");
+    } catch (error) {
+      console.error("Error adding subscription:", error);
+    }
+  };
+
+  useEffect(() => {
+    if (storedId) {
+      handleRetrieveSession(storedId);
+    }
+  }, [storedId]);
 
   return (
     <div className={" w-[60%] plan-container  "}>
@@ -497,7 +587,8 @@ function AccountDetails({
                 <div className="flex flex-row gap-2 w-full items-center justify-end">
                   <p className="text-[14px] font-[700]">{icon}</p>
                   <p className="text-[14px] font-[700]">
-                    {Math.ceil(selectedPlan.amount * exchangeRate)}
+                    {Math.ceil(selectedPlan?.amount * exchangeRate)}
+                    {console.log(586, selectedPlan?.amount, exchangeRate)}
                   </p>
                 </div>
               </div>
@@ -508,7 +599,7 @@ function AccountDetails({
                 <div className="flex flex-row gap-2 w-full items-center justify-end">
                   <p className="text-[14px] font-[700]">{icon}</p>
                   <p className="text-[14px] font-[700]">
-                    {Math.ceil(selectedPlan.amount * exchangeRate)}
+                    {Math.ceil(selectedPlan?.amount * exchangeRate)}
                   </p>
                 </div>
               </div>

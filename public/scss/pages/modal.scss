@@ -16,6 +16,17 @@
       align-items: center;
       border-radius: 16px;
     
+    };
+     .container {
+      height: 360px;
+    
+      background: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      border-radius: 16px;
+    
     }
   }
 }

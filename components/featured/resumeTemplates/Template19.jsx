@@ -38,8 +38,8 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                   preview
                     ? data.profilePhoto
                     : Object.keys(data?.profilePhoto).includes("filename")
-                    ? URL.createObjectURL(data.profilePhoto)
-                    : data.profilePhoto
+                      ? URL.createObjectURL(data.profilePhoto)
+                      : data.profilePhoto
                 }
                 alt=""
                 style={{
@@ -84,9 +84,12 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                     fontSize: 12,
                     fontFamily: `${selectedFont} 400`,
                     color: "#000000",
+                    wordBreak: "break-word",
+                    flexWrap: "wrap",
+                    marginRight: "6px"
                   }}
                 >
-                  +012-3456-7890
+                  {data.mobileNumber}
                 </Text>
               </View>
             )}
@@ -114,9 +117,12 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                     fontSize: 12,
                     fontFamily: `${selectedFont} 400`,
                     color: "#000000",
+                    wordBreak: "break-word",
+                    flexWrap: "wrap",
+                    marginRight: "6px"
                   }}
                 >
-                  yourmail@mail.com
+                  {data.email}
                 </Text>
               </View>
             )}
@@ -144,9 +150,11 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                     fontSize: 12,
                     fontFamily: `${selectedFont} 400`,
                     color: "#000000",
+                    wordBreak: "break-word",
+                    flexWrap: "wrap"
                   }}
                 >
-                  San Francisco, CA
+                  {data.location}
                 </Text>
               </View>
             )}
@@ -163,35 +171,30 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
             <View style={{ display: "flex", flexDirection: "column", gap: 4 }}>
               <Text
                 style={{
-                  fontSize: 30,
+                  fontSize: 25,
                   fontFamily: `${selectedFont} 400`,
                   color: "#000000",
+                  wordBreak: "break-word",
+                  flexWrap: "wrap"
                 }}
               >
-                John Doe
+                {data.firstName} {data.lastName}
               </Text>
               <View
                 style={{
                   display: "flex",
-                  flexDirection: "row",
+                  flexDirection: "column",
                   gap: 4,
                   alignItems: "center",
                 }}
               >
-                <Svg
-                  width="174"
-                  height="2"
-                  viewBox="0 0 243 2"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <Path d="M243 0.5H0V1.5H243V0.5Z" fill="black" />
-                </Svg>
                 <Text
                   style={{
                     fontSize: 14,
                     fontFamily: `${selectedFont} 400`,
                     color: "#000000",
+                    wordBreak: "break-word",
+                    flexWrap: "wrap"
                   }}
                 >
                   {data.designation}
@@ -255,8 +258,6 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
               alignItems: "center",
               borderBottom: 1,
               borderBottomColor: "#000000",
-              borderTop: 1,
-              borderTopColor: "#000000",
             }}
           >
             <Text
@@ -283,7 +284,7 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                 style={{
                   display: "flex",
                   flexDirection: "column",
-                  width: 170,
+                  width: "20%",
                   gap: 8,
                 }}
               >
@@ -292,9 +293,11 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                     fontSize: 12,
                     color: "#808285",
                     fontFamily: `${selectedFont} 400`,
+                    flexWrap: "wrap",
+                    wordBreak: "break-word",
                   }}
                 >
-                  Team Management
+                  {detail.skill}
                 </Text>
                 {/* <Svg
                                 width="130"
@@ -344,7 +347,7 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                                     fill="#D1D3D4"
                                 />
                             </Svg> */}
-                <View style={{ display: "flex", flexDirection: "row", gap: 6 }}>
+                {/* <View style={{ display: "flex", flexDirection: "row", gap: 6 }}>
                   {[...Array(5)].map((_, i) => (
                     <View key={i}>
                       {detail.rating[i] === 0 ? (
@@ -376,7 +379,7 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                       )}
                     </View>
                   ))}
-                </View>
+                </View> */}
               </View>
             ))}
           </View>
@@ -422,8 +425,8 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
               <View
                 style={{
                   display: "flex",
-                  flexDirection: "row",
-                  gap: 10,
+                  flexDirection: "column",
+                  gap: 16,
                   width: "100%",
                   flexWrap: "wrap",
                 }}
@@ -435,14 +438,44 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                         display: "flex",
                         flexDirection: "column",
                         gap: 5,
-                        width: "45%",
+                        width: "100%",
                       }}
+                      wrap={false}
                     >
+                      <View style={{ flexDirection: "row", justifyContent: "space-between", gap: 10 }}>
+                        <Text
+                          style={{
+                            fontSize: 12,
+                            color: "#000000",
+                            fontFamily: `${selectedFont} 400`,
+                            width: "70%",
+                            flexWrap: "wrap",
+                            wordBreak: "break-word",
+                          }}
+                        >
+                          {detail.specialization}
+                        </Text>
+                        <Text
+                          style={{
+                            fontSize: 10,
+                            color: "#000000",
+                            fontFamily: `${selectedFont} 400`,
+                            width: "30%",
+                            flexWrap: "wrap",
+                            wordBreak: "break-word",
+                          }}
+                        >
+                          {detail.duration?.start?.year !== "Year" &&
+                          `${detail.duration?.start?.year}-${detail.duration?.end?.year ==="Year" ? "Pursuing" : detail.duration?.end?.year}`}
+                        </Text>
+                      </View>
                       <Text
                         style={{
-                          fontSize: 12,
-                          color: "#000000",
+                          fontSize: 10,
+                          color: "#808285",
                           fontFamily: `${selectedFont} 400`,
+                          flexWrap: "wrap",
+                          wordBreak: "break-word",
                         }}
                       >
                         {detail.qualification}
@@ -450,30 +483,13 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                       <Text
                         style={{
                           fontSize: 10,
-                          color: "#808285",
-                          fontFamily: `${selectedFont} 400`,
-                        }}
-                      >
-                        {detail.specialization}
-                      </Text>
-                      <Text
-                        style={{
-                          fontSize: 10,
                           color: "#000000",
                           fontFamily: `${selectedFont} 400`,
+                          flexWrap: "wrap",
+                          wordBreak: "break-word",
                         }}
                       >
                         {detail.instituteName}
-                      </Text>
-                      <Text
-                        style={{
-                          fontSize: 10,
-                          color: "#000000",
-                          fontFamily: `${selectedFont} 400`,
-                        }}
-                      >
-                        {detail.duration?.start?.year !== "Year" &&
-                              `${detail.duration?.start?.year}-${detail.duration?.end?.year}`}
                       </Text>
                     </View>
                   </>
@@ -542,6 +558,8 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                         fontSize: 10,
                         fontFamily: `${selectedFont} 400`,
                         color: "#000000",
+                        flexWrap: "wrap",
+                        wordBreak: "break-word",
                       }}
                     >
                       {detail.title}
@@ -550,6 +568,113 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                 ))}
               </View>
             </View>
+            {data.section?.length > 0 &&
+              data.section.map((item, index) => (
+                <View
+                key={index}
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 16,
+                    alignItems: "flex-start",
+                    width: 268,
+                  }}
+                >
+                  <View
+                    style={{
+                      borderBottom: 1,
+                      borderBottomColor: "#000000",
+                      width: 268,
+                    }}
+                  >
+                    <Text
+                      style={{
+                        paddingBottom: 5,
+                        fontFamily: `${selectedFont} 400`,
+                      }}
+                    >
+                      {item.header}
+                    </Text>
+                  </View>
+
+                  <View
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: 16,
+                      width: "100%",
+                      flexWrap: "wrap",
+                    }}
+                  >
+                    {item.subSection.map((detail, index) => (
+                      <>
+                        <View
+                          style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            gap: 5,
+                            width: "100%",
+                          }}
+                        >
+                          <View style={{ flexDirection: "row", justifyContent: "space-between", gap: 10 }}>
+                            <Text
+                              style={{
+                                fontSize: 12,
+                                color: "#000000",
+                                fontFamily: `${selectedFont} 400`,
+                                width: "70%",
+                                flexWrap: "wrap",
+                                wordBreak: "break-word",
+                              }}
+                            >
+                              {detail.title}
+                            </Text>
+                            <Text
+                              style={{
+                                fontSize: 10,
+                                color: "#000000",
+                                fontFamily: `${selectedFont} 400`,
+                                width: "30%",
+                                flexWrap: "wrap",
+                                wordBreak: "break-word",
+                              }}
+                            >
+                              {detail?.duration?.start?.year}
+                                {detail?.duration?.start?.year && "-"}
+                                {(detail?.duration?.end?.year === "" || detail?.duration?.end?.year === undefined)
+                                  ? "Present"
+                                  : detail?.duration?.end?.year
+                                }
+                            </Text>
+                          </View>
+                          <Text
+                            style={{
+                              fontSize: 10,
+                              color: "#808285",
+                              fontFamily: `${selectedFont} 400`,
+                              flexWrap: "wrap",
+                              wordBreak: "break-word",
+                            }}
+                          >
+                            {detail.description}
+                          </Text>
+                          {/* <Text
+                          style={{
+                            fontSize: 10,
+                            color: "#000000",
+                            fontFamily: `${selectedFont} 400`,
+                            flexWrap: "wrap",
+                            wordBreak: "break-word",
+                          }}
+                        >
+                          {detail.instituteName}
+                        </Text> */}
+                        </View>
+                      </>
+                    ))}
+                  </View>
+                </View>
+              ))}
           </View>
 
           <View
@@ -557,6 +682,7 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
               display: "flex",
               flexDirection: "column",
               width: 250,
+              marginRight: 24,
               gap: 16,
             }}
           >
@@ -573,7 +699,8 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                 style={{
                   borderBottom: 1,
                   borderBottomColor: "#000000",
-                  width: 268,
+                  width: "100%",
+
                 }}
               >
                 <Text
@@ -589,60 +716,77 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
               <View
                 style={{
                   display: "flex",
-                  flexDirection: "row",
-                  gap: 5,
-                  alignItems: "start",
+                  flexDirection: "column",
+                  gap: 16,
+                  width: "100%",
+                  flexWrap: "wrap",
+
                 }}
               >
-                <Svg
-                  width="6"
-                  height="7"
-                  viewBox="0 0 6 7"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <Path
-                    d="M3 6.5C4.65685 6.5 6 5.15685 6 3.5C6 1.84315 4.65685 0.5 3 0.5C1.34315 0.5 0 1.84315 0 3.5C0 5.15685 1.34315 6.5 3 6.5Z"
-                    fill="#5E5F5E"
-                  />
-                </Svg>
-                {data.experience?.map((detail, index) => (
-                  <View
-                    key={index}
-                    style={{ display: "flex", flexDirection: "column", gap: 5 }}
-                  >
-                    <Text
+                {data?.experience?.map((detail, index) => (
+                  <>
+                    <View
                       style={{
-                        fontSize: 10,
-                        fontFamily: `${selectedFont} 400`,
-                        color: "#000000",
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: 5,
+                        width: "100%",
                       }}
                     >
-                      {detail.designation}
-                    </Text>
-                    <Text
-                      style={{
-                        fontSize: 10,
-                        fontFamily: `${selectedFont} 400`,
-                        color: "#000000",
-                      }}
-                    >
-                      {detail.duration?.start?.year !== "Year" &&
-                        `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
-                          ? "Present"
-                          : detail.duration?.end?.year}
+                      <View style={{ flexDirection: "row", justifyContent: "space-between", gap: 10 }}>
+                        <Text
+                          style={{
+                            fontSize: 12,
+                            color: "#000000",
+                            fontFamily: `${selectedFont} 400`,
+                            width: "70%",
+                            flexWrap: "wrap",
+                            wordBreak: "break-word",
+                          }}
+                        >
+                          {detail.designation}
+                        </Text>
+                        <Text
+                          style={{
+                            fontSize: 10,
+                            color: "#000000",
+                            fontFamily: `${selectedFont} 400`,
+                            width: "30%",
+                            flexWrap: "wrap",
+                            wordBreak: "break-word",
+                          }}
+                        >
+                          {detail.duration?.start?.year !== "Year" &&
+                            `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
+                              ? "Present"
+                              : detail.duration?.end?.year}
                          `}
-                    </Text>
-                    <Text
-                      style={{
-                        fontSize: 10,
-                        fontFamily: `${selectedFont} 400`,
-                        color: "#000000",
-                      }}
-                    >
-                      {detail.description}
-                    </Text>
-                  </View>
+                        </Text>
+                      </View>
+                      <Text
+                        style={{
+                          fontSize: 10,
+                          color: "#808285",
+                          fontFamily: `${selectedFont} 400`,
+                          flexWrap: "wrap",
+                          wordBreak: "break-word",
+                        }}
+                      >
+                        {detail.organization}
+                      </Text>
+                      <Text
+                        style={{
+                          fontSize: 10,
+                          color: "#000000",
+                          fontFamily: `${selectedFont} 400`,
+                          flexWrap: "wrap",
+                          wordBreak: "break-word",
+                        }}
+                      >
+                        {detail.description}
+                      </Text>
+                    </View>
+                  </>
                 ))}
               </View>
             </View>

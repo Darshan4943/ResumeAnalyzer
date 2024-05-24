@@ -29,7 +29,7 @@ const List = ({ miniLoading, data, page, setPage, userList, setLimit, selectedCa
     <>
       {/* {console.log(2222,userList)} */}
       {userList?.length > 0 ? (
-        <div className="w-full h-[70vh] overflow-auto relative">
+        <div className="w-full h-[56vh] overflow-auto relative">
           <table className="w-full">
             <thead className="w-full sticky top-0">
               <tr className="w-full bg-[#06A9EF] flex flex-row justify-between items-center px-[24px] py-[12px]">
@@ -172,9 +172,9 @@ const List = ({ miniLoading, data, page, setPage, userList, setLimit, selectedCa
         </div>
 
         <div className="flex items-center" style={{ radious: '0px 0px 16px 16px' }} >
-          
+
           <div className="mr-4">{miniLoading && <MiniLoader />}</div>
-          
+
           <p className="text-[14px] text-[#646464] font-[500]">pages<span className="text-[#333] px-[10px] font-[600]" >{currentPage}</span> of <span className="text-[#333] px-[10px]  font-[600]">{totalPages}</span></p>
           <button disabled={data?.previous && !data?.previous}>
             <svg onClick={prevPage} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -18,8 +18,196 @@ function CreateResume() {
   const router = useRouter();
   const [editId, setEnditId] = useState();
   const userData = router.query;
-  const { clientId } = router.query;
+  // const { clientId, continueEdit } = router.query;
+  const { clientId, continueEdit } = router.query;
   const currentYear = new Date().getFullYear();
+
+  const templates = [
+    {
+      title: "Template1",
+      imgUrl: "/images/templates/template1.png",
+      index: 1,
+      fontFamily: "Lato",
+      themeColor: "#414042",
+    },
+    // {
+    //   title: "Template2",
+    //   imgUrl: "/images/templates/template2.png",
+    //   index: 2,
+    //   fontFamily: "Barlow",
+    //   themeColor: "#F7902B",
+    // },
+    {
+      title: "Template3",
+      imgUrl: "/images/templates/template3.png",
+      index: 3,
+      fontFamily: "Inter",
+      themeColor: "#414042",
+    },
+    {
+      title: "Template4",
+      imgUrl: "/images/templates/template4.png",
+      index: 4,
+      fontFamily: "Montserrat",
+      themeColor: "#00AEEF",
+    },
+    // {
+    //   title: "Template5",
+    //   imgUrl: "/images/templates/template5.png",
+    //   index: 5,
+    //   fontFamily: "Kanit",
+    //   themeColor: "#316059",
+    // },
+    // {
+    //   title: "Template6",
+    //   imgUrl: "/images/templates/template6.png",
+    //   index: 6,
+    //   fontFamily: "Lato",
+    //   themeColor: "#FFC20E",
+    // },
+    // {
+    //   title: "Template7",
+    //   imgUrl: "/images/templates/template7.png",
+    //   index: 7,
+    //   fontFamily: "Montserrat",
+    //   themeColor: "#0077F9",
+    // },
+    // {
+    //   title: "Template8",
+    //   imgUrl: "/images/templates/template8.png",
+    //   index: 8,
+    //   fontFamily: "Montserrat",
+    //   themeColor: "#646464",
+    // },
+    // {
+    //   title: "Template9",
+    //   imgUrl: "/images/templates/template9.png",
+    //   index: 9,
+    //   fontFamily: "Montserrat",
+    //   themeColor: "#FFD740",
+    // },
+    // {
+    //   title: "Template10",
+    //   imgUrl: "/images/templates/template10.png",
+    //   index: 10,
+    //   fontFamily: "Inter",
+    //   themeColor: "#F2BE5C",
+    // },
+    {
+      title: "Template11",
+      imgUrl: "/images/templates/template11.png",
+      index: 11,
+      fontFamily: "Montserrat",
+      themeColor: "#E6E7E8",
+    },
+    // {
+    //   title: "Template12",
+    //   imgUrl: "/images/templates/template12.png",
+    //   index: 12,
+    //   fontFamily: "Lato",
+    //   themeColor: "#0C2438",
+    // },
+    {
+      title: "Template13",
+      imgUrl: "/images/templates/template13.png",
+      index: 13,
+      fontFamily: "Poppins",
+      themeColor: "#0E6CC2",
+    },
+    {
+      title: "Template14",
+      imgUrl: "/images/templates/template14.png",
+      index: 14,
+      fontFamily: "Inter",
+      themeColor: "#242424",
+    },
+    // {
+    //   title: "Template15",
+    //   imgUrl: "/images/templates/template15.png",
+    //   index: 15,
+    //   fontFamily: "Inter",
+    //   themeColor: "#716D6D",
+    // },
+    {
+      title: "Template53",
+      imgUrl: "/images/templates/template53.png",
+      index: 53,
+      fontFamily: "Montserrat",
+      themeColor: "#AC5428",
+    },
+    // {
+    //   title: "Template17",
+    //   imgUrl: "/images/templates/template17.png",
+    //   index: 17,
+    //   fontFamily: "Montserrat",
+    //   themeColor: "#D1D2D3",
+    // },
+    {
+      title: "Template18",
+      imgUrl: "/images/templates/template54.png",
+      index: 18,
+      fontFamily: "Montserrat",
+      themeColor: "#242424",
+    },
+    {
+      title: "Template19",
+      imgUrl: "/images/templates/template19.png",
+      index: 19,
+      fontFamily: "Inter",
+      themeColor: "#000000",
+    },
+    // {
+    //   title: "Template20",
+    //   imgUrl: "/images/templates/template20.png",
+    //   index: 20,
+    //   fontFamily: "Montserrat",
+    //   themeColor: "#303030",
+    // },
+    {
+      title: "Template32",
+      imgUrl: "/images/templates/template32.png",
+      index: 32,
+      fontFamily: "Montserrat",
+      themeColor: "#0072BC",
+    },
+    {
+      title: "Template39",
+      imgUrl: "/images/templates/template39.png",
+      index: 39,
+      fontFamily: "Montserrat",
+      themeColor: "#303030",
+    },
+    {
+      title: "Template48",
+      imgUrl: "/images/templates/template48.png",
+      index: 48,
+      fontFamily: "Montserrat",
+      themeColor: "#F7941D",
+    },
+    {
+      title: "Template44",
+      imgUrl: "/images/templates/template44.png",
+      index: 44,
+      fontFamily: "Inter",
+      themeColor: "#C7EAFB",
+    },
+
+    {
+      title: "Template47",
+      imgUrl: "/images/templates/template47.png",
+      index: 47,
+      fontFamily: "Poppins",
+      themeColor: "#27AAE1",
+    },
+    {
+      title: "Template30",
+      imgUrl: "/images/templates/template30.png",
+      index: 30,
+      fontFamily: "Lato",
+      themeColor: "#0054A6",
+    },
+  ];
+
   const handleOutsideClick = (event) => {
     if (taskRef.current && !taskRef.current.contains(event.target)) {
       isSetEdit(false);
@@ -32,7 +220,128 @@ function CreateResume() {
     };
   }, []);
   const [isEdit, isSetEdit] = useState(false);
-  const [data, setData] = useState({
+  const [dataFromLocal, setDataFromLocal] = useState([]);
+  useEffect(() => {
+    const storedData = JSON.parse(localStorage.getItem("allData"));
+
+    if (storedData) {
+      setDataFromLocal(storedData);
+    }
+  }, []);
+  // const [data, setData] = useState({
+  //   profilePhoto: null,
+  //   designation: dataFromLocal?.designation ? dataFromLocal?.designation : "",
+  //   firstName: dataFromLocal?.firstName ? dataFromLocal?.firstName : "",
+  //   lastName: dataFromLocal?.lastName ? dataFromLocal?.lastName : "",
+  //   mobileNumber: dataFromLocal?.mobileNumber
+  //     ? dataFromLocal?.mobileNumber
+  //     : "",
+  //   email: dataFromLocal?.email ? dataFromLocal?.email : "",
+  //   location: dataFromLocal?.location ? dataFromLocal?.location : "",
+  //   summary: dataFromLocal?.summary ? dataFromLocal?.summary : "",
+  //   showSummary: true,
+  //   education: dataFromLocal?.education ? dataFromLocal?.education : [],
+  //   showEducation: true,
+  //   experience: dataFromLocal?.experience ? dataFromLocal?.experience : [],
+  //   showExperience: true,
+  //   course: dataFromLocal?.course ? dataFromLocal?.course : [],
+  //   showCourse: true,
+  //   skills: dataFromLocal?.skills ? dataFromLocal?.skills : [],
+  //   achievement: dataFromLocal?.achievement ? dataFromLocal?.achievement : [],
+  //   sociaLinks: dataFromLocal?.sociaLinks ? dataFromLocal?.sociaLinks : [],
+  //   hobbies: dataFromLocal?.hobbies ? dataFromLocal?.hobbies : [],
+  //   languages: dataFromLocal?.languages ? dataFromLocal?.languages : [],
+  //   // internship:[],
+  //   // reference:[],
+  //   section: dataFromLocal?.section ? dataFromLocal?.section : [],
+  // });
+
+  // const [data, setData] = useState(() => {
+  //   // Check if data exists in localStorage, if not, initialize it with the default state
+  //   // const storedData = localStorage.getItem("userData");
+  //   // return storedData
+  //   //   ? JSON.parse(storedData)
+  //   //   : {
+  //   //       profilePhoto: null,
+  //   //       designation: "",
+  //   //       firstName: "",
+  //   //       lastName: "",
+  //   //       mobileNumber: "",
+  //   //       email: "",
+  //   //       location: "",
+  //   //       summary: "",
+  //   //       showSummary: true,
+  //   //       education: [],
+  //   //       showEducation: true,
+  //   //       experience: [],
+  //   //       showExperience: true,
+  //   //       course: [],
+  //   //       showCourse: true,
+  //   //       skills: [],
+  //   //       achievement: [],
+  //   //       sociaLinks: [],
+  //   //       hobbies: [],
+  //   //       languages: [],
+  //   //       section: [],
+  //   //     };
+
+  //   if (typeof window !== "undefined") {
+  //     // Check if data exists in localStorage, if not, initialize it with the default state
+  //     // console.log(274, "i am in");
+  //     const storedData = localStorage.getItem("userData");
+  //     return storedData
+  //       ? JSON.parse(storedData)
+  //       : {
+  //           profilePhoto: null,
+  //           designation: "",
+  //           firstName: "",
+  //           lastName: "",
+  //           mobileNumber: "",
+  //           email: "",
+  //           location: "",
+  //           summary: "",
+  //           showSummary: true,
+  //           education: [],
+  //           showEducation: true,
+  //           experience: [],
+  //           showExperience: true,
+  //           course: [],
+  //           showCourse: true,
+  //           skills: [],
+  //           achievement: [],
+  //           sociaLinks: [],
+  //           hobbies: [],
+  //           languages: [],
+  //           section: [],
+  //         };
+  //   } else {
+  //     return {
+  //       profilePhoto: null,
+  //       designation: "",
+  //       firstName: "",
+  //       lastName: "",
+  //       mobileNumber: "",
+  //       email: "",
+  //       location: "",
+  //       summary: "",
+  //       showSummary: true,
+  //       education: [],
+  //       showEducation: true,
+  //       experience: [],
+  //       showExperience: true,
+  //       course: [],
+  //       showCourse: true,
+  //       skills: [],
+  //       achievement: [],
+  //       sociaLinks: [],
+  //       hobbies: [],
+  //       languages: [],
+  //       section: [],
+  //     };
+  //   }
+  // });
+
+  const defaultState = {
     profilePhoto: null,
     designation: "",
     firstName: "",
@@ -54,7 +363,46 @@ function CreateResume() {
     hobbies: [],
     languages: [],
     section: [],
-  });
+    selectedResumeIndex: selectedResumeIndex ? selectedResumeIndex : 1,
+
+    createdAt: "",
+    clientId: clientId,
+  };
+
+  const [data, setData] = useState(defaultState);
+  const [isClient, setIsClient] = useState(false);
+  const [isDataInLocal, setIsDataInLocal] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const storedData = localStorage.getItem("userData");
+      if (storedData) {
+        setIsDataInLocal(true);
+        const parsedData = JSON.parse(storedData);
+
+        setSelectedResumeIndex(parsedData.selectedResumeIndex);
+        setData(JSON.parse(storedData));
+      }
+      setIsClient(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (isClient && clientId == "undefined") {
+      setData({
+        ...data,
+
+        selectedResumeIndex: selectedResumeIndex,
+      });
+    }
+  }, [selectedResumeIndex]);
+
+  useEffect(() => {
+    if (isClient && clientId == "undefined") {
+      localStorage.setItem("userData", JSON.stringify(data));
+    }
+  }, [data, isClient]);
+
   function extractMobileNumber(inputString) {
     var regex = /[0-9]{10}/g;
 
@@ -63,7 +411,7 @@ function CreateResume() {
   }
   const parsedDataSeter = () => {
     const parsedData = JSON.parse(localStorage.getItem("parsedResume"));
-  
+
     if (parsedData) {
       const {
         first_name,
@@ -141,7 +489,7 @@ function CreateResume() {
       });
     } else if (clientId) {
       axios
-        .get(`https://freedygoservices.in/api/client/getByClientId/${clientId}`)
+        .get(`https://jamblix.com/api/client/getByClientId/${clientId}`)
         .then((res) => {
           const result = res.data.data;
           setData({
@@ -165,17 +513,21 @@ function CreateResume() {
     if (userData) {
       if (userData.isEdit) {
         const parsedData = JSON.parse(userData.data);
+
         setData({ ...data, ...parsedData });
         setSelectedResumeIndex(parsedData.resumeTemplateIndex);
         setSelectedColor(parsedData.selectedColor);
         setSelectedFont(parsedData.selectedFont);
         setEnditId(parsedData._id);
+      } else if (continueEdit) {
       } else {
         setTimeout(() => {
           setSelectedResumeIndex(1);
           setSelectedColor("#414042");
         }, 400);
-        parsedDataSeter();
+        if (isDataInLocal === false) {
+          parsedDataSeter();
+        }
       }
     }
   }, [userData]);
@@ -183,14 +535,15 @@ function CreateResume() {
     setRender(false);
     setTimeout(() => setRender(true), 400);
   }, [data]);
+
   return (
     <div className="bg-[#F9F9F9]">
       <div className="  pt-2 customMargins ">
         <div className="flex flex-col gap-4 py-6 ">
           <div className="web">
-            <div className=" h-fit flex gap-6 ">
+            <div className=" h-fit flex gap-6 relative ">
               <div
-                className="h-[83.4rem] w-[78%] overflow-y-scroll scrollbar-hidden "
+                className=" w-[40%]  "
                 onWheel={(e) => {
                   e.stopPropagation();
                 }}
@@ -204,9 +557,10 @@ function CreateResume() {
                   setSelectedColor={setSelectedColor}
                   selectedColor={selectedColor}
                   setSelectedFont={setSelectedFont}
+                  template={templates}
                 />
               </div>
-              <div className="sticky">
+              <div className="sticky top-[88px]  h-[50rem] w-[60%] ">
                 <ResumePreview
                   data={data}
                   selectedResumeIndex={selectedResumeIndex}
@@ -218,6 +572,7 @@ function CreateResume() {
                   isEdit={userData.isEdit}
                   id={editId}
                   render={render}
+                  clientId={clientId}
                 />
               </div>
             </div>
@@ -253,6 +608,7 @@ function CreateResume() {
                   selectedColor={selectedColor}
                   setSelectedFont={setSelectedFont}
                   selectedFont={selectedFont}
+                  template={templates}
                 />
               </motion.div>
             </AnimatePresence>
@@ -270,6 +626,7 @@ function CreateResume() {
               isEdit={userData.isEdit}
               id={editId}
               render={render}
+              clientId={clientId}
             />
           </div>
         </div>

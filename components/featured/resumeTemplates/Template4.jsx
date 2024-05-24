@@ -13,7 +13,7 @@ import {
 function Template4({ data, selectedColor, selectedFont, preview }) {
   return (
     <Page size="A4" wrap={true} style={{ paddingTop: "12px" }}>
-      <View style={{ flexDirection: "row", gap: "1.5rem" ,marginTop: "-12px"}}>
+      <View style={{ flexDirection: "row", gap: "1.5rem", marginTop: "-12px" }}>
         <View style={{ width: "190px" }}>
           <View
             style={{
@@ -39,8 +39,8 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                     preview
                       ? data.profilePhoto
                       : Object.keys(data?.profilePhoto).includes("filename")
-                      ? URL.createObjectURL(data.profilePhoto)
-                      : data.profilePhoto
+                        ? URL.createObjectURL(data.profilePhoto)
+                        : data.profilePhoto
                   }
                   alt=""
                   style={{
@@ -63,7 +63,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                   }}
                 />
               )}
-              <View style={{ display: "flex" }}>
+              <View style={{ display: "flex", marginBottom: "6px" }}>
                 <Text
                   style={{
                     color: "#fff",
@@ -85,9 +85,11 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
               </View>
               <Text
                 style={{
-                  fontSize: "8px",
+                  fontSize: "10px",
                   fontFamily: `${selectedFont} 500`,
                   color: selectedColor,
+                  marginRight: "16px",
+                  marginLeft: "16px",
                 }}
               >
                 {data.designation}
@@ -132,7 +134,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                   </Text>
                 </Svg>
               </View>
-              <View style={{ display:"flex", flexDirection:"column", gap:"8px",width:'100%',alignItems:'start'}}>
+              <View style={{ display: "flex", flexDirection: "column", gap: "8px", width: '100%', alignItems: 'start' }}>
                 {data?.mobileNumber && (
                   <View
                     style={{
@@ -273,7 +275,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                         fontFamily: `${selectedFont} 400`,
                         color: "#fff",
                         flexWrap: "wrap",
-                        width:"90%"
+                        width: "90%"
                       }}
                     >
                       {data.location}
@@ -332,6 +334,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                       wrap={false}
                       key={index}
                       style={{
+                        marginLeft: "16px",
                         flexDirection: "row",
                         alignItems: "center",
                         justifyContent: "space-between",
@@ -340,16 +343,18 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                     >
                       <Text
                         style={{
-                          fontSize: "10px",
+                          fontSize: "12px",
                           paddingTop: "2px",
                           flexDirection: "row",
                           fontFamily: `${selectedFont} 400`,
                           color: "#fff",
+                          width: "90%",
+                          flexWrap: "wrap"
                         }}
                       >
                         {detail.languages}
                       </Text>
-                      <View
+                      {/* <View
                         style={{
                           flexDirection: "row",
                           gap: "8px",
@@ -379,7 +384,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                             )}
                           </View>
                         ))}
-                      </View>
+                      </View> */}
                     </View>
                   ))}
                 </View>
@@ -432,7 +437,11 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                     <View
                       wrap={false}
                       key={index}
-                      style={{ color: "white", fontSize: "12px" }}
+
+                      style={{
+                        color: "white", fontSize: "12px", width: "90%",
+                        flexWrap: "wrap"
+                      }}
                     >
                       <Text style={{ fontFamily: `${selectedFont} 400` }}>
                         {item?.title}
@@ -511,7 +520,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
               <Text
                 style={{
                   color: "#787879",
-                  fontSize: "12px",
+                  fontSize: "10px",
                   paddingLeft: 36,
                   fontFamily: `${selectedFont} 400`,
                 }}
@@ -575,6 +584,8 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                       wrap={false}
                       style={{
                         display: "flex",
+                        flexDirection: "column",
+                        gap:"4px",
                         justifyContent: "space-between",
                         alignItems: "start",
                         width: "95%",
@@ -585,7 +596,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                           display: "flex",
                           flexDirection: "row",
                           gap: 8,
-                          alignItems: "center",
+                          alignItems: "start",
                           justifyContent: "space-between",
                         }}
                       >
@@ -594,13 +605,17 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                             display: "flex",
                             flexDirection: "row",
                             gap: 8,
-                            alignItems: "center",
+
+                            alignItems: "start",
+                            width: "75%",
                           }}
                         >
                           <Text style={{ marginTop: "-1px" }}>{">"}</Text>
                           <Text
                             style={{
                               color: "#414042",
+
+                              flexWrap: "wrap",
                               fontSize: "11px",
                               fontFamily: `${selectedFont} 400`,
                             }}
@@ -617,7 +632,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                         >
                           {" "}
                           {detail.duration?.start?.year !== "Year" &&
-                            `${detail.duration?.start?.year}-${detail.duration?.end?.year}`}
+                          `${detail.duration?.start?.year}-${detail.duration?.end?.year ==="Year" ? "Pursuing" : detail.duration?.end?.year}`}
                         </Text>
                       </View>
                       <View
@@ -694,7 +709,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
               >
                 {data?.experience?.map((detail, index) => (
                   <View
-                    wrap={false}
+                  
                     key={index}
                     style={{ display: "flex", alignItems: "start", gap: 4 }}
                   >
@@ -704,7 +719,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                         flexDirection: "row",
                         gap: 8,
                         width: "98%",
-                        alignItems: "center",
+                        alignItems: "start",
                         justifyContent: "space-between",
                       }}
                     >
@@ -714,7 +729,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                           flexDirection: "row",
                           gap: 8,
                           alignItems: "start",
-                          width:"70%"
+                          width: "70%"
                         }}
                       >
                         <Text style={{ marginTop: "-1px" }}>{">"}</Text>
@@ -737,10 +752,9 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                       >
                         {" "}
                         {detail.duration?.start?.year !== "Year" &&
-                          `${detail.duration?.start?.year}-${" "}${
-                            detail.currentlyWorking
-                              ? "Present"
-                              : detail.duration?.end?.year
+                          `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
+                            ? "Present"
+                            : detail.duration?.end?.year
                           }
                          `}
                       </Text>
@@ -771,14 +785,14 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
           </View>
           {data?.skills?.length > 0 && (
             <View
-            wrap={false}
+
               style={{
                 display: "flex",
                 flexDirection: "column",
                 gap: 16,
                 alignItems: "flex-start",
                 paddingTop: "26px",
-                
+
               }}
             >
               <View
@@ -835,7 +849,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
               >
                 {data?.skills?.map((detail, index) => (
                   <View
-                    wrap={false}
+                    
                     key={index}
                     style={{
                       display: "flex",
@@ -849,13 +863,14 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                   >
                     <Text
                       style={{
-                        fontSize: 12,
+                        fontSize: 11,
                         fontFamily: `${selectedFont} 400`,
+                        marginRight: "6px"
                       }}
                     >
                       {detail.skill}
                     </Text>
-                    <View
+                    {/* <View
                       style={{
                         display: "flex",
                         gap: 16,
@@ -898,7 +913,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                           )}
                         </View>
                       ))}
-                    </View>
+                    </View> */}
                   </View>
                 ))}
               </View>
@@ -986,7 +1001,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                             display: "flex",
                             flexDirection: "row",
                             gap: 8,
-                            alignItems: "center",
+                            alignItems: "start",
 
                             justifyContent: "space-between",
                           }}
@@ -996,7 +1011,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                               display: "flex",
                               flexDirection: "row",
                               gap: 8,
-                              alignItems: "center",
+                              alignItems: "start",
                             }}
                           >
                             <Text style={{ marginTop: "-1px" }}>{">"}</Text>
@@ -1005,13 +1020,14 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                                 color: "#414042",
                                 fontSize: "11px",
                                 fontFamily: `${selectedFont} 400`,
+                                width: "70%"
                               }}
                             >
                               {detail.title}
                             </Text>
                           </View>
                           {detail.duration?.start?.year &&
-                            detail.duration?.end?.year && (
+                            (
                               <Text
                                 style={{
                                   color: "#414042",
@@ -1019,9 +1035,12 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                                   fontFamily: `${selectedFont} 400`,
                                 }}
                               >
-                                {" "}
-                                {detail.duration?.start?.year}-{" "}
-                                {detail.duration?.end?.year}
+                                {detail?.duration?.start?.year}
+                                {detail?.duration?.start?.year && "-"}
+                                {(detail?.duration?.end?.year === "" || detail?.duration?.end?.year === undefined)
+                                  ? "Present"
+                                  : detail?.duration?.end?.year
+                                }
                               </Text>
                             )}
                         </View>

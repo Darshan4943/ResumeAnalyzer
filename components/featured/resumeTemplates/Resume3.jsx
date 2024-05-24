@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 
 function Resume3({ data, selectedColor, selectedFont, preview }) {
-    console.log(selectedFont)
+    
     const topContainer = useRef(null);
     const summaryContainer = useRef(null);
     const educationContainer = useRef(null);

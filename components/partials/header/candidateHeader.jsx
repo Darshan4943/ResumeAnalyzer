@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import Link from "next/link";
 import Services from "../../../pages/services";
 import { Service, ServiceCross } from "../../../utils/svg";
+import { camelCase } from "../../../utils/middleware";
 
 function CandidateHeader() {
   const router = useRouter();
@@ -145,7 +146,7 @@ function CandidateHeader() {
             >
               <li>Candidates</li>
             </Link>
-            <Link
+            {/* <Link
               onClick={() => setServices(false)}
               href="/dashboard/Enquiries"
               className={
@@ -155,6 +156,17 @@ function CandidateHeader() {
               }
             >
               <li>Enquiries</li>
+            </Link> */}
+            <Link
+              onClick={() => setServices(false)}
+              href="/dashboard/ActivePlans"
+              className={
+                selectedPage === "/dashboard/Enquiries"
+                  ? "text-[14px] flex gap-2 items-center bg-[#EAF7FF] py-[8px] px-[12px] font-semibold rounded-[14px]"
+                  : " text-[14px] flex gap-2 items-center font-semibold py-[8px] px-[12px] hover:bg-[#EAF7FF] rounded-[14px] "
+              }
+            >
+              <li>Active Plans</li>
             </Link>
           </>
         ) : (
@@ -260,9 +272,9 @@ function CandidateHeader() {
               </div>
             )}
           </div>
-          {userDataGlobal?.name && (
+          {userDataGlobal?.firstName && (
             <div className="scr1250:text-[14px] text-[14px]">
-              {userDataGlobal?.name}
+             {camelCase(userDataGlobal?.firstName)} {camelCase(userDataGlobal?.lastName)}
             </div>
           )}
 

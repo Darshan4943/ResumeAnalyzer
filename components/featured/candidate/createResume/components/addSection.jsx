@@ -15,7 +15,7 @@ const AddSection = ({ data, setData, section, formData, index, item }) => {
   const [header, setHeader] = useState("");
   const [headerEditable, setHeaderEditable] = useState(false);
   const [listItems, setListItems] = useState(section);
-
+  const [error, setError] = useState("");
   useEffect(() => {
     setListItems(section);
     if (section.length > 0) {
@@ -39,6 +39,14 @@ const AddSection = ({ data, setData, section, formData, index, item }) => {
   };
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+    if (name === "description") {
+      if (value.length >= 1000 || sectionData.description === 1000) {
+        setError("Maximum 1000 characters allowed");
+      } else {
+        setError("");
+      }
+    }
+
     setSectionData({
       ...sectionData,
       [name]: value,
@@ -50,6 +58,7 @@ const AddSection = ({ data, setData, section, formData, index, item }) => {
     setSectionData(listItems[index]);
     setIsModified({ status: true, index });
     setView(true);
+    setIsEdited(true);
   };
 
   const deleteHandler = (index) => {
@@ -92,7 +101,7 @@ const AddSection = ({ data, setData, section, formData, index, item }) => {
     setIsEdited(false);
   };
   // console.log(first)
-  console.log(header);
+
   return (
     <div
       className="flex flex-col p-4 gap-2 rounded-lg bg-white"
@@ -106,11 +115,9 @@ const AddSection = ({ data, setData, section, formData, index, item }) => {
           <input
             type="text"
             placeholder="Enter Section Header"
-            className={`${
-              headerEditable ? "w-full" : "w-[120px]"
-            }  text-[20px]   font-[500]  ${
-              headerEditable && "border border-[#bebebe] px-[8px]"
-            } rounded-lg`}
+            className={`${headerEditable ? "w-full" : "w-[120px]"
+              }  text-[20px]   font-[500]  ${headerEditable && "border border-[#bebebe] px-[8px]"
+              } rounded-lg`}
             onChange={(e) => setHeader(e.target.value)}
             value={header}
             disabled={!headerEditable}
@@ -137,7 +144,7 @@ const AddSection = ({ data, setData, section, formData, index, item }) => {
           <span className="slider round"></span>
         </label> */}
       </div>
-
+      {console.log(listItems[3]?.duration?.end?.year)}
       {listItems?.map((exp, index) => (
         <div
           key={index}
@@ -145,9 +152,13 @@ const AddSection = ({ data, setData, section, formData, index, item }) => {
         >
           <div className="flex justify-between">
             <p className="text-[14px]">
-              {exp.title} | {exp.duration?.start?.year}{" "}
-              {exp.duration?.start?.year && "-"}
-              {exp.duration?.end?.year}
+              {exp.title}  {exp?.duration?.start?.year != null &&
+                ` ${"|"} ${exp?.duration?.start?.year} 
+              ${exp?.duration?.start?.year && "-"}
+              ${(exp?.duration?.end?.year === "" || exp?.duration?.end?.year === undefined)
+                  ? "Present"
+                  : exp.duration?.end?.year
+                }`}
             </p>
             <div className="flex gap-2">
               <div onClick={() => handleEditHandler(index)}>
@@ -178,6 +189,7 @@ const AddSection = ({ data, setData, section, formData, index, item }) => {
                   value={sectionData.title}
                   onChange={handleInputChange}
                   disabled={!isChecked}
+                  maxLength={100}
                 />
               </div>
             </div>
@@ -203,11 +215,12 @@ const AddSection = ({ data, setData, section, formData, index, item }) => {
                   placeholder="Enter text"
                   onChange={handleInputChange}
                   disabled={!isChecked}
-                  maxLength={200}
+                  maxLength={1000}
                 >
                   {sectionData.description}
                 </textArea>
               </div>
+              {error && <span className="text-[red] text-[12px]">{error}</span>}
             </div>
           </div>
           <div className="flex justify-end ">

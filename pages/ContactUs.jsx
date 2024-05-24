@@ -29,7 +29,7 @@ function ContactUs() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "https://freedygoservices.in/api/contactUs/create",
+        "https://jamblix.com/api/contactUs/create",
         formData
       );
       // console.log("Response:", response.data);
@@ -89,7 +89,6 @@ function ContactUs() {
               <a href="mailto:support@skilotech.com">support@skilotech.com</a>
             </p>
           </div>
-
         </div>
 
         <div className="ml:w-[50%] sm:w-[80%] w-[100%]">
@@ -135,7 +134,6 @@ function ContactUs() {
               maxLength={10}
               minLength={10}
               onKeyPress={handleKeyPress}
-
             />
             <input
               required

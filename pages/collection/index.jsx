@@ -38,7 +38,8 @@ function Collection() {
   const [files, setFiles] = useState([]);
   const fileRef = useRef(null);
   const [recall, setRecall] = useReducer((x) => x + 1, 0);
-  console.log(recall);
+ 
+
   const fileToText = (file, pageNumber) => {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
@@ -96,7 +97,7 @@ function Collection() {
 
   const getParentData = (parentId) => {
     axios
-      .get(`https://freedygoservices.in/api/folder/getByParentId/${parentId}`)
+      .get(`https://jamblix.com/api/folder/getByParentId/${parentId}`)
       .then((res) => {
         setFolderList(res.data.data);
         setTimeout(() => {
@@ -109,7 +110,7 @@ function Collection() {
   };
   const getClientData = (clientId) => {
     axios
-      .get("https://freedygoservices.in/api/resume/" + clientId)
+      .get("https://jamblix.com/api/resume/" + clientId)
       .then((res) => {
         setFolderList(res.data.data);
         setTimeout(() => {
@@ -123,7 +124,7 @@ function Collection() {
   const getFolderData = () => {
     setLoading(true);
     axios
-      .get(`https://freedygoservices.in/api/folder/get/${userDataGlobal._id}`)
+      .get(`https://jamblix.com/api/folder/get/${userDataGlobal._id}`)
       .then((res) => {
         setFolderList(res.data.data);
         setTimeout(() => {
@@ -139,7 +140,7 @@ function Collection() {
     setLoading(true);
     axios
       .get(
-        `https://freedygoservices.in/api/client/getByRecruiter/${userDataGlobal._id}`
+        `https://jamblix.com/api/client/getByRecruiter/${userDataGlobal._id}`
       )
       .then((res) => {
         console.log(res.data.data);
@@ -157,7 +158,7 @@ function Collection() {
     setLoading(true);
     axios
       .get(
-        `https://freedygoservices.in/api/folder/getTrashed/${userDataGlobal._id}`
+        `https://jamblix.com/api/folder/getTrashed/${userDataGlobal._id}`
       )
       .then((res) => {
         setFolderList(res.data.data);
@@ -178,7 +179,7 @@ function Collection() {
     formData.append("parentId", ParentId ? ParentId : undefined);
 
     axios
-      .post("https://freedygoservices.in/api/folder/create", formData)
+      .post("https://jamblix.com/api/folder/create", formData)
       .then((res) => {
         setRecall();
         setIsCreateFolder(false);
@@ -192,7 +193,7 @@ function Collection() {
 
   const textExtractor = async (textData) => {
     const { data } = await axios.post(
-      "https://freedygoservices.in/api/resume/extraction",
+      "https://jamblix.com/api/resume/extraction",
       {
         data: textData,
       }
@@ -267,7 +268,7 @@ function Collection() {
       });
       formData.append("parentId", ParentId ? ParentId : undefined);
       axios
-        .post("https://freedygoservices.in/api/folder/addFiles", formData)
+        .post("https://jamblix.com/api/folder/addFiles", formData)
         .then((res) => {
           setFolderName("Untitled folder");
           toast.success("File Uploaded successfully");
@@ -484,7 +485,7 @@ function Collection() {
                   style={{
                     opacity:
                       fileLoader ||
-                      (isFile ? Object.values(files).length === 0 : !folderName)
+                        (isFile ? Object.values(files).length === 0 : !folderName)
                         ? 0.5
                         : 1,
                   }}
@@ -600,9 +601,8 @@ function Collection() {
                   onClick={() => {
                     router.push("/collection?clients=true");
                   }}
-                  className={`rounded-[30px] sm:text-[14px] text-[12px] font-semibold scr900:px-6 sm:px-4 px-2  py-2 flex gap-2 ml:justify-start justify-center items-center ml:min-w-full sm:min-w-[30%] min-w-[110px] ${
-                    tab === 0 && "bg-[#C2E7FF]"
-                  }   `}
+                  className={`rounded-[30px] sm:text-[14px] text-[12px] font-semibold scr900:px-6 sm:px-4 px-2  py-2 flex gap-2 ml:justify-start justify-center items-center ml:min-w-full sm:min-w-[30%] min-w-[110px] ${tab === 0 && "bg-[#C2E7FF]"
+                    }   `}
                 >
                   <svg
                     width="20"
@@ -626,9 +626,8 @@ function Collection() {
                     // setTabIndex(0);
                     router.push("/collection?folders=true");
                   }}
-                  className={`rounded-[30px] sm:text-[14px] text-[12px] font-semibold scr900:px-6 sm:px-4 px-2 py-2 flex gap-2 ml:justify-start justify-center items-center ml:min-w-full sm:min-w-[30%] min-w-[110px]   ${
-                    tab === 1 && "bg-[#C2E7FF]"
-                  }  `}
+                  className={`rounded-[30px] sm:text-[14px] text-[12px] font-semibold scr900:px-6 sm:px-4 px-2 py-2 flex gap-2 ml:justify-start justify-center items-center ml:min-w-full sm:min-w-[30%] min-w-[110px]   ${tab === 1 && "bg-[#C2E7FF]"
+                    }  `}
                 >
                   <svg
                     width="20"
@@ -650,9 +649,8 @@ function Collection() {
                   onClick={() => {
                     router.push("/collection?trash=true");
                   }}
-                  className={`rounded-[30px] sm:text-[14px] text-[12px] font-semibold scr900:px-6 sm:px-4 px-2 py-2 flex gap-2 ml:justify-start justify-center items-center ml:min-w-full sm:min-w-[30%] min-w-[80px]  ${
-                    tab === 2 && "bg-[#C2E7FF]"
-                  }  `}
+                  className={`rounded-[30px] sm:text-[14px] text-[12px] font-semibold scr900:px-6 sm:px-4 px-2 py-2 flex gap-2 ml:justify-start justify-center items-center ml:min-w-full sm:min-w-[30%] min-w-[80px]  ${tab === 2 && "bg-[#C2E7FF]"
+                    }  `}
                 >
                   <svg
                     width="20"

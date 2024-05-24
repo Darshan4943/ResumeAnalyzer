@@ -15,6 +15,7 @@ import MiniLoader from "../../components/common/mini-loader";
 function Recruiter_signup({}) {
   const router = useRouter();
   const { byAdmin, isUpdate } = router.query;
+ 
   const userDataGlobal = useSelector((state) => state.userData);
 
   const dispatch = useDispatch();
@@ -46,7 +47,7 @@ function Recruiter_signup({}) {
     dial_code: "+260",
     img: null,
   });
-  console.log(data);
+ 
   const [file, setFile] = useState(null);
 
   const fileRef = useRef(null);
@@ -236,13 +237,13 @@ function Recruiter_signup({}) {
     if (hasErrors) {
       toast.error("Please enter valid information");
       setFormError(errors);
-    } else if (!verified) {
+    } else if (!verified && !isUpdate) {
       setOtpError("Email Verification Required");
       toast.error("Email Verification Required");
     } else {
       const url = isUpdate
-        ? "https://freedygoservices.in/api/updateUser"
-        : "https://freedygoservices.in/api/skiloteckuser/recruiter";
+        ? "https://jamblix.com/api/updateUser"
+        : "https://jamblix.com/api/skiloteckuser/recruiter";
       // setLoading(true);
       const formdata = new FormData();
       Object.keys(data).forEach((key) => {
@@ -316,7 +317,7 @@ function Recruiter_signup({}) {
     let otp = Math.floor(100000 + Math.random() * 900000);
     setOtp(otp);
     axios
-      .post("https://freedygoservices.in/api/otpMailSignup", {
+      .post("https://jamblix.com/api/otpMailSignup", {
         userEmail: data.email,
         otp,
       })
@@ -386,22 +387,24 @@ function Recruiter_signup({}) {
         />
       )}
       <div className=" relative !important">
-        <div className="register_head sticky ml:top-[50px] top-[2rem] w-[100%] z-50 pb-4 ml:pt-10 pt-6 bg-white">
-          <div className="register_cadidate py-3 px-2 overflow-hidden">
-            <div className="register_text_parent">
-              <div className="register_heding text-center">
-                <p className="ml:text-[30px] text-[24px] font-semibold text-white">
-                  Register as Recruiter
-                </p>
-                <p className="register_heding_desc">
-                  Fill up these details to start using the services from
-                  Skilotech
-                </p>
+        {!isUpdate && (
+          <div className="register_head sticky ml:top-[50px] top-[2rem] w-[100%] z-50 pb-4 ml:pt-10 pt-6 bg-white">
+            <div className="register_cadidate py-3 px-2 overflow-hidden">
+              <div className="register_text_parent">
+                <div className="register_heding text-center">
+                  <p className="ml:text-[30px] text-[24px] font-semibold text-white">
+                    Register as Recruiter
+                  </p>
+                  <p className="register_heding_desc">
+                    Fill up these details to start using the services from
+                    Skilotech
+                  </p>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div className={" pb-8  "}>
+        )}
+        <div className={` ${isUpdate && "pt-12"} pb-8  `}>
           <div className="flex flex-col gap-4">
             <motion.div className=" flex justify-center pt-4  pb-2">
               <div className="personal_details_form scr1250:w-[60%] sm:w-[80%] w-[95%] education_page  ">
@@ -597,6 +600,8 @@ function Recruiter_signup({}) {
                         </p>
                         <div className="flex gap-2 items-center justify-center">
                           <input
+                            disabled={isUpdate}
+                            style={{ opacity: isUpdate ? "0.5" : "1" }}
                             type="email"
                             name=""
                             id="single_input"
@@ -611,16 +616,18 @@ function Recruiter_signup({}) {
                           {!verified && (
                             <>
                               {!verify ? (
-                                <button
-                                  onClick={handleVerification}
-                                  className=" ms:min-w-[150px] min-w-[95px] ms:text-[16px] text-[12px] font-medium flex justify-center items-center border border-blue bg-blue text-white  py-3 ms:px-4 px-2 rounded-[8px] leading-tight h-[48px] "
-                                >
-                                  {loadingg ? (
-                                    <MiniLoader />
-                                  ) : (
-                                    <>Verify Email</>
-                                  )}
-                                </button>
+                                !isUpdate && (
+                                  <button
+                                    onClick={handleVerification}
+                                    className="ms:min-w-[150px] min-w-[95px] ms:text-[16px] text-[12px] font-medium flex justify-center items-center border border-blue bg-blue text-white py-3 ms:px-4 px-2 rounded-[8px] leading-tight h-[48px]"
+                                  >
+                                    {loadingg ? (
+                                      <MiniLoader />
+                                    ) : (
+                                      <>Verify Email</>
+                                    )}
+                                  </button>
+                                )
                               ) : (
                                 <button className=" min-w-[150px] text-[16px] font-medium flex justify-center items-center border border-blue text-[#C00000]  py-3 px-4 rounded-[8px] leading-tight h-[48px] ">
                                   {loadingg ? (

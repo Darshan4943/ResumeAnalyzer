@@ -22,7 +22,7 @@ function ClientResume() {
   useEffect(() => {
     axios
       .get(
-        `https://freedygoservices.in/api/client/getByRecruiter/${userDataGlobal._id}`
+        `https://jamblix.com/api/client/getByRecruiter/${userDataGlobal._id}`
       )
       .then((res) => {
         setDetails(res.data.data);
@@ -57,7 +57,7 @@ function ClientResume() {
   return (
     <div className="flex justify-center customMargins">
       <div className="flex flex-col gap-4 sm:py-6 py-2 w-[100%]">
-        <div className="text-[24px] font-semibold">My Clients</div>
+        <div className="text-[24px] font-semibold">Select Client</div>
         <div
           // style={{ boxShadow: "0px 2px 7px 0px #00000040" }}
           className="flex flex-col gap-4  rounded-[24px]"
@@ -107,6 +107,33 @@ function ClientResume() {
               </div>
             )}
             <div className="flex  gap-8 flex-wrap scr700:justify-start justify-center ">
+
+            <div
+                onClick={() => {
+                  if (ClientCount === 0) {
+                    setLimitPopUp(true);
+                  } else {
+                    router.push("/myClients/CreateNewClient");
+                  }
+                }}
+                style={{ boxShadow: "0px 0px 10px 5px #00000040" }}
+                className="rounded-[24px] text-center text-white justify-center flex scr540:flex-col flex-row text-[18px] items-center gap-2 font-medium  sm:min-w-[280px] min-w-[280px] max-w-[280px] bg-[#646464] p-6 cursor-pointer"
+              >
+                <svg
+                  width="27"
+                  height="27"
+                  viewBox="0 0 27 27"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M11.8187 14.6206H0.0750732V12.1079H11.8187V0.364258H14.3314V12.1079H26.075V14.6206H14.3314V26.3642H11.8187V14.6206Z"
+                    fill="white"
+                  />
+                </svg>
+
+                <p>Create New Client</p>
+              </div>
               {details?.length > 0 ? (
                 <>
                   {details?.map((detail, index) => (
@@ -115,7 +142,7 @@ function ClientResume() {
                         router.push(`/home/BuildResume?clientId=${detail._id}`)
                       }
                       key={index}
-                      className="flex flex-col gap-4 cursor-pointer sm:p-6 p-4 rounded-[24px] sm:min-w-[300px] min-w-[280px]"
+                      className="flex flex-col gap-4 cursor-pointer sm:p-6 p-4 rounded-[24px] sm:min-w-[280px] min-w-[280px] max-w-[280px] break-all"
                       style={{ boxShadow: "0px 2px 7px 0px #00000040" }}
                     >
                       <div className="flex justify-center relative">
@@ -226,13 +253,13 @@ function ClientResume() {
                 </>
               ) : (
                 <div
-                onClick={() => {
-                  if (ClientCount === 0) {
-                    setLimitPopUp(true);
-                  } else {
-                    router.push("/myClients/CreateNewClient");
-                  }
-                }}
+                  onClick={() => {
+                    if (ClientCount === 0) {
+                      setLimitPopUp(true);
+                    } else {
+                      router.push("/myClients/CreateNewClient");
+                    }
+                  }}
                   style={{ boxShadow: "0px 0px 10px 5px #00000040" }}
                   className="rounded-[12px] text-center text-white justify-center flex scr540:flex-col flex-row text-[18px] items-center gap-2 font-medium  scr540:w-[192px] w-[312px]  scr540:h-[272px] h-[135px] bg-[#646464] p-6 cursor-pointer"
                 >
@@ -256,8 +283,8 @@ function ClientResume() {
           </div>
         </div>
         {limitPopUp && (
-              <LimitUsedModal visible={limitPopUp} setVisible={setLimitPopUp} />
-            )}
+          <LimitUsedModal visible={limitPopUp} setVisible={setLimitPopUp} />
+        )}
       </div>
     </div>
   );

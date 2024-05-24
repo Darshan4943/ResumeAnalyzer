@@ -11,10 +11,9 @@ import {
   Rect,
 } from "@react-pdf/renderer";
 function Template32({ data, selectedColor, selectedFont, preview }) {
-
   return (
     <Page size="A4" wrap={true} style={{ paddingTop: "12px" }}>
-      <View style={{ flexDirection: "row", gap: "1.5rem" ,marginTop:"-12px"}}>
+      <View style={{ flexDirection: "row", gap: "1.5rem", marginTop: "-12px" }}>
         <View style={{ width: "207px" }}>
           <View
             style={{
@@ -30,6 +29,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                 alignItems: "center",
                 marginTop: "35px",
                 flexDirection: "column",
+                maxWidth: "100%",
               }}
             >
               {data.profilePhoto ? (
@@ -38,8 +38,8 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                     preview
                       ? data.profilePhoto
                       : Object.keys(data?.profilePhoto).includes("filename")
-                        ? URL.createObjectURL(data.profilePhoto)
-                        : data.profilePhoto
+                      ? URL.createObjectURL(data.profilePhoto)
+                      : data.profilePhoto
                   }
                   alt=""
                   style={{
@@ -47,7 +47,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                     marginBottom: "16px",
                     height: "134px",
                     borderRadius: "50%",
-                    objectFit: "cover"
+                    objectFit: "cover",
                   }}
                 />
               ) : (
@@ -67,8 +67,13 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                   marginTop: 24,
                   gap: 4,
                   alignItems: "center",
+                  maxWidth: "100%",
+                  // paddingHorizontal:'10px'
+                 
                 }}
               >
+                <View style={{maxWidth:"100%",paddingHorizontal:'14px',flexDirection:'column',justifyContent:'center',alignItems:'center'}}>
+
                 <Text
                   style={{
                     color: "#414042",
@@ -78,6 +83,9 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                 >
                   {data.firstName}
                 </Text>
+                {/* </View> */}
+                {/* <View style={{maxWidth:"100%",paddingHorizontal:'14px'}}> */}
+
                 <Text
                   style={{
                     color: selectedColor,
@@ -88,18 +96,22 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                   {data.lastName}
                 </Text>
               </View>
-              <Text
-                style={{
-                  fontSize: "12px",
-                  fontFamily: `${selectedFont} 400`,
-                  color: "#414042",
-                }}
-              >
-                {data.designation}
-              </Text>
+              {/* </View> */}
+              <View style={{ maxWidth: "100%", paddingHorizontal: "14px" }}>
+                <Text
+                  style={{
+                    fontSize: "14px",
+                    fontFamily: `${selectedFont} 400`,
+                    color: "#414042",
+                  }}
+                >
+                  {data.designation}
+                </Text>
+              </View>
+              </View>
             </View>
             <View
-              style={{ display: "flex", flexDirection: "column", gap: "8" }}
+              style={{ display: "flex", flexDirection: "column", gap: "8" ,}}
             >
               {data?.mobileNumber && (
                 <View
@@ -128,8 +140,9 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                   <Text
                     style={{
                       fontSize: "10px",
-                      paddingTop: "2px",
+                      // paddingTop: "2px",
                       flexDirection: "row",
+                      marginBottom:'2px',
                       fontFamily: `${selectedFont} 400`,
                       color: "#414042",
                     }}
@@ -148,11 +161,13 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                     alignItems: "center",
                     marginLeft: "24px",
                     paddingRight: " 4px",
+                    maxWidth: "100%",
                   }}
                 >
                   <Svg
                     width="17"
                     height="17"
+                    
                     viewBox="0 0 17 17"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
@@ -166,7 +181,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                     style={{
                       fontSize: "10px",
                       width: "80%",
-                      paddingTop: "2px",
+                      marginBottom:'4px',
                       flexDirection: "row",
                       fontFamily: `${selectedFont} 400`,
                       color: "#414042",
@@ -195,7 +210,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                     alignItems: "center",
                     marginLeft: "24px",
                     paddingRight: " 4px",
-                    maxWidth:"70%"
+                    maxWidth: "70%",
                   }}
                 >
                   <Svg
@@ -292,7 +307,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                             <Text
                               style={{
                                 color: "#414042",
-                                fontSize: "12px",
+                                fontSize: "10px",
                                 fontFamily: `${selectedFont} 400`,
                                 width: "150px",
                               }}
@@ -406,7 +421,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
             padding: " 16px",
             display: "flex",
             flexDirection: "column",
-            gap: "36px",
+            gap: "26px",
           }}
         >
           <View
@@ -416,6 +431,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
               gap: 8,
               alignItems: "flex-start",
               paddingTop: "26px",
+              paddingRight:'20px'
             }}
           >
             <View
@@ -432,7 +448,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                   display: "flex",
                   flexDirection: "row",
                   alignItems: "center",
-                  gap: 4,
+                  gap: 12,
                   width: "100%",
                 }}
               >
@@ -460,7 +476,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                     fontSize: "16px",
                   }}
                 >
-                  About me
+                  ABOUT ME
                 </Text>
               </View>
               <View
@@ -471,11 +487,11 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                 }}
               ></View>
             </View>
-            <View style={{}}>
+            <View style={{marginTop:'10px'}}>
               <Text
                 style={{
                   color: "#414042",
-                  fontSize: "14px",
+                  fontSize: "10px",
                   paddingLeft: 8,
                   fontFamily: `${selectedFont} 400`,
                 }}
@@ -514,7 +530,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                     display: "flex",
                     flexDirection: "row",
                     alignItems: "center",
-                    gap: 4,
+                    gap: 12,
                     width: "100%",
                   }}
                 >
@@ -585,7 +601,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                         style={{
                           display: "flex",
                           flexDirection: "column",
-                          gap: 8,
+                          gap: 6,
                           justifyContent: "space-between",
                           width: "30%",
                         }}
@@ -593,7 +609,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                         <Text
                           style={{
                             color: "#414042",
-                            fontSize: "11px",
+                            fontSize: "10px",
                             fontFamily: `${selectedFont} 700`,
                           }}
                         >
@@ -609,7 +625,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                         >
                           {" "}
                           {detail.duration?.start?.year !== "Year" &&
-                            `${detail.duration?.start?.year}-${detail.duration?.end?.year}`}
+                          `${detail.duration?.start?.year}-${detail.duration?.end?.year ==="Year" ? "Pursuing" : detail.duration?.end?.year}`}
                         </Text>
                       </View>
                       <View
@@ -623,7 +639,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                         <Text
                           style={{
                             color: "#787879",
-                            fontSize: "9px",
+                            fontSize: "10px",
                             fontFamily: `${selectedFont} 700`,
                           }}
                         >
@@ -666,7 +682,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                     display: "flex",
                     flexDirection: "row",
                     alignItems: "center",
-                    gap: 4,
+                    gap: 12,
                     width: "100%",
                   }}
                 >
@@ -724,7 +740,8 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                 {data?.experience?.map((detail, index) => (
                   <>
                     <View
-                      wrap={false}
+                      // wrap={true}
+                      // wrap={false}
                       key={index}
                       style={{ display: "flex", flexDirection: "row", gap: 16 }}
                     >
@@ -740,7 +757,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                         <Text
                           style={{
                             color: "#414042",
-                            fontSize: "11px",
+                            fontSize: "10px",
                             fontFamily: `${selectedFont} 700`,
                           }}
                         >
@@ -755,9 +772,11 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                           }}
                         >
                           {detail.duration?.start?.year !== "Year" &&
-                            `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
-                              ? "Present"
-                              : detail.duration?.end?.year}
+                            `${detail.duration?.start?.year}-${" "}${
+                              detail.currentlyWorking
+                                ? "Present"
+                                : detail.duration?.end?.year
+                            }
                          `}
                         </Text>
                       </View>
@@ -772,7 +791,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                         <Text
                           style={{
                             color: "#414042",
-                            fontSize: "9px",
+                            fontSize: "10px",
                             fontFamily: `${selectedFont} 700`,
                           }}
                         >
@@ -780,7 +799,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                         </Text>
                         <Text
                           style={{
-                            color: "#888888",
+                            color: "#414042",
                             fontSize: "10px",
                             fontFamily: `${selectedFont} 400`,
                           }}
@@ -796,7 +815,8 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
           </View>
           {data?.section?.map((item, index) => (
             <View
-            wrap={false}
+              // wrap={false}
+              // wrap={true}
               key={index}
               style={{
                 display: "flex",
@@ -827,7 +847,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                       display: "flex",
                       flexDirection: "row",
                       alignItems: "center",
-                      gap: 4,
+                      gap: 12,
                       width: "100%",
                     }}
                   >
@@ -863,7 +883,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                         fontSize: "16px",
                       }}
                     >
-                       {item?.header}
+                      {item?.header}
                     </Text>
                   </View>
                   <View
@@ -875,23 +895,23 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                   ></View>
                 </View>
                 <View
-                  wrap={false}
+                  // wrap={false}
                   style={{
                     display: "flex",
                     flexDirection: "column",
-                    gap: 16,
+                    gap: 8,
                     paddingLeft: 8,
                   }}
                 >
                   {item?.subSection?.map((detail, index) => (
                     <>
                       <View
-                      
                         key={index}
                         style={{
                           display: "flex",
                           flexDirection: "row",
                           gap: 16,
+                          // maxWidth:'100%'
                         }}
                       >
                         {detail?.title && (
@@ -899,21 +919,22 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                             style={{
                               display: "flex",
                               flexDirection: "column",
-                              gap: 12,
+                              gap: 6,
+                              justifyContent: "space-between",
                               width: "30%",
                             }}
                           >
                             <Text
                               style={{
                                 color: "#414042",
-                                fontSize: "11px",
+                                fontSize: "10px",
                                 fontFamily: `${selectedFont} 700`,
                               }}
                             >
                               {detail.title}
                             </Text>
                             {detail.duration?.start?.year &&
-                              detail.duration?.end?.year && (
+                              (
                                 <Text
                                   style={{
                                     color: "#414042",
@@ -921,8 +942,12 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                                     fontFamily: `${selectedFont} 400`,
                                   }}
                                 >
-                                  {detail.duration?.start?.year}-{" "}
-                                  {detail.duration?.end?.year}
+                                  {detail?.duration?.start?.year}
+                                {detail?.duration?.start?.year && "-"}
+                                {(detail?.duration?.end?.year === "" || detail?.duration?.end?.year === undefined)
+                                  ? "Present"
+                                  : detail?.duration?.end?.year
+                                }
                                 </Text>
                               )}
                           </View>
@@ -931,14 +956,14 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                         <View
                           style={{
                             display: "flex",
-                            flexDirection: "column",
-                            gap: 4,
-                            width: "70%",
+                          flexDirection: "column",
+                          gap: 4,
+                          width: "70%"
                           }}
                         >
                           <Text
                             style={{
-                              color: "#787879",
+                              color: "#414042",
                               fontSize: "10px",
                               fontFamily: `${selectedFont} 400`,
                             }}
