@@ -51,7 +51,7 @@ function Summary({ limits, selectedPlan, isActive }) {
     if (userDataGlobal) {
       axios
         .get(
-          "https://freedygoservices.in/api/subscription/" + userDataGlobal._id
+          "https://jamblix.com/api/subscription/" + userDataGlobal._id
         )
         .then((res) => {
           setSubscription(res.data.findIsActive);
@@ -83,7 +83,7 @@ function Summary({ limits, selectedPlan, isActive }) {
     if (userDataGlobal) {
       axios
         .get(
-          "https://freedygoservices.in/api/subscription/" + userDataGlobal._id
+          "https://jamblix.com/api/subscription/" + userDataGlobal._id
         )
         .then((res) => {
           const result = res.data.findIsActive;

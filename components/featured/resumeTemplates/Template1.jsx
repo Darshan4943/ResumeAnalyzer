@@ -29,14 +29,14 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
             justifyContent: "space-between",
           }}
         >
-          <View style={{ flexDirection: "col", gap: 4 }}>
-            <View>
+          <View style={{ flexDirection: "col", gap: 24 }}>
+            <View style={{ flexDirection: "col", gap: 24 }}>
               <Text
                 style={{
                   color: "#414042",
                   fontSize: 43,
                   width: "80%",
-                  lineHeight: 1.2,
+                 lineHeight:1,
                   fontFamily: `${selectedFont} 400`,
                 }}
               >
@@ -46,8 +46,8 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                 style={{
                   color: "#414042",
                   fontSize: 43,
-                  lineHeight: 1.2,
                   width: "80%",
+                  lineHeight:1,
                   fontFamily: `${selectedFont} 400`,
                 }}
               >
@@ -198,6 +198,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
               </View>
             </View>
             <View style={{ flexDirection: "column" }}>
+            {data?.education?.length > 0 && (
               <View style={{ flexDirection: "column", gap: 12 }}>
                 <Text
                   style={{
@@ -274,6 +275,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                   ))}
                 </View>
               </View>
+            )}
             </View>
             {data?.skills?.length > 0 && (
               <View style={{ flexDirection: "column" }}>
@@ -413,6 +415,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                 {data.summery}
               </Text>
             </View>
+            {data?.experience?.length > 0 && (
             <View style={{ flexDirection: "column", gap: 12, width: "100%" }}>
               <View style={{ flexDirection: "column", gap: 12 }}>
                 <Text
@@ -508,7 +511,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                 </>
               ))}
             </View>
-
+            )}
             {data?.section?.map((item, index) => (
               <View
                 style={{ flexDirection: "column", gap: 16, width: "100%" }}

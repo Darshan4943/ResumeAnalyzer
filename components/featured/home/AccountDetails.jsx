@@ -157,7 +157,7 @@ function AccountDetails({
   //       loading: true,
   //     });
   //     axios
-  //       .post("https://freedygoservices.in/api/add/subscription", {
+  //       .post("https://jamblix.com/api/add/subscription", {
   //         userId: userDataGlobal._id,
   //         plan: selectedPlan.duration + " " + selectedPlan.limit,
   //         ...jsonData,
@@ -194,7 +194,7 @@ function AccountDetails({
       if (recruiterid) {
         axios
           .get(
-            "https://freedygoservices.in/api/skiloteckuser/user/" + recruiterid
+            "https://jamblix.com/api/skiloteckuser/user/" + recruiterid
           )
           .then((res) => {
             const decode = jwtDecode(res.data.data);
@@ -241,7 +241,7 @@ function AccountDetails({
     localStorage.setItem("paymentDetails", JSON.stringify(data));
     if (currency) {
       const { data } = await axios.post(
-        "https://freedygoservices.in/api/getPriceId",
+        "https://jamblix.com/api/getPriceId",
         {
           amount: Math.ceil(selectedPlan.amount * exchangeRate) * 100,
           productName: selectedPlan.productName,
@@ -270,7 +270,7 @@ function AccountDetails({
         try {
           const priceId = await getPriceId();
           axios
-            .post("https://freedygoservices.in/api/proceed/payment", {
+            .post("https://jamblix.com/api/proceed/payment", {
               priceId,
               id: selectedPlan.index,
             })
@@ -294,7 +294,7 @@ function AccountDetails({
       try {
         setSuccessModel({ visible: true, loading: true });
         const response = await axios.get(
-          "https://freedygoservices.in/api/retrieve/session",
+          "https://jamblix.com/api/retrieve/session",
           {
             params: { storedId },
           }
@@ -331,7 +331,7 @@ function AccountDetails({
     }
 
     try {
-      await axios.post("https://freedygoservices.in/api/add/subscription", {
+      await axios.post("https://jamblix.com/api/add/subscription", {
         userId: userDataGlobal._id,
         plan: `${selectedPlan.duration} ${selectedPlan.limit}`,
         ...jsonData,

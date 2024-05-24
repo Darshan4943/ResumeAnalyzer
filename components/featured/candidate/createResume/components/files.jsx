@@ -66,7 +66,7 @@ function Files({
   useEffect(() => {
     if (clientId) {
       axios
-        .get("https://freedygoservices.in/api/resume/" + clientId)
+        .get("https://jamblix.com/api/resume/" + clientId)
         .then((res) => {
           setClientResumes(res.data.data);
           setFiles(

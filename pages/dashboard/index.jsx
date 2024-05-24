@@ -58,7 +58,7 @@ function Dashboard() {
     {
       name: "My Collection",
       imgSrc:
-        "/images/resumeBuilder/collechttps://freedygoservices.inMy Purchases",
+        "/images/resumeBuilder/collechttps://jamblix.comMy Purchases",
       imgSrc: "/images/resumeBuilder/my_purchases.png",
     },
     { name: "Post Jobs", imgSrc: "/images/resumeBuilder/job.png" },
@@ -129,7 +129,7 @@ function Dashboard() {
     if (userDataGlobal) {
       axios
         .get(
-          "https://freedygoservices.in/api/subscription/" + userDataGlobal._id
+          "https://jamblix.com/api/subscription/" + userDataGlobal._id
         )
         .then((res) => {
           const plan = plans.find(

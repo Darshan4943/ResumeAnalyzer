@@ -49,6 +49,7 @@ function SkillAssessment() {
   const [startTimer, setStartTimer] = useState(false);
   const [showSecondDiv, setshowSecondDiv] = useState(false);
   const [assessmentList, setAssessmentList] = useState([]);
+  console.log(52, assessmentList)
   const [isLevel, setisLevel] = useState(false);
   const [selectedSkill, setSelectedSkill] = useState();
   // const [skills, setSkills] = useState(SkillList);
@@ -57,8 +58,11 @@ function SkillAssessment() {
   const [timer, setTimer] = useState(30);
   const [isSubmit, setIsSubmit] = useState(false);
   const [inputValue, setInputValue] = useState("");
+
   const [level, setLevel] = useState("Intermediate");
   const [assesmentType, setAssesmentType] = useState("Normal");
+  const barWidth = Math.ceil(((questionIndex + 1) * 100) / (assesmentType === "Normal" ? 10 : 60));
+  console.log(64, barWidth)
   const [skippedArray, setSkippedArray] = useState([
     // { question: 1, isSkiped: true, Answer: "" },
     // { question: 2, isSkiped: true, Answer: "" },
@@ -97,7 +101,7 @@ function SkillAssessment() {
 
   useEffect(() => {
     axios
-      .get("https://freedygoservices.in/api/allSkills")
+      .get("https://jamblix.com/api/allSkills")
       .then((res) => {
         const names = res.data.map((skill) => skill.name);
 
@@ -114,7 +118,7 @@ function SkillAssessment() {
     );
     if (!found) {
       try {
-        const response = await fetch("https://freedygoservices.in/api/skills", {
+        const response = await fetch("https://jamblix.com/api/skills", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -194,7 +198,7 @@ function SkillAssessment() {
 
   useEffect(() => {
     axios
-      .get("https://freedygoservices.in/api/resume/" + userDataGlobal?._id)
+      .get("https://jamblix.com/api/resume/" + userDataGlobal?._id)
       .then((res) => {
         setData(res.data.data);
       })
@@ -269,12 +273,12 @@ function SkillAssessment() {
           : uniqueQuestions.length < 60
       ) {
         axios
-          .post("https://freedygoservices.in/api/getQuetions", {
+          .post("https://jamblix.com/api/getQuetions", {
             skill: selectedSkill,
             level: level,
           })
           .then((res) => {
-            console.log(2443, res);
+
             setQuestion([
               ...question,
               ...JSON.parse(res.data.data.choices[0].message.content),
@@ -294,10 +298,13 @@ function SkillAssessment() {
   };
 
   useEffect(() => {
+
     if (uniqueQuestions.length > questionIndex + 2) {
+
       setBtnEnable(true);
     }
-  }, [questionIndex]);
+  }, [uniqueQuestions]);
+
 
   // useEffect(() => {
   //   let timer;
@@ -329,20 +336,25 @@ function SkillAssessment() {
     // }
 
     if (assesmentType === "Normal" ? questionIndex == 9 : questionIndex == 59) {
+
       axios
-        .post("https://freedygoservices.in/api/assessment/add", {
+        .post("https://jamblix.com/api/assessment/add", {
           userId: userDataGlobal._id,
           skill: selectedSkill,
-          score: checkAnswer() * assesmentType === "Normal" ? 10 : 60,
+          score: checkAnswer(),
           date: new Date(),
         })
         .then((res) => {
+
           setToggle(0);
           setLoading(false);
 
-          setIsSubmit(true);
-
+          setSelectedSkill();
+          setQuestionIndex(0);
+          setQuestion([]);
+          setSkipped([]);
           setTimeout(() => {
+
             setScore(true);
           }, 500);
         })
@@ -355,30 +367,27 @@ function SkillAssessment() {
         questionIndex + 1 < assesmentType === "Normal"
           ? 10
           : 60
-          ? questionIndex + 1
-          : assesmentType === "Normal"
-          ? 9
-          : 59
+            ? questionIndex + 1
+            : assesmentType === "Normal"
+              ? 9
+              : 59
       );
     }
   };
-
+  console.log(370, isSubmit)
   useEffect(() => {
     let timer;
-    if (questionIndex && isSubmit === true) {
+    console.log(371, isSubmit)
+    if (questionIndex && isSubmit === false) {
       timer = setTimeout(() => {
-        if (
-          assesmentType === "Normal"
-            ? questionIndex === 9
-            : questionIndex === 59 && !isSubmit
-        ) {
+        if (assesmentType === "Normal" ? questionIndex === 9 : questionIndex === 59 && isSubmit === false) {
           sumbit();
         }
       }, 30000);
     }
 
     return () => clearTimeout(timer);
-  }, [questionIndex]);
+  }, [questionIndex, isSubmit]);
 
   // useEffect(() => {
   //   if (
@@ -394,7 +403,7 @@ function SkillAssessment() {
   useEffect(() => {
     axios
       .get(
-        `https://freedygoservices.in/api/assessment/getByUser/${userDataGlobal._id}`
+        `https://jamblix.com/api/assessment/getByUser/${userDataGlobal._id}`
       )
       .then((res) => {
         setAssessmentList(res.data.data);
@@ -456,6 +465,7 @@ function SkillAssessment() {
     return correctAnswer;
   };
 
+
   function convertToDateTime(dateString) {
     var date = new Date(dateString);
 
@@ -471,7 +481,7 @@ function SkillAssessment() {
 
     return formattedTime;
   }
-  console.log(1, uniqueQuestions);
+
 
   function calculateMarkOutOf60() {
     let correctAnswers = checkAnswer();
@@ -481,8 +491,8 @@ function SkillAssessment() {
     let percentageScore = (correctAnswers * 100) / totalQuestions;
 
     // Convert percentage to a mark out of 60
-
-    return percentageScore + `%`;
+    let markOutOf60 = Math.ceil((percentageScore * 60) / 100);
+    return markOutOf60 + `%`;
   }
 
   return (
@@ -495,21 +505,19 @@ function SkillAssessment() {
           <div className="flex flex-col gap-[16px] pt-[24px] pb-[95px] items-center  customMargins">
             <div className=" w-[100%] flex flex-row gap-[8px]">
               <button
-                className={` rounded-[12px] ml:px-[22.8px] px-3 ${
-                  assesmentType === "Normal"
-                    ? "bg-blue text-white btn_hover_effect"
-                    : "bg-white text-[#333] border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
-                } ml:min-w-[235px] min-w-[180px] py-2  flex gap-2 ml:text-[16px] scr420:text-[14px] text-[12px] justify-center items-center   h-[40px] font-semibold`}
+                className={` rounded-[12px] ml:px-[22.8px] px-3 ${assesmentType === "Normal"
+                  ? "bg-blue text-white btn_hover_effect"
+                  : "bg-white text-[#333] border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
+                  } ml:min-w-[235px] min-w-[180px] py-2  flex gap-2 ml:text-[16px] scr420:text-[14px] text-[12px] justify-center items-center   h-[40px] font-semibold`}
                 onClick={() => setAssesmentType("Normal")}
               >
                 Normal Assesment
               </button>
               <button
-                className={`rounded-[12px] min-w-[138px] flex justify-center items-center ${
-                  assesmentType === "Certificate"
-                    ? "bg-blue text-white btn_hover_effect"
-                    : "bg-white text-[#333] border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
-                }  py-2 px-6 text-[16px] font-medium `}
+                className={`rounded-[12px] min-w-[138px] flex justify-center items-center ${assesmentType === "Certificate"
+                  ? "bg-blue text-white btn_hover_effect"
+                  : "bg-white text-[#333] border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
+                  }  py-2 px-6 text-[16px] font-medium `}
                 onClick={() => setAssesmentType("Certificate")}
               >
                 Certified Assesment
@@ -629,9 +637,8 @@ function SkillAssessment() {
                             onClick={() => {
                               setSelectedSkill(item);
                             }}
-                            className={`ml:px-4 ml:py-2 px-2 py-1 border-[1px] border-solid border-[#06A9EF] rounded-[25px] ml:text-[14px] text-[12px] font-medium text-[#333]  transition-[0.2s] ${
-                              selectedSkill == item && "bg-[#06A9EF] text-white"
-                            }`}
+                            className={`ml:px-4 ml:py-2 px-2 py-1 border-[1px] border-solid border-[#06A9EF] rounded-[25px] ml:text-[14px] text-[12px] font-medium text-[#333]  transition-[0.2s] ${selectedSkill == item && "bg-[#06A9EF] text-white"
+                              }`}
                           >
                             {item}
                           </button>
@@ -752,9 +759,8 @@ function SkillAssessment() {
             )}
             <div className="flex flex-col lg:flex-row justify-center items-center w-[100%] gap-6">
               <div
-                className={`p-[12px] ms:px-[60px] ms:customMargins ${
-                  showSecondDiv ? "lg:w-[50%]" : "w-[100.95%] "
-                } scr1024:w-[50%] sm:w-[85%] w-[100%]  px-[12px] rounded-[12px] bg-[#005A81] flex flex-col  items-center gap-[8px] scr820:gap-[16px] `}
+                className={`p-[12px] ms:px-[60px] ms:customMargins ${showSecondDiv ? "lg:w-[50%]" : "w-[100.95%] "
+                  } scr1024:w-[50%] sm:w-[85%] w-[100%]  px-[12px] rounded-[12px] bg-[#005A81] flex flex-col  items-center gap-[8px] scr820:gap-[16px] `}
               >
                 <div className="text-[20px] font-[600] text-[#fff] flex flex-row gap-[12px]">
                   <Assessmentlogo />
@@ -873,11 +879,11 @@ function SkillAssessment() {
                   <button
                     className="btn_hover_effect hover:border-[#ffc82c] h-[42px] w-[108px] flex items-center justify-center  rounded-[8px] border-[1px] border-solid border-[#06A9EF] bg-[#fff] text-[#333] text-[14px] font-[500] "
                     disabled={loading}
-                    // onClick={() =>
-                    //   setQuestionIndex(
-                    //     questionIndex + 1 < 10 ? questionIndex + 1 : 9
-                    //   )
-                    // }
+                  // onClick={() =>
+                  //   setQuestionIndex(
+                  //     questionIndex + 1 < 10 ? questionIndex + 1 : 9
+                  //   )
+                  // }
                   >
                     {loading ? <MiniLoader /> : " Get Started"}
                   </button>
@@ -954,7 +960,7 @@ function SkillAssessment() {
                             </div> */}
                             <div className="flex  justify-center lg:w-[40%]  items-center self-stretch  ">
                               <p className="text-[#0C8A0A] items-center  font-montserrat text-sm font-semibold leading-7">
-                                {item.score / 10} / 10
+                                {item.score} / 10
                               </p>
                             </div>
                           </div>
@@ -1091,7 +1097,7 @@ function SkillAssessment() {
           //           if (questionIndex == 9) {
           //             axios
           //               .post(
-          //                 "https://freedygoservices.in/api/assessment/add",
+          //                 "https://jamblix.com/api/assessment/add",
           //                 {
           //                   userId: userDataGlobal._id,
           //                   skill: selectedSkill,
@@ -1193,9 +1199,8 @@ function SkillAssessment() {
               <div className="flex gap-4 w-full items-center">
                 <div className=" relative h-[10px] rounded-[6px] bg-[#DEDEDE] w-full">
                   <div
-                    className={`absolute h-[10px] rounded-[6px] bg-[#06A9EF] w-[${
-                      (questionIndex + 1) * assesmentType === "Normal" ? 10 : 60
-                    }%] `}
+                    className={`absolute h-[10px] rounded-[6px] bg-[#06A9EF] `}
+                    style={{ width: `${barWidth}%` }}
                   ></div>
                 </div>
                 <p className="text-[16px] flex justify-end font-semibold w-[60px]">
@@ -1258,7 +1263,7 @@ function SkillAssessment() {
                     //   if (questionIndex == 9) {
                     //     axios
                     //       .post(
-                    //         "https://freedygoservices.in/api/assessment/add",
+                    //         "https://jamblix.com/api/assessment/add",
                     //         {
                     //           userId: userDataGlobal._id,
                     //           skill: selectedSkill,
@@ -1303,8 +1308,8 @@ function SkillAssessment() {
                         ? "Submit"
                         : "Next"
                       : questionIndex == 59
-                      ? "Submit"
-                      : "Next"}
+                        ? "Submit"
+                        : "Next"}
                   </button>
                 </div>
               </div>
@@ -1395,13 +1400,16 @@ function SkillAssessment() {
                           Your Score is{" "}
                           {assesmentType === "Normal" &&
                             ((checkAnswer() / uniqueQuestions.length) * 100) /
-                              10}
+                            10}
+
                           {assesmentType === "Normal" && `/${10}`}
-                          {assesmentType !== "Normal" && calculateMarkOutOf60()}
+
+
+
                           {assesmentType !== "Normal" && (
-                            <div className="text-[18px] text-[#5B5B5B] font-[600]">
+                            <>
                               {calculateMarkOutOf60()}
-                            </div>
+                            </>
                           )}
                         </div>
 
@@ -1423,11 +1431,10 @@ function SkillAssessment() {
                   </div>
 
                   <div
-                    className={`flex  justify-between items-center pb-[12px] ${
-                      assesmentType !== "Normal" && calculateMarkOutOf60() > 42
-                        ? "sm:w-[90%] w-[95%]"
-                        : "w-[80%]"
-                    } `}
+                    className={`flex  justify-between items-center pb-[12px] ${assesmentType !== "Normal" && calculateMarkOutOf60() > 42
+                      ? "sm:w-[90%] w-[95%]"
+                      : "w-[80%]"
+                      } `}
                   >
                     <button
                       onClick={() => {
@@ -1436,6 +1443,8 @@ function SkillAssessment() {
                         setQuestionIndex(0);
                         setQuestion([]);
                         setSkipped([]);
+                        setUniqueQuestions([]);
+                        setIsSubmit(false);
                         // window.location.reload();
                         dispatch(reCallUserData());
                       }}

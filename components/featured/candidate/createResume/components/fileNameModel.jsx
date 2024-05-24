@@ -24,7 +24,7 @@ const FileNameModel = ({ setNamePreview, setFunction, data, clientId }) => {
     const id = clientId === "undefined" ? userDataGlobal?._id : clientId;
     if (id) {
       axios
-        .get(`https://freedygoservices.in/api/resume/${id}`)
+        .get(`https://jamblix.com/api/resume/${id}`)
         .then((res) => {
           const filenamesWithoutExtension = res.data.data.map((item) =>
             item.fileName.replace(/\.pdf$/, "")
