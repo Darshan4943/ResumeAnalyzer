@@ -20,7 +20,7 @@ function List({ miniLoading, data, page, setPage, userList, setLimit, selectedCa
             setPage(currentPage + 1);
         }
     };
-    console.log(111111, userList)
+   
     return (
         <>
             {/* {console.log(2222,userList)} */}

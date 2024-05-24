@@ -22,7 +22,7 @@ function AdminDashboard({ toggleContentt }) {
   const [inquiriesData, setInquiriesData] = useState([]);
   const [activeRecruiters, setActiveRecruiters] = useState([]);
   const [result, setResult] = useState();
-  console.log(102, result);
+
   const [activeplans, setActivePlans] = useState();
 
   const handleChangePage = (event, newPage) => {
@@ -92,11 +92,7 @@ function AdminDashboard({ toggleContentt }) {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
-  {
-    console.log(333, inquiriesData);
-
-  }
-
+ 
   const [list, setList] = useState([]);
   //  const [loading, setLoading] = useState(false);
   const router = useRouter();

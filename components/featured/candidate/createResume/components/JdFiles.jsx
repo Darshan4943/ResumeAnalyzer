@@ -15,7 +15,7 @@ function JdFiles({
   setSelectedIndexesFilesType,
   selectedIndexesFileTypes,
 }) {
-  console.log(16, selectedIndexes);
+ 
   const router = useRouter();
   const [selectAll, setSelectAll] = useState(false);
   const { clientId, name } = query;
@@ -82,7 +82,7 @@ function JdFiles({
       );
     }
   };
-  console.log(85,selectedIndexesFileTypes)
+ 
   function getAllFiles(obj) {
     let files = [];
 
@@ -116,7 +116,7 @@ function JdFiles({
       setData(allData);
     }
   };
-  console.log(119,details)
+
 
   const toggleSelect = (itemId, item) => {
     const fileType = [

@@ -12,7 +12,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 const Details = ({ data, setJd, files, extractedData, resume }) => {
-  console.log(14, data);
+
   const [loading, setLoading] = useState(true);
   const userDataGlobal = useSelector((state) => state.userData);
   const [isApplied, setIsApplied] = useState(true);

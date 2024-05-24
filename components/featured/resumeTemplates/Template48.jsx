@@ -16,7 +16,7 @@ import {
 import React from "react";
 
 const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
-  console.log(19, data);
+ 
   return (
     <Page size="A4" style={{ padding: 24 }} wrap={true}>
       <View style={{ minHeight: 793.8 }}>

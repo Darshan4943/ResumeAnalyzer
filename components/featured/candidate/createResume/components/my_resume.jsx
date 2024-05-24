@@ -45,7 +45,7 @@ const ResumeList = ({ data, setData }) => {
   // //  setFile(data.profilePhoto)
   // }, [data]);
 
-  console.log(7787, data);
+  
   return (
     <>
       {/* <div className="bg-[#06A9EF] p-4 rounded-[16px] flex justify-between text-white">

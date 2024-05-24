@@ -14,7 +14,7 @@ function MyPurchase() {
   const [plan, setPlan] = useState({});
   const [loading, setLoading] = useState(false);
   const [subscription, setSubscription] = useState(null);
-  console.log(15, subscription);
+
   const userDataGlobal = useSelector((state) => state.userData);
   const [exchangeRate, setexchangeRate] = useState(1);
   const [icon, seticon] = useState("$");
@@ -50,7 +50,7 @@ function MyPurchase() {
     }
   }, [userDataGlobal]);
 
-  console.log(41, subscription);
+ 
 
   return (
     <div className="flex flex-col gap-8  min-h-[60vh]">

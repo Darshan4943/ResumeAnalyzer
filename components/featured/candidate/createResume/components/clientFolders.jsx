@@ -75,7 +75,7 @@ function ClientFolders({
       );
     }
   };
-  console.log(clientData);
+
   return (
     <div className="">
       {tabIndex === 0 && (

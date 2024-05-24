@@ -20,7 +20,7 @@ function MyClients() {
   const [selectAll, setSelectAll] = useState(false);
   const [selectedIndexes, setSelectedIndexes] = useState([]);
   const [ClientCount, setClientCount] = useState(0);
-  console.log(ClientCount);
+  
   const [limitPopUp, setLimitPopUp] = useState(false);
   const dispatch = useDispatch();
 
