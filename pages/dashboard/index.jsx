@@ -41,6 +41,7 @@ function Dashboard() {
       imgSrc: "/images/resumeBuilder/skill_assessments.png",
     },
     { name: "My Purchases", imgSrc: "/images/resumeBuilder/my_purchases.png" },
+    { name: "Chat Bot", imgSrc: "/images/resumeBuilder/bot.png" },
     { name: "Search Jobs", imgSrc: "/images/resumeBuilder/job.png" },
   ];
 
@@ -84,9 +85,9 @@ function Dashboard() {
       case "My Clients":
         handleNavigation("/myClients");
         break;
-      case "My Resumes":
-        handleNavigation("/home/MyCollection");
-        break;
+        case "My Resumes":
+          handleNavigation("/home/MyCollection");
+          break;
       case "Transform CV":
         handleNavigation("/transform/TransformJob");
         break;
@@ -95,6 +96,9 @@ function Dashboard() {
         break;
       case "My Purchases":
         handleNavigation("/purchase/MyPurchase");
+        break;
+      case "Chat Bot":
+        handleNavigation("/chatbot/ChatBot");
         break;
       case "My Collection":
         handleNavigation("/collection");

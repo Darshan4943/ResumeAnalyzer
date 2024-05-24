@@ -249,7 +249,7 @@ const Skills = ({ data, setData }) => {
 
   useEffect(() => {
     axios
-      .get("https://freedygoservices.in/api/AllSkills")
+      .get("https://freedygoservices.in/api/allskills")
       .then((res) => {
         const names = res.data.map((skill) => skill.name);
         const uniqueNames = Array.from(new Set(names));
