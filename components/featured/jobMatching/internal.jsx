@@ -57,13 +57,10 @@ const InternalJobMatching = () => {
   const jobMatching = () => {
     setLoading(true);
     axios
-      .post(
-        "https://jamblix.com/api/jobMatching/" + userDataGlobal._id,
-        {
-          jd: text,
-          resumeCount,
-        }
-      )
+      .post("https://jamblix.com/api/jobMatching/" + userDataGlobal._id, {
+        jd: text,
+        resumeCount,
+      })
       .then((res) => {
         console.log(res.data);
         setResuneList(res.data.data);

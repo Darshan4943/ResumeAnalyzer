@@ -49,7 +49,7 @@ function SkillAssessment() {
   const [startTimer, setStartTimer] = useState(false);
   const [showSecondDiv, setshowSecondDiv] = useState(false);
   const [assessmentList, setAssessmentList] = useState([]);
-  console.log(52, assessmentList)
+
   const [isLevel, setisLevel] = useState(false);
   const [selectedSkill, setSelectedSkill] = useState();
   // const [skills, setSkills] = useState(SkillList);
@@ -60,9 +60,12 @@ function SkillAssessment() {
   const [inputValue, setInputValue] = useState("");
 
   const [level, setLevel] = useState("Intermediate");
+  const [resultType, setResultType] = useState(false);
   const [assesmentType, setAssesmentType] = useState("Normal");
-  const barWidth = Math.ceil(((questionIndex + 1) * 100) / (assesmentType === "Normal" ? 10 : 60));
-  console.log(64, barWidth)
+  const barWidth = Math.ceil(
+    ((questionIndex + 1) * 100) / (assesmentType === "Normal" ? 10 : 60)
+  );
+
   const [skippedArray, setSkippedArray] = useState([
     // { question: 1, isSkiped: true, Answer: "" },
     // { question: 2, isSkiped: true, Answer: "" },
@@ -89,8 +92,6 @@ function SkillAssessment() {
     }
     return array;
   };
-
-
 
   const [uniqueQuestions, setUniqueQuestions] = useState([]);
 
@@ -278,7 +279,6 @@ function SkillAssessment() {
             level: level,
           })
           .then((res) => {
-
             setQuestion([
               ...question,
               ...JSON.parse(res.data.data.choices[0].message.content),
@@ -298,13 +298,32 @@ function SkillAssessment() {
   };
 
   useEffect(() => {
+    // if (assesmentType === "Normal") {
+    //   if (questionIndex == 7 || questionIndex == 8) {
+    //     setBtnEnable(true);
+    //   }
+    // } else if (assesmentType !== "Normal") {
+    //   if (questionIndex == 59 || questionIndex == 60) {
+    //     setBtnEnable(true);
+    //   }
+    // } else
 
     if (uniqueQuestions.length > questionIndex + 2) {
-
       setBtnEnable(true);
+    } else {
+      if (assesmentType === "Normal") {
+        if (questionIndex == 8 || questionIndex == 9) {
+          setBtnEnable(true);
+        }
+      } else {
+        if (assesmentType !== "Normal") {
+          if (questionIndex == 58 || questionIndex == 59) {
+            setBtnEnable(true);
+          }
+        }
+      }
     }
-  }, [uniqueQuestions]);
-
+  }, [uniqueQuestions, questionIndex]);
 
   // useEffect(() => {
   //   let timer;
@@ -326,26 +345,24 @@ function SkillAssessment() {
   useEffect(() => {
     setStartTimer(true);
   }, [questionIndex]);
-
+  console.log("outside", questionIndex, btnEnable);
   const sumbit = () => {
+    console.log(333333, questionIndex, btnEnable);
+
     setStartTimer(false);
 
     setTimer(30);
-    // if (question.length < 10) {
-    //   toggleContent();
-    // }
 
     if (assesmentType === "Normal" ? questionIndex == 9 : questionIndex == 59) {
-
       axios
         .post("https://jamblix.com/api/assessment/add", {
           userId: userDataGlobal._id,
           skill: selectedSkill,
           score: checkAnswer(),
           date: new Date(),
+          isCertification: assesmentType !== "Normal" ? true : false,
         })
         .then((res) => {
-
           setToggle(0);
           setLoading(false);
 
@@ -354,7 +371,6 @@ function SkillAssessment() {
           setQuestion([]);
           setSkipped([]);
           setTimeout(() => {
-
             setScore(true);
           }, 500);
         })
@@ -367,20 +383,24 @@ function SkillAssessment() {
         questionIndex + 1 < assesmentType === "Normal"
           ? 10
           : 60
-            ? questionIndex + 1
-            : assesmentType === "Normal"
-              ? 9
-              : 59
+          ? questionIndex + 1
+          : assesmentType === "Normal"
+          ? 9
+          : 59
       );
     }
   };
-  console.log(370, isSubmit)
+
   useEffect(() => {
     let timer;
-    console.log(371, isSubmit)
+
     if (questionIndex && isSubmit === false) {
       timer = setTimeout(() => {
-        if (assesmentType === "Normal" ? questionIndex === 9 : questionIndex === 59 && isSubmit === false) {
+        if (
+          assesmentType === "Normal"
+            ? questionIndex === 9
+            : questionIndex === 59 && isSubmit === false
+        ) {
           sumbit();
         }
       }, 30000);
@@ -402,9 +422,7 @@ function SkillAssessment() {
 
   useEffect(() => {
     axios
-      .get(
-        `https://jamblix.com/api/assessment/getByUser/${userDataGlobal._id}`
-      )
+      .get(`https://jamblix.com/api/assessment/getByUser/${userDataGlobal._id}`)
       .then((res) => {
         setAssessmentList(res.data.data);
       })
@@ -465,7 +483,6 @@ function SkillAssessment() {
     return correctAnswer;
   };
 
-
   function convertToDateTime(dateString) {
     var date = new Date(dateString);
 
@@ -481,7 +498,6 @@ function SkillAssessment() {
 
     return formattedTime;
   }
-
 
   function calculateMarkOutOf60() {
     let correctAnswers = checkAnswer();
@@ -505,19 +521,21 @@ function SkillAssessment() {
           <div className="flex flex-col gap-[16px] pt-[24px] pb-[95px] items-center  customMargins">
             <div className=" w-[100%] flex flex-row gap-[8px]">
               <button
-                className={` rounded-[12px] ml:px-[22.8px] px-3 ${assesmentType === "Normal"
-                  ? "bg-blue text-white btn_hover_effect"
-                  : "bg-white text-[#333] border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
-                  } ml:min-w-[235px] min-w-[180px] py-2  flex gap-2 ml:text-[16px] scr420:text-[14px] text-[12px] justify-center items-center   h-[40px] font-semibold`}
+                className={` rounded-[12px] ml:px-[22.8px] px-3 ${
+                  assesmentType === "Normal"
+                    ? "bg-blue text-white btn_hover_effect"
+                    : "bg-white text-[#333] border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
+                } ml:min-w-[235px] min-w-[180px] py-2  flex gap-2 ml:text-[16px] scr420:text-[14px] text-[12px] justify-center items-center   h-[40px] font-semibold`}
                 onClick={() => setAssesmentType("Normal")}
               >
                 Normal Assesment
               </button>
               <button
-                className={`rounded-[12px] min-w-[138px] flex justify-center items-center ${assesmentType === "Certificate"
-                  ? "bg-blue text-white btn_hover_effect"
-                  : "bg-white text-[#333] border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
-                  }  py-2 px-6 text-[16px] font-medium `}
+                className={`rounded-[12px] min-w-[138px] flex justify-center items-center ${
+                  assesmentType === "Certificate"
+                    ? "bg-blue text-white btn_hover_effect"
+                    : "bg-white text-[#333] border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
+                }  py-2 px-6 text-[16px] font-medium `}
                 onClick={() => setAssesmentType("Certificate")}
               >
                 Certified Assesment
@@ -637,8 +655,9 @@ function SkillAssessment() {
                             onClick={() => {
                               setSelectedSkill(item);
                             }}
-                            className={`ml:px-4 ml:py-2 px-2 py-1 border-[1px] border-solid border-[#06A9EF] rounded-[25px] ml:text-[14px] text-[12px] font-medium text-[#333]  transition-[0.2s] ${selectedSkill == item && "bg-[#06A9EF] text-white"
-                              }`}
+                            className={`ml:px-4 ml:py-2 px-2 py-1 border-[1px] border-solid border-[#06A9EF] rounded-[25px] ml:text-[14px] text-[12px] font-medium text-[#333]  transition-[0.2s] ${
+                              selectedSkill == item && "bg-[#06A9EF] text-white"
+                            }`}
                           >
                             {item}
                           </button>
@@ -759,8 +778,9 @@ function SkillAssessment() {
             )}
             <div className="flex flex-col lg:flex-row justify-center items-center w-[100%] gap-6">
               <div
-                className={`p-[12px] ms:px-[60px] ms:customMargins ${showSecondDiv ? "lg:w-[50%]" : "w-[100.95%] "
-                  } scr1024:w-[50%] sm:w-[85%] w-[100%]  px-[12px] rounded-[12px] bg-[#005A81] flex flex-col  items-center gap-[8px] scr820:gap-[16px] `}
+                className={`p-[12px] ms:px-[60px] ms:customMargins ${
+                  showSecondDiv ? "lg:w-[50%]" : "w-[100.95%] "
+                } scr1024:w-[50%] sm:w-[85%] w-[100%]  px-[12px] rounded-[12px] bg-[#005A81] flex flex-col  items-center gap-[8px] scr820:gap-[16px] `}
               >
                 <div className="text-[20px] font-[600] text-[#fff] flex flex-row gap-[12px]">
                   <Assessmentlogo />
@@ -879,64 +899,96 @@ function SkillAssessment() {
                   <button
                     className="btn_hover_effect hover:border-[#ffc82c] h-[42px] w-[108px] flex items-center justify-center  rounded-[8px] border-[1px] border-solid border-[#06A9EF] bg-[#fff] text-[#333] text-[14px] font-[500] "
                     disabled={loading}
-                  // onClick={() =>
-                  //   setQuestionIndex(
-                  //     questionIndex + 1 < 10 ? questionIndex + 1 : 9
-                  //   )
-                  // }
+                    // onClick={() =>
+                    //   setQuestionIndex(
+                    //     questionIndex + 1 < 10 ? questionIndex + 1 : 9
+                    //   )
+                    // }
                   >
                     {loading ? <MiniLoader /> : " Get Started"}
                   </button>
                 </div>
               </div>
+
               {showSecondDiv && (
-                <div className="flex flex-col justify-start items-center rounded-lg shadow-md lg:w-[60%] sm:w-[85%]  w-[100%] ">
-                  <div className="flex h-16 px-4 py-3  items-center self-stretch border-b border-solid border-[#DEDEDE] bg-[#E0F6FF] rounded-lg justify-between">
-                    <div className="flex w-[35.18%] justify-between items-center self-stretch border-r border-solid border-[#DEDEDE] ">
-                      <p className="text-text-primary font-montserrat text-base font-medium leading-6">
-                        Assessment Name
-                      </p>
+                <div className="flex flex-col  justify-center items-center lg:w-[60%] sm:w-[85%]  w-[100%] gap-6 ">
+                  {showSecondDiv && (
+                    // <div className="flex flex-col justify-start items-center rounded-lg shadow-md lg:w-[60%] sm:w-[85%]  w-[100%] ">
+                    <div className=" w-[100%] flex flex-row justify-center items-center gap-[8px]  ">
+                      <button
+                        className={` rounded-[12px] ml:px-[22.8px] px-3 ${
+                          assesmentType === "Normal"
+                            ? "bg-blue text-white btn_hover_effect"
+                            : "bg-white text-[#333] border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
+                        } ml:min-w-[235px] min-w-[180px] py-2  flex gap-2 ml:text-[16px] scr420:text-[14px] text-[12px] justify-center items-center   h-[40px] font-semibold`}
+                        onClick={() => setResultType(false)}
+                      >
+                        Normal Assesment Result
+                      </button>
+                      <button
+                        className={`rounded-[12px] min-w-[138px] flex justify-center items-center ${
+                          assesmentType === "Certificate"
+                            ? "bg-blue text-white btn_hover_effect"
+                            : "bg-white text-[#333] border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
+                        }  py-2 px-6 text-[16px] font-medium `}
+                        onClick={() => setResultType(true)}
+                      >
+                        Certified Assesment Result
+                      </button>
                     </div>
-                    {/* <div className="flex w-[19.95%] justify-center items-center self-stretch border-r border-solid border-[#DEDEDE] ">
+                    // </div>
+                  )}
+
+                  {!resultType ? (
+                    <div className="flex flex-col justify-start items-center rounded-lg shadow-md lg:w-[100%] sm:w-[100%]  w-[100%] ">
+                      <div className="flex h-16 px-4 py-3  items-center self-stretch border-b border-solid border-[#DEDEDE] bg-[#E0F6FF] rounded-lg justify-between">
+                        <div className="flex w-[35.18%] justify-between items-center self-stretch border-r border-solid border-[#DEDEDE] ">
+                          <p className="text-text-primary font-montserrat text-base font-medium leading-6">
+                            Assessment Name
+                          </p>
+                        </div>
+                        {/* <div className="flex w-[19.95%] justify-center items-center self-stretch border-r border-solid border-[#DEDEDE] ">
                       <p className="text-text-primary font-montserrat text-base font-medium leading-6">
                         Status
                       </p>
                     </div> */}
-                    <div className="flex w-[19.95%] justify-center items-center self-stretch border-r border-solid border-[#DEDEDE] ">
-                      <p className="text-text-primary font-montserrat text-base font-medium leading-6">
-                        Date
-                      </p>
-                    </div>
-                    {/* <div className="flex w-[19.95%] justify-center items-center self-stretch border-r border-solid border-[#DEDEDE] ">
+                        <div className="flex w-[19.95%] justify-center items-center self-stretch border-r border-solid border-[#DEDEDE] ">
+                          <p className="text-text-primary font-montserrat text-base font-medium leading-6">
+                            Date
+                          </p>
+                        </div>
+                        {/* <div className="flex w-[19.95%] justify-center items-center self-stretch border-r border-solid border-[#DEDEDE] ">
                       <p className="text-text-primary font-montserrat text-base font-medium leading-6">
                         Time
                       </p>
                     </div> */}
-                    <div className="flex w-[19.95%] justify-center items-center self-stretch  ">
-                      <p className="text-text-primary font-montserrat text-base font-medium leading-6">
-                        Score
-                      </p>
-                    </div>
-                  </div>
-                  <div className="max-h-[388px] lg:h-[285px] w-full overflow-auto ">
-                    {assessmentList?.map((item, index) => (
-                      <div
-                        key={index}
-                        className="border-b border-solid border-[#DEDEDE] w-full"
-                      >
-                        <div className="flex  text-center  justify-between flex-row lg:gap-[14px] py-[8px] px-[16px]  w-[93%] lg:w-full items-center self-stretch ">
-                          <div className=" lg:w-[40%] w-[50%]  flex justify-between gap-[12px]">
-                            <div className="flex  gap-3 items-center self-stretch ">
-                              <div className="w-[40px] h-[40px]">
-                                <Assessmentlogo />
-                              </div>
-                              <div className="w-full">
-                                <p className="text-text-primary font-montserrat text-base font-medium leading-6">
-                                  {item.skill}
-                                </p>
-                              </div>
-                            </div>
-                            {/* <div className="flex  justify-center  items-center self-stretch  ">
+                        <div className="flex w-[19.95%] justify-center items-center self-stretch  ">
+                          <p className="text-text-primary font-montserrat text-base font-medium leading-6">
+                            Score
+                          </p>
+                        </div>
+                      </div>
+                      <div className="max-h-[388px] lg:h-[285px] w-full overflow-auto ">
+                        {assessmentList
+                          ?.filter((data) => data.isCertification !== true)
+                          ?.map((item, index) => (
+                            <div
+                              key={index}
+                              className="border-b border-solid border-[#DEDEDE] w-full"
+                            >
+                              <div className="flex  text-center  justify-between flex-row lg:gap-[14px] py-[8px] px-[16px]  w-[93%] lg:w-full items-center self-stretch ">
+                                <div className=" lg:w-[40%] w-[50%]  flex justify-between gap-[12px]">
+                                  <div className="flex  gap-3 items-center self-stretch ">
+                                    <div className="w-[40px] h-[40px]">
+                                      <Assessmentlogo />
+                                    </div>
+                                    <div className="w-full">
+                                      <p className="text-text-primary font-montserrat text-base font-medium leading-6">
+                                        {item.skill}
+                                      </p>
+                                    </div>
+                                  </div>
+                                  {/* <div className="flex  justify-center  items-center self-stretch  ">
                               <p
                                 className={`${item.score > 60
                                   ? "text-[#0C8A0A]"
@@ -946,33 +998,118 @@ function SkillAssessment() {
                                 {item.score > 60 ? "Completed" : "Incomplete"}
                               </p>
                             </div> */}
-                          </div>
-                          <div className="lg:w-[66%] w-[62%] flex justify-between gap-[12px] ">
-                            <div className="flex  justify-center items-center self-stretch ">
-                              <p className="text-[14px] font-montserrat text-base font-medium leading-6">
-                                {item?.date && formatDate(item?.date)}
-                              </p>
-                            </div>
-                            {/* <div className="flex  justify-center items-center self-stretch ">
+                                </div>
+                                <div className="lg:w-[66%] w-[62%] flex justify-between gap-[12px] ">
+                                  <div className="flex  justify-center items-center self-stretch ">
+                                    <p className="text-[14px] font-montserrat text-base font-medium leading-6">
+                                      {item?.date && formatDate(item?.date)}
+                                    </p>
+                                  </div>
+                                  {/* <div className="flex  justify-center items-center self-stretch ">
                               <p className="text-[14px] font-montserrat text-base font-medium leading-6">
                                 {item?.date && convertToDateTime(item?.date)}
                               </p>
                             </div> */}
-                            <div className="flex  justify-center lg:w-[40%]  items-center self-stretch  ">
-                              <p className="text-[#0C8A0A] items-center  font-montserrat text-sm font-semibold leading-7">
-                                {item.score} / 10
-                              </p>
+                                  <div className="flex  justify-center lg:w-[40%]  items-center self-stretch  ">
+                                    <p className="text-[#0C8A0A] items-center  font-montserrat text-sm font-semibold leading-7">
+                                      {item.score} / 10
+                                    </p>
+                                  </div>
+                                </div>
+                              </div>
                             </div>
-                          </div>
+                          ))}
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="flex flex-col justify-start items-center rounded-lg shadow-md lg:w-[100%] sm:w-[100%]  w-[100%] ">
+                      <div className="flex h-16 px-4 py-3  items-center self-stretch border-b border-solid border-[#DEDEDE] bg-[#E0F6FF] rounded-lg justify-between">
+                        <div className="flex w-[35.18%] justify-between items-center self-stretch border-r border-solid border-[#DEDEDE] ">
+                          <p className="text-text-primary font-montserrat text-base font-medium leading-6">
+                            Assessment Name
+                          </p>
+                        </div>
+                        {/* <div className="flex w-[19.95%] justify-center items-center self-stretch border-r border-solid border-[#DEDEDE] ">
+                  <p className="text-text-primary font-montserrat text-base font-medium leading-6">
+                    Status
+                  </p>
+                </div> */}
+                        <div className="flex w-[19.95%] justify-center items-center self-stretch border-r border-solid border-[#DEDEDE] ">
+                          <p className="text-text-primary font-montserrat text-base font-medium leading-6">
+                            Date
+                          </p>
+                        </div>
+                        {/* <div className="flex w-[19.95%] justify-center items-center self-stretch border-r border-solid border-[#DEDEDE] ">
+                  <p className="text-text-primary font-montserrat text-base font-medium leading-6">
+                    Time
+                  </p>
+                </div> */}
+                        <div className="flex w-[19.95%] justify-center items-center self-stretch  ">
+                          <p className="text-text-primary font-montserrat text-base font-medium leading-6">
+                            Score
+                          </p>
                         </div>
                       </div>
-                    ))}
-                  </div>
+                      <div className="max-h-[388px] lg:h-[285px] w-full overflow-auto ">
+                        {assessmentList
+                          ?.filter((data) => data.isCertification === true)
+                          ?.map((item, index) => (
+                            <div
+                              key={index}
+                              className="border-b border-solid border-[#DEDEDE] w-full"
+                            >
+                              <div className="flex  text-center  justify-between flex-row lg:gap-[14px] py-[8px] px-[16px]  w-[93%] lg:w-full items-center self-stretch ">
+                                <div className=" lg:w-[40%] w-[50%]  flex justify-between gap-[12px]">
+                                  <div className="flex  gap-3 items-center self-stretch ">
+                                    <div className="w-[40px] h-[40px]">
+                                      <Assessmentlogo />
+                                    </div>
+                                    <div className="w-full">
+                                      <p className="text-text-primary font-montserrat text-base font-medium leading-6">
+                                        {item.skill}
+                                      </p>
+                                    </div>
+                                  </div>
+                                  {/* <div className="flex  justify-center  items-center self-stretch  ">
+                          <p
+                            className={`${item.score > 60
+                              ? "text-[#0C8A0A]"
+                              : "text-[red]"
+                              } items-center  font-montserrat text-sm font-semibold leading-7`}
+                          >
+                            {item.score > 60 ? "Completed" : "Incomplete"}
+                          </p>
+                        </div> */}
+                                </div>
+                                <div className="lg:w-[66%] w-[62%] flex justify-between gap-[12px] ">
+                                  <div className="flex  justify-center items-center self-stretch ">
+                                    <p className="text-[14px] font-montserrat text-base font-medium leading-6">
+                                      {item?.date && formatDate(item?.date)}
+                                    </p>
+                                  </div>
+                                  {/* <div className="flex  justify-center items-center self-stretch ">
+                          <p className="text-[14px] font-montserrat text-base font-medium leading-6">
+                            {item?.date && convertToDateTime(item?.date)}
+                          </p>
+                        </div> */}
+                                  <div className="flex  justify-center lg:w-[40%]  items-center self-stretch  ">
+                                    <p className="text-[#0C8A0A] items-center  font-montserrat text-sm font-semibold leading-7">
+                                      {item.score}
+                                    </p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
               )}
             </div>
           </div>
         )}
+
         {toggle === 1 && (
           // <div className="w-full flex justify-between items-center scr540:gap-[24px] flex-row py-[36px] gap-[8px]">
           //   <div className="w-[8px] lg:w-[22%] h-[2px] bg-[#06A9EF] border-none"></div>
@@ -1296,6 +1433,7 @@ function SkillAssessment() {
                     style={{ opacity: !btnEnable ? "0.5" : 1 }}
                     disabled={!btnEnable}
                     onClick={() => {
+                      setBtnEnable(false);
                       sumbit();
                       let result = assesmentType === "Normal" ? 9 : 59;
                       if (questionIndex === result) {
@@ -1308,8 +1446,8 @@ function SkillAssessment() {
                         ? "Submit"
                         : "Next"
                       : questionIndex == 59
-                        ? "Submit"
-                        : "Next"}
+                      ? "Submit"
+                      : "Next"}
                   </button>
                 </div>
               </div>
@@ -1400,16 +1538,10 @@ function SkillAssessment() {
                           Your Score is{" "}
                           {assesmentType === "Normal" &&
                             ((checkAnswer() / uniqueQuestions.length) * 100) /
-                            10}
-
+                              10}
                           {assesmentType === "Normal" && `/${10}`}
-
-
-
                           {assesmentType !== "Normal" && (
-                            <>
-                              {calculateMarkOutOf60()}
-                            </>
+                            <>{calculateMarkOutOf60()}</>
                           )}
                         </div>
 
@@ -1431,10 +1563,11 @@ function SkillAssessment() {
                   </div>
 
                   <div
-                    className={`flex  justify-between items-center pb-[12px] ${assesmentType !== "Normal" && calculateMarkOutOf60() > 42
-                      ? "sm:w-[90%] w-[95%]"
-                      : "w-[80%]"
-                      } `}
+                    className={`flex  justify-between items-center pb-[12px] ${
+                      assesmentType !== "Normal" && calculateMarkOutOf60() > 42
+                        ? "sm:w-[90%] w-[95%]"
+                        : "w-[80%]"
+                    } `}
                   >
                     <button
                       onClick={() => {

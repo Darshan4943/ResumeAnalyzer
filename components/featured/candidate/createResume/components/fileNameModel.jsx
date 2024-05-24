@@ -8,7 +8,6 @@ const FileNameModel = ({ setNamePreview, setFunction, data, clientId }) => {
 
   const [error, setError] = useState("");
 
-
   const handleChange = (e) => {
     const value = e.target.value;
     if (value.length <= 40) {

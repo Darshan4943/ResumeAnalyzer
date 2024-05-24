@@ -18,10 +18,7 @@ const Index = () => {
   const getData = () => {
     setLoading(true);
     axios
-      .get(
-        "https://jamblix.com/api/job/getByCreatedId/" +
-          userDataGlobal._id
-      )
+      .get("https://jamblix.com/api/job/getByCreatedId/" + userDataGlobal._id)
       .then((res) => {
         setLoading(false);
         setJobPost(res.data);

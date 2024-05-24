@@ -26,7 +26,6 @@ function Files({
   setFolderList,
   query,
 }) {
-
   const [clientId, setClientId] = useState();
   const router = useRouter();
   const [clientResumes, setClientResumes] = useState();

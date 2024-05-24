@@ -25,7 +25,6 @@ const Rightform = ({
   const [skills, setSkills] = useState(SkillList);
   const [skillText, setSkillText] = useState("");
 
-
   const postJob = () => {
     let hasError = false;
 

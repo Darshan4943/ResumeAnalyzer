@@ -104,7 +104,7 @@ const ResumePreview = ({
     if (id) {
       axios
         .get(`https://jamblix.com/api/resume/${id}`)
-        
+
         .then((res) => {
           // Remove .pdf extension from filenames
           const filenamesWithoutExtension = res.data.data.map((item) =>
@@ -318,33 +318,33 @@ const ResumePreview = ({
             selectedFont={selectedFont}
           />
         );
-        case 47:
-          return (
-            <Template47
-              data={data}
-              selectedColor={selectedColor}
-              selectedFont={selectedFont}
-            />
-          );
-        case 30:
-          return (
-            <Template30
-              data={data}
-              selectedColor={selectedColor}
-              selectedFont={selectedFont}
-            />
-          );
-          case 53:
-          return (
-            <Template53
-              data={data}
-              selectedColor={selectedColor}
-              selectedFont={selectedFont}
-            />
-          );
-      default:
+      case 47:
+        return (
+          <Template47
+            data={data}
+            selectedColor={selectedColor}
+            selectedFont={selectedFont}
+          />
+        );
+      case 30:
         return (
           <Template30
+            data={data}
+            selectedColor={selectedColor}
+            selectedFont={selectedFont}
+          />
+        );
+      case 53:
+        return (
+          <Template53
+            data={data}
+            selectedColor={selectedColor}
+            selectedFont={selectedFont}
+          />
+        );
+      default:
+        return (
+          <Template1
             data={data}
             selectedColor={selectedColor}
             selectedFont={selectedFont}

@@ -137,10 +137,8 @@ const CandidateAiPower = ({
       }, 1000);
     });
   };
-  
-  const navigate = () => {
 
-   
+  const navigate = () => {
     if (uploadLimit <= 0) {
       setLimitUsedModal(true);
       return;
@@ -191,9 +189,7 @@ const CandidateAiPower = ({
                   router.push(`/home/createResume?clientId=${clientId}`);
                 });
             } else {
-            
               setCount(count + 1);
-             
             }
           })
           .catch((err) => {
@@ -211,14 +207,13 @@ const CandidateAiPower = ({
   };
 
   useEffect(() => {
-  
-    if(count >=2){
+    if (count >= 2) {
       setLoading(false);
       setfile();
       setResumeErrorPopup(true);
-      setCount(0)
-    }else{
-      navigate
+      setCount(0);
+    } else {
+      navigate;
     }
   }, [count]);
 

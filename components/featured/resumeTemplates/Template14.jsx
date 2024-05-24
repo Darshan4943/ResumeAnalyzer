@@ -200,7 +200,7 @@ function Template14({ data, selectedColor, selectedFont }) {
                     display: "flex",
                     flexDirection: "row",
                     width: "100%",
-                    alignItems: "center",
+                    alignItems: "start",
                     justifyContent: "space-between",
                   }}
                 >
@@ -368,7 +368,7 @@ function Template14({ data, selectedColor, selectedFont }) {
                     display: "flex",
                     flexDirection: "row",
                     width: "100%",
-                    alignItems: "center",
+                    alignItems: "start",
                     justifyContent: "space-between",
                   }}
                 >
@@ -514,7 +514,7 @@ function Template14({ data, selectedColor, selectedFont }) {
                         display: "flex",
                         flexDirection: "row",
                         width: "100%",
-                        alignItems: "center",
+                        alignItems: "start",
                         justifyContent: "space-between",
                       }}
                     >

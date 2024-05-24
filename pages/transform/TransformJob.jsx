@@ -88,10 +88,7 @@ function TransformJob() {
           });
           if (result?.length > 0) {
             axios
-              .get(
-                "https://jamblix.com/api/resume/" +
-                  res.data.data[0]?._id
-              )
+              .get("https://jamblix.com/api/resume/" + res.data.data[0]?._id)
               .then((res) => {
                 setResumeList(res.data.data);
 
@@ -122,8 +119,6 @@ function TransformJob() {
         });
     }
   };
-
-
 
   return (
     <div className=" py-6 flex flex-col gap-2  customMargins">

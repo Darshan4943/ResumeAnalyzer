@@ -147,7 +147,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
           <View>
             {data?.languages?.length > 0 && (
               <>
-                <View style={{ objectFit: "contain" }}>
+                <View style={{ objectFit: "contain" }} wrap={false}>
                   <Text
                     style={{ fontSize: 16, fontFamily: `${selectedFont} 700` }}
                   >
@@ -179,7 +179,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                     // );
 
                     return (
-                      <View style={{ flexDirection: "column" }} key={index}>
+                      <View style={{ flexDirection: "column" }} key={index} wrap={false}>
                         <View
                           style={{
                             justifyContent: "space-between",
@@ -247,6 +247,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                 >
                   {data?.hobbies?.map((item, index) => (
                     <Text
+                   wrap={false}
                       key={index}
                       style={{
                         color: "#000000",
@@ -780,7 +781,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                     <View style={{ flexDirection: "column", gap: 16,width: '100%' }}>
 
                       <View
-                        style={{ flexDirection: "row", gap: 5, justifyContent:"space-around",width: '100%'}}
+                        style={{ flexDirection: "row", gap: 5, justifyContent:"space-between",width: '100%'}}
                       >
                         {detail.title.length > 0 && (
                           <Text
