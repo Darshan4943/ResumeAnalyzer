@@ -531,7 +531,7 @@ function Template14({ data, selectedColor, selectedFont }) {
                       </View>
                      
                         {detail.duration?.start?.year &&
-                          detail.duration?.end?.year && (
+                          (
                             <Text
                               style={{
                                 fontSize: 14,
@@ -540,8 +540,12 @@ function Template14({ data, selectedColor, selectedFont }) {
                                 marginLeft: 10,
                               }}
                             >
-                              {detail.duration?.start?.year} -{" "}
-                              {detail.duration?.end?.year}
+                              {detail?.duration?.start?.year}
+                                {detail?.duration?.start?.year && "-"}
+                                {(detail?.duration?.end?.year === "" || detail?.duration?.end?.year === undefined)
+                                  ? "Present"
+                                  : detail?.duration?.end?.year
+                                }
                             </Text>
                           )}
                       

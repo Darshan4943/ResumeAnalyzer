@@ -40,7 +40,7 @@
 
 //   useEffect(() => {
 //     axios
-//       .get("https://freedygoservices.in/api/AllSkills")
+//       .get("https://jamblix.com/api/AllSkills")
 //       .then((res) => {
 //         console.log(res);
 //         const names = res.data.map((skill) => skill.name);
@@ -81,7 +81,7 @@
 //     const found = skillList?.find((item) => item.skill === value.label);
 //     if (!found) {
 //       try {
-//         const response = await fetch("https://freedygoservices.in/api/skills", {
+//         const response = await fetch("https://jamblix.com/api/skills", {
 //           method: "POST",
 //           headers: {
 //             "Content-Type": "application/json",
@@ -249,7 +249,7 @@ const Skills = ({ data, setData }) => {
 
   useEffect(() => {
     axios
-      .get("https://freedygoservices.in/api/allskills")
+      .get("https://jamblix.com/api/allskills")
       .then((res) => {
         const names = res.data.map((skill) => skill.name);
         const uniqueNames = Array.from(new Set(names));
@@ -275,7 +275,7 @@ const Skills = ({ data, setData }) => {
     const found = skills.includes(value.label); 
     if (!found) {
       try {
-        const response = await fetch("https://freedygoservices.in/api/skills", {
+        const response = await fetch("https://jamblix.com/api/skills", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

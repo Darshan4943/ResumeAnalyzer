@@ -336,8 +336,12 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
                               justifyContent: "flex-end"
                             }}
                           >
-                            {detail.duration?.start?.year} -
-                            {detail.duration?.end?.year}
+                             {detail?.duration?.start?.year}
+                                {detail?.duration?.start?.year && "-"}
+                                {(detail?.duration?.end?.year === "" || detail?.duration?.end?.year === undefined)
+                                  ? "Present"
+                                  : detail?.duration?.end?.year
+                                }
                           </Text>
                         </View>
                         <View

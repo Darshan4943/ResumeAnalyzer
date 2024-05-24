@@ -632,7 +632,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                         {detail.title}
                       </Text>
                       {detail.duration?.start?.year &&
-                        detail.duration?.end?.year && (
+                        (
                           <Text
                             style={{
                               color: "#414142",
@@ -641,11 +641,12 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                               fontFamily: `${selectedFont} 400`,
                             }}
                           >
-                            {`${detail.duration?.start?.year &&
-                              detail.duration?.start?.year
-                              } - ${detail.duration?.end?.year &&
-                              detail.duration?.end?.year
-                              }`}
+                             {detail?.duration?.start?.year}
+                                {detail?.duration?.start?.year && "-"}
+                                {(detail?.duration?.end?.year === "" || detail?.duration?.end?.year === undefined)
+                                  ? "Present"
+                                  : detail?.duration?.end?.year
+                                }
                           </Text>
                         )}
                     </View>

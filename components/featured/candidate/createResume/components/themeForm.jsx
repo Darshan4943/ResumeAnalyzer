@@ -86,7 +86,6 @@ function ThemeForm({
     setSelectedFont(font);
   };
 
-
   const handleShowFont = (label) => {
     if (label === "font") {
       setShowColors(false);
@@ -172,9 +171,9 @@ function ThemeForm({
               </h1>
             </div>
           </div>*/}
-          <div className="flex flex-col md:flex-row md:gap-[14px]">
+          <div className="flex flex-col md:flex-row md:gap-[14px] ">
             <div
-              className="flex flex-col md:flex-row md:gap-[8px]"
+              className="flex flex-col md:flex-row md:gap-[8px] cursor-pointer"
               onClick={() => handleShowFont("font")}
             >
               <div className="flex items-center gap-2">
@@ -211,7 +210,7 @@ function ThemeForm({
             </div>
 
             <div
-              className="flex flex-col md:flex-row md:gap-[8px] mt-4 md:mt-0"
+              className="flex flex-col md:flex-row md:gap-[8px] mt-4 md:mt-0 cursor-pointer"
               onClick={() => handleShowFont("color")}
             >
               <div className="flex items-center gap-2">
