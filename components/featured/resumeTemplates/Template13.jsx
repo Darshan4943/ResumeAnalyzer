@@ -422,8 +422,12 @@ function Template13({ data, selectedColor, selectedFont }) {
                                   color: "#797979",
                                 }}
                               >
-                                {detail.duration?.start?.year} -
-                                {detail.duration?.end?.year}
+                               {detail?.duration?.start?.year}
+                                {detail?.duration?.start?.year && "-"}
+                                {(detail?.duration?.end?.year === "" || detail?.duration?.end?.year === undefined)
+                                  ? "Present"
+                                  : detail?.duration?.end?.year
+                                }
                               </Text>
                               <Text
                                 style={{

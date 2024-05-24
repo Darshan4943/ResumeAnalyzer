@@ -77,8 +77,8 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                   preview
                     ? data.profilePhoto
                     : Object.keys(data?.profilePhoto).includes("filename")
-                    ? URL.createObjectURL(data.profilePhoto)
-                    : data.profilePhoto
+                      ? URL.createObjectURL(data.profilePhoto)
+                      : data.profilePhoto
                 }
                 style={{
                   objectFit: "cover",
@@ -268,7 +268,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                         }}
                       >
                         {detail.duration?.start?.year !== "Year" &&
-                          `${detail.duration?.start?.year}-${detail.duration?.end?.year ==="Year" ? "Pursuing" : detail.duration?.end?.year}`}
+                          `${detail.duration?.start?.year}-${detail.duration?.end?.year === "Year" ? "Pursuing" : detail.duration?.end?.year}`}
                       </Text>
                     </View>
                   ))}
@@ -440,7 +440,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                   <View
                     key={index}
                     style={{ flexDirection: "column", gap: 2 }}
-                   
+
                   >
                     <View>
                       <Text
@@ -482,10 +482,9 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                           }}
                         >
                           {detail.duration?.start?.year !== "Year" &&
-                            `${detail.duration?.start?.year}-${" "}${
-                              detail.currentlyWorking
-                                ? "Present"
-                                : detail.duration?.end?.year
+                            `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
+                              ? "Present"
+                              : detail.duration?.end?.year
                             }
                          `}
                         </Text>
@@ -560,7 +559,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                         {detail.title}
                       </Text>
                       {detail.duration?.start?.year &&
-                        detail.duration?.end?.year && (
+                      (
                           <View
                             style={{
                               flexDirection: "row",
@@ -577,10 +576,12 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                                   lineHeight: 1.5,
                                 }}
                               >
-                                {detail.duration?.end?.year &&
-                                  `${detail.duration?.start?.year}- ${" "}${
-                                    detail.duration?.end?.year
-                                  }`}
+                                {detail?.duration?.start?.year}
+                                {detail?.duration?.start?.year && "-"}
+                                {(detail?.duration?.end?.year === "" || detail?.duration?.end?.year === undefined)
+                                  ? "Present"
+                                  : detail?.duration?.end?.year
+                                }
                               </Text>
                             </View>
                           </View>
