@@ -639,8 +639,12 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                                 wordBreak: "break-word",
                               }}
                             >
-                              {detail.duration?.start?.year} -
-                              {detail.duration?.end?.year}
+                              {detail?.duration?.start?.year}
+                                {detail?.duration?.start?.year && "-"}
+                                {(detail?.duration?.end?.year === "" || detail?.duration?.end?.year === undefined)
+                                  ? "Present"
+                                  : detail?.duration?.end?.year
+                                }
                             </Text>
                           </View>
                           <Text

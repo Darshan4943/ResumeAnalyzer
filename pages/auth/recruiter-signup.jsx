@@ -15,7 +15,7 @@ import MiniLoader from "../../components/common/mini-loader";
 function Recruiter_signup({}) {
   const router = useRouter();
   const { byAdmin, isUpdate } = router.query;
- 
+
   const userDataGlobal = useSelector((state) => state.userData);
 
   const dispatch = useDispatch();
@@ -47,7 +47,7 @@ function Recruiter_signup({}) {
     dial_code: "+260",
     img: null,
   });
- 
+
   const [file, setFile] = useState(null);
 
   const fileRef = useRef(null);
@@ -242,8 +242,8 @@ function Recruiter_signup({}) {
       toast.error("Email Verification Required");
     } else {
       const url = isUpdate
-        ? "https://freedygoservices.in/api/updateUser"
-        : "https://freedygoservices.in/api/skiloteckuser/recruiter";
+        ? "https://jamblix.com/api/updateUser"
+        : "https://jamblix.com/api/skiloteckuser/recruiter";
       // setLoading(true);
       const formdata = new FormData();
       Object.keys(data).forEach((key) => {
@@ -317,7 +317,7 @@ function Recruiter_signup({}) {
     let otp = Math.floor(100000 + Math.random() * 900000);
     setOtp(otp);
     axios
-      .post("https://freedygoservices.in/api/otpMailSignup", {
+      .post("https://jamblix.com/api/otpMailSignup", {
         userEmail: data.email,
         otp,
       })

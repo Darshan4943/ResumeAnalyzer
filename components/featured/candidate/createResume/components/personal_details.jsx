@@ -319,7 +319,7 @@ const PersonalDetails = ({
                     value={profileData[item.name]}
                     onChange={handleInputChange}
                     disabled={!isChecked}
-                    maxLength={100}
+                    maxLength={item.name==="firstName" || item.name==="lastName"  ? 25 : 100}
                   />
                 </div>
               )}

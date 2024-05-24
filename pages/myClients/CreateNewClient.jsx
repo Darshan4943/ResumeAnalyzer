@@ -60,7 +60,7 @@ function CreateNewClient({ setTabIndex }) {
   // const callData = () => {
   //   axios
   //     .get(
-  //       `https://freedygoservices.in/api/client/getByRecruiter/${userDataGlobal._id}`
+  //       `https://jamblix.com/api/client/getByRecruiter/${userDataGlobal._id}`
   //     )
   //     .then((res) => {
   //       setDetails(res.data.data);
@@ -199,7 +199,7 @@ function CreateNewClient({ setTabIndex }) {
         formdata.append("img", croppedImage);
 
         const response = await axios.post(
-          "https://freedygoservices.in/api/client/create",
+          "https://jamblix.com/api/client/create",
           formdata
         );
         setData({
@@ -279,7 +279,7 @@ function CreateNewClient({ setTabIndex }) {
           <p className="text-[24px] font-semibold">Create New Client</p>
           <div
             className="flex flex-col gap-9 rounded-[16px] sm:py-6 py-2"
-          // style={{ boxShadow: "0px 1px 6px 0px #00000040" }}
+            // style={{ boxShadow: "0px 1px 6px 0px #00000040" }}
           >
             <div className="flex flex-col gap-4">
               <p className="text-[16px] font-medium">Profile Photo</p>
@@ -416,15 +416,17 @@ function CreateNewClient({ setTabIndex }) {
                               Contact Number <span className="star">*</span>
                             </p>
                             <div
-                              className={`flex w-[100%] items-start ${isViewportBelow850
+                              className={`flex w-[100%] items-start ${
+                                isViewportBelow850
                                   ? "gap-[4px] "
                                   : "gap-[16px] "
-                                }`}
+                              }`}
                               id="single_input"
                             >
                               <div
-                                className={`relative min-w-[150px] ${isViewportBelow850 ? "w-[65%] " : "w-[40%] "
-                                  } items-center`}
+                                className={`relative min-w-[150px] ${
+                                  isViewportBelow850 ? "w-[65%] " : "w-[40%] "
+                                } items-center`}
                               >
                                 <div className="  w-[100%] sm:text-[14px] text-[13px] justify-center items-center  flex font-[500] text-[#646464]">
                                   <div className="flex items-center justify-center gap-2 cursor-pointer min-w-[140px] w-[100%]">
@@ -467,10 +469,11 @@ function CreateNewClient({ setTabIndex }) {
                                 type="text"
                                 name=""
                                 // id="single_input"
-                                placeholder={`${isViewportBelow850
+                                placeholder={`${
+                                  isViewportBelow850
                                     ? "Enter Number "
                                     : "Enter Contact Number "
-                                  }`}
+                                }`}
                                 value={data.mobileNo}
                                 onChange={(e) =>
                                   handleInputChange("mobileNo", e.target.value)
@@ -515,8 +518,9 @@ function CreateNewClient({ setTabIndex }) {
                             </p>
                             <div className="gender_button">
                               <button
-                                className={`gen_button ${data.gender == "male" && "gen_button_active"
-                                  }`}
+                                className={`gen_button ${
+                                  data.gender == "male" && "gen_button_active"
+                                }`}
                                 onClick={(e) => {
                                   e.preventDefault();
                                   setData({ ...data, gender: "male" });
@@ -525,8 +529,9 @@ function CreateNewClient({ setTabIndex }) {
                                 Male
                               </button>
                               <button
-                                className={`gen_button ${data.gender == "female" && "gen_button_active"
-                                  }`}
+                                className={`gen_button ${
+                                  data.gender == "female" && "gen_button_active"
+                                }`}
                                 onClick={(e) => {
                                   e.preventDefault();
                                   setData({ ...data, gender: "female" });
@@ -535,8 +540,9 @@ function CreateNewClient({ setTabIndex }) {
                                 Female
                               </button>
                               <button
-                                className={`gen_button ${data.gender == "other" && "gen_button_active"
-                                  }`}
+                                className={`gen_button ${
+                                  data.gender == "other" && "gen_button_active"
+                                }`}
                                 onClick={(e) => {
                                   e.preventDefault();
                                   setData({ ...data, gender: "other" });
@@ -576,11 +582,13 @@ function CreateNewClient({ setTabIndex }) {
                         </div>
 
                         <div className="bottom_buttons  font-[500] flex justify-between">
-
-                          <button onClick={(e) => {
-                            e.preventDefault();
-                            router.back();
-                          }} className="buttons border border-blue">
+                          <button
+                            onClick={(e) => {
+                              e.preventDefault();
+                              router.back();
+                            }}
+                            className="buttons border border-blue"
+                          >
                             Back
                           </button>
                           <button

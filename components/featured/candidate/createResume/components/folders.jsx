@@ -75,7 +75,7 @@ function Folders({
       return;
     }
     axios
-      .post("https://freedygoservices.in/api/folder/delete", {
+      .post("https://jamblix.com/api/folder/delete", {
         ids,
         type: trash ? 2 : 1,
       })
@@ -96,7 +96,7 @@ function Folders({
       return;
     }
     axios
-      .post("https://freedygoservices.in/api/folder/restore", {
+      .post("https://jamblix.com/api/folder/restore", {
         ids,
         type: trash ? 2 : 1,
       })

@@ -44,7 +44,7 @@ function TransformJob() {
     setLoading(true);
 
     axios
-      .post("https://freedygoservices.in/api/cv/transform", {
+      .post("https://jamblix.com/api/cv/transform", {
         jd: text,
         json: selected,
       })
@@ -75,7 +75,7 @@ function TransformJob() {
     if (userDataGlobal.role == "recruiter") {
       axios
         .get(
-          `https://freedygoservices.in/api/client/getByRecruiter/${userDataGlobal._id}`
+          `https://jamblix.com/api/client/getByRecruiter/${userDataGlobal._id}`
         )
         .then((res) => {
           const result = res.data.data;
@@ -88,10 +88,7 @@ function TransformJob() {
           });
           if (result?.length > 0) {
             axios
-              .get(
-                "https://freedygoservices.in/api/resume/" +
-                  res.data.data[0]?._id
-              )
+              .get("https://jamblix.com/api/resume/" + res.data.data[0]?._id)
               .then((res) => {
                 setResumeList(res.data.data);
 
@@ -112,7 +109,7 @@ function TransformJob() {
     if (userDataGlobal.role == "recruiter") {
       setSelectedClient(data);
       axios
-        .get("https://freedygoservices.in/api/resume/" + data.value)
+        .get("https://jamblix.com/api/resume/" + data.value)
         .then((res) => {
           setResumeList(res.data.data);
           setSelect(res.data.data[0]);
@@ -122,8 +119,6 @@ function TransformJob() {
         });
     }
   };
-
-
 
   return (
     <div className=" py-6 flex flex-col gap-2  customMargins">

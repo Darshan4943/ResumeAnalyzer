@@ -49,6 +49,7 @@ function SkillAssessment() {
   const [startTimer, setStartTimer] = useState(false);
   const [showSecondDiv, setshowSecondDiv] = useState(false);
   const [assessmentList, setAssessmentList] = useState([]);
+
   const [isLevel, setisLevel] = useState(false);
   const [selectedSkill, setSelectedSkill] = useState();
   // const [skills, setSkills] = useState(SkillList);
@@ -57,8 +58,14 @@ function SkillAssessment() {
   const [timer, setTimer] = useState(30);
   const [isSubmit, setIsSubmit] = useState(false);
   const [inputValue, setInputValue] = useState("");
+
   const [level, setLevel] = useState("Intermediate");
+  const [resultType, setResultType] = useState(false);
   const [assesmentType, setAssesmentType] = useState("Normal");
+  const barWidth = Math.ceil(
+    ((questionIndex + 1) * 100) / (assesmentType === "Normal" ? 10 : 60)
+  );
+
   const [skippedArray, setSkippedArray] = useState([
     // { question: 1, isSkiped: true, Answer: "" },
     // { question: 2, isSkiped: true, Answer: "" },
@@ -86,8 +93,6 @@ function SkillAssessment() {
     return array;
   };
 
-
-
   const [uniqueQuestions, setUniqueQuestions] = useState([]);
 
   // START
@@ -97,7 +102,7 @@ function SkillAssessment() {
 
   useEffect(() => {
     axios
-      .get("https://freedygoservices.in/api/allSkills")
+      .get("https://jamblix.com/api/allSkills")
       .then((res) => {
         const names = res.data.map((skill) => skill.name);
 
@@ -114,7 +119,7 @@ function SkillAssessment() {
     );
     if (!found) {
       try {
-        const response = await fetch("https://freedygoservices.in/api/skills", {
+        const response = await fetch("https://jamblix.com/api/skills", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -194,7 +199,7 @@ function SkillAssessment() {
 
   useEffect(() => {
     axios
-      .get("https://freedygoservices.in/api/resume/" + userDataGlobal?._id)
+      .get("https://jamblix.com/api/resume/" + userDataGlobal?._id)
       .then((res) => {
         setData(res.data.data);
       })
@@ -269,12 +274,11 @@ function SkillAssessment() {
           : uniqueQuestions.length < 60
       ) {
         axios
-          .post("https://freedygoservices.in/api/getQuetions", {
+          .post("https://jamblix.com/api/getQuetions", {
             skill: selectedSkill,
             level: level,
           })
           .then((res) => {
-            console.log(2443, res);
             setQuestion([
               ...question,
               ...JSON.parse(res.data.data.choices[0].message.content),
@@ -294,10 +298,32 @@ function SkillAssessment() {
   };
 
   useEffect(() => {
+    // if (assesmentType === "Normal") {
+    //   if (questionIndex == 7 || questionIndex == 8) {
+    //     setBtnEnable(true);
+    //   }
+    // } else if (assesmentType !== "Normal") {
+    //   if (questionIndex == 59 || questionIndex == 60) {
+    //     setBtnEnable(true);
+    //   }
+    // } else
+
     if (uniqueQuestions.length > questionIndex + 2) {
       setBtnEnable(true);
+    } else {
+      if (assesmentType === "Normal") {
+        if (questionIndex == 8 || questionIndex == 9) {
+          setBtnEnable(true);
+        }
+      } else {
+        if (assesmentType !== "Normal") {
+          if (questionIndex == 58 || questionIndex == 59) {
+            setBtnEnable(true);
+          }
+        }
+      }
     }
-  }, [questionIndex]);
+  }, [uniqueQuestions, questionIndex]);
 
   // useEffect(() => {
   //   let timer;
@@ -319,29 +345,31 @@ function SkillAssessment() {
   useEffect(() => {
     setStartTimer(true);
   }, [questionIndex]);
-
+  console.log("outside", questionIndex, btnEnable);
   const sumbit = () => {
+    console.log(333333, questionIndex, btnEnable);
+
     setStartTimer(false);
 
     setTimer(30);
-    // if (question.length < 10) {
-    //   toggleContent();
-    // }
 
     if (assesmentType === "Normal" ? questionIndex == 9 : questionIndex == 59) {
       axios
-        .post("https://freedygoservices.in/api/assessment/add", {
+        .post("https://jamblix.com/api/assessment/add", {
           userId: userDataGlobal._id,
           skill: selectedSkill,
-          score: checkAnswer() * assesmentType === "Normal" ? 10 : 60,
+          score: checkAnswer(),
           date: new Date(),
+          isCertification: assesmentType !== "Normal" ? true : false,
         })
         .then((res) => {
           setToggle(0);
           setLoading(false);
 
-          setIsSubmit(true);
-
+          setSelectedSkill();
+          setQuestionIndex(0);
+          setQuestion([]);
+          setSkipped([]);
           setTimeout(() => {
             setScore(true);
           }, 500);
@@ -365,12 +393,13 @@ function SkillAssessment() {
 
   useEffect(() => {
     let timer;
-    if (questionIndex && isSubmit === true) {
+
+    if (questionIndex && isSubmit === false) {
       timer = setTimeout(() => {
         if (
           assesmentType === "Normal"
             ? questionIndex === 9
-            : questionIndex === 59 && !isSubmit
+            : questionIndex === 59 && isSubmit === false
         ) {
           sumbit();
         }
@@ -378,7 +407,7 @@ function SkillAssessment() {
     }
 
     return () => clearTimeout(timer);
-  }, [questionIndex]);
+  }, [questionIndex, isSubmit]);
 
   // useEffect(() => {
   //   if (
@@ -393,9 +422,7 @@ function SkillAssessment() {
 
   useEffect(() => {
     axios
-      .get(
-        `https://freedygoservices.in/api/assessment/getByUser/${userDataGlobal._id}`
-      )
+      .get(`https://jamblix.com/api/assessment/getByUser/${userDataGlobal._id}`)
       .then((res) => {
         setAssessmentList(res.data.data);
       })
@@ -471,7 +498,6 @@ function SkillAssessment() {
 
     return formattedTime;
   }
-  console.log(1, uniqueQuestions);
 
   function calculateMarkOutOf60() {
     let correctAnswers = checkAnswer();
@@ -481,8 +507,8 @@ function SkillAssessment() {
     let percentageScore = (correctAnswers * 100) / totalQuestions;
 
     // Convert percentage to a mark out of 60
-
-    return percentageScore + `%`;
+    let markOutOf60 = Math.ceil((percentageScore * 60) / 100);
+    return markOutOf60 + `%`;
   }
 
   return (
@@ -883,54 +909,86 @@ function SkillAssessment() {
                   </button>
                 </div>
               </div>
+
               {showSecondDiv && (
-                <div className="flex flex-col justify-start items-center rounded-lg shadow-md lg:w-[60%] sm:w-[85%]  w-[100%] ">
-                  <div className="flex h-16 px-4 py-3  items-center self-stretch border-b border-solid border-[#DEDEDE] bg-[#E0F6FF] rounded-lg justify-between">
-                    <div className="flex w-[35.18%] justify-between items-center self-stretch border-r border-solid border-[#DEDEDE] ">
-                      <p className="text-text-primary font-montserrat text-base font-medium leading-6">
-                        Assessment Name
-                      </p>
+                <div className="flex flex-col  justify-center items-center lg:w-[60%] sm:w-[85%]  w-[100%] gap-6 ">
+                  {showSecondDiv && (
+                    // <div className="flex flex-col justify-start items-center rounded-lg shadow-md lg:w-[60%] sm:w-[85%]  w-[100%] ">
+                    <div className=" w-[100%] flex flex-row justify-center items-center gap-[8px]  ">
+                      <button
+                        className={` rounded-[12px] ml:px-[22.8px] px-3 ${
+                          assesmentType === "Normal"
+                            ? "bg-blue text-white btn_hover_effect"
+                            : "bg-white text-[#333] border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
+                        } ml:min-w-[235px] min-w-[180px] py-2  flex gap-2 ml:text-[16px] scr420:text-[14px] text-[12px] justify-center items-center   h-[40px] font-semibold`}
+                        onClick={() => setResultType(false)}
+                      >
+                        Normal Assesment Result
+                      </button>
+                      <button
+                        className={`rounded-[12px] min-w-[138px] flex justify-center items-center ${
+                          assesmentType === "Certificate"
+                            ? "bg-blue text-white btn_hover_effect"
+                            : "bg-white text-[#333] border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
+                        }  py-2 px-6 text-[16px] font-medium `}
+                        onClick={() => setResultType(true)}
+                      >
+                        Certified Assesment Result
+                      </button>
                     </div>
-                    {/* <div className="flex w-[19.95%] justify-center items-center self-stretch border-r border-solid border-[#DEDEDE] ">
+                    // </div>
+                  )}
+
+                  {!resultType ? (
+                    <div className="flex flex-col justify-start items-center rounded-lg shadow-md lg:w-[100%] sm:w-[100%]  w-[100%] ">
+                      <div className="flex h-16 px-4 py-3  items-center self-stretch border-b border-solid border-[#DEDEDE] bg-[#E0F6FF] rounded-lg justify-between">
+                        <div className="flex w-[35.18%] justify-between items-center self-stretch border-r border-solid border-[#DEDEDE] ">
+                          <p className="text-text-primary font-montserrat text-base font-medium leading-6">
+                            Assessment Name
+                          </p>
+                        </div>
+                        {/* <div className="flex w-[19.95%] justify-center items-center self-stretch border-r border-solid border-[#DEDEDE] ">
                       <p className="text-text-primary font-montserrat text-base font-medium leading-6">
                         Status
                       </p>
                     </div> */}
-                    <div className="flex w-[19.95%] justify-center items-center self-stretch border-r border-solid border-[#DEDEDE] ">
-                      <p className="text-text-primary font-montserrat text-base font-medium leading-6">
-                        Date
-                      </p>
-                    </div>
-                    {/* <div className="flex w-[19.95%] justify-center items-center self-stretch border-r border-solid border-[#DEDEDE] ">
+                        <div className="flex w-[19.95%] justify-center items-center self-stretch border-r border-solid border-[#DEDEDE] ">
+                          <p className="text-text-primary font-montserrat text-base font-medium leading-6">
+                            Date
+                          </p>
+                        </div>
+                        {/* <div className="flex w-[19.95%] justify-center items-center self-stretch border-r border-solid border-[#DEDEDE] ">
                       <p className="text-text-primary font-montserrat text-base font-medium leading-6">
                         Time
                       </p>
                     </div> */}
-                    <div className="flex w-[19.95%] justify-center items-center self-stretch  ">
-                      <p className="text-text-primary font-montserrat text-base font-medium leading-6">
-                        Score
-                      </p>
-                    </div>
-                  </div>
-                  <div className="max-h-[388px] lg:h-[285px] w-full overflow-auto ">
-                    {assessmentList?.map((item, index) => (
-                      <div
-                        key={index}
-                        className="border-b border-solid border-[#DEDEDE] w-full"
-                      >
-                        <div className="flex  text-center  justify-between flex-row lg:gap-[14px] py-[8px] px-[16px]  w-[93%] lg:w-full items-center self-stretch ">
-                          <div className=" lg:w-[40%] w-[50%]  flex justify-between gap-[12px]">
-                            <div className="flex  gap-3 items-center self-stretch ">
-                              <div className="w-[40px] h-[40px]">
-                                <Assessmentlogo />
-                              </div>
-                              <div className="w-full">
-                                <p className="text-text-primary font-montserrat text-base font-medium leading-6">
-                                  {item.skill}
-                                </p>
-                              </div>
-                            </div>
-                            {/* <div className="flex  justify-center  items-center self-stretch  ">
+                        <div className="flex w-[19.95%] justify-center items-center self-stretch  ">
+                          <p className="text-text-primary font-montserrat text-base font-medium leading-6">
+                            Score
+                          </p>
+                        </div>
+                      </div>
+                      <div className="max-h-[388px] lg:h-[285px] w-full overflow-auto ">
+                        {assessmentList
+                          ?.filter((data) => data.isCertification !== true)
+                          ?.map((item, index) => (
+                            <div
+                              key={index}
+                              className="border-b border-solid border-[#DEDEDE] w-full"
+                            >
+                              <div className="flex  text-center  justify-between flex-row lg:gap-[14px] py-[8px] px-[16px]  w-[93%] lg:w-full items-center self-stretch ">
+                                <div className=" lg:w-[40%] w-[50%]  flex justify-between gap-[12px]">
+                                  <div className="flex  gap-3 items-center self-stretch ">
+                                    <div className="w-[40px] h-[40px]">
+                                      <Assessmentlogo />
+                                    </div>
+                                    <div className="w-full">
+                                      <p className="text-text-primary font-montserrat text-base font-medium leading-6">
+                                        {item.skill}
+                                      </p>
+                                    </div>
+                                  </div>
+                                  {/* <div className="flex  justify-center  items-center self-stretch  ">
                               <p
                                 className={`${item.score > 60
                                   ? "text-[#0C8A0A]"
@@ -940,33 +998,118 @@ function SkillAssessment() {
                                 {item.score > 60 ? "Completed" : "Incomplete"}
                               </p>
                             </div> */}
-                          </div>
-                          <div className="lg:w-[66%] w-[62%] flex justify-between gap-[12px] ">
-                            <div className="flex  justify-center items-center self-stretch ">
-                              <p className="text-[14px] font-montserrat text-base font-medium leading-6">
-                                {item?.date && formatDate(item?.date)}
-                              </p>
-                            </div>
-                            {/* <div className="flex  justify-center items-center self-stretch ">
+                                </div>
+                                <div className="lg:w-[66%] w-[62%] flex justify-between gap-[12px] ">
+                                  <div className="flex  justify-center items-center self-stretch ">
+                                    <p className="text-[14px] font-montserrat text-base font-medium leading-6">
+                                      {item?.date && formatDate(item?.date)}
+                                    </p>
+                                  </div>
+                                  {/* <div className="flex  justify-center items-center self-stretch ">
                               <p className="text-[14px] font-montserrat text-base font-medium leading-6">
                                 {item?.date && convertToDateTime(item?.date)}
                               </p>
                             </div> */}
-                            <div className="flex  justify-center lg:w-[40%]  items-center self-stretch  ">
-                              <p className="text-[#0C8A0A] items-center  font-montserrat text-sm font-semibold leading-7">
-                                {item.score / 10} / 10
-                              </p>
+                                  <div className="flex  justify-center lg:w-[40%]  items-center self-stretch  ">
+                                    <p className="text-[#0C8A0A] items-center  font-montserrat text-sm font-semibold leading-7">
+                                      {item.score} / 10
+                                    </p>
+                                  </div>
+                                </div>
+                              </div>
                             </div>
-                          </div>
+                          ))}
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="flex flex-col justify-start items-center rounded-lg shadow-md lg:w-[100%] sm:w-[100%]  w-[100%] ">
+                      <div className="flex h-16 px-4 py-3  items-center self-stretch border-b border-solid border-[#DEDEDE] bg-[#E0F6FF] rounded-lg justify-between">
+                        <div className="flex w-[35.18%] justify-between items-center self-stretch border-r border-solid border-[#DEDEDE] ">
+                          <p className="text-text-primary font-montserrat text-base font-medium leading-6">
+                            Assessment Name
+                          </p>
+                        </div>
+                        {/* <div className="flex w-[19.95%] justify-center items-center self-stretch border-r border-solid border-[#DEDEDE] ">
+                  <p className="text-text-primary font-montserrat text-base font-medium leading-6">
+                    Status
+                  </p>
+                </div> */}
+                        <div className="flex w-[19.95%] justify-center items-center self-stretch border-r border-solid border-[#DEDEDE] ">
+                          <p className="text-text-primary font-montserrat text-base font-medium leading-6">
+                            Date
+                          </p>
+                        </div>
+                        {/* <div className="flex w-[19.95%] justify-center items-center self-stretch border-r border-solid border-[#DEDEDE] ">
+                  <p className="text-text-primary font-montserrat text-base font-medium leading-6">
+                    Time
+                  </p>
+                </div> */}
+                        <div className="flex w-[19.95%] justify-center items-center self-stretch  ">
+                          <p className="text-text-primary font-montserrat text-base font-medium leading-6">
+                            Score
+                          </p>
                         </div>
                       </div>
-                    ))}
-                  </div>
+                      <div className="max-h-[388px] lg:h-[285px] w-full overflow-auto ">
+                        {assessmentList
+                          ?.filter((data) => data.isCertification === true)
+                          ?.map((item, index) => (
+                            <div
+                              key={index}
+                              className="border-b border-solid border-[#DEDEDE] w-full"
+                            >
+                              <div className="flex  text-center  justify-between flex-row lg:gap-[14px] py-[8px] px-[16px]  w-[93%] lg:w-full items-center self-stretch ">
+                                <div className=" lg:w-[40%] w-[50%]  flex justify-between gap-[12px]">
+                                  <div className="flex  gap-3 items-center self-stretch ">
+                                    <div className="w-[40px] h-[40px]">
+                                      <Assessmentlogo />
+                                    </div>
+                                    <div className="w-full">
+                                      <p className="text-text-primary font-montserrat text-base font-medium leading-6">
+                                        {item.skill}
+                                      </p>
+                                    </div>
+                                  </div>
+                                  {/* <div className="flex  justify-center  items-center self-stretch  ">
+                          <p
+                            className={`${item.score > 60
+                              ? "text-[#0C8A0A]"
+                              : "text-[red]"
+                              } items-center  font-montserrat text-sm font-semibold leading-7`}
+                          >
+                            {item.score > 60 ? "Completed" : "Incomplete"}
+                          </p>
+                        </div> */}
+                                </div>
+                                <div className="lg:w-[66%] w-[62%] flex justify-between gap-[12px] ">
+                                  <div className="flex  justify-center items-center self-stretch ">
+                                    <p className="text-[14px] font-montserrat text-base font-medium leading-6">
+                                      {item?.date && formatDate(item?.date)}
+                                    </p>
+                                  </div>
+                                  {/* <div className="flex  justify-center items-center self-stretch ">
+                          <p className="text-[14px] font-montserrat text-base font-medium leading-6">
+                            {item?.date && convertToDateTime(item?.date)}
+                          </p>
+                        </div> */}
+                                  <div className="flex  justify-center lg:w-[40%]  items-center self-stretch  ">
+                                    <p className="text-[#0C8A0A] items-center  font-montserrat text-sm font-semibold leading-7">
+                                      {item.score}
+                                    </p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
               )}
             </div>
           </div>
         )}
+
         {toggle === 1 && (
           // <div className="w-full flex justify-between items-center scr540:gap-[24px] flex-row py-[36px] gap-[8px]">
           //   <div className="w-[8px] lg:w-[22%] h-[2px] bg-[#06A9EF] border-none"></div>
@@ -1091,7 +1234,7 @@ function SkillAssessment() {
           //           if (questionIndex == 9) {
           //             axios
           //               .post(
-          //                 "https://freedygoservices.in/api/assessment/add",
+          //                 "https://jamblix.com/api/assessment/add",
           //                 {
           //                   userId: userDataGlobal._id,
           //                   skill: selectedSkill,
@@ -1193,9 +1336,8 @@ function SkillAssessment() {
               <div className="flex gap-4 w-full items-center">
                 <div className=" relative h-[10px] rounded-[6px] bg-[#DEDEDE] w-full">
                   <div
-                    className={`absolute h-[10px] rounded-[6px] bg-[#06A9EF] w-[${
-                      (questionIndex + 1) * assesmentType === "Normal" ? 10 : 60
-                    }%] `}
+                    className={`absolute h-[10px] rounded-[6px] bg-[#06A9EF] `}
+                    style={{ width: `${barWidth}%` }}
                   ></div>
                 </div>
                 <p className="text-[16px] flex justify-end font-semibold w-[60px]">
@@ -1258,7 +1400,7 @@ function SkillAssessment() {
                     //   if (questionIndex == 9) {
                     //     axios
                     //       .post(
-                    //         "https://freedygoservices.in/api/assessment/add",
+                    //         "https://jamblix.com/api/assessment/add",
                     //         {
                     //           userId: userDataGlobal._id,
                     //           skill: selectedSkill,
@@ -1291,6 +1433,7 @@ function SkillAssessment() {
                     style={{ opacity: !btnEnable ? "0.5" : 1 }}
                     disabled={!btnEnable}
                     onClick={() => {
+                      setBtnEnable(false);
                       sumbit();
                       let result = assesmentType === "Normal" ? 9 : 59;
                       if (questionIndex === result) {
@@ -1397,11 +1540,8 @@ function SkillAssessment() {
                             ((checkAnswer() / uniqueQuestions.length) * 100) /
                               10}
                           {assesmentType === "Normal" && `/${10}`}
-                          {assesmentType !== "Normal" && calculateMarkOutOf60()}
                           {assesmentType !== "Normal" && (
-                            <div className="text-[18px] text-[#5B5B5B] font-[600]">
-                              {calculateMarkOutOf60()}
-                            </div>
+                            <>{calculateMarkOutOf60()}</>
                           )}
                         </div>
 
@@ -1436,6 +1576,8 @@ function SkillAssessment() {
                         setQuestionIndex(0);
                         setQuestion([]);
                         setSkipped([]);
+                        setUniqueQuestions([]);
+                        setIsSubmit(false);
                         // window.location.reload();
                         dispatch(reCallUserData());
                       }}

@@ -23,7 +23,7 @@ function ClientDetail({ tabIndex }) {
   useEffect(() => {
     if (clientId) {
       axios
-        .get(`https://freedygoservices.in/api/client/getByClientId/${clientId}`)
+        .get(`https://jamblix.com/api/client/getByClientId/${clientId}`)
         .then((res) => {
           setDetails(res.data.data);
         })
@@ -31,7 +31,7 @@ function ClientDetail({ tabIndex }) {
           console.log(err);
         });
       axios
-        .get("https://freedygoservices.in/api/resume/" + clientId)
+        .get("https://jamblix.com/api/resume/" + clientId)
         .then((res) => {
           setResumeList(res.data.data);
         })
@@ -59,7 +59,7 @@ function ClientDetail({ tabIndex }) {
     }
 
     axios
-      .delete("https://freedygoservices.in/api/resume/deleteResume", {
+      .delete("https://jamblix.com/api/resume/deleteResume", {
         data: { ids },
       })
       .then((response) => {

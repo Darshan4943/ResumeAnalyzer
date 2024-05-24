@@ -22,7 +22,7 @@ const Index = () => {
   const getData = () => {
     setLoading(true);
     axios
-      .get("https://freedygoservices.in/api/enquires", {
+      .get("https://jamblix.com/api/enquires", {
         params: { page, limit },
       })
       .then((res) => {

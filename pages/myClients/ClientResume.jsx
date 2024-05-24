@@ -22,7 +22,7 @@ function ClientResume() {
   useEffect(() => {
     axios
       .get(
-        `https://freedygoservices.in/api/client/getByRecruiter/${userDataGlobal._id}`
+        `https://jamblix.com/api/client/getByRecruiter/${userDataGlobal._id}`
       )
       .then((res) => {
         setDetails(res.data.data);
@@ -107,8 +107,7 @@ function ClientResume() {
               </div>
             )}
             <div className="flex  gap-8 flex-wrap scr700:justify-start justify-center ">
-
-            <div
+              <div
                 onClick={() => {
                   if (ClientCount === 0) {
                     setLimitPopUp(true);
