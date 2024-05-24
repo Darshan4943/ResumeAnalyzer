@@ -79,7 +79,6 @@ const AboutMe = ({ data, setData }) => {
     }
   };
 
- 
   return (
     <>
       <div

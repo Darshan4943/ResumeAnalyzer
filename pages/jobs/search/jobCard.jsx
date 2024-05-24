@@ -56,9 +56,7 @@ const JobCard = ({ data, setJd, resume, jd }) => {
   };
   const SaveJob = (id) => {
     axios
-      .post(
-        `https://jamblix.com/api/saveJob/${userDataGlobal?._id}/${id}`
-      )
+      .post(`https://jamblix.com/api/saveJob/${userDataGlobal?._id}/${id}`)
       .then((res) => {
         dispatch(reCallUserData());
         toast.success("Job Saved  Successfully");

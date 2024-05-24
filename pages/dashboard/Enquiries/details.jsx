@@ -43,10 +43,7 @@ function Details() {
     e.preventDefault();
     setBtnLoading(true);
     axios
-      .put(
-        "https://jamblix.com/api/subscription/active/" +
-          subscription.email
-      )
+      .put("https://jamblix.com/api/subscription/active/" + subscription.email)
       .then((res) => {
         setBtnLoading(false);
         setPopUp(true);
