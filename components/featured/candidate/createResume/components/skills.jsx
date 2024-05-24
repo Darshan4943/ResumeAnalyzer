@@ -248,7 +248,7 @@ const Skills = ({ data, setData }) => {
 
   useEffect(() => {
     axios
-      .get("https://jamblix.com/api/AllSkills")
+      .get("https://jamblix.com/api/allskills")
       .then((res) => {
         const names = res.data.map((skill) => skill.name);
         const uniqueNames = Array.from(new Set(names));
