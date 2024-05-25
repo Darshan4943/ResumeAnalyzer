@@ -10,6 +10,7 @@ const JobCard = ({ data, setJd, resume, jd }) => {
   const [loading, setLoading] = useState(true);
   const userDataGlobal = useSelector((state) => state.userData);
   const [isApplied, setIsApplied] = useState(true);
+  const [isApply, setIsApply] = useState(false);
   const dispatch = useDispatch();
 
   const getData = () => {
@@ -34,8 +35,8 @@ const JobCard = ({ data, setJd, resume, jd }) => {
 
   useEffect(() => {
     getData();
-  }, [data, jd]);
-
+  }, [data, jd,isApply]);
+console.log(isApply)
   const applyForJob = (data) => {
     setLoading(true);
     axios
@@ -46,6 +47,7 @@ const JobCard = ({ data, setJd, resume, jd }) => {
       })
       .then((res) => {
         setLoading(false);
+        
         getData();
         toast.success("Application Sent Successfully");
       })
@@ -59,6 +61,7 @@ const JobCard = ({ data, setJd, resume, jd }) => {
       .post(`http://localhost:2000/api/saveJob/${userDataGlobal?._id}/${id}`)
       .then((res) => {
         dispatch(reCallUserData());
+        getData();
         toast.success("Job Saved  Successfully");
       })
       .catch((err) => {
@@ -70,7 +73,7 @@ const JobCard = ({ data, setJd, resume, jd }) => {
   const isSaved = (id) => {
     return userDataGlobal?.savedJobs?.find((item) => item.id == id);
   };
-
+ 
   return (
     <div className="flex flex-col gap-[8px] w-[100%] max-w-[380px] rounded-[16px] border border-[#DEDEDE] bg-white shadow-lg py-[16px] ml:px-[24px] px-3 min-w-[300px] group">
       <div className="flex flex-col gap-[4px]">
@@ -153,7 +156,7 @@ const JobCard = ({ data, setJd, resume, jd }) => {
         </div>
         <button
           className="px-[12px] py-[8px] w-[102px] bg-[#06A9EF] rounded-[8px] text-[#fff] text-[14px]"
-          onClick={() => applyForJob(data)}
+          onClick={() => {applyForJob(data);setIsApply(!isApply)}}
           disabled={isApplied}
           style={{ opacity: isApplied ? 0.6 : 1 }}
         >
