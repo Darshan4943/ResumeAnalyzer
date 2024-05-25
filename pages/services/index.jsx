@@ -185,11 +185,11 @@ function Services({ isServices, isMove, setIsMove }) {
     }
   }
 
-  return (
-    <div className="fixed z-[2000] top-[57px] left-0 right-0 bottom-0 flex  justify-center w-full bg-[#FFF]   ">
-      <div className=" py-10  w-full ">
+  return ( 
+    <div className="fixed z-[2000] top-[57px] left-0 right-0 bottom-0 flex  justify-center w-full bg-[#FFF]  overflow-y-auto  ">
+      <div className=" py-10  w-full  overflow-y-auto">
         <div
-          className={`scr1400:px-[4%] flex gap-9 justify-center w-full transform transition-transform   ease-in-out ${isMove
+          className={`scr1400:px-[4%] flex gap-9 justify-center w-full transform transition-transform  ease-in-out ${isMove
               ? "translate-y-0  opacity-100"
               : "translate-y-[30px] opacity-0 move"
             }`}

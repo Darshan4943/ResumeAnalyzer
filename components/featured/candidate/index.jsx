@@ -81,7 +81,7 @@ function CandidateHome() {
             <div className=" flex flex-col gap-6 w-[35%] text-[#333333]">
               <div className="font-semibold  text-[2.5vw] leading-tight ">
                 Resume Templates for All{" "}
-                <span className="text-[#06A9EF]">Careers and Levels.</span>
+                <span className="text-[#06A9EF]">Careers and Levels</span>
               </div>
               <div className="font-medium scr1200:text-[1.2vw] text-[20px] w-[95%] break-words ">
                 <p>

@@ -154,7 +154,7 @@ const MobileView = ({ clickHandler, isLogin ,isSubscribe,setIsSubcrib}) => {
 
           <div className=" flex flex-col gap-6 w-[100%] text-[#333333] items-center ml:px-8 px-2">
             <div className="font-semibold  text-[34px] leading-tight text-center ">
-            Resume Templates for All <span className="text-[#06A9EF]">Careers and Levels.</span>
+            Resume Templates for All <span className="text-[#06A9EF]">Careers and Levels</span>
             </div>
             <div className="font-medium text-[14px] ml:text-[20px] w-[95%] break-words text-center ">
             <p>  Select one of our <span className="text-[#06A9EF]">expert-designed resume templates </span>and create a resume that fits your needs
