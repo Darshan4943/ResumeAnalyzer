@@ -97,7 +97,7 @@ function Dashboard() {
         handleNavigation("/purchase/MyPurchase");
         break;
       case "Chat Bot":
-        handleNavigation("/chatbot/ChatBot");
+        handleNavigation("/chatbot");
         break;
       case "My Collection":
         handleNavigation("/collection");
