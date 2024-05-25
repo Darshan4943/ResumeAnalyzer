@@ -26,7 +26,7 @@ function ForgotPassword({ setIsForgot }) {
     let otp = Math.floor(100000 + Math.random() * 900000);
     setOtp(otp);
     axios
-      .post("https://jamblix.com/api/otpMail", {
+      .post("http://localhost:2000/api/otpMail", {
         userEmail: email,
         otp,
       })
@@ -62,7 +62,7 @@ function ForgotPassword({ setIsForgot }) {
       }
 
       const response = await axios.post(
-        "https://jamblix.com/api/updatePassword",
+        "http://localhost:2000/api/updatePassword",
         {
           email: email,
           newPassword: password,

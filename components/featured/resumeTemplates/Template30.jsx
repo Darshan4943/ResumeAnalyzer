@@ -10,7 +10,7 @@ import {
   Path,
   Rect,
 } from "@react-pdf/renderer";
-function Template30({ data, selectedColor, selectedFont ,preview }) {
+function Template30({ data, selectedColor, selectedFont, preview }) {
   return (
     <Page size="A4" style={{ padding: 24 }}>
       <View style={{ flexDirection: "column", gap: 24, maxWidth: "100%" }}>
@@ -36,13 +36,13 @@ function Template30({ data, selectedColor, selectedFont ,preview }) {
           >
             {data.profilePhoto ? (
               <Image
-              src={
-                preview
-                  ? data.profilePhoto
-                  : Object.keys(data?.profilePhoto).includes("filename")
-                  ? URL.createObjectURL(data.profilePhoto)
-                  : data.profilePhoto
-              }
+                src={
+                  preview
+                    ? data.profilePhoto
+                    : Object.keys(data?.profilePhoto).includes("filename")
+                      ? URL.createObjectURL(data.profilePhoto)
+                      : data.profilePhoto
+                }
                 alt=""
                 style={{ width: "153", height: "153", borderRadius: "50%" }}
               />
@@ -60,7 +60,7 @@ function Template30({ data, selectedColor, selectedFont ,preview }) {
               gap: 4,
               maxWidth: "40%",
               display: "flex",
-              paddingVertical:'6px'
+              paddingVertical: '6px'
             }}
           >
             <Text
@@ -72,7 +72,7 @@ function Template30({ data, selectedColor, selectedFont ,preview }) {
               style={{
                 fontFamily: `${selectedFont} 500`,
                 fontSize: "16px",
-                
+
               }}
             >
               {data.designation}
@@ -226,43 +226,43 @@ function Template30({ data, selectedColor, selectedFont ,preview }) {
         </View>
         <View style={{ flexDirection: "row", gap: 24 }}>
           <View style={{ flexDirection: "column", gap: 24, width: 160 }}>
-         {data?.summery?.length > 0 && (
-            <View style={{ flexDirection: "column", gap: 16 }}
-            
-            >
-              <View
-                style={{
-                  width: "100%",
-                  flexDirection: "column",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  backgroundColor: selectedColor,
-                  padding: "8px 24px",
-                  borderRadius: "25%",
-                }}
+            {data?.summery?.length > 0 && (
+              <View style={{ flexDirection: "column", gap: 16 }}
+
               >
-                <Text
+                <View
                   style={{
-                    color: "#FFF",
-                    fontFamily: `${selectedFont} 600`,
-                    fontSize: "14px",
+                    width: "100%",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    backgroundColor: selectedColor,
+                    padding: "8px 24px",
+                    borderRadius: "25%",
                   }}
                 >
-                  ABOUT ME
+                  <Text
+                    style={{
+                      color: "#FFF",
+                      fontFamily: `${selectedFont} 600`,
+                      fontSize: "14px",
+                    }}
+                  >
+                    ABOUT ME
+                  </Text>
+                </View>
+                <Text
+                  style={{
+                    color: "#58595B",
+                    fontSize: "12",
+                    fontFamily: `${selectedFont} 400`,
+                  }}
+                >
+                  {data.summery}
                 </Text>
               </View>
-              <Text
-                style={{
-                  color: "#58595B",
-                  fontSize: "12",
-                  fontFamily: `${selectedFont} 400`,
-                }}
-              >
-                {data.summery}
-              </Text>
-            </View>
 
-          )} 
+            )}
             {data?.skills?.length > 0 && (
               <View style={{ flexDirection: "column", gap: 16 }}>
                 <View
@@ -289,7 +289,7 @@ function Template30({ data, selectedColor, selectedFont ,preview }) {
                 <View style={{ flexDirection: "column", gap: 12 }}>
                   {data?.skills?.map((detail, index) => (
                     <Text
-                    key={index}
+                      key={index}
                       style={{
                         color: "#58595B",
                         fontSize: "14",
@@ -304,8 +304,8 @@ function Template30({ data, selectedColor, selectedFont ,preview }) {
             )}
           </View>
           <View
-            style={{ flexDirection: "column", gap: 24, width: 330 }}
-            //   wrap={data?.experience?.length > 1 ? true : false}
+            style={{ flexDirection: "column", gap: 24, width: 350 }}
+          //   wrap={data?.experience?.length > 1 ? true : false}
           >
             {data?.experience?.length > 0 && (
               <View
@@ -335,7 +335,7 @@ function Template30({ data, selectedColor, selectedFont ,preview }) {
                   </View>
                 </View>
                 <View
-                  style={{ display: "flex", flexDirection: "column", gap: 4 }}
+                  style={{ display: "flex", flexDirection: "column", gap: 16 }}
                 >
                   {data?.experience?.map((detail, index) => (
                     <View
@@ -347,7 +347,7 @@ function Template30({ data, selectedColor, selectedFont ,preview }) {
                           display: "flex",
                           flexDirection: "row",
                           gap: 8,
-                          alignItems: "center",
+                          alignItems: "start",
                           justifyContent: "space-between",
                           maxWidth: "100%",
                         }}
@@ -357,7 +357,7 @@ function Template30({ data, selectedColor, selectedFont ,preview }) {
                             display: "flex",
                             flexDirection: "row",
                             gap: 8,
-                            alignItems: "center",
+                            alignItems: "start",
                             maxWidth: "70%",
                           }}
                         >
@@ -412,7 +412,7 @@ function Template30({ data, selectedColor, selectedFont ,preview }) {
             {data?.education?.length > 0 && (
               <View
                 style={{ flexDirection: "column", gap: 16 }}
-                  // wrap={data?.experience?.length > 1 ? true : false}
+              // wrap={data?.experience?.length > 1 ? true : false}
               >
                 <View style={{ flexDirection: "row", alignItems: "center" }}>
                   <View
@@ -451,7 +451,7 @@ function Template30({ data, selectedColor, selectedFont ,preview }) {
                           display: "flex",
                           flexDirection: "row",
                           gap: 8,
-                          alignItems: "center",
+                          alignItems: "start",
                           justifyContent: "space-between",
                           maxWidth: "100%",
                         }}
@@ -461,7 +461,7 @@ function Template30({ data, selectedColor, selectedFont ,preview }) {
                             display: "flex",
                             flexDirection: "row",
                             gap: 8,
-                            alignItems: "center",
+                            alignItems: "start",
                             maxWidth: "70%",
                           }}
                         >
@@ -483,7 +483,7 @@ function Template30({ data, selectedColor, selectedFont ,preview }) {
                           }}
                         >
                           {detail.duration?.start?.year !== "Year" &&
-                          `${detail.duration?.start?.year}-${detail.duration?.end?.year ==="Year" ? "Pursuing" : detail.duration?.end?.year}`}
+                            `${detail.duration?.start?.year}-${detail.duration?.end?.year === "Year" ? "Pursuing" : detail.duration?.end?.year}`}
                         </Text>
                       </View>
 
@@ -508,7 +508,7 @@ function Template30({ data, selectedColor, selectedFont ,preview }) {
                 key={index}
                 style={{ display: "flex", flexDirection: "column", gap: 15 }}
               >
-               
+
                 <View style={{ flexDirection: "row", alignItems: "center" }}>
                   <View
                     style={{
@@ -535,17 +535,17 @@ function Template30({ data, selectedColor, selectedFont ,preview }) {
 
                 {item?.subSection?.map((detail, index) => (
                   <>
-                     <View
+                    <View
                       key={index}
                       style={{ display: "flex", alignItems: "start", gap: 4 }}
-                      // wrap={false}
+                    // wrap={false}
                     >
                       <View
                         style={{
                           display: "flex",
                           flexDirection: "row",
                           gap: 8,
-                          alignItems: "center",
+                          alignItems: "start",
                           justifyContent: "space-between",
                           maxWidth: "100%",
                         }}
@@ -555,7 +555,7 @@ function Template30({ data, selectedColor, selectedFont ,preview }) {
                             display: "flex",
                             flexDirection: "row",
                             gap: 8,
-                            alignItems: "center",
+                            alignItems: "start",
                             maxWidth: "70%",
                           }}
                         >
@@ -577,22 +577,22 @@ function Template30({ data, selectedColor, selectedFont ,preview }) {
                           }}
                         >
                           {detail.duration?.start?.year &&
-                           (
-                            <Text
-                              style={{
-                                fontFamily: `${selectedFont} 400`,
-                                fontSize: 14,
-                                color: "#2D3033",
-                              }}
-                            >
-                               {detail?.duration?.start?.year}
+                            (
+                              <Text
+                                style={{
+                                  fontFamily: `${selectedFont} 400`,
+                                  fontSize: 14,
+                                  color: "#2D3033",
+                                }}
+                              >
+                                {detail?.duration?.start?.year}
                                 {detail?.duration?.start?.year && "-"}
                                 {(detail?.duration?.end?.year === "" || detail?.duration?.end?.year === undefined)
                                   ? "Present"
                                   : detail?.duration?.end?.year
                                 }
-                            </Text>
-                          )}
+                              </Text>
+                            )}
                         </Text>
                       </View>
 
@@ -603,7 +603,7 @@ function Template30({ data, selectedColor, selectedFont ,preview }) {
                           fontFamily: `${selectedFont} 400`,
                         }}
                       >
-                          {detail.description}
+                        {detail.description}
                       </Text>
                     </View>
                   </>

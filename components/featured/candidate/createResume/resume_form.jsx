@@ -27,6 +27,7 @@ const ResumeForm = ({
   selectedFont,
   template,
 }) => {
+
   const [formField, setFormField] = useState([]);
   const [view, setView] = useState(false);
   useEffect(() => {

@@ -84,7 +84,7 @@ const Template47 = ({ data, selectedColor, selectedFont, preview }) => {
 
                             </View>
                             <View style={{ display: "flex", flexDirection: "row", gap: 8, justifyContent: "flex-end", alignItems: "center" }}>
-                                <Text style={{ fontSize: 10, fontFamily: `${selectedFont} 400`, color: "#808285" ,display:"flex",flexWrap:"wrap",flexShrink: 1}}>{data.email}</Text>
+                                <Text style={{ fontSize: 10, fontFamily: `${selectedFont} 400`, color: "#808285", display: "flex", flexWrap: "wrap", flexShrink: 1 }}>{data.email}</Text>
                                 <Svg width="12" height="9" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <Path d="M11.25 7.12535C11.25 7.35552 11.1853 7.569 11.0817 7.75675L7.76646 4.04697L11.0456 1.1772C11.1728 1.37956 11.25 1.61737 11.25 1.87466V7.12535ZM5.99965 4.72078L10.5623 0.728001C10.3753 0.625087 10.1639 0.5625 9.93654 0.5625H2.06206C1.834 0.5625 1.62332 0.625087 1.43697 0.728001L5.99965 4.72078ZM7.27208 4.47949L6.2159 5.40432C6.15401 5.45786 6.07683 5.48498 5.99965 5.48498C5.92247 5.48498 5.84529 5.45787 5.78341 5.40363L4.72722 4.4788L1.37022 8.23585C1.57117 8.36171 1.80758 8.4375 2.06276 8.4375H9.93793C10.1931 8.4375 10.4288 8.36171 10.6298 8.23585L7.27208 4.47949ZM0.954423 1.17789C0.82718 1.38024 0.75 1.61806 0.75 1.87535V7.12535C0.75 7.35552 0.813969 7.569 0.918267 7.75675L4.23285 4.04697L0.954423 1.17789Z" fill="#808285" />
                                 </Svg>
@@ -172,7 +172,7 @@ const Template47 = ({ data, selectedColor, selectedFont, preview }) => {
                                         </View>
                                         <View style={{ display: "flex", flexDirection: "row", gap: 12 }}>
                                             <Text style={{ fontSize: 12, color: "#383839", fontFamily: `${selectedFont} 500`, width: 132 }}> {detail.duration?.start?.year !== "Year" &&
-                          `${detail.duration?.start?.year}-${detail.duration?.end?.year ==="Year" ? "Pursuing" : detail.duration?.end?.year}`} </Text>
+                                                `${detail.duration?.start?.year}-${detail.duration?.end?.year === "Year" ? "Pursuing" : detail.duration?.end?.year}`} </Text>
                                         </View>
                                     </View>
 
@@ -184,7 +184,7 @@ const Template47 = ({ data, selectedColor, selectedFont, preview }) => {
 
                     {data?.section?.map((item, index) => (
                         <View
-                        // wrap={false}
+                            // wrap={false}
                             key={index}
                             style={{ display: "flex", flexDirection: "column", gap: 12 }}
                         >
@@ -204,28 +204,28 @@ const Template47 = ({ data, selectedColor, selectedFont, preview }) => {
                             </View>
 
                             {item?.subSection?.map((detail, index) => (
-                                <View key={index} 
-                                // wrap={false}
-                                 style={{
-                                    flexDirection: "column",
+                                <View key={index}
+                                    // wrap={false}
+                                    style={{
+                                        flexDirection: "column",
 
-                                    alignItems: "center",
-                                    gap: "16px"
-                                }}>
+                                        alignItems: "start",
+                                        gap: "16px"
+                                    }}>
                                     <View
                                         style={{
                                             flexDirection: "row",
                                             justifyContent: "space-between",
-                                            alignItems: "center",
-                                            width:"100%"
+                                            alignItems: "start",
+                                            width: "100%"
                                         }}
                                     >
                                         <View
                                             style={{
                                                 flexDirection: "row",
                                                 gap: 16,
-                                                alignItems: "center",
-
+                                                alignItems: "start",
+                                                width: "80%"
                                             }}
                                         >
                                             <Svg
@@ -251,7 +251,7 @@ const Template47 = ({ data, selectedColor, selectedFont, preview }) => {
                                             </Text>
                                         </View>
                                         {detail.duration?.start?.year &&
-                                             (
+                                            (
                                                 <View
                                                     style={{
                                                         display: "flex",
@@ -269,11 +269,11 @@ const Template47 = ({ data, selectedColor, selectedFont, preview }) => {
                                                     >
                                                         {" "}
                                                         {detail?.duration?.start?.year}
-                                {detail?.duration?.start?.year && "-"}
-                                {(detail?.duration?.end?.year === "" || detail?.duration?.end?.year === undefined)
-                                  ? "Present"
-                                  : detail?.duration?.end?.year
-                                }
+                                                        {detail?.duration?.start?.year && "-"}
+                                                        {(detail?.duration?.end?.year === "" || detail?.duration?.end?.year === undefined)
+                                                            ? "Present"
+                                                            : detail?.duration?.end?.year
+                                                        }
                                                     </Text>
                                                 </View>
                                             )}

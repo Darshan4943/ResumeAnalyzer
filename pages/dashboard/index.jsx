@@ -58,7 +58,7 @@ function Dashboard() {
     },
     {
       name: "My Collection",
-      imgSrc: "/images/resumeBuilder/collechttps://jamblix.comMy Purchases",
+      imgSrc: "/images/resumeBuilder/collechttp://localhost:2000My Purchases",
       imgSrc: "/images/resumeBuilder/my_purchases.png",
     },
     { name: "Post Jobs", imgSrc: "/images/resumeBuilder/job.png" },
@@ -84,9 +84,9 @@ function Dashboard() {
       case "My Clients":
         handleNavigation("/myClients");
         break;
-        case "My Resumes":
-          handleNavigation("/home/MyCollection");
-          break;
+      case "My Resumes":
+        handleNavigation("/home/MyCollection");
+        break;
       case "Transform CV":
         handleNavigation("/transform/TransformJob");
         break;
@@ -97,7 +97,7 @@ function Dashboard() {
         handleNavigation("/purchase/MyPurchase");
         break;
       case "Chat Bot":
-        handleNavigation("/chatbot/ChatBot");
+        handleNavigation("/chatbot");
         break;
       case "My Collection":
         handleNavigation("/collection");
@@ -131,7 +131,7 @@ function Dashboard() {
 
     if (userDataGlobal) {
       axios
-        .get("https://jamblix.com/api/subscription/" + userDataGlobal._id)
+        .get("http://localhost:2000/api/subscription/" + userDataGlobal._id)
         .then((res) => {
           const plan = plans.find(
             (item) =>
