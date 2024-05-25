@@ -269,29 +269,6 @@ export const Api = () => {
   }, []);
   // console.log(123,visible && loading == false);
 
-  const getFolderData = async () => {
-    console.log("userId", userDataGlobal);
-    if (userDataGlobal) {
-      axios
-        .get(`http://localhost:2000/api/folder/get/${userDataGlobal._id}`)
-        .then((res) => {
-          // setFolderList(res.data.data);
-          console.log("new uploaded data", res.data.data);
-          setTimeout(() => {
-            setLoading(false);
-          }, 1000);
-        })
-        .catch((err) => {
-          setLoading(false);
-          console.log(err);
-        });
-    }
-  };
-
-  useEffect(() => {
-    getFolderData();
-  }, [userDataGlobal]);
-
   return (
     <>
       {enablePopup && (
