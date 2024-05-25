@@ -144,17 +144,13 @@ function Folders({
   const sort = ["A to Z", "Date Modified", "Size"];
 
   const sortClientData = (data, selectedIndex) => {
-    switch (sort[selectedIndex]) {
-      case "A to Z":
-        return data.sort((a, b) => a.firstName.localeCompare(b.firstName));
-
-      case "Date Modified":
-        return data.sort((a, b) => a.createdAt.localeCompare(b.createdAt));
-
-      case "Type":
-
-      default:
-        return data;
+    console.log("dataTosortC", data);
+    if (sortSelect == 0) {
+      return data.sort((a, b) => a.firstName.localeCompare(b.firstName));
+    } else if (sortSelect == 1) {
+      return data.sort((a, b) => a.createdAt.localeCompare(b.createdAt));
+    } else if (sortSelect == 2) {
+      return data?.sort((a, b) => a.size - b.size);
     }
   };
   const handleSortSelect = (index) => {
@@ -170,6 +166,7 @@ function Folders({
       return data?.sort((a, b) => a.size - b.size);
     }
   };
+
   return (
     <div className="flex flex-col gap-4 ml:w-[80%] w-[100%] ">
       <div className="flex justify-between items-center">
@@ -682,7 +679,7 @@ function Folders({
             setData={setData}
             files={files}
             setFiles={setFiles}
-            clientData={sortData(mainData)}
+            clientData={sortClientData(mainData)}
             tab={tab}
             setParentId={setParentId}
             parentId={parentId}
