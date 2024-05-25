@@ -35,11 +35,14 @@ const Index = () => {
             recall={recall}
           />
           <ChatBox
+               setIsSidebarOpen={setIsSidebarOpen}
+             isSidebarOpen={isSidebarOpen}
             features={features}
             selectedChat={selectedChat}
             forceUpdate={forceUpdate}
             recall={recall}
             setSelectedChat={setSelectedChat}
+            handleToggleSidebar={handleToggleSidebar}
           />
         </div>
       </div>

@@ -29,7 +29,7 @@ function Collection() {
   const [data, setData] = useState();
   const [folderList, setFolderList] = useState(null);
   const [isCreateFolder, setIsCreateFolder] = useState(false);
-  const [folderName, setFolderName] = useState("Untitled folder");
+  const [folderName, setFolderName] = useState("");
   const inputRef = useRef(null);
   const [tab, setTab] = useState(null);
   const [ParentId, setParentId] = useState(null);
@@ -94,7 +94,7 @@ function Collection() {
     }
   };
   useEffect(() => {
-    getData();
+    // getData();
   }, [clients, folders, clientId, parentId, userDataGlobal, recall]);
 
   const getParentData = (parentId) => {
@@ -175,23 +175,27 @@ function Collection() {
   };
 
   const createFolder = () => {
-    const formData = new FormData();
-    formData.append("fileName", folderName);
-    formData.append("type", "folder");
-    formData.append("userId", userDataGlobal._id);
-    formData.append("parentId", ParentId ? ParentId : undefined);
+    if (folderName?.length > 3) {
+      const formData = new FormData();
+      formData.append("fileName", folderName);
+      formData.append("type", "folder");
+      formData.append("userId", userDataGlobal._id);
+      formData.append("parentId", ParentId ? ParentId : undefined);
 
-    axios
-      .post("http://localhost:2000/api/folder/create", formData)
-      .then((res) => {
-        setRecall();
-        setIsCreateFolder(false);
-        setFolderName("Untitled folder");
-        toast.success("Folder created successfully");
-      })
-      .catch((err) => {
-        toast.error("Something went wrong");
-      });
+      axios
+        .post("http://localhost:2000/api/folder/create", formData)
+        .then((res) => {
+          setRecall();
+          setIsCreateFolder(false);
+          setFolderName("Untitled folder");
+          toast.success("Folder created successfully");
+        })
+        .catch((err) => {
+          toast.error("Something went wrong");
+        });
+    } else {
+      toast.error("Please Enter valid folder name");
+    }
   };
 
   const textExtractor = async (textData) => {
@@ -299,7 +303,6 @@ function Collection() {
       setFileLoader(false);
       return;
     }
-
     const formData = new FormData();
     try {
       const data = await parseData();
@@ -311,15 +314,11 @@ function Collection() {
       Object.values(files).forEach((file) => {
         formData.append("files", file);
       });
-
       formData.append("parentId", ParentId ? ParentId : undefined);
-
       const response = await axios.post(
         "http://localhost:2000/api/folder/addTextFiles",
         formData
       );
-
-      console.log(66, response.data);
       setFolderName("Untitled folder");
       toast.success("File Uploaded successfully");
       setTimeout(() => {
