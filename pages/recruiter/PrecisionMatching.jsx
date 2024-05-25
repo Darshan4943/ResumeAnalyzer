@@ -136,7 +136,7 @@ function PrecisionMatching() {
                     <p className='ml:text-[1.3vw] text-[5vw] font-medium'>Unlock the power of precision matching with our job description <span className='text-[#06A9EF]'>compatibility search</span> feature.</p>
                 </div>
                 <div className='ml:text-[1.2vw] text-[4vw] font-medium ml:text-start text-center'>
-                    Simply input the job description and let our AI algorith filter through your client database to find the perfect matches, saving you considerable time and money.
+                    Simply input the job description and let our AI algorithm filter through your client database to find the perfect matches, saving you considerable time and money.
                 </div>
                 <button className='bg-[#06A9EF] text-white flex gap-2  ml:px-4 px-2 ml:py-3 py-2 ml:w-[174px] ml:rounded-[12px] rounded-[8px] justify-center items-center' onClick={clickHandler}>
                     <p className='ml:text-[14px] text-[4vw] font-semibold'>Find Matches</p>

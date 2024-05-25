@@ -2731,7 +2731,7 @@ export const plans = [
     price: "$ 10",
     days: 7,
     index: 4,
-    description: "For 1 Week",
+    description: "For 7 Days",
     features: [
       "10 Resume Uploads",
       "40 Resume Downloads",
@@ -2754,7 +2754,7 @@ export const plans = [
     price: "$ 50",
     days: 14,
     index: 5,
-    description: "For 2 Weeks",
+    description: "For 14 Days",
     features: [
       "50 Resume Uploads",
       "200 Resume Downloads",
@@ -2777,7 +2777,7 @@ export const plans = [
     price: "$ 100",
     days: 28,
     index: 6,
-    description: "For 4 Weeks",
+    description: "For 28 Days",
     features: [
       "100 Resume Uploads",
       "400 Resume Downloads",

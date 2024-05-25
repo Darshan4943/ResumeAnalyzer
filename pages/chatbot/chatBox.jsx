@@ -84,15 +84,13 @@ const ChatBox = ({
                       />
                     </div>
                     <div className="rounded-[8px] w-full border border-[#bebebe] px-[16px] py-[8px] bg-[#fff]">
-                      {  console.log(item.answer)}
-                    <div
-                          style={{background:'#fff',padding:'8px'}}
-                          className="chat"
+                      <div
+                        style={{ background: "#fff", padding: "8px" }}
+                        className="chat"
                         dangerouslySetInnerHTML={{
                           __html: item.answer,
                         }}
                       />
-                      {/* {item.answer} */}
                     </div>
                   </div>
                 </>
@@ -133,7 +131,6 @@ const ChatBox = ({
                       className="h-[24px] w-[24px]"
                     />
                     <p className="text-[12px] font-[500] font-Montserrat text-[#808080]">
-                   
                       {feature.text}
                     </p>
                   </div>
