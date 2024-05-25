@@ -84,9 +84,9 @@ function Dashboard() {
       case "My Clients":
         handleNavigation("/myClients");
         break;
-        case "My Resumes":
-          handleNavigation("/home/MyCollection");
-          break;
+      case "My Resumes":
+        handleNavigation("/home/MyCollection");
+        break;
       case "Transform CV":
         handleNavigation("/transform/TransformJob");
         break;
