@@ -11,8 +11,9 @@ function ClientList({
   setSelect,
   selectedIndexes,
   setSelectedIndexes,
-  select, deleteClient,
-  ClientCount
+  select,
+  deleteClient,
+  ClientCount,
 }) {
   const router = useRouter();
   const [openPopupIndex, setOpenPopupIndex] = useState(null);
@@ -23,7 +24,7 @@ function ClientList({
   const handleOutsideClick = (event) => {
     if (taskRef.current && !taskRef.current.contains(event.target)) {
       setOpenPopupIndex(null);
-      setSelectedIndexes([])
+      setSelectedIndexes([]);
     }
   };
 
@@ -51,7 +52,6 @@ function ClientList({
   };
   return (
     <>
-
       <div className="rounded-[16px]  flex flex-col gap-4 w-[100%] break-all">
         <div className="text-[16px] font-medium">
           Total Clients ({details?.length})
@@ -115,7 +115,10 @@ function ClientList({
                 />
 
                 <svg
-                  onClick={(e) => { toggleOptions(index, e); toggleSelect(index); }}
+                  onClick={(e) => {
+                    toggleOptions(index, e);
+                    toggleSelect(index);
+                  }}
                   className="absolute right-[-4%] cursor-pointer"
                   width="24"
                   height="24"
@@ -139,9 +142,23 @@ function ClientList({
                       boxShadow: "0px 1px 2px 0px #00000040",
                     }}
                   >
-                    <p onClick={() => toggleDetails(detail)} className="text-[14px] font-medium">View Client</p>
+                    <p
+                      onClick={() => toggleDetails(detail)}
+                      className="text-[14px] font-medium"
+                    >
+                      View Client
+                    </p>
 
-                    <p onClick={(e) => { e.stopPropagation(); deleteClient(); setOpenPopupIndex(null); }} className="text-[14px] text-red font-medium">Delete</p>
+                    <p
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        deleteClient();
+                        setOpenPopupIndex(null);
+                      }}
+                      className="text-[14px] text-red font-medium"
+                    >
+                      Delete
+                    </p>
                   </div>
                 )}
               </div>

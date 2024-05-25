@@ -293,47 +293,46 @@ function Collection() {
   // };
 
   const addFiles = async () => {
-    console.log("collection")
-    // setFileLoader(true);
-    // if (Object.keys(files).length === 0) {
-    //   toast.error("No File Selected");
-    //   setFileLoader(false);
-    //   return;
-    // }
+    setFileLoader(true);
+    if (Object.keys(files).length === 0) {
+      toast.error("No File Selected");
+      setFileLoader(false);
+      return;
+    }
 
-    // const formData = new FormData();
-    // try {
-    //   const data = await parseData();
-    //   formData.append("fileName", folderName);
-    //   formData.append("type", "file");
-    //   formData.append("userId", userDataGlobal._id);
-    //   formData.append("extractedData", data);
-    //   formData.append("isSync", false);
-    //   Object.values(files).forEach((file) => {
-    //     formData.append("files", file);
-    //   });
+    const formData = new FormData();
+    try {
+      const data = await parseData();
+      formData.append("fileName", folderName);
+      formData.append("type", "file");
+      formData.append("userId", userDataGlobal._id);
+      formData.append("extractedData", data);
+      formData.append("isSync", false);
+      Object.values(files).forEach((file) => {
+        formData.append("files", file);
+      });
 
-    //   formData.append("parentId", ParentId ? ParentId : undefined);
+      formData.append("parentId", ParentId ? ParentId : undefined);
 
-    //   const response = await axios.post(
-    //     "http://localhost:2000/api/folder/addTextFiles",
-    //     formData
-    //   );
+      const response = await axios.post(
+        "http://localhost:2000/api/folder/addTextFiles",
+        formData
+      );
 
-    //   console.log(66, response.data);
-    //   setFolderName("Untitled folder");
-    //   toast.success("File Uploaded successfully");
-    //   setTimeout(() => {
-    //     setFileLoader(false);
-    //     setIsCreateFolder(false);
-    //     getData();
-    //   }, 1000);
-    //   setFiles([]);
-    // } catch (error) {
-    //   setFileLoader(false);
-    //   toast.error("Something went wrong");
-    //   console.error(error);
-    // }
+      console.log(66, response.data);
+      setFolderName("Untitled folder");
+      toast.success("File Uploaded successfully");
+      setTimeout(() => {
+        setFileLoader(false);
+        setIsCreateFolder(false);
+        getData();
+      }, 1000);
+      setFiles([]);
+    } catch (error) {
+      setFileLoader(false);
+      toast.error("Something went wrong");
+      console.error(error);
+    }
   };
 
   const handleButtonClick = () => {
