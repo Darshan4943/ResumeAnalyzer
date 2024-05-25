@@ -45,7 +45,7 @@ function SubscriptionPlans({ fromMain }) {
 
   useEffect(() => {
     axios
-      .get("https://freedygoservices.in/api/subscription/" + userDataGlobal._id)
+      .get("http://localhost:2000/api/subscription/" + userDataGlobal._id)
       .then((res) => {
         setSubscription(res.data.findIsActive);
       })

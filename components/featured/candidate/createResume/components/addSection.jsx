@@ -115,11 +115,9 @@ const AddSection = ({ data, setData, section, formData, index, item }) => {
           <input
             type="text"
             placeholder="Enter Section Header"
-            className={`${
-              headerEditable ? "w-full" : "w-[120px]"
-            }  text-[20px]   font-[500]  ${
-              headerEditable && "border border-[#bebebe] px-[8px]"
-            } rounded-lg`}
+            className={`${headerEditable ? "w-full" : "w-[120px]"
+              }  text-[20px]   font-[500]  ${headerEditable && "border border-[#bebebe] px-[8px]"
+              } rounded-lg`}
             onChange={(e) => setHeader(e.target.value)}
             value={header}
             disabled={!headerEditable}
@@ -146,7 +144,7 @@ const AddSection = ({ data, setData, section, formData, index, item }) => {
           <span className="slider round"></span>
         </label> */}
       </div>
-
+      {console.log(listItems[3]?.duration?.end?.year)}
       {listItems?.map((exp, index) => (
         <div
           key={index}
@@ -154,9 +152,13 @@ const AddSection = ({ data, setData, section, formData, index, item }) => {
         >
           <div className="flex justify-between">
             <p className="text-[14px]">
-              {exp.title} | {exp.duration?.start?.year}{" "}
-              {exp.duration?.start?.year && "-"}
-              {exp.duration?.end?.year}
+              {exp.title}  {exp?.duration?.start?.year != null &&
+                ` ${"|"} ${exp?.duration?.start?.year} 
+              ${exp?.duration?.start?.year && "-"}
+              ${(exp?.duration?.end?.year === "" || exp?.duration?.end?.year === undefined)
+                  ? "Present"
+                  : exp.duration?.end?.year
+                }`}
             </p>
             <div className="flex gap-2">
               <div onClick={() => handleEditHandler(index)}>

@@ -386,7 +386,7 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
 
         <View
           style={{
-            width: "400px",
+            width: "450px",
             padding: " 16px",
             display: "flex",
             flexDirection: "column",
@@ -640,7 +640,7 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
                         color: "#414042",
                         fontSize: 10,
                         fontFamily: `${selectedFont} 400`,
-                        maxWidth: "60%",
+                        maxWidth: "75%",
                       }}
                     >
                       {detail.organization}
@@ -728,6 +728,7 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
                     >
                       <Text
                         style={{
+                          width:"80%",
                           color: "#000000",
                           fontSize: "12px",
                           fontFamily: `${selectedFont} 400`,
@@ -735,8 +736,8 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
                       >
                         {detail?.title}{" "}
                       </Text>
-                      {/* {detail.duration?.start?.year &&
-                        detail.duration?.end?.year && (
+                      {detail.duration?.start?.year &&
+                         (
                           <View style={{ flexDirection: "row", gap: 4 }}>
                             <Text
                               style={{
@@ -745,11 +746,15 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
                                 fontFamily: `${selectedFont} 400`,
                               }}
                             >
-                              {detail.duration?.start?.year}-{" "}
-                              {detail.duration?.end?.year}
+                              {detail?.duration?.start?.year}
+                                {detail?.duration?.start?.year && "-"}
+                                {(detail?.duration?.end?.year === "" || detail?.duration?.end?.year === undefined)
+                                  ? "Present"
+                                  : detail?.duration?.end?.year
+                                }
                             </Text>
                           </View>
-                        )} */}
+                        )}
                         </View>
 
                       <Text

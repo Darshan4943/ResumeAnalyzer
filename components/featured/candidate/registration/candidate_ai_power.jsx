@@ -137,10 +137,8 @@ const CandidateAiPower = ({
       }, 1000);
     });
   };
-  
-  const navigate = () => {
 
-   
+  const navigate = () => {
     if (uploadLimit <= 0) {
       setLimitUsedModal(true);
       return;
@@ -150,7 +148,7 @@ const CandidateAiPower = ({
       console.log(145, result);
       if (result[0]?.text?.length > 0) {
         axios
-          .post("https://freedygoservices.in/api/resume/extraction", {
+          .post("http://localhost:2000/api/resume/extraction", {
             data: result,
           })
           .then((res) => {
@@ -161,7 +159,7 @@ const CandidateAiPower = ({
               );
               axios
                 .put(
-                  "https://freedygoservices.in/api/subscription/updateUploadLimit/" +
+                  "http://localhost:2000/api/subscription/updateUploadLimit/" +
                     userDataGlobal._id
                 )
                 .then((res) => {
@@ -191,9 +189,7 @@ const CandidateAiPower = ({
                   router.push(`/home/createResume?clientId=${clientId}`);
                 });
             } else {
-            
               setCount(count + 1);
-             
             }
           })
           .catch((err) => {
@@ -211,14 +207,13 @@ const CandidateAiPower = ({
   };
 
   useEffect(() => {
-  
-    if(count >=2){
+    if (count >= 2) {
       setLoading(false);
       setfile();
       setResumeErrorPopup(true);
-      setCount(0)
-    }else{
-      navigate
+      setCount(0);
+    } else {
+      navigate;
     }
   }, [count]);
 

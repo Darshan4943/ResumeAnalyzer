@@ -14,22 +14,74 @@ const ResumeList = ({ data, setData }) => {
     fileRef.current.click();
   };
   const [croppedImage, setCroppedImage] = useState(null);
-  const handleFileChange = (event) => {
+  // console.log(2, croppedImage)
+  // console.log(1, file)
+  // console.log(3, data.profilePhoto)
+  const handleFileChange = async (event) => {
     event.preventDefault();
     const selectedFile = event.target.files[0];
     if (selectedFile) {
-      if (selectedFile && selectedFile.size <= 2 * 1024 * 1024) {
-        if (selectedFile?.type.includes("image")) {
-          setFile(selectedFile);
-          setModelView(true);
-          event.target.value = "";
+      if (selectedFile.size <= 2 * 1024 * 1024) { // Check if file is less than 2MB
+        if (selectedFile.type.includes("image")) {
+          const pngBlob = await convertToPng(selectedFile);
+          if (pngBlob.size <= 2 * 1024 * 1024) { // Ensure PNG is also less than 2MB
+            setFile(pngBlob);
+            setModelView(true);
+            event.target.value = "";
+          } else {
+            toast.error("Converted PNG file is larger than 2 MB.");
+          }
         } else {
-          toast.error("Only Image files are allowed");
+          toast.error("Only image files are allowed.");
         }
       } else {
         toast.error("Please select a file which is less than 2 MB.");
       }
     }
+  };
+
+  const convertToPng = async (file) => {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      const reader = new FileReader();
+
+      reader.onload = (e) => {
+        img.src = e.target.result;
+      };
+
+      img.onload = () => {
+        // Create a canvas and draw the image
+        const canvas = document.createElement('canvas');
+        const maxDimension = 1000; // Resize max dimension
+        let { width, height } = img;
+
+        if (width > maxDimension || height > maxDimension) {
+          if (width > height) {
+            height *= maxDimension / width;
+            width = maxDimension;
+          } else {
+            width *= maxDimension / height;
+            height = maxDimension;
+          }
+        }
+
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, width, height);
+
+        // Convert the canvas content to a PNG blob with compression
+        canvas.toBlob((blob) => {
+          if (blob) {
+            resolve(blob);
+          } else {
+            reject(new Error("Canvas to Blob conversion failed"));
+          }
+        }, 'image/png', 0.8); // Compression quality
+      };
+
+      reader.readAsDataURL(file);
+    });
   };
   const handleDragOver = (event) => {
     event.preventDefault();
@@ -38,6 +90,42 @@ const ResumeList = ({ data, setData }) => {
   const removeImgae = () => {
     setCroppedImage({ url: "/images/services/profile.png" });
   };
+  const handleImageConversion = async (blob) => {
+    // Create an image element
+    const img = document.createElement('img');
+    img.src = URL.createObjectURL(blob);
+
+    // Wait for the image to load
+    await new Promise((resolve) => {
+      img.onload = resolve;
+    });
+
+    // Calculate the desired dimensions
+    const scaleFactor = Math.sqrt(blob.size / 156584); // Original JPEG size
+    const width = img.width / scaleFactor;
+    const height = img.height / scaleFactor;
+
+    // Create a canvas and draw the resized image on it
+    const canvas = document.createElement('canvas');
+    canvas.width = width;
+    canvas.height = height;
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(img, 0, 0, width, height);
+
+    // Convert the canvas content to a PNG blob with maximum compression
+    return new Promise((resolve) => {
+      canvas.toBlob((pngBlob) => {
+        resolve(pngBlob);
+      }, 'image/png', 0.1); // Use lower quality factor to compress
+    });
+  };
+
+  // const handleClick = async () => {
+  //   if (croppedImage?.blob) {
+  //     const pngBlob = await handleImageConversion(croppedImage.blob);
+  //     setFile(pngBlob)
+  //   }
+  // };
 
   // useEffect(() => {
 
@@ -45,7 +133,7 @@ const ResumeList = ({ data, setData }) => {
   // //  setFile(data.profilePhoto)
   // }, [data]);
 
-  
+
   return (
     <>
       {/* <div className="bg-[#06A9EF] p-4 rounded-[16px] flex justify-between text-white">
@@ -129,9 +217,8 @@ const ResumeList = ({ data, setData }) => {
             </button>
             <button
               disabled={file == !data?.profilePhoto}
-              className={` font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px]  bg-[#06A9EF] w-[60px] h-[32px] ${
-                file == !data?.profilePhoto ? "opacity-50" : "opacity-100"
-              }`}
+              className={` font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px]  bg-[#06A9EF] w-[60px] h-[32px] ${file == !data?.profilePhoto ? "opacity-50" : "opacity-100"
+                }`}
               onClick={() => {
                 setData({ ...data, profilePhoto: croppedImage?.blob });
               }}

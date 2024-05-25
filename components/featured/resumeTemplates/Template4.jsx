@@ -12,7 +12,7 @@ import {
 } from "@react-pdf/renderer";
 function Template4({ data, selectedColor, selectedFont, preview }) {
   return (
-    <Page size="A4" wrap={true} style={{ paddingTop: "12px" }}>
+    <Page size="A4" wrap={true} style={{ paddingTop: "12px" }} pageMode={"fullScreen"} >
       <View style={{ flexDirection: "row", gap: "1.5rem", marginTop: "-12px" }}>
         <View style={{ width: "190px" }}>
           <View
@@ -63,7 +63,8 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                   }}
                 />
               )}
-              <View style={{ display: "flex", marginBottom: "6px" }}>
+              <View style={{ display: "flex", marginBottom: "6px",marginRight: "8px",
+                  marginLeft: "8px", }}>
                 <Text
                   style={{
                     color: "#fff",
@@ -353,6 +354,112 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                         }}
                       >
                         {detail.languages}
+                      </Text>
+                      {/* <View
+                        style={{
+                          flexDirection: "row",
+                          gap: "8px",
+                          marginTop: "4px",
+                        }}
+                      >
+                        {[...Array(3)].map((_, i) => (
+                          <View key={i}>
+                            {detail.rating[i] === 0 ? (
+                              <Svg width={8} height={7} viewBox="0 0 8 7">
+                                <Path
+                                  fillRule="evenodd"
+                                  clipRule="evenodd"
+                                  d="M4.02911 0.285156C2.23911 0.285156 0.789062 1.73615 0.789062 3.52515C0.789062 5.31415 2.24011 6.76514 4.02911 6.76514C5.81811 6.76514 7.2691 5.31415 7.2691 3.52515C7.2691 1.73615 5.81811 0.285156 4.02911 0.285156Z"
+                                  fill="#D1D3D4"
+                                />
+                              </Svg>
+                            ) : (
+                              <Svg width={8} height={8} viewBox="0 0 8 8">
+                                <Path
+                                  fillRule="evenodd"
+                                  clipRule="evenodd"
+                                  d="M4.02911 0.886719C2.23911 0.886719 0.789062 2.33771 0.789062 4.12671C0.789062 5.91571 2.24011 7.36676 4.02911 7.36676C5.81811 7.36676 7.2691 5.91571 7.2691 4.12671C7.2691 2.33771 5.81811 0.886719 4.02911 0.886719Z"
+                                  fill={selectedColor}
+                                />
+                              </Svg>
+                            )}
+                          </View>
+                        ))}
+                      </View> */}
+                    </View>
+                  ))}
+                </View>
+              </>
+            )}
+             {data?.skills?.length > 0 && (
+              <>
+                <View
+                   wrap={false}
+                  style={{
+                    marginRight: "-12px",
+                    marginTop: "4px",
+                    alignItems: "center",
+                    flexDirection: "row",
+                  }}
+                >
+                  <Svg width={180} height={43} viewBox="0 0 180 43">
+                    <Path
+                      d="M10.942 32.118H179.514V0.887939H10.942L0.782959 16.5029L10.942 32.118Z"
+                      fill={selectedColor}
+                    />
+                    <Path
+                      d="M167.942 42.8819L179.514 32.118L167.942 32.1179V42.8819Z"
+                      fill={selectedColor}
+                    />
+                    <Text
+                      x="10%"
+                      y="40%"
+                      dominantBaseline="middle"
+                      textAnchor="start"
+                      fill="white"
+                      style={{
+                        fontFamily: `${selectedFont} 400`,
+                        fontSize: "14px",
+                      }}
+                    >
+                      Skills
+                    </Text>
+                  </Svg>
+                </View>
+                <View
+                  style={{
+                    flexDirection: "column",
+                    color: "white",
+                    paddingRight: "16px",
+                    gap: "8px",
+                    justifyContent: "space-between",
+                    // marginLeft: "16px",
+                  }}
+                >
+                  {data?.skills?.map((detail, index) => (
+                    <View
+                     
+                      key={index}
+                      style={{
+                        marginLeft: "16px",
+                        flexDirection: "row",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                        gap: "8px",
+                      }}
+                    >
+                      <Text
+                        style={{
+                          fontSize: "12px",
+                          paddingTop: "2px",
+                          flexDirection: "row",
+                          fontFamily: `${selectedFont} 400`,
+                          color: "#fff",
+                          width: "90%",
+                          flexWrap: "wrap"
+                        }}
+                      >
+                        {detail.skill}
                       </Text>
                       {/* <View
                         style={{
@@ -783,142 +890,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
               </View>
             </View>
           </View>
-          {data?.skills?.length > 0 && (
-            <View
-
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: 16,
-                alignItems: "flex-start",
-                paddingTop: "26px",
-
-              }}
-            >
-              <View
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  gap: 8,
-                  alignItems: "center",
-                }}
-              >
-                <Image
-                  style={{
-                    width: "27px",
-                    height: "27px",
-                    display: "flex",
-                    alignItems: "flex-end",
-                  }}
-                  src="/images/services/skills.png"
-                  alt=""
-                />
-                <View
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: 4,
-                    width: "90%",
-                  }}
-                >
-                  <Text
-                    style={{
-                      color: "#282829",
-                      fontFamily: `${selectedFont} 400`,
-                      fontSize: "16px",
-                    }}
-                  >
-                    SKILLS
-                  </Text>
-                  <View
-                    style={{
-                      height: "1px",
-                      width: "95%",
-                      backgroundColor: "#282829",
-                    }}
-                  ></View>
-                </View>
-              </View>
-              <View
-                style={{
-                  flexDirection: "column",
-                  gap: 8,
-                  justifyContent: "space-between",
-                  width: "95%",
-                }}
-              >
-                {data?.skills?.map((detail, index) => (
-                  <View
-                    
-                    key={index}
-                    style={{
-                      display: "flex",
-                      flexDirection: "row",
-                      alignItems: "center",
-                      justifyContent: "space-between",
-                      gap: "8",
-                      width: "100%",
-                      paddingLeft: 36,
-                    }}
-                  >
-                    <Text
-                      style={{
-                        fontSize: 11,
-                        fontFamily: `${selectedFont} 400`,
-                        marginRight: "6px"
-                      }}
-                    >
-                      {detail.skill}
-                    </Text>
-                    {/* <View
-                      style={{
-                        display: "flex",
-                        gap: 16,
-                        flexDirection: "row",
-                        marginTop: "4px",
-                      }}
-                    >
-                      {[...Array(5)].map((_, i) => (
-                        <View key={i}>
-                          {detail.rating[i] === 0 ? (
-                            <Svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="8"
-                              height="7"
-                              viewBox="0 0 8 7"
-                              fill="none"
-                            >
-                              <Path
-                                fillRule="evenodd"
-                                clipRule="evenodd"
-                                d="M4.02911 0.285156C2.23911 0.285156 0.789062 1.73615 0.789062 3.52515C0.789062 5.31415 2.24011 6.76514 4.02911 6.76514C5.81811 6.76514 7.2691 5.31415 7.2691 3.52515C7.2691 1.73615 5.81811 0.285156 4.02911 0.285156Z"
-                                fill="#D1D3D4"
-                              />
-                            </Svg>
-                          ) : (
-                            <Svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="8"
-                              height="8"
-                              viewBox="0 0 8 8"
-                              fill="none"
-                            >
-                              <Path
-                                fillRule="evenodd"
-                                clipRule="evenodd"
-                                d="M4.02911 0.886719C2.23911 0.886719 0.789062 2.33771 0.789062 4.12671C0.789062 5.91571 2.24011 7.36676 4.02911 7.36676C5.81811 7.36676 7.2691 5.91571 7.2691 4.12671C7.2691 2.33771 5.81811 0.886719 4.02911 0.886719Z"
-                                fill={selectedColor}
-                              />
-                            </Svg>
-                          )}
-                        </View>
-                      ))}
-                    </View> */}
-                  </View>
-                ))}
-              </View>
-            </View>
-          )}
+        
           {data.section?.length > 0 &&
             data.section?.map((item, index) => (
               <View
@@ -993,7 +965,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                         gap: 4,
                         marginLeft: "36px",
                       }}
-                      wrap={false}
+                     
                     >
                       {detail.title.length > 0 && (
                         <View
@@ -1027,7 +999,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                             </Text>
                           </View>
                           {detail.duration?.start?.year &&
-                            detail.duration?.end?.year && (
+                            (
                               <Text
                                 style={{
                                   color: "#414042",
@@ -1035,9 +1007,12 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                                   fontFamily: `${selectedFont} 400`,
                                 }}
                               >
-                                {" "}
-                                {detail.duration?.start?.year}-{" "}
-                                {detail.duration?.end?.year}
+                                {detail?.duration?.start?.year}
+                                {detail?.duration?.start?.year && "-"}
+                                {(detail?.duration?.end?.year === "" || detail?.duration?.end?.year === undefined)
+                                  ? "Present"
+                                  : detail?.duration?.end?.year
+                                }
                               </Text>
                             )}
                         </View>

@@ -26,7 +26,6 @@ function Files({
   setFolderList,
   query,
 }) {
-
   const [clientId, setClientId] = useState();
   const router = useRouter();
   const [clientResumes, setClientResumes] = useState();
@@ -66,7 +65,7 @@ function Files({
   useEffect(() => {
     if (clientId) {
       axios
-        .get("https://freedygoservices.in/api/resume/" + clientId)
+        .get("http://localhost:2000/api/resume/" + clientId)
         .then((res) => {
           setClientResumes(res.data.data);
           setFiles(

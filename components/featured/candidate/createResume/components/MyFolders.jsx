@@ -17,7 +17,6 @@ function MyFolders({
   selectedIndexes,
   openFolder,
 }) {
-
   return (
     <div className="">
       {tabIndex === 0 && (
@@ -48,8 +47,14 @@ function MyFolders({
                           />
                         )}
                       </div>
-                      
-                      <span style={{ overflow: 'hidden', }} className="text-[12px]">   {item.fileName} </span>
+
+                      <span
+                        style={{ overflow: "hidden" }}
+                        className="text-[12px]"
+                      >
+                        {" "}
+                        {item.fileName}{" "}
+                      </span>
                       <div className="absolute text-[10px] opacity-0 transition-opacity duration-500 group-hover:opacity-100  word-break bottom-[-20px] text-[#fff] bg-[#333] px-[6px] py-[3px] rounded-[5px]">
                         {item.fileName}
                       </div>
@@ -91,7 +96,9 @@ function MyFolders({
                               onChange={() => toggleSelect(index)}
                             />
                           )}
-                          {item.fileName.length > 25 ? `${item.fileName.slice(0, 25)}...` : item.fileName}
+                          {item.fileName.length > 25
+                            ? `${item.fileName.slice(0, 25)}...`
+                            : item.fileName}
                         </td>
                         <td className="px-4 py-2 text-[#858585] text-[14px]">
                           {dateSeter(item.updatedAt)}

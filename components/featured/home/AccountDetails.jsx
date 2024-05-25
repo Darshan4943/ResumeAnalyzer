@@ -32,8 +32,6 @@ function AccountDetails({
   const [sessionId, setSessionId] = useState("");
   const [payment_status, setPaymentStatus] = useState(null);
 
- 
-
   useEffect(() => {
     const exchangeRate = localStorage.getItem("exchangeRate");
     const icon = localStorage.getItem("icon");
@@ -157,7 +155,7 @@ function AccountDetails({
   //       loading: true,
   //     });
   //     axios
-  //       .post("https://freedygoservices.in/api/add/subscription", {
+  //       .post("http://localhost:2000/api/add/subscription", {
   //         userId: userDataGlobal._id,
   //         plan: selectedPlan.duration + " " + selectedPlan.limit,
   //         ...jsonData,
@@ -193,9 +191,7 @@ function AccountDetails({
     } else {
       if (recruiterid) {
         axios
-          .get(
-            "https://freedygoservices.in/api/skiloteckuser/user/" + recruiterid
-          )
+          .get("http://localhost:2000/api/skiloteckuser/user/" + recruiterid)
           .then((res) => {
             const decode = jwtDecode(res.data.data);
             setData({
@@ -240,14 +236,11 @@ function AccountDetails({
     const currency = localStorage.getItem("currency");
     localStorage.setItem("paymentDetails", JSON.stringify(data));
     if (currency) {
-      const { data } = await axios.post(
-        "https://freedygoservices.in/api/getPriceId",
-        {
-          amount: Math.ceil(selectedPlan.amount * exchangeRate) * 100,
-          productName: selectedPlan.productName,
-          currency: currency,
-        }
-      );
+      const { data } = await axios.post("http://localhost:2000/api/getPriceId", {
+        amount: Math.ceil(selectedPlan.amount * exchangeRate) * 100,
+        productName: selectedPlan.productName,
+        currency: currency,
+      });
       if (data.success) {
         return data.id;
       }
@@ -270,7 +263,7 @@ function AccountDetails({
         try {
           const priceId = await getPriceId();
           axios
-            .post("https://freedygoservices.in/api/proceed/payment", {
+            .post("http://localhost:2000/api/proceed/payment", {
               priceId,
               id: selectedPlan.index,
             })
@@ -294,7 +287,7 @@ function AccountDetails({
       try {
         setSuccessModel({ visible: true, loading: true });
         const response = await axios.get(
-          "https://freedygoservices.in/api/retrieve/session",
+          "http://localhost:2000/api/retrieve/session",
           {
             params: { storedId },
           }
@@ -331,7 +324,7 @@ function AccountDetails({
     }
 
     try {
-      await axios.post("https://freedygoservices.in/api/add/subscription", {
+      await axios.post("http://localhost:2000/api/add/subscription", {
         userId: userDataGlobal._id,
         plan: `${selectedPlan.duration} ${selectedPlan.limit}`,
         ...jsonData,

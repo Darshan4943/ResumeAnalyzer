@@ -8,7 +8,6 @@ const FileNameModel = ({ setNamePreview, setFunction, data, clientId }) => {
 
   const [error, setError] = useState("");
 
-
   const handleChange = (e) => {
     const value = e.target.value;
     if (value.length <= 40) {
@@ -24,7 +23,7 @@ const FileNameModel = ({ setNamePreview, setFunction, data, clientId }) => {
     const id = clientId === "undefined" ? userDataGlobal?._id : clientId;
     if (id) {
       axios
-        .get(`https://freedygoservices.in/api/resume/${id}`)
+        .get(`http://localhost:2000/api/resume/${id}`)
         .then((res) => {
           const filenamesWithoutExtension = res.data.data.map((item) =>
             item.fileName.replace(/\.pdf$/, "")

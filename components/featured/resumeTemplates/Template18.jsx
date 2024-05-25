@@ -655,7 +655,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                 gap: 16,
                 width: "90%",
               }}
-              wrap={data?.experience?.length > 1 ? true : false}
+              // wrap={data?.experience?.length > 1 ? true : false}
             >
 
               <View style={{ display: "flex", flexDirection: "row", gap: 6, paddingLeft: '22px', paddingRight: '24px' }}>
@@ -692,7 +692,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
               >
                 {data?.experience?.map((detail, index) => (
                   <View
-                    wrap={false}
+                    // wrap={false}
                     key={index}
                     style={{
                       display: "flex",
@@ -786,7 +786,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                 gap: 16,
                 width: "90%",
               }}
-              // wrap={data?.education?.length > 1 ? true : false}
+            // wrap={data?.education?.length > 1 ? true : false}
             >
               <View style={{ display: "flex", flexDirection: "row", gap: 6, paddingLeft: '22px' }}>
                 <Svg
@@ -895,8 +895,8 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
 
                         }}
                       >
-                       {detail.duration?.start?.year !== "Year" &&
-                          `${detail.duration?.start?.year}-${detail.duration?.end?.year ==="Year" ? "Pursuing" : detail.duration?.end?.year}`}
+                        {detail.duration?.start?.year !== "Year" &&
+                          `${detail.duration?.start?.year}-${detail.duration?.end?.year === "Year" ? "Pursuing" : detail.duration?.end?.year}`}
                       </Text>
 
                       <View
@@ -932,7 +932,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
               </View>
             </View>
 
-            <View style={{ flexDirection: "column", gap: "8px" ,}}
+            <View style={{ flexDirection: "column", gap: "8px", }}
             // wrap={data?.section?.length > 1 ? true : false}
             >
               {data.section?.map((item, index) => (
@@ -1027,7 +1027,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                                 }}
                               >
                                 {detail.duration?.start?.year &&
-                                  detail.duration?.end?.year && (
+                                  (
                                     <Text
                                       style={{
                                         fontFamily: `${selectedFont} 400`,
@@ -1036,8 +1036,12 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
 
                                       }}
                                     >
-                                      {detail.duration?.start?.year}-
-                                      {detail.duration?.end?.year}
+                                      {detail?.duration?.start?.year}
+                                      {detail?.duration?.start?.year && "-"}
+                                      {(detail?.duration?.end?.year === "" || detail?.duration?.end?.year === undefined)
+                                        ? "Present"
+                                        : detail?.duration?.end?.year
+                                      }
                                     </Text>
                                   )}
                               </Text>

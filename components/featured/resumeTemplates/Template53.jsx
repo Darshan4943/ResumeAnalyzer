@@ -243,7 +243,7 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
                         style={{
                           fontFamily: `${selectedFont} 500`,
                           fontSize: 10,
-                          width: "30%",
+                          
                           color: selectedColor,
                           justifyContent: "flex-end"
                         }}
@@ -275,7 +275,7 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
                       </Text>
                       <Text
                         style={{
-                          width: "90%",
+                          width: "100%",
                           fontFamily: `${selectedFont} 400`,
                           fontSize: 10,
                           color: "#161616",
@@ -314,7 +314,7 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
                             display: "flex",
                             flexDirection: "row",
                             justifyContent: "space-between",
-                            alignItems: "center"
+                            alignItems: "start"
                           }}
                         >
                           <Text
@@ -331,13 +331,17 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
                             style={{
                               fontFamily: `${selectedFont} 500`,
                               fontSize: 10,
-                              width: "30%",
+                              
                               color: selectedColor,
                               justifyContent: "flex-end"
                             }}
                           >
-                            {detail.duration?.start?.year} -
-                            {detail.duration?.end?.year}
+                             {detail?.duration?.start?.year}
+                                {detail?.duration?.start?.year && "-"}
+                                {(detail?.duration?.end?.year === "" || detail?.duration?.end?.year === undefined)
+                                  ? "Present"
+                                  : detail?.duration?.end?.year
+                                }
                           </Text>
                         </View>
                         <View
@@ -352,7 +356,7 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
                             style={{
                               fontFamily: `${selectedFont} 400`,
                               fontSize: 12,
-                              width: "90%",
+                              width: "100%",
                               color: "#010101",
                             }}
                           >
@@ -415,23 +419,12 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
                         fontFamily: `${selectedFont} 700`,
                         fontSize: 14,
                         color: "#161616",
-                        width: "70%"
+                       
                       }}
                     >
                       {detail.qualification}
                     </Text>
-                    <Text
-                      style={{
-                        fontFamily: `${selectedFont} 500`,
-                        fontSize: 10,
-                        width: "30%",
-                        color: selectedColor,
-                        justifyContent: "flex-end"
-                      }}
-                    >
-                       {detail.duration?.start?.year !== "Year" &&
-                          `${detail.duration?.start?.year}-${detail.duration?.end?.year ==="Year" ? "Pursuing" : detail.duration?.end?.year}`}
-                    </Text>
+                    
                   </View>
                   <Text
                     style={{
@@ -445,7 +438,7 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
                   </Text>
                   <Text
                     style={{
-                      width: "90%",
+                      width: "100%",
                       fontFamily: `${selectedFont} 400`,
                       fontSize: 10,
                       color: "#161616",
@@ -453,6 +446,18 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
                   >
                     {detail.instituteName}
                   </Text>
+                  <Text
+                      style={{
+                        fontFamily: `${selectedFont} 500`,
+                        fontSize: 10,
+                       
+                        color: selectedColor,
+                        justifyContent: "flex-end"
+                      }}
+                    >
+                       {detail.duration?.start?.year !== "Year" &&
+                          `${detail.duration?.start?.year}-${detail.duration?.end?.year ==="Year" ? "Pursuing" : detail.duration?.end?.year}`}
+                    </Text>
 
                 </View>
               ))}
