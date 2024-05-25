@@ -90,8 +90,8 @@ function CandidateHome() {
                   <span className="text-[#06A9EF]">
                     expert-designed resume templates{" "}
                   </span>
-                  and create a resume that fits your needs and style.No
-                  Experienced needed!
+                  and create a resume that fits your needs and style. No
+                  Experience needed!
                 </p>
                 <p>
                   <span className="text-[#06A9EF]">Stand out from the crowd</span>{" "}

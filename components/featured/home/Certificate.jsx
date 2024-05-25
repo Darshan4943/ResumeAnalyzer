@@ -1,6 +1,9 @@
 import React from "react";
+import { useSelector } from "react-redux";
 
-function Certificate() {
+function Certificate({selectedSkill,level}) {
+  const userDataGlobal = useSelector((state) => state.userData);
+  
   return (
     <div className="w-[1056px] h-[746px] relative">
       <div
@@ -24,34 +27,34 @@ function Certificate() {
             Certificate of Completion
           </span>
         </div>
-        <div className="w-[463px] h-[300px] gap-2 flex flex-col justify-center items-center">
+        <div className=" h-[300px] gap-2 flex flex-col justify-center items-center">
           <span className="font-Montserrat text-[26px] font-[500] text-[ #333333]">
             This is to certify that
           </span>
 
           <div className="w-[100%]  gap-2 flex flex-col justify-center items-center">
             <span className="font-Montserrat text-[32px] font-[600] text-[ #333333]">
-              Samrangan Bhanuse
+              {userDataGlobal.firstName}  {userDataGlobal.lastName} 
             </span>
-            <div className="w-[453px] bg-[#FFD500] h-[2px]"></div>
+            <div className="w-[90%] bg-[#FFD500] h-[1.5px]"></div>
           </div>
           <span className="font-Montserrat text-[18px] font-[500] text-[ #333333]">
             has succesfully completed the Skill Assessment on
           </span>
           <div className="w-[100%]  gap-2 flex flex-col justify-center items-center">
             <span className="font-Montserrat text-[28px] font-[500] text-[ #333333]">
-              Python (Advanced)
+              {selectedSkill} ({level})
             </span>
-            <div className="w-[453px] bg-[#FFD500] h-[2px]"></div>
+            <div className="w-[100%] bg-[#FFD500] h-[1.5px]"></div>
           </div>
           <div className="w-[100%]  gap-2 flex flex-col justify-center items-center">
             <span className="font-Montserrat text-[16px] font-[500] text-[ #333333]">
               Issued on :
             </span>
             <span className="font-Montserrat text-[24px] font-[500] text-[ #333333]">
-              May 23 2024
+              May 26 2024
             </span>
-            <div className="w-[248px] bg-[#FFD500] h-[2px]"></div>
+            <div className="w-[248px] bg-[#FFD500] h-[1.5px]"></div>
           </div>
         </div>
 
