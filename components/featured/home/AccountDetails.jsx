@@ -285,7 +285,7 @@ function AccountDetails({
   const handleRetrieveSession = useMemo(
     () => async (storedId) => {
       try {
-        setSuccessModel({ visible: true, loading: true });
+        // setSuccessModel({ visible: true, loading: true });
         const response = await axios.get(
           "http://localhost:2000/api/retrieve/session",
           {
@@ -308,6 +308,7 @@ function AccountDetails({
           console.error("Payment failed:", session);
           setTimeout(() => {
             setCancelModel(true);
+            
           }, 1500);
         }
       } catch (error) {

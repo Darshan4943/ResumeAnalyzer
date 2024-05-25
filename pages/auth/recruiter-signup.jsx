@@ -49,7 +49,7 @@ function Recruiter_signup({}) {
   });
 
   const [file, setFile] = useState(null);
-
+console.log(52,data)
   const fileRef = useRef(null);
   const handleFileChange = (event) => {
     event.preventDefault();
@@ -224,6 +224,7 @@ function Recruiter_signup({}) {
       "email",
       "currentLocation",
       "mobileNo",
+      "img"
     ];
     const emptyFields = requiredFields.filter((field) => !data[field]);
     if (emptyFields.length > 0) {
@@ -412,7 +413,7 @@ function Recruiter_signup({}) {
                   {byAdmin ? null : (
                     <>
                       {" "}
-                      <p className="text-[16px] font-medium">Profile Photo</p>
+                      <p className="text-[16px] font-medium">Profile Photo <span className="star">*</span></p>
                       <div className="flex sm:gap-6 gap-3">
                         {croppedImage ? (
                           <ImageContainer
@@ -459,6 +460,7 @@ function Recruiter_signup({}) {
                           <div
                             className="text-[12px] font-semibold px-4 py-2 rounded-[8px]  border border-[#06A9EF]  w-[135px] cursor-pointer"
                             onClick={() => {
+                              setData(prevData => ({ ...prevData, img: null }));
                               setFile(null);
                               setCroppedImage(null);
                               setError(false);

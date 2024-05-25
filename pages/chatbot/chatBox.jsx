@@ -109,8 +109,14 @@ const ChatBox = ({
                         src={"/images/Robot.png"}
                       />
                     </div>
-                    <div className="rounded-[8px] w-full border border-[#bebebe] px-[16px] text-[12px] py-[8px] bg-[#fff]">
-                      {item.answer}
+                    <div className="rounded-[8px] w-full border border-[#bebebe] px-[16px] py-[8px] bg-[#fff]">
+                      <div
+                        style={{ background: "#fff", padding: "8px" }}
+                        className="chat"
+                        dangerouslySetInnerHTML={{
+                          __html: item.answer,
+                        }}
+                      />
                     </div>
                   </div>
                 </>

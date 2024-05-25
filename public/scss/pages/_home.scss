@@ -27,7 +27,7 @@
   display: flex;
   width: 14.1vw;
   height: 19.7vw;
-  max-width:299px ;
+  max-width: 299px;
   max-height: 418px;
 
   justify-content: center;
@@ -64,7 +64,7 @@
 .gallary-item-2,
 .gallary-item-4 {
   z-index: 1;
-  max-width:233px ;
+  max-width: 233px;
   max-height: 326px;
 }
 .gallary-item-2 {
@@ -80,7 +80,6 @@
   display: flex;
   width: 20.7vw;
   height: 29vw;
-
 }
 
 .gallary-item-4 {
@@ -118,7 +117,6 @@
     z-index: 1;
     height: 216px;
     width: 152px;
-  
   }
   .gallary-item-2 {
     left: 20%;
@@ -255,5 +253,20 @@
     -ms-transform: scale(1.02);
     -o-transform: scale(1.02);
     transform: scale(1.02);
+  }
+}
+
+.chat {
+  h1 {
+    font-size: large;
+    font-weight: 500;
+  }
+  h2 {
+    font-size: medium;
+    font-weight: 500;
+  }
+  ul,
+  ol {
+    padding: 16px;
   }
 }

@@ -84,9 +84,9 @@ function Dashboard() {
       case "My Clients":
         handleNavigation("/myClients");
         break;
-        case "My Resumes":
-          handleNavigation("/home/MyCollection");
-          break;
+      case "My Resumes":
+        handleNavigation("/home/MyCollection");
+        break;
       case "Transform CV":
         handleNavigation("/transform/TransformJob");
         break;
@@ -305,38 +305,40 @@ function Dashboard() {
       {userDataGlobal.role === "user" &&
         data !== undefined &&
         hasNonEmptyKey(data) && (
-          <div className="flex gap-6 flex-wrap flex-col ">
+          <div className="flex gap-6 flex-wrap flex-col sm:items-start items-center ">
             <div className="text-[24px] font-Montserrat font-medium">
               Continue where you left
             </div>
-            <div className="w-[440px] h-[281px] g-[36px] p-[24px] bg-[#F9F9F9] rounded-[24px] flex flex-row">
-              <div className="w-[50%] h-full">
+            <div className="w-[35%] sm:min-w-[400px] min-w-[250px] items-start justify-center gap-[36px] sm:gap-[12px] p-[24px] bg-[#F9F9F9] rounded-[24px] flex sm:flex-row flex-col">
+              <div className="w-[50%] min-w-[200px] h-full">
                 {templates.find(
                   (item) => item.index === data.selectedResumeIndex
                 ) && (
-                  <img
-                    src={
-                      templates.find(
-                        (item) => item.index === data.selectedResumeIndex
-                      ).imgUrl
-                    }
-                    style={{
-                      height: "100%",
-                      width: "90%",
-                      objectFit: "cover",
-                    }}
-                    alt={`Resume template ${data.selectedResumeIndex}`} // Adding an alt attribute for accessibility
-                  />
-                )}
+                    <img
+                      src={
+                        templates.find(
+                          (item) => item.index === data.selectedResumeIndex
+                        ).imgUrl
+                      }
+                      style={{
+                        height: "100%",
+                        width: "90%",
+                        objectFit: "cover",
+                      }}
+                      alt={`Resume template ${data.selectedResumeIndex}`} // Adding an alt attribute for accessibility
+                    />
+                  )}
               </div>
 
-              <div className="w-[50%] flex flex-col gap-2">
-                <span className="font-Montserrat text-[24px] font-medium text-[#333333]">
-                  Untitled file
+              <div className="w-[40%] flex flex-col gap-4 min-w-[160px]">
+                <span className="font-Montserrat text-[18px] font-medium text-[#333333] break-all">
+                  {data.firstName}_resume.pdf
                 </span>
-                <span className="font-Montserrat text-[14px]  text-[#808080]">
-                  Updated on {formatDate(data?.createdAt)}
-                </span>
+                {data?.createdAt && data.createdAt !== "" && (
+                  <span className="font-Montserrat text-[14px] text-[#808080]">
+                    Updated on {formatDate(data.createdAt)}
+                  </span>
+                )}
 
                 <div
                   onClick={() => {
@@ -352,7 +354,7 @@ function Dashboard() {
                     );
                   }}
                 >
-                  <div className="flex flex-row gap-2">
+                  <div className="flex flex-row gap-2 cursor-pointer">
                     <svg
                       width="25"
                       height="24"

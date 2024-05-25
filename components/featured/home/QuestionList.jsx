@@ -30,7 +30,7 @@ const QuestionList = ({ questions, answers, selectedSkill, checkAnswer }) => {
         </div>
         <div className="text-[18px]  font-[600] ">
           <span className=""> Score : </span>
-          {((checkAnswer() / questions.length) * 100) / 10} / 10{" "}
+          {checkAnswer() } / {questions.length}{" "}
         </div>
       </div>
       <div className="flex flex-col gap-2 ">

@@ -52,6 +52,7 @@ function SkillAssessment() {
 
   const [isLevel, setisLevel] = useState(false);
   const [selectedSkill, setSelectedSkill] = useState();
+  
   // const [skills, setSkills] = useState(SkillList);
   const [userSkills, setUserSkills] = useState();
   const [data, setData] = useState([]);
@@ -296,7 +297,7 @@ function SkillAssessment() {
       toast.error("Please select a skill to start skill assessment");
     }
   };
-
+console.log(uniqueQuestions)
   useEffect(() => {
     // if (assesmentType === "Normal") {
     //   if (questionIndex == 7 || questionIndex == 8) {
@@ -345,9 +346,9 @@ function SkillAssessment() {
   useEffect(() => {
     setStartTimer(true);
   }, [questionIndex]);
-  console.log("outside", questionIndex, btnEnable);
+  
   const sumbit = () => {
-    console.log(333333, questionIndex, btnEnable);
+  
 
     setStartTimer(false);
 
@@ -366,7 +367,7 @@ function SkillAssessment() {
           setToggle(0);
           setLoading(false);
 
-          setSelectedSkill();
+        
           setQuestionIndex(0);
           setQuestion([]);
           setSkipped([]);
@@ -383,10 +384,10 @@ function SkillAssessment() {
         questionIndex + 1 < assesmentType === "Normal"
           ? 10
           : 60
-          ? questionIndex + 1
-          : assesmentType === "Normal"
-          ? 9
-          : 59
+            ? questionIndex + 1
+            : assesmentType === "Normal"
+              ? 9
+              : 59
       );
     }
   };
@@ -515,27 +516,25 @@ function SkillAssessment() {
     <div className="">
       <div
         onWheel={(e) => e.stopPropagation()}
-        className="bg-[#F9F9F9] w-full h-[92vh] "
+        className="bg-[#F9F9F9] w-full h-screen "
       >
         {toggle === 0 && (
           <div className="flex flex-col gap-[16px] pt-[24px] pb-[95px] items-center  customMargins">
-            <div className=" w-[100%] flex flex-row gap-[8px]">
+            <div className=" w-[100%] flex flex-row gap-[8px] ">
               <button
-                className={` rounded-[12px] ml:px-[22.8px] px-3 ${
-                  assesmentType === "Normal"
+                className={` rounded-[12px] ml:px-[22.8px] scr420:px-3 px-2 ${assesmentType === "Normal"
                     ? "bg-blue text-white btn_hover_effect"
                     : "bg-white text-[#333] border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
-                } ml:min-w-[235px] min-w-[180px] py-2  flex gap-2 ml:text-[16px] scr420:text-[14px] text-[12px] justify-center items-center   h-[40px] font-semibold`}
+                  } ml:min-w-[235px] scr420:min-w-[180px] py-2  flex gap-2 ml:text-[16px] scr420:text-[14px] xsm:text-[12px] text-[12px] justify-center items-center   h-[40px] font-semibold`}
                 onClick={() => setAssesmentType("Normal")}
               >
-                Normal Assesment
+                Quick Assesment
               </button>
               <button
-                className={`rounded-[12px] min-w-[138px] flex justify-center items-center ${
-                  assesmentType === "Certificate"
+                className={`rounded-[12px] min-w-[138px] flex justify-center items-center ${assesmentType === "Certificate"
                     ? "bg-blue text-white btn_hover_effect"
                     : "bg-white text-[#333] border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
-                }  py-2 px-6 text-[16px] font-medium `}
+                  }  py-2 ml:px-6  scr420:px-3 px-1 ml:text-[16px] scr420:text-[14px] xsm:text-[12px] text-[12px] font-medium `}
                 onClick={() => setAssesmentType("Certificate")}
               >
                 Certified Assesment
@@ -655,9 +654,8 @@ function SkillAssessment() {
                             onClick={() => {
                               setSelectedSkill(item);
                             }}
-                            className={`ml:px-4 ml:py-2 px-2 py-1 border-[1px] border-solid border-[#06A9EF] rounded-[25px] ml:text-[14px] text-[12px] font-medium text-[#333]  transition-[0.2s] ${
-                              selectedSkill == item && "bg-[#06A9EF] text-white"
-                            }`}
+                            className={`ml:px-4 ml:py-2 px-2 py-1 border-[1px] border-solid border-[#06A9EF] rounded-[25px] ml:text-[14px] text-[12px] font-medium text-[#333]  transition-[0.2s] ${selectedSkill == item && "bg-[#06A9EF] text-white"
+                              }`}
                           >
                             {item}
                           </button>
@@ -776,219 +774,220 @@ function SkillAssessment() {
                 </div>
               </>
             )}
-            <div className="flex flex-col lg:flex-row justify-center items-center w-[100%] gap-6">
-              <div
-                className={`p-[12px] ms:px-[60px] ms:customMargins ${
-                  showSecondDiv ? "lg:w-[50%]" : "w-[100.95%] "
-                } scr1024:w-[50%] sm:w-[85%] w-[100%]  px-[12px] rounded-[12px] bg-[#005A81] flex flex-col  items-center gap-[8px] scr820:gap-[16px] `}
-              >
-                <div className="text-[20px] font-[600] text-[#fff] flex flex-row gap-[12px]">
-                  <Assessmentlogo />
-                  {camelCase(selectedSkill)} Assessment
-                </div>
-                <div className="flex w-full gap-[6px] xsm:gap-[8px] sm:justify-between text-center ">
-                  <div
-                    className="w-full scr820:w-[136px] p-[8px] flex flex-col rounded-[12px] justify-center items-center gap-[8px]"
-                    style={{
-                      backgroundColor: "rgba(6, 169, 239, 0.50)",
-                      backdropFilter: "blur(22.5px)",
-                    }}
-                  >
-                    <svg
-                      xlgns="http://www.w3.org/2000/svg"
-                      width="30"
-                      height="30"
-                      viewBox="0 0 40 40"
-                      fill="none"
-                      className=" scr820:w-[40px]"
+            <div className="flex flex-col gap-4 w-[100%]">
+              <div className="flex flex-row justify-end">
+                {showSecondDiv && (
+                  // <div className="flex flex-col justify-start items-center rounded-lg shadow-md lg:w-[60%] sm:w-[85%]  w-[100%] ">
+                  <div className=" w-[100%] flex flex-row scr420:justify-end justify-center items-center gap-[8px]  ">
+                    <button
+                      className={` rounded-[12px] ml:px-[22.8px] xsm:px-2 px-1 ${!resultType
+                          ? "bg-blue text-white btn_hover_effect"
+                          : "bg-white text-[#333] border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
+                        } ml:min-w-[235px] ms:min-w-[180px] py-2  flex gap-2 ml:text-[16px] ms:text-[14px] scr420:text-[12px] text-[10px] justify-center items-center   h-[40px] font-semibold`}
+                      onClick={() => setResultType(false)}
                     >
-                      <g mask="url(#mask0_4403_58326)">
-                        <path
-                          d="M26.6875 35.279C25.725 35.279 24.9034 34.9392 24.2226 34.2597C23.5418 33.5803 23.2014 32.7602 23.2014 31.7995V25.1461C23.2014 24.1896 23.5418 23.3706 24.2226 22.689C24.9034 22.0074 25.725 21.6666 26.6875 21.6666H33.3343C34.2968 21.6666 35.1184 22.0074 35.7992 22.689C36.48 23.3706 36.8204 24.1896 36.8204 25.1461V31.7995C36.8204 32.7602 36.48 33.5803 35.7992 34.2597C35.1184 34.9392 34.2968 35.279 33.3343 35.279H26.6875ZM26.3644 32.1226H33.6573V24.823H26.3644V32.1226ZM3.05859 30.0543V26.8913H18.1881V30.0543H3.05859ZM26.6875 18.3333C25.725 18.3333 24.9034 17.9929 24.2226 17.3121C23.5418 16.6313 23.2014 15.8097 23.2014 14.8472V8.20048C23.2014 7.23795 23.5418 6.4163 24.2226 5.73552C24.9034 5.05474 25.725 4.71436 26.6875 4.71436H33.3343C34.2968 4.71436 35.1184 5.05474 35.7992 5.73552C36.48 6.4163 36.8204 7.23795 36.8204 8.20048V14.8472C36.8204 15.8097 36.48 16.6313 35.7992 17.3121C35.1184 17.9929 34.2968 18.3333 33.3343 18.3333H26.6875ZM26.3644 15.1703H33.6573V7.8774H26.3644V15.1703ZM3.05859 13.102V9.94565H18.1881V13.102H3.05859Z"
-                          fill="white"
-                        />
-                      </g>
-                    </svg>
-                    <div className="text-[12px] scr820:text-[18px] text-[#fff] font-[600] flex flex-col items-center">
-                      {assesmentType === "Normal" ? 10 : 60} MCQs
-                    </div>
-                    <div className="text-[10px] scr820:text-[13px] text-[#fff] font-[500] flex flex-col items-center">
-                      4 Options each
-                    </div>
-                  </div>
-                  <div
-                    className="w-full scr820:w-[136px] p-[8px] flex flex-col rounded-[12px] justify-center items-center gap-[8px] "
-                    style={{
-                      backgroundColor: "rgba(6, 169, 239, 0.50)",
-                      backdropFilter: "blur(22.5px)",
-                    }}
-                  >
-                    <svg
-                      xlgns="http://www.w3.org/2000/svg"
-                      width="30"
-                      height="30"
-                      viewBox="0 0 40 40"
-                      fill="none"
+                      Quick Assesment Result
+                    </button>
+                    <button
+                      className={`rounded-[12px] ms:min-w-[138px] flex justify-center items-center ${resultType
+                          ? "bg-blue text-white btn_hover_effect"
+                          : "bg-white text-[#333] border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
+                        }  py-2 scr420:px-6 xsm:px-2 px-1  ml:text-[16px] ms:text-[14px] scr420:text-[12px] text-[10px] font-medium  h-[40px] `}
+                      onClick={() => setResultType(true)}
                     >
-                      <g mask="url(#mask0_4403_58332)">
-                        <path
-                          d="M20.0004 36.9456C17.6682 36.9456 15.4719 36.502 13.4113 35.6148C11.3507 34.7276 9.55303 33.5167 8.01831 31.9819C6.48359 30.4472 5.27265 28.6497 4.38548 26.5893C3.49828 24.5289 3.05469 22.3327 3.05469 20.0008C3.05469 17.6504 3.49828 15.4446 4.38548 13.3836C5.27265 11.3226 6.48324 9.5293 8.01727 8.00361C9.5513 6.47791 11.3487 5.2705 13.4094 4.38136C15.4701 3.49219 17.6666 3.04761 19.9989 3.04761C22.3497 3.04761 24.5559 3.49201 26.6174 4.38082C28.6789 5.26965 30.4723 6.47662 31.9977 8.00173C33.5231 9.52682 34.7302 11.32 35.6192 13.3811C36.5082 15.4423 36.9526 17.6486 36.9526 19.9999C36.9526 20.7781 36.9034 21.5494 36.8049 22.3139C36.7063 23.0784 36.555 23.822 36.3509 24.5446C35.9675 24.1404 35.5301 23.8092 35.0386 23.5511C34.5471 23.2929 34.0182 23.1238 33.4518 23.0437C33.5655 22.5521 33.6502 22.055 33.706 21.5521C33.7617 21.0493 33.7896 20.5319 33.7896 19.9999C33.7896 16.1561 32.4524 12.8969 29.7779 10.2224C27.1033 7.5479 23.8431 6.21065 19.997 6.21065C16.1695 6.21065 12.915 7.5479 10.2334 10.2224C7.55188 12.8969 6.2111 16.1572 6.2111 20.0032C6.2111 23.8307 7.55133 27.0853 10.2318 29.7668C12.9122 32.4484 16.1675 33.7892 19.9976 33.7892C21.5258 33.7892 22.9767 33.554 24.3503 33.0836C25.7239 32.6131 26.9828 31.9644 28.1269 31.1373C28.4298 31.5966 28.7939 32.0051 29.2191 32.3627C29.6443 32.7203 30.1124 32.9981 30.6232 33.1961C29.1666 34.3766 27.5369 35.2967 25.7342 35.9562C23.9316 36.6158 22.0203 36.9456 20.0004 36.9456ZM32.545 30.2478C31.9865 30.2478 31.5136 30.0541 31.1266 29.6669C30.7395 29.2796 30.546 28.806 30.546 28.2463C30.546 27.6884 30.7396 27.2165 31.1269 26.8304C31.5142 26.4444 31.9877 26.2514 32.5475 26.2514C33.1053 26.2514 33.5773 26.4447 33.9633 26.8312C34.3493 27.2176 34.5423 27.6901 34.5423 28.2487C34.5423 28.8073 34.3491 29.2801 33.9626 29.6672C33.5761 30.0542 33.1036 30.2478 32.545 30.2478ZM25.7941 28.0186L18.5719 20.6049V11.3486H21.5955V19.3779L28.0112 25.8215L25.7941 28.0186Z"
-                          fill="white"
-                        />
-                      </g>
-                    </svg>
-                    <div className="text-[12px] scr820:text-[18px] text-[#fff] font-[600] flex flex-col items-center">
-                      {assesmentType === "Normal" ? 5 : 30} Minutes
-                    </div>
-                    <div className="text-[10px] scr820:text-[13px] text-[#fff] font-[500] flex flex-col items-center">
-                      30 seconds per Question
-                    </div>
+                      Certified Assesment Result
+                    </button>
                   </div>
-                  <div
-                    className="w-full scr820:w-[136px] p-[8px] flex flex-col rounded-[12px] justify-center items-center gap-[8px]"
-                    style={{
-                      backgroundColor: "rgba(6, 169, 239, 0.50)",
-                      backdropFilter: "blur(22.5px)",
-                    }}
-                  >
-                    <svg
-                      xlgns="http://www.w3.org/2000/svg"
-                      width="30"
-                      height="30"
-                      viewBox="0 0 40 40"
-                      fill="none"
-                    >
-                      <g mask="url(#mask0_4403_58338)">
-                        <path
-                          d="M15.9248 9.36795H18.7557V6.5437H15.9248V9.36795ZM21.58 9.36795V6.5437H24.4108V9.36795H21.58ZM15.9248 20.6783V17.854H18.7557V20.6783H15.9248ZM27.2351 15.0231V12.1989H30.066V15.0231H27.2351ZM27.2351 20.6783V17.854H30.066V20.6783H27.2351ZM21.58 20.6783V17.854H24.4108V20.6783H21.58ZM27.2351 9.36795V6.5437H30.066V9.36795H27.2351ZM18.7557 12.1989V9.36795H21.58V12.1989H18.7557ZM9.9375 33.589V6.5437H13.1005V9.36795H15.9248V12.1966H13.1005V15.0253H15.9248V17.854H13.1005V33.589H9.9375ZM24.4108 17.854V15.0231H27.2351V17.854H24.4108ZM18.7557 17.854V15.0231H21.58V17.854H18.7557ZM15.9248 15.0231V12.1989H18.7557V15.0231H15.9248ZM21.58 15.0231V12.1989H24.4108V15.0231H21.58ZM24.4108 12.1989V9.36795H27.2351V12.1989H24.4108Z"
-                          fill="white"
-                        />
-                      </g>
-                    </svg>
-                    <div className="text-[12px] scr820:text-[18px] text-[#fff] font-[600] flex flex-col items-center">
-                      {assesmentType === "Normal"
-                        ? "Quick Result"
-                        : "Quick Certification"}
-                    </div>
-                    <div className="text-[10px] scr820:text-[13px] text-[#fff] font-[500] flex flex-col items-center">
-                      See your score after the Test
-                    </div>
-                  </div>
-                </div>
-                <div className="text-[14px] scr820:text-[16px] text-[#fff] font-[600] flex justify-center items-center">
-                  Get ready to test your Skill!
-                </div>
-                <div className="flex flex-col justify-between items-center text-center w-full">
-                  <div className="text-[10px] scr820:text-[12px] text-[#fff] font-[500] ">
-                    The Test begins as soon as you click
-                    <span className="text-[10px] scr820:text-[12px] text-[#fff] font-[700]">
-                      {" "}
-                      Start.
-                    </span>
-                  </div>
-                  <div className="text-[10px] scr820:text-[12px] text-[#fff] font-[500] ">
-                    Make sure you have a stable internet connection.
-                  </div>
-                </div>
-
+                  // </div>
+                )}
+              </div>
+              <div className="flex flex-col lg:flex-row justify-center items-center w-[100%] gap-6">
                 <div
-                  onClick={() => {
-                    setisLevel(true);
-                  }}
+                  className={`p-[12px] ms:px-[60px] ms:customMargins ${showSecondDiv ? "lg:w-[50%]" : "w-[100.95%] "
+                    } scr1024:w-[50%] sm:w-[85%] w-[100%]  px-[12px] rounded-[12px] bg-[#005A81] flex flex-col  items-center gap-[8px] scr820:gap-[16px] `}
                 >
-                  <button
-                    className="btn_hover_effect hover:border-[#ffc82c] h-[42px] w-[108px] flex items-center justify-center  rounded-[8px] border-[1px] border-solid border-[#06A9EF] bg-[#fff] text-[#333] text-[14px] font-[500] "
-                    disabled={loading}
+                  <div className="text-[20px] font-[600] text-[#fff] flex flex-row gap-[12px]">
+                    <Assessmentlogo />
+                    {camelCase(selectedSkill)} Assessment
+                  </div>
+                  <div className="flex w-full gap-[6px] xsm:gap-[8px] sm:justify-between text-center ">
+                    <div
+                      className="w-full scr820:w-[136px] p-[8px] flex flex-col rounded-[12px] justify-center items-center gap-[8px]"
+                      style={{
+                        backgroundColor: "rgba(6, 169, 239, 0.50)",
+                        backdropFilter: "blur(22.5px)",
+                      }}
+                    >
+                      <svg
+                        xlgns="http://www.w3.org/2000/svg"
+                        width="30"
+                        height="30"
+                        viewBox="0 0 40 40"
+                        fill="none"
+                        className=" scr820:w-[40px]"
+                      >
+                        <g mask="url(#mask0_4403_58326)">
+                          <path
+                            d="M26.6875 35.279C25.725 35.279 24.9034 34.9392 24.2226 34.2597C23.5418 33.5803 23.2014 32.7602 23.2014 31.7995V25.1461C23.2014 24.1896 23.5418 23.3706 24.2226 22.689C24.9034 22.0074 25.725 21.6666 26.6875 21.6666H33.3343C34.2968 21.6666 35.1184 22.0074 35.7992 22.689C36.48 23.3706 36.8204 24.1896 36.8204 25.1461V31.7995C36.8204 32.7602 36.48 33.5803 35.7992 34.2597C35.1184 34.9392 34.2968 35.279 33.3343 35.279H26.6875ZM26.3644 32.1226H33.6573V24.823H26.3644V32.1226ZM3.05859 30.0543V26.8913H18.1881V30.0543H3.05859ZM26.6875 18.3333C25.725 18.3333 24.9034 17.9929 24.2226 17.3121C23.5418 16.6313 23.2014 15.8097 23.2014 14.8472V8.20048C23.2014 7.23795 23.5418 6.4163 24.2226 5.73552C24.9034 5.05474 25.725 4.71436 26.6875 4.71436H33.3343C34.2968 4.71436 35.1184 5.05474 35.7992 5.73552C36.48 6.4163 36.8204 7.23795 36.8204 8.20048V14.8472C36.8204 15.8097 36.48 16.6313 35.7992 17.3121C35.1184 17.9929 34.2968 18.3333 33.3343 18.3333H26.6875ZM26.3644 15.1703H33.6573V7.8774H26.3644V15.1703ZM3.05859 13.102V9.94565H18.1881V13.102H3.05859Z"
+                            fill="white"
+                          />
+                        </g>
+                      </svg>
+                      <div className="text-[12px] scr820:text-[18px] text-[#fff] font-[600] flex flex-col items-center">
+                        {assesmentType === "Normal" ? 10 : 60} MCQs
+                      </div>
+                      <div className="text-[10px] scr820:text-[13px] text-[#fff] font-[500] flex flex-col items-center">
+                        4 Options each
+                      </div>
+                    </div>
+                    <div
+                      className="w-full scr820:w-[136px] p-[8px] flex flex-col rounded-[12px] justify-center items-center gap-[8px] "
+                      style={{
+                        backgroundColor: "rgba(6, 169, 239, 0.50)",
+                        backdropFilter: "blur(22.5px)",
+                      }}
+                    >
+                      <svg
+                        xlgns="http://www.w3.org/2000/svg"
+                        width="30"
+                        height="30"
+                        viewBox="0 0 40 40"
+                        fill="none"
+                      >
+                        <g mask="url(#mask0_4403_58332)">
+                          <path
+                            d="M20.0004 36.9456C17.6682 36.9456 15.4719 36.502 13.4113 35.6148C11.3507 34.7276 9.55303 33.5167 8.01831 31.9819C6.48359 30.4472 5.27265 28.6497 4.38548 26.5893C3.49828 24.5289 3.05469 22.3327 3.05469 20.0008C3.05469 17.6504 3.49828 15.4446 4.38548 13.3836C5.27265 11.3226 6.48324 9.5293 8.01727 8.00361C9.5513 6.47791 11.3487 5.2705 13.4094 4.38136C15.4701 3.49219 17.6666 3.04761 19.9989 3.04761C22.3497 3.04761 24.5559 3.49201 26.6174 4.38082C28.6789 5.26965 30.4723 6.47662 31.9977 8.00173C33.5231 9.52682 34.7302 11.32 35.6192 13.3811C36.5082 15.4423 36.9526 17.6486 36.9526 19.9999C36.9526 20.7781 36.9034 21.5494 36.8049 22.3139C36.7063 23.0784 36.555 23.822 36.3509 24.5446C35.9675 24.1404 35.5301 23.8092 35.0386 23.5511C34.5471 23.2929 34.0182 23.1238 33.4518 23.0437C33.5655 22.5521 33.6502 22.055 33.706 21.5521C33.7617 21.0493 33.7896 20.5319 33.7896 19.9999C33.7896 16.1561 32.4524 12.8969 29.7779 10.2224C27.1033 7.5479 23.8431 6.21065 19.997 6.21065C16.1695 6.21065 12.915 7.5479 10.2334 10.2224C7.55188 12.8969 6.2111 16.1572 6.2111 20.0032C6.2111 23.8307 7.55133 27.0853 10.2318 29.7668C12.9122 32.4484 16.1675 33.7892 19.9976 33.7892C21.5258 33.7892 22.9767 33.554 24.3503 33.0836C25.7239 32.6131 26.9828 31.9644 28.1269 31.1373C28.4298 31.5966 28.7939 32.0051 29.2191 32.3627C29.6443 32.7203 30.1124 32.9981 30.6232 33.1961C29.1666 34.3766 27.5369 35.2967 25.7342 35.9562C23.9316 36.6158 22.0203 36.9456 20.0004 36.9456ZM32.545 30.2478C31.9865 30.2478 31.5136 30.0541 31.1266 29.6669C30.7395 29.2796 30.546 28.806 30.546 28.2463C30.546 27.6884 30.7396 27.2165 31.1269 26.8304C31.5142 26.4444 31.9877 26.2514 32.5475 26.2514C33.1053 26.2514 33.5773 26.4447 33.9633 26.8312C34.3493 27.2176 34.5423 27.6901 34.5423 28.2487C34.5423 28.8073 34.3491 29.2801 33.9626 29.6672C33.5761 30.0542 33.1036 30.2478 32.545 30.2478ZM25.7941 28.0186L18.5719 20.6049V11.3486H21.5955V19.3779L28.0112 25.8215L25.7941 28.0186Z"
+                            fill="white"
+                          />
+                        </g>
+                      </svg>
+                      <div className="text-[12px] scr820:text-[18px] text-[#fff] font-[600] flex flex-col items-center">
+                        {assesmentType === "Normal" ? 5 : 30} Minutes
+                      </div>
+                      <div className="text-[10px] scr820:text-[13px] text-[#fff] font-[500] flex flex-col items-center">
+                        30 seconds per Question
+                      </div>
+                    </div>
+                    <div
+                      className="w-full scr820:w-[136px] p-[8px] flex flex-col rounded-[12px] justify-center items-center gap-[8px]"
+                      style={{
+                        backgroundColor: "rgba(6, 169, 239, 0.50)",
+                        backdropFilter: "blur(22.5px)",
+                      }}
+                    >
+                      <svg
+                        xlgns="http://www.w3.org/2000/svg"
+                        width="30"
+                        height="30"
+                        viewBox="0 0 40 40"
+                        fill="none"
+                      >
+                        <g mask="url(#mask0_4403_58338)">
+                          <path
+                            d="M15.9248 9.36795H18.7557V6.5437H15.9248V9.36795ZM21.58 9.36795V6.5437H24.4108V9.36795H21.58ZM15.9248 20.6783V17.854H18.7557V20.6783H15.9248ZM27.2351 15.0231V12.1989H30.066V15.0231H27.2351ZM27.2351 20.6783V17.854H30.066V20.6783H27.2351ZM21.58 20.6783V17.854H24.4108V20.6783H21.58ZM27.2351 9.36795V6.5437H30.066V9.36795H27.2351ZM18.7557 12.1989V9.36795H21.58V12.1989H18.7557ZM9.9375 33.589V6.5437H13.1005V9.36795H15.9248V12.1966H13.1005V15.0253H15.9248V17.854H13.1005V33.589H9.9375ZM24.4108 17.854V15.0231H27.2351V17.854H24.4108ZM18.7557 17.854V15.0231H21.58V17.854H18.7557ZM15.9248 15.0231V12.1989H18.7557V15.0231H15.9248ZM21.58 15.0231V12.1989H24.4108V15.0231H21.58ZM24.4108 12.1989V9.36795H27.2351V12.1989H24.4108Z"
+                            fill="white"
+                          />
+                        </g>
+                      </svg>
+                      <div className="text-[12px] scr820:text-[18px] text-[#fff] font-[600] flex flex-col items-center">
+                        {assesmentType === "Normal"
+                          ? "Quick Result"
+                          : "Quick Certification"}
+                      </div>
+                      <div className="text-[10px] scr820:text-[13px] text-[#fff] font-[500] flex flex-col items-center">
+                        See your score after the Test
+                      </div>
+                    </div>
+                  </div>
+                  <div className="text-[14px] scr820:text-[16px] text-[#fff] font-[600] flex justify-center items-center">
+                    Get ready to test your Skill!
+                  </div>
+                  <div className="flex flex-col justify-between items-center text-center w-full">
+                    <div className="text-[10px] scr820:text-[12px] text-[#fff] font-[500] ">
+                      The Test begins as soon as you click
+                      <span className="text-[10px] scr820:text-[12px] text-[#fff] font-[700]">
+                        {" "}
+                        Start.
+                      </span>
+                    </div>
+                    <div className="text-[10px] scr820:text-[12px] text-[#fff] font-[500] ">
+                      Make sure you have a stable internet connection.
+                    </div>
+                  </div>
+
+                  <div
+                    onClick={() => {
+                      setisLevel(true);
+                    }}
+                  >
+                    <button
+                      className="btn_hover_effect hover:border-[#ffc82c] h-[42px] w-[108px] flex items-center justify-center  rounded-[8px] border-[1px] border-solid border-[#06A9EF] bg-[#fff] text-[#333] text-[14px] font-[500] "
+                      disabled={loading}
                     // onClick={() =>
                     //   setQuestionIndex(
                     //     questionIndex + 1 < 10 ? questionIndex + 1 : 9
                     //   )
                     // }
-                  >
-                    {loading ? <MiniLoader /> : " Get Started"}
-                  </button>
+                    >
+                      {loading ? <MiniLoader /> : " Get Started"}
+                    </button>
+                  </div>
                 </div>
-              </div>
 
-              {showSecondDiv && (
-                <div className="flex flex-col  justify-center items-center lg:w-[60%] sm:w-[85%]  w-[100%] gap-6 ">
-                  {showSecondDiv && (
-                    // <div className="flex flex-col justify-start items-center rounded-lg shadow-md lg:w-[60%] sm:w-[85%]  w-[100%] ">
-                    <div className=" w-[100%] flex flex-row justify-center items-center gap-[8px]  ">
-                      <button
-                        className={` rounded-[12px] ml:px-[22.8px] px-3 ${
-                          assesmentType === "Normal"
-                            ? "bg-blue text-white btn_hover_effect"
-                            : "bg-white text-[#333] border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
-                        } ml:min-w-[235px] min-w-[180px] py-2  flex gap-2 ml:text-[16px] scr420:text-[14px] text-[12px] justify-center items-center   h-[40px] font-semibold`}
-                        onClick={() => setResultType(false)}
-                      >
-                        Normal Assesment Result
-                      </button>
-                      <button
-                        className={`rounded-[12px] min-w-[138px] flex justify-center items-center ${
-                          assesmentType === "Certificate"
-                            ? "bg-blue text-white btn_hover_effect"
-                            : "bg-white text-[#333] border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
-                        }  py-2 px-6 text-[16px] font-medium `}
-                        onClick={() => setResultType(true)}
-                      >
-                        Certified Assesment Result
-                      </button>
-                    </div>
-                    // </div>
-                  )}
+                {showSecondDiv && (
+                  <div className="flex flex-col  justify-center items-center lg:w-[60%] sm:w-[85%]  w-[100%] gap-6 ">
 
-                  {!resultType ? (
-                    <div className="flex flex-col justify-start items-center rounded-lg shadow-md lg:w-[100%] sm:w-[100%]  w-[100%] ">
-                      <div className="flex h-16 px-4 py-3  items-center self-stretch border-b border-solid border-[#DEDEDE] bg-[#E0F6FF] rounded-lg justify-between">
-                        <div className="flex w-[35.18%] justify-between items-center self-stretch border-r border-solid border-[#DEDEDE] ">
-                          <p className="text-text-primary font-montserrat text-base font-medium leading-6">
-                            Assessment Name
-                          </p>
-                        </div>
-                        {/* <div className="flex w-[19.95%] justify-center items-center self-stretch border-r border-solid border-[#DEDEDE] ">
+
+                    {!resultType ? (
+                      <div className="flex flex-col justify-start items-center rounded-lg shadow-md  w-[100%] ">
+                        <div className="flex h-16 scr420:px-4 px-2 py-3  items-center self-stretch border-b border-solid border-[#DEDEDE] bg-[#E0F6FF] rounded-lg justify-between">
+                          <div className="flex w-[50%] justify-between items-center self-stretch border-r border-solid border-[#DEDEDE] ">
+                            <p className="text-text-primary font-montserrat text-base font-medium leading-6">
+                              Assessment Name
+                            </p>
+                          </div>
+                          {/* <div className="flex w-[19.95%] justify-center items-center self-stretch border-r border-solid border-[#DEDEDE] ">
                       <p className="text-text-primary font-montserrat text-base font-medium leading-6">
                         Status
                       </p>
                     </div> */}
-                        <div className="flex w-[19.95%] justify-center items-center self-stretch border-r border-solid border-[#DEDEDE] ">
-                          <p className="text-text-primary font-montserrat text-base font-medium leading-6">
-                            Date
-                          </p>
-                        </div>
-                        {/* <div className="flex w-[19.95%] justify-center items-center self-stretch border-r border-solid border-[#DEDEDE] ">
+                          <div className="flex  w-[30%] justify-center items-center self-stretch border-r border-solid border-[#DEDEDE] ">
+                            <p className="text-text-primary font-montserrat text-base font-medium leading-6">
+                              Date
+                            </p>
+                          </div>
+                          {/* <div className="flex w-[19.95%] justify-center items-center self-stretch border-r border-solid border-[#DEDEDE] ">
                       <p className="text-text-primary font-montserrat text-base font-medium leading-6">
                         Time
                       </p>
                     </div> */}
-                        <div className="flex w-[19.95%] justify-center items-center self-stretch  ">
-                          <p className="text-text-primary font-montserrat text-base font-medium leading-6">
-                            Score
-                          </p>
+                          <div className="flex w-[20%] justify-center items-center self-stretch  ">
+                            <p className="text-text-primary font-montserrat text-base font-medium leading-6">
+                              Score
+                            </p>
+                          </div>
                         </div>
-                      </div>
-                      <div className="max-h-[388px] lg:h-[285px] w-full overflow-auto ">
-                        {assessmentList
-                          ?.filter((data) => data.isCertification !== true)
-                          ?.map((item, index) => (
-                            <div
-                              key={index}
-                              className="border-b border-solid border-[#DEDEDE] w-full"
-                            >
-                              <div className="flex  text-center  justify-between flex-row lg:gap-[14px] py-[8px] px-[16px]  w-[93%] lg:w-full items-center self-stretch ">
-                                <div className=" lg:w-[40%] w-[50%]  flex justify-between gap-[12px]">
-                                  <div className="flex  gap-3 items-center self-stretch ">
-                                    <div className="w-[40px] h-[40px]">
-                                      <Assessmentlogo />
+                        <div className="max-h-[388px] lg:h-[285px] w-full overflow-auto ">
+                          {assessmentList
+                            ?.filter((data) => data.isCertification !== true)
+                            ?.map((item, index) => (
+                              <div
+                                key={index}
+                                className="border-b border-solid border-[#DEDEDE] w-full"
+                              >
+                                <div className="flex  text-center gap-2 justify-between flex-row lg:gap-[14px] py-[8px] scr420:px-4 px-2 w-[100%] lg:w-full items-center self-stretch ">
+                                  <div className="  w-[50%]  flex justify-between gap-[12px]">
+                                    <div className="flex  gap-3 items-center self-stretch ">
+                                      <div className="w-[40px] h-[40px]">
+                                        <Assessmentlogo />
+                                      </div>
+                                      <div className="w-full">
+                                        <p className="text-text-primary text-start break-all font-montserrat text-base font-medium leading-6">
+                                          {item.skill}
+                                        </p>
+                                      </div>
                                     </div>
-                                    <div className="w-full">
-                                      <p className="text-text-primary font-montserrat text-base font-medium leading-6">
-                                        {item.skill}
-                                      </p>
-                                    </div>
-                                  </div>
-                                  {/* <div className="flex  justify-center  items-center self-stretch  ">
+                                    {/* <div className="flex  justify-center  items-center self-stretch  ">
                               <p
                                 className={`${item.score > 60
                                   ? "text-[#0C8A0A]"
@@ -998,79 +997,79 @@ function SkillAssessment() {
                                 {item.score > 60 ? "Completed" : "Incomplete"}
                               </p>
                             </div> */}
-                                </div>
-                                <div className="lg:w-[66%] w-[62%] flex justify-between gap-[12px] ">
-                                  <div className="flex  justify-center items-center self-stretch ">
-                                    <p className="text-[14px] font-montserrat text-base font-medium leading-6">
-                                      {item?.date && formatDate(item?.date)}
-                                    </p>
                                   </div>
-                                  {/* <div className="flex  justify-center items-center self-stretch ">
+                              
+                                    <div className="flex w-[30%] justify-center items-center self-stretch ">
+                                      <p className="text-[14px] font-montserrat text-base font-medium leading-6">
+                                        {item?.date && formatDate(item?.date)}
+                                      </p>
+                                    </div>
+                                    {/* <div className="flex  justify-center items-center self-stretch ">
                               <p className="text-[14px] font-montserrat text-base font-medium leading-6">
                                 {item?.date && convertToDateTime(item?.date)}
                               </p>
                             </div> */}
-                                  <div className="flex  justify-center lg:w-[40%]  items-center self-stretch  ">
-                                    <p className="text-[#0C8A0A] items-center  font-montserrat text-sm font-semibold leading-7">
-                                      {item.score} / 10
-                                    </p>
+                                    <div className="flex w-[20%] justify-center items-center self-stretch  ">
+                                      <p className="text-[#0C8A0A] items-center  font-montserrat text-sm font-semibold leading-7">
+                                        {item.score} / 10
+                                      </p>
+                                    </div>
                                   </div>
                                 </div>
-                              </div>
-                            </div>
-                          ))}
-                      </div>
-                    </div>
-                  ) : (
-                    <div className="flex flex-col justify-start items-center rounded-lg shadow-md lg:w-[100%] sm:w-[100%]  w-[100%] ">
-                      <div className="flex h-16 px-4 py-3  items-center self-stretch border-b border-solid border-[#DEDEDE] bg-[#E0F6FF] rounded-lg justify-between">
-                        <div className="flex w-[35.18%] justify-between items-center self-stretch border-r border-solid border-[#DEDEDE] ">
-                          <p className="text-text-primary font-montserrat text-base font-medium leading-6">
-                            Assessment Name
-                          </p>
+                             
+                            ))}
                         </div>
-                        {/* <div className="flex w-[19.95%] justify-center items-center self-stretch border-r border-solid border-[#DEDEDE] ">
+                      </div>
+                    ) : (
+                      <div className="flex flex-col justify-start items-center rounded-lg shadow-md lg:w-[100%] sm:w-[100%]  w-[100%] ">
+                        <div className="flex h-16 scr420:px-4 px-2 py-3  items-center self-stretch border-b border-solid border-[#DEDEDE] bg-[#E0F6FF] rounded-lg justify-between">
+                          <div className="flex w-[35.18%] justify-between items-center self-stretch border-r border-solid border-[#DEDEDE] ">
+                            <p className="text-text-primary font-montserrat text-base font-medium leading-6">
+                              Assessment Name
+                            </p>
+                          </div>
+                          {/* <div className="flex w-[19.95%] justify-center items-center self-stretch border-r border-solid border-[#DEDEDE] ">
                   <p className="text-text-primary font-montserrat text-base font-medium leading-6">
                     Status
                   </p>
                 </div> */}
-                        <div className="flex w-[19.95%] justify-center items-center self-stretch border-r border-solid border-[#DEDEDE] ">
-                          <p className="text-text-primary font-montserrat text-base font-medium leading-6">
-                            Date
-                          </p>
-                        </div>
-                        {/* <div className="flex w-[19.95%] justify-center items-center self-stretch border-r border-solid border-[#DEDEDE] ">
+                          <div className="flex w-[19.95%] justify-center items-center self-stretch border-r border-solid border-[#DEDEDE] ">
+                            <p className="text-text-primary font-montserrat text-base font-medium leading-6">
+                              Date
+                            </p>
+                          </div>
+                          {/* <div className="flex w-[19.95%] justify-center items-center self-stretch border-r border-solid border-[#DEDEDE] ">
                   <p className="text-text-primary font-montserrat text-base font-medium leading-6">
                     Time
                   </p>
                 </div> */}
-                        <div className="flex w-[19.95%] justify-center items-center self-stretch  ">
-                          <p className="text-text-primary font-montserrat text-base font-medium leading-6">
-                            Score
-                          </p>
+                          <div className="flex w-[19.95%] justify-center items-center self-stretch  ">
+                            <p className="text-text-primary font-montserrat text-base font-medium leading-6">
+                              Score
+                            </p>
+                          </div>
                         </div>
-                      </div>
-                      <div className="max-h-[388px] lg:h-[285px] w-full overflow-auto ">
-                        {assessmentList
-                          ?.filter((data) => data.isCertification === true)
-                          ?.map((item, index) => (
-                            <div
-                              key={index}
-                              className="border-b border-solid border-[#DEDEDE] w-full"
-                            >
-                              <div className="flex  text-center  justify-between flex-row lg:gap-[14px] py-[8px] px-[16px]  w-[93%] lg:w-full items-center self-stretch ">
-                                <div className=" lg:w-[40%] w-[50%]  flex justify-between gap-[12px]">
-                                  <div className="flex  gap-3 items-center self-stretch ">
-                                    <div className="w-[40px] h-[40px]">
-                                      <Assessmentlogo />
+                        <div className="max-h-[388px] lg:h-[285px] w-full overflow-auto ">
+                          {assessmentList
+                            ?.filter((data) => data.isCertification === true)
+                            ?.map((item, index) => (
+                              <div
+                                key={index}
+                                className="border-b border-solid border-[#DEDEDE] w-full"
+                              >
+                                <div className="flex  text-center  justify-between flex-row lg:gap-[14px] py-[8px] scr420:px-4 px-2  w-[100%] lg:w-full items-center self-stretch ">
+                                  <div className=" lg:w-[40%] w-[50%]  flex justify-between gap-[12px]">
+                                    <div className="flex  gap-3 items-center self-stretch ">
+                                      <div className="w-[40px] h-[40px]">
+                                        <Assessmentlogo />
+                                      </div>
+                                      <div className="w-full">
+                                        <p className="text-text-primary text-start break-all font-montserrat text-base font-medium leading-6">
+                                          {item.skill}
+                                        </p>
+                                      </div>
                                     </div>
-                                    <div className="w-full">
-                                      <p className="text-text-primary font-montserrat text-base font-medium leading-6">
-                                        {item.skill}
-                                      </p>
-                                    </div>
-                                  </div>
-                                  {/* <div className="flex  justify-center  items-center self-stretch  ">
+                                    {/* <div className="flex  justify-center  items-center self-stretch  ">
                           <p
                             className={`${item.score > 60
                               ? "text-[#0C8A0A]"
@@ -1080,32 +1079,33 @@ function SkillAssessment() {
                             {item.score > 60 ? "Completed" : "Incomplete"}
                           </p>
                         </div> */}
-                                </div>
-                                <div className="lg:w-[66%] w-[62%] flex justify-between gap-[12px] ">
-                                  <div className="flex  justify-center items-center self-stretch ">
-                                    <p className="text-[14px] font-montserrat text-base font-medium leading-6">
-                                      {item?.date && formatDate(item?.date)}
-                                    </p>
                                   </div>
-                                  {/* <div className="flex  justify-center items-center self-stretch ">
+                                  <div className="lg:w-[66%] w-[62%] flex justify-between gap-[12px] ">
+                                    <div className="flex  justify-center items-center self-stretch ">
+                                      <p className="text-[14px] font-montserrat text-base font-medium leading-6">
+                                        {item?.date && formatDate(item?.date)}
+                                      </p>
+                                    </div>
+                                    {/* <div className="flex  justify-center items-center self-stretch ">
                           <p className="text-[14px] font-montserrat text-base font-medium leading-6">
                             {item?.date && convertToDateTime(item?.date)}
                           </p>
                         </div> */}
-                                  <div className="flex  justify-center lg:w-[40%]  items-center self-stretch  ">
-                                    <p className="text-[#0C8A0A] items-center  font-montserrat text-sm font-semibold leading-7">
-                                      {item.score}
-                                    </p>
+                                    <div className="flex  justify-center lg:w-[40%]  items-center self-stretch  ">
+                                      <p className="text-[#0C8A0A] items-center  font-montserrat text-sm font-semibold leading-7">
+                                        {Math.ceil(item.score *100 /60)}%
+                                      </p>
+                                    </div>
                                   </div>
                                 </div>
                               </div>
-                            </div>
-                          ))}
+                            ))}
+                        </div>
                       </div>
-                    </div>
-                  )}
-                </div>
-              )}
+                    )}
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         )}
@@ -1446,8 +1446,8 @@ function SkillAssessment() {
                         ? "Submit"
                         : "Next"
                       : questionIndex == 59
-                      ? "Submit"
-                      : "Next"}
+                        ? "Submit"
+                        : "Next"}
                   </button>
                 </div>
               </div>
@@ -1538,7 +1538,7 @@ function SkillAssessment() {
                           Your Score is{" "}
                           {assesmentType === "Normal" &&
                             ((checkAnswer() / uniqueQuestions.length) * 100) /
-                              10}
+                            10}
                           {assesmentType === "Normal" && `/${10}`}
                           {assesmentType !== "Normal" && (
                             <>{calculateMarkOutOf60()}</>
@@ -1563,11 +1563,10 @@ function SkillAssessment() {
                   </div>
 
                   <div
-                    className={`flex  justify-between items-center pb-[12px] ${
-                      assesmentType !== "Normal" && calculateMarkOutOf60() > 42
+                    className={`flex  justify-between items-center pb-[12px] ${assesmentType !== "Normal" && calculateMarkOutOf60() > 42
                         ? "sm:w-[90%] w-[95%]"
                         : "w-[80%]"
-                    } `}
+                      } `}
                   >
                     <button
                       onClick={() => {

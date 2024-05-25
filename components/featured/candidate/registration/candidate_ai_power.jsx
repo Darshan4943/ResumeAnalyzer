@@ -105,13 +105,13 @@ const CandidateAiPower = ({
           textData.push({ text });
         };
         reader.readAsBinaryString(file);
-      } else if (file.type == "image/png") {
+      } else if (file?.type == "image/png") {
         Tesseract.recognize(file, "eng", {
           logger: (m) => console.log(m),
         }).then(async ({ data: { text } }) => {
           textData.push({ text });
         });
-      } else if (file.type == "application/pdf") {
+      } else if (file?.type == "application/pdf") {
         let fullText = "";
         const pdfTextPromises = [];
         const fileUrl = URL.createObjectURL(file);
@@ -139,6 +139,7 @@ const CandidateAiPower = ({
   };
 
   const navigate = () => {
+    console.log(2,uploadLimit)
     if (uploadLimit <= 0) {
       setLimitUsedModal(true);
       return;
@@ -198,22 +199,23 @@ const CandidateAiPower = ({
             extracteText();
           });
       } else {
-        setResumeErrorPopup(true);
-        // toast.error("Error while parsing resume please try again");
-        setLoading(false);
-        setfile();
+        // setResumeErrorPopup(true);
+        // // toast.error("Error while parsing resume please try again");
+        // setLoading(false);
+        // setfile();
+        setCount(count + 1);
       }
     });
   };
-
+console.log(count)
   useEffect(() => {
-    if (count >= 2) {
+    if (count > 2) {
       setLoading(false);
       setfile();
       setResumeErrorPopup(true);
       setCount(0);
-    } else {
-      navigate;
+    } else if(count == 1 || count == 2) {
+      navigate();
     }
   }, [count]);
 
@@ -266,17 +268,17 @@ const CandidateAiPower = ({
             >
               <div className="flex flex-col gap-4">
                 <p className="text-center font-semibold text-black-600 text-3xl">
-                  Ai Powered profile creation
+                  AI Powered profile creation
                 </p>
                 <p className=" text-center font-medium text-lg not-italic	">
                   Easy process to create your profile
                 </p>
                 <div className="flex flex-col gap-2">
                   <p className="text-center font-medium text-sm	not-italic">
-                    1.Upload your CV/Resume.
+                    1. Upload your CV/Resume.
                   </p>
                   <p className="text-center font-medium	text-sm	not-italic	">
-                    2.Let system scan it and make your profile almost ready.
+                    2. Let the system scan it and make your profile ready.
                   </p>
                 </div>
               </div>
