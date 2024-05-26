@@ -49,7 +49,7 @@ function Recruiter_signup({}) {
   });
 
   const [file, setFile] = useState(null);
-  console.log(52, data);
+
   const fileRef = useRef(null);
   const handleFileChange = (event) => {
     event.preventDefault();
@@ -218,10 +218,27 @@ function Recruiter_signup({}) {
     const filterLogic = (item) =>
       item.code.toLowerCase().includes(searchTerm.toLowerCase()) ||
       item.dial_code.includes(searchTerm);
-
     const filteredCodes = telCode.filter(filterLogic);
-    setFilteredTelCode(filteredCodes);
+    const firstSixCodes = filteredCodes.slice(0, 6);
+    const remainingCodes = filteredCodes.slice(6);
+
+    const sortedRemainingCodes = remainingCodes.sort((a, b) => {
+      const numA = parseInt(a.dial_code.replace("+", ""), 10);
+      const numB = parseInt(b.dial_code.replace("+", ""), 10);
+      return numA - numB;
+    });
+
+    const combinedCodes = [...firstSixCodes, ...sortedRemainingCodes];
+    setFilteredTelCode(combinedCodes);
   }, [telCode, searchTerm]);
+
+  const customFilterOption = ({ label, value, data }, inputValue) => {
+    const lowercasedInput = inputValue.toLowerCase();
+    return (
+      data.code.toLowerCase().includes(lowercasedInput) ||
+      data.dial_code.includes(inputValue)
+    );
+  };
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -547,7 +564,10 @@ function Recruiter_signup({}) {
                             isViewportBelow850 ? "w-[65%] " : "w-[40%] "
                           } items-center`}
                         >
-                          <div className="  w-[100%] text-[14px] justify-center items-center  flex font-[500] text-[#646464]">
+                          <div
+                            onWheel={(e) => e.stopPropagation()}
+                            className="  w-[100%] text-[14px] justify-center items-center  flex font-[500] text-[#646464]"
+                          >
                             <div className="flex items-center justify-center gap-2 cursor-pointer min-w-[140px] w-[100%]">
                               <div className="flex items-center  gap-1 cursor-pointer  w-[100%] ">
                                 <ReactSelect
@@ -568,7 +588,8 @@ function Recruiter_signup({}) {
                                       </span>
                                     </div>
                                   )}
-                                  getOptionValue={(option) => option.code}
+                                  // getOptionValue={(option) => option.code}
+                                  filterOption={customFilterOption}
                                   styles={{
                                     control: (provided) => ({
                                       ...provided,

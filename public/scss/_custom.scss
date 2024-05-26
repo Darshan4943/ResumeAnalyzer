@@ -547,3 +547,18 @@ input:checked + .slider:before {
     display: none !important;
   }
 }
+.hover-svg path {
+  transition: fill 0.3s ease;
+}
+
+.hover-svg:hover path {
+  fill: black;
+}
+
+.hover-svg-white {
+  transition: fill 0.3s ease;
+}
+
+.hover-svg-white:hover path {
+  fill: white;
+}

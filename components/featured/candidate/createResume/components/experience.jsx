@@ -128,6 +128,7 @@ const Experience = ({ data, setData }) => {
     setEditingIndex(index);
     handleEditExperience(index);
   };
+
   return (
     <div
       className="flex flex-col p-4 gap-2 rounded-lg bg-white"
@@ -331,7 +332,7 @@ const Experience = ({ data, setData }) => {
               <button
                 onClick={handleSave}
                 disabled={!isChecked}
-                className=" font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px]  bg-[#06A9EF] w-[60px] h-[32px]"
+                className=" font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px]  bg-[#06A9EF] w-[60px] h-[32px] btn_hover_effect"
               >
                 Save
               </button>
@@ -341,7 +342,7 @@ const Experience = ({ data, setData }) => {
       )}
 
       {!view && (
-        <div className="flex gap-1" onClick={() => setView(true)}>
+        <div className="flex gap-1" onClick={() => isChecked && setView(true)}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"

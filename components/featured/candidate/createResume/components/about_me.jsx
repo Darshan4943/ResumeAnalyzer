@@ -13,6 +13,7 @@ const AboutMe = ({ data, setData }) => {
   const [error, setError] = useState("");
   const [isChecked, setIsChecked] = useState(true);
   const [isPlanActive, setIsPlanActive] = useState(false);
+
   const handleSwitchChange = () => {
     setIsChecked(!isChecked);
     setData({ ...data, showSummary: !isChecked });
@@ -131,12 +132,12 @@ const AboutMe = ({ data, setData }) => {
         <div className="flex justify-end items-center gap-3 ">
           {isPlanActive ? null : (
             <div className="text-[10px] font-[400]">
-              Remaining Attempts - {attempt}
+              Remaining Attempts - {console.log(attempt)}
             </div>
           )}
 
           <button
-            className=" flex gap-1 items-center font-montserrat text-xs font-semibold btn_outline"
+            className="flex gap-1 items-center font-montserrat text-xs font-semibold btn_outline"
             onClick={generateText}
             style={{
               opacity: text === data?.summery || text.length == 0 ? 0.5 : 1,
@@ -147,7 +148,9 @@ const AboutMe = ({ data, setData }) => {
             Generate with AI
           </button>
           <button
-            className=" font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px]  bg-[#06A9EF] w-[60px] h-[32px] "
+            className={`font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px]  bg-[#06A9EF] w-[60px] h-[32px] ${
+              text.length !== 0 ? "btn_hover_effect" : ""
+            }`}
             onClick={() => setData({ ...data, summery: text })}
             // style={{ opacity: text === data?.summery ? 0.5 : 1 }}
             style={{

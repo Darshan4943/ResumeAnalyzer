@@ -110,7 +110,7 @@ const Education = ({ setData, data }) => {
     setEditingIndex(index);
     handleEditEducation(index);
   };
- 
+
   return (
     <>
       <div
@@ -316,7 +316,7 @@ const Education = ({ setData, data }) => {
                 </button> */}
                 <button
                   onClick={handleSave}
-                  className=" font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px]  bg-[#06A9EF] w-[60px] h-[32px]"
+                  className=" font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px]  bg-[#06A9EF] w-[60px] h-[32px] btn_hover_effect"
                 >
                   Save
                 </button>
@@ -343,7 +343,9 @@ const Education = ({ setData, data }) => {
                 status: false,
                 index: 0,
               });
-              setView(true);
+              if (isChecked) {
+                setView(true);
+              }
             }}
           >
             <svg
