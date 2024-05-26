@@ -44,7 +44,7 @@ const Index = () => {
             setSelectedChat={setSelectedChat}
             handleToggleSidebar={handleToggleSidebar}
           />
-        </div>
+          </div>
       </div>
     </>
   );
