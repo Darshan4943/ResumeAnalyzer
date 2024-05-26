@@ -14,6 +14,7 @@ import Tesseract from "tesseract.js";
 import { pdfjs } from "react-pdf";
 import PizZip from "pizzip";
 import Docxtemplater from "docxtemplater";
+import { toast } from "react-toastify";
 
 const JobMatching = () => {
   const [loading, setLoading] = useState(true);
@@ -22,7 +23,389 @@ const JobMatching = () => {
   const fileRef = useRef(null);
   const userDataGlobal = useSelector((state) => state.userData);
   const [details, setDetails] = useState();
-  const [resumeList, setResumeList] = useState(null);
+  const [resumeList, setResumeList] = useState([
+    {
+        "name": "Nagaraju Pagolu",
+        "matching_percentage": "40%",
+        "conclusion": "The candidate possesses some relevant skills and experience in semiconductor industry, but lacks direct experience in Machine Learning which is a key requirement for the ML Engineer role. While the candidate has some transferable skills, additional training or experience may be needed to excel in this position.",
+        "matching_parameters": [
+            {
+                "title": "Skills and Competencies",
+                "matching_points": "5 out of 10",
+                "description": "The candidate has skills in Analog/Mixed signal and IO layout designs, floor planning, layout verification, and semiconductor devices. While these skills show technical proficiency, they do not directly align with the required ML frameworks and programming languages like Tensorflow, PyTorch, Python, and Java for the ML Engineer role."
+            },
+            {
+                "title": "Relevant Experience in the Required Field",
+                "matching_points": "3 out of 10",
+                "description": "The candidate has experience in semiconductor industry and working with Cadence tools, but lacks direct experience in machine learning development, which is a key requirement for the ML Engineer role."
+            },
+            {
+                "title": "Roles and Responsibilities",
+                "matching_points": "2 out of 10",
+                "description": "The candidate's responsibilities mentioned in the resume focus on hierarchical and top-level placement and routing in semiconductor industry, which do not directly align with the key responsibilities of designing and managing scalable infrastructure for ML development in the job description."
+            },
+            {
+                "title": "Objective and Professional Summary from Resume",
+                "matching_points": "2 out of 10",
+                "description": "The candidate's professional summary does not mention any specific alignment with machine learning or ML frameworks, which are crucial for the ML Engineer role at Uplers."
+            },
+            {
+                "title": "Total Experience",
+                "matching_points": "3 out of 10",
+                "description": "The candidate's total professional experience of 3.5+ years in semiconductor industry is below the required 8 years of experience for the ML Engineer role."
+            },
+            {
+                "title": "Educational Qualification",
+                "matching_points": "3 out of 10",
+                "description": "The candidate holds a Bachelor's degree in Electronics and Communication engineering, which is relevant to the technical field, but does not specify additional qualifications in ML or related fields as required for the ML Engineer role."
+            },
+            {
+                "title": "Keywords",
+                "matching_points": "2 out of 10",
+                "description": "While the candidate has mentioned some technical keywords in the resume related to semiconductor industry, they do not align with the specific ML keywords highlighted in the job description."
+            },
+            {
+                "title": "Job Tenure and Stability",
+                "matching_points": "5 out of 10",
+                "description": "The candidate's job tenure shows consistency in previous roles, which demonstrates reliability and stability in their career progression."
+            },
+            {
+                "title": "Additional Activities",
+                "matching_points": "1 out of 10",
+                "description": "There are no additional activities or interests mentioned in the resume that indicate alignment with the company culture or values."
+            },
+            {
+                "title": "Cultural Fit",
+                "matching_points": "2 out of 10",
+                "description": "Based on the information provided in the resume, the candidate may not have a strong cultural fit with a company focusing on machine learning and data analytics."
+            }
+        ],
+        "fileName": "1nagaraju-CV.PDF",
+        "file": "https://freedygo-storage-bucket-production.s3.ap-south-1.amazonaws.com/Skilotech/resumes/1nagaraju-CV.PDF",
+        "type": "file"
+    },
+    {
+        "name": "Raju A. Mopagar",
+        "matching_percentage": "55%",
+        "conclusion": "The candidate, Raju A. Mopagar, has relevant experience in business development, especially in the US market which aligns with the job requirements. However, there are gaps in skills related to machine learning frameworks and technologies as mentioned in the job description. The candidate's total experience and cultural fit are also factors to consider.",
+        "matching_parameters": [
+            {
+                "title": "Skills and Competencies",
+                "matching_points": "4 out of 10",
+                "description": "The candidate has strong domain knowledge in areas such as networking, network security, wireless networking, and cloud technologies which are relevant. However, there is a lack of mention of ML frameworks like Tensorflow and PyTorch, and other required skills like distributed computing and SQL."
+            },
+            {
+                "title": "Relevant Experience in the Required Field",
+                "matching_points": "8 out of 10",
+                "description": "The candidate has over 19 years of experience in business development, especially in the US market, which aligns well with the job requirements for a Senior Machine Learning Engineer. The candidate has a proven track record of generating revenue from acquired customers."
+            },
+            {
+                "title": "Roles and Responsibilities",
+                "matching_points": "7 out of 10",
+                "description": "The candidate's responsibilities in Benison Technologies align with the key responsibilities mentioned in the job description, such as end-to-end sales, account management, and managing lead generation teams. However, there is a lack of direct experience in machine learning infrastructure."
+            },
+            {
+                "title": "Objective and Professional Summary from Resume",
+                "matching_points": "6 out of 10",
+                "description": "The candidate's summary focuses on business development experience rather than technical expertise in machine learning. However, the candidate's proactive and target-driven attitude is a positive aspect."
+            },
+            {
+                "title": "Total Experience",
+                "matching_points": "8 out of 10",
+                "description": "The candidate's over 19 years of professional experience demonstrates a strong background in the industry. However, the lack of specific experience in machine learning may be a concern."
+            },
+            {
+                "title": "Educational Qualification",
+                "matching_points": "0 out of 10",
+                "description": "The candidate's educational qualifications are not mentioned in the resume, which is a key requirement as per the job description (BS or MS in Computer Science or equivalent)."
+            },
+            {
+                "title": "Keywords",
+                "matching_points": "3 out of 10",
+                "description": "The resume mentions some keywords related to technology and networking, but lacks specific keywords mentioned in the job description such as Machine Learning, AWS, CI/CD, and Kubernetes."
+            },
+            {
+                "title": "Achievements",
+                "matching_points": "7 out of 10",
+                "description": "The candidate's achievements in generating revenue and acquiring large customers are relevant to the job role. However, specific achievements related to machine learning or technical aspects are missing."
+            },
+            {
+                "title": "Willingness to Relocate",
+                "matching_points": "10 out of 10",
+                "description": "The candidate's willingness to relocate is not mentioned in the resume. This could be an area for further discussion during the interview process."
+            },
+            {
+                "title": "Reference and Recommendation",
+                "matching_points": "0 out of 10",
+                "description": "No references or recommendations are provided in the resume, which could have added credibility to the candidate's profile."
+            },
+            {
+                "title": "Job Tenure and Stability",
+                "matching_points": "8 out of 10",
+                "description": "The candidate's job tenure at Benison Technologies shows stability and consistency, which reflects reliability in previous roles. This is a positive aspect for the candidate."
+            },
+            {
+                "title": "Additional Activities",
+                "matching_points": "5 out of 10",
+                "description": "The candidate's short business visits to the US and Germany demonstrate a global perspective and potential cultural fit. However, specific interests or activities related to machine learning or technology are not mentioned."
+            },
+            {
+                "title": "Cultural Fit",
+                "matching_points": "6 out of 10",
+                "description": "The candidate's experience in diverse markets like the US and Europe may contribute to cultural fit. However, the lack of specific technical skills and educational background as per the job description could be a potential gap."
+            },
+            {
+                "title": "Others",
+                "matching_points": "4 out of 10",
+                "description": "Overall, the candidate's experience in business development and exposure to technology domains align well with the job requirements. However, there are gaps in technical skills and educational qualifications that need to be addressed."
+            }
+        ],
+        "fileName": "1Raju Mopagar resume.pdf",
+        "file": "https://freedygo-storage-bucket-production.s3.ap-south-1.amazonaws.com/Skilotech/resumes/1Raju%20Mopagar%20resume.pdf",
+        "type": "file"
+    },
+    {
+        "name": "ASHOK_BANDI_PD01231",
+        "matching_percentage": "30%",
+        "conclusion": "The candidate has relevant experience in ASIC design, but lacks the required skills and qualifications for the ML Engineer position at Uplers.",
+        "matching_parameters": [
+            {
+                "title": "Skills and Competencies",
+                "matching_points": "2 out of 10",
+                "description": "The candidate has expertise in Physical Design flow stages and tools like ICC2 and PrimeTime, but lacks skills in ML frameworks like Tensorflow and PyTorch, distributed computing, and programming languages like Python and Java as required by the job description."
+            },
+            {
+                "title": "Relevant Experience in the Required Field",
+                "matching_points": "3 out of 10",
+                "description": "The candidate has 3+ years of experience in ASIC Design, with specific project experience in lower design nodes and technologies like 7nm and 16nm. While the candidate has experience in block level timing closure, the role requires experience in ML infrastructure development and monitoring systems implementation."
+            },
+            {
+                "title": "Roles and Responsibilities",
+                "matching_points": "1 out of 10",
+                "description": "The candidate's roles and responsibilities focus on Physical Design flow stages and block level timing closure, which do not directly align with the ML infrastructure development and monitoring responsibilities outlined in the job description."
+            },
+            {
+                "title": "Objective and Professional Summary from Resume",
+                "matching_points": "1 out of 10",
+                "description": "The candidate's objective is focused on gaining experience in the semiconductor industry, which does not align with the objective of revolutionizing data and ML infrastructure as required by the job."
+            },
+            {
+                "title": "Total Experience",
+                "matching_points": "4 out of 10",
+                "description": "The candidate has 3+ years of experience in ASIC Design, which demonstrates technical expertise but lacks specific experience in ML frameworks and distributed computing."
+            },
+            {
+                "title": "Educational Qualification",
+                "matching_points": "0 out of 10",
+                "description": "The candidate's educational background in ECE does not meet the requirement of a BS or MS in Computer Science or equivalent as specified in the job description."
+            },
+            {
+                "title": "Keywords",
+                "matching_points": "0 out of 10",
+                "description": "The candidate's resume does not include key ML-related keywords like Tensorflow, PyTorch, AWS, CI/CD, and Kubernetes mentioned in the job description."
+            },
+            {
+                "title": "Achievements",
+                "matching_points": "0 out of 10",
+                "description": "The candidate's achievements in Physical Design and project experience do not directly relate to the ML engineering responsibilities outlined in the job description."
+            },
+            {
+                "title": "Willingness to Relocate",
+                "matching_points": "5 out of 10",
+                "description": "The candidate's resume does not mention any willingness or unwillingness to relocate, making it neutral in this aspect."
+            },
+            {
+                "title": "Reference and Recommendation",
+                "matching_points": "0 out of 10",
+                "description": "The resume does not include any references or recommendations relevant to the job role at Uplers."
+            },
+            {
+                "title": "Job Tenure and Stability",
+                "matching_points": "2 out of 10",
+                "description": "The candidate's job tenure in previous roles shows consistency and stability, which reflects reliability but does not directly impact the mismatch in required skills and experience."
+            },
+            {
+                "title": "Additional Activities",
+                "matching_points": "0 out of 10",
+                "description": "The resume does not include any additional activities or interests that demonstrate alignment with the company culture or values of Uplers."
+            },
+            {
+                "title": "Cultural Fit",
+                "matching_points": "2 out of 10",
+                "description": "Based on the information provided in the resume, the candidate's focus on semiconductor industry and previous experience in ASIC design may not align with the data-centric and ML-focused culture at Uplers."
+            },
+            {
+                "title": "Others",
+                "matching_points": "0 out of 10",
+                "description": "No other relevant factors or information in the resume directly contribute to the candidate's suitability for the ML Engineer position at Uplers."
+            }
+        ],
+        "fileName": "3ASHOK_BANDI_PD01231[3.3].docx",
+        "file": "https://freedygo-storage-bucket-production.s3.ap-south-1.amazonaws.com/Skilotech/resumes/3ASHOK_BANDI_PD01231%5B3.3%5D.docx",
+        "type": "file"
+    },
+    {
+        "name": "GIRISH SURESH NAKADI",
+        "matching_percentage": "60%",
+        "conclusion": "The candidate has a strong background in DevOps and AWS Cloud services, with relevant experience and skills that align well with the job description. While there are some areas where the candidate falls short of the job requirements, overall, there is a good match in terms of skills, experience, and qualifications.",
+        "matching_parameters": [
+            {
+                "title": "Skills and Competencies",
+                "matching_points": "8 out of 10",
+                "description": "The candidate's skills in DevOps tools such as Kubernetes, Docker, Jenkins, and AWS Cloud Services align well with the required skills mentioned in the job description. The candidate also has experience in Continuous Integration and Continuous Delivery, which are key skills required for the role."
+            },
+            {
+                "title": "Relevant Experience in the Required Field",
+                "matching_points": "7 out of 10",
+                "description": "The candidate has 4.4+ years of experience in DevOps and AWS Cloud, which falls slightly short of the 8 years of experience required in the job description. However, the candidate's experience in designing and implementing infrastructure on AWS Cloud and using CI/CD tools is relevant to the job requirements."
+            },
+            {
+                "title": "Roles and Responsibilities",
+                "matching_points": "6 out of 10",
+                "description": "The candidate's responsibilities related to designing infrastructure on AWS Cloud, implementing CI/CD pipelines, and working with Kubernetes align with some of the key responsibilities mentioned in the job description. However, there is a lack of specific experience in machine learning infrastructure design and deployment."
+            },
+            {
+                "title": "Objective and Professional Summary from Resume",
+                "matching_points": "5 out of 10",
+                "description": "The candidate's professional summary focuses on DevOps and AWS Cloud, which aligns with the technical aspects of the job role. However, there is a limited mention of machine learning or data-related experience in the summary, which is a key aspect of the job description."
+            },
+            {
+                "title": "Total Experience",
+                "matching_points": "5 out of 10",
+                "description": "The candidate's total experience of 4.4+ years falls short of the required 8 years of experience. While the candidate has relevant experience in DevOps and AWS Cloud, the overall experience level is not at par with the job requirements."
+            },
+            {
+                "title": "Educational Qualification",
+                "matching_points": "N/A",
+                "description": "Educational qualifications are not explicitly mentioned in the resume data provided. Further verification is required to assess alignment with the job description."
+            },
+            {
+                "title": "Keywords",
+                "matching_points": "7 out of 10",
+                "description": "The candidate's resume includes keywords such as Kubernetes, AWS, CI/CD, and Docker, which are also mentioned in the job description. This indicates some level of alignment in terms of technical skills."
+            },
+            {
+                "title": "Achievements",
+                "matching_points": "N/A",
+                "description": "No specific achievements are highlighted in the resume data provided. Further information is needed to assess the candidate's accomplishments and their relevance to the job role."
+            },
+            {
+                "title": "Willingness to Relocate",
+                "matching_points": "N/A",
+                "description": "The candidate's willingness to relocate is not mentioned in the resume data provided. Additional information is required to assess this aspect."
+            },
+            {
+                "title": "Reference and Recommendation",
+                "matching_points": "N/A",
+                "description": "No references or recommendations are provided in the resume data. Further insights are needed to evaluate this aspect."
+            },
+            {
+                "title": "Job Tenure and Stability",
+                "matching_points": "8 out of 10",
+                "description": "The candidate's job tenure and stability appear to be consistent, with a focus on DevOps and AWS Cloud services across various roles. This indicates reliability and expertise in the field."
+            },
+            {
+                "title": "Additional Activities",
+                "matching_points": "N/A",
+                "description": "No additional activities or interests are mentioned in the resume data. Further information would be beneficial to assess alignment with company culture."
+            },
+            {
+                "title": "Cultural Fit",
+                "matching_points": "6 out of 10",
+                "description": "Based on the information provided in the resume, the candidate's technical skills and experience in DevOps align well with the job requirements. However, there is a lack of specific experience in machine learning, which may impact cultural fit with the company's focus on data and ML."
+            },
+            {
+                "title": "Others",
+                "matching_points": "N/A",
+                "description": "No other relevant factors or information are explicitly provided in the resume data. Further insights would be necessary for a comprehensive assessment of the candidate's suitability for the role."
+            }
+        ],
+        "fileName": "3GirishNakadi_DevOps Eng.pdf",
+        "file": "https://freedygo-storage-bucket-production.s3.ap-south-1.amazonaws.com/Skilotech/resumes/3GirishNakadi_DevOps%20Eng.pdf",
+        "type": "file"
+    },
+    {
+        "name": "Nagendra K",
+        "matching_percentage": "60%",
+        "conclusion": "The candidate shows strong experience in Physical Design and CAD Engineering, which aligns with some of the technical requirements of the ML Engineer role. However, there are gaps in machine learning and infrastructure skills. The candidate's willingness to relocate should be evaluated as the job is a remote position.",
+        "matching_parameters": [
+            {
+                "title": "Skills and Competencies",
+                "matching_points": "5 out of 10",
+                "description": "The candidate demonstrates strong skills in Physical Design, Synthesis, PnR tools like Innovus and ICC2 Synopsys, and scripting with Python, Perl, and TCL. These technical skills partially match the required ML frameworks, Python, and SQL but lack experience in distributed computing and ML frameworks like Tensorflow and PyTorch."
+            },
+            {
+                "title": "Relevant Experience in the Required Field",
+                "matching_points": "6 out of 10",
+                "description": "The candidate has relevant experience in Physical Design Engineering, STA, and CAD Engineering. While this experience showcases technical skills and problem-solving abilities, there is a gap in experience related to ML frameworks and distributed computing."
+            },
+            {
+                "title": "Roles and Responsibilities",
+                "matching_points": "7 out of 10",
+                "description": "The candidate's roles and responsibilities focus on Physical Design, Synthesis, and CAD Engineering tasks, which involve detailed analysis, debugging, and scripting. While these tasks demonstrate technical proficiency, they do not directly align with the ML Engineer responsibilities outlined in the job description."
+            },
+            {
+                "title": "Objective and Professional Summary from Resume",
+                "matching_points": "4 out of 10",
+                "description": "The candidate's professional summary highlights experience in Physical Design and CAD Engineering, showcasing technical skills and problem-solving abilities. However, it lacks specific alignment with machine learning infrastructure and development, which are key aspects of the ML Engineer role."
+            },
+            {
+                "title": "Total Experience",
+                "matching_points": "6 out of 10",
+                "description": "The candidate possesses 3 years of experience in Physical Design and CAD Engineering, which demonstrates a strong technical background. However, the lack of experience in ML frameworks, distributed computing, and relevant ML operations may impact the suitability for the ML Engineer role."
+            },
+            {
+                "title": "Educational Qualification",
+                "matching_points": "3 out of 10",
+                "description": "The candidate holds a Bachelor's degree in Telecommunications, which provides a foundational technical background. However, the lack of a Computer Science degree and specific coursework in ML frameworks may affect the fit for the ML Engineer role."
+            },
+            {
+                "title": "Keywords",
+                "matching_points": "4 out of 10",
+                "description": "The candidate's resume includes some relevant keywords like Python and Perl scripting, PnR tools like Innovus, and Synthesis. However, there is a lack of specific ML framework and infrastructure keywords mentioned in the job description."
+            },
+            {
+                "title": "Achievements",
+                "matching_points": "3 out of 10",
+                "description": "The candidate's achievements in Physical Design Engineering highlight skills in debugging, analysis, and scripting. While these achievements showcase technical proficiency, they do not directly align with ML development, monitoring, and infrastructure tasks."
+            },
+            {
+                "title": "Willingness to Relocate",
+                "matching_points": "5 out of 10",
+                "description": "The candidate's resume does not explicitly mention willingness to relocate. Further clarification is needed to determine compatibility with the remote work setup offered by the job."
+            },
+            {
+                "title": "Reference and Recommendation",
+                "matching_points": "1 out of 10",
+                "description": "There is no reference or recommendation provided in the candidate's resume, which could have added credibility to the experience and skills mentioned."
+            },
+            {
+                "title": "Job Tenure and Stability",
+                "matching_points": "7 out of 10",
+                "description": "The candidate's job tenure and stability in previous roles demonstrate consistency and reliability. This indicates a strong work ethic and commitment to professional growth, which are valuable traits for the ML Engineer role."
+            },
+            {
+                "title": "Additional Activities",
+                "matching_points": "6 out of 10",
+                "description": "The candidate's hobbies of reading novels and travelling showcase interests in personal growth and exploration. While these activities may not directly relate to the ML Engineer role, they highlight a well-rounded individual with diverse interests."
+            },
+            {
+                "title": "Cultural Fit",
+                "matching_points": "2 out of 10",
+                "description": "The candidate's resume does not provide explicit information on cultural fit or alignment with company values. Further assessment is needed to evaluate compatibility with the company culture."
+            },
+            {
+                "title": "Others",
+                "matching_points": "1 out of 10",
+                "description": "The candidate's resume lacks specific information on relevant ML projects, certifications, or professional development activities that could enhance the application for the ML Engineer role."
+            }
+        ],
+        "fileName": "1Nagendra STA.DOCX",
+        "file": "https://freedygo-storage-bucket-production.s3.ap-south-1.amazonaws.com/Skilotech/resumes/1Nagendra%20STA.DOCX",
+        "type": "file"
+    }
+]);
+
   const [selectedClient, setSelectedClient] = useState(null);
   const [tab, setTab] = useState(null);
   const [ParentId, setParentId] = useState(null);
@@ -147,23 +530,60 @@ const JobMatching = () => {
         console.log(err);
       });
   };
-
+  const processItem = async (data) => {
+    console.log(data);
+    return;
+    // axios
+    //   .post("http://localhost:2000/api/external/jobMatching/", {
+    //     jd: text,
+    //     ids: data,
+    //   })
+    //   .then((res) => {
+    //     console.log("first")
+    //     // setResuneList([...resuneList, res.data.data]);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
+  };
   const jobMatching = () => {
     setLoadingg(true);
     setIsAnimate(false);
-
     axios
-      .post("https://jamblix.com/api/external/jobMatching/", {
-        jd: text,
-        resumeCount,
-        ids: selectedIndexesFileTypes,
+      .post("http://localhost:2000/api/jd/extraction", {
+        text,
       })
-      .then((res) => {
-        setResuneList(res.data.data);
-        setLoadingg(false);
+      .then(async (res) => {
+        const jd = res.data.jsonData[0];
+        console.log(jd);
+        try {
+          const outputData = [];
+          const promise = selectedIndexesFileTypes
+            .slice(0, 5)
+            .map(async (item, index) => {
+              const { data } = await axios.post(
+                "http://localhost:2000/api/external/jobMatching/",
+                {
+                  jd: jd,
+                  id: item,
+                }
+              );
+
+              outputData.push(data);
+
+              setLoadingg(false);
+            });
+          const resolvedData = await Promise.all(promise);
+          setResumeList([...resumeList, outputData]);
+          setLoadingg(false);
+        } catch (e) {
+          console.log("error", e);
+        }
       })
       .catch((err) => {
         console.log(err);
+        setLoadingg(false);
+        toast.error("Something went wrong, please try again");
       });
   };
 
@@ -236,46 +656,6 @@ const JobMatching = () => {
       setTimeout(() => {
         resolve(textData);
       }, 1000);
-    });
-  };
-  const addFiles = async () => {
-    setFileLoader(true);
-    if (Object.keys(files).length == 0) {
-      toast.error("No File Selected");
-      setFileLoader(false);
-
-      return;
-    }
-
-    const formData = new FormData();
-
-    parseData().then(async (data) => {
-      const extractedData = await textExtractor(data);
-      formData.append("fileName", folderName);
-      formData.append("type", "file");
-      formData.append("userId", userDataGlobal._id);
-      formData.append("extractedData", JSON.stringify(extractedData));
-      Object.values(files).map(async (file, index) => {
-        formData.append("files", file);
-        return;
-      });
-      formData.append("parentId", ParentId ? ParentId : undefined);
-      axios
-        .post("https://jamblix.com/api/folder/addFiles", formData)
-        .then((res) => {
-          setFolderName("Untitled folder");
-          toast.success("File Uploaded successfully");
-          setTimeout(() => {
-            setFileLoader(false);
-            setIsCreateFolder(false);
-            getData();
-          }, 1000);
-          setFiles([]);
-        })
-        .catch((err) => {
-          setFileLoader(false);
-          toast.error("Something went wrong");
-        });
     });
   };
 
@@ -514,7 +894,7 @@ const JobMatching = () => {
         <div className="ml:w-[60%] w-full">
           <JdMatching
             details={details}
-            resuneList={resuneList}
+            resumeList={resumeList}
             isAnimate={isAnimate}
           />
         </div>

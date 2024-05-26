@@ -274,6 +274,7 @@ function Recruiter_signup({}) {
       // setLoading(true);
       const formdata = new FormData();
       Object.keys(data).forEach((key) => {
+        console.log(277, data, key);
         if (key == "email") {
           formdata.append(key, data[key].toLowerCase());
         } else if (key == "currentLocation") {
@@ -282,6 +283,8 @@ function Recruiter_signup({}) {
           formdata.append(key, data[key]);
         }
       });
+
+      console.log(287, formdata, data);
       if (isUpdate) {
         formdata.append("role", userDataGlobal?.role);
       }
@@ -309,7 +312,7 @@ function Recruiter_signup({}) {
                     }`;
                     setLoading(false);
                   } else {
-                    window.location.href = `/home`;
+                    window.location.href = `/home?signIn=false`;
                     setLoading(false);
                   }
                 }
@@ -470,6 +473,7 @@ function Recruiter_signup({}) {
                               fill="#D4E5EF"
                             />
                           </svg>
+                          // <img src="/images/empty.png" />
                         )}
 
                         <div className="flex flex-col gap-3 w-[168px] text-center items-center ">
@@ -595,9 +599,19 @@ function Recruiter_signup({}) {
                                       ...provided,
                                       border: "none",
 
-                                      minWidth: "130px",
+                                      minWidth: "120px",
+                                      outline: "none",
                                     }),
                                   }}
+                                  theme={(theme) => ({
+                                    ...theme,
+                                    borderRadius: 0,
+                                    colors: {
+                                      ...theme.colors,
+                                      // primary25: 'hotpink',
+                                      primary: "neutral0",
+                                    },
+                                  })}
                                 />
                               </div>
                             </div>
@@ -699,7 +713,7 @@ function Recruiter_signup({}) {
                               type="text"
                               name=""
                               id="single_input"
-                              placeholder="Enter Otp"
+                              placeholder="Enter OTP"
                               className="border border-[#DEDEDE] rounded-[8px] px-4 py-3 w-[50%] leading-tight"
                               onChange={(e) =>
                                 setOtpEntered(parseInt(e.target.value))

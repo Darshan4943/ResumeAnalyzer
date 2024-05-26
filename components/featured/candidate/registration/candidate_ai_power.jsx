@@ -405,7 +405,7 @@ const CandidateAiPower = ({
 
                 <button
                   disabled={file && !loading ? false : true}
-                  className={`sm:px-9 px-6 py-3 bg-[#06A9EF] border rounded-[12px] font-semibold text-white ${
+                  className={`sm:px-9 px-6 py-3 bg-[#06A9EF]  rounded-[12px] font-semibold text-white ${
                     file && !loading
                       ? "opacity-100 btn_hover_effect"
                       : "opacity-50"

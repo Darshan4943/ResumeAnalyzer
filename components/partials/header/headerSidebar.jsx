@@ -12,19 +12,22 @@ function HeaderSidebar({
   const boforeLoginList = ["Candidate", "Recruiter"];
   const loginListCandidate = [
     "Home",
+    "Create New Resume",
     "My Resumes",
-    "Transform CV",
+    // "Transform CV",
     "Skill Assessments",
-    "Search Jobs",
+    // "Search Jobs",
+    "Chat Bot",
     "My Purchases",
   ];
   const loginListRecruiter = [
     "Home",
     "My Clients",
-    "Transform CV",
+    // "Transform CV",
     "Job Description Matching",
-    "Collection",
-    "Post Jobs",
+    "My Collection",
+    // "Post Jobs",
+    "Chat Bot",
     "My Purchases",
   ];
   const router = useRouter();
@@ -150,7 +153,7 @@ function HeaderSidebar({
                 </div>
               )}
               <div className="text-[20px] font-medium">
-                {userDataGlobal?.name}
+                {userDataGlobal?.firstName} {userDataGlobal?.lastName}
               </div>
             </div>
           )}
@@ -178,6 +181,11 @@ function HeaderSidebar({
                   ...getListItemStyles("/myClients"),
                   transition: "transform 0.8s ease-in-out",
                 }),
+                ...(item === "Create New Resume" && {
+                  ...getListItemStyles("/home/BuildResume"),
+                  transition: "transform 0.8s ease-in-out",
+                }),
+
                 ...(item === "My Resumes" && {
                   ...getListItemStyles("/home/MyCollection"),
                   transition: "transform 0.8s ease-in-out",
@@ -190,7 +198,7 @@ function HeaderSidebar({
                   ...getListItemStyles("/transform/JobMatching"),
                   transition: "transform 1s ease-in-out",
                 }),
-                ...(item === "Collection" && {
+                ...(item === "My Collection" && {
                   ...getListItemStyles("/collection"),
                   transition: "transform 1.1s ease-in-out",
                 }),
@@ -204,6 +212,10 @@ function HeaderSidebar({
                 }),
                 ...(item === "Post Jobs" && {
                   ...getListItemStyles("/jobs/list"),
+                  transition: "transform 1.1s ease-in-out",
+                }),
+                ...(item === "Chat Bot" && {
+                  ...getListItemStyles("/chatbot"),
                   transition: "transform 1.1s ease-in-out",
                 }),
                 ...(item === "My Purchases" && {
@@ -225,6 +237,9 @@ function HeaderSidebar({
                   case "My Clients":
                     handleNavigation("/myClients");
                     break;
+                    case "Create New Resume":
+                    handleNavigation("/home/BuildResume");
+                    break;
                   case "My Resumes":
                     handleNavigation("/home/MyCollection");
                     break;
@@ -238,7 +253,10 @@ function HeaderSidebar({
                   case "My Purchases":
                     handleNavigation("/purchase/MyPurchase");
                     break;
-                  case "Collection":
+                    case "Chat Bot":
+                    handleNavigation("/chatbot");
+                    break;
+                  case "My Collection":
                     handleNavigation("/collection");
                     break;
                   case "Skill Assessments":

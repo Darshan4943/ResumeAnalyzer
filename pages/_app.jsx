@@ -1,6 +1,6 @@
 "use client";
 import "/public/scss/style.scss";
-
+import { motion } from "framer-motion";
 import { Helmet } from "react-helmet";
 import { ReactLenis } from "@studio-freight/react-lenis";
 import { useEffect, useState } from "react";
@@ -47,7 +47,7 @@ const WrappedApp = ({ Component, pageProps }) => {
     setLoading(true);
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 2000);
+    }, 3000);
 
     return () => clearTimeout(timer);
   }, []);
@@ -71,19 +71,16 @@ const WrappedApp = ({ Component, pageProps }) => {
         <Api />
         {loading && (
           <>
-            <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-white"></div>
+            <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-white "></div>
             <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center  ">
-              <div className="relative earth_loader flex flex-col items-center justify-center gap-[24px]">
-                <div>
-                  <img
-                    src="/images/loader/earth.png"
+              <div className="relative earth_loader flex flex-col items-center justify-center ">
+                <div className="w-[165px] h-[124px] flex items-center justify-center">
+                  <motion.img
+                    src="/images/resumeBuilder/bot.png"
                     alt=""
-                    className="h-[100px] w-[100px]"
-                  />
-                  <img
-                    src="/images/loader/glass.png"
-                    alt=""
-                    className="h-[126px] w-[117px] object-contain glass"
+                    className="h-[68px] w-[68px]"
+                    animate={{ y: [-30, 0, -30] }}
+                    transition={{ duration: 1.5, repeat: Infinity }}
                   />
                 </div>
                 <div className="flex flex-col items-center justify-center relative z-100">

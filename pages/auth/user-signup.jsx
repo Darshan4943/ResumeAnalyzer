@@ -46,7 +46,7 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
             }`;
           } else {
             setGoogleLoading(false);
-            window.location.href = "/home";
+            window.location.href = "/home?signIn=false";
           }
         })
         .catch((err) => {
@@ -120,7 +120,7 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
             } else {
               setLoading(false);
 
-              window.location.href = `/home`;
+              window.location.href = "/home?signIn=false";
             }
           } else {
             setLoading(false);
@@ -141,6 +141,10 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
         setError(err?.response?.data.message);
         console.log(err.response);
       });
+  };
+
+  const openInNewTab = (url) => {
+    window.open(url, "_blank");
   };
 
   const handleEmailChange = (e) => {
@@ -408,7 +412,8 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
             <div className="text-[12px] text-center">
               By signing in, you agree to our{" "}
               <span
-                onClick={() => router.push("/TermsAndConditions")}
+                // onClick={() => router.push("/TermsAndConditions")}
+                onClick={() => openInNewTab("/TermsAndConditions")}
                 className="already_sign cursor-pointer"
                 style={{
                   fontSize: "12px",
@@ -419,7 +424,8 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
               </span>{" "}
               and{" "}
               <span
-                onClick={() => router.push("/PrivacyPolicy")}
+                // onClick={() => router.push("/PrivacyPolicy")}
+                onClick={() => openInNewTab("/PrivacyPolicy")}
                 className="already_sign cursor-pointer"
                 style={{
                   fontSize: "12px",
