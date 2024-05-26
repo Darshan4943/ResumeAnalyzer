@@ -87,7 +87,7 @@ const Languages = ({ setData, data, languages, setLanguages }) => {
   return (
     <div
       className="flex flex-col p-4 gap-2 rounded-lg bg-white"
-      style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}
+      // style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}
     >
       <div className="flex flex-col gap-2 w-full">
         <div className="w-full text-[20px] font-montserrat  font-medium">

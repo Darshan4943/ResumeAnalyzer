@@ -106,7 +106,7 @@ function ThemeForm({
     <div
       className="flex flex-col rounded-lg bg-white p-4"
       style={{
-        boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)",
+        // boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)",
         gap: view ? "6px" : "unset",
       }}
     >

@@ -217,7 +217,7 @@ const PersonalDetails = ({
       <div
         className="flex flex-col sm:p-4 p-2 gap-2 rounded-lg bg-white"
         style={{
-          boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)",
+          // boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)",
           opacity: isChecked ? 1 : 0.5,
         }}
       >
@@ -319,7 +319,11 @@ const PersonalDetails = ({
                     value={profileData[item.name]}
                     onChange={handleInputChange}
                     disabled={!isChecked}
-                    maxLength={item.name==="firstName" || item.name==="lastName"  ? 25 : 100}
+                    maxLength={
+                      item.name === "firstName" || item.name === "lastName"
+                        ? 25
+                        : 100
+                    }
                   />
                 </div>
               )}

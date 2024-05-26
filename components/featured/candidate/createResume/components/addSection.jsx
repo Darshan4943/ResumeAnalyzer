@@ -106,7 +106,7 @@ const AddSection = ({ data, setData, section, formData, index, item }) => {
     <div
       className="flex flex-col p-4 gap-2 rounded-lg bg-white"
       style={{
-        boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)",
+        // boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)",
         opacity: isChecked ? 1 : 0.5,
       }}
     >
