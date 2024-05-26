@@ -369,7 +369,7 @@ export const telCode = [
   {
     name: "United Kingdom",
     flag: "🇬🇧",
-    code: "GB",
+    code: "UK",
     dial_code: "+44",
   },
   {

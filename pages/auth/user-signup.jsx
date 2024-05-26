@@ -32,7 +32,7 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
       const sendToPurchaseResult = JSON.parse(sendToPurchase);
       axios
         .post(
-          "https://jamblix.com/api/skiloteckuser/user/google/signup",
+          "http://localhost:2000/api/skiloteckuser/user/google/signup",
           userData
         )
         .then((res) => {
@@ -93,7 +93,7 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
     };
     setLoading(true);
     axios
-      .post("https://jamblix.com/api/skiloteckuser/user/signup", dataToSend)
+      .post("http://localhost:2000/api/skiloteckuser/user/signup", dataToSend)
       .then((res) => {
         const response = res.data;
         try {
@@ -130,6 +130,10 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
         setError(err?.response?.data.message);
         console.log(err.response);
       });
+  };
+
+  const openInNewTab = (url) => {
+    window.open(url, "_blank");
   };
 
   const handleEmailChange = (e) => {
@@ -358,18 +362,20 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
             <div className="text-[12px] text-center">
               By signing in, you agree to our{" "}
               <span
-               onClick={() => router.push("/TermsAndConditions")}
+                // onClick={() => router.push("/TermsAndConditions")}
+                onClick={() => openInNewTab("/TermsAndConditions")}
                 className="already_sign cursor-pointer"
                 style={{
                   fontSize: "12px",
                   color: "#06A9EF",
                 }}
               >
-                <a >Terms & Conditions</a>
+                <a>Terms & Conditions</a>
               </span>{" "}
               and{" "}
               <span
-              onClick={() => router.push("/PrivacyPolicy")}
+                // onClick={() => router.push("/PrivacyPolicy")}
+                onClick={() => openInNewTab("/PrivacyPolicy")}
                 className="already_sign cursor-pointer"
                 style={{
                   fontSize: "12px",
@@ -377,7 +383,7 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
                 }}
               >
                 {" "}
-                <a >Privacy Policy.</a>
+                <a>Privacy Policy.</a>
               </span>
             </div>
           </div>

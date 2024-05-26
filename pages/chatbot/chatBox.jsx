@@ -24,7 +24,7 @@ const ChatBox = ({
     if (text?.length > 5) {
       setLoading(true);
       axios
-        .post("https://jamblix.com/api/qna", { quationText: text })
+        .post("http://localhost:2000/api/qna", { quationText: text })
         .then((res) => {
           const answer = res.data.data;
           const dummyData = { ...existingChat };

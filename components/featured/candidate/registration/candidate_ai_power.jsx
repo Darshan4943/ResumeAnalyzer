@@ -149,7 +149,7 @@ const CandidateAiPower = ({
       console.log(145, result);
       if (result[0]?.text?.length > 0) {
         axios
-          .post("https://jamblix.com/api/resume/extraction", {
+          .post("http://localhost:2000/api/resume/extraction", {
             data: result,
           })
           .then((res) => {
@@ -160,7 +160,7 @@ const CandidateAiPower = ({
               );
               axios
                 .put(
-                  "https://jamblix.com/api/subscription/updateUploadLimit/" +
+                  "http://localhost:2000/api/subscription/updateUploadLimit/" +
                     userDataGlobal._id
                 )
                 .then((res) => {

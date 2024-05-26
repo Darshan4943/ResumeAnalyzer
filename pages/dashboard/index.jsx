@@ -131,7 +131,7 @@ function Dashboard() {
 
     if (userDataGlobal) {
       axios
-        .get("https://jamblix.com/api/subscription/" + userDataGlobal._id)
+        .get("http://localhost:2000/api/subscription/" + userDataGlobal._id)
         .then((res) => {
           const plan = plans.find(
             (item) =>

@@ -26,7 +26,7 @@ const MyCollection = () => {
 
   useEffect(() => {
     axios
-      .get("https://jamblix.com/api/resume/" + userDataGlobal?._id)
+      .get("http://localhost:2000/api/resume/" + userDataGlobal?._id)
       .then((res) => {
         setResumeList(res.data.data);
       })
@@ -52,7 +52,7 @@ const MyCollection = () => {
     }
 
     axios
-      .delete("https://jamblix.com/api/resume/deleteResume", {
+      .delete("http://localhost:2000/api/resume/deleteResume", {
         data: { ids },
       })
       .then((response) => {
