@@ -49,7 +49,7 @@ function Recruiter_signup({}) {
   });
 
   const [file, setFile] = useState(null);
-console.log(52,data)
+
   const fileRef = useRef(null);
   const handleFileChange = (event) => {
     event.preventDefault();
@@ -208,10 +208,27 @@ console.log(52,data)
     const filterLogic = (item) =>
       item.code.toLowerCase().includes(searchTerm.toLowerCase()) ||
       item.dial_code.includes(searchTerm);
-
     const filteredCodes = telCode.filter(filterLogic);
-    setFilteredTelCode(filteredCodes);
+    const firstSixCodes = filteredCodes.slice(0, 6);
+    const remainingCodes = filteredCodes.slice(6);
+
+    const sortedRemainingCodes = remainingCodes.sort((a, b) => {
+      const numA = parseInt(a.dial_code.replace("+", ""), 10);
+      const numB = parseInt(b.dial_code.replace("+", ""), 10);
+      return numA - numB;
+    });
+
+    const combinedCodes = [...firstSixCodes, ...sortedRemainingCodes];
+    setFilteredTelCode(combinedCodes);
   }, [telCode, searchTerm]);
+
+  const customFilterOption = ({ label, value, data }, inputValue) => {
+    const lowercasedInput = inputValue.toLowerCase();
+    return (
+      data.code.toLowerCase().includes(lowercasedInput) ||
+      data.dial_code.includes(inputValue)
+    );
+  };
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -224,7 +241,7 @@ console.log(52,data)
       "email",
       "currentLocation",
       "mobileNo",
-      "img"
+      "img",
     ];
     const emptyFields = requiredFields.filter((field) => !data[field]);
     if (emptyFields.length > 0) {
@@ -413,7 +430,9 @@ console.log(52,data)
                   {byAdmin ? null : (
                     <>
                       {" "}
-                      <p className="text-[16px] font-medium">Profile Photo <span className="star">*</span></p>
+                      <p className="text-[16px] font-medium">
+                        Profile Photo <span className="star">*</span>
+                      </p>
                       <div className="flex sm:gap-6 gap-3">
                         {croppedImage ? (
                           <ImageContainer
@@ -460,7 +479,10 @@ console.log(52,data)
                           <div
                             className="text-[12px] font-semibold px-4 py-2 rounded-[8px]  border border-[#06A9EF]  w-[135px] cursor-pointer"
                             onClick={() => {
-                              setData(prevData => ({ ...prevData, img: null }));
+                              setData((prevData) => ({
+                                ...prevData,
+                                img: null,
+                              }));
                               setFile(null);
                               setCroppedImage(null);
                               setError(false);
@@ -554,7 +576,8 @@ console.log(52,data)
                                       </span>
                                     </div>
                                   )}
-                                  getOptionValue={(option) => option.code}
+                                  // getOptionValue={(option) => option.code}
+                                  filterOption={customFilterOption}
                                   styles={{
                                     control: (provided) => ({
                                       ...provided,

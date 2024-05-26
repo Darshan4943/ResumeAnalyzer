@@ -536,7 +536,7 @@ function CreateResume() {
   }, [data]);
 
   return (
-    <div className="bg-[#F9F9F9]">
+    <div className="">
       <div className="  pt-2 customMargins ">
         <div className="flex flex-col gap-4 py-6 ">
           <div className="web">

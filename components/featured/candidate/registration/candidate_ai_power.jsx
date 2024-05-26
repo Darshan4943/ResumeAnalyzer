@@ -139,7 +139,7 @@ const CandidateAiPower = ({
   };
 
   const navigate = () => {
-    console.log(2,uploadLimit)
+    console.log(2, uploadLimit);
     if (uploadLimit <= 0) {
       setLimitUsedModal(true);
       return;
@@ -207,14 +207,14 @@ const CandidateAiPower = ({
       }
     });
   };
-console.log(count)
+  console.log(count);
   useEffect(() => {
     if (count > 2) {
       setLoading(false);
       setfile();
       setResumeErrorPopup(true);
       setCount(0);
-    } else if(count == 1 || count == 2) {
+    } else if (count == 1 || count == 2) {
       navigate();
     }
   }, [count]);
@@ -406,7 +406,9 @@ console.log(count)
                 <button
                   disabled={file && !loading ? false : true}
                   className={`sm:px-9 px-6 py-3 bg-[#06A9EF] border rounded-[12px] font-semibold text-white ${
-                    file && !loading ? "opacity-100" : "opacity-50"
+                    file && !loading
+                      ? "opacity-100 btn_hover_effect"
+                      : "opacity-50"
                   } `}
                   onClick={navigate}
                 >
