@@ -65,7 +65,7 @@ const ChatBox = ({
     <>
       <div
 
-        className=" justify-center items-center flex w-[100%] relative flex-col gap-12">
+        className=" justify-center items-center flex w-[95%] relative flex-col gap-12">
         <div
           className="absolute ml:left-[0px] ml:top-[45vh] left-[0%] top-[5vh]">
 
