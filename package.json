@@ -73,6 +73,7 @@
     "redux": "^5.0.1",
     "sass": "^1.69.5",
     "scss": "^0.2.4",
+    "socket.io-client": "^4.7.5",
     "stripe": "^15.6.0",
     "swiper": "^11.0.7",
     "tesseract.js": "^5.0.5",
