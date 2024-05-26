@@ -175,7 +175,7 @@ const ExistingChat = ({
             </div>
             <div className="w-full overflow-y-auto bg-[#fff]">
               <div className="flex flex-col w-full p-6">
-                <div className="flex flex-col gap-6 ">
+                <div className="flex flex-col h-[80vh] gap-6 ">
                   {getSortedDates(Object.keys(existingChatDayWise)).map((key, index) => (
 
                     <div key={index} className="flex flex-col gap-4">
