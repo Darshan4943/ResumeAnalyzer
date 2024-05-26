@@ -42,7 +42,7 @@ function Dashboard() {
     },
     { name: "My Purchases", imgSrc: "/images/resumeBuilder/my_purchases.png" },
     { name: "Chat Bot", imgSrc: "/images/resumeBuilder/bot.png" },
-    { name: "Search Jobs", imgSrc: "/images/resumeBuilder/job.png" },
+    // { name: "Search Jobs", imgSrc: "/images/resumeBuilder/job.png" },
   ];
 
   const loginListRecruiter = [
@@ -61,7 +61,7 @@ function Dashboard() {
       imgSrc: "/images/resumeBuilder/collechttps://jamblix.comMy Purchases",
       imgSrc: "/images/resumeBuilder/my_purchases.png",
     },
-    { name: "Post Jobs", imgSrc: "/images/resumeBuilder/job.png" },
+    // { name: "Post Jobs", imgSrc: "/images/resumeBuilder/job.png" },
   ];
 
   const list = () => {
