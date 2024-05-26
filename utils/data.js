@@ -3202,4 +3202,3 @@ export const currenciesWithIcons = [
   { name: "Niue Dollar", symbol: "$", icon: "nzd" },
   { name: "Tokelau Dollar", symbol: "$", icon: "nzd" },
 ];
-
