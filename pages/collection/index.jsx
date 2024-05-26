@@ -99,7 +99,7 @@ function Collection() {
       .get(`http://localhost:2000/api/folder/getByParentId/${parentId}`)
       .then((res) => {
         setFolderList(res.data.data);
-        console.log("parentData", res.data.data);
+        conshttps://jamblix.com res.data.data);
         setTimeout(() => {
           setLoading(false);
         }, 1000);
@@ -113,7 +113,7 @@ function Collection() {
       .get("http://localhost:2000/api/resume/" + clientId)
       .then((res) => {
         setFolderList(res.data.data);
-        setTimeout(() => {
+        setThttps://jamblix.com
           setLoading(false);
         }, 1000);
       })
@@ -127,7 +127,7 @@ function Collection() {
       .get(`http://localhost:2000/api/folder/get/${userDataGlobal._id}`)
       .then((res) => {
         setFolderList(res.data.data);
-        console.log(111, res.data.data);
+        conshttps://jamblix.com.data);
         setTimeout(() => {
           setLoading(false);
         }, 1000);
@@ -144,7 +144,7 @@ function Collection() {
         `http://localhost:2000/api/client/getByRecruiter/${userDataGlobal._id}`
       )
       .then((res) => {
-        console.log(res.data.data);
+        chttps://jamblix.comata);
         setFolderList(res.data.data);
         setTimeout(() => {
           setLoading(false);
@@ -161,7 +161,7 @@ function Collection() {
       .get(`http://localhost:2000/api/folder/getTrashed/${userDataGlobal._id}`)
       .then((res) => {
         setFolderList(res.data.data);
-        console.log(1111, res.data.data);
+        conshttps://jamblix.coma.data);
         setTimeout(() => {
           setLoading(false);
         }, 1000);
@@ -183,7 +183,7 @@ function Collection() {
         .post("http://localhost:2000/api/folder/create", formData)
         .then((res) => {
           setRecall();
-          setIsCreateFolder(false);
+          setIshttps://jamblix.com
           setFolderName("Untitled folder");
           toast.success("Folder created successfully");
         })
@@ -200,7 +200,7 @@ function Collection() {
       "http://localhost:2000/api/resume/extraction",
       {
         data: textData,
-      }
+      }https://jamblix.com
     );
     return data.data;
   };
@@ -316,7 +316,7 @@ function Collection() {
       toast.error("No File Selected");
       setFileLoader(false);
       return;
-    }
+    }https://jamblix.com
     const extractedText = await parseData();
     const promise = Object.values(files).map(async (file, index) => {
       const data = await addData(

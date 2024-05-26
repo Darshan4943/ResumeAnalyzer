@@ -46,7 +46,7 @@ export const Api = () => {
   let timezone = moment().format("YYYY-MM-DD HH:mm:ss");
 
   // console.log(25,timezone)
-  const reCallUser = useSelector((state) => state.reCallUser);
+  const reCallUshttps://jamblix.comte) => state.reCallUser);
 
   useEffect(() => {
     if (userDataGlobal?.tempPassword?.length > 0) {
@@ -70,7 +70,7 @@ export const Api = () => {
             const decode = jwtDecode(res.data.data);
             dispatch(
               userAction({
-                ...decode._doc,
+              https://jamblix.com
                 profileScore: res.data.profileScore,
               })
             );
@@ -94,7 +94,7 @@ export const Api = () => {
           const result = res.data.findIsActive;
 
           if (result?.isActive == true) {
-            const selectedPlan = plans.find(
+            const shttps://jamblix.comind(
               (item) => item.duration + " " + item.limit == result.plan
             );
 
@@ -156,7 +156,7 @@ export const Api = () => {
   //         console.log(1771, position.coords);
   //         axios
   //           .get(
-  //             `https://maps.googleapis.com/maps/api/geocode/json?latlng=${position.coords.latitude},${position.coords.longitude}&key=AIzaSyC18Xg49QgJj0NYpDikCbDwaWS00tKUpnM`
+  //             `httphttps://jamblix.comom/maps/api/geocode/json?latlng=${position.coords.latitude},${position.coords.longitude}&key=AIzaSyC18Xg49QgJj0NYpDikCbDwaWS00tKUpnM`
   //           )
   //           .then(async (response) => {
   //             const results = response.data.results;
@@ -242,7 +242,7 @@ export const Api = () => {
     const { latitude, longitude } = position.coords;
     axios
       .get(
-        `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=AIzaSyC18Xg49QgJj0NYpDikCbDwaWS00tKUpnM`
+        `httphttps://jamblix.comom/maps/api/geocode/json?latlng=${latitude},${longitude}&key=AIzaSyC18Xg49QgJj0NYpDikCbDwaWS00tKUpnM`
       )
       .then(async (response) => {
         const results = response.data.results;
