@@ -49,7 +49,7 @@ function Recruiter_signup({}) {
   });
 
   const [file, setFile] = useState(null);
-console.log(52,data)
+  console.log(52, data);
   const fileRef = useRef(null);
   const handleFileChange = (event) => {
     event.preventDefault();
@@ -96,6 +96,11 @@ console.log(52,data)
     }
   }, []);
 
+  function validatePassword(password) {
+    const strongPasswordRegex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    return strongPasswordRegex.test(password);
+  }
   const isViewportBelow850 = useMediaQuery("(max-width:850px)");
   const [formError, setFormError] = useState({});
   const validateInput = (fieldName, value) => {
@@ -156,6 +161,11 @@ console.log(52,data)
             errors.password = "Password must be at least 6 characters long";
           } else {
             delete errors.password;
+          }
+          if (validatePassword(value)) {
+          } else {
+            errors.password =
+              "Password should include one uppercase one lowercase one number and one special character";
           }
           if (!value.trim() || value.trim() != data.confirmPassword) {
             errors.confirmPassword = "Password do not match";
@@ -224,7 +234,6 @@ console.log(52,data)
       "email",
       "currentLocation",
       "mobileNo",
-      "img"
     ];
     const emptyFields = requiredFields.filter((field) => !data[field]);
     if (emptyFields.length > 0) {
@@ -413,7 +422,9 @@ console.log(52,data)
                   {byAdmin ? null : (
                     <>
                       {" "}
-                      <p className="text-[16px] font-medium">Profile Photo <span className="star">*</span></p>
+                      <p className="text-[16px] font-medium">
+                        Profile Photo <span className="star">*</span>
+                      </p>
                       <div className="flex sm:gap-6 gap-3">
                         {croppedImage ? (
                           <ImageContainer
@@ -460,7 +471,10 @@ console.log(52,data)
                           <div
                             className="text-[12px] font-semibold px-4 py-2 rounded-[8px]  border border-[#06A9EF]  w-[135px] cursor-pointer"
                             onClick={() => {
-                              setData(prevData => ({ ...prevData, img: null }));
+                              setData((prevData) => ({
+                                ...prevData,
+                                img: null,
+                              }));
                               setFile(null);
                               setCroppedImage(null);
                               setError(false);

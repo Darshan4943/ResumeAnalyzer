@@ -12,7 +12,7 @@ const ChatBox = ({
   handleToggleSidebar,
   setSelectedChat,
   isSidebarOpen,
-  setIsSidebarOpen
+  setIsSidebarOpen,
 }) => {
   const userDataGlobal = useSelector((state) => state.userData);
   const [existingChat, setExistingChat] = useState([]);
@@ -59,16 +59,10 @@ const ChatBox = ({
     }
   }, [selectedChat, recall]);
 
-
-
   return (
     <>
-      <div
-
-        className=" justify-center items-center flex w-[100%] relative flex-col gap-12">
-        <div
-          className="absolute left-[0px] top-[45vh] ">
-
+      <div className=" justify-center items-center flex w-[100%] relative flex-col gap-12">
+        <div className="absolute left-[0px] top-[45vh] ">
           {" "}
           <button
             className="h-full flex items-center w-full"
@@ -77,13 +71,13 @@ const ChatBox = ({
             <img
               src="/images/resumeBuilder/arw.png"
               alt=""
-              className={`h-[24px] w-[24px] transform transition-transform ${isSidebarOpen ? "rotate-180" : ""
-                }`}
+              className={`h-[24px] w-[24px] transform transition-transform ${
+                isSidebarOpen ? "rotate-180" : ""
+              }`}
             />
           </button>
         </div>
         <div className="w-[60%] flex items-center justify-between flex-col min-h-[80vh]">
-
           {chat?.length > 0 ? (
             <div className="flex flex-col gap-[16px] w-[678px] h-[70vh] overflow-y-auto  ">
               {chat?.map((item, index) => {
@@ -119,14 +113,13 @@ const ChatBox = ({
                       </div>
                     </div>
                   </div>
-                )
+                );
               })}
             </div>
           ) : (
             <>
               <div className="flex w-full">
                 <div className="flex w-full items-center justify-center">
-
                   <div className="flex flex-col gap-[60px] w-[480px] h-[320px] ">
                     <div className="flex flex-col items-center">
                       <div className="w-[165px] h-[124px] flex items-center justify-center">
@@ -170,12 +163,10 @@ const ChatBox = ({
               </div>
             </>
           )}
-          <div className="w-[768px] gap-3 flex flex-col items-end sticky"
-
-          >
-            <form className="w-full h-[40px] gap-[14px] rounded-[26px] p-[2px_4px] bg-[#FFFFFF] border border-[#DEDEDE] flex items-center"
+          <div className="w-[768px] gap-3 flex flex-col items-end sticky">
+            <form
+              className="w-full h-[40px] gap-[14px] rounded-[26px] p-[2px_4px] bg-[#FFFFFF] border border-[#DEDEDE] flex items-center"
               onSubmit={submitHandler}
-
             >
               <div className="gap-1 flex w-full items-center">
                 <div className="w-[44px] h-[32px]">
@@ -192,9 +183,7 @@ const ChatBox = ({
                   placeholder="Type your Questions here"
                   className="text-[12px] font-[400] font-Montserrat w-full"
                 />
-                <button
-                  className="btn_hover_effect flex w-[48px] h-[28px] rounded-[35px] text-white font-medium justify-center items-center bg-[#06A9EF] cursor-pointer"
-                >
+                <button className="btn_hover_effect flex w-[48px] h-[28px] rounded-[35px] text-white font-medium justify-center items-center bg-[#06A9EF] cursor-pointer">
                   {loading ? (
                     <svg
                       aria-hidden="true"

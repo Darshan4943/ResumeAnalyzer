@@ -14,9 +14,9 @@ import ResetPasswordModal from "../components/models/resetPasswordModal";
 import moment from "moment";
 import { recallUser } from "./reducers/userReducer";
 import LocationEnablePopup from "../components/models/locationEnablePopup";
-import { io } from 'socket.io-client';
+import { io } from "socket.io-client";
 
-const ENDPOINT = 'https://jamblix.com'; // Replace with your backend WebSocket server URL
+const ENDPOINT = "https://jamblix.com"; // Replace with your backend WebSocket server URL
 
 export const Api = () => {
   const store = useStore();
@@ -26,21 +26,21 @@ export const Api = () => {
   const [visible, setVisible] = useState(false);
   const [enablePopup, setEnablePopup] = useState(false);
 
-//   useEffect(() => {
-//     const socket = io(ENDPOINT);
+  //   useEffect(() => {
+  //     const socket = io(ENDPOINT);
 
-//     socket.on('connect', () => {
-//         console.log('Connected to WebSocket server');
-//     });
+  //     socket.on('connect', () => {
+  //         console.log('Connected to WebSocket server');
+  //     });
 
-//     socket.on('disconnect', () => {
-//         console.log('Disconnected from WebSocket server');
-//     });
+  //     socket.on('disconnect', () => {
+  //         console.log('Disconnected from WebSocket server');
+  //     });
 
-//     return () => {
-//         socket.disconnect();
-//     };
-// }, []);
+  //     return () => {
+  //         socket.disconnect();
+  //     };
+  // }, []);
   const dispatch = useDispatch();
 
   let timezone = moment().format("YYYY-MM-DD HH:mm:ss");

@@ -308,7 +308,6 @@ function AccountDetails({
           console.error("Payment failed:", session);
           setTimeout(() => {
             setCancelModel(true);
-            
           }, 1500);
         }
       } catch (error) {
