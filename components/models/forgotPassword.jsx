@@ -140,7 +140,7 @@ function ForgotPassword({ setIsForgot }) {
                 type="text"
                 name=""
                 id="email"
-                placeholder="Enter Otp"
+                placeholder="Enter OTP"
                 className="border border-[#DEDEDE] rounded-[8px] px-4 py-3 w-[100%]"
                 onChange={(e) => setOtpEntered(parseInt(e.target.value))}
               />
