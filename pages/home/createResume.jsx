@@ -428,8 +428,8 @@ function CreateResume() {
       const experience = parsedData["work experience"]
         ? parsedData["work experience"]
         : parsedData.work_experience
-        ? parsedData.work_experience
-        : [];
+          ? parsedData.work_experience
+          : [];
       const courses = parsedData.issuing_organization;
       setData({
         ...data,
@@ -612,7 +612,8 @@ function CreateResume() {
               </motion.div>
             </AnimatePresence>
           )}
-          <div className="mobile">
+          <div className="mobile ">
+            <div className="flex flex-col gap-6">
             <ResumePreview
               data={data}
               isSetEdit={isSetEdit}
@@ -627,6 +628,20 @@ function CreateResume() {
               render={render}
               clientId={clientId}
             />
+            <div className="mobile600">
+            <ResumeForm
+              data={data}
+              setData={setData}
+              selectedResumeIndex={selectedResumeIndex}
+              setSelectedResumeIndex={setSelectedResumeIndex}
+              setSelectedColor={setSelectedColor}
+              selectedColor={selectedColor}
+              setSelectedFont={setSelectedFont}
+              selectedFont={selectedFont}
+              template={templates}
+            />
+            </div>
+            </div>
           </div>
         </div>
       </div>
