@@ -2,7 +2,6 @@ import React, { useReducer, useState } from "react";
 import ExistingChat from "./existingChat";
 import ChatBox from "./chatBox";
 
-
 const messages = ["HIii", "HIii", "HIii", "HIii"];
 
 const features = [
@@ -24,7 +23,7 @@ const Index = () => {
   return (
     <>
       <div className="bg-[#F9F9F9] w-full h-auto min-h-screen flex">
-        <div className="flex w-full min-h-screen">
+        <div className="flex w-full justify-center min-h-screen">
           <ExistingChat
             messages={messages}
             isSidebarOpen={isSidebarOpen}
@@ -45,7 +44,7 @@ const Index = () => {
             setSelectedChat={setSelectedChat}
             handleToggleSidebar={handleToggleSidebar}
           />
-          </div>
+        </div>
       </div>
     </>
   );
