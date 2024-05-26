@@ -535,6 +535,9 @@ function CreateResume() {
     setTimeout(() => setRender(true), 400);
   }, [data]);
 
+
+  
+
   return (
     <div className="bg-[#F9F9F9]">
       <div className="  pt-2 customMargins ">
