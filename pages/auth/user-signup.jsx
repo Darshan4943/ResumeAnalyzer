@@ -44,7 +44,7 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
             }`;
           } else {
             setGoogleLoading(false);
-            window.location.href = "/home";
+            window.location.href = "/home?signIn=false";
           }
         })
         .catch((err) => {
@@ -109,7 +109,7 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
             } else {
               setLoading(false);
 
-              window.location.href = `/home`;
+              window.location.href = `/home?signIn=false`;
             }
           } else {
             setLoading(false);

@@ -300,7 +300,7 @@ function Recruiter_signup({}) {
                     }`;
                     setLoading(false);
                   } else {
-                    window.location.href = `/home`;
+                    window.location.href = `/home?signIn=false`;
                     setLoading(false);
                   }
                 }
