@@ -8,7 +8,6 @@ function JdFiles({
   files,
   details,
   query,
-  selectedOptions,
   selectedIndexes,
   setSelectedIndexes,
   loading,
@@ -36,17 +35,6 @@ function JdFiles({
     }
   };
 
-  // const openClientFolder = (index, clientId, name, item) => {
-  //     if (item?.resumeUrl?.includes("pdf")) {
-  //         window.location.href = item.resumeUrl;
-  //     } else {
-  //         localStorage.setItem("previousPage", window.location.href);
-  //         router.push({
-  //             pathname: "/transform/JobMatching",
-  //             query: { ...query, clients: true, name, clientId },
-  //         });
-  //     }
-  // };
 
   const fileIconSeter = (data) => {
     if (
@@ -92,7 +80,6 @@ function JdFiles({
 
   function getAllFiles(obj) {
     let files = [];
-
     function traverse(node) {
       if (node.type === "file") {
         files.push({
@@ -105,9 +92,7 @@ function JdFiles({
         node.files.forEach((child) => traverse(child));
       }
     }
-
     traverse(obj);
-
     return files;
   }
   function getAllFilesNestedOnlyFile(data) {
@@ -118,14 +103,12 @@ function JdFiles({
           files.push({
             ...node,
           });
-        } else if (
-          node.files &&
-          node.files.length > 0 &&
-          node.type === "file"
-        ) {
-          files.push({
-            ...node,
-          });
+        } else if (node.files && node.files.length > 0  ) {
+          if(node.type === "file"){
+            files.push({
+              ...node,
+            });
+          }
           node.files.forEach((child) => traverse(child));
         }
       }
@@ -215,7 +198,7 @@ function JdFiles({
 
       setSelectedIndexesFilesType([]);
     } else {
-      console.log(data.length);
+      // console.log(data?.length);
       localStorage.setItem(
         "selectedIndexes",
         JSON.stringify(getAllFilesNestedAllFile(data).map((item) => item._id))
@@ -228,6 +211,7 @@ function JdFiles({
       setSelectedIndexesFilesType(
         getAllFilesNestedOnlyFile(data).map((item) => item._id)
       );
+
       setSelectedIndexes(
         getAllFilesNestedAllFile(data).map((item) => item._id)
       );
@@ -237,7 +221,7 @@ function JdFiles({
   return (
     <div className="rounded-[16px] border bg-[#F9F9F9] border-[#DEDEDE] p-[16px] flex flex-col gap-[16px]">
       <div className="flex flex-row items-center justify-between gap-[12px] ">
-        <div className="flex flex-row items-center gap-[12px] cursor-pointer ">
+        <div className="flex flex-row items-center gap-[8px] cursor-pointer ">
           {name && (
             <svg
               onClick={() => router.back()}
@@ -255,11 +239,11 @@ function JdFiles({
               </g>
             </svg>
           )}
-          {name && (
-            <span className="text-[16px] text-[#333333] font-normal">
+          {/* {name && (
+            <span className="text-[14px] text-[#333333] font-normal">
               {name}
             </span>
-          )}
+          )} */}
           <div className="flex flex-row gap-[8px] py-[8px] px-[12px] h-[40px] bg-[#fff] border border-[#DEDEDE] rounded-[30px] items-center">
             <SearchIcon />
             <input

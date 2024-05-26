@@ -182,11 +182,11 @@ const JdMatching = ({ details, resumeList, isAnimate }) => {
         {!isAnimate || resumeList ? (
           <div className="ml:w-[100%] w-[100%]  flex flex-col  gap-[16px] ">
             <div>Total Results ({resumeList?.length})</div>
-            <div className=" flex flex-row flex-wrap ml:justify-between justify-center  gap-[24px] ">
+            <div className=" flex flex-row flex-wrap ml:justify-between justify-center  gap-[24px] max-h-[95vh] overflow-y-auto ">
               {resumeList?.length > 0 ? (
                 <>
                   {resumeList
-                    .sort(
+                    ?.sort(
                       (a, b) =>
                         parseInt(b.matching_percentage.slice(0, 2)) -
                         parseInt(a.matching_percentage.slice(0, 2))
@@ -208,9 +208,9 @@ const JdMatching = ({ details, resumeList, isAnimate }) => {
                             {fileIconSeter(data)}
                             <div className="flex flex-col justify-between break-all w-full ">
                               <span className="md:text-[14px] text-[14px] text-[#333333] font-medium">
-                                {data.fileName.length > 17
-                                  ? `${data.fileName.slice(0, 16)}...`
-                                  : data.fileName}
+                                {data?.fileName?.length > 17
+                                  ? `${data?.fileName.slice(0, 16)}...`
+                                  : data?.fileName}
                               </span>
                               <div className="flex gap-2 justify-end">
                                 <div className="flex flex-row gap-[8px] items-center">
@@ -241,7 +241,7 @@ const JdMatching = ({ details, resumeList, isAnimate }) => {
                           </span>
                           <ul className="flex flex-col gap-[4px]">
                             {data?.matching_parameters
-                              .slice(0, 5)
+                              ?.slice(0, 5)
                               ?.map((item, i) => (
                                 <li
                                   key={i}
@@ -261,7 +261,7 @@ const JdMatching = ({ details, resumeList, isAnimate }) => {
                                       fill="#D9D9D9"
                                     />
                                   </svg>
-                                  {item.title} / {item.matching_points}
+                                  {item?.title} / {item?.matching_points}
                                 </li>
                               ))}
                           </ul>
@@ -273,10 +273,10 @@ const JdMatching = ({ details, resumeList, isAnimate }) => {
                           </span>
                         </div>
                         <div className="w-[100%]  px-[8px] pb-[16px] border-b-[1px] border-[#bebebe]"></div>
-                        {parseInt(data.matching_percentage.slice(0, 2)) > 0 ? (
+                        {parseInt(data?.matching_percentage?.slice(0, 2)) > 0 ? (
                           <Progress_bar
                             progress={parseInt(
-                              data.matching_percentage.slice(0, 2)
+                              data?.matching_percentage?.slice(0, 2)
                             )}
                           />
                         ) : (
