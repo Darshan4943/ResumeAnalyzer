@@ -60,7 +60,7 @@ function CreateNewClient({ setTabIndex }) {
   // const callData = () => {
   //   axios
   //     .get(
-  //       `http://localhost:2000/api/client/getByRecruiter/${userDataGlobal._id}`
+  //       `https://jamblix.com/api/client/getByRecruiter/${userDataGlobal._id}`
   //     )
   //     .then((res) => {
   //       setDetails(res.data.data);
@@ -199,7 +199,7 @@ function CreateNewClient({ setTabIndex }) {
         formdata.append("img", croppedImage);
 
         const response = await axios.post(
-          "http://localhost:2000/api/client/create",
+          "https://jamblix.com/api/client/create",
           formdata
         );
         setData({
@@ -246,9 +246,20 @@ function CreateNewClient({ setTabIndex }) {
     const filterLogic = (item) =>
       item.code.toLowerCase().includes(searchTerm.toLowerCase()) ||
       item.dial_code.includes(searchTerm);
-
     const filteredCodes = telCode.filter(filterLogic);
-    setFilteredTelCode(filteredCodes);
+    const firstSixCodes = filteredCodes.slice(0, 6);
+    const remainingCodes = filteredCodes.slice(6);
+
+    const sortedRemainingCodes = remainingCodes.sort((a, b) => {
+      const numA = parseInt(a.dial_code.replace("+", ""), 10);
+      const numB = parseInt(b.dial_code.replace("+", ""), 10);
+      return numA - numB;
+    });
+
+    const combinedCodes = [...firstSixCodes, ...sortedRemainingCodes];
+    setFilteredTelCode(combinedCodes);
+
+    // setFilteredTelCode(filteredCodes);
   }, [telCode, searchTerm]);
 
   const taskRef = useRef(null);
@@ -264,6 +275,14 @@ function CreateNewClient({ setTabIndex }) {
       document.removeEventListener("mousedown", handleOutsideClick);
     };
   }, []);
+
+  const customFilterOption = ({ label, value, data }, inputValue) => {
+    const lowercasedInput = inputValue.toLowerCase();
+    return (
+      data.code.toLowerCase().includes(lowercasedInput) ||
+      data.dial_code.includes(inputValue)
+    );
+  };
 
   return (
     <>
@@ -348,7 +367,7 @@ function CreateNewClient({ setTabIndex }) {
                           <div className="personal_name_parent flex ml:flex-row flex-col ml:w-[49%] w-[100%]">
                             <div className="personal_name ml:w-[46%] w-[100%]">
                               <p className="form_text_heading">
-                                First name <span className="star">*</span>
+                                First Name <span className="star">*</span>
                               </p>
                               <input
                                 type="text"
@@ -369,7 +388,7 @@ function CreateNewClient({ setTabIndex }) {
 
                             <div className="personal_name ml:w-[46%] w-[100%]">
                               <p className="form_text_heading">
-                                Last name <span className="star">*</span>
+                                Last Name <span className="star">*</span>
                               </p>
                               <input
                                 type="text"
@@ -449,7 +468,10 @@ function CreateNewClient({ setTabIndex }) {
                                             </span>
                                           </div>
                                         )}
-                                        getOptionValue={(option) => option.code}
+                                        // getOptionValue={(option) =>
+                                        //   option.dial_code
+                                        // }
+                                        filterOption={customFilterOption}
                                         styles={{
                                           control: (provided) => ({
                                             ...provided,
@@ -458,6 +480,15 @@ function CreateNewClient({ setTabIndex }) {
                                             minWidth: "130px",
                                           }),
                                         }}
+                                        theme={(theme) => ({
+                                          ...theme,
+                                          borderRadius: 0,
+                                          colors: {
+                                            ...theme.colors,
+                                            // primary25: 'hotpink',
+                                            primary: "neutral0",
+                                          },
+                                        })}
                                       />
                                     </div>
                                   </div>

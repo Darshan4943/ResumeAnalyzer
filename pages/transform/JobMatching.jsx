@@ -473,7 +473,7 @@ const JobMatching = () => {
 
   const getParentData = (parentId) => {
     axios
-      .get(`http://localhost:2000/api/folder/getByParentId/${parentId}`)
+      .get(`https://jamblix.com/api/folder/getByParentId/${parentId}`)
       .then((res) => {
         setDetails(res.data.data);
         setTimeout(() => {
@@ -486,7 +486,7 @@ const JobMatching = () => {
   };
   const getClientData = (clientId) => {
     axios
-      .get("http://localhost:2000/api/resume/" + clientId)
+      .get("https://jamblix.com/api/resume/" + clientId)
       .then((res) => {
         setDetails(res.data.data);
         setTimeout(() => {
@@ -500,7 +500,7 @@ const JobMatching = () => {
   const getFolderData = () => {
     setLoading(true);
     axios
-      .get(`http://localhost:2000/api/folder/get/${userDataGlobal._id}`)
+      .get(`https://jamblix.com/api/folder/get/${userDataGlobal._id}`)
       .then((res) => {
         setDetails(res.data.data);
         setTimeout(() => {
@@ -516,7 +516,7 @@ const JobMatching = () => {
     setLoading(true);
     axios
       .get(
-        `http://localhost:2000/api/client/getByRecruiter/${userDataGlobal._id}`
+        `https://jamblix.com/api/client/getByRecruiter/${userDataGlobal._id}`
       )
       .then((res) => {
         // console.log(res.data.data);
@@ -606,7 +606,7 @@ const JobMatching = () => {
   };
   const textExtractor = async (textData) => {
     const { data } = await axios.post(
-      "http://localhost:2000/api/resume/extraction",
+      "https://jamblix.com/api/resume/extraction",
       {
         data: textData,
       }

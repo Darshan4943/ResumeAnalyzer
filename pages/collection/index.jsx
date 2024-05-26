@@ -96,10 +96,9 @@ function Collection() {
 
   const getParentData = (parentId) => {
     axios
-      .get(`http://localhost:2000/api/folder/getByParentId/${parentId}`)
+      .get(`https://jamblix.com/api/folder/getByParentId/${parentId}`)
       .then((res) => {
         setFolderList(res.data.data);
-        console.log("parentData", res.data.data);
         setTimeout(() => {
           setLoading(false);
         }, 1000);
@@ -110,7 +109,7 @@ function Collection() {
   };
   const getClientData = (clientId) => {
     axios
-      .get("http://localhost:2000/api/resume/" + clientId)
+      .get("https://jamblix.com/api/resume/" + clientId)
       .then((res) => {
         setFolderList(res.data.data);
         setTimeout(() => {
@@ -124,7 +123,7 @@ function Collection() {
   const getFolderData = () => {
     setLoading(true);
     axios
-      .get(`http://localhost:2000/api/folder/get/${userDataGlobal._id}`)
+      .get(`https://jamblix.com/api/folder/get/${userDataGlobal._id}`)
       .then((res) => {
         setFolderList(res.data.data);
         console.log(111, res.data.data);
@@ -141,7 +140,7 @@ function Collection() {
     setLoading(true);
     axios
       .get(
-        `http://localhost:2000/api/client/getByRecruiter/${userDataGlobal._id}`
+        `https://jamblix.com/api/client/getByRecruiter/${userDataGlobal._id}`
       )
       .then((res) => {
         console.log(res.data.data);
@@ -158,7 +157,7 @@ function Collection() {
   const getTrashed = () => {
     setLoading(true);
     axios
-      .get(`http://localhost:2000/api/folder/getTrashed/${userDataGlobal._id}`)
+      .get(`https://jamblix.com/api/folder/getTrashed/${userDataGlobal._id}`)
       .then((res) => {
         setFolderList(res.data.data);
         console.log(1111, res.data.data);
@@ -180,7 +179,7 @@ function Collection() {
       formData.append("parentId", ParentId ? ParentId : undefined);
 
       axios
-        .post("http://localhost:2000/api/folder/create", formData)
+        .post("https://jamblix.com/api/folder/create", formData)
         .then((res) => {
           setRecall();
           setIsCreateFolder(false);
@@ -197,7 +196,7 @@ function Collection() {
 
   const textExtractor = async (textData) => {
     const { data } = await axios.post(
-      "http://localhost:2000/api/resume/extraction",
+      "https://jamblix.com/api/resume/extraction",
       {
         data: textData,
       }
@@ -301,7 +300,7 @@ function Collection() {
           formData.append("file", file);
           formData.append("parentId", ParentId ? ParentId : undefined);
           const response = await axios.post(
-            "http://localhost:2000/api/folder/create",
+            "https://jamblix.com/api/folder/create",
             formData
           );
           resolve(index, response.data);
@@ -310,6 +309,7 @@ function Collection() {
       }, 200); // Simulating a network delay
     });
   };
+
   const addFiles = async () => {
     setFileLoader(true);
     if (Object.keys(files).length === 0) {

@@ -428,8 +428,8 @@ function CreateResume() {
       const experience = parsedData["work experience"]
         ? parsedData["work experience"]
         : parsedData.work_experience
-        ? parsedData.work_experience
-        : [];
+          ? parsedData.work_experience
+          : [];
       const courses = parsedData.issuing_organization;
       setData({
         ...data,
@@ -513,7 +513,6 @@ function CreateResume() {
     if (userData) {
       if (userData.isEdit) {
         const parsedData = JSON.parse(userData.data);
-
         setData({ ...data, ...parsedData });
         setSelectedResumeIndex(parsedData.resumeTemplateIndex);
         setSelectedColor(parsedData.selectedColor);
@@ -536,8 +535,11 @@ function CreateResume() {
     setTimeout(() => setRender(true), 400);
   }, [data]);
 
+
+  
+
   return (
-    <div className="bg-[#F9F9F9]">
+    <div className="">
       <div className="  pt-2 customMargins ">
         <div className="flex flex-col gap-4 py-6 ">
           <div className="web">
@@ -613,7 +615,8 @@ function CreateResume() {
               </motion.div>
             </AnimatePresence>
           )}
-          <div className="mobile">
+          <div className="mobile ">
+            <div className="flex flex-col gap-6">
             <ResumePreview
               data={data}
               isSetEdit={isSetEdit}
@@ -628,6 +631,20 @@ function CreateResume() {
               render={render}
               clientId={clientId}
             />
+            <div className="mobile600">
+            <ResumeForm
+              data={data}
+              setData={setData}
+              selectedResumeIndex={selectedResumeIndex}
+              setSelectedResumeIndex={setSelectedResumeIndex}
+              setSelectedColor={setSelectedColor}
+              selectedColor={selectedColor}
+              setSelectedFont={setSelectedFont}
+              selectedFont={selectedFont}
+              template={templates}
+            />
+            </div>
+            </div>
           </div>
         </div>
       </div>

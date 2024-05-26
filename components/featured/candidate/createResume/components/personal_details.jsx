@@ -37,7 +37,17 @@ const PersonalDetails = ({
       item.dial_code.includes(searchTerm);
 
     const filteredCodes = telCode.filter(filterLogic);
-    setFilteredTelCode(filteredCodes);
+    const firstSixCodes = filteredCodes.slice(0, 6);
+    const remainingCodes = filteredCodes.slice(6);
+
+    const sortedRemainingCodes = remainingCodes.sort((a, b) => {
+      const numA = parseInt(a.dial_code.replace("+", ""), 10);
+      const numB = parseInt(b.dial_code.replace("+", ""), 10);
+      return numA - numB;
+    });
+
+    const combinedCodes = [...firstSixCodes, ...sortedRemainingCodes];
+    setFilteredTelCode(combinedCodes);
   }, [telCode, searchTerm]);
 
   const handleItemClick = (item) => {
@@ -212,12 +222,21 @@ const PersonalDetails = ({
       dial_code: dial_code ? dial_code : "+260",
     });
   }, [data]);
+
+  const customFilterOption = ({ label, value, data }, inputValue) => {
+    const lowercasedInput = inputValue.toLowerCase();
+    return (
+      data.code.toLowerCase().includes(lowercasedInput) ||
+      data.dial_code.includes(inputValue)
+    );
+  };
+
   return (
     <>
       <div
         className="flex flex-col sm:p-4 p-2 gap-2 rounded-lg bg-white"
         style={{
-          boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)",
+          // boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)",
           opacity: isChecked ? 1 : 0.5,
         }}
       >
@@ -277,7 +296,8 @@ const PersonalDetails = ({
                                   </span>
                                 </div>
                               )}
-                              getOptionValue={(option) => option.code}
+                              // getOptionValue={(option) => option.code}
+                              filterOption={customFilterOption}
                               styles={{
                                 control: (provided) => ({
                                   ...provided,
@@ -319,7 +339,11 @@ const PersonalDetails = ({
                     value={profileData[item.name]}
                     onChange={handleInputChange}
                     disabled={!isChecked}
-                    maxLength={item.name==="firstName" || item.name==="lastName"  ? 25 : 100}
+                    maxLength={
+                      item.name === "firstName" || item.name === "lastName"
+                        ? 25
+                        : 100
+                    }
                   />
                 </div>
               )}
@@ -340,7 +364,9 @@ const PersonalDetails = ({
               Update to Profile
             </button> */}
             <button
-              className=" font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px]  bg-[#06A9EF] w-[60px] h-[32px]"
+              className={`font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px] bg-[#06A9EF] w-[60px] h-[32px] ${
+                isChecked ? "btn_hover_effect" : ""
+              }`}
               style={{ opacity: isDisabled() ? 0.5 : 1 }}
               onClick={saveData}
               disabled={isDisabled() || !isChecked}

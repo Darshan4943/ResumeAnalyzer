@@ -2,6 +2,7 @@ import React, { useReducer, useState } from "react";
 import ExistingChat from "./existingChat";
 import ChatBox from "./chatBox";
 
+
 const messages = ["HIii", "HIii", "HIii", "HIii"];
 
 const features = [
@@ -44,7 +45,7 @@ const Index = () => {
             setSelectedChat={setSelectedChat}
             handleToggleSidebar={handleToggleSidebar}
           />
-        </div>
+          </div>
       </div>
     </>
   );

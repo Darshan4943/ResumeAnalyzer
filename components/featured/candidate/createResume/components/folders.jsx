@@ -75,7 +75,7 @@ function Folders({
       return;
     }
     axios
-      .post("http://localhost:2000/api/folder/delete", {
+      .post("https://jamblix.com/api/folder/delete", {
         ids,
         type: trash ? 2 : 1,
       })
@@ -96,7 +96,7 @@ function Folders({
       return;
     }
     axios
-      .post("http://localhost:2000/api/folder/restore", {
+      .post("https://jamblix.com/api/folder/restore", {
         ids,
         type: trash ? 2 : 1,
       })
@@ -141,7 +141,7 @@ function Folders({
     setSelectAll(!selectAll);
   };
 
-  const sort = ["A to Z", "Date Modified", "Size"];
+  const sort = ["A to Z", "Date Modified"];
 
   const sortClientData = (data, selectedIndex) => {
     console.log("dataTosortC", data);

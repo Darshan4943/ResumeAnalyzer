@@ -5,6 +5,8 @@ import { Assessmentlogo } from "../../../utils/svg";
 const QuestionList = ({ questions, answers, selectedSkill, checkAnswer }) => {
   const [data, setData] = useState([]);
 
+  console.log(8, questions);
+
   useEffect(() => {
     const updatedData = questions.map((questionItem, index) => ({
       ...questionItem,
@@ -14,7 +16,7 @@ const QuestionList = ({ questions, answers, selectedSkill, checkAnswer }) => {
   }, [questions, answers]);
 
   return (
-    <div className="w-[895px] p-6 flex flex-col gap-2  bg-watermark bg-cover bg-no-repeat">
+    <div className="w-[895px] p-6 flex flex-col gap-2  bg-watermark ">
       <div className="flex gap-4  justify-between">
         <img
           src="/images/logo_skilotech.png"
@@ -30,7 +32,7 @@ const QuestionList = ({ questions, answers, selectedSkill, checkAnswer }) => {
         </div>
         <div className="text-[18px]  font-[600] ">
           <span className=""> Score : </span>
-          {checkAnswer() } / {questions.length}{" "}
+          {checkAnswer()} / {questions.length}{" "}
         </div>
       </div>
       <div className="flex flex-col gap-2 ">

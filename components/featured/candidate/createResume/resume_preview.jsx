@@ -103,7 +103,7 @@ const ResumePreview = ({
     const id = clientId === "undefined" ? userDataGlobal?._id : clientId;
     if (id) {
       axios
-        .get(`http://localhost:2000/api/resume/${id}`)
+        .get(`https://jamblix.com/api/resume/${id}`)
 
         .then((res) => {
           // Remove .pdf extension from filenames
@@ -393,7 +393,7 @@ const ResumePreview = ({
         formData.append("pdfBlob", blob);
 
         axios
-          .put("http://localhost:2000/api/resume/" + id, formData)
+          .put("https://jamblix.com/api/resume/" + id, formData)
           .then((res) => {
             localStorage.setItem("saveCount", saveLimit - 1);
             getLimits();
@@ -447,7 +447,7 @@ const ResumePreview = ({
         }
 
         axios
-          .post("http://localhost:2000/api/resume/add", formData)
+          .post("https://jamblix.com/api/resume/add", formData)
           .then((res) => {
             const pdfUrl = res.data.data.resumeUrl;
 
@@ -488,7 +488,7 @@ const ResumePreview = ({
     setDownloadBtnLoading(true);
     axios
       .put(
-        "http://localhost:2000/api/subscription/updateDownloadLimit/" +
+        "https://jamblix.com/api/subscription/updateDownloadLimit/" +
           userDataGlobal._id
       )
       .then((res) => {
@@ -534,7 +534,7 @@ const ResumePreview = ({
         onClick={() => generatePDFBlob()}
         disabled={saveDisabled}
         style={{ opacity: saveDisabled ? "0.5" : 1 }}
-        className="flex gap-1 text-[14px] sm:w-[150px]  justify-center  font-montserrat font-semibold px-3 py-2 rounded-[8px] items-center border border-[#06A9EF] "
+        className=" hover:bg-[#06A9EF] hover:text-[white] flex gap-1 text-[14px] sm:w-[150px]  justify-center  font-montserrat font-semibold px-3 py-2 rounded-[8px] items-center border border-[#06A9EF] "
       >
         {loading ? (
           <svg
@@ -567,13 +567,13 @@ const ResumePreview = ({
           onClick={() => saveResume(blob, true)}
           disabled={saveDisabled}
           style={{ opacity: saveDisabled ? "0.5" : 1 }}
-          className="flex gap-1 text-[14px] w-fit  justify-center  font-montserrat font-semibold px-3 py-2 rounded-[8px] items-center border border-[#06A9EF] "
+          className=" hover:bg-[#06A9EF] hover-svg-white hover:text-[white] flex gap-1 text-[14px] w-fit  justify-center  font-montserrat font-semibold px-3 py-2 rounded-[8px] items-center border border-[#06A9EF] "
         >
           {loading ? (
             <svg
               aria-hidden="true"
               role="status"
-              className="inline w-4 h-4 me-3  animate-spin"
+              className="inline w-4 h-4 me-3  animate-spin "
               viewBox="0 0 100 101"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -589,6 +589,7 @@ const ResumePreview = ({
             </svg>
           ) : (
             <svg
+              className=""
               width="20"
               height="20"
               viewBox="0 0 20 20"
@@ -625,14 +626,15 @@ const ResumePreview = ({
         }}
       >
         <div className="" ref={resumeRef}>
-          <div className="flex justify-between flex-wrap scr1024:gap-4 gap-2 ">
+          <div className="flex justify-between  scr1024:gap-4 gap-2 ">
             <div className="flex items-center justify-between ml:w-[58%] w-full gap-4 ">
               <div
-                className=" text-[20px] font-montserrat font-medium flex gap-3 items-center cursor-pointer "
+                className=" text-[20px] font-montserrat font-medium flex gap-3 items-start cursor-pointer "
                 onClick={() => setNamePreview(true)}
               >
                 <p>{name}</p>
                 <svg
+                  className="mt-2"
                   xmlns="http://www.w3.org/2000/svg"
                   width="21"
                   height="20"
@@ -647,21 +649,14 @@ const ResumePreview = ({
                   </g>
                 </svg>
               </div>
-              {selectedResumeIndex !== undefined && (
-                // <BlobProvider document={<MyComponent />}>
-                //   {({ blob, url, loading, error }) => (
-                <SaveBTN loading={loading} />
-                //   )}
-                // </BlobProvider>
-              )}
             </div>
             <div className="flex sm:gap-[16px] scr1024:gap-2 gap-2 items-center justify-end ml:w-[32%] w-full">
               {selectedResumeIndex !== undefined && (
                 <>
-                  <div className="mobile">
-                    <div className="flex gap-2 scr420:gap-[16px] justify-between ">
+                  <div className="mobile ">
+                    <div className="ms:flex gap-2 scr420:gap-[16px] justify-between hidden ">
                       <button
-                        className=" text-[12px] flex gap-1 items-center justify-between text-[#333] font-montserrat font-semibold px-2 py-2 rounded-[8px] border border-[#06A9EF]"
+                        className="hover:bg-[#06A9EF] hover-svg-white hover:text-[white] text-[12px] flex gap-1 items-center justify-between text-[#333] font-montserrat font-semibold px-2 py-2 rounded-[8px] border border-[#06A9EF]"
                         onClick={() => isSetEdit(true)}
                       >
                         <svg
@@ -682,42 +677,23 @@ const ResumePreview = ({
                       </button>
                     </div>
                   </div>
+                  {selectedResumeIndex !== undefined && (
+                    // <BlobProvider document={<MyComponent />}>
+                    //   {({ blob, url, loading, error }) => (
+                    <SaveBTN loading={loading} />
+                    //   )}
+                    // </BlobProvider>
+                  )}
                   <DownloadButton />
                 </>
               )}
-
-              {/* <button
-                onClick={() => setPreview(true)}
-                className="flex gap-1 text-[14px] w-fit justify-center  font-montserrat font-semibold px-3 py-2 rounded-[8px] items-center border border-[#06A9EF] b"
-              >
-                <svg
-                  width="20"
-                  height="20"
-                  viewBox="0 0 410 410"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M161.051 248.95C157.057 244.957 150.565 244.957 146.571 248.95L82.1206 313.401V256.2C82.1206 250.548 77.5331 245.96 71.8806 245.96C66.2281 245.96 61.6406 250.548 61.6406 256.2V338.12C61.6406 339.451 61.9069 340.783 62.4393 342.032C63.4633 344.53 65.4704 346.537 67.9894 347.582C69.2182 348.073 70.5494 348.36 71.8806 348.36H153.801C159.453 348.36 164.041 343.773 164.041 338.12C164.041 332.468 159.453 327.88 153.801 327.88H96.6L161.03 263.45C165.044 259.436 165.044 252.964 161.051 248.95Z"
-                    fill="#333333"
-                  />
-                  <path
-                    d="M342.032 62.4189C340.782 61.9273 339.451 61.6406 338.12 61.6406H256.2C250.547 61.6406 245.96 66.2281 245.96 71.8806C245.96 77.5331 250.547 82.1206 256.2 82.1206H313.401L248.971 146.551C244.977 150.544 244.977 157.036 248.971 161.03C250.957 163.037 253.579 164.041 256.2 164.041C258.821 164.041 261.443 163.037 263.45 161.051L327.88 96.6V153.801C327.88 159.453 332.467 164.041 338.12 164.041C343.772 164.041 348.36 159.453 348.36 153.801V71.8806C348.36 70.5494 348.094 69.2182 347.561 67.9689C346.537 65.4704 344.53 63.4633 342.032 62.4189Z"
-                    fill="#333333"
-                  />
-                  <path
-                    d="M358.6 0.200195H51.4002C23.1788 0.200195 0.200195 23.1583 0.200195 51.4002V358.6C0.200195 386.842 23.1788 409.8 51.4002 409.8H358.6C386.822 409.8 409.8 386.842 409.8 358.6V51.4002C409.8 23.1583 386.822 0.200195 358.6 0.200195ZM389.32 358.6C389.32 375.537 375.537 389.32 358.6 389.32H51.4002C34.4632 389.32 20.6802 375.537 20.6802 358.6V51.4002C20.6802 34.4632 34.4632 20.6802 51.4002 20.6802H358.6C375.537 20.6802 389.32 34.4632 389.32 51.4002V358.6Z"
-                    fill="#333333"
-                  />
-                </svg>
-              </button> */}
             </div>
           </div>
         </div>
 
         {selectedResumeIndex !== undefined && (
           <div
-            className=" w-full flex items-center justify-center  bg-[#525659] py-[24px] rounded-[8px] min-h-[700px] relative  "
+            className=" w-full ms:flex items-center justify-center  bg-[#525659] py-[24px] rounded-[8px] min-h-[700px] relative hidden "
             style={{
               transformOrigin: "top left",
             }}

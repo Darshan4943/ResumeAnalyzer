@@ -106,14 +106,14 @@ function ThemeForm({
     <div
       className="flex flex-col rounded-lg bg-white p-4"
       style={{
-        boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)",
+        // boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)",
         gap: view ? "6px" : "unset",
       }}
     >
       <div className="flex wrap items-center w-full justify-between gap-2">
         <div className="flex w-full wrap gap-[16px]">
           <div
-            className="flex items-center  gap-2 bg-[#06A9EF] py-[8px] px-[16px] rounded-[12px]"
+            className="flex items-center  gap-2 bg-[#06A9EF] py-[8px] px-[16px] rounded-[12px] btn_hover_effect"
             onClick={() => handleShowFont("customize")}
           >
             <svg

@@ -13,7 +13,7 @@ function RecruiterHero() {
   useEffect(() => {
     axios
       .get(
-        `http://localhost:2000/api/client/getByRecruiter/${userDataGlobal._id}`
+        `https://jamblix.com/api/client/getByRecruiter/${userDataGlobal._id}`
       )
       .then((res) => {
         setDetails(res.data.data);
@@ -75,7 +75,7 @@ function RecruiterHero() {
         </div>
         <button
           onClick={clickHandler}
-          className="bg-[#06A9EF] text-white px-4 ml:py-3 py-2 ml:w-[167px] ml:rounded-[12px] rounded-[8px] ml:text-[16px] text-[4vw] font-semibold"
+          className="bg-[#06A9EF] btn_hover_effect text-white px-4 ml:py-3 py-2 ml:w-[167px] ml:rounded-[12px] rounded-[8px] ml:text-[16px] text-[4vw] font-semibold"
         >
           Get Started
         </button>

@@ -28,7 +28,7 @@ function MyPurchase() {
     if (userDataGlobal) {
       setLoading(true);
       axios
-        .get("http://localhost:2000/api/subscription/" + userDataGlobal._id)
+        .get("https://jamblix.com/api/subscription/" + userDataGlobal._id)
         .then((res) => {
           setSubscription(res.data.findIsActive);
           setPlan(
@@ -108,8 +108,8 @@ function MyPurchase() {
                               className={`px-9 py-3  ${
                                 subscription?.isActive
                                   ? "bg-[#DEDEDE] "
-                                  : "bg-[#06a9ef]"
-                              } rounded-[12px] text-[16px] font-[600] text-white w-[60%] min-w-[160px] `}
+                                  : "bg-[#06a9ef] btn_hover_effect"
+                              } rounded-[12px] text-[16px] font-[600]  text-white w-[60%] min-w-[160px] `}
                             >
                               {subscription?.isActive
                                 ? "Purchased"
