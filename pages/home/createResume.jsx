@@ -613,7 +613,7 @@ function CreateResume() {
               </motion.div>
             </AnimatePresence>
           )}
-          <div className="mobile">
+          <div className="mobile ">
             <ResumePreview
               data={data}
               isSetEdit={isSetEdit}
