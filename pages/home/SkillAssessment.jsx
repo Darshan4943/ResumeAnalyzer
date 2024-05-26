@@ -103,7 +103,7 @@ function SkillAssessment() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:2000/api/allSkills")
+      .get("https://jamblix.com/api/allSkills")
       .then((res) => {
         const names = res.data.map((skill) => skill.name);
 
@@ -120,7 +120,7 @@ function SkillAssessment() {
     );
     if (!found) {
       try {
-        const response = await fetch("http://localhost:2000/api/skills", {
+        const response = await fetch("https://jamblix.com/api/skills", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -200,7 +200,7 @@ function SkillAssessment() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:2000/api/resume/" + userDataGlobal?._id)
+      .get("https://jamblix.com/api/resume/" + userDataGlobal?._id)
       .then((res) => {
         setData(res.data.data);
       })
@@ -279,7 +279,7 @@ function SkillAssessment() {
           : uniqueQuestions.length < 60
       ) {
         axios
-          .post("http://localhost:2000/api/getQuetions", {
+          .post("https://jamblix.com/api/getQuetions", {
             skill: selectedSkill,
             level: level,
           })
@@ -360,7 +360,7 @@ function SkillAssessment() {
 
     if (assesmentType === "Normal" ? questionIndex == 9 : questionIndex == 59) {
       axios
-        .post("http://localhost:2000/api/assessment/add", {
+        .post("https://jamblix.com/api/assessment/add", {
           userId: userDataGlobal._id,
           skill: selectedSkill,
           score: checkAnswer(),
@@ -427,7 +427,7 @@ function SkillAssessment() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:2000/api/assessment/getByUser/${userDataGlobal._id}`)
+      .get(`https://jamblix.com/api/assessment/getByUser/${userDataGlobal._id}`)
       .then((res) => {
         setAssessmentList(res.data.data);
       })
@@ -1266,7 +1266,7 @@ function SkillAssessment() {
           //           if (questionIndex == 9) {
           //             axios
           //               .post(
-          //                 "http://localhost:2000/api/assessment/add",
+          //                 "https://jamblix.com/api/assessment/add",
           //                 {
           //                   userId: userDataGlobal._id,
           //                   skill: selectedSkill,
@@ -1432,7 +1432,7 @@ function SkillAssessment() {
                     //   if (questionIndex == 9) {
                     //     axios
                     //       .post(
-                    //         "http://localhost:2000/api/assessment/add",
+                    //         "https://jamblix.com/api/assessment/add",
                     //         {
                     //           userId: userDataGlobal._id,
                     //           skill: selectedSkill,

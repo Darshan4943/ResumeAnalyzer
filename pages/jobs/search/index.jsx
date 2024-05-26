@@ -19,7 +19,7 @@ const Index = () => {
   const fetchData = () => {
     setLoading(true);
     axios
-      .post("http://localhost:2000/api/job/search", {
+      .post("https://jamblix.com/api/job/search", {
         ...selected,
         resumeCount,
         threshold,
