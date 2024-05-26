@@ -96,6 +96,11 @@ function Recruiter_signup({}) {
     }
   }, []);
 
+  function validatePassword(password) {
+    const strongPasswordRegex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    return strongPasswordRegex.test(password);
+  }
   const isViewportBelow850 = useMediaQuery("(max-width:850px)");
   const [formError, setFormError] = useState({});
   const validateInput = (fieldName, value) => {
@@ -156,6 +161,11 @@ function Recruiter_signup({}) {
             errors.password = "Password must be at least 6 characters long";
           } else {
             delete errors.password;
+          }
+          if (validatePassword(value)) {
+          } else {
+            errors.password =
+              "Password should include one uppercase one lowercase one number and one special character";
           }
           if (!value.trim() || value.trim() != data.confirmPassword) {
             errors.confirmPassword = "Password do not match";
@@ -241,7 +251,6 @@ function Recruiter_signup({}) {
       "email",
       "currentLocation",
       "mobileNo",
-      "img",
     ];
     const emptyFields = requiredFields.filter((field) => !data[field]);
     if (emptyFields.length > 0) {
@@ -265,6 +274,7 @@ function Recruiter_signup({}) {
       // setLoading(true);
       const formdata = new FormData();
       Object.keys(data).forEach((key) => {
+        console.log(277, data, key);
         if (key == "email") {
           formdata.append(key, data[key].toLowerCase());
         } else if (key == "currentLocation") {
@@ -273,6 +283,8 @@ function Recruiter_signup({}) {
           formdata.append(key, data[key]);
         }
       });
+
+      console.log(287, formdata, data);
       if (isUpdate) {
         formdata.append("role", userDataGlobal?.role);
       }
@@ -461,6 +473,7 @@ function Recruiter_signup({}) {
                               fill="#D4E5EF"
                             />
                           </svg>
+                          // <img src="/images/empty.png" />
                         )}
 
                         <div className="flex flex-col gap-3 w-[168px] text-center items-center ">
@@ -555,11 +568,13 @@ function Recruiter_signup({}) {
                             isViewportBelow850 ? "w-[65%] " : "w-[40%] "
                           } items-center`}
                         >
-                          <div onWheel={(e) => e.stopPropagation()} className="  w-[100%] text-[14px] justify-center items-center  flex font-[500] text-[#646464]">
+                          <div
+                            onWheel={(e) => e.stopPropagation()}
+                            className="  w-[100%] text-[14px] justify-center items-center  flex font-[500] text-[#646464]"
+                          >
                             <div className="flex items-center justify-center gap-2 cursor-pointer min-w-[140px] w-[100%]">
                               <div className="flex items-center  gap-1 cursor-pointer  w-[100%] ">
                                 <ReactSelect
-                                
                                   options={filteredTelCode}
                                   className="w-[100%] flex  items-center py-1  rounded-[8px]"
                                   name=""
@@ -584,9 +599,19 @@ function Recruiter_signup({}) {
                                       ...provided,
                                       border: "none",
 
-                                      minWidth: "130px",
+                                      minWidth: "120px",
+                                      outline: "none",
                                     }),
                                   }}
+                                  theme={(theme) => ({
+                                    ...theme,
+                                    borderRadius: 0,
+                                    colors: {
+                                      ...theme.colors,
+                                      // primary25: 'hotpink',
+                                      primary: "neutral0",
+                                    },
+                                  })}
                                 />
                               </div>
                             </div>
@@ -688,7 +713,7 @@ function Recruiter_signup({}) {
                               type="text"
                               name=""
                               id="single_input"
-                              placeholder="Enter Otp"
+                              placeholder="Enter OTP"
                               className="border border-[#DEDEDE] rounded-[8px] px-4 py-3 w-[50%] leading-tight"
                               onChange={(e) =>
                                 setOtpEntered(parseInt(e.target.value))

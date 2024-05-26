@@ -572,7 +572,7 @@ const ResumePreview = ({
           {loading ? (
             <svg
               aria-hidden="true"
-              role="status" 
+              role="status"
               className="inline w-4 h-4 me-3  animate-spin "
               viewBox="0 0 100 101"
               fill="none"
@@ -589,7 +589,7 @@ const ResumePreview = ({
             </svg>
           ) : (
             <svg
-            className=""
+              className=""
               width="20"
               height="20"
               viewBox="0 0 20 20"
@@ -633,7 +633,8 @@ const ResumePreview = ({
                 onClick={() => setNamePreview(true)}
               >
                 <p>{name}</p>
-                <svg className="mt-2"
+                <svg
+                  className="mt-2"
                   xmlns="http://www.w3.org/2000/svg"
                   width="21"
                   height="20"
@@ -648,7 +649,6 @@ const ResumePreview = ({
                   </g>
                 </svg>
               </div>
-              
             </div>
             <div className="flex sm:gap-[16px] scr1024:gap-2 gap-2 items-center justify-end ml:w-[32%] w-full">
               {selectedResumeIndex !== undefined && (
@@ -678,17 +678,15 @@ const ResumePreview = ({
                     </div>
                   </div>
                   {selectedResumeIndex !== undefined && (
-                // <BlobProvider document={<MyComponent />}>
-                //   {({ blob, url, loading, error }) => (
-                <SaveBTN loading={loading} />
-                //   )}
-                // </BlobProvider>
-              )}
+                    // <BlobProvider document={<MyComponent />}>
+                    //   {({ blob, url, loading, error }) => (
+                    <SaveBTN loading={loading} />
+                    //   )}
+                    // </BlobProvider>
+                  )}
                   <DownloadButton />
                 </>
               )}
-
-             
             </div>
           </div>
         </div>

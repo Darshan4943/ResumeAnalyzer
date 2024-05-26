@@ -141,7 +141,7 @@ function Folders({
     setSelectAll(!selectAll);
   };
 
-  const sort = ["A to Z", "Date Modified", "Size"];
+  const sort = ["A to Z", "Date Modified"];
 
   const sortClientData = (data, selectedIndex) => {
     console.log("dataTosortC", data);

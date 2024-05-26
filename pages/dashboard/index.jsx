@@ -394,20 +394,20 @@ function Dashboard() {
                 {templates.find(
                   (item) => item.index === data.selectedResumeIndex
                 ) && (
-                    <img
-                      src={
-                        templates.find(
-                          (item) => item.index === data.selectedResumeIndex
-                        ).imgUrl
-                      }
-                      style={{
-                        height: "100%",
-                        width: "90%",
-                        objectFit: "cover",
-                      }}
-                      alt={`Resume template ${data.selectedResumeIndex}`} // Adding an alt attribute for accessibility
-                    />
-                  )}
+                  <img
+                    src={
+                      templates.find(
+                        (item) => item.index === data.selectedResumeIndex
+                      ).imgUrl
+                    }
+                    style={{
+                      height: "100%",
+                      width: "90%",
+                      objectFit: "cover",
+                    }}
+                    alt={`Resume template ${data.selectedResumeIndex}`} // Adding an alt attribute for accessibility
+                  />
+                )}
               </div>
 
               <div className="w-[40%] flex flex-col gap-4 min-w-[160px]">

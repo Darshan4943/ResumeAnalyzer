@@ -356,7 +356,7 @@ const Skills = ({ data, setData }) => {
               onClick={saveHandler}
               disabled={saveDisabled}
               className={`font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px] bg-[#06A9EF] w-[60px] h-[32px] ${
-                !saveDisabled ? 'btn_hover_effect' : ""
+                !saveDisabled ? "btn_hover_effect" : ""
               }`}
             >
               Save
