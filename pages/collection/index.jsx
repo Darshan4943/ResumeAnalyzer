@@ -99,7 +99,6 @@ function Collection() {
       .get(`http://localhost:2000/api/folder/getByParentId/${parentId}`)
       .then((res) => {
         setFolderList(res.data.data);
-        console.log("parentData", res.data.data);
         setTimeout(() => {
           setLoading(false);
         }, 1000);
@@ -310,6 +309,7 @@ function Collection() {
       }, 200); // Simulating a network delay
     });
   };
+
   const addFiles = async () => {
     setFileLoader(true);
     if (Object.keys(files).length === 0) {

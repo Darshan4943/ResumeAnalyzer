@@ -513,7 +513,6 @@ function CreateResume() {
     if (userData) {
       if (userData.isEdit) {
         const parsedData = JSON.parse(userData.data);
-
         setData({ ...data, ...parsedData });
         setSelectedResumeIndex(parsedData.resumeTemplateIndex);
         setSelectedColor(parsedData.selectedColor);
