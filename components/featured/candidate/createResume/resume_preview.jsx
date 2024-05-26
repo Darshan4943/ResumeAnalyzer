@@ -90,14 +90,14 @@ const ResumePreview = ({
     getLimits();
   }, []);
 
-  // useEffect(() => {
-  //   setResumeLoading(true);
-  //   const timer = setTimeout(() => {
-  //     setResumeLoading(false);
-  //   }, 2000);
+  useEffect(() => {
+    setResumeLoading(true);
+    const timer = setTimeout(() => {
+      setResumeLoading(false);
+    }, 1000);
 
-  //   return () => clearTimeout(timer);
-  // }, [data, selectedFont, selectedColor]);
+    return () => clearTimeout(timer);
+  }, [data, selectedFont, selectedColor]);
 
   const callData = () => {
     const id = clientId === "undefined" ? userDataGlobal?._id : clientId;
@@ -708,7 +708,7 @@ const ResumePreview = ({
               <MyComponent />
             </PDFViewer>
 
-            {/* )} */}
+            {/* )}  */}
             {resumeLoading && (
               <div
                 className=" absolute w-[90%] flex items-center justify-center bg-white py-[24px] rounded-[8px] min-h-[900px]  "

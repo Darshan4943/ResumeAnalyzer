@@ -31,17 +31,24 @@ function Services({ isServices, isMove, setIsMove }) {
       desc: "Save multiple resumes with multiple folders in cloud storage.",
       color: "#00D2EF",
     },
-    {
-      name: "Transform CV",
-      imgSrc: "/images/resumeBuilder/transform_cv.png",
-      desc: "Modify CV with AI to match any job description & get shortlisted.",
-      color: "#428FF5",
-    },
+    // {
+    //   name: "Transform CV",
+    //   imgSrc: "/images/resumeBuilder/transform_cv.png",
+    //   desc: "Modify CV with AI to match any job description & get shortlisted.",
+    //   color: "#428FF5",
+    // },
     {
       name: "Skill Assessments",
       imgSrc: "/images/resumeBuilder/skill_assessments.png",
       desc: "Test your skills and improve knowledge to crack job interviews.",
       color: "#FE7701",
+    },
+    {
+      name: "Chat Bot",
+      imgSrc: "/images/resumeBuilder/bot1.png",
+      desc: "Save multiple resumes with multiple clients in cloud storage.",
+      color: "#7994D8",
+      new: "New",
     },
     // {
     //   name: "My Purchases",
@@ -71,12 +78,12 @@ function Services({ isServices, isMove, setIsMove }) {
       desc: "Business empowerment through customized care & strategy.",
       color: "#FE7701",
     },
-    {
-      name: "Transform CV",
-      imgSrc: "/images/resumeBuilder/transform_cv.png",
-      desc: "Modify CV with AI to match any job description & get shortlisted.",
-      color: "#428FF5",
-    },
+    // {
+    //   name: "Transform CV",
+    //   imgSrc: "/images/resumeBuilder/transform_cv.png",
+    //   desc: "Modify CV with AI to match any job description & get shortlisted.",
+    //   color: "#428FF5",
+    // },
     {
       name: "Job Description Matching",
       imgSrc: "/images/resumeBuilder/job_description_matching.png",
@@ -88,6 +95,13 @@ function Services({ isServices, isMove, setIsMove }) {
       imgSrc: "/images/resumeBuilder/collection.png",
       desc: "Save multiple resumes with multiple clients in cloud storage.",
       color: "#45ABA0",
+    },
+    {
+      name: "Chat Bot",
+      imgSrc: "/images/resumeBuilder/bot1.png",
+      desc: "Save multiple resumes with multiple clients in cloud storage.",
+      color: "#7994D8",
+      new: "New",
     },
     // {
     //   name: "My Purchases",
@@ -139,6 +153,8 @@ function Services({ isServices, isMove, setIsMove }) {
         return "searchJobs";
       case "Post Jobs":
         return "postJobs";
+        case "Chat Bot":
+        return "chatBot";
       default:
         return "";
     }
@@ -174,6 +190,9 @@ function Services({ isServices, isMove, setIsMove }) {
       case "Skill Assessments":
         handleNavigation("/home/SkillAssessment");
         break;
+        case "Chat Bot":
+          handleNavigation("/chatbot");
+          break;
       case "Search Jobs":
       case "Post Jobs":
         handleNavigation(
