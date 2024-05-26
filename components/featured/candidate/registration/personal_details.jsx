@@ -1,4 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";useMediaQuery
+import React, { useEffect, useRef, useState } from "react";
+useMediaQuery;
 import { motion } from "framer-motion";
 
 import { toast } from "react-toastify";
@@ -21,9 +22,8 @@ const PersonalDetails = ({
   file,
   error,
   setError,
-  isResume
+  isResume,
 }) => {
-
   const router = useRouter();
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
@@ -95,7 +95,7 @@ const PersonalDetails = ({
 
     return errors;
   };
- 
+
   const handleInputChange = (fieldName, value) => {
     console.log(value.replace(/\D/g, "").length <= 10);
     if (fieldName == "mobileNo") {
@@ -272,13 +272,15 @@ const PersonalDetails = ({
                         Contact Number <span className="star">*</span>
                       </p>
                       <div
-                        className={`flex w-[100%] items-start ${isViewportBelow850 ? "gap-[4px] " : "gap-[16px] "
-                          }`}
+                        className={`flex w-[100%] items-start ${
+                          isViewportBelow850 ? "gap-[4px] " : "gap-[16px] "
+                        }`}
                         id="single_input"
                       >
                         <div
-                          className={`relative min-w-[150px] ${isViewportBelow850 ? "w-[65%] " : "w-[40%] "
-                            } items-center`}
+                          className={`relative min-w-[150px] ${
+                            isViewportBelow850 ? "w-[65%] " : "w-[40%] "
+                          } items-center`}
                         >
                           <div
                             className="  w-[100%] text-[14px] justify-center items-center  flex font-[500] text-[#646464]"
@@ -289,9 +291,7 @@ const PersonalDetails = ({
                                 className="flex items-center  gap-1 cursor-pointer  w-[100%] "
                                 onClick={handleInputClick}
                               >
-
                                 <ReactSelect
-
                                   options={filteredTelCode}
                                   className="w-[100%] flex  items-center py-1  rounded-[8px]"
                                   name=""
@@ -304,20 +304,30 @@ const PersonalDetails = ({
                                         src={`https://hatscripts.github.io/circle-flags/flags/${option.code.toLowerCase()}.svg`}
                                         width="20px"
                                       />
-                                      <span className="ml-2">{option.code} {option.dial_code}</span>
+                                      <span className="ml-2">
+                                        {option.code} {option.dial_code}
+                                      </span>
                                     </div>
                                   )}
                                   getOptionValue={(option) => option.code}
                                   styles={{
                                     control: (provided) => ({
                                       ...provided,
-                                      border: 'none',
+                                      border: "none",
 
-                                      minWidth: "130px"
+                                      minWidth: "130px",
                                     }),
                                   }}
+                                  theme={(theme) => ({
+                                    ...theme,
+                                    borderRadius: 0,
+                                    colors: {
+                                      ...theme.colors,
+                                      // primary25: "hotpink",
+                                      primary: "neutral0",
+                                    },
+                                  })}
                                 />
-
                               </div>
                             </div>
                           </div>
@@ -328,10 +338,11 @@ const PersonalDetails = ({
                           type="text"
                           name=""
                           // id="single_input"
-                          placeholder={`${isViewportBelow850
+                          placeholder={`${
+                            isViewportBelow850
                               ? "Enter Number "
                               : "Enter Contact Number "
-                            }`}
+                          }`}
                           value={data.mobileNo}
                           onChange={(e) =>
                             handleInputChange("mobileNo", e.target.value)
@@ -383,8 +394,9 @@ const PersonalDetails = ({
                       </p>
                       <div className="gender_button">
                         <button
-                          className={`gen_button ${data.gender == "male" && "gen_button_active"
-                            }`}
+                          className={`gen_button ${
+                            data.gender == "male" && "gen_button_active"
+                          }`}
                           onClick={(e) => {
                             e.preventDefault();
                             setData({ ...data, gender: "male" });
@@ -393,8 +405,9 @@ const PersonalDetails = ({
                           Male
                         </button>
                         <button
-                          className={`gen_button ${data.gender == "female" && "gen_button_active"
-                            }`}
+                          className={`gen_button ${
+                            data.gender == "female" && "gen_button_active"
+                          }`}
                           onClick={(e) => {
                             e.preventDefault();
                             setData({ ...data, gender: "female" });
@@ -403,8 +416,9 @@ const PersonalDetails = ({
                           Female
                         </button>
                         <button
-                          className={`gen_button ${data.gender == "other" && "gen_button_active"
-                            }`}
+                          className={`gen_button ${
+                            data.gender == "other" && "gen_button_active"
+                          }`}
                           onClick={(e) => {
                             e.preventDefault();
                             setData({ ...data, gender: "other" });
@@ -422,9 +436,10 @@ const PersonalDetails = ({
                         </p>
                         <div className="gender_button">
                           <button
-                            className={`gen_button ${data.workStatus == "Experienced" &&
+                            className={`gen_button ${
+                              data.workStatus == "Experienced" &&
                               "gen_button_active"
-                              }`}
+                            }`}
                             onClick={(e) => {
                               e.preventDefault();
                               setData({
@@ -436,9 +451,10 @@ const PersonalDetails = ({
                             Experienced
                           </button>
                           <button
-                            className={`gen_button ${data.workStatus == "Fresher" &&
+                            className={`gen_button ${
+                              data.workStatus == "Fresher" &&
                               "gen_button_active"
-                              }`}
+                            }`}
                             onClick={(e) => {
                               e.preventDefault();
                               setData({
@@ -462,12 +478,10 @@ const PersonalDetails = ({
                         if (isResume) {
                           setTabIndex(1);
                           window.scroll(0, 0);
-                           
                         } else {
                           router.push("/home/BuildResume");
                         }
-                    }}
-                    
+                      }}
                     >
                       Go Back
                     </button>
@@ -482,7 +496,6 @@ const PersonalDetails = ({
                 </>
               </form>
             </motion.div>
-
           </div>
         </div>
       )}

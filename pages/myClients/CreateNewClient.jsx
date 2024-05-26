@@ -235,7 +235,6 @@ function CreateNewClient({ setTabIndex }) {
   const [searchTerm, setSearchTerm] = useState("");
 
   const handleItemClick = (item) => {
-    
     setSelectedItem(item);
     setData({ ...data, dial_code: item.dial_code });
     setSearchTerm("");
@@ -481,6 +480,15 @@ function CreateNewClient({ setTabIndex }) {
                                             minWidth: "130px",
                                           }),
                                         }}
+                                        theme={(theme) => ({
+                                          ...theme,
+                                          borderRadius: 0,
+                                          colors: {
+                                            ...theme.colors,
+                                            // primary25: 'hotpink',
+                                            primary: "neutral0",
+                                          },
+                                        })}
                                       />
                                     </div>
                                   </div>

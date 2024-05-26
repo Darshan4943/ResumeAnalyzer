@@ -13,7 +13,7 @@ function Sign_in({ googleLoading, handleGoogle, setSignIn, setSignUp }) {
   const sendToPurchase = JSON.parse(localStorage.getItem("purchase"));
   const [loading, setLoading] = useState(false);
   const [isEmailEntered, setIsEmailEntered] = useState(false);
-  const [successful,setSuccessful] = useState(false)
+  const [successful, setSuccessful] = useState(false);
   const taskRef = useRef(null);
 
   const handleOutsideClick = (event) => {
@@ -69,7 +69,7 @@ function Sign_in({ googleLoading, handleGoogle, setSignIn, setSignUp }) {
           } else {
             setTimeout(() => {
               setLoading(false);
-              setSuccessful(true)
+              setSuccessful(true);
               window.location.href = "/home";
             }, 1000);
           }

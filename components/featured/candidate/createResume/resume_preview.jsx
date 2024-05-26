@@ -572,7 +572,7 @@ const ResumePreview = ({
           {loading ? (
             <svg
               aria-hidden="true"
-              role="status" 
+              role="status"
               className="inline w-4 h-4 me-3  animate-spin "
               viewBox="0 0 100 101"
               fill="none"
@@ -589,7 +589,7 @@ const ResumePreview = ({
             </svg>
           ) : (
             <svg
-            className=""
+              className=""
               width="20"
               height="20"
               viewBox="0 0 20 20"
