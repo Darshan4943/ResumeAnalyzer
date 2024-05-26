@@ -50,7 +50,7 @@ function Sign_in({ googleLoading, handleGoogle, setSignIn, setSignUp }) {
       password: data.password,
     };
     axios
-      .post("http://localhost:2000/api/skiloteckuser/signin", dataToSend)
+      .post("https://jamblix.com/api/skiloteckuser/signin", dataToSend)
       .then((res) => {
         try {
           const response = res.data;
