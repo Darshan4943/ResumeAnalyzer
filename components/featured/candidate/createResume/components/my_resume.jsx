@@ -155,7 +155,7 @@ const ResumeList = ({ data, setData }) => {
       </div> */}
       <div
         className="flex flex-col gap-4 p-4 bg-white rounded-lg"
-        style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}
+        // style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}
       >
         <p className="text-[20px] font-medium">Upload Photo</p>
         <div className="flex sm:flex-row ml:flex-col xxlg:flex-row  flex-col gap-4 items-center justify-center">

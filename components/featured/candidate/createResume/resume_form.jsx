@@ -27,7 +27,6 @@ const ResumeForm = ({
   selectedFont,
   template,
 }) => {
-
   const [formField, setFormField] = useState([]);
   const [view, setView] = useState(false);
   useEffect(() => {
@@ -135,7 +134,6 @@ const ResumeForm = ({
           </div>
         )}
 
-        <ResumeList setData={setData} data={data} />
         <ThemeForm
           selectedResumeIndex={selectedResumeIndex}
           selectedColor={selectedColor}
@@ -143,6 +141,11 @@ const ResumeForm = ({
           setSelectedFont={setSelectedFont}
           selectedFont={selectedFont}
         />
+        <div className="border-b border-r border-l border-[#DEDEDE] shadow-custom"></div>
+
+        <ResumeList setData={setData} data={data} />
+        <div className="border-b border-r border-l border-[#DEDEDE]"></div>
+
         <PersonalDetails
           setData={setData}
           data={data}
@@ -150,13 +153,19 @@ const ResumeForm = ({
           selectedColor={selectedColor}
           selectedFont={selectedFont}
         />
+        <div className="border-b border-r border-l border-[#DEDEDE]"></div>
+
         <AboutMe setData={setData} data={data} />
+        <div className="border-b border-r border-l border-[#DEDEDE]"></div>
         <Education setData={setData} data={data} />
+        <div className="border-b border-r border-l border-[#DEDEDE]"></div>
         <Experience setData={setData} data={data} />
 
         <Course setData={setData} data={data} />
+        <div className="border-b border-r border-l border-[#DEDEDE]"></div>
 
         <Skills setData={setData} data={data} />
+        <div className="border-b border-r border-l border-[#DEDEDE]"></div>
 
         {/* <Achievement setData={setData} data={data} /> */}
 
@@ -166,6 +175,7 @@ const ResumeForm = ({
         {formField?.includes("hobbies") && (
           <Hobbie setData={setData} data={data} />
         )}
+        <div className="border-b border-r border-l border-[#DEDEDE]"></div>
         {formField?.includes("language") && (
           <Languages setData={setData} data={data} />
         )}
@@ -185,6 +195,7 @@ const ResumeForm = ({
             ))}
           </>
         )}
+        <div className="border-b border-r border-l border-[#DEDEDE]"></div>
         <div className="flex items-center gap-2 justify-end">
           <div
             onClick={() => {
