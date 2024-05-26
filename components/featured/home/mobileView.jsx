@@ -136,7 +136,7 @@ const MobileView = ({ clickHandler, isLogin ,isSubscribe,setIsSubcrib}) => {
             </div>
             <button
               onClick={clickHandler}
-              className="px-6 py-3 bg-[#06A9EF] text-white rounded-[12px] text-[14px] font-semibold"
+              className="px-6 py-3 bg-[#06A9EF] text-white rounded-[12px] text-[14px] font-semibold btn_hover_effect"
               style={{ width: "fit-content" }}
             >
               Build My Resume

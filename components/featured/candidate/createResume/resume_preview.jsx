@@ -534,7 +534,7 @@ const ResumePreview = ({
         onClick={() => generatePDFBlob()}
         disabled={saveDisabled}
         style={{ opacity: saveDisabled ? "0.5" : 1 }}
-        className="flex gap-1 text-[14px] sm:w-[150px]  justify-center  font-montserrat font-semibold px-3 py-2 rounded-[8px] items-center border border-[#06A9EF] "
+        className=" hover:bg-[#06A9EF] hover:text-[white] flex gap-1 text-[14px] sm:w-[150px]  justify-center  font-montserrat font-semibold px-3 py-2 rounded-[8px] items-center border border-[#06A9EF] "
       >
         {loading ? (
           <svg
@@ -567,13 +567,13 @@ const ResumePreview = ({
           onClick={() => saveResume(blob, true)}
           disabled={saveDisabled}
           style={{ opacity: saveDisabled ? "0.5" : 1 }}
-          className="flex gap-1 text-[14px] w-fit  justify-center  font-montserrat font-semibold px-3 py-2 rounded-[8px] items-center border border-[#06A9EF] "
+          className=" hover:bg-[#06A9EF] hover-svg-white hover:text-[white] flex gap-1 text-[14px] w-fit  justify-center  font-montserrat font-semibold px-3 py-2 rounded-[8px] items-center border border-[#06A9EF] "
         >
           {loading ? (
             <svg
               aria-hidden="true"
-              role="status"
-              className="inline w-4 h-4 me-3  animate-spin"
+              role="status" 
+              className="inline w-4 h-4 me-3  animate-spin "
               viewBox="0 0 100 101"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -589,6 +589,7 @@ const ResumePreview = ({
             </svg>
           ) : (
             <svg
+            className=""
               width="20"
               height="20"
               viewBox="0 0 20 20"
@@ -655,7 +656,7 @@ const ResumePreview = ({
                   <div className="mobile ">
                     <div className="ms:flex gap-2 scr420:gap-[16px] justify-between hidden ">
                       <button
-                        className=" text-[12px] flex gap-1 items-center justify-between text-[#333] font-montserrat font-semibold px-2 py-2 rounded-[8px] border border-[#06A9EF]"
+                        className="hover:bg-[#06A9EF] hover-svg-white hover:text-[white] text-[12px] flex gap-1 items-center justify-between text-[#333] font-montserrat font-semibold px-2 py-2 rounded-[8px] border border-[#06A9EF]"
                         onClick={() => isSetEdit(true)}
                       >
                         <svg

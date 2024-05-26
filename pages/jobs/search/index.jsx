@@ -103,7 +103,7 @@ const Index = () => {
               </div>
             </div>
             <button
-              className="px-4 py-3 bg-[#06A9EF] text-[16px] text-white font-semibold rounded-[12px] md:w-[166px] scr420:w-[200px] w-full"
+              className="px-4 py-3 btn_hover_effect bg-[#06A9EF] text-[16px] text-white font-semibold rounded-[12px] md:w-[166px] scr420:w-[200px] w-full"
               style={{ opacity: loading || !selected ? 0.5 : 1 }}
               disabled={loading || !selected}
               onClick={searchJob}

@@ -109,11 +109,11 @@ function Footer({ isSubscribe, setIsSubcrib }) {
           <div className="flex gap-4 footerThird ml:w-[45%] scr420:justify-between justify-between break-word pt-6">
             <div className="flex flex-col justify-between gap-4  flex-wrap address">
               <div className="footer_sub_address">
-                <div>
+                {/* <div>
                   <p className="footer_address_P">Address</p>
-                </div>
-                <div className="footer_add  ">
-                  <div className="leading-10">
+                </div> */}
+                <div className="footer_add ">
+                  <div className=" flex flex-col gap-4">
                     <p className="text-[#fff] font-[600]">Offices :</p>
                     <p className="footer_address_Para leading-6">
                       Harare, Zimbabwe  <br />  Pune, India<br /> London, United Kingdom
@@ -130,13 +130,13 @@ function Footer({ isSubscribe, setIsSubcrib }) {
             </div>
             <div className="flex flex-col gap-4 ">
               <div className="footer_about_section ">
-                <p className="footer_about_P">About</p>
-                <div className="footer_sub_about">
-                  <p onClick={() => router.push("/TermsAndConditions")} className="footer_sub_about_P cursor-pointer">Terms and Conditions</p>
-                  <p onClick={() => router.push("/PrivacyPolicy")} className="footer_sub_about_P cursor-pointer">Privacy Policy</p>
+                <p className="text-[#fff] font-[600]">About</p>
+                <div className="footer_sub_about ">
+                  <p onClick={() => router.push("/TermsAndConditions")} className="footer_sub_about_P cursor-pointer leading-6">Terms and Conditions</p>
+                  <p onClick={() => router.push("/PrivacyPolicy")} className="footer_sub_about_P cursor-pointer leading-6">Privacy Policy</p>
                   <p
                     onClick={() => router.push("/ContactUs")}
-                    className="footer_sub_about_P cursor-pointer"
+                    className="footer_sub_about_P cursor-pointer leading-6"
                   >
                     {" "}
                     Contact Us

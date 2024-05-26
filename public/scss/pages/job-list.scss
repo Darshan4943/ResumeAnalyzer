@@ -47,6 +47,8 @@
   border-radius: 6px;
 }
 .header1 {
+
+  
   background: rgb(6, 169, 239);
   background: linear-gradient(
     90deg,
@@ -57,6 +59,15 @@
   );
 
   border-radius: 6px;
+
+}
+
+.dashboard {
+background: #F9F9F9;
+  &:hover{ 
+    background: linear-gradient(31.62deg, #06A9EF 14.94%, #A2E3FF 99.61%);
+color: white;
+  }
 }
 .post-job{
   .form-group{

@@ -358,16 +358,18 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
             <div className="text-[12px] text-center">
               By signing in, you agree to our{" "}
               <span
+               onClick={() => router.push("/TermsAndConditions")}
                 className="already_sign cursor-pointer"
                 style={{
                   fontSize: "12px",
                   color: "#06A9EF",
                 }}
               >
-                <a href="">Terms & Conditions</a>
+                <a >Terms & Conditions</a>
               </span>{" "}
               and{" "}
               <span
+              onClick={() => router.push("/PrivacyPolicy")}
                 className="already_sign cursor-pointer"
                 style={{
                   fontSize: "12px",
@@ -375,7 +377,7 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
                 }}
               >
                 {" "}
-                <a href="">Privacy Policy.</a>
+                <a >Privacy Policy.</a>
               </span>
             </div>
           </div>
