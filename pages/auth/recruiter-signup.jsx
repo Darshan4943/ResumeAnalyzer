@@ -49,7 +49,7 @@ function Recruiter_signup({}) {
   });
 
   const [file, setFile] = useState(null);
-console.log(52,data)
+
   const fileRef = useRef(null);
   const handleFileChange = (event) => {
     event.preventDefault();
@@ -96,6 +96,11 @@ console.log(52,data)
     }
   }, []);
 
+  function validatePassword(password) {
+    const strongPasswordRegex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    return strongPasswordRegex.test(password);
+  }
   const isViewportBelow850 = useMediaQuery("(max-width:850px)");
   const [formError, setFormError] = useState({});
   const validateInput = (fieldName, value) => {
@@ -157,6 +162,11 @@ console.log(52,data)
           } else {
             delete errors.password;
           }
+          if (validatePassword(value)) {
+          } else {
+            errors.password =
+              "Password should include one uppercase one lowercase one number and one special character";
+          }
           if (!value.trim() || value.trim() != data.confirmPassword) {
             errors.confirmPassword = "Password do not match";
           } else {
@@ -208,10 +218,27 @@ console.log(52,data)
     const filterLogic = (item) =>
       item.code.toLowerCase().includes(searchTerm.toLowerCase()) ||
       item.dial_code.includes(searchTerm);
-
     const filteredCodes = telCode.filter(filterLogic);
-    setFilteredTelCode(filteredCodes);
+    const firstSixCodes = filteredCodes.slice(0, 6);
+    const remainingCodes = filteredCodes.slice(6);
+
+    const sortedRemainingCodes = remainingCodes.sort((a, b) => {
+      const numA = parseInt(a.dial_code.replace("+", ""), 10);
+      const numB = parseInt(b.dial_code.replace("+", ""), 10);
+      return numA - numB;
+    });
+
+    const combinedCodes = [...firstSixCodes, ...sortedRemainingCodes];
+    setFilteredTelCode(combinedCodes);
   }, [telCode, searchTerm]);
+
+  const customFilterOption = ({ label, value, data }, inputValue) => {
+    const lowercasedInput = inputValue.toLowerCase();
+    return (
+      data.code.toLowerCase().includes(lowercasedInput) ||
+      data.dial_code.includes(inputValue)
+    );
+  };
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -224,7 +251,6 @@ console.log(52,data)
       "email",
       "currentLocation",
       "mobileNo",
-      "img"
     ];
     const emptyFields = requiredFields.filter((field) => !data[field]);
     if (emptyFields.length > 0) {
@@ -243,8 +269,8 @@ console.log(52,data)
       toast.error("Email Verification Required");
     } else {
       const url = isUpdate
-        ? "http://localhost:2000/api/updateUser"
-        : "http://localhost:2000/api/skiloteckuser/recruiter";
+        ? "https://jamblix.com/api/updateUser"
+        : "https://jamblix.com/api/skiloteckuser/recruiter";
       // setLoading(true);
       const formdata = new FormData();
       Object.keys(data).forEach((key) => {
@@ -318,7 +344,7 @@ console.log(52,data)
     let otp = Math.floor(100000 + Math.random() * 900000);
     setOtp(otp);
     axios
-      .post("http://localhost:2000/api/otpMailSignup", {
+      .post("https://jamblix.com/api/otpMailSignup", {
         userEmail: data.email,
         otp,
       })
@@ -413,7 +439,9 @@ console.log(52,data)
                   {byAdmin ? null : (
                     <>
                       {" "}
-                      <p className="text-[16px] font-medium">Profile Photo <span className="star">*</span></p>
+                      <p className="text-[16px] font-medium">
+                        Profile Photo <span className="star">*</span>
+                      </p>
                       <div className="flex sm:gap-6 gap-3">
                         {croppedImage ? (
                           <ImageContainer
@@ -460,7 +488,10 @@ console.log(52,data)
                           <div
                             className="text-[12px] font-semibold px-4 py-2 rounded-[8px]  border border-[#06A9EF]  w-[135px] cursor-pointer"
                             onClick={() => {
-                              setData(prevData => ({ ...prevData, img: null }));
+                              setData((prevData) => ({
+                                ...prevData,
+                                img: null,
+                              }));
                               setFile(null);
                               setCroppedImage(null);
                               setError(false);
@@ -533,7 +564,10 @@ console.log(52,data)
                             isViewportBelow850 ? "w-[65%] " : "w-[40%] "
                           } items-center`}
                         >
-                          <div className="  w-[100%] text-[14px] justify-center items-center  flex font-[500] text-[#646464]">
+                          <div
+                            onWheel={(e) => e.stopPropagation()}
+                            className="  w-[100%] text-[14px] justify-center items-center  flex font-[500] text-[#646464]"
+                          >
                             <div className="flex items-center justify-center gap-2 cursor-pointer min-w-[140px] w-[100%]">
                               <div className="flex items-center  gap-1 cursor-pointer  w-[100%] ">
                                 <ReactSelect
@@ -554,7 +588,8 @@ console.log(52,data)
                                       </span>
                                     </div>
                                   )}
-                                  getOptionValue={(option) => option.code}
+                                  // getOptionValue={(option) => option.code}
+                                  filterOption={customFilterOption}
                                   styles={{
                                     control: (provided) => ({
                                       ...provided,

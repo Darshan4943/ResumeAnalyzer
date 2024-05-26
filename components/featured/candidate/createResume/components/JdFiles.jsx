@@ -49,10 +49,10 @@ function JdFiles({
   // };
 
   const fileIconSeter = (data) => {
-    if (data.fileName?.includes("docx") || data?.fileName?.includes("doc")) {
+    if (data.fileName?.includes("docx") || data?.fileName?.includes("doc")|| data?.fileName?.includes("DOC")|| data?.fileName?.includes("DOCX")) {
       return <img src="/images/docIcon.png" className="h-[48px] w-[48px]" />;
       m;
-    } else if (data?.fileName?.includes("pdf")) {
+    } else if (data?.fileName?.includes("pdf") || data?.fileName?.includes("PDF")) {
       return <PDFSvg />;
     } else if (
       data?.fileName?.includes("png") ||

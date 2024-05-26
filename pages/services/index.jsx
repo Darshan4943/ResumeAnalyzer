@@ -49,13 +49,13 @@ function Services({ isServices, isMove, setIsMove }) {
     //   desc: "Details of subscription plan and paid services.",
     //   color: "#8901FF",
     // },
-    {
-      name: "Search Jobs",
-      imgSrc: "/images/resumeBuilder/job.png",
-      desc: "Find jobs matching to a particular resume and apply easily.",
-      color: "#6441A5",
-      new: "New",
-    },
+    // {
+    //   name: "Search Jobs",
+    //   imgSrc: "/images/resumeBuilder/job.png",
+    //   desc: "Find jobs matching to a particular resume and apply easily.",
+    //   color: "#6441A5",
+    //   new: "New",
+    // },
   ];
 
   const loginListRecruiter = [
@@ -95,13 +95,13 @@ function Services({ isServices, isMove, setIsMove }) {
     //   desc: "Details of subscription plan and paid services.",
     //   color: "#8901FF",
     // },
-    {
-      name: "Post Jobs",
-      imgSrc: "/images/resumeBuilder/job.png",
-      desc: "Post new job openings to connect with more candidates.",
-      color: "#6441A5",
-      new: "New",
-    },
+    // {
+    //   name: "Post Jobs",
+    //   imgSrc: "/images/resumeBuilder/job.png",
+    //   desc: "Post new job openings to connect with more candidates.",
+    //   color: "#6441A5",
+    //   new: "New",
+    // },
   ];
   const [visible, setVisible] = useState(false);
 
@@ -200,7 +200,7 @@ function Services({ isServices, isMove, setIsMove }) {
               onClick={() => router.push("/home")}
               className={` group min-w-[272px] h-[186px] `}
             >
-              <div className="border border-[#DEDEDE] group-hover:border group-hover:border-[#F9F9F9] rounded-[24px] bg-[#F9F9F9] flex flex-col justify-between gap-2 p-6  leading-tight cursor-pointer">
+              <div className="border border-[#DEDEDE] dashboard group-hover:border-[#F9F9F9] rounded-[24px] bg-[#F9F9F9] flex flex-col justify-between gap-2 p-6  leading-tight cursor-pointer">
                 <div
                   className=" flex justify-end opacity-0 group-hover:opacity-100 transform translate-x-[-16px] group-hover:translate-x-0 move"
                   style={{ transition: " all .3s linear" }}
@@ -215,7 +215,7 @@ function Services({ isServices, isMove, setIsMove }) {
                     <g mask="url(#mask0_1897_29995)">
                       <path
                         d="M12.6 12.5L8 7.9L9.4 6.5L15.4 12.5L9.4 18.5L8 17.1L12.6 12.5Z"
-                        fill="#06A9EF"
+                        fill="white"
                       />
                     </g>
                   </svg>
@@ -232,21 +232,21 @@ function Services({ isServices, isMove, setIsMove }) {
                   >
                     <g mask="url(#mask0_2038_22277)">
                       <path
-                        className="icon-path"
+                        className="icon-path "
                         d="M7.99997 25.3332H12.4615V17.4101H19.5384V25.3332H24V13.3332L16 7.30755L7.99997 13.3332V25.3332ZM6 27.3331V12.3332L16 4.80762L25.9999 12.3332V27.3331H17.5384V19.4101H14.4615V27.3331H6Z"
                         fill="#808080"
                       />
                     </g>
                   </svg>
-                  <p className="text-[14px] font-medium">Dashboard</p>
-                  <p className="text-[12px] font-medium text-[#808080]">
-                    Go to your personalised home page
+                  <p className="text-[14px] font-medium group-hover:text-white">Dashboard</p>
+                  <p className="text-[12px] font-medium text-[#808080] group-hover:text-white">
+                    Go to your personalized home page
                   </p>
                 </div>
               </div>
             </div>
 
-            <button className="flex flex-row gap-[8px] w-full border border-[#DEDEDE] bg-[#F9F9F9] rounded-[6px] py-[10px] px-[8px] items-center" onClick={() => router.push('/jobs/saved')}>
+            {/* <button className="flex flex-row gap-[8px] w-full border border-[#DEDEDE] bg-[#F9F9F9] rounded-[6px] py-[10px] px-[8px] items-center" onClick={() => router.push('/jobs/saved')}>
               <svg
                 width="12"
                 height="16"
@@ -262,7 +262,7 @@ function Services({ isServices, isMove, setIsMove }) {
               <span className="text-[#33333] text-[16px] font-normal">
                 Saved Jobs
               </span>
-            </button>
+            </button> */}
             {/* <button className="flex flex-row gap-[8px] w-full border border-[#DEDEDE] bg-[#F9F9F9] rounded-[6px] py-[10px] px-[8px] items-center">
               <svg
                 width="18"

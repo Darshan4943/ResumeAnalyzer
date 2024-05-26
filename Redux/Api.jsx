@@ -14,6 +14,10 @@ import ResetPasswordModal from "../components/models/resetPasswordModal";
 import moment from "moment";
 import { recallUser } from "./reducers/userReducer";
 import LocationEnablePopup from "../components/models/locationEnablePopup";
+import { io } from "socket.io-client";
+
+const ENDPOINT = "https://jamblix.com"; // Replace with your backend WebSocket server URL
+
 export const Api = () => {
   const store = useStore();
   const [error, setError] = useState(false);
@@ -22,6 +26,21 @@ export const Api = () => {
   const [visible, setVisible] = useState(false);
   const [enablePopup, setEnablePopup] = useState(false);
 
+  //   useEffect(() => {
+  //     const socket = io(ENDPOINT);
+
+  //     socket.on('connect', () => {
+  //         console.log('Connected to WebSocket server');
+  //     });
+
+  //     socket.on('disconnect', () => {
+  //         console.log('Disconnected from WebSocket server');
+  //     });
+
+  //     return () => {
+  //         socket.disconnect();
+  //     };
+  // }, []);
   const dispatch = useDispatch();
 
   let timezone = moment().format("YYYY-MM-DD HH:mm:ss");
@@ -46,7 +65,7 @@ export const Api = () => {
       if (token && token != "undefined") {
         const decoded = jwtDecode(token.token);
         axios
-          .get("http://localhost:2000/api/skiloteckuser/user/" + decoded._id)
+          .get("https://jamblix.com/api/skiloteckuser/user/" + decoded._id)
           .then((res) => {
             const decode = jwtDecode(res.data.data);
             dispatch(
@@ -70,7 +89,7 @@ export const Api = () => {
 
     if (userDataGlobal) {
       axios
-        .get("http://localhost:2000/api/subscription/" + userDataGlobal._id)
+        .get("https://jamblix.com/api/subscription/" + userDataGlobal._id)
         .then((res) => {
           const result = res.data.findIsActive;
 
@@ -94,7 +113,7 @@ export const Api = () => {
             if (timezone >= newEnddate && result.isActive) {
               axios
                 .put(
-                  "http://localhost:2000/api/subscription/update/" + result._id
+                  "https://jamblix.com/api/subscription/update/" + result._id
                 )
                 .then((res) => {
                   if (res.data.success) {
@@ -156,7 +175,7 @@ export const Api = () => {
   //               );
   //               const symbol = icon ? icon.symbol : currency;
   //               const exchangeRate = await axios.get(
-  //                 "http://localhost:2000/api/exchangeRate/" + currency
+  //                 "https://jamblix.com/api/exchangeRate/" + currency
   //               );
   //               localStorage.setItem("exchangeRate", exchangeRate.data.rate);
   //               localStorage.setItem("currency", currency);
@@ -242,7 +261,7 @@ export const Api = () => {
           );
           const symbol = icon ? icon.symbol : currency;
           const exchangeRate = await axios.get(
-            `http://localhost:2000/api/exchangeRate/${currency}`
+            `https://jamblix.com/api/exchangeRate/${currency}`
           );
           localStorage.setItem("exchangeRate", exchangeRate.data.rate);
           localStorage.setItem("currency", currency);

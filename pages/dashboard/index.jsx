@@ -42,7 +42,7 @@ function Dashboard() {
     },
     { name: "My Purchases", imgSrc: "/images/resumeBuilder/my_purchases.png" },
     { name: "Chat Bot", imgSrc: "/images/resumeBuilder/bot.png" },
-    { name: "Search Jobs", imgSrc: "/images/resumeBuilder/job.png" },
+    // { name: "Search Jobs", imgSrc: "/images/resumeBuilder/job.png" },
   ];
 
   const loginListRecruiter = [
@@ -58,10 +58,10 @@ function Dashboard() {
     },
     {
       name: "My Collection",
-      imgSrc: "/images/resumeBuilder/collechttp://localhost:2000My Purchases",
+      imgSrc: "/images/resumeBuilder/collechttps://jamblix.comMy Purchases",
       imgSrc: "/images/resumeBuilder/my_purchases.png",
     },
-    { name: "Post Jobs", imgSrc: "/images/resumeBuilder/job.png" },
+    // { name: "Post Jobs", imgSrc: "/images/resumeBuilder/job.png" },
   ];
 
   const list = () => {
@@ -131,7 +131,7 @@ function Dashboard() {
 
     if (userDataGlobal) {
       axios
-        .get("http://localhost:2000/api/subscription/" + userDataGlobal._id)
+        .get("https://jamblix.com/api/subscription/" + userDataGlobal._id)
         .then((res) => {
           const plan = plans.find(
             (item) =>
@@ -314,20 +314,20 @@ function Dashboard() {
                 {templates.find(
                   (item) => item.index === data.selectedResumeIndex
                 ) && (
-                    <img
-                      src={
-                        templates.find(
-                          (item) => item.index === data.selectedResumeIndex
-                        ).imgUrl
-                      }
-                      style={{
-                        height: "100%",
-                        width: "90%",
-                        objectFit: "cover",
-                      }}
-                      alt={`Resume template ${data.selectedResumeIndex}`} // Adding an alt attribute for accessibility
-                    />
-                  )}
+                  <img
+                    src={
+                      templates.find(
+                        (item) => item.index === data.selectedResumeIndex
+                      ).imgUrl
+                    }
+                    style={{
+                      height: "100%",
+                      width: "90%",
+                      objectFit: "cover",
+                    }}
+                    alt={`Resume template ${data.selectedResumeIndex}`} // Adding an alt attribute for accessibility
+                  />
+                )}
               </div>
 
               <div className="w-[40%] flex flex-col gap-4 min-w-[160px]">

@@ -90,8 +90,9 @@ const ExistingChat = ({
             <div className="w-full overflow-y-auto bg-[#fff]">
               <div className="flex flex-col w-full p-6">
                 <div className="flex flex-col gap-6 ">
-                  {Object.keys(existingChatDayWise).map((key) => (
-                    <div className="flex flex-col gap-4">
+                  {Object.keys(existingChatDayWise).map((key,index) => (
+                   
+                    <div  key={index} className="flex flex-col gap-4">
                       <p className="text-[12px] font-Montserrat text-[#06A9EF]">
                         {key}
                       </p>

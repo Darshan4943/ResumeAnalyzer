@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import axios from "axios";
-import { useEditor } from "@tiptap/react";
 
 const ChatBox = ({
   features,
@@ -13,7 +12,7 @@ const ChatBox = ({
   handleToggleSidebar,
   setSelectedChat,
   isSidebarOpen,
-  setIsSidebarOpen,
+  setIsSidebarOpen,,
 }) => {
   const userDataGlobal = useSelector((state) => state.userData);
   const [existingChat, setExistingChat] = useState([]);
@@ -25,7 +24,7 @@ const ChatBox = ({
     if (text?.length > 5) {
       setLoading(true);
       axios
-        .post("http://localhost:2000/api/qna", { quationText: text })
+        .post("https://jamblix.com/api/qna", { quationText: text })
         .then((res) => {
           const answer = res.data.data;
           const dummyData = { ...existingChat };
@@ -83,39 +82,41 @@ const ChatBox = ({
         <div className="w-[60%] flex items-center justify-between flex-col min-h-[80vh]">
           {chat?.length > 0 ? (
             <div className="flex flex-col gap-[16px] w-[678px] h-[70vh] overflow-y-auto  ">
-              {chat?.map((item, index) => (
-                <>
-                  <div key={index} className="flex w-full gap-[14px]  ">
-                    <img
-                      className=" rounded-full object-cover h-[40px] w-[40px]"
-                      src={
-                        userDataGlobal?.profilePicture ||
-                        "/images/profile/profileNew.png"
-                      }
-                    />
-                    <div className="rounded-[8px] text-[12px] w-full border border-[#bebebe] px-[16px] py-[8px] bg-[#fff]">
-                      {item.quation}
-                    </div>
-                  </div>
-                  <div key={index} className="flex w-full gap-[14px]  ">
-                    <div className="flex items-center justify-center bg-[#fff] h-[40px] w-[40px] rounded-[50%] border border-[#bebebe] ">
+              {chat?.map((item, index) => {
+                return (
+                  <div key={index} className="flex flex-col gap-[16px]">
+                    <div className="flex w-full gap-[14px]  ">
                       <img
-                        className=" rounded-full object-contain  h-[18px] "
-                        src={"/images/Robot.png"}
+                        className=" rounded-full object-cover h-[40px] w-[40px]"
+                        src={
+                          userDataGlobal?.profilePicture ||
+                          "/images/profile/profileNew.png"
+                        }
                       />
+                      <div className="rounded-[8px] text-[12px] w-full border border-[#bebebe] px-[16px] py-[8px] bg-[#fff]">
+                        {item.quation}
+                      </div>
                     </div>
-                    <div className="rounded-[8px] w-full border border-[#bebebe] px-[16px] py-[8px] bg-[#fff]">
-                      <div
-                        style={{ background: "#fff", padding: "8px" }}
-                        className="chat"
-                        dangerouslySetInnerHTML={{
-                          __html: item.answer,
-                        }}
-                      />
+                    <div className="flex w-full gap-[14px]  ">
+                      <div className="flex items-center justify-center bg-[#fff] h-[40px] w-[40px] rounded-[50%] border border-[#bebebe] ">
+                        <img
+                          className=" rounded-full object-contain  h-[18px] "
+                          src={"/images/Robot.png"}
+                        />
+                      </div>
+                      <div className="rounded-[8px] w-full border border-[#bebebe] px-[16px] py-[8px] bg-[#fff]">
+                        <div
+                          style={{ background: "#fff", padding: "8px" }}
+                          className="chat"
+                          dangerouslySetInnerHTML={{
+                            __html: item.answer,
+                          }}
+                        />
+                      </div>
                     </div>
                   </div>
-                </>
-              ))}
+                );
+              })}
             </div>
           ) : (
             <>
@@ -143,9 +144,9 @@ const ChatBox = ({
                       </div>
                     </div>
                     <div className="w-full gap-6 flex items-center justify-center">
-                      {features.map((feature) => (
+                      {features?.map((feature, index) => (
                         <div
-                          key={feature.id}
+                          key={index}
                           className="gap-2 w-[120px] border-[#DEDEDE] border-[0.5px] rounded-2xl p-3 bg-white flex flex-col items-start"
                         >
                           <img
@@ -164,6 +165,10 @@ const ChatBox = ({
               </div>
             </>
           )}
+          <div className="w-[768px] gap-3 flex flex-col items-end sticky">
+            <form
+              className="w-full h-[40px] gap-[14px] rounded-[26px] p-[2px_4px] bg-[#FFFFFF] border border-[#DEDEDE] flex items-center"
+              onSubmit={submitHandler}
           <div className="w-[768px] gap-3 flex flex-col items-end sticky">
             <form
               className="w-full h-[40px] gap-[14px] rounded-[26px] p-[2px_4px] bg-[#FFFFFF] border border-[#DEDEDE] flex items-center"

@@ -17,7 +17,7 @@ const JobCard = ({ data, setJd, resume, jd }) => {
     setLoading(true);
     if (data) {
       axios
-        .get("http://localhost:2000/api/job/getById/" + data?._id)
+        .get("https://jamblix.com/api/job/getById/" + data?._id)
         .then((res) => {
           setLoading(false);
           setIsApplied(
@@ -35,19 +35,19 @@ const JobCard = ({ data, setJd, resume, jd }) => {
 
   useEffect(() => {
     getData();
-  }, [data, jd,isApply]);
-console.log(isApply)
+  }, [data, jd, isApply]);
+  console.log(isApply);
   const applyForJob = (data) => {
     setLoading(true);
     axios
-      .post("http://localhost:2000/api/job/apply/" + data?._id, {
+      .post("https://jamblix.com/api/job/apply/" + data?._id, {
         userId: userDataGlobal._id,
         resumeId: resume._id,
         percentage: data?.percentage,
       })
       .then((res) => {
         setLoading(false);
-        
+
         getData();
         toast.success("Application Sent Successfully");
       })
@@ -58,7 +58,7 @@ console.log(isApply)
   };
   const SaveJob = (id) => {
     axios
-      .post(`http://localhost:2000/api/saveJob/${userDataGlobal?._id}/${id}`)
+      .post(`https://jamblix.com/api/saveJob/${userDataGlobal?._id}/${id}`)
       .then((res) => {
         dispatch(reCallUserData());
         getData();
@@ -73,7 +73,7 @@ console.log(isApply)
   const isSaved = (id) => {
     return userDataGlobal?.savedJobs?.find((item) => item.id == id);
   };
- 
+
   return (
     <div className="flex flex-col gap-[8px] w-[100%] max-w-[380px] rounded-[16px] border border-[#DEDEDE] bg-white shadow-lg py-[16px] ml:px-[24px] px-3 min-w-[300px] group">
       <div className="flex flex-col gap-[4px]">
@@ -156,7 +156,10 @@ console.log(isApply)
         </div>
         <button
           className="px-[12px] py-[8px] w-[102px] bg-[#06A9EF] rounded-[8px] text-[#fff] text-[14px]"
-          onClick={() => {applyForJob(data);setIsApply(!isApply)}}
+          onClick={() => {
+            applyForJob(data);
+            setIsApply(!isApply);
+          }}
           disabled={isApplied}
           style={{ opacity: isApplied ? 0.6 : 1 }}
         >

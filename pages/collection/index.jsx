@@ -40,7 +40,7 @@ function Collection() {
   const [files, setFiles] = useState([]);
   const fileRef = useRef(null);
   const [recall, setRecall] = useReducer((x) => x + 1, 0);
-
+  const [uploadCount, setUploadCount] = useState(0);
   const fileToText = (file, pageNumber) => {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
@@ -93,16 +93,12 @@ function Collection() {
       getClients();
     }
   };
-  useEffect(() => {
-    // getData();
-  }, [clients, folders, clientId, parentId, userDataGlobal, recall]);
 
   const getParentData = (parentId) => {
     axios
-      .get(`http://localhost:2000/api/folder/getByParentId/${parentId}`)
+      .get(`https://jamblix.com/api/folder/getByParentId/${parentId}`)
       .then((res) => {
         setFolderList(res.data.data);
-        console.log("parentData", res.data.data);
         setTimeout(() => {
           setLoading(false);
         }, 1000);
@@ -113,7 +109,7 @@ function Collection() {
   };
   const getClientData = (clientId) => {
     axios
-      .get("http://localhost:2000/api/resume/" + clientId)
+      .get("https://jamblix.com/api/resume/" + clientId)
       .then((res) => {
         setFolderList(res.data.data);
         setTimeout(() => {
@@ -127,7 +123,7 @@ function Collection() {
   const getFolderData = () => {
     setLoading(true);
     axios
-      .get(`http://localhost:2000/api/folder/get/${userDataGlobal._id}`)
+      .get(`https://jamblix.com/api/folder/get/${userDataGlobal._id}`)
       .then((res) => {
         setFolderList(res.data.data);
         console.log(111, res.data.data);
@@ -144,7 +140,7 @@ function Collection() {
     setLoading(true);
     axios
       .get(
-        `http://localhost:2000/api/client/getByRecruiter/${userDataGlobal._id}`
+        `https://jamblix.com/api/client/getByRecruiter/${userDataGlobal._id}`
       )
       .then((res) => {
         console.log(res.data.data);
@@ -161,7 +157,7 @@ function Collection() {
   const getTrashed = () => {
     setLoading(true);
     axios
-      .get(`http://localhost:2000/api/folder/getTrashed/${userDataGlobal._id}`)
+      .get(`https://jamblix.com/api/folder/getTrashed/${userDataGlobal._id}`)
       .then((res) => {
         setFolderList(res.data.data);
         console.log(1111, res.data.data);
@@ -183,7 +179,7 @@ function Collection() {
       formData.append("parentId", ParentId ? ParentId : undefined);
 
       axios
-        .post("http://localhost:2000/api/folder/create", formData)
+        .post("https://jamblix.com/api/folder/create", formData)
         .then((res) => {
           setRecall();
           setIsCreateFolder(false);
@@ -200,7 +196,7 @@ function Collection() {
 
   const textExtractor = async (textData) => {
     const { data } = await axios.post(
-      "http://localhost:2000/api/resume/extraction",
+      "https://jamblix.com/api/resume/extraction",
       {
         data: textData,
       }
@@ -253,48 +249,66 @@ function Collection() {
       }, 1000);
     });
   };
-
-  // const addFiles = async () => {
-  //   setFileLoader(true);
-  //   if (Object.keys(files).length == 0) {
-  //     toast.error("No File Selected");
-  //     setFileLoader(false);
-
-  //     return;
-  //   }
-
-  //   const formData = new FormData();
-
-  //   parseData().then(async (data) => {
-  //     const extractedData = await data;
-  //     formData.append("fileName", folderName);
-  //     formData.append("type", "file");
-  //     formData.append("userId", userDataGlobal._id);
-  //     formData.append("extractedData", JSON.stringify(extractedData));
-  //     Object.values(files).map(async (file, index) => {
-  //       formData.append("files", file);
-  //       return;
-  //     });
-  //     console.log("data", formData);
-  //     formData.append("parentId", ParentId ? ParentId : undefined);
-  //     axios
-  //       .post("https://freedygoservices.in/api/folder/addFiles", formData)
-  //       .then((res) => {
-  //         setFolderName("Untitled folder");
-  //         toast.success("File Uploaded successfully");
-  //         setTimeout(() => {
-  //           setFileLoader(false);
-  //           setIsCreateFolder(false);
-  //           getData();
-  //         }, 1000);
-  //         setFiles([]);
-  //       })
-  //       .catch((err) => {
-  //         setFileLoader(false);
-  //         toast.error("Something went wrong");
-  //       });
-  //   });
-  // };
+  const extractText = (file) => {
+    let text = "";
+    if (
+      file.type ==
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+    ) {
+      const reader = new FileReader();
+      reader.onload = async (e) => {
+        const content = e.target.result;
+        var doc = new Docxtemplater(new PizZip(content), {
+          delimiters: {
+            start: "12op1j2po1j2poj1po",
+            end: "op21j4po21jp4oj1op24j",
+          },
+        });
+        text = doc.getFullText();
+      };
+      reader.readAsBinaryString(file);
+    } else if (file.type == "image/png") {
+      Tesseract.recognize(file, "eng", {
+        logger: (m) => console.log(m),
+      }).then(async ({ data: { textData } }) => {
+        text = textData;
+      });
+    } else if (file.type == "application/pdf") {
+      let fullText = "";
+      const pdfTextPromises = [];
+      for (let i = 1; i <= 1; i++) {
+        pdfTextPromises.push(fileToText(file, i));
+      }
+      Promise.all(pdfTextPromises).then(async (texts) => {
+        fullText = texts.join("");
+        text = fullText;
+      });
+    }
+    setTimeout(() => {
+      return text;
+    }, 1000);
+  };
+  const addData = async (file, index, text) => {
+    return new Promise((resolve) => {
+      setTimeout(async () => {
+        const formData = new FormData();
+        try {
+          formData.append("fileName", file.name);
+          formData.append("type", "file");
+          formData.append("userId", userDataGlobal._id);
+          formData.append("text", text);
+          formData.append("file", file);
+          formData.append("parentId", ParentId ? ParentId : undefined);
+          const response = await axios.post(
+            "https://jamblix.com/api/folder/create",
+            formData
+          );
+          resolve(index, response.data);
+          return;
+        } catch (err) {}
+      }, 200); // Simulating a network delay
+    });
+  };
 
   const addFiles = async () => {
     setFileLoader(true);
@@ -303,40 +317,32 @@ function Collection() {
       setFileLoader(false);
       return;
     }
-    const formData = new FormData();
-    try {
-      const data = await parseData();
-      formData.append("fileName", folderName);
-      formData.append("type", "file");
-      formData.append("userId", userDataGlobal._id);
-      formData.append("extractedData", data);
-      formData.append("isSync", false);
-      Object.values(files).forEach((file) => {
-        formData.append("files", file);
-      });
-      formData.append("parentId", ParentId ? ParentId : undefined);
-      const response = await axios.post(
-        "http://localhost:2000/api/folder/addTextFiles",
-        formData
+    const extractedText = await parseData();
+    const promise = Object.values(files).map(async (file, index) => {
+      const data = await addData(
+        file,
+        index,
+        extractedText.find((item) => item.index == index)?.text
       );
-      setFolderName("Untitled folder");
-      toast.success("File Uploaded successfully");
-      setTimeout(() => {
-        setFileLoader(false);
-        setIsCreateFolder(false);
-        getData();
-      }, 1000);
-      setFiles([]);
-    } catch (error) {
+      setUploadCount((prevCount) => prevCount + 1);
+    });
+    const resolvedData = await Promise.all(promise);
+    setFiles([]);
+    getData();
+    setTimeout(() => {
       setFileLoader(false);
-      toast.error("Something went wrong");
-      console.error(error);
-    }
+      setIsCreateFolder(false);
+      setUploadCount(0);
+      toast.success(`${Object.keys(files).length} Files Uploaded Successfully`);
+    }, 1000);
   };
-
   const handleButtonClick = () => {
     fileRef.current.click();
   };
+  useEffect(() => {
+    getData();
+  }, [clients, folders, clientId, parentId, userDataGlobal, recall]);
+
   const handleFileChange = async (e) => {
     const selectedFiles = e.target.files;
     const textData = [];
@@ -403,16 +409,18 @@ function Collection() {
                   className="border-dashed border-[3px] border-[#b4b4b4] flex flex-row w-full justify-center rounded-[12px] px-[8px] py-[24px] items-center gap-[8px] upload-btn-wrapper min-h-[126px]"
                 >
                   {fileLoader ? (
-                    <div className="miniLoader">
-                      <div className="box " style={{ height: "auto" }}>
-                        <div className="container">
-                          <span className="circle"></span>
-                          <span className="circle"></span>
-                          <span className="circle"></span>
-                          <span className="circle"></span>
+                    <>
+                      <div className="miniLoader">
+                        <div className="box " style={{ height: "auto" }}>
+                          <div className="container">
+                            <span className="circle"></span>
+                            <span className="circle"></span>
+                            <span className="circle"></span>
+                            <span className="circle"></span>
+                          </div>
                         </div>
                       </div>
-                    </div>
+                    </>
                   ) : (
                     <>
                       {" "}
@@ -513,7 +521,31 @@ function Collection() {
                   onChange={(e) => setFolderName(e.target.value)}
                 />
               )}
-
+              {fileLoader && isFile && (
+                <>
+                  <div className="flex justify-between mb-1">
+                    <span className="text-base font-medium text-blue-700">
+                      Please Wait Uploading{" "}
+                      {Object.keys(files).length > 0 ? "Files" : "File"}
+                    </span>
+                    <span className="text-sm font-medium text-blue-700">
+                      {`${Math.round(
+                        (uploadCount / Object.keys(files).length) * 100
+                      )}%`}
+                    </span>
+                  </div>
+                  <div className="w-full bg-[#e8f0ff] rounded-full h-2.5">
+                    <div
+                      class="bg-[#06a9ef] h-2.5 rounded-full"
+                      style={{
+                        width: `${
+                          (uploadCount / Object.keys(files).length) * 100
+                        }%`,
+                      }}
+                    ></div>
+                  </div>
+                </>
+              )}
               <div className="flex justify-end gap-6 text-blue font-medium">
                 <button
                   disabled={fileLoader}
