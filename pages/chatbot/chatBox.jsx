@@ -12,7 +12,7 @@ const ChatBox = ({
   handleToggleSidebar,
   setSelectedChat,
   isSidebarOpen,
-  setIsSidebarOpen,,
+  setIsSidebarOpen,
 }) => {
   const userDataGlobal = useSelector((state) => state.userData);
   const [existingChat, setExistingChat] = useState([]);
