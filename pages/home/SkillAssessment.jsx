@@ -52,14 +52,14 @@ function SkillAssessment() {
 
   const [isLevel, setisLevel] = useState(false);
   const [selectedSkill, setSelectedSkill] = useState();
-  
+
   // const [skills, setSkills] = useState(SkillList);
   const [userSkills, setUserSkills] = useState();
   const [data, setData] = useState([]);
   const [timer, setTimer] = useState(30);
   const [isSubmit, setIsSubmit] = useState(false);
   const [inputValue, setInputValue] = useState("");
-
+  const [editProfilePopUp, setEditProfilePopUp] = useState(false)
   const [level, setLevel] = useState("Intermediate");
   const [resultType, setResultType] = useState(false);
   const [assesmentType, setAssesmentType] = useState("Normal");
@@ -240,6 +240,7 @@ function SkillAssessment() {
   };
 
   const generatePdf2 = () => {
+
     // setLoadingg(true);
     return new Promise((resolve, reject) => {
       generatePDF(resumeRef1, {
@@ -267,7 +268,10 @@ function SkillAssessment() {
       });
   };
   const toggleContent = () => {
-    if (selectedSkill) {
+    if (assesmentType !== "Normal" && !userDataGlobal.firstName) {
+      setEditProfilePopUp(true)
+    }
+    else if (selectedSkill) {
       setLoading(true);
       if (
         assesmentType === "Normal"
@@ -297,7 +301,7 @@ function SkillAssessment() {
       toast.error("Please select a skill to start skill assessment");
     }
   };
-console.log(uniqueQuestions)
+  console.log(uniqueQuestions)
   useEffect(() => {
     // if (assesmentType === "Normal") {
     //   if (questionIndex == 7 || questionIndex == 8) {
@@ -346,9 +350,9 @@ console.log(uniqueQuestions)
   useEffect(() => {
     setStartTimer(true);
   }, [questionIndex]);
-  
+
   const sumbit = () => {
-  
+
 
     setStartTimer(false);
 
@@ -367,7 +371,7 @@ console.log(uniqueQuestions)
           setToggle(0);
           setLoading(false);
 
-        
+
           setQuestionIndex(0);
           setQuestion([]);
           setSkipped([]);
@@ -509,11 +513,37 @@ console.log(uniqueQuestions)
 
     // Convert percentage to a mark out of 60
     let markOutOf60 = Math.ceil((percentageScore * 60) / 100);
-    return markOutOf60 + `%`;
+    console.log(12, markOutOf60)
+    return percentageScore + `%`;
   }
-
+  console.log(123, calculateMarkOutOf60)
   return (
     <div className="">
+
+      {editProfilePopUp &&
+        <>
+          <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
+          <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center customMargins   ">
+            <div className="absolute ms:w-[30%] w-[60%] flex flex-col gap-6  justify-between items-center text-center rounded-[24px] bg-white p-6  text-[24px] font-medium">
+              First edit your profile to update the name !
+
+              <button
+              onClick={()=>{setEditProfilePopUp(false);router.push("/auth/recruiter-signup?isUpdate=true")}}
+           
+            style={{ borderColor: "#06a9ef" }}
+            className={`w-[200px] px-4 py-[12px] rounded-[12px] border-[1px] border-solid border-[#06a9ef] text-[20px] text-white font-[500] bg-blue hover:bg-[#06a9ef] 
+             
+            } hover:text-[#fff] transition-all duration-200`}
+          >
+           
+              Edit Profile
+          
+          </button>
+
+            </div>
+          </div>
+        </>
+      }
       <div
         onWheel={(e) => e.stopPropagation()}
         className="bg-[#F9F9F9] w-full h-screen "
@@ -523,8 +553,8 @@ console.log(uniqueQuestions)
             <div className=" w-[100%] flex flex-row gap-[8px] ">
               <button
                 className={` rounded-[12px] ml:px-[22.8px] scr420:px-3 px-2 ${assesmentType === "Normal"
-                    ? "bg-blue text-white btn_hover_effect"
-                    : "bg-white text-[#333] border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
+                  ? "bg-blue text-white btn_hover_effect"
+                  : "bg-white text-[#333] border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
                   } ml:min-w-[235px] scr420:min-w-[180px] py-2  flex gap-2 ml:text-[16px] scr420:text-[14px] xsm:text-[12px] text-[12px] justify-center items-center   h-[40px] font-semibold`}
                 onClick={() => setAssesmentType("Normal")}
               >
@@ -532,8 +562,8 @@ console.log(uniqueQuestions)
               </button>
               <button
                 className={`rounded-[12px] min-w-[138px] flex justify-center items-center ${assesmentType === "Certificate"
-                    ? "bg-blue text-white btn_hover_effect"
-                    : "bg-white text-[#333] border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
+                  ? "bg-blue text-white btn_hover_effect"
+                  : "bg-white text-[#333] border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
                   }  py-2 ml:px-6  scr420:px-3 px-1 ml:text-[16px] scr420:text-[14px] xsm:text-[12px] text-[12px] font-medium `}
                 onClick={() => setAssesmentType("Certificate")}
               >
@@ -781,8 +811,8 @@ console.log(uniqueQuestions)
                   <div className=" w-[100%] flex flex-row scr420:justify-end justify-center items-center gap-[8px]  ">
                     <button
                       className={` rounded-[12px] ml:px-[22.8px] xsm:px-2 px-1 ${!resultType
-                          ? "bg-blue text-white btn_hover_effect"
-                          : "bg-white text-[#333] border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
+                        ? "bg-blue text-white btn_hover_effect"
+                        : "bg-white text-[#333] border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
                         } ml:min-w-[235px] ms:min-w-[180px] py-2  flex gap-2 ml:text-[16px] ms:text-[14px] scr420:text-[12px] text-[10px] justify-center items-center   h-[40px] font-semibold`}
                       onClick={() => setResultType(false)}
                     >
@@ -790,8 +820,8 @@ console.log(uniqueQuestions)
                     </button>
                     <button
                       className={`rounded-[12px] ms:min-w-[138px] flex justify-center items-center ${resultType
-                          ? "bg-blue text-white btn_hover_effect"
-                          : "bg-white text-[#333] border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
+                        ? "bg-blue text-white btn_hover_effect"
+                        : "bg-white text-[#333] border border-[#06A9EF]  hover:bg-[#06A9EF] hover:text-[white]"
                         }  py-2 scr420:px-6 xsm:px-2 px-1  ml:text-[16px] ms:text-[14px] scr420:text-[12px] text-[10px] font-medium  h-[40px] `}
                       onClick={() => setResultType(true)}
                     >
@@ -998,25 +1028,25 @@ console.log(uniqueQuestions)
                               </p>
                             </div> */}
                                   </div>
-                              
-                                    <div className="flex w-[30%] justify-center items-center self-stretch ">
-                                      <p className="text-[14px] font-montserrat text-base font-medium leading-6">
-                                        {item?.date && formatDate(item?.date)}
-                                      </p>
-                                    </div>
-                                    {/* <div className="flex  justify-center items-center self-stretch ">
+
+                                  <div className="flex w-[30%] justify-center items-center self-stretch ">
+                                    <p className="text-[14px] font-montserrat text-base font-medium leading-6">
+                                      {item?.date && formatDate(item?.date)}
+                                    </p>
+                                  </div>
+                                  {/* <div className="flex  justify-center items-center self-stretch ">
                               <p className="text-[14px] font-montserrat text-base font-medium leading-6">
                                 {item?.date && convertToDateTime(item?.date)}
                               </p>
                             </div> */}
-                                    <div className="flex w-[20%] justify-center items-center self-stretch  ">
-                                      <p className="text-[#0C8A0A] items-center  font-montserrat text-sm font-semibold leading-7">
-                                        {item.score} / 10
-                                      </p>
-                                    </div>
+                                  <div className="flex w-[20%] justify-center items-center self-stretch  ">
+                                    <p className="text-[#0C8A0A] items-center  font-montserrat text-sm font-semibold leading-7">
+                                      {item.score} / 10
+                                    </p>
                                   </div>
                                 </div>
-                             
+                              </div>
+
                             ))}
                         </div>
                       </div>
@@ -1093,7 +1123,7 @@ console.log(uniqueQuestions)
                         </div> */}
                                     <div className="flex  justify-center lg:w-[40%]  items-center self-stretch  ">
                                       <p className="text-[#0C8A0A] items-center  font-montserrat text-sm font-semibold leading-7">
-                                        {Math.ceil(item.score *100 /60)}%
+                                        {Math.ceil(item.score * 100 / 60)}%
                                       </p>
                                     </div>
                                   </div>
@@ -1107,7 +1137,9 @@ console.log(uniqueQuestions)
                 )}
               </div>
             </div>
+           
           </div>
+
         )}
 
         {toggle === 1 && (
@@ -1340,7 +1372,7 @@ console.log(uniqueQuestions)
                     style={{ width: `${barWidth}%` }}
                   ></div>
                 </div>
-                <p className="text-[16px] flex justify-end font-semibold w-[60px]">
+                <p className="text-[16px] flex justify-end font-semibold w-[65px]">
                   {" "}
                   {questionIndex + 1} / {assesmentType === "Normal" ? 10 : 60}
                 </p>
@@ -1547,7 +1579,8 @@ console.log(uniqueQuestions)
 
                         {assesmentType !== "Normal" && (
                           <>
-                            {calculateMarkOutOf60() > 42 ? (
+                            {console.log(calculateMarkOutOf60())}
+                            {calculateMarkOutOf60() > "10%" ? (
                               <div className="text-[18px] text-[#0C8A0A] font-[600]">
                                 You are eligible for Certificate
                               </div>
@@ -1563,9 +1596,9 @@ console.log(uniqueQuestions)
                   </div>
 
                   <div
-                    className={`flex  justify-between items-center pb-[12px] ${assesmentType !== "Normal" && calculateMarkOutOf60() > 42
-                        ? "sm:w-[90%] w-[95%]"
-                        : "w-[80%]"
+                    className={`flex  justify-between items-center pb-[12px] ${assesmentType !== "Normal" && calculateMarkOutOf60() > "10%"
+                      ? "sm:w-[90%] w-[95%]"
+                      : "w-[80%]"
                       } `}
                   >
                     <button
@@ -1586,7 +1619,7 @@ console.log(uniqueQuestions)
                     </button>
 
                     {assesmentType !== "Normal" &&
-                      calculateMarkOutOf60() > 42 && (
+                      calculateMarkOutOf60() > "10%" && (
                         <button
                           className="border-[1px] min-w-[132.78px] flex justify-center items-center border-solid border-[#06A9EF] rounded-[12px] px-[12px] sm:px-[14px] py-[8px] text-[12px] scr700:text-[16px]  font-[500] bg-blue text-white"
                           onClick={() => generatePdf2()}
@@ -1620,7 +1653,7 @@ console.log(uniqueQuestions)
                     className="absolute overflow-hidden left-[-8000px]"
                     ref={resumeRef1}
                   >
-                    <Certificate />
+                    <Certificate selectedSkill={selectedSkill} level={level} />
                   </div>
                 </div>
               </div>
