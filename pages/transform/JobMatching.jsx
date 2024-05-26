@@ -127,7 +127,7 @@ const JobMatching = () => {
   const processChunk = async (chunk, jd, outputData) => {
     const promises = chunk.map(async (item) => {
       const { data } = await axios.post(
-        "http://localhost:2000/api/external/jobMatching/",
+        "https://jamblix.com/api/external/jobMatching/",
         {
           jd: jd,
           id: item,
@@ -142,27 +142,40 @@ const JobMatching = () => {
     setLoadingg(true);
     setIsAnimate(false);
     try {
-      const res = await axios.post("http://localhost:2000/api/jd/extraction", {
+      const res = await axios.post("https://jamblix.com/api/jd/extraction", {
         text,
       });
       const jd = res.data.jsonData[0];
-      const chunks = chunkArray(selectedIndexesFileTypes.slice(10), 5);
-      const outputData = [];
-      for (let i = 0; i < chunks.length; i++) {
-        await processChunk(chunks[i], jd, outputData);
-        if (i < chunks.length - 1) {
-          await new Promise((resolve) => setTimeout(resolve, 10000)); // Wait for 1 minute before processing the next chunk
+      if (Object.keys(jd).length > 5) {
+        const chunks = chunkArray(selectedIndexesFileTypes.slice(0, 5), 5);
+        const outputData = [];
+        for (let i = 0; i < chunks.length; i++) {
+          await processChunk(chunks[i], jd, outputData);
+          if (i < chunks.length - 1) {
+            await new Promise((resolve) => setTimeout(resolve, 10000)); // Wait for 1 minute before processing the next chunk
+          }
         }
+        const dataArray = outputData
+          .filter((item) => item.matching_percentage)
+          ?.sort((a, b) => {
+            if (parseInt(b.matching_percentage))
+              parseInt(
+                isNaN(b.matching_percentage)
+                  ? b.matching_percentage.slice(0, 2)
+                  : b.matching_percentage
+              ) -
+                parseInt(
+                  isNaN(a.matching_percentage)
+                    ? a.matching_percentage.slice(0, 2)
+                    : a.matching_percentage
+                );
+          })
+          .slice(0, resumeCount);
+        setResumeList(dataArray);
+      } else {
+        toast.error("Something went wrong, please try again");
       }
-      const dataArray = outputData
-        .filter((item) => item.matching_percentage)
-        ?.sort(
-          (a, b) =>
-            parseInt(b.matching_percentage.slice(0, 2)) -
-            parseInt(a.matching_percentage.slice(0, 2))
-        )
-        .slice(0, resumeCount);
-      setResumeList(dataArray);
+
       setLoadingg(false);
     } catch (e) {
       console.log("error", e);
@@ -175,7 +188,7 @@ const JobMatching = () => {
   //   setLoadingg(true);
   //   setIsAnimate(false);
   //   axios
-  //     .post("http://localhost:2000/api/jd/extraction", {
+  //     .post("https://jamblix.com/api/jd/extraction", {
   //       text,
   //     })
   //     .then(async (res) => {
@@ -186,7 +199,7 @@ const JobMatching = () => {
   //           .slice(0, 5)
   //           .map(async (item, index) => {
   //             const { data } = await axios.post(
-  //               "http://localhost:2000/api/external/jobMatching/",
+  //               "https://jamblix.com/api/external/jobMatching/",
   //               {
   //                 jd: jd,
   //                 id: item,
@@ -410,7 +423,7 @@ const JobMatching = () => {
             jobMatching={jobMatching}
           />
         </div>
-        <div className="bg-[#DEDEDE] ml:h-screen h-[1px] ml:w-[1px] w-full"></div>
+        <div className="bg-[#DEDEDE] ml:h-[91vh] h-[1px] ml:w-[1px] w-full"></div>
         <div className="ml:w-[60%] w-full">
           <JdMatching
             details={details}

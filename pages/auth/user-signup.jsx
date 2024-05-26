@@ -120,7 +120,7 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
             } else {
               setLoading(false);
 
-              window.location.href = `/home?signIn=false`;
+              window.location.href = "/home?signIn=false";
             }
           } else {
             setLoading(false);

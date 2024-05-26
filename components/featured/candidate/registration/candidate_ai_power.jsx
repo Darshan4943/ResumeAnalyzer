@@ -86,11 +86,12 @@ const CandidateAiPower = ({
     setfile(file);
   };
   const extracteText = async (file) => {
+    console.log(file)
     return new Promise(async (resolve, reject) => {
       const textData = [];
       if (
         file?.type ==
-        "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document" || file?.type == "application/msword"
       ) {
         const reader = new FileReader();
         reader.onload = async (e) => {
@@ -405,7 +406,7 @@ const CandidateAiPower = ({
 
                 <button
                   disabled={file && !loading ? false : true}
-                  className={`sm:px-9 px-6 py-3 bg-[#06A9EF] border rounded-[12px] font-semibold text-white ${
+                  className={`sm:px-9 px-6 py-3 bg-[#06A9EF]  rounded-[12px] font-semibold text-white ${
                     file && !loading
                       ? "opacity-100 btn_hover_effect"
                       : "opacity-50"

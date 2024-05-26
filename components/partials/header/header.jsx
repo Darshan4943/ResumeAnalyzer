@@ -82,6 +82,18 @@ function Header({ userData }) {
                 >
                   <button className={`buttonTransparent  min-w-[138px] rounded-[12px] flex justify-center items-center bg-white text-[#333] py-2 px-6 text-[16px] font-medium border border-transparent hover:border-blue `}>
                     Sign in
+                    <div
+              className=""
+             
+            >
+              <img
+
+                src="/images/down_arrow.png"
+                className="h-4 w-4 ml-1 cursor-pointer "
+                alt=""
+              />
+
+            </div>
                   </button>
                   {isSignIn && (
                     <div

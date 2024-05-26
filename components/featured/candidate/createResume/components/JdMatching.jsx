@@ -180,20 +180,27 @@ const JdMatching = ({ details, resumeList, isAnimate }) => {
       )}
       <div className="flex ml:flex-row flex-col gap-12 w-[100%] ">
         {!isAnimate || resumeList ? (
-          <div className="ml:w-[100%] w-[100%]  flex flex-col  gap-[16px] ">
+          <div className="w-[100%] flex flex-col  gap-[16px] ">
             <div>Total Results ({resumeList?.length})</div>
-            <div className=" flex flex-row flex-wrap ml:justify-between justify-center  gap-[24px] max-h-[95vh] overflow-y-auto ">
+            <div className=" flex flex-row flex-wrap ml:justify-between justify-center  gap-[18px] max-h-[86vh] overflow-y-auto ">
               {resumeList?.length > 0 ? (
                 <>
                   {resumeList
-                    ?.sort(
-                      (a, b) =>
-                        parseInt(b.matching_percentage.slice(0, 2)) -
-                        parseInt(a.matching_percentage.slice(0, 2))
-                    )
+                    ?.sort((a, b) => 
+                    parseInt(
+                      isNaN(b.matching_percentage)
+                        ? b.matching_percentage.slice(0, 2)
+                        : b.matching_percentage
+                    ) -
+                      parseInt(
+                        isNaN(a.matching_percentage)
+                          ? a.matching_percentage.slice(0, 2)
+                          : a.matching_percentage
+                      )
+                )
                     ?.map((data, index) => (
                       <div
-                        className="flex flex-col gap-[8px] md:w-[48%] w-[100%] max-w-[380px] rounded-[16px] border border-[#DEDEDE] bg-white shadow-lg py-[16px] ml:px-[24px] px-3 min-w-[300px]"
+                        className="flex flex-col gap-[8px] md:w-[48%] w-[100%] max-w-[380px] rounded-[16px] border border-[#DEDEDE] bg-white shadow-lg py-[16px] ml:px-[24px] px-3 min-w-[262px]"
                         key={index}
                       >
                         <div className="flex flex-col gap-[4px]">
@@ -214,6 +221,9 @@ const JdMatching = ({ details, resumeList, isAnimate }) => {
                               </span>
                               <div className="flex gap-2 justify-end">
                                 <div className="flex flex-row gap-[8px] items-center">
+                                  {
+                                    console.log(data?.resumeUrl)
+                                  }
                                   <svg
                                     onClick={() =>
                                       (window.location.href = data?.resumeUrl)

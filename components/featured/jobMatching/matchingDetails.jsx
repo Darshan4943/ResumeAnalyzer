@@ -62,7 +62,7 @@ const MatchingDetails = ({ data, setSelectedFile, files, extractedData }) => {
         className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"
       ></div>
       <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center    px-4 py-4 ">
-        <div className=" absolute bg-white rounded-lg    px-4 py-4   shadow-lg min-h-[500px] max-h-[600px]   items-end ml:w-[40vw] sm:w-[70%] w-[90%] flex flex-col gap-[8px]">
+        <div className=" absolute bg-white rounded-lg    px-4 py-4   shadow-lg min-h-[500px] max-h-[600px]   items-end ml:w-[50vw] sm:w-[70%] w-[90%] flex flex-col gap-[8px]">
           <div className="flex flex-col gap-4 w-full h-[30%]">
             {" "}
             <div className="flex flex-col gap-[4px]  w-full relative">
@@ -85,20 +85,20 @@ const MatchingDetails = ({ data, setSelectedFile, files, extractedData }) => {
                   <span className="text-[16px] text-[#333333]">
                     {data.fileName}
                   </span>
-                    <svg
-                      onClick={() => (window.location.href = data?.resumeUrl)}
-                      width="20"
-                      height="20"
-                      viewBox="0 0 14 14"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="cursor-pointer"
-                    >
-                      <path
-                        d="M6.99967 10.333L2.83301 6.16634L3.99967 4.95801L6.16634 7.12467V0.333008H7.83301V7.12467L9.99967 4.95801L11.1663 6.16634L6.99967 10.333ZM1.99967 13.6663C1.54134 13.6663 1.14898 13.5031 0.822591 13.1768C0.496202 12.8504 0.333008 12.458 0.333008 11.9997V9.49967H1.99967V11.9997H11.9997V9.49967H13.6663V11.9997C13.6663 12.458 13.5031 12.8504 13.1768 13.1768C12.8504 13.5031 12.458 13.6663 11.9997 13.6663H1.99967Z"
-                        fill="#333333"
-                      />
-                    </svg>
+                  <svg
+                    onClick={() => (window.location.href = data?.resumeUrl)}
+                    width="20"
+                    height="20"
+                    viewBox="0 0 14 14"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="cursor-pointer"
+                  >
+                    <path
+                      d="M6.99967 10.333L2.83301 6.16634L3.99967 4.95801L6.16634 7.12467V0.333008H7.83301V7.12467L9.99967 4.95801L11.1663 6.16634L6.99967 10.333ZM1.99967 13.6663C1.54134 13.6663 1.14898 13.5031 0.822591 13.1768C0.496202 12.8504 0.333008 12.458 0.333008 11.9997V9.49967H1.99967V11.9997H11.9997V9.49967H13.6663V11.9997C13.6663 12.458 13.5031 12.8504 13.1768 13.1768C12.8504 13.5031 12.458 13.6663 11.9997 13.6663H1.99967Z"
+                      fill="#333333"
+                    />
+                  </svg>
                 </div>
               </div>
             </div>
@@ -110,7 +110,7 @@ const MatchingDetails = ({ data, setSelectedFile, files, extractedData }) => {
             ) : null}
           </div>
           <div className="flex flex-col gap-4 w-full mt-6 overflow-auto">
-          {data?.conclusion?.length > 0 && (
+            {data?.conclusion?.length > 0 && (
               <div className="flex flex-col gap-[8px]  justify-between relative  w-full ">
                 <span className="text-[#333333] text-[18px] font-semibold">
                   Conclusion
@@ -152,8 +152,6 @@ const MatchingDetails = ({ data, setSelectedFile, files, extractedData }) => {
                 </ul>
               </div>
             )}
-
-            
 
             {/* {data?.percentage > 0 &&
               data?.matching_parameters_in_detail &&
