@@ -533,10 +533,11 @@ console.log(52,data)
                             isViewportBelow850 ? "w-[65%] " : "w-[40%] "
                           } items-center`}
                         >
-                          <div className="  w-[100%] text-[14px] justify-center items-center  flex font-[500] text-[#646464]">
+                          <div onWheel={(e) => e.stopPropagation()} className="  w-[100%] text-[14px] justify-center items-center  flex font-[500] text-[#646464]">
                             <div className="flex items-center justify-center gap-2 cursor-pointer min-w-[140px] w-[100%]">
                               <div className="flex items-center  gap-1 cursor-pointer  w-[100%] ">
                                 <ReactSelect
+                                
                                   options={filteredTelCode}
                                   className="w-[100%] flex  items-center py-1  rounded-[8px]"
                                   name=""

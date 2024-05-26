@@ -7,7 +7,7 @@ function Header({ userData }) {
   const router = useRouter();
   const [selectedPage, setSelectedPage] = useState("");
   const [isLogin, setIsLogin] = useState(null);
-
+  const [isSignIn, setIsSignIn] = useState(false);
   useEffect(() => {
     setSelectedPage(router.pathname);
   }, [router.pathname]);
@@ -20,7 +20,7 @@ function Header({ userData }) {
       } else {
         setIsLogin(false);
       }
-    }else{
+    } else {
       setIsLogin(false);
 
     }
@@ -30,8 +30,8 @@ function Header({ userData }) {
     <div
       className={
         selectedPage === "/auth/candidate_register" ||
-        selectedPage === "/auth/Employer_register" ||
-        selectedPage === "/auth/Recruiter_register"
+          selectedPage === "/auth/Employer_register" ||
+          selectedPage === "/auth/Recruiter_register"
           ? " "
           : "bg-white z-[100] fixed w-[100%]  "
       }
@@ -73,15 +73,43 @@ function Header({ userData }) {
                   Recruiter
                 </Link>
               </div>
-              <div className="w-[30%] gap-4  flex justify-end  items-center">
+              <div className="w-[30%] gap-4  flex justify-end  items-center ">
                 <div
-                  onClick={() => {
-                    router.push("/auth?signin=true");
-                  }}
+                  className="relative  "
+                  onMouseEnter={() => setIsSignIn(true)}
+                  onMouseLeave={() => setIsSignIn(false)}
+
                 >
-                  <button className=" buttonTransparent min-w-[138px] rounded-[12px] flex justify-center items-center bg-white text-[#333] py-2 px-6 text-[16px] font-medium border border-transparent hover:border-[#06A9EF]">
+                  <button className={`buttonTransparent  min-w-[138px] rounded-[12px] flex justify-center items-center bg-white text-[#333] py-2 px-6 text-[16px] font-medium border border-transparent hover:border-blue `}>
                     Sign in
                   </button>
+                  {isSignIn && (
+                    <div
+                      // ref={taskRef}
+                      style={{
+                        boxShadow: "0px 2px 2px 0px #00000040"
+                      }}
+                      className="w-[160px] flex flex-col text-[14px] font-medium  justify-center cursor-pointer absolute top-[26px] mt-[1rem] right-0  z-[5000] bg-[#FFFF]  rounded-[8px] rounded-t-[8px]   "
+                    >
+                      <div o onClick={() => {
+                        router.push("/auth?signin=true");
+                      }} className="flex gap-3 py-2 px-3 items-center hover:bg-blue hover:text-white rounded-t-[8px] ">
+
+
+                        Candidate Sign In
+                      </div>
+
+                      <div onClick={() => {
+                        router.push("/auth?signin=true");
+                      }} className="flex gap-3 py-2 px-3 items-center btn_hover_effect rounded-b-[8px]">
+
+
+
+                        Recruiter Sign In
+                      </div>
+
+                    </div>
+                  )}
                 </div>
 
                 <button
@@ -92,6 +120,8 @@ function Header({ userData }) {
                 >
                   Sign Up
                 </button>
+
+
               </div>
             </>
           ) : (
