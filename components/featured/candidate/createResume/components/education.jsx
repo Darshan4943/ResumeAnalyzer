@@ -110,13 +110,13 @@ const Education = ({ setData, data }) => {
     setEditingIndex(index);
     handleEditEducation(index);
   };
- 
+
   return (
     <>
       <div
         className="flex flex-col p-4 gap-2 rounded-lg bg-white"
         style={{
-          boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25) ",
+          // boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25) ",
           opacity: isChecked ? 1 : 0.5,
         }}
       >
@@ -316,7 +316,7 @@ const Education = ({ setData, data }) => {
                 </button> */}
                 <button
                   onClick={handleSave}
-                  className=" font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px]  bg-[#06A9EF] w-[60px] h-[32px]"
+                  className=" font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px]  bg-[#06A9EF] w-[60px] h-[32px] btn_hover_effect"
                 >
                   Save
                 </button>
@@ -343,7 +343,9 @@ const Education = ({ setData, data }) => {
                 status: false,
                 index: 0,
               });
-              setView(true);
+              if (isChecked) {
+                setView(true);
+              }
             }}
           >
             <svg

@@ -367,6 +367,43 @@ export const SkillList = [
 
 export const telCode = [
   {
+    name: "United Kingdom",
+    flag: "🇬🇧",
+    code: "UK",
+    dial_code: "+44",
+  },
+  {
+    name: "United States",
+    flag: "🇺🇸",
+    code: "US",
+    dial_code: "+1",
+  },
+  {
+    name: "India",
+    flag: "🇮🇳",
+    code: "IN",
+    dial_code: "+91",
+  },
+  {
+    name: "Zimbabwe",
+    flag: "🇿🇼",
+    code: "ZW",
+    dial_code: "+263",
+  },
+  {
+    name: "Zambia",
+    flag: "🇿🇲",
+    code: "ZM",
+    dial_code: "+260",
+  },
+  {
+    name: "South Africa",
+    flag: "🇿🇦",
+    code: "ZA",
+    dial_code: "+27",
+  },
+
+  {
     name: "Afghanistan",
     flag: "🇦🇫",
     code: "AF",
@@ -965,12 +1002,6 @@ export const telCode = [
     flag: "🇮🇸",
     code: "IS",
     dial_code: "+354",
-  },
-  {
-    name: "India",
-    flag: "🇮🇳",
-    code: "IN",
-    dial_code: "+91",
   },
   {
     name: "Indonesia",
@@ -1590,12 +1621,7 @@ export const telCode = [
     code: "SO",
     dial_code: "+252",
   },
-  {
-    name: "South Africa",
-    flag: "🇿🇦",
-    code: "ZA",
-    dial_code: "+27",
-  },
+
   {
     name: "South Sudan",
     flag: "🇸🇸",
@@ -1764,18 +1790,7 @@ export const telCode = [
     code: "AE",
     dial_code: "+971",
   },
-  {
-    name: "United Kingdom",
-    flag: "🇬🇧",
-    code: "GB",
-    dial_code: "+44",
-  },
-  {
-    name: "United States",
-    flag: "🇺🇸",
-    code: "US",
-    dial_code: "+1",
-  },
+
   {
     name: "Uruguay",
     flag: "🇺🇾",
@@ -1829,18 +1844,6 @@ export const telCode = [
     flag: "🇾🇪",
     code: "YE",
     dial_code: "+967",
-  },
-  {
-    name: "Zambia",
-    flag: "🇿🇲",
-    code: "ZM",
-    dial_code: "+260",
-  },
-  {
-    name: "Zimbabwe",
-    flag: "🇿🇼",
-    code: "ZW",
-    dial_code: "+263",
   },
 ];
 
@@ -2731,7 +2734,7 @@ export const plans = [
     price: "$ 10",
     days: 7,
     index: 4,
-    description: "For 1 Week",
+    description: "For 7 Days",
     features: [
       "10 Resume Uploads",
       "40 Resume Downloads",
@@ -2754,7 +2757,7 @@ export const plans = [
     price: "$ 50",
     days: 14,
     index: 5,
-    description: "For 2 Weeks",
+    description: "For 14 Days",
     features: [
       "50 Resume Uploads",
       "200 Resume Downloads",
@@ -2777,7 +2780,7 @@ export const plans = [
     price: "$ 100",
     days: 28,
     index: 6,
-    description: "For 4 Weeks",
+    description: "For 28 Days",
     features: [
       "100 Resume Uploads",
       "400 Resume Downloads",
@@ -3202,4 +3205,3 @@ export const currenciesWithIcons = [
   { name: "Niue Dollar", symbol: "$", icon: "nzd" },
   { name: "Tokelau Dollar", symbol: "$", icon: "nzd" },
 ];
-

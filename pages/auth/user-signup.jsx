@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { reCallUserData } from "../../Redux/actions/user";
 import Link from "next/link";
 import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
@@ -10,6 +10,8 @@ import { auth } from "../../utils/firebase";
 import MiniLoader from "../../components/common/mini-loader";
 
 function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
+  const userDataGlobal = useSelector((state) => state.userData);
+
   const router = useRouter();
   const [data, setData] = useState({
     email: "",
@@ -44,7 +46,7 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
             }`;
           } else {
             setGoogleLoading(false);
-            window.location.href = "/home";
+            window.location.href = "/home?signIn=false";
           }
         })
         .catch((err) => {
@@ -61,8 +63,17 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
     }
   };
 
+  useEffect(() => {
+    console.log(66, Object.keys(userDataGlobal).length > 0);
+    if (Object.keys(userDataGlobal).length > 0) {
+      window.location.href = `/home`;
+    }
+  }, [userDataGlobal]);
+  console.log(66, userDataGlobal);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [passwordError, setPasswordError] = useState(null);
+  const [confirmPassword, setConfirmPasswordError] = useState(null);
   const [isEmailEntered, setIsEmailEntered] = useState(false);
   const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
@@ -109,7 +120,7 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
             } else {
               setLoading(false);
 
-              window.location.href = `/home`;
+              window.location.href = "/home?signIn=false";
             }
           } else {
             setLoading(false);
@@ -132,6 +143,10 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
       });
   };
 
+  const openInNewTab = (url) => {
+    window.open(url, "_blank");
+  };
+
   const handleEmailChange = (e) => {
     const lowercaseEmail = e.target.value.toLowerCase();
     setData({ ...data, email: lowercaseEmail });
@@ -139,12 +154,32 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
     clearError();
   };
 
+  function validatePassword(password) {
+    const strongPasswordRegex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    return strongPasswordRegex.test(password);
+  }
+
   const handlePasswordChange = (e) => {
+    const result = validatePassword(e.target.value);
+    if (result) {
+      setPasswordError(null);
+    } else {
+      setPasswordError(
+        "one uppercase one lowercase one number and one special character"
+      );
+    }
     setData({ ...data, password: e.target.value });
     clearError();
   };
 
   const handleConfirmPasswordChange = (e) => {
+    const result = validatePassword(e.target.value);
+    if (result) {
+      setConfirmPasswordError(null);
+    } else {
+      setConfirmPasswordError("Passwords do not match");
+    }
     setData({ ...data, confirmPassword: e.target.value });
     clearError();
   };
@@ -183,6 +218,7 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
                 required
                 onChange={handlePasswordChange}
               />
+
               {showPassword ? (
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -215,6 +251,19 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
                     />
                   </g>
                 </svg>
+              )}
+            </div>
+            <div
+              className={`flex justify-start text-[10px] gap-2  font-[600]
+              }`}
+            >
+              {passwordError != null && (
+                <div className="text-black flex flex-row">
+                  <span className="p-0">
+                    Password should include{" "}
+                    <span className="text-red">{passwordError}</span>
+                  </span>
+                </div>
               )}
             </div>
             <div className="flex flex-row px-[16px] py-[12px] border-[1px] rounded-[8px] border-solid border-[#9D9D9D] justify-between">
@@ -261,7 +310,12 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
                 </svg>
               )}
             </div>
-
+            <div
+              className={`flex justify-start text-[12px] gap-2 text-red font-[600]
+              }`}
+            >
+              {confirmPassword != null && confirmPassword}
+            </div>
             <div
               className={`flex justify-start text-[16px] gap-2  ${
                 error ? "text-red font-[600]" : "text-green font-[600]"
@@ -358,16 +412,20 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
             <div className="text-[12px] text-center">
               By signing in, you agree to our{" "}
               <span
+                // onClick={() => router.push("/TermsAndConditions")}
+                onClick={() => openInNewTab("/TermsAndConditions")}
                 className="already_sign cursor-pointer"
                 style={{
                   fontSize: "12px",
                   color: "#06A9EF",
                 }}
               >
-                <a href="">Terms & Conditions</a>
+                <a>Terms & Conditions</a>
               </span>{" "}
               and{" "}
               <span
+                // onClick={() => router.push("/PrivacyPolicy")}
+                onClick={() => openInNewTab("/PrivacyPolicy")}
                 className="already_sign cursor-pointer"
                 style={{
                   fontSize: "12px",
@@ -375,7 +433,7 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
                 }}
               >
                 {" "}
-                <a href="">Privacy Policy.</a>
+                <a>Privacy Policy.</a>
               </span>
             </div>
           </div>

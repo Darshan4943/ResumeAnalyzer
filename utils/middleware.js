@@ -56,14 +56,17 @@ export const dateSeter = (date) => {
   return `${day} ${monthLater[month]} ${year} `;
 };
 export const fileIconSeter = (data) => {
-  if (data.fileName.includes("docx") || data.fileName.toLowerCase().includes("doc")) {
+  if (
+    data?.fileName?.includes("docx") ||
+    data?.fileName?.toLowerCase()?.includes("doc")
+  ) {
     return <DocSVG />;
-  } else if (data.fileName?.toLowerCase().includes("pdf")) {
+  } else if (data?.fileName?.toLowerCase()?.includes("pdf")) {
     return <PDFSvg />;
   } else if (
-    data.fileName?.includes("png") ||
-    data.fileName?.includes("jpg") ||
-    data.fileName?.includes("jpeg")
+    data?.fileName?.includes("png") ||
+    data?.fileName?.includes("jpg") ||
+    data?.fileName?.includes("jpeg")
   ) {
     return <PNGICON />;
   } else {
@@ -410,3 +413,4 @@ export const daysCalculator = (date) => {
     return `${years} year${years > 1 ? "s" : ""} ago`;
   }
 };
+

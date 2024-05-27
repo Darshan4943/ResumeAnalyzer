@@ -391,6 +391,11 @@ a {
     rgba(42, 8, 69, 0.15) 100%
   );
 }
+.chatBot:hover {
+  background: linear-gradient(0deg, #FFFFFF, #FFFFFF);
+  background:linear-gradient(270deg, rgba(121, 148, 216, 0.2) 0.37%, rgba(114, 141, 210, 0.2) 3.69%, rgba(92, 117, 188, 0.2) 17.46%, rgba(76, 100, 172, 0.2) 32.08%, rgba(66, 90, 163, 0.2) 48%, rgba(63, 87, 160, 0.2) 67.66%, rgba(42, 66, 139, 0.2) 100%);
+  
+}
 .postJobs:hover {
   background: rgba(255, 255, 255, 1);
   background: linear-gradient(
@@ -401,12 +406,12 @@ a {
 }
 
 .group:hover .icon-path {
-  fill: #06a9ef;
+  fill: white;
 }
 .btn_hover_effect{
   transition: all 0.2s;
 }
 .btn_hover_effect:hover {
   background-color: #ffda1d;
-  color: #333;
+  color: #000000;
 }

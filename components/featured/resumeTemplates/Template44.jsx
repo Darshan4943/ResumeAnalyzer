@@ -403,7 +403,7 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
           style={{
             width: 388,
             marginTop:'24px',
-            paddingHorizontal: 42,
+            paddingHorizontal: 32,
             paddingBottom: 42,
             display: "flex",
             flexDirection: "column",

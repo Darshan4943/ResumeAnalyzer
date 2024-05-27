@@ -10,6 +10,7 @@ const JobCard = ({ data, setJd, resume, jd }) => {
   const [loading, setLoading] = useState(true);
   const userDataGlobal = useSelector((state) => state.userData);
   const [isApplied, setIsApplied] = useState(true);
+  const [isApply, setIsApply] = useState(false);
   const dispatch = useDispatch();
 
   const getData = () => {
@@ -34,8 +35,8 @@ const JobCard = ({ data, setJd, resume, jd }) => {
 
   useEffect(() => {
     getData();
-  }, [data, jd]);
-
+  }, [data, jd, isApply]);
+  console.log(isApply);
   const applyForJob = (data) => {
     setLoading(true);
     axios
@@ -46,6 +47,7 @@ const JobCard = ({ data, setJd, resume, jd }) => {
       })
       .then((res) => {
         setLoading(false);
+
         getData();
         toast.success("Application Sent Successfully");
       })
@@ -59,6 +61,7 @@ const JobCard = ({ data, setJd, resume, jd }) => {
       .post(`https://jamblix.com/api/saveJob/${userDataGlobal?._id}/${id}`)
       .then((res) => {
         dispatch(reCallUserData());
+        getData();
         toast.success("Job Saved  Successfully");
       })
       .catch((err) => {
@@ -153,7 +156,10 @@ const JobCard = ({ data, setJd, resume, jd }) => {
         </div>
         <button
           className="px-[12px] py-[8px] w-[102px] bg-[#06A9EF] rounded-[8px] text-[#fff] text-[14px]"
-          onClick={() => applyForJob(data)}
+          onClick={() => {
+            applyForJob(data);
+            setIsApply(!isApply);
+          }}
           disabled={isApplied}
           style={{ opacity: isApplied ? 0.6 : 1 }}
         >

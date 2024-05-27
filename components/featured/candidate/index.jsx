@@ -81,7 +81,7 @@ function CandidateHome() {
             <div className=" flex flex-col gap-6 w-[35%] text-[#333333]">
               <div className="font-semibold  text-[2.5vw] leading-tight ">
                 Resume Templates for All{" "}
-                <span className="text-[#06A9EF]">Careers and Levels.</span>
+                <span className="text-[#06A9EF]">Careers and Levels</span>
               </div>
               <div className="font-medium scr1200:text-[1.2vw] text-[20px] w-[95%] break-words ">
                 <p>
@@ -90,8 +90,8 @@ function CandidateHome() {
                   <span className="text-[#06A9EF]">
                     expert-designed resume templates{" "}
                   </span>
-                  and create a resume that fits your needs and style.No
-                  Experienced needed!
+                  and create a resume that fits your needs and style. No
+                  Experience needed!
                 </p>
                 <p>
                   <span className="text-[#06A9EF]">Stand out from the crowd</span>{" "}

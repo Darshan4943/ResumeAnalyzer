@@ -55,7 +55,18 @@ function AccountDetails({
   const [filteredTelCode, setFilteredTelCode] = useState([]);
   useEffect(() => {
     const filteredCodes = telCode;
-    setFilteredTelCode(filteredCodes);
+    const firstSixCodes = filteredCodes.slice(0, 6);
+    const remainingCodes = filteredCodes.slice(6);
+
+    const sortedRemainingCodes = remainingCodes.sort((a, b) => {
+      const numA = parseInt(a.dial_code.replace("+", ""), 10);
+      const numB = parseInt(b.dial_code.replace("+", ""), 10);
+      return numA - numB;
+    });
+
+    const combinedCodes = [...firstSixCodes, ...sortedRemainingCodes];
+    setFilteredTelCode(combinedCodes);
+    // setFilteredTelCode(filteredCodes);
   }, [telCode]);
   const [selectedItem, setSelectedItem] = useState();
 
@@ -285,7 +296,7 @@ function AccountDetails({
   const handleRetrieveSession = useMemo(
     () => async (storedId) => {
       try {
-        setSuccessModel({ visible: true, loading: true });
+        // setSuccessModel({ visible: true, loading: true });
         const response = await axios.get(
           "https://jamblix.com/api/retrieve/session",
           {
@@ -359,6 +370,18 @@ function AccountDetails({
     }
   }, [storedId]);
 
+  const customFilterOption = ({ label, value, data }, inputValue) => {
+    const lowercasedInput = inputValue.toLowerCase();
+    return (
+      data.code.toLowerCase().includes(lowercasedInput) ||
+      data.dial_code.includes(inputValue)
+    );
+  };
+
+  const openInNewTab = (url) => {
+    window.open(url, "_blank");
+  };
+
   return (
     <div className={" w-[60%] plan-container  "}>
       {popUp && (
@@ -430,7 +453,7 @@ function AccountDetails({
             <div className="flex gap-5 w-[100%] ">
               <div className=" w-[50%]">
                 <p className="">
-                  First name <span className="star">*</span>
+                  First Name <span className="star">*</span>
                 </p>
                 <input
                   type="text"
@@ -451,7 +474,7 @@ function AccountDetails({
 
               <div className="w-[50%]">
                 <p className=" ">
-                  Last name <span className="star">*</span>
+                  Last Name <span className="star">*</span>
                 </p>
                 <input
                   type="text"
@@ -517,6 +540,15 @@ function AccountDetails({
                       style={{ outline: "unset" }}
                       value={selectedItem}
                       onChange={handleItemClick}
+                      theme={(theme) => ({
+                        ...theme,
+                        borderRadius: 0,
+                        colors: {
+                          ...theme.colors,
+                          // primary25: 'hotpink',
+                          primary: "neutral0",
+                        },
+                      })}
                       getOptionLabel={(option) => (
                         <div className="flex items-center  ">
                           <img
@@ -528,7 +560,9 @@ function AccountDetails({
                           </span>
                         </div>
                       )}
-                      getOptionValue={(option) => option.code}
+                      filterOption={customFilterOption}
+                      // getOptionValue={(option) => option.code}
+
                       styles={{
                         control: (provided) => ({
                           ...provided,
@@ -612,12 +646,18 @@ function AccountDetails({
 
           <div className="text-[14px] font-normal">
             I agree to the{" "}
-            <span className="text-[#06A9EF] border-b border-[#06A9EF] cursor-pointer">
-              License Terms
+            <span
+              className="text-[#06A9EF] border-b border-[#06A9EF] cursor-pointer"
+              onClick={() => openInNewTab("/TermsAndConditions")}
+            >
+              Terms and Conditions
             </span>{" "}
             and{" "}
-            <span className="text-[#06A9EF] border-b border-[#06A9EF] cursor-pointer">
-              User Agreement.
+            <span
+              className="text-[#06A9EF] border-b border-[#06A9EF] cursor-pointer"
+              onClick={() => openInNewTab("/PrivacyPolicy")}
+            >
+              Privacy Policy
             </span>
           </div>
         </div>

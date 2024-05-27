@@ -33,6 +33,7 @@ function CandidateHeader() {
 
     toggleDropdown();
     localStorage.clear();
+    sessionStorage.clear();
     window.location.href = "/";
   };
 
@@ -216,7 +217,7 @@ function CandidateHeader() {
                 <div
                   onClick={() => setServices(true)}
                   className={
-                    " text-[14px] flex gap-2  items-center font-semibold p-[10px] hover:bg-[#EAF7FF] rounded-[14px] cursor-pointer "
+                    " text-[14px] flex gap-2  items-center font-semibold p-[8px] hover:bg-[#EAF7FF] rounded-[14px] cursor-pointer "
                   }
                 >
                   <Service />
@@ -229,7 +230,7 @@ function CandidateHeader() {
                     setIsMove(false);
                   }}
                   className={
-                    " text-[14px] flex gap-2  items-center font-semibold p-[10px] hover:bg-[#EAF7FF] bg-[#EAF7FF] rounded-[14px] cursor-pointer "
+                    " text-[14px] flex gap-2  items-center font-semibold p-[8px] hover:bg-[#EAF7FF] bg-[#EAF7FF] rounded-[14px] cursor-pointer "
                   }
                 >
                   <Service />

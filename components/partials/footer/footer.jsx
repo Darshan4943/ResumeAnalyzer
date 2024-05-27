@@ -1,27 +1,28 @@
 import { useRouter } from "next/router";
 import React, { useState } from "react";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import Link from "next/link";
+import "react-toastify/dist/ReactToastify.css";
 function Footer({ isSubscribe, setIsSubcrib }) {
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState("");
   const [isSubscribed, setIsSubscribed] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const router = useRouter();
-
 
   const handleChange = (event) => {
     const value = event.target.value;
     setEmail(value);
 
-    if (value.includes('.com' && '@')) {
-      setError('');
+    if (value.includes(".com" && "@")) {
+      setError("");
     } else {
-      setError('! please enter a valid email');
+      setError("! please enter a valid email");
     }
   };
 
   // const notify = () => toast("Wow so easy!");
 
+  // const handleSubscribed = (e) => {
   // const handleSubscribed = (e) => {
   //   e.preventdefault();
   //   toast.error("something went wrong")
@@ -36,18 +37,22 @@ function Footer({ isSubscribe, setIsSubcrib }) {
   //   }
   // };
 
-
   const handleSubscribed = (e) => {
-    e.preventDefault()
-    if (email.trim() !== '' && !error) {
+    e.preventDefault();
+    if (email.trim() !== "" && !error) {
       setIsSubscribed(true);
-      toast.success("Subscribe successfully")
+      toast.success("Subscribe successfully");
       // console.log('Subscribed with email:', email);
     } else {
-      console.log('Valid email is required to subscribe');
-      toast.error("please enter a valid email")
+      console.log("Valid email is required to subscribe");
+      toast.error("please enter a valid email");
     }
-  }
+  };
+
+  const openInNewTab = (url) => {
+    window.open(url, "_blank");
+  };
+
   return (
     <div
       className="footer "
@@ -77,31 +82,51 @@ function Footer({ isSubscribe, setIsSubcrib }) {
           </p>
           <div className="web">
             <div className=" flex gap-6 ">
-              <img
-                className="media"
-                src="/images/home/facebook_icon.png"
-                alt=""
-              />
-              <img
-                className="media"
-                src="/images/home/twitter_icon.png"
-                alt=""
-              />
-              <img
-                className="media"
-                src="/images/home/instagram_icon.png"
-                alt=""
-              />
-              <img
-                className="media"
-                src="/images/home/linkedin_icon.png"
-                alt=""
-              />
-              <img
+              <a
+                href="https://www.facebook.com/profile.php?id=61559079794587&mibextid=ZbWKwL"
+                target="_blank"
+              >
+                <img
+                  className="media"
+                  src="/images/home/facebook_icon.png"
+                  alt=""
+                />
+              </a>
+              {/**    <a
+                // href="https://www.instagram.com/skilotech_hrms/?hl=en"
+                target="_blank"
+              >
+                <img
+                  className="media"
+                  src="/images/home/twitter_icon.png"
+                  alt=""
+                />
+              </a> */}
+              <a
+                href="https://www.instagram.com/skilotech_hrms/?hl=en"
+                target="_blank"
+              >
+                <img
+                  className="media"
+                  src="/images/home/instagram_icon.png"
+                  alt="Instagram"
+                />
+              </a>
+              <a
+                href="https://www.linkedin.com/company/skilotech/"
+                target="_blank"
+              >
+                <img
+                  className="media"
+                  src="/images/home/linkedin_icon.png"
+                  alt=""
+                />
+              </a>
+              {/** <img
                 className="media"
                 src="/images/home/youtube_icon.png"
                 alt=""
-              />
+              />*/}
             </div>
           </div>
         </div>
@@ -109,14 +134,15 @@ function Footer({ isSubscribe, setIsSubcrib }) {
           <div className="flex gap-4 footerThird ml:w-[45%] scr420:justify-between justify-between break-word pt-6">
             <div className="flex flex-col justify-between gap-4  flex-wrap address">
               <div className="footer_sub_address">
-                <div>
+                {/* <div>
                   <p className="footer_address_P">Address</p>
-                </div>
-                <div className="footer_add  ">
-                  <div className="leading-10">
+                </div> */}
+                <div className="footer_add ">
+                  <div className=" flex flex-col gap-4">
                     <p className="text-[#fff] font-[600]">Offices :</p>
                     <p className="footer_address_Para leading-6">
-                      Harare, Zimbabwe  <br />  Pune, India<br /> London, United Kingdom
+                      Harare, Zimbabwe <br /> Pune, India
+                      <br /> London, United Kingdom
                     </p>
                   </div>
                 </div>
@@ -124,19 +150,31 @@ function Footer({ isSubscribe, setIsSubcrib }) {
               <div className=" flex flex-col flex-wrap  ">
                 <p className="footer_address_Email">Email </p>
                 <p className="footer_address_Email_font flex flex-wrap ">
-                  <a href="mailto:support@skilotech.com">support@skilotech.com</a>
+                  <a href="mailto:support@skilotech.com">
+                    support@skilotech.com
+                  </a>
                 </p>
               </div>
             </div>
             <div className="flex flex-col gap-4 ">
               <div className="footer_about_section ">
-                <p className="footer_about_P">About</p>
-                <div className="footer_sub_about">
-                  <p onClick={() => router.push("/TermsAndConditions")} className="footer_sub_about_P cursor-pointer">Terms and Conditions</p>
-                  <p onClick={() => router.push("/PrivacyPolicy")} className="footer_sub_about_P cursor-pointer">Privacy Policy</p>
+                <p className="text-[#fff] font-[600]">About</p>
+                <div className="footer_sub_about ">
+                  <p
+                    onClick={() => openInNewTab("/TermsAndConditions")}
+                    className="footer_sub_about_P cursor-pointer leading-6"
+                  >
+                    Terms and Conditions
+                  </p>
+                  <p                    
+onClick={() => openInNewTab("/PrivacyPolicy")}
+                    className="footer_sub_about_P cursor-pointer leading-6"
+                  >
+                    Privacy Policy
+                  </p>
                   <p
                     onClick={() => router.push("/ContactUs")}
-                    className="footer_sub_about_P cursor-pointer"
+                    className="footer_sub_about_P cursor-pointer leading-6"
                   >
                     {" "}
                     Contact Us
@@ -154,12 +192,11 @@ function Footer({ isSubscribe, setIsSubcrib }) {
                   </p>
                 </div>
               </div> */}
-
             </div>
           </div>
           <div className="footer_input_conatainer ml:w-[60%]  items-center">
             <p className="footer_input_conatainer_P text-center">
-              Like to stay market relevant  with news and updates?{" "}
+              Like to stay market relevant with news and updates?{" "}
             </p>
             <div className="footer_input relative ">
               <input
@@ -172,9 +209,10 @@ function Footer({ isSubscribe, setIsSubcrib }) {
               />
               {/* {error && <div className="error_message text-[8px] absolute bg-white px-[4px] py-[0.5px] rounded-[4px] font-[500] top-[60px] left-[10px] text-red">{error}</div>} */}
               <div className="footer_inner_input_box"></div>
-              <button onClick={handleSubscribed}
+              <button
+                onClick={handleSubscribed}
                 className="footer_input_btn btn_hover_effect"
-              // disabled={error || email.trim() === ''}
+                // disabled={error || email.trim() === ''}
               >
                 Subscribe
               </button>
@@ -198,26 +236,38 @@ function Footer({ isSubscribe, setIsSubcrib }) {
               <div className="text-[#06A9EF] sm:text-[24px] text-[14px]">
                 Connect us
               </div>
-              <img
-                className="media"
-                src="/images/home/facebook_icon.png"
-                alt=""
-              />
-              <img
-                className="media"
-                src="/images/home/twitter_icon.png"
-                alt=""
-              />
-              <img
-                className="media"
-                src="/images/home/instagram_icon.png"
-                alt=""
-              />
-              <img
-                className="media"
-                src="/images/home/linkedin_icon.png"
-                alt=""
-              />
+              <a
+                href="https://www.facebook.com/profile.php?id=61559079794587&mibextid=ZbWKwL"
+                target="_blank"
+              >
+                <img
+                  className="media"
+                  src="/images/home/facebook_icon.png"
+                  alt=""
+                />
+              </a>
+
+              <a
+                href="https://www.instagram.com/skilotech_hrms/?hl=en"
+                target="_blank"
+              >
+                <img
+                  className="media"
+                  src="/images/home/instagram_icon.png"
+                  alt="Instagram"
+                />
+              </a>
+
+              <a
+                href="https://www.linkedin.com/company/skilotech/"
+                target="_blank"
+              >
+                <img
+                  className="media"
+                  src="/images/home/linkedin_icon.png"
+                  alt=""
+                />
+              </a>
               <img
                 className="media"
                 src="/images/home/youtube_icon.png"
@@ -225,27 +275,23 @@ function Footer({ isSubscribe, setIsSubcrib }) {
               />
             </div>
           </div>
-
         </div>
-
       </div>
       <div className="footer_down_straight_line">
         <svg
           xmlns="http://www.w3.org/2000/svg"
-
           height="1"
           viewBox="0 0 986 1"
-          fill="none" className="footerLine"
+          fill="none"
+          className="footerLine"
         >
           <path d="M1 0.5H985" stroke="#828282" strokeLinecap="round" />
         </svg>{" "}
       </div>
 
-
       <div className="footer_copyright">
         Copyright © 2024 Skilotech. All rights reserved.
       </div>
-
     </div>
   );
 }

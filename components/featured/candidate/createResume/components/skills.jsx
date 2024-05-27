@@ -312,7 +312,7 @@ const Skills = ({ data, setData }) => {
   return (
     <div
       className="flex flex-col p-4 gap-2 rounded-lg bg-white"
-      style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}
+      // style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}
     >
       <div className="flex flex-col gap-2 w-full">
         <div className="w-full text-[20px] font-montserrat font-medium">
@@ -355,7 +355,9 @@ const Skills = ({ data, setData }) => {
               style={{ opacity: saveDisabled ? 0.5 : 1 }}
               onClick={saveHandler}
               disabled={saveDisabled}
-              className="font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px] bg-[#06A9EF] w-[60px] h-[32px]"
+              className={`font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px] bg-[#06A9EF] w-[60px] h-[32px] ${
+                !saveDisabled ? "btn_hover_effect" : ""
+              }`}
             >
               Save
             </button>

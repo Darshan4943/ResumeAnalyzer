@@ -20,22 +20,7 @@ const FileNameModel = ({ setNamePreview, setFunction, data, clientId }) => {
   const userDataGlobal = useSelector((state) => state.userData);
 
   const callData = () => {
-    const id = clientId === "undefined" ? userDataGlobal?._id : clientId;
-    if (id) {
-      axios
-        .get(`https://jamblix.com/api/resume/${id}`)
-        .then((res) => {
-          const filenamesWithoutExtension = res.data.data.map((item) =>
-            item.fileName.replace(/\.pdf$/, "")
-          );
-          setExistingNames(filenamesWithoutExtension);
-
-          setName(data.firstName + "_resume " + (res.data.data.length + 1));
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
+    setName(data.firstName + "_resume " );
   };
   useEffect(() => {
     callData();

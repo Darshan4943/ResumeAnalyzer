@@ -141,20 +141,16 @@ function Folders({
     setSelectAll(!selectAll);
   };
 
-  const sort = ["A to Z", "Date Modified", "Size"];
+  const sort = ["A to Z", "Date Modified"];
 
   const sortClientData = (data, selectedIndex) => {
-    switch (sort[selectedIndex]) {
-      case "A to Z":
-        return data.sort((a, b) => a.firstName.localeCompare(b.firstName));
-
-      case "Date Modified":
-        return data.sort((a, b) => a.createdAt.localeCompare(b.createdAt));
-
-      case "Type":
-
-      default:
-        return data;
+    console.log("dataTosortC", data);
+    if (sortSelect == 0) {
+      return data?.sort((a, b) => a.firstName.localeCompare(b.firstName));
+    } else if (sortSelect == 1) {
+      return data?.sort((a, b) => a.createdAt?.localeCompare(b.createdAt));
+    } else if (sortSelect == 2) {
+      return data?.sort((a, b) => a.size - b.size);
     }
   };
   const handleSortSelect = (index) => {
@@ -165,11 +161,12 @@ function Folders({
     if (sortSelect == 0) {
       return data?.sort((a, b) => a.fileName?.localeCompare(b.fileName));
     } else if (sortSelect == 1) {
-      return data?.sort((a, b) => a.updatedAt.localeCompare(b.updatedAt));
+      return data?.sort((a, b) => a.updatedAt?.localeCompare(b.updatedAt));
     } else if (sortSelect == 2) {
       return data?.sort((a, b) => a.size - b.size);
     }
   };
+
   return (
     <div className="flex flex-col gap-4 ml:w-[80%] w-[100%] ">
       <div className="flex justify-between items-center">
@@ -682,7 +679,7 @@ function Folders({
             setData={setData}
             files={files}
             setFiles={setFiles}
-            clientData={sortData(mainData)}
+            clientData={sortClientData(mainData)}
             tab={tab}
             setParentId={setParentId}
             parentId={parentId}
@@ -721,7 +718,7 @@ function Folders({
                     </p>
                   ) : (
                     <p className="text-[14px] font-[500]  text-center px-8">
-                      Are you sure you want delete this selection?
+                      Are you sure you want to delete this selection?
                     </p>
                   )}
                 </div>

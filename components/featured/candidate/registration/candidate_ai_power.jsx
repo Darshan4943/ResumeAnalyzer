@@ -86,11 +86,12 @@ const CandidateAiPower = ({
     setfile(file);
   };
   const extracteText = async (file) => {
+    console.log(file)
     return new Promise(async (resolve, reject) => {
       const textData = [];
       if (
         file?.type ==
-        "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document" || file?.type == "application/msword"
       ) {
         const reader = new FileReader();
         reader.onload = async (e) => {
@@ -105,13 +106,13 @@ const CandidateAiPower = ({
           textData.push({ text });
         };
         reader.readAsBinaryString(file);
-      } else if (file.type == "image/png") {
+      } else if (file?.type == "image/png") {
         Tesseract.recognize(file, "eng", {
           logger: (m) => console.log(m),
         }).then(async ({ data: { text } }) => {
           textData.push({ text });
         });
-      } else if (file.type == "application/pdf") {
+      } else if (file?.type == "application/pdf") {
         let fullText = "";
         const pdfTextPromises = [];
         const fileUrl = URL.createObjectURL(file);
@@ -139,6 +140,7 @@ const CandidateAiPower = ({
   };
 
   const navigate = () => {
+    console.log(2, uploadLimit);
     if (uploadLimit <= 0) {
       setLimitUsedModal(true);
       return;
@@ -198,22 +200,23 @@ const CandidateAiPower = ({
             extracteText();
           });
       } else {
-        setResumeErrorPopup(true);
-        // toast.error("Error while parsing resume please try again");
-        setLoading(false);
-        setfile();
+        // setResumeErrorPopup(true);
+        // // toast.error("Error while parsing resume please try again");
+        // setLoading(false);
+        // setfile();
+        setCount(count + 1);
       }
     });
   };
-
+  console.log(count);
   useEffect(() => {
-    if (count >= 2) {
+    if (count > 2) {
       setLoading(false);
       setfile();
       setResumeErrorPopup(true);
       setCount(0);
-    } else {
-      navigate;
+    } else if (count == 1 || count == 2) {
+      navigate();
     }
   }, [count]);
 
@@ -266,17 +269,17 @@ const CandidateAiPower = ({
             >
               <div className="flex flex-col gap-4">
                 <p className="text-center font-semibold text-black-600 text-3xl">
-                  Ai Powered profile creation
+                  AI Powered profile creation
                 </p>
                 <p className=" text-center font-medium text-lg not-italic	">
                   Easy process to create your profile
                 </p>
                 <div className="flex flex-col gap-2">
                   <p className="text-center font-medium text-sm	not-italic">
-                    1.Upload your CV/Resume.
+                    1. Upload your CV/Resume.
                   </p>
                   <p className="text-center font-medium	text-sm	not-italic	">
-                    2.Let system scan it and make your profile almost ready.
+                    2. Let the system scan it and make your profile ready.
                   </p>
                 </div>
               </div>
@@ -311,7 +314,7 @@ const CandidateAiPower = ({
                             </span>
                           </div>
 
-                          <button className="sm:px-[8px] px-1 py-[6px] border border-[#06A9EF]  rounded-[12px] text-[12px] sm:text-[16px] sm:min-w-[105px] min-w-[90px]  ">
+                          <button className=" btn_hover_effect sm:px-[8px] px-1 py-[6px] border border-[#06A9EF]  rounded-[12px] text-[12px] sm:text-[16px] sm:min-w-[105px] min-w-[90px] cursor-pointer ">
                             Browse file
                           </button>
                         </div>
@@ -403,8 +406,10 @@ const CandidateAiPower = ({
 
                 <button
                   disabled={file && !loading ? false : true}
-                  className={`sm:px-9 px-6 py-3 bg-[#06A9EF] border rounded-[12px] font-semibold text-white ${
-                    file && !loading ? "opacity-100" : "opacity-50"
+                  className={`sm:px-9 px-6 py-3 bg-[#06A9EF]  rounded-[12px] font-semibold text-white ${
+                    file && !loading
+                      ? "opacity-100 btn_hover_effect"
+                      : "opacity-50"
                   } `}
                   onClick={navigate}
                 >

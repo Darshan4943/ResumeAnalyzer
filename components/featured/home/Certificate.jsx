@@ -1,6 +1,43 @@
 import React from "react";
+import { useSelector } from "react-redux";
 
-function Certificate() {
+function Certificate({
+  selectedSkill,
+  level,
+  setDownloadCertificate,
+  downloadCertificate,
+}) {
+  const userDataGlobal = useSelector((state) => state.userData);
+
+  function formatDate(inputDate) {
+    const date = new Date(inputDate);
+
+    // Define an array of month names
+    const monthNames = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
+
+    // Get the day, month, and year
+    const day = date.getUTCDate();
+    const month = monthNames[date.getUTCMonth()];
+    const year = date.getUTCFullYear();
+
+    // Format the date string
+    return `${month} ${day} ${year}`;
+  }
+
+  console.log(11111111111, downloadCertificate);
   return (
     <div className="w-[1056px] h-[746px] relative">
       <div
@@ -24,34 +61,34 @@ function Certificate() {
             Certificate of Completion
           </span>
         </div>
-        <div className="w-[463px] h-[300px] gap-2 flex flex-col justify-center items-center">
+        <div className=" h-[300px] gap-2 flex flex-col justify-center items-center">
           <span className="font-Montserrat text-[26px] font-[500] text-[ #333333]">
             This is to certify that
           </span>
 
           <div className="w-[100%]  gap-2 flex flex-col justify-center items-center">
             <span className="font-Montserrat text-[32px] font-[600] text-[ #333333]">
-              Samrangan Bhanuse
+              {userDataGlobal.firstName} {userDataGlobal.lastName}
             </span>
-            <div className="w-[453px] bg-[#FFD500] h-[2px]"></div>
+            <div className="w-[90%] bg-[#FFD500] h-[1.5px]"></div>
           </div>
           <span className="font-Montserrat text-[18px] font-[500] text-[ #333333]">
             has succesfully completed the Skill Assessment on
           </span>
           <div className="w-[100%]  gap-2 flex flex-col justify-center items-center">
             <span className="font-Montserrat text-[28px] font-[500] text-[ #333333]">
-              Python (Advanced)
+              {selectedSkill} ({level})
             </span>
-            <div className="w-[453px] bg-[#FFD500] h-[2px]"></div>
+            <div className="w-[100%] bg-[#FFD500] h-[1.5px]"></div>
           </div>
           <div className="w-[100%]  gap-2 flex flex-col justify-center items-center">
             <span className="font-Montserrat text-[16px] font-[500] text-[ #333333]">
               Issued on :
             </span>
             <span className="font-Montserrat text-[24px] font-[500] text-[ #333333]">
-              May 23 2024
+              {formatDate(downloadCertificate?.date)}
             </span>
-            <div className="w-[248px] bg-[#FFD500] h-[2px]"></div>
+            <div className="w-[248px] bg-[#FFD500] h-[1.5px]"></div>
           </div>
         </div>
 

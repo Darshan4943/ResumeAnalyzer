@@ -19,6 +19,7 @@ module.exports = {
       scr390:"390px",
       scr420: "420px",
       sm: "480px",
+      scr500: "500px",
       scr540: "540px",
       ms: "600px",
       scr700: "700px",

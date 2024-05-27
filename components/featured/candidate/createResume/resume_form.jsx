@@ -115,7 +115,7 @@ const ResumeForm = ({
 
         <div
           onClick={() => setIsAll(true)}
-          className="flex justify-end text-[18px] font-[500] text-[#06A9EF] cursor-pointer"
+          className="flex justify-end text-[16px] font-[500] text-[#06A9EF] cursor-pointer"
         >
           See All Templates
         </div>
@@ -134,7 +134,6 @@ const ResumeForm = ({
           </div>
         )}
 
-        <ResumeList setData={setData} data={data} />
         <ThemeForm
           selectedResumeIndex={selectedResumeIndex}
           selectedColor={selectedColor}
@@ -142,6 +141,11 @@ const ResumeForm = ({
           setSelectedFont={setSelectedFont}
           selectedFont={selectedFont}
         />
+        <div className="border-b border-r border-l border-[#DEDEDE] shadow-custom"></div>
+
+        <ResumeList setData={setData} data={data} />
+        <div className="border-b border-r border-l border-[#DEDEDE]"></div>
+
         <PersonalDetails
           setData={setData}
           data={data}
@@ -149,13 +153,19 @@ const ResumeForm = ({
           selectedColor={selectedColor}
           selectedFont={selectedFont}
         />
+        <div className="border-b border-r border-l border-[#DEDEDE]"></div>
+
         <AboutMe setData={setData} data={data} />
+        <div className="border-b border-r border-l border-[#DEDEDE]"></div>
         <Education setData={setData} data={data} />
+        <div className="border-b border-r border-l border-[#DEDEDE]"></div>
         <Experience setData={setData} data={data} />
 
         <Course setData={setData} data={data} />
+        <div className="border-b border-r border-l border-[#DEDEDE]"></div>
 
         <Skills setData={setData} data={data} />
+        <div className="border-b border-r border-l border-[#DEDEDE]"></div>
 
         {/* <Achievement setData={setData} data={data} /> */}
 
@@ -165,25 +175,30 @@ const ResumeForm = ({
         {formField?.includes("hobbies") && (
           <Hobbie setData={setData} data={data} />
         )}
+        <div className="border-b border-r border-l border-[#DEDEDE]"></div>
         {formField?.includes("language") && (
           <Languages setData={setData} data={data} />
         )}
         {data?.section?.length > 0 && (
           <>
             {data?.section?.map((item, index) => (
-              <div key={index}>
-                <AddSection
-                  section={item.subSection}
-                  formData={item.subSection[0]}
-                  data={data}
-                  setData={setData}
-                  index={index}
-                  item={item}
-                />
-              </div>
+              <>
+                <div key={index}>
+                  <AddSection
+                    section={item.subSection}
+                    formData={item.subSection[0]}
+                    data={data}
+                    setData={setData}
+                    index={index}
+                    item={item}
+                  />
+                </div>
+                <div className="border-b border-r border-l border-[#DEDEDE]"></div>
+              </>
             ))}
           </>
         )}
+
         <div className="flex items-center gap-2 justify-end">
           <div
             onClick={() => {
@@ -198,7 +213,7 @@ const ResumeForm = ({
                 ],
               });
             }}
-            className=" font-montserrat text-white font-medium text-[14px] px-[12px] rounded-[8px]  bg-[#06A9EF] h-[32px] flex items-center cursor-pointer "
+            className=" font-montserrat text-white font-medium text-[14px] px-[12px] rounded-[8px]  bg-[#06A9EF] h-[32px] flex items-center cursor-pointer btn_hover_effect "
           >
             <span className="text-[22px] mr-2">+</span> Add Section
           </div>

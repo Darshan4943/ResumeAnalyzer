@@ -13,6 +13,7 @@ import {
 } from "@react-pdf/renderer";
 
 function Template1({ data, selectedColor, selectedFont, preview }) {
+ 
   return (
     <Page size="A4" style={{ padding: 24 }} pageMode={"fullScreen"} wrap={true}>
       <View
@@ -40,7 +41,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                   fontFamily: `${selectedFont} 400`,
                 }}
               >
-                {data.firstName}
+                {data?.firstName}
               </Text>
               <Text
                 style={{
@@ -51,7 +52,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                   fontFamily: `${selectedFont} 400`,
                 }}
               >
-                {data.lastName}
+                {data?.lastName}
               </Text>
             </View>
             <Text
@@ -62,7 +63,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                 lineHeight: 1.2,
               }}
             >
-              {data.designation}
+              {data?.designation}
             </Text>
           </View>
           <View
@@ -71,14 +72,14 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
               height: "112px",
             }}
           >
-            {data.profilePhoto ? (
+            {data?.profilePhoto ? (
               <Image
                 src={
                   preview
-                    ? data.profilePhoto
+                    ? data?.profilePhoto
                     : Object.keys(data?.profilePhoto).includes("filename")
-                      ? URL.createObjectURL(data.profilePhoto)
-                      : data.profilePhoto
+                      ? URL.createObjectURL(data?.profilePhoto)
+                      : data?.profilePhoto
                 }
                 style={{
                   objectFit: "cover",
@@ -156,7 +157,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                       fontFamily: `${selectedFont} 400`,
                     }}
                   >
-                    {data.mobileNumber}
+                    {data?.mobileNumber}
                   </Text>
                 </View>
                 <View
@@ -192,7 +193,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                       width: "80%",
                     }}
                   >
-                    {data.email}
+                    {data?.email}
                   </Text>
                 </View>
               </View>
@@ -300,7 +301,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                     />
                   </Svg>
                   <View style={{ flexDirection: "column", gap: 8 }}>
-                    {data.skills.map((detail, index) => (
+                    {data?.skills.map((detail, index) => (
                       <View key={index} wrap={false}>
                         <View>
                           <Text
@@ -346,7 +347,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                     style={{ flexDirection: "col", gap: "8px" }}
                     wrap={false}
                   >
-                    {data.hobbies.map((detail, index) => (
+                    {data?.hobbies.map((detail, index) => (
                       <View key={index}>
                         <View>
                           <Text
@@ -412,7 +413,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                   fontFamily: `${selectedFont} 400`,
                 }}
               >
-                {data.summery}
+                {data?.summery}
               </Text>
             </View>
             {data?.experience?.length > 0 && (

@@ -176,8 +176,10 @@ function Summary({ limits, selectedPlan, isActive }) {
                     <>
                       {" "}
                       <div className="flex flex-row gap-2 w-full items-center justify-center">
-                        <p className="text-[2vw] font-[700]">{icon}</p>
-                        <p className="text-[2vw] font-[700]">
+                        <p className="ml:text-[2vw] font-[700] text-[24px]">
+                          {icon}
+                        </p>
+                        <p className="ml:text-[2vw] font-[700] text-[24px]">
                           {Math.ceil(plan?.amount * exchangeRate)}
                         </p>
                       </div>
@@ -203,7 +205,10 @@ function Summary({ limits, selectedPlan, isActive }) {
           <p className="font-medium">Available services</p>
           <div className="flex flex-col gap-8 scr420:text-[14px] text-[12px] font-medium ">
             <div className="flex gap-4 items-center">
-              <p className=" min-w-[164px]"> Total Uploads</p>
+              <p className=" scr420:min-w-[164px] min-w-[140px]">
+                {" "}
+                Total Uploads
+              </p>
 
               <div className="relative  w-[45%]  h-[10px] bg-[#DEDEDE] rounded-[6px]">
                 <div
@@ -217,12 +222,14 @@ function Summary({ limits, selectedPlan, isActive }) {
                   className={`absolute  h-[10px] bg-[#06A9EF] rounded-[6px]`}
                 ></div>
               </div>
-              <p className="min-w-[55px]">
+              <p className="scr420:min-w-[55px] min-w-[45px]">
                 {limits.total.uploads - uploadsRemaining}/{limits.total.uploads}
               </p>
             </div>
             <div className="flex gap-4 items-center">
-              <p className=" min-w-[164px]">Total Save/Downloads</p>
+              <p className="scr420:min-w-[164px] min-w-[140px]">
+                Total Save/Downloads
+              </p>
 
               <div className="relative  w-[45%]  h-[10px] bg-[#DEDEDE] rounded-[6px]">
                 <div
@@ -236,7 +243,7 @@ function Summary({ limits, selectedPlan, isActive }) {
                   }}
                 ></div>
               </div>
-              <p className="min-w-[55px]">
+              <p className="scr420:min-w-[55px] min-w-[45px]">
                 {" "}
                 {limits.total.download - downloadsRemaining}/
                 {limits.total.download}

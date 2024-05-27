@@ -45,8 +45,7 @@ const MatchingDetails = ({ data, setSelectedFile, files, extractedData }) => {
 
   const handleOutsideClick = (event) => {
     if (taskRef.current && !taskRef.current.contains(event.target)) {
-      setSelectedFile(null)
-  
+      // setSelectedFile(null);
     }
   };
   useEffect(() => {
@@ -58,50 +57,38 @@ const MatchingDetails = ({ data, setSelectedFile, files, extractedData }) => {
 
   return (
     <>
-      <div ref={taskRef} className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
+      <div
+        ref={taskRef}
+        className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"
+      ></div>
       <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center    px-4 py-4 ">
-        <div className=" absolute bg-white rounded-lg    px-4 py-4   shadow-lg min-h-[500px] max-h-[600px] overflow-x-auto  items-end ml:w-[40vw] sm:w-[70%] w-[90%] flex flex-col gap-[8px]">
-          <div className="flex flex-col gap-[4px]  w-full relative">
-            <img
-              src="/images/jobs/close.png"
-              className="sm:h-[34px] sm:w-[34px] w-[28px] h-[28px]  absolute right-0 cursor-pointer top-[-4px]"
-              alt=""
-              onClick={() => setSelectedFile(null)}
-            />
-            <div className="flex gap-[4px] w-full">
-              <span className=" text-[16px] font-semibold ">
-                {data?.first_name}
-              </span>
-              <span className=" text-[16px] font-semibold">
-                {data?.last_name}
-              </span>
-            </div>
-            <div className="flex gap-[4px] items-center ">
-              <DesignationSVG />
-              <span className="text-[14px] font-semibold">
-                {data?.designation}
-              </span>{" "}
-            </div>
-          </div>
-          <div className="border border-[#DEDEDE] w-full rounded-[8px] p-[16px] flex flex-row justify-between items-center">
-            <div className="flex flex-row gap-[8px] w-full">
-              {fileIconSeter(data)}
-              <div className="flex flex-col justify-between w-full ">
-                <span className="text-[14px] text-[#333333]">
-                  {data.fileName}
+        <div className=" absolute bg-white rounded-lg    px-4 py-4   shadow-lg min-h-[500px] max-h-[600px]   items-end ml:w-[50vw] sm:w-[70%] w-[90%] flex flex-col gap-[8px]">
+          <div className="flex flex-col gap-4 w-full h-[30%]">
+            {" "}
+            <div className="flex flex-col gap-[4px]  w-full relative">
+              <img
+                src="/images/jobs/close.png"
+                className="sm:h-[34px] sm:w-[34px] w-[28px] h-[28px]  absolute right-0 cursor-pointer top-[-4px]"
+                alt=""
+                onClick={() => setSelectedFile(null)}
+              />
+              <div className="flex gap-[4px] w-full">
+                <span className=" text-[16px] font-semibold ">
+                  {data?.name}
                 </span>
-                <div className="flex justify-between">
-                <span className="text-[14px] text-[#808080]">
-                  <FileSizeDisplay fileUrl={data?.resumeUrl} />
-                </span>
-                <div className="flex flex-row gap-[8px] items-center">
-
+              </div>
+            </div>
+            <div className="border border-[#DEDEDE] w-full rounded-[8px] p-[16px] flex flex-row justify-between items-center">
+              <div className="flex flex-row gap-[8px] w-full">
+                {fileIconSeter(data)}
+                <div className="flex flex-row  justify-between items-center w-full ">
+                  <span className="text-[16px] text-[#333333]">
+                    {data.fileName}
+                  </span>
                   <svg
-                    onClick={() =>
-                      (window.location.href = data?.resumeUrl)
-                    }
-                    width="14"
-                    height="14"
+                    onClick={() => (window.location.href = data?.resumeUrl)}
+                    width="20"
+                    height="20"
                     viewBox="0 0 14 14"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
@@ -113,55 +100,60 @@ const MatchingDetails = ({ data, setSelectedFile, files, extractedData }) => {
                     />
                   </svg>
                 </div>
-                </div>
               </div>
             </div>
-
+            <div className="w-[100%]  px-[8px] pb-[16px] border-b-[1px] border-[#bebebe]"></div>
+            {parseInt(data.matching_percentage.slice(0, 2)) ? (
+              <Progress_bar
+                progress={parseInt(data.matching_percentage.slice(0, 2))}
+              />
+            ) : null}
           </div>
-          <div className="w-[100%]  px-[8px] pb-[16px] border-b-[1px] border-[#bebebe]"></div>
-          {data?.percentage ? (
-            <Progress_bar progress={data.percentage} />
-          ) : null}
-          <div className="flex flex-col gap-4 w-full mt-6">
+          <div className="flex flex-col gap-4 w-full mt-6 overflow-auto">
+            {data?.conclusion?.length > 0 && (
+              <div className="flex flex-col gap-[8px]  justify-between relative  w-full ">
+                <span className="text-[#333333] text-[18px] font-semibold">
+                  Conclusion
+                </span>
+                <span className="text-[12px] text-[#333333] ">
+                  {data.conclusion}
+                </span>
+              </div>
+            )}
             {data?.matching_parameters?.length > 0 && (
               <div className="flex flex-col gap-[8px] min-h-[157px] justify-top relative w-full ">
-                <span className="text-[#333333] text-[16px] font-semibold ">
+                <span className="text-[#333333] text-[18px] font-semibold ">
                   Matching Parameters
                 </span>
-                <ul className="flex flex-col gap-[4px]">
+                <ul className="flex flex-col gap-[12px] list-none">
                   {data?.matching_parameters.map((item, i) => (
                     <li
                       key={i}
-                      className="text-[#333333] text-[14px] font-500 flex flex-row items-center gap-[8px]"
+                      className="text-[#333333] text-[14px] font-500 flex flex-col items-start gap-[8px]"
                     >
-                      <svg
-                        width="10"
-                        height="10"
-                        viewBox="0 0 10 10"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <circle cx="5" cy="5" r="5" fill="#D9D9D9" />
-                      </svg>
-
-                      {item}
+                      <div className="flex flex-row gap-2 items-center font-semibold">
+                        <svg
+                          width="10"
+                          height="10"
+                          viewBox="0 0 10 10"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <circle cx="5" cy="5" r="5" fill="#555555" />
+                        </svg>
+                        {item.title}{" "}
+                        {item.matching_points == "N/A"
+                          ? null
+                          : "/ " + item.matching_points}
+                      </div>
+                      <span>{item.description} </span>
                     </li>
                   ))}
                 </ul>
               </div>
             )}
-            {data?.justification?.length > 0 && (
-              <div className="flex flex-col gap-[8px]  justify-between relative  w-full ">
-                <span className="text-[#333333] text-[16px] font-semibold">
-                  Justification
-                </span>
-                <span className="text-[12px] text-[#333333] ">
-                  {data.justification}
-                </span>
-              </div>
-            )}
 
-            {data?.percentage > 0 &&
+            {/* {data?.percentage > 0 &&
               data?.matching_parameters_in_detail &&
               Object.keys(data.matching_parameters_in_detail).length > 0 && (
                 <div className="flex flex-col gap-[8px]  justify-between relative  w-full ">
@@ -296,7 +288,7 @@ const MatchingDetails = ({ data, setSelectedFile, files, extractedData }) => {
                       </ul>
                     )}
                 </div>
-              )}
+              )} */}
           </div>
         </div>
       </div>

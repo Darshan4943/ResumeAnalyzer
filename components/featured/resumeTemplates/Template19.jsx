@@ -84,8 +84,8 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                     fontSize: 12,
                     fontFamily: `${selectedFont} 400`,
                     color: "#000000",
-                    wordBreak: "break-word",
-                    flexWrap: "wrap",
+                   
+                    
                     marginRight: "6px"
                   }}
                 >
@@ -117,8 +117,8 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                     fontSize: 12,
                     fontFamily: `${selectedFont} 400`,
                     color: "#000000",
-                    wordBreak: "break-word",
-                    flexWrap: "wrap",
+                   
+                    
                     marginRight: "6px"
                   }}
                 >
@@ -150,7 +150,7 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                     fontSize: 12,
                     fontFamily: `${selectedFont} 400`,
                     color: "#000000",
-                    wordBreak: "break-word",
+                   
                     flexWrap: "wrap"
                   }}
                 >
@@ -174,7 +174,7 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                   fontSize: 25,
                   fontFamily: `${selectedFont} 400`,
                   color: "#000000",
-                  wordBreak: "break-word",
+                 
                   flexWrap: "wrap"
                 }}
               >
@@ -193,7 +193,7 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                     fontSize: 14,
                     fontFamily: `${selectedFont} 400`,
                     color: "#000000",
-                    wordBreak: "break-word",
+                   
                     flexWrap: "wrap"
                   }}
                 >
@@ -275,7 +275,7 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
               display: "flex",
               flexDirection: "row",
               gap: 16,
-              flexWrap: "wrap",
+              
             }}
           >
             {data?.skills?.map((detail, index) => (
@@ -293,8 +293,8 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                     fontSize: 12,
                     color: "#808285",
                     fontFamily: `${selectedFont} 400`,
-                    flexWrap: "wrap",
-                    wordBreak: "break-word",
+                    
+                   
                   }}
                 >
                   {detail.skill}
@@ -428,7 +428,7 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                   flexDirection: "column",
                   gap: 16,
                   width: "100%",
-                  flexWrap: "wrap",
+                  
                 }}
               >
                 {data?.education?.map((detail, index) => (
@@ -449,8 +449,8 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                             color: "#000000",
                             fontFamily: `${selectedFont} 400`,
                             width: "70%",
-                            flexWrap: "wrap",
-                            wordBreak: "break-word",
+                            
+                           
                           }}
                         >
                           {detail.specialization}
@@ -461,12 +461,12 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                             color: "#000000",
                             fontFamily: `${selectedFont} 400`,
                             width: "30%",
-                            flexWrap: "wrap",
-                            wordBreak: "break-word",
+                            
+                           
                           }}
                         >
                           {detail.duration?.start?.year !== "Year" &&
-                          `${detail.duration?.start?.year}-${detail.duration?.end?.year ==="Year" ? "Pursuing" : detail.duration?.end?.year}`}
+                            `${detail.duration?.start?.year}-${detail.duration?.end?.year === "Year" ? "Pursuing" : detail.duration?.end?.year}`}
                         </Text>
                       </View>
                       <Text
@@ -474,8 +474,8 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                           fontSize: 10,
                           color: "#808285",
                           fontFamily: `${selectedFont} 400`,
-                          flexWrap: "wrap",
-                          wordBreak: "break-word",
+                          
+                         
                         }}
                       >
                         {detail.qualification}
@@ -485,8 +485,8 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                           fontSize: 10,
                           color: "#000000",
                           fontFamily: `${selectedFont} 400`,
-                          flexWrap: "wrap",
-                          wordBreak: "break-word",
+                          
+                         
                         }}
                       >
                         {detail.instituteName}
@@ -528,7 +528,7 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                   flexDirection: "row",
                   gap: 10,
                   width: "100%",
-                  flexWrap: "wrap",
+                  
                 }}
               >
                 {data.hobbies?.map((detail, index) => (
@@ -558,8 +558,8 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                         fontSize: 10,
                         fontFamily: `${selectedFont} 400`,
                         color: "#000000",
-                        flexWrap: "wrap",
-                        wordBreak: "break-word",
+                        
+                       
                       }}
                     >
                       {detail.title}
@@ -571,7 +571,7 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
             {data.section?.length > 0 &&
               data.section.map((item, index) => (
                 <View
-                key={index}
+                  key={index}
                   style={{
                     display: "flex",
                     flexDirection: "column",
@@ -603,7 +603,7 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                       flexDirection: "column",
                       gap: 16,
                       width: "100%",
-                      flexWrap: "wrap",
+                      
                     }}
                   >
                     {item.subSection.map((detail, index) => (
@@ -623,8 +623,8 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                                 color: "#000000",
                                 fontFamily: `${selectedFont} 400`,
                                 width: "70%",
-                                flexWrap: "wrap",
-                                wordBreak: "break-word",
+                                
+                               
                               }}
                             >
                               {detail.title}
@@ -635,16 +635,16 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                                 color: "#000000",
                                 fontFamily: `${selectedFont} 400`,
                                 width: "30%",
-                                flexWrap: "wrap",
-                                wordBreak: "break-word",
+                                
+                               
                               }}
                             >
                               {detail?.duration?.start?.year}
-                                {detail?.duration?.start?.year && "-"}
-                                {(detail?.duration?.end?.year === "" || detail?.duration?.end?.year === undefined)
-                                  ? "Present"
-                                  : detail?.duration?.end?.year
-                                }
+                              {detail?.duration?.start?.year && "-"}
+                              {(detail?.duration?.end?.year === "" || detail?.duration?.end?.year === undefined)
+                                ? "Present"
+                                : detail?.duration?.end?.year
+                              }
                             </Text>
                           </View>
                           <Text
@@ -652,8 +652,8 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                               fontSize: 10,
                               color: "#808285",
                               fontFamily: `${selectedFont} 400`,
-                              flexWrap: "wrap",
-                              wordBreak: "break-word",
+                              
+                             
                             }}
                           >
                             {detail.description}
@@ -663,8 +663,8 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                             fontSize: 10,
                             color: "#000000",
                             fontFamily: `${selectedFont} 400`,
-                            flexWrap: "wrap",
-                            wordBreak: "break-word",
+                            
+                           
                           }}
                         >
                           {detail.instituteName}
@@ -719,7 +719,7 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                   flexDirection: "column",
                   gap: 16,
                   width: "100%",
-                  flexWrap: "wrap",
+                  // 
 
                 }}
               >
@@ -740,8 +740,8 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                             color: "#000000",
                             fontFamily: `${selectedFont} 400`,
                             width: "70%",
-                            flexWrap: "wrap",
-                            wordBreak: "break-word",
+                            // 
+                            //
                           }}
                         >
                           {detail.designation}
@@ -752,8 +752,8 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                             color: "#000000",
                             fontFamily: `${selectedFont} 400`,
                             width: "30%",
-                            flexWrap: "wrap",
-                            wordBreak: "break-word",
+                            // 
+                            //
                           }}
                         >
                           {detail.duration?.start?.year !== "Year" &&
@@ -768,8 +768,8 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                           fontSize: 10,
                           color: "#808285",
                           fontFamily: `${selectedFont} 400`,
-                          flexWrap: "wrap",
-                          wordBreak: "break-word",
+                          // 
+                          //
                         }}
                       >
                         {detail.organization}
@@ -779,8 +779,8 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                           fontSize: 10,
                           color: "#000000",
                           fontFamily: `${selectedFont} 400`,
-                          flexWrap: "wrap",
-                          wordBreak: "break-word",
+                          // 
+                          //
                         }}
                       >
                         {detail.description}
