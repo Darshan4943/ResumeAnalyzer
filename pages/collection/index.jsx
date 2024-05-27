@@ -525,7 +525,7 @@ function Collection() {
                   onChange={(e) => setFolderName(e.target.value)}
                 />
               )}
-              {fileLoader && isFile && (
+              {fileLoader && isFile && Object.values(files).length > 1 && (
                 <>
                   <div className="flex justify-between mb-1">
                     <span className="text-base font-medium text-blue-700">
@@ -533,9 +533,15 @@ function Collection() {
                       {Object.keys(files).length > 0 ? "Files" : "File"}
                     </span>
                     <span className="text-sm font-medium text-blue-700">
-                      {`${Math.round(
-                        (uploadCount / Object.keys(files).length) * 100
-                      )}%`}
+                      {`${
+                        Math.round(
+                          (uploadCount / Object.keys(files).length) * 100
+                        ).toString() != "Infinity"
+                          ? Math.round(
+                              (uploadCount / Object.keys(files).length) * 100
+                            )
+                          : 100
+                      }%`}
                     </span>
                   </div>
                   <div className="w-full bg-[#e8f0ff] rounded-full h-2.5">
@@ -562,13 +568,13 @@ function Collection() {
                   Cancel
                 </button>
                 <button
-                //  id="border_button"
+                  //  id="border_button"
                   disabled={
                     fileLoader ||
                     (isFile ? Object.values(files).length === 0 : !folderName)
                   }
                   style={{
-                    minWidth:'80px',
+                    minWidth: "80px",
                     opacity:
                       fileLoader ||
                       (isFile ? Object.values(files).length === 0 : !folderName)
