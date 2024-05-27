@@ -142,13 +142,13 @@ const ChatBox = ({
                         <p className="text-[14px] font-[500] font-Montserrat text-[#333]">
                           Tell me what are you looking for?
                         </p>
-                        <p className="text-[12px] font-[500] font-Montserrat text-[#808080]">
+                        {/* <p className="text-[12px] font-[500] font-Montserrat text-[#808080]">
                           Type or scan a document to get desired data on our
                           newest Generative AI
-                        </p>
+                        </p> */}
                       </div>
                     </div>
-                    <div className="w-full gap-6 flex items-center justify-center">
+                    {/* <div className="w-full gap-6 flex items-center justify-center">
                       {features?.map((feature, index) => (
                         <div
                           key={index}
@@ -164,7 +164,7 @@ const ChatBox = ({
                           </p>
                         </div>
                       ))}
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </div>
@@ -177,14 +177,14 @@ const ChatBox = ({
               onSubmit={submitHandler}
 
             >
-              <div className="gap-1 flex w-full items-center">
-                <div className="w-[44px] h-[32px]">
+              <div className="gap-1 flex w-full items-center pl-2">
+                {/* <div className="w-[44px] h-[32px]">
                   <img
                     src="/images/resumeBuilder/add.png"
                     alt=""
                     className="w-full h-full"
                   />
-                </div>
+                </div> */}
                 <input
                   type="text"
                   value={text}
