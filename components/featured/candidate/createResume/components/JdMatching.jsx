@@ -221,9 +221,6 @@ const JdMatching = ({ details, resumeList, isAnimate }) => {
                               </span>
                               <div className="flex gap-2 justify-end">
                                 <div className="flex flex-row gap-[8px] items-center">
-                                  {
-                                    console.log(124,data)
-                                  }
                                   <svg
                                     onClick={() =>
                                       (window.location.href = data?.file)
