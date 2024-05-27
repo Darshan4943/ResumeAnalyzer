@@ -61,7 +61,7 @@ const ChatBox = ({
 
   return (
     <>
-      <div className=" justify-center items-center flex w-[95%] relative flex-col gap-12">
+      <div className=" justify-center items-center flex w-[95%] relative flex-col bg-[#fff] gap-12">
         <div className="absolute ml:left-[0px] ml:top-[45vh] left-[0%] top-[5vh]">
           {" "}
           <button
@@ -79,36 +79,40 @@ const ChatBox = ({
         </div>
         <div className=" ml:w-[85%] w-[100%] flex items-center justify-between flex-col min-h-[80vh]">
           {chat?.length > 0 ? (
-            <div className="flex flex-col gap-[16px] w-[100%] h-[70vh] overflow-y-auto  ">
+            <div 
+            style={{scrollbarWidth:'none'}}
+            className="flex flex-col gap-[16px] scr1150:w-[60%] w-[70%] h-[70vh] overflow-y-auto  ">
               {chat?.map((item, index) => {
                 return (
                   <div
                     key={index}
-                    className="flex flex-col h-[80vh] gap-[16px]"
+                    className="flex flex-col h-[80vh] gap-[12px]"
                   >
                     <div className="flex w-full gap-[14px]  ">
-                      <img
+                      {/* <img
                         className=" rounded-full object-cover h-[38px] w-[38px]"
                         src={
                           userDataGlobal?.profilePicture ||
                           "/images/profile/profileNew.png"
                         }
-                      />
-                      <div className="rounded-[8px] text-[12px] w-full border border-[#bebebe] px-[16px] py-[8px] bg-[#fff]">
+                      /> */}
+                      <div
+                      style={{width:'fit-content'}}
+                      className="rounded-[8px] text-[12px] w-full font-[600] border border-[#bebebe] px-[16px] py-[8px] bg-[#F7F7F7] rounded-[30px]">
                         {item.quation}
                       </div>
                     </div>
-                    <div className="flex w-full gap-[14px]  ">
+                    <div className="flex w-full pl-[16px] gap-[14px]  ">
                       <div className="flex items-center justify-center bg-[#fff] h-[40px] w-[40px] rounded-[50%] border border-[#bebebe] ">
                         <img
                           className=" rounded-full object-contain  h-[18px] "
                           src={"/images/Robot.png"}
                         />
                       </div>
-                      <div className="rounded-[8px] w-full border border-[#bebebe] px-[16px] py-[8px] bg-[#fff]">
+                      <div className="rounded-[8px] w-full px-[16px] py-[8px] bg-[#fff]">
                         <div
                           style={{ background: "#fff", padding: "8px" }}
-                          className="chat text-[14px] scr1024:text-[16px]"
+                          className="chat text-[14px] font-[400] "
                           dangerouslySetInnerHTML={{
                             __html: item.answer,
                           }}
