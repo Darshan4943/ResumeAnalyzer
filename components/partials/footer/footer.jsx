@@ -138,11 +138,48 @@ function Footer({ isSubscribe, setIsSubcrib }) {
                   <p className="footer_address_P">Address</p>
                 </div> */}
                 <div className="footer_add ">
-                  <div className=" flex flex-col gap-4">
-                    <p className="text-[#fff] font-[600]">Offices :</p>
+                  <div className=" flex flex-col gap-3">
+                    <p className="text-[#fff] font-[600]">Offices </p>
                     <p className="footer_address_Para leading-6">
-                      Harare, Zimbabwe <br /> Pune, India
-                      <br /> London, United Kingdom
+                      <ul className="flex flex-col gap-1">
+                        <li className="flex flex-row gap-2 items-center">
+                          <svg
+                            width="4"
+                            height="4"
+                            viewBox="0 0 10 10"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <circle cx="5" cy="5" r="5" fill="#fff" />
+                          </svg>
+                          Harare, Zimbabwe.{" "}
+                        </li>
+                        <li className="flex flex-row gap-2 items-center">
+                          <svg
+                            width="4"
+                            height="4"
+                            viewBox="0 0 10 10"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <circle cx="5" cy="5" r="5" fill="#fff" />
+                          </svg>
+                          Pune, India.{" "}
+                        </li>
+                        <li className="flex flex-row gap-2 items-center">
+                          <svg
+                            width="4"
+                            height="4"
+                            viewBox="0 0 10 10"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <circle cx="5" cy="5" r="5" fill="#fff" />
+                          </svg>
+                          London, United Kingdom.{" "}
+                        </li>
+                       
+                      </ul>
                     </p>
                   </div>
                 </div>
@@ -200,7 +237,7 @@ function Footer({ isSubscribe, setIsSubcrib }) {
             </p>
             <div className="footer_input relative ">
               <input
-                className="footer_input_bar"
+                className="footer_input_bar text-[#444444] font-normal"
                 type="text"
                 placeholder="Enter your email address here..."
                 value={email}

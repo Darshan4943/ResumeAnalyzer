@@ -120,9 +120,7 @@ function SkillAssessment() {
   console.log(117, skills);
 
   const handleInputChange = async (selectedOption) => {
-    console.log(111118, selectedOption);
     const found = skills?.find((item) => item === selectedOption.label);
-    console.log(122, found);
     if (!found) {
       try {
         const response = await fetch("https://jamblix.com/api/skills", {
@@ -132,7 +130,6 @@ function SkillAssessment() {
           },
           body: JSON.stringify({ name: selectedOption.label }),
         });
-        console.log(13332, response);
         if (response.ok) {
           const newSkill = { skill: selectedOption.label };
           setSkillList([...skillList, newSkill]);
@@ -149,7 +146,6 @@ function SkillAssessment() {
     }
   };
 
-  console.log(145, question);
   const handleLevelChange = (event) => {
     setLevel(event.target.value);
   };
@@ -192,7 +188,6 @@ function SkillAssessment() {
           ? question.length < 10
           : question.length < 60 && selectedSkill
       ) {
-        console.log(188);
         toggleContent();
       }
     }
@@ -294,15 +289,19 @@ function SkillAssessment() {
             question: question,
           })
           .then((res) => {
-            console.log(292, res);
             const newQuestions = JSON.parse(
               res.data.data.choices[0].message.content
             );
-            setQuestion([...question, ...newQuestions]);
-            // setQuestion([
-            //   ...question,
-            //   ...JSON.parse(res.data.data.choices[0].message.content),
-            // ]);
+            const newQuationArray = newQuestions.filter((item) => {
+              const found = question.find(
+                (data) => data.question == item.question
+              );
+              console.log(123, found);
+              if (!found) {
+                return true;
+              }
+            });
+            setQuestion([...question, ...newQuationArray]);
             setToggle(1);
             setLoading(false);
             setStartTimer(true);
@@ -381,7 +380,6 @@ function SkillAssessment() {
           isCertification: assesmentType !== "Normal" ? true : false,
         })
         .then((res) => {
-          console.log(3777, res.data.data);
           setDownloadCertificate(res.data.data);
           setToggle(0);
           setLoading(false);
@@ -428,17 +426,6 @@ function SkillAssessment() {
     return () => clearTimeout(timer);
   }, [questionIndex, isSubmit]);
 
-  // useEffect(() => {
-  //   if (
-  //     questionIndex == 1 ||
-  //     questionIndex == 2 ||
-  //     questionIndex == 3 ||
-  //     questionIndex == 4
-  //   ) {
-  //     toggleContent();
-  //   }
-  // }, [questionIndex]);
-
   useEffect(() => {
     axios
       .get(`https://jamblix.com/api/assessment/getByUser/${userDataGlobal._id}`)
@@ -451,15 +438,12 @@ function SkillAssessment() {
   }, [selectedSkill, reCall, userDataGlobal]);
 
   const answerSetter = (question, Answer) => {
-    // console.log(211, question, Answer);
-    // const dummyData = [...answer];
     const skip = skippedArray.find((item) => {
       if (item.question == question && Answer != "") {
         return true;
       }
       return false;
     });
-    // console.log(237, skip);
     if (skip) {
       skip.isSkiped = false;
       skip.Answer = Answer;
@@ -1057,7 +1041,7 @@ function SkillAssessment() {
                                     </div>
                                     <div className="flex  justify-center w-[20%]  items-center self-stretch  ">
                                       <p className="text-[#0C8A0A] items-center  font-montserrat text-sm font-semibold leading-7">
-                                        {Math.ceil((item.score * 100) / 60)}%
+                                        {Math.round((item.score * 100) / 60)}%
                                       </p>
                                     </div>
                                   </div>
@@ -1111,7 +1095,6 @@ function SkillAssessment() {
                 >
                   <div className="flex flex-col gap-6 ">
                     <p className="text-[#333333] font-medium">
-                      {" "}
                       Question {questionIndex + 1}
                     </p>
                     <div className="flex flex-col gap-8 text-[#333333] font-medium ms:text-[16px] text-[14px]">

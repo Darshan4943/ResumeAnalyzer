@@ -86,7 +86,7 @@ const MatchingDetails = ({ data, setSelectedFile, files, extractedData }) => {
                     {data.fileName}
                   </span>
                   <svg
-                    onClick={() => (window.location.href = data?.resumeUrl)}
+                    onClick={() => (window.location.href = data?.file)}
                     width="20"
                     height="20"
                     viewBox="0 0 14 14"

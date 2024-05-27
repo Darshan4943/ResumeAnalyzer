@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
@@ -13,12 +13,17 @@ const ChatBox = ({
   setSelectedChat,
   isSidebarOpen,
   setIsSidebarOpen,
+  setIsNew,
+  isNew
 }) => {
   const userDataGlobal = useSelector((state) => state.userData);
   const [existingChat, setExistingChat] = useState([]);
   const [chat, setChat] = useState([]);
   const [text, setText] = useState("");
   const [loading, setLoading] = useState(false);
+
+
+  const chatEndRef = useRef(null);
   const submitHandler = (e) => {
     e.preventDefault();
     if (text?.length > 5) {
@@ -41,6 +46,7 @@ const ChatBox = ({
           forceUpdate();
           setLoading(false);
           setText("");
+
         })
         .catch((err) => {
           console.log(err);
@@ -52,6 +58,11 @@ const ChatBox = ({
     }
   };
   useEffect(() => {
+    if (chatEndRef.current) {
+      chatEndRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [chat]);
+  useEffect(() => {
     const data = JSON.parse(localStorage.getItem("chat"));
     if (data) {
       setExistingChat(data);
@@ -59,61 +70,111 @@ const ChatBox = ({
     }
   }, [selectedChat, recall]);
 
+  const createNewChat = () => {
+    const lastChatIndex = existingChat ? Object.keys(existingChat).length : 0;
+    const newChat = {};
+    newChat[`chat-${lastChatIndex + 1}`] = [];
+    localStorage.setItem(
+      "chat",
+      JSON.stringify({ ...newChat, ...existingChat })
+    );
+    setSelectedChat(`chat-${lastChatIndex + 1}`);
+    forceUpdate();
+  };
   return (
     <>
-      <div className=" justify-center items-center flex w-[95%] relative flex-col gap-12">
-        <div className="absolute ml:left-[0px] ml:top-[45vh] left-[0%] top-[5vh]">
-          {" "}
-          <button
-            className="h-full flex items-center w-full"
-            onClick={handleToggleSidebar}
-          >
+      <div className=" justify-center items-center flex w-[100%] relative flex-row bg-[#fff] ">
+        {isSidebarOpen &&
+          <div className="w-[80px] ml:flex  hidden flex-col gap-6 px-2 py-4 items-center h-screen bg-[#FBFBFB]">
             <img
-              src="/images/resumeBuilder/arw.png"
+              src="/images/resumeBuilder/sklogo.png"
               alt=""
-              className={`h-[24px] w-[24px] transform transition-transform ${
-                isSidebarOpen ? "rotate-180" : ""
-              }`}
+              className="h-[24px] w-[24px]"
             />
-          </button>
-        </div>
-        <div className=" ml:w-[85%] w-[100%] flex items-center justify-between flex-col min-h-[80vh]">
+
+
+            <div onClick={() => {
+              setIsSidebarOpen(!isSidebarOpen)
+              setSelectedChat(null);
+              setIsNew(true);
+              createNewChat();
+            }} className="btn_hover_effect flex w-[48px] h-[28px] rounded-[35px] text-white font-medium justify-center items-center bg-[#06A9EF] cursor-pointer">
+              +
+            </div>
+            <div onClick={()=> setIsSidebarOpen(!isSidebarOpen)} className=" flex items-center justify-center p-2  bg-[#FFFEEF] border border-[#EEE890] leading-tight">
+              <svg
+                width="12"
+                height="4"
+                viewBox="0 0 12 4"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M1.49563 3.5C1.08188 3.5 0.729167 3.35271 0.4375 3.05813C0.145833 2.76354 0 2.40938 0 1.99563C0 1.58188 0.147292 1.22917 0.441875 0.9375C0.736459 0.645833 1.09062 0.5 1.50437 0.5C1.91812 0.5 2.27083 0.647292 2.5625 0.941875C2.85417 1.23646 3 1.59062 3 2.00437C3 2.41812 2.85271 2.77083 2.55813 3.0625C2.26354 3.35417 1.90938 3.5 1.49563 3.5ZM5.99563 3.5C5.58188 3.5 5.22917 3.35271 4.9375 3.05813C4.64583 2.76354 4.5 2.40938 4.5 1.99563C4.5 1.58188 4.64729 1.22917 4.94187 0.9375C5.23646 0.645833 5.59062 0.5 6.00437 0.5C6.41813 0.5 6.77083 0.647292 7.0625 0.941875C7.35417 1.23646 7.5 1.59062 7.5 2.00437C7.5 2.41812 7.35271 2.77083 7.05812 3.0625C6.76354 3.35417 6.40938 3.5 5.99563 3.5ZM10.4956 3.5C10.0819 3.5 9.72917 3.35271 9.4375 3.05813C9.14583 2.76354 9 2.40938 9 1.99563C9 1.58188 9.14729 1.22917 9.44188 0.9375C9.73646 0.645833 10.0906 0.5 10.5044 0.5C10.9181 0.5 11.2708 0.647292 11.5625 0.941875C11.8542 1.23646 12 1.59062 12 2.00437C12 2.41812 11.8527 2.77083 11.5581 3.0625C11.2635 3.35417 10.9094 3.5 10.4956 3.5Z"
+                  fill="#1C1B1F"
+                />
+              </svg>
+            </div>
+
+          </div>
+        }
+        <button
+          className={`absolute ${isSidebarOpen ? 'ml:left-[75px]' : 'ml:left-[0px]'} ml:top-[45vh] left-0 top-[5vh] px-1 py-2 flex items-center justify-center bg-[#FBFBFB] rounded-r-[4px]`}
+
+          onClick={handleToggleSidebar}
+        >
+          <img
+            src="/images/resumeBuilder/chatArrow.png"
+            alt=""
+            className={`h-[24px] w-[24px] transform transition-transform ${isSidebarOpen ? "rotate-180" : ""
+              }`}
+          />
+        </button>
+
+        <div className=" ml:w-[100%] w-[100%] flex items-center justify-between flex-col min-h-[80vh]">
+
+
           {chat?.length > 0 ? (
-            <div className="flex flex-col gap-[16px] w-[100%] h-[70vh] overflow-y-auto  ">
+            <div
+              style={{ scrollbarWidth: 'none' }}
+              className="flex flex-col gap-[36px] scr1150:w-[60%] w-[70%] h-[70vh] overflow-y-auto  ">
               {chat?.map((item, index) => {
                 return (
                   <div
                     key={index}
-                    className="flex flex-col h-[80vh] gap-[16px]"
+                    className="flex flex-col  gap-[12px]"
                   >
                     <div className="flex w-full gap-[14px]  ">
-                      <img
+                      {/* <img
                         className=" rounded-full object-cover h-[38px] w-[38px]"
                         src={
                           userDataGlobal?.profilePicture ||
                           "/images/profile/profileNew.png"
                         }
-                      />
-                      <div className="rounded-[8px] text-[12px] w-full border border-[#bebebe] px-[16px] py-[8px] bg-[#fff]">
+                      /> */}
+                      <div
+                        style={{ width: 'fit-content' }}
+                        className="rounded-[8px] text-[12px] w-full font-[600] border border-[#bebebe] px-[16px] py-[8px] bg-[#F7F7F7] rounded-[30px]">
                         {item.quation}
                       </div>
                     </div>
-                    <div className="flex w-full gap-[14px]  ">
-                      <div className="flex items-center justify-center bg-[#fff] h-[40px] w-[40px] rounded-[50%] border border-[#bebebe] ">
+                    <div className="flex w-full pl-[16px] gap-[14px] items-start  ">
+                      <div className="flex items-center justify-center bg-[#fff] h-[24px] w-[24px] min-w-[24px] rounded-[50%] border border-[#bebebe] ">
                         <img
-                          className=" rounded-full object-contain  h-[18px] "
+                          className=" rounded-full object-contain  h-[10px] w-[18px] "
                           src={"/images/Robot.png"}
                         />
                       </div>
-                      <div className="rounded-[8px] w-full border border-[#bebebe] px-[16px] py-[8px] bg-[#fff]">
-                        <div
-                          style={{ background: "#fff", padding: "8px" }}
-                          className="chat text-[14px] scr1024:text-[16px]"
-                          dangerouslySetInnerHTML={{
-                            __html: item.answer,
-                          }}
-                        />
-                      </div>
+
+                      <div
+
+                        className=" text-[14px] font-[400] "
+                        style={{ fontSize: "14px" }}
+                        dangerouslySetInnerHTML={{
+                          __html: item.answer.replace("```html", '').replace("```", ''),
+                        }}
+                      />
+                      {/* <div ref={chatEndRef} /> */}
                     </div>
                   </div>
                 );

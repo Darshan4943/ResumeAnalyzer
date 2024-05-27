@@ -86,12 +86,13 @@ const CandidateAiPower = ({
     setfile(file);
   };
   const extracteText = async (file) => {
-    console.log(file)
+    console.log(file);
     return new Promise(async (resolve, reject) => {
       const textData = [];
       if (
         file?.type ==
-        "application/vnd.openxmlformats-officedocument.wordprocessingml.document" || file?.type == "application/msword"
+          "application/vnd.openxmlformats-officedocument.wordprocessingml.document" ||
+        file?.type == "application/msword"
       ) {
         const reader = new FileReader();
         reader.onload = async (e) => {
@@ -221,9 +222,9 @@ const CandidateAiPower = ({
   }, [count]);
 
   const fileIconSeter = (data) => {
-    if (data.name.includes("docx") || data.name.includes("doc")) {
+    if (data.name.includes("docx") || data.name.includes("doc")||data.name.includes("DOC") ) {
       return <DocSVG />;
-    } else if (data.name.includes("pdf")) {
+    } else if (data.name.includes("pdf") || data.name.includes("PDF")) {
       return <PDFSvg />;
     } else if (
       data.name?.includes("png") ||

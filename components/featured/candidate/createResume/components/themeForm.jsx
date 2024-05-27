@@ -114,7 +114,7 @@ function ThemeForm({
         <div className="flex w-full wrap gap-[16px]">
           <div
             className="flex items-center  gap-2 bg-[#06A9EF] py-[8px] px-[16px] rounded-[12px] btn_hover_effect"
-            onClick={() => handleShowFont("customize")}
+            onClick={() => setView(!view)}
           >
             <svg
               width="24"
@@ -195,18 +195,6 @@ function ThemeForm({
                   Fonts
                 </h1>
               </div>
-              <div className="flex items-center h-full">
-                <img
-                  className="min-w-[14px] min-h-[14px]"
-                  src="\images\auth\candidate\arrow_forward_ios.png"
-                  style={{
-                    height: "14px",
-                    width: "14px",
-                    objectFit: "contain",
-                  }}
-                  alt=""
-                />
-              </div>
             </div>
 
             <div
@@ -231,18 +219,6 @@ function ThemeForm({
                 <h1 className="text-lg font-medium tracking-wide text-[#646464] cursor-pointer">
                   Colors
                 </h1>
-              </div>
-              <div className="flex items-center">
-                <img
-                  className="min-w-[14px] min-h-[14px]"
-                  src="\images\auth\candidate\arrow_forward_ios.png"
-                  style={{
-                    height: "14px",
-                    width: "14px",
-                    objectFit: "contain",
-                  }}
-                  alt=""
-                />
               </div>
             </div>
           </div>
@@ -308,6 +284,7 @@ function ThemeForm({
         </div>
       )}
 
+      {/**
       {viewFont && (
         <div
           style={{
@@ -378,7 +355,7 @@ function ThemeForm({
             </div>
           </div>
         </div>
-      )}
+      )} */}
     </div>
   );
 }
