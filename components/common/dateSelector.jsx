@@ -12,6 +12,8 @@ const DateSelector = ({
   // const years = Array.from({ length: 40 }, (_, index) => 2020 + index);
   const [isChecked, setIsChecked] = useState(true);
   const [isError, setIsError] = useState("");
+  const currentYear = new Date().getFullYear();
+  const [startYear, setStartYear] = useState(currentYear);
   // const handleSwitchChange = () => {
   //   setIsChecked(!isChecked);
   // };
@@ -29,6 +31,7 @@ const DateSelector = ({
   const handleStartYearChange = (e) => {
     const value = e.target.value;
     if (value) {
+      setStartYear(e.target.value);
       dataSeter({
         ...data,
         duration: {
@@ -234,11 +237,13 @@ const DateSelector = ({
                 className="w-outline-none focus-visible:outline-none  p-2 w-full"
               >
                 <option value="">Year</option>
-                {getYear().map((year) => (
-                  <option key={year} value={year} className="px-4 py-2">
-                    {year}
-                  </option>
-                ))}
+                {getYear()
+                  .filter((item) => item > startYear)
+                  .map((year) => (
+                    <option key={year} value={year} className="px-4 py-2">
+                      {year}
+                    </option>
+                  ))}
               </select>
 
               <img

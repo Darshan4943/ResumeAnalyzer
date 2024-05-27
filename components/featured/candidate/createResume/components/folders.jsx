@@ -146,7 +146,7 @@ function Folders({
   const sortClientData = (data, selectedIndex) => {
     console.log("dataTosortC", data);
     if (sortSelect == 0) {
-      return data?.sort((a, b) => a.firstName.localeCompare(b.firstName));
+      return data?.sort((a, b) => a.firstName?.localeCompare(b.firstName));
     } else if (sortSelect == 1) {
       return data?.sort((a, b) => a.createdAt?.localeCompare(b.createdAt));
     } else if (sortSelect == 2) {
