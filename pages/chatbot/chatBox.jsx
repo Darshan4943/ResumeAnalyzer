@@ -114,7 +114,7 @@ const ChatBox = ({
                           style={{ background: "#fff", padding: "8px" }}
                           className="chat text-[14px] font-[400] "
                           dangerouslySetInnerHTML={{
-                            __html: item.answer,
+                            __html: item.answer.replace("```html",'').replace("```",''),
                           }}
                         />
                       </div>
