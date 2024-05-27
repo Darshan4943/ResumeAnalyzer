@@ -446,7 +446,7 @@ function Dashboard() {
               </div>
 
               <div className="w-[40%] flex flex-col gap-4 min-w-[160px]">
-                <span className="font-Montserrat text-[18px] font-medium text-[#333333] break-all">
+                <span className="font-Montserrat text-[16px] font-medium text-[#333333] break-all">
                   {data.firstName}_resume.pdf
                 </span>
                 {data?.createdAt && data.createdAt !== "" && (
