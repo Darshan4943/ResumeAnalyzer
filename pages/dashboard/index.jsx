@@ -300,7 +300,7 @@ function Dashboard() {
 
               <div className="text-center">
                 <div className="scr420:text-[24px] text-[20px] font-[500] text-[#333]">
-                  Welcome to Skilotech!
+                  Welcome to SkiloTech!
                 </div>
                 <div className="text-[16px] font-[500] text-[#333]">
                   {signIn === "true" ?
@@ -446,7 +446,7 @@ function Dashboard() {
               </div>
 
               <div className="w-[40%] flex flex-col gap-4 min-w-[160px]">
-                <span className="font-Montserrat text-[18px] font-medium text-[#333333] break-all">
+                <span className="font-Montserrat text-[16px] font-medium text-[#333333] break-all">
                   {data.firstName}_resume.pdf
                 </span>
                 {data?.createdAt && data.createdAt !== "" && (

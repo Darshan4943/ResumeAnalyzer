@@ -303,13 +303,21 @@ function Collection() {
           formData.append("text", text);
           formData.append("file", file);
           formData.append("parentId", ParentId ? ParentId : undefined);
-          const response = await axios.post(
-            "https://jamblix.com/api/folder/create",
-            formData
-          );
-          resolve(index, response.data);
+          try {
+            const response = await axios.post(
+              "https://jamblix.com/api/folder/create",
+              formData
+            );
+            resolve(index, response.data);
+            return;
+          } catch (e) {
+            setFileLoader(false)
+            toast.error("Something went wrong Please Check your file")
+            return;
+          }
+        } catch (err) {
           return;
-        } catch (err) {}
+        }
       }, 200); // Simulating a network delay
     });
   };
