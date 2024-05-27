@@ -300,7 +300,7 @@ function Dashboard() {
 
               <div className="text-center">
                 <div className="scr420:text-[24px] text-[20px] font-[500] text-[#333]">
-                  Welcome to Skilotech!
+                  Welcome to SkiloTech!
                 </div>
                 <div className="text-[16px] font-[500] text-[#333]">
                   {signIn === "true" ?

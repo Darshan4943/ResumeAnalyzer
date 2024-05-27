@@ -76,7 +76,7 @@ const ExistingChat = ({
   }, [recall]);
 
   const createNewChat = () => {
-    const lastChatIndex = Object.keys(existingChat).length;
+    const lastChatIndex = existingChat ? Object.keys(existingChat).length : 0;
     const newChat = {};
     newChat[`chat-${lastChatIndex + 1}`] = [];
     localStorage.setItem(
@@ -159,7 +159,7 @@ const ExistingChat = ({
     const dummyData = { ...existingChat };
     delete dummyData[key];
     localStorage.setItem("chat", JSON.stringify(dummyData));
-    setSelectedChat(Object.keys(dummyData)[0])
+    setSelectedChat(Object.keys(dummyData)[0]);
     forceUpdate();
   };
 
