@@ -17,6 +17,7 @@ function ForgotPassword({ setIsForgot }) {
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [resend, setResend] = useState(false);
+  const [passwordError, setPasswordError] = useState(null);
 
   const handleVerification = (e) => {
     setResend(false);
@@ -113,6 +114,25 @@ function ForgotPassword({ setIsForgot }) {
     ).padStart(2, "0")}`;
   };
 
+  function validatePassword(password) {
+    const strongPasswordRegex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    return strongPasswordRegex.test(password);
+  }
+
+  const handlePasswordChange = (e) => {
+    const result = validatePassword(e.target.value);
+    if (result) {
+      setPasswordError(null);
+    } else {
+      setPasswordError(
+        "one uppercase one lowercase one number and one special character"
+      );
+    }
+    setPassword(e.target.value);
+    setErrorMessage("");
+  };
+
   return (
     <>
       {tabIndex === 1 && (
@@ -200,8 +220,9 @@ function ForgotPassword({ setIsForgot }) {
                 type={showPassword ? "text" : "password"}
                 value={password}
                 onChange={(e) => {
-                  setPassword(e.target.value);
-                  setErrorMessage("");
+                  handlePasswordChange(e);
+                  // setPassword(e.target.value);
+                  // setErrorMessage("");
                 }}
                 placeholder="Enter Password"
               />
@@ -241,6 +262,14 @@ function ForgotPassword({ setIsForgot }) {
               )}
             </div>
           </div>
+          {passwordError != null && (
+            <div className="text-black flex flex-row">
+              <span className="p-0">
+                Password should include{" "}
+                <span className="text-red">{passwordError}</span>
+              </span>
+            </div>
+          )}
           <div className="flex flex-col gap-2">
             <p className="text-[14px] font-[500]">Confirm Password</p>
             <div className="flex flex-row px-[16px] py-[12px] border-[1px]  items-center rounded-[8px] border-solid border-[#9D9D9D] justify-between">

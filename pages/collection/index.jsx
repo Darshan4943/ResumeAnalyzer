@@ -578,7 +578,7 @@ function Collection() {
           </div>
         </>
       )}
-      <div className="bg-[#F9F9F9] h-[94vh]">
+      <div className="bg-[#F9F9F9] min-h-[94vh]">
         <div className="  flex ml:flex-row flex-col ml:justify-between  gap-4 ms:py-6 py-2 min-h-[80vh]   pb-12 customMargins ">
           <div className="flex flex-col gap-5  justify-between ml:w-[20%] w-[100%] ml:min-h-[50vh] ">
             <div className="flex flex-col gap-5 ">
