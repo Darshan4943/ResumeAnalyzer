@@ -305,14 +305,13 @@ const PersonalDetails = ({
 
                                   minWidth: "130px",
                                 }),
-                                
                               }}
                               theme={(theme) => ({
                                 ...theme,
                                 borderRadius: 0,
                                 colors: {
                                   ...theme.colors,
-                                  // primary25: 'hotpink',
+                                  // primary25: "hotpink",
                                   primary: "neutral0",
                                 },
                               })}

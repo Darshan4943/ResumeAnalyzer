@@ -173,9 +173,12 @@ const ResumeForm = ({
           <SocialLink setData={setData} data={data} />
         )} */}
         {formField?.includes("hobbies") && (
-          <Hobbie setData={setData} data={data} />
+          <>
+            <Hobbie setData={setData} data={data} />
+            <div className="border-b border-r border-l border-[#DEDEDE]"></div>
+          </>
         )}
-        <div className="border-b border-r border-l border-[#DEDEDE]"></div>
+
         {formField?.includes("language") && (
           <Languages setData={setData} data={data} />
         )}

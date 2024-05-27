@@ -167,6 +167,14 @@ function Folders({
     }
   };
 
+  useEffect(() => {
+    if (data?.length === selectedIndexes?.length) {
+      setSelectAll(true);
+    } else {
+      setSelectAll(false);
+    }
+  }, [selectedIndexes]);
+
   return (
     <div className="flex flex-col gap-4 ml:w-[80%] w-[100%] ">
       <div className="flex justify-between items-center">

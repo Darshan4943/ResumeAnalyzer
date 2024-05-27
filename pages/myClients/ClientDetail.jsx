@@ -227,7 +227,7 @@ function ClientDetail({ tabIndex }) {
         Resumes
       </div>
       <div className="w-full rounded-[12px] border flex flex-wrap scr540:justify-start justify-center gap-9 border-[#DEDEDE] bg-[#F9F9F9] p-6 cursor-pointer">
-        <div className="flex flex-row flex-wrap gap-6">
+        <div className="flex flex-row flex-wrap gap-6 scr540:justify-start justify-center">
           <div
             onClick={() =>
               router.push(`/home/BuildResume?clientId=${clientId}`)
