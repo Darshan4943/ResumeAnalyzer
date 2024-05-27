@@ -50,7 +50,7 @@ function ForgotPassword({ setIsForgot }) {
     if (otp == otpEntered) {
       setTabIndex(2);
     } else {
-      toast.error("OTP does not match");
+      toast.error("Please Enter Valid OTP");
     }
   };
 
@@ -212,7 +212,6 @@ function ForgotPassword({ setIsForgot }) {
             Reset Password
           </div>
 
-          {errorMessage && <div className="text-red">{errorMessage}</div>}
           <div className="flex flex-col gap-2">
             <p className="text-[14px] font-[500]">Create New Password</p>
             <div className="flex flex-row px-[16px] py-[12px] border-[1px] rounded-[8px] items-center border-solid border-[#9D9D9D] justify-between">
@@ -317,6 +316,8 @@ function ForgotPassword({ setIsForgot }) {
                 </svg>
               )}
             </div>
+
+            {errorMessage && <div className="text-red">{errorMessage}</div>}
           </div>
 
           <button

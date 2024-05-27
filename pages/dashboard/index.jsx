@@ -7,10 +7,46 @@ import { useRouter } from "next/router";
 import { plans, templates } from "../../utils/data";
 
 import axios from "axios";
+import { useRef } from "react";
 
 function Dashboard() {
   const userDataGlobal = useSelector((state) => state.userData);
   const router = useRouter();
+  const { signIn } = router.query
+  console.log(signIn)
+  const [successful, setIsSuccessful] = useState(false)
+
+
+
+
+  useEffect(() => {
+    // Check if the effect has already run by checking localStorage
+    const hasEffectRun = sessionStorage.getItem('hasEffectRun');
+
+    if (signIn !== undefined && !hasEffectRun) {
+      setIsSuccessful(true);
+      const timer = setTimeout(() => {
+
+        // Set the flag in localStorage to indicate the effect has run
+        sessionStorage.setItem('hasEffectRun', 'true');
+      }, 5000);
+
+      // Clear the timeout on cleanup
+      return () => clearTimeout(timer);
+    }
+  }, [signIn]);
+
+
+  // useEffect(() => {
+
+  //   if (isPopUp === false) {
+
+
+
+
+  //   }
+  // }, [isPopUp]);
+
   const [limits, setLimits] = useState({
     used: { uploads: 0, download: 0, save: 0, clients: 0 },
     total: { uploads: 0, download: 0, save: 0, clients: 0 },
@@ -29,20 +65,35 @@ function Dashboard() {
     }
   };
 
+  const taskRef = useRef(null);
+
+  const handleOutsideClick = (event) => {
+    if (taskRef.current && !taskRef.current.contains(event.target)) {
+      setIsSuccessful(false)
+    }
+  };
+  useEffect(() => {
+    document.addEventListener("mousedown", handleOutsideClick);
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, []);
+
   const loginListCandidate = [
     {
       name: "Create New Resume",
       imgSrc: "/images/resumeBuilder/createResume.png",
     },
     { name: "My Resumes", imgSrc: "/images/resumeBuilder/myResume.png" },
-    { name: "Transform CV", imgSrc: "/images/resumeBuilder/transform_cv.png" },
+    // { name: "Transform CV", imgSrc: "/images/resumeBuilder/transform_cv.png" },
     {
       name: "Skill Assessments",
       imgSrc: "/images/resumeBuilder/skill_assessments.png",
     },
-    { name: "My Purchases", imgSrc: "/images/resumeBuilder/my_purchases.png" },
-    { name: "Chat Bot", imgSrc: "/images/resumeBuilder/bot.png" },
+
+    { name: "Chat Bot", imgSrc: "/images/resumeBuilder/bot1.png", new: "New" },
     // { name: "Search Jobs", imgSrc: "/images/resumeBuilder/job.png" },
+    { name: "My Purchases", imgSrc: "/images/resumeBuilder/my_purchases.png" },
   ];
 
   const loginListRecruiter = [
@@ -51,17 +102,19 @@ function Dashboard() {
       imgSrc: "/images/resumeBuilder/createResume.png",
     },
     { name: "My Clients", imgSrc: "/images/resumeBuilder/my_clients.png" },
-    { name: "Transform CV", imgSrc: "/images/resumeBuilder/transform_cv.png" },
+    // { name: "Transform CV", imgSrc: "/images/resumeBuilder/transform_cv.png" },
     {
       name: "Job Description Matching",
       imgSrc: "/images/resumeBuilder/job_description_matching.png",
     },
     {
       name: "My Collection",
-      imgSrc: "/images/resumeBuilder/collechttps://jamblix.comMy Purchases",
-      imgSrc: "/images/resumeBuilder/my_purchases.png",
+
+      imgSrc: "/images/resumeBuilder/collection.png",
     },
+    { name: "Chat Bot", imgSrc: "/images/resumeBuilder/bot1.png", new: "New" },
     // { name: "Post Jobs", imgSrc: "/images/resumeBuilder/job.png" },
+    { name: "My Purchases", imgSrc: "/images/resumeBuilder/my_purchases.png" },
   ];
 
   const list = () => {
@@ -213,7 +266,64 @@ function Dashboard() {
   }
 
   return (
+
     <div className="customMargins flex flex-col gap-12 py-6 min-h-[70vh]">
+      {successful &&
+        <>
+          <div className="fixed z-[300] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
+          <div className="fixed z-[300] top-0 left-0 right-0 bottom-0 flex items-center justify-center customMargins   ">
+
+            <div ref={taskRef} className=" absolute rounded-[16px] bg-white shadow-lg pt-[60px] pb-6 px-6 flex flex-col gap-6 ml:min-w-[350px] ml:w-[25%] ms:w-[50%] scr420:w-[80%] w-[90%] ">
+              <svg
+                className="absolute top-[-40px]  left-[38%] right-[62%] flex"
+                xmlns="http://www.w3.org/2000/svg"
+                width="85"
+                height="85"
+                viewBox="0 0 85 85"
+                fill="none"
+              >
+                <g clip-path="url(#clip0_6622_116765)">
+                  <rect width="85" height="85" rx="42.5" fill="#0C8A0A" />
+                  <g mask="url(#mask0_6622_116765)">
+                    <path
+                      d="M34.5 58.1875L20.1562 43.8438L24.0938 39.9062L34.5 50.3125L59.9062 24.9062L63.8438 28.8438L34.5 58.1875Z"
+                      fill="white"
+                    />
+                  </g>
+                </g>
+                <defs>
+                  <clipPath id="clip0_6622_116765">
+                    <rect width="85" height="85" rx="42.5" fill="white" />
+                  </clipPath>
+                </defs>
+              </svg>
+
+              <div className="text-center">
+                <div className="scr420:text-[24px] text-[20px] font-[500] text-[#333]">
+                  Welcome to SkiloTech!
+                </div>
+                <div className="text-[16px] font-[500] text-[#333]">
+                  {signIn === "true" ?
+                    "You Have Signed In Successfully."
+                    :
+                    "You Have Registered Successfully."
+                  }
+                </div>
+              </div>
+              <div className="flex justify-center">
+                <button
+                  onClick={() => setIsSuccessful(false)}
+                  className="py-[12px] px-[24px] rounded-[8px] bg-[#06A9EF] text-[#fff] text-[16px] font-[500]"
+                >
+                  Done
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </>
+      }
+
       <div className="flex ml:flex-row flex-col gap-4">
         <div
           className="flex flex-col gap-6 p-4 rounded-[16px] ml:min-w-[336px] ml:max-w-[336px] ml:h-[297px]"
@@ -285,7 +395,7 @@ function Dashboard() {
           <div
             key={index}
             className={
-              "job-card scr420:w-[162.67px] w-[120px] scr420:h-[154px] h-[120px] scr420:p-4 p-3 cursor-pointer flex flex-col items-center scr420:gap-3 gap-2 justify-center text-center"
+              "job-card relative scr420:w-[162.67px] w-[120px] scr420:h-[154px] h-[120px] scr420:p-4 p-3 cursor-pointer flex flex-col items-center scr420:gap-3 gap-2 justify-center text-center"
             }
             onClick={() => handleItemClick(item.name)}
           >
@@ -298,6 +408,11 @@ function Dashboard() {
             <div className="scr420:text-[14px] text-[12px] font-medium">
               {item.name}
             </div>
+            {item.new && (
+              <div className=" absolute right-4  top-4 flex justify-center items-center px-2  py-2 h-[19px] bg-[#F72C2C] rounded-[4px] text-[#FFF] text-[12px] font-medium leading-tight">
+                {item.new}
+              </div>
+            )}
           </div>
         ))}
       </div>
@@ -314,24 +429,24 @@ function Dashboard() {
                 {templates.find(
                   (item) => item.index === data.selectedResumeIndex
                 ) && (
-                  <img
-                    src={
-                      templates.find(
-                        (item) => item.index === data.selectedResumeIndex
-                      ).imgUrl
-                    }
-                    style={{
-                      height: "100%",
-                      width: "90%",
-                      objectFit: "cover",
-                    }}
-                    alt={`Resume template ${data.selectedResumeIndex}`} // Adding an alt attribute for accessibility
-                  />
-                )}
+                    <img
+                      src={
+                        templates.find(
+                          (item) => item.index === data.selectedResumeIndex
+                        ).imgUrl
+                      }
+                      style={{
+                        height: "100%",
+                        width: "90%",
+                        objectFit: "cover",
+                      }}
+                      alt={`Resume template ${data.selectedResumeIndex}`} // Adding an alt attribute for accessibility
+                    />
+                  )}
               </div>
 
               <div className="w-[40%] flex flex-col gap-4 min-w-[160px]">
-                <span className="font-Montserrat text-[18px] font-medium text-[#333333] break-all">
+                <span className="font-Montserrat text-[16px] font-medium text-[#333333] break-all">
                   {data.firstName}_resume.pdf
                 </span>
                 {data?.createdAt && data.createdAt !== "" && (

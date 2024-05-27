@@ -5,7 +5,6 @@ import {
   fileIconSeter,
   formatDate,
 } from "../../../../../utils/middleware";
-import { DocSVG, PDFSvg, PNGICON } from "../../../../../utils/svg";
 
 function MyFolders({
   toggleSelect,
@@ -17,6 +16,14 @@ function MyFolders({
   selectedIndexes,
   openFolder,
 }) {
+  function sortFoldersAndFiles(data) {
+    return data.sort((a, b) => {
+      if (a.type === b.type) {
+        return 0;
+      }
+      return a.type === "folder" ? -1 : 1;
+    });
+  }
   return (
     <div className="">
       {tabIndex === 0 && (
@@ -24,7 +31,7 @@ function MyFolders({
           {data?.length > 0 ? (
             <>
               {!isList ? (
-                data?.map((item, index) => (
+                sortFoldersAndFiles(data)?.map((item, index) => (
                   <>
                     <div
                       onClick={() => {
@@ -52,7 +59,6 @@ function MyFolders({
                         style={{ overflow: "hidden" }}
                         className="text-[12px]"
                       >
-                        {" "}
                         {item.fileName}{" "}
                       </span>
                       <div className="absolute text-[10px] opacity-0 transition-opacity duration-500 group-hover:opacity-100  word-break bottom-[-20px] text-[#fff] bg-[#333] px-[6px] py-[3px] rounded-[5px]">
@@ -71,13 +77,10 @@ function MyFolders({
                       <th className="py-3 px-4 bg-[#C2E7FF] w-[25%] text-left text-[14px] border-r border-[#FFF]  rounded-r-[12px]">
                         Date Modified
                       </th>
-                      {/* <th className="py-3 px-4 rounded-r-[12px] bg-[#C2E7FF] text-[14px] w-[25%] text-left">
-                        Size
-                      </th> */}
                     </tr>
                   </thead>
                   <tbody>
-                    {data.map((item, index) => (
+                    {sortFoldersAndFiles(data).map((item, index) => (
                       <tr
                         key={index}
                         onClick={() =>
@@ -100,8 +103,11 @@ function MyFolders({
                             ? `${item.fileName.slice(0, 25)}...`
                             : item.fileName}
                         </td>
+                        {
+                          console.log(item)
+                        }
                         <td className="px-4 py-2 text-[#858585] text-[14px]">
-                          {dateSeter(item.updatedAt)}
+                          {dateSeter(item.createdAt)}
                         </td>
                         {/* <td className="px-4 py-2 text-[#858585] text-[14px]">
                           {convertBytes(item.size)}

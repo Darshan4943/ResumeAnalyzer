@@ -6,6 +6,7 @@ import Cropper from "react-easy-crop";
 import ImageCropper from "./imageCropper";
 
 const ResumeList = ({ data, setData }) => {
+ 
   const [file, setFile] = useState(null);
   const [modelView, setModelView] = useState(false);
   const fileRef = useRef(null);
@@ -14,6 +15,7 @@ const ResumeList = ({ data, setData }) => {
     fileRef.current.click();
   };
   const [croppedImage, setCroppedImage] = useState(null);
+
   // console.log(2, croppedImage)
   // console.log(1, file)
   // console.log(3, data.profilePhoto)
@@ -209,16 +211,18 @@ const ResumeList = ({ data, setData }) => {
         </div>
         <div className="flex justify-between sm:justify-end  ">
           <div className="flex justify-between  py-2 gap-2 sm:w-fit w-full">
+           
             <button
-              className=" font-montserrat text-xs font-semibold px-[12px] rounded-[8px] border border-[#06A9EF] w-[83px] h-[32px]"
+            disabled={data.profilePhoto ===null || data.profilePhoto===undefined }
+              className={`font-montserrat text-xs font-semibold px-[12px] rounded-[8px] border border-[#06A9EF] w-[83px] h-[32px] ${(data.profilePhoto ===null || data.profilePhoto===undefined) &&  "opacity-50" }`}
               onClick={() => removeImgae()}
             >
               Remove
             </button>
+
             <button
-              disabled={file == !data?.profilePhoto}
-              className={` font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px]  bg-[#06A9EF] w-[60px] h-[32px] ${file == !data?.profilePhoto ? "opacity-50" : "opacity-100"
-                }`}
+              disabled={!croppedImage }
+              className={` font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px]  bg-[#06A9EF] w-[60px] h-[32px] ${!croppedImage  && "opacity-50" }`}
               onClick={() => {
                 setData({ ...data, profilePhoto: croppedImage?.blob });
               }}

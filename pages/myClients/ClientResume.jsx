@@ -107,7 +107,7 @@ function ClientResume() {
               </div>
             )}
 
-            <div className="flex  gap-8 flex-wrap scr700:justify-start justify-center ">
+            <div className="flex  gap-5 flex-wrap scr700:justify-start justify-center ">
               {details?.length > 0 && (
                 <div
                   onClick={() => {
@@ -118,7 +118,7 @@ function ClientResume() {
                     }
                   }}
                   style={{ boxShadow: "0px 0px 10px 5px #00000040" }}
-                  className="rounded-[24px] text-center text-white justify-center flex scr540:flex-col flex-row text-[18px] items-center gap-2 font-medium  sm:min-w-[280px] min-w-[280px] max-w-[280px] bg-[#646464] p-6 cursor-pointer"
+                  className="rounded-[24px] text-center text-white justify-center flex scr540:flex-col flex-row text-[18px] items-center gap-2 font-medium  sm:min-w-[218px] min-w-[218px] max-w-[218px] bg-[#646464] p-6 cursor-pointer"
                 >
                   <svg
                     width="27"
@@ -144,12 +144,12 @@ function ClientResume() {
                         router.push(`/home/BuildResume?clientId=${detail._id}`)
                       }
                       key={index}
-                      className="flex flex-col gap-4 cursor-pointer sm:p-6 p-4 rounded-[24px] sm:min-w-[280px] min-w-[280px] max-w-[280px] break-all"
+                      className="flex flex-col gap-4 cursor-pointer sm:p-6 p-4 rounded-[24px] sm:min-w-[218px] min-w-[218px] max-w-[218px] break-all"
                       style={{ boxShadow: "0px 2px 7px 0px #00000040" }}
                     >
                       <div className="flex justify-center relative">
                         <img
-                          className="rounded-[50%] sm:h-[120px] sm:w-[120px] h-[100px] w-[100px] "
+                          className="rounded-[50%] sm:h-[80px] sm:w-[80px] h-[80px] w-[80px] "
                           style={{ objectFit: "contain" }}
                           src={
                             detail.profilePicture
@@ -186,25 +186,26 @@ function ClientResume() {
                         </div>
                       </div>
                       <div className="bg-[#DEDEDE] w-full h-[1px]"></div>
-                      <div className="flex flex-col gap-4">
+                      <div className="flex flex-col gap-2">
                         <p className="text-[16px] font-medium">Contact</p>
 
                         <div className="flex  gap-2">
-                          <svg
-                            width="20"
-                            height="20"
-                            viewBox="0 0 20 20"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <g mask="url(#mask0_625_15649)">
-                              <path
-                                d="M3.58967 16.25C3.16872 16.25 2.81242 16.1041 2.52075 15.8125C2.22909 15.5208 2.08325 15.1645 2.08325 14.7435V5.25642C2.08325 4.83547 2.22909 4.47917 2.52075 4.1875C2.81242 3.89583 3.16872 3.75 3.58967 3.75H16.4101C16.8311 3.75 17.1874 3.89583 17.479 4.1875C17.7707 4.47917 17.9165 4.83547 17.9165 5.25642V14.7435C17.9165 15.1645 17.7707 15.5208 17.479 15.8125C17.1874 16.1041 16.8311 16.25 16.4101 16.25H3.58967ZM9.9999 10.4647L3.33323 6.20187V14.7435C3.33323 14.8183 3.35727 14.8798 3.40536 14.9279C3.45344 14.9759 3.51488 15 3.58967 15H16.4101C16.4849 15 16.5464 14.9759 16.5944 14.9279C16.6425 14.8798 16.6666 14.8183 16.6666 14.7435V6.20187L9.9999 10.4647ZM9.9999 9.16665L16.5384 4.99998H3.46144L9.9999 9.16665ZM3.33323 6.20187V4.99998V14.7435C3.33323 14.8183 3.35727 14.8798 3.40536 14.9279C3.45344 14.9759 3.51488 15 3.58967 15H3.33323V6.20187Z"
-                                fill="#06A9EF"
-                              />
-                            </g>
-                          </svg>
-
+                          <div className="h-[22px] w-[22px]">
+                            <svg
+                              width="20"
+                              height="20"
+                              viewBox="0 0 20 20"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <g mask="url(#mask0_625_15649)">
+                                <path
+                                  d="M3.58967 16.25C3.16872 16.25 2.81242 16.1041 2.52075 15.8125C2.22909 15.5208 2.08325 15.1645 2.08325 14.7435V5.25642C2.08325 4.83547 2.22909 4.47917 2.52075 4.1875C2.81242 3.89583 3.16872 3.75 3.58967 3.75H16.4101C16.8311 3.75 17.1874 3.89583 17.479 4.1875C17.7707 4.47917 17.9165 4.83547 17.9165 5.25642V14.7435C17.9165 15.1645 17.7707 15.5208 17.479 15.8125C17.1874 16.1041 16.8311 16.25 16.4101 16.25H3.58967ZM9.9999 10.4647L3.33323 6.20187V14.7435C3.33323 14.8183 3.35727 14.8798 3.40536 14.9279C3.45344 14.9759 3.51488 15 3.58967 15H16.4101C16.4849 15 16.5464 14.9759 16.5944 14.9279C16.6425 14.8798 16.6666 14.8183 16.6666 14.7435V6.20187L9.9999 10.4647ZM9.9999 9.16665L16.5384 4.99998H3.46144L9.9999 9.16665ZM3.33323 6.20187V4.99998V14.7435C3.33323 14.8183 3.35727 14.8798 3.40536 14.9279C3.45344 14.9759 3.51488 15 3.58967 15H3.33323V6.20187Z"
+                                  fill="#06A9EF"
+                                />
+                              </g>
+                            </svg>
+                          </div>
                           <p className="text-[14px] font-normal">
                             {detail.email}
                           </p>

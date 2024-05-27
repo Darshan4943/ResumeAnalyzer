@@ -8,7 +8,7 @@ function Services({ setServices }) {
     const loginListCandidate = [
         { name: "Create New Resume", imgSrc: "/images/resumeBuilder/createResume.png" },
         { name: "My Resumes", imgSrc: "/images/resumeBuilder/myResume.png" },
-        { name: "Transform CV", imgSrc: "/images/resumeBuilder/transform_cv.png" },
+        // { name: "Transform CV", imgSrc: "/images/resumeBuilder/transform_cv.png" },
         { name: "Skill Assessments", imgSrc: "/images/resumeBuilder/skill_assessments.png" },
         { name: "My Purchases", imgSrc: "/images/resumeBuilder/my_purchases.png" }
     ];
@@ -16,7 +16,7 @@ function Services({ setServices }) {
     const loginListRecruiter = [
         { name: "Create New Resume", imgSrc: "/images/resumeBuilder/createResume.png" },
         { name: "My Clients", imgSrc: "/images/resumeBuilder/my_clients.png" },
-        { name: "Transform CV", imgSrc: "/images/resumeBuilder/transform_cv.png" },
+        // { name: "Transform CV", imgSrc: "/images/resumeBuilder/transform_cv.png" },
         { name: "Job Description Matching", imgSrc: "/images/resumeBuilder/job_description_matching.png" },
         { name: "My Collection", imgSrc: "/images/resumeBuilder/collection.png" },
         { name: "My Purchases", imgSrc: "/images/resumeBuilder/my_purchases.png" }

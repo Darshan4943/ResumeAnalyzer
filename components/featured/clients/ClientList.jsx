@@ -57,7 +57,7 @@ function ClientList({
           Total Clients ({details?.length})
         </div>
 
-        <div className="flex  gap-8 flex-wrap scr700:justify-start justify-center  ">
+        <div className="flex  gap-6 flex-wrap scr700:justify-start justify-center  ">
           <div
             onClick={() => {
               if (ClientCount === 0) {
@@ -67,7 +67,7 @@ function ClientList({
               }
             }}
             style={{ boxShadow: "0px 0px 10px 5px #00000040" }}
-            className="rounded-[24px] text-center text-white justify-center hidden  ms:flex scr540:flex-col flex-row text-[18px] items-center gap-2 font-medium  min-w-[268px]  max-w-[268px] bg-[#646464] p-6 cursor-pointer"
+            className="rounded-[24px] text-center text-white justify-center hidden  ms:flex scr540:flex-col flex-row text-[18px] items-center gap-2 font-medium  min-w-[218px]  max-w-[218px] bg-[#646464] p-6 cursor-pointer"
           >
             <svg
               width="27"
@@ -88,7 +88,7 @@ function ClientList({
             <div
               onClick={() => toggleDetails(detail)}
               key={index}
-              className="flex flex-col gap-4 cursor-pointer sm:p-6 p-4 rounded-[24px] min-w-[268px]  max-w-[268px]"
+              className="flex flex-col gap-4 cursor-pointer sm:p-6 p-4 rounded-[24px] min-w-[218px]  max-w-[218px]"
               style={{ boxShadow: "0px 2px 7px 0px #00000040" }}
             >
               <div className="flex justify-center relative">
@@ -103,7 +103,7 @@ function ClientList({
                   />
                 )}
                 <img
-                  className="rounded-[50%] sm:h-[120px] sm:w-[120px] h-[100px] w-[100px] "
+                  className="rounded-[50%] sm:h-[80px] sm:w-[80px] h-[80px] w-[80px] "
                   style={{ objectFit: "contain" }}
                   src={
                     detail.profilePicture
@@ -188,7 +188,7 @@ function ClientList({
                 </div>
               </div>
               <div className="bg-[#DEDEDE] w-full h-[1px]"></div>
-              <div className="flex flex-col gap-4">
+              <div className="flex flex-col gap-2">
                 <p className="text-[16px] font-medium">Contact</p>
 
                 <div className="flex  gap-2">

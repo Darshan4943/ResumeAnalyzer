@@ -8,7 +8,6 @@ function JdFiles({
   files,
   details,
   query,
-  selectedOptions,
   selectedIndexes,
   setSelectedIndexes,
   loading,
@@ -36,23 +35,20 @@ function JdFiles({
     }
   };
 
-  // const openClientFolder = (index, clientId, name, item) => {
-  //     if (item?.resumeUrl?.includes("pdf")) {
-  //         window.location.href = item.resumeUrl;
-  //     } else {
-  //         localStorage.setItem("previousPage", window.location.href);
-  //         router.push({
-  //             pathname: "/transform/JobMatching",
-  //             query: { ...query, clients: true, name, clientId },
-  //         });
-  //     }
-  // };
 
   const fileIconSeter = (data) => {
-    if (data.fileName?.includes("docx") || data?.fileName?.includes("doc")|| data?.fileName?.includes("DOC")|| data?.fileName?.includes("DOCX")) {
+    if (
+      data.fileName?.includes("docx") ||
+      data?.fileName?.includes("doc") ||
+      data?.fileName?.includes("DOC") ||
+      data?.fileName?.includes("DOCX")
+    ) {
       return <img src="/images/docIcon.png" className="h-[48px] w-[48px]" />;
       m;
-    } else if (data?.fileName?.includes("pdf") || data?.fileName?.includes("PDF")) {
+    } else if (
+      data?.fileName?.includes("pdf") ||
+      data?.fileName?.includes("PDF")
+    ) {
       return <PDFSvg />;
     } else if (
       data?.fileName?.includes("png") ||
@@ -84,7 +80,6 @@ function JdFiles({
 
   function getAllFiles(obj) {
     let files = [];
-
     function traverse(node) {
       if (node.type === "file") {
         files.push({
@@ -97,8 +92,50 @@ function JdFiles({
         node.files.forEach((child) => traverse(child));
       }
     }
-
     traverse(obj);
+    return files;
+  }
+  function getAllFilesNestedOnlyFile(data) {
+    let files = [];
+    data?.forEach((obj) => {
+      function traverse(node) {
+        if (node.type === "file") {
+          files.push({
+            ...node,
+          });
+        } else if (node.files && node.files.length > 0  ) {
+          if(node.type === "file"){
+            files.push({
+              ...node,
+            });
+          }
+          node.files.forEach((child) => traverse(child));
+        }
+      }
+
+      traverse(obj);
+    });
+
+    return files;
+  }
+  function getAllFilesNestedAllFile(data) {
+    let files = [];
+    data?.forEach((obj) => {
+      function traverse(node) {
+        if (node.type === "file") {
+          files.push({
+            ...node,
+          });
+        } else if (node.files && node.files.length > 0) {
+          files.push({
+            ...node,
+          });
+          node.files.forEach((child) => traverse(child));
+        }
+      }
+
+      traverse(obj);
+    });
 
     return files;
   }
@@ -153,10 +190,38 @@ function JdFiles({
 
     setSelectedIndexes(updatedIndexes);
   };
+  const toggleSelectAll = () => {
+    if (selectedIndexes.length > 0) {
+      localStorage.setItem("selectedIndexes", JSON.stringify([]));
+      setSelectedIndexes([]);
+      localStorage.setItem("selectedIndexesFileType", JSON.stringify([]));
+
+      setSelectedIndexesFilesType([]);
+    } else {
+      // console.log(data?.length);
+      localStorage.setItem(
+        "selectedIndexes",
+        JSON.stringify(getAllFilesNestedAllFile(data).map((item) => item._id))
+      );
+      localStorage.setItem(
+        "selectedIndexesFileType",
+        JSON.stringify(getAllFilesNestedOnlyFile(data).map((item) => item._id))
+      );
+
+      setSelectedIndexesFilesType(
+        getAllFilesNestedOnlyFile(data).map((item) => item._id)
+      );
+
+      setSelectedIndexes(
+        getAllFilesNestedAllFile(data).map((item) => item._id)
+      );
+    }
+  };
+
   return (
     <div className="rounded-[16px] border bg-[#F9F9F9] border-[#DEDEDE] p-[16px] flex flex-col gap-[16px]">
       <div className="flex flex-row items-center justify-between gap-[12px] ">
-        <div className="flex flex-row items-center gap-[12px] cursor-pointer ">
+        <div className="flex flex-row items-center gap-[8px] cursor-pointer ">
           {name && (
             <svg
               onClick={() => router.back()}
@@ -174,11 +239,11 @@ function JdFiles({
               </g>
             </svg>
           )}
-          {name && (
-            <span className="text-[16px] text-[#333333] font-normal">
+          {/* {name && (
+            <span className="text-[14px] text-[#333333] font-normal">
               {name}
             </span>
-          )}
+          )} */}
           <div className="flex flex-row gap-[8px] py-[8px] px-[12px] h-[40px] bg-[#fff] border border-[#DEDEDE] rounded-[30px] items-center">
             <SearchIcon />
             <input
@@ -189,10 +254,24 @@ function JdFiles({
             />
           </div>
         </div>
-        <span className="text-[14px] text-[#808080] min-w-[75px] flex justify-end">
-          {selectedIndexesFileTypes?.length}
-          {" Items selected"}
-        </span>
+        <div className="flex  gap-2  bg-[#d1edff] h-[40px] py-[8px] px-[12px] w-[40%] justify-between rounded-[50px] ">
+          <div className="flex gap-2 text-[14px] font-medium">
+            <label className="flex items-center gap-2 text-[14px] font-medium">
+              Select All
+              <input
+                type="checkbox"
+                className=" rounded-[4.5px] pl-[4px] pr-[20px] py-[2px] outline-none text-[14px] font-medium custom-checkbox cursor-pointer"
+                style={{ width: "20px", height: "20px" }}
+                // checked={selectAll}
+                checked={selectedIndexes.length > 0}
+                onChange={toggleSelectAll}
+              />
+            </label>
+          </div>
+          <div className="text-[14px] font-semibold min-w-[85px] items-center flex justify-end">
+            {selectedIndexesFileTypes.length} selected
+          </div>
+        </div>
       </div>
       <div className="border-b-[1px] border-[#DEDEDE] w-full h-[1px]"></div>
       <div

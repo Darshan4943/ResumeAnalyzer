@@ -280,7 +280,7 @@ const PersonalDetails = ({
                           <div className="flex items-center  gap-1 cursor-pointer  w-[100%] ">
                             <ReactSelect
                               options={filteredTelCode}
-                              className="w-[100%] flex  items-center py-2  rounded-[8px]"
+                              className="w-[100%] flex  items-center py-2  rounded-[8px] outline-none border-none"
                               name=""
                               placeholder="Select"
                               value={selectedItem}

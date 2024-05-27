@@ -13,7 +13,7 @@ function Sign_in({ googleLoading, handleGoogle, setSignIn, setSignUp }) {
   const sendToPurchase = JSON.parse(localStorage.getItem("purchase"));
   const [loading, setLoading] = useState(false);
   const [isEmailEntered, setIsEmailEntered] = useState(false);
-  const [successful, setSuccessful] = useState(false);
+
   const taskRef = useRef(null);
 
   const handleOutsideClick = (event) => {
@@ -21,6 +21,9 @@ function Sign_in({ googleLoading, handleGoogle, setSignIn, setSignUp }) {
       setIsForgot(false);
       localStorage.setItem("purchase", false);
     }
+  };
+  const openInNewTab = (url) => {
+    window.open(url, "_blank");
   };
 
   useEffect(() => {
@@ -69,8 +72,8 @@ function Sign_in({ googleLoading, handleGoogle, setSignIn, setSignUp }) {
           } else {
             setTimeout(() => {
               setLoading(false);
-              setSuccessful(true);
-              window.location.href = "/home";
+             
+              window.location.href = "/home?signIn=true";
             }, 1000);
           }
         } catch (err) {
@@ -325,7 +328,8 @@ function Sign_in({ googleLoading, handleGoogle, setSignIn, setSignUp }) {
             <div className="text-[12px] text-center ">
               By signing in, you agree to our{" "}
               <span
-                onClick={() => router.push("/TermsAndConditions")}
+                // onClick={() => router.push("/TermsAndConditions")}
+                onClick={() => openInNewTab("/TermsAndConditions")}
                 className="already_sign cursor-pointer"
                 style={{
                   fontSize: "12px",
@@ -336,7 +340,8 @@ function Sign_in({ googleLoading, handleGoogle, setSignIn, setSignUp }) {
               </span>{" "}
               and{" "}
               <span
-                onClick={() => router.push("/PrivacyPolicy")}
+                // onClick={() => router.push("/PrivacyPolicy")}
+                onClick={() => openInNewTab("/PrivacyPolicy")}
                 className="already_sign cursor-pointer"
                 style={{
                   fontSize: "12px",

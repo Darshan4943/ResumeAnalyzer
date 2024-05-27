@@ -146,9 +146,9 @@ function Folders({
   const sortClientData = (data, selectedIndex) => {
     console.log("dataTosortC", data);
     if (sortSelect == 0) {
-      return data?.sort((a, b) => a.firstName.localeCompare(b.firstName));
+      return data?.sort((a, b) => a.firstName?.localeCompare(b.firstName));
     } else if (sortSelect == 1) {
-      return data?.sort((a, b) => a.createdAt.localeCompare(b.createdAt));
+      return data?.sort((a, b) => a.createdAt?.localeCompare(b.createdAt));
     } else if (sortSelect == 2) {
       return data?.sort((a, b) => a.size - b.size);
     }
@@ -161,7 +161,7 @@ function Folders({
     if (sortSelect == 0) {
       return data?.sort((a, b) => a.fileName?.localeCompare(b.fileName));
     } else if (sortSelect == 1) {
-      return data?.sort((a, b) => a.updatedAt.localeCompare(b.updatedAt));
+      return data?.sort((a, b) => a.updatedAt?.localeCompare(b.updatedAt));
     } else if (sortSelect == 2) {
       return data?.sort((a, b) => a.size - b.size);
     }

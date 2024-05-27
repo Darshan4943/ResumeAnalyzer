@@ -74,6 +74,7 @@ function SubscriptionPlans({ fromMain }) {
     }
   };
 
+  console.log("subPlan", subPlans);
   return (
     <>
       {isInInquiry && (

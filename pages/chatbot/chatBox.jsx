@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
@@ -13,12 +13,17 @@ const ChatBox = ({
   setSelectedChat,
   isSidebarOpen,
   setIsSidebarOpen,
+  setIsNew,
+  isNew
 }) => {
   const userDataGlobal = useSelector((state) => state.userData);
   const [existingChat, setExistingChat] = useState([]);
   const [chat, setChat] = useState([]);
   const [text, setText] = useState("");
   const [loading, setLoading] = useState(false);
+
+
+  const chatEndRef = useRef(null);
   const submitHandler = (e) => {
     e.preventDefault();
     if (text?.length > 5) {
@@ -28,7 +33,7 @@ const ChatBox = ({
         .then((res) => {
           const answer = res.data.data;
           const dummyData = { ...existingChat };
-          const newName = text.slice(0, 10);
+          const newName = text.slice(0, 20);
           const chatObje = {};
           chatObje[newName] = [
             ...chat,
@@ -41,6 +46,7 @@ const ChatBox = ({
           forceUpdate();
           setLoading(false);
           setText("");
+
         })
         .catch((err) => {
           console.log(err);
@@ -48,9 +54,14 @@ const ChatBox = ({
           toast.error("Something went wrong");
         });
     } else {
-      toast.error("Please enter quation first");
+      toast.error("Enter valid question");
     }
   };
+  useEffect(() => {
+    if (chatEndRef.current) {
+      chatEndRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [chat]);
   useEffect(() => {
     const data = JSON.parse(localStorage.getItem("chat"));
     if (data) {
@@ -59,60 +70,111 @@ const ChatBox = ({
     }
   }, [selectedChat, recall]);
 
+  const createNewChat = () => {
+    const lastChatIndex = existingChat ? Object.keys(existingChat).length : 0;
+    const newChat = {};
+    newChat[`chat-${lastChatIndex + 1}`] = [];
+    localStorage.setItem(
+      "chat",
+      JSON.stringify({ ...newChat, ...existingChat })
+    );
+    setSelectedChat(`chat-${lastChatIndex + 1}`);
+    forceUpdate();
+  };
   return (
     <>
-      {/* <div className=" j
-      ustify-center items-center flex w-[100%] relative flex-col gap-12">
-        
-        <div className="absolute left-[0px] top-[45vh] ">
-          {" "}
-          <button
-            className="h-full flex items-center w-full"
-            onClick={handleToggleSidebar}
-          >
+      <div className=" justify-center items-center flex w-[100%] relative flex-row bg-[#fff] ">
+        {isSidebarOpen &&
+          <div className="w-[80px] ml:flex  hidden flex-col gap-6 px-2 py-4 items-center h-screen bg-[#FBFBFB]">
             <img
-              src="/images/resumeBuilder/arw.png"
+              src="/images/resumeBuilder/sklogo.png"
               alt=""
-              className={`h-[24px] w-[24px] transform transition-transform ${
-                isSidebarOpen ? "rotate-180" : ""
-              }`}
+              className="h-[24px] w-[24px]"
             />
-          </button>
-        </div>
-        <div className="w-[60%] flex items-center justify-between flex-col min-h-[80vh]">
+
+
+            <div onClick={() => {
+              setIsSidebarOpen(!isSidebarOpen)
+              setSelectedChat(null);
+              setIsNew(true);
+              createNewChat();
+            }} className="btn_hover_effect flex w-[48px] h-[28px] rounded-[35px] text-white font-medium justify-center items-center bg-[#06A9EF] cursor-pointer">
+              +
+            </div>
+            <div onClick={()=> setIsSidebarOpen(!isSidebarOpen)} className=" flex items-center justify-center p-2  bg-[#FFFEEF] border border-[#EEE890] leading-tight">
+              <svg
+                width="12"
+                height="4"
+                viewBox="0 0 12 4"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M1.49563 3.5C1.08188 3.5 0.729167 3.35271 0.4375 3.05813C0.145833 2.76354 0 2.40938 0 1.99563C0 1.58188 0.147292 1.22917 0.441875 0.9375C0.736459 0.645833 1.09062 0.5 1.50437 0.5C1.91812 0.5 2.27083 0.647292 2.5625 0.941875C2.85417 1.23646 3 1.59062 3 2.00437C3 2.41812 2.85271 2.77083 2.55813 3.0625C2.26354 3.35417 1.90938 3.5 1.49563 3.5ZM5.99563 3.5C5.58188 3.5 5.22917 3.35271 4.9375 3.05813C4.64583 2.76354 4.5 2.40938 4.5 1.99563C4.5 1.58188 4.64729 1.22917 4.94187 0.9375C5.23646 0.645833 5.59062 0.5 6.00437 0.5C6.41813 0.5 6.77083 0.647292 7.0625 0.941875C7.35417 1.23646 7.5 1.59062 7.5 2.00437C7.5 2.41812 7.35271 2.77083 7.05812 3.0625C6.76354 3.35417 6.40938 3.5 5.99563 3.5ZM10.4956 3.5C10.0819 3.5 9.72917 3.35271 9.4375 3.05813C9.14583 2.76354 9 2.40938 9 1.99563C9 1.58188 9.14729 1.22917 9.44188 0.9375C9.73646 0.645833 10.0906 0.5 10.5044 0.5C10.9181 0.5 11.2708 0.647292 11.5625 0.941875C11.8542 1.23646 12 1.59062 12 2.00437C12 2.41812 11.8527 2.77083 11.5581 3.0625C11.2635 3.35417 10.9094 3.5 10.4956 3.5Z"
+                  fill="#1C1B1F"
+                />
+              </svg>
+            </div>
+
+          </div>
+        }
+        <button
+          className={`absolute ${isSidebarOpen ? 'ml:left-[75px]' : 'ml:left-[0px]'} ml:top-[45vh] left-0 top-[5vh] px-1 py-2 flex items-center justify-center bg-[#FBFBFB] rounded-r-[4px]`}
+
+          onClick={handleToggleSidebar}
+        >
+          <img
+            src="/images/resumeBuilder/chatArrow.png"
+            alt=""
+            className={`h-[24px] w-[24px] transform transition-transform ${isSidebarOpen ? "rotate-180" : ""
+              }`}
+          />
+        </button>
+
+        <div className=" ml:w-[100%] w-[100%] flex items-center justify-between flex-col min-h-[80vh]">
+
+
           {chat?.length > 0 ? (
-            <div className="flex flex-col gap-[16px] w-[678px] h-[70vh] overflow-y-auto  ">
+            <div
+              style={{ scrollbarWidth: 'none' }}
+              className="flex flex-col gap-[36px] scr1150:w-[60%] w-[70%] h-[70vh] overflow-y-auto  ">
               {chat?.map((item, index) => {
                 return (
-                  <div key={index} className="flex flex-col gap-[16px]">
+                  <div
+                    key={index}
+                    className="flex flex-col  gap-[12px]"
+                  >
                     <div className="flex w-full gap-[14px]  ">
-                      <img
-                        className=" rounded-full object-cover h-[40px] w-[40px]"
+                      {/* <img
+                        className=" rounded-full object-cover h-[38px] w-[38px]"
                         src={
                           userDataGlobal?.profilePicture ||
                           "/images/profile/profileNew.png"
                         }
-                      />
-                      <div className="rounded-[8px] text-[12px] w-full border border-[#bebebe] px-[16px] py-[8px] bg-[#fff]">
+                      /> */}
+                      <div
+                        style={{ width: 'fit-content' }}
+                        className="rounded-[8px] text-[12px] w-full font-[600] border border-[#bebebe] px-[16px] py-[8px] bg-[#F7F7F7] rounded-[30px]">
                         {item.quation}
                       </div>
                     </div>
-                    <div className="flex w-full gap-[14px]  ">
-                      <div className="flex items-center justify-center bg-[#fff] h-[40px] w-[40px] rounded-[50%] border border-[#bebebe] ">
+                    <div className="flex w-full pl-[16px] gap-[14px] items-start  ">
+                      <div className="flex items-center justify-center bg-[#fff] h-[24px] w-[24px] min-w-[24px] rounded-[50%] border border-[#bebebe] ">
                         <img
-                          className=" rounded-full object-contain  h-[18px] "
+                          className=" rounded-full object-contain  h-[10px] w-[18px] "
                           src={"/images/Robot.png"}
                         />
                       </div>
-                      <div className="rounded-[8px] w-full border border-[#bebebe] px-[16px] py-[8px] bg-[#fff]">
-                        <div
-                          style={{ background: "#fff", padding: "8px" }}
-                          className="chat"
-                          dangerouslySetInnerHTML={{
-                            __html: item.answer,
-                          }}
-                        />
-                      </div>
+
+                      <div
+
+                        className=" text-[14px] font-[400] "
+                        style={{ fontSize: "14px" }}
+                        dangerouslySetInnerHTML={{
+                          __html: item.answer.replace("```html", '').replace("```", ''),
+                        }}
+                      />
+                      {/* <div ref={chatEndRef} /> */}
                     </div>
                   </div>
                 );
@@ -137,13 +199,13 @@ const ChatBox = ({
                         <p className="text-[14px] font-[500] font-Montserrat text-[#333]">
                           Tell me what are you looking for?
                         </p>
-                        <p className="text-[12px] font-[500] font-Montserrat text-[#808080]">
+                        {/* <p className="text-[12px] font-[500] font-Montserrat text-[#808080]">
                           Type or scan a document to get desired data on our
                           newest Generative AI
-                        </p>
+                        </p> */}
                       </div>
                     </div>
-                    <div className="w-full gap-6 flex items-center justify-center">
+                    {/* <div className="w-full gap-6 flex items-center justify-center">
                       {features?.map((feature, index) => (
                         <div
                           key={index}
@@ -159,29 +221,25 @@ const ChatBox = ({
                           </p>
                         </div>
                       ))}
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </div>
             </>
           )}
-          <div className="w-[768px] gap-3 flex flex-col items-end sticky">
-            <form
-              className="w-full h-[40px] gap-[14px] rounded-[26px] p-[2px_4px] bg-[#FFFFFF] border border-[#DEDEDE] flex items-center"
-              onSubmit={submitHandler}
-          <div className="w-[768px] gap-3 flex flex-col items-end sticky">
+          <div className="w-[90%] gap-3 flex flex-col items-end sticky">
             <form
               className="w-full h-[40px] gap-[14px] rounded-[26px] p-[2px_4px] bg-[#FFFFFF] border border-[#DEDEDE] flex items-center"
               onSubmit={submitHandler}
             >
-              <div className="gap-1 flex w-full items-center">
-                <div className="w-[44px] h-[32px]">
+              <div className="gap-1 flex w-full items-center pl-2">
+                {/* <div className="w-[44px] h-[32px]">
                   <img
                     src="/images/resumeBuilder/add.png"
                     alt=""
                     className="w-full h-full"
                   />
-                </div>
+                </div> */}
                 <input
                   type="text"
                   value={text}
@@ -220,267 +278,6 @@ const ChatBox = ({
             </form>
           </div>
         </div>
-      </div> */}
-
-      <div className=" justify-center items-center flex w-[100%] relative flex-col gap-12 h-full ">
-        <div className="absolute scr900:left-[6px] md:left-[10px] scr1024:left-[0px] left-[10px] top-[45vh] hidden sm:block z-10  ">
-          <button
-            className="h-full flex items-center w-full"
-            onClick={handleToggleSidebar}
-          >
-            <img
-              src="/images/resumeBuilder/arw.png"
-              alt=""
-              className={`h-[24px] w-[24px] transform transition-transform ${
-                isSidebarOpen ? "rotate-180" : ""
-              }`}
-            />
-          </button>
-        </div>
-        {/* {isSidebarOpen && (
-          <div className="p-3 flex gap-4 absolute left-0 top-0 w-full md:flex-col md:w-[220px] justify-between items-center">
-            <div className="w-[24px] md:hidden block">
-              <button
-                className="h-full flex items-center w-full"
-                onClick={handleToggleSidebar}
-              >
-                <img
-                  src="/images/resumeBuilder/arw.png"
-                  alt=""
-                  className={`h-[24px] w-[24px] transform transition-transform ${
-                    isSidebarOpen ? "rotate-180" : ""
-                  }`}
-                />
-              </button>
-            </div>
-            <div className="flex gap-3 items-center justify-center">
-              <img
-                src="/images/resumeBuilder/sklogo.png"
-                alt=""
-                className="h-[24px] w-[24px]"
-              />
-              <p className="text-[16px] md:text-[18px] font-[600] font-Montserrat">
-                Skilotech GenAI
-              </p>
-            </div>
-            <div
-              className="flex gap-[10px] items-center justify-end md:w-full"
-              onClick={() => createNewChat()}
-            >
-              <p className="text-[14px] font-[500] font-Montserrat hidden md:block">
-                New Chat
-              </p>
-              <div className="btn_hover_effect flex w-[48px] h-[28px] rounded-[35px] text-white font-medium justify-center items-center bg-[#06A9EF] cursor-pointer">
-                <svg
-                  width="12"
-                  height="12"
-                  viewBox="0 0 12 12"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M5.16797 6.83073H1.0013C0.765191 6.83073 0.567274 6.75087 0.407552 6.59115C0.24783 6.43142 0.167969 6.23351 0.167969 5.9974C0.167969 5.76129 0.24783 5.56337 0.407552 5.40365C0.567274 5.24392 0.765191 5.16406 1.0013 5.16406H5.16797V0.997396C5.16797 0.761285 5.24783 0.563368 5.40755 0.403646C5.56728 0.243924 5.76519 0.164062 6.0013 0.164062C6.23741 0.164062 6.43533 0.243924 6.59505 0.403646C6.75478 0.563368 6.83464 0.761285 6.83464 0.997396V5.16406H11.0013C11.2374 5.16406 11.4353 5.24392 11.5951 5.40365C11.7548 5.56337 11.8346 5.76129 11.8346 5.9974C11.8346 6.23351 11.7548 6.43142 11.5951 6.59115C11.4353 6.75087 11.2374 6.83073 11.0013 6.83073H6.83464V10.9974C6.83464 11.2335 6.75478 11.4314 6.59505 11.5911C6.43533 11.7509 6.23741 11.8307 6.0013 11.8307C5.76519 11.8307 5.56728 11.7509 5.40755 11.5911C5.24783 11.4314 5.16797 11.2335 5.16797 10.9974V6.83073Z"
-                    fill="white"
-                  />
-                </svg>
-              </div>
-            </div>
-          </div>
-        )} */}
-
-        {isSidebarOpen && (
-          <div className="p-3 flex sm:gap-4 absolute left-0 top-0  sm:flex-col w-[100%] sm:w-[220px] justify-between items-center">
-            <div className="w-[24px] sm:hidden block ">
-              <button
-                className="h-full flex items-center w-full"
-                onClick={handleToggleSidebar}
-              >
-                <img
-                  src="/images/resumeBuilder/arw.png"
-                  alt=""
-                  className={`h-[24px] w-[24px] transform transition-transform ${
-                    isSidebarOpen ? "rotate-180" : ""
-                  }`}
-                />
-              </button>
-            </div>
-            <div className="flex gap-3 items-center justify-center">
-              <img
-                src="/images/resumeBuilder/sklogo.png"
-                alt=""
-                className="h-[24px] w-[24px]"
-              />
-              <p className="text-[16px] sm:text-[18px] font-[600] font-Montserrat">
-                Skilotech GenAI
-              </p>
-            </div>
-            <div
-              className="flex gap-[10px] pl-3 items-center justify-start sm:w-full "
-              onClick={() => createNewChat()}
-            >
-              <p className="text-[14px] font-[500] font-Montserrat hidden sm:block ">
-                New Chat
-              </p>
-              <div className="btn_hover_effect flex w-[48px] h-[28px] rounded-[35px] text-white font-medium justify-center items-center bg-[#06A9EF] cursor-pointer">
-                <svg
-                  width="12"
-                  height="12"
-                  viewBox="0 0 12 12"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M5.16797 6.83073H1.0013C0.765191 6.83073 0.567274 6.75087 0.407552 6.59115C0.24783 6.43142 0.167969 6.23351 0.167969 5.9974C0.167969 5.76129 0.24783 5.56337 0.407552 5.40365C0.567274 5.24392 0.765191 5.16406 1.0013 5.16406H5.16797V0.997396C5.16797 0.761285 5.24783 0.563368 5.40755 0.403646C5.56728 0.243924 5.76519 0.164062 6.0013 0.164062C6.23741 0.164062 6.43533 0.243924 6.59505 0.403646C6.75478 0.563368 6.83464 0.761285 6.83464 0.997396V5.16406H11.0013C11.2374 5.16406 11.4353 5.24392 11.5951 5.40365C11.7548 5.56337 11.8346 5.76129 11.8346 5.9974C11.8346 6.23351 11.7548 6.43142 11.5951 6.59115C11.4353 6.75087 11.2374 6.83073 11.0013 6.83073H6.83464V10.9974C6.83464 11.2335 6.75478 11.4314 6.59505 11.5911C6.43533 11.7509 6.23741 11.8307 6.0013 11.8307C5.76519 11.8307 5.56728 11.7509 5.40755 11.5911C5.24783 11.4314 5.16797 11.2335 5.16797 10.9974V6.83073Z"
-                    fill="white"
-                  />
-                </svg>
-              </div>
-            </div>
-          </div>
-        )}
-
-        <div className="w-[100%] flex items-center justify-between flex-col min-h-[80vh]">
-          {chat?.length > 0 ? (
-            <div className="flex flex-col gap-[16px] w-[678px] h-[70vh] overflow-y-auto  ">
-              {chat?.map((item, index) => (
-                <>
-                  <div key={index} className="flex w-full gap-[14px]  ">
-                    <img
-                      className=" rounded-full object-cover h-[40px] w-[40px]"
-                      src={
-                        userDataGlobal?.profilePicture ||
-                        "/images/profile/profileNew.png"
-                      }
-                    />
-                    <div className="rounded-[8px] text-[12px] w-full border border-[#bebebe] px-[16px] py-[8px] bg-[#fff]">
-                      {item.quation}
-                    </div>
-                  </div>
-                  <div key={index} className="flex w-full gap-[14px]  ">
-                    <div className="flex items-center justify-center bg-[#fff] h-[40px] w-[40px] rounded-[50%] border border-[#bebebe] ">
-                      <img
-                        className=" rounded-full object-contain  h-[18px] "
-                        src={"/images/Robot.png"}
-                      />
-                    </div>
-                    <div className="rounded-[8px] w-full border border-[#bebebe] px-[16px] py-[8px] bg-[#fff]">
-                      <div
-                        style={{ background: "#fff", padding: "8px" }}
-                        className="chat"
-                        dangerouslySetInnerHTML={{
-                          __html: item.answer,
-                        }}
-                      />
-                    </div>
-                  </div>
-                </>
-              ))}
-            </div>
-          ) : (
-            <>
-              <div className="flex w-full">
-                <div className="flex w-full items-center justify-center">
-                  <div className="flex flex-col scr820:gap-[60px] w-[80%]  ">
-                    <div className="flex flex-col items-center">
-                      <div className="w-[165px] scr820:h-[124px] flex items-center justify-center">
-                        <motion.img
-                          src="/images/resumeBuilder/bot.png"
-                          alt=""
-                          className="h-[68px] w-[68px]"
-                          animate={{ y: [-10, 0, -10] }}
-                          transition={{ duration: 1, repeat: Infinity }}
-                        />
-                      </div>
-
-                      <div className="w-full flex flex-col gap-[4px] items-center p-3">
-                        <p className="text-[14px] font-[500] font-Montserrat text-[#333]">
-                          Tell me what are you looking for?
-                        </p>
-                        <p className="text-[12px] font-[500] font-Montserrat text-[#808080]">
-                          Type or scan a document to get desired data on our
-                          newest Generative AI
-                        </p>
-                      </div>
-                    </div>
-                    <div className=" w-full gap-4 flex items-center justify-center flex-wrap">
-                      <div className="md:w-full w-[100%] flex flex-wrap gap-4 justify-center items-center">
-                        {features.map((feature) => (
-                          <div
-                            key={feature.id}
-                            className="gap-2 flex-wrap h-[71px] w-[100px] md:w-[112px] border-[#DEDEDE] border-[0.5px] rounded-2xl p-3 bg-white flex flex-col items-start"
-                          >
-                            <img
-                              src={feature.imgSrc}
-                              alt={feature.text}
-                              className="h-[20px] w-[20px]"
-                            />
-                            <p className="text-[11px] font-[500] font-Montserrat text-[#808080]">
-                              {feature.text}
-                            </p>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </>
-          )}
-
-          <div
-            // className="w-[768px] gap-3 flex flex-col items-end sticky">
-            className="w-[83%] gap-3 flex flex-col items-end sticky scr1024:w-[70%] pb-3"
-          >
-            <form
-              className="w-full h-[40px] gap-[14px] rounded-[26px] p-[2px_4px] bg-[#FFFFFF] border border-[#DEDEDE] flex items-center"
-              onSubmit={submitHandler}
-            >
-              <div className="gap-1 flex w-full items-center">
-                <div className="w-[44px] h-[32px]">
-                  <img
-                    src="/images/resumeBuilder/add.png"
-                    alt=""
-                    className="w-full h-full"
-                  />
-                </div>
-                <input
-                  type="text"
-                  value={text}
-                  onChange={(e) => setText(e.target.value)}
-                  placeholder="Type your Questions here"
-                  className="text-[12px] font-[400] font-Montserrat w-full"
-                />
-                <button className="btn_hover_effect flex w-[48px] h-[28px] rounded-[35px] text-white font-medium justify-center items-center bg-[#06A9EF] cursor-pointer">
-                  {loading ? (
-                    <svg
-                      aria-hidden="true"
-                      role="status"
-                      className="inline w-4 h-4  text-white animate-spin"
-                      viewBox="0 0 100 101"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
-                        fill="#E5E7EB"
-                      />
-                      <path
-                        d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
-                        fill="currentColor"
-                      />
-                    </svg>
-                  ) : (
-                    <img
-                      src="/images/resumeBuilder/east.png"
-                      alt=""
-                      className="w-[24px] h-[24px]"
-                    />
-                  )}
-                </button>
-              </div>
-            </form>
-          </div>
-        </div> 
       </div>
     </>
   );

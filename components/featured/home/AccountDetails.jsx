@@ -378,6 +378,10 @@ function AccountDetails({
     );
   };
 
+  const openInNewTab = (url) => {
+    window.open(url, "_blank");
+  };
+
   return (
     <div className={" w-[60%] plan-container  "}>
       {popUp && (
@@ -536,6 +540,15 @@ function AccountDetails({
                       style={{ outline: "unset" }}
                       value={selectedItem}
                       onChange={handleItemClick}
+                      theme={(theme) => ({
+                        ...theme,
+                        borderRadius: 0,
+                        colors: {
+                          ...theme.colors,
+                          // primary25: 'hotpink',
+                          primary: "neutral0",
+                        },
+                      })}
                       getOptionLabel={(option) => (
                         <div className="flex items-center  ">
                           <img
@@ -558,15 +571,6 @@ function AccountDetails({
                           minWidth: "130px",
                         }),
                       }}
-                      theme={(theme) => ({
-                        ...theme,
-                        borderRadius: 0,
-                        colors: {
-                          ...theme.colors,
-                          // primary25: "hotpink",
-                          primary: "neutral0",
-                        },
-                      })}
                     />
                   </div>
                 </div>
@@ -642,12 +646,18 @@ function AccountDetails({
 
           <div className="text-[14px] font-normal">
             I agree to the{" "}
-            <span className="text-[#06A9EF] border-b border-[#06A9EF] cursor-pointer">
-              License Terms
+            <span
+              className="text-[#06A9EF] border-b border-[#06A9EF] cursor-pointer"
+              onClick={() => openInNewTab("/TermsAndConditions")}
+            >
+              Terms and Conditions
             </span>{" "}
             and{" "}
-            <span className="text-[#06A9EF] border-b border-[#06A9EF] cursor-pointer">
-              User Agreement.
+            <span
+              className="text-[#06A9EF] border-b border-[#06A9EF] cursor-pointer"
+              onClick={() => openInNewTab("/PrivacyPolicy")}
+            >
+              Privacy Policy
             </span>
           </div>
         </div>
