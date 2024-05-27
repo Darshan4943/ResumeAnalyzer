@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
@@ -13,12 +13,17 @@ const ChatBox = ({
   setSelectedChat,
   isSidebarOpen,
   setIsSidebarOpen,
+  setIsNew,
+  isNew
 }) => {
   const userDataGlobal = useSelector((state) => state.userData);
   const [existingChat, setExistingChat] = useState([]);
   const [chat, setChat] = useState([]);
   const [text, setText] = useState("");
   const [loading, setLoading] = useState(false);
+
+ 
+ const chatEndRef = useRef(null);
   const submitHandler = (e) => {
     e.preventDefault();
     if (text?.length > 5) {
@@ -41,6 +46,7 @@ const ChatBox = ({
           forceUpdate();
           setLoading(false);
           setText("");
+         
         })
         .catch((err) => {
           console.log(err);
@@ -52,6 +58,11 @@ const ChatBox = ({
     }
   };
   useEffect(() => {
+    if (chatEndRef.current) {
+      chatEndRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [chat]);
+  useEffect(() => {
     const data = JSON.parse(localStorage.getItem("chat"));
     if (data) {
       setExistingChat(data);
@@ -59,34 +70,65 @@ const ChatBox = ({
     }
   }, [selectedChat, recall]);
 
+  const createNewChat = () => {
+    const lastChatIndex = existingChat ? Object.keys(existingChat).length : 0;
+    const newChat = {};
+    newChat[`chat-${lastChatIndex + 1}`] = [];
+    localStorage.setItem(
+      "chat",
+      JSON.stringify({ ...newChat, ...existingChat })
+    );
+    setSelectedChat(`chat-${lastChatIndex + 1}`);
+    forceUpdate();
+  };
   return (
     <>
-      <div className=" justify-center items-center flex w-[95%] relative flex-col bg-[#fff] gap-12">
-        <div className="absolute ml:left-[0px] ml:top-[45vh] left-[0%] top-[5vh]">
-          {" "}
-          <button
-            className="h-full flex items-center w-full"
-            onClick={handleToggleSidebar}
-          >
+      <div className=" justify-center items-center flex w-[100%] relative flex-row bg-[#fff] ">
+        {isSidebarOpen &&
+          <div className="w-[80px] ml:flex  hidden flex-col gap-6 px-2 py-4 items-center h-screen bg-[#FBFBFB]">
             <img
-              src="/images/resumeBuilder/arw.png"
+              src="/images/resumeBuilder/sklogo.png"
               alt=""
-              className={`h-[24px] w-[24px] transform transition-transform ${
-                isSidebarOpen ? "rotate-180" : ""
-              }`}
+              className="h-[24px] w-[24px]"
             />
-          </button>
-        </div>
-        <div className=" ml:w-[85%] w-[100%] flex items-center justify-between flex-col min-h-[80vh]">
+
+
+            <div onClick={() => {
+              setIsSidebarOpen(!isSidebarOpen)
+              setSelectedChat(null);
+              setIsNew(true);
+              createNewChat();
+            }} className="btn_hover_effect flex w-[48px] h-[28px] rounded-[35px] text-white font-medium justify-center items-center bg-[#06A9EF] cursor-pointer">
+              +
+            </div>
+
+          </div>
+        }
+        <button
+          className={`absolute ${isSidebarOpen ? 'ml:left-[75px]' : 'ml:left-[0px]'} ml:top-[45vh] left-0 top-[5vh] px-1 py-2 flex items-center justify-center bg-[#FBFBFB] rounded-r-[4px]`}
+
+          onClick={handleToggleSidebar}
+        >
+          <img
+            src="/images/resumeBuilder/chatArrow.png"
+            alt=""
+            className={`h-[24px] w-[24px] transform transition-transform ${isSidebarOpen ? "rotate-180" : ""
+              }`}
+          />
+        </button>
+
+        <div className=" ml:w-[100%] w-[100%] flex items-center justify-between flex-col min-h-[80vh]">
+
+
           {chat?.length > 0 ? (
-            <div 
-            style={{scrollbarWidth:'none'}}
-            className="flex flex-col gap-[16px] scr1150:w-[60%] w-[70%] h-[70vh] overflow-y-auto  ">
+            <div
+              style={{ scrollbarWidth: 'none' }}
+              className="flex flex-col gap-[36px] scr1150:w-[60%] w-[70%] h-[70vh] overflow-y-auto  ">
               {chat?.map((item, index) => {
                 return (
                   <div
                     key={index}
-                    className="flex flex-col h-[80vh] gap-[12px]"
+                    className="flex flex-col  gap-[12px]"
                   >
                     <div className="flex w-full gap-[14px]  ">
                       {/* <img
@@ -97,27 +139,28 @@ const ChatBox = ({
                         }
                       /> */}
                       <div
-                      style={{width:'fit-content'}}
-                      className="rounded-[8px] text-[12px] w-full font-[600] border border-[#bebebe] px-[16px] py-[8px] bg-[#F7F7F7] rounded-[30px]">
+                        style={{ width: 'fit-content' }}
+                        className="rounded-[8px] text-[12px] w-full font-[600] border border-[#bebebe] px-[16px] py-[8px] bg-[#F7F7F7] rounded-[30px]">
                         {item.quation}
                       </div>
                     </div>
-                    <div className="flex w-full pl-[16px] gap-[14px]  ">
-                      <div className="flex items-center justify-center bg-[#fff] h-[40px] w-[40px] rounded-[50%] border border-[#bebebe] ">
+                    <div className="flex w-full pl-[16px] gap-[14px] items-start  ">
+                      <div className="flex items-center justify-center bg-[#fff] h-[24px] w-[24px] min-w-[24px] rounded-[50%] border border-[#bebebe] ">
                         <img
-                          className=" rounded-full object-contain  h-[18px] "
+                          className=" rounded-full object-contain  h-[10px] w-[18px] "
                           src={"/images/Robot.png"}
                         />
                       </div>
-                      <div className="rounded-[8px] w-full px-[16px] py-[8px] bg-[#fff]">
+                      
                         <div
-                          style={{ background: "#fff", padding: "8px" }}
-                          className="chat text-[14px] font-[400] "
+                         
+                          className=" text-[14px] font-[400] "
+                          style={{fontSize:"14px"}}
                           dangerouslySetInnerHTML={{
                             __html: item.answer,
                           }}
                         />
-                      </div>
+                     <div ref={chatEndRef} />
                     </div>
                   </div>
                 );

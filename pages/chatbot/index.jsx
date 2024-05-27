@@ -15,14 +15,14 @@ const Index = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [selectedChat, setSelectedChat] = useState(null);
   const [recall, forceUpdate] = useReducer((x) => x + 1, 0);
-
+  const [isNew, setIsNew] = useState(false);
   const handleToggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
   return (
     <>
-      <div className="bg-[#F9F9F9] w-full h-auto min-h-screen flex">
+      <div className=" w-full h-auto min-h-screen flex">
         <div className="flex w-full justify-center min-h-screen">
           <ExistingChat
             messages={messages}
@@ -33,16 +33,20 @@ const Index = () => {
             selectedChat={selectedChat}
             forceUpdate={forceUpdate}
             recall={recall}
+            isNew={isNew}
+            setIsNew={setIsNew}
           />
           <ChatBox
-               setIsSidebarOpen={setIsSidebarOpen}
-             isSidebarOpen={isSidebarOpen}
+            setIsSidebarOpen={setIsSidebarOpen}
+            isSidebarOpen={isSidebarOpen}
             features={features}
             selectedChat={selectedChat}
             forceUpdate={forceUpdate}
             recall={recall}
             setSelectedChat={setSelectedChat}
             handleToggleSidebar={handleToggleSidebar}
+            isNew={isNew}
+            setIsNew={setIsNew}
           />
         </div>
       </div>
