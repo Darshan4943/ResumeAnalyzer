@@ -31,7 +31,7 @@ function Details() {
   }, []);
   useEffect(() => {
     setSelectedPlan(plans.find((item, index) => index == id - 1));
-    console.log(34,id,)
+    console.log(34, id);
     setLoading(true);
     const timer = setTimeout(() => {
       setLoading(false);
@@ -98,8 +98,10 @@ function Details() {
                     {selectedPlan?.limit}
                   </p>
                   <div className="flex flex-row gap-2 w-full items-center justify-center">
-                    <p className="text-[2.5vw] font-[700]">{icon}</p>
-                    <p className="text-[2.5vw] font-[700]">
+                    <p className="ml:text-[2.5vw] text-[24px] font-[700]">
+                      {icon}
+                    </p>
+                    <p className="ml:text-[2.5vw] text-[24px] font-[700]">
                       {Math.ceil(selectedPlan?.amount * exchangeRate)}
                     </p>
                   </div>
