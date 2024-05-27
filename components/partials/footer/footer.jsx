@@ -166,8 +166,8 @@ function Footer({ isSubscribe, setIsSubcrib }) {
                   >
                     Terms and Conditions
                   </p>
-                  <p                    
-onClick={() => openInNewTab("/PrivacyPolicy")}
+                  <p
+                    onClick={() => openInNewTab("/PrivacyPolicy")}
                     className="footer_sub_about_P cursor-pointer leading-6"
                   >
                     Privacy Policy
@@ -236,6 +236,7 @@ onClick={() => openInNewTab("/PrivacyPolicy")}
               <div className="text-[#06A9EF] sm:text-[24px] text-[14px]">
                 Connect us
               </div>
+
               <a
                 href="https://www.facebook.com/profile.php?id=61559079794587&mibextid=ZbWKwL"
                 target="_blank"
@@ -268,11 +269,12 @@ onClick={() => openInNewTab("/PrivacyPolicy")}
                   alt=""
                 />
               </a>
+              {/**
               <img
                 className="media"
                 src="/images/home/youtube_icon.png"
                 alt=""
-              />
+              /> */}
             </div>
           </div>
         </div>

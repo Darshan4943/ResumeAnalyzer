@@ -158,7 +158,7 @@ const MyCollection = () => {
                             
                           </div> */}
                       <div
-                        className="flex items-center flex-col cursor-pointer"
+                        className="items-center flex-col cursor-pointer hidden md:flex"
                         style={{
                           borderBottom: "1px solid #646464",
                           paddingBottom: "12px",

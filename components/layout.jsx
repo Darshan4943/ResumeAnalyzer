@@ -37,7 +37,6 @@ function Layout({ children }) {
           <Header />
         </div>
         <div className="pt-[3.5rem] ">{children}</div>
-
       </div>
     </>
   );
@@ -57,7 +56,6 @@ function Layout({ children }) {
         pauseOnHover
         theme="light"
       />
-
     </>
   );
 }

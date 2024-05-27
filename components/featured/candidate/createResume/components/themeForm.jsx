@@ -173,7 +173,7 @@ function ThemeForm({
           </div>*/}
           <div className="flex flex-col md:flex-row md:gap-[14px] ">
             <div
-              className="flex flex-col md:flex-row md:gap-[8px] cursor-pointer"
+              className="flex flex-col md:flex-row md:gap-[8px] sm-flex-row cursor-pointer"
               onClick={() => handleShowFont("font")}
             >
               <div className="flex items-center gap-2">
