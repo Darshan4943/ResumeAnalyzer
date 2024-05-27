@@ -133,7 +133,7 @@ const JobMatching = () => {
       });
       const jd = res.data.jsonData[0];
       if (Object.keys(jd).length > 5) {
-        const chunks = chunkArray(selectedIndexesFileTypes, 5);
+        const chunks = chunkArray(selectedIndexesFileTypes.slice(0,2), 5);
         const outputData = [];
         for (let i = 0; i < chunks.length; i++) {
           await processChunk(chunks[i], jd, outputData);
