@@ -111,11 +111,11 @@ const AddSection = ({ data, setData, section, formData, index, item }) => {
       }}
     >
       <div className="w-full flex  gap-2 justify-between ">
-        <p className="flex flex-row gap-2">
+        <p className="flex w-[90%] flex-row gap-2">
           <input
             type="text"
             placeholder="Enter Section Header"
-            className={`${headerEditable ? "w-full" : "w-[120px]"
+            className={`${headerEditable ? " w-full" : "w-full"
               }  text-[20px]   font-[500]  ${headerEditable && "border border-[#bebebe] px-[8px]"
               } rounded-lg`}
             onChange={(e) => setHeader(e.target.value)}
@@ -130,7 +130,7 @@ const AddSection = ({ data, setData, section, formData, index, item }) => {
           )}
         </p>
         {headerEditable ? null : (
-          <button onClick={deleteSection} className="cursor-pointer">
+          <button onClick={deleteSection} className="cursor-pointer w-[10%]">
             <Delete_icon />
           </button>
         )}
