@@ -209,10 +209,10 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
           <div className="flex flex-col gap-[10px]">
             <div className="flex flex-row px-[16px] py-[12px] border-[1px] rounded-[8px] border-solid border-[#9D9D9D] justify-between">
               <input
-                type={showPassword ? "text" : "password"}
+                type={showPassword ? "text" : "Password"}
                 name=""
                 id=""
-                placeholder="Enter password"
+                placeholder="Enter Password"
                 className="w-full"
                 value={data.password}
                 required
@@ -271,7 +271,7 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
                 type={showConfirmPassword ? "text" : "password"}
                 name=""
                 id=""
-                placeholder="Confirm password"
+                placeholder="Confirm Password"
                 className="w-full"
                 value={data.confirmPassword}
                 onChange={handleConfirmPasswordChange}

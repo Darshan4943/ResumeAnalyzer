@@ -59,7 +59,7 @@ function Sign_up() {
             <div className="flex flex-col gap-[24px] px-[8px]">
               <Link href="/auth/user-signup">
                 <div className="p-[16px] z-0 flex flex-row justify-between rounded-[16px] gap-12 relative sign_up_shadow">
-                  <div className="flex flex-row justify-center item-center gap-[8px] ">
+                  <div className="flex flex-row justify-center item-center gap-[12px] ">
                     <div className="flex items-center">
                       <div className="p-[8px] border-[1px] border-[#333] rounded-[50%] sign_iu_text_border">
                         <svg
@@ -131,7 +131,7 @@ function Sign_up() {
               </Link>
               <Link href="/auth/recruiter-signup">
                 <div className="p-[16px] z-0 flex flex-row justify-between rounded-[16px] gap-12 relative sign_up_shadow">
-                  <div className="flex flex-row justify-center item-center gap-[8px] ">
+                  <div className="flex flex-row justify-center item-center gap-[12px] ">
                     <div className="flex items-center">
                       <svg
                         width="40"

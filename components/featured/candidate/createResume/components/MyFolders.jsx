@@ -3,6 +3,7 @@ import {
   convertBytes,
   dateSeter,
   fileIconSeter,
+  fileIconSeter1,
   formatDate,
 } from "../../../../../utils/middleware";
 
@@ -27,7 +28,7 @@ function MyFolders({
   return (
     <div className="">
       {tabIndex === 0 && (
-        <div className="rounded-[16px] sm:p-4 flex flex-row gap-y-6 flex-wrap  w-full h-full">
+        <div className="rounded-[16px] sm:p-4 flex flex-row gap-y-6 flex-wrap justify-evenly  w-full h-full">
           {data?.length > 0 ? (
             <>
               {!isList ? (
@@ -39,7 +40,7 @@ function MyFolders({
                           openFolder(index, item._id, item.fileName, item);
                       }}
                       key={index}
-                      className=" break-all h-[74px] flex flex-col gap-[8px] group relative items-center text-center cursor-pointer  w-[142px] px-[8px]"
+                      className=" break-all h-[74px] flex flex-col gap-[8px] group relative items-center text-center cursor-pointer  scr460:w-[142px] w-[98px] px-[8px]"
                     >
                       <div className=" relative">
                         {fileIconSeter(item)}
@@ -67,13 +68,13 @@ function MyFolders({
                   </>
                 ))
               ) : (
-                <table className="w-[100%]">
-                  <thead>
-                    <tr className="">
-                      <th className="py-3 px-2 scr390:px-4 rounded-l-[12px] bg-[#C2E7FF] text-[12px] scr390:text-[14px]  text-left border-r border-[#FFF]">
+                <table className="w-[100%] flex flex-col">
+                  <thead className="flex w-full">
+                    <tr className="flex w-full ">
+                      <th className="py-3 px-2 w-[70%] scr390:px-4 rounded-l-[12px] bg-[#C2E7FF] text-[12px] scr390:text-[14px]  text-left border-r border-[#FFF]">
                         Name
                       </th>
-                      <th className="py-3 px-2 scr390:px-4 bg-[#C2E7FF]  text-left text-[12px] scr390:text-[14px] border-r border-[#FFF]  rounded-r-[12px]">
+                      <th className="py-3 px-2 w-[30%] scr390:px-4 bg-[#C2E7FF]  text-left text-[12px] scr390:text-[14px] border-r border-[#FFF]  rounded-r-[12px]">
                         Date Modifie
                       </th>
                     </tr>
@@ -85,13 +86,16 @@ function MyFolders({
                         onClick={() =>
                           openFolder(index, item._id, item.fileName, item)
                         }
-                        className="cursor-pointer"
+                        className="cursor-pointer flex w-full"
                       >
-                        <td className="px-2 scr390:px-4 py-2 text-[12px] scr390:text-[14px] font-medium flex gap-2 relative items-center ">
+                        <td className="px-2  w-[70%] break-all scr390:px-4 py-2 text-[12px] scr390:text-[14px] font-medium flex gap-2 relative items-center">
+                          <div className="h-[24px] min-w-[24px]">
+                            {fileIconSeter1(item)}
+                          </div>
                           {select && (
                             <input
                               type="checkbox"
-                              className="   rounded-[4.5px]  outline-none text-[12px] scr390:text-[14px] font-medium custom-checkbox"
+                              className="   rounded-[4.5px]  w-full outline-none text-[12px] scr390:text-[14px] font-medium custom-checkbox"
                               style={{ width: "20px", height: "20px" }}
                               onClick={(e) => e.stopPropagation()}
                               checked={selectedIndexes.includes(index)}
@@ -102,7 +106,7 @@ function MyFolders({
                             ? `${item.fileName.slice(0, 25)}...`
                             : item.fileName}
                         </td>
-                        <td className=" px-2 scr390:px-4 py-2 text-[#858585] text-[12px] scr390:text-[14px]">
+                        <td className="w-[30%] scr460:px-4 justify-start flex  items-center text-[#858585] text-[12px] scr390:text-[14px]">
                           {dateSeter(item.updatedAt)}
                         </td>
                         {/* <td className="px-4 py-2 text-[#858585] text-[14px]">

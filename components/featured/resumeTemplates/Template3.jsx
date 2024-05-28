@@ -220,7 +220,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
           )}
 
           {data?.languages?.length > 0 && (
-            <View  wrap={false} style={{}}>
+            <View wrap={false} style={{}}>
               <View
                 style={{
                   paddingLeft: -1,
@@ -261,7 +261,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                     key={index}
                     style={{
                       color: "white",
-                      width:"95%",
+                      width: "95%",
                       fontSize: 12,
                       fontFamily: `${selectedFont} 400`,
                     }}
@@ -273,7 +273,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
             </View>
           )}
           {data?.hobbies?.length > 0 && (
-            <View  wrap={false} style={{}}>
+            <View wrap={false} style={{}}>
               <View
                 style={{
                   paddingLeft: -1,
@@ -310,12 +310,12 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
               >
                 {data.hobbies.map((detail, index) => (
                   <Text
-                   
+
                     key={index}
                     style={{
                       color: "white",
                       fontSize: 12,
-                      width:"95%",
+                      width: "95%",
                       fontFamily: `${selectedFont} 400`,
                     }}
                   >
@@ -465,8 +465,8 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                         fontFamily: `${selectedFont} 400`,
                       }}
                     >
-                       {detail.duration?.start?.year !== "Year" &&
-                          `${detail.duration?.start?.year}-${detail.duration?.end?.year ==="Year" ? "Pursuing" : detail.duration?.end?.year}`}
+                      {detail.duration?.start?.year !== "Year" &&
+                        `${detail.duration?.start?.year}-${detail.duration?.end?.year === "Year" ? "Pursuing" : detail.duration?.end?.year}`}
                     </Text>
 
                   </View>
@@ -475,7 +475,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
             </View>
           </View>
           <View
-        
+
             style={{
               flexDirection: "column",
               gap: 12,
@@ -573,7 +573,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
           </View>
           {data.section?.map((item, index) => (
             <View
-             
+
               key={index}
               style={{
                 flexDirection: "column",
@@ -586,7 +586,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
               {item.header?.length > 0 && (
                 <Svg
                   xmlns="http://www.w3.org/2000/svg"
-                  maxWidth="350px"
+                  maxWidth="160"
                   viewBox="0 0 160 27"
                   fill="none"
                 >
@@ -641,12 +641,12 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                               fontFamily: `${selectedFont} 400`,
                             }}
                           >
-                             {detail?.duration?.start?.year}
-                                {detail?.duration?.start?.year && "-"}
-                                {(detail?.duration?.end?.year === "" || detail?.duration?.end?.year === undefined)
-                                  ? "Present"
-                                  : detail?.duration?.end?.year
-                                }
+                            {detail?.duration?.start?.year}
+                            {detail?.duration?.start?.year && "-"}
+                            {(detail?.duration?.end?.year === "" || detail?.duration?.end?.year === undefined)
+                              ? "Present"
+                              : detail?.duration?.end?.year
+                            }
                           </Text>
                         )}
                     </View>
