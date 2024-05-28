@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect } from "react";
 import { PDFSvg } from "../../../../../utils/svg";
-import { convertBytes, dateSeter } from "../../../../../utils/middleware";
+import { convertBytes, dateSeter, fileIconSeter1 } from "../../../../../utils/middleware";
 
 function ClientFolders({
   toggleSelect,
@@ -79,7 +79,7 @@ function ClientFolders({
   return (
     <div className="">
       {tabIndex === 0 && (
-        <div className="rounded-[16px] sm:p-4 flex flex-row gap-y-6 flex-wrap  w-full h-full">
+        <div className="rounded-[16px] sm:p-4 flex flex-row gap-y-6 flex-wrap justify-evenly w-full h-full">
           {clientData?.length > 0 ? (
             <>
               {!isList ? (
@@ -98,7 +98,7 @@ function ClientFolders({
                           );
                       }}
                       key={index}
-                      className=" break-all relative group flex flex-col gap-[8px] items-center text-center cursor-pointer h-fit sm:w-[142px] w-[135px] px-[8px]"
+                      className=" break-all relative group flex flex-col gap-[8px] items-center text-center cursor-pointer h-fit scr460:w-[142px] w-[98px] px-[8px]"
                     >
                       <div className=" relative">
                         {fileIconSeter(item)}
@@ -120,10 +120,10 @@ function ClientFolders({
                           : item.firstName + " " + item.lastName}
                       </span>
                       <div className="absolute text-[10px] opacity-0 transition-opacity duration-500 group-hover:opacity-100  word-break bottom-[-20px] text-[#fff] bg-[#333] px-[6px] py-[3px] rounded-[5px]">
-                      {clientId
+                        {clientId
                           ? item.fileName
                           : item.firstName + " " + item.lastName}
-                  </div>
+                      </div>
                     </div>
                   </>
                 ))
@@ -144,6 +144,7 @@ function ClientFolders({
                   </thead>
                   <tbody>
                     {clientData.map((item, index) => (
+
                       <tr
                         key={index}
                         onClick={() =>
@@ -159,7 +160,11 @@ function ClientFolders({
                         className="cursor-pointer"
                       >
                         <td className="sm:px-4 px-2 py-2 font-medium flex gap-2 relative items-center ">
+                          <div className="h-[24px] min-w-[24px]">
+                            {fileIconSeter1(item)}
+                          </div>
                           {select && (
+
                             <input
                               type="checkbox"
                               className="   rounded-[4.5px]  outline-none text-[14px] font-medium custom-checkbox"

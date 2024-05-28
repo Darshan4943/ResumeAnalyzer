@@ -276,38 +276,13 @@ function Summary({ limits, selectedPlan, isActive }) {
             </div> */}
 
             {userDataGlobal?.role != "user" && (
-              <>
-                <div className="flex flex-col scr460:flex-row gap-[4px] scr460:items-center">
-                  <p className=" scr420:min-w-[164px] min-w-[140px]">
-                    {" "}
-                    Total Clients
-                  </p>
-                  <div className="flex w-full items-center gap-4">
-                    <div className="relative  w-full  h-[10px] bg-[#DEDEDE] rounded-[6px]">
-                      <div
-                        style={{
-                          width: `${Math.round(
-                            ((limits.total.clients - clientsRemaining) /
-                              limits.total.clients) *
-                            100
-                          )}%`,
-                        }}
-                        className={`absolute  h-[10px] bg-[#06A9EF] rounded-[6px]`}
-                      ></div>
-                    </div>
-                    <div className="scr420:min-w-[55px] min-w-[45px]">
-                      {limits.total.clients - clientsRemaining}/
-                      {limits.total.clients}
-                    </div>
-                  </div>
-                </div>
-
-                {/* <div className="flex gap-4 items-center">
-                  <p className=" scr420:min-w-[164px] min-w-[140px]">
-                    Total Clients
-                  </p>
-
-                  <div className="relative  w-[45%]  h-[10px] bg-[#DEDEDE] rounded-[6px]">
+              <div className="flex flex-col scr460:flex-row gap-[4px] scr460:items-center">
+                <p className=" scr420:min-w-[164px] min-w-[140px]">
+                  {" "}
+                  Total Clients
+                </p>
+                <div className="flex w-full items-center gap-4">
+                  <div className="relative  w-full  h-[10px] bg-[#DEDEDE] rounded-[6px]">
                     <div
                       style={{
                         width: `${Math.round(
@@ -319,13 +294,12 @@ function Summary({ limits, selectedPlan, isActive }) {
                       className={`absolute  h-[10px] bg-[#06A9EF] rounded-[6px]`}
                     ></div>
                   </div>
-                  <p className="scr420:min-w-[55px] min-w-[45px]">
-                    {" "}
+                  <div className="scr420:min-w-[55px] min-w-[45px]">
                     {limits.total.clients - clientsRemaining}/
                     {limits.total.clients}
-                  </p>
-                </div> */}
-              </>
+                  </div>
+                </div>
+              </div>
             )}
           </div>
         </div>
