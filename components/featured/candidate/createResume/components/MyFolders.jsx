@@ -47,7 +47,6 @@ function MyFolders({
                           />
                         )}
                       </div>
-
                       <span
                         style={{ overflow: "hidden" }}
                         className="text-[12px]"
@@ -65,11 +64,11 @@ function MyFolders({
                 <table className="w-[100%]">
                   <thead>
                     <tr className="">
-                      <th className="py-3 px-4 rounded-l-[12px] bg-[#C2E7FF] text-[14px] w-[30%] text-left border-r border-[#FFF]">
+                      <th className="py-3 px-2 scr390:px-4 rounded-l-[12px] bg-[#C2E7FF] text-[12px] scr390:text-[14px]  text-left border-r border-[#FFF]">
                         Name
                       </th>
-                      <th className="py-3 px-4 bg-[#C2E7FF] w-[25%] text-left text-[14px] border-r border-[#FFF]  rounded-r-[12px]">
-                        Date Modified
+                      <th className="py-3 px-2 scr390:px-4 bg-[#C2E7FF]  text-left text-[12px] scr390:text-[14px] border-r border-[#FFF]  rounded-r-[12px]">
+                        Date Modifie
                       </th>
                       {/* <th className="py-3 px-4 rounded-r-[12px] bg-[#C2E7FF] text-[14px] w-[25%] text-left">
                         Size
@@ -85,11 +84,11 @@ function MyFolders({
                         }
                         className="cursor-pointer"
                       >
-                        <td className="px-4 py-2 text-[14px] font-medium flex gap-2 relative items-center ">
+                        <td className="px-2 scr390:px-4 py-2 text-[12px] scr390:text-[14px] font-medium flex gap-2 relative items-center ">
                           {select && (
                             <input
                               type="checkbox"
-                              className="   rounded-[4.5px]  outline-none text-[14px] font-medium custom-checkbox"
+                              className="   rounded-[4.5px]  outline-none text-[12px] scr390:text-[14px] font-medium custom-checkbox"
                               style={{ width: "20px", height: "20px" }}
                               onClick={(e) => e.stopPropagation()}
                               checked={selectedIndexes.includes(index)}
@@ -100,7 +99,7 @@ function MyFolders({
                             ? `${item.fileName.slice(0, 25)}...`
                             : item.fileName}
                         </td>
-                        <td className="px-4 py-2 text-[#858585] text-[14px]">
+                        <td className=" px-2 scr390:px-4 py-2 text-[#858585] text-[12px] scr390:text-[14px]">
                           {dateSeter(item.updatedAt)}
                         </td>
                         {/* <td className="px-4 py-2 text-[#858585] text-[14px]">

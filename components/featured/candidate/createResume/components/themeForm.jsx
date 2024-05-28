@@ -114,7 +114,7 @@ function ThemeForm({
         <div className="flex w-full wrap gap-[16px]">
           <div
             className="flex items-center  gap-2 bg-[#06A9EF] py-[8px] px-[16px] rounded-[12px] btn_hover_effect"
-            onClick={() => handleShowFont("customize")}
+            onClick={() => setView(!view)}
           >
             <svg
               width="24"
@@ -130,7 +130,7 @@ function ThemeForm({
                 />
               </g>
             </svg>
-            <h1 className="text-[20px] font-medium tracking-wide text-[#fff] cursor-pointer ">
+            <h1 className="text-[16px] font-medium tracking-wide text-[#fff] cursor-pointer ">
               Customize
             </h1>
           </div>
@@ -173,7 +173,7 @@ function ThemeForm({
           </div>*/}
           <div className="flex flex-col md:flex-row md:gap-[14px] ">
             <div
-              className="flex flex-col md:flex-row md:gap-[8px] cursor-pointer"
+              className="flex flex-col md:flex-row md:gap-[8px] "
               onClick={() => handleShowFont("font")}
             >
               <div className="flex items-center gap-2">
@@ -191,26 +191,15 @@ function ThemeForm({
                   />
                 </svg>
 
-                <h1 className="text-lg font-medium tracking-wide text-[#646464] cursor-pointer xxlg-text-[0px]">
+                <h1 className="text-[16px] font-medium tracking-wide text-[#646464]  xxlg-text-[0px]">
                   Fonts
                 </h1>
               </div>
-              <div className="flex items-center h-full">
-                <img
-                  className="min-w-[14px] min-h-[14px]"
-                  src="\images\auth\candidate\arrow_forward_ios.png"
-                  style={{
-                    height: "14px",
-                    width: "14px",
-                    objectFit: "contain",
-                  }}
-                  alt=""
-                />
-              </div>
+
             </div>
 
             <div
-              className="flex flex-col md:flex-row md:gap-[8px] mt-4 md:mt-0 cursor-pointer"
+              className="flex flex-col md:flex-row md:gap-[8px] mt-4 md:mt-0 "
               onClick={() => handleShowFont("color")}
             >
               <div className="flex items-center gap-2">
@@ -228,21 +217,9 @@ function ThemeForm({
                   />
                 </svg>
 
-                <h1 className="text-lg font-medium tracking-wide text-[#646464] cursor-pointer">
+                <h1 className="text-[16px] font-medium tracking-wide text-[#646464] ">
                   Colors
                 </h1>
-              </div>
-              <div className="flex items-center">
-                <img
-                  className="min-w-[14px] min-h-[14px]"
-                  src="\images\auth\candidate\arrow_forward_ios.png"
-                  style={{
-                    height: "14px",
-                    width: "14px",
-                    objectFit: "contain",
-                  }}
-                  alt=""
-                />
               </div>
             </div>
           </div>
@@ -262,9 +239,8 @@ function ThemeForm({
               {THEME_COLORS.map((color, idx) => (
                 <div
                   key={idx}
-                  className={`${
-                    selectedColor === color ? "border" : ""
-                  } rounded-[7px] h-[36px] w-[36px]   border-[#06A9EF] p-[2px] transition-transform duration-300 ease-in-out hover:scale-110`}
+                  className={`${selectedColor === color ? "border" : ""
+                    } rounded-[7px] h-[36px] w-[36px]   border-[#06A9EF] p-[2px] transition-transform duration-300 ease-in-out hover:scale-110`}
                 >
                   <div
                     className={`flex h-full w-full cursor-pointer items-center justify-center rounded-[5px]  text-sm text-white  `}
@@ -288,9 +264,8 @@ function ThemeForm({
             <div className="mt-2 flex flex-wrap gap-3">
               {fontFamily.map((font, idx) => (
                 <div
-                  className={`flex h-[40px] w-[110px] cursor-pointer items-center justify-center rounded-md text-sm border transition-transform duration-300 ease-in-out hover:scale-105 ${
-                    selectedFont === font ? "text-white" : ""
-                  }`}
+                  className={`flex h-[40px] w-[110px] cursor-pointer items-center justify-center rounded-md text-sm border transition-transform duration-300 ease-in-out hover:scale-105 ${selectedFont === font ? "text-white" : ""
+                    }`}
                   style={{
                     backgroundColor: selectedFont === font ? "#06A9EF" : "",
                     fontFamily: font,
@@ -307,7 +282,7 @@ function ThemeForm({
           </div>
         </div>
       )}
-
+      {/**
       {viewFont && (
         <div
           style={{
@@ -378,7 +353,7 @@ function ThemeForm({
             </div>
           </div>
         </div>
-      )}
+      )} */}
     </div>
   );
 }

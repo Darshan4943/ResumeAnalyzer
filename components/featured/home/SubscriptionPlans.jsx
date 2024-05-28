@@ -142,10 +142,10 @@ function SubscriptionPlans({ fromMain }) {
                 <div className="p-4 z-20 bg-white rounded-[16px] flex flex-col gap-4 items-center h-full justify-between">
                   <div className="flex text-center flex-col gap-3 text-[#333333]  min-h-[153.4px] justify-between">
                     <p className="text-[1.4vw] font-[600]">
-                      <span className="text-[#06A9EF]">{plan.duration}</span>{" "}
-                      {plan.limit}
+                      <span className="text-[#06A9EF]">{plan?.duration}</span>{" "}
+                      {plan?.limit}
                     </p>
-                    <p className="text-[1vw] font-[500]">{plan.description}</p>
+                    <p className="text-[1vw] font-[500]">{plan?.description}</p>
                     <div className="bg-[#DEDEDE] h-[2px]" />
                   </div>
                   <div className="flex gap-3 flex-col text-center items-center w-[168px]">
@@ -171,13 +171,13 @@ function SubscriptionPlans({ fromMain }) {
                 <div className="p-4 z-20 bg-white rounded-[16px] flex flex-col gap-4 items-center h-full justify-between">
                   <div className="flex text-center flex-col gap-3 text-[#333333] ">
                     <p className="text-[1.4vw] font-[600]">
-                      <span className="text-[#06A9EF]">{plan.duration}</span>{" "}
-                      {plan.limit}
+                      <span className="text-[#06A9EF]">{plan?.duration}</span>{" "}
+                      {plan?.limit}
                     </p>
                     <div className="flex flex-row gap-2 w-full items-center justify-center">
                       <p className="text-[2.5vw] font-[700]">{icon}</p>
                       <p className="text-[2.5vw] font-[700]">
-                        {Math.ceil(plan.amount * exchangeRate)}
+                        {Math.ceil(plan?.amount * exchangeRate)}
                       </p>
                     </div>
 
@@ -185,7 +185,7 @@ function SubscriptionPlans({ fromMain }) {
                       className="text-[1vw] font-[500]"
                       style={{ textTransform: "capitalize" }}
                     >
-                      {plan.description}
+                      {plan?.description}
                     </p>
                     <div className="bg-[#DEDEDE] h-[2px]" />
                   </div>
@@ -252,11 +252,11 @@ function SubscriptionPlans({ fromMain }) {
                   <div className="p-4 z-20 bg-white rounded-[16px] flex flex-col gap-10 items-center h-full ">
                     <div className="flex text-center flex-col gap-6 text-[#333333] w-[80%]  justify-between">
                       <p className="text-[18px] font-[600]">
-                        <span className="text-[#06A9EF]">{plan.duration}</span>{" "}
-                        {plan.limit}
+                        <span className="text-[#06A9EF]">{plan?.duration}</span>{" "}
+                        {plan?.limit}
                       </p>
                       <p className="text-[12px] font-[500]">
-                        {plan.description}
+                        {plan?.description}
                       </p>
                       <div className="bg-[#DEDEDE] h-[2px]" />
                     </div>
@@ -283,18 +283,18 @@ function SubscriptionPlans({ fromMain }) {
                   <div className="p-4 z-20 bg-white rounded-[16px] flex flex-col gap-4 items-center w-[300px] h-[420px]">
                     <div className="flex text-center flex-col gap-3 text-[#333333] w-[80%]">
                       <p className="text-[18px] font-[600]">
-                        <span className="text-[#06A9EF]">{plan.duration}</span>{" "}
-                        {plan.limit}
+                        <span className="text-[#06A9EF]">{plan?.duration}</span>{" "}
+                        {plan?.limit}
                       </p>
                       <div className="flex flex-row gap-2 w-full items-center justify-center">
                         <p className="text-[28px] font-[700]">{icon}</p>
                         <p className="text-[28px] font-[700]">
-                          {Math.ceil(plan.amount * exchangeRate)}
+                          {Math.ceil(plan?.amount * exchangeRate)}
                         </p>
                       </div>
 
                       <p className="text-[12px] font-[500]">
-                        {plan.description}
+                        {plan?.description}
                       </p>
                       <div className="bg-[#DEDEDE] h-[2px]" />
                     </div>
