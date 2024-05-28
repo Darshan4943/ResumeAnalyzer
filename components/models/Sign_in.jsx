@@ -123,10 +123,10 @@ function Sign_in({ googleLoading, handleGoogle, setSignIn, setSignUp }) {
           <div className="flex flex-col gap-[10px] relative ">
             <div className="flex flex-row px-[16px] py-[12px] border-[1px] rounded-[8px] border-solid border-[#9D9D9D] justify-between">
               <input
-                type={showPassword ? "text" : "password"}
+                type={showPassword ? "text" : "Password"}
                 name=""
                 id=""
-                placeholder="Enter password"
+                placeholder="Enter Password"
                 className="w-full"
                 required
                 value={data.password}
@@ -196,7 +196,7 @@ function Sign_in({ googleLoading, handleGoogle, setSignIn, setSignUp }) {
                 className="flex justify-end w-full"
                 onClick={() => setIsForgot(true)}
               >
-                Forgot password?
+                Forgot Password?
               </a>
             </div>
             {isForgot && (
