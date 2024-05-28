@@ -350,7 +350,7 @@ function Dashboard() {
             lands your dream job effortlessly.
             <div
               onClick={() => toggle()}
-              className="  rounded-[8px] bg-[#FFFFFF] px-4 py-3 text-[16px] flex gap-1 text-[#06A9EF] justify-center items-center leading-tight ml:w-full w-[152px] cursor-pointer"
+              className="  rounded-[8px] bg-[#FFFFFF] px-4 py-3 text-[16px] flex gap-1 text-[#06A9EF] justify-center items-center leading-tight scr460:w-[152px] w-full  cursor-pointer"
             >
               Get Started
               <svg
@@ -418,20 +418,20 @@ function Dashboard() {
                 {templates.find(
                   (item) => item.index === data.selectedResumeIndex
                 ) && (
-                  <img
-                    src={
-                      templates.find(
-                        (item) => item.index === data.selectedResumeIndex
-                      ).imgUrl
-                    }
-                    style={{
-                      height: "100%",
-                      width: "90%",
-                      objectFit: "cover",
-                    }}
-                    alt={`Resume template ${data.selectedResumeIndex}`} // Adding an alt attribute for accessibility
-                  />
-                )}
+                    <img
+                      src={
+                        templates.find(
+                          (item) => item.index === data.selectedResumeIndex
+                        ).imgUrl
+                      }
+                      style={{
+                        height: "100%",
+                        width: "90%",
+                        objectFit: "cover",
+                      }}
+                      alt={`Resume template ${data.selectedResumeIndex}`} // Adding an alt attribute for accessibility
+                    />
+                  )}
               </div>
 
               <div className="w-[40%] flex flex-col gap-4 min-w-[160px]">
