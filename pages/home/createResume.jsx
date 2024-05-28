@@ -535,9 +535,6 @@ function CreateResume() {
     setTimeout(() => setRender(true), 400);
   }, [data]);
 
-
-  
-
   return (
     <div className="">
       <div className="  pt-2 customMargins ">
@@ -653,3 +650,57 @@ function CreateResume() {
 }
 
 export default CreateResume;
+
+// import React, { useState, useEffect, useMemo } from "react";
+// import { PDFDownloadLink, Document, Page, Text } from "@react-pdf/renderer";
+// import debounce from "lodash.debounce";
+
+// const MyPDFDocument = ({ data }) => (
+//   <Document height="1124px" dpi={72}>
+//     <Page size="A4" style={{ padding: 24,backgroundColor:'red' }} pageMode={"fullScreen"} wrap={true}>
+// <Text>{data}</Text>
+//     </Page>
+//   </Document>
+// );
+
+// const MemoizedPDFDocument = React.memo(MyPDFDocument);
+
+// const CreateResume = () => {
+//   const [state1, setState1] = useState("");
+//   const [state2, setState2] = useState("");
+//   const [data, setData] = useState("");
+
+//   const debouncedSetData = useMemo(
+//     () => debounce(setData, 300), 
+//     []
+//   );
+
+//   useEffect(() => {
+//     const combinedData = `${state1} ${state2}`;
+//     debouncedSetData(combinedData);
+//   }, [state1, state2, debouncedSetData]);
+
+//   return (
+//     <div>
+//       <input
+//         value={state1}
+//         onChange={(e) => setState1(e.target.value)}
+//         placeholder="State 1"
+//       />
+//       <input
+//         value={state2}
+//         onChange={(e) => setState2(e.target.value)}
+//         placeholder="State 2"
+//       />
+//       <PDFDownloadLink
+//         document={<MemoizedPDFDocument data={data} />}
+//         fileName="my_document.pdf"
+//       >
+//         {({ loading }) => (loading ? "Loading document..." : "Download PDF")}
+//       </PDFDownloadLink>
+//       <MemoizedPDFDocument data={data} />
+//     </div>
+//   );
+// };
+
+// export default CreateResume;

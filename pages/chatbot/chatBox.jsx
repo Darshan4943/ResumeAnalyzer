@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { formatDate } from "../../utils/middleware";
 
 const ChatBox = ({
   features,
@@ -24,7 +25,10 @@ const ChatBox = ({
     if (text?.length > 5) {
       setLoading(true);
       axios
-        .post("https://jamblix.com/api/qna", { quationText: text })
+        .post("http://localhost:2000/api/qna", {
+          question: text,
+          lastQuestion: chat[(chat.length - 2, chat.length - 1)].quation,
+        })
         .then((res) => {
           const answer = res.data.data;
           const dummyData = { ...existingChat };
@@ -58,7 +62,10 @@ const ChatBox = ({
       setChat(data[selectedChat]);
     }
   }, [selectedChat, recall]);
-
+  const formatData = (data) => {
+    const split = data.split("\n");
+   return split
+  };
   return (
     <>
       <div className=" justify-center items-center flex w-[95%] relative flex-col bg-[#fff] gap-12">
@@ -79,9 +86,10 @@ const ChatBox = ({
         </div>
         <div className=" ml:w-[85%] w-[100%] flex items-center justify-between flex-col min-h-[80vh]">
           {chat?.length > 0 ? (
-            <div 
-            style={{scrollbarWidth:'none'}}
-            className="flex flex-col gap-[16px] scr1150:w-[60%] w-[70%] h-[70vh] overflow-y-auto  ">
+            <div
+              style={{ scrollbarWidth: "none" }}
+              className="flex flex-col gap-[16px] scr1150:w-[60%] w-[70%] h-[70vh] overflow-y-auto  "
+            >
               {chat?.map((item, index) => {
                 return (
                   <div
@@ -97,8 +105,9 @@ const ChatBox = ({
                         }
                       /> */}
                       <div
-                      style={{width:'fit-content'}}
-                      className="rounded-[8px] text-[12px] w-full font-[600] border border-[#bebebe] px-[16px] py-[8px] bg-[#F7F7F7] rounded-[30px]">
+                        style={{ width: "fit-content" }}
+                        className="rounded-[8px] text-[12px] w-full font-[600] border border-[#bebebe] px-[16px] py-[8px] bg-[#F7F7F7] "
+                      >
                         {item.quation}
                       </div>
                     </div>
@@ -110,13 +119,22 @@ const ChatBox = ({
                         />
                       </div>
                       <div className="rounded-[8px] w-full px-[16px] py-[8px] bg-[#fff]">
-                        <div
+                        {/* <div
                           style={{ background: "#fff", padding: "8px" }}
                           className="chat text-[14px] font-[400] "
                           dangerouslySetInnerHTML={{
-                            __html: item.answer.replace("```html",'').replace("```",''),
+                            __html: item.answer
+                              .replace("```html", "")
+                              .replace("```html", ""),
                           }}
-                        />
+                        /> */}
+
+                        {/* {item.answer} */}
+                        {formatData(item.answer)?.map((item, index) => (
+                          <div className="w-full py-1" key={index}>
+                            {item}
+                          </div>
+                        ))}
                       </div>
                     </div>
                   </div>
