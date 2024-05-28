@@ -6,7 +6,6 @@ import Cropper from "react-easy-crop";
 import ImageCropper from "./imageCropper";
 
 const ResumeList = ({ data, setData }) => {
- 
   const [file, setFile] = useState(null);
   const [modelView, setModelView] = useState(false);
   const fileRef = useRef(null);
@@ -23,10 +22,12 @@ const ResumeList = ({ data, setData }) => {
     event.preventDefault();
     const selectedFile = event.target.files[0];
     if (selectedFile) {
-      if (selectedFile.size <= 2 * 1024 * 1024) { // Check if file is less than 2MB
+      if (selectedFile.size <= 2 * 1024 * 1024) {
+        // Check if file is less than 2MB
         if (selectedFile.type.includes("image")) {
           const pngBlob = await convertToPng(selectedFile);
-          if (pngBlob.size <= 2 * 1024 * 1024) { // Ensure PNG is also less than 2MB
+          if (pngBlob.size <= 2 * 1024 * 1024) {
+            // Ensure PNG is also less than 2MB
             setFile(pngBlob);
             setModelView(true);
             event.target.value = "";
@@ -53,7 +54,7 @@ const ResumeList = ({ data, setData }) => {
 
       img.onload = () => {
         // Create a canvas and draw the image
-        const canvas = document.createElement('canvas');
+        const canvas = document.createElement("canvas");
         const maxDimension = 1000; // Resize max dimension
         let { width, height } = img;
 
@@ -69,17 +70,21 @@ const ResumeList = ({ data, setData }) => {
 
         canvas.width = width;
         canvas.height = height;
-        const ctx = canvas.getContext('2d');
+        const ctx = canvas.getContext("2d");
         ctx.drawImage(img, 0, 0, width, height);
 
         // Convert the canvas content to a PNG blob with compression
-        canvas.toBlob((blob) => {
-          if (blob) {
-            resolve(blob);
-          } else {
-            reject(new Error("Canvas to Blob conversion failed"));
-          }
-        }, 'image/png', 0.8); // Compression quality
+        canvas.toBlob(
+          (blob) => {
+            if (blob) {
+              resolve(blob);
+            } else {
+              reject(new Error("Canvas to Blob conversion failed"));
+            }
+          },
+          "image/png",
+          0.8
+        ); // Compression quality
       };
 
       reader.readAsDataURL(file);
@@ -94,7 +99,7 @@ const ResumeList = ({ data, setData }) => {
   };
   const handleImageConversion = async (blob) => {
     // Create an image element
-    const img = document.createElement('img');
+    const img = document.createElement("img");
     img.src = URL.createObjectURL(blob);
 
     // Wait for the image to load
@@ -108,17 +113,21 @@ const ResumeList = ({ data, setData }) => {
     const height = img.height / scaleFactor;
 
     // Create a canvas and draw the resized image on it
-    const canvas = document.createElement('canvas');
+    const canvas = document.createElement("canvas");
     canvas.width = width;
     canvas.height = height;
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext("2d");
     ctx.drawImage(img, 0, 0, width, height);
 
     // Convert the canvas content to a PNG blob with maximum compression
     return new Promise((resolve) => {
-      canvas.toBlob((pngBlob) => {
-        resolve(pngBlob);
-      }, 'image/png', 0.1); // Use lower quality factor to compress
+      canvas.toBlob(
+        (pngBlob) => {
+          resolve(pngBlob);
+        },
+        "image/png",
+        0.1
+      ); // Use lower quality factor to compress
     });
   };
 
@@ -134,7 +143,6 @@ const ResumeList = ({ data, setData }) => {
   //     setCroppedImage({ url: data.profilePhoto });
   // //  setFile(data.profilePhoto)
   // }, [data]);
-
 
   return (
     <>
@@ -211,18 +219,25 @@ const ResumeList = ({ data, setData }) => {
         </div>
         <div className="flex justify-between sm:justify-end  ">
           <div className="flex justify-between  py-2 gap-2 sm:w-fit w-full">
-           
             <button
-            disabled={data.profilePhoto ===null || data.profilePhoto===undefined }
-              className={`font-montserrat text-xs font-semibold px-[12px] rounded-[8px] border border-[#06A9EF] w-[83px] h-[32px] ${(data.profilePhoto ===null || data.profilePhoto===undefined) &&  "opacity-50" }`}
+              disabled={
+                data.profilePhoto === null || data.profilePhoto === undefined
+              }
+              className={`font-montserrat text-xs font-semibold px-[12px] rounded-[8px] border border-[#06A9EF] w-[83px] h-[32px] ${
+                (data.profilePhoto === null ||
+                  data.profilePhoto === undefined) &&
+                "opacity-50"
+              }`}
               onClick={() => removeImgae()}
             >
               Remove
             </button>
 
             <button
-              disabled={!croppedImage }
-              className={` font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px]  bg-[#06A9EF] w-[60px] h-[32px] ${!croppedImage  && "opacity-50" }`}
+              disabled={!croppedImage}
+              className={` font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px]  bg-[#06A9EF] w-[60px] h-[32px] ${
+                !croppedImage && "opacity-50"
+              }`}
               onClick={() => {
                 setData({ ...data, profilePhoto: croppedImage?.blob });
               }}

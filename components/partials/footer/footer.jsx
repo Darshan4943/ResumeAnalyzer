@@ -273,6 +273,7 @@ function Footer({ isSubscribe, setIsSubcrib }) {
               <div className="text-[#06A9EF] sm:text-[24px] text-[14px]">
                 Connect us
               </div>
+
               <a
                 href="https://www.facebook.com/profile.php?id=61559079794587&mibextid=ZbWKwL"
                 target="_blank"
@@ -305,11 +306,12 @@ function Footer({ isSubscribe, setIsSubcrib }) {
                   alt=""
                 />
               </a>
+              {/**
               <img
                 className="media"
                 src="/images/home/youtube_icon.png"
                 alt=""
-              />
+              /> */}
             </div>
           </div>
         </div>

@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { plans } from "../../../../../utils/data";
 
 function Summary({ limits, selectedPlan, isActive }) {
+  console.log(11, limits)
   const router = useRouter();
   const [progress, setProgress] = useState(0);
   const [daysRemaing, setDaysRemaing] = useState(0);
@@ -83,7 +84,6 @@ function Summary({ limits, selectedPlan, isActive }) {
         .get("https://jamblix.com/api/subscription/" + userDataGlobal._id)
         .then((res) => {
           const result = res.data.findIsActive;
-
           setUploadsRemaining(result.resumeUpladed);
           setDownloadsRemaining(parseInt(result.resumeSaves.num));
           setClientsRemaining(result.clientStored);
@@ -251,7 +251,9 @@ function Summary({ limits, selectedPlan, isActive }) {
             </div>
             {userDataGlobal?.role != "user" && (
               <div className="flex gap-4 items-center">
-                <p className=" min-w-[164px]">Total Clients</p>
+                <p className=" scr420:min-w-[164px] min-w-[140px]">
+                  Total Clients
+                </p>
 
                 <div className="relative  w-[45%]  h-[10px] bg-[#DEDEDE] rounded-[6px]">
                   <div
@@ -265,7 +267,7 @@ function Summary({ limits, selectedPlan, isActive }) {
                     className={`absolute  h-[10px] bg-[#06A9EF] rounded-[6px]`}
                   ></div>
                 </div>
-                <p className="min-w-[55px]">
+                <p className="scr420:min-w-[55px] min-w-[45px]">
                   {" "}
                   {limits.total.clients - clientsRemaining}/
                   {limits.total.clients}

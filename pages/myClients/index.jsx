@@ -91,6 +91,7 @@ function MyClients() {
     if (value.length > 0) {
       const options = {
         includeScore: true,
+        threshold: 0.2,
         // Search in `author` and in `tags` array
         keys: [
           "firstName",
@@ -119,6 +120,15 @@ function MyClients() {
     }
     setSelectAll(!selectAll);
   };
+
+  useEffect(() => {
+    if (details?.length === selectedIndexes?.length) {
+      setSelectAll(true);
+    } else {
+      setSelectAll(false);
+    }
+  }, [selectedIndexes]);
+
   return (
     <div className="flex justify-center customMargins py-6">
       {tabIndex === 0 && (

@@ -586,7 +586,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
               {item.header?.length > 0 && (
                 <Svg
                   xmlns="http://www.w3.org/2000/svg"
-                  width="160"
+                  maxWidth="350px"
                   viewBox="0 0 160 27"
                   fill="none"
                 >
