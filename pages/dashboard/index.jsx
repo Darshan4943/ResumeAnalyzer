@@ -378,23 +378,23 @@ function Dashboard() {
       </div>
       <div
         // style={{ border: "2px solid red" }}
-        className="flex gap-12 flex-wrap justify-center"
+        className="flex gap-[16px] scr460:gap-12 flex-wrap justify-center"
       >
         {list().map((item, index) => (
           <div
             key={index}
             className={
-              "job-card relative scr420:w-[162.67px] w-[120px] scr420:h-[154px] h-[120px] scr420:p-4 p-3 cursor-pointer flex flex-col items-center scr420:gap-3 gap-2 justify-center text-center"
+              "job-card relative scr460:w-[162.67px] w-[104px] scr460:h-[154px] h-[125px] scr460:p-4 p-3 cursor-pointer flex flex-col items-center scr420:gap-3 gap-2 justify-center text-center"
             }
             onClick={() => handleItemClick(item.name)}
           >
             <img
               src={item.imgSrc}
               alt=""
-              className="scr420:w-[48px] w-[40px]  scr420:h-[48px] h-[40px] "
+              className="scr460:w-[48px] w-[40px]  scr460:h-[48px] h-[40px] "
             />
 
-            <div className="scr420:text-[14px] text-[12px] font-medium">
+            <div className="scr460:text-[14px] text-[12px] font-medium">
               {item.name}
             </div>
             {item.new && (
