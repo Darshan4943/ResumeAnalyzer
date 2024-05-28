@@ -73,7 +73,7 @@ const WrappedApp = ({ Component, pageProps }) => {
           <>
             <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-white "></div>
             <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center  ">
-              <div className="relative earth_loader flex flex-col items-center justify-center ">
+              <div className="absolute earth_loader flex flex-col items-center justify-center ">
                 <div className="w-[165px] h-[124px] flex items-center justify-center">
                   <motion.img
                     src="/images/resumeBuilder/bot.png"
@@ -95,7 +95,7 @@ const WrappedApp = ({ Component, pageProps }) => {
             </div>
           </>
         )}
-
+ {!loading && (
         <ParallaxProvider>
           {/* <ReactLenis root> */}
           <Layout>
@@ -103,6 +103,7 @@ const WrappedApp = ({ Component, pageProps }) => {
           </Layout>
           {/* </ReactLenis> */}
         </ParallaxProvider>
+ )}
       </Provider>
     </>
   );
