@@ -146,7 +146,7 @@ function Folders({
   const sortClientData = (data, selectedIndex) => {
     console.log("dataTosortC", data);
     if (sortSelect == 0) {
-      return data?.sort((a, b) => a.firstName.localeCompare(b.firstName));
+      return data?.sort((a, b) => a.firstName?.localeCompare(b.firstName));
     } else if (sortSelect == 1) {
       return data?.sort((a, b) => a.createdAt?.localeCompare(b.createdAt));
     } else if (sortSelect == 2) {
@@ -166,6 +166,14 @@ function Folders({
       return data?.sort((a, b) => a.size - b.size);
     }
   };
+
+  useEffect(() => {
+    if (data?.length === selectedIndexes?.length) {
+      setSelectAll(true);
+    } else {
+      setSelectAll(false);
+    }
+  }, [selectedIndexes]);
 
   return (
     <div className="flex flex-col gap-4 ml:w-[80%] w-[100%] ">

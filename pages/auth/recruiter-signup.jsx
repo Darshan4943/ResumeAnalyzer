@@ -47,12 +47,14 @@ function Recruiter_signup({}) {
     dial_code: "+260",
     img: null,
   });
-
+  const [isProfileImageRemoved, setIsProfileImageRemoved] = useState(false);
   const [file, setFile] = useState(null);
 
   const fileRef = useRef(null);
   const handleFileChange = (event) => {
     event.preventDefault();
+    setIsProfileImageRemoved(false);
+
     const selectedFile = event.target.files[0];
     if (selectedFile && selectedFile.size <= 2 * 1024 * 1024) {
       // 2 MB limit
@@ -227,7 +229,6 @@ function Recruiter_signup({}) {
       const numB = parseInt(b.dial_code.replace("+", ""), 10);
       return numA - numB;
     });
-
     const combinedCodes = [...firstSixCodes, ...sortedRemainingCodes];
     setFilteredTelCode(combinedCodes);
   }, [telCode, searchTerm]);
@@ -239,7 +240,6 @@ function Recruiter_signup({}) {
       data.dial_code.includes(inputValue)
     );
   };
-
   const submitHandler = (e) => {
     e.preventDefault();
 
@@ -274,7 +274,6 @@ function Recruiter_signup({}) {
       // setLoading(true);
       const formdata = new FormData();
       Object.keys(data).forEach((key) => {
-        console.log(277, data, key);
         if (key == "email") {
           formdata.append(key, data[key].toLowerCase());
         } else if (key == "currentLocation") {
@@ -284,11 +283,11 @@ function Recruiter_signup({}) {
         }
       });
 
-      console.log(287, formdata, data);
       if (isUpdate) {
         formdata.append("role", userDataGlobal?.role);
       }
       formdata.append("byAdmin", byAdmin);
+      formdata.append("isProfileImageRemoved", isProfileImageRemoved);
       axios
         .post(url, formdata)
         .then((res) => {
@@ -499,6 +498,7 @@ function Recruiter_signup({}) {
                               setFile(null);
                               setCroppedImage(null);
                               setError(false);
+                              setIsProfileImageRemoved(true);
                             }}
                           >
                             Remove Picture

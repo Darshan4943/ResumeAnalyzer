@@ -115,6 +115,7 @@ function ThemeForm({
           <div
             className="flex items-center  gap-2 bg-[#06A9EF] py-[8px] px-[16px] rounded-[12px] btn_hover_effect"
             onClick={() => setView(!view)}
+            onClick={() => setView(!view)}
           >
             <svg
               width="24"

@@ -74,7 +74,6 @@ function SubscriptionPlans({ fromMain }) {
     }
   };
 
-  console.log("subPlan", subPlans);
   return (
     <>
       {isInInquiry && (
@@ -171,6 +170,8 @@ function SubscriptionPlans({ fromMain }) {
                 <div className="p-4 z-20 bg-white rounded-[16px] flex flex-col gap-4 items-center h-full justify-between">
                   <div className="flex text-center flex-col gap-3 text-[#333333] ">
                     <p className="text-[1.4vw] font-[600]">
+                      <span className="text-[#06A9EF]">{plan?.duration}</span>{" "}
+                      {plan?.limit}
                       <span className="text-[#06A9EF]">{plan?.duration}</span>{" "}
                       {plan?.limit}
                     </p>

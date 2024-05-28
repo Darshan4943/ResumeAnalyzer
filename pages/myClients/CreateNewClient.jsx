@@ -375,6 +375,7 @@ function CreateNewClient({ setTabIndex }) {
                                 id="first_name"
                                 placeholder="Enter first name"
                                 value={data.firstName}
+                                maxLength={50}
                                 onChange={(e) =>
                                   handleInputChange("firstName", e.target.value)
                                 }

@@ -25,7 +25,6 @@ const JobMatching = () => {
   const userDataGlobal = useSelector((state) => state.userData);
   const [details, setDetails] = useState();
   const [resumeList, setResumeList] = useState([]);
-  console.log(resumeList);
   const [text, setText] = useState("");
   const [error, setError] = useState("");
   const [loadingg, setLoadingg] = useState("");
@@ -70,19 +69,6 @@ const JobMatching = () => {
         console.log(err);
       });
   };
-  // const getClientData = (clientId) => {
-  //   axios
-  //     .get("https://jamblix.com/api/resume/" + clientId)
-  //     .then((res) => {
-  //       setDetails(res.data.data);
-  //       setTimeout(() => {
-  //         setLoading(false);
-  //       }, 1000);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // };
   const getFolderData = () => {
     setLoading(true);
     axios
@@ -147,7 +133,7 @@ const JobMatching = () => {
       });
       const jd = res.data.jsonData[0];
       if (Object.keys(jd).length > 5) {
-        const chunks = chunkArray(selectedIndexesFileTypes.slice(0, 5), 5);
+        const chunks = chunkArray(selectedIndexesFileTypes, 5);
         const outputData = [];
         for (let i = 0; i < chunks.length; i++) {
           await processChunk(chunks[i], jd, outputData);

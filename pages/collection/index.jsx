@@ -303,13 +303,21 @@ function Collection() {
           formData.append("text", text);
           formData.append("file", file);
           formData.append("parentId", ParentId ? ParentId : undefined);
-          const response = await axios.post(
-            "https://jamblix.com/api/folder/create",
-            formData
-          );
-          resolve(index, response.data);
+          try {
+            const response = await axios.post(
+              "https://jamblix.com/api/folder/create",
+              formData
+            );
+            resolve(index, response.data);
+            return;
+          } catch (e) {
+            setFileLoader(false)
+            toast.error("Something went wrong Please Check your file")
+            return;
+          }
+        } catch (err) {
           return;
-        } catch (err) {}
+        }
       }, 200); // Simulating a network delay
     });
   };
@@ -610,7 +618,7 @@ function Collection() {
           </div>
         </>
       )}
-      <div className="bg-[#F9F9F9] h-[94vh]">
+      <div className="bg-[#F9F9F9] min-h-[94vh]">
         <div className="  flex ml:flex-row flex-col ml:justify-between  gap-4 ms:py-6 py-2 min-h-[80vh]   pb-12 customMargins ">
           <div className="flex flex-col gap-5  justify-between ml:w-[20%] w-[100%] ml:min-h-[50vh] ">
             <div className="flex flex-col gap-5 ">
