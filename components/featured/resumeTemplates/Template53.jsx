@@ -21,7 +21,7 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
             justifyContent: "space-between",
           }}
         >
-          <View>
+          
             {data.profilePhoto ? (
               <Image
                 src={
@@ -44,8 +44,8 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
                 style={{ width: 144, height: 142, borderBottomRightRadius: 58 }}
               />
             )}
-          </View>
-          <View style={{ display: "flex", flexDirection: "column", gap: 16, width: "70%", }}>
+          
+          <View style={{ display: "flex", flexDirection: "column", gap: 16, width: "70%", paddingLeft:"10px" }}>
             <View>
               <Text
                 style={{

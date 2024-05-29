@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { plans } from "../../../../../utils/data";
 
 function Summary({ limits, selectedPlan, isActive }) {
+  console.log(11, limits)
   const router = useRouter();
   const [progress, setProgress] = useState(0);
   const [daysRemaing, setDaysRemaing] = useState(0);
@@ -83,7 +84,6 @@ function Summary({ limits, selectedPlan, isActive }) {
         .get("https://jamblix.com/api/subscription/" + userDataGlobal._id)
         .then((res) => {
           const result = res.data.findIsActive;
-
           setUploadsRemaining(result.resumeUpladed);
           setDownloadsRemaining(parseInt(result.resumeSaves.num));
           setClientsRemaining(result.clientStored);
@@ -95,7 +95,7 @@ function Summary({ limits, selectedPlan, isActive }) {
             setProgress(
               (calculateDaysRemaining(result.startDate, result.endDate) /
                 selectedPlan?.days) *
-                100
+              100
             );
           }
         })
@@ -204,33 +204,58 @@ function Summary({ limits, selectedPlan, isActive }) {
         <div className="flex flex-col gap-5  xxlg:w-[50%] w-full">
           <p className="font-medium">Available services</p>
           <div className="flex flex-col gap-8 scr420:text-[14px] text-[12px] font-medium ">
-            <div className="flex gap-4 items-center">
+            <div className="flex flex-col scr460:flex-row gap-[4px] scr460:items-center">
               <p className=" scr420:min-w-[164px] min-w-[140px]">
                 {" "}
                 Total Uploads
               </p>
-
-              <div className="relative  w-[45%]  h-[10px] bg-[#DEDEDE] rounded-[6px]">
-                <div
-                  style={{
-                    width: `${Math.round(
-                      ((limits.total.uploads - uploadsRemaining) /
-                        limits.total.uploads) *
+              <div className="flex w-full items-center gap-4">
+                <div className="relative  w-full  h-[10px] bg-[#DEDEDE] rounded-[6px]">
+                  <div
+                    style={{
+                      width: `${Math.round(
+                        ((limits.total.uploads - uploadsRemaining) /
+                          limits.total.uploads) *
                         100
-                    )}%`,
-                  }}
-                  className={`absolute  h-[10px] bg-[#06A9EF] rounded-[6px]`}
-                ></div>
+                      )}%`,
+                    }}
+                    className={`absolute  h-[10px] bg-[#06A9EF] rounded-[6px]`}
+                  ></div>
+                </div>
+                <div className="scr420:min-w-[55px] min-w-[45px]">
+                  {limits.total.uploads - uploadsRemaining}/{limits.total.uploads}
+                </div>
               </div>
-              <p className="scr420:min-w-[55px] min-w-[45px]">
-                {limits.total.uploads - uploadsRemaining}/{limits.total.uploads}
-              </p>
             </div>
-            <div className="flex gap-4 items-center">
+            <div className="flex flex-col scr460:flex-row gap-[4px] scr460:items-center">
+              <p className=" scr420:min-w-[164px] min-w-[140px]">
+                {" "}
+                Total Save/Downloads
+              </p>
+              <div className="flex w-full items-center gap-4">
+                <div className="relative  w-full  h-[10px] bg-[#DEDEDE] rounded-[6px]">
+                  <div
+                    style={{
+                      width: `${Math.round(
+                        ((limits.total.download - downloadsRemaining) /
+                          limits.total.download) *
+                        100
+                      )}%`,
+                    }}
+                    className={`absolute  h-[10px] bg-[#06A9EF] rounded-[6px]`}
+                  ></div>
+                </div>
+                <div className="scr420:min-w-[55px] min-w-[45px]">
+                  {limits.total.download - downloadsRemaining}/
+                  {limits.total.download}
+                </div>
+              </div>
+            </div>
+
+            {/* <div className="flex gap-4 items-center">
               <p className="scr420:min-w-[164px] min-w-[140px]">
                 Total Save/Downloads
               </p>
-
               <div className="relative  w-[45%]  h-[10px] bg-[#DEDEDE] rounded-[6px]">
                 <div
                   className={`absolute  h-[10px] bg-[#06A9EF] rounded-[6px]`}
@@ -238,7 +263,7 @@ function Summary({ limits, selectedPlan, isActive }) {
                     width: `${Math.round(
                       ((limits.total.download - downloadsRemaining) /
                         limits.total.download) *
-                        100
+                      100
                     )}%`,
                   }}
                 ></div>
@@ -248,29 +273,59 @@ function Summary({ limits, selectedPlan, isActive }) {
                 {limits.total.download - downloadsRemaining}/
                 {limits.total.download}
               </p>
-            </div>
-            {userDataGlobal?.role != "user" && (
-              <div className="flex gap-4 items-center">
-                <p className=" min-w-[164px]">Total Clients</p>
+            </div> */}
 
-                <div className="relative  w-[45%]  h-[10px] bg-[#DEDEDE] rounded-[6px]">
-                  <div
-                    style={{
-                      width: `${Math.round(
-                        ((limits.total.clients - clientsRemaining) /
-                          limits.total.clients) *
-                          100
-                      )}%`,
-                    }}
-                    className={`absolute  h-[10px] bg-[#06A9EF] rounded-[6px]`}
-                  ></div>
+            {userDataGlobal?.role != "user" && (
+              <>
+                <div className="flex flex-col scr460:flex-row gap-[4px] scr460:items-center">
+                  <p className=" scr420:min-w-[164px] min-w-[140px]">
+                    {" "}
+                    Total Clients
+                  </p>
+                  <div className="flex w-full items-center gap-4">
+                    <div className="relative  w-full  h-[10px] bg-[#DEDEDE] rounded-[6px]">
+                      <div
+                        style={{
+                          width: `${Math.round(
+                            ((limits.total.clients - clientsRemaining) /
+                              limits.total.clients) *
+                            100
+                          )}%`,
+                        }}
+                        className={`absolute  h-[10px] bg-[#06A9EF] rounded-[6px]`}
+                      ></div>
+                    </div>
+                    <div className="scr420:min-w-[55px] min-w-[45px]">
+                      {limits.total.clients - clientsRemaining}/
+                      {limits.total.clients}
+                    </div>
+                  </div>
                 </div>
-                <p className="min-w-[55px]">
-                  {" "}
-                  {limits.total.clients - clientsRemaining}/
-                  {limits.total.clients}
-                </p>
-              </div>
+
+                {/* <div className="flex gap-4 items-center">
+                  <p className=" scr420:min-w-[164px] min-w-[140px]">
+                    Total Clients
+                  </p>
+
+                  <div className="relative  w-[45%]  h-[10px] bg-[#DEDEDE] rounded-[6px]">
+                    <div
+                      style={{
+                        width: `${Math.round(
+                          ((limits.total.clients - clientsRemaining) /
+                            limits.total.clients) *
+                          100
+                        )}%`,
+                      }}
+                      className={`absolute  h-[10px] bg-[#06A9EF] rounded-[6px]`}
+                    ></div>
+                  </div>
+                  <p className="scr420:min-w-[55px] min-w-[45px]">
+                    {" "}
+                    {limits.total.clients - clientsRemaining}/
+                    {limits.total.clients}
+                  </p>
+                </div> */}
+              </>
             )}
           </div>
         </div>
