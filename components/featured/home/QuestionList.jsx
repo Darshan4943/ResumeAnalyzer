@@ -5,8 +5,6 @@ import { Assessmentlogo } from "../../../utils/svg";
 const QuestionList = ({ questions, answers, selectedSkill, checkAnswer }) => {
   const [data, setData] = useState([]);
 
-  console.log(8, questions);
-
   useEffect(() => {
     const updatedData = questions.map((questionItem, index) => ({
       ...questionItem,
@@ -16,33 +14,34 @@ const QuestionList = ({ questions, answers, selectedSkill, checkAnswer }) => {
   }, [questions, answers]);
 
   return (
-    <div className="w-[895px] p-6 flex flex-col gap-2  bg-watermark ">
-      <div className="flex gap-4  justify-between">
+    <div className="w-[895px] p-6 flex flex-col gap-2 bg-watermark">
+      <div className="flex gap-4 justify-between">
         <img
           src="/images/logo_skilotech.png"
           alt=""
           className="object-contain h-[40px]"
         />
-        <div className="flex gap-3 items-center ">
+        <div className="flex gap-3 items-center">
           <Assessmentlogo />
           <span className="mt-[-14px] text-[18px] font-semibold">
-            {" "}
             {camelCase(selectedSkill)} Assessment
           </span>
         </div>
-        <div className="text-[18px]  font-[600] ">
+        <div className="text-[18px] font-[600]">
           <span className=""> Score : </span>
-          {checkAnswer()} / {questions.length}{" "}
+          {checkAnswer()} / {questions.length}
         </div>
       </div>
       <div className="flex flex-col gap-2 ">
         {data.map((questionItem, index) => (
-          <div className="flex flex-col gap-1 py-2" key={index}>
-            {questionItem.answer == questionItem.yourAns}
+          <div
+            className="flex flex-col gap-1 py-2 "
+            key={index}
+          >
             <div className="flex gap-2 font-medium">
               <span className="font-semibold min-w-[130px]">
-                Question {index + 1}{" "}
-              </span>{" "}
+                Question {index + 1}
+              </span>
               <span className="text-[#000000]">:</span> {questionItem.question}
             </div>
             <div
@@ -50,17 +49,17 @@ const QuestionList = ({ questions, answers, selectedSkill, checkAnswer }) => {
                 questionItem.answer == questionItem.yourAns
                   ? "text-[#0C8A0A]"
                   : "text-red"
-              } `}
+              }`}
             >
               <span className="font-semibold text-[#000000] min-w-[130px]">
-                Your Answer{" "}
-              </span>{" "}
+                Your Answer
+              </span>
               <span className="text-[#000000]">:</span> {questionItem.yourAns}
             </div>
             <div className="flex gap-2 font-medium">
-              <span className="font-semibold font min-w-[130px]">
-                Correct Answer{" "}
-              </span>{" "}
+              <span className="font-semibold min-w-[130px]">
+                Correct Answer
+              </span>
               <span className="text-[#000000]">:</span> {questionItem.answer}
             </div>
           </div>

@@ -216,7 +216,7 @@ function Folders({
                     setIsFile(false);
                     setIsCreateFolder(true);
                   }}
-                  className="flex gap-1  items-center"
+                  className="flex gap-1 text-[10px] items-center"
                 >
                   <svg
                     width="24"
@@ -236,7 +236,7 @@ function Folders({
                 </div>
 
                 <div
-                  className="flex gap-1 items-center upload-btn-wrapper"
+                  className="flex gap-1 text-[10px] items-center upload-btn-wrapper"
                   onClick={(e) => {
                     setIsFile(true);
                     setIsCreateFolder(true);
@@ -309,9 +309,8 @@ function Folders({
       <div className="flex flex-col gap-4  border border-[#DEDEDE] bg-white ms:p-6 p-2  rounded-[16px] h-full ">
         <div className="flex flex-col-reverse gap-4 w-full  ">
           <div
-            className={` ${
-              select ? "flex" : "hidden"
-            } gap-12  items-center w-[100%] h-[40px] `}
+            className={` ${select ? "flex" : "hidden"
+              } gap-12  items-center w-[100%] h-[40px] `}
           >
             {select ? (
               <div className="bg-[#D1EDFF] relative flex sm:gap-4  gap-2 rounded-[50px] pl-[6px] sm:pr-4 pr-2 py-[6px] items-center w-full scr540:min-w-[440px]  ">
@@ -478,7 +477,7 @@ function Folders({
                       onClick={() =>
                         selectedIndexes.length > 0 && setShowDelete(true)
                       }
-                      className="absolute right-3 top-10 bg-white px-2 py-4 flex flex-col gap-1 rounded-[8px]"
+                      className="absolute z-10 right-3 top-10 bg-white px-2 py-2 flex flex-col gap-1 rounded-[8px]"
                       style={{
                         boxShadow: "0px 1px 2px 0px #00000040",
                       }}
@@ -538,8 +537,8 @@ function Folders({
                 </div>
               )}
             </div>
-            <div className=" ml:w-[65%] w-[80%] flex justify-end ml:gap-4 gap-2 items-center h-[38px] ">
-              <div className="rounded-[30px] py-2 px-3 flex gap-2 bg-[#E9EEF6] w-[336px]  items-center h-[40px] sm:min-w-[138px] min-w-[60%]  ">
+            <div className=" ml:w-[65%] w-[100%] flex justify-end ml:gap-4 gap-2 items-center h-[38px] ">
+              <div className="rounded-[30px] py-2 px-3 flex gap-2 bg-[#E9EEF6] w-[80%]  items-center h-[40px] sm:min-w-[138px] min-w-[60%]  ">
                 <svg
                   width="24"
                   height="24"
