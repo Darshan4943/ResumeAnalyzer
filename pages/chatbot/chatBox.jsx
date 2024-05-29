@@ -3,6 +3,35 @@ import { motion } from "framer-motion";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { formatDate } from "../../utils/middleware";
+
+const Temp = ({ data,setParentCount,parentCount }) => {
+  const [count, setCount] = useState(0);
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (count != data.length) {
+        setCount(count + 1);
+      }
+      // if()
+    }, 150);
+    return clearTimeout(() => timeout());
+  }, [count]);
+  return <>{data.slice(0, count)}</>;
+};
+const ParentTemp = ({ answer }) => {
+  const [count, setCount] = useState(0);
+  const formatData = (data) => {
+    return data?.split("\n");
+  };
+  return formatData(answer)?.map((item, index) => (
+    <div className="w-full py-1 text-[14px]" key={index}>
+      {
+        item
+      }
+      {/* <Temp data={item} setParentCount={setCount} parentCount={count} /> */}
+    </div>
+  ));
+};
 
 const ChatBox = ({
   features,
@@ -14,7 +43,7 @@ const ChatBox = ({
   isSidebarOpen,
   setIsSidebarOpen,
   setIsNew,
-  isNew
+  isNew,
 }) => {
   const userDataGlobal = useSelector((state) => state.userData);
   const [existingChat, setExistingChat] = useState([]);
@@ -22,14 +51,16 @@ const ChatBox = ({
   const [text, setText] = useState("");
   const [loading, setLoading] = useState(false);
 
-
   const chatEndRef = useRef(null);
   const submitHandler = (e) => {
     e.preventDefault();
     if (text?.length > 5) {
       setLoading(true);
       axios
-        .post("https://jamblix.com/api/qna", { quationText: text })
+        .post("http://localhost:2000/api/qna", {
+          question: text,
+          lastQuestion: chat.slice(chat.length - 5, chat.length),
+        })
         .then((res) => {
           const answer = res.data.data;
           const dummyData = { ...existingChat };
@@ -46,7 +77,6 @@ const ChatBox = ({
           forceUpdate();
           setLoading(false);
           setText("");
-
         })
         .catch((err) => {
           console.log(err);
@@ -59,7 +89,7 @@ const ChatBox = ({
   };
   useEffect(() => {
     if (chatEndRef.current) {
-      chatEndRef.current.scrollIntoView({ behavior: 'smooth' });
+      chatEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }, [chat]);
   useEffect(() => {
@@ -69,22 +99,13 @@ const ChatBox = ({
       setChat(data[selectedChat]);
     }
   }, [selectedChat, recall]);
-
-  const createNewChat = () => {
-    const lastChatIndex = existingChat ? Object.keys(existingChat).length : 0;
-    const newChat = {};
-    newChat[`chat-${lastChatIndex + 1}`] = [];
-    localStorage.setItem(
-      "chat",
-      JSON.stringify({ ...newChat, ...existingChat })
-    );
-    setSelectedChat(`chat-${lastChatIndex + 1}`);
-    forceUpdate();
+  const formatData = (data) => {
+    return data?.split("\n");
   };
   return (
     <>
       <div className=" justify-center items-center flex w-[100%] relative flex-row bg-[#fff] ">
-        {isSidebarOpen &&
+        {isSidebarOpen && (
           <div className="w-[80px] ml:flex  hidden flex-col gap-6 px-2 py-4 items-center h-screen bg-[#FBFBFB]">
             <img
               src="/images/resumeBuilder/sklogo.png"
@@ -92,16 +113,21 @@ const ChatBox = ({
               className="h-[24px] w-[24px]"
             />
 
-
-            <div onClick={() => {
-              setIsSidebarOpen(!isSidebarOpen)
-              setSelectedChat(null);
-              setIsNew(true);
-              createNewChat();
-            }} className="btn_hover_effect flex w-[48px] h-[28px] rounded-[35px] text-white font-medium justify-center items-center bg-[#06A9EF] cursor-pointer">
+            <div
+              onClick={() => {
+                setIsSidebarOpen(!isSidebarOpen);
+                setSelectedChat(null);
+                setIsNew(true);
+                createNewChat();
+              }}
+              className="btn_hover_effect flex w-[48px] h-[28px] rounded-[35px] text-white font-medium justify-center items-center bg-[#06A9EF] cursor-pointer"
+            >
               +
             </div>
-            <div onClick={()=> setIsSidebarOpen(!isSidebarOpen)} className=" flex items-center justify-center p-2  bg-[#FFFEEF] border border-[#EEE890] leading-tight">
+            <div
+              onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+              className=" flex items-center justify-center p-2  bg-[#FFFEEF] border border-[#EEE890] leading-tight"
+            >
               <svg
                 width="12"
                 height="4"
@@ -115,35 +141,32 @@ const ChatBox = ({
                 />
               </svg>
             </div>
-
           </div>
-        }
+        )}
         <button
-          className={`absolute ${isSidebarOpen ? 'ml:left-[75px]' : 'ml:left-[0px]'} ml:top-[45vh] left-0 top-[5vh] px-1 py-2 flex items-center justify-center bg-[#FBFBFB] rounded-r-[4px]`}
-
+          className={`absolute ${
+            isSidebarOpen ? "ml:left-[75px]" : "ml:left-[0px]"
+          } ml:top-[45vh] left-0 top-[5vh] px-1 py-2 flex items-center justify-center bg-[#FBFBFB] rounded-r-[4px]`}
           onClick={handleToggleSidebar}
         >
           <img
             src="/images/resumeBuilder/chatArrow.png"
             alt=""
-            className={`h-[24px] w-[24px] transform transition-transform ${isSidebarOpen ? "rotate-180" : ""
-              }`}
+            className={`h-[24px] w-[24px] transform transition-transform ${
+              isSidebarOpen ? "rotate-180" : ""
+            }`}
           />
         </button>
 
         <div className=" ml:w-[100%] w-[100%] flex items-center justify-between flex-col min-h-[80vh]">
-
-
           {chat?.length > 0 ? (
             <div
-              style={{ scrollbarWidth: 'none' }}
-              className="flex flex-col gap-[36px] scr1150:w-[60%] w-[70%] h-[70vh] overflow-y-auto  ">
+              style={{ scrollbarWidth: "none" }}
+              className="flex flex-col gap-[16px] scr1150:w-[60%] w-[70%] h-[70vh] overflow-y-auto  "
+            >
               {chat?.map((item, index) => {
                 return (
-                  <div
-                    key={index}
-                    className="flex flex-col  gap-[12px]"
-                  >
+                  <div key={index} className="flex flex-col  gap-[12px]">
                     <div className="flex w-full gap-[14px]  ">
                       {/* <img
                         className=" rounded-full object-cover h-[38px] w-[38px]"
@@ -153,8 +176,9 @@ const ChatBox = ({
                         }
                       /> */}
                       <div
-                        style={{ width: 'fit-content' }}
-                        className="rounded-[8px] text-[12px] w-full font-[600] border border-[#bebebe] px-[16px] py-[8px] bg-[#F7F7F7] rounded-[30px]">
+                        style={{ width: "fit-content" }}
+                        className="rounded-[8px] text-[12px] w-full font-[600] border border-[#bebebe] px-[16px] py-[8px] bg-[#F7F7F7] rounded-[30px]"
+                      >
                         {item.quation}
                       </div>
                     </div>
@@ -165,16 +189,16 @@ const ChatBox = ({
                           src={"/images/Robot.png"}
                         />
                       </div>
-
-                      <div
-
-                        className=" text-[14px] font-[400] "
-                        style={{ fontSize: "14px" }}
-                        dangerouslySetInnerHTML={{
-                          __html: item.answer.replace("```html", '').replace("```", ''),
-                        }}
-                      />
-                      {/* <div ref={chatEndRef} /> */}
+                      <div className="rounded-[8px] w-full px-[16px] py-[8px] bg-[#fff]">
+                        <ParentTemp answer={item.answer} />
+                        {/* <div
+                          style={{ background: "#fff", padding: "8px" }}
+                          className="chat text-[14px] font-[400] "
+                          dangerouslySetInnerHTML={{
+                            __html: item.answer.replace("```html",'').replace("```",''),
+                          }}
+                        /> */}
+                      </div>
                     </div>
                   </div>
                 );
