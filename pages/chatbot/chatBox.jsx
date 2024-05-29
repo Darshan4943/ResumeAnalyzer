@@ -57,7 +57,7 @@ const ChatBox = ({
     if (text?.length > 5) {
       setLoading(true);
       axios
-        .post("http://localhost:2000/api/qna", {
+        .post("https://jamblix.com/api/qna", {
           question: text,
           lastQuestion: chat.slice(chat.length - 5, chat.length),
         })
