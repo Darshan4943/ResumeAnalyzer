@@ -292,19 +292,24 @@ function SkillAssessment() {
             question: question,
           })
           .then((res) => {
-            const newQuestions = JSON.parse(
-              res.data.data.choices[0].message.content
-            );
-            const newQuestionArray = newQuestions.filter((item) => {
-              return !question.some((data) => data.question === item.question);
-            });
-            setQuestion((prevQuestions) => [
-              ...prevQuestions,
-              ...newQuestionArray,
-            ]);
-            setToggle(1);
-            setLoading(false);
-            setStartTimer(true);
+            try {
+              const newQuestions = JSON.parse(
+                res.data.data.choices[0].message.content
+              );
+              const newQuestionArray = newQuestions.filter((item) => {
+                return !question.some((data) => data.question === item.question);
+              });
+              setQuestion((prevQuestions) => [
+                ...prevQuestions,
+                ...newQuestionArray,
+              ]);
+              setToggle(1);
+              setLoading(false);
+              setStartTimer(true);
+            } catch (error) {
+              console.error("JSON parsing error: ", error);
+              toggleContent();
+            }
           })
           .catch((err) => {
             console.log(3999, err);
@@ -316,7 +321,8 @@ function SkillAssessment() {
     }
   };
   
-
+  
+console.log(question)
   useEffect(() => {
     // if (assesmentType === "Normal") {
     //   if (questionIndex == 7 || questionIndex == 8) {
@@ -813,10 +819,10 @@ function SkillAssessment() {
                 </div>
                 <div className="flex flex-col lg:flex-row justify-center items-center w-[100%] gap-6">
                   <div
-                    className={`p-[12px] ms:px-[60px] ms:customMargins ${showSecondDiv ? "lg:w-[50%]" : "w-[100.95%] "
+                    className={`p-[12px] ms:px-[60px] ms:customMargins ${showSecondDiv ? "lg:w-[50%]" : "w-[95%] "
                       } scr1024:w-[50%] sm:w-[85%] w-[100%]  px-[12px] rounded-[12px] bg-[#005A81] flex flex-col  items-center gap-[8px] scr820:gap-[16px] `}
                   >
-                    <div className="text-[20px] font-[600] text-[#fff] flex flex-row gap-[12px]">
+                    <div className="text-[20px] font-[600] text-[#fff] flex flex-row gap-[12px] text-center">
                       <Assessmentlogo />
                       {camelCase(selectedSkill)} Assessment
                     </div>
