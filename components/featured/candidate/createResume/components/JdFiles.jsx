@@ -220,10 +220,11 @@ function JdFiles({
 
   return (
     <div className="rounded-[16px] border bg-[#F9F9F9] border-[#DEDEDE] p-[16px] flex flex-col gap-[16px]">
-      <div className="flex flex-row items-center justify-between gap-[12px] ">
-        <div className="flex flex-row items-center gap-[8px] cursor-pointer ">
+      <div className="flex scr1024:flex-row sm:flex-row ml:flex-col flex-col items-center justify-between gap-[12px] ">
+        <div className="flex flex-row items-center gap-[8px] cursor-pointer  w-full    ">
           {name && (
             <svg
+            className="min-w-[32px]"
               onClick={() => router.back()}
               width="32"
               height="32"
@@ -244,8 +245,9 @@ function JdFiles({
               {name}
             </span>
           )} */}
-          <div className="flex flex-row gap-[8px] py-[8px] px-[12px] h-[40px] bg-[#fff] border border-[#DEDEDE] rounded-[30px] items-center">
+          <div className="flex flex-row gap-[8px] py-[8px] px-[12px] h-[40px] bg-[#fff] border border-[#DEDEDE] rounded-[30px] items-center scr420:w-[50%] sm:w-full scr1024:w-full w-full">
             <SearchIcon />
+            
             <input
               type="text"
               className="bg-[#fff] text-[#333333] placeholder:text-[#333333] w-[80%]"
@@ -254,7 +256,8 @@ function JdFiles({
             />
           </div>
         </div>
-        <div className="flex  gap-2  bg-[#d1edff] h-[40px] py-[8px] px-[12px] w-[40%] justify-between rounded-[50px] ">
+        <div className="w-full flex justify-end">
+        <div className="flex  gap-2  bg-[#d1edff] h-[40px] py-[8px] px-[12px] min-w-[220px] scr1024:w-[40%] scr420:w-[50%] scrjustify-end w-full justify-between rounded-[50px] ">
           <div className="flex gap-2 text-[14px] font-medium">
             <label className="flex items-center gap-2 text-[14px] font-medium">
               Select All
@@ -271,6 +274,7 @@ function JdFiles({
           <div className="text-[14px] font-semibold min-w-[85px] items-center flex justify-end">
             {selectedIndexesFileTypes.length} selected
           </div>
+        </div>
         </div>
       </div>
       <div className="border-b-[1px] border-[#DEDEDE] w-full h-[1px]"></div>

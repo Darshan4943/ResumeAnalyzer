@@ -404,7 +404,7 @@ function GenerateAi() {
                 />
               )}
               <div className="w-full flex-wrap scr420:flex-nowrap flex justify-end items-center gap-2">
-                <div className=" ml:text-[0.7vw] text-[10px] font-[400]">
+                <div className=" ml:text-[0.6vw] text-[10px] font-[400]">
                   Remaining Attempts -{" "}
                   <span className={`${attempt <= 0 && "text-red"} `}>
                     {attempt}

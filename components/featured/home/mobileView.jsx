@@ -158,7 +158,7 @@ const MobileView = ({ clickHandler, isLogin ,isSubscribe,setIsSubcrib}) => {
             </div>
             <div className="font-medium text-[14px] ml:text-[20px] w-[95%] break-words text-center ">
             <p>  Select one of our <span className="text-[#06A9EF]">expert-designed resume templates </span>and create a resume that fits your needs
-                and style.No Experienced needed!</p>
+                and style, No Experience needed!</p>
               <p><span className="text-[#06A9EF]">Stand out from the crowd</span>  with a resume built on one of the best recruiter approved templates.</p>
             </div>
             <button

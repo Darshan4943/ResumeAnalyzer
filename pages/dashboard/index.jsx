@@ -12,23 +12,18 @@ import { useRef } from "react";
 function Dashboard() {
   const userDataGlobal = useSelector((state) => state.userData);
   const router = useRouter();
-  const { signIn } = router.query
-  console.log(signIn)
-  const [successful, setIsSuccessful] = useState(false)
-
-
-
+  const { signIn } = router.query;
+  const [successful, setIsSuccessful] = useState(false);
 
   useEffect(() => {
     // Check if the effect has already run by checking localStorage
-    const hasEffectRun = sessionStorage.getItem('hasEffectRun');
+    const hasEffectRun = sessionStorage.getItem("hasEffectRun");
 
     if (signIn !== undefined && !hasEffectRun) {
       setIsSuccessful(true);
       const timer = setTimeout(() => {
-
         // Set the flag in localStorage to indicate the effect has run
-        sessionStorage.setItem('hasEffectRun', 'true');
+        sessionStorage.setItem("hasEffectRun", "true");
       }, 5000);
 
       // Clear the timeout on cleanup
@@ -36,13 +31,9 @@ function Dashboard() {
     }
   }, [signIn]);
 
-
   // useEffect(() => {
 
   //   if (isPopUp === false) {
-
-
-
 
   //   }
   // }, [isPopUp]);
@@ -69,7 +60,7 @@ function Dashboard() {
 
   const handleOutsideClick = (event) => {
     if (taskRef.current && !taskRef.current.contains(event.target)) {
-      setIsSuccessful(false)
+      setIsSuccessful(false);
     }
   };
   useEffect(() => {
@@ -266,14 +257,15 @@ function Dashboard() {
   }
 
   return (
-
     <div className="customMargins flex flex-col gap-12 py-6 min-h-[70vh]">
-      {successful &&
+      {successful && (
         <>
           <div className="fixed z-[300] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
           <div className="fixed z-[300] top-0 left-0 right-0 bottom-0 flex items-center justify-center customMargins   ">
-
-            <div ref={taskRef} className=" absolute rounded-[16px] bg-white shadow-lg pt-[60px] pb-6 px-6 flex flex-col gap-6 ml:min-w-[350px] ml:w-[25%] ms:w-[50%] scr420:w-[80%] w-[90%] ">
+            <div
+              ref={taskRef}
+              className=" absolute rounded-[16px] bg-white shadow-lg pt-[60px] pb-6 px-6 flex flex-col gap-6 ml:min-w-[350px] ml:w-[25%] ms:w-[50%] scr420:w-[80%] w-[90%] "
+            >
               <svg
                 className="absolute top-[-40px]  left-[38%] right-[62%] flex"
                 xmlns="http://www.w3.org/2000/svg"
@@ -303,11 +295,9 @@ function Dashboard() {
                   Welcome to SkiloTech!
                 </div>
                 <div className="text-[16px] font-[500] text-[#333]">
-                  {signIn === "true" ?
-                    "You Have Signed In Successfully."
-                    :
-                    "You Have Registered Successfully."
-                  }
+                  {signIn === "true"
+                    ? "You Have Signed In Successfully."
+                    : "You Have Registered Successfully."}
                 </div>
               </div>
               <div className="flex justify-center">
@@ -319,10 +309,9 @@ function Dashboard() {
                 </button>
               </div>
             </div>
-
           </div>
         </>
-      }
+      )}
 
       <div className="flex ml:flex-row flex-col gap-4">
         <div
@@ -361,7 +350,7 @@ function Dashboard() {
             lands your dream job effortlessly.
             <div
               onClick={() => toggle()}
-              className="  rounded-[8px] bg-[#FFFFFF] px-4 py-3 text-[16px] flex gap-1 text-[#06A9EF] justify-center items-center leading-tight ml:w-full w-[152px] cursor-pointer"
+              className="  rounded-[8px] bg-[#FFFFFF] px-4 py-3 text-[16px] flex gap-1 text-[#06A9EF] justify-center items-center leading-tight scr460:w-[152px] w-full  cursor-pointer"
             >
               Get Started
               <svg
@@ -389,23 +378,23 @@ function Dashboard() {
       </div>
       <div
         // style={{ border: "2px solid red" }}
-        className="flex gap-12 flex-wrap justify-center"
+        className="flex gap-[16px] scr460:gap-12 flex-wrap justify-center"
       >
         {list().map((item, index) => (
           <div
             key={index}
             className={
-              "job-card relative scr420:w-[162.67px] w-[120px] scr420:h-[154px] h-[120px] scr420:p-4 p-3 cursor-pointer flex flex-col items-center scr420:gap-3 gap-2 justify-center text-center"
+              "job-card relative scr460:w-[162.67px] w-[104px] scr460:h-[154px] h-[125px] scr460:p-4 p-3 cursor-pointer flex flex-col items-center scr420:gap-3 gap-2 justify-center text-center"
             }
             onClick={() => handleItemClick(item.name)}
           >
             <img
               src={item.imgSrc}
               alt=""
-              className="scr420:w-[48px] w-[40px]  scr420:h-[48px] h-[40px] "
+              className="scr460:w-[48px] w-[40px]  scr460:h-[48px] h-[40px] "
             />
 
-            <div className="scr420:text-[14px] text-[12px] font-medium">
+            <div className="scr460:text-[14px] text-[12px] font-medium">
               {item.name}
             </div>
             {item.new && (
@@ -494,6 +483,7 @@ function Dashboard() {
                   className="w-[154px] h-[36px] px-[6px] py-[6px] rounded-[8px] bg-[#06A9EF] text-[#FFFFFF] text-[14px]"
                   onClick={() => {
                     localStorage.removeItem("userData");
+                    window.location.href = "/";
                   }}
                 >
                   Cancel

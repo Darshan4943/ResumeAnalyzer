@@ -32,6 +32,7 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
               width: 172,
             }}
           >
+
             {data.profilePhoto ? (
               <Image
                 src={
@@ -84,8 +85,8 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                     fontSize: 12,
                     fontFamily: `${selectedFont} 400`,
                     color: "#000000",
-                   
-                    
+
+
                     marginRight: "6px"
                   }}
                 >
@@ -117,8 +118,8 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                     fontSize: 12,
                     fontFamily: `${selectedFont} 400`,
                     color: "#000000",
-                   
-                    
+
+
                     marginRight: "6px"
                   }}
                 >
@@ -150,7 +151,7 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                     fontSize: 12,
                     fontFamily: `${selectedFont} 400`,
                     color: "#000000",
-                   
+
                     flexWrap: "wrap"
                   }}
                 >
@@ -174,7 +175,7 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                   fontSize: 25,
                   fontFamily: `${selectedFont} 400`,
                   color: "#000000",
-                 
+
                   flexWrap: "wrap"
                 }}
               >
@@ -185,7 +186,7 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                   display: "flex",
                   flexDirection: "column",
                   gap: 4,
-                  alignItems: "center",
+                  // alignItems: "center",
                 }}
               >
                 <Text
@@ -193,7 +194,7 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                     fontSize: 14,
                     fontFamily: `${selectedFont} 400`,
                     color: "#000000",
-                   
+
                     flexWrap: "wrap"
                   }}
                 >
@@ -275,7 +276,7 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
               display: "flex",
               flexDirection: "row",
               gap: 16,
-              
+
             }}
           >
             {data?.skills?.map((detail, index) => (
@@ -293,8 +294,8 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                     fontSize: 12,
                     color: "#808285",
                     fontFamily: `${selectedFont} 400`,
-                    
-                   
+
+
                   }}
                 >
                   {detail.skill}
@@ -428,7 +429,7 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                   flexDirection: "column",
                   gap: 16,
                   width: "100%",
-                  
+
                 }}
               >
                 {data?.education?.map((detail, index) => (
@@ -449,8 +450,8 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                             color: "#000000",
                             fontFamily: `${selectedFont} 400`,
                             width: "70%",
-                            
-                           
+
+
                           }}
                         >
                           {detail.specialization}
@@ -461,8 +462,8 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                             color: "#000000",
                             fontFamily: `${selectedFont} 400`,
                             width: "30%",
-                            
-                           
+
+
                           }}
                         >
                           {detail.duration?.start?.year !== "Year" &&
@@ -474,8 +475,8 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                           fontSize: 10,
                           color: "#808285",
                           fontFamily: `${selectedFont} 400`,
-                          
-                         
+
+
                         }}
                       >
                         {detail.qualification}
@@ -485,8 +486,8 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                           fontSize: 10,
                           color: "#000000",
                           fontFamily: `${selectedFont} 400`,
-                          
-                         
+
+
                         }}
                       >
                         {detail.instituteName}
@@ -528,7 +529,7 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                   flexDirection: "row",
                   gap: 10,
                   width: "100%",
-                  
+
                 }}
               >
                 {data.hobbies?.map((detail, index) => (
@@ -558,8 +559,8 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                         fontSize: 10,
                         fontFamily: `${selectedFont} 400`,
                         color: "#000000",
-                        
-                       
+
+
                       }}
                     >
                       {detail.title}
@@ -603,7 +604,7 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                       flexDirection: "column",
                       gap: 16,
                       width: "100%",
-                      
+
                     }}
                   >
                     {item.subSection.map((detail, index) => (
@@ -623,8 +624,8 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                                 color: "#000000",
                                 fontFamily: `${selectedFont} 400`,
                                 width: "70%",
-                                
-                               
+
+
                               }}
                             >
                               {detail.title}
@@ -635,8 +636,8 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                                 color: "#000000",
                                 fontFamily: `${selectedFont} 400`,
                                 width: "30%",
-                                
-                               
+
+
                               }}
                             >
                               {detail?.duration?.start?.year}
@@ -652,8 +653,8 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                               fontSize: 10,
                               color: "#808285",
                               fontFamily: `${selectedFont} 400`,
-                              
-                             
+
+
                             }}
                           >
                             {detail.description}

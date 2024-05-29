@@ -62,7 +62,7 @@ function RecruiterHero() {
         }}
         className="flex ml:w-[57%] w-[100%] flex-col sm:gap-6 gap-4  items-center justify-center "
       >
-        <p className=" text-center ml:text-[3vw] text-[9vw] font-bold leading-tight">
+        <p className=" text-center ml:text-[3vw] text-[6vw] font-bold leading-tight">
           {" "}
           <span className="text-[#06A9EF]">Empowering</span> Recruiters to
           Create Job Winning Resumes

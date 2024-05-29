@@ -22,7 +22,6 @@ function Header({ userData }) {
       }
     } else {
       setIsLogin(false);
-
     }
   }, []);
 
@@ -30,8 +29,8 @@ function Header({ userData }) {
     <div
       className={
         selectedPage === "/auth/candidate_register" ||
-          selectedPage === "/auth/Employer_register" ||
-          selectedPage === "/auth/Recruiter_register"
+        selectedPage === "/auth/Employer_register" ||
+        selectedPage === "/auth/Recruiter_register"
           ? " "
           : "bg-white z-[100] fixed w-[100%]  "
       }
@@ -78,48 +77,45 @@ function Header({ userData }) {
                   className="relative  "
                   onMouseEnter={() => setIsSignIn(true)}
                   onMouseLeave={() => setIsSignIn(false)}
-
                 >
-                  <button className={`buttonTransparent  min-w-[138px] rounded-[12px] flex justify-center items-center bg-white text-[#333] py-2 px-6 text-[16px] font-medium border border-transparent hover:border-blue `}>
+                  <button
+                    className={`buttonTransparent  min-w-[138px] rounded-[12px] flex justify-center items-center bg-white text-[#333] py-2 px-6 text-[16px] font-medium border border-transparent hover:border-blue `}
+                  >
                     Sign in
-                    <div
-              className=""
-             
-            >
-              <img
-
-                src="/images/down_arrow.png"
-                className="h-4 w-4 ml-1 cursor-pointer "
-                alt=""
-              />
-
-            </div>
+                    <div className="">
+                      <img
+                        src="/images/down_arrow.png"
+                        className="h-4 w-4 ml-1 cursor-pointer "
+                        alt=""
+                      />
+                    </div>
                   </button>
                   {isSignIn && (
                     <div
                       // ref={taskRef}
                       style={{
-                        boxShadow: "0px 2px 2px 0px #00000040"
+                        boxShadow: "0px 2px 2px 0px #00000040",
                       }}
                       className="w-[160px] flex flex-col text-[14px] font-medium  justify-center cursor-pointer absolute top-[26px] mt-[1rem] right-0  z-[5000] bg-[#FFFF]  rounded-[8px] rounded-t-[8px]   "
                     >
-                      <div o onClick={() => {
-                        router.push("/auth?signin=true");
-                      }} className="flex gap-3 py-2 px-3 items-center hover:bg-blue hover:text-white rounded-t-[8px] ">
-
-
+                      <div
+                        o
+                        onClick={() => {
+                          router.push("/auth?signin=true");
+                        }}
+                        className="flex gap-3 py-2 px-3 items-center hover:bg-blue hover:text-white rounded-t-[8px] "
+                      >
                         Candidate Sign In
                       </div>
 
-                      <div onClick={() => {
-                        router.push("/auth?signin=true");
-                      }} className="flex gap-3 py-2 px-3 items-center btn_hover_effect rounded-b-[8px]">
-
-
-
+                      <div
+                        onClick={() => {
+                          router.push("/auth?signin=true");
+                        }}
+                        className="flex gap-3 py-2 px-3 items-center btn_hover_effect rounded-b-[8px]"
+                      >
                         Recruiter Sign In
                       </div>
-
                     </div>
                   )}
                 </div>
@@ -132,8 +128,6 @@ function Header({ userData }) {
                 >
                   Sign Up
                 </button>
-
-
               </div>
             </>
           ) : (

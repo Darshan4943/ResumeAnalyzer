@@ -519,7 +519,7 @@ function Recruiter_signup({}) {
                           type="text"
                           name=""
                           id="first_name"
-                          placeholder="Enter first name"
+                          placeholder="Enter First Name"
                           value={data.firstName}
                           onChange={(e) =>
                             handleInputChange("firstName", e.target.value)
@@ -540,7 +540,7 @@ function Recruiter_signup({}) {
                           type="text"
                           name=""
                           id="first_name"
-                          placeholder="Enter Last name"
+                          placeholder="Enter Last Name"
                           value={data.lastName}
                           onChange={(e) =>
                             handleInputChange("lastName", e.target.value)

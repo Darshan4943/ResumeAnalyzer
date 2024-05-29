@@ -11,24 +11,25 @@ module.exports = {
   ],
   theme: {
     screens: {
-      xxsm:"320px",
-      scr340:"340px",
-      scr500:"500px",
+      xxsm: "320px",
+      scr340: "340px",
+      scr500: "500px",
       xsm: "360px",
       scr360: "360px",
-      scr390:"390px",
+      scr390: "390px",
       scr420: "420px",
+      scr460: "460px",
       sm: "480px",
       scr500: "500px",
       scr540: "540px",
       ms: "600px",
       scr700: "700px",
       md: "768px",
-      scr800:'800px',
+      scr800: '800px',
       scr820: "820px",
       ml: "851px",
-      scr900:"900px",
-      scr930:"930px",
+      scr900: "900px",
+      scr930: "930px",
       lg: "976px",
       scr1024: "1024px",
       xxlg: "1128px",
@@ -42,10 +43,10 @@ module.exports = {
       scr1350: "1350px",
       scr1400: "1400px",
       xl: "1440px",
-      xxl:"1700px"
+      xxl: "1700px"
     },
     colors: {
-      red:"#C00000",
+      red: "#C00000",
       white: "#fff",
       blue: "#06A9EF",
       "blue-50": "#ebfaff",
@@ -72,7 +73,7 @@ module.exports = {
       Montserrat: ["Montserrat", "sans-serif"],
       kanit: ["Kanit", "sans-serif"],
       // font-family: 'Lato', sans-serif;
-      Lato:["Lato","sans-serif"],
+      Lato: ["Lato", "sans-serif"],
     },
     extend: {
       spacing: {

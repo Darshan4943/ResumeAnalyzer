@@ -15,7 +15,7 @@ import Home from "../home/images";
 import Footer from "../../partials/footer/footer";
 
 function CandidateHome() {
-  const [isSubscribe, setIsSubcrib] = useState(false)
+  const [isSubscribe, setIsSubcrib] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
   const dispatch = useDispatch();
   const popupState = useSelector((state) => state.popupState);
@@ -70,9 +70,7 @@ function CandidateHome() {
           <GenerateAi />
         </div>
 
-        <div
-          className=" bg-resume_bg bg-cover bg-no-repeat  pb-[80px]  ">
-
+        <div className=" bg-resume_bg bg-cover bg-no-repeat  pb-[80px]  ">
           <div className=" flex flex-row gap-9 items-center customMargins">
             <div className="w-[65%] bg-gradient bg-contain bg-no-repeat   ">
               <ImgCarousel />
@@ -88,13 +86,15 @@ function CandidateHome() {
                   {" "}
                   Select one of our{" "}
                   <span className="text-[#06A9EF]">
-                    expert-designed resume templates{" "}
+                    expertly designed resume templates{" "}
                   </span>
-                  and create a resume that fits your needs and style. No
+                  and create a resume that fits your needs and style, No
                   Experience needed!
                 </p>
                 <p>
-                  <span className="text-[#06A9EF]">Stand out from the crowd</span>{" "}
+                  <span className="text-[#06A9EF]">
+                    Stand out from the crowd
+                  </span>{" "}
                   with a resume built on one of the best recruiter approved
                   templates.
                 </p>
@@ -107,7 +107,6 @@ function CandidateHome() {
               </button>
             </div>
           </div>
-
         </div>
 
         <SkillAssessment isLogin={isLogin} />
@@ -115,17 +114,20 @@ function CandidateHome() {
         <ResumeInventory isLogin={isLogin} />
         <SubscriptionPlan isLogin={isLogin} />
         <Footer isSubscribe={isSubscribe} setIsSubcrib={setIsSubcrib} />
-
       </div>
 
-      <MobileView clickHandler={clickHandler} isLogin={isLogin} isSubscribe={isSubscribe} setIsSubcrib={setIsSubcrib} />
+      <MobileView
+        clickHandler={clickHandler}
+        isLogin={isLogin}
+        isSubscribe={isSubscribe}
+        setIsSubcrib={setIsSubcrib}
+      />
 
-      {isSubscribe &&
+      {isSubscribe && (
         <>
           <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
           <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center customMargins   ">
-
-            <div className=' absolute rounded-[16px] bg-white shadow-lg pt-[60px] pb-6 px-11 flex flex-col gap-6 ml:min-w-[350px] ml:w-[25%] ms:w-[50%] scr420:w-[80%] w-[90%] '>
+            <div className=" absolute rounded-[16px] bg-white shadow-lg pt-[60px] pb-6 px-11 flex flex-col gap-6 ml:min-w-[350px] ml:w-[25%] ms:w-[50%] scr420:w-[80%] w-[90%] ">
               <svg
                 className="absolute top-[-40px]  left-[38%] right-[62%] flex"
                 xmlns="http://www.w3.org/2000/svg"
@@ -169,8 +171,7 @@ function CandidateHome() {
             </div>
           </div>
         </>
-      }
-
+      )}
     </div>
   );
 }
