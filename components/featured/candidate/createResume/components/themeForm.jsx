@@ -104,20 +104,21 @@ function ThemeForm({
 
   return (
     <div
-      className="flex flex-col rounded-lg bg-white p-4"
+      className="flex flex-col rounded-lg bg-white "
       style={{
         // boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)",
         gap: view ? "6px" : "unset",
       }}
     >
-      <div className="flex wrap items-center w-full justify-between gap-2">
-        <div className="flex w-full wrap gap-[16px]">
+      <div className="flex wrap items-center w-full justify-between gap-2 ">
+        <div className="flex wrap gap-[16px] xxsm: items-center justify-center">
           <div
-            className="flex items-center  gap-2 bg-[#06A9EF] py-[8px] px-[16px] rounded-[12px] btn_hover_effect"
+            className="flex items-center  bg-[#06A9EF] py-[8px] px-[16px] rounded-12px] btn_hover_effect xxsm:rounded-[8px] gap-1 "
             onClick={() => setView(!view)}
         
           >
             <svg
+            className="xxsm:h-[20px]"
               width="24"
               height="24"
               viewBox="0 0 24 24"
@@ -131,7 +132,7 @@ function ThemeForm({
                 />
               </g>
             </svg>
-            <h1 className="text-[16px] font-medium tracking-wide text-[#fff] cursor-pointer ">
+            <h1 className="text-[14px] font-medium tracking-wide text-[#fff] cursor-pointer scr500:text-[16px]">
               Customize
             </h1>
           </div>
@@ -172,14 +173,14 @@ function ThemeForm({
               </h1>
             </div>
           </div>*/}
-          <div className="flex flex-col md:flex-row md:gap-[14px] ">
+          <div className="flex flex-col md:flex-row md:gap-[14px] xxsm:flex-row gap-[8px]">
             <div
               className="flex flex-col md:flex-row md:gap-[8px] "
               onClick={() => handleShowFont("font")}
             >
               <div className="flex items-center gap-2">
                 <svg
-                  className="min-w-[16px] min-h-[18px]"
+                  className="min-w-[16px] min-h-[18px] xxsm:h-[16px] "
                   width="16"
                   height="18"
                   viewBox="0 0 18 20"
@@ -192,7 +193,7 @@ function ThemeForm({
                   />
                 </svg>
 
-                <h1 className="text-[16px] font-medium tracking-wide text-[#646464]  xxlg-text-[0px]">
+                <h1 className="text-[14px] font-medium tracking-wide text-[#646464]  xxlg-text-[0px] scr500:text-[16px] ">
                   Fonts
                 </h1>
               </div>
@@ -200,12 +201,12 @@ function ThemeForm({
             </div>
 
             <div
-              className="flex flex-col md:flex-row md:gap-[8px] mt-4 md:mt-0 "
+              className="flex flex-col md:flex-row md:gap-[8px]  md:mt-0 xsmm: mt-none "
               onClick={() => handleShowFont("color")}
             >
               <div className="flex items-center gap-2">
                 <svg
-                  className="min-w-[16px] min-h-[18px]"
+                  className="min-w-[16px] min-h-[18px] xxsm:h-[16px] "
                   width="18"
                   height="18"
                   viewBox="0 0 20 20"
@@ -218,7 +219,7 @@ function ThemeForm({
                   />
                 </svg>
 
-                <h1 className="text-[16px] font-medium tracking-wide text-[#646464] ">
+                <h1 className="text-[14px] font-medium tracking-wide text-[#646464] scr500:text-[16px] ">
                   Colors
                 </h1>
               </div>

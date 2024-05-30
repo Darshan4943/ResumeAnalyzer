@@ -18,12 +18,14 @@ import {
   walletPointReducer,
 } from "./reducer";
 import { popupReducer, recallUser, userDataReducer } from "./userReducer";
+import WebsiteReducer from "./website";
 
 const reducers = combineReducers({
   userData: userDataReducer,
   reCallUser: recallUser,
   getAllJobs: jobReducer,
-  popupState:popupReducer
+  popupState:popupReducer,
+  pageState: WebsiteReducer,
 });
 
 export default reducers;

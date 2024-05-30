@@ -15,6 +15,11 @@ import { templates } from "../../../../utils/data";
 import AddSection from "./components/addSection";
 import Internships from "./components/internShips";
 import Reference from "./components/reference";
+import AddNewSectionContainer from "./components/addNewSectionContainer";
+import CustomSection from "./components/customSection";
+import ExtraCaricularActivity from "./components/extraCaricularActivity";
+import CouersesAndCertification from "./components/couersesAndCertification";
+import ProjectSection from "./components/projectSection";
 
 const ResumeForm = ({
   setData,
@@ -42,6 +47,20 @@ const ResumeForm = ({
   const [intern, setIntern] = useState(false);
   const [showReference, setShowReference] = useState(false);
   const [isAll, setIsAll] = useState(false);
+
+  const [customOptions, setCustomOptions] = useState({
+    "Custom Section": false,
+    "Extra-Curriculum Activities": false,
+    "Courses & Certifications": false,
+    "Internships & Projects": false,
+    Hobbies: false,
+    Languages: false,
+    "Achievements & Awards": false,
+    References: false,
+    // socialLink: false,
+  });
+
+  console.log(60, customOptions);
 
   const handleImageClick = (template) => {
     togglePreview(true, template.index);
@@ -167,22 +186,82 @@ const ResumeForm = ({
         <Skills setData={setData} data={data} />
         <div className="border-b border-r border-l border-[#DEDEDE]"></div>
 
-        {/* <Achievement setData={setData} data={data} /> */}
+        {customOptions["Custom Section"] && (
+          <>
+            <CustomSection setData={setData} data={data} />
+            <div className="border-b border-r border-l border-[#DEDEDE]"></div>
+          </>
+        )}
 
-        {/* {formField?.includes("socialLinks") && (
-          <SocialLink setData={setData} data={data} />
-        )} */}
-        {formField?.includes("hobbies") && (
+        {customOptions["Extra-Curriculum Activities"] && (
+          <>
+            <ExtraCaricularActivity setData={setData} data={data} />
+            <div className="border-b border-r border-l border-[#DEDEDE]"></div>
+          </>
+        )}
+        {customOptions["Courses & Certifications"] && (
+          <>
+            <CouersesAndCertification setData={setData} data={data} />
+            <div className="border-b border-r border-l border-[#DEDEDE]"></div>
+          </>
+        )}
+        {customOptions["Internships & Projects"] && (
+          <>
+            <ProjectSection setData={setData} data={data} />
+            <div className="border-b border-r border-l border-[#DEDEDE]"></div>
+          </>
+        )}
+        {customOptions.Hobbies && (
           <>
             <Hobbie setData={setData} data={data} />
             <div className="border-b border-r border-l border-[#DEDEDE]"></div>
           </>
         )}
 
-        {formField?.includes("language") && (
-          <Languages setData={setData} data={data} />
+        {customOptions.Languages && (
+          <>
+            <Languages setData={setData} data={data} />
+            <div className="border-b border-r border-l border-[#DEDEDE]"></div>
+          </>
         )}
-        {data?.section?.length > 0 && (
+
+        {customOptions["Achievements & Awards"] && (
+          <>
+            <Achievement setData={setData} data={data} />
+            <div className="border-b border-r border-l border-[#DEDEDE]"></div>
+          </>
+        )}
+
+        {customOptions.References && (
+          <>
+            <Reference setData={setData} data={data} />
+            <div className="border-b border-r border-l border-[#DEDEDE]"></div>
+          </>
+        )}
+
+        <AddNewSectionContainer
+          setData={setData}
+          data={data}
+          customOptions={customOptions}
+          setCustomOptions={setCustomOptions}
+        />
+
+        {/* <Achievement setData={setData} data={data} /> */}
+
+        {/* {formField?.includes("socialLinks") && (
+          <SocialLink setData={setData} data={data} />
+        )} */}
+        {/* {formField?.includes("hobbies") && (
+          <>
+            <Hobbie setData={setData} data={data} />
+            <div className="border-b border-r border-l border-[#DEDEDE]"></div>
+          </>
+        )} */}
+
+        {/* {formField?.includes("language") && (
+          <Languages setData={setData} data={data} />
+        )} */}
+        {/* {data?.section?.length > 0 && (
           <>
             {data?.section?.map((item, index) => (
               <>
@@ -200,9 +279,9 @@ const ResumeForm = ({
               </>
             ))}
           </>
-        )}
+        )} */}
 
-        <div className="flex items-center gap-2 justify-end">
+        {/* <div className="flex items-center gap-2 justify-end">
           <div
             onClick={() => {
               setData({
@@ -219,14 +298,14 @@ const ResumeForm = ({
             className=" font-montserrat text-white font-medium text-[14px] px-[12px] rounded-[8px]  bg-[#06A9EF] h-[32px] flex items-center cursor-pointer btn_hover_effect "
           >
             <span className="text-[22px] mr-2">+</span> Add Section
-          </div>
+          </div> */}
 
-          {/* <div onClick={() => setCourse(!course)} className=" font-montserrat text-white font-medium text-[14px] px-[12px] rounded-[8px]  bg-[#06A9EF] h-[32px] flex items-center cursor-pointer "
+        {/* <div onClick={() => setCourse(!course)} className=" font-montserrat text-white font-medium text-[14px] px-[12px] rounded-[8px]  bg-[#06A9EF] h-[32px] flex items-center cursor-pointer "
           >
             <span className="text-[22px] mr-2" >+</span> course
 
           </div> */}
-        </div>
+        {/* </div> */}
 
         {/* <Course setData={setData} data={data} view={view} course={course} setCourse={setCourse} />
 

@@ -361,6 +361,29 @@ function CandidateHeader() {
               </svg>
               My Purchase
             </div>
+            {userDataGlobal?.role == "user" &&
+              <div
+                onClick={() => router.push("/myWebsite")}
+                className=" flex gap-3 py-2 px-3  items-center"
+              >
+                <svg
+
+                  className="cursor-pointer"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M6 2C4.89 2 4 2.89 4 4V20C4 21.11 4.89 22 6 22H18C19.11 22 20 21.11 20 20V8L14 2H6ZM14 3.5L18.5 8H14V3.5ZM6 4H12V9H18V20H6V4ZM8 11H16V13H8V11ZM8 15H16V17H8V15Z"
+                    fill="#333333"
+                  />
+                </svg>
+
+                Link
+              </div>
+            }
             <div
               onClick={handleLogOut}
               className=" flex gap-3 py-2 px-3 text-[#C00000] items-center"
@@ -381,6 +404,7 @@ function CandidateHeader() {
               </svg>
               Log Out
             </div>
+
           </div>
         )}
       </div>

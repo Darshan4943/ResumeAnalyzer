@@ -3,25 +3,32 @@ import { camelCase } from "../../../../../utils/middleware";
 import { useSelector } from "react-redux";
 import ReactSelect from "react-select";
 import { telCode } from "../../../../../utils/data";
+import { Delete_icon, Edit_icon } from "../../../../../utils/svg";
 
 const Reference = ({ setData, data }) => {
   const userDataGlobal = useSelector((state) => state.userData);
-
+  const [view, setView] = useState(false);
   const [isChecked, setIsChecked] = useState(true);
   const [isModified, setIsModified] = useState(false);
   const [filteredTelCode, setFilteredTelCode] = useState([]);
-  const [selectedItem, setSelectedItem] = useState();
+
   const [searchTerm, setSearchTerm] = useState("");
   const handleSwitchChange = () => {
     setIsChecked(!isChecked);
   };
   const [referenceData, setReferenceData] = useState({
-    fullName: "",
-    company: "",
-    mobileNumber: "",
+    referantName: "",
+    designation: "",
+    organization: "",
     email: "",
-    dial_code:"+260"
   });
+
+  const handleDeleteReference = (index) => {
+    setData({
+      ...data,
+      reference: data?.reference?.filter((item, i) => i !== index),
+    });
+  };
 
   useEffect(() => {
     const filterLogic = (item) =>
@@ -32,57 +39,48 @@ const Reference = ({ setData, data }) => {
     setFilteredTelCode(filteredCodes);
   }, [telCode, searchTerm]);
 
-
-  const handleItemClick = (item) => {
-    setSelectedItem(item);
-    setReferenceData({ ...referenceData, dial_code: item.dial_code });
-  };
   const inputFields = [
     {
-      label: "Full Name",
+      label: "Referent’s Name",
       type: "text",
-      name: "fullName",
-      placeholder: "Entet Full Name",
-      value: referenceData.fullName,
-      className: " ",
+      name: "referantName",
+      placeholder: "Type here",
+      value: referenceData.referantName,
+      className: " col-span-2 ",
     },
     {
-      label: "Company",
+      label: "Designation",
       type: "text",
-      name: "company",
-      placeholder: "Company Name",
-      value: referenceData.company,
+      name: "designation",
+      placeholder: "Type here",
+      value: referenceData.designation,
       className: " ",
     },
 
     {
-      label: "Mobile Number",
+      label: "Organization Name",
       type: "text",
-      name: "mobileNumber",
-      placeholder: "Enter Mobile Number",
-      value: referenceData.mobileNumber,
-      className: " col-span-2",
+      name: "organization",
+      placeholder: "Type here",
+      value: referenceData.organization,
+      className: " ",
     },
     {
-      label: "Email Address",
+      label: "Email ID",
       type: "email",
       name: "email",
-      placeholder: "Enter Email Address",
+      placeholder: "Type here",
       value: referenceData.email,
       className: " col-span-2",
     },
-
   ];
 
   const [formErrors, setFormErrors] = useState({
-    fullName: false,
-    company: false,
-    mobileNumber: false,
+    referantName: false,
+    designation: false,
+    organization: false,
     email: false,
-
   });
-
- 
 
   const validateFields = () => {
     const newErrors = {};
@@ -106,23 +104,13 @@ const Reference = ({ setData, data }) => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    if (name == "mobileNumber") {
-      if (value.replace(/\D/g, "").length <= 10) {
-        setReferenceData({
-          ...referenceData,
-          [name]: value.replace(/\D/g, ""),
-        });
-        setIsModified(true);
-        setFormErrors({ ...formErrors, [name]: value.trim() === "" });
-      }
-    } else {
-      setReferenceData({
-        ...referenceData,
-        [name]: value,
-      });
-      setIsModified(true);
-      setFormErrors({ ...formErrors, [name]: value.trim() === "" });
-    }
+
+    setReferenceData({
+      ...referenceData,
+      [name]: value,
+    });
+    setIsModified(true);
+    setFormErrors({ ...formErrors, [name]: value.trim() === "" });
   };
 
   const isDisabled = () => {
@@ -143,15 +131,32 @@ const Reference = ({ setData, data }) => {
   };
 
   const saveData = () => {
-    const allFieldsValid = validateFields();
-    if (allFieldsValid && isModified) {
-      setData({
-        ...data,
-
-        reference:[referenceData, ...data.reference]
- 
+    if (validateFields()) {
+      if (isModified.status === true) {
+        const dummyData = [...data.reference];
+        const index = isModified.index;
+        dummyData.splice(index, 1, referenceData);
+        setData({ ...data, reference: dummyData });
+        setView(false);
+      } else {
+        setData({
+          ...data,
+          reference: [referenceData, ...data?.reference],
+        });
+        {
+          validateFields ? setView(false) : setView(true);
+        }
+      }
+      setIsModified({ status: false, index: 0 });
+      setReferenceData({
+        referantName: "",
+        designation: "",
+        organization: "",
+        email: "",
       });
-      setIsModified(false);
+      setView(false);
+    } else {
+      setView(true);
     }
   };
 
@@ -163,27 +168,30 @@ const Reference = ({ setData, data }) => {
   }, [referenceData]);
 
   useEffect(() => {
-    const {
-        fullName,
-        company,
-      email,
-      mobileNumber: mobileNumber,
-      dial_code
-    } = data;
-    setSelectedItem(
-      telCode.find((item) => item.dial_code === dial_code)
-    );
+    const { referantName, designation, email, organization } = data;
+
     setReferenceData({
       ...referenceData,
-      fullName,
-      company,
+      referantName,
+      designation,
       email,
-      mobileNumber,
-      dial_code:dial_code?dial_code:"+260"
+      organization,
     });
   }, [data]);
 
-//  console.log(3333,data)
+  const [toggleOn, setToggleOn] = useState(true);
+
+  const handleEditReference = (index) => {
+    const dataToEdit = data.reference[index];
+
+    if (dataToEdit) {
+      setView(true);
+      setReferenceData({ ...dataToEdit });
+      setIsModified({ status: true, index });
+    }
+  };
+
+  console.log(3333, data);
   return (
     <>
       <div
@@ -194,83 +202,76 @@ const Reference = ({ setData, data }) => {
         }}
       >
         <div className="w-full flex justify-between text-[20px] font-montserrat font-medium">
-          <p> Reference Details</p>
-         
-        </div>
-        <div className="grid grid-cols-2 gap-4">
-          {inputFields.map((item, index) => (
-            <div
-              className={`flex flex-col gap-2 w-full ${item.className}`}
-              key={index}
-            >
-              <div className=" text-[14px] font-montserrat  font-medium">
-                {item.label}
+          <p> References </p>
+          <div className=" flex flex-row w-[30%] justify-end items-end float-end ">
+            {toggleOn ? (
+              <div
+                onClick={() => {
+                  setToggleOn(false);
+                }}
+                className="w-[52px] h-[24px] p-[2px] g-[10px] rounded-[100px] border-[#06A9EF] border-[1px] bg-[#06A9EF]"
+              >
+                <div className="w-[20px] h-[20px] flex flex-col justify-end items-end float-end">
+                  <img
+                    className="w-full h-full"
+                    src="/images/check_circle.png"
+                  />
+                </div>
               </div>
-              {item.name == "mobileNumber" ? (
-                <div
-                  className={`border-[1px] rounded-[8px] ${
-                    formErrors[item.name]
-                      ? "border-[#C00000]"
-                      : "border-[#9D9D9D]"
-                  } `}
-                >
-                  <div
-                    className={`flex w-[100%] items-start "
-                          }`}
-                    id="single_input"
-                  >
-                    <div
-                      className={`relative 
-                            } items-center`}
-                    >
-                      <div className="  w-[100%] text-[14px] justify-center items-center  flex font-[500] text-[#646464]">
-                        <div className="flex items-center justify-center gap-2 cursor-pointer min-w-[160px] w-[100%]">
-                          <div className="flex items-center  gap-1 cursor-pointer  w-[100%] ">
-                            <ReactSelect
-                              options={filteredTelCode}
-                              className="w-[100%] flex  items-center py-1  rounded-[8px]"
-                              name=""
-                              placeholder="Select"
-                              value={selectedItem}
-                              onChange={handleItemClick}
-                              getOptionLabel={(option) => (
-                                <div className="flex items-center  ">
-                                  <img
-                                    src={`https://hatscripts.github.io/circle-flags/flags/${option.code.toLowerCase()}.svg`}
-                                    width="20px"
-                                  />
-                                  <span className="ml-2">
-                                    {option.code} {option.dial_code}
-                                  </span>
-                                </div>
-                              )}
-                              getOptionValue={(option) => option.code}
-                              styles={{
-                                control: (provided) => ({
-                                  ...provided,
-                                  border: "none",
+            ) : (
+              <div
+                onClick={() => {
+                  setToggleOn(true);
+                }}
+                className="w-[52px] h-[24px] p-[2px] g-[10px] rounded-[100px] border-[#646464] border-[1px] bg-[#FFFFFF]"
+              >
+                <div className="w-[20px] h-[20px] flex flex-col justify-start items-start float-start">
+                  <img className="w-full h-full" src="/images/cancel.png" />
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
 
-                                  minWidth: "130px",
-                                }),
-                              }}
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+        {!view &&
+          data?.reference?.length > 0 &&
+          data?.reference?.map((exp, index) => (
+            <div
+              key={index}
+              className="flex flex-col gap-1 p-2 rounded-[6px]  border break-all "
+              // ${
+              // editingIndex === index
+              // ? "border-[#06A9EF] border-[2px]"
+              // : "border-[#DEDEDE]"
+              // }`}
+            >
+              <div className="flex justify-between">
+                <p className="text-[14px]">{exp?.referantName}</p>
+                <p className="text-[14px]">{exp?.organization}</p>
 
-                    <input
-                      type={item.type}
-                      name={item.name}
-                      placeholder={item.placeholder}
-                      className="w-full text-[14px] font-montserrat font-small"
-                      value={referenceData[item.name]}
-                      onChange={handleInputChange}
-                      disabled={!isChecked}
-                    />
+                <div className="flex gap-2">
+                  <div onClick={() => handleEditReference(index)}>
+                    <Edit_icon />
+                  </div>
+                  <div onClick={() => handleDeleteReference(index)}>
+                    <Delete_icon />
                   </div>
                 </div>
-              ) : (
+              </div>
+              <p className="text-[12px]">{exp.email}</p>
+            </div>
+          ))}
+        {view && (
+          <div className="grid grid-cols-2 gap-4">
+            {inputFields.map((item, index) => (
+              <div
+                className={`flex flex-col gap-2 w-full ${item.className}`}
+                key={index}
+              >
+                <div className=" text-[14px] font-montserrat  font-medium">
+                  {item.label}
+                </div>
+
                 <div
                   className={`border-[1px] rounded-[8px] px-[16px] py-[12px] ${
                     formErrors[item.name]
@@ -288,22 +289,72 @@ const Reference = ({ setData, data }) => {
                     disabled={!isChecked}
                   />
                 </div>
-              )}
-              {formErrors[item.name] && (
-                <span className="text-[#C00000] text-[12px]">
-                  Field is required
-                </span>
-              )}
-            </div>
-          ))}
-        </div>
+
+                {formErrors[item.name] && (
+                  <span className="text-[#C00000] text-[12px]">
+                    Field is required
+                  </span>
+                )}
+              </div>
+            ))}
+          </div>
+        )}
+
+        {!view && (
+          <div
+            className="flex gap-1"
+            onClick={() => isChecked && setView(true)}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+            >
+              <g mask="url(#mask0_5716_136351)">
+                <path
+                  d="M11 13H5V11H11V5H13V11H19V13H13V19H11V13Z"
+                  fill="#06A9EF"
+                />
+              </g>
+            </svg>
+            <p
+              // onClick={() => setView(true)}
+              className="text-[16px] font-semibold text-[#06A9EF] cursor-pointer"
+              disabled={!isChecked}
+            >
+              Add Section
+            </p>
+          </div>
+        )}
+
         <div className="flex justify-end ">
           <div className="flex justify-between  py-2 gap-2">
             <button
+              className=" font-montserrat text-xs font-semibold px-[12px] rounded-[8px] border border-[#06A9EF] w-[80px] h-[32px]"
+              onClick={() => {
+                //   setExperienceData({
+                //     designation: "",
+                //     organization: "",
+                //     description: " ",
+                //     currentlyWorking: true,
+                //     location: "",
+                //     duration: {
+                //       start: { year: "Year", month: "Month" },
+                //       end: { year: "Year", month: "Month" },
+                //     },
+                //   });
+                //   setView(false);
+              }}
+            >
+              Cancel
+            </button>
+            <button
               className=" font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px]  bg-[#06A9EF] w-[60px] h-[32px]"
-            //   style={{ opacity: isDisabled() ? 0.5 : 1 }}
+              //   style={{ opacity: isDisabled() ? 0.5 : 1 }}
               onClick={saveData}
-            //   disabled={isDisabled() || !isChecked}
+              //   disabled={isDisabled() || !isChecked}
             >
               Save
             </button>
