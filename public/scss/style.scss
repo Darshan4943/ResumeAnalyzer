@@ -110,6 +110,14 @@ html {
     height: 272px !important;
   }
 }
+.resumes1{
+  .react-pdf__Page__canvas {
+    display: block !important;
+    user-select: none !important;
+    width: 292px !important;
+    height: 372px !important;
+  }
+}
 // .website{
 //   .react-pdf__Page__canvas {
 //     display: block !important;
