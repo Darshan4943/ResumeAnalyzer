@@ -381,7 +381,7 @@ function CandidateHeader() {
                   />
                 </svg>
 
-                Link
+                My Website
               </div>
             }
             <div
