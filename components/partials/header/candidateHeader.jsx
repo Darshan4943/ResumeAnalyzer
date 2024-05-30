@@ -381,6 +381,13 @@ function CandidateHeader() {
               </svg>
               Log Out
             </div>
+            <div
+              onClick={()=>router.push("/myWebsite")}
+              className=" flex gap-3 py-2 px-3 text-[#C00000] items-center"
+            >
+            
+              Link
+            </div>
           </div>
         )}
       </div>
