@@ -70,7 +70,7 @@ const [copy,setCopy] =useState(false)
     if (selectedIndexes) {
       try {
         const response = await axios.put(
-          `http://localhost:2000/api/candidate/selectResume`,
+          `https://jamblix.com/api/candidate/selectResume`,
           { selectedIndexes, selectedResumeUrl, _id: userDataGlobal._id }
         );
 
