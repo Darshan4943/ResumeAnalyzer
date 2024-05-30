@@ -361,7 +361,7 @@ function CandidateHeader() {
               </svg>
               My Purchase
             </div>
-            {userDataGlobal?.role == "user" &&
+            {/* {userDataGlobal?.role == "user" &&
               <div
                 onClick={() => router.push("/myWebsite")}
                 className=" flex gap-3 py-2 px-3  items-center"
@@ -383,7 +383,7 @@ function CandidateHeader() {
 
                 My Website
               </div>
-            }
+            } */}
             <div
               onClick={handleLogOut}
               className=" flex gap-3 py-2 px-3 text-[#C00000] items-center"
