@@ -18,6 +18,7 @@ function HeaderSidebar({
     "Skill Assessments",
     // "Search Jobs",
     "Chat Bot",
+    "My Website",
     "My Purchases",
   ];
   const loginListRecruiter = [
@@ -218,6 +219,10 @@ function HeaderSidebar({
                   ...getListItemStyles("/chatbot"),
                   transition: "transform 1.1s ease-in-out",
                 }),
+                ...(item === "My Website" && {
+                  ...getListItemStyles("/myWebsite"),
+                  transition: "transform 1.1s ease-in-out",
+                }),
                 ...(item === "My Purchases" && {
                   ...getListItemStyles("/purchase/MyPurchase"),
                   transition: "transform 1.2s ease-in-out",
@@ -237,7 +242,7 @@ function HeaderSidebar({
                   case "My Clients":
                     handleNavigation("/myClients");
                     break;
-                    case "Create New Resume":
+                  case "Create New Resume":
                     handleNavigation("/home/BuildResume");
                     break;
                   case "My Resumes":
@@ -253,8 +258,11 @@ function HeaderSidebar({
                   case "My Purchases":
                     handleNavigation("/purchase/MyPurchase");
                     break;
-                    case "Chat Bot":
+                  case "Chat Bot":
                     handleNavigation("/chatbot");
+                    break;
+                  case "My Website":
+                    handleNavigation("/myWebsite");
                     break;
                   case "My Collection":
                     handleNavigation("/collection");

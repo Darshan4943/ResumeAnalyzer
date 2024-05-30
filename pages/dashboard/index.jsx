@@ -83,7 +83,7 @@ function Dashboard() {
     },
 
     { name: "Chat Bot", imgSrc: "/images/resumeBuilder/bot1.png", new: "New" },
-    // { name: "My Website", imgSrc: "/images/resumeBuilder/bot1.png", },
+    { name: "My Website", imgSrc: "/images/resumeBuilder/website.png",new: "New" },
     // { name: "Search Jobs", imgSrc: "/images/resumeBuilder/job.png" },
     { name: "My Purchases", imgSrc: "/images/resumeBuilder/my_purchases.png" },
   ];
