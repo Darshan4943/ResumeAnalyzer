@@ -222,7 +222,11 @@ const CandidateAiPower = ({
   }, [count]);
 
   const fileIconSeter = (data) => {
-    if (data.name.includes("docx") || data.name.includes("doc")||data.name.includes("DOC") ) {
+    if (
+      data.name.includes("docx") ||
+      data.name.includes("doc") ||
+      data.name.includes("DOC")
+    ) {
       return <DocSVG />;
     } else if (data.name.includes("pdf") || data.name.includes("PDF")) {
       return <PDFSvg />;
