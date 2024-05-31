@@ -20,6 +20,7 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
   });
   const [googleLoading, setGoogleLoading] = useState(false);
   const auth = getAuth();
+
   const handleGoogle = async () => {
     const provider = new GoogleAuthProvider();
     try {
@@ -66,7 +67,7 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
   useEffect(() => {
     console.log(66, Object.keys(userDataGlobal).length > 0);
     if (Object.keys(userDataGlobal).length > 0) {
-      window.location.href = `/home`;
+      window.location.href = "/home?signIn=false";
     }
   }, [userDataGlobal]);
 
