@@ -5,7 +5,6 @@ import { camelCase } from "../../utils/middleware";
 import Summery from "../../components/featured/candidate/createResume/components/summery";
 import { useRouter } from "next/router";
 import { plans, templates } from "../../utils/data";
-
 import axios from "axios";
 import { useRef } from "react";
 
@@ -255,6 +254,7 @@ function Dashboard() {
     }
     return false;
   }
+
 
   return (
     <div className="customMargins flex flex-col gap-12 py-6 min-h-[70vh]">

@@ -85,7 +85,7 @@ function HeaderSidebar({
   };
 
   return (
-    <div className=" h-[114vh] flex flex-col  pt-[3.5rem] relative overflow-y-auto ">
+    <div className="  flex flex-col  pt-[3.5rem] relative overflow-y-auto ">
       <div className="sticky top-0">
         <div
           style={{
@@ -124,7 +124,6 @@ function HeaderSidebar({
             </svg>
           </div>
         </div>
-
         <div className="flex flex-col" style={{ listStyle: "none" }}>
           {isLogin && (
             <div
@@ -164,7 +163,6 @@ function HeaderSidebar({
               style={{
                 opacity: visible ? 1 : 0,
                 transform: visible ? "translateX(0)" : "translateX(-100%)",
-
                 ...(item === "Candidate" && {
                   ...getListItemStyles("/"),
                   transition: "transform 0.7s ease-in-out",
@@ -185,7 +183,6 @@ function HeaderSidebar({
                   ...getListItemStyles("/home/BuildResume"),
                   transition: "transform 0.8s ease-in-out",
                 }),
-
                 ...(item === "My Resumes" && {
                   ...getListItemStyles("/home/MyCollection"),
                   transition: "transform 0.8s ease-in-out",
