@@ -222,7 +222,11 @@ const CandidateAiPower = ({
   }, [count]);
 
   const fileIconSeter = (data) => {
-    if (data.name.includes("docx") || data.name.includes("doc")||data.name.includes("DOC") ) {
+    if (
+      data.name.includes("docx") ||
+      data.name.includes("doc") ||
+      data.name.includes("DOC")
+    ) {
       return <DocSVG />;
     } else if (data.name.includes("pdf") || data.name.includes("PDF")) {
       return <PDFSvg />;
@@ -261,7 +265,7 @@ const CandidateAiPower = ({
         <>
           <div className="flex justify-center items-center  relative pb-8 ">
             <div
-              className="flex flex-col gap-[36px] p-[24px] justify-center items-center rounded-[12px] ml:w-[38.33%] w-[90%] shadow_of_box ml:min-w-[500px]  "
+              className="flex flex-col gap-[36px] p-[16px] justify-center items-center rounded-[12px] ml:w-[38.33%] w-[90%] shadow_of_box ml:min-w-[500px]  "
               style={{
                 borderRadius: "12px",
                 background: "#FFF",

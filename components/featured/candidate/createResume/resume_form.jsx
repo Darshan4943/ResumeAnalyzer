@@ -186,7 +186,7 @@ const ResumeForm = ({
         <Skills setData={setData} data={data} />
         <div className="border-b border-r border-l border-[#DEDEDE]"></div>
 
-        {/* {customOptions["Custom Section"] && (
+        {customOptions["Custom Section"] && (
           <>
             <CustomSection setData={setData} data={data} />
             <div className="border-b border-r border-l border-[#DEDEDE]"></div>
@@ -237,14 +237,14 @@ const ResumeForm = ({
             <Reference setData={setData} data={data} />
             <div className="border-b border-r border-l border-[#DEDEDE]"></div>
           </>
-        )} */}
+        )}
 
-        {/* <AddNewSectionContainer
+        <AddNewSectionContainer
           setData={setData}
           data={data}
           customOptions={customOptions}
           setCustomOptions={setCustomOptions}
-        /> */}
+        />
 
         {/* <Achievement setData={setData} data={data} /> */}
 

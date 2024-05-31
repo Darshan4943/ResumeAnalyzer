@@ -4,33 +4,48 @@ import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { formatDate } from "../../utils/middleware";
+import Docxtemplater from "docxtemplater";
+import PizZip from "pizzip";
+import { pdfjs } from "react-pdf";
+import FileError from "../../components/models/fileError";
+import mammoth from "mammoth";
 
-const Temp = ({ data,setParentCount,parentCount }) => {
+pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
+
+const Temp = ({ data, setParentCount, parentCount }) => {
   const [count, setCount] = useState(0);
   useEffect(() => {
     const timeout = setTimeout(() => {
       if (count != data.length) {
         setCount(count + 1);
       }
-      // if()
-    }, 150);
+      if (count == data.length) {
+        setParentCount(parentCount + 1);
+      }
+    }, 2);
     return clearTimeout(() => timeout());
   }, [count]);
   return <>{data.slice(0, count)}</>;
 };
-const ParentTemp = ({ answer }) => {
-  const [count, setCount] = useState(0);
-  const formatData = (data) => {
-    return data?.split("\n");
-  };
-  return formatData(answer)?.map((item, index) => (
-    <div className="w-full py-1 text-[14px]" key={index}>
-      {
-        item
-      }
-      {/* <Temp data={item} setParentCount={setCount} parentCount={count} /> */}
-    </div>
-  ));
+const formatData = (data) => {
+  return data?.split("\n");
+};
+const ParentTemp = ({ answer, i, chat }) => {
+  const [count, setCount] = useState(1);
+
+  return chat.length - 1 == i
+    ? formatData(answer)
+        ?.slice(0, count)
+        ?.map((item, index) => (
+          <div className="w-full py-1 text-[14px]" key={index}>
+            <Temp data={item} setParentCount={setCount} parentCount={count} />
+          </div>
+        ))
+    : formatData(answer)?.map((item, index) => (
+        <div className="w-full py-1 text-[14px]" key={index}>
+          {item}
+        </div>
+      ));
 };
 
 const ChatBox = ({
@@ -50,11 +65,21 @@ const ChatBox = ({
   const [chat, setChat] = useState([]);
   const [text, setText] = useState("");
   const [loading, setLoading] = useState(false);
-
+  const divRef = useRef(null);
+  const [file, setFile] = useState(null);
+  const [extractedData, setExtractedData] = useState(null);
   const chatEndRef = useRef(null);
+  const [img, setImg] = useState(null);
+  const [errorModel, setError] = useState(false);
   const submitHandler = (e) => {
     e.preventDefault();
     if (text?.length > 5) {
+      const obj = {
+        question: text,
+        lastQuestion: chat.slice(chat.length - 5, chat.length),
+        img,
+        extractedData,
+      };
       setLoading(true);
       axios
         .post("https://jamblix.com/api/qna", {
@@ -99,11 +124,131 @@ const ChatBox = ({
       setChat(data[selectedChat]);
     }
   }, [selectedChat, recall]);
-  const formatData = (data) => {
-    return data?.split("\n");
+
+  const fileToText = (file, pageNumber) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = function (event) {
+        const typedarray = new Uint8Array(event.target.result);
+        pdfjs.getDocument(typedarray).promise.then(function (pdf) {
+          try {
+            pdf.getPage(pageNumber).then(function (page) {
+              page.getTextContent().then(function (textContent) {
+                const textItems = textContent.items.map((item) => item.str);
+                resolve(textItems.join(" "));
+              });
+            });
+          } catch (err) {
+            reject(err);
+            return;
+          }
+        });
+      };
+      reader.readAsArrayBuffer(file);
+    });
   };
+  const extracteText = async (file) => {
+    return new Promise(async (resolve, reject) => {
+      let textData = "";
+      if (
+        file?.type ==
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+      ) {
+        const reader = new FileReader();
+        reader.onload = async (e) => {
+          const content = e.target.result;
+          var doc = new Docxtemplater(new PizZip(content), {
+            delimiters: {
+              start: "12op1j2po1j2poj1po",
+              end: "op21j4po21jp4oj1op24j",
+            },
+          });
+          var text = doc.getFullText();
+          textData = text;
+        };
+        reader.readAsBinaryString(file);
+      }
+      // else if (file?.type == "application/msword") {
+      //   const formData = new FormData();
+      //   formData.append("file", file);
+      //   try {
+      //     const response = await axios.post(
+      //       "http://localhost:2000/convert",
+      //       formData,
+      //       {
+      //         responseType: "blob",
+      //       }
+      //     );
+      //     const blob = new Blob([response.data], {
+      //       type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      //     });
+      //     const arrayBuffer = await blob.arrayBuffer();
+
+      //     const { value } = await mammoth.extractRawText({ arrayBuffer });
+      //     console.log(123, value);
+      //   } catch (err) {
+      //     setError(123, "Error processing the file.");
+      //   }
+      // }
+      else if (file?.type == "application/pdf") {
+        let fullText = "";
+        const pdfTextPromises = [];
+        const fileUrl = URL.createObjectURL(file);
+
+        const loadingTask = pdfjs.getDocument(fileUrl);
+        const pdf = await loadingTask.promise;
+
+        for (let i = 1; i <= pdf.numPages; i++) {
+          pdfTextPromises.push(fileToText(file, i));
+        }
+        Promise.all(pdfTextPromises)
+          .then(async (texts) => {
+            fullText = texts.join("");
+            textData = fullText;
+          })
+          .catch((err) => {
+            reject(err);
+            return;
+          });
+      }
+      setTimeout(() => {
+        resolve(textData);
+      }, 1000);
+    });
+  };
+  const handleFile = (e) => {
+    const file = e.target.files[0];
+    if (file?.type == "image/png" || file?.type == "image/jpeg") {
+      const formData = new FormData();
+      formData.append("img", file);
+      axios
+        .post("http://localhost:2000/api/getImageUrl", formData)
+        .then((res) => {
+          if (res.data.success) {
+            setImg(res.data.location);
+          } else {
+            toast.error("Something went wrong while uploading image");
+          }
+        })
+        .catch((err) => {
+          toast.error("Something went wrong while uploading image");
+        });
+    } else {
+      extracteText(file).then((textData) => {
+        const text = textData ? textData : "";
+        if (text.length > 10) {
+          setFile(file);
+          setExtractedData(text);
+        } else {
+          setError(true);
+        }
+      });
+    }
+  };
+
   return (
     <>
+      {errorModel && <FileError setError={setError} />}
       <div className=" justify-center items-center flex w-[100%] relative flex-row bg-[#fff] ">
         {isSidebarOpen && (
           <div className="w-[80px] ml:flex  hidden flex-col gap-6 px-2 py-4 items-center h-screen bg-[#FBFBFB]">
@@ -143,6 +288,7 @@ const ChatBox = ({
             </div>
           </div>
         )}
+
         <button
           className={`absolute ${
             isSidebarOpen ? "ml:left-[75px]" : "ml:left-[0px]"
@@ -158,11 +304,12 @@ const ChatBox = ({
           />
         </button>
 
-        <div className=" ml:w-[100%] w-[100%] flex items-center justify-between flex-col min-h-[80vh]">
+        <div className=" ml:w-[100%] w-[100%] flex items-center justify-between flex-col h-[vh]">
           {chat?.length > 0 ? (
             <div
               style={{ scrollbarWidth: "none" }}
-              className="flex flex-col gap-[16px] scr1150:w-[60%] w-[70%] h-[70vh] overflow-y-auto  "
+              className="flex flex-col gap-[16px] scr1150:w-[60%] w-[70%] h-[84vh] overflow-y-auto  "
+              ref={divRef}
             >
               {chat?.map((item, index) => {
                 return (
@@ -189,8 +336,12 @@ const ChatBox = ({
                           src={"/images/Robot.png"}
                         />
                       </div>
-                      <div className="rounded-[8px] w-full px-[16px] py-[8px] bg-[#fff]">
-                        <ParentTemp answer={item.answer} />
+                      <div className="rounded-[8px] w-full px-[16px] py-[0px] bg-[#fff]">
+                        <ParentTemp
+                          answer={item.answer}
+                          i={index}
+                          chat={chat}
+                        />
                         {/* <div
                           style={{ background: "#fff", padding: "8px" }}
                           className="chat text-[14px] font-[400] "
@@ -258,11 +409,23 @@ const ChatBox = ({
             >
               <div className="gap-1 flex w-full items-center pl-2">
                 {/* <div className="w-[44px] h-[32px]">
-                  <img
-                    src="/images/resumeBuilder/add.png"
-                    alt=""
-                    className="w-full h-full"
-                  />
+                  <div class="file-input">
+                    <input
+                      type="file"
+                      id="file"
+                      class="file"
+                      onChange={(e) => {
+                        handleFile(e);
+                      }}
+                    />
+                    <label for="file">
+                      <img
+                        src="/images/resumeBuilder/add.png"
+                        alt=""
+                        className="w-full h-full"
+                      />
+                    </label>
+                  </div>
                 </div> */}
                 <input
                   type="text"

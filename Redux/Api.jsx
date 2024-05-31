@@ -64,6 +64,7 @@ export const Api = () => {
   useEffect(() => {
     if (typeof window !== "undefined") {
       const token = JSON.parse(localStorage.getItem("authToken"));
+      
       if (token && token != "undefined") {
         const decoded = jwtDecode(token.token);
         axios
