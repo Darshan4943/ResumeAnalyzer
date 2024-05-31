@@ -128,6 +128,8 @@ function HeaderSidebar({
         <div className="flex flex-col" style={{ listStyle: "none" }}>
           {isLogin && (
             <div
+            onClick={() =>
+               router.push("/profile")}
               style={{
                 opacity: visible ? 1 : 0,
                 transform: visible ? "translateX(0)" : "translateX(-100%)",
