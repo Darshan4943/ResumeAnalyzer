@@ -326,8 +326,8 @@ const Skills = ({ data, setData }) => {
                 key={index}
                 className="flex w-full scr420:gap-4 gap-1 scr420:flex-row flex-col justify-between"
               >
-                <div className="flex w-[50%] gap-1 px-3 py-2 border border-[#06A9EF] overflow-hidden rounded-[24px] justify-between items-center">
-                  <p className="text-[14px] flex-wrap w-[45%] brack-all w-full font-medium">
+                <div className="flex scr420:w-[50%] w-full gap-1 px-3 py-2 border border-[#06A9EF] overflow-hidden rounded-[24px] justify-between items-center">
+                  <p className="text-[14px] flex-wrap  brack-all w-full font-medium">
                     {skill?.skill}
                   </p>
                   <div className="" onClick={() => deleteSkill(index)}>

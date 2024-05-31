@@ -413,7 +413,7 @@ function GenerateAi() {
                 <button
                   onClick={generateText}
                   disabled={attempt <= 0}
-                  className={` justify-between scr1300:min-w-[162px] scr1100:min-w-[145px]  scr1024:min-w-[135px] lg:min-w-[120px]  scr930:min-w-[115px]  scr900:min-w-[110px]  ml:min-w-[100px] min-w-[120px] relative flex gap-1 py-2 border items-center border-[#06A9EF] ${
+                  className={` gap-[10px] scr1300:min-w-[162px] scr1100:min-w-[145px]  scr1024:min-w-[135px] lg:min-w-[120px]  scr930:min-w-[115px]  scr900:min-w-[110px]  ml:min-w-[100px] min-w-[120px] relative flex  py-2 border items-center border-[#06A9EF] ${
                     stars && "bg-[#06A9EF]"
                   } px-2  rounded-[8px]  ${
                     attempt <= 0 && " cursor-not-allowed"
@@ -443,7 +443,7 @@ function GenerateAi() {
                   )}
 
                   <p
-                    className={` text-[12px] font-semibold  ${
+                    className={`  scr1200:text-[11px] text-[9px] font-semibold  ${
                       stars && "text-white"
                     }`}
                   >
