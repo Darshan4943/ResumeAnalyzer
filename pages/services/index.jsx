@@ -46,8 +46,15 @@ function Services({ isServices, isMove, setIsMove }) {
     {
       name: "Chat Bot",
       imgSrc: "/images/resumeBuilder/bot1.png",
-      desc: "Save multiple resumes with multiple clients in cloud storage.",
+      desc: "Ask for anything and generate fast responses with our bot.",
       color: "#7994D8",
+      new: "New",
+    },
+    {
+      name: "My Website",
+      imgSrc: "/images/resumeBuilder/website.png",
+      desc: "Generate link to your profile preview to be seen anywhere.",
+      color: "#FD3A84",
       new: "New",
     },
     // {
@@ -153,8 +160,10 @@ function Services({ isServices, isMove, setIsMove }) {
         return "searchJobs";
       case "Post Jobs":
         return "postJobs";
-        case "Chat Bot":
+      case "Chat Bot":
         return "chatBot";
+      case "My Website":
+        return "myWebsite";
       default:
         return "";
     }
@@ -190,9 +199,12 @@ function Services({ isServices, isMove, setIsMove }) {
       case "Skill Assessments":
         handleNavigation("/home/SkillAssessment");
         break;
-        case "Chat Bot":
-          handleNavigation("/chatbot");
-          break;
+      case "Chat Bot":
+        handleNavigation("/chatbot");
+        break;
+      case "My Website":
+        handleNavigation("/myWebsite");
+        break;
       case "Search Jobs":
       case "Post Jobs":
         handleNavigation(
@@ -204,13 +216,13 @@ function Services({ isServices, isMove, setIsMove }) {
     }
   }
 
-  return ( 
+  return (
     <div className="fixed z-[2000] top-[57px] left-0 right-0 bottom-0 flex  justify-center w-full bg-[#FFF]  overflow-y-auto  ">
       <div className=" py-10  w-full  overflow-y-auto">
         <div
           className={`scr1400:px-[4%] flex gap-9 justify-center w-full transform transition-transform  ease-in-out ${isMove
-              ? "translate-y-0  opacity-100"
-              : "translate-y-[30px] opacity-0 move"
+            ? "translate-y-0  opacity-100"
+            : "translate-y-[30px] opacity-0 move"
             }`}
           style={{ transition: " all .2s linear" }}
         >
@@ -319,8 +331,8 @@ function Services({ isServices, isMove, setIsMove }) {
                 >
                   <div
                     className={`flex items-start gap-[20px] p-4  ${visible !== index
-                        ? "border border-[#DEDEDE]"
-                        : "border border-[#FFF]"
+                      ? "border border-[#DEDEDE]"
+                      : "border border-[#FFF]"
                       } rounded-[16px] cursor-pointer w-[359.33px] `}
                   >
                     <div className="flex items-center gap-3">
