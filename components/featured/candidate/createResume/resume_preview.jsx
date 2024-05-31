@@ -511,7 +511,7 @@ const ResumePreview = ({
         onClick={() => generatePDFBlob()}
         disabled={saveDisabled}
         style={{ opacity: saveDisabled ? "0.5" : 1 }}
-        className=" hover:bg-[#06A9EF] hover:text-[white] flex gap-1 text-[14px] sm:w-[150px]  justify-center  font-montserrat font-semibold px-3 py-2 rounded-[8px] items-center border border-[#06A9EF] "
+        className=" hover:bg-[#06A9EF] hover:text-[white] flex gap-1 text-[14px]  sm:w-[150px]  justify-center  font-montserrat font-semibold px-3 py-2 rounded-[8px] items-center border border-[#06A9EF] "
       >
         {loading ? (
           <svg
@@ -606,7 +606,7 @@ const ResumePreview = ({
           <div className="flex justify-between  scr1024:gap-4 gap-2 ">
             <div className="flex items-center justify-between ml:w-[58%] w-full gap-4 ">
               <div
-                className=" text-[14px] scr340:text-[20px] font-montserrat font-medium flex gap-3 items-center cursor-pointer "
+                className=" text-[14px] scr460:text-[20px] font-montserrat font-medium flex gap-3 items-center cursor-pointer "
                 onClick={() => setNamePreview(true)}
               >
                 <p>{name}</p>
