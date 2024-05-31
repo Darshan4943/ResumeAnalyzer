@@ -82,7 +82,10 @@ const ChatBox = ({
       };
       setLoading(true);
       axios
-        .post("http://localhost:2000/api/qna", obj)
+        .post("https://jamblix.com/api/qna", {
+          question: text,
+          lastQuestion: chat.slice(chat.length - 5, chat.length),
+        })
         .then((res) => {
           const answer = res.data.data;
           const dummyData = { ...existingChat };

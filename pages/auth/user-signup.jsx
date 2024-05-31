@@ -69,7 +69,7 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
       window.location.href = `/home`;
     }
   }, [userDataGlobal]);
-  console.log(66, userDataGlobal);
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [passwordError, setPasswordError] = useState(null);
@@ -91,11 +91,13 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
 
   const submitHandler = (e) => {
     e.preventDefault();
+    
 
     if (data.password !== data.confirmPassword) {
-      setError("Passwords do not match");
+      setConfirmPasswordError("Passwords do not match");
       return;
     }
+
     const sendToPurchase = JSON.parse(localStorage.getItem("purchase"));
 
     const dataToSend = {
@@ -156,7 +158,7 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
 
   function validatePassword(password) {
     const strongPasswordRegex =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{4,}$/;
     return strongPasswordRegex.test(password);
   }
 
@@ -166,7 +168,7 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
       setPasswordError(null);
     } else {
       setPasswordError(
-        "one uppercase one lowercase one number and one special character"
+        "one uppercase letter, lowercase letter, number, and special character."
       );
     }
     setData({ ...data, password: e.target.value });
@@ -174,15 +176,16 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
   };
 
   const handleConfirmPasswordChange = (e) => {
-    const result = validatePassword(e.target.value);
-    if (result) {
-      setConfirmPasswordError(null);
+    const confirmPassword = e.target.value;
+    setData({ ...data, confirmPassword });
+    if (data.password !== confirmPassword) {
+      setConfirmPasswordError("Passwords do not match.");
     } else {
-      setConfirmPasswordError("Passwords do not match");
+      setConfirmPasswordError(null);
     }
-    setData({ ...data, confirmPassword: e.target.value });
     clearError();
-  };
+};
+
 
   return (
     <div className="flex justify-center items-center py-12 pl-[8px] pr-[8px]">
@@ -260,7 +263,7 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
               {passwordError != null && (
                 <div className="text-black flex flex-row">
                   <span className="p-0">
-                    Password should include{" "}
+                    Password must contain{" "}
                     <span className="text-red">{passwordError}</span>
                   </span>
                 </div>
@@ -268,6 +271,7 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
             </div>
             <div className="flex flex-row px-[16px] py-[12px] border-[1px] rounded-[8px] border-solid border-[#9D9D9D] justify-between">
               <input
+              disabled={passwordError}
                 type={showConfirmPassword ? "text" : "password"}
                 name=""
                 id=""
@@ -343,7 +347,7 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
         </div>
         <div className="w-full flex flex-col gap-[16px]">
           <button
-            disabled={!isEmailEntered}
+            disabled={(!isEmailEntered || passwordError)}
             className="w-full px-[36px] py-[12px] rounded-[12px] border-[1px] border-solid border-[#06a9ef]  text-[20px] font-[500] hover:bg-[#06a9ef] hover:text-[#fff] transition-all duration-200"
             style={{
               borderColor: "#06a9ef",

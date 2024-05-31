@@ -15,6 +15,7 @@ import moment from "moment";
 import { recallUser } from "./reducers/userReducer";
 import LocationEnablePopup from "../components/models/locationEnablePopup";
 import { io } from "socket.io-client";
+import { setPageClosed, setPageOpened } from "./actions/website";
 
 const ENDPOINT = "https://jamblix.com"; // Replace with your backend WebSocket server URL
 
@@ -47,8 +48,9 @@ export const Api = () => {
 
   // console.log(25,timezone)
   const reCallUser = useSelector((state) => state.reCallUser);
-
+  dispatch(setPageClosed());
   useEffect(() => {
+  
     if (userDataGlobal?.tempPassword?.length > 0) {
       const timer = setTimeout(() => {
         setLoading(false);
@@ -62,6 +64,7 @@ export const Api = () => {
   useEffect(() => {
     if (typeof window !== "undefined") {
       const token = JSON.parse(localStorage.getItem("authToken"));
+      
       if (token && token != "undefined") {
         const decoded = jwtDecode(token.token);
         axios

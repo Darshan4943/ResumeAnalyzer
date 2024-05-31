@@ -14,15 +14,18 @@ const customToastStyles = `
   }
 `;
 import CandidateMobileHeader from "./partials/header/candidateMobileHeader";
+import { useSelector } from "react-redux";
 
 function Layout({ children }) {
   const router = useRouter();
   const [selectedPage, setSelectedPage] = useState("");
-
+  const pageOpened = useSelector((state) => state?.pageState?.pageOpened);
+  
   useEffect(() => {
     setSelectedPage(router.pathname);
   }, [router.pathname]);
 
+  console.log(27,pageOpened)
   const Temp = () => (
     <>
       <div className="mobile">
@@ -33,9 +36,11 @@ function Layout({ children }) {
       </div>
 
       <div className="web">
+        {!pageOpened &&
         <div>
           <Header />
         </div>
+}
         <div className="pt-[3.5rem] ">{children}</div>
       </div>
     </>
