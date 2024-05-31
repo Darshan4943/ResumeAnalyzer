@@ -173,7 +173,7 @@ const ChatBox = ({
       //   formData.append("file", file);
       //   try {
       //     const response = await axios.post(
-      //       "http://localhost:2000/convert",
+      //       "https://jamblix.com/convert",
       //       formData,
       //       {
       //         responseType: "blob",
@@ -222,7 +222,7 @@ const ChatBox = ({
       const formData = new FormData();
       formData.append("img", file);
       axios
-        .post("http://localhost:2000/api/getImageUrl", formData)
+        .post("https://jamblix.com/api/getImageUrl", formData)
         .then((res) => {
           if (res.data.success) {
             setImg(res.data.location);

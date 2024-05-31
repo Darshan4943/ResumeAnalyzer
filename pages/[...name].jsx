@@ -8,35 +8,75 @@ import { jwtDecode } from "jwt-decode";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
 
-const PdfViewer1 = ({ pdfUrl, onDownloadClick }) => {
+const PdfViewer1 = ({ pdfUrl, onDownloadClick ,loadingg,setLoadingg}) => {
   const [numPages, setNumPages] = useState();
+
 
   const onDocumentLoadSuccess = ({ numPages }) => {
     setNumPages(numPages);
+    setTimeout(() => {
+      setLoadingg(false);
+    }, 1000);
   };
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     setLoadingg(false);
+  //   }, 3000);
+  // }, [])
+
 
   return (
     <>
+
       <div
         style={{ boxShadow: "0px 2px 10px 1px #00000040" }}
-        className="w-[600px] h-[80vh] shadow-md rounded-lg overflow-y-auto web600 "
+        className={`w-[600px] h-[80vh] shadow-md rounded-lg ${!loadingg && "overflow-y-auto"} web600 overflow-hidden `}
         onClick={onDownloadClick}
       >
+
+        {loadingg &&
+          <div className="skeleton-loader1  ">
+            <div className="skeleton-image1"></div>
+            <div className="skeleton-text1">
+              <div className="skeleton-title1"></div>
+              <div className="skeleton-subtitle1"></div>
+              <div className="skeleton-line1"></div>
+              <div className="skeleton-line1 short"></div>
+              <div className="skeleton-line1 shorter"></div>
+            </div>
+          </div>
+        }
+
         <Document file={pdfUrl} onLoadSuccess={onDocumentLoadSuccess}>
-          {Array.from(new Array(numPages), (el, index) => (
-            <Page key={`page_${index + 1}`} pageNumber={index + 1} />
-          ))}
+          {!loadingg &&
+            Array.from(new Array(numPages), (el, index) => (
+              <Page key={`page_${index + 1}`} pageNumber={index + 1} />
+            ))}
         </Document>
+
       </div>
       <div
         style={{ boxShadow: "0px 2px 10px 1px #00000040" }}
-        className="w-[292px] h-[380px] shadow-md rounded-lg overflow-y-auto resumes1 mobile600 "
+        className={`w-[292px] h-[380px] shadow-md rounded-lg ${!loadingg && "overflow-y-auto"} resumes1 mobile600 overflow-hidden `}
         onClick={onDownloadClick}
       >
+        {loadingg &&
+          <div className="skeleton-loader">
+            <div className="skeleton-image"></div>
+            <div className="skeleton-text">
+              <div className="skeleton-title"></div>
+              <div className="skeleton-subtitle"></div>
+              <div className="skeleton-line"></div>
+              <div className="skeleton-line short"></div>
+              <div className="skeleton-line shorter"></div>
+            </div>
+          </div>
+        }
         <Document file={pdfUrl} onLoadSuccess={onDocumentLoadSuccess}>
-          {Array.from(new Array(numPages), (el, index) => (
-            <Page key={`page_${index + 1}`} pageNumber={index + 1} />
-          ))}
+          {!loadingg &&
+            Array.from(new Array(numPages), (el, index) => (
+              <Page key={`page_${index + 1}`} pageNumber={index + 1} />
+            ))}
         </Document>
       </div>
     </>
@@ -47,7 +87,7 @@ const Name = () => {
   const { name } = router.query;
   const [userId] = Array.isArray(name) ? name : [name];
 
-
+  const [loadingg, setLoadingg] = useState(true);
 
   const dispatch = useDispatch();
   const [selectedResume, setSelectedResume] = useState()
@@ -114,12 +154,16 @@ const Name = () => {
 
       </div>
       <div className="flex  flex-col gap-4  items-center  my-12 website">
-      <div className="text-[16px] text-gray-800 font-medium mobile600">
+        {!loadingg &&
+          <div className="text-[16px] text-gray-800 font-medium mobile600">
+
             {selectedResume?.resumeName?.length > 22
               ? `${selectedResume?.resumeName?.slice(0, 21)}...`
               : selectedResume?.resumeName}
+
           </div>
-        <PdfViewer1 pdfUrl={selectedResume?.resumeUrl} onDownloadClick={handleDownloadClick} />
+        }
+        <PdfViewer1 pdfUrl={selectedResume?.resumeUrl} onDownloadClick={handleDownloadClick} loadingg={loadingg} setLoadingg={setLoadingg} />
       </div>
     </>
   );
