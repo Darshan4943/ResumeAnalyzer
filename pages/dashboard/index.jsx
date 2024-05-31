@@ -83,6 +83,7 @@ function Dashboard() {
     },
 
     { name: "Chat Bot", imgSrc: "/images/resumeBuilder/bot1.png", new: "New" },
+    { name: "My Website", imgSrc: "/images/resumeBuilder/website.png",new: "New" },
     // { name: "Search Jobs", imgSrc: "/images/resumeBuilder/job.png" },
     { name: "My Purchases", imgSrc: "/images/resumeBuilder/my_purchases.png" },
   ];
@@ -139,6 +140,9 @@ function Dashboard() {
         break;
       case "My Purchases":
         handleNavigation("/purchase/MyPurchase");
+        break;
+         case "My Website":
+        handleNavigation("/myWebsite");
         break;
       case "Chat Bot":
         handleNavigation("/chatbot");
@@ -384,7 +388,7 @@ function Dashboard() {
           <div
             key={index}
             className={
-              "job-card relative scr460:w-[162.67px] w-[104px] scr460:h-[154px] h-[125px] scr460:p-4 p-3 cursor-pointer flex flex-col items-center scr420:gap-3 gap-2 justify-center text-center"
+              "job-card relative scr460:w-[162.67px] w-[104px] scr460:h-[154px] h-[114px] scr460:p-4 p-3 cursor-pointer flex flex-col items-center scr420:gap-3 gap-2 justify-center text-center"
             }
             onClick={() => handleItemClick(item.name)}
           >
