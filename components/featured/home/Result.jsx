@@ -26,9 +26,9 @@ const Result = ({ questions, answers, selectedSkill, checkAnswer }) => {
         <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 20}}>
 
           <Image style={{ height: 30 }} src="/images/logo_skilotech.png" />
-          <View style={{ flexDirection: 'row', alignItems: 'start',width:"60%" ,}}>
+          <View style={{ flexDirection: 'row', alignItems: 'start',width:"60%" }}>
             <Image style={{ height: 25, width: 25 }} src="/images/light.png" />
-            <Text style={{ fontSize: 16, fontFamily: 'Montserrat 600', marginLeft: 11,flexWrap:"wrap" ,flexDirection: 'row', alignItems: 'center',width:"80%",textAlign:"center"}}>
+            <Text style={{ fontSize: 16, fontFamily: 'Montserrat 600', marginLeft: 11,flexWrap:"wrap" ,flexDirection: 'row', alignItems: 'center',width:"100%",marginTop: 5 }}>
               {camelCase(selectedSkill)} Assessment
             </Text>
           </View>
