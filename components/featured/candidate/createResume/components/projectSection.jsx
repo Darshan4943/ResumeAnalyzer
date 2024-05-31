@@ -19,7 +19,8 @@ const ProjectSection = ({ data, setData }) => {
   const [projectData, setProjectData] = useState({
     title: "",
     organization: "",
-    description: " ",
+    description: "",
+    currentlyWorking: true,
 
     duration: {
       start: { year: "Year", month: "Month" },
@@ -72,7 +73,8 @@ const ProjectSection = ({ data, setData }) => {
       setProjectData({
         title: "",
         organization: "",
-        description: " ",
+        description: "",
+        currentlyWorking: true,
 
         duration: {
           start: { year: "Year", month: "Month" },
@@ -137,31 +139,14 @@ const ProjectSection = ({ data, setData }) => {
     >
       <div className="w-full flex justify-between text-[20px] font-montserrat font-medium">
         <p> Internships & Projects</p>
-        <div className=" flex flex-row w-[30%] justify-end items-end float-end ">
-          {toggleOn ? (
-            <div
-              onClick={() => {
-                setToggleOn(false);
-              }}
-              className="w-[52px] h-[24px] p-[2px] g-[10px] rounded-[100px] border-[#06A9EF] border-[1px] bg-[#06A9EF]"
-            >
-              <div className="w-[20px] h-[20px] flex flex-col justify-end items-end float-end">
-                <img className="w-full h-full" src="/images/check_circle.png" />
-              </div>
-            </div>
-          ) : (
-            <div
-              onClick={() => {
-                setToggleOn(true);
-              }}
-              className="w-[52px] h-[24px] p-[2px] g-[10px] rounded-[100px] border-[#646464] border-[1px] bg-[#FFFFFF]"
-            >
-              <div className="w-[20px] h-[20px] flex flex-col justify-start items-start float-start">
-                <img className="w-full h-full" src="/images/cancel.png" />
-              </div>
-            </div>
-          )}
-        </div>
+        <label className="switch">
+          <input
+            type="checkbox"
+            checked={isChecked}
+            onChange={handleSwitchChange}
+          />
+          <span className="slider round"></span>
+        </label>
       </div>
 
       {!view &&
@@ -169,16 +154,14 @@ const ProjectSection = ({ data, setData }) => {
         data?.project?.map((exp, index) => (
           <div
             key={index}
-            className="flex flex-col gap-1 p-2 rounded-[6px]  border break-all "
+            className={`flex flex-col gap-1 py-[12px] px-[16px] rounded-[6px]  border break-all ${
+              editingIndex === index
+                ? "border-[#06A9EF] border-[2px]"
+                : "border-[#DEDEDE]"
+            }`}
           >
             <div className="flex justify-between">
-              <p className="text-[14px]">
-                {exp?.organization}{" "}
-                {exp?.duration?.start?.year !== "Year" &&
-                  ` ${"|"} ${exp.duration?.start?.year} 
-              ${exp?.duration?.start?.year && "-"}
-              ${exp?.currentlyWorking ? "Present" : exp?.duration?.end?.year}`}
-              </p>
+              <p className="text-[14px]">{exp?.title} </p>
               <div className="flex gap-2">
                 <div onClick={() => handleEditClick(index)}>
                   <Edit_icon />
@@ -189,8 +172,13 @@ const ProjectSection = ({ data, setData }) => {
               </div>
             </div>
             <p className="text-[12px]">
-              {exp.designation} | {exp.location}
+              {exp?.organization}{" "}
+              {exp?.duration?.start?.year !== "Year" &&
+                ` ${"|"} ${exp.duration?.start?.year} 
+              ${exp?.duration?.start?.year && "-"}
+              ${exp?.currentlyWorking ? "Present" : exp?.duration?.end?.year}`}
             </p>
+            <p className="text-[12px]">{exp.description}</p>
           </div>
         ))}
 
@@ -262,6 +250,38 @@ const ProjectSection = ({ data, setData }) => {
               {error && <span className="text-[red] text-[12px]">{error}</span>}
             </div>
           </div>
+          <div className="flex justify-end ">
+            <div className="flex justify-between  py-2 gap-2">
+              <button
+                className=" font-montserrat text-xs font-semibold px-[12px] rounded-[8px] border border-[#06A9EF] w-[80px] h-[32px]"
+                onClick={() => {
+                  setProjectData({
+                    title: "",
+                    organization: "",
+                    description: "",
+                    currentlyWorking: true,
+                    duration: {
+                      start: { year: "Year", month: "Month" },
+                      end: { year: "Year", month: "Month" },
+                    },
+                  });
+                  setView(false);
+                }}
+              >
+                Cancel
+              </button>
+              {/* <button className=" font-montserrat text-xs font-semibold px-[12px] rounded-[8px] border border-[#06A9EF] w-[137px] h-[32px]">
+                Update to Profile
+              </button> */}
+              <button
+                onClick={handleSave}
+                disabled={!isChecked}
+                className=" font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px]  bg-[#06A9EF] w-[60px] h-[32px] btn_hover_effect"
+              >
+                Save
+              </button>
+            </div>
+          </div>
         </div>
       )}
 
@@ -290,39 +310,6 @@ const ProjectSection = ({ data, setData }) => {
           </p>
         </div>
       )}
-      <div className="flex justify-end ">
-        <div className="flex justify-between  py-2 gap-2">
-          <button
-            className=" font-montserrat text-xs font-semibold px-[12px] rounded-[8px] border border-[#06A9EF] w-[80px] h-[32px]"
-            onClick={() => {
-              setProjectData({
-                title: "",
-                organization: "",
-                description: " ",
-                currentlyWorking: true,
-
-                duration: {
-                  start: { year: "Year", month: "Month" },
-                  end: { year: "Year", month: "Month" },
-                },
-              });
-              setView(false);
-            }}
-          >
-            Cancel
-          </button>
-          {/* <button className=" font-montserrat text-xs font-semibold px-[12px] rounded-[8px] border border-[#06A9EF] w-[137px] h-[32px]">
-                Update to Profile
-              </button> */}
-          <button
-            onClick={handleSave}
-            disabled={!isChecked}
-            className=" font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px]  bg-[#06A9EF] w-[60px] h-[32px] btn_hover_effect"
-          >
-            Save
-          </button>
-        </div>
-      </div>
     </div>
   );
 };

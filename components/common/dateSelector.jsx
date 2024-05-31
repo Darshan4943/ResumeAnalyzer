@@ -83,11 +83,7 @@ const DateSelector = ({
 
   return (
     <div className="flex gap-[14px] flex-wrap relative ">
-      <div
-        className={`flex gap-[14px]   ${
-          isRow ? "flex-row" : "flex-col"
-        }`}
-      >
+      <div className="flex gap-[14px] flex-col ">
         <div
           className="flex flex-col gap-2 "
           style={{ opacity: isChecked ? 1 : 0.5 }}
