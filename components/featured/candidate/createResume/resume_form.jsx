@@ -183,7 +183,7 @@ const ResumeForm = ({
 
         <Skills setData={setData} data={data} />
         <div className="border-b border-r border-l border-[#DEDEDE]"></div>
-
+{/* 
         {(data?.customDataSection?.length > 0 ||
           customOptions["Custom Section"]) && (
           <>
@@ -264,23 +264,23 @@ const ResumeForm = ({
           data={data}
           customOptions={customOptions}
           setCustomOptions={setCustomOptions}
-        />
+        /> */}
 
         {/* <Achievement setData={setData} data={data} /> */}
 
         {/* {formField?.includes("socialLinks") && (
           <SocialLink setData={setData} data={data} />
         )} */}
-        {/* {formField?.includes("hobbies") && (
+        {formField?.includes("hobbies") && (
           <>
             <Hobbie setData={setData} data={data} />
             <div className="border-b border-r border-l border-[#DEDEDE]"></div>
           </>
-        )} */}
+        )}
 
-        {/* {formField?.includes("language") && (
+        {formField?.includes("language") && (
           <Languages setData={setData} data={data} />
-        )} */}
+        )}
         {/* {data?.section?.length > 0 && (
           <>
             {data?.section?.map((item, index) => (
