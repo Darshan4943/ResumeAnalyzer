@@ -45,7 +45,7 @@ function Main_sign_page() {
             }`;
           } else {
             setGoogleLoading(false);
-            window.location.href = "/home";
+            window.location.href = "/home?signIn=true";
           }
         })
         .catch((err) => {
