@@ -237,7 +237,7 @@ function HeaderSidebar({
                   case "My Clients":
                     handleNavigation("/myClients");
                     break;
-                    case "Create New Resume":
+                  case "Create New Resume":
                     handleNavigation("/home/BuildResume");
                     break;
                   case "My Resumes":
@@ -253,7 +253,7 @@ function HeaderSidebar({
                   case "My Purchases":
                     handleNavigation("/purchase/MyPurchase");
                     break;
-                    case "Chat Bot":
+                  case "Chat Bot":
                     handleNavigation("/chatbot");
                     break;
                   case "My Collection":

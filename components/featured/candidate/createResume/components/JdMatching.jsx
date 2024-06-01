@@ -40,7 +40,7 @@ function FileSizeDisplay({ fileUrl }) {
   return <span>{convertBytes(fileSize)}</span>;
 }
 
-const JdMatching = ({ details, resumeList, isAnimate }) => {
+const JdMatching = ({ details, resumeList, isAnimate, setShowsideBar }) => {
   const [selectedFile, setSelectedFile] = useState(null);
 
   function getAllFiles(obj) {
@@ -186,18 +186,19 @@ const JdMatching = ({ details, resumeList, isAnimate }) => {
               {resumeList?.length > 0 ? (
                 <>
                   {resumeList
-                    ?.sort((a, b) => 
-                    parseInt(
-                      isNaN(b.matching_percentage)
-                        ? b.matching_percentage.slice(0, 2)
-                        : b.matching_percentage
-                    ) -
-                      parseInt(
-                        isNaN(a.matching_percentage)
-                          ? a.matching_percentage.slice(0, 2)
-                          : a.matching_percentage
-                      )
-                )
+                    ?.sort(
+                      (a, b) =>
+                        parseInt(
+                          isNaN(b.matching_percentage)
+                            ? b.matching_percentage.slice(0, 2)
+                            : b.matching_percentage
+                        ) -
+                        parseInt(
+                          isNaN(a.matching_percentage)
+                            ? a.matching_percentage.slice(0, 2)
+                            : a.matching_percentage
+                        )
+                    )
                     ?.map((data, index) => (
                       <div
                         className="flex flex-col gap-[8px] md:w-[48%] w-[100%] max-w-[380px] rounded-[16px] border border-[#DEDEDE] bg-white shadow-lg py-[16px] ml:px-[24px] px-3 min-w-[262px]"
@@ -280,7 +281,8 @@ const JdMatching = ({ details, resumeList, isAnimate }) => {
                           </span>
                         </div>
                         <div className="w-[100%]  px-[8px] pb-[16px] border-b-[1px] border-[#bebebe]"></div>
-                        {parseInt(data?.matching_percentage?.slice(0, 2)) > 0 ? (
+                        {parseInt(data?.matching_percentage?.slice(0, 2)) >
+                        0 ? (
                           <Progress_bar
                             progress={parseInt(
                               data?.matching_percentage?.slice(0, 2)

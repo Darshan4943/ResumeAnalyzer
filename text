@@ -1,0 +1,128 @@
+{
+  "jsonData": [
+    {
+      "job_title": "ML Engineer",
+      "location": "Greater Delhi Area",
+      "job_type": "Full-time",
+      "work_type": "Remote",
+      "company_name": "Uplers",
+      "company_overview": "Uplers is a leading IT services and IT consulting company with 1,001-5,000 employees.",
+      "job_summary": "Tripadvisor is looking for a Senior Machine Learning Engineer to build a next generation Machine Learning Platform. The candidate will be responsible for designing, deploying, and managing scalable infrastructure for machine learning development, testing, and production environments.",
+      "joining_duration": "15 Days",
+      "key_responsibilities": [
+        {
+          "action": "Design, deploy, and manage scalable infrastructure for machine learning development",
+          "objective": "Build automated machine learning pipelines",
+          "required_skill": [
+            "ML frameworks like Tensorflow and PyTorch",
+            "distributed computing",
+            "Streaming architecture",
+            "Automated Testing",
+            "CI/CD",
+            "AWS",
+            "Docker",
+            "Java",
+            "Python",
+            "SQL"
+          ],
+          "collaboration": [
+            "Data Scientists",
+            "Cross-functional teams"
+          ],
+          "frequency": "Continuous"
+        },
+        {
+          "action": "Set up monitoring and logging systems",
+          "objective": "Track performance, health, and usage of platform infrastructure",
+          "required_skill": [
+            "MLFlow",
+            "model tracking",
+            "Software Engineering"
+          ],
+          "collaboration": [
+            "Data Scientists"
+          ],
+          "frequency": "Regular"
+        },
+        {
+          "action": "Optimize and scale machine learning infrastructure",
+          "objective": "Handle varying workloads and address performance bottlenecks",
+          "required_skill": [
+            "Kubernetes",
+            "Open source software frameworks"
+          ],
+          "collaboration": [
+            "Cross-functional teams"
+          ],
+          "frequency": "As needed"
+        }
+      ],
+      "skills": [
+        "ML frameworks",
+        "Distributed computing",
+        "Streaming architecture",
+        "Automated Testing",
+        "CI/CD",
+        "Machine Learning",
+        "AWS",
+        "Docker",
+        "Java",
+        "Jenkins",
+        "Kubernetes",
+        "Python",
+        "SQL"
+      ],
+      "keywords": [
+        "Machine Learning Engineer",
+        "Tensorflow",
+        "PyTorch",
+        "Automated Testing",
+        "CI/CD",
+        "AWS",
+        "Docker",
+        "Java",
+        "Kubernetes"
+      ],
+      "requirements": {
+        "must_have": {
+          "qualification": "BS or MS in Computer Science or equivalent",
+          "years_of_experience": 8,
+          "skills": [
+            "Machine Learning",
+            "Python or Java",
+            "Docker",
+            "SQL",
+            "CI/CD"
+          ],
+          "soft_skills": [
+            "Analytical skills",
+            "Ownership mindset"
+          ]
+        },
+        "nice_to_have": {
+          "skills": [
+            "Kubernetes",
+            "Recommendation Systems",
+            "Online businesses"
+          ],
+          "experience": "ML frameworks, Streaming architecture, Distributed computing"
+        },
+        "experiences": [
+          "Commercial software development",
+          "Machine learning engineering or operations"
+        ],
+        "description": "The candidate must have a strong background in commercial software development, machine learning engineering, and operations. They should possess a BS or MS in Computer Science and at least 8 years of experience. Strong analytical skills, ownership mindset, and the ability to work in a fast-paced environment are essential."
+      },
+      "benefits": [
+        {
+          "type": "Remote Work",
+          "description": "Work from the comfort of your home"
+        },
+        {
+          "type": "Opportunity for Growth",
+          "description": "Grow your career with a leading IT services company"
+        }
+      ]
+    }
+  ]
+}
