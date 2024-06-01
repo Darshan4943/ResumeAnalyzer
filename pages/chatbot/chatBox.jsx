@@ -246,6 +246,17 @@ const ChatBox = ({
     }
   };
 
+  const createNewChat = () => {
+    const lastChatIndex = existingChat ? Object.keys(existingChat).length : 0;
+    const newChat = {};
+    newChat[`chat-${lastChatIndex + 1}`] = [];
+    localStorage.setItem(
+      "chat",
+      JSON.stringify({ ...newChat, ...existingChat })
+    );
+    setSelectedChat(`chat-${lastChatIndex + 1}`);
+    forceUpdate();
+  };
   return (
     <>
       {errorModel && <FileError setError={setError} />}
