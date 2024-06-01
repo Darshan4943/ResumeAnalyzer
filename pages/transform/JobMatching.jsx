@@ -149,7 +149,7 @@ const JobMatching = () => {
     setLoadingg(true);
     setIsAnimate(false);
     try {
-      const res = await axios.post("http://localhost:2000/api/jd/extraction", {
+      const res = await axios.post("https://jamblix.com/api/jd/extraction", {
         text,
       });
       const jd = res.data.jsonData[0];
@@ -360,12 +360,12 @@ const JobMatching = () => {
     setLoadingg(true);
     setIsAnimate(false);
     if (Object.keys(extratctedData).length > 5) {
-      const chunks = chunkArray(selectedIndexesFileTypes, 5);
+      const chunks = chunkArray(selectedIndexesFileTypes, 80);
       const outputData = [];
       for (let i = 0; i < chunks.length; i++) {
         await processChunk(chunks[i], extratctedData, outputData);
         if (i < chunks.length - 1) {
-          await new Promise((resolve) => setTimeout(resolve, 10000));
+          await new Promise((resolve) => setTimeout(resolve, 60000));
         }
       }
       const dataArray = outputData

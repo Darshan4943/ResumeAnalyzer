@@ -1,70 +1,67 @@
 import React, { useState } from "react";
+import { ClosedIcon } from "../../../../../utils/svg";
 import Cropper from "react-easy-crop";
 import MiniLoader from "../../../../common/mini-loader";
 
-const ImageCropper = ({ setModelView, file, setCroppedImage }) => {
+const ImageCropperResume = ({ setModelView, file, setCroppedImage }) => {
   const [loading, setLoading] = useState(false);
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
 
-  const getCroppedImg = async (imageSrc, crop, fileName, quality = 0.4) => {
+  const createImage = (url) =>
+    new Promise((resolve, reject) => {
+      const image = new Image();
+      image.addEventListener("load", () => resolve(image));
+      image.addEventListener("error", (error) => reject(error));
+      image.src = url;
+    });
+
+  const getCroppedImg = async (imageSrc, pixelCrop) => {
     const image = await createImage(imageSrc);
     const canvas = document.createElement("canvas");
     const ctx = canvas.getContext("2d");
 
-    const { width, height } = crop;
-    canvas.width = width;
-    canvas.height = height;
+    canvas.width = pixelCrop.width;
+    canvas.height = pixelCrop.height;
 
     ctx.drawImage(
       image,
-      crop.x,
-      crop.y,
-      crop.width,
-      crop.height,
+      pixelCrop.x,
+      pixelCrop.y,
+      pixelCrop.width,
+      pixelCrop.height,
       0,
       0,
-      crop.width,
-      crop.height
+      pixelCrop.width,
+      pixelCrop.height
     );
 
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
       canvas.toBlob(
         (blob) => {
           if (!blob) {
-            console.error("Canvas is empty");
+            reject(new Error("Canvas is empty"));
             return;
           }
-          blob.name = fileName;
-          const url = URL.createObjectURL(blob);
-          resolve({ blob, url });
+          blob.name = "cropped.png"; // Set the name of the blob
+          resolve(blob);
         },
-        "image/jpeg",
-        quality
+        "image/png", // Specify PNG as the output format
+        1 // Use the default quality for PNG
       );
-    });
-  };
-
-  const createImage = (url) => {
-    return new Promise((resolve, reject) => {
-      const image = new Image();
-      image.addEventListener("load", () => resolve(image));
-      image.addEventListener("error", (error) => reject(error));
-      image.setAttribute("crossOrigin", "anonymous"); // for crossOrigin images
-      image.src = url;
     });
   };
 
   const showCroppedImage = async () => {
     try {
-      const croppedImage = await getCroppedImg(
+      setLoading(true);
+      const croppedImageBlob = await getCroppedImg(
         URL.createObjectURL(file),
-        croppedAreaPixels,
-        file.name,
-        0.4 // Adjust the quality here (0.4 means 40% quality)
+        croppedAreaPixels
       );
-      setCroppedImage(croppedImage);
+      const croppedImageUrl = URL.createObjectURL(croppedImageBlob);
+      setCroppedImage({ blob: croppedImageBlob, url: croppedImageUrl });
       setModelView(false);
     } catch (e) {
       console.error(e);
@@ -84,11 +81,7 @@ const ImageCropper = ({ setModelView, file, setCroppedImage }) => {
         <div className="absolute bg-white px-4 py-2 rounded-lg shadow-lg flex flex-col gap-2 items-end max-h-[500px] max-w-[600px] ml:h-[50vw] ml:w-[60vw] sm:h-[60vw] sm:w-[70vw] w-[80vw] h-[80vw]">
           <div className="flex gap-[16px]">
             <button onClick={() => setModelView(false)}>
-              {/* Replace this with your ClosedIcon component */}
-              <svg width="24" height="24" viewBox="0 0 24 24">
-                <path d="M18 6L6 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                <path d="M6 6L18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
+              <ClosedIcon />
             </button>
           </div>
           <div className="w-full h-full flex items-center justify-center relative">
@@ -106,10 +99,7 @@ const ImageCropper = ({ setModelView, file, setCroppedImage }) => {
           </div>
           <button
             className="font-montserrat text-white font-medium text-[14px] flex items-center justify-center px-[12px] rounded-[8px] bg-[#06A9EF] w-[80px] h-[42px]"
-            onClick={() => {
-              setLoading(true);
-              showCroppedImage();
-            }}
+            onClick={showCroppedImage}
           >
             {loading && <MiniLoader />}
             {!loading && "Save"}
@@ -120,4 +110,4 @@ const ImageCropper = ({ setModelView, file, setCroppedImage }) => {
   );
 };
 
-export default ImageCropper;
+export default ImageCropperResume;

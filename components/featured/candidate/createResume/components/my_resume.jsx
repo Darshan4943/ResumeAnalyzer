@@ -4,6 +4,7 @@ import ImageContainer from "../../../../common/image";
 import { DumyImage } from "../../../../../utils/svg";
 import Cropper from "react-easy-crop";
 import ImageCropper from "./imageCropper";
+import ImageCropperResume from "./imgCropperResume";
 
 const ResumeList = ({ data, setData }) => {
   const [file, setFile] = useState(null);
@@ -247,7 +248,7 @@ const ResumeList = ({ data, setData }) => {
           </div>
         </div>
         {modelView && (
-          <ImageCropper
+          <ImageCropperResume
             setModelView={setModelView}
             file={file}
             setCroppedImage={setCroppedImage}
