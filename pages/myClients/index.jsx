@@ -268,7 +268,7 @@ function MyClients() {
                         router.push("/myClients/CreateNewClient");
                       }
                     }}
-                    className="ml:hidden scr420:text-[16px] text-[14px] font-semibold scr420:py-3 scr420:px-6 px-2 py-2 scr420:h-[48px]  scr420:min-w-[228px] flex gap-1 bg-[#06A9EF] rounded-[12px] text-white"
+                    className="ml:hidden scr420:text-[16px] text-[14px] font-semibold scr420:py-3 scr420:px-6 px-2 py-2 scr420:h-[48px]  scr420:min-w-[224px] flex gap-1 bg-[#06A9EF] rounded-[12px] text-white"
                     type="button"
                   >
                     <svg
@@ -297,7 +297,7 @@ function MyClients() {
                       router.push("/myClients/CreateNewClient");
                     }
                   }}
-                  className=" ml:flex hidden text-[16px] font-semibold py-3 px-6 h-[48px] min-w-[228px] gap-1 bg-[#06A9EF] rounded-[12px] text-white"
+                  className=" ml:flex hidden text-[16px] font-semibold py-3 px-6 h-[48px] min-w-[224px] gap-1 bg-[#06A9EF] rounded-[12px] text-white"
                   type="button"
                 >
                   <svg
