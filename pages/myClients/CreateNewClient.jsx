@@ -1,28 +1,41 @@
 import "react-phone-input-2/lib/bootstrap.css";
 
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/router";
 import { useMediaQuery } from "@react-hook/media-query";
 import React, { useEffect, useRef, useState } from "react";
 import ReactSelect from "react-select";
-import { telCode } from "../../utils/data";
+import { details, telCode } from "../../utils/data";
 
 import { toast } from "react-toastify";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import ImageContainer from "../../components/common/image";
 import ImageCropper from "../../components/featured/candidate/createResume/components/imageCropper";
-function CreateNewClient({ setTabIndex }) {
+function CreateNewClient() {
   const router = useRouter();
+
+  const { id, isUpdate } = router.query;
+  // console.log(322, id, isUpdate)
   const userDataGlobal = useSelector((state) => state.userData);
   const isViewportBelow850 = useMediaQuery("(max-width:850px)");
   const [loading, setLoading] = useState(false);
+  const [details, setDetails] = useState({});
+  const [isProfileImageRemoved, setIsProfileImageRemoved] = useState(false);
   const [error, setError] = useState(false);
   const [modelView, setModelView] = useState(false);
+  const [selectedItem, setSelectedItem] = useState();
+  const [searchTerm, setSearchTerm] = useState("");
+  const [countyCode, setCountryCode] = useState()
+  const [filteredTelCode, setFilteredTelCode] = useState([]);
+  const [modifyUpdate, setModifyUpdate] = useState()
+  const [originalData, setOriginalData] = useState({});
+
   const [data, setData] = useState({
     firstName: "",
     lastName: "",
     mobileNo: "",
     designation: "",
+    dial_code: '',
     email: "",
     location: "",
     gender: "male",
@@ -31,10 +44,10 @@ function CreateNewClient({ setTabIndex }) {
   const [file, setFile] = useState(null);
   const fileRef = useRef(null);
   const [croppedImage, setCroppedImage] = useState(null);
-
+  console.log(data.img)
   const handleFileChange = (event) => {
     event.preventDefault();
-
+    setIsProfileImageRemoved(false);
     const selectedFile = event.target.files[0];
 
     if (selectedFile) {
@@ -148,7 +161,6 @@ function CreateNewClient({ setTabIndex }) {
     return errors;
   };
   const handleInputChange = (fieldName, value) => {
-    console.log(value.replace(/\D/g, "").length <= 10);
     if (fieldName == "mobileNo") {
       if (value.replace(/\D/g, "").length <= 10) {
         setData({ ...data, [fieldName]: value.replace(/\D/g, "") });
@@ -157,6 +169,10 @@ function CreateNewClient({ setTabIndex }) {
       setData({ ...data, [fieldName]: value });
       validateInput(fieldName, value);
     }
+    // const hasChanged = Object.keys(data).some(
+    //   (key) => data[key] !== originalData[key]
+    // );
+    // setModifyUpdate(hasChanged);
   };
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -171,6 +187,7 @@ function CreateNewClient({ setTabIndex }) {
       "location",
       "mobileNo",
       "gender",
+      "dial_code"
     ];
     const emptyFields = requiredFields.filter((field) => !data[field]);
 
@@ -189,25 +206,29 @@ function CreateNewClient({ setTabIndex }) {
         setLoading(true);
         const formdata = new FormData();
         Object.keys(data).forEach((key) => {
-          if (key == "email") {
+          if (key === "email") {
             formdata.append(key, data[key].toLowerCase());
           } else {
             formdata.append(key, data[key]);
           }
         });
         formdata.append("recruiterId", userDataGlobal._id);
-        formdata.append("img", croppedImage);
+        formdata.append("img", croppedImage === null ? details.profilePicture : croppedImage);
+        formdata.append("isProfileImageRemoved", isProfileImageRemoved);
+        const url = isUpdate
+          ? "http://localhost:2000/api/updateClient"
+          : "https://jamblix.com/api/client/create";
 
-        const response = await axios.post(
-          "https://jamblix.com/api/client/create",
-          formdata
-        );
+        const response = await axios.post(url, formdata);
+
         setData({
           firstName: "",
           lastName: "",
           mobileNo: "",
           designation: "",
+          dial_code: '',
           email: "",
+          img: '',
           location: "",
           gender: "male",
         });
@@ -218,21 +239,51 @@ function CreateNewClient({ setTabIndex }) {
         setLoading(false);
         router.push("/myClients");
 
-        toast.success("Client created successfully");
+        toast.success(isUpdate ? "Client Updated successfully" : "Client created successfully");
       } catch (error) {
-        if (error.response?.data.message == "User already exist") {
-          setLoading(false);
+        setLoading(false);
+        if (error.response?.data.message === "User already exist") {
           toast.error("Client already exist");
         } else {
-          setLoading(false);
+          console.error("Error updating/creating client:", error.response || error.message);
           toast.error("Failed to create client");
         }
       }
     }
   };
 
-  const [selectedItem, setSelectedItem] = useState();
-  const [searchTerm, setSearchTerm] = useState("");
+
+  useEffect(() => {
+
+    if (id) {
+      axios.get(`https://jamblix.com/api/client/getByClientId/${id}`).then((res) => {
+        const details = res.data.data;
+        setDetails(details)
+        // console.log(4545,details)
+        const initialData = {
+          firstName: details.firstName,
+          lastName: details.lastName,
+          mobileNo: details.mobileNo,
+          designation: details.designation,
+          email: details.email,
+          location: details.location,
+          gender: details.gender,
+          img: details.profilePicture,
+          dial_code: details.dial_code,
+        };
+        // setCroppedImage(details.profilePicture)
+        setData(initialData);
+        setOriginalData(initialData);
+
+      });
+
+    }
+  }, [id]);
+
+  // console.log(222, selectedItem, countyCode)
+  // console.log(4545,croppedImage)
+
+
 
   const handleItemClick = (item) => {
     setSelectedItem(item);
@@ -240,7 +291,13 @@ function CreateNewClient({ setTabIndex }) {
     setSearchTerm("");
   };
 
-  const [filteredTelCode, setFilteredTelCode] = useState([]);
+  useEffect(() => {
+    setCountryCode(details.dial_code)
+    const filteredItems = filteredTelCode.filter(item => item.dial_code === countyCode);
+
+    setSelectedItem(filteredItems)
+  }, [details, countyCode]);
+
 
   useEffect(() => {
     const filterLogic = (item) =>
@@ -295,17 +352,17 @@ function CreateNewClient({ setTabIndex }) {
       )}
       <div className="flex justify-center">
         <div className="flex flex-col  gap-4 sm:p-6 p-2 scr1200:w-[70%] sm:w-[90%] w-[100%] ">
-          <p className="text-[24px] font-semibold">Create New Client</p>
+          <p className="text-[24px] font-semibold">{isUpdate ? "Update" : "Create New"} Client</p>
           <div
             className="flex flex-col gap-9 rounded-[16px] sm:py-6 py-2"
-            // style={{ boxShadow: "0px 1px 6px 0px #00000040" }}
+          // style={{ boxShadow: "0px 1px 6px 0px #00000040" }}
           >
             <div className="flex flex-col gap-4">
               <p className="text-[16px] font-medium">Profile Photo</p>
               <div className="flex sm:gap-6 gap-3">
-                {data.img && croppedImage ? (
+                {data.img ? (
                   <ImageContainer
-                    src={croppedImage.url}
+                    src={croppedImage ? croppedImage?.url : details.profilePicture}
                     alt="Selected File"
                     className="w-[112px] h-[112px] rounded-[50%] object-cover"
                   />
@@ -351,6 +408,7 @@ function CreateNewClient({ setTabIndex }) {
                       setData({ ...data, img: null });
                       setCroppedImage(null);
                       setError(false);
+                      setIsProfileImageRemoved(true);
                     }}
                   >
                     Remove Picture
@@ -373,7 +431,7 @@ function CreateNewClient({ setTabIndex }) {
                                 type="text"
                                 name=""
                                 id="first_name"
-                                placeholder="Enter first name"
+                                placeholder="Enter First Name"
                                 value={data.firstName}
                                 maxLength={50}
                                 onChange={(e) =>
@@ -395,7 +453,7 @@ function CreateNewClient({ setTabIndex }) {
                                 type="text"
                                 name=""
                                 id="first_name"
-                                placeholder="Enter Last name"
+                                placeholder="Enter Last Name"
                                 value={data.lastName}
                                 onChange={(e) =>
                                   handleInputChange("lastName", e.target.value)
@@ -409,11 +467,13 @@ function CreateNewClient({ setTabIndex }) {
                             </div>
                           </div>
 
-                          <div className="personal_single_input ml:w-[50%] w-[100%]">
+                          <div className={`personal_single_input ml:w-[50%] w-[100%] `}>
                             <p className="form_text_heading">
                               Email <span className="star">*</span>
                             </p>
                             <input
+                              className={`${isUpdate && "opacity-70"}`}
+                              disabled={isUpdate}
                               type="email"
                               name=""
                               id="single_input"
@@ -436,17 +496,15 @@ function CreateNewClient({ setTabIndex }) {
                               Contact Number <span className="star">*</span>
                             </p>
                             <div
-                              className={`flex w-[100%] items-start ${
-                                isViewportBelow850
-                                  ? "gap-[4px] "
-                                  : "gap-[16px] "
-                              }`}
+                              className={`flex w-[100%] items-start ${isViewportBelow850
+                                ? "gap-[4px] "
+                                : "gap-[16px] "
+                                }`}
                               id="single_input"
                             >
                               <div
-                                className={`relative min-w-[150px] ${
-                                  isViewportBelow850 ? "w-[65%] " : "w-[40%] "
-                                } items-center`}
+                                className={`relative min-w-[150px] ${isViewportBelow850 ? "w-[65%] " : "w-[40%] "
+                                  } items-center`}
                               >
                                 <div className="  w-[100%] sm:text-[14px] text-[13px] justify-center items-center  flex font-[500] text-[#646464]">
                                   <div className="flex items-center justify-center gap-2 cursor-pointer min-w-[140px] w-[100%]">
@@ -464,8 +522,9 @@ function CreateNewClient({ setTabIndex }) {
                                               src={`https://hatscripts.github.io/circle-flags/flags/${option.code.toLowerCase()}.svg`}
                                               width="20px"
                                             />
-                                            <span className="ml-2">
+                                            <span className="ml-2 text-[#333]">
                                               {option.code} {option.dial_code}
+
                                             </span>
                                           </div>
                                         )}
@@ -501,11 +560,10 @@ function CreateNewClient({ setTabIndex }) {
                                 type="text"
                                 name=""
                                 // id="single_input"
-                                placeholder={`${
-                                  isViewportBelow850
-                                    ? "Enter Number "
-                                    : "Enter Contact Number "
-                                }`}
+                                placeholder={`${isViewportBelow850
+                                  ? "Enter Number "
+                                  : "Enter Contact Number "
+                                  }`}
                                 value={data.mobileNo}
                                 onChange={(e) =>
                                   handleInputChange("mobileNo", e.target.value)
@@ -550,9 +608,8 @@ function CreateNewClient({ setTabIndex }) {
                             </p>
                             <div className="gender_button">
                               <button
-                                className={`gen_button ${
-                                  data.gender == "male" && "gen_button_active"
-                                }`}
+                                className={`gen_button ${data.gender == "male" && "gen_button_active"
+                                  }`}
                                 onClick={(e) => {
                                   e.preventDefault();
                                   setData({ ...data, gender: "male" });
@@ -561,9 +618,8 @@ function CreateNewClient({ setTabIndex }) {
                                 Male
                               </button>
                               <button
-                                className={`gen_button ${
-                                  data.gender == "female" && "gen_button_active"
-                                }`}
+                                className={`gen_button ${data.gender == "female" && "gen_button_active"
+                                  }`}
                                 onClick={(e) => {
                                   e.preventDefault();
                                   setData({ ...data, gender: "female" });
@@ -572,9 +628,8 @@ function CreateNewClient({ setTabIndex }) {
                                 Female
                               </button>
                               <button
-                                className={`gen_button ${
-                                  data.gender == "other" && "gen_button_active"
-                                }`}
+                                className={`gen_button ${data.gender == "other" && "gen_button_active"
+                                  }`}
                                 onClick={(e) => {
                                   e.preventDefault();
                                   setData({ ...data, gender: "other" });
@@ -624,7 +679,8 @@ function CreateNewClient({ setTabIndex }) {
                             Back
                           </button>
                           <button
-                            className="buttons font-[500] bg-[#06A9EF] text-white"
+
+                            className={`buttons font-[500] bg-[#06A9EF] text-white `}
                             id="border_button"
                             onClick={submitHandler}
                           >
@@ -647,7 +703,7 @@ function CreateNewClient({ setTabIndex }) {
                                 />
                               </svg>
                             ) : (
-                              "Create Client"
+                              isUpdate ? "Update Client" : "Create Client"
                             )}
                           </button>
                         </div>

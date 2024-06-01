@@ -269,7 +269,7 @@ function Recruiter_signup({}) {
       toast.error("Email Verification Required");
     } else {
       const url = isUpdate
-        ? "https://jamblix.com/api/updateUser"
+        ? "http://localhost:2000/api/updateUser"
         : "https://jamblix.com/api/skiloteckuser/recruiter";
       // setLoading(true);
       const formdata = new FormData();
