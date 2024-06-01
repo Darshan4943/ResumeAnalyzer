@@ -19,7 +19,8 @@ const CouersesAndCertification = ({ data, setData }) => {
   const [courseData, setCourseData] = useState({
     title: "",
     organization: "",
-    description: " ",
+    description: "",
+    currentlyWorking: true,
 
     duration: {
       start: { year: "Year", month: "Month" },
@@ -52,9 +53,7 @@ const CouersesAndCertification = ({ data, setData }) => {
   };
 
   const handleSave = () => {
-    console.log(55, "save");
     if (validateForm()) {
-      console.log(66, "save");
       if (isModified.status === true) {
         const dummyData = [...data.course];
         const index = isModified.index;
@@ -62,7 +61,6 @@ const CouersesAndCertification = ({ data, setData }) => {
         setData({ ...data, course: dummyData });
         setView(false);
       } else {
-        console.log(77, "save");
         setData({
           ...data,
           course: [courseData, ...data.course],
@@ -75,7 +73,8 @@ const CouersesAndCertification = ({ data, setData }) => {
       setCourseData({
         title: "",
         organization: "",
-        description: " ",
+        description: "",
+        currentlyWorking: true,
 
         duration: {
           start: { year: "Year", month: "Month" },
@@ -83,11 +82,10 @@ const CouersesAndCertification = ({ data, setData }) => {
         },
       });
     } else {
-      console.log(66, "else");
       setView(true);
     }
   };
-  console.log(6000, data);
+
   const handleEditExperience = (index) => {
     const dataToEdit = data.course[index];
 
@@ -141,31 +139,14 @@ const CouersesAndCertification = ({ data, setData }) => {
     >
       <div className="w-full flex justify-between text-[20px] font-montserrat font-medium">
         <p> Courses & Certifications</p>
-        <div className=" flex flex-row w-[30%] justify-end items-end float-end ">
-          {toggleOn ? (
-            <div
-              onClick={() => {
-                setToggleOn(false);
-              }}
-              className="w-[52px] h-[24px] p-[2px] g-[10px] rounded-[100px] border-[#06A9EF] border-[1px] bg-[#06A9EF]"
-            >
-              <div className="w-[20px] h-[20px] flex flex-col justify-end items-end float-end">
-                <img className="w-full h-full" src="/images/check_circle.png" />
-              </div>
-            </div>
-          ) : (
-            <div
-              onClick={() => {
-                setToggleOn(true);
-              }}
-              className="w-[52px] h-[24px] p-[2px] g-[10px] rounded-[100px] border-[#646464] border-[1px] bg-[#FFFFFF]"
-            >
-              <div className="w-[20px] h-[20px] flex flex-col justify-start items-start float-start">
-                <img className="w-full h-full" src="/images/cancel.png" />
-              </div>
-            </div>
-          )}
-        </div>
+        <label className="switch">
+          <input
+            type="checkbox"
+            checked={isChecked}
+            onChange={handleSwitchChange}
+          />
+          <span className="slider round"></span>
+        </label>
       </div>
 
       {!view &&
@@ -173,16 +154,15 @@ const CouersesAndCertification = ({ data, setData }) => {
         data?.course?.map((exp, index) => (
           <div
             key={index}
-            className="flex flex-col gap-1 p-2 rounded-[6px]  border break-all "
+            className={`flex flex-col gap-1 py-[12px] px-[16px] rounded-[6px]  border break-all ${
+              editingIndex === index
+                ? "border-[#06A9EF] border-[2px]"
+                : "border-[#DEDEDE]"
+            }`}
           >
             <div className="flex justify-between">
-              <p className="text-[14px]">
-                {exp?.organization}{" "}
-                {exp?.duration?.start?.year !== "Year" &&
-                  ` ${"|"} ${exp.duration?.start?.year} 
-              ${exp?.duration?.start?.year && "-"}
-              ${exp?.currentlyWorking ? "Present" : exp?.duration?.end?.year}`}
-              </p>
+              <p className="text-[14px]">{exp?.title} </p>
+
               <div className="flex gap-2">
                 <div onClick={() => handleEditClick(index)}>
                   <Edit_icon />
@@ -193,8 +173,13 @@ const CouersesAndCertification = ({ data, setData }) => {
               </div>
             </div>
             <p className="text-[12px]">
-              {exp.designation} | {exp.location}
+              {exp?.organization}{" "}
+              {exp?.duration?.start?.year !== "Year" &&
+                ` ${"|"} ${exp.duration?.start?.year} 
+              ${exp?.duration?.start?.year && "-"}
+              ${exp?.currentlyWorking ? "Present" : exp?.duration?.end?.year}`}
             </p>
+            <p className="text-[12px]">{exp.description}</p>
           </div>
         ))}
 
@@ -274,7 +259,7 @@ const CouersesAndCertification = ({ data, setData }) => {
                   setCourseData({
                     title: "",
                     organization: "",
-                    description: " ",
+                    description: "",
                     currentlyWorking: true,
 
                     duration: {
@@ -287,9 +272,7 @@ const CouersesAndCertification = ({ data, setData }) => {
               >
                 Cancel
               </button>
-              {/* <button className=" font-montserrat text-xs font-semibold px-[12px] rounded-[8px] border border-[#06A9EF] w-[137px] h-[32px]">
-                Update to Profile
-              </button> */}
+
               <button
                 onClick={() => {
                   handleSave();
@@ -325,7 +308,7 @@ const CouersesAndCertification = ({ data, setData }) => {
             className="text-[16px] font-semibold text-[#06A9EF] cursor-pointer"
             disabled={!isChecked}
           >
-            Add Experience
+            Add Section
           </p>
         </div>
       )}

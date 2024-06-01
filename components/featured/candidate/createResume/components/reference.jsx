@@ -9,12 +9,13 @@ const Reference = ({ setData, data }) => {
   const userDataGlobal = useSelector((state) => state.userData);
   const [view, setView] = useState(false);
   const [isChecked, setIsChecked] = useState(true);
-  const [isModified, setIsModified] = useState(false);
+  const [isModified, setIsModified] = useState({ status: false, index: 0 });
   const [filteredTelCode, setFilteredTelCode] = useState([]);
-
+  const [editingIndex, setEditingIndex] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const handleSwitchChange = () => {
     setIsChecked(!isChecked);
+    setData({ ...data, showExperience: !isChecked });
   };
   const [referenceData, setReferenceData] = useState({
     referantName: "",
@@ -109,7 +110,7 @@ const Reference = ({ setData, data }) => {
       ...referenceData,
       [name]: value,
     });
-    setIsModified(true);
+    // setIsModified({ status: false, index: 0 });
     setFormErrors({ ...formErrors, [name]: value.trim() === "" });
   };
 
@@ -133,9 +134,11 @@ const Reference = ({ setData, data }) => {
   const saveData = () => {
     if (validateFields()) {
       if (isModified.status === true) {
-        const dummyData = [...data.reference];
+        const dummyData = data.reference;
         const index = isModified.index;
+
         dummyData.splice(index, 1, referenceData);
+
         setData({ ...data, reference: dummyData });
         setView(false);
       } else {
@@ -162,8 +165,8 @@ const Reference = ({ setData, data }) => {
 
   useEffect(() => {
     const allFieldsValid = validateFields();
-    if (allFieldsValid && isModified) {
-      setIsModified(true);
+    if (allFieldsValid && isModified.status) {
+      setIsModified({ status: true, index: 0 });
     }
   }, [referenceData]);
 
@@ -186,51 +189,30 @@ const Reference = ({ setData, data }) => {
 
     if (dataToEdit) {
       setView(true);
+
       setReferenceData({ ...dataToEdit });
       setIsModified({ status: true, index });
     }
   };
 
-  console.log(3333, data);
   return (
     <>
       <div
         className="flex flex-col sm:p-4 p-2 gap-2 rounded-lg bg-white"
         style={{
-          boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)",
           opacity: isChecked ? 1 : 0.5,
         }}
       >
         <div className="w-full flex justify-between text-[20px] font-montserrat font-medium">
           <p> References </p>
-          <div className=" flex flex-row w-[30%] justify-end items-end float-end ">
-            {toggleOn ? (
-              <div
-                onClick={() => {
-                  setToggleOn(false);
-                }}
-                className="w-[52px] h-[24px] p-[2px] g-[10px] rounded-[100px] border-[#06A9EF] border-[1px] bg-[#06A9EF]"
-              >
-                <div className="w-[20px] h-[20px] flex flex-col justify-end items-end float-end">
-                  <img
-                    className="w-full h-full"
-                    src="/images/check_circle.png"
-                  />
-                </div>
-              </div>
-            ) : (
-              <div
-                onClick={() => {
-                  setToggleOn(true);
-                }}
-                className="w-[52px] h-[24px] p-[2px] g-[10px] rounded-[100px] border-[#646464] border-[1px] bg-[#FFFFFF]"
-              >
-                <div className="w-[20px] h-[20px] flex flex-col justify-start items-start float-start">
-                  <img className="w-full h-full" src="/images/cancel.png" />
-                </div>
-              </div>
-            )}
-          </div>
+          <label className="switch">
+            <input
+              type="checkbox"
+              checked={isChecked}
+              onChange={handleSwitchChange}
+            />
+            <span className="slider round"></span>
+          </label>
         </div>
 
         {!view &&
@@ -238,16 +220,14 @@ const Reference = ({ setData, data }) => {
           data?.reference?.map((exp, index) => (
             <div
               key={index}
-              className="flex flex-col gap-1 p-2 rounded-[6px]  border break-all "
-              // ${
-              // editingIndex === index
-              // ? "border-[#06A9EF] border-[2px]"
-              // : "border-[#DEDEDE]"
-              // }`}
+              className={`flex flex-col gap-1 py-[12px] px-[16px] rounded-[6px]  border break-all ${
+                editingIndex === index
+                  ? "border-[#06A9EF] border-[2px]"
+                  : "border-[#DEDEDE]"
+              }`}
             >
               <div className="flex justify-between">
                 <p className="text-[14px]">{exp?.referantName}</p>
-                <p className="text-[14px]">{exp?.organization}</p>
 
                 <div className="flex gap-2">
                   <div onClick={() => handleEditReference(index)}>
@@ -258,46 +238,75 @@ const Reference = ({ setData, data }) => {
                   </div>
                 </div>
               </div>
+              <p className="text-[14px]">{exp?.organization}</p>
               <p className="text-[12px]">{exp.email}</p>
             </div>
           ))}
         {view && (
-          <div className="grid grid-cols-2 gap-4">
-            {inputFields.map((item, index) => (
-              <div
-                className={`flex flex-col gap-2 w-full ${item.className}`}
-                key={index}
-              >
-                <div className=" text-[14px] font-montserrat  font-medium">
-                  {item.label}
-                </div>
-
+          <>
+            <div className="grid grid-cols-2 gap-4">
+              {inputFields.map((item, index) => (
                 <div
-                  className={`border-[1px] rounded-[8px] px-[16px] py-[12px] ${
-                    formErrors[item.name]
-                      ? "border-[#C00000]"
-                      : "border-[#9D9D9D]"
-                  } `}
+                  className={`flex flex-col gap-2 w-full ${item.className}`}
+                  key={index}
                 >
-                  <input
-                    type={item.type}
-                    name={item.name}
-                    placeholder={item.placeholder}
-                    className="w-full text-[14px] font-montserrat font-small"
-                    value={referenceData[item.name]}
-                    onChange={handleInputChange}
-                    disabled={!isChecked}
-                  />
-                </div>
+                  <div className=" text-[14px] font-montserrat  font-medium">
+                    {item.label}
+                  </div>
 
-                {formErrors[item.name] && (
-                  <span className="text-[#C00000] text-[12px]">
-                    Field is required
-                  </span>
-                )}
+                  <div
+                    className={`border-[1px] rounded-[8px] px-[16px] py-[12px] ${
+                      formErrors[item.name]
+                        ? "border-[#C00000]"
+                        : "border-[#9D9D9D]"
+                    } `}
+                  >
+                    <input
+                      type={item.type}
+                      name={item.name}
+                      placeholder={item.placeholder}
+                      className="w-full text-[14px] font-montserrat font-small"
+                      value={referenceData[item.name]}
+                      onChange={handleInputChange}
+                      disabled={!isChecked}
+                    />
+                  </div>
+
+                  {formErrors[item.name] && (
+                    <span className="text-[#C00000] text-[12px]">
+                      Field is required
+                    </span>
+                  )}
+                </div>
+              ))}
+            </div>
+            <div className="flex justify-end ">
+              <div className="flex justify-between  py-2 gap-2">
+                <button
+                  className=" font-montserrat text-xs font-semibold px-[12px] rounded-[8px] border border-[#06A9EF] w-[80px] h-[32px]"
+                  onClick={() => {
+                    setReferenceData({
+                      referantName: "",
+                      designation: "",
+                      organization: "",
+                      email: "",
+                    });
+                    setView(false);
+                  }}
+                >
+                  Cancel
+                </button>
+                <button
+                  className=" font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px]  bg-[#06A9EF] w-[60px] h-[32px]"
+                  //   style={{ opacity: isDisabled() ? 0.5 : 1 }}
+                  onClick={saveData}
+                  //   disabled={isDisabled() || !isChecked}
+                >
+                  Save
+                </button>
               </div>
-            ))}
-          </div>
+            </div>
+          </>
         )}
 
         {!view && (
@@ -328,38 +337,6 @@ const Reference = ({ setData, data }) => {
             </p>
           </div>
         )}
-
-        <div className="flex justify-end ">
-          <div className="flex justify-between  py-2 gap-2">
-            <button
-              className=" font-montserrat text-xs font-semibold px-[12px] rounded-[8px] border border-[#06A9EF] w-[80px] h-[32px]"
-              onClick={() => {
-                //   setExperienceData({
-                //     designation: "",
-                //     organization: "",
-                //     description: " ",
-                //     currentlyWorking: true,
-                //     location: "",
-                //     duration: {
-                //       start: { year: "Year", month: "Month" },
-                //       end: { year: "Year", month: "Month" },
-                //     },
-                //   });
-                //   setView(false);
-              }}
-            >
-              Cancel
-            </button>
-            <button
-              className=" font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px]  bg-[#06A9EF] w-[60px] h-[32px]"
-              //   style={{ opacity: isDisabled() ? 0.5 : 1 }}
-              onClick={saveData}
-              //   disabled={isDisabled() || !isChecked}
-            >
-              Save
-            </button>
-          </div>
-        </div>
       </div>
     </>
   );

@@ -4,7 +4,7 @@ import CustomDate from "../../../../common/customDate";
 import ContinueWorkingOn from "../../../../common/continueWorkingOn";
 import { Delete_icon, Edit_icon } from "../../../../../utils/svg";
 
-function CustomSection({ data, setData }) {
+function CustomSection({ data, setData, setCustomOptions, customOptions }) {
   const [isChecked, setIsChecked] = useState(true);
   const [toggleOn, setToggleOn] = useState(true);
   const [view, setView] = useState(false);
@@ -17,8 +17,9 @@ function CustomSection({ data, setData }) {
   };
   const [customData, setCustomData] = useState({
     title: "",
-    organization: "",
-    description: " ",
+
+    description: "",
+    currentlyWorking: true,
 
     duration: {
       start: { year: "Year", month: "Month" },
@@ -69,11 +70,11 @@ function CustomSection({ data, setData }) {
       }
       setIsModified({ status: false, index: 0 });
       setCustomData({
-        designation: "",
-        organization: "",
+        title: "",
+
         description: "",
         currentlyWorking: true,
-        location: "",
+
         duration: {
           start: { year: "Year", month: "Month" },
           end: { year: "Year", month: "Month" },
@@ -130,29 +131,46 @@ function CustomSection({ data, setData }) {
   };
   return (
     <div
-      className="flex flex-col p-4 gap-2 rounded-lg bg-white"
-      style={
-        {
-          // boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)",
-          // opacity: isChecked ? 1 : 0.5,
-        }
-      }
+      className="flex flex-col p-4 gap-[16px] rounded-lg bg-white"
+      style={{
+        // boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)",
+        opacity: isChecked ? 1 : 0.5,
+      }}
     >
+      {!view && data?.customDataSection?.length > 0 && (
+        <div className="w-full flex justify-end items-end float-end text-[20px] font-montserrat font-medium ">
+          {/* <p> Experience</p> */}
+          <label className="switch">
+            <input
+              type="checkbox"
+              checked={isChecked}
+              onChange={handleSwitchChange}
+            />
+            <span className="slider round"></span>
+          </label>
+        </div>
+      )}
+
       {!view &&
         data?.customDataSection?.length > 0 &&
         data?.customDataSection?.map((exp, index) => (
           <div
             key={index}
-            className="flex flex-col gap-1 p-2 rounded-[6px]  border break-all"
+            className={`flex flex-col gap-1 py-[12px] px-[16px] rounded-[6px]  border break-all ${
+              editingIndex === index
+                ? "border-[#06A9EF] border-[2px]"
+                : "border-[#DEDEDE]"
+            }`}
           >
-            <div className="flex justify-between">
+            <div className="flex  justify-between">
               <p className="text-[14px]">
-                {exp?.title} {exp?.description}{" "}
+                {exp?.title}{" "}
                 {exp?.duration?.start?.year !== "Year" &&
                   ` ${"|"} ${exp.duration?.start?.year} 
             ${exp?.duration?.start?.year && "-"}
             ${exp?.currentlyWorking ? "Present" : exp?.duration?.end?.year}`}
               </p>
+
               <div className="flex gap-2">
                 <div onClick={() => handleEditClick(index)}>
                   <Edit_icon />
@@ -162,9 +180,7 @@ function CustomSection({ data, setData }) {
                 </div>
               </div>
             </div>
-            <p className="text-[12px]">
-              {exp.designation} | {exp.location}
-            </p>
+            <p className="text-[12px]">{exp?.description}</p>
           </div>
         ))}
 
@@ -185,6 +201,9 @@ function CustomSection({ data, setData }) {
                 />
               </div>
             </div>
+            {errors.title && (
+              <span className="text-[red] text-[12px]">{errors.title}</span>
+            )}
             <div className="flex flex-col gap-[8px] w-full">
               <div className="w-full text-[14px] font-montserrat  font-medium">
                 Description
@@ -201,8 +220,10 @@ function CustomSection({ data, setData }) {
                   maxLength={200}
                 />
               </div>
-              {errors.title && (
-                <span className="text-[red] text-[12px]">{errors.title}</span>
+              {errors.description && (
+                <span className="text-[red] text-[12px]">
+                  {errors.description}
+                </span>
               )}
             </div>
 
@@ -221,11 +242,11 @@ function CustomSection({ data, setData }) {
                 className=" font-montserrat text-xs font-semibold px-[12px] rounded-[8px] border border-[#06A9EF] w-[80px] h-[32px]"
                 onClick={() => {
                   setCustomData({
-                    designation: "",
-                    organization: "",
-                    description: " ",
+                    title: "",
+
+                    description: "",
                     currentlyWorking: true,
-                    location: "",
+
                     duration: {
                       start: { year: "Year", month: "Month" },
                       end: { year: "Year", month: "Month" },
@@ -270,7 +291,7 @@ function CustomSection({ data, setData }) {
             className="text-[16px] font-semibold text-[#06A9EF] cursor-pointer"
             disabled={!isChecked}
           >
-            Add Experience
+            Add Section
           </p>
         </div>
       )}
