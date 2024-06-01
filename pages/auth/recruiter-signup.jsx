@@ -12,7 +12,7 @@ import ImageContainer from "../../components/common/image";
 import ImageCropper from "../../components/featured/candidate/createResume/components/imageCropper";
 import MiniLoader from "../../components/common/mini-loader";
 
-function Recruiter_signup({}) {
+function Recruiter_signup({ }) {
   const router = useRouter();
   const { byAdmin, isUpdate } = router.query;
 
@@ -56,7 +56,7 @@ function Recruiter_signup({}) {
     setIsProfileImageRemoved(false);
 
     const selectedFile = event.target.files[0];
-    if (selectedFile && selectedFile.size <= 2 * 1024 * 1024) {
+    if (selectedFile && selectedFile.size <= 4 * 1024 * 1024) {
       // 2 MB limit
       if (selectedFile.type.includes("image")) {
         setFile(selectedFile);
@@ -67,7 +67,7 @@ function Recruiter_signup({}) {
         toast.error("Only Image files are allowed");
       }
     } else {
-      toast.error("Please select a file that is  2 MB.");
+      toast.error("Please select a file that is  1 MB.");
     }
   };
   useEffect(() => {
@@ -306,9 +306,8 @@ function Recruiter_signup({}) {
                   dispatch(reCallUserData());
                   toast.success("Sign up Successfully");
                   if (sendToPurchase && sendToPurchase?.status) {
-                    window.location.href = `/purchase/details?id=${
-                      sendToPurchase.index + 1
-                    }`;
+                    window.location.href = `/purchase/details?id=${sendToPurchase.index + 1
+                      }`;
                     setLoading(false);
                   } else {
                     window.location.href = `/home?signIn=false`;
@@ -477,9 +476,9 @@ function Recruiter_signup({}) {
 
                         <div className="flex flex-col gap-3 w-[168px] text-center items-center ">
                           <p className="text-[12px] font-normal">
-                            Allowed file formats: jpg, jpeg | up to 2 MB
+                            Allowed file formats: jpg, jpeg | up to 1 MB
                           </p>
-                          <div className="text-[12px] font-semibold px-4 py-2 rounded-[8px] bg-[#06A9EF] text-white w-[135px] upload-btn-wrapper">
+                          <div className="text-[12px] font-semibold px-4 py-2 rounded-[8px]  border border-[#06A9EF] bg-[#06A9EF] text-white w-[135px] upload-btn-wrapper">
                             <input
                               type="file"
                               ref={fileRef}
@@ -513,13 +512,13 @@ function Recruiter_signup({}) {
                     <div className="personal_name_parent flex ml:flex-row flex-col ml:w-[48%] w-[100%]">
                       <div className="personal_name ml:w-[47%] w-[100%]">
                         <p className="form_text_heading">
-                          First name <span className="star">*</span>
+                          First Name <span className="star">*</span>
                         </p>
                         <input
                           type="text"
                           name=""
                           id="first_name"
-                          placeholder="Enter first name"
+                          placeholder="Enter First Name"
                           value={data.firstName}
                           onChange={(e) =>
                             handleInputChange("firstName", e.target.value)
@@ -534,13 +533,13 @@ function Recruiter_signup({}) {
 
                       <div className="personal_name ml:w-[47%] w-[100%]">
                         <p className="form_text_heading">
-                          Last name <span className="star">*</span>
+                          Last Name <span className="star">*</span>
                         </p>
                         <input
                           type="text"
                           name=""
                           id="first_name"
-                          placeholder="Enter Last name"
+                          placeholder="Enter Last Name"
                           value={data.lastName}
                           onChange={(e) =>
                             handleInputChange("lastName", e.target.value)
@@ -558,15 +557,13 @@ function Recruiter_signup({}) {
                         Contact Number <span className="star">*</span>
                       </p>
                       <div
-                        className={`flex w-[100%] items-start ${
-                          isViewportBelow850 ? "gap-[4px] " : "gap-[16px] "
-                        }`}
+                        className={`flex w-[100%] items-start ${isViewportBelow850 ? "gap-[4px] " : "gap-[16px] "
+                          }`}
                         id="single_input"
                       >
                         <div
-                          className={`relative min-w-[150px] ${
-                            isViewportBelow850 ? "w-[65%] " : "w-[40%] "
-                          } items-center`}
+                          className={`relative min-w-[150px] ${isViewportBelow850 ? "w-[65%] " : "w-[40%] "
+                            } items-center`}
                         >
                           <div
                             onWheel={(e) => e.stopPropagation()}
@@ -623,11 +620,10 @@ function Recruiter_signup({}) {
                           type="text"
                           name=""
                           // id="single_input"
-                          placeholder={`${
-                            isViewportBelow850
+                          placeholder={`${isViewportBelow850
                               ? "Enter Number "
                               : "Enter Contact Number "
-                          }`}
+                            }`}
                           value={data.mobileNo}
                           onChange={(e) =>
                             handleInputChange("mobileNo", e.target.value)
@@ -649,8 +645,9 @@ function Recruiter_signup({}) {
                         <p className="form_text_heading">
                           Email <span className="star">*</span>
                         </p>
-                        <div className="flex gap-2 items-center justify-center">
+                        <div className="flex gap-2 h-[48px] items-center justify-center">
                           <input
+                            className="h-full"
                             disabled={isUpdate}
                             style={{ opacity: isUpdate ? "0.5" : "1" }}
                             type="email"
@@ -786,10 +783,10 @@ function Recruiter_signup({}) {
                             Password <span className="star">*</span>
                           </p>
                           <input
-                            type={showPassword ? "text" : "password"}
+                            type={showPassword ? "Text" : "Password"}
                             name=""
                             id="single_input"
-                            placeholder="Enter password"
+                            placeholder="Enter Password"
                             value={data.password}
                             onChange={(e) =>
                               handleInputChange("password", e.target.value)
@@ -844,7 +841,7 @@ function Recruiter_signup({}) {
                             Confirm Password <span className="star">*</span>
                           </p>
                           <input
-                            type={showConfirmPassword ? "text" : "password"}
+                            type={showConfirmPassword ? "Text" : "Password"}
                             name=""
                             id="single_input"
                             placeholder="Confirm Password"

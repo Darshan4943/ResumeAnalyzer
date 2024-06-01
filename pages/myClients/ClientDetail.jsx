@@ -288,7 +288,7 @@ function ClientDetail({ tabIndex }) {
           {resumeList?.map((item, index) => (
             <div
               key={index}
-              className="flex flex-col w-[192px] break-all items-center justify-between group relative "
+              className="flex flex-col w-[192px] break-all items-center justify-between group relative resumes"
             >
               <PdfViewer pdfUrl={item?.resumeUrl} />
               <div className="text-[14px] text-[#333333] font-500">

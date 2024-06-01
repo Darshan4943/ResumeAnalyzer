@@ -5,7 +5,6 @@ import { camelCase } from "../../utils/middleware";
 import Summery from "../../components/featured/candidate/createResume/components/summery";
 import { useRouter } from "next/router";
 import { plans, templates } from "../../utils/data";
-
 import axios from "axios";
 import { useRef } from "react";
 
@@ -83,6 +82,7 @@ function Dashboard() {
     },
 
     { name: "Chat Bot", imgSrc: "/images/resumeBuilder/bot1.png", new: "New" },
+    { name: "My Website", imgSrc: "/images/resumeBuilder/website.png",new: "New" },
     // { name: "Search Jobs", imgSrc: "/images/resumeBuilder/job.png" },
     { name: "My Purchases", imgSrc: "/images/resumeBuilder/my_purchases.png" },
   ];
@@ -139,6 +139,9 @@ function Dashboard() {
         break;
       case "My Purchases":
         handleNavigation("/purchase/MyPurchase");
+        break;
+         case "My Website":
+        handleNavigation("/myWebsite");
         break;
       case "Chat Bot":
         handleNavigation("/chatbot");
@@ -256,6 +259,7 @@ function Dashboard() {
     return false;
   }
 
+
   return (
     <div className="customMargins flex flex-col gap-12 py-6 min-h-[70vh]">
       {successful && (
@@ -350,7 +354,7 @@ function Dashboard() {
             lands your dream job effortlessly.
             <div
               onClick={() => toggle()}
-              className="  rounded-[8px] bg-[#FFFFFF] px-4 py-3 text-[16px] flex gap-1 text-[#06A9EF] justify-center items-center leading-tight ml:w-full w-[152px] cursor-pointer"
+              className="  rounded-[8px] bg-[#FFFFFF] px-4 py-3 text-[16px] flex gap-1 text-[#06A9EF] justify-center items-center leading-tight scr460:w-[152px] w-full  cursor-pointer"
             >
               Get Started
               <svg
@@ -378,23 +382,23 @@ function Dashboard() {
       </div>
       <div
         // style={{ border: "2px solid red" }}
-        className="flex gap-12 flex-wrap justify-center"
+        className="flex gap-[16px] scr460:gap-12 flex-wrap justify-center"
       >
         {list().map((item, index) => (
           <div
             key={index}
             className={
-              "job-card relative scr420:w-[162.67px] w-[120px] scr420:h-[154px] h-[120px] scr420:p-4 p-3 cursor-pointer flex flex-col items-center scr420:gap-3 gap-2 justify-center text-center"
+              "job-card relative scr460:w-[162.67px] w-[104px] scr460:h-[154px] h-[114px] scr460:p-4 p-3 cursor-pointer flex flex-col items-center scr420:gap-3 gap-2 justify-center text-center"
             }
             onClick={() => handleItemClick(item.name)}
           >
             <img
               src={item.imgSrc}
               alt=""
-              className="scr420:w-[48px] w-[40px]  scr420:h-[48px] h-[40px] "
+              className="scr460:w-[48px] w-[40px]  scr460:h-[48px] h-[40px] "
             />
 
-            <div className="scr420:text-[14px] text-[12px] font-medium">
+            <div className="scr460:text-[14px] text-[12px] font-medium">
               {item.name}
             </div>
             {item.new && (
@@ -418,20 +422,20 @@ function Dashboard() {
                 {templates.find(
                   (item) => item.index === data.selectedResumeIndex
                 ) && (
-                  <img
-                    src={
-                      templates.find(
-                        (item) => item.index === data.selectedResumeIndex
-                      ).imgUrl
-                    }
-                    style={{
-                      height: "100%",
-                      width: "90%",
-                      objectFit: "cover",
-                    }}
-                    alt={`Resume template ${data.selectedResumeIndex}`} // Adding an alt attribute for accessibility
-                  />
-                )}
+                    <img
+                      src={
+                        templates.find(
+                          (item) => item.index === data.selectedResumeIndex
+                        ).imgUrl
+                      }
+                      style={{
+                        height: "100%",
+                        width: "90%",
+                        objectFit: "cover",
+                      }}
+                      alt={`Resume template ${data.selectedResumeIndex}`} // Adding an alt attribute for accessibility
+                    />
+                  )}
               </div>
 
               <div className="w-[40%] flex flex-col gap-4 min-w-[160px]">

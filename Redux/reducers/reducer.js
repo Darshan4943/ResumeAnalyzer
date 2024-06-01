@@ -12,6 +12,8 @@ const initialTagState = {
 const initialwalletState = {
   points: [],
 };
+
+
 export const changeNumber = (state = initilize, action) => {
   switch (action.type) {
     case "INCREMENT":

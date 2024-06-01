@@ -25,7 +25,7 @@ module.exports = {
       ms: "600px",
       scr700: "700px",
       md: "768px",
-      scr800: '800px',
+      scr800: "800px",
       scr820: "820px",
       ml: "851px",
       scr900: "900px",
@@ -43,7 +43,7 @@ module.exports = {
       scr1350: "1350px",
       scr1400: "1400px",
       xl: "1440px",
-      xxl: "1700px"
+      xxl: "1700px",
     },
     colors: {
       red: "#C00000",
@@ -76,6 +76,9 @@ module.exports = {
       Lato: ["Lato", "sans-serif"],
     },
     extend: {
+      backgroundImage: {
+        "custom-gradient": "linear-gradient(90deg, #06A9EF 0%, #55CCFF 100%)",
+      },
       spacing: {
         128: "32rem",
         144: "36rem",

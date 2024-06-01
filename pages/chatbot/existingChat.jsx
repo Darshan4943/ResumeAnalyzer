@@ -12,7 +12,7 @@ const ExistingChat = ({
   forceUpdate,
   setIsSidebarOpen,
   setIsNew,
-  isNew
+  isNew,
 }) => {
   const [existingChatDayWise, setExistingChatDayWise] = useState([]);
 
@@ -95,15 +95,15 @@ const ExistingChat = ({
         a === "Today"
           ? new Date()
           : a === "Yesterday"
-            ? new Date(new Date().setDate(new Date().getDate() - 1))
-            : new Date(a)
+          ? new Date(new Date().setDate(new Date().getDate() - 1))
+          : new Date(a)
       );
       const dateB = new Date(
         b === "Today"
           ? new Date()
           : b === "Yesterday"
-            ? new Date(new Date().setDate(new Date().getDate() - 1))
-            : new Date(b)
+          ? new Date(new Date().setDate(new Date().getDate() - 1))
+          : new Date(b)
       );
       return dateB - dateA;
     });
@@ -145,34 +145,33 @@ const ExistingChat = ({
         setInitialWidth("35%");
       }
     };
-
     handleResize();
-
     window.addEventListener("resize", handleResize);
-
     return () => window.removeEventListener("resize", handleResize);
   }, []);
   useEffect(() => {
     if (existingChat && Object.keys(existingChat).length == 0) {
       createNewChat();
+    } else if (existingChat) {
+      setSelectedChat(Object.keys(existingChat)[0]);
     }
   }, [existingChat]);
 
   const deleteChatHandler = (key) => {
-
     const dummyData = { ...existingChat };
     delete dummyData[key];
-    console.log(dummyData)
+    console.log(dummyData);
     localStorage.setItem("chat", JSON.stringify(dummyData));
     setSelectedChat(Object.keys(dummyData)[0]);
     forceUpdate();
   };
 
-  
-
   return (
     <>
-      <div className={` web`} style={{ width: !isSidebarOpen ? initialWidth : '0%' }}>
+      <div
+        className={` web`}
+        style={{ width: !isSidebarOpen ? initialWidth : "0%" }}
+      >
         <motion.div
           className="flex  gap-2 bg-[#FBFBFB]  "
           initial={{ width: "100%" }}
@@ -183,8 +182,8 @@ const ExistingChat = ({
           }}
           transition={{ duration: 0.1 }}
         >
-          <div className="w-full relative flex h-[100vh] overflow-y-auto ">
-            <div className="flex flex-col w-[100%] h-[100%]  ">
+          <div className="w-full relative flex h-[93vh] overflow-y-auto ">
+            <div className="flex flex-col w-[100%] h-[93vh]  ">
               <div className=" p-4 flex flex-col gap-4  ">
                 <div className="flex gap-3 items-center justify-center">
                   <img
@@ -232,16 +231,18 @@ const ExistingChat = ({
                                 >
                                   <div
                                     style={{ flexDirection: "row" }}
-                                    className={`flex justify-between relative items-center hover:bg-[#FFFEEF] ${selectedChat === chat
-                                      ? "border-[1px] bg-[#FFFEEF] border-[#EEE890]"
-                                      : ""
-                                      } py-[5px] px-[24px] flex-col m-w-[252px]`}
+                                    className={`flex justify-between relative items-center hover:bg-[#FFFEEF] ${
+                                      selectedChat === chat
+                                        ? "border-[1px] bg-[#FFFEEF] border-[#EEE890]"
+                                        : ""
+                                    } py-[5px] px-[24px] flex-col m-w-[252px]`}
                                   >
                                     <p
-                                      className={`text-[12px] font-Montserrat ${selectedChat === chat
-                                        ? "font-[700] "
-                                        : "font-[500]"
-                                        }`}
+                                      className={`text-[12px] font-Montserrat ${
+                                        selectedChat === chat
+                                          ? "font-[700] "
+                                          : "font-[500]"
+                                      }`}
                                     >
                                       {chat} ...
                                     </p>
@@ -279,7 +280,9 @@ const ExistingChat = ({
                                       >
                                         <div
                                           className="items-center hover:bg-[#F0F0F0] justify-center flex rounded-[6px] p-[8px] gap-[8px]"
-                                          onClick={() => deleteChatHandler(chat)}
+                                          onClick={() =>
+                                            deleteChatHandler(chat)
+                                          }
                                         >
                                           <svg
                                             width="20"
@@ -338,12 +341,11 @@ const ExistingChat = ({
               </motion.div>
             </div>
           </div>
-
         </motion.div>
       </div>
       <div className="mobile">
         <AnimatePresence>
-          {!isSidebarOpen &&
+          {!isSidebarOpen && (
             <>
               <motion.div
                 initial={{ x: "-100%" }}
@@ -351,7 +353,6 @@ const ExistingChat = ({
                 exit={{ x: "-100%" }}
                 transition={{ duration: 0.5, ease: "easeInOut" }}
                 className="absolute z-[2000] w-[90%] mt-[2rem] h-[90vh] rounded-r-[12px]  overflow-y-auto left-0  bg-[#FBFBFB]"
-
               >
                 <div className="w-full relative flex ">
                   <div className="flex flex-col w-[100%] h-[100%]  ">
@@ -368,10 +369,19 @@ const ExistingChat = ({
                               Skilotech GenAI
                             </p>
                           </div>
-                          <svg onClick={() => (setIsSidebarOpen(!isSidebarOpen))} width="32" height="24" viewBox="0 0 32 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-
+                          <svg
+                            onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+                            width="32"
+                            height="24"
+                            viewBox="0 0 32 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
                             <g mask="url(#mask0_3079_40863)">
-                              <path d="M11.5492 11.9996L18.8992 19.3496C19.1492 19.5996 19.2701 19.8913 19.2617 20.2246C19.2534 20.558 19.1242 20.8496 18.8742 21.0996C18.6242 21.3496 18.3326 21.4746 17.9992 21.4746C17.6659 21.4746 17.3742 21.3496 17.1242 21.0996L9.42422 13.4246C9.22422 13.2246 9.07422 12.9996 8.97422 12.7496C8.87422 12.4996 8.82422 12.2496 8.82422 11.9996C8.82422 11.7496 8.87422 11.4996 8.97422 11.2496C9.07422 10.9996 9.22422 10.7746 9.42422 10.5746L17.1242 2.87462C17.3742 2.62462 17.6701 2.50379 18.0117 2.51212C18.3534 2.52046 18.6492 2.64962 18.8992 2.89962C19.1492 3.14962 19.2742 3.44129 19.2742 3.77462C19.2742 4.10796 19.1492 4.39962 18.8992 4.64962L11.5492 11.9996Z" fill="#333333" />
+                              <path
+                                d="M11.5492 11.9996L18.8992 19.3496C19.1492 19.5996 19.2701 19.8913 19.2617 20.2246C19.2534 20.558 19.1242 20.8496 18.8742 21.0996C18.6242 21.3496 18.3326 21.4746 17.9992 21.4746C17.6659 21.4746 17.3742 21.3496 17.1242 21.0996L9.42422 13.4246C9.22422 13.2246 9.07422 12.9996 8.97422 12.7496C8.87422 12.4996 8.82422 12.2496 8.82422 11.9996C8.82422 11.7496 8.87422 11.4996 8.97422 11.2496C9.07422 10.9996 9.22422 10.7746 9.42422 10.5746L17.1242 2.87462C17.3742 2.62462 17.6701 2.50379 18.0117 2.51212C18.3534 2.52046 18.6492 2.64962 18.8992 2.89962C19.1492 3.14962 19.2742 3.44129 19.2742 3.77462C19.2742 4.10796 19.1492 4.39962 18.8992 4.64962L11.5492 11.9996Z"
+                                fill="#333333"
+                              />
                             </g>
                           </svg>
                         </div>
@@ -394,17 +404,22 @@ const ExistingChat = ({
                     </div>
                     <div className="w-full overflow-y-auto ">
                       <div className="flex flex-col w-full p-6">
-                        <div className="flex flex-col h-[80vh] gap-6 ">
+                        <div className="flex flex-col max-h-[75vh] gap-6 ">
                           {Object.keys(existingChatDayWise).length > 0 ? (
                             <>
                               {" "}
-                              {getSortedDates(Object.keys(existingChatDayWise)).map(
-                                (key, index) => (
-                                  <div key={index} className="flex flex-col gap-4">
-                                    <p className="text-[12px] font-Montserrat text-[#06A9EF]">
-                                      {key}
-                                    </p>
-                                    {existingChatDayWise[key]?.map((chat, index) => (
+                              {getSortedDates(
+                                Object.keys(existingChatDayWise)
+                              ).map((key, index) => (
+                                <div
+                                  key={index}
+                                  className="flex flex-col gap-4"
+                                >
+                                  <p className="text-[12px] font-Montserrat text-[#06A9EF]">
+                                    {key}
+                                  </p>
+                                  {existingChatDayWise[key]?.map(
+                                    (chat, index) => (
                                       <div
                                         className=" flex flex-col gap-4 cursor-pointer"
                                         onClick={() => handleChatClick(chat)}
@@ -412,16 +427,18 @@ const ExistingChat = ({
                                       >
                                         <div
                                           style={{ flexDirection: "row" }}
-                                          className={`flex justify-between relative items-center hover:bg-[#FFFEEF] ${selectedChat === chat
-                                            ? "border-[1px] bg-[#FFFEEF] border-[#EEE890]"
-                                            : ""
-                                            } py-[5px] px-[24px] flex-col m-w-[252px]`}
+                                          className={`flex justify-between relative items-center hover:bg-[#FFFEEF] ${
+                                            selectedChat === chat
+                                              ? "border-[1px] bg-[#FFFEEF] border-[#EEE890]"
+                                              : ""
+                                          } py-[5px] px-[24px] flex-col m-w-[252px]`}
                                         >
                                           <p
-                                            className={`text-[12px] font-Montserrat ${selectedChat === chat
-                                              ? "font-[700] "
-                                              : "font-[500]"
-                                              }`}
+                                            className={`text-[12px] font-Montserrat ${
+                                              selectedChat === chat
+                                                ? "font-[700] "
+                                                : "font-[500]"
+                                            }`}
                                           >
                                             {chat} ...
                                           </p>
@@ -429,7 +446,9 @@ const ExistingChat = ({
                                             onClick={(e) => {
                                               e.stopPropagation();
                                               setPopUp((prev) =>
-                                                activeChat === chat ? !prev : true
+                                                activeChat === chat
+                                                  ? !prev
+                                                  : true
                                               );
                                               setActiveChat(chat);
                                             }}
@@ -459,7 +478,9 @@ const ExistingChat = ({
                                             >
                                               <div
                                                 className="items-center hover:bg-[#F0F0F0] justify-center flex rounded-[6px] p-[8px] gap-[8px]"
-                                                onClick={() => deleteChatHandler(chat)}
+                                                onClick={() =>
+                                                  deleteChatHandler(chat)
+                                                }
                                               >
                                                 <svg
                                                   width="20"
@@ -484,10 +505,10 @@ const ExistingChat = ({
                                           )}
                                         </div>
                                       </div>
-                                    ))}
-                                  </div>
-                                )
-                              )}
+                                    )
+                                  )}
+                                </div>
+                              ))}
                             </>
                           ) : (
                             <div
@@ -520,7 +541,7 @@ const ExistingChat = ({
                 </div>
               </motion.div>
             </>
-          }
+          )}
         </AnimatePresence>
       </div>
     </>

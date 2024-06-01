@@ -160,7 +160,7 @@ function SubscriptionPlans({ fromMain }) {
                   <button
                     disabled={true}
                     onClick={() => clickHandler(index)}
-                    className="px-9 py-3 bg-[#06A9EF] text-white rounded-[12px] text-[1.4vw] font-semibold w-full"
+                    className="px-9 py-3 bg-[#06A9EF] text-white rounded-[12px] text-[1.2vw] font-semibold w-full"
                     style={{ opacity: 0.6 }}
                   >
                     Contact Us
@@ -170,8 +170,7 @@ function SubscriptionPlans({ fromMain }) {
                 <div className="p-4 z-20 bg-white rounded-[16px] flex flex-col gap-4 items-center h-full justify-between">
                   <div className="flex text-center flex-col gap-3 text-[#333333] ">
                     <p className="text-[1.4vw] font-[600]">
-                      <span className="text-[#06A9EF]">{plan?.duration}</span>{" "}
-                      {plan?.limit}
+                    
                       <span className="text-[#06A9EF]">{plan?.duration}</span>{" "}
                       {plan?.limit}
                     </p>

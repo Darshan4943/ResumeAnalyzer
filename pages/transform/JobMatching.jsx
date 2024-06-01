@@ -15,7 +15,9 @@ import { pdfjs } from "react-pdf";
 import PizZip from "pizzip";
 import Docxtemplater from "docxtemplater";
 import { toast } from "react-toastify";
-import { motion } from "framer-motion";
+
+import JdMatchingsideBar from "../jdMatching/JdMatchingsideBar";
+import { AnimatePresence, motion } from "framer-motion";
 
 const JobMatching = () => {
   const [loading, setLoading] = useState(true);
@@ -28,12 +30,31 @@ const JobMatching = () => {
   const [text, setText] = useState("");
   const [error, setError] = useState("");
   const [loadingg, setLoadingg] = useState("");
+
   const [resumeCount, setResumeCount] = useState(5);
   const [files, setFiles] = useState([]);
   const { clientId, parentId } = router.query;
-
   const [selectedIndexes, setSelectedIndexes] = useState([]);
   const [selectedIndexesFileTypes, setSelectedIndexesFilesType] = useState([]);
+
+  //sideBar implimentation
+  const [showMatchingSidebar, setShowsideBar] = useState(false);
+  const [extratctedData, setExtractedData] = useState(null);
+  const [btnToggle, setButtonToggle] = useState(false);
+  const sidebarRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (sidebarRef.current && !sidebarRef.current.contains(event.target)) {
+        setShowsideBar(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   useEffect(() => {
     if (parentId) {
@@ -128,41 +149,45 @@ const JobMatching = () => {
     setLoadingg(true);
     setIsAnimate(false);
     try {
-      const res = await axios.post("https://jamblix.com/api/jd/extraction", {
+      const res = await axios.post("http://localhost:2000/api/jd/extraction", {
         text,
       });
       const jd = res.data.jsonData[0];
+      // if (Object.keys(jd).length > 5) {
+      //   const chunks = chunkArray(selectedIndexesFileTypes, 5);
+      //   const outputData = [];
+      //   for (let i = 0; i < chunks.length; i++) {
+      //     await processChunk(chunks[i], jd, outputData);
+      //     if (i < chunks.length - 1) {
+      //       await new Promise((resolve) => setTimeout(resolve, 10000));
+      //     }
+      //   }
+      //   const dataArray = outputData
+      //     .filter((item) => item.matching_percentage)
+      //     ?.sort((a, b) => {
+      //       if (parseInt(b.matching_percentage))
+      //         parseInt(
+      //           isNaN(b.matching_percentage)
+      //             ? b.matching_percentage.slice(0, 2)
+      //             : b.matching_percentage
+      //         ) -
+      //           parseInt(
+      //             isNaN(a.matching_percentage)
+      //               ? a.matching_percentage.slice(0, 2)
+      //               : a.matching_percentage
+      //           );
+      //     })
+      //     .slice(0, resumeCount);
+      //   setResumeList(dataArray);
+      //   console.log(6555, dataArray);
+      // } else {
+      //   toast.error("Something went wrong, please try again");
+      // }
       if (Object.keys(jd).length > 5) {
-        const chunks = chunkArray(selectedIndexesFileTypes, 5);
-        const outputData = [];
-        for (let i = 0; i < chunks.length; i++) {
-          await processChunk(chunks[i], jd, outputData);
-          if (i < chunks.length - 1) {
-            await new Promise((resolve) => setTimeout(resolve, 10000)); // Wait for 1 minute before processing the next chunk
-          }
-        }
-        const dataArray = outputData
-          .filter((item) => item.matching_percentage)
-          ?.sort((a, b) => {
-            if (parseInt(b.matching_percentage))
-              parseInt(
-                isNaN(b.matching_percentage)
-                  ? b.matching_percentage.slice(0, 2)
-                  : b.matching_percentage
-              ) -
-                parseInt(
-                  isNaN(a.matching_percentage)
-                    ? a.matching_percentage.slice(0, 2)
-                    : a.matching_percentage
-                );
-          })
-          .slice(0, resumeCount);
-        setResumeList(dataArray);
-      } else {
-        toast.error("Something went wrong, please try again");
+        setExtractedData(jd);
+        setLoadingg(false);
+        setShowsideBar(true);
       }
-
-      setLoadingg(false);
     } catch (e) {
       console.log("error", e);
       setLoadingg(false);
@@ -331,6 +356,43 @@ const JobMatching = () => {
     setFiles(selectedFiles);
   };
 
+  const MatchJob = async () => {
+    setLoadingg(true);
+    setIsAnimate(false);
+    if (Object.keys(extratctedData).length > 5) {
+      const chunks = chunkArray(selectedIndexesFileTypes, 5);
+      const outputData = [];
+      for (let i = 0; i < chunks.length; i++) {
+        await processChunk(chunks[i], extratctedData, outputData);
+        if (i < chunks.length - 1) {
+          await new Promise((resolve) => setTimeout(resolve, 10000));
+        }
+      }
+      const dataArray = outputData
+        .filter((item) => item.matching_percentage)
+        ?.sort((a, b) => {
+          if (parseInt(b.matching_percentage))
+            parseInt(
+              isNaN(b.matching_percentage)
+                ? b.matching_percentage.slice(0, 2)
+                : b.matching_percentage
+            ) -
+              parseInt(
+                isNaN(a.matching_percentage)
+                  ? a.matching_percentage.slice(0, 2)
+                  : a.matching_percentage
+              );
+        })
+        .slice(0, resumeCount);
+      setResumeList(dataArray);
+      setButtonToggle(false);
+      setLoadingg(false);
+      console.log(6555, dataArray);
+    } else {
+      toast.error("Something went wrong, please try again");
+    }
+  };
+
   return (
     <div className=" md:py-6 py-3 flex flex-col gap-4 min-h-[80vh] customMargins ">
       {loadingg && (
@@ -365,25 +427,7 @@ const JobMatching = () => {
       <div className="bg-[#DEDEDE] w-full h-[1px]"></div>
 
       <div className="flex ml:flex-row flex-col gap-4 h-full">
-        <div className="ml:w-[45%] w-full flex  flex-col gap-6">
-          {/* <ReactSelect
-            options={options?.map((item, index) => ({
-              value: item,
-              label: item,
-            }))}
-            className="my-4 outline outline-offset-1 outline-blue rounded-[8px]"
-            name=""
-            placeholder="Select"
-            value={selectedOptions}
-            onChange={(selectedOption) => selectOptions(selectedOption)}
-            styles={{
-              control: (provided) => ({
-                ...provided,
-                border: "none",
-                minWidth: "130px",
-              }),
-            }}
-          /> */}
+        <div className="relative ml:w-[45%] w-full flex  flex-col gap-6">
           <div className="text-[18px] text-[#333333] font-medium">
             Select From Collection
           </div>
@@ -407,14 +451,55 @@ const JobMatching = () => {
             setError={setError}
             setResumeCount={setResumeCount}
             jobMatching={jobMatching}
+            setShowsideBar={setShowsideBar}
+            showMatchingSidebar={showMatchingSidebar}
+            MatchJob={MatchJob}
+            btnToggle={btnToggle}
+            setButtonToggle={setButtonToggle}
           />
         </div>
+
+        <AnimatePresence>
+          {showMatchingSidebar && (
+            <>
+              {" "}
+              <div className="fixed z-[1500] top-0 left-0 right-0 bottom-0 bg-[#FFFFFF] bg-opacity-0"></div>
+              <motion.div
+                ref={sidebarRef}
+                initial={{ x: "-100%" }}
+                animate={{ x: 0 }}
+                exit={{ x: "-100%" }}
+                transition={{ duration: 0.5, ease: "easeInOut" }}
+                className="absolute z-[2000] overflow-y-auto"
+                style={{
+                  background: "rgba(255, 255, 255, 0.5)",
+                  boxShadow: "0 0 10px rgba(255, 255, 255, 0.5)",
+                  backdropFilter: "blur(10px)",
+                  ...(navigator.userAgent.includes("Safari") &&
+                    !navigator.userAgent.includes("Chrome") && {
+                      WebkitBackdropFilter: "blur(10px)",
+                    }),
+                  willChange: "transform",
+                  // opacity: isSidebar ? 1 : 0,
+                  // transform: (isSidebar ? "translateX(0)" : "translateX(-100%)"), transition: "transform 0.4s ease-in-out",
+                }}
+              >
+                <JdMatchingsideBar
+                  extratctedData={extratctedData}
+                  setExtractedData={setExtractedData}
+                />
+              </motion.div>
+            </>
+          )}
+        </AnimatePresence>
+
         <div className="bg-[#DEDEDE] ml:h-[91vh] h-[1px] ml:w-[1px] w-full"></div>
         <div className="ml:w-[45%] w-full">
           <JdMatching
             details={details}
             resumeList={resumeList}
             isAnimate={isAnimate}
+            setShowsideBar={setShowsideBar}
           />
         </div>
       </div>

@@ -61,7 +61,7 @@ const SocialLink = ({ setData, data }) => {
       <div
         className="flex flex-col p-4 gap-2 rounded-lg bg-white"
         style={{
-          boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)",
+          // boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)",
           opacity: isChecked ? 1 : 0.5,
         }}
       >
@@ -79,7 +79,10 @@ const SocialLink = ({ setData, data }) => {
         </div>
 
         {data?.sociaLinks?.map((social, index) => (
-          <div  key={index} className="flex flex-col gap-1 p-2 rounded-[6px] border border-[#DEDEDE]">
+          <div
+            key={index}
+            className="flex flex-col gap-1 p-2 rounded-[6px] border border-[#DEDEDE]"
+          >
             <div className="flex justify-between">
               <p>{social.platform}</p>
               <div className="flex gap-2">
