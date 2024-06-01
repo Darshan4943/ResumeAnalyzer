@@ -42,7 +42,7 @@ const JobMatching = () => {
   const [extratctedData, setExtractedData] = useState(null);
   const [btnToggle, setButtonToggle] = useState(false);
   const sidebarRef = useRef(null);
-
+  const [count, setCount] = useState(0);
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (sidebarRef.current && !sidebarRef.current.contains(event.target)) {
@@ -181,23 +181,35 @@ const JobMatching = () => {
         setResumeList(dataArray);
         setLoadingg(false);
       } else {
-        toast.error("Something went wrong, please try again");
-        setLoadingg(false);
+        setCount(count + 1);
+        // toast.error("Something went wrong, please try again");
+        // setLoadingg(false);
       }
     } catch (e) {
-      console.log("error", e);
-      setLoadingg(false);
-      toast.error("Something went wrong, please try again");
+      // console.log("error", e);
+      // setLoadingg(false);
+      // toast.error("Something went wrong, please try again");
+      setCount(count + 1);
     }
   };
 
+  useEffect(() => {
+    if (count > 3) {
+      setLoading(false);
+      toast.error("Something went wrong, please try again");
+      setCount(0);
+    } else if (count == 1 || count == 2 || count == 3) {
+      jobMatching();
+    }
+  }, [count]);
+console.log(205,count)
   {
     /** 
   const jobMatching = async () => {
     setLoadingg(true);
     setIsAnimate(false);
     try {
-      const res = await axios.post("http://localhost:2000/api/jd/extraction", {
+      const res = await axios.post("https://jamblix.com/api/jd/extraction", {
         text,
       });
       const jd = res.data.jsonData[0];
@@ -544,7 +556,7 @@ const JobMatching = () => {
         </AnimatePresence>*/}
 
         <div className="bg-[#DEDEDE] ml:h-[91vh] h-[1px] ml:w-[1px] w-full"></div>
-        <div className="ml:w-[45%] w-full">
+        <div className="ml:w-[60%] w-full">
           <JdMatching
             details={details}
             resumeList={resumeList}
