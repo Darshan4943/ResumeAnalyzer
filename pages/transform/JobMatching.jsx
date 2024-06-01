@@ -462,7 +462,7 @@ const JobMatching = () => {
         <AnimatePresence>
           {showMatchingSidebar && (
             <>
-              //{" "}
+              {" "}
               <div className="fixed z-[1500] top-0 left-0 right-0 bottom-0 bg-[#FFFFFF] bg-opacity-0"></div>
               <motion.div
                 ref={sidebarRef}
