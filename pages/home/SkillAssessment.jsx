@@ -1269,7 +1269,7 @@ console.log(question)
                           <div className="text-[18px] text-[#5B5B5B] font-[600]">
                             Your Score is{" "}
                             {assesmentType === "Normal" &&
-                              ((checkAnswer() / question.length) * 100) / 10}
+                                checkAnswer() }
                             {assesmentType === "Normal" && `/${10}`}
                             {assesmentType !== "Normal" && (
                               <>{calculateMarkOutOf60()}</>

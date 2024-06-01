@@ -57,10 +57,8 @@ const ResumeForm = ({
     Languages: false,
     "Achievements & Awards": false,
     References: false,
-    // socialLink: false,
+    "Social Links": false,
   });
-
-  console.log(60, customOptions);
 
   const handleImageClick = (template) => {
     togglePreview(true, template.index);
@@ -180,71 +178,93 @@ const ResumeForm = ({
         <div className="border-b border-r border-l border-[#DEDEDE]"></div>
         <Experience setData={setData} data={data} />
 
-        <Course setData={setData} data={data} />
+        {/* <Course setData={setData} data={data} /> */}
         <div className="border-b border-r border-l border-[#DEDEDE]"></div>
 
         <Skills setData={setData} data={data} />
         <div className="border-b border-r border-l border-[#DEDEDE]"></div>
 
-        {/* {customOptions["Custom Section"] && (
+        {(data?.customDataSection?.length > 0 ||
+          customOptions["Custom Section"]) && (
           <>
-            <CustomSection setData={setData} data={data} />
+            <CustomSection
+              setData={setData}
+              data={data}
+              customOptions={customOptions}
+              setCustomOptions={setCustomOptions}
+            />
             <div className="border-b border-r border-l border-[#DEDEDE]"></div>
           </>
         )}
 
-        {customOptions["Extra-Curriculum Activities"] && (
+        {(data?.ExtraCaricularActivity?.length > 0 ||
+          customOptions["Extra-Curriculum Activities"]) && (
           <>
-            <ExtraCaricularActivity setData={setData} data={data} />
+            <ExtraCaricularActivity
+              setData={setData}
+              data={data}
+              customOptions={customOptions}
+              setCustomOptions={setCustomOptions}
+            />
             <div className="border-b border-r border-l border-[#DEDEDE]"></div>
           </>
         )}
-        {customOptions["Courses & Certifications"] && (
+        {(data?.course?.length > 0 ||
+          customOptions["Courses & Certifications"]) && (
           <>
             <CouersesAndCertification setData={setData} data={data} />
             <div className="border-b border-r border-l border-[#DEDEDE]"></div>
           </>
         )}
-        {customOptions["Internships & Projects"] && (
+        {(data?.project?.length > 0 ||
+          customOptions["Internships & Projects"]) && (
           <>
             <ProjectSection setData={setData} data={data} />
             <div className="border-b border-r border-l border-[#DEDEDE]"></div>
           </>
         )}
-        {customOptions.Hobbies && (
+        {(data?.hobbies?.length > 0 || customOptions.Hobbies) && (
           <>
             <Hobbie setData={setData} data={data} />
             <div className="border-b border-r border-l border-[#DEDEDE]"></div>
           </>
         )}
 
-        {customOptions.Languages && (
+        {(data?.languages?.length > 0 || customOptions.Languages) && (
           <>
             <Languages setData={setData} data={data} />
             <div className="border-b border-r border-l border-[#DEDEDE]"></div>
           </>
         )}
 
-        {customOptions["Achievements & Awards"] && (
+        {(data?.achievement?.length > 0 ||
+          customOptions["Achievements & Awards"]) && (
           <>
             <Achievement setData={setData} data={data} />
             <div className="border-b border-r border-l border-[#DEDEDE]"></div>
           </>
         )}
 
-        {customOptions.References && (
+        {(data?.reference?.length > 0 || customOptions.References) && (
           <>
             <Reference setData={setData} data={data} />
             <div className="border-b border-r border-l border-[#DEDEDE]"></div>
           </>
-        )} */}
+        )}
 
-        {/* <AddNewSectionContainer
+        {(data?.sociaLinks?.length > 0 || customOptions["Social Links"]) && (
+          <>
+            <SocialLink setData={setData} data={data} />
+            <div className="border-b border-r border-l border-[#DEDEDE]"></div>
+          </>
+        )}
+
+        <AddNewSectionContainer
           setData={setData}
           data={data}
           customOptions={customOptions}
           setCustomOptions={setCustomOptions}
-        /> */}
+        />
 
         {/* <Achievement setData={setData} data={data} /> */}
 
