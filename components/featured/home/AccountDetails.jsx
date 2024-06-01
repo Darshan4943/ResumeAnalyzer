@@ -308,7 +308,7 @@ function AccountDetails({
         setPaymentStatus(session.payment_status);
 
         if (
-          session.payment_status === "paid" &&
+          session.payment_status === "unpaid" &&
           userDataGlobal &&
           selectedPlan &&
           exchangeRate &&
@@ -361,6 +361,9 @@ function AccountDetails({
       localStorage.removeItem("paymentDetails");
     } catch (error) {
       console.error("Error adding subscription:", error);
+      setTimeout(() => {
+        setSuccessModel({ visible: true, loading: false });
+      }, 1000);
     }
   };
 

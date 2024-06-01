@@ -134,7 +134,10 @@ function MyClients() {
       {tabIndex === 0 && (
         <div className="flex flex-col gap-4  w-[100%]">
           <div className="text-[20px] font-semibold">My Clients</div>
-          <div className="bg-[#DEDEDE] w-full h-[1px]"></div>
+          {/* <div className="bg-[#DEDEDE] w-full h-[1px]"></div> */}
+          <div
+          style={{ boxShadow: "0px 2px 7px 0px #00000040" }}
+          className="rounded-[16px] p-4 ">
           <div
             // style={{ boxShadow: "0px 2px 7px 0px #00000040" }}
             className="flex flex-col gap-4  py-3 rounded-[24px]"
@@ -265,7 +268,7 @@ function MyClients() {
                         router.push("/myClients/CreateNewClient");
                       }
                     }}
-                    className="ml:hidden scr420:text-[16px] text-[14px] font-semibold scr420:py-3 scr420:px-6 px-2 py-2 scr420:h-[48px]  scr420:min-w-[228px] flex gap-1 bg-[#06A9EF] rounded-[12px] text-white"
+                    className="ml:hidden scr420:text-[16px] text-[14px] font-semibold scr420:py-3 scr420:px-6 px-2 py-2 scr420:h-[48px]  scr420:min-w-[224px] flex gap-1 bg-[#06A9EF] rounded-[12px] text-white"
                     type="button"
                   >
                     <svg
@@ -294,7 +297,7 @@ function MyClients() {
                       router.push("/myClients/CreateNewClient");
                     }
                   }}
-                  className=" ml:flex hidden text-[16px] font-semibold py-3 px-6 h-[48px] min-w-[228px] gap-1 bg-[#06A9EF] rounded-[12px] text-white"
+                  className=" ml:flex hidden text-[16px] font-semibold py-3 px-6 h-[48px] min-w-[224px] gap-1 bg-[#06A9EF] rounded-[12px] text-white"
                   type="button"
                 >
                   <svg
@@ -341,6 +344,7 @@ function MyClients() {
                 select={select}
                 deleteClient={deleteClient}
                 ClientCount={ClientCount}
+                setLimitPopUp={setLimitPopUp}
               />
             ) : (
               <div
@@ -374,6 +378,8 @@ function MyClients() {
               <LimitUsedModal visible={limitPopUp} setVisible={setLimitPopUp} />
             )}
           </div>
+          </div>
+
         </div>
       )}
 

@@ -56,8 +56,8 @@ function Recruiter_signup({ }) {
     setIsProfileImageRemoved(false);
 
     const selectedFile = event.target.files[0];
-    if (selectedFile && selectedFile.size <= 4 * 1024 * 1024) {
-      // 2 MB limit
+    if (selectedFile && selectedFile.size <= 3 * 1024 * 1024) {
+      // 3 MB limit
       if (selectedFile.type.includes("image")) {
         setFile(selectedFile);
         setModelView(true);
@@ -67,7 +67,7 @@ function Recruiter_signup({ }) {
         toast.error("Only Image files are allowed");
       }
     } else {
-      toast.error("Please select a file that is  1 MB.");
+      toast.error("Please select a file that is  3 MB.");
     }
   };
   useEffect(() => {
