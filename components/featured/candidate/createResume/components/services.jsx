@@ -10,6 +10,7 @@ function Services({ setServices }) {
         { name: "My Resumes", imgSrc: "/images/resumeBuilder/myResume.png" },
         // { name: "Transform CV", imgSrc: "/images/resumeBuilder/transform_cv.png" },
         { name: "Skill Assessments", imgSrc: "/images/resumeBuilder/skill_assessments.png" },
+        
         { name: "My Purchases", imgSrc: "/images/resumeBuilder/my_purchases.png" }
     ];
 

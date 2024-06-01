@@ -70,7 +70,7 @@ function CandidateMobileHeader() {
               animate={{ x: 0 }}
               exit={{ x: "-100%" }}
               transition={{ duration: 0.5, ease: "easeInOut" }}
-              className="absolute z-[2000] w-full mt-[-4rem]  "
+              className="fixed z-[2000] w-full mt-[-4rem] h-[113vh] overflow-y-auto "
               style={{
                 background: "rgba(255, 255, 255, 0.5)",
                 boxShadow: "0 0 10px rgba(255, 255, 255, 0.5)",
@@ -85,7 +85,6 @@ function CandidateMobileHeader() {
               }}
             >
               <HeaderSidebar
-             
                 selectedPage={selectedPage}
                 setIsSidebar={setIsSidebar}
                 isSidebar={isSidebar}

@@ -252,7 +252,7 @@ function SkillAssessment() {
     // setLoadingg(true);
     return new Promise((resolve, reject) => {
       generatePDF(resumeRef1, {
-        filename: `${"certificate"}-assessment-skilotech.pdf`,
+        filename: `${selectedSkill}_certificate_skilotech.pdf`,
         resolution: Resolution.HIGH,
         page: {
           // // margin is in MM, default is Margin.NONE = 0
@@ -490,7 +490,7 @@ console.log(question)
       }
     });
 
-    return correctAnswer;
+    return Math.round(correctAnswer);
   };
 
   function convertToDateTime(dateString) {
@@ -523,7 +523,7 @@ console.log(question)
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'assessment.pdf';
+    a.download = `${selectedSkill}_assessment.pdf`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -1185,6 +1185,7 @@ console.log(question)
               </div>
             </div>
           )}
+          
           {score && (
             <>
               <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60 "></div>
@@ -1268,7 +1269,7 @@ console.log(question)
                           <div className="text-[18px] text-[#5B5B5B] font-[600]">
                             Your Score is{" "}
                             {assesmentType === "Normal" &&
-                              ((checkAnswer() / question.length) * 100) / 10}
+                                checkAnswer() }
                             {assesmentType === "Normal" && `/${10}`}
                             {assesmentType !== "Normal" && (
                               <>{calculateMarkOutOf60()}</>

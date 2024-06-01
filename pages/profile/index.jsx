@@ -11,7 +11,6 @@ const Profile = () => {
   const userDataGlobal = useSelector((state) => state.userData);
   const data = userDataGlobal;
   
-
   return (
     <div className=" py-6 w-[100%] customMargins">
       <div className="w-[100%] gap-4 flex flex-col">

@@ -364,8 +364,11 @@ function CreateResume() {
     languages: [],
     section: [],
     selectedResumeIndex: selectedResumeIndex ? selectedResumeIndex : 1,
-
+    reference: [],
+    project: [],
+    extraCaricularData: [],
     createdAt: "",
+    customDataSection: [],
     clientId: clientId,
   };
 
@@ -428,8 +431,8 @@ function CreateResume() {
       const experience = parsedData["work experience"]
         ? parsedData["work experience"]
         : parsedData.work_experience
-          ? parsedData.work_experience
-          : [];
+        ? parsedData.work_experience
+        : [];
       const courses = parsedData.issuing_organization;
       setData({
         ...data,
@@ -614,33 +617,33 @@ function CreateResume() {
           )}
           <div className="mobile ">
             <div className="flex flex-col gap-6">
-            <ResumePreview
-              data={data}
-              isSetEdit={isSetEdit}
-              selectedResumeIndex={selectedResumeIndex}
-              setSelectedResumeIndex={setSelectedResumeIndex}
-              setSelectedColor={setSelectedColor}
-              selectedColor={selectedColor}
-              setSelectedFont={setSelectedFont}
-              selectedFont={selectedFont}
-              isEdit={userData.isEdit}
-              id={editId}
-              render={render}
-              clientId={clientId}
-            />
-            <div className="mobile600">
-            <ResumeForm
-              data={data}
-              setData={setData}
-              selectedResumeIndex={selectedResumeIndex}
-              setSelectedResumeIndex={setSelectedResumeIndex}
-              setSelectedColor={setSelectedColor}
-              selectedColor={selectedColor}
-              setSelectedFont={setSelectedFont}
-              selectedFont={selectedFont}
-              template={templates}
-            />
-            </div>
+              <ResumePreview
+                data={data}
+                isSetEdit={isSetEdit}
+                selectedResumeIndex={selectedResumeIndex}
+                setSelectedResumeIndex={setSelectedResumeIndex}
+                setSelectedColor={setSelectedColor}
+                selectedColor={selectedColor}
+                setSelectedFont={setSelectedFont}
+                selectedFont={selectedFont}
+                isEdit={userData.isEdit}
+                id={editId}
+                render={render}
+                clientId={clientId}
+              />
+              <div className="mobile600">
+                <ResumeForm
+                  data={data}
+                  setData={setData}
+                  selectedResumeIndex={selectedResumeIndex}
+                  setSelectedResumeIndex={setSelectedResumeIndex}
+                  setSelectedColor={setSelectedColor}
+                  selectedColor={selectedColor}
+                  setSelectedFont={setSelectedFont}
+                  selectedFont={selectedFont}
+                  template={templates}
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -671,7 +674,7 @@ export default CreateResume;
 //   const [data, setData] = useState("");
 
 //   const debouncedSetData = useMemo(
-//     () => debounce(setData, 300), 
+//     () => debounce(setData, 300),
 //     []
 //   );
 

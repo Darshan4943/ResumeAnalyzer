@@ -66,10 +66,10 @@ function MyPurchase() {
                   Manage your account and subscription
                 </div>
               </div>
-              <div className=" pb-12 w-[100%] customMargins">
+              <div className=" pb-12 w-[100%] customMargins px-[12px]  xsm:pb-[0px]">
                 <div
                   // style={{ boxShadow: "0px 1px 6px 0px #00000040" }}
-                  className=" flex flex-col gap-10  rounded-[16px] "
+                  className=" flex flex-col gap-10  rounded-[16px]"
                 >
                   {" "}
                   <div className=" flex gap-4  border border-[#06A9EF] rounded-[16px] scr1200:p-6 p-3 ">
@@ -206,9 +206,8 @@ function MyPurchase() {
                       </div>
                     </div>
                   </div>
-                  <div className="flex flex-col gap-6  w-[100%] ml:pl-4">
+                  <div className="flex flex-col gap-6 px-[8px] w-[100%] ml:pl-6">
                     <div className="text-[18px] font-[600]">
-                      {" "}
                       Account Details
                     </div>
                     <div className="flex ml:flex-row flex-col gap-12 w-[100%] ">
