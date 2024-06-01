@@ -129,8 +129,8 @@ function Summary({ limits, selectedPlan, isActive }) {
                     stroke="#06A9EF"
                     strokeWidth="8"
                     fill="transparent"
-                    strokeDasharray={circumference}
-                    strokeDashoffset={dashOffset}
+                    strokeDasharray={isActive ? circumference : 2 * Math.PI * 70}
+                    strokeDashoffset={isActive ? dashOffset : 2 * Math.PI * 70}
                   />
                 </svg>
 
@@ -138,7 +138,7 @@ function Summary({ limits, selectedPlan, isActive }) {
                   className="absolute flex flex-col  items-center justify-center text-[18px] font-semibold bg-white w-[110px] h-[110px] rounded-full"
                   style={{ boxShadow: "0px 0px 2px 0px #00000040" }}
                 >
-                  {daysRemaing} days
+                  {isActive ? daysRemaing : "0"} days
                   <p className="text-[12px] font-medium">Remaining</p>
                 </div>
               </div>
@@ -223,7 +223,11 @@ function Summary({ limits, selectedPlan, isActive }) {
                   ></div>
                 </div>
                 <div className="scr420:min-w-[55px] min-w-[45px]">
-                  {limits.total.uploads - uploadsRemaining}/{limits.total.uploads}
+                  {isActive ?
+                    `${limits.total.uploads - uploadsRemaining}/${limits.total.uploads}`
+                    :
+                    "0/0"
+                  }
                 </div>
               </div>
             </div>
@@ -246,8 +250,11 @@ function Summary({ limits, selectedPlan, isActive }) {
                   ></div>
                 </div>
                 <div className="scr420:min-w-[55px] min-w-[45px]">
-                  {limits.total.download - downloadsRemaining}/
-                  {limits.total.download}
+                  {isActive ?
+                    `${limits.total.download - downloadsRemaining}/${limits.total.download}` :
+
+                    "0/0"
+                  }
                 </div>
               </div>
             </div>
