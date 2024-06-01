@@ -153,6 +153,54 @@ const JobMatching = () => {
         text,
       });
       const jd = res.data.jsonData[0];
+      if (Object.keys(jd).length > 5) {
+        const chunks = chunkArray(selectedIndexesFileTypes, 5);
+        const outputData = [];
+        for (let i = 0; i < chunks.length; i++) {
+          await processChunk(chunks[i], jd, outputData);
+          if (i < chunks.length - 1) {
+            await new Promise((resolve) => setTimeout(resolve, 10000));
+          }
+        }
+        const dataArray = outputData
+          .filter((item) => item.matching_percentage)
+          ?.sort((a, b) => {
+            if (parseInt(b.matching_percentage))
+              parseInt(
+                isNaN(b.matching_percentage)
+                  ? b.matching_percentage.slice(0, 2)
+                  : b.matching_percentage
+              ) -
+                parseInt(
+                  isNaN(a.matching_percentage)
+                    ? a.matching_percentage.slice(0, 2)
+                    : a.matching_percentage
+                );
+          })
+          .slice(0, resumeCount);
+        setResumeList(dataArray);
+        setLoadingg(false);
+      } else {
+        toast.error("Something went wrong, please try again");
+        setLoadingg(false);
+      }
+    } catch (e) {
+      console.log("error", e);
+      setLoadingg(false);
+      toast.error("Something went wrong, please try again");
+    }
+  };
+
+  {
+    /** 
+  const jobMatching = async () => {
+    setLoadingg(true);
+    setIsAnimate(false);
+    try {
+      const res = await axios.post("http://localhost:2000/api/jd/extraction", {
+        text,
+      });
+      const jd = res.data.jsonData[0];
       // if (Object.keys(jd).length > 5) {
       //   const chunks = chunkArray(selectedIndexesFileTypes, 5);
       //   const outputData = [];
@@ -193,7 +241,8 @@ const JobMatching = () => {
       setLoadingg(false);
       toast.error("Something went wrong, please try again");
     }
-  };
+  };*/
+  }
 
   // const jobMatching = () => {
   //   setLoadingg(true);
@@ -360,12 +409,12 @@ const JobMatching = () => {
     setLoadingg(true);
     setIsAnimate(false);
     if (Object.keys(extratctedData).length > 5) {
-      const chunks = chunkArray(selectedIndexesFileTypes, 80);
+      const chunks = chunkArray(selectedIndexesFileTypes, 5);
       const outputData = [];
       for (let i = 0; i < chunks.length; i++) {
         await processChunk(chunks[i], extratctedData, outputData);
         if (i < chunks.length - 1) {
-          await new Promise((resolve) => setTimeout(resolve, 60000));
+          await new Promise((resolve) => setTimeout(resolve, 10000));
         }
       }
       const dataArray = outputData
@@ -459,10 +508,11 @@ const JobMatching = () => {
           />
         </div>
 
+        {/** 
         <AnimatePresence>
           {showMatchingSidebar && (
             <>
-              {" "}
+              //{" "}
               <div className="fixed z-[1500] top-0 left-0 right-0 bottom-0 bg-[#FFFFFF] bg-opacity-0"></div>
               <motion.div
                 ref={sidebarRef}
@@ -491,7 +541,7 @@ const JobMatching = () => {
               </motion.div>
             </>
           )}
-        </AnimatePresence>
+        </AnimatePresence>*/}
 
         <div className="bg-[#DEDEDE] ml:h-[91vh] h-[1px] ml:w-[1px] w-full"></div>
         <div className="ml:w-[45%] w-full">
