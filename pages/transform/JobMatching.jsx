@@ -123,7 +123,6 @@ const JobMatching = () => {
   //     });
   // };
 
-  console.log(77);
   const chunkArray = (array, size) => {
     console.log("size", size);
     const chunkedArr = [];
@@ -415,6 +414,16 @@ const JobMatching = () => {
       toast.error("Something went wrong, please try again");
     }
   };
+
+  useEffect(() => {
+    if (count > 3) {
+      setLoading(false);
+      toast.error("Something went wrong, please try again");
+      setCount(0);
+    } else if (count == 1 || count == 2 || count == 3) {
+      jobMatching();
+    }
+  }, [count]);
 
   return (
     <div className=" md:py-6 py-3 flex flex-col gap-4 min-h-[80vh] customMargins ">
