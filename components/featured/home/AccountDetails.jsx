@@ -308,7 +308,7 @@ function AccountDetails({
         setPaymentStatus(session.payment_status);
 
         if (
-          session.payment_status === "unpaid" &&
+          session.payment_status === "paid" &&
           userDataGlobal &&
           selectedPlan &&
           exchangeRate &&
@@ -558,7 +558,7 @@ function AccountDetails({
                             src={`https://hatscripts.github.io/circle-flags/flags/${option.code.toLowerCase()}.svg`}
                             width="20px"
                           />
-                          <span className="ml-2">
+                          <span className="ml-2 text-[#333333]">
                             {option.code} {option.dial_code}
                           </span>
                         </div>
