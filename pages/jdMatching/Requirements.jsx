@@ -63,6 +63,21 @@ const Requirements = ({ extratctedData, setExtractedData }) => {
           },
         },
       }));
+    } else if (type === "soft_skills") {
+      setSoftSkills((prevSkills) => [...prevSkills, skill]);
+      setExtractedData((prevData) => ({
+        ...prevData,
+        requirements: {
+          ...prevData.requirements,
+          must_have: {
+            ...prevData.requirements.must_have,
+            soft_skills: [
+              ...prevData.requirements.must_have.soft_skills,
+              skill,
+            ],
+          },
+        },
+      }));
     } else if (type === "nice_to_have") {
       setNiceToHaveSkills((prevSkills) => [...prevSkills, skill]);
       setExtractedData((prevData) => ({
@@ -93,6 +108,22 @@ const Requirements = ({ extratctedData, setExtractedData }) => {
           },
         },
       }));
+    } else if (type === "soft_skills") {
+      setSoftSkills((prevSkills) =>
+        prevSkills.filter((item) => item !== skill)
+      );
+      setExtractedData((prevData) => ({
+        ...prevData,
+        requirements: {
+          ...prevData.requirements,
+          must_have: {
+            ...prevData.requirements.must_have,
+            soft_skills: prevData.requirements.must_have.soft_skills.filter(
+              (item) => item !== skill
+            ),
+          },
+        },
+      }));
     } else if (type === "nice_to_have") {
       setNiceToHaveSkills((prevSkills) =>
         prevSkills.filter((item) => item !== skill)
@@ -111,7 +142,6 @@ const Requirements = ({ extratctedData, setExtractedData }) => {
       }));
     }
   };
-
   return (
     <>
       <div>
@@ -267,7 +297,9 @@ const Requirements = ({ extratctedData, setExtractedData }) => {
                         <p className="text-[14px] flex-wrap break-all w-full font-medium">
                           {item}
                         </p>
-                        <div onClick={() => removeSkill("must_have", item)}>
+                        <div onClick={() => removeSkill("soft_skills", item)}>
+                          {" "}
+                          {/* Corrected type */}
                           <Close_svg height={16} width={16} />
                         </div>
                       </div>
@@ -279,7 +311,10 @@ const Requirements = ({ extratctedData, setExtractedData }) => {
                     placeholder="e.g. Communication, Adaptability, etc."
                     onKeyDown={(e) => {
                       if (e.key === "Enter") {
-                        handleAddSkill("must_have", e.target.value);
+                        handleAddSkill("soft_skills", e.target.value);
+                        {
+                          /* Corrected type */
+                        }
                         e.target.value = "";
                       }
                     }}
@@ -290,7 +325,10 @@ const Requirements = ({ extratctedData, setExtractedData }) => {
                       const input = e.target
                         .closest("div")
                         .querySelector("input");
-                      handleAddSkill("must_have", input.value);
+                      handleAddSkill("soft_skills", input.value);
+                      {
+                        /* Corrected type */
+                      }
                       input.value = "";
                     }}
                     width="20"

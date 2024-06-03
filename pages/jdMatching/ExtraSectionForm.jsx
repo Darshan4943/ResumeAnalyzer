@@ -94,8 +94,9 @@ const ExtraSectionForm = ({
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex flex-col w-[448px] justify-between gap-[16px] p-[24px_16px] border border-solid border-[#DEDEDE] rounded-[8px] bg-white"
+      className="flex flex-col w-[448px]  justify-center  scr1100:justify-between  gap-[16px] p-[24px_16px] border border-solid  border-[#DEDEDE] rounded-[8px] scr1100:relative absolute top-0 left-0 bg-white  z-[6] scr1100:z-[10] "
       // class=" w-[448px] h-[641px] top-[19851px]  p-[24px_16px] gap-0 justify-between opacity-0"
+      // className="absolute right-0 top-0 bottom-0 flex bg-gray-200 z-[1000]
     >
       <div className="flex flex-col gap-[8px]">
         <label className="font-montserrat text-[14px] font-medium">
