@@ -47,6 +47,8 @@ function Recruiter_signup({ }) {
     dial_code: "+260",
     img: null,
   });
+
+
   const [isProfileImageRemoved, setIsProfileImageRemoved] = useState(false);
   const [file, setFile] = useState(null);
 
@@ -167,7 +169,7 @@ function Recruiter_signup({ }) {
           if (validatePassword(value)) {
           } else {
             errors.password =
-              "Password should include one uppercase one lowercase one number and one special character";
+              "Password should include one uppercase letter, lowercase letter, number, and special character.";
           }
           if (!value.trim() || value.trim() != data.confirmPassword) {
             errors.confirmPassword = "Password do not match";
@@ -441,7 +443,7 @@ function Recruiter_signup({ }) {
                     <>
                       {" "}
                       <p className="text-[16px] font-medium">
-                        Profile Photo <span className="star">*</span>
+                        Profile Photo <span className="star"></span>
                       </p>
                       <div className="flex sm:gap-6 gap-3">
                         {croppedImage ? (

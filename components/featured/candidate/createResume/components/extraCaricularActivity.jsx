@@ -32,7 +32,7 @@ const ExtraCaricularActivity = ({ data, setData }) => {
     const { name, value } = e.target;
 
     if (name === "description") {
-      if (value.length >= 1000 || extraCaricularData.description === 1000) {
+      if (value?.length >= 1000 || extraCaricularData?.description === 1000) {
         setError("Maximum 1000 characters allowed");
       } else {
         setError("");
@@ -46,24 +46,24 @@ const ExtraCaricularActivity = ({ data, setData }) => {
     setErrors((prevErrors) => ({
       ...prevErrors,
       [name]:
-        value.trim() === ""
-          ? `${name.charAt(0).toUpperCase() + name.slice(1)} is required`
+        value?.trim() === ""
+          ? `${name?.charAt(0)?.toUpperCase() + name?.slice(1)} is required`
           : "",
     }));
   };
 
   const handleSave = () => {
     if (validateForm()) {
-      if (isModified.status === true) {
-        const dummyData = [...data.extraCaricularData];
-        const index = isModified.index;
-        dummyData.splice(index, 1, extraCaricularData);
+      if (isModified?.status === true) {
+        const dummyData = [...data?.extraCaricularData];
+        const index = isModified?.index;
+        dummyData?.splice(index, 1, extraCaricularData);
         setData({ ...data, extraCaricularData: dummyData });
         setView(false);
       } else {
         setData({
           ...data,
-          extraCaricularData: [extraCaricularData, ...data.extraCaricularData],
+          extraCaricularData: [extraCaricularData, ...data?.extraCaricularData],
         });
         {
           validateForm ? setView(false) : setView(true);
@@ -87,7 +87,7 @@ const ExtraCaricularActivity = ({ data, setData }) => {
   };
 
   const handleEditExperience = (index) => {
-    const dataToEdit = data.extraCaricularData[index];
+    const dataToEdit = data?.extraCaricularData[index];
 
     if (dataToEdit) {
       setView(true);
@@ -98,7 +98,7 @@ const ExtraCaricularActivity = ({ data, setData }) => {
   const handleDeleteExperience = (index) => {
     setData({
       ...data,
-      extraCaricularData: data.extraCaricularData.filter(
+      extraCaricularData: data?.extraCaricularData?.filter(
         (item, i) => i !== index
       ),
     });
@@ -114,17 +114,17 @@ const ExtraCaricularActivity = ({ data, setData }) => {
   const validateForm = () => {
     let newErrors = {};
 
-    if (!extraCaricularData.title.trim()) {
+    if (!extraCaricularData?.title?.trim()) {
       newErrors.title = "Title is required";
     }
 
-    if (!extraCaricularData.organization.trim()) {
+    if (!extraCaricularData?.organization?.trim()) {
       newErrors.organization = "Organization is required";
     }
 
     setErrors(newErrors);
 
-    return Object.keys(newErrors).length === 0;
+    return Object.keys(newErrors)?.length === 0;
   };
   const handleEditClick = (index) => {
     setEditingIndex(index);
@@ -177,11 +177,11 @@ const ExtraCaricularActivity = ({ data, setData }) => {
             <p className="text-[12px]">
               {exp?.organization}{" "}
               {exp?.duration?.start?.year !== "Year" &&
-                ` ${"|"} ${exp.duration?.start?.year} 
+                ` ${"|"} ${exp?.duration?.start?.year} 
               ${exp?.duration?.start?.year && "-"}
               ${exp?.currentlyWorking ? "Present" : exp?.duration?.end?.year}`}
             </p>
-            <p className="text-[12px]">{exp.description}</p>
+            <p className="text-[12px]">{exp?.description}</p>
           </div>
         ))}
 
@@ -202,8 +202,8 @@ const ExtraCaricularActivity = ({ data, setData }) => {
                 />
               </div>
             </div>
-            {errors.title && (
-              <span className="text-[red] text-[12px]">{errors.title}</span>
+            {errors?.title && (
+              <span className="text-[red] text-[12px]">{errors?.title}</span>
             )}
             <div className="flex flex-col gap-2 w-full">
               <div className="w-full text-[14px] font-montserrat  font-medium">
@@ -215,16 +215,16 @@ const ExtraCaricularActivity = ({ data, setData }) => {
                   name="organization"
                   placeholder="Type here"
                   className="w-full text-[14px] font-montserrat font-small "
-                  value={extraCaricularData.organization}
+                  value={extraCaricularData?.organization}
                   onChange={handleInputChange}
                   disabled={!isChecked}
                   maxLength={200}
                 />
               </div>
             </div>
-            {errors.organization && (
+            {errors?.organization && (
               <span className="text-[red] text-[12px]">
-                {errors.organization}
+                {errors?.organization}
               </span>
             )}
             <div>
@@ -251,14 +251,14 @@ const ExtraCaricularActivity = ({ data, setData }) => {
                   disabled={!isChecked}
                   maxLength={1000}
                 >
-                  {extraCaricularData.description}
+                  {extraCaricularData?.description}
                 </textArea>
               </div>
-              {error && (
+              {/* {error?.description && (
                 <span className="text-[red] text-[12px]">
-                  {error.description}
+                  {error?.description}
                 </span>
-              )}
+              )} */}
             </div>
           </div>
           <div className="flex justify-end ">

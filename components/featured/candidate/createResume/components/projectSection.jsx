@@ -32,7 +32,7 @@ const ProjectSection = ({ data, setData }) => {
     const { name, value } = e.target;
 
     if (name === "description") {
-      if (value.length >= 1000 || projectData.description === 1000) {
+      if (value?.length >= 1000 || projectData?.description === 1000) {
         setError("Maximum 1000 characters allowed");
       } else {
         setError("");
@@ -46,24 +46,24 @@ const ProjectSection = ({ data, setData }) => {
     setErrors((prevErrors) => ({
       ...prevErrors,
       [name]:
-        value.trim() === ""
-          ? `${name.charAt(0).toUpperCase() + name.slice(1)} is required`
+        value?.trim() === ""
+          ? `${name?.charAt(0)?.toUpperCase() + name?.slice(1)} is required`
           : "",
     }));
   };
 
   const handleSave = () => {
     if (validateForm()) {
-      if (isModified.status === true) {
-        const dummyData = [...data.project];
-        const index = isModified.index;
-        dummyData.splice(index, 1, projectData);
+      if (isModified?.status === true) {
+        const dummyData = [...data?.project];
+        const index = isModified?.index;
+        dummyData?.splice(index, 1, projectData);
         setData({ ...data, project: dummyData });
         setView(false);
       } else {
         setData({
           ...data,
-          project: [projectData, ...data.project],
+          project: [projectData, ...data?.project],
         });
         {
           validateForm ? setView(false) : setView(true);
@@ -87,7 +87,7 @@ const ProjectSection = ({ data, setData }) => {
   };
 
   const handleEditExperience = (index) => {
-    const dataToEdit = data.project[index];
+    const dataToEdit = data?.project[index];
 
     if (dataToEdit) {
       setView(true);
@@ -98,7 +98,7 @@ const ProjectSection = ({ data, setData }) => {
   const handleDeleteExperience = (index) => {
     setData({
       ...data,
-      project: data.project.filter((item, i) => i !== index),
+      project: data?.project?.filter((item, i) => i !== index),
     });
   };
 
@@ -112,17 +112,17 @@ const ProjectSection = ({ data, setData }) => {
   const validateForm = () => {
     let newErrors = {};
 
-    if (!projectData.title.trim()) {
+    if (!projectData?.title?.trim()) {
       newErrors.title = "Title is required";
     }
 
-    if (!projectData.organization.trim()) {
+    if (!projectData?.organization?.trim()) {
       newErrors.organization = "Organization is required";
     }
 
     setErrors(newErrors);
 
-    return Object.keys(newErrors).length === 0;
+    return Object.keys(newErrors)?.length === 0;
   };
   const handleEditClick = (index) => {
     setEditingIndex(index);
@@ -174,11 +174,11 @@ const ProjectSection = ({ data, setData }) => {
             <p className="text-[12px]">
               {exp?.organization}{" "}
               {exp?.duration?.start?.year !== "Year" &&
-                ` ${"|"} ${exp.duration?.start?.year} 
+                ` ${"|"} ${exp?.duration?.start?.year} 
               ${exp?.duration?.start?.year && "-"}
               ${exp?.currentlyWorking ? "Present" : exp?.duration?.end?.year}`}
             </p>
-            <p className="text-[12px]">{exp.description}</p>
+            <p className="text-[12px]">{exp?.description}</p>
           </div>
         ))}
 
@@ -192,12 +192,15 @@ const ProjectSection = ({ data, setData }) => {
                   name="title"
                   placeholder="Enter Title"
                   className="w-full text-[14px] font-montserrat font-small "
-                  value={projectData.title}
+                  value={projectData?.title}
                   onChange={handleInputChange}
                   disabled={!isChecked}
                   maxLength={200}
                 />
               </div>
+              {errors?.title && (
+                <span className="text-[red] text-[12px]">{errors?.title}</span>
+              )}
             </div>
             <div className="flex flex-col gap-2 w-full">
               <div className="w-full text-[14px] font-montserrat  font-medium">
@@ -209,14 +212,17 @@ const ProjectSection = ({ data, setData }) => {
                   name="organization"
                   placeholder="Type here"
                   className="w-full text-[14px] font-montserrat font-small "
-                  value={projectData.organization}
+                  value={projectData?.organization}
                   onChange={handleInputChange}
                   disabled={!isChecked}
                   maxLength={200}
                 />
               </div>
-              {errors.title && (
-                <span className="text-[red] text-[12px]">{errors.title}</span>
+
+              {errors?.organization && (
+                <span className="text-[red] text-[12px]">
+                  {errors?.organization}
+                </span>
               )}
             </div>
 
@@ -244,10 +250,9 @@ const ProjectSection = ({ data, setData }) => {
                   disabled={!isChecked}
                   maxLength={1000}
                 >
-                  {projectData.description}
+                  {projectData?.description}
                 </textArea>
               </div>
-              {error && <span className="text-[red] text-[12px]">{error}</span>}
             </div>
           </div>
           <div className="flex justify-end ">
