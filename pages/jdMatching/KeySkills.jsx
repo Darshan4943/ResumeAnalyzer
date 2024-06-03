@@ -45,7 +45,7 @@ const KeySkills = ({ extratctedData, setExtractedData }) => {
               className="flex gap-1 px-[8px] py-[6px] pl-[12px] rounded-[30px] justify-between items-center overflow-hidden shadow-md"
               key={index}
             >
-              <p className="text-[14px] flex-wrap break-all w-full font-medium">
+              <p className="text-[12px] flex-wrap break-all w-full font-medium">
                 {item}
               </p>
               <div onClick={() => removeSkill(item)}>
@@ -60,7 +60,7 @@ const KeySkills = ({ extratctedData, setExtractedData }) => {
             placeholder="e.g. Javascript"
             value={inputValue}
             onChange={handleInputChange}
-            className="w-full text-[14px]"
+            className="w-full text-[12px]"
           />
           <svg
             onClick={addSkill}

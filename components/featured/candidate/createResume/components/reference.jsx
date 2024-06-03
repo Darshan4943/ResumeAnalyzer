@@ -46,7 +46,7 @@ const Reference = ({ setData, data }) => {
       type: "text",
       name: "referantName",
       placeholder: "Type here",
-      value: referenceData.referantName,
+      value: referenceData?.referantName,
       className: " col-span-2 ",
     },
     {
@@ -54,7 +54,7 @@ const Reference = ({ setData, data }) => {
       type: "text",
       name: "designation",
       placeholder: "Type here",
-      value: referenceData.designation,
+      value: referenceData?.designation,
       className: " ",
     },
 
@@ -63,7 +63,7 @@ const Reference = ({ setData, data }) => {
       type: "text",
       name: "organization",
       placeholder: "Type here",
-      value: referenceData.organization,
+      value: referenceData?.organization,
       className: " ",
     },
     {
@@ -71,36 +71,31 @@ const Reference = ({ setData, data }) => {
       type: "email",
       name: "email",
       placeholder: "Type here",
-      value: referenceData.email,
+      value: referenceData?.email,
       className: " col-span-2",
     },
   ];
 
   const [formErrors, setFormErrors] = useState({
-    referantName: false,
-    designation: false,
-    organization: false,
-    email: false,
+    referantName: "",
+    // designation: "",
+    // organization: "",
+    email: "",
   });
 
   const validateFields = () => {
     const newErrors = {};
-    let allFieldsValid = true;
 
-    inputFields.forEach((field) => {
-      const { name } = field;
-      const value = referenceData[name];
+    if (!referenceData?.referantName?.trim()) {
+      newErrors.referantName = "Name is required";
+    }
 
-      if (typeof value === "string" && value.trim() === "") {
-        newErrors[name] = true;
-        allFieldsValid = false;
-      } else {
-        newErrors[name] = false;
-      }
-    });
+    if (!referenceData?.email?.trim()) {
+      newErrors.email = "Email is required";
+    }
 
-    // setFormErrors({ ...newErrors });
-    return allFieldsValid;
+    setFormErrors(newErrors);
+    return Object.keys(newErrors)?.length === 0;
   };
 
   const handleInputChange = (e) => {
@@ -111,7 +106,7 @@ const Reference = ({ setData, data }) => {
       [name]: value,
     });
     // setIsModified({ status: false, index: 0 });
-    setFormErrors({ ...formErrors, [name]: value.trim() === "" });
+    setFormErrors({ ...formErrors, [name]: value?.trim() === "" });
   };
 
   const isDisabled = () => {
@@ -133,11 +128,11 @@ const Reference = ({ setData, data }) => {
 
   const saveData = () => {
     if (validateFields()) {
-      if (isModified.status === true) {
-        const dummyData = data.reference;
-        const index = isModified.index;
+      if (isModified?.status === true) {
+        const dummyData = data?.reference;
+        const index = isModified?.index;
 
-        dummyData.splice(index, 1, referenceData);
+        dummyData?.splice(index, 1, referenceData);
 
         setData({ ...data, reference: dummyData });
         setView(false);
@@ -165,7 +160,7 @@ const Reference = ({ setData, data }) => {
 
   useEffect(() => {
     const allFieldsValid = validateFields();
-    if (allFieldsValid && isModified.status) {
+    if (allFieldsValid && isModified?.status) {
       setIsModified({ status: true, index: 0 });
     }
   }, [referenceData]);
@@ -185,7 +180,7 @@ const Reference = ({ setData, data }) => {
   const [toggleOn, setToggleOn] = useState(true);
 
   const handleEditReference = (index) => {
-    const dataToEdit = data.reference[index];
+    const dataToEdit = data?.reference[index];
 
     if (dataToEdit) {
       setView(true);
@@ -239,40 +234,40 @@ const Reference = ({ setData, data }) => {
                 </div>
               </div>
               <p className="text-[14px]">{exp?.organization}</p>
-              <p className="text-[12px]">{exp.email}</p>
+              <p className="text-[12px]">{exp?.email}</p>
             </div>
           ))}
         {view && (
           <>
             <div className="grid grid-cols-2 gap-4">
-              {inputFields.map((item, index) => (
+              {inputFields?.map((item, index) => (
                 <div
-                  className={`flex flex-col gap-2 w-full ${item.className}`}
+                  className={`flex flex-col gap-2 w-full ${item?.className}`}
                   key={index}
                 >
                   <div className=" text-[14px] font-montserrat  font-medium">
-                    {item.label}
+                    {item?.label}
                   </div>
 
                   <div
                     className={`border-[1px] rounded-[8px] px-[16px] py-[12px] ${
-                      formErrors[item.name]
+                      formErrors[item?.name]
                         ? "border-[#C00000]"
                         : "border-[#9D9D9D]"
                     } `}
                   >
                     <input
-                      type={item.type}
-                      name={item.name}
-                      placeholder={item.placeholder}
+                      type={item?.type}
+                      name={item?.name}
+                      placeholder={item?.placeholder}
                       className="w-full text-[14px] font-montserrat font-small"
-                      value={referenceData[item.name]}
+                      value={referenceData[item?.name]}
                       onChange={handleInputChange}
                       disabled={!isChecked}
                     />
                   </div>
 
-                  {formErrors[item.name] && (
+                  {formErrors[item?.name] && (
                     <span className="text-[#C00000] text-[12px]">
                       Field is required
                     </span>
