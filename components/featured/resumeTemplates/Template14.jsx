@@ -184,14 +184,14 @@ function Template14({ data, selectedColor, selectedFont }) {
               <View
                 style={{ width: "100%", height: 1, backgroundColor: "#DEDEDE" }}
               ></View>
-              <View style={{ display: "flex", flexDirection: "column", gap: 12,   marginTop: '12px' }}
+              <View style={{ display: "flex", flexDirection: "column", gap: 12, marginTop: '12px' }}
               >
                 <Text
                   style={{
                     fontSize: 18,
                     fontFamily: `${selectedFont} 500`,
                     color: "#4D4D4D",
-                  
+
                   }}
                 >
                   EXPERIENCE
@@ -289,7 +289,7 @@ function Template14({ data, selectedColor, selectedFont }) {
         </View>
         {data?.education?.length > 0 && (<>
 
-        {/* <View style={{ display: "flex", flexDirection: "column",gap:4 }} > */}
+          {/* <View style={{ display: "flex", flexDirection: "column",gap:4 }} > */}
 
           <View
             style={{ width: "100%", height: 1, backgroundColor: "#DEDEDE" }}
@@ -301,7 +301,7 @@ function Template14({ data, selectedColor, selectedFont }) {
                 fontSize: 18,
                 fontFamily: `${selectedFont} 500`,
                 color: "#4D4D4D",
-                marginTop:8 
+                marginTop: 8
               }}
             >
               EDUCATION
@@ -902,29 +902,29 @@ function Template14({ data, selectedColor, selectedFont }) {
                     key={index}
                     style={{ gap: 4, display: "flex", flexDirection: "column" }}
                   >
-                   
-                      <Text
-                        style={{
-                          // flex: 1, // Use flex for better width handling
-                          fontSize: 14,
-                          fontFamily: `${selectedFont} 400`,
-                          color: selectedColor,
-                        }}
-                      >
-                        {detail.referantName}
-                      </Text>
 
-                      <Text
-                        style={{
-                          // flex: 1,
-                          fontSize: 14,
-                          fontFamily: `${selectedFont} 400`,
-                          color: "#989898",
-                        }}
-                      >
-                        {" "}
-                        {detail.designation}
-                      </Text>
+                    <Text
+                      style={{
+                        // flex: 1, // Use flex for better width handling
+                        fontSize: 14,
+                        fontFamily: `${selectedFont} 400`,
+                        color: selectedColor,
+                      }}
+                    >
+                      {detail.referantName}
+                    </Text>
+
+                    <Text
+                      style={{
+                        // flex: 1,
+                        fontSize: 14,
+                        fontFamily: `${selectedFont} 400`,
+                        color: "#989898",
+                      }}
+                    >
+                      {" "}
+                      {detail.designation}
+                    </Text>
 
                     <Text
                       style={{
@@ -974,29 +974,29 @@ function Template14({ data, selectedColor, selectedFont }) {
                     key={index}
                     style={{ gap: 4, display: "flex", flexDirection: "column" }}
                   >
-                   
-                      <Text
-                        style={{
-                          // flex: 1, // Use flex for better width handling
-                          fontSize: 14,
-                          fontFamily: `${selectedFont} 400`,
-                          color: selectedColor,
-                        }}
-                      >
-                        {detail.platform}
-                      </Text>
 
-                      <Text
-                        style={{
-                          // flex: 1,
-                          fontSize: 12,
-                          fontFamily: `${selectedFont} 400`,
-                          color: "#4D4D4D",
-                        }}
-                      >
-                        {" "}
-                        {detail.link}
-                      </Text>
+                    <Text
+                      style={{
+                        // flex: 1, // Use flex for better width handling
+                        fontSize: 14,
+                        fontFamily: `${selectedFont} 400`,
+                        color: selectedColor,
+                      }}
+                    >
+                      {detail.platform}
+                    </Text>
+
+                    <Text
+                      style={{
+                        // flex: 1,
+                        fontSize: 12,
+                        fontFamily: `${selectedFont} 400`,
+                        color: "#4D4D4D",
+                      }}
+                    >
+                      {" "}
+                      {detail.link}
+                    </Text>
 
                     <Text
                       style={{
@@ -1007,7 +1007,7 @@ function Template14({ data, selectedColor, selectedFont }) {
                     >
                       {detail.discription}
                     </Text>
-                   
+
                   </View>
                 ))}
               </View>
