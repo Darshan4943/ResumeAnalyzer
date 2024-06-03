@@ -184,7 +184,7 @@ const Achievement = ({ data, setData }) => {
                   name="description"
                   id=""
                   placeholder="Type here"
-                  className="w-full text-[14px] font-montserrat font-small outline-none h-full "
+                  className="w-full text-[14px] font-montserrat font-small outline-none min-h-[140px]"
                   onChange={handleInputChange}
                 >
                   {achivementData?.description}

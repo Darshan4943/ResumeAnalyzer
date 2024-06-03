@@ -17,7 +17,7 @@ function CustomSection({ data, setData, setCustomOptions, customOptions }) {
   };
   const [customData, setCustomData] = useState({
     title: "",
-
+    subtitle: "",
     description: "",
     currentlyWorking: true,
 
@@ -71,7 +71,7 @@ function CustomSection({ data, setData, setCustomOptions, customOptions }) {
       setIsModified({ status: false, index: 0 });
       setCustomData({
         title: "",
-
+        subtitle: "",
         description: "",
         currentlyWorking: true,
 
@@ -105,6 +105,7 @@ function CustomSection({ data, setData, setCustomOptions, customOptions }) {
 
   const [errors, setErrors] = useState({
     title: "",
+    subtitle: "",
     organization: "",
     description: "",
   });
@@ -115,6 +116,10 @@ function CustomSection({ data, setData, setCustomOptions, customOptions }) {
 
     if (!customData?.title?.trim()) {
       newErrors.title = "Title is required";
+    }
+
+    if (!customData?.subtitle?.trim()) {
+      newErrors.subtitle = "Sub Header is required";
     }
 
     if (!customData?.description?.trim()) {
@@ -204,6 +209,24 @@ function CustomSection({ data, setData, setCustomOptions, customOptions }) {
             {errors?.title && (
               <span className="text-[red] text-[12px]">{errors?.title}</span>
             )}
+
+            <div className="flex flex-col gap-2 w-full">
+              <div className="w-full border-[1px] border-[#646464] rounded-[8px] px-[16px] py-[12px] ">
+                <input
+                  type="text"
+                  name="subtitle"
+                  placeholder=" Enter Sub Header Eg. Activities, Job, Course"
+                  className="w-full text-[14px] font-montserrat font-small "
+                  value={customData?.subtitle}
+                  onChange={handleInputChange}
+                  disabled={!isChecked}
+                  maxLength={200}
+                />
+              </div>
+            </div>
+            {errors?.subtitle && (
+              <span className="text-[red] text-[12px]">{errors?.subtitle}</span>
+            )}
             <div className="flex flex-col gap-[8px] w-full">
               <div className="w-full text-[14px] font-montserrat  font-medium">
                 Description
@@ -243,7 +266,7 @@ function CustomSection({ data, setData, setCustomOptions, customOptions }) {
                 onClick={() => {
                   setCustomData({
                     title: "",
-
+                    subtitle: "",
                     description: "",
                     currentlyWorking: true,
 

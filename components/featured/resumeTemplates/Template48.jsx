@@ -16,7 +16,6 @@ import {
 import React from "react";
 
 const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
-
   return (
     <Page size="A4" style={{ padding: 24 }} wrap={true}>
       <View style={{ minHeight: 793.8 }}>
@@ -38,7 +37,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
             position: "absolute",
             flexDirection: "column",
             gap: "4px",
-            width: "55%"
+            width: "55%",
           }}
         >
           <Text style={{ fontWeight: 600, fontSize: 28, color: selectedColor }}>
@@ -67,8 +66,8 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                 preview
                   ? data.profilePhoto
                   : Object.keys(data?.profilePhoto).includes("filename")
-                    ? URL.createObjectURL(data.profilePhoto)
-                    : data.profilePhoto
+                  ? URL.createObjectURL(data.profilePhoto)
+                  : data.profilePhoto
               }
               style={{
                 borderRadius: "50%",
@@ -373,6 +372,120 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                 </View>
               </View>
             )}
+
+            {data?.reference?.length > 0 && (
+              <View
+                style={{ display: "flex", flexDirection: "column", gap: 12 }}
+              >
+                <View
+                  style={{ display: "flex", flexDirection: "column", gap: 4 }}
+                >
+                  <Text
+                    style={{
+                      fontSize: 14,
+                      fontWeight: 400,
+                      color: "#383839",
+                      textTransform: "uppercase",
+                    }}
+                  >
+                    References
+                  </Text>
+                  <Svg
+                    width="176"
+                    height="2"
+                    viewBox="0 0 176 2"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <Path d="M36 0H0V2H36V0Z" fill="#58595B" />
+                    <Path d="M176 0.5H36V1.5H176V0.5Z" fill="#A7A9AC" />
+                  </Svg>
+                </View>
+
+                <View
+                  style={{ display: "flex", flexDirection: "column", gap: 8 }}
+                >
+                  {data?.reference?.map((detail, index) => (
+                    <View
+                      key={index}
+                      wrap={false}
+                      style={{
+                        flexDirection: "column",
+                        gap: 8,
+                        alignItems: "left",
+                      }}
+                    >
+                      <View
+                        style={{
+                          flexDirection: "row",
+                          gap: 2,
+                          alignItems: "center",
+                        }}
+                      >
+                        <Svg
+                          width="6"
+                          height="7"
+                          viewBox="0 0 6 7"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <Path
+                            d="M5.99023 3.49944L-0.00976562 0V7L5.99023 3.49944Z"
+                            fill={selectedColor}
+                          />
+                        </Svg>
+                        <Text
+                          style={{
+                            fontSize: 10,
+                            fontWeight: 400,
+                            color: "#58595B",
+                          }}
+                        >
+                          {detail.referantName}
+                        </Text>
+                      </View>
+
+                      <View
+                        style={{
+                          flexDirection: "column",
+                          gap: 8,
+                          alignItems: "left",
+                        }}
+                      >
+                        <Text
+                          style={{
+                            fontFamily: `${selectedFont} 400`,
+                            color: "#58595B",
+                            fontSize: "10",
+                            width: "100%",
+                          }}
+                        >
+                          {detail?.email}
+                        </Text>
+                        <Text
+                          style={{
+                            fontFamily: `${selectedFont} 400`,
+                            color: "#58595B",
+                            fontSize: "10",
+                          }}
+                        >
+                          {detail?.organization}
+                        </Text>
+                        <Text
+                          style={{
+                            fontFamily: `${selectedFont} 400`,
+                            color: "#58595B",
+                            fontSize: "10",
+                          }}
+                        >
+                          {detail?.designation}
+                        </Text>
+                      </View>
+                    </View>
+                  ))}
+                </View>
+              </View>
+            )}
           </View>
 
           <View
@@ -416,7 +529,14 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
               </View>
             </View>
 
-            <View style={{ display: "flex", flexDirection: "column", gap: 12, width: "341px" }}>
+            <View
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: 12,
+                width: "341px",
+              }}
+            >
               <View style={{ display: "flex", flexDirection: "col", gap: 4 }}>
                 <View
                   style={{
@@ -452,15 +572,23 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                 </Svg>
               </View>
               <View
-                style={{ flexDirection: "column", gap: "18px", display: "flex" }}
+                style={{
+                  flexDirection: "column",
+                  gap: "18px",
+                  display: "flex",
+                }}
               >
                 {/* <View style={{ flexDirection: "column", gap: '2px' ,display:'flex'}}> */}
 
                 {data?.experience?.map((detail, index) => (
                   <View
                     key={index}
-
-                    style={{ display: "flex", flexDirection: "column", gap: '14px', width: "95%" }}
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: "14px",
+                      width: "95%",
+                    }}
                   >
                     <View
                       style={{
@@ -468,8 +596,6 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                         flexDirection: "column",
                         gap: "8px",
                         // height:'30px'
-
-
                       }}
                     >
                       <View
@@ -508,7 +634,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                           flexDirection: "row",
                           justifyContent: "space-between",
                           paddingLeft: "20px",
-                          width: '105%'
+                          width: "105%",
                         }}
                       >
                         <Text
@@ -516,7 +642,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                             fontWeight: 400,
                             fontSize: 12,
                             color: "#414142",
-                            maxWidth: '75%'
+                            maxWidth: "75%",
                           }}
                         >
                           {detail.organization} | {detail.location}
@@ -527,7 +653,6 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                             fontSize: 10,
                             color: "#414142",
                             paddingBottom: 16,
-
                           }}
                         >
                           {detail.duration?.start?.year} -
@@ -584,7 +709,11 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                   </Svg>
 
                   <Text
-                    style={{ fontSize: 14, fontFamily: `${selectedFont} 400`, color: "#383839" }}
+                    style={{
+                      fontSize: 14,
+                      fontFamily: `${selectedFont} 400`,
+                      color: "#383839",
+                    }}
                   >
                     Education{" "}
                   </Text>
@@ -604,11 +733,15 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                 </Svg>
               </View>
               {data?.education?.map((detail, index) => (
-                <View key={index} wrap={false} style={{
-                  flexDirection: "col",
-                  gap: 8, width: "95%"
-
-                }} >
+                <View
+                  key={index}
+                  wrap={false}
+                  style={{
+                    flexDirection: "col",
+                    gap: 8,
+                    width: "95%",
+                  }}
+                >
                   <View
                     style={{
                       flexDirection: "row",
@@ -645,7 +778,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                       flexDirection: "row",
                       justifyContent: "space-between",
                       paddingLeft: "20px",
-                      width: "105%"
+                      width: "105%",
                     }}
                   >
                     <Text
@@ -653,7 +786,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                         fontFamily: `${selectedFont} 400`,
                         fontSize: 12,
                         color: "#414142",
-                        width: "80%"
+                        width: "80%",
                       }}
                     >
                       {detail.instituteName}
@@ -668,7 +801,11 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                     >
                       {" "}
                       {detail.duration?.start?.year !== "Year" &&
-                        `${detail.duration?.start?.year}-${detail.duration?.end?.year === "Year" ? "Pursuing" : detail.duration?.end?.year}`}
+                        `${detail.duration?.start?.year}-${
+                          detail.duration?.end?.year === "Year"
+                            ? "Pursuing"
+                            : detail.duration?.end?.year
+                        }`}
                     </Text>
                   </View>
                 </View>
@@ -733,12 +870,15 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                   </Svg>
                 </View>
                 {item?.subSection?.map((detail, index) => (
-                  <View key={index} style={{
-                    flexDirection: "column",
+                  <View
+                    key={index}
+                    style={{
+                      flexDirection: "column",
 
-                    alignItems: "start",
-                    gap: "16px"
-                  }}>
+                      alignItems: "start",
+                      gap: "16px",
+                    }}
+                  >
                     <View
                       style={{
                         flexDirection: "row",
@@ -751,7 +891,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                           flexDirection: "row",
                           gap: 16,
                           alignItems: "start",
-                          width: "75%"
+                          width: "75%",
                         }}
                       >
                         <Svg
@@ -776,33 +916,31 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                           {detail.title}
                         </Text>
                       </View>
-                      {detail.duration?.start?.year &&
-                        (
-                          <View
+                      {detail.duration?.start?.year && (
+                        <View
+                          style={{
+                            display: "flex",
+                            flexDirection: "row",
+                            justifyContent: "space-between",
+                          }}
+                        >
+                          <Text
                             style={{
-                              display: "flex",
-                              flexDirection: "row",
-                              justifyContent: "space-between",
-
+                              fontFamily: `${selectedFont} 400`,
+                              fontSize: 10,
+                              color: "#414142",
                             }}
                           >
-                            <Text
-                              style={{
-                                fontFamily: `${selectedFont} 400`,
-                                fontSize: 10,
-                                color: "#414142",
-                              }}
-                            >
-                              {" "}
-                              {detail?.duration?.start?.year}
-                              {detail?.duration?.start?.year && "-"}
-                              {(detail?.duration?.end?.year === "" || detail?.duration?.end?.year === undefined)
-                                ? "Present"
-                                : detail?.duration?.end?.year
-                              }
-                            </Text>
-                          </View>
-                        )}
+                            {" "}
+                            {detail?.duration?.start?.year}
+                            {detail?.duration?.start?.year && "-"}
+                            {detail?.duration?.end?.year === "" ||
+                            detail?.duration?.end?.year === undefined
+                              ? "Present"
+                              : detail?.duration?.end?.year}
+                          </Text>
+                        </View>
+                      )}
                     </View>
                     <Text
                       style={{
