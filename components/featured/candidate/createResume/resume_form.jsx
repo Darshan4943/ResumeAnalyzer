@@ -118,8 +118,6 @@ const ResumeForm = ({
     ));
   };
 
-  console.log(1222, data);
-
   return (
     <>
       <div className="flex flex-col pr-[10px] ml:w-[100%] w-[100%]  pb-4 gap-4 rounded-lg ">
