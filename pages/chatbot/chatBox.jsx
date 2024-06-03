@@ -102,6 +102,7 @@ const ChatBox = ({
           forceUpdate();
           setLoading(false);
           setText("");
+         
         })
         .catch((err) => {
           console.log(err);
@@ -117,6 +118,7 @@ const ChatBox = ({
       chatEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }, [chat]);
+
   useEffect(() => {
     const data = JSON.parse(localStorage.getItem("chat"));
     if (data) {
@@ -315,17 +317,18 @@ const ChatBox = ({
           />
         </button>
 
-        <div className=" ml:w-[100%] w-[100%] flex items-center justify-between flex-col h-[vh]">
+        <div className=" ml:w-[100%] w-[100%] flex items-center justify-between flex-col">
           {chat?.length > 0 ? (
             <div
               style={{ scrollbarWidth: "none" }}
               className="flex flex-col gap-[16px] scr1150:w-[60%] w-[70%] h-[84vh] overflow-y-auto  "
               ref={divRef}
+            
             >
               {chat?.map((item, index) => {
                 return (
-                  <div key={index} className="flex flex-col  gap-[12px]">
-                    <div className="flex w-full gap-[14px]  ">
+                  <div    key={index} className="flex flex-col  gap-[12px]">
+                    <div  className="flex w-full gap-[14px]  ">
                       {/* <img
                         className=" rounded-full object-cover h-[38px] w-[38px]"
                         src={
@@ -335,7 +338,7 @@ const ChatBox = ({
                       /> */}
                       <div
                         style={{ width: "fit-content" }}
-                        className="rounded-[8px] text-[12px] w-full font-[600] border border-[#bebebe] px-[16px] py-[8px] bg-[#F7F7F7] rounded-[30px]"
+                        className="text-[12px] w-full font-[600] border border-[#bebebe] px-[16px] py-[8px] bg-[#F7F7F7] rounded-[30px]"
                       >
                         {item.quation}
                       </div>
@@ -347,7 +350,7 @@ const ChatBox = ({
                           src={"/images/Robot.png"}
                         />
                       </div>
-                      <div className="rounded-[8px] w-full px-[16px] py-[0px] bg-[#fff]">
+                      <div  className="rounded-[8px] w-full px-[16px] py-[0px] bg-[#fff]">
                         <ParentTemp
                           answer={item.answer}
                           i={index}
@@ -361,14 +364,18 @@ const ChatBox = ({
                           }}
                         /> */}
                       </div>
+                     
                     </div>
+                
                   </div>
+                  
                 );
               })}
+                  <div ref={chatEndRef} />
             </div>
           ) : (
             <>
-              <div className="flex w-full">
+              <div className="flex w-full h-[84vh]">
                 <div className="flex w-full items-center justify-center">
                   <div className="flex flex-col gap-[60px] w-[480px] h-[320px] ">
                     <div className="flex flex-col items-center">

@@ -102,6 +102,16 @@ function Footer({ isSubscribe, setIsSubcrib }) {
                   alt=""
                 />
               </a> */}
+               <a
+                href="https://x.com/Skilotech_Hrms"
+                target="_blank"
+              >
+                <img
+                  className="media"
+                  src="/images/home/twitter.png"
+                  alt=""
+                />
+              </a>
               <a
                 href="https://www.instagram.com/skilotech_hrms/?hl=en"
                 target="_blank"
@@ -110,6 +120,16 @@ function Footer({ isSubscribe, setIsSubcrib }) {
                   className="media"
                   src="/images/home/instagram_icon.png"
                   alt="Instagram"
+                />
+              </a>
+              <a
+                href="https://www.youtube.com/@Skilotech-ss9nl"
+                target="_blank"
+              >
+                <img
+                  className="media"
+                  src="/images/home/youtube_icon.png"
+                  alt=""
                 />
               </a>
               <a
@@ -122,11 +142,9 @@ function Footer({ isSubscribe, setIsSubcrib }) {
                   alt=""
                 />
               </a>
-              {/** <img
-                className="media"
-                src="/images/home/youtube_icon.png"
-                alt=""
-              />*/}
+              
+
+             
             </div>
           </div>
         </div>
@@ -138,12 +156,12 @@ function Footer({ isSubscribe, setIsSubcrib }) {
                   <p className="footer_address_P">Address</p>
                 </div> */}
                 <div className="footer_add ">
-                  <div className=" flex flex-col gap-3">
+                  <div className=" flex flex-col gap-3 ">
                     <p className="text-[#fff] font-[600]">Offices </p>
                     <p className="footer_address_Para leading-6">
                       <ul className="flex flex-col gap-1">
-                        <li className="flex flex-row gap-2 items-center">
-                          <svg
+                        <li className="flex flex-row gap-2 items-start  font-[500]">
+                          <svg className="mt-2"
                             width="4"
                             height="4"
                             viewBox="0 0 10 10"
@@ -154,8 +172,8 @@ function Footer({ isSubscribe, setIsSubcrib }) {
                           </svg>
                           Harare, Zimbabwe.{" "}
                         </li>
-                        <li className="flex flex-row gap-2 items-center">
-                          <svg
+                        <li className="flex flex-row gap-2 items-start  font-[500]">
+                          <svg className="mt-2"
                             width="4"
                             height="4"
                             viewBox="0 0 10 10"
@@ -166,8 +184,8 @@ function Footer({ isSubscribe, setIsSubcrib }) {
                           </svg>
                           Pune, India.{" "}
                         </li>
-                        <li className="flex flex-row gap-2 items-center">
-                          <svg
+                        <li className="flex flex-row gap-2 items-start  font-[500]">
+                          <svg className="mt-2"
                             width="4"
                             height="4"
                             viewBox="0 0 10 10"
@@ -178,7 +196,7 @@ function Footer({ isSubscribe, setIsSubcrib }) {
                           </svg>
                           London, United Kingdom.{" "}
                         </li>
-                       
+
                       </ul>
                     </p>
                   </div>
@@ -249,7 +267,7 @@ function Footer({ isSubscribe, setIsSubcrib }) {
               <button
                 onClick={handleSubscribed}
                 className="footer_input_btn btn_hover_effect"
-                // disabled={error || email.trim() === ''}
+              // disabled={error || email.trim() === ''}
               >
                 Subscribe
               </button>
