@@ -36,6 +36,7 @@ const JobMatching = () => {
   const { clientId, parentId } = router.query;
   const [selectedIndexes, setSelectedIndexes] = useState([]);
   const [selectedIndexesFileTypes, setSelectedIndexesFilesType] = useState([]);
+  const [count, setCount] = useState(0);
 
   //sideBar implimentation
   const [showMatchingSidebar, setShowsideBar] = useState(false);
@@ -210,11 +211,14 @@ const JobMatching = () => {
         setExtractedData(jd);
         setLoadingg(false);
         setShowsideBar(true);
+      } else {
+        setCount(count + 1);
       }
     } catch (e) {
-      console.log("error", e);
-      setLoadingg(false);
-      toast.error("Something went wrong, please try again");
+      // console.log("error", e);
+      setCount(count + 1);
+      // setLoadingg(false);
+      // toast.error("Something went wrong, please try again");
     }
   };
 
