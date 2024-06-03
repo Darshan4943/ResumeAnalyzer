@@ -118,6 +118,8 @@ const ResumeForm = ({
     ));
   };
 
+  console.log(1222, data);
+
   return (
     <>
       <div className="flex flex-col pr-[10px] ml:w-[100%] w-[100%]  pb-4 gap-4 rounded-lg ">
@@ -223,14 +225,14 @@ const ResumeForm = ({
             <div className="border-b border-r border-l border-[#DEDEDE]"></div>
           </>
         )}
-        {(data?.hobbies?.length > 0 || customOptions.Hobbies) && (
+        {(data?.hobbies?.length > 0 || customOptions?.Hobbies) && (
           <>
             <Hobbie setData={setData} data={data} />
             <div className="border-b border-r border-l border-[#DEDEDE]"></div>
           </>
         )}
 
-        {(data?.languages?.length > 0 || customOptions.Languages) && (
+        {(data?.languages?.length > 0 || customOptions?.Languages) && (
           <>
             <Languages setData={setData} data={data} />
             <div className="border-b border-r border-l border-[#DEDEDE]"></div>
@@ -245,7 +247,7 @@ const ResumeForm = ({
           </>
         )}
 
-        {(data?.reference?.length > 0 || customOptions.References) && (
+        {(data?.reference?.length > 0 || customOptions?.References) && (
           <>
             <Reference setData={setData} data={data} />
             <div className="border-b border-r border-l border-[#DEDEDE]"></div>

@@ -366,6 +366,52 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                 </View>
               </View>
             )}
+{console.log(369,data)}
+
+{data?.languages?.length > 0 && (
+              <View style={{ flexDirection: "column" }}>
+                <View style={{ flexDirection: "column", gap: 12 }}>
+                  <Text
+                    style={{
+                      color: "#414042",
+                      fontSize: "16px",
+                      fontFamily: `${selectedFont} 400`,
+                    }}
+                  >
+                    LANGUAGES
+                  </Text>
+                  <Svg width={141} height={4} viewBox="0 0 141 4">
+                    <Path
+                      d="M140.396 1.72095H0.209961V2.72095H140.396V1.72095Z"
+                      fill="#A7A9AC"
+                    />
+                    <Path
+                      d="M35.262 0.720947H0.209961V3.72095H35.262V0.720947Z"
+                      fill={selectedColor}
+                    />
+                  </Svg>
+                  <View style={{ flexDirection: "column", gap: 8 }}>
+                    {data?.languages.map((detail, index) => (
+                      <View key={index} wrap={false}>
+                        <View>
+                          <Text
+                            style={{
+                              color: "#414042",
+                              fontSize: "12px",
+                              marginRight: "6px",
+                              fontFamily: `${selectedFont} 400`,
+                            }}
+                          >
+                            {detail.languages}
+                          </Text>
+                        </View>
+                      </View>
+                    ))}
+                  </View>
+                </View>
+              </View>
+            )}
+
           </View>
 
           <View
@@ -614,6 +660,9 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                 ))}
               </View>
             ))}
+
+
+            
           </View>
         </View>
       </View>

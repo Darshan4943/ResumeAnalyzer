@@ -216,7 +216,7 @@ function CreateNewClient() {
         formdata.append("img", croppedImage === null ? details.profilePicture : croppedImage);
         formdata.append("isProfileImageRemoved", isProfileImageRemoved);
         const url = isUpdate
-          ? "http://localhost:2000/api/updateClient"
+          ? "https://jamblix.com/api/updateClient"
           : "https://jamblix.com/api/client/create";
 
         const response = await axios.post(url, formdata);

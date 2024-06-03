@@ -118,7 +118,7 @@ function ClientResume() {
                     }
                   }}
                   style={{ boxShadow: "0px 0px 10px 5px #00000040" }}
-                  className="rounded-[24px] text-center text-white justify-center flex scr540:flex-col flex-row text-[18px] items-center gap-2 font-medium  sm:min-w-[218px] min-w-[218px] max-w-[218px] bg-[#646464] p-6 cursor-pointer"
+                  className="rounded-[24px] text-center text-white justify-center flex scr540:flex-col flex-row text-[18px] items-center gap-2 font-medium  sm:min-w-[224px] min-w-[218px] max-w-[224px] bg-[#646464] p-4 cursor-pointer"
                 >
                   <svg
                     width="27"
@@ -144,7 +144,7 @@ function ClientResume() {
                         router.push(`/home/BuildResume?clientId=${detail._id}`)
                       }
                       key={index}
-                      className="flex flex-col gap-4 cursor-pointer sm:p-6 p-4 rounded-[24px] sm:min-w-[218px] min-w-[218px] max-w-[218px] break-all"
+                      className="flex flex-col gap-4 cursor-pointer  p-4 rounded-[24px] sm:min-w-[224px] min-w-[218px] max-w-[224px] break-all"
                       style={{ boxShadow: "0px 2px 7px 0px #00000040" }}
                     >
                       <div className="flex justify-center relative">

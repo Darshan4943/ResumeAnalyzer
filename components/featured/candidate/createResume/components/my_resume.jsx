@@ -23,23 +23,23 @@ const ResumeList = ({ data, setData }) => {
     event.preventDefault();
     const selectedFile = event.target.files[0];
     if (selectedFile) {
-      if (selectedFile.size <= 2 * 1024 * 1024) {
+      if (selectedFile.size <= 1 * 1024 * 1024) {
         // Check if file is less than 2MB
         if (selectedFile.type.includes("image")) {
           const pngBlob = await convertToPng(selectedFile);
-          if (pngBlob.size <= 2 * 1024 * 1024) {
+          if (pngBlob.size <= 1 * 1024 * 1024) {
             // Ensure PNG is also less than 2MB
             setFile(pngBlob);
             setModelView(true);
             event.target.value = "";
           } else {
-            toast.error("Converted PNG file is larger than 2 MB.");
+            toast.error("Converted PNG file is larger than 1 MB.");
           }
         } else {
           toast.error("Only image files are allowed.");
         }
       } else {
-        toast.error("Please select a file which is less than 2 MB.");
+        toast.error("Please select a file which is less than 1 MB.");
       }
     }
   };
@@ -213,7 +213,7 @@ const ResumeList = ({ data, setData }) => {
               </div>
               <p className="text-center text-[14px] font-normal text-[#333]">
                 {" "}
-                Allowed file formats: jpg, jpeg | up to 2 MB
+                Allowed file formats: jpg, jpeg | up to 1 MB
               </p>
             </div>
           </div>

@@ -292,15 +292,15 @@ function AddNewSectionContainer({
 
   const updateHasData = () => {
     const newHasData = {
-      "Custom Section": data.customDataSection.length > 0,
-      "Extra-Curriculum Activities": data.extraCaricularData.length > 0,
-      "Courses & Certifications": data.course.length > 0,
-      "Internships & Projects": data.project.length > 0,
-      Hobbies: data.hobbies.length > 0,
-      Languages: data.languages.length > 0,
-      "Achievements & Awards": data.achievement.length > 0,
-      References: data.reference.length > 0,
-      "Social Links": data.sociaLinks.length > 0,
+      "Custom Section": data?.customDataSection?.length > 0,
+      "Extra-Curriculum Activities": data?.extraCaricularData?.length > 0,
+      "Courses & Certifications": data?.course?.length > 0,
+      "Internships & Projects": data?.project?.length > 0,
+      Hobbies: data?.hobbies?.length > 0,
+      Languages: data?.languages?.length > 0,
+      "Achievements & Awards": data?.achievement?.length > 0,
+      References: data?.reference?.length > 0,
+      "Social Links": data?.sociaLinks?.length > 0,
     };
 
     setHasData(newHasData);
