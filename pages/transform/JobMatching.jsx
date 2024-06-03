@@ -123,11 +123,14 @@ const JobMatching = () => {
   //     });
   // };
 
+  console.log(77);
   const chunkArray = (array, size) => {
+    console.log("size", size);
     const chunkedArr = [];
     for (let i = 0; i < array.length; i += size) {
       chunkedArr.push(array.slice(i, i + size));
     }
+
     return chunkedArr;
   };
 
@@ -145,6 +148,8 @@ const JobMatching = () => {
     await Promise.all(promises);
   };
 
+  {
+    /** 
   const jobMatching = async () => {
     setLoadingg(true);
     setIsAnimate(false);
@@ -190,47 +195,18 @@ const JobMatching = () => {
       toast.error("Something went wrong, please try again");
     }
   };
+*/
+  }
 
-  {
-    /** 
   const jobMatching = async () => {
     setLoadingg(true);
     setIsAnimate(false);
     try {
-      const res = await axios.post("http://localhost:2000/api/jd/extraction", {
+      const res = await axios.post("https://jamblix.com/api/jd/extraction", {
         text,
       });
       const jd = res.data.jsonData[0];
-      // if (Object.keys(jd).length > 5) {
-      //   const chunks = chunkArray(selectedIndexesFileTypes, 5);
-      //   const outputData = [];
-      //   for (let i = 0; i < chunks.length; i++) {
-      //     await processChunk(chunks[i], jd, outputData);
-      //     if (i < chunks.length - 1) {
-      //       await new Promise((resolve) => setTimeout(resolve, 10000));
-      //     }
-      //   }
-      //   const dataArray = outputData
-      //     .filter((item) => item.matching_percentage)
-      //     ?.sort((a, b) => {
-      //       if (parseInt(b.matching_percentage))
-      //         parseInt(
-      //           isNaN(b.matching_percentage)
-      //             ? b.matching_percentage.slice(0, 2)
-      //             : b.matching_percentage
-      //         ) -
-      //           parseInt(
-      //             isNaN(a.matching_percentage)
-      //               ? a.matching_percentage.slice(0, 2)
-      //               : a.matching_percentage
-      //           );
-      //     })
-      //     .slice(0, resumeCount);
-      //   setResumeList(dataArray);
-      //   console.log(6555, dataArray);
-      // } else {
-      //   toast.error("Something went wrong, please try again");
-      // }
+
       if (Object.keys(jd).length > 5) {
         setExtractedData(jd);
         setLoadingg(false);
@@ -241,8 +217,7 @@ const JobMatching = () => {
       setLoadingg(false);
       toast.error("Something went wrong, please try again");
     }
-  };*/
-  }
+  };
 
   // const jobMatching = () => {
   //   setLoadingg(true);
@@ -409,7 +384,7 @@ const JobMatching = () => {
     setLoadingg(true);
     setIsAnimate(false);
     if (Object.keys(extratctedData).length > 5) {
-      const chunks = chunkArray(selectedIndexesFileTypes, 5);
+      const chunks = chunkArray(selectedIndexesFileTypes, 14);
       const outputData = [];
       for (let i = 0; i < chunks.length; i++) {
         await processChunk(chunks[i], extratctedData, outputData);
@@ -436,7 +411,6 @@ const JobMatching = () => {
       setResumeList(dataArray);
       setButtonToggle(false);
       setLoadingg(false);
-      console.log(6555, dataArray);
     } else {
       toast.error("Something went wrong, please try again");
     }
@@ -508,41 +482,6 @@ const JobMatching = () => {
           />
         </div>
 
-        {/** 
-        <AnimatePresence>
-          {showMatchingSidebar && (
-            <>
-              //{" "}
-              <div className="fixed z-[1500] top-0 left-0 right-0 bottom-0 bg-[#FFFFFF] bg-opacity-0"></div>
-              <motion.div
-                ref={sidebarRef}
-                initial={{ x: "-100%" }}
-                animate={{ x: 0 }}
-                exit={{ x: "-100%" }}
-                transition={{ duration: 0.5, ease: "easeInOut" }}
-                className="absolute z-[2000] overflow-y-auto"
-                style={{
-                  background: "rgba(255, 255, 255, 0.5)",
-                  boxShadow: "0 0 10px rgba(255, 255, 255, 0.5)",
-                  backdropFilter: "blur(10px)",
-                  ...(navigator.userAgent.includes("Safari") &&
-                    !navigator.userAgent.includes("Chrome") && {
-                      WebkitBackdropFilter: "blur(10px)",
-                    }),
-                  willChange: "transform",
-                  // opacity: isSidebar ? 1 : 0,
-                  // transform: (isSidebar ? "translateX(0)" : "translateX(-100%)"), transition: "transform 0.4s ease-in-out",
-                }}
-              >
-                <JdMatchingsideBar
-                  extratctedData={extratctedData}
-                  setExtractedData={setExtractedData}
-                />
-              </motion.div>
-            </>
-          )}
-        </AnimatePresence>*/}
-
         <div className="bg-[#DEDEDE] ml:h-[91vh] h-[1px] ml:w-[1px] w-full"></div>
         <div className="ml:w-[45%] w-full">
           <JdMatching
@@ -553,6 +492,42 @@ const JobMatching = () => {
           />
         </div>
       </div>
+
+      <AnimatePresence>
+        {showMatchingSidebar && (
+          <>
+            {/* Overlay */}
+            <div className="fixed z-[5] top-0 left-0 right-0 bottom-0 bg-[#FFFFFF] bg-opacity-70"></div>
+            {/* Sidebar */}
+            <motion.div
+              initial={{ x: "-100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "-100%" }}
+              transition={{ duration: 0.5, ease: "easeInOut" }}
+              className="absolute z-[6] overflow-y-auto"
+              style={{
+                background: "rgba(255, 255, 255, 0.5)",
+                boxShadow: "0 0 10px rgba(255, 255, 255, 0.5)",
+                backdropFilter: "blur(10px)",
+                ...(navigator.userAgent.includes("Safari") &&
+                  !navigator.userAgent.includes("Chrome") && {
+                    WebkitBackdropFilter: "blur(10px)",
+                  }),
+                willChange: "transform",
+              }}
+            >
+              <JdMatchingsideBar
+                extratctedData={extratctedData}
+                setExtractedData={setExtractedData}
+                text={text}
+                setText={setText}
+                MatchJob={MatchJob}
+                setShowsideBar={setShowsideBar}
+              />
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
