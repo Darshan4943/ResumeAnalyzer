@@ -47,6 +47,8 @@ function Recruiter_signup({ }) {
     dial_code: "+260",
     img: null,
   });
+
+
   const [isProfileImageRemoved, setIsProfileImageRemoved] = useState(false);
   const [file, setFile] = useState(null);
 
@@ -167,7 +169,7 @@ function Recruiter_signup({ }) {
           if (validatePassword(value)) {
           } else {
             errors.password =
-              "Password should include one uppercase one lowercase one number and one special character";
+              "Password should include one uppercase letter, lowercase letter, number, and special character.";
           }
           if (!value.trim() || value.trim() != data.confirmPassword) {
             errors.confirmPassword = "Password do not match";
@@ -441,7 +443,7 @@ function Recruiter_signup({ }) {
                     <>
                       {" "}
                       <p className="text-[16px] font-medium">
-                        Profile Photo <span className="star">*</span>
+                        Profile Photo <span className="star"></span>
                       </p>
                       <div className="flex sm:gap-6 gap-3">
                         {croppedImage ? (
@@ -476,7 +478,7 @@ function Recruiter_signup({ }) {
 
                         <div className="flex flex-col gap-3 w-[168px] text-center items-center ">
                           <p className="text-[12px] font-normal">
-                            Allowed file formats: jpg, jpeg | up to 1 MB
+                            Allowed file formats: jpg, jpeg | up to 3 MB
                           </p>
                           <div className="text-[12px] font-semibold px-4 py-2 rounded-[8px]  border border-[#06A9EF] bg-[#06A9EF] text-white w-[135px] upload-btn-wrapper">
                             <input
@@ -584,7 +586,7 @@ function Recruiter_signup({ }) {
                                         src={`https://hatscripts.github.io/circle-flags/flags/${option.code.toLowerCase()}.svg`}
                                         width="20px"
                                       />
-                                      <span className="ml-2">
+                                      <span className="ml-2 text-[#333333]">
                                         {option.code} {option.dial_code}
                                       </span>
                                     </div>

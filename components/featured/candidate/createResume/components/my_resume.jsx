@@ -213,7 +213,7 @@ const ResumeList = ({ data, setData }) => {
               </div>
               <p className="text-center text-[14px] font-normal text-[#333]">
                 {" "}
-                Allowed file formats: jpg, jpeg | up to 2 MB
+                Allowed file formats: jpg, jpeg | up to 1 MB
               </p>
             </div>
           </div>
