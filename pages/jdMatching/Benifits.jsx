@@ -23,9 +23,7 @@ const Benifits = ({ extratctedData, setExtractedData }) => {
 
   const handleAddOrUpdate = () => {
     if (type.trim() === "" || description.trim() === "") return;
-
     const updatedBenefits = [...extratctedData.benefits];
-
     if (isEdit) {
       updatedBenefits[editIndex] = { type, description };
     } else {
