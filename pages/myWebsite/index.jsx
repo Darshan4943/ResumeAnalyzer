@@ -83,6 +83,7 @@ const Index = () => {
     setSelectedIndexes(item._id);
     setSelectedResumeName(item.fileName)
     setSelectedResumeUrl(item.resumeUrl)
+    setSelectedLink("")
     window.scroll(0, 0)
   };
 
@@ -167,7 +168,7 @@ const Index = () => {
                     onClick={() => toggleSelect(item)}
                     className="flex flex-col h-[300px] items-center justify-between group relative cursor-pointer resumes"
                   >
-                    <div className={`${item._id === selectedIndexes ? "border-4 border-blue rounded-lg " : " border-4 border-white"}  `}>
+                    <div className={`${item._id === selectedIndexes ? "border-4 border-blue rounded-[12px] " : " border-4 border-white"}  `}>
                       <PdfViewer pdfUrl={item.resumeUrl} loadingg={loadingg} setLoadingg={setLoadingg} />
                     </div>
                   {!loadingg &&
