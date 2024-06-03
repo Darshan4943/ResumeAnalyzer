@@ -19,7 +19,7 @@ function JdFiles({
   const { clientId, name } = query;
   const [data, setData] = useState([]);
   const [allData, setAllData] = useState([]);
-  console.log(11111, data);
+
   useEffect(() => {
     function sortFoldersAndFiles(data) {
       return data.sort((a, b) => {
