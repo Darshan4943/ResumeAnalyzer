@@ -7,6 +7,7 @@ const Achievement = ({ data, setData }) => {
   const [view, setView] = useState(false);
   const [toggleOn, setToggleOn] = useState(true);
   const [isModified, setIsModified] = useState({ status: false, index: 0 });
+  const [error, setError] = useState("");
   const handleSwitchChange = () => {
     setIsChecked(!isChecked);
     setData({ ...data, showExperience: !isChecked });
@@ -16,35 +17,82 @@ const Achievement = ({ data, setData }) => {
     description: "",
   });
   const [editingIndex, setEditingIndex] = useState(null);
+  const [errors, setErrors] = useState({
+    title: "",
+
+    description: "",
+  });
   const handleInputChange = (e) => {
+    // const { name, value } = e.target;
+    // setAchivementData({
+    //   ...achivementData,
+    //   [name]: value,
+    // });
+
     const { name, value } = e.target;
-    setAchivementData({
-      ...achivementData,
+
+    if (name === "description") {
+      if (value?.length >= 1000 || achivementData?.description === 1000) {
+        setError("Maximum 1000 characters allowed");
+      } else {
+        setError("");
+      }
+    }
+    setAchivementData((prevData) => ({
+      ...prevData,
       [name]: value,
-    });
+    }));
+
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]:
+        value?.trim() === ""
+          ? `${name?.charAt(0)?.toUpperCase() + name?.slice(1)} is required`
+          : "",
+    }));
   };
   const handleSave = () => {
-    if (isModified.status === true) {
-      const dumyData = data.achievement;
-      const index = isModified.index;
-      dumyData.splice(index, 1, achivementData);
-      setData({ ...data, achievement: dumyData });
-      setView(false);
-    } else {
-      setData({
-        ...data,
-        achievement: [achivementData, ...data.achievement],
+    if (validateForm()) {
+      if (isModified?.status === true) {
+        const dumyData = data?.achievement;
+        const index = isModified?.index;
+        dumyData?.splice(index, 1, achivementData);
+        setData({ ...data, achievement: dumyData });
+        setView(false);
+      } else {
+        setData({
+          ...data,
+          achievement: [achivementData, ...data?.achievement],
+        });
+        setView(false);
+      }
+      setAchivementData({
+        title: "",
+        description: "",
       });
-      setView(false);
+    } else {
+      setView(true);
     }
-    setAchivementData({
-      title: "",
-      description: "",
-    });
+  };
+
+  const validateForm = () => {
+    let newErrors = {};
+
+    if (!achivementData?.title?.trim()) {
+      newErrors.title = "Title is required";
+    }
+
+    // if (!achivementData?.description?.trim()) {
+    //   newErrors.description = "Organization is required";
+    // }
+
+    setErrors(newErrors);
+
+    return Object.keys(newErrors)?.length === 0;
   };
 
   const handleEditAchievement = (index) => {
-    const dataToEdit = data.achievement[index];
+    const dataToEdit = data?.achievement[index];
 
     if (dataToEdit) {
       setView(true);
@@ -55,7 +103,7 @@ const Achievement = ({ data, setData }) => {
   const handleDeleteAchievement = (index) => {
     setData({
       ...data,
-      achievement: data.achievement.filter((item, i) => i !== index),
+      achievement: data?.achievement?.filter((item, i) => i !== index),
     });
   };
 
@@ -89,7 +137,7 @@ const Achievement = ({ data, setData }) => {
             }`}
           >
             <div className="flex justify-between">
-              <p className="text-[14px]">{ach.title}</p>
+              <p className="text-[14px]">{ach?.title}</p>
               <div className="flex gap-2">
                 <div onClick={() => handleEditAchievement(index)}>
                   <Edit_icon />
@@ -99,7 +147,7 @@ const Achievement = ({ data, setData }) => {
                 </div>
               </div>
             </div>
-            <p className="text-[12px]">{ach.description}</p>
+            <p className="text-[12px]">{ach?.description}</p>
           </div>
         ))}
       {/* {view && ( */}
@@ -115,11 +163,14 @@ const Achievement = ({ data, setData }) => {
                   id=""
                   placeholder="Name of award/ achievement"
                   className="w-full text-[14px] font-montserrat font-small "
-                  value={achivementData.title}
+                  value={achivementData?.title}
                   onChange={handleInputChange}
                   disabled={!isChecked}
                 />
               </div>
+              {errors?.title && (
+                <span className="text-[red] text-[12px]">{errors?.title}</span>
+              )}
             </div>
 
             <div className="flex flex-col gap-2 w-full">
@@ -136,7 +187,7 @@ const Achievement = ({ data, setData }) => {
                   className="w-full text-[14px] font-montserrat font-small outline-none h-full "
                   onChange={handleInputChange}
                 >
-                  {achivementData.description}
+                  {achivementData?.description}
                 </textArea>
               </div>
             </div>
