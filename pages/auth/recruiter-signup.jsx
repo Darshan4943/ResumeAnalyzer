@@ -476,7 +476,7 @@ function Recruiter_signup({ }) {
 
                         <div className="flex flex-col gap-3 w-[168px] text-center items-center ">
                           <p className="text-[12px] font-normal">
-                            Allowed file formats: jpg, jpeg | up to 1 MB
+                            Allowed file formats: jpg, jpeg | up to 3 MB
                           </p>
                           <div className="text-[12px] font-semibold px-4 py-2 rounded-[8px]  border border-[#06A9EF] bg-[#06A9EF] text-white w-[135px] upload-btn-wrapper">
                             <input
@@ -584,7 +584,7 @@ function Recruiter_signup({ }) {
                                         src={`https://hatscripts.github.io/circle-flags/flags/${option.code.toLowerCase()}.svg`}
                                         width="20px"
                                       />
-                                      <span className="ml-2">
+                                      <span className="ml-2 text-[#333333]">
                                         {option.code} {option.dial_code}
                                       </span>
                                     </div>
