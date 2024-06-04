@@ -85,7 +85,7 @@ const SocialLink = ({ setData, data }) => {
               className="flex flex-col gap-1 p-2 rounded-[6px] border border-[#DEDEDE]"
             >
               <div className="flex justify-between">
-                <p>{social?.platform}</p>
+                <p className="text-[14px]">{social?.platform}</p>
                 <div className="flex gap-2">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -118,6 +118,9 @@ const SocialLink = ({ setData, data }) => {
                     </g>
                   </svg>
                 </div>
+              </div>
+              <div>
+                <p className="text-[12px]">{social?.link}</p>
               </div>
             </div>
           ))}
