@@ -484,7 +484,7 @@ function Dashboard() {
                   </div>
                 </div>
                 <button
-                  className="w-[154px] h-[36px] px-[6px] py-[6px] rounded-[8px] bg-[#06A9EF] text-[#FFFFFF] text-[14px]"
+                  className="w-[130px] h-[36px] px-[6px] py-[6px] rounded-[8px] border border-blue hover:bg-[#06A9EF] hover:text-[#FFFFFF] text-[14px] font-medium"
                   onClick={() => {
                     localStorage.removeItem("userData");
                     window.location.href = "/";
