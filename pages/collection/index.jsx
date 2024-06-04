@@ -578,7 +578,7 @@ function Collection() {
                                 </svg>
 
 
-                                {duplicateFiles.length} Duplicate {duplicateFiles.length === 1 ? "file" : "files"} not uploaded
+                                {duplicateFiles.length} Duplicate {duplicateFiles.length === 1 ? "file" : "files"} found.
                               </div>
                               <div className="flex flex-wrap scr1300:gap-4 gap-2 h-[60px] justify-between  scr1300:px-4 overflow-y-auto mt-2">
                                 {duplicateFiles.map((item, index) => (
