@@ -5,7 +5,7 @@ import CustomSection from "./customSection";
 import CustomDate from "../../../../common/customDate";
 import ContinueWorkingOn from "../../../../common/continueWorkingOn";
 
-const ProjectSection = ({ data, setData }) => {
+const Project = ({ data, setData }) => {
   const [isChecked, setIsChecked] = useState(true);
   const [toggleOn, setToggleOn] = useState(true);
   const [view, setView] = useState(false);
@@ -55,15 +55,15 @@ const ProjectSection = ({ data, setData }) => {
   const handleSave = () => {
     if (validateForm()) {
       if (isModified?.status === true) {
-        const dummyData = [...data?.internship];
+        const dummyData = [...data?.project];
         const index = isModified?.index;
         dummyData?.splice(index, 1, projectData);
-        setData({ ...data, internship: dummyData });
+        setData({ ...data, project: dummyData });
         setView(false);
       } else {
         setData({
           ...data,
-          internship: [projectData, ...data?.internship],
+          project: [projectData, ...data?.project],
         });
         {
           validateForm ? setView(false) : setView(true);
@@ -87,7 +87,7 @@ const ProjectSection = ({ data, setData }) => {
   };
 
   const handleEditExperience = (index) => {
-    const dataToEdit = data?.internship[index];
+    const dataToEdit = data?.project[index];
 
     if (dataToEdit) {
       setView(true);
@@ -98,7 +98,7 @@ const ProjectSection = ({ data, setData }) => {
   const handleDeleteExperience = (index) => {
     setData({
       ...data,
-      internship: data?.internship?.filter((item, i) => i !== index),
+      project: data?.project?.filter((item, i) => i !== index),
     });
   };
 
@@ -138,7 +138,7 @@ const ProjectSection = ({ data, setData }) => {
       }}
     >
       <div className="w-full flex justify-between text-[20px] font-montserrat font-medium">
-        <p> Internships</p>
+        <p> Projects</p>
         <label className="switch">
           <input
             type="checkbox"
@@ -150,8 +150,8 @@ const ProjectSection = ({ data, setData }) => {
       </div>
 
       {!view &&
-        data?.internship?.length > 0 &&
-        data?.internship?.map((exp, index) => (
+        data?.project?.length > 0 &&
+        data?.project?.map((exp, index) => (
           <div
             key={index}
             className={`flex flex-col gap-1 py-[12px] px-[16px] rounded-[6px]  border break-all ${
@@ -228,7 +228,7 @@ const ProjectSection = ({ data, setData }) => {
 
             <div>
               <ContinueWorkingOn
-                idPrefix="internship"
+                idPrefix="project"
                 data={projectData}
                 dataSeter={setProjectData}
                 fromCreate={true}
@@ -319,4 +319,4 @@ const ProjectSection = ({ data, setData }) => {
   );
 };
 
-export default ProjectSection;
+export default Project;

@@ -173,7 +173,7 @@ const Achievement = ({ data, setData }) => {
               )}
             </div>
 
-            <div className="flex flex-col gap-2 w-full">
+            {/* <div className="flex flex-col gap-2 w-full">
               <div className="w-full text-[14px] font-montserrat  font-medium">
                 Description
               </div>
@@ -190,7 +190,7 @@ const Achievement = ({ data, setData }) => {
                   {achivementData?.description}
                 </textArea>
               </div>
-            </div>
+            </div> */}
           </div>
           <div className="flex justify-end ">
             <div className="flex justify-between  py-2 gap-2">
