@@ -343,6 +343,7 @@ const ResumePreview = ({
   };
 
   const saveResume = async (blob, download) => {
+    console.log(22, blob, data);
     setdisabled(true);
 
     if (blob !== null) {
@@ -372,7 +373,7 @@ const ResumePreview = ({
         formData.append("pdfBlob", blob);
 
         axios
-          .put("https://jamblix.com/api/resume/" + id, formData)
+          .put("http://localhost:2000/api/resume/" + id, formData)
           .then((res) => {
             localStorage.setItem("saveCount", saveLimit - 1);
             getLimits();
@@ -425,8 +426,9 @@ const ResumePreview = ({
         }
 
         axios
-          .post("https://jamblix.com/api/resume/add", formData)
+          .post("http://localhost:2000/api/resume/add", formData)
           .then((res) => {
+            console.log(43331, res.data.data);
             const pdfUrl = res.data.data.resumeUrl;
 
             localStorage.setItem("saveCount", saveLimit - 1);
@@ -465,7 +467,7 @@ const ResumePreview = ({
     setDownloadBtnLoading(true);
     axios
       .put(
-        "https://jamblix.com/api/subscription/updateDownloadLimit/" +
+        "http://localhost:2000/api/subscription/updateDownloadLimit/" +
           userDataGlobal._id
       )
       .then((res) => {

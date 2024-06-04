@@ -20,6 +20,7 @@ import CustomSection from "./components/customSection";
 import ExtraCaricularActivity from "./components/extraCaricularActivity";
 import CouersesAndCertification from "./components/couersesAndCertification";
 import ProjectSection from "./components/projectSection";
+import Project from "./components/projects";
 
 const ResumeForm = ({
   setData,
@@ -48,16 +49,20 @@ const ResumeForm = ({
   const [showReference, setShowReference] = useState(false);
   const [isAll, setIsAll] = useState(false);
 
+  const [showingSection, setShowingSection] = useState([]);
+
   const [customOptions, setCustomOptions] = useState({
-    "Custom Section": false,
-    "Extra-Curriculum Activities": false,
-    "Courses & Certifications": false,
-    "Internships & Projects": false,
     Hobbies: false,
     Languages: false,
     "Achievements & Awards": false,
     References: false,
-    "Social Links": false,
+    Links: false,
+
+    "Extra-Curriculum Activities": false,
+    "Courses & Certifications": false,
+    Internships: false,
+    Project: false,
+    "Custom Section": false,
   });
 
   const handleImageClick = (template) => {
@@ -117,6 +122,8 @@ const ResumeForm = ({
       />
     ));
   };
+
+  console.log(122, data);
 
   return (
     <>
@@ -183,8 +190,8 @@ const ResumeForm = ({
 
         <Skills setData={setData} data={data} />
         <div className="border-b border-r border-l border-[#DEDEDE]"></div>
-{/* 
-        {(data?.customDataSection?.length > 0 ||
+
+        {/* {(data?.customDataSection?.length > 0 ||
           customOptions["Custom Section"]) && (
           <>
             <CustomSection
@@ -193,6 +200,56 @@ const ResumeForm = ({
               customOptions={customOptions}
               setCustomOptions={setCustomOptions}
             />
+            <div className="border-b border-r border-l border-[#DEDEDE]"></div>
+          </>
+        )} */}
+
+        {(data?.hobbies?.length > 0 || customOptions?.Hobbies) && (
+          <>
+            <Hobbie setData={setData} data={data} />
+            <div className="border-b border-r border-l border-[#DEDEDE]"></div>
+          </>
+        )}
+
+        {(data?.languages?.length > 0 || customOptions?.Languages) && (
+          <>
+            <Languages setData={setData} data={data} />
+            <div className="border-b border-r border-l border-[#DEDEDE]"></div>
+          </>
+        )}
+
+        {(data?.achievement?.length > 0 ||
+          customOptions["Achievements & Awards"]) && (
+          <>
+            <Achievement setData={setData} data={data} />
+            <div className="border-b border-r border-l border-[#DEDEDE]"></div>
+          </>
+        )}
+
+        {(data?.sociaLinks?.length > 0 || customOptions?.Links) && (
+          <>
+            <SocialLink setData={setData} data={data} />
+            <div className="border-b border-r border-l border-[#DEDEDE]"></div>
+          </>
+        )}
+
+        {(data?.reference?.length > 0 || customOptions?.References) && (
+          <>
+            <Reference setData={setData} data={data} />
+            <div className="border-b border-r border-l border-[#DEDEDE]"></div>
+          </>
+        )}
+
+        {(data?.project?.length > 0 || customOptions?.Project) && (
+          <>
+            <Project setData={setData} data={data} />
+            <div className="border-b border-r border-l border-[#DEDEDE]"></div>
+          </>
+        )}
+
+        {(data?.internship?.length > 0 || customOptions["Internships"]) && (
+          <>
+            <ProjectSection setData={setData} data={data} />
             <div className="border-b border-r border-l border-[#DEDEDE]"></div>
           </>
         )}
@@ -216,72 +273,52 @@ const ResumeForm = ({
             <div className="border-b border-r border-l border-[#DEDEDE]"></div>
           </>
         )}
-        {(data?.project?.length > 0 ||
-          customOptions["Internships & Projects"]) && (
-          <>
-            <ProjectSection setData={setData} data={data} />
-            <div className="border-b border-r border-l border-[#DEDEDE]"></div>
-          </>
-        )}
-        {(data?.hobbies?.length > 0 || customOptions.Hobbies) && (
-          <>
-            <Hobbie setData={setData} data={data} />
-            <div className="border-b border-r border-l border-[#DEDEDE]"></div>
-          </>
-        )}
 
-        {(data?.languages?.length > 0 || customOptions.Languages) && (
-          <>
-            <Languages setData={setData} data={data} />
-            <div className="border-b border-r border-l border-[#DEDEDE]"></div>
-          </>
-        )}
+        {/* {customOptions["Custom Section"] && ( */}
 
-        {(data?.achievement?.length > 0 ||
-          customOptions["Achievements & Awards"]) && (
+        {data?.section?.map((item, index) => (
           <>
-            <Achievement setData={setData} data={data} />
+            <div key={index}>
+              <AddSection
+                section={item.subSection}
+                formData={item.subSection[0]}
+                data={data}
+                setData={setData}
+                index={index}
+                item={item}
+              />
+            </div>
             <div className="border-b border-r border-l border-[#DEDEDE]"></div>
           </>
-        )}
+        ))}
 
-        {(data?.reference?.length > 0 || customOptions.References) && (
-          <>
-            <Reference setData={setData} data={data} />
-            <div className="border-b border-r border-l border-[#DEDEDE]"></div>
-          </>
-        )}
-
-        {(data?.sociaLinks?.length > 0 || customOptions["Social Links"]) && (
-          <>
-            <SocialLink setData={setData} data={data} />
-            <div className="border-b border-r border-l border-[#DEDEDE]"></div>
-          </>
-        )}
+        {/* )} */}
 
         <AddNewSectionContainer
           setData={setData}
           data={data}
           customOptions={customOptions}
           setCustomOptions={setCustomOptions}
-        /> */}
+          setShowingSection={setShowingSection}
+          showingSection={showingSection}
+        />
 
         {/* <Achievement setData={setData} data={data} /> */}
 
         {/* {formField?.includes("socialLinks") && (
           <SocialLink setData={setData} data={data} />
         )} */}
-        {formField?.includes("hobbies") && (
+        {/* {formField?.includes("hobbies") && (
           <>
             <Hobbie setData={setData} data={data} />
             <div className="border-b border-r border-l border-[#DEDEDE]"></div>
           </>
-        )}
+        )} */}
 
-        {formField?.includes("language") && (
+        {/* {formField?.includes("language") && (
           <Languages setData={setData} data={data} />
-        )}
-        {data?.section?.length > 0 && (
+        )} */}
+        {/* {data?.section?.length > 0 && (
           <>
             {data?.section?.map((item, index) => (
               <>
@@ -299,9 +336,9 @@ const ResumeForm = ({
               </>
             ))}
           </>
-        )}
+        )} */}
 
-        <div className="flex items-center gap-2 justify-end">
+        {/* <div className="flex items-center gap-2 justify-end">
           <div
             onClick={() => {
               setData({
@@ -318,8 +355,8 @@ const ResumeForm = ({
             className=" font-montserrat text-white font-medium text-[14px] px-[12px] rounded-[8px]  bg-[#06A9EF] h-[32px] flex items-center cursor-pointer btn_hover_effect "
           >
             <span className="text-[22px] mr-2">+</span> Add Section
-          </div>
-          </div>
+          </div> */}
+
         {/* <div onClick={() => setCourse(!course)} className=" font-montserrat text-white font-medium text-[14px] px-[12px] rounded-[8px]  bg-[#06A9EF] h-[32px] flex items-center cursor-pointer "
           >
             <span className="text-[22px] mr-2" >+</span> course
