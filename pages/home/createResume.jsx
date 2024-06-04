@@ -366,17 +366,13 @@ function CreateResume() {
     selectedResumeIndex: selectedResumeIndex ? selectedResumeIndex : 1,
     reference: [],
     project: [],
-    internship: [],
     extraCaricularData: [],
     createdAt: "",
     customDataSection: [],
     clientId: clientId,
   };
 
-  console.log(33333333, defaultState);
-
   const [data, setData] = useState(defaultState);
-  console.log(8888888, data);
   const [isClient, setIsClient] = useState(false);
   const [isDataInLocal, setIsDataInLocal] = useState(false);
 
@@ -437,9 +433,7 @@ function CreateResume() {
         : parsedData.work_experience
         ? parsedData.work_experience
         : [];
-      const courses = parsedData?.issuing_organization
-        ? parsedData?.issuing_organization
-        : [];
+      const courses = parsedData.issuing_organization;
       setData({
         ...data,
         clientId: clientId ? clientId : null,
@@ -490,14 +484,11 @@ function CreateResume() {
             },
           },
         })),
-        course:
-          courses?.length > 0
-            ? courses?.map((item) => ({
-                courseName: "",
-                issuedBy: item?.issuing_organization,
-                discription: item?.description,
-              }))
-            : [],
+        course: courses?.map((item) => ({
+          courseName: "",
+          issuedBy: item.issuing_organization,
+          discription: item.description,
+        })),
       });
     } else if (clientId) {
       axios
@@ -546,7 +537,7 @@ function CreateResume() {
     setRender(false);
     setTimeout(() => setRender(true), 400);
   }, [data]);
-  console.log(546, data);
+
   return (
     <div className="">
       <div className="  pt-2 customMargins ">
