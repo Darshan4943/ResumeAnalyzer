@@ -125,8 +125,7 @@ const Achievement = ({ data, setData }) => {
           <span className="slider round"></span>
         </label>
       </div>
-      {!view &&
-        data?.achievement?.length > 0 &&
+      {data?.achievement?.length > 0 &&
         data?.achievement?.map((ach, index) => (
           <div
             key={index}

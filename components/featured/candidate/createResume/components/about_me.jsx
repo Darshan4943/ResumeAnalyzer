@@ -140,9 +140,9 @@ const AboutMe = ({ data, setData }) => {
             className="flex gap-1 items-center font-montserrat text-xs font-semibold btn_outline"
             onClick={generateText}
             style={{
-              opacity: text === data?.summery || text.length == 0 ? 0.5 : 1,
+              opacity: text === data?.summery || text?.length == 0 ? 0.5 : 1,
             }}
-            disabled={text === data?.summery || !isChecked || text.length == 0}
+            disabled={text === data?.summery || !isChecked || text?.length == 0}
           >
             <SparklingStarts />
             Generate with AI
