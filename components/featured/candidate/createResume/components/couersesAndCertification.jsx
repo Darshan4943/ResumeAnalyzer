@@ -32,7 +32,7 @@ const CouersesAndCertification = ({ data, setData }) => {
     const { name, value } = e.target;
 
     if (name === "description") {
-      if (value.length >= 1000 || courseData.description === 1000) {
+      if (value?.length >= 1000 || courseData?.description === 1000) {
         setError("Maximum 1000 characters allowed");
       } else {
         setError("");
@@ -46,24 +46,24 @@ const CouersesAndCertification = ({ data, setData }) => {
     setErrors((prevErrors) => ({
       ...prevErrors,
       [name]:
-        value.trim() === ""
-          ? `${name.charAt(0).toUpperCase() + name.slice(1)} is required`
+        value?.trim() === ""
+          ? `${name?.charAt(0)?.toUpperCase() + name?.slice(1)} is required`
           : "",
     }));
   };
 
   const handleSave = () => {
     if (validateForm()) {
-      if (isModified.status === true) {
-        const dummyData = [...data.course];
-        const index = isModified.index;
-        dummyData.splice(index, 1, courseData);
+      if (isModified?.status === true) {
+        const dummyData = [...data?.course];
+        const index = isModified?.index;
+        dummyData?.splice(index, 1, courseData);
         setData({ ...data, course: dummyData });
         setView(false);
       } else {
         setData({
           ...data,
-          course: [courseData, ...data.course],
+          course: [courseData, ...data?.course],
         });
         {
           validateForm ? setView(false) : setView(true);
@@ -87,7 +87,7 @@ const CouersesAndCertification = ({ data, setData }) => {
   };
 
   const handleEditExperience = (index) => {
-    const dataToEdit = data.course[index];
+    const dataToEdit = data?.course[index];
 
     if (dataToEdit) {
       setView(true);
@@ -98,7 +98,7 @@ const CouersesAndCertification = ({ data, setData }) => {
   const handleDeleteExperience = (index) => {
     setData({
       ...data,
-      course: data.course.filter((item, i) => i !== index),
+      course: data?.course?.filter((item, i) => i !== index),
     });
   };
 
@@ -112,17 +112,17 @@ const CouersesAndCertification = ({ data, setData }) => {
   const validateForm = () => {
     let newErrors = {};
 
-    if (!courseData.title.trim()) {
+    if (!courseData?.title?.trim()) {
       newErrors.title = "Title is required";
     }
 
-    if (!courseData.organization.trim()) {
+    if (!courseData?.organization?.trim()) {
       newErrors.organization = "Organization is required";
     }
 
     setErrors(newErrors);
 
-    return Object.keys(newErrors).length === 0;
+    return Object.keys(newErrors)?.length === 0;
   };
   const handleEditClick = (index) => {
     setEditingIndex(index);
@@ -175,11 +175,11 @@ const CouersesAndCertification = ({ data, setData }) => {
             <p className="text-[12px]">
               {exp?.organization}{" "}
               {exp?.duration?.start?.year !== "Year" &&
-                ` ${"|"} ${exp.duration?.start?.year} 
+                ` ${"|"} ${exp?.duration?.start?.year} 
               ${exp?.duration?.start?.year && "-"}
               ${exp?.currentlyWorking ? "Present" : exp?.duration?.end?.year}`}
             </p>
-            <p className="text-[12px]">{exp.description}</p>
+            <p className="text-[12px]">{exp?.description}</p>
           </div>
         ))}
 
@@ -199,6 +199,9 @@ const CouersesAndCertification = ({ data, setData }) => {
                   maxLength={200}
                 />
               </div>
+              {errors?.title && (
+                <span className="text-[red] text-[12px]">{errors?.title}</span>
+              )}
             </div>
             <div className="flex flex-col gap-2 w-full">
               <div className="w-full text-[14px] font-montserrat  font-medium">
@@ -216,8 +219,10 @@ const CouersesAndCertification = ({ data, setData }) => {
                   maxLength={200}
                 />
               </div>
-              {errors.title && (
-                <span className="text-[red] text-[12px]">{errors.title}</span>
+              {errors?.organization && (
+                <span className="text-[red] text-[12px]">
+                  {errors?.organization}
+                </span>
               )}
             </div>
 
@@ -245,10 +250,9 @@ const CouersesAndCertification = ({ data, setData }) => {
                   disabled={!isChecked}
                   maxLength={1000}
                 >
-                  {courseData.description}
+                  {courseData?.description}
                 </textArea>
               </div>
-              {error && <span className="text-[red] text-[12px]">{error}</span>}
             </div>
           </div>
           <div className="flex justify-end ">

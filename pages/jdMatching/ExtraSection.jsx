@@ -1,36 +1,66 @@
-import React from "react";
+import React, { useState } from "react";
 
-const ExtraSection = ({setAddExtraSection}) => {
+const ExtraSection = ({
+  setAddExtraSection,
+  extratctedData,
+  setExtractedData,
+  setIsExtraData,
+}) => {
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    if (name === "title") {
+      setTitle(value);
+    } else if (name === "description") {
+      setDescription(value);
+    }
+  };
+  const handleSave = () => {
+    const newEntry = { [title]: [description] };
+    const extraSection = extratctedData.extra_section || {};
+    const updatedExtraSection = { ...extraSection, ...newEntry };
+
+    // Add new key-value pair to extratctedData under "extra_section"
+    const newExtractedData = {
+      ...extratctedData,
+      extra_section: updatedExtraSection,
+    };
+    setExtractedData(newExtractedData);
+
+    // Clear inputs and close form
+    setIsExtraData(true);
+    setTitle("");
+    setDescription("");
+    setAddExtraSection(false);
+  };
+
   return (
     <div>
       <div className="flex flex-col gap-[8px]">
         <input
           type="text"
-          //   name={item.name}
+          name="title"
           placeholder="Enter Header"
-          // className="w-full text-[14px] "
-          // value={profileData[item.name]}
-          // onChange={handleInputChange}
-          // disabled={!isChecked}
-
-          class="w-full py-[11px] px-[16px] gap-[10px] border border-solid border-[#DEDEDE] rounded-[8px] "
+          value={title}
+          onChange={handleInputChange}
+          className="w-full py-[11px] px-[16px] gap-[10px] border border-solid border-[#DEDEDE] rounded-[8px]"
         />
         <div className="flex flex-col gap-[4px]">
           <div>
-            <h6 class="font-montserrat text-[14px] font-medium leading-[17.07px] text-[#333333]">
+            <h6 className="font-montserrat text-[14px] font-medium leading-[17.07px] text-[#333333]">
               Description <span className="text-[#C00000]">*</span>
             </h6>
           </div>
           <div>
             <textarea
-              type="text"
-              name=""
+              name="description"
               className="w-full text-[12px] font-montserrat font-small outline-none border border-solid border-[#DEDEDE] rounded-[8px] py-[11px] px-[16px]"
               placeholder="Enter text"
-              maxLength={400} // Set maximum length
-              // onChange={(e) => {
-              //   setText(e.target.value.slice(0, 400)); // Limit input to 400 characters
-              // }}
+              maxLength={400}
+              value={description}
+              onChange={handleInputChange}
             />
           </div>
         </div>
@@ -40,16 +70,14 @@ const ExtraSection = ({setAddExtraSection}) => {
             <p
               onClick={() => setAddExtraSection(false)}
               className="text-[14px] font-semibold text-[#333333] cursor-pointer text-center"
-              // disabled={!isChecked}
             >
               Cancel
             </p>
           </div>
           <div className="flex rounded-[24px] px-[12px] py-[6px] border border-solid border-[#06A9EF]">
             <p
-              // onClick={() => setView(true)}
+              onClick={handleSave}
               className="text-[14px] font-semibold text-[#333333] cursor-pointer text-center"
-              // disabled={!isChecked}
             >
               Save
             </p>

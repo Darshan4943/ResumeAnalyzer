@@ -19,7 +19,17 @@ function JdFiles({
   const { clientId, name } = query;
   const [data, setData] = useState([]);
   const [allData, setAllData] = useState([]);
+
   useEffect(() => {
+    function sortFoldersAndFiles(data) {
+      return data.sort((a, b) => {
+        if (a.type === b.type) {
+          return 0;
+        }
+        return a.type === "folder" ? -1 : 1;
+      });
+    }
+    // sortFoldersAndFiles(details);
     setData(details);
     setAllData(details);
   }, [details]);
@@ -34,7 +44,6 @@ function JdFiles({
       });
     }
   };
-
 
   const fileIconSeter = (data) => {
     if (
@@ -103,8 +112,8 @@ function JdFiles({
           files.push({
             ...node,
           });
-        } else if (node.files && node.files.length > 0  ) {
-          if(node.type === "file"){
+        } else if (node.files && node.files.length > 0) {
+          if (node.type === "file") {
             files.push({
               ...node,
             });
@@ -224,7 +233,7 @@ function JdFiles({
         <div className="flex flex-row items-center gap-[8px] cursor-pointer  w-full    ">
           {name && (
             <svg
-            className="min-w-[32px]"
+              className="min-w-[32px]"
               onClick={() => router.back()}
               width="32"
               height="32"
@@ -247,7 +256,7 @@ function JdFiles({
           )} */}
           <div className="flex flex-row gap-[8px] py-[8px] px-[12px] h-[40px] bg-[#fff] border border-[#DEDEDE] rounded-[30px] items-center scr420:w-[50%] sm:w-full scr1024:w-full w-full">
             <SearchIcon />
-            
+
             <input
               type="text"
               className="bg-[#fff] text-[#333333] placeholder:text-[#333333] w-[80%]"
@@ -257,24 +266,24 @@ function JdFiles({
           </div>
         </div>
         <div className="w-full flex justify-end">
-        <div className="flex  gap-2  bg-[#d1edff] h-[40px] py-[8px] px-[12px] min-w-[220px] scr1024:w-[40%] scr420:w-[50%] scrjustify-end w-full justify-between rounded-[50px] ">
-          <div className="flex gap-2 text-[14px] font-medium">
-            <label className="flex items-center gap-2 text-[14px] font-medium">
-              Select All
-              <input
-                type="checkbox"
-                className=" rounded-[4.5px] pl-[4px] pr-[20px] py-[2px] outline-none text-[14px] font-medium custom-checkbox cursor-pointer"
-                style={{ width: "20px", height: "20px" }}
-                // checked={selectAll}
-                checked={selectedIndexes.length > 0}
-                onChange={toggleSelectAll}
-              />
-            </label>
+          <div className="flex  gap-2  bg-[#d1edff] h-[40px] py-[8px] px-[12px] min-w-[220px] scr1024:w-[40%] scr420:w-[50%] scrjustify-end w-full justify-between rounded-[50px] ">
+            <div className="flex gap-2 text-[14px] font-medium">
+              <label className="flex items-center gap-2 text-[14px] font-medium">
+                Select All
+                <input
+                  type="checkbox"
+                  className=" rounded-[4.5px] pl-[4px] pr-[20px] py-[2px] outline-none text-[14px] font-medium custom-checkbox cursor-pointer"
+                  style={{ width: "20px", height: "20px" }}
+                  // checked={selectAll}
+                  checked={selectedIndexes.length > 0}
+                  onChange={toggleSelectAll}
+                />
+              </label>
+            </div>
+            <div className="text-[14px] font-semibold min-w-[85px] items-center flex justify-end">
+              {selectedIndexesFileTypes.length} selected
+            </div>
           </div>
-          <div className="text-[14px] font-semibold min-w-[85px] items-center flex justify-end">
-            {selectedIndexesFileTypes.length} selected
-          </div>
-        </div>
         </div>
       </div>
       <div className="border-b-[1px] border-[#DEDEDE] w-full h-[1px]"></div>

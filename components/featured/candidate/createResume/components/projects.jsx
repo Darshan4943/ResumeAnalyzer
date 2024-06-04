@@ -5,7 +5,7 @@ import CustomSection from "./customSection";
 import CustomDate from "../../../../common/customDate";
 import ContinueWorkingOn from "../../../../common/continueWorkingOn";
 
-const ExtraCaricularActivity = ({ data, setData }) => {
+const Project = ({ data, setData }) => {
   const [isChecked, setIsChecked] = useState(true);
   const [toggleOn, setToggleOn] = useState(true);
   const [view, setView] = useState(false);
@@ -16,7 +16,7 @@ const ExtraCaricularActivity = ({ data, setData }) => {
     setIsChecked(!isChecked);
     setData({ ...data, showExperience: !isChecked });
   };
-  const [extraCaricularData, setExtraCaricularData] = useState({
+  const [projectData, setProjectData] = useState({
     title: "",
     organization: "",
     description: "",
@@ -32,13 +32,13 @@ const ExtraCaricularActivity = ({ data, setData }) => {
     const { name, value } = e.target;
 
     if (name === "description") {
-      if (value?.length >= 1000 || extraCaricularData?.description === 1000) {
+      if (value?.length >= 1000 || projectData?.description === 1000) {
         setError("Maximum 1000 characters allowed");
       } else {
         setError("");
       }
     }
-    setExtraCaricularData((prevData) => ({
+    setProjectData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
@@ -55,22 +55,22 @@ const ExtraCaricularActivity = ({ data, setData }) => {
   const handleSave = () => {
     if (validateForm()) {
       if (isModified?.status === true) {
-        const dummyData = [...data?.extraCaricularData];
+        const dummyData = [...data?.project];
         const index = isModified?.index;
-        dummyData?.splice(index, 1, extraCaricularData);
-        setData({ ...data, extraCaricularData: dummyData });
+        dummyData?.splice(index, 1, projectData);
+        setData({ ...data, project: dummyData });
         setView(false);
       } else {
         setData({
           ...data,
-          extraCaricularData: [extraCaricularData, ...data?.extraCaricularData],
+          project: [projectData, ...data?.project],
         });
         {
           validateForm ? setView(false) : setView(true);
         }
       }
       setIsModified({ status: false, index: 0 });
-      setExtraCaricularData({
+      setProjectData({
         title: "",
         organization: "",
         description: "",
@@ -87,20 +87,18 @@ const ExtraCaricularActivity = ({ data, setData }) => {
   };
 
   const handleEditExperience = (index) => {
-    const dataToEdit = data?.extraCaricularData[index];
+    const dataToEdit = data?.project[index];
 
     if (dataToEdit) {
       setView(true);
-      setExtraCaricularData({ ...dataToEdit });
+      setProjectData({ ...dataToEdit });
       setIsModified({ status: true, index });
     }
   };
   const handleDeleteExperience = (index) => {
     setData({
       ...data,
-      extraCaricularData: data?.extraCaricularData?.filter(
-        (item, i) => i !== index
-      ),
+      project: data?.project?.filter((item, i) => i !== index),
     });
   };
 
@@ -114,11 +112,11 @@ const ExtraCaricularActivity = ({ data, setData }) => {
   const validateForm = () => {
     let newErrors = {};
 
-    if (!extraCaricularData?.title?.trim()) {
+    if (!projectData?.title?.trim()) {
       newErrors.title = "Title is required";
     }
 
-    if (!extraCaricularData?.organization?.trim()) {
+    if (!projectData?.organization?.trim()) {
       newErrors.organization = "Organization is required";
     }
 
@@ -140,7 +138,7 @@ const ExtraCaricularActivity = ({ data, setData }) => {
       }}
     >
       <div className="w-full flex justify-between text-[20px] font-montserrat font-medium">
-        <p> Extra-Curriculum Activities</p>
+        <p> Projects</p>
         <label className="switch">
           <input
             type="checkbox"
@@ -152,8 +150,8 @@ const ExtraCaricularActivity = ({ data, setData }) => {
       </div>
 
       {!view &&
-        data?.extraCaricularData?.length > 0 &&
-        data?.extraCaricularData?.map((exp, index) => (
+        data?.project?.length > 0 &&
+        data?.project?.map((exp, index) => (
           <div
             key={index}
             className={`flex flex-col gap-1 py-[12px] px-[16px] rounded-[6px]  border break-all ${
@@ -164,7 +162,6 @@ const ExtraCaricularActivity = ({ data, setData }) => {
           >
             <div className="flex justify-between">
               <p className="text-[14px]">{exp?.title} </p>
-
               <div className="flex gap-2">
                 <div onClick={() => handleEditClick(index)}>
                   <Edit_icon />
@@ -195,16 +192,16 @@ const ExtraCaricularActivity = ({ data, setData }) => {
                   name="title"
                   placeholder="Enter Title"
                   className="w-full text-[14px] font-montserrat font-small "
-                  value={extraCaricularData.title}
+                  value={projectData?.title}
                   onChange={handleInputChange}
                   disabled={!isChecked}
                   maxLength={200}
                 />
               </div>
+              {errors?.title && (
+                <span className="text-[red] text-[12px]">{errors?.title}</span>
+              )}
             </div>
-            {errors?.title && (
-              <span className="text-[red] text-[12px]">{errors?.title}</span>
-            )}
             <div className="flex flex-col gap-2 w-full">
               <div className="w-full text-[14px] font-montserrat  font-medium">
                 Organization Name
@@ -215,23 +212,25 @@ const ExtraCaricularActivity = ({ data, setData }) => {
                   name="organization"
                   placeholder="Type here"
                   className="w-full text-[14px] font-montserrat font-small "
-                  value={extraCaricularData?.organization}
+                  value={projectData?.organization}
                   onChange={handleInputChange}
                   disabled={!isChecked}
                   maxLength={200}
                 />
               </div>
+
+              {errors?.organization && (
+                <span className="text-[red] text-[12px]">
+                  {errors?.organization}
+                </span>
+              )}
             </div>
-            {errors?.organization && (
-              <span className="text-[red] text-[12px]">
-                {errors?.organization}
-              </span>
-            )}
+
             <div>
               <ContinueWorkingOn
-                idPrefix="extraCaricularData"
-                data={extraCaricularData}
-                dataSeter={setExtraCaricularData}
+                idPrefix="project"
+                data={projectData}
+                dataSeter={setProjectData}
                 fromCreate={true}
               />
             </div>
@@ -251,14 +250,9 @@ const ExtraCaricularActivity = ({ data, setData }) => {
                   disabled={!isChecked}
                   maxLength={1000}
                 >
-                  {extraCaricularData?.description}
+                  {projectData?.description}
                 </textArea>
               </div>
-              {/* {error?.description && (
-                <span className="text-[red] text-[12px]">
-                  {error?.description}
-                </span>
-              )} */}
             </div>
           </div>
           <div className="flex justify-end ">
@@ -266,7 +260,7 @@ const ExtraCaricularActivity = ({ data, setData }) => {
               <button
                 className=" font-montserrat text-xs font-semibold px-[12px] rounded-[8px] border border-[#06A9EF] w-[80px] h-[32px]"
                 onClick={() => {
-                  setExtraCaricularData({
+                  setProjectData({
                     title: "",
                     organization: "",
                     description: "",
@@ -325,4 +319,4 @@ const ExtraCaricularActivity = ({ data, setData }) => {
   );
 };
 
-export default ExtraCaricularActivity;
+export default Project;

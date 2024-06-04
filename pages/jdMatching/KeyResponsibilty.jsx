@@ -60,7 +60,7 @@ const KeyResponsibility = ({
                 />
               </g>
             </svg>
-            <p className="text-[16px] font-semibold text-[#FFFFFF]">Add</p>
+            <p className="text-[14px] font-semibold text-[#FFFFFF]">Add</p>
           </div>
         </div>
       </div>

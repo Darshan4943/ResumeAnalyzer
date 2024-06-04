@@ -17,7 +17,7 @@ function CustomSection({ data, setData, setCustomOptions, customOptions }) {
   };
   const [customData, setCustomData] = useState({
     title: "",
-
+    subtitle: "",
     description: "",
     currentlyWorking: true,
 
@@ -31,7 +31,7 @@ function CustomSection({ data, setData, setCustomOptions, customOptions }) {
     const { name, value } = e.target;
 
     if (name === "description") {
-      if (value.length >= 1000 || customData.description === 1000) {
+      if (value?.length >= 1000 || customData?.description === 1000) {
         setError("Maximum 1000 characters allowed");
       } else {
         setError("");
@@ -45,24 +45,24 @@ function CustomSection({ data, setData, setCustomOptions, customOptions }) {
     setErrors((prevErrors) => ({
       ...prevErrors,
       [name]:
-        value.trim() === ""
-          ? `${name.charAt(0).toUpperCase() + name.slice(1)} is required`
+        value?.trim() === ""
+          ? `${name?.charAt(0)?.toUpperCase() + name?.slice(1)} is required`
           : "",
     }));
   };
 
   const handleSave = () => {
     if (validateForm()) {
-      if (isModified.status === true) {
+      if (isModified?.status === true) {
         const dummyData = [...data?.customDataSection];
-        const index = isModified.index;
-        dummyData.splice(index, 1, customData);
+        const index = isModified?.index;
+        dummyData?.splice(index, 1, customData);
         setData({ ...data, customDataSection: dummyData });
         setView(false);
       } else {
         setData({
           ...data,
-          customDataSection: [customData, ...data.customDataSection],
+          customDataSection: [customData, ...data?.customDataSection],
         });
         {
           validateForm ? setView(false) : setView(true);
@@ -71,7 +71,7 @@ function CustomSection({ data, setData, setCustomOptions, customOptions }) {
       setIsModified({ status: false, index: 0 });
       setCustomData({
         title: "",
-
+        subtitle: "",
         description: "",
         currentlyWorking: true,
 
@@ -86,7 +86,7 @@ function CustomSection({ data, setData, setCustomOptions, customOptions }) {
   };
 
   const handleEditExperience = (index) => {
-    const dataToEdit = data.customDataSection[index];
+    const dataToEdit = data?.customDataSection[index];
 
     if (dataToEdit) {
       setView(true);
@@ -97,7 +97,7 @@ function CustomSection({ data, setData, setCustomOptions, customOptions }) {
   const handleDeleteExperience = (index) => {
     setData({
       ...data,
-      customDataSection: data.customDataSection.filter(
+      customDataSection: data?.customDataSection?.filter(
         (item, i) => i !== index
       ),
     });
@@ -105,6 +105,7 @@ function CustomSection({ data, setData, setCustomOptions, customOptions }) {
 
   const [errors, setErrors] = useState({
     title: "",
+    subtitle: "",
     organization: "",
     description: "",
   });
@@ -113,17 +114,21 @@ function CustomSection({ data, setData, setCustomOptions, customOptions }) {
   const validateForm = () => {
     let newErrors = {};
 
-    if (!customData.title.trim()) {
+    if (!customData?.title?.trim()) {
       newErrors.title = "Title is required";
     }
 
-    if (!customData.description.trim()) {
+    if (!customData?.subtitle?.trim()) {
+      newErrors.subtitle = "Sub Header is required";
+    }
+
+    if (!customData?.description?.trim()) {
       newErrors.description = "Description is required";
     }
 
     setErrors(newErrors);
 
-    return Object.keys(newErrors).length === 0;
+    return Object.keys(newErrors)?.length === 0;
   };
   const handleEditClick = (index) => {
     setEditingIndex(index);
@@ -166,7 +171,7 @@ function CustomSection({ data, setData, setCustomOptions, customOptions }) {
               <p className="text-[14px]">
                 {exp?.title}{" "}
                 {exp?.duration?.start?.year !== "Year" &&
-                  ` ${"|"} ${exp.duration?.start?.year} 
+                  ` ${"|"} ${exp?.duration?.start?.year} 
             ${exp?.duration?.start?.year && "-"}
             ${exp?.currentlyWorking ? "Present" : exp?.duration?.end?.year}`}
               </p>
@@ -194,15 +199,33 @@ function CustomSection({ data, setData, setCustomOptions, customOptions }) {
                   name="title"
                   placeholder=" Enter Header Eg. Activities, Job, Course"
                   className="w-full text-[14px] font-montserrat font-small "
-                  value={customData.title}
+                  value={customData?.title}
                   onChange={handleInputChange}
                   disabled={!isChecked}
                   maxLength={200}
                 />
               </div>
             </div>
-            {errors.title && (
-              <span className="text-[red] text-[12px]">{errors.title}</span>
+            {errors?.title && (
+              <span className="text-[red] text-[12px]">{errors?.title}</span>
+            )}
+
+            <div className="flex flex-col gap-2 w-full">
+              <div className="w-full border-[1px] border-[#646464] rounded-[8px] px-[16px] py-[12px] ">
+                <input
+                  type="text"
+                  name="subtitle"
+                  placeholder=" Enter Sub Header Eg. Activities, Job, Course"
+                  className="w-full text-[14px] font-montserrat font-small "
+                  value={customData?.subtitle}
+                  onChange={handleInputChange}
+                  disabled={!isChecked}
+                  maxLength={200}
+                />
+              </div>
+            </div>
+            {errors?.subtitle && (
+              <span className="text-[red] text-[12px]">{errors?.subtitle}</span>
             )}
             <div className="flex flex-col gap-[8px] w-full">
               <div className="w-full text-[14px] font-montserrat  font-medium">
@@ -214,15 +237,15 @@ function CustomSection({ data, setData, setCustomOptions, customOptions }) {
                   name="description"
                   placeholder="Type here"
                   className="w-full text-[14px] font-montserrat font-small "
-                  value={customData.description}
+                  value={customData?.description}
                   onChange={handleInputChange}
                   disabled={!isChecked}
                   maxLength={200}
                 />
               </div>
-              {errors.description && (
+              {errors?.description && (
                 <span className="text-[red] text-[12px]">
-                  {errors.description}
+                  {errors?.description}
                 </span>
               )}
             </div>
@@ -243,7 +266,7 @@ function CustomSection({ data, setData, setCustomOptions, customOptions }) {
                 onClick={() => {
                   setCustomData({
                     title: "",
-
+                    subtitle: "",
                     description: "",
                     currentlyWorking: true,
 

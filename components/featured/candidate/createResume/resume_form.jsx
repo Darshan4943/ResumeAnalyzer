@@ -281,7 +281,7 @@ const ResumeForm = ({
         {formField?.includes("language") && (
           <Languages setData={setData} data={data} />
         )}
-        {/* {data?.section?.length > 0 && (
+        {data?.section?.length > 0 && (
           <>
             {data?.section?.map((item, index) => (
               <>
@@ -299,9 +299,9 @@ const ResumeForm = ({
               </>
             ))}
           </>
-        )} */}
+        )}
 
-        {/* <div className="flex items-center gap-2 justify-end">
+        <div className="flex items-center gap-2 justify-end">
           <div
             onClick={() => {
               setData({
@@ -318,8 +318,8 @@ const ResumeForm = ({
             className=" font-montserrat text-white font-medium text-[14px] px-[12px] rounded-[8px]  bg-[#06A9EF] h-[32px] flex items-center cursor-pointer btn_hover_effect "
           >
             <span className="text-[22px] mr-2">+</span> Add Section
-          </div> */}
-
+          </div>
+          </div>
         {/* <div onClick={() => setCourse(!course)} className=" font-montserrat text-white font-medium text-[14px] px-[12px] rounded-[8px]  bg-[#06A9EF] h-[32px] flex items-center cursor-pointer "
           >
             <span className="text-[22px] mr-2" >+</span> course
