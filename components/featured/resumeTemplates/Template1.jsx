@@ -378,7 +378,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                         >
                           {detail.link}
                         </Text>
-                      <Text
+                      {/* <Text
                         style={{
                           color: "#6D6E71",
                           fontSize: "10px",
@@ -387,7 +387,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                         }}
                       >
                         {detail.discription}
-                      </Text>
+                      </Text> */}
                   
                     </View>
                   ))}
@@ -486,7 +486,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
             )}
 
 {data?.reference?.length > 0 && (
-              <View style={{ flexDirection: "column", gap: 12 }}>
+              <View wrap={false} style={{ flexDirection: "column", gap: 12, marginRight:"10px" }}>
                 <Text
                   style={{
                     color: "#414042",
