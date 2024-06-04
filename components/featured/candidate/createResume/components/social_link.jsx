@@ -66,7 +66,7 @@ const SocialLink = ({ setData, data }) => {
         }}
       >
         <div className="w-full flex justify-between text-[20px] font-montserrat font-medium">
-          <p> Website & Social link</p>
+          <p>Links</p>
 
           <label className="switch">
             <input
@@ -149,27 +149,6 @@ const SocialLink = ({ setData, data }) => {
                     disabled={!isChecked}
                   />
                 </div>
-              </div>
-              <div className="flex flex-col gap-2 w-full">
-                <div className="w-full text-[14px] font-montserrat  font-medium">
-                  Description
-                </div>
-
-                <div className="w-full border-[1px] border-[#9D9D9D] rounded-[12px]  p-[12px] min-h-[140px]">
-                  <textArea
-                    type="text"
-                    name="discription"
-                    id=""
-                    placeholder="Describe about your Profile"
-                    className="w-full text-[14px] font-montserrat font-small outline-none h-full  min-h-[140px]"
-                    onChange={handleInputChange}
-                  >
-                    {linkData?.discription}
-                  </textArea>
-                </div>
-                <p className="flex justify-end text-[14px] font-normal text-[#646464]">
-                  {400 - linkData?.discription?.length} characters left
-                </p>
               </div>
             </div>
             <div className="flex justify-end ">
