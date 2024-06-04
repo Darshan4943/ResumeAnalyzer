@@ -137,7 +137,7 @@ const JdMatchingsideBar = ({
               disabled={loadingg || text.length < 100}
               onClick={() => {
                 MatchJob();
-                setShowsideBar(false);
+                // setShowsideBar(false);
                 // window.scrollTo(0, 0);
               }}
             >

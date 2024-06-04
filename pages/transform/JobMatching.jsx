@@ -491,10 +491,11 @@ const JobMatching = () => {
   };
 
   const processChunk = async (chunk, jd, outputData, counter) => {
+    console.log(11, chunk);
     const ids = chunk.map((item) => item);
     const response = await axios.post(
-      "https://jamblix.com/api/external/jobMatching/",
-      // "http://localhost:2000/api/external/jobMatching/",
+      // "https://jamblix.com/api/external/jobMatching/",
+      "http://localhost:2000/api/external/jobMatching/",
       {
         jd: jd,
         ids: ids,
@@ -513,17 +514,20 @@ const JobMatching = () => {
   const MatchJob = async () => {
     setLoadingg(true);
     setIsAnimate(false);
-
+    setShowsideBar(false);
     if (Object.keys(extratctedData).length > 5) {
       const chunks = chunkArray(selectedIndexesFileTypes, 14);
       const outputData = [];
+      const counter = { count: 0 };
 
       for (const [index, chunk] of chunks.entries()) {
-        processChunk(chunk, extratctedData, outputData);
+        processChunk(chunk, extratctedData, outputData, counter);
         if (index < chunks.length - 1) {
           await new Promise((resolve) => setTimeout(resolve, 10000));
         }
       }
+
+      console.log(`API was hit ${counter.count} times.`);
 
       const dataArray = outputData
         .filter((item) => item.matching_percentage)
@@ -541,11 +545,11 @@ const JobMatching = () => {
         .slice(0, resumeCount);
 
       setResumeList(dataArray);
+      console.log("outputData", dataArray);
       setButtonToggle(false);
       setLoadingg(false);
     } else {
       toast.error("Something went wrong, please try again");
-      setLoadingg(false);
     }
   };
 
