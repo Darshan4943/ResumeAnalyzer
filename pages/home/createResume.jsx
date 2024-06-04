@@ -366,13 +366,17 @@ function CreateResume() {
     selectedResumeIndex: selectedResumeIndex ? selectedResumeIndex : 1,
     reference: [],
     project: [],
+    internship: [],
     extraCaricularData: [],
     createdAt: "",
     customDataSection: [],
     clientId: clientId,
   };
 
+  console.log(33333333, defaultState);
+
   const [data, setData] = useState(defaultState);
+  console.log(8888888, data);
   const [isClient, setIsClient] = useState(false);
   const [isDataInLocal, setIsDataInLocal] = useState(false);
 
@@ -542,7 +546,7 @@ function CreateResume() {
     setRender(false);
     setTimeout(() => setRender(true), 400);
   }, [data]);
-
+  console.log(546, data);
   return (
     <div className="">
       <div className="  pt-2 customMargins ">

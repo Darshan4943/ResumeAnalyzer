@@ -2704,11 +2704,11 @@ export const plans = [
     productName: "prod_Q4yJG2hoYMF1ge",
   },
   {
-    duration: "30 Days",
+    duration: "28 Days",
     limit: "Ultimate",
     amount: 10,
     price: "$ 10",
-    days: 30,
+    days: 28,
     index: 3,
     description: "create, save, repeat with ease",
     features: [

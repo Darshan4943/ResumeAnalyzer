@@ -125,8 +125,7 @@ const Achievement = ({ data, setData }) => {
           <span className="slider round"></span>
         </label>
       </div>
-      {!view &&
-        data?.achievement?.length > 0 &&
+      {data?.achievement?.length > 0 &&
         data?.achievement?.map((ach, index) => (
           <div
             key={index}
@@ -173,7 +172,7 @@ const Achievement = ({ data, setData }) => {
               )}
             </div>
 
-            <div className="flex flex-col gap-2 w-full">
+            {/* <div className="flex flex-col gap-2 w-full">
               <div className="w-full text-[14px] font-montserrat  font-medium">
                 Description
               </div>
@@ -190,7 +189,7 @@ const Achievement = ({ data, setData }) => {
                   {achivementData?.description}
                 </textArea>
               </div>
-            </div>
+            </div> */}
           </div>
           <div className="flex justify-end ">
             <div className="flex justify-between  py-2 gap-2">
