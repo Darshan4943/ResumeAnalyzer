@@ -145,8 +145,8 @@ const Requirements = ({ extratctedData, setExtractedData }) => {
   return (
     <>
       <div>
-        <div className="flex flex-row justify-between w-[416px] ">
-          <h6 className="flex font-bold text-[14px] text-left font-montserrat gap-2">
+        <div className="flex flex-row justify-between w-[416px] gap-[8px] ">
+          <h6 className="flex font-semibold text-[14px] text-left font-montserrat gap-2">
             Requirements<span className="text-[#C00000]">*</span>
           </h6>
           <div onClick={() => setExpandReq(!expandReq)}>
@@ -154,26 +154,26 @@ const Requirements = ({ extratctedData, setExtractedData }) => {
               <svg
                 width="16"
                 height="10"
-                viewBox="0 0 16 10"
+                viewBox="0 0 20 12"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  d="M0.288383 1.99126L1.40855 0.871094L7.9999 7.46245L14.5913 0.871094L15.7114 1.99126L7.9999 9.70278L0.288383 1.99126Z"
-                  fill="#1C1B1F"
+                  d="M10.0001 4.27784L2.94467 11.3333C2.67606 11.6019 2.35189 11.7314 1.97217 11.722C1.59272 11.7128 1.2687 11.5739 1.00008 11.3053C0.731473 11.037 0.597168 10.7084 0.597168 10.3195C0.597168 9.93062 0.731473 9.60187 1.00008 9.33325L9.028 1.30534C9.30578 1.02756 9.62981 0.888672 10.0001 0.888672C10.3704 0.888672 10.6944 1.02756 10.9722 1.30534L19.028 9.36117C19.2963 9.62951 19.4305 9.95353 19.4305 10.3333C19.4305 10.713 19.2963 11.037 19.028 11.3053C18.7594 11.5739 18.4306 11.7083 18.0418 11.7083C17.6529 11.7083 17.3241 11.5739 17.0555 11.3053L10.0001 4.27784Z"
+                  fill="#333333"
                 />
               </svg>
             ) : (
               <svg
                 width="16"
                 height="10"
-                viewBox="0 0 16 10"
+                viewBox="0 0 20 12"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  d="M0.288383 1.99126L1.40855 0.871094L7.9999 7.46245L14.5913 0.871094L15.7114 1.99126L7.9999 9.70278L0.288383 1.99126Z"
-                  fill="#1C1B1F"
+                  d="M9.99988 11.097C9.81461 11.097 9.64336 11.067 9.48614 11.007C9.32864 10.9467 9.17586 10.8426 9.0278 10.6945L0.971967 2.63867C0.703634 2.37034 0.574051 2.04173 0.583218 1.65284C0.592385 1.26395 0.731273 0.935199 0.999885 0.666588C1.2685 0.397977 1.59725 0.263672 1.98614 0.263672C2.37502 0.263672 2.70363 0.397977 2.97197 0.666588L9.99988 7.722L17.0553 0.666588C17.3239 0.397977 17.6481 0.268393 18.0278 0.277837C18.4072 0.287004 18.7313 0.425893 18.9999 0.694504C19.2685 0.962837 19.4028 1.29145 19.4028 1.68034C19.4028 2.06923 19.2685 2.39798 18.9999 2.66659L10.972 10.6945C10.8239 10.8426 10.6711 10.9467 10.5136 11.007C10.3564 11.067 10.1852 11.097 9.99988 11.097Z"
+                  fill="#333333"
                 />
               </svg>
             )}
@@ -184,11 +184,11 @@ const Requirements = ({ extratctedData, setExtractedData }) => {
         <>
           {/* Must Have */}
           <div className="flex flex-col w-full gap-[8px]">
-            <h6 className="flex font-bold text-[12px] text-left font-montserrat gap-2">
+            <h6 className="flex font-bold text-[14px] text-left font-montserrat gap-2">
               Must_Have<span className="text-[#C00000]">*</span>
             </h6>
             <div className="flex flex-col w-[416px] gap-[4px]">
-              <label className="flex font-medium text-[14px] text-left font-montserrat gap-2">
+              <label className="flex font-medium text-[12px] text-left font-montserrat gap-2">
                 Qualification <span className="text-[#C00000]"> *</span>
               </label>
               <input
@@ -200,11 +200,11 @@ const Requirements = ({ extratctedData, setExtractedData }) => {
                   setQualification(e.target.value);
                   handleInputChange(e);
                 }}
-                className="w-full py-[11px] px-[16px] gap-[10px] border border-solid border-[#DEDEDE] rounded-[8px]"
+                className="w-full py-[11px] px-[16px] gap-[10px] border border-solid border-[#DEDEDE] rounded-[8px] text-[12px]"
               />
             </div>
             <div className="flex flex-col w-[416px] gap-[4px]">
-              <label className="flex font-medium text-[14px] text-left font-montserrat gap-2">
+              <label className="flex font-medium text-[12px] text-left font-montserrat gap-2">
                 Year of Experience <span className="text-[#C00000]"> *</span>
               </label>
               <input
@@ -216,11 +216,11 @@ const Requirements = ({ extratctedData, setExtractedData }) => {
                   setExperience(e.target.value);
                   handleInputChange(e);
                 }}
-                className="w-full py-[11px] px-[16px] gap-[10px] border border-solid border-[#DEDEDE] rounded-[8px]"
+                className="w-full py-[11px] px-[16px] gap-[10px] border border-solid border-[#DEDEDE] rounded-[8px] text-[12px]"
               />
             </div>
             <div className="flex flex-col w-[416px] gap-[4px]">
-              <div className="flex font-medium text-[14px] text-left font-montserrat gap-2">
+              <div className="flex font-medium text-[12px] text-left font-montserrat gap-2">
                 <span>
                   Skills <span className="text-[#C00000]">*</span>
                 </span>
@@ -233,7 +233,7 @@ const Requirements = ({ extratctedData, setExtractedData }) => {
                         className="flex gap-1 px-[8px] py-[6px] pl-[12px] rounded-[30px] justify-between items-center overflow-hidden shadow-md"
                         key={index}
                       >
-                        <p className="text-[14px] flex-wrap break-all w-full font-medium">
+                        <p className="flex-wrap break-all w-full font-medium text-[12px]">
                           {item}
                         </p>
                         <div onClick={() => removeSkill("must_have", item)}>
@@ -252,7 +252,7 @@ const Requirements = ({ extratctedData, setExtractedData }) => {
                         e.target.value = "";
                       }
                     }}
-                    className="w-full text-[14px]"
+                    className="w-full text-[12px]"
                   />
                   <svg
                     onClick={(e) => {
@@ -281,20 +281,20 @@ const Requirements = ({ extratctedData, setExtractedData }) => {
             </div>
 
             <div className="flex flex-col w-[416px] gap-[4px]">
-              <div className="flex font-medium text-[14px] text-left font-montserrat gap-2">
+              <div className="flex font-medium text-[12px] text-left font-montserrat gap-2">
                 <span>
                   Soft Skills <span className="text-[#C00000]">*</span>
                 </span>
               </div>
-              <div className="flex flex-col gap-[4px]">
+              <div className="flex flex-col gap-[8px] ">
                 <div className="flex flex-row gap-[4px] flex-wrap w-[416px]">
                   {softSkills &&
                     softSkills.map((item, index) => (
                       <div
-                        className="flex gap-1 px-[8px] py-[6px] pl-[12px] rounded-[30px] justify-between items-center overflow-hidden shadow-md"
+                        className="flex gap-1 px-[8px] py-[6px] pl-[12px] rounded-[30px] justify-between items-center overflow-hidden shadow-md text-[12px]"
                         key={index}
                       >
-                        <p className="text-[14px] flex-wrap break-all w-full font-medium">
+                        <p className="text-[12px] flex-wrap break-all w-full font-medium">
                           {item}
                         </p>
                         <div onClick={() => removeSkill("soft_skills", item)}>
@@ -318,7 +318,7 @@ const Requirements = ({ extratctedData, setExtractedData }) => {
                         e.target.value = "";
                       }
                     }}
-                    className="w-full text-[14px]"
+                    className="w-full text-[12px]"
                   />
                   <svg
                     onClick={(e) => {
@@ -352,11 +352,11 @@ const Requirements = ({ extratctedData, setExtractedData }) => {
 
           {/* Nice to Have */}
           <div className="flex flex-col w-full gap-[8px]">
-            <h6 className="flex font-bold text-[12px] text-left font-montserrat gap-2">
+            <h6 className="flex font-bold text-[14px] text-left font-montserrat gap-2">
               Nice to Have
             </h6>
             <div className="flex flex-col w-[416px] gap-[4px]">
-              <div className="flex font-medium text-[14px] text-left font-montserrat gap-2">
+              <div className="flex font-medium text-[1px] text-left font-montserrat gap-2">
                 <span>Skills</span>
               </div>
               <div className="flex flex-col gap-[4px]">
@@ -367,7 +367,7 @@ const Requirements = ({ extratctedData, setExtractedData }) => {
                         className="flex gap-1 px-[8px] py-[6px] pl-[12px] rounded-[30px] justify-between items-center overflow-hidden shadow-md"
                         key={index}
                       >
-                        <p className="text-[14px] flex-wrap break-all w-full font-medium">
+                        <p className="text-[12px] flex-wrap break-all w-full font-medium ">
                           {item}
                         </p>
                         <div onClick={() => removeSkill("nice_to_have", item)}>
@@ -386,7 +386,7 @@ const Requirements = ({ extratctedData, setExtractedData }) => {
                         e.target.value = "";
                       }
                     }}
-                    className="w-full text-[14px]"
+                    className="w-full text-[12px]"
                   />
                   <svg
                     onClick={(e) => {
@@ -415,7 +415,7 @@ const Requirements = ({ extratctedData, setExtractedData }) => {
             </div>
 
             <div className="flex flex-col w-[416px] gap-[4px]">
-              <label className="flex font-medium text-[14px] text-left font-montserrat gap-2">
+              <label className="flex font-medium text-[12px] text-left font-montserrat gap-2">
                 Experience
               </label>
               <input
@@ -436,14 +436,14 @@ const Requirements = ({ extratctedData, setExtractedData }) => {
                     },
                   }));
                 }}
-                className="w-full py-[11px] px-[16px] gap-[10px] border border-solid border-[#DEDEDE] rounded-[8px]"
+                className="w-full py-[11px] px-[16px] gap-[10px] border border-solid border-[#DEDEDE] rounded-[8px] text-[12px]"
               />
             </div>
           </div>
 
           {/* Description */}
           <div className="flex flex-col w-[416px] gap-[4px]">
-            <label className="flex font-medium text-[14px] text-left font-montserrat gap-2">
+            <label className="flex font-medium text-[12px] text-left font-montserrat gap-2">
               Description <span className="text-[#C00000]"> *</span>
             </label>
             <textarea
@@ -454,7 +454,7 @@ const Requirements = ({ extratctedData, setExtractedData }) => {
                 setDescription(e.target.value);
                 handleDescriptionChange(e);
               }}
-              className="w-full h-[130px] py-[11px] px-[16px] gap-[10px] border border-solid border-[#DEDEDE] rounded-[8px]"
+              className="w-full h-[130px] py-[11px] px-[16px] gap-[10px] border border-solid border-[#DEDEDE] rounded-[8px] text-[12px]"
             />
           </div>
         </>

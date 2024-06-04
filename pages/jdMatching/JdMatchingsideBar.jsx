@@ -174,17 +174,17 @@ const JdMatchingsideBar = ({
 
       {/* Rest of your components */}
       {ShowForm || isEdit ? (
-        <div>
-          <ExtraSectionForm
-            extratctedData={extratctedData}
-            setExtractedData={setExtractedData}
-            isEdit={isEdit}
-            setShowForm={setShowForm}
-            editId={editId}
-            setIsEdit={setIsEdit}
-          />
-        </div>
-      ) : null}
+        // <div className="flex flex-col fixed z-[5] top-0 left-0 right-0 bottom-0 bg-[#FFFFFF] bg-opacity-70">
+        <ExtraSectionForm
+          extratctedData={extratctedData}
+          setExtractedData={setExtractedData}
+          isEdit={isEdit}
+          setShowForm={setShowForm}
+          editId={editId}
+          setIsEdit={setIsEdit}
+        />
+      ) : // </div>
+      null}
     </div>
   );
 };

@@ -73,7 +73,7 @@ const JobInfo = ({ setJdData, jdData, setExtractedData, extratctedData }) => {
             placeholder={item.placeholder}
             value={jobData[item.name] || ""}
             onChange={handleInputChange}
-            className="w-full py-[11px] px-[16px] gap-[10px] border border-solid border-[#DEDEDE] rounded-[8px]"
+            className="w-full py-[11px] px-[16px] gap-[10px] border border-solid border-[#DEDEDE] rounded-[8px] text-[12px]"
           />
         </div>
       ))}
