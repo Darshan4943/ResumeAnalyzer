@@ -494,8 +494,8 @@ const JobMatching = () => {
     console.log(11, chunk);
     const ids = chunk.map((item) => item);
     const response = await axios.post(
-      // "https://jamblix.com/api/external/jobMatching/",
-      "http://localhost:2000/api/external/jobMatching/",
+      "https://jamblix.com/api/external/jobMatching/",
+      // "http://localhost:2000/api/external/jobMatching/",
       {
         jd: jd,
         ids: ids,
