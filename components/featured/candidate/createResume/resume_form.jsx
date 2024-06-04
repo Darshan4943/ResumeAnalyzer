@@ -123,7 +123,7 @@ const ResumeForm = ({
     ));
   };
 
-  console.log(122, showingSection);
+  console.log(122, data);
 
   return (
     <>
@@ -226,6 +226,13 @@ const ResumeForm = ({
           </>
         )}
 
+        {(data?.sociaLinks?.length > 0 || customOptions?.Links) && (
+          <>
+            <SocialLink setData={setData} data={data} />
+            <div className="border-b border-r border-l border-[#DEDEDE]"></div>
+          </>
+        )}
+
         {(data?.reference?.length > 0 || customOptions?.References) && (
           <>
             <Reference setData={setData} data={data} />
@@ -233,9 +240,16 @@ const ResumeForm = ({
           </>
         )}
 
-        {(data?.sociaLinks?.length > 0 || customOptions?.Links) && (
+        {(data?.project?.length > 0 || customOptions?.Project) && (
           <>
-            <SocialLink setData={setData} data={data} />
+            <Project setData={setData} data={data} />
+            <div className="border-b border-r border-l border-[#DEDEDE]"></div>
+          </>
+        )}
+
+        {(data?.internship?.length > 0 || customOptions["Internships"]) && (
+          <>
+            <ProjectSection setData={setData} data={data} />
             <div className="border-b border-r border-l border-[#DEDEDE]"></div>
           </>
         )}
@@ -256,19 +270,6 @@ const ResumeForm = ({
           customOptions["Courses & Certifications"]) && (
           <>
             <CouersesAndCertification setData={setData} data={data} />
-            <div className="border-b border-r border-l border-[#DEDEDE]"></div>
-          </>
-        )}
-        {(data?.internship?.length > 0 || customOptions["Internships"]) && (
-          <>
-            <ProjectSection setData={setData} data={data} />
-            <div className="border-b border-r border-l border-[#DEDEDE]"></div>
-          </>
-        )}
-
-        {(data?.project?.length > 0 || customOptions?.Project) && (
-          <>
-            <Project setData={setData} data={data} />
             <div className="border-b border-r border-l border-[#DEDEDE]"></div>
           </>
         )}
