@@ -124,30 +124,6 @@ const JobMatching = () => {
   //     });
   // };
 
-  const chunkArray = (array, size) => {
-    console.log("size", size);
-    const chunkedArr = [];
-    for (let i = 0; i < array.length; i += size) {
-      chunkedArr.push(array.slice(i, i + size));
-    }
-
-    return chunkedArr;
-  };
-
-  const processChunk = async (chunk, jd, outputData) => {
-    const promises = chunk.map(async (item) => {
-      const { data } = await axios.post(
-        "https://jamblix.com/api/external/jobMatching/",
-        {
-          jd: jd,
-          id: item,
-        }
-      );
-      outputData.push(data);
-    });
-    await Promise.all(promises);
-  };
-
   {
     /** 
   const jobMatching = async () => {
@@ -221,6 +197,128 @@ const JobMatching = () => {
       // toast.error("Something went wrong, please try again");
     }
   };
+  {
+    /**
+
+  const chunkArray = (array, size) => {
+    const chunkedArr = [];
+    for (let i = 0; i < array.length; i += size) {
+      chunkedArr.push(array.slice(i, i + size));
+    }
+
+    return chunkedArr;
+  };
+
+
+  const processChunk = async (chunk, jd, outputData) => {
+    const promises = chunk.map(async (item) => {
+      const { data } = await axios.post(
+        "https://jamblix.com/api/external/jobMatching/",
+        {
+          jd: jd,
+          id: item,
+        }
+      );
+      outputData.push(data);
+    });
+    await Promise.all(promises);
+  };
+
+
+  const MatchJob = async () => {
+    setLoadingg(true);
+    setIsAnimate(false);
+
+    if (Object.keys(extratctedData).length > 5) {
+      const chunks = chunkArray(selectedIndexesFileTypes, 14);
+      const outputData = [];
+
+      const chunkPromises = chunks.map((chunk, index) => {
+        return new Promise(async (resolve) => {
+          await processChunk(chunk, extratctedData, outputData);
+          resolve();
+        }).then(() => {
+          if (index < chunks.length - 1) {
+            return new Promise((resolve) => setTimeout(resolve, 10000));
+          }
+        });
+      });
+
+      await Promise.all(chunkPromises);
+
+      const dataArray = outputData
+        .filter((item) => item.matching_percentage)
+        .sort((a, b) => {
+          const parsePercentage = (percentage) => {
+            return parseInt(
+              isNaN(percentage) ? percentage.slice(0, 2) : percentage
+            );
+          };
+          return (
+            parsePercentage(b.matching_percentage) -
+            parsePercentage(a.matching_percentage)
+          );
+        })
+        .slice(0, resumeCount);
+
+      setResumeList(dataArray);
+      setButtonToggle(false);
+      setLoadingg(false);
+    } else {
+      toast.error("Something went wrong, please try again");
+    }
+  };
+ */
+  }
+  {
+    /** 
+  //mine
+  const MatchJob = async () => {
+    setLoadingg(true);
+    setIsAnimate(false);
+    if (Object.keys(extratctedData).length > 5) {
+      const chunks = chunkArray(selectedIndexesFileTypes, 14);
+      const outputData = [];
+      for (let i = 0; i < chunks.length; i++) {
+        await processChunk(chunks[i], extratctedData, outputData);
+        if (i < chunks.length - 1) {
+          await new Promise((resolve) => setTimeout(resolve, 10000));
+        }
+      }
+      const dataArray = outputData
+        .filter((item) => item.matching_percentage)
+        ?.sort((a, b) => {
+          if (parseInt(b.matching_percentage))
+            parseInt(
+              isNaN(b.matching_percentage)
+                ? b.matching_percentage.slice(0, 2)
+                : b.matching_percentage
+            ) -
+              parseInt(
+                isNaN(a.matching_percentage)
+                  ? a.matching_percentage.slice(0, 2)
+                  : a.matching_percentage
+              );
+        })
+        .slice(0, resumeCount);
+      setResumeList(dataArray);
+      setButtonToggle(false);
+      setLoadingg(false);
+    } else {
+      toast.error("Something went wrong, please try again");
+    }
+  };*/
+  }
+
+  useEffect(() => {
+    if (count > 3) {
+      setLoading(false);
+      toast.error("Something went wrong, please try again");
+      setCount(0);
+    } else if (count == 1 || count == 2 || count == 3) {
+      jobMatching();
+    }
+  }, [count]);
 
   // const jobMatching = () => {
   //   setLoadingg(true);
@@ -383,51 +481,73 @@ const JobMatching = () => {
     setFiles(selectedFiles);
   };
 
+  //new logic
+  const chunkArray = (array, size) => {
+    const chunkedArr = [];
+    for (let i = 0; i < array.length; i += size) {
+      chunkedArr.push(array.slice(i, i + size));
+    }
+    return chunkedArr;
+  };
+
+  const processChunk = async (chunk, jd, outputData, counter) => {
+    const ids = chunk.map((item) => item);
+    const response = await axios.post(
+      "https://jamblix.com/api/external/jobMatching/",
+      // "http://localhost:2000/api/external/jobMatching/",
+      {
+        jd: jd,
+        ids: ids,
+      }
+    );
+
+    if (Array.isArray(response.data)) {
+      outputData.push(...response.data);
+    } else {
+      outputData.push(response.data);
+    }
+
+    counter.count++;
+  };
+
   const MatchJob = async () => {
     setLoadingg(true);
     setIsAnimate(false);
+
     if (Object.keys(extratctedData).length > 5) {
       const chunks = chunkArray(selectedIndexesFileTypes, 14);
       const outputData = [];
-      for (let i = 0; i < chunks.length; i++) {
-        await processChunk(chunks[i], extratctedData, outputData);
-        if (i < chunks.length - 1) {
+
+      for (const [index, chunk] of chunks.entries()) {
+        processChunk(chunk, extratctedData, outputData);
+        if (index < chunks.length - 1) {
           await new Promise((resolve) => setTimeout(resolve, 10000));
         }
       }
+
       const dataArray = outputData
         .filter((item) => item.matching_percentage)
-        ?.sort((a, b) => {
-          if (parseInt(b.matching_percentage))
-            parseInt(
-              isNaN(b.matching_percentage)
-                ? b.matching_percentage.slice(0, 2)
-                : b.matching_percentage
-            ) -
-              parseInt(
-                isNaN(a.matching_percentage)
-                  ? a.matching_percentage.slice(0, 2)
-                  : a.matching_percentage
-              );
+        .sort((a, b) => {
+          const parsePercentage = (percentage) => {
+            return parseInt(
+              isNaN(percentage) ? percentage.slice(0, 2) : percentage
+            );
+          };
+          return (
+            parsePercentage(b.matching_percentage) -
+            parsePercentage(a.matching_percentage)
+          );
         })
         .slice(0, resumeCount);
+
       setResumeList(dataArray);
       setButtonToggle(false);
       setLoadingg(false);
     } else {
       toast.error("Something went wrong, please try again");
+      setLoadingg(false);
     }
   };
-
-  useEffect(() => {
-    if (count > 3) {
-      setLoading(false);
-      toast.error("Something went wrong, please try again");
-      setCount(0);
-    } else if (count == 1 || count == 2 || count == 3) {
-      jobMatching();
-    }
-  }, [count]);
 
   return (
     <div className=" md:py-6 py-3 flex flex-col gap-4 min-h-[80vh] customMargins ">
@@ -510,7 +630,7 @@ const JobMatching = () => {
         {showMatchingSidebar && (
           <>
             {/* Overlay */}
-            <div className="fixed z-[5] top-0 left-0 right-0 bottom-0 bg-[#FFFFFF] bg-opacity-70"></div>
+            {/** <div className="fixed z-[5] top-0 left-0 right-0 bottom-0 bg-[#333333] bg-opacity-70"></div>*/}
             {/* Sidebar */}
             <motion.div
               initial={{ x: "-100%" }}
