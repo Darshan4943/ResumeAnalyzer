@@ -366,6 +366,7 @@ function CreateResume() {
     selectedResumeIndex: selectedResumeIndex ? selectedResumeIndex : 1,
     reference: [],
     project: [],
+    internship: [],
     extraCaricularData: [],
     createdAt: "",
     customDataSection: [],
