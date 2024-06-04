@@ -179,7 +179,7 @@ const JdMatching = ({ details, resumeList, isAnimate, setShowsideBar }) => {
         </>
       )}
       <div className="flex ml:flex-row flex-col gap-12 w-[100%] ">
-        {!isAnimate || resumeList.length === 0 ? (
+        {!isAnimate || resumeList.length != 0 ? (
           <div className="w-[100%] flex flex-col  gap-[16px] ">
             <div>Total Results ({resumeList?.length})</div>
             <div className=" flex flex-row flex-wrap ml:justify-between justify-center  gap-[18px] max-h-[86vh] overflow-y-auto ">

@@ -223,7 +223,7 @@ function GenerateAi() {
     setText(e.target.value);
     setError("");
   };
-  console.log(777,)
+  console.log(777);
 
   return (
     <div ref={generateAiRef} className="  bg-cover bg-no-repeat  w-screen">

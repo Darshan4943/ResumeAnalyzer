@@ -494,8 +494,8 @@ const JobMatching = () => {
     console.log(11, chunk);
     const ids = chunk.map((item) => item);
     const response = await axios.post(
-      // "https://jamblix.com/api/external/jobMatching/",
-      "http://localhost:2000/api/external/jobMatching/",
+      "https://jamblix.com/api/external/jobMatching/",
+      // "http://localhost:2000/api/external/jobMatching/",
       {
         jd: jd,
         ids: ids,
@@ -634,7 +634,7 @@ const JobMatching = () => {
         {showMatchingSidebar && (
           <>
             {/* Overlay */}
-            {/** <div className="fixed z-[5] top-0 left-0 right-0 bottom-0 bg-[#333333] bg-opacity-70"></div>*/}
+          <div className="fixed z-[5] top-0 left-0 right-0 bottom-0 bg-[#FFFFFF] bg-opacity-70"></div>
             {/* Sidebar */}
             <motion.div
               initial={{ x: "-100%" }}
