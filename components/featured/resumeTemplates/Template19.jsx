@@ -1396,6 +1396,7 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
               {data.section.map((item, index) => 
 
             <View
+            key={index}
               style={{
                 display: "flex",
                 flexDirection: "column",
