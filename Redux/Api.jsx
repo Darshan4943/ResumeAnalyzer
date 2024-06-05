@@ -50,7 +50,6 @@ export const Api = () => {
   const reCallUser = useSelector((state) => state.reCallUser);
   dispatch(setPageClosed());
   useEffect(() => {
-  
     if (userDataGlobal?.tempPassword?.length > 0) {
       const timer = setTimeout(() => {
         setLoading(false);
@@ -64,7 +63,7 @@ export const Api = () => {
   useEffect(() => {
     if (typeof window !== "undefined") {
       const token = JSON.parse(localStorage.getItem("authToken"));
-      
+
       if (token && token != "undefined") {
         const decoded = jwtDecode(token.token);
         axios

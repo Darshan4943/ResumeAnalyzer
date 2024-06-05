@@ -1205,7 +1205,7 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
             </View>
           )}
 
-          {data?.achievement?.length > 0 && (
+          {data?.achievements?.length > 0 && (
             <View style={{ flexDirection: "column", gap: 12, width: "100%" }}>
               <View style={{ flexDirection: "column", gap: 12 }}>
                 <Text
@@ -1219,7 +1219,7 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
                   Achievements & Awards
                 </Text>
               </View>
-              {data?.achievement?.map((detail, index) => (
+              {data?.achievements?.map((detail, index) => (
                 <>
                   <View
                     key={index}

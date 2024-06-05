@@ -123,7 +123,7 @@ const ResumeForm = ({
     ));
   };
 
-  console.log(122, data);
+  console.log(126, data);
 
   return (
     <>
@@ -218,7 +218,7 @@ const ResumeForm = ({
           </>
         )}
 
-        {(data?.achievement?.length > 0 ||
+        {(data?.achievements?.length > 0 ||
           customOptions["Achievements & Awards"]) && (
           <>
             <Achievement setData={setData} data={data} />

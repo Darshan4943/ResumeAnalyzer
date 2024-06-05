@@ -82,7 +82,11 @@ function Dashboard() {
     },
 
     { name: "Chat Bot", imgSrc: "/images/resumeBuilder/bot1.png", new: "New" },
-    { name: "My Website", imgSrc: "/images/resumeBuilder/website.png",new: "New" },
+    {
+      name: "My Website",
+      imgSrc: "/images/resumeBuilder/website.png",
+      new: "New",
+    },
     // { name: "Search Jobs", imgSrc: "/images/resumeBuilder/job.png" },
     { name: "My Purchases", imgSrc: "/images/resumeBuilder/my_purchases.png" },
   ];
@@ -140,7 +144,7 @@ function Dashboard() {
       case "My Purchases":
         handleNavigation("/purchase/MyPurchase");
         break;
-         case "My Website":
+      case "My Website":
         handleNavigation("/myWebsite");
         break;
       case "Chat Bot":
@@ -258,7 +262,6 @@ function Dashboard() {
     }
     return false;
   }
-
 
   return (
     <div className="customMargins flex flex-col gap-12 py-6 min-h-[70vh]">
@@ -422,20 +425,20 @@ function Dashboard() {
                 {templates.find(
                   (item) => item.index === data.selectedResumeIndex
                 ) && (
-                    <img
-                      src={
-                        templates.find(
-                          (item) => item.index === data.selectedResumeIndex
-                        ).imgUrl
-                      }
-                      style={{
-                        height: "100%",
-                        width: "90%",
-                        objectFit: "cover",
-                      }}
-                      alt={`Resume template ${data.selectedResumeIndex}`} // Adding an alt attribute for accessibility
-                    />
-                  )}
+                  <img
+                    src={
+                      templates.find(
+                        (item) => item.index === data.selectedResumeIndex
+                      ).imgUrl
+                    }
+                    style={{
+                      height: "100%",
+                      width: "90%",
+                      objectFit: "cover",
+                    }}
+                    alt={`Resume template ${data.selectedResumeIndex}`} // Adding an alt attribute for accessibility
+                  />
+                )}
               </div>
 
               <div className="w-[40%] flex flex-col gap-4 min-w-[160px]">

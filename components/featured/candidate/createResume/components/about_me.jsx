@@ -149,14 +149,16 @@ const AboutMe = ({ data, setData }) => {
           </button>
           <button
             className={`font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px]  bg-[#06A9EF] w-[60px] h-[32px] ${
-              text.length !== 0 ? "btn_hover_effect" : ""
+              text?.length !== 0 ? "btn_hover_effect" : ""
             }`}
             onClick={() => setData({ ...data, summery: text })}
             // style={{ opacity: text === data?.summery ? 0.5 : 1 }}
             style={{
-              opacity: text === data?.summery || text.length == 0 ? 0.5 : 1,
+              opacity: text === data?.summery || text?.length == 0 ? 0.5 : 1,
             }}
-            disabled={text === data?.summery || !isChecked || text.length === 0}
+            disabled={
+              text === data?.summery || !isChecked || text?.length === 0
+            }
           >
             Save
           </button>
