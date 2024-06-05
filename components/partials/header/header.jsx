@@ -101,7 +101,7 @@ function Header({ userData }) {
                       <div
                         o
                         onClick={() => {
-                          router.push("/auth?signin=true");
+                          router.push("/auth?signin=true&role=user");
                         }}
                         className="flex gap-3 py-2 px-3 items-center hover:bg-blue hover:text-white rounded-t-[8px] "
                       >
@@ -110,7 +110,7 @@ function Header({ userData }) {
 
                       <div
                         onClick={() => {
-                          router.push("/auth?signin=true");
+                          router.push("/auth?signin=true&role=recruiter");
                         }}
                         className="flex gap-3 py-2 px-3 items-center btn_hover_effect rounded-b-[8px]"
                       >

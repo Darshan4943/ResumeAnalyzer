@@ -505,6 +505,7 @@ const JobMatching = () => {
       outputData.push(...response.data);
     } else {
       outputData.push(response.data);
+      // outputData.push([response.data]);
     }
 
     counter.count++;
@@ -513,17 +514,29 @@ const JobMatching = () => {
   const MatchJob = async () => {
     setLoadingg(true);
     setIsAnimate(false);
-
+    setShowsideBar(false);
     if (Object.keys(extratctedData).length > 5) {
       const chunks = chunkArray(selectedIndexesFileTypes, 14);
       const outputData = [];
+      const counter = { count: 0 };
 
-      for (const [index, chunk] of chunks.entries()) {
-        processChunk(chunk, extratctedData, outputData);
-        if (index < chunks.length - 1) {
-          await new Promise((resolve) => setTimeout(resolve, 10000));
+      if (selectedIndexesFileTypes.length > 50) {
+        for (const [index, chunk] of chunks.entries()) {
+          processChunk(chunk, extratctedData, outputData, counter);
+          if (index < chunks.length - 1) {
+            await new Promise((resolve) => setTimeout(resolve, 10000));
+          }
+        }
+      } else {
+        for (const [index, chunk] of chunks.entries()) {
+          await processChunk(chunk, extratctedData, outputData, counter);
+          if (index < chunks.length - 1) {
+            await new Promise((resolve) => setTimeout(resolve, 10000));
+          }
         }
       }
+
+      console.log(`API was hit ${counter.count} times.`);
 
       const dataArray = outputData
         .filter((item) => item.matching_percentage)
@@ -545,7 +558,6 @@ const JobMatching = () => {
       setLoadingg(false);
     } else {
       toast.error("Something went wrong, please try again");
-      setLoadingg(false);
     }
   };
 
@@ -616,7 +628,7 @@ const JobMatching = () => {
         </div>
 
         <div className="bg-[#DEDEDE] ml:h-[91vh] h-[1px] ml:w-[1px] w-full"></div>
-        <div className="ml:w-[45%] w-full">
+        <div className="ml:w-[50%] w-full">
           <JdMatching
             details={details}
             resumeList={resumeList}
@@ -630,7 +642,7 @@ const JobMatching = () => {
         {showMatchingSidebar && (
           <>
             {/* Overlay */}
-            {/** <div className="fixed z-[5] top-0 left-0 right-0 bottom-0 bg-[#333333] bg-opacity-70"></div>*/}
+            <div className="fixed z-[5] top-0 left-0 right-0 bottom-0 bg-[#FFFFFF] bg-opacity-70"></div>
             {/* Sidebar */}
             <motion.div
               initial={{ x: "-100%" }}

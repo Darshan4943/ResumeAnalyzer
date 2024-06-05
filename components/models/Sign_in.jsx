@@ -8,7 +8,7 @@ import { popupNotVisible, reCallUserData } from "../../Redux/actions/user";
 import Link from "next/link";
 import ForgotPassword from "./forgotPassword";
 
-function Sign_in({ googleLoading, handleGoogle, setSignIn, setSignUp }) {
+function Sign_in({ googleLoading, handleGoogle, setSignIn, setSignUp, role }) {
   const dispatch = useDispatch();
   const sendToPurchase = JSON.parse(localStorage.getItem("purchase"));
   const [loading, setLoading] = useState(false);
@@ -56,6 +56,7 @@ function Sign_in({ googleLoading, handleGoogle, setSignIn, setSignUp }) {
     const dataToSend = {
       email: data.email.toLowerCase(),
       password: data.password,
+      role: role,
     };
     axios
       .post("https://jamblix.com/api/skiloteckuser/signin", dataToSend)
@@ -248,69 +249,73 @@ function Sign_in({ googleLoading, handleGoogle, setSignIn, setSignUp }) {
               "Sign In"
             )}
           </button>
-          <div className="flex flex-row items-center justify-center gap-[6px]">
-            <div className="w-[50%] h-[1px] bg-[#9D9D9D]"></div>Or
-            <div className="w-[50%] h-[1px] bg-[#9D9D9D]"></div>
-          </div>
-          <div className="flex flex-col gap-[16px]">
-            <div
-              style={{ borderColor: "#9D9D9D" }}
-              onClick={handleGoogle}
-              disabled={googleLoading}
-              className=" cursor-pointer w-full sm:px-[36px] px-4 py-[12px] rounded-[12px] border-[1px] border-solid border-[#9D9D9D]   text-[16px] font-[500] text-[#333] flex items-center gap-2 justify-center continue_btn"
-            >
-              {googleLoading ? (
-                <div role="status">
-                  <svg
-                    aria-hidden="true"
-                    className="inline w-6 h-6 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
-                    viewBox="0 0 100 101"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
-                      fill="#bebebe"
-                    />
-                    <path
-                      d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
-                      fill="#06a9ef"
-                    />
-                  </svg>
-                  <span className="sr-only">Loading...</span>
-                </div>
-              ) : (
-                <>
-                  <svg
-                    width="25"
-                    height="24"
-                    viewBox="0 0 25 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <g clip-path="url(#clip0_128_5190)">
-                      <path
-                        d="M24.4873 12.2245C24.4873 11.2413 24.4057 10.5237 24.229 9.77963H12.739V14.2176H19.4833C19.3474 15.3205 18.6132 16.9815 16.9814 18.0976L16.9585 18.2461L20.5915 20.9963L20.8431 21.0209C23.1547 18.9347 24.4873 15.8653 24.4873 12.2245Z"
-                        fill="#4285F4"
-                      />
-                      <path
-                        d="M12.7391 23.9176C16.0433 23.9176 18.8171 22.8545 20.8432 21.0209L16.9815 18.0976C15.9481 18.8018 14.5611 19.2934 12.7391 19.2934C9.50291 19.2934 6.75622 17.2074 5.77711 14.324L5.63359 14.3359L1.85604 17.1927L1.80664 17.3269C3.81906 21.2334 7.95273 23.9176 12.7391 23.9176Z"
-                        fill="#34A853"
-                      />
-                      <path
-                        d="M5.77702 14.324C5.51867 13.5799 5.36916 12.7826 5.36916 11.9588C5.36916 11.1349 5.51867 10.3377 5.76343 9.5936L5.75658 9.43513L1.9317 6.53241L1.80655 6.59058C0.97714 8.21168 0.501221 10.0321 0.501221 11.9588C0.501221 13.8855 0.97714 15.7058 1.80655 17.3269L5.77702 14.324Z"
-                        fill="#FBBC05"
-                      />
-                      <path
-                        d="M12.7391 4.62403C15.0371 4.62403 16.5871 5.59402 17.471 6.40461L20.9248 3.10928C18.8036 1.1826 16.0433 0 12.7391 0C7.95273 0 3.81906 2.68406 1.80664 6.59056L5.76351 9.59359C6.75622 6.7102 9.50291 4.62403 12.7391 4.62403Z"
-                        fill="#EB4335"
-                      />
-                    </g>
-                  </svg>
-                  Continue with Google
-                </>
-              )}
+          {role === "user" && (
+            <div className="flex flex-row items-center justify-center gap-[6px]">
+              <div className="w-[50%] h-[1px] bg-[#9D9D9D]"></div>Or
+              <div className="w-[50%] h-[1px] bg-[#9D9D9D]"></div>
             </div>
+          )}
+          <div className="flex flex-col gap-[16px]">
+            {role === "user" && (
+              <div
+                style={{ borderColor: "#9D9D9D" }}
+                onClick={handleGoogle}
+                disabled={googleLoading}
+                className=" cursor-pointer w-full sm:px-[36px] px-4 py-[12px] rounded-[12px] border-[1px] border-solid border-[#9D9D9D]   text-[16px] font-[500] text-[#333] flex items-center gap-2 justify-center continue_btn"
+              >
+                {googleLoading ? (
+                  <div role="status">
+                    <svg
+                      aria-hidden="true"
+                      className="inline w-6 h-6 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
+                      viewBox="0 0 100 101"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                        fill="#bebebe"
+                      />
+                      <path
+                        d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                        fill="#06a9ef"
+                      />
+                    </svg>
+                    <span className="sr-only">Loading...</span>
+                  </div>
+                ) : (
+                  <>
+                    <svg
+                      width="25"
+                      height="24"
+                      viewBox="0 0 25 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <g clip-path="url(#clip0_128_5190)">
+                        <path
+                          d="M24.4873 12.2245C24.4873 11.2413 24.4057 10.5237 24.229 9.77963H12.739V14.2176H19.4833C19.3474 15.3205 18.6132 16.9815 16.9814 18.0976L16.9585 18.2461L20.5915 20.9963L20.8431 21.0209C23.1547 18.9347 24.4873 15.8653 24.4873 12.2245Z"
+                          fill="#4285F4"
+                        />
+                        <path
+                          d="M12.7391 23.9176C16.0433 23.9176 18.8171 22.8545 20.8432 21.0209L16.9815 18.0976C15.9481 18.8018 14.5611 19.2934 12.7391 19.2934C9.50291 19.2934 6.75622 17.2074 5.77711 14.324L5.63359 14.3359L1.85604 17.1927L1.80664 17.3269C3.81906 21.2334 7.95273 23.9176 12.7391 23.9176Z"
+                          fill="#34A853"
+                        />
+                        <path
+                          d="M5.77702 14.324C5.51867 13.5799 5.36916 12.7826 5.36916 11.9588C5.36916 11.1349 5.51867 10.3377 5.76343 9.5936L5.75658 9.43513L1.9317 6.53241L1.80655 6.59058C0.97714 8.21168 0.501221 10.0321 0.501221 11.9588C0.501221 13.8855 0.97714 15.7058 1.80655 17.3269L5.77702 14.324Z"
+                          fill="#FBBC05"
+                        />
+                        <path
+                          d="M12.7391 4.62403C15.0371 4.62403 16.5871 5.59402 17.471 6.40461L20.9248 3.10928C18.8036 1.1826 16.0433 0 12.7391 0C7.95273 0 3.81906 2.68406 1.80664 6.59056L5.76351 9.59359C6.75622 6.7102 9.50291 4.62403 12.7391 4.62403Z"
+                          fill="#EB4335"
+                        />
+                      </g>
+                    </svg>
+                    Continue with Google
+                  </>
+                )}
+              </div>
+            )}
             <div
               onClick={() => {
                 router.push("/auth?signup=true");

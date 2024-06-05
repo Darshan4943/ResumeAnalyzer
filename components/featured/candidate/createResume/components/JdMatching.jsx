@@ -179,9 +179,11 @@ const JdMatching = ({ details, resumeList, isAnimate, setShowsideBar }) => {
         </>
       )}
       <div className="flex ml:flex-row flex-col gap-12 w-[100%] ">
-        {!isAnimate || resumeList.length === 0 ? (
+        {!isAnimate || resumeList.length != 0 ? (
           <div className="w-[100%] flex flex-col  gap-[16px] ">
-            <div>Total Results ({resumeList?.length})</div>
+            <div class="font-montserrat text-base font-medium leading-[19.5px] text-left">
+              Total Results ({resumeList?.length})
+            </div>
             <div className=" flex flex-row flex-wrap ml:justify-between justify-center  gap-[18px] max-h-[86vh] overflow-y-auto ">
               {resumeList?.length > 0 ? (
                 <>
@@ -251,34 +253,44 @@ const JdMatching = ({ details, resumeList, isAnimate, setShowsideBar }) => {
                             {data?.matching_parameters
                               ?.slice(0, 5)
                               ?.map((item, i) => (
-                                <li
-                                  key={i}
-                                  className="text-[#333333] text-[14px] font-[500] flex flex-row items-center gap-[8px]"
-                                >
-                                  <svg
-                                    width="10"
-                                    height="10"
-                                    viewBox="0 0 10 10"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
+                                <>
+                                  <li
+                                    key={i}
+                                    className="text-[#333333] text-[14px] font-[500] flex flex-row items-center gap-[8px]"
                                   >
-                                    <circle
-                                      cx="5"
-                                      cy="5"
-                                      r="5"
-                                      fill="#D9D9D9"
-                                    />
-                                  </svg>
-                                  {item?.title} / {item?.matching_points}
-                                </li>
+                                    <div>
+                                      <svg
+                                        width="10"
+                                        height="10"
+                                        viewBox="0 0 10 10"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                      >
+                                        <circle
+                                          cx="5"
+                                          cy="5"
+                                          r="5"
+                                          fill="#D9D9D9"
+                                        />
+                                      </svg>
+                                    </div>
+                                    {item?.title}
+                                  </li>
+                                  <span className="text-[#333333] text-[14px] font-[500] flex flex-row items-center gap-[8px] ml-[16px]">
+                                    {" "}
+                                    {item?.matching_points}
+                                  </span>
+                                </>
                               ))}
                           </ul>
-                          <span
-                            onClick={() => setSelectedFile(data)}
-                            className="text-[#06A9EF] text-[14px]  underline decoration-solid  text-end absolute bottom-[0px] right-0 cursor-pointer font-semibold"
-                          >
-                            See More
-                          </span>
+                          <div className="flex flex-row justify-end items-center">
+                            <span
+                              onClick={() => setSelectedFile(data)}
+                              className="text-[#06A9EF] text-[14px]  underline decoration-solid absolute text-end bottom-[-6px] right-0 cursor-pointer font-semibold "
+                            >
+                              See More
+                            </span>
+                          </div>
                         </div>
                         <div className="w-[100%]  px-[8px] pb-[16px] border-b-[1px] border-[#bebebe]"></div>
                         {parseInt(data?.matching_percentage?.slice(0, 2)) >
