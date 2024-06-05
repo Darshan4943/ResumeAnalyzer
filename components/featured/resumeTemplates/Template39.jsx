@@ -505,7 +505,7 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
               </View>
             )}
 
-            {data?.sociaLinks?.length > 0 && (
+            {data?.socialLinks?.length > 0 && (
               <View style={{ flexDirection: "column", gap: 16 }}>
                 <Text
                   style={{
@@ -518,7 +518,7 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
                   SOCIAL LINKS
                 </Text>
                 <View style={{ flexDirection: "column", gap: 12 }}>
-                  {data?.sociaLinks?.map((item, index) => {
+                  {data?.socialLinks?.map((item, index) => {
                     return (
                       <View
                         wrap={false}

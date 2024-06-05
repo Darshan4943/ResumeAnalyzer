@@ -8,8 +8,8 @@ import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
 import { useDispatch } from "react-redux";
 import { auth } from "../../utils/firebase";
 function Main_sign_page() {
-  const { signin, signup ,role } = useRouter().query;
- 
+  const { signin, signup, role } = useRouter().query;
+
   const [isSignIn, setIsSignIn] = useState(true);
   const [googleLoading, setGoogleLoading] = useState(false);
   const auth = getAuth();
@@ -29,7 +29,6 @@ function Main_sign_page() {
       const userData = {
         name: user.displayName,
         email: user.email,
-      
       };
       const sendToPurchase = localStorage.getItem("purchase");
       const sendToPurchaseResult = JSON.parse(sendToPurchase);

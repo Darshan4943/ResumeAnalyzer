@@ -226,7 +226,7 @@ const ResumeForm = ({
           </>
         )}
 
-        {(data?.sociaLinks?.length > 0 || customOptions?.Links) && (
+        {(data?.socialLinks?.length > 0 || customOptions?.Links) && (
           <>
             <SocialLink setData={setData} data={data} />
             <div className="border-b border-r border-l border-[#DEDEDE]"></div>
