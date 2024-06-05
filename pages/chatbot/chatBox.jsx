@@ -102,7 +102,6 @@ const ChatBox = ({
           forceUpdate();
           setLoading(false);
           setText("");
-         
         })
         .catch((err) => {
           console.log(err);
@@ -323,12 +322,11 @@ const ChatBox = ({
               style={{ scrollbarWidth: "none" }}
               className="flex flex-col gap-[16px] scr1150:w-[60%] w-[70%] h-[84vh] overflow-y-auto  "
               ref={divRef}
-            
             >
               {chat?.map((item, index) => {
                 return (
-                  <div    key={index} className="flex flex-col  gap-[12px]">
-                    <div  className="flex w-full gap-[14px]  ">
+                  <div key={index} className="flex flex-col  gap-[12px]">
+                    <div className="flex w-full gap-[14px]  ">
                       {/* <img
                         className=" rounded-full object-cover h-[38px] w-[38px]"
                         src={
@@ -350,7 +348,7 @@ const ChatBox = ({
                           src={"/images/Robot.png"}
                         />
                       </div>
-                      <div  className="rounded-[8px] w-full px-[16px] py-[0px] bg-[#fff]">
+                      <div className="rounded-[8px] w-full px-[16px] py-[0px] bg-[#fff]">
                         <ParentTemp
                           answer={item.answer}
                           i={index}
@@ -364,14 +362,11 @@ const ChatBox = ({
                           }}
                         /> */}
                       </div>
-                     
                     </div>
-                
                   </div>
-                  
                 );
               })}
-                  <div ref={chatEndRef} />
+              <div ref={chatEndRef} />
             </div>
           ) : (
             <>

@@ -14,7 +14,6 @@ const Achievement = ({ data, setData }) => {
   };
   const [achivementData, setAchivementData] = useState({
     title: "",
-    description: "",
   });
   const [editingIndex, setEditingIndex] = useState(null);
   const [errors, setErrors] = useState({
@@ -54,21 +53,20 @@ const Achievement = ({ data, setData }) => {
   const handleSave = () => {
     if (validateForm()) {
       if (isModified?.status === true) {
-        const dumyData = data?.achievement;
+        const dumyData = data?.achievements;
         const index = isModified?.index;
         dumyData?.splice(index, 1, achivementData);
-        setData({ ...data, achievement: dumyData });
+        setData({ ...data, achievements: dumyData });
         setView(false);
       } else {
         setData({
           ...data,
-          achievement: [achivementData, ...data?.achievement],
+          achievements: [achivementData, ...data?.achievements],
         });
         setView(false);
       }
       setAchivementData({
         title: "",
-        description: "",
       });
     } else {
       setView(true);
@@ -92,7 +90,7 @@ const Achievement = ({ data, setData }) => {
   };
 
   const handleEditAchievement = (index) => {
-    const dataToEdit = data?.achievement[index];
+    const dataToEdit = data?.achievements[index];
 
     if (dataToEdit) {
       setView(true);
@@ -103,7 +101,7 @@ const Achievement = ({ data, setData }) => {
   const handleDeleteAchievement = (index) => {
     setData({
       ...data,
-      achievement: data?.achievement?.filter((item, i) => i !== index),
+      achievements: data?.achievements?.filter((item, i) => i !== index),
     });
   };
 
@@ -125,8 +123,8 @@ const Achievement = ({ data, setData }) => {
           <span className="slider round"></span>
         </label>
       </div>
-      {data?.achievement?.length > 0 &&
-        data?.achievement?.map((ach, index) => (
+      {data?.achievements?.length > 0 &&
+        data?.achievements?.map((ach, index) => (
           <div
             key={index}
             className={`flex flex-col gap-1 py-[12px] px-[16px] rounded-[6px]  border break-all ${
@@ -146,7 +144,6 @@ const Achievement = ({ data, setData }) => {
                 </div>
               </div>
             </div>
-            <p className="text-[12px]">{ach?.description}</p>
           </div>
         ))}
       {/* {view && ( */}
@@ -198,8 +195,6 @@ const Achievement = ({ data, setData }) => {
                 onClick={() => {
                   setAchivementData({
                     title: "",
-
-                    description: "",
                   });
                   setView(false);
                 }}

@@ -9,7 +9,6 @@ import Link from "next/link";
 import ForgotPassword from "./forgotPassword";
 
 function Sign_in({ googleLoading, handleGoogle, setSignIn, setSignUp, role }) {
-
   const dispatch = useDispatch();
   const sendToPurchase = JSON.parse(localStorage.getItem("purchase"));
   const [loading, setLoading] = useState(false);
@@ -30,14 +29,13 @@ function Sign_in({ googleLoading, handleGoogle, setSignIn, setSignUp, role }) {
   useEffect(() => {
     const token = JSON.parse(localStorage.getItem("authToken"));
     if (token) {
-      router.push('/home')
+      router.push("/home");
     }
     document.addEventListener("mousedown", handleOutsideClick);
     return () => {
       document.removeEventListener("mousedown", handleOutsideClick);
       localStorage.setItem("purchase", false);
     };
-
   }, []);
   const router = useRouter();
   const [data, setData] = useState({ email: "", password: "" });
@@ -58,7 +56,7 @@ function Sign_in({ googleLoading, handleGoogle, setSignIn, setSignUp, role }) {
     const dataToSend = {
       email: data.email.toLowerCase(),
       password: data.password,
-      role: role
+      role: role,
     };
     axios
       .post("https://jamblix.com/api/skiloteckuser/signin", dataToSend)
@@ -72,8 +70,9 @@ function Sign_in({ googleLoading, handleGoogle, setSignIn, setSignUp, role }) {
             localStorage.removeItem("purchase");
             setTimeout(() => {
               setLoading(false);
-              window.location.href = `/purchase/details?id=${sendToPurchase.index + 1
-                }`;
+              window.location.href = `/purchase/details?id=${
+                sendToPurchase.index + 1
+              }`;
             }, 1000);
           } else {
             setTimeout(() => {
@@ -175,10 +174,11 @@ function Sign_in({ googleLoading, handleGoogle, setSignIn, setSignUp, role }) {
             <div className="flex justify-between text-[#06A9EF] text-[12px] font-[500] cursor-pointer ">
               {error && (
                 <div
-                  className={`flex justify-start scr420:text-[16px] text-[13px] gap-2  items-center bottom-[-30px] w-full  ${error
-                    ? "text-[#c00000] font-[600]"
-                    : "text-green font-[600]"
-                    }`}
+                  className={`flex justify-start scr420:text-[16px] text-[13px] gap-2  items-center bottom-[-30px] w-full  ${
+                    error
+                      ? "text-[#c00000] font-[600]"
+                      : "text-green font-[600]"
+                  }`}
                 >
                   <div className="w-[18px] h-[18px] scr420:w-[24px] scr420:h-[24px]">
                     <svg
@@ -221,8 +221,9 @@ function Sign_in({ googleLoading, handleGoogle, setSignIn, setSignUp, role }) {
           <button
             disabled={loading}
             style={{ borderColor: "#06a9ef" }}
-            className={`w-full px-[36px] py-[12px] rounded-[12px] border-[1px] border-solid border-[#06a9ef] text-[20px] font-[500] hover:bg-[#06a9ef] ${loading && "bg-[#06a9ef]"
-              } hover:text-[#fff] transition-all duration-200`}
+            className={`w-full px-[36px] py-[12px] rounded-[12px] border-[1px] border-solid border-[#06a9ef] text-[20px] font-[500] hover:bg-[#06a9ef] ${
+              loading && "bg-[#06a9ef]"
+            } hover:text-[#fff] transition-all duration-200`}
           >
             {loading ? (
               <div role="status">
@@ -248,14 +249,14 @@ function Sign_in({ googleLoading, handleGoogle, setSignIn, setSignUp, role }) {
               "Sign In"
             )}
           </button>
-          {role === "user" &&
+          {role === "user" && (
             <div className="flex flex-row items-center justify-center gap-[6px]">
               <div className="w-[50%] h-[1px] bg-[#9D9D9D]"></div>Or
               <div className="w-[50%] h-[1px] bg-[#9D9D9D]"></div>
             </div>
-          }
+          )}
           <div className="flex flex-col gap-[16px]">
-            {role === "user" &&
+            {role === "user" && (
               <div
                 style={{ borderColor: "#9D9D9D" }}
                 onClick={handleGoogle}
@@ -314,7 +315,7 @@ function Sign_in({ googleLoading, handleGoogle, setSignIn, setSignUp, role }) {
                   </>
                 )}
               </div>
-            }
+            )}
             <div
               onClick={() => {
                 router.push("/auth?signup=true");

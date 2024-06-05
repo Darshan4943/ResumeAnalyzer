@@ -358,7 +358,7 @@ function CreateResume() {
     course: [],
     showCourse: true,
     skills: [],
-    achievement: [],
+    achievements: [],
     sociaLinks: [],
     hobbies: [],
     languages: [],
@@ -373,10 +373,8 @@ function CreateResume() {
     clientId: clientId,
   };
 
-  console.log(33333333, defaultState);
-
   const [data, setData] = useState(defaultState);
-  console.log(8888888, data);
+
   const [isClient, setIsClient] = useState(false);
   const [isDataInLocal, setIsDataInLocal] = useState(false);
 
@@ -404,11 +402,19 @@ function CreateResume() {
     }
   }, [selectedResumeIndex]);
 
+  const resumeData ={
+    selectedColor:selectedColor,
+    selectedFont:selectedFont,
+    selectedResumeIndex:selectedResumeIndex
+  }
+
   useEffect(() => {
     if (isClient && clientId == "undefined") {
       localStorage.setItem("userData", JSON.stringify(data));
+      localStorage.setItem("resumeData", JSON.stringify(resumeData));
     }
-  }, [data, isClient]);
+ 
+  }, [data, isClient,selectedColor,selectedFont,selectedResumeIndex]);
 
   function extractMobileNumber(inputString) {
     var regex = /[0-9]{10}/g;
@@ -546,7 +552,7 @@ function CreateResume() {
     setRender(false);
     setTimeout(() => setRender(true), 400);
   }, [data]);
-  console.log(546, data);
+
   return (
     <div className="">
       <div className="  pt-2 customMargins ">

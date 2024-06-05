@@ -25,9 +25,9 @@ function CreateNewClient() {
   const [modelView, setModelView] = useState(false);
   const [selectedItem, setSelectedItem] = useState();
   const [searchTerm, setSearchTerm] = useState("");
-  const [countyCode, setCountryCode] = useState()
+  const [countyCode, setCountryCode] = useState();
   const [filteredTelCode, setFilteredTelCode] = useState([]);
-  const [modifyUpdate, setModifyUpdate] = useState()
+  const [modifyUpdate, setModifyUpdate] = useState();
   const [originalData, setOriginalData] = useState({});
 
   const [data, setData] = useState({
@@ -35,7 +35,7 @@ function CreateNewClient() {
     lastName: "",
     mobileNo: "",
     designation: "",
-    dial_code: '',
+    dial_code: "",
     email: "",
     location: "",
     gender: "male",
@@ -44,7 +44,7 @@ function CreateNewClient() {
   const [file, setFile] = useState(null);
   const fileRef = useRef(null);
   const [croppedImage, setCroppedImage] = useState(null);
-  console.log(data.img)
+  console.log(data.img);
   const handleFileChange = (event) => {
     event.preventDefault();
     setIsProfileImageRemoved(false);
@@ -187,7 +187,7 @@ function CreateNewClient() {
       "location",
       "mobileNo",
       "gender",
-      "dial_code"
+      "dial_code",
     ];
     const emptyFields = requiredFields.filter((field) => !data[field]);
 
@@ -213,7 +213,10 @@ function CreateNewClient() {
           }
         });
         formdata.append("recruiterId", userDataGlobal._id);
-        formdata.append("img", croppedImage === null ? details.profilePicture : croppedImage);
+        formdata.append(
+          "img",
+          croppedImage === null ? details.profilePicture : croppedImage
+        );
         formdata.append("isProfileImageRemoved", isProfileImageRemoved);
         const url = isUpdate
           ? "https://jamblix.com/api/updateClient"
@@ -226,9 +229,9 @@ function CreateNewClient() {
           lastName: "",
           mobileNo: "",
           designation: "",
-          dial_code: '',
+          dial_code: "",
           email: "",
-          img: '',
+          img: "",
           location: "",
           gender: "male",
         });
@@ -239,51 +242,54 @@ function CreateNewClient() {
         setLoading(false);
         router.push("/myClients");
 
-        toast.success(isUpdate ? "Client Updated successfully" : "Client created successfully");
+        toast.success(
+          isUpdate
+            ? "Client Updated successfully"
+            : "Client created successfully"
+        );
       } catch (error) {
         setLoading(false);
         if (error.response?.data.message === "User already exist") {
           toast.error("Client already exist");
         } else {
-          console.error("Error updating/creating client:", error.response || error.message);
+          console.error(
+            "Error updating/creating client:",
+            error.response || error.message
+          );
           toast.error("Failed to create client");
         }
       }
     }
   };
 
-
   useEffect(() => {
-
     if (id) {
-      axios.get(`https://jamblix.com/api/client/getByClientId/${id}`).then((res) => {
-        const details = res.data.data;
-        setDetails(details)
-        // console.log(4545,details)
-        const initialData = {
-          firstName: details.firstName,
-          lastName: details.lastName,
-          mobileNo: details.mobileNo,
-          designation: details.designation,
-          email: details.email,
-          location: details.location,
-          gender: details.gender,
-          img: details.profilePicture,
-          dial_code: details.dial_code,
-        };
-        // setCroppedImage(details.profilePicture)
-        setData(initialData);
-        setOriginalData(initialData);
-
-      });
-
+      axios
+        .get(`https://jamblix.com/api/client/getByClientId/${id}`)
+        .then((res) => {
+          const details = res.data.data;
+          setDetails(details);
+          // console.log(4545,details)
+          const initialData = {
+            firstName: details.firstName,
+            lastName: details.lastName,
+            mobileNo: details.mobileNo,
+            designation: details.designation,
+            email: details.email,
+            location: details.location,
+            gender: details.gender,
+            img: details.profilePicture,
+            dial_code: details.dial_code,
+          };
+          // setCroppedImage(details.profilePicture)
+          setData(initialData);
+          setOriginalData(initialData);
+        });
     }
   }, [id]);
 
   // console.log(222, selectedItem, countyCode)
   // console.log(4545,croppedImage)
-
-
 
   const handleItemClick = (item) => {
     setSelectedItem(item);
@@ -292,12 +298,13 @@ function CreateNewClient() {
   };
 
   useEffect(() => {
-    setCountryCode(details.dial_code)
-    const filteredItems = filteredTelCode.filter(item => item.dial_code === countyCode);
+    setCountryCode(details.dial_code);
+    const filteredItems = filteredTelCode.filter(
+      (item) => item.dial_code === countyCode
+    );
 
-    setSelectedItem(filteredItems)
+    setSelectedItem(filteredItems);
   }, [details, countyCode]);
-
 
   useEffect(() => {
     const filterLogic = (item) =>
@@ -352,17 +359,21 @@ function CreateNewClient() {
       )}
       <div className="flex justify-center">
         <div className="flex flex-col  gap-4 sm:p-6 p-2 scr1200:w-[70%] sm:w-[90%] w-[100%] ">
-          <p className="text-[24px] font-semibold">{isUpdate ? "Update" : "Create New"} Client</p>
+          <p className="text-[24px] font-semibold">
+            {isUpdate ? "Update" : "Create New"} Client
+          </p>
           <div
             className="flex flex-col gap-9 rounded-[16px] sm:py-6 py-2"
-          // style={{ boxShadow: "0px 1px 6px 0px #00000040" }}
+            // style={{ boxShadow: "0px 1px 6px 0px #00000040" }}
           >
             <div className="flex flex-col gap-4">
               <p className="text-[16px] font-medium">Profile Photo</p>
               <div className="flex sm:gap-6 gap-3">
                 {data.img ? (
                   <ImageContainer
-                    src={croppedImage ? croppedImage?.url : details.profilePicture}
+                    src={
+                      croppedImage ? croppedImage?.url : details.profilePicture
+                    }
                     alt="Selected File"
                     className="w-[112px] h-[112px] rounded-[50%] object-cover"
                   />
@@ -467,7 +478,9 @@ function CreateNewClient() {
                             </div>
                           </div>
 
-                          <div className={`personal_single_input ml:w-[50%] w-[100%] `}>
+                          <div
+                            className={`personal_single_input ml:w-[50%] w-[100%] `}
+                          >
                             <p className="form_text_heading">
                               Email <span className="star">*</span>
                             </p>
@@ -496,15 +509,17 @@ function CreateNewClient() {
                               Contact Number <span className="star">*</span>
                             </p>
                             <div
-                              className={`flex w-[100%] items-start ${isViewportBelow850
-                                ? "gap-[4px] "
-                                : "gap-[16px] "
-                                }`}
+                              className={`flex w-[100%] items-start ${
+                                isViewportBelow850
+                                  ? "gap-[4px] "
+                                  : "gap-[16px] "
+                              }`}
                               id="single_input"
                             >
                               <div
-                                className={`relative min-w-[150px] ${isViewportBelow850 ? "w-[65%] " : "w-[40%] "
-                                  } items-center`}
+                                className={`relative min-w-[150px] ${
+                                  isViewportBelow850 ? "w-[65%] " : "w-[40%] "
+                                } items-center`}
                               >
                                 <div className="  w-[100%] sm:text-[14px] text-[13px] justify-center items-center  flex font-[500] text-[#646464]">
                                   <div className="flex items-center justify-center gap-2 cursor-pointer min-w-[140px] w-[100%]">
@@ -524,7 +539,6 @@ function CreateNewClient() {
                                             />
                                             <span className="ml-2 text-[#333]">
                                               {option.code} {option.dial_code}
-
                                             </span>
                                           </div>
                                         )}
@@ -560,10 +574,11 @@ function CreateNewClient() {
                                 type="text"
                                 name=""
                                 // id="single_input"
-                                placeholder={`${isViewportBelow850
-                                  ? "Enter Number "
-                                  : "Enter Contact Number "
-                                  }`}
+                                placeholder={`${
+                                  isViewportBelow850
+                                    ? "Enter Number "
+                                    : "Enter Contact Number "
+                                }`}
                                 value={data.mobileNo}
                                 onChange={(e) =>
                                   handleInputChange("mobileNo", e.target.value)
@@ -608,8 +623,9 @@ function CreateNewClient() {
                             </p>
                             <div className="gender_button">
                               <button
-                                className={`gen_button ${data.gender == "male" && "gen_button_active"
-                                  }`}
+                                className={`gen_button ${
+                                  data.gender == "male" && "gen_button_active"
+                                }`}
                                 onClick={(e) => {
                                   e.preventDefault();
                                   setData({ ...data, gender: "male" });
@@ -618,8 +634,9 @@ function CreateNewClient() {
                                 Male
                               </button>
                               <button
-                                className={`gen_button ${data.gender == "female" && "gen_button_active"
-                                  }`}
+                                className={`gen_button ${
+                                  data.gender == "female" && "gen_button_active"
+                                }`}
                                 onClick={(e) => {
                                   e.preventDefault();
                                   setData({ ...data, gender: "female" });
@@ -628,8 +645,9 @@ function CreateNewClient() {
                                 Female
                               </button>
                               <button
-                                className={`gen_button ${data.gender == "other" && "gen_button_active"
-                                  }`}
+                                className={`gen_button ${
+                                  data.gender == "other" && "gen_button_active"
+                                }`}
                                 onClick={(e) => {
                                   e.preventDefault();
                                   setData({ ...data, gender: "other" });
@@ -679,7 +697,6 @@ function CreateNewClient() {
                             Back
                           </button>
                           <button
-
                             className={`buttons font-[500] bg-[#06A9EF] text-white `}
                             id="border_button"
                             onClick={submitHandler}
@@ -702,8 +719,10 @@ function CreateNewClient() {
                                   fill="currentColor"
                                 />
                               </svg>
+                            ) : isUpdate ? (
+                              "Update Client"
                             ) : (
-                              isUpdate ? "Update Client" : "Create Client"
+                              "Create Client"
                             )}
                           </button>
                         </div>

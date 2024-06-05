@@ -309,8 +309,9 @@ function Folders({
       <div className="flex flex-col gap-4  border border-[#DEDEDE] bg-white ms:p-6 p-2  rounded-[16px] h-full ">
         <div className="flex flex-col-reverse gap-4 w-full  ">
           <div
-            className={` ${select ? "flex" : "hidden"
-              } gap-12  items-center w-[100%] h-[40px] `}
+            className={` ${
+              select ? "flex" : "hidden"
+            } gap-12  items-center w-[100%] h-[40px] `}
           >
             {select ? (
               <div className="bg-[#D1EDFF] relative flex sm:gap-4  gap-2 rounded-[50px] pl-[6px] sm:pr-4 pr-2 py-[6px] items-center w-full scr540:min-w-[440px]  ">
