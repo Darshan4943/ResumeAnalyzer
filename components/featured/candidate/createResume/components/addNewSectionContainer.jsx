@@ -356,7 +356,7 @@ function AddNewSectionContainer({
       Languages: data?.languages?.length > 0,
       "Achievements & Awards": data?.achievements?.length > 0,
       References: data?.reference?.length > 0,
-      Links: data?.sociaLinks?.length > 0,
+      Links: data?.socialLinks?.length > 0,
       "Extra-Curriculum Activities": data?.extraCaricularData?.length > 0,
       "Courses & Certifications": data?.course?.length > 0,
       Internships: data?.internship?.length > 0,
