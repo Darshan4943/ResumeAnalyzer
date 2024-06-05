@@ -109,9 +109,9 @@ function Candidate_register() {
             value: item,
             label: camelCase(item),
           }))}
-        // register_cadidate={register_cadidate}
-        // setCertificate={setCertificate}
-        // certificate={certificate}
+          // register_cadidate={register_cadidate}
+          // setCertificate={setCertificate}
+          // certificate={certificate}
         />
       </div>
     </>

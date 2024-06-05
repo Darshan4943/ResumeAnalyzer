@@ -469,8 +469,8 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                       </Text>
                       <Text
                         style={{
-                          fontFamily: `${selectedFont} 400`,
-                          fontSize: "10px",
+                          fontFamily: `${selectedFont} 400`,width: "90%",
+                          fontSize: "10px",display:"flex",flexWrap:"wrap"
                         }}
                       >
                         {item?.link}
@@ -706,17 +706,9 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                       }}
                     >
                       <Text style={{ fontFamily: `${selectedFont} 400` }}>
-                        {item?.referantName}
+                        {item?.title}
                       </Text>
-                      <Text style={{ fontFamily: `${selectedFont} 400`, }}>
-                        {item?.designation}
-                      </Text>
-                      <Text style={{ fontFamily: `${selectedFont} 400`, }}>
-                        {item?.organization}
-                      </Text>
-                      <Text style={{ fontFamily: `${selectedFont} 400`, }}>
-                        {item?.email}
-                      </Text>
+                      
                     </View>
                   ))}
                 </View>

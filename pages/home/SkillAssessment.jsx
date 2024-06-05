@@ -1288,7 +1288,9 @@ function SkillAssessment() {
                           </div>
 
                           {assesmentType !== "Normal" && (
+                            
                             <>
+                            {console.log(555,calculateMarkOutOf60())}
                               {calculateMarkOutOf60() >= "70%" ? (
                                 <div className="text-[18px] text-[#0C8A0A] font-[600]">
                                   You are eligible for Certificate
@@ -1296,6 +1298,7 @@ function SkillAssessment() {
                               ) : (
                                 <di className="text-[18px] text-[#C00000] font-[600]">
                                   You are not eligible for Certificate
+                                  <p className="text-[14px]">{`(Required above 70%)`}</p>
                                 </di>
                               )}
                             </>
