@@ -144,6 +144,7 @@ const Template47 = ({ data, selectedColor, selectedFont, preview }) => {
                             </View>
                         </View>
                     )}
+
                     {data?.education?.length > 0 && (
                         <View style={{ display: "flex", flexDirection: "column", gap: 12 }}>
                             <View style={{ display: "flex", flexDirection: "row", gap: 8, justifyContent: "center", alignItems: "center" }}>
@@ -181,6 +182,136 @@ const Template47 = ({ data, selectedColor, selectedFont, preview }) => {
 
                         </View>
                     )}
+
+                    {data?.internship?.length > 0 && (
+                        <View style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+
+                            <View style={{ display: "flex", flexDirection: "row", gap: 8, justifyContent: "center", alignItems: "center" }}>
+                                <Svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <Path d="M11.991 23C18.0661 23 22.9965 18.0751 23.0033 12C23.0101 5.92487 18.0908 1 12.0156 1C5.9405 1 1.01011 5.92487 1.00331 12C0.996512 18.0751 5.91588 23 11.991 23Z" fill="#383839" />
+                                    <Path d="M12.7866 13.0684V12.7343C12.7866 12.3272 12.452 12 12.0393 12C11.6265 12 11.293 12.3272 11.293 12.7343V13.0684C11.293 13.4735 11.6265 13.8027 12.0393 13.8027C12.452 13.8027 12.7866 13.4735 12.7866 13.0684Z" fill="white" />
+                                    <Path d="M13.3004 13.659C13.1341 14.1714 12.6352 14.5484 12.0402 14.5484C11.4451 14.5484 10.9463 14.1714 10.78 13.659H5.63408C5.30951 13.659 5.00299 13.587 4.72852 13.4629V16.6949C4.72852 17.3248 5.27346 17.842 5.94162 17.842H18.1407C18.8089 17.842 19.3538 17.3248 19.3538 16.6949V13.4648C19.0784 13.5879 18.7718 13.659 18.4473 13.659H13.3004Z" fill="white" />
+                                    <Path d="M18.3951 7.85428H15.4821C15.3078 6.81516 14.3531 6.01758 13.2061 6.01758H10.8721C9.72411 6.01758 8.77045 6.81611 8.59415 7.85428H5.6831C4.98889 7.85428 4.41992 8.37146 4.41992 9.00232V11.6489C4.41992 12.2836 4.96386 12.797 5.63302 12.797H10.7228C10.7389 12.4664 10.8901 12.1699 11.1265 11.9558C11.1325 11.9482 11.1416 11.9444 11.1486 11.9378C11.2017 11.8933 11.2568 11.8497 11.3159 11.8118C11.3369 11.7995 11.3619 11.79 11.384 11.7768C11.4331 11.7503 11.4822 11.7218 11.5332 11.7029C11.5743 11.6858 11.6204 11.6764 11.6635 11.665C11.7025 11.6536 11.7376 11.6394 11.7757 11.6328C11.8598 11.6158 11.949 11.6072 12.0381 11.6072C12.1283 11.6072 12.2154 11.6158 12.3006 11.6328C12.3396 11.6394 12.3747 11.6536 12.4128 11.665C12.4558 11.6764 12.4999 11.6858 12.542 11.7029C12.5951 11.7237 12.6442 11.7503 12.6932 11.7768C12.7153 11.7891 12.7393 11.7986 12.7614 11.8118C12.8205 11.8497 12.8756 11.8933 12.9266 11.9378C12.9337 11.9444 12.9427 11.9492 12.9507 11.9558C13.1881 12.1708 13.3374 12.4664 13.3544 12.797H18.4442C19.1134 12.797 19.6573 12.2835 19.6573 11.6498V9.00138C19.6583 8.37147 19.0903 7.85428 18.3951 7.85428ZM9.76417 7.85428C9.91944 7.41381 10.3552 7.09081 10.8731 7.09081H13.2071C13.725 7.09081 14.1608 7.41287 14.3161 7.85428H9.76417Z" fill="white" />
+                                </Svg>
+
+                                <Text style={{ fontFamily: `${selectedFont} 600`, fontSize: 14, color: selectedColor }}>INTERNSHIP</Text>
+                                <View style={{ backgroundColor: "#6D6E71", width: 393, height: 1 }}></View>
+
+                            </View>
+
+
+                            <View style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+                                {data?.internship?.map((detail, index) => (
+                                    <View
+                                        // wrap={false}
+                                        key={index}
+                                        style={{ display: "flex", flexDirection: "column", }}>
+                                        <View style={{ display: "flex", flexDirection: "row", gap: 12 }}>
+                                            <Text style={{ fontSize: 12, color: "#414042", fontFamily: `${selectedFont} 500`, width: 132 }}>{detail.duration?.start?.year !== "Year" &&
+                                                `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
+                                                    ? "Present"
+                                                    : detail.duration?.end?.year
+                                                }
+                                        `} </Text>
+                                            <Text style={{ fontSize: 12, color: "#414042", fontFamily: `${selectedFont} 500`, width: 379 }}>{detail.title}</Text>
+                                        </View>
+                                        <View style={{ display: "flex", flexDirection: "row", gap: 12 }}>
+                                            <Text style={{ fontSize: 12, color: "#414042", fontFamily: `${selectedFont} 500`, width: 132 }}>{detail.organization}</Text>
+                                            <Text style={{ fontSize: 10, color: "#939598", fontFamily: `${selectedFont} 400`, width: 379 }}>{detail.description} </Text>
+                                        </View>
+                                    </View>
+
+                                ))}
+                            </View>
+                        </View>
+                    )}
+
+                    {data?.course?.length > 0 && (
+                        <View style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+
+                            <View style={{ display: "flex", flexDirection: "row", gap: 8, justifyContent: "center", alignItems: "center" }}>
+                                <Svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <Path d="M11.991 23C18.0661 23 22.9965 18.0751 23.0033 12C23.0101 5.92487 18.0908 1 12.0156 1C5.9405 1 1.01011 5.92487 1.00331 12C0.996512 18.0751 5.91588 23 11.991 23Z" fill="#383839" />
+                                    <Path d="M12.7866 13.0684V12.7343C12.7866 12.3272 12.452 12 12.0393 12C11.6265 12 11.293 12.3272 11.293 12.7343V13.0684C11.293 13.4735 11.6265 13.8027 12.0393 13.8027C12.452 13.8027 12.7866 13.4735 12.7866 13.0684Z" fill="white" />
+                                    <Path d="M13.3004 13.659C13.1341 14.1714 12.6352 14.5484 12.0402 14.5484C11.4451 14.5484 10.9463 14.1714 10.78 13.659H5.63408C5.30951 13.659 5.00299 13.587 4.72852 13.4629V16.6949C4.72852 17.3248 5.27346 17.842 5.94162 17.842H18.1407C18.8089 17.842 19.3538 17.3248 19.3538 16.6949V13.4648C19.0784 13.5879 18.7718 13.659 18.4473 13.659H13.3004Z" fill="white" />
+                                    <Path d="M18.3951 7.85428H15.4821C15.3078 6.81516 14.3531 6.01758 13.2061 6.01758H10.8721C9.72411 6.01758 8.77045 6.81611 8.59415 7.85428H5.6831C4.98889 7.85428 4.41992 8.37146 4.41992 9.00232V11.6489C4.41992 12.2836 4.96386 12.797 5.63302 12.797H10.7228C10.7389 12.4664 10.8901 12.1699 11.1265 11.9558C11.1325 11.9482 11.1416 11.9444 11.1486 11.9378C11.2017 11.8933 11.2568 11.8497 11.3159 11.8118C11.3369 11.7995 11.3619 11.79 11.384 11.7768C11.4331 11.7503 11.4822 11.7218 11.5332 11.7029C11.5743 11.6858 11.6204 11.6764 11.6635 11.665C11.7025 11.6536 11.7376 11.6394 11.7757 11.6328C11.8598 11.6158 11.949 11.6072 12.0381 11.6072C12.1283 11.6072 12.2154 11.6158 12.3006 11.6328C12.3396 11.6394 12.3747 11.6536 12.4128 11.665C12.4558 11.6764 12.4999 11.6858 12.542 11.7029C12.5951 11.7237 12.6442 11.7503 12.6932 11.7768C12.7153 11.7891 12.7393 11.7986 12.7614 11.8118C12.8205 11.8497 12.8756 11.8933 12.9266 11.9378C12.9337 11.9444 12.9427 11.9492 12.9507 11.9558C13.1881 12.1708 13.3374 12.4664 13.3544 12.797H18.4442C19.1134 12.797 19.6573 12.2835 19.6573 11.6498V9.00138C19.6583 8.37147 19.0903 7.85428 18.3951 7.85428ZM9.76417 7.85428C9.91944 7.41381 10.3552 7.09081 10.8731 7.09081H13.2071C13.725 7.09081 14.1608 7.41287 14.3161 7.85428H9.76417Z" fill="white" />
+                                </Svg>
+
+                                <Text style={{ fontFamily: `${selectedFont} 600`, fontSize: 14, color: selectedColor }}>COURSE</Text>
+                                <View style={{ backgroundColor: "#6D6E71", width: 393, height: 1 }}></View>
+
+                            </View>
+
+
+                            <View style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+                                {data?.course?.map((detail, index) => (
+                                    <View
+                                        // wrap={false}
+                                        key={index}
+                                        style={{ display: "flex", flexDirection: "column", }}>
+                                        <View style={{ display: "flex", flexDirection: "row", gap: 12 }}>
+                                            <Text style={{ fontSize: 12, color: "#414042", fontFamily: `${selectedFont} 500`, width: 132 }}>{detail.duration?.start?.year !== "Year" &&
+                                                `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
+                                                    ? "Present"
+                                                    : detail.duration?.end?.year
+                                                }
+                                        `} </Text>
+                                            <Text style={{ fontSize: 12, color: "#414042", fontFamily: `${selectedFont} 500`, width: 379 }}>{detail.title}</Text>
+                                        </View>
+                                        <View style={{ display: "flex", flexDirection: "row", gap: 12 }}>
+                                            <Text style={{ fontSize: 12, color: "#414042", fontFamily: `${selectedFont} 500`, width: 132 }}>{detail.organization}</Text>
+                                            <Text style={{ fontSize: 10, color: "#939598", fontFamily: `${selectedFont} 400`, width: 379 }}>{detail.description} </Text>
+                                        </View>
+                                    </View>
+
+                                ))}
+                            </View>
+                        </View>
+                    )}
+
+                    {data?.project?.length > 0 && (
+                        <View style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+
+                            <View style={{ display: "flex", flexDirection: "row", gap: 8, justifyContent: "center", alignItems: "center" }}>
+                                <Svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <Path d="M11.991 23C18.0661 23 22.9965 18.0751 23.0033 12C23.0101 5.92487 18.0908 1 12.0156 1C5.9405 1 1.01011 5.92487 1.00331 12C0.996512 18.0751 5.91588 23 11.991 23Z" fill="#383839" />
+                                    <Path d="M12.7866 13.0684V12.7343C12.7866 12.3272 12.452 12 12.0393 12C11.6265 12 11.293 12.3272 11.293 12.7343V13.0684C11.293 13.4735 11.6265 13.8027 12.0393 13.8027C12.452 13.8027 12.7866 13.4735 12.7866 13.0684Z" fill="white" />
+                                    <Path d="M13.3004 13.659C13.1341 14.1714 12.6352 14.5484 12.0402 14.5484C11.4451 14.5484 10.9463 14.1714 10.78 13.659H5.63408C5.30951 13.659 5.00299 13.587 4.72852 13.4629V16.6949C4.72852 17.3248 5.27346 17.842 5.94162 17.842H18.1407C18.8089 17.842 19.3538 17.3248 19.3538 16.6949V13.4648C19.0784 13.5879 18.7718 13.659 18.4473 13.659H13.3004Z" fill="white" />
+                                    <Path d="M18.3951 7.85428H15.4821C15.3078 6.81516 14.3531 6.01758 13.2061 6.01758H10.8721C9.72411 6.01758 8.77045 6.81611 8.59415 7.85428H5.6831C4.98889 7.85428 4.41992 8.37146 4.41992 9.00232V11.6489C4.41992 12.2836 4.96386 12.797 5.63302 12.797H10.7228C10.7389 12.4664 10.8901 12.1699 11.1265 11.9558C11.1325 11.9482 11.1416 11.9444 11.1486 11.9378C11.2017 11.8933 11.2568 11.8497 11.3159 11.8118C11.3369 11.7995 11.3619 11.79 11.384 11.7768C11.4331 11.7503 11.4822 11.7218 11.5332 11.7029C11.5743 11.6858 11.6204 11.6764 11.6635 11.665C11.7025 11.6536 11.7376 11.6394 11.7757 11.6328C11.8598 11.6158 11.949 11.6072 12.0381 11.6072C12.1283 11.6072 12.2154 11.6158 12.3006 11.6328C12.3396 11.6394 12.3747 11.6536 12.4128 11.665C12.4558 11.6764 12.4999 11.6858 12.542 11.7029C12.5951 11.7237 12.6442 11.7503 12.6932 11.7768C12.7153 11.7891 12.7393 11.7986 12.7614 11.8118C12.8205 11.8497 12.8756 11.8933 12.9266 11.9378C12.9337 11.9444 12.9427 11.9492 12.9507 11.9558C13.1881 12.1708 13.3374 12.4664 13.3544 12.797H18.4442C19.1134 12.797 19.6573 12.2835 19.6573 11.6498V9.00138C19.6583 8.37147 19.0903 7.85428 18.3951 7.85428ZM9.76417 7.85428C9.91944 7.41381 10.3552 7.09081 10.8731 7.09081H13.2071C13.725 7.09081 14.1608 7.41287 14.3161 7.85428H9.76417Z" fill="white" />
+                                </Svg>
+
+                                <Text style={{ fontFamily: `${selectedFont} 600`, fontSize: 14, color: selectedColor }}>PROJECT</Text>
+                                <View style={{ backgroundColor: "#6D6E71", width: 393, height: 1 }}></View>
+
+                            </View>
+
+
+                            <View style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+                                {data?.project?.map((detail, index) => (
+                                    <View
+                                        // wrap={false}
+                                        key={index}
+                                        style={{ display: "flex", flexDirection: "column", }}>
+                                        <View style={{ display: "flex", flexDirection: "row", gap: 12 }}>
+                                            <Text style={{ fontSize: 12, color: "#414042", fontFamily: `${selectedFont} 500`, width: 132 }}>{detail.duration?.start?.year !== "Year" &&
+                                                `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
+                                                    ? "Present"
+                                                    : detail.duration?.end?.year
+                                                }
+                                        `} </Text>
+                                            <Text style={{ fontSize: 12, color: "#414042", fontFamily: `${selectedFont} 500`, width: 379 }}>{detail.title}</Text>
+                                        </View>
+                                        <View style={{ display: "flex", flexDirection: "row", gap: 12 }}>
+                                            <Text style={{ fontSize: 12, color: "#414042", fontFamily: `${selectedFont} 500`, width: 132 }}>{detail.organization}</Text>
+                                            <Text style={{ fontSize: 10, color: "#939598", fontFamily: `${selectedFont} 400`, width: 379 }}>{detail.description} </Text>
+                                        </View>
+                                    </View>
+
+                                ))}
+                            </View>
+                        </View>
+                    )}
+
 
                     {data?.section?.map((item, index) => (
                         <View
@@ -293,6 +424,8 @@ const Template47 = ({ data, selectedColor, selectedFont, preview }) => {
                             ))}
                         </View>
                     ))}
+
+
                     <View style={{ style: "flex", flexDirection: "column", gap: 48, }}>
 
                         {data?.skills?.length > 0 && (
@@ -352,6 +485,7 @@ const Template47 = ({ data, selectedColor, selectedFont, preview }) => {
                                 </View>
                             </View>
                         )}
+
                         {data?.hobbies?.length > 0 && (
                             <View wrap={false} style={{ display: "flex", flexDirection: "column", gap: 12, width: "100%" }}>
                                 <View style={{ display: "flex", flexDirection: "row", gap: 8, alignItems: "center" }}>
@@ -363,7 +497,7 @@ const Template47 = ({ data, selectedColor, selectedFont, preview }) => {
 
 
                                     <View style={{ display: "flex", flexDirection: "row", gap: 16, justifyContent: "center", alignItems: "center" }}>
-                                        <Text style={{ fontFamily: `${selectedFont} 600`, fontSize: 14, color: selectedColor }}>INTERESTS</Text>
+                                        <Text style={{ fontFamily: `${selectedFont} 600`, fontSize: 14, color: selectedColor }}>HOBBIES</Text>
                                         <View style={{ backgroundColor: "#6D6E71", width: 450, height: 1 }}></View>
                                     </View>
                                 </View>
@@ -409,6 +543,7 @@ const Template47 = ({ data, selectedColor, selectedFont, preview }) => {
                                 </View>
                             </View>
                         )}
+
                     </View>
 
 
