@@ -163,7 +163,8 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
               width: 326,
               display: "flex",
               flexDirection: "column",
-              gap: 70,
+              gap: 50,
+              marginTop:30
             }}
           >
             <View style={{ display: "flex", flexDirection: "column", gap: 4 }}>
@@ -419,66 +420,66 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
               </View>
             )}
 
-            {data?.achievement?.length > 0 && (
+            {data?.achievements?.length > 0 && (<View
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: 16,
+                alignItems: "flex-start",
+                width: 250,
+              }}
+            >
+              <View
+                style={{
+                  borderBottom: 1,
+                  borderBottomColor: "#000000",
+                  width: 250,
+                }}
+              >
+                <Text
+                  style={{
+                    paddingBottom: 5,
+                    fontFamily: `${selectedFont} 400`,
+                    fontSize:16
+                  }}
+                >
+                 ACHIEVEMENTS & AWARDS
+                </Text>
+              </View>
               <View
                 style={{
                   display: "flex",
                   flexDirection: "column",
-                  gap: 16,
-                  alignItems: "flex-start",
-                  width: 250,
+                  gap: 10,
+                  width: "100%",
+
                 }}
               >
-                <View
-                  style={{
-                    borderBottom: 1,
-                    borderBottomColor: "#000000",
-                    width: 250,
-                  }}
-                >
-                  <Text
+                {data.achievements?.map((detail, index) => (
+                  <View
+                    key={index}
                     style={{
-                      paddingBottom: 5,
-                      fontFamily: `${selectedFont} 400`,
-                      fontSize: 16,
+                      display: "flex",
+                      // flexDirection: "row",
+                      gap: 8,
+                      alignItems: "start",
+                      flexDirection: 'column'
                     }}
                   >
-                    ACHIEVEMENTS & AWARDS
-                  </Text>
-                </View>
-                <View
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: 10,
-                    width: "100%",
-                  }}
-                >
-                  {data.achievement?.map((detail, index) => (
-                    <View
-                      key={index}
+
+                    <Text
                       style={{
-                        display: "flex",
-                        // flexDirection: "row",
-                        gap: 8,
-                        alignItems: "start",
-                        flexDirection: "column",
+                        fontSize: 12,
+                        fontFamily: `${selectedFont} 600`,
+                        color: "#000000",
                       }}
                     >
-                      <Text
-                        style={{
-                          fontSize: 12,
-                          fontFamily: `${selectedFont} 600`,
-                          color: "#000000",
-                        }}
-                      >
-                        {detail.title}
-                      </Text>
-                    </View>
-                  ))}
-                </View>
+                      {detail.title}
+                    </Text>
+                  </View>
+                ))}
               </View>
-            )}
+            </View>)}
 
             {data?.socialLinks?.length > 0 && (
               <View

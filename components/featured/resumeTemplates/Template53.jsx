@@ -44,16 +44,8 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
             />
           )}
 
-          <View
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              gap: 16,
-              width: "70%",
-              paddingLeft: "10px",
-            }}
-          >
-            <View>
+          <View style={{ display: "flex", flexDirection: "column", gap: 16, width: "70%", paddingLeft: "10px" }}>
+            <View style={{gap:4}}>
               <Text
                 style={{
                   fontFamily: `${selectedFont} 400`,
@@ -61,14 +53,15 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
                   color: "#344A50",
                   wordBreak: "break-word",
                   flexWrap: "wrap",
+                  flexWrap: "wrap",
                 }}
               >
                 {data.firstName} {data.lastName}
               </Text>
               <Text
                 style={{
-                  fontFamily: `${selectedFont} 500`,
-                  fontSize: 10,
+                  fontFamily: `${selectedFont} 400`,
+                  fontSize: 14,
                   color: selectedColor,
                   wordBreak: "break-word",
                   flexWrap: "wrap",
@@ -79,7 +72,7 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
             </View>
 
             <View style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-              <View style={{ display: "flex", flexDirection: "row", gap: 12 }}>
+              <View style={{ display: "flex", flexDirection: "row", gap: 12,alignItems:'center' }}>
                 <Svg
                   width="16"
                   height="16"
@@ -107,7 +100,7 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
                   {data.location}
                 </Text>
               </View>
-              <View style={{ display: "flex", flexDirection: "row", gap: 12 }}>
+              <View style={{ display: "flex", flexDirection: "row", gap: 12,alignItems:'center' }}>
                 <Svg
                   width="16"
                   height="16"
@@ -139,10 +132,10 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
                   {data.email}
                 </Text>
               </View>
-              <View style={{ display: "flex", flexDirection: "row", gap: 12 }}>
+              <View style={{ display: "flex", flexDirection: "row", gap: 12,alignItems:'center' }}>
                 <Svg
-                  width="14"
-                  height="14"
+                  width="16"
+                  height="16"
                   viewBox="0 0 14 14"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
@@ -179,7 +172,7 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
               <Text
                 style={{
                   fontFamily: `${selectedFont} 400`,
-                  fontSize: 14,
+                  fontSize: 12,
                   color: selectedColor,
                 }}
               >
@@ -210,59 +203,47 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
               gap: 24,
             }}
           >
-            {data?.experience?.length > 0 && (
-              <View
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  width: "100%",
-                  gap: 16,
-                }}
-              >
-                <View>
-                  <Text
-                    style={{
-                      fontFamily: `${selectedFont} 400`,
-                      fontSize: 14,
-                      color: selectedColor,
-                    }}
+            {data?.experience?.length > 0 && (<View style={{ display: "flex", flexDirection: "column", width: "100%", gap: 16 }}>
+              <View>
+                <Text
+                  style={{
+                    fontFamily: `${selectedFont} 400`,
+                    fontSize: 14,
+                    color: selectedColor,
+                  }}
+                >
+                  WORK
+                </Text>
+              </View>
+              <View style={{ width: "100%", gap: 24 }}>
+                {data?.experience?.map((detail, index) => (
+                  <View
+                    key={index}
+                    style={{ display: "flex", width: "100%", flexDirection: "column" }}
                   >
-                    WORK
-                  </Text>
-                </View>
-                <View style={{ width: "100%", gap: 24 }}>
-                  {data?.experience?.map((detail, index) => (
                     <View
-                      key={index}
                       style={{
-                        display: "flex",
                         width: "100%",
-                        flexDirection: "column",
+                        display: "flex",
+                        flexDirection: "row",
+                        justifyContent: "space-between",
+                        alignItems: "start"
                       }}
                     >
-                      <View
+                      <Text
                         style={{
-                          width: "100%",
-                          display: "flex",
-                          flexDirection: "row",
-                          justifyContent: "space-between",
-                          alignItems: "start",
+                          fontFamily: `${selectedFont} 700`,
+                          fontSize: 12,
+                          color: "#161616",
+                          width: "70%"
                         }}
                       >
-                        <Text
-                          style={{
-                            fontFamily: `${selectedFont} 700`,
-                            fontSize: 14,
-                            color: "#161616",
-                            width: "70%",
-                          }}
-                        >
-                          {detail.designation}
-                        </Text>
-                        <Text
-                          style={{
-                            fontFamily: `${selectedFont} 500`,
-                            fontSize: 10,
+                        {detail.designation}
+                      </Text>
+                      <Text
+                        style={{
+                          fontFamily: `${selectedFont} 500`,
+                          fontSize: 10,
 
                             color: selectedColor,
                             justifyContent: "flex-end",
@@ -362,7 +343,7 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
                           <Text
                             style={{
                               fontFamily: `${selectedFont} 700`,
-                              fontSize: 14,
+                              fontSize: 12,
                               color: "#161616",
                               width: "70%",
                             }}
@@ -473,7 +454,7 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
                           <Text
                             style={{
                               fontFamily: `${selectedFont} 700`,
-                              fontSize: 14,
+                              fontSize: 12,
                               color: "#161616",
                               width: "70%",
                             }}
@@ -584,7 +565,7 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
                           <Text
                             style={{
                               fontFamily: `${selectedFont} 700`,
-                              fontSize: 14,
+                              fontSize: 12,
                               color: "#161616",
                               width: "70%",
                             }}
@@ -695,7 +676,7 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
                           <Text
                             style={{
                               fontFamily: `${selectedFont} 700`,
-                              fontSize: 14,
+                              fontSize: 12,
                               color: "#161616",
                               width: "70%",
                             }}
@@ -758,75 +739,52 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
 
             {data?.section?.length > 0 && (
               <>
-                {data?.section.map((item, index) => (
-                  <View
-                    key={index}
-                    style={{
-                      gap: "4px",
-                      display: "flex",
-                      flexDirection: "column",
-                    }}
-                  >
-                    <View
+                  {data?.section.map((item, index) => (
+              <View key={index} style={{gap:'4px' ,display:'flex',flexDirection:'column'}}>
+                <View
+                  style={{ width: '100%', height: 1, backgroundColor: "#344A50" }}
+                ></View>
+                <View style={{ display: "flex", flexDirection: "column", width: "100%", gap: 16,marginTop:8 }}>
+                  <View>
+                    <Text
                       style={{
-                        width: "100%",
-                        height: 1,
-                        backgroundColor: "#344A50",
-                      }}
-                    ></View>
-                    <View
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        width: "100%",
-                        gap: 16,
-                        marginTop: 8,
+                        fontFamily: `${selectedFont} 400`,
+                        fontSize: 14,
+                        color: selectedColor,
                       }}
                     >
-                      <View>
-                        <Text
+                       {item.header}
+                    </Text>
+                  </View>
+                  <View style={{ width: "100%", gap: 24 }}>
+                    {item?.subSection?.map((detail, index) => (
+                      <View
+                        key={index}
+                        style={{ display: "flex", width: "100%", flexDirection: "column" }}
+                      >
+                        <View
                           style={{
-                            fontFamily: `${selectedFont} 400`,
-                            fontSize: 14,
-                            color: selectedColor,
+                            width: "100%",
+                            display: "flex",
+                            flexDirection: "row",
+                            justifyContent: "space-between",
+                            alignItems: "start"
                           }}
                         >
-                          {item.header}
-                        </Text>
-                      </View>
-                      <View style={{ width: "100%", gap: 24 }}>
-                        {item?.subSection?.map((detail, index) => (
-                          <View
-                            key={index}
+                          <Text
                             style={{
-                              display: "flex",
-                              width: "100%",
-                              flexDirection: "column",
+                              fontFamily: `${selectedFont} 700`,
+                              fontSize: 12,
+                              color: "#161616",
+                              width: "70%"
                             }}
                           >
-                            <View
-                              style={{
-                                width: "100%",
-                                display: "flex",
-                                flexDirection: "row",
-                                justifyContent: "space-between",
-                                alignItems: "start",
-                              }}
-                            >
-                              <Text
-                                style={{
-                                  fontFamily: `${selectedFont} 700`,
-                                  fontSize: 14,
-                                  color: "#161616",
-                                  width: "70%",
-                                }}
-                              >
-                                {detail.title}
-                              </Text>
-                              <Text
-                                style={{
-                                  fontFamily: `${selectedFont} 500`,
-                                  fontSize: 10,
+                            {detail.title}
+                          </Text>
+                          <Text
+                            style={{
+                              fontFamily: `${selectedFont} 500`,
+                              fontSize: 10,
 
                                   color: selectedColor,
                                   justifyContent: "flex-end",
@@ -907,7 +865,7 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
                         <Text
                           style={{
                             fontFamily: `${selectedFont} 700`,
-                            fontSize: 14,
+                            fontSize: 12,
                             color: "#161616",
                           }}
                         >
@@ -1056,64 +1014,60 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
               </>
             )}
 
-            {data?.achievement?.length > 0 && (
-              <>
-                {" "}
-                <View
-                  style={{ width: 180, height: 1, backgroundColor: "#344A50" }}
-                ></View>
-                <View
-                  style={{ display: "flex", flexDirection: "column", gap: 16 }}
-                >
-                  <View>
-                    <Text
-                      style={{
-                        fontSize: 14,
-                        fontFamily: `${selectedFont} 400`,
-                        color: selectedColor,
-                      }}
-                    >
-                      ACHIEVEMENTS & AWARDS
-                    </Text>
-                  </View>
-                  <View
+            {data?.achievements?.length > 0 && (<>  <View
+              style={{ width: 180, height: 1, backgroundColor: "#344A50" }}
+            ></View>
+
+              <View style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+                <View>
+                  <Text
                     style={{
-                      flexDirection: "row",
-                      gap: 8,
-                      justifyContent: "space-between",
-                      flexWrap: "wrap",
-                      width: "100%",
+                      fontSize: 14,
+                      fontFamily: `${selectedFont} 400`,
+                      color: selectedColor,
                     }}
                   >
-                    {data?.achievement?.map((detail, index) => (
-                      <View
-                        key={index}
+                    ACHIEVEMENTS & AWARDS
+                  </Text>
+                </View>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    gap: 8,
+                    justifyContent: "space-between",
+                    flexWrap: "wrap",
+                    width: "100%",
+                  }}
+                >
+                  {data?.achievements?.map((detail, index) => (
+                    <View
+                      key={index}
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        gap: "4",
+                        width: "100%",
+                      }}
+                    >
+                      <Text
                         style={{
-                          display: "flex",
-                          flexDirection: "column",
-                          alignItems: "center",
-                          gap: "4",
+                          fontSize: 12,
+                          color: "#47484C",
                           width: "100%",
+                          fontFamily: `${selectedFont} 500`,
+                          flexWrap: "wrap",
+                          wordBreak: "break-word",
                         }}
                       >
-                        <Text
-                          style={{
-                            fontSize: 12,
-                            color: "#47484C",
-                            width: "100%",
-                            fontFamily: `${selectedFont} 500`,
-                            flexWrap: "wrap",
-                            wordBreak: "break-word",
-                          }}
-                        >
-                          {detail.title}
-                        </Text>
-                      </View>
-                    ))}
-                  </View>
+                        {detail.title}
+                      </Text>
+
+                    </View>
+                  ))}
                 </View>
-              </>
-            )}
+              </View></>)}
+
 
             {data?.languages?.length > 0 && (
               <>

@@ -296,7 +296,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
             </View>
           )}
 
-          {data?.achievement?.length > 0 && (
+{data?.achievements?.length > 0 && (
             <View wrap={false} style={{}}>
               <View
                 style={{
@@ -332,7 +332,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                   gap: 8,
                 }}
               >
-                {data.achievement.map((detail, index) => (
+                {data.achievements.map((detail, index) => (
                   <Text
                     key={index}
                     style={{

@@ -497,12 +497,9 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
               </View>
             )}
 
-            {data?.achievement?.length > 0 && (
-              <View
-                style={{ flexDirection: "column", gap: "16px" }}
-                wrap={false}
-              >
-                <View style={{ paddingLeft: "24px", paddingRight: "16px" }}>
+            {data?.achievements?.length > 0 && (
+              <View style={{ flexDirection: "column", gap: "16px" }} wrap={false}>
+                <View style={{ paddingLeft: '24px', paddingRight: '16px' }}>
                   <Text
                     style={{
                       fontFamily: `${selectedFont} 400`,
@@ -522,7 +519,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                     marginLeft: "24px",
                   }}
                 >
-                  {data?.achievement?.map((item, index) => (
+                  {data?.achievements?.map((item, index) => (
                     <View
                       wrap={false}
                       key={index}
@@ -1124,62 +1121,58 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                       />
                     </Svg>
 
-                    <Text
-                      style={{
-                        color: "#282829",
-                        fontFamily: `${selectedFont} 400`,
-                        fontSize: "16px",
-                      }}
-                    >
-                      INTERNSHIPS & PROJECTS
-                    </Text>
-                  </View>
-                  <View
+                  <Text
                     style={{
-                      height: "1px",
-                      width: "95%",
-                      backgroundColor: "#BCBEC0",
+                      color: "#282829",
+                      fontFamily: `${selectedFont} 400`,
+                      fontSize: "16px",
                     }}
-                  ></View>
+                  >
+                     PROJECTS
+                  </Text>
                 </View>
                 <View
                   style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: 16,
-                    paddingLeft: 8,
+                    height: "1px",
+                    width: "95%",
+                    backgroundColor: "#BCBEC0",
                   }}
-                >
-                  {data?.project?.map((detail, index) => (
-                    <>
+                ></View>
+              </View>
+              <View
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: 16,
+                  paddingLeft: 8,
+                }}
+              >
+                {data?.project?.map((detail, index) => (
+                  <>
+                    <View
+                      // wrap={true}
+                      // wrap={false}
+                      key={index}
+                      style={{ display: "flex", flexDirection: "row", gap: 16 }}
+                    >
                       <View
-                        // wrap={true}
-                        // wrap={false}
-                        key={index}
                         style={{
                           display: "flex",
-                          flexDirection: "row",
-                          gap: 16,
+                          flexDirection: "column",
+                          gap: 8,
+                          justifyContent: "space-between",
+                          width: "30%",
                         }}
                       >
-                        <View
+                        <Text
                           style={{
-                            display: "flex",
-                            flexDirection: "column",
-                            gap: 8,
-                            justifyContent: "space-between",
-                            width: "30%",
+                            color: "#414042",
+                            fontSize: "10px",
+                            fontFamily: `${selectedFont} 700`,
                           }}
                         >
-                          <Text
-                            style={{
-                              color: "#414042",
-                              fontSize: "10px",
-                              fontFamily: `${selectedFont} 700`,
-                            }}
-                          >
-                            {detail.title}
-                          </Text>
+                          {detail.title}
+                        </Text>
 
                           <Text
                             style={{
@@ -1736,122 +1729,59 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
             </View>
           )}
 
-          {data?.customDataSection?.length > 0 && (
+
+
+          {data?.customDataSection?.length > 0 && (<View
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              gap: 8,
+              width: "100%",
+            }}
+          >
             <View
               style={{
                 display: "flex",
-                flexDirection: "row",
-                gap: 8,
-                width: "100%",
+                flexDirection: "column",
+                gap: 16,
+                width: "95%",
               }}
             >
+           
               <View
                 style={{
                   display: "flex",
                   flexDirection: "column",
                   gap: 16,
-                  width: "95%",
+                  paddingLeft: 8,
                 }}
               >
-                {/* <View
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: 8,
-                  alignItems: "center",
-                  width: "100%",
-                }}
-              >
-                <View
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    alignItems: "center",
-                    gap: 12,
-                    width: "100%",
-                  }}
-                >
-                  <Svg
-                    width="32"
-                    height="33"
-                    viewBox="0 0 32 33"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <Path
-                      d="M15.9803 30.0234C23.7017 30.0234 29.9697 23.7554 29.9803 16.0234C29.9909 8.29145 23.7402 2.02344 16.0188 2.02344C8.29747 2.02344 2.02946 8.29145 2.01883 16.0234C2.00819 23.7554 8.25895 30.0234 15.9803 30.0234Z"
-                      fill={selectedColor}
-                    />
-                    <Path
-                      d="M16.9366 17.7995V17.3741C16.9366 16.8572 16.5188 16.4395 16.0033 16.4395C15.4879 16.4395 15.0713 16.856 15.0713 17.3741V17.7995C15.0713 18.3151 15.4879 18.7342 16.0033 18.7342C16.52 18.7342 16.9366 18.3151 16.9366 17.7995Z"
-                      fill="white"
-                    />
-                    <Path
-                      d="M17.5765 18.3163C17.3688 18.9951 16.7457 19.4932 16.0026 19.4932C15.2595 19.4932 14.6364 18.9938 14.4288 18.3163H8.00206C7.59672 18.3163 7.21389 18.221 6.87109 18.0566V22.3374C6.87109 23.1717 7.55167 23.8568 8.38613 23.8568H23.6216C24.4548 23.8568 25.1366 23.1717 25.1366 22.3374V18.0591C24.7926 18.2222 24.4098 18.3176 24.0044 18.3176H17.5765V18.3163Z"
-                      fill="white"
-                    />
-                    <Path
-                      d="M23.9397 10.6319H20.3028C20.0851 9.25561 18.8929 8.19922 17.4604 8.19922H14.5454C13.1117 8.19922 11.9207 9.25686 11.7005 10.6319H8.0649C7.19791 10.6319 6.4873 11.317 6.4873 12.1525V15.658C6.4873 16.4986 7.16665 17.1786 8.00236 17.1786H14.359C14.379 16.7407 14.5679 16.348 14.8632 16.0645C14.8707 16.0545 14.882 16.0494 14.8907 16.0406C14.957 15.9817 15.0258 15.924 15.0996 15.8738C15.1259 15.8575 15.1572 15.8449 15.1847 15.8273C15.246 15.7922 15.3073 15.7546 15.3711 15.7295C15.4224 15.7069 15.48 15.6944 15.5337 15.6793C15.5825 15.6643 15.6263 15.6454 15.6739 15.6367C15.779 15.6141 15.8903 15.6028 16.0017 15.6028C16.1143 15.6028 16.2231 15.6141 16.3294 15.6367C16.3782 15.6454 16.422 15.6643 16.4695 15.6793C16.5233 15.6944 16.5784 15.7069 16.6309 15.7295C16.6972 15.7571 16.7585 15.7922 16.8198 15.8273C16.8474 15.8436 16.8774 15.8562 16.9049 15.8738C16.9787 15.924 17.0475 15.9817 17.1113 16.0406C17.1214 16.0494 17.1314 16.0557 17.1414 16.0645C17.4366 16.3493 17.6243 16.7407 17.6455 17.1786H24.0022C24.8379 17.1786 25.5173 16.4986 25.5173 15.6592V12.1513C25.5173 11.3157 24.8079 10.6319 23.9397 10.6319ZM13.1605 10.6319C13.3544 10.0473 13.8986 9.62071 14.5454 9.62071H17.4604C18.1072 9.62071 18.6514 10.0473 18.8453 10.6319H13.1605Z"
-                      fill="white"
-                    />
-                  </Svg>
-
-                  <Text
-                    style={{
-                      color: "#282829",
-                      fontFamily: `${selectedFont} 400`,
-                      fontSize: "16px",
-                    }}
-                  >
-                    EXPERIENCE
-                  </Text>
-                </View>
-                <View
-                  style={{
-                    height: "1px",
-                    width: "95%",
-                    backgroundColor: "#BCBEC0",
-                  }}
-                ></View>
-              </View> */}
-                <View
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: 16,
-                    paddingLeft: 8,
-                  }}
-                >
-                  {data?.customDataSection?.map((detail, index) => (
-                    <>
+                {data?.customDataSection?.map((detail, index) => (
+                  <>
+                    <View
+                      // wrap={true}
+                      // wrap={false}
+                      key={index}
+                      style={{ display: "flex", flexDirection: "row", gap: 16 }}
+                    >
                       <View
-                        // wrap={true}
-                        // wrap={false}
-                        key={index}
                         style={{
                           display: "flex",
-                          flexDirection: "row",
-                          gap: 16,
+                          flexDirection: "column",
+                          gap: 8,
+                          justifyContent: "space-between",
+                          width: "30%",
                         }}
                       >
-                        <View
+                        <Text
                           style={{
-                            display: "flex",
-                            flexDirection: "column",
-                            gap: 8,
-                            justifyContent: "space-between",
-                            width: "30%",
+                            color: "#414042",
+                            fontSize: "10px",
+                            fontFamily: `${selectedFont} 700`,
                           }}
                         >
-                          <Text
-                            style={{
-                              color: "#414042",
-                              fontSize: "10px",
-                              fontFamily: `${selectedFont} 700`,
-                            }}
-                          >
-                            {detail.title}
-                          </Text>
+                          {detail.title}
+                        </Text>
 
                           <Text
                             style={{

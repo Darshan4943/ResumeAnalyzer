@@ -458,10 +458,10 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                       wrap={false}
                       key={index}
                       style={{
-                        color: "white",
-                        fontSize: "12px",
-                        width: "90%",
-                        flexWrap: "wrap",
+                        color: "white", fontSize: "12px", width: "90%",
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: "4px",
                       }}
                     >
                       <Text style={{ fontFamily: `${selectedFont} 400` }}>
@@ -480,79 +480,9 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                 </View>
               </View>
             )}
-            {data?.reference?.length > 0 && (
-              <View style={{ flexDirection: "column", gap: " 16px" }}>
-                <View
-                  wrap={false}
-                  style={{
-                    marginRight: "-12px",
-                    marginTop: "4px",
-                    alignItems: "center",
-                    flexDirection: "row",
-                  }}
-                >
-                  <Svg width={180} height={43} viewBox="0 0 180 43">
-                    <Path
-                      d="M10.942 32.118H179.514V0.887939H10.942L0.782959 16.5029L10.942 32.118Z"
-                      fill={selectedColor}
-                    />
-                    <Path
-                      d="M167.942 42.8819L179.514 32.118L167.942 32.1179V42.8819Z"
-                      fill={selectedColor}
-                    />
-                    <Text
-                      x="10%"
-                      y="40%"
-                      dominantBaseline="middle"
-                      textAnchor="start"
-                      fill="white"
-                      style={{
-                        fontFamily: `${selectedFont} 400`,
-                        fontSize: "14px",
-                      }}
-                    >
-                      REFERENCES
-                    </Text>
-                  </Svg>
-                </View>
-                <View
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "8px",
-                    marginLeft: "16px",
-                  }}
-                >
-                  {data?.reference?.map((item, index) => (
-                    <View
-                      wrap={false}
-                      key={index}
-                      style={{
-                        color: "white",
-                        fontSize: "12px",
-                        width: "90%",
-                        flexWrap: "wrap",
-                      }}
-                    >
-                      <Text style={{ fontFamily: `${selectedFont} 400` }}>
-                        {item?.referantName}
-                      </Text>
-                      <Text style={{ fontFamily: `${selectedFont} 400` }}>
-                        {item?.designation}
-                      </Text>
-                      <Text style={{ fontFamily: `${selectedFont} 400` }}>
-                        {item?.organization}
-                      </Text>
-                      <Text style={{ fontFamily: `${selectedFont} 400` }}>
-                        {item?.email}
-                      </Text>
-                    </View>
-                  ))}
-                </View>
-              </View>
-            )}
 
-            {data?.achievement?.length > 0 && (
+
+            {data?.achievements?.length > 0 && (
               <View style={{ flexDirection: "column", gap: " 16px" }}>
                 <View
                   wrap={false}
@@ -583,7 +513,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                         fontSize: "14px",
                       }}
                     >
-                      Achievements & Awards
+                      Achievements 
                     </Text>
                   </Svg>
                 </View>
@@ -595,7 +525,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                     marginLeft: "16px",
                   }}
                 >
-                  {data?.achievement?.map((item, index) => (
+                  {data?.achievements?.map((item, index) => (
                     <View
                       wrap={false}
                       key={index}
@@ -721,6 +651,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
               </>
             )}
 
+
             {data?.hobbies?.length > 0 && (
               <View style={{ flexDirection: "column", gap: " 16px" }}>
                 <View
@@ -768,15 +699,96 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                     <View
                       wrap={false}
                       key={index}
+
                       style={{
-                        color: "white",
-                        fontSize: "12px",
-                        width: "90%",
-                        flexWrap: "wrap",
+                        color: "white", fontSize: "12px", width: "90%",
+                        flexWrap: "wrap"
                       }}
                     >
                       <Text style={{ fontFamily: `${selectedFont} 400` }}>
-                        {item?.title}
+                        {item?.referantName}
+                      </Text>
+                      <Text style={{ fontFamily: `${selectedFont} 400`, }}>
+                        {item?.designation}
+                      </Text>
+                      <Text style={{ fontFamily: `${selectedFont} 400`, }}>
+                        {item?.organization}
+                      </Text>
+                      <Text style={{ fontFamily: `${selectedFont} 400`, }}>
+                        {item?.email}
+                      </Text>
+                    </View>
+                  ))}
+                </View>
+              </View>
+            )}
+
+            {data?.reference?.length > 0 && (
+              <View style={{ flexDirection: "column", gap: " 16px" }}>
+                <View
+                  wrap={false}
+                  style={{
+                    marginRight: "-12px",
+                    marginTop: "4px",
+                    alignItems: "center",
+                    flexDirection: "row",
+                  }}
+                >
+                  <Svg width={180} height={43} viewBox="0 0 180 43">
+                    <Path
+                      d="M10.942 32.118H179.514V0.887939H10.942L0.782959 16.5029L10.942 32.118Z"
+                      fill={selectedColor}
+                    />
+                    <Path
+                      d="M167.942 42.8819L179.514 32.118L167.942 32.1179V42.8819Z"
+                      fill={selectedColor}
+                    />
+                    <Text
+                      x="10%"
+                      y="40%"
+                      dominantBaseline="middle"
+                      textAnchor="start"
+                      fill="white"
+                      style={{
+                        fontFamily: `${selectedFont} 400`,
+                        fontSize: "14px",
+                      }}
+                    >
+                      REFERENCES
+                    </Text>
+                  </Svg>
+                </View>
+                <View
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "8px",
+                    marginLeft: "16px",
+                  }}
+                >
+                  {data?.reference?.map((item, index) => (
+                    <View
+
+                      key={index}
+
+                      style={{
+                        color: "white", fontSize: "12px", width: "90%",
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: "4px",
+                      }}
+                    >
+                      <Text style={{ fontFamily: `${selectedFont} 400` }}>
+                        {item?.referantName}
+                      </Text>
+                      <Text style={{ fontFamily: `${selectedFont} 400`, }}>
+                        {item?.designation}
+                      </Text>
+                      <Text style={{ fontFamily: `${selectedFont} 400`, }}>
+                        {item?.organization}
+                      </Text>
+                      <Text style={{ fontFamily: `${selectedFont} 400`, }}>
+                        {item?.email}
                       </Text>
                     </View>
                   ))}
@@ -837,7 +849,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                     fontSize: "16px",
                   }}
                 >
-                  About me
+                  ABOUT ME
                 </Text>
                 <View
                   style={{
@@ -1120,6 +1132,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
             </View>
           </View>
 
+
           {data?.project?.length > 0 && (
             <View
               style={{
@@ -1132,7 +1145,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
               <View style={{}}>
                 <Image
                   style={{ width: "27px", height: "27px" }}
-                  src="/images/services/experience.png"
+                  src="/images/services/Projects.png"
                   alt=""
                 />
               </View>
@@ -1247,6 +1260,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
             </View>
           )}
 
+        
           {data?.extraCaricularData?.length > 0 && (
             <View
               style={{
@@ -1259,7 +1273,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
               <View style={{}}>
                 <Image
                   style={{ width: "27px", height: "27px" }}
-                  src="/images/services/experience.png"
+                  src="/images/services/Activities.png"
                   alt=""
                 />
               </View>
@@ -1386,7 +1400,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
               <View style={{}}>
                 <Image
                   style={{ width: "27px", height: "27px" }}
-                  src="/images/services/experience.png"
+                  src="/images/services/Internships.png"
                   alt=""
                 />
               </View>
@@ -1513,7 +1527,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
               <View style={{}}>
                 <Image
                   style={{ width: "27px", height: "27px" }}
-                  src="/images/services/experience.png"
+                  src="/images/services/Courses.png"
                   alt=""
                 />
               </View>
@@ -1656,7 +1670,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                       display: "flex",
                       alignItems: "flex-end",
                     }}
-                    src="/images/services/profile_img.png"
+                    src="/images/services/Custom.png"
                     alt=""
                   />
                   <View
