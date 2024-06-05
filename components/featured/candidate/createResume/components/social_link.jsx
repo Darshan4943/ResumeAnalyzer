@@ -2,12 +2,11 @@ import React, { useState } from "react";
 
 const SocialLink = ({ setData, data }) => {
   const [isChecked, setIsChecked] = useState(true);
-  const [view, setView] = useState(false);
+  const [view, setView] = useState(true);
   const [isModified, setIsModified] = useState({ status: false, index: 0 });
   const [linkData, setLinkData] = useState({
     platform: "",
     link: "",
-    discription: "",
   });
   const handleSwitchChange = () => {
     setIsChecked(!isChecked);
@@ -16,22 +15,21 @@ const SocialLink = ({ setData, data }) => {
 
   const handleSave = () => {
     if (isModified?.status === true) {
-      const dumyData = data?.sociaLinks;
+      const dumyData = data?.socialLinks;
       const index = isModified?.index;
       dumyData?.splice(index, 1, linkData);
-      setData({ ...data, sociaLinks: dumyData });
+      setData({ ...data, socialLinks: dumyData });
       setView(false);
     } else {
       setData({
         ...data,
-        sociaLinks: [linkData, ...data.sociaLinks],
+        socialLinks: [linkData, ...data.socialLinks],
       });
       setView(false);
     }
     setLinkData({
       platform: "",
       link: "",
-      discription: "",
     });
   };
   const handleInputChange = (e) => {
@@ -42,7 +40,7 @@ const SocialLink = ({ setData, data }) => {
     });
   };
   const handleEditSocial = (index) => {
-    const dataToEdit = data?.sociaLinks[index];
+    const dataToEdit = data?.socialLinks[index];
 
     if (dataToEdit) {
       setView(true);
@@ -53,7 +51,7 @@ const SocialLink = ({ setData, data }) => {
   const handleDeleteSocial = (index) => {
     setData({
       ...data,
-      sociaLinks: data?.sociaLinks?.filter((item, i) => i !== index),
+      socialLinks: data?.socialLinks?.filter((item, i) => i !== index),
     });
   };
   return (
@@ -78,8 +76,8 @@ const SocialLink = ({ setData, data }) => {
           </label>
         </div>
 
-        {data?.sociaLinks?.length > 0 &&
-          data?.sociaLinks?.map((social, index) => (
+        {data?.socialLinks?.length > 0 &&
+          data?.socialLinks?.map((social, index) => (
             <div
               key={index}
               className="flex flex-col gap-1 p-2 rounded-[6px] border border-[#DEDEDE]"
@@ -197,7 +195,7 @@ const SocialLink = ({ setData, data }) => {
               className="text-[16px] font-semibold text-[#06A9EF]"
               disabled={!isChecked}
             >
-              Add More
+              Add Links
             </p>
           </div>
         )}

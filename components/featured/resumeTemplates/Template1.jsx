@@ -13,7 +13,6 @@ import {
 } from "@react-pdf/renderer";
 
 function Template1({ data, selectedColor, selectedFont, preview }) {
-
   return (
     <Page size="A4" style={{ padding: 24 }} pageMode={"fullScreen"} wrap={true}>
       <View
@@ -78,8 +77,8 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                   preview
                     ? data?.profilePhoto
                     : Object.keys(data?.profilePhoto).includes("filename")
-                      ? URL.createObjectURL(data?.profilePhoto)
-                      : data?.profilePhoto
+                    ? URL.createObjectURL(data?.profilePhoto)
+                    : data?.profilePhoto
                 }
                 style={{
                   objectFit: "cover",
@@ -160,6 +159,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                     {data?.mobileNumber}
                   </Text>
                 </View>
+                
                 <View
                   style={{
                     flexDirection: "row",
@@ -196,6 +196,31 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                     {data?.email}
                   </Text>
                 </View>
+
+                <View
+                  style={{
+                    height: 24,
+                    flexDirection: "row",
+                    alignItems: "center",
+                    gap: 12,
+                  }}
+                >
+                 <Svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+<Rect width="22" height="22" fill="#414042"/>
+<Path d="M10.7697 3.49365C8.13939 3.49365 6 5.75797 6 8.54088C6 9.66193 6.6762 11.4896 8.06776 14.129C9.0515 15.995 10.02 17.5517 10.0601 17.6164L10.7687 18.7537L11.4774 17.6164C11.5185 17.5517 12.486 15.995 13.4697 14.129C14.8613 11.4906 15.5375 9.66295 15.5375 8.5419C15.5394 5.75798 13.4 3.49365 10.7697 3.49365ZM10.7697 11.1247C9.40393 11.1247 8.29794 9.95307 8.29794 8.50754C8.29794 7.062 9.40488 5.89042 10.7697 5.89042C12.1345 5.89042 13.2424 7.062 13.2424 8.50754C13.2424 9.95206 12.1355 11.1247 10.7697 11.1247Z" fill="white"/>
+</Svg>
+
+                  <Text
+                    style={{
+                      color: "#414042",
+                      fontSize: "10px",
+                      fontFamily: `${selectedFont} 400`,
+                    }}
+                  >
+                    {data?.location}
+                  </Text>
+                </View>
+
               </View>
             </View>
             <View style={{ flexDirection: "column" }}>
@@ -270,7 +295,11 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                           }}
                         >
                           {detail.duration?.start?.year !== "Year" &&
-                            `${detail.duration?.start?.year}-${detail.duration?.end?.year === "Year" ? "Pursuing" : detail.duration?.end?.year}`}
+                            `${detail.duration?.start?.year}-${
+                              detail.duration?.end?.year === "Year"
+                                ? "Pursuing"
+                                : detail.duration?.end?.year
+                            }`}
                         </Text>
                       </View>
                     ))}
@@ -322,7 +351,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
               </View>
             )}
 
-{data?.achievement?.length > 0 && (
+{data?.achievements?.length > 0 && (
               <View style={{ flexDirection: "column", gap: 12, width: "100%" }}>
                 <View style={{ flexDirection: "column", gap: 12 }}>
                   <Text
@@ -345,12 +374,11 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                     />
                   </Svg>
                 </View>
-                {data?.achievement?.map((detail, index) => (
+                {data?.achievements?.map((detail, index) => (
                   <>
                     <View
                       key={index}
                       style={{ flexDirection: "column", gap: 2 }}
-
                     >
                       <View>
                         <Text
@@ -364,7 +392,6 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                           {detail.title}
                         </Text>
                       </View>
-
                     </View>
                     {/* <View
                     style={{ backgroundColor: "#333", height: "1px", width: "16px" }}></View> */}
@@ -373,7 +400,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
               </View>
             )}
 
-            {data?.sociaLinks?.length > 0 && (
+            {data?.socialLinks?.length > 0 && (
               <View style={{ flexDirection: "column", gap: 12 }}>
                 <Text
                   style={{
@@ -394,8 +421,14 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                     fill={selectedColor}
                   />
                 </Svg>
-                <View style={{ flexDirection: "column", gap: 8, paddingRight: '10px' }}>
-                  {data?.sociaLinks?.map((detail, index) => (
+                <View
+                  style={{
+                    flexDirection: "column",
+                    gap: 8,
+                    paddingRight: "10px",
+                  }}
+                >
+                  {data?.socialLinks?.map((detail, index) => (
                     <View
                       wrap={false}
                       key={index}
@@ -409,25 +442,21 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                             fontFamily: `${selectedFont} 700`,
                             lineHeight: 1.5,
                             marginRight: "6px",
-
                           }}
                         >
                           {detail.platform}
                         </Text>
-
-
                       </View>
                       <Text
-                          style={{
-                            color: "#414042",
-                            fontSize: 12,
-                            fontFamily: `${selectedFont} 500`,
-                            lineHeight: 1.5,
-                          }}
-                        >
-                          {detail.link}
-                        </Text>
-                     
+                        style={{
+                          color: "#414042",
+                          fontSize: 12,
+                          fontFamily: `${selectedFont} 500`,
+                          lineHeight: 1.5,
+                        }}
+                      >
+                        {detail.link}
+                      </Text>
                     </View>
                   ))}
                 </View>
@@ -524,8 +553,15 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
               </View>
             )}
 
-{data?.reference?.length > 0 && (
-              <View wrap={false} style={{ flexDirection: "column", gap: 12, marginRight:"10px" }}>
+            {data?.reference?.length > 0 && (
+              <View
+                wrap={false}
+                style={{
+                  flexDirection: "column",
+                  gap: 12,
+                  marginRight: "10px",
+                }}
+              >
                 <Text
                   style={{
                     color: "#414042",
@@ -552,9 +588,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                       key={index}
                       style={{ flexDirection: "column", gap: "8px" }}
                     >
-                      <View
-                        style={{ gap: 8 }}
-                      >
+                      <View style={{ gap: 8 }}>
                         <Text
                           style={{
                             color: "#414042",
@@ -592,13 +626,11 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                           {detail.email}
                         </Text>
                       </View>
-
                     </View>
                   ))}
                 </View>
               </View>
             )}
-
           </View>
 
           <View
@@ -677,7 +709,6 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                     <View
                       key={index}
                       style={{ flexDirection: "column", gap: 2 }}
-
                     >
                       <View>
                         <Text
@@ -719,9 +750,10 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                             }}
                           >
                             {detail.duration?.start?.year !== "Year" &&
-                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
-                                ? "Present"
-                                : detail.duration?.end?.year
+                              `${detail.duration?.start?.year}-${" "}${
+                                detail.currentlyWorking
+                                  ? "Present"
+                                  : detail.duration?.end?.year
                               }
                          `}
                           </Text>
@@ -747,7 +779,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
               </View>
             )}
 
-{data?.internship?.length > 0 && (
+            {data?.internship?.length > 0 && (
               <View style={{ flexDirection: "column", gap: 12, width: "100%" }}>
                 <View style={{ flexDirection: "column", gap: 12 }}>
                   <Text
@@ -757,7 +789,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                       fontFamily: `${selectedFont} 400`,
                     }}
                   >
-                   INTERNSHIPS
+                    INTERNSHIPS
                   </Text>
                   <Svg width={141} height={4} viewBox="0 0 141 4">
                     <Path
@@ -775,7 +807,6 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                     <View
                       key={index}
                       style={{ flexDirection: "column", gap: 2 }}
-
                     >
                       <View>
                         <Text
@@ -817,9 +848,10 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                             }}
                           >
                             {detail.duration?.start?.year !== "Year" &&
-                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
-                                ? "Present"
-                                : detail.duration?.end?.year
+                              `${detail.duration?.start?.year}-${" "}${
+                                detail.currentlyWorking
+                                  ? "Present"
+                                  : detail.duration?.end?.year
                               }
                          `}
                           </Text>
@@ -873,7 +905,6 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                     <View
                       key={index}
                       style={{ flexDirection: "column", gap: 2 }}
-
                     >
                       <View>
                         <Text
@@ -915,9 +946,10 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                             }}
                           >
                             {detail.duration?.start?.year !== "Year" &&
-                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
-                                ? "Present"
-                                : detail.duration?.end?.year
+                              `${detail.duration?.start?.year}-${" "}${
+                                detail.currentlyWorking
+                                  ? "Present"
+                                  : detail.duration?.end?.year
                               }
                          `}
                           </Text>
@@ -971,7 +1003,6 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                     <View
                       key={index}
                       style={{ flexDirection: "column", gap: 2 }}
-
                     >
                       <View>
                         <Text
@@ -1013,9 +1044,10 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                             }}
                           >
                             {detail.duration?.start?.year !== "Year" &&
-                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
-                                ? "Present"
-                                : detail.duration?.end?.year
+                              `${detail.duration?.start?.year}-${" "}${
+                                detail.currentlyWorking
+                                  ? "Present"
+                                  : detail.duration?.end?.year
                               }
                          `}
                           </Text>
@@ -1040,8 +1072,6 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                 ))}
               </View>
             )}
-
-          
 
             {data?.extraCaricularData?.length > 0 && (
               <View style={{ flexDirection: "column", gap: 12, width: "100%" }}>
@@ -1071,7 +1101,6 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                     <View
                       key={index}
                       style={{ flexDirection: "column", gap: 2 }}
-
                     >
                       <View>
                         <Text
@@ -1113,9 +1142,10 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                             }}
                           >
                             {detail.duration?.start?.year !== "Year" &&
-                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
-                                ? "Present"
-                                : detail.duration?.end?.year
+                              `${detail.duration?.start?.year}-${" "}${
+                                detail.currentlyWorking
+                                  ? "Present"
+                                  : detail.duration?.end?.year
                               }
                          `}
                           </Text>
@@ -1140,7 +1170,6 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                 ))}
               </View>
             )}
-
 
             {data?.section?.map((item, index) => (
               <View
@@ -1191,34 +1220,33 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                       >
                         {detail.title}
                       </Text>
-                      {detail.duration?.start?.year &&
-                        (
-                          <View
-                            style={{
-                              flexDirection: "row",
-                              justifyContent: "space-between",
-                            }}
-                          >
-                            {" "}
-                            <View style={{}}>
-                              <Text
-                                style={{
-                                  color: "#414142",
-                                  fontSize: 10,
-                                  fontFamily: `${selectedFont} 400`,
-                                  lineHeight: 1.5,
-                                }}
-                              >
-                                {detail?.duration?.start?.year}
-                                {detail?.duration?.start?.year && "-"}
-                                {(detail?.duration?.end?.year === "" || detail?.duration?.end?.year === undefined)
-                                  ? "Present"
-                                  : detail?.duration?.end?.year
-                                }
-                              </Text>
-                            </View>
+                      {detail.duration?.start?.year && (
+                        <View
+                          style={{
+                            flexDirection: "row",
+                            justifyContent: "space-between",
+                          }}
+                        >
+                          {" "}
+                          <View style={{}}>
+                            <Text
+                              style={{
+                                color: "#414142",
+                                fontSize: 10,
+                                fontFamily: `${selectedFont} 400`,
+                                lineHeight: 1.5,
+                              }}
+                            >
+                              {detail?.duration?.start?.year}
+                              {detail?.duration?.start?.year && "-"}
+                              {detail?.duration?.end?.year === "" ||
+                              detail?.duration?.end?.year === undefined
+                                ? "Present"
+                                : detail?.duration?.end?.year}
+                            </Text>
                           </View>
-                        )}
+                        </View>
+                      )}
                     </View>
 
                     <View
@@ -1243,9 +1271,6 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                 ))}
               </View>
             ))}
-
-
-
           </View>
         </View>
       </View>

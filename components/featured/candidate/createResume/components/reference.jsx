@@ -7,7 +7,7 @@ import { Delete_icon, Edit_icon } from "../../../../../utils/svg";
 
 const Reference = ({ setData, data }) => {
   const userDataGlobal = useSelector((state) => state.userData);
-  const [view, setView] = useState(false);
+  const [view, setView] = useState(true);
   const [isChecked, setIsChecked] = useState(true);
   const [isModified, setIsModified] = useState({ status: false, index: 0 });
   const [filteredTelCode, setFilteredTelCode] = useState([]);
@@ -328,7 +328,7 @@ const Reference = ({ setData, data }) => {
               className="text-[16px] font-semibold text-[#06A9EF] cursor-pointer"
               disabled={!isChecked}
             >
-              Add Section
+              Add Reference
             </p>
           </div>
         )}

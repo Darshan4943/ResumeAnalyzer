@@ -8,7 +8,7 @@ import ContinueWorkingOn from "../../../../common/continueWorkingOn";
 const CouersesAndCertification = ({ data, setData }) => {
   const [isChecked, setIsChecked] = useState(true);
   const [toggleOn, setToggleOn] = useState(true);
-  const [view, setView] = useState(false);
+  const [view, setView] = useState(true);
   const [editingIndex, setEditingIndex] = useState(null);
   const [isModified, setIsModified] = useState({ status: false, index: 0 });
   const [error, setError] = useState("");
@@ -312,7 +312,7 @@ const CouersesAndCertification = ({ data, setData }) => {
             className="text-[16px] font-semibold text-[#06A9EF] cursor-pointer"
             disabled={!isChecked}
           >
-            Add Section
+            Add Course
           </p>
         </div>
       )}
