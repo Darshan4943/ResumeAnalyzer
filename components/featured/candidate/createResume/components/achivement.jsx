@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DateSelector from "../../../../common/dateSelector";
 import { Delete_icon, Edit_icon } from "../../../../../utils/svg";
 
 const Achievement = ({ data, setData }) => {
   const [isChecked, setIsChecked] = useState(true);
-  const [view, setView] = useState(false);
+  const [view, setView] = useState(true);
   const [toggleOn, setToggleOn] = useState(true);
   const [isModified, setIsModified] = useState({ status: false, index: 0 });
   const [error, setError] = useState("");
@@ -168,25 +168,6 @@ const Achievement = ({ data, setData }) => {
                 <span className="text-[red] text-[12px]">{errors?.title}</span>
               )}
             </div>
-
-            {/* <div className="flex flex-col gap-2 w-full">
-              <div className="w-full text-[14px] font-montserrat  font-medium">
-                Description
-              </div>
-
-              <div className="w-full border-[1px] border-[#9D9D9D] rounded-[12px]  p-[12px] min-h-[140px]">
-                <textArea
-                  type="text"
-                  name="description"
-                  id=""
-                  placeholder="Type here"
-                  className="w-full text-[14px] font-montserrat font-small outline-none min-h-[140px]"
-                  onChange={handleInputChange}
-                >
-                  {achivementData?.description}
-                </textArea>
-              </div>
-            </div> */}
           </div>
           <div className="flex justify-end ">
             <div className="flex justify-between  py-2 gap-2">
@@ -237,7 +218,7 @@ const Achievement = ({ data, setData }) => {
             className="text-[16px] font-semibold text-[#06A9EF] cursor-pointer"
             disabled={!isChecked}
           >
-            Add Section
+            Add Achievement
           </p>
         </div>
       )}

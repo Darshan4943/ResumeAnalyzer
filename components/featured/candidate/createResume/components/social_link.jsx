@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 const SocialLink = ({ setData, data }) => {
   const [isChecked, setIsChecked] = useState(true);
-  const [view, setView] = useState(false);
+  const [view, setView] = useState(true);
   const [isModified, setIsModified] = useState({ status: false, index: 0 });
   const [linkData, setLinkData] = useState({
     platform: "",
@@ -195,7 +195,7 @@ const SocialLink = ({ setData, data }) => {
               className="text-[16px] font-semibold text-[#06A9EF]"
               disabled={!isChecked}
             >
-              Add More
+              Add Links
             </p>
           </div>
         )}
