@@ -116,7 +116,7 @@ function ForgotPassword({ setIsForgot }) {
 
   function validatePassword(password) {
     const strongPasswordRegex =
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&.])[A-Za-z\d@$!%*?&.]{4,}$/
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&.])[A-Za-z\d@$!%*?&.]{4,}$/;
     return strongPasswordRegex.test(password);
   }
 
@@ -264,9 +264,9 @@ function ForgotPassword({ setIsForgot }) {
           {passwordError != null && (
             <div className="text-black flex flex-row text-[12px] font-[600]">
               <span className="p-0">
-                    Password must contain{" "}
-                    <span className="text-red">{passwordError}</span>
-                  </span>
+                Password must contain{" "}
+                <span className="text-red">{passwordError}</span>
+              </span>
             </div>
           )}
           <div className="flex flex-col gap-2">
@@ -321,9 +321,11 @@ function ForgotPassword({ setIsForgot }) {
           </div>
 
           <button
-            disabled={ passwordError}
+            disabled={passwordError}
             onClick={(e) => handleSubmit(e)}
-            className={`border border-[#06A9EF] text-white text-[20px] font-[500] bg-[#06A9EF] rounded-[12px] px-4 py-3 w-[100%] ${passwordError && "opacity-70"}`}
+            className={`border border-[#06A9EF] text-white text-[20px] font-[500] bg-[#06A9EF] rounded-[12px] px-4 py-3 w-[100%] ${
+              passwordError && "opacity-70"
+            }`}
           >
             Submit
           </button>

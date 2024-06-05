@@ -354,7 +354,7 @@ function AddNewSectionContainer({
     const newHasData = {
       Hobbies: data?.hobbies?.length > 0,
       Languages: data?.languages?.length > 0,
-      "Achievements & Awards": data?.achievement?.length > 0,
+      "Achievements & Awards": data?.achievements?.length > 0,
       References: data?.reference?.length > 0,
       Links: data?.sociaLinks?.length > 0,
       "Extra-Curriculum Activities": data?.extraCaricularData?.length > 0,

@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { plans } from "../../../../../utils/data";
 
 function Summary({ limits, selectedPlan, isActive }) {
-  console.log(11, limits)
+  console.log(11, limits);
   const router = useRouter();
   const [progress, setProgress] = useState(0);
   const [daysRemaing, setDaysRemaing] = useState(0);
@@ -95,7 +95,7 @@ function Summary({ limits, selectedPlan, isActive }) {
             setProgress(
               (calculateDaysRemaining(result.startDate, result.endDate) /
                 selectedPlan?.days) *
-              100
+                100
             );
           }
         })
@@ -129,7 +129,9 @@ function Summary({ limits, selectedPlan, isActive }) {
                     stroke="#06A9EF"
                     strokeWidth="8"
                     fill="transparent"
-                    strokeDasharray={isActive ? circumference : 2 * Math.PI * 70}
+                    strokeDasharray={
+                      isActive ? circumference : 2 * Math.PI * 70
+                    }
                     strokeDashoffset={isActive ? dashOffset : 2 * Math.PI * 70}
                   />
                 </svg>
@@ -216,18 +218,18 @@ function Summary({ limits, selectedPlan, isActive }) {
                       width: `${Math.round(
                         ((limits.total.uploads - uploadsRemaining) /
                           limits.total.uploads) *
-                        100
+                          100
                       )}%`,
                     }}
                     className={`absolute  h-[10px] bg-[#06A9EF] rounded-[6px]`}
                   ></div>
                 </div>
                 <div className="scr420:min-w-[55px] min-w-[45px]">
-                  {isActive ?
-                    `${limits.total.uploads - uploadsRemaining}/${limits.total.uploads}`
-                    :
-                    "0/0"
-                  }
+                  {isActive
+                    ? `${limits.total.uploads - uploadsRemaining}/${
+                        limits.total.uploads
+                      }`
+                    : "0/0"}
                 </div>
               </div>
             </div>
@@ -243,18 +245,18 @@ function Summary({ limits, selectedPlan, isActive }) {
                       width: `${Math.round(
                         ((limits.total.download - downloadsRemaining) /
                           limits.total.download) *
-                        100
+                          100
                       )}%`,
                     }}
                     className={`absolute  h-[10px] bg-[#06A9EF] rounded-[6px]`}
                   ></div>
                 </div>
                 <div className="scr420:min-w-[55px] min-w-[45px]">
-                  {isActive ?
-                    `${limits.total.download - downloadsRemaining}/${limits.total.download}` :
-
-                    "0/0"
-                  }
+                  {isActive
+                    ? `${limits.total.download - downloadsRemaining}/${
+                        limits.total.download
+                      }`
+                    : "0/0"}
                 </div>
               </div>
             </div>
@@ -295,7 +297,7 @@ function Summary({ limits, selectedPlan, isActive }) {
                         width: `${Math.round(
                           ((limits.total.clients - clientsRemaining) /
                             limits.total.clients) *
-                          100
+                            100
                         )}%`,
                       }}
                       className={`absolute  h-[10px] bg-[#06A9EF] rounded-[6px]`}

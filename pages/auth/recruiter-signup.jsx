@@ -12,7 +12,7 @@ import ImageContainer from "../../components/common/image";
 import ImageCropper from "../../components/featured/candidate/createResume/components/imageCropper";
 import MiniLoader from "../../components/common/mini-loader";
 
-function Recruiter_signup({ }) {
+function Recruiter_signup({}) {
   const router = useRouter();
   const { byAdmin, isUpdate } = router.query;
 
@@ -47,7 +47,6 @@ function Recruiter_signup({ }) {
     dial_code: "+260",
     img: null,
   });
-
 
   const [isProfileImageRemoved, setIsProfileImageRemoved] = useState(false);
   const [file, setFile] = useState(null);
@@ -308,8 +307,9 @@ function Recruiter_signup({ }) {
                   dispatch(reCallUserData());
                   toast.success("Sign up Successfully");
                   if (sendToPurchase && sendToPurchase?.status) {
-                    window.location.href = `/purchase/details?id=${sendToPurchase.index + 1
-                      }`;
+                    window.location.href = `/purchase/details?id=${
+                      sendToPurchase.index + 1
+                    }`;
                     setLoading(false);
                   } else {
                     window.location.href = `/home?signIn=false`;
@@ -559,13 +559,15 @@ function Recruiter_signup({ }) {
                         Contact Number <span className="star">*</span>
                       </p>
                       <div
-                        className={`flex w-[100%] items-start ${isViewportBelow850 ? "gap-[4px] " : "gap-[16px] "
-                          }`}
+                        className={`flex w-[100%] items-start ${
+                          isViewportBelow850 ? "gap-[4px] " : "gap-[16px] "
+                        }`}
                         id="single_input"
                       >
                         <div
-                          className={`relative min-w-[150px] ${isViewportBelow850 ? "w-[65%] " : "w-[40%] "
-                            } items-center`}
+                          className={`relative min-w-[150px] ${
+                            isViewportBelow850 ? "w-[65%] " : "w-[40%] "
+                          } items-center`}
                         >
                           <div
                             onWheel={(e) => e.stopPropagation()}
@@ -622,10 +624,11 @@ function Recruiter_signup({ }) {
                           type="text"
                           name=""
                           // id="single_input"
-                          placeholder={`${isViewportBelow850
+                          placeholder={`${
+                            isViewportBelow850
                               ? "Enter Number "
                               : "Enter Contact Number "
-                            }`}
+                          }`}
                           value={data.mobileNo}
                           onChange={(e) =>
                             handleInputChange("mobileNo", e.target.value)

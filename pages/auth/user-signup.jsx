@@ -92,7 +92,6 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    
 
     if (data.password !== data.confirmPassword) {
       setConfirmPasswordError("Passwords do not match");
@@ -159,7 +158,7 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
 
   function validatePassword(password) {
     const strongPasswordRegex =
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&.])[A-Za-z\d@$!%*?&.]{4,}$/
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&.])[A-Za-z\d@$!%*?&.]{4,}$/;
     return strongPasswordRegex.test(password);
   }
 
@@ -185,8 +184,7 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
       setConfirmPasswordError(null);
     }
     clearError();
-};
-
+  };
 
   return (
     <div className="flex justify-center items-center py-12 pl-[8px] pr-[8px]">
@@ -272,7 +270,7 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
             </div>
             <div className="flex flex-row px-[16px] py-[12px] border-[1px] rounded-[8px] border-solid border-[#9D9D9D] justify-between">
               <input
-              disabled={passwordError}
+                disabled={passwordError}
                 type={showConfirmPassword ? "text" : "password"}
                 name=""
                 id=""
@@ -348,7 +346,7 @@ function UserSignUp({ setIsSignIn, setSignIn, setSignUp }) {
         </div>
         <div className="w-full flex flex-col gap-[16px]">
           <button
-            disabled={(!isEmailEntered || passwordError)}
+            disabled={!isEmailEntered || passwordError}
             className="w-full px-[36px] py-[12px] rounded-[12px] border-[1px] border-solid border-[#06a9ef]  text-[20px] font-[500] hover:bg-[#06a9ef] hover:text-[#fff] transition-all duration-200"
             style={{
               borderColor: "#06a9ef",

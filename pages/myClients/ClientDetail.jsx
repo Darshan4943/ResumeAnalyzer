@@ -79,7 +79,7 @@ function ClientDetail({ tabIndex }) {
     setView(false);
   };
   const PdfViewer = ({ pdfUrl }) => {
-    function onDocumentLoadSuccess(numPages) { }
+    function onDocumentLoadSuccess(numPages) {}
 
     return (
       <div
@@ -124,21 +124,27 @@ function ClientDetail({ tabIndex }) {
         {/* <div className=" "> */}
         <button
           style={{ boxShadow: "0px 1px 6px 0px #00000040" }}
-          className="p-4 rounded-[16px] block scr700:hidden  w-fit h-fit ">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          className="p-4 rounded-[16px] block scr700:hidden  w-fit h-fit "
+        >
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
             <g mask="url(#mask0_625_16457)">
-              <path d="M5 19H6.425L16.2 9.225L14.775 7.8L5 17.575V19ZM3 21V16.75L16.2 3.575C16.4 3.39167 16.6208 3.25 16.8625 3.15C17.1042 3.05 17.3583 3 17.625 3C17.8917 3 18.15 3.05 18.4 3.15C18.65 3.25 18.8667 3.4 19.05 3.6L20.425 5C20.625 5.18333 20.7708 5.4 20.8625 5.65C20.9542 5.9 21 6.15 21 6.4C21 6.66667 20.9542 6.92083 20.8625 7.1625C20.7708 7.40417 20.625 7.625 20.425 7.825L7.25 21H3ZM15.475 8.525L14.775 7.8L16.2 9.225L15.475 8.525Z" fill="#333333" />
+              <path
+                d="M5 19H6.425L16.2 9.225L14.775 7.8L5 17.575V19ZM3 21V16.75L16.2 3.575C16.4 3.39167 16.6208 3.25 16.8625 3.15C17.1042 3.05 17.3583 3 17.625 3C17.8917 3 18.15 3.05 18.4 3.15C18.65 3.25 18.8667 3.4 19.05 3.6L20.425 5C20.625 5.18333 20.7708 5.4 20.8625 5.65C20.9542 5.9 21 6.15 21 6.4C21 6.66667 20.9542 6.92083 20.8625 7.1625C20.7708 7.40417 20.625 7.625 20.425 7.825L7.25 21H3ZM15.475 8.525L14.775 7.8L16.2 9.225L15.475 8.525Z"
+                fill="#333333"
+              />
             </g>
           </svg>
-
         </button>
         {/* </div> */}
       </div>
 
       <div className="flex flex-col scr700:flex-row gap-4 flex-wrap scr700:justify-start justify-center ">
-
-
-
         <div
           className="flex scr540:flex-row flex-col gap-8 sm:p-6 p-4 rounded-[24px] w-[50%] scr540:min-w-[500px] min-w-[280px]"
           style={{ boxShadow: "0px 2px 7px 0px #00000040" }}
@@ -243,19 +249,32 @@ function ClientDetail({ tabIndex }) {
         </div>
 
         <button
-          onClick={() => router.push({
-            pathname: `/myClients/CreateNewClient`, query: {
-              id: clientId, isUpdate: true,
-            },
-          })}
+          onClick={() =>
+            router.push({
+              pathname: `/myClients/CreateNewClient`,
+              query: {
+                id: clientId,
+                isUpdate: true,
+              },
+            })
+          }
           style={{ boxShadow: "0px 1px 6px 0px #00000040" }}
-          className="p-4 rounded-[16px] hidden scr700:block w-fit h-fit ">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          className="p-4 rounded-[16px] hidden scr700:block w-fit h-fit "
+        >
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
             <g mask="url(#mask0_625_16457)">
-              <path d="M5 19H6.425L16.2 9.225L14.775 7.8L5 17.575V19ZM3 21V16.75L16.2 3.575C16.4 3.39167 16.6208 3.25 16.8625 3.15C17.1042 3.05 17.3583 3 17.625 3C17.8917 3 18.15 3.05 18.4 3.15C18.65 3.25 18.8667 3.4 19.05 3.6L20.425 5C20.625 5.18333 20.7708 5.4 20.8625 5.65C20.9542 5.9 21 6.15 21 6.4C21 6.66667 20.9542 6.92083 20.8625 7.1625C20.7708 7.40417 20.625 7.625 20.425 7.825L7.25 21H3ZM15.475 8.525L14.775 7.8L16.2 9.225L15.475 8.525Z" fill="#333333" />
+              <path
+                d="M5 19H6.425L16.2 9.225L14.775 7.8L5 17.575V19ZM3 21V16.75L16.2 3.575C16.4 3.39167 16.6208 3.25 16.8625 3.15C17.1042 3.05 17.3583 3 17.625 3C17.8917 3 18.15 3.05 18.4 3.15C18.65 3.25 18.8667 3.4 19.05 3.6L20.425 5C20.625 5.18333 20.7708 5.4 20.8625 5.65C20.9542 5.9 21 6.15 21 6.4C21 6.66667 20.9542 6.92083 20.8625 7.1625C20.7708 7.40417 20.625 7.625 20.425 7.825L7.25 21H3ZM15.475 8.525L14.775 7.8L16.2 9.225L15.475 8.525Z"
+                fill="#333333"
+              />
             </g>
           </svg>
-
         </button>
       </div>
       <div className="flex text-[18px] font-semibold gap-4 items-center">

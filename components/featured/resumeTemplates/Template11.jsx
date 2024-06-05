@@ -277,7 +277,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                 </View>
                 <View
                   style={{
-                    width: 180, 
+                    width: 180,
                     flexDirection: "row",
                     flexWrap: "wrap",
                     gap: 14,
@@ -286,13 +286,13 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                 >
                   {data?.hobbies?.map((item, index) => (
                     <Text
-                   wrap={false}
+                      wrap={false}
                       key={index}
                       style={{
                         color: "#000000",
                         fontSize: 12,
                         fontFamily: `${selectedFont} 500`,
-                        width:"90%"
+                        width: "90%"
                       }}
                     >
                       {item?.title}
@@ -302,6 +302,64 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
               </View>
             )}
           </View>
+          {data?.sociaLinks?.length > 0 && (
+            <View style={{ width: 228 }}>
+              <View style={{ width: 228, objectFit: "contain" }}>
+                <Text
+                  style={{ fontSize: 18, fontFamily: `${selectedFont} 700` }}
+                >
+                  LINKS
+                </Text>
+              </View>
+              <View
+                style={{
+                  width: 180,
+                  flexDirection: "row",
+                  flexWrap: "wrap",
+                  gap: 4,
+                  paddingTop: 6,
+                }}
+              >
+                {data?.sociaLinks?.map((item, index) => (
+                  <View
+                  key={index}
+                    style={{
+                      width: 180,
+                      flexDirection: "column",
+                     
+                      gap: 4,
+                     
+                    }}
+                  >
+                    <Text
+                     
+                     
+                      style={{
+                        color: "#000000",
+                        fontSize: 12,
+                        fontFamily: `${selectedFont} 500`,
+                        width: "90%"
+                      }}
+                    >
+                      {item?.platform}
+                    </Text>
+                    <Text
+                    
+                      style={{
+                        color: "#000000",
+                        fontSize: 10,
+                        fontFamily: `${selectedFont} 500`,
+                        width: "90%"
+                      }}
+                    >
+                      {item?.link}
+                    </Text>
+                  </View>
+                ))}
+
+              </View>
+            </View>
+          )}
         </View>
 
         <View
@@ -390,7 +448,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                       flexDirection: "row",
                       alignItems: "center",
                       paddingLeft: 16,
-                      
+
                     }}
                   >
                     <Text
@@ -491,7 +549,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                       style={{
                         color: "#000000",
                         fontSize: 12,
-                       
+
                         fontFamily: `${selectedFont} 400`,
                       }}
                     >
@@ -601,7 +659,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
               ))}
             </View>
 
-            <View  style={{ flexDirection: "column", gap: 24, paddingTop: 24 }}>
+            <View style={{ flexDirection: "column", gap: 24, paddingTop: 24 }}>
               <Text
                 style={{
                   color: "#000000",
@@ -632,7 +690,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                         }}
                       >
                         {detail.duration?.start?.year !== "Year" &&
-                          `${detail.duration?.start?.year}-${detail.duration?.end?.year ==="Year" ? "Pursuing" : detail.duration?.end?.year}`}
+                          `${detail.duration?.start?.year}-${detail.duration?.end?.year === "Year" ? "Pursuing" : detail.duration?.end?.year}`}
                       </Text>
                     </View>
                     <View style={{ flexDirection: "column", gap: "4px", width: "100%" }}>
@@ -803,7 +861,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
               </View>
             )}
             {data?.section?.map((item, index) => (
-              <View 
+              <View
                 key={index} style={{ flexDirection: "column", gap: 16, paddingTop: 24 }}>
                 <Text
                   style={{
@@ -817,17 +875,17 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                 {item?.subSection?.map((detail, index) => (
                   <View style={{ flexDirection: "row", gap: 12, }} key={index}>
 
-                    <View style={{ flexDirection: "column", gap: 16,width: '100%' }}>
+                    <View style={{ flexDirection: "column", gap: 16, width: '100%' }}>
 
                       <View
-                        style={{ flexDirection: "row", gap: 5, justifyContent:"space-between",width: '100%'}}
+                        style={{ flexDirection: "row", gap: 5, justifyContent: "space-between", width: '100%' }}
                       >
                         {detail.title.length > 0 && (
                           <Text
                             style={{
                               color: "#1C75BC",
                               fontSize: 13,
-                              width: "70%" ,
+                              width: "70%",
                               fontFamily: `${selectedFont} 700`,
                             }}
                           >
@@ -837,7 +895,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                           </Text>
                         )}
                         {detail.duration?.start?.year &&
-                           (
+                          (
                             <Text
                               style={{
                                 color: "#000000",
@@ -845,12 +903,12 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                                 fontFamily: `${selectedFont} 400`,
                               }}
                             >
-                               {detail?.duration?.start?.year}
-                                {detail?.duration?.start?.year && "-"}
-                                {(detail?.duration?.end?.year === "" || detail?.duration?.end?.year === undefined)
-                                  ? "Present"
-                                  : detail?.duration?.end?.year
-                                }
+                              {detail?.duration?.start?.year}
+                              {detail?.duration?.start?.year && "-"}
+                              {(detail?.duration?.end?.year === "" || detail?.duration?.end?.year === undefined)
+                                ? "Present"
+                                : detail?.duration?.end?.year
+                              }
                             </Text>
 
                           )}

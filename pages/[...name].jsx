@@ -8,9 +8,8 @@ import { jwtDecode } from "jwt-decode";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
 
-const PdfViewer1 = ({ pdfUrl, onDownloadClick ,loadingg,setLoadingg}) => {
+const PdfViewer1 = ({ pdfUrl, onDownloadClick, loadingg, setLoadingg }) => {
   const [numPages, setNumPages] = useState();
-
 
   const onDocumentLoadSuccess = ({ numPages }) => {
     setNumPages(numPages);
@@ -24,17 +23,16 @@ const PdfViewer1 = ({ pdfUrl, onDownloadClick ,loadingg,setLoadingg}) => {
   //   }, 3000);
   // }, [])
 
-
   return (
     <>
-
       <div
         style={{ boxShadow: "0px 2px 10px 1px #00000040" }}
-        className={`w-[600px] h-[80vh] shadow-md rounded-lg ${!loadingg && "overflow-y-auto"} web600 overflow-hidden `}
+        className={`w-[600px] h-[80vh] shadow-md rounded-lg ${
+          !loadingg && "overflow-y-auto"
+        } web600 overflow-hidden `}
         onClick={onDownloadClick}
       >
-
-        {loadingg &&
+        {loadingg && (
           <div className="skeleton-loader1  ">
             <div className="skeleton-image1"></div>
             <div className="skeleton-text1">
@@ -45,7 +43,7 @@ const PdfViewer1 = ({ pdfUrl, onDownloadClick ,loadingg,setLoadingg}) => {
               <div className="skeleton-line1 shorter"></div>
             </div>
           </div>
-        }
+        )}
 
         <Document file={pdfUrl} onLoadSuccess={onDocumentLoadSuccess}>
           {!loadingg &&
@@ -53,14 +51,15 @@ const PdfViewer1 = ({ pdfUrl, onDownloadClick ,loadingg,setLoadingg}) => {
               <Page key={`page_${index + 1}`} pageNumber={index + 1} />
             ))}
         </Document>
-
       </div>
       <div
         style={{ boxShadow: "0px 2px 10px 1px #00000040" }}
-        className={`w-[292px] h-[380px] shadow-md rounded-lg ${!loadingg && "overflow-y-auto"} resumes1 mobile600 overflow-hidden `}
+        className={`w-[292px] h-[380px] shadow-md rounded-lg ${
+          !loadingg && "overflow-y-auto"
+        } resumes1 mobile600 overflow-hidden `}
         onClick={onDownloadClick}
       >
-        {loadingg &&
+        {loadingg && (
           <div className="skeleton-loader">
             <div className="skeleton-image"></div>
             <div className="skeleton-text">
@@ -71,7 +70,7 @@ const PdfViewer1 = ({ pdfUrl, onDownloadClick ,loadingg,setLoadingg}) => {
               <div className="skeleton-line shorter"></div>
             </div>
           </div>
-        }
+        )}
         <Document file={pdfUrl} onLoadSuccess={onDocumentLoadSuccess}>
           {!loadingg &&
             Array.from(new Array(numPages), (el, index) => (
@@ -90,26 +89,22 @@ const Name = () => {
   const [loadingg, setLoadingg] = useState(true);
 
   const dispatch = useDispatch();
-  const [selectedResume, setSelectedResume] = useState()
-  console.log(selectedResume)
+  const [selectedResume, setSelectedResume] = useState();
+  console.log(selectedResume);
   useEffect(() => {
     dispatch(setPageOpened());
     if (userId) {
       axios
         .get("https://jamblix.com/api/skiloteckuser/userId/" + userId)
         .then((res) => {
-
           const decode = jwtDecode(res.data.data);
-          setSelectedResume(decode._doc)
+          setSelectedResume(decode._doc);
         })
         .catch((err) => {
           console.log(err);
         });
-
-
     }
   }, [userId, name]);
-
 
   const handleDownloadClick = () => {
     if (selectedResume?.resumeUrl) {
@@ -125,10 +120,7 @@ const Name = () => {
   return (
     <>
       <div
-        className={
-
-          "bg-white z-[1000] fixed w-[100%] top-0  "
-        }
+        className={"bg-white z-[1000] fixed w-[100%] top-0  "}
         style={{
           borderBottom: "1.5px solid #DEDEDE",
         }}
@@ -151,19 +143,21 @@ const Name = () => {
             Download
           </button>
         </div>
-
       </div>
       <div className="flex  flex-col gap-4  items-center  my-12 website">
-        {!loadingg &&
+        {!loadingg && (
           <div className="text-[16px] text-gray-800 font-medium mobile600">
-
             {selectedResume?.resumeName?.length > 22
               ? `${selectedResume?.resumeName?.slice(0, 21)}...`
               : selectedResume?.resumeName}
-
           </div>
-        }
-        <PdfViewer1 pdfUrl={selectedResume?.resumeUrl} onDownloadClick={handleDownloadClick} loadingg={loadingg} setLoadingg={setLoadingg} />
+        )}
+        <PdfViewer1
+          pdfUrl={selectedResume?.resumeUrl}
+          onDownloadClick={handleDownloadClick}
+          loadingg={loadingg}
+          setLoadingg={setLoadingg}
+        />
       </div>
     </>
   );
