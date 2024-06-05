@@ -40,13 +40,13 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
             width: "55%",
           }}
         >
-          <Text style={{ fontWeight: 600, fontSize: 28, color: selectedColor }}>
+          <Text style={{   fontFamily: `${selectedFont} 400`, fontSize: 28, color: selectedColor }}>
             {data.firstName}
           </Text>
-          <Text style={{ fontWeight: 400, fontSize: 28, color: "#414042" }}>
+          <Text style={{    fontFamily: `${selectedFont} 400`, fontSize: 28, color: "#414042" }}>
             {data.lastName}
           </Text>
-          <Text style={{ fontWeight: 400, fontSize: 14, color: "#58595B" }}>
+          <Text style={{    fontFamily: `${selectedFont} 400`, fontSize: 14, color: "#58595B" }}>
             {data.designation}
           </Text>
         </View>
@@ -121,7 +121,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                 </Svg>
 
                 <Text
-                  style={{ fontSize: 10, fontWeight: 500, color: "#414042" }}
+                  style={{ fontSize: 10,    fontFamily: `${selectedFont} 500`,color: "#414042" }}
                 >
                   {data.mobileNumber}
                 </Text>
@@ -149,7 +149,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                 </Svg>
 
                 <Text
-                  style={{ fontSize: 10, fontWeight: 500, color: "#414042" }}
+                  style={{ fontSize: 10,    fontFamily: `${selectedFont} 500`, color: "#414042" }}
                 >
                   {data.email}
                 </Text>
@@ -178,7 +178,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                 </Svg>
 
                 <Text
-                  style={{ fontSize: 10, fontWeight: 500, color: "#414042" }}
+                  style={{ fontSize: 10,    fontFamily: `${selectedFont} 500`, color: "#414042" }}
                 >
                   {data.location}
                 </Text>
@@ -208,11 +208,11 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                     <Text
                       style={{
                         fontSize: 14,
-                        fontWeight: 400,
+                        fontFamily: `${selectedFont} 400`,
                         color: "#383839",
                       }}
                     >
-                      SKILLS
+                      Skills
                     </Text>
                   </View>
 
@@ -257,7 +257,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                       <Text
                         style={{
                           fontSize: 10,
-                          fontWeight: 400,
+                          fontFamily: `${selectedFont} 400`,
                           color: "#58595B",
                         }}
                       >
@@ -268,6 +268,110 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                 </View>
               </View>
             )}
+              {data?.achievements?.length > 0 && (
+              <View
+                style={{ display: "flex", flexDirection: "column", gap: 12 }}
+              >
+                <View style={{ display: "flex", flexDirection: "col", gap: 4 }}>
+                  <View
+                    style={{ display: "flex", flexDirection: "row", gap: 8 }}
+                  >
+                    <Image
+                      style={{ width: "21px", height: "21px" }}
+                      src="/images/template48/Awards.png"
+                      alt=""
+                    />
+
+                    <Text
+                      style={{
+                        fontSize: 14,
+                        fontFamily: `${selectedFont} 400`,
+                        color: "#383839",
+                        textTransform: "uppercase",
+                      }}
+                    >
+                      Achievements
+                    </Text>
+                  </View>
+                  <Svg
+                    width="176"
+                    height="3"
+                    viewBox="0 0 341 3"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <Path
+                      d="M35.9902 0H-0.00976562V3H35.9902V0Z"
+                      fill="#58595B"
+                    />
+                    <Path d="M340.99 1H35.9902V2H340.99V1Z" fill="#939598" />
+                  </Svg>
+                </View>
+                {data?.achievements?.map((detail, index) => (
+                  <View
+                    key={index}
+                    wrap={false}
+                    style={{
+                      flexDirection: "col",
+                      gap: 8,
+                      width: "95%",
+                    }}
+                  >
+                    <View
+                      style={{
+                        flexDirection: "row",
+                        gap: 16,
+                        alignItems: "start",
+                      }}
+                    >
+                      <Svg
+                        width="6"
+                        height="7"
+                        viewBox="0 0 6 7"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <Path
+                          d="M5.99023 3.49944L-0.00976562 0V7L5.99023 3.49944Z"
+                          fill={selectedColor}
+                        />
+                      </Svg>
+                      <Text
+                        style={{
+                          fontFamily: `${selectedFont} 400`,
+                          fontSize: 12,
+                          color: "#414142",
+                        }}
+                      >
+                        {detail.title}
+                      </Text>
+                    </View>
+
+                    <View
+                      style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        justifyContent: "space-between",
+                        paddingLeft: "20px",
+                        width: "105%",
+                      }}
+                    >
+                      <Text
+                        style={{
+                          fontFamily: `${selectedFont} 400`,
+                          fontSize: 10,
+
+                          color: "#6D6E71",
+                        }}
+                      >
+                        {detail.description}
+                      </Text>
+                    </View>
+                  </View>
+                ))}
+              </View>
+            )}
+
             {data?.languages?.length > 0 && (
               <View
                 style={{ display: "flex", flexDirection: "column", gap: 12 }}
@@ -292,11 +396,11 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                     <Text
                       style={{
                         fontSize: 14,
-                        fontWeight: 400,
+                        fontFamily: `${selectedFont} 400`,
                         color: "#383839",
                       }}
                     >
-                      LANGUAGES
+                      Languages
                     </Text>
                   </View>
 
@@ -340,7 +444,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                       <Text
                         style={{
                           fontSize: 10,
-                          fontWeight: 400,
+                          fontFamily: `${selectedFont} 400`,
                           color: "#58595B",
                         }}
                       >
@@ -375,11 +479,11 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                     <Text
                       style={{
                         fontSize: 14,
-                        fontWeight: 400,
+                        fontFamily: `${selectedFont} 400`,
                         color: "#383839",
                       }}
                     >
-                      HOBBIES
+                      Hobbies
                     </Text>
                   </View>
 
@@ -424,7 +528,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                       <Text
                         style={{
                           fontSize: 10,
-                          fontWeight: 400,
+                          fontFamily: `${selectedFont} 400`,
                           color: "#58595B",
                         }}
                       >
@@ -460,12 +564,12 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                     <Text
                       style={{
                         fontSize: 14,
-                        fontWeight: 400,
+                        fontFamily: `${selectedFont} 400`,
                         color: "#383839",
                         textTransform: "uppercase",
                       }}
                     >
-                      Social links
+                      Social Links
                     </Text>
                   </View>
 
@@ -516,7 +620,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                         <Text
                           style={{
                             fontSize: 10,
-                            fontWeight: 400,
+                            fontFamily: `${selectedFont} 400`,
                             color: "#58595B",
                           }}
                         >
@@ -572,7 +676,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                     <Text
                       style={{
                         fontSize: 14,
-                        fontWeight: 400,
+                        fontFamily: `${selectedFont} 400`,
                         color: "#383839",
                         textTransform: "uppercase",
                       }}
@@ -628,7 +732,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                         <Text
                           style={{
                             fontSize: 10,
-                            fontWeight: 400,
+                            fontFamily: `${selectedFont} 400`,
                             color: "#58595B",
                           }}
                         >
@@ -708,7 +812,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                   <Text
                     style={{
                       fontSize: 14,
-                      fontWeight: 400,
+                      fontFamily: `${selectedFont} 400`,
                       color: "#383839",
                     }}
                   >
@@ -733,7 +837,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
 
               <View>
                 <Text
-                  style={{ fontSize: 10, fontWeight: 400, color: "#58595B" }}
+                  style={{ fontSize: 10,    fontFamily: `${selectedFont} 400`, color: "#58595B" }}
                 >
                   {data.summery}
                 </Text>
@@ -766,7 +870,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                     <Text
                       style={{
                         fontSize: 14,
-                        fontWeight: 400,
+                        fontFamily: `${selectedFont} 400`,
                         color: "#383839",
                       }}
                     >
@@ -835,7 +939,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                           </Svg>
                           <Text
                             style={{
-                              fontWeight: 400,
+                              fontFamily: `${selectedFont} 400`,
                               fontSize: 12,
                               // color: "#414142",
                             }}
@@ -855,7 +959,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                         >
                           <Text
                             style={{
-                              fontWeight: 400,
+                              fontFamily: `${selectedFont} 400`,
                               fontSize: 12,
                               color: "#414142",
                               maxWidth: "75%",
@@ -865,7 +969,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                           </Text>
                           <Text
                             style={{
-                              fontWeight: 400,
+                              fontFamily: `${selectedFont} 400`,
                               fontSize: 10,
                               color: "#414142",
                               paddingBottom: 16,
@@ -1053,7 +1157,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                         fontSize: 14,
                         fontFamily: `${selectedFont} 400`,
                         color: "#383839",
-                        textTransform: "uppercase",
+                      
                       }}
                     >
                       Projects
@@ -1194,7 +1298,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                         fontSize: 14,
                         fontFamily: `${selectedFont} 400`,
                         color: "#383839",
-                        textTransform: "uppercase",
+                       
                       }}
                     >
                       Internship
@@ -1335,7 +1439,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                         fontSize: 14,
                         fontFamily: `${selectedFont} 400`,
                         color: "#383839",
-                        textTransform: "uppercase",
+                      
                       }}
                     >
                       Courses & Certifications
@@ -1475,7 +1579,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                         fontSize: 14,
                         fontFamily: `${selectedFont} 400`,
                         color: "#383839",
-                        textTransform: "uppercase",
+                       
                       }}
                     >
                       Extra-Curriculum Activities
@@ -1596,110 +1700,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
               </View>
             )}
 
-            {data?.achievements?.length > 0 && (
-              <View
-                style={{ display: "flex", flexDirection: "column", gap: 12 }}
-              >
-                <View style={{ display: "flex", flexDirection: "col", gap: 4 }}>
-                  <View
-                    style={{ display: "flex", flexDirection: "row", gap: 8 }}
-                  >
-                    <Image
-                      style={{ width: "21px", height: "21px" }}
-                      src="/images/template48/Awards.png"
-                      alt=""
-                    />
-
-                    <Text
-                      style={{
-                        fontSize: 14,
-                        fontFamily: `${selectedFont} 400`,
-                        color: "#383839",
-                        textTransform: "uppercase",
-                      }}
-                    >
-                      Achievements & Awards
-                    </Text>
-                  </View>
-                  <Svg
-                    width="341"
-                    height="3"
-                    viewBox="0 0 341 3"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <Path
-                      d="M35.9902 0H-0.00976562V3H35.9902V0Z"
-                      fill="#58595B"
-                    />
-                    <Path d="M340.99 1H35.9902V2H340.99V1Z" fill="#939598" />
-                  </Svg>
-                </View>
-                {data?.achievements?.map((detail, index) => (
-                  <View
-                    key={index}
-                    wrap={false}
-                    style={{
-                      flexDirection: "col",
-                      gap: 8,
-                      width: "95%",
-                    }}
-                  >
-                    <View
-                      style={{
-                        flexDirection: "row",
-                        gap: 16,
-                        alignItems: "start",
-                      }}
-                    >
-                      <Svg
-                        width="6"
-                        height="7"
-                        viewBox="0 0 6 7"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <Path
-                          d="M5.99023 3.49944L-0.00976562 0V7L5.99023 3.49944Z"
-                          fill={selectedColor}
-                        />
-                      </Svg>
-                      <Text
-                        style={{
-                          fontFamily: `${selectedFont} 400`,
-                          fontSize: 12,
-                          color: "#414142",
-                        }}
-                      >
-                        {detail.title}
-                      </Text>
-                    </View>
-
-                    <View
-                      style={{
-                        display: "flex",
-                        flexDirection: "row",
-                        justifyContent: "space-between",
-                        paddingLeft: "20px",
-                        width: "105%",
-                      }}
-                    >
-                      <Text
-                        style={{
-                          fontFamily: `${selectedFont} 400`,
-                          fontSize: 10,
-
-                          color: "#6D6E71",
-                        }}
-                      >
-                        {detail.description}
-                      </Text>
-                    </View>
-                  </View>
-                ))}
-              </View>
-            )}
-
+          
             {data?.section?.length > 0 &&
               data?.section?.map((item, index) => (
                 <View
