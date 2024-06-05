@@ -202,94 +202,109 @@ const JdMatching = ({ details, resumeList, isAnimate, setShowsideBar }) => {
                         )
                     )
                     ?.map((data, index) => (
-                      <div
-                        className="flex flex-col gap-[8px]  scr1100:w-[48%] w-[100%] max-w-[380px] rounded-[16px] border border-[#DEDEDE] bg-white shadow-lg py-[16px] ml:px-[24px] px-3 min-w-[262px]"
-                        key={index}
-                      >
-                        <div className="flex flex-col gap-[4px]">
-                          <div className="flex gap-[4px]">
-                            <span className=" text-[16px] font-500">
-                              {data?.name}
-                            </span>{" "}
+                      <div className="flex flex-col gap-[8px]  scr1100:w-[48%] w-[100%] max-w-[380px] rounded-[16px] border border-[#DEDEDE] bg-white shadow-lg py-[16px] ml:px-[24px] px-3 min-w-[262px]">
+                        <div key={index} className="flex flex-col gap-[8px]">
+                          <div className="flex flex-col gap-[4px]">
+                            <div className="flex gap-[4px]">
+                              <span className=" text-[16px] font-500">
+                                {data?.name}
+                              </span>{" "}
+                            </div>
                           </div>
-                        </div>
-                        <div className="border border-[#DEDEDE] w-full rounded-[8px] p-[16px] gap-2 flex flex-row justify-between items-center">
-                          <div className="flex flex-row gap-[8px] w-full">
-                            {fileIconSeter(data)}
-                            <div className="flex flex-col justify-between break-all w-full ">
-                              <span className="md:text-[14px] text-[14px] text-[#333333] font-medium">
-                                {data?.fileName?.length > 17
-                                  ? `${data?.fileName.slice(0, 16)}...`
-                                  : data?.fileName}
-                              </span>
-                              <div className="flex gap-2 justify-end">
-                                <div className="flex flex-row gap-[8px] items-center">
-                                  <svg
-                                    onClick={() =>
-                                      (window.location.href = data?.file)
-                                    }
-                                    width="14"
-                                    height="14"
-                                    viewBox="0 0 14 14"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    className="cursor-pointer"
-                                  >
-                                    <path
-                                      d="M6.99967 10.333L2.83301 6.16634L3.99967 4.95801L6.16634 7.12467V0.333008H7.83301V7.12467L9.99967 4.95801L11.1663 6.16634L6.99967 10.333ZM1.99967 13.6663C1.54134 13.6663 1.14898 13.5031 0.822591 13.1768C0.496202 12.8504 0.333008 12.458 0.333008 11.9997V9.49967H1.99967V11.9997H11.9997V9.49967H13.6663V11.9997C13.6663 12.458 13.5031 12.8504 13.1768 13.1768C12.8504 13.5031 12.458 13.6663 11.9997 13.6663H1.99967Z"
-                                      fill="#333333"
-                                    />
-                                  </svg>
+                          <div className="border border-[#DEDEDE] w-full rounded-[8px] p-[16px] gap-2 flex flex-row justify-between items-center">
+                            <div className="flex flex-row gap-[8px] w-full">
+                              {fileIconSeter(data)}
+                              <div className="flex flex-col justify-between break-all w-full ">
+                                <span className="md:text-[14px] text-[14px] text-[#333333] font-medium">
+                                  {data?.fileName?.length > 17
+                                    ? `${data?.fileName.slice(0, 16)}...`
+                                    : data?.fileName}
+                                </span>
+                                <div className="flex gap-2 justify-end">
+                                  <div className="flex flex-row gap-[8px] items-center">
+                                    <svg
+                                      onClick={() =>
+                                        (window.location.href = data?.file)
+                                      }
+                                      width="14"
+                                      height="14"
+                                      viewBox="0 0 14 14"
+                                      fill="none"
+                                      xmlns="http://www.w3.org/2000/svg"
+                                      className="cursor-pointer"
+                                    >
+                                      <path
+                                        d="M6.99967 10.333L2.83301 6.16634L3.99967 4.95801L6.16634 7.12467V0.333008H7.83301V7.12467L9.99967 4.95801L11.1663 6.16634L6.99967 10.333ZM1.99967 13.6663C1.54134 13.6663 1.14898 13.5031 0.822591 13.1768C0.496202 12.8504 0.333008 12.458 0.333008 11.9997V9.49967H1.99967V11.9997H11.9997V9.49967H13.6663V11.9997C13.6663 12.458 13.5031 12.8504 13.1768 13.1768C12.8504 13.5031 12.458 13.6663 11.9997 13.6663H1.99967Z"
+                                        fill="#333333"
+                                      />
+                                    </svg>
+                                  </div>
                                 </div>
                               </div>
                             </div>
                           </div>
-                        </div>
-                        <div className="flex flex-col gap-[12px] min-h-[197px] justify-start relative ">
-                          <span className="text-[#333333] text-[16px] font-[500]">
-                            Matching Parameters
-                          </span>
-                          <ul className="flex flex-col gap-[4px]">
-                            {data?.matching_parameters
-                              ?.slice(0, 5)
-                              ?.map((item, i) => (
-                                <>
-                                  <li
-                                    key={i}
-                                    className="text-[#333333] text-[14px] font-[500] flex flex-row items-center gap-[8px]"
-                                  >
-                                    <div>
-                                      <svg
-                                        width="10"
-                                        height="10"
-                                        viewBox="0 0 10 10"
-                                        fill="none"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                      >
-                                        <circle
-                                          cx="5"
-                                          cy="5"
-                                          r="5"
-                                          fill="#D9D9D9"
-                                        />
-                                      </svg>
-                                    </div>
-                                    {item?.title}
-                                  </li>
-                                  <span className="text-[#333333] text-[14px] font-[500] flex flex-row items-center gap-[8px] ml-[16px]">
-                                    {" "}
-                                    {item?.matching_points}
-                                  </span>
-                                </>
-                              ))}
-                          </ul>
-                          <div className="flex flex-row justify-end items-center">
-                            <span
-                              onClick={() => setSelectedFile(data)}
-                              className="text-[#06A9EF] text-[14px]  underline decoration-solid absolute text-end bottom-[-6px] right-0 cursor-pointer font-semibold "
-                            >
-                              See More
+                          <div className="flex flex-col gap-[12px] min-h-[298px] justify-start relative ">
+                            <span className="text-[#333333] text-[16px] font-[500]">
+                              Matching Parameters
                             </span>
+                            <ul className="flex flex-col gap-[4px]">
+                              {data?.matching_parameters
+                                ?.slice(0, 5)
+                                ?.filter((item) => {
+                                  const pointsText =
+                                    item?.matching_points?.toString();
+                                  let points = 0;
+
+                                  if (pointsText?.includes("out of")) {
+                                    // Extract the numeric part before "out of"
+                                    points = parseInt(
+                                      pointsText.split(" out of")[0],
+                                      10
+                                    );
+                                  } else {
+                                    // Directly convert to number if it's just a number
+                                    points = parseInt(pointsText, 10);
+                                  }
+
+                                  // Filter out items with 0 points
+                                  return points !== 0;
+                                })
+                                ?.map((item, i) => (
+                                  <React.Fragment key={i}>
+                                    <li className="text-[#333333] text-[12px] font-[500] flex flex-row items-center gap-[8px]">
+                                      <div>
+                                        <svg
+                                          width="10"
+                                          height="10"
+                                          viewBox="0 0 10 10"
+                                          fill="none"
+                                          xmlns="http://www.w3.org/2000/svg"
+                                        >
+                                          <circle
+                                            cx="5"
+                                            cy="5"
+                                            r="5"
+                                            fill="#D9D9D9"
+                                          />
+                                        </svg>
+                                      </div>
+                                      {item?.title}
+                                    </li>
+                                    <span className="text-[#333333] text-[12px] font-[500] flex flex-row items-center gap-[8px] ml-[16px]">
+                                      {item?.matching_points}
+                                    </span>
+                                  </React.Fragment>
+                                ))}
+                            </ul>
+
+                            <div className="flex flex-row justify-end items-center">
+                              <span
+                                onClick={() => setSelectedFile(data)}
+                                className="text-[#06A9EF] text-[12px]  underline decoration-solid absolute text-end bottom-[-6px] right-0 cursor-pointer font-semibold "
+                              >
+                                See More
+                              </span>
+                            </div>
                           </div>
                         </div>
                         <div className="w-[100%]  px-[8px] pb-[16px] border-b-[1px] border-[#bebebe]"></div>
@@ -302,7 +317,7 @@ const JdMatching = ({ details, resumeList, isAnimate, setShowsideBar }) => {
                           />
                         ) : (
                           <div
-                            className="flex flex-row gap-2 items-center justify-between "
+                            className="flex flex-row gap-2 items-center justify-between"
                             style={{ width: "100%" }}
                           >
                             <div
