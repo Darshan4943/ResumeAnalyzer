@@ -159,7 +159,7 @@ const JdMatching = ({ details, resumeList, isAnimate, setShowsideBar }) => {
   }, [three]);
 
   return (
-    <div className="flex flex-col gap-4 min-h-[70vh] ">
+    <div className="flex flex-col gap-4 min-h-[100vh] ">
       {selectedFile && (
         <MatchingDetails
           data={selectedFile}
@@ -184,7 +184,7 @@ const JdMatching = ({ details, resumeList, isAnimate, setShowsideBar }) => {
             <div class="font-montserrat text-base font-medium leading-[19.5px] text-left">
               Total Results ({resumeList?.length})
             </div>
-            <div className=" flex flex-row flex-wrap ml:justify-between justify-center  gap-[18px] max-h-[86vh] overflow-y-auto ">
+            <div className="flex flex-row flex-wrap ml:justify-between justify-center gap-[18px] max-h-[95vh] overflow-y-auto">
               {resumeList?.length > 0 ? (
                 <>
                   {resumeList
@@ -202,7 +202,7 @@ const JdMatching = ({ details, resumeList, isAnimate, setShowsideBar }) => {
                         )
                     )
                     ?.map((data, index) => (
-                      <div className="flex flex-col gap-[8px]  scr1100:w-[48%] w-[100%] max-w-[380px] rounded-[16px] border border-[#DEDEDE] bg-white shadow-lg py-[16px] ml:px-[24px] px-3 min-w-[262px]">
+                      <div className="flex flex-col gap-[8px]  scr1100:w-[48%] w-[100%] max-w-[368px] rounded-[16px] border border-[#DEDEDE] bg-white shadow-lg py-[16px] ml:px-[24px] px-3 min-w-[262px]">
                         <div key={index} className="flex flex-col gap-[8px]">
                           <div className="flex flex-col gap-[4px]">
                             <div className="flex gap-[4px]">
@@ -243,7 +243,7 @@ const JdMatching = ({ details, resumeList, isAnimate, setShowsideBar }) => {
                               </div>
                             </div>
                           </div>
-                          <div className="flex flex-col gap-[12px] min-h-[298px] justify-start relative ">
+                          <div className="flex flex-col gap-[12px] min-h-[221px] justify-start relative ">
                             <span className="text-[#333333] text-[16px] font-[500]">
                               Matching Parameters
                             </span>
@@ -288,11 +288,8 @@ const JdMatching = ({ details, resumeList, isAnimate, setShowsideBar }) => {
                                           />
                                         </svg>
                                       </div>
-                                      {item?.title}
+                                      {item?.title}/ {item?.matching_points}
                                     </li>
-                                    <span className="text-[#333333] text-[12px] font-[500] flex flex-row items-center gap-[8px] ml-[16px]">
-                                      {item?.matching_points}
-                                    </span>
                                   </React.Fragment>
                                 ))}
                             </ul>

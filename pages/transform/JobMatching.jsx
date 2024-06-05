@@ -595,7 +595,7 @@ const JobMatching = () => {
       <div className="bg-[#DEDEDE] w-full h-[1px]"></div>
 
       <div className="flex ml:flex-row flex-col gap-4 h-full">
-        <div className="relative ml:w-[45%] w-full flex  flex-col gap-6">
+        <div className="relative ml:w-[30%] w-full flex flex-col gap-6">
           <div className="text-[18px] text-[#333333] font-medium">
             Select From Collection
           </div>
@@ -628,7 +628,7 @@ const JobMatching = () => {
         </div>
 
         <div className="bg-[#DEDEDE] ml:h-[91vh] h-[1px] ml:w-[1px] w-full"></div>
-        <div className="ml:w-[50%] w-full">
+        <div className="ml:w-[65%] w-full h-full">
           <JdMatching
             details={details}
             resumeList={resumeList}
