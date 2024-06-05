@@ -12,7 +12,12 @@ import {
 } from "@react-pdf/renderer";
 function Template4({ data, selectedColor, selectedFont, preview }) {
   return (
-    <Page size="A4" wrap={true} style={{ paddingTop: "12px" }} pageMode={"fullScreen"} >
+    <Page
+      size="A4"
+      wrap={true}
+      style={{ paddingTop: "12px" }}
+      pageMode={"fullScreen"}
+    >
       <View style={{ flexDirection: "row", gap: "1.5rem", marginTop: "-12px" }}>
         <View style={{ width: "190px" }}>
           <View
@@ -39,8 +44,8 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                     preview
                       ? data.profilePhoto
                       : Object.keys(data?.profilePhoto).includes("filename")
-                        ? URL.createObjectURL(data.profilePhoto)
-                        : data.profilePhoto
+                      ? URL.createObjectURL(data.profilePhoto)
+                      : data.profilePhoto
                   }
                   alt=""
                   style={{
@@ -63,10 +68,14 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                   }}
                 />
               )}
-              <View style={{
-                display: "flex", marginBottom: "6px", marginRight: "8px",
-                marginLeft: "8px",
-              }}>
+              <View
+                style={{
+                  display: "flex",
+                  marginBottom: "6px",
+                  marginRight: "8px",
+                  marginLeft: "8px",
+                }}
+              >
                 <Text
                   style={{
                     color: "#fff",
@@ -137,7 +146,15 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                   </Text>
                 </Svg>
               </View>
-              <View style={{ display: "flex", flexDirection: "column", gap: "8px", width: '100%', alignItems: 'start' }}>
+              <View
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "8px",
+                  width: "100%",
+                  alignItems: "start",
+                }}
+              >
                 {data?.mobileNumber && (
                   <View
                     style={{
@@ -278,7 +295,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                         fontFamily: `${selectedFont} 400`,
                         color: "#fff",
                         flexWrap: "wrap",
-                        width: "90%"
+                        width: "90%",
                       }}
                     >
                       {data.location}
@@ -334,7 +351,6 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                 >
                   {data?.skills?.map((detail, index) => (
                     <View
-
                       key={index}
                       style={{
                         marginLeft: "16px",
@@ -352,7 +368,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                           fontFamily: `${selectedFont} 400`,
                           color: "#fff",
                           width: "90%",
-                          flexWrap: "wrap"
+                          flexWrap: "wrap",
                         }}
                       >
                         {detail.skill}
@@ -394,7 +410,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
               </>
             )}
 
-            {data?.sociaLinks?.length > 0 && (
+            {data?.socialLinks?.length > 0 && (
               <View style={{ flexDirection: "column", gap: " 16px" }}>
                 <View
                   wrap={false}
@@ -437,20 +453,26 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                     marginLeft: "16px",
                   }}
                 >
-                  {data?.sociaLinks?.map((item, index) => (
+                  {data?.socialLinks?.map((item, index) => (
                     <View
                       wrap={false}
                       key={index}
-
                       style={{
-                        color: "white", fontSize: "12px", width: "90%",
-                        flexWrap: "wrap"
+                        color: "white",
+                        fontSize: "12px",
+                        width: "90%",
+                        flexWrap: "wrap",
                       }}
                     >
                       <Text style={{ fontFamily: `${selectedFont} 400` }}>
                         {item?.platform}
                       </Text>
-                      <Text style={{ fontFamily: `${selectedFont} 400`, fontSize: "10px", }}>
+                      <Text
+                        style={{
+                          fontFamily: `${selectedFont} 400`,
+                          fontSize: "10px",
+                        }}
+                      >
                         {item?.link}
                       </Text>
                     </View>
@@ -505,22 +527,23 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                     <View
                       wrap={false}
                       key={index}
-
                       style={{
-                        color: "white", fontSize: "12px", width: "90%",
-                        flexWrap: "wrap"
+                        color: "white",
+                        fontSize: "12px",
+                        width: "90%",
+                        flexWrap: "wrap",
                       }}
                     >
                       <Text style={{ fontFamily: `${selectedFont} 400` }}>
                         {item?.referantName}
                       </Text>
-                      <Text style={{ fontFamily: `${selectedFont} 400`,  }}>
+                      <Text style={{ fontFamily: `${selectedFont} 400` }}>
                         {item?.designation}
                       </Text>
-                      <Text style={{ fontFamily: `${selectedFont} 400`,  }}>
+                      <Text style={{ fontFamily: `${selectedFont} 400` }}>
                         {item?.organization}
                       </Text>
-                      <Text style={{ fontFamily: `${selectedFont} 400`,  }}>
+                      <Text style={{ fontFamily: `${selectedFont} 400` }}>
                         {item?.email}
                       </Text>
                     </View>
@@ -576,22 +599,21 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                     <View
                       wrap={false}
                       key={index}
-
                       style={{
-                        color: "white", fontSize: "12px", width: "90%",
-                        flexWrap: "wrap"
+                        color: "white",
+                        fontSize: "12px",
+                        width: "90%",
+                        flexWrap: "wrap",
                       }}
                     >
                       <Text style={{ fontFamily: `${selectedFont} 400` }}>
                         {item?.title}
                       </Text>
-
                     </View>
                   ))}
                 </View>
               </View>
             )}
-
 
             {data?.languages?.length > 0 && (
               <>
@@ -657,7 +679,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                           fontFamily: `${selectedFont} 400`,
                           color: "#fff",
                           width: "90%",
-                          flexWrap: "wrap"
+                          flexWrap: "wrap",
                         }}
                       >
                         {detail.languages}
@@ -698,7 +720,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                 </View>
               </>
             )}
-            
+
             {data?.hobbies?.length > 0 && (
               <View style={{ flexDirection: "column", gap: " 16px" }}>
                 <View
@@ -746,10 +768,11 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                     <View
                       wrap={false}
                       key={index}
-
                       style={{
-                        color: "white", fontSize: "12px", width: "90%",
-                        flexWrap: "wrap"
+                        color: "white",
+                        fontSize: "12px",
+                        width: "90%",
+                        flexWrap: "wrap",
                       }}
                     >
                       <Text style={{ fontFamily: `${selectedFont} 400` }}>
@@ -941,7 +964,11 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                         >
                           {" "}
                           {detail.duration?.start?.year !== "Year" &&
-                            `${detail.duration?.start?.year}-${detail.duration?.end?.year === "Year" ? "Pursuing" : detail.duration?.end?.year}`}
+                            `${detail.duration?.start?.year}-${
+                              detail.duration?.end?.year === "Year"
+                                ? "Pursuing"
+                                : detail.duration?.end?.year
+                            }`}
                         </Text>
                       </View>
                       <View
@@ -1018,7 +1045,6 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
               >
                 {data?.experience?.map((detail, index) => (
                   <View
-
                     key={index}
                     style={{ display: "flex", alignItems: "start", gap: 4 }}
                   >
@@ -1038,7 +1064,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                           flexDirection: "row",
                           gap: 8,
                           alignItems: "start",
-                          width: "70%"
+                          width: "70%",
                         }}
                       >
                         <Text style={{ marginTop: "-1px" }}>{">"}</Text>
@@ -1061,9 +1087,10 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                       >
                         {" "}
                         {detail.duration?.start?.year !== "Year" &&
-                          `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
-                            ? "Present"
-                            : detail.duration?.end?.year
+                          `${detail.duration?.start?.year}-${" "}${
+                            detail.currentlyWorking
+                              ? "Present"
+                              : detail.duration?.end?.year
                           }
                          `}
                       </Text>
@@ -1092,7 +1119,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
               </View>
             </View>
           </View>
-          
+
           {data?.project?.length > 0 && (
             <View
               style={{
@@ -1144,7 +1171,6 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                 >
                   {data?.project?.map((detail, index) => (
                     <View
-
                       key={index}
                       style={{ display: "flex", alignItems: "start", gap: 4 }}
                     >
@@ -1164,7 +1190,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                             flexDirection: "row",
                             gap: 8,
                             alignItems: "start",
-                            width: "70%"
+                            width: "70%",
                           }}
                         >
                           <Text style={{ marginTop: "-1px" }}>{">"}</Text>
@@ -1187,9 +1213,10 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                         >
                           {" "}
                           {detail.duration?.start?.year !== "Year" &&
-                            `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
-                              ? "Present"
-                              : detail.duration?.end?.year
+                            `${detail.duration?.start?.year}-${" "}${
+                              detail.currentlyWorking
+                                ? "Present"
+                                : detail.duration?.end?.year
                             }
                          `}
                         </Text>
@@ -1220,7 +1247,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
             </View>
           )}
 
-{data?.extraCaricularData?.length > 0 && (
+          {data?.extraCaricularData?.length > 0 && (
             <View
               style={{
                 display: "flex",
@@ -1271,7 +1298,6 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                 >
                   {data?.extraCaricularData?.map((detail, index) => (
                     <View
-
                       key={index}
                       style={{ display: "flex", alignItems: "start", gap: 4 }}
                     >
@@ -1291,7 +1317,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                             flexDirection: "row",
                             gap: 8,
                             alignItems: "start",
-                            width: "70%"
+                            width: "70%",
                           }}
                         >
                           <Text style={{ marginTop: "-1px" }}>{">"}</Text>
@@ -1314,9 +1340,10 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                         >
                           {" "}
                           {detail.duration?.start?.year !== "Year" &&
-                            `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
-                              ? "Present"
-                              : detail.duration?.end?.year
+                            `${detail.duration?.start?.year}-${" "}${
+                              detail.currentlyWorking
+                                ? "Present"
+                                : detail.duration?.end?.year
                             }
                          `}
                         </Text>
@@ -1398,7 +1425,6 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                 >
                   {data?.internship?.map((detail, index) => (
                     <View
-
                       key={index}
                       style={{ display: "flex", alignItems: "start", gap: 4 }}
                     >
@@ -1418,7 +1444,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                             flexDirection: "row",
                             gap: 8,
                             alignItems: "start",
-                            width: "70%"
+                            width: "70%",
                           }}
                         >
                           <Text style={{ marginTop: "-1px" }}>{">"}</Text>
@@ -1441,9 +1467,10 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                         >
                           {" "}
                           {detail.duration?.start?.year !== "Year" &&
-                            `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
-                              ? "Present"
-                              : detail.duration?.end?.year
+                            `${detail.duration?.start?.year}-${" "}${
+                              detail.currentlyWorking
+                                ? "Present"
+                                : detail.duration?.end?.year
                             }
                          `}
                         </Text>
@@ -1525,7 +1552,6 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                 >
                   {data?.course?.map((detail, index) => (
                     <View
-
                       key={index}
                       style={{ display: "flex", alignItems: "start", gap: 4 }}
                     >
@@ -1545,7 +1571,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                             flexDirection: "row",
                             gap: 8,
                             alignItems: "start",
-                            width: "70%"
+                            width: "70%",
                           }}
                         >
                           <Text style={{ marginTop: "-1px" }}>{">"}</Text>
@@ -1568,9 +1594,10 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                         >
                           {" "}
                           {detail.duration?.start?.year !== "Year" &&
-                            `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
-                              ? "Present"
-                              : detail.duration?.end?.year
+                            `${detail.duration?.start?.year}-${" "}${
+                              detail.currentlyWorking
+                                ? "Present"
+                                : detail.duration?.end?.year
                             }
                          `}
                         </Text>
@@ -1675,7 +1702,6 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                         gap: 4,
                         marginLeft: "36px",
                       }}
-
                     >
                       {detail.title.length > 0 && (
                         <View
@@ -1702,29 +1728,28 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                                 color: "#414042",
                                 fontSize: "11px",
                                 fontFamily: `${selectedFont} 400`,
-                                width: "70%"
+                                width: "70%",
                               }}
                             >
                               {detail.title}
                             </Text>
                           </View>
-                          {detail.duration?.start?.year &&
-                            (
-                              <Text
-                                style={{
-                                  color: "#414042",
-                                  fontSize: "9px",
-                                  fontFamily: `${selectedFont} 400`,
-                                }}
-                              >
-                                {detail?.duration?.start?.year}
-                                {detail?.duration?.start?.year && "-"}
-                                {(detail?.duration?.end?.year === "" || detail?.duration?.end?.year === undefined)
-                                  ? "Present"
-                                  : detail?.duration?.end?.year
-                                }
-                              </Text>
-                            )}
+                          {detail.duration?.start?.year && (
+                            <Text
+                              style={{
+                                color: "#414042",
+                                fontSize: "9px",
+                                fontFamily: `${selectedFont} 400`,
+                              }}
+                            >
+                              {detail?.duration?.start?.year}
+                              {detail?.duration?.start?.year && "-"}
+                              {detail?.duration?.end?.year === "" ||
+                              detail?.duration?.end?.year === undefined
+                                ? "Present"
+                                : detail?.duration?.end?.year}
+                            </Text>
+                          )}
                         </View>
                       )}
                       {detail.description?.length > 5 && (
