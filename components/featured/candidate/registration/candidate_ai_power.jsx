@@ -148,7 +148,7 @@ const CandidateAiPower = ({
     }
     setLoading(true);
     extracteText(file).then((result) => {
-      console.log(145, result);
+      console.log(14555, result);
       if (result[0]?.text?.length > 0) {
         axios
           .post("https://jamblix.com/api/resume/extraction", {
@@ -202,7 +202,7 @@ const CandidateAiPower = ({
           });
       } else {
         // setResumeErrorPopup(true);
-        // // toast.error("Error while parsing resume please try again");
+         toast.error("Failed to process the .doc file. This file type might not be supported.");
         // setLoading(false);
         // setfile();
         setCount(count + 1);
