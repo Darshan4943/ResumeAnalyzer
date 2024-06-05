@@ -166,7 +166,8 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
               width: 326,
               display: "flex",
               flexDirection: "column",
-              gap: 70,
+              gap: 50,
+              marginTop:30
             }}
           >
             <View style={{ display: "flex", flexDirection: "column", gap: 4 }}>
@@ -422,7 +423,7 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
               </View>
             </View>)}
 
-            {data?.achievement?.length > 0 && (<View
+            {data?.achievements?.length > 0 && (<View
               style={{
                 display: "flex",
                 flexDirection: "column",
@@ -457,7 +458,7 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
 
                 }}
               >
-                {data.achievement?.map((detail, index) => (
+                {data.achievements?.map((detail, index) => (
                   <View
                     key={index}
                     style={{

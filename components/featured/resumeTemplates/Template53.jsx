@@ -46,22 +46,22 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
           )}
 
           <View style={{ display: "flex", flexDirection: "column", gap: 16, width: "70%", paddingLeft: "10px" }}>
-            <View>
+            <View style={{gap:4}}>
               <Text
                 style={{
                   fontFamily: `${selectedFont} 400`,
                   fontSize: 30,
                   color: "#344A50",
                   wordBreak: "break-word",
-                  flexWrap: "wrap"
+                  flexWrap: "wrap",
                 }}
               >
                 {data.firstName} {data.lastName}
               </Text>
               <Text
                 style={{
-                  fontFamily: `${selectedFont} 500`,
-                  fontSize: 10,
+                  fontFamily: `${selectedFont} 400`,
+                  fontSize: 14,
                   color: selectedColor,
                   wordBreak: "break-word",
                   flexWrap: "wrap"
@@ -72,7 +72,7 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
             </View>
 
             <View style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-              <View style={{ display: "flex", flexDirection: "row", gap: 12 }}>
+              <View style={{ display: "flex", flexDirection: "row", gap: 12,alignItems:'center' }}>
                 <Svg
                   width="16"
                   height="16"
@@ -100,7 +100,7 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
                   {data.location}
                 </Text>
               </View>
-              <View style={{ display: "flex", flexDirection: "row", gap: 12 }}>
+              <View style={{ display: "flex", flexDirection: "row", gap: 12,alignItems:'center' }}>
                 <Svg
                   width="16"
                   height="16"
@@ -132,10 +132,10 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
                   {data.email}
                 </Text>
               </View>
-              <View style={{ display: "flex", flexDirection: "row", gap: 12 }}>
+              <View style={{ display: "flex", flexDirection: "row", gap: 12,alignItems:'center' }}>
                 <Svg
-                  width="14"
-                  height="14"
+                  width="16"
+                  height="16"
                   viewBox="0 0 14 14"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
@@ -172,7 +172,7 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
               <Text
                 style={{
                   fontFamily: `${selectedFont} 400`,
-                  fontSize: 14,
+                  fontSize: 12,
                   color: selectedColor,
                 }}
               >
@@ -233,7 +233,7 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
                       <Text
                         style={{
                           fontFamily: `${selectedFont} 700`,
-                          fontSize: 14,
+                          fontSize: 12,
                           color: "#161616",
                           width: "70%"
                         }}
@@ -326,7 +326,7 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
                           <Text
                             style={{
                               fontFamily: `${selectedFont} 700`,
-                              fontSize: 14,
+                              fontSize: 12,
                               color: "#161616",
                               width: "70%"
                             }}
@@ -421,7 +421,7 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
                           <Text
                             style={{
                               fontFamily: `${selectedFont} 700`,
-                              fontSize: 14,
+                              fontSize: 12,
                               color: "#161616",
                               width: "70%"
                             }}
@@ -516,7 +516,7 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
                           <Text
                             style={{
                               fontFamily: `${selectedFont} 700`,
-                              fontSize: 14,
+                              fontSize: 12,
                               color: "#161616",
                               width: "70%"
                             }}
@@ -611,7 +611,7 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
                           <Text
                             style={{
                               fontFamily: `${selectedFont} 700`,
-                              fontSize: 14,
+                              fontSize: 12,
                               color: "#161616",
                               width: "70%"
                             }}
@@ -709,7 +709,7 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
                           <Text
                             style={{
                               fontFamily: `${selectedFont} 700`,
-                              fontSize: 14,
+                              fontSize: 12,
                               color: "#161616",
                               width: "70%"
                             }}
@@ -795,7 +795,7 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
                         <Text
                           style={{
                             fontFamily: `${selectedFont} 700`,
-                            fontSize: 14,
+                            fontSize: 12,
                             color: "#161616",
 
                           }}
@@ -940,7 +940,7 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
               </View></>)}
 
 
-            {data?.achievement?.length > 0 && (<>  <View
+            {data?.achievements?.length > 0 && (<>  <View
               style={{ width: 180, height: 1, backgroundColor: "#344A50" }}
             ></View>
 
@@ -965,7 +965,7 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
                     width: "100%",
                   }}
                 >
-                  {data?.achievement?.map((detail, index) => (
+                  {data?.achievements?.map((detail, index) => (
                     <View
                       key={index}
                       style={{
