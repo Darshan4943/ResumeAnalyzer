@@ -153,6 +153,45 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
               </>
             )}
           </View>
+
+          <View>
+            {data?.achievement?.length > 0 && (
+              <View style={{ width: 228 }}>
+                <View style={{ width: 228, objectFit: "contain" }}>
+                  <Text
+                    style={{ fontSize: 18, fontFamily: `${selectedFont} 700` }}
+                  >
+                   ACHIEVEMENTS AND AWARDS
+                  </Text>
+                </View>
+                <View
+                  style={{
+                    width: 180, 
+                    flexDirection: "row",
+                    flexWrap: "wrap",
+                    gap: 14,
+                    paddingTop: 6,
+                  }}
+                >
+                  {data?.achievement?.map((item, index) => (
+                    <Text
+                   wrap={false}
+                      key={index}
+                      style={{
+                        color: "#000000",
+                        fontSize: 12,
+                        fontFamily: `${selectedFont} 500`,
+                        width:"90%"
+                      }}
+                    >
+                      {item?.title}
+                    </Text>
+                  ))}
+                </View>
+              </View>
+            )}
+          </View>
+
           <View>
             {data?.languages?.length > 0 && (
               <>
