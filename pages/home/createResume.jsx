@@ -404,11 +404,19 @@ function CreateResume() {
     }
   }, [selectedResumeIndex]);
 
+  const resumeData ={
+    selectedColor:selectedColor,
+    selectedFont:selectedFont,
+    selectedResumeIndex:selectedResumeIndex
+  }
+
   useEffect(() => {
     if (isClient && clientId == "undefined") {
       localStorage.setItem("userData", JSON.stringify(data));
+      localStorage.setItem("resumeData", JSON.stringify(resumeData));
     }
-  }, [data, isClient]);
+ 
+  }, [data, isClient,selectedColor,selectedFont,selectedResumeIndex]);
 
   function extractMobileNumber(inputString) {
     var regex = /[0-9]{10}/g;
