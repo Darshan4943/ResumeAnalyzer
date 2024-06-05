@@ -72,6 +72,7 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
             </View>
 
             <View style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+            {data.location &&
               <View style={{ display: "flex", flexDirection: "row", gap: 12,alignItems:'center' }}>
                 <Svg
                   width="16"
@@ -100,6 +101,7 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
                   {data.location}
                 </Text>
               </View>
+}
               <View style={{ display: "flex", flexDirection: "row", gap: 12,alignItems:'center' }}>
                 <Svg
                   width="16"
@@ -790,13 +792,12 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
                                   justifyContent: "flex-end",
                                 }}
                               >
-                                {detail.duration?.start?.year !== "Year" &&
-                                  `${detail.duration?.start?.year}-${" "}${
-                                    detail.currentlyWorking
-                                      ? "Present"
-                                      : detail.duration?.end?.year
-                                  }
-                         `}
+                                {detail?.duration?.start?.year}
+                              {detail?.duration?.start?.year && "-"}
+                              {detail?.duration?.end?.year === "" ||
+                              detail?.duration?.end?.year === undefined
+                                ? "Present"
+                                : detail?.duration?.end?.year}
                               </Text>
                             </View>
 
