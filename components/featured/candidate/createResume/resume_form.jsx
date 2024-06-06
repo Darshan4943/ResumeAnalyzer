@@ -86,7 +86,7 @@ const ResumeForm = ({
     References: false,
     Links: false,
 
-    "Extra-Curriculum Activities": false,
+    "Extra Activities": false,
     "Courses & Certifications": false,
     Internships: false,
     Project: false,
@@ -100,7 +100,7 @@ const ResumeForm = ({
     References: false,
     Links: false,
 
-    "Extra-Curriculum Activities": false,
+    "Extra Activities": false,
     "Courses & Certifications": false,
     Internships: false,
     Project: false,
@@ -342,7 +342,7 @@ const ResumeForm = ({
           </div>
         )}
         {(data?.ExtraCaricularActivity?.length > 0 ||
-          customOptions["Extra-Curriculum Activities"]) && (
+          customOptions["Extra Activities"]) && (
             <div ref={extraCurricularRef}>
 
               <>
