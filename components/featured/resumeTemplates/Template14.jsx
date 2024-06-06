@@ -908,7 +908,7 @@ function Template14({ data, selectedColor, selectedFont }) {
             </View>
           </>
         )}
-        {data?.sociaLinks?.length > 0 && (
+        {data?.socialLinks?.length > 0 && (
           <>
             <View
               style={{ width: "100%", height: 1, backgroundColor: "#DEDEDE" }}
@@ -926,7 +926,7 @@ function Template14({ data, selectedColor, selectedFont }) {
               </Text>
 
               <View style={{ display: "flex", flexWrap: "wrap", gap: 12 }}>
-                {data?.sociaLinks?.map((detail, index) => (
+                {data?.socialLinks?.map((detail, index) => (
                   <View
                     key={index}
                     style={{ gap: 4, display: "flex", flexDirection: "column", width: '48%' }}
