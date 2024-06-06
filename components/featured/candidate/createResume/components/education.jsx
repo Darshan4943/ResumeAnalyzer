@@ -25,6 +25,16 @@ const Education = ({ setData, data }) => {
     },
   });
 
+  useEffect(() => {
+    if (data) {
+      if (data?.showEducation === true) {
+        setIsChecked(true);
+      } else {
+        setIsChecked(false);
+      }
+    }
+  }, [data]);
+
   const handleSwitchChange = () => {
     setIsChecked(!isChecked);
     setData({ ...data, showEducation: !isChecked });
