@@ -7,6 +7,7 @@ const ExtraSectionForm = ({
   extratctedData,
   setExtractedData,
   editId,
+  setEditId,
   setIsEdit,
 }) => {
   const [formData, setFormData] = useState({
@@ -92,11 +93,11 @@ const ExtraSectionForm = ({
   };
 
   return (
-    <div className="bg-white  flex items-center">
-      <div className="scr1100:hidden block absolute top-0 left-0 right-0 bottom-0 bg-[#FFFFFF] bg-opacity-70"></div>
+    <div className="flex items-center ml:pt-[16vh] pt-[32vh]">
+      <div className="ml:hidden block absolute top-0 left-0 right-0 bottom-0 bg-[#FFFFFF] bg-opacity-70"></div>
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col w-[448px] gap-[16px] p-[24px_16px] h-fit border border-solid  border-[#DEDEDE] rounded-[8px] scr1100:relative absolute top-0 left-0 bg-white  z-[6] scr1100:z-[10] "
+        className="flex flex-col ml:w-[448px] w-[400px] gap-[16px] p-[24px_16px] h-fit border border-solid  border-[#DEDEDE] rounded-[8px]  ml:relative absolute ml:top-0 top-[64px] left-0 bg-[#FFFFFF]  z-[6]  ml:z-[10] ml-[18px] "
       >
         <div className="flex flex-col gap-[8px]">
           <label className="font-montserrat text-[14px] font-medium">
@@ -170,7 +171,7 @@ const ExtraSectionForm = ({
               setShowForm(false);
               setIsEdit(false);
             }}
-            className="py-[8px] px-[16px] border border-solid border-[#06A9EF] rounded-[8px] bg-gray-200"
+            className="py-[8px] px-[16px] border border-solid border-[#06A9EF] rounded-[8px] bg-gray-200 text-[12px]"
           >
             Cancel
           </button>
