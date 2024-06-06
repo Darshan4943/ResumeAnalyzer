@@ -12,6 +12,22 @@ import {
 } from "@react-pdf/renderer";
 
 function Template19({ data, selectedColor, selectedFont, preview }) {
+
+
+
+  const formatLink = (link) => {
+    if (link?.length > 40) {
+      return link?.match(/.{1,40}/g).join('\n');  }
+    return link;
+  };
+
+  const formatEmail = (email) => {
+    if (email?.length > 20) {
+      return email?.match(/.{1,20}/g).join('\n');  }
+    return email;
+  };
+
+
   return (
     <Page size="A4" style={{ padding: 24 }}>
       <View
@@ -120,7 +136,7 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                     marginRight: "6px",
                   }}
                 >
-                  {data.email}
+                  {formatEmail(data.email)}
                 </Text>
               </View>
             )}
@@ -534,7 +550,7 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                           color: "#000000",
                         }}
                       >
-                        {detail.platform}
+                        {detail?.platform}
                       </Text>
                       <Text
                         style={{
@@ -543,7 +559,8 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                           color: "#000000",
                         }}
                       >
-                        {detail.link}
+                        {/* {detail.link} */}
+                        {formatLink(detail?.link)}
                       </Text>
                     </View>
                   ))}

@@ -14,6 +14,20 @@ import {
   ClipPath,
 } from "@react-pdf/renderer";
 function Template14({ data, selectedColor, selectedFont }) {
+
+  const formatLink = (link) => {
+    if (link?.length > 40) {
+      return link?.match(/.{1,40}/g).join('\n');  }
+    return link;
+  };
+
+  const formatEmail = (email) => {
+    if (email?.length > 16) {
+      return email?.match(/.{1,16}/g).join('\n');  }
+    return email;
+  };
+
+
   return (
     <Page size="A4" style={{ padding: "24px" }} wrap={true}>
       <View
@@ -77,7 +91,8 @@ function Template14({ data, selectedColor, selectedFont }) {
                 flexWrap:"wrap"
               }}
             >
-              {data.email}
+              {/* {data.email} */}
+              {formatEmail(data.email)}
             </Text>
             <Text
               style={{
@@ -948,7 +963,8 @@ function Template14({ data, selectedColor, selectedFont }) {
                         color: "#4D4D4D",
                       }}
                     >
-                      {detail.link}
+                      {/* {detail.link} */}
+                      {formatLink(detail?.link)}
                     </Text>
 
                     

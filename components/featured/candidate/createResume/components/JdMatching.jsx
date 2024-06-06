@@ -202,8 +202,8 @@ const JdMatching = ({ details, resumeList, isAnimate, setShowsideBar }) => {
                         )
                     )
                     ?.map((data, index) => (
-                      <div className="flex flex-col gap-[8px]  scr1100:w-[48%] w-[100%] max-w-[368px] rounded-[16px] border border-[#DEDEDE] bg-white shadow-lg py-[16px] ml:px-[24px] px-3 min-w-[262px]">
-                        <div key={index} className="flex flex-col gap-[8px]">
+                      <div key={index} className="flex flex-col gap-[8px]  scr1100:w-[48%] w-[100%] max-w-[368px] rounded-[16px] border border-[#DEDEDE] bg-white shadow-lg py-[16px] ml:px-[24px] px-3 min-w-[262px]">
+                        <div className="flex flex-col gap-[8px]">
                           <div className="flex flex-col gap-[4px]">
                             <div className="flex gap-[4px]">
                               <span className=" text-[16px] font-500">

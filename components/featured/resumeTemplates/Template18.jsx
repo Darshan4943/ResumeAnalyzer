@@ -15,6 +15,20 @@ import {
 } from "@react-pdf/renderer";
 
 const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
+
+     
+  const formatLink = (link) => {
+    if (link?.length > 25) {
+      return link?.match(/.{1,25}/g).join('\n');  }
+    return link;
+  };
+
+  const formatEmail = (email) => {
+    if (email?.length > 23) {
+      return email?.match(/.{1,23}/g).join('\n');  }
+    return email;
+  };
+
   return (
     <Page size="A4" wrap={true} style={{ paddingTop: "12px" }}>
       <View
@@ -239,7 +253,9 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                     color: "#FFFFFF",
                   }}
                 >
-                  {data.email}
+                  {/* {data.email} */}
+                  {formatEmail(data?.email)}
+
                 </Text>
               </View>
               {data.location &&
@@ -571,7 +587,8 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                           fontSize: "10",
                         }}
                       >
-                        {detail.link}
+                        {/* {detail.link}  */}
+                         {formatLink(detail?.link)}
                       </Text>
                     </View>
                   </>
@@ -981,36 +998,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                           // gap: index === data.education.length - 1 ? 16 : 24,
                         }}
                       >
-                        {/* <Svg
-                      style={{ marginTop: 24 }}
-                      width="20"
-                      height="20"
-                      viewBox="0 0 20 20"
-                      fill="white"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <Path
-                        d="M19.496 10C19.4939 15.2469 15.2405 19.5 9.99617 19.5C4.75183 19.5 0.50181 15.2469 0.50388 10C0.50595 4.75313 4.75933 0.500013 10.0037 0.500013C15.248 0.500013 19.498 4.75313 19.496 10Z"
-                        stroke="#83C3C9"
-                        stroke-miterlimit="10"
-                      />
-                      <Path
-                        d="M9.99998 16C13.3137 16 16 13.3137 16 10C16 6.6863 13.3137 4 9.99998 4C6.68628 4 4 6.6863 4 10C4 13.3137 6.68628 16 9.99998 16Z"
-                        fill="#83C3C9"
-                      />
-                    </Svg> */}
-
-                        {/* {index !== data.education.length - 1 && (
-                      <View
-                        style={{
-                          width: "1px",
-                          backgroundColor: "#83C3C9",
-                          height: "90%",
-                          marginLeft: -33,
-                          marginTop: 42.5,
-                        }}
-                      ></View>
-                    )} */}
+                       
                         <View
                           style={{
                             display: "flex",
@@ -1058,17 +1046,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                               height: 1,
                             }}
                           ></View>
-                          {/* <Text
-                        style={{
-                          fontFamily: `${selectedFont} 400`,
-                          fontSize: 10,
-                          color: "#252829",
-                          marginBottom: 24,
-                        }}
-                      >
-                        {detail.duration?.start?.year !== "Year" &&
-                          `${detail.duration?.start?.year}-${detail.duration?.end?.year}`}
-                      </Text> */}
+                      
                           <Text
                             style={{
                               fontFamily: `${selectedFont} 400`,
