@@ -15,17 +15,15 @@ import {
 } from "@react-pdf/renderer";
 function Template14({ data, selectedColor, selectedFont }) {
 
-  const formatLink = (link) => {
-    if (link?.length > 40) {
-      return link?.match(/.{1,40}/g).join('\n');  }
+  const formatLink = (link, count=40) => {
+    console.log("first")
+    if (link?.length > count) {
+      return link?.match(/.{1,40}/g).join('\n');
+    }
     return link;
   };
 
-  const formatEmail = (email) => {
-    if (email?.length > 16) {
-      return email?.match(/.{1,16}/g).join('\n');  }
-    return email;
-  };
+
 
 
   return (
@@ -38,13 +36,13 @@ function Template14({ data, selectedColor, selectedFont }) {
           gap: 16,
         }}
       >
-        <View
+        {/* <View
           style={{
             display: "flex",
             flexDirection: "row",
             justifyContent: "space-between",
           }}
-        >
+         >
           <View
             style={{
               width: 400.06,
@@ -52,7 +50,7 @@ function Template14({ data, selectedColor, selectedFont }) {
               flexDirection: "column",
               gap: 8,
             }}
-          >
+           >
             <Text
               style={{
                 fontSize: 32,
@@ -91,8 +89,7 @@ function Template14({ data, selectedColor, selectedFont }) {
                 flexWrap:"wrap"
               }}
             >
-              {/* {data.email} */}
-              {formatEmail(data.email)}
+              {data.email}
             </Text>
             <Text
               style={{
@@ -113,6 +110,85 @@ function Template14({ data, selectedColor, selectedFont }) {
               {data.location}
             </Text>
           </View>
+         </View> */}
+
+        <View
+          style={{
+            display: "flex",
+            flexDirection: 'column',
+          }}
+        >
+           
+         <View style={{display:'flex',flexDirection:'row' ,alignItems:'center', justifyContent:'space-between',}}> 
+         <View >
+         <Text
+              style={{
+                fontSize: 32,
+                fontFamily: `${selectedFont} 700`,
+                color: selectedColor,
+              }}
+            >
+              {data.firstName} {data.lastName}
+            </Text>
+         </View>
+         <View style={{display:'flex',flexDirection:'column',justifyContent:'flex-end',alignItems:'flex-end',maxWidth:'40%'}} >
+         <Text
+              style={{
+                fontSize: 12,
+                fontFamily: `${selectedFont} 400`,
+                color: "#4D4D4D",
+                display:"flex",
+                flexWrap:"wrap"
+              }}
+            >
+              {data.email}
+            </Text>
+            <Text
+              style={{
+                fontSize: 12,
+                fontFamily: `${selectedFont} 400`,
+                color: "#4D4D4D",
+                
+              }}
+            >
+              {data.mobileNumber}
+            </Text>  
+         </View>
+          
+        </View> 
+
+        <View style={{display:'flex',flexDirection:'row' , justifyContent:'space-between',}}> 
+         <View >
+         <Text
+              style={{
+                width: "60%",
+                fontSize: 12,
+                fontFamily: `${selectedFont} 400`,
+                color: "#4D4D4D",
+              }}
+            >
+              {data.summery}
+            </Text>
+         </View>
+         <View style={{display:"flex",justifyContent:"flex-start",alignItems:"flex-start"}} >
+         <Text
+              style={{
+                fontSize: 12,
+                fontFamily: `${selectedFont} 400`,
+                color: "#4D4D4D",
+              }}
+            >
+              {data.location}
+            </Text> 
+         </View>
+          
+        </View> 
+
+
+
+
+
+
         </View>
 
         {data?.skills?.length > 0 && (
@@ -963,11 +1039,14 @@ function Template14({ data, selectedColor, selectedFont }) {
                         color: "#4D4D4D",
                       }}
                     >
+                      {
+                        console.log(formatLink(detail?.link,20))
+                      }
                       {/* {detail.link} */}
-                      {formatLink(detail?.link)}
+                      {formatLink(detail?.link,20)}
                     </Text>
 
-                    
+
                   </View>
                 ))}
               </View>
@@ -1045,11 +1124,11 @@ function Template14({ data, selectedColor, selectedFont }) {
                             }}
                           >
                             {detail?.duration?.start?.year}
-                              {detail?.duration?.start?.year && "-"}
-                              {detail?.duration?.end?.year === "" ||
+                            {detail?.duration?.start?.year && "-"}
+                            {detail?.duration?.end?.year === "" ||
                               detail?.duration?.end?.year === undefined
-                                ? "Present"
-                                : detail?.duration?.end?.year}
+                              ? "Present"
+                              : detail?.duration?.end?.year}
                           </Text>
                         </View>
                         <Text
