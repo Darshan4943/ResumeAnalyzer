@@ -57,7 +57,7 @@ const SocialLink = ({ setData, data, setLinkView, linkView ,setCustomOptions}) =
   return (
     <>
       <div
-        className="flex flex-col p-4 gap-2 rounded-lg bg-white"
+        className="flex flex-col py-4 gap-2 rounded-lg bg-white"
         style={{
           // boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)",
           opacity: isChecked ? 1 : 0.5,
@@ -66,15 +66,15 @@ const SocialLink = ({ setData, data, setLinkView, linkView ,setCustomOptions}) =
         <div className="w-full flex justify-between text-[20px] font-montserrat font-medium">
           <p>Links</p>
 
-          {/* <label className="switch">
+          <label className="switch">
             <input
               type="checkbox"
               checked={isChecked}
               onChange={handleSwitchChange}
             />
             <span className="slider round"></span>
-          </label> */}
-          <div onClick={() => {
+          </label>
+          {/* <div onClick={() => {
             setCustomOptions((prevState) => ({
               ...prevState,
               ["Links"]: false,
@@ -90,7 +90,7 @@ const SocialLink = ({ setData, data, setLinkView, linkView ,setCustomOptions}) =
             </g>
           </svg>
 
-        </div>
+        </div> */}
         </div>
 
         {data?.socialLinks?.length > 0 &&
@@ -173,7 +173,8 @@ const SocialLink = ({ setData, data, setLinkView, linkView ,setCustomOptions}) =
               <div className="flex justify-between  py-2 gap-2">
                 <button
                   className=" font-montserrat text-xs font-semibold px-[12px] rounded-[8px] border border-[#06A9EF] w-[80px] h-[32px]"
-                  onClick={() => {setLinkView(false); if(data.socialLinks.length <=0){
+                  onClick={() => {setLinkView(false); 
+                    if(data.socialLinks.length <=0){
                     setCustomOptions((prevState) => ({
                       ...prevState,
                       ["Links"]: false,

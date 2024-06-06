@@ -131,7 +131,7 @@ const CouersesAndCertification = ({ data, setData,setCoursesView,coursesView,set
 
   return (
     <div
-      className="flex flex-col p-4 gap-2 rounded-lg bg-white"
+      className="flex flex-col py-4 gap-2 rounded-lg bg-white"
       style={{
         // boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)",
         opacity: isChecked ? 1 : 0.5,
@@ -139,15 +139,15 @@ const CouersesAndCertification = ({ data, setData,setCoursesView,coursesView,set
     >
       <div className="w-full flex justify-between text-[20px] font-montserrat font-medium">
         <p> Courses & Certifications</p>
-        {/* <label className="switch">
+        <label className="switch">
           <input
             type="checkbox"
             checked={isChecked}
             onChange={handleSwitchChange}
           />
           <span className="slider round"></span>
-        </label> */}
-        <div onClick={() => {
+        </label>
+        {/* <div onClick={() => {
           setCustomOptions((prevState) => ({
             ...prevState,
             ["Courses & Certifications"]: false,
@@ -163,7 +163,7 @@ const CouersesAndCertification = ({ data, setData,setCoursesView,coursesView,set
             </g>
           </svg>
 
-        </div>
+        </div> */}
       </div>
 
       {!coursesView &&
@@ -200,7 +200,7 @@ const CouersesAndCertification = ({ data, setData,setCoursesView,coursesView,set
           </div>
         ))}
 
-      {coursesView && (
+      {(coursesView || data.course.length <= 0) && (
         <div>
           <div className="flex flex-col gap-3">
             <div className="flex flex-col gap-2 w-full">
@@ -289,6 +289,15 @@ const CouersesAndCertification = ({ data, setData,setCoursesView,coursesView,set
                     },
                   });
                   setCoursesView(false);
+                  if (data.course.length <= 0) {
+                    setCustomOptions((prevState) => ({
+                      ...prevState,
+                      ["Courses & Certifications"]: false,
+                    })); setData({
+                      ...data,
+                      course: [],
+                    })
+                  }
                 }}
               >
                 Cancel
@@ -308,7 +317,7 @@ const CouersesAndCertification = ({ data, setData,setCoursesView,coursesView,set
         </div>
       )}
 
-      {!coursesView && (
+      {(!coursesView && data.course.length <= 0) && (
         <div className="flex gap-1" onClick={() => isChecked && setCoursesView(true)}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
