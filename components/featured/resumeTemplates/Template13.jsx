@@ -680,7 +680,7 @@ function Template13({ data, selectedColor, selectedFont }) {
               </View>
 
               {/* social links */}
-              {data.sociaLinks?.length > 0 && (
+              {data?.sociaLinks?.length > 0 && (
               <View style={{ flexDirection: "column", gap: 16 }}>
                 <Text
                   style={{
