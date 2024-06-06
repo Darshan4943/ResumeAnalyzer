@@ -274,7 +274,7 @@ function MyPurchase() {
               </div>
             </>
           ) : (
-            <div className="w-full py-3  ">
+            <div className="w-full pt-3  ">
               <SubscriptionPlan subscription={subscription} />
             </div>
           )}
