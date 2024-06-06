@@ -59,7 +59,15 @@ const ResumeForm = ({
   //   }
   // };
 
+
   const [achievementView, setAchievementView] = useState(false);
+  const [referenceView, setReferenceView] = useState(false);
+  const [linkView, setLinkView] = useState(false);
+  const [projectView, setProjectView] = useState(false);
+  const [internshipsView, setInternshipsView] = useState(false);
+  const [extraCurricularView, setExtraCurricularView] = useState(false);
+  const [coursesView, setCoursesView] = useState(false);
+  const [customSectionView, setCustomSectionView] = useState(false);
 
   const [course, setCourse] = useState(false);
   const [languages, setLanguages] = useState(false);
@@ -291,91 +299,116 @@ const ResumeForm = ({
             <div className="border-b border-r border-l border-[#DEDEDE]"></div>
           </>
         )} */}
-        <div ref={hobbiesRef}>
-          {(data?.hobbies?.length > 0 || customOptions?.Hobbies) && (
-            <>
-              <Hobbie setData={setData} data={data} />
-              <div className="border-b border-r border-l border-[#DEDEDE]"></div>
-            </>
-          )}
-        </div>
-        <div ref={languagesRef}>
-          {(data?.languages?.length > 0 || customOptions?.Languages) && (
-            <>
-              <Languages setData={setData} data={data} />
-              <div className="border-b border-r border-l border-[#DEDEDE]"></div>
-            </>
-          )}
-        </div>
-        <div ref={achievementsRef}>
-          {(data?.achievements?.length > 0 ||
-            customOptions["Achievements & Awards"]) && (
+       
+        {(data?.achievements?.length > 0 ||
+          customOptions["Achievements & Awards"]) && (
+            <div ref={achievementsRef}>
+
               <>
                 <Achievement
                   setData={setData}
                   data={data}
                   achievementView={achievementView}
                   setAchievementView={setAchievementView}
+                  setCustomOptions={setCustomOptions}
                 />
                 <div className="border-b border-r border-l border-[#DEDEDE]"></div>
               </>
-            )}
-        </div>
-        <div ref={socialLinksRef}>
-          {(data?.socialLinks?.length > 0 || customOptions?.Links) && (
+
+            </div>
+          )}
+        {(data?.socialLinks?.length > 0 || customOptions?.Links) && (
+          <div ref={socialLinksRef}>
+
             <>
-              <SocialLink setData={setData} data={data} />
+              <SocialLink setData={setData} data={data} linkView={linkView} setLinkView={setLinkView} setCustomOptions={setCustomOptions} />
               <div className="border-b border-r border-l border-[#DEDEDE]"></div>
             </>
-          )}
-        </div>
-        <div ref={referenceRef}>
-          {(data?.reference?.length > 0 || customOptions?.References) && (
+
+          </div>
+        )}
+         
+
+        {(data?.languages?.length > 0 || customOptions?.Languages) && (
+          <div ref={languagesRef}>
+
             <>
-              <Reference setData={setData} data={data} />
+              <Languages setData={setData} data={data} setCustomOptions={setCustomOptions} />
               <div className="border-b border-r border-l border-[#DEDEDE]"></div>
             </>
-          )}
-        </div>
-        <div ref={projectRef}>
-          {(data?.project?.length > 0 || customOptions?.Project) && (
+
+          </div>
+        )}
+        {(data?.hobbies?.length > 0 || customOptions?.Hobbies) && (
+          <div ref={hobbiesRef}>
+
             <>
-              <Project setData={setData} data={data} />
+              <Hobbie setData={setData} data={data} setCustomOptions={setCustomOptions} customOptions={customOptions} />
               <div className="border-b border-r border-l border-[#DEDEDE]"></div>
             </>
-          )}
-        </div>
-        <div ref={internshipRef}>
-          {(data?.internship?.length > 0 || customOptions["Internships"]) && (
+
+          </div>
+        )}
+        {(data?.reference?.length > 0 || customOptions?.References) && (
+          <div ref={referenceRef}>
+
             <>
-              <ProjectSection setData={setData} data={data} />
+              <Reference setData={setData} data={data} referenceView={referenceView} setReferenceView={setReferenceView} setCustomOptions={setCustomOptions} />
               <div className="border-b border-r border-l border-[#DEDEDE]"></div>
             </>
-          )}
-        </div>
-        <div ref={extraCurricularRef}>
-          {(data?.ExtraCaricularActivity?.length > 0 ||
-            customOptions["Extra-Curriculum Activities"]) && (
+
+          </div>
+        )}
+        {(data?.project?.length > 0 || customOptions?.Project) && (
+          <div ref={projectRef}>
+
+            <>
+              <Project setData={setData} data={data} projectView={projectView} setProjectView={setProjectView} setCustomOptions={setCustomOptions} />
+              <div className="border-b border-r border-l border-[#DEDEDE]"></div>
+            </>
+
+          </div>
+        )}
+        {(data?.internship?.length > 0 || customOptions["Internships"]) && (
+          <div ref={internshipRef}>
+
+            <>
+              <ProjectSection setData={setData} data={data} internshipsView={internshipsView} setInternshipsView={setInternshipsView} setCustomOptions={setCustomOptions} />
+              <div className="border-b border-r border-l border-[#DEDEDE]"></div>
+            </>
+
+          </div>
+        )}
+        {(data?.ExtraCaricularActivity?.length > 0 ||
+          customOptions["Extra-Curriculum Activities"]) && (
+            <div ref={extraCurricularRef}>
+
               <>
                 <ExtraCaricularActivity
                   setData={setData}
                   data={data}
                   customOptions={customOptions}
                   setCustomOptions={setCustomOptions}
+                  extraCurricularView={extraCurricularView}
+                  setExtraCurricularView={setExtraCurricularView}
+
                 />
                 <div className="border-b border-r border-l border-[#DEDEDE]"></div>
               </>
-            )}
-        </div>
-        <div ref={coursesRef}>
+
+            </div>
+          )}
           {(data?.course?.length > 0 ||
             customOptions["Courses & Certifications"]) && (
+        <div ref={coursesRef}>
+          
               <>
-                <CouersesAndCertification setData={setData} data={data} />
+                <CouersesAndCertification setData={setData} data={data} coursesView={coursesView} setCoursesView={setCoursesView} setCustomOptions={setCustomOptions} />
                 <div className="border-b border-r border-l border-[#DEDEDE]"></div>
               </>
-            )}
+            
         </div>
+        )}
         {/* {customOptions["Custom Section"] && ( */}
         <div ref={customRef}>
           {data?.section?.map((item, index) => (
@@ -387,6 +420,9 @@ const ResumeForm = ({
                 setData={setData}
                 index={index}
                 item={item}
+                customSectionView={customSectionView}
+                setCustomSectionView={setCustomSectionView}
+                setCustomOptions={setCustomOptions}
               />
 
               <div className="border-b border-r border-l border-[#DEDEDE]"></div>
@@ -415,6 +451,14 @@ const ResumeForm = ({
           scrollToSection={scrollToSection}
           achievementView={achievementView}
           setAchievementView={setAchievementView}
+          setLinkView={setLinkView}
+          setCustomSectionView={setCustomSectionView}
+          setCoursesView={setCoursesView}
+          setExtraCurricularView={setExtraCurricularView}
+          setInternshipsView={setInternshipsView}
+          setProjectView={setProjectView}
+          setReferenceView={setReferenceView}
+          customSectionView={customSectionView}
         />
 
         {/* <Achievement setData={setData} data={data} /> */}

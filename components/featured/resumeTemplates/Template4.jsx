@@ -11,6 +11,12 @@ import {
   Rect,
 } from "@react-pdf/renderer";
 function Template4({ data, selectedColor, selectedFont, preview }) {
+
+  const formatLink = (link) => {
+    if (link?.length > 22) {
+      return link?.match(/.{1,22}/g).join('\n');  }
+    return link;
+    }
   return (
     <Page
       size="A4"
@@ -473,7 +479,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                           fontSize: "10px",display:"flex",flexWrap:"wrap"
                         }}
                       >
-                        {item?.link}
+                         {formatLink(item?.link)}
                       </Text>
                     </View>
                   ))}
@@ -548,6 +554,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
             {data?.languages?.length > 0 && (
               <>
                 <View
+                
                   style={{
                     marginRight: "-12px",
                     marginTop: "4px",
@@ -770,16 +777,16 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                         gap: "4px",
                       }}
                     >
-                      <Text style={{ fontFamily: `${selectedFont} 400` }}>
+                      <Text style={{ fontSize: "10px", fontFamily: `${selectedFont} 400` }}>
                         {item?.referantName}
                       </Text>
-                      <Text style={{ fontFamily: `${selectedFont} 400`, }}>
+                      <Text style={{ fontSize: "10px",fontFamily: `${selectedFont} 400`, }}>
                         {item?.designation}
                       </Text>
-                      <Text style={{ fontFamily: `${selectedFont} 400`, }}>
+                      <Text style={{ fontSize: "10px",fontFamily: `${selectedFont} 400`, }}>
                         {item?.organization}
                       </Text>
-                      <Text style={{ fontFamily: `${selectedFont} 400`, }}>
+                      <Text style={{ fontSize: "10px",fontFamily: `${selectedFont} 400`, }}>
                         {item?.email}
                       </Text>
                     </View>
