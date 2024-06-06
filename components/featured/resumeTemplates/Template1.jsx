@@ -309,7 +309,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
               )}
             </View>
             {data?.skills?.length > 0 && (
-              <View style={{ flexDirection: "column" }}>
+              <View     wrap={false} style={{ flexDirection: "column" }}>
                 <View style={{ flexDirection: "column", gap: 12 }}>
                   <Text
                     style={{
@@ -353,7 +353,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
             )}
 
             {data?.achievements?.length > 0 && (
-              <View style={{ flexDirection: "column", gap: 12, width: "100%" }}>
+              <View wrap={false} style={{ flexDirection: "column", gap: 12, width: "100%" }}>
                 <View style={{ flexDirection: "column", gap: 12 }}>
                   <Text
                     style={{
@@ -362,7 +362,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                       fontFamily: `${selectedFont} 400`,
                     }}
                   >
-                    Achievements & Awards
+                    ACHIEVEMENTS & AWARDS
                   </Text>
                   <Svg width={141} height={4} viewBox="0 0 141 4">
                     <Path
@@ -402,7 +402,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
             )}
 
             {data?.socialLinks?.length > 0 && (
-              <View style={{ flexDirection: "column", gap: 12 }}>
+              <View wrap={false} style={{ flexDirection: "column", gap: 12 }}>
                 <Text
                   style={{
                     color: "#414042",
@@ -410,7 +410,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                     fontFamily: `${selectedFont} 400`,
                   }}
                 >
-                  Website & Social link
+                  WEBSITE & SOCIAL LINKS
                 </Text>
                 <Svg width={141} height={4} viewBox="0 0 141 4">
                   <Path
@@ -465,7 +465,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
             )}
 
             {data?.languages?.length > 0 && (
-              <View style={{ flexDirection: "column" }}>
+              <View wrap={false} style={{ flexDirection: "column" }}>
                 <View style={{ flexDirection: "column", gap: 12 }}>
                   <Text
                     style={{
@@ -509,7 +509,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
             )}
 
             {data?.hobbies?.length > 0 && (
-              <View style={{ flexDirection: "column" }}>
+              <View wrap={false} style={{ flexDirection: "column" }}>
                 <View style={{ flexDirection: "column", gap: 12 }}>
                   <Text
                     style={{
@@ -595,6 +595,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                             color: "#414042",
                             fontFamily: `${selectedFont} 400`,
                             fontSize: "12px",
+                            lineHeight: 1.2,
                           }}
                         >
                           {detail.referantName}
@@ -604,6 +605,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                             color: "#414042",
                             fontFamily: `${selectedFont} 400`,
                             fontSize: "12px",
+                            lineHeight: 1.2,
                           }}
                         >
                           {detail.designation}
@@ -613,6 +615,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                             color: "#414042",
                             fontFamily: `${selectedFont} 400`,
                             fontSize: "12px",
+                            lineHeight: 1.2,
                           }}
                         >
                           {detail.organization}
@@ -622,6 +625,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                             color: "#414042",
                             fontFamily: `${selectedFont} 400`,
                             fontSize: "12px",
+                             lineHeight: 1.2,
                           }}
                         >
                           {detail.email}
@@ -983,7 +987,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                       fontFamily: `${selectedFont} 400`,
                     }}
                   >
-                    Courses & Certifications
+                    COURSES & CERTIFICATIONS
                   </Text>
                   <Svg width={141} height={4} viewBox="0 0 141 4">
                     <Path
@@ -1080,7 +1084,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                       fontFamily: `${selectedFont} 400`,
                     }}
                   >
-                    Extra-Curriculum Activities
+                    ACTIVITIES
                   </Text>
                   <Svg width={141} height={4} viewBox="0 0 141 4">
                     <Path

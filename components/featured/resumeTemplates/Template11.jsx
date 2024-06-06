@@ -13,6 +13,13 @@ import {
 import React from "react";
 
 function Template11({ data, selectedColor, selectedFont, preview }) {
+
+  const formatLink = (link) => {
+    if (link?.length > 22) {
+      return link?.match(/.{1,22}/g).join('\n');  }
+    return link;
+    }
+
   return (
     <Page size="A4" wrap={true} style={{ paddingTop: "12px" }}>
       <View
@@ -368,7 +375,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                         width: "90%",
                       }}
                     >
-                      {item?.link}
+                      {formatLink(item?.link)}
                     </Text>
                   </View>
                 ))}
