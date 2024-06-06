@@ -16,6 +16,21 @@ import {
 import React from "react";
 
 const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
+
+  
+  const formatLink = (link) => {
+    if (link?.length > 25) {
+      return link?.match(/.{1,25}/g).join('\n');  }
+    return link;
+  };
+
+  const formatEmail = (email) => {
+    if (email?.length > 20) {
+      return email?.match(/.{1,20}/g).join('\n');  }
+    return email;
+  };
+
+
   return (
     <Page size="A4" style={{ padding: 24 }} wrap={true}>
       <View style={{ minHeight: 793.8 }}>
@@ -177,7 +192,9 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                     color: "#414042",
                   }}
                 >
-                  {data.email}
+                  {/* {data.email} */}
+                  {formatEmail(data.email)}
+
                 </Text>
               </View>
 
@@ -674,7 +691,9 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                             width: "100%",
                           }}
                         >
-                          {detail?.link}
+                          {/* {detail?.link} */}
+                          {formatLink(detail?.link)}
+
                         </Text>
                       </View>
                     </View>
@@ -822,6 +841,8 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
               gap: 14,
             }}
           >
+              {data?.summery?.length > 0 && (
+
             <View style={{ display: "flex", flexDirection: "column", gap: 12 }}>
               <View
                 style={{ display: "flex", flexDirection: "column", gap: 9 }}
@@ -878,6 +899,8 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                 </Text>
               </View>
             </View>
+
+)}
 
             {data?.experience?.length > 0 && (
               <View
