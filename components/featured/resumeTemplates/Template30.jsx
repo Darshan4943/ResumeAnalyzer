@@ -358,7 +358,7 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
                       fontSize: "14px",
                     }}
                   >
-                    Languages
+                    LANGUAGES
                   </Text>
                 </View>
                 <View style={{ flexDirection: "column", gap: 12 }}>
@@ -398,7 +398,7 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
                       fontSize: "14px",
                     }}
                   >
-                    Achievements & Awards
+                    ACHIEVEMENTS
                   </Text>
                 </View>
                 <View style={{ flexDirection: "column", gap: 12 }}>
@@ -418,7 +418,7 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
                 </View>
               </View>
             )}
-            {data?.sociaLinks?.length > 0 && (
+            {data?.socialLinks?.length > 0 && (
               <View style={{ flexDirection: "column", gap: 16 }}>
                 <View
                   style={{
@@ -438,11 +438,11 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
                       fontSize: "14px",
                     }}
                   >
-                    Website & Social link
+                    SOCIAL LINKS
                   </Text>
                 </View>
                 <View style={{ flexDirection: "column", gap: 12 }}>
-                  {data?.sociaLinks?.map((detail, index) => (
+                  {data?.socialLinks?.map((detail, index) => (
                     <View
                       wrap={false}
                       key={index}
@@ -976,7 +976,7 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
                 <View style={{ flexDirection: "row", alignItems: "center" }}>
                   <View
                     style={{
-                      width: "58%",
+                      width: "50%",
                       flexDirection: "column",
                       justifyContent: "center",
                       alignItems: "center",
@@ -992,7 +992,7 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
                         fontSize: "14px",
                       }}
                     >
-                      Courses & Certifications
+                      CERTIFICATIONS
                     </Text>
                   </View>
                 </View>
@@ -1081,7 +1081,7 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
                 <View style={{ flexDirection: "row", alignItems: "center" }}>
                   <View
                     style={{
-                      width: "64%",
+                      width: "50%",
                       flexDirection: "column",
                       justifyContent: "center",
                       alignItems: "center",
@@ -1097,7 +1097,7 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
                         fontSize: "14px",
                       }}
                     >
-                      Extra-Curriculum Activities
+                    ACTIVITIES
                     </Text>
                   </View>
                 </View>

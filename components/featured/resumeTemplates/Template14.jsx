@@ -951,15 +951,7 @@ function Template14({ data, selectedColor, selectedFont }) {
                       {detail.link}
                     </Text>
 
-                    <Text
-                      style={{
-                        fontSize: 12,
-                        fontFamily: `${selectedFont} 400`,
-                        color: "#4D4D4D",
-                      }}
-                    >
-                      {detail.discription}
-                    </Text>
+                    
                   </View>
                 ))}
               </View>
