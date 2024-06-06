@@ -17,6 +17,7 @@ import React from "react";
 
 //template 13
 const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
+  console.log("first", data);
   return (
     <Page size="A4" wrap={true} style={{ paddingTop: "12px" }}>
       <View
@@ -561,7 +562,8 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
                       // width: "calc(50% - 4px)",
                       width: "100%",
                       flexWrap: "wrap",
-                      flexDirection: "column", gap: "8px" 
+                      flexDirection: "column",
+                      gap: "8px",
                     }}
                   >
                     <Text style={{ fontFamily: `${selectedFont} 500` }}>
