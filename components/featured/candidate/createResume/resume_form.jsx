@@ -212,7 +212,7 @@ const ResumeForm = ({
                 className=" absolute top-[42px] flex p-6 bg-white rounded-[24px] shadow-md  gap-6 flex-wrap justify-center items-center ml:w-[65%] w-[90%] h-[90vh] overflow-y-auto "
               >
                 {renderAllTemplates()}
-                <div className="absolute top-[12px] scr900:right-[18px] right-[0px]  web "
+                <div className="absolute top-[12px] right-[10px]  cursor-pointer  web "
                   onClick={() => setIsAll(false)}
                 >
                 
@@ -225,7 +225,7 @@ const ResumeForm = ({
                 </div>
               
               </div>
-              <div className="absolute bottom-[35px] mobile  "
+              <div className="absolute bottom-[35px] mobile cursor-pointer  "
                   onClick={() => setIsAll(false)}
                 >
                   <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
