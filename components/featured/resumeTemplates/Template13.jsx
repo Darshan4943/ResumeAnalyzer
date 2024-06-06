@@ -10,10 +10,14 @@ import {
   Path,
   Rect,
 } from "@react-pdf/renderer";
-import { formatLink } from "../../../utils/middleware";
+
 function Template13({ data, selectedColor, selectedFont }) {
 
- 
+  const formatLink = (link) => {
+    if (link?.length > 30) {
+      return link?.match(/.{1,30}/g).join('\n');  }
+    return link;
+  };
   return (
     <Page size="A4" style={{ padding: 24 }} wrap={true}>
       <View style={{}}>
@@ -710,11 +714,11 @@ function Template13({ data, selectedColor, selectedFont }) {
                       >
                         {detail.platform}
                       </Text>
-                      <View style={{ flexDirection: "row", alignItems: "center", width: "100%", gap: 8 }}>
+                      <View style={{ flexDirection: "row", alignItems: "center", width: "100%", gap: 8 ,}}>
                         <Text
                           style={{
                             fontSize: 12,
-                            width: "70%",
+                            
                             fontFamily: `${selectedFont} 400`,
                             color: "#797979",
                           }}
