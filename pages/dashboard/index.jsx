@@ -277,8 +277,7 @@ function Dashboard() {
     }
   }, [userDataGlobal]);
 
-  console.log(111, resumeData);
-  console.log(222, data);
+
   // const MyComponent = ({ selectedResumeIndex }) => {
   //   console.log(220, selectedResumeIndex);
   //   return (
@@ -695,15 +694,15 @@ function Dashboard() {
       {userDataGlobal.role === "user" &&
         data !== undefined &&
         hasNonEmptyKey(data) && (
-          <div className="flex gap-6 flex-wrap flex-col sm:items-start items-center ">
+          <div className="flex gap-[46px] flex-wrap flex-col sm:items-start items-center ">
             {resumeData.selectedResumeIndex !== undefined &&
               resumeData.selectedColor !== undefined &&
               resumeData.selectedFont !== undefined && (
                 <>
-                  <div className="text-[24px] font-Montserrat font-medium">
+                  <div className="text-[18px] font-Montserrat font-semibold">
                     Continue where you left
                   </div>
-                  <div className="w-[35%] sm:min-w-[400px] min-w-[250px] items-start justify-center gap-[36px] sm:gap-[12px] p-[24px] bg-[#F9F9F9] rounded-[24px] flex sm:flex-row flex-col">
+                  <div className="w-[40%] ms:min-w-[500px] min-w-[280px] items-start justify-between gap-[46px] sm:gap-[12px] p-[24px] bg-[#F9F9F9] rounded-[24px] flex sm:flex-row flex-col">
                     {/* <div className="w-[50%] min-w-[200px] h-full">
                 {templates.find(
                   (item) => item.index === data.selectedResumeIndex
@@ -724,7 +723,7 @@ function Dashboard() {
                   )}
               </div> */}
 
-                    <div className=" w-full ms:flex items-center justify-center   rounded-[8px]  relative hidden ">
+                    <div className=" w-[250px] ms:flex items-center justify-center rounded-[8px] relative hidden ">
                       {/* {loading ? (
               <div>
                 <MiniLoader />
@@ -732,8 +731,8 @@ function Dashboard() {
             ) : ( */}
 
                       <PDFViewer
-                        width="100%"
-                        height="378px"
+                        width="250px"
+                        height="330px"
                         showToolbar={false}
                       >
                         <MyComponent />
@@ -742,12 +741,12 @@ function Dashboard() {
                       {/* )}  */}
                     </div>
 
-                    <div className="w-[40%] flex flex-col gap-4 min-w-[160px]">
-                      <span className="font-Montserrat text-[16px] font-medium text-[#333333] break-all">
+                    <div className="w-[40%] flex flex-col gap-4 ms:min-w-[160px] min-w-[200px]">
+                      <span className="font-Montserrat text-[18px] font-medium text-[#333333] break-all">
                         {data.firstName}_resume.pdf
                       </span>
                       {data?.createdAt && data.createdAt !== "" && (
-                        <span className="font-Montserrat text-[14px] text-[#808080]">
+                        <span className="font-Montserrat text-[14px] text-[#808080] font-medium">
                           Updated on {formatDate(data.createdAt)}
                         </span>
                       )}
@@ -768,7 +767,7 @@ function Dashboard() {
                       >
                         <div className="flex flex-row gap-2 cursor-pointer">
                           <svg
-                            width="25"
+                            width="24"
                             height="24"
                             viewBox="0 0 25 24"
                             fill="none"
@@ -782,19 +781,26 @@ function Dashboard() {
                             </g>
                           </svg>
 
-                          <p className="font-Montserrat text-[16px] font-medium text-[#333333]">
+                          <p className="font-Montserrat text-[14px] font-semibold text-[#333333]">
                             Edit
                           </p>
                         </div>
                       </div>
                       <button
-                        className="w-[130px] h-[36px] px-[6px] py-[6px] rounded-[8px] border border-blue hover:bg-[#06A9EF] hover:text-[#FFFFFF] text-[14px] font-medium"
+                        className="w-[130px] h-[36px]  flex gap-2  text-red rounded-[8px]  text-[14px] font-medium"
                         onClick={() => {
                           localStorage.removeItem("userData");
                           window.location.href = "/";
                         }}
                       >
-                        Cancel
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+                          <g mask="url(#mask0_2918_34666)">
+                            <path d="M6.75772 16.5841C6.38795 16.5841 6.07223 16.4533 5.81053 16.1916C5.54882 15.9299 5.41797 15.6141 5.41797 15.2444V5.50082H4.41797V4.4175H8.00128V3.51367H12.0013V4.4175H15.5846V5.50082H14.5846V15.2353C14.5846 15.6206 14.4551 15.9418 14.1961 16.1987C13.937 16.4557 13.62 16.5841 13.2448 16.5841H6.75772ZM13.5013 5.50082H6.50128V15.2444C6.50128 15.3192 6.52532 15.3806 6.57341 15.4287C6.62149 15.4768 6.68293 15.5008 6.75772 15.5008H13.2448C13.309 15.5008 13.3677 15.4741 13.4212 15.4207C13.4746 15.3673 13.5013 15.3085 13.5013 15.2444V5.50082ZM8.33784 14.0008H9.42116V7.00082H8.33784V14.0008ZM10.5814 14.0008H11.6647V7.00082H10.5814V14.0008Z" fill="#C00000" />
+                          </g>
+                        </svg>
+
+                        Delete
                       </button>
                     </div>
                   </div>

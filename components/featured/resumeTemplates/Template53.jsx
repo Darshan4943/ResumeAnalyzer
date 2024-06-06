@@ -10,6 +10,7 @@ import {
   Path,
   Rect,
 } from "@react-pdf/renderer";
+import { formatLink } from "../../../utils/middleware";
 function Template53({ data, selectedColor, selectedFont, preview }) {
   return (
     <Page size="A4" style={{ padding: 42 }}>
@@ -1184,7 +1185,7 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
                           color: "#010101",
                         }}
                       >
-                        {detail.link}
+                         {formatLink(detail.link)}
                       </Text>
                     </View>
                   ))}
