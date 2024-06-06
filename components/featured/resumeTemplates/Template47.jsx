@@ -558,7 +558,7 @@ const Template47 = ({ data, selectedColor, selectedFont, preview }) => {
                                     style={{ display: "flex", flexDirection: "column", gap: 12, }}
                                 >
                                     <View style={{ display: "flex", flexDirection: "row", gap: 8, justifyContent: "center", alignItems: "center" }}>
-                                        <Svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <Svg  width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <Path d="M11.991 23C18.0661 23 22.9965 18.0751 23.0033 12C23.0101 5.92487 18.0908 1 12.0156 1C5.9405 1 1.01011 5.92487 1.00331 12C0.996512 18.0751 5.91588 23 11.991 23Z" fill="#383839" />
                                             <Path d="M12.7866 13.0684V12.7343C12.7866 12.3272 12.452 12 12.0393 12C11.6265 12 11.293 12.3272 11.293 12.7343V13.0684C11.293 13.4735 11.6265 13.8027 12.0393 13.8027C12.452 13.8027 12.7866 13.4735 12.7866 13.0684Z" fill="white" />
                                             <Path d="M13.0259 14.5777C12.7414 14.7515 12.3765 14.8472 11.9988 14.8472C11.6212 14.8472 11.2563 14.7515 10.9718 14.5777L6.32218 11.7391C6.32218 11.7391 5.90234 11.4833 5.90234 12.0633V14.898C5.90234 16.391 8.6313 18.0001 11.9988 18.0001C15.3654 18.0001 18.0953 16.391 18.0953 14.898V11.9032C18.0953 11.4374 17.7971 11.6649 17.7971 11.6649L13.0259 14.5777Z" fill="white" />
@@ -591,10 +591,11 @@ const Template47 = ({ data, selectedColor, selectedFont, preview }) => {
                                             >
                                                 <View
                                                     style={{
+                                                        display:'flex',
                                                         flexDirection: "row",
                                                         gap: 16,
-                                                        alignItems: "start",
-                                                        width: "80%"
+                                                        alignItems: "center",
+                                                        width: "80%",
                                                     }}
                                                 >
                                                     <Svg
