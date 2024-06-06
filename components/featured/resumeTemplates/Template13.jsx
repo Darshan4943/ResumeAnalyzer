@@ -10,7 +10,10 @@ import {
   Path,
   Rect,
 } from "@react-pdf/renderer";
+import { formatLink } from "../../../utils/middleware";
 function Template13({ data, selectedColor, selectedFont }) {
+
+ 
   return (
     <Page size="A4" style={{ padding: 24 }} wrap={true}>
       <View style={{}}>
@@ -680,7 +683,7 @@ function Template13({ data, selectedColor, selectedFont }) {
               </View>
 
               {/* social links */}
-              {data?.sociaLinks?.length > 0 && (
+              {data?.socialLinks?.length > 0 && (
               <View style={{ flexDirection: "column", gap: 16 }}>
                 <Text
                   style={{
@@ -691,7 +694,7 @@ function Template13({ data, selectedColor, selectedFont }) {
                 >
                   SOCIAL LINKS
                 </Text>
-                {data.sociaLinks.map((detail, index) => (
+                {data.socialLinks.map((detail, index) => (
                   <>
                     <View
                       key={index}
@@ -716,7 +719,7 @@ function Template13({ data, selectedColor, selectedFont }) {
                             color: "#797979",
                           }}
                         >
-                          {detail.link}
+                          {formatLink(detail.link)}
                         </Text>
                        
                       </View>

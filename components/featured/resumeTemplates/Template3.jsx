@@ -9,6 +9,7 @@ import {
   Svg,
   Path,
 } from "@react-pdf/renderer";
+import { formatLink } from "../../../utils/middleware";
 
 const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
   return (
@@ -170,7 +171,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
           </View>
 
           {data?.socialLinks?.length > 0 && (
-            <View style={{ maxWidth: "80%" }}>
+            <View style={{ maxWidth: "100%" }}>
               <View
                 style={{
                   paddingLeft: -1,
@@ -203,7 +204,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                   paddingLeft: 16,
                   paddingTop: 20,
                   gap: 8,
-                  maxWidth: "80%",
+                
                 }}
               >
                 {data.socialLinks.map((detail, index) => (
@@ -227,12 +228,12 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                       style={{
                         color: "white",
                         fontSize: 12,
-                        marginRight: "6px",
+                       
                         fontFamily: `${selectedFont} 400`,
                         // overflow: "hidden"
                       }}
                     >
-                      {detail.link}
+                       {formatLink(detail.link)}
                     </Text>
                   </>
                 ))}
