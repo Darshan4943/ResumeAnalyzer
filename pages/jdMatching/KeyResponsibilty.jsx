@@ -35,6 +35,9 @@ const KeyResponsibility = ({
     setIsEdit(true);
   };
 
+  const handleClick = () => {
+    setShowForm(true);
+  };
   return (
     <div className="flex flex-col gap-[16px] w-[416px]">
       <div className="flex flex-row justify-between items-center  ">
@@ -44,7 +47,7 @@ const KeyResponsibility = ({
         <div>
           <div
             className="flex gap-1 bg-[#06A9EF] rounded-[24px] p-[4px] px-[12px] pl-[6px] cursor-pointer"
-            onClick={() => setShowForm(true)}
+            onClick={handleClick}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

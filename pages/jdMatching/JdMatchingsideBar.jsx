@@ -16,17 +16,21 @@ const JdMatchingsideBar = ({
   text,
   settext,
   setShowsideBar,
+  isEdit,
+  editId,
+  setEditId,
+  ShowForm,
+  setShowForm,
+  setIsEdit,
 }) => {
-  const [ShowForm, setShowForm] = useState(false);
   const [openExtraSection, setAddExtraSection] = useState(false);
   const [jdData, setJdData] = useState([]);
-  const [isEdit, setIsEdit] = useState();
-  const [editId, setEditId] = useState(null);
+
   const [isExtraData, setIsExtraData] = useState(false);
 
   return (
     <>
-      <div className="h-screen flex flex-row justify-center gap-[8px]  ">
+      <div className="flex flex-row justify-center gap-[8px] overflow-hidden md:pt-[56px] pt-[70px]  ">
         <div class="flex flex-col p-[24px] px-[16px] gap-[16px] bg-[#FFFFFF] overflow-y-scroll relative">
           <JobInfo
             jdData={jdData}
@@ -40,18 +44,17 @@ const JdMatchingsideBar = ({
             setExtractedData={setExtractedData}
           />
           <div className="flex flex-col gap-[8px] border-b-[1px] border-solid border-[#DEDEDE]"></div>
-
           <Requirements
             extratctedData={extratctedData}
             setExtractedData={setExtractedData}
           />
           <div className="flex flex-col gap-[8px] border-b-[1px] border-solid border-[#DEDEDE]"></div>
-
           <Benifits
             extratctedData={extratctedData}
             setExtractedData={setExtractedData}
           />
           <div className="flex flex-col gap-[8px] border-b-[1px] border-solid border-[#DEDEDE]"></div>
+
           <KeyResponsibilty
             ShowForm={ShowForm}
             setShowForm={setShowForm}
@@ -61,7 +64,6 @@ const JdMatchingsideBar = ({
             setEditId={setEditId}
           />
           <div className="flex flex-col gap-[8px] border-b-[1px] border-solid border-[#DEDEDE]"></div>
-
           {isExtraData && (
             <>
               {extratctedData.extra_section && (
@@ -91,7 +93,6 @@ const JdMatchingsideBar = ({
               )}
             </>
           )}
-
           <div className="flex justify-end items-end gap-[10px] bg-[#FFFFF] w-[416px]">
             <div className="flex rounded-[24px] p-[4px] px-[12px] pl-[6px] border border-solid border-[#06A9EF]">
               <svg
@@ -117,7 +118,6 @@ const JdMatchingsideBar = ({
               </p>
             </div>
           </div>
-
           {openExtraSection && (
             <>
               <ExtraSection
@@ -129,7 +129,6 @@ const JdMatchingsideBar = ({
             </>
           )}
           <div className="flex flex-col gap-[8px] border-b-[1px] border-solid border-[#DEDEDE]"></div>
-
           <div className="flex ">
             <button
               className="px-4 py-3 bg-[#06A9EF] text-[16px] text-white font-semibold rounded-[12px] "
@@ -172,20 +171,6 @@ const JdMatchingsideBar = ({
             </button>
           </div>
         </div>
-
-        {/* Rest of your components */}
-        {ShowForm || isEdit ? (
-          // <div className="flex flex-col fixed z-[5] top-0 left-0 right-0 bottom-0 bg-[#FFFFFF] bg-opacity-70">
-          <ExtraSectionForm
-            extratctedData={extratctedData}
-            setExtractedData={setExtractedData}
-            isEdit={isEdit}
-            setShowForm={setShowForm}
-            editId={editId}
-            setIsEdit={setIsEdit}
-          />
-        ) : // </div>
-        null}
       </div>
     </>
   );
