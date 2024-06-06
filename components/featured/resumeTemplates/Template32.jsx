@@ -11,6 +11,20 @@ import {
   Rect,
 } from "@react-pdf/renderer";
 function Template32({ data, selectedColor, selectedFont, preview }) {
+
+  const formatLink = (link) => {
+    if (link?.length > 25) {
+      return link?.match(/.{1,25}/g).join('\n');  }
+    return link;
+  };
+
+  const formatEmail = (email) => {
+    if (email?.length > 20) {
+      return email?.match(/.{1,20}/g).join('\n');  }
+    return email;
+  };
+
+
   return (
     <Page size="A4" wrap={true} style={{ paddingTop: "12px" }}>
       <View style={{ flexDirection: "row", gap: "1.5rem", marginTop: "-12px" }}>
@@ -192,7 +206,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                       color: "#414042",
                     }}
                   >
-                    {data.email}
+                    {formatEmail(data.email)}
                   </Text>
                 </View>
               )}
@@ -489,7 +503,8 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                         {item?.platform}
                       </Text>
                       <Text style={{ fontFamily: `${selectedFont} 400` }}>
-                        {item?.link}
+                        {/* {item?.link} */}
+                        {formatLink(item?.link)}
                       </Text>
                     </View>
                   ))}
