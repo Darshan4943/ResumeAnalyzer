@@ -40,13 +40,31 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
             width: "55%",
           }}
         >
-          <Text style={{   fontFamily: `${selectedFont} 400`, fontSize: 28, color: selectedColor }}>
+          <Text
+            style={{
+              fontFamily: `${selectedFont} 400`,
+              fontSize: 28,
+              color: selectedColor,
+            }}
+          >
             {data.firstName}
           </Text>
-          <Text style={{    fontFamily: `${selectedFont} 400`, fontSize: 28, color: "#414042" }}>
+          <Text
+            style={{
+              fontFamily: `${selectedFont} 400`,
+              fontSize: 28,
+              color: "#414042",
+            }}
+          >
             {data.lastName}
           </Text>
-          <Text style={{    fontFamily: `${selectedFont} 400`, fontSize: 14, color: "#58595B" }}>
+          <Text
+            style={{
+              fontFamily: `${selectedFont} 400`,
+              fontSize: 14,
+              color: "#58595B",
+            }}
+          >
             {data.designation}
           </Text>
         </View>
@@ -121,7 +139,11 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                 </Svg>
 
                 <Text
-                  style={{ fontSize: 10,    fontFamily: `${selectedFont} 500`,color: "#414042" }}
+                  style={{
+                    fontSize: 10,
+                    fontFamily: `${selectedFont} 500`,
+                    color: "#414042",
+                  }}
                 >
                   {data.mobileNumber}
                 </Text>
@@ -149,7 +171,11 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                 </Svg>
 
                 <Text
-                  style={{ fontSize: 10,    fontFamily: `${selectedFont} 500`, color: "#414042" }}
+                  style={{
+                    fontSize: 10,
+                    fontFamily: `${selectedFont} 500`,
+                    color: "#414042",
+                  }}
                 >
                   {data.email}
                 </Text>
@@ -178,7 +204,11 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                 </Svg>
 
                 <Text
-                  style={{ fontSize: 10,    fontFamily: `${selectedFont} 500`, color: "#414042" }}
+                  style={{
+                    fontSize: 10,
+                    fontFamily: `${selectedFont} 500`,
+                    color: "#414042",
+                  }}
                 >
                   {data.location}
                 </Text>
@@ -268,7 +298,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                 </View>
               </View>
             )}
-              {data?.achievements?.length > 0 && (
+            {data?.achievements?.length > 0 && (
               <View
                 style={{ display: "flex", flexDirection: "column", gap: 12 }}
               >
@@ -321,7 +351,8 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                       style={{
                         flexDirection: "row",
                         gap: 16,
-                        alignItems: "start",
+                        justifyContent: "start",
+                        alignItems: "center",
                       }}
                     >
                       <Svg
@@ -837,7 +868,11 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
 
               <View>
                 <Text
-                  style={{ fontSize: 10,    fontFamily: `${selectedFont} 400`, color: "#58595B" }}
+                  style={{
+                    fontSize: 10,
+                    fontFamily: `${selectedFont} 400`,
+                    color: "#58595B",
+                  }}
                 >
                   {data.summery}
                 </Text>
@@ -921,8 +956,9 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                         <View
                           style={{
                             flexDirection: "row",
+                            justifyContent: "start",
+                            alignItems: "center",
                             gap: 14,
-                            alignItems: "start",
                           }}
                         >
                           <Svg
@@ -952,9 +988,10 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                           style={{
                             display: "flex",
                             flexDirection: "row",
-                            justifyContent: "space-between",
+                            // justifyContent: "space-between",
                             paddingLeft: "20px",
                             width: "105%",
+                            gap: "4px",
                           }}
                         >
                           <Text
@@ -1007,7 +1044,11 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
               >
                 <View style={{ display: "flex", flexDirection: "col", gap: 4 }}>
                   <View
-                    style={{ display: "flex", flexDirection: "row", gap: 8 }}
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      gap: 8,
+                    }}
                   >
                     <Svg
                       width="21"
@@ -1072,7 +1113,9 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                       style={{
                         flexDirection: "row",
                         gap: 16,
-                        alignItems: "start",
+
+                        justifyContent: "start",
+                        alignItems: "center",
                       }}
                     >
                       <Svg
@@ -1157,7 +1200,6 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                         fontSize: 14,
                         fontFamily: `${selectedFont} 400`,
                         color: "#383839",
-                      
                       }}
                     >
                       Projects
@@ -1191,7 +1233,9 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                       style={{
                         flexDirection: "row",
                         gap: 16,
-                        alignItems: "start",
+
+                        justifyContent: "start",
+                        alignItems: "center",
                       }}
                     >
                       <Svg
@@ -1298,7 +1342,6 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                         fontSize: 14,
                         fontFamily: `${selectedFont} 400`,
                         color: "#383839",
-                       
                       }}
                     >
                       Internship
@@ -1332,7 +1375,9 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                       style={{
                         flexDirection: "row",
                         gap: 16,
-                        alignItems: "start",
+
+                        justifyContent: "start",
+                        alignItems: "center",
                       }}
                     >
                       <Svg
@@ -1439,7 +1484,6 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                         fontSize: 14,
                         fontFamily: `${selectedFont} 400`,
                         color: "#383839",
-                      
                       }}
                     >
                       Courses & Certifications
@@ -1473,7 +1517,8 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                       style={{
                         flexDirection: "row",
                         gap: 16,
-                        alignItems: "start",
+                        justifyContent: "start",
+                        alignItems: "center",
                       }}
                     >
                       <Svg
@@ -1579,7 +1624,6 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                         fontSize: 14,
                         fontFamily: `${selectedFont} 400`,
                         color: "#383839",
-                       
                       }}
                     >
                       Extra-Curriculum Activities
@@ -1613,7 +1657,8 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                       style={{
                         flexDirection: "row",
                         gap: 16,
-                        alignItems: "start",
+                        justifyContent: "start",
+                        alignItems: "center",
                       }}
                     >
                       <Svg
@@ -1700,7 +1745,6 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
               </View>
             )}
 
-          
             {data?.section?.length > 0 &&
               data?.section?.map((item, index) => (
                 <View
@@ -1764,7 +1808,8 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                           style={{
                             flexDirection: "row",
                             gap: 16,
-                            alignItems: "start",
+                            justifyContent: "start",
+                            alignItems: "center",
                             width: "75%",
                           }}
                         >

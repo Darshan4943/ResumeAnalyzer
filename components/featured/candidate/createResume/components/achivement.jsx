@@ -2,7 +2,12 @@ import React, { useEffect, useState } from "react";
 import DateSelector from "../../../../common/dateSelector";
 import { Delete_icon, Edit_icon } from "../../../../../utils/svg";
 
-const Achievement = ({ data, setData }) => {
+const Achievement = ({
+  data,
+  setData,
+  setAchievementView,
+  achievementView,
+}) => {
   const [isChecked, setIsChecked] = useState(true);
   const [view, setView] = useState(true);
   const [toggleOn, setToggleOn] = useState(true);
@@ -57,19 +62,19 @@ const Achievement = ({ data, setData }) => {
         const index = isModified?.index;
         dumyData?.splice(index, 1, achivementData);
         setData({ ...data, achievements: dumyData });
-        setView(false);
+        setAchievementView(false);
       } else {
         setData({
           ...data,
           achievements: [achivementData, ...data?.achievements],
         });
-        setView(false);
+        setAchievementView(false);
       }
       setAchivementData({
         title: "",
       });
     } else {
-      setView(true);
+      setAchievementView(true);
     }
   };
 
@@ -93,7 +98,7 @@ const Achievement = ({ data, setData }) => {
     const dataToEdit = data?.achievements[index];
 
     if (dataToEdit) {
-      setView(true);
+      setAchievementView(true);
       setAchivementData({ ...dataToEdit });
       setIsModified({ status: true, index });
     }
@@ -148,7 +153,7 @@ const Achievement = ({ data, setData }) => {
         ))}
       {/* {view && ( */}
 
-      {view && (
+      {achievementView && (
         <>
           <div className="flex flex-col gap-3">
             <div className="flex flex-col gap-2 w-full">
@@ -177,7 +182,7 @@ const Achievement = ({ data, setData }) => {
                   setAchivementData({
                     title: "",
                   });
-                  setView(false);
+                  setAchievementView(false);
                 }}
               >
                 Cancel
@@ -197,8 +202,11 @@ const Achievement = ({ data, setData }) => {
         </>
       )}
 
-      {!view && (
-        <div className="flex gap-1" onClick={() => isChecked && setView(true)}>
+      {!achievementView && (
+        <div
+          className="flex gap-1"
+          onClick={() => isChecked && setAchievementView(true)}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"

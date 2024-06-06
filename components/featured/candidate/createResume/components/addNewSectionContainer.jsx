@@ -18,6 +18,8 @@ function AddNewSectionContainer({
   hobbiesRef,
   languagesRef,
   scrollToSection,
+  achievementView,
+  setAchievementView,
 }) {
   const [hovered, setHovered] = useState({
     Hobbies: false,
@@ -361,6 +363,7 @@ function AddNewSectionContainer({
       };
       console.log(362, refMap[item.name]);
       scrollToSection(refMap[item.name]);
+      setAchievementView(true);
     }
   };
 

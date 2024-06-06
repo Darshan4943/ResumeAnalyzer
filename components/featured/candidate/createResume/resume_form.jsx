@@ -59,6 +59,8 @@ const ResumeForm = ({
   //   }
   // };
 
+  const [achievementView, setAchievementView] = useState(false);
+
   const [course, setCourse] = useState(false);
   const [languages, setLanguages] = useState(false);
   const [hobbies, setHobbies] = useState(false);
@@ -70,6 +72,20 @@ const ResumeForm = ({
   const [showingSection, setShowingSection] = useState([]);
 
   const [customOptions, setCustomOptions] = useState({
+    Hobbies: false,
+    Languages: false,
+    "Achievements & Awards": false,
+    References: false,
+    Links: false,
+
+    "Extra-Curriculum Activities": false,
+    "Courses & Certifications": false,
+    Internships: false,
+    Project: false,
+    "Custom Section": false,
+  });
+
+  const [viewAllSection, setViewAllSection] = useState({
     Hobbies: false,
     Languages: false,
     "Achievements & Awards": false,
@@ -257,7 +273,12 @@ const ResumeForm = ({
           {(data?.achievements?.length > 0 ||
             customOptions["Achievements & Awards"]) && (
             <>
-              <Achievement setData={setData} data={data} />
+              <Achievement
+                setData={setData}
+                data={data}
+                achievementView={achievementView}
+                setAchievementView={setAchievementView}
+              />
               <div className="border-b border-r border-l border-[#DEDEDE]"></div>
             </>
           )}
@@ -354,6 +375,8 @@ const ResumeForm = ({
           coursesRef={coursesRef}
           customRef={customRef}
           scrollToSection={scrollToSection}
+          achievementView={achievementView}
+          setAchievementView={setAchievementView}
         />
 
         {/* <Achievement setData={setData} data={data} /> */}
