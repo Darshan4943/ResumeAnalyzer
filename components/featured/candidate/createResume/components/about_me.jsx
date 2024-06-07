@@ -19,6 +19,16 @@ const AboutMe = ({ data, setData }) => {
     setData({ ...data, showSummary: !isChecked });
   };
 
+  useEffect(() => {
+    if (data) {
+      if (data?.showSummary === true) {
+        setIsChecked(true);
+      } else {
+        setIsChecked(false);
+      }
+    }
+  }, [data]);
+
   const generateText = () => {
     const prompt = `Original Paragraph:\n${text}\n\nNew Paragraph:\n`;
     if (text.length > 100) {

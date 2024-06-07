@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import DateSelector from "../../../../common/dateSelector";
 import { Delete_icon, Edit_icon } from "../../../../../utils/svg";
 
@@ -23,6 +23,16 @@ const Experience = ({ data, setData }) => {
       end: { year: "Year", month: "Month" },
     },
   });
+
+  useEffect(() => {
+    if (data) {
+      if (data?.showExperience === true) {
+        setIsChecked(true);
+      } else {
+        setIsChecked(false);
+      }
+    }
+  }, [data]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
