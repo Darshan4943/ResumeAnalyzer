@@ -599,7 +599,7 @@ const ResumePreview = ({
     >
       <LimitUsedModal visible={limitUsedModal} setVisible={setLimitUsedModal} />
       <div
-        className="flex  h-fit flex-col w-full  sm:p-4 p-2 gap-[14px] rounded-lg bg-white shadow-md"
+        className="flex  h-fit flex-col w-full  sm:px-4 px-2 gap-[14px] rounded-lg bg-white shadow-md"
         style={{
           boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)",
         }}

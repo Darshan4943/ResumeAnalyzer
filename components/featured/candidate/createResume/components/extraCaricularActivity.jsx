@@ -133,7 +133,7 @@ const ExtraCaricularActivity = ({ data, setData, setExtraCurricularView, extraCu
 
   return (
     <div
-      className="flex flex-col p-4 gap-2 rounded-lg bg-white"
+      className="flex flex-col py-4 gap-2 rounded-lg bg-white"
       style={{
         // boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)",
         opacity: isChecked ? 1 : 0.5,
@@ -141,16 +141,16 @@ const ExtraCaricularActivity = ({ data, setData, setExtraCurricularView, extraCu
     >
       <div className="w-full flex justify-between text-[20px] font-montserrat font-medium">
         <p> Extra Activities</p>
-        {/* <label className="switch">
+        <label className="switch">
           <input
             type="checkbox"
             checked={isChecked}
             onChange={handleSwitchChange}
           />
           <span className="slider round"></span>
-        </label> */}
+        </label>
 
-        <div onClick={() => {
+        {/* <div onClick={() => {
           setCustomOptions((prevState) => ({
             ...prevState,
             ["Extra Activities"]: false,
@@ -166,7 +166,7 @@ const ExtraCaricularActivity = ({ data, setData, setExtraCurricularView, extraCu
             </g>
           </svg>
 
-        </div>
+        </div> */}
       </div>
 
       {!extraCurricularView &&
@@ -202,7 +202,7 @@ const ExtraCaricularActivity = ({ data, setData, setExtraCurricularView, extraCu
           </div>
         ))}
 
-      {extraCurricularView && (
+      {(extraCurricularView || data.extraCaricularData.length <= 0) && (
         <div>
           <div className="flex flex-col gap-3">
             <div className="flex flex-col gap-2 w-full">
@@ -294,6 +294,15 @@ const ExtraCaricularActivity = ({ data, setData, setExtraCurricularView, extraCu
                     },
                   });
                   setExtraCurricularView(false);
+                  if (data.extraCaricularData.length <= 0) {
+                  setCustomOptions((prevState) => ({
+                    ...prevState,
+                    ["Extra Activities"]: false,
+                  })); setData({
+                    ...data,
+                    extraCaricularData: [],
+                  })
+                }
                 }}
               >
                 Cancel
@@ -313,7 +322,7 @@ const ExtraCaricularActivity = ({ data, setData, setExtraCurricularView, extraCu
         </div>
       )}
 
-      {!extraCurricularView && (
+      {(!extraCurricularView  && data.extraCaricularData.length > 0) && (
         <div className="flex gap-1" onClick={() => isChecked && setExtraCurricularView(true)}>
           <svg
             xmlns="http://www.w3.org/2000/svg"

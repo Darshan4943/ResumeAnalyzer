@@ -113,22 +113,22 @@ const Achievement = ({
 
   return (
     <div
-      className="flex flex-col p-4 gap-2 rounded-lg bg-white"
+      className="flex flex-col py-4 gap-2 rounded-lg bg-white"
       style={{
         opacity: isChecked ? 1 : 0.5,
       }}
     >
       <div className="w-full flex justify-between text-[20px] font-montserrat font-medium">
         <p> Achievements & Awards</p>
-        {/* <label className="switch">
+        <label className="switch">
           <input
             type="checkbox"
             checked={isChecked}
             onChange={handleSwitchChange}
           />
           <span className="slider round"></span>
-        </label> */}
-        <div onClick={() => {
+        </label>
+        {/* <div onClick={() => {
             setCustomOptions((prevState) => ({
               ...prevState,
               ["Achievements & Awards"]: false,
@@ -144,7 +144,7 @@ const Achievement = ({
             </g>
           </svg>
 
-        </div>
+        </div> */}
       </div>
       {data?.achievements?.length > 0 &&
         data?.achievements?.map((ach, index) => (
@@ -199,7 +199,8 @@ const Achievement = ({
                   setAchivementData({
                     title: "",
                   });
-                  setAchievementView(false); if(data.achievements.length <=0){
+                  setAchievementView(false); 
+                  if(data.achievements.length <=0){
                     setCustomOptions((prevState) => ({
                       ...prevState,
                       ["Achievements & Awards"]: false,

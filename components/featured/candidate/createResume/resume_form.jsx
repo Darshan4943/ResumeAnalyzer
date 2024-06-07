@@ -35,6 +35,12 @@ const ResumeForm = ({
 }) => {
   const [formField, setFormField] = useState([]);
   const [view, setView] = useState(false);
+  const [isChecked, setIsChecked] = useState(true);
+
+  const handleSwitchChange = () => {
+    setIsChecked(!isChecked);
+    setData({ ...data, customSection: !isChecked });
+  };
   useEffect(() => {
     setFormField(
       templates.find((item) => item.index == selectedResumeIndex)?.formFields
@@ -214,7 +220,7 @@ const ResumeForm = ({
                 <div className="absolute top-[12px] right-[10px]  cursor-pointer  web "
                   onClick={() => setIsAll(false)}
                 >
-                
+
                   <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 
                     <g mask="url(#mask0_3995_39638)">
@@ -222,33 +228,33 @@ const ResumeForm = ({
                     </g>
                   </svg>
                 </div>
-              
+
               </div>
               <div className="absolute bottom-[35px] mobile cursor-pointer  "
-                  onClick={() => setIsAll(false)}
-                >
-                  <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <g filter="url(#filter0_d_3995_39637)">
-                      <rect x="4" y="3" width="40" height="40" rx="20" fill="white" />
+                onClick={() => setIsAll(false)}
+              >
+                <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <g filter="url(#filter0_d_3995_39637)">
+                    <rect x="4" y="3" width="40" height="40" rx="20" fill="white" />
 
-                      <g mask="url(#mask0_3995_39637)">
-                        <path d="M18.4 30L17 28.6L22.6 23L17 17.4L18.4 16L24 21.6L29.6 16L31 17.4L25.4 23L31 28.6L29.6 30L24 24.4L18.4 30Z" fill="#333333" />
-                      </g>
+                    <g mask="url(#mask0_3995_39637)">
+                      <path d="M18.4 30L17 28.6L22.6 23L17 17.4L18.4 16L24 21.6L29.6 16L31 17.4L25.4 23L31 28.6L29.6 30L24 24.4L18.4 30Z" fill="#333333" />
                     </g>
-                    <defs>
-                      <filter id="filter0_d_3995_39637" x="0" y="0" width="48" height="48" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-                        <feFlood flood-opacity="0" result="BackgroundImageFix" />
-                        <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
-                        <feOffset dy="1" />
-                        <feGaussianBlur stdDeviation="2" />
-                        <feComposite in2="hardAlpha" operator="out" />
-                        <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0" />
-                        <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_3995_39637" />
-                        <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_3995_39637" result="shape" />
-                      </filter>
-                    </defs>
-                  </svg>
-                </div>
+                  </g>
+                  <defs>
+                    <filter id="filter0_d_3995_39637" x="0" y="0" width="48" height="48" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                      <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                      <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
+                      <feOffset dy="1" />
+                      <feGaussianBlur stdDeviation="2" />
+                      <feComposite in2="hardAlpha" operator="out" />
+                      <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0" />
+                      <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_3995_39637" />
+                      <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_3995_39637" result="shape" />
+                    </filter>
+                  </defs>
+                </svg>
+              </div>
             </div>
           </div>
         )}
@@ -328,6 +334,7 @@ const ResumeForm = ({
             </>
           </div>
         )}
+
 
         {(data?.languages?.length > 0 || customOptions?.Languages) && (
           <div ref={languagesRef}>
@@ -415,37 +422,51 @@ const ResumeForm = ({
 
             </div>
           )}
-          {(data?.course?.length > 0 ||
-            customOptions["Courses & Certifications"]) && (
-        <div ref={coursesRef}>
-          
+        {(data?.course?.length > 0 ||
+          customOptions["Courses & Certifications"]) && (
+            <div ref={coursesRef}>
+
               <>
                 <CouersesAndCertification setData={setData} data={data} coursesView={coursesView} setCoursesView={setCoursesView} setCustomOptions={setCustomOptions} />
                 <div className="border-b border-r border-l border-[#DEDEDE]"></div>
               </>
-            
-        </div>
-        )}
-        {/* {customOptions["Custom Section"] && ( */}
-        <div ref={customRef}>
-          {data?.section?.map((item, index) => (
-            <div key={index}>
-              <AddSection
-                section={item.subSection}
-                formData={item.subSection[0]}
-                data={data}
-                setData={setData}
-                index={index}
-                item={item}
-                customSectionView={customSectionView}
-                setCustomSectionView={setCustomSectionView}
-                setCustomOptions={setCustomOptions}
-              />
 
-              <div className="border-b border-r border-l border-[#DEDEDE]"></div>
             </div>
-          ))}
-        </div>
+          )}
+        {/* {customOptions["Custom Section"] && ( */}
+        {data?.section.length > 0 &&
+          <div ref={customRef}>
+            <div className="text-[20px] flex justify-between font-medium pt-4">
+              Custom Section
+              <label className="switch">
+                <input
+                  type="checkbox"
+                  checked={isChecked}
+                  onChange={handleSwitchChange}
+                />
+                <span className="slider round"></span>
+              </label>
+
+            </div>
+            {data?.section?.map((item, index) => (
+              <div key={index}>
+                <AddSection
+                  section={item.subSection}
+                  formData={item.subSection[0]}
+                  data={data}
+                  setData={setData}
+                  index={index}
+                  item={item}
+                  customSectionView={customSectionView}
+                  setCustomSectionView={setCustomSectionView}
+                  setCustomOptions={setCustomOptions}
+                />
+
+                <div className="border-b border-r border-l border-[#DEDEDE]"></div>
+              </div>
+            ))}
+          </div>
+        }
         {/* )} */}
 
         <AddNewSectionContainer

@@ -5,10 +5,10 @@ import CustomSection from "./customSection";
 import CustomDate from "../../../../common/customDate";
 import ContinueWorkingOn from "../../../../common/continueWorkingOn";
 
-const ProjectSection = ({ data, setData,setInternshipsView,internshipsView ,setCustomOptions}) => {
+const ProjectSection = ({ data, setData, setInternshipsView, internshipsView, setCustomOptions }) => {
   const [isChecked, setIsChecked] = useState(true);
   const [toggleOn, setToggleOn] = useState(true);
-  
+
   const [editingIndex, setEditingIndex] = useState(null);
   const [isModified, setIsModified] = useState({ status: false, index: 0 });
   const [error, setError] = useState("");
@@ -131,7 +131,7 @@ const ProjectSection = ({ data, setData,setInternshipsView,internshipsView ,setC
 
   return (
     <div
-      className="flex flex-col p-4 gap-2 rounded-lg bg-white"
+      className="flex flex-col py-4 gap-2 rounded-lg bg-white"
       style={{
         // boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)",
         opacity: isChecked ? 1 : 0.5,
@@ -139,15 +139,15 @@ const ProjectSection = ({ data, setData,setInternshipsView,internshipsView ,setC
     >
       <div className="w-full flex justify-between text-[20px] font-montserrat font-medium">
         <p> Internships</p>
-        {/* <label className="switch">
+        <label className="switch">
           <input
             type="checkbox"
             checked={isChecked}
             onChange={handleSwitchChange}
           />
           <span className="slider round"></span>
-        </label> */}
-         <div onClick={() => {
+        </label>
+        {/* <div onClick={() => {
           setCustomOptions((prevState) => ({
             ...prevState,
             ["Internships"]: false,
@@ -163,7 +163,7 @@ const ProjectSection = ({ data, setData,setInternshipsView,internshipsView ,setC
             </g>
           </svg>
 
-        </div>
+        </div> */}
       </div>
 
       {!internshipsView &&
@@ -171,11 +171,10 @@ const ProjectSection = ({ data, setData,setInternshipsView,internshipsView ,setC
         data?.internship?.map((exp, index) => (
           <div
             key={index}
-            className={`flex flex-col gap-1 py-[12px] px-[16px] rounded-[6px]  border break-all ${
-              editingIndex === index
+            className={`flex flex-col gap-1 py-[12px] px-[16px] rounded-[6px]  border break-all ${editingIndex === index
                 ? "border-[#06A9EF] border-[2px]"
                 : "border-[#DEDEDE]"
-            }`}
+              }`}
           >
             <div className="flex justify-between">
               <p className="text-[14px]">{exp?.title} </p>
@@ -199,7 +198,7 @@ const ProjectSection = ({ data, setData,setInternshipsView,internshipsView ,setC
           </div>
         ))}
 
-      {internshipsView && (
+      {(internshipsView || data.internship.length <= 0) && (
         <div>
           <div className="flex flex-col gap-3">
             <div className="flex flex-col gap-2 w-full">
@@ -288,6 +287,15 @@ const ProjectSection = ({ data, setData,setInternshipsView,internshipsView ,setC
                     },
                   });
                   setInternshipsView(false);
+                  if (data.internship.length <= 0) {
+                    setCustomOptions((prevState) => ({
+                      ...prevState,
+                      ["Internships"]: false,
+                    })); setData({
+                      ...data,
+                      internship: [],
+                    })
+                  }
                 }}
               >
                 Cancel
@@ -307,7 +315,7 @@ const ProjectSection = ({ data, setData,setInternshipsView,internshipsView ,setC
         </div>
       )}
 
-      {!internshipsView && (
+      {(!internshipsView && data.internship.length > 0) && (
         <div className="flex gap-1" onClick={() => isChecked && setInternshipsView(true)}>
           <svg
             xmlns="http://www.w3.org/2000/svg"

@@ -131,7 +131,7 @@ const Project = ({ data, setData, setProjectView, projectView, setCustomOptions 
 
   return (
     <div
-      className="flex flex-col p-4 gap-2 rounded-lg bg-white"
+      className="flex flex-col py-4 gap-2 rounded-lg bg-white"
       style={{
         // boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)",
         opacity: isChecked ? 1 : 0.5,
@@ -139,16 +139,16 @@ const Project = ({ data, setData, setProjectView, projectView, setCustomOptions 
     >
       <div className="w-full flex justify-between text-[20px] font-montserrat font-medium">
         <p> Projects</p>
-        {/* <label className="switch">
+        <label className="switch">
           <input
             type="checkbox"
             checked={isChecked}
             onChange={handleSwitchChange}
           />
           <span className="slider round"></span>
-        </label> */}
+        </label>
 
-        <div onClick={() => {
+        {/* <div onClick={() => {
           setCustomOptions((prevState) => ({
             ...prevState,
             ["Project"]: false,
@@ -164,7 +164,7 @@ const Project = ({ data, setData, setProjectView, projectView, setCustomOptions 
             </g>
           </svg>
 
-        </div>
+        </div> */}
       </div>
 
       {!projectView &&
@@ -199,7 +199,7 @@ const Project = ({ data, setData, setProjectView, projectView, setCustomOptions 
           </div>
         ))}
 
-      {projectView && (
+      {(projectView  || data.project.length <= 0) && (
         <div>
           <div className="flex flex-col gap-3">
             <div className="flex flex-col gap-2 w-full">
@@ -287,7 +287,16 @@ const Project = ({ data, setData, setProjectView, projectView, setCustomOptions 
                       end: { year: "Year", month: "Month" },
                     },
                   });
-                  setProjectView(false);
+                  setProjectView(false); 
+                  if (data.project.length <= 0) {
+                  setCustomOptions((prevState) => ({
+                    ...prevState,
+                    ["Project"]: false,
+                  })); setData({
+                    ...data,
+                    project: [],
+                  })
+                }
                 }}
               >
                 Cancel
@@ -307,7 +316,7 @@ const Project = ({ data, setData, setProjectView, projectView, setCustomOptions 
         </div>
       )}
 
-      {!projectView && (
+      {(!projectView &&  data.project.length > 0) && (
         <div className="flex gap-1" onClick={() => isChecked && setProjectView(true)}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
