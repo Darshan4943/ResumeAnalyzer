@@ -167,7 +167,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                       color: "#414042",
                     }}
                   >
-                    {data.mobileNumber}
+                   {data.dial_code}  {data.mobileNumber}
                   </Text>
                 </View>
               )}

@@ -99,7 +99,7 @@ function Header({ userData }) {
                       className="w-[160px] flex flex-col text-[14px] font-medium  justify-center cursor-pointer absolute top-[26px] mt-[1rem] right-0  z-[5000] bg-[#FFFF]  rounded-[8px] rounded-t-[8px]   "
                     >
                       <div
-                        o
+                        
                         onClick={() => {
                           router.push("/auth?signin=true&role=user");
                         }}

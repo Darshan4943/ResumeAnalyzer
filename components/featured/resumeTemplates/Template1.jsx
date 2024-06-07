@@ -14,6 +14,13 @@ import {
 import { formatLink } from "../../../utils/middleware";
 
 function Template1({ data, selectedColor, selectedFont, preview }) {
+
+  const formatLink = (link) => {
+    if (link?.length > 25) {
+      return link?.match(/.{1,25}/g).join('\n');  }
+    return link;
+  };
+
   return (
     <Page size="A4" style={{ padding: 24 }} pageMode={"fullScreen"} wrap={true}>
       <View
@@ -31,7 +38,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
           }}
         >
           <View style={{ flexDirection: "col", gap: 24 }}>
-            <View style={{ flexDirection: "col", gap: 24 }}>
+            <View style={{ flexDirection: "col", gap: 12 }}>
               <Text
                 style={{
                   color: "#414042",
@@ -227,7 +234,8 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                       fontFamily: `${selectedFont} 400`,
                     }}
                   >
-                    {data?.location}
+                    {formatLink(data?.location)}
+                 
                   </Text>
                 </View>
               </View>
@@ -317,7 +325,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
               )}
             </View>
             {data?.skills?.length > 0 && data?.showSkills === true && (
-              <View wrap={false} style={{ flexDirection: "column" }}>
+              <View  style={{ flexDirection: "column" }}>
                 <View style={{ flexDirection: "column", gap: 12 }}>
                   <Text
                     style={{
@@ -340,7 +348,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                   </Svg>
                   <View style={{ flexDirection: "column", gap: 8 }}>
                     {data?.skills.map((detail, index) => (
-                      <View key={index} wrap={false}>
+                      <View key={index} >
                         <View>
                           <Text
                             style={{
@@ -500,7 +508,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                   </Svg>
                   <View style={{ flexDirection: "column", gap: 8 }}>
                     {data?.languages.map((detail, index) => (
-                      <View key={index} wrap={false}>
+                      <View key={index} >
                         <View>
                           <Text
                             style={{

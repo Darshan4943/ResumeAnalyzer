@@ -23,6 +23,18 @@ function Template14({ data, selectedColor, selectedFont }) {
     return link;
   };
 
+  const formatEmail = (email) => {
+    if (email?.length > 35) {
+      return email?.match(/.{1,35}/g).join('\n');  }
+    return email;
+  };
+
+  const formatLocation = (location) => {
+    if (location?.length > 35) {
+      return location?.match(/.{1,35}/g).join('\n');  }
+    return location;
+  };
+
   return (
     <Page size="A4" style={{ padding: "24px" }} wrap={true}>
       <View
@@ -129,6 +141,8 @@ function Template14({ data, selectedColor, selectedFont }) {
                   fontSize: 32,
                   fontFamily: `${selectedFont} 700`,
                   color: selectedColor,
+                  maxWidth:"50%"
+
                 }}
               >
                 {data.firstName} {data.lastName}
@@ -140,7 +154,7 @@ function Template14({ data, selectedColor, selectedFont }) {
                 flexDirection: "column",
                 justifyContent: "flex-end",
                 alignItems: "flex-end",
-                maxWidth: "40%",
+                maxWidth: "50%",
               }}
             >
               <Text
@@ -149,10 +163,12 @@ function Template14({ data, selectedColor, selectedFont }) {
                   fontFamily: `${selectedFont} 400`,
                   color: "#4D4D4D",
                   display: "flex",
-                  flexWrap: "wrap",
+                  // flexWrap: "wrap",
+                  maxWidth:"100%"
                 }}
               >
-                {data.email}
+                {/* {data.email} */}
+                {formatEmail(data.email)}
               </Text>
               <Text
                 style={{
@@ -161,7 +177,7 @@ function Template14({ data, selectedColor, selectedFont }) {
                   color: "#4D4D4D",
                 }}
               >
-                {data.mobileNumber}
+             {data.dial_code}  {data.mobileNumber}
               </Text>
             </View>
           </View>
@@ -171,6 +187,7 @@ function Template14({ data, selectedColor, selectedFont }) {
               display: "flex",
               flexDirection: "row",
               justifyContent: "space-between",
+             width:"100%"
             }}
           >
             {data?.showSummary === true && (
@@ -190,18 +207,22 @@ function Template14({ data, selectedColor, selectedFont }) {
             <View
               style={{
                 display: "flex",
-                justifyContent: "flex-start",
+                flexDirection:"row",
+                justifyContent: "flex-end",
                 alignItems: "flex-start",
+                width: "50%",
               }}
             >
               <Text
                 style={{
+                 
                   fontSize: 12,
                   fontFamily: `${selectedFont} 400`,
                   color: "#4D4D4D",
                 }}
               >
-                {data.location}
+                {/* {data.location} */}
+                {formatLocation(data.location)}
               </Text>
             </View>
           </View>

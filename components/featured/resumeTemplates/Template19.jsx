@@ -104,7 +104,7 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                     marginRight: "6px",
                   }}
                 >
-                  {data.mobileNumber}
+                {data.dial_code}   {data.mobileNumber}
                 </Text>
               </View>
             )}
