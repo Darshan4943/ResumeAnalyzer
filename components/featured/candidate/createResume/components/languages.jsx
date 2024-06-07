@@ -74,7 +74,7 @@ const Languages = ({
   };
 
   const renderStarsLanguages = (languagesIndex) => {
-    const languageItem = data.languages[languagesIndex];
+    const languageItem = data?.languages[languagesIndex];
     if (languageItem && languageItem.rating) {
       return languageItem.rating.map((rating, index) => (
         <img
@@ -179,7 +179,7 @@ const Languages = ({
             {/* <button className=" font-montserrat text-xs font-semibold px-[12px] rounded-[8px] border border-[#06A9EF] w-[137px] h-[32px]">
               Update to Profile
             </button> */}
-            {data.languages.length <= 0 && (
+            {data?.languages?.length <= 0 && (
               <button
                 className=" font-montserrat text-xs font-semibold px-[12px] rounded-[8px] border border-[#06A9EF] w-[80px] h-[32px]"
                 onClick={() => {
