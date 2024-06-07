@@ -257,7 +257,7 @@ const PersonalDetails = ({
               className={`flex flex-col gap-2 w-full ${item.className}`}
               key={index}
             >
-              <div className=" text-[14px]  font-medium">{item.label}</div>
+              <div className=" text-[14px]  font-medium">{item.label} <span className="star">*</span></div>
               {item.name == "mobileNumber" ? (
                 <div
                   className={`rounded-[8px] ${
