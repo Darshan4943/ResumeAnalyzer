@@ -48,6 +48,7 @@ const Reference = ({ setData, data, referenceView, setReferenceView, setCustomOp
       placeholder: "Type here",
       value: referenceData?.referantName,
       className: " col-span-2 ",
+      require
     },
     {
       label: "Designation",
@@ -73,6 +74,7 @@ const Reference = ({ setData, data, referenceView, setReferenceView, setCustomOp
       placeholder: "Type here",
       value: referenceData?.email,
       className: " col-span-2",
+      require
     },
   ];
 
@@ -108,11 +110,14 @@ const Reference = ({ setData, data, referenceView, setReferenceView, setCustomOp
     // setIsModified({ status: false, index: 0 });
     setFormErrors({ ...formErrors, [name]: value?.trim() === "" });
   };
-
   const isDisabled = () => {
-    if (!isChecked || !isModified) return true;
+    // if (!isChecked || !isModified) return true;
 
-    const isAnyFieldEmpty = Object.values(referenceData).some((value) => {
+    const { referantName, email } = referenceData;
+
+    const fieldsToCheck = [referantName, email];
+
+    const isAnyFieldEmpty = fieldsToCheck.some((value) => {
       if (typeof value === "string") {
         return value.trim() === "";
       }
@@ -120,11 +125,12 @@ const Reference = ({ setData, data, referenceView, setReferenceView, setCustomOp
       if (typeof value === "number") {
         return value.toString().trim() === "";
       }
-      return true;
+      return true; // For any other type, treat it as empty
     });
 
     return isAnyFieldEmpty;
   };
+
 
   const saveData = () => {
     if (validateFields()) {
@@ -158,12 +164,12 @@ const Reference = ({ setData, data, referenceView, setReferenceView, setCustomOp
     }
   };
 
-  useEffect(() => {
-    const allFieldsValid = validateFields();
-    if (allFieldsValid && isModified?.status) {
-      setIsModified({ status: true, index: 0 });
-    }
-  }, [referenceData]);
+  // useEffect(() => {
+  //   const allFieldsValid = validateFields();
+  //   if (allFieldsValid && isModified?.status) {
+  //     setIsModified({ status: true, index: 0 });
+  //   }
+  // }, [referenceData]);
 
   useEffect(() => {
     const { referantName, designation, email, organization } = data;
@@ -193,7 +199,7 @@ const Reference = ({ setData, data, referenceView, setReferenceView, setCustomOp
   return (
     <>
       <div
-        className="flex flex-col sm:py-4 py-2 gap-2 rounded-lg bg-white"
+        className="flex flex-col sm:py-4 py-2 gap-2 rounded-lg bg-white "
         style={{
           opacity: isChecked ? 1 : 0.5,
         }}
@@ -262,11 +268,12 @@ const Reference = ({ setData, data, referenceView, setReferenceView, setCustomOp
                   key={index}
                 >
                   <div className=" text-[14px] font-montserrat  font-medium">
-                    {item?.label}
+                    {item?.label} {item.require && <span className="star">*</span>}
                   </div>
 
                   <div
-                    className={`border-[1px] rounded-[8px] px-[16px] py-[12px] ${formErrors[item?.name]
+                    className={`border-[1px] rounded-[8px] px-[16px] py-[12px]
+                       ${formErrors[item?.name]
                         ? "border-[#C00000]"
                         : "border-[#9D9D9D]"
                       } `}
@@ -317,9 +324,9 @@ const Reference = ({ setData, data, referenceView, setReferenceView, setCustomOp
                 </button>
                 <button
                   className=" font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px]  bg-[#06A9EF] w-[60px] h-[32px]"
-                  //   style={{ opacity: isDisabled() ? 0.5 : 1 }}
+                    style={{ opacity: isDisabled() ? 0.5 : 1 }}
                   onClick={saveData}
-                //   disabled={isDisabled() || !isChecked}
+                  disabled={isDisabled() || !isChecked}
                 >
                   Save
                 </button>
