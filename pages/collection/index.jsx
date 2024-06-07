@@ -191,9 +191,10 @@ function Collection() {
   const getUnSyncFiles = () => {
 
     axios
-      .get(`https://jamblix.com/api/getUnsyncedFile/${userDataGlobal._id}`)
+      .get(`http://localhost:2000/api/getUnsyncedFile/${userDataGlobal._id}`)
       .then((res) => {
-        setUnSyncFiles(res.data.count);
+         const files = res.data.data.filter(item => item.type === 'file');
+      setUnSyncFiles(files.length);
       })
       .catch((err) => {
         console.log(err);

@@ -53,6 +53,7 @@ const PersonalDetails = ({
   const handleItemClick = (item) => {
     setSelectedItem(item);
     setProfileData({ ...profileData, dial_code: item.dial_code });
+    setIsModified(true);
   };
   const inputFields = [
     {
@@ -115,67 +116,6 @@ const PersonalDetails = ({
     dial_code: false
   });
 
-  const validateFields = () => {
-    const newErrors = {};
-    let allFieldsValid = true;
-
-    inputFields.forEach((field) => {
-      const { name } = field;
-      const value = profileData[name];
-
-      switch (name) {
-        case "firstName":
-          if (!value.trim()) {
-            newErrors[name] = "First name is required";
-            allFieldsValid = false;
-          }
-          break;
-        case "lastName":
-          if (!value.trim()) {
-            newErrors[name] = "Last name is required";
-            allFieldsValid = false;
-          }
-          break;
-        case "mobileNumber":
-          if (!value.trim()) {
-            newErrors[name] = "Mobile number is required";
-            allFieldsValid = false;
-          }
-          break;
-        case "email":
-          if (!value.trim()) {
-            newErrors[name] = "Email is required";
-            allFieldsValid = false;
-          }
-          break;
-        case "location":
-          if (!value.trim()) {
-            newErrors[name] = "Location is required";
-            allFieldsValid = false;
-          }
-          break;
-        case "designation":
-          if (!value.trim()) {
-            newErrors[name] = "Designation is required";
-            allFieldsValid = false;
-          }
-          break;
-        case "dial_code":
-          if (!value.trim()) {
-            newErrors[name] = "Dial code is required";
-            allFieldsValid = false;
-          }
-          break;
-        default:
-          break;
-      }
-    });
-
-    setFormErrors(newErrors);
-    return allFieldsValid;
-  };
-
-
   // const validateFields = () => {
   //   const newErrors = {};
   //   let allFieldsValid = true;
@@ -184,17 +124,78 @@ const PersonalDetails = ({
   //     const { name } = field;
   //     const value = profileData[name];
 
-  //     if (typeof value === "string" && value.trim() === "") {
-  //       newErrors[name] = true;
-  //       allFieldsValid = false;
-  //     } else {
-  //       newErrors[name] = false;
+  //     switch (name) {
+  //       case "firstName":
+  //         if (!value.trim()) {
+  //           newErrors[name] = "First name is required";
+  //           allFieldsValid = false;
+  //         }
+  //         break;
+  //       case "lastName":
+  //         if (!value.trim()) {
+  //           newErrors[name] = "Last name is required";
+  //           allFieldsValid = false;
+  //         }
+  //         break;
+  //       case "mobileNumber":
+  //         if (!value.trim()) {
+  //           newErrors[name] = "Mobile number is required";
+  //           allFieldsValid = false;
+  //         }
+  //         break;
+  //       case "email":
+  //         if (!value.trim()) {
+  //           newErrors[name] = "Email is required";
+  //           allFieldsValid = false;
+  //         }
+  //         break;
+  //       case "location":
+  //         if (!value.trim()) {
+  //           newErrors[name] = "Location is required";
+  //           allFieldsValid = false;
+  //         }
+  //         break;
+  //       case "designation":
+  //         if (!value.trim()) {
+  //           newErrors[name] = "Designation is required";
+  //           allFieldsValid = false;
+  //         }
+  //         break;
+  //       case "dial_code":
+  //         if (!value.trim()) {
+  //           newErrors[name] = "Dial code is required";
+  //           allFieldsValid = false;
+  //         }
+  //         break;
+  //       default:
+  //         break;
   //     }
   //   });
 
-  //   // setFormErrors({ ...newErrors });
+  //   setFormErrors(newErrors);
   //   return allFieldsValid;
   // };
+
+
+  const validateFields = () => {
+    const newErrors = {};
+    let allFieldsValid = true;
+
+    inputFields.forEach((field) => {
+      const { name } = field;
+      const value = profileData[name];
+
+      if (typeof value === "string" && value.trim() === "") {
+        newErrors[name] = true;
+        allFieldsValid = false;
+      } else {
+        newErrors[name] = false;
+      }
+    });
+
+    // setFormErrors({ ...newErrors });
+    return allFieldsValid;
+  };
 
   // console.log(1616,profileData.dial_code)
   // console.log(1111111,data.dial_code)
@@ -348,18 +349,18 @@ const PersonalDetails = ({
                           <div className="flex items-center  gap-1 cursor-pointer  w-[100%] ">
                             <ReactSelect
                               options={filteredTelCode}
-                              className="w-[100%] flex  items-center py-2  rounded-[8px] outline-none border-none"
+                              className="w-[100%] flex  items-center py-2  rounded-[8px] outline-none border-none cursor-pointer"
                               name=""
                               placeholder="Select"
                               value={selectedItem}
                               onChange={handleItemClick}
                               getOptionLabel={(option) => (
-                                <div className="flex items-center  ">
+                                <div className="flex items-center cursor-pointer  ">
                                   <img
                                     src={`https://hatscripts.github.io/circle-flags/flags/${option.code.toLowerCase()}.svg`}
                                     width="20px"
                                   />
-                                  <span className="ml-2 text-[#333333]">
+                                  <span className="ml-2 text-[#333333] cursor-pointer">
                                     {option.code} {option.dial_code}
                                   </span>
                                 </div>

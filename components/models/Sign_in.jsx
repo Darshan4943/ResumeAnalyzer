@@ -174,7 +174,7 @@ function Sign_in({ googleLoading, handleGoogle, setSignIn, setSignUp, role }) {
             <div className="flex justify-between text-[#06A9EF] text-[12px] font-[500] cursor-pointer ">
               {error && (
                 <div
-                  className={`flex justify-start scr420:text-[16px] text-[13px] gap-2  items-center bottom-[-30px] w-full  ${
+                  className={`flex justify-start scr420:text-[16px] scr360:text-[13px] text-[11px] gap-2  items-center bottom-[-30px] w-full  ${
                     error
                       ? "text-[#c00000] font-[600]"
                       : "text-green font-[600]"
