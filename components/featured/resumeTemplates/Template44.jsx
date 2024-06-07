@@ -946,6 +946,78 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
             </View>
           )}
 
+          {data?.project?.length > 0 && data?.showProject === true && (
+            <View
+              style={{ display: "flex", flexDirection: "column", gap: 15 }}
+              // wrap={data?.experience?.length > 1 ? true : false}
+            >
+              <View
+                style={{
+                  backgroundColor: "#2D3033",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  padding: 4,
+                }}
+              >
+                <Text
+                  style={{
+                    fontFamily: `${selectedFont} 400`,
+                    fontSize: 14,
+                    color: "#FFFFFF",
+                  }}
+                >
+                  PROJECT
+                </Text>
+              </View>
+              <View style={{ flexDirection: "column", gap: 16 }}>
+                {data?.project?.map((detail, index) => (
+                  <View
+                    key={index}
+                    style={{ flexDirection: "column", gap: 4 }}
+                    // wrap={false}
+                  >
+                    <Text
+                      style={{
+                        fontFamily: `${selectedFont} 400`,
+                        fontSize: 14,
+                        color: "#2D3033",
+                      }}
+                    >
+                      {detail.title} /{" "}
+                      {detail.duration?.start?.year !== "Year" &&
+                        `${detail.duration?.start?.year}-${" "}${
+                          detail.currentlyWorking
+                            ? "Present"
+                            : detail.duration?.end?.year
+                        }`}
+                    </Text>
+
+                    <Text
+                      style={{
+                        fontFamily: `${selectedFont} 400`,
+                        fontSize: 12,
+                        color: "#6D6E71",
+                      }}
+                    >
+                      {detail.organization}
+                    </Text>
+                    <Text
+                      style={{
+                        fontFamily: `${selectedFont} 400`,
+                        fontSize: 10,
+                        color: "#6D6E71",
+                      }}
+                    >
+                      {detail.description}
+                    </Text>
+                  </View>
+                ))}
+              </View>
+            </View>
+          )}
+
           {data?.extraCaricularData?.length > 0 &&
             data?.showExtraCariculam === true && (
               <View
