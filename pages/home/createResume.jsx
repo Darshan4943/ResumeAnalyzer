@@ -457,6 +457,16 @@ function CreateResume() {
         : [];
       setData({
         ...data,
+        showSkills: skills?.length > 0 ? true : false,
+        showAchievements: achievements?.length > 0 ? true : false,
+        showCourses: courses?.length > 0 ? true : false,
+        showExtraCariculam: extraCaricularActivity?.length > 0 ? true : false,
+        showHobbies: hobbies?.length > 0 ? true : false,
+        showInternship: internship?.length > 0 ? true : false,
+        showLanguages: languages?.length > 0 ? true : false,
+        showLinks: socialLinks?.length > 0 ? true : false,
+        showProject: project?.length > 0 ? true : false,
+        showReference: references?.length > 0 ? true : false,
         clientId: clientId ? clientId : null,
         firstName: first_name,
         lastName: last_name,
