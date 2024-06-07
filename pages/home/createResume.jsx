@@ -435,7 +435,7 @@ function CreateResume() {
         address,
         skills,
       } = parsedData;
-      const languages = parsedData.languages;
+      const languages = parsedData?.languages;
       const hobbies = parsedData.hobbies;
 
       const educations = parsedData.education;
@@ -483,10 +483,13 @@ function CreateResume() {
         hobbies: hobbies?.map((item) => ({
           title: item,
         })),
-        languages: languages?.map((item) => ({
-          languages: item,
-          rating: [3, 3, 3],
-        })),
+        languages:
+          languages?.length > 0
+            ? languages?.map((item) => ({
+                languages: item,
+                rating: [3, 3, 3],
+              }))
+            : [],
         education: educations?.map((item) => ({
           qualification: item.courseName,
           specialization: item["Specialization/Board"],
