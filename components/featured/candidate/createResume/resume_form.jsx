@@ -186,7 +186,7 @@ const ResumeForm = ({
     ));
   };
 
-  console.log(126, customOptions);
+  // console.log(126, customOptions);
 
   return (
     <>

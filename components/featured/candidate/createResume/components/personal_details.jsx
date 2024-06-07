@@ -28,7 +28,7 @@ const PersonalDetails = ({
     email: "",
     location: "",
     designation: "",
-    dial_code: "+260",
+    dial_code: "",
   });
 
   useEffect(() => {
@@ -112,6 +112,7 @@ const PersonalDetails = ({
     email: false,
     location: false,
     designation: false,
+    dial_code:false
   });
 
   const validateFields = () => {
@@ -133,6 +134,12 @@ const PersonalDetails = ({
     // setFormErrors({ ...newErrors });
     return allFieldsValid;
   };
+
+  // console.log(1616,profileData.dial_code)
+  // console.log(1111111,data.dial_code)
+
+
+
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -182,6 +189,7 @@ const PersonalDetails = ({
         firstName: camelCase(profileData.firstName),
         lastName: camelCase(profileData.lastName),
         mobileNumber: profileData.mobileNumber,
+        dial_code:profileData.dial_code,
         email: profileData.email.toLowerCase(),
         location: camelCase(profileData.location),
         designation: profileData.designation,

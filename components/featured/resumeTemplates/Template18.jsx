@@ -194,7 +194,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                     color: "#FFFFFF",
                   }}
                 >
-                  {data.mobileNumber}
+                 {data.dial_code}  {data.mobileNumber}
                 </Text>
               </View>
               <View
