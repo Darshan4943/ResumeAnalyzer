@@ -7,7 +7,7 @@ const Achievement = ({
   setData,
   setAchievementView,
   achievementView,
-  setCustomOptions
+  setCustomOptions,
 }) => {
   const [isChecked, setIsChecked] = useState(true);
   const [view, setView] = useState(true);
@@ -16,7 +16,7 @@ const Achievement = ({
   const [error, setError] = useState("");
   const handleSwitchChange = () => {
     setIsChecked(!isChecked);
-    setData({ ...data, showExperience: !isChecked });
+    setData({ ...data, showAchievements: !isChecked });
   };
   const [achivementData, setAchivementData] = useState({
     title: "",
@@ -111,6 +111,18 @@ const Achievement = ({
     });
   };
 
+  useEffect(() => {
+    if (data) {
+      if (data?.showAchievements === true) {
+        setIsChecked(true);
+      } else {
+        setIsChecked(false);
+      }
+    }
+  }, [data]);
+
+
+
   return (
     <div
       className="flex flex-col py-4 gap-2 rounded-lg bg-white"
@@ -150,18 +162,25 @@ const Achievement = ({
         data?.achievements?.map((ach, index) => (
           <div
             key={index}
-            className={`flex flex-col gap-1 py-[12px] px-[16px] rounded-[6px]  border break-all ${editingIndex === index
-              ? "border-[#06A9EF] border-[2px]"
-              : "border-[#DEDEDE]"
-              }`}
+            className={`flex flex-col gap-1 py-[12px] px-[16px] rounded-[6px]  border break-all ${
+              editingIndex === index
+                ? "border-[#06A9EF] border-[2px]"
+                : "border-[#DEDEDE]"
+            }`}
           >
             <div className="flex justify-between">
               <p className="text-[14px]">{ach?.title}</p>
               <div className="flex gap-2">
-                <div className=" cursor-pointer" onClick={() => handleEditAchievement(index)}>
+                <div
+                  className=" cursor-pointer"
+                  onClick={() => handleEditAchievement(index)}
+                >
                   <Edit_icon />
                 </div>
-                <div className=" cursor-pointer" onClick={() => handleDeleteAchievement(index)}>
+                <div
+                  className=" cursor-pointer"
+                  onClick={() => handleDeleteAchievement(index)}
+                >
                   <Delete_icon />
                 </div>
               </div>
@@ -170,7 +189,7 @@ const Achievement = ({
         ))}
       {/* {view && ( */}
 
-      {(achievementView || data.achievements.length <=0) && (
+      {(achievementView || data.achievements.length <= 0) && (
         <>
           <div className="flex flex-col gap-3">
             <div className="flex flex-col gap-2 w-full">
@@ -199,15 +218,16 @@ const Achievement = ({
                   setAchivementData({
                     title: "",
                   });
-                  setAchievementView(false); 
-                  if(data.achievements.length <=0){
+                  setAchievementView(false);
+                  if (data.achievements.length <= 0) {
                     setCustomOptions((prevState) => ({
                       ...prevState,
                       ["Achievements & Awards"]: false,
-                    })); setData({
+                    }));
+                    setData({
                       ...data,
                       achievements: [],
-                    })
+                    });
                   }
                 }}
               >
@@ -228,7 +248,7 @@ const Achievement = ({
         </>
       )}
 
-      {(!achievementView  && data.achievements.length >0 )&& (
+      {!achievementView && data.achievements.length > 0 && (
         <div
           className="flex gap-1"
           onClick={() => isChecked && setAchievementView(true)}

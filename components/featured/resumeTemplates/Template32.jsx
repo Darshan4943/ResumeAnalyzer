@@ -11,19 +11,19 @@ import {
   Rect,
 } from "@react-pdf/renderer";
 function Template32({ data, selectedColor, selectedFont, preview }) {
-
   const formatLink = (link) => {
     if (link?.length > 25) {
-      return link?.match(/.{1,25}/g).join('\n');  }
+      return link?.match(/.{1,25}/g).join("\n");
+    }
     return link;
   };
 
   const formatEmail = (email) => {
     if (email?.length > 20) {
-      return email?.match(/.{1,20}/g).join('\n');  }
+      return email?.match(/.{1,20}/g).join("\n");
+    }
     return email;
   };
-
 
   return (
     <Page size="A4" wrap={true} style={{ paddingTop: "12px" }}>
@@ -52,8 +52,8 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                     preview
                       ? data.profilePhoto
                       : Object.keys(data?.profilePhoto).includes("filename")
-                        ? URL.createObjectURL(data.profilePhoto)
-                        : data.profilePhoto
+                      ? URL.createObjectURL(data.profilePhoto)
+                      : data.profilePhoto
                   }
                   alt=""
                   style={{
@@ -167,7 +167,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                       color: "#414042",
                     }}
                   >
-                    {data.mobileNumber}
+                    {data.dial_code} {data.mobileNumber}
                   </Text>
                 </View>
               )}
@@ -258,7 +258,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
               )}
             </View>
 
-            {data?.skills?.length > 0 && (
+            {data?.skills?.length > 0 && data?.showSkills === true && (
               <>
                 <View style={{ paddingHorizontal: "24px" }}>
                   <Text
@@ -359,7 +359,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
               </>
             )}
 
-            {data?.languages?.length > 0 && (
+            {data?.languages?.length > 0 && data?.showLanguage === true && (
               <>
                 <View style={{ paddingHorizontal: "24px" }}>
                   <Text
@@ -460,7 +460,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
               </>
             )}
 
-            {data?.socialLinks?.length > 0 && (
+            {data?.socialLinks?.length > 0 && data?.showLinks === true && (
               <View
                 style={{ flexDirection: "column", gap: "16px" }}
                 wrap={false}
@@ -512,52 +512,56 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
               </View>
             )}
 
-            {data?.achievements?.length > 0 && (
-              <View style={{ flexDirection: "column", gap: "16px" }} wrap={false}>
-                <View style={{ paddingLeft: '24px', paddingRight: '16px' }}>
-                  <Text
-                    style={{
-                      fontFamily: `${selectedFont} 400`,
-                      color: selectedColor,
-                      width: "100%",
-                    }}
-                  >
-                    ACHIEVMENTS
-                  </Text>
-                </View>
+            {data?.achievements?.length > 0 &&
+              data?.showAchievements === true && (
                 <View
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    flexWrap: "wrap",
-                    gap: "16px",
-                    marginLeft: "24px",
-                  }}
+                  style={{ flexDirection: "column", gap: "16px" }}
+                  wrap={false}
                 >
-                  {data?.achievements?.map((item, index) => (
-                    <View
-                      wrap={false}
-                      key={index}
+                  <View style={{ paddingLeft: "24px", paddingRight: "16px" }}>
+                    <Text
                       style={{
-                        color: "#414042",
-                        fontSize: "12px",
-                        width: "90%",
-                        // width: "calc(40% - 8px)",
-                        display: "flex",
-                        flexDirection: "column",
-                        gap: "4px",
+                        fontFamily: `${selectedFont} 400`,
+                        color: selectedColor,
+                        width: "100%",
                       }}
                     >
-                      <Text style={{ fontFamily: `${selectedFont} 600` }}>
-                        {item?.title}
-                      </Text>
-                    </View>
-                  ))}
+                      ACHIEVMENTS
+                    </Text>
+                  </View>
+                  <View
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      flexWrap: "wrap",
+                      gap: "16px",
+                      marginLeft: "24px",
+                    }}
+                  >
+                    {data?.achievements?.map((item, index) => (
+                      <View
+                        wrap={false}
+                        key={index}
+                        style={{
+                          color: "#414042",
+                          fontSize: "12px",
+                          width: "90%",
+                          // width: "calc(40% - 8px)",
+                          display: "flex",
+                          flexDirection: "column",
+                          gap: "4px",
+                        }}
+                      >
+                        <Text style={{ fontFamily: `${selectedFont} 600` }}>
+                          {item?.title}
+                        </Text>
+                      </View>
+                    ))}
+                  </View>
                 </View>
-              </View>
-            )}
+              )}
 
-            {data?.reference?.length > 0 && (
+            {data?.reference?.length > 0 && data?.showReference === true && (
               <View
                 style={{ flexDirection: "column", gap: "16px" }}
                 wrap={false}
@@ -614,7 +618,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
               </View>
             )}
 
-            {data?.hobbies?.length > 0 && (
+            {data?.hobbies?.length > 0 && data?.showHobbies === true && (
               <View
                 style={{ flexDirection: "column", gap: "16px" }}
                 wrap={false}
@@ -670,7 +674,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
             gap: "26px",
           }}
         >
-          {data?.summery?.length > 0 && (
+          {data?.summery?.length > 0 && data?.showSummary === true && (
             <View
               style={{
                 display: "flex",
@@ -749,7 +753,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
             </View>
           )}
 
-          {data?.education?.length > 0 && (
+          {data?.education?.length > 0 && data?.showEducation === true && (
             <View
               style={{
                 display: "flex",
@@ -875,9 +879,10 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                           >
                             {" "}
                             {detail.duration?.start?.year !== "Year" &&
-                              `${detail.duration?.start?.year}-${detail.duration?.end?.year === "Year"
-                                ? "Pursuing"
-                                : detail.duration?.end?.year
+                              `${detail.duration?.start?.year}-${
+                                detail.duration?.end?.year === "Year"
+                                  ? "Pursuing"
+                                  : detail.duration?.end?.year
                               }`}
                           </Text>
                         </View>
@@ -907,7 +912,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
             </View>
           )}
 
-          {data?.experience?.length > 0 && (
+          {data?.experience?.length > 0 && data?.showExperience === true && (
             <View
               style={{
                 display: "flex",
@@ -1032,9 +1037,10 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                             }}
                           >
                             {detail.duration?.start?.year !== "Year" &&
-                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
-                                ? "Present"
-                                : detail.duration?.end?.year
+                              `${detail.duration?.start?.year}-${" "}${
+                                detail.currentlyWorking
+                                  ? "Present"
+                                  : detail.duration?.end?.year
                               }
                          `}
                           </Text>
@@ -1074,7 +1080,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
             </View>
           )}
 
-          {data?.project?.length > 0 && (
+          {data?.project?.length > 0 && data?.showProject === true && (
             <View
               style={{
                 display: "flex",
@@ -1109,15 +1115,23 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                       width: "100%",
                     }}
                   >
-                    <Svg width="26" height="26" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <Svg
+                      width="26"
+                      height="26"
+                      viewBox="0 0 20 20"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <Path
+                        d="M9.99653 19.1666C15.0573 19.1666 19.1613 15.0625 19.1632 9.99993C19.1651 4.93732 15.0641 0.833252 10.0033 0.833252C4.94261 0.833252 0.838563 4.93732 0.836682 9.99993C0.834802 15.0625 4.9358 19.1666 9.99653 19.1666Z"
+                        fill={selectedColor}
+                      />
 
-                      <Path d="M9.99653 19.1666C15.0573 19.1666 19.1613 15.0625 19.1632 9.99993C19.1651 4.93732 15.0641 0.833252 10.0033 0.833252C4.94261 0.833252 0.838563 4.93732 0.836682 9.99993C0.834802 15.0625 4.9358 19.1666 9.99653 19.1666Z" fill={selectedColor} />
-
-
-                      <Path d="M6.13558 14.5129C5.94113 14.5906 5.75884 14.5712 5.5887 14.4545C5.41857 14.3379 5.3335 14.1774 5.3335 13.9733V11.3774C5.3335 11.183 5.37968 10.9983 5.47204 10.8233C5.5644 10.6483 5.69322 10.5073 5.8585 10.4004L6.50016 9.97744C6.56822 10.7649 6.67273 11.4455 6.8137 12.0191C6.95468 12.5927 7.18558 13.2441 7.50641 13.9733L6.13558 14.5129ZM8.71683 13.667C8.58072 13.667 8.46405 13.6233 8.36683 13.5358C8.26961 13.4483 8.19669 13.3413 8.14808 13.2149C7.88558 12.5441 7.69114 11.9243 7.56475 11.3556C7.43836 10.7868 7.37516 10.133 7.37516 9.39411C7.37516 8.30522 7.56961 7.26737 7.9585 6.28057C8.34739 5.29376 8.87725 4.49411 9.54808 3.88161C9.60641 3.82327 9.6769 3.78196 9.75954 3.75765C9.84218 3.73334 9.92239 3.72119 10.0002 3.72119C10.0779 3.72119 10.1581 3.73334 10.2408 3.75765C10.3234 3.78196 10.3939 3.82327 10.4522 3.88161C11.1231 4.49411 11.6529 5.29376 12.0418 6.28057C12.4307 7.26737 12.6252 8.30522 12.6252 9.39411C12.6252 10.1427 12.562 10.799 12.4356 11.3629C12.3092 11.9267 12.1147 12.5441 11.8522 13.2149C11.8036 13.3413 11.7307 13.4483 11.6335 13.5358C11.5363 13.6233 11.4196 13.667 11.2835 13.667H8.71683ZM10.0002 9.58369C10.321 9.58369 10.5956 9.46946 10.8241 9.24098C11.0526 9.01251 11.1668 8.73786 11.1668 8.41703C11.1668 8.09619 11.0526 7.82154 10.8241 7.59307C10.5956 7.36459 10.321 7.25036 10.0002 7.25036C9.67933 7.25036 9.40468 7.36459 9.1762 7.59307C8.94773 7.82154 8.8335 8.09619 8.8335 8.41703C8.8335 8.73786 8.94773 9.01251 9.1762 9.24098C9.40468 9.46946 9.67933 9.58369 10.0002 9.58369ZM13.8647 14.5129L12.4939 13.9733C12.8147 13.2441 13.0456 12.5927 13.1866 12.0191C13.3276 11.4455 13.4321 10.7649 13.5002 9.97744L14.1418 10.4004C14.3071 10.5073 14.4359 10.6483 14.5283 10.8233C14.6206 10.9983 14.6668 11.183 14.6668 11.3774V13.9733C14.6668 14.1774 14.5818 14.3379 14.4116 14.4545C14.2415 14.5712 14.0592 14.5906 13.8647 14.5129Z" fill="white" />
-
+                      <Path
+                        d="M6.13558 14.5129C5.94113 14.5906 5.75884 14.5712 5.5887 14.4545C5.41857 14.3379 5.3335 14.1774 5.3335 13.9733V11.3774C5.3335 11.183 5.37968 10.9983 5.47204 10.8233C5.5644 10.6483 5.69322 10.5073 5.8585 10.4004L6.50016 9.97744C6.56822 10.7649 6.67273 11.4455 6.8137 12.0191C6.95468 12.5927 7.18558 13.2441 7.50641 13.9733L6.13558 14.5129ZM8.71683 13.667C8.58072 13.667 8.46405 13.6233 8.36683 13.5358C8.26961 13.4483 8.19669 13.3413 8.14808 13.2149C7.88558 12.5441 7.69114 11.9243 7.56475 11.3556C7.43836 10.7868 7.37516 10.133 7.37516 9.39411C7.37516 8.30522 7.56961 7.26737 7.9585 6.28057C8.34739 5.29376 8.87725 4.49411 9.54808 3.88161C9.60641 3.82327 9.6769 3.78196 9.75954 3.75765C9.84218 3.73334 9.92239 3.72119 10.0002 3.72119C10.0779 3.72119 10.1581 3.73334 10.2408 3.75765C10.3234 3.78196 10.3939 3.82327 10.4522 3.88161C11.1231 4.49411 11.6529 5.29376 12.0418 6.28057C12.4307 7.26737 12.6252 8.30522 12.6252 9.39411C12.6252 10.1427 12.562 10.799 12.4356 11.3629C12.3092 11.9267 12.1147 12.5441 11.8522 13.2149C11.8036 13.3413 11.7307 13.4483 11.6335 13.5358C11.5363 13.6233 11.4196 13.667 11.2835 13.667H8.71683ZM10.0002 9.58369C10.321 9.58369 10.5956 9.46946 10.8241 9.24098C11.0526 9.01251 11.1668 8.73786 11.1668 8.41703C11.1668 8.09619 11.0526 7.82154 10.8241 7.59307C10.5956 7.36459 10.321 7.25036 10.0002 7.25036C9.67933 7.25036 9.40468 7.36459 9.1762 7.59307C8.94773 7.82154 8.8335 8.09619 8.8335 8.41703C8.8335 8.73786 8.94773 9.01251 9.1762 9.24098C9.40468 9.46946 9.67933 9.58369 10.0002 9.58369ZM13.8647 14.5129L12.4939 13.9733C12.8147 13.2441 13.0456 12.5927 13.1866 12.0191C13.3276 11.4455 13.4321 10.7649 13.5002 9.97744L14.1418 10.4004C14.3071 10.5073 14.4359 10.6483 14.5283 10.8233C14.6206 10.9983 14.6668 11.183 14.6668 11.3774V13.9733C14.6668 14.1774 14.5818 14.3379 14.4116 14.4545C14.2415 14.5712 14.0592 14.5906 13.8647 14.5129Z"
+                        fill="white"
+                      />
                     </Svg>
-
 
                     <Text
                       style={{
@@ -1151,7 +1165,11 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                         // wrap={true}
                         // wrap={false}
                         key={index}
-                        style={{ display: "flex", flexDirection: "row", gap: 16 }}
+                        style={{
+                          display: "flex",
+                          flexDirection: "row",
+                          gap: 16,
+                        }}
                       >
                         <View
                           style={{
@@ -1180,9 +1198,10 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                             }}
                           >
                             {detail.duration?.start?.year !== "Year" &&
-                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
-                                ? "Present"
-                                : detail.duration?.end?.year
+                              `${detail.duration?.start?.year}-${" "}${
+                                detail.currentlyWorking
+                                  ? "Present"
+                                  : detail.duration?.end?.year
                               }
                          `}
                           </Text>
@@ -1222,7 +1241,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
             </View>
           )}
 
-          {data?.internship?.length > 0 && (
+          {data?.internship?.length > 0 && data?.showInternship === true && (
             <View
               style={{
                 display: "flex",
@@ -1257,17 +1276,23 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                       width: "100%",
                     }}
                   >
-                    <Svg width="26" height="26" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <Svg
+                      width="26"
+                      height="26"
+                      viewBox="0 0 21 20"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <Path
+                        d="M10.0454 19.1666C15.1061 19.1666 19.2102 15.0625 19.212 9.99993C19.2139 4.93732 15.1129 0.833252 10.0522 0.833252C4.99144 0.833252 0.887391 4.93732 0.88551 9.99993C0.88363 15.0625 4.98463 19.1666 10.0454 19.1666Z"
+                        fill={selectedColor}
+                      />
 
-                      <Path d="M10.0454 19.1666C15.1061 19.1666 19.2102 15.0625 19.212 9.99993C19.2139 4.93732 15.1129 0.833252 10.0522 0.833252C4.99144 0.833252 0.887391 4.93732 0.88551 9.99993C0.88363 15.0625 4.98463 19.1666 10.0454 19.1666Z" fill={selectedColor} />
-
-
-                      <Path d="M5.88147 14.5C5.65647 14.5 5.4613 14.4174 5.29597 14.2521C5.13072 14.0868 5.0481 13.8916 5.0481 13.6666V7.83337C5.0481 7.60837 5.13072 7.41321 5.29597 7.24788C5.4613 7.08263 5.65647 7 5.88147 7H8.0481V5.83337C8.0481 5.60837 8.13072 5.41321 8.29597 5.24788C8.4613 5.08263 8.65647 5 8.88147 5H11.2147C11.4397 5 11.6349 5.08263 11.8002 5.24788C11.9655 5.41321 12.0481 5.60837 12.0481 5.83337V7H14.2147C14.4397 7 14.6349 7.08263 14.8002 7.24788C14.9655 7.41321 15.0481 7.60837 15.0481 7.83337V13.6666C15.0481 13.8916 14.9655 14.0868 14.8002 14.2521C14.6349 14.4174 14.4397 14.5 14.2147 14.5H5.88147ZM8.88147 7H11.2147V5.83337H8.88147V7Z" fill="white" />
-
-
-
+                      <Path
+                        d="M5.88147 14.5C5.65647 14.5 5.4613 14.4174 5.29597 14.2521C5.13072 14.0868 5.0481 13.8916 5.0481 13.6666V7.83337C5.0481 7.60837 5.13072 7.41321 5.29597 7.24788C5.4613 7.08263 5.65647 7 5.88147 7H8.0481V5.83337C8.0481 5.60837 8.13072 5.41321 8.29597 5.24788C8.4613 5.08263 8.65647 5 8.88147 5H11.2147C11.4397 5 11.6349 5.08263 11.8002 5.24788C11.9655 5.41321 12.0481 5.60837 12.0481 5.83337V7H14.2147C14.4397 7 14.6349 7.08263 14.8002 7.24788C14.9655 7.41321 15.0481 7.60837 15.0481 7.83337V13.6666C15.0481 13.8916 14.9655 14.0868 14.8002 14.2521C14.6349 14.4174 14.4397 14.5 14.2147 14.5H5.88147ZM8.88147 7H11.2147V5.83337H8.88147V7Z"
+                        fill="white"
+                      />
                     </Svg>
-
 
                     <Text
                       style={{
@@ -1334,9 +1359,10 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                             }}
                           >
                             {detail.duration?.start?.year !== "Year" &&
-                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
-                                ? "Present"
-                                : detail.duration?.end?.year
+                              `${detail.duration?.start?.year}-${" "}${
+                                detail.currentlyWorking
+                                  ? "Present"
+                                  : detail.duration?.end?.year
                               }
                          `}
                           </Text>
@@ -1376,7 +1402,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
             </View>
           )}
 
-          {data?.course?.length > 0 && (
+          {data?.course?.length > 0 && data?.showCourses === true && (
             <View
               style={{
                 display: "flex",
@@ -1411,11 +1437,22 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                       width: "100%",
                     }}
                   >
-                    <Svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <Path d="M12.9957 24.9166C19.5746 24.9166 24.9099 19.5813 24.9123 12.9999C24.9148 6.41855 19.5835 1.08325 13.0045 1.08325C6.42557 1.08325 1.0903 6.41855 1.08786 12.9999C1.08541 19.5813 6.41671 24.9166 12.9957 24.9166Z" fill={selectedColor} />
-                      <Path d="M17.1835 12.0249C15.7052 12.0249 14.5023 13.2278 14.5023 14.7061C14.5023 16.1844 15.7052 17.3872 17.1835 17.3872C18.6618 17.3872 19.8646 16.1844 19.8646 14.7061C19.8646 13.2278 18.6618 12.0249 17.1835 12.0249ZM18.3202 14.2759C17.5408 15.4451 17.7618 15.1137 17.3453 15.7383C17.1956 15.9628 16.8927 16.0223 16.6692 15.8733L15.938 15.3858C15.714 15.2365 15.6537 14.934 15.803 14.7097C15.9523 14.4858 16.2548 14.4255 16.4791 14.5748L16.8045 14.7917C17.5819 13.6257 17.5401 13.6579 17.671 13.5834C18.115 13.3265 18.6056 13.8473 18.3202 14.2759ZM14.9898 17.6292V20.3121C14.9898 20.6856 15.3944 20.921 15.7192 20.7353L17.1835 19.8987L18.6478 20.7353C18.9713 20.9208 19.3771 20.6867 19.3771 20.3121V17.6292C18.0784 18.6063 16.2904 18.6077 14.9898 17.6292ZM18.1584 11.1822V6.25895C18.1584 5.67519 17.6834 5.2002 17.0997 5.2002H8.49259C7.90883 5.2002 7.43384 5.67519 7.43384 6.25895V17.5472C7.43384 18.131 7.90883 18.6059 8.49259 18.6059H14.0148C14.0148 16.5082 14.0116 16.638 14.0225 16.5415C12.3906 13.7437 14.9891 10.3021 18.1584 11.1822ZM10.3587 7.6376H14.5023C14.7717 7.6376 14.9898 7.85575 14.9898 8.12509C14.9898 8.39442 14.7717 8.61257 14.5023 8.61257H10.3587C10.0894 8.61257 9.87125 8.39442 9.87125 8.12509C9.87125 7.85575 10.0894 7.6376 10.3587 7.6376ZM12.7961 12.5124H10.3587C10.0894 12.5124 9.87125 12.2943 9.87125 12.0249C9.87125 11.7556 10.0894 11.5375 10.3587 11.5375H12.7961C13.0655 11.5375 13.2836 11.7556 13.2836 12.0249C13.2836 12.2943 13.0655 12.5124 12.7961 12.5124ZM10.3587 10.5625C10.0894 10.5625 9.87125 10.3443 9.87125 10.075C9.87125 9.80568 10.0894 9.58753 10.3587 9.58753H14.5023C14.7717 9.58753 14.9898 9.80568 14.9898 10.075C14.9898 10.3443 14.7717 10.5625 14.5023 10.5625H10.3587Z" fill="white" />
+                    <Svg
+                      width="26"
+                      height="26"
+                      viewBox="0 0 26 26"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <Path
+                        d="M12.9957 24.9166C19.5746 24.9166 24.9099 19.5813 24.9123 12.9999C24.9148 6.41855 19.5835 1.08325 13.0045 1.08325C6.42557 1.08325 1.0903 6.41855 1.08786 12.9999C1.08541 19.5813 6.41671 24.9166 12.9957 24.9166Z"
+                        fill={selectedColor}
+                      />
+                      <Path
+                        d="M17.1835 12.0249C15.7052 12.0249 14.5023 13.2278 14.5023 14.7061C14.5023 16.1844 15.7052 17.3872 17.1835 17.3872C18.6618 17.3872 19.8646 16.1844 19.8646 14.7061C19.8646 13.2278 18.6618 12.0249 17.1835 12.0249ZM18.3202 14.2759C17.5408 15.4451 17.7618 15.1137 17.3453 15.7383C17.1956 15.9628 16.8927 16.0223 16.6692 15.8733L15.938 15.3858C15.714 15.2365 15.6537 14.934 15.803 14.7097C15.9523 14.4858 16.2548 14.4255 16.4791 14.5748L16.8045 14.7917C17.5819 13.6257 17.5401 13.6579 17.671 13.5834C18.115 13.3265 18.6056 13.8473 18.3202 14.2759ZM14.9898 17.6292V20.3121C14.9898 20.6856 15.3944 20.921 15.7192 20.7353L17.1835 19.8987L18.6478 20.7353C18.9713 20.9208 19.3771 20.6867 19.3771 20.3121V17.6292C18.0784 18.6063 16.2904 18.6077 14.9898 17.6292ZM18.1584 11.1822V6.25895C18.1584 5.67519 17.6834 5.2002 17.0997 5.2002H8.49259C7.90883 5.2002 7.43384 5.67519 7.43384 6.25895V17.5472C7.43384 18.131 7.90883 18.6059 8.49259 18.6059H14.0148C14.0148 16.5082 14.0116 16.638 14.0225 16.5415C12.3906 13.7437 14.9891 10.3021 18.1584 11.1822ZM10.3587 7.6376H14.5023C14.7717 7.6376 14.9898 7.85575 14.9898 8.12509C14.9898 8.39442 14.7717 8.61257 14.5023 8.61257H10.3587C10.0894 8.61257 9.87125 8.39442 9.87125 8.12509C9.87125 7.85575 10.0894 7.6376 10.3587 7.6376ZM12.7961 12.5124H10.3587C10.0894 12.5124 9.87125 12.2943 9.87125 12.0249C9.87125 11.7556 10.0894 11.5375 10.3587 11.5375H12.7961C13.0655 11.5375 13.2836 11.7556 13.2836 12.0249C13.2836 12.2943 13.0655 12.5124 12.7961 12.5124ZM10.3587 10.5625C10.0894 10.5625 9.87125 10.3443 9.87125 10.075C9.87125 9.80568 10.0894 9.58753 10.3587 9.58753H14.5023C14.7717 9.58753 14.9898 9.80568 14.9898 10.075C14.9898 10.3443 14.7717 10.5625 14.5023 10.5625H10.3587Z"
+                        fill="white"
+                      />
                     </Svg>
-
 
                     <Text
                       style={{
@@ -1482,9 +1519,10 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                             }}
                           >
                             {detail.duration?.start?.year !== "Year" &&
-                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
-                                ? "Present"
-                                : detail.duration?.end?.year
+                              `${detail.duration?.start?.year}-${" "}${
+                                detail.currentlyWorking
+                                  ? "Present"
+                                  : detail.duration?.end?.year
                               }
                          `}
                           </Text>
@@ -1524,158 +1562,168 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
             </View>
           )}
 
-          {data?.extraCaricularData?.length > 0 && (
-            <View
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                gap: 8,
-                width: "100%",
-              }}
-            >
+          {data?.extraCaricularData?.length > 0 &&
+            data?.showExtraCariculam === true && (
               <View
                 style={{
                   display: "flex",
-                  flexDirection: "column",
-                  gap: 16,
-                  width: "95%",
+                  flexDirection: "row",
+                  gap: 8,
+                  width: "100%",
                 }}
               >
                 <View
                   style={{
                     display: "flex",
                     flexDirection: "column",
-                    gap: 8,
-                    alignItems: "center",
-                    width: "100%",
+                    gap: 16,
+                    width: "95%",
                   }}
                 >
                   <View
                     style={{
                       display: "flex",
-                      flexDirection: "row",
+                      flexDirection: "column",
+                      gap: 8,
                       alignItems: "center",
-                      gap: 12,
                       width: "100%",
                     }}
                   >
-                    <Svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <Path d="M12.9957 24.9166C19.5746 24.9166 24.9099 19.5813 24.9123 12.9999C24.9148 6.41855 19.5835 1.08325 13.0045 1.08325C6.42557 1.08325 1.0903 6.41855 1.08786 12.9999C1.08541 19.5813 6.41671 24.9166 12.9957 24.9166Z" fill={selectedColor} />
-                      <Path d="M20.4727 9.12879L11.176 6.07056V5.85512C11.176 5.49341 10.8828 5.2002 10.5211 5.2002C10.1594 5.2002 9.86618 5.49341 9.86618 5.85512V18.3287C8.7506 18.4905 7.79716 19.0463 7.22151 19.6826C7.14727 19.7647 7.12834 19.8828 7.17324 19.9839C7.21814 20.0851 7.31844 20.1502 7.42909 20.1502H13.6131C13.7238 20.1502 13.824 20.085 13.8689 19.9839C13.9138 19.8828 13.8949 19.7646 13.8207 19.6826C13.2451 19.0464 12.2915 18.4908 11.176 18.3288V13.0294L20.4727 9.97122C20.6546 9.91139 20.7775 9.74151 20.7775 9.55C20.7776 9.3585 20.6546 9.18865 20.4727 9.12879Z" fill="white" />
-                    </Svg>
-
-                    <Text
+                    <View
                       style={{
-                        color: "#282829",
-                        fontFamily: `${selectedFont} 400`,
-                        fontSize: "16px",
+                        display: "flex",
+                        flexDirection: "row",
+                        alignItems: "center",
+                        gap: 12,
+                        width: "100%",
                       }}
                     >
-                      ACTIVITIES
-                    </Text>
+                      <Svg
+                        width="26"
+                        height="26"
+                        viewBox="0 0 26 26"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <Path
+                          d="M12.9957 24.9166C19.5746 24.9166 24.9099 19.5813 24.9123 12.9999C24.9148 6.41855 19.5835 1.08325 13.0045 1.08325C6.42557 1.08325 1.0903 6.41855 1.08786 12.9999C1.08541 19.5813 6.41671 24.9166 12.9957 24.9166Z"
+                          fill={selectedColor}
+                        />
+                        <Path
+                          d="M20.4727 9.12879L11.176 6.07056V5.85512C11.176 5.49341 10.8828 5.2002 10.5211 5.2002C10.1594 5.2002 9.86618 5.49341 9.86618 5.85512V18.3287C8.7506 18.4905 7.79716 19.0463 7.22151 19.6826C7.14727 19.7647 7.12834 19.8828 7.17324 19.9839C7.21814 20.0851 7.31844 20.1502 7.42909 20.1502H13.6131C13.7238 20.1502 13.824 20.085 13.8689 19.9839C13.9138 19.8828 13.8949 19.7646 13.8207 19.6826C13.2451 19.0464 12.2915 18.4908 11.176 18.3288V13.0294L20.4727 9.97122C20.6546 9.91139 20.7775 9.74151 20.7775 9.55C20.7776 9.3585 20.6546 9.18865 20.4727 9.12879Z"
+                          fill="white"
+                        />
+                      </Svg>
+
+                      <Text
+                        style={{
+                          color: "#282829",
+                          fontFamily: `${selectedFont} 400`,
+                          fontSize: "16px",
+                        }}
+                      >
+                        ACTIVITIES
+                      </Text>
+                    </View>
+                    <View
+                      style={{
+                        height: "1px",
+                        width: "95%",
+                        backgroundColor: "#BCBEC0",
+                      }}
+                    ></View>
                   </View>
                   <View
                     style={{
-                      height: "1px",
-                      width: "95%",
-                      backgroundColor: "#BCBEC0",
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: 16,
+                      paddingLeft: 8,
                     }}
-                  ></View>
-                </View>
-                <View
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: 16,
-                    paddingLeft: 8,
-                  }}
-                >
-                  {data?.extraCaricularData?.map((detail, index) => (
-                    <>
-                      <View
-                        // wrap={true}
-                        // wrap={false}
-                        key={index}
-                        style={{
-                          display: "flex",
-                          flexDirection: "row",
-                          gap: 16,
-                        }}
-                      >
+                  >
+                    {data?.extraCaricularData?.map((detail, index) => (
+                      <>
                         <View
+                          // wrap={true}
+                          // wrap={false}
+                          key={index}
                           style={{
                             display: "flex",
-                            flexDirection: "column",
-                            gap: 8,
-                            justifyContent: "space-between",
-                            width: "30%",
+                            flexDirection: "row",
+                            gap: 16,
                           }}
                         >
-                          <Text
+                          <View
                             style={{
-                              color: "#414042",
-                              fontSize: "10px",
-                              fontFamily: `${selectedFont} 700`,
+                              display: "flex",
+                              flexDirection: "column",
+                              gap: 8,
+                              justifyContent: "space-between",
+                              width: "30%",
                             }}
                           >
-                            {detail.title}
-                          </Text>
+                            <Text
+                              style={{
+                                color: "#414042",
+                                fontSize: "10px",
+                                fontFamily: `${selectedFont} 700`,
+                              }}
+                            >
+                              {detail.title}
+                            </Text>
 
-                          <Text
-                            style={{
-                              color: "#414042",
-                              fontSize: "9px",
-                              fontFamily: `${selectedFont} 400`,
-                            }}
-                          >
-                            {detail.duration?.start?.year !== "Year" &&
-                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
-                                ? "Present"
-                                : detail.duration?.end?.year
-                              }
+                            <Text
+                              style={{
+                                color: "#414042",
+                                fontSize: "9px",
+                                fontFamily: `${selectedFont} 400`,
+                              }}
+                            >
+                              {detail.duration?.start?.year !== "Year" &&
+                                `${detail.duration?.start?.year}-${" "}${
+                                  detail.currentlyWorking
+                                    ? "Present"
+                                    : detail.duration?.end?.year
+                                }
                          `}
-                          </Text>
-                        </View>
-                        <View
-                          style={{
-                            display: "flex",
-                            flexDirection: "column",
-                            gap: 4,
-                            width: "70%",
-                          }}
-                        >
-                          <Text
+                            </Text>
+                          </View>
+                          <View
                             style={{
-                              color: "#414042",
-                              fontSize: "10px",
-                              fontFamily: `${selectedFont} 700`,
+                              display: "flex",
+                              flexDirection: "column",
+                              gap: 4,
+                              width: "70%",
                             }}
                           >
-                            {detail.organization}{" "}
-                          </Text>
-                          <Text
-                            style={{
-                              color: "#414042",
-                              fontSize: "10px",
-                              fontFamily: `${selectedFont} 400`,
-                            }}
-                          >
-                            {detail.description}{" "}
-                          </Text>
+                            <Text
+                              style={{
+                                color: "#414042",
+                                fontSize: "10px",
+                                fontFamily: `${selectedFont} 700`,
+                              }}
+                            >
+                              {detail.organization}{" "}
+                            </Text>
+                            <Text
+                              style={{
+                                color: "#414042",
+                                fontSize: "10px",
+                                fontFamily: `${selectedFont} 400`,
+                              }}
+                            >
+                              {detail.description}{" "}
+                            </Text>
+                          </View>
                         </View>
-                      </View>
-                    </>
-                  ))}
+                      </>
+                    ))}
+                  </View>
                 </View>
               </View>
-            </View>
-          )}
+            )}
 
-
-
-
-
-          {data?.section?.length > 0 && (
+          {data?.section?.length > 0 && data?.showCustomSection === true && (
             <>
               {data.section.map((item, index) => (
                 <View
@@ -1713,12 +1761,22 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                           width: "100%",
                         }}
                       >
-                        <Svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <Path d="M12.9999 24.9166C19.5813 24.9166 24.9166 19.5813 24.9166 12.9999C24.9166 6.41852 19.5813 1.08325 12.9999 1.08325C6.41853 1.08325 1.08325 6.41852 1.08326 12.9999C1.08326 19.5813 6.41854 24.9166 12.9999 24.9166Z" fill={selectedColor} />
+                        <Svg
+                          width="26"
+                          height="26"
+                          viewBox="0 0 26 26"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <Path
+                            d="M12.9999 24.9166C19.5813 24.9166 24.9166 19.5813 24.9166 12.9999C24.9166 6.41852 19.5813 1.08325 12.9999 1.08325C6.41853 1.08325 1.08325 6.41852 1.08326 12.9999C1.08326 19.5813 6.41854 24.9166 12.9999 24.9166Z"
+                            fill={selectedColor}
+                          />
 
-
-                          <Path d="M8.59338 18.8501C8.42008 18.8501 8.27553 18.7918 8.15975 18.675C8.04397 18.5581 7.98608 18.4134 7.98608 18.2408V13.5608H7.10858C6.93601 13.5608 6.79128 13.5022 6.6744 13.385C6.55765 13.2677 6.49927 13.1225 6.49927 12.9493C6.49927 12.776 6.55765 12.6315 6.6744 12.5157C6.79128 12.3999 6.93601 12.342 7.10858 12.342H10.0824C10.2551 12.342 10.3998 12.4006 10.5166 12.5179C10.6333 12.635 10.6917 12.7802 10.6917 12.9535C10.6917 13.1268 10.6333 13.2714 10.5166 13.3872C10.3998 13.5029 10.2551 13.5608 10.0824 13.5608H9.20489V18.2408C9.20489 18.4134 9.14627 18.5581 9.02903 18.675C8.91191 18.7918 8.76669 18.8501 8.59338 18.8501ZM8.59338 11.1232C8.42008 11.1232 8.27553 11.0648 8.15975 10.9481C8.04397 10.8313 7.98608 10.6866 7.98608 10.5139V7.75946C7.98608 7.58689 8.0447 7.44216 8.16195 7.32528C8.27919 7.20852 8.42441 7.15015 8.59759 7.15015C8.7709 7.15015 8.91544 7.20852 9.03122 7.32528C9.147 7.44216 9.20489 7.58689 9.20489 7.75946V10.5139C9.20489 10.6866 9.14627 10.8313 9.02903 10.9481C8.91191 11.0648 8.76669 11.1232 8.59338 11.1232ZM11.5937 10.6236C11.421 10.6236 11.2763 10.565 11.1595 10.4477C11.0426 10.3306 10.9842 10.1854 10.9842 10.0121C10.9842 9.83877 11.0426 9.69423 11.1595 9.57844C11.2763 9.46266 11.421 9.40477 11.5937 9.40477H12.4712V7.75946C12.4712 7.58689 12.5298 7.44216 12.6469 7.32528C12.7641 7.20852 12.9094 7.15015 13.0827 7.15015C13.2559 7.15015 13.4004 7.20852 13.5162 7.32528C13.6319 7.44216 13.6898 7.58689 13.6898 7.75946V9.40477H14.5673C14.74 9.40477 14.8848 9.46339 15.0015 9.58064C15.1184 9.69788 15.1768 9.8431 15.1768 10.0163C15.1768 10.1896 15.1184 10.3341 15.0015 10.4499C14.8848 10.5657 14.74 10.6236 14.5673 10.6236H11.5937ZM13.0783 18.8501C12.9051 18.8501 12.7607 18.7918 12.6449 18.675C12.5291 18.5581 12.4712 18.4134 12.4712 18.2408V12.4517C12.4712 12.279 12.5298 12.1343 12.6469 12.0175C12.7641 11.9008 12.9094 11.8424 13.0827 11.8424C13.2559 11.8424 13.4004 11.9008 13.5162 12.0175C13.6319 12.1343 13.6898 12.279 13.6898 12.4517V18.2408C13.6898 18.4134 13.6313 18.5581 13.5141 18.675C13.3969 18.7918 13.2516 18.8501 13.0783 18.8501ZM17.5634 18.8501C17.3901 18.8501 17.2456 18.7918 17.1298 18.675C17.014 18.5581 16.9561 18.4134 16.9561 18.2408V16.571H16.0786C15.9059 16.571 15.7612 16.5125 15.6445 16.3953C15.5277 16.2781 15.4693 16.1328 15.4693 15.9595C15.4693 15.7863 15.5277 15.6418 15.6445 15.5261C15.7612 15.4103 15.9059 15.3524 16.0786 15.3524H19.0525C19.225 15.3524 19.3698 15.411 19.4866 15.5281C19.6034 15.6453 19.6618 15.7906 19.6618 15.9639C19.6618 16.1371 19.6034 16.2816 19.4866 16.3974C19.3698 16.5131 19.225 16.571 19.0525 16.571H18.175V18.2408C18.175 18.4134 18.1163 18.5581 17.9991 18.675C17.8818 18.7918 17.7366 18.8501 17.5634 18.8501ZM17.5634 14.1336C17.3901 14.1336 17.2456 14.0752 17.1298 13.9584C17.014 13.8416 16.9561 13.6968 16.9561 13.5243V7.75946C16.9561 7.58689 17.0148 7.44216 17.132 7.32528C17.2491 7.20852 17.3943 7.15015 17.5677 7.15015C17.741 7.15015 17.8855 7.20852 18.0013 7.32528C18.1171 7.44216 18.175 7.58689 18.175 7.75946V13.5243C18.175 13.6968 18.1163 13.8416 17.9991 13.9584C17.8818 14.0752 17.7366 14.1336 17.5634 14.1336Z" fill="white" />
-
+                          <Path
+                            d="M8.59338 18.8501C8.42008 18.8501 8.27553 18.7918 8.15975 18.675C8.04397 18.5581 7.98608 18.4134 7.98608 18.2408V13.5608H7.10858C6.93601 13.5608 6.79128 13.5022 6.6744 13.385C6.55765 13.2677 6.49927 13.1225 6.49927 12.9493C6.49927 12.776 6.55765 12.6315 6.6744 12.5157C6.79128 12.3999 6.93601 12.342 7.10858 12.342H10.0824C10.2551 12.342 10.3998 12.4006 10.5166 12.5179C10.6333 12.635 10.6917 12.7802 10.6917 12.9535C10.6917 13.1268 10.6333 13.2714 10.5166 13.3872C10.3998 13.5029 10.2551 13.5608 10.0824 13.5608H9.20489V18.2408C9.20489 18.4134 9.14627 18.5581 9.02903 18.675C8.91191 18.7918 8.76669 18.8501 8.59338 18.8501ZM8.59338 11.1232C8.42008 11.1232 8.27553 11.0648 8.15975 10.9481C8.04397 10.8313 7.98608 10.6866 7.98608 10.5139V7.75946C7.98608 7.58689 8.0447 7.44216 8.16195 7.32528C8.27919 7.20852 8.42441 7.15015 8.59759 7.15015C8.7709 7.15015 8.91544 7.20852 9.03122 7.32528C9.147 7.44216 9.20489 7.58689 9.20489 7.75946V10.5139C9.20489 10.6866 9.14627 10.8313 9.02903 10.9481C8.91191 11.0648 8.76669 11.1232 8.59338 11.1232ZM11.5937 10.6236C11.421 10.6236 11.2763 10.565 11.1595 10.4477C11.0426 10.3306 10.9842 10.1854 10.9842 10.0121C10.9842 9.83877 11.0426 9.69423 11.1595 9.57844C11.2763 9.46266 11.421 9.40477 11.5937 9.40477H12.4712V7.75946C12.4712 7.58689 12.5298 7.44216 12.6469 7.32528C12.7641 7.20852 12.9094 7.15015 13.0827 7.15015C13.2559 7.15015 13.4004 7.20852 13.5162 7.32528C13.6319 7.44216 13.6898 7.58689 13.6898 7.75946V9.40477H14.5673C14.74 9.40477 14.8848 9.46339 15.0015 9.58064C15.1184 9.69788 15.1768 9.8431 15.1768 10.0163C15.1768 10.1896 15.1184 10.3341 15.0015 10.4499C14.8848 10.5657 14.74 10.6236 14.5673 10.6236H11.5937ZM13.0783 18.8501C12.9051 18.8501 12.7607 18.7918 12.6449 18.675C12.5291 18.5581 12.4712 18.4134 12.4712 18.2408V12.4517C12.4712 12.279 12.5298 12.1343 12.6469 12.0175C12.7641 11.9008 12.9094 11.8424 13.0827 11.8424C13.2559 11.8424 13.4004 11.9008 13.5162 12.0175C13.6319 12.1343 13.6898 12.279 13.6898 12.4517V18.2408C13.6898 18.4134 13.6313 18.5581 13.5141 18.675C13.3969 18.7918 13.2516 18.8501 13.0783 18.8501ZM17.5634 18.8501C17.3901 18.8501 17.2456 18.7918 17.1298 18.675C17.014 18.5581 16.9561 18.4134 16.9561 18.2408V16.571H16.0786C15.9059 16.571 15.7612 16.5125 15.6445 16.3953C15.5277 16.2781 15.4693 16.1328 15.4693 15.9595C15.4693 15.7863 15.5277 15.6418 15.6445 15.5261C15.7612 15.4103 15.9059 15.3524 16.0786 15.3524H19.0525C19.225 15.3524 19.3698 15.411 19.4866 15.5281C19.6034 15.6453 19.6618 15.7906 19.6618 15.9639C19.6618 16.1371 19.6034 16.2816 19.4866 16.3974C19.3698 16.5131 19.225 16.571 19.0525 16.571H18.175V18.2408C18.175 18.4134 18.1163 18.5581 17.9991 18.675C17.8818 18.7918 17.7366 18.8501 17.5634 18.8501ZM17.5634 14.1336C17.3901 14.1336 17.2456 14.0752 17.1298 13.9584C17.014 13.8416 16.9561 13.6968 16.9561 13.5243V7.75946C16.9561 7.58689 17.0148 7.44216 17.132 7.32528C17.2491 7.20852 17.3943 7.15015 17.5677 7.15015C17.741 7.15015 17.8855 7.20852 18.0013 7.32528C18.1171 7.44216 18.175 7.58689 18.175 7.75946V13.5243C18.175 13.6968 18.1163 13.8416 17.9991 13.9584C17.8818 14.0752 17.7366 14.1336 17.5634 14.1336Z"
+                            fill="white"
+                          />
                         </Svg>
 
                         <Text
@@ -1786,9 +1844,10 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                                 }}
                               >
                                 {detail.duration?.start?.year !== "Year" &&
-                                  `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
-                                    ? "Present"
-                                    : detail.duration?.end?.year
+                                  `${detail.duration?.start?.year}-${" "}${
+                                    detail.currentlyWorking
+                                      ? "Present"
+                                      : detail.duration?.end?.year
                                   }
                          `}
                               </Text>

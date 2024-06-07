@@ -1,11 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import DateSelector from "../../../../common/dateSelector";
 import { Delete_icon, Edit_icon } from "../../../../../utils/svg";
 import CustomSection from "./customSection";
 import CustomDate from "../../../../common/customDate";
 import ContinueWorkingOn from "../../../../common/continueWorkingOn";
 
-const ExtraCaricularActivity = ({ data, setData, setExtraCurricularView, extraCurricularView, setCustomOptions }) => {
+const ExtraCaricularActivity = ({
+  data,
+  setData,
+  setExtraCurricularView,
+  extraCurricularView,
+  setCustomOptions,
+}) => {
   const [isChecked, setIsChecked] = useState(true);
   const [toggleOn, setToggleOn] = useState(true);
   // const [extraCurricularView, setExtraCurricularView] = useState(true);
@@ -14,8 +20,20 @@ const ExtraCaricularActivity = ({ data, setData, setExtraCurricularView, extraCu
   const [error, setError] = useState("");
   const handleSwitchChange = () => {
     setIsChecked(!isChecked);
-    setData({ ...data, showExperience: !isChecked });
+    setData({ ...data, showExtraCariculam: !isChecked });
   };
+
+  useEffect(() => {
+    if (data) {
+      if (data?.showExtraCariculam === true) {
+        setIsChecked(true);
+      } else {
+        setIsChecked(false);
+      }
+    }
+  }, [data]);
+  
+
   const [extraCaricularData, setExtraCaricularData] = useState({
     title: "",
     organization: "",
@@ -66,7 +84,9 @@ const ExtraCaricularActivity = ({ data, setData, setExtraCurricularView, extraCu
           extraCaricularData: [extraCaricularData, ...data?.extraCaricularData],
         });
         {
-          validateForm ? setExtraCurricularView(false) : setExtraCurricularView(true);
+          validateForm
+            ? setExtraCurricularView(false)
+            : setExtraCurricularView(true);
         }
       }
       setIsModified({ status: false, index: 0 });
@@ -174,10 +194,11 @@ const ExtraCaricularActivity = ({ data, setData, setExtraCurricularView, extraCu
         data?.extraCaricularData?.map((exp, index) => (
           <div
             key={index}
-            className={`flex flex-col gap-1 py-[12px] px-[16px] rounded-[6px]  border break-all ${editingIndex === index
+            className={`flex flex-col gap-1 py-[12px] px-[16px] rounded-[6px]  border break-all ${
+              editingIndex === index
                 ? "border-[#06A9EF] border-[2px]"
                 : "border-[#DEDEDE]"
-              }`}
+            }`}
           >
             <div className="flex justify-between">
               <p className="text-[14px]">{exp?.title} </p>
@@ -295,14 +316,15 @@ const ExtraCaricularActivity = ({ data, setData, setExtraCurricularView, extraCu
                   });
                   setExtraCurricularView(false);
                   if (data.extraCaricularData.length <= 0) {
-                  setCustomOptions((prevState) => ({
-                    ...prevState,
-                    ["Extra Activities"]: false,
-                  })); setData({
-                    ...data,
-                    extraCaricularData: [],
-                  })
-                }
+                    setCustomOptions((prevState) => ({
+                      ...prevState,
+                      ["Extra Activities"]: false,
+                    }));
+                    setData({
+                      ...data,
+                      extraCaricularData: [],
+                    });
+                  }
                 }}
               >
                 Cancel
@@ -322,8 +344,11 @@ const ExtraCaricularActivity = ({ data, setData, setExtraCurricularView, extraCu
         </div>
       )}
 
-      {(!extraCurricularView  && data.extraCaricularData.length > 0) && (
-        <div className="flex gap-1" onClick={() => isChecked && setExtraCurricularView(true)}>
+      {!extraCurricularView && data.extraCaricularData.length > 0 && (
+        <div
+          className="flex gap-1"
+          onClick={() => isChecked && setExtraCurricularView(true)}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"

@@ -194,7 +194,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                     color: "#FFFFFF",
                   }}
                 >
-                  {data.mobileNumber}
+                 {data.dial_code}  {data.mobileNumber}
                 </Text>
               </View>
               <View
@@ -291,7 +291,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
             </View>
           </View>
 
-          {data?.skills?.length > 0 && (
+          {data?.skills?.length > 0 && data?.showSkills === true &&(
             <View
               style={{
                 display: "flex",
@@ -361,7 +361,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
               </View>
             </View>
           )}
-          {data?.languages?.length > 0 && (
+          {data?.languages?.length > 0 && data?.showLanguage === true &&(
             <View
               wrap={false}
               style={{
@@ -437,7 +437,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
             </View>
           )}
 
-          {data?.hobbies?.length > 0 && (
+          {data?.hobbies?.length > 0 && data?.showHobbies === true &&(
             <View
               wrap={false}
               style={{
@@ -513,7 +513,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
             </View>
           )}
 
-          {data?.socialLinks?.length > 0 && (
+          {data?.socialLinks?.length > 0 && data?.showLinks === true &&(
             <View
               wrap={false}
               style={{
@@ -597,7 +597,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
             </View>
           )}
 
-          {data?.achievements?.length > 0 && (
+          {data?.achievements?.length > 0 && data?.showAchievements === true && (
             <View wrap={false} style={{
               display: "flex",
               flexDirection: "column",
@@ -650,7 +650,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
             </View>
           )}
 
-          {data?.reference?.length > 0 && (
+          {data?.reference?.length > 0 &&  data?.showReference === true &&(
             <View
               wrap={false}
               style={{
@@ -751,7 +751,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
         </View>
 
         <View style={{ width: 388 }}>
-          {data?.summery?.length > 0 && (
+          {data?.summery?.length > 0 && data?.showSummary === true && (
             <View
               style={{
                 display: "flex",
@@ -820,7 +820,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
               gap: 12,
             }}
           >
-            {data?.experience?.length > 0 && (
+            {data?.experience?.length > 0 &&  data?.showExperience === true &&(
               <>
                 {" "}
                 <View
@@ -936,7 +936,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
               </>
             )}
 
-            {data?.education?.length > 0 && (
+            {data?.education?.length > 0 && data?.showEducation === true && (
               <>
                 {" "}
                 <View
@@ -1065,7 +1065,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
               </>
             )}
 
-            {data?.project?.length > 0 && (
+            {data?.project?.length > 0 && data?.showProject === true && (
               <>
                 {" "}
                 <View
@@ -1181,7 +1181,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
               </>
             )}
 
-            {data?.internship?.length > 0 && (
+            {data?.internship?.length > 0 &&  data?.showInternship === true &&(
               <>
                 {" "}
                 <View
@@ -1297,7 +1297,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
               </>
             )}
 
-            {data?.course?.length > 0 && (
+            {data?.course?.length > 0 && data?.showCourses === true && (
               <>
                 {" "}
                 <View
@@ -1413,7 +1413,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
               </>
             )}
 
-            {data?.extraCaricularData?.length > 0 && (
+            {data?.extraCaricularData?.length > 0 && data?.showExtraCariculam === true && (
               <>
                 {" "}
                 <View
@@ -1525,7 +1525,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                   </View>
                 </View></>)}
             {
-              data?.section?.length > 0 && (
+              data?.section?.length > 0 && data?.showCustomSection === true && (
                 <>
                   {data?.section.map((item, index) => (
                     <View
