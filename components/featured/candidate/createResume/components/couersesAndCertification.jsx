@@ -1,21 +1,40 @@
-import React, { useState } from "react";
+import React, { useState ,useEffect} from "react";
 import DateSelector from "../../../../common/dateSelector";
 import { Delete_icon, Edit_icon } from "../../../../../utils/svg";
 import CustomSection from "./customSection";
 import CustomDate from "../../../../common/customDate";
 import ContinueWorkingOn from "../../../../common/continueWorkingOn";
 
-const CouersesAndCertification = ({ data, setData,setCoursesView,coursesView,setCustomOptions }) => {
+const CouersesAndCertification = ({
+  data,
+  setData,
+  setCoursesView,
+  coursesView,
+  setCustomOptions,
+}) => {
   const [isChecked, setIsChecked] = useState(true);
   const [toggleOn, setToggleOn] = useState(true);
-  
+
   const [editingIndex, setEditingIndex] = useState(null);
   const [isModified, setIsModified] = useState({ status: false, index: 0 });
   const [error, setError] = useState("");
   const handleSwitchChange = () => {
     setIsChecked(!isChecked);
-    setData({ ...data, showExperience: !isChecked });
+    setData({ ...data, showCourses: !isChecked });
   };
+
+  useEffect(() => {
+    if (data) {
+      if (data?.showCourses === true) {
+        setIsChecked(true);
+      } else {
+        setIsChecked(false);
+      }
+    }
+  }, [data]);
+
+
+
   const [courseData, setCourseData] = useState({
     title: "",
     organization: "",
@@ -293,10 +312,11 @@ const CouersesAndCertification = ({ data, setData,setCoursesView,coursesView,set
                     setCustomOptions((prevState) => ({
                       ...prevState,
                       ["Courses & Certifications"]: false,
-                    })); setData({
+                    }));
+                    setData({
                       ...data,
                       course: [],
-                    })
+                    });
                   }
                 }}
               >
@@ -317,8 +337,11 @@ const CouersesAndCertification = ({ data, setData,setCoursesView,coursesView,set
         </div>
       )}
 
-      {(!coursesView && data.course.length <= 0) && (
-        <div className="flex gap-1" onClick={() => isChecked && setCoursesView(true)}>
+      {!coursesView && data.course.length <= 0 && (
+        <div
+          className="flex gap-1"
+          onClick={() => isChecked && setCoursesView(true)}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
