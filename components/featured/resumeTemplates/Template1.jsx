@@ -325,7 +325,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
               )}
             </View>
             {data?.skills?.length > 0 && data?.showSkills === true && (
-              <View wrap={false} style={{ flexDirection: "column" }}>
+              <View  style={{ flexDirection: "column" }}>
                 <View style={{ flexDirection: "column", gap: 12 }}>
                   <Text
                     style={{
