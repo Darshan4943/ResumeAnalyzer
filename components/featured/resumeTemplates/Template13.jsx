@@ -18,6 +18,13 @@ function Template13({ data, selectedColor, selectedFont }) {
       return link?.match(/.{1,30}/g).join('\n');  }
     return link;
   };
+
+  const formatEmail = (link) => {
+    if (link?.length > 16) {
+      return link?.match(/.{1,16}/g).join('\n');  }
+    return link;
+  };
+
   return (
     <Page size="A4" style={{ padding: 24 }} wrap={true}>
       <View style={{}}>
@@ -112,7 +119,7 @@ function Template13({ data, selectedColor, selectedFont }) {
 
                       }}
                     >
-                      {data.email}
+                      {formatEmail(data.email)}
                     </Text>
                   </View>
                   <View
