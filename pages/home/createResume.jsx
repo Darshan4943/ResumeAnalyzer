@@ -651,6 +651,32 @@ function CreateResume() {
     <div className="">
       <div className="  pt-2 customMargins ">
         <div className="flex flex-col gap-4 py-6 ">
+          <div className="flex ml:hidden flex-row gap-4 ">
+            <button
+              className="p-[8px] border-[1px] bg-blue border-[#DEDEDE] rounded-[6px]  "
+              style={{}}
+            >
+              <svg
+                className=" cursor-pointer"
+                onClick={() => router.push("/home/BuildResume")}
+                width="24"
+                height="24"
+                viewBox="0 0 40 40"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g mask="url(#mask0_629_16604)">
+                  <path
+                    d="M11.9583 21.3892L21.9584 31.3892L20 33.3337L6.66669 20.0003L20 6.66699L21.9584 8.61141L11.9583 18.6115H33.3334V21.3892H11.9583Z"
+                    fill="white"
+                  />
+                </g>
+              </svg>
+            </button>
+            <div className="text-[18px] font-medium text-[#FFFFFF]  header1 w-[280px] flex justify-start px-4 py-[6px] ">
+              Create Resume
+            </div>
+          </div>
           <div className="web">
             <div className=" h-fit flex gap-6 relative ">
               <div

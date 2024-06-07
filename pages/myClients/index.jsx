@@ -178,12 +178,11 @@ function MyClients() {
                   {!select && (
                     <div
                       onClick={() => setSelect(!select)}
-                      className="scr420:py-3 scr420:px-4 px-2 py-2 flex gap-2 text-[16px] font-semibold bg-[#E9EEF6] rounded-[8px] items-center cursor-pointer"
+                      className="scr420:py-3 scr420:px-4 px-2 py-2 flex gap-2 xsm:text-[14px] text-[12px]  font-semibold bg-[#E9EEF6] rounded-[8px] items-center cursor-pointer"
                     >
                       <svg
-                        width="22"
-                        height="22"
-                        viewBox="0 0 20 20"
+                      className="scr420:w-[27px] scr420:h-[27px] w-[22px] h-[22px]"
+                        viewBox="0 0 22 22"
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
                       >
@@ -203,7 +202,7 @@ function MyClients() {
                     } gap-12  items-center w-[100%]  `}
                   >
                     {select && (
-                      <div className="bg-[#D1EDFF] flex scr420:gap-4  gap-2 rounded-[50px] px-3 scr420:py-3 py-2 items-center w-full scr420:min-w-[316px] min-w-[300px]  scr420:h-[48px] h-[40px]  ">
+                      <div className="bg-[#D1EDFF] flex scr420:gap-4  gap-2 rounded-[50px] px-3 scr420:py-3 py-2 items-center w-full scr420:min-w-[316px] min-w-[280px]  scr420:h-[48px] h-[40px]  ">
                         <div
                           onClick={() => setSelect(false)}
                           style={{ boxShadow: "0px 1px 2px 0px #00000040" }}
@@ -269,12 +268,11 @@ function MyClients() {
                           router.push("/myClients/CreateNewClient");
                         }
                       }}
-                      className="ml:hidden scr420:text-[16px] text-[14px] font-semibold scr420:py-3 scr420:px-6 px-2 py-2 scr420:h-[48px]  scr420:min-w-[224px] flex gap-1 bg-[#06A9EF] rounded-[12px] text-white"
+                      className="ml:hidden flex items-center scr420:text-[16px] xsm:text-[14px] text-[12px] font-semibold scr420:py-3 scr420:px-6 px-2 py-2 scr420:h-[48px]  scr420:min-w-[224px] flex gap-1 bg-[#06A9EF] rounded-[12px] text-white"
                       type="button"
                     >
                       <svg
-                        width="24"
-                        height="24"
+                       className="scr420:w-[27px] scr420:h-[27px] w-[22px] h-[22px]"
                         viewBox="0 0 24 24"
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
@@ -357,7 +355,7 @@ function MyClients() {
                     }
                   }}
                   style={{ boxShadow: "0px 0px 10px 5px #00000040" }}
-                  className="rounded-[12px] text-center text-white justify-center mt-[16px] flex scr540:flex-col flex-row text-[18px] items-center gap-2 font-medium  scr540:w-[192px] w-[312px]  scr540:h-[272px] h-[135px] bg-[#646464] p-6 cursor-pointer"
+                  className="rounded-[12px] text-center text-white justify-center mt-[16px] flex scr540:flex-col flex-row text-[18px] items-center gap-2 font-medium  scr540:w-[192px] w-[280px]  scr540:h-[272px] h-[135px] bg-[#646464] p-6 cursor-pointer"
                 >
                   <svg
                     width="27"

@@ -178,7 +178,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
           </View>
 
           <View>
-            {data?.achievements?.length > 0 && (
+            {data?.achievements?.length > 0 && data?.showAchievements === true && (
               <View style={{ width: 228 }}>
                 <View style={{ width: 228, objectFit: "contain" }}>
                   <Text
@@ -216,7 +216,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
           </View>
 
           <View>
-            {data?.languages?.length > 0 && (
+            {data?.languages?.length > 0 && data?.showLanguage === true && (
               <>
                 <View wrap={false}>
                   <Text
@@ -302,7 +302,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
           </View>
 
           <View>
-            {data?.hobbies?.length > 0 && (
+            {data?.hobbies?.length > 0 &&  data?.showHobbies === true && (
               <View style={{ width: 228 }}>
                 <View style={{ width: 228, objectFit: "contain" }}>
                   <Text
@@ -338,7 +338,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
               </View>
             )}
           </View>
-          {data?.socialLinks?.length > 0 && (
+          {data?.socialLinks?.length > 0 && data?.showLinks === true &&  (
             <View style={{ width: 228 }}>
               <View style={{ width: 228, objectFit: "contain" }}>
                 <Text
@@ -392,7 +392,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
             </View>
           )}
 
-          {data?.reference?.length > 0 && (
+          {data?.reference?.length > 0 && data?.showReference === true && (
             <View style={{ width: 228 }}>
               <View style={{ width: 228, objectFit: "contain" }}>
                 <Text
@@ -835,7 +835,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
               </View>
             )}
 
-            {data?.course?.length > 0 && (
+            {data?.course?.length > 0 && data?.showCourses === true && (
               <View style={{ flexDirection: "column", width: "100%", gap: 24 }}>
                 <Text
                   style={{
@@ -917,7 +917,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                 ))}
               </View>
             )}
-            {data?.project?.length > 0 && (
+            {data?.project?.length > 0 && data?.showProject === true && (
               <View style={{ flexDirection: "column", width: "100%", gap: 24 }}>
                 <Text
                   style={{
@@ -1000,7 +1000,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
               </View>
             )}
 
-            {data?.internship?.length > 0 && (
+            {data?.internship?.length > 0 && data?.showInternship === true && (
               <View style={{ flexDirection: "column", width: "100%", gap: 24 }}>
                 <Text
                   style={{
@@ -1083,7 +1083,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
               </View>
             )}
 
-            {data?.extraCaricularData?.length > 0 && (
+            {data?.extraCaricularData?.length > 0 && data?.showExtraCariculam === true && (
               <View style={{ flexDirection: "column", width: "100%", gap: 24 }}>
                 <Text
                   style={{
@@ -1166,7 +1166,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
               </View>
             )}
 
-            {data?.section?.length > 0 && (
+            {data?.section?.length > 0 && data?.showCustomSection === true && (
               <>
                 {data?.section?.map((item, index) => (
                   <View

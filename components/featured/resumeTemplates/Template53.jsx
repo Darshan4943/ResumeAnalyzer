@@ -160,13 +160,13 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
                     color: "#344A50",
                   }}
                 >
-                  {data.mobileNumber}
+                  {data.dial_code} {data.mobileNumber}
                 </Text>
               </View>
             </View>
           </View>
         </View>
-        {data?.summery?.length > 0 && (
+        {data?.summery?.length > 0 && data?.showSummary === true && (
           <View style={{ display: "flex", flexDirection: "column", gap: 23 }}>
             <View
               style={{ backgroundColor: "#344A50", width: 511, height: 1 }}
@@ -181,6 +181,7 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
               >
                 PROFILE
               </Text>
+           
               <Text
                 style={{
                   fontFamily: `${selectedFont} 400`,
@@ -206,7 +207,7 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
               gap: 24,
             }}
           >
-            {data?.experience?.length > 0 && (<View style={{ display: "flex", flexDirection: "column", width: "100%", gap: 16 }}>
+            {data?.experience?.length > 0 &&  data?.showExperience === true && (<View style={{ display: "flex", flexDirection: "column", width: "100%", gap: 16 }}>
               <View>
                 <Text
                   style={{
@@ -296,7 +297,7 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
               </View>
             )}
 
-            {data?.project?.length > 0 && (
+            {data?.project?.length > 0 && data?.showProject === true &&(
               <>
                 <View
                   style={{
@@ -407,7 +408,7 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
               </>
             )}
 
-            {data?.internship?.length > 0 && (
+            {data?.internship?.length > 0 && data?.showInternship === true && (
               <>
                 <View
                   style={{
@@ -518,7 +519,7 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
               </>
             )}
 
-            {data?.course?.length > 0 && (
+            {data?.course?.length > 0 && data?.showCourses === true && (
               <>
                 <View
                   style={{
@@ -629,7 +630,7 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
               </>
             )}
 
-            {data?.extraCaricularData?.length > 0 && (
+            {data?.extraCaricularData?.length > 0 && data?.showExtraCuriculam === true && (
               <>
                 <View
                   style={{
@@ -740,7 +741,7 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
               </>
             )}
 
-            {data?.section?.length > 0 && (
+            {data?.section?.length > 0 && data?.showCustomSection === true && (
               <>
                   {data?.section.map((item, index) => (
               <View key={index} style={{gap:'4px' ,display:'flex',flexDirection:'column'}}>
@@ -830,7 +831,7 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
               gap: 16,
             }}
           >
-            {data?.education?.length > 0 && (
+            {data?.education?.length > 0 && data?.showEducation === true && (
               <>
                 <View>
                   <Text
@@ -916,7 +917,7 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
               </>
             )}
 
-            {data?.skills?.length > 0 && (
+            {data?.skills?.length > 0 && data?.showSkills=== true && (
               <>
                 {" "}
                 <View
@@ -1016,7 +1017,7 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
               </>
             )}
 
-            {data?.achievements?.length > 0 && (<>  <View
+            {data?.achievements?.length > 0 && data?.showAchievements === true &&(<>  <View
               style={{ width: 180, height: 1, backgroundColor: "#344A50" }}
             ></View>
 
@@ -1071,7 +1072,7 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
               </View></>)}
 
 
-            {data?.languages?.length > 0 && (
+            {data?.languages?.length > 0 && data?.showLanguage === true && (
               <>
                 {" "}
                 <View
@@ -1130,7 +1131,7 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
               </>
             )}
 
-            {data?.socialLinks?.length > 0 && (
+            {data?.socialLinks?.length > 0 && data?.showLinks === true && (
               <>
                 <View
                   style={{ width: 180, height: 1, backgroundColor: "#344A50" }}
@@ -1193,7 +1194,7 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
               </>
             )}
 
-            {data?.reference?.length > 0 && (
+            {data?.reference?.length > 0 && data?.showReference === true &&  (
               <>
                 <View
                   style={{ width: 180, height: 1, backgroundColor: "#344A50" }}
@@ -1276,7 +1277,7 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
               </>
             )}
 
-            {data?.hobbies?.length > 0 && (
+            {data?.hobbies?.length > 0 && data?.showHobbies === true && (
               <>
                 {" "}
                 <View
