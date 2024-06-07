@@ -318,7 +318,12 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
             </View>
             {data?.skills?.length > 0 && data?.showSkills === true && (
               <View wrap={false} style={{ flexDirection: "column" }}>
-                <View style={{ flexDirection: "column", gap: 12 }}>
+                <View
+                  style={{
+                    flexDirection: "column",
+                    gap: 12,
+                  }}
+                >
                   <Text
                     style={{
                       color: "#414042",
@@ -421,7 +426,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                     fontFamily: `${selectedFont} 400`,
                   }}
                 >
-                  WEBSITE & SOCIAL LINKS
+                  SOCIAL LINKS
                 </Text>
                 <Svg width={141} height={4} viewBox="0 0 141 4">
                   <Path

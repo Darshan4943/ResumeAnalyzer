@@ -423,7 +423,7 @@ function CreateResume() {
   }
   const parsedDataSeter = () => {
     const parsedData = JSON.parse(localStorage.getItem("parsedResume"));
-
+    console.log(426, parsedData);
     if (parsedData) {
       const {
         first_name,
@@ -436,13 +436,23 @@ function CreateResume() {
         skills,
       } = parsedData;
       const languages = parsedData.languages;
+      const hobbies = parsedData.hobbies;
+
       const educations = parsedData.education;
       const experience = parsedData["work experience"]
         ? parsedData["work experience"]
         : parsedData.work_experience
         ? parsedData.work_experience
         : [];
-      const courses = parsedData?.issuing_organization
+      const project = parsedData.projects;
+      const internship = parsedData.internship;
+      const references = parsedData.references;
+      const achievements = parsedData.achivements;
+      console.log(451, languages);
+      const socialLinks = parsedData["social links"];
+      const extraCaricularActivity = parsedData["extra-curricular activities"];
+
+      const courses = parsedData["certification/courses"]
         ? parsedData?.issuing_organization
         : [];
       setData({
@@ -459,6 +469,9 @@ function CreateResume() {
         skills: skills?.map((item) => ({
           skill: item,
           rating: [5, 5, 5, 5, 5],
+        })),
+        hobbies: hobbies?.map((item) => ({
+          title: item,
         })),
         languages: languages?.map((item) => ({
           languages: item,
@@ -495,12 +508,94 @@ function CreateResume() {
             },
           },
         })),
+        project:
+          project?.length > 0
+            ? project?.map((item) => ({
+                title: item.title,
+                organization: item.organization,
+                description: item.description,
+                currentlyWorking: false,
+
+                duration: {
+                  start: { year: item.start_date?.year, month: null },
+                  end: {
+                    year: item.is_current ? currentYear : item.end_date?.year,
+                    month: null,
+                  },
+                },
+              }))
+            : [],
+        internship:
+          internship?.length > 0
+            ? internship?.map((item) => ({
+                title: item.title,
+                organization: item.organization,
+                description: item.description,
+                currentlyWorking: false,
+
+                duration: {
+                  start: { year: item.start_date?.year, month: null },
+                  end: {
+                    year: item.is_current ? currentYear : item.end_date?.year,
+                    month: null,
+                  },
+                },
+              }))
+            : [],
+        extraCaricularData:
+          extraCaricularActivity?.length > 0
+            ? extraCaricularActivity?.map((item) => ({
+                title: item.title,
+                organization: item.organization,
+                description: item.description,
+                currentlyWorking: false,
+
+                duration: {
+                  start: { year: item.start_date?.year, month: null },
+                  end: {
+                    year: item.is_current ? currentYear : item.end_date?.year,
+                    month: null,
+                  },
+                },
+              }))
+            : [],
         course:
           courses?.length > 0
             ? courses?.map((item) => ({
-                courseName: "",
-                issuedBy: item?.issuing_organization,
-                discription: item?.description,
+                title: item.title,
+                organization: item.organization,
+                description: item.description,
+                currentlyWorking: true,
+
+                duration: {
+                  start: { year: item.start_date?.year, month: null },
+                  end: {
+                    year: item.is_current ? currentYear : item.end_date?.year,
+                    month: null,
+                  },
+                },
+              }))
+            : [],
+        socialLinks:
+          socialLinks?.length > 0
+            ? socialLinks?.map((item) => ({
+                platform: item.platform,
+                link: item.link,
+              }))
+            : [],
+        reference:
+          references?.length > 0
+            ? references?.map((item) => ({
+                referantName: item.referantName,
+                designation: item.designation,
+                "Organization Name": item["Organization Name"],
+                email: item.name,
+              }))
+            : [],
+        achievements:
+          achievements?.length > 0
+            ? achievements?.map((item) => ({
+                title: item.title,
               }))
             : [],
       });
