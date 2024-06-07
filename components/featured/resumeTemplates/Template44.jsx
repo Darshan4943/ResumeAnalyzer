@@ -968,7 +968,7 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
                     color: "#FFFFFF",
                   }}
                 >
-                PROJECT
+                  PROJECT
                 </Text>
               </View>
               <View style={{ flexDirection: "column", gap: 16 }}>
