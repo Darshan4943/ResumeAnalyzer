@@ -1,11 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import DateSelector from "../../../../common/dateSelector";
 import { Delete_icon, Edit_icon } from "../../../../../utils/svg";
 import CustomSection from "./customSection";
 import CustomDate from "../../../../common/customDate";
 import ContinueWorkingOn from "../../../../common/continueWorkingOn";
 
-const ProjectSection = ({ data, setData, setInternshipsView, internshipsView, setCustomOptions }) => {
+const ProjectSection = ({
+  data,
+  setData,
+  setInternshipsView,
+  internshipsView,
+  setCustomOptions,
+}) => {
   const [isChecked, setIsChecked] = useState(true);
   const [toggleOn, setToggleOn] = useState(true);
 
@@ -14,8 +20,20 @@ const ProjectSection = ({ data, setData, setInternshipsView, internshipsView, se
   const [error, setError] = useState("");
   const handleSwitchChange = () => {
     setIsChecked(!isChecked);
-    setData({ ...data, showExperience: !isChecked });
+    setData({ ...data, showInternship: !isChecked });
   };
+
+  useEffect(() => {
+    if (data) {
+      if (data?.showInternship === true) {
+        setIsChecked(true);
+      } else {
+        setIsChecked(false);
+      }
+    }
+  }, [data]);
+
+
   const [projectData, setProjectData] = useState({
     title: "",
     organization: "",
@@ -171,10 +189,11 @@ const ProjectSection = ({ data, setData, setInternshipsView, internshipsView, se
         data?.internship?.map((exp, index) => (
           <div
             key={index}
-            className={`flex flex-col gap-1 py-[12px] px-[16px] rounded-[6px]  border break-all ${editingIndex === index
+            className={`flex flex-col gap-1 py-[12px] px-[16px] rounded-[6px]  border break-all ${
+              editingIndex === index
                 ? "border-[#06A9EF] border-[2px]"
                 : "border-[#DEDEDE]"
-              }`}
+            }`}
           >
             <div className="flex justify-between">
               <p className="text-[14px]">{exp?.title} </p>
@@ -291,10 +310,11 @@ const ProjectSection = ({ data, setData, setInternshipsView, internshipsView, se
                     setCustomOptions((prevState) => ({
                       ...prevState,
                       ["Internships"]: false,
-                    })); setData({
+                    }));
+                    setData({
                       ...data,
                       internship: [],
-                    })
+                    });
                   }
                 }}
               >
@@ -315,8 +335,11 @@ const ProjectSection = ({ data, setData, setInternshipsView, internshipsView, se
         </div>
       )}
 
-      {(!internshipsView && data.internship.length > 0) && (
-        <div className="flex gap-1" onClick={() => isChecked && setInternshipsView(true)}>
+      {!internshipsView && data.internship.length > 0 && (
+        <div
+          className="flex gap-1"
+          onClick={() => isChecked && setInternshipsView(true)}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"

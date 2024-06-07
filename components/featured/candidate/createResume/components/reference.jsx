@@ -5,7 +5,13 @@ import ReactSelect from "react-select";
 import { telCode } from "../../../../../utils/data";
 import { Delete_icon, Edit_icon } from "../../../../../utils/svg";
 
-const Reference = ({ setData, data, referenceView, setReferenceView, setCustomOptions }) => {
+const Reference = ({
+  setData,
+  data,
+  referenceView,
+  setReferenceView,
+  setCustomOptions,
+}) => {
   const userDataGlobal = useSelector((state) => state.userData);
 
   const [isChecked, setIsChecked] = useState(true);
@@ -15,7 +21,7 @@ const Reference = ({ setData, data, referenceView, setReferenceView, setCustomOp
   const [searchTerm, setSearchTerm] = useState("");
   const handleSwitchChange = () => {
     setIsChecked(!isChecked);
-    setData({ ...data, showExperience: !isChecked });
+    setData({ ...data, showReference: !isChecked });
   };
   const [referenceData, setReferenceData] = useState({
     referantName: "",
@@ -30,6 +36,17 @@ const Reference = ({ setData, data, referenceView, setReferenceView, setCustomOp
       reference: data?.reference?.filter((item, i) => i !== index),
     });
   };
+
+  useEffect(() => {
+    if (data) {
+      if (data?.showReference === true) {
+        setIsChecked(true);
+      } else {
+        setIsChecked(false);
+      }
+    }
+  }, [data]);
+  console.log(666, data);
 
   useEffect(() => {
     const filterLogic = (item) =>
@@ -238,10 +255,11 @@ const Reference = ({ setData, data, referenceView, setReferenceView, setCustomOp
           data?.reference?.map((exp, index) => (
             <div
               key={index}
-              className={`flex flex-col gap-1 py-[12px] px-[16px] rounded-[6px]  border break-all ${editingIndex === index
+              className={`flex flex-col gap-1 py-[12px] px-[16px] rounded-[6px]  border break-all ${
+                editingIndex === index
                   ? "border-[#06A9EF] border-[2px]"
                   : "border-[#DEDEDE]"
-                }`}
+              }`}
             >
               <div className="flex justify-between">
                 <p className="text-[14px]">{exp?.referantName}</p>
@@ -276,7 +294,7 @@ const Reference = ({ setData, data, referenceView, setReferenceView, setCustomOp
                        ${formErrors[item?.name]
                         ? "border-[#C00000]"
                         : "border-[#9D9D9D]"
-                      } `}
+                    } `}
                   >
                     <input
                       type={item?.type}
@@ -310,14 +328,15 @@ const Reference = ({ setData, data, referenceView, setReferenceView, setCustomOp
                     });
                     setReferenceView(false);
                     if (data.reference.length <= 0) {
-                    setCustomOptions((prevState) => ({
-                      ...prevState,
-                      ["References"]: false,
-                    })); setData({
-                      ...data,
-                      reference: [],
-                    })
-                  }
+                      setCustomOptions((prevState) => ({
+                        ...prevState,
+                        ["References"]: false,
+                      }));
+                      setData({
+                        ...data,
+                        reference: [],
+                      });
+                    }
                   }}
                 >
                   Cancel
@@ -335,7 +354,7 @@ const Reference = ({ setData, data, referenceView, setReferenceView, setCustomOp
           </>
         )}
 
-        {(!referenceView && data.reference.length > 0) && (
+        {!referenceView && data.reference.length > 0 && (
           <div
             className="flex gap-1"
             onClick={() => isChecked && setReferenceView(true)}
