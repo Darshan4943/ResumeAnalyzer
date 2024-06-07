@@ -1152,9 +1152,8 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
                 </View>
               )}
 
-            {data?.section?.length > 0 && data?.showCoustomSection === true && (
-              <>
-                {data?.section?.map((item, index) => (
+         
+                {data?.section?.length > 0 && data?.showCustomSection === true && data?.section?.map((item, index) => (
                   <View
                     style={{
                       flexDirection: "column",
@@ -1275,8 +1274,7 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
                     </View>
                   </View>
                 ))}
-              </>
-            )}
+             
           </View>
         </View>
       </View>

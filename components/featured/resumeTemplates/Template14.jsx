@@ -822,7 +822,7 @@ function Template14({ data, selectedColor, selectedFont }) {
         )}
         {/* </View> */}
         {data?.extraCaricularData?.length > 0 &&
-          data?.showExtraCuriculam === true && (
+          data?.showExtraCariculam === true && (
             <>
               <View
                 style={{ width: "100%", height: 1, backgroundColor: "#DEDEDE" }}

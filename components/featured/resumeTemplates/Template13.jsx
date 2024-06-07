@@ -494,7 +494,7 @@ function Template13({ data, selectedColor, selectedFont }) {
               )}
 
               {data.extraCaricularData.length > 0 &&
-                data?.showExtraCuriculam === true && (
+                data?.showExtraCariculam === true && (
                   <View
                     style={{
                       flexDirection: "column",
