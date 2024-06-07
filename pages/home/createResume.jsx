@@ -423,7 +423,7 @@ function CreateResume() {
   }
   const parsedDataSeter = () => {
     const parsedData = JSON.parse(localStorage.getItem("parsedResume"));
-
+    console.log(426, parsedData);
     if (parsedData) {
       const {
         first_name,
@@ -436,13 +436,23 @@ function CreateResume() {
         skills,
       } = parsedData;
       const languages = parsedData.languages;
+      const hobbies = parsedData.hobbies;
+
       const educations = parsedData.education;
       const experience = parsedData["work experience"]
         ? parsedData["work experience"]
         : parsedData.work_experience
-          ? parsedData.work_experience
-          : [];
-      const courses = parsedData?.issuing_organization
+        ? parsedData.work_experience
+        : [];
+      const project = parsedData.projects;
+      const internship = parsedData.internship;
+      const references = parsedData.references;
+      const achievements = parsedData.achivements;
+      console.log(451, languages);
+      const socialLinks = parsedData["social links"];
+      const extraCaricularActivity = parsedData["extra-curricular activities"];
+
+      const courses = parsedData["certification/courses"]
         ? parsedData?.issuing_organization
         : [];
       setData({
@@ -459,6 +469,9 @@ function CreateResume() {
         skills: skills?.map((item) => ({
           skill: item,
           rating: [5, 5, 5, 5, 5],
+        })),
+        hobbies: hobbies?.map((item) => ({
+          title: item,
         })),
         languages: languages?.map((item) => ({
           languages: item,
@@ -495,13 +508,95 @@ function CreateResume() {
             },
           },
         })),
+        project:
+          project?.length > 0
+            ? project?.map((item) => ({
+                title: item.title,
+                organization: item.organization,
+                description: item.description,
+                currentlyWorking: false,
+
+                duration: {
+                  start: { year: item.start_date?.year, month: null },
+                  end: {
+                    year: item.is_current ? currentYear : item.end_date?.year,
+                    month: null,
+                  },
+                },
+              }))
+            : [],
+        internship:
+          internship?.length > 0
+            ? internship?.map((item) => ({
+                title: item.title,
+                organization: item.organization,
+                description: item.description,
+                currentlyWorking: false,
+
+                duration: {
+                  start: { year: item.start_date?.year, month: null },
+                  end: {
+                    year: item.is_current ? currentYear : item.end_date?.year,
+                    month: null,
+                  },
+                },
+              }))
+            : [],
+        extraCaricularData:
+          extraCaricularActivity?.length > 0
+            ? extraCaricularActivity?.map((item) => ({
+                title: item.title,
+                organization: item.organization,
+                description: item.description,
+                currentlyWorking: false,
+
+                duration: {
+                  start: { year: item.start_date?.year, month: null },
+                  end: {
+                    year: item.is_current ? currentYear : item.end_date?.year,
+                    month: null,
+                  },
+                },
+              }))
+            : [],
         course:
           courses?.length > 0
             ? courses?.map((item) => ({
-              courseName: "",
-              issuedBy: item?.issuing_organization,
-              discription: item?.description,
-            }))
+                title: item.title,
+                organization: item.organization,
+                description: item.description,
+                currentlyWorking: true,
+
+                duration: {
+                  start: { year: item.start_date?.year, month: null },
+                  end: {
+                    year: item.is_current ? currentYear : item.end_date?.year,
+                    month: null,
+                  },
+                },
+              }))
+            : [],
+        socialLinks:
+          socialLinks?.length > 0
+            ? socialLinks?.map((item) => ({
+                platform: item.platform,
+                link: item.link,
+              }))
+            : [],
+        reference:
+          references?.length > 0
+            ? references?.map((item) => ({
+                referantName: item.referantName,
+                designation: item.designation,
+                "Organization Name": item["Organization Name"],
+                email: item.name,
+              }))
+            : [],
+        achievements:
+          achievements?.length > 0
+            ? achievements?.map((item) => ({
+                title: item.title,
+              }))
             : [],
       });
     } else if (clientId) {
@@ -555,33 +650,33 @@ function CreateResume() {
   return (
     <div className="">
       <div className="  pt-2 customMargins ">
-     
         <div className="flex flex-col gap-4 py-6 ">
-        <div className="flex ml:hidden flex-row gap-4 ">
-          <button className="p-[8px] border-[1px] bg-blue border-[#DEDEDE] rounded-[6px]  "
-          style={{}}>
-          <svg
-            className=" cursor-pointer"
-            onClick={() => router.push("/home/BuildResume")}
-            width="24"
-            height="24"
-            viewBox="0 0 40 40"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <g mask="url(#mask0_629_16604)">
-              <path
-                d="M11.9583 21.3892L21.9584 31.3892L20 33.3337L6.66669 20.0003L20 6.66699L21.9584 8.61141L11.9583 18.6115H33.3334V21.3892H11.9583Z"
-                fill="white"
-              />
-            </g>
-          </svg>
-          </button>
-        <div className="text-[18px] font-medium text-[#FFFFFF]  header1 w-[280px] flex justify-start px-4 py-[6px] ">
-         Create Resume
-      </div>
-
-        </div>
+          <div className="flex ml:hidden flex-row gap-4 ">
+            <button
+              className="p-[8px] border-[1px] bg-blue border-[#DEDEDE] rounded-[6px]  "
+              style={{}}
+            >
+              <svg
+                className=" cursor-pointer"
+                onClick={() => router.push("/home/BuildResume")}
+                width="24"
+                height="24"
+                viewBox="0 0 40 40"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g mask="url(#mask0_629_16604)">
+                  <path
+                    d="M11.9583 21.3892L21.9584 31.3892L20 33.3337L6.66669 20.0003L20 6.66699L21.9584 8.61141L11.9583 18.6115H33.3334V21.3892H11.9583Z"
+                    fill="white"
+                  />
+                </g>
+              </svg>
+            </button>
+            <div className="text-[18px] font-medium text-[#FFFFFF]  header1 w-[280px] flex justify-start px-4 py-[6px] ">
+              Create Resume
+            </div>
+          </div>
           <div className="web">
             <div className=" h-fit flex gap-6 relative ">
               <div
@@ -672,8 +767,6 @@ function CreateResume() {
                 clientId={clientId}
               />
               <div className="mobile600">
-               
-
                 <ResumeForm
                   data={data}
                   setData={setData}
