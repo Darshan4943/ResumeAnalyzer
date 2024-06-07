@@ -161,6 +161,24 @@ const Languages = ({ setData, data, languages, setLanguages,setCustomOptions }) 
             {/* <button className=" font-montserrat text-xs font-semibold px-[12px] rounded-[8px] border border-[#06A9EF] w-[137px] h-[32px]">
               Update to Profile
             </button> */}
+             {data.languages.length <= 0 &&
+                <button
+                  className=" font-montserrat text-xs font-semibold px-[12px] rounded-[8px] border border-[#06A9EF] w-[80px] h-[32px]"
+                  onClick={() => {
+                    if (data.languages.length <= 0) {
+                      setCustomOptions((prevState) => ({
+                        ...prevState,
+                        ["Languages"]: false,
+                      })); setData({
+                        ...data,
+                        languages: [],
+                      })
+                    }
+                  }}
+                >
+                  Cancel
+                </button>
+              }
             <button
               disabled={saveDisabled}
               style={{ opacity: saveDisabled ? 0.5 : 1 }}

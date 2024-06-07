@@ -5,7 +5,7 @@ import CustomSection from "./customSection";
 import CustomDate from "../../../../common/customDate";
 import ContinueWorkingOn from "../../../../common/continueWorkingOn";
 
-const ExtraCaricularActivity = ({ data, setData,setExtraCurricularView,extraCurricularView ,setCustomOptions}) => {
+const ExtraCaricularActivity = ({ data, setData, setExtraCurricularView, extraCurricularView, setCustomOptions }) => {
   const [isChecked, setIsChecked] = useState(true);
   const [toggleOn, setToggleOn] = useState(true);
   // const [extraCurricularView, setExtraCurricularView] = useState(true);
@@ -140,7 +140,7 @@ const ExtraCaricularActivity = ({ data, setData,setExtraCurricularView,extraCurr
       }}
     >
       <div className="w-full flex justify-between text-[20px] font-montserrat font-medium">
-        <p> Extra-Curriculum Activities</p>
+        <p> Extra Activities</p>
         {/* <label className="switch">
           <input
             type="checkbox"
@@ -150,10 +150,10 @@ const ExtraCaricularActivity = ({ data, setData,setExtraCurricularView,extraCurr
           <span className="slider round"></span>
         </label> */}
 
-<div onClick={() => {
+        <div onClick={() => {
           setCustomOptions((prevState) => ({
             ...prevState,
-            ["Extra-Curriculum Activities"]: false,
+            ["Extra Activities"]: false,
           })); setData({
             ...data,
             extraCaricularData: [],
@@ -174,11 +174,10 @@ const ExtraCaricularActivity = ({ data, setData,setExtraCurricularView,extraCurr
         data?.extraCaricularData?.map((exp, index) => (
           <div
             key={index}
-            className={`flex flex-col gap-1 py-[12px] px-[16px] rounded-[6px]  border break-all ${
-              editingIndex === index
+            className={`flex flex-col gap-1 py-[12px] px-[16px] rounded-[6px]  border break-all ${editingIndex === index
                 ? "border-[#06A9EF] border-[2px]"
                 : "border-[#DEDEDE]"
-            }`}
+              }`}
           >
             <div className="flex justify-between">
               <p className="text-[14px]">{exp?.title} </p>

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const Hobbie = ({ data, setData, hobbies, setHobbies,setCustomOptions }) => {
+const Hobbie = ({ data, setData, hobbies, setHobbies, setCustomOptions }) => {
   const [text, setText] = useState("");
   const [saveDisabled, setSaveDisabled] = useState(true);
 
@@ -24,7 +24,7 @@ const Hobbie = ({ data, setData, hobbies, setHobbies,setCustomOptions }) => {
           ...data,
           hobbies: [
             ...data.hobbies,
-           ...text.split(",").map((item) => ({ title: item })),
+            ...text.split(",").map((item) => ({ title: item })),
           ],
         });
       }
@@ -40,7 +40,7 @@ const Hobbie = ({ data, setData, hobbies, setHobbies,setCustomOptions }) => {
     <>
       <div
         className="flex flex-col p-4 gap-2 rounded-lg bg-white"
-        // style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}
+      // style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}
       >
         <div className="flex flex-col gap-2 w-full">
           <div className="w-full text-[20px] font-montserrat flex gap-4 justify-between font-medium">
@@ -105,11 +105,29 @@ const Hobbie = ({ data, setData, hobbies, setHobbies,setCustomOptions }) => {
               {/* <button className=" font-montserrat text-xs font-semibold px-[12px] rounded-[8px] border border-[#06A9EF] w-[137px] h-[32px]">
                 Update to Profile
               </button> */}
+              {data.hobbies.length <= 0 &&
+                <button
+                  className=" font-montserrat text-xs font-semibold px-[12px] rounded-[8px] border border-[#06A9EF] w-[80px] h-[32px]"
+                  onClick={() => {
+                    if (data.hobbies.length <= 0) {
+                      setCustomOptions((prevState) => ({
+                        ...prevState,
+                        ["Hobbies"]: false,
+                      })); setData({
+                        ...data,
+                        hobbies: [],
+                      })
+                    }
+                  }}
+                >
+                  Cancel
+                </button>
+              }
               <button
                 onClick={addHobby}
                 disabled={saveDisabled}
                 style={{ opacity: saveDisabled ? 0.5 : 1 }}
-                className={`font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px]  bg-[#06A9EF] w-[60px] h-[32px] ${!saveDisabled ? "btn_hover_effect" :""}`}
+                className={`font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px]  bg-[#06A9EF] w-[60px] h-[32px] ${!saveDisabled ? "btn_hover_effect" : ""}`}
               >
                 Save
               </button>

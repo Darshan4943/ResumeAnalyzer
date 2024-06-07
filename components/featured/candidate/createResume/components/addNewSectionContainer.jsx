@@ -36,7 +36,7 @@ function AddNewSectionContainer({
     "Achievements & Awards": false,
     References: false,
     Links: false,
-    "Extra-Curriculum Activities": false,
+    "Extra Activities": false,
     "Courses & Certifications": false,
     Internships: false,
     Project: false,
@@ -49,7 +49,7 @@ function AddNewSectionContainer({
     "Achievements & Awards": false,
     References: false,
     Links: false,
-    "Extra-Curriculum Activities": false,
+    "Extra Activities": false,
     "Courses & Certifications": false,
     Internships: false,
     Project: false,
@@ -274,11 +274,11 @@ function AddNewSectionContainer({
               d="M4.78171 19.2167L12.3652 16.5168L7.46521 11.6L4.78171 19.2167ZM23.0902 6.90825C22.9624 7.03608 22.8095 7.1 22.6317 7.1C22.454 7.1 22.3013 7.03608 22.1735 6.90825L22.1152 6.85C21.8262 6.56117 21.4845 6.41392 21.0902 6.40825C20.6957 6.40275 20.3485 6.55 20.0485 6.85L14.5902 12.3082C14.4624 12.4361 14.3095 12.5 14.1317 12.5C13.954 12.5 13.8013 12.4361 13.6735 12.3082C13.5456 12.1806 13.4817 12.0278 13.4817 11.85C13.4817 11.6722 13.5456 11.5194 13.6735 11.3917L19.0817 5.98325C19.615 5.44992 20.279 5.1805 21.0735 5.175C21.868 5.1695 22.5319 5.43342 23.0652 5.96675L23.0902 5.99175C23.2179 6.11942 23.2817 6.27217 23.2817 6.45C23.2817 6.62783 23.2179 6.78058 23.0902 6.90825ZM9.70671 3.825C9.83454 3.69717 9.98738 3.63325 10.1652 3.63325C10.3429 3.63325 10.4956 3.69717 10.6235 3.825L10.8152 4.01675C11.3819 4.58342 11.6624 5.28058 11.6567 6.10825C11.6512 6.93608 11.3651 7.63333 10.7985 8.2L10.6067 8.39175C10.479 8.51942 10.3263 8.58325 10.1485 8.58325C9.97062 8.58325 9.81788 8.51942 9.69021 8.39175C9.56238 8.26392 9.49846 8.11108 9.49846 7.93325C9.49846 7.75558 9.56238 7.60283 9.69021 7.475L9.93171 7.23325C10.265 6.89992 10.4234 6.51383 10.4067 6.075C10.39 5.63617 10.2317 5.26675 9.93171 4.96675L9.70671 4.74175C9.57904 4.61392 9.51521 4.46108 9.51521 4.28325C9.51521 4.10558 9.57904 3.95283 9.70671 3.825ZM13.8735 1.94175C14.0013 1.81392 14.154 1.75 14.3317 1.75C14.5095 1.75 14.6624 1.81392 14.7902 1.94175L15.9152 3.06675C16.4374 3.60008 16.704 4.26117 16.7152 5.05C16.7262 5.83883 16.465 6.49992 15.9317 7.03325L12.6235 10.3417C12.4956 10.4694 12.3429 10.5332 12.1652 10.5332C11.9874 10.5332 11.8345 10.4694 11.7067 10.3417C11.579 10.2139 11.5152 10.0611 11.5152 9.88325C11.5152 9.70558 11.579 9.55283 11.7067 9.425L14.9817 6.15C15.2707 5.86117 15.4124 5.4945 15.4067 5.05C15.4012 4.6055 15.254 4.23883 14.9652 3.95L13.8735 2.85825C13.7456 2.73058 13.6817 2.57783 13.6817 2.4C13.6817 2.22217 13.7456 2.06942 13.8735 1.94175ZM21.5402 14.3582C21.4124 14.4861 21.2595 14.55 21.0817 14.55C20.904 14.55 20.7513 14.4861 20.6235 14.3582L19.6817 13.4167C19.3484 13.0834 18.9845 12.9168 18.5902 12.9168C18.1957 12.9168 17.8318 13.0834 17.4985 13.4167L16.5902 14.325C16.4624 14.4528 16.3095 14.5168 16.1317 14.5168C15.954 14.5168 15.8013 14.4528 15.6735 14.325C15.5456 14.1972 15.4817 14.0444 15.4817 13.8667C15.4817 13.6889 15.5456 13.5361 15.6735 13.4082L16.5317 12.55C17.0984 11.9833 17.779 11.6944 18.5735 11.6832C19.368 11.6722 20.0485 11.9501 20.6152 12.5167L21.5402 13.4418C21.6679 13.5694 21.7317 13.7222 21.7317 13.9C21.7317 14.0778 21.6679 14.2306 21.5402 14.3582ZM2.58171 20.3333L6.32346 9.9C6.39563 9.71667 6.50254 9.57775 6.64421 9.48325C6.78588 9.38892 6.94004 9.34175 7.10671 9.34175C7.20671 9.34175 7.30671 9.36117 7.40671 9.4C7.50671 9.43883 7.60121 9.50275 7.69021 9.59175L14.4402 16.275C14.529 16.3638 14.5929 16.4582 14.6317 16.5582C14.6707 16.6582 14.6902 16.7638 14.6902 16.875C14.6902 17.0417 14.643 17.1958 14.5485 17.3375C14.454 17.4792 14.315 17.5861 14.1317 17.6582L3.66521 21.4167C3.49854 21.4777 3.33738 21.4874 3.18171 21.4457C3.02621 21.4041 2.89288 21.3277 2.78171 21.2167C2.67071 21.1056 2.59438 20.9722 2.55271 20.8167C2.51104 20.6611 2.52071 20.4999 2.58171 20.3333Z"
               // fill="#F87070"
               fill={
-                hovered["Extra-Curriculum Activities"]
+                hovered["Extra Activities"]
                   ? hoveredIndex === 7
                     ? "#FFFFFF"
                     : "#F87070"
-                  : hasDatas["Extra-Curriculum Activities"]
+                  : hasDatas["Extra Activities"]
                     ? "#808080"
                     : "#F87070"
               }
@@ -286,7 +286,7 @@ function AddNewSectionContainer({
           </g>
         </svg>
       ),
-      name: "Extra-Curriculum Activities",
+      name: "Extra Activities",
     },
     {
       img: (
@@ -375,7 +375,7 @@ function AddNewSectionContainer({
         Links: socialLinksRef,
         Project: projectRef,
         Internships: internshipRef,
-        "Extra-Curriculum Activities": extraCurricularRef,
+        "Extra Activities": extraCurricularRef,
         "Courses & Certifications": coursesRef,
       };
       console.log(362, refMap[item.name]);
@@ -391,7 +391,7 @@ function AddNewSectionContainer({
         setProjectView(true);
       } else if (item.name === "Internships") {
         setInternshipsView(true);
-      } else if (item.name === "Extra-Curriculum Activities") {
+      } else if (item.name === "Extra Activities") {
         setExtraCurricularView(true);
       } else if (item.name === "Courses & Certifications") {
         setCoursesView(true);
@@ -407,7 +407,7 @@ function AddNewSectionContainer({
       "Achievements & Awards": data?.achievements?.length > 0,
       References: data?.reference?.length > 0,
       Links: data?.socialLinks?.length > 0,
-      "Extra-Curriculum Activities": data?.extraCaricularData?.length > 0,
+      "Extra Activities": data?.extraCaricularData?.length > 0,
       "Courses & Certifications": data?.course?.length > 0,
       Internships: data?.internship?.length > 0,
       Project: data?.project?.length > 0,

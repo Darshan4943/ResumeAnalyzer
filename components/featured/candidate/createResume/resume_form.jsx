@@ -85,7 +85,7 @@ const ResumeForm = ({
     References: false,
     Links: false,
 
-    "Extra-Curriculum Activities": false,
+    "Extra Activities": false,
     "Courses & Certifications": false,
     Internships: false,
     Project: false,
@@ -99,7 +99,7 @@ const ResumeForm = ({
     References: false,
     Links: false,
 
-    "Extra-Curriculum Activities": false,
+    "Extra Activities": false,
     "Courses & Certifications": false,
     Internships: false,
     Project: false,
@@ -202,15 +202,53 @@ const ResumeForm = ({
         </div>
         {isAll && (
           <div>
+
             <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
             <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center  ">
               <div
                 ref={taskRef}
                 onWheel={(e) => e.stopPropagation()}
-                className=" absolute top-[72px] flex p-6 bg-white rounded-[24px] shadow-md  gap-6 flex-wrap justify-center items-center ml:w-[65%] w-[90%] h-[90vh] overflow-y-auto "
+                className=" absolute top-[42px] flex p-6 bg-white rounded-[24px] shadow-md  gap-6 flex-wrap justify-center items-center ml:w-[65%] w-[90%] h-[90vh] overflow-y-auto "
               >
                 {renderAllTemplates()}
+                <div className="absolute top-[12px] right-[10px]  cursor-pointer  web "
+                  onClick={() => setIsAll(false)}
+                >
+                
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+                    <g mask="url(#mask0_3995_39638)">
+                      <path d="M6.4 19L5 17.6L10.6 12L5 6.4L6.4 5L12 10.6L17.6 5L19 6.4L13.4 12L19 17.6L17.6 19L12 13.4L6.4 19Z" fill="#333333" />
+                    </g>
+                  </svg>
+                </div>
+              
               </div>
+              <div className="absolute bottom-[35px] mobile cursor-pointer  "
+                  onClick={() => setIsAll(false)}
+                >
+                  <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g filter="url(#filter0_d_3995_39637)">
+                      <rect x="4" y="3" width="40" height="40" rx="20" fill="white" />
+
+                      <g mask="url(#mask0_3995_39637)">
+                        <path d="M18.4 30L17 28.6L22.6 23L17 17.4L18.4 16L24 21.6L29.6 16L31 17.4L25.4 23L31 28.6L29.6 30L24 24.4L18.4 30Z" fill="#333333" />
+                      </g>
+                    </g>
+                    <defs>
+                      <filter id="filter0_d_3995_39637" x="0" y="0" width="48" height="48" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                        <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                        <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
+                        <feOffset dy="1" />
+                        <feGaussianBlur stdDeviation="2" />
+                        <feComposite in2="hardAlpha" operator="out" />
+                        <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0" />
+                        <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_3995_39637" />
+                        <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_3995_39637" result="shape" />
+                      </filter>
+                    </defs>
+                  </svg>
+                </div>
             </div>
           </div>
         )}
@@ -359,35 +397,34 @@ const ResumeForm = ({
           </div>
         )}
         {(data?.ExtraCaricularActivity?.length > 0 ||
-          customOptions["Extra-Curriculum Activities"]) && (
-          <div ref={extraCurricularRef}>
-            <>
-              <ExtraCaricularActivity
-                setData={setData}
-                data={data}
-                customOptions={customOptions}
-                setCustomOptions={setCustomOptions}
-                extraCurricularView={extraCurricularView}
-                setExtraCurricularView={setExtraCurricularView}
-              />
-              <div className="border-b border-r border-l border-[#DEDEDE]"></div>
-            </>
-          </div>
-        )}
-        {(data?.course?.length > 0 ||
-          customOptions["Courses & Certifications"]) && (
-          <div ref={coursesRef}>
-            <>
-              <CouersesAndCertification
-                setData={setData}
-                data={data}
-                coursesView={coursesView}
-                setCoursesView={setCoursesView}
-                setCustomOptions={setCustomOptions}
-              />
-              <div className="border-b border-r border-l border-[#DEDEDE]"></div>
-            </>
-          </div>
+          customOptions["Extra Activities"]) && (
+            <div ref={extraCurricularRef}>
+
+              <>
+                <ExtraCaricularActivity
+                  setData={setData}
+                  data={data}
+                  customOptions={customOptions}
+                  setCustomOptions={setCustomOptions}
+                  extraCurricularView={extraCurricularView}
+                  setExtraCurricularView={setExtraCurricularView}
+
+                />
+                <div className="border-b border-r border-l border-[#DEDEDE]"></div>
+              </>
+
+            </div>
+          )}
+          {(data?.course?.length > 0 ||
+            customOptions["Courses & Certifications"]) && (
+        <div ref={coursesRef}>
+          
+              <>
+                <CouersesAndCertification setData={setData} data={data} coursesView={coursesView} setCoursesView={setCoursesView} setCustomOptions={setCustomOptions} />
+                <div className="border-b border-r border-l border-[#DEDEDE]"></div>
+              </>
+            
+        </div>
         )}
         {/* {customOptions["Custom Section"] && ( */}
         <div ref={customRef}>

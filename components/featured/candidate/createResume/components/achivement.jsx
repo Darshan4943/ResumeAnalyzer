@@ -170,7 +170,7 @@ const Achievement = ({
         ))}
       {/* {view && ( */}
 
-      {achievementView && (
+      {(achievementView || data.achievements.length <=0) && (
         <>
           <div className="flex flex-col gap-3">
             <div className="flex flex-col gap-2 w-full">
@@ -199,7 +199,15 @@ const Achievement = ({
                   setAchivementData({
                     title: "",
                   });
-                  setAchievementView(false);
+                  setAchievementView(false); if(data.achievements.length <=0){
+                    setCustomOptions((prevState) => ({
+                      ...prevState,
+                      ["Achievements & Awards"]: false,
+                    })); setData({
+                      ...data,
+                      achievements: [],
+                    })
+                  }
                 }}
               >
                 Cancel
@@ -219,7 +227,7 @@ const Achievement = ({
         </>
       )}
 
-      {!achievementView && (
+      {(!achievementView  && data.achievements.length >0 )&& (
         <div
           className="flex gap-1"
           onClick={() => isChecked && setAchievementView(true)}
