@@ -649,11 +649,14 @@ const JobMatching = () => {
             {/* Overlay */}
             <motion.div
               initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
+              animate={{ opacity: 0.5 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.5 }}
-              className="fixed z-[4] top-0 left-0 right-0 bottom-0 bg-[#DEDEDE] bg-opacity-60"
-              style={{ backdropFilter: "blur(5px)" }}
+              className="fixed z-[5] top-0 left-0 right-0 bottom-0 bg-[#DEDEDE] bg-opacity-70"
+              style={{
+                // background: "rgba(255, 255, 255, 0.5)",
+                backdropFilter: "blur(10px)",
+              }}
             ></motion.div>
 
             {/* Sidebar */}
@@ -708,7 +711,7 @@ const JobMatching = () => {
                 animate={{ x: 0 }}
                 exit={{ x: "-100%" }}
                 transition={{ duration: 0.5, ease: "easeInOut" }}
-                className="hidden md:flex fixed z-[7] top-0 left-[440px] bottom-0 h-full overflow-y-auto"
+                className="hidden md:flex fixed z-[7] top-0 left-[434px] bottom-0 h-full overflow-y-auto"
                 style={{
                   backdropFilter: "blur(10px)",
                   ...(navigator.userAgent.includes("Safari") &&

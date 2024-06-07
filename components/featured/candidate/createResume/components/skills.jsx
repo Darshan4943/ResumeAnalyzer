@@ -194,6 +194,7 @@ import { Close_svg } from "../../../../../utils/svg";
 const Skills = ({ data, setData }) => {
   // State variables
   const [skills, setSkills] = useState([]);
+  const [isChecked, setIsChecked] = useState(true);
   const [skillerror, setSkillError] = useState("");
   const [isClearable, setIsClearable] = useState({ value: "", label: "" });
   const userDataGlobal = useSelector((state) => state.userData);
@@ -206,6 +207,11 @@ const Skills = ({ data, setData }) => {
       setSkillList(data.skills);
     }
   }, [data]);
+
+  const handleSwitchChange = () => {
+    setIsChecked(!isChecked);
+    setData({ ...data, showSkills: !isChecked });
+  };
 
   const handleStarClick = (skillIndex, starIndex) => {
     const updatedSkills = skillList.map((skill, index) => {
@@ -309,14 +315,36 @@ const Skills = ({ data, setData }) => {
     setIsClearable({ value: "", label: "" });
   };
 
+  useEffect(() => {
+    if (data) {
+      if (data?.showSkills === true) {
+        setIsChecked(true);
+      } else {
+        setIsChecked(false);
+      }
+    }
+  }, [data]);
+
   return (
     <div
       className="flex flex-col p-4 gap-2 rounded-lg bg-white"
+      style={{
+        // boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)",
+        opacity: isChecked ? 1 : 0.5,
+      }}
       // style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}
     >
       <div className="flex flex-col gap-2 w-full">
-        <div className="w-full text-[20px] font-montserrat font-medium">
-          Skills & Ratings
+        <div className="w-full flex justify-between text-[20px] font-montserrat font-medium">
+          <p> Skills & Ratings</p>
+          <label className="switch">
+            <input
+              type="checkbox"
+              checked={isChecked}
+              onChange={handleSwitchChange}
+            />
+            <span className="slider round"></span>
+          </label>
         </div>
         <div className="flex flex-col scr420:gap-4 gap-6">
           {skillList &&
