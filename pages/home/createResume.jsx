@@ -440,8 +440,8 @@ function CreateResume() {
       const experience = parsedData["work experience"]
         ? parsedData["work experience"]
         : parsedData.work_experience
-        ? parsedData.work_experience
-        : [];
+          ? parsedData.work_experience
+          : [];
       const courses = parsedData?.issuing_organization
         ? parsedData?.issuing_organization
         : [];
@@ -498,10 +498,10 @@ function CreateResume() {
         course:
           courses?.length > 0
             ? courses?.map((item) => ({
-                courseName: "",
-                issuedBy: item?.issuing_organization,
-                discription: item?.description,
-              }))
+              courseName: "",
+              issuedBy: item?.issuing_organization,
+              discription: item?.description,
+            }))
             : [],
       });
     } else if (clientId) {
