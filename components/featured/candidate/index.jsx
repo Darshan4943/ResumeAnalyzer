@@ -34,7 +34,7 @@ function CandidateHome() {
     if (isLogin) {
       router.push("/home/BuildResume");
     } else {
-      router.push("/auth?signin=true");
+      router.push("/auth?signin=true&role=user");
     }
   };
   return (
@@ -55,6 +55,7 @@ function CandidateHome() {
               </div>
               <button
                 onClick={clickHandler}
+                
                 className="btn_hover_effect px-6 py-3 bg-[#06A9EF] text-white rounded-[12px] text-[1.11111vw] font-semibold"
                 style={{ width: "fit-content" }}
               >
