@@ -597,6 +597,7 @@ const ResumePreview = ({
         maxHeight: "88vh",
       }}
     >
+       
       <LimitUsedModal visible={limitUsedModal} setVisible={setLimitUsedModal} />
       <div
         className="flex  h-fit flex-col w-full  sm:px-4 px-2 gap-[14px] rounded-lg bg-white shadow-md"
@@ -605,8 +606,11 @@ const ResumePreview = ({
         }}
       >
         <div className="" ref={resumeRef}>
+       
           <div className="flex justify-between  scr1024:gap-4 gap-2 ">
+            
             <div className="flex items-center justify-between ml:w-[58%] w-full gap-4 ">
+              
               <div
                 className=" text-[14px] scr460:text-[20px] font-montserrat font-medium flex gap-3 items-center cursor-pointer "
                 onClick={() => setNamePreview(true)}

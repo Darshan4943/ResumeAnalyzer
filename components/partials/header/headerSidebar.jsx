@@ -139,12 +139,12 @@ function HeaderSidebar({
             >
               {userDataGlobal?.profilePicture ? (
                 <img
-                  className=" rounded-full object-cover h-[40px] w-[40px]"
-                  src={
-                    userDataGlobal?.profilePicture?.img ||
-                    "/images/profile/profileNew.png"
-                  }
-                />
+                className=" rounded-full object-cover h-[36px] w-[36px]"
+                src={
+                  userDataGlobal?.profilePicture ||
+                  "/images/profile/profileNew.png"
+                }
+              />
               ) : (
                 <div
                   className="rounded-[40px] h-[40px] w-[40px] bg-[#06A9EF] flex items-center justify-center text-white font-semibold text-[20px] "
