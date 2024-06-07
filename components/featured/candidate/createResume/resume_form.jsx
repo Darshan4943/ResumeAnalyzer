@@ -419,7 +419,7 @@ const ResumeForm = ({
         {data?.section.length > 0 &&
           <div ref={customRef}>
             <div className="text-[20px] flex justify-between font-medium pt-4">
-              Custom Section
+              Custom Sections
               <label className="switch">
                 <input
                   type="checkbox"
