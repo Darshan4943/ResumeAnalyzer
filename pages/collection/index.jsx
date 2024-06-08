@@ -256,6 +256,7 @@ function Collection() {
     return data.data;
   };
 
+  
   const parseData = () => {
     return new Promise((resolve, reject) => {
       const textData = [];
