@@ -45,8 +45,8 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
                     preview
                       ? data.profilePhoto
                       : Object.keys(data?.profilePhoto).includes("filename")
-                      ? URL.createObjectURL(data.profilePhoto)
-                      : data.profilePhoto
+                        ? URL.createObjectURL(data.profilePhoto)
+                        : data.profilePhoto
                   }
                   style={{
                     objectFit: "cover",
@@ -209,7 +209,7 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
                   gap: 24,
                   width: "100%",
                 }}
-                // wrap={data?.education?.length > 1 ? true : false}
+              // wrap={data?.education?.length > 1 ? true : false}
               >
                 <Text
                   style={{
@@ -273,20 +273,21 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
                               {detail.instituteName}
                             </Text>
                           </View>
-                          <Text
-                            style={{
-                              color: "#58595B",
-                              fontSize: "10px",
-                              fontFamily: `${selectedFont} 400`,
-                            }}
-                          >
-                            {detail.duration?.start?.year !== "Year" &&
-                              `${detail.duration?.start?.year}-${
-                                detail.duration?.end?.year === "Year"
+                          {detail.duration?.start?.year && (
+                            <Text
+                              style={{
+                                color: "#58595B",
+                                fontSize: "10px",
+                                fontFamily: `${selectedFont} 400`,
+                              }}
+                            >
+                              {detail.duration?.start?.year !== "Year" &&
+                                `${detail.duration?.start?.year}-${detail.duration?.end?.year === "Year"
                                   ? "Pursuing"
                                   : detail.duration?.end?.year
-                              }`}
-                          </Text>
+                                }`}
+                            </Text>
+                          )}
                         </View>
                       </View>
                     </>
@@ -317,7 +318,7 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
                       <View
                         key={index}
                         style={{ flexDirection: "column", gap: "8px" }}
-                        // wrap={false}
+                      // wrap={false}
                       >
                         <View>
                           <Text
@@ -420,7 +421,7 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
             <View
               // wrap={false}
               style={{ display: "flex", flexDirection: "column", gap: 8 }}
-              // wrap={data?.skills?.length > 1 ? true : false}
+            // wrap={data?.skills?.length > 1 ? true : false}
             >
               {data?.skills?.length > 0 && data?.showSkills === true && (
                 <View style={{ flexDirection: "column", gap: 16 }}>
@@ -576,11 +577,12 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
             )}
 
             {data?.reference?.length > 0 && data?.showReference === true && (
-              <View style={{ flexDirection: "column", gap: 16 }}>
+              <View style={{ flexDirection: "column", gap: 16 }}
+                wrap={data?.reference?.length > 1 ? true : false}>
                 <Text
                   style={{
                     fontFamily: `${selectedFont} 400`,
-                    color: "#030203",
+                    color: "#030203", 
                     fontSize: "16",
                     textTransform: "uppercase",
                   }}
@@ -774,21 +776,22 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
                         {detail.organization}
                       </Text>
                       {/* <View style={{}}> */}
-                      <Text
-                        style={{
-                          color: "#414142",
-                          fontSize: 10,
-                          fontFamily: `${selectedFont} 400`,
-                        }}
-                      >
-                        {detail.duration?.start?.year !== "Year" &&
-                          `${detail.duration?.start?.year}-${" "}${
-                            detail.currentlyWorking
+                      {detail.duration?.start?.year && (
+                        <Text
+                          style={{
+                            color: "#414142",
+                            fontSize: 10,
+                            fontFamily: `${selectedFont} 400`,
+                          }}
+                        >
+                          {detail.duration?.start?.year !== "Year" &&
+                            `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
                               ? "Present"
                               : detail.duration?.end?.year
-                          }
+                            }
                          `}
-                      </Text>
+                        </Text>
+                      )}
                       {/* </View> */}
                     </View>
                     <View style={{ width: "100%" }}>
@@ -828,7 +831,7 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
                   <View
                     key={index}
                     style={{ flexDirection: "column", gap: "8px" }}
-                    // wrap={false}
+                  // wrap={false}
                   >
                     <View>
                       <Text
@@ -859,21 +862,23 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
                         {detail.organization}
                       </Text>
                       {/* <View style={{}}> */}
-                      <Text
-                        style={{
-                          color: "#414142",
-                          fontSize: 10,
-                          fontFamily: `${selectedFont} 400`,
-                        }}
-                      >
-                        {detail.duration?.start?.year !== "Year" &&
-                          `${detail.duration?.start?.year}-${" "}${
-                            detail.currentlyWorking
+                      {detail.duration?.start?.year && (
+                        <Text
+                          style={{
+                            color: "#414142",
+                            fontSize: 10,
+                            fontFamily: `${selectedFont} 400`,
+                          }}
+                        >
+
+                          {detail.duration?.start?.year !== "Year" &&
+                            `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
                               ? "Present"
                               : detail.duration?.end?.year
-                          }
+                            }
                          `}
-                      </Text>
+                        </Text>
+                      )}
                       {/* </View> */}
                     </View>
                     <View style={{ width: "100%" }}>
@@ -913,7 +918,7 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
                   <View
                     key={index}
                     style={{ flexDirection: "column", gap: "8px" }}
-                    // wrap={false}
+                  // wrap={false}
                   >
                     <View>
                       <Text
@@ -944,21 +949,22 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
                         {detail.organization}
                       </Text>
                       {/* <View style={{}}> */}
-                      <Text
-                        style={{
-                          color: "#414142",
-                          fontSize: 10,
-                          fontFamily: `${selectedFont} 400`,
-                        }}
-                      >
-                        {detail.duration?.start?.year !== "Year" &&
-                          `${detail.duration?.start?.year}-${" "}${
-                            detail.currentlyWorking
+                      {detail.duration?.start?.year && (
+                        <Text
+                          style={{
+                            color: "#414142",
+                            fontSize: 10,
+                            fontFamily: `${selectedFont} 400`,
+                          }}
+                        >
+                          {detail.duration?.start?.year !== "Year" &&
+                            `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
                               ? "Present"
                               : detail.duration?.end?.year
-                          }
+                            }
                          `}
-                      </Text>
+                        </Text>
+                      )}
                       {/* </View> */}
                     </View>
                     <View style={{ width: "100%" }}>
@@ -999,7 +1005,7 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
                   <View
                     key={index}
                     style={{ flexDirection: "column", gap: "8px" }}
-                    // wrap={false}
+                  // wrap={false}
                   >
                     <View>
                       <Text
@@ -1030,21 +1036,22 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
                         {detail.organization}
                       </Text>
                       {/* <View style={{}}> */}
-                      <Text
-                        style={{
-                          color: "#414142",
-                          fontSize: 10,
-                          fontFamily: `${selectedFont} 400`,
-                        }}
-                      >
-                        {detail.duration?.start?.year !== "Year" &&
-                          `${detail.duration?.start?.year}-${" "}${
-                            detail.currentlyWorking
+                      {detail.duration?.start?.year && (
+                        <Text
+                          style={{
+                            color: "#414142",
+                            fontSize: 10,
+                            fontFamily: `${selectedFont} 400`,
+                          }}
+                        >
+                          {detail.duration?.start?.year !== "Year" &&
+                            `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
                               ? "Present"
                               : detail.duration?.end?.year
-                          }
+                            }
                          `}
-                      </Text>
+                        </Text>
+                      )}
                       {/* </View> */}
                     </View>
                     <View style={{ width: "100%" }}>
@@ -1086,7 +1093,7 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
                     <View
                       key={index}
                       style={{ flexDirection: "column", gap: "8px" }}
-                      // wrap={false}
+                    // wrap={false}
                     >
                       <View>
                         <Text
@@ -1117,21 +1124,22 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
                           {detail.organization}
                         </Text>
                         {/* <View style={{}}> */}
-                        <Text
-                          style={{
-                            color: "#414142",
-                            fontSize: 10,
-                            fontFamily: `${selectedFont} 400`,
-                          }}
-                        >
-                          {detail.duration?.start?.year !== "Year" &&
-                            `${detail.duration?.start?.year}-${" "}${
-                              detail.currentlyWorking
+                        {detail.duration?.start?.year && (
+                          <Text
+                            style={{
+                              color: "#414142",
+                              fontSize: 10,
+                              fontFamily: `${selectedFont} 400`,
+                            }}
+                          >
+                            {detail.duration?.start?.year !== "Year" &&
+                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
                                 ? "Present"
                                 : detail.duration?.end?.year
-                            }
+                              }
                          `}
-                        </Text>
+                          </Text>
+                        )}
                         {/* </View> */}
                       </View>
                       <View style={{ width: "100%" }}>
@@ -1219,7 +1227,7 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
                               {detail?.duration?.start?.year}
                               {detail?.duration?.start?.year && "-"}
                               {detail?.duration?.end?.year === "" ||
-                              detail?.duration?.end?.year === undefined
+                                detail?.duration?.end?.year === undefined
                                 ? "Present"
                                 : detail?.duration?.end?.year}
                             </Text>

@@ -79,13 +79,13 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
             }}
           >
             <Text
-              style={{ fontFamily: `${selectedFont} 700`, fontSize: "24px" }}
+              style={{ fontFamily: `${selectedFont} 700`, fontSize: "24px", maxWidth: "100%", }}
             >
               {data.firstName} {data.lastName}
             </Text>
             <Text
               style={{
-                fontFamily: `${selectedFont} 500`,
+                fontFamily: `${selectedFont} 500`, maxWidth: "100%",
                 fontSize: "16px",
               }}
             >
@@ -179,6 +179,7 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
                       style={{
                         fontFamily: `${selectedFont} 500`,
                         fontSize: "12px",
+                        maxWidth: "100%",
                         color: "#808080",
                       }}
                     >
@@ -595,6 +596,7 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
                             {detail.designation}{" "}
                           </Text>
                         </View>
+                        {detail.duration?.start?.year && (
                         <Text
                           style={{
                             color: "#414042",
@@ -607,6 +609,7 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
                             ? "Present"
                             : detail.duration?.end?.year}
                         </Text>
+                        )}
                       </View>
 
                       <Text
@@ -698,6 +701,7 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
                             {detail.qualification} - {detail.specialization}
                           </Text>
                         </View>
+                        {detail.duration?.start?.year && (
                         <Text
                           style={{
                             color: "#414042",
@@ -711,6 +715,7 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
                               : detail.duration?.end?.year
                             }`}
                         </Text>
+                        )}
                       </View>
 
                       <Text
@@ -793,6 +798,7 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
                             {detail.title}
                           </Text>
                         </View>
+                        {detail.duration?.start?.year && (
                         <Text
                           style={{
                             color: "#414042",
@@ -807,6 +813,7 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
                             }
                    `}
                         </Text>
+                        )}
                       </View>
 
                       <Text
@@ -897,6 +904,7 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
                             {detail.title}
                           </Text>
                         </View>
+                        {detail.duration?.start?.year && (
                         <Text
                           style={{
                             color: "#414042",
@@ -911,6 +919,7 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
                             }
                    `}
                         </Text>
+                        )}
                       </View>
 
                       <Text
@@ -1002,6 +1011,7 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
                             {detail.title}
                           </Text>
                         </View>
+                        {detail.duration?.start?.year && (
                         <Text
                           style={{
                             color: "#414042",
@@ -1016,6 +1026,7 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
                             }
                    `}
                         </Text>
+                        )}
                       </View>
 
                       <Text
@@ -1112,6 +1123,7 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
                               {detail.title}
                             </Text>
                           </View>
+                          {detail.duration?.start?.year && (
                           <Text
                             style={{
                               color: "#414042",
@@ -1126,6 +1138,7 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
                               }
                    `}
                           </Text>
+                          )}
                         </View>
 
                         <Text
