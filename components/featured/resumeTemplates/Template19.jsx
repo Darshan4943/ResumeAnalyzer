@@ -35,7 +35,7 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
           width: 532,
           display: "flex",
           flexDirection: "column",
-          gap: 26,
+          gap: 16,
         }}
       >
         <View style={{ display: "flex", flexDirection: "row", gap: 32 }}>
@@ -255,7 +255,10 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
               </View>
             )}
           </View>
+          
         </View>
+
+
 
         {data?.skills?.length > 0 && data?.showSkills === true && (
           <View

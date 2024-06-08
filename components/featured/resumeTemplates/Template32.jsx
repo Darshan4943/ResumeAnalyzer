@@ -25,6 +25,14 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
     return email;
   };
 
+  const  formatLocation = (location) => {
+    if (location?.length > 20) {
+      return location?.match(/.{1,20}/g).join("\n");
+    }
+    return location;
+  };
+ 
+
   return (
     <Page size="A4" wrap={true} style={{ paddingTop: "12px" }}>
       <View style={{ flexDirection: "row", gap: "1.5rem", marginTop: "-12px" }}>
@@ -252,7 +260,8 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                       color: "#414042",
                     }}
                   >
-                    {data.location}
+                    {/* {data.location} */}
+                    {formatLocation(data.location)}
                   </Text>
                 </View>
               )}
@@ -284,25 +293,25 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                     }}
                   >
                     {data.skills?.map((detail, index) => {
-                      const calculateWidthPercentage = (rating) => {
-                        let ratingPercentage = 0;
-                        if (rating && rating.length > 0) {
-                          const zerosCount = rating.filter(
-                            (val) => val === 0
-                          ).length;
+                      // const calculateWidthPercentage = (rating) => {
+                      //   let ratingPercentage = 0;
+                      //   if (rating && rating.length > 0) {
+                      //     const zerosCount = rating.filter(
+                      //       (val) => val === 0
+                      //     ).length;
 
-                          if (zerosCount === 0) ratingPercentage = 100;
-                          else if (zerosCount === 1) ratingPercentage = 80;
-                          else if (zerosCount === 2) ratingPercentage = 60;
-                          else if (zerosCount === 3) ratingPercentage = 40;
-                          else if (zerosCount === 4) ratingPercentage = 20;
-                        }
-                        return ratingPercentage;
-                      };
+                      //     if (zerosCount === 0) ratingPercentage = 100;
+                      //     else if (zerosCount === 1) ratingPercentage = 80;
+                      //     else if (zerosCount === 2) ratingPercentage = 60;
+                      //     else if (zerosCount === 3) ratingPercentage = 40;
+                      //     else if (zerosCount === 4) ratingPercentage = 20;
+                      //   }
+                      //   return ratingPercentage;
+                      // };
 
-                      const ratingPercentage = calculateWidthPercentage(
-                        detail.rating
-                      );
+                      // const ratingPercentage = calculateWidthPercentage(
+                      //   detail.rating
+                      // );
 
                       return (
                         <View
@@ -318,22 +327,22 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                             style={{
                               display: "flex",
                               flexDirection: "row",
-                              justifyContent: "space-between",
-                              alignItems: "center",
-                              gap: "16px",
+                              // justifyContent: "space-between",
+                              alignItems: "start",
+                              // gap: "16px",
                             }}
                           >
                             <Text
                               style={{
                                 color: "#414042",
-                                fontSize: "10px",
+                                fontSize: "12px",
                                 fontFamily: `${selectedFont} 400`,
                                 width: "150px",
                               }}
                             >
                               {detail.skill}
                             </Text>
-                            <View
+                            {/* <View
                               style={{
                                 width: "59.21%",
                                 height: "3.78px",
@@ -349,7 +358,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                                   backgroundColor: selectedColor,
                                 }}
                               ></View>
-                            </View>
+                            </View> */}
                           </View>
                         </View>
                       );
@@ -385,25 +394,25 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                     }}
                   >
                     {data.languages?.map((detail, index) => {
-                      const calculateWidthPercentage = (rating) => {
-                        let ratingPercentage = 0;
-                        if (rating && rating.length > 0) {
-                          const zerosCount = rating.filter(
-                            (val) => val === 0
-                          ).length;
+                      // const calculateWidthPercentage = (rating) => {
+                      //   let ratingPercentage = 0;
+                      //   if (rating && rating.length > 0) {
+                      //     const zerosCount = rating.filter(
+                      //       (val) => val === 0
+                      //     ).length;
 
-                          if (zerosCount === 0) ratingPercentage = 100;
-                          else if (zerosCount === 1) ratingPercentage = 80;
-                          else if (zerosCount === 2) ratingPercentage = 60;
-                          else if (zerosCount === 3) ratingPercentage = 40;
-                          else if (zerosCount === 4) ratingPercentage = 20;
-                        }
-                        return ratingPercentage;
-                      };
+                      //     if (zerosCount === 0) ratingPercentage = 100;
+                      //     else if (zerosCount === 1) ratingPercentage = 80;
+                      //     else if (zerosCount === 2) ratingPercentage = 60;
+                      //     else if (zerosCount === 3) ratingPercentage = 40;
+                      //     else if (zerosCount === 4) ratingPercentage = 20;
+                      //   }
+                      //   return ratingPercentage;
+                      // };
 
-                      const ratingPercentage = calculateWidthPercentage(
-                        detail.rating
-                      );
+                      // const ratingPercentage = calculateWidthPercentage(
+                      //   detail.rating
+                      // );
 
                       return (
                         <View
@@ -419,22 +428,22 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                             style={{
                               display: "flex",
                               flexDirection: "row",
-                              justifyContent: "space-between",
-                              alignItems: "center",
-                              gap: "16px",
+                              // justifyContent: "space-between",
+                              alignItems: "start",
+                              // gap: "16px",
                             }}
                           >
                             <Text
                               style={{
                                 color: "#414042",
-                                fontSize: "10px",
+                                fontSize: "12px",
                                 fontFamily: `${selectedFont} 400`,
                                 width: "150px",
                               }}
                             >
                               {detail.languages}
                             </Text>
-                            <View
+                            {/* <View
                               style={{
                                 width: "59.21%",
                                 height: "3.78px",
@@ -450,7 +459,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                                   backgroundColor: selectedColor,
                                 }}
                               ></View>
-                            </View>
+                            </View> */}
                           </View>
                         </View>
                       );
