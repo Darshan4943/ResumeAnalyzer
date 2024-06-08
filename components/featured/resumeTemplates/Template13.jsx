@@ -13,8 +13,14 @@ import {
 
 function Template13({ data, selectedColor, selectedFont }) {
   const formatLink = (link) => {
-    if (link?.length > 30) {
-      return link?.match(/.{1,30}/g).join("\n");
+    if (link?.length > 26) {
+      return link?.match(/.{1,26}/g).join("\n");
+    }
+    return link;
+  };
+  const formatLink21 = (link) => {
+    if (link?.length > 21) {
+      return link?.match(/.{1,21}/g).join("\n");
     }
     return link;
   };
@@ -78,7 +84,7 @@ function Template13({ data, selectedColor, selectedFont }) {
                   {data?.showSummary === true && (
                     <Text
                       style={{
-                        fontSize: 14,
+                        fontSize: 12,
                         fontFamily: `${selectedFont} 400`,
                         color: "#333333",
                       }}
@@ -147,7 +153,7 @@ function Template13({ data, selectedColor, selectedFont }) {
                         color: "#333333",
                       }}
                     >
-                      {data.location}
+                      {formatEmail(data.location)}
                     </Text>
                   </View>
                   <View
@@ -172,7 +178,7 @@ function Template13({ data, selectedColor, selectedFont }) {
                         color: "#333333",
                       }}
                     >
-                      {data.mobileNumber}
+                    {data.dial_code} {data.mobileNumber}
                     </Text>
                   </View>
                 </View>
@@ -194,7 +200,7 @@ function Template13({ data, selectedColor, selectedFont }) {
                         color: selectedColor,
                       }}
                     >
-                      Work experience
+                    WORK EXPERIENCE
                     </Text>
                     {data.experience.map((detail, index) => (
                       <>
@@ -210,7 +216,7 @@ function Template13({ data, selectedColor, selectedFont }) {
                               color: "#333333",
                             }}
                           >
-                            {detail.designation}
+                            {formatLink21(detail.designation)}
                           </Text>
                           <Text
                             style={{
@@ -219,7 +225,7 @@ function Template13({ data, selectedColor, selectedFont }) {
                               color: "#797979",
                             }}
                           >
-                            {detail.organization}{" "}
+                            {formatLink21(detail.organization)}{" "}
                             {detail.duration?.start?.year !== "Year" &&
                               `${detail.duration?.start?.year}-${" "}${
                                 detail.currentlyWorking
@@ -282,7 +288,7 @@ function Template13({ data, selectedColor, selectedFont }) {
                             color: "#333333",
                           }}
                         >
-                          {detail.title}
+                          {formatLink21(detail.title)}
                         </Text>
                         <Text
                           style={{
@@ -291,7 +297,7 @@ function Template13({ data, selectedColor, selectedFont }) {
                             color: "#333333",
                           }}
                         >
-                          {detail.organization}
+                          {formatLink21(detail.organization)}
                         </Text>
                         <Text
                           style={{
@@ -300,7 +306,7 @@ function Template13({ data, selectedColor, selectedFont }) {
                             color: "#797979",
                           }}
                         >
-                          {detail.organization}{" "}
+                          {formatLink(detail.organization)}{" "}
                           {detail.duration?.start?.year !== "Year" &&
                             `${detail.duration?.start?.year}-${" "}${
                               detail.currentlyWorking
@@ -363,7 +369,7 @@ function Template13({ data, selectedColor, selectedFont }) {
                             color: "#333333",
                           }}
                         >
-                          {detail.title}
+                          {formatLink21(detail.title)}
                         </Text>
                         <Text
                           style={{
@@ -372,7 +378,7 @@ function Template13({ data, selectedColor, selectedFont }) {
                             color: "#333333",
                           }}
                         >
-                          {detail.organization}
+                          {formatLink21(detail.organization)}
                         </Text>
                         <Text
                           style={{
@@ -381,7 +387,7 @@ function Template13({ data, selectedColor, selectedFont }) {
                             color: "#797979",
                           }}
                         >
-                          {detail.organization}{" "}
+                          {formatLink(detail.organization)}{" "}
                           {detail.duration?.start?.year !== "Year" &&
                             `${detail.duration?.start?.year}-${" "}${
                               detail.currentlyWorking
@@ -444,7 +450,7 @@ function Template13({ data, selectedColor, selectedFont }) {
                             color: "#333333",
                           }}
                         >
-                          {detail.title}
+                          {formatLink21(detail.title)}
                         </Text>
                         <Text
                           style={{
@@ -453,7 +459,7 @@ function Template13({ data, selectedColor, selectedFont }) {
                             color: "#333333",
                           }}
                         >
-                          {detail.organization}
+                          {formatLink21(detail.organization)}
                         </Text>
                         <Text
                           style={{
@@ -595,7 +601,7 @@ function Template13({ data, selectedColor, selectedFont }) {
                         color: selectedColor,
                       }}
                     >
-                      {item.header}
+                      {formatLink21(item.header)}
                     </Text>
                     <View
                       style={{
@@ -614,7 +620,7 @@ function Template13({ data, selectedColor, selectedFont }) {
                                 color: "#333333",
                               }}
                             >
-                              {detail.title}
+                                  {formatLink21(detail.title)}
                             </Text>
                             <Text
                               style={{
@@ -731,7 +737,7 @@ function Template13({ data, selectedColor, selectedFont }) {
                       color: selectedColor,
                     }}
                   >
-                    Education
+                 EDUCATION
                   </Text>
                   {data.education.map((detail, index) => (
                     <>
@@ -821,7 +827,7 @@ function Template13({ data, selectedColor, selectedFont }) {
                             color: "#333333",
                           }}
                         >
-                          {detail.platform}
+                          {formatLink(detail.platform)}
                         </Text>
                         <View
                           style={{
@@ -865,7 +871,7 @@ function Template13({ data, selectedColor, selectedFont }) {
                       color: selectedColor,
                     }}
                   >
-                    Languages
+                    LANGUAGES
                   </Text>
                   <View
                     style={{ flexDirection: "row", gap: 2, flexWrap: "wrap" }}
@@ -880,7 +886,7 @@ function Template13({ data, selectedColor, selectedFont }) {
                           lineHeight: 1.2,
                         }}
                       >
-                        {detail.languages},
+                        {formatLink(detail.languages)},
                       </Text>
                     ))}
                   </View>
@@ -896,7 +902,7 @@ function Template13({ data, selectedColor, selectedFont }) {
                       color: selectedColor,
                     }}
                   >
-                    Interests
+                    HOBBIES
                   </Text>
                   <View
                     style={{ flexDirection: "row", gap: 2, flexWrap: "wrap" }}
@@ -911,7 +917,7 @@ function Template13({ data, selectedColor, selectedFont }) {
                           lineHeight: 1.2,
                         }}
                       >
-                        {detail.title},
+                        {formatLink(detail.title)},
                       </Text>
                     ))}
                   </View>
@@ -944,7 +950,7 @@ function Template13({ data, selectedColor, selectedFont }) {
                             lineHeight: 1.2,
                           }}
                         >
-                          {detail.referantName}
+                          {formatLink(detail.referantName)}
                         </Text>
                         <Text
                           style={{
@@ -964,7 +970,7 @@ function Template13({ data, selectedColor, selectedFont }) {
                             lineHeight: 1.2,
                           }}
                         >
-                          {detail.organization}
+                          {formatLink(detail.organization)}
                         </Text>
                         <Text
                           style={{
@@ -974,7 +980,7 @@ function Template13({ data, selectedColor, selectedFont }) {
                             lineHeight: 1.2,
                           }}
                         >
-                          {detail.email}
+                          {formatLink(detail.email)}
                         </Text>
                       </View>
                       <View

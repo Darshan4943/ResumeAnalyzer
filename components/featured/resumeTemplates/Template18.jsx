@@ -29,6 +29,20 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
     return email;
   };
 
+  const formatLocation = (location) => {
+    if (location?.length > 23) {
+      return location?.match(/.{1,23}/g).join('\n');  }
+    return location;
+  };
+
+  const formatDesignation = (designation) => {
+    if (designation?.length > 15) {
+      return designation?.match(/.{1,15}/g).join('\n');  }
+    return designation;
+  };
+
+  
+
   return (
     <Page size="A4" wrap={true} style={{ paddingTop: "12px" }}>
       <View
@@ -143,7 +157,9 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                     color: "#FFFFFF",
                   }}
                 >
-                  {data.designation}
+                  {/* {data.designation} */}
+
+                  {formatDesignation(data?.designation)}
                 </Text>
               </View>
             </View>
@@ -284,7 +300,8 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                     color: "#FFFFFF",
                   }}
                 >
-                  {data.location}
+                  {/* {data.location} */}
+                  {formatLocation(data?.location)}
                 </Text>
               </View>
 }
@@ -817,7 +834,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
               // paddingLeft: 8,
               paddingRight: 12,
 
-              gap: 12,
+              gap: 6,
             }}
           >
             {data?.experience?.length > 0 &&  data?.showExperience === true &&(
@@ -878,7 +895,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                         style={{
                           display: "flex",
                           flexDirection: "row",
-                          gap: 10,
+                          gap: 6,
                           // gap: index === data.experience.length - 1 ? 16 : 24,
                         }}
                       >
@@ -943,7 +960,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                   style={{
                     display: "flex",
                     flexDirection: "column",
-                    gap: 16,
+                    gap: 1,
                     width: "90%",
                   }}
                 // wrap={data?.education?.length > 1 ? true : false}
@@ -984,7 +1001,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                       display: "flex",
                       flexDirection: "column",
                       marginLeft: 26,
-                      gap: 20,
+                      gap: 1,
                     }}
                   >
                     {data?.education?.map((detail, index) => (
@@ -994,7 +1011,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                         style={{
                           display: "flex",
                           flexDirection: "row",
-                          // gap:20
+                          gap:1
                           // gap: index === data.education.length - 1 ? 16 : 24,
                         }}
                       >
@@ -1003,7 +1020,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                           style={{
                             display: "flex",
                             flexDirection: "column",
-                            gap: 4,
+                            gap: 1,
                             marginLeft: 26,
                           }}
                         >
@@ -1016,15 +1033,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                           >
                             {detail.qualification} - {detail.specialization}
                           </Text>
-                          {/* <Text
-                        style={{
-                          fontFamily: `${selectedFont} 400`,
-                          fontSize: 12,
-                          color: "#252829",
-                        }}
-                      >
-                        {detail.instituteName}
-                      </Text> */}
+                        
                           <Text
                             style={{
                               fontFamily: `${selectedFont} 400`,

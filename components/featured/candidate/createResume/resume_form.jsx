@@ -52,7 +52,7 @@ const ResumeForm = ({
       }
     }
   }, [data]);
-  console.log(44, data);
+ 
 
   useEffect(() => {
     setFormField(

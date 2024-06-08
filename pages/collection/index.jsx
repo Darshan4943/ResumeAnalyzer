@@ -191,10 +191,10 @@ function Collection() {
   const getUnSyncFiles = () => {
 
     axios
-      .get(`http://localhost:2000/api/getUnsyncedFile/${userDataGlobal._id}`)
+      .get(`https://jamblix.com/api/getUnsyncedFile/${userDataGlobal._id}`)
       .then((res) => {
-         const files = res.data.data.filter(item => item.type === 'file');
-      setUnSyncFiles(files.length);
+        const files = res.data.data.filter(item => item.type === 'file');
+        setUnSyncFiles(files.length);
       })
       .catch((err) => {
         console.log(err);
@@ -341,63 +341,63 @@ function Collection() {
     }, 1000);
   };
   const [duplicateFiles, setDuplicateFiles] = useState([]);
-  const addData = async (file, index, text) => {
-    return new Promise((resolve) => {
-      setTimeout(async () => {
-        const formData = new FormData();
-        try {
-          if (
-            folderList.some(
-              (existingFile) => existingFile.fileName === file.name
-            )
-          ) {
-            setDuplicateFiles((prevDuplicateFiles) => [
-              ...prevDuplicateFiles,
-              { file, index },
-            ]);
-            setCount((prevCount) => prevCount + 1);
-            // toast.error("Duplicate file name");
-            return;
-          }
-          if (text != undefined || text != null || text.length > 5) {
-            formData.append("fileName", file.name);
-            formData.append("type", "file");
-            formData.append("userId", userDataGlobal._id);
-            formData.append("text", text);
-            formData.append("file", file);
-            formData.append("parentId", ParentId ? ParentId : undefined);
-            try {
-              const response = await axios.post(
-                "https://jamblix.com/api/folder/create",
-                formData
-              );
-              resolve(index, response.data);
-              setCount((prevCount) => prevCount + 1);
-              return;
-            } catch (e) {
-              // toast.error("Something went wrong Please Check your file")
-              setCount((prevCount) => prevCount + 1);
-              setFailedFiles((prevFailedFiles) => [
-                ...prevFailedFiles,
-                { file, index, error: e },
-              ]);
-              return;
-            }
-          } else {
-            setCount((prevCount) => prevCount + 1);
-            setFailedFiles((prevFailedFiles) => [
-              ...prevFailedFiles,
-              { file, index, error: e },
-            ]);
-            return;
-          }
 
-        } catch (err) {
+  const addData = async (file, index, text) => {
+  return new Promise((resolve) => {
+    setTimeout(async () => {
+      const formData = new FormData();
+      try {
+        if (
+          folderList.some(
+            (existingFile) => existingFile.fileName === file.name
+          )
+        ) {
+          setDuplicateFiles((prevDuplicateFiles) => [
+            ...prevDuplicateFiles,
+            { file, index },
+          ]);
+          setCount((prevCount) => prevCount + 1);
+          // toast.error("Duplicate file name");
           return;
         }
-      }, 200); // Simulating a network delay
-    });
-  };
+        if (text === undefined || text === null || text.length <= 5) {
+          setCount((prevCount) => prevCount + 1);
+          setFailedFiles((prevFailedFiles) => [
+            ...prevFailedFiles,
+            { file, index, error: 'Invalid text' },
+          ]);
+          return;
+        }
+
+        formData.append("fileName", file.name);
+        formData.append("type", "file");
+        formData.append("userId", userDataGlobal._id);
+        formData.append("text", text);
+        formData.append("file", file);
+        formData.append("parentId", ParentId ? ParentId : undefined);
+
+        try {
+          const response = await axios.post(
+            "https://jamblix.com/api/folder/create",
+            formData
+          );
+          resolve(index, response.data);
+          setCount((prevCount) => prevCount + 1);
+        } catch (e) {
+          // toast.error("Something went wrong Please Check your file")
+          setCount((prevCount) => prevCount + 1);
+          setFailedFiles((prevFailedFiles) => [
+            ...prevFailedFiles,
+            { file, index, error: e },
+          ]);
+        }
+      } catch (err) {
+        return;
+      }
+    }, 200); // Simulating a network delay
+  });
+};
+
 
   useEffect(() => {
     if (files.length === count) {

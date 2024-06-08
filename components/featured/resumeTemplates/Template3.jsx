@@ -12,6 +12,16 @@ import {
 import { formatLink } from "../../../utils/middleware";
 
 const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
+  console.log(66, data);
+
+  const formatLink19 = (link) => {
+    if (link?.length > 22) {
+      return link?.match(/.{1,22}/g).join('\n');  }
+    return link;
+  };
+
+  
+
   return (
     <Page size="A4" wrap={true} style={{ paddingTop: "12px" }}>
       <View style={{ flexDirection: "row", marginTop: "-12px" }}>
@@ -122,7 +132,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                       flexWrap: "wrap",
                     }}
                   >
-                    {data.mobileNumber}
+                  {data.dial_code} {data.mobileNumber}
                   </Text>
                 </View>
               </View>
@@ -160,10 +170,10 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                   <Text
                     style={{
                       fontFamily: `${selectedFont} 400`,
-                      flexWrap: "wrap",
+                      // flexWrap: "wrap",
                     }}
                   >
-                    {data.email}
+                    {formatLink19(data.email)}
                   </Text>
                 </View>
               </View>
@@ -219,7 +229,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                         // overflow: "hidden"
                       }}
                     >
-                      {detail.platform}
+                      {formatLink19(detail.platform)}
                     </Text>
                     <Text
                       wrap={false}
@@ -232,7 +242,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                         // overflow: "hidden"
                       }}
                     >
-                      {formatLink(detail.link)}
+                      {formatLink19(detail.link)}
                     </Text>
                   </>
                 ))}
@@ -289,7 +299,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                       overflow: "hidden",
                     }}
                   >
-                    {detail.skill}
+                    {formatLink19(detail.skill)}
                   </Text>
                 ))}
               </View>
@@ -397,7 +407,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                       fontFamily: `${selectedFont} 400`,
                     }}
                   >
-                    {detail.languages}
+                    {formatLink19(detail.languages)}
                   </Text>
                 ))}
               </View>
@@ -449,7 +459,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                       fontFamily: `${selectedFont} 400`,
                     }}
                   >
-                    {detail.title}
+                    {formatLink19(detail.title)}
                   </Text>
                 ))}
               </View>

@@ -13,10 +13,23 @@ import {
 import React from "react";
 
 function Template11({ data, selectedColor, selectedFont, preview }) {
-  const formatLink = (link) => {
+  const formatLink19 = (link) => {
     if (link?.length > 22) {
       return link?.match(/.{1,22}/g).join("\n");
     }
+    return link;
+  };
+
+  const formatLink6 = (link) => {
+    if (link?.length > 8) {
+      return link?.match(/.{1,8}/g).join("\n");
+    }
+    return link;
+  };
+
+  const formatLink35 = (link) => {
+    if (link?.length > 35) {
+      return link?.match(/.{1,35}/g).join('\n');  }
     return link;
   };
 
@@ -46,7 +59,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                 flexWrap: "wrap",
               }}
             >
-              {data.firstName}
+              {formatLink6(data.firstName)}
             </Text>
             <Text
               style={{
@@ -57,7 +70,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                 flexWrap: "wrap",
               }}
             >
-              {data.lastName}
+              {formatLink6(data.lastName)}
             </Text>
             <Text
               style={{
@@ -204,10 +217,10 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                         color: "#000000",
                         fontSize: 12,
                         fontFamily: `${selectedFont} 500`,
-                        width: "90%",
+                        // width: "90%",
                       }}
                     >
-                      {item?.title}
+                      {formatLink19(item?.title)}
                     </Text>
                   ))}
                 </View>
@@ -269,10 +282,10 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                               fontSize: 12,
                               fontFamily: `${selectedFont} 500`,
                               width: "100%",
-                              flexWrap: "wrap",
+                              // flexWrap: "wrap",
                             }}
                           >
-                            {detail.languages}
+                            {formatLink19(detail.languages)}
                           </Text>
                           {/* <View
                             style={{
@@ -331,7 +344,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                         width: "90%",
                       }}
                     >
-                      {item?.title}
+                      {formatLink19(item?.title)}
                     </Text>
                   ))}
                 </View>
@@ -374,7 +387,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                         width: "90%",
                       }}
                     >
-                      {item?.platform}
+                      {formatLink19(item?.platform)}
                     </Text>
                     <Text
                       style={{
@@ -384,7 +397,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                         width: "90%",
                       }}
                     >
-                      {formatLink(item?.link)}
+                      {formatLink19(item?.link)}
                     </Text>
                   </View>
                 ))}
@@ -422,16 +435,16 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                     }}
                   >
                     <Text style={{ fontFamily: `${selectedFont} 400` }}>
-                      {item?.referantName}
+                      {formatLink19(item?.referantName)}
                     </Text>
                     <Text style={{ fontFamily: `${selectedFont} 400` }}>
-                      {item?.designation}
+                      {formatLink19(item?.designation)}
                     </Text>
                     <Text style={{ fontFamily: `${selectedFont} 400` }}>
-                      {item?.organization}
+                      {formatLink19(item?.organization)}
                     </Text>
                     <Text style={{ fontFamily: `${selectedFont} 400` }}>
-                      {item?.email}
+                      {formatLink19(item?.email)}
                     </Text>
                   </View>
                 ))}
@@ -542,7 +555,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                         fontFamily: `${selectedFont} 700`,
                       }}
                     >
-                      {data.mobileNumber}
+                    {data.dial_code} {data.mobileNumber}
                     </Text>
                   </View>
                 </View>
@@ -591,7 +604,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                         fontFamily: `${selectedFont} 700`,
                       }}
                     >
-                      {data.email}
+                      {formatLink35(data.email)}
                     </Text>
                   </View>
                 </View>
@@ -638,9 +651,10 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                       style={{
                         fontSize: "12",
                         fontFamily: `${selectedFont} 700`,
+                        paddingVertical:'5px'
                       }}
                     >
-                      {data.location}
+                      {formatLink35(data.location)}
                     </Text>
                   </View>
                 </View>
@@ -739,6 +753,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
             )}
             {data?.education?.length > 0 && data?.showEducation === true && (
               <View
+              wrap={false}
                 style={{ flexDirection: "column", gap: 24, paddingTop: 24 }}
               >
                 <Text
