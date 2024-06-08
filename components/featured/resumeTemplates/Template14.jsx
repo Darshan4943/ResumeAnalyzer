@@ -25,15 +25,36 @@ function Template14({ data, selectedColor, selectedFont }) {
 
   const formatEmail = (email) => {
     if (email?.length > 35) {
-      return email?.match(/.{1,35}/g).join('\n');  }
+      return email?.match(/.{1,35}/g).join('\n');
+    }
     return email;
   };
 
   const formatLocation = (location) => {
     if (location?.length > 35) {
-      return location?.match(/.{1,35}/g).join('\n');  }
+      return location?.match(/.{1,35}/g).join('\n');
+    }
     return location;
   };
+
+  const formatDesi = (designation) => {
+    if (designation?.length > 35) {
+      return designation?.match(/.{1,35}/g).join('\n');
+    }
+    return designation;
+  };
+
+  const { firstName, lastName } = data;
+
+  const formatNames = (firstName, lastName) => {
+    const fullName = `${firstName} ${lastName}`;
+    if (fullName.length > 35) {
+      return fullName.match(/.{1,35}/g).join('\n');
+    }
+    return fullName;
+  };
+
+  const formattedNames = formatNames(firstName, lastName);
 
   return (
     <Page size="A4" style={{ padding: "24px" }} wrap={true}>
@@ -45,86 +66,12 @@ function Template14({ data, selectedColor, selectedFont }) {
           gap: 16,
         }}
       >
-        {/* <View
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-between",
-          }}
-         >
-          <View
-            style={{
-              width: 400.06,
-              display: "flex",
-              flexDirection: "column",
-              gap: 8,
-            }}
-           >
-            <Text
-              style={{
-                fontSize: 32,
-                fontFamily: `${selectedFont} 700`,
-                color: selectedColor,
-              }}
-            >
-              {data.firstName} {data.lastName}
-            </Text>
-            <Text
-              style={{
-                width: "80%",
-                fontSize: 12,
-                fontFamily: `${selectedFont} 400`,
-                color: "#4D4D4D",
-              }}
-            >
-              {data.summery}
-            </Text>
-          </View>
-          <View
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              gap: 6,
-              alignItems: "flex-end",
-              maxWidth: "50%",
-            }}
-          >
-            <Text
-              style={{
-                fontSize: 12,
-                fontFamily: `${selectedFont} 400`,
-                color: "#4D4D4D",
-                display: "flex",
-                flexWrap: "wrap",
-              }}
-            >
-              {data.email}
-            </Text>
-            <Text
-              style={{
-                fontSize: 12,
-                fontFamily: `${selectedFont} 400`,
-                color: "#4D4D4D",
-              }}
-            >
-              {data.mobileNumber}
-            </Text>
-            <Text
-              style={{
-                fontSize: 12,
-                fontFamily: `${selectedFont} 400`,
-                color: "#4D4D4D",
-              }}
-            >
-              {data.location}
-            </Text>
-          </View>
-         </View> */}
 
         <View
           style={{
             display: "flex",
             flexDirection: "column",
+            gap:"4px"
           }}
         >
           <View
@@ -135,8 +82,21 @@ function Template14({ data, selectedColor, selectedFont }) {
               justifyContent: "space-between",
             }}
           >
-            <View>
-              <Text
+
+            <View style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "start",
+              gap:"4px"
+            }}>
+
+              {/* <View style={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+                gap:"4px"
+              }}> */}
+                <Text
                 style={{
                   fontSize: 32,
                   fontFamily: `${selectedFont} 700`,
@@ -145,8 +105,55 @@ function Template14({ data, selectedColor, selectedFont }) {
 
                 }}
               >
-                {data.firstName} {data.lastName}
+                {/* {data.firstName} {data.lastName} */}
+                {/* {formatEmail`$((data.firstName)(data.firstName))`} */}
+                {formattedNames}
+
+
+
+
               </Text>
+
+                {/* <Text
+                  style={{
+                    fontSize: 32,
+                    fontFamily: `${selectedFont} 700`,
+                    color: selectedColor,
+                    maxWidth: "50%"
+
+                  }}
+                >
+                  {data.firstName}
+
+                </Text>
+                <Text
+                  style={{
+                    fontSize: 32,
+                    fontFamily: `${selectedFont} 700`,
+                    color: selectedColor,
+                    maxWidth: "50%"
+
+                  }}
+                >
+                  {data.lastName}
+
+                </Text>
+
+              </View> */}
+              <Text
+                  style={{
+                    fontSize: 12,
+                    fontFamily: `${selectedFont} 700`,
+                    color: selectedColor,
+                    maxWidth: "50%"
+
+                  }}
+                >
+                  {/* {data.designation} */}
+                  {formatDesi(data.designation)}
+
+                </Text>
+
             </View>
             <View
               style={{
@@ -164,7 +171,7 @@ function Template14({ data, selectedColor, selectedFont }) {
                   color: "#4D4D4D",
                   display: "flex",
                   // flexWrap: "wrap",
-                  maxWidth:"100%"
+                  maxWidth: "100%"
                 }}
               >
                 {/* {data.email} */}
@@ -177,7 +184,7 @@ function Template14({ data, selectedColor, selectedFont }) {
                   color: "#4D4D4D",
                 }}
               >
-             {data.dial_code}  {data.mobileNumber}
+                {data.dial_code}  {data.mobileNumber}
               </Text>
             </View>
           </View>
@@ -187,7 +194,7 @@ function Template14({ data, selectedColor, selectedFont }) {
               display: "flex",
               flexDirection: "row",
               justifyContent: "space-between",
-             width:"100%"
+              width: "100%"
             }}
           >
             {data?.showSummary === true && (
@@ -207,7 +214,7 @@ function Template14({ data, selectedColor, selectedFont }) {
             <View
               style={{
                 display: "flex",
-                flexDirection:"row",
+                flexDirection: "row",
                 justifyContent: "flex-end",
                 alignItems: "flex-start",
                 width: "50%",
@@ -215,7 +222,7 @@ function Template14({ data, selectedColor, selectedFont }) {
             >
               <Text
                 style={{
-                 
+
                   fontSize: 12,
                   fontFamily: `${selectedFont} 400`,
                   color: "#4D4D4D",
@@ -237,7 +244,7 @@ function Template14({ data, selectedColor, selectedFont }) {
               style={{
                 display: "flex",
                 flexDirection: "column",
-                gap: 12,
+                gap: 8,
                 width: "100%",
               }}
             >
@@ -250,37 +257,14 @@ function Template14({ data, selectedColor, selectedFont }) {
               >
                 SKILLS
               </Text>
-              {/* <View
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              flexWrap: "wrap",
-              width: "100%",
-              gap: "8px",
-            }}
-          >
-            {Array.isArray(data?.skills) &&
-              data?.skills?.map((detail, index) => (
-                <Text
-                  key={index}
-                  style={{
-                    width: "30%",
-                    fontSize: 12,
-                    fontFamily: `${selectedFont} 400`,
-                    color: "#4D4D4D",
-                  }}
-                >
-                  {detail.skill}
-                </Text>
-              ))}
-          </View> */}
+              
               <View
                 style={{
                   display: "flex",
                   flexDirection: "row",
                   flexWrap: "wrap",
                   width: "100%",
-                  gap: "26px",
+                  gap: "16px",
                   // rowGap:'26px',
                   // columnGap:'8px'
                 }}
@@ -291,7 +275,7 @@ function Template14({ data, selectedColor, selectedFont }) {
                       key={index}
                       style={{
                         // width: "23%", // Slightly less than 25% to account for gaps
-                        fontSize: 11,
+                        fontSize: 10,
                         fontFamily: `${selectedFont} 400`,
                         color: "#4D4D4D",
                       }}
@@ -354,51 +338,53 @@ function Template14({ data, selectedColor, selectedFont }) {
 
                       <Text
                         style={{
-                          fontSize: 14,
+                          fontSize: 10,
                           fontFamily: `${selectedFont} 400`,
                           color: "#4D4D4D",
                           // marginLeft: 10, // Add margin for spacing if needed
                         }}
                       >
                         {detail.duration?.start?.year !== "Year" &&
-                          `${detail.duration?.start?.year} - ${
-                            detail.currentlyWorking
-                              ? "Present"
-                              : detail.duration?.end?.year
+                          `${detail.duration?.start?.year} - ${detail.currentlyWorking
+                            ? "Present"
+                            : detail.duration?.end?.year
                           }`}
                       </Text>
                     </View>
 
-                    <View
+                 
+
+                        <View
                       style={{
                         display: "flex",
                         flexDirection: "column",
                         gap: "4px",
                         justifyContent: "flex-start",
                         alignItems: "flex-start",
+                        width:"100%"
                       }}
                     >
                       <Text
                         style={{
-                          fontSize: 14,
+                          fontSize: 10,
                           fontFamily: `${selectedFont} 400`,
                           color: "#989898",
                         }}
                       >
-                        {" "}
                         {detail.designation}
                       </Text>
                       <Text
                         style={{
-                          fontSize: 12,
+                          fontSize: 10,
                           fontFamily: `${selectedFont} 400`,
                           color: "#989898",
                         }}
                       >
-                        {" "}
                         {detail.location}
                       </Text>
                     </View>
+
+
                     <Text
                       style={{
                         fontSize: 12,
@@ -455,7 +441,7 @@ function Template14({ data, selectedColor, selectedFont }) {
                       <Text
                         style={{
                           flex: 1, // Use flex for better width handling
-                          fontSize: 14,
+                          fontSize: 12,
                           fontFamily: `${selectedFont} 400`,
                           color: selectedColor,
                         }}
@@ -465,17 +451,16 @@ function Template14({ data, selectedColor, selectedFont }) {
 
                       <Text
                         style={{
-                          fontSize: 14,
+                          fontSize: 10,
                           fontFamily: `${selectedFont} 400`,
                           color: "#4D4D4D",
                           // marginLeft: 10, // Add margin for spacing if needed
                         }}
                       >
                         {detail.duration?.start?.year !== "Year" &&
-                          `${detail.duration?.start?.year} - ${
-                            detail.currentlyWorking
-                              ? "Present"
-                              : detail.duration?.end?.year
+                          `${detail.duration?.start?.year} - ${detail.currentlyWorking
+                            ? "Present"
+                            : detail.duration?.end?.year
                           }`}
                       </Text>
                     </View>
@@ -491,23 +476,22 @@ function Template14({ data, selectedColor, selectedFont }) {
                     >
                       <Text
                         style={{
-                          fontSize: 14,
+                          fontSize: 10,
                           fontFamily: `${selectedFont} 400`,
                           color: "#989898",
                         }}
                       >
-                        {" "}
                         {detail.organization}
                       </Text>
                     </View>
                     <Text
                       style={{
-                        fontSize: 12,
+                        fontSize: 10,
                         fontFamily: `${selectedFont} 400`,
                         color: "#4D4D4D",
                       }}
                     >
-                      {detail.description}{" "}
+                      {detail.description}
                     </Text>
                   </View>
                 ))}
@@ -562,17 +546,16 @@ function Template14({ data, selectedColor, selectedFont }) {
 
                       <Text
                         style={{
-                          fontSize: 14,
+                          fontSize: 10,
                           fontFamily: `${selectedFont} 400`,
                           color: "#4D4D4D",
                           // marginLeft: 10, // Add margin for spacing if needed
                         }}
                       >
                         {detail.duration?.start?.year !== "Year" &&
-                          `${detail.duration?.start?.year} - ${
-                            detail.currentlyWorking
-                              ? "Present"
-                              : detail.duration?.end?.year
+                          `${detail.duration?.start?.year} - ${detail.currentlyWorking
+                            ? "Present"
+                            : detail.duration?.end?.year
                           }`}
                       </Text>
                     </View>
@@ -588,23 +571,22 @@ function Template14({ data, selectedColor, selectedFont }) {
                     >
                       <Text
                         style={{
-                          fontSize: 14,
+                          fontSize: 10,
                           fontFamily: `${selectedFont} 400`,
                           color: "#989898",
                         }}
                       >
-                        {" "}
                         {detail.specialization}
                       </Text>
                     </View>
                     <Text
                       style={{
-                        fontSize: 12,
+                        fontSize: 10,
                         fontFamily: `${selectedFont} 400`,
                         color: "#4D4D4D",
                       }}
                     >
-                      {detail.instituteName}{" "}
+                      {detail.instituteName}
                     </Text>
                   </View>
                 ))}
@@ -613,8 +595,7 @@ function Template14({ data, selectedColor, selectedFont }) {
           </>
         )}
 
-        {/* <View
-        > */}
+      
         {data?.course?.length > 0 && data?.showCourses === true && (
           <>
             <View
@@ -656,7 +637,7 @@ function Template14({ data, selectedColor, selectedFont }) {
                       <Text
                         style={{
                           flex: 1, // Use flex for better width handling
-                          fontSize: 14,
+                          fontSize: 12,
                           fontFamily: `${selectedFont} 400`,
                           color: selectedColor,
                         }}
@@ -666,17 +647,16 @@ function Template14({ data, selectedColor, selectedFont }) {
 
                       <Text
                         style={{
-                          fontSize: 14,
+                          fontSize: 10,
                           fontFamily: `${selectedFont} 400`,
                           color: "#4D4D4D",
                           // marginLeft: 10, // Add margin for spacing if needed
                         }}
                       >
                         {detail.duration?.start?.year !== "Year" &&
-                          `${detail.duration?.start?.year} - ${
-                            detail.currentlyWorking
-                              ? "Present"
-                              : detail.duration?.end?.year
+                          `${detail.duration?.start?.year} - ${detail.currentlyWorking
+                            ? "Present"
+                            : detail.duration?.end?.year
                           }`}
                       </Text>
                     </View>
@@ -692,23 +672,22 @@ function Template14({ data, selectedColor, selectedFont }) {
                     >
                       <Text
                         style={{
-                          fontSize: 14,
+                          fontSize: 10,
                           fontFamily: `${selectedFont} 400`,
                           color: "#989898",
                         }}
                       >
-                        {" "}
                         {detail.organization}
                       </Text>
                     </View>
                     <Text
                       style={{
-                        fontSize: 12,
+                        fontSize: 10,
                         fontFamily: `${selectedFont} 400`,
                         color: "#4D4D4D",
                       }}
                     >
-                      {detail.description}{" "}
+                      {detail.description}
                     </Text>
                   </View>
                 ))}
@@ -716,9 +695,7 @@ function Template14({ data, selectedColor, selectedFont }) {
             </View>
           </>
         )}
-        {/* </View> */}
-        {/* <View
-        > */}
+      
         {data?.project?.length > 0 && data?.showProject === true && (
           <>
             <View
@@ -760,7 +737,7 @@ function Template14({ data, selectedColor, selectedFont }) {
                       <Text
                         style={{
                           flex: 1, // Use flex for better width handling
-                          fontSize: 14,
+                          fontSize: 12,
                           fontFamily: `${selectedFont} 400`,
                           color: selectedColor,
                         }}
@@ -770,17 +747,16 @@ function Template14({ data, selectedColor, selectedFont }) {
 
                       <Text
                         style={{
-                          fontSize: 14,
+                          fontSize: 10,
                           fontFamily: `${selectedFont} 400`,
                           color: "#4D4D4D",
                           // marginLeft: 10, // Add margin for spacing if needed
                         }}
                       >
                         {detail.duration?.start?.year !== "Year" &&
-                          `${detail.duration?.start?.year} - ${
-                            detail.currentlyWorking
-                              ? "Present"
-                              : detail.duration?.end?.year
+                          `${detail.duration?.start?.year} - ${detail.currentlyWorking
+                            ? "Present"
+                            : detail.duration?.end?.year
                           }`}
                       </Text>
                     </View>
@@ -796,23 +772,22 @@ function Template14({ data, selectedColor, selectedFont }) {
                     >
                       <Text
                         style={{
-                          fontSize: 14,
+                          fontSize: 10,
                           fontFamily: `${selectedFont} 400`,
                           color: "#989898",
                         }}
                       >
-                        {" "}
                         {detail.organization}
                       </Text>
                     </View>
                     <Text
                       style={{
-                        fontSize: 12,
+                        fontSize: 10,
                         fontFamily: `${selectedFont} 400`,
                         color: "#4D4D4D",
                       }}
                     >
-                      {detail.description}{" "}
+                      {detail.description}
                     </Text>
                   </View>
                 ))}
@@ -820,7 +795,6 @@ function Template14({ data, selectedColor, selectedFont }) {
             </View>
           </>
         )}
-        {/* </View> */}
         {data?.extraCaricularData?.length > 0 &&
           data?.showExtraCariculam === true && (
             <>
@@ -865,7 +839,7 @@ function Template14({ data, selectedColor, selectedFont }) {
                         <Text
                           style={{
                             flex: 1, // Use flex for better width handling
-                            fontSize: 14,
+                            fontSize: 12,
                             fontFamily: `${selectedFont} 400`,
                             color: selectedColor,
                           }}
@@ -875,17 +849,16 @@ function Template14({ data, selectedColor, selectedFont }) {
 
                         <Text
                           style={{
-                            fontSize: 14,
+                            fontSize: 10,
                             fontFamily: `${selectedFont} 400`,
                             color: "#4D4D4D",
                             // marginLeft: 10, // Add margin for spacing if needed
                           }}
                         >
                           {detail.duration?.start?.year !== "Year" &&
-                            `${detail.duration?.start?.year} - ${
-                              detail.currentlyWorking
-                                ? "Present"
-                                : detail.duration?.end?.year
+                            `${detail.duration?.start?.year} - ${detail.currentlyWorking
+                              ? "Present"
+                              : detail.duration?.end?.year
                             }`}
                         </Text>
                       </View>
@@ -901,23 +874,22 @@ function Template14({ data, selectedColor, selectedFont }) {
                       >
                         <Text
                           style={{
-                            fontSize: 14,
+                            fontSize: 10,
                             fontFamily: `${selectedFont} 400`,
                             color: "#989898",
                           }}
                         >
-                          {" "}
                           {detail.organization}
                         </Text>
                       </View>
                       <Text
                         style={{
-                          fontSize: 12,
+                          fontSize: 10,
                           fontFamily: `${selectedFont} 400`,
                           color: "#4D4D4D",
                         }}
                       >
-                        {detail.description}{" "}
+                        {detail.description}
                       </Text>
                     </View>
                   ))}
@@ -952,7 +924,7 @@ function Template14({ data, selectedColor, selectedFont }) {
                   >
                     <Text
                       style={{
-                        fontSize: 14,
+                        fontSize: 12,
                         fontFamily: `${selectedFont} 400`,
                         color: selectedColor,
                       }}
@@ -994,7 +966,7 @@ function Template14({ data, selectedColor, selectedFont }) {
                     <Text
                       style={{
                         // flex: 1, // Use flex for better width handling
-                        fontSize: 14,
+                        fontSize: 12,
                         fontFamily: `${selectedFont} 400`,
                         color: selectedColor,
                       }}
@@ -1005,32 +977,31 @@ function Template14({ data, selectedColor, selectedFont }) {
                     <Text
                       style={{
                         // flex: 1,
-                        fontSize: 14,
+                        fontSize: 10,
                         fontFamily: `${selectedFont} 400`,
                         color: "#989898",
                       }}
                     >
-                      {" "}
                       {detail.designation}
                     </Text>
 
                     <Text
                       style={{
-                        fontSize: 12,
+                        fontSize: 10,
                         fontFamily: `${selectedFont} 400`,
                         color: "#4D4D4D",
                       }}
                     >
-                      {detail.organization}{" "}
+                      {detail.organization}
                     </Text>
                     <Text
                       style={{
-                        fontSize: 12,
+                        fontSize: 10,
                         fontFamily: `${selectedFont} 400`,
                         color: "#4D4D4D",
                       }}
                     >
-                      {detail.email}{" "}
+                      {detail.email}
                     </Text>
                   </View>
                 ))}
@@ -1068,7 +1039,7 @@ function Template14({ data, selectedColor, selectedFont }) {
                   >
                     <Text
                       style={{
-                        fontSize: 14,
+                        fontSize: 12,
                         fontFamily: `${selectedFont} 400`,
                         color: selectedColor,
                       }}
@@ -1083,7 +1054,7 @@ function Template14({ data, selectedColor, selectedFont }) {
                         color: "#4D4D4D",
                       }}
                     >
-                      {console.log(formatLink(detail?.link, 20))}
+                      {/* {console.log(formatLink(detail?.link, 20))} */}
                       {/* {detail.link} */}
                       {formatLink(detail?.link, 20)}
                     </Text>
@@ -1155,7 +1126,7 @@ function Template14({ data, selectedColor, selectedFont }) {
                           </Text>
                           <Text
                             style={{
-                              fontSize: 14,
+                              fontSize: 10,
                               fontFamily: `${selectedFont} 400`,
                               color: "#4D4D4D",
                               // marginLeft: 10, // Add margin for spacing if needed
@@ -1164,19 +1135,19 @@ function Template14({ data, selectedColor, selectedFont }) {
                             {detail?.duration?.start?.year}
                             {detail?.duration?.start?.year && "-"}
                             {detail?.duration?.end?.year === "" ||
-                            detail?.duration?.end?.year === undefined
+                              detail?.duration?.end?.year === undefined
                               ? "Present"
                               : detail?.duration?.end?.year}
                           </Text>
                         </View>
                         <Text
                           style={{
-                            fontSize: 12,
+                            fontSize: 10,
                             fontFamily: `${selectedFont} 400`,
                             color: "#4D4D4D",
                           }}
                         >
-                          {detail.description}{" "}
+                          {detail.description}
                         </Text>
                       </View>
                     ))}
@@ -1224,7 +1195,7 @@ function Template14({ data, selectedColor, selectedFont }) {
                     // wrap={false}
                     key={index}
                     style={{
-                      fontSize: 11,
+                      fontSize: 10,
                       fontFamily: `${selectedFont} 400`,
                       color: "#4D4D4D",
                     }}
@@ -1274,7 +1245,7 @@ function Template14({ data, selectedColor, selectedFont }) {
                     // wrap={false}
                     key={index}
                     style={{
-                      fontSize: 11,
+                      fontSize: 10,
                       fontFamily: `${selectedFont} 400`,
                       color: "#4D4D4D",
                     }}
