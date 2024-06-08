@@ -164,7 +164,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                       fontFamily: `${selectedFont} 400`,
                     }}
                   >
-                    {data?.mobileNumber}
+                    {data.dial_code} {data?.mobileNumber}
                   </Text>
                 </View>
 

@@ -172,7 +172,7 @@ function Template13({ data, selectedColor, selectedFont }) {
                         color: "#333333",
                       }}
                     >
-                      {data.mobileNumber}
+                    {data.dial_code} {data.mobileNumber}
                     </Text>
                   </View>
                 </View>
