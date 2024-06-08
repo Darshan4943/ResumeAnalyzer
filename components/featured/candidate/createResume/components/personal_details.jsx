@@ -116,6 +116,68 @@ const PersonalDetails = ({
     dial_code: false
   });
 
+  const validateFields = () => {
+    const newErrors = {};
+    let allFieldsValid = true;
+  
+    inputFields.forEach((field) => {
+      const { name } = field;
+      const value = profileData[name];
+  
+      switch (name) {
+        case "firstName":
+          if (!value.trim()) {
+            newErrors[name] = "First name is required";
+            allFieldsValid = false;
+          }
+          break;
+        case "lastName":
+          if (!value.trim()) {
+            newErrors[name] = "Last name is required";
+            allFieldsValid = false;
+          }
+          break;
+        case "mobileNumber":
+          if (!value || !value.toString().trim()) {
+            newErrors[name] = "Mobile number is required";
+            allFieldsValid = false;
+          }
+          break;
+        case "email":
+          if (!value.trim()) {
+            newErrors[name] = "Email is required";
+            allFieldsValid = false;
+          }
+          break;
+        case "location":
+          if (!value.trim()) {
+            newErrors[name] = "Location is required";
+            allFieldsValid = false;
+          }
+          break;
+        case "designation":
+          if (!value.trim()) {
+            newErrors[name] = "Designation is required";
+            allFieldsValid = false;
+          }
+          break;
+        case "dial_code":
+          if (!value.trim()) {
+            newErrors[name] = "Dial code is required";
+            allFieldsValid = false;
+          }
+          break;
+        default:
+          break;
+      }
+    });
+  
+    setFormErrors(newErrors);
+    return allFieldsValid;
+  };
+  
+
+
   // const validateFields = () => {
   //   const newErrors = {};
   //   let allFieldsValid = true;
@@ -124,78 +186,17 @@ const PersonalDetails = ({
   //     const { name } = field;
   //     const value = profileData[name];
 
-  //     switch (name) {
-  //       case "firstName":
-  //         if (!value.trim()) {
-  //           newErrors[name] = "First name is required";
-  //           allFieldsValid = false;
-  //         }
-  //         break;
-  //       case "lastName":
-  //         if (!value.trim()) {
-  //           newErrors[name] = "Last name is required";
-  //           allFieldsValid = false;
-  //         }
-  //         break;
-  //       case "mobileNumber":
-  //         if (!value.trim()) {
-  //           newErrors[name] = "Mobile number is required";
-  //           allFieldsValid = false;
-  //         }
-  //         break;
-  //       case "email":
-  //         if (!value.trim()) {
-  //           newErrors[name] = "Email is required";
-  //           allFieldsValid = false;
-  //         }
-  //         break;
-  //       case "location":
-  //         if (!value.trim()) {
-  //           newErrors[name] = "Location is required";
-  //           allFieldsValid = false;
-  //         }
-  //         break;
-  //       case "designation":
-  //         if (!value.trim()) {
-  //           newErrors[name] = "Designation is required";
-  //           allFieldsValid = false;
-  //         }
-  //         break;
-  //       case "dial_code":
-  //         if (!value.trim()) {
-  //           newErrors[name] = "Dial code is required";
-  //           allFieldsValid = false;
-  //         }
-  //         break;
-  //       default:
-  //         break;
+  //     if (typeof value === "string" && value.trim() === "") {
+  //       newErrors[name] = true;
+  //       allFieldsValid = false;
+  //     } else {
+  //       newErrors[name] = false;
   //     }
   //   });
 
-  //   setFormErrors(newErrors);
+  //   // setFormErrors({ ...newErrors });
   //   return allFieldsValid;
   // };
-
-
-  const validateFields = () => {
-    const newErrors = {};
-    let allFieldsValid = true;
-
-    inputFields.forEach((field) => {
-      const { name } = field;
-      const value = profileData[name];
-
-      if (typeof value === "string" && value.trim() === "") {
-        newErrors[name] = true;
-        allFieldsValid = false;
-      } else {
-        newErrors[name] = false;
-      }
-    });
-
-    // setFormErrors({ ...newErrors });
-    return allFieldsValid;
-  };
 
   // console.log(1616,profileData.dial_code)
   // console.log(1111111,data.dial_code)
@@ -435,7 +436,7 @@ const PersonalDetails = ({
                 <span className="text-[#C00000] text-[12px]">{formErrors[item.name]}</span>
               )}
 
-            
+              {console.log(1111, formErrors)}
             </div>
           ))}
         </div>
