@@ -29,7 +29,7 @@ function AddNewSectionContainer({
   setReferenceView,
   customSectionView
 }) {
-  console.log(6, customSectionView)
+ 
   const [hovered, setHovered] = useState({
     Hobbies: false,
     Languages: false,
