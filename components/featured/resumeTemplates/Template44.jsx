@@ -176,7 +176,7 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
                   color: "#282829",
                 }}
               >
-                {data.mobileNumber ? <>{data.mobileNumber}</> : <>Your Phone</>}
+                {data.mobileNumber ? <> {data.dial_code} {data.mobileNumber}</> : <>Your Phone</>}
               </Text>
             </View>
 

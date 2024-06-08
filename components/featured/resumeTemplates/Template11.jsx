@@ -542,7 +542,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                         fontFamily: `${selectedFont} 700`,
                       }}
                     >
-                      {data.mobileNumber}
+                    {data.dial_code} {data.mobileNumber}
                     </Text>
                   </View>
                 </View>
