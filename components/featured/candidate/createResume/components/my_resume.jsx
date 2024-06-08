@@ -16,7 +16,7 @@ const ResumeList = ({ data, setData }) => {
   };
   const [croppedImage, setCroppedImage] = useState(null);
 
-  // console.log(2, croppedImage)
+  console.log(2, croppedImage)
   // console.log(1, file)
   // console.log(3, data.profilePhoto)
   const handleFileChange = async (event) => {

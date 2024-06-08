@@ -1288,9 +1288,8 @@ function SkillAssessment() {
                           </div>
 
                           {assesmentType !== "Normal" && (
-                            
                             <>
-                            {console.log(555,calculateMarkOutOf60())}
+                              {console.log(555, calculateMarkOutOf60())}
                               {calculateMarkOutOf60() >= "70%" ? (
                                 <div className="text-[18px] text-[#0C8A0A] font-[600]">
                                   You are eligible for Certificate

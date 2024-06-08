@@ -178,7 +178,7 @@ function Template13({ data, selectedColor, selectedFont }) {
                         color: "#333333",
                       }}
                     >
-                      {data.mobileNumber}
+                    {data.dial_code} {data.mobileNumber}
                     </Text>
                   </View>
                 </View>
@@ -256,7 +256,7 @@ function Template13({ data, selectedColor, selectedFont }) {
                   </View>
                 )}
 
-              {data.project.length > 0 && (
+              {data.project.length > 0 && data?.showProject === true && (
                 <View
                   style={{
                     flexDirection: "column",
@@ -337,7 +337,7 @@ function Template13({ data, selectedColor, selectedFont }) {
                 </View>
               )}
 
-              {data.internship.length > 0 && (
+              {data.internship.length > 0 && data?.showInternship === true && (
                 <View
                   style={{
                     flexDirection: "column",
@@ -418,7 +418,7 @@ function Template13({ data, selectedColor, selectedFont }) {
                 </View>
               )}
 
-              {data.course.length > 0 && (
+              {data.course.length > 0 && data?.showCourses === true && (
                 <View
                   style={{
                     flexDirection: "column",
@@ -499,88 +499,90 @@ function Template13({ data, selectedColor, selectedFont }) {
                 </View>
               )}
 
-              {data.extraCaricularData.length > 0 && (
-                <View
-                  style={{
-                    flexDirection: "column",
-                    gap: 16,
-                    width: 261,
-                    paddingTop: 24,
-                  }}
-                >
-                  <Text
+              {data.extraCaricularData.length > 0 &&
+                data?.showExtraCariculam === true && (
+                  <View
                     style={{
-                      fontSize: 20,
-                      fontFamily: `${selectedFont} 500`,
-                      color: selectedColor,
+                      flexDirection: "column",
+                      gap: 16,
+                      width: 261,
+                      paddingTop: 24,
                     }}
                   >
-                    ACTIVITIES
-                  </Text>
-                  {data.extraCaricularData.map((detail, index) => (
-                    <>
-                      <View
-                        key={index}
-                        style={{ flexDirection: "column" }}
-                        // wrap={false}
-                      >
-                        <Text
-                          style={{
-                            fontSize: 14,
-                            fontFamily: `${selectedFont} 700`,
-                            color: "#333333",
-                          }}
+                    <Text
+                      style={{
+                        fontSize: 20,
+                        fontFamily: `${selectedFont} 500`,
+                        color: selectedColor,
+                      }}
+                    >
+                      ACTIVITIES
+                    </Text>
+                    {data.extraCaricularData.map((detail, index) => (
+                      <>
+                        <View
+                          key={index}
+                          style={{ flexDirection: "column" }}
+                          // wrap={false}
                         >
-                          {formatLink21(detail.title)}
-                        </Text>
-                        <Text
-                          style={{
-                            fontSize: 14,
-                            fontFamily: `${selectedFont} 700`,
-                            color: "#333333",
-                          }}
-                        >
-                          {formatLink21(detail.organization)}
-                        </Text>
-                        <Text
-                          style={{
-                            fontSize: 12,
-                            fontFamily: `${selectedFont} 400`,
-                            color: "#797979",
-                          }}
-                        >
-                          {detail.organization}{" "}
-                          {detail.duration?.start?.year !== "Year" &&
-                            `${detail.duration?.start?.year}-${" "}${
-                              detail.currentlyWorking
-                                ? "Present"
-                                : detail.duration?.end?.year
-                            }
+                          <Text
+                            style={{
+                              fontSize: 14,
+                              fontFamily: `${selectedFont} 700`,
+                              color: "#333333",
+                            }}
+                          >
+                            {detail.title}
+                          </Text>
+                          <Text
+                            style={{
+                              fontSize: 14,
+                              fontFamily: `${selectedFont} 700`,
+                              color: "#333333",
+                            }}
+                          >
+                            {detail.organization}
+                          </Text>
+                          <Text
+                            style={{
+                              fontSize: 12,
+                              fontFamily: `${selectedFont} 400`,
+                              color: "#797979",
+                            }}
+                          >
+                            {detail.organization}{" "}
+                            {detail.duration?.start?.year !== "Year" &&
+                              `${detail.duration?.start?.year}-${" "}${
+                                detail.currentlyWorking
+                                  ? "Present"
+                                  : detail.duration?.end?.year
+                              }
                          `}
-                        </Text>
-                        <Text
+                          </Text>
+                          <Text
+                            style={{
+                              fontSize: 10,
+                              fontFamily: `${selectedFont} 400`,
+                              color: "#333333",
+                            }}
+                          >
+                            {detail.description}
+                          </Text>
+                        </View>
+                        <View
                           style={{
-                            fontSize: 10,
-                            fontFamily: `${selectedFont} 400`,
-                            color: "#333333",
+                            height: "0.2px",
+                            width: "100%",
+                            backgroundColor: "#333333",
                           }}
-                        >
-                          {detail.description}
-                        </Text>
-                      </View>
-                      <View
-                        style={{
-                          height: "0.2px",
-                          width: "100%",
-                          backgroundColor: "#333333",
-                        }}
-                      />
-                    </>
-                  ))}
-                </View>
-              )}
+                        />
+                      </>
+                    ))}
+                  </View>
+                )}
 
               {data.section?.length > 0 &&
+                data?.showCustomSection === true &&
                 data.section.map((item, index) => (
                   <View
                     style={{
@@ -659,36 +661,40 @@ function Template13({ data, selectedColor, selectedFont }) {
             </View>
 
             <View style={{ flexDirection: "column", gap: 24, width: 261 }}>
-              {data.achievements.length > 0 && (
-                <View style={{ flexDirection: "column", gap: 16 }} wrap={false}>
-                  <Text
-                    style={{
-                      fontSize: 20,
-                      fontFamily: `${selectedFont} 500`,
-                      color: selectedColor,
-                    }}
-                  >
-                    AWARDS
-                  </Text>
+              {data.achievements.length > 0 &&
+                data?.showAchievements === true && (
                   <View
-                    style={{ flexDirection: "row", gap: 2, flexWrap: "wrap" }}
+                    style={{ flexDirection: "column", gap: 16 }}
+                    wrap={false}
                   >
-                    {data.achievements.map((detail, index) => (
-                      <Text
-                        key={index}
-                        style={{
-                          fontSize: 14,
-                          fontFamily: `${selectedFont} 400`,
-                          color: "#333333",
-                          lineHeight: 1.2,
-                        }}
-                      >
-                        {formatLink(detail.title)},
-                      </Text>
-                    ))}
+                    <Text
+                      style={{
+                        fontSize: 20,
+                        fontFamily: `${selectedFont} 500`,
+                        color: selectedColor,
+                      }}
+                    >
+                      AWARDS
+                    </Text>
+                    <View
+                      style={{ flexDirection: "row", gap: 2, flexWrap: "wrap" }}
+                    >
+                      {data.achievements.map((detail, index) => (
+                        <Text
+                          key={index}
+                          style={{
+                            fontSize: 14,
+                            fontFamily: `${selectedFont} 400`,
+                            color: "#333333",
+                            lineHeight: 1.2,
+                          }}
+                        >
+                          {detail.title},
+                        </Text>
+                      ))}
+                    </View>
                   </View>
-                </View>
-              )}
+                )}
 
               {/* Skills */}
               {data.skills.length > 0 && data?.showSkills === true && (
@@ -796,7 +802,7 @@ function Template13({ data, selectedColor, selectedFont }) {
                 </View>
               )}
               {/* social links */}
-              {data?.socialLinks?.length > 0 && (
+              {data?.socialLinks?.length > 0 && data?.showLinks === true && (
                 <View style={{ flexDirection: "column", gap: 16 }}>
                   <Text
                     style={{
@@ -856,7 +862,7 @@ function Template13({ data, selectedColor, selectedFont }) {
               )}
 
               {/* Languages */}
-              {data.languages.length > 0 && (
+              {data.languages.length > 0 && data?.showLanguage === true && (
                 <View style={{ flexDirection: "column", gap: 16 }} wrap={false}>
                   <Text
                     style={{
@@ -887,7 +893,7 @@ function Template13({ data, selectedColor, selectedFont }) {
                 </View>
               )}
 
-              {data.hobbies.length > 0 && (
+              {data.hobbies.length > 0 && data?.showHobbies === true && (
                 <View style={{ flexDirection: "column", gap: 16 }} wrap={false}>
                   <Text
                     style={{
@@ -918,7 +924,7 @@ function Template13({ data, selectedColor, selectedFont }) {
                 </View>
               )}
 
-              {data.reference.length > 0 && (
+              {data.reference.length > 0 && data?.showReference === true && (
                 <View style={{ flexDirection: "column", gap: 16, width: 261 }}>
                   <Text
                     style={{

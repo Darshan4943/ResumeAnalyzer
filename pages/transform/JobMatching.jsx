@@ -498,7 +498,7 @@ const JobMatching = () => {
     const ids = chunk.map((item) => item);
     const response = await axios.post(
       "https://jamblix.com/api/external/jobMatching/",
-      // "http://localhost:2000/api/external/jobMatching/",
+      // "https://jamblix.com/api/external/jobMatching/",
       {
         jd: jd,
         ids: ids,
@@ -652,7 +652,7 @@ const JobMatching = () => {
               animate={{ opacity: 0.5 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.5 }}
-              className="fixed z-[5] top-0 left-0 right-0 bottom-0 bg-[#DEDEDE] bg-opacity-70"
+              className="fixed z-[5] top-0 left-0 right-0 bottom-0 bg-[#000000] bg-opacity-25"
               style={{
                 // background: "rgba(255, 255, 255, 0.5)",
                 backdropFilter: "blur(10px)",

@@ -14,7 +14,7 @@ import { formatLink } from "../../../utils/middleware";
 function Template53({ data, selectedColor, selectedFont, preview }) {
   return (
     <Page size="A4" style={{ padding: 42 }}>
-      <View style={{ flexDirection: "column", gap: 36, minHeight: 757 }}>
+      <View style={{ flexDirection: "column", gap: 26, minHeight: 757 }}>
         <View
           style={{
             display: "flex",
@@ -160,13 +160,14 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
                     color: "#344A50",
                   }}
                 >
-                  {data.mobileNumber}
+                  {data.dial_code} {data.mobileNumber}
                 </Text>
               </View>
             </View>
           </View>
         </View>
-        {data?.summery?.length > 0 && (
+
+        {data?.summery?.length > 0 && data?.showSummary === true && (
           <View style={{ display: "flex", flexDirection: "column", gap: 23 }}>
             <View
               style={{ backgroundColor: "#344A50", width: 511, height: 1 }}
@@ -175,12 +176,13 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
               <Text
                 style={{
                   fontFamily: `${selectedFont} 400`,
-                  fontSize: 12,
+                  fontSize: 14,
                   color: selectedColor,
                 }}
               >
                 PROFILE
               </Text>
+           
               <Text
                 style={{
                   fontFamily: `${selectedFont} 400`,
@@ -197,16 +199,16 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
           </View>
         )}
 
-        <View style={{ display: "flex", flexDirection: "row", gap: 24 }}>
+        <View style={{ display: "flex", flexDirection: "row", gap: 16 }}>
           <View
             style={{
               width: "60%",
               display: "flex",
               flexDirection: "column",
-              gap: 24,
+              gap: 16,
             }}
           >
-            {data?.experience?.length > 0 && (<View style={{ display: "flex", flexDirection: "column", width: "100%", gap: 16 }}>
+            {data?.experience?.length > 0 &&  data?.showExperience === true && (<View style={{ display: "flex", flexDirection: "column", width: "100%", gap: 16 }}>
               <View>
                 <Text
                   style={{
@@ -296,7 +298,7 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
               </View>
             )}
 
-            {data?.project?.length > 0 && (
+            {data?.project?.length > 0 && data?.showProject === true &&(
               <>
                 <View
                   style={{
@@ -407,7 +409,7 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
               </>
             )}
 
-            {data?.internship?.length > 0 && (
+            {data?.internship?.length > 0 && data?.showInternship === true && (
               <>
                 <View
                   style={{
@@ -518,7 +520,7 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
               </>
             )}
 
-            {data?.course?.length > 0 && (
+            {data?.course?.length > 0 && data?.showCourses === true && (
               <>
                 <View
                   style={{
@@ -629,7 +631,7 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
               </>
             )}
 
-            {data?.extraCaricularData?.length > 0 && (
+            {data?.extraCaricularData?.length > 0 && data?.showExtraCariculam === true && (
               <>
                 <View
                   style={{
@@ -740,7 +742,7 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
               </>
             )}
 
-            {data?.section?.length > 0 && (
+            {data?.section?.length > 0 && data?.showCustomSection === true && (
               <>
                   {data?.section.map((item, index) => (
               <View key={index} style={{gap:'4px' ,display:'flex',flexDirection:'column'}}>
@@ -830,7 +832,7 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
               gap: 16,
             }}
           >
-            {data?.education?.length > 0 && (
+            {data?.education?.length > 0 && data?.showEducation === true && (
               <>
                 <View>
                   <Text
@@ -916,7 +918,7 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
               </>
             )}
 
-            {data?.skills?.length > 0 && (
+            {data?.skills?.length > 0 && data?.showSkills=== true && (
               <>
                 {" "}
                 <View
@@ -1016,7 +1018,7 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
               </>
             )}
 
-            {data?.achievements?.length > 0 && (<>  <View
+            {data?.achievements?.length > 0 && data?.showAchievements === true &&(<>  <View
               style={{ width: 180, height: 1, backgroundColor: "#344A50" }}
             ></View>
 
@@ -1071,7 +1073,7 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
               </View></>)}
 
 
-            {data?.languages?.length > 0 && (
+            {data?.languages?.length > 0 && data?.showLanguage === true && (
               <>
                 {" "}
                 <View
@@ -1130,7 +1132,7 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
               </>
             )}
 
-            {data?.socialLinks?.length > 0 && (
+            {data?.socialLinks?.length > 0 && data?.showLinks === true && (
               <>
                 <View
                   style={{ width: 180, height: 1, backgroundColor: "#344A50" }}
@@ -1193,7 +1195,7 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
               </>
             )}
 
-            {data?.reference?.length > 0 && (
+            {data?.reference?.length > 0 && data?.showReference === true &&  (
               <>
                 <View
                   style={{ width: 180, height: 1, backgroundColor: "#344A50" }}
@@ -1276,7 +1278,7 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
               </>
             )}
 
-            {data?.hobbies?.length > 0 && (
+            {data?.hobbies?.length > 0 && data?.showHobbies === true && (
               <>
                 {" "}
                 <View
@@ -1336,95 +1338,7 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
             )}
           </View>
         </View>
-        {/* 
-        <View
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: 16,
-            position: "absolute",
-            bottom: 0,
-          }}
-        >
-          <View
-            style={{ backgroundColor: "#344A50", width: 307, height: 1 }}
-          ></View>
-          <View
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              gap: 16,
-              justifyContent: "space-between",
-            }}
-          >
-            <Text
-              style={{
-                fontFamily: `${selectedFont} 400`,
-                fontSize: 10,
-                color: "#010101",
-              }}
-            >
-              Find me on social media
-            </Text>
-
-            <Svg
-              width="20"
-              height="20"
-              viewBox="0 0 20 20"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <Path
-                d="M8.88325 14.2702H10.6683V10.1224H11.7318L12.046 8.62579H10.6683C10.6683 8.62579 10.6683 8.06661 10.6683 7.77307C10.6683 7.41958 10.7396 7.28005 11.0807 7.28005C11.3546 7.28005 12.0471 7.28005 12.0471 7.28005V5.72656C12.0471 5.72656 11.0279 5.72656 10.8109 5.72656C9.48273 5.72656 8.88325 6.31158 8.88325 7.43096C8.88325 8.40667 8.88325 8.62475 8.88325 8.62475H7.95508V10.14H8.88325V14.2702Z"
-                fill="#AC5428"
-              />
-              <Path
-                d="M10.0002 18.8891C5.09893 18.8891 1.11133 14.9025 1.11133 10.0002C1.11133 5.09892 5.09893 1.11133 10.0002 1.11133C14.9015 1.11133 18.8891 5.09789 18.8891 10.0002C18.8891 14.9025 14.9015 18.8891 10.0002 18.8891ZM10.0002 2.13666C5.6643 2.13666 2.1377 5.6643 2.1377 10.0002C2.1377 14.3372 5.6643 17.8638 10.0002 17.8638C14.3361 17.8638 17.8627 14.3372 17.8627 10.0002C17.8627 5.6643 14.3361 2.13666 10.0002 2.13666Z"
-                fill="#AC5428"
-              />
-            </Svg>
-            <Svg
-              width="20"
-              height="20"
-              viewBox="0 0 20 20"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <Path
-                d="M7.98605 8.625H6.46875V13.3178H7.98605V8.625Z"
-                fill="#AC5428"
-              />
-              <Path
-                d="M7.22139 7.9818C7.71648 7.9818 8.11856 7.57661 8.11856 7.07632C8.11856 6.57707 7.71648 6.17188 7.22139 6.17188C6.7263 6.17188 6.32422 6.57707 6.32422 7.07632C6.32422 7.57661 6.7263 7.9818 7.22139 7.9818Z"
-                fill="#AC5428"
-              />
-              <Path
-                d="M10.4143 10.9533C10.4143 10.2639 10.7316 9.8535 11.3394 9.8535C11.8975 9.8535 12.1652 10.2473 12.1652 10.9533C12.1652 12.2485 12.1652 13.2925 12.1652 13.2925L13.6753 13.3173C13.6753 13.3173 13.6753 11.7358 13.6753 10.423C13.6753 9.10927 12.9311 8.47461 11.8913 8.47461C10.8515 8.47461 10.4143 9.285 10.4143 9.285V8.62449H8.95898V13.3173H10.4143C10.4143 13.3173 10.4143 11.7079 10.4143 10.9533Z"
-                fill="#AC5428"
-              />
-              <Path
-                d="M10.0002 18.8891C5.0989 18.8891 1.11133 14.9023 1.11133 10.0007C1.11133 5.09915 5.0989 1.11133 10.0002 1.11133C14.9015 1.11133 18.8891 5.09915 18.8891 10.0007C18.8891 14.9013 14.9015 18.8891 10.0002 18.8891ZM10.0002 2.13672C5.66428 2.13672 2.13767 5.66457 2.13767 10.0018C2.13767 14.3369 5.66531 17.8648 10.0002 17.8648C14.3361 17.8648 17.8628 14.3369 17.8628 10.0018C17.8628 5.66457 14.3361 2.13672 10.0002 2.13672Z"
-                fill="#AC5428"
-              />
-            </Svg>
-            <Svg
-              width="20"
-              height="20"
-              viewBox="0 0 20 20"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <Path
-                d="M6.09375 12.4542C6.80279 12.909 7.64622 13.1746 8.55061 13.1746C12.1041 13.1746 13.208 10.6609 13.1067 8.40665C13.4199 8.19786 13.6917 7.90949 13.9067 7.57668C13.6183 7.70381 13.3423 7.79373 13.0178 7.83301C13.3496 7.63559 13.5708 7.31724 13.6907 6.94205C13.3806 7.12499 13.0374 7.25937 12.6726 7.33068C12.3801 7.01957 11.9635 6.82422 11.5025 6.82422C10.4679 6.82422 9.72582 7.86918 9.95941 8.87177C8.62711 8.80562 7.42709 8.08727 6.63742 7.11776C6.21778 7.83818 6.41934 8.78081 7.13252 9.25833C6.86998 9.25006 6.62193 9.17771 6.40694 9.05781C6.38937 9.79993 6.92169 10.4955 7.69275 10.6506C7.46742 10.7116 7.22038 10.726 6.96922 10.6775C7.17284 11.3141 7.83332 11.7224 8.53513 11.7358C7.86122 12.264 6.94336 12.5544 6.09375 12.4542Z"
-                fill="#AC5428"
-              />
-              <Path
-                d="M10.0002 18.8891C5.09894 18.8891 1.11133 14.9015 1.11133 10.0002C1.11133 5.09789 5.09894 1.11133 10.0002 1.11133C14.9005 1.11133 18.8891 5.09892 18.8891 10.0002C18.8891 14.9015 14.9005 18.8891 10.0002 18.8891ZM10.0002 2.13666C5.66328 2.13666 2.13767 5.66326 2.13767 10.0002C2.13767 14.3361 5.66431 17.8638 10.0002 17.8638C14.3351 17.8638 17.8628 14.3372 17.8628 10.0002C17.8628 5.66326 14.3351 2.13666 10.0002 2.13666Z"
-                fill="#AC5428"
-              />
-            </Svg>
-          </View>
-        </View> */}
+      
       </View>
     </Page>
   );

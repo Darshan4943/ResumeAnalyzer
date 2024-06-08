@@ -29,6 +29,20 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
     return email;
   };
 
+  const formatLocation = (location) => {
+    if (location?.length > 23) {
+      return location?.match(/.{1,23}/g).join('\n');  }
+    return location;
+  };
+
+  const formatDesignation = (designation) => {
+    if (designation?.length > 15) {
+      return designation?.match(/.{1,15}/g).join('\n');  }
+    return designation;
+  };
+
+  
+
   return (
     <Page size="A4" wrap={true} style={{ paddingTop: "12px" }}>
       <View
@@ -143,7 +157,9 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                     color: "#FFFFFF",
                   }}
                 >
-                  {data.designation}
+                  {/* {data.designation} */}
+
+                  {formatDesignation(data?.designation)}
                 </Text>
               </View>
             </View>
@@ -194,7 +210,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                     color: "#FFFFFF",
                   }}
                 >
-                  {data.mobileNumber}
+                 {data.dial_code}  {data.mobileNumber}
                 </Text>
               </View>
               <View
@@ -284,14 +300,15 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                     color: "#FFFFFF",
                   }}
                 >
-                  {data.location}
+                  {/* {data.location} */}
+                  {formatLocation(data?.location)}
                 </Text>
               </View>
 }
             </View>
           </View>
 
-          {data?.skills?.length > 0 && (
+          {data?.skills?.length > 0 && data?.showSkills === true &&(
             <View
               style={{
                 display: "flex",
@@ -361,7 +378,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
               </View>
             </View>
           )}
-          {data?.languages?.length > 0 && (
+          {data?.languages?.length > 0 && data?.showLanguage === true &&(
             <View
               wrap={false}
               style={{
@@ -437,7 +454,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
             </View>
           )}
 
-          {data?.hobbies?.length > 0 && (
+          {data?.hobbies?.length > 0 && data?.showHobbies === true &&(
             <View
               wrap={false}
               style={{
@@ -513,7 +530,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
             </View>
           )}
 
-          {data?.socialLinks?.length > 0 && (
+          {data?.socialLinks?.length > 0 && data?.showLinks === true &&(
             <View
               wrap={false}
               style={{
@@ -597,7 +614,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
             </View>
           )}
 
-          {data?.achievements?.length > 0 && (
+          {data?.achievements?.length > 0 && data?.showAchievements === true && (
             <View wrap={false} style={{
               display: "flex",
               flexDirection: "column",
@@ -650,7 +667,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
             </View>
           )}
 
-          {data?.reference?.length > 0 && (
+          {data?.reference?.length > 0 &&  data?.showReference === true &&(
             <View
               wrap={false}
               style={{
@@ -751,7 +768,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
         </View>
 
         <View style={{ width: 388 }}>
-          {data?.summery?.length > 0 && (
+          {data?.summery?.length > 0 && data?.showSummary === true && (
             <View
               style={{
                 display: "flex",
@@ -817,10 +834,10 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
               // paddingLeft: 8,
               paddingRight: 12,
 
-              gap: 12,
+              gap: 6,
             }}
           >
-            {data?.experience?.length > 0 && (
+            {data?.experience?.length > 0 &&  data?.showExperience === true &&(
               <>
                 {" "}
                 <View
@@ -878,7 +895,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                         style={{
                           display: "flex",
                           flexDirection: "row",
-                          gap: 10,
+                          gap: 6,
                           // gap: index === data.experience.length - 1 ? 16 : 24,
                         }}
                       >
@@ -936,14 +953,14 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
               </>
             )}
 
-            {data?.education?.length > 0 && (
+            {data?.education?.length > 0 && data?.showEducation === true && (
               <>
                 {" "}
                 <View
                   style={{
                     display: "flex",
                     flexDirection: "column",
-                    gap: 16,
+                    gap: 1,
                     width: "90%",
                   }}
                 // wrap={data?.education?.length > 1 ? true : false}
@@ -984,7 +1001,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                       display: "flex",
                       flexDirection: "column",
                       marginLeft: 26,
-                      gap: 20,
+                      gap: 1,
                     }}
                   >
                     {data?.education?.map((detail, index) => (
@@ -994,7 +1011,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                         style={{
                           display: "flex",
                           flexDirection: "row",
-                          // gap:20
+                          gap:1
                           // gap: index === data.education.length - 1 ? 16 : 24,
                         }}
                       >
@@ -1003,7 +1020,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                           style={{
                             display: "flex",
                             flexDirection: "column",
-                            gap: 4,
+                            gap: 1,
                             marginLeft: 26,
                           }}
                         >
@@ -1016,15 +1033,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                           >
                             {detail.qualification} - {detail.specialization}
                           </Text>
-                          {/* <Text
-                        style={{
-                          fontFamily: `${selectedFont} 400`,
-                          fontSize: 12,
-                          color: "#252829",
-                        }}
-                      >
-                        {detail.instituteName}
-                      </Text> */}
+                        
                           <Text
                             style={{
                               fontFamily: `${selectedFont} 400`,
@@ -1065,7 +1074,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
               </>
             )}
 
-            {data?.project?.length > 0 && (
+            {data?.project?.length > 0 && data?.showProject === true && (
               <>
                 {" "}
                 <View
@@ -1181,7 +1190,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
               </>
             )}
 
-            {data?.internship?.length > 0 && (
+            {data?.internship?.length > 0 &&  data?.showInternship === true &&(
               <>
                 {" "}
                 <View
@@ -1297,7 +1306,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
               </>
             )}
 
-            {data?.course?.length > 0 && (
+            {data?.course?.length > 0 && data?.showCourses === true && (
               <>
                 {" "}
                 <View
@@ -1413,7 +1422,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
               </>
             )}
 
-            {data?.extraCaricularData?.length > 0 && (
+            {data?.extraCaricularData?.length > 0 && data?.showExtraCariculam === true && (
               <>
                 {" "}
                 <View
@@ -1525,7 +1534,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                   </View>
                 </View></>)}
             {
-              data?.section?.length > 0 && (
+              data?.section?.length > 0 && data?.showCustomSection === true && (
                 <>
                   {data?.section.map((item, index) => (
                     <View

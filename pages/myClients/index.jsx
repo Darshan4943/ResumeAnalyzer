@@ -181,7 +181,7 @@ function MyClients() {
                       className="scr420:py-3 scr420:px-4 px-2 py-2 flex gap-2 xsm:text-[14px] text-[12px]  font-semibold bg-[#E9EEF6] rounded-[8px] items-center cursor-pointer"
                     >
                       <svg
-                      className="scr420:w-[27px] scr420:h-[27px] w-[22px] h-[22px]"
+                        className="scr420:w-[27px] scr420:h-[27px] w-[22px] h-[22px]"
                         viewBox="0 0 22 22"
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
@@ -272,7 +272,7 @@ function MyClients() {
                       type="button"
                     >
                       <svg
-                       className="scr420:w-[27px] scr420:h-[27px] w-[22px] h-[22px]"
+                        className="scr420:w-[27px] scr420:h-[27px] w-[22px] h-[22px]"
                         viewBox="0 0 24 24"
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
@@ -296,7 +296,7 @@ function MyClients() {
                         router.push("/myClients/CreateNewClient");
                       }
                     }}
-                    className=" ml:flex hidden text-[16px] font-semibold py-3 px-6 h-[48px] min-w-[224px] gap-1 bg-[#06A9EF] rounded-[12px] text-white"
+                    className=" ml:flex hidden text-[16px] font-semibold py-3 px-5 h-[48px] min-w-[224px] gap-1 bg-[#06A9EF] rounded-[12px] text-white"
                     type="button"
                   >
                     <svg

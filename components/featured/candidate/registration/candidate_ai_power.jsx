@@ -87,12 +87,12 @@ const CandidateAiPower = ({
   };
 
   const extracteText = async (file) => {
-    console.log(file);
+  
     return new Promise(async (resolve, reject) => {
       const textData = [];
       if (
         file?.type ==
-          "application/vnd.openxmlformats-officedocument.wordprocessingml.document" ||
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document" ||
         file?.type == "application/msword"
       ) {
         const reader = new FileReader();
@@ -111,9 +111,9 @@ const CandidateAiPower = ({
           } catch (error) {
             if (
               error.properties.error ===
-                "The filetype for this file could not be identified, is this file corrupted" ||
+              "The filetype for this file could not be identified, is this file corrupted" ||
               error.message ===
-                "The filetype for this file could not be identified, is this file corrupted ?"
+              "The filetype for this file could not be identified, is this file corrupted ?"
             ) {
               setDocFileError(true);
             }
@@ -165,7 +165,7 @@ const CandidateAiPower = ({
     }
     setLoading(true);
     extracteText(file).then((result) => {
-      console.log(14555, result);
+     
       if (result[0]?.text?.length > 0) {
         axios
           .post("https://jamblix.com/api/resume/extraction", {
@@ -180,7 +180,7 @@ const CandidateAiPower = ({
               axios
                 .put(
                   "https://jamblix.com/api/subscription/updateUploadLimit/" +
-                    userDataGlobal._id
+                  userDataGlobal._id
                 )
                 .then((res) => {
                   const result = res.data;
@@ -429,11 +429,10 @@ const CandidateAiPower = ({
 
                 <button
                   disabled={file && !loading ? false : true}
-                  className={`sm:px-9 px-6 py-3 bg-[#06A9EF]  rounded-[12px] font-semibold text-white ${
-                    file && !loading
+                  className={`sm:px-9 px-6 py-3 bg-[#06A9EF]  rounded-[12px] font-semibold text-white ${file && !loading
                       ? "opacity-100 btn_hover_effect"
                       : "opacity-50"
-                  } `}
+                    } `}
                   onClick={navigate}
                 >
                   Continue
@@ -473,13 +472,35 @@ const CandidateAiPower = ({
                         Upload Failed
                       </div>
                     </div>
-                    <div className="flex flex-wrap w-full text-center justify-center items-center text-[#333333] font-[500] text-[14px]">
+                    {/* <div className="flex flex-wrap w-full text-center justify-center items-center text-[#333333] font-[500] text-[14px]">
                       This file contains error, Please check the file content
                       and try to upload again.
+                    </div> */}
+                    <div className="text-red flex flex-col gap-2">
+                      <p className="font-medium">
+                        Possible reasons of failure :
+                      </p>
+                      <ol className="flex flex-col gap-2 ml-2 text-[14px] text-black">
+                        <li className="flex">
+                          <p className="min-w-[10px]">1</p>
+                          <p className="min-w-[10px]"> :</p>
+                          <p>{`"The file size exceeds the 2MB limit"`}</p>
+                        </li>
+                        <li className="flex">
+                          <p className="min-w-[10px]">2</p>
+                          <p className="min-w-[10px]"> :</p>
+                          <p>{`"Unsupported file type. Only the latest versions of PDF and DOC files are allowed."`}</p>
+                        </li>
+                        <li className="flex">
+                          <p className="min-w-[10px]">3</p>
+                          <p className="min-w-[10px]"> :</p>
+                          <p>{`"The PDF file contains images, which are not allowed. Please upload a text-only PDF."`}</p>
+                        </li>
+                      </ol>
                     </div>
                     <div className="flex w-full justify-center items-center">
                       <button
-                        onClick={() => setResumeErrorPopup(false)}
+                        onClick={() => {setResumeErrorPopup(false);setLoading(false);setfile()}}
                         className="rounded-[12px] pt-2 pr-6 pb-2 pl-6 bg-[#06A9EF] text-[#FFFFFF] font-[600] text-[16px]"
                       >
                         Close
@@ -513,13 +534,36 @@ const CandidateAiPower = ({
                         Upload Failed
                       </div>
                     </div>
-                    <div className="flex flex-wrap w-full text-center justify-center items-center text-[#333333] font-[500] text-[14px]">
+                    {/* <div className="flex flex-wrap w-full text-center justify-center items-center text-[#333333] font-[500] text-[14px]">
                       Failed to process the .doc file. This file type might not
                       be supported or the file is corrupted.
+                    </div> */}
+                    <div className="text-red flex flex-col gap-2">
+                      <p className="font-medium ">
+                        Possible reasons of failure :
+                      </p>
+                      <ol className="flex flex-col gap-2 ml-2 text-[14px] text-black">
+                        <li className="flex">
+                          <p className="min-w-[10px]">1</p>
+                          <p className="min-w-[10px]"> :</p>
+                          <p>{`"The file size exceeds the 2MB limit"`}</p>
+                        </li>
+                        <li className="flex">
+                          <p className="min-w-[10px]">2</p>
+                          <p className="min-w-[10px]"> :</p>
+                          <p>{`"Unsupported file type. Only the latest versions of PDF and DOC files are allowed."`}</p>
+                        </li>
+                        <li className="flex">
+                          <p className="min-w-[10px]">3</p>
+                          <p className="min-w-[10px]"> :</p>
+                          <p>{`"The PDF file contains images, which are not allowed. Please upload a text-only PDF."`}</p>
+                        </li>
+                      </ol>
                     </div>
+
                     <div className="flex w-full justify-center items-center">
                       <button
-                        onClick={() => setDocFileError(false)}
+                        onClick={() => {setDocFileError(false);setLoading(false);setfile()}}
                         className="rounded-[12px] pt-2 pr-6 pb-2 pl-6 bg-[#06A9EF] text-[#FFFFFF] font-[600] text-[16px]"
                       >
                         Close

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import DateSelector from "../../../../common/dateSelector";
 import { Delete_icon, Edit_icon } from "../../../../../utils/svg";
 
-const Internships = ({ data, setData,setIntern,intern}) => {
+const Internships = ({ data, setData, setIntern, intern }) => {
   const [isChecked, setIsChecked] = useState(true);
   // const [view, setView] = useState(false);
   const [isModified, setIsModified] = useState({ status: false, index: 0 });
@@ -10,7 +10,7 @@ const Internships = ({ data, setData,setIntern,intern}) => {
     jobTittle: "",
     Employer: "",
     discription: "",
-    city:"",
+    city: "",
     duration: {
       start: { year: "Year", month: "Month" },
       end: { year: "Year", month: "Month" },
@@ -18,8 +18,20 @@ const Internships = ({ data, setData,setIntern,intern}) => {
   });
   const handleSwitchChange = () => {
     setIsChecked(!isChecked);
-    setData({ ...data, showCourse: !isChecked });
+    setData({ ...data, showInternship: !isChecked });
   };
+
+  useEffect(() => {
+    if (data) {
+      if (data?.showInternship === true) {
+        setIsChecked(true);
+      } else {
+        setIsChecked(false);
+      }
+    }
+  }, [data]);
+
+  console.log(99, data);
 
   const handleSave = () => {
     if (isModified.status === true) {
@@ -32,20 +44,19 @@ const Internships = ({ data, setData,setIntern,intern}) => {
         ...data,
         internship: [internShipData, ...data.internship],
       });
-
     }
-    setIsModified({ status: false, index: 0 })
+    setIsModified({ status: false, index: 0 });
     setInternshipData({
-        jobTittle: "",
-        Employer: "",
-        discription: "",
-        city:"",
+      jobTittle: "",
+      Employer: "",
+      discription: "",
+      city: "",
       duration: {
         start: { year: "Year", month: "Month" },
         end: { year: "Year", month: "Month" },
       },
     });
-    window.scrollTo(0,0)
+    window.scrollTo(0, 0);
     setIntern(false);
   };
 
@@ -71,9 +82,8 @@ const Internships = ({ data, setData,setIntern,intern}) => {
     });
   };
 
-//   console.log(131313,data)
+  //   console.log(131313,data)
 
-  
   return (
     <>
       <div
@@ -85,7 +95,6 @@ const Internships = ({ data, setData,setIntern,intern}) => {
       >
         <div className="w-full flex justify-between text-[20px] font-montserrat font-medium">
           <p className="w-[80%]"> Internship</p>
-
         </div>
 
         {data?.internship?.map((internship, index) => (
@@ -146,8 +155,7 @@ const Internships = ({ data, setData,setIntern,intern}) => {
                 </div>
               </div>
 
-
-             {/* city here */}
+              {/* city here */}
               <div className="flex gap-4">
                 <div className="flex flex-col gap-2 w-[50%]">
                   <div className=" text-[14px] font-montserrat  font-medium">
@@ -165,7 +173,6 @@ const Internships = ({ data, setData,setIntern,intern}) => {
                     />
                   </div>
                 </div>
-                
               </div>
 
               <DateSelector
@@ -173,7 +180,6 @@ const Internships = ({ data, setData,setIntern,intern}) => {
                 data={internShipData}
                 dataSeter={setInternshipData}
                 fromCreate={true}
-
               />
 
               <div className="flex flex-col gap-2 w-full">
@@ -212,9 +218,11 @@ const Internships = ({ data, setData,setIntern,intern}) => {
                   Update to Profile
                 </button> */}
                 <button
-                  onClick={()=>{handleSave()}}
+                  onClick={() => {
+                    handleSave();
+                  }}
                   // disabled={!isChecked}
-                  
+
                   className=" font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px]  bg-[#06A9EF] w-[60px] h-[32px]"
                 >
                   Save
@@ -222,8 +230,7 @@ const Internships = ({ data, setData,setIntern,intern}) => {
               </div>
             </div>
           </div>
-       )} 
-
+        )}
       </div>
     </>
   );

@@ -35,7 +35,7 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
           width: 532,
           display: "flex",
           flexDirection: "column",
-          gap: 26,
+          gap: 16,
         }}
       >
         <View style={{ display: "flex", flexDirection: "row", gap: 32 }}>
@@ -104,7 +104,7 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                     marginRight: "6px",
                   }}
                 >
-                  {data.mobileNumber}
+                {data.dial_code}   {data.mobileNumber}
                 </Text>
               </View>
             )}
@@ -216,7 +216,7 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                 </Text>
               </View>
             </View>
-            {data?.summery?.length > 0 && (
+            {data?.summery?.length > 0 && data?.showSummary === true && (
               <View
                 style={{
                   display: "flex",
@@ -255,9 +255,12 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
               </View>
             )}
           </View>
+          
         </View>
 
-        {data?.skills?.length > 0 && (
+
+
+        {data?.skills?.length > 0 && data?.showSkills === true && (
           <View
             style={{
               display: "flex",
@@ -331,7 +334,7 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
               width: 250,
             }}
           >
-            {data?.education?.length > 0 && (
+            {data?.education?.length > 0 &&  data?.showEducation === true &&(
               <View
                 style={{
                   display: "flex",
@@ -436,7 +439,8 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
               </View>
             )}
 
-            {data?.achievements?.length > 0 && (<View
+            {data?.achievements?.length > 0 && data?.showAchievements === true &&
+              (<View
               style={{
                 display: "flex",
                 flexDirection: "column",
@@ -497,7 +501,7 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
               </View>
             </View>)}
 
-            {data?.socialLinks?.length > 0 && (
+            {data?.socialLinks?.length > 0 && data?.showLinks === true && (
               <View
                 style={{
                   display: "flex",
@@ -568,7 +572,7 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
               </View>
             )}
 
-            {data?.reference?.length > 0 && (
+            {data?.reference?.length > 0 && data?.showReference === true &&(
               <View
                 style={{
                   display: "flex",
@@ -656,7 +660,7 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
               </View>
             )}
 
-            {data?.languages?.length > 0 && (
+            {data?.languages?.length > 0 &&  data?.showLanguage === true &&(
               <View
                 style={{
                   display: "flex",
@@ -728,7 +732,7 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
               </View>
             )}
 
-            {data?.hobbies?.length > 0 && (
+            {data?.hobbies?.length > 0 && data?.showHobbies === true && (
               <View
                 style={{
                   display: "flex",
@@ -810,7 +814,7 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
               gap: 16,
             }}
           >
-            {data?.experience?.length > 0 && (
+            {data?.experience?.length > 0 && data?.showExperience === true && (
               <View
                 style={{
                   display: "flex",
@@ -933,7 +937,7 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
               </View>
             )}
 
-            {data?.project?.length > 0 && (
+            {data?.project?.length > 0 &&  data?.showProject === true &&(
               <View
                 style={{
                   display: "flex",
@@ -1056,7 +1060,7 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
               </View>
             )}
 
-            {data?.course?.length > 0 && (
+            {data?.course?.length > 0 && data?.showCourses === true && (
               <View
                 style={{
                   display: "flex",
@@ -1179,7 +1183,7 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
               </View>
             )}
 
-            {data?.extraCaricularData?.length > 0 && (
+            {data?.extraCaricularData?.length > 0 && data?.showExtraCariculam === true && (
               <View
                 style={{
                   display: "flex",
@@ -1302,7 +1306,7 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
               </View>
             )}
 
-            {data?.internship?.length > 0 && (
+            {data?.internship?.length > 0 && data?.showInternship === true && (
               <View
                 style={{
                   display: "flex",
@@ -1425,7 +1429,7 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
               </View>
             )}
 
-            {data?.section?.length > 0 && (
+            {data?.section?.length > 0 &&  data?.showCustomSection === true &&(
               <>
                 {data.section.map((item, index) => (
                   <View
