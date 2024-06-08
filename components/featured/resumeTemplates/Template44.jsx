@@ -218,7 +218,7 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
 
           {data?.skills?.length > 0 && (
             <View
-            wrap={false}
+            // wrap={false}
               style={{
                 flexDirection: "column",
                 width: "100%",
