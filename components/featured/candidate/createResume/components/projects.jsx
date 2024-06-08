@@ -1,11 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DateSelector from "../../../../common/dateSelector";
 import { Delete_icon, Edit_icon } from "../../../../../utils/svg";
 import CustomSection from "./customSection";
 import CustomDate from "../../../../common/customDate";
 import ContinueWorkingOn from "../../../../common/continueWorkingOn";
 
-const Project = ({ data, setData, setProjectView, projectView, setCustomOptions }) => {
+const Project = ({
+  data,
+  setData,
+  setProjectView,
+  projectView,
+  setCustomOptions,
+}) => {
   const [isChecked, setIsChecked] = useState(true);
   const [toggleOn, setToggleOn] = useState(true);
 
@@ -14,8 +20,19 @@ const Project = ({ data, setData, setProjectView, projectView, setCustomOptions 
   const [error, setError] = useState("");
   const handleSwitchChange = () => {
     setIsChecked(!isChecked);
-    setData({ ...data, showExperience: !isChecked });
+    setData({ ...data, showProject: !isChecked });
   };
+
+  useEffect(() => {
+    if (data) {
+      if (data.showProject === true) {
+        setIsChecked(true);
+      } else {
+        setIsChecked(false);
+      }
+    }
+  }, [data]);
+
   const [projectData, setProjectData] = useState({
     title: "",
     organization: "",
@@ -172,10 +189,11 @@ const Project = ({ data, setData, setProjectView, projectView, setCustomOptions 
         data?.project?.map((exp, index) => (
           <div
             key={index}
-            className={`flex flex-col gap-1 py-[12px] px-[16px] rounded-[6px]  border break-all ${editingIndex === index
+            className={`flex flex-col gap-1 py-[12px] px-[16px] rounded-[6px]  border break-all ${
+              editingIndex === index
                 ? "border-[#06A9EF] border-[2px]"
                 : "border-[#DEDEDE]"
-              }`}
+            }`}
           >
             <div className="flex justify-between">
               <p className="text-[14px]">{exp?.title} </p>
@@ -199,7 +217,7 @@ const Project = ({ data, setData, setProjectView, projectView, setCustomOptions 
           </div>
         ))}
 
-      {(projectView  || data.project.length <= 0) && (
+      {(projectView || data.project.length <= 0) && (
         <div>
           <div className="flex flex-col gap-3">
             <div className="flex flex-col gap-2 w-full">
@@ -287,16 +305,17 @@ const Project = ({ data, setData, setProjectView, projectView, setCustomOptions 
                       end: { year: "Year", month: "Month" },
                     },
                   });
-                  setProjectView(false); 
+                  setProjectView(false);
                   if (data.project.length <= 0) {
-                  setCustomOptions((prevState) => ({
-                    ...prevState,
-                    ["Project"]: false,
-                  })); setData({
-                    ...data,
-                    project: [],
-                  })
-                }
+                    setCustomOptions((prevState) => ({
+                      ...prevState,
+                      ["Project"]: false,
+                    }));
+                    setData({
+                      ...data,
+                      project: [],
+                    });
+                  }
                 }}
               >
                 Cancel
@@ -316,8 +335,11 @@ const Project = ({ data, setData, setProjectView, projectView, setCustomOptions 
         </div>
       )}
 
-      {(!projectView &&  data.project.length > 0) && (
-        <div className="flex gap-1" onClick={() => isChecked && setProjectView(true)}>
+      {!projectView && data.project.length > 0 && (
+        <div
+          className="flex gap-1"
+          onClick={() => isChecked && setProjectView(true)}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"

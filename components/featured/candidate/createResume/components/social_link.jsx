@@ -1,6 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
-const SocialLink = ({ setData, data, setLinkView, linkView ,setCustomOptions}) => {
+const SocialLink = ({
+  setData,
+  data,
+  setLinkView,
+  linkView,
+  setCustomOptions,
+}) => {
   const [isChecked, setIsChecked] = useState(true);
 
   const [isModified, setIsModified] = useState({ status: false, index: 0 });
@@ -10,8 +16,19 @@ const SocialLink = ({ setData, data, setLinkView, linkView ,setCustomOptions}) =
   });
   const handleSwitchChange = () => {
     setIsChecked(!isChecked);
-    setData({ ...data, showCourse: !isChecked });
+    setData({ ...data, showLinks: !isChecked });
   };
+  useEffect(() => {
+    if (data) {
+      if (data?.showLinks === true) {
+        setIsChecked(true);
+      } else {
+        setIsChecked(false);
+      }
+    }
+  }, [data]);
+  
+
 
   const handleSave = () => {
     if (isModified?.status === true) {
@@ -139,7 +156,7 @@ const SocialLink = ({ setData, data, setLinkView, linkView ,setCustomOptions}) =
               </div>
             </div>
           ))}
-        {(linkView || data.socialLinks.length <=0) && (
+        {(linkView || data.socialLinks.length <= 0) && (
           <div>
             <div className="flex flex-col gap-3">
               <div className="flex flex-col gap-2 w-full">
@@ -173,16 +190,19 @@ const SocialLink = ({ setData, data, setLinkView, linkView ,setCustomOptions}) =
               <div className="flex justify-between  py-2 gap-2">
                 <button
                   className=" font-montserrat text-xs font-semibold px-[12px] rounded-[8px] border border-[#06A9EF] w-[80px] h-[32px]"
-                  onClick={() => {setLinkView(false); 
-                    if(data.socialLinks.length <=0){
-                    setCustomOptions((prevState) => ({
-                      ...prevState,
-                      ["Links"]: false,
-                    })); setData({
-                      ...data,
-                      socialLinks: [],
-                    })
-                  }}}
+                  onClick={() => {
+                    setLinkView(false);
+                    if (data.socialLinks.length <= 0) {
+                      setCustomOptions((prevState) => ({
+                        ...prevState,
+                        ["Links"]: false,
+                      }));
+                      setData({
+                        ...data,
+                        socialLinks: [],
+                      });
+                    }
+                  }}
                 >
                   Cancel
                 </button>
@@ -200,7 +220,7 @@ const SocialLink = ({ setData, data, setLinkView, linkView ,setCustomOptions}) =
             </div>
           </div>
         )}
-        {(!linkView && data.socialLinks.length >0) && (
+        {!linkView && data.socialLinks.length > 0 && (
           <div className="flex gap-1">
             <svg
               xmlns="http://www.w3.org/2000/svg"

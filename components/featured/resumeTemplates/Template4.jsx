@@ -416,7 +416,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
               </>
             )}
 
-            {data?.socialLinks?.length > 0 && (
+            {data?.socialLinks?.length > 0 && data?.showLinks === true &&  (
               <View style={{ flexDirection: "column", gap: " 16px" }}>
                 <View
                   wrap={false}
@@ -492,7 +492,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
               </View>
             )}
 
-            {data?.achievements?.length > 0 && (
+            {data?.achievements?.length > 0 && data?.showAchievements === true && (
               <View style={{ flexDirection: "column", gap: " 16px" }}>
                 <View
                   wrap={false}
@@ -555,7 +555,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
               </View>
             )}
 
-            {data?.languages?.length > 0 && (
+            {data?.languages?.length > 0 && data?.showLanguage === true && (
               <>
                 <View
                   style={{
@@ -661,7 +661,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
               </>
             )}
 
-            {data?.hobbies?.length > 0 && (
+            {data?.hobbies?.length > 0 && data?.showHobbies === true && (
               <View style={{ flexDirection: "column", gap: " 16px" }}>
                 <View
                   wrap={false}
@@ -724,7 +724,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
               </View>
             )}
 
-            {data?.reference?.length > 0 && (
+            {data?.reference?.length > 0 && data?.showReference === true && (
               <View style={{ flexDirection: "column", gap: " 16px" }}>
                 <View
                   wrap={false}
@@ -1158,7 +1158,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
             </View>
           )}
 
-          {data?.project?.length > 0 && (
+          {data?.project?.length > 0 && data?.showProject === true && (
             <View
               style={{
                 display: "flex",
@@ -1285,134 +1285,139 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
             </View>
           )}
 
-          {data?.extraCaricularData?.length > 0 && (
-            <View
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                gap: 8,
-                width: "100%",
-              }}
-            >
-              <View style={{}}>
-                <Image
-                  style={{ width: "27px", height: "27px" }}
-                  src="/images/services/Activities.png"
-                  alt=""
-                />
-              </View>
-
+          {data?.extraCaricularData?.length > 0 &&
+            data?.showExtraCariculam === true && (
               <View
                 style={{
                   display: "flex",
-                  flexDirection: "column",
-                  gap: 24,
-                  width: "95%",
+                  flexDirection: "row",
+                  gap: 8,
+                  width: "100%",
                 }}
               >
+                <View style={{}}>
+                  <Image
+                    style={{ width: "27px", height: "27px" }}
+                    src="/images/services/Activities.png"
+                    alt=""
+                  />
+                </View>
+
                 <View
-                  style={{ display: "flex", flexDirection: "column", gap: 8 }}
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 24,
+                    width: "95%",
+                  }}
                 >
-                  <Text
-                    style={{
-                      color: "#282829",
-                      fontFamily: `${selectedFont} 400`,
-                      fontSize: "16px",
-                    }}
+                  <View
+                    style={{ display: "flex", flexDirection: "column", gap: 8 }}
                   >
-                    Extra-Curriculum Activities
-                  </Text>
+                    <Text
+                      style={{
+                        color: "#282829",
+                        fontFamily: `${selectedFont} 400`,
+                        fontSize: "16px",
+                      }}
+                    >
+                      Extra-Curriculum Activities
+                    </Text>
+                    <View
+                      style={{
+                        height: "1px",
+                        marginTop: "4px",
+                        width: "95%",
+                        backgroundColor: "#282829",
+                      }}
+                    ></View>
+                  </View>
                   <View
                     style={{
-                      height: "1px",
-                      marginTop: "4px",
-                      width: "95%",
-                      backgroundColor: "#282829",
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: 16,
                     }}
-                  ></View>
-                </View>
-                <View
-                  style={{ display: "flex", flexDirection: "column", gap: 16 }}
-                >
-                  {data?.extraCaricularData?.map((detail, index) => (
-                    <View
-                      key={index}
-                      style={{ display: "flex", alignItems: "start", gap: 4 }}
-                    >
+                  >
+                    {data?.extraCaricularData?.map((detail, index) => (
                       <View
-                        style={{
-                          display: "flex",
-                          flexDirection: "row",
-                          gap: 8,
-                          width: "98%",
-                          alignItems: "start",
-                          justifyContent: "space-between",
-                        }}
+                        key={index}
+                        style={{ display: "flex", alignItems: "start", gap: 4 }}
                       >
                         <View
                           style={{
                             display: "flex",
                             flexDirection: "row",
                             gap: 8,
+                            width: "98%",
                             alignItems: "start",
-                            width: "70%",
+                            justifyContent: "space-between",
                           }}
                         >
-                          <Text style={{ marginTop: "-1px" }}>{">"}</Text>
+                          <View
+                            style={{
+                              display: "flex",
+                              flexDirection: "row",
+                              gap: 8,
+                              alignItems: "start",
+                              width: "70%",
+                            }}
+                          >
+                            <Text style={{ marginTop: "-1px" }}>{">"}</Text>
+                            <Text
+                              style={{
+                                color: "#414042",
+                                fontSize: "11px",
+                                fontFamily: `${selectedFont} 400`,
+                              }}
+                            >
+                              {detail.title}
+                            </Text>
+                          </View>
                           <Text
                             style={{
                               color: "#414042",
-                              fontSize: "11px",
+                              fontSize: "9px",
                               fontFamily: `${selectedFont} 400`,
                             }}
                           >
-                            {detail.title}
+                            {" "}
+                            {detail.duration?.start?.year !== "Year" &&
+                              `${detail.duration?.start?.year}-${" "}${
+                                detail.currentlyWorking
+                                  ? "Present"
+                                  : detail.duration?.end?.year
+                              }
+                         `}
                           </Text>
                         </View>
+
                         <Text
                           style={{
-                            color: "#414042",
+                            color: "#787879",
                             fontSize: "9px",
                             fontFamily: `${selectedFont} 400`,
                           }}
                         >
-                          {" "}
-                          {detail.duration?.start?.year !== "Year" &&
-                            `${detail.duration?.start?.year}-${" "}${
-                              detail.currentlyWorking
-                                ? "Present"
-                                : detail.duration?.end?.year
-                            }
-                         `}
+                          {detail.organization}{" "}
+                        </Text>
+                        <Text
+                          style={{
+                            color: "#787879",
+                            fontSize: "9px",
+                            fontFamily: `${selectedFont} 400`,
+                          }}
+                        >
+                          {detail.description}{" "}
                         </Text>
                       </View>
-
-                      <Text
-                        style={{
-                          color: "#787879",
-                          fontSize: "9px",
-                          fontFamily: `${selectedFont} 400`,
-                        }}
-                      >
-                        {detail.organization}{" "}
-                      </Text>
-                      <Text
-                        style={{
-                          color: "#787879",
-                          fontSize: "9px",
-                          fontFamily: `${selectedFont} 400`,
-                        }}
-                      >
-                        {detail.description}{" "}
-                      </Text>
-                    </View>
-                  ))}
+                    ))}
+                  </View>
                 </View>
               </View>
-            </View>
-          )}
+            )}
 
-          {data?.internship?.length > 0 && (
+          {data?.internship?.length > 0 && data?.showInternship === true && (
             <View
               style={{
                 display: "flex",
@@ -1539,7 +1544,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
             </View>
           )}
 
-          {data?.course?.length > 0 && (
+          {data?.course?.length > 0 && data?.showCourses === true && (
             <View
               style={{
                 display: "flex",
@@ -1667,6 +1672,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
           )}
 
           {data.section?.length > 0 &&
+            data.showCustomSection === true &&
             data.section?.map((item, index) => (
               <View
                 key={index}
