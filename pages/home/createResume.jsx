@@ -342,6 +342,17 @@ function CreateResume() {
   // });
 
   const defaultState = {
+    showSkills: true,
+    showAchievements: true,
+    showCourses: true,
+    showExtraCariculam: true,
+    showHobbies: true,
+    showInternship: true,
+    showLanguage: true,
+    showLinks: true,
+    showCustomSection: true,
+    showProject: true,
+    showReference: true,
     profilePhoto: null,
     designation: "",
     firstName: "",
@@ -463,7 +474,7 @@ function CreateResume() {
         showExtraCariculam: extraCaricularActivity?.length > 0 ? true : false,
         showHobbies: hobbies?.length > 0 ? true : false,
         showInternship: internship?.length > 0 ? true : false,
-        showLanguages: languages?.length > 0 ? true : false,
+        showLanguage: languages?.length > 0 ? true : false,
         showLinks: socialLinks?.length > 0 ? true : false,
         showProject: project?.length > 0 ? true : false,
         showReference: references?.length > 0 ? true : false,
