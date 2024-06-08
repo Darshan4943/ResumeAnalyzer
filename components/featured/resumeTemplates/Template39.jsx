@@ -418,7 +418,7 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
             )}
 
             <View
-              wrap={false}
+              // wrap={false}
               style={{ display: "flex", flexDirection: "column", gap: 8 }}
               // wrap={data?.skills?.length > 1 ? true : false}
             >
@@ -743,7 +743,7 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
                   <View
                     key={index}
                     style={{ flexDirection: "column", gap: "8px" }}
-                    // wrap={false}
+                    wrap={false}
                   >
                     <View>
                       <Text

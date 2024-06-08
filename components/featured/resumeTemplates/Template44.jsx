@@ -691,7 +691,7 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
                   <View
                     key={index}
                     style={{ flexDirection: "column", gap: 4 }}
-                    // wrap={false}
+                    wrap={false}
                   >
                     <Text
                       style={{
@@ -833,7 +833,7 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
                   <View
                     key={index}
                     style={{ flexDirection: "column", gap: 4 }}
-                    // wrap={false}
+                    wrap={false}
                   >
                     <Text
                       style={{
@@ -1117,7 +1117,7 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
                       color: "#FFFFFF",
                     }}
                   >
-                    {item?.header}
+                    {item.header.toUpperCase()}
                   </Text>
                 </View>
                 {item?.subSection?.map((detail, index) => (

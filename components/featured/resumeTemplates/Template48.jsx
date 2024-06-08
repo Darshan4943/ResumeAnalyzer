@@ -98,8 +98,8 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                 preview
                   ? data.profilePhoto
                   : Object.keys(data?.profilePhoto).includes("filename")
-                  ? URL.createObjectURL(data.profilePhoto)
-                  : data.profilePhoto
+                    ? URL.createObjectURL(data.profilePhoto)
+                    : data.profilePhoto
               }
               style={{
                 borderRadius: "50%",
@@ -961,6 +961,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                   {data?.experience?.map((detail, index) => (
                     <View
                       key={index}
+                      wrap={false}
                       style={{
                         display: "flex",
                         flexDirection: "column",
@@ -1193,10 +1194,9 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                       >
                         {" "}
                         {detail.duration?.start?.year !== "Year" &&
-                          `${detail.duration?.start?.year}-${
-                            detail.duration?.end?.year === "Year"
-                              ? "Pursuing"
-                              : detail.duration?.end?.year
+                          `${detail.duration?.start?.year}-${detail.duration?.end?.year === "Year"
+                            ? "Pursuing"
+                            : detail.duration?.end?.year
                           }`}
                       </Text>
                     </View>
@@ -1314,10 +1314,9 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                       >
                         {" "}
                         {detail.duration?.start?.year !== "Year" &&
-                          `${detail.duration?.start?.year}-${
-                            detail.duration?.end?.year === "Year"
-                              ? "Pursuing"
-                              : detail.duration?.end?.year
+                          `${detail.duration?.start?.year}-${detail.duration?.end?.year === "Year"
+                            ? "Pursuing"
+                            : detail.duration?.end?.year
                           }`}
                       </Text>
                     </View>
@@ -1456,10 +1455,9 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                       >
                         {" "}
                         {detail.duration?.start?.year !== "Year" &&
-                          `${detail.duration?.start?.year}-${
-                            detail.duration?.end?.year === "Year"
-                              ? "Pursuing"
-                              : detail.duration?.end?.year
+                          `${detail.duration?.start?.year}-${detail.duration?.end?.year === "Year"
+                            ? "Pursuing"
+                            : detail.duration?.end?.year
                           }`}
                       </Text>
                     </View>
@@ -1597,10 +1595,9 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                       >
                         {" "}
                         {detail.duration?.start?.year !== "Year" &&
-                          `${detail.duration?.start?.year}-${
-                            detail.duration?.end?.year === "Year"
-                              ? "Pursuing"
-                              : detail.duration?.end?.year
+                          `${detail.duration?.start?.year}-${detail.duration?.end?.year === "Year"
+                            ? "Pursuing"
+                            : detail.duration?.end?.year
                           }`}
                       </Text>
                     </View>
@@ -1739,10 +1736,9 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                         >
                           {" "}
                           {detail.duration?.start?.year !== "Year" &&
-                            `${detail.duration?.start?.year}-${
-                              detail.duration?.end?.year === "Year"
-                                ? "Pursuing"
-                                : detail.duration?.end?.year
+                            `${detail.duration?.start?.year}-${detail.duration?.end?.year === "Year"
+                              ? "Pursuing"
+                              : detail.duration?.end?.year
                             }`}
                         </Text>
                       </View>
@@ -1881,7 +1877,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                               {detail?.duration?.start?.year}
                               {detail?.duration?.start?.year && "-"}
                               {detail?.duration?.end?.year === "" ||
-                              detail?.duration?.end?.year === undefined
+                                detail?.duration?.end?.year === undefined
                                 ? "Present"
                                 : detail?.duration?.end?.year}
                             </Text>
