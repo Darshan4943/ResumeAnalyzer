@@ -1,6 +1,13 @@
-import React, { useState } from "react";
+import { useEditor } from "@tiptap/react";
+import React, { useEffect, useState } from "react";
 
-const Languages = ({ setData, data, languages, setLanguages }) => {
+const Languages = ({
+  setData,
+  data,
+  languages,
+  setLanguages,
+  setCustomOptions,
+}) => {
   const [text, setText] = useState("");
   const initialRatingsLanguages = Array(3).fill(3);
 
@@ -9,7 +16,7 @@ const Languages = ({ setData, data, languages, setLanguages }) => {
   );
 
   const [saveDisabled, setSaveDisabled] = useState(true);
-
+  const [isChecked, setIsChecked] = useState(true);
   const handleChange = (e) => {
     setText(e.target.value);
     setSaveDisabled(false);
@@ -67,7 +74,7 @@ const Languages = ({ setData, data, languages, setLanguages }) => {
   };
 
   const renderStarsLanguages = (languagesIndex) => {
-    const languageItem = data.languages[languagesIndex];
+    const languageItem = data?.languages[languagesIndex];
     if (languageItem && languageItem.rating) {
       return languageItem.rating.map((rating, index) => (
         <img
@@ -84,14 +91,42 @@ const Languages = ({ setData, data, languages, setLanguages }) => {
       return null;
     }
   };
+
+  const handleSwitchChange = () => {
+    setIsChecked(!isChecked);
+    setData({ ...data, showLanguage: !isChecked });
+  };
+
+  useEffect(() => {
+    if (data) {
+      if (data?.showLanguage === true) {
+        setIsChecked(true);
+      } else {
+        setIsChecked(false);
+      }
+    }
+  }, [data]);
+
   return (
     <div
-      className="flex flex-col p-4 gap-2 rounded-lg bg-white"
+      className="flex flex-col py-4 gap-2 rounded-lg bg-white"
       // style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}
+      style={{
+        // boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)",
+        opacity: isChecked ? 1 : 0.5,
+      }}
     >
       <div className="flex flex-col gap-2 w-full">
-        <div className="w-full text-[20px] font-montserrat  font-medium">
-          Languages
+        <div className="w-full flex justify-between text-[20px] font-montserrat font-medium">
+          <p> Languages</p>
+          <label className="switch">
+            <input
+              type="checkbox"
+              checked={isChecked}
+              onChange={handleSwitchChange}
+            />
+            <span className="slider round"></span>
+          </label>
         </div>
         <div className="flex flex-col gap-4">
           {data?.languages?.map((languages, index) => (
@@ -144,6 +179,25 @@ const Languages = ({ setData, data, languages, setLanguages }) => {
             {/* <button className=" font-montserrat text-xs font-semibold px-[12px] rounded-[8px] border border-[#06A9EF] w-[137px] h-[32px]">
               Update to Profile
             </button> */}
+            {data?.languages?.length <= 0 && (
+              <button
+                className=" font-montserrat text-xs font-semibold px-[12px] rounded-[8px] border border-[#06A9EF] w-[80px] h-[32px]"
+                onClick={() => {
+                  if (data.languages.length <= 0) {
+                    setCustomOptions((prevState) => ({
+                      ...prevState,
+                      ["Languages"]: false,
+                    }));
+                    setData({
+                      ...data,
+                      languages: [],
+                    });
+                  }
+                }}
+              >
+                Cancel
+              </button>
+            )}
             <button
               disabled={saveDisabled}
               style={{ opacity: saveDisabled ? 0.5 : 1 }}

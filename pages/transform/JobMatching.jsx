@@ -15,7 +15,7 @@ import { pdfjs } from "react-pdf";
 import PizZip from "pizzip";
 import Docxtemplater from "docxtemplater";
 import { toast } from "react-toastify";
-
+import ExtraSectionForm from "../jdMatching/ExtraSectionForm";
 import JdMatchingsideBar from "../jdMatching/JdMatchingsideBar";
 import { AnimatePresence, motion } from "framer-motion";
 
@@ -43,6 +43,9 @@ const JobMatching = () => {
   const [extratctedData, setExtractedData] = useState(null);
   const [btnToggle, setButtonToggle] = useState(false);
   const sidebarRef = useRef(null);
+  const [isEdit, setIsEdit] = useState();
+  const [editId, setEditId] = useState(null);
+  const [ShowForm, setShowForm] = useState(false);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -491,11 +494,11 @@ const JobMatching = () => {
   };
 
   const processChunk = async (chunk, jd, outputData, counter) => {
-    console.log(11, chunk);
+    console.log("first", chunk);
     const ids = chunk.map((item) => item);
     const response = await axios.post(
       "https://jamblix.com/api/external/jobMatching/",
-      // "http://localhost:2000/api/external/jobMatching/",
+      // "https://jamblix.com/api/external/jobMatching/",
       {
         jd: jd,
         ids: ids,
@@ -506,6 +509,7 @@ const JobMatching = () => {
       outputData.push(...response.data);
     } else {
       outputData.push(response.data);
+      // outputData.push([response.data]);
     }
 
     counter.count++;
@@ -519,11 +523,20 @@ const JobMatching = () => {
       const chunks = chunkArray(selectedIndexesFileTypes, 14);
       const outputData = [];
       const counter = { count: 0 };
-
-      for (const [index, chunk] of chunks.entries()) {
-        processChunk(chunk, extratctedData, outputData, counter);
-        if (index < chunks.length - 1) {
-          await new Promise((resolve) => setTimeout(resolve, 10000));
+      console.log("first", outputData);
+      if (selectedIndexesFileTypes.length > 50) {
+        for (const [index, chunk] of chunks.entries()) {
+          processChunk(chunk, extratctedData, outputData, counter);
+          if (index < chunks.length - 1) {
+            await new Promise((resolve) => setTimeout(resolve, 10000));
+          }
+        }
+      } else {
+        for (const [index, chunk] of chunks.entries()) {
+          await processChunk(chunk, extratctedData, outputData, counter);
+          if (index < chunks.length - 1) {
+            await new Promise((resolve) => setTimeout(resolve, 10000));
+          }
         }
       }
 
@@ -554,11 +567,11 @@ const JobMatching = () => {
   };
 
   return (
-    <div className=" md:py-6 py-3 flex flex-col gap-4 min-h-[80vh] customMargins ">
+    <div className="md:py-6 py-3 flex flex-col gap-4 min-h-[80vh] customMargins">
       {loadingg && (
         <>
           <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
-          <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center  ">
+          <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center">
             <div className="relative earth_loader flex flex-col items-center justify-center gap-[24px]">
               <div className="w-[165px] h-[124px] flex items-center justify-center">
                 <motion.img
@@ -571,62 +584,62 @@ const JobMatching = () => {
               </div>
               <div className="flex flex-col items-center justify-center relative z-100">
                 <span className="text-center text-[#fff] text-[16px]">
-                  Analyzing Data , It Will Take Some Time
+                  Analyzing Data, It Will Take Some Time
                 </span>
                 <span className="text-left text-[#fff] text-[16px] loading_dots">
-                  Please wait{" "}
+                  Please wait
                 </span>
               </div>
             </div>
           </div>
         </>
       )}
-      <div className=" font-semibold  text-[20px]">
-        Job Description Matching
-      </div>
+      <div className="font-semibold text-[20px]">Job Description Matching</div>
       <div className="bg-[#DEDEDE] w-full h-[1px]"></div>
 
-      <div className="flex ml:flex-row flex-col gap-4 h-full">
-        <div className="relative ml:w-[45%] w-full flex  flex-col gap-6">
-          <div className="text-[18px] text-[#333333] font-medium">
-            Select From Collection
+      <div className="flex flex-col gap-4 h-full relative overflow-hidden">
+        <div className="flex flex-row gap-4 h-full">
+          <div className="relative ml:w-[35%] w-full flex flex-col gap-6">
+            <div className="text-[18px] text-[#333333] font-medium">
+              Select From Collection
+            </div>
+
+            <JdFiles
+              details={details}
+              query={router.query}
+              setSelectedIndexes={setSelectedIndexes}
+              selectedIndexes={selectedIndexes}
+              loading={loading}
+              selectedIndexesFileTypes={selectedIndexesFileTypes}
+              setSelectedIndexesFilesType={setSelectedIndexesFilesType}
+            />
+
+            <JdDescription
+              text={text}
+              error={error}
+              resumeCount={resumeCount}
+              loadingg={loadingg}
+              setText={setText}
+              setError={setError}
+              setResumeCount={setResumeCount}
+              jobMatching={jobMatching}
+              setShowsideBar={setShowsideBar}
+              showMatchingSidebar={showMatchingSidebar}
+              MatchJob={MatchJob}
+              btnToggle={btnToggle}
+              setButtonToggle={setButtonToggle}
+            />
           </div>
 
-          <JdFiles
-            details={details}
-            query={router.query}
-            setSelectedIndexes={setSelectedIndexes}
-            selectedIndexes={selectedIndexes}
-            loading={loading}
-            selectedIndexesFileTypes={selectedIndexesFileTypes}
-            setSelectedIndexesFilesType={setSelectedIndexesFilesType}
-          />
-
-          <JdDescription
-            text={text}
-            error={error}
-            resumeCount={resumeCount}
-            loadingg={loadingg}
-            setText={setText}
-            setError={setError}
-            setResumeCount={setResumeCount}
-            jobMatching={jobMatching}
-            setShowsideBar={setShowsideBar}
-            showMatchingSidebar={showMatchingSidebar}
-            MatchJob={MatchJob}
-            btnToggle={btnToggle}
-            setButtonToggle={setButtonToggle}
-          />
-        </div>
-
-        <div className="bg-[#DEDEDE] ml:h-[91vh] h-[1px] ml:w-[1px] w-full"></div>
-        <div className="ml:w-[45%] w-full">
-          <JdMatching
-            details={details}
-            resumeList={resumeList}
-            isAnimate={isAnimate}
-            setShowsideBar={setShowsideBar}
-          />
+          <div className="bg-[#DEDEDE] ml:h-[91vh] h-[1px] ml:w-[1px] w-full"></div>
+          <div className="ml:w-[60%] w-full">
+            <JdMatching
+              details={details}
+              resumeList={resumeList}
+              isAnimate={isAnimate}
+              setShowsideBar={setShowsideBar}
+            />
+          </div>
         </div>
       </div>
 
@@ -634,21 +647,31 @@ const JobMatching = () => {
         {showMatchingSidebar && (
           <>
             {/* Overlay */}
-          <div className="fixed z-[5] top-0 left-0 right-0 bottom-0 bg-[#FFFFFF] bg-opacity-70"></div>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.5 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.5 }}
+              className="fixed z-[5] top-0 left-0 right-0 bottom-0 bg-[#000000] bg-opacity-25"
+              style={{
+                // background: "rgba(255, 255, 255, 0.5)",
+                backdropFilter: "blur(10px)",
+              }}
+            ></motion.div>
+
             {/* Sidebar */}
             <motion.div
               initial={{ x: "-100%" }}
               animate={{ x: 0 }}
               exit={{ x: "-100%" }}
               transition={{ duration: 0.5, ease: "easeInOut" }}
-              className="absolute z-[6] overflow-y-auto"
+              className="fixed z-[6] top-0 left-0 bottom-0 h-full overflow-y-auto"
               style={{
                 background: "rgba(255, 255, 255, 0.5)",
-                boxShadow: "0 0 10px rgba(255, 255, 255, 0.5)",
                 backdropFilter: "blur(10px)",
                 ...(navigator.userAgent.includes("Safari") &&
                   !navigator.userAgent.includes("Chrome") && {
-                    WebkitBackdropFilter: "blur(10px)",
+                    WebkitBackdropFilter: "blur(5px)",
                   }),
                 willChange: "transform",
               }}
@@ -660,8 +683,56 @@ const JobMatching = () => {
                 setText={setText}
                 MatchJob={MatchJob}
                 setShowsideBar={setShowsideBar}
+                setIsEdit={setIsEdit}
+                setShowForm={setShowForm}
+                setEditId={setEditId}
               />
+
+              {(ShowForm || isEdit) && (
+                <div className="block ml:hidden">
+                  <ExtraSectionForm
+                    extratctedData={extratctedData}
+                    setExtractedData={setExtractedData}
+                    isEdit={isEdit}
+                    setShowForm={setShowForm}
+                    editId={editId}
+                    setIsEdit={setIsEdit}
+                    setEditId={setEditId}
+                    ShowForm={ShowForm}
+                  />
+                </div>
+              )}
             </motion.div>
+
+            {/* ExtraSectionForm for larger screens */}
+            {(ShowForm || isEdit) && (
+              <motion.div
+                initial={{ x: 0 }}
+                animate={{ x: 0 }}
+                exit={{ x: "-100%" }}
+                transition={{ duration: 0.5, ease: "easeInOut" }}
+                className="hidden md:flex fixed z-[7] top-0 left-[434px] bottom-0 h-full overflow-y-auto"
+                style={{
+                  backdropFilter: "blur(10px)",
+                  ...(navigator.userAgent.includes("Safari") &&
+                    !navigator.userAgent.includes("Chrome") && {
+                      WebkitBackdropFilter: "blur(10px)",
+                    }),
+                  willChange: "transform",
+                }}
+              >
+                <ExtraSectionForm
+                  extratctedData={extratctedData}
+                  setExtractedData={setExtractedData}
+                  isEdit={isEdit}
+                  setShowForm={setShowForm}
+                  editId={editId}
+                  setIsEdit={setIsEdit}
+                  setEditId={setEditId}
+                  ShowForm={ShowForm}
+                />
+              </motion.div>
+            )}
           </>
         )}
       </AnimatePresence>

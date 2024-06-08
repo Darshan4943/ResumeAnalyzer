@@ -19,6 +19,16 @@ const AboutMe = ({ data, setData }) => {
     setData({ ...data, showSummary: !isChecked });
   };
 
+  useEffect(() => {
+    if (data) {
+      if (data?.showSummary === true) {
+        setIsChecked(true);
+      } else {
+        setIsChecked(false);
+      }
+    }
+  }, [data]);
+
   const generateText = () => {
     const prompt = `Original Paragraph:\n${text}\n\nNew Paragraph:\n`;
     if (text.length > 100) {
@@ -83,7 +93,7 @@ const AboutMe = ({ data, setData }) => {
   return (
     <>
       <div
-        className="flex flex-col p-4 gap-2 rounded-lg bg-white "
+        className="flex flex-col py-4 gap-2 rounded-lg bg-white "
         style={{
           // boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)",
           opacity: isChecked ? 1 : 0.5,
@@ -149,14 +159,16 @@ const AboutMe = ({ data, setData }) => {
           </button>
           <button
             className={`font-montserrat text-white font-medium text-[12px] px-[12px] rounded-[8px]  bg-[#06A9EF] w-[60px] h-[32px] ${
-              text.length !== 0 ? "btn_hover_effect" : ""
+              text?.length !== 0 ? "btn_hover_effect" : ""
             }`}
             onClick={() => setData({ ...data, summery: text })}
             // style={{ opacity: text === data?.summery ? 0.5 : 1 }}
             style={{
-              opacity: text === data?.summery || text.length == 0 ? 0.5 : 1,
+              opacity: text === data?.summery || text?.length == 0 ? 0.5 : 1,
             }}
-            disabled={text === data?.summery || !isChecked || text.length === 0}
+            disabled={
+              text === data?.summery || !isChecked || text?.length === 0
+            }
           >
             Save
           </button>

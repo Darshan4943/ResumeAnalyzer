@@ -99,9 +99,31 @@ const ResumePreview = ({
     return () => clearTimeout(timer);
   }, [data, selectedFont, selectedColor]);
 
+  const callData = () => {
+    const id = clientId === "undefined" ? userDataGlobal?._id : clientId;
+    if (id) {
+      axios
+        .get(`https://jamblix.com/api/resume/${id}`)
+
+        .then((res) => {
+          // Remove .pdf extension from filenames
+          const filenamesWithoutExtension = res.data.data.map((item) =>
+            item.fileName.replace(/\.pdf$/, "")
+          );
+
+          setName(data.firstName + "_resume " + (res.data.data.length + 1));
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  };
+
   useEffect(() => {
+    callData();
     setName(data.firstName + "_resume");
-  }, [userDataGlobal, data.firstName]);
+  }, [userDataGlobal, data.firstName,saveLimit]);
+
 
   const selectResumeTemplate = (index) => {
     switch (index) {
@@ -343,6 +365,7 @@ const ResumePreview = ({
   };
 
   const saveResume = async (blob, download) => {
+    
     setdisabled(true);
 
     if (blob !== null) {
@@ -425,8 +448,9 @@ const ResumePreview = ({
         }
 
         axios
-          .post("https://jamblix.com/api/resume/add", formData)
+          .post("http://localhost:2000/api/resume/add", formData)
           .then((res) => {
+           
             const pdfUrl = res.data.data.resumeUrl;
 
             localStorage.setItem("saveCount", saveLimit - 1);
@@ -597,7 +621,7 @@ const ResumePreview = ({
     >
       <LimitUsedModal visible={limitUsedModal} setVisible={setLimitUsedModal} />
       <div
-        className="flex  h-fit flex-col w-full  sm:p-4 p-2 gap-[14px] rounded-lg bg-white shadow-md"
+        className="flex  h-fit flex-col w-full  sm:px-4 px-2 gap-[14px] rounded-lg bg-white shadow-md"
         style={{
           boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)",
         }}

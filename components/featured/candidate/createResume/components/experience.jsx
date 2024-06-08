@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import DateSelector from "../../../../common/dateSelector";
 import { Delete_icon, Edit_icon } from "../../../../../utils/svg";
 
@@ -23,6 +23,16 @@ const Experience = ({ data, setData }) => {
       end: { year: "Year", month: "Month" },
     },
   });
+
+  useEffect(() => {
+    if (data) {
+      if (data?.showExperience === true) {
+        setIsChecked(true);
+      } else {
+        setIsChecked(false);
+      }
+    }
+  }, [data]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -131,7 +141,7 @@ const Experience = ({ data, setData }) => {
 
   return (
     <div
-      className="flex flex-col p-4 gap-2 rounded-lg bg-white"
+      className="flex flex-col py-4 gap-2 rounded-lg bg-white"
       style={{
         // boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)",
         opacity: isChecked ? 1 : 0.5,
@@ -181,7 +191,7 @@ const Experience = ({ data, setData }) => {
         </div>
       ))}
 
-      {view && (
+      {(view || data?.experience?.length <=0 )&& (
         <div>
           <div className="flex flex-col gap-3">
             <div className="flex flex-col gap-2 w-full">
@@ -308,7 +318,8 @@ const Experience = ({ data, setData }) => {
           <div className="flex justify-end ">
             <div className="flex justify-between  py-2 gap-2">
               <button
-                className=" font-montserrat text-xs font-semibold px-[12px] rounded-[8px] border border-[#06A9EF] w-[80px] h-[32px]"
+              disabled={ data?.experience?.length <=0 }
+                className={`font-montserrat text-xs font-semibold px-[12px] rounded-[8px] border border-[#06A9EF] w-[80px] h-[32px] ${ data?.experience?.length <=0 && "opacity-40"}`}
                 onClick={() => {
                   setExperienceData({
                     designation: "",
@@ -341,7 +352,7 @@ const Experience = ({ data, setData }) => {
         </div>
       )}
 
-      {!view && (
+      {(!view && data?.experience?.length >0 ) && (
         <div className="flex gap-1" onClick={() => isChecked && setView(true)}>
           <svg
             xmlns="http://www.w3.org/2000/svg"

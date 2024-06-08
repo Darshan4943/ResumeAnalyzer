@@ -168,51 +168,51 @@ const MyCollection = () => {
                             />
                             
                           </div> */}
-                      <div
-                        className="items-center flex-col cursor-pointer hidden md:flex"
-                        style={{
-                          borderBottom: "1px solid #646464",
-                          paddingBottom: "12px",
-                        }}
-                        onClick={() => {
-                          setSelected(item);
-                          setPreview(true);
-                        }}
-                      >
-                        <img
-                          src="/images/icons/visibility.png"
-                          className="h-[24px] w-[24px]"
-                          alt=""
-                        />
-                        <span className="text-[12px] font-semibold text-white ">
-                          Preview
-                        </span>
-                      </div>
-                      <div
-                        onClick={() => {
-                          router.push({
-                            pathname: "/home/createResume",
-                            query: {
-                              data: JSON.stringify(item),
-                              isEdit: true,
-                            },
-                          });
-                        }}
-                        className="flex items-center flex-col cursor-pointer"
-                        style={{
-                          borderBottom: "1px solid #646464",
-                          paddingBottom: "12px",
-                        }}
-                      >
-                        <img
-                          src="/images/icons/edit.png"
-                          className="h-[24px] w-[24px]"
-                          alt=""
-                        />
-                        <span className="text-[12px] font-semibold text-white ">
-                          Edit
-                        </span>
-                      </div>
+                        <div
+                          className="items-center flex-col cursor-pointer hidden md:flex"
+                          style={{
+                            borderBottom: "1px solid #646464",
+                            paddingBottom: "12px",
+                          }}
+                          onClick={() => {
+                            setSelected(item);
+                            setPreview(true);
+                          }}
+                        >
+                          <img
+                            src="/images/icons/visibility.png"
+                            className="h-[24px] w-[24px]"
+                            alt=""
+                          />
+                          <span className="text-[12px] font-semibold text-white ">
+                            Preview
+                          </span>
+                        </div>
+                        <div
+                          onClick={() => {
+                            router.push({
+                              pathname: "/home/createResume",
+                              query: {
+                                data: JSON.stringify(item),
+                                isEdit: true,
+                              },
+                            });
+                          }}
+                          className="flex items-center flex-col cursor-pointer"
+                          style={{
+                            borderBottom: "1px solid #646464",
+                            paddingBottom: "12px",
+                          }}
+                        >
+                          <img
+                            src="/images/icons/edit.png"
+                            className="h-[24px] w-[24px]"
+                            alt=""
+                          />
+                          <span className="text-[12px] font-semibold text-white ">
+                            Edit
+                          </span>
+                        </div>
 
                         <a
                           href={item.resumeUrl}

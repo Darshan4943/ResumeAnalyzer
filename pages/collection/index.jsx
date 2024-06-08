@@ -15,7 +15,11 @@ import Docxtemplater from "docxtemplater";
 import { resolve } from "styled-jsx/css";
 import MiniLoader from "../../components/common/miniLoader";
 import { recallUser } from "../../Redux/reducers/userReducer";
-import { fileIconSeter, fileIconSeter1, fileIconSeter2 } from "../../utils/middleware";
+import {
+  fileIconSeter,
+  fileIconSeter1,
+  fileIconSeter2,
+} from "../../utils/middleware";
 pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
 
 function Collection() {
@@ -43,7 +47,9 @@ function Collection() {
   const [recall, setRecall] = useReducer((x) => x + 1, 0);
   const [uploadCount, setUploadCount] = useState(0);
   const [failedFiles, setFailedFiles] = useState([]);
-  const [count, setCount] = useState("")
+  const [unSyncFiles, setUnSyncFiles] = useState(null)
+  const [count, setCount] = useState("");
+  const [refresh, setRefresh] = useState(true)
   const fileToText = (file, pageNumber) => {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
@@ -61,40 +67,46 @@ function Collection() {
       reader.readAsArrayBuffer(file);
     });
   };
-
-
+  console.log(555, unSyncFiles)
   useEffect(() => {
     if (inputRef.current) {
       inputRef.current.select();
     }
   }, [isCreate]);
   const getData = () => {
+
     if (folders == "true") {
       setTab(1);
       setTabIndex(0);
       if (parentId) {
         setParentId(parentId);
         getParentData(parentId);
-        // dispatch(recallUser())
+
+
       } else {
         getFolderData();
+
       }
     } else if (clients == "true") {
       setTab(0);
       setTabIndex(0);
       if (clientId) {
         getClientData(clientId);
+
       } else {
         getClients();
+
       }
     } else if (trash == "true") {
       setTab(2);
       setTabIndex(0);
       getTrashed();
+
     } else {
       setTab(0);
       setTabIndex(0);
       getClients();
+
     }
   };
 
@@ -103,6 +115,7 @@ function Collection() {
       .get(`https://jamblix.com/api/folder/getByParentId/${parentId}`)
       .then((res) => {
         setFolderList(res.data.data);
+
         setTimeout(() => {
           setLoading(false);
         }, 1000);
@@ -111,7 +124,7 @@ function Collection() {
         console.log(err);
       });
   };
-  console.log(114, folderList)
+  console.log(114, folderList);
   const getClientData = (clientId) => {
     axios
       .get("https://jamblix.com/api/resume/" + clientId)
@@ -174,6 +187,36 @@ function Collection() {
         console.log(err);
       });
   };
+
+  const getUnSyncFiles = () => {
+
+    axios
+      .get(`https://jamblix.com/api/getUnsyncedFile/${userDataGlobal._id}`)
+      .then((res) => {
+        const files = res.data.data.filter(item => item.type === 'file');
+        setUnSyncFiles(files.length);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+
+
+  useEffect(() => {
+
+    getUnSyncFiles();
+    dispatch(reCallUserData())
+    if (unSyncFiles > 0) {
+      const interval = setInterval(() => {
+        getUnSyncFiles()
+        dispatch(reCallUserData())
+      }, 60000);
+
+      return () => clearInterval(interval);
+    }
+  }, [unSyncFiles]);
+
 
   const createFolder = () => {
     setFileLoader(true);
@@ -298,59 +341,71 @@ function Collection() {
     }, 1000);
   };
   const [duplicateFiles, setDuplicateFiles] = useState([]);
+
   const addData = async (file, index, text) => {
-    return new Promise((resolve) => {
-      setTimeout(async () => {
-        const formData = new FormData();
-        try {
-
-          if (folderList.some(existingFile => existingFile.fileName === file.name)) {
-            setDuplicateFiles((prevDuplicateFiles) => [
-              ...prevDuplicateFiles,
-              { file, index }
-            ]);
-            setCount((prevCount) => prevCount + 1);
-            // toast.error("Duplicate file name");
-            return
-          }
-          formData.append("fileName", file.name);
-          formData.append("type", "file");
-          formData.append("userId", userDataGlobal._id);
-          formData.append("text", text);
-          formData.append("file", file);
-          formData.append("parentId", ParentId ? ParentId : undefined);
-          try {
-            const response = await axios.post(
-              "https://jamblix.com/api/folder/create",
-              formData
-            );
-            resolve(index, response.data);
-            setCount((prevCount) => prevCount + 1)
-            return;
-          } catch (e) {
-
-
-            
-            // toast.error("Something went wrong Please Check your file")
-            setCount((prevCount) => prevCount + 1)
-            setFailedFiles((prevFailedFiles) => [...prevFailedFiles, { file, index, error: e }]);
-            return;
-          }
-        } catch (err) {
+  return new Promise((resolve) => {
+    setTimeout(async () => {
+      const formData = new FormData();
+      try {
+        if (
+          folderList.some(
+            (existingFile) => existingFile.fileName === file.name
+          )
+        ) {
+          setDuplicateFiles((prevDuplicateFiles) => [
+            ...prevDuplicateFiles,
+            { file, index },
+          ]);
+          setCount((prevCount) => prevCount + 1);
+          // toast.error("Duplicate file name");
           return;
         }
-      }, 200); // Simulating a network delay
-    });
-  };
+        if (text === undefined || text === null || text.length <= 5) {
+          setCount((prevCount) => prevCount + 1);
+          setFailedFiles((prevFailedFiles) => [
+            ...prevFailedFiles,
+            { file, index, error: 'Invalid text' },
+          ]);
+          return;
+        }
+
+        formData.append("fileName", file.name);
+        formData.append("type", "file");
+        formData.append("userId", userDataGlobal._id);
+        formData.append("text", text);
+        formData.append("file", file);
+        formData.append("parentId", ParentId ? ParentId : undefined);
+
+        try {
+          const response = await axios.post(
+            "https://jamblix.com/api/folder/create",
+            formData
+          );
+          resolve(index, response.data);
+          setCount((prevCount) => prevCount + 1);
+        } catch (e) {
+          // toast.error("Something went wrong Please Check your file")
+          setCount((prevCount) => prevCount + 1);
+          setFailedFiles((prevFailedFiles) => [
+            ...prevFailedFiles,
+            { file, index, error: e },
+          ]);
+        }
+      } catch (err) {
+        return;
+      }
+    }, 200); // Simulating a network delay
+  });
+};
+
 
   useEffect(() => {
     if (files.length === count) {
-      setFileLoader(false)
-
+      setFileLoader(false);
     }
   }, [count]);
   const addFiles = async () => {
-    setCount(0)
+    setCount(0);
     setFileLoader(true);
     if (Object.keys(files).length === 0) {
       toast.error("No File Selected");
@@ -381,9 +436,11 @@ function Collection() {
   const handleButtonClick = () => {
     fileRef.current.click();
   };
+
   useEffect(() => {
     getData();
   }, [clients, folders, clientId, parentId, userDataGlobal, recall]);
+
 
   const handleFileChange = async (e) => {
     const selectedFiles = e.target.files;
@@ -433,7 +490,7 @@ function Collection() {
     setTextData(textData);
     setFiles(selectedFiles);
   };
- 
+
   return (
     <>
       {isCreateFolder && (
@@ -465,9 +522,7 @@ function Collection() {
                     </>
                   ) : (
                     <>
-
-
-                      {(files.length !== count) ?
+                      {files.length !== count ? (
                         <>
                           {" "}
                           <input
@@ -482,7 +537,8 @@ function Collection() {
                               <div className="flex flex-row gap-[16px] items-center justify-between w-[80%]  ">
                                 <div className="flex flex-row gap-[16px] items-center  ">
                                   <span className="tex-[16px] font-[500]">
-                                    ({Object.values(files).length}) Files Selected
+                                    ({Object.values(files).length}) Files
+                                    Selected
                                   </span>
                                 </div>
                                 <button
@@ -536,7 +592,11 @@ function Collection() {
                                   </g>
                                   <defs>
                                     <clipPath id="clip0_4121_52475">
-                                      <rect width="40" height="40" fill="white" />
+                                      <rect
+                                        width="40"
+                                        height="40"
+                                        fill="white"
+                                      />
                                     </clipPath>
                                   </defs>
                                 </svg>
@@ -556,29 +616,55 @@ function Collection() {
                             </>
                           )}
                         </>
-                        :
+                      ) : (
                         <div className="flex flex-col gap-3 font-medium w-full">
                           <div className="flex gap-2 items-center">
-                            <svg width="22" height="22" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-
+                            <svg
+                              width="22"
+                              height="22"
+                              viewBox="0 0 20 20"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
                               <g mask="url(#mask0_3793_40528)">
-                                <path d="M8.9375 10.875L7.6875 9.64583C7.53472 9.49306 7.36111 9.41667 7.16667 9.41667C6.97222 9.41667 6.79861 9.49306 6.64583 9.64583C6.49306 9.79861 6.41667 9.9757 6.41667 10.1771C6.41667 10.3785 6.49306 10.5556 6.64583 10.7083L8.41667 12.4792C8.56944 12.6319 8.74306 12.7083 8.9375 12.7083C9.13194 12.7083 9.30556 12.6319 9.45833 12.4792L13.3542 8.58333C13.5069 8.43056 13.5833 8.25347 13.5833 8.05208C13.5833 7.85069 13.5069 7.67361 13.3542 7.52083C13.2014 7.36806 13.0278 7.29167 12.8333 7.29167C12.6389 7.29167 12.4653 7.36806 12.3125 7.52083L8.9375 10.875ZM10 18C8.90278 18 7.86806 17.7917 6.89583 17.375C5.92361 16.9583 5.07292 16.3854 4.34375 15.6562C3.61458 14.9271 3.04167 14.0764 2.625 13.1042C2.20833 12.1319 2 11.0972 2 10C2 8.88889 2.20833 7.85069 2.625 6.88542C3.04167 5.92014 3.61458 5.07292 4.34375 4.34375C5.07292 3.61458 5.92361 3.04167 6.89583 2.625C7.86806 2.20833 8.90278 2 10 2C11.1111 2 12.1493 2.20833 13.1146 2.625C14.0799 3.04167 14.9271 3.61458 15.6562 4.34375C16.3854 5.07292 16.9583 5.92014 17.375 6.88542C17.7917 7.85069 18 8.88889 18 10C18 11.0972 17.7917 12.1319 17.375 13.1042C16.9583 14.0764 16.3854 14.9271 15.6562 15.6562C14.9271 16.3854 14.0799 16.9583 13.1146 17.375C12.1493 17.7917 11.1111 18 10 18Z" fill="#0C8A0A" />
+                                <path
+                                  d="M8.9375 10.875L7.6875 9.64583C7.53472 9.49306 7.36111 9.41667 7.16667 9.41667C6.97222 9.41667 6.79861 9.49306 6.64583 9.64583C6.49306 9.79861 6.41667 9.9757 6.41667 10.1771C6.41667 10.3785 6.49306 10.5556 6.64583 10.7083L8.41667 12.4792C8.56944 12.6319 8.74306 12.7083 8.9375 12.7083C9.13194 12.7083 9.30556 12.6319 9.45833 12.4792L13.3542 8.58333C13.5069 8.43056 13.5833 8.25347 13.5833 8.05208C13.5833 7.85069 13.5069 7.67361 13.3542 7.52083C13.2014 7.36806 13.0278 7.29167 12.8333 7.29167C12.6389 7.29167 12.4653 7.36806 12.3125 7.52083L8.9375 10.875ZM10 18C8.90278 18 7.86806 17.7917 6.89583 17.375C5.92361 16.9583 5.07292 16.3854 4.34375 15.6562C3.61458 14.9271 3.04167 14.0764 2.625 13.1042C2.20833 12.1319 2 11.0972 2 10C2 8.88889 2.20833 7.85069 2.625 6.88542C3.04167 5.92014 3.61458 5.07292 4.34375 4.34375C5.07292 3.61458 5.92361 3.04167 6.89583 2.625C7.86806 2.20833 8.90278 2 10 2C11.1111 2 12.1493 2.20833 13.1146 2.625C14.0799 3.04167 14.9271 3.61458 15.6562 4.34375C16.3854 5.07292 16.9583 5.92014 17.375 6.88542C17.7917 7.85069 18 8.88889 18 10C18 11.0972 17.7917 12.1319 17.375 13.1042C16.9583 14.0764 16.3854 14.9271 15.6562 15.6562C14.9271 16.3854 14.0799 16.9583 13.1146 17.375C12.1493 17.7917 11.1111 18 10 18Z"
+                                  fill="#0C8A0A"
+                                />
                               </g>
                             </svg>
-
-                            {uploadCount} {uploadCount === 1 ? "file" : "files"} uploaded successfully.
+                            {uploadCount} {uploadCount === 1 ? "file" : "files"}{" "}
+                            uploaded successfully.
                           </div>
-                          {duplicateFiles.length > 0 &&
+                          {duplicateFiles.length > 0 && (
                             <>
-                              <div className="w-full h-[1px] bg-[#808080]">  </div>
+                              <div className="w-full h-[1px] bg-[#808080]">
+                                {" "}
+                              </div>
                               <div className="flex gap-2 items-center w-full">
-                                <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                  <path fill-rule="evenodd" clip-rule="evenodd" d="M11.3438 9.28125H9.28125C8.90175 9.28125 8.59375 9.58925 8.59375 9.96875C8.59375 10.3482 8.90175 10.6562 9.28125 10.6562H11.3438V12.7188C11.3438 13.0982 11.6518 13.4062 12.0312 13.4062C12.4107 13.4062 12.7188 13.0982 12.7188 12.7188V10.6562H14.7812C15.1607 10.6562 15.4688 10.3482 15.4688 9.96875C15.4688 9.58925 15.1607 9.28125 14.7812 9.28125H12.7188V7.21875C12.7188 6.83925 12.4107 6.53125 12.0312 6.53125C11.6518 6.53125 11.3438 6.83925 11.3438 7.21875V9.28125Z" fill="#333333" />
-                                  <path fill-rule="evenodd" clip-rule="evenodd" d="M4.8125 16.1562V5.15625H4.125C3.74516 5.15625 3.4375 5.46391 3.4375 5.84375V18.9062C3.4375 19.2861 3.74516 19.5938 4.125 19.5938H15.125C15.5048 19.5938 15.8125 19.2861 15.8125 18.9062V18.2188H6.875C5.73581 18.2188 4.8125 17.2954 4.8125 16.1562ZM17.875 4.89602V16.1562C17.875 16.5361 17.5673 16.8438 17.1875 16.8438H6.875C6.49516 16.8438 6.1875 16.5361 6.1875 16.1562V3.09375C6.1875 2.71391 6.49516 2.40625 6.875 2.40625H15.3852C15.4767 2.40625 15.564 2.44235 15.6283 2.50698L17.7743 4.653C17.8389 4.71728 17.875 4.80459 17.875 4.89602ZM4.125 3.78125C2.98581 3.78125 2.0625 4.70456 2.0625 5.84375V18.9062C2.0625 20.0454 2.98581 20.9688 4.125 20.9688H15.125C16.2642 20.9688 17.1875 20.0454 17.1875 18.9062V18.2188C18.3267 18.2188 19.25 17.2954 19.25 16.1562V4.89602C19.25 4.44021 19.0688 4.00296 18.7467 3.68052C18.2177 3.15149 17.1297 2.06353 16.6007 1.5345C16.2783 1.2124 15.841 1.03125 15.3852 1.03125H6.875C5.73581 1.03125 4.8125 1.95456 4.8125 3.09375V3.78125" fill="#333333" />
+                                <svg
+                                  width="22"
+                                  height="22"
+                                  viewBox="0 0 22 22"
+                                  fill="none"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <path
+                                    fill-rule="evenodd"
+                                    clip-rule="evenodd"
+                                    d="M11.3438 9.28125H9.28125C8.90175 9.28125 8.59375 9.58925 8.59375 9.96875C8.59375 10.3482 8.90175 10.6562 9.28125 10.6562H11.3438V12.7188C11.3438 13.0982 11.6518 13.4062 12.0312 13.4062C12.4107 13.4062 12.7188 13.0982 12.7188 12.7188V10.6562H14.7812C15.1607 10.6562 15.4688 10.3482 15.4688 9.96875C15.4688 9.58925 15.1607 9.28125 14.7812 9.28125H12.7188V7.21875C12.7188 6.83925 12.4107 6.53125 12.0312 6.53125C11.6518 6.53125 11.3438 6.83925 11.3438 7.21875V9.28125Z"
+                                    fill="#333333"
+                                  />
+                                  <path
+                                    fill-rule="evenodd"
+                                    clip-rule="evenodd"
+                                    d="M4.8125 16.1562V5.15625H4.125C3.74516 5.15625 3.4375 5.46391 3.4375 5.84375V18.9062C3.4375 19.2861 3.74516 19.5938 4.125 19.5938H15.125C15.5048 19.5938 15.8125 19.2861 15.8125 18.9062V18.2188H6.875C5.73581 18.2188 4.8125 17.2954 4.8125 16.1562ZM17.875 4.89602V16.1562C17.875 16.5361 17.5673 16.8438 17.1875 16.8438H6.875C6.49516 16.8438 6.1875 16.5361 6.1875 16.1562V3.09375C6.1875 2.71391 6.49516 2.40625 6.875 2.40625H15.3852C15.4767 2.40625 15.564 2.44235 15.6283 2.50698L17.7743 4.653C17.8389 4.71728 17.875 4.80459 17.875 4.89602ZM4.125 3.78125C2.98581 3.78125 2.0625 4.70456 2.0625 5.84375V18.9062C2.0625 20.0454 2.98581 20.9688 4.125 20.9688H15.125C16.2642 20.9688 17.1875 20.0454 17.1875 18.9062V18.2188C18.3267 18.2188 19.25 17.2954 19.25 16.1562V4.89602C19.25 4.44021 19.0688 4.00296 18.7467 3.68052C18.2177 3.15149 17.1297 2.06353 16.6007 1.5345C16.2783 1.2124 15.841 1.03125 15.3852 1.03125H6.875C5.73581 1.03125 4.8125 1.95456 4.8125 3.09375V3.78125"
+                                    fill="#333333"
+                                  />
                                 </svg>
-
-
-                                {duplicateFiles.length} Duplicate {duplicateFiles.length === 1 ? "file" : "files"} found.
+                                {duplicateFiles.length} Duplicate{" "}
+                                {duplicateFiles.length === 1 ? "file" : "files"}{" "}
+                                found.
                               </div>
                               <div className="flex flex-wrap scr1300:gap-4 gap-2 h-[60px] justify-between  scr1300:px-4 overflow-y-auto mt-2">
                                 {duplicateFiles.map((item, index) => (
@@ -592,27 +678,42 @@ function Collection() {
                                         ? `${item.file.name.slice(0, 16)}...`
                                         : item.file.name}
                                     </div>
-
                                   </>
                                 ))}
                               </div>
                             </>
-                          }
-                          {failedFiles.length > 0 &&
+                          )}
+                          {failedFiles.length > 0 && (
                             <>
-                              <div className="w-full h-[1px] bg-[#808080]">  </div>
+                              <div className="w-full h-[1px] bg-[#808080]">
+                                {" "}
+                              </div>
 
                               <div className="flex flex-col gap-3">
-                                <p className="flex gap-2 items-center"><svg width="22" height="22" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-
-                                  <g mask="url(#mask0_3793_40534)">
-                                    <path d="M10 11.0625L12.4167 13.4792C12.5694 13.6319 12.7465 13.7049 12.9479 13.6979C13.1493 13.691 13.3264 13.6111 13.4792 13.4583C13.6319 13.3056 13.7083 13.1285 13.7083 12.9271C13.7083 12.7257 13.6319 12.5489 13.4792 12.3967L11.0625 9.98958L13.4792 7.5825C13.6319 7.43028 13.7083 7.25347 13.7083 7.05208C13.7083 6.85069 13.6319 6.67361 13.4792 6.52083C13.3264 6.36806 13.1493 6.29167 12.9479 6.29167C12.7465 6.29167 12.5694 6.36806 12.4167 6.52083L10 8.9375L7.58333 6.52083C7.43056 6.36806 7.25694 6.29167 7.0625 6.29167C6.86806 6.29167 6.69444 6.36806 6.54167 6.52083C6.38889 6.67361 6.3125 6.85069 6.3125 7.05208C6.3125 7.25347 6.38826 7.43056 6.53979 7.58333L8.9375 10L6.52083 12.4167C6.36806 12.5694 6.29514 12.7431 6.30208 12.9375C6.30903 13.1319 6.38889 13.3056 6.54167 13.4583C6.69444 13.6111 6.87153 13.6875 7.07292 13.6875C7.27431 13.6875 7.45076 13.6117 7.60229 13.4602L10 11.0625ZM10.0058 18C8.90472 18 7.86806 17.7917 6.89583 17.375C5.92361 16.9583 5.07292 16.3854 4.34375 15.6562C3.61458 14.9271 3.04167 14.0767 2.625 13.105C2.20833 12.1333 2 11.0951 2 9.99042C2 8.88569 2.20833 7.85069 2.625 6.88542C3.04167 5.92014 3.61458 5.07292 4.34375 4.34375C5.07292 3.61458 5.92333 3.04167 6.895 2.625C7.86667 2.20833 8.90486 2 10.0096 2C11.1143 2 12.1493 2.20833 13.1146 2.625C14.0799 3.04167 14.9271 3.61458 15.6562 4.34375C16.3854 5.07292 16.9583 5.92167 17.375 6.89C17.7917 7.85847 18 8.89319 18 9.99417C18 11.0953 17.7917 12.1319 17.375 13.1042C16.9583 14.0764 16.3854 14.9271 15.6562 15.6562C14.9271 16.3854 14.0783 16.9583 13.11 17.375C12.1415 17.7917 11.1068 18 10.0058 18Z" fill="#C00000" />
-                                  </g>
-                                </svg>
-                                  {failedFiles.length} {failedFiles.length === 1 ? "file" : "files"} failed to upload.</p>
+                                <p className="flex gap-2 items-center">
+                                  <svg
+                                    width="22"
+                                    height="22"
+                                    viewBox="0 0 20 20"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <g mask="url(#mask0_3793_40534)">
+                                      <path
+                                        d="M10 11.0625L12.4167 13.4792C12.5694 13.6319 12.7465 13.7049 12.9479 13.6979C13.1493 13.691 13.3264 13.6111 13.4792 13.4583C13.6319 13.3056 13.7083 13.1285 13.7083 12.9271C13.7083 12.7257 13.6319 12.5489 13.4792 12.3967L11.0625 9.98958L13.4792 7.5825C13.6319 7.43028 13.7083 7.25347 13.7083 7.05208C13.7083 6.85069 13.6319 6.67361 13.4792 6.52083C13.3264 6.36806 13.1493 6.29167 12.9479 6.29167C12.7465 6.29167 12.5694 6.36806 12.4167 6.52083L10 8.9375L7.58333 6.52083C7.43056 6.36806 7.25694 6.29167 7.0625 6.29167C6.86806 6.29167 6.69444 6.36806 6.54167 6.52083C6.38889 6.67361 6.3125 6.85069 6.3125 7.05208C6.3125 7.25347 6.38826 7.43056 6.53979 7.58333L8.9375 10L6.52083 12.4167C6.36806 12.5694 6.29514 12.7431 6.30208 12.9375C6.30903 13.1319 6.38889 13.3056 6.54167 13.4583C6.69444 13.6111 6.87153 13.6875 7.07292 13.6875C7.27431 13.6875 7.45076 13.6117 7.60229 13.4602L10 11.0625ZM10.0058 18C8.90472 18 7.86806 17.7917 6.89583 17.375C5.92361 16.9583 5.07292 16.3854 4.34375 15.6562C3.61458 14.9271 3.04167 14.0767 2.625 13.105C2.20833 12.1333 2 11.0951 2 9.99042C2 8.88569 2.20833 7.85069 2.625 6.88542C3.04167 5.92014 3.61458 5.07292 4.34375 4.34375C5.07292 3.61458 5.92333 3.04167 6.895 2.625C7.86667 2.20833 8.90486 2 10.0096 2C11.1143 2 12.1493 2.20833 13.1146 2.625C14.0799 3.04167 14.9271 3.61458 15.6562 4.34375C16.3854 5.07292 16.9583 5.92167 17.375 6.89C17.7917 7.85847 18 8.89319 18 9.99417C18 11.0953 17.7917 12.1319 17.375 13.1042C16.9583 14.0764 16.3854 14.9271 15.6562 15.6562C14.9271 16.3854 14.0783 16.9583 13.11 17.375C12.1415 17.7917 11.1068 18 10.0058 18Z"
+                                        fill="#C00000"
+                                      />
+                                    </g>
+                                  </svg>
+                                  {failedFiles.length}{" "}
+                                  {failedFiles.length === 1 ? "file" : "files"}{" "}
+                                  failed to upload.
+                                </p>
 
                                 <div className="text-red flex flex-col gap-2">
-                                  <p className="font-medium">Possible reasons of failure :</p>
+                                  <p className="font-medium">
+                                    Possible reasons of failure :
+                                  </p>
                                   <ol className="flex flex-col gap-2 ml-2 text-[14px]">
                                     <li className="flex">
                                       <p className="min-w-[10px]">1</p>
@@ -644,19 +745,16 @@ function Collection() {
                                           ? `${item.file.name.slice(0, 16)}...`
                                           : item.file.name}
                                       </div>
-
                                     </>
                                   ))}
                                 </div>
-
                               </div>
                             </>
-                          }
+                          )}
                         </div>
-                      }
+                      )}
                     </>
                   )}
-
                 </div>
               ) : (
                 <input
@@ -703,17 +801,18 @@ function Collection() {
                   onClick={() => {
                     setIsCreateFolder(false);
                     setFolderName("Untitled folder");
-                    setCount("")
-                    setFiles([])
-                    setUploadCount(0)
-                    setFailedFiles([])
-                    setDuplicateFiles([])
+                    setCount("");
+                    setFiles([]);
+                    setUploadCount(0);
+                    setFailedFiles([]);
+                    setDuplicateFiles([]);
                     getData();
+                    getUnSyncFiles()
                   }}
                 >
-                  Cancel
+                  Close
                 </button>
-                {count <= 0 &&
+                {count <= 0 && (
                   <button
                     //  id="border_button"
                     disabled={
@@ -724,7 +823,9 @@ function Collection() {
                       minWidth: "80px",
                       opacity:
                         fileLoader ||
-                          (isFile ? Object.values(files).length === 0 : !folderName)
+                          (isFile
+                            ? Object.values(files).length === 0
+                            : !folderName)
                           ? 0.5
                           : 1,
                     }}
@@ -752,7 +853,7 @@ function Collection() {
                       <>{isFile ? "Add Files" : "Create"}</>
                     )}
                   </button>
-                }
+                )}
               </div>
             </div>
           </div>
@@ -941,6 +1042,7 @@ function Collection() {
 
           <Folders
             folderData={folderData}
+            unSyncFiles={unSyncFiles}
             setFolderData={setFolderData}
             tabIndex={tabIndex}
             setTabIndex={setTabIndex}

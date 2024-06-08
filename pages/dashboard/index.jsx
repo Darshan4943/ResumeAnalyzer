@@ -7,7 +7,42 @@ import { useRouter } from "next/router";
 import { plans, templates } from "../../utils/data";
 import axios from "axios";
 import { useRef } from "react";
-
+import {
+  PDFViewer,
+  PDFDownloadLink,
+  Document,
+  Page,
+  BlobProvider,
+  pdf,
+} from "@react-pdf/renderer";
+import MiniLoader from "../../components/common/mini-loader";
+import Template1 from "../../components/featured/resumeTemplates/Template1";
+import Template2 from "../../components/featured/resumeTemplates/Template2";
+import Template3 from "../../components/featured/resumeTemplates/Template3";
+import Template4 from "../../components/featured/resumeTemplates/Template4";
+import Template5 from "../../components/featured/resumeTemplates/Template5";
+import Template6 from "../../components/featured/resumeTemplates/Template6";
+import Template7 from "../../components/featured/resumeTemplates/Template7";
+import Template8 from "../../components/featured/resumeTemplates/Template8";
+import Template9 from "../../components/featured/resumeTemplates/Template9";
+import Template10 from "../../components/featured/resumeTemplates/Template10";
+import Template11 from "../../components/featured/resumeTemplates/Template11";
+import Template12 from "../../components/featured/resumeTemplates/Template12";
+import Template13 from "../../components/featured/resumeTemplates/Template13";
+import Template14 from "../../components/featured/resumeTemplates/Template14";
+import Template15 from "../../components/featured/resumeTemplates/Template15";
+import Template16 from "../../components/featured/resumeTemplates/Template16";
+import Template17 from "../../components/featured/resumeTemplates/Template17";
+import Template18 from "../../components/featured/resumeTemplates/Template18";
+import Template19 from "../../components/featured/resumeTemplates/Template19";
+import Template20 from "../../components/featured/resumeTemplates/Template20";
+import Template44 from "../../components/featured/resumeTemplates/Template44";
+import Template32 from "../../components/featured/resumeTemplates/Template32";
+import Template39 from "../../components/featured/resumeTemplates/Template39";
+import Template48 from "../../components/featured/resumeTemplates/Template48";
+import Template47 from "../../components/featured/resumeTemplates/Template47";
+import Template30 from "../../components/featured/resumeTemplates/Template30";
+import Template53 from "../../components/featured/resumeTemplates/Template53";
 function Dashboard() {
   const userDataGlobal = useSelector((state) => state.userData);
   const router = useRouter();
@@ -82,7 +117,11 @@ function Dashboard() {
     },
 
     { name: "Chat Bot", imgSrc: "/images/resumeBuilder/bot1.png", new: "New" },
-    { name: "My Website", imgSrc: "/images/resumeBuilder/website.png",new: "New" },
+    {
+      name: "My Website",
+      imgSrc: "/images/resumeBuilder/website.png",
+      new: "New",
+    },
     // { name: "Search Jobs", imgSrc: "/images/resumeBuilder/job.png" },
     { name: "My Purchases", imgSrc: "/images/resumeBuilder/my_purchases.png" },
   ];
@@ -140,7 +179,7 @@ function Dashboard() {
       case "My Purchases":
         handleNavigation("/purchase/MyPurchase");
         break;
-         case "My Website":
+      case "My Website":
         handleNavigation("/myWebsite");
         break;
       case "Chat Bot":
@@ -222,6 +261,7 @@ function Dashboard() {
     // }
   }, [userDataGlobal]);
 
+  const [resumeData, setResumeData] = useState([]);
   useEffect(() => {
     if (typeof window !== "undefined") {
       const storedData = localStorage.getItem("userData");
@@ -229,8 +269,13 @@ function Dashboard() {
         setData(JSON.parse(storedData));
       }
       // setIsClient(true);
+
+      const resume = localStorage.getItem("resumeData");
+      if (resume) {
+        setResumeData(JSON.parse(resume));
+      }
     }
-  }, []);
+  }, [userDataGlobal]);
 
   // const MyComponent = ({ selectedResumeIndex }) => {
   //   console.log(220, selectedResumeIndex);
@@ -258,7 +303,242 @@ function Dashboard() {
     }
     return false;
   }
+  const selectResumeTemplate = (index) => {
+    switch (index) {
+      case 1:
+        return (
+          <Template1
+            data={data}
+            selectedColor={resumeData.selectedColor}
+            selectedFont={resumeData.selectedFont}
+          />
+        );
+      case 2:
+        return (
+          <Template2
+            data={data}
+            selectedColor={resumeData.selectedColor}
+            selectedFont={resumeData.selectedFont}
+          />
+        );
+      case 3:
+        return (
+          <Template3
+            data={data}
+            selectedColor={resumeData.selectedColor}
+            selectedFont={resumeData.selectedFont}
+          />
+        );
+      case 4:
+        return (
+          <Template4
+            data={data}
+            selectedColor={resumeData.selectedColor}
+            selectedFont={resumeData.selectedFont}
+          />
+        );
+      case 5:
+        return (
+          <Template5
+            data={data}
+            selectedColor={resumeData.selectedColor}
+            selectedFont={resumeData.selectedFont}
+          />
+        );
+      case 6:
+        return (
+          <Template6
+            data={data}
+            selectedColor={resumeData.selectedColor}
+            selectedFont={resumeData.selectedFont}
+          />
+        );
+      case 7:
+        return (
+          <Template7
+            data={data}
+            selectedColor={resumeData.selectedColor}
+            selectedFont={resumeData.selectedFont}
+          />
+        );
+      case 8:
+        return (
+          <Template8
+            data={data}
+            selectedColor={resumeData.selectedColor}
+            selectedFont={resumeData.selectedFont}
+          />
+        );
+      case 9:
+        return (
+          <Template9
+            data={data}
+            selectedColor={resumeData.selectedColor}
+            selectedFont={resumeData.selectedFont}
+          />
+        );
+      case 10:
+        return (
+          <Template10
+            data={data}
+            selectedColor={resumeData.selectedColor}
+            selectedFont={resumeData.selectedFont}
+          />
+        );
+      case 11:
+        return (
+          <Template11
+            data={data}
+            selectedColor={resumeData.selectedColor}
+            selectedFont={resumeData.selectedFont}
+          />
+        );
+      case 12:
+        return (
+          <Template12
+            data={data}
+            selectedColor={resumeData.selectedColor}
+            selectedFont={resumeData.selectedFont}
+          />
+        );
+      case 13:
+        return (
+          <Template13
+            data={data}
+            selectedColor={resumeData.selectedColor}
+            selectedFont={resumeData.selectedFont}
+          />
+        );
+      case 14:
+        return (
+          <Template14
+            data={data}
+            selectedColor={resumeData.selectedColor}
+            selectedFont={resumeData.selectedFont}
+          />
+        );
+      case 15:
+        return (
+          <Template15
+            data={data}
+            selectedColor={resumeData.selectedColor}
+            selectedFont={resumeData.selectedFont}
+          />
+        );
+      case 16:
+        return (
+          <Template16
+            data={data}
+            selectedColor={resumeData.selectedColor}
+            selectedFont={resumeData.selectedFont}
+          />
+        );
+      case 17:
+        return (
+          <Template17
+            data={data}
+            selectedColor={resumeData.selectedColor}
+            selectedFont={dresumeDataata.selectedFont}
+          />
+        );
+      case 18:
+        return (
+          <Template18
+            data={data}
+            selectedColor={resumeData.selectedColor}
+            selectedFont={resumeData.selectedFont}
+          />
+        );
+      case 19:
+        return (
+          <Template19
+            data={data}
+            selectedColor={resumeData.selectedColor}
+            selectedFont={resumeData.selectedFont}
+          />
+        );
+      case 20:
+        return (
+          <Template20
+            data={data}
+            selectedColor={resumeData.selectedColor}
+            selectedFont={resumeData.selectedFont}
+          />
+        );
+      case 44:
+        return (
+          <Template44
+            data={data}
+            selectedColor={resumeData.selectedColor}
+            selectedFont={resumeData.selectedFont}
+          />
+        );
+      case 32:
+        return (
+          <Template32
+            data={data}
+            selectedColor={resumeData.selectedColor}
+            selectedFont={resumeData.selectedFont}
+          />
+        );
+      case 39:
+        return (
+          <Template39
+            data={data}
+            selectedColor={resumeData.selectedColor}
+            selectedFont={resumeData.selectedFont}
+          />
+        );
+      case 48:
+        return (
+          <Template48
+            data={data}
+            selectedColor={resumeData.selectedColor}
+            selectedFont={resumeData.selectedFont}
+          />
+        );
+      case 47:
+        return (
+          <Template47
+            data={data}
+            selectedColor={resumeData.selectedColor}
+            selectedFont={resumeData.selectedFont}
+          />
+        );
+      case 30:
+        return (
+          <Template30
+            data={data}
+            selectedColor={resumeData.selectedColor}
+            selectedFont={resumeData.selectedFont}
+          />
+        );
+      case 53:
+        return (
+          <Template53
+            data={data}
+            selectedColor={resumeData.selectedColor}
+            selectedFont={resumeData.selectedFont}
+          />
+        );
+      default:
+        return (
+          <Template1
+            data={data}
+            selectedColor={resumeData.selectedColor}
+            selectedFont={resumeData.selectedFont}
+          />
+        );
+    }
+  };
 
+  const MyComponent = () => {
+    return (
+      <Document dpi={72}>
+        {selectResumeTemplate(resumeData.selectedResumeIndex)}
+      </Document>
+    );
+  };
 
   return (
     <div className="customMargins flex flex-col gap-12 py-6 min-h-[70vh]">
@@ -410,92 +690,103 @@ function Dashboard() {
         ))}
       </div>
 
-      {userDataGlobal.role === "user" &&
+      {/* {userDataGlobal.role === "user" &&
         data !== undefined &&
         hasNonEmptyKey(data) && (
-          <div className="flex gap-6 flex-wrap flex-col sm:items-start items-center ">
-            <div className="text-[24px] font-Montserrat font-medium">
-              Continue where you left
-            </div>
-            <div className="w-[35%] sm:min-w-[400px] min-w-[250px] items-start justify-center gap-[36px] sm:gap-[12px] p-[24px] bg-[#F9F9F9] rounded-[24px] flex sm:flex-row flex-col">
-              <div className="w-[50%] min-w-[200px] h-full">
-                {templates.find(
-                  (item) => item.index === data.selectedResumeIndex
-                ) && (
-                    <img
-                      src={
-                        templates.find(
-                          (item) => item.index === data.selectedResumeIndex
-                        ).imgUrl
-                      }
-                      style={{
-                        height: "100%",
-                        width: "90%",
-                        objectFit: "cover",
-                      }}
-                      alt={`Resume template ${data.selectedResumeIndex}`} // Adding an alt attribute for accessibility
-                    />
-                  )}
-              </div>
-
-              <div className="w-[40%] flex flex-col gap-4 min-w-[160px]">
-                <span className="font-Montserrat text-[16px] font-medium text-[#333333] break-all">
-                  {data.firstName}_resume.pdf
-                </span>
-                {data?.createdAt && data.createdAt !== "" && (
-                  <span className="font-Montserrat text-[14px] text-[#808080]">
-                    Updated on {formatDate(data.createdAt)}
-                  </span>
-                )}
-
-                <div
-                  onClick={() => {
-                    localStorage.removeItem("parsedResume");
-                    // router.push(
-                    //   `/home/createResume?clientId=${
-                    //     data?.clientId
-                    //   }&continueEdit=${true}`
-                    // );
-
-                    router.push(
-                      `/home/createResume?clientId=${data?.clientId}&continueEdit=true`
-                    );
-                  }}
-                >
-                  <div className="flex flex-row gap-2 cursor-pointer">
-                    <svg
-                      width="25"
-                      height="24"
-                      viewBox="0 0 25 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <g mask="url(#mask0_2918_34640)">
-                        <path
-                          d="M5.86719 19H7.29219L17.0672 9.225L15.6422 7.8L5.86719 17.575V19ZM3.86719 21V16.75L17.0672 3.575C17.2672 3.39167 17.488 3.25 17.7297 3.15C17.9714 3.05 18.2255 3 18.4922 3C18.7589 3 19.0172 3.05 19.2672 3.15C19.5172 3.25 19.7339 3.4 19.9172 3.6L21.2922 5C21.4922 5.18333 21.638 5.4 21.7297 5.65C21.8214 5.9 21.8672 6.15 21.8672 6.4C21.8672 6.66667 21.8214 6.92083 21.7297 7.1625C21.638 7.40417 21.4922 7.625 21.2922 7.825L8.11719 21H3.86719ZM16.3422 8.525L15.6422 7.8L17.0672 9.225L16.3422 8.525Z"
-                          fill="#06A9EF"
-                        />
-                      </g>
-                    </svg>
-
-                    <p className="font-Montserrat text-[16px] font-medium text-[#333333]">
-                      Edit
-                    </p>
+          <div className="flex gap-[46px] flex-wrap flex-col sm:items-start items-center ">
+            {resumeData.selectedResumeIndex !== undefined &&
+              resumeData.selectedColor !== undefined &&
+              resumeData.selectedFont !== undefined && (
+                <>
+                  <div className="text-[18px] font-Montserrat font-semibold">
+                    Continue where you left
                   </div>
-                </div>
-                <button
-                  className="w-[130px] h-[36px] px-[6px] py-[6px] rounded-[8px] border border-blue hover:bg-[#06A9EF] hover:text-[#FFFFFF] text-[14px] font-medium"
-                  onClick={() => {
-                    localStorage.removeItem("userData");
-                    window.location.href = "/";
-                  }}
-                >
-                  Cancel
-                </button>
-              </div>
-            </div>
+                  <div className="w-[40%] ms:min-w-[500px] min-w-[280px] items-start justify-between gap-[46px] sm:gap-[12px] p-[24px] bg-[#F9F9F9] rounded-[24px] flex sm:flex-row flex-col">
+                  
+
+                    <div className=" w-[250px] ms:flex items-center justify-center rounded-[8px] relative hidden ">
+                    
+
+                      <PDFViewer
+                        width="250px"
+                        height="330px"
+                        showToolbar={false}
+                      >
+                        <MyComponent />
+                      </PDFViewer>
+
+                     
+                    </div>
+
+                    <div className="w-[40%] flex flex-col gap-4 ms:min-w-[160px] min-w-[200px]">
+                      <span className="font-Montserrat text-[18px] font-medium text-[#333333] break-all">
+                        {data.firstName}_resume.pdf
+                      </span>
+                      {data?.createdAt && data.createdAt !== "" && (
+                        <span className="font-Montserrat text-[14px] text-[#808080] font-medium">
+                          Updated on {formatDate(data.createdAt)}
+                        </span>
+                      )}
+
+                      <div
+                        onClick={() => {
+                          localStorage.removeItem("parsedResume");
+                         
+                          router.push(
+                            `/home/createResume?clientId=${data?.clientId}&continueEdit=true`
+                          );
+                        }}
+                      >
+                        <div className="flex flex-row gap-2 cursor-pointer">
+                          <svg
+                            width="24"
+                            height="24"
+                            viewBox="0 0 25 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <g mask="url(#mask0_2918_34640)">
+                              <path
+                                d="M5.86719 19H7.29219L17.0672 9.225L15.6422 7.8L5.86719 17.575V19ZM3.86719 21V16.75L17.0672 3.575C17.2672 3.39167 17.488 3.25 17.7297 3.15C17.9714 3.05 18.2255 3 18.4922 3C18.7589 3 19.0172 3.05 19.2672 3.15C19.5172 3.25 19.7339 3.4 19.9172 3.6L21.2922 5C21.4922 5.18333 21.638 5.4 21.7297 5.65C21.8214 5.9 21.8672 6.15 21.8672 6.4C21.8672 6.66667 21.8214 6.92083 21.7297 7.1625C21.638 7.40417 21.4922 7.625 21.2922 7.825L8.11719 21H3.86719ZM16.3422 8.525L15.6422 7.8L17.0672 9.225L16.3422 8.525Z"
+                                fill="#06A9EF"
+                              />
+                            </g>
+                          </svg>
+
+                          <p className="font-Montserrat text-[14px] font-semibold text-[#333333]">
+                            Edit
+                          </p>
+                        </div>
+                      </div>
+                      <button
+                        className="w-[130px] h-[36px]  flex gap-2  text-red rounded-[8px]  text-[14px] font-medium"
+                        onClick={() => {
+                          localStorage.removeItem("userData");
+                          window.location.href = "/";
+                        }}
+                      >
+                        <svg
+                          width="20"
+                          height="20"
+                          viewBox="0 0 20 20"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <g mask="url(#mask0_2918_34666)">
+                            <path
+                              d="M6.75772 16.5841C6.38795 16.5841 6.07223 16.4533 5.81053 16.1916C5.54882 15.9299 5.41797 15.6141 5.41797 15.2444V5.50082H4.41797V4.4175H8.00128V3.51367H12.0013V4.4175H15.5846V5.50082H14.5846V15.2353C14.5846 15.6206 14.4551 15.9418 14.1961 16.1987C13.937 16.4557 13.62 16.5841 13.2448 16.5841H6.75772ZM13.5013 5.50082H6.50128V15.2444C6.50128 15.3192 6.52532 15.3806 6.57341 15.4287C6.62149 15.4768 6.68293 15.5008 6.75772 15.5008H13.2448C13.309 15.5008 13.3677 15.4741 13.4212 15.4207C13.4746 15.3673 13.5013 15.3085 13.5013 15.2444V5.50082ZM8.33784 14.0008H9.42116V7.00082H8.33784V14.0008ZM10.5814 14.0008H11.6647V7.00082H10.5814V14.0008Z"
+                              fill="#C00000"
+                            />
+                          </g>
+                        </svg>
+                        Delete
+                      </button>
+                    </div>
+                  </div>
+                </>
+              )}
           </div>
-        )}
+        )} */}
     </div>
   );
 }

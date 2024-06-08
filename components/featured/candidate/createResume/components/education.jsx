@@ -25,24 +25,41 @@ const Education = ({ setData, data }) => {
     },
   });
 
+  useEffect(() => {
+    if (data) {
+      if (data?.showEducation === true) {
+        setIsChecked(true);
+      } else {
+        setIsChecked(false);
+      }
+    }
+  }, [data]);
+
   const handleSwitchChange = () => {
     setIsChecked(!isChecked);
     setData({ ...data, showEducation: !isChecked });
   };
+  
+  const errorMessages = {
+    qualification: "Course name is required",
+    specialization: "Specialization / Board is required",
+    instituteName: "University Name is required",
+  };
+  
   const handleInputChangeEducation = (e) => {
     const { name, value } = e.target;
-    setEducationData({
-      ...educationData,
+    
+    setEducationData((prevData) => ({
+      ...prevData,
       [name]: value,
-    });
+    }));
+    
     setErrors((prevErrors) => ({
       ...prevErrors,
-      [name]:
-        value.trim() === ""
-          ? `${name.charAt(0).toUpperCase() + name.slice(1)} is required`
-          : "",
+      [name]: value.trim() === "" ? errorMessages[name] : "",
     }));
   };
+  
   const handleDeleteEducation = (index) => {
     setData({
       ...data,
@@ -114,7 +131,7 @@ const Education = ({ setData, data }) => {
   return (
     <>
       <div
-        className="flex flex-col p-4 gap-2 rounded-lg bg-white"
+        className="flex flex-col py-4 gap-2 rounded-lg bg-white"
         style={{
           // boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25) ",
           opacity: isChecked ? 1 : 0.5,
@@ -177,7 +194,7 @@ const Education = ({ setData, data }) => {
           </div>
         ))}
 
-        {view && (
+        {(view || data?.education?.length <=0 )&& (
           <div>
             <div className="flex flex-col gap-3">
               <div className="flex flex-col gap-2 w-full">
@@ -306,7 +323,8 @@ const Education = ({ setData, data }) => {
             <div className="flex justify-end ">
               <div className="flex justify-between  py-2 gap-2">
                 <button
-                  className=" font-montserrat text-xs font-semibold px-[12px] rounded-[8px] border border-[#06A9EF] w-[80px] h-[32px]"
+                disabled={ data?.education?.length <=0 }
+                  className={`font-montserrat text-xs font-semibold px-[12px] rounded-[8px] border border-[#06A9EF] w-[80px] h-[32px] ${ data?.education?.length <=0 && "opacity-40"}`}
                   onClick={() => setView(false)}
                 >
                   Cancel
@@ -324,7 +342,7 @@ const Education = ({ setData, data }) => {
             </div>
           </div>
         )}
-        {!view && (
+        {(!view && data?.education?.length >0 ) && (
           <div
             className="flex gap-1"
             onClick={() => {

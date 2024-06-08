@@ -235,6 +235,12 @@ export const getFileSize = (url) => {
     });
 };
 
+export const formatLink = (link) => {
+  if (link?.length > 25) {
+    return link?.match(/.{1,25}/g).join('\n');  }
+  return link;
+};
+
 export const selectResumeTemplate = (
   index,
   data,

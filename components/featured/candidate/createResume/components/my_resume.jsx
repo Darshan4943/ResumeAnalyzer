@@ -16,7 +16,7 @@ const ResumeList = ({ data, setData }) => {
   };
   const [croppedImage, setCroppedImage] = useState(null);
 
-  // console.log(2, croppedImage)
+  console.log(2, croppedImage)
   // console.log(1, file)
   // console.log(3, data.profilePhoto)
   const handleFileChange = async (event) => {
@@ -165,7 +165,7 @@ const ResumeList = ({ data, setData }) => {
         </svg>
       </div> */}
       <div
-        className="flex flex-col gap-4 p-4 bg-white rounded-lg"
+        className="flex flex-col gap-4 py-4 bg-white rounded-lg"
         // style={{ boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)" }}
       >
         <p className="text-[20px] font-medium">Upload Photo</p>

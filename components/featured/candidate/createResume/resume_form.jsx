@@ -20,6 +20,8 @@ import CustomSection from "./components/customSection";
 import ExtraCaricularActivity from "./components/extraCaricularActivity";
 import CouersesAndCertification from "./components/couersesAndCertification";
 import ProjectSection from "./components/projectSection";
+import Project from "./components/projects";
+import { useRouter } from "next/router";
 
 const ResumeForm = ({
   setData,
@@ -34,12 +36,56 @@ const ResumeForm = ({
 }) => {
   const [formField, setFormField] = useState([]);
   const [view, setView] = useState(false);
+  const [isChecked, setIsChecked] = useState(true);
+  const router = useRouter();
+  const handleSwitchChange = () => {
+    setIsChecked(!isChecked);
+    setData({ ...data, showCustomSection: !isChecked });
+  };
+
+  useEffect(() => {
+    if (data) {
+      if (data?.showCustomSection === true) {
+        setIsChecked(true);
+      } else {
+        setIsChecked(false);
+      }
+    }
+  }, [data]);
+ 
+
   useEffect(() => {
     setFormField(
       templates.find((item) => item.index == selectedResumeIndex)?.formFields
     );
   }, [selectedResumeIndex]);
 
+  const hobbiesRef = useRef(null);
+  const languagesRef = useRef(null);
+  const achievementsRef = useRef(null);
+  const socialLinksRef = useRef(null);
+  const referenceRef = useRef(null);
+  const projectRef = useRef(null);
+  const internshipRef = useRef(null);
+  const extraCurricularRef = useRef(null);
+  const coursesRef = useRef(null);
+  const customRef = useRef(null);
+
+  // const scrollToSection = (ref) => {
+  //   if (ref.current) {
+  //     console.log("current", ref.current);
+  //     ref.current.scrollIntoView({ behavior: "smooth" });
+  //   }
+  // };
+
+  const [achievementView, setAchievementView] = useState(false);
+  const [referenceView, setReferenceView] = useState(false);
+  const [linkView, setLinkView] = useState(false);
+  const [projectView, setProjectView] = useState(false);
+  const [internshipsView, setInternshipsView] = useState(false);
+  const [extraCurricularView, setExtraCurricularView] = useState(false);
+  const [coursesView, setCoursesView] = useState(false);
+  const [customSectionView, setCustomSectionView] = useState(false);
   const [course, setCourse] = useState(false);
   const [languages, setLanguages] = useState(false);
   const [hobbies, setHobbies] = useState(false);
@@ -48,16 +94,34 @@ const ResumeForm = ({
   const [showReference, setShowReference] = useState(false);
   const [isAll, setIsAll] = useState(false);
 
+  const [showingSection, setShowingSection] = useState([]);
+
   const [customOptions, setCustomOptions] = useState({
-    "Custom Section": false,
-    "Extra-Curriculum Activities": false,
-    "Courses & Certifications": false,
-    "Internships & Projects": false,
     Hobbies: false,
     Languages: false,
     "Achievements & Awards": false,
     References: false,
-    "Social Links": false,
+    Links: false,
+
+    "Extra Activities": false,
+    "Courses & Certifications": false,
+    Internships: false,
+    Project: false,
+    "Custom Section": false,
+  });
+
+  const [viewAllSection, setViewAllSection] = useState({
+    Hobbies: false,
+    Languages: false,
+    "Achievements & Awards": false,
+    References: false,
+    Links: false,
+
+    "Extra Activities": false,
+    "Courses & Certifications": false,
+    Internships: false,
+    Project: false,
+    "Custom Section": false,
   });
 
   const handleImageClick = (template) => {
@@ -65,6 +129,22 @@ const ResumeForm = ({
     setSelectedColor(template.themeColor);
     setSelectedFont(template.fontFamily);
   };
+
+  const [scrollTarget, setScrollTarget] = useState(null);
+
+  const scrollToSection = (ref) => {
+    setScrollTarget(ref);
+  };
+
+  useEffect(() => {
+    if (scrollTarget && scrollTarget.current) {
+      scrollTarget.current.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+      setScrollTarget(null); // Reset the target after scrolling
+    }
+  }, [scrollTarget]);
 
   const togglePreview = (isVisible, index) => {
     setSelectedResumeIndex(index);
@@ -121,6 +201,31 @@ const ResumeForm = ({
   return (
     <>
       <div className="flex flex-col pr-[10px] ml:w-[100%] w-[100%]  pb-4 gap-4 rounded-lg ">
+      <div className="ml:flex hidden  flex-row gap-4 ">
+          <button className="p-[8px] border-[1px] bg-blue border-[#DEDEDE] rounded-[6px]  "
+          style={{}}>
+          <svg
+            className=" cursor-pointer"
+            onClick={() => router.push("/home/BuildResume")}
+            width="24"
+            height="24"
+            viewBox="0 0 40 40"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g mask="url(#mask0_629_16604)">
+              <path
+                d="M11.9583 21.3892L21.9584 31.3892L20 33.3337L6.66669 20.0003L20 6.66699L21.9584 8.61141L11.9583 18.6115H33.3334V21.3892H11.9583Z"
+                fill="white"
+              />
+            </g>
+          </svg>
+          </button>
+        <div className="text-[18px] font-medium text-[#FFFFFF]  header1 w-[280px] flex justify-start px-4 py-[6px] ">
+         Create Resume
+      </div>
+
+        </div>
         <div className="rounded-[8px] bg-[#BCEBFF]  px-4 pt-[10px] ">
           <div
             className="flex gap-4 pb-[10px]  items-center"
@@ -143,9 +248,95 @@ const ResumeForm = ({
               <div
                 ref={taskRef}
                 onWheel={(e) => e.stopPropagation()}
-                className=" absolute top-[72px] flex p-6 bg-white rounded-[24px] shadow-md  gap-6 flex-wrap justify-center items-center ml:w-[65%] w-[90%] h-[90vh] overflow-y-auto "
+                className=" absolute top-[42px] flex p-6 bg-white rounded-[24px] shadow-md  gap-6 flex-wrap justify-center items-center ml:w-[65%] w-[90%] h-[90vh] overflow-y-auto "
               >
                 {renderAllTemplates()}
+                <div
+                  className="absolute top-[12px] right-[10px]  cursor-pointer  web "
+                  onClick={() => setIsAll(false)}
+                >
+                  <svg
+                    width="28"
+                    height="28"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <g mask="url(#mask0_3995_39638)">
+                      <path
+                        d="M6.4 19L5 17.6L10.6 12L5 6.4L6.4 5L12 10.6L17.6 5L19 6.4L13.4 12L19 17.6L17.6 19L12 13.4L6.4 19Z"
+                        fill="#333333"
+                      />
+                    </g>
+                  </svg>
+                </div>
+              </div>
+              <div
+                className="absolute bottom-[35px] mobile cursor-pointer  "
+                onClick={() => setIsAll(false)}
+              >
+                <svg
+                  width="48"
+                  height="48"
+                  viewBox="0 0 48 48"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g filter="url(#filter0_d_3995_39637)">
+                    <rect
+                      x="4"
+                      y="3"
+                      width="40"
+                      height="40"
+                      rx="20"
+                      fill="white"
+                    />
+
+                    <g mask="url(#mask0_3995_39637)">
+                      <path
+                        d="M18.4 30L17 28.6L22.6 23L17 17.4L18.4 16L24 21.6L29.6 16L31 17.4L25.4 23L31 28.6L29.6 30L24 24.4L18.4 30Z"
+                        fill="#333333"
+                      />
+                    </g>
+                  </g>
+                  <defs>
+                    <filter
+                      id="filter0_d_3995_39637"
+                      x="0"
+                      y="0"
+                      width="48"
+                      height="48"
+                      filterUnits="userSpaceOnUse"
+                      color-interpolation-filters="sRGB"
+                    >
+                      <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                      <feColorMatrix
+                        in="SourceAlpha"
+                        type="matrix"
+                        values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+                        result="hardAlpha"
+                      />
+                      <feOffset dy="1" />
+                      <feGaussianBlur stdDeviation="2" />
+                      <feComposite in2="hardAlpha" operator="out" />
+                      <feColorMatrix
+                        type="matrix"
+                        values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"
+                      />
+                      <feBlend
+                        mode="normal"
+                        in2="BackgroundImageFix"
+                        result="effect1_dropShadow_3995_39637"
+                      />
+                      <feBlend
+                        mode="normal"
+                        in="SourceGraphic"
+                        in2="effect1_dropShadow_3995_39637"
+                        result="shape"
+                      />
+                    </filter>
+                  </defs>
+                </svg>
               </div>
             </div>
           </div>
@@ -183,8 +374,8 @@ const ResumeForm = ({
 
         <Skills setData={setData} data={data} />
         <div className="border-b border-r border-l border-[#DEDEDE]"></div>
-{/* 
-        {(data?.customDataSection?.length > 0 ||
+
+        {/* {(data?.customDataSection?.length > 0 ||
           customOptions["Custom Section"]) && (
           <>
             <CustomSection
@@ -195,93 +386,223 @@ const ResumeForm = ({
             />
             <div className="border-b border-r border-l border-[#DEDEDE]"></div>
           </>
+        )} */}
+
+        {(data?.achievements?.length > 0 ||
+          customOptions["Achievements & Awards"]) && (
+          <div ref={achievementsRef}>
+            <>
+              <Achievement
+                setData={setData}
+                data={data}
+                achievementView={achievementView}
+                setAchievementView={setAchievementView}
+                setCustomOptions={setCustomOptions}
+              />
+              <div className="border-b border-r border-l border-[#DEDEDE]"></div>
+            </>
+          </div>
+        )}
+        {(data?.socialLinks?.length > 0 || customOptions?.Links) && (
+          <div ref={socialLinksRef}>
+            <>
+              <SocialLink
+                setData={setData}
+                data={data}
+                linkView={linkView}
+                setLinkView={setLinkView}
+                setCustomOptions={setCustomOptions}
+              />
+              <div className="border-b border-r border-l border-[#DEDEDE]"></div>
+            </>
+          </div>
         )}
 
+        {(data?.languages?.length > 0 || customOptions?.Languages) && (
+          <div ref={languagesRef}>
+            <>
+              <Languages
+                setData={setData}
+                data={data}
+                setCustomOptions={setCustomOptions}
+              />
+              <div className="border-b border-r border-l border-[#DEDEDE]"></div>
+            </>
+          </div>
+        )}
+        {(data?.hobbies?.length > 0 || customOptions?.Hobbies) && (
+          <div ref={hobbiesRef}>
+            <>
+              <Hobbie
+                setData={setData}
+                data={data}
+                setCustomOptions={setCustomOptions}
+                customOptions={customOptions}
+              />
+              <div className="border-b border-r border-l border-[#DEDEDE]"></div>
+            </>
+          </div>
+        )}
+        {(data?.reference?.length > 0 || customOptions?.References) && (
+          <div ref={referenceRef}>
+            <>
+              <Reference
+                setData={setData}
+                data={data}
+                referenceView={referenceView}
+                setReferenceView={setReferenceView}
+                setCustomOptions={setCustomOptions}
+              />
+              <div className="border-b border-r border-l border-[#DEDEDE]"></div>
+            </>
+          </div>
+        )}
+        {(data?.project?.length > 0 || customOptions?.Project) && (
+          <div ref={projectRef}>
+            <>
+              <Project
+                setData={setData}
+                data={data}
+                projectView={projectView}
+                setProjectView={setProjectView}
+                setCustomOptions={setCustomOptions}
+              />
+              <div className="border-b border-r border-l border-[#DEDEDE]"></div>
+            </>
+          </div>
+        )}
+        {(data?.internship?.length > 0 || customOptions["Internships"]) && (
+          <div ref={internshipRef}>
+            <>
+              <ProjectSection
+                setData={setData}
+                data={data}
+                internshipsView={internshipsView}
+                setInternshipsView={setInternshipsView}
+                setCustomOptions={setCustomOptions}
+              />
+              <div className="border-b border-r border-l border-[#DEDEDE]"></div>
+            </>
+          </div>
+        )}
         {(data?.ExtraCaricularActivity?.length > 0 ||
-          customOptions["Extra-Curriculum Activities"]) && (
-          <>
-            <ExtraCaricularActivity
-              setData={setData}
-              data={data}
-              customOptions={customOptions}
-              setCustomOptions={setCustomOptions}
-            />
-            <div className="border-b border-r border-l border-[#DEDEDE]"></div>
-          </>
+          customOptions["Extra Activities"]) && (
+          <div ref={extraCurricularRef}>
+            <>
+              <ExtraCaricularActivity
+                setData={setData}
+                data={data}
+                customOptions={customOptions}
+                setCustomOptions={setCustomOptions}
+                extraCurricularView={extraCurricularView}
+                setExtraCurricularView={setExtraCurricularView}
+              />
+              <div className="border-b border-r border-l border-[#DEDEDE]"></div>
+            </>
+          </div>
         )}
         {(data?.course?.length > 0 ||
           customOptions["Courses & Certifications"]) && (
-          <>
-            <CouersesAndCertification setData={setData} data={data} />
-            <div className="border-b border-r border-l border-[#DEDEDE]"></div>
-          </>
+          <div ref={coursesRef}>
+            <>
+              <CouersesAndCertification
+                setData={setData}
+                data={data}
+                coursesView={coursesView}
+                setCoursesView={setCoursesView}
+                setCustomOptions={setCustomOptions}
+              />
+              <div className="border-b border-r border-l border-[#DEDEDE]"></div>
+            </>
+          </div>
         )}
-        {(data?.project?.length > 0 ||
-          customOptions["Internships & Projects"]) && (
-          <>
-            <ProjectSection setData={setData} data={data} />
-            <div className="border-b border-r border-l border-[#DEDEDE]"></div>
-          </>
-        )}
-        {(data?.hobbies?.length > 0 || customOptions.Hobbies) && (
-          <>
-            <Hobbie setData={setData} data={data} />
-            <div className="border-b border-r border-l border-[#DEDEDE]"></div>
-          </>
-        )}
+        {/* {customOptions["Custom Section"] && ( */}
+        {data?.section.length > 0 && (
+          <div
+            ref={customRef}
+            style={{
+              // boxShadow: "0px 0.5px 3px 0px rgba(0, 0, 0, 0.25)",
+              opacity: isChecked ? 1 : 0.5,
+            }}
+          >
+            <div className="text-[20px] flex justify-between font-medium pt-4">
+              Custom Sections
+              <label className="switch">
+                <input
+                  type="checkbox"
+                  checked={isChecked}
+                  onChange={handleSwitchChange}
+                />
+                <span className="slider round"></span>
+              </label>
+            </div>
+            {data?.section?.map((item, index) => (
+              <div key={index}>
+                <AddSection
+                  section={item.subSection}
+                  formData={item.subSection[0]}
+                  data={data}
+                  setData={setData}
+                  index={index}
+                  item={item}
+                  customSectionView={customSectionView}
+                  setCustomSectionView={setCustomSectionView}
+                  setCustomOptions={setCustomOptions}
+                />
 
-        {(data?.languages?.length > 0 || customOptions.Languages) && (
-          <>
-            <Languages setData={setData} data={data} />
-            <div className="border-b border-r border-l border-[#DEDEDE]"></div>
-          </>
+                <div className="border-b border-r border-l border-[#DEDEDE]"></div>
+              </div>
+            ))}
+          </div>
         )}
-
-        {(data?.achievement?.length > 0 ||
-          customOptions["Achievements & Awards"]) && (
-          <>
-            <Achievement setData={setData} data={data} />
-            <div className="border-b border-r border-l border-[#DEDEDE]"></div>
-          </>
-        )}
-
-        {(data?.reference?.length > 0 || customOptions.References) && (
-          <>
-            <Reference setData={setData} data={data} />
-            <div className="border-b border-r border-l border-[#DEDEDE]"></div>
-          </>
-        )}
-
-        {(data?.sociaLinks?.length > 0 || customOptions["Social Links"]) && (
-          <>
-            <SocialLink setData={setData} data={data} />
-            <div className="border-b border-r border-l border-[#DEDEDE]"></div>
-          </>
-        )}
+        {/* )} */}
 
         <AddNewSectionContainer
           setData={setData}
           data={data}
           customOptions={customOptions}
           setCustomOptions={setCustomOptions}
-        /> */}
+          setShowingSection={setShowingSection}
+          showingSection={showingSection}
+          hobbiesRef={hobbiesRef}
+          languagesRef={languagesRef}
+          achievementsRef={achievementsRef}
+          socialLinksRef={socialLinksRef}
+          referenceRef={referenceRef}
+          projectRef={projectRef}
+          internshipRef={internshipRef}
+          extraCurricularRef={extraCurricularRef}
+          coursesRef={coursesRef}
+          customRef={customRef}
+          scrollToSection={scrollToSection}
+          achievementView={achievementView}
+          setAchievementView={setAchievementView}
+          setLinkView={setLinkView}
+          setCustomSectionView={setCustomSectionView}
+          setCoursesView={setCoursesView}
+          setExtraCurricularView={setExtraCurricularView}
+          setInternshipsView={setInternshipsView}
+          setProjectView={setProjectView}
+          setReferenceView={setReferenceView}
+          customSectionView={customSectionView}
+        />
 
         {/* <Achievement setData={setData} data={data} /> */}
 
         {/* {formField?.includes("socialLinks") && (
           <SocialLink setData={setData} data={data} />
         )} */}
-        {formField?.includes("hobbies") && (
+        {/* {formField?.includes("hobbies") && (
           <>
             <Hobbie setData={setData} data={data} />
             <div className="border-b border-r border-l border-[#DEDEDE]"></div>
           </>
-        )}
+        )} */}
 
-        {formField?.includes("language") && (
+        {/* {formField?.includes("language") && (
           <Languages setData={setData} data={data} />
-        )}
-        {data?.section?.length > 0 && (
+        )} */}
+        {/* {data?.section?.length > 0 && (
           <>
             {data?.section?.map((item, index) => (
               <>
@@ -299,9 +620,9 @@ const ResumeForm = ({
               </>
             ))}
           </>
-        )}
+        )} */}
 
-        <div className="flex items-center gap-2 justify-end">
+        {/* <div className="flex items-center gap-2 justify-end">
           <div
             onClick={() => {
               setData({
@@ -318,8 +639,8 @@ const ResumeForm = ({
             className=" font-montserrat text-white font-medium text-[14px] px-[12px] rounded-[8px]  bg-[#06A9EF] h-[32px] flex items-center cursor-pointer btn_hover_effect "
           >
             <span className="text-[22px] mr-2">+</span> Add Section
-          </div>
-          </div>
+          </div> */}
+
         {/* <div onClick={() => setCourse(!course)} className=" font-montserrat text-white font-medium text-[14px] px-[12px] rounded-[8px]  bg-[#06A9EF] h-[32px] flex items-center cursor-pointer "
           >
             <span className="text-[22px] mr-2" >+</span> course
