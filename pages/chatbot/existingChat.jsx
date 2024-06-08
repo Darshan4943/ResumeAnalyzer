@@ -200,7 +200,9 @@ const ExistingChat = ({
                   onClick={() => {
                     setSelectedChat(null);
                     setIsNew(true);
+                   
                     createNewChat();
+                    
                   }}
                 >
                   <p className="text-[14px] font-[500] font-Montserrat">
@@ -213,7 +215,7 @@ const ExistingChat = ({
               </div>
               <div className="w-full overflow-y-auto ">
                 <div className="flex flex-col w-full p-6">
-                  <div className="flex flex-col h-[80vh] gap-6 ">
+                  <div className="flex flex-col h-[70vh] gap-6 ">
                     {Object.keys(existingChatDayWise).length > 0 ? (
                       <>
                         {" "}
@@ -352,10 +354,10 @@ const ExistingChat = ({
                 animate={{ x: "0%" }}
                 exit={{ x: "-100%" }}
                 transition={{ duration: 0.5, ease: "easeInOut" }}
-                className="absolute z-[2000] w-[90%] mt-[2rem] h-[90vh] rounded-r-[12px]  overflow-y-auto left-0  bg-[#FBFBFB]"
+                className="absolute z-[99] w-[90%] mt-[1px] h-[100vh] rounded-r-[12px] overflow-y-auto left-0  bg-[#FBFBFB]"
               >
                 <div className="w-full relative flex ">
-                  <div className="flex flex-col w-[100%] h-[100%]  ">
+                  <div className="flex flex-col w-[100%]   ">
                     <div className=" p-4 flex flex-col gap-4  ">
                       <div className="  flex flex-col gap-4  items-end ">
                         <div className="flex gap-3 items-center justify-between ">
@@ -392,6 +394,7 @@ const ExistingChat = ({
                           setSelectedChat(null);
                           setIsNew(true);
                           createNewChat();
+                          setIsSidebarOpen(!isSidebarOpen)
                         }}
                       >
                         <p className="text-[14px] font-[500] font-Montserrat">
