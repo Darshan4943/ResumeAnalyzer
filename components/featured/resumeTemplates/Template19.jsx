@@ -873,7 +873,8 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                             style={{
                               flexDirection: "row",
                               justifyContent: "space-between",
-                              gap: 10,
+                              // gap: 10,
+                              width:"100%"
                             }}
                           >
                             <Text
@@ -1069,6 +1070,7 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                   alignItems: "flex-start",
                   width: 268,
                 }}
+                wrap={false}
               >
                 <View
                   style={{
@@ -1120,6 +1122,7 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                               flexDirection: "row",
                               justifyContent: "space-between",
                               gap: 10,
+                              width:"100%"
                             }}
                           >
                             <Text
@@ -1128,8 +1131,7 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                                 color: "#000000",
                                 fontFamily: `${selectedFont} 400`,
                                 width: "70%",
-                                //
-                                //
+                                
                               }}
                             >
                               {detail.title}
@@ -1139,7 +1141,7 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                                 fontSize: 10,
                                 color: "#000000",
                                 fontFamily: `${selectedFont} 400`,
-                                width: "30%",
+                                width: "40%",
                                 //
                                 //
                               }}
