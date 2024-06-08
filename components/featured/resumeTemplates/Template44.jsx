@@ -691,8 +691,8 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
                   <View
                     key={index}
                     style={{ flexDirection: "column", gap: 4 }}
-                    // wrap={false}
-                  >
+                    wrap={false}
+                  >{detail.duration?.start?.year && (
                     <Text
                       style={{
                         fontFamily: `${selectedFont} 400`,
@@ -708,6 +708,7 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
                             : detail.duration?.end?.year
                         }`}
                     </Text>
+                  )}
                     <Text
                       style={{
                         fontFamily: `${selectedFont} 400`,
@@ -764,7 +765,7 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
                   style={{
                     gap: 4,
                   }}
-                >
+                >{detail.duration?.start?.year && (
                   <Text
                     style={{
                       fontFamily: `${selectedFont} 400`,
@@ -780,6 +781,7 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
                           : detail.duration?.end?.year
                       }`}
                   </Text>
+                )}
                   <Text
                     style={{
                       fontFamily: `${selectedFont} 400`,
@@ -833,8 +835,9 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
                   <View
                     key={index}
                     style={{ flexDirection: "column", gap: 4 }}
-                    // wrap={false}
+                    wrap={false}
                   >
+                    {detail.duration?.start?.year && (
                     <Text
                       style={{
                         fontFamily: `${selectedFont} 400`,
@@ -850,6 +853,7 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
                             : detail.duration?.end?.year
                         }`}
                     </Text>
+                    )}
                     <Text
                       style={{
                         fontFamily: `${selectedFont} 400`,
@@ -905,7 +909,7 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
                     key={index}
                     style={{ flexDirection: "column", gap: 4 }}
                     // wrap={false}
-                  >
+                  >{detail.duration?.start?.year && (
                     <Text
                       style={{
                         fontFamily: `${selectedFont} 400`,
@@ -921,7 +925,7 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
                             : detail.duration?.end?.year
                         }`}
                     </Text>
-
+                  )}
                     <Text
                       style={{
                         fontFamily: `${selectedFont} 400`,
@@ -978,6 +982,7 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
                     style={{ flexDirection: "column", gap: 4 }}
                     // wrap={false}
                   >
+                    {detail.duration?.start?.year && (
                     <Text
                       style={{
                         fontFamily: `${selectedFont} 400`,
@@ -993,7 +998,7 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
                             : detail.duration?.end?.year
                         }`}
                     </Text>
-
+                    )}
                     <Text
                       style={{
                         fontFamily: `${selectedFont} 400`,
@@ -1117,7 +1122,7 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
                       color: "#FFFFFF",
                     }}
                   >
-                    {item?.header}
+                    {item.header.toUpperCase()}
                   </Text>
                 </View>
                 {item?.subSection?.map((detail, index) => (

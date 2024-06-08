@@ -690,7 +690,7 @@ function Dashboard() {
         ))}
       </div>
 
-      {userDataGlobal.role === "user" &&
+      {/* {userDataGlobal.role === "user" &&
         data !== undefined &&
         hasNonEmptyKey(data) && (
           <div className="flex gap-[46px] flex-wrap flex-col sm:items-start items-center ">
@@ -702,32 +702,10 @@ function Dashboard() {
                     Continue where you left
                   </div>
                   <div className="w-[40%] ms:min-w-[500px] min-w-[280px] items-start justify-between gap-[46px] sm:gap-[12px] p-[24px] bg-[#F9F9F9] rounded-[24px] flex sm:flex-row flex-col">
-                    {/* <div className="w-[50%] min-w-[200px] h-full">
-                {templates.find(
-                  (item) => item.index === data.selectedResumeIndex
-                ) && (
-                    <img
-                      src={
-                        templates.find(
-                          (item) => item.index === data.selectedResumeIndex
-                        ).imgUrl
-                      }
-                      style={{
-                        height: "100%",
-                        width: "90%",
-                        objectFit: "cover",
-                      }}
-                      alt={Resume template ${data.selectedResumeIndex}} 
-                    />
-                  )}
-              </div> */}
+                  
 
                     <div className=" w-[250px] ms:flex items-center justify-center rounded-[8px] relative hidden ">
-                      {/* {loading ? (
-              <div>
-                <MiniLoader />
-              </div>
-            ) : ( */}
+                    
 
                       <PDFViewer
                         width="250px"
@@ -737,7 +715,7 @@ function Dashboard() {
                         <MyComponent />
                       </PDFViewer>
 
-                      {/* )}  */}
+                     
                     </div>
 
                     <div className="w-[40%] flex flex-col gap-4 ms:min-w-[160px] min-w-[200px]">
@@ -753,12 +731,7 @@ function Dashboard() {
                       <div
                         onClick={() => {
                           localStorage.removeItem("parsedResume");
-                          // router.push(
-                          //   `/home/createResume?clientId=${
-                          //     data?.clientId
-                          //   }&continueEdit=${true}`
-                          // );
-
+                         
                           router.push(
                             `/home/createResume?clientId=${data?.clientId}&continueEdit=true`
                           );
@@ -813,7 +786,7 @@ function Dashboard() {
                 </>
               )}
           </div>
-        )}
+        )} */}
     </div>
   );
 }

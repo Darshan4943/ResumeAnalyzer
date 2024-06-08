@@ -250,7 +250,7 @@ const Reference = ({
           </div> */}
         </div>
 
-        {!referenceView &&
+        {
           data?.reference?.length > 0 &&
           data?.reference?.map((exp, index) => (
             <div

@@ -200,7 +200,9 @@ const ExistingChat = ({
                   onClick={() => {
                     setSelectedChat(null);
                     setIsNew(true);
+                   
                     createNewChat();
+                    
                   }}
                 >
                   <p className="text-[14px] font-[500] font-Montserrat">
@@ -392,6 +394,7 @@ const ExistingChat = ({
                           setSelectedChat(null);
                           setIsNew(true);
                           createNewChat();
+                          setIsSidebarOpen(!isSidebarOpen)
                         }}
                       >
                         <p className="text-[14px] font-[500] font-Montserrat">
