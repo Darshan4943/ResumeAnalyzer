@@ -98,8 +98,8 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                 preview
                   ? data.profilePhoto
                   : Object.keys(data?.profilePhoto).includes("filename")
-                  ? URL.createObjectURL(data.profilePhoto)
-                  : data.profilePhoto
+                    ? URL.createObjectURL(data.profilePhoto)
+                    : data.profilePhoto
               }
               style={{
                 borderRadius: "50%",
@@ -961,6 +961,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                   {data?.experience?.map((detail, index) => (
                     <View
                       key={index}
+                      wrap={false}
                       style={{
                         display: "flex",
                         flexDirection: "column",
@@ -1027,6 +1028,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                           >
                             {detail.organization} | {detail.location}
                           </Text>
+                          {detail.duration?.start?.year && (
                           <Text
                             style={{
                               fontFamily: `${selectedFont} 400`,
@@ -1040,6 +1042,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                               ? "Present"
                               : detail.duration?.end?.year}
                           </Text>
+                          )}
                         </View>
                       </View>
                       <View style={{ width: "105%" }}>
@@ -1183,6 +1186,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                       >
                         {detail.instituteName}
                       </Text>
+                      {detail.duration?.start?.year && (
                       <Text
                         style={{
                           fontFamily: `${selectedFont} 400`,
@@ -1193,12 +1197,12 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                       >
                         {" "}
                         {detail.duration?.start?.year !== "Year" &&
-                          `${detail.duration?.start?.year}-${
-                            detail.duration?.end?.year === "Year"
-                              ? "Pursuing"
-                              : detail.duration?.end?.year
+                          `${detail.duration?.start?.year}-${detail.duration?.end?.year === "Year"
+                            ? "Pursuing"
+                            : detail.duration?.end?.year
                           }`}
                       </Text>
+                      )}
                     </View>
                   </View>
                 ))}
@@ -1303,7 +1307,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                       >
                         {detail.organization}
                       </Text>
-
+                      {detail.duration?.start?.year && (
                       <Text
                         style={{
                           fontFamily: `${selectedFont} 400`,
@@ -1314,12 +1318,12 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                       >
                         {" "}
                         {detail.duration?.start?.year !== "Year" &&
-                          `${detail.duration?.start?.year}-${
-                            detail.duration?.end?.year === "Year"
-                              ? "Pursuing"
-                              : detail.duration?.end?.year
+                          `${detail.duration?.start?.year}-${detail.duration?.end?.year === "Year"
+                            ? "Pursuing"
+                            : detail.duration?.end?.year
                           }`}
                       </Text>
+                      )}
                     </View>
                     <View
                       style={{
@@ -1445,7 +1449,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                       >
                         {detail.organization}
                       </Text>
-
+                      {detail.duration?.start?.year && (
                       <Text
                         style={{
                           fontFamily: `${selectedFont} 400`,
@@ -1456,12 +1460,12 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                       >
                         {" "}
                         {detail.duration?.start?.year !== "Year" &&
-                          `${detail.duration?.start?.year}-${
-                            detail.duration?.end?.year === "Year"
-                              ? "Pursuing"
-                              : detail.duration?.end?.year
+                          `${detail.duration?.start?.year}-${detail.duration?.end?.year === "Year"
+                            ? "Pursuing"
+                            : detail.duration?.end?.year
                           }`}
                       </Text>
+                      )}
                     </View>
                     <View
                       style={{
@@ -1586,7 +1590,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                       >
                         {detail.organization}
                       </Text>
-
+                      {detail.duration?.start?.year && (
                       <Text
                         style={{
                           fontFamily: `${selectedFont} 400`,
@@ -1597,12 +1601,12 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                       >
                         {" "}
                         {detail.duration?.start?.year !== "Year" &&
-                          `${detail.duration?.start?.year}-${
-                            detail.duration?.end?.year === "Year"
-                              ? "Pursuing"
-                              : detail.duration?.end?.year
+                          `${detail.duration?.start?.year}-${detail.duration?.end?.year === "Year"
+                            ? "Pursuing"
+                            : detail.duration?.end?.year
                           }`}
                       </Text>
+                      )}
                     </View>
                     <View
                       style={{
@@ -1729,6 +1733,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                         >
                           {detail.organization}
                         </Text>
+                        {detail.duration?.start?.year && (
                         <Text
                           style={{
                             fontFamily: `${selectedFont} 400`,
@@ -1739,12 +1744,12 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                         >
                           {" "}
                           {detail.duration?.start?.year !== "Year" &&
-                            `${detail.duration?.start?.year}-${
-                              detail.duration?.end?.year === "Year"
-                                ? "Pursuing"
-                                : detail.duration?.end?.year
+                            `${detail.duration?.start?.year}-${detail.duration?.end?.year === "Year"
+                              ? "Pursuing"
+                              : detail.duration?.end?.year
                             }`}
                         </Text>
+                        )}
                       </View>
                       <View
                         style={{
@@ -1869,7 +1874,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                               flexDirection: "row",
                               justifyContent: "space-between",
                             }}
-                          >
+                          >{detail.duration?.start?.year && (
                             <Text
                               style={{
                                 fontFamily: `${selectedFont} 400`,
@@ -1881,10 +1886,11 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                               {detail?.duration?.start?.year}
                               {detail?.duration?.start?.year && "-"}
                               {detail?.duration?.end?.year === "" ||
-                              detail?.duration?.end?.year === undefined
+                                detail?.duration?.end?.year === undefined
                                 ? "Present"
                                 : detail?.duration?.end?.year}
                             </Text>
+                          )}
                           </View>
                         )}
                       </View>
