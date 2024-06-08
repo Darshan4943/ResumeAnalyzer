@@ -1180,7 +1180,7 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
               </View>
             )}
 
-            {data?.extraCaricularData?.length > 0 && data?.showExtraCuriculam === true && (
+            {data?.extraCaricularData?.length > 0 && data?.showExtraCariculam === true && (
               <View
                 style={{
                   display: "flex",

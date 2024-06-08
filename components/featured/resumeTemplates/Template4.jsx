@@ -202,7 +202,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                         flexWrap: "wrap",
                       }}
                     >
-                      {data.mobileNumber}
+                      {data.dial_code} {data.mobileNumber}
                     </Text>
                   </View>
                 )}
@@ -416,7 +416,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
               </>
             )}
 
-            {data?.socialLinks?.length > 0 && data?.showLinks === true &&  (
+            {data?.socialLinks?.length > 0 && data?.showLinks === true && (
               <View style={{ flexDirection: "column", gap: " 16px" }}>
                 <View
                   wrap={false}
@@ -492,68 +492,69 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
               </View>
             )}
 
-            {data?.achievements?.length > 0 && data?.showAchievements === true && (
-              <View style={{ flexDirection: "column", gap: " 16px" }}>
-                <View
-                  wrap={false}
-                  style={{
-                    marginRight: "-12px",
-                    marginTop: "4px",
-                    alignItems: "center",
-                    flexDirection: "row",
-                  }}
-                >
-                  <Svg width={180} height={43} viewBox="0 0 180 43">
-                    <Path
-                      d="M10.942 32.118H179.514V0.887939H10.942L0.782959 16.5029L10.942 32.118Z"
-                      fill={selectedColor}
-                    />
-                    <Path
-                      d="M167.942 42.8819L179.514 32.118L167.942 32.1179V42.8819Z"
-                      fill={selectedColor}
-                    />
-                    <Text
-                      x="10%"
-                      y="40%"
-                      dominantBaseline="middle"
-                      textAnchor="start"
-                      fill="white"
-                      style={{
-                        fontFamily: `${selectedFont} 400`,
-                        fontSize: "14px",
-                      }}
-                    >
-                      Achievements
-                    </Text>
-                  </Svg>
-                </View>
-                <View
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "8px",
-                    marginLeft: "16px",
-                  }}
-                >
-                  {data?.achievements?.map((item, index) => (
-                    <View
-                      wrap={false}
-                      key={index}
-                      style={{
-                        color: "white",
-                        fontSize: "12px",
-                        width: "90%",
-                        flexWrap: "wrap",
-                      }}
-                    >
-                      <Text style={{ fontFamily: `${selectedFont} 400` }}>
-                        {item?.title}
+            {data?.achievements?.length > 0 &&
+              data?.showAchievements === true && (
+                <View style={{ flexDirection: "column", gap: " 16px" }}>
+                  <View
+                    wrap={false}
+                    style={{
+                      marginRight: "-12px",
+                      marginTop: "4px",
+                      alignItems: "center",
+                      flexDirection: "row",
+                    }}
+                  >
+                    <Svg width={180} height={43} viewBox="0 0 180 43">
+                      <Path
+                        d="M10.942 32.118H179.514V0.887939H10.942L0.782959 16.5029L10.942 32.118Z"
+                        fill={selectedColor}
+                      />
+                      <Path
+                        d="M167.942 42.8819L179.514 32.118L167.942 32.1179V42.8819Z"
+                        fill={selectedColor}
+                      />
+                      <Text
+                        x="10%"
+                        y="40%"
+                        dominantBaseline="middle"
+                        textAnchor="start"
+                        fill="white"
+                        style={{
+                          fontFamily: `${selectedFont} 400`,
+                          fontSize: "14px",
+                        }}
+                      >
+                        Achievements
                       </Text>
-                    </View>
-                  ))}
+                    </Svg>
+                  </View>
+                  <View
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: "8px",
+                      marginLeft: "16px",
+                    }}
+                  >
+                    {data?.achievements?.map((item, index) => (
+                      <View
+                        wrap={false}
+                        key={index}
+                        style={{
+                          color: "white",
+                          fontSize: "12px",
+                          width: "90%",
+                          flexWrap: "wrap",
+                        }}
+                      >
+                        <Text style={{ fontFamily: `${selectedFont} 400` }}>
+                          {item?.title}
+                        </Text>
+                      </View>
+                    ))}
+                  </View>
                 </View>
-              </View>
-            )}
+              )}
 
             {data?.languages?.length > 0 && data?.showLanguage === true && (
               <>

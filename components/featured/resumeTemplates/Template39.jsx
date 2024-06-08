@@ -119,7 +119,7 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
                       color: "#414042",
                     }}
                   >
-                    {data.mobileNumber}
+                    {data.dial_code} {data.mobileNumber}
                   </Text>
                 </View>
               )}
@@ -296,7 +296,7 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
             )}
 
             {data?.achievements?.length > 0 &&
-              data?.showAchievement === true && (
+              data?.showAchievements === true && (
                 <View
                   style={{ flexDirection: "column", gap: 12, width: "100%" }}
                 >
@@ -894,7 +894,7 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
               ))}
             </View>
           )}
-          {data?.internship?.length > 0 && data?.showIntership === true && (
+          {data?.internship?.length > 0 && data?.showInternship === true && (
             <View style={{ flexDirection: "column", gap: 12, width: "100%" }}>
               <View style={{ flexDirection: "column", gap: 12 }}>
                 <Text

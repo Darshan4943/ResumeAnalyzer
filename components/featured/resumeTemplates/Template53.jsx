@@ -630,7 +630,7 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
               </>
             )}
 
-            {data?.extraCaricularData?.length > 0 && data?.showExtraCuriculam === true && (
+            {data?.extraCaricularData?.length > 0 && data?.showExtraCariculam === true && (
               <>
                 <View
                   style={{

@@ -21,6 +21,7 @@ import ExtraCaricularActivity from "./components/extraCaricularActivity";
 import CouersesAndCertification from "./components/couersesAndCertification";
 import ProjectSection from "./components/projectSection";
 import Project from "./components/projects";
+import { useRouter } from "next/router";
 
 const ResumeForm = ({
   setData,
@@ -36,7 +37,7 @@ const ResumeForm = ({
   const [formField, setFormField] = useState([]);
   const [view, setView] = useState(false);
   const [isChecked, setIsChecked] = useState(true);
-
+  const router = useRouter();
   const handleSwitchChange = () => {
     setIsChecked(!isChecked);
     setData({ ...data, showCustomSection: !isChecked });
@@ -51,7 +52,7 @@ const ResumeForm = ({
       }
     }
   }, [data]);
-  console.log(44, data);
+ 
 
   useEffect(() => {
     setFormField(

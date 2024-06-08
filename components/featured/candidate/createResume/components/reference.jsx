@@ -65,7 +65,7 @@ const Reference = ({
       placeholder: "Type here",
       value: referenceData?.referantName,
       className: " col-span-2 ",
-      require
+      require:true
     },
     {
       label: "Designation",
@@ -91,7 +91,7 @@ const Reference = ({
       placeholder: "Type here",
       value: referenceData?.email,
       className: " col-span-2",
-      require
+      require:true
     },
   ];
 
