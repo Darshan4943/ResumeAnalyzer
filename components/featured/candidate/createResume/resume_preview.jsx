@@ -448,7 +448,7 @@ const ResumePreview = ({
         }
 
         axios
-          .post("http://localhost:2000/api/resume/add", formData)
+          .post("https://jamblix.com/api/resume/add", formData)
           .then((res) => {
            
             const pdfUrl = res.data.data.resumeUrl;
