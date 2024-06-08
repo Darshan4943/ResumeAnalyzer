@@ -31,7 +31,7 @@ const fileToText = (file, pageNumber) => {
             });
           });
         } catch (err) {
-          reject(err);
+          console.log(err);
           return;
         }
       });
@@ -129,7 +129,7 @@ const CandidateAiPower = ({
             resolve(textData);
           })
           .catch((err) => {
-            reject(err);
+            console.error(err);
           });
       } else if (file?.type == "application/pdf") {
         let fullText = "";
@@ -149,10 +149,10 @@ const CandidateAiPower = ({
             resolve(textData);
           })
           .catch((err) => {
-            reject(err);
+            console.error(err);
           });
       } else {
-        reject(new Error("Unsupported file type."));
+        console.error("Unsupported file type.");
       }
     });
   };

@@ -545,7 +545,8 @@ const Template47 = ({ data, selectedColor, selectedFont, preview }) => {
                     {data?.section?.length > 0 && data?.showCustomSection === true && (
                         <>
                             {data.section.map((item, index) => (
-                                <View style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+                                <View  key={index}
+                                style={{ display: "flex", flexDirection: "column", gap: 16 }}>
                                     <View style={{ display: "flex", flexDirection: "row", gap: 8, justifyContent: "center", alignItems: "center" }}>
                                         <Svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <Path d="M11.991 23C18.0661 23 22.9965 18.0751 23.0033 12C23.0101 5.92487 18.0908 1 12.0156 1C5.9405 1 1.01011 5.92487 1.00331 12C0.996512 18.0751 5.91588 23 11.991 23Z" fill={selectedColor} />

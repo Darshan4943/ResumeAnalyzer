@@ -17,6 +17,12 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
     }
     return link;
   };
+
+  const formatLink19 = (link) => {
+    if (link?.length > 22) {
+      return link?.match(/.{1,22}/g).join('\n');  }
+    return link;
+  };
   return (
     <Page
       size="A4"
@@ -250,7 +256,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                         flexWrap: "wrap",
                       }}
                     >
-                      {data.email}
+                      {formatLink19(data.email)}
                     </Text>
                   </View>
                 )}
@@ -304,7 +310,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                         width: "90%",
                       }}
                     >
-                      {data.location}
+                      {formatLink19(data.location)}
                     </Text>
                   </View>
                 )}
@@ -377,7 +383,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                           flexWrap: "wrap",
                         }}
                       >
-                        {detail.skill}
+                        {formatLink19(detail.skill)}
                       </Text>
                       {/* <View
                         style={{
@@ -484,7 +490,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                           flexWrap: "wrap",
                         }}
                       >
-                        {formatLink(item?.link)}
+                        {formatLink19(item?.link)}
                       </Text>
                     </View>
                   ))}
@@ -623,7 +629,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                           flexWrap: "wrap",
                         }}
                       >
-                        {detail.languages}
+                        {formatLink19(detail.languages)}
                       </Text>
                       {/* <View
                         style={{
@@ -717,7 +723,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                       }}
                     >
                       <Text style={{ fontFamily: `${selectedFont} 400` }}>
-                        {item?.title}
+                        {formatLink19(item?.title)}
                       </Text>
                     </View>
                   ))}
@@ -794,7 +800,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                           fontFamily: `${selectedFont} 400`,
                         }}
                       >
-                        {item?.designation}
+                        {formatLink19(item?.designation)}
                       </Text>
                       <Text
                         style={{
@@ -802,7 +808,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                           fontFamily: `${selectedFont} 400`,
                         }}
                       >
-                        {item?.organization}
+                        {formatLink19(item?.organization)}
                       </Text>
                       <Text
                         style={{
@@ -810,7 +816,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                           fontFamily: `${selectedFont} 400`,
                         }}
                       >
-                        {item?.email}
+                        {formatLink19(item?.email)}
                       </Text>
                     </View>
                   ))}
@@ -1430,7 +1436,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
               <View style={{}}>
                 <Image
                   style={{ width: "27px", height: "27px" }}
-                  src="/images/services/Internships.png"
+                  src="/images/services/Internship.png"
                   alt=""
                 />
               </View>
