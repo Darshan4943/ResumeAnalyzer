@@ -184,7 +184,7 @@ const Project = ({
         </div> */}
       </div>
 
-      {!projectView &&
+      {
         data?.project?.length > 0 &&
         data?.project?.map((exp, index) => (
           <div

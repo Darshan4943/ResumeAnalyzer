@@ -191,7 +191,7 @@ const Experience = ({ data, setData }) => {
         </div>
       ))}
 
-      {view && (
+      {(view || data?.experience?.length <=0 )&& (
         <div>
           <div className="flex flex-col gap-3">
             <div className="flex flex-col gap-2 w-full">
@@ -318,7 +318,8 @@ const Experience = ({ data, setData }) => {
           <div className="flex justify-end ">
             <div className="flex justify-between  py-2 gap-2">
               <button
-                className=" font-montserrat text-xs font-semibold px-[12px] rounded-[8px] border border-[#06A9EF] w-[80px] h-[32px]"
+              disabled={ data?.experience?.length <=0 }
+                className={`font-montserrat text-xs font-semibold px-[12px] rounded-[8px] border border-[#06A9EF] w-[80px] h-[32px] ${ data?.experience?.length <=0 && "opacity-40"}`}
                 onClick={() => {
                   setExperienceData({
                     designation: "",
@@ -351,7 +352,7 @@ const Experience = ({ data, setData }) => {
         </div>
       )}
 
-      {!view && (
+      {(!view && data?.experience?.length >0 ) && (
         <div className="flex gap-1" onClick={() => isChecked && setView(true)}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
