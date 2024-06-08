@@ -47,7 +47,9 @@ function Collection() {
   const [recall, setRecall] = useReducer((x) => x + 1, 0);
   const [uploadCount, setUploadCount] = useState(0);
   const [failedFiles, setFailedFiles] = useState([]);
+  const [unSyncFiles, setUnSyncFiles] = useState(null)
   const [count, setCount] = useState("");
+  const [refresh, setRefresh] = useState(true)
   const fileToText = (file, pageNumber) => {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
@@ -65,39 +67,46 @@ function Collection() {
       reader.readAsArrayBuffer(file);
     });
   };
-
+  console.log(555, unSyncFiles)
   useEffect(() => {
     if (inputRef.current) {
       inputRef.current.select();
     }
   }, [isCreate]);
   const getData = () => {
+
     if (folders == "true") {
       setTab(1);
       setTabIndex(0);
       if (parentId) {
         setParentId(parentId);
         getParentData(parentId);
-        // dispatch(recallUser())
+
+
       } else {
         getFolderData();
+
       }
     } else if (clients == "true") {
       setTab(0);
       setTabIndex(0);
       if (clientId) {
         getClientData(clientId);
+
       } else {
         getClients();
+
       }
     } else if (trash == "true") {
       setTab(2);
       setTabIndex(0);
       getTrashed();
+
     } else {
       setTab(0);
       setTabIndex(0);
       getClients();
+
     }
   };
 
@@ -106,6 +115,7 @@ function Collection() {
       .get(`https://jamblix.com/api/folder/getByParentId/${parentId}`)
       .then((res) => {
         setFolderList(res.data.data);
+
         setTimeout(() => {
           setLoading(false);
         }, 1000);
@@ -177,6 +187,36 @@ function Collection() {
         console.log(err);
       });
   };
+
+  const getUnSyncFiles = () => {
+
+    axios
+      .get(`http://localhost:2000/api/getUnsyncedFile/${userDataGlobal._id}`)
+      .then((res) => {
+         const files = res.data.data.filter(item => item.type === 'file');
+      setUnSyncFiles(files.length);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+
+
+  useEffect(() => {
+
+    getUnSyncFiles();
+    dispatch(reCallUserData())
+    if (unSyncFiles > 0) {
+      const interval = setInterval(() => {
+        getUnSyncFiles()
+        dispatch(reCallUserData())
+      }, 60000);
+
+      return () => clearInterval(interval);
+    }
+  }, [unSyncFiles]);
+
 
   const createFolder = () => {
     setFileLoader(true);
@@ -319,22 +359,31 @@ function Collection() {
             // toast.error("Duplicate file name");
             return;
           }
-          formData.append("fileName", file.name);
-          formData.append("type", "file");
-          formData.append("userId", userDataGlobal._id);
-          formData.append("text", text);
-          formData.append("file", file);
-          formData.append("parentId", ParentId ? ParentId : undefined);
-          try {
-            const response = await axios.post(
-              "https://jamblix.com/api/folder/create",
-              formData
-            );
-            resolve(index, response.data);
-            setCount((prevCount) => prevCount + 1);
-            return;
-          } catch (e) {
-            // toast.error("Something went wrong Please Check your file")
+          if (text != undefined || text != null || text.length > 5) {
+            formData.append("fileName", file.name);
+            formData.append("type", "file");
+            formData.append("userId", userDataGlobal._id);
+            formData.append("text", text);
+            formData.append("file", file);
+            formData.append("parentId", ParentId ? ParentId : undefined);
+            try {
+              const response = await axios.post(
+                "https://jamblix.com/api/folder/create",
+                formData
+              );
+              resolve(index, response.data);
+              setCount((prevCount) => prevCount + 1);
+              return;
+            } catch (e) {
+              // toast.error("Something went wrong Please Check your file")
+              setCount((prevCount) => prevCount + 1);
+              setFailedFiles((prevFailedFiles) => [
+                ...prevFailedFiles,
+                { file, index, error: e },
+              ]);
+              return;
+            }
+          } else {
             setCount((prevCount) => prevCount + 1);
             setFailedFiles((prevFailedFiles) => [
               ...prevFailedFiles,
@@ -342,6 +391,7 @@ function Collection() {
             ]);
             return;
           }
+
         } catch (err) {
           return;
         }
@@ -386,9 +436,11 @@ function Collection() {
   const handleButtonClick = () => {
     fileRef.current.click();
   };
+
   useEffect(() => {
     getData();
   }, [clients, folders, clientId, parentId, userDataGlobal, recall]);
+
 
   const handleFileChange = async (e) => {
     const selectedFiles = e.target.files;
@@ -721,24 +773,22 @@ function Collection() {
                       {Object.keys(files).length > 0 ? "Files" : "File"}
                     </span>
                     <span className="text-sm font-medium text-blue-700">
-                      {`${
-                        Math.round(
+                      {`${Math.round(
+                        (uploadCount / Object.keys(files).length) * 100
+                      ).toString() != "Infinity"
+                        ? Math.round(
                           (uploadCount / Object.keys(files).length) * 100
-                        ).toString() != "Infinity"
-                          ? Math.round(
-                              (uploadCount / Object.keys(files).length) * 100
-                            )
-                          : 100
-                      }%`}
+                        )
+                        : 100
+                        }%`}
                     </span>
                   </div>
                   <div className="w-full bg-[#e8f0ff] rounded-full h-2.5">
                     <div
                       class="bg-[#06a9ef] h-2.5 rounded-full"
                       style={{
-                        width: `${
-                          (uploadCount / Object.keys(files).length) * 100
-                        }%`,
+                        width: `${(uploadCount / Object.keys(files).length) * 100
+                          }%`,
                       }}
                     ></div>
                   </div>
@@ -757,9 +807,10 @@ function Collection() {
                     setFailedFiles([]);
                     setDuplicateFiles([]);
                     getData();
+                    getUnSyncFiles()
                   }}
                 >
-                  Cancel
+                  Close
                 </button>
                 {count <= 0 && (
                   <button
@@ -772,9 +823,9 @@ function Collection() {
                       minWidth: "80px",
                       opacity:
                         fileLoader ||
-                        (isFile
-                          ? Object.values(files).length === 0
-                          : !folderName)
+                          (isFile
+                            ? Object.values(files).length === 0
+                            : !folderName)
                           ? 0.5
                           : 1,
                     }}
@@ -911,9 +962,8 @@ function Collection() {
                   onClick={() => {
                     router.push("/collection?clients=true");
                   }}
-                  className={`rounded-[30px] sm:text-[14px] text-[12px] font-semibold scr900:px-6 sm:px-4 px-2  py-2 flex gap-2 ml:justify-start justify-center items-center ml:min-w-full sm:min-w-[30%] min-w-[110px] ${
-                    tab === 0 && "bg-[#C2E7FF]"
-                  }   `}
+                  className={`rounded-[30px] sm:text-[14px] text-[12px] font-semibold scr900:px-6 sm:px-4 px-2  py-2 flex gap-2 ml:justify-start justify-center items-center ml:min-w-full sm:min-w-[30%] min-w-[110px] ${tab === 0 && "bg-[#C2E7FF]"
+                    }   `}
                 >
                   <svg
                     width="20"
@@ -937,9 +987,8 @@ function Collection() {
                     // setTabIndex(0);
                     router.push("/collection?folders=true");
                   }}
-                  className={`rounded-[30px] sm:text-[14px] text-[12px] font-semibold scr900:px-6 sm:px-4 px-2 py-2 flex gap-2 ml:justify-start justify-center items-center ml:min-w-full sm:min-w-[30%] min-w-[110px]   ${
-                    tab === 1 && "bg-[#C2E7FF]"
-                  }  `}
+                  className={`rounded-[30px] sm:text-[14px] text-[12px] font-semibold scr900:px-6 sm:px-4 px-2 py-2 flex gap-2 ml:justify-start justify-center items-center ml:min-w-full sm:min-w-[30%] min-w-[110px]   ${tab === 1 && "bg-[#C2E7FF]"
+                    }  `}
                 >
                   <svg
                     width="20"
@@ -961,9 +1010,8 @@ function Collection() {
                   onClick={() => {
                     router.push("/collection?trash=true");
                   }}
-                  className={`rounded-[30px] sm:text-[14px] text-[12px] font-semibold scr900:px-6 sm:px-4 px-2 py-2 flex gap-2 ml:justify-start justify-center items-center ml:min-w-full sm:min-w-[30%] min-w-[80px]  ${
-                    tab === 2 && "bg-[#C2E7FF]"
-                  }  `}
+                  className={`rounded-[30px] sm:text-[14px] text-[12px] font-semibold scr900:px-6 sm:px-4 px-2 py-2 flex gap-2 ml:justify-start justify-center items-center ml:min-w-full sm:min-w-[30%] min-w-[80px]  ${tab === 2 && "bg-[#C2E7FF]"
+                    }  `}
                 >
                   <svg
                     width="20"
@@ -994,6 +1042,7 @@ function Collection() {
 
           <Folders
             folderData={folderData}
+            unSyncFiles={unSyncFiles}
             setFolderData={setFolderData}
             tabIndex={tabIndex}
             setTabIndex={setTabIndex}
