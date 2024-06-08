@@ -435,7 +435,7 @@ const PersonalDetails = ({
                 <span className="text-[#C00000] text-[12px]">{formErrors[item.name]}</span>
               )}
 
-              {console.log(1111, formErrors)}
+            
             </div>
           ))}
         </div>

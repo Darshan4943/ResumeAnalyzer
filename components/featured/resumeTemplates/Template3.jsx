@@ -122,7 +122,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                       flexWrap: "wrap",
                     }}
                   >
-                    {data.mobileNumber}
+                  {data.dial_code} {data.mobileNumber}
                   </Text>
                 </View>
               </View>
