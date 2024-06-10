@@ -14,12 +14,36 @@ import { formatLink } from "../../../utils/middleware";
 const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
   console.log(66, data);
 
-  const formatLink19 = (link) => {
-    if (link?.length > 22) {
-      return link?.match(/.{1,22}/g).join('\n');  }
+  const formatLink26 = (link) => {
+    if (link?.length > 26) {
+      return link?.match(/.{1,26}/g).join('\n');  }
     return link;
   };
 
+  const formatLink20 = (link) => {
+    if (link?.length > 20) {
+      return link?.match(/.{1,20}/g).join('\n');  }
+    return link;
+  };
+  
+
+  const formatLink23 = (link) => {
+    if (link?.length > 23) {
+      return link?.match(/.{1,23}/g).join('\n');  }
+    return link;
+  };
+
+  const formatLink35 = (link) => {
+    if (link?.length > 50) {
+      return link?.match(/.{1,50}/g).join('\n');  }
+    return link;
+  };
+
+  const formatLink12 = (link) => {
+    if (link?.length > 15) {
+      return link?.match(/.{1,15}/g).join('\n');  }
+    return link;
+  };
   
 
   return (
@@ -99,7 +123,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
               gap: 8,
               paddingLeft: 8,
               paddingRight: 8,
-              width: "80%",
+              // width: "80%",
             }}
           >
             {data.mobileNumber && (
@@ -173,7 +197,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                       // flexWrap: "wrap",
                     }}
                   >
-                    {formatLink19(data.email)}
+                    {formatLink23(data.email)}
                   </Text>
                 </View>
               </View>
@@ -224,12 +248,12 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                       style={{
                         color: "white",
                         fontSize: 12,
-                        marginRight: "6px",
+                        // marginRight: "6px",
                         fontFamily: `${selectedFont} 400`,
                         // overflow: "hidden"
                       }}
                     >
-                      {formatLink19(detail.platform)}
+                      {formatLink26(detail.platform)}
                     </Text>
                     <Text
                       wrap={false}
@@ -242,7 +266,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                         // overflow: "hidden"
                       }}
                     >
-                      {formatLink19(detail.link)}
+                      {formatLink26(detail.link)}
                     </Text>
                   </>
                 ))}
@@ -284,7 +308,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                   paddingLeft: 16,
                   paddingTop: 20,
                   gap: 8,
-                  maxWidth: "80%",
+                  // maxWidth: "80%",
                 }}
               >
                 {data.skills.map((detail, index) => (
@@ -299,66 +323,65 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                       overflow: "hidden",
                     }}
                   >
-                    {formatLink19(detail.skill)}
+                    {formatLink26(detail.skill)}
                   </Text>
                 ))}
               </View>
             </View>
           )}
 
-          {data?.achievements?.length > 0 &&
-            data?.showAchievements === true && (
-              <View wrap={false} style={{}}>
-                <View
-                  style={{
-                    paddingLeft: -1,
-                    height: 27,
-                    alignItems: "center",
-                    flexDirection: "row",
-                  }}
-                >
-                  <Svg width={125} viewBox="0 0 125 27" fill="none">
-                    <Path
-                      d="M112.176 26.999H0.000488281V-0.000976562H112.176C119.258 -0.000976562 125 6.04269 125 13.499C125 20.9554 119.258 26.999 112.176 26.999Z"
-                      fill="white"
-                    />
-                    <Text
-                      x="10%"
-                      y="55%"
-                      dominantBaseline="middle"
-                      textAnchor="start"
-                      fill="#414042"
-                      fontSize={15}
-                      fontFamily={`${selectedFont} 400`}
-                    >
-                      AWARDS{" "}
-                    </Text>
-                  </Svg>
-                </View>
-                <View
-                  style={{
-                    flexDirection: "column",
-                    paddingLeft: 16,
-                    paddingTop: 20,
-                    gap: 8,
-                  }}
-                >
-                  {data.achievements.map((detail, index) => (
-                    <Text
-                      key={index}
-                      style={{
-                        color: "white",
-                        fontSize: 12,
-                        width: "95%",
-                        fontFamily: `${selectedFont} 400`,
-                      }}
-                    >
-                      {detail.title}
-                    </Text>
-                  ))}
-                </View>
+          {data?.achievements?.length > 0 && (
+            <View wrap={false} style={{}}>
+              <View
+                style={{
+                  paddingLeft: -1,
+                  height: 27,
+                  alignItems: "center",
+                  flexDirection: "row",
+                }}
+              >
+                <Svg width={125} viewBox="0 0 125 27" fill="none">
+                  <Path
+                    d="M112.176 26.999H0.000488281V-0.000976562H112.176C119.258 -0.000976562 125 6.04269 125 13.499C125 20.9554 119.258 26.999 112.176 26.999Z"
+                    fill="white"
+                  />
+                  <Text
+                    x="10%"
+                    y="55%"
+                    dominantBaseline="middle"
+                    textAnchor="start"
+                    fill="#414042"
+                    fontSize={15}
+                    fontFamily={`${selectedFont} 400`}
+                  >
+                    AWARDS{" "}
+                  </Text>
+                </Svg>
               </View>
-            )}
+              <View
+                style={{
+                  flexDirection: "column",
+                  paddingLeft: 16,
+                  paddingTop: 20,
+                  gap: 8,
+                }}
+              >
+                {data.achievements.map((detail, index) => (
+                  <Text
+                    key={index}
+                    style={{
+                      color: "white",
+                      fontSize: 12,
+                      // width: "95%",
+                      fontFamily: `${selectedFont} 400`,
+                    }}
+                  >
+                    {formatLink20(detail.title)}
+                  </Text>
+                ))}
+              </View>
+            </View>
+          )}
 
           {data?.languages?.length > 0 && data?.showLanguage === true && (
             <View wrap={false} style={{}}>
@@ -407,7 +430,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                       fontFamily: `${selectedFont} 400`,
                     }}
                   >
-                    {formatLink19(detail.languages)}
+                    {formatLink26(detail.languages)}
                   </Text>
                 ))}
               </View>
@@ -455,11 +478,11 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                     style={{
                       color: "white",
                       fontSize: 12,
-                      width: "95%",
+                      // width: "95%",
                       fontFamily: `${selectedFont} 400`,
                     }}
                   >
-                    {formatLink19(detail.title)}
+                    {formatLink20(detail.title)}
                   </Text>
                 ))}
               </View>
@@ -470,7 +493,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
         <View
           style={{
             width: "410px",
-            paddingRight: "20px",
+            // paddingRight: "20px",
             paddingBottom: "20px",
           }}
         >
@@ -489,7 +512,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                 fontFamily: `${selectedFont} 400`,
               }}
             >
-              {data.firstName}
+              {formatLink12(data.firstName)}
             </Text>
             <Text
               style={{
@@ -498,7 +521,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                 fontFamily: `${selectedFont} 400`,
               }}
             >
-              {data.lastName}
+              {formatLink12(data.lastName)}
             </Text>
             <Text
               style={{
@@ -507,7 +530,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                 fontFamily: "Gothic 400",
               }}
             >
-              {data.designation}
+              {formatLink35(data.designation)}
             </Text>
           </View>
           {data?.showSummary === true && (
@@ -526,6 +549,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
               </Text>
               <Text
                 style={{
+                  paddingRight:'6px',
                   color: "#646464",
                   breakAll: "break-all",
                   fontFamily: `${selectedFont} 400`,
@@ -595,6 +619,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                         style={{
                           color: "#414042",
                           fontSize: "12",
+                          marginVertical:'4px',
                           fontFamily: `${selectedFont} 700`,
                         }}
                       >
@@ -1282,6 +1307,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                             width: "100%",
                             justifyContent: "space-between",
                             alignItems: "start",
+                            paddingRight:'5px'
                           }}
                         >
                           <Text

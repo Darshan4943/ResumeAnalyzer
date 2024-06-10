@@ -1419,6 +1419,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                 gap: 8,
                 width: "100%",
               }}
+              wrap={false}
             >
               <View
                 style={{

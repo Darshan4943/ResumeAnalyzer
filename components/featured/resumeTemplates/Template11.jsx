@@ -13,16 +13,23 @@ import {
 import React from "react";
 
 function Template11({ data, selectedColor, selectedFont, preview }) {
-  const formatLink19 = (link) => {
-    if (link?.length > 22) {
-      return link?.match(/.{1,22}/g).join("\n");
+  const formatLink22 = (link) => {
+    if (link?.length > 18) {
+      return link?.match(/.{1,18}/g).join("\n");
+    }
+    return link;
+  };
+
+  const formatLink21 = (link) => {
+    if (link?.length > 24) {
+      return link?.match(/.{1,24}/g).join("\n");
     }
     return link;
   };
 
   const formatLink6 = (link) => {
-    if (link?.length > 8) {
-      return link?.match(/.{1,8}/g).join("\n");
+    if (link?.length > 10) {
+      return link?.match(/.{1,10}/g).join("\n");
     }
     return link;
   };
@@ -30,6 +37,18 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
   const formatLink35 = (link) => {
     if (link?.length > 35) {
       return link?.match(/.{1,35}/g).join('\n');  }
+    return link;
+  };
+
+  const formatLink30 = (link) => {
+    if (link?.length > 30) {
+      return link?.match(/.{1,30}/g).join('\n');  }
+    return link;
+  };
+
+  const formatLink58 = (link) => {
+    if (link?.length > 56) {
+      return link?.match(/.{1,56}/g).join('\n');  }
     return link;
   };
 
@@ -54,7 +73,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
               style={{
                 fontSize: 24,
                 fontFamily: `${selectedFont} 700`,
-                width: "80%",
+                // width: "80%",
                 display: "flex",
                 flexWrap: "wrap",
               }}
@@ -65,7 +84,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
               style={{
                 fontSize: 24,
                 fontFamily: `${selectedFont} 700`,
-                width: "80%",
+                // width: "80%",
                 display: "flex",
                 flexWrap: "wrap",
               }}
@@ -106,7 +125,9 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
             )}
           </View>
 
-          <View wrap={false}>
+          <View
+          //  wrap={false}
+          >
             {data?.skills?.length > 0 && data?.showSkills === true && (
               <>
                 <View style={{ objectFit: "contain" }}>
@@ -161,7 +182,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                               overflow: "hidden",
                             }}
                           >
-                            {detail.skill}
+                            {formatLink22(detail.skill)}
                           </Text>
                           {/* <View
                             style={{
@@ -220,7 +241,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                         // width: "90%",
                       }}
                     >
-                      {formatLink19(item?.title)}
+                      {formatLink22(item?.title)}
                     </Text>
                   ))}
                 </View>
@@ -281,11 +302,11 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                               color: "#000000",
                               fontSize: 12,
                               fontFamily: `${selectedFont} 500`,
-                              width: "100%",
+                              // width: "100%",
                               // flexWrap: "wrap",
                             }}
                           >
-                            {formatLink19(detail.languages)}
+                            {formatLink21(detail.languages)}
                           </Text>
                           {/* <View
                             style={{
@@ -341,10 +362,10 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                         color: "#000000",
                         fontSize: 12,
                         fontFamily: `${selectedFont} 500`,
-                        width: "90%",
+                        // width: "90%",
                       }}
                     >
-                      {formatLink19(item?.title)}
+                      {formatLink22(item?.title)}
                     </Text>
                   ))}
                 </View>
@@ -384,20 +405,20 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                         color: "#000000",
                         fontSize: 12,
                         fontFamily: `${selectedFont} 500`,
-                        width: "90%",
+                        // width: "90%",
                       }}
                     >
-                      {formatLink19(item?.platform)}
+                      {formatLink21(item?.platform)}
                     </Text>
                     <Text
                       style={{
                         color: "#000000",
                         fontSize: 10,
                         fontFamily: `${selectedFont} 500`,
-                        width: "90%",
+                        // width: "90%",
                       }}
                     >
-                      {formatLink19(item?.link)}
+                      {formatLink22(item?.link)}
                     </Text>
                   </View>
                 ))}
@@ -428,23 +449,23 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                     key={index}
                     style={{
                       fontSize: "12px",
-                      width: "90%",
+                      // width: "90%",
                       display: "flex",
                       flexDirection: "column",
                       gap: "4px",
                     }}
                   >
                     <Text style={{ fontFamily: `${selectedFont} 400` }}>
-                      {formatLink19(item?.referantName)}
+                      {formatLink21(item?.referantName)}
                     </Text>
                     <Text style={{ fontFamily: `${selectedFont} 400` }}>
-                      {formatLink19(item?.designation)}
+                      {formatLink21(item?.designation)}
                     </Text>
                     <Text style={{ fontFamily: `${selectedFont} 400` }}>
-                      {formatLink19(item?.organization)}
+                      {formatLink21(item?.organization)}
                     </Text>
                     <Text style={{ fontFamily: `${selectedFont} 400` }}>
-                      {formatLink19(item?.email)}
+                      {formatLink21(item?.email)}
                     </Text>
                   </View>
                 ))}
@@ -499,6 +520,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                 </View>
               </View>
             )}
+
 
             <View style={{ flexDirection: "column", gap: 16, width: "100%" }}>
               <View style={{}}>
@@ -661,7 +683,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
               )}
             </View>
 
-            {data?.experience?.length > 0 && data?.showExperience && (
+            {/* {data?.experience?.length > 0 && data?.showExperience && (
               <View style={{ flexDirection: "column", width: "100%", gap: 24 }}>
                 <Text
                   style={{
@@ -692,7 +714,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                           width: "70%",
                         }}
                       >
-                        {detail.organization}
+                        {formatLink30(detail.organization)}
                       </Text>
                       <Text
                         style={{
@@ -750,7 +772,109 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                   </View>
                 ))}
               </View>
+            )} */}
+
+{data?.experience?.length > 0 && data?.showExperience && (
+              <View
+              // wrap={false}
+                style={{ flexDirection: "column", gap: 24, paddingTop: 24 }}
+              >
+                <Text
+                  style={{
+                    color: "#000000",
+                    fontSize: 18,
+                    fontFamily: `${selectedFont} 700`,
+                  }}
+                >
+                  EXPERIENCE
+                </Text>
+                {data?.experience?.map((detail, index) => (
+                  <>
+                    <View
+                      // wrap={false}
+                      key={index}
+                      style={{
+                        flexDirection: "column",
+                        gap: 10,
+                        width: "100%",
+                      }}
+                    >
+                      <View
+                        style={{
+                          flexDirection: "row",
+                          width: "100%",
+                          justifyContent: "space-between",
+                        }}
+                      >
+                        <Text
+                          style={{
+                            color: "#1C75BC",
+                            fontSize: 13,
+                            fontFamily: `${selectedFont} 700`,
+                            width: "70%",
+                          }}
+                        >
+                          {formatLink30(detail.organization)}
+                        </Text>
+                        <Text
+                          style={{
+                            color: "#000000",
+                            fontSize: 12,
+                            fontFamily: `${selectedFont} 400`,
+                          }}
+                        >
+                          {detail.duration?.start?.year !== "Year" &&
+                            `${detail.duration?.start?.year}-${
+                              detail.duration?.end?.year === "Year"
+                                ? "Pursuing"
+                                : detail.duration?.end?.year
+                            }`}
+                        </Text>
+                      </View>
+                      <View
+                        style={{
+                          marginBottom:'10px',
+                          flexDirection: "column",
+                          gap: "8px",
+                          width: "100%",
+                        }}
+                      >
+                        <Text
+                          style={{
+                            color: "#000000",
+                            fontSize: 13,
+                            fontFamily: `${selectedFont} 500`,
+                          }}
+                        >
+                          {detail.location}
+                        </Text>
+                        <Text
+                          style={{
+                            color: "#000000",
+                            fontSize: 13,
+                            fontFamily: `${selectedFont} 500`,
+                          }}
+                        >
+                          {detail.designation}
+                        </Text>
+                        <Text
+                          style={{
+                            color: "#000000",
+                            fontSize: 10,
+                            fontFamily: `${selectedFont} 500`,
+                            flexWrap: "wrap",
+                          }}
+                        >
+                          {formatLink58(detail.description)}
+                        </Text>
+                      </View>
+                    </View>
+                  </>
+                ))}
+              </View>
             )}
+
+
             {data?.education?.length > 0 && data?.showEducation === true && (
               <View
               wrap={false}
@@ -791,7 +915,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                             width: "70%",
                           }}
                         >
-                          {detail.qualification}
+                          {formatLink30(detail.qualification)}
                         </Text>
                         <Text
                           style={{
@@ -831,7 +955,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                             fontFamily: `${selectedFont} 500`,
                           }}
                         >
-                          {detail.description}
+                          {formatLink58(detail.description)}
                         </Text>
                         <Text
                           style={{
@@ -881,7 +1005,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                           width: "70%",
                         }}
                       >
-                        {detail.title}
+                        {formatLink30(detail.title)}
                       </Text>
                       <Text
                         style={{
@@ -925,7 +1049,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                           flexWrap: "wrap",
                         }}
                       >
-                        {detail.description}
+                        {formatLink58(detail.description)}
                       </Text>
                     </View>
                   </View>
@@ -963,7 +1087,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                           width: "70%",
                         }}
                       >
-                        {detail.title}
+                        {formatLink30(detail.title)}
                       </Text>
                       <Text
                         style={{
@@ -1007,7 +1131,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                           flexWrap: "wrap",
                         }}
                       >
-                        {detail.description}
+                        {formatLink58(detail.description)}
                       </Text>
                     </View>
                   </View>
@@ -1046,7 +1170,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                           width: "70%",
                         }}
                       >
-                        {detail.title}
+                        {formatLink30(detail.title)}
                       </Text>
                       <Text
                         style={{
@@ -1090,7 +1214,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                           flexWrap: "wrap",
                         }}
                       >
-                        {detail.description}
+                        {formatLink58(detail.description)}
                       </Text>
                     </View>
                   </View>
@@ -1129,7 +1253,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                           width: "70%",
                         }}
                       >
-                        {detail.title}
+                        {formatLink30(detail.title)}
                       </Text>
                       <Text
                         style={{
@@ -1173,7 +1297,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                           flexWrap: "wrap",
                         }}
                       >
-                        {detail.description}
+                        {formatLink58(detail.description)}
                       </Text>
                     </View>
                   </View>
@@ -1226,7 +1350,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                                   fontFamily: `${selectedFont} 700`,
                                 }}
                               >
-                                {detail.title}
+                                {formatLink30(detail.title)}
                               </Text>
                             )}
                             {detail.duration?.start?.year && (
@@ -1262,7 +1386,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                                   fontFamily: `${selectedFont} 500`,
                                 }}
                               >
-                                {detail.description}
+                                {formatLink58(detail.description)}
                               </Text>
                             </View>
                           )}

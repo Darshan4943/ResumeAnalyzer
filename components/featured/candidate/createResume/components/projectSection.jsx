@@ -184,7 +184,7 @@ const ProjectSection = ({
         </div> */}
       </div>
 
-      {!internshipsView &&
+      {
         data?.internship?.length > 0 &&
         data?.internship?.map((exp, index) => (
           <div

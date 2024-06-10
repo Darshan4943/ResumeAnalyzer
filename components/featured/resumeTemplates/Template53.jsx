@@ -41,7 +41,7 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
           ) : (
             <Image
               src={"/images/services/template_profile.png"}
-              style={{ width: 144, height: 142, borderBottomRightRadius: 58 }}
+              style={{ width: 144, height: 142, borderBottomRightRadius: 58 ,objectFit:"contain"}}
             />
           )}
 
@@ -186,7 +186,7 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
               <Text
                 style={{
                   fontFamily: `${selectedFont} 400`,
-                  fontSize: 14,
+                  fontSize: 10,
                   color: "#161616",
                 }}
               >
@@ -232,7 +232,7 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
                         display: "flex",
                         flexDirection: "row",
                         justifyContent: "space-between",
-                        alignItems: "start"
+                        alignItems: "center"
                       }}
                     >
                       <Text
@@ -522,11 +522,13 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
 
             {data?.course?.length > 0 && data?.showCourses === true && (
               <>
+                <View style={{width:'100%' ,gap:"18px"}}   wrap={false}>
                 <View
                   style={{
                     width: "100%",
                     height: 1,
                     backgroundColor: "#344A50",
+
                   }}
                 ></View>
                 <View
@@ -548,7 +550,7 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
                       COURSES & CERTIFICATIONS
                     </Text>
                   </View>
-                  <View style={{ width: "100%", gap: 24 }}>
+                  <View style={{ width: "100%", gap: 16 }}>
                     {data?.course?.map((detail, index) => (
                       <View
                         key={index}
@@ -627,6 +629,7 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
                       </View>
                     ))}
                   </View>
+                </View>
                 </View>
               </>
             )}
