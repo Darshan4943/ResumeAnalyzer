@@ -11,10 +11,10 @@ import {
   Rect,
 } from "@react-pdf/renderer";
 function Template4({ data, selectedColor, selectedFont, preview }) {
-  const formatLink = (link) => {
-    if (link?.length > 22) {
-      return link?.match(/.{1,22}/g).join("\n");
-    }
+
+  const formatLink16 = (link) => {
+    if (link?.length > 16) {
+      return link?.match(/.{1,16}/g).join('\n');  }
     return link;
   };
 
@@ -23,6 +23,13 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
       return link?.match(/.{1,22}/g).join('\n');  }
     return link;
   };
+
+  const formatLink10 = (link) => {
+    if (link?.length > 10) {
+      return link?.match(/.{1,10}/g).join('\n');  }
+    return link;
+  };
+
   return (
     <Page
       size="A4"
@@ -95,7 +102,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                     fontSize: "24px",
                   }}
                 >
-                  {data.firstName}
+                  {formatLink10(data.firstName)}
                 </Text>
                 <Text
                   style={{
@@ -104,7 +111,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                     fontSize: "24px",
                   }}
                 >
-                  {data.lastName}
+                  {formatLink10(data.lastName)}
                 </Text>
               </View>
               <Text
@@ -472,19 +479,19 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                       style={{
                         color: "white",
                         fontSize: "12px",
-                        width: "90%",
+                        // width: "90%",
                         display: "flex",
                         flexDirection: "column",
                         gap: "4px",
                       }}
                     >
                       <Text style={{ fontFamily: `${selectedFont} 400` }}>
-                        {item?.platform}
+                        {formatLink19(item?.platform)}
                       </Text>
                       <Text
                         style={{
                           fontFamily: `${selectedFont} 400`,
-                          width: "90%",
+                          // width: "90%",
                           fontSize: "10px",
                           display: "flex",
                           flexWrap: "wrap",
@@ -554,7 +561,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                         }}
                       >
                         <Text style={{ fontFamily: `${selectedFont} 400` }}>
-                          {item?.title}
+                          {formatLink16(item?.title)}
                         </Text>
                       </View>
                     ))}
@@ -625,8 +632,8 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                           flexDirection: "row",
                           fontFamily: `${selectedFont} 400`,
                           color: "#fff",
-                          width: "90%",
-                          flexWrap: "wrap",
+                          // width: "90%",
+                          // flexWrap: "wrap",
                         }}
                       >
                         {formatLink19(detail.languages)}
@@ -723,7 +730,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                       }}
                     >
                       <Text style={{ fontFamily: `${selectedFont} 400` }}>
-                        {formatLink19(item?.title)}
+                        {formatLink16(item?.title)}
                       </Text>
                     </View>
                   ))}
@@ -792,7 +799,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                           fontFamily: `${selectedFont} 400`,
                         }}
                       >
-                        {item?.referantName}
+                        {formatLink19(item?.referantName)}
                       </Text>
                       <Text
                         style={{
