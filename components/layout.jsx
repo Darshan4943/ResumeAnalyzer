@@ -25,7 +25,7 @@ function Layout({ children }) {
     setSelectedPage(router.pathname);
   }, [router.pathname]);
 
-  console.log(27,pageOpened)
+ 
   const Temp = () => (
     <>
       <div className="mobile">

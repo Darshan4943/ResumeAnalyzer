@@ -535,7 +535,7 @@ function Dashboard() {
   const MyComponent = () => {
     return (
       <Document dpi={72}>
-        {selectResumeTemplate(resumeData.selectedResumeIndex)}
+         {selectResumeTemplate(resumeData.selectedResumeIndex)}
       </Document>
     );
   };
@@ -701,33 +701,13 @@ function Dashboard() {
                   <div className="text-[18px] font-Montserrat font-semibold">
                     Continue where you left
                   </div>
-                  <div className="w-[40%] ms:min-w-[500px] min-w-[280px] items-start justify-between gap-[46px] sm:gap-[12px] p-[24px] bg-[#F9F9F9] rounded-[24px] flex sm:flex-row flex-col">
-                    {/* <div className="w-[50%] min-w-[200px] h-full">
-                {templates.find(
-                  (item) => item.index === data.selectedResumeIndex
-                ) && (
-                    <img
-                      src={
-                        templates.find(
-                          (item) => item.index === data.selectedResumeIndex
-                        ).imgUrl
-                      }
-                      style={{
-                        height: "100%",
-                        width: "90%",
-                        objectFit: "cover",
-                      }}
-                      alt={Resume template ${data.selectedResumeIndex}} 
-                    />
-                  )}
-              </div> */}
+                  <div className="  min-w-[280px] items-center justify-between gap-[46px] sm:gap-[12px] p-[24px] bg-[#F9F9F9] rounded-[24px] flex flex-col">
+                    <span className="font-Montserrat text-[18px] font-medium text-[#333333] break-all">
+                      {data.firstName}_resume.pdf
+                    </span>
 
-                    <div className=" w-[250px] ms:flex items-center justify-center rounded-[8px] relative hidden ">
-                      {/* {loading ? (
-              <div>
-                <MiniLoader />
-              </div>
-            ) : ( */}
+                    <div className=" w-[250px] ms:flex items-center justify-center rounded-[8px] relative hidden group resumes ">
+
 
                       <PDFViewer
                         width="250px"
@@ -737,10 +717,58 @@ function Dashboard() {
                         <MyComponent />
                       </PDFViewer>
 
-                      {/* )}  */}
+                      <div className="bg-[#00000099]  absolute top-[0px] left-[0px] h-[330px] w-full rounded-[6px] opacity-0 invisible transition-opacity ease-in-out duration-[0.4s]  group-hover:opacity-100 group-hover:visible flex items-center justify-center">
+                        <div className="flex flex-col w-98 h-219 top-27.09 left-47.19 p-[12px]  rounded-lg border border-gray-200 gap-[12px] bg-[#333333CC]">
+
+
+                          <div
+                            onClick={() => {
+                              localStorage.removeItem("parsedResume");
+
+                              router.push(
+                                `/home/createResume?clientId=${data?.clientId}&continueEdit=true`
+                              );
+                            }}
+                            className="flex items-center flex-col cursor-pointer"
+                            style={{
+                              borderBottom: "1px solid #646464",
+                              paddingBottom: "12px",
+                            }}
+                          >
+                            <img
+                              src="/images/icons/edit.png"
+                              className="h-[24px] w-[24px]"
+                              alt=""
+                            />
+                            <span className="text-[12px] font-semibold text-white ">
+                              Edit
+                            </span>
+                          </div>
+
+
+                          <a
+                            onClick={() => {
+                              localStorage.removeItem("userData");
+                              window.location.href = "/";
+                            }}
+                            className="flex items-center flex-col cursor-pointer"
+                          >
+                            <img
+                              src="/images/icons/delete_icon.png"
+                              className="h-[24px] w-[24px]"
+                              alt=""
+                            />
+                            <span className="text-[12px] font-semibold text-white ">
+                              Delete
+                            </span>
+                          </a>
+
+                        </div>
+                      </div>
                     </div>
 
-                    <div className="w-[40%] flex flex-col gap-4 ms:min-w-[160px] min-w-[200px]">
+
+                    {/* <div className="w-[40%] flex flex-col gap-4 ms:min-w-[160px] min-w-[200px]">
                       <span className="font-Montserrat text-[18px] font-medium text-[#333333] break-all">
                         {data.firstName}_resume.pdf
                       </span>
@@ -753,11 +781,6 @@ function Dashboard() {
                       <div
                         onClick={() => {
                           localStorage.removeItem("parsedResume");
-                          // router.push(
-                          //   `/home/createResume?clientId=${
-                          //     data?.clientId
-                          //   }&continueEdit=${true}`
-                          // );
 
                           router.push(
                             `/home/createResume?clientId=${data?.clientId}&continueEdit=true`
@@ -808,7 +831,7 @@ function Dashboard() {
                         </svg>
                         Delete
                       </button>
-                    </div>
+                    </div> */}
                   </div>
                 </>
               )}

@@ -279,7 +279,7 @@ const AddSection = ({ data, setData, section, formData, index, item }) => {
               className="text-[16px] font-semibold text-[#06A9EF] cursor-pointer"
               disabled={!isChecked}
             >
-              Add Another {header}
+              Add {header}
             </p>
           </div>
 

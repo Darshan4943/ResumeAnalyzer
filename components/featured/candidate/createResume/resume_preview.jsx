@@ -122,7 +122,7 @@ const ResumePreview = ({
   useEffect(() => {
     callData();
     setName(data.firstName + "_resume");
-  }, [userDataGlobal, data.firstName]);
+  }, [userDataGlobal, data.firstName,saveLimit]);
 
 
   const selectResumeTemplate = (index) => {
@@ -450,7 +450,7 @@ const ResumePreview = ({
         axios
           .post("https://jamblix.com/api/resume/add", formData)
           .then((res) => {
-            console.log(43331, res.data.data);
+           
             const pdfUrl = res.data.data.resumeUrl;
 
             localStorage.setItem("saveCount", saveLimit - 1);

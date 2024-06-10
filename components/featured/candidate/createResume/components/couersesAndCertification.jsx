@@ -185,7 +185,7 @@ const CouersesAndCertification = ({
         </div> */}
       </div>
 
-      {!coursesView &&
+      {
         data?.course?.length > 0 &&
         data?.course?.map((exp, index) => (
           <div
@@ -337,7 +337,7 @@ const CouersesAndCertification = ({
         </div>
       )}
 
-      {!coursesView && data.course.length <= 0 && (
+      {!coursesView && data.course.length > 0 && (
         <div
           className="flex gap-1"
           onClick={() => isChecked && setCoursesView(true)}

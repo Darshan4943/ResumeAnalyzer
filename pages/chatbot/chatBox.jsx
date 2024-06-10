@@ -304,7 +304,7 @@ const ChatBox = ({
         <button
           className={`absolute ${
             isSidebarOpen ? "ml:left-[75px]" : "ml:left-[0px]"
-          } ml:top-[45vh] left-0 top-[5vh] px-1 py-2 flex items-center justify-center bg-[#FBFBFB] rounded-r-[4px]`}
+          } ml:top-[45vh] left-0 top-[2vh] px-1 py-2 flex items-center justify-center bg-[#FBFBFB] rounded-r-[4px]`}
           onClick={handleToggleSidebar}
         >
           <img

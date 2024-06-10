@@ -100,7 +100,7 @@ function CandidateMobileHeader() {
               animate={{ x: 0 }}
               exit={{ x: "-100%" }}
               transition={{ duration: 0.5, ease: "easeInOut" }}
-              className="fixed z-[2000] w-full mt-[-4rem] h-[113vh] overflow-y-auto "
+              className="fixed z-[3000] w-full mt-[-4rem] h-[113vh] overflow-y-auto "
               style={{
                 background: "rgba(255, 255, 255, 0.5)",
                 boxShadow: "0 0 10px rgba(255, 255, 255, 0.5)",

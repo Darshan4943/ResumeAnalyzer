@@ -9,6 +9,7 @@ import { addressReducer } from "./addressReducer";
 import { timeSlotReducer } from "./timeslotReducer";
 import { locationReducer } from "./locationReducer";
 import { categoryReducer } from "./categoryReducer";
+import locpopupReducer from "./popupReducer";
 import {
   bannerReducer,
   changeNumber,
@@ -26,6 +27,7 @@ const reducers = combineReducers({
   getAllJobs: jobReducer,
   popupState:popupReducer,
   pageState: WebsiteReducer,
+  popup: locpopupReducer,
 });
 
 export default reducers;
