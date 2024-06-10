@@ -11,10 +11,12 @@ import PrecisionMatching from "./PrecisionMatching";
 import TransformResume from "./TransformResume";
 import ClientSection from "./ClientSection";
 import Footer from "../../components/partials/footer/footer";
+import { useSelector } from "react-redux";
 
 function Recruiter_page() {
   const [isSubscribe, setIsSubcrib] = useState(false)
   const [showAnimationn, setShowAnimation] = useState(true);
+  const enablePopup = useSelector((state) => state.popup.enablePopup);
   const handleScroll = () => {
     if (window.scrollY > 400) {
       setShowAnimation(false);
@@ -64,8 +66,10 @@ function Recruiter_page() {
           <ClientSection />
         </ReactLenis>
       </div>
-      <SubscriptionPlan fromMain={true} />
-      <Footer isSubscribe={isSubscribe} setIsSubcrib={setIsSubcrib}  />
+      {!enablePopup &&
+        <SubscriptionPlan fromMain={true} />
+      }
+      <Footer isSubscribe={isSubscribe} setIsSubcrib={setIsSubcrib} />
       {isSubscribe &&
         <>
           <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
