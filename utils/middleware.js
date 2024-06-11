@@ -492,3 +492,82 @@ export const daysCalculator = (date) => {
   }
 };
 
+export const coverLetters = [
+  {
+    title: "Cover1",
+    imgUrl: "/images/coverLetter/Cover-letter-1.png",
+    index: 1,
+    fontFamily: "Lato",
+    themeColor: "#414042",
+  },
+  {
+    title: "Cover2",
+    imgUrl: "/images/coverLetter/Cover-letter-2.png",
+    index: 2,
+    fontFamily: "Lato",
+    themeColor: "#414042",
+  },
+  {
+    title: "Cover3",
+    imgUrl: "/images/coverLetter/Cover-letter-3.png",
+    index: 3,
+    fontFamily: "Lato",
+    themeColor: "#414042",
+  },
+  {
+    title: "Cover4",
+    imgUrl: "/images/coverLetter/Cover-letter-4.png",
+    index: 4,
+    fontFamily: "Lato",
+    themeColor: "#414042",
+  },
+  {
+    title: "Cover5",
+    imgUrl: "/images/coverLetter/Cover-letter-5.png",
+    index: 5,
+    fontFamily: "Lato",
+    themeColor: "#414042",
+  },
+  {
+    title: "Cover6",
+    imgUrl: "/images/coverLetter/Cover-letter-6.png",
+    index: 6,
+    fontFamily: "Lato",
+    themeColor: "#414042",
+  },
+  {
+    title: "Cover7",
+    imgUrl: "/images/coverLetter/Cover-letter-7.png",
+    index: 7,
+    fontFamily: "Lato",
+    themeColor: "#414042",
+  },
+  {
+    title: "Cover8",
+    imgUrl: "/images/coverLetter/Cover-letter-8.png",
+    index: 8,
+    fontFamily: "Lato",
+    themeColor: "#414042",
+  },
+  {
+    title: "Cover9",
+    imgUrl: "/images/coverLetter/Cover-letter-9.png",
+    index: 9,
+    fontFamily: "Lato",
+    themeColor: "#414042",
+  },
+  {
+    title: "Cover10",
+    imgUrl: "/images/coverLetter/Cover-letter-10.png",
+    index: 10,
+    fontFamily: "Lato",
+    themeColor: "#414042",
+  },
+  {
+    title: "Cover11",
+    imgUrl: "/images/coverLetter/Cover-letter-11.png",
+    index: 11,
+    fontFamily: "Lato",
+    themeColor: "#414042",
+  },
+];

@@ -402,7 +402,9 @@ function CandidateHeader() {
               </svg>
               Log Out
             </div>
-
+            <div   onClick={() => router.push("/coverLetter")}>
+              cover
+            </div>
           </div>
         )}
       </div>

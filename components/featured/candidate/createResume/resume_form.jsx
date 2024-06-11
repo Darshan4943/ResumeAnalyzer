@@ -52,7 +52,7 @@ const ResumeForm = ({
       }
     }
   }, [data]);
- 
+
 
   useEffect(() => {
     setFormField(
@@ -201,29 +201,29 @@ const ResumeForm = ({
   return (
     <>
       <div className="flex flex-col pr-[10px] ml:w-[100%] w-[100%]  pb-4 gap-4 rounded-lg ">
-      <div className="ml:flex hidden  flex-row gap-4 ">
+        <div className="ml:flex hidden  flex-row gap-4 ">
           <button className="p-[8px] border-[1px] bg-blue border-[#DEDEDE] rounded-[6px]  "
-          style={{}}>
-          <svg
-            className=" cursor-pointer"
-            onClick={() => router.push("/home/BuildResume")}
-            width="24"
-            height="24"
-            viewBox="0 0 40 40"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <g mask="url(#mask0_629_16604)">
-              <path
-                d="M11.9583 21.3892L21.9584 31.3892L20 33.3337L6.66669 20.0003L20 6.66699L21.9584 8.61141L11.9583 18.6115H33.3334V21.3892H11.9583Z"
-                fill="white"
-              />
-            </g>
-          </svg>
+            style={{}}>
+            <svg
+              className=" cursor-pointer"
+              onClick={() => router.push("/home/BuildResume")}
+              width="24"
+              height="24"
+              viewBox="0 0 40 40"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g mask="url(#mask0_629_16604)">
+                <path
+                  d="M11.9583 21.3892L21.9584 31.3892L20 33.3337L6.66669 20.0003L20 6.66699L21.9584 8.61141L11.9583 18.6115H33.3334V21.3892H11.9583Z"
+                  fill="white"
+                />
+              </g>
+            </svg>
           </button>
-        <div className="text-[18px] font-medium text-[#FFFFFF]  header1 w-[280px] flex justify-start px-4 py-[6px] ">
-         Create Resume
-      </div>
+          <div className="text-[18px] font-medium text-[#FFFFFF]  header1 w-[280px] flex justify-start px-4 py-[6px] ">
+            Create Resume
+          </div>
 
         </div>
         <div className="rounded-[8px] bg-[#BCEBFF]  px-4 pt-[10px] ">
@@ -390,19 +390,19 @@ const ResumeForm = ({
 
         {(data?.achievements?.length > 0 ||
           customOptions["Achievements & Awards"]) && (
-          <div ref={achievementsRef}>
-            <>
-              <Achievement
-                setData={setData}
-                data={data}
-                achievementView={achievementView}
-                setAchievementView={setAchievementView}
-                setCustomOptions={setCustomOptions}
-              />
-              <div className="border-b border-r border-l border-[#DEDEDE]"></div>
-            </>
-          </div>
-        )}
+            <div ref={achievementsRef}>
+              <>
+                <Achievement
+                  setData={setData}
+                  data={data}
+                  achievementView={achievementView}
+                  setAchievementView={setAchievementView}
+                  setCustomOptions={setCustomOptions}
+                />
+                <div className="border-b border-r border-l border-[#DEDEDE]"></div>
+              </>
+            </div>
+          )}
         {(data?.socialLinks?.length > 0 || customOptions?.Links) && (
           <div ref={socialLinksRef}>
             <>
@@ -487,35 +487,35 @@ const ResumeForm = ({
         )}
         {(data?.ExtraCaricularActivity?.length > 0 ||
           customOptions["Extra Activities"]) && (
-          <div ref={extraCurricularRef}>
-            <>
-              <ExtraCaricularActivity
-                setData={setData}
-                data={data}
-                customOptions={customOptions}
-                setCustomOptions={setCustomOptions}
-                extraCurricularView={extraCurricularView}
-                setExtraCurricularView={setExtraCurricularView}
-              />
-              <div className="border-b border-r border-l border-[#DEDEDE]"></div>
-            </>
-          </div>
-        )}
+            <div ref={extraCurricularRef}>
+              <>
+                <ExtraCaricularActivity
+                  setData={setData}
+                  data={data}
+                  customOptions={customOptions}
+                  setCustomOptions={setCustomOptions}
+                  extraCurricularView={extraCurricularView}
+                  setExtraCurricularView={setExtraCurricularView}
+                />
+                <div className="border-b border-r border-l border-[#DEDEDE]"></div>
+              </>
+            </div>
+          )}
         {(data?.course?.length > 0 ||
           customOptions["Courses & Certifications"]) && (
-          <div ref={coursesRef}>
-            <>
-              <CouersesAndCertification
-                setData={setData}
-                data={data}
-                coursesView={coursesView}
-                setCoursesView={setCoursesView}
-                setCustomOptions={setCustomOptions}
-              />
-              <div className="border-b border-r border-l border-[#DEDEDE]"></div>
-            </>
-          </div>
-        )}
+            <div ref={coursesRef}>
+              <>
+                <CouersesAndCertification
+                  setData={setData}
+                  data={data}
+                  coursesView={coursesView}
+                  setCoursesView={setCoursesView}
+                  setCustomOptions={setCustomOptions}
+                />
+                <div className="border-b border-r border-l border-[#DEDEDE]"></div>
+              </>
+            </div>
+          )}
         {/* {customOptions["Custom Section"] && ( */}
         {data?.section.length > 0 && (
           <div
