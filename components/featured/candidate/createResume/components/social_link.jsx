@@ -238,7 +238,7 @@ const SocialLink = ({
             </svg>
             <p
               onClick={() => setLinkView(true)}
-              className="text-[16px] font-semibold text-[#06A9EF]"
+              className="text-[16px] font-semibold text-[#06A9EF] cursor-pointer"
               disabled={!isChecked}
             >
               Add Links

@@ -475,7 +475,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                 >
                   {data?.socialLinks?.map((detail, index) => (
                     <View
-
+                    wrap={false}
                       key={index}
                       style={{ flexDirection: "column", gap: "8px" }}
                     >
