@@ -208,10 +208,10 @@ const Project = ({
             </div>
             <p className="text-[12px]">
               {exp?.organization}{" "}
-              {exp?.duration?.start?.year !== "Year" &&
+              {exp?.duration?.start?.year !== "" &&
                 ` ${"|"} ${exp?.duration?.start?.year} 
               ${exp?.duration?.start?.year && "-"}
-              ${exp?.currentlyWorking ? "Present" : exp?.duration?.end?.year}`}
+              ${exp?.currentlyWorking || exp.duration?.end?.year === "" ? "Present" : exp?.duration?.end?.year}`}
             </p>
             <p className="text-[12px]">{exp?.description}</p>
           </div>
