@@ -46,6 +46,12 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
     return link;
   };
 
+  const formatLink25 = (link) => {
+    if (link?.length > 25) {
+      return link?.match(/.{1,25}/g).join('\n');  }
+    return link;
+  };
+
   const formatLink58 = (link) => {
     if (link?.length > 56) {
       return link?.match(/.{1,56}/g).join('\n');  }
@@ -99,7 +105,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                 marginRight: "6px",
               }}
             >
-              {data.designation}
+              {formatLink25(data.designation)}
             </Text>
           </View>
 
