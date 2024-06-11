@@ -271,11 +271,10 @@ function Template13({ data, selectedColor, selectedFont }) {
                             }}
                           >
                             {formatLink40(detail.organization)}{" "}
-                            {detail.duration?.start?.year !== "Year" &&
-                              `${detail.duration?.start?.year}-${" "}${
-                                detail.currentlyWorking
-                                  ? "Present"
-                                  : detail.duration?.end?.year
+                            {detail.duration?.start?.year !== "Year"  &&
+                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
+                                ? "Present"
+                                : detail.duration?.end?.year
                               }
                          `}
                           </Text>
@@ -352,8 +351,8 @@ function Template13({ data, selectedColor, selectedFont }) {
                           }}
                         >
                           {formatLink32(detail.organization)}{" "}
-                          {detail.duration?.start?.year !== "" &&
-                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === ""
+                          {detail.duration?.start?.year !== "Year"  &&
+                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
                                 ? "Present"
                                 : detail.duration?.end?.year
                               }
@@ -432,12 +431,11 @@ function Template13({ data, selectedColor, selectedFont }) {
                           }}
                         >
                           {formatLink32(detail.organization)}{" "}
-                          {detail.duration?.start?.year !== "Year" &&
-                            `${detail.duration?.start?.year}-${" "}${
-                              detail.currentlyWorking
+                          {detail.duration?.start?.year !== "Year"  &&
+                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
                                 ? "Present"
                                 : detail.duration?.end?.year
-                            }
+                              }
                          `}
                         </Text>
                         <Text
@@ -513,12 +511,11 @@ function Template13({ data, selectedColor, selectedFont }) {
                           }}
                         >
                           {detail.organization}{" "}
-                          {detail.duration?.start?.year !== "Year" &&
-                            `${detail.duration?.start?.year}-${" "}${
-                              detail.currentlyWorking
+                          {detail.duration?.start?.year !== "Year"  &&
+                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
                                 ? "Present"
                                 : detail.duration?.end?.year
-                            }
+                              }
                          `}
                         </Text>
                         <Text
@@ -595,11 +592,10 @@ function Template13({ data, selectedColor, selectedFont }) {
                             }}
                           >
                             {formatLink32(detail.organization)}{" "}
-                            {detail.duration?.start?.year !== "Year" &&
-                              `${detail.duration?.start?.year}-${" "}${
-                                detail.currentlyWorking
-                                  ? "Present"
-                                  : detail.duration?.end?.year
+                            {detail.duration?.start?.year !== "Year"  &&
+                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
+                                ? "Present"
+                                : detail.duration?.end?.year
                               }
                          `}
                           </Text>
@@ -673,12 +669,12 @@ function Template13({ data, selectedColor, selectedFont }) {
                                 color: "#797979",
                               }}
                             >
-                              {detail?.duration?.start?.year}
-                              {detail?.duration?.start?.year && "-"}
-                              {detail?.duration?.end?.year === "" ||
-                              detail?.duration?.end?.year === undefined
-                                ? "Present"
-                                : detail?.duration?.end?.year}
+                            {detail?.duration?.start?.year}
+                                  {detail?.duration?.start?.year && "-"}
+                                  {detail?.duration?.end?.year === "Year" ||
+                                    detail?.duration?.end?.year === undefined
+                                    ? "Present"
+                                    : detail?.duration?.end?.year}
                             </Text>
                             <Text
                               style={{

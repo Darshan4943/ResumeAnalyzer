@@ -275,7 +275,9 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
           )}
 
           {data?.skills?.length > 0 && data?.showSkills === true && (
-            <View wrap={false} style={{ maxWidth: "100%" }}>
+            <View
+            //  wrap={false} 
+             style={{ maxWidth: "100%" }}>
               <View
                 style={{
                   paddingLeft: -1,
@@ -561,7 +563,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
             </View>
           )}
 
-          {data?.experience?.length > 0 && data?.showEducation === true && (
+          {data?.education?.length > 0 && data?.showEducation === true && (
             <View
               style={{
                 flexDirection: "column",
@@ -725,12 +727,12 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                             fontFamily: `${selectedFont} 400`,
                           }}
                         >
-                          {detail.duration?.start?.year !== "Year" &&
-                            `${detail.duration?.start?.year}-${" "}${
-                              detail.currentlyWorking
+                        {detail.duration?.start?.year !== "Year"  &&
+                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
                                 ? "Present"
                                 : detail.duration?.end?.year
-                            }`}
+                              }
+                         `}
                         </Text>
                       </View>
                       {detail.description?.length > 5 && (
@@ -829,8 +831,8 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                             fontFamily: `${selectedFont} 400`,
                           }}
                         >
-                         {detail.duration?.start?.year !== "" &&
-                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === ""
+                      {detail.duration?.start?.year !== "Year"  &&
+                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
                                 ? "Present"
                                 : detail.duration?.end?.year
                               }
@@ -933,12 +935,12 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                             fontFamily: `${selectedFont} 400`,
                           }}
                         >
-                          {detail.duration?.start?.year !== "Year" &&
-                            `${detail.duration?.start?.year}-${" "}${
-                              detail.currentlyWorking
+                       {detail.duration?.start?.year !== "Year"  &&
+                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
                                 ? "Present"
                                 : detail.duration?.end?.year
-                            }`}
+                              }
+                         `}
                         </Text>
                       </View>
                       {detail.description?.length > 5 && (
@@ -1141,12 +1143,12 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                               fontFamily: `${selectedFont} 400`,
                             }}
                           >
-                            {detail.duration?.start?.year !== "Year" &&
-                              `${detail.duration?.start?.year}-${" "}${
-                                detail.currentlyWorking
-                                  ? "Present"
-                                  : detail.duration?.end?.year
-                              }`}
+                         {detail.duration?.start?.year !== "Year"  &&
+                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
+                                ? "Present"
+                                : detail.duration?.end?.year
+                              }
+                         `}
                           </Text>
                         </View>
                         {detail.description?.length > 5 && (
@@ -1330,12 +1332,12 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                                 fontFamily: `${selectedFont} 400`,
                               }}
                             >
-                              {detail?.duration?.start?.year}
-                              {detail?.duration?.start?.year && "-"}
-                              {detail?.duration?.end?.year === "" ||
-                              detail?.duration?.end?.year === undefined
-                                ? "Present"
-                                : detail?.duration?.end?.year}
+                            {detail?.duration?.start?.year}
+                                  {detail?.duration?.start?.year && "-"}
+                                  {detail?.duration?.end?.year === "Year" ||
+                                    detail?.duration?.end?.year === undefined
+                                    ? "Present"
+                                    : detail?.duration?.end?.year}
                             </Text>
                           )}
                         </View>

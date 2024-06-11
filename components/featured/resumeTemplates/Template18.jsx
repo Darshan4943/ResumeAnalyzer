@@ -922,11 +922,12 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                               color: "#252829",
                             }}
                           >
-                            {detail.duration?.start?.year !== "Year" &&
-                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
+                          {detail.duration?.start?.year !== "Year"  &&
+                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
                                 ? "Present"
                                 : detail.duration?.end?.year
-                              }`}
+                              }
+                         `}
                           </Text>
                           <View
                             style={{
@@ -1155,8 +1156,8 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                               color: "#252829",
                             }}
                           >
-                           {detail.duration?.start?.year !== "" &&
-                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === ""
+                         {detail.duration?.start?.year !== "Year"  &&
+                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
                                 ? "Present"
                                 : detail.duration?.end?.year
                               }
@@ -1272,11 +1273,12 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                               color: "#252829",
                             }}
                           >
-                            {detail.duration?.start?.year !== "Year" &&
-                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
+                           {detail.duration?.start?.year !== "Year"  &&
+                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
                                 ? "Present"
                                 : detail.duration?.end?.year
-                              }`}
+                              }
+                         `}
                           </Text>
                           <View
                             style={{
@@ -1389,11 +1391,12 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                               color: "#252829",
                             }}
                           >
-                            {detail.duration?.start?.year !== "Year" &&
-                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
+                          {detail.duration?.start?.year !== "Year"  &&
+                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
                                 ? "Present"
                                 : detail.duration?.end?.year
-                              }`}
+                              }
+                         `}
                           </Text>
                           <View
                             style={{
@@ -1507,8 +1510,12 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                               color: "#252829",
                             }}
                           >
-                            {detail.duration?.start?.year !== "Year" && `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking ? "Present" : detail.duration?.end?.year}`}
-                          </Text>
+{detail.duration?.start?.year !== "Year"  &&
+                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
+                                ? "Present"
+                                : detail.duration?.end?.year
+                              }
+                         `}                          </Text>
                           <View
                             style={{
                               backgroundColor: "#555C5E",
@@ -1600,12 +1607,12 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                                 color: "#252829",
                               }}
                             >
-                              {detail?.duration?.start?.year}
-                              {detail?.duration?.start?.year && "-"}
-                              {detail?.duration?.end?.year === "" ||
-                              detail?.duration?.end?.year === undefined
-                                ? "Present"
-                                : detail?.duration?.end?.year}
+                         {detail?.duration?.start?.year}
+                                  {detail?.duration?.start?.year && "-"}
+                                  {detail?.duration?.end?.year === "Year" ||
+                                    detail?.duration?.end?.year === undefined
+                                    ? "Present"
+                                    : detail?.duration?.end?.year}
                             </Text>
                             <View
                               style={{
