@@ -510,11 +510,11 @@ console.log(111,data)
           location: "",
           duration: {
             start: {
-              year: item.start_year ? item.start_year : currentYear,
+              year: item.start_year ? item.start_year : "Year",
               month: null,
             },
             end: {
-              year: item.end_year ? item.end_year : currentYear,
+              year: item.end_year ? item.end_year : "Year",
               month: null,
             },
           },
@@ -526,9 +526,9 @@ console.log(111,data)
           currentlyWorking: false,
           location: item.location,
           duration: {
-            start: { year: item.start_date?.year, month: null },
+            start: { year: item.start_date?.year ? item.start_date?.year : "Year", month: null },
             end: {
-              year: item.is_current ? currentYear : item.end_date?.year,
+              year: item.is_current ? currentYear : item.end_date?.year ? item.end_date?.year : "Year",
               month: null,
             },
           },
@@ -559,9 +559,9 @@ console.log(111,data)
               currentlyWorking: false,
 
               duration: {
-                start: { year: item.start_date?.year, month: null },
+                start: { year: item.start_date?.year ? item.start_date?.year : "Year", month: null },
                 end: {
-                  year: item.is_current ? currentYear : item.end_date?.year,
+                  year: item.is_current ? currentYear : item.end_date?.year ? item.end_date?.year : "Year",
                   month: null,
                 },
               },
@@ -576,9 +576,9 @@ console.log(111,data)
               currentlyWorking: false,
 
               duration: {
-                start: { year: item.start_date?.year, month: null },
+                start: { year: item.start_date?.year ? item.start_date?.year : "Year", month: null },
                 end: {
-                  year: item.is_current ? currentYear : item.end_date?.year,
+                  year: item.is_current ? currentYear : item.end_date?.year ? item.end_date?.year : "Year",
                   month: null,
                 },
               },
@@ -593,9 +593,9 @@ console.log(111,data)
               currentlyWorking: true,
 
               duration: {
-                start: { year: item.start_date?.year, month: null },
+                start: { year: item.start_date?.year ? item.start_date?.year : "Year", month: null },
                 end: {
-                  year: item.is_current ? currentYear : item.end_date?.year,
+                  year: item.is_current ? currentYear : item.end_date?.year ? item.end_date?.year : "Year",
                   month: null,
                 },
               },
@@ -678,12 +678,13 @@ console.log(111,data)
         <div className="flex flex-col gap-4 py-6 ">
           <div className="flex ml:hidden flex-row gap-4 ">
             <button
+             onClick={() => router.push(`/home/BuildResume?clientId=${clientId}`)}
               className="p-[8px] border-[1px] bg-blue border-[#DEDEDE] rounded-[6px]  "
               style={{}}
             >
               <svg
                 className=" cursor-pointer"
-                onClick={() => router.push("/home/BuildResume")}
+               
                 width="24"
                 height="24"
                 viewBox="0 0 40 40"
@@ -720,6 +721,7 @@ console.log(111,data)
                   selectedColor={selectedColor}
                   setSelectedFont={setSelectedFont}
                   template={templates}
+                  clientId={clientId}
                 />
               </div>
               <div className="sticky top-[88px]  h-[50rem] w-[60%] ">
@@ -771,6 +773,7 @@ console.log(111,data)
                   setSelectedFont={setSelectedFont}
                   selectedFont={selectedFont}
                   template={templates}
+                  clientId={clientId}
                 />
               </motion.div>
             </AnimatePresence>
@@ -802,6 +805,7 @@ console.log(111,data)
                   setSelectedFont={setSelectedFont}
                   selectedFont={selectedFont}
                   template={templates}
+                  clientId={clientId}
                 />
               </div>
             </div>
