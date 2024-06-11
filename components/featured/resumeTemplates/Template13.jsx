@@ -198,7 +198,7 @@ function Template13({ data, selectedColor, selectedFont }) {
                         color: "#333333",
                       }}
                     >
-                      {formatLink20(data.location)}
+                      {formatLink22(data.location)}
                     </Text>
                   </View>
                   <View
@@ -352,12 +352,11 @@ function Template13({ data, selectedColor, selectedFont }) {
                           }}
                         >
                           {formatLink32(detail.organization)}{" "}
-                          {detail.duration?.start?.year !== "Year" &&
-                            `${detail.duration?.start?.year}-${" "}${
-                              detail.currentlyWorking
+                          {detail.duration?.start?.year !== "" &&
+                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === ""
                                 ? "Present"
                                 : detail.duration?.end?.year
-                            }
+                              }
                          `}
                         </Text>
                         <Text

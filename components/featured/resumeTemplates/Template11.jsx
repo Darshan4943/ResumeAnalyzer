@@ -34,9 +34,9 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
     return link;
   };
 
-  const formatLink35 = (link) => {
-    if (link?.length > 35) {
-      return link?.match(/.{1,35}/g).join('\n');  }
+  const formatLink42 = (link) => {
+    if (link?.length > 42) {
+      return link?.match(/.{1,42}/g).join('\n');  }
     return link;
   };
 
@@ -188,7 +188,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                               overflow: "hidden",
                             }}
                           >
-                            {formatLink22(detail.skill)}
+                            {formatLink25(detail.skill)}
                           </Text>
                           {/* <View
                             style={{
@@ -414,7 +414,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                         // width: "90%",
                       }}
                     >
-                      {formatLink21(item?.platform)}
+                      {formatLink25(item?.platform)}
                     </Text>
                     <Text
                       style={{
@@ -424,7 +424,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                         // width: "90%",
                       }}
                     >
-                      {formatLink22(item?.link)}
+                      {formatLink25(item?.link)}
                     </Text>
                   </View>
                 ))}
@@ -632,7 +632,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                         fontFamily: `${selectedFont} 700`,
                       }}
                     >
-                      {formatLink35(data.email)}
+                      {formatLink42(data.email)}
                     </Text>
                   </View>
                 </View>
@@ -682,7 +682,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                         paddingVertical:'5px'
                       }}
                     >
-                      {formatLink35(data.location)}
+                      {formatLink42(data.location)}
                     </Text>
                   </View>
                 </View>
@@ -1103,12 +1103,11 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                           fontFamily: `${selectedFont} 400`,
                         }}
                       >
-                        {detail.duration?.start?.year !== "Year" &&
-                          `${detail.duration?.start?.year}-${" "}${
-                            detail.currentlyWorking
-                              ? "Present"
-                              : detail.duration?.end?.year
-                          }
+                       {detail.duration?.start?.year !== "" &&
+                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === ""
+                                ? "Present"
+                                : detail.duration?.end?.year
+                              }
                          `}
                       </Text>
                     </View>
