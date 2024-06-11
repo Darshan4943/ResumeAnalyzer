@@ -229,7 +229,7 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
             )}
             {data?.skills?.length > 0 && data?.showSkills === true && (
               <View
-                wrap={data?.reference?.length > 1 ? true : false}
+                wrap={data?.skills?.length > 1 ? true : false}
                 style={{ flexDirection: "column", gap: 16 }}>
                 <View
                   wrap={false}
@@ -257,6 +257,7 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
                   {data?.skills?.map((detail, index) => (
                     <Text
                       key={index}
+                      wrap={false}
                       style={{
                         color: "#58595B",
                         fontSize: "14",
@@ -271,7 +272,7 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
             )}
             {data?.hobbies?.length > 0 && data?.showHobbies === true && (
               <View
-                wrap={data?.reference?.length > 1 ? true : false}
+                wrap={data?.hobbies?.length > 1 ? true : false}
                 style={{ flexDirection: "column", gap: 16 }}>
                 <View
                   wrap={false}
@@ -299,6 +300,7 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
                   {data?.hobbies?.map((detail, index) => (
                     <Text
                       key={index}
+                      wrap={false}
                       style={{
                         color: "#58595B",
                         fontSize: "14",
@@ -313,7 +315,7 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
             )}
             {data?.languages?.length > 0 && data?.showLanguage === true && (
               <View
-                wrap={data?.reference?.length > 1 ? true : false}
+                wrap={data?.languages?.length > 1 ? true : false}
                 style={{ flexDirection: "column", gap: 16 }}>
                 <View
                   wrap={false}
@@ -341,6 +343,7 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
                   {data?.languages?.map((detail, index) => (
                     <Text
                       key={index}
+                      wrap={false}
                       style={{
                         color: "#58595B",
                         fontSize: "14",
@@ -357,7 +360,7 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
             {data?.achievements?.length > 0 &&
               data?.showAchievements === true && (
                 <View
-                  wrap={data?.reference?.length > 1 ? true : false}
+                  wrap={data?.achievements?.length > 1 ? true : false}
                   style={{ flexDirection: "column", gap: 16 }}>
                   <View
                     wrap={false}
@@ -385,6 +388,7 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
                     {data?.achievements?.map((detail, index) => (
                       <Text
                         key={index}
+                        wrap={false}
                         style={{
                           color: "#58595B",
                           fontSize: "14",
@@ -400,7 +404,7 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
               )}
             {data?.socialLinks?.length > 0 && data?.showLinks === true && (
               <View
-                wrap={data?.reference?.length > 1 ? true : false}
+                wrap={data?.socialLinks?.length > 1 ? true : false}
                 style={{ flexDirection: "column", gap: 16 }}>
                 <View
                   wrap={false}
@@ -549,7 +553,7 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
           >
             {data?.experience?.length > 0 && data?.showExperience === true && (
               <View
-                wrap={data?.reference?.length > 1 ? true : false}
+                wrap={data?.experience?.length > 1 ? true : false}
                 style={{ flexDirection: "column", gap: 16, maxWidth: "100%" }}
               >
                 <View style={{ flexDirection: "row", alignItems: "center" }}>
@@ -656,7 +660,7 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
             {data?.education?.length > 0 && data?.showEducation === true && (
               <View
                 style={{ flexDirection: "column", gap: 16 }}
-                wrap={data?.experience?.length > 1 ? true : false}
+                wrap={data?.education?.length > 1 ? true : false}
               >
                 <View style={{ flexDirection: "row", alignItems: "center" }}>
                   <View
@@ -754,7 +758,7 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
 
             {data?.internship?.length > 0 && data?.showInternship === true && (
               <View
-                wrap={data?.reference?.length > 1 ? true : false}
+                wrap={data?.internship?.length > 1 ? true : false}
                 style={{ flexDirection: "column", gap: 16, maxWidth: "100%" }}
               >
                 <View style={{ flexDirection: "row", alignItems: "center" }}>
@@ -862,7 +866,7 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
             )}
             {data?.project?.length > 0 && data?.showProject === true && (
               <View
-                wrap={data?.reference?.length > 1 ? true : false}
+                wrap={data?.project?.length > 1 ? true : false}
                 style={{ flexDirection: "column", gap: 16, maxWidth: "100%" }}
               >
                 <View style={{ flexDirection: "row", alignItems: "center" }}>
@@ -936,11 +940,11 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
                             }}
                           >
                             {detail.duration?.start?.year !== "Year" &&
-                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
+                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
                                 ? "Present"
                                 : detail.duration?.end?.year
                               }
-                   `}
+                         `}
                           </Text>
                         )}
                       </View>
@@ -971,7 +975,7 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
 
             {data?.course?.length > 0 && data?.showCourses === true && (
               <View
-                wrap={data?.reference?.length > 1 ? true : false}
+                wrap={data?.course?.length > 1 ? true : false}
                 style={{ flexDirection: "column", gap: 16, maxWidth: "100%" }}
               >
                 <View style={{ flexDirection: "row", alignItems: "center" }}>
@@ -1081,7 +1085,7 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
             {data?.extraCaricularData?.length > 0 &&
               data?.showExtraCariculam === true && (
                 <View
-                  wrap={data?.reference?.length > 1 ? true : false}
+                  wrap={data?.extraCaricularData?.length > 1 ? true : false}
                   style={{ flexDirection: "column", gap: 16, maxWidth: "100%" }}
                 >
                   <View style={{ flexDirection: "row", alignItems: "center" }}>
@@ -1193,7 +1197,7 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
               )}
             {data?.section?.length > 0 && data?.showCustomSection === true && data?.section?.map((item, index) => (
               <View
-                wrap={data?.reference?.length > 1 ? true : false}
+                wrap={data?.section?.length > 1 ? true : false}
                 style={{
                   flexDirection: "column",
                   gap: 16,

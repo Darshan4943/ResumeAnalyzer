@@ -19,8 +19,8 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
   };
 
   const formatEmail = (email) => {
-    if (email?.length > 20) {
-      return email?.match(/.{1,20}/g).join("\n");
+    if (email?.length > 16) {
+      return email?.match(/.{1,16}/g).join("\n");
     }
     return email;
   };
@@ -112,6 +112,7 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
 
                   <Text
                     style={{
+
                       fontSize: "10px",
                       paddingTop: "2px",
                       flexDirection: "row",
@@ -127,12 +128,12 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
                 <View
                   style={{
                     flexDirection: "row",
-                    // breakAll: true,
+
                     gap: "12px",
                     justifyContent: "start",
-                    alignItems: "center",
+                    // alignItems: "center",
                     paddingHorizontal: "2px",
-                    maxWidth: "100%",
+                    // maxWidth: "100%",
                   }}
                 >
                   <Svg
@@ -151,7 +152,7 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
                   <Text
                     style={{
                       fontSize: "10px",
-                      width: "80%",
+                      // width: "80%",
                       paddingTop: "2px",
                       flexDirection: "row",
                       fontFamily: `${selectedFont} 400`,
@@ -171,7 +172,7 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
                     breakAll: true,
                     justifyContent: "start",
                     gap: "12px",
-                    alignItems: "center",
+                    // alignItems: "center",
                     paddingHorizontal: "2px",
                   }}
                 >
@@ -196,14 +197,14 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
                       color: "#414042",
                     }}
                   >
-                    {data.location}
+                    {formatEmail(data.location)}
                   </Text>
                 </View>
               )}
             </View>
             {data?.education?.length > 0 && data?.showEducation === true && (
               <View
-                wrap={data?.reference?.length > 1 ? true : false}
+                wrap={data?.education?.length > 1 ? true : false}
                 style={{
                   display: "flex",
                   flexDirection: "column",
@@ -261,7 +262,7 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
                                 fontFamily: `${selectedFont} 400`,
                               }}
                             >
-                              {detail.qualification} - {detail.specialization}
+                              {formatLink(detail.qualification)} - {formatLink(detail.specialization)}
                             </Text>
 
                             <Text
@@ -271,7 +272,7 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
                                 fontFamily: `${selectedFont} 400`,
                               }}
                             >
-                              {detail.instituteName}
+                              {formatLink(detail.instituteName)}
                             </Text>
                           </View>
                           {detail.duration?.start?.year && (
@@ -300,7 +301,7 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
             {data?.achievements?.length > 0 &&
               data?.showAchievements === true && (
                 <View
-                  wrap={data?.reference?.length > 1 ? true : false}
+                  wrap={data?.achievements?.length > 1 ? true : false}
                   style={{ flexDirection: "column", gap: 12, width: "100%" }}
                 >
                   <View style={{ flexDirection: "column", gap: 12 }}>
@@ -320,7 +321,7 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
                       <View
                         key={index}
                         style={{ flexDirection: "column", gap: "8px" }}
-                      // wrap={false}
+                        wrap={false}
                       >
                         <View>
                           <Text
@@ -425,11 +426,11 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
             <View
               // wrap={false}
               style={{ display: "flex", flexDirection: "column", gap: 8 }}
-              wrap={data?.skills?.length > 1 ? true : false}
             >
               {data?.skills?.length > 0 && data?.showSkills === true && (
                 <View style={{ flexDirection: "column", gap: 16 }}>
                   <Text
+                    wrap={data?.skills?.length > 1 ? true : false}
                     style={{
                       fontFamily: `${selectedFont} 400`,
                       color: "#030203",
@@ -480,7 +481,7 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
             </View>
             {data?.languages?.length > 0 && data?.showLanguage === true && (
               <View
-                wrap={data?.reference?.length > 1 ? true : false}
+                wrap={data?.languages?.length > 1 ? true : false}
                 style={{ flexDirection: "column", gap: 16 }}>
                 <Text
                   style={{
@@ -533,7 +534,7 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
 
             {data?.hobbies?.length > 0 && data?.showHobbies === true && (
               <View
-                wrap={data?.reference?.length > 1 ? true : false}
+                wrap={data?.hobbies?.length > 1 ? true : false}
                 style={{ flexDirection: "column", gap: 16 }}>
                 <Text
                   style={{
@@ -737,7 +738,7 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
 
           {data?.experience?.length > 0 && data?.showExperience === true && (
             <View
-              wrap={data?.reference?.length > 1 ? true : false}
+              wrap={data?.experience?.length > 1 ? true : false}
               style={{ flexDirection: "column", gap: 12, width: "100%" }}>
               <View style={{ flexDirection: "column", gap: 12 }}>
                 <Text
@@ -824,7 +825,7 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
           )}
           {data?.project?.length > 0 && data?.showProject === true && (
             <View
-              wrap={data?.reference?.length > 1 ? true : false}
+              wrap={data?.project?.length > 1 ? true : false}
               style={{ flexDirection: "column", gap: 12, width: "100%" }}>
               <View style={{ flexDirection: "column", gap: 12 }}>
                 <Text
@@ -843,7 +844,7 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
                   <View
                     key={index}
                     style={{ flexDirection: "column", gap: "8px" }}
-                  // wrap={false}
+                    wrap={false}
                   >
                     <View>
                       <Text
@@ -884,7 +885,7 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
                         >
 
                           {detail.duration?.start?.year !== "Year" &&
-                            `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
+                            `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
                               ? "Present"
                               : detail.duration?.end?.year
                             }
@@ -912,7 +913,7 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
             </View>
           )}
           {data?.internship?.length > 0 && data?.showInternship === true && (
-            <View wrap={data?.reference?.length > 1 ? true : false}
+            <View wrap={data?.internship?.length > 1 ? true : false}
               style={{ flexDirection: "column", gap: 12, width: "100%" }}>
               <View style={{ flexDirection: "column", gap: 12 }}>
                 <Text
@@ -931,7 +932,7 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
                   <View
                     key={index}
                     style={{ flexDirection: "column", gap: "8px" }}
-                  // wrap={false}
+                    wrap={false}
                   >
                     <View>
                       <Text
@@ -1001,7 +1002,7 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
 
           {data?.course?.length > 0 && data?.showCourses === true && (
             <View
-              wrap={data?.reference?.length > 1 ? true : false}
+              wrap={data?.course?.length > 1 ? true : false}
               style={{ flexDirection: "column", gap: 12, width: "100%" }}>
               <View style={{ flexDirection: "column", gap: 12 }}>
                 <Text
@@ -1020,7 +1021,7 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
                   <View
                     key={index}
                     style={{ flexDirection: "column", gap: "8px" }}
-                  // wrap={false}
+                    wrap={false}
                   >
                     <View>
                       <Text
@@ -1091,7 +1092,7 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
           {data?.extraCaricularData?.length > 0 &&
             data?.showExtraCariculam === true && (
               <View
-                wrap={data?.reference?.length > 1 ? true : false}
+                wrap={data?.extraCaricularData?.length > 1 ? true : false}
                 style={{ flexDirection: "column", gap: 12, width: "100%" }}>
                 <View style={{ flexDirection: "column", gap: 12 }}>
                   <Text
@@ -1110,7 +1111,7 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
                     <View
                       key={index}
                       style={{ flexDirection: "column", gap: "8px" }}
-                    // wrap={false}
+                      wrap={false}
                     >
                       <View>
                         <Text
@@ -1183,8 +1184,7 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
             data?.section?.map((item, index) => (
               <View
                 key={index}
-                // wrap={false}
-                wrap={data?.reference?.length > 1 ? true : false}
+                wrap={data?.section?.length > 1 ? true : false}
                 style={{
                   display: "flex",
                   flexDirection: "column",
@@ -1205,7 +1205,7 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
                 <View style={{ flexDirection: "column", gap: "8px" }}>
                   {item?.subSection?.map((detail, index) => (
                     <View
-                      // wrap={false}
+                      wrap={false}
                       key={index}
                       style={{
                         flexDirection: "column",
