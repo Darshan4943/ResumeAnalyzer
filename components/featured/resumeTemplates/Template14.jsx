@@ -344,11 +344,12 @@ function Template14({ data, selectedColor, selectedFont }) {
                           // marginLeft: 10, // Add margin for spacing if needed
                         }}
                       >
-                        {detail.duration?.start?.year !== "Year" &&
-                          `${detail.duration?.start?.year} - ${detail.currentlyWorking
-                            ? "Present"
-                            : detail.duration?.end?.year
-                          }`}
+                       {detail.duration?.start?.year !== "Year"  &&
+                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
+                                ? "Present"
+                                : detail.duration?.end?.year
+                              }
+                         `}
                       </Text>
                     </View>
 
@@ -457,11 +458,12 @@ function Template14({ data, selectedColor, selectedFont }) {
                           // marginLeft: 10, // Add margin for spacing if needed
                         }}
                       >
-                        {detail.duration?.start?.year !== "Year" &&
-                          `${detail.duration?.start?.year} - ${detail.currentlyWorking
-                            ? "Present"
-                            : detail.duration?.end?.year
-                          }`}
+                       {detail.duration?.start?.year !== "Year"  &&
+                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
+                                ? "Present"
+                                : detail.duration?.end?.year
+                              }
+                         `}
                       </Text>
                     </View>
 
@@ -653,11 +655,12 @@ function Template14({ data, selectedColor, selectedFont }) {
                           // marginLeft: 10, // Add margin for spacing if needed
                         }}
                       >
-                        {detail.duration?.start?.year !== "Year" &&
-                          `${detail.duration?.start?.year} - ${detail.currentlyWorking
-                            ? "Present"
-                            : detail.duration?.end?.year
-                          }`}
+                     {detail.duration?.start?.year !== "Year"  &&
+                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
+                                ? "Present"
+                                : detail.duration?.end?.year
+                              }
+                         `}
                       </Text>
                     </View>
 
@@ -753,8 +756,8 @@ function Template14({ data, selectedColor, selectedFont }) {
                           // marginLeft: 10, // Add margin for spacing if needed
                         }}
                       >
-                      {detail.duration?.start?.year !== "" &&
-                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === ""
+                   {detail.duration?.start?.year !== "Year"  &&
+                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
                                 ? "Present"
                                 : detail.duration?.end?.year
                               }
@@ -856,11 +859,12 @@ function Template14({ data, selectedColor, selectedFont }) {
                             // marginLeft: 10, // Add margin for spacing if needed
                           }}
                         >
-                          {detail.duration?.start?.year !== "Year" &&
-                            `${detail.duration?.start?.year} - ${detail.currentlyWorking
-                              ? "Present"
-                              : detail.duration?.end?.year
-                            }`}
+                         {detail.duration?.start?.year !== "Year"  &&
+                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
+                                ? "Present"
+                                : detail.duration?.end?.year
+                              }
+                         `}
                         </Text>
                       </View>
 
@@ -1133,12 +1137,12 @@ function Template14({ data, selectedColor, selectedFont }) {
                               // marginLeft: 10, // Add margin for spacing if needed
                             }}
                           >
-                            {detail?.duration?.start?.year}
-                            {detail?.duration?.start?.year && "-"}
-                            {detail?.duration?.end?.year === "" ||
-                              detail?.duration?.end?.year === undefined
-                              ? "Present"
-                              : detail?.duration?.end?.year}
+                         {detail?.duration?.start?.year}
+                                  {detail?.duration?.start?.year && "-"}
+                                  {detail?.duration?.end?.year === "Year" ||
+                                    detail?.duration?.end?.year === undefined
+                                    ? "Present"
+                                    : detail?.duration?.end?.year}
                           </Text>
                         </View>
                         <Text
