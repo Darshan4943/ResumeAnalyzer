@@ -364,11 +364,10 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
                               justifyContent: "flex-end",
                             }}
                           >
-                            {detail.duration?.start?.year !== "Year" &&
-                              `${detail.duration?.start?.year}-${" "}${
-                                detail.currentlyWorking
-                                  ? "Present"
-                                  : detail.duration?.end?.year
+                        {detail.duration?.start?.year !== "" &&
+                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === ""
+                                ? "Present"
+                                : detail.duration?.end?.year
                               }
                          `}
                           </Text>

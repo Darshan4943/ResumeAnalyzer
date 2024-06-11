@@ -753,11 +753,12 @@ function Template14({ data, selectedColor, selectedFont }) {
                           // marginLeft: 10, // Add margin for spacing if needed
                         }}
                       >
-                        {detail.duration?.start?.year !== "Year" &&
-                          `${detail.duration?.start?.year} - ${detail.currentlyWorking
-                            ? "Present"
-                            : detail.duration?.end?.year
-                          }`}
+                      {detail.duration?.start?.year !== "" &&
+                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === ""
+                                ? "Present"
+                                : detail.duration?.end?.year
+                              }
+                         `}
                       </Text>
                     </View>
 

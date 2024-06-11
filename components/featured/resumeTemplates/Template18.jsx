@@ -1155,11 +1155,12 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                               color: "#252829",
                             }}
                           >
-                            {detail.duration?.start?.year !== "Year" &&
-                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
+                           {detail.duration?.start?.year !== "" &&
+                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === ""
                                 ? "Present"
                                 : detail.duration?.end?.year
-                              }`}
+                              }
+                         `}
                           </Text>
                           <View
                             style={{

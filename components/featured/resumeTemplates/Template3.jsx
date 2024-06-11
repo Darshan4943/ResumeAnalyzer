@@ -15,8 +15,8 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
   console.log(66, data);
 
   const formatLink26 = (link) => {
-    if (link?.length > 26) {
-      return link?.match(/.{1,26}/g).join('\n');  }
+    if (link?.length > 25) {
+      return link?.match(/.{1,25}/g).join('\n');  }
     return link;
   };
 
@@ -27,9 +27,9 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
   };
   
 
-  const formatLink23 = (link) => {
-    if (link?.length > 23) {
-      return link?.match(/.{1,23}/g).join('\n');  }
+  const formatLink21 = (link) => {
+    if (link?.length > 21) {
+      return link?.match(/.{1,21}/g).join('\n');  }
     return link;
   };
 
@@ -197,7 +197,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                       // flexWrap: "wrap",
                     }}
                   >
-                    {formatLink23(data.email)}
+                    {formatLink21(data.email)}
                   </Text>
                 </View>
               </View>
@@ -829,12 +829,12 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                             fontFamily: `${selectedFont} 400`,
                           }}
                         >
-                          {detail.duration?.start?.year !== "Year" &&
-                            `${detail.duration?.start?.year}-${" "}${
-                              detail.currentlyWorking
+                         {detail.duration?.start?.year !== "" &&
+                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === ""
                                 ? "Present"
                                 : detail.duration?.end?.year
-                            }`}
+                              }
+                         `}
                         </Text>
                       </View>
                       {detail.description?.length > 5 && (
