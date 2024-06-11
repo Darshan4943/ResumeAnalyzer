@@ -203,6 +203,7 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
             </View>
             {data?.education?.length > 0 && data?.showEducation === true && (
               <View
+                wrap={data?.reference?.length > 1 ? true : false}
                 style={{
                   display: "flex",
                   flexDirection: "column",
@@ -299,6 +300,7 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
             {data?.achievements?.length > 0 &&
               data?.showAchievements === true && (
                 <View
+                  wrap={data?.reference?.length > 1 ? true : false}
                   style={{ flexDirection: "column", gap: 12, width: "100%" }}
                 >
                   <View style={{ flexDirection: "column", gap: 12 }}>
@@ -360,7 +362,9 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
                 </View>
               )}
             {data?.socialLinks?.length > 0 && data?.showLinks === true && (
-              <View style={{ flexDirection: "column", gap: 16 }}>
+              <View
+                wrap={data?.reference?.length > 1 ? true : false}
+                style={{ flexDirection: "column", gap: 16 }}>
                 <Text
                   style={{
                     fontFamily: `${selectedFont} 400`,
@@ -421,7 +425,7 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
             <View
               // wrap={false}
               style={{ display: "flex", flexDirection: "column", gap: 8 }}
-            // wrap={data?.skills?.length > 1 ? true : false}
+              wrap={data?.skills?.length > 1 ? true : false}
             >
               {data?.skills?.length > 0 && data?.showSkills === true && (
                 <View style={{ flexDirection: "column", gap: 16 }}>
@@ -475,7 +479,9 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
               )}
             </View>
             {data?.languages?.length > 0 && data?.showLanguage === true && (
-              <View style={{ flexDirection: "column", gap: 16 }}>
+              <View
+                wrap={data?.reference?.length > 1 ? true : false}
+                style={{ flexDirection: "column", gap: 16 }}>
                 <Text
                   style={{
                     fontFamily: `${selectedFont} 400`,
@@ -526,7 +532,9 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
             )}
 
             {data?.hobbies?.length > 0 && data?.showHobbies === true && (
-              <View style={{ flexDirection: "column", gap: 16 }}>
+              <View
+                wrap={data?.reference?.length > 1 ? true : false}
+                style={{ flexDirection: "column", gap: 16 }}>
                 <Text
                   style={{
                     fontFamily: `${selectedFont} 400`,
@@ -582,7 +590,7 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
                 <Text
                   style={{
                     fontFamily: `${selectedFont} 400`,
-                    color: "#030203", 
+                    color: "#030203",
                     fontSize: "16",
                     textTransform: "uppercase",
                   }}
@@ -728,7 +736,9 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
           )}
 
           {data?.experience?.length > 0 && data?.showExperience === true && (
-            <View style={{ flexDirection: "column", gap: 12, width: "100%" }}>
+            <View
+              wrap={data?.reference?.length > 1 ? true : false}
+              style={{ flexDirection: "column", gap: 12, width: "100%" }}>
               <View style={{ flexDirection: "column", gap: 12 }}>
                 <Text
                   style={{
@@ -813,7 +823,9 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
             </View>
           )}
           {data?.project?.length > 0 && data?.showProject === true && (
-            <View style={{ flexDirection: "column", gap: 12, width: "100%" }}>
+            <View
+              wrap={data?.reference?.length > 1 ? true : false}
+              style={{ flexDirection: "column", gap: 12, width: "100%" }}>
               <View style={{ flexDirection: "column", gap: 12 }}>
                 <Text
                   style={{
@@ -900,7 +912,8 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
             </View>
           )}
           {data?.internship?.length > 0 && data?.showInternship === true && (
-            <View style={{ flexDirection: "column", gap: 12, width: "100%" }}>
+            <View wrap={data?.reference?.length > 1 ? true : false}
+              style={{ flexDirection: "column", gap: 12, width: "100%" }}>
               <View style={{ flexDirection: "column", gap: 12 }}>
                 <Text
                   style={{
@@ -987,7 +1000,9 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
           )}
 
           {data?.course?.length > 0 && data?.showCourses === true && (
-            <View style={{ flexDirection: "column", gap: 12, width: "100%" }}>
+            <View
+              wrap={data?.reference?.length > 1 ? true : false}
+              style={{ flexDirection: "column", gap: 12, width: "100%" }}>
               <View style={{ flexDirection: "column", gap: 12 }}>
                 <Text
                   style={{
@@ -1075,7 +1090,9 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
 
           {data?.extraCaricularData?.length > 0 &&
             data?.showExtraCariculam === true && (
-              <View style={{ flexDirection: "column", gap: 12, width: "100%" }}>
+              <View
+                wrap={data?.reference?.length > 1 ? true : false}
+                style={{ flexDirection: "column", gap: 12, width: "100%" }}>
                 <View style={{ flexDirection: "column", gap: 12 }}>
                   <Text
                     style={{
@@ -1167,6 +1184,7 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
               <View
                 key={index}
                 // wrap={false}
+                wrap={data?.reference?.length > 1 ? true : false}
                 style={{
                   display: "flex",
                   flexDirection: "column",

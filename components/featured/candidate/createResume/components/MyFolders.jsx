@@ -26,9 +26,9 @@ function MyFolders({
     });
   }
   return (
-    <div className="">
+    <div className="h-[calc(85vh-250px)] overflow-y-auto">
       {tabIndex === 0 && (
-        <div className="rounded-[16px] sm:p-4 flex flex-row gap-y-6 flex-wrap justify-evenly scr460:justify-start  w-full h-full">
+        <div className="rounded-[16px] sm:p-4 flex flex-row gap-y-6 flex-wrap justify-evenly scr460:justify-start  w-full ">
           {data?.length > 0 ? (
             <>
               {!isList ? (
@@ -102,9 +102,7 @@ function MyFolders({
                         className="cursor-pointer flex w-full"
                       >
                         <td className="px-2  w-[70%] break-all scr390:px-4 py-2 text-[12px] scr390:text-[14px] font-medium flex gap-2 relative items-center">
-                          <div className="h-[24px] min-w-[24px]">
-                            {fileIconSeter1(item)}
-                          </div>
+                          
                           {select && (
                             <input
                               type="checkbox"
@@ -115,6 +113,9 @@ function MyFolders({
                               onChange={() => toggleSelect(index)}
                             />
                           )}
+                          <div className="h-[24px] min-w-[21px]">
+                            {fileIconSeter1(item)}
+                          </div>
                           {item.fileName.length > 25
                             ? `${item.fileName.slice(0, 25)}...`
                             : item.fileName}
