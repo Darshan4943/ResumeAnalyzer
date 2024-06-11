@@ -223,7 +223,7 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
                     fontFamily: `${selectedFont} 400`,
                   }}
                 >
-                  {data.summery}
+                  {formatLink(data.summery)}
                 </Text>
               </View>
             )}
@@ -626,10 +626,12 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
                               fontFamily: `${selectedFont} 500`,
                             }}
                           >
-                            {detail.duration?.start?.year}-{" "}
-                            {detail.currentlyWorking
-                              ? "Present"
-                              : detail.duration?.end?.year}
+                            {detail.duration?.start?.year !== "Year" &&
+                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
+                                ? "Present"
+                                : detail.duration?.end?.year
+                              }
+                         `}
                           </Text>
                         )}
                       </View>
@@ -660,7 +662,7 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
             {data?.education?.length > 0 && data?.showEducation === true && (
               <View
                 style={{ flexDirection: "column", gap: 16 }}
-                wrap={data?.education?.length > 1 ? true : false}
+                wrap={data?.education?.length > 2 ? true : false}
               >
                 <View style={{ flexDirection: "row", alignItems: "center" }}>
                   <View
@@ -832,11 +834,11 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
                             }}
                           >
                             {detail.duration?.start?.year !== "Year" &&
-                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
+                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
                                 ? "Present"
                                 : detail.duration?.end?.year
                               }
-                   `}
+                         `}
                           </Text>
                         )}
                       </View>
@@ -1049,11 +1051,11 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
                             }}
                           >
                             {detail.duration?.start?.year !== "Year" &&
-                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
+                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
                                 ? "Present"
                                 : detail.duration?.end?.year
                               }
-                   `}
+                         `}
                           </Text>
                         )}
                       </View>
@@ -1163,11 +1165,11 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
                               }}
                             >
                               {detail.duration?.start?.year !== "Year" &&
-                                `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
+                                `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
                                   ? "Present"
                                   : detail.duration?.end?.year
                                 }
-                   `}
+                         `}
                             </Text>
                           )}
                         </View>
@@ -1288,14 +1290,13 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
                           >
                             {detail?.duration?.start?.year}
                             {detail?.duration?.start?.year && "-"}
-                            {detail?.duration?.end?.year === "" ||
+                            {detail?.duration?.end?.year === "Year" ||
                               detail?.duration?.end?.year === undefined
                               ? "Present"
                               : detail?.duration?.end?.year}
                           </Text>
                         )}
                       </View>
-
                       <Text
                         style={{
                           color: "#58595B",

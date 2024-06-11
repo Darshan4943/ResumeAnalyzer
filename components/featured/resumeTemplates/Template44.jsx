@@ -702,10 +702,11 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
                     >
                       {detail.organization} /{" "}
                       {detail.duration?.start?.year !== "Year" &&
-                        `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
+                        `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
                           ? "Present"
                           : detail.duration?.end?.year
-                        }`}
+                        }
+                         `}
                     </Text>
                   )}
                     <Text
@@ -845,10 +846,11 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
                       >
                         {detail.title} /{" "}
                         {detail.duration?.start?.year !== "Year" &&
-                          `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
+                          `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
                             ? "Present"
                             : detail.duration?.end?.year
-                          }`}
+                          }
+                         `}
                       </Text>
                     )}
                     <Text
@@ -916,10 +918,11 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
                     >
                       {detail.title} /{" "}
                       {detail.duration?.start?.year !== "Year" &&
-                        `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
+                        `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
                           ? "Present"
                           : detail.duration?.end?.year
-                        }`}
+                        }
+                         `}
                     </Text>
                   )}
                     <Text
@@ -1061,10 +1064,11 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
                       >
                         {detail.title} /{" "}
                         {detail.duration?.start?.year !== "Year" &&
-                          `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
+                          `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
                             ? "Present"
                             : detail.duration?.end?.year
-                          }`}
+                          }
+                         `}
                       </Text>
 
                       <Text
@@ -1143,9 +1147,9 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
                               color: "#2D3033",
                             }}
                           >
-                            / {detail?.duration?.start?.year}
+                            {detail?.duration?.start?.year}
                             {detail?.duration?.start?.year && "-"}
-                            {detail?.duration?.end?.year === "" ||
+                            {detail?.duration?.end?.year === "Year" ||
                               detail?.duration?.end?.year === undefined
                               ? "Present"
                               : detail?.duration?.end?.year}

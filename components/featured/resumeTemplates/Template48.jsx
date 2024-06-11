@@ -1048,10 +1048,12 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
 
                               }}
                             >
-                              {detail.duration?.start?.year} -
-                              {detail.duration?.end?.year == undefined || "Year"
-                                ? "Present"
-                                : detail.duration?.end?.year}
+                              {detail.duration?.start?.year !== "Year" &&
+                                `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
+                                  ? "Present"
+                                  : detail.duration?.end?.year
+                                }
+                         `}
                             </Text>
                           )}
                         </View>
@@ -1474,12 +1476,12 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                             paddingBottom: 16,
                           }}
                         >
-                          {" "}
                           {detail.duration?.start?.year !== "Year" &&
-                            `${detail.duration?.start?.year}-${detail.duration?.end?.year === "Year"
-                              ? "Pursuing"
+                            `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
+                              ? "Present"
                               : detail.duration?.end?.year
-                            }`}
+                            }
+                         `}
                         </Text>
                       )}
                     </View>
@@ -1616,12 +1618,12 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                             paddingBottom: 16,
                           }}
                         >
-                          {" "}
                           {detail.duration?.start?.year !== "Year" &&
-                            `${detail.duration?.start?.year}-${detail.duration?.end?.year === "Year"
-                              ? "Pursuing"
+                            `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
+                              ? "Present"
                               : detail.duration?.end?.year
-                            }`}
+                            }
+                         `}
                         </Text>
                       )}
                     </View>
@@ -1760,12 +1762,12 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                               paddingBottom: 16,
                             }}
                           >
-                            {" "}
                             {detail.duration?.start?.year !== "Year" &&
-                              `${detail.duration?.start?.year}-${detail.duration?.end?.year === "Year"
-                                ? "Pursuing"
+                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
+                                ? "Present"
                                 : detail.duration?.end?.year
-                              }`}
+                              }
+                         `}
                           </Text>
                         )}
                       </View>
@@ -1902,10 +1904,9 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                                 color: "#414142",
                               }}
                             >
-                              {" "}
                               {detail?.duration?.start?.year}
                               {detail?.duration?.start?.year && "-"}
-                              {detail?.duration?.end?.year === "" ||
+                              {detail?.duration?.end?.year === "Year" ||
                                 detail?.duration?.end?.year === undefined
                                 ? "Present"
                                 : detail?.duration?.end?.year}

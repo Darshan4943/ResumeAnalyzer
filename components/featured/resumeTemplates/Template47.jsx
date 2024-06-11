@@ -141,11 +141,11 @@ const Template47 = ({ data, selectedColor, selectedFont, preview }) => {
                                             <View style={{ width: 132 }}>
                                                 {detail.duration?.start?.year && (
                                                     <Text style={{ fontSize: 12, color: "#414042", fontFamily: `${selectedFont} 500`, }}>{detail.duration?.start?.year !== "Year" &&
-                                                        `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
+                                                        `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
                                                             ? "Present"
                                                             : detail.duration?.end?.year
                                                         }
-                                               `}</Text>)}
+                                                   `}</Text>)}
                                             </View>
                                             <Text style={{ fontSize: 10, color: "#939598", fontFamily: `${selectedFont} 400`, width: 379 }}>{detail.description} </Text>
                                         </View>
@@ -156,7 +156,7 @@ const Template47 = ({ data, selectedColor, selectedFont, preview }) => {
                     )}
                     {data?.education?.length > 0 && data?.showEducation === true && (
                         <View
-                            wrap={data?.education?.length > 1 ? true : false}
+                            wrap={data?.education?.length > 2 ? true : false}
                             style={{ display: "flex", flexDirection: "column", gap: 12 }} >
                             <View style={{ display: "flex", flexDirection: "row", gap: 8, alignItems: "center" }}>
                                 <Svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -224,11 +224,11 @@ const Template47 = ({ data, selectedColor, selectedFont, preview }) => {
                                                 {detail.duration?.start?.year && (
                                                     <Text style={{ fontSize: 12, color: "#414042", fontFamily: `${selectedFont} 500`, }}>
                                                         {detail.duration?.start?.year !== "Year" &&
-                                                            `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
+                                                            `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
                                                                 ? "Present"
                                                                 : detail.duration?.end?.year
                                                             }
-                                        `}
+                         `}
                                                     </Text>)}
                                             </View>
                                             <Text style={{ fontSize: 10, color: "#939598", fontFamily: `${selectedFont} 400`, width: 379 }}>{detail.description} </Text>
@@ -266,12 +266,12 @@ const Template47 = ({ data, selectedColor, selectedFont, preview }) => {
                                         <View style={{ display: "flex", flexDirection: "row", gap: 12 }}>
                                             <View style={{ width: 132 }}>
                                                 {detail.duration?.start?.year && (
-                                                    <Text style={{ fontSize: 12, color: "#414042", fontFamily: `${selectedFont} 500`, }}> {detail.duration?.start?.year !== "Year" &&
-                                                        `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
+                                                    <Text style={{ fontSize: 12, color: "#414042", fontFamily: `${selectedFont} 500`, }}>{detail.duration?.start?.year !== "Year" &&
+                                                        `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
                                                             ? "Present"
                                                             : detail.duration?.end?.year
                                                         }
-                                                `} </Text>)}
+                                                   `}</Text>)}
                                             </View>
                                             <Text style={{ fontSize: 10, color: "#939598", fontFamily: `${selectedFont} 400`, width: 379 }}>{detail.description} </Text>
                                         </View>
@@ -465,11 +465,11 @@ const Template47 = ({ data, selectedColor, selectedFont, preview }) => {
                                             <View style={{ width: 132 }}>
                                                 {detail.duration?.start?.year && (
                                                     <Text style={{ fontSize: 12, color: "#414042", fontFamily: `${selectedFont} 500`, }}>{detail.duration?.start?.year !== "Year" &&
-                                                        `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
+                                                        `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
                                                             ? "Present"
                                                             : detail.duration?.end?.year
                                                         }
-                                        `}</Text>
+                                                   `}</Text>
                                                 )}
                                             </View>
                                             <Text style={{ fontSize: 10, color: "#939598", fontFamily: `${selectedFont} 400`, width: 379 }}>{detail.description} </Text>
@@ -570,7 +570,7 @@ const Template47 = ({ data, selectedColor, selectedFont, preview }) => {
                                                             <Text style={{ fontSize: 12, color: "#414042", fontFamily: `${selectedFont} 500`, }}>
                                                                 {detail?.duration?.start?.year}
                                                                 {detail?.duration?.start?.year && "-"}
-                                                                {detail?.duration?.end?.year === "" ||
+                                                                {detail?.duration?.end?.year === "Year" ||
                                                                     detail?.duration?.end?.year === undefined
                                                                     ? "Present"
                                                                     : detail?.duration?.end?.year}
