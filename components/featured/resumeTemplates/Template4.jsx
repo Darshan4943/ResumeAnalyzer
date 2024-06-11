@@ -396,7 +396,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                           flexWrap: "wrap",
                         }}
                       >
-                        {formatLink19(detail.skill)}
+                        {formatLink20(detail.skill)}
                       </Text>
                       {/* <View
                         style={{

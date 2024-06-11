@@ -63,9 +63,9 @@ function Template13({ data, selectedColor, selectedFont }) {
     return link;
   };
 
-  const formatLink20 = (link) => {
-    if (link?.length > 18) {
-      return link?.match(/.{1,18}/g).join("\n");
+  const formatLink28 = (link) => {
+    if (link?.length > 28) {
+      return link?.match(/.{1,28}/g).join("\n");
     }
     return link;
   };
@@ -115,7 +115,7 @@ function Template13({ data, selectedColor, selectedFont }) {
               </View>
               <View style={{ flexDirection: "row", width: "100%", gap: 20 }}>
                 <View
-                  style={{ flexDirection: "column", gap: 14, width: "70%" }}
+                  style={{ flexDirection: "column", gap: 14, width: "60%" }}
                 >
                   <Text
                     style={{
@@ -124,7 +124,7 @@ function Template13({ data, selectedColor, selectedFont }) {
                       color: selectedColor,
                     }}
                   >
-                    {formatLink32(data.designation)}
+                    {formatLink22(data.designation)}
                   </Text>
                   {data?.showSummary === true && (
                     <Text
@@ -142,7 +142,7 @@ function Template13({ data, selectedColor, selectedFont }) {
                   style={{
                     flexDirection: "column",
                     // justifyContent: "space-between",
-                    width: "30%",
+                    width: "40%",
                     backgroundColor: "#F9F9F9",
                     gap: 14,
                   }}
@@ -150,7 +150,7 @@ function Template13({ data, selectedColor, selectedFont }) {
                   <View
                     style={{
                       flexDirection: "column",
-                      gap: 4,
+                      gap: 2,
                       width: "100%",
                     }}
                   >
@@ -173,38 +173,13 @@ function Template13({ data, selectedColor, selectedFont }) {
                         flexWrap: "wrap",
                       }}
                     >
-                      {formatLink20(data.email)}
+                      {formatLink28(data.email)}
                     </Text>
                   </View>
                   <View
                     style={{
                       flexDirection: "column",
-                      gap: 4,
-                    }}
-                  >
-                    <Text
-                      style={{
-                        fontSize: 14,
-                        fontFamily: `${selectedFont} 500`,
-                        color: "#949494",
-                      }}
-                    >
-                      Location
-                    </Text>
-                    <Text
-                      style={{
-                        fontSize: 12,
-                        fontFamily: `${selectedFont} 600`,
-                        color: "#333333",
-                      }}
-                    >
-                      {formatLink22(data.location)}
-                    </Text>
-                  </View>
-                  <View
-                    style={{
-                      flexDirection: "column",
-                      gap: 4,
+                      gap: 2,
                     }}
                   >
                     <Text
@@ -226,6 +201,32 @@ function Template13({ data, selectedColor, selectedFont }) {
                     {data.dial_code} {data.mobileNumber}
                     </Text>
                   </View>
+                  <View
+                    style={{
+                      flexDirection: "column",
+                      gap: 2,
+                    }}
+                  >
+                    <Text
+                      style={{
+                        fontSize: 14,
+                        fontFamily: `${selectedFont} 500`,
+                        color: "#949494",
+                      }}
+                    >
+                      Location
+                    </Text>
+                    <Text
+                      style={{
+                        fontSize: 12,
+                        fontFamily: `${selectedFont} 600`,
+                        color: "#333333",
+                      }}
+                    >
+                      {formatLink28(data.location)}
+                    </Text>
+                  </View>
+                 
                 </View>
               </View>
             </View>
