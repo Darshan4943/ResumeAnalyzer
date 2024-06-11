@@ -542,9 +542,9 @@ console.log(111,data)
               currentlyWorking: false,
 
               duration: {
-                start: { year: item.start_date?.year ? item.start_date?.year : "", month: null },
+                start: { year: item.start_date?.year ? item.start_date?.year : "Year", month: null },
                 end: {
-                  year: item.is_current ? currentYear : item.end_date?.year ? item.end_date?.year : "",
+                  year: item.is_current ? currentYear : item.end_date?.year ? item.end_date?.year : "Year",
                   month: null,
                 },
               },
