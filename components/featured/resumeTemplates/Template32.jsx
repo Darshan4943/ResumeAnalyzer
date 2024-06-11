@@ -1045,11 +1045,10 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                               fontFamily: `${selectedFont} 400`,
                             }}
                           >
-                            {detail.duration?.start?.year !== "Year" &&
-                              `${detail.duration?.start?.year}-${" "}${
-                                detail.currentlyWorking
-                                  ? "Present"
-                                  : detail.duration?.end?.year
+                           {detail.duration?.start?.year !== "Year"  &&
+                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
+                                ? "Present"
+                                : detail.duration?.end?.year
                               }
                          `}
                           </Text>
@@ -1206,11 +1205,10 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                               fontFamily: `${selectedFont} 400`,
                             }}
                           >
-                            {detail.duration?.start?.year !== "Year" &&
-                              `${detail.duration?.start?.year}-${" "}${
-                                detail.currentlyWorking
-                                  ? "Present"
-                                  : detail.duration?.end?.year
+                     {detail.duration?.start?.year !== "Year"  &&
+                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
+                                ? "Present"
+                                : detail.duration?.end?.year
                               }
                          `}
                           </Text>
@@ -1367,11 +1365,10 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                               fontFamily: `${selectedFont} 400`,
                             }}
                           >
-                            {detail.duration?.start?.year !== "Year" &&
-                              `${detail.duration?.start?.year}-${" "}${
-                                detail.currentlyWorking
-                                  ? "Present"
-                                  : detail.duration?.end?.year
+                        {detail.duration?.start?.year !== "Year"  &&
+                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
+                                ? "Present"
+                                : detail.duration?.end?.year
                               }
                          `}
                           </Text>
@@ -1528,11 +1525,10 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                               fontFamily: `${selectedFont} 400`,
                             }}
                           >
-                            {detail.duration?.start?.year !== "Year" &&
-                              `${detail.duration?.start?.year}-${" "}${
-                                detail.currentlyWorking
-                                  ? "Present"
-                                  : detail.duration?.end?.year
+                            {detail.duration?.start?.year !== "Year"  &&
+                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
+                                ? "Present"
+                                : detail.duration?.end?.year
                               }
                          `}
                           </Text>
@@ -1689,12 +1685,11 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                                 fontFamily: `${selectedFont} 400`,
                               }}
                             >
-                              {detail.duration?.start?.year !== "Year" &&
-                                `${detail.duration?.start?.year}-${" "}${
-                                  detail.currentlyWorking
-                                    ? "Present"
-                                    : detail.duration?.end?.year
-                                }
+                            {detail.duration?.start?.year !== "Year"  &&
+                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
+                                ? "Present"
+                                : detail.duration?.end?.year
+                              }
                          `}
                             </Text>
                           </View>
@@ -1853,13 +1848,12 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                                   fontFamily: `${selectedFont} 400`,
                                 }}
                               >
-                                {detail.duration?.start?.year !== "Year" &&
-                                  `${detail.duration?.start?.year}-${" "}${
-                                    detail.currentlyWorking
-                                      ? "Present"
-                                      : detail.duration?.end?.year
-                                  }
-                         `}
+                              {detail?.duration?.start?.year}
+                                  {detail?.duration?.start?.year && "-"}
+                                  {detail?.duration?.end?.year === "Year" ||
+                                    detail?.duration?.end?.year === undefined
+                                    ? "Present"
+                                    : detail?.duration?.end?.year}
                               </Text>
                             </View>
                             <View

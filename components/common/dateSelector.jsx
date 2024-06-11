@@ -55,11 +55,13 @@ const DateSelector = ({
   };
 
   const handleEndYearChange = (e) => {
+    const newYear = e.target.value === '' ? 'Year' : e.target.value;
+    
     dataSeter({
       ...data,
       duration: {
         ...data.duration,
-        end: { ...data.duration?.end, year: e.target.value },
+        end: { ...data.duration?.end, year: newYear },
       },
     });
   };

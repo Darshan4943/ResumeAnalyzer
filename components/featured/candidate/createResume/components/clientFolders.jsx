@@ -160,9 +160,7 @@ function ClientFolders({
                         className="cursor-pointer"
                       >
                         <td className="sm:px-4 px-2 py-2 font-medium flex gap-2 relative items-center ">
-                          <div className="h-[24px] min-w-[24px]">
-                            {fileIconSeter1(item)}
-                          </div>
+                          
                           {select && (
 
                             <input
@@ -174,6 +172,9 @@ function ClientFolders({
                               onChange={() => toggleSelect(index)}
                             />
                           )}
+                          <div className="h-[24px] min-w-[24px]">
+                            {fileIconSeter1(item)}
+                          </div>
                           {clientId
                             ? item.fileName
                             : item.firstName + " " + item.lastName}

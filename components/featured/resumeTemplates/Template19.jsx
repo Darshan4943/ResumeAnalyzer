@@ -899,12 +899,11 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                                 //
                               }}
                             >
-                              {detail.duration?.start?.year !== "Year" &&
-                                `${detail.duration?.start?.year}-${" "}${
-                                  detail.currentlyWorking
-                                    ? "Present"
-                                    : detail.duration?.end?.year
-                                }
+                      {detail.duration?.start?.year !== "Year"  &&
+                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
+                                ? "Present"
+                                : detail.duration?.end?.year
+                              }
                          `}
                             </Text>
                           </View>
@@ -1022,12 +1021,11 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                                 //
                               }}
                             >
-                              {detail.duration?.start?.year !== "Year" &&
-                                `${detail.duration?.start?.year}-${" "}${
-                                  detail.currentlyWorking
-                                    ? "Present"
-                                    : detail.duration?.end?.year
-                                }
+                           {detail.duration?.start?.year !== "Year"  &&
+                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
+                                ? "Present"
+                                : detail.duration?.end?.year
+                              }
                          `}
                             </Text>
                           </View>
@@ -1146,12 +1144,11 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                                 //
                               }}
                             >
-                              {detail.duration?.start?.year !== "Year" &&
-                                `${detail.duration?.start?.year}-${" "}${
-                                  detail.currentlyWorking
-                                    ? "Present"
-                                    : detail.duration?.end?.year
-                                }
+                           {detail.duration?.start?.year !== "Year"  &&
+                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
+                                ? "Present"
+                                : detail.duration?.end?.year
+                              }
                          `}
                             </Text>
                           </View>
@@ -1269,12 +1266,11 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                                 //
                               }}
                             >
-                              {detail.duration?.start?.year !== "Year" &&
-                                `${detail.duration?.start?.year}-${" "}${
-                                  detail.currentlyWorking
-                                    ? "Present"
-                                    : detail.duration?.end?.year
-                                }
+                        {detail.duration?.start?.year !== "Year"  &&
+                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
+                                ? "Present"
+                                : detail.duration?.end?.year
+                              }
                          `}
                             </Text>
                           </View>
@@ -1392,12 +1388,11 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                                 //
                               }}
                             >
-                              {detail.duration?.start?.year !== "Year" &&
-                                `${detail.duration?.start?.year}-${" "}${
-                                  detail.currentlyWorking
-                                    ? "Present"
-                                    : detail.duration?.end?.year
-                                }
+                             {detail.duration?.start?.year !== "Year"  &&
+                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
+                                ? "Present"
+                                : detail.duration?.end?.year
+                              }
                          `}
                             </Text>
                           </View>
@@ -1518,13 +1513,12 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                                     //
                                   }}
                                 >
-                                  {detail.duration?.start?.year !== "Year" &&
-                                    `${detail.duration?.start?.year}-${" "}${
-                                      detail.currentlyWorking
-                                        ? "Present"
-                                        : detail.duration?.end?.year
-                                    }
-                         `}
+                                 {detail?.duration?.start?.year}
+                                  {detail?.duration?.start?.year && "-"}
+                                  {detail?.duration?.end?.year === "Year" ||
+                                    detail?.duration?.end?.year === undefined
+                                    ? "Present"
+                                    : detail?.duration?.end?.year}
                                 </Text>
                               </View>
                               <Text

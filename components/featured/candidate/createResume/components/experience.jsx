@@ -174,7 +174,7 @@ const Experience = ({ data, setData }) => {
               {exp?.duration?.start?.year !== "Year" &&
                 ` ${"|"} ${exp.duration?.start?.year} 
               ${exp?.duration?.start?.year && "-"}
-              ${exp?.currentlyWorking ? "Present" : exp?.duration?.end?.year}`}
+              ${exp?.currentlyWorking || exp.duration?.end?.year === "Year"  ? "Present" : exp?.duration?.end?.year}`}
             </p>
             <div className="flex gap-2">
               <div onClick={() => handleEditClick(index)}>

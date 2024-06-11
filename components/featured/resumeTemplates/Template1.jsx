@@ -14,15 +14,16 @@ import {
 import { formatLink } from "../../../utils/middleware";
 
 function Template1({ data, selectedColor, selectedFont, preview }) {
+  
   const formatLink = (link) => {
-    if (link?.length > 25) {
-      return link?.match(/.{1,25}/g).join("\n");
+    if (link?.length > 23) {
+      return link?.match(/.{1,23}/g).join("\n");
     }
     return link;
   };
   const formatLink15 = (link) => {
-    if (link?.length > 14) {
-      return link?.match(/.{1,14}/g).join('\n');
+    if (link?.length > 12) {
+      return link?.match(/.{1,12}/g).join('\n');
     }
     return link;
   };
@@ -36,7 +37,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
 
 
   return (
-    <Page size="A4" style={{ padding: 24 }} pageMode={"fullScreen"} wrap={true}>
+    <Page size="A4" style={{ padding: 24 }} wrap={true}>
       <View
         style={{
           flexDirection: "column",
@@ -53,24 +54,24 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
           }}
         >
           <View style={{ flexDirection: "col", gap: 24, width: "75%" }}>
-            <View style={{ flexDirection: "col", gap: 12,  width: "100%", }}>
-           
+            <View style={{ display: "flex", flexDirection: "col", gap: 12, width: "100%", }}>
+
               <Text
                 style={{
                   color: "#414042",
-                  fontSize: 43,
-                 
+                  fontSize: 40,
+                  marginBottom: "4px",
                   width: "100%",
                   fontFamily: `${selectedFont} 400`,
                 }}
               >
                 {formatLink15(data?.firstName.toUpperCase())}
               </Text>
-           
+
               <Text
                 style={{
                   color: "#414042",
-                  fontSize: 43,
+                  fontSize: 40,
 
 
                   fontFamily: `${selectedFont} 400`,
@@ -84,7 +85,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                 color: "#414042",
                 fontFamily: `${selectedFont} 400`,
 
-                lineHeight: 1.2,
+
               }}
             >
               {data?.designation}
@@ -94,7 +95,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
             style={{
               width: "112px",
               height: "112px",
-              
+
             }}
           >
             {data?.profilePhoto ? (
@@ -158,6 +159,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                   flexDirection: "column",
                   gap: "16px",
                   alignItems: "flex-start",
+                 
                 }}
               >
                 <View
@@ -228,7 +230,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                   style={{
                     height: 24,
                     flexDirection: "row",
-                    alignItems: "center",
+                    alignItems: "start",
                     gap: 12,
                   }}
                 >
@@ -250,6 +252,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                     style={{
                       color: "#414042",
                       fontSize: "10px",
+                       height:"60px",
                       fontFamily: `${selectedFont} 400`,
                     }}
                   >
@@ -258,8 +261,9 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                 </View>
               </View>
             </View>
-            <View style={{ flexDirection: "column" }}>
-              {data?.education?.length > 0 && data?.showEducation === true && (
+            {data?.education?.length > 0 && data?.showEducation === true && (
+              <View style={{ flexDirection: "column" }}>
+
                 <View style={{ flexDirection: "column", gap: 12 }}>
                   <Text
                     style={{
@@ -339,11 +343,13 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                     ))}
                   </View>
                 </View>
-              )}
-            </View>
+
+              </View>
+            )}
             {data?.skills?.length > 0 && data?.showSkills === true && (
               <View style={{ flexDirection: "column" }}>
                 <View style={{ flexDirection: "column", gap: 12 }}>
+                  <View wrap={false}  style={{ flexDirection: "column", gap: 12 }}>
                   <Text
                     style={{
                       color: "#414042",
@@ -363,6 +369,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                       fill={selectedColor}
                     />
                   </Svg>
+                  </View>
                   <View style={{ flexDirection: "column", gap: 8 }}>
                     {data?.skills.map((detail, index) => (
                       <View key={index}>
@@ -399,7 +406,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                         fontFamily: `${selectedFont} 400`,
                       }}
                     >
-                      ACHIEVEMENTS & AWARDS
+                      ACHIEVEMENTS
                     </Text>
                     <Svg width={141} height={4} viewBox="0 0 141 4">
                       <Path
@@ -493,7 +500,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                           lineHeight: 1.5,
                         }}
                       >
-                        {formatLink(detail.link)}
+                        {formatLink30(detail.link)}
                       </Text>
                     </View>
                   ))}
@@ -569,7 +576,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                   </Svg>
                   <View
                     style={{ flexDirection: "col", gap: "8px" }}
-                    wrap={false}
+                   
                   >
                     {data?.hobbies.map((detail, index) => (
                       <View key={index}>
@@ -753,6 +760,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                   <>
                     <View
                       key={index}
+                      wrap={false}
                       style={{ flexDirection: "column", gap: 2 }}
                     >
                       <View>
@@ -794,8 +802,8 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                               lineHeight: 1.5,
                             }}
                           >
-                            {detail.duration?.start?.year !== "Year" &&
-                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
+                            {detail.duration?.start?.year !== "Year"  &&
+                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
                                 ? "Present"
                                 : detail.duration?.end?.year
                               }
@@ -850,6 +858,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                   <>
                     <View
                       key={index}
+                      wrap={false}
                       style={{ flexDirection: "column", gap: 2 }}
                     >
                       <View>
@@ -891,8 +900,8 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                               lineHeight: 1.5,
                             }}
                           >
-                            {detail.duration?.start?.year !== "Year" &&
-                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
+                             {detail.duration?.start?.year !== "Year"  &&
+                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
                                 ? "Present"
                                 : detail.duration?.end?.year
                               }
@@ -947,6 +956,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                   <>
                     <View
                       key={index}
+                      wrap={false}
                       style={{ flexDirection: "column", gap: 2 }}
                     >
                       <View>
@@ -988,8 +998,8 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                               lineHeight: 1.5,
                             }}
                           >
-                            {detail.duration?.start?.year !== "Year" &&
-                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
+                            {detail.duration?.start?.year !== "Year"  &&
+                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
                                 ? "Present"
                                 : detail.duration?.end?.year
                               }
@@ -1044,6 +1054,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                   <>
                     <View
                       key={index}
+                      wrap={false}
                       style={{ flexDirection: "column", gap: 2 }}
                     >
                       <View>
@@ -1085,8 +1096,8 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                               lineHeight: 1.5,
                             }}
                           >
-                            {detail.duration?.start?.year !== "Year" &&
-                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
+                            {detail.duration?.start?.year !== "Year"  &&
+                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
                                 ? "Present"
                                 : detail.duration?.end?.year
                               }
@@ -1143,6 +1154,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                   {data?.extraCaricularData?.map((detail, index) => (
                     <>
                       <View
+                       wrap={false}
                         key={index}
                         style={{ flexDirection: "column", gap: 2 }}
                       >
@@ -1185,11 +1197,11 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                                 lineHeight: 1.5,
                               }}
                             >
-                              {detail.duration?.start?.year !== "Year" &&
-                                `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
-                                  ? "Present"
-                                  : detail.duration?.end?.year
-                                }
+                              {detail.duration?.start?.year !== "Year"  &&
+                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
+                                ? "Present"
+                                : detail.duration?.end?.year
+                              }
                          `}
                             </Text>
                           </View>
@@ -1244,6 +1256,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                     </View>
                     {item.subSection.map((detail, index) => (
                       <View
+                      wrap={false}
                         key={index}
                         style={{
                           flexDirection: "column",
@@ -1288,7 +1301,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                                 >
                                   {detail?.duration?.start?.year}
                                   {detail?.duration?.start?.year && "-"}
-                                  {detail?.duration?.end?.year === "" ||
+                                  {detail?.duration?.end?.year === "Year" ||
                                     detail?.duration?.end?.year === undefined
                                     ? "Present"
                                     : detail?.duration?.end?.year}
