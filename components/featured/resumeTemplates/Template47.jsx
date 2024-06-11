@@ -19,7 +19,7 @@ const Template47 = ({ data, selectedColor, selectedFont, preview }) => {
     };
 
     return (
-        <Page size="A4" style={{ paddingTop: "12px" }} pageMode={"fullScreen"} wrap={true}>
+        <Page size="A4" style={{ paddingTop: "12px" }} pageMode={"fullScreen"} wrap={true}> 
             <View style={{ marginTop: '-12px' }} >
 
                 <View style={{ display: "flex", flexDirection: "row", paddingVertical: 20, paddingHorizontal: 36, backgroundColor: "#F1F2F2" }}>
