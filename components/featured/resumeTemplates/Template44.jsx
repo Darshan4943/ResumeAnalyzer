@@ -736,7 +736,7 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
             <View
               // wrap={false}
               style={{ display: "flex", flexDirection: "column", gap: 15 }}
-              wrap={data?.education?.length > 1 ? true : false}
+              wrap={data?.education?.length > 2 ? true : false}
             >
               <View
                 style={{
