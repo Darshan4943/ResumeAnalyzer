@@ -12,7 +12,7 @@ const EducationDetails = ({ data, setData }) => {
     jobTitle: "",
     sector: "",
     course: "",
-    speciliazation: "",
+    specialization: "",
     university: "",
   });
   const [touched, setTouched] = useState({
@@ -59,9 +59,9 @@ const EducationDetails = ({ data, setData }) => {
     {
       label: "Specialization",
       type: "text",
-      name: "speciliazation",
+      name: "specialization",
       placeholder: "Enter your specialization",
-      value: educationalData.speciliazation,
+      value: educationalData.specialization,
       className: " col-span-2",
     },
     {
@@ -124,12 +124,12 @@ const EducationDetails = ({ data, setData }) => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setJobData({ ...JobData, [name]: value });
+    setEducationalData({ ...educationalData, [name]: value });
   };
 
-  //   useEffect(() => {
-  //     // setData({ ...data, EmployerData });
-  //   }, []);
+  useEffect(() => {
+    setData({ ...data, educationalData });
+  }, [educationalData]);
 
   return (
     <div className="flex flex-col gap-[16px] w-full bg-white p-4">

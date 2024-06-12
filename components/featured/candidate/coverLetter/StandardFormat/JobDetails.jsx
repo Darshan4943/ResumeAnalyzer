@@ -3,6 +3,7 @@ import { Close_svg } from "../../../../../utils/svg";
 
 const JobDetails = ({ data, setData }) => {
   const [isShow, setIsShow] = useState(true);
+  const [inputValue, setInputValue] = useState("");
   const [requiredSkills, setRequiredSkills] = useState([
     "javascript",
     "Css",
@@ -144,8 +145,21 @@ const JobDetails = ({ data, setData }) => {
     setJobData({ ...JobData, [name]: value });
   };
 
+  const handleInputSkills = (e) => {
+    setInputValue(e.target.value);
+  };
+
+  const addSkill = () => {
+    if (requiredSkills && !requiredSkills.includes(inputValue)) {
+      const updatedSkills = [...requiredSkills, inputValue];
+      setRequiredSkills(updatedSkills);
+      // setData({ ...data, requiredSkills: updatedSkills });
+      setJobData({ ...JobData, requiredSkills });
+      setInputValue("");
+    }
+  };
   useEffect(() => {
-    // setData({ ...data, EmployerData });
+    setData({ ...data, JobData });
   }, [JobData]);
 
   return (
@@ -353,12 +367,12 @@ const JobDetails = ({ data, setData }) => {
               <input
                 type="text"
                 placeholder="e.g. Javascript"
-                // value={inputValue}
-                onChange={handleInputChange}
+                value={inputValue}
+                onChange={handleInputSkills}
                 className=" text-[12px]  text-[#646464] font-[400]"
               />
               <svg
-                // onClick={addSkill}
+                onClick={addSkill}
                 width="20"
                 height="20"
                 viewBox="0 0 20 20"

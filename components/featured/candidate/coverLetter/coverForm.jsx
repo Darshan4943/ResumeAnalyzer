@@ -50,7 +50,6 @@ function CoverForm({
       />
     ));
   };
-  console.log(888, contentSituation);
 
   const renderAllTemplates = () => {
     return coverLetters.map((template, index) => (
@@ -66,6 +65,11 @@ function CoverForm({
         }}
       />
     ));
+  };
+
+  const handleSaveData = (e) => {
+    e.preventDefault();
+    console.log(data)
   };
 
   return (
@@ -345,6 +349,19 @@ function CoverForm({
           />
         </>
       )}
+
+      <div className="flex flex-end justify-end">
+        <button
+          className={`${
+            isFormat === "standard"
+              ? "bg-[#06A9EF] py-[8px] px-[16px] text-[12px] flex justify-center items-center rounded-[8px]  text-white"
+              : "py-[8px] px-[16px] flex justify-center items-center rounded-[8px]  text-[12px]"
+          }`}
+          onClick={handleSaveData}
+        >
+          Generate Letter
+        </button>
+      </div>
     </div>
   );
 }
