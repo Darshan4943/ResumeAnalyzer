@@ -39,8 +39,8 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
   };
 
   const formatDesignation = (designation) => {
-    if (designation?.length > 15) {
-      return designation?.match(/.{1,15}/g).join('\n');
+    if (designation?.length > 20) {
+      return designation?.match(/.{1,20}/g).join('\n');
     }
     return designation;
   };
@@ -123,6 +123,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                 justifyContent: "center",
                 alignItems: "center",
                 marginTop: "18px",
+                maxWidth:'100%'
               }}
             >
               {/* <View style={{ maxWidth: "100%", paddingHorizontal: '14px',  justifyContent: 'center', alignItems: 'center' }}> */}
@@ -152,13 +153,14 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                   height: 1,
                 }}
               ></View>
-              <View style={{ maxWidth: "100%", paddingHorizontal: '4px', justifyContent: 'center', alignItems: 'center' }}>
+              <View style={{ maxWidth: "100%", justifyContent: 'center', alignItems: 'center' }}>
 
                 <Text
                   style={{
                     fontFamily: `${selectedFont} 400`,
                     fontSize: 14,
                     color: "#FFFFFF",
+                    maxWidth:'100%'
                   }}
                 >
                   {/* {data.designation} */}

@@ -12,6 +12,30 @@ import {
 } from "@react-pdf/renderer";
 import { formatLink } from "../../../utils/middleware";
 function Template53({ data, selectedColor, selectedFont, preview }) {
+
+//   const shouldWrap = (description) => {
+//     if (description?.length > 500) {
+//         return false;
+//     }
+//     return true;
+// };
+
+// const wraptext = shouldWrap(data?.experience?.description);
+// console.log(wraptext);
+
+// const shouldWrap = (description) => {
+//   if (description && description.length > 500) {
+//       return false;
+//   }
+//   return true;
+// };
+
+// const wraptext = shouldWrap(data?.experience?.description);
+// console.log(wraptext);
+
+
+
+
   return (
     <Page size="A4" style={{ padding: 42 }}>
       <View style={{ flexDirection: "column", gap: 26, minHeight: 757 }}>
@@ -216,6 +240,7 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
                     fontSize: 14,
                     color: selectedColor,
                   }}
+
                 >
                   EXPERIENCE
                 </Text>
@@ -225,6 +250,7 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
                   <View
                     key={index}
                     style={{ display: "flex", width: "100%", flexDirection: "column" }}
+                    wrap={false}
                   >
                     <View
                       style={{
@@ -299,6 +325,7 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
 
             {data?.project?.length > 0 && data?.showProject === true &&(
               <>
+
                 <View
                   style={{
                     width: "100%",
@@ -313,6 +340,9 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
                     width: "100%",
                     gap: 16,
                   }}
+                // wrap={data?.experience?.length > 1 ? false : true}
+                // wraptext={false}
+                // wrap= {wraptext ? "false" : "true"}
                 >
                   <View>
                     <Text
@@ -655,7 +685,7 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
                         color: selectedColor,
                       }}
                     >
-                      EXTRA-CURRICULUM ACTIVITIES
+                   Extra Activities
                     </Text>
                   </View>
                   <View style={{ width: "100%", gap: 24 }}>
@@ -918,12 +948,14 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
 
             {data?.skills?.length > 0 && data?.showSkills=== true && (
               <>
-                {" "}
+              
                 <View
                   style={{ width: 180, height: 1, backgroundColor: "#344A50" }}
                 ></View>
                 <View
                   style={{ display: "flex", flexDirection: "column", gap: 16 }}
+                wrap={data?.education?.length > 4 ? false : true}
+
                 >
                   <View>
                     <Text
