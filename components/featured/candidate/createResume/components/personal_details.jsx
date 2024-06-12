@@ -143,43 +143,43 @@ const PersonalDetails = ({
 
       switch (name) {
         case "firstName":
-          if (!value.trim() && touched[name]) {
+          if (!value?.trim() && touched[name]) {
             newErrors[name] = "First name is required";
             allFieldsValid = false;
           }
           break;
         case "lastName":
-          if (!value.trim() && touched[name]) {
+          if (!value?.trim() && touched[name]) {
             newErrors[name] = "Last name is required";
             allFieldsValid = false;
           }
           break;
         case "mobileNumber":
-          if ((!value || !value.toString().trim()) && touched[name]) {
+          if ((!value || !value?.toString().trim()) && touched[name]) {
             newErrors[name] = "Mobile number is required";
             allFieldsValid = false;
           }
           break;
         case "email":
-          if (!value.trim() && touched[name]) {
+          if (!value?.trim() && touched[name]) {
             newErrors[name] = "Email is required";
             allFieldsValid = false;
           }
           break;
         case "location":
-          if (!value.trim() && touched[name]) {
+          if (!value?.trim() && touched[name]) {
             newErrors[name] = "Location is required";
             allFieldsValid = false;
           }
           break;
         case "designation":
-          if (!value.trim() && touched[name]) {
+          if (!value?.trim() && touched[name]) {
             newErrors[name] = "Designation is required";
             allFieldsValid = false;
           }
           break;
         case "dial_code":
-          if (!value.trim() && touched[name]) {
+          if (!value?.trim() && touched[name]) {
             newErrors[name] = "Dial code is required";
             allFieldsValid = false;
           }
@@ -393,7 +393,7 @@ const PersonalDetails = ({
                     maxLength={
                       item.name === "firstName" || item.name === "lastName"
                         ? 25
-                        : 100
+                        : 60
                     }
                   />
                 </div>

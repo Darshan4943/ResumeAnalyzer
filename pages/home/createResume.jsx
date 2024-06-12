@@ -450,6 +450,7 @@ console.log(111,data)
       const hobbies = parsedData.hobbies;
 
       const educations = parsedData.education;
+      console.log(222,educations)
       const experience = parsedData["work experience"]
         ? parsedData["work experience"]
         : parsedData.work_experience
@@ -459,7 +460,7 @@ console.log(111,data)
       const internship = parsedData.internship;
       const references = parsedData.references;
       const achievements = parsedData.achivements;
-      console.log(451, languages);
+    
       const socialLinks = parsedData["social links"];
       const extraCaricularActivity = parsedData["extra-curricular activities"];
 
@@ -510,11 +511,11 @@ console.log(111,data)
           location: "",
           duration: {
             start: {
-              year: item.start_year ? item.start_year : "Year",
+              year: item["Passing Year"].startDate.year ? item["Passing Year"].startDate.year : "Year",
               month: null,
             },
             end: {
-              year: item.end_year ? item.end_year : "Year",
+              year: item["Passing Year"].endDate.year ? item["Passing Year"].endDate.year: "Year",
               month: null,
             },
           },
