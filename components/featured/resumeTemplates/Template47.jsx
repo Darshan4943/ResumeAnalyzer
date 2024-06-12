@@ -74,7 +74,7 @@ const Template47 = ({ data, selectedColor, selectedFont, preview }) => {
                                 </View>
                                 <View style={{ width: 242 }}>
                                     <Text style={{ fontFamily: `${selectedFont} 600`, fontSize: 32, color: selectedColor }}>{data.firstName}</Text>
-                                    <Text style={{ fontFamily: `${selectedFont} 400`, fontSize: 32, color: "#414042" }}>{data.lastName} </Text>
+                                    <Text style={{ fontFamily: `${selectedFont} 400`, fontSize: 32, color: "#414042" }}>{data.lastName}</Text>
                                 </View>
                             </View>
                             <View style={{ display: "flex", flexDirection: "column", gap: 16, alignItems: "end" }}>
@@ -110,7 +110,22 @@ const Template47 = ({ data, selectedColor, selectedFont, preview }) => {
                     </View>
                 </View>
                 <View style={{ paddingTop: 20, paddingHorizontal: 36, gap: 20 }}>
-
+                    {data?.showSummary === true && (
+                        <View style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+                            <View style={{ display: "flex", flexDirection: "row", gap: 8, alignItems: "center", width: "100%" }}>
+                                <Svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <Path d="M11.991 23C18.0661 23 22.9965 18.0751 23.0033 12C23.0101 5.92487 18.0908 1 12.0156 1C5.9405 1 1.01011 5.92487 1.00331 12C0.996512 18.0751 5.91588 23 11.991 23Z" fill={selectedColor} />
+                                    <Path fill-rule="evenodd" clip-rule="evenodd" d="M12.0341 11.3877C13.7878 11.3877 15.2076 9.96657 15.2076 8.21415C15.2076 6.46173 13.7878 5.04004 12.0341 5.04004C10.2811 5.04004 8.85938 6.46173 8.85938 8.21415C8.86 9.96657 10.2811 11.3877 12.0341 11.3877Z" fill="white" />
+                                    <Path fill-rule="evenodd" clip-rule="evenodd" d="M12.0333 11.9663C8.56829 11.9663 5.75781 14.7749 5.75781 18.2399H18.3051C18.3051 14.7749 15.4984 11.9663 12.0333 11.9663Z" fill="white" />
+                                </Svg>
+                                <Text style={{ fontFamily: `${selectedFont} 600`, fontSize: 14, color: selectedColor }}>ABOUT</Text>
+                                <View style={{ backgroundColor: "#6D6E71", width: "100%", height: 1 }}></View>
+                            </View>
+                            <Text style={{ width: "100%", fontSize: 10, color: "#939598", fontFamily: `${selectedFont} 400`, }}>
+                                {data.summery}
+                            </Text>
+                        </View>
+                    )}
                     {data?.experience?.length > 0 && data?.showExperience === true && (
                         <View
                             wrap={data?.experience?.length > 1 ? true : false}
@@ -132,7 +147,7 @@ const Template47 = ({ data, selectedColor, selectedFont, preview }) => {
                                         key={index}
                                         style={{ display: "flex", flexDirection: "column", }}>
                                         <View style={{ display: "flex", flexDirection: "row", gap: 12 }}>
-                                            <Text style={{ fontSize: 12, color: "#414042", fontFamily: `${selectedFont} 500`, width: 132 }}> {detail.designation}
+                                            <Text style={{ fontSize: 12, color: "#414042", fontFamily: `${selectedFont} 500`, width: 132 }}>{detail.designation}
                                             </Text>
                                             <Text style={{ fontSize: 12, color: "#414042", fontFamily: `${selectedFont} 500`, width: 379 }}>{detail.organization}
                                             </Text>
@@ -141,13 +156,13 @@ const Template47 = ({ data, selectedColor, selectedFont, preview }) => {
                                             <View style={{ width: 132 }}>
                                                 {detail.duration?.start?.year && (
                                                     <Text style={{ fontSize: 12, color: "#414042", fontFamily: `${selectedFont} 500`, }}>{detail.duration?.start?.year !== "Year" &&
-                                                        `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
+                                                        `${detail.duration?.start?.year}-${detail.currentlyWorking || detail.duration?.end?.year === "Year"
                                                             ? "Present"
                                                             : detail.duration?.end?.year
                                                         }
                                                    `}</Text>)}
                                             </View>
-                                            <Text style={{ fontSize: 10, color: "#939598", fontFamily: `${selectedFont} 400`, width: 379 }}>{detail.description} </Text>
+                                            <Text style={{ fontSize: 10, color: "#939598", fontFamily: `${selectedFont} 400`, width: 379 }}>{detail.description}</Text>
                                         </View>
                                     </View>
                                 ))}

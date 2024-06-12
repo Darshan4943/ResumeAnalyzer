@@ -1035,6 +1035,9 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                               fontSize: 12,
                               color: "#414142",
                               maxWidth: "75%",
+                              // border: "1px",
+                              // lineHeight: "2px"
+                              // height: "18px",
                             }}
                           >
                             {detail.organization} | {detail.location}
@@ -1044,7 +1047,10 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                               style={{
                                 fontFamily: `${selectedFont} 400`,
                                 fontSize: 10,
+                                // border: "1px",
+                                height: "15px",
                                 color: "#414142",
+                                lineHeight: "0px"
 
                               }}
                             >
