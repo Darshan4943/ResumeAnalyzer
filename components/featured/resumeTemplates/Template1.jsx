@@ -65,7 +65,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                   fontFamily: `${selectedFont} 400`,
                 }}
               >
-                {formatLink15(data?.firstName.toUpperCase())}
+                {formatLink15(data?.firstName?.toUpperCase())}
               </Text>
 
               <Text
@@ -77,7 +77,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                   fontFamily: `${selectedFont} 400`,
                 }}
               >
-                {formatLink15(data?.lastName.toUpperCase())}
+                {formatLink15(data?.lastName?.toUpperCase())}
               </Text>
             </View>
             <Text

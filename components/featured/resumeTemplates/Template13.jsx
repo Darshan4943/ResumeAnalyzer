@@ -999,7 +999,7 @@ function Template13({ data, selectedColor, selectedFont }) {
                             fontFamily: `${selectedFont} 400`,
                             color: "#333333",
                             lineHeight: 1.4,
-                            marginBottom:"2px"
+                            marginBottom:"5px"
                           }}
                         >
                           {formatLink50(detail.designation)}

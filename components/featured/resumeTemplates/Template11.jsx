@@ -35,8 +35,8 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
   };
 
   const formatLink42 = (link) => {
-    if (link?.length > 42) {
-      return link?.match(/.{1,42}/g).join('\n');  }
+    if (link?.length > 40) {
+      return link?.match(/.{1,40}/g).join('\n');  }
     return link;
   };
 
