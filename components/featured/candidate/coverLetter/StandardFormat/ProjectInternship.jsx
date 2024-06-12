@@ -3,7 +3,7 @@ import Achievement from "../../createResume/components/achivement";
 
 const ProjectInternship = ({ data, setData }) => {
   const [isShow, setIsShow] = useState(true);
-  const [revalentSkills, setRevalentSkills] = useState([
+  const [relevantSkills, setrelevantSkills] = useState([
     "javascript",
     "react js",
     "Css",
@@ -12,7 +12,7 @@ const ProjectInternship = ({ data, setData }) => {
     "React native",
     "c++",
   ]);
-  const[inputValue, setInputValue]=useState("")
+  const [inputValue, setInputValue] = useState("");
   const [ProjectData, setProjectData] = useState({
     projectName: "",
     description: "",
@@ -53,14 +53,6 @@ const ProjectInternship = ({ data, setData }) => {
       value: ProjectData.responsibilities,
       className: " ",
     },
-    {
-      label: "Work Process/ Responsibility",
-      type: "text",
-      name: "responsibilities",
-      placeholder: "Mention Outcome",
-      value: ProjectData.responsibilities,
-      className: " ",
-    },
   ];
 
   const handleInputChange = (e) => {
@@ -73,9 +65,11 @@ const ProjectInternship = ({ data, setData }) => {
   };
 
   const addSkill = () => {
-    if (revalentSkills && !revalentSkills.includes(inputValue)) {
-      const updatedSkills = [...revalentSkills, inputValue];
-     setRevalentSkills()
+    if (relevantSkills && !relevantSkills.includes(inputValue)) {
+      const updatedSkills = [...relevantSkills, inputValue];
+      setrelevantSkills(updatedSkills);
+      setData({ ...ProjectData, relevantSkills: updatedSkills });
+      setInputValue("");
     }
   };
 
@@ -155,7 +149,7 @@ const ProjectInternship = ({ data, setData }) => {
               <input
                 type="text"
                 placeholder="e.g. Javascript"
-                value={revalentSkills}
+                value={inputValue}
                 onChange={handleInputSkills}
                 className=" text-[12px]  text-[#646464] font-[400]"
               />
@@ -178,7 +172,7 @@ const ProjectInternship = ({ data, setData }) => {
             </div>
 
             <div className="flex flex-row gap-[8px] flex-wrap w-full">
-              {revalentSkills?.map((item, index) => (
+              {relevantSkills?.map((item, index) => (
                 <div
                   className="flex pt-[2px] pr-[8px] pb-[2px] pl-[12px] gap-1 rounded-[30px]  border-[0.5px] border-[#06A9EF] overflow-hidden items-center"
                   key={index}

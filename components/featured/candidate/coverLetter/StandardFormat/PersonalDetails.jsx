@@ -327,11 +327,7 @@ const PersonalDetails = ({ data, setData }) => {
 
           <div className="flex flex-col gap-[8px]">
             {inputFields
-              .filter(
-                (employer) =>
-                  employer.label === "Address" ||
-                  employer.label === "Mobile Number"
-              )
+              .filter((employer) => employer.label === "Address" ||employer.label === "Email ID"  )
               .map((employer, index) => (
                 <div className="flex flex-col gap-[8px] w-full" key={index}>
                   <label className="font-montserrat text-[14px] font-medium leading-[17.07px] text-left flex-wrap">
