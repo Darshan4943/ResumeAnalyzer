@@ -274,43 +274,41 @@ const PersonalDetails = ({ data, setData }) => {
             </label>
 
             <div className="w-[60%] flex pr-[16px] h-[40px] pl-[16px] gap-2 border border-solid border-[#DEDEDE] rounded-[8px] text-[12px] leading-[16px] text-[#646464] font-[400]">
-
-                <ReactSelect
-                  options={filteredTelCode}
-                  className="w-[45%] flex items-center  rounded-[8px] outline-none border-none cursor-pointer"
-                  name=""
-                  placeholder="Select"
-                  value={selectedItem}
-                  onChange={handleItemClick}
-                  getOptionLabel={(option) => (
-                    <div className="flex items-center cursor-pointer">
-                      <img
-                        src={`https://hatscripts.github.io/circle-flags/flags/${option.code.toLowerCase()}.svg`}
-                        width="20px"
-                      />
-                      <span className="ml-2 text-[#333333] cursor-pointer">
-                        {option.code} {option.dial_code}
-                      </span>
-                    </div>
-                  )}
-                  filterOption={customFilterOption}
-                  styles={{
-                    control: (provided) => ({
-                      ...provided,
-                      border: "none",
-                      minWidth: "130px",
-                    }),
-                  }}
-                  theme={(theme) => ({
-                    ...theme,
-                    borderRadius: 0,
-                    colors: {
-                      ...theme.colors,
-                      primary: "neutral0",
-                    },
-                  })}
-                />
-          
+              <ReactSelect
+                options={filteredTelCode}
+                className="w-[45%] flex items-center  rounded-[8px] outline-none border-none cursor-pointer"
+                name=""
+                placeholder="Select"
+                value={selectedItem}
+                onChange={handleItemClick}
+                getOptionLabel={(option) => (
+                  <div className="flex items-center cursor-pointer">
+                    <img
+                      src={`https://hatscripts.github.io/circle-flags/flags/${option.code.toLowerCase()}.svg`}
+                      width="20px"
+                    />
+                    <span className="ml-2 text-[#333333] cursor-pointer">
+                      {option.code} {option.dial_code}
+                    </span>
+                  </div>
+                )}
+                filterOption={customFilterOption}
+                styles={{
+                  control: (provided) => ({
+                    ...provided,
+                    border: "none",
+                    minWidth: "130px",
+                  }),
+                }}
+                theme={(theme) => ({
+                  ...theme,
+                  borderRadius: 0,
+                  colors: {
+                    ...theme.colors,
+                    primary: "neutral0",
+                  },
+                })}
+              />
 
               <input
                 type="number"
@@ -322,12 +320,14 @@ const PersonalDetails = ({ data, setData }) => {
                 disabled={!isChecked}
               />
             </div>
-
           </div>
 
           <div className="flex flex-col gap-[8px]">
             {inputFields
-              .filter((employer) => employer.label === "Address" ||employer.label === "Email ID"  )
+              .filter(
+                (employer) =>
+                  employer.label === "Address" || employer.label === "Email ID"
+              )
               .map((employer, index) => (
                 <div className="flex flex-col gap-[8px] w-full" key={index}>
                   <label className="font-montserrat text-[14px] font-medium leading-[17.07px] text-left flex-wrap">
