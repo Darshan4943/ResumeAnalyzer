@@ -16,8 +16,8 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
 
 
   const formatLink = (link) => {
-    if (link?.length > 40) {
-      return link?.match(/.{1,40}/g).join('\n');  }
+    if (link?.length > 43) {
+      return link?.match(/.{1,43}/g).join('\n');  }
     return link;
   };
 
@@ -25,6 +25,12 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
     if (email?.length > 20) {
       return email?.match(/.{1,20}/g).join('\n');  }
     return email;
+  };
+
+  const formatLocation = (location) => {
+    if (location?.length > 20) {
+      return location?.match(/.{1,20}/g).join('\n');  }
+    return location;
   };
 
 
@@ -168,7 +174,8 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                     flexWrap: "wrap",
                   }}
                 >
-                  {data.location}
+                  {/* {data.location} */}
+                   {formatLocation(data.location)}
                 </Text>
               </View>
             )}
@@ -448,6 +455,7 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                 alignItems: "flex-start",
                 width: 250,
               }}
+              wrap={false}
             >
               <View
                 style={{

@@ -236,8 +236,8 @@ export const getFileSize = (url) => {
 };
 
 export const formatLink = (link) => {
-  if (link?.length > 25) {
-    return link?.match(/.{1,25}/g).join('\n');  }
+  if (link?.length > 28) {
+    return link?.match(/.{1,28}/g).join('\n');  }
   return link;
 };
 
