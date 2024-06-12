@@ -34,15 +34,21 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
     return link;
   };
 
-  const formatLink35 = (link) => {
-    if (link?.length > 35) {
-      return link?.match(/.{1,35}/g).join('\n');  }
+  const formatLink42 = (link) => {
+    if (link?.length > 40) {
+      return link?.match(/.{1,40}/g).join('\n');  }
     return link;
   };
 
   const formatLink30 = (link) => {
     if (link?.length > 30) {
       return link?.match(/.{1,30}/g).join('\n');  }
+    return link;
+  };
+
+  const formatLink25 = (link) => {
+    if (link?.length > 25) {
+      return link?.match(/.{1,25}/g).join('\n');  }
     return link;
   };
 
@@ -99,7 +105,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                 marginRight: "6px",
               }}
             >
-              {data.designation}
+              {formatLink25(data.designation)}
             </Text>
           </View>
 
@@ -182,7 +188,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                               overflow: "hidden",
                             }}
                           >
-                            {formatLink22(detail.skill)}
+                            {formatLink25(detail.skill)}
                           </Text>
                           {/* <View
                             style={{
@@ -408,7 +414,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                         // width: "90%",
                       }}
                     >
-                      {formatLink21(item?.platform)}
+                      {formatLink25(item?.platform)}
                     </Text>
                     <Text
                       style={{
@@ -418,7 +424,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                         // width: "90%",
                       }}
                     >
-                      {formatLink22(item?.link)}
+                      {formatLink25(item?.link)}
                     </Text>
                   </View>
                 ))}
@@ -626,7 +632,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                         fontFamily: `${selectedFont} 700`,
                       }}
                     >
-                      {formatLink35(data.email)}
+                      {formatLink42(data.email)}
                     </Text>
                   </View>
                 </View>
@@ -676,7 +682,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                         paddingVertical:'5px'
                       }}
                     >
-                      {formatLink35(data.location)}
+                      {formatLink42(data.location)}
                     </Text>
                   </View>
                 </View>
@@ -823,12 +829,12 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                             fontFamily: `${selectedFont} 400`,
                           }}
                         >
-                          {detail.duration?.start?.year !== "Year" &&
-                            `${detail.duration?.start?.year}-${
-                              detail.duration?.end?.year === "Year"
-                                ? "Pursuing"
+                       {detail.duration?.start?.year !== "Year"  &&
+                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
+                                ? "Present"
                                 : detail.duration?.end?.year
-                            }`}
+                              }
+                         `}
                         </Text>
                       </View>
                       <View
@@ -1015,12 +1021,11 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                           fontFamily: `${selectedFont} 400`,
                         }}
                       >
-                        {detail.duration?.start?.year !== "Year" &&
-                          `${detail.duration?.start?.year}-${" "}${
-                            detail.currentlyWorking
-                              ? "Present"
-                              : detail.duration?.end?.year
-                          }
+                       {detail.duration?.start?.year !== "Year"  &&
+                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
+                                ? "Present"
+                                : detail.duration?.end?.year
+                              }
                          `}
                       </Text>
                     </View>
@@ -1097,12 +1102,11 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                           fontFamily: `${selectedFont} 400`,
                         }}
                       >
-                        {detail.duration?.start?.year !== "Year" &&
-                          `${detail.duration?.start?.year}-${" "}${
-                            detail.currentlyWorking
-                              ? "Present"
-                              : detail.duration?.end?.year
-                          }
+                     {detail.duration?.start?.year !== "Year"  &&
+                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
+                                ? "Present"
+                                : detail.duration?.end?.year
+                              }
                          `}
                       </Text>
                     </View>
@@ -1180,12 +1184,11 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                           fontFamily: `${selectedFont} 400`,
                         }}
                       >
-                        {detail.duration?.start?.year !== "Year" &&
-                          `${detail.duration?.start?.year}-${" "}${
-                            detail.currentlyWorking
-                              ? "Present"
-                              : detail.duration?.end?.year
-                          }
+                      {detail.duration?.start?.year !== "Year"  &&
+                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
+                                ? "Present"
+                                : detail.duration?.end?.year
+                              }
                          `}
                       </Text>
                     </View>
@@ -1263,12 +1266,11 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                           fontFamily: `${selectedFont} 400`,
                         }}
                       >
-                        {detail.duration?.start?.year !== "Year" &&
-                          `${detail.duration?.start?.year}-${" "}${
-                            detail.currentlyWorking
-                              ? "Present"
-                              : detail.duration?.end?.year
-                          }
+                      {detail.duration?.start?.year !== "Year"  &&
+                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
+                                ? "Present"
+                                : detail.duration?.end?.year
+                              }
                          `}
                       </Text>
                     </View>
@@ -1361,12 +1363,12 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                                   fontFamily: `${selectedFont} 400`,
                                 }}
                               >
-                                {detail?.duration?.start?.year}
-                                {detail?.duration?.start?.year && "-"}
-                                {detail?.duration?.end?.year === "" ||
-                                detail?.duration?.end?.year === undefined
-                                  ? "Present"
-                                  : detail?.duration?.end?.year}
+                               {detail?.duration?.start?.year}
+                                  {detail?.duration?.start?.year && "-"}
+                                  {detail?.duration?.end?.year === "Year" ||
+                                    detail?.duration?.end?.year === undefined
+                                    ? "Present"
+                                    : detail?.duration?.end?.year}
                               </Text>
                             )}
                           </View>

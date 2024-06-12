@@ -124,7 +124,7 @@ function Collection() {
         console.log(err);
       });
   };
-  console.log(114, folderList);
+
   const getClientData = (clientId) => {
     axios
       .get("https://jamblix.com/api/resume/" + clientId)
@@ -256,51 +256,6 @@ function Collection() {
     return data.data;
   };
 
-  const parseData = () => {
-    return new Promise((resolve, reject) => {
-      const textData = [];
-      Object.values(files).forEach(async (file, index) => {
-        if (
-          file.type ==
-          "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-        ) {
-          const reader = new FileReader();
-          reader.onload = async (e) => {
-            const content = e.target.result;
-            var doc = new Docxtemplater(new PizZip(content), {
-              delimiters: {
-                start: "12op1j2po1j2poj1po",
-                end: "op21j4po21jp4oj1op24j",
-              },
-            });
-            var text = doc.getFullText();
-            textData.push({ text, index });
-          };
-          reader.readAsBinaryString(file);
-        } else if (file.type == "image/png") {
-          Tesseract.recognize(file, "eng", {
-            logger: (m) => console.log(m),
-          }).then(async ({ data: { text } }) => {
-            textData.push({ text, index });
-          });
-        } else if (file.type == "application/pdf") {
-          let fullText = "";
-          const pdfTextPromises = [];
-          for (let i = 1; i <= 1; i++) {
-            pdfTextPromises.push(fileToText(file, i));
-          }
-          Promise.all(pdfTextPromises).then(async (texts) => {
-            fullText = texts.join("");
-            textData.push({ text: fullText, index });
-          });
-        }
-        return;
-      });
-      setTimeout(() => {
-        resolve(textData);
-      }, 1000);
-    });
-  };
   const extractText = (file) => {
     let text = "";
     if (
@@ -340,70 +295,108 @@ function Collection() {
       return text;
     }, 1000);
   };
+
+  const parseData = () => {
+    return new Promise((resolve, reject) => {
+      const textDataPromises = Object.values(files).map(async (file, index) => {
+        return new Promise((resolve) => {
+          if (file.type === "application/vnd.openxmlformats-officedocument.wordprocessingml.document") {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+              const content = e.target.result;
+              const doc = new Docxtemplater(new PizZip(content), {
+                delimiters: {
+                  start: "12op1j2po1j2poj1po",
+                  end: "op21j4po21jp4oj1op24j",
+                },
+              });
+              const text = doc.getFullText();
+              resolve({ text, index });
+            };
+            reader.readAsBinaryString(file);
+          } else if (file.type === "image/png") {
+            Tesseract.recognize(file, "eng", {
+              logger: (m) => console.log(m),
+            }).then(({ data: { text } }) => {
+              resolve({ text, index });
+            });
+          } else if (file.type === "application/pdf") {
+            const pdfTextPromises = [];
+            for (let i = 1; i <= 1; i++) {
+              pdfTextPromises.push(fileToText(file, i));
+            }
+            Promise.all(pdfTextPromises).then((texts) => {
+              const fullText = texts.join("");
+              resolve({ text: fullText, index });
+            });
+          } else {
+            resolve({ text: "", index });
+          }
+        });
+      });
+
+      Promise.all(textDataPromises).then((results) => {
+        resolve(results.filter(result => result.text.length > 0));
+      });
+    });
+  };
+
+
   const [duplicateFiles, setDuplicateFiles] = useState([]);
 
   const addData = async (file, index, text) => {
-  return new Promise((resolve) => {
-    setTimeout(async () => {
-      const formData = new FormData();
-      try {
-        if (
-          folderList.some(
-            (existingFile) => existingFile.fileName === file.name
-          )
-        ) {
-          setDuplicateFiles((prevDuplicateFiles) => [
-            ...prevDuplicateFiles,
-            { file, index },
-          ]);
-          setCount((prevCount) => prevCount + 1);
-          // toast.error("Duplicate file name");
-          return;
-        }
-        if (text === undefined || text === null || text.length <= 5) {
-          setCount((prevCount) => prevCount + 1);
-          setFailedFiles((prevFailedFiles) => [
-            ...prevFailedFiles,
-            { file, index, error: 'Invalid text' },
-          ]);
-          return;
-        }
-
-        formData.append("fileName", file.name);
-        formData.append("type", "file");
-        formData.append("userId", userDataGlobal._id);
-        formData.append("text", text);
-        formData.append("file", file);
-        formData.append("parentId", ParentId ? ParentId : undefined);
-
+    return new Promise((resolve) => {
+      setTimeout(async () => {
+        const formData = new FormData();
         try {
-          const response = await axios.post(
-            "https://jamblix.com/api/folder/create",
-            formData
-          );
-          resolve(index, response.data);
-          setCount((prevCount) => prevCount + 1);
-        } catch (e) {
-          // toast.error("Something went wrong Please Check your file")
-          setCount((prevCount) => prevCount + 1);
-          setFailedFiles((prevFailedFiles) => [
-            ...prevFailedFiles,
-            { file, index, error: e },
-          ]);
+          if (folderList.some((existingFile) => existingFile.fileName === file.name)) {
+            setDuplicateFiles((prevDuplicateFiles) => [
+              ...prevDuplicateFiles,
+              { file, index },
+            ]);
+            setCount((prevCount) => prevCount + 1);
+            return;
+          }
+          if (text === undefined || text === null || text.length <= 5) {
+            setCount((prevCount) => prevCount + 1);
+            setFailedFiles((prevFailedFiles) => [
+              ...prevFailedFiles,
+              { file, index, error: 'Invalid text' },
+            ]);
+            return;
+          }
+
+          formData.append("fileName", file.name);
+          formData.append("type", "file");
+          formData.append("userId", userDataGlobal._id);
+          formData.append("text", text);
+          formData.append("file", file);
+          formData.append("parentId", ParentId ? ParentId : undefined);
+
+          try {
+            const response = await axios.post(
+              "https://jamblix.com/api/folder/create",
+              formData
+            );
+            setCount((prevCount) => prevCount + 1);
+            setUploadCount((prevCount) => prevCount + 1); // Increment the upload count here
+            resolve({ index, response: response.data });
+          } catch (e) {
+            setCount((prevCount) => prevCount + 1);
+            setFailedFiles((prevFailedFiles) => [
+              ...prevFailedFiles,
+              { file, index, error: e },
+            ]);
+          }
+        } catch (err) {
+          return;
         }
-      } catch (err) {
-        return;
-      }
-    }, 200); // Simulating a network delay
-  });
-};
+      }, 200); // Simulating a network delay
+    });
+  };
 
 
-  useEffect(() => {
-    if (files.length === count) {
-      setFileLoader(false);
-    }
-  }, [count]);
+
   const addFiles = async () => {
     setCount(0);
     setFileLoader(true);
@@ -412,17 +405,19 @@ function Collection() {
       setFileLoader(false);
       return;
     }
+
     const extractedText = await parseData();
-    const promise = Object.values(files).map(async (file, index) => {
-      const data = await addData(
-        file,
-        index,
-        extractedText.find((item) => item.index == index)?.text
-      );
-      setUploadCount((prevCount) => prevCount + 1);
+
+    const promises = Object.values(files).map(async (file, index) => {
+      const textItem = extractedText.find((item) => item.index == index);
+      const text = textItem ? textItem.text : null;
+      return addData(file, index, text);
+
     });
 
-    const resolvedData = await Promise.all(promise);
+
+    await Promise.all(promises);
+
     // setFiles([]);
     // getData();
     // setTimeout(() => {
@@ -433,9 +428,16 @@ function Collection() {
     //   toast.success(`${Object.keys(files).length} Files Uploaded Successfully`);
     // }, 1000);
   };
+
   const handleButtonClick = () => {
     fileRef.current.click();
   };
+
+  useEffect(() => {
+    if (files.length === count) {
+      setFileLoader(false);
+    }
+  }, [count]);
 
   useEffect(() => {
     getData();
@@ -497,15 +499,15 @@ function Collection() {
         <>
           <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
           <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center customMargins   ">
-            <div className="absolute  w-[90%]  scr460:w-[35%] scr460:min-w-[436px] rounded-[14px] bg-white p-4 flex flex-col gap-6 ">
-              <div className="text-[24px] font-medium">
+            <div className="absolute  w-[90%]  scr460:w-[35%] scr460:min-w-[436px] rounded-[14px] bg-white px-4 py-2 flex flex-col gap-3 ">
+              <div className="text-[24px] font-medium leading-tight">
                 New {isFile ? "Files" : "Folder"}
               </div>
               {isFile ? (
                 <div
                   ref={fileRef}
                   onDrop={handleFileChange}
-                  className="border-dashed border-[3px] border-[#b4b4b4] flex flex-row w-full justify-center rounded-[12px] px-[16px] py-[24px] items-center gap-[8px] upload-btn-wrapper min-h-[126px]"
+                  className="border-dashed border-[3px] border-[#b4b4b4] flex flex-row w-full justify-center rounded-[12px] p-4 items-center gap-[8px] upload-btn-wrapper min-h-[126px]"
                 >
                   {fileLoader ? (
                     <>
@@ -666,7 +668,7 @@ function Collection() {
                                 {duplicateFiles.length === 1 ? "file" : "files"}{" "}
                                 found.
                               </div>
-                              <div className="flex flex-wrap scr1300:gap-4 gap-2 h-[60px] justify-between  scr1300:px-4 overflow-y-auto mt-2">
+                              <div className="grid grid-cols-2 scr1300:gap-4 gap-x-3 gap-y-2 h-[60px] scr1300:px-4 overflow-y-auto mt-2">
                                 {duplicateFiles.map((item, index) => (
                                   <>
                                     <div className="flex gap-2 text-[14px]">
@@ -674,8 +676,8 @@ function Collection() {
                                         {fileIconSeter2(item)}
                                       </div>
 
-                                      {item.file.name.length > 16
-                                        ? `${item.file.name.slice(0, 16)}...`
+                                      {item.file.name.length > 14
+                                        ? `${item.file.name.slice(0, 14)}...`
                                         : item.file.name}
                                     </div>
                                   </>
@@ -733,16 +735,16 @@ function Collection() {
                                   </ol>
                                 </div>
 
-                                <div className="flex flex-wrap scr1300:gap-4 gap-2 h-[60px] justify-between  scr1300:px-4 overflow-y-auto mt-2">
+                                <div className="grid grid-cols-2 scr1300:gap-4 gap-x-3 gap-y-2 h-[60px] scr1300:px-4 overflow-y-auto mt-2">
                                   {failedFiles.map((item, index) => (
                                     <>
-                                      <div className="flex gap-2 text-[14px]">
+                                      <div className="flex gap-2 text-[14px] ">
                                         <div className="w-[24px] h-[22px]">
                                           {fileIconSeter2(item)}
                                         </div>
 
-                                        {item.file.name.length > 16
-                                          ? `${item.file.name.slice(0, 16)}...`
+                                        {item.file.name.length > 14
+                                          ? `${item.file.name.slice(0, 14)}...`
                                           : item.file.name}
                                       </div>
                                     </>
@@ -808,6 +810,10 @@ function Collection() {
                     setDuplicateFiles([]);
                     getData();
                     getUnSyncFiles()
+                    setTimeout(() => {
+                      getUnSyncFiles()
+                    }, 10000);
+
                   }}
                 >
                   Close
@@ -860,8 +866,8 @@ function Collection() {
         </>
       )}
       <div className="bg-[#F9F9F9] min-h-[94vh]">
-        <div className="  flex ml:flex-row flex-col ml:justify-between  gap-4 ms:py-6 py-2 min-h-[80vh]   pb-12 customMargins ">
-          <div className="flex flex-col gap-5  justify-between ml:w-[20%] w-[100%] ml:min-h-[50vh] ">
+        <div className="  flex ml:flex-row flex-col ml:justify-between  gap-4 ms:py-6 py-2 min-h-[80vh]   pb-12 customMargins relative ">
+          <div className="flex flex-col gap-5  justify-between ml:w-[20%] w-[100%] ml:min-h-[50vh]  ">
             <div className="flex flex-col gap-5 ">
               <p className="text-[18px] font-semibold ml:hidden block">
                 My Collection
