@@ -280,6 +280,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
              style={{ maxWidth: "100%" }}>
               <View
                 style={{
+                  paddingTop:'4px',
                   paddingLeft: -1,
                   height: 27,
                   alignItems: "center",
@@ -333,7 +334,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
           )}
 
           {data?.achievements?.length > 0 && (
-            <View wrap={false} style={{}}>
+            <View wrap={false} style={{paddingTop:'4px'}}>
               <View
                 style={{
                   paddingLeft: -1,

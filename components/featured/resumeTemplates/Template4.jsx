@@ -925,7 +925,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                 width: "100%",
               }}
             >
-              <View style={{}}>
+              <View style={{ width: "27px"}}>
                 <Image
                   style={{ width: "27px", height: "27px" }}
                   src="/images/services/education.png"
@@ -1060,7 +1060,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                 width: "100%",
               }}
             >
-              <View style={{}}>
+              <View style={{ width: "27px" }}>
                 <Image
                   style={{ width: "27px", height: "27px" }}
                   src="/images/services/experience.png"
@@ -1186,7 +1186,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                 width: "100%",
               }}
             >
-              <View style={{}}>
+              <View style={{ width: "27px" }}>
                 <Image
                   style={{ width: "27px", height: "27px" }}
                   src="/images/services/Projects.png"
@@ -1313,7 +1313,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                   width: "100%",
                 }}
               >
-                <View style={{}}>
+                <View style={{ width: "27px"}}>
                   <Image
                     style={{ width: "27px", height: "27px" }}
                     src="/images/services/Activities.png"
@@ -1443,7 +1443,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                 width: "100%",
               }}
             >
-              <View style={{}}>
+              <View style={{ width: "27px"}}>
                 <Image
                   style={{ width: "27px", height: "27px" }}
                   src="/images/services/Internship.png"
@@ -1569,7 +1569,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                 width: "100%",
               }}
             >
-              <View style={{}}>
+              <View style={{ width: "27px"}}>
                 <Image
                   style={{ width: "27px", height: "27px" }}
                   src="/images/services/Courses.png"
