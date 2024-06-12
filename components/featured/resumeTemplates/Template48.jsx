@@ -848,7 +848,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
               width: 346,
               display: "flex",
               flexDirection: "column",
-              gap: 14,
+              gap: 16,
             }}
           >
             {data?.summery?.length > 0 && data?.showSummary === true && (
@@ -1023,7 +1023,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                           style={{
                             display: "flex",
                             flexDirection: "row",
-                            // justifyContent: "space-between",
+                            justifyContent: "space-between",
                             paddingLeft: "20px",
                             width: "105%",
                             gap: "4px",
@@ -1151,7 +1151,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                     wrap={false}
                     style={{
                       flexDirection: "col",
-                      gap: 8,
+                      gap: 6,
                       width: "95%",
                     }}
                   >
@@ -1212,10 +1212,9 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                             fontFamily: `${selectedFont} 400`,
                             fontSize: 10,
                             color: "#414142",
-                            paddingBottom: 16,
+                            height: "15px",
                           }}
                         >
-                          {" "}
                           {detail.duration?.start?.year !== "Year" &&
                             `${detail.duration?.start?.year}-${detail.duration?.end?.year === "Year"
                               ? "Pursuing"
@@ -1275,7 +1274,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                     wrap={false}
                     style={{
                       flexDirection: "col",
-                      gap: 8,
+                      gap: 6,
                       width: "95%",
                     }}
                   >
@@ -1336,7 +1335,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                             fontFamily: `${selectedFont} 400`,
                             fontSize: 10,
                             color: "#414142",
-                            paddingBottom: 16,
+                            height: "15px",
                           }}
                         >
                           {detail.duration?.start?.year !== "Year" &&
@@ -1418,7 +1417,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                     wrap={false}
                     style={{
                       flexDirection: "col",
-                      gap: 8,
+                      gap: 6,
                       width: "95%",
                     }}
                   >
@@ -1479,7 +1478,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                             fontFamily: `${selectedFont} 400`,
                             fontSize: 10,
                             color: "#414142",
-                            paddingBottom: 16,
+                            height: "15px",
                           }}
                         >
                           {detail.duration?.start?.year !== "Year" &&
@@ -1561,7 +1560,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                     wrap={false}
                     style={{
                       flexDirection: "col",
-                      gap: 8,
+                      gap: 6,
                       width: "95%",
                     }}
                   >
@@ -1621,7 +1620,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                             fontFamily: `${selectedFont} 400`,
                             fontSize: 10,
                             color: "#414142",
-                            paddingBottom: 16,
+                            height: "15px",
                           }}
                         >
                           {detail.duration?.start?.year !== "Year" &&
@@ -1705,7 +1704,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                       wrap={false}
                       style={{
                         flexDirection: "col",
-                        gap: 8,
+                        gap: 6,
                         width: "95%",
                       }}
                     >
@@ -1765,7 +1764,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                               fontFamily: `${selectedFont} 400`,
                               fontSize: 10,
                               color: "#414142",
-                              paddingBottom: 16,
+                              height: "15px",
                             }}
                           >
                             {detail.duration?.start?.year !== "Year" &&
@@ -1854,7 +1853,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                         flexDirection: "column",
 
                         alignItems: "start",
-                        gap: "16px",
+                        gap: 6,
                       }}
                     >
                       <View
@@ -1908,6 +1907,7 @@ const Template48 = ({ data, selectedColor, selectedFont, preview }) => {
                                 fontFamily: `${selectedFont} 400`,
                                 fontSize: 10,
                                 color: "#414142",
+                                height: "15px",
                               }}
                             >
                               {detail?.duration?.start?.year}
