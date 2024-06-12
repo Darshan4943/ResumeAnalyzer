@@ -108,7 +108,7 @@ function Template14({ data, selectedColor, selectedFont }) {
                   fontSize: 32,
                   fontFamily: `${selectedFont} 700`,
                   color: selectedColor,
-                  maxWidth: "50%"
+                  maxWidth:"60%"
 
                 }}
               >
@@ -209,7 +209,7 @@ function Template14({ data, selectedColor, selectedFont }) {
               <View>
                 <Text
                   style={{
-                    width: "50%",
+                    width: "55%",
                     fontSize: 12,
                     fontFamily: `${selectedFont} 400`,
                     color: "#4D4D4D",
