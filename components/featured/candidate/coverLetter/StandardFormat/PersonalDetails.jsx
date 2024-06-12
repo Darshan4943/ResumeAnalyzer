@@ -262,81 +262,69 @@ const PersonalDetails = ({ data, setData }) => {
                     placeholder={employer.placeholder}
                     value={personalData[employer.name]}
                     onChange={handleInputChange}
-                    className="w-full pt-[12px] pr-[16px] pb-[12px] pl-[16px] gap-0 border border-solid border-[#DEDEDE] rounded-[8px] text-[12px] leading-[16px] text-[#646464] font-[400]"
+                    className="w-full pt-[12px]  pr-[16px] pb-[12px] pl-[16px] gap-0 border border-solid border-[#DEDEDE] rounded-[8px] text-[12px] leading-[16px] text-[#646464] font-[400]"
                   />
                 </div>
               ))}
           </div>
-          <div className="grid grid-cols-2 gap-[8px]">
-            <div className={`flex flex-col gap-2 w-full`}>
-              <label className="font-montserrat text-[14px] font-medium leading-[17.07px] text-left flex-wrap">
-                Mobile Number
-              </label>
-              <div
-                // className={`rounded-[8px] ${
-                //   formErrors[item.name]
-                //     ? "border-[#C00000]"
-                //     : "border-[#9D9D9D]"
-                // } `}
-                className="rounded-[8px] border-[#9D9D9D]"
-              >
-                <div className={`flex w-[100%] items-start`} id="single_input">
-                  <div className={`relative items-center`}>
-                    <div className="w-[100%] text-[14px] justify-center items-center flex font-[500] text-[#646464]">
-                      <div className="flex items-center justify-center gap-2 cursor-pointer min-w-[160px] w-[100%]">
-                        <div className="flex items-center gap-1 cursor-pointer w-[100%]">
-                          <ReactSelect
-                            options={filteredTelCode}
-                            className="w-[100%] flex items-center py-2 rounded-[8px] outline-none border-none cursor-pointer"
-                            name=""
-                            placeholder="Select"
-                            value={selectedItem}
-                            onChange={handleItemClick}
-                            getOptionLabel={(option) => (
-                              <div className="flex items-center cursor-pointer">
-                                <img
-                                  src={`https://hatscripts.github.io/circle-flags/flags/${option.code.toLowerCase()}.svg`}
-                                  width="20px"
-                                />
-                                <span className="ml-2 text-[#333333] cursor-pointer">
-                                  {option.code} {option.dial_code}
-                                </span>
-                              </div>
-                            )}
-                            filterOption={customFilterOption}
-                            styles={{
-                              control: (provided) => ({
-                                ...provided,
-                                border: "none",
-                                minWidth: "130px",
-                              }),
-                            }}
-                            theme={(theme) => ({
-                              ...theme,
-                              borderRadius: 0,
-                              colors: {
-                                ...theme.colors,
-                                primary: "neutral0",
-                              },
-                            })}
-                          />
-                        </div>
-                      </div>
+
+          <div className={`flex flex-col gap-2 w-full`}>
+            <label className="font-montserrat text-[14px] font-medium leading-[17.07px] text-left flex-wrap">
+              Mobile Number
+            </label>
+
+            <div className="w-[60%] flex pr-[16px] h-[40px] pl-[16px] gap-2 border border-solid border-[#DEDEDE] rounded-[8px] text-[12px] leading-[16px] text-[#646464] font-[400]">
+
+                <ReactSelect
+                  options={filteredTelCode}
+                  className="w-[45%] flex items-center  rounded-[8px] outline-none border-none cursor-pointer"
+                  name=""
+                  placeholder="Select"
+                  value={selectedItem}
+                  onChange={handleItemClick}
+                  getOptionLabel={(option) => (
+                    <div className="flex items-center cursor-pointer">
+                      <img
+                        src={`https://hatscripts.github.io/circle-flags/flags/${option.code.toLowerCase()}.svg`}
+                        width="20px"
+                      />
+                      <span className="ml-2 text-[#333333] cursor-pointer">
+                        {option.code} {option.dial_code}
+                      </span>
                     </div>
-                  </div>
-                  <input
-                    type="number"
-                    name="mobileNumber"
-                    placeholder="Enter Mobile Number"
-                    className="w-full text-[12px]"
-                    value={personalData["mobileNumber"]}
-                    onChange={handleInputChange}
-                    disabled={!isChecked}
-                  />
-                </div>
-              </div>
+                  )}
+                  filterOption={customFilterOption}
+                  styles={{
+                    control: (provided) => ({
+                      ...provided,
+                      border: "none",
+                      minWidth: "130px",
+                    }),
+                  }}
+                  theme={(theme) => ({
+                    ...theme,
+                    borderRadius: 0,
+                    colors: {
+                      ...theme.colors,
+                      primary: "neutral0",
+                    },
+                  })}
+                />
+          
+
+              <input
+                type="number"
+                name="mobileNumber"
+                placeholder="Enter Mobile Number"
+                className="w-full text-[12px] leading-[14px] px-2"
+                value={personalData["mobileNumber"]}
+                onChange={handleInputChange}
+                disabled={!isChecked}
+              />
             </div>
+
           </div>
+
           <div className="flex flex-col gap-[8px]">
             {inputFields
               .filter(
