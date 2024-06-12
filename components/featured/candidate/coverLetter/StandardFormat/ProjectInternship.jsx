@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Achievement from "../../createResume/components/achivement";
 
 const ProjectInternship = ({ data, setData }) => {
@@ -29,10 +29,10 @@ const ProjectInternship = ({ data, setData }) => {
       className: " ",
     },
     {
-      label: "Brief Description",
+      label: "Brief description",
       type: "text",
-      name: "jobTitle",
-      placeholder: "Brief Description of Project/ Internship",
+      name: "description",
+      placeholder: "Brief description of Project/ Internship",
       value: ProjectData.description,
       className: " ",
     },
@@ -57,7 +57,8 @@ const ProjectInternship = ({ data, setData }) => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setJobData({ ...JobData, [name]: value });
+    setProjectData({ ...ProjectData, [name]: value });
+    setData({...data,[name]: value })
   };
 
   const handleInputSkills = (e) => {
@@ -68,11 +69,15 @@ const ProjectInternship = ({ data, setData }) => {
     if (relevantSkills && !relevantSkills.includes(inputValue)) {
       const updatedSkills = [...relevantSkills, inputValue];
       setrelevantSkills(updatedSkills);
-      setData({ ...ProjectData, relevantSkills: updatedSkills });
+      console.log("666", updatedSkills)
+      setData({ ...data, relevantSkills: updatedSkills });
       setInputValue("");
     }
   };
 
+//   useEffect(() => {
+//     setData({ ...data, ProjectData });
+//   }, [ProjectData]);
   return (
     <div className="flex flex-col gap-[16px] w-full bg-white p-4">
       <div className="flex flex-row justify-between gap-[8px] items-center">

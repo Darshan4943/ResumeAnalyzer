@@ -3,6 +3,7 @@ import { coverLetters } from "../../../../utils/middleware";
 import ThemeForm from "../createResume/components/themeForm";
 import { StandaredForm } from "./StandaredForm";
 import CoustomForm from "./CoustomForm";
+import axios from "axios";
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -69,7 +70,11 @@ function CoverForm({
 
   const handleSaveData = (e) => {
     e.preventDefault();
-    console.log(data)
+    // axios
+    //   .post("api")
+    //   .then((res) =>console.() res.data)
+    //   .catch((err) => console.error(err));
+    console.log("data", data)
   };
 
   return (

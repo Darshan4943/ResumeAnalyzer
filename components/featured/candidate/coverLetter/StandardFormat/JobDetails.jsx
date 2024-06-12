@@ -143,6 +143,7 @@ const JobDetails = ({ data, setData }) => {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setJobData({ ...JobData, [name]: value });
+    setData({ ...data, [name]: value });
   };
 
   const handleInputSkills = (e) => {

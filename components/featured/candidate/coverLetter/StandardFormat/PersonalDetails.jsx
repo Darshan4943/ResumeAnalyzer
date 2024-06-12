@@ -40,7 +40,8 @@ const PersonalDetails = ({ data, setData }) => {
 
   const handleItemClick = (item) => {
     setSelectedItem(item);
-    setProfileData({ ...profileData, dial_code: item.dial_code });
+    setPersonalData({ ...personalData, dial_code: item.dial_code });
+    setData({ ...data, dial_code: item.dial_code });
     setIsModified(true);
     setTouched({ ...touched, dial_code: true });
   };
@@ -174,10 +175,11 @@ const PersonalDetails = ({ data, setData }) => {
 
     if (name === "mobileNumber") {
       if (value.replace(/\D/g, "").length <= 10) {
-        setProfileData({
+        setPersonalData({
           ...personalData,
           [name]: value.replace(/\D/g, ""),
         });
+        setData({ ...data, [name]: value.replace(/\D/g, "") });
         setIsModified(true);
         setFormErrors({ ...formErrors, [name]: value.trim() === "" });
       }
@@ -186,6 +188,7 @@ const PersonalDetails = ({ data, setData }) => {
         ...personalData,
         [name]: value,
       });
+      setData({ ...data, [name]: value });
       setIsModified(true);
       setFormErrors({ ...formErrors, [name]: value.trim() === "" });
     }
