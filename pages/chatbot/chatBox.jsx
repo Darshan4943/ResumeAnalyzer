@@ -320,7 +320,7 @@ const ChatBox = ({
           {chat?.length > 0 ? (
             <div
               style={{ scrollbarWidth: "none" }}
-              className="flex flex-col gap-[16px] scr1150:w-[60%] w-[70%] h-[84vh] overflow-y-auto  "
+              className="flex flex-col gap-[16px] scr1150:w-[60%] w-[70%] h-[80vh] overflow-y-auto  "
               ref={divRef}
             >
               {chat?.map((item, index) => {
@@ -370,7 +370,7 @@ const ChatBox = ({
             </div>
           ) : (
             <>
-              <div className="flex w-full h-[84vh]">
+              <div className="flex w-full h-[80vh]">
                 <div className="flex w-full items-center justify-center">
                   <div className="flex flex-col gap-[60px] w-[480px] h-[320px] ">
                     <div className="flex flex-col items-center">

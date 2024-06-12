@@ -693,7 +693,7 @@ function Dashboard() {
       {userDataGlobal.role === "user" &&
         data !== undefined &&
         hasNonEmptyKey(data) && (
-          <div className="flex gap-[46px] flex-wrap flex-col sm:items-start items-center ">
+          <div className="flex gap-[24px] flex-wrap flex-col sm:items-start items-center ">
             {resumeData.selectedResumeIndex !== undefined &&
               resumeData.selectedColor !== undefined &&
               resumeData.selectedFont !== undefined && (
@@ -701,7 +701,7 @@ function Dashboard() {
                   <div className="text-[18px] font-Montserrat font-semibold">
                     Continue where you left
                   </div>
-                  <div className="  min-w-[280px] items-center justify-between gap-[46px] sm:gap-[12px] p-[24px] bg-[#F9F9F9] rounded-[24px] flex flex-col">
+                  <div className="  min-w-[280px] max-w-[300px] items-center justify-between gap-[46px] sm:gap-[12px] p-[24px] bg-[#F9F9F9] rounded-[24px] flex flex-col">
                     <span className="font-Montserrat text-[18px] font-medium text-[#333333] break-all">
                       {data.firstName}_resume.pdf
                     </span>
