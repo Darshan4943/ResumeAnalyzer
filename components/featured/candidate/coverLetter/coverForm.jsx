@@ -22,7 +22,7 @@ function CoverForm({
   data,
   setData,
 }) {
-  console.log(data)
+  console.log(data);
   const [isAll, setIsAll] = useState(false);
   const [isFormat, setIsFormat] = useState("standard");
   const userDataGlobal = useSelector((state) => state.userData);
@@ -60,6 +60,9 @@ function CoverForm({
     ));
   };
 
+  const handleSaveData=()=>{
+    console.log(7865)
+  }
   const renderAllTemplates = () => {
     return coverLetters.map((template, index) => (
       <img
@@ -78,14 +81,16 @@ function CoverForm({
 
   const addCoverLetter = async () => {
     try {
-     
-      const formData = { ...data, userId:userDataGlobal._id };
-  
-      const response = await axios.post('http://localhost:2000/api/cover/add', formData);
+      const formData = { ...data, userId: userDataGlobal._id };
+
+      const response = await axios.post(
+        "http://localhost:2000/api/cover/add",
+        formData
+      );
       toast.success("Cover Letter added successfully");
       return response.data;
     } catch (error) {
-      console.error('Error adding cover letter:', error);
+      console.error("Error adding cover letter:", error);
       toast.error("Error adding cover letter");
       throw error;
     }
@@ -121,7 +126,6 @@ function CoverForm({
 
   return (
     <div className="flex flex-col pr-[10px] ml:w-[100%] w-[100%]  pb-4 gap-4 rounded-lg ">
-  
       <div className="ml:flex hidden  flex-row gap-4 ">
         <button
           className="p-[8px] border-[1px] bg-blue border-[#DEDEDE] rounded-[6px]  "
