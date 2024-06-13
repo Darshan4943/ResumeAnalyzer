@@ -637,7 +637,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                 <View style={{ flexDirection: "column", gap: 20 }}>
                   {data?.reference?.map((detail, index) => (
                     <View
-                      wrap={false}
+                      // wrap={false}
                       key={index}
                       style={{ flexDirection: "column", gap: "8px" }}
                     >
