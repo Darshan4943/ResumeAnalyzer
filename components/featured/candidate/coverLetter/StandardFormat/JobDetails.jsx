@@ -154,14 +154,12 @@ const JobDetails = ({ data, setData }) => {
     if (requiredSkills && !requiredSkills.includes(inputValue)) {
       const updatedSkills = [...requiredSkills, inputValue];
       setRequiredSkills(updatedSkills);
-      // setData({ ...data, requiredSkills: updatedSkills });
+      setData({ ...data, requiredSkills: updatedSkills });
       setJobData({ ...JobData, requiredSkills });
       setInputValue("");
     }
   };
-  useEffect(() => {
-    setData({ ...data, JobData });
-  }, [JobData]);
+ 
 
   return (
     <div className="flex flex-col gap-[16px] w-full bg-white p-4">

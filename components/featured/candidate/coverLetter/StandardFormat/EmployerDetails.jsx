@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { data } from "../../../../common/Bars";
 
-const EmployerDetails = () => {
+const EmployerDetails = ({data, setData}) => {
   const [isShow, setIsShow] = useState(true);
   const [EmployerData, setEmployerData] = useState({
     employerName: "",
@@ -118,11 +119,18 @@ const EmployerDetails = () => {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setEmployerData({ ...EmployerData, [name]: value });
+    setData({ ...data, [name]: value });
   };
 
-  useEffect(() => {
-    // setData({ ...data, EmployerData });
-  }, [EmployerData]);
+  const addSkill = () => {
+    if (requiredSkills && !requiredSkills.includes(inputValue)) {
+      const updatedSkills = [...requiredSkills, inputValue];
+      setRequiredSkills(updatedSkills);
+      // setData({ ...data, requiredSkills: updatedSkills });
+      setJobData({ ...JobData, requiredSkills });
+      setInputValue("");
+    }
+  };
 
   return (
     <div className="flex flex-col gap-[16px] w-full bg-white p-4">

@@ -125,11 +125,8 @@ const EducationDetails = ({ data, setData }) => {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setEducationalData({ ...educationalData, [name]: value });
+    setData({ ...data, [name]: value });
   };
-
-  useEffect(() => {
-    setData({ ...data, educationalData });
-  }, [educationalData]);
 
   return (
     <div className="flex flex-col gap-[16px] w-full bg-white p-4">
