@@ -133,6 +133,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                 justifyContent: "flex-start",
                 paddingTop: "24px",
                 gap: 12,
+                marginBottom: data?.location.length > 60 ? "15px" : "0"
               }}
             >
               <Text
@@ -226,6 +227,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                   </Text>
                 </View>
 
+     {data?.location.length > 0 &&
                 <View
                   style={{
                     height: 24,
@@ -252,13 +254,15 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                     style={{
                       color: "#414042",
                       fontSize: "10px",
-                       height:"60px",
+                       height:'60px',
                       fontFamily: `${selectedFont} 400`,
                     }}
                   >
                     {formatLink(data?.location)}
                   </Text>
                 </View>
+}
+
               </View>
             </View>
             {data?.education?.length > 0 && data?.showEducation === true && (
@@ -372,8 +376,12 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                   </View>
                   <View style={{ flexDirection: "column", gap: 8 }}>
                     {data?.skills.map((detail, index) => (
-                      <View key={index}>
-                        <View>
+                      <View
+                       wrap={false}                       
+                      key={index}>
+                        <View
+                        wrap={false}
+                        >
                           <Text
                             style={{
                               color: "#414042",
@@ -800,6 +808,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                               fontSize: 10,
                               fontFamily: `${selectedFont} 400`,
                               lineHeight: 1.5,
+                              height:'18px'
                             }}
                           >
                             {detail.duration?.start?.year !== "Year"  &&
@@ -832,7 +841,9 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
             )}
 
             {data?.internship?.length > 0 && data?.showInternship === true && (
-              <View style={{ flexDirection: "column", gap: 12, width: "100%" }}>
+              <View 
+              wrap={false}
+              style={{ flexDirection: "column", gap: 12, width: "100%" }}>
                 <View style={{ flexDirection: "column", gap: 12 }}>
                   <Text
                     style={{
@@ -898,6 +909,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                               fontSize: 10,
                               fontFamily: `${selectedFont} 400`,
                               lineHeight: 1.5,
+                              height:18
                             }}
                           >
                              {detail.duration?.start?.year !== "Year"  &&
@@ -996,6 +1008,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                               fontSize: 10,
                               fontFamily: `${selectedFont} 400`,
                               lineHeight: 1.5,
+                              height:18
                             }}
                           >
                             {detail.duration?.start?.year !== "Year"  &&
@@ -1094,6 +1107,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                               fontSize: 10,
                               fontFamily: `${selectedFont} 400`,
                               lineHeight: 1.5,
+                              height:18
                             }}
                           >
                             {detail.duration?.start?.year !== "Year"  &&
@@ -1195,6 +1209,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                                 fontSize: 10,
                                 fontFamily: `${selectedFont} 400`,
                                 lineHeight: 1.5,
+                                height:18
                               }}
                             >
                               {detail.duration?.start?.year !== "Year"  &&
@@ -1297,6 +1312,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                                     fontSize: 10,
                                     fontFamily: `${selectedFont} 400`,
                                     lineHeight: 1.5,
+                                    height:18
                                   }}
                                 >
                                   {detail?.duration?.start?.year}

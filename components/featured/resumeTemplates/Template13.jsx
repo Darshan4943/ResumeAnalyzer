@@ -269,6 +269,7 @@ function Template13({ data, selectedColor, selectedFont }) {
                               fontSize: 12,
                               fontFamily: `${selectedFont} 400`,
                               color: "#797979",
+                              lineHeight:1
                             }}
                           >
                             {formatLink40(detail.organization)}{" "}
@@ -349,6 +350,7 @@ function Template13({ data, selectedColor, selectedFont }) {
                             fontSize: 12,
                             fontFamily: `${selectedFont} 400`,
                             color: "#797979",
+                            lineHeight:1
                           }}
                         >
                           {formatLink32(detail.organization)}{" "}
@@ -389,12 +391,14 @@ function Template13({ data, selectedColor, selectedFont }) {
                     width: 261,
                     paddingTop: 24,
                   }}
+                  
                 >
                   <Text
                     style={{
                       fontSize: 20,
                       fontFamily: `${selectedFont} 500`,
                       color: selectedColor,
+                      lineHeight:1
                     }}
                   >
                     INTERNSHIP
@@ -429,6 +433,7 @@ function Template13({ data, selectedColor, selectedFont }) {
                             fontSize: 12,
                             fontFamily: `${selectedFont} 400`,
                             color: "#797979",
+                            lineHeight:1
                           }}
                         >
                           {formatLink32(detail.organization)}{" "}
@@ -509,6 +514,7 @@ function Template13({ data, selectedColor, selectedFont }) {
                             fontSize: 12,
                             fontFamily: `${selectedFont} 400`,
                             color: "#797979",
+                            lineHeight:1
                           }}
                         >
                           {detail.organization}{" "}
@@ -590,6 +596,7 @@ function Template13({ data, selectedColor, selectedFont }) {
                               fontSize: 12,
                               fontFamily: `${selectedFont} 400`,
                               color: "#797979",
+                              lineHeight:1
                             }}
                           >
                             {formatLink32(detail.organization)}{" "}
@@ -989,6 +996,7 @@ function Template13({ data, selectedColor, selectedFont }) {
                             fontFamily: `${selectedFont} 700`,
                             color: "#333333",
                             lineHeight: 1.2,
+                            marginBottom:"5px"
                           }}
                         >
                           {formatLink32(detail.referantName)}
@@ -999,7 +1007,7 @@ function Template13({ data, selectedColor, selectedFont }) {
                             fontFamily: `${selectedFont} 400`,
                             color: "#333333",
                             lineHeight: 1.4,
-                            marginBottom:"5px"
+                            // marginBottom:"5px"
                           }}
                         >
                           {formatLink50(detail.designation)}

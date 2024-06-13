@@ -726,6 +726,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                             paddingLeft: "18px",
                             fontSize: "12",
                             fontFamily: `${selectedFont} 400`,
+                            height:'15px'
                           }}
                         >
                         {detail.duration?.start?.year !== "Year"  &&
@@ -830,6 +831,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                             paddingLeft: "18px",
                             fontSize: "12",
                             fontFamily: `${selectedFont} 400`,
+                            height:'15px'
                           }}
                         >
                       {detail.duration?.start?.year !== "Year"  &&
@@ -934,6 +936,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                             paddingLeft: "18px",
                             fontSize: "12",
                             fontFamily: `${selectedFont} 400`,
+                            height:'15px'
                           }}
                         >
                        {detail.duration?.start?.year !== "Year"  &&
@@ -1038,6 +1041,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                             paddingLeft: "18px",
                             fontSize: "12",
                             fontFamily: `${selectedFont} 400`,
+                            height:'15px'
                           }}
                         >
                           {detail.duration?.start?.year !== "Year" &&
@@ -1142,6 +1146,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                               paddingLeft: "18px",
                               fontSize: "12",
                               fontFamily: `${selectedFont} 400`,
+                              height:'15px'
                             }}
                           >
                          {detail.duration?.start?.year !== "Year"  &&

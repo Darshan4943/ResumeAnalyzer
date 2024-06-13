@@ -511,11 +511,11 @@ console.log(111,data)
           location: "",
           duration: {
             start: {
-              year: item["Passing Year"].startDate.year ? item["Passing Year"].startDate.year : "Year",
+              year: item["Passing Year"].startDate?.year ? item["Passing Year"].startDate?.year : "Year",
               month: null,
             },
             end: {
-              year: item["Passing Year"].endDate.year ? item["Passing Year"].endDate.year: "Year",
+              year: item["Passing Year"].endDate?.year ? item["Passing Year"].endDate?.year: "Year",
               month: null,
             },
           },
