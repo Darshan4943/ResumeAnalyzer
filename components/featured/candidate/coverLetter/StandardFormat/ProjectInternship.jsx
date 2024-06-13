@@ -58,7 +58,7 @@ const ProjectInternship = ({ data, setData }) => {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setProjectData({ ...ProjectData, [name]: value });
-    setData({...data,[name]: value })
+    setData({ ...data, [name]: value });
   };
 
   const handleInputSkills = (e) => {
@@ -69,17 +69,22 @@ const ProjectInternship = ({ data, setData }) => {
     if (relevantSkills && !relevantSkills.includes(inputValue)) {
       const updatedSkills = [...relevantSkills, inputValue];
       setrelevantSkills(updatedSkills);
-      console.log("666", updatedSkills)
+
       setData({ ...data, relevantSkills: updatedSkills });
       setInputValue("");
     }
   };
 
-//   useEffect(() => {
-//     setData({ ...data, ProjectData });
-//   }, [ProjectData]);
+  useEffect(() => {
+    setProjectData({
+      projectName: data?.projectName,
+      description: data?.description,
+      achievements: data?.achievements,
+      responsibilities: data?.responsibilities,
+    });
+  }, [data]);
   return (
-    <div className="flex flex-col gap-[16px] w-full bg-white p-4">
+    <div className="flex flex-col gap-[16px] w-full bg-white py-4">
       <div className="flex flex-row justify-between gap-[8px] items-center">
         <div>
           <span className="font-montserrat text-[18px] font-[600] leading-[21.94px] text-left text-[#333333]">

@@ -4,6 +4,8 @@ import ThemeForm from "../createResume/components/themeForm";
 import { StandaredForm } from "./StandaredForm";
 import CoustomForm from "./CoustomForm";
 import axios from "axios";
+import CustomTextEditor from "./CoustomFormat/CustomTextEditor";
+import { SparklingStarts } from "../../../../utils/svg";
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -26,6 +28,8 @@ function CoverForm({
   const userDataGlobal = useSelector((state) => state.userData);
   const taskRef = useRef(null);
   const [selectedDate, setSelectedDate] = useState(null);
+  const [letterData, setLetterData] = useState("");
+  const [isShow, setIsShow] = useState(true);
   const [contentSituation, setContentSituation] = useState("Experienced");
   const handleImageClick = (template) => {
     togglePreview(true, template.index);
@@ -72,13 +76,52 @@ function CoverForm({
     ));
   };
 
+  const addCoverLetter = async () => {
+    try {
+     
+      const formData = { ...data, userId:userDataGlobal._id };
+  
+      const response = await axios.post('http://localhost:2000/api/cover/add', formData);
+      toast.success("Cover Letter added successfully");
+      return response.data;
+    } catch (error) {
+      console.error('Error adding cover letter:', error);
+      toast.error("Error adding cover letter");
+      throw error;
+    }
+  };
 
   useEffect(() => {
     setData({ ...data, letterDate: selectedDate });
   }, [selectedDate]);
 
+  const handleCustomData = (e) => {
+    e.preventDefault();
+    console.log(1111, data);
+  };
+
+  console.log(88, isShow);
+  useEffect(() => {
+    //getLetter Data here
+    setLetterData(
+      "hgfdgfhd hjjfdg fhsdhfjskdf nsndfdsfh fshjfhdsf fshdfhsdfjk nsfdnfhds"
+    );
+  }, []);
+
+  const handleNavigate = () => {
+    setIsShow(false);
+    if (data) {
+      localStorage.setItem("customLetterData", JSON.stringify(data));
+    }
+  };
+
+  const handleCustomTextEditor = () => {
+    setIsShow(true);
+  };
+
   return (
     <div className="flex flex-col pr-[10px] ml:w-[100%] w-[100%]  pb-4 gap-4 rounded-lg ">
+  
       <div className="ml:flex hidden  flex-row gap-4 ">
         <button
           className="p-[8px] border-[1px] bg-blue border-[#DEDEDE] rounded-[6px]  "
@@ -113,260 +156,326 @@ function CoverForm({
           {renderTemplates()}
         </div>
       </div>
-
       <div
         onClick={() => setIsAll(true)}
         className="flex justify-end text-[16px] font-[500] text-[#06A9EF] cursor-pointer"
       >
         See All Templates
       </div>
-      {isAll && (
-        <div>
-          <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
-          <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center  ">
-            <div
-              ref={taskRef}
-              onWheel={(e) => e.stopPropagation()}
-              className=" absolute top-[42px] flex p-6 bg-white rounded-[24px] shadow-md  gap-6 flex-wrap justify-center items-center ml:w-[65%] w-[90%] h-[90vh] overflow-y-auto "
-            >
-              {renderAllTemplates()}
+      <div>
+        {isAll && (
+          <div>
+            <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
+            <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center  ">
               <div
-                className="absolute top-[12px] right-[10px]  cursor-pointer  web "
+                ref={taskRef}
+                onWheel={(e) => e.stopPropagation()}
+                className=" absolute top-[42px] flex p-6 bg-white rounded-[24px] shadow-md  gap-6 flex-wrap justify-center items-center ml:w-[65%] w-[90%] h-[90vh] overflow-y-auto "
+              >
+                {renderAllTemplates()}
+                <div
+                  className="absolute top-[12px] right-[10px]  cursor-pointer  web "
+                  onClick={() => setIsAll(false)}
+                >
+                  <svg
+                    width="28"
+                    height="28"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <g mask="url(#mask0_3995_39638)">
+                      <path
+                        d="M6.4 19L5 17.6L10.6 12L5 6.4L6.4 5L12 10.6L17.6 5L19 6.4L13.4 12L19 17.6L17.6 19L12 13.4L6.4 19Z"
+                        fill="#333333"
+                      />
+                    </g>
+                  </svg>
+                </div>
+              </div>
+              <div
+                className="absolute bottom-[35px] mobile cursor-pointer  "
                 onClick={() => setIsAll(false)}
               >
                 <svg
-                  width="28"
-                  height="28"
-                  viewBox="0 0 24 24"
+                  width="48"
+                  height="48"
+                  viewBox="0 0 48 48"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
                 >
-                  <g mask="url(#mask0_3995_39638)">
-                    <path
-                      d="M6.4 19L5 17.6L10.6 12L5 6.4L6.4 5L12 10.6L17.6 5L19 6.4L13.4 12L19 17.6L17.6 19L12 13.4L6.4 19Z"
-                      fill="#333333"
+                  <g filter="url(#filter0_d_3995_39637)">
+                    <rect
+                      x="4"
+                      y="3"
+                      width="40"
+                      height="40"
+                      rx="20"
+                      fill="white"
                     />
+
+                    <g mask="url(#mask0_3995_39637)">
+                      <path
+                        d="M18.4 30L17 28.6L22.6 23L17 17.4L18.4 16L24 21.6L29.6 16L31 17.4L25.4 23L31 28.6L29.6 30L24 24.4L18.4 30Z"
+                        fill="#333333"
+                      />
+                    </g>
                   </g>
+                  <defs>
+                    <filter
+                      id="filter0_d_3995_39637"
+                      x="0"
+                      y="0"
+                      width="48"
+                      height="48"
+                      filterUnits="userSpaceOnUse"
+                      color-interpolation-filters="sRGB"
+                    >
+                      <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                      <feColorMatrix
+                        in="SourceAlpha"
+                        type="matrix"
+                        values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+                        result="hardAlpha"
+                      />
+                      <feOffset dy="1" />
+                      <feGaussianBlur stdDeviation="2" />
+                      <feComposite in2="hardAlpha" operator="out" />
+                      <feColorMatrix
+                        type="matrix"
+                        values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"
+                      />
+                      <feBlend
+                        mode="normal"
+                        in2="BackgroundImageFix"
+                        result="effect1_dropShadow_3995_39637"
+                      />
+                      <feBlend
+                        mode="normal"
+                        in="SourceGraphic"
+                        in2="effect1_dropShadow_3995_39637"
+                        result="shape"
+                      />
+                    </filter>
+                  </defs>
                 </svg>
               </div>
             </div>
-            <div
-              className="absolute bottom-[35px] mobile cursor-pointer  "
-              onClick={() => setIsAll(false)}
-            >
-              <svg
-                width="48"
-                height="48"
-                viewBox="0 0 48 48"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <g filter="url(#filter0_d_3995_39637)">
-                  <rect
-                    x="4"
-                    y="3"
-                    width="40"
-                    height="40"
-                    rx="20"
-                    fill="white"
-                  />
+          </div>
+        )}
 
-                  <g mask="url(#mask0_3995_39637)">
-                    <path
-                      d="M18.4 30L17 28.6L22.6 23L17 17.4L18.4 16L24 21.6L29.6 16L31 17.4L25.4 23L31 28.6L29.6 30L24 24.4L18.4 30Z"
-                      fill="#333333"
-                    />
-                  </g>
-                </g>
-                <defs>
-                  <filter
-                    id="filter0_d_3995_39637"
-                    x="0"
-                    y="0"
-                    width="48"
-                    height="48"
-                    filterUnits="userSpaceOnUse"
-                    color-interpolation-filters="sRGB"
+        {isShow === false && (
+          <div className="flex flex-col gap-[16px] overflow-y-auto">
+            <ThemeForm
+              selectedResumeIndex={selectedResumeIndex}
+              selectedColor={selectedColor}
+              setSelectedColor={setSelectedColor}
+              setSelectedFont={setSelectedFont}
+              selectedFont={selectedFont}
+            />
+            <div className="bg-[#DEDEDE] w-full h-[1px]"> </div>
+            <div className="bg-[#F9F9F9] w-full flex rounded-[8px] text-[14px] font-semibold">
+              <button
+                className={`${
+                  isFormat === "standard"
+                    ? "bg-[#06A9EF] py-[8px] px-[16px] flex justify-center items-center rounded-[8px] w-[50%] text-white"
+                    : "py-[8px] px-[16px] flex justify-center items-center rounded-[8px] w-[50%]"
+                }`}
+                onClick={() => setIsFormat("standard")}
+              >
+                Standard Format
+              </button>
+              <button
+                className={`${
+                  isFormat === "custom"
+                    ? "bg-[#06A9EF] py-[8px] px-[16px] flex justify-center items-center rounded-[8px] w-[50%] text-white"
+                    : "py-[8px] px-[16px] flex justify-center items-center rounded-[8px] w-[50%]"
+                }`}
+                onClick={() => setIsFormat("custom")}
+              >
+                Custom Format
+              </button>
+            </div>
+            <div className="bg-[#DEDEDE] w-full h-[1px]"> </div>
+            <div className="flex flex-col gap-[16px] text-[14px] font-medium">
+              <label className="font-montserrat text-[14px] font-[500] leading-[17.07px] text-left w-full">
+                Content Situation
+              </label>
+
+              <div className="w-full flex gap-[16px] text-[14px] font-montserrat items-center font-medium">
+                <div className="flex gap-[10px] w-[50%] items-center">
+                  <input
+                    type="radio"
+                    className="h-4 w-4 custom-radio "
+                    value={contentSituation}
+                    checked={contentSituation == "Experienced"}
+                    onChange={() => {
+                      setContentSituation("Experienced");
+                    }}
+                  />
+                  <label>Experienced</label>
+                </div>
+                <div className="flex gap-2 w-[50%] items-center">
+                  <input
+                    type="radio"
+                    className="h-4 w-4 custom-radio"
+                    value={contentSituation}
+                    checked={contentSituation == "Fresher"}
+                    onChange={() => {
+                      setContentSituation("Fresher");
+                    }}
+                  />
+                  <label>Fresher</label>
+                </div>
+              </div>
+            </div>
+            <div className="w-full h-[0px] gap-0 border-t rotate-0 border-[#DEDEDE] "></div>
+            <div className="flex flex-col gap-2">
+              <label
+                htmlFor="letter-date"
+                className="font-montserrat text-[14px] font-[500] leading-[17.07px] text-left w-full"
+              >
+                Letter Date
+              </label>
+              <div className="relative flex gap-2 justify-between">
+                <DatePicker
+                  id="letter-date"
+                  selected={selectedDate}
+                  onChange={(date) => setSelectedDate(date)}
+                  placeholderText="Select Date"
+                  className="w-full px-4 py-2 gap-2 border border-[#646464] rounded-[8px] shadow-sm focus:outline-none focus:ring focus:border-blue-300"
+                />
+
+                <span className="absolute inset-y-0 left-[180px] flex items-center pointer-events-none gap-3  py-2">
+                  <div className="h-full w-[1px] bg-[#DEDEDE]"></div>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-5 w-5 text-gray-500 cursor-pointer"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
                   >
-                    <feFlood flood-opacity="0" result="BackgroundImageFix" />
-                    <feColorMatrix
-                      in="SourceAlpha"
-                      type="matrix"
-                      values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
-                      result="hardAlpha"
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M8 7V3m8 4V3m-9 4h10M5 11h14m-7 4h.01m-6 0h.01M6 17h12a2 2 0 002-2V7a2 2 0 00-2-2H6a2 2 0 00-2 2v8a2 2 0 002 2z"
                     />
-                    <feOffset dy="1" />
-                    <feGaussianBlur stdDeviation="2" />
-                    <feComposite in2="hardAlpha" operator="out" />
-                    <feColorMatrix
-                      type="matrix"
-                      values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"
-                    />
-                    <feBlend
-                      mode="normal"
-                      in2="BackgroundImageFix"
-                      result="effect1_dropShadow_3995_39637"
-                    />
-                    <feBlend
-                      mode="normal"
-                      in="SourceGraphic"
-                      in2="effect1_dropShadow_3995_39637"
-                      result="shape"
-                    />
-                  </filter>
-                </defs>
-              </svg>
+                  </svg>
+                </span>
+              </div>
+            </div>
+
+            {isFormat === "standard" && (
+              <div className="flex flex-col gap-2">
+                <StandaredForm
+                  contentSituation={contentSituation}
+                  data={data}
+                  setData={setData}
+                  setSelectedFont={setSelectedFont}
+                  selectedFont={selectedFont}
+                  selectedColor={selectedColor}
+                  setSelectedColor={setSelectedColor}
+                  selectedResumeIndex={selectedResumeIndex}
+                  setSelectedResumeIndex={setSelectedResumeIndex}
+                  isFormat={isFormat}
+                />
+              </div>
+            )}
+
+            {isFormat === "custom" && (
+              <>
+                <CoustomForm
+                  contentSituation={contentSituation}
+                  data={data}
+                  setData={setData}
+                  setSelectedFont={setSelectedFont}
+                  selectedFont={selectedFont}
+                  selectedColor={selectedColor}
+                  setSelectedColor={setSelectedColor}
+                  selectedResumeIndex={selectedResumeIndex}
+                  setSelectedResumeIndex={setSelectedResumeIndex}
+                  isFormat={isFormat}
+                />
+              </>
+            )}
+          </div>
+        )}
+
+        {isShow === true && (
+          <>
+            <CustomTextEditor data={data} setData={setData} />
+          </>
+        )}
+      </div>
+      <div className="p-[12px] pr-[16px] pb-[12px] pl-[16px] gap-[10px]">
+        {isShow === false && (
+          <div className="flex justify-end ">
+            {isFormat === "standard" && (
+              <button
+                className="bg-[#06A9EF] py-[8px] px-[16px] text-[12px] flex justify-center items-center rounded-[8px]  text-white"
+                onClick={handleSaveData}
+              >
+                Generate Letter
+              </button>
+            )}
+            {isFormat === "custom" && (
+              <button
+                className="bg-[#06A9EF] py-[8px] px-[16px] text-[12px] flex justify-center items-center rounded-[8px]  text-white"
+                onClick={handleCustomTextEditor}
+              >
+                Generate Letter
+              </button>
+            )}
+          </div>
+        )}
+
+        {isShow === true && (
+          <div className="flex flex-row justify-between items-center gap-[10px] ">
+            <div>
+              <div
+                className=" flex-row bg-[#F5F5F5] py-[8px] px-[16px] text-[12px] flex justify-between items-center rounded-[8px] gap-[8px]"
+                onClick={handleNavigate}
+              >
+                <svg
+                  className="min-h-[16px] min-w-[16px]"
+                  width="7"
+                  height="14"
+                  viewBox="0 0 7 14"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M4.93333 7.00026L0.233333 2.30026C0.0777778 2.1447 0 1.95582 0 1.73359C0 1.51137 0.0777778 1.32248 0.233333 1.16693C0.388889 1.01137 0.577778 0.933594 0.8 0.933594C1.02222 0.933594 1.21111 1.01137 1.36667 1.16693L6.35 6.15026C6.47222 6.27248 6.56111 6.40582 6.61667 6.55026C6.67222 6.69471 6.7 6.84471 6.7 7.00026C6.7 7.15582 6.67222 7.30582 6.61667 7.45026C6.56111 7.59471 6.47222 7.72804 6.35 7.85026L1.36667 12.8336C1.21111 12.9891 1.02222 13.0669 0.8 13.0669C0.577778 13.0669 0.388889 12.9891 0.233333 12.8336C0.0777778 12.678 0 12.4892 0 12.2669C0 12.0447 0.0777778 11.8558 0.233333 11.7003L4.93333 7.00026Z"
+                    fill="#1C1B1F"
+                  />
+                </svg>
+                <span className="text-[12px] text-[#333333] font-[600] font-Montserrat leading-[16px]">
+                  Edit
+                </span>
+              </div>
+            </div>
+            <div className="flex flex-row justify-between items-center  gap-[10px] ">
+              <button
+                className="flex  items-center font-montserrat text-xs font-semibold btn_outline gap-[6px]"
+                // onClick={generateText}
+              >
+                <SparklingStarts />
+                <span className="text-[12px] text-[#333333] font-[600] font-Montserrat leading-[16px]">
+                  Rephrase with AI
+                </span>
+              </button>
+              <button
+                className={`font-montserrat text-white font-medium text-[12px] px-[16px] py-[8px] rounded-[8px]  bg-[#DEDEDE] w-[60px] h-[32px] 
+                }`}
+                // onClick={() => setData({ ...data, summery: text })}
+                // style={{ opacity: text === data?.summery ? 0.5 : 1 }}
+              >
+                Save
+              </button>
             </div>
           </div>
-        </div>
-      )}
-
-      <ThemeForm
-        selectedResumeIndex={selectedResumeIndex}
-        selectedColor={selectedColor}
-        setSelectedColor={setSelectedColor}
-        setSelectedFont={setSelectedFont}
-        selectedFont={selectedFont}
-      />
-      <div className="bg-[#DEDEDE] w-full h-[1px]"> </div>
-      <div className="bg-[#F9F9F9] w-full flex rounded-[8px] text-[14px] font-semibold">
-        <button
-          className={`${
-            isFormat === "standard"
-              ? "bg-[#06A9EF] py-[8px] px-[16px] flex justify-center items-center rounded-[8px] w-[50%] text-white"
-              : "py-[8px] px-[16px] flex justify-center items-center rounded-[8px] w-[50%]"
-          }`}
-          onClick={() => setIsFormat("standard")}
-        >
-          Standard Format
-        </button>
-        <button
-          className={`${
-            isFormat === "custom"
-              ? "bg-[#06A9EF] py-[8px] px-[16px] flex justify-center items-center rounded-[8px] w-[50%] text-white"
-              : "py-[8px] px-[16px] flex justify-center items-center rounded-[8px] w-[50%]"
-          }`}
-          onClick={() => setIsFormat("custom")}
-        >
-          Custom Format
-        </button>
-      </div>
-      <div className="bg-[#DEDEDE] w-full h-[1px]"> </div>
-      <div className="flex flex-col gap-[16px] text-[14px] font-medium">
-        <label className="font-montserrat text-[14px] font-[500] leading-[17.07px] text-left w-full">
-          Content Situation
-        </label>
-
-        <div className="w-full flex gap-[16px] text-[14px] font-montserrat items-center font-medium">
-          <div className="flex gap-[10px] w-[50%] items-center">
-            <input
-              type="radio"
-              className="h-4 w-4 custom-radio "
-              value={contentSituation}
-              checked={contentSituation == "Experienced"}
-              onChange={() => {
-                setContentSituation("Experienced");
-              }}
-            />
-            <label>Experienced</label>
-          </div>
-          <div className="flex gap-2 w-[50%] items-center">
-            <input
-              type="radio"
-              className="h-4 w-4 custom-radio"
-              value={contentSituation}
-              checked={contentSituation == "Fresher"}
-              onChange={() => {
-                setContentSituation("Fresher");
-              }}
-            />
-            <label>Fresher</label>
-          </div>
-        </div>
-      </div>
-      <div className="w-full h-[0px] gap-0 border-t rotate-0 border-[#DEDEDE] "></div>
-      <div className="flex flex-col gap-2">
-        <label
-          htmlFor="letter-date"
-          className="font-montserrat text-[14px] font-[500] leading-[17.07px] text-left w-full"
-        >
-          Letter Date
-        </label>
-        <div className="relative flex gap-2 justify-between">
-          <DatePicker
-            id="letter-date"
-            selected={selectedDate}
-            onChange={(date) => setSelectedDate(date)}
-            placeholderText="Select Date"
-            className="w-full px-4 py-2 gap-2 border border-[#646464] rounded-[8px] shadow-sm focus:outline-none focus:ring focus:border-blue-300"
-          />
-
-          <span className="absolute inset-y-0 left-[180px] flex items-center pointer-events-none gap-3  py-2">
-            <div className="h-full w-[1px] bg-[#DEDEDE]"></div>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5 text-gray-500 cursor-pointer"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M8 7V3m8 4V3m-9 4h10M5 11h14m-7 4h.01m-6 0h.01M6 17h12a2 2 0 002-2V7a2 2 0 00-2-2H6a2 2 0 00-2 2v8a2 2 0 002 2z"
-              />
-            </svg>
-          </span>
-        </div>
-      </div>
-
-      {isFormat === "standard" && (
-        <div className="flex flex-col gap-2">
-          <StandaredForm
-            contentSituation={contentSituation}
-            data={data}
-            setData={setData}
-            setSelectedFont={setSelectedFont}
-            selectedFont={selectedFont}
-            selectedColor={selectedColor}
-            setSelectedColor={setSelectedColor}
-            selectedResumeIndex={selectedResumeIndex}
-            setSelectedResumeIndex={setSelectedResumeIndex}
-            isFormat={isFormat}
-          />
-        </div>
-      )}
-
-      {isFormat === "custom" && (
-        <>
-          <CoustomForm
-            contentSituation={contentSituation}
-            data={data}
-            setData={setData}
-            setSelectedFont={setSelectedFont}
-            selectedFont={selectedFont}
-            selectedColor={selectedColor}
-            setSelectedColor={setSelectedColor}
-            selectedResumeIndex={selectedResumeIndex}
-            setSelectedResumeIndex={setSelectedResumeIndex}
-            isFormat={isFormat}
-          />
-        </>
-      )}
-
-      <div className="flex flex-end justify-end">
-        <button
-          className={`${
-            isFormat === "standard"
-              ? "bg-[#06A9EF] py-[8px] px-[16px] text-[12px] flex justify-center items-center rounded-[8px]  text-white"
-              : "py-[8px] px-[16px] flex justify-center items-center rounded-[8px]  text-[12px]"
-          }`}
-     
-        >
-          Generate Letter
-        </button>
-       
+        )}
       </div>
     </div>
   );
