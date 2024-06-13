@@ -16,32 +16,36 @@ import {
 
 const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
 
-     
+
   const formatLink = (link) => {
-    if (link?.length > 25) {
-      return link?.match(/.{1,25}/g).join('\n');  }
+    if (link?.length > 28) {
+      return link?.match(/.{1,28}/g).join('\n');
+    }
     return link;
   };
 
   const formatEmail = (email) => {
     if (email?.length > 23) {
-      return email?.match(/.{1,23}/g).join('\n');  }
+      return email?.match(/.{1,23}/g).join('\n');
+    }
     return email;
   };
 
   const formatLocation = (location) => {
     if (location?.length > 23) {
-      return location?.match(/.{1,23}/g).join('\n');  }
+      return location?.match(/.{1,23}/g).join('\n');
+    }
     return location;
   };
 
   const formatDesignation = (designation) => {
-    if (designation?.length > 15) {
-      return designation?.match(/.{1,15}/g).join('\n');  }
+    if (designation?.length > 20) {
+      return designation?.match(/.{1,20}/g).join('\n');
+    }
     return designation;
   };
 
-  
+
 
   return (
     <Page size="A4" wrap={true} style={{ paddingTop: "12px" }}>
@@ -119,6 +123,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                 justifyContent: "center",
                 alignItems: "center",
                 marginTop: "18px",
+                maxWidth:'100%'
               }}
             >
               {/* <View style={{ maxWidth: "100%", paddingHorizontal: '14px',  justifyContent: 'center', alignItems: 'center' }}> */}
@@ -148,13 +153,14 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                   height: 1,
                 }}
               ></View>
-              <View style={{ maxWidth: "100%", paddingHorizontal: '8px', justifyContent: 'center', alignItems: 'center' }}>
+              <View style={{ maxWidth: "100%", justifyContent: 'center', alignItems: 'center' }}>
 
                 <Text
                   style={{
                     fontFamily: `${selectedFont} 400`,
                     fontSize: 14,
                     color: "#FFFFFF",
+                    maxWidth:'100%'
                   }}
                 >
                   {/* {data.designation} */}
@@ -210,7 +216,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                     color: "#FFFFFF",
                   }}
                 >
-                 {data.dial_code}  {data.mobileNumber}
+                  {data.dial_code}  {data.mobileNumber}
                 </Text>
               </View>
               <View
@@ -275,40 +281,40 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                 </Text>
               </View>
               {data.location &&
-              <View style={{ display: "flex", flexDirection: "row", gap: 6 }}>
-                <Svg
-                  width="14"
-                  height="16"
-                  viewBox="0 0 14 16"
-                  fill="#252829"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <Path
-                    d="M9.46931 10.2643C11.0433 7.85978 10.8454 8.15976 10.8908 8.09707C11.4638 7.31018 11.7667 6.38406 11.7667 5.41875C11.7667 2.85881 9.6329 0.75 7 0.75C4.37568 0.75 2.23333 2.85465 2.23333 5.41875C2.23333 6.38344 2.54256 7.33381 3.13438 8.13129L4.53064 10.2643C3.0378 10.4876 0.5 11.1532 0.5 12.6187C0.5 13.153 0.858164 13.9143 2.56446 14.5076C3.75589 14.9218 5.33112 15.15 7 15.15C10.1207 15.15 13.5 14.293 13.5 12.6187C13.5 11.153 10.9652 10.4881 9.46931 10.2643ZM3.8583 7.6672C3.85354 7.65995 3.84857 7.65286 3.84337 7.64588C3.3509 6.9863 3.1 6.20459 3.1 5.41875C3.1 3.30887 4.84506 1.59375 7 1.59375C9.15046 1.59375 10.9 3.30963 10.9 5.41875C10.9 6.20586 10.6538 6.96104 10.188 7.60325C10.1463 7.65685 10.3641 7.32745 7 12.4666L3.8583 7.6672ZM7 14.3062C3.59128 14.3062 1.36667 13.3308 1.36667 12.6187C1.36667 12.1402 2.50974 11.3533 5.04272 11.0465L6.63456 13.4783C6.71412 13.5999 6.85192 13.6734 6.99997 13.6734C7.14803 13.6734 7.28586 13.5998 7.36539 13.4783L8.95719 11.0465C11.4902 11.3533 12.6333 12.1402 12.6333 12.6187C12.6333 13.3247 10.4287 14.3062 7 14.3062Z"
-                    fill="#83C3C9"
-                  />
-                  <Path
-                    d="M6.9987 3.30859C5.804 3.30859 4.83203 4.25486 4.83203 5.41797C4.83203 6.58108 5.804 7.52734 6.9987 7.52734C8.1934 7.52734 9.16536 6.58108 9.16536 5.41797C9.16536 4.25486 8.1934 3.30859 6.9987 3.30859ZM6.9987 6.68359C6.28188 6.68359 5.6987 6.11583 5.6987 5.41797C5.6987 4.7201 6.28188 4.15234 6.9987 4.15234C7.71552 4.15234 8.2987 4.7201 8.2987 5.41797C8.2987 6.11583 7.71552 6.68359 6.9987 6.68359Z"
-                    fill="#83C3C9"
-                  />
-                </Svg>
+                <View style={{ display: "flex", flexDirection: "row", gap: 6 }}>
+                  <Svg
+                    width="14"
+                    height="16"
+                    viewBox="0 0 14 16"
+                    fill="#252829"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <Path
+                      d="M9.46931 10.2643C11.0433 7.85978 10.8454 8.15976 10.8908 8.09707C11.4638 7.31018 11.7667 6.38406 11.7667 5.41875C11.7667 2.85881 9.6329 0.75 7 0.75C4.37568 0.75 2.23333 2.85465 2.23333 5.41875C2.23333 6.38344 2.54256 7.33381 3.13438 8.13129L4.53064 10.2643C3.0378 10.4876 0.5 11.1532 0.5 12.6187C0.5 13.153 0.858164 13.9143 2.56446 14.5076C3.75589 14.9218 5.33112 15.15 7 15.15C10.1207 15.15 13.5 14.293 13.5 12.6187C13.5 11.153 10.9652 10.4881 9.46931 10.2643ZM3.8583 7.6672C3.85354 7.65995 3.84857 7.65286 3.84337 7.64588C3.3509 6.9863 3.1 6.20459 3.1 5.41875C3.1 3.30887 4.84506 1.59375 7 1.59375C9.15046 1.59375 10.9 3.30963 10.9 5.41875C10.9 6.20586 10.6538 6.96104 10.188 7.60325C10.1463 7.65685 10.3641 7.32745 7 12.4666L3.8583 7.6672ZM7 14.3062C3.59128 14.3062 1.36667 13.3308 1.36667 12.6187C1.36667 12.1402 2.50974 11.3533 5.04272 11.0465L6.63456 13.4783C6.71412 13.5999 6.85192 13.6734 6.99997 13.6734C7.14803 13.6734 7.28586 13.5998 7.36539 13.4783L8.95719 11.0465C11.4902 11.3533 12.6333 12.1402 12.6333 12.6187C12.6333 13.3247 10.4287 14.3062 7 14.3062Z"
+                      fill="#83C3C9"
+                    />
+                    <Path
+                      d="M6.9987 3.30859C5.804 3.30859 4.83203 4.25486 4.83203 5.41797C4.83203 6.58108 5.804 7.52734 6.9987 7.52734C8.1934 7.52734 9.16536 6.58108 9.16536 5.41797C9.16536 4.25486 8.1934 3.30859 6.9987 3.30859ZM6.9987 6.68359C6.28188 6.68359 5.6987 6.11583 5.6987 5.41797C5.6987 4.7201 6.28188 4.15234 6.9987 4.15234C7.71552 4.15234 8.2987 4.7201 8.2987 5.41797C8.2987 6.11583 7.71552 6.68359 6.9987 6.68359Z"
+                      fill="#83C3C9"
+                    />
+                  </Svg>
 
-                <Text
-                  style={{
-                    fontFamily: `${selectedFont} 400`,
-                    fontSize: 10,
-                    color: "#FFFFFF",
-                  }}
-                >
-                  {/* {data.location} */}
-                  {formatLocation(data?.location)}
-                </Text>
-              </View>
-}
+                  <Text
+                    style={{
+                      fontFamily: `${selectedFont} 400`,
+                      fontSize: 10,
+                      color: "#FFFFFF",
+                    }}
+                  >
+                    {/* {data.location} */}
+                    {formatLocation(data?.location)}
+                  </Text>
+                </View>
+              }
             </View>
           </View>
 
-          {data?.skills?.length > 0 && data?.showSkills === true &&(
+          {data?.skills?.length > 0 && data?.showSkills === true && (
             <View
               style={{
                 display: "flex",
@@ -378,7 +384,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
               </View>
             </View>
           )}
-          {data?.languages?.length > 0 && data?.showLanguage === true &&(
+          {data?.languages?.length > 0 && data?.showLanguage === true && (
             <View
               wrap={false}
               style={{
@@ -454,7 +460,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
             </View>
           )}
 
-          {data?.hobbies?.length > 0 && data?.showHobbies === true &&(
+          {data?.hobbies?.length > 0 && data?.showHobbies === true && (
             <View
               wrap={false}
               style={{
@@ -530,7 +536,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
             </View>
           )}
 
-          {data?.socialLinks?.length > 0 && data?.showLinks === true &&(
+          {data?.socialLinks?.length > 0 && data?.showLinks === true && (
             <View
               wrap={false}
               style={{
@@ -605,7 +611,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                         }}
                       >
                         {/* {detail.link}  */}
-                         {formatLink(detail?.link)}
+                        {formatLink(detail?.link)}
                       </Text>
                     </View>
                   </>
@@ -667,7 +673,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
             </View>
           )}
 
-          {data?.reference?.length > 0 &&  data?.showReference === true &&(
+          {data?.reference?.length > 0 && data?.showReference === true && (
             <View
               wrap={false}
               style={{
@@ -817,6 +823,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                     fontSize: 10,
                     fontFamily: `${selectedFont} 400`,
                     color: "#FFFFFF",
+                    maxWidth:'95%'
                   }}
                 >
                   {data.summery}
@@ -837,7 +844,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
               gap: 6,
             }}
           >
-            {data?.experience?.length > 0 &&  data?.showExperience === true &&(
+            {/* {data?.experience?.length > 0 && data?.showExperience === true && (
               <>
                 {" "}
                 <View
@@ -922,7 +929,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                               color: "#252829",
                             }}
                           >
-                          {detail.duration?.start?.year !== "Year"  &&
+                            {detail.duration?.start?.year !== "Year" &&
                               `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
                                 ? "Present"
                                 : detail.duration?.end?.year
@@ -952,9 +959,135 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                   </View>
                 </View>
               </>
+            )} */}
+
+            {data?.experience?.length > 0 && data?.showExperience === true && (
+              <>
+                {" "}
+                <View
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 12,
+                    width: "90%",
+                  }}
+                // wrap={data?.experience?.length > 1 ? true : false}
+                >
+                  <View
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      gap: 6,
+                      paddingLeft: "22px",
+                      paddingRight: "24px",
+                    }}
+                  >
+                    <Svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 20 20"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <Path
+                        d="M9.9993 18.3125C14.5893 18.3125 18.311 14.5913 18.3119 10.001C18.3127 5.41064 14.5925 1.68945 10.0024 1.68945C5.41237 1.68945 1.69071 5.41064 1.68985 10.001C1.68899 14.5913 5.40926 18.3125 9.9993 18.3125Z"
+                        fill="#83C3C9"
+                      />
+                    </Svg>
+                    <Text
+                      style={{
+                        fontSize: 18,
+                        fontFamily: `${selectedFont} 400`,
+                        color: "#252829",
+                      }}
+                    >
+                      WORK EXPERIENCE
+                    </Text>
+                  </View>
+
+                  <View
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      marginLeft: 46,
+                      // gap:8
+                    }}
+                  >
+                    {data?.experience?.map((detail, index) => (
+                      // <View
+                      //   // wrap={false}
+                      //   key={index}
+                      //   style={{
+                      //     display: "flex",
+                      //     flexDirection: "row",
+                      //     gap: 2,
+                      //     // gap: index === data.experience.length - 1 ? 16 : 24,
+                      //   }}
+                      // >
+                        <View
+                          style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            gap: 4,
+                          }}
+                        >
+                          <View style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            gap: 4,
+                          }}>
+                            <Text
+                              style={{
+                                fontFamily: `${selectedFont} 600`,
+                                fontSize: 12,
+                                color: "#252829",
+                              }}
+                            >
+                              {detail.designation} - {detail.organization}
+                            </Text>
+                            <Text
+                              style={{
+                                fontFamily: `${selectedFont} 400`,
+                                fontSize: 12,
+                                color: "#252829",
+                              }}
+                            >
+                              {detail.duration?.start?.year !== "Year" &&
+                                `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
+                                  ? "Present"
+                                  : detail.duration?.end?.year
+                                }
+                              `}
+                            </Text>
+                          </View>
+                          <View
+                            style={{
+                              backgroundColor: "#555C5E",
+                              width: 282,
+                              height: 1,
+                            }}
+                          ></View>
+                          <View>
+                          <Text
+                            style={{
+                              fontFamily: `${selectedFont} 400`,
+                              fontSize: 10,
+                              color: "#252829",
+                              marginBottom: 18,
+                            }}
+                          >
+                            {detail.description}
+                          </Text>
+                        </View>
+                        </View>
+                      //  </View>
+                    ))}
+                  </View>
+                </View>
+              </>
             )}
 
-{data?.education?.length > 0 &&  data?.showEducation === true &&(
+            {data?.education?.length > 0 && data?.showEducation === true && (
               <>
                 {" "}
                 <View
@@ -994,7 +1127,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                         color: "#252829",
                       }}
                     >
-                   EDUCATION
+                      EDUCATION
                     </Text>
                   </View>
 
@@ -1069,7 +1202,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                 </View>
               </>
             )}
-            
+
 
             {data?.project?.length > 0 && data?.showProject === true && (
               <>
@@ -1081,6 +1214,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                     gap: 16,
                     width: "90%",
                   }}
+                  wrap={false}
                 // wrap={data?.experience?.length > 1 ? true : false}
                 >
                   <View
@@ -1156,7 +1290,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                               color: "#252829",
                             }}
                           >
-                         {detail.duration?.start?.year !== "Year"  &&
+                            {detail.duration?.start?.year !== "Year" &&
                               `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
                                 ? "Present"
                                 : detail.duration?.end?.year
@@ -1188,7 +1322,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
               </>
             )}
 
-            {data?.internship?.length > 0 &&  data?.showInternship === true &&(
+            {data?.internship?.length > 0 && data?.showInternship === true && (
               <>
                 {" "}
                 <View
@@ -1246,7 +1380,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                         style={{
                           display: "flex",
                           flexDirection: "row",
-                          gap: 10,
+                          gap: 8,
                           // gap: index === data.experience.length - 1 ? 16 : 24,
                         }}
                       >
@@ -1254,7 +1388,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                           style={{
                             display: "flex",
                             flexDirection: "column",
-                            gap: 4,
+                            gap: 3,
                           }}
                         >
                           <Text
@@ -1273,7 +1407,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                               color: "#252829",
                             }}
                           >
-                           {detail.duration?.start?.year !== "Year"  &&
+                            {detail.duration?.start?.year !== "Year" &&
                               `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
                                 ? "Present"
                                 : detail.duration?.end?.year
@@ -1315,8 +1449,8 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                     gap: 16,
                     width: "90%",
                   }}
-                // wrap={data?.experience?.length > 1 ? true : false}
-                wrap={false}
+                  // wrap={data?.experience?.length > 1 ? true : false}
+                  wrap={false}
                 >
                   <View
                     style={{
@@ -1391,7 +1525,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                               color: "#252829",
                             }}
                           >
-                          {detail.duration?.start?.year !== "Year"  &&
+                            {detail.duration?.start?.year !== "Year" &&
                               `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
                                 ? "Present"
                                 : detail.duration?.end?.year
@@ -1482,7 +1616,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                         style={{
                           display: "flex",
                           flexDirection: "row",
-                          gap: 10
+                          gap: 8
                           // gap: index === data.experience.length - 1 ? 16 : 24,
                         }}
                       >
@@ -1491,7 +1625,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                           style={{
                             display: "flex",
                             flexDirection: "column",
-                            gap: 4,
+                            gap: 3,
                           }}
                         >
                           <Text
@@ -1510,7 +1644,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                               color: "#252829",
                             }}
                           >
-{detail.duration?.start?.year !== "Year"  &&
+                            {detail.duration?.start?.year !== "Year" &&
                               `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
                                 ? "Present"
                                 : detail.duration?.end?.year
@@ -1607,12 +1741,12 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                                 color: "#252829",
                               }}
                             >
-                         {detail?.duration?.start?.year}
-                                  {detail?.duration?.start?.year && "-"}
-                                  {detail?.duration?.end?.year === "Year" ||
-                                    detail?.duration?.end?.year === undefined
-                                    ? "Present"
-                                    : detail?.duration?.end?.year}
+                              {detail?.duration?.start?.year}
+                              {detail?.duration?.start?.year && "-"}
+                              {detail?.duration?.end?.year === "Year" ||
+                                detail?.duration?.end?.year === undefined
+                                ? "Present"
+                                : detail?.duration?.end?.year}
                             </Text>
                             <View
                               style={{

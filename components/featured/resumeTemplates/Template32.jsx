@@ -12,8 +12,8 @@ import {
 } from "@react-pdf/renderer";
 function Template32({ data, selectedColor, selectedFont, preview }) {
   const formatLink = (link) => {
-    if (link?.length > 25) {
-      return link?.match(/.{1,25}/g).join("\n");
+    if (link?.length > 23) {
+      return link?.match(/.{1,23}/g).join("\n");
     }
     return link;
   };
@@ -1096,6 +1096,7 @@ function Template32({ data, selectedColor, selectedFont, preview }) {
                 gap: 8,
                 width: "100%",
               }}
+              wrap={false}
             >
               <View
                 style={{
