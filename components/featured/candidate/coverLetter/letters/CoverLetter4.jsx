@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 
-const CoverLetter4 = () => {
+const CoverLetter4 = ({page1Ref,page2Ref}) => {
   const firstPageRef = useRef(null);
   const pageRef = useRef(null);
   const firstContainer = useRef(null);
@@ -23,21 +23,12 @@ const CoverLetter4 = () => {
     paragraph: `
      Dear [Hiring Manager’s Name],
 
-I am writing to express my interest in the Product Designer (UI/UX) position at [Company Name], as advertised on [where you found the job posting]. With a strong background in UI/UX design and a passion for creating user-centric products, I am excited about the opportunity to contribute to your innovative team.
-With over [number] years of experience in product design, I have honed my skills in user research, wireframing, prototyping, and visual design. My proficiency in tools such as Sketch, Figma, Adobe XD, and InVision, combined with my ability to collaborate effectively with cross-functional teams, has allowed me to successfully deliver intuitive and engaging user experiences.
-In my previous role at [Your Previous Company], I led the redesign of the company’s flagship product, resulting in a 20% increase in user engagement and a 15% improvement in customer satisfaction. I achieved this by conducting comprehensive user research, developing user personas, and iterating on designs based on user feedback and usability testing. My approach ensures that design solutions are not only visually appealing but also address real user needs.
-I am thrilled about the possibility of contributing to [Company Name] and am eager to bring my creative problem-solving skills and design expertise to your team. Thank you for considering my application.
 
-I look forward to the opportunity to discuss how my background, skills, and passions align with the needs of your team.
-******************************************************************
 Dear [Hiring Manager’s Name],
 
 I am writing to express my interest in the Product Designer (UI/UX) position at [Company Name], as advertised on [where you found the job posting]. With a strong background in UI/UX design and a passion for creating user-centric products, I am excited about the opportunity to contribute to your innovative team.
 With over [number] years of experience in product design, I have honed my skills in user research, wireframing, prototyping, and visual design. My proficiency in tools such as Sketch, Figma, Adobe XD, and InVision, combined with my ability to collaborate effectively with cross-functional teams, has allowed me to successfully deliver intuitive and engaging user experiences.
-In my previous role at [Your Previous Company], I led the redesign of the company’s flagship product, resulting in a 20% increase in user engagement and a 15% improvement in customer satisfaction. I achieved this by conducting comprehensive user research, developing user personas, and iterating on designs based on user feedback and usability testing. My approach ensures that design solutions are not only visually appealing but also address real user needs.
-I am thrilled about the possibility of contributing to [Company Name] and am eager to bring my creative problem-solving skills and design expertise to your team. Thank you for considering my application.
-
-I look forward to the opportunity to discuss how my background, skills, and passions align with the needs of your team.
+ur team.
 
 Warm regards,
 [Your Name]
@@ -80,30 +71,14 @@ Warm regards,
       setSplitContent({ first: firstHalf, second: secondHalf });
     };
     splitContent();
-  }, [data]);
+  }, []);
   console.log("splitData", splitContents);
 
   return (
     <>
-      <div className="w-[800px] h-[842px] p-[32px] gap-[16px] flex flex-col absolute left-[4000px]">
-        <div
-          className="flex flex-row gap-[24px] justify-start items-start "
-          ref={firstPageRef}
-        >
-          <div></div>
-          <div className="flex flex-col gap-[8px] ">
-            <div className="flex flex-row gap-[12px]"></div>
-            <div className="flex flex-row gap-[12px]"></div>
-            <div className="flex flex-row gap-[12px]"></div>
-          </div>
-        </div>
-        <div className="" ref={secondContainer}></div>
-        <div className="flex flex-col gap-[16px] w-full" ref={thirdContainer}>
-          <div></div>
-        </div>
-      </div>
-      <div className="flex flex-col w-[595px] bg-[#FFFFFF]">
-        <div className="flex flex-col gap-[24px] px-[42px] pt-[42px] justify-between">
+     
+      <div className="flex flex-col w-[595px] bg-[#FFFFFF] ">
+        <div className="flex flex-col gap-[24px] px-[42px] pt-[42px] justify-between" ref={page1Ref}>
           <div className="flex flex-row gap-[24px] ">
             <div>
               <h5 className="font-montserrat text-[40px] font-normal leading-48.76 text-[#344A50] text-left">
@@ -203,8 +178,11 @@ Warm regards,
               </div>
             </div>
 
-            {splitContents.second && (
-              <div className="flex flex-row gap-[24px]">
+           
+          </div>
+        </div>
+        {splitContents.second && (
+              <div className="flex flex-row gap-[24px]" ref={page2Ref}>
                 <div className="font-Montserrat text-[12px] font-normal leading-[12px] text-[#161616] w-[307px] text-left">
                   <p>{splitContents.second}</p>
                 </div>
@@ -215,8 +193,6 @@ Warm regards,
                 </div>
               </div>
             )}
-          </div>
-        </div>
       </div>
     </>
   );

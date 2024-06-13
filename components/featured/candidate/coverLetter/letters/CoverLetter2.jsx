@@ -68,13 +68,13 @@ const CoverLetter2 = () => {
       setSplitContent({ first: firstHalf, second: secondHalf });
     };
     splitContent();
-  }, [data]);
+  }, []);
 
   return (
     <>
-      <div className="w-[800px] h-[842px] p-[32px] gap-[16px] flex flex-col absolute left-[4000px]">
+      <div className="w-[800px] h-[842px] p-[32px] gap-[16px] flex flex-col absolute left-[1000px] overflow-hidden ">
         <div
-          className="flex flex-col w-full h-[153px] pt-[26px] pr-[36px] pb-[14px] pl-[36px] bg-[#F9F9F9] gap-[24px]"
+          className="flex flex-col w-full h-[153px] pt-[26px] pr-[36px] pb-[14px] pl-[36px] bg-[#F9F9F9] gap-[24px] overflow-hidden"
           ref={firstContainer}
         >
           <div className="flex flex-row justify-between">
@@ -87,7 +87,7 @@ const CoverLetter2 = () => {
         </div>
       </div>
 
-      <div className="flex flex-col w-[800px] gap-6">
+      {/* <div className="flex flex-col w-[800px] gap-6">
         <div className="flex flex-col w-full h-[153px] pt-[26px] pr-[36px] pb-[14px] pl-[36px] bg-[#F9F9F9] gap-[24px]">
           <div className="flex flex-row justify-between">
             <div>
@@ -166,7 +166,7 @@ const CoverLetter2 = () => {
             </div>
           </div>
         )}
-      </div>
+      </div> */}
 
     </>
   );
