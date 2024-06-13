@@ -27,118 +27,10 @@ function CoverLetter6() {
                 my previous role at [Your Previous Company], I led the redesign
                 of the company’s flagship product, resulting in a 20% increase
                 in user engagement and a 15% improvement in customer
-                satisfaction. I achieved this by conducting comprehensive user
-                research, developing user personas, and iterating on designs
-                based on user feedback and usability testing. My approach
-                ensures that design solutions are not only visually appealing
-                but also address real user needs. What excites me most about
-                [Company Name] is your commitment to innovation and
-                user-centered design. I am particularly impressed with [specific
-                project or product of the company], and I am eager to bring my
-                expertise to your team to help drive similar successes. I am
-                confident that my background in creating compelling user
-                experiences aligns with the goals of your design team. I am also
+
                 adept at maintaining a balance between user needs and business
                 objectives, ensuring that the final product not only delights
-                users but also supports the company’s strategic goals. My
-                excellent communication skills and collaborative approach have
-                consistently been assets in my professional journey, enabling me
-                to work seamlessly with developers, product managers, and
-                stakeholders. I am thrilled about the possibility of
-                contributing to [Company Name] and am eager to bring my creative
-                problem-solving skills and design expertise to your team. Thank
-                you for considering my application. I look forward to the
-                opportunity to discuss how my background, skills, and passions
-                align with the needs of your team. Warm regards, [Your Name]With over [number] years of experience in product design, I have
-                honed my skills in user research, wireframing, prototyping, and
-                visual design. My proficiency in tools such as Sketch, Figma,
-                Adobe XD, and InVision, combined with my ability to collaborate
-                effectively with cross-functional teams, has allowed me to
-                successfully deliver intuitive and engaging user experiences. In
-                my previous role at [Your Previous Company], I led the redesign
-                of the company’s flagship product, resulting in a 20% increase
-                in user engagement and a 15% improvement in customer
-                satisfaction. I achieved this by conducting comprehensive user
-                research, developing user personas, and iterating on designs
-                based on user feedback and usability testing. My approach
-                ensures that design solutions are not only visually appealing
-                but also address real user needs. What excites me most about
-                [Company Name] is your commitment to innovation and
-                user-centered design. I am particularly impressed with [specific
-                project or product of the company], and I am eager to bring my
-                expertise to your team to help drive similar successes. I am
-                confident that my background in creating compelling user
-                experiences aligns with the goals of your design team. I am also
-                adept at maintaining a balance between user needs and business
-                objectives, ensuring that the final product not only delights
-                users but also supports the company’s strategic goals. My
-                excellent communication skills and collaborative approach have
-                consistently been assets in my professional journey, enabling me
-                to work seamlessly with developers, product managers, and
-                stakeholders. I am thrilled about the possibility of
-                contributing to [Company Name] and am eager to bring my creative
-                problem-solving skills and design expertise to your team. Thank
-                you for considering my application. I look forward to the
-                opportunity to discuss how my background, skills, and passions
-                align with the needs of your team. Warm regards, [Your Name]With over [number] years of experience in product design, I have
-                honed my skills in user research, wireframing, prototyping, and
-                visual design. My proficiency in tools such as Sketch, Figma,
-                Adobe XD, and InVision, combined with my ability to collaborate
-                effectively with cross-functional teams, has allowed me to
-                successfully deliver intuitive and engaging user experiences. In
-                my previous role at [Your Previous Company], I led the redesign
-                of the company’s flagship product, resulting in a 20% increase
-                in user engagement and a 15% improvement in customer
-                satisfaction. I achieved this by conducting comprehensive user
-                research, developing user personas, and iterating on designs
-                based on user feedback and usability testing. My approach
-                ensures that design solutions are not only visually appealing
-                but also address real user needs. What excites me most about
-                [Company Name] is your commitment to innovation and
-                user-centered design. I am particularly impressed with [specific
-                project or product of the company], and I am eager to bring my
-                expertise to your team to help drive similar successes. I am
-                confident that my background in creating compelling user
-                experiences aligns with the goals of your design team. I am also
-                adept at maintaining a balance between user needs and business
-                objectives, ensuring that the final product not only delights
-                users but also supports the company’s strategic goals. My
-                excellent communication skills and collaborative approach have
-                consistently been assets in my professional journey, enabling me
-                to work seamlessly with developers, product managers, and
-                stakeholders. I am thrilled about the possibility of
-                contributing to [Company Name] and am eager to bring my creative
-                problem-solving skills and design expertise to your team. Thank
-                you for considering my application. I look forward to the
-                opportunity to discuss how my background, skills, and passions
-                align with the needs of your team. Warm regards, [Your Name] but also address real user needs. What excites me most about
-                [Company Name] is your commitment to innovation and
-                user-centered design. I am particularly impressed with [specific
-                project or product of the company], and I am eager to bring my
-                expertise to your team to help drive similar successes. I am
-                confident that my background in creating compelling user
-                experiences aligns with the goals of your design team. I am also
-                adept at maintaining a balance between user needs and business
-                objectives, ensuring that the final product not only delights
-                users but also supports the company’s strategic goals. My
-                excellent communication skills and collaborative approach have
-                consistently been assets in my professional journey, enabling me
-                to work seamlessly with developers, product managers, and
-                stakeholders. I am thrilled about the possibility of
-                contributing to [Company Name] and am eager to bring my creative
-                problem-solving skills and design expertise to your team. Thank
-                you for considering my application. I look forward to the
-                opportunity to discuss how my background, skills, and passions
-                align with the needs of your team. Warm regards, [Your Name] but also address real user needs. What excites me most about
-                [Company Name] is your commitment to innovation and
-                user-centered design. I am particularly impressed with [specific
-                project or product of the company], and I am eager to bring my
-                expertise to your team to help drive similar successes. I am
-                confident that my background in creating compelling user
-                experiences aligns with the goals of your design team. I am also
-                adept at maintaining a balance between user needs and business
-                objectives, ensuring that the final product not only delights
-                users but also supports the company’s strategic goals. My
+
                 excellent communication skills and collaborative approach have
                 consistently been assets in my professional journey, enabling me
                 to work seamlessly with developers, product managers, and
@@ -197,7 +89,7 @@ function CoverLetter6() {
     };
 
     splitContent();
-  }, [data]);
+  }, []);
   return (
     <>
       <div className="flex flex-col gap-[24px] w-[700px]">

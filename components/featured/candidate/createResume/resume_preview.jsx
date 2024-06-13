@@ -365,7 +365,7 @@ const ResumePreview = ({
   };
 
   const saveResume = async (blob, download) => {
-    
+    console.log(666,blob)
     setdisabled(true);
 
     if (blob !== null) {
