@@ -9,6 +9,8 @@ import { SparklingStarts } from "../../../../utils/svg";
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
 
 function CoverForm({
   selectedResumeIndex,
@@ -20,8 +22,10 @@ function CoverForm({
   data,
   setData,
 }) {
+  console.log(data)
   const [isAll, setIsAll] = useState(false);
   const [isFormat, setIsFormat] = useState("standard");
+  const userDataGlobal = useSelector((state) => state.userData);
   const taskRef = useRef(null);
   const [selectedDate, setSelectedDate] = useState(null);
   const [letterData, setLetterData] = useState("");
@@ -72,9 +76,19 @@ function CoverForm({
     ));
   };
 
-  const handleSaveData = (e) => {
-    e.preventDefault();
-    console.log(7654, data);
+  const addCoverLetter = async () => {
+    try {
+     
+      const formData = { ...data, userId:userDataGlobal._id };
+  
+      const response = await axios.post('http://localhost:2000/api/cover/add', formData);
+      toast.success("Cover Letter added successfully");
+      return response.data;
+    } catch (error) {
+      console.error('Error adding cover letter:', error);
+      toast.error("Error adding cover letter");
+      throw error;
+    }
   };
 
   useEffect(() => {

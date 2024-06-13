@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import CoverForm from "../../components/featured/candidate/coverLetter/coverForm";
+import CoverPreview from "../../components/featured/candidate/coverLetter/coverPreview";
 
 function Index() {
   const [selectedFont, setSelectedFont] = useState("Roboto");
@@ -54,6 +55,9 @@ function Index() {
           data={data}
           setData={setData}
         />
+      </div>
+      <div className="w-[59%] min-w-[508px]">
+        <CoverPreview data={data}/>
       </div>
     </div>
   );
