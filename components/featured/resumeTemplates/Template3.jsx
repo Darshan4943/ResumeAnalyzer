@@ -148,7 +148,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                   </Svg>
                 </View>
                 <View
-                  style={{ color: "white", fontSize: 10, flexDirection: "row" }}
+                  style={{ color: "white", fontSize: 10, flexDirection: "row",alignItems:'flex-start' }}
                 >
                   <Text
                     style={{
@@ -189,6 +189,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                     flexDirection: "row",
                     fontSize: 10,
                     maxWidth: "100%",
+                    alignItems:'flex-start'
                   }}
                 >
                   <Text

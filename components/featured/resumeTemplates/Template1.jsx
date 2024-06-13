@@ -193,7 +193,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                   style={{
                     flexDirection: "row",
                     alignItems: "center",
-                    gap: "8px",
+                    gap: "12px",
                     width: "100%",
                     maxWidth: "150px",
                   }}
@@ -232,7 +232,7 @@ function Template1({ data, selectedColor, selectedFont, preview }) {
                   style={{
                     height: 24,
                     flexDirection: "row",
-                    alignItems: "start",
+                    alignItems: "flex-start",
                     gap: 12,
                   }}
                 >
