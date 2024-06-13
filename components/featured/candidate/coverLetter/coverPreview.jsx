@@ -8,6 +8,7 @@ import CoverLetter11 from './letters/CoverLetter11'; // Adjust import path as ne
 import FileNameModel from '../createResume/components/fileNameModel';
 
 function CoverPreview({ data }) {
+    const [namePreview, setNamePreview] = useState(false);
     const [name, setName] = useState(data.firstName + "_resume");
     const [blob, setBlob] = useState('');
     const userDataGlobal = useSelector((state) => state.userData);

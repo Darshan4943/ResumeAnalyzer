@@ -76,20 +76,6 @@ function CoverForm({
     ));
   };
 
-  const addCoverLetter = async () => {
-    try {
-     
-      const formData = { ...data, userId:userDataGlobal._id };
-  
-      const response = await axios.post('http://localhost:2000/api/cover/add', formData);
-      toast.success("Cover Letter added successfully");
-      return response.data;
-    } catch (error) {
-      console.error('Error adding cover letter:', error);
-      toast.error("Error adding cover letter");
-      throw error;
-    }
-  };
 
   useEffect(() => {
     setData({ ...data, letterDate: selectedDate });
