@@ -30,6 +30,5 @@ const data = [
     course: "",
     speciliazation: "",
     university: "",
-
   },
 ];

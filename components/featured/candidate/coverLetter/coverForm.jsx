@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { coverLetters } from "../../../../utils/middleware";
 import ThemeForm from "../createResume/components/themeForm";
 import { StandaredForm } from "./StandaredForm";
@@ -86,7 +86,12 @@ function CoverForm({
       throw error;
     }
   };
-  
+  console.log("data", data);
+
+  useEffect(() => {
+    setData({ ...data, letterDate: selectedDate });
+  }, [selectedDate]);
+
   return (
     <div className="flex flex-col pr-[10px] ml:w-[100%] w-[100%]  pb-4 gap-4 rounded-lg ">
       <div className="ml:flex hidden  flex-row gap-4 ">
