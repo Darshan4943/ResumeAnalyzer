@@ -129,7 +129,7 @@ const EducationDetails = ({ data, setData }) => {
   };
 
   return (
-    <div className="flex flex-col gap-[16px] w-full bg-white p-4">
+    <div className="flex flex-col gap-[16px] w-full bg-white py-4">
       <div className="flex flex-row justify-between gap-[8px] items-center">
         <div>
           <span className="font-montserrat text-[18px] font-[600] leading-[21.94px] text-left text-[#333333]">

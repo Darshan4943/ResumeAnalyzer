@@ -453,8 +453,8 @@ function CreateResume() {
       const experience = parsedData["work experience"]
         ? parsedData["work experience"]
         : parsedData.work_experience
-          ? parsedData.work_experience
-          : [];
+        ? parsedData.work_experience
+        : [];
       const project = parsedData.projects;
       const internship = parsedData.internship;
       const references = parsedData.references;
@@ -498,9 +498,9 @@ function CreateResume() {
         languages:
           languages?.length > 0
             ? languages?.map((item) => ({
-              languages: item,
-              rating: [3, 3, 3],
-            }))
+                languages: item,
+                rating: [3, 3, 3],
+              }))
             : [],
         education: educations?.map((item) => ({
           qualification: item.courseName,
@@ -536,92 +536,92 @@ function CreateResume() {
         project:
           project?.length > 0
             ? project?.map((item) => ({
-              title: item.title,
-              organization: item.organization,
-              description: item.description,
-              currentlyWorking: false,
+                title: item.title,
+                organization: item.organization,
+                description: item.description,
+                currentlyWorking: false,
 
-              duration: {
-                start: { year: item.start_date?.year, month: null },
-                end: {
-                  year: item.is_current ? currentYear : item.end_date?.year,
-                  month: null,
+                duration: {
+                  start: { year: item.start_date?.year, month: null },
+                  end: {
+                    year: item.is_current ? currentYear : item.end_date?.year,
+                    month: null,
+                  },
                 },
-              },
-            }))
+              }))
             : [],
         internship:
           internship?.length > 0
             ? internship?.map((item) => ({
-              title: item.title,
-              organization: item.organization,
-              description: item.description,
-              currentlyWorking: false,
+                title: item.title,
+                organization: item.organization,
+                description: item.description,
+                currentlyWorking: false,
 
-              duration: {
-                start: { year: item.start_date?.year, month: null },
-                end: {
-                  year: item.is_current ? currentYear : item.end_date?.year,
-                  month: null,
+                duration: {
+                  start: { year: item.start_date?.year, month: null },
+                  end: {
+                    year: item.is_current ? currentYear : item.end_date?.year,
+                    month: null,
+                  },
                 },
-              },
-            }))
+              }))
             : [],
         extraCaricularData:
           extraCaricularActivity?.length > 0
             ? extraCaricularActivity?.map((item) => ({
-              title: item.title,
-              organization: item.organization,
-              description: item.description,
-              currentlyWorking: false,
+                title: item.title,
+                organization: item.organization,
+                description: item.description,
+                currentlyWorking: false,
 
-              duration: {
-                start: { year: item.start_date?.year, month: null },
-                end: {
-                  year: item.is_current ? currentYear : item.end_date?.year,
-                  month: null,
+                duration: {
+                  start: { year: item.start_date?.year, month: null },
+                  end: {
+                    year: item.is_current ? currentYear : item.end_date?.year,
+                    month: null,
+                  },
                 },
-              },
-            }))
+              }))
             : [],
         course:
           courses?.length > 0
             ? courses?.map((item) => ({
-              title: item.title,
-              organization: item.organization,
-              description: item.description,
-              currentlyWorking: true,
+                title: item.title,
+                organization: item.organization,
+                description: item.description,
+                currentlyWorking: true,
 
-              duration: {
-                start: { year: item.start_date?.year, month: null },
-                end: {
-                  year: item.is_current ? currentYear : item.end_date?.year,
-                  month: null,
+                duration: {
+                  start: { year: item.start_date?.year, month: null },
+                  end: {
+                    year: item.is_current ? currentYear : item.end_date?.year,
+                    month: null,
+                  },
                 },
-              },
-            }))
+              }))
             : [],
         socialLinks:
           socialLinks?.length > 0
             ? socialLinks?.map((item) => ({
-              platform: item.platform,
-              link: item.link,
-            }))
+                platform: item.platform,
+                link: item.link,
+              }))
             : [],
         reference:
           references?.length > 0
             ? references?.map((item) => ({
-              referantName: item.referantName,
-              designation: item.designation,
-              "Organization Name": item["Organization Name"],
-              email: item.name,
-            }))
+                referantName: item.referantName,
+                designation: item.designation,
+                "Organization Name": item["Organization Name"],
+                email: item.name,
+              }))
             : [],
         achievements:
           achievements?.length > 0
             ? achievements?.map((item) => ({
-              title: item.title,
-            }))
+                title: item.title,
+              }))
             : [],
       });
     } else if (clientId) {

@@ -38,6 +38,17 @@ const PersonalDetails = ({ data, setData }) => {
     dial_code: false,
   });
 
+  useEffect(() => {
+    setPersonalData({
+      firstName: data?.firstName,
+      lastName: data?.lastName,
+      mobileNumber: data?.mobileNumber,
+      email: data?.email,
+      dial_code: data?.dial_code,
+      address: data?.address,
+    });
+  }, [data]);
+
   const handleItemClick = (item) => {
     setSelectedItem(item);
     setPersonalData({ ...personalData, dial_code: item.dial_code });
@@ -203,7 +214,7 @@ const PersonalDetails = ({ data, setData }) => {
   };
 
   return (
-    <div className="flex flex-col gap-[16px] w-full bg-white p-4">
+    <div className="flex flex-col gap-[16px] w-full bg-white py-4">
       <div className="flex flex-row justify-between gap-[8px] items-center">
         <div>
           <span className="font-montserrat text-[18px] font-[600] leading-[21.94px] text-left text-[#333333]">

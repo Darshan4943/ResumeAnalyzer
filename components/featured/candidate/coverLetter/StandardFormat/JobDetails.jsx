@@ -92,6 +92,18 @@ const JobDetails = ({ data, setData }) => {
     },
   ];
 
+  useEffect(() => {
+    setJobData({
+      jobTitle: data?.jobTitle,
+      organization: data?.organization,
+      industry: data?.industry,
+      designation: data?.designation,
+      experience: data?.experience,
+      location: data?.location,
+      roleResponsibilities: data?.roleResponsibilities,
+    });
+  }, [data]);
+
   const validateFields = () => {
     const newErrors = {};
     let allFieldsValid = true;
@@ -159,10 +171,9 @@ const JobDetails = ({ data, setData }) => {
       setInputValue("");
     }
   };
- 
 
   return (
-    <div className="flex flex-col gap-[16px] w-full bg-white p-4">
+    <div className="flex flex-col gap-[16px] w-full bg-white py-4">
       <div className="flex flex-row justify-between gap-[8px] items-center">
         <div>
           <span className="font-montserrat text-[18px] font-[600] leading-[21.94px] text-left text-[#333333]">
