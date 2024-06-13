@@ -169,8 +169,8 @@ function CoverLetter6() {
 
       // Create a temporary element to measure content height
       const tempDiv = document.createElement("div");
-      tempDiv.style.position = "absolute";
-      tempDiv.style.visibility = "hidden";
+      // tempDiv.style.position = "absolute";
+      // tempDiv.style.visibility = "hidden";
       tempDiv.style.width = firstPage?.clientWidth + "px";
       tempDiv.innerHTML = data.paragraph[0].description;
       document.body.appendChild(tempDiv);
@@ -200,8 +200,8 @@ function CoverLetter6() {
   }, [data]);
   return (
     <>
-      <div className="flex flex-col gap-[24px]">
-        <div className="w-[595px] h-[842px] p-[32px] gap-[16px] flex flex-col border-[0.5px] ">
+      <div className="flex flex-col gap-[24px] w-[700px]">
+        <div className="w-[595px] h-[800px] p-[32px] gap-[16px] flex flex-col border-[0.5px] ">
           <div className="flex flex-row justify-between w-full gap-[20px]">
             <div className="flex flex-col gap-[12px] w-[30%]">
               <div className="gap-[8px] flex flex-row w-full ">

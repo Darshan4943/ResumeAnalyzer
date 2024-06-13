@@ -7,6 +7,8 @@ import axios from "axios";
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
 
 function CoverForm({
   selectedResumeIndex,
@@ -18,8 +20,10 @@ function CoverForm({
   data,
   setData,
 }) {
+  console.log(data)
   const [isAll, setIsAll] = useState(false);
   const [isFormat, setIsFormat] = useState("standard");
+  const userDataGlobal = useSelector((state) => state.userData);
   const taskRef = useRef(null);
   const [selectedDate, setSelectedDate] = useState(null);
   const [contentSituation, setContentSituation] = useState("Experienced");
@@ -68,15 +72,21 @@ function CoverForm({
     ));
   };
 
-  const handleSaveData = (e) => {
-    e.preventDefault();
-    // axios
-    //   .post("api")
-    //   .then((res) =>console.() res.data)
-    //   .catch((err) => console.error(err));
-    console.log("data", data)
+  const addCoverLetter = async () => {
+    try {
+     
+      const formData = { ...data, userId:userDataGlobal._id };
+  
+      const response = await axios.post('http://localhost:2000/api/cover/add', formData);
+      toast.success("Cover Letter added successfully");
+      return response.data;
+    } catch (error) {
+      console.error('Error adding cover letter:', error);
+      toast.error("Error adding cover letter");
+      throw error;
+    }
   };
-
+  
   return (
     <div className="flex flex-col pr-[10px] ml:w-[100%] w-[100%]  pb-4 gap-4 rounded-lg ">
       <div className="ml:flex hidden  flex-row gap-4 ">
@@ -362,9 +372,19 @@ function CoverForm({
               ? "bg-[#06A9EF] py-[8px] px-[16px] text-[12px] flex justify-center items-center rounded-[8px]  text-white"
               : "py-[8px] px-[16px] flex justify-center items-center rounded-[8px]  text-[12px]"
           }`}
-          onClick={handleSaveData}
+     
         >
           Generate Letter
+        </button>
+        <button
+          className={`${
+            isFormat === "standard"
+              ? "bg-[#06A9EF] py-[8px] px-[16px] text-[12px] flex justify-center items-center rounded-[8px]  text-white"
+              : "py-[8px] px-[16px] flex justify-center items-center rounded-[8px]  text-[12px]"
+          }`}
+          onClick={addCoverLetter}
+        >
+          Save
         </button>
       </div>
     </div>
