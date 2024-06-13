@@ -826,7 +826,7 @@ function Template11({ data, selectedColor, selectedFont, preview }) {
                             width: "70%",
                           }}
                         >
-                          {formatLink30(detail.organization)}
+                          {detail.organization}
                         </Text>
                         <Text
                           style={{
