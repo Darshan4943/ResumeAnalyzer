@@ -38,6 +38,7 @@ function Index() {
     specialization: "",
     university: "",
     letterDate: "",
+    passages:""
   };
 
   const [data, setData] = useState(defaultState);
