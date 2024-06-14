@@ -483,7 +483,7 @@ function CoverForm({
 
 
       </div>
-      <AnimatePresence>
+      {/* <AnimatePresence>
           {isShow && (
             <>
               <motion.div
@@ -549,7 +549,10 @@ function CoverForm({
         )}
       </div>
     </div>
-  );
+  ) */}
+  </div>
+  )
 }
 
 export default CoverForm;
+
