@@ -24,9 +24,9 @@ const MyCollection = () => {
   const [selected, setSelected] = useState(false);
   const dispatch = useDispatch();
   const [selectedIndexes, setSelectedIndexes] = useState([]);
-  const [isResumes, setIsResumes] = useState("resumes")
+  const [isResumes, setIsResumes] = useState("resumes");
   const [coverList, setCoverList] = useState([]);
-  console.log(444,coverList)
+  console.log(444, coverList);
   useEffect(() => {
     setLoading(true);
     axios
@@ -41,7 +41,7 @@ const MyCollection = () => {
         console.log(err);
         setLoading(false);
       });
-  }, [userDataGlobal, deleted,isResumes]);
+  }, [userDataGlobal, deleted, isResumes]);
 
   useEffect(() => {
     setLoading(true);
@@ -57,7 +57,7 @@ const MyCollection = () => {
         console.log(err);
         setLoading(false);
       });
-  }, [userDataGlobal, deleted,isResumes]);
+  }, [userDataGlobal, deleted, isResumes]);
 
   const toggleSelect = (index) => {
     if (selectedIndexes.includes(index)) {
@@ -80,6 +80,30 @@ const MyCollection = () => {
         data: { ids },
       })
       .then((response) => {
+        toast.success("Resume Deleted successfully");
+
+        setView(false);
+        setDeleted(!deleted);
+        dispatch(reCallUserData());
+        setSelectedIndexes([]);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  };
+
+  const deleteCoverLetter = () => {
+    const ids = selectedIndexes.map((item) => coverList[item]?._id);
+
+    if (ids.length === 0) {
+      toast.error("Please select file to delete");
+      return;
+    }
+
+    axios
+      .delete(`http://localhost:2000/api/cover/delete/${ids}`)
+      .then((response) => {
+        console.log(1122, response);
         toast.success("Resume Deleted successfully");
 
         setView(false);
@@ -124,19 +148,21 @@ const MyCollection = () => {
       <div className="flex flex-col gap-[16px]">
         <div className="bg-[#F9F9F9] w-[300px] flex rounded-[8px] text-[14px] font-semibold">
           <button
-            className={`${isResumes === "resumes"
-              ? "bg-[#06A9EF] py-[8px] px-[16px] flex justify-center items-center rounded-[8px] w-[50%] text-white"
-              : "py-[8px] px-[16px] flex justify-center items-center rounded-[8px] w-[50%]"
-              }`}
+            className={`${
+              isResumes === "resumes"
+                ? "bg-[#06A9EF] py-[8px] px-[16px] flex justify-center items-center rounded-[8px] w-[50%] text-white"
+                : "py-[8px] px-[16px] flex justify-center items-center rounded-[8px] w-[50%]"
+            }`}
             onClick={() => setIsResumes("resumes")}
           >
             Resumes
           </button>
           <button
-            className={`${isResumes === "covers"
-              ? "bg-[#06A9EF] py-[8px] px-[16px] flex justify-center items-center rounded-[8px] w-[50%] text-white"
-              : "py-[8px] px-[16px] flex justify-center items-center rounded-[8px] w-[50%]"
-              }`}
+            className={`${
+              isResumes === "covers"
+                ? "bg-[#06A9EF] py-[8px] px-[16px] flex justify-center items-center rounded-[8px] w-[50%] text-white"
+                : "py-[8px] px-[16px] flex justify-center items-center rounded-[8px] w-[50%]"
+            }`}
             onClick={() => setIsResumes("covers")}
           >
             Cover Letters
@@ -148,7 +174,7 @@ const MyCollection = () => {
           </div>
         ) : (
           <>
-            {isResumes === "resumes" ?
+            {isResumes === "resumes" ? (
               <div className="flex flex-row flex-wrap gap-[48px] p-[24px] bg-[#F9F9F9] rounded-[12px]  ">
                 <div
                   onClick={() => router.push(`/home/BuildResume`)}
@@ -186,7 +212,6 @@ const MyCollection = () => {
 
                         <div className="bg-[#00000099]  absolute top-[0px] left-[0px] h-[272px] w-full rounded-[6px] opacity-0 invisible transition-opacity ease-in-out duration-[0.4s]  group-hover:opacity-100 group-hover:visible flex items-center justify-center">
                           <div className="flex flex-col w-98 h-219 top-27.09 left-47.19 p-[12px]  rounded-lg border border-gray-200 gap-[12px] bg-[#333333CC]">
-
                             <div
                               className="items-center flex-col cursor-pointer hidden md:flex"
                               style={{
@@ -275,7 +300,7 @@ const MyCollection = () => {
                   ))}
                 </>
               </div>
-              :
+            ) : (
               <div className="flex flex-row flex-wrap gap-[48px] p-[24px] bg-[#F9F9F9] rounded-[12px]  ">
                 <div
                   onClick={() => router.push(`/home/BuildResume`)}
@@ -313,7 +338,6 @@ const MyCollection = () => {
 
                         <div className="bg-[#00000099]  absolute top-[0px] left-[0px] h-[272px] w-full rounded-[6px] opacity-0 invisible transition-opacity ease-in-out duration-[0.4s]  group-hover:opacity-100 group-hover:visible flex items-center justify-center">
                           <div className="flex flex-col w-98 h-219 top-27.09 left-47.19 p-[12px]  rounded-lg border border-gray-200 gap-[12px] bg-[#333333CC]">
-
                             <div
                               className="items-center flex-col cursor-pointer hidden md:flex"
                               style={{
@@ -334,7 +358,7 @@ const MyCollection = () => {
                                 Preview
                               </span>
                             </div>
-                            <div
+                            {/* <div
                               onClick={() => {
                                 router.push({
                                   pathname: "/home/createResume",
@@ -358,7 +382,7 @@ const MyCollection = () => {
                               <span className="text-[12px] font-semibold text-white ">
                                 Edit
                               </span>
-                            </div>
+                            </div> */}
 
                             <a
                               href={item.resumeUrl}
@@ -391,7 +415,7 @@ const MyCollection = () => {
                             </a>
                             {view && (
                               <DeleteModal
-                                deleteHandler={deleteResume}
+                                deleteHandler={deleteCoverLetter}
                                 closeDeleteModal={closeDeleteModal}
                               />
                             )}
@@ -402,7 +426,7 @@ const MyCollection = () => {
                   ))}
                 </>
               </div>
-            }
+            )}
           </>
         )}
       </div>

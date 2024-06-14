@@ -1,99 +1,54 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
+import { formatDateInNumber } from "../../../../../utils/data";
 
-function CoverLetter6() {
-  const data = {
-    name: "Oliver Robinson",
-    designation: "Web Developer",
-    mobileNo: "(310) 555 - 9572",
-    email: "hello@feliciawilson.com",
-    address: "San Francisco, CA",
-    toAddress: {
-      name: "Travis walkman",
-      designation: "Human Resources Manager",
-      company: "Skilotech HRMS Pvt. Ltd",
-      address: "321 Employment Avenue, Harare, Zimbambve, SA.",
-      date: "03-06-2024",
-    },
-    recieverName: "Neha",
-    paragraph: [
-      {
-        description: `I am writing to express my interest in the Product Designer (UI/UX) position at [Company Name], as advertised on [where you found the job posting]. With a strong background in UI/UX design and a passion for creating user-centric products, I am excited about the opportunity to contribute to your innovative team.
-                With over [number] years of experience in product design, I have
-                honed my skills in user research, wireframing, prototyping, and
-                visual design. My proficiency in tools such as Sketch, Figma,
-                Adobe XD, and InVision, combined with my ability to collaborate
-                effectively with cross-functional teams, has allowed me to
-                successfully deliver intuitive and engaging user experiences. In
-                my previous role at [Your Previous Company], I led the redesign
-                of the company’s flagship product, resulting in a 20% increase
-                in user engagement and a 15% improvement in customer
-
-                adept at maintaining a balance between user needs and business
-                objectives, ensuring that the final product not only delights
-
-                excellent communication skills and collaborative approach have
-                consistently been assets in my professional journey, enabling me
-                to work seamlessly with developers, product managers, and
-                stakeholders. I am thrilled about the possibility of
-                contributing to [Company Name] and am eager to bring my creative
-                problem-solving skills and design expertise to your team. Thank
-                you for considering my application. I look forward to the
-                opportunity to discuss how my background, skills, and passions
-                align with the needs of your team. Warm regards, [Your Name]`,
-      },
-    ],
-  };
-  const firstContainer = useRef(null);
-  const secondContainer = useRef(null);
-  const thirdContainer = useRef(null);
-  const fourthContainer = useRef(null);
-  const fifthContainer = useRef(null);
-  const sixthContainer = useRef(null);
-  const [firstPageData, setFirstPageData] = useState([]);
-  const [secondPageData, setSecondPageData] = useState([]);
+function CoverLetter6({ page2Ref, page1Ref, data }) {
   const firstPageRef = useRef(null);
-  const [splitContents, setSplitContent] = useState({ first: "", second: "" });
+  const [splitContents, setSplitContent] = useState({ first: [], second: [] });
+
+  const splitContent = useCallback(() => {
+    const firstPage = firstPageRef.current;
+    const firstPageHeight = 450; // Set the fixed height you want for the paragraph div
+
+    // Create a temporary element to measure content height
+    const tempDiv = document.createElement("div");
+    tempDiv.style.position = "absolute";
+    tempDiv.style.visibility = "hidden";
+    tempDiv.style.width = firstPage?.clientWidth + "px";
+    document.body.appendChild(tempDiv);
+
+    let firstHalf = [];
+    let secondHalf = [...data.passages];
+    let tempContent = "";
+
+    for (let i = 0; i < data.passages.length; i++) {
+      const passage = data.passages[i];
+      tempContent += `<p style="margin: 16px 0; text-indent: 1em;">${passage}</p>`;
+      tempDiv.innerHTML = tempContent;
+
+      if (tempDiv.clientHeight <= firstPageHeight) {
+        firstHalf.push(passage);
+        secondHalf.shift();
+      } else {
+        break;
+      }
+    }
+
+    document.body.removeChild(tempDiv);
+    setSplitContent({ first: firstHalf, second: secondHalf });
+  }, [data?.passages]);
 
   useEffect(() => {
-    const splitContent = () => {
-      const firstPage = firstPageRef.current;
-      const firstPageHeight = 432;
-
-      // Create a temporary element to measure content height
-      const tempDiv = document.createElement("div");
-      // tempDiv.style.position = "absolute";
-      // tempDiv.style.visibility = "hidden";
-      tempDiv.style.width = firstPage?.clientWidth + "px";
-      tempDiv.innerHTML = data.paragraph[0].description;
-      document.body.appendChild(tempDiv);
-
-      let splitIndex = data.paragraph[0].description.length;
-      let firstHalf = "";
-      let secondHalf = data.paragraph[0].description;
-
-      while (splitIndex > 0) {
-        firstHalf = data.paragraph[0].description.substring(0, splitIndex);
-        secondHalf = data.paragraph[0].description.substring(splitIndex);
-
-        tempDiv.innerHTML = firstHalf;
-
-        if (tempDiv.clientHeight <= firstPageHeight) {
-          break;
-        }
-
-        splitIndex--;
-      }
-
-      document.body.removeChild(tempDiv);
-      setSplitContent({ first: firstHalf, second: secondHalf });
-    };
-
-    splitContent();
-  }, []);
+    if (data?.passages) {
+      splitContent();
+    }
+  }, [data?.passages, splitContent]);
   return (
     <>
       <div className="flex flex-col gap-[24px] w-[700px]">
-        <div className="w-[595px] h-[800px] p-[32px] gap-[16px] flex flex-col border-[0.5px] ">
+        <div
+          ref={page1Ref}
+          className="w-[595px] h-[800px] p-[32px] gap-[16px] flex flex-col border-[0.5px] "
+        >
           <div className="flex flex-row justify-between w-full gap-[20px]">
             <div className="flex flex-col gap-[12px] w-[30%]">
               <div className="gap-[8px] flex flex-row w-full ">
@@ -112,7 +67,7 @@ function CoverLetter6() {
                 </svg>
 
                 <span className="text-[10px] font-[400] text-[#414042]">
-                  {data?.mobileNo}
+                  {data?.mobileNumber}
                 </span>
               </div>
               <div>
@@ -180,7 +135,7 @@ function CoverLetter6() {
             </div>
             <div className="flex flex-col w-[70%]">
               <span className=" text-[38px] font-[400] text-[#000000] font-Inter">
-                {data?.name}
+                {data.firstName} {data.lastName}
               </span>
               <span className=" text-[16px] font-[400] text-[#000000] font-Inter">
                 {data?.designation}
@@ -194,49 +149,87 @@ function CoverLetter6() {
                 To,
               </span>
               <span className=" text-[12px] font-[400] text-[#000000] font-Inter ">
-                {data?.toAddress?.name}
+                {data?.employerName}
               </span>
               <span className="  text-[12px] font-[400] text-[#000000] font-Inter ">
-                {data?.toAddress?.designation}
+                {data?.designation}
               </span>
               <span className=" text-[12px] font-[400] text-[#000000] font-Inter ">
-                {data?.toAddress?.company}
+                {data?.employerOrganizationName}
               </span>
               <span className=" text-[12px] font-[400] text-[#000000] font-Inter ">
-                {data?.toAddress?.address}
+                {data?.employerAddress} {data?.employerCityState}{" "}
+                {data?.employerCountry}
               </span>
             </div>
             <div className="flex flex-col gap-[16px] w-[30%]">
               <span className="text-[12px] font-[500] text-[#414042] ">
                 Date :
-                <span className="text-[#333333]"> {data?.toAddress?.date}</span>
+                <span className="text-[#333333]">
+                  {" "}
+                  {data?.letterDate != {} &&
+                    formatDateInNumber(data?.letterDate)}
+                </span>
               </span>
             </div>
           </div>
 
           <div className="flex flex-row justify-between gap-[8px] items">
             <span className=" text-[10px] font-[400] text-[#333333] font-Inter ">
-              Dear {data?.recieverName},
+              Dear {data?.employerName},
             </span>
           </div>
 
           <div className="flex flex-col justify-start w-full gap-[8px]">
             <div className="text-[10px] font-[400] text-[#333333] font-Inter">
-              {splitContents?.first}
+              {splitContents.first.map((passage, index) => (
+                <p key={index} style={{ margin: "16px 0" }}>
+                  {passage}
+                </p>
+              ))}
             </div>
-          </div>
-        </div>
-        <div className=" h-[842px] p-[24px] w-[595px] flex flex-col bg-[#fff] overflow-hidden border-[0.5px]">
-          <div className="flex h-full">
-            {splitContents && (
-              <div className="flex flex-col justify-start w-full gap-[8px]">
-                <div className="text-[10px] font-[400] text-[#333333] font-Inter">
-                  {splitContents?.second}
-                </div>
+            {splitContents?.second?.length == 0 && (
+              <div className="flex flex-col w-full gap-[2px]">
+                <span className="text-[10px] font-[400] text-[#414042] ">
+                  Warm regards,
+                </span>
+                <span className="text-[10px] font-[400] text-[#414042]  ">
+                  {data?.firstName} {data?.lastName}
+                </span>
               </div>
             )}
           </div>
         </div>
+        {splitContents?.second?.length > 0 && (
+          <div
+            ref={page2Ref}
+            className=" h-[842px] p-[24px] w-[595px] flex flex-col bg-[#fff] overflow-hidden border-[0.5px]"
+          >
+            <div className="flex h-full">
+              {splitContents && (
+                <div className="flex flex-col justify-start w-full gap-[8px]">
+                  <div className="text-[10px] font-[400] text-[#333333] font-Inter">
+                    {splitContents.second.map((passage, index) => (
+                      <p key={index} style={{ margin: "16px 0" }}>
+                        {passage}
+                      </p>
+                    ))}
+                  </div>
+                  {splitContents?.second?.length > 0 && (
+                    <div className="flex flex-col w-full gap-[2px]">
+                      <span className="text-[10px] font-[400] text-[#414042] ">
+                        Warm regards,
+                      </span>
+                      <span className="text-[10px] font-[400] text-[#414042]  ">
+                        {data?.firstName} {data?.lastName}
+                      </span>
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+          </div>
+        )}
       </div>
     </>
   );

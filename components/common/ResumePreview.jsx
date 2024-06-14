@@ -1,4 +1,4 @@
-import { BlobProvider, Document, PDFViewer } from "@react-pdf/renderer";
+import { BlobProvider, Document, PDFViewer, Page } from "@react-pdf/renderer";
 import React from "react";
 import { selectResumeTemplate } from "../../utils/middleware";
 import { ClosedIcon } from "../../utils/svg";
@@ -12,7 +12,28 @@ const ResumePreview = ({
   selectedFont,
   setPreview,
   preview,
+  isResumes,
 }) => {
+  console.log(19, data);
+  const PdfViewer = ({ pdfUrl }) => {
+    function onDocumentLoadSuccess(numPages) {}
+
+    return (
+      <div
+        style={{
+          width: "192px",
+          height: "272px",
+          boxShadow: "0px 0px 4px 0px rgba(0, 0, 0, 0.25)",
+          borderRadius: "6px",
+          overflow: "hidden",
+        }}
+      >
+        <Document file={pdfUrl} onLoadSuccess={onDocumentLoadSuccess}>
+          <Page pageNumber={1} />
+        </Document>
+      </div>
+    );
+  };
   return (
     <>
       <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
@@ -25,17 +46,21 @@ const ResumePreview = ({
           </div>
 
           <div className="w-full  bg-[#525659] h-full flex items-center justify-center">
-            <PDFViewer width="750" height="100%" showToolbar={false}>
-              <Document>
-                {selectResumeTemplate(
-                  selectedResumeIndex,
-                  data,
-                  selectedColor,
-                  selectedFont,
-                  preview
-                )}
-              </Document>
-            </PDFViewer>
+            {isResumes == "covers" ? (
+              <PdfViewer pdfUrl={data?.resumeUrl} />
+            ) : (
+              <PDFViewer width="750" height="100%" showToolbar={false}>
+                <Document>
+                  {selectResumeTemplate(
+                    selectedResumeIndex,
+                    data,
+                    selectedColor,
+                    selectedFont,
+                    preview
+                  )}
+                </Document>
+              </PDFViewer>
+            )}
           </div>
         </div>
       </div>
