@@ -25,6 +25,8 @@ function CoverForm({
 }) {
   const [isAll, setIsAll] = useState(false);
   const [isFormat, setIsFormat] = useState("standard");
+  const [FieldError, setFieldError] = useState("");
+  const [isError, setError] = useState(null);
   const userDataGlobal = useSelector((state) => state.userData);
   const taskRef = useRef(null);
   const [selectedDate, setSelectedDate] = useState(null);
@@ -78,9 +80,44 @@ function CoverForm({
       />
     ));
   };
+
+  // Function to validate required fields
+  function validateRequiredFields(data) {
+    const requiredFields = [
+      "firstName",
+      "lastName",
+      "mobileNumber",
+      "email",
+      "dial_code",
+      "address",
+      "employerName",
+      "employerOrganizationName",
+      "employerAddress",
+      "employerCityState",
+      "employerCountry",
+    ];
+
+    let errors = {};
+
+    requiredFields.forEach((field) => {
+      if (!data[field]) {
+        errors[field] = `${field} is missing`;
+      }
+    });
+
+    return errors;
+  }
+
+ 
+
   const fetchCoverLetter = async () => {
     setLoading(true);
     try {
+      if (data) {
+        const errors = validateRequiredFields(data);
+        setError(errors);
+      }
+
       const response = await axios.post(
         "http://localhost:2000/api/cover-letter/transform",
         data
@@ -377,6 +414,7 @@ function CoverForm({
                   selectedResumeIndex={selectedResumeIndex}
                   setSelectedResumeIndex={setSelectedResumeIndex}
                   isFormat={isFormat}
+                  isError={isError}
                 />
               </div>
             )}

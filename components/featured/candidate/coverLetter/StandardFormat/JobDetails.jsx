@@ -171,6 +171,7 @@ const JobDetails = ({ data, setData, isFormat }) => {
       setInputValue("");
     }
   };
+  console.log(485, isFormat);
 
   return (
     <div className="flex flex-col gap-[16px] w-full bg-white py-4">
@@ -281,21 +282,25 @@ const JobDetails = ({ data, setData, isFormat }) => {
 
       {isShow && (
         <div className="flex flex-col gap-[8px]">
-          <div className="flex flex-col gap-[8px]">
-            <label className="font-montserrat text-[14px] font-medium leading-[17.07px] text-left">
-              Desired Job Title
-            </label>
-            <input
-              type="text"
-              name="jobTitle"
-              placeholder="Enter Your Desired Job Title"
-              value={JobData["jobTitle"]}
-              onChange={handleInputChange}
-              className={`w-full pt-[12px] pr-[16px] pb-[12px] pl-[16px] gap-0 border border-solid rounded-[8px] text-[12px] leading-[16px] text-[#646464] font-[400] ${
-                formErrors["jobTitle"] ? "border-[#C00000]" : "border-[#DEDEDE]"
-              }`}
-            />
-          </div>
+          {isFormat !== "custom" && (
+            <div className="flex flex-col gap-[8px]">
+              <label className="font-montserrat text-[14px] font-medium leading-[17.07px] text-left">
+                Desired Job Title
+              </label>
+              <input
+                type="text"
+                name="jobTitle"
+                placeholder="Enter Your Desired Job Title"
+                value={JobData["jobTitle"]}
+                onChange={handleInputChange}
+                className={`w-full pt-[12px] pr-[16px] pb-[12px] pl-[16px] gap-0 border border-solid rounded-[8px] text-[12px] leading-[16px] text-[#646464] font-[400] ${
+                  formErrors["jobTitle"]
+                    ? "border-[#C00000]"
+                    : "border-[#DEDEDE]"
+                }`}
+              />
+            </div>
+          )}
 
           <div className="flex flex-row gap-[16px] justify-between it">
             {inputFields
