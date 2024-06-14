@@ -827,6 +827,7 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
               </View>
             </View>
           )}
+          
           {data?.project?.length > 0 && data?.showProject === true && (
             <View
               wrap={data?.project?.length > 1 ? true : false}
@@ -918,6 +919,7 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
               </View>
             </View>
           )}
+
           {data?.internship?.length > 0 && data?.showInternship === true && (
             <View wrap={data?.internship?.length > 1 ? true : false}
               style={{ flexDirection: "column", gap: 12, width: "100%" }}>
@@ -1246,7 +1248,7 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
                             fontFamily: `${selectedFont} 700`,
                           }}
                         >
-                          {detail?.title}{" "}
+                          {detail?.title}
                         </Text>
                         {detail.duration?.start?.year && (
                           <View style={{ flexDirection: "row", gap: 4 }}>

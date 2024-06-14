@@ -123,7 +123,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                 justifyContent: "center",
                 alignItems: "center",
                 marginTop: "18px",
-                maxWidth:'100%'
+                maxWidth: '100%'
               }}
             >
               {/* <View style={{ maxWidth: "100%", paddingHorizontal: '14px',  justifyContent: 'center', alignItems: 'center' }}> */}
@@ -160,7 +160,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                     fontFamily: `${selectedFont} 400`,
                     fontSize: 14,
                     color: "#FFFFFF",
-                    maxWidth:'100%'
+                    maxWidth: '100%'
                   }}
                 >
                   {/* {data.designation} */}
@@ -823,7 +823,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                     fontSize: 10,
                     fontFamily: `${selectedFont} 400`,
                     color: "#FFFFFF",
-                    maxWidth:'95%'
+                    maxWidth: '95%'
                   }}
                 >
                   {data.summery}
@@ -846,7 +846,6 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
           >
             {/* {data?.experience?.length > 0 && data?.showExperience === true && (
               <>
-                {" "}
                 <View
                   style={{
                     display: "flex",
@@ -963,7 +962,6 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
 
             {data?.experience?.length > 0 && data?.showExperience === true && (
               <>
-                {" "}
                 <View
                   style={{
                     display: "flex",
@@ -1024,50 +1022,50 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                       //     // gap: index === data.experience.length - 1 ? 16 : 24,
                       //   }}
                       // >
+                      <View
+                        style={{
+                          display: "flex",
+                          flexDirection: "column",
+                          gap: 4,
+                        }}
+                      >
+                        <View style={{
+                          display: "flex",
+                          flexDirection: "column",
+                          gap: 4,
+                        }}>
+                          <Text
+                            style={{
+                              fontFamily: `${selectedFont} 600`,
+                              fontSize: 12,
+                              color: "#252829",
+                            }}
+                          >
+                            {detail.designation} - {detail.organization}
+                          </Text>
+                          <Text
+                            style={{
+                              fontFamily: `${selectedFont} 400`,
+                              fontSize: 12,
+                              color: "#252829",
+                            }}
+                          >
+                            {detail.duration?.start?.year !== "Year" &&
+                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
+                                ? "Present"
+                                : detail.duration?.end?.year
+                              }
+                              `}
+                          </Text>
+                        </View>
                         <View
                           style={{
-                            display: "flex",
-                            flexDirection: "column",
-                            gap: 4,
+                            backgroundColor: "#555C5E",
+                            width: 282,
+                            height: 1,
                           }}
-                        >
-                          <View style={{
-                            display: "flex",
-                            flexDirection: "column",
-                            gap: 4,
-                          }}>
-                            <Text
-                              style={{
-                                fontFamily: `${selectedFont} 600`,
-                                fontSize: 12,
-                                color: "#252829",
-                              }}
-                            >
-                              {detail.designation} - {detail.organization}
-                            </Text>
-                            <Text
-                              style={{
-                                fontFamily: `${selectedFont} 400`,
-                                fontSize: 12,
-                                color: "#252829",
-                              }}
-                            >
-                              {detail.duration?.start?.year !== "Year" &&
-                                `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
-                                  ? "Present"
-                                  : detail.duration?.end?.year
-                                }
-                              `}
-                            </Text>
-                          </View>
-                          <View
-                            style={{
-                              backgroundColor: "#555C5E",
-                              width: 282,
-                              height: 1,
-                            }}
-                          ></View>
-                          <View>
+                        ></View>
+                        <View>
                           <Text
                             style={{
                               fontFamily: `${selectedFont} 400`,
@@ -1079,7 +1077,7 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
                             {detail.description}
                           </Text>
                         </View>
-                        </View>
+                      </View>
                       //  </View>
                     ))}
                   </View>
@@ -1089,7 +1087,6 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
 
             {data?.education?.length > 0 && data?.showEducation === true && (
               <>
-                {" "}
                 <View
                   style={{
                     display: "flex",
@@ -1206,7 +1203,6 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
 
             {data?.project?.length > 0 && data?.showProject === true && (
               <>
-                {" "}
                 <View
                   style={{
                     display: "flex",
@@ -1324,7 +1320,6 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
 
             {data?.internship?.length > 0 && data?.showInternship === true && (
               <>
-                {" "}
                 <View
                   style={{
                     display: "flex",
@@ -1441,7 +1436,6 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
 
             {data?.course?.length > 0 && data?.showCourses === true && (
               <>
-                {" "}
                 <View
                   style={{
                     display: "flex",
@@ -1559,7 +1553,6 @@ const Template18 = ({ data, selectedColor, selectedFont, preview }) => {
 
             {data?.extraCaricularData?.length > 0 && data?.showExtraCariculam === true && (
               <>
-                {" "}
                 <View
                   style={{
                     display: "flex",

@@ -418,7 +418,7 @@ function CreateResume() {
     selectedFont: selectedFont,
     selectedResumeIndex: selectedResumeIndex,
   };
-console.log(111,data)
+  console.log(111, data)
   useEffect(() => {
     if (isClient && clientId == "undefined") {
       localStorage.setItem("userData", JSON.stringify(data));
@@ -434,7 +434,7 @@ console.log(111,data)
   }
   const parsedDataSeter = () => {
     const parsedData = JSON.parse(localStorage.getItem("parsedResume"));
-   
+
     if (parsedData) {
       const {
         first_name,
@@ -450,7 +450,7 @@ console.log(111,data)
       const hobbies = parsedData.hobbies;
 
       const educations = parsedData.education;
-      console.log(222,educations)
+      console.log(222, educations)
       const experience = parsedData["work experience"]
         ? parsedData["work experience"]
         : parsedData.work_experience
@@ -460,7 +460,7 @@ console.log(111,data)
       const internship = parsedData.internship;
       const references = parsedData.references;
       const achievements = parsedData.achivements;
-    
+
       const socialLinks = parsedData["social links"];
       const extraCaricularActivity = parsedData["extra-curricular activities"];
 
@@ -515,7 +515,7 @@ console.log(111,data)
               month: null,
             },
             end: {
-              year: item["Passing Year"].endDate?.year ? item["Passing Year"].endDate?.year: "Year",
+              year: item["Passing Year"].endDate?.year ? item["Passing Year"].endDate?.year : "Year",
               month: null,
             },
           },
@@ -679,13 +679,13 @@ console.log(111,data)
         <div className="flex flex-col gap-4 py-6 ">
           <div className="flex ml:hidden flex-row gap-4 ">
             <button
-             onClick={() => router.push(`/home/BuildResume?clientId=${clientId}`)}
+              onClick={() => router.push(`/home/BuildResume?clientId=${clientId}`)}
               className="p-[8px] border-[1px] bg-blue border-[#DEDEDE] rounded-[6px]  "
               style={{}}
             >
               <svg
                 className=" cursor-pointer"
-               
+
                 width="24"
                 height="24"
                 viewBox="0 0 40 40"
