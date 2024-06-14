@@ -31,7 +31,6 @@ const CustomTextEditor = ({
     },
   });
 
-
   return (
     <div className="flex flex-col border-none shadow-custom rounded-[10px] ">
       <CustomToolbar editor={editor} content={text} rerender={rerender} />

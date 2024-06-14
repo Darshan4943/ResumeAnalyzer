@@ -26,7 +26,6 @@ const CustomLetterBody = ({ data, setData }) => {
 
   useEffect(() => {
     if (data && data.description.length > 0) {
-      // Ensure all fields are present and non-null
       const {
         letterDate,
         firstName,
@@ -35,7 +34,7 @@ const CustomLetterBody = ({ data, setData }) => {
         employerAddress,
         employerCityState,
         employerCountry,
-        description,
+        passages,
         dial_code,
         mobileNumber,
         email,
@@ -65,8 +64,7 @@ const CustomLetterBody = ({ data, setData }) => {
       if (textEditorData) {
         setText(textEditorData);
       }
-    } else {
-      setText("Explain why you are the ideal candidate for a particular job");
+      setData({ ...data, passages: text });
     }
   }, []);
 

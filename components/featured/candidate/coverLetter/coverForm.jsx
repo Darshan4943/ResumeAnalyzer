@@ -22,14 +22,13 @@ function CoverForm({
   data,
   setData,
 }) {
-  console.log(data);
   const [isAll, setIsAll] = useState(false);
   const [isFormat, setIsFormat] = useState("standard");
   const userDataGlobal = useSelector((state) => state.userData);
   const taskRef = useRef(null);
   const [selectedDate, setSelectedDate] = useState(null);
   const [letterData, setLetterData] = useState("");
-  const [isShow, setIsShow] = useState(true);
+  const [isShow, setIsShow] = useState(false);
   const [contentSituation, setContentSituation] = useState("Experienced");
   const [loading, setLoading] = useState(false);
   const handleImageClick = (template) => {
@@ -62,8 +61,8 @@ function CoverForm({
   };
 
   const handleSaveData = () => {
-    console.log(7865)
-  }
+    console.log(7865);
+  };
   const renderAllTemplates = () => {
     return coverLetters.map((template, index) => (
       <img
@@ -80,15 +79,18 @@ function CoverForm({
     ));
   };
   const fetchCoverLetter = async () => {
-    setLoading(true)
+    setLoading(true);
     try {
-      const response = await axios.post('http://localhost:2000/api/cover-letter/transform', data);
+      const response = await axios.post(
+        "http://localhost:2000/api/cover-letter/transform",
+        data
+      );
       const letterData = response.data;
       setData({ ...data, passages: letterData.passages });
-      setLoading(false)
+      setLoading(false);
     } catch (error) {
-      console.error('Error fetching cover letter:', error);
-      setLoading(false)
+      console.error("Error fetching cover letter:", error);
+      setLoading(false);
     }
   };
 
@@ -96,12 +98,6 @@ function CoverForm({
     setData({ ...data, letterDate: selectedDate });
   }, [selectedDate]);
 
-  const handleCustomData = (e) => {
-    e.preventDefault();
-    console.log(1111, data);
-  };
-
-  console.log(88, isShow);
   useEffect(() => {
     //getLetter Data here
     setLetterData(
@@ -276,19 +272,21 @@ function CoverForm({
             <div className="bg-[#DEDEDE] w-full h-[1px]"> </div>
             <div className="bg-[#F9F9F9] w-full flex rounded-[8px] text-[14px] font-semibold">
               <button
-                className={`${isFormat === "standard"
+                className={`${
+                  isFormat === "standard"
                     ? "bg-[#06A9EF] py-[8px] px-[16px] flex justify-center items-center rounded-[8px] w-[50%] text-white"
                     : "py-[8px] px-[16px] flex justify-center items-center rounded-[8px] w-[50%]"
-                  }`}
+                }`}
                 onClick={() => setIsFormat("standard")}
               >
                 Standard Format
               </button>
               <button
-                className={`${isFormat === "custom"
+                className={`${
+                  isFormat === "custom"
                     ? "bg-[#06A9EF] py-[8px] px-[16px] flex justify-center items-center rounded-[8px] w-[50%] text-white"
                     : "py-[8px] px-[16px] flex justify-center items-center rounded-[8px] w-[50%]"
-                  }`}
+                }`}
                 onClick={() => setIsFormat("custom")}
               >
                 Custom Format
@@ -476,7 +474,7 @@ function CoverForm({
             <div className="flex flex-row justify-between items-center  gap-[10px] ">
               <button
                 className="flex  items-center font-montserrat text-xs font-semibold btn_outline gap-[6px]"
-              // onClick={generateText}
+                // onClick={generateText}
               >
                 <SparklingStarts />
                 <span className="text-[12px] text-[#333333] font-[600] font-Montserrat leading-[16px]">
@@ -486,8 +484,8 @@ function CoverForm({
               <button
                 className={`font-montserrat text-white font-medium text-[12px] px-[16px] py-[8px] rounded-[8px]  bg-[#DEDEDE] w-[60px] h-[32px] 
                 }`}
-              // onClick={() => setData({ ...data, summery: text })}
-              // style={{ opacity: text === data?.summery ? 0.5 : 1 }}
+                // onClick={() => setData({ ...data, summery: text })}
+                // style={{ opacity: text === data?.summery ? 0.5 : 1 }}
               >
                 Save
               </button>
