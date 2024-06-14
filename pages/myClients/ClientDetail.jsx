@@ -142,6 +142,27 @@ function ClientDetail({ tabIndex }) {
     );
   };
 
+  const coverPdfViewer = ({ pdfUrl }) => {
+    function onDocumentLoadSuccess(numPages) {}
+
+    return (
+      <div
+        style={{
+          width: "750px",
+          height: "500px",
+
+          boxShadow: "0px 0px 4px 0px rgba(0, 0, 0, 0.25)",
+          borderRadius: "6px",
+          overflow: "scroll",
+        }}
+      >
+        <Document file={pdfUrl} onLoadSuccess={onDocumentLoadSuccess}>
+          <Page pageNumber={1} />
+        </Document>
+      </div>
+    );
+  };
+
   return (
     <div className="flex flex-col gap-4 py-6 customMargins">
       <div className="flex justify-between ">
@@ -753,7 +774,7 @@ function ClientDetail({ tabIndex }) {
             setPreview={setPreview}
             preview={true}
             isResumes={isResumes}
-            PdfViewer={PdfViewer}
+            coverPdfViewer={coverPdfViewer}
           />
         </>
       )}
