@@ -18,6 +18,7 @@
   background: var(--primary, #06a9ef);
   color: #fff;
 }
+
 .btn_filled_red {
   display: flex;
   padding: 12px 36px;
@@ -35,24 +36,29 @@
     font-size: 24px;
     font-weight: 500;
   }
+
   form {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     gap: 16px;
+
     .form_container {
       display: flex;
       flex-direction: row;
       flex-wrap: wrap;
       gap: 16px;
+
       .input-container {
         display: flex;
         flex-direction: column;
         gap: 8px;
+
         .label {
           font-size: 16px;
           color: var(--Neutrals-100, #25324b);
         }
+
         .input {
           display: flex;
           height: 44px;
@@ -65,11 +71,13 @@
         }
       }
     }
+
     .location-list {
       display: flex;
       flex-direction: row;
       flex-wrap: wrap;
       gap: 16px;
+
       .location_item {
         display: flex;
         padding: 8px 16px;
@@ -201,8 +209,7 @@
       color: #000;
     }
 
-    .skills {
-    }
+    .skills {}
 
     .skills__item {
       margin-bottom: 10px;
@@ -222,7 +229,7 @@
         margin-right: 3px;
       }
 
-      input:checked + label {
+      input:checked+label {
         background: #79a9ce;
       }
     }
@@ -241,9 +248,11 @@
   border-color: transparent;
   transition: all 0.5s;
 }
+
 .li:hover {
   border-bottom: 2px solid var(--secondary, #ffda1d);
 }
+
 a {
   text-decoration: none;
 }
@@ -257,6 +266,7 @@ a {
   font-weight: 700;
   line-height: normal;
 }
+
 .buttonTransparent {
   border-color: transparent;
 }
@@ -265,6 +275,7 @@ a {
   0% {
     transform: rotateY(0deg);
   }
+
   100% {
     transform: rotateY(180deg);
   }
@@ -273,23 +284,29 @@ a {
 .flicker {
   animation: flicker 1s forwards;
 }
+
 @keyframes moveImage {
   0% {
     transform: translate(0, 0);
   }
+
   25% {
     transform: translate(25%, 25%);
   }
+
   50% {
     transform: translate(50%, 0%);
   }
+
   75% {
     transform: translate(50%, -20%);
   }
+
   100% {
     transform: translate(0, 0);
   }
 }
+
 .moveImage {
   animation: moveImage 2s infinite;
 }
@@ -302,120 +319,118 @@ a {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
 }
+
 @keyframes anticlockwise {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(-360deg);
   }
 }
+
 ///////////////////////////////////
 
 .createResume {
   transition: all 2s;
 }
+
 .createResume:hover {
   background: rgba(255, 255, 255, 1);
-  background: linear-gradient(
-    31.62deg,
-    rgba(6, 169, 239, 0.15) 14.94%,
-    rgba(162, 227, 255, 0.15) 99.61%
-  );
+  background: linear-gradient(31.62deg,
+      rgba(6, 169, 239, 0.15) 14.94%,
+      rgba(162, 227, 255, 0.15) 99.61%);
 }
+
 .myClinet:hover {
   background: rgba(255, 255, 255, 1);
-  background: linear-gradient(
-    85.58deg,
-    rgba(255, 222, 0, 0.15) 65.23%,
-    rgba(253, 89, 0, 0.15) 96.45%
-  );
+  background: linear-gradient(85.58deg,
+      rgba(255, 222, 0, 0.15) 65.23%,
+      rgba(253, 89, 0, 0.15) 96.45%);
 }
+
 .TransFormCV:hover {
   background: rgba(255, 255, 255, 1);
-  background: linear-gradient(
-    0deg,
-    rgba(59, 139, 245, 0.15) 0.56%,
-    rgba(199, 213, 243, 0.15) 100%
-  );
+  background: linear-gradient(0deg,
+      rgba(59, 139, 245, 0.15) 0.56%,
+      rgba(199, 213, 243, 0.15) 100%);
 }
+
 .MyResume:hover {
   background: rgba(255, 255, 255, 1);
-  background: linear-gradient(
-    90deg,
-    rgba(0, 210, 239, 0.15) 0%,
-    rgba(141, 198, 63, 0.15) 100%
-  );
+  background: linear-gradient(90deg,
+      rgba(0, 210, 239, 0.15) 0%,
+      rgba(141, 198, 63, 0.15) 100%);
 }
+
 .JobDes:hover {
   background: rgba(255, 255, 255, 1);
-  background: linear-gradient(
-    90deg,
-    rgba(255, 129, 255, 0.15) 0%,
-    rgba(169, 58, 255, 0.15) 100.03%
-  );
+  background: linear-gradient(90deg,
+      rgba(255, 129, 255, 0.15) 0%,
+      rgba(169, 58, 255, 0.15) 100.03%);
 }
+
 .MyCollection:hover {
   background: rgba(255, 255, 255, 1);
-  background: linear-gradient(
-    180deg,
-    rgba(56, 184, 89, 0.15) -44.44%,
-    rgba(76, 162, 204, 0.15) 100%
-  );
+  background: linear-gradient(180deg,
+      rgba(56, 184, 89, 0.15) -44.44%,
+      rgba(76, 162, 204, 0.15) 100%);
 }
+
 .SkillAss:hover {
   background: rgba(255, 255, 255, 1);
-  background: linear-gradient(
-    45.46deg,
-    rgba(252, 68, 34, 0.15) 4.03%,
-    rgba(255, 187, 50, 0.15) 89.99%
-  );
+  background: linear-gradient(45.46deg,
+      rgba(252, 68, 34, 0.15) 4.03%,
+      rgba(255, 187, 50, 0.15) 89.99%);
 }
+
 .MyPurchase:hover {
   background: rgba(255, 255, 255, 1);
-  background: linear-gradient(
-    180deg,
-    rgba(225, 0, 255, 0.1) -319.33%,
-    rgba(127, 0, 255, 0.1) 103.69%
-  );
+  background: linear-gradient(180deg,
+      rgba(225, 0, 255, 0.1) -319.33%,
+      rgba(127, 0, 255, 0.1) 103.69%);
 }
+
 .searchJobs:hover {
   background: rgba(255, 255, 255, 1);
-  background: linear-gradient(
-    180deg,
-    rgba(100, 65, 165, 0.15) 0%,
-    rgba(42, 8, 69, 0.15) 100%
-  );
+  background: linear-gradient(180deg,
+      rgba(100, 65, 165, 0.15) 0%,
+      rgba(42, 8, 69, 0.15) 100%);
 }
+
 .chatBot:hover {
   background: rgba(255, 255, 255, 1);
-  background:linear-gradient(270deg, rgba(121, 148, 216, 0.2) 0.37%, rgba(114, 141, 210, 0.2) 3.69%, rgba(92, 117, 188, 0.2) 17.46%, rgba(76, 100, 172, 0.2) 32.08%, rgba(66, 90, 163, 0.2) 48%, rgba(63, 87, 160, 0.2) 67.66%, rgba(42, 66, 139, 0.2) 100%);
-  
+  background: linear-gradient(270deg, rgba(121, 148, 216, 0.2) 0.37%, rgba(114, 141, 210, 0.2) 3.69%, rgba(92, 117, 188, 0.2) 17.46%, rgba(76, 100, 172, 0.2) 32.08%, rgba(66, 90, 163, 0.2) 48%, rgba(63, 87, 160, 0.2) 67.66%, rgba(42, 66, 139, 0.2) 100%);
+
 }
+
 .myWebsite:hover {
   background: linear-gradient(0deg, #FFFFFF, #FFFFFF);
   background: linear-gradient(90deg, rgba(255, 166, 141, 0.2) 0%, rgba(253, 58, 132, 0.2) 100%);
-    
+
 }
+
 .postJobs:hover {
   background: rgba(255, 255, 255, 1);
-  background: linear-gradient(
-    180deg,
-    rgba(100, 65, 165, 0.15) 0%,
-    rgba(42, 8, 69, 0.15) 100%
-  );
+  background: linear-gradient(180deg,
+      rgba(100, 65, 165, 0.15) 0%,
+      rgba(42, 8, 69, 0.15) 100%);
 }
 
 .group:hover .icon-path {
   fill: white;
 }
-.btn_hover_effect{
+
+.btn_hover_effect {
   transition: all 0.2s;
 }
+
 .btn_hover_effect:hover {
   background-color: #ffda1d;
   color: #000000;
@@ -442,7 +457,7 @@ a {
   align-items: center;
   padding: 16px;
   height: 100%;
-  
+
 }
 
 .skeleton-image {
@@ -495,9 +510,11 @@ a {
   0% {
     background-color: #f6faff;
   }
+
   50% {
     background-color: #eaf2fc;
   }
+
   100% {
     background-color: #f6faff;
   }
@@ -562,10 +579,26 @@ a {
   0% {
     background-color: #f6faff;
   }
+
   50% {
     background-color: #eaf2fc;
   }
+
   100% {
     background-color: #f6faff;
+  }
+}
+
+.SyncLoader {
+  animation: rotate 2s linear infinite;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
   }
 }
