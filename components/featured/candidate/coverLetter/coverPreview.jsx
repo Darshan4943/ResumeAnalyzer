@@ -56,10 +56,10 @@ function CoverPreview({ data }) {
         const input2 = page2Ref.current;
     
         try {
-            const canvas1 = await html2canvas(input1, { scale: 2 });
+            const canvas1 = await html2canvas(input1, { scale: 5 });
             const imgData1 = canvas1.toDataURL("image/jpeg", 0.7);
     
-            const canvas2 = await html2canvas(input2, { scale: 2 });
+            const canvas2 = await html2canvas(input2, { scale: 5 });
             const imgData2 = canvas2.toDataURL("image/jpeg", 0.7);
     
             const pdf = new jsPDF("p", "pt", "a4");
@@ -70,10 +70,10 @@ function CoverPreview({ data }) {
             const pdfBlob = pdf.output("blob");
             setBlob(pdfBlob);
     
-            if (download) {
+            
                 pdf.save(`${data.firstName}_cover_letter.pdf`);
                 setDownload(false); 
-            }
+          
         } catch (error) {
             console.error("Error generating PDF:", error);
         }
@@ -134,7 +134,7 @@ function CoverPreview({ data }) {
     );
 
     return (
-        <div className='flex flex-col gap-4'>
+        <div className='flex flex-col gap-4 '>
             <div className='flex justify-between'>
                 <div className="flex items-center justify-between ml:w-[58%] w-full gap-4">
                     <div
@@ -189,9 +189,13 @@ function CoverPreview({ data }) {
                     <DownloadButton />
                 </div>
             </div>
-            <div>
+            <div className='   overflow-auto ' >
+                <CoverLetter11 data={data}  />
+            </div>
+            <div className='absolute  left-[10000px]' >
                 <CoverLetter11 data={data} page1Ref={page1Ref} page2Ref={page2Ref} />
             </div>
+
             {namePreview && (
         <FileNameModel
           data={data}

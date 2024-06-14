@@ -109,7 +109,11 @@ function Dashboard() {
       name: "Create New Resume",
       imgSrc: "/images/resumeBuilder/createResume.png",
     },
-    { name: "My Resumes", imgSrc: "/images/resumeBuilder/myResume.png" },
+    {
+      name: "Create New Cover Letter",
+      imgSrc: "/images/resumeBuilder/createResume.png",
+    },
+    { name: "Collection", imgSrc: "/images/resumeBuilder/myResume.png" },
     // { name: "Transform CV", imgSrc: "/images/resumeBuilder/transform_cv.png" },
     {
       name: "Skill Assessments",
@@ -164,10 +168,13 @@ function Dashboard() {
             : "/myClients/ClientResume"
         );
         break;
+      case "Create New Cover Letter":
+        handleNavigation("/coverLetter");
+        break;
       case "My Clients":
         handleNavigation("/myClients");
         break;
-      case "My Resumes":
+      case "Collection":
         handleNavigation("/home/MyCollection");
         break;
       case "Transform CV":
@@ -535,7 +542,7 @@ function Dashboard() {
   const MyComponent = () => {
     return (
       <Document dpi={72}>
-         {selectResumeTemplate(resumeData.selectedResumeIndex)}
+        {selectResumeTemplate(resumeData.selectedResumeIndex)}
       </Document>
     );
   };
