@@ -3,13 +3,13 @@ import CoverForm from "../../components/featured/candidate/coverLetter/coverForm
 import CoverPreview from "../../components/featured/candidate/coverLetter/coverPreview";
 import { useRouter } from "next/router";
 
+
 function Index() {
+  const router = useRouter();
   const [selectedFont, setSelectedFont] = useState("Roboto");
   const [selectedColor, setSelectedColor] = useState();
   const [selectedResumeIndex, setSelectedResumeIndex] = useState();
-  const router = useRouter();
-  const { clientId, continueEdit } = router.query;
-
+  const { clientId } = router.query;
   const defaultState = {
     firstName: "",
     lastName: "",
@@ -61,7 +61,7 @@ function Index() {
         />
       </div>
       <div className="w-[59%] min-w-[508px] ">
-        <CoverPreview data={data} />
+        <CoverPreview data={data} clientId={clientId}/>
       </div>
     </div>
   );

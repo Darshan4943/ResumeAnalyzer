@@ -6,11 +6,14 @@ import CoustomForm from "./CoustomForm";
 import axios from "axios";
 import CustomTextEditor from "./CoustomFormat/CustomTextEditor";
 import { SparklingStarts } from "../../../../utils/svg";
+import MainTextEditor from "./CoustomFormat/MainTextEditor";
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
+import { AnimatePresence, motion } from "framer-motion";
+import { useRouter } from "next/router";
 
 function CoverForm({
   selectedResumeIndex,
@@ -23,7 +26,10 @@ function CoverForm({
   setData,
 }) {
   const [isAll, setIsAll] = useState(false);
+  const router = useRouter();
   const [isFormat, setIsFormat] = useState("standard");
+  const [FieldError, setFieldError] = useState("");
+  const [isError, setError] = useState(null);
   const userDataGlobal = useSelector((state) => state.userData);
   const taskRef = useRef(null);
   const [selectedDate, setSelectedDate] = useState(null);
@@ -44,7 +50,6 @@ function CoverForm({
   const renderTemplates = () => {
     const selectedStyle = {
       border: " 4px solid #06A9EF",
-
       height: " 210px",
       width: "auto",
     };
@@ -78,9 +83,44 @@ function CoverForm({
       />
     ));
   };
+
+  // Function to validate required fields
+  function validateRequiredFields(data) {
+    const requiredFields = [
+      "firstName",
+      "lastName",
+      "mobileNumber",
+      "email",
+      "dial_code",
+      "address",
+      "employerName",
+      "employerOrganizationName",
+      "employerAddress",
+      "employerCityState",
+      "employerCountry",
+    ];
+
+    let errors = {};
+
+    requiredFields.forEach((field) => {
+      if (!data[field]) {
+        errors[field] = `${field} is missing`;
+      }
+    });
+
+    return errors;
+  }
+
+ 
+
   const fetchCoverLetter = async () => {
     setLoading(true);
     try {
+      if (data) {
+        const errors = validateRequiredFields(data);
+        setError(errors);
+      }
+
       const response = await axios.post(
         "http://localhost:2000/api/cover-letter/transform",
         data
@@ -106,7 +146,7 @@ function CoverForm({
   }, []);
 
   const handleNavigate = () => {
-    setIsShow(false);
+
     if (data) {
       localStorage.setItem("customLetterData", JSON.stringify(data));
     }
@@ -117,7 +157,7 @@ function CoverForm({
   };
 
   return (
-    <div className="flex flex-col pr-[10px] ml:w-[100%] w-[100%] h-[88vh] relative  pb-4 gap-4 rounded-lg overflow-y-auto bg-white ">
+    <div className="flex flex-col pr-[10px] ml:w-[100%] w-[100%] h-[88vh] relative  pb-4 gap-4 rounded-lg overflow-y-auto  bg-white ">
       <div className="ml:flex hidden  flex-row gap-4 sticky top-0 z-[20] bg-white pb-2">
         <button
           className="p-[8px] border-[1px] bg-blue border-[#DEDEDE] rounded-[6px]  "
@@ -125,7 +165,7 @@ function CoverForm({
         >
           <svg
             className=" cursor-pointer"
-            onClick={() => router.push("/home/BuildResume")}
+            onClick={() => router.push("/home")}
             width="24"
             height="24"
             viewBox="0 0 40 40"
@@ -258,42 +298,41 @@ function CoverForm({
           </div>
         </div>
       )}
-
-      <div className="flex flex-col gap-[16px] sticky top-[40px] z-[10] bg-white pt-6 pb-4">
-        <ThemeForm
-          selectedResumeIndex={selectedResumeIndex}
-          selectedColor={selectedColor}
-          setSelectedColor={setSelectedColor}
-          setSelectedFont={setSelectedFont}
-          selectedFont={selectedFont}
-        />
-        <div className="bg-[#DEDEDE] w-full h-[1px]"> </div>
-        <div className="bg-[#F9F9F9] w-full flex rounded-[8px] text-[14px] font-semibold  ">
-          <button
-            className={`${isFormat === "standard"
-              ? "bg-[#06A9EF] py-[8px] px-[16px] flex justify-center items-center rounded-[8px] w-[50%] text-white"
-              : "py-[8px] px-[16px] flex justify-center items-center rounded-[8px] w-[50%]"
-              }`}
-            onClick={() => setIsFormat("standard")}
-          >
-            Standard Format
-          </button>
-          <button
-            className={`${isFormat === "custom"
-              ? "bg-[#06A9EF] py-[8px] px-[16px] flex justify-center items-center rounded-[8px] w-[50%] text-white"
-              : "py-[8px] px-[16px] flex justify-center items-center rounded-[8px] w-[50%]"
-              }`}
-            onClick={() => setIsFormat("custom")}
-          >
-            Custom Format
-          </button>
+      {isShow === false && (
+        <div className="flex flex-col gap-[16px] sticky top-[40px] z-[10] bg-white pt-5 pb-4">
+          <ThemeForm
+            selectedResumeIndex={selectedResumeIndex}
+            selectedColor={selectedColor}
+            setSelectedColor={setSelectedColor}
+            setSelectedFont={setSelectedFont}
+            selectedFont={selectedFont}
+          />
+          <div className="bg-[#DEDEDE] w-full h-[1px]"> </div>
+          <div className="bg-[#F9F9F9] w-full flex rounded-[8px] text-[14px] font-semibold  ">
+            <button
+              className={`${isFormat === "standard"
+                ? "bg-[#06A9EF] py-[8px] px-[16px] flex justify-center items-center rounded-[8px] w-[50%] text-white"
+                : "py-[8px] px-[16px] flex justify-center items-center rounded-[8px] w-[50%]"
+                }`}
+              onClick={() => setIsFormat("standard")}
+            >
+              Standard Format
+            </button>
+            <button
+              className={`${isFormat === "custom"
+                ? "bg-[#06A9EF] py-[8px] px-[16px] flex justify-center items-center rounded-[8px] w-[50%] text-white"
+                : "py-[8px] px-[16px] flex justify-center items-center rounded-[8px] w-[50%]"
+                }`}
+              onClick={() => setIsFormat("custom")}
+            >
+              Custom Format
+            </button>
+          </div>
         </div>
-      </div>
+      )}
       <div>
-
         {isShow === false && (
           <div className="flex flex-col gap-[16px] overflow-y-auto">
-
             <div className="bg-[#DEDEDE] w-full h-[1px]"> </div>
             <div className="flex flex-col gap-[16px] text-[14px] font-medium">
               <label className="font-montserrat text-[14px] font-[500] leading-[17.07px] text-left w-full">
@@ -377,6 +416,7 @@ function CoverForm({
                   selectedResumeIndex={selectedResumeIndex}
                   setSelectedResumeIndex={setSelectedResumeIndex}
                   isFormat={isFormat}
+                  isError={isError}
                 />
               </div>
             )}
@@ -402,7 +442,7 @@ function CoverForm({
 
         {isShow === true && (
           <>
-            <CustomTextEditor data={data} setData={setData} />
+            <MainTextEditor data={data} setData={setData} />
           </>
         )}
       </div>
@@ -437,54 +477,67 @@ function CoverForm({
                 )}
               </button>
             )}
-            {isFormat === "custom" && (
-              <button
-                className="bg-[#06A9EF] py-[8px] px-[16px] text-[12px] flex justify-center items-center rounded-[8px]  text-white"
-                onClick={handleCustomTextEditor}
-              >
-                Generate Letter
-              </button>
-            )}
+
           </div>
         )}
 
-        {isShow === true && (
-          <div className="flex flex-row justify-between items-center gap-[10px] ">
-            <div>
-              <div
-                className=" flex-row bg-[#F5F5F5] py-[8px] px-[16px] text-[12px] flex justify-between items-center rounded-[8px] gap-[8px]"
-                onClick={handleNavigate}
+
+      </div>
+      {/* <AnimatePresence>
+          {isShow && (
+            <>
+              <motion.div
+                initial={{ x: "-100%" }}
+                animate={{ x: 0 }}
+                exit={{ x: "-100%" }}
+                transition={{ duration: 0.5, ease: "easeInOut" }}
+                className="fixed z-[3000] min-w-[508px] w-[34%] mt-[22rem] flex flex-col gap-4  "
+                style={{
+                  background: "white",
+                  boxShadow: "0 0 10px rgba(255, 255, 255, 0.5)",
+
+                }}
               >
-                <svg
-                  className="min-h-[16px] min-w-[16px]"
-                  width="7"
-                  height="14"
-                  viewBox="0 0 7 14"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M4.93333 7.00026L0.233333 2.30026C0.0777778 2.1447 0 1.95582 0 1.73359C0 1.51137 0.0777778 1.32248 0.233333 1.16693C0.388889 1.01137 0.577778 0.933594 0.8 0.933594C1.02222 0.933594 1.21111 1.01137 1.36667 1.16693L6.35 6.15026C6.47222 6.27248 6.56111 6.40582 6.61667 6.55026C6.67222 6.69471 6.7 6.84471 6.7 7.00026C6.7 7.15582 6.67222 7.30582 6.61667 7.45026C6.56111 7.59471 6.47222 7.72804 6.35 7.85026L1.36667 12.8336C1.21111 12.9891 1.02222 13.0669 0.8 13.0669C0.577778 13.0669 0.388889 12.9891 0.233333 12.8336C0.0777778 12.678 0 12.4892 0 12.2669C0 12.0447 0.0777778 11.8558 0.233333 11.7003L4.93333 7.00026Z"
-                    fill="#1C1B1F"
-                  />
-                </svg>
-                <span className="text-[12px] text-[#333333] font-[600] font-Montserrat leading-[16px]">
-                  Edit
-                </span>
-              </div>
-            </div>
-            <div className="flex flex-row justify-between items-center  gap-[10px] ">
-              <button
-                className="flex  items-center font-montserrat text-xs font-semibold btn_outline gap-[6px]"
-                // onClick={generateText}
-              >
-                <SparklingStarts />
-                <span className="text-[12px] text-[#333333] font-[600] font-Montserrat leading-[16px]">
-                  Rephrase with AI
-                </span>
-              </button>
-              <button
-                className={`font-montserrat text-white font-medium text-[12px] px-[16px] py-[8px] rounded-[8px]  bg-[#DEDEDE] w-[60px] h-[32px] 
+
+                <>
+                  <CustomTextEditor data={data} setData={setData} />
+                </>
+                <div className="flex flex-row justify-between items-center gap-[10px] ">
+                  <div>
+                    <div
+                      className=" flex-row bg-[#F5F5F5] py-[8px] px-[16px] text-[12px] flex justify-between items-center rounded-[8px] gap-[8px] cursor-pointer"
+                      onClick={() => { handleNavigate(); setIsShow(false) }}
+                    >
+                      <svg
+                        className="min-h-[16px] min-w-[16px]"
+                        width="7"
+                        height="14"
+                        viewBox="0 0 7 14"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M4.93333 7.00026L0.233333 2.30026C0.0777778 2.1447 0 1.95582 0 1.73359C0 1.51137 0.0777778 1.32248 0.233333 1.16693C0.388889 1.01137 0.577778 0.933594 0.8 0.933594C1.02222 0.933594 1.21111 1.01137 1.36667 1.16693L6.35 6.15026C6.47222 6.27248 6.56111 6.40582 6.61667 6.55026C6.67222 6.69471 6.7 6.84471 6.7 7.00026C6.7 7.15582 6.67222 7.30582 6.61667 7.45026C6.56111 7.59471 6.47222 7.72804 6.35 7.85026L1.36667 12.8336C1.21111 12.9891 1.02222 13.0669 0.8 13.0669C0.577778 13.0669 0.388889 12.9891 0.233333 12.8336C0.0777778 12.678 0 12.4892 0 12.2669C0 12.0447 0.0777778 11.8558 0.233333 11.7003L4.93333 7.00026Z"
+                          fill="#1C1B1F"
+                        />
+                      </svg>
+                      <span className="text-[12px] text-[#333333] font-[600] font-Montserrat leading-[16px]">
+                        Edit
+                      </span>
+                    </div>
+                  </div>
+                  <div className="flex flex-row justify-between items-center  gap-[10px] ">
+                    <button
+                      className="flex  items-center font-montserrat text-xs font-semibold btn_outline gap-[6px]"
+                    // onClick={generateText}
+                    >
+                      <SparklingStarts />
+                      <span className="text-[12px] text-[#333333] font-[600] font-Montserrat leading-[16px]">
+                        Rephrase with AI
+                      </span>
+                    </button>
+                    <button
+                      className={`font-montserrat text-white font-medium text-[12px] px-[16px] py-[8px] rounded-[8px]  bg-[#DEDEDE] w-[60px] h-[32px] 
                 }`}
                 // onClick={() => setData({ ...data, summery: text })}
                 // style={{ opacity: text === data?.summery ? 0.5 : 1 }}
@@ -496,7 +549,10 @@ function CoverForm({
         )}
       </div>
     </div>
-  );
+  ) */}
+  </div>
+  )
 }
 
 export default CoverForm;
+

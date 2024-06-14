@@ -16,6 +16,8 @@ function ClientResume() {
     setClientCount(parseInt(clientCount));
   };
 
+  const {cover} =router.query
+
   useEffect(() => {
     getLimits();
   }, []);
@@ -141,7 +143,7 @@ function ClientResume() {
                   {details?.map((detail, index) => (
                     <div
                       onClick={() =>
-                        router.push(`/home/BuildResume?clientId=${detail._id}`)
+                        router.push( cover ?`/coverLetter?clientId=${detail._id}`  :`/home/BuildResume?clientId=${detail._id}` )
                       }
                       key={index}
                       className="flex flex-col gap-4 cursor-pointer  p-4 rounded-[24px] sm:min-w-[224px] min-w-[218px] max-w-[224px] break-all"
