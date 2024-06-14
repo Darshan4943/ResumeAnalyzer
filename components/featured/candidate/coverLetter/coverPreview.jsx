@@ -18,9 +18,16 @@ function CoverPreview({ data }) {
     const [download, setDownload] = useState(false);
     console.log(download)
     const [loading1, setLoading1] = useState(false);
+
+
     const addCoverLetter = async () => {
-        
         try {
+            const pdfBlob = await generatePdfBlob();
+            if (!pdfBlob) {
+                return;
+
+            }
+
             const formData = new FormData();
             if (Object.keys(data).length > 0) {
                 Object.keys(data).map((key) => {
@@ -33,14 +40,15 @@ function CoverPreview({ data }) {
                     }
                 });
             }
-            formData.append("pdfBlob", blob);
+            formData.append("pdfBlob", pdfBlob);
             formData.append("userId", userDataGlobal._id);
             formData.append("fileName", name);
+
             const response = await axios.post('http://localhost:2000/api/cover/add', formData);
             toast.success("Cover Letter added successfully");
             setLoading(false);
             setLoading1(false);
-            setDownload(false)
+            setDownload(false);
             return response.data;
         } catch (error) {
             console.error('Error adding cover letter:', error);
@@ -50,46 +58,92 @@ function CoverPreview({ data }) {
         }
     };
 
-  
+
     const generatePdfBlob = async () => {
         const input1 = page1Ref.current;
         const input2 = page2Ref.current;
-    
+
         try {
             const canvas1 = await html2canvas(input1, { scale: 5 });
             const imgData1 = canvas1.toDataURL("image/jpeg", 0.7);
-    
+
             const canvas2 = await html2canvas(input2, { scale: 5 });
             const imgData2 = canvas2.toDataURL("image/jpeg", 0.7);
-    
+
             const pdf = new jsPDF("p", "pt", "a4");
             pdf.addImage(imgData1, "JPEG", 0, 0, 595.28, 841.89);
             pdf.addPage();
             pdf.addImage(imgData2, "JPEG", 0, 0, 595.28, 841.89);
-    
+
             const pdfBlob = pdf.output("blob");
-            setBlob(pdfBlob);
-    
-            
-                pdf.save(`${data.firstName}_cover_letter.pdf`);
-                setDownload(false); 
-          
+
+
+
+            return pdfBlob;
         } catch (error) {
             console.error("Error generating PDF:", error);
+            return null;
         }
     };
-    
-    
 
-    const handleSave = async () => {
-  
-        await generatePdfBlob();
-        await addCoverLetter();
+
+    const downloadPdfBlob = async () => {
+        const input1 = page1Ref.current;
+        const input2 = page2Ref.current;
+
+        try {
+            const canvas1 = await html2canvas(input1, { scale: 5 });
+            const imgData1 = canvas1.toDataURL("image/jpeg", 0.7);
+
+            const canvas2 = await html2canvas(input2, { scale: 5 });
+            const imgData2 = canvas2.toDataURL("image/jpeg", 0.7);
+
+            const pdf = new jsPDF("p", "pt", "a4");
+            pdf.addImage(imgData1, "JPEG", 0, 0, 595.28, 841.89);
+            pdf.addPage();
+            pdf.addImage(imgData2, "JPEG", 0, 0, 595.28, 841.89);
+
+            const pdfBlob = pdf.output("blob");
+
+            pdf.save(`${data.firstName}_cover_letter.pdf`);
+            setDownload(false);
+
+            return pdfBlob;
+        } catch (error) {
+            console.error("Error generating PDF:", error);
+            return null;
+        }
     };
 
+
+
+    const handleDownload = async () => {
+        const pdfBlob = await downloadPdfBlob();
+        if (pdfBlob) {
+            await addCoverLetter(pdfBlob);
+            console.log("PDF downloaded successfully");
+        } else {
+            console.error("Failed to download PDF");
+            setLoading(false);
+            setLoading1(false);
+
+        }
+    };
+
+    const handleSave = async () => {
+        const pdfBlob = await generatePdfBlob();
+        if (pdfBlob) {
+
+            await addCoverLetter(pdfBlob);
+        } else {
+            console.error("Failed to generate PDF");
+            setLoading(false);
+            setLoading1(false);
+        }
+    };
     const DownloadButton = () => (
         <button
-            onClick={()=>{handleSave();setDownload(true);setLoading1(true)}}
+            onClick={() => { handleDownload(); setLoading1(true) }}
             className="hover:bg-[#06A9EF] hover-svg-white h-[38.33px] hover:text-[white] flex gap-1 text-[14px] w-fit justify-center font-montserrat font-semibold px-3 py-2 rounded-[8px] items-center border border-[#06A9EF]"
             disabled={loading1}
             style={{ opacity: loading1 ? "0.5" : 1 }}
@@ -129,13 +183,13 @@ function CoverPreview({ data }) {
                     </g>
                 </svg>
             )}
-           
+
         </button>
     );
 
     return (
-        <div className='flex flex-col gap-4 '>
-            <div className='flex justify-between'>
+        <div className='flex flex-col gap-4 relative h-[88vh] '>
+            <div className='flex justify-between sticky top-0'>
                 <div className="flex items-center justify-between ml:w-[58%] w-full gap-4">
                     <div
                         className="text-[14px] scr460:text-[20px] font-montserrat font-medium flex gap-3 items-center cursor-pointer"
@@ -161,7 +215,7 @@ function CoverPreview({ data }) {
                 </div>
                 <div className='flex gap-4'>
                     <button
-                        onClick={()=>{handleSave();setLoading(true)}}
+                        onClick={() => { handleSave(); setLoading(true) }}
                         className="flex gap-1 h-[38.33px] text-[14px] w-[150px] justify-center text-[#FFF] font-montserrat font-semibold px-3 py-2 rounded-[8px] items-center border border-[#06A9EF] bg-[#06A9EF]"
                     >
                         {loading ? (
@@ -190,20 +244,20 @@ function CoverPreview({ data }) {
                 </div>
             </div>
             <div className='   overflow-auto ' >
-                <CoverLetter11 data={data}  />
+                <CoverLetter11 data={data} />
             </div>
             <div className='absolute  left-[10000px]' >
                 <CoverLetter11 data={data} page1Ref={page1Ref} page2Ref={page2Ref} />
             </div>
 
             {namePreview && (
-        <FileNameModel
-          data={data}
-          setNamePreview={setNamePreview}
-          setFunction={(data) => setName(data)}
-          clientId={clientId}
-        />
-      )}
+                <FileNameModel
+                    data={data}
+                    setNamePreview={setNamePreview}
+                    setFunction={(data) => setName(data)}
+                    clientId={clientId}
+                />
+            )}
         </div>
     );
 }
