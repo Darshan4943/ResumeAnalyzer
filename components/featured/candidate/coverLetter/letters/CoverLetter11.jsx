@@ -1,6 +1,9 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
+import { formatDateInNumber } from "../../../../../utils/data";
 
 function CoverLetter11({ page1Ref, page2Ref, data }) {
+  console.log(888, data);
+
   const firstPageRef = useRef(null);
   const [splitContents, setSplitContent] = useState({ first: [], second: [] });
 
@@ -39,9 +42,10 @@ function CoverLetter11({ page1Ref, page2Ref, data }) {
       splitContent();
     }
   }, [data?.passages, splitContent]);
+  console.log("date", data?.letterDate);
 
   return (
-    <div className="flex flex-col border-2 border-[#DEDEDE] ">
+    <div className="flex flex-col border-2 gap-[36px] border-[#DEDEDE] ">
       <div
         ref={page1Ref}
         className="bg-[#FFFFFF] w-[595px] min-h-[700px] p-[24px] gap-[16px] flex flex-col "
@@ -49,7 +53,7 @@ function CoverLetter11({ page1Ref, page2Ref, data }) {
         <div className="flex flex-row justify-between w-full">
           <div className="flex flex-col w-[70%]">
             <span className="text-[42.51px] font-[400] text-[#414042]">
-              {data?.firstName}
+              {data?.firstName} {data?.lastName}
             </span>
             <span className="text-[14px] font-[400] text-[#414042]">
               {data?.designation}
@@ -79,7 +83,7 @@ function CoverLetter11({ page1Ref, page2Ref, data }) {
               </svg>
 
               <span className="text-[10px] font-[400] text-[#414042]">
-                {data?.mobileNo}
+                {data?.mobileNumber}
               </span>
             </div>
             <div>
@@ -143,29 +147,32 @@ function CoverLetter11({ page1Ref, page2Ref, data }) {
             <br />
 
             <span className="text-[12px] font-[400] text-[#414042]">
-              {data?.toAddress?.name}
+              {data?.employerName}
             </span>
             <span className="text-[12px] font-[400] text-[#414042]">
-              {data?.toAddress?.designation}
+              {data?.designation}
             </span>
             <span className="text-[12px] font-[400] text-[#414042]">
-              {data?.toAddress?.company}
+              {data?.employerOrganizationName}
             </span>
             <span className="text-[12px] font-[400] text-[#414042]">
-              {data?.toAddress?.address}
+              {data?.employerAddress} {data?.employerCityState}{" "}
+              {data?.employerCountry}
             </span>
           </div>
 
           <div className="flex flex-col gap-[16px] w-[30%]">
             <span className="text-[12px] font-[400] text-[#414042]">
-              Date :- {data?.toAddress?.date}
+              Date :-{" "}
+              {data?.letterDate != {} && formatDateInNumber(data?.letterDate)}
+              {/* {data?.toAddress?.date} */}
             </span>
           </div>
         </div>
         <div className="w-full h-[1px] border-[1px] border-[#414042]"></div>
         <div className="flex flex-col justify-start w-full gap-[8px]">
           <span className="text-[12px] font-[400] text-[#6D6E71]">
-            Dear {data?.recieverName},
+            Dear {data?.employerName},
           </span>
           <div className="text-[12px] font-[400] text-[#6D6E71]">
             {splitContents.first.map((passage, index) => (
@@ -174,9 +181,18 @@ function CoverLetter11({ page1Ref, page2Ref, data }) {
               </p>
             ))}
           </div>
+          {splitContents?.second?.length == 0 && (
+            <div className="flex flex-col w-full gap-[2px]">
+              <span className="text-[10px] font-[400] text-[#6D6E71] ">
+                Warm regards,
+              </span>
+              <span className="text-[10px] font-[400] text-[#6D6E71]  ">
+                {data?.firstName} {data?.lastName}
+              </span>
+            </div>
+          )}
         </div>
       </div>
-
       {splitContents?.second?.length > 0 && (
         <>
           <div className="w-full h-[2px] border-2 border-[#DEDEDE]"></div>
@@ -194,6 +210,16 @@ function CoverLetter11({ page1Ref, page2Ref, data }) {
                     </p>
                   ))}
                 </div>
+                {splitContents?.second?.length > 0 && (
+                  <div className="flex flex-col w-full gap-[2px]">
+                    <span className="text-[10px] font-[400] text-[#6D6E71] ">
+                      Warm regards,
+                    </span>
+                    <span className="text-[10px] font-[400] text-[#6D6E71]  ">
+                      {data?.firstName} {data?.lastName}
+                    </span>
+                  </div>
+                )}
               </div>
             </div>
           </div>
