@@ -3,7 +3,7 @@ import { telCode } from "../../../../../utils/data";
 import ReactSelect from "react-select";
 import { camelCase } from "../../../../../utils/middleware";
 
-const PersonalDetails = ({ data, setData }) => {
+const PersonalDetails = ({ data, setData, errors }) => {
   const [isShow, setIsShow] = useState(true);
   const [isChecked, setIsChecked] = useState(true);
   const [isModified, setIsModified] = useState(false);
@@ -48,6 +48,7 @@ const PersonalDetails = ({ data, setData }) => {
       address: data?.address,
     });
   }, [data]);
+  
 
   const handleItemClick = (item) => {
     setSelectedItem(item);
@@ -266,18 +267,27 @@ const PersonalDetails = ({ data, setData }) => {
                   employer.label === "Last Name"
               )
               .map((employer, index) => (
-                <div className="flex flex-col gap-[8px] w-full" key={index}>
-                  <label className="font-montserrat text-[14px] font-medium leading-[17.07px] text-left">
-                    {employer.label}
-                  </label>
-                  <input
-                    type={employer.type}
-                    name={employer.name}
-                    placeholder={employer.placeholder}
-                    value={personalData[employer.name]}
-                    onChange={handleInputChange}
-                    className="w-full pt-[12px]  pr-[16px] pb-[12px] pl-[16px] gap-0 border border-solid border-[#DEDEDE] rounded-[8px] text-[12px] leading-[16px] text-[#646464] font-[400]"
-                  />
+                <div key={index}>
+                  <div className="flex flex-col gap-[8px] w-full" key={index}>
+                    <label className="font-montserrat text-[14px] font-medium leading-[17.07px] text-left">
+                      {employer.label}
+                    </label>
+                    <input
+                      type={employer.type}
+                      name={employer.name}
+                      placeholder={employer.placeholder}
+                      value={personalData[employer.name]}
+                      onChange={handleInputChange}
+                      className="w-full pt-[12px]  pr-[16px] pb-[12px] pl-[16px] gap-0 border border-solid border-[#DEDEDE] rounded-[8px] text-[12px] leading-[16px] text-[#646464] font-[400]"
+                    />
+                  </div>
+                  {errors && errors[employer.name] && (
+                    <span className="text-red text-[12px]">
+                      {errors & (errors[employer.name] === "firstName")
+                        ? "First name is required!"
+                        : "Last name is required!"}
+                    </span>
+                  )}
                 </div>
               ))}
           </div>
@@ -334,6 +344,14 @@ const PersonalDetails = ({ data, setData }) => {
                 disabled={!isChecked}
               />
             </div>
+            {(errors && errors?.mobileNumber) ||
+              (errors?.dial_code && (
+                <span className="text-red text-[12px]">
+                  {errors.mobileNumber
+                    ? "mobile number required"
+                    : "please select country code"}
+                </span>
+              ))}
           </div>
 
           <div className="flex flex-col gap-[8px]">
@@ -343,18 +361,28 @@ const PersonalDetails = ({ data, setData }) => {
                   employer.label === "Address" || employer.label === "Email ID"
               )
               .map((employer, index) => (
-                <div className="flex flex-col gap-[8px] w-full" key={index}>
-                  <label className="font-montserrat text-[14px] font-medium leading-[17.07px] text-left flex-wrap">
-                    {employer.label}
-                  </label>
-                  <input
-                    type={employer.type}
-                    name={employer.name}
-                    placeholder={employer.placeholder}
-                    value={personalData[employer.name]}
-                    onChange={handleInputChange}
-                    className="w-full pt-[12px] pr-[16px] pb-[12px] pl-[16px] gap-0 border border-solid border-[#DEDEDE] rounded-[8px] text-[12px] leading-[16px] text-[#646464] font-[400]"
-                  />
+                <div key={index}>
+                  <div className="flex flex-col gap-[8px] w-full">
+                    <label className="font-montserrat text-[14px] font-medium leading-[17.07px] text-left flex-wrap">
+                      {employer.label}
+                    </label>
+                    <input
+                      type={employer.type}
+                      name={employer.name}
+                      placeholder={employer.placeholder}
+                      value={personalData[employer.name]}
+                      onChange={handleInputChange}
+                      className="w-full pt-[12px] pr-[16px] pb-[12px] pl-[16px] gap-0 border border-solid border-[#DEDEDE] rounded-[8px] text-[12px] leading-[16px] text-[#646464] font-[400]"
+                    />
+                  </div>
+
+                  {errors && errors[employer.name] && (
+                    <span className="text-[12px] text-red">
+                      {errors & (errors[employer.name] === "address")
+                        ? "address is required!"
+                        : "email id is required!"}
+                    </span>
+                  )}
                 </div>
               ))}
           </div>

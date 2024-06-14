@@ -1,91 +1,62 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
+import { formatDateInNumber } from "../../../../../utils/data";
 
-const CoverLetter4 = ({page1Ref,page2Ref}) => {
+const CoverLetter4 = ({ page1Ref, page2Ref, data }) => {
   const firstPageRef = useRef(null);
-  const pageRef = useRef(null);
-  const firstContainer = useRef(null);
-  const secondContainer = useRef(null);
-  const thirdContainer = useRef(null);
-  const [splitContents, setSplitContent] = useState({ first: "", second: "" });
-  const data = {
-    name: "Emily Jones",
-    title: "Digital Marketing Expert",
-    email: "alisondanes111@gmail.com",
-    phone: "+27 8800088889",
-    address: "Pune, Maharashtra, India",
-    date: "03-06-2024",
-    to: {
-      name: "Travis Walkman",
-      designation: "Human Resources Manager",
-      company: "Skilotech HRMS Pvt. Ltd.",
-      address: "321 Employment Avenue, Harare, Zimbabwe, SA.",
-    },
-    paragraph: `
-     Dear [Hiring Manager’s Name],
+  const [splitContents, setSplitContent] = useState({ first: [], second: [] });
 
+  const splitContent = useCallback(() => {
+    const firstPage = firstPageRef.current;
+    const firstPageHeight = 350; // Set the fixed height you want for the paragraph div
 
-Dear [Hiring Manager’s Name],
+    // Create a temporary element to measure content height
+    const tempDiv = document.createElement("div");
+    tempDiv.style.position = "absolute";
+    tempDiv.style.visibility = "hidden";
+    tempDiv.style.width = firstPage?.clientWidth + "px";
+    document.body.appendChild(tempDiv);
 
-I am writing to express my interest in the Product Designer (UI/UX) position at [Company Name], as advertised on [where you found the job posting]. With a strong background in UI/UX design and a passion for creating user-centric products, I am excited about the opportunity to contribute to your innovative team.
-With over [number] years of experience in product design, I have honed my skills in user research, wireframing, prototyping, and visual design. My proficiency in tools such as Sketch, Figma, Adobe XD, and InVision, combined with my ability to collaborate effectively with cross-functional teams, has allowed me to successfully deliver intuitive and engaging user experiences.
-ur team.
+    let firstHalf = [];
+    let secondHalf = [...data.passages];
+    let tempContent = "";
 
-Warm regards,
-[Your Name]
+    for (let i = 0; i < data.passages.length; i++) {
+      const passage = data.passages[i];
+      tempContent += `<p style="margin: 16px 0; text-indent: 1em;">${passage}</p>`;
+      tempDiv.innerHTML = tempContent;
 
-Warm regards,
-[Your Name]
-    `,
-  };
+      if (tempDiv.clientHeight <= firstPageHeight) {
+        firstHalf.push(passage);
+        secondHalf.shift();
+      } else {
+        break;
+      }
+    }
+
+    document.body.removeChild(tempDiv);
+    setSplitContent({ first: firstHalf, second: secondHalf });
+  }, [data?.passages]);
 
   useEffect(() => {
-    const splitContent = () => {
-      const firstPage = firstPageRef.current;
-      const firstPageHeight = 585;
-      const tempDiv = document.createElement("div");
-      tempDiv.style.position = "absolute";
-      tempDiv.style.visibility = "hidden";
-      tempDiv.style.width = firstPage?.clientWidth + "px";
-
-      tempDiv.innerHTML = data.paragraph;
-      document.body.appendChild(tempDiv);
-
-      let splitIndex = data.paragraph.length;
-      let firstHalf = "";
-      let secondHalf = data.paragraph;
-
-      while (splitIndex > 0) {
-        firstHalf = data.paragraph.substring(0, splitIndex);
-        secondHalf = data.paragraph.substring(splitIndex);
-
-        tempDiv.innerHTML = firstHalf;
-
-        if (tempDiv.clientHeight <= firstPageHeight) {
-          break;
-        }
-
-        splitIndex--;
-      }
-
-      document.body.removeChild(tempDiv);
-      setSplitContent({ first: firstHalf, second: secondHalf });
-    };
-    splitContent();
-  }, []);
-  console.log("splitData", splitContents);
+    if (data?.passages) {
+      splitContent();
+    }
+  }, [data?.passages, splitContent]);
 
   return (
     <>
-     
       <div className="flex flex-col w-[595px] bg-[#FFFFFF] ">
-        <div className="flex flex-col gap-[24px] px-[42px] pt-[42px] justify-between" ref={page1Ref}>
+        <div
+          className="flex flex-col gap-[24px] px-[42px] pt-[42px] justify-between"
+          ref={page1Ref}
+        >
           <div className="flex flex-row gap-[24px] ">
             <div>
               <h5 className="font-montserrat text-[40px] font-normal leading-48.76 text-[#344A50] text-left">
-                {data.name}
+                {data.firstName} {data.lastName}
               </h5>
               <h6 className="font-montserrat text-[14px] font-normal leading-48.76 text-[#AC5428] text-left">
-                {data.title}
+                {data.designation}
               </h6>
             </div>
             <div className="flex flex-col gap-[8px] ">
@@ -105,7 +76,7 @@ Warm regards,
                   />
                 </svg>
                 <div className="font-montserrat text-[10px] font-medium leading-[12.19px] text-[#344A50] text-left">
-                  Pune, Maharashtra, India Pune, Maharashtra, India
+                  {data?.address}
                 </div>
               </div>
               <div className="flex flex-row gap-[12px] items-center">
@@ -124,7 +95,7 @@ Warm regards,
                   />
                 </svg>
                 <div className="font-montserrat text-[10px] font-medium leading-[12.19px] text-[#344A50] text-left">
-                  kshitijwaghmare111@mail.com
+                  {data?.email}
                 </div>
               </div>
               <div className="flex flex-row gap-[12px]  items-center">
@@ -143,7 +114,7 @@ Warm regards,
                   />
                 </svg>
                 <div className="font-montserrat text-[10px] font-medium leading-[12.19px] text-[#344A50] text-left">
-                  +123 456 789 123
+                  {data?.mobileNumber}
                 </div>
               </div>
             </div>
@@ -155,13 +126,27 @@ Warm regards,
                 Date :
               </h6>
               <p className="text-[12px] text-[#333333] font-Montserrat font-normal leading-[14.63px] text-left">
-                03-06-2024
+                {data?.letterDate != {} && formatDateInNumber(data?.letterDate)}
               </p>
             </div>
 
             <div className="flex flex-row gap-[24px]">
               <div className="font-Montserrat text-[12px] font-normal leading-[12px] text-[#161616] w-[307px] text-left">
-                <p>{splitContents.first}</p>
+                {splitContents.first.map((passage, index) => (
+                  <p key={index} style={{ margin: "16px 0" }}>
+                    {passage}
+                  </p>
+                ))}
+                {splitContents?.second?.length == 0 && (
+                  <div className="flex flex-col w-full gap-[2px]">
+                    <span className="text-[10px] font-[400] text-[#161616] ">
+                      Warm regards,
+                    </span>
+                    <span className="text-[10px] font-[400] text-[#161616]  ">
+                      {data?.firstName} {data?.lastName}
+                    </span>
+                  </div>
+                )}
               </div>
               <div className="flex flex-col w-[180px]">
                 <div className="flex flex-col ">
@@ -169,30 +154,47 @@ Warm regards,
                     To,
                   </h6>
                   <h6 className="text-[12px] text-[#AC5428] font-Montserrat font-semibold leading-[16px] text-left">
-                    {data.to.name}
+                    {data?.employerName}
                   </h6>
                   <p className="text-[12px] text-[#797979] font-Montserrat font-normal leading-[16px] text-left">
-                    {data.to.designation} {data.to.company} {data.to.address}
+                    {data?.designation}
+                  </p>
+                  <p className="text-[12px] text-[#797979] font-Montserrat font-normal leading-[16px] text-left">
+                    {data?.employerOrganizationName}
+                  </p>
+                  <p className="text-[12px] text-[#797979] font-Montserrat font-normal leading-[16px] text-left">
+                    {data?.employerAddress} {data?.employerCityState}{" "}
+                    {data?.employerCountry}
                   </p>
                 </div>
               </div>
             </div>
-
-           
           </div>
         </div>
-        {splitContents.second && (
-              <div className="flex flex-row gap-[24px]" ref={page2Ref}>
-                <div className="font-Montserrat text-[12px] font-normal leading-[12px] text-[#161616] w-[307px] text-left">
-                  <p>{splitContents.second}</p>
-                </div>
-                <div className="flex flex-col w-[164px]">
-                  <div className="flex flex-col">
-                    <h6>{data.content}</h6>
-                  </div>
-                </div>
+        {splitContents?.second?.length > 0 && (
+          <div
+            className="flex flex-col gap-[24px] px-[42px] pt-[42px]"
+            ref={page2Ref}
+          >
+            <div className="font-Montserrat text-[12px] font-normal leading-[12px] text-[#161616] w-[307px] text-left">
+              {splitContents.second.map((passage, index) => (
+                <p key={index} style={{ margin: "16px 0" }}>
+                  {passage}
+                </p>
+              ))}
+            </div>
+            {splitContents?.second?.length > 0 && (
+              <div className="flex flex-col w-full gap-[2px]">
+                <span className="text-[10px] font-[400] text-[#161616] ">
+                  Warm regards,
+                </span>
+                <span className="text-[10px] font-[400] text-[#161616]  ">
+                  {data?.firstName} {data?.lastName}
+                </span>
               </div>
             )}
+          </div>
+        )}
       </div>
     </>
   );

@@ -16,6 +16,7 @@ export const StandaredForm = ({
   setSelectedColor,
   setSelectedFont,
   selectedFont,
+  isError,
 }) => {
   return (
     <>
@@ -31,13 +32,14 @@ export const StandaredForm = ({
             setSelectedColor={setSelectedColor}
             selectedResumeIndex={selectedResumeIndex}
             setSelectedResumeIndex={setSelectedResumeIndex}
+            errors={isError}
           />
           <div className="w-full h-[0px] gap-0 border-t rotate-0 border-[#DEDEDE] "></div>
-          <EmployerDetails data={data} setData={setData} />
+          <EmployerDetails data={data} setData={setData} errors={isError} />
           <div className="w-full h-[0px] gap-0 border-t rotate-0 border-[#DEDEDE] "></div>
-          <JobDetails data={data} setData={setData} />
+          <JobDetails data={data} setData={setData} errors={isError} />
           <div className="w-full h-[0px] gap-0 border-t rotate-0 border-[#DEDEDE] "></div>
-          <ProjectInternship data={data} setData={setData} />
+          <ProjectInternship data={data} setData={setData} errors={isError} />
         </>
       )}
       {contentSituation === "Fresher" && (

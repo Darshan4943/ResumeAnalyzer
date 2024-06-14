@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Close_svg } from "../../../../../utils/svg";
 
-const JobDetails = ({ data, setData }) => {
+const JobDetails = ({ data, setData, isFormat }) => {
   const [isShow, setIsShow] = useState(true);
   const [inputValue, setInputValue] = useState("");
   const [requiredSkills, setRequiredSkills] = useState([
@@ -171,6 +171,7 @@ const JobDetails = ({ data, setData }) => {
       setInputValue("");
     }
   };
+  console.log(485, isFormat);
 
   return (
     <div className="flex flex-col gap-[16px] w-full bg-white py-4">
@@ -278,23 +279,28 @@ const JobDetails = ({ data, setData }) => {
         </div>
       )}
       */}
+
       {isShow && (
         <div className="flex flex-col gap-[8px]">
-          <div className="flex flex-col gap-[8px]">
-            <label className="font-montserrat text-[14px] font-medium leading-[17.07px] text-left">
-              Desired Job Title
-            </label>
-            <input
-              type="text"
-              name="jobTitle"
-              placeholder="Enter Your Desired Job Title"
-              value={JobData["jobTitle"]}
-              onChange={handleInputChange}
-              className={`w-full pt-[12px] pr-[16px] pb-[12px] pl-[16px] gap-0 border border-solid rounded-[8px] text-[12px] leading-[16px] text-[#646464] font-[400] ${
-                formErrors["jobTitle"] ? "border-[#C00000]" : "border-[#DEDEDE]"
-              }`}
-            />
-          </div>
+          {isFormat !== "custom" && (
+            <div className="flex flex-col gap-[8px]">
+              <label className="font-montserrat text-[14px] font-medium leading-[17.07px] text-left">
+                Desired Job Title
+              </label>
+              <input
+                type="text"
+                name="jobTitle"
+                placeholder="Enter Your Desired Job Title"
+                value={JobData["jobTitle"]}
+                onChange={handleInputChange}
+                className={`w-full pt-[12px] pr-[16px] pb-[12px] pl-[16px] gap-0 border border-solid rounded-[8px] text-[12px] leading-[16px] text-[#646464] font-[400] ${
+                  formErrors["jobTitle"]
+                    ? "border-[#C00000]"
+                    : "border-[#DEDEDE]"
+                }`}
+              />
+            </div>
+          )}
 
           <div className="flex flex-row gap-[16px] justify-between it">
             {inputFields
@@ -344,89 +350,115 @@ const JobDetails = ({ data, setData }) => {
               ))}
           </div>
 
-          <div className="flex flex-col gap-[8px]">
-            {inputFields
-              .filter(
-                (employer) =>
-                  employer.label === "Organization Location" ||
-                  employer.label === "Roles & Responsibilities"
-              )
-              .map((employer, index) => (
-                <div className="flex flex-col gap-[8px] w-full" key={index}>
-                  <label className="font-montserrat text-[14px] font-medium leading-[17.07px] text-left flex-wrap">
-                    {employer.label}
-                  </label>
-                  <input
-                    type={employer.type}
-                    name={employer.name}
-                    placeholder={employer.placeholder}
-                    value={JobData[employer.name]}
-                    onChange={handleInputChange}
-                    className="w-full pt-[12px] pr-[16px] pb-[12px] pl-[16px] gap-0 border border-solid border-[#DEDEDE] rounded-[8px] text-[12px] leading-[16px] text-[#646464] font-[400]"
-                  />
-                </div>
-              ))}
-          </div>
-
-          <div className="flex flex-col gap-[8px]">
-            <label className="font-montserrat text-[14px] font-medium leading-[17.07px] text-left">
-              Required Skills
-            </label>
-
-            <div className=" flex flex-row justify-between w-full pt-[12px] pr-[16px] pb-[12px] pl-[16px] gap-0 border border-solid border-[#DEDEDE] rounded-[8px] ">
-              <input
-                type="text"
-                placeholder="e.g. Javascript"
-                value={inputValue}
-                onChange={handleInputSkills}
-                className=" text-[12px]  text-[#646464] font-[400]"
-              />
-              <svg
-                onClick={addSkill}
-                width="20"
-                height="20"
-                viewBox="0 0 20 20"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                className="min-w-[20] min-h-[20] cursor-pointer"
-              >
-                <g mask="url(#mask0_3486_37645)">
-                  <path
-                    d="M9.25 10.75H5.75C5.5375 10.75 5.35938 10.6785 5.21563 10.5356C5.07188 10.3927 5 10.2156 5 10.0044C5 9.79313 5.07188 9.61458 5.21563 9.46875C5.35938 9.32292 5.5375 9.25 5.75 9.25H9.25V5.75C9.25 5.5375 9.32146 5.35937 9.46438 5.21562C9.60729 5.07187 9.78438 5 9.99563 5C10.2069 5 10.3854 5.07187 10.5312 5.21562C10.6771 5.35937 10.75 5.5375 10.75 5.75V9.25H14.25C14.4625 9.25 14.6406 9.32146 14.7844 9.46438C14.9281 9.60729 15 9.78438 15 9.99563C15 10.2069 14.9281 10.3854 14.7844 10.5312C14.6406 10.6771 14.4625 10.75 14.25 10.75H10.75V14.25C10.75 14.4625 10.6785 14.6406 10.5356 14.7844C10.3927 14.9281 10.2156 15 10.0044 15C9.79313 15 9.61458 14.9281 9.46875 14.7844C9.32292 14.6406 9.25 14.4625 9.25 14.25V10.75Z"
-                    fill="#1C1B1F"
-                  />
-                </g>
-              </svg>
-            </div>
-
-            <div className="flex flex-row gap-[8px] flex-wrap w-full">
-              {requiredSkills?.map((item, index) => (
-                <div
-                  className="flex pt-[2px] pr-[8px] pb-[2px] pl-[12px] gap-1 rounded-[30px]  border-[0.5px] border-[#06A9EF] overflow-hidden items-center"
-                  key={index}
-                >
-                  <p className="text-[12px] flex-wrap break-all w-full font-[500]">
-                    {item}
-                  </p>
-                  <div onClick={() => removeSkill(item)}>
-                    <svg
-                      // className="min-w-[20px] min-h-[20px]"
-                      width="8"
-                      height="8"
-                      viewBox="0 0 8 8"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M3.99935 5.0625L1.56372 7.47917C1.4097 7.63194 1.23546 7.70833 1.04102 7.70833C0.846571 7.70833 0.67296 7.63194 0.520182 7.47917C0.367405 7.32639 0.291016 7.15278 0.291016 6.95833C0.291016 6.76389 0.367405 6.58965 0.520182 6.43563L2.93685 4L0.520182 1.58521C0.367405 1.43118 0.291016 1.25694 0.291016 1.0625C0.291016 0.868056 0.367405 0.694444 0.520182 0.541667C0.67296 0.388889 0.846571 0.3125 1.04102 0.3125C1.23546 0.3125 1.4097 0.388889 1.56372 0.541667L3.99935 2.95833L6.41414 0.541667C6.56817 0.388889 6.7424 0.3125 6.93685 0.3125C7.13129 0.3125 7.3049 0.388889 7.45768 0.541667C7.61046 0.694444 7.68685 0.868056 7.68685 1.0625C7.68685 1.25694 7.61046 1.43118 7.45768 1.58521L5.04102 4L7.45768 6.43563C7.61046 6.58965 7.68685 6.76389 7.68685 6.95833C7.68685 7.15278 7.61046 7.32639 7.45768 7.47917C7.3049 7.63194 7.13129 7.70833 6.93685 7.70833C6.7424 7.70833 6.56817 7.63194 6.41414 7.47917L3.99935 5.0625Z"
-                        fill="#333333"
-                      />
-                    </svg>
+          {isFormat === "custom" ? (
+            <div className="flex flex-col gap-[8px]">
+              {inputFields
+                .filter(
+                  (employer) => employer.label === "Organization Location"
+                )
+                .map((employer, index) => (
+                  <div className="flex flex-col gap-[8px] w-full" key={index}>
+                    <label className="font-montserrat text-[14px] font-medium leading-[17.07px] text-left flex-wrap">
+                      {employer.label}
+                    </label>
+                    <input
+                      type={employer.type}
+                      name={employer.name}
+                      placeholder={employer.placeholder}
+                      value={JobData[employer.name]}
+                      onChange={handleInputChange}
+                      className="w-full pt-[12px] pr-[16px] pb-[12px] pl-[16px] gap-0 border border-solid border-[#DEDEDE] rounded-[8px] text-[12px] leading-[16px] text-[#646464] font-[400]"
+                    />
                   </div>
-                </div>
-              ))}
+                ))}
             </div>
-          </div>
+          ) : (
+            <>
+              <div className="flex flex-col gap-[8px]">
+                {inputFields
+                  .filter(
+                    (employer) =>
+                      employer.label === "Organization Location" ||
+                      employer.label === "Roles & Responsibilities"
+                  )
+                  .map((employer, index) => (
+                    <div className="flex flex-col gap-[8px] w-full" key={index}>
+                      <label className="font-montserrat text-[14px] font-medium leading-[17.07px] text-left flex-wrap">
+                        {employer.label}
+                      </label>
+                      <input
+                        type={employer.type}
+                        name={employer.name}
+                        placeholder={employer.placeholder}
+                        value={JobData[employer.name]}
+                        onChange={handleInputChange}
+                        className="w-full pt-[12px] pr-[16px] pb-[12px] pl-[16px] gap-0 border border-solid border-[#DEDEDE] rounded-[8px] text-[12px] leading-[16px] text-[#646464] font-[400]"
+                      />
+                    </div>
+                  ))}
+              </div>
+
+              <div className="flex flex-col gap-[8px]">
+                <label className="font-montserrat text-[14px] font-medium leading-[17.07px] text-left">
+                  Required Skills
+                </label>
+
+                <div className=" flex flex-row justify-between w-full pt-[12px] pr-[16px] pb-[12px] pl-[16px] gap-0 border border-solid border-[#DEDEDE] rounded-[8px] ">
+                  <input
+                    type="text"
+                    placeholder="e.g. Javascript"
+                    value={inputValue}
+                    onChange={handleInputSkills}
+                    className=" text-[12px]  text-[#646464] font-[400]"
+                  />
+                  <svg
+                    onClick={addSkill}
+                    width="20"
+                    height="20"
+                    viewBox="0 0 20 20"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="min-w-[20] min-h-[20] cursor-pointer"
+                  >
+                    <g mask="url(#mask0_3486_37645)">
+                      <path
+                        d="M9.25 10.75H5.75C5.5375 10.75 5.35938 10.6785 5.21563 10.5356C5.07188 10.3927 5 10.2156 5 10.0044C5 9.79313 5.07188 9.61458 5.21563 9.46875C5.35938 9.32292 5.5375 9.25 5.75 9.25H9.25V5.75C9.25 5.5375 9.32146 5.35937 9.46438 5.21562C9.60729 5.07187 9.78438 5 9.99563 5C10.2069 5 10.3854 5.07187 10.5312 5.21562C10.6771 5.35937 10.75 5.5375 10.75 5.75V9.25H14.25C14.4625 9.25 14.6406 9.32146 14.7844 9.46438C14.9281 9.60729 15 9.78438 15 9.99563C15 10.2069 14.9281 10.3854 14.7844 10.5312C14.6406 10.6771 14.4625 10.75 14.25 10.75H10.75V14.25C10.75 14.4625 10.6785 14.6406 10.5356 14.7844C10.3927 14.9281 10.2156 15 10.0044 15C9.79313 15 9.61458 14.9281 9.46875 14.7844C9.32292 14.6406 9.25 14.4625 9.25 14.25V10.75Z"
+                        fill="#1C1B1F"
+                      />
+                    </g>
+                  </svg>
+                </div>
+
+                <div className="flex flex-row gap-[8px] flex-wrap w-full">
+                  {requiredSkills?.map((item, index) => (
+                    <div
+                      className="flex pt-[2px] pr-[8px] pb-[2px] pl-[12px] gap-1 rounded-[30px]  border-[0.5px] border-[#06A9EF] overflow-hidden items-center"
+                      key={index}
+                    >
+                      <p className="text-[12px] flex-wrap break-all w-full font-[500]">
+                        {item}
+                      </p>
+                      <div onClick={() => removeSkill(item)}>
+                        <svg
+                          // className="min-w-[20px] min-h-[20px]"
+                          width="8"
+                          height="8"
+                          viewBox="0 0 8 8"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M3.99935 5.0625L1.56372 7.47917C1.4097 7.63194 1.23546 7.70833 1.04102 7.70833C0.846571 7.70833 0.67296 7.63194 0.520182 7.47917C0.367405 7.32639 0.291016 7.15278 0.291016 6.95833C0.291016 6.76389 0.367405 6.58965 0.520182 6.43563L2.93685 4L0.520182 1.58521C0.367405 1.43118 0.291016 1.25694 0.291016 1.0625C0.291016 0.868056 0.367405 0.694444 0.520182 0.541667C0.67296 0.388889 0.846571 0.3125 1.04102 0.3125C1.23546 0.3125 1.4097 0.388889 1.56372 0.541667L3.99935 2.95833L6.41414 0.541667C6.56817 0.388889 6.7424 0.3125 6.93685 0.3125C7.13129 0.3125 7.3049 0.388889 7.45768 0.541667C7.61046 0.694444 7.68685 0.868056 7.68685 1.0625C7.68685 1.25694 7.61046 1.43118 7.45768 1.58521L5.04102 4L7.45768 6.43563C7.61046 6.58965 7.68685 6.76389 7.68685 6.95833C7.68685 7.15278 7.61046 7.32639 7.45768 7.47917C7.3049 7.63194 7.13129 7.70833 6.93685 7.70833C6.7424 7.70833 6.56817 7.63194 6.41414 7.47917L3.99935 5.0625Z"
+                            fill="#333333"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </>
+          )}
         </div>
       )}
     </div>

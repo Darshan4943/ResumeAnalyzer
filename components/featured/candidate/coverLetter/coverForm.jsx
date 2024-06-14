@@ -6,6 +6,7 @@ import CoustomForm from "./CoustomForm";
 import axios from "axios";
 import CustomTextEditor from "./CoustomFormat/CustomTextEditor";
 import { SparklingStarts } from "../../../../utils/svg";
+import MainTextEditor from "./CoustomFormat/MainTextEditor";
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -24,10 +25,11 @@ function CoverForm({
   data,
   setData,
 }) {
-  console.log(data);
   const [isAll, setIsAll] = useState(false);
   const router = useRouter();
   const [isFormat, setIsFormat] = useState("standard");
+  const [FieldError, setFieldError] = useState("");
+  const [isError, setError] = useState(null);
   const userDataGlobal = useSelector((state) => state.userData);
   const taskRef = useRef(null);
   const [selectedDate, setSelectedDate] = useState(null);
@@ -48,7 +50,6 @@ function CoverForm({
   const renderTemplates = () => {
     const selectedStyle = {
       border: " 4px solid #06A9EF",
-
       height: " 210px",
       width: "auto",
     };
@@ -65,8 +66,8 @@ function CoverForm({
   };
 
   const handleSaveData = () => {
-    console.log(7865)
-  }
+    console.log(7865);
+  };
   const renderAllTemplates = () => {
     return coverLetters.map((template, index) => (
       <img
@@ -82,17 +83,54 @@ function CoverForm({
       />
     ));
   };
+
+  // Function to validate required fields
+  function validateRequiredFields(data) {
+    const requiredFields = [
+      "firstName",
+      "lastName",
+      "mobileNumber",
+      "email",
+      "dial_code",
+      "address",
+      "employerName",
+      "employerOrganizationName",
+      "employerAddress",
+      "employerCityState",
+      "employerCountry",
+    ];
+
+    let errors = {};
+
+    requiredFields.forEach((field) => {
+      if (!data[field]) {
+        errors[field] = `${field} is missing`;
+      }
+    });
+
+    return errors;
+  }
+
+ 
+
   const fetchCoverLetter = async () => {
-    setLoading(true)
+    setLoading(true);
     try {
-      const response = await axios.post('http://localhost:2000/api/cover-letter/transform', data);
+      if (data) {
+        const errors = validateRequiredFields(data);
+        setError(errors);
+      }
+
+      const response = await axios.post(
+        "http://localhost:2000/api/cover-letter/transform",
+        data
+      );
       const letterData = response.data;
       setData({ ...data, passages: letterData.passages });
-      setLoading(false)
-      setIsShow(true);
+      setLoading(false);
     } catch (error) {
-      console.error('Error fetching cover letter:', error);
-      setLoading(false)
+      console.error("Error fetching cover letter:", error);
+      setLoading(false);
     }
   };
 
@@ -100,12 +138,6 @@ function CoverForm({
     setData({ ...data, letterDate: selectedDate });
   }, [selectedDate]);
 
-  const handleCustomData = (e) => {
-    e.preventDefault();
-    console.log(1111, data);
-  };
-
-  console.log(88, isShow);
   useEffect(() => {
     //getLetter Data here
     setLetterData(
@@ -299,10 +331,8 @@ function CoverForm({
         </div>
       )}
       <div>
-
         {isShow === false && (
           <div className="flex flex-col gap-[16px] overflow-y-auto">
-
             <div className="bg-[#DEDEDE] w-full h-[1px]"> </div>
             <div className="flex flex-col gap-[16px] text-[14px] font-medium">
               <label className="font-montserrat text-[14px] font-[500] leading-[17.07px] text-left w-full">
@@ -386,6 +416,7 @@ function CoverForm({
                   selectedResumeIndex={selectedResumeIndex}
                   setSelectedResumeIndex={setSelectedResumeIndex}
                   isFormat={isFormat}
+                  isError={isError}
                 />
               </div>
             )}
@@ -409,9 +440,11 @@ function CoverForm({
           </div>
         )}
 
-
-
-    
+        {isShow === true && (
+          <>
+            <MainTextEditor data={data} setData={setData} />
+          </>
+        )}
       </div>
       <div className="p-[12px] pr-[16px] pb-[12px] pl-[16px] gap-[10px] z-[100] sticky h-[100px] bottom-[-20px] bg-white">
         {isShow === false && (
@@ -506,18 +539,15 @@ function CoverForm({
                     <button
                       className={`font-montserrat text-white font-medium text-[12px] px-[16px] py-[8px] rounded-[8px]  bg-[#DEDEDE] w-[60px] h-[32px] 
                 }`}
-                    // onClick={() => setData({ ...data, summery: text })}
-                    // style={{ opacity: text === data?.summery ? 0.5 : 1 }}
-                    >
-                      Save
-                    </button>
-                  </div>
-                </div>
-
-              </motion.div>
-            </>
-          )}
-        </AnimatePresence>
+                // onClick={() => setData({ ...data, summery: text })}
+                // style={{ opacity: text === data?.summery ? 0.5 : 1 }}
+              >
+                Save
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

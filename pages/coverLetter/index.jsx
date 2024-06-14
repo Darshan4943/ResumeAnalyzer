@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import CoverForm from "../../components/featured/candidate/coverLetter/coverForm";
 import CoverPreview from "../../components/featured/candidate/coverLetter/coverPreview";
 import { useRouter } from "next/router";
+import { useRouter } from "next/router";
 
 function Index() {
   const router = useRouter();
@@ -40,7 +41,7 @@ function Index() {
     specialization: "",
     university: "",
     letterDate: "",
-    passages:""
+    passages: "",
   };
 
   const [data, setData] = useState(defaultState);
