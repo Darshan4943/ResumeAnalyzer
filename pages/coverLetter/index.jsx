@@ -44,7 +44,7 @@ function Index() {
   const [data, setData] = useState(defaultState);
 
   return (
-    <div className="flex gap-4 py-6 customMargins overflow-hidden">
+    <div className="flex gap-4 py-6 customMargins overflow-hidden relative">
       <div className="w-[41%] min-w-[508px]">
         <CoverForm
           selectedResumeIndex={selectedResumeIndex}
@@ -57,7 +57,7 @@ function Index() {
           setData={setData}
         />
       </div>
-      <div className="w-[59%] min-w-[508px] overflow-hidden">
+      <div className="w-[59%] min-w-[508px] ">
         <CoverPreview data={data}/>
       </div>
     </div>
