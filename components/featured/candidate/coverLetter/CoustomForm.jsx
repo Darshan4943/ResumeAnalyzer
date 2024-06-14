@@ -18,6 +18,7 @@ const CoustomForm = ({
   selectedFont,
   isFormat,
 }) => {
+  console.log("data", data);
   return (
     <>
       {contentSituation === "Experienced" && (
@@ -34,7 +35,7 @@ const CoustomForm = ({
             setSelectedResumeIndex={setSelectedResumeIndex}
           />
           <div className="w-full h-[0px] gap-0 border-t rotate-0 border-[#DEDEDE] "></div>
-          <JobDetails data={data} setData={setData} />
+          <JobDetails data={data} setData={setData} isFormat={isFormat} />
           <div className="w-full h-[0px] gap-0 border-t rotate-0 border-[#DEDEDE] "></div>
           <EmployerDetails data={data} setData={setData} />
           <div className="w-full h-[0px] gap-0 border-t rotate-0 border-[#DEDEDE] "></div>

@@ -6,6 +6,7 @@ import CoustomForm from "./CoustomForm";
 import axios from "axios";
 import CustomTextEditor from "./CoustomFormat/CustomTextEditor";
 import { SparklingStarts } from "../../../../utils/svg";
+import MainTextEditor from "./CoustomFormat/MainTextEditor";
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -44,7 +45,6 @@ function CoverForm({
   const renderTemplates = () => {
     const selectedStyle = {
       border: " 4px solid #06A9EF",
-
       height: " 210px",
       width: "auto",
     };
@@ -270,19 +270,21 @@ function CoverForm({
         <div className="bg-[#DEDEDE] w-full h-[1px]"> </div>
         <div className="bg-[#F9F9F9] w-full flex rounded-[8px] text-[14px] font-semibold  ">
           <button
-            className={`${isFormat === "standard"
-              ? "bg-[#06A9EF] py-[8px] px-[16px] flex justify-center items-center rounded-[8px] w-[50%] text-white"
-              : "py-[8px] px-[16px] flex justify-center items-center rounded-[8px] w-[50%]"
-              }`}
+            className={`${
+              isFormat === "standard"
+                ? "bg-[#06A9EF] py-[8px] px-[16px] flex justify-center items-center rounded-[8px] w-[50%] text-white"
+                : "py-[8px] px-[16px] flex justify-center items-center rounded-[8px] w-[50%]"
+            }`}
             onClick={() => setIsFormat("standard")}
           >
             Standard Format
           </button>
           <button
-            className={`${isFormat === "custom"
-              ? "bg-[#06A9EF] py-[8px] px-[16px] flex justify-center items-center rounded-[8px] w-[50%] text-white"
-              : "py-[8px] px-[16px] flex justify-center items-center rounded-[8px] w-[50%]"
-              }`}
+            className={`${
+              isFormat === "custom"
+                ? "bg-[#06A9EF] py-[8px] px-[16px] flex justify-center items-center rounded-[8px] w-[50%] text-white"
+                : "py-[8px] px-[16px] flex justify-center items-center rounded-[8px] w-[50%]"
+            }`}
             onClick={() => setIsFormat("custom")}
           >
             Custom Format
@@ -290,10 +292,8 @@ function CoverForm({
         </div>
       </div>
       <div>
-
         {isShow === false && (
           <div className="flex flex-col gap-[16px] overflow-y-auto">
-
             <div className="bg-[#DEDEDE] w-full h-[1px]"> </div>
             <div className="flex flex-col gap-[16px] text-[14px] font-medium">
               <label className="font-montserrat text-[14px] font-[500] leading-[17.07px] text-left w-full">
@@ -402,7 +402,7 @@ function CoverForm({
 
         {isShow === true && (
           <>
-            <CustomTextEditor data={data} setData={setData} />
+            <MainTextEditor data={data} setData={setData} />
           </>
         )}
       </div>

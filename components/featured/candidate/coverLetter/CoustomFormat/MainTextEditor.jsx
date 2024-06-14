@@ -1,9 +1,20 @@
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { SparklingStarts } from "../../../../../utils/svg";
+import MiniLoader from "../../../../common/mini-loader";
 import CustomToolbar from "./CustomToolbar";
 
-const CustomTextEditor = ({ data, setData, placeholder, text }) => {
+const CustomTextEditor = ({
+  data,
+  setData,
+  value,
+  placeholder,
+  description,
+  setText,
+  text,
+}) => {
   const [rerender, setRerender] = useState(false);
 
   const editor = useEditor({
@@ -11,18 +22,12 @@ const CustomTextEditor = ({ data, setData, placeholder, text }) => {
     editorProps: {
       attributes: {
         class:
-          "flex flex-col pt-2 pr-4 pb-2 pl-4 gap-16 justify-start border-b border-r border-l border-[#F5F5F5] text-[#333333] items-start w-full font-medium text-[16px] pt-4 rounded-bl-md rounded-br-md outline-none min-h-[100px] cursor-auto ",
+          "flex flex-col  pt-2 pr-4 pb-2 pl-4 gap-16 justify-start border-b border-r border-l border-[#F5F5F5] text-[#333333] items-start w-full font-medium text-[16px] pt-4 rounded-bl-md rounded-br-md outline-none min-h-[100px] cursor-auto ",
       },
     },
     content: `<p>${text}</p>`,
     onUpdate: ({ editor }) => {
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(editor.getHTML(), "text/html");
-      const passages = Array.from(doc.querySelectorAll("p")).map(
-        (p) => p.textContent
-      );
-      console.log(875675, passages);
-      setData((prevData) => ({ ...prevData, passages }));
+      setData({ ...data, description: editor.getHTML() });
     },
   });
 
@@ -30,6 +35,7 @@ const CustomTextEditor = ({ data, setData, placeholder, text }) => {
     <div className="flex flex-col border-none shadow-custom rounded-[10px] ">
       <CustomToolbar editor={editor} content={text} rerender={rerender} />
       <EditorContent
+        // style={{ whiteSpace: "pre-line" }}
         editor={editor}
         rerender={rerender}
         placeholder={placeholder}
@@ -37,5 +43,3 @@ const CustomTextEditor = ({ data, setData, placeholder, text }) => {
     </div>
   );
 };
-
-export default CustomTextEditor;
