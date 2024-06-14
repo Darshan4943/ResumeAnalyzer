@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { data } from "../../../../common/Bars";
 
-const EmployerDetails = ({ data, setData }) => {
+const EmployerDetails = ({ data, setData, errors }) => {
   const [isShow, setIsShow] = useState(true);
   const [EmployerData, setEmployerData] = useState({
     employerName: "",
@@ -131,15 +131,7 @@ const EmployerDetails = ({ data, setData }) => {
     setData({ ...data, [name]: value });
   };
 
-  const addSkill = () => {
-    if (requiredSkills && !requiredSkills.includes(inputValue)) {
-      const updatedSkills = [...requiredSkills, inputValue];
-      setRequiredSkills(updatedSkills);
-      // setData({ ...data, requiredSkills: updatedSkills });
-      setJobData({ ...JobData, requiredSkills });
-      setInputValue("");
-    }
-  };
+
 
   return (
     <div className="flex flex-col gap-[16px] w-full bg-white py-4">
@@ -203,15 +195,13 @@ const EmployerDetails = ({ data, setData }) => {
                   placeholder={employer.placeholder}
                   value={EmployerData[employer.name]}
                   onChange={handleInputChange}
-                  className={`w-full pt-[12px] pr-[16px] pb-[12px] pl-[16px] gap-0 border border-solid rounded-[8px] text-[12px] leading-[16px] text-[#646464] font-[400] ${
-                    formErrors[employer.name]
-                      ? "border-[#C00000]"
-                      : "border-[#DEDEDE]"
-                  }`}
+                  className={`w-full pt-[12px] pr-[16px] pb-[12px] pl-[16px] gap-0 border border-solid rounded-[8px] text-[12px] leading-[16px] text-[#646464] font-[400]
+                 
+                      `}
                 />
-                {formErrors[employer.name] && (
-                  <span className="text-[#C00000] text-[12px]">
-                    {formErrors[item.name]}
+                {errors && errors[employer.name] && (
+                  <span className="text-[12px] text-red">
+                    field is required
                   </span>
                 )}
               </div>
@@ -237,6 +227,11 @@ const EmployerDetails = ({ data, setData }) => {
                     onChange={handleInputChange}
                     className="w-full pt-[12px] pr-[16px] pb-[12px] pl-[16px] gap-0 border border-solid border-[#DEDEDE] rounded-[8px] text-[12px] leading-[16px] text-[#646464] font-[400]"
                   />
+                  {errors && errors[employer.name] && (
+                    <span className="text-[12px] text-red">
+                      field is required!
+                    </span>
+                  )}
                 </div>
               ))}
           </div>

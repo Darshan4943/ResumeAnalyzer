@@ -3,15 +3,7 @@ import Achievement from "../../createResume/components/achivement";
 
 const ProjectInternship = ({ data, setData }) => {
   const [isShow, setIsShow] = useState(true);
-  const [relevantSkills, setrelevantSkills] = useState([
-    "javascript",
-    "react js",
-    "Css",
-    "Html",
-    "Node js",
-    "React native",
-    "c++",
-  ]);
+  const [relevantSkills, setrelevantSkills] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [ProjectData, setProjectData] = useState({
     projectName: "",
@@ -161,7 +153,7 @@ const ProjectInternship = ({ data, setData }) => {
                 placeholder="e.g. Javascript"
                 value={inputValue}
                 onChange={handleInputSkills}
-                className=" text-[12px]  text-[#646464] font-[400]"
+                className=" text-[12px]  text-[#646464] font-[400] w-full"
               />
               <svg
                 onClick={addSkill}
