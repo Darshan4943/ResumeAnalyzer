@@ -237,10 +237,13 @@ const ResumeForm = ({
         </div>
 
         <div
-          onClick={() => setIsAll(true)}
-          className="flex justify-end text-[16px] font-[500] text-[#06A9EF] cursor-pointer"
+          
+          className="flex justify-end text-[16px] font-[500] text-[#06A9EF]"
         >
-          See All Templates
+        <p 
+        onClick={() => setIsAll(true)} 
+        className=" cursor-pointer"
+        >See All Templates</p>  
         </div>
         {isAll && (
           <div>
