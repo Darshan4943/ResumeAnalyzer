@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import CoverForm from "../../components/featured/candidate/coverLetter/coverForm";
 import CoverPreview from "../../components/featured/candidate/coverLetter/coverPreview";
+import { useRouter } from "next/router";
 
 function Index() {
   const [selectedFont, setSelectedFont] = useState("Roboto");
   const [selectedColor, setSelectedColor] = useState();
   const [selectedResumeIndex, setSelectedResumeIndex] = useState();
+  const router = useRouter();
+  const { clientId, continueEdit } = router.query;
 
   const defaultState = {
     firstName: "",
@@ -38,7 +41,7 @@ function Index() {
     specialization: "",
     university: "",
     letterDate: "",
-    passages:""
+    passages: "",
   };
 
   const [data, setData] = useState(defaultState);
@@ -58,7 +61,7 @@ function Index() {
         />
       </div>
       <div className="w-[59%] min-w-[508px] ">
-        <CoverPreview data={data}/>
+        <CoverPreview data={data} />
       </div>
     </div>
   );

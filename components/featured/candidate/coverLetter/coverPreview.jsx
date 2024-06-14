@@ -12,6 +12,10 @@ import CoverLetter5 from "./letters/CoverLetter5";
 import CoverLetter7 from "./letters/CoverLetter7";
 import CoverLetter9 from "./letters/CoverLetter9";
 import CoverLetter10 from "./letters/CoverLetter10";
+import CoverLetter2 from "./letters/CoverLetter2";
+import CoverLetter4 from "./letters/CoverLetter4";
+import CoverLetter6 from "./letters/CoverLetter6";
+import CoverLetter8 from "./letters/CoverLetter8";
 
 function CoverPreview({ data }) {
   const [namePreview, setNamePreview] = useState(false);
@@ -248,10 +252,10 @@ function CoverPreview({ data }) {
         </div>
       </div>
       <div className="   overflow-auto ">
-        <CoverLetter11 data={data} />
+        <CoverLetter8 data={data} />
       </div>
       <div className="absolute  left-[10000px]">
-        <CoverLetter11 data={data} page1Ref={page1Ref} page2Ref={page2Ref} />
+        <CoverLetter8 data={data} page1Ref={page1Ref} page2Ref={page2Ref} />
       </div>
 
       {namePreview && (

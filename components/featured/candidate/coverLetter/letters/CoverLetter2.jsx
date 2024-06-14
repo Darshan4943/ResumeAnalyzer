@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
+import { formatDateInNumber } from "../../../../../utils/data";
 
 const CoverLetter2 = ({ page1Ref, page2Ref, data }) => {
   console.log(88811, data);
@@ -41,7 +42,7 @@ const CoverLetter2 = ({ page1Ref, page2Ref, data }) => {
 
     document.body.removeChild(tempDiv);
     setSplitContent({ first: firstHalf, second: secondHalf });
-  }, [data]);
+  }, [data?.passages]);
 
   console.log(777, splitContents);
   useEffect(() => {
@@ -102,7 +103,7 @@ const CoverLetter2 = ({ page1Ref, page2Ref, data }) => {
                 Date :
               </h6>
               <p className="text-[10px] text-[#333333] font-poppins font-normal leading-[15px] text-left">
-                {data?.letterDate || "16 Oct 1936"}
+                {data?.letterDate != {} && formatDateInNumber(data?.letterDate)}
               </p>
             </div>
             <div className="flex flex-row gap-[24px]">
@@ -115,7 +116,7 @@ const CoverLetter2 = ({ page1Ref, page2Ref, data }) => {
                     {passage}
                   </p>
                 ))}
-                {splitContents?.second?.length <= 0 && (
+                {splitContents?.second?.length == 0 && (
                   <>
                     <span className="pt-[8px]">Warm Regards</span>
                     <p>

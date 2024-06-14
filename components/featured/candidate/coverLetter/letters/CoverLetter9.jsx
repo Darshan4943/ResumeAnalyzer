@@ -157,10 +157,9 @@ function CoverLetter9({ page2Ref, page1Ref, data }) {
           <div className="flex flex-row gap-[8px] justify-end items-end">
             <span className="text-[12px] font-[700] text-[#0072BC] leading-[14.4px]">
               Date :{" "}
-              {data?.letterDate != {} && formatDateInNumber(data?.letterDate)}
             </span>
             <span className="text-[12px] font-[400] text-[#414042]">
-              03-06-2024
+              {data?.letterDate != {} && formatDateInNumber(data?.letterDate)}
             </span>
           </div>
           <div className="flex flex-col w-full gap-[4px]">
