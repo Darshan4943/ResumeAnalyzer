@@ -9,9 +9,7 @@ function CoverLetter11({ page1Ref, page2Ref, data }) {
 
   const splitContent = useCallback(() => {
     const firstPage = firstPageRef.current;
-    const firstPageHeight = 350; // Set the fixed height you want for the paragraph div
-
-    // Create a temporary element to measure content height
+    const firstPageHeight = 350;
     const tempDiv = document.createElement("div");
     tempDiv.style.position = "absolute";
     tempDiv.style.visibility = "hidden";

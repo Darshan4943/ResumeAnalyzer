@@ -22,14 +22,13 @@ function CoverForm({
   data,
   setData,
 }) {
-  console.log(data);
   const [isAll, setIsAll] = useState(false);
   const [isFormat, setIsFormat] = useState("standard");
   const userDataGlobal = useSelector((state) => state.userData);
   const taskRef = useRef(null);
   const [selectedDate, setSelectedDate] = useState(null);
   const [letterData, setLetterData] = useState("");
-  const [isShow, setIsShow] = useState(true);
+  const [isShow, setIsShow] = useState(false);
   const [contentSituation, setContentSituation] = useState("Experienced");
   const [loading, setLoading] = useState(false);
   const handleImageClick = (template) => {
@@ -62,8 +61,8 @@ function CoverForm({
   };
 
   const handleSaveData = () => {
-    console.log(7865)
-  }
+    console.log(7865);
+  };
   const renderAllTemplates = () => {
     return coverLetters.map((template, index) => (
       <img
@@ -80,15 +79,18 @@ function CoverForm({
     ));
   };
   const fetchCoverLetter = async () => {
-    setLoading(true)
+    setLoading(true);
     try {
-      const response = await axios.post('http://localhost:2000/api/cover-letter/transform', data);
+      const response = await axios.post(
+        "http://localhost:2000/api/cover-letter/transform",
+        data
+      );
       const letterData = response.data;
       setData({ ...data, passages: letterData.passages });
-      setLoading(false)
+      setLoading(false);
     } catch (error) {
-      console.error('Error fetching cover letter:', error);
-      setLoading(false)
+      console.error("Error fetching cover letter:", error);
+      setLoading(false);
     }
   };
 
@@ -96,12 +98,6 @@ function CoverForm({
     setData({ ...data, letterDate: selectedDate });
   }, [selectedDate]);
 
-  const handleCustomData = (e) => {
-    e.preventDefault();
-    console.log(1111, data);
-  };
-
-  console.log(88, isShow);
   useEffect(() => {
     //getLetter Data here
     setLetterData(
@@ -121,8 +117,8 @@ function CoverForm({
   };
 
   return (
-    <div className="flex flex-col pr-[10px] ml:w-[100%] w-[100%]  pb-4 gap-4 rounded-lg ">
-      <div className="ml:flex hidden  flex-row gap-4 ">
+    <div className="flex flex-col pr-[10px] ml:w-[100%] w-[100%] h-[88vh] relative  pb-4 gap-4 rounded-lg overflow-y-auto bg-white ">
+      <div className="ml:flex hidden  flex-row gap-4 sticky top-0 z-[20] bg-white pb-2">
         <button
           className="p-[8px] border-[1px] bg-blue border-[#DEDEDE] rounded-[6px]  "
           style={{}}
@@ -148,7 +144,7 @@ function CoverForm({
           Create Cover Letter
         </div>
       </div>
-      <div className="rounded-[8px] bg-[#BCEBFF]  px-4 pt-[10px] ">
+      <div className="rounded-[8px] bg-[#BCEBFF]  px-4 pt-[10px]  ">
         <div
           className="flex gap-4 pb-[10px]  items-center"
           style={{ overflowX: "auto" }}
@@ -162,138 +158,142 @@ function CoverForm({
       >
         See All Templates
       </div>
-      <div>
-        {isAll && (
-          <div>
-            <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
-            <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center  ">
+      {isAll && (
+        <div>
+          <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 bg-black opacity-60"></div>
+          <div className="fixed z-[2000] top-0 left-0 right-0 bottom-0 flex items-center justify-center  ">
+            <div
+              ref={taskRef}
+              onWheel={(e) => e.stopPropagation()}
+              className=" absolute top-[42px] flex p-6 bg-white rounded-[24px] shadow-md  gap-6 flex-wrap justify-center items-center ml:w-[65%] w-[90%] h-[90vh] overflow-y-auto "
+            >
+              {renderAllTemplates()}
               <div
-                ref={taskRef}
-                onWheel={(e) => e.stopPropagation()}
-                className=" absolute top-[42px] flex p-6 bg-white rounded-[24px] shadow-md  gap-6 flex-wrap justify-center items-center ml:w-[65%] w-[90%] h-[90vh] overflow-y-auto "
-              >
-                {renderAllTemplates()}
-                <div
-                  className="absolute top-[12px] right-[10px]  cursor-pointer  web "
-                  onClick={() => setIsAll(false)}
-                >
-                  <svg
-                    width="28"
-                    height="28"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <g mask="url(#mask0_3995_39638)">
-                      <path
-                        d="M6.4 19L5 17.6L10.6 12L5 6.4L6.4 5L12 10.6L17.6 5L19 6.4L13.4 12L19 17.6L17.6 19L12 13.4L6.4 19Z"
-                        fill="#333333"
-                      />
-                    </g>
-                  </svg>
-                </div>
-              </div>
-              <div
-                className="absolute bottom-[35px] mobile cursor-pointer  "
+                className="absolute top-[12px] right-[10px]  cursor-pointer  web "
                 onClick={() => setIsAll(false)}
               >
                 <svg
-                  width="48"
-                  height="48"
-                  viewBox="0 0 48 48"
+                  width="28"
+                  height="28"
+                  viewBox="0 0 24 24"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
                 >
-                  <g filter="url(#filter0_d_3995_39637)">
-                    <rect
-                      x="4"
-                      y="3"
-                      width="40"
-                      height="40"
-                      rx="20"
-                      fill="white"
+                  <g mask="url(#mask0_3995_39638)">
+                    <path
+                      d="M6.4 19L5 17.6L10.6 12L5 6.4L6.4 5L12 10.6L17.6 5L19 6.4L13.4 12L19 17.6L17.6 19L12 13.4L6.4 19Z"
+                      fill="#333333"
                     />
-
-                    <g mask="url(#mask0_3995_39637)">
-                      <path
-                        d="M18.4 30L17 28.6L22.6 23L17 17.4L18.4 16L24 21.6L29.6 16L31 17.4L25.4 23L31 28.6L29.6 30L24 24.4L18.4 30Z"
-                        fill="#333333"
-                      />
-                    </g>
                   </g>
-                  <defs>
-                    <filter
-                      id="filter0_d_3995_39637"
-                      x="0"
-                      y="0"
-                      width="48"
-                      height="48"
-                      filterUnits="userSpaceOnUse"
-                      color-interpolation-filters="sRGB"
-                    >
-                      <feFlood flood-opacity="0" result="BackgroundImageFix" />
-                      <feColorMatrix
-                        in="SourceAlpha"
-                        type="matrix"
-                        values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
-                        result="hardAlpha"
-                      />
-                      <feOffset dy="1" />
-                      <feGaussianBlur stdDeviation="2" />
-                      <feComposite in2="hardAlpha" operator="out" />
-                      <feColorMatrix
-                        type="matrix"
-                        values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"
-                      />
-                      <feBlend
-                        mode="normal"
-                        in2="BackgroundImageFix"
-                        result="effect1_dropShadow_3995_39637"
-                      />
-                      <feBlend
-                        mode="normal"
-                        in="SourceGraphic"
-                        in2="effect1_dropShadow_3995_39637"
-                        result="shape"
-                      />
-                    </filter>
-                  </defs>
                 </svg>
               </div>
             </div>
+            <div
+              className="absolute bottom-[35px] mobile cursor-pointer  "
+              onClick={() => setIsAll(false)}
+            >
+              <svg
+                width="48"
+                height="48"
+                viewBox="0 0 48 48"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g filter="url(#filter0_d_3995_39637)">
+                  <rect
+                    x="4"
+                    y="3"
+                    width="40"
+                    height="40"
+                    rx="20"
+                    fill="white"
+                  />
+
+                  <g mask="url(#mask0_3995_39637)">
+                    <path
+                      d="M18.4 30L17 28.6L22.6 23L17 17.4L18.4 16L24 21.6L29.6 16L31 17.4L25.4 23L31 28.6L29.6 30L24 24.4L18.4 30Z"
+                      fill="#333333"
+                    />
+                  </g>
+                </g>
+                <defs>
+                  <filter
+                    id="filter0_d_3995_39637"
+                    x="0"
+                    y="0"
+                    width="48"
+                    height="48"
+                    filterUnits="userSpaceOnUse"
+                    color-interpolation-filters="sRGB"
+                  >
+                    <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                    <feColorMatrix
+                      in="SourceAlpha"
+                      type="matrix"
+                      values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+                      result="hardAlpha"
+                    />
+                    <feOffset dy="1" />
+                    <feGaussianBlur stdDeviation="2" />
+                    <feComposite in2="hardAlpha" operator="out" />
+                    <feColorMatrix
+                      type="matrix"
+                      values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"
+                    />
+                    <feBlend
+                      mode="normal"
+                      in2="BackgroundImageFix"
+                      result="effect1_dropShadow_3995_39637"
+                    />
+                    <feBlend
+                      mode="normal"
+                      in="SourceGraphic"
+                      in2="effect1_dropShadow_3995_39637"
+                      result="shape"
+                    />
+                  </filter>
+                </defs>
+              </svg>
+            </div>
           </div>
-        )}
+        </div>
+      )}
+
+      <div className="flex flex-col gap-[16px] sticky top-[40px] z-[10] bg-white pt-6 pb-4">
+        <ThemeForm
+          selectedResumeIndex={selectedResumeIndex}
+          selectedColor={selectedColor}
+          setSelectedColor={setSelectedColor}
+          setSelectedFont={setSelectedFont}
+          selectedFont={selectedFont}
+        />
+        <div className="bg-[#DEDEDE] w-full h-[1px]"> </div>
+        <div className="bg-[#F9F9F9] w-full flex rounded-[8px] text-[14px] font-semibold  ">
+          <button
+            className={`${isFormat === "standard"
+              ? "bg-[#06A9EF] py-[8px] px-[16px] flex justify-center items-center rounded-[8px] w-[50%] text-white"
+              : "py-[8px] px-[16px] flex justify-center items-center rounded-[8px] w-[50%]"
+              }`}
+            onClick={() => setIsFormat("standard")}
+          >
+            Standard Format
+          </button>
+          <button
+            className={`${isFormat === "custom"
+              ? "bg-[#06A9EF] py-[8px] px-[16px] flex justify-center items-center rounded-[8px] w-[50%] text-white"
+              : "py-[8px] px-[16px] flex justify-center items-center rounded-[8px] w-[50%]"
+              }`}
+            onClick={() => setIsFormat("custom")}
+          >
+            Custom Format
+          </button>
+        </div>
+      </div>
+      <div>
 
         {isShow === false && (
           <div className="flex flex-col gap-[16px] overflow-y-auto">
-            <ThemeForm
-              selectedResumeIndex={selectedResumeIndex}
-              selectedColor={selectedColor}
-              setSelectedColor={setSelectedColor}
-              setSelectedFont={setSelectedFont}
-              selectedFont={selectedFont}
-            />
-            <div className="bg-[#DEDEDE] w-full h-[1px]"> </div>
-            <div className="bg-[#F9F9F9] w-full flex rounded-[8px] text-[14px] font-semibold">
-              <button
-                className={`${isFormat === "standard"
-                    ? "bg-[#06A9EF] py-[8px] px-[16px] flex justify-center items-center rounded-[8px] w-[50%] text-white"
-                    : "py-[8px] px-[16px] flex justify-center items-center rounded-[8px] w-[50%]"
-                  }`}
-                onClick={() => setIsFormat("standard")}
-              >
-                Standard Format
-              </button>
-              <button
-                className={`${isFormat === "custom"
-                    ? "bg-[#06A9EF] py-[8px] px-[16px] flex justify-center items-center rounded-[8px] w-[50%] text-white"
-                    : "py-[8px] px-[16px] flex justify-center items-center rounded-[8px] w-[50%]"
-                  }`}
-                onClick={() => setIsFormat("custom")}
-              >
-                Custom Format
-              </button>
-            </div>
+
             <div className="bg-[#DEDEDE] w-full h-[1px]"> </div>
             <div className="flex flex-col gap-[16px] text-[14px] font-medium">
               <label className="font-montserrat text-[14px] font-[500] leading-[17.07px] text-left w-full">
@@ -406,7 +406,7 @@ function CoverForm({
           </>
         )}
       </div>
-      <div className="p-[12px] pr-[16px] pb-[12px] pl-[16px] gap-[10px]">
+      <div className="p-[12px] pr-[16px] pb-[12px] pl-[16px] gap-[10px] z-[100] sticky h-[100px] bottom-[-20px] bg-white">
         {isShow === false && (
           <div className="flex justify-end ">
             {isFormat === "standard" && (
@@ -476,7 +476,7 @@ function CoverForm({
             <div className="flex flex-row justify-between items-center  gap-[10px] ">
               <button
                 className="flex  items-center font-montserrat text-xs font-semibold btn_outline gap-[6px]"
-              // onClick={generateText}
+                // onClick={generateText}
               >
                 <SparklingStarts />
                 <span className="text-[12px] text-[#333333] font-[600] font-Montserrat leading-[16px]">
@@ -486,8 +486,8 @@ function CoverForm({
               <button
                 className={`font-montserrat text-white font-medium text-[12px] px-[16px] py-[8px] rounded-[8px]  bg-[#DEDEDE] w-[60px] h-[32px] 
                 }`}
-              // onClick={() => setData({ ...data, summery: text })}
-              // style={{ opacity: text === data?.summery ? 0.5 : 1 }}
+                // onClick={() => setData({ ...data, summery: text })}
+                // style={{ opacity: text === data?.summery ? 0.5 : 1 }}
               >
                 Save
               </button>

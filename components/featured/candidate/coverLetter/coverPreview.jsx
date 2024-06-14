@@ -24,8 +24,14 @@ function CoverPreview({ data }) {
   const [download, setDownload] = useState(false);
   console.log(download);
   const [loading1, setLoading1] = useState(false);
+
   const addCoverLetter = async () => {
     try {
+      const pdfBlob = await generatePdfBlob();
+      if (!pdfBlob) {
+        return;
+      }
+
       const formData = new FormData();
       if (Object.keys(data).length > 0) {
         Object.keys(data).map((key) => {
@@ -38,9 +44,10 @@ function CoverPreview({ data }) {
           }
         });
       }
-      formData.append("pdfBlob", blob);
+      formData.append("pdfBlob", pdfBlob);
       formData.append("userId", userDataGlobal._id);
       formData.append("fileName", name);
+
       const response = await axios.post(
         "http://localhost:2000/api/cover/add",
         formData
@@ -75,25 +82,68 @@ function CoverPreview({ data }) {
       pdf.addImage(imgData2, "JPEG", 0, 0, 595.28, 841.89);
 
       const pdfBlob = pdf.output("blob");
-      setBlob(pdfBlob);
+
+      return pdfBlob;
+    } catch (error) {
+      console.error("Error generating PDF:", error);
+      return null;
+    }
+  };
+
+  const downloadPdfBlob = async () => {
+    const input1 = page1Ref.current;
+    const input2 = page2Ref.current;
+
+    try {
+      const canvas1 = await html2canvas(input1, { scale: 5 });
+      const imgData1 = canvas1.toDataURL("image/jpeg", 0.7);
+
+      const canvas2 = await html2canvas(input2, { scale: 5 });
+      const imgData2 = canvas2.toDataURL("image/jpeg", 0.7);
+
+      const pdf = new jsPDF("p", "pt", "a4");
+      pdf.addImage(imgData1, "JPEG", 0, 0, 595.28, 841.89);
+      pdf.addPage();
+      pdf.addImage(imgData2, "JPEG", 0, 0, 595.28, 841.89);
+
+      const pdfBlob = pdf.output("blob");
 
       pdf.save(`${data.firstName}_cover_letter.pdf`);
       setDownload(false);
+
+      return pdfBlob;
     } catch (error) {
       console.error("Error generating PDF:", error);
+      return null;
+    }
+  };
+
+  const handleDownload = async () => {
+    const pdfBlob = await downloadPdfBlob();
+    if (pdfBlob) {
+      await addCoverLetter(pdfBlob);
+      console.log("PDF downloaded successfully");
+    } else {
+      console.error("Failed to download PDF");
+      setLoading(false);
+      setLoading1(false);
     }
   };
 
   const handleSave = async () => {
-    await generatePdfBlob();
-    await addCoverLetter();
+    const pdfBlob = await generatePdfBlob();
+    if (pdfBlob) {
+      await addCoverLetter(pdfBlob);
+    } else {
+      console.error("Failed to generate PDF");
+      setLoading(false);
+      setLoading1(false);
+    }
   };
-
   const DownloadButton = () => (
     <button
       onClick={() => {
-        handleSave();
-        setDownload(true);
+        handleDownload();
         setLoading1(true);
       }}
       className="hover:bg-[#06A9EF] hover-svg-white h-[38.33px] hover:text-[white] flex gap-1 text-[14px] w-fit justify-center font-montserrat font-semibold px-3 py-2 rounded-[8px] items-center border border-[#06A9EF]"
@@ -139,8 +189,8 @@ function CoverPreview({ data }) {
   );
 
   return (
-    <div className="flex flex-col gap-4 ">
-      <div className="flex justify-between">
+    <div className="flex flex-col gap-4 relative h-[88vh] ">
+      <div className="flex justify-between sticky top-0">
         <div className="flex items-center justify-between ml:w-[58%] w-full gap-4">
           <div
             className="text-[14px] scr460:text-[20px] font-montserrat font-medium flex gap-3 items-center cursor-pointer"

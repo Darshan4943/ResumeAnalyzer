@@ -1,162 +1,165 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 
-const CoverLetter2 = () => {
+const CoverLetter2 = ({ page1Ref, page2Ref, data }) => {
+  console.log(88811, data);
+
   const firstPageRef = useRef(null);
-  const pageRef = useRef(null);
-  const HeaderPageRef = useRef(null);
 
-  const firstContainer = useRef(null);
-  const secondContainer = useRef(null);
+  // const HeaderPageRef = useRef(null);
 
-  const [splitContents, setSplitContent] = useState({ first: "", second: "" });
+  // const firstContainer = useRef(null);
+  // const secondContainer = useRef(null);
 
-  const data = {
-    name: "Alison Danes",
-    title: "User Experience Designer",
-    email: "alisondanes111@gmail.com",
-    phone: "+27 8800088889",
-    address: "Pune, Maharashtra, India",
-    date: "03-06-2024",
-    to: {
-      name: "Travis Walkman",
-      designation: "Human Resources Manager",
-      company: "Skilotech HRMS Pvt. Ltd.",
-      address: "321 Employment Avenue, Harare, Zimbabwe, SA.",
-    },
-    paragraph: `
-      Dear [Hiring Manager’s Name],
+  // const firstPageRef = useRef(null);
+  const [splitContents, setSplitContent] = useState({ first: [], second: [] });
 
- gn
-     about the possibility of contributing to [Company Name] and am eager to bring my creative problem-solving skills and design expertise to your team. Thank you for considering my application.
+  const splitContent = useCallback(() => {
+    const firstPage = firstPageRef.current;
+    const firstPageHeight = 504;
+    const tempDiv = document.createElement("div");
+    tempDiv.style.position = "absolute";
+    tempDiv.style.visibility = "hidden";
+    tempDiv.style.width = firstPage?.clientWidth + "px";
+    document.body.appendChild(tempDiv);
 
+    let firstHalf = [];
+    let secondHalf = [...data.passages];
+    let tempContent = "";
 
-      Warm regards,
-      [Your Name]
-    `,
-  };
+    for (let i = 0; i < data.passages.length; i++) {
+      const passage = data.passages[i];
+      tempContent += `<p style="margin: 16px 0; text-indent: 1em;">${passage}</p>`;
+      tempDiv.innerHTML = tempContent;
 
-  useEffect(() => {
-    const splitContent = () => {
-      const firstPage = firstPageRef.current;
-      const firstPageHeight = 504;
-      const tempDiv = document.createElement("div");
-      tempDiv.style.position = "absolute";
-      tempDiv.style.visibility = "hidden";
-      tempDiv.style.width = firstPage?.clientWidth + "px";
-      console.log(555, firstPage?.clientWidth + "px");
-      tempDiv.innerHTML = data.paragraph;
-      document.body.appendChild(tempDiv);
-
-      let splitIndex = data.paragraph.length;
-      let firstHalf = "";
-      let secondHalf = data.paragraph;
-
-      while (splitIndex > 0) {
-        firstHalf = data.paragraph.substring(0, splitIndex);
-        secondHalf = data.paragraph.substring(splitIndex);
-
-        tempDiv.innerHTML = firstHalf;
-
-        if (tempDiv.clientHeight <= firstPageHeight) {
-          break;
-        }
-
-        splitIndex--;
+      if (tempDiv.clientHeight <= firstPageHeight) {
+        firstHalf.push(passage);
+        secondHalf.shift();
+      } else {
+        break;
       }
+    }
 
-      document.body.removeChild(tempDiv);
-      setSplitContent({ first: firstHalf, second: secondHalf });
-    };
-    splitContent();
-  }, []);
+    document.body.removeChild(tempDiv);
+    setSplitContent({ first: firstHalf, second: secondHalf });
+  }, [data]);
+
+  console.log(777, splitContents);
+  useEffect(() => {
+    if (data?.passages) {
+      splitContent();
+    }
+  }, [data?.passages, splitContent]);
 
   return (
     <>
-      <div className="w-[800px] h-[842px] p-[32px] gap-[16px] flex flex-col absolute left-[1000px] overflow-hidden ">
-        <div
-          className="flex flex-col w-full h-[153px] pt-[26px] pr-[36px] pb-[14px] pl-[36px] bg-[#F9F9F9] gap-[24px] overflow-hidden"
-          ref={firstContainer}
-        >
-          <div className="flex flex-row justify-between">
-            <div></div>
-            <div className="flex flex-col gap-[8px]"></div>
-          </div>
-        </div>
-        <div className="flex flex-col px-[36px]">
-          <div></div>
-        </div>
-      </div>
+      <div className="flex flex-col border-2 border-[#DEDEDE] ">
+        <div className="bg-[#FFFFFF] w-[595px] min-h-[700px] p-[24px] gap-[16px] flex flex-col ">
+          <div
+            className="flex flex-col w-full h-[153px] pt-[26px] pr-[36px] pb-[14px] pl-[36px] bg-[#F9F9F9] gap-[24px] "
+            ref={page1Ref}
+          >
+            <div className="flex flex-row justify-between">
+              <div>
+                <h1 className="text-[26px] text-[#333333]">
+                  {data?.firstName} {data?.lastName}
+                </h1>
+                <p className="text-[16px] text-[#0E6CC2]">
+                  {data?.designation}
+                </p>
+              </div>
 
-      {/* <div className="flex flex-col w-[800px] gap-6">
-        <div className="flex flex-col w-full h-[153px] pt-[26px] pr-[36px] pb-[14px] pl-[36px] bg-[#F9F9F9] gap-[24px]">
-          <div className="flex flex-row justify-between">
-            <div>
-              <h1 className="text-[26px] text-[#333333]">{data.name}</h1>
-              <p className="text-[16px] text-[#0E6CC2]">{data.title}</p>
-            </div>
-
-            <div className="flex flex-col gap-[8px]">
-              <div className="flex flex-col">
-                <h6 className="text-[10px] text-[#949494] font-poppins font-medium leading-[13.48px] text-left">
-                  Email
-                </h6>
-                <p className="text-[10px] text-[#333333] font-poppins font-medium leading-[13.48px] text-left">
-                  {data.email}
-                </p>
-              </div>
-              <div className="flex flex-col">
-                <h6 className="text-[10px] text-[#949494] font-poppins font-medium leading-[13.48px] text-left">
-                  Phone
-                </h6>
-                <p className="text-[10px] text-[#333333] font-poppins font-medium leading-[13.48px] text-left">
-                  {data.phone}
-                </p>
-              </div>
-              <div className="flex flex-col">
-                <h6 className="text-[10px] text-[#949494] font-poppins font-medium leading-[13.48px] text-left">
-                  Address
-                </h6>
-                <p className="text-[10px] text-[#333333] font-poppins font-medium leading-[13.48px] text-left">
-                  {data.address}
-                </p>
+              <div className="flex flex-col gap-[8px]">
+                <div className="flex flex-col">
+                  <h6 className="text-[10px] text-[#949494] font-poppins font-medium leading-[13.48px] text-left">
+                    Email
+                  </h6>
+                  <p className="text-[10px] text-[#333333] font-poppins font-medium leading-[13.48px] text-left">
+                    {data.email}
+                  </p>
+                </div>
+                <div className="flex flex-col">
+                  <h6 className="text-[10px] text-[#949494] font-poppins font-medium leading-[13.48px] text-left">
+                    Phone
+                  </h6>
+                  <p className="text-[10px] text-[#333333] font-poppins font-medium leading-[13.48px] text-left">
+                    {data?.dial_code} {data?.mobileNumber}
+                  </p>
+                </div>
+                <div className="flex flex-col">
+                  <h6 className="text-[10px] text-[#949494] font-poppins font-medium leading-[13.48px] text-left">
+                    Address
+                  </h6>
+                  <p className="text-[10px] text-[#333333] font-poppins font-medium leading-[13.48px] text-left">
+                    {data.address}
+                  </p>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div className="flex flex-col px-[36px]">
-          <div className="flex flex-row justify-end items-start gap-[8.99px]">
-            <h6 className="text-[10px] text-[#0E6CC2] font-poppins font-bold leading-[15px] text-left">
-              Date :
-            </h6>
-            <p className="text-[10px] text-[#333333] font-poppins font-normal leading-[15px] text-left">
-              {data.date}
-            </p>
-          </div>
-          <div className="flex flex-row gap-[24px]">
-            <div className="font-lato text-[10px] font-normal leading-[12px] text-[#6D6E71] w-[500px] text-left">
-              <p>{splitContents.first}</p>
+          <div className="flex flex-col px-[36px]">
+            <div className="flex flex-row justify-end items-start gap-[8.99px]">
+              <h6 className="text-[10px] text-[#0E6CC2] font-poppins font-bold leading-[15px] text-left">
+                Date :
+              </h6>
+              <p className="text-[10px] text-[#333333] font-poppins font-normal leading-[15px] text-left">
+                {data?.letterDate || "16 Oct 1936"}
+              </p>
             </div>
-            <div className="flex flex-col w-[224px]">
-              <div className="flex flex-col">
-                <h6 className="text-[10px] text-[#0E6CC2] font-poppins font-semibold leading-[15px] text-left">
-                  To,
-                </h6>
-                <h6 className="text-[10px] text-[#0E6CC2] font-poppins font-semibold leading-[15px] text-left">
-                  {data.to.name}
-                </h6>
-                <p className="text-[10px] text-[#797979] font-poppins font-normal leading-[15px] text-left">
-                  {data.to.designation} {data.to.company} {data.to.address}
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {splitContents.second && (
-          <div className="flex flex-col px-[36px] mt-6">
             <div className="flex flex-row gap-[24px]">
-              <div className="font-lato text-[10px] font-normal leading-[12px] text-[#6D6E71] w-[500px] text-left">
-                <p>{splitContents.second}</p>
+              <div className="font-lato text-[10px] font-normal leading-[12px] text-[#6D6E71] w-[500px] text-left ">
+                <span className="flex pb-[16px]">
+                  Dear {data?.employerName}
+                </span>
+                {splitContents?.first.map((passage, index) => (
+                  <p key={index} style={{ margin: "16px 0" }}>
+                    {passage}
+                  </p>
+                ))}
+                {splitContents?.second?.length <= 0 && (
+                  <>
+                    <span className="pt-[8px]">Warm Regards</span>
+                    <p>
+                      {data?.firstName}
+                      {","} {data?.lastName}
+                    </p>
+                  </>
+                )}
+              </div>
+              <div className="flex flex-col w-[224px]">
+                <div className="flex flex-col">
+                  <h6 className="text-[10px] text-[#0E6CC2] font-poppins font-semibold leading-[15px] text-left">
+                    To,
+                  </h6>
+                  <h6 className="text-[10px] text-[#0E6CC2] font-poppins font-semibold leading-[15px] text-left">
+                    {data?.employerName}
+                  </h6>
+                  <p className="text-[10px] text-[#797979] font-poppins font-normal leading-[15px] text-left">
+                    {data?.employerOrganizationName}
+                    {","}
+                    {data?.employerAddress}
+                    {","} {data?.employerCityState}
+                    {","}
+                    {data?.employerCountry}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {splitContents?.second?.length > 0 && (
+          <div className="bg-[#FFFFFF] w-[595px] min-h-[700px] p-[24px] gap-[16px] flex flex-col">
+            <div className="flex flex-row gap-[24px]" ref={page2Ref}>
+              <div className="font-lato text-[10px] font-normal leading-[12px] text-[#6D6E71] w-full text-left">
+                {splitContents.second.map((passage, index) => (
+                  <p key={index} style={{ margin: "16px 0" }}>
+                    {passage}
+                  </p>
+                ))}
+                <span className="flex pt-[16px]">Warm Regards</span>
+                <p>
+                  {data?.firstName}
+                  {","} {data?.lastName}
+                </p>
               </div>
               <div className="flex flex-col w-[224px]">
                 <div className="flex flex-col">
@@ -166,8 +169,7 @@ const CoverLetter2 = () => {
             </div>
           </div>
         )}
-      </div> */}
-
+      </div>
     </>
   );
 };
