@@ -22,7 +22,7 @@ const CustomTextEditor = ({
     editorProps: {
       attributes: {
         class:
-          "flex flex-col  pt-2 pr-4 pb-2 pl-4 gap-16 justify-start border-b border-r border-l border-[#F5F5F5] text-[#333333] items-start w-full font-medium text-[16px] pt-4 rounded-bl-md rounded-br-md outline-none min-h-[100px] cursor-auto ",
+          "flex flex-col  pt-2 pr-4 pb-2 pl-4 gap-16 justify-start border-b border-r border-l border-[#F5F5F5] text-[#333333] items-start w-full font-medium text-[16px] pt-4 rounded-bl-md rounded-br-md outline-none min-h-[100px] cursor-auto min-h-[300px]",
       },
     },
     content: `<p>${text}</p>`,
@@ -40,6 +40,7 @@ const CustomTextEditor = ({
         editor={editor}
         rerender={rerender}
         placeholder={placeholder}
+      
       />
     </div>
   );

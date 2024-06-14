@@ -23,7 +23,7 @@ const CustomToolbar = ({ editor, content }) => {
     <div
       //   className="sm:px-4 px-2 sm:py-3 py-2 rounded-tl-md rounded-tr-md flex justify-between items-start
       // gap-5 w-full flex-wrap border border-[#DEDEDE] bg-yellow"
-      className="flex flex-row gap-2 bg-[#F2F4F7] w-full justify-between items-start flex-wrap"
+      className="flex flex-row gap-2 bg-[#F2F4F7] w-full justify-between items-start flex-wrap "
     >
       <div className="flex justify-start items-center gap-[8px] py-[16px] w-full lg:w-10/12 flex-wrap ">
         <button

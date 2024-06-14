@@ -13,6 +13,7 @@ function HeaderSidebar({
   const loginListCandidate = [
     "Home",
     "Create New Resume",
+    "Create New Cover Letter",
     "My Resumes",
     // "Transform CV",
     "Skill Assessments",
@@ -23,6 +24,8 @@ function HeaderSidebar({
   ];
   const loginListRecruiter = [
     "Home",
+    "Create New Resume",
+    "Create New Cover Letter",
     "My Clients",
     // "Transform CV",
     "Job Description Matching",
@@ -186,6 +189,10 @@ function HeaderSidebar({
                   ...getListItemStyles("/home/BuildResume"),
                   transition: "transform 0.8s ease-in-out",
                 }),
+                ...(item === "Create New Cover Letter" && {
+                  ...getListItemStyles(userDataGlobal.role === "user" ? "/coverLetter" : `/myClients/ClientResume?cover=true`),
+                  transition: "transform 0.8s ease-in-out",
+                }),
                 ...(item === "My Resumes" && {
                   ...getListItemStyles("/home/MyCollection"),
                   transition: "transform 0.8s ease-in-out",
@@ -242,7 +249,12 @@ function HeaderSidebar({
                     handleNavigation("/myClients");
                     break;
                   case "Create New Resume":
-                    handleNavigation("/home/BuildResume");
+                    handleNavigation(userDataGlobal.role === "user"
+                      ? "/home/BuildResume"
+                      : "/myClients/ClientResume");
+                    break;
+                    case "Create New Cover Letter":
+                    handleNavigation(userDataGlobal.role === "user" ? "/coverLetter" : `/myClients/ClientResume?cover=true`);
                     break;
                   case "My Resumes":
                     handleNavigation("/home/MyCollection");

@@ -7,16 +7,26 @@ function Services({ setServices }) {
     const userDataGlobal = useSelector((state) => state.userData);
     const loginListCandidate = [
         { name: "Create New Resume", imgSrc: "/images/resumeBuilder/createResume.png" },
+        {
+            name: "Create New Cover Letter",
+            imgSrc: "/images/resumeBuilder/createResume.png",
+        },
         { name: "My Resumes", imgSrc: "/images/resumeBuilder/myResume.png" },
+
         // { name: "Transform CV", imgSrc: "/images/resumeBuilder/transform_cv.png" },
         { name: "Skill Assessments", imgSrc: "/images/resumeBuilder/skill_assessments.png" },
-        
+
         { name: "My Purchases", imgSrc: "/images/resumeBuilder/my_purchases.png" }
     ];
 
     const loginListRecruiter = [
         { name: "Create New Resume", imgSrc: "/images/resumeBuilder/createResume.png" },
+        {
+            name: "Create New Cover Letter",
+            imgSrc: "/images/resumeBuilder/createResume.png",
+        },
         { name: "My Clients", imgSrc: "/images/resumeBuilder/my_clients.png" },
+
         // { name: "Transform CV", imgSrc: "/images/resumeBuilder/transform_cv.png" },
         { name: "Job Description Matching", imgSrc: "/images/resumeBuilder/job_description_matching.png" },
         { name: "My Collection", imgSrc: "/images/resumeBuilder/collection.png" },
@@ -77,6 +87,7 @@ function Services({ setServices }) {
                         ...(item.name === 'Recruiter' && { ...getListItemStyles('/recruiter'), transition: "transform 0.8s ease-in-out" }),
                         ...(item.name === 'Home' && { ...getListItemStyles('/home'), transition: "transform 0.7s ease-in-out" }),
                         ...(item.name === 'Create New Resume' && { ...getListItemStyles('/home/BuildResume'), transition: "transform 0.8s ease-in-out" }),
+                        ...(item.name === 'Create New Cover Letter' && { ...getListItemStyles(userDataGlobal.role === "user" ? "/coverLetter" : `/myClients/ClientResume?cover=true`), transition: "transform 0.8s ease-in-out" }),
                         ...(item.name === 'My Clients' && { ...getListItemStyles('/myClients'), transition: "transform 0.8s ease-in-out" }),
                         ...(item.name === 'My Resumes' && { ...getListItemStyles('/home/MyCollection'), transition: "transform 0.8s ease-in-out" }),
                         ...(item.name === 'Transform CV' && { ...getListItemStyles('/transform/TransformJob'), transition: "transform 0.9s ease-in-out" }),
@@ -100,6 +111,9 @@ function Services({ setServices }) {
                                 break;
                             case 'Create New Resume':
                                 handleNavigation('/home/BuildResume');
+                                break;
+                            case 'Create New Cover Letter':
+                                handleNavigation(userDataGlobal.role === "user" ? "/coverLetter" : `/myClients/ClientResume?cover=true`);
                                 break;
                             case 'My Clients':
                                 handleNavigation('/myClients');

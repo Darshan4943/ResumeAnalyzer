@@ -111,7 +111,7 @@ function Dashboard() {
     },
     {
       name: "Create New Cover Letter",
-      imgSrc: "/images/resumeBuilder/createResume.png",
+      imgSrc: "/images/resumeBuilder/cover.png",
     },
     { name: "Collection", imgSrc: "/images/resumeBuilder/myResume.png" },
     // { name: "Transform CV", imgSrc: "/images/resumeBuilder/transform_cv.png" },
@@ -134,6 +134,10 @@ function Dashboard() {
     {
       name: "Create New Resume",
       imgSrc: "/images/resumeBuilder/createResume.png",
+    },
+    {
+      name: "Create New Cover Letter",
+      imgSrc: "/images/resumeBuilder/cover.png",
     },
     { name: "My Clients", imgSrc: "/images/resumeBuilder/my_clients.png" },
     // { name: "Transform CV", imgSrc: "/images/resumeBuilder/transform_cv.png" },
@@ -169,7 +173,7 @@ function Dashboard() {
         );
         break;
       case "Create New Cover Letter":
-        handleNavigation("/coverLetter");
+        handleNavigation(userDataGlobal.role === "user" ? "/coverLetter" : `/myClients/ClientResume?cover=true`);
         break;
       case "My Clients":
         handleNavigation("/myClients");
