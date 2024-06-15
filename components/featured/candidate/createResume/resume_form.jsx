@@ -203,11 +203,11 @@ const ResumeForm = ({
     <>
       <div className="flex flex-col pr-[10px] ml:w-[100%] w-[100%]  pb-4 gap-4 rounded-lg ">
         <div className="ml:flex hidden  flex-row gap-4 ">
-          <button onClick={() => router.push(`/home/BuildResume?clientId=${clientId}`)} className="p-[8px] border-[1px] bg-blue border-[#DEDEDE] rounded-[6px]  "
+          <button className="p-[8px] border-[1px] bg-blue border-[#DEDEDE] rounded-[6px]  "
             style={{}}>
             <svg
               className=" cursor-pointer"
-
+              onClick={() => router.push("/home/BuildResume")}
               width="24"
               height="24"
               viewBox="0 0 40 40"
@@ -222,7 +222,7 @@ const ResumeForm = ({
               </g>
             </svg>
           </button>
-          <div className="text-[18px] font-medium text-[#FFFFFF]  header1 w-[100%] flex justify-start px-4 py-[6px] ">
+          <div className="text-[18px] font-medium text-[#FFFFFF]  header1 w-[280px] flex justify-start px-4 py-[6px] ">
             Create Resume
           </div>
 

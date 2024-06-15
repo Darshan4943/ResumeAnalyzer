@@ -109,7 +109,16 @@ function Dashboard() {
       name: "Create New Resume",
       imgSrc: "/images/resumeBuilder/createResume.png",
     },
-    { name: "My Resumes", imgSrc: "/images/resumeBuilder/myResume.png" },
+    {
+      name: "Create New Cover Letter",
+      imgSrc: "/images/resumeBuilder/cover.png",
+    },
+    {
+      name: "My Collection",
+
+      imgSrc: "/images/resumeBuilder/collection.png",
+    },
+    // { name: "Resume", imgSrc: "/images/resumeBuilder/myResume.png" },
     // { name: "Transform CV", imgSrc: "/images/resumeBuilder/transform_cv.png" },
     {
       name: "Skill Assessments",
@@ -130,6 +139,10 @@ function Dashboard() {
     {
       name: "Create New Resume",
       imgSrc: "/images/resumeBuilder/createResume.png",
+    },
+    {
+      name: "Create New Cover Letter",
+      imgSrc: "/images/resumeBuilder/cover.png",
     },
     { name: "My Clients", imgSrc: "/images/resumeBuilder/my_clients.png" },
     // { name: "Transform CV", imgSrc: "/images/resumeBuilder/transform_cv.png" },
@@ -164,10 +177,13 @@ function Dashboard() {
             : "/myClients/ClientResume"
         );
         break;
+      case "Create New Cover Letter":
+        handleNavigation(userDataGlobal.role === "user" ? "/coverLetter" : `/myClients/ClientResume?cover=true`);
+        break;
       case "My Clients":
         handleNavigation("/myClients");
         break;
-      case "My Resumes":
+      case "Resume":
         handleNavigation("/home/MyCollection");
         break;
       case "Transform CV":
@@ -186,7 +202,7 @@ function Dashboard() {
         handleNavigation("/chatbot");
         break;
       case "My Collection":
-        handleNavigation("/collection");
+        handleNavigation(userDataGlobal.role === "user" ? "/home/MyCollection" :"/collection");
         break;
       case "Skill Assessments":
         handleNavigation("/home/SkillAssessment");
@@ -535,7 +551,7 @@ function Dashboard() {
   const MyComponent = () => {
     return (
       <Document dpi={72}>
-         {selectResumeTemplate(resumeData.selectedResumeIndex)}
+        {selectResumeTemplate(resumeData.selectedResumeIndex)}
       </Document>
     );
   };
