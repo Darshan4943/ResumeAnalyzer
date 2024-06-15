@@ -20,16 +20,15 @@ const FileNameModel = ({ setNamePreview, setFunction, data, clientId }) => {
   const userDataGlobal = useSelector((state) => state.userData);
 
   const callData = () => {
-    const id = clientId === "undefined" ? userDataGlobal?._id : clientId;
+    const id = userDataGlobal.role === "user" ? userDataGlobal?._id : clientId;
     if (id) {
       axios
-        .get(`https://jamblix.com/api/resume/${id}`)
-        .then((res) => {
-          const filenamesWithoutExtension = res.data.data.map((item) =>
-            item.fileName.replace(/\.pdf$/, "")
-          );
-          setExistingNames(filenamesWithoutExtension);
+      .get("http://localhost:2000/api/cover/get/" + id)
 
+        .then((res) => {
+          // Remove .pdf extension from filenames
+         
+console.log(222,res.data.data)
           setName(data.firstName + "_resume " + (res.data.data.length + 1));
         })
         .catch((err) => {
@@ -37,10 +36,13 @@ const FileNameModel = ({ setNamePreview, setFunction, data, clientId }) => {
         });
     }
   };
+
+  
   useEffect(() => {
-    callData();
+    callData()
     setName(data.firstName + "_resume");
   }, [userDataGlobal, data.firstName]);
+
 
   const handleSave = () => {
     if (existingNames.includes(name)) {

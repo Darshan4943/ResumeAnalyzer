@@ -16,8 +16,8 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useRouter } from "next/router";
 
 function CoverForm({
-  selectedResumeIndex,
-  setSelectedResumeIndex,
+  selectedCoverIndex,
+  setSelectedCoverIndex,
   selectedColor,
   setSelectedColor,
   setSelectedFont,
@@ -44,7 +44,7 @@ function CoverForm({
   };
 
   const togglePreview = (isVisible, index) => {
-    setSelectedResumeIndex(index);
+    setSelectedCoverIndex(index);
   };
 
   const renderTemplates = () => {
@@ -55,7 +55,7 @@ function CoverForm({
     };
     return coverLetters.map((template, index) => (
       <img
-        style={selectedResumeIndex == template.index ? selectedStyle : {}}
+        style={selectedCoverIndex == template.index ? selectedStyle : {}}
         key={index}
         src={template.imgUrl}
         className="h-[200px] w-[140.91px] rounded-[6px]"
@@ -303,7 +303,7 @@ function CoverForm({
         <div className="flex flex-col gap-[16px] sticky top-[40px] z-[10] bg-white pt-5 pb-4">
           {/** 
           <ThemeForm
-            selectedResumeIndex={selectedResumeIndex}
+            selectedCoverIndex={selectedCoverIndex}
             selectedColor={selectedColor}
             setSelectedColor={setSelectedColor}
             setSelectedFont={setSelectedFont}
@@ -417,8 +417,8 @@ function CoverForm({
                   selectedFont={selectedFont}
                   selectedColor={selectedColor}
                   setSelectedColor={setSelectedColor}
-                  selectedResumeIndex={selectedResumeIndex}
-                  setSelectedResumeIndex={setSelectedResumeIndex}
+                  selectedCoverIndex={selectedCoverIndex}
+                  setSelectedCoverIndex={setSelectedCoverIndex}
                   isFormat={isFormat}
                   isError={isError}
                 />
@@ -435,8 +435,8 @@ function CoverForm({
                   selectedFont={selectedFont}
                   selectedColor={selectedColor}
                   setSelectedColor={setSelectedColor}
-                  selectedResumeIndex={selectedResumeIndex}
-                  setSelectedResumeIndex={setSelectedResumeIndex}
+                  selectedCoverIndex={selectedCoverIndex}
+                  setSelectedCoverIndex={setSelectedCoverIndex}
                   isFormat={isFormat}
                 />
               </>

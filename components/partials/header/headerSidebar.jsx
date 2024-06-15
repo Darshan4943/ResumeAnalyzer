@@ -14,7 +14,8 @@ function HeaderSidebar({
     "Home",
     "Create New Resume",
     "Create New Cover Letter",
-    "My Resumes",
+    // "My Resumes",
+    "My Collection",
     // "Transform CV",
     "Skill Assessments",
     // "Search Jobs",
@@ -206,7 +207,7 @@ function HeaderSidebar({
                   transition: "transform 1s ease-in-out",
                 }),
                 ...(item === "My Collection" && {
-                  ...getListItemStyles("/collection"),
+                  ...getListItemStyles(userDataGlobal.role === "user" ? "/home/MyCollection" :"/collection"),
                   transition: "transform 1.1s ease-in-out",
                 }),
                 ...(item === "Skill Assessments" && {
@@ -276,7 +277,7 @@ function HeaderSidebar({
                     handleNavigation("/myWebsite");
                     break;
                   case "My Collection":
-                    handleNavigation("/collection");
+                    handleNavigation(userDataGlobal.role === "user" ? "/home/MyCollection" :"/collection");
                     break;
                   case "Skill Assessments":
                     handleNavigation("/home/SkillAssessment");

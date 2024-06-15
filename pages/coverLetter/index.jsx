@@ -7,8 +7,9 @@ import { useRouter } from "next/router";
 function Index() {
   const router = useRouter();
   const [selectedFont, setSelectedFont] = useState("Roboto");
+  const [selectedCoverIndex, setSelectedCoverIndex] = useState();
   const [selectedColor, setSelectedColor] = useState();
-  const [selectedResumeIndex, setSelectedResumeIndex] = useState();
+
   const { clientId } = router.query;
   const defaultState = {
     firstName: "",
@@ -50,8 +51,8 @@ function Index() {
     <div className="flex gap-4 py-6 customMargins overflow-hidden relative">
       <div className="w-[41%] min-w-[508px]">
         <CoverForm
-          selectedResumeIndex={selectedResumeIndex}
-          setSelectedResumeIndex={setSelectedResumeIndex}
+          selectedCoverIndex={selectedCoverIndex}
+          setSelectedCoverIndex={setSelectedCoverIndex}
           setSelectedColor={setSelectedColor}
           selectedColor={selectedColor}
           setSelectedFont={setSelectedFont}
@@ -61,7 +62,7 @@ function Index() {
         />
       </div>
       <div className="w-[59%] min-w-[508px] ">
-        <CoverPreview data={data} clientId={clientId}/>
+        <CoverPreview data={data} clientId={clientId}  selectedCoverIndex={selectedCoverIndex}/>
       </div>
     </div>
   );
