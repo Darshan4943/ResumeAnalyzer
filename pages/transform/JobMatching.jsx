@@ -85,9 +85,11 @@ const JobMatching = () => {
     axios
       .get(`https://jamblix.com/api/folder/getByParentId/${parentId}`)
       .then((res) => {
-        const filteredData = res.data.data.filter(item => item.isSync === true);
+        const filteredData = res.data.data.filter(
+          (item) => item.isSync === true
+        );
         setDetails(filteredData);
-        
+
         setTimeout(() => {
           setLoading(false);
         }, 1000);
@@ -101,9 +103,11 @@ const JobMatching = () => {
     axios
       .get(`https://jamblix.com/api/folder/get/${userDataGlobal._id}`)
       .then((res) => {
-        const filteredData = res.data.data.filter(item => item.isSync === true);
+        const filteredData = res.data.data.filter(
+          (item) => item.isSync === true
+        );
         setDetails(filteredData);
-        
+
         setTimeout(() => {
           setLoading(false);
         }, 1000);

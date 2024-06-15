@@ -7,8 +7,9 @@ import { SparklingStarts } from "../../utils/svg";
 import MiniLoader from "../common/mini-loader";
 
 const Tiptap = ({ data, setData, value, placeholder }) => {
+  console.log("data1", data);
   const [text, setText] = useState("");
-  const [rerender, setRerender] = useState(false); 
+  const [rerender, setRerender] = useState(false);
   useEffect(() => {
     if (data.description.length > 0) {
       setText(data.description);
@@ -31,8 +32,12 @@ const Tiptap = ({ data, setData, value, placeholder }) => {
   return (
     data && (
       <div>
-        <Toolbar editor={editor} content={text}  rerender={rerender} />
-        <EditorContent style={{ whiteSpace: "pre-line" }} editor={editor}  rerender={rerender} />
+        <Toolbar editor={editor} content={text} rerender={rerender} />
+        <EditorContent
+          style={{ whiteSpace: "pre-line" }}
+          editor={editor}
+          rerender={rerender}
+        />
       </div>
     )
   );

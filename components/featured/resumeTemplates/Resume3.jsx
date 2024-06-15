@@ -259,7 +259,7 @@ function Resume3({ data, selectedColor, selectedFont, preview }) {
                     </div>
                   )}
                   <div className="flex flex-col">
-                    {data.socialLinks.map((detail, index) => (
+                    {data?.socialLinks?.map((detail, index) => (
                       <div key={index} className="gap-[7.83px] flex ">
                         <div className="w-[14.76px] h-[14.75px] rounded-full flex items-center justify-center bg-white">
                           <svg
@@ -497,7 +497,7 @@ function Resume3({ data, selectedColor, selectedFont, preview }) {
                     </div>
                   )}
                   <div className="flex flex-col">
-                    {data.socialLinks.map((detail, index) => (
+                    {data?.socialLinks?.map((detail, index) => (
                       <div key={index} className="gap-[7.83px] flex ">
                         <div className="w-[14.76px] h-[14.75px] rounded-full flex items-center justify-center bg-white">
                           <svg

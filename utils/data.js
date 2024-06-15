@@ -1,6 +1,23 @@
 import Template1 from "../components/featured/resumeTemplates/Template1";
 import Template2 from "../components/featured/resumeTemplates/Template2";
 
+export function formatDateInNumber(dateString) {
+  // Parse the date string into a Date object
+  const date = new Date(dateString);
+
+  // Extract the day, month, and year
+  const day = date.getDate();
+  const month = date.getMonth() + 1; // Months are zero-indexed in JavaScript
+  const year = date.getFullYear();
+
+  // Format day and month to ensure two digits
+  const formattedDay = day < 10 ? "0" + day : day;
+  const formattedMonth = month < 10 ? "0" + month : month;
+
+  // Construct the final formatted date string
+  return `${formattedDay}/${formattedMonth}/${year}`;
+}
+
 export const companyLogo = [
   {
     img: "/images/home/scroller-img_1.png",
