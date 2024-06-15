@@ -53,7 +53,7 @@ const CoverLetter2 = ({ page1Ref, page2Ref, data }) => {
 
   return (
     <>
-      <div className="flex flex-col border-2 border-[#DEDEDE] ">
+      <div className="flex flex-col  border-[#DEDEDE] ">
         <div className="bg-[#FFFFFF] w-[595px] min-h-[700px] p-[24px] gap-[16px] flex flex-col ">
           <div
             className="flex flex-col w-full h-[153px] pt-[26px] pr-[36px] pb-[14px] pl-[36px] bg-[#F9F9F9] gap-[24px] "

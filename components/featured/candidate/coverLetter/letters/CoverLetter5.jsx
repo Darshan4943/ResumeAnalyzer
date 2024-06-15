@@ -47,7 +47,7 @@ function CoverLetter5({ page2Ref, page1Ref, data }) {
       <div className="flex flex-col gap-[24px] ">
         <div
           ref={page1Ref}
-          className=" w-[595px] min-h-[700px] gap-[16px] flex flex-col border-2  relative "
+          className=" w-[595px] min-h-[700px] gap-[16px] flex flex-col  bg-[#fff] relative "
         >
           <img
             className="min-w-[590px] min-h-[178px]"
@@ -66,7 +66,7 @@ function CoverLetter5({ page2Ref, page1Ref, data }) {
                 {data.designation}
               </span>
             </div>
-            <div className="flex flex-col gap-[8px] w-[26%] justify-start items-start ">
+            <div className="flex flex-col gap-[8px] justify-start items-start pr-[2px]">
               <div className="gap-[8px] flex flex-row w-full ">
                 <svg
                   className="min-h-[14px] min-w-[14px]"
@@ -87,7 +87,7 @@ function CoverLetter5({ page2Ref, page1Ref, data }) {
                 </span>
               </div>
 
-              <div className="gap-[8px] flex flex-row ">
+              <div className="gap-[8px] flex flex-row w-full">
                 <svg
                   className="min-h-[14px] min-w-[14px]"
                   width="14"
@@ -107,7 +107,7 @@ function CoverLetter5({ page2Ref, page1Ref, data }) {
                 </span>
               </div>
 
-              <div className="gap-[8px] flex flex-row ">
+              <div className="gap-[8px] flex flex-row w-full ">
                 <svg
                   className="min-h-[14px] min-w-[14px]"
                   width="14"
@@ -187,7 +187,7 @@ function CoverLetter5({ page2Ref, page1Ref, data }) {
         {splitContents?.second?.length > 0 && (
           <div
             ref={page2Ref}
-            className="  w-[595px] min-h-[700px] p-[24px]  border-2 flex flex-col bg-red overflow-hidden"
+            className="  w-[595px] min-h-[700px] p-[24px]  flex flex-col bg-[#fff] overflow-hidden"
           >
             <div className="flex h-full">
               <div className="flex flex-col w-[30%]"></div>
@@ -201,10 +201,10 @@ function CoverLetter5({ page2Ref, page1Ref, data }) {
                 </div>
                 {splitContents?.second?.length > 0 && (
                   <div className="flex flex-col w-full gap-[2px]">
-                    <span className="text-[10px] font-[400] text-[#414042] ">
+                    <span className="text-[10px] font-[400]  text-[#414042] leading-[14px] font-[Inter]">
                       Warm regards,
                     </span>
-                    <span className="text-[10px] font-[400] text-[#414042]  ">
+                    <span className="text-[10px] font-[400]  text-[#414042] leading-[14px] font-[Inter]">
                       {data?.firstName} {data?.lastName}
                     </span>
                   </div>

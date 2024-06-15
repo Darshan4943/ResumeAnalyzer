@@ -46,7 +46,7 @@ function CoverLetter7({ page2Ref, page1Ref, data }) {
     <div className="flex flex-col gap-[24px]">
       <div
         ref={page1Ref}
-        className="w-[595px] min-h-[700px] flex flex-col gap-[32px] p-[34px] border-2"
+        className="w-[595px] min-h-[700px] flex flex-col gap-[32px] p-[34px] bg-[#fff]"
       >
         <div className="w-full flex flex-row justify-between bg-[#F1F2F2] py-[28px] px-[42px] rounded-[80px]">
           <div className="flex flex-col gap-[2px] justify-start items-start">
@@ -182,9 +182,10 @@ function CoverLetter7({ page2Ref, page1Ref, data }) {
       {splitContents?.second?.length > 0 && (
         <div
           ref={page2Ref}
-          className="  p-[24px]  w-[595px] min-h-[700px] border-2 flex flex-col bg-[#fff] overflow-hidden"
+          className="flex flex-row  p-[24px]  w-[595px] min-h-[700px] bg-[#fff] overflow-hidden"
         >
-          <div className="flex h-full">
+          <div className="w-[30%] flex flex-row gap-[24px]"></div>
+          <div className="flex h-full w-[70%]">
             <div className="flex flex-col justify-start w-full gap-[8px]">
               <div className="text-[10px] font-[400]  text-[#414042] leading-[14px] font-[Inter]">
                 {splitContents.second.map((passage, index) => (

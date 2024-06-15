@@ -236,6 +236,7 @@ function CoverPreview({ data, clientId, selectedCoverIndex }) {
   );
 
   const selectCoverTemplate = (index) => {
+    console.log("index", index)
     switch (index) {
       case 1:
         return <CoverLetter data={data} />;
