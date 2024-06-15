@@ -98,6 +98,11 @@ function CoverForm({
       "employerAddress",
       "employerCityState",
       "employerCountry",
+      "jobTitle",
+      "organization",
+      "industry",
+      "designation",
+      "experience",
     ];
 
     let errors = {};
@@ -296,13 +301,14 @@ function CoverForm({
       )}
       {isShow === false && (
         <div className="flex flex-col gap-[16px] sticky top-[40px] z-[10] bg-white pt-5 pb-4">
+          {/** 
           <ThemeForm
             selectedResumeIndex={selectedResumeIndex}
             selectedColor={selectedColor}
             setSelectedColor={setSelectedColor}
             setSelectedFont={setSelectedFont}
             selectedFont={selectedFont}
-          />
+          />*/}
           <div className="bg-[#DEDEDE] w-full h-[1px]"> </div>
           <div className="bg-[#F9F9F9] w-full flex rounded-[8px] text-[14px] font-semibold  ">
             <button
@@ -336,7 +342,7 @@ function CoverForm({
               <label className="font-montserrat text-[14px] font-[500] leading-[17.07px] text-left w-full">
                 Content Situation
               </label>
-
+              ''
               <div className="w-full flex gap-[16px] text-[14px] font-montserrat items-center font-medium">
                 <div className="flex gap-[10px] w-[50%] items-center">
                   <input
@@ -378,7 +384,7 @@ function CoverForm({
                   selected={selectedDate}
                   onChange={(date) => setSelectedDate(date)}
                   placeholderText="Select Date"
-                  className="w-full px-4 py-2 gap-2 border border-[#646464] rounded-[8px] shadow-sm focus:outline-none focus:ring focus:border-blue-300"
+                  className="w-full px-6 py-2 gap-2 border border-[#646464] rounded-[8px] shadow-sm focus:outline-none focus:ring focus:border-blue-300"
                 />
 
                 <span className="absolute inset-y-0 left-[180px] flex items-center pointer-events-none gap-3  py-2">
@@ -480,14 +486,16 @@ function CoverForm({
             animate={{ x: 0 }}
             exit={{ x: "-100%" }}
             transition={{ duration: 0.5, ease: "easeInOut" }}
-            className="fixed z-[3000] min-w-[508px] w-[34%] mt-[22rem] flex flex-col gap-4"
+            className="fixed z-[3000] min-w-[508px] w-[34%] mt-[22rem] flex flex-col gap-4 "
             style={{
               background: "white",
               boxShadow: "0 0 10px rgba(255, 255, 255, 0.5)",
             }}
           >
-            <CustomTextEditor data={data} setData={setData} />
-            <div className="flex flex-row justify-between ite3ms-center gap-[10px]">
+            <div className="flex-1 overflow-auto">
+              <CustomTextEditor data={data} setData={setData} />
+            </div>
+            <div className="flex flex-row justify-between ite3ms-center gap-[10px] sticky bottom-0">
               <div>
                 <div
                   className="flex flex-row bg-[#F5F5F5] py-[8px] px-[16px] text-[12px] justify-between items-center rounded-[8px] gap-[8px] cursor-pointer"

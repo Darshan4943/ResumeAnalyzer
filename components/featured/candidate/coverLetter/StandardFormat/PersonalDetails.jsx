@@ -269,7 +269,8 @@ const PersonalDetails = ({ data, setData, errors }) => {
                 <div key={index}>
                   <div className="flex flex-col gap-[8px] w-full" key={index}>
                     <label className="font-montserrat text-[14px] font-medium leading-[17.07px] text-left">
-                      {employer.label}
+                      {employer.label}{" "}
+                      <span className="text-red text-[12px]">*</span>
                     </label>
                     <input
                       type={employer.type}
@@ -291,7 +292,7 @@ const PersonalDetails = ({ data, setData, errors }) => {
 
           <div className={`flex flex-col gap-2 w-full`}>
             <label className="font-montserrat text-[14px] font-medium leading-[17.07px] text-left flex-wrap">
-              Mobile Number
+              Mobile Number <span className="text-red text-[12px]">*</span>
             </label>
 
             <div className="w-[60%] flex pr-[16px] h-[40px] pl-[16px] gap-2 border border-solid border-[#DEDEDE] rounded-[8px] text-[12px] leading-[16px] text-[#646464] font-[400]">
@@ -362,7 +363,8 @@ const PersonalDetails = ({ data, setData, errors }) => {
                 <div key={index}>
                   <div className="flex flex-col gap-[8px] w-full">
                     <label className="font-montserrat text-[14px] font-medium leading-[17.07px] text-left flex-wrap">
-                      {employer.label}
+                      {employer.label}{" "}
+                      <span className="text-red text-[12px]">*</span>
                     </label>
                     <input
                       type={employer.type}
