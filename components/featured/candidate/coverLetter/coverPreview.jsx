@@ -93,7 +93,6 @@ function CoverPreview({ data, clientId, selectedCoverIndex }) {
         .then((res) => {
           // Remove .pdf extension from filenames
 
-          console.log(222, res.data.data);
           setName(data.firstName + "_resume " + (res.data.data.length + 1));
         })
         .catch((err) => {
@@ -107,7 +106,6 @@ function CoverPreview({ data, clientId, selectedCoverIndex }) {
     setName(data.firstName + "_resume");
   }, [userDataGlobal, data.firstName]);
 
-  //save
   const generatePdfBlob = async () => {
     const input1 = page1Ref.current;
     const input2 = page2Ref.current;
@@ -137,6 +135,8 @@ function CoverPreview({ data, clientId, selectedCoverIndex }) {
   const downloadPdfBlob = async () => {
     const input1 = page1Ref.current;
     const input2 = page2Ref.current;
+    console.log(118, input1);
+    console.log(119, input2);
 
     try {
       const canvas1 = await html2canvas(input1, { scale: 5 });
@@ -151,6 +151,7 @@ function CoverPreview({ data, clientId, selectedCoverIndex }) {
       pdf.addImage(imgData2, "JPEG", 0, 0, 595.28, 841.89);
 
       const pdfBlob = pdf.output("blob");
+      console.log(131, pdfBlob);
 
       pdf.save(`${data.firstName}_cover_letter.pdf`);
       setDownload(false);
@@ -164,6 +165,8 @@ function CoverPreview({ data, clientId, selectedCoverIndex }) {
 
   const handleDownload = async () => {
     const pdfBlob = await downloadPdfBlob();
+    console.log(145, pdfBlob);
+
     if (pdfBlob) {
       await addCoverLetter(pdfBlob);
       console.log("PDF downloaded successfully");
@@ -232,37 +235,88 @@ function CoverPreview({ data, clientId, selectedCoverIndex }) {
     </button>
   );
 
-  //   //select index
-    const selectCoverTemplate = (index) => {
-      switch (index) {
-        case 1:
-          return <CoverLetter data={data} />;
-        case 2:
-          return <CoverLetter2 data={data} />;
-        case 3:
-          return <CoverLetter3 data={data} />;
-        case 4:
-          return <CoverLetter4 data={data} />;
-        case 5:
-          return <CoverLetter5 data={data} />;
-        case 6:
-          return <CoverLetter6 data={data} />;
-        case 7:
-          return <CoverLetter7 data={data} />;
-        case 8:
-          return <CoverLetter8 data={data} />;
-        case 9:
-          return <CoverLetter9 data={data} />;
-        case 10:
-          return <CoverLetter10 data={data} />;
-        case 11:
-          return <CoverLetter11 data={data} />;
+  const selectCoverTemplate = (index) => {
+    switch (index) {
+      case 1:
+        return <CoverLetter data={data} />;
+      case 2:
+        return <CoverLetter2 data={data} />;
+      case 3:
+        return <CoverLetter3 data={data} />;
+      case 4:
+        return <CoverLetter4 data={data} />;
+      case 5:
+        return <CoverLetter5 data={data} />;
+      case 6:
+        return <CoverLetter6 data={data} />;
+      case 7:
+        return <CoverLetter7 data={data} />;
+      case 8:
+        return <CoverLetter8 data={data} />;
+      case 9:
+        return <CoverLetter9 data={data} />;
+      case 10:
+        return <CoverLetter10 data={data} />;
+      case 11:
+        return <CoverLetter11 data={data} />;
 
-        default:
-          return <CoverLetter data={data} />;
-      }
-    };
+      default:
+        return <CoverLetter data={data} />;
+    }
+  };
+  const selectCoverTemplate1 = (index) => {
+    switch (index) {
+      case 1:
+        return (
+          <CoverLetter data={data} page1Ref={page1Ref} page2Ref={page2Ref} />
+        );
+      case 2:
+        return (
+          <CoverLetter2 data={data} page1Ref={page1Ref} page2Ref={page2Ref} />
+        );
+      case 3:
+        return (
+          <CoverLetter3 data={data} page1Ref={page1Ref} page2Ref={page2Ref} />
+        );
+      case 4:
+        return (
+          <CoverLetter4 data={data} page1Ref={page1Ref} page2Ref={page2Ref} />
+        );
+      case 5:
+        return (
+          <CoverLetter5 data={data} page1Ref={page1Ref} page2Ref={page2Ref} />
+        );
+      case 6:
+        return (
+          <CoverLetter6 data={data} page1Ref={page1Ref} page2Ref={page2Ref} />
+        );
+      case 7:
+        return (
+          <CoverLetter7 data={data} page1Ref={page1Ref} page2Ref={page2Ref} />
+        );
+      case 8:
+        return (
+          <CoverLetter8 data={data} page1Ref={page1Ref} page2Ref={page2Ref} />
+        );
+      case 9:
+        return (
+          <CoverLetter9 data={data} page1Ref={page1Ref} page2Ref={page2Ref} />
+        );
+      case 10:
+        return (
+          <CoverLetter10 data={data} page1Ref={page1Ref} page2Ref={page2Ref} />
+        );
+      case 11:
+        return (
+          <CoverLetter11 data={data} page1Ref={page1Ref} page2Ref={page2Ref} />
+        );
 
+      default:
+        return (
+          <CoverLetter data={data} page1Ref={page1Ref} page2Ref={page2Ref} />
+        );
+    }
+  };
 
   return (
     <div className="flex flex-col gap-4 relative h-[88vh] ">
@@ -390,8 +444,9 @@ function CoverPreview({ data, clientId, selectedCoverIndex }) {
           </div>
         </div>
       </div>
+
       <div className="absolute  left-[10000px]">
-        <CoverLetter11 data={data} page1Ref={page1Ref} page2Ref={page2Ref} />
+        {selectCoverTemplate1(selectedCoverIndex)}
       </div>
 
       {namePreview && (
