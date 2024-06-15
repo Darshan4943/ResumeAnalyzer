@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -17,7 +17,7 @@ import CoverLetter4 from "./letters/CoverLetter4";
 import CoverLetter6 from "./letters/CoverLetter6";
 import CoverLetter8 from "./letters/CoverLetter8";
 
-function CoverPreview({ data, clientId }) {
+function CoverPreview({ data, clientId, selectedCoverIndex }) {
   const [namePreview, setNamePreview] = useState(false);
   const [name, setName] = useState(data.firstName + "_resume");
   const [blob, setBlob] = useState("");
@@ -38,13 +38,8 @@ function CoverPreview({ data, clientId }) {
   const zoomOut = () => {
     setZoomLevel((prevZoomLevel) => Math.max(prevZoomLevel - 0.1, 0.5));
   };
-  const addCoverLetter = async () => {
+  const addCoverLetter = async (pdfBlob) => {
     try {
-      const pdfBlob = await generatePdfBlob();
-      if (!pdfBlob) {
-        return;
-      }
-
       const formData = new FormData();
       if (Object.keys(data).length > 0) {
         Object.keys(data).map((key) => {
@@ -83,6 +78,28 @@ function CoverPreview({ data, clientId }) {
       setLoading1(false);
     }
   };
+
+  const callData = () => {
+    const id = userDataGlobal.role === "user" ? userDataGlobal?._id : clientId;
+    if (id) {
+      axios
+        .get("http://localhost:2000/api/cover/get/" + id)
+
+        .then((res) => {
+          // Remove .pdf extension from filenames
+
+          setName(data.firstName + "_resume " + (res.data.data.length + 1));
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  };
+
+  useEffect(() => {
+    callData();
+    setName(data.firstName + "_resume");
+  }, [userDataGlobal, data.firstName]);
 
   const generatePdfBlob = async () => {
     const input1 = page1Ref.current;
@@ -212,6 +229,89 @@ function CoverPreview({ data, clientId }) {
     </button>
   );
 
+  const selectCoverTemplate = (index) => {
+    switch (index) {
+      case 1:
+        return <CoverLetter data={data} />;
+      case 2:
+        return <CoverLetter2 data={data} />;
+      case 3:
+        return <CoverLetter3 data={data} />;
+      case 4:
+        return <CoverLetter4 data={data} />;
+      case 5:
+        return <CoverLetter5 data={data} />;
+      case 6:
+        return <CoverLetter6 data={data} />;
+      case 7:
+        return <CoverLetter7 data={data} />;
+      case 8:
+        return <CoverLetter8 data={data} />;
+      case 9:
+        return <CoverLetter9 data={data} />;
+      case 10:
+        return <CoverLetter10 data={data} />;
+      case 11:
+        return <CoverLetter11 data={data} />;
+
+      default:
+        return <CoverLetter data={data} />;
+    }
+  };
+  const selectCoverTemplate1 = (index) => {
+    switch (index) {
+      case 1:
+        return (
+          <CoverLetter data={data} page1Ref={page1Ref} page2Ref={page2Ref} />
+        );
+      case 2:
+        return (
+          <CoverLetter2 data={data} page1Ref={page1Ref} page2Ref={page2Ref} />
+        );
+      case 3:
+        return (
+          <CoverLetter3 data={data} page1Ref={page1Ref} page2Ref={page2Ref} />
+        );
+      case 4:
+        return (
+          <CoverLetter4 data={data} page1Ref={page1Ref} page2Ref={page2Ref} />
+        );
+      case 5:
+        return (
+          <CoverLetter5 data={data} page1Ref={page1Ref} page2Ref={page2Ref} />
+        );
+      case 6:
+        return (
+          <CoverLetter6 data={data} page1Ref={page1Ref} page2Ref={page2Ref} />
+        );
+      case 7:
+        return (
+          <CoverLetter7 data={data} page1Ref={page1Ref} page2Ref={page2Ref} />
+        );
+      case 8:
+        return (
+          <CoverLetter8 data={data} page1Ref={page1Ref} page2Ref={page2Ref} />
+        );
+      case 9:
+        return (
+          <CoverLetter9 data={data} page1Ref={page1Ref} page2Ref={page2Ref} />
+        );
+      case 10:
+        return (
+          <CoverLetter10 data={data} page1Ref={page1Ref} page2Ref={page2Ref} />
+        );
+      case 11:
+        return (
+          <CoverLetter11 data={data} page1Ref={page1Ref} page2Ref={page2Ref} />
+        );
+
+      default:
+        return (
+          <CoverLetter data={data} page1Ref={page1Ref} page2Ref={page2Ref} />
+        );
+    }
+  };
+
   return (
     <div className="flex flex-col gap-4 relative h-[88vh] ">
       <div className="flex justify-between sticky top-0">
@@ -333,13 +433,14 @@ function CoverPreview({ data, clientId }) {
             }}
           >
             <div style={{ boxShadow: "0px 1px 2px 0px #00000040" }}>
-              <CoverLetter11 data={data} />
+              {selectCoverTemplate(selectedCoverIndex)}
             </div>
           </div>
         </div>
       </div>
+
       <div className="absolute  left-[10000px]">
-        <CoverLetter11 data={data} page1Ref={page1Ref} page2Ref={page2Ref} />
+        {selectCoverTemplate1(selectedCoverIndex)}
       </div>
 
       {namePreview && (

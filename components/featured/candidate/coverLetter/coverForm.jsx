@@ -16,8 +16,8 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useRouter } from "next/router";
 
 function CoverForm({
-  selectedResumeIndex,
-  setSelectedResumeIndex,
+  selectedCoverIndex,
+  setSelectedCoverIndex,
   selectedColor,
   setSelectedColor,
   setSelectedFont,
@@ -44,7 +44,7 @@ function CoverForm({
   };
 
   const togglePreview = (isVisible, index) => {
-    setSelectedResumeIndex(index);
+    setSelectedCoverIndex(index);
   };
 
   const renderTemplates = () => {
@@ -55,7 +55,7 @@ function CoverForm({
     };
     return coverLetters.map((template, index) => (
       <img
-        style={selectedResumeIndex == template.index ? selectedStyle : {}}
+        style={selectedCoverIndex == template.index ? selectedStyle : {}}
         key={index}
         src={template.imgUrl}
         className="h-[200px] w-[140.91px] rounded-[6px]"
@@ -111,23 +111,27 @@ function CoverForm({
     return errors;
   }
 
- 
-
   const fetchCoverLetter = async () => {
     setLoading(true);
     try {
       if (data) {
         const errors = validateRequiredFields(data);
         setError(errors);
-      }
 
-      const response = await axios.post(
-        "http://localhost:2000/api/cover-letter/transform",
-        data
-      );
-      const letterData = response.data;
-      setData({ ...data, passages: letterData.passages });
-      setLoading(false);
+        if (Object.keys(errors).length === 0) {
+          const response = await axios.post(
+            "http://localhost:2000/api/cover-letter/transform",
+            data
+          );
+          const letterData = response.data;
+          setData({ ...data, passages: letterData.passages });
+          setLoading(false);
+          setIsShow(true);
+        } else {
+          toast.error("please fill required fields!");
+          setLoading(false);
+        }
+      }
     } catch (error) {
       console.error("Error fetching cover letter:", error);
       setLoading(false);
@@ -138,15 +142,7 @@ function CoverForm({
     setData({ ...data, letterDate: selectedDate });
   }, [selectedDate]);
 
-  useEffect(() => {
-    //getLetter Data here
-    setLetterData(
-      "hgfdgfhd hjjfdg fhsdhfjskdf nsndfdsfh fshjfhdsf fshdfhsdfjk nsfdnfhds"
-    );
-  }, []);
-
   const handleNavigate = () => {
-
     if (data) {
       localStorage.setItem("customLetterData", JSON.stringify(data));
     }
@@ -301,7 +297,7 @@ function CoverForm({
       {isShow === false && (
         <div className="flex flex-col gap-[16px] sticky top-[40px] z-[10] bg-white pt-5 pb-4">
           <ThemeForm
-            selectedResumeIndex={selectedResumeIndex}
+            selectedCoverIndex={selectedCoverIndex}
             selectedColor={selectedColor}
             setSelectedColor={setSelectedColor}
             setSelectedFont={setSelectedFont}
@@ -310,19 +306,21 @@ function CoverForm({
           <div className="bg-[#DEDEDE] w-full h-[1px]"> </div>
           <div className="bg-[#F9F9F9] w-full flex rounded-[8px] text-[14px] font-semibold  ">
             <button
-              className={`${isFormat === "standard"
-                ? "bg-[#06A9EF] py-[8px] px-[16px] flex justify-center items-center rounded-[8px] w-[50%] text-white"
-                : "py-[8px] px-[16px] flex justify-center items-center rounded-[8px] w-[50%]"
-                }`}
+              className={`${
+                isFormat === "standard"
+                  ? "bg-[#06A9EF] py-[8px] px-[16px] flex justify-center items-center rounded-[8px] w-[50%] text-white"
+                  : "py-[8px] px-[16px] flex justify-center items-center rounded-[8px] w-[50%]"
+              }`}
               onClick={() => setIsFormat("standard")}
             >
               Standard Format
             </button>
             <button
-              className={`${isFormat === "custom"
-                ? "bg-[#06A9EF] py-[8px] px-[16px] flex justify-center items-center rounded-[8px] w-[50%] text-white"
-                : "py-[8px] px-[16px] flex justify-center items-center rounded-[8px] w-[50%]"
-                }`}
+              className={`${
+                isFormat === "custom"
+                  ? "bg-[#06A9EF] py-[8px] px-[16px] flex justify-center items-center rounded-[8px] w-[50%] text-white"
+                  : "py-[8px] px-[16px] flex justify-center items-center rounded-[8px] w-[50%]"
+              }`}
               onClick={() => setIsFormat("custom")}
             >
               Custom Format
@@ -413,8 +411,8 @@ function CoverForm({
                   selectedFont={selectedFont}
                   selectedColor={selectedColor}
                   setSelectedColor={setSelectedColor}
-                  selectedResumeIndex={selectedResumeIndex}
-                  setSelectedResumeIndex={setSelectedResumeIndex}
+                  selectedCoverIndex={selectedCoverIndex}
+                  setSelectedCoverIndex={setSelectedCoverIndex}
                   isFormat={isFormat}
                   isError={isError}
                 />
@@ -431,19 +429,13 @@ function CoverForm({
                   selectedFont={selectedFont}
                   selectedColor={selectedColor}
                   setSelectedColor={setSelectedColor}
-                  selectedResumeIndex={selectedResumeIndex}
-                  setSelectedResumeIndex={setSelectedResumeIndex}
+                  selectedCoverIndex={selectedCoverIndex}
+                  setSelectedCoverIndex={setSelectedCoverIndex}
                   isFormat={isFormat}
                 />
               </>
             )}
           </div>
-        )}
-
-        {isShow === true && (
-          <>
-            <MainTextEditor data={data} setData={setData} />
-          </>
         )}
       </div>
       <div className="p-[12px] pr-[16px] pb-[12px] pl-[16px] gap-[10px] z-[100] sticky h-[100px] bottom-[-20px] bg-white">
@@ -477,82 +469,68 @@ function CoverForm({
                 )}
               </button>
             )}
-
           </div>
         )}
-
-
       </div>
-      {/* <AnimatePresence>
-          {isShow && (
-            <>
-              <motion.div
-                initial={{ x: "-100%" }}
-                animate={{ x: 0 }}
-                exit={{ x: "-100%" }}
-                transition={{ duration: 0.5, ease: "easeInOut" }}
-                className="fixed z-[3000] min-w-[508px] w-[34%] mt-[22rem] flex flex-col gap-4  "
-                style={{
-                  background: "white",
-                  boxShadow: "0 0 10px rgba(255, 255, 255, 0.5)",
 
-                }}
-              >
-
-                <>
-                  <CustomTextEditor data={data} setData={setData} />
-                </>
-                <div className="flex flex-row justify-between items-center gap-[10px] ">
-                  <div>
-                    <div
-                      className=" flex-row bg-[#F5F5F5] py-[8px] px-[16px] text-[12px] flex justify-between items-center rounded-[8px] gap-[8px] cursor-pointer"
-                      onClick={() => { handleNavigate(); setIsShow(false) }}
-                    >
-                      <svg
-                        className="min-h-[16px] min-w-[16px]"
-                        width="7"
-                        height="14"
-                        viewBox="0 0 7 14"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M4.93333 7.00026L0.233333 2.30026C0.0777778 2.1447 0 1.95582 0 1.73359C0 1.51137 0.0777778 1.32248 0.233333 1.16693C0.388889 1.01137 0.577778 0.933594 0.8 0.933594C1.02222 0.933594 1.21111 1.01137 1.36667 1.16693L6.35 6.15026C6.47222 6.27248 6.56111 6.40582 6.61667 6.55026C6.67222 6.69471 6.7 6.84471 6.7 7.00026C6.7 7.15582 6.67222 7.30582 6.61667 7.45026C6.56111 7.59471 6.47222 7.72804 6.35 7.85026L1.36667 12.8336C1.21111 12.9891 1.02222 13.0669 0.8 13.0669C0.577778 13.0669 0.388889 12.9891 0.233333 12.8336C0.0777778 12.678 0 12.4892 0 12.2669C0 12.0447 0.0777778 11.8558 0.233333 11.7003L4.93333 7.00026Z"
-                          fill="#1C1B1F"
-                        />
-                      </svg>
-                      <span className="text-[12px] text-[#333333] font-[600] font-Montserrat leading-[16px]">
-                        Edit
-                      </span>
-                    </div>
-                  </div>
-                  <div className="flex flex-row justify-between items-center  gap-[10px] ">
-                    <button
-                      className="flex  items-center font-montserrat text-xs font-semibold btn_outline gap-[6px]"
-                    // onClick={generateText}
-                    >
-                      <SparklingStarts />
-                      <span className="text-[12px] text-[#333333] font-[600] font-Montserrat leading-[16px]">
-                        Rephrase with AI
-                      </span>
-                    </button>
-                    <button
-                      className={`font-montserrat text-white font-medium text-[12px] px-[16px] py-[8px] rounded-[8px]  bg-[#DEDEDE] w-[60px] h-[32px] 
-                }`}
-                // onClick={() => setData({ ...data, summery: text })}
-                // style={{ opacity: text === data?.summery ? 0.5 : 1 }}
-              >
-                Save
-              </button>
+      <AnimatePresence>
+        {isShow && (
+          <motion.div
+            initial={{ x: "-100%" }}
+            animate={{ x: 0 }}
+            exit={{ x: "-100%" }}
+            transition={{ duration: 0.5, ease: "easeInOut" }}
+            className="fixed z-[3000] min-w-[508px] w-[34%] mt-[22rem] flex flex-col gap-4"
+            style={{
+              background: "white",
+              boxShadow: "0 0 10px rgba(255, 255, 255, 0.5)",
+            }}
+          >
+            <CustomTextEditor data={data} setData={setData} />
+            <div className="flex flex-row justify-between ite3ms-center gap-[10px]">
+              <div>
+                <div
+                  className="flex flex-row bg-[#F5F5F5] py-[8px] px-[16px] text-[12px] justify-between items-center rounded-[8px] gap-[8px] cursor-pointer"
+                  onClick={() => {
+                    handleNavigate();
+                    setIsShow(false);
+                  }}
+                >
+                  <svg
+                    className="min-h-[16px] min-w-[16px]"
+                    width="7"
+                    height="14"
+                    viewBox="0 0 7 14"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M4.93333 7.00026L0.233333 2.30026C0.0777778 2.1447 0 1.95582 0 1.73359C0 1.51137 0.0777778 1.32248 0.233333 1.16693C0.388889 1.01137 0.577778 0.933594 0.8 0.933594C1.02222 0.933594 1.21111 1.01137 1.36667 1.16693L6.35 6.15026C6.47222 6.27248 6.56111 6.40582 6.61667 6.55026C6.67222 6.69471 6.7 6.84471 6.7 7.00026C6.7 7.15582 6.67222 7.30582 6.61667 7.45026C6.56111 7.59471 6.47222 7.72804 6.35 7.85026L1.36667 12.8336C1.21111 12.9891 1.02222 13.0669 0.8 13.0669C0.577778 13.0669 0.388889 12.9891 0.233333 12.8336C0.0777778 12.678 0 12.4892 0 12.2669C0 12.0447 0.0777778 11.8558 0.233333 11.7003L4.93333 7.00026Z"
+                      fill="#1C1B1F"
+                    />
+                  </svg>
+                  <span className="text-[12px] text-[#333333] font-[600] font-Montserrat leading-[16px]">
+                    Edit
+                  </span>
+                </div>
+              </div>
+              <div className="flex flex-row justify-between items-center gap-[10px]">
+                <button className="flex items-center font-montserrat text-xs font-semibold btn_outline gap-[6px]">
+                  <SparklingStarts />
+                  <span className="text-[12px] text-[#333333] font-[600] font-Montserrat leading-[16px]">
+                    Rephrase with AI
+                  </span>
+                </button>
+                <button className="font-montserrat text-white font-medium text-[12px] px-[16px] py-[8px] rounded-[8px] bg-[#DEDEDE] w-[60px] h-[32px]">
+                  Save
+                </button>
+              </div>
             </div>
-          </div>
+          </motion.div>
         )}
-      </div>
+      </AnimatePresence>
     </div>
-  ) */}
-  </div>
-  )
+  );
 }
 
 export default CoverForm;
-

@@ -113,7 +113,12 @@ function Dashboard() {
       name: "Create New Cover Letter",
       imgSrc: "/images/resumeBuilder/cover.png",
     },
-    { name: "Collection", imgSrc: "/images/resumeBuilder/myResume.png" },
+    {
+      name: "My Collection",
+
+      imgSrc: "/images/resumeBuilder/collection.png",
+    },
+    // { name: "Resume", imgSrc: "/images/resumeBuilder/myResume.png" },
     // { name: "Transform CV", imgSrc: "/images/resumeBuilder/transform_cv.png" },
     {
       name: "Skill Assessments",
@@ -178,7 +183,7 @@ function Dashboard() {
       case "My Clients":
         handleNavigation("/myClients");
         break;
-      case "Collection":
+      case "Resume":
         handleNavigation("/home/MyCollection");
         break;
       case "Transform CV":
@@ -197,7 +202,7 @@ function Dashboard() {
         handleNavigation("/chatbot");
         break;
       case "My Collection":
-        handleNavigation("/collection");
+        handleNavigation(userDataGlobal.role === "user" ? "/home/MyCollection" :"/collection");
         break;
       case "Skill Assessments":
         handleNavigation("/home/SkillAssessment");

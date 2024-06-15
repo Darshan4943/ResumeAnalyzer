@@ -48,7 +48,6 @@ const PersonalDetails = ({ data, setData, errors }) => {
       address: data?.address,
     });
   }, [data]);
-  
 
   const handleItemClick = (item) => {
     setSelectedItem(item);
@@ -283,9 +282,7 @@ const PersonalDetails = ({ data, setData, errors }) => {
                   </div>
                   {errors && errors[employer.name] && (
                     <span className="text-red text-[12px]">
-                      {errors & (errors[employer.name] === "firstName")
-                        ? "First name is required!"
-                        : "Last name is required!"}
+                      field is required!
                     </span>
                   )}
                 </div>
@@ -347,9 +344,10 @@ const PersonalDetails = ({ data, setData, errors }) => {
             {(errors && errors?.mobileNumber) ||
               (errors?.dial_code && (
                 <span className="text-red text-[12px]">
-                  {errors.mobileNumber
+                  {/** {errors.mobileNumber
                     ? "mobile number required"
-                    : "please select country code"}
+                    : "please select country code"} */}
+                  field is required!
                 </span>
               ))}
           </div>
@@ -378,7 +376,7 @@ const PersonalDetails = ({ data, setData, errors }) => {
 
                   {errors && errors[employer.name] && (
                     <span className="text-[12px] text-red">
-                      {errors & (errors[employer.name] === "address")
+                      {errors & (errors[employer.name] === "Address")
                         ? "address is required!"
                         : "email id is required!"}
                     </span>

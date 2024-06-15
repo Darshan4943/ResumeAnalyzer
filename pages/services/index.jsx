@@ -28,15 +28,21 @@ function Services({ isServices, isMove, setIsMove }) {
     {
       name: "Create New Cover Letter",
       imgSrc: "/images/resumeBuilder/cover.png",
-      desc: "Provides concise, customized resumes for your career success.",
+      desc: "Highlight your application, key qualifications, and best skills",
       color: "#9747FF",
     },
     {
-      name: "My Resumes",
-      imgSrc: "/images/resumeBuilder/myResume.png",
-      desc: "Save multiple resumes with multiple folders in cloud storage.",
-      color: "#00D2EF",
+      name: "My Collection",
+      imgSrc: "/images/resumeBuilder/collection.png",
+      desc: "Save multiple resumes & cover letters in cloud storage",
+      color: "#45ABA0",
     },
+    // {
+    //   name: "My Resumes",
+    //   imgSrc: "/images/resumeBuilder/myResume.png",
+    //   desc: "Save multiple resumes with multiple folders in cloud storage.",
+    //   color: "#00D2EF",
+    // },
     // {
     //   name: "Transform CV",
     //   imgSrc: "/images/resumeBuilder/transform_cv.png",
@@ -88,7 +94,7 @@ function Services({ isServices, isMove, setIsMove }) {
     {
       name: "Create New Cover Letter",
       imgSrc: "/images/resumeBuilder/cover.png",
-      desc: "Provides concise, customized resumes for your career success.",
+      desc: "Highlight your application, key qualifications, and best skills",
       color: "#9747FF",
     },
     {
@@ -112,7 +118,7 @@ function Services({ isServices, isMove, setIsMove }) {
     {
       name: "My Collection",
       imgSrc: "/images/resumeBuilder/collection.png",
-      desc: "Save multiple resumes with multiple clients in cloud storage.",
+      desc: "Save multiple resumes & cover letters in cloud storage",
       color: "#45ABA0",
     },
     {
@@ -211,7 +217,7 @@ function Services({ isServices, isMove, setIsMove }) {
         handleNavigation("/purchase/MyPurchase");
         break;
       case "My Collection":
-        handleNavigation("/collection");
+        handleNavigation(userDataGlobal.role === "user" ? "/home/MyCollection" :"/collection");
         break;
       case "Skill Assessments":
         handleNavigation("/home/SkillAssessment");

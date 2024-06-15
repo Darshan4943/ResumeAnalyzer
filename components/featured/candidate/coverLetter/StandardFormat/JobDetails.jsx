@@ -4,11 +4,7 @@ import { Close_svg } from "../../../../../utils/svg";
 const JobDetails = ({ data, setData, isFormat }) => {
   const [isShow, setIsShow] = useState(true);
   const [inputValue, setInputValue] = useState("");
-  const [requiredSkills, setRequiredSkills] = useState([
-    "javascript",
-    "Css",
-    "C++",
-  ]);
+  const [requiredSkills, setRequiredSkills] = useState([]);
   const [JobData, setJobData] = useState({
     jobTitle: "",
     organization: "",
@@ -409,7 +405,7 @@ const JobDetails = ({ data, setData, isFormat }) => {
                     placeholder="e.g. Javascript"
                     value={inputValue}
                     onChange={handleInputSkills}
-                    className=" text-[12px]  text-[#646464] font-[400]"
+                    className=" text-[12px]  text-[#646464] font-[400] w-full"
                   />
                   <svg
                     onClick={addSkill}
