@@ -17,58 +17,55 @@ import CoverLetter4 from "./letters/CoverLetter4";
 import CoverLetter6 from "./letters/CoverLetter6";
 import CoverLetter8 from "./letters/CoverLetter8";
 
-function CoverPreview({ data ,clientId}) {
-    
-    const [namePreview, setNamePreview] = useState(false);
-    const [name, setName] = useState(data.firstName + "_resume");
-    const [blob, setBlob] = useState('');
-    const userDataGlobal = useSelector((state) => state.userData);
-    const page1Ref = useRef(null);
-    const page2Ref = useRef(null);
-    const [loading, setLoading] = useState(false);
-    const [download, setDownload] = useState(false);
+function CoverPreview({ data, clientId }) {
+  const [namePreview, setNamePreview] = useState(false);
+  const [name, setName] = useState(data.firstName + "_resume");
+  const [blob, setBlob] = useState("");
+  const userDataGlobal = useSelector((state) => state.userData);
+  const page1Ref = useRef(null);
+  const page2Ref = useRef(null);
+  const [loading, setLoading] = useState(false);
+  const [download, setDownload] = useState(false);
 
-    const [loading1, setLoading1] = useState(false);
+  const [loading1, setLoading1] = useState(false);
 
-    const [zoomLevel, setZoomLevel] = useState(1);
+  const [zoomLevel, setZoomLevel] = useState(1);
 
-    const zoomIn = () => {
-        setZoomLevel(prevZoomLevel => Math.min(prevZoomLevel + 0.1, 3));
-    };
+  const zoomIn = () => {
+    setZoomLevel((prevZoomLevel) => Math.min(prevZoomLevel + 0.1, 3));
+  };
 
-    const zoomOut = () => {
-        setZoomLevel(prevZoomLevel => Math.max(prevZoomLevel - 0.1, 0.5));
-    };
-    const addCoverLetter = async () => {
-        try {
-            const pdfBlob = await generatePdfBlob();
-            if (!pdfBlob) {
-                return;
+  const zoomOut = () => {
+    setZoomLevel((prevZoomLevel) => Math.max(prevZoomLevel - 0.1, 0.5));
+  };
+  const addCoverLetter = async () => {
+    try {
+      const pdfBlob = await generatePdfBlob();
+      if (!pdfBlob) {
+        return;
+      }
 
+      const formData = new FormData();
+      if (Object.keys(data).length > 0) {
+        Object.keys(data).map((key) => {
+          if (Array.isArray(data[key]) && data[key].length > 0) {
+            formData.append(key, JSON.stringify(data[key]));
+          } else {
+            if (data[key] != undefined) {
+              formData.append(key, data[key]);
             }
+          }
+        });
+      }
+      formData.append("pdfBlob", pdfBlob);
+      if (userDataGlobal.role === "user") {
+        formData.append("userId", userDataGlobal._id);
+      } else if (userDataGlobal.role === "recruiter") {
+        formData.append("userId", clientId);
+        // formData.append("recruiterId", userDataGlobal._id);
+      }
 
-            const formData = new FormData();
-            if (Object.keys(data).length > 0) {
-                Object.keys(data).map((key) => {
-                    if (Array.isArray(data[key]) && data[key].length > 0) {
-                        formData.append(key, JSON.stringify(data[key]));
-                    } else {
-                        if (data[key] != undefined) {
-                            formData.append(key, data[key]);
-                        }
-                    }
-                });
-            }
-            formData.append("pdfBlob", pdfBlob);
-            if (userDataGlobal.role === "user") {
-                formData.append("userId", userDataGlobal._id);
-              } else if (userDataGlobal.role === "recruiter") {
-                formData.append("userId",clientId);
-                // formData.append("recruiterId", userDataGlobal._id);
-              }
-      
-            
-            formData.append("fileName", name);
+      formData.append("fileName", name);
 
       const response = await axios.post(
         "http://localhost:2000/api/cover/add",
@@ -115,6 +112,8 @@ function CoverPreview({ data ,clientId}) {
   const downloadPdfBlob = async () => {
     const input1 = page1Ref.current;
     const input2 = page2Ref.current;
+    console.log(118, input1);
+    console.log(119, input2);
 
     try {
       const canvas1 = await html2canvas(input1, { scale: 5 });
@@ -129,6 +128,7 @@ function CoverPreview({ data ,clientId}) {
       pdf.addImage(imgData2, "JPEG", 0, 0, 595.28, 841.89);
 
       const pdfBlob = pdf.output("blob");
+      console.log(131, pdfBlob);
 
       pdf.save(`${data.firstName}_cover_letter.pdf`);
       setDownload(false);
@@ -142,6 +142,8 @@ function CoverPreview({ data ,clientId}) {
 
   const handleDownload = async () => {
     const pdfBlob = await downloadPdfBlob();
+    console.log(145, pdfBlob);
+
     if (pdfBlob) {
       await addCoverLetter(pdfBlob);
       console.log("PDF downloaded successfully");
@@ -210,113 +212,135 @@ function CoverPreview({ data ,clientId}) {
     </button>
   );
 
-    return (
-        <div className='flex flex-col gap-4 relative h-[88vh] '>
-            <div className='flex justify-between sticky top-0'>
-                <div className="flex items-center justify-between ml:w-[58%] w-full gap-4">
-                    <div
-                        className="text-[14px] scr460:text-[20px] font-montserrat font-medium flex gap-3 items-center cursor-pointer"
-                        onClick={() => setNamePreview(true)}
-                    >
-                        <p>{name}</p>
-                        <svg
-                            className="mt-2"
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="21"
-                            height="20"
-                            viewBox="0 0 21 20"
-                            fill="none"
-                        >
-                            <g mask="url(#mask0_5925_110931)">
-                                <path
-                                    d="M4.66404 15.8317H5.71531L14.2458 7.30121L13.1945 6.24994L4.66404 14.7804V15.8317ZM3.41406 17.0817V14.2612L14.4061 3.27402C14.5321 3.15956 14.6712 3.07112 14.8235 3.00868C14.9757 2.94625 15.1354 2.91504 15.3025 2.91504C15.4696 2.91504 15.6314 2.94469 15.7881 3.004C15.9447 3.06329 16.0834 3.15757 16.2041 3.28683L17.2217 4.31727C17.351 4.43799 17.4431 4.57691 17.4981 4.73402C17.5532 4.89112 17.5807 5.04821 17.5807 5.20531C17.5807 5.37288 17.5521 5.5328 17.4948 5.68506C17.4376 5.83734 17.3466 5.97648 17.2217 6.1025L6.23454 17.0817H3.41406ZM13.7109 6.78479L13.1945 6.24994L14.2458 7.30121L13.7109 6.78479Z"
-                                    fill="#646464"
-                                />
-                            </g>
-                        </svg>
-                    </div>
-                </div>
-                <div className='flex gap-4'>
-                    <button
-                        onClick={() => { handleSave(); setLoading(true) }}
-                        className="flex gap-1 h-[38.33px] text-[14px] w-[150px] justify-center text-[#FFF] font-montserrat font-semibold px-3 py-2 rounded-[8px] items-center border border-[#06A9EF] bg-[#06A9EF]"
-                    >
-                        {loading ? (
-                            <svg
-                                aria-hidden="true"
-                                role="status"
-                                className="inline w-4 h-4  animate-spin"
-                                viewBox="0 0 100 101"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                            >
-                                <path
-                                    d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
-                                    fill="#E5E7EB"
-                                />
-                                <path
-                                    d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
-                                    fill="currentColor"
-                                />
-                            </svg>
-                        ) : (
-                            " Save"
-                        )}
-                    </button>
-                    <DownloadButton />
-                </div>
+  return (
+    <div className="flex flex-col gap-4 relative h-[88vh] ">
+      <div className="flex justify-between sticky top-0">
+        <div className="flex items-center justify-between ml:w-[58%] w-full gap-4">
+          <div
+            className="text-[14px] scr460:text-[20px] font-montserrat font-medium flex gap-3 items-center cursor-pointer"
+            onClick={() => setNamePreview(true)}
+          >
+            <p>{name}</p>
+            <svg
+              className="mt-2"
+              xmlns="http://www.w3.org/2000/svg"
+              width="21"
+              height="20"
+              viewBox="0 0 21 20"
+              fill="none"
+            >
+              <g mask="url(#mask0_5925_110931)">
+                <path
+                  d="M4.66404 15.8317H5.71531L14.2458 7.30121L13.1945 6.24994L4.66404 14.7804V15.8317ZM3.41406 17.0817V14.2612L14.4061 3.27402C14.5321 3.15956 14.6712 3.07112 14.8235 3.00868C14.9757 2.94625 15.1354 2.91504 15.3025 2.91504C15.4696 2.91504 15.6314 2.94469 15.7881 3.004C15.9447 3.06329 16.0834 3.15757 16.2041 3.28683L17.2217 4.31727C17.351 4.43799 17.4431 4.57691 17.4981 4.73402C17.5532 4.89112 17.5807 5.04821 17.5807 5.20531C17.5807 5.37288 17.5521 5.5328 17.4948 5.68506C17.4376 5.83734 17.3466 5.97648 17.2217 6.1025L6.23454 17.0817H3.41406ZM13.7109 6.78479L13.1945 6.24994L14.2458 7.30121L13.7109 6.78479Z"
+                  fill="#646464"
+                />
+              </g>
+            </svg>
+          </div>
+        </div>
+        <div className="flex gap-4">
+          <button
+            onClick={() => {
+              handleSave();
+              setLoading(true);
+            }}
+            className="flex gap-1 h-[38.33px] text-[14px] w-[150px] justify-center text-[#FFF] font-montserrat font-semibold px-3 py-2 rounded-[8px] items-center border border-[#06A9EF] bg-[#06A9EF]"
+          >
+            {loading ? (
+              <svg
+                aria-hidden="true"
+                role="status"
+                className="inline w-4 h-4  animate-spin"
+                viewBox="0 0 100 101"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                  fill="#E5E7EB"
+                />
+                <path
+                  d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                  fill="currentColor"
+                />
+              </svg>
+            ) : (
+              " Save"
+            )}
+          </button>
+          <DownloadButton />
+        </div>
+      </div>
+      <div className="   overflow-auto roundScrollbar flex flex-col gap-3  rounded-[8px] bg-[#F9F9F9] px-2 py-6 relative">
+        <div className="flex justify-end absolute right-4 z-[20] ">
+          <div
+            className=" "
+            style={{
+              backgroundColor: "rgba(50, 54, 57, 0.5)", // Change this value to adjust transparency
+              borderRadius: "50px",
+              display: "flex",
+              gap: "12px",
+              padding: "6px 16px",
+              width: "96px",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <svg
+              onClick={zoomIn}
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              className=" cursor-pointer"
+            >
+              <g mask="url(#mask0_4509_40583)">
+                <path
+                  d="M8.76955 10.25H7.5773C7.3648 10.25 7.18663 10.1781 7.0428 10.0343C6.89913 9.89043 6.8273 9.71226 6.8273 9.49976C6.8273 9.2871 6.89913 9.10902 7.0428 8.96552C7.18663 8.82185 7.3648 8.75002 7.5773 8.75002H8.76955V7.55777C8.76955 7.34527 8.84146 7.1671 8.9853 7.02327C9.12913 6.8796 9.3073 6.80777 9.5198 6.80777C9.73246 6.80777 9.91055 6.8796 10.054 7.02327C10.1977 7.1671 10.2695 7.34527 10.2695 7.55777V8.75002H11.4618C11.6743 8.75002 11.8525 8.82193 11.9963 8.96577C12.14 9.1096 12.2118 9.28777 12.2118 9.50027C12.2118 9.71293 12.14 9.89102 11.9963 10.0345C11.8525 10.1782 11.6743 10.25 11.4618 10.25H10.2695V11.4423C10.2695 11.6548 10.1976 11.8329 10.0538 11.9768C9.90996 12.1204 9.7318 12.1923 9.5193 12.1923C9.30663 12.1923 9.12855 12.1204 8.98505 11.9768C8.84138 11.8329 8.76955 11.6548 8.76955 11.4423V10.25ZM9.51955 15.6153C7.81038 15.6153 6.36388 15.0235 5.18005 13.84C3.99621 12.6565 3.4043 11.2103 3.4043 9.50152C3.4043 7.79285 3.99605 6.34618 5.17955 5.16152C6.36305 3.97702 7.80921 3.38477 9.51805 3.38477C11.2267 3.38477 12.6734 3.97668 13.858 5.16051C15.0425 6.34435 15.6348 7.79085 15.6348 9.50002C15.6348 10.2142 15.515 10.8963 15.2753 11.5463C15.0355 12.1963 14.7155 12.7616 14.3155 13.2423L20.0695 18.9963C20.208 19.1346 20.2789 19.3086 20.282 19.5183C20.2852 19.7279 20.2144 19.9052 20.0695 20.05C19.9247 20.1948 19.749 20.2673 19.5425 20.2673C19.3362 20.2673 19.1606 20.1948 19.0158 20.05L13.2618 14.296C12.7618 14.7088 12.1868 15.0319 11.5368 15.2653C10.8868 15.4986 10.2144 15.6153 9.51955 15.6153ZM9.51955 14.1155C10.808 14.1155 11.8994 13.6683 12.7935 12.774C13.6879 11.8798 14.135 10.7885 14.135 9.50002C14.135 8.21152 13.6879 7.12018 12.7935 6.22601C11.8994 5.33168 10.808 4.88452 9.51955 4.88452C8.23105 4.88452 7.13971 5.33168 6.24555 6.22601C5.35121 7.12018 4.90405 8.21152 4.90405 9.50002C4.90405 10.7885 5.35121 11.8798 6.24555 12.774C7.13971 13.6683 8.23105 14.1155 9.51955 14.1155Z"
+                  fill="white"
+                />
+              </g>
+            </svg>
+            <div className="bg-[#646464] w-[1px] h-[90%] "></div>
+            <svg
+              onClick={zoomOut}
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              className=" cursor-pointer"
+            >
+              <g mask="url(#mask0_4509_40599)">
+                <path
+                  d="M7.8848 10.25C7.6723 10.25 7.49421 10.1781 7.35055 10.0343C7.20688 9.89043 7.13505 9.71226 7.13505 9.49976C7.13505 9.2871 7.20688 9.10902 7.35055 8.96552C7.49421 8.82185 7.6723 8.75002 7.8848 8.75002H11.154C11.3665 8.75002 11.5447 8.82193 11.6885 8.96577C11.8322 9.1096 11.904 9.28777 11.904 9.50027C11.904 9.71293 11.8322 9.89102 11.6885 10.0345C11.5447 10.1782 11.3665 10.25 11.154 10.25H7.8848ZM9.51955 15.6153C7.81038 15.6153 6.36388 15.0235 5.18005 13.84C3.99621 12.6565 3.4043 11.2103 3.4043 9.50152C3.4043 7.79285 3.99605 6.34618 5.17955 5.16152C6.36305 3.97702 7.80921 3.38477 9.51805 3.38477C11.2267 3.38477 12.6734 3.97668 13.858 5.16051C15.0425 6.34435 15.6348 7.79085 15.6348 9.50002C15.6348 10.2142 15.515 10.8963 15.2753 11.5463C15.0355 12.1963 14.7155 12.7616 14.3155 13.2423L20.0695 18.9963C20.208 19.1346 20.2789 19.3086 20.282 19.5183C20.2852 19.7279 20.2144 19.9052 20.0695 20.05C19.9247 20.1948 19.749 20.2673 19.5425 20.2673C19.3362 20.2673 19.1606 20.1948 19.0158 20.05L13.2618 14.296C12.7618 14.7088 12.1868 15.0319 11.5368 15.2653C10.8868 15.4986 10.2144 15.6153 9.51955 15.6153ZM9.51955 14.1155C10.808 14.1155 11.8994 13.6683 12.7935 12.774C13.6879 11.8798 14.135 10.7885 14.135 9.50002C14.135 8.21152 13.6879 7.12018 12.7935 6.22601C11.8994 5.33168 10.808 4.88452 9.51955 4.88452C8.23105 4.88452 7.13971 5.33168 6.24555 6.22601C5.35121 7.12018 4.90405 8.21152 4.90405 9.50002C4.90405 10.7885 5.35121 11.8798 6.24555 12.774C7.13971 13.6683 8.23105 14.1155 9.51955 14.1155Z"
+                  fill="white"
+                />
+              </g>
+            </svg>
+          </div>
+        </div>
+        <div
+          style={{ display: "flex", overflow: "auto" }}
+          className="flex justify-center"
+        >
+          <div
+            style={{
+              transform: `scale(${zoomLevel})`,
+              transformOrigin: "top center",
+              display: "inline-block",
+            }}
+          >
+            <div style={{ boxShadow: "0px 1px 2px 0px #00000040" }}>
+              <CoverLetter11 data={data} />
             </div>
-            <div className='   overflow-auto roundScrollbar flex flex-col gap-3  rounded-[8px] bg-[#F9F9F9] px-2 py-6 relative'   >
-                <div className='flex justify-end absolute right-4 z-[20] '>
-                    <div className=" " style={{
-                        backgroundColor: 'rgba(50, 54, 57, 0.5)', // Change this value to adjust transparency
-                        borderRadius: '50px',
-                        display: 'flex',
-                        gap: '12px',
-                        padding: '6px 16px',
-                        width: '96px',
-                        alignItems: 'center',
-                        justifyContent: 'center'
-                    }}>
-
-                        <svg onClick={zoomIn} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className=' cursor-pointer'>
-
-                            <g mask="url(#mask0_4509_40583)">
-                                <path d="M8.76955 10.25H7.5773C7.3648 10.25 7.18663 10.1781 7.0428 10.0343C6.89913 9.89043 6.8273 9.71226 6.8273 9.49976C6.8273 9.2871 6.89913 9.10902 7.0428 8.96552C7.18663 8.82185 7.3648 8.75002 7.5773 8.75002H8.76955V7.55777C8.76955 7.34527 8.84146 7.1671 8.9853 7.02327C9.12913 6.8796 9.3073 6.80777 9.5198 6.80777C9.73246 6.80777 9.91055 6.8796 10.054 7.02327C10.1977 7.1671 10.2695 7.34527 10.2695 7.55777V8.75002H11.4618C11.6743 8.75002 11.8525 8.82193 11.9963 8.96577C12.14 9.1096 12.2118 9.28777 12.2118 9.50027C12.2118 9.71293 12.14 9.89102 11.9963 10.0345C11.8525 10.1782 11.6743 10.25 11.4618 10.25H10.2695V11.4423C10.2695 11.6548 10.1976 11.8329 10.0538 11.9768C9.90996 12.1204 9.7318 12.1923 9.5193 12.1923C9.30663 12.1923 9.12855 12.1204 8.98505 11.9768C8.84138 11.8329 8.76955 11.6548 8.76955 11.4423V10.25ZM9.51955 15.6153C7.81038 15.6153 6.36388 15.0235 5.18005 13.84C3.99621 12.6565 3.4043 11.2103 3.4043 9.50152C3.4043 7.79285 3.99605 6.34618 5.17955 5.16152C6.36305 3.97702 7.80921 3.38477 9.51805 3.38477C11.2267 3.38477 12.6734 3.97668 13.858 5.16051C15.0425 6.34435 15.6348 7.79085 15.6348 9.50002C15.6348 10.2142 15.515 10.8963 15.2753 11.5463C15.0355 12.1963 14.7155 12.7616 14.3155 13.2423L20.0695 18.9963C20.208 19.1346 20.2789 19.3086 20.282 19.5183C20.2852 19.7279 20.2144 19.9052 20.0695 20.05C19.9247 20.1948 19.749 20.2673 19.5425 20.2673C19.3362 20.2673 19.1606 20.1948 19.0158 20.05L13.2618 14.296C12.7618 14.7088 12.1868 15.0319 11.5368 15.2653C10.8868 15.4986 10.2144 15.6153 9.51955 15.6153ZM9.51955 14.1155C10.808 14.1155 11.8994 13.6683 12.7935 12.774C13.6879 11.8798 14.135 10.7885 14.135 9.50002C14.135 8.21152 13.6879 7.12018 12.7935 6.22601C11.8994 5.33168 10.808 4.88452 9.51955 4.88452C8.23105 4.88452 7.13971 5.33168 6.24555 6.22601C5.35121 7.12018 4.90405 8.21152 4.90405 9.50002C4.90405 10.7885 5.35121 11.8798 6.24555 12.774C7.13971 13.6683 8.23105 14.1155 9.51955 14.1155Z" fill="white" />
-                            </g>
-                        </svg>
-                        <div className='bg-[#646464] w-[1px] h-[90%] '></div>
-                        <svg onClick={zoomOut} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className=' cursor-pointer'>
-
-                            <g mask="url(#mask0_4509_40599)">
-                                <path d="M7.8848 10.25C7.6723 10.25 7.49421 10.1781 7.35055 10.0343C7.20688 9.89043 7.13505 9.71226 7.13505 9.49976C7.13505 9.2871 7.20688 9.10902 7.35055 8.96552C7.49421 8.82185 7.6723 8.75002 7.8848 8.75002H11.154C11.3665 8.75002 11.5447 8.82193 11.6885 8.96577C11.8322 9.1096 11.904 9.28777 11.904 9.50027C11.904 9.71293 11.8322 9.89102 11.6885 10.0345C11.5447 10.1782 11.3665 10.25 11.154 10.25H7.8848ZM9.51955 15.6153C7.81038 15.6153 6.36388 15.0235 5.18005 13.84C3.99621 12.6565 3.4043 11.2103 3.4043 9.50152C3.4043 7.79285 3.99605 6.34618 5.17955 5.16152C6.36305 3.97702 7.80921 3.38477 9.51805 3.38477C11.2267 3.38477 12.6734 3.97668 13.858 5.16051C15.0425 6.34435 15.6348 7.79085 15.6348 9.50002C15.6348 10.2142 15.515 10.8963 15.2753 11.5463C15.0355 12.1963 14.7155 12.7616 14.3155 13.2423L20.0695 18.9963C20.208 19.1346 20.2789 19.3086 20.282 19.5183C20.2852 19.7279 20.2144 19.9052 20.0695 20.05C19.9247 20.1948 19.749 20.2673 19.5425 20.2673C19.3362 20.2673 19.1606 20.1948 19.0158 20.05L13.2618 14.296C12.7618 14.7088 12.1868 15.0319 11.5368 15.2653C10.8868 15.4986 10.2144 15.6153 9.51955 15.6153ZM9.51955 14.1155C10.808 14.1155 11.8994 13.6683 12.7935 12.774C13.6879 11.8798 14.135 10.7885 14.135 9.50002C14.135 8.21152 13.6879 7.12018 12.7935 6.22601C11.8994 5.33168 10.808 4.88452 9.51955 4.88452C8.23105 4.88452 7.13971 5.33168 6.24555 6.22601C5.35121 7.12018 4.90405 8.21152 4.90405 9.50002C4.90405 10.7885 5.35121 11.8798 6.24555 12.774C7.13971 13.6683 8.23105 14.1155 9.51955 14.1155Z" fill="white" />
-                            </g>
-                        </svg>
-
-                    </div>
-
-                </div >
-                <div style={{ display: 'flex', overflow: 'auto', }} className='flex justify-center'>
-                    <div
-                        style={{
-                            transform: `scale(${zoomLevel})`,
-                            transformOrigin: 'top center',
-                            display: 'inline-block'
-                        }}
-                    >
-                        <div
-                            style={{ boxShadow: "0px 1px 2px 0px #00000040" }}
-
-                        >
-                            <CoverLetter11 data={data} />
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <div className='absolute  left-[10000px]' >
-                <CoverLetter11 data={data} page1Ref={page1Ref} page2Ref={page2Ref} />
-            </div>
+          </div>
+        </div>
+      </div>
+      <div className="absolute  left-[10000px]">
+        <CoverLetter11 data={data} page1Ref={page1Ref} page2Ref={page2Ref} />
+      </div>
 
       {namePreview && (
         <FileNameModel

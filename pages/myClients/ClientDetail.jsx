@@ -8,10 +8,12 @@ import { reCallUserData } from "../../Redux/actions/user";
 import { toast } from "react-toastify";
 import DeleteModal from "../../components/common/deleteModal";
 import MiniLoader from "../../components/common/mini-loader";
+import { motion } from "framer-motion";
 pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
 function ClientDetail({ tabIndex }) {
   const router = useRouter();
   const [detail, setDetails] = useState({});
+  const [toggle, setToggle] = useState(true);
   const [preview, setPreview] = useState(false);
   const [selected, setSelected] = useState([]);
   const clientId = router.query.detailIndex;
@@ -342,28 +344,41 @@ function ClientDetail({ tabIndex }) {
           </svg>
         </button>
       </div>
-      <div className="bg-[#F9F9F9] w-[300px] flex rounded-[8px] text-[14px] font-semibold">
+
+      <div className="text-[14px] relative rounded-[6px] w-fit bg-[#F7F7F7] flex gap-[10px]  ">
         <button
-          className={`${
-            isResumes === "resumes"
-              ? "bg-[#06A9EF] py-[8px] px-[16px] flex justify-center items-center rounded-[8px] w-[50%] text-white"
-              : "py-[8px] px-[16px] flex justify-center items-center rounded-[8px] w-[50%]"
+          className={`px-4 font-[600] py-[8px]  rounded-[6px] ${
+            toggle ? "text-[#F7F7F7]" : "text-[#646464]"
           }`}
-          onClick={() => setIsResumes("resumes")}
+          onClick={() => {
+            setToggle(true), setIsResumes("resumes");
+          }}
         >
-          Resumes
+          Resume
         </button>
         <button
-          className={`${
-            isResumes === "covers"
-              ? "bg-[#06A9EF] py-[8px] px-[16px] flex justify-center items-center rounded-[8px] w-[50%] text-white"
-              : "py-[8px] px-[16px] flex justify-center items-center rounded-[8px] w-[50%]"
-          }`}
-          onClick={() => setIsResumes("covers")}
+          className={` px-4 font-[600] py-[8px] rounded-[6px]  ${
+            toggle ? "text-[#646464]" : "text-[#F7F7F7]"
+          } `}
+          onClick={() => {
+            setToggle(false), setIsResumes("covers");
+          }}
         >
-          Cover Letters
+          {" "}
+          Cover Letter
         </button>
+
+        <motion.button
+          initial={{ x: toggle ? 0 : 100 }}
+          animate={{ x: toggle ? 0 : 100 }}
+          transition={{ ease: "easeInOut", duration: 0.2 }}
+          style={{ textWrap: "nowrap" }}
+          className={` px-4 font-[600] py-[8px] ${
+            toggle ? "w-[50%]" : "w-[124px]"
+          }h-full  absolute text-[#fff] bg-[#06A9EF] rounded-[6px] `}
+        >{`${toggle ? "Resume" : "Cover Letter"}`}</motion.button>
       </div>
+
       {/* <div className="w-full rounded-[12px] border flex flex-wrap scr540:justify-start justify-center gap-9 border-[#DEDEDE] bg-[#F9F9F9] p-6 cursor-pointer">
         <div className="flex flex-row flex-wrap gap-6 scr540:justify-start justify-center">
           <div
