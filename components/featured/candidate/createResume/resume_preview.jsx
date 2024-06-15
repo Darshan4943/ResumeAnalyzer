@@ -106,10 +106,7 @@ const ResumePreview = ({
         .get(`https://jamblix.com/api/resume/${id}`)
 
         .then((res) => {
-          // Remove .pdf extension from filenames
-          const filenamesWithoutExtension = res.data.data.map((item) =>
-            item.fileName.replace(/\.pdf$/, "")
-          );
+          
 
           setName(data.firstName + "_resume " + (res.data.data.length + 1));
         })
