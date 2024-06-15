@@ -35,7 +35,7 @@ export const StandaredForm = ({
             errors={isError}
           />
           <div className="w-full h-[0px] gap-0 border-t rotate-0 border-[#DEDEDE] "></div>
-          <EmployerDetails data={data} setData={setData} errors={isError} />
+          <EmployerDetails data={data} setData={setData}  errors={isError} />
           <div className="w-full h-[0px] gap-0 border-t rotate-0 border-[#DEDEDE] "></div>
           <JobDetails data={data} setData={setData} errors={isError} />
           <div className="w-full h-[0px] gap-0 border-t rotate-0 border-[#DEDEDE] "></div>
