@@ -46,7 +46,7 @@ function CoverLetter9({ page2Ref, page1Ref, data }) {
     <div className="flex flex-col gap-[24px]">
       <div
         ref={page1Ref}
-        className=" flex flex-row  w-[595px] min-h-[700px] border-2 "
+        className=" flex flex-row  w-[595px] min-h-[700px] "
       >
         <div className="w-[30%] py-[34px] px-[26px] bg-[#F2F2F2] flex flex-col min-h-[700px] justify-between ">
           <div className="flex flex-col gap-[24px] ">
@@ -192,7 +192,7 @@ function CoverLetter9({ page2Ref, page1Ref, data }) {
       {splitContents?.second?.length > 0 && (
         <div
           ref={page2Ref}
-          className=" w-[595px] min-h-[700px] p-[24px]  border-2 flex flex-col bg-[#fff] overflow-hidden"
+          className=" w-[595px] min-h-[700px] p-[24px]   flex flex-col bg-[#fff] overflow-hidden"
         >
           <div className="flex h-full">
             <div className="flex flex-col justify-start w-full gap-[8px]">

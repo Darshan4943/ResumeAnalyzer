@@ -45,7 +45,7 @@ function CoverLetter11({ page1Ref, page2Ref, data }) {
   console.log("date", data?.letterDate);
 
   return (
-    <div className="flex flex-col border-2 gap-[36px] border-[#DEDEDE] ">
+    <div className="flex flex-col  gap-[36px] border-[#DEDEDE] ">
       <div
         ref={page1Ref}
         className="bg-[#FFFFFF] w-[595px] min-h-[700px] p-[24px] gap-[16px] flex flex-col "
@@ -195,7 +195,7 @@ function CoverLetter11({ page1Ref, page2Ref, data }) {
       </div>
       {splitContents?.second?.length > 0 && (
         <>
-          <div className="w-full h-[2px] border-2 border-[#DEDEDE]"></div>
+          <div className="w-full h-[2px]  border-[#DEDEDE]"></div>
 
           <div
             ref={page2Ref}
