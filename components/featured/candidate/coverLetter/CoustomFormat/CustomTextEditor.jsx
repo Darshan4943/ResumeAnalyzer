@@ -1,10 +1,11 @@
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import CustomToolbar from "./CustomToolbar";
 
 const CustomTextEditor = ({ data, setData, placeholder }) => {
   const [rerender, setRerender] = useState(false);
+  const prevDataRef = useRef(data);
 
   // Initialize editor with content from data.passages
   const editor = useEditor({
@@ -30,22 +31,28 @@ const CustomTextEditor = ({ data, setData, placeholder }) => {
 
   // Update editor content when data changes
   useEffect(() => {
-    if (editor) {
-      editor.commands.setContent(
-        data.passages
-          ? data.passages.map((p) => `<p>${p}</p>`).join("")
-          : "<p></p>"
-      );
+    const prevData = prevDataRef.current;
+    const newContent = data.passages
+      ? data.passages.map((p) => `<p>${p}</p>`).join("")
+      : "<p></p>";
+    const prevContent = prevData.passages
+      ? prevData.passages.map((p) => `<p>${p}</p>`).join("")
+      : "<p></p>";
+
+    if (editor && newContent !== prevContent) {
+      const selection = editor.state.selection;
+
+      editor.commands.setContent(newContent);
+
+      editor.commands.setTextSelection(selection);
     }
+
+    prevDataRef.current = data;
   }, [data, editor]);
 
   return (
     <div className="flex flex-col border-none shadow-custom rounded-[10px]">
-      <CustomToolbar
-        editor={editor}
-        content={data.passages?.join(" ") || ""}
-        rerender={rerender}
-      />
+      <CustomToolbar editor={editor} rerender={rerender} />
       <EditorContent
         editor={editor}
         rerender={rerender}

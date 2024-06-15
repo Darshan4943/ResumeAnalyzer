@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { data } from "../../../../common/Bars";
 
-const EmployerDetails = ({ data, setData, errors }) => {
+const EmployerDetails = ({ data, setData, errors, setError }) => {
   const [isShow, setIsShow] = useState(true);
   const [EmployerData, setEmployerData] = useState({
     employerName: "",
@@ -127,11 +127,14 @@ const EmployerDetails = ({ data, setData, errors }) => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+    const newErrors = { ...errors };
+    if (newErrors[name]) {
+      delete newErrors[name];
+    }
     setEmployerData({ ...EmployerData, [name]: value });
     setData({ ...data, [name]: value });
+    setError(newErrors);
   };
-
-
 
   return (
     <div className="flex flex-col gap-[16px] w-full bg-white py-4">
@@ -187,7 +190,8 @@ const EmployerDetails = ({ data, setData, errors }) => {
             return (
               <div className="flex flex-col gap-[8px]" key={index}>
                 <label className="font-montserrat text-[14px] font-medium leading-[17.07px] text-left">
-                  {employer.label}
+                  {employer.label}{" "}
+                  <span className="text-red text-[12px]">*</span>
                 </label>
                 <input
                   type={employer.type}
@@ -195,13 +199,15 @@ const EmployerDetails = ({ data, setData, errors }) => {
                   placeholder={employer.placeholder}
                   value={EmployerData[employer.name]}
                   onChange={handleInputChange}
-                  className={`w-full pt-[12px] pr-[16px] pb-[12px] pl-[16px] gap-0 border border-solid rounded-[8px] text-[12px] leading-[16px] text-[#646464] font-[400]
-                 
-                      `}
+                  className={`w-full pt-[12px] pr-[16px] pb-[12px] pl-[16px] gap-0 border border-solid rounded-[8px] text-[12px] leading-[16px] text-[#646464] font-[400] ${
+                    errors && errors[employer?.name]
+                      ? "border-red"
+                      : "border-[#C4C4C4]"
+                  }`}
                 />
                 {errors && errors[employer.name] && (
-                  <span className="text-[12px] text-red">
-                    field is required
+                  <span className="text-red text-[12px]">
+                    field is required!
                   </span>
                 )}
               </div>
@@ -217,7 +223,8 @@ const EmployerDetails = ({ data, setData, errors }) => {
               .map((employer, index) => (
                 <div className="flex flex-col gap-[8px] w-full" key={index}>
                   <label className="font-montserrat text-[14px] font-medium leading-[17.07px] text-left">
-                    {employer.label}
+                    {employer.label}{" "}
+                    <span className="text-red text-[12px]">*</span>
                   </label>
                   <input
                     type={employer.type}
@@ -225,7 +232,11 @@ const EmployerDetails = ({ data, setData, errors }) => {
                     placeholder={employer.placeholder}
                     value={EmployerData[employer.name]}
                     onChange={handleInputChange}
-                    className="w-full pt-[12px] pr-[16px] pb-[12px] pl-[16px] gap-0 border border-solid border-[#DEDEDE] rounded-[8px] text-[12px] leading-[16px] text-[#646464] font-[400]"
+                    className={`w-full pt-[12px] pr-[16px] pb-[12px] pl-[16px] gap-0 border border-solid rounded-[8px] text-[12px] leading-[16px] text-[#646464] font-[400] ${
+                      errors && errors[employer?.name]
+                        ? "border-red"
+                        : "border-[#C4C4C4]"
+                    }`}
                   />
                   {errors && errors[employer.name] && (
                     <span className="text-[12px] text-red">

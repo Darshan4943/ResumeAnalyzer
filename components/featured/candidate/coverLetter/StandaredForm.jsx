@@ -17,6 +17,7 @@ export const StandaredForm = ({
   setSelectedFont,
   selectedFont,
   isError,
+  setError,
 }) => {
   return (
     <>
@@ -33,13 +34,29 @@ export const StandaredForm = ({
             selectedResumeIndex={selectedResumeIndex}
             setSelectedResumeIndex={setSelectedResumeIndex}
             errors={isError}
+            setError={setError}
           />
           <div className="w-full h-[0px] gap-0 border-t rotate-0 border-[#DEDEDE] "></div>
-          <EmployerDetails data={data} setData={setData}  errors={isError} />
+          <EmployerDetails
+            data={data}
+            setData={setData}
+            errors={isError}
+            setError={setError}
+          />
           <div className="w-full h-[0px] gap-0 border-t rotate-0 border-[#DEDEDE] "></div>
-          <JobDetails data={data} setData={setData} errors={isError} />
+          <JobDetails
+            data={data}
+            setData={setData}
+            errors={isError}
+            setError={setError}
+          />
           <div className="w-full h-[0px] gap-0 border-t rotate-0 border-[#DEDEDE] "></div>
-          <ProjectInternship data={data} setData={setData} errors={isError} />
+          <ProjectInternship
+            data={data}
+            setData={setData}
+            errors={isError}
+            setError={setError}
+          />
         </>
       )}
       {contentSituation === "Fresher" && (
@@ -54,13 +71,30 @@ export const StandaredForm = ({
             setSelectedColor={setSelectedColor}
             selectedResumeIndex={selectedResumeIndex}
             setSelectedResumeIndex={setSelectedResumeIndex}
+            errors={isError}
+            setError={setError}
           />
           <div className="w-full h-[0px]  border-t  border-[#DEDEDE] "></div>
-          <EmployerDetails data={data} setData={setData} />
+          <EmployerDetails
+            data={data}
+            setData={setData}
+            errors={isError}
+            setError={setError}
+          />
           <div className="w-full h-[0px] gap-0 border-t rotate-0 border-[#DEDEDE] "></div>
-          <EducationDetails data={data} setData={setData} />
+          <EducationDetails
+            data={data}
+            setData={setData}
+            errors={isError}
+            setError={setError}
+          />
           <div className="w-full h-[0px] gap-0 border-t rotate-0 border-[#DEDEDE] "></div>
-          <ProjectInternship data={data} setData={setData} />
+          <ProjectInternship
+            data={data}
+            setData={setData}
+            errors={isError}
+            setError={setError}
+          />
         </>
       )}
     </>

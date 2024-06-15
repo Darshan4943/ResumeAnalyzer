@@ -183,10 +183,10 @@ function CoverLetter11({ page1Ref, page2Ref, data }) {
           </div>
           {splitContents?.second?.length == 0 && (
             <div className="flex flex-col w-full gap-[2px]">
-              <span className="text-[10px] font-[400] text-[#6D6E71] ">
+              <span className="text-[12px] font-[400] text-[#6D6E71]">
                 Warm regards,
               </span>
-              <span className="text-[10px] font-[400] text-[#6D6E71]  ">
+              <span className="text-[12px] font-[400] text-[#6D6E71]">
                 {data?.firstName} {data?.lastName}
               </span>
             </div>
@@ -212,10 +212,10 @@ function CoverLetter11({ page1Ref, page2Ref, data }) {
                 </div>
                 {splitContents?.second?.length > 0 && (
                   <div className="flex flex-col w-full gap-[2px]">
-                    <span className="text-[10px] font-[400] text-[#6D6E71] ">
+                    <span className="text-[12px] font-[400] text-[#6D6E71]">
                       Warm regards,
                     </span>
-                    <span className="text-[10px] font-[400] text-[#6D6E71]  ">
+                    <span className="text-[12px] font-[400] text-[#6D6E71]">
                       {data?.firstName} {data?.lastName}
                     </span>
                   </div>

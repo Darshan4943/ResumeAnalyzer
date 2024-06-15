@@ -18,7 +18,6 @@ const CoustomForm = ({
   selectedFont,
   isFormat,
 }) => {
-  console.log("data", data);
   return (
     <>
       {contentSituation === "Experienced" && (

@@ -44,7 +44,7 @@ function CoverLetter5({ page2Ref, page1Ref, data }) {
   }, [data?.passages, splitContent]);
   return (
     <>
-      <div className="flex flex-col gap-[24px]">
+      <div className="flex flex-col gap-[24px] ">
         <div
           ref={page1Ref}
           className=" w-[595px] min-h-[700px] gap-[16px] flex flex-col border-2  relative "
@@ -187,10 +187,11 @@ function CoverLetter5({ page2Ref, page1Ref, data }) {
         {splitContents?.second?.length > 0 && (
           <div
             ref={page2Ref}
-            className="  w-[595px] min-h-[700px] p-[24px]  border-2 flex flex-col bg-[#fff] overflow-hidden"
+            className="  w-[595px] min-h-[700px] p-[24px]  border-2 flex flex-col bg-red overflow-hidden"
           >
             <div className="flex h-full">
-              <div className="flex flex-col justify-start w-full gap-[8px]">
+              <div className="flex flex-col w-[30%]"></div>
+              <div className="flex flex-col justify-start w-[70%] gap-[8px]">
                 <div className="text-[10px] font-[400]  text-[#414042] leading-[14px] font-[Inter]">
                   {splitContents.second.map((passage, index) => (
                     <p key={index} style={{ margin: "16px 0" }}>

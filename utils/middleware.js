@@ -91,7 +91,7 @@ export const fileIconSeter = (data) => {
   }
 };
 export const fileIconSeter1 = (data) => {
-  console.log(11,data)
+  console.log(11, data);
   if (
     data?.fileName?.includes("docx") ||
     data?.fileName?.toLowerCase()?.includes("doc")
@@ -127,7 +127,6 @@ export const fileIconSeter1 = (data) => {
   }
 };
 export const fileIconSeter2 = (data) => {
- 
   if (
     data?.file?.name?.includes("docx") ||
     data?.file?.name?.toLowerCase()?.includes("doc")
@@ -237,7 +236,8 @@ export const getFileSize = (url) => {
 
 export const formatLink = (link) => {
   if (link?.length > 25) {
-    return link?.match(/.{1,25}/g).join('\n');  }
+    return link?.match(/.{1,25}/g).join("\n");
+  }
   return link;
 };
 
@@ -507,20 +507,20 @@ export const coverLetters = [
     fontFamily: "Lato",
     themeColor: "#414042",
   },
-  {
-    title: "Cover3",
-    imgUrl: "/images/coverLetter/Cover-letter-3.png",
-    index: 3,
-    fontFamily: "Lato",
-    themeColor: "#414042",
-  },
-  {
-    title: "Cover4",
-    imgUrl: "/images/coverLetter/Cover-letter-4.png",
-    index: 4,
-    fontFamily: "Lato",
-    themeColor: "#414042",
-  },
+  // {
+  //   title: "Cover3",
+  //   imgUrl: "/images/coverLetter/Cover-letter-3.png",
+  //   index: 3,
+  //   fontFamily: "Lato",
+  //   themeColor: "#414042",
+  // },
+  // {
+  //   title: "Cover4",
+  //   imgUrl: "/images/coverLetter/Cover-letter-4.png",
+  //   index: 4,
+  //   fontFamily: "Lato",
+  //   themeColor: "#414042",
+  // },
   {
     title: "Cover5",
     imgUrl: "/images/coverLetter/Cover-letter-5.png",
@@ -549,25 +549,25 @@ export const coverLetters = [
     fontFamily: "Lato",
     themeColor: "#414042",
   },
-  {
-    title: "Cover9",
-    imgUrl: "/images/coverLetter/Cover-letter-9.png",
-    index: 9,
-    fontFamily: "Lato",
-    themeColor: "#414042",
-  },
-  {
-    title: "Cover10",
-    imgUrl: "/images/coverLetter/Cover-letter-10.png",
-    index: 10,
-    fontFamily: "Lato",
-    themeColor: "#414042",
-  },
-  {
-    title: "Cover11",
-    imgUrl: "/images/coverLetter/Cover-letter-11.png",
-    index: 11,
-    fontFamily: "Lato",
-    themeColor: "#414042",
-  },
+  // {
+  //   title: "Cover9",
+  //   imgUrl: "/images/coverLetter/Cover-letter-9.png",
+  //   index: 9,
+  //   fontFamily: "Lato",
+  //   themeColor: "#414042",
+  // },
+  // {
+  //   title: "Cover10",
+  //   imgUrl: "/images/coverLetter/Cover-letter-10.png",
+  //   index: 10,
+  //   fontFamily: "Lato",
+  //   themeColor: "#414042",
+  // },
+  // {
+  //   title: "Cover11",
+  //   imgUrl: "/images/coverLetter/Cover-letter-11.png",
+  //   index: 11,
+  //   fontFamily: "Lato",
+  //   themeColor: "#414042",
+  // },
 ];

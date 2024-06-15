@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Close_svg } from "../../../../../utils/svg";
+import CreatableSelect from "react-select/creatable";
+import axios from "axios";
 
-const JobDetails = ({ data, setData, isFormat }) => {
+const JobDetails = ({ data, setData, isFormat, errors ,setError}) => {
   const [isShow, setIsShow] = useState(true);
   const [inputValue, setInputValue] = useState("");
   const [requiredSkills, setRequiredSkills] = useState([]);
+  const [skills, setSkills] = useState([]);
+  const [showDropdown, setShowDropdown] = useState(false);
   const [JobData, setJobData] = useState({
     jobTitle: "",
     organization: "",
@@ -100,6 +104,19 @@ const JobDetails = ({ data, setData, isFormat }) => {
     });
   }, [data]);
 
+  useEffect(() => {
+    axios
+      .get("https://jamblix.com/api/allskills")
+      .then((res) => {
+        const names = res.data.map((skill) => skill.name);
+        const uniqueNames = Array.from(new Set(names));
+        setSkills(uniqueNames);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
   const validateFields = () => {
     const newErrors = {};
     let allFieldsValid = true;
@@ -150,13 +167,23 @@ const JobDetails = ({ data, setData, isFormat }) => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+    const newErrors = { ...errors };
+    if (newErrors[name]) {
+      delete newErrors[name];
+    }
     setJobData({ ...JobData, [name]: value });
     setData({ ...data, [name]: value });
+    setError(newErrors)
   };
 
   const handleInputSkills = (e) => {
     setInputValue(e.target.value);
+    setShowDropdown(true);
   };
+
+  // const handleInputSkills = (e) => {
+  //   setInputValue(e.target.value);
+  // };
 
   const addSkill = () => {
     if (requiredSkills && !requiredSkills.includes(inputValue)) {
@@ -167,8 +194,19 @@ const JobDetails = ({ data, setData, isFormat }) => {
       setInputValue("");
     }
   };
-  console.log(485, isFormat);
 
+  const handleInputBlur = () => {
+    setTimeout(() => setShowDropdown(false), 200);
+  };
+
+  const removeSkill = (skillToRemove) => {
+    const updatedSkills = requiredSkills.filter(
+      (skill) => skill !== skillToRemove
+    );
+    setRequiredSkills(updatedSkills);
+  };
+
+  console.log("err", errors);
   return (
     <div className="flex flex-col gap-[16px] w-full bg-white py-4">
       <div className="flex flex-row justify-between gap-[8px] items-center">
@@ -211,77 +249,14 @@ const JobDetails = ({ data, setData, isFormat }) => {
           )}
         </div>
       </div>
-      {/** {isShow && (
-        <div className="flex flex-col gap-[8px]">
-          {inputFields.map((employer, index) => {
-            if (
-              employer.label === "Current/ Previous Organization" ||
-              employer.label === "Industry/ Sector" ||
-              employer.label === "Designation" ||
-              employer.label === "Experience"
-            ) {
-              return null;
-            }
-            return (
-              <div className="flex flex-col gap-[8px]" key={index}>
-                <label className="font-montserrat text-[14px] font-medium leading-[17.07px] text-left">
-                  {employer.label}
-                </label>
-                <input
-                  type={employer.type}
-                  name={employer.name}
-                  placeholder={employer.placeholder}
-                  value={JobData[employer.name]}
-                  onChange={handleInputChange}
-                  className={`w-full pt-[12px] pr-[16px] pb-[12px] pl-[16px] gap-0 border border-solid rounded-[8px] text-[12px] leading-[16px] text-[#646464] font-[400] ${
-                    formErrors[employer.name]
-                      ? "border-[#C00000]"
-                      : "border-[#DEDEDE]"
-                  }`}
-                />
-                {formErrors[employer.name] && (
-                  <span className="text-[#C00000] text-[12px]">
-                    {formErrors[item.name]}
-                  </span>
-                )}
-              </div>
-            );
-          })}
-          <div className="flex flex-row gap-[16px]">
-            {inputFields
-              .filter(
-                (employer) =>
-                  employer.label === "Current/ Previous Organization" ||
-                  employer.label === "Industry/ Sector" ||
-                  employer.label === "Designation" ||
-                  employer.label === "Experience"
-              )
-              .map((employer, index) => (
-                <div className="flex flex-col gap-[8px] w-full" key={index}>
-                  <label className="font-montserrat text-[14px] font-medium leading-[17.07px] text-left">
-                    {employer.label}
-                  </label>
-                  <input
-                    type={employer.type}
-                    name={employer.name}
-                    placeholder={employer.placeholder}
-                    value={JobData[employer.name]}
-                    onChange={handleInputChange}
-                    className="w-full pt-[12px] pr-[16px] pb-[12px] pl-[16px] gap-0 border border-solid border-[#DEDEDE] rounded-[8px] text-[12px] leading-[16px] text-[#646464] font-[400]"
-                  />
-                </div>
-              ))}
-          </div>
-        </div>
-      )}
-      */}
 
       {isShow && (
         <div className="flex flex-col gap-[8px]">
           {isFormat !== "custom" && (
             <div className="flex flex-col gap-[8px]">
               <label className="font-montserrat text-[14px] font-medium leading-[17.07px] text-left">
-                Desired Job Title
+                Desired Job Title{" "}
+                <span className="text-red text-[12px]">*</span>
               </label>
               <input
                 type="text"
@@ -289,12 +264,17 @@ const JobDetails = ({ data, setData, isFormat }) => {
                 placeholder="Enter Your Desired Job Title"
                 value={JobData["jobTitle"]}
                 onChange={handleInputChange}
-                className={`w-full pt-[12px] pr-[16px] pb-[12px] pl-[16px] gap-0 border border-solid rounded-[8px] text-[12px] leading-[16px] text-[#646464] font-[400] ${
-                  formErrors["jobTitle"]
-                    ? "border-[#C00000]"
-                    : "border-[#DEDEDE]"
-                }`}
+                className={`w-full pt-[12px] pr-[16px] pb-[12px] pl-[16px] gap-0 border border-solid rounded-[8px] text-[12px] leading-[16px] text-[#646464] font-[400] 
+                  ${
+                    errors && errors["jobTitle"]
+                      ? "border-red"
+                      : "border-[#C4C4C4]"
+                  }
+                  `}
               />
+              {errors && errors["jobTitle"] && (
+                <span className="text-red text-[10px]">field is required!</span>
+              )}
             </div>
           )}
 
@@ -308,7 +288,8 @@ const JobDetails = ({ data, setData, isFormat }) => {
               .map((employer, index) => (
                 <div className="flex flex-col gap-[8px] w-full" key={index}>
                   <label className="font-montserrat text-[14px] font-[500] leading-[17.07px] text-left w-full">
-                    {employer.label}
+                    {employer.label}{" "}
+                    <span className="text-red text-[12px]">*</span>
                   </label>
                   <input
                     type={employer.type}
@@ -316,8 +297,19 @@ const JobDetails = ({ data, setData, isFormat }) => {
                     placeholder={employer.placeholder}
                     value={JobData[employer.name]}
                     onChange={handleInputChange}
-                    className="w-full pt-[12px] pr-[16px] pb-[12px] pl-[16px] gap-0 border border-solid border-[#DEDEDE] rounded-[8px] text-[12px] leading-[16px] text-[#646464] font-[400]"
+                    // className="w-full pt-[12px] pr-[16px] pb-[12px] pl-[16px] gap-0 border border-solid border-[#DEDEDE] rounded-[8px] text-[12px] leading-[16px] text-[#646464] font-[400]"
+
+                    className={`w-full pt-[12px] pr-[16px] pb-[12px] pl-[16px] gap-0 border border-solid rounded-[8px] text-[12px] leading-[16px] text-[#646464] font-[400] ${
+                      errors && errors[employer?.name]
+                        ? "border-red"
+                        : "border-[#C4C4C4]"
+                    }`}
                   />
+                  {errors && errors[employer.name] && (
+                    <span className="text-red text-[10px]">
+                      field is required!
+                    </span>
+                  )}
                 </div>
               ))}
           </div>
@@ -332,7 +324,8 @@ const JobDetails = ({ data, setData, isFormat }) => {
               .map((employer, index) => (
                 <div className="flex flex-col gap-[8px] w-full" key={index}>
                   <label className="font-montserrat text-[14px] font-medium leading-[17.07px] text-left">
-                    {employer.label}
+                    {employer.label}{" "}
+                    <span className="text-red text-[12px]">*</span>
                   </label>
                   <input
                     type={employer.type}
@@ -340,8 +333,19 @@ const JobDetails = ({ data, setData, isFormat }) => {
                     placeholder={employer.placeholder}
                     value={JobData[employer.name]}
                     onChange={handleInputChange}
-                    className="w-full pt-[12px] pr-[16px] pb-[12px] pl-[16px] gap-0 border border-solid border-[#DEDEDE] rounded-[8px] text-[12px] leading-[16px] text-[#646464] font-[400]"
+                    // className="w-full pt-[12px] pr-[16px] pb-[12px] pl-[16px] gap-0 border border-solid border-[#DEDEDE] rounded-[8px] text-[12px] leading-[16px] text-[#646464] font-[400]"
+
+                    className={`w-full pt-[12px] pr-[16px] pb-[12px] pl-[16px] gap-0 border border-solid rounded-[8px] text-[12px] leading-[16px] text-[#646464] font-[400] ${
+                      errors && errors[employer?.name]
+                        ? "border-red"
+                        : "border-[#C4C4C4]"
+                    }`}
                   />
+                  {errors && errors[employer.name] && (
+                    <span className="text-red text-[10px]">
+                      field is required!
+                    </span>
+                  )}
                 </div>
               ))}
           </div>
@@ -405,6 +409,8 @@ const JobDetails = ({ data, setData, isFormat }) => {
                     placeholder="e.g. Javascript"
                     value={inputValue}
                     onChange={handleInputSkills}
+                    onFocus={() => setShowDropdown(true)}
+                    onBlur={handleInputBlur}
                     className=" text-[12px]  text-[#646464] font-[400] w-full"
                   />
                   <svg
@@ -424,6 +430,31 @@ const JobDetails = ({ data, setData, isFormat }) => {
                     </g>
                   </svg>
                 </div>
+                {showDropdown && (
+                  <div className="absolute top-full left-0 w-full bg-white border border-[#DEDEDE] rounded-[8px] mt-1 max-h-40 overflow-auto z-10">
+                    {skills
+                      .filter((skill) =>
+                        skill.toLowerCase().includes(inputValue.toLowerCase())
+                      )
+                      .map((skill, index) => (
+                        <div
+                          key={index}
+                          onClick={() => addSkill(skill)}
+                          className="px-4 py-2 cursor-pointer hover:bg-gray-200"
+                        >
+                          {skill}
+                        </div>
+                      ))}
+                  </div>
+                )}
+
+                {/**           <CreatableSelect
+                  options={skills.map((item) => ({ value: item, label: item }))}
+                  className="w-full  flex flex-row justify-between  pt-[12px] pr-[16px] pb-[12px] pl-[16px] gap-0  rounded-[8px] "
+                  // onChange={handleChange}
+                  // value={isClearable}
+                />
+                 */}
 
                 <div className="flex flex-row gap-[8px] flex-wrap w-full">
                   {requiredSkills?.map((item, index) => (

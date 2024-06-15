@@ -3,7 +3,7 @@ import { telCode } from "../../../../../utils/data";
 import ReactSelect from "react-select";
 import { camelCase } from "../../../../../utils/middleware";
 
-const PersonalDetails = ({ data, setData, errors }) => {
+const PersonalDetails = ({ data, setData, errors, setError }) => {
   const [isShow, setIsShow] = useState(true);
   const [isChecked, setIsChecked] = useState(true);
   const [isModified, setIsModified] = useState(false);
@@ -184,6 +184,11 @@ const PersonalDetails = ({ data, setData, errors }) => {
 
     setTouched({ ...touched, [name]: true });
 
+    // Check and remove the error for the current input if it exists
+    const newErrors = { ...errors };
+    if (newErrors[name]) {
+      delete newErrors[name];
+    }
     if (name === "mobileNumber") {
       if (value.replace(/\D/g, "").length <= 10) {
         setPersonalData({
@@ -203,6 +208,9 @@ const PersonalDetails = ({ data, setData, errors }) => {
       setIsModified(true);
       setFormErrors({ ...formErrors, [name]: value.trim() === "" });
     }
+
+    // Update the errors state
+    setError(newErrors);
   };
 
   const customFilterOption = ({ label, value, data }, inputValue) => {
@@ -212,6 +220,11 @@ const PersonalDetails = ({ data, setData, errors }) => {
       data.dial_code.includes(inputValue)
     );
   };
+
+  useEffect(() => {
+    console.log("errors", errors);
+    setError({ ...errors });
+  }, [data]);
 
   return (
     <div className="flex flex-col gap-[16px] w-full bg-white py-4">
@@ -258,6 +271,7 @@ const PersonalDetails = ({ data, setData, errors }) => {
 
       {isShow && (
         <div className="flex flex-col gap-[8px]">
+          {/** 
           <div className="flex flex-row gap-[16px]">
             {inputFields
               .filter(
@@ -278,11 +292,51 @@ const PersonalDetails = ({ data, setData, errors }) => {
                       placeholder={employer.placeholder}
                       value={personalData[employer.name]}
                       onChange={handleInputChange}
-                      className="w-full pt-[12px]  pr-[16px] pb-[12px] pl-[16px] gap-0 border border-solid border-[#DEDEDE] rounded-[8px] text-[12px] leading-[16px] text-[#646464] font-[400]"
+                      // className="w-full pt-[12px]  pr-[16px] pb-[12px] pl-[16px] gap-0 border border-solid border-[#DEDEDE] rounded-[8px] text-[12px] leading-[16px] text-[#646464] font-[400]"
+
+                      className={`w-full pt-[12px] pr-[16px] pb-[12px] pl-[16px] gap-0 border border-solid rounded-[8px] text-[12px] leading-[16px] text-[#646464] font-[400] ${
+                        errors && errors[employer?.name]
+                          ? "border-red"
+                          : "border-[#C4C4C4]"
+                      }`}
                     />
                   </div>
                   {errors && errors[employer.name] && (
                     <span className="text-red text-[12px]">
+                      field is required!
+                    </span>
+                  )}
+                </div>
+              ))}
+          </div>*/}
+
+          <div className="flex flex-row gap-[16px]">
+            {inputFields
+              .filter(
+                (employer) =>
+                  employer.label === "First Name" ||
+                  employer.label === "Last Name"
+              )
+              .map((employer, index) => (
+                <div className="flex flex-col gap-[8px] w-full" key={index}>
+                  <label className="font-montserrat text-[14px] font-medium leading-[17.07px] text-left">
+                    {employer.label}{" "}
+                    <span className="text-red text-[12px]">*</span>
+                  </label>
+                  <input
+                    type={employer.type}
+                    name={employer.name}
+                    placeholder={employer.placeholder}
+                    value={personalData[employer.name]}
+                    onChange={handleInputChange}
+                    className={`w-full pt-[12px] pr-[16px] pb-[12px] pl-[16px] gap-0 border border-solid rounded-[8px] text-[12px] leading-[16px] text-[#646464] font-[400] ${
+                      errors && errors[employer?.name]
+                        ? "border-red"
+                        : "border-[#C4C4C4]"
+                    }`}
+                  />
+                  {errors && errors[employer.name] && (
+                    <span className="text-[12px] text-red">
                       field is required!
                     </span>
                   )}
@@ -295,7 +349,14 @@ const PersonalDetails = ({ data, setData, errors }) => {
               Mobile Number <span className="text-red text-[12px]">*</span>
             </label>
 
-            <div className="w-[60%] flex pr-[16px] h-[40px] pl-[16px] gap-2 border border-solid border-[#DEDEDE] rounded-[8px] text-[12px] leading-[16px] text-[#646464] font-[400]">
+            <div
+              className={`w-[72%] flex pr-[16px] h-[40px] pl-[16px] gap-2 border border-solid border-[#DEDEDE] rounded-[8px] text-[12px] leading-[16px] text-[#646464] font-[400] ${
+                (errors && errors["dial_code"]) ||
+                (errors && errors["mobileNumber"])
+                  ? "border-red"
+                  : "border-[#C4C4C4]"
+              }`}
+            >
               <ReactSelect
                 options={filteredTelCode}
                 className="w-[45%] flex items-center  rounded-[8px] outline-none border-none cursor-pointer"
@@ -342,15 +403,9 @@ const PersonalDetails = ({ data, setData, errors }) => {
                 disabled={!isChecked}
               />
             </div>
-            {(errors && errors?.mobileNumber) ||
-              (errors?.dial_code && (
-                <span className="text-red text-[12px]">
-                  {/** {errors.mobileNumber
-                    ? "mobile number required"
-                    : "please select country code"} */}
-                  field is required!
-                </span>
-              ))}
+            {errors && errors["mobileNumber"] && (
+              <span className="text-red text-[10px]">field is required!</span>
+            )}
           </div>
 
           <div className="flex flex-col gap-[8px]">
@@ -372,15 +427,18 @@ const PersonalDetails = ({ data, setData, errors }) => {
                       placeholder={employer.placeholder}
                       value={personalData[employer.name]}
                       onChange={handleInputChange}
-                      className="w-full pt-[12px] pr-[16px] pb-[12px] pl-[16px] gap-0 border border-solid border-[#DEDEDE] rounded-[8px] text-[12px] leading-[16px] text-[#646464] font-[400]"
+                      // className="w-full pt-[12px] pr-[16px] pb-[12px] pl-[16px] gap-0 border border-solid border-[#DEDEDE] rounded-[8px] text-[12px] leading-[16px] text-[#646464] font-[400]"
+                      className={`w-full pt-[12px] pr-[16px] pb-[12px] pl-[16px] gap-0 border border-solid rounded-[8px] text-[12px] leading-[16px] text-[#646464] font-[400] ${
+                        errors && errors[employer?.name]
+                          ? "border-red"
+                          : "border-[#C4C4C4]"
+                      }`}
                     />
                   </div>
 
                   {errors && errors[employer.name] && (
-                    <span className="text-[12px] text-red">
-                      {errors & (errors[employer.name] === "Address")
-                        ? "address is required!"
-                        : "email id is required!"}
+                    <span className="text-red text-[12px]">
+                      field is required!
                     </span>
                   )}
                 </div>

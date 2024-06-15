@@ -36,6 +36,7 @@ function CoverForm({
   const [letterData, setLetterData] = useState("");
   const [isShow, setIsShow] = useState(false);
   const [contentSituation, setContentSituation] = useState("Experienced");
+  const [text, setText] = useState();
   const [loading, setLoading] = useState(false);
   const handleImageClick = (template) => {
     togglePreview(true, template.index);
@@ -86,34 +87,66 @@ function CoverForm({
 
   // Function to validate required fields
   function validateRequiredFields(data) {
-    const requiredFields = [
-      "firstName",
-      "lastName",
-      "mobileNumber",
-      "email",
-      "dial_code",
-      "address",
-      "employerName",
-      "employerOrganizationName",
-      "employerAddress",
-      "employerCityState",
-      "employerCountry",
-      "jobTitle",
-      "organization",
-      "industry",
-      "designation",
-      "experience",
-    ];
+    if (contentSituation === "Experienced") {
+      const requiredFields = [
+        "firstName",
+        "lastName",
+        "mobileNumber",
+        "email",
+        "dial_code",
+        "address",
+        "employerName",
+        "employerOrganizationName",
+        "employerAddress",
+        "employerCityState",
+        "employerCountry",
+        "jobTitle",
+        "organization",
+        "industry",
+        "designation",
+        "experience",
+      ];
+      let errors = {};
 
-    let errors = {};
+      requiredFields.forEach((field) => {
+        if (!data[field]) {
+          errors[field] = `${field} is missing`;
+        }
+      });
 
-    requiredFields.forEach((field) => {
-      if (!data[field]) {
-        errors[field] = `${field} is missing`;
-      }
-    });
+      return errors;
+    } else {
+      const requiredFields = [
+        "firstName",
+        "lastName",
+        "mobileNumber",
+        "email",
+        "dial_code",
+        "address",
+        "employerName",
+        "employerOrganizationName",
+        "employerAddress",
+        "employerCityState",
+        "employerCountry",
+        "jobTitle",
+        "organization",
+        "industry",
+        "designation",
+        "experience",
+        "course",
+        "specialization",
+        "university",
+      ];
+      let errors = {};
 
-    return errors;
+      requiredFields.forEach((field) => {
+        if (!data[field]) {
+          errors[field] = `${field} is missing`;
+        }
+      });
+
+      return errors;
+    }
   }
 
   const fetchCoverLetter = async () => {
@@ -122,7 +155,7 @@ function CoverForm({
       if (data) {
         const errors = validateRequiredFields(data);
         setError(errors);
-
+        console.log("errors", errors);
         if (Object.keys(errors).length === 0) {
           const response = await axios.post(
             "http://localhost:2000/api/cover-letter/transform",
@@ -157,8 +190,38 @@ function CoverForm({
     setIsShow(true);
   };
 
+  const rephrasePassage = () => {
+    const oldPassage = data.passages.join(" ");
+
+    const prompt = `Original passage:\n${oldPassage}\n\nNew passage:\n`;
+
+    setLoading(true);
+    axios
+      .post("http://localhost:20000/api/cover/rephrase", { prompt })
+      .then((res) => {
+        setLoading(false);
+        setError("");
+
+        const rephrasedPassage = res.data.data.choices[0].message.content;
+
+        setData((prevData) => ({
+          ...prevData,
+          passages: [rephrasedPassage],
+        }));
+
+        if (!isPlanActive) {
+          localStorage.setItem("attempts", attempt - 1);
+          getAttempts();
+        }
+      })
+      .catch((err) => {
+        setLoading(false);
+        console.log(err);
+      });
+  };
+
   return (
-    <div className="flex flex-col pr-[10px] ml:w-[100%] w-[100%] h-[88vh] relative  pb-4 gap-4 rounded-lg overflow-y-auto  bg-white ">
+    <div className="flex flex-col ml:w-[100%] w-[100%] h-[88vh] relative gap-4 rounded-lg overflow-y-auto  bg-white ">
       <div className="ml:flex hidden  flex-row gap-4 sticky top-0 z-[20] bg-white pb-2">
         <button
           className="p-[8px] border-[1px] bg-blue border-[#DEDEDE] rounded-[6px]  "
@@ -309,7 +372,7 @@ function CoverForm({
             setSelectedFont={setSelectedFont}
             selectedFont={selectedFont}
           />*/}
-          <div className="bg-[#DEDEDE] w-full h-[1px]"> </div>
+          <div className="bg-[#DEDEDE] w-full h-[1px]"></div>
           <div className="bg-[#F9F9F9] w-full flex rounded-[8px] text-[14px] font-semibold  ">
             <button
               className={`${
@@ -342,7 +405,7 @@ function CoverForm({
               <label className="font-montserrat text-[14px] font-[500] leading-[17.07px] text-left w-full">
                 Content Situation
               </label>
-              ''
+
               <div className="w-full flex gap-[16px] text-[14px] font-montserrat items-center font-medium">
                 <div className="flex gap-[10px] w-[50%] items-center">
                   <input
@@ -421,6 +484,7 @@ function CoverForm({
                   setSelectedCoverIndex={setSelectedCoverIndex}
                   isFormat={isFormat}
                   isError={isError}
+                  setError={setError}
                 />
               </div>
             )}
@@ -438,42 +502,70 @@ function CoverForm({
                   selectedCoverIndex={selectedCoverIndex}
                   setSelectedCoverIndex={setSelectedCoverIndex}
                   isFormat={isFormat}
+                  setError={setError}
                 />
               </>
             )}
           </div>
         )}
       </div>
-      <div className="p-[12px] pr-[16px] pb-[12px] pl-[16px] gap-[10px] z-[100] sticky h-[100px] bottom-[-20px] bg-white">
+      <div className=" p-[12px] pr-[16px] pb-[12px] pl-[16px] gap-[10px] sticky bottom-[0px]  bg-white">
         {isShow === false && (
           <div className="flex justify-end ">
             {isFormat === "standard" && (
-              <button
-                className="bg-[#06A9EF] w-[126px] h-[34px] py-[8px] px-[16px] text-[12px] flex justify-center items-center rounded-[8px]  text-white"
-                onClick={fetchCoverLetter}
-              >
-                {loading ? (
+              <div className="flex flex-row justify-between gap-[8px]">
+                <button
+                  className="bg-[#06A9EF] w-[126px] h-[34px] py-[8px] px-[16px] text-[12px] flex justify-center items-center rounded-[8px]  text-white"
+                  onClick={fetchCoverLetter}
+                >
+                  {loading ? (
+                    <svg
+                      aria-hidden="true"
+                      role="status"
+                      className="inline w-4 h-4  animate-spin"
+                      viewBox="0 0 100 101"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                        fill="#E5E7EB"
+                      />
+                      <path
+                        d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                  ) : (
+                    "Generate Letter"
+                  )}
+                </button>
+
+                <div
+                  className="flex flex-row bg-[#F5F5F5] py-[8px] px-[16px] text-[12px] justify-between items-center rounded-[8px] gap-[8px] cursor-pointer "
+                  onClick={() => {
+                    // handleNavigate();
+                    setIsShow(true);
+                  }}
+                >
+                  <span className="text-[12px] text-[#333333] font-[600] font-Montserrat leading-[16px]">
+                    Back
+                  </span>
                   <svg
-                    aria-hidden="true"
-                    role="status"
-                    className="inline w-4 h-4  animate-spin"
-                    viewBox="0 0 100 101"
+                    className="min-h-[16px] min-w-[16px]"
+                    width="7"
+                    height="14"
+                    viewBox="0 0 7 14"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
-                      d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
-                      fill="#E5E7EB"
-                    />
-                    <path
-                      d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
-                      fill="currentColor"
+                      d="M4.93333 7.00026L0.233333 2.30026C0.0777778 2.1447 0 1.95582 0 1.73359C0 1.51137 0.0777778 1.32248 0.233333 1.16693C0.388889 1.01137 0.577778 0.933594 0.8 0.933594C1.02222 0.933594 1.21111 1.01137 1.36667 1.16693L6.35 6.15026C6.47222 6.27248 6.56111 6.40582 6.61667 6.55026C6.67222 6.69471 6.7 6.84471 6.7 7.00026C6.7 7.15582 6.67222 7.30582 6.61667 7.45026C6.56111 7.59471 6.47222 7.72804 6.35 7.85026L1.36667 12.8336C1.21111 12.9891 1.02222 13.0669 0.8 13.0669C0.577778 13.0669 0.388889 12.9891 0.233333 12.8336C0.0777778 12.678 0 12.4892 0 12.2669C0 12.0447 0.0777778 11.8558 0.233333 11.7003L4.93333 7.00026Z"
+                      fill="#1C1B1F"
                     />
                   </svg>
-                ) : (
-                  "Generate Letter"
-                )}
-              </button>
+                </div>
+              </div>
             )}
           </div>
         )}
@@ -486,19 +578,19 @@ function CoverForm({
             animate={{ x: 0 }}
             exit={{ x: "-100%" }}
             transition={{ duration: 0.5, ease: "easeInOut" }}
-            className="fixed z-[3000] min-w-[508px] w-[34%] mt-[22rem] flex flex-col gap-4 "
+            className=" min-w-[496px] w-[34%] flex flex-col gap-4 "
             style={{
               background: "white",
               boxShadow: "0 0 10px rgba(255, 255, 255, 0.5)",
             }}
           >
-            <div className="flex-1 overflow-auto">
+            <div className="flex-1 overflow-auto ">
               <CustomTextEditor data={data} setData={setData} />
             </div>
-            <div className="flex flex-row justify-between ite3ms-center gap-[10px] sticky bottom-0">
+            <div className="flex flex-row justify-between items-center gap-[10px] bg-white sticky bottom-0 py-2 px-4">
               <div>
                 <div
-                  className="flex flex-row bg-[#F5F5F5] py-[8px] px-[16px] text-[12px] justify-between items-center rounded-[8px] gap-[8px] cursor-pointer"
+                  className="flex flex-row bg-[#F5F5F5] py-[8px] px-[16px] text-[12px] justify-between items-center rounded-[8px] gap-[8px] cursor-pointer "
                   onClick={() => {
                     handleNavigate();
                     setIsShow(false);
@@ -522,17 +614,45 @@ function CoverForm({
                   </span>
                 </div>
               </div>
+              {/***
               <div className="flex flex-row justify-between items-center gap-[10px]">
-                <button className="flex items-center font-montserrat text-xs font-semibold btn_outline gap-[6px]">
+                <button
+                  className="flex items-center font-montserrat text-xs font-semibold btn_outline gap-[6px]"
+                  onClick={rephrasePassage}
+                >
+           
+                {loading ? (
+                  <svg
+                    aria-hidden="true"
+                    role="status"
+                    className="inline w-4 h-4  animate-spin"
+                    viewBox="0 0 100 101"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                      fill="#E5E7EB"
+                    />
+                    <path
+                      d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                ):(
+                  <>
                   <SparklingStarts />
                   <span className="text-[12px] text-[#333333] font-[600] font-Montserrat leading-[16px]">
                     Rephrase with AI
                   </span>
+                  </>
+                )
+                 
                 </button>
                 <button className="font-montserrat text-white font-medium text-[12px] px-[16px] py-[8px] rounded-[8px] bg-[#DEDEDE] w-[60px] h-[32px]">
                   Save
                 </button>
-              </div>
+              </div> */}
             </div>
           </motion.div>
         )}

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Close_svg } from "../../../../../utils/svg";
 
-const EducationDetails = ({ data, setData }) => {
+const EducationDetails = ({ data, setData, errors, setError }) => {
   const [isShow, setIsShow] = useState(true);
   const [requiredSkills, setRequiredSkills] = useState([
     "javascript",
@@ -124,8 +124,13 @@ const EducationDetails = ({ data, setData }) => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+    const newErrors = { ...errors };
+    if (newErrors[name]) {
+      delete newErrors[name];
+    }
     setEducationalData({ ...educationalData, [name]: value });
     setData({ ...data, [name]: value });
+    setError(newErrors);
   };
 
   return (
@@ -191,8 +196,18 @@ const EducationDetails = ({ data, setData }) => {
                     placeholder={employer.placeholder}
                     value={educationalData[employer.name]}
                     onChange={handleInputChange}
-                    className="w-full pt-[12px] pr-[16px] pb-[12px] pl-[16px] gap-0 border border-solid border-[#DEDEDE] rounded-[8px] text-[12px] leading-[16px] text-[#646464] font-[400]"
+                    // className="w-full pt-[12px] pr-[16px] pb-[12px] pl-[16px] gap-0 border border-solid border-[#DEDEDE] rounded-[8px] text-[12px] leading-[16px] text-[#646464] font-[400]"
+                    className={`w-full pt-[12px] pr-[16px] pb-[12px] pl-[16px] gap-0 border border-solid rounded-[8px] text-[12px] leading-[16px] text-[#646464] font-[400] ${
+                      errors && errors[employer?.name]
+                        ? "border-red"
+                        : "border-[#C4C4C4]"
+                    }`}
                   />
+                  {errors && errors[employer.name] && (
+                    <span className="text-[10px] text-red">
+                      field is required!
+                    </span>
+                  )}
                 </div>
               ))}
           </div>
@@ -215,8 +230,19 @@ const EducationDetails = ({ data, setData }) => {
                     placeholder={employer.placeholder}
                     value={educationalData[employer.name]}
                     onChange={handleInputChange}
-                    className="w-full pt-[12px] pr-[16px] pb-[12px] pl-[16px] gap-0 border border-solid border-[#DEDEDE] rounded-[8px] text-[12px] leading-[16px] text-[#646464] font-[400]"
+                    // className="w-full pt-[12px] pr-[16px] pb-[12px] pl-[16px] gap-0 border border-solid border-[#DEDEDE] rounded-[8px] text-[12px] leading-[16px] text-[#646464] font-[400]"
+
+                    className={`w-full pt-[12px] pr-[16px] pb-[12px] pl-[16px] gap-0 border border-solid rounded-[8px] text-[12px] leading-[16px] text-[#646464] font-[400] ${
+                      errors && errors[employer?.name]
+                        ? "border-red"
+                        : "border-[#C4C4C4]"
+                    }`}
                   />
+                  {errors && errors[employer.name] && (
+                    <span className="text-[10px] text-red">
+                      field is required!
+                    </span>
+                  )}
                 </div>
               ))}
           </div>
@@ -235,8 +261,19 @@ const EducationDetails = ({ data, setData }) => {
                     placeholder={employer.placeholder}
                     value={educationalData[employer.name]}
                     onChange={handleInputChange}
-                    className="w-full pt-[12px] pr-[16px] pb-[12px] pl-[16px] gap-0 border border-solid border-[#DEDEDE] rounded-[8px] text-[12px] leading-[16px] text-[#646464] font-[400]"
+                    // className="w-full pt-[12px] pr-[16px] pb-[12px] pl-[16px] gap-0 border border-solid border-[#DEDEDE] rounded-[8px] text-[12px] leading-[16px] text-[#646464] font-[400]"
+
+                    className={`w-full pt-[12px] pr-[16px] pb-[12px] pl-[16px] gap-0 border border-solid rounded-[8px] text-[12px] leading-[16px] text-[#646464] font-[400] ${
+                      errors && errors[employer?.name]
+                        ? "border-red"
+                        : "border-[#C4C4C4]"
+                    }`}
                   />
+                  {errors && errors[employer.name] && (
+                    <span className="text-[10px] text-red">
+                      field is required!
+                    </span>
+                  )}
                 </div>
               ))}
           </div>
