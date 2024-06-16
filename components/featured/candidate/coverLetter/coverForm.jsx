@@ -158,7 +158,7 @@ function CoverForm({
         console.log("errors", errors);
         if (Object.keys(errors).length === 0) {
           const response = await axios.post(
-            "http://localhost:2000/api/cover-letter/transform",
+            "https://jamblix.com/api/cover-letter/transform",
             data
           );
           const letterData = response.data;
