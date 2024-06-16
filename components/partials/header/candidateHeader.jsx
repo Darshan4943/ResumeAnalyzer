@@ -402,7 +402,7 @@ function CandidateHeader() {
               </svg>
               Log Out
             </div>
-
+            
           </div>
         )}
       </div>

@@ -310,7 +310,7 @@ function Folders({
       <div className="flex flex-col gap-4  border border-[#DEDEDE] bg-white ms:p-6 p-2  rounded-[16px] h-full ">
         <div className="flex flex-col-reverse gap-4 w-full  ">
           <div className="flex justify-end text-[14px] font-medium ">
-            {unSyncFiles > 0 && folders && 
+            {unSyncFiles > 0 && folders &&
               <div className="bg-[#FEFCE8] w-[245px] py-1 px-2 flex justify-between gap-2 items-center text-[#854D0E] rounded-[8px]">
                 <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
 
@@ -427,6 +427,7 @@ function Folders({
                         onClick={() =>
                           selectedIndexes.length > 0 && setShowDelete(true)
                         }
+                        className=" cursor-pointer"
                         width="20"
                         height="20"
                         viewBox="0 0 20 20"
@@ -577,28 +578,30 @@ function Folders({
                   placeholder="Search File"
                 />
               </div>
-              <div className=" flex gap-2 px-5 py-2 bg-[#E9EEF6] rounded-[30px] sm:w-[210px] h-[40px]">
-                <div
-                  onClick={() => setSelect(!select)}
-                  className=" flex gap-2 text-[14px] font-medium  items-center cursor-pointer "
-                >
-                  <svg
-                    width="18"
-                    height="18"
-                    viewBox="0 0 18 18"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
+              <div className=" flex gap-2 px-5 py-2 bg-[#E9EEF6] rounded-[30px] justify-center sm:w-[210px] h-[40px]">
+                {!clients &&
+                  <div
+                    onClick={() => setSelect(!select)}
+                    className=" flex gap-2 text-[14px] font-medium  items-center cursor-pointer "
                   >
-                    <g mask="url(#mask0_1148_17404)">
-                      <path
-                        d="M11.8548 15.3759C11.548 15.3759 11.2839 15.2651 11.0622 15.0435C10.8406 14.8219 10.7298 14.5577 10.7298 14.251V11.1067C10.7298 10.8 10.8406 10.5358 11.0622 10.3142C11.2839 10.0926 11.548 9.98175 11.8548 9.98175H14.999C15.3057 9.98175 15.5699 10.0926 15.7915 10.3142C16.0132 10.5358 16.124 10.8 16.124 11.1067V14.251C16.124 14.5577 16.0132 14.8219 15.7915 15.0435C15.5699 15.2651 15.3057 15.3759 14.999 15.3759H11.8548ZM11.8548 14.251H14.999V11.1067H11.8548V14.251ZM1.87402 13.2413V12.1163H8.33556V13.2413H1.87402ZM11.8548 8.02016C11.548 8.02016 11.2839 7.90935 11.0622 7.68773C10.8406 7.4661 10.7298 7.20193 10.7298 6.8952V3.75096C10.7298 3.44423 10.8406 3.18006 11.0622 2.95843C11.2839 2.7368 11.548 2.62598 11.8548 2.62598H14.999C15.3057 2.62598 15.5699 2.7368 15.7915 2.95843C16.0132 3.18006 16.124 3.44423 16.124 3.75096V6.8952C16.124 7.20193 16.0132 7.4661 15.7915 7.68773C15.5699 7.90935 15.3057 8.02016 14.999 8.02016H11.8548ZM11.8548 6.8952H14.999V3.75096H11.8548V6.8952ZM1.87402 5.88557V4.76059H8.33556V5.88557H1.87402Z"
-                        fill="#333333"
-                      />
-                    </g>
-                  </svg>
+                    <svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 18 18"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <g mask="url(#mask0_1148_17404)">
+                        <path
+                          d="M11.8548 15.3759C11.548 15.3759 11.2839 15.2651 11.0622 15.0435C10.8406 14.8219 10.7298 14.5577 10.7298 14.251V11.1067C10.7298 10.8 10.8406 10.5358 11.0622 10.3142C11.2839 10.0926 11.548 9.98175 11.8548 9.98175H14.999C15.3057 9.98175 15.5699 10.0926 15.7915 10.3142C16.0132 10.5358 16.124 10.8 16.124 11.1067V14.251C16.124 14.5577 16.0132 14.8219 15.7915 15.0435C15.5699 15.2651 15.3057 15.3759 14.999 15.3759H11.8548ZM11.8548 14.251H14.999V11.1067H11.8548V14.251ZM1.87402 13.2413V12.1163H8.33556V13.2413H1.87402ZM11.8548 8.02016C11.548 8.02016 11.2839 7.90935 11.0622 7.68773C10.8406 7.4661 10.7298 7.20193 10.7298 6.8952V3.75096C10.7298 3.44423 10.8406 3.18006 11.0622 2.95843C11.2839 2.7368 11.548 2.62598 11.8548 2.62598H14.999C15.3057 2.62598 15.5699 2.7368 15.7915 2.95843C16.0132 3.18006 16.124 3.44423 16.124 3.75096V6.8952C16.124 7.20193 16.0132 7.4661 15.7915 7.68773C15.5699 7.90935 15.3057 8.02016 14.999 8.02016H11.8548ZM11.8548 6.8952H14.999V3.75096H11.8548V6.8952ZM1.87402 5.88557V4.76059H8.33556V5.88557H1.87402Z"
+                          fill="#333333"
+                        />
+                      </g>
+                    </svg>
 
-                  <p className="sm:block  hidden">Select</p>
-                </div>
+                    <p className="sm:block  hidden">Select</p>
+                  </div>
+                }
                 {trash ? null : (
                   <>
                     {" "}
@@ -620,7 +623,9 @@ function Folders({
                     </svg>
                     Filter
                   </div> */}
-                    <div className="w-[1px] h-full bg-white"></div>
+                    {!clients &&
+                      <div className="w-[1px] h-full bg-white"></div>
+                    }
                     <div
                       onClick={() => setIsSort(!isSort)}
                       className=" flex gap-2 text-[14px] font-medium items-center relative cursor-pointer sm:w-[78px]"

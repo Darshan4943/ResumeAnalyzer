@@ -7,10 +7,13 @@ import ResumePreview from "../../components/common/ResumePreview";
 import { reCallUserData } from "../../Redux/actions/user";
 import { toast } from "react-toastify";
 import DeleteModal from "../../components/common/deleteModal";
+import MiniLoader from "../../components/common/mini-loader";
+import { motion } from "framer-motion";
 pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
 function ClientDetail({ tabIndex }) {
   const router = useRouter();
   const [detail, setDetails] = useState({});
+  const [toggle, setToggle] = useState(true);
   const [preview, setPreview] = useState(false);
   const [selected, setSelected] = useState([]);
   const clientId = router.query.detailIndex;
@@ -19,6 +22,9 @@ function ClientDetail({ tabIndex }) {
   const [deleted, setDeleted] = useState(false);
   const dispatch = useDispatch();
   const [selectedIndexes, setSelectedIndexes] = useState([]);
+  const [isResumes, setIsResumes] = useState("resumes");
+  const [coverList, setCoverList] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (clientId) {
@@ -39,7 +45,23 @@ function ClientDetail({ tabIndex }) {
           console.log(err);
         });
     }
-  }, [clientId, deleted]);
+  }, [clientId, deleted, isResumes]);
+
+  useEffect(() => {
+    setLoading(true);
+    axios
+      .get("http://localhost:2000/api/cover/get/" + clientId)
+      .then((res) => {
+        setCoverList(res.data.data);
+        setTimeout(() => {
+          setLoading(false);
+        }, 1000);
+      })
+      .catch((err) => {
+        console.log(err);
+        setLoading(false);
+      });
+  }, [clientId, deleted, isResumes]);
 
   const toggleSelect = (index) => {
     if (selectedIndexes.includes(index)) {
@@ -75,6 +97,30 @@ function ClientDetail({ tabIndex }) {
       });
   };
 
+  const deleteCoverLetter = () => {
+    const ids = selectedIndexes.map((item) => coverList[item]?._id);
+
+    if (ids.length === 0) {
+      toast.error("Please select file to delete");
+      return;
+    }
+
+    axios
+      .delete(`http://localhost:2000/api/cover/delete/${ids}`)
+      .then((response) => {
+        console.log(1122, response);
+        toast.success("Resume Deleted successfully");
+
+        setView(false);
+        setDeleted(!deleted);
+        dispatch(reCallUserData());
+        setSelectedIndexes([]);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  };
+
   const closeDeleteModal = () => {
     setView(false);
   };
@@ -89,6 +135,27 @@ function ClientDetail({ tabIndex }) {
           boxShadow: "0px 0px 4px 0px rgba(0, 0, 0, 0.25)",
           borderRadius: "6px",
           overflow: "hidden",
+        }}
+      >
+        <Document file={pdfUrl} onLoadSuccess={onDocumentLoadSuccess}>
+          <Page pageNumber={1} />
+        </Document>
+      </div>
+    );
+  };
+
+  const coverPdfViewer = ({ pdfUrl }) => {
+    function onDocumentLoadSuccess(numPages) {}
+
+    return (
+      <div
+        style={{
+          width: "750px",
+          height: "500px",
+
+          boxShadow: "0px 0px 4px 0px rgba(0, 0, 0, 0.25)",
+          borderRadius: "6px",
+          overflow: "scroll",
         }}
       >
         <Document file={pdfUrl} onLoadSuccess={onDocumentLoadSuccess}>
@@ -277,10 +344,42 @@ function ClientDetail({ tabIndex }) {
           </svg>
         </button>
       </div>
-      <div className="flex text-[18px] font-semibold gap-4 items-center">
-        Resumes
+
+      <div className="text-[14px] relative rounded-[6px] w-fit bg-[#F7F7F7] flex gap-[10px]  ">
+        <button
+          className={`px-4 font-[600] py-[8px]  rounded-[6px] ${
+            toggle ? "text-[#F7F7F7]" : "text-[#646464]"
+          }`}
+          onClick={() => {
+            setToggle(true), setIsResumes("resumes");
+          }}
+        >
+          Resume
+        </button>
+        <button
+          className={` px-4 font-[600] py-[8px] rounded-[6px]  ${
+            toggle ? "text-[#646464]" : "text-[#F7F7F7]"
+          } `}
+          onClick={() => {
+            setToggle(false), setIsResumes("covers");
+          }}
+        >
+          {" "}
+          Cover Letter
+        </button>
+
+        <motion.button
+          initial={{ x: toggle ? 0 : 100 }}
+          animate={{ x: toggle ? 0 : 100 }}
+          transition={{ ease: "easeInOut", duration: 0.2 }}
+          style={{ textWrap: "nowrap" }}
+          className={` px-4 font-[600] py-[8px] ${
+            toggle ? "w-[50%]" : "w-[124px]"
+          }h-full  absolute text-[#fff] bg-[#06A9EF] rounded-[6px] `}
+        >{`${toggle ? "Resume" : "Cover Letter"}`}</motion.button>
       </div>
-      <div className="w-full rounded-[12px] border flex flex-wrap scr540:justify-start justify-center gap-9 border-[#DEDEDE] bg-[#F9F9F9] p-6 cursor-pointer">
+
+      {/* <div className="w-full rounded-[12px] border flex flex-wrap scr540:justify-start justify-center gap-9 border-[#DEDEDE] bg-[#F9F9F9] p-6 cursor-pointer">
         <div className="flex flex-row flex-wrap gap-6 scr540:justify-start justify-center">
           <div
             onClick={() =>
@@ -317,7 +416,7 @@ function ClientDetail({ tabIndex }) {
               <div className="bg-[#00000099]  absolute top-[0px] left-[0px] h-[272px] w-full rounded-[6px] opacity-0 invisible transition-opacity ease-in-out duration-[0.4s]  group-hover:opacity-100 group-hover:visible flex items-center justify-center">
                 <div className="flex flex-col w-98 h-219 top-27.09 left-47.19 p-[12px]  rounded-lg border border-gray-200 gap-[12px] bg-[#333333CC]">
                   <div
-                    className="flex items-center flex-col cursor-pointer"
+                    className="ml:flex hidden items-center flex-col cursor-pointer "
                     style={{
                       borderBottom: "1px solid #646464",
                       paddingBottom: "12px",
@@ -414,7 +513,286 @@ function ClientDetail({ tabIndex }) {
             />
           </>
         )}
-      </div>
+      </div> */}
+
+      {loading ? (
+        <div className="h-[60vh] w-full flex items-center justify-center">
+          <MiniLoader />
+        </div>
+      ) : (
+        <>
+          {isResumes === "resumes" ? (
+            <div className="flex flex-row flex-wrap gap-[48px] p-[24px] bg-[#F9F9F9] rounded-[12px]  ">
+              <div
+                onClick={() =>
+                  router.push(`/home/BuildResume?clientId=${clientId}`)
+                }
+                style={{ boxShadow: "0px 0px 10px 5px #00000040" }}
+                className="rounded-[12px] text-center text-white justify-center flex scr540:flex-col flex-row text-[18px] items-center gap-2 font-medium  scr540:w-[192px] w-[312px]  scr540:h-[272px] h-[135px] bg-[#646464] p-6 cursor-pointer"
+              >
+                <svg
+                  width="27"
+                  height="27"
+                  viewBox="0 0 27 27"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M11.8187 14.6206H0.0750732V12.1079H11.8187V0.364258H14.3314V12.1079H26.075V14.6206H14.3314V26.3642H11.8187V14.6206Z"
+                    fill="white"
+                  />
+                </svg>
+
+                <p>Create New Resume</p>
+              </div>
+              <>
+                {resumeList?.map((item, index) => (
+                  <>
+                    <div
+                      key={index}
+                      className="flex flex-col h-[300px] items-center justify-between group relative resumes"
+                    >
+                      <PdfViewer pdfUrl={item?.resumeUrl} />
+                      <div className="text-[14px] text-[#333333] font-500">
+                        {item.fileName.length > 17
+                          ? `${item.fileName.slice(0, 16)}...`
+                          : item.fileName}
+                      </div>
+
+                      <div className="bg-[#00000099]  absolute top-[0px] left-[0px] h-[272px] w-full rounded-[6px] opacity-0 invisible transition-opacity ease-in-out duration-[0.4s]  group-hover:opacity-100 group-hover:visible flex items-center justify-center">
+                        <div className="flex flex-col w-98 h-219 top-27.09 left-47.19 p-[12px]  rounded-lg border border-gray-200 gap-[12px] bg-[#333333CC]">
+                          <div
+                            className="items-center flex-col cursor-pointer hidden md:flex"
+                            style={{
+                              borderBottom: "1px solid #646464",
+                              paddingBottom: "12px",
+                            }}
+                            onClick={() => {
+                              setSelected(item);
+                              setPreview(true);
+                            }}
+                          >
+                            <img
+                              src="/images/icons/visibility.png"
+                              className="h-[24px] w-[24px]"
+                              alt=""
+                            />
+                            <span className="text-[12px] font-semibold text-white ">
+                              Preview
+                            </span>
+                          </div>
+                          <div
+                            onClick={() => {
+                              router.push({
+                                pathname: "/home/createResume",
+                                query: {
+                                  data: JSON.stringify(item),
+                                  isEdit: true,
+                                },
+                              });
+                            }}
+                            className="flex items-center flex-col cursor-pointer"
+                            style={{
+                              borderBottom: "1px solid #646464",
+                              paddingBottom: "12px",
+                            }}
+                          >
+                            <img
+                              src="/images/icons/edit.png"
+                              className="h-[24px] w-[24px]"
+                              alt=""
+                            />
+                            <span className="text-[12px] font-semibold text-white ">
+                              Edit
+                            </span>
+                          </div>
+
+                          <a
+                            href={item.resumeUrl}
+                            className="flex items-center flex-col cursor-pointer"
+                          >
+                            <img
+                              src="/images/icons/download.png"
+                              className="h-[24px] w-[24px]"
+                              alt=""
+                            />
+                            <span className="text-[12px] font-semibold text-white ">
+                              Download
+                            </span>
+                          </a>
+                          <a
+                            onClick={() => {
+                              toggleSelect(index);
+                              setView(true);
+                            }}
+                            className="flex items-center flex-col cursor-pointer"
+                          >
+                            <img
+                              src="/images/icons/delete_icon.png"
+                              className="h-[24px] w-[24px]"
+                              alt=""
+                            />
+                            <span className="text-[12px] font-semibold text-white ">
+                              Delete
+                            </span>
+                          </a>
+                          {view && (
+                            <DeleteModal
+                              deleteHandler={deleteResume}
+                              closeDeleteModal={closeDeleteModal}
+                            />
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </>
+                ))}
+              </>
+            </div>
+          ) : (
+            <div className="flex flex-row flex-wrap gap-[48px] p-[24px] bg-[#F9F9F9] rounded-[12px]  ">
+              <div
+                onClick={() => router.push(`/coverLetter?clientId=${clientId}`)}
+                style={{ boxShadow: "0px 0px 10px 5px #00000040" }}
+                className="rounded-[12px] text-center text-white justify-center flex scr540:flex-col flex-row text-[18px] items-center gap-2 font-medium  scr540:w-[192px] w-[312px]  scr540:h-[272px] h-[135px] bg-[#646464] p-6 cursor-pointer"
+              >
+                <svg
+                  width="27"
+                  height="27"
+                  viewBox="0 0 27 27"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M11.8187 14.6206H0.0750732V12.1079H11.8187V0.364258H14.3314V12.1079H26.075V14.6206H14.3314V26.3642H11.8187V14.6206Z"
+                    fill="white"
+                  />
+                </svg>
+
+                <p>Create New Cover Letter</p>
+              </div>
+              <>
+                {coverList?.map((item, index) => (
+                  <>
+                    <div
+                      key={index}
+                      className="flex flex-col h-[300px] items-center justify-between group relative resumes"
+                    >
+                      <PdfViewer pdfUrl={item?.resumeUrl} />
+                      <div className="text-[14px] text-[#333333] font-500">
+                        {item?.fileName?.length > 17
+                          ? `${item.fileName.slice(0, 16)}...`
+                          : item.fileName}
+                      </div>
+
+                      <div className="bg-[#00000099]  absolute top-[0px] left-[0px] h-[272px] w-full rounded-[6px] opacity-0 invisible transition-opacity ease-in-out duration-[0.4s]  group-hover:opacity-100 group-hover:visible flex items-center justify-center">
+                        <div className="flex flex-col w-98 h-219 top-27.09 left-47.19 p-[12px]  rounded-lg border border-gray-200 gap-[12px] bg-[#333333CC]">
+                          <div
+                            className="items-center flex-col cursor-pointer hidden md:flex"
+                            style={{
+                              borderBottom: "1px solid #646464",
+                              paddingBottom: "12px",
+                            }}
+                            onClick={() => {
+                              setSelected(item);
+                              setPreview(true);
+                            }}
+                          >
+                            <img
+                              src="/images/icons/visibility.png"
+                              className="h-[24px] w-[24px]"
+                              alt=""
+                            />
+                            <span className="text-[12px] font-semibold text-white ">
+                              Preview
+                            </span>
+                          </div>
+                          {/* <div
+                              onClick={() => {
+                                router.push({
+                                  pathname: "/home/createResume",
+                                  query: {
+                                    data: JSON.stringify(item),
+                                    isEdit: true,
+                                  },
+                                });
+                              }}
+                              className="flex items-center flex-col cursor-pointer"
+                              style={{
+                                borderBottom: "1px solid #646464",
+                                paddingBottom: "12px",
+                              }}
+                            >
+                              <img
+                                src="/images/icons/edit.png"
+                                className="h-[24px] w-[24px]"
+                                alt=""
+                              />
+                              <span className="text-[12px] font-semibold text-white ">
+                                Edit
+                              </span>
+                            </div> */}
+
+                          <a
+                            href={item.resumeUrl}
+                            className="flex items-center flex-col cursor-pointer"
+                          >
+                            <img
+                              src="/images/icons/download.png"
+                              className="h-[24px] w-[24px]"
+                              alt=""
+                            />
+                            <span className="text-[12px] font-semibold text-white ">
+                              Download
+                            </span>
+                          </a>
+                          <a
+                            onClick={() => {
+                              toggleSelect(index);
+                              setView(true);
+                            }}
+                            className="flex items-center flex-col cursor-pointer"
+                          >
+                            <img
+                              src="/images/icons/delete_icon.png"
+                              className="h-[24px] w-[24px]"
+                              alt=""
+                            />
+                            <span className="text-[12px] font-semibold text-white ">
+                              Delete
+                            </span>
+                          </a>
+                          {view && (
+                            <DeleteModal
+                              deleteHandler={deleteCoverLetter}
+                              closeDeleteModal={closeDeleteModal}
+                            />
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </>
+                ))}
+              </>
+            </div>
+          )}
+        </>
+      )}
+
+      {preview && (
+        <>
+          <ResumePreview
+            selectedResumeIndex={selected.resumeTemplateIndex}
+            data={selected}
+            selectedColor={selected.selectedColor}
+            selectedFont={selected.selectedFont}
+            setPreview={setPreview}
+            preview={true}
+            isResumes={isResumes}
+            coverPdfViewer={coverPdfViewer}
+          />
+        </>
+      )}
     </div>
   );
 }

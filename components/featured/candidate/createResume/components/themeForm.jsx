@@ -113,7 +113,7 @@ function ThemeForm({
       <div className="flex wrap items-center w-full justify-between gap-2 ">
         <div className="flex wrap gap-[16px] xxsm: items-center justify-center">
           <div
-            className="flex items-center  bg-[#06A9EF] py-[8px] px-[16px] rounded-12px] btn_hover_effect xxsm:rounded-[8px] gap-1 "
+            className="flex items-center  bg-[#06A9EF] py-[8px] px-[16px] rounded-[12px] btn_hover_effect xxsm:rounded-[8px] gap-1 "
             onClick={() => setView(!view)}
           >
             <svg
@@ -131,7 +131,7 @@ function ThemeForm({
                 />
               </g>
             </svg>
-            <h1 className="scr340:text-[14px] text-[12px] font-medium tracking-wide text-[#fff] cursor-pointer scr500:text-[16px]">
+            <h1 className="scr340:text-[14px] text-[12px] font-medium tracking-wide text-[#fff] cursor-pointer scr500:text-[16px] font-semibold">
               Customize
             </h1>
           </div>

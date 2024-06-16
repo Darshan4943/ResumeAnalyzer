@@ -19,13 +19,16 @@ import {
 } from "./reducer";
 import { popupReducer, recallUser, userDataReducer } from "./userReducer";
 import WebsiteReducer from "./website";
+import { locpopupReducer, showPlanPopup } from "./popupReducer";
 
 const reducers = combineReducers({
   userData: userDataReducer,
   reCallUser: recallUser,
   getAllJobs: jobReducer,
-  popupState:popupReducer,
+  popupState: popupReducer,
   pageState: WebsiteReducer,
+  popup: locpopupReducer,
+  showPlan: showPlanPopup,
 });
 
 export default reducers;

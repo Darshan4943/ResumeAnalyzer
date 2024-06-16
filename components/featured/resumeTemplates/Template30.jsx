@@ -18,7 +18,12 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
     }
     return link;
   };
-
+  const formatLink1 = (link) => {
+    if (link?.length > 35) {
+      return link?.match(/.{1,35}/g).join("\n");
+    }
+    return link;
+  };
   const formatEmail = (email) => {
     if (email?.length > 25) {
       return email?.match(/.{1,25}/g).join("\n");
@@ -223,13 +228,16 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
                     fontFamily: `${selectedFont} 400`,
                   }}
                 >
-                  {data.summery}
+                  {formatLink(data.summery)}
                 </Text>
               </View>
             )}
             {data?.skills?.length > 0 && data?.showSkills === true && (
-              <View style={{ flexDirection: "column", gap: 16 }}>
+              <View
+                wrap={data?.skills?.length > 1 ? true : false}
+                style={{ flexDirection: "column", gap: 16 }}>
                 <View
+                  wrap={false}
                   style={{
                     width: "100%",
                     flexDirection: "column",
@@ -254,6 +262,7 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
                   {data?.skills?.map((detail, index) => (
                     <Text
                       key={index}
+                      wrap={false}
                       style={{
                         color: "#58595B",
                         fontSize: "14",
@@ -267,8 +276,11 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
               </View>
             )}
             {data?.hobbies?.length > 0 && data?.showHobbies === true && (
-              <View style={{ flexDirection: "column", gap: 16 }}>
+              <View
+                wrap={data?.hobbies?.length > 1 ? true : false}
+                style={{ flexDirection: "column", gap: 16 }}>
                 <View
+                  wrap={false}
                   style={{
                     width: "100%",
                     flexDirection: "column",
@@ -293,6 +305,7 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
                   {data?.hobbies?.map((detail, index) => (
                     <Text
                       key={index}
+                      wrap={false}
                       style={{
                         color: "#58595B",
                         fontSize: "14",
@@ -306,8 +319,11 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
               </View>
             )}
             {data?.languages?.length > 0 && data?.showLanguage === true && (
-              <View style={{ flexDirection: "column", gap: 16 }}>
+              <View
+                wrap={data?.languages?.length > 1 ? true : false}
+                style={{ flexDirection: "column", gap: 16 }}>
                 <View
+                  wrap={false}
                   style={{
                     width: "100%",
                     flexDirection: "column",
@@ -332,6 +348,7 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
                   {data?.languages?.map((detail, index) => (
                     <Text
                       key={index}
+                      wrap={false}
                       style={{
                         color: "#58595B",
                         fontSize: "14",
@@ -347,8 +364,11 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
             )}
             {data?.achievements?.length > 0 &&
               data?.showAchievements === true && (
-                <View style={{ flexDirection: "column", gap: 16 }}>
+                <View
+                  wrap={data?.achievements?.length > 1 ? true : false}
+                  style={{ flexDirection: "column", gap: 16 }}>
                   <View
+                    wrap={false}
                     style={{
                       width: "100%",
                       flexDirection: "column",
@@ -373,6 +393,7 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
                     {data?.achievements?.map((detail, index) => (
                       <Text
                         key={index}
+                        wrap={false}
                         style={{
                           color: "#58595B",
                           fontSize: "14",
@@ -387,8 +408,11 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
                 </View>
               )}
             {data?.socialLinks?.length > 0 && data?.showLinks === true && (
-              <View style={{ flexDirection: "column", gap: 16 }}>
+              <View
+                wrap={data?.socialLinks?.length > 1 ? true : false}
+                style={{ flexDirection: "column", gap: 16 }}>
                 <View
+                  wrap={false}
                   style={{
                     width: "100%",
                     flexDirection: "column",
@@ -445,7 +469,7 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
 
             {data?.reference?.length > 0 && data?.showReference === true && (
               <View
-                wrap={false}
+                wrap={data?.reference?.length > 1 ? true : false}
                 style={{
                   flexDirection: "column",
                   gap: 12,
@@ -453,6 +477,7 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
                 }}
               >
                 <View
+                  wrap={false}
                   style={{
                     width: "100%",
                     flexDirection: "column",
@@ -528,15 +553,17 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
             )}
           </View>
           <View
-            style={{ flexDirection: "column", gap: 12, width: 350 }}
+            style={{ flexDirection: "column", gap: 26, width: 350 }}
           //   wrap={data?.experience?.length > 1 ? true : false}
           >
             {data?.experience?.length > 0 && data?.showExperience === true && (
               <View
+                wrap={data?.experience?.length > 1 ? true : false}
                 style={{ flexDirection: "column", gap: 16, maxWidth: "100%" }}
               >
                 <View style={{ flexDirection: "row", alignItems: "center" }}>
                   <View
+                    wrap={false}
                     style={{
                       width: "50%",
                       flexDirection: "column",
@@ -559,7 +586,7 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
                   </View>
                 </View>
                 <View
-                  style={{ display: "flex", flexDirection: "column", gap: 16 }}
+                  style={{ display: "flex", flexDirection: "column", gap: 20 }}
                 >
                   {data?.experience?.map((detail, index) => (
                     <View
@@ -577,59 +604,54 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
                           maxWidth: "100%",
                         }}
                       >
-                        <View
-                          style={{
-                            display: "flex",
-                            flexDirection: "row",
-                            gap: 8,
-                            alignItems: "start",
-                            maxWidth: "70%",
-                          }}
-                        >
-                          <Text
-                            style={{
-                              color: "#414042",
-                              fontSize: "14px",
-                              fontFamily: `${selectedFont} 500`,
-                            }}
-                          >
-                            {detail.designation}{" "}
-                          </Text>
-                        </View>
-                        {detail.duration?.start?.year && (
                         <Text
                           style={{
                             color: "#414042",
                             fontSize: "14px",
+                            lineHeight: "0px",
                             fontFamily: `${selectedFont} 500`,
                           }}
                         >
-                          {detail.duration?.start?.year}-{" "}
-                          {detail.currentlyWorking
-                            ? "Present"
-                            : detail.duration?.end?.year}
+                          {formatLink1(detail.designation)}
                         </Text>
+                        {detail.duration?.start?.year && (
+                          <Text
+                            style={{
+                              color: "#414042",
+                              fontSize: "14px",
+                              height: "20px",
+                              fontFamily: `${selectedFont} 500`,
+                            }}
+                          >
+                            {detail.duration?.start?.year !== "Year" &&
+                              `${detail.duration?.start?.year}-${detail.currentlyWorking || detail.duration?.end?.year === "Year"
+                                ? "Present"
+                                : detail.duration?.end?.year
+                              }
+                         `}
+                          </Text>
                         )}
                       </View>
-
-                      <Text
-                        style={{
-                          color: "#58595B",
-                          fontSize: "12px",
-                          fontFamily: `${selectedFont} 400`,
-                        }}
-                      >
-                        {detail.organization}
-                      </Text>
-                      <Text
-                        style={{
-                          color: "#58595B",
-                          fontSize: "12px",
-                          fontFamily: `${selectedFont} 400`,
-                        }}
-                      >
-                        {detail.description}{" "}
-                      </Text>
+                      <View style={{ gap: "4", }}>
+                        <Text
+                          style={{
+                            color: "#58595B",
+                            fontSize: "14px",
+                            fontFamily: `${selectedFont} 400`,
+                          }}
+                        >
+                          {detail.organization}
+                        </Text>
+                        <Text
+                          style={{
+                            color: "#58595B",
+                            fontSize: "12px",
+                            fontFamily: `${selectedFont} 400`,
+                          }}
+                        >
+                          {detail.description}
+                        </Text>
+                      </View>
                     </View>
                   ))}
                 </View>
@@ -638,10 +660,11 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
             {data?.education?.length > 0 && data?.showEducation === true && (
               <View
                 style={{ flexDirection: "column", gap: 16 }}
-              // wrap={data?.experience?.length > 1 ? true : false}
+                wrap={data?.education?.length > 2 ? true : false}
               >
                 <View style={{ flexDirection: "row", alignItems: "center" }}>
                   <View
+                    wrap={false}
                     style={{
                       width: "50%",
                       flexDirection: "column",
@@ -702,19 +725,19 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
                           </Text>
                         </View>
                         {detail.duration?.start?.year && (
-                        <Text
-                          style={{
-                            color: "#414042",
-                            fontSize: "14px",
-                            fontFamily: `${selectedFont} 500`,
-                          }}
-                        >
-                          {detail.duration?.start?.year !== "Year" &&
-                            `${detail.duration?.start?.year}-${detail.duration?.end?.year === "Year"
-                              ? "Pursuing"
-                              : detail.duration?.end?.year
-                            }`}
-                        </Text>
+                          <Text
+                            style={{
+                              color: "#414042",
+                              fontSize: "14px",
+                              fontFamily: `${selectedFont} 500`,
+                            }}
+                          >
+                            {detail.duration?.start?.year !== "Year" &&
+                              `${detail.duration?.start?.year}-${detail.duration?.end?.year === "Year"
+                                ? "Pursuing"
+                                : detail.duration?.end?.year
+                              }`}
+                          </Text>
                         )}
                       </View>
 
@@ -735,10 +758,12 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
 
             {data?.internship?.length > 0 && data?.showInternship === true && (
               <View
+                wrap={data?.internship?.length > 1 ? true : false}
                 style={{ flexDirection: "column", gap: 16, maxWidth: "100%" }}
               >
                 <View style={{ flexDirection: "row", alignItems: "center" }}>
                   <View
+                    wrap={false}
                     style={{
                       width: "50%",
                       flexDirection: "column",
@@ -795,45 +820,47 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
                               fontFamily: `${selectedFont} 500`,
                             }}
                           >
-                            {detail.title}
+                            {formatLink1(detail.title)}
                           </Text>
                         </View>
                         {detail.duration?.start?.year && (
-                        <Text
-                          style={{
-                            color: "#414042",
-                            fontSize: "14px",
-                            fontFamily: `${selectedFont} 500`,
-                          }}
-                        >
-                          {detail.duration?.start?.year !== "Year" &&
-                            `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
-                              ? "Present"
-                              : detail.duration?.end?.year
-                            }
-                   `}
-                        </Text>
+                          <Text
+                            style={{
+                              color: "#414042",
+                              fontSize: "14px",
+                              height: "20px",
+                              fontFamily: `${selectedFont} 500`,
+                            }}
+                          >
+                            {detail.duration?.start?.year !== "Year" &&
+                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
+                                ? "Present"
+                                : detail.duration?.end?.year
+                              }
+                         `}
+                          </Text>
                         )}
                       </View>
-
-                      <Text
-                        style={{
-                          color: "#58595B",
-                          fontSize: "12px",
-                          fontFamily: `${selectedFont} 400`,
-                        }}
-                      >
-                        {detail.organization}
-                      </Text>
-                      <Text
-                        style={{
-                          color: "#58595B",
-                          fontSize: "12px",
-                          fontFamily: `${selectedFont} 400`,
-                        }}
-                      >
-                        {detail.description}{" "}
-                      </Text>
+                      <View style={{ gap: "4", }}>
+                        <Text
+                          style={{
+                            color: "#58595B",
+                            fontSize: "14px",
+                            fontFamily: `${selectedFont} 400`,
+                          }}
+                        >
+                          {detail.organization}
+                        </Text>
+                        <Text
+                          style={{
+                            color: "#58595B",
+                            fontSize: "12px",
+                            fontFamily: `${selectedFont} 400`,
+                          }}
+                        >
+                          {detail.description}
+                        </Text>
+                      </View>
                     </View>
                   ))}
                 </View>
@@ -841,10 +868,12 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
             )}
             {data?.project?.length > 0 && data?.showProject === true && (
               <View
+                wrap={data?.project?.length > 1 ? true : false}
                 style={{ flexDirection: "column", gap: 16, maxWidth: "100%" }}
               >
                 <View style={{ flexDirection: "row", alignItems: "center" }}>
                   <View
+                    wrap={false}
                     style={{
                       width: "50%",
                       flexDirection: "column",
@@ -901,24 +930,25 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
                               fontFamily: `${selectedFont} 500`,
                             }}
                           >
-                            {detail.title}
+                            {formatLink1(detail.title)}
                           </Text>
                         </View>
                         {detail.duration?.start?.year && (
-                        <Text
-                          style={{
-                            color: "#414042",
-                            fontSize: "14px",
-                            fontFamily: `${selectedFont} 500`,
-                          }}
-                        >
-                          {detail.duration?.start?.year !== "Year" &&
-                            `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
-                              ? "Present"
-                              : detail.duration?.end?.year
-                            }
-                   `}
-                        </Text>
+                          <Text
+                            style={{
+                              color: "#414042",
+                              fontSize: "14px",
+                              fontFamily: `${selectedFont} 500`,
+                              height: "20px",
+                            }}
+                          >
+                            {detail.duration?.start?.year !== "Year" &&
+                              `${detail.duration?.start?.year}-${detail.currentlyWorking || detail.duration?.end?.year === "Year"
+                                ? "Present"
+                                : detail.duration?.end?.year
+                              }
+                         `}
+                          </Text>
                         )}
                       </View>
 
@@ -948,10 +978,12 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
 
             {data?.course?.length > 0 && data?.showCourses === true && (
               <View
+                wrap={data?.course?.length > 1 ? true : false}
                 style={{ flexDirection: "column", gap: 16, maxWidth: "100%" }}
               >
                 <View style={{ flexDirection: "row", alignItems: "center" }}>
                   <View
+                    wrap={false}
                     style={{
                       width: "50%",
                       flexDirection: "column",
@@ -1008,27 +1040,27 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
                               fontFamily: `${selectedFont} 500`,
                             }}
                           >
-                            {detail.title}
+                            {formatLink1(detail.title)}
                           </Text>
                         </View>
                         {detail.duration?.start?.year && (
-                        <Text
-                          style={{
-                            color: "#414042",
-                            fontSize: "14px",
-                            fontFamily: `${selectedFont} 500`,
-                          }}
-                        >
-                          {detail.duration?.start?.year !== "Year" &&
-                            `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
-                              ? "Present"
-                              : detail.duration?.end?.year
-                            }
-                   `}
-                        </Text>
+                          <Text
+                            style={{
+                              color: "#414042",
+                              fontSize: "14px",
+                              height: "20px",
+                              fontFamily: `${selectedFont} 500`,
+                            }}
+                          >
+                            {detail.duration?.start?.year !== "Year" &&
+                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
+                                ? "Present"
+                                : detail.duration?.end?.year
+                              }
+                         `}
+                          </Text>
                         )}
                       </View>
-
                       <Text
                         style={{
                           color: "#58595B",
@@ -1056,10 +1088,12 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
             {data?.extraCaricularData?.length > 0 &&
               data?.showExtraCariculam === true && (
                 <View
+                  wrap={data?.extraCaricularData?.length > 1 ? true : false}
                   style={{ flexDirection: "column", gap: 16, maxWidth: "100%" }}
                 >
                   <View style={{ flexDirection: "row", alignItems: "center" }}>
                     <View
+                      wrap={false}
                       style={{
                         width: "50%",
                         flexDirection: "column",
@@ -1120,24 +1154,25 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
                                 fontFamily: `${selectedFont} 500`,
                               }}
                             >
-                              {detail.title}
+                              {formatLink1(detail.title)}
                             </Text>
                           </View>
                           {detail.duration?.start?.year && (
-                          <Text
-                            style={{
-                              color: "#414042",
-                              fontSize: "14px",
-                              fontFamily: `${selectedFont} 500`,
-                            }}
-                          >
-                            {detail.duration?.start?.year !== "Year" &&
-                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking
-                                ? "Present"
-                                : detail.duration?.end?.year
-                              }
-                   `}
-                          </Text>
+                            <Text
+                              style={{
+                                color: "#414042",
+                                fontSize: "14px",
+                                height: "20px",
+                                fontFamily: `${selectedFont} 500`,
+                              }}
+                            >
+                              {detail.duration?.start?.year !== "Year" &&
+                                `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
+                                  ? "Present"
+                                  : detail.duration?.end?.year
+                                }
+                         `}
+                            </Text>
                           )}
                         </View>
 
@@ -1164,10 +1199,9 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
                   </View>
                 </View>
               )}
-
-
             {data?.section?.length > 0 && data?.showCustomSection === true && data?.section?.map((item, index) => (
               <View
+                wrap={data?.section?.length > 1 ? true : false}
                 style={{
                   flexDirection: "column",
                   gap: 16,
@@ -1179,6 +1213,7 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
                   style={{ flexDirection: "row", alignItems: "center" }}
                 >
                   <View
+                    wrap={false}
                     style={{
                       width: "50%",
                       flexDirection: "column",
@@ -1217,7 +1252,7 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
                         gap: 4,
                       }}
                     >
-                      {detail?.title}
+                      {formatLink1(detail?.title)}
                       <View
                         style={{
                           display: "flex",
@@ -1257,14 +1292,13 @@ function Template30({ data, selectedColor, selectedFont, preview }) {
                           >
                             {detail?.duration?.start?.year}
                             {detail?.duration?.start?.year && "-"}
-                            {detail?.duration?.end?.year === "" ||
+                            {detail?.duration?.end?.year === "Year" ||
                               detail?.duration?.end?.year === undefined
                               ? "Present"
                               : detail?.duration?.end?.year}
                           </Text>
                         )}
                       </View>
-
                       <Text
                         style={{
                           color: "#58595B",

@@ -418,7 +418,7 @@ function CreateResume() {
     selectedFont: selectedFont,
     selectedResumeIndex: selectedResumeIndex,
   };
-
+console.log(111,data)
   useEffect(() => {
     if (isClient && clientId == "undefined") {
       localStorage.setItem("userData", JSON.stringify(data));
@@ -434,7 +434,7 @@ function CreateResume() {
   }
   const parsedDataSeter = () => {
     const parsedData = JSON.parse(localStorage.getItem("parsedResume"));
-    console.log(426, parsedData);
+   
     if (parsedData) {
       const {
         first_name,
@@ -450,16 +450,17 @@ function CreateResume() {
       const hobbies = parsedData.hobbies;
 
       const educations = parsedData.education;
+      console.log(222,educations)
       const experience = parsedData["work experience"]
         ? parsedData["work experience"]
         : parsedData.work_experience
-          ? parsedData.work_experience
-          : [];
+        ? parsedData.work_experience
+        : [];
       const project = parsedData.projects;
       const internship = parsedData.internship;
       const references = parsedData.references;
       const achievements = parsedData.achivements;
-      console.log(451, languages);
+    
       const socialLinks = parsedData["social links"];
       const extraCaricularActivity = parsedData["extra-curricular activities"];
 
@@ -498,9 +499,9 @@ function CreateResume() {
         languages:
           languages?.length > 0
             ? languages?.map((item) => ({
-              languages: item,
-              rating: [3, 3, 3],
-            }))
+                languages: item,
+                rating: [3, 3, 3],
+              }))
             : [],
         education: educations?.map((item) => ({
           qualification: item.courseName,
@@ -510,11 +511,11 @@ function CreateResume() {
           location: "",
           duration: {
             start: {
-              year: item.start_year ? item.start_year : currentYear,
+              year: item["Passing Year"].startDate?.year ? item["Passing Year"].startDate?.year : "Year",
               month: null,
             },
             end: {
-              year: item.end_year ? item.end_year : currentYear,
+              year: item["Passing Year"].endDate?.year ? item["Passing Year"].endDate?.year: "Year",
               month: null,
             },
           },
@@ -526,9 +527,9 @@ function CreateResume() {
           currentlyWorking: false,
           location: item.location,
           duration: {
-            start: { year: item.start_date?.year, month: null },
+            start: { year: item.start_date?.year ? item.start_date?.year : "Year", month: null },
             end: {
-              year: item.is_current ? currentYear : item.end_date?.year,
+              year: item.is_current ? currentYear : item.end_date?.year ? item.end_date?.year : "Year",
               month: null,
             },
           },
@@ -536,15 +537,15 @@ function CreateResume() {
         project:
           project?.length > 0
             ? project?.map((item) => ({
-              title: item.title,
-              organization: item.organization,
-              description: item.description,
-              currentlyWorking: false,
+                title: item.title,
+                organization: item.organization,
+                description: item.description,
+                currentlyWorking: false,
 
               duration: {
-                start: { year: item.start_date?.year, month: null },
+                start: { year: item.start_date?.year ? item.start_date?.year : "Year", month: null },
                 end: {
-                  year: item.is_current ? currentYear : item.end_date?.year,
+                  year: item.is_current ? currentYear : item.end_date?.year ? item.end_date?.year : "Year",
                   month: null,
                 },
               },
@@ -553,75 +554,83 @@ function CreateResume() {
         internship:
           internship?.length > 0
             ? internship?.map((item) => ({
-              title: item.title,
-              organization: item.organization,
-              description: item.description,
-              currentlyWorking: false,
+                title: item.title,
+                organization: item.organization,
+                description: item.description,
+                currentlyWorking: false,
 
-              duration: {
-                start: { year: item.start_date?.year, month: null },
-                end: {
-                  year: item.is_current ? currentYear : item.end_date?.year,
-                  month: null,
+                duration: {
+                  start: { year: item.start_date?.year, month: null },
+                  end: {
+                    year: item.is_current ? currentYear : item.end_date?.year,
+                    month: null,
+                  },
                 },
-              },
-            }))
+              }))
             : [],
         extraCaricularData:
           extraCaricularActivity?.length > 0
             ? extraCaricularActivity?.map((item) => ({
-              title: item.title,
-              organization: item.organization,
-              description: item.description,
-              currentlyWorking: false,
+                title: item.title,
+                organization: item.organization,
+                description: item.description,
+                currentlyWorking: false,
 
               duration: {
-                start: { year: item.start_date?.year, month: null },
+                start: { year: item.start_date?.year ? item.start_date?.year : "Year", month: null },
                 end: {
-                  year: item.is_current ? currentYear : item.end_date?.year,
+                  year: item.is_current ? currentYear : item.end_date?.year ? item.end_date?.year : "Year",
                   month: null,
                 },
               },
             }))
+                duration: {
+                  start: { year: item.start_date?.year, month: null },
+                  end: {
+                    year: item.is_current ? currentYear : item.end_date?.year,
+                    month: null,
+                  },
+                },
+              }))
             : [],
         course:
           courses?.length > 0
             ? courses?.map((item) => ({
-              title: item.title,
-              organization: item.organization,
-              description: item.description,
-              currentlyWorking: true,
+                title: item.title,
+                organization: item.organization,
+                description: item.description,
+                currentlyWorking: true,
 
-              duration: {
-                start: { year: item.start_date?.year, month: null },
-                end: {
-                  year: item.is_current ? currentYear : item.end_date?.year,
-                  month: null,
+                duration: {
+                  start: { year: item.start_date?.year, month: null },
+                  end: {
+                    year: item.is_current ? currentYear : item.end_date?.year,
+                    month: null,
+                  },
                 },
-              },
-            }))
+              }))
             : [],
         socialLinks:
           socialLinks?.length > 0
             ? socialLinks?.map((item) => ({
-              platform: item.platform,
-              link: item.link,
-            }))
+                platform: item.platform,
+                link: item.link,
+              }))
             : [],
         reference:
           references?.length > 0
             ? references?.map((item) => ({
-              referantName: item.referantName,
-              designation: item.designation,
-              "Organization Name": item["Organization Name"],
-              email: item.name,
-            }))
+                referantName: item.referantName,
+                designation: item.designation,
+                "Organization Name": item["Organization Name"],
+                email: item.name,
+              }))
             : [],
         achievements:
           achievements?.length > 0
             ? achievements?.map((item) => ({
-              title: item.title,
-            }))
+                title: item.title,
+              }))
             : [],
       });
     } else if (clientId) {
@@ -678,12 +687,13 @@ function CreateResume() {
         <div className="flex flex-col gap-4 py-6 ">
           <div className="flex ml:hidden flex-row gap-4 ">
             <button
+             onClick={() => router.push(`/home/BuildResume?clientId=${clientId}`)}
               className="p-[8px] border-[1px] bg-blue border-[#DEDEDE] rounded-[6px]  "
               style={{}}
             >
               <svg
                 className=" cursor-pointer"
-                onClick={() => router.push("/home/BuildResume")}
+               
                 width="24"
                 height="24"
                 viewBox="0 0 40 40"
@@ -720,6 +730,7 @@ function CreateResume() {
                   selectedColor={selectedColor}
                   setSelectedFont={setSelectedFont}
                   template={templates}
+                  clientId={clientId}
                 />
               </div>
               <div className="sticky top-[88px]  h-[50rem] w-[60%] ">
@@ -771,6 +782,7 @@ function CreateResume() {
                   setSelectedFont={setSelectedFont}
                   selectedFont={selectedFont}
                   template={templates}
+                  clientId={clientId}
                 />
               </motion.div>
             </AnimatePresence>
@@ -802,6 +814,7 @@ function CreateResume() {
                   setSelectedFont={setSelectedFont}
                   selectedFont={selectedFont}
                   template={templates}
+                  clientId={clientId}
                 />
               </div>
             </div>

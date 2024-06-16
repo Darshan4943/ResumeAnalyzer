@@ -173,7 +173,7 @@ function CustomSection({ data, setData, setCustomOptions, customOptions }) {
                 {exp?.duration?.start?.year !== "Year" &&
                   ` ${"|"} ${exp?.duration?.start?.year} 
             ${exp?.duration?.start?.year && "-"}
-            ${exp?.currentlyWorking ? "Present" : exp?.duration?.end?.year}`}
+            ${ exp.duration?.end?.year === "Year" ? "Present" : exp?.duration?.end?.year}`}
               </p>
 
               <div className="flex gap-2">

@@ -109,7 +109,16 @@ function Dashboard() {
       name: "Create New Resume",
       imgSrc: "/images/resumeBuilder/createResume.png",
     },
-    { name: "My Resumes", imgSrc: "/images/resumeBuilder/myResume.png" },
+    {
+      name: "Create New Cover Letter",
+      imgSrc: "/images/resumeBuilder/cover.png",
+    },
+    {
+      name: "My Collection",
+
+      imgSrc: "/images/resumeBuilder/collection.png",
+    },
+    // { name: "Resume", imgSrc: "/images/resumeBuilder/myResume.png" },
     // { name: "Transform CV", imgSrc: "/images/resumeBuilder/transform_cv.png" },
     {
       name: "Skill Assessments",
@@ -130,6 +139,10 @@ function Dashboard() {
     {
       name: "Create New Resume",
       imgSrc: "/images/resumeBuilder/createResume.png",
+    },
+    {
+      name: "Create New Cover Letter",
+      imgSrc: "/images/resumeBuilder/cover.png",
     },
     { name: "My Clients", imgSrc: "/images/resumeBuilder/my_clients.png" },
     // { name: "Transform CV", imgSrc: "/images/resumeBuilder/transform_cv.png" },
@@ -164,10 +177,13 @@ function Dashboard() {
             : "/myClients/ClientResume"
         );
         break;
+      case "Create New Cover Letter":
+        handleNavigation(userDataGlobal.role === "user" ? "/coverLetter" : `/myClients/ClientResume?cover=true`);
+        break;
       case "My Clients":
         handleNavigation("/myClients");
         break;
-      case "My Resumes":
+      case "Resume":
         handleNavigation("/home/MyCollection");
         break;
       case "Transform CV":
@@ -186,7 +202,7 @@ function Dashboard() {
         handleNavigation("/chatbot");
         break;
       case "My Collection":
-        handleNavigation("/collection");
+        handleNavigation(userDataGlobal.role === "user" ? "/home/MyCollection" :"/collection");
         break;
       case "Skill Assessments":
         handleNavigation("/home/SkillAssessment");
@@ -690,10 +706,10 @@ function Dashboard() {
         ))}
       </div>
 
-      {/* {userDataGlobal.role === "user" &&
+      {userDataGlobal.role === "user" &&
         data !== undefined &&
         hasNonEmptyKey(data) && (
-          <div className="flex gap-[46px] flex-wrap flex-col sm:items-start items-center ">
+          <div className="flex gap-[24px] flex-wrap flex-col sm:items-start items-center ">
             {resumeData.selectedResumeIndex !== undefined &&
               resumeData.selectedColor !== undefined &&
               resumeData.selectedFont !== undefined && (
@@ -701,11 +717,13 @@ function Dashboard() {
                   <div className="text-[18px] font-Montserrat font-semibold">
                     Continue where you left
                   </div>
-                  <div className="w-[40%] ms:min-w-[500px] min-w-[280px] items-start justify-between gap-[46px] sm:gap-[12px] p-[24px] bg-[#F9F9F9] rounded-[24px] flex sm:flex-row flex-col">
-                  
+                  <div className="  min-w-[280px] max-w-[300px] items-center justify-between gap-[46px] sm:gap-[12px] p-[24px] bg-[#F9F9F9] rounded-[24px] flex flex-col">
+                    <span className="font-Montserrat text-[18px] font-medium text-[#333333] break-all">
+                      {data.firstName}_resume.pdf
+                    </span>
 
-                    <div className=" w-[250px] ms:flex items-center justify-center rounded-[8px] relative hidden ">
-                    
+                    <div className=" w-[250px] ms:flex items-center justify-center rounded-[8px] relative hidden group resumes ">
+
 
                       <PDFViewer
                         width="250px"
@@ -715,10 +733,58 @@ function Dashboard() {
                         <MyComponent />
                       </PDFViewer>
 
-                     
+                      <div className="bg-[#00000099]  absolute top-[0px] left-[0px] h-[330px] w-full rounded-[6px] opacity-0 invisible transition-opacity ease-in-out duration-[0.4s]  group-hover:opacity-100 group-hover:visible flex items-center justify-center">
+                        <div className="flex flex-col w-98 h-219 top-27.09 left-47.19 p-[12px]  rounded-lg border border-gray-200 gap-[12px] bg-[#333333CC]">
+
+
+                          <div
+                            onClick={() => {
+                              localStorage.removeItem("parsedResume");
+
+                              router.push(
+                                `/home/createResume?clientId=${data?.clientId}&continueEdit=true`
+                              );
+                            }}
+                            className="flex items-center flex-col cursor-pointer"
+                            style={{
+                              borderBottom: "1px solid #646464",
+                              paddingBottom: "12px",
+                            }}
+                          >
+                            <img
+                              src="/images/icons/edit.png"
+                              className="h-[24px] w-[24px]"
+                              alt=""
+                            />
+                            <span className="text-[12px] font-semibold text-white ">
+                              Edit
+                            </span>
+                          </div>
+
+
+                          <a
+                            onClick={() => {
+                              localStorage.removeItem("userData");
+                              window.location.href = "/";
+                            }}
+                            className="flex items-center flex-col cursor-pointer"
+                          >
+                            <img
+                              src="/images/icons/delete_icon.png"
+                              className="h-[24px] w-[24px]"
+                              alt=""
+                            />
+                            <span className="text-[12px] font-semibold text-white ">
+                              Delete
+                            </span>
+                          </a>
+
+                        </div>
+                      </div>
                     </div>
 
-                    <div className="w-[40%] flex flex-col gap-4 ms:min-w-[160px] min-w-[200px]">
+
+                    {/* <div className="w-[40%] flex flex-col gap-4 ms:min-w-[160px] min-w-[200px]">
                       <span className="font-Montserrat text-[18px] font-medium text-[#333333] break-all">
                         {data.firstName}_resume.pdf
                       </span>
@@ -731,7 +797,7 @@ function Dashboard() {
                       <div
                         onClick={() => {
                           localStorage.removeItem("parsedResume");
-                         
+
                           router.push(
                             `/home/createResume?clientId=${data?.clientId}&continueEdit=true`
                           );
@@ -781,12 +847,12 @@ function Dashboard() {
                         </svg>
                         Delete
                       </button>
-                    </div>
+                    </div> */}
                   </div>
                 </>
               )}
           </div>
-        )} */}
+        )}
     </div>
   );
 }

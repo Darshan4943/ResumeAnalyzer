@@ -18,6 +18,12 @@ import { formatLink } from "../../../utils/middleware";
 
 //template 13
 const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
+  const formatLink1 = (link) => {
+    if (link?.length > 32) {
+      return link?.match(/.{1,32}/g).join("\n");
+    }
+    return link;
+  };
   return (
     <Page size="A4" wrap={true} style={{ paddingTop: "12px" }}>
       <View
@@ -46,8 +52,8 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
                   preview
                     ? data.profilePhoto
                     : Object.keys(data?.profilePhoto).includes("filename")
-                    ? URL.createObjectURL(data.profilePhoto)
-                    : data.profilePhoto
+                      ? URL.createObjectURL(data.profilePhoto)
+                      : data.profilePhoto
                 }
                 style={{
                   objectFit: "cover",
@@ -218,7 +224,7 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
 
           {data?.skills?.length > 0 && data?.showSkills === true && (
             <View
-            // wrap={false}
+              wrap={data?.skills?.length > 1 ? true : false}
               style={{
                 flexDirection: "column",
                 width: "100%",
@@ -278,7 +284,7 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
           {data?.achievements?.length > 0 &&
             data?.showAchievements === true && (
               <View
-                wrap={false}
+                wrap={data?.achievements?.length > 1 ? true : false}
                 style={{
                   flexDirection: "column",
                   width: "100%",
@@ -341,7 +347,7 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
 
           {data?.socialLinks?.length > 0 && data?.showLinks === true && (
             <View
-              wrap={false}
+              wrap={data?.socialLinks?.length > 1 ? true : false}
               style={{
                 flexDirection: "column",
                 width: "100%",
@@ -469,7 +475,7 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
 
           {data?.hobbies?.length > 0 && data?.showHobbies === true && (
             <View
-              wrap={false}
+              wrap={data?.hobbies?.length > 1 ? true : false}
               style={{
                 flexDirection: "column",
                 width: "100%",
@@ -528,7 +534,7 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
 
           {data?.reference?.length > 0 && data?.showReference === true && (
             <View
-              wrap={false}
+              wrap={data?.reference?.length > 1 ? true : false}
               style={{
                 flexDirection: "column",
                 width: "100%",
@@ -664,7 +670,7 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
           {data?.experience?.length > 0 && data?.showExperience === true && (
             <View
               style={{ display: "flex", flexDirection: "column", gap: 15 }}
-              // wrap={data?.experience?.length > 1 ? true : false}
+              wrap={data?.experience?.length > 1 ? true : false}
             >
               <View
                 style={{
@@ -692,23 +698,35 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
                     key={index}
                     style={{ flexDirection: "column", gap: 4 }}
                     wrap={false}
-                  >{detail.duration?.start?.year && (
-                    <Text
-                      style={{
-                        fontFamily: `${selectedFont} 400`,
-                        fontSize: 14,
-                        color: "#2D3033",
-                      }}
-                    >
-                      {detail.organization} /{" "}
-                      {detail.duration?.start?.year !== "Year" &&
-                        `${detail.duration?.start?.year}-${" "}${
-                          detail.currentlyWorking
-                            ? "Present"
-                            : detail.duration?.end?.year
-                        }`}
-                    </Text>
-                  )}
+                  >
+                    <View style={{ width: "100%", display: "flex", flexDirection: "row", justifyContent: "space-between", gap: "4px", }}>
+                      <Text
+                        style={{
+                          fontFamily: `${selectedFont} 400`,
+                          fontSize: 14,
+                          color: "#2D3033",
+                        }}
+                      >
+                        {formatLink1(detail.organization)}
+                      </Text>
+                      {detail.duration?.start?.year && (
+                        <Text
+                          style={{
+                            fontFamily: `${selectedFont} 400`,
+                            fontSize: 14,
+                            color: "#2D3033",
+                            height: "20px"
+                          }}
+                        >
+                          {detail.duration?.start?.year !== "Year" &&
+                            `${detail.duration?.start?.year}-${detail.currentlyWorking || detail.duration?.end?.year === "Year"
+                              ? "Present"
+                              : detail.duration?.end?.year
+                            }
+                         `}
+                        </Text>
+                      )}
+                    </View>
                     <Text
                       style={{
                         fontFamily: `${selectedFont} 400`,
@@ -736,7 +754,7 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
             <View
               // wrap={false}
               style={{ display: "flex", flexDirection: "column", gap: 15 }}
-              // wrap={data?.education?.length > 1 ? true : false}
+              wrap={data?.education?.length > 2 ? true : false}
             >
               <View
                 style={{
@@ -765,23 +783,35 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
                   style={{
                     gap: 4,
                   }}
-                >{detail.duration?.start?.year && (
-                  <Text
-                    style={{
-                      fontFamily: `${selectedFont} 400`,
-                      fontSize: 13,
-                      color: "#2D3033",
-                    }}
-                  >
-                    {detail.qualification} /{" "}
-                    {detail.duration?.start?.year !== "Year" &&
-                      `${detail.duration?.start?.year}-${
-                        detail.duration?.end?.year === "Year"
-                          ? "Pursuing"
-                          : detail.duration?.end?.year
-                      }`}
-                  </Text>
-                )}
+                >
+                  <View style={{ width: "100%", display: "flex", flexDirection: "row", justifyContent: "space-between", gap: "4px", }}>
+                    <Text
+                      style={{
+                        fontFamily: `${selectedFont} 400`,
+                        fontSize: 13,
+                        color: "#2D3033",
+                        height: "20px"
+                      }}
+                    >
+                      {detail.qualification}
+                    </Text>
+                    {detail.duration?.start?.year && (
+                      <Text
+                        style={{
+                          fontFamily: `${selectedFont} 400`,
+                          fontSize: 13,
+                          color: "#2D3033",
+                          height: "20px"
+                        }}
+                      >
+                        {detail.duration?.start?.year !== "Year" &&
+                          `${detail.duration?.start?.year}-${detail.duration?.end?.year === "Year"
+                            ? "Pursuing"
+                            : detail.duration?.end?.year
+                          }`}
+                      </Text>
+                    )}
+                  </View>
                   <Text
                     style={{
                       fontFamily: `${selectedFont} 400`,
@@ -808,7 +838,7 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
           {data?.course?.length > 0 && data?.showCourses === true && (
             <View
               style={{ display: "flex", flexDirection: "column", gap: 15 }}
-              // wrap={data?.experience?.length > 1 ? true : false}
+              wrap={data?.course?.length > 1 ? true : false}
             >
               <View
                 style={{
@@ -836,24 +866,34 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
                     key={index}
                     style={{ flexDirection: "column", gap: 4 }}
                     wrap={false}
-                  >
-                    {detail.duration?.start?.year && (
-                    <Text
-                      style={{
-                        fontFamily: `${selectedFont} 400`,
-                        fontSize: 14,
-                        color: "#2D3033",
-                      }}
-                    >
-                      {detail.title} /{" "}
-                      {detail.duration?.start?.year !== "Year" &&
-                        `${detail.duration?.start?.year}-${" "}${
-                          detail.currentlyWorking
-                            ? "Present"
-                            : detail.duration?.end?.year
-                        }`}
-                    </Text>
-                    )}
+                  ><View style={{ width: "100%", display: "flex", flexDirection: "row", justifyContent: "space-between", gap: "4px", }}>
+                      <Text
+                        style={{
+                          fontFamily: `${selectedFont} 400`,
+                          fontSize: 14,
+                          color: "#2D3033",
+                        }}
+                      >
+                        {formatLink1(detail.title)}
+                      </Text>
+                      {detail.duration?.start?.year && (
+                        <Text
+                          style={{
+                            fontFamily: `${selectedFont} 400`,
+                            fontSize: 14,
+                            color: "#2D3033",
+                            height: "20px"
+                          }}
+                        >
+                          {detail.duration?.start?.year !== "Year" &&
+                            `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
+                              ? "Present"
+                              : detail.duration?.end?.year
+                            }
+                         `}
+                        </Text>
+                      )}
+                    </View>
                     <Text
                       style={{
                         fontFamily: `${selectedFont} 400`,
@@ -881,7 +921,7 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
           {data?.internship?.length > 0 && data?.showInternship === true && (
             <View
               style={{ display: "flex", flexDirection: "column", gap: 15 }}
-              // wrap={data?.experience?.length > 1 ? true : false}
+              wrap={data?.internship?.length > 1 ? true : false}
             >
               <View
                 style={{
@@ -908,24 +948,37 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
                   <View
                     key={index}
                     style={{ flexDirection: "column", gap: 4 }}
-                    // wrap={false}
-                  >{detail.duration?.start?.year && (
-                    <Text
-                      style={{
-                        fontFamily: `${selectedFont} 400`,
-                        fontSize: 14,
-                        color: "#2D3033",
-                      }}
-                    >
-                      {detail.title} /{" "}
-                      {detail.duration?.start?.year !== "Year" &&
-                        `${detail.duration?.start?.year}-${" "}${
-                          detail.currentlyWorking
-                            ? "Present"
-                            : detail.duration?.end?.year
-                        }`}
-                    </Text>
-                  )}
+                    wrap={false}
+                  >
+
+                    <View style={{ width: "100%", display: "flex", flexDirection: "row", justifyContent: "space-between", gap: "4px", }}>
+                      <Text
+                        style={{
+                          fontFamily: `${selectedFont} 400`,
+                          fontSize: 14,
+                          color: "#2D3033",
+                        }}
+                      >
+                        {formatLink1(detail.title)}
+                      </Text>
+                      {detail.duration?.start?.year && (
+                        <Text
+                          style={{
+                            fontFamily: `${selectedFont} 400`,
+                            fontSize: 14,
+                            color: "#2D3033",
+                            height: "20px"
+                          }}
+                        >
+                          {detail.duration?.start?.year !== "Year" &&
+                            `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
+                              ? "Present"
+                              : detail.duration?.end?.year
+                            }
+                         `}
+                        </Text>
+                      )}
+                    </View>
                     <Text
                       style={{
                         fontFamily: `${selectedFont} 400`,
@@ -953,7 +1006,7 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
           {data?.project?.length > 0 && data?.showProject === true && (
             <View
               style={{ display: "flex", flexDirection: "column", gap: 15 }}
-              // wrap={data?.experience?.length > 1 ? true : false}
+              wrap={data?.project?.length > 1 ? true : false}
             >
               <View
                 style={{
@@ -980,25 +1033,36 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
                   <View
                     key={index}
                     style={{ flexDirection: "column", gap: 4 }}
-                    // wrap={false}
+                  // wrap={false}
                   >
-                    {detail.duration?.start?.year && (
-                    <Text
-                      style={{
-                        fontFamily: `${selectedFont} 400`,
-                        fontSize: 14,
-                        color: "#2D3033",
-                      }}
-                    >
-                      {detail.title} /{" "}
-                      {detail.duration?.start?.year !== "Year" &&
-                        `${detail.duration?.start?.year}-${" "}${
-                          detail.currentlyWorking
-                            ? "Present"
-                            : detail.duration?.end?.year
-                        }`}
-                    </Text>
-                    )}
+                    <View style={{ width: "100%", display: "flex", flexDirection: "row", justifyContent: "space-between", gap: "4px", }}>
+                      <Text
+                        style={{
+                          fontFamily: `${selectedFont} 400`,
+                          fontSize: 14,
+                          color: "#2D3033",
+                        }}
+                      >
+                        {formatLink1(detail.title)}
+                      </Text>
+                      {detail.duration?.start?.year && (
+                        <Text
+                          style={{
+                            fontFamily: `${selectedFont} 400`,
+                            fontSize: 14,
+                            color: "#2D3033",
+                            height: "20px"
+                          }}
+                        >
+                          {detail.duration?.start?.year !== "Year" &&
+                            `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
+                              ? "Present"
+                              : detail.duration?.end?.year
+                            }
+                         `}
+                        </Text>
+                      )}
+                    </View>
                     <Text
                       style={{
                         fontFamily: `${selectedFont} 400`,
@@ -1022,12 +1086,11 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
               </View>
             </View>
           )}
-
           {data?.extraCaricularData?.length > 0 &&
             data?.showExtraCariculam === true && (
               <View
                 style={{ display: "flex", flexDirection: "column", gap: 15 }}
-                // wrap={data?.experience?.length > 1 ? true : false}
+                wrap={data?.extraCaricularData?.length > 1 ? true : false}
               >
                 <View
                   style={{
@@ -1054,24 +1117,36 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
                     <View
                       key={index}
                       style={{ flexDirection: "column", gap: 4 }}
-                      // wrap={false}
+                      wrap={false}
                     >
-                      <Text
-                        style={{
-                          fontFamily: `${selectedFont} 400`,
-                          fontSize: 14,
-                          color: "#2D3033",
-                        }}
-                      >
-                        {detail.title} /{" "}
-                        {detail.duration?.start?.year !== "Year" &&
-                          `${detail.duration?.start?.year}-${" "}${
-                            detail.currentlyWorking
-                              ? "Present"
-                              : detail.duration?.end?.year
-                          }`}
-                      </Text>
-
+                      <View style={{ width: "100%", display: "flex", flexDirection: "row", justifyContent: "space-between", gap: "4px", }}>
+                        <Text
+                          style={{
+                            fontFamily: `${selectedFont} 400`,
+                            fontSize: 14,
+                            color: "#2D3033",
+                          }}
+                        >
+                          {formatLink1(detail.title)}
+                        </Text>
+                        {detail.duration?.start?.year && (
+                          <Text
+                            style={{
+                              fontFamily: `${selectedFont} 400`,
+                              fontSize: 14,
+                              color: "#2D3033",
+                              height: "20px"
+                            }}
+                          >
+                            {detail.duration?.start?.year !== "Year" &&
+                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
+                                ? "Present"
+                                : detail.duration?.end?.year
+                              }
+                         `}
+                          </Text>
+                        )}
+                      </View>
                       <Text
                         style={{
                           fontFamily: `${selectedFont} 400`,
@@ -1101,7 +1176,7 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
             data?.section?.map((item, index) => (
               <View
                 // wrap={false}
-                // wrap={data?.section?.length > 1 ? true : false}
+                wrap={data?.section?.length > 1 ? true : false}
                 key={index}
                 style={{ display: "flex", flexDirection: "column", gap: 15 }}
               >
@@ -1130,33 +1205,38 @@ const Template44 = ({ data, selectedColor, selectedFont, preview }) => {
                     <View
                       key={index}
                       style={{ gap: "10px" }}
-                      // wrap={false}
+                      wrap={false}
                     >
-                      <Text
-                        style={{
-                          fontFamily: `${selectedFont} 400`,
-                          fontSize: 13,
-                          color: "#2D3033",
-                        }}
-                      >
-                        {detail?.title}{" "}
+
+
+                      <View style={{ width: "100%", display: "flex", flexDirection: "row", justifyContent: "space-between", gap: "4px", }}>
+                        <Text
+                          style={{
+                            fontFamily: `${selectedFont} 400`,
+                            fontSize: 14,
+                            color: "#2D3033",
+                          }}
+                        >
+                          {formatLink1(detail.title)}
+                        </Text>
                         {detail.duration?.start?.year && (
                           <Text
                             style={{
                               fontFamily: `${selectedFont} 400`,
                               fontSize: 14,
                               color: "#2D3033",
+                              height: "20px"
                             }}
                           >
-                            / {detail?.duration?.start?.year}
+                            {detail?.duration?.start?.year}
                             {detail?.duration?.start?.year && "-"}
-                            {detail?.duration?.end?.year === "" ||
-                            detail?.duration?.end?.year === undefined
+                            {detail?.duration?.end?.year === "Year" ||
+                              detail?.duration?.end?.year === undefined
                               ? "Present"
                               : detail?.duration?.end?.year}
                           </Text>
                         )}
-                      </Text>
+                      </View>
                       <Text
                         style={{
                           fontFamily: `${selectedFont} 400`,

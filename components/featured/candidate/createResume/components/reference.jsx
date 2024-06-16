@@ -121,12 +121,22 @@ const Reference = ({
     const { name, value } = e.target;
 
     setReferenceData({
-      ...referenceData,
-      [name]: value,
+        ...referenceData,
+        [name]: value,
     });
-    // setIsModified({ status: false, index: 0 });
-    setFormErrors({ ...formErrors, [name]: value?.trim() === "" });
-  };
+
+    // Function to format the field name
+    const formatFieldName = (fieldName) => {
+        return camelCase(fieldName.replace(/([a-z])([A-Z])/g, '$1 $2'));
+    };
+
+    // Set custom error message if the field is empty
+    setFormErrors({
+        ...formErrors,
+        [name]: value.trim() === "" ? `${formatFieldName(name)} is required` : "",
+    });
+};
+
   const isDisabled = () => {
     // if (!isChecked || !isModified) return true;
 
@@ -309,7 +319,7 @@ const Reference = ({
 
                   {formErrors[item?.name] && (
                     <span className="text-[#C00000] text-[12px]">
-                      Field is required
+                      {formErrors[item?.name]} 
                     </span>
                   )}
                 </div>

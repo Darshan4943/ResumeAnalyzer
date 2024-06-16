@@ -166,7 +166,7 @@ const AddSection = ({ data, setData, section, formData, index, item }) => {
               {exp?.duration?.start?.year != null &&
                 ` ${"|"} ${exp?.duration?.start?.year} 
               ${exp?.duration?.start?.year && "-"}
-              ${(exp?.duration?.end?.year === "" || exp?.duration?.end?.year === undefined)
+              ${(exp?.duration?.end?.year === "Year" || exp?.duration?.end?.year === undefined)
                   ? "Present"
                   : exp.duration?.end?.year
                 }`}

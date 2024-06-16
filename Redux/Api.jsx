@@ -4,6 +4,7 @@ import { useDispatch, useSelector, useStore } from "react-redux";
 import { userAction } from "./actions/user";
 import { jwtDecode } from "jwt-decode";
 import { setJob } from "./actions";
+
 import {
   currenciesWithIcons,
   currencyMap,
@@ -16,16 +17,19 @@ import { recallUser } from "./reducers/userReducer";
 import LocationEnablePopup from "../components/models/locationEnablePopup";
 import { io } from "socket.io-client";
 import { setPageClosed, setPageOpened } from "./actions/website";
+import { setEnablePopup, setShowPlans } from "./actions/popupActions";
 
 const ENDPOINT = "https://jamblix.com"; // Replace with your backend WebSocket server URL
 
-export const Api = () => {
+export const Api = ({}) => {
   const store = useStore();
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(true);
   const userDataGlobal = useSelector((state) => state.userData);
   const [visible, setVisible] = useState(false);
-  const [enablePopup, setEnablePopup] = useState(false);
+  const enablePopup = useSelector((state) => state.popup.enablePopup);
+  const showPlan = useSelector((state) => state.showPlan.show);
+
 
   //   useEffect(() => {
   //     const socket = io(ENDPOINT);
@@ -58,7 +62,7 @@ export const Api = () => {
 
       return () => clearTimeout(timer);
     }
-  }, [userDataGlobal]);
+  }, [userDataGlobal,showPlan]);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -82,7 +86,7 @@ export const Api = () => {
           });
       }
     }
-  }, [reCallUser]);
+  }, [reCallUser,showPlan]);
 
   useEffect(() => {
     const planActive =
@@ -149,7 +153,7 @@ export const Api = () => {
           console.log(err);
         });
     }
-  }, [userDataGlobal, reCallUser]);
+  }, [userDataGlobal, reCallUser,showPlan]);
   // const getLocation = () => {
   //   if (navigator.geolocation) {
   //     console.log(138, "again called");
@@ -220,7 +224,8 @@ export const Api = () => {
           );
         } else if (result.state === "denied") {
           // Permission was denied
-          setEnablePopup(true);
+          dispatch(setEnablePopup(true));
+          dispatch(setShowPlans(false));
         }
 
         result.onchange = function () {
@@ -229,9 +234,11 @@ export const Api = () => {
               successCallback,
               errorCallback
             );
-            setEnablePopup(false);
+            dispatch(setEnablePopup(false));
+            dispatch(setShowPlans(true));
           } else {
-            setEnablePopup(true);
+            dispatch(setEnablePopup(true));
+            dispatch(setShowPlans(false));
           }
         };
       });
@@ -280,7 +287,7 @@ export const Api = () => {
   const errorCallback = (error) => {
     console.log(error);
     if (error.code === 1) {
-      setEnablePopup(true);
+      dispatch(setEnablePopup(true));
     }
     setError(error.message);
   };
@@ -294,7 +301,7 @@ export const Api = () => {
     <>
       {enablePopup && (
         <LocationEnablePopup
-          setEnablePopup={setEnablePopup}
+        setEnablePopup={(value) => dispatch(setEnablePopup(value))}
           enablePopup={enablePopup}
           getLocation={getLocation}
         />

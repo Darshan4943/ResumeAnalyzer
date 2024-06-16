@@ -85,9 +85,15 @@ const JobMatching = () => {
     axios
       .get(`https://jamblix.com/api/folder/getByParentId/${parentId}`)
       .then((res) => {
-        const filteredData = res.data.data.filter(item => item.isSync === true);
+        const filteredData = res.data.data.filter((item) => {
+          if (item.type == "file" && item.isSync === true) {
+            return true;
+          } else if (item.type == "folder") {
+            return true;
+          }
+        });
         setDetails(filteredData);
-        
+
         setTimeout(() => {
           setLoading(false);
         }, 1000);
@@ -101,9 +107,16 @@ const JobMatching = () => {
     axios
       .get(`https://jamblix.com/api/folder/get/${userDataGlobal._id}`)
       .then((res) => {
-        const filteredData = res.data.data.filter(item => item.isSync === true);
+        const filteredData = res.data.data.filter((item) => {
+          console.log(item.type);
+          if (item.type == "file" && item.isSync === true) {
+            return true;
+          } else if (item.type == "folder") {
+            return true;
+          }
+        });
         setDetails(filteredData);
-        
+
         setTimeout(() => {
           setLoading(false);
         }, 1000);
@@ -204,118 +217,6 @@ const JobMatching = () => {
       // toast.error("Something went wrong, please try again");
     }
   };
-  {
-    /**
-
-  const chunkArray = (array, size) => {
-    const chunkedArr = [];
-    for (let i = 0; i < array.length; i += size) {
-      chunkedArr.push(array.slice(i, i + size));
-    }
-
-    return chunkedArr;
-  };
-
-
-  const processChunk = async (chunk, jd, outputData) => {
-    const promises = chunk.map(async (item) => {
-      const { data } = await axios.post(
-        "https://jamblix.com/api/external/jobMatching/",
-        {
-          jd: jd,
-          id: item,
-        }
-      );
-      outputData.push(data);
-    });
-    await Promise.all(promises);
-  };
-
-
-  const MatchJob = async () => {
-    setLoadingg(true);
-    setIsAnimate(false);
-
-    if (Object.keys(extratctedData).length > 5) {
-      const chunks = chunkArray(selectedIndexesFileTypes, 14);
-      const outputData = [];
-
-      const chunkPromises = chunks.map((chunk, index) => {
-        return new Promise(async (resolve) => {
-          await processChunk(chunk, extratctedData, outputData);
-          resolve();
-        }).then(() => {
-          if (index < chunks.length - 1) {
-            return new Promise((resolve) => setTimeout(resolve, 10000));
-          }
-        });
-      });
-
-      await Promise.all(chunkPromises);
-
-      const dataArray = outputData
-        .filter((item) => item.matching_percentage)
-        .sort((a, b) => {
-          const parsePercentage = (percentage) => {
-            return parseInt(
-              isNaN(percentage) ? percentage.slice(0, 2) : percentage
-            );
-          };
-          return (
-            parsePercentage(b.matching_percentage) -
-            parsePercentage(a.matching_percentage)
-          );
-        })
-        .slice(0, resumeCount);
-
-      setResumeList(dataArray);
-      setButtonToggle(false);
-      setLoadingg(false);
-    } else {
-      toast.error("Something went wrong, please try again");
-    }
-  };
- */
-  }
-  {
-    /** 
-  //mine
-  const MatchJob = async () => {
-    setLoadingg(true);
-    setIsAnimate(false);
-    if (Object.keys(extratctedData).length > 5) {
-      const chunks = chunkArray(selectedIndexesFileTypes, 14);
-      const outputData = [];
-      for (let i = 0; i < chunks.length; i++) {
-        await processChunk(chunks[i], extratctedData, outputData);
-        if (i < chunks.length - 1) {
-          await new Promise((resolve) => setTimeout(resolve, 10000));
-        }
-      }
-      const dataArray = outputData
-        .filter((item) => item.matching_percentage)
-        ?.sort((a, b) => {
-          if (parseInt(b.matching_percentage))
-            parseInt(
-              isNaN(b.matching_percentage)
-                ? b.matching_percentage.slice(0, 2)
-                : b.matching_percentage
-            ) -
-              parseInt(
-                isNaN(a.matching_percentage)
-                  ? a.matching_percentage.slice(0, 2)
-                  : a.matching_percentage
-              );
-        })
-        .slice(0, resumeCount);
-      setResumeList(dataArray);
-      setButtonToggle(false);
-      setLoadingg(false);
-    } else {
-      toast.error("Something went wrong, please try again");
-    }
-  };*/
-  }
 
   useEffect(() => {
     if (count > 3) {
