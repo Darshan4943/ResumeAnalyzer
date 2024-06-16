@@ -17,7 +17,7 @@ import { recallUser } from "./reducers/userReducer";
 import LocationEnablePopup from "../components/models/locationEnablePopup";
 import { io } from "socket.io-client";
 import { setPageClosed, setPageOpened } from "./actions/website";
-import { setEnablePopup } from "./actions/popupActions";
+import { setEnablePopup, setShowPlans } from "./actions/popupActions";
 
 const ENDPOINT = "https://jamblix.com"; // Replace with your backend WebSocket server URL
 
@@ -28,6 +28,7 @@ export const Api = ({}) => {
   const userDataGlobal = useSelector((state) => state.userData);
   const [visible, setVisible] = useState(false);
   const enablePopup = useSelector((state) => state.popup.enablePopup);
+  const showPlan = useSelector((state) => state.showPlan.show);
 
 
   //   useEffect(() => {
@@ -61,7 +62,7 @@ export const Api = ({}) => {
 
       return () => clearTimeout(timer);
     }
-  }, [userDataGlobal]);
+  }, [userDataGlobal,showPlan]);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -85,7 +86,7 @@ export const Api = ({}) => {
           });
       }
     }
-  }, [reCallUser]);
+  }, [reCallUser,showPlan]);
 
   useEffect(() => {
     const planActive =
@@ -152,7 +153,7 @@ export const Api = ({}) => {
           console.log(err);
         });
     }
-  }, [userDataGlobal, reCallUser]);
+  }, [userDataGlobal, reCallUser,showPlan]);
   // const getLocation = () => {
   //   if (navigator.geolocation) {
   //     console.log(138, "again called");
@@ -224,6 +225,7 @@ export const Api = ({}) => {
         } else if (result.state === "denied") {
           // Permission was denied
           dispatch(setEnablePopup(true));
+          dispatch(setShowPlans(false));
         }
 
         result.onchange = function () {
@@ -233,8 +235,10 @@ export const Api = ({}) => {
               errorCallback
             );
             dispatch(setEnablePopup(false));
+            dispatch(setShowPlans(true));
           } else {
             dispatch(setEnablePopup(true));
+            dispatch(setShowPlans(false));
           }
         };
       });
