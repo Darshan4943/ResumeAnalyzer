@@ -2,7 +2,7 @@ import React from "react";
 import PersonalDetails from "./StandardFormat/PersonalDetails";
 import EmployerDetails from "./StandardFormat/EmployerDetails";
 import JobDetails from "./StandardFormat/JobDetails";
-import CustomLetterBody from "./CoustomFormat/customLetterBody";
+import CustomLetterBody from "./CoustomFormat/CustomLetterBody";
 import EducationDetails from "./StandardFormat/EducationDetails";
 import ProjectInternship from "./StandardFormat/ProjectInternship";
 
