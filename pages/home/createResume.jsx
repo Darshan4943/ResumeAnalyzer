@@ -575,15 +575,6 @@ console.log(111,data)
                 organization: item.organization,
                 description: item.description,
                 currentlyWorking: false,
-
-              duration: {
-                start: { year: item.start_date?.year ? item.start_date?.year : "Year", month: null },
-                end: {
-                  year: item.is_current ? currentYear : item.end_date?.year ? item.end_date?.year : "Year",
-                  month: null,
-                },
-              },
-            }))
                 duration: {
                   start: { year: item.start_date?.year, month: null },
                   end: {
