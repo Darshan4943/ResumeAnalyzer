@@ -221,11 +221,6 @@ const PersonalDetails = ({ data, setData, errors, setError }) => {
     );
   };
 
-  useEffect(() => {
-    console.log("errors", errors);
-    setError({ ...errors });
-  }, [data]);
-
   return (
     <div className="flex flex-col gap-[16px] w-full bg-white py-4">
       <div className="flex flex-row justify-between gap-[8px] items-center">
