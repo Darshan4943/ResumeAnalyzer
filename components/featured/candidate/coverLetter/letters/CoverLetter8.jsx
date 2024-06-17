@@ -46,10 +46,7 @@ const CoverLetter8 = ({ page2Ref, page1Ref, data }) => {
   return (
     <>
       <div className="flex flex-col gap-[24px]">
-        <div
-          ref={page1Ref}
-          className="w-[595px] h-[700px]  flex flex-col  "
-        >
+        <div ref={page1Ref} className="w-[595px] h-[700px]  flex flex-col  ">
           <div className="w-full h-[24px] bg-[#2A2E31]"></div>
           <div className="w-full bg-[#FFFFFF] h-[818px]">
             <div className="px-[42px] pt-[58px] pb-[65px] w-full">
@@ -203,31 +200,29 @@ const CoverLetter8 = ({ page2Ref, page1Ref, data }) => {
             ref={page2Ref}
             className="flex flex-row h-[700px] p-[24px] w-[595px]   bg-[#fff] overflow-hidden"
           >
-         
-              <div className="w-[30%] flex flex-row gap-[24px]"></div>
-              <div className="flex h-full w-[70%]">
-                <div className="flex flex-col justify-start w-full gap-[8px]">
-                  <div className="text-[12px] font-[400] text-[#58595B] leading-[16px] ">
-                    {splitContents.second.map((passage, index) => (
-                      <p key={index} style={{ margin: "16px 0" }}>
-                        {passage}
-                      </p>
-                    ))}
-                  </div>
-                  {splitContents?.second?.length > 0 && (
-                    <div className="flex flex-col w-full gap-[2px]">
-                      <span className="text-[12px] font-[400] text-[#58595B] leading-[16px] ">
-                        Warm regards,
-                      </span>
-                      <span className="text-[12px] font-[400] text-[#58595B] leading-[16px]  ">
-                        {data?.firstName} {data?.lastName}
-                      </span>
-                    </div>
-                  )}
+            <div className="w-[33%] flex flex-row gap-[24px]"></div>
+            <div className="flex h-full w-[70%]">
+              <div className="flex flex-col justify-start w-full gap-[8px]">
+                <div className="text-[12px] font-[400] text-[#58595B] leading-[16px] ">
+                  {splitContents.second.map((passage, index) => (
+                    <p key={index} style={{ margin: "16px 0" }}>
+                      {passage}
+                    </p>
+                  ))}
                 </div>
+                {splitContents?.second?.length > 0 && (
+                  <div className="flex flex-col w-full gap-[2px]">
+                    <span className="text-[12px] font-[400] text-[#58595B] leading-[16px] ">
+                      Warm regards,
+                    </span>
+                    <span className="text-[12px] font-[400] text-[#58595B] leading-[16px]  ">
+                      {data?.firstName} {data?.lastName}
+                    </span>
+                  </div>
+                )}
               </div>
             </div>
-       
+          </div>
         )}
       </div>
     </>

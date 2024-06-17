@@ -4,7 +4,6 @@ import EmployerDetails from "./StandardFormat/EmployerDetails";
 import JobDetails from "./StandardFormat/JobDetails";
 import ProjectInternship from "./StandardFormat/ProjectInternship";
 import EducationDetails from "./StandardFormat/EducationDetails";
-import CustomLetterBody from "./CoustomFormat/customLetterBody";
 
 export const StandaredForm = ({
   contentSituation,

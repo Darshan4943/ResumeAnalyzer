@@ -182,9 +182,9 @@ function CoverLetter7({ page2Ref, page1Ref, data }) {
       {splitContents?.second?.length > 0 && (
         <div
           ref={page2Ref}
-          className="flex flex-row  p-[24px]  w-[595px] min-h-[700px] bg-[#fff] overflow-hidden"
+          className="flex flex-row  p-[24px] w-[595px] min-h-[700px] bg-[#fff] overflow-hidden"
         >
-          <div className="w-[30%] flex flex-row gap-[24px]"></div>
+          <div className="w-[34%] flex flex-row gap-[24px]"></div>
           <div className="flex h-full w-[70%]">
             <div className="flex flex-col justify-start w-full gap-[8px]">
               <div className="text-[10px] font-[400]  text-[#414042] leading-[14px] font-[Inter]">
