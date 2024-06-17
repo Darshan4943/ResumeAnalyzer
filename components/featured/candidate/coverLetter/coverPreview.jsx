@@ -68,7 +68,7 @@ function CoverPreview({ data, clientId, selectedCoverIndex }) {
       formData.append("fileName", name);
 
       const response = await axios.post(
-        "http://localhost:2000/api/cover/add",
+        "https://jamblix.com/api/cover/add",
         formData
       );
       toast.success("Cover Letter added successfully");
@@ -88,7 +88,7 @@ function CoverPreview({ data, clientId, selectedCoverIndex }) {
     const id = userDataGlobal.role === "user" ? userDataGlobal?._id : clientId;
     if (id) {
       axios
-        .get("http://localhost:2000/api/cover/get/" + id)
+        .get("https://jamblix.com/api/cover/get/" + id)
 
         .then((res) => {
           // Remove .pdf extension from filenames
@@ -236,7 +236,7 @@ function CoverPreview({ data, clientId, selectedCoverIndex }) {
   );
 
   const selectCoverTemplate = (index) => {
-    console.log("index", index)
+    console.log("index", index);
     switch (index) {
       case 1:
         return <CoverLetter data={data} />;

@@ -23,7 +23,7 @@ const FileNameModel = ({ setNamePreview, setFunction, data, clientId }) => {
     const id = userDataGlobal.role === "user" ? userDataGlobal?._id : clientId;
     if (id) {
       axios
-      .get("http://localhost:2000/api/cover/get/" + id)
+      .get("https://jamblix.com/api/cover/get/" + id)
 
         .then((res) => {
           // Remove .pdf extension from filenames
