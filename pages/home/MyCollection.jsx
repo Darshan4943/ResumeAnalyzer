@@ -46,7 +46,7 @@ const MyCollection = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get("http://localhost:2000/api/cover/get/" + userDataGlobal?._id)
+      .get("https://jamblix.com/api/cover/get/" + userDataGlobal?._id)
       .then((res) => {
         setCoverList(res.data.data);
         setTimeout(() => {
@@ -101,7 +101,7 @@ const MyCollection = () => {
     }
 
     axios
-      .delete(`http://localhost:2000/api/cover/delete/${ids}`)
+      .delete(`https://jamblix.com/api/cover/delete/${ids}`)
       .then((response) => {
         console.log(1122, response);
         toast.success("Resume Deleted successfully");

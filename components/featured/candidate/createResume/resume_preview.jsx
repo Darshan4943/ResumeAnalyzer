@@ -106,8 +106,6 @@ const ResumePreview = ({
         .get(`https://jamblix.com/api/resume/${id}`)
 
         .then((res) => {
-          
-
           setName(data.firstName + "_resume " + (res.data.data.length + 1));
         })
         .catch((err) => {
@@ -119,8 +117,7 @@ const ResumePreview = ({
   useEffect(() => {
     callData();
     setName(data.firstName + "_resume");
-  }, [userDataGlobal, data.firstName,saveLimit]);
-
+  }, [userDataGlobal, data.firstName, saveLimit]);
 
   const selectResumeTemplate = (index) => {
     switch (index) {
@@ -362,7 +359,7 @@ const ResumePreview = ({
   };
 
   const saveResume = async (blob, download) => {
-    console.log(666,blob)
+    console.log(666, blob);
     setdisabled(true);
 
     if (blob !== null) {
@@ -447,7 +444,6 @@ const ResumePreview = ({
         axios
           .post("https://jamblix.com/api/resume/add", formData)
           .then((res) => {
-           
             const pdfUrl = res.data.data.resumeUrl;
 
             localStorage.setItem("saveCount", saveLimit - 1);
