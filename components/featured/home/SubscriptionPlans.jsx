@@ -6,12 +6,14 @@ import { Pagination } from "swiper/modules";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
-import { plans } from "../../../utils/data";
+import { currenciesWithIcons, currencyMap, plans, telCode } from "../../../utils/data";
 import { popupVisible } from "../../../Redux/actions/user";
 import axios from "axios";
 function SubscriptionPlans({ fromMain }) {
   const router = useRouter();
   const userDataGlobal = useSelector((state) => state.userData);
+  // const showPlan = useSelector((state) => state.showPlan.show);
+
   const [subPlans, setPlans] = useState([]);
   const dispatch = useDispatch();
   const [isLogin, setIsLogin] = useState(false);
@@ -19,6 +21,7 @@ function SubscriptionPlans({ fromMain }) {
   const [isInInquiry, setIsInInquiry] = useState(false);
   const [exchangeRate, setexchangeRate] = useState(1);
   const [icon, seticon] = useState("$");
+  const [showPlan, setShowPlans] = useState(false);
 
   useEffect(() => {
     const exchangeRate = localStorage.getItem("exchangeRate");
@@ -40,7 +43,7 @@ function SubscriptionPlans({ fromMain }) {
         setIsLogin(false);
       }
     }
-  }, [userDataGlobal]);
+  }, [userDataGlobal, showPlan]);
   const [subscription, setSubscription] = useState(null);
 
   useEffect(() => {
@@ -52,7 +55,7 @@ function SubscriptionPlans({ fromMain }) {
       .catch((err) => {
         console.log(err);
       });
-  }, [userDataGlobal]);
+  }, [userDataGlobal, showPlan]);
   const clickHandler = (index) => {
     if (isLogin) {
       if (
@@ -122,7 +125,7 @@ function SubscriptionPlans({ fromMain }) {
           </div>
         </>
       )}
-      <div className="hidden lg:block w-full ">
+     <div className="hidden lg:block w-full ">
         <div className="flex gap-9 justify-center">
           {subPlans.map((plan, index) => (
             <div
@@ -331,6 +334,7 @@ function SubscriptionPlans({ fromMain }) {
           ))}
         </Swiper>
       </div>
+      
     </>
   );
 }

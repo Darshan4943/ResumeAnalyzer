@@ -20,7 +20,7 @@ function CandidateHome() {
   const dispatch = useDispatch();
   const popupState = useSelector((state) => state.popupState);
   const enablePopup = useSelector((state) => state.popup.enablePopup);
- 
+  const showPlan = useSelector((state) => state.showPlan.show);
   useEffect(() => {
     const token = localStorage.getItem("authToken");
     if (token && token != "undefined") {
@@ -57,7 +57,6 @@ function CandidateHome() {
               </div>
               <button
                 onClick={clickHandler}
-
                 className="btn_hover_effect px-6 py-3 bg-[#06A9EF] text-white rounded-[12px] text-[1.11111vw] font-semibold"
                 style={{ width: "fit-content" }}
               >
@@ -115,9 +114,7 @@ function CandidateHome() {
         <SkillAssessment isLogin={isLogin} />
         <JdResume isLogin={isLogin} />
         <ResumeInventory isLogin={isLogin} />
-        {!enablePopup &&
-          <SubscriptionPlan isLogin={isLogin} />
-        }
+        { <SubscriptionPlan isLogin={isLogin} />}
         <Footer isSubscribe={isSubscribe} setIsSubcrib={setIsSubcrib} />
       </div>
 

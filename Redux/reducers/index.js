@@ -9,7 +9,6 @@ import { addressReducer } from "./addressReducer";
 import { timeSlotReducer } from "./timeslotReducer";
 import { locationReducer } from "./locationReducer";
 import { categoryReducer } from "./categoryReducer";
-import locpopupReducer from "./popupReducer";
 import {
   bannerReducer,
   changeNumber,
@@ -20,14 +19,16 @@ import {
 } from "./reducer";
 import { popupReducer, recallUser, userDataReducer } from "./userReducer";
 import WebsiteReducer from "./website";
+import { locpopupReducer, showPlanPopup } from "./popupReducer";
 
 const reducers = combineReducers({
   userData: userDataReducer,
   reCallUser: recallUser,
   getAllJobs: jobReducer,
-  popupState:popupReducer,
+  popupState: popupReducer,
   pageState: WebsiteReducer,
   popup: locpopupReducer,
+  showPlan: showPlanPopup,
 });
 
 export default reducers;
