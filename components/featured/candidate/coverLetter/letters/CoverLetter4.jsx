@@ -45,9 +45,9 @@ const CoverLetter4 = ({ page1Ref, page2Ref, data }) => {
 
   return (
     <>
-      <div className="flex flex-col w-[595px] bg-[#FFFFFF] ">
+      <div className="flex flex-col w-[595px] gap-[24px]">
         <div
-          className="flex flex-col gap-[24px] px-[42px] pt-[42px] justify-between"
+          className="flex flex-col w-[595px] min-h-[700px]  gap-[24px] px-[42px] pt-[42px] justify-between bg-[#fff] "
           ref={page1Ref}
         >
           <div className="flex flex-row gap-[24px] ">
@@ -131,7 +131,13 @@ const CoverLetter4 = ({ page1Ref, page2Ref, data }) => {
             </div>
 
             <div className="flex flex-row gap-[24px]">
-              <div className="font-Montserrat text-[12px] font-normal leading-[12px] text-[#161616] w-[307px] text-left">
+              <div className="font-Montserrat text-[12px] font-normal leading-[12px] text-[#161616] w-[307px] text-left h-[585px]">
+                <div>
+                  <span className="font-Montserrat text-[12px] font-normal leading-[12px] text-[#161616] w-[307px] text-left">
+                    {" "}
+                    Dear {data?.employerName},
+                  </span>
+                </div>
                 {splitContents.first.map((passage, index) => (
                   <p key={index} style={{ margin: "16px 0" }}>
                     {passage}
@@ -139,10 +145,10 @@ const CoverLetter4 = ({ page1Ref, page2Ref, data }) => {
                 ))}
                 {splitContents?.second?.length == 0 && (
                   <div className="flex flex-col w-full gap-[2px]">
-                    <span className="text-[10px] font-[400] text-[#161616] ">
+                    <span className="font-Montserrat text-[12px] font-normal leading-[12px] text-[#161616] w-[307px] text-left">
                       Warm regards,
                     </span>
-                    <span className="text-[10px] font-[400] text-[#161616]  ">
+                    <span className="font-Montserrat text-[12px] font-normal leading-[12px] text-[#161616] w-[307px] text-left">
                       {data?.firstName} {data?.lastName}
                     </span>
                   </div>
@@ -173,26 +179,26 @@ const CoverLetter4 = ({ page1Ref, page2Ref, data }) => {
         </div>
         {splitContents?.second?.length > 0 && (
           <div
-            className="flex flex-col gap-[24px] px-[42px] pt-[42px]"
+            className="flex flex-col gap-[24px] px-[42px] pt-[42px] justify-between w-[595px] min-h-[700px] bg-[#fff] "
             ref={page2Ref}
           >
-            <div className="font-Montserrat text-[12px] font-normal leading-[12px] text-[#161616] w-[307px] text-left">
+            <div className="font-Montserrat text-[12px] font-normal leading-[12px] text-[#161616] w-[307px] text-left h-[585px]">
               {splitContents.second.map((passage, index) => (
                 <p key={index} style={{ margin: "16px 0" }}>
                   {passage}
                 </p>
               ))}
+              {splitContents?.second?.length > 0 && (
+                <div className="flex flex-col w-full gap-[2px]">
+                  <span className="font-Montserrat text-[12px] font-normal leading-[12px] text-[#161616] w-[307px] text-left">
+                    Warm regards,
+                  </span>
+                  <span className="font-Montserrat text-[12px] font-normal leading-[12px] text-[#161616] w-[307px] text-left">
+                    {data?.firstName} {data?.lastName}
+                  </span>
+                </div>
+              )}
             </div>
-            {splitContents?.second?.length > 0 && (
-              <div className="flex flex-col w-full gap-[2px]">
-                <span className="text-[10px] font-[400] text-[#161616] ">
-                  Warm regards,
-                </span>
-                <span className="text-[10px] font-[400] text-[#161616]  ">
-                  {data?.firstName} {data?.lastName}
-                </span>
-              </div>
-            )}
           </div>
         )}
       </div>

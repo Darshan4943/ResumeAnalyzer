@@ -49,9 +49,9 @@ function CoverLetter6({ page2Ref, page1Ref, data }) {
           ref={page1Ref}
           className="w-[595px] h-[800px] p-[32px] gap-[16px] flex flex-col bg-[#fff] "
         >
-          <div className="flex flex-row justify-between w-full gap-[20px]">
-            <div className="flex flex-col gap-[12px] w-[30%]">
-              <div className="gap-[8px] flex flex-row w-full ">
+          <div className="flex flex-row justify-between w-full gap-[20px] ">
+            <div className="flex flex-col gap-[12px]">
+              <div className="gap-[8px] flex flex-row w-full items-center ">
                 <svg
                   className="min-h-[22px] min-w-[22px]"
                   width="22"
@@ -66,12 +66,12 @@ function CoverLetter6({ page2Ref, page1Ref, data }) {
                   />
                 </svg>
 
-                <span className="text-[10px] font-[400] text-[#414042]">
+                <span className="flex flex-wrap text-[10px] font-[400] text-[#414042] leading-[12.1px]">
                   {data?.mobileNumber}
                 </span>
               </div>
               <div>
-                <div className="gap-[8px] flex flex-row items-center">
+                <div className="gap-[8px] flex flex-row  w-full items-center">
                   <svg
                     className="min-h-[22px] min-w-[22px]"
                     width="22"
@@ -102,13 +102,13 @@ function CoverLetter6({ page2Ref, page1Ref, data }) {
                     />
                   </svg>
 
-                  <span className="text-[10px] font-[400] text-[#414042] ">
+                  <span className=" flex flex-wrap leading-[12.1px] text-[10px] font-[400] text-[#414042] ">
                     {data?.email}
                   </span>
                 </div>
               </div>
               <div>
-                <div className="gap-[8px] flex flex-row ">
+                <div className="gap-[8px] flex flex-row items-center">
                   <svg
                     className="min-h-[22px] min-w-[22px]"
                     width="22"
@@ -127,61 +127,66 @@ function CoverLetter6({ page2Ref, page1Ref, data }) {
                     />
                   </svg>
 
-                  <span className="text-[10px] font-[400] text-[#414042]">
+                  <span className="flex flex-wrap leading-[12.1px] text-[10px] font-[400] text-[#414042]">
                     {data?.address}
                   </span>
                 </div>
               </div>
             </div>
-            <div className="flex flex-col w-[70%]">
-              <span className=" text-[38px] font-[400] text-[#000000] font-Inter">
-                {data.firstName} {data.lastName}
-              </span>
-              <span className=" text-[16px] font-[400] text-[#000000] font-Inter">
-                {data?.designation}
-              </span>
+            <div className="flex flex-col items-start">
+              <div className="flex flex-wrap">
+                <span className="flex flex-wrap text-[38px] leading-[45.99px] font-[400] text-[#000000] font-Inter">
+                  {data.firstName} {data.lastName}
+                </span>
+              </div>
+              <div className="flex flex-wrap ">
+                <span className=" text-[16px] font-[400] text-[#000000] font-Inter leading-[19.36px]">
+                  {data?.designation}
+                </span>
+              </div>
             </div>
           </div>
           <div className="w-full h-[1px] bg-[#000000]"></div>
-          <div className="flex flex-row justify-between w-full">
-            <div className="flex flex-col w-[70%]">
-              <span className=" text-[12px] font-[400] text-[#000000] font-Inter ">
-                To,
-              </span>
-              <span className=" text-[12px] font-[400] text-[#000000] font-Inter ">
-                {data?.employerName}
-              </span>
-              <span className="  text-[12px] font-[400] text-[#000000] font-Inter ">
-                {data?.designation}
-              </span>
-              <span className=" text-[12px] font-[400] text-[#000000] font-Inter ">
-                {data?.employerOrganizationName}
-              </span>
-              <span className=" text-[12px] font-[400] text-[#000000] font-Inter ">
-                {data?.employerAddress} {data?.employerCityState}{" "}
-                {data?.employerCountry}
-              </span>
-            </div>
-            <div className="flex flex-col gap-[16px] w-[30%]">
-              <span className="text-[12px] font-[500] text-[#414042] ">
-                Date :
-                <span className="text-[#333333]">
-                  {" "}
-                  {data?.letterDate != {} &&
-                    formatDateInNumber(data?.letterDate)}
+          <div className="flex flex-col w-full gap-[24px]">
+            <div className="flex flex-row justify-between w-full">
+              <div className="flex flex-col w-[70%]">
+                <span className="flex flex-wrap text-[12px] font-[500] text-[#000000] font-Inter leading-[16px]">
+                  To,
                 </span>
-              </span>
+                <span className="flex flex-wrap text-[12px] font-[500] text-[#000000] font-Inter leading-[16px]">
+                  {data?.employerName}
+                </span>
+                <span className="  text-[12px] font-[500] text-[#000000] font-Inter leading-[16px]">
+                  {data?.designation}
+                </span>
+                <span className="flex flex-wrap text-[12px] font-[500] text-[#000000] font-Inter leading-[16px]">
+                  {data?.employerOrganizationName}
+                </span>
+                <span className="flex flex-wrap text-[12px] font-[500] text-[#000000] font-Inter leading-[16px]">
+                  {data?.employerAddress} {data?.employerCityState}{" "}
+                  {data?.employerCountry}
+                </span>
+              </div>
+              <div className="flex flex-col items-end justify-end gap-[16px] w-[30%] flex-wrap">
+                <span className="text-[12px] font-[500] text-[#414042] leading-[14.52px]  font-Inter ">
+                  Date :
+                  <span className="text-[#333333]">
+                    {" "}
+                    {data?.letterDate != {} &&
+                      formatDateInNumber(data?.letterDate)}
+                  </span>
+                </span>
+              </div>
             </div>
-          </div>
-
-          <div className="flex flex-row justify-between gap-[8px] items">
-            <span className=" text-[10px] font-[400] text-[#333333] font-Inter ">
-              Dear {data?.employerName},
-            </span>
           </div>
 
           <div className="flex flex-col justify-start w-full gap-[8px]">
             <div className="text-[10px] font-[400] text-[#333333] font-Inter">
+              <div className="flex flex-row justify-between items">
+                <span className=" text-[10px] font-[400] text-[#333333] font-Inter ">
+                  Dear {data?.employerName},
+                </span>
+              </div>
               {splitContents.first.map((passage, index) => (
                 <p key={index} style={{ margin: "16px 0" }}>
                   {passage}

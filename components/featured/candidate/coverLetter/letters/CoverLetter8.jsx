@@ -46,17 +46,17 @@ const CoverLetter8 = ({ page2Ref, page1Ref, data }) => {
   return (
     <>
       <div className="flex flex-col gap-[24px]">
-        <div ref={page1Ref} className="w-[595px] h-[700px]  flex flex-col  ">
+        <div ref={page1Ref} className="w-[595px] h-[700px] flex flex-col  ">
           <div className="w-full h-[24px] bg-[#2A2E31]"></div>
           <div className="w-full bg-[#FFFFFF] h-[818px]">
-            <div className="px-[42px] pt-[58px] pb-[65px] w-full">
-              <div className="w-full flex flex-row gap-[21px]">
-                <div className="w-[30%] flex flex-col gap-[6px]">
+            <div className="flex flex-col gap-[16px] px-[42px] pt-[58px] pb-[65px] w-full">
+              <div className="w-full flex flex-row gap-[21px] ">
+                <div className="w-[34%] flex flex-col flex-wrap gap-[6px]">
                   <span className="text-[14px] font-[400] leading-[16.8px] text-[#030203]">
                     CONTACT
                   </span>
-                  <div className="flex flex-col gap-[6px] ">
-                    <div className="gap-[8px] flex flex-row w-full ">
+                  <div className="flex flex-col gap-[6px] flex-wrap">
+                    <div className="gap-[8px] flex flex-row w-full flex-wrap ">
                       <svg
                         className="min-h-[16px] min-w-[16px]"
                         width="16"
@@ -71,12 +71,12 @@ const CoverLetter8 = ({ page2Ref, page1Ref, data }) => {
                         />
                       </svg>
 
-                      <span className="text-[10px] font-[400] text-[#58595B]">
+                      <span className=" flex flex-wrap text-[10px] font-[400] text-[#58595B] leading-[12px]">
                         {data?.mobileNumber}
                       </span>
                     </div>
 
-                    <div className="gap-[8px] flex flex-row ">
+                    <div className="gap-[8px] flex flex-row flex-wrap ">
                       <svg
                         className="min-h-[16px] min-w-[16px]"
                         width="16"
@@ -91,7 +91,7 @@ const CoverLetter8 = ({ page2Ref, page1Ref, data }) => {
                         />
                       </svg>
 
-                      <span className="text-[10px] font-[400] text-[#58595B]">
+                      <span className="flex flex-wrap leading-[12px] text-[10px] font-[400] text-[#58595B]">
                         {data?.email}
                       </span>
                     </div>
@@ -117,7 +117,7 @@ const CoverLetter8 = ({ page2Ref, page1Ref, data }) => {
                     </div>
                   </div>
                 </div>
-                <div className="w-[70%] flex flex-col gap-[16px]">
+                <div className="w-[67%] flex flex-col gap-[16px]">
                   <div className="flex flex-col gap-[2px]">
                     <span className="text-[#030203] text-[28px] font-[400] leading-[33.6px]">
                       {data?.firstName} {data?.lastName}
@@ -130,7 +130,7 @@ const CoverLetter8 = ({ page2Ref, page1Ref, data }) => {
                   <div className="border-[1px] border-[#221F1F] w-full"></div>
                 </div>
               </div>
-              <div className="flex flex-col gap-[8px]">
+              <div className="w-full flex flex-col flex-wrap gap-[8px]">
                 <div className="flex flex-row justify-end items-end gap-[8px]">
                   <span className="text-[#030203] text-[10px] font-[500] leading-[12px]">
                     Date :
@@ -142,7 +142,7 @@ const CoverLetter8 = ({ page2Ref, page1Ref, data }) => {
                 </div>
                 <div className="flex flex-row gap-[21px] w-full">
                   <div className="w-[30%] flex flex-col gap-[8px]">
-                    <span className=" text-[14px] font-[400] text-[#030203] leading-[16.94px]">
+                    <span className=" text-[14px] font-[400] text-[#030203] leading-[16.94px] font-Lato ">
                       To,
                     </span>
                     <div className="flex flex-col gap-[4px]">
@@ -166,11 +166,11 @@ const CoverLetter8 = ({ page2Ref, page1Ref, data }) => {
                     </div>
                   </div>
                   <div className="flex flex-col w-[70%] gap-[4px]">
-                    <span className="text-[12px] font-[400] text-[#58595B] leading-[16px] ">
+                    <span className="text-[12px] font-[400] text-[#58595B] leading-[16px] font-Lato ">
                       Dear {data?.employerName},
                     </span>
                     <div
-                      className="text-[12px] font-[400] text-[#58595B] leading-[16px] "
+                      className="text-[12px] font-[400] text-[#58595B] leading-[16px] font-Lato "
                       //   ref={firstPageRef}
                     >
                       {splitContents.first.map((passage, index) => (
@@ -181,10 +181,10 @@ const CoverLetter8 = ({ page2Ref, page1Ref, data }) => {
                     </div>
                     {splitContents?.second?.length == 0 && (
                       <div className="flex flex-col w-full gap-[2px]">
-                        <span className="text-[12px] font-[400] text-[#58595B] leading-[16px]  ">
+                        <span className="text-[12px] font-[400] text-[#58595B] leading-[16px] font-Lato  ">
                           Warm regards,
                         </span>
-                        <span className="text-[12px] font-[400] text-[#58595B] leading-[16px] ">
+                        <span className="text-[12px] font-[400] text-[#58595B] leading-[16px] font-Lato  ">
                           {data?.firstName} {data?.lastName}
                         </span>
                       </div>
@@ -198,9 +198,9 @@ const CoverLetter8 = ({ page2Ref, page1Ref, data }) => {
         {splitContents?.second?.length > 0 && (
           <div
             ref={page2Ref}
-            className="flex flex-row h-[700px] p-[24px] w-[595px]   bg-[#fff] overflow-hidden"
+            className="flex flex-row h-[700px] p-[24px] w-[595px] gap-[21px] bg-[#fff] overflow-hidden"
           >
-            <div className="w-[33%] flex flex-row gap-[24px]"></div>
+            <div className="w-[30%] flex flex-row gap-[24px]"></div>
             <div className="flex h-full w-[70%]">
               <div className="flex flex-col justify-start w-full gap-[8px]">
                 <div className="text-[12px] font-[400] text-[#58595B] leading-[16px] ">

@@ -5,9 +5,7 @@ import CustomTextEditor from "./CustomTextEditor";
 
 const CustomLetterBody = ({ data, setData }) => {
   const [text, setText] = useState("");
- 
 
-  console.log("data454", data);
   return (
     <div className="flex flex-col gap-[16px] w-full bg-white py-4">
       <div>
