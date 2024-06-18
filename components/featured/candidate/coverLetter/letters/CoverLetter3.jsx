@@ -48,7 +48,7 @@ function CoverLetter3({ page2Ref, page1Ref, data }) {
       <div className="flex flex-col gap-[24px]">
         <div
           ref={page1Ref}
-          className=" w-[595px] min-h-[700px] p-[46px] gap-[16px] flex flex-col  "
+          className=" w-[595px] min-h-[700px] p-[46px] gap-[16px] flex flex-col bg-[#fff] "
         >
           <div className="flex flex-row justify-between w-full">
             <div className="flex flex-col w-[70%]">
@@ -95,7 +95,6 @@ function CoverLetter3({ page2Ref, page1Ref, data }) {
             </div>
           </div>
           <div className="w-full h-[1px] border-[0.75px] border-[#DEDEDE]"></div>
-
           <div className="flex flex-col justify-start w-full gap-[8px]">
             <span className="flex flex-col justify-end items-end gap-[4px]">
               <p className="text-[12px] font-[600] text-[#242424]">Date :</p>
@@ -107,7 +106,7 @@ function CoverLetter3({ page2Ref, page1Ref, data }) {
               Dear {data?.employerName},
             </span>
 
-            <div className="text-[12px] font-[400] text-[#6D6E71] ">
+            <div className="text-[12px] font-[400] text-[#6D6E71]  ">
               {splitContents.first.map((passage, index) => (
                 <p key={index} style={{ margin: "16px 0" }}>
                   {passage}
@@ -129,7 +128,7 @@ function CoverLetter3({ page2Ref, page1Ref, data }) {
         {splitContents?.second?.length > 0 && (
           <div
             ref={page2Ref}
-            className=" w-[595px] min-h-[700px] p-[24px] flex  flex-col bg-[#fff] "
+            className=" w-[595px] min-h-[700px] p-[46px] flex  flex-col bg-[#fff] "
           >
             <div className="flex h-full">
               <div className="flex flex-col justify-start w-full gap-[8px]">
@@ -142,10 +141,10 @@ function CoverLetter3({ page2Ref, page1Ref, data }) {
                 </div>
                 {splitContents?.second?.length > 0 && (
                   <div className="flex flex-col w-full gap-[2px]">
-                    <span className="text-[10px] font-[400] text-[#6D6E71] ">
+                    <span className="text-[12px] font-[400] text-[#6D6E71] ">
                       Warm regards,
                     </span>
-                    <span className="text-[10px] font-[400] text-[#6D6E71]  ">
+                    <span className="text-[12px] font-[400] text-[#6D6E71] ">
                       {data?.firstName} {data?.lastName}
                     </span>
                   </div>

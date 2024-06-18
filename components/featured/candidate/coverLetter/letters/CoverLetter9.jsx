@@ -46,12 +46,12 @@ function CoverLetter9({ page2Ref, page1Ref, data }) {
     <div className="flex flex-col gap-[24px]">
       <div
         ref={page1Ref}
-        className=" flex flex-row  w-[595px] min-h-[700px] "
+        className=" flex flex-row w-[595px] min-h-[700px]  bg-[#fff] overflow-hidden"
       >
         <div className="w-[30%] py-[34px] px-[26px] bg-[#F2F2F2] flex flex-col min-h-[700px] justify-between ">
           <div className="flex flex-col gap-[24px] ">
-            <div className="w-full flex flex-col justify-center items-center gap-[6px]">
-              <span className="flex flex-row gap-[2px]">
+            <div className="w-full flex flex-col  justify-center items-center gap-[6px] px-[28px]">
+              <span className="flex flex-row flex-wrap gap-[2px]">
                 <p className="text-[26px] font-[400] leading-[31.47px] text-[#414042]">
                   {data.firstName}
                 </p>
@@ -63,8 +63,7 @@ function CoverLetter9({ page2Ref, page1Ref, data }) {
                 {data.designation}
               </span>
             </div>
-
-            <div className="flex flex-col gap-[8px]">
+            <div className="flex flex-col gap-[8px] px-[26px]">
               <span className=" text-[14px] font-[400] text-[#0072BC] leading-[16.94px]">
                 To,
               </span>
@@ -154,11 +153,12 @@ function CoverLetter9({ page2Ref, page1Ref, data }) {
           </div>
         </div>
         <div className="w-[70%] py-[34px] px-[26px]  flex flex-col h-full gap-[24px] ">
-          <div className="flex flex-row gap-[8px] justify-end items-end">
-            <span className="text-[12px] font-[700] text-[#0072BC] leading-[14.4px]">
+          <div className="flex flex-row gap-[8px] justify-end items-center">
+            <span className=" text-[12px] font-[700] text-[#0072BC] leading-[14.4px]">
               Date :{" "}
             </span>
-            <span className="text-[12px] font-[400] text-[#414042]">
+
+            <span className=" text-[12px] font-[400] text-[#414042]">
               {data?.letterDate != {} && formatDateInNumber(data?.letterDate)}
             </span>
           </div>
@@ -192,28 +192,28 @@ function CoverLetter9({ page2Ref, page1Ref, data }) {
       {splitContents?.second?.length > 0 && (
         <div
           ref={page2Ref}
-          className=" w-[595px] min-h-[700px] p-[24px]   flex flex-col bg-[#fff] overflow-hidden"
+          className="flex flex-row w-[595px] min-h-[700px] bg-[#fff] overflow-hidden"
         >
-          <div className="flex h-full">
-            <div className="flex flex-col justify-start w-full gap-[8px]">
-              <div className="text-[10px] font-[400]  text-[#414042] leading-[14px] font-[Inter]">
-                {splitContents.second.map((passage, index) => (
-                  <p key={index} style={{ margin: "16px 0" }}>
-                    {passage}
-                  </p>
-                ))}
-              </div>
-              {splitContents?.second?.length > 0 && (
-                <div className="flex flex-col w-full gap-[2px]">
-                  <span className="text-[10px] font-[400] text-[#414042] ">
-                    Warm regards,
-                  </span>
-                  <span className="text-[10px] font-[400] text-[#414042]  ">
-                    {data?.firstName} {data?.lastName}
-                  </span>
-                </div>
-              )}
+          <div className="w-[30%] py-[34px] px-[26px] bg-[#F2F2F2] flex flex-col min-h-[700px] justify-between "></div>
+
+          <div className="w-[70%] py-[34px] px-[26px]  flex flex-col h-full gap-[24px] ">
+            <div className="text-[10px] font-[400]  text-[#414042] leading-[14px] font-[Inter]">
+              {splitContents.second.map((passage, index) => (
+                <p key={index} style={{ margin: "16px 0" }}>
+                  {passage}
+                </p>
+              ))}
             </div>
+            {splitContents?.second?.length > 0 && (
+              <div className="flex flex-col w-full gap-[2px]">
+                <span className="text-[10px] font-[400] text-[#414042] ">
+                  Warm regards,
+                </span>
+                <span className="text-[10px] font-[400] text-[#414042]  ">
+                  {data?.firstName} {data?.lastName}
+                </span>
+              </div>
+            )}
           </div>
         </div>
       )}

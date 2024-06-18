@@ -3,7 +3,7 @@ import { Close_svg } from "../../../../../utils/svg";
 import CreatableSelect from "react-select/creatable";
 import axios from "axios";
 
-const JobDetails = ({ data, setData, isFormat, errors ,setError}) => {
+const JobDetails = ({ data, setData, isFormat, errors, setError }) => {
   const [isShow, setIsShow] = useState(true);
   const [inputValue, setInputValue] = useState("");
   const [requiredSkills, setRequiredSkills] = useState([]);
@@ -173,7 +173,7 @@ const JobDetails = ({ data, setData, isFormat, errors ,setError}) => {
     }
     setJobData({ ...JobData, [name]: value });
     setData({ ...data, [name]: value });
-    setError(newErrors)
+    setError(newErrors);
   };
 
   const handleInputSkills = (e) => {
@@ -278,7 +278,7 @@ const JobDetails = ({ data, setData, isFormat, errors ,setError}) => {
             </div>
           )}
 
-          <div className="flex flex-row gap-[16px] justify-between it">
+          <div className="flex md:flex-row flex-col gap-[16px] justify-between it">
             {inputFields
               .filter(
                 (employer) =>
@@ -314,7 +314,7 @@ const JobDetails = ({ data, setData, isFormat, errors ,setError}) => {
               ))}
           </div>
 
-          <div className="flex flex-row gap-[16px]">
+          <div className="flex md:flex-row flex-col gap-[16px]">
             {inputFields
               .filter(
                 (employer) =>

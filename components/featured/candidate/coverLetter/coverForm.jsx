@@ -66,9 +66,6 @@ function CoverForm({
     ));
   };
 
-  const handleSaveData = () => {
-    console.log(7865);
-  };
   const renderAllTemplates = () => {
     return coverLetters.map((template, index) => (
       <img
@@ -162,6 +159,7 @@ function CoverForm({
             data
           );
           const letterData = response.data;
+
           setData({ ...data, passages: letterData.passages });
           setLoading(false);
           setIsShow(true);
@@ -192,27 +190,23 @@ function CoverForm({
 
   const rephrasePassage = () => {
     const oldPassage = data.passages.join(" ");
-
     const prompt = `Original passage:\n${oldPassage}\n\nNew passage:\n`;
-
     setLoading(true);
     axios
-      .post("http://localhost:20000/api/cover/rephrase", { prompt })
+      .post("https://jamblix.com/api/cover/rephrase", { prompt })
       .then((res) => {
         setLoading(false);
-        console.log(777, res.data);
-
-        const rephrasedPassage = res.data.data.choices[0].message.content;
+        const rephrasedPassage = res.data;
 
         setData((prevData) => ({
           ...prevData,
-          passages: [rephrasedPassage],
+          passages: rephrasedPassage.passages,
         }));
 
-        if (!isPlanActive) {
-          localStorage.setItem("attempts", attempt - 1);
-          getAttempts();
-        }
+        // if (!isPlanActive) {
+        //   localStorage.setItem("attempts", attempt - 1);
+        //   getAttempts();
+        // }
       })
       .catch((err) => {
         setLoading(false);
@@ -222,10 +216,10 @@ function CoverForm({
 
   return (
     <div
-      className="flex flex-col ml:w-[100%] w-[100%] h-[88vh] relative gap-4 rounded-lg overflow-y-auto  bg-white "
+      className="flex flex-col ml:w-[100%] w-[100%] h-[88vh] relative gap-4 rounded-lg overflow-y-auto bg-white "
       style={{ scrollbarWidth: "none" }}
     >
-      <div className="ml:flex hidden  flex-row gap-4 sticky top-0 z-[20] bg-white pb-2">
+      <div className="flex  flex-row gap-4 sticky md:static top-0 z-[20] bg-[#FFFFFF] pb-2  ">
         <button
           className="p-[8px] border-[1px] bg-blue border-[#DEDEDE] rounded-[6px]  "
           style={{}}
@@ -365,41 +359,7 @@ function CoverForm({
           </div>
         </div>
       )}
-      {isShow === false && (
-        <div className="flex flex-col gap-[16px] sticky top-[40px] z-[10] bg-white pt-5 pb-4">
-          {/** 
-          <ThemeForm
-            selectedCoverIndex={selectedCoverIndex}
-            selectedColor={selectedColor}
-            setSelectedColor={setSelectedColor}
-            setSelectedFont={setSelectedFont}
-            selectedFont={selectedFont}
-          />*/}
-          <div className="bg-[#DEDEDE] w-full h-[1px]"></div>
-          <div className="bg-[#F9F9F9] w-full flex rounded-[8px] text-[14px] font-semibold  ">
-            <button
-              className={`${
-                isFormat === "standard"
-                  ? "bg-[#06A9EF] py-[8px] px-[16px] flex justify-center items-center rounded-[8px] w-[50%] text-white"
-                  : "py-[8px] px-[16px] flex justify-center items-center rounded-[8px] w-[50%]"
-              }`}
-              onClick={() => setIsFormat("standard")}
-            >
-              Standard Format
-            </button>
-            <button
-              className={`${
-                isFormat === "custom"
-                  ? "bg-[#06A9EF] py-[8px] px-[16px] flex justify-center items-center rounded-[8px] w-[50%] text-white"
-                  : "py-[8px] px-[16px] flex justify-center items-center rounded-[8px] w-[50%]"
-              }`}
-              onClick={() => setIsFormat("custom")}
-            >
-              Custom Format
-            </button>
-          </div>
-        </div>
-      )}
+
       <div>
         {isShow === false && (
           <div className="flex flex-col gap-[16px] overflow-y-auto">
@@ -581,7 +541,7 @@ function CoverForm({
             animate={{ x: 0 }}
             exit={{ x: "-100%" }}
             transition={{ duration: 0.5, ease: "easeInOut" }}
-            className=" min-w-[496px] w-[34%] flex flex-col gap-4 "
+            className=" ml:min-w-[496px] ml:w-[34%] min-w-[370px] flex flex-col gap-4 "
             style={{
               background: "white",
               boxShadow: "0 0 10px rgba(255, 255, 255, 0.5)",
@@ -617,7 +577,7 @@ function CoverForm({
                   </span>
                 </div>
               </div>
-              {/**
+
               <div className="flex flex-row justify-between items-center gap-[10px]">
                 <button
                   className="flex items-center font-montserrat text-xs font-semibold btn_outline gap-[6px]"
@@ -633,7 +593,7 @@ function CoverForm({
                 <button className="font-montserrat text-white font-medium text-[12px] px-[16px] py-[8px] rounded-[8px] bg-[#DEDEDE] w-[60px] h-[32px]">
                   Save
                 </button>
-              </div> */}
+              </div>
             </div>
           </motion.div>
         )}

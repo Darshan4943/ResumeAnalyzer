@@ -2,8 +2,6 @@ import React, { useState, useEffect, useRef, useCallback } from "react";
 import { formatDateInNumber } from "../../../../../utils/data";
 
 const CoverLetter2 = ({ page1Ref, page2Ref, data }) => {
-  console.log(88811, data);
-
   const firstPageRef = useRef(null);
 
   // const HeaderPageRef = useRef(null);
@@ -44,7 +42,6 @@ const CoverLetter2 = ({ page1Ref, page2Ref, data }) => {
     setSplitContent({ first: firstHalf, second: secondHalf });
   }, [data?.passages]);
 
-  console.log(777, splitContents);
   useEffect(() => {
     if (data?.passages) {
       splitContent();
@@ -97,7 +94,7 @@ const CoverLetter2 = ({ page1Ref, page2Ref, data }) => {
               </div>
             </div>
           </div>
-          <div className="flex flex-col px-[36px]">
+          <div className="flex flex-col px-[36px] gap-[16px]">
             <div className="flex flex-row justify-end items-start gap-[8.99px]">
               <h6 className="text-[10px] text-[#0E6CC2] font-poppins font-bold leading-[15px] text-left">
                 Date :
@@ -108,9 +105,7 @@ const CoverLetter2 = ({ page1Ref, page2Ref, data }) => {
             </div>
             <div className="flex flex-row gap-[24px]">
               <div className="font-lato text-[10px] font-normal leading-[12px] text-[#6D6E71] w-[500px] text-left ">
-                <span className="flex pb-[16px]">
-                  Dear {data?.employerName}
-                </span>
+                <span className="flex pb-[8px]">Dear {data?.employerName}</span>
                 {splitContents?.first.map((passage, index) => (
                   <p key={index} style={{ margin: "16px 0" }}>
                     {passage}

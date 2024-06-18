@@ -28,16 +28,70 @@ function CoverPreview({ data, clientId, selectedCoverIndex }) {
   const [download, setDownload] = useState(false);
 
   const [loading1, setLoading1] = useState(false);
-
   const [zoomLevel, setZoomLevel] = useState(1);
+  const [minZoomLevel, setMinZoomLevel] = useState(0.5);
+  const [maxZoomLevel, setMaxZoomLevel] = useState(2);
+
+  const updateZoomLimits = () => {
+    const width = window.innerWidth;
+
+    if (width >= 1024) {
+      setMinZoomLevel(0.35);
+      setMaxZoomLevel(1.5);
+    } else if (width >= 768) {
+      setMinZoomLevel(0.5);
+      setMaxZoomLevel(1.05);
+    } else if (width >= 425) {
+      setMinZoomLevel(0.75);
+      setMaxZoomLevel(0.65);
+    } else if (width >= 375) {
+      setMinZoomLevel(0.55);
+      setMaxZoomLevel(0.75);
+    } else {
+      setMinZoomLevel(0.25);
+      setMaxZoomLevel(1.5);
+    }
+  };
+
+  const updateInitialZoomLevel = () => {
+    const width = window.innerWidth;
+
+    if (width >= 1024) {
+      setZoomLevel(1);
+    } else if (width >= 768) {
+      setZoomLevel(1.05);
+    } else if (width >= 790) {
+      setZoomLevel(0.94);
+    } else if (width >= 425) {
+      setZoomLevel(0.65);
+    } else if (width >= 375) {
+      setZoomLevel(0.55);
+    } else if (width >= 320) {
+      setZoomLevel(0.44);
+    } else {
+      setZoomLevel(0.25);
+    }
+  };
+
+  useEffect(() => {
+    updateZoomLimits();
+    updateInitialZoomLevel();
+    window.addEventListener("resize", updateZoomLimits);
+    return () => window.removeEventListener("resize", updateZoomLimits);
+  }, []);
 
   const zoomIn = () => {
-    setZoomLevel((prevZoomLevel) => Math.min(prevZoomLevel + 0.1, 3));
+    setZoomLevel((prevZoomLevel) =>
+      Math.min(prevZoomLevel + 0.1, maxZoomLevel)
+    );
   };
 
   const zoomOut = () => {
-    setZoomLevel((prevZoomLevel) => Math.max(prevZoomLevel - 0.1, 0.5));
+    setZoomLevel((prevZoomLevel) =>
+      Math.max(prevZoomLevel - 0.1, minZoomLevel)
+    );
   };
+
   const addCoverLetter = async () => {
     try {
       const pdfBlob = await generatePdfBlob();
@@ -135,8 +189,6 @@ function CoverPreview({ data, clientId, selectedCoverIndex }) {
   const downloadPdfBlob = async () => {
     const input1 = page1Ref.current;
     const input2 = page2Ref.current;
-    console.log(118, input1);
-    console.log(119, input2);
 
     try {
       const canvas1 = await html2canvas(input1, { scale: 5 });
@@ -151,7 +203,6 @@ function CoverPreview({ data, clientId, selectedCoverIndex }) {
       pdf.addImage(imgData2, "JPEG", 0, 0, 595.28, 841.89);
 
       const pdfBlob = pdf.output("blob");
-      console.log(131, pdfBlob);
 
       pdf.save(`${data.firstName}_cover_letter.pdf`);
       setDownload(false);
@@ -165,7 +216,6 @@ function CoverPreview({ data, clientId, selectedCoverIndex }) {
 
   const handleDownload = async () => {
     const pdfBlob = await downloadPdfBlob();
-    console.log(145, pdfBlob);
 
     if (pdfBlob) {
       await addCoverLetter(pdfBlob);
@@ -236,7 +286,7 @@ function CoverPreview({ data, clientId, selectedCoverIndex }) {
   );
 
   const selectCoverTemplate = (index) => {
-    console.log("index", index);
+    console.log("index1", index);
     switch (index) {
       case 1:
         return <CoverLetter data={data} />;
@@ -266,6 +316,7 @@ function CoverPreview({ data, clientId, selectedCoverIndex }) {
     }
   };
   const selectCoverTemplate1 = (index) => {
+    console.log("index2", index);
     switch (index) {
       case 1:
         return (
@@ -321,11 +372,15 @@ function CoverPreview({ data, clientId, selectedCoverIndex }) {
 
   return (
     <div className="flex flex-col gap-4 relative h-[88vh] ">
-      <div className="flex justify-between sticky top-0">
-        <div className="flex items-center justify-between ml:w-[58%] w-full gap-4">
+      <div className="scr1024:flex scr1024:flex-row flex-col-reverse justify-between ml:gap-0 gap-2 sticky top-0">
+        <div
+          className="scr1024:flex  items-center justify-between  scr1024:w-[58%] w-full gap-4"
+          style={{ flexDirection: "column-reverse" }}
+        >
           <div
             className="text-[14px] scr460:text-[20px] font-montserrat font-medium flex gap-3 items-center cursor-pointer"
             onClick={() => setNamePreview(true)}
+            style={{}}
           >
             <p>{name}</p>
             <svg
@@ -345,13 +400,13 @@ function CoverPreview({ data, clientId, selectedCoverIndex }) {
             </svg>
           </div>
         </div>
-        <div className="flex gap-4">
+        <div className="flex gap-4 justify-end ">
           <button
             onClick={() => {
               handleSave();
               setLoading(true);
             }}
-            className="flex gap-1 h-[38.33px] text-[14px] w-[150px] justify-center text-[#FFF] font-montserrat font-semibold px-3 py-2 rounded-[8px] items-center border border-[#06A9EF] bg-[#06A9EF]"
+            className="flex gap-1 h-[38.33px] scr1024:text-[14px] scr1024:w-[150px]  min-w-[100px] justify-center text-[#FFF] font-montserrat font-semibold scr1024:px-3 scr1024:py-2  px-[4px] py-[2px] rounded-[8px] items-center border border-[#06A9EF] bg-[#06A9EF]"
           >
             {loading ? (
               <svg
@@ -378,9 +433,9 @@ function CoverPreview({ data, clientId, selectedCoverIndex }) {
           <DownloadButton />
         </div>
       </div>
-      <div className="   overflow-auto roundScrollbar flex flex-col gap-3  rounded-[8px] bg-[#F9F9F9] px-2 py-6 relative">
+      <div className="   overflow-auto roundScrollbar flex flex-col gap-3 rounded-[8px] bg-[#F9F9F9] px-2 py-6  relative">
         <div className="flex justify-end absolute right-4 z-[20] ">
-          <div
+          {/**  <div
             className=" "
             style={{
               backgroundColor: "rgba(50, 54, 57, 0.5)", // Change this value to adjust transparency
@@ -418,6 +473,60 @@ function CoverPreview({ data, clientId, selectedCoverIndex }) {
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
               className=" cursor-pointer"
+            >
+              <g mask="url(#mask0_4509_40599)">
+                <path
+                  d="M7.8848 10.25C7.6723 10.25 7.49421 10.1781 7.35055 10.0343C7.20688 9.89043 7.13505 9.71226 7.13505 9.49976C7.13505 9.2871 7.20688 9.10902 7.35055 8.96552C7.49421 8.82185 7.6723 8.75002 7.8848 8.75002H11.154C11.3665 8.75002 11.5447 8.82193 11.6885 8.96577C11.8322 9.1096 11.904 9.28777 11.904 9.50027C11.904 9.71293 11.8322 9.89102 11.6885 10.0345C11.5447 10.1782 11.3665 10.25 11.154 10.25H7.8848ZM9.51955 15.6153C7.81038 15.6153 6.36388 15.0235 5.18005 13.84C3.99621 12.6565 3.4043 11.2103 3.4043 9.50152C3.4043 7.79285 3.99605 6.34618 5.17955 5.16152C6.36305 3.97702 7.80921 3.38477 9.51805 3.38477C11.2267 3.38477 12.6734 3.97668 13.858 5.16051C15.0425 6.34435 15.6348 7.79085 15.6348 9.50002C15.6348 10.2142 15.515 10.8963 15.2753 11.5463C15.0355 12.1963 14.7155 12.7616 14.3155 13.2423L20.0695 18.9963C20.208 19.1346 20.2789 19.3086 20.282 19.5183C20.2852 19.7279 20.2144 19.9052 20.0695 20.05C19.9247 20.1948 19.749 20.2673 19.5425 20.2673C19.3362 20.2673 19.1606 20.1948 19.0158 20.05L13.2618 14.296C12.7618 14.7088 12.1868 15.0319 11.5368 15.2653C10.8868 15.4986 10.2144 15.6153 9.51955 15.6153ZM9.51955 14.1155C10.808 14.1155 11.8994 13.6683 12.7935 12.774C13.6879 11.8798 14.135 10.7885 14.135 9.50002C14.135 8.21152 13.6879 7.12018 12.7935 6.22601C11.8994 5.33168 10.808 4.88452 9.51955 4.88452C8.23105 4.88452 7.13971 5.33168 6.24555 6.22601C5.35121 7.12018 4.90405 8.21152 4.90405 9.50002C4.90405 10.7885 5.35121 11.8798 6.24555 12.774C7.13971 13.6683 8.23105 14.1155 9.51955 14.1155Z"
+                  fill="white"
+                />
+              </g>
+            </svg>
+          </div>*/}
+          <div
+            className="flex gap-4 rounded-lg overflow-y-auto bg-white ml:py-[6px] ml:px-[16px] py-[4px] px-[8px]  ml:min-w-[96px]  min-w-[60px]"
+            style={{
+              backgroundColor: "rgba(50, 54, 57, 0.5)",
+              borderRadius: "50px",
+              display: "flex",
+              gap: "12px",
+              // padding: "6px 16px",
+              // width: "96px",
+              alignItems: "center",
+              justifyContent: "center",
+              transition: "transform 0.3s ease-in-out",
+            }}
+          >
+            <div
+              style={{ transform: `scale(${zoomLevel})` }}
+              // Zoom Level: {zoomLevel}
+            >
+              {" "}
+            </div>
+            <svg
+              onClick={zoomIn}
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              className="cursor-pointer ml:min-w-[24px] ml:min-h-[24px] min-w-[16px] min-h-[16px]"
+            >
+              <g mask="url(#mask0_4509_40583)">
+                <path
+                  d="M8.76955 10.25H7.5773C7.3648 10.25 7.18663 10.1781 7.0428 10.0343C6.89913 9.89043 6.8273 9.71226 6.8273 9.49976C6.8273 9.2871 6.89913 9.10902 7.0428 8.96552C7.18663 8.82185 7.3648 8.75002 7.5773 8.75002H8.76955V7.55777C8.76955 7.34527 8.84146 7.1671 8.9853 7.02327C9.12913 6.8796 9.3073 6.80777 9.5198 6.80777C9.73246 6.80777 9.91055 6.8796 10.054 7.02327C10.1977 7.1671 10.2695 7.34527 10.2695 7.55777V8.75002H11.4618C11.6743 8.75002 11.8525 8.82193 11.9963 8.96577C12.14 9.1096 12.2118 9.28777 12.2118 9.50027C12.2118 9.71293 12.14 9.89102 11.9963 10.0345C11.8525 10.1782 11.6743 10.25 11.4618 10.25H10.2695V11.4423C10.2695 11.6548 10.1976 11.8329 10.0538 11.9768C9.90996 12.1204 9.7318 12.1923 9.5193 12.1923C9.30663 12.1923 9.12855 12.1204 8.98505 11.9768C8.84138 11.8329 8.76955 11.6548 8.76955 11.4423V10.25ZM9.51955 15.6153C7.81038 15.6153 6.36388 15.0235 5.18005 13.84C3.99621 12.6565 3.4043 11.2103 3.4043 9.50152C3.4043 7.79285 3.99605 6.34618 5.17955 5.16152C6.36305 3.97702 7.80921 3.38477 9.51805 3.38477C11.2267 3.38477 12.6734 3.97668 13.858 5.16051C15.0425 6.34435 15.6348 7.79085 15.6348 9.50002C15.6348 10.2142 15.515 10.8963 15.2753 11.5463C15.0355 12.1963 14.7155 12.7616 14.3155 13.2423L20.0695 18.9963C20.208 19.1346 20.2789 19.3086 20.282 19.5183C20.2852 19.7279 20.2144 19.9052 20.0695 20.05C19.9247 20.1948 19.749 20.2673 19.5425 20.2673C19.3362 20.2673 19.1606 20.1948 19.0158 20.05L13.2618 14.296C12.7618 14.7088 12.1868 15.0319 11.5368 15.2653C10.8868 15.4986 10.2144 15.6153 9.51955 15.6153ZM9.51955 14.1155C10.808 14.1155 11.8994 13.6683 12.7935 12.774C13.6879 11.8798 14.135 10.7885 14.135 9.50002C14.135 8.21152 13.6879 7.12018 12.7935 6.22601C11.8994 5.33168 10.808 4.88452 9.51955 4.88452C8.23105 4.88452 7.13971 5.33168 6.24555 6.22601C5.35121 7.12018 4.90405 8.21152 4.90405 9.50002C4.90405 10.7885 5.35121 11.8798 6.24555 12.774C7.13971 13.6683 8.23105 14.1155 9.51955 14.1155Z"
+                  fill="white"
+                />
+              </g>
+            </svg>
+            <div className="bg-[#646464] w-[1px] h-[90%] "></div>
+            <svg
+              onClick={zoomOut}
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              className="cursor-pointer ml:min-w-[24px] ml:min-h-[24px] min-w-[16px] min-h-[16px]"
             >
               <g mask="url(#mask0_4509_40599)">
                 <path

@@ -305,7 +305,7 @@ const PersonalDetails = ({ data, setData, errors, setError }) => {
               ))}
           </div>*/}
 
-          <div className="flex flex-row gap-[16px]">
+          <div className="flex md:flex-row flex-col gap-[16px]">
             {inputFields
               .filter(
                 (employer) =>
