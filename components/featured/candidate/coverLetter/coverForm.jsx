@@ -193,7 +193,7 @@ function CoverForm({
     const prompt = `Original passage:\n${oldPassage}\n\nNew passage:\n`;
     setLoading(true);
     axios
-      .post("http://localhost:2000/api/cover/rephrase", { prompt })
+      .post("https://jamblix.com/api/cover/rephrase", { prompt })
       .then((res) => {
         setLoading(false);
         const rephrasedPassage = res.data;
