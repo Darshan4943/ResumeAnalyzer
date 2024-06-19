@@ -61,7 +61,6 @@ const ProjectInternship = ({ data, setData }) => {
     if (relevantSkills && !relevantSkills.includes(inputValue)) {
       const updatedSkills = [...relevantSkills, inputValue];
       setrelevantSkills(updatedSkills);
-
       setData({ ...data, relevantSkills: updatedSkills });
       setInputValue("");
     }
@@ -75,6 +74,13 @@ const ProjectInternship = ({ data, setData }) => {
       responsibilities: data?.responsibilities,
     });
   }, [data]);
+
+  const removeSkill = (skillToRemove) => {
+    const updatedSkills = relevantSkills.filter(
+      (skill) => skill !== skillToRemove
+    );
+    setrelevantSkills(updatedSkills);
+  };
   return (
     <div className="flex flex-col gap-[16px] w-full bg-white py-4">
       <div className="flex flex-row justify-between gap-[8px] items-center">

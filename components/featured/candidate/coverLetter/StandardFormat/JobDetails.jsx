@@ -3,7 +3,7 @@ import { Close_svg } from "../../../../../utils/svg";
 import CreatableSelect from "react-select/creatable";
 import axios from "axios";
 
-const JobDetails = ({ data, setData, isFormat, errors ,setError}) => {
+const JobDetails = ({ data, setData, isFormat, errors, setError }) => {
   const [isShow, setIsShow] = useState(true);
   const [inputValue, setInputValue] = useState("");
   const [requiredSkills, setRequiredSkills] = useState([]);
@@ -173,7 +173,7 @@ const JobDetails = ({ data, setData, isFormat, errors ,setError}) => {
     }
     setJobData({ ...JobData, [name]: value });
     setData({ ...data, [name]: value });
-    setError(newErrors)
+    setError(newErrors);
   };
 
   const handleInputSkills = (e) => {
@@ -273,12 +273,12 @@ const JobDetails = ({ data, setData, isFormat, errors ,setError}) => {
                   `}
               />
               {errors && errors["jobTitle"] && (
-                <span className="text-red text-[10px]">field is required!</span>
+                <span className="text-red text-[10px]">title is required!</span>
               )}
             </div>
           )}
 
-          <div className="flex flex-row gap-[16px] justify-between it">
+          <div className="flex md:flex-row flex-col gap-[16px] justify-between it">
             {inputFields
               .filter(
                 (employer) =>
@@ -307,14 +307,14 @@ const JobDetails = ({ data, setData, isFormat, errors ,setError}) => {
                   />
                   {errors && errors[employer.name] && (
                     <span className="text-red text-[10px]">
-                      field is required!
+                      {errors[employer.name]}
                     </span>
                   )}
                 </div>
               ))}
           </div>
 
-          <div className="flex flex-row gap-[16px]">
+          <div className="flex md:flex-row flex-col gap-[16px]">
             {inputFields
               .filter(
                 (employer) =>
@@ -343,7 +343,7 @@ const JobDetails = ({ data, setData, isFormat, errors ,setError}) => {
                   />
                   {errors && errors[employer.name] && (
                     <span className="text-red text-[10px]">
-                      field is required!
+                      {errors[employer.name]}
                     </span>
                   )}
                 </div>

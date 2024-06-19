@@ -50,15 +50,15 @@ function CoverLetter7({ page2Ref, page1Ref, data }) {
       >
         <div className="w-full flex flex-row justify-between bg-[#F1F2F2] py-[28px] px-[42px] rounded-[80px]">
           <div className="flex flex-col gap-[2px] justify-start items-start">
-            <span className="text-[#414042] text-[20px] font-[700] leading-[30px] ">
+            <span className="text-[#414042] text-[20px] font-[700] leading-[30px] font-Poppins break-all ">
               {data?.firstName} {data?.lastName}
             </span>
 
-            <span className="text-[#414042] text-[12px] font-[500] leading-[18px] ">
+            <span className="text-[#414042] text-[12px] font-[500] leading-[18px] break-all">
               {data?.designation}
             </span>
           </div>
-          <div className="flex flex-col gap-[8px] w-[30%]">
+          <div className="flex flex-col gap-[8px]">
             <div className="gap-[8px] flex flex-row w-full ">
               <svg
                 className="min-h-[15px] min-w-[15px]"
@@ -74,8 +74,8 @@ function CoverLetter7({ page2Ref, page1Ref, data }) {
                 />
               </svg>
 
-              <span className="text-[10px] font-[400] text-[#414042]">
-                {data?.mobileNumber}
+              <span className=" flex flex-wrap text-[10px] font-[400] text-[#414042] break-all">
+                {data?.dial_code} {data?.mobileNumber}
               </span>
             </div>
             <div>
@@ -94,7 +94,7 @@ function CoverLetter7({ page2Ref, page1Ref, data }) {
                   />
                 </svg>
 
-                <span className="text-[10px] font-[400] text-[#414042]">
+                <span className="text-[10px] font-[400] text-[#414042] break-all">
                   {data?.email}
                 </span>
               </div>
@@ -115,7 +115,7 @@ function CoverLetter7({ page2Ref, page1Ref, data }) {
                   />
                 </svg>
 
-                <span className="text-[10px] font-[400] text-[#414042]">
+                <span className="text-[10px] font-[400] text-[#414042] break-all">
                   {data?.address}
                 </span>
               </div>
@@ -124,7 +124,7 @@ function CoverLetter7({ page2Ref, page1Ref, data }) {
         </div>
         <div className="w-full flex flex-row gap-[24px]">
           <div className=" flex flex-col gap-[16px] w-[30%]">
-            <div className="flex flex-col gap-[2px]">
+            <div className="flex flex-col flex-wrap gap-[2px]">
               <span className="text-[12px] font-[600] text-[#0054A6]">
                 Date :
               </span>
@@ -132,7 +132,7 @@ function CoverLetter7({ page2Ref, page1Ref, data }) {
                 {data?.letterDate != {} && formatDateInNumber(data?.letterDate)}
               </span>
             </div>
-            <div className="flex flex-col">
+            <div className="flex flex-col flex-wrap">
               <span className=" text-[12px] font-[600] text-[#0054A6] leading-[18px]">
                 To,
               </span>
@@ -143,7 +143,7 @@ function CoverLetter7({ page2Ref, page1Ref, data }) {
               <span className=" text-[12px] font-[600] text-[#333333] leading-[18px]">
                 {data?.designation}
               </span>
-              <span className=" text-[12px] font-[400] text-[#414042] leading-[18px]">
+              <span className=" text-[12px] font-[400] text-[#414042] leading-[18px] break-all">
                 {data?.employerOrganizationName}
               </span>
               <span className=" text-[12px] font-[400] text-[#414042] leading-[18px]">
@@ -182,10 +182,10 @@ function CoverLetter7({ page2Ref, page1Ref, data }) {
       {splitContents?.second?.length > 0 && (
         <div
           ref={page2Ref}
-          className="flex flex-row  p-[24px] w-[595px] min-h-[700px] bg-[#fff] overflow-hidden"
+          className="flex flex-row  p-[24px] w-[595px] min-h-[700px] bg-[#fff] overflow-hidden gap-[24px]"
         >
-          <div className="w-[34%] flex flex-row gap-[24px]"></div>
-          <div className="flex h-full w-[70%]">
+          <div className="w-[30%] flex flex-row gap-[24px]"></div>
+          <div className="flex h-full w-[70%] gap-[4px]">
             <div className="flex flex-col justify-start w-full gap-[8px]">
               <div className="text-[10px] font-[400]  text-[#414042] leading-[14px] font-[Inter]">
                 {splitContents.second.map((passage, index) => (
