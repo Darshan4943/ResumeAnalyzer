@@ -50,11 +50,11 @@ function CoverLetter7({ page2Ref, page1Ref, data }) {
       >
         <div className="w-full flex flex-row justify-between bg-[#F1F2F2] py-[28px] px-[42px] rounded-[80px]">
           <div className="flex flex-col gap-[2px] justify-start items-start">
-            <span className="text-[#414042] text-[20px] font-[700] leading-[30px] font-Poppins ">
+            <span className="text-[#414042] text-[20px] font-[700] leading-[30px] font-Poppins break-all ">
               {data?.firstName} {data?.lastName}
             </span>
 
-            <span className="text-[#414042] text-[12px] font-[500] leading-[18px] ">
+            <span className="text-[#414042] text-[12px] font-[500] leading-[18px] break-all">
               {data?.designation}
             </span>
           </div>
@@ -74,8 +74,8 @@ function CoverLetter7({ page2Ref, page1Ref, data }) {
                 />
               </svg>
 
-              <span className=" flex flex-wrap text-[10px] font-[400] text-[#414042]">
-                {data?.mobileNumber}
+              <span className=" flex flex-wrap text-[10px] font-[400] text-[#414042] break-all">
+                {data?.dial_code} {data?.mobileNumber}
               </span>
             </div>
             <div>
@@ -94,7 +94,7 @@ function CoverLetter7({ page2Ref, page1Ref, data }) {
                   />
                 </svg>
 
-                <span className="text-[10px] font-[400] text-[#414042]">
+                <span className="text-[10px] font-[400] text-[#414042] break-all">
                   {data?.email}
                 </span>
               </div>
@@ -115,7 +115,7 @@ function CoverLetter7({ page2Ref, page1Ref, data }) {
                   />
                 </svg>
 
-                <span className="text-[10px] font-[400] text-[#414042]">
+                <span className="text-[10px] font-[400] text-[#414042] break-all">
                   {data?.address}
                 </span>
               </div>
@@ -143,7 +143,7 @@ function CoverLetter7({ page2Ref, page1Ref, data }) {
               <span className=" text-[12px] font-[600] text-[#333333] leading-[18px]">
                 {data?.designation}
               </span>
-              <span className=" text-[12px] font-[400] text-[#414042] leading-[18px]">
+              <span className=" text-[12px] font-[400] text-[#414042] leading-[18px] break-all">
                 {data?.employerOrganizationName}
               </span>
               <span className=" text-[12px] font-[400] text-[#414042] leading-[18px]">

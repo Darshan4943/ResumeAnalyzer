@@ -403,8 +403,12 @@ function CoverPreview({ data, clientId, selectedCoverIndex }) {
         <div className="flex gap-4 justify-end ">
           <button
             onClick={() => {
-              handleSave();
-              setLoading(true);
+              if (data?.passages) {
+                handleSave();
+                setLoading(true);
+              } else {
+                toast.error("required to fill details!");
+              }
             }}
             className="flex gap-1 h-[38.33px] scr1024:text-[14px] scr1024:w-[150px]  min-w-[100px] justify-center text-[#FFF] font-montserrat font-semibold scr1024:px-3 scr1024:py-2  px-[4px] py-[2px] rounded-[8px] items-center border border-[#06A9EF] bg-[#06A9EF]"
           >
