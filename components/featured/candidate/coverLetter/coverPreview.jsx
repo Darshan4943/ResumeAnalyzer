@@ -6,6 +6,7 @@ import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import CoverLetter11 from './letters/CoverLetter11'; // Adjust import path as necessary
 import FileNameModel from '../createResume/components/fileNameModel';
+import CoverLetter13 from './letters/CoverLatter13';
 
 function CoverPreview({ data }) {
     const [namePreview, setNamePreview] = useState(false);
@@ -190,10 +191,10 @@ function CoverPreview({ data }) {
                 </div>
             </div>
             <div className='   overflow-auto ' >
-                <CoverLetter11 data={data}  />
+                <CoverLetter13 data={data}  />
             </div>
             <div className='absolute  left-[10000px]' >
-                <CoverLetter11 data={data} page1Ref={page1Ref} page2Ref={page2Ref} />
+                <CoverLetter13 data={data} page1Ref={page1Ref} page2Ref={page2Ref} />
             </div>
 
             {namePreview && (
