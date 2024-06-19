@@ -311,6 +311,8 @@ function CoverPreview({ data, clientId, selectedCoverIndex }) {
         return <CoverLetter10 data={data} />;
       case 11:
         return <CoverLetter11 data={data} />;
+        case 13:
+          return <CoverLetter13 data={data} />;
 
       default:
         return <CoverLetter data={data} />;
