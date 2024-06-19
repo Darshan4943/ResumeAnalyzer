@@ -102,10 +102,10 @@ function CoverLetter13({ page1Ref, page2Ref, data }) {
 
                 </div>
                 <div className="flex flex-col justify-start w-full gap-[8px]">
-                    <span className="text-[12px] font-[400] text-[#6D6E71] font-Arial">
+                    <span className="text-[12px] font-[400] text-[#333] font-Arial">
                         Dear {data?.employerName},
                     </span>
-                    <div className="text-[12px] font-[400] text-[#6D6E71]">
+                    <div className="text-[12px] font-[400] text-[#333]">
                         {splitContents.first.map((passage, index) => (
                             <p key={index} style={{ margin: "16px 0" }}>{passage}</p>
                         ))}
@@ -122,7 +122,7 @@ function CoverLetter13({ page1Ref, page2Ref, data }) {
                     >
                         <div className="flex h-full">
                             <div className="flex flex-col justify-start w-full gap-[8px]">
-                                <div className="text-[12px] font-[400] text-[#6D6E71]">
+                                <div className="text-[12px] font-[400] text-[#333]">
                                     {splitContents.second.map((passage, index) => (
                                         <p key={index} style={{ margin: "16px 0" }}>{passage}</p>
                                     ))}
