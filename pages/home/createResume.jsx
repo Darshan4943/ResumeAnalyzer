@@ -447,7 +447,7 @@ console.log(111,data)
         skills,
       } = parsedData;
       const languages = parsedData?.languages;
-      const hobbies = parsedData.hobbies;
+      const hobbies = parsedData?.hobbies;
 
       const educations = parsedData.education;
       console.log(222,educations)
@@ -489,13 +489,13 @@ console.log(111,data)
         designation: designation,
         summery: summary,
         location: address,
-        skills: skills?.map((item) => ({
+        skills: skills?.length > 0 ? skills?.map((item) => ({
           skill: item,
           rating: [5, 5, 5, 5, 5],
-        })),
-        hobbies: hobbies?.map((item) => ({
+        })):[],
+        hobbies: hobbies?.length > 0? hobbies?.map((item) => ({
           title: item,
-        })),
+        })) : [],
         languages:
           languages?.length > 0
             ? languages?.map((item) => ({
