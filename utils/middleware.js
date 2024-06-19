@@ -563,11 +563,18 @@ export const coverLetters = [
     fontFamily: "Lato",
     themeColor: "#414042",
   },
-  // {
-  //   title: "Cover11",
-  //   imgUrl: "/images/coverLetter/Cover-letter-11.png",
-  //   index: 11,
-  //   fontFamily: "Lato",
-  //   themeColor: "#414042",
-  // },
+  {
+    title: "Cover11",
+    imgUrl: "/images/coverLetter/Cover-letter-11.png",
+    index: 11,
+    fontFamily: "Lato",
+    themeColor: "#414042",
+  },
+  {
+    title: "Cover13",
+    imgUrl: "/images/coverLetter/Cover-letter-13.png",
+    index: 12,
+    fontFamily: "Lato",
+    themeColor: "#414042",
+  },
 ];

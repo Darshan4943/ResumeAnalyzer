@@ -16,6 +16,7 @@ import CoverLetter2 from "./letters/CoverLetter2";
 import CoverLetter4 from "./letters/CoverLetter4";
 import CoverLetter6 from "./letters/CoverLetter6";
 import CoverLetter8 from "./letters/CoverLetter8";
+import CoverLetter13 from './letters/CoverLatter13';
 
 function CoverPreview({ data, clientId, selectedCoverIndex }) {
   const [namePreview, setNamePreview] = useState(false);

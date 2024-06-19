@@ -74,6 +74,7 @@ module.exports = {
       kanit: ["Kanit", "sans-serif"],
       // font-family: 'Lato', sans-serif;
       Lato: ["Lato", "sans-serif"],
+      Arial: ["Arial", "sans-serif"],
     },
     extend: {
       backgroundImage: {
