@@ -2,7 +2,8 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
-const FileNameModel = ({ setNamePreview, setFunction, data, clientId }) => {
+const FileNameModel = ({ setNamePreview, setFunction, data, clientId,isResume ,isEdit}) => {
+  console.log(isResume)
   const [name, setName] = useState(data.firstName + "_resume");
   const [existingNames, setExistingNames] = useState([]);
 
@@ -21,27 +22,46 @@ const FileNameModel = ({ setNamePreview, setFunction, data, clientId }) => {
 
   const callData = () => {
     const id = userDataGlobal.role === "user" ? userDataGlobal?._id : clientId;
+    const url=isResume ?`https://jamblix.com/api/resume/${id}` :"https://jamblix.com/api/cover/get/"+ id
     if (id) {
       axios
-      .get("https://jamblix.com/api/cover/get/" + id)
+      .get(url )
 
-        .then((res) => {
-          // Remove .pdf extension from filenames
-         
-console.log(222,res.data.data)
-          setName(data.firstName + "_resume " + (res.data.data.length + 1));
-        })
+      .then((res) => {
+        console.log(res.data.data);
+        const filenamesWithoutExtension = res.data.data.flatMap((item) =>
+            item.fileName.map((filename) => filename.replace(/\.pdf$/, ""))
+        );
+        setExistingNames(filenamesWithoutExtension);
+        if (!isEdit) {
+            setName(data.firstName + "_resume " + (res.data.data.length + 1));
+        }
+    })
         .catch((err) => {
           console.log(err);
         });
     }
   };
-
+console.log(existingNames)
   
   useEffect(() => {
-    callData()
-    setName(data.firstName + "_resume");
-  }, [userDataGlobal, data.firstName]);
+    callData();
+    if (!isEdit) {
+      setName(data.firstName + "_resume");
+    } else {
+      if (Array.isArray(data.fileName) && data.fileName.length > 0) {
+        const fileName = data.fileName[0];
+        if (typeof fileName === 'string' && fileName.endsWith(".pdf")) {
+          setName(fileName.slice(0, -4));
+        } else {
+          setName(fileName);
+        }
+      } else {
+        setName('');
+      }
+    }
+  }, [userDataGlobal, data.firstName, ]);
+
 
 
   const handleSave = () => {
