@@ -393,6 +393,7 @@ function Template19({ data, selectedColor, selectedFont, preview }) {
                             flexDirection: "row",
                             justifyContent: "space-between",
                             gap: 10,
+                            alignItems:'start'
                           }}
                         >
                           <Text
