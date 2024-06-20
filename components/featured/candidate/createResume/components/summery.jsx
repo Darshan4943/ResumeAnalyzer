@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { plans } from "../../../../../utils/data";
 
 function Summary({ limits, selectedPlan, isActive }) {
-  console.log(11, limits);
+
   const router = useRouter();
   const [progress, setProgress] = useState(0);
   const [daysRemaing, setDaysRemaing] = useState(0);
