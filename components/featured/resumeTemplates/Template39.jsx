@@ -12,8 +12,8 @@ import {
 } from "@react-pdf/renderer";
 function Template39({ data, selectedColor, selectedFont, preview }) {
   const formatLink = (link) => {
-    if (link?.length > 25) {
-      return link?.match(/.{1,25}/g).join("\n");
+    if (link?.length > 19) {
+      return link?.match(/.{1,19}/g).join("\n");
     }
     return link;
   };
@@ -262,7 +262,16 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
                                 fontFamily: `${selectedFont} 400`,
                               }}
                             >
-                              {formatLink(detail.qualification)} - {formatLink(detail.specialization)}
+                              {formatLink(detail.qualification)}
+                            </Text>
+                            <Text
+                              style={{
+                                color: "#000000",
+                                fontSize: "12px",
+                                fontFamily: `${selectedFont} 400`,
+                              }}
+                            >
+                              {formatLink(detail.specialization)}
                             </Text>
 
                             <Text
@@ -281,6 +290,7 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
                                 color: "#58595B",
                                 fontSize: "10px",
                                 fontFamily: `${selectedFont} 400`,
+                                height: "15px",
                               }}
                             >
                               {detail.duration?.start?.year !== "Year" &&
@@ -827,7 +837,7 @@ function Template39({ data, selectedColor, selectedFont, preview }) {
               </View>
             </View>
           )}
-          
+
           {data?.project?.length > 0 && data?.showProject === true && (
             <View
               wrap={data?.project?.length > 1 ? true : false}
