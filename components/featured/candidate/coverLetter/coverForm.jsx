@@ -107,7 +107,7 @@ function CoverForm({
 
       requiredFields.forEach((field) => {
         if (!data[field]) {
-          errors[field] = `${field} is missing`;
+          errors[field] = `${field} is required`;
         }
       });
 
@@ -152,7 +152,7 @@ function CoverForm({
       if (data) {
         const errors = validateRequiredFields(data);
         setError(errors);
-        console.log("errors", errors);
+
         if (Object.keys(errors).length === 0) {
           const response = await axios.post(
             "https://jamblix.com/api/cover-letter/transform",
@@ -189,6 +189,7 @@ function CoverForm({
   };
 
   const rephrasePassage = () => {
+    setLoading(true);
     const oldPassage = data.passages.join(" ");
     const prompt = `Original passage:\n${oldPassage}\n\nNew passage:\n`;
     setLoading(true);
@@ -203,6 +204,7 @@ function CoverForm({
           passages: rephrasedPassage.passages,
         }));
 
+        setLoading(false);
         // if (!isPlanActive) {
         //   localStorage.setItem("attempts", attempt - 1);
         //   getAttempts();
@@ -366,7 +368,7 @@ function CoverForm({
             <div className="bg-[#DEDEDE] w-full h-[1px]"> </div>
             <div className="flex flex-col gap-[16px] text-[14px] font-medium">
               <label className="font-montserrat text-[14px] font-[500] leading-[17.07px] text-left w-full">
-                Content Situation
+                Current Work Status
               </label>
 
               <div className="w-full flex gap-[16px] text-[14px] font-montserrat items-center font-medium">
@@ -404,29 +406,29 @@ function CoverForm({
               >
                 Letter Date
               </label>
-              <div className="relative flex gap-2 justify-between">
+              <div className="relative flex gap-2 justify-between w-[224px] px-[10px] py-[11px] border border-[#C4C4C4]  rounded-[8px] text-[12px]  text-[#646464] font-[400]">
                 <DatePicker
                   id="letter-date"
                   selected={selectedDate}
                   onChange={(date) => setSelectedDate(date)}
                   placeholderText="Select Date"
-                  className="w-full px-6 py-2 gap-2 border border-[#646464] rounded-[8px] shadow-sm focus:outline-none focus:ring focus:border-blue-300"
+                  className="flex justify-center items-center text-[12px] font-[400]"
+                  // className="w-full px-[10px] py-[16px] gap-2 border border-[#646464] rounded-[8px] shadow-sm focus:outline-none focus:ring focus:border-blue-300"
+                  // className={`w-full px-6 py-2 gap-2  pl-[16px] border border-solid rounded-[8px] text-[12px] leading-[16px] text-[#646464] font-[400]` }
                 />
 
                 <span className="absolute inset-y-0 left-[180px] flex items-center pointer-events-none gap-3  py-2">
                   <div className="h-full w-[1px] bg-[#DEDEDE]"></div>
                   <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-5 w-5 text-gray-500 cursor-pointer"
+                    width="16"
+                    height="18"
+                    viewBox="0 0 16 18"
                     fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M8 7V3m8 4V3m-9 4h10M5 11h14m-7 4h.01m-6 0h.01M6 17h12a2 2 0 002-2V7a2 2 0 00-2-2H6a2 2 0 00-2 2v8a2 2 0 002 2z"
+                      d="M2.16667 17.3332C1.70833 17.3332 1.31597 17.17 0.989583 16.8436C0.663194 16.5172 0.5 16.1248 0.5 15.6665V3.99984C0.5 3.5415 0.663194 3.14914 0.989583 2.82275C1.31597 2.49637 1.70833 2.33317 2.16667 2.33317H3V0.666504H4.66667V2.33317H11.3333V0.666504H13V2.33317H13.8333C14.2917 2.33317 14.684 2.49637 15.0104 2.82275C15.3368 3.14914 15.5 3.5415 15.5 3.99984V15.6665C15.5 16.1248 15.3368 16.5172 15.0104 16.8436C14.684 17.17 14.2917 17.3332 13.8333 17.3332H2.16667ZM2.16667 15.6665H13.8333V7.33317H2.16667V15.6665ZM2.16667 5.6665H13.8333V3.99984H2.16667V5.6665Z"
+                      fill="#333333"
                     />
                   </svg>
                 </span>
@@ -583,12 +585,32 @@ function CoverForm({
                   className="flex items-center font-montserrat text-xs font-semibold btn_outline gap-[6px]"
                   onClick={rephrasePassage}
                 >
-                  <>
-                    <SparklingStarts />
-                    <span className="text-[12px] text-[#333333] font-[600] font-Montserrat leading-[16px]">
-                      Rephrase with AI
-                    </span>
-                  </>
+                  {loading ? (
+                    <svg
+                      aria-hidden="true"
+                      role="status"
+                      className="inline w-4 h-4  animate-spin"
+                      viewBox="0 0 100 101"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                        fill="#E5E7EB"
+                      />
+                      <path
+                        d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                  ) : (
+                    <>
+                      <SparklingStarts />
+                      <span className="text-[12px] text-[#333333] font-[600] font-Montserrat leading-[16px]">
+                        Rephrase with AI
+                      </span>
+                    </>
+                  )}
                 </button>
                 <button className="font-montserrat text-white font-medium text-[12px] px-[16px] py-[8px] rounded-[8px] bg-[#DEDEDE] w-[60px] h-[32px]">
                   Save

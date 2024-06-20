@@ -81,7 +81,7 @@ const ExtraCaricularActivity = ({
       } else {
         setData({
           ...data,
-          extraCaricularData: [extraCaricularData, ...data?.extraCaricularData],
+          extraCaricularData: [ ...data?.extraCaricularData, extraCaricularData],
         });
         {
           validateForm

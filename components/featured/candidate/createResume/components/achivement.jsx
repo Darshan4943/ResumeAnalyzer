@@ -67,7 +67,7 @@ const Achievement = ({
       } else {
         setData({
           ...data,
-          achievements: [achivementData, ...data?.achievements],
+          achievements: [ ...data?.achievements,achivementData],
         });
         setAchievementView(false);
       }

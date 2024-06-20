@@ -207,7 +207,7 @@ const EmployerDetails = ({ data, setData, errors, setError }) => {
                 />
                 {errors && errors[employer.name] && (
                   <span className="text-red text-[12px]">
-                    field is required!
+                    {errors[employer.name]}
                   </span>
                 )}
               </div>
@@ -240,7 +240,7 @@ const EmployerDetails = ({ data, setData, errors, setError }) => {
                   />
                   {errors && errors[employer.name] && (
                     <span className="text-[12px] text-red">
-                      field is required!
+                      {errors[employer.name]}
                     </span>
                   )}
                 </div>

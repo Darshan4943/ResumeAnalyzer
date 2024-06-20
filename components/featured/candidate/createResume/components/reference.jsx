@@ -165,14 +165,13 @@ const Reference = ({
         const dummyData = data?.reference;
         const index = isModified?.index;
 
-        dummyData?.splice(index, 1, referenceData);
-
+        dummyData?.splice(index, 1, referenceData);       
         setData({ ...data, reference: dummyData });
         setReferenceView(false);
       } else {
         setData({
           ...data,
-          reference: [referenceData, ...data?.reference],
+          reference: [...data?.reference,referenceData ],
         });
         {
           validateFields ? setReferenceView(false) : setReferenceView(true);

@@ -69,7 +69,7 @@ const Experience = ({ data, setData }) => {
       } else {
         setData({
           ...data,
-          experience: [experienceData, ...data.experience],
+          experience: [...data.experience, experienceData ],
         });
         {
           validateForm ? setView(false) : setView(true);

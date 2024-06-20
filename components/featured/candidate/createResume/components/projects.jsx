@@ -80,7 +80,7 @@ const Project = ({
       } else {
         setData({
           ...data,
-          project: [projectData, ...data?.project],
+          project: [ ...data?.project, projectData,],
         });
         {
           validateForm ? setProjectView(false) : setProjectView(true);

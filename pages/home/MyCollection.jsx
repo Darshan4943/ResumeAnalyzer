@@ -303,7 +303,7 @@ const MyCollection = () => {
             ) : (
               <div className="flex flex-row flex-wrap gap-[48px] p-[24px] bg-[#F9F9F9] rounded-[12px]  ">
                 <div
-                  onClick={() => router.push(`/home/BuildResume`)}
+                  onClick={() => router.push(`/coverLetter`)}
                   style={{ boxShadow: "0px 0px 10px 5px #00000040" }}
                   className="rounded-[12px] text-center text-white justify-center flex scr540:flex-col flex-row text-[18px] items-center gap-2 font-medium  scr540:w-[192px] w-[312px]  scr540:h-[272px] h-[135px] bg-[#646464] p-6 cursor-pointer"
                 >

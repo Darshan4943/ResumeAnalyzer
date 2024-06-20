@@ -82,7 +82,7 @@ const CouersesAndCertification = ({
       } else {
         setData({
           ...data,
-          course: [courseData, ...data?.course],
+          course: [ ...data?.course,courseData],
         });
         {
           validateForm ? setCoursesView(false) : setCoursesView(true);

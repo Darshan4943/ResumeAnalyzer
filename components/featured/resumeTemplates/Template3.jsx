@@ -16,35 +16,40 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
 
   const formatLink26 = (link) => {
     if (link?.length > 25) {
-      return link?.match(/.{1,25}/g).join('\n');  }
+      return link?.match(/.{1,25}/g).join('\n');
+    }
     return link;
   };
 
   const formatLink20 = (link) => {
     if (link?.length > 20) {
-      return link?.match(/.{1,20}/g).join('\n');  }
+      return link?.match(/.{1,20}/g).join('\n');
+    }
     return link;
   };
-  
+
 
   const formatLink21 = (link) => {
     if (link?.length > 21) {
-      return link?.match(/.{1,21}/g).join('\n');  }
+      return link?.match(/.{1,21}/g).join('\n');
+    }
     return link;
   };
 
   const formatLink35 = (link) => {
     if (link?.length > 50) {
-      return link?.match(/.{1,50}/g).join('\n');  }
+      return link?.match(/.{1,50}/g).join('\n');
+    }
     return link;
   };
 
   const formatLink12 = (link) => {
     if (link?.length > 15) {
-      return link?.match(/.{1,15}/g).join('\n');  }
+      return link?.match(/.{1,15}/g).join('\n');
+    }
     return link;
   };
-  
+
 
   return (
     <Page size="A4" wrap={true} style={{ paddingTop: "12px" }}>
@@ -75,8 +80,8 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                     preview
                       ? data.profilePhoto
                       : Object.keys(data?.profilePhoto).includes("filename")
-                      ? URL.createObjectURL(data.profilePhoto)
-                      : data.profilePhoto
+                        ? URL.createObjectURL(data.profilePhoto)
+                        : data.profilePhoto
                   }
                   style={{
                     objectFit: "cover",
@@ -112,7 +117,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                 fontSize={15}
                 fontFamily={`${selectedFont} 400`}
               >
-                CONTACT{" "}
+                CONTACT
               </Text>
             </Svg>
           </View>
@@ -148,7 +153,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                   </Svg>
                 </View>
                 <View
-                  style={{ color: "white", fontSize: 10, flexDirection: "row",alignItems:'flex-start' }}
+                  style={{ color: "white", fontSize: 10, flexDirection: "row", alignItems: 'flex-start' }}
                 >
                   <Text
                     style={{
@@ -156,7 +161,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                       flexWrap: "wrap",
                     }}
                   >
-                  {data.dial_code} {data.mobileNumber}
+                    {data.dial_code} {data.mobileNumber}
                   </Text>
                 </View>
               </View>
@@ -189,7 +194,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                     flexDirection: "row",
                     fontSize: 10,
                     maxWidth: "100%",
-                    alignItems:'flex-start'
+                    alignItems: 'flex-start'
                   }}
                 >
                   <Text
@@ -229,7 +234,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                     fontSize={15}
                     fontFamily={`${selectedFont} 400`}
                   >
-                    SOCIAL LINKS{" "}
+                    SOCIAL LINKS
                   </Text>
                 </Svg>
               </View>
@@ -277,11 +282,11 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
 
           {data?.skills?.length > 0 && data?.showSkills === true && (
             <View
-            //  wrap={false} 
-             style={{ maxWidth: "100%" }}>
+              //  wrap={false} 
+              style={{ maxWidth: "100%" }}>
               <View
                 style={{
-                  paddingTop:'4px',
+                  paddingTop: '4px',
                   paddingLeft: -1,
                   height: 27,
                   alignItems: "center",
@@ -302,7 +307,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                     fontSize={15}
                     fontFamily={`${selectedFont} 400`}
                   >
-                    SKILLS{" "}
+                    SKILLS
                   </Text>
                 </Svg>
               </View>
@@ -335,7 +340,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
           )}
 
           {data?.achievements?.length > 0 && (
-            <View wrap={false} style={{paddingTop:'4px'}}>
+            <View wrap={false} style={{ paddingTop: '4px' }}>
               <View
                 style={{
                   paddingLeft: -1,
@@ -358,7 +363,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                     fontSize={15}
                     fontFamily={`${selectedFont} 400`}
                   >
-                    AWARDS{" "}
+                    AWARDS
                   </Text>
                 </Svg>
               </View>
@@ -411,7 +416,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                     fontSize={15}
                     fontFamily={`${selectedFont} 400`}
                   >
-                    LANGUAGES{" "}
+                    LANGUAGES
                   </Text>
                 </Svg>
               </View>
@@ -464,7 +469,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                     fontSize={15}
                     fontFamily={`${selectedFont} 400`}
                   >
-                    HOBBIES{" "}
+                    HOBBIES
                   </Text>
                 </Svg>
               </View>
@@ -553,7 +558,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
               </Text>
               <Text
                 style={{
-                  paddingRight:'6px',
+                  paddingRight: '6px',
                   color: "#646464",
                   breakAll: "break-all",
                   fontFamily: `${selectedFont} 400`,
@@ -593,7 +598,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                   fontSize={15}
                   fontFamily={`${selectedFont} 400`}
                 >
-                  EDUCATION{" "}
+                  EDUCATION
                 </Text>
               </Svg>
               <View
@@ -623,7 +628,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                         style={{
                           color: "#414042",
                           fontSize: "12",
-                          marginVertical:'4px',
+                          marginVertical: '4px',
                           fontFamily: `${selectedFont} 700`,
                         }}
                       >
@@ -646,10 +651,9 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                         }}
                       >
                         {detail.duration?.start?.year !== "Year" &&
-                          `${detail.duration?.start?.year}-${
-                            detail.duration?.end?.year === "Year"
-                              ? "Pursuing"
-                              : detail.duration?.end?.year
+                          `${detail.duration?.start?.year}-${detail.duration?.end?.year === "Year"
+                            ? "Pursuing"
+                            : detail.duration?.end?.year
                           }`}
                       </Text>
                     </View>
@@ -688,7 +692,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                   fontSize={15}
                   fontFamily={`${selectedFont} 400`}
                 >
-                  EXPERIENCE{" "}
+                  EXPERIENCE
                 </Text>
               </Svg>
               <View style={{ flexDirection: "column", gap: 24 }}>
@@ -727,14 +731,14 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                             paddingLeft: "18px",
                             fontSize: "12",
                             fontFamily: `${selectedFont} 400`,
-                            height:'15px'
+                            height: '15px'
                           }}
                         >
-                        {detail.duration?.start?.year !== "Year"  &&
-                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
-                                ? "Present"
-                                : detail.duration?.end?.year
-                              }
+                          {detail.duration?.start?.year !== "Year" &&
+                            `${detail.duration?.start?.year}-${detail.currentlyWorking || detail.duration?.end?.year === "Year"
+                              ? "Present"
+                              : detail.duration?.end?.year
+                            }
                          `}
                         </Text>
                       </View>
@@ -793,7 +797,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                   fontSize={15}
                   fontFamily={`${selectedFont} 400`}
                 >
-                  PROJECTS{" "}
+                  PROJECTS
                 </Text>
               </Svg>
               <View style={{ flexDirection: "column", gap: 24 }}>
@@ -832,14 +836,14 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                             paddingLeft: "18px",
                             fontSize: "12",
                             fontFamily: `${selectedFont} 400`,
-                            height:'15px'
+                            height: '15px'
                           }}
                         >
-                      {detail.duration?.start?.year !== "Year"  &&
-                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
-                                ? "Present"
-                                : detail.duration?.end?.year
-                              }
+                          {detail.duration?.start?.year !== "Year" &&
+                            `${detail.duration?.start?.year}-${detail.currentlyWorking || detail.duration?.end?.year === "Year"
+                              ? "Present"
+                              : detail.duration?.end?.year
+                            }
                          `}
                         </Text>
                       </View>
@@ -898,7 +902,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                   fontSize={15}
                   fontFamily={`${selectedFont} 400`}
                 >
-                  INTERNSHIPS{" "}
+                  INTERNSHIPS
                 </Text>
               </Svg>
               <View style={{ flexDirection: "column", gap: 24 }}>
@@ -937,14 +941,14 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                             paddingLeft: "18px",
                             fontSize: "12",
                             fontFamily: `${selectedFont} 400`,
-                            height:'15px'
+                            height: '15px'
                           }}
                         >
-                       {detail.duration?.start?.year !== "Year"  &&
-                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
-                                ? "Present"
-                                : detail.duration?.end?.year
-                              }
+                          {detail.duration?.start?.year !== "Year" &&
+                            `${detail.duration?.start?.year}-${detail.currentlyWorking || detail.duration?.end?.year === "Year"
+                              ? "Present"
+                              : detail.duration?.end?.year
+                            }
                          `}
                         </Text>
                       </View>
@@ -1003,7 +1007,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                   fontSize={15}
                   fontFamily={`${selectedFont} 400`}
                 >
-                  Courses & Certifications{" "}
+                  Courses & Certifications
                 </Text>
               </Svg>
               <View style={{ flexDirection: "column", gap: 24 }}>
@@ -1042,14 +1046,13 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                             paddingLeft: "18px",
                             fontSize: "12",
                             fontFamily: `${selectedFont} 400`,
-                            height:'15px'
+                            height: '15px'
                           }}
                         >
                           {detail.duration?.start?.year !== "Year" &&
-                            `${detail.duration?.start?.year}-${" "}${
-                              detail.currentlyWorking
-                                ? "Present"
-                                : detail.duration?.end?.year
+                            `${detail.duration?.start?.year}-${detail.currentlyWorking
+                              ? "Present"
+                              : detail.duration?.end?.year
                             }`}
                         </Text>
                       </View>
@@ -1108,7 +1111,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                     fontSize={15}
                     fontFamily={`${selectedFont} 400`}
                   >
-                    ACTIVITIES{" "}
+                    ACTIVITIES
                   </Text>
                 </Svg>
                 <View style={{ flexDirection: "column", gap: 24 }}>
@@ -1147,11 +1150,11 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                               paddingLeft: "18px",
                               fontSize: "12",
                               fontFamily: `${selectedFont} 400`,
-                              height:'15px'
+                              height: '15px'
                             }}
                           >
-                         {detail.duration?.start?.year !== "Year"  &&
-                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
+                            {detail.duration?.start?.year !== "Year" &&
+                              `${detail.duration?.start?.year}-${detail.currentlyWorking || detail.duration?.end?.year === "Year"
                                 ? "Present"
                                 : detail.duration?.end?.year
                               }
@@ -1212,7 +1215,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                   fontSize={15}
                   fontFamily={`${selectedFont} 400`}
                 >
-                  REFERENCE{" "}
+                  REFERENCE
                 </Text>
               </Svg>
               <View style={{ flexDirection: "column", gap: 24 }}>
@@ -1316,7 +1319,7 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                             width: "100%",
                             justifyContent: "space-between",
                             alignItems: "start",
-                            paddingRight:'5px'
+                            paddingRight: '5px'
                           }}
                         >
                           <Text
@@ -1339,12 +1342,12 @@ const Template3 = ({ data, selectedColor, selectedFont, preview }) => {
                                 fontFamily: `${selectedFont} 400`,
                               }}
                             >
-                            {detail?.duration?.start?.year}
-                                  {detail?.duration?.start?.year && "-"}
-                                  {detail?.duration?.end?.year === "Year" ||
-                                    detail?.duration?.end?.year === undefined
-                                    ? "Present"
-                                    : detail?.duration?.end?.year}
+                              {detail?.duration?.start?.year}
+                              {detail?.duration?.start?.year && "-"}
+                              {detail?.duration?.end?.year === "Year" ||
+                                detail?.duration?.end?.year === undefined
+                                ? "Present"
+                                : detail?.duration?.end?.year}
                             </Text>
                           )}
                         </View>

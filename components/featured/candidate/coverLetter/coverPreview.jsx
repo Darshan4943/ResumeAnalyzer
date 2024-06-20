@@ -16,6 +16,7 @@ import CoverLetter2 from "./letters/CoverLetter2";
 import CoverLetter4 from "./letters/CoverLetter4";
 import CoverLetter6 from "./letters/CoverLetter6";
 import CoverLetter8 from "./letters/CoverLetter8";
+import CoverLetter13 from './letters/CoverLatter13';
 
 function CoverPreview({ data, clientId, selectedCoverIndex }) {
   const [namePreview, setNamePreview] = useState(false);
@@ -310,6 +311,8 @@ function CoverPreview({ data, clientId, selectedCoverIndex }) {
         return <CoverLetter10 data={data} />;
       case 11:
         return <CoverLetter11 data={data} />;
+        case 13:
+          return <CoverLetter13 data={data} />;
 
       default:
         return <CoverLetter data={data} />;
@@ -403,8 +406,12 @@ function CoverPreview({ data, clientId, selectedCoverIndex }) {
         <div className="flex gap-4 justify-end ">
           <button
             onClick={() => {
-              handleSave();
-              setLoading(true);
+              if (data?.passages) {
+                handleSave();
+                setLoading(true);
+              } else {
+                toast.error("required to fill details!");
+              }
             }}
             className="flex gap-1 h-[38.33px] scr1024:text-[14px] scr1024:w-[150px]  min-w-[100px] justify-center text-[#FFF] font-montserrat font-semibold scr1024:px-3 scr1024:py-2  px-[4px] py-[2px] rounded-[8px] items-center border border-[#06A9EF] bg-[#06A9EF]"
           >

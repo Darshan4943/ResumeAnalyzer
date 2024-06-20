@@ -54,18 +54,18 @@ function CoverLetter10({ page2Ref, page1Ref, data }) {
             </span>
             <div className="flex flex-col gap-[6px]">
               <div className="flex flex-col gap-[2px]">
-                <span className=" text-[12px] font-[600] text-[#2D3033] leading-[12.1px]">
+                <span className=" text-[12px] font-[600] text-[#2D3033] leading-[12.1px] break-all">
                   {data?.employerName}
                 </span>
-                <span className=" text-[12px] font-[400] text-[#2D3033] leading-[12.1px]">
+                <span className=" text-[12px] font-[400] text-[#2D3033] leading-[12.1px] break-all">
                   {data?.designation}
                 </span>
               </div>
               <div className="flex flex-col gap-[2px]">
-                <span className=" text-[10px] font-[400] text-[#2D3033] leading-[12.1px]">
+                <span className=" text-[10px] font-[400] text-[#2D3033] leading-[12.1px] break-all">
                   {data?.employerOrganizationName}
                 </span>
-                <span className=" text-[10px] font-[400] text-[#2D3033] leading-[12.1px]">
+                <span className=" text-[10px] font-[400] text-[#2D3033] leading-[12.1px] break-all">
                   {data?.employerAddress} {data?.employerCityState}{" "}
                   {data?.employerCountry}
                 </span>
@@ -81,7 +81,7 @@ function CoverLetter10({ page2Ref, page1Ref, data }) {
                 <span className=" text-[12px] font-[400] text-[#2D3033] leading-[12.1px]">
                   Address
                 </span>
-                <span className=" text-[12px] font-[400] text-[#2D3033] leading-[12.1px]">
+                <span className=" text-[12px] font-[400] text-[#2D3033] leading-[12.1px] break-all">
                   {data?.address}
                 </span>
               </div>
@@ -89,15 +89,15 @@ function CoverLetter10({ page2Ref, page1Ref, data }) {
                 <span className=" text-[12px] font-[400] text-[#2D3033] leading-[12.1px]">
                   Mobile
                 </span>
-                <span className=" text-[12px] font-[400] text-[#2D3033] leading-[12.1px]">
-                  {data?.mobileNumber}
+                <span className=" text-[12px] font-[400] text-[#2D3033] leading-[12.1px] break-all">
+                  {data?.dial_code} {data?.mobileNumber}
                 </span>
               </div>
               <div className="flex flex-col justify-center items-center gap-[2px]">
                 <span className=" text-[12px] font-[400] text-[#2D3033] leading-[12.1px]">
                   Email
                 </span>
-                <span className=" text-[12px] font-[400] text-[#2D3033] leading-[12.1px]">
+                <span className=" text-[12px] font-[400] text-[#2D3033] leading-[12.1px] break-all">
                   {data?.email}
                 </span>
               </div>
@@ -108,10 +108,10 @@ function CoverLetter10({ page2Ref, page1Ref, data }) {
         <div className="flex flex-col px-[42px] pt-[42px] pb-[92px] gap-[38px]">
           <div className="gap-[6px] flex flex-col ">
             <div className="gap-[2px] flex flex-col">
-              <span className="text-[40px] font-[400] leading-[48.41px] text-[#0D0D0D]">
+              <span className="text-[40px] font-[400] leading-[48.41px] text-[#0D0D0D] break-all">
                 {data?.firstName} {data?.lastName}
               </span>
-              <span className="text-[20px] font-[400] leading-[24.41px] text-[#0D0D0D]">
+              <span className="text-[20px] font-[400] leading-[24.41px] text-[#0D0D0D] break-all">
                 {data?.designation}
               </span>
             </div>
