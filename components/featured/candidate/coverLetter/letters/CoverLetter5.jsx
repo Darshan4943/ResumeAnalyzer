@@ -7,7 +7,7 @@ function CoverLetter5({ page2Ref, page1Ref, data }) {
 
   const splitContent = useCallback(() => {
     const firstPage = firstPageRef.current;
-    const firstPageHeight = 350; // Set the fixed height you want for the paragraph div
+    const firstPageHeight = 350;
 
     // Create a temporary element to measure content height
     const tempDiv = document.createElement("div");
@@ -54,7 +54,7 @@ function CoverLetter5({ page2Ref, page1Ref, data }) {
             src="/images/template5.png"
           />
 
-          <div className="absolute top-[26px] left-[28px] w-[92%] flex flex-row justify-between">
+          <div className="absolute top-[26px] left-[20px] w-[92%] flex flex-row justify-between items-center">
             <div className="flex flex-col w-[76%] justify-start items-start">
               <span className="text-[32px] font-[600] leading-[36px] text-[#F7941D] break-all">
                 {data.firstName}
@@ -66,8 +66,8 @@ function CoverLetter5({ page2Ref, page1Ref, data }) {
                 {data.designation}
               </span>
             </div>
-            <div className="flex flex-col gap-[8px] justify-start items-start pr-[2px]">
-              <div className="gap-[8px] flex flex-row w-full ">
+            <div className="flex flex-col gap-[8px] justify-start items-start pr-[2px] ">
+              <div className="gap-[8px] flex flex-row w-full items-center">
                 <svg
                   className="min-h-[14px] min-w-[14px]"
                   width="14"
@@ -87,7 +87,7 @@ function CoverLetter5({ page2Ref, page1Ref, data }) {
                 </span>
               </div>
 
-              <div className="gap-[8px] flex flex-row w-full">
+              <div className="gap-[8px] flex flex-row w-full items-center">
                 <svg
                   className="min-h-[14px] min-w-[14px]"
                   width="14"
@@ -107,7 +107,7 @@ function CoverLetter5({ page2Ref, page1Ref, data }) {
                 </span>
               </div>
 
-              <div className="gap-[8px] flex flex-row w-full ">
+              <div className="gap-[8px] flex flex-row w-full items-center ">
                 <svg
                   className="min-h-[14px] min-w-[14px]"
                   width="14"
@@ -187,11 +187,11 @@ function CoverLetter5({ page2Ref, page1Ref, data }) {
         {splitContents?.second?.length > 0 && (
           <div
             ref={page2Ref}
-            className="  w-[595px] min-h-[700px] p-[24px]  flex flex-col bg-[#fff] overflow-hidden"
+            className="  w-[595px] min-h-[700px] p-[24px]   flex flex-col bg-[#fff] overflow-hidden"
           >
-            <div className="flex h-full">
-              <div className="flex flex-col w-[34%]"></div>
-              <div className="flex flex-col justify-start w-[66%] gap-[8px]">
+            <div className="flex h-full gap-[24px]">
+              <div className="flex flex-col w-[30%]"></div>
+              <div className="flex flex-col justify-start w-[70%] gap-[8px]">
                 <div className="text-[10px] font-[400]  text-[#414042] leading-[14px] font-[Inter]">
                   {splitContents.second.map((passage, index) => (
                     <p key={index} style={{ margin: "16px 0" }}>

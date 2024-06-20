@@ -38,6 +38,7 @@ function CoverForm({
   const [contentSituation, setContentSituation] = useState("Experienced");
   const [text, setText] = useState();
   const [loading, setLoading] = useState(false);
+  const datePickerRef = useRef(null);
   const handleImageClick = (template) => {
     togglePreview(true, template.index);
     setSelectedColor(template.themeColor);
@@ -214,6 +215,12 @@ function CoverForm({
         setLoading(false);
         console.log(err);
       });
+  };
+
+  const handleIconClick = () => {
+    if (datePickerRef.current) {
+      datePickerRef.current.setFocus();
+    }
   };
 
   return (
@@ -406,18 +413,20 @@ function CoverForm({
               >
                 Letter Date
               </label>
-              <div className="relative flex gap-2 justify-between w-[224px] px-[10px] py-[11px] border border-[#C4C4C4]  rounded-[8px] text-[12px]  text-[#646464] font-[400]">
+              <div className="relative flex gap-2 justify-between w-[224px] px-[10px] py-[11px] border border-[#C4C4C4] rounded-[8px] text-[12px] text-[#646464] font-[400]">
                 <DatePicker
                   id="letter-date"
                   selected={selectedDate}
                   onChange={(date) => setSelectedDate(date)}
                   placeholderText="Select Date"
                   className="flex justify-center items-center text-[12px] font-[400]"
-                  // className="w-full px-[10px] py-[16px] gap-2 border border-[#646464] rounded-[8px] shadow-sm focus:outline-none focus:ring focus:border-blue-300"
-                  // className={`w-full px-6 py-2 gap-2  pl-[16px] border border-solid rounded-[8px] text-[12px] leading-[16px] text-[#646464] font-[400]` }
+                  ref={datePickerRef}
                 />
 
-                <span className="absolute inset-y-0 left-[180px] flex items-center pointer-events-none gap-3  py-2">
+                <span
+                  className="absolute inset-y-0 left-[180px] flex items-center pointer-events-auto gap-3 py-2"
+                  onClick={handleIconClick}
+                >
                   <div className="h-full w-[1px] bg-[#DEDEDE]"></div>
                   <svg
                     width="16"

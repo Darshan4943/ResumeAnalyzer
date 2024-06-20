@@ -6,7 +6,7 @@ function CoverLetter10({ page2Ref, page1Ref, data }) {
 
   const splitContent = useCallback(() => {
     const firstPage = firstPageRef.current;
-    const firstPageHeight = 350; // Set the fixed height you want for the paragraph div
+    const firstPageHeight = 450; // Set the fixed height you want for the paragraph div
 
     // Create a temporary element to measure content height
     const tempDiv = document.createElement("div");
@@ -105,7 +105,7 @@ function CoverLetter10({ page2Ref, page1Ref, data }) {
           </div>
         </div>
 
-        <div className="flex flex-col px-[42px] pt-[42px] pb-[92px] gap-[38px]">
+        <div className="flex flex-col px-[42px] pt-[42px] pb-[92px] gap-[38px] w-[70%]">
           <div className="gap-[6px] flex flex-col ">
             <div className="gap-[2px] flex flex-col">
               <span className="text-[40px] font-[400] leading-[48.41px] text-[#0D0D0D] break-all">
@@ -146,9 +146,9 @@ function CoverLetter10({ page2Ref, page1Ref, data }) {
       {splitContents?.second?.length > 0 && (
         <div
           ref={page2Ref}
-          className="flex flex-row w-[595px] min-h-[700px] bg-[#fff] overflow-hidden"
+          className="flex flex-row w-[595px] min-h-[700px] bg-[#fff]"
         >
-          <div className="w-[30%] flex flex-col  justify-between pb-[42px] bg-[#C7EAFB]"></div>
+          <div className="w-[30%] flex flex-col px-[42px] pt-[162px] justify-between pb-[42px] bg-[#C7EAFB]"></div>
 
           <div className="flex flex-col px-[42px] pt-[42px] pb-[92px] gap-[38px] w-[70%]">
             <div className="text-[10px] font-[400]  text-[#414042] leading-[14px] font-[Inter]">
