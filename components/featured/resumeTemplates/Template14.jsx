@@ -400,7 +400,7 @@ function Template14({ data, selectedColor, selectedFont }) {
                         color: "#4D4D4D",
                       }}
                     >
-                      {detail.description}{" "}
+                      {detail.description}
                     </Text>
                   </View>
                 ))}

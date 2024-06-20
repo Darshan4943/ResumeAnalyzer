@@ -1105,7 +1105,6 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
 
             {data?.languages?.length > 0 && data?.showLanguage === true && (
               <>
-                {" "}
                 <View
                   style={{ width: 180, height: 1, backgroundColor: "#344A50" }}
                 ></View>
@@ -1310,7 +1309,6 @@ function Template53({ data, selectedColor, selectedFont, preview }) {
 
             {data?.hobbies?.length > 0 && data?.showHobbies === true && (
               <>
-                {" "}
                 <View
                   style={{ width: 180, height: 1, backgroundColor: "#344A50" }}
                 ></View>

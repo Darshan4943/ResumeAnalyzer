@@ -14,25 +14,29 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
 
   const formatLink16 = (link) => {
     if (link?.length > 16) {
-      return link?.match(/.{1,16}/g).join('\n');  }
+      return link?.match(/.{1,16}/g).join('\n');
+    }
     return link;
   };
 
   const formatLink19 = (link) => {
     if (link?.length > 22) {
-      return link?.match(/.{1,22}/g).join('\n');  }
+      return link?.match(/.{1,22}/g).join('\n');
+    }
     return link;
   };
 
   const formatLink20 = (link) => {
     if (link?.length > 20) {
-      return link?.match(/.{1,20}/g).join('\n');  }
+      return link?.match(/.{1,20}/g).join('\n');
+    }
     return link;
   };
 
   const formatLink10 = (link) => {
     if (link?.length > 10) {
-      return link?.match(/.{1,10}/g).join('\n');  }
+      return link?.match(/.{1,10}/g).join('\n');
+    }
     return link;
   };
 
@@ -69,8 +73,8 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                     preview
                       ? data.profilePhoto
                       : Object.keys(data?.profilePhoto).includes("filename")
-                      ? URL.createObjectURL(data.profilePhoto)
-                      : data.profilePhoto
+                        ? URL.createObjectURL(data.profilePhoto)
+                        : data.profilePhoto
                   }
                   alt=""
                   style={{
@@ -925,7 +929,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                 width: "100%",
               }}
             >
-              <View style={{ width: "27px"}}>
+              <View style={{ width: "27px" }}>
                 <Image
                   style={{ width: "27px", height: "27px" }}
                   src="/images/services/education.png"
@@ -1018,12 +1022,10 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                               fontFamily: `${selectedFont} 400`,
                             }}
                           >
-                            {" "}
                             {detail.duration?.start?.year !== "Year" &&
-                              `${detail.duration?.start?.year}-${
-                                detail.duration?.end?.year === "Year"
-                                  ? "Pursuing"
-                                  : detail.duration?.end?.year
+                              `${detail.duration?.start?.year}-${detail.duration?.end?.year === "Year"
+                                ? "Pursuing"
+                                : detail.duration?.end?.year
                               }`}
                           </Text>
                         </View>
@@ -1142,12 +1144,11 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                             fontFamily: `${selectedFont} 400`,
                           }}
                         >
-                          {" "}
-                          {detail.duration?.start?.year !== "Year"  &&
-                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
-                                ? "Present"
-                                : detail.duration?.end?.year
-                              }
+                          {detail.duration?.start?.year !== "Year" &&
+                            `${detail.duration?.start?.year}-${detail.currentlyWorking || detail.duration?.end?.year === "Year"
+                              ? "Present"
+                              : detail.duration?.end?.year
+                            }
                          `}
                         </Text>
                       </View>
@@ -1159,7 +1160,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                           fontFamily: `${selectedFont} 400`,
                         }}
                       >
-                        {detail.designation}{" "}
+                        {detail.designation}
                       </Text>
                       <Text
                         style={{
@@ -1168,7 +1169,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                           fontFamily: `${selectedFont} 400`,
                         }}
                       >
-                        {detail.description}{" "}
+                        {detail.description}
                       </Text>
                     </View>
                   ))}
@@ -1268,12 +1269,11 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                             fontFamily: `${selectedFont} 400`,
                           }}
                         >
-                          {" "}
-                          {detail.duration?.start?.year !== "Year"  &&
-                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
-                                ? "Present"
-                                : detail.duration?.end?.year
-                              }
+                          {detail.duration?.start?.year !== "Year" &&
+                            `${detail.duration?.start?.year}-${detail.currentlyWorking || detail.duration?.end?.year === "Year"
+                              ? "Present"
+                              : detail.duration?.end?.year
+                            }
                          `}
                         </Text>
                       </View>
@@ -1285,7 +1285,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                           fontFamily: `${selectedFont} 400`,
                         }}
                       >
-                        {detail.organization}{" "}
+                        {detail.organization}
                       </Text>
                       <Text
                         style={{
@@ -1294,7 +1294,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                           fontFamily: `${selectedFont} 400`,
                         }}
                       >
-                        {detail.description}{" "}
+                        {detail.description}
                       </Text>
                     </View>
                   ))}
@@ -1313,7 +1313,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                   width: "100%",
                 }}
               >
-                <View style={{ width: "27px"}}>
+                <View style={{ width: "27px" }}>
                   <Image
                     style={{ width: "27px", height: "27px" }}
                     src="/images/services/Activities.png"
@@ -1399,9 +1399,8 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                               fontFamily: `${selectedFont} 400`,
                             }}
                           >
-                            {" "}
-                            {detail.duration?.start?.year !== "Year"  &&
-                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
+                            {detail.duration?.start?.year !== "Year" &&
+                              `${detail.duration?.start?.year}-${detail.currentlyWorking || detail.duration?.end?.year === "Year"
                                 ? "Present"
                                 : detail.duration?.end?.year
                               }
@@ -1416,7 +1415,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                             fontFamily: `${selectedFont} 400`,
                           }}
                         >
-                          {detail.organization}{" "}
+                          {detail.organization}
                         </Text>
                         <Text
                           style={{
@@ -1425,7 +1424,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                             fontFamily: `${selectedFont} 400`,
                           }}
                         >
-                          {detail.description}{" "}
+                          {detail.description}
                         </Text>
                       </View>
                     ))}
@@ -1443,7 +1442,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                 width: "100%",
               }}
             >
-              <View style={{ width: "27px"}}>
+              <View style={{ width: "27px" }}>
                 <Image
                   style={{ width: "27px", height: "27px" }}
                   src="/images/services/Internship.png"
@@ -1525,12 +1524,11 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                             fontFamily: `${selectedFont} 400`,
                           }}
                         >
-                          {" "}
-                          {detail.duration?.start?.year !== "Year"  &&
-                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
-                                ? "Present"
-                                : detail.duration?.end?.year
-                              }
+                          {detail.duration?.start?.year !== "Year" &&
+                            `${detail.duration?.start?.year}-${detail.currentlyWorking || detail.duration?.end?.year === "Year"
+                              ? "Present"
+                              : detail.duration?.end?.year
+                            }
                          `}
                         </Text>
                       </View>
@@ -1542,7 +1540,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                           fontFamily: `${selectedFont} 400`,
                         }}
                       >
-                        {detail.organization}{" "}
+                        {detail.organization}
                       </Text>
                       <Text
                         style={{
@@ -1551,7 +1549,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                           fontFamily: `${selectedFont} 400`,
                         }}
                       >
-                        {detail.description}{" "}
+                        {detail.description}
                       </Text>
                     </View>
                   ))}
@@ -1569,7 +1567,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                 width: "100%",
               }}
             >
-              <View style={{ width: "27px"}}>
+              <View style={{ width: "27px" }}>
                 <Image
                   style={{ width: "27px", height: "27px" }}
                   src="/images/services/Courses.png"
@@ -1651,12 +1649,11 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                             fontFamily: `${selectedFont} 400`,
                           }}
                         >
-                          {" "}
-                          {detail.duration?.start?.year !== "Year"  &&
-                              `${detail.duration?.start?.year}-${" "}${detail.currentlyWorking || detail.duration?.end?.year === "Year"
-                                ? "Present"
-                                : detail.duration?.end?.year
-                              }
+                          {detail.duration?.start?.year !== "Year" &&
+                            `${detail.duration?.start?.year}-${detail.currentlyWorking || detail.duration?.end?.year === "Year"
+                              ? "Present"
+                              : detail.duration?.end?.year
+                            }
                          `}
                         </Text>
                       </View>
@@ -1668,7 +1665,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                           fontFamily: `${selectedFont} 400`,
                         }}
                       >
-                        {detail.organization}{" "}
+                        {detail.organization}
                       </Text>
                       <Text
                         style={{
@@ -1677,7 +1674,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                           fontFamily: `${selectedFont} 400`,
                         }}
                       >
-                        {detail.description}{" "}
+                        {detail.description}
                       </Text>
                     </View>
                   ))}
@@ -1801,12 +1798,12 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                                 fontFamily: `${selectedFont} 400`,
                               }}
                             >
-                       {detail?.duration?.start?.year}
-                                  {detail?.duration?.start?.year && "-"}
-                                  {detail?.duration?.end?.year === "Year" ||
-                                    detail?.duration?.end?.year === undefined
-                                    ? "Present"
-                                    : detail?.duration?.end?.year}
+                              {detail?.duration?.start?.year}
+                              {detail?.duration?.start?.year && "-"}
+                              {detail?.duration?.end?.year === "Year" ||
+                                detail?.duration?.end?.year === undefined
+                                ? "Present"
+                                : detail?.duration?.end?.year}
                             </Text>
                           )}
                         </View>
@@ -1819,7 +1816,7 @@ function Template4({ data, selectedColor, selectedFont, preview }) {
                             fontFamily: `${selectedFont} 400`,
                           }}
                         >
-                          {detail.description}{" "}
+                          {detail.description}
                         </Text>
                       )}
                     </View>
