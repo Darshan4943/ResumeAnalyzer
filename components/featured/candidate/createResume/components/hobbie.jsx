@@ -16,6 +16,7 @@ const Hobbie = ({ data, setData, hobbies, setHobbies, setCustomOptions }) => {
   };
   const addHobby = () => {
     setSaveDisabled(true);
+    
     if (text.split(",").length > 1) {
       if (text.trim() !== "") {
         setText("");
@@ -23,15 +24,17 @@ const Hobbie = ({ data, setData, hobbies, setHobbies, setCustomOptions }) => {
         setData({
           ...data,
           hobbies: [
-            ...data.hobbies,
+            ...data?.hobbies,
             ...text.split(",").map((item) => ({ title: item })),
           ],
         });
       }
     } else {
       if (text.trim() !== "") {
+        console.log("t1", text)
         setText("");
-        setData({ ...data, hobbies: [...data.hobbies, { title: text }] });
+        console.log("t",text)
+        setData({ ...data, hobbies: [...data?.hobbies, { title: text }] });
       }
     }
   };
@@ -50,6 +53,8 @@ const Hobbie = ({ data, setData, hobbies, setHobbies, setCustomOptions }) => {
       }
     }
   }, [data]);
+  console.log("data", data);
+  console.log("h",)
 
   return (
     <>
@@ -135,7 +140,7 @@ const Hobbie = ({ data, setData, hobbies, setHobbies, setCustomOptions }) => {
                 <button
                   className=" font-montserrat text-xs font-semibold px-[12px] rounded-[8px] border border-[#06A9EF] w-[80px] h-[32px]"
                   onClick={() => {
-                    if (data.hobbies.length <= 0) {
+                    if (data?.hobbies?.length <= 0) {
                       setCustomOptions((prevState) => ({
                         ...prevState,
                         ["Hobbies"]: false,

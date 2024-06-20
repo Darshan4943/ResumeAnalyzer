@@ -40,7 +40,7 @@ const SocialLink = ({
     } else {
       setData({
         ...data,
-        socialLinks: [linkData, ...data.socialLinks],
+        socialLinks: [...data.socialLinks, linkData ],
       });
       setLinkView(false);
     }

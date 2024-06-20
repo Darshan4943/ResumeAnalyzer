@@ -116,7 +116,7 @@ const Education = ({ setData, data }) => {
       } else {
         setData({
           ...data,
-          education: [educationData, ...data.education],
+          education: [ ...data.education, educationData],
         });
         setView(false);
       }

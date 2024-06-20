@@ -62,7 +62,7 @@ function CustomSection({ data, setData, setCustomOptions, customOptions }) {
       } else {
         setData({
           ...data,
-          customDataSection: [customData, ...data?.customDataSection],
+          customDataSection: [ ...data?.customDataSection,customData],
         });
         {
           validateForm ? setView(false) : setView(true);

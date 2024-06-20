@@ -42,7 +42,7 @@ const Internships = ({ data, setData, setIntern, intern }) => {
     } else {
       setData({
         ...data,
-        internship: [internShipData, ...data.internship],
+        internship: [ ...data.internship,internShipData],
       });
     }
     setIsModified({ status: false, index: 0 });

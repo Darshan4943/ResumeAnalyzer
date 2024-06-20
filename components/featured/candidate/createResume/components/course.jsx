@@ -30,7 +30,7 @@ const Course = ({ data, setData,course, setCourse}) => {
     } else {
       setData({
         ...data,
-        course: [courseData, ...data.course],
+        course: [ ...data.course, courseData],
       });
   
     }
