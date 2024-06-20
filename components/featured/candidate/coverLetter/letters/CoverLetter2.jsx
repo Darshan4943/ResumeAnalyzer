@@ -48,7 +48,7 @@ const CoverLetter2 = ({ page1Ref, page2Ref, data }) => {
       <div className="flex flex-col   w-[595px] gap-[24px]">
         <div
           // className="bg-[#FFFFFF] w-[595px] min-h-[700px]  gap-[16px] flex flex-col border-[#DEDEDE] "
-          className="flex flex-col w-[595px] min-h-[700px]  gap-[24px] bg-[#fff] "
+          className="flex flex-col w-[595px] min-h-[700px]  gap-[24px]   bg-[#fff] "
           ref={page1Ref}
         >
           <div className="flex flex-col w-full pt-[26px] pr-[36px] pb-[14px] pl-[36px] bg-[#F9F9F9] gap-[24px] ">
@@ -113,7 +113,7 @@ const CoverLetter2 = ({ page1Ref, page2Ref, data }) => {
                       Warm regards,
                     </span>
 
-                    <span className="flex pt-[16px] break-all">
+                    <span className="flex pt-[16px] ">
                       {data?.firstName}
                       {","} {data?.lastName}
                     </span>
