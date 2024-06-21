@@ -1,30 +1,42 @@
-import React from "react";
+import React, { useState } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
 
 function CoverPdfViewer({ pdfUrl }) {
-  function onDocumentLoadSuccess(numPages) {}
 
+  const [numPages, setNumPages] = useState(null);
+  function onDocumentLoadSuccess({ numPages }) {
+    setNumPages(numPages);
+  }
+ 
   return (
     <div
       style={{
         width: "600px",
-        height: "500px",
-        paddingTop: "4px",
-        paddingBottom: "4px",
+        height: "75vh",
+      
         display: "flex",
         justifyContent: "center",
         alineItems: "center",
-        boxShadow: "0px 0px 4px 0px rgba(0, 0, 0, 0.25)",
-        borderRadius: "6px",
+
+     
         overflow: "scroll",
       }}
     >
       <Document
-        width="650px"
+      
         file={pdfUrl}
         onLoadSuccess={onDocumentLoadSuccess}
       >
-        <Page pageNumber={1} />
+        {Array.from(
+          new Array(numPages),
+          (el, index) => (
+            <Page
+              key={`page_${index + 1}`}
+              pageNumber={index + 1}
+              width={590}
+            />
+          )
+        )}
       </Document>
     </div>
   );
